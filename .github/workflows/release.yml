@@ -1,0 +1,62 @@
+on:
+  push:
+    branches:
+      - main
+
+name: Build, test, release
+
+concurrency:
+  group: "release"
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Publish to npm and release on github
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Check package.json for version increase
+        id: check
+        uses: whopio/turbo-module@v0.0.4
+        with: 
+          action: check
+          token: ${{ github.token }}
+      - uses: actions/checkout@v3
+        if: steps.check.outputs.can-publish == 'true'
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7.13.6
+        if: steps.check.outputs.can-publish == 'true'
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          check-latest: true
+          cache: pnpm
+        if: steps.check.outputs.can-publish == 'true'
+      - name: Install all packages
+        run: pnpm i
+        if: steps.check.outputs.can-publish == 'true'
+      - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+        if: steps.check.outputs.can-publish == 'true'
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Run turbo release flow
+        run: pnpm turbo release ${{ steps.check.outputs.filter }}
+        if: steps.check.outputs.can-publish == 'true'
+      - name: Github Release
+        id: release
+        uses: whopio/turbo-module@v0.0.4
+        with: 
+          action: release
+          token: ${{ github.token }}
+          version: ${{ steps.check.outputs.version }}
+        if: steps.check.outputs.can-publish == 'true'
+      - name: Sync auto-release PRs
+        uses: whopio/turbo-module@v0.0.4
+        with: 
+          action: sync
+          token: ${{ github.token }}
+          published: ${{ steps.release.outputs.published }}

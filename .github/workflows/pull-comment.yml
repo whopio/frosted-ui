@@ -1,0 +1,30 @@
+on:
+  issue_comment:
+    types:
+      - created
+    branches: 
+      - turbo-module/release-*
+    excludeBranches:
+      - turbo-module/release-*-canary
+
+name: Build, test, release
+
+concurrency:
+  group: update-relase-pr-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  update-relase-pr:
+    name: Change the version of the release based on comments
+    if: github.event.issue.pull_request
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v3
+      - name: Update package.json version number
+        uses: whopio/turbo-module@v0.0.4
+        with: 
+          action: update
+          token: ${{ github.token }}
