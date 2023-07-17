@@ -1,7 +1,6 @@
 {
   "extends": "tsconfig/base.json",
   "compilerOptions": {
-    "outDir": "dist",
     "declarationMap": false,
     "downlevelIteration": true,
     "target": "ESNEXT",

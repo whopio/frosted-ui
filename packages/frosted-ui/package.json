@@ -3,13 +3,18 @@
   "version": "0.0.0",
   "description": "",
   "private": false,
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "type": "module",
   "scripts": {
     "build": "concurrently \"pnpm run build:tsc\" \"pnpm run build:swc\"",
     "build:tsc": "tsc --emitDeclarationOnly",
-    "build:swc": "swc src -d dist",
-    "dev": "concurrently \"pnpm run build:tsc --watch\" \"pnpm run build:swc --watch\"",
+    "build:swc": "concurrently \"pnpm run build:swc:components\" \"pnpm run build:swc:lib\" \"pnpm run build:swc:index\"",
+    "build:swc:components": "swc components -d components",
+    "build:swc:lib": "swc lib -d lib",
+    "build:swc:index": "swc index.ts -o index.js",
+    "dev": "concurrently \"pnpm run build:tsc --watch\" \"pnpm run dev:swc\"",
+    "dev:swc": "concurrently \"pnpm run build:swc:components --watch\" \"pnpm run build:swc:lib --watch\" \"pnpm run build:swc:index --watch\"",
     "release": "turbo-module publish"
   },
   "keywords": [],
@@ -19,8 +24,15 @@
     "@swc/cli": "^0.1.60",
     "@swc/core": "^1.3.32",
     "@whop-sdk/turbo-module": "0.0.4",
+    "chokidar": "^3.5.3",
     "concurrently": "^7.6.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "tsconfig": "workspace:^0.0.0",
     "typescript": "^4.9.5"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": ">=16.6.0"
   }
 }

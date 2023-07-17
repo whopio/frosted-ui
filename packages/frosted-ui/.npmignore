@@ -1,3 +1,6 @@
 .turbo
 tsconfig.json
-src
+**/*.ts
+**/*.tsx
+!**/*.d.ts
+.swcrc
