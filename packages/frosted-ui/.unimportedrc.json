@@ -1,0 +1,20 @@
+{
+  "entry": ["index.ts", "lib/**/*.ts", "preset/**/*.{ts,js}"],
+  "extensions": [".ts", ".tsx", ".d.ts"],
+  "ignorePatterns": [
+    "**/node_modules/**",
+    "public/**",
+    "vite.config.ts",
+    "turbo/generators/config.ts",
+    "**/*.stories.tsx"
+  ],
+  "ignoreUnimported": ["next-env.d.ts", "gen.js"],
+  "ignoreUnused": [
+    "autoprefixer",
+    "tailwindcss",
+    "tailwindcss-animate",
+    "tailwindcss-radix",
+    "tailwindcss-themer"
+  ],
+  "ignoreUnresolved": ["react"]
+}

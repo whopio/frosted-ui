@@ -1,0 +1,592 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    line-height: inherit;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Code for Firefox */
+  ::-moz-selection {
+    color: #4842c4;
+    background: rgb(98 91 246 / 20%);
+  }
+
+  ::selection {
+    color: #4842c4;
+    background: rgb(98 91 246 / 20%);
+  }
+
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number'] {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  :root {
+    --gold-gradient: linear-gradient(
+      91.91deg,
+      #cf862d 2.24%,
+      #eaaa4a 51.74%,
+      #cf862d 101.16%
+    );
+    --perk-software-gradient: linear-gradient(225deg, #ffa843 0%, #ff6243 100%);
+    --perk-discord-gradient: linear-gradient(225deg, #5865f2 0%, #3e48c2 100%);
+    --perk-content-gradient: linear-gradient(225deg, #649bee 0%, #005eeb 100%);
+    --perk-file-gradient: linear-gradient(225deg, #fd57a5 0%, #f00046 100%);
+    --perk-link-gradient: linear-gradient(225deg, #f2c935 0%, #da942c 100%);
+    --perk-custom-gradient: linear-gradient(225deg, #87e293 0%, #00b400 100%);
+    --perk-telegram-gradient: linear-gradient(225deg, #56a8e8 0%, #4e9bd4 100%);
+    --perk-proxy-gradient: linear-gradient(225deg, #ff6243 0%, #b72f14 100%);
+    --perk-course-gradient: linear-gradient(225deg, #7737df 0%, #551cb4 100%);
+    --perk-ebook-gradient: linear-gradient(225deg, #50ddb3 0%, #0bad7c 100%);
+    --perk-tradingview-gradient: linear-gradient(
+      225deg,
+      #5fb0df 0%,
+      #1131f3 100%
+    );
+  }
+
+  ul,
+  ol {
+    list-style: revert;
+  }
+
+  .paragraph1 {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 28px;
+    letter-spacing: -0.01em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .paragraph2 {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.015em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .paragraph3 {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: -0.015em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .paragraph4 {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 17px;
+    letter-spacing: -0.015em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .text1 {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: -0.01em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .text2 {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    letter-spacing: -0.01em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .text3 {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: -0.01em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .text4 {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    letter-spacing: -0.01em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .text5 {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: -0.01em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .text6 {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 14px;
+    letter-spacing: -0.01em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .text7 {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 13px;
+    letter-spacing: -0.01em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .subtitle1 {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: -0.01em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .subtitle2 {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+    letter-spacing: -0.01em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .subtitle3 {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: -0.01em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .subtitle4 {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    letter-spacing: -0.01em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .subtitle5 {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: -0.01em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .subtitle6 {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 14px;
+    letter-spacing: -0.01em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .subtitle7 {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 13px;
+    letter-spacing: -0.01em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .button1 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 21px;
+    letter-spacing: -0.005em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .button2 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: -0.005em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .button3 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 18px;
+    letter-spacing: -0.005em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .button4 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: -0.005em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .button5 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 16px;
+    letter-spacing: -0.005em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .overline1 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .overline2 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 16px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .overline3 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .overline4 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .header1,
+  h1 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 56px;
+    letter-spacing: -0.0125em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .header2,
+  h2 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 45px;
+    letter-spacing: -0.0125em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .header3,
+  h3 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 34px;
+    letter-spacing: -0.0125em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .header4,
+  h4 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 25px;
+    letter-spacing: -0.0125em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .header5,
+  h5 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: -0.0125em;
+    font-family: var(--whopkit-font-sans), sans-serif;
+  }
+
+  .display1 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: 0em;
+    font-family: var(--whopkit-font-display), sans-serif;
+  }
+
+  .display2 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 38px;
+    letter-spacing: 0em;
+    font-family: var(--whopkit-font-display), sans-serif;
+  }
+
+  .display3 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    letter-spacing: 0em;
+    font-family: var(--whopkit-font-display), sans-serif;
+  }
+
+  .display4 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0em;
+    font-family: var(--whopkit-font-display), sans-serif;
+  }
+
+  .mono1 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 21px;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    font-family: var(--whopkit-font-mono), monospace;
+  }
+
+  .mono2 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    font-family: var(--whopkit-font-mono), monospace;
+  }
+
+  .mono3 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 18px;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    font-family: var(--whopkit-font-mono), monospace;
+  }
+
+  .mono4 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    font-family: var(--whopkit-font-mono), monospace;
+  }
+
+  .mono5 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 15px;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    font-family: var(--whopkit-font-mono), monospace;
+  }
+
+  .mono6 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    font-family: var(--whopkit-font-mono), monospace;
+  }
+
+  /* Custom image styles */
+
+  .ProseMirror img {
+    transition: filter 0.1s ease-in-out;
+    margin-bottom: 8px;
+
+    &:hover {
+      cursor: pointer;
+      filter: brightness(90%);
+    }
+
+    &.ProseMirror-selectednode {
+      outline: 3px solid rgb(var(--colors-whop-field-highlight), 0.5);
+      filter: brightness(90%);
+    }
+  }
+
+  .ProseMirror p {
+    margin: 0.5em 0;
+  }
+  .ProseMirror h3 {
+    margin-bottom: 1rem;
+  }
+
+  /* Custom TODO list checkboxes – shoutout to this awesome tutorial: https://moderncss.dev/pure-css-custom-checkbox-style/ */
+
+  ul[data-type='taskList'] li > label {
+    margin-right: 0.2rem;
+    user-select: none;
+  }
+
+  @media screen and (max-width: 768px) {
+    ul[data-type='taskList'] li > label {
+      margin-right: 0.5rem;
+    }
+  }
+
+  ul[data-type='taskList'] li > label input[type='checkbox'] {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+    cursor: pointer;
+    width: 1em;
+    height: 1em;
+    position: relative;
+    border: 1px solid rgb(var(--colors-whop-stroke));
+    border-radius: 2px;
+    margin-right: 0.3rem;
+    display: grid;
+    place-content: center;
+
+    &::before {
+      content: '';
+      width: 0.65em;
+      height: 0.65em;
+      transform: scale(0);
+      transition: 120ms transform ease-in-out;
+      box-shadow: inset 1em 1em;
+      transform-origin: center;
+      clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    }
+
+    &:checked::before {
+      transform: scale(1);
+    }
+  }
+
+  ul[data-type='taskList'] li[data-checked='true'] > div > p {
+    color: rgb(var(--colors-whop-dark-gray));
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+  }
+}
+
+/* Basic editor styles */
+pre {
+  background: #0d0d0d;
+  border-radius: 0.5rem;
+  color: #fff;
+  padding: 1rem;
+  margin-left: -1rem;
+
+  code {
+    background: none;
+    color: inherit;
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0;
+  }
+}
+.hljs-comment,
+.hljs-quote {
+  color: #616161;
+}
+
+.hljs-variable,
+.hljs-template-variable,
+.hljs-attribute,
+.hljs-tag,
+.hljs-name,
+.hljs-regexp,
+.hljs-link,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class {
+  color: #f98181;
+}
+
+.hljs-number,
+.hljs-meta,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params {
+  color: #fbbc88;
+}
+
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet {
+  color: #b9f18d;
+}
+
+.hljs-title,
+.hljs-section {
+  color: #faf594;
+}
+
+.hljs-keyword,
+.hljs-selector-tag {
+  color: #70cff8;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: 700;
+}
