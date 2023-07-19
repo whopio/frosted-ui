@@ -12,3 +12,4 @@ turbo
 .eslintrc.cjs
 .unimportedrc.json
 vite.config.d.ts
+*.config.js
