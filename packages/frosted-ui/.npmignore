@@ -10,3 +10,5 @@ index.html
 stories
 turbo
 .eslintrc.cjs
+.unimportedrc.json
+vite.config.d.ts

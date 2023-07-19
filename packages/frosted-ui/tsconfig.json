@@ -10,6 +10,7 @@
     "components/**/*.{tsx,ts}",
     "components/**/*.stories.tsx",
     "lib/**/*.ts",
+    "preset/**/*.ts",
     "turbo/**/*.ts",
     "index.ts",
     "*.config.ts",
