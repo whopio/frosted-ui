@@ -1,9 +1,9 @@
-.turbo
 tsconfig.json
 **/*.ts
 **/*.tsx
 !**/*.d.ts
 **/*.stories.d.ts
+.turbo/**/*
 .swcrc
 .storybook
 index.html

@@ -10,10 +10,19 @@
     "minify": {
       "compress": false,
       "mangle": false
+    },
+    "transform": {
+      "optimizer": {
+        "globals": {
+          "vars": {
+            "React": "require(\"react\")"
+          }
+        }
+      }
     }
   },
   "module": {
-    "type": "es6"
+    "type": "commonjs"
   },
   "minify": false,
   "isModule": true,

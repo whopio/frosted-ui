@@ -5,7 +5,7 @@ import {
   AccordionTriggerProps,
   Root,
 } from '@radix-ui/react-accordion';
-import * as React from 'react';
+import React from 'react';
 import { AccordionContent } from '../AccordionContent';
 import { AccordionItem } from '../AccordionItem';
 import { AccordionTrigger } from '../AccordionTrigger';
