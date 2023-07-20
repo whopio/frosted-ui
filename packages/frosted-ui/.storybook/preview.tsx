@@ -1,6 +1,7 @@
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import type { Preview } from '@storybook/react';
 import * as React from 'react';
+import { Toaster } from '../components/Toaster';
 import { TooltipProvider } from '../components/TooltipProvider';
 import '../index.css';
 
@@ -9,6 +10,7 @@ const preview: Preview = {
     (Story) => (
       <TooltipProvider>
         <Story />
+        <Toaster />
       </TooltipProvider>
     ),
   ],

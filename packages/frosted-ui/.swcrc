@@ -26,5 +26,10 @@
   },
   "minify": false,
   "isModule": true,
-  "exclude": ["\\.stories\\.tsx", "\\.d\\.ts", "\\.js"]
+  "exclude": [
+    "\\.stories\\.tsx",
+    "\\.d\\.ts",
+    "\\.js",
+    "components/Table/mock-data\\.ts"
+  ]
 }

@@ -6,7 +6,8 @@
     "public/**",
     "vite.config.ts",
     "turbo/generators/config.ts",
-    "**/*.stories.tsx"
+    "**/*.stories.tsx",
+    "components/Table/mock-data.ts"
   ],
   "ignoreUnimported": ["next-env.d.ts", "gen.js"],
   "ignoreUnused": [
@@ -14,7 +15,9 @@
     "tailwindcss",
     "tailwindcss-animate",
     "tailwindcss-radix",
-    "tailwindcss-themer"
+    "tailwindcss-themer",
+    "postcss",
+    "@tanstack/table-core"
   ],
   "ignoreUnresolved": ["react"]
 }
