@@ -1,3 +1,5 @@
+'use client';
+
 import { Tab } from '@headlessui/react';
 import React, { PropsWithChildren } from 'react';
 
