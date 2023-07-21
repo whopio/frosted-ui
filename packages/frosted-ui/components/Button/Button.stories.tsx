@@ -1,5 +1,6 @@
 import { faArrowRight, faStar } from '@fortawesome/free-solid-svg-icons';
 import type { Meta, StoryObj } from '@storybook/react';
+import React from 'react';
 import { cn } from '../../lib/classnames';
 import {
   Button,

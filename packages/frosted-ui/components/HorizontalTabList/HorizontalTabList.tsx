@@ -2,7 +2,7 @@
 
 import { Tab } from '@headlessui/react';
 import { LayoutGroup } from 'framer-motion';
-import { PropsWithChildren, useId } from 'react';
+import React, { PropsWithChildren, useId } from 'react';
 import { cn } from '../../lib/classnames';
 
 export const HorizontalTabList = ({

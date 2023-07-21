@@ -2,7 +2,7 @@
 
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Dialog } from '@headlessui/react';
-import { ReactNode, useCallback } from 'react';
+import React, { ReactNode, useCallback } from 'react';
 import { cn } from '../../lib/classnames';
 import { IconButton } from '../IconButton';
 import { useModalContext } from '../ModalContext';

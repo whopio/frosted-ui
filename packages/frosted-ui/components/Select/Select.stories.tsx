@@ -1,5 +1,6 @@
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import type { Meta, StoryObj } from '@storybook/react';
+import React from 'react';
 import { SelectGroup } from '../SelectGroup';
 import { SelectItem } from '../SelectItem';
 import { Select } from './Select';

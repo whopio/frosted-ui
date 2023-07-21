@@ -1,7 +1,7 @@
 'use client';
 
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, ReactNode } from 'react';
+import React, { Fragment, ReactNode } from 'react';
 import { cn } from '../../lib/classnames';
 import { ModalBody, ModalBodyProps } from '../ModalBody';
 import { ModalContext } from '../ModalContext';

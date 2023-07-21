@@ -2,7 +2,7 @@
 
 import { Tab } from '@headlessui/react';
 import { motion } from 'framer-motion';
-import { Fragment, ReactNode } from 'react';
+import React, { Fragment, ReactNode } from 'react';
 import { cn } from '../../lib/classnames';
 import { IconDefinition } from '../../lib/icon-types';
 import { Size } from '../../lib/shared-component-types';

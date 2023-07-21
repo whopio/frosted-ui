@@ -1,6 +1,6 @@
 'use client';
 import { Tab } from '@headlessui/react';
-import { PropsWithChildren, ReactNode } from 'react';
+import React, { PropsWithChildren, ReactNode } from 'react';
 import { PillTabList } from '../PillTabList';
 import { PillTabListItem } from '../PillTabListItem';
 

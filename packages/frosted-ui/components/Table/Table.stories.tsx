@@ -1,6 +1,6 @@
 import { faEllipsis, faPlus } from '@fortawesome/free-solid-svg-icons';
 import type { Meta, StoryObj } from '@storybook/react';
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { ColumnDef, createColumnHelper } from '../../lib/table-helpers';
 import { Button } from '../Button';
 import { IconButton } from '../IconButton';

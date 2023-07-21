@@ -1,6 +1,7 @@
+import React from 'react';
 import { cn } from '../../lib/classnames';
-import { IconDefinition } from '../../lib/icon-types';
-import { ColorScheme, Size } from '../../lib/shared-component-types';
+import type { IconDefinition } from '../../lib/icon-types';
+import type { ColorScheme, Size } from '../../lib/shared-component-types';
 import { Icon } from '../Icon';
 
 export type TagSize = Extract<Size, 'sm' | 'md'>;

@@ -1,4 +1,5 @@
 'use client';
+
 import {
   Indicator,
   CheckboxProps as RadixCheckboxProps,
@@ -6,7 +7,7 @@ import {
 } from '@radix-ui/react-checkbox';
 import { Root as Label } from '@radix-ui/react-label';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useId } from 'react';
+import React, { useId } from 'react';
 import { cn } from '../../lib/classnames';
 import { ColorScheme, Size } from '../../lib/shared-component-types';
 

@@ -1,6 +1,6 @@
 import { Content, Portal } from '@radix-ui/react-dropdown-menu';
 import type * as Radix from '@radix-ui/react-primitive';
-import { forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import { cn } from '../../lib/classnames';
 
 export const MenuContent = forwardRef<

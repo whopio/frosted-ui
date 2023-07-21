@@ -7,7 +7,7 @@ import {
   TooltipContentProps,
   Trigger,
 } from '@radix-ui/react-tooltip';
-import { ReactNode, forwardRef } from 'react';
+import React, { ReactNode, forwardRef } from 'react';
 import { cn } from '../../lib/classnames';
 import { Icon } from '../Icon';
 import { TextButton } from '../TextButton';

@@ -1,6 +1,7 @@
 'use client';
 
 import { LabelProps as RadixLabelProps, Root } from '@radix-ui/react-label';
+import React from 'react';
 import { cn } from '../../lib/classnames';
 import { Tooltip, TooltipProps } from '../Tooltip';
 

@@ -1,5 +1,5 @@
 import { Tab } from '@headlessui/react';
-import { PropsWithChildren } from 'react';
+import React, { PropsWithChildren } from 'react';
 import { cn } from '../../lib/classnames';
 
 export const PillTabList = ({

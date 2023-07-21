@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { cn } from '../../lib/classnames';
 import { Button, ButtonProps } from '../Button';
 export interface BreadcrumbItemProps extends ButtonProps {

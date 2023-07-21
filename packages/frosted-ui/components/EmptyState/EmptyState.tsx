@@ -1,4 +1,5 @@
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
 import { cn } from '../../lib/classnames';
 import { IconDefinition } from '../../lib/icon-types';
 import { Size } from '../../lib/shared-component-types';

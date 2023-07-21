@@ -1,6 +1,7 @@
 'use client';
 
 import { Switch as HeadlessSwitch } from '@headlessui/react';
+import React from 'react';
 import { cn } from '../../lib/classnames';
 import { ColorScheme, Size } from '../../lib/shared-component-types';
 

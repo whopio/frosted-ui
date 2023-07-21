@@ -1,4 +1,5 @@
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
 import { Toast, ToastBar, toast } from 'react-hot-toast';
 import { IconButton } from '../IconButton';
 

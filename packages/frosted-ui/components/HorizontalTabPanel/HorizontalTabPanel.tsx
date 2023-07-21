@@ -2,7 +2,7 @@
 
 import { Tab } from '@headlessui/react';
 import { motion } from 'framer-motion';
-import { PropsWithChildren } from 'react';
+import React, { PropsWithChildren } from 'react';
 import { useHorizontalTabContext } from '../HorizontalTabGroupContext';
 
 const variants = {

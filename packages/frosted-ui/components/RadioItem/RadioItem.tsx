@@ -4,7 +4,7 @@ import {
   Item,
   RadioGroupItemProps,
 } from '@radix-ui/react-radio-group';
-import { forwardRef, useId } from 'react';
+import React, { forwardRef, useId } from 'react';
 import { cn } from '../../lib/classnames';
 import { RadioColorScheme, RadioSize } from '../RadioGroup';
 

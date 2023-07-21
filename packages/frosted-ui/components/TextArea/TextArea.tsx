@@ -2,7 +2,7 @@ import {
   faExclamationCircle,
   faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons';
-import { TextareaHTMLAttributes } from 'react';
+import React, { TextareaHTMLAttributes } from 'react';
 import { cn } from '../../lib/classnames';
 import { Icon } from '../Icon';
 import { Label, LabelProps } from '../Label';

@@ -10,15 +10,6 @@
     "minify": {
       "compress": false,
       "mangle": false
-    },
-    "transform": {
-      "optimizer": {
-        "globals": {
-          "vars": {
-            "React": "require(\"react\")"
-          }
-        }
-      }
     }
   },
   "module": {

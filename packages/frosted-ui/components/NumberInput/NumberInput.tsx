@@ -6,7 +6,7 @@ import {
   faPercent,
   faUsd,
 } from '@fortawesome/free-solid-svg-icons';
-import {
+import React, {
   ChangeEvent,
   ChangeEventHandler,
   useCallback,

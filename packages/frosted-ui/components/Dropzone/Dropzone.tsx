@@ -1,8 +1,10 @@
 'use client';
+
 import {
   faArrowUpFromBracket,
   faFile,
 } from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
 import {
   Accept,
   DropzoneInputProps,

@@ -3,6 +3,7 @@ import {
   RadioGroupProps as RadixRadioGroupProps,
   Root,
 } from '@radix-ui/react-radio-group';
+import React from 'react';
 import { cn } from '../../lib/classnames';
 import { ColorScheme, Size } from '../../lib/shared-component-types';
 import { RadioCardItem, RadioCardItemProps } from '../RadioCardItem';

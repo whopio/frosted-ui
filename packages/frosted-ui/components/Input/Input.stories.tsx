@@ -1,5 +1,6 @@
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import type { Meta, StoryObj } from '@storybook/react';
+import React from 'react';
 import { Input, InputSizes } from './Input';
 
 const meta: Meta<typeof Input> = {

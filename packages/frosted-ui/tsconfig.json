@@ -4,7 +4,8 @@
     "declarationMap": false,
     "downlevelIteration": true,
     "target": "ESNEXT",
-    "module": "es2020"
+    "module": "ESNext",
+    "jsx": "react"
   },
   "include": [
     "components/**/*.{tsx,ts}",

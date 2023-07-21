@@ -1,6 +1,6 @@
 import { Tab } from '@headlessui/react';
 import { motion } from 'framer-motion';
-import { Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { cn } from '../../lib/classnames';
 import { PillTabItemProps } from '../PillTabGroup';
 

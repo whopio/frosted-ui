@@ -1,6 +1,7 @@
 'use client';
 
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
 import { Icon } from '../Icon';
 
 export const BreadcrumbSeparator = () => (

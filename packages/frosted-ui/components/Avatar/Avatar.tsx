@@ -1,5 +1,5 @@
 'use client';
-import {
+import React, {
   ElementType,
   ForwardedRef,
   ImgHTMLAttributes,

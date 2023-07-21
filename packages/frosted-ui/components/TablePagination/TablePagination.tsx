@@ -5,7 +5,12 @@ import {
   faChevronRight,
   faEllipsis,
 } from '@fortawesome/free-solid-svg-icons';
-import { ButtonHTMLAttributes, useCallback, useEffect, useMemo } from 'react';
+import React, {
+  ButtonHTMLAttributes,
+  useCallback,
+  useEffect,
+  useMemo,
+} from 'react';
 import { cn } from '../../lib/classnames';
 import { Icon } from '../Icon';
 import { useTableContext } from '../Table';

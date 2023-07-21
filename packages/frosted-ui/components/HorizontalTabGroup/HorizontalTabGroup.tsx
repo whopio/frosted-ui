@@ -1,7 +1,7 @@
 'use client';
 
 import { Tab } from '@headlessui/react';
-import { PropsWithChildren, useEffect, useRef } from 'react';
+import React, { PropsWithChildren, useEffect, useRef } from 'react';
 import { cn } from '../../lib/classnames';
 import { HorizontalTabContext } from '../HorizontalTabGroupContext';
 import { HorizontalTabList } from '../HorizontalTabList';

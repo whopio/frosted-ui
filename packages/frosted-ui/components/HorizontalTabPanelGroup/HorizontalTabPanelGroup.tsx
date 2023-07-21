@@ -2,7 +2,7 @@
 
 import { Tab } from '@headlessui/react';
 import { AnimatePresence } from 'framer-motion';
-import { PropsWithChildren } from 'react';
+import React, { PropsWithChildren } from 'react';
 import { cn } from '../../lib/classnames';
 import { useHorizontalTabContext } from '../HorizontalTabGroupContext';
 

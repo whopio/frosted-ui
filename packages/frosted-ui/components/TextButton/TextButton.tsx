@@ -1,6 +1,5 @@
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import * as React from 'react';
-import { ButtonHTMLAttributes } from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 import { cn } from '../../lib/classnames';
 import { IconDefinition } from '../../lib/icon-types';
 import { ColorScheme, Size } from '../../lib/shared-component-types';

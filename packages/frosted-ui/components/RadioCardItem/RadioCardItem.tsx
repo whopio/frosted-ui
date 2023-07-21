@@ -5,7 +5,7 @@ import {
   Item,
   RadioGroupItemProps,
 } from '@radix-ui/react-radio-group';
-import { ReactNode, forwardRef, useId } from 'react';
+import React, { ReactNode, forwardRef, useId } from 'react';
 import { cn } from '../../lib/classnames';
 import {
   RadioCardColorScheme,
