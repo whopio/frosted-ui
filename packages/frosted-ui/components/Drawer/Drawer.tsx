@@ -47,7 +47,7 @@ export const Drawer = ({
         >
           {/* The backdrop, rendered as a fixed sibling to the panel container */}
           <div
-            className="bg-whop-black biz-dark-1:bg-opacity-60 biz-dark-2:bg-opacity-60 fixed inset-0 bg-opacity-40 transition-opacity"
+            className="bg-whop-black biz-dark-1:bg-whop-fixed-black biz-dark-2:bg-whop-fixed-black biz-dark-1:bg-opacity-60 biz-dark-2:bg-opacity-60 fixed inset-0 bg-opacity-40 transition-opacity"
             aria-hidden="true"
           />
         </Transition.Child>
