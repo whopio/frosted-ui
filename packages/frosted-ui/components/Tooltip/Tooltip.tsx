@@ -7,9 +7,10 @@ import {
   TooltipContentProps,
   Trigger,
 } from '@radix-ui/react-tooltip';
-import React, { ReactNode, forwardRef } from 'react';
+import React, { ElementType, ReactNode, forwardRef } from 'react';
 import { cn } from '../../lib/classnames';
 import { Icon } from '../Icon';
+import type { TextButtonProps } from '../TextButton';
 import { TextButton } from '../TextButton';
 
 export type TooltipVariant = 'default' | 'compact';
@@ -31,17 +32,31 @@ export type PlacementType =
   | 'left-start'
   | 'left-center'
   | 'left-end';
+export const TooltipPlacements: { [key: string]: PlacementType } = {
+  'Top Start': 'top-start',
+  'Top Center': 'top-center',
+  'Top End': 'top-end',
+  'Right Start': 'right-start',
+  'Right Center': 'right-center',
+  'Right End': 'right-end',
+  'Bottom Start': 'bottom-start',
+  'Bottom Center': 'bottom-center',
+  'Bottom End': 'bottom-end',
+  'Left Start': 'left-start',
+  'Left Center': 'left-center',
+  'Left End': 'left-end',
+};
 
 export interface TooltipProps extends RadixTooltipProps {
   /**The element hovered that triggers this tooltip, will default to the info icon */
   children?: ReactNode;
   title?: string;
   description: string | ReactNode;
-  linkText?: string;
   variant?: TooltipVariant;
   placement?: PlacementType;
   buttonClassName?: string;
   contentClassName?: string;
+  linkProps?: TextButtonProps<ElementType>;
 }
 
 export type SideAlign = {
@@ -58,7 +73,6 @@ export const Tooltip = forwardRef<
       children,
       title,
       description,
-      linkText,
       variant = 'default',
       buttonClassName,
       contentClassName,
@@ -66,6 +80,7 @@ export const Tooltip = forwardRef<
       defaultOpen,
       onOpenChange,
       placement = 'bottom-start',
+      linkProps,
       ...props
     },
     ref,
@@ -114,11 +129,13 @@ export const Tooltip = forwardRef<
             >
               {description}
             </p>
-            {/* TODO: When this becomes polymorphic, allow for linkCtaProps to be passed through instead of just text */}
-            {variant === 'default' && linkText && (
-              <TextButton colorScheme="purple" size="sm" variant="arrow">
-                {linkText || 'Learn more'}
-              </TextButton>
+            {variant === 'default' && linkProps && (
+              <TextButton
+                colorScheme="purple"
+                size="sm"
+                variant="arrow"
+                {...linkProps}
+              />
             )}
           </>
         </Content>

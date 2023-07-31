@@ -89,9 +89,9 @@ export const light = {
         },
 
         // Misc colors
-        'fixed-black': '#ffffff',
-        'avatar-stroke': '#F8F8FA',
+        'fixed-black': '#000000',
         'fixed-white': '#FFFFFF',
+        'avatar-stroke': '#F8F8FA',
         'primary-button-text': '#FFFFFF',
       },
     },

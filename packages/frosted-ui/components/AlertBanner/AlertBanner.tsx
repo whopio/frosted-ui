@@ -1,14 +1,11 @@
-import {
-  faChevronRight,
-  faLightbulb,
-  faXmark,
-} from '@fortawesome/free-solid-svg-icons';
-import React, { ButtonHTMLAttributes, ReactNode } from 'react';
+import { faLightbulb, faXmark } from '@fortawesome/free-solid-svg-icons';
+import React, { ElementType, ReactNode } from 'react';
 import { cn } from '../../lib/classnames';
 import { IconDefinition } from '../../lib/icon-types';
 import { ColorScheme } from '../../lib/shared-component-types';
 import { Icon } from '../Icon';
 import { IconButton, IconButtonProps } from '../IconButton';
+import { TextButton, TextButtonProps } from '../TextButton';
 
 export type AlertBannerVariant = 'default' | 'light-anchor';
 export const AlertBannerVariants: { [key: string]: AlertBannerVariant } = {
@@ -40,9 +37,8 @@ export type AlertBannerProps = {
   title?: string;
   description?: string | ReactNode;
   showCta?: boolean;
-  ctaText?: string;
   closeButtonProps?: IconButtonProps;
-  ctaButtonProps?: ButtonHTMLAttributes<HTMLButtonElement>;
+  ctaButtonProps?: TextButtonProps<ElementType>;
   icon?: IconDefinition;
   variant?: AlertBannerVariant;
   colorScheme?: AlertBannerColorScheme;
@@ -55,30 +51,9 @@ export const AlertBanner = ({
   colorScheme = 'gray',
   showCta = true,
   icon = faLightbulb,
-  ctaText,
   closeButtonProps,
   ctaButtonProps,
 }: AlertBannerProps) => {
-  // This is a placeholder until we develop the TextButton component
-  const TextButton = ({
-    textButtonClassName,
-  }: {
-    textButtonClassName?: string;
-  }) => (
-    <button
-      type="button"
-      {...ctaButtonProps}
-      className={cn(
-        'text-button3 flex items-center justify-center',
-        textButtonClassName,
-        ctaButtonProps?.className,
-      )}
-    >
-      {ctaText}
-      <Icon icon={faChevronRight} className={cn('ml-1 mt-0.5 !h-3 !w-2')} />
-    </button>
-  );
-
   const textColor = {
     'text-whop-background': variant === 'default',
     'text-whop-tag-gray': colorScheme === 'gray' && variant === 'light-anchor',
@@ -136,21 +111,34 @@ export const AlertBanner = ({
           {description && (
             <p className={cn('text-paragraph3', textColor)}>{description}</p>
           )}
-          {showCta && ctaText && (
+          {showCta && ctaButtonProps && (
             <TextButton
-              textButtonClassName={cn('min-[400px]:hidden mt-2', textColor)}
+              {...ctaButtonProps}
+              colorScheme={
+                variant === 'default'
+                  ? 'white'
+                  : colorScheme === 'gray'
+                  ? 'dark-gray'
+                  : colorScheme
+              }
+              className={cn('min-[400px]:hidden mt-2')}
             />
           )}
         </div>
       </div>
 
       {showCta &&
-        (ctaText ? (
+        (ctaButtonProps ? (
           <TextButton
-            textButtonClassName={cn(
-              'max-[399px]:hidden absolute top-3 right-3.5',
-              textColor,
-            )}
+            {...ctaButtonProps}
+            colorScheme={
+              variant === 'default'
+                ? 'white'
+                : colorScheme === 'gray'
+                ? 'dark-gray'
+                : colorScheme
+            }
+            className={cn('max-[399px]:hidden absolute top-3 right-3.5')}
           />
         ) : (
           <IconButton

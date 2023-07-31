@@ -20,7 +20,7 @@ export const Variants: Story = {
   args: {
     title: 'Tooltip title',
     description: 'Description',
-    linkText: 'Link',
+    linkProps: { children: 'Link' },
   },
   argTypes: {
     variant: {
@@ -39,6 +39,33 @@ export const Variants: Story = {
   },
 };
 
+export const Placement: Story = {
+  argTypes: {
+    placement: {
+      control: false,
+    },
+  },
+  args: {
+    placement: 'top-center',
+  },
+  render: (args) => (
+    <div className="p-32">
+      <Tooltip {...args} />
+    </div>
+  ),
+};
+
+export const WithLinkButton: Story = {
+  args: {
+    linkProps: {
+      children: 'Click me to navigate',
+      asComponent: 'a',
+      href: 'https://www.google.com',
+      target: '_blank',
+    },
+  },
+};
+
 export const VeryLongTooltip: Story = {
   args: {
     description:
@@ -47,11 +74,6 @@ export const VeryLongTooltip: Story = {
 };
 
 export const InTable: Story = {
-  args: {
-    title: 'Tooltip title',
-    description: 'Description',
-    linkText: 'Link',
-  },
   render: (args) => {
     return (
       <table>

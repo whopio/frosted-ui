@@ -90,8 +90,8 @@ export const darkTwo = {
 
         // Misc colors
         'fixed-black': '#000000',
-        'avatar-stroke': '#303343',
         'fixed-white': '#FFFFFF',
+        'avatar-stroke': '#303343',
         'primary-button-text': '#FFFFFF',
       },
     },

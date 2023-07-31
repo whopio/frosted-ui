@@ -70,7 +70,9 @@ export const ColorSchemes: Story = {
 
 export const TextCta: Story = {
   args: {
-    ctaText: 'Click me',
+    ctaButtonProps: {
+      children: 'Click me',
+    },
   },
 };
 
@@ -81,7 +83,9 @@ export const SmallBreakpoint: Story = {
     },
   },
   args: {
-    ctaText: 'Click me',
+    ctaButtonProps: {
+      children: 'Click me',
+    },
   },
 };
 

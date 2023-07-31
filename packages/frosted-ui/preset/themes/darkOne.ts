@@ -90,8 +90,8 @@ export const darkOne = {
 
         // Misc colors
         'fixed-black': '#000000',
-        'avatar-stroke': '#1B1B1B',
         'fixed-white': '#FFFFFF',
+        'avatar-stroke': '#1B1B1B',
         'primary-button-text': '#FFFFFF',
       },
     },

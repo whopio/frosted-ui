@@ -1,6 +1,7 @@
 import { faHandPointRight } from '@fortawesome/free-solid-svg-icons';
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
+import { cn } from '../../lib/classnames';
 import {
   TextButton,
   TextButtonColorSchemes,
@@ -39,9 +40,16 @@ export const Variants: Story = {
   render: (args) => {
     const variants = Object.values(TextButtonVariants);
     return (
-      <div className="space-x-6">
+      <div className="space-x-6 flex items-center">
         {variants.map((variant) => (
-          <TextButton key={variant} {...args} variant={variant} />
+          <div
+            className={cn({
+              'p-2 bg-whop-fixed-black w-fit inline':
+                args.colorScheme === 'white',
+            })}
+          >
+            <TextButton key={variant} {...args} variant={variant} />
+          </div>
         ))}
       </div>
     );
@@ -57,9 +65,15 @@ export const ColorSchemes: Story = {
   render: (args) => {
     const colorSchemes = Object.values(TextButtonColorSchemes);
     return (
-      <div className="space-x-6">
+      <div className="space-x-6 flex items-center">
         {colorSchemes.map((colorScheme) => (
-          <TextButton key={colorScheme} {...args} colorScheme={colorScheme} />
+          <div
+            className={cn({
+              'p-2 bg-whop-fixed-black w-fit': colorScheme === 'white',
+            })}
+          >
+            <TextButton key={colorScheme} {...args} colorScheme={colorScheme} />
+          </div>
         ))}
       </div>
     );

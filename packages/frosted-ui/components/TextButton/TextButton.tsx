@@ -1,9 +1,24 @@
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import React, { ButtonHTMLAttributes } from 'react';
+import React, {
+  ButtonHTMLAttributes,
+  ElementType,
+  ForwardedRef,
+  forwardRef,
+} from 'react';
 import { cn } from '../../lib/classnames';
 import { IconDefinition } from '../../lib/icon-types';
 import { ColorScheme, Size } from '../../lib/shared-component-types';
 import { Icon } from '../Icon';
+
+type AsProp<C extends ElementType> = {
+  asComponent?: C;
+};
+
+type PropsOf<C extends ElementType> = C extends React.ComponentType<infer P>
+  ? P
+  : C extends keyof JSX.IntrinsicElements
+  ? JSX.IntrinsicElements[C]
+  : Record<string, never>;
 
 export type TextButtonVariant = 'underline' | 'arrow';
 export const TextButtonVariants: { [key: string]: TextButtonVariant } = {
@@ -21,18 +36,27 @@ export const TextButtonSizes: { [key: string]: TextButtonSize } = {
 
 export type TextButtonColorScheme = Extract<
   ColorScheme,
-  'dark-gray' | 'black' | 'purple' | 'error-red'
+  | 'dark-gray'
+  | 'black'
+  | 'purple'
+  | 'error-red'
+  | 'white'
+  | 'success-green'
+  | 'warning-yellow'
 >;
 export const TextButtonColorSchemes: { [key: string]: TextButtonColorScheme } =
   {
     Black: 'black',
     'Dark Gray': 'dark-gray',
     Purple: 'purple',
+    White: 'white',
+    'Success Green': 'success-green',
+    'Warning Yellow': 'warning-yellow',
     'Error Red': 'error-red',
   };
 
-export interface TextButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface TextButtonDefaultProps
+  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type' | 'disabled'> {
   children: React.ReactNode;
   variant?: TextButtonVariant;
   size?: TextButtonSize;
@@ -41,20 +65,34 @@ export interface TextButtonProps
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
-export const TextButton = ({
-  children,
-  variant = 'arrow',
-  size = 'md',
-  colorScheme = 'dark-gray',
-  icon = faArrowRight,
-  onClick,
-  ...props
-}: TextButtonProps) => {
+export type TextButtonProps<C extends ElementType> = PropsOf<C> &
+  TextButtonDefaultProps &
+  AsProp<C>;
+
+export const TextButton = forwardRef(function TextButton<
+  C extends ElementType = 'button',
+>(
+  {
+    children,
+    variant = 'arrow',
+    size = 'md',
+    colorScheme = 'dark-gray',
+    icon = faArrowRight,
+    onClick,
+    asComponent,
+    ...props
+  }: TextButtonProps<C>,
+  ref: ForwardedRef<unknown>,
+) {
+  const Component: ElementType = asComponent || 'button';
+  const { className, ...rest } = props;
+
   return (
-    <button
-      className="group inline-flex items-center"
+    <Component
+      className={cn('group inline-flex items-center', className)}
       onClick={onClick}
-      {...props}
+      ref={ref}
+      {...rest}
     >
       <span
         className={cn(
@@ -81,8 +119,14 @@ export const TextButton = ({
             'text-whop-black': colorScheme === 'black',
             'text-whop-field-highlight group-hover:field-highlight-hover':
               colorScheme === 'purple',
-            'text-whop-error-red group-hover:text-whop-tag-error':
+            'group-hover:text-whop-error-red text-whop-tag-error':
               colorScheme === 'error-red',
+            'group-hover:text-whop-success-green text-whop-tag-green':
+              colorScheme === 'success-green',
+            'group-hover:text-whop-warning-yellow text-whop-tag-warning':
+              colorScheme === 'warning-yellow',
+            'text-whop-fixed-white group-hover:text-whop-fixed-white':
+              colorScheme === 'white',
           },
         )}
       >
@@ -99,8 +143,14 @@ export const TextButton = ({
               'text-whop-black': colorScheme === 'black',
               'text-whop-field-highlight group-hover:field-highlight-hover':
                 colorScheme === 'purple',
-              'text-whop-error-red group-hover:text-whop-tag-error':
+              'group-hover:text-whop-error-red text-whop-tag-error':
                 colorScheme === 'error-red',
+              'group-hover:text-whop-success-green text-whop-tag-green':
+                colorScheme === 'success-green',
+              'group-hover:text-whop-warning-yellow text-whop-tag-warning':
+                colorScheme === 'warning-yellow',
+              'text-whop-fixed-white group-hover:text-whop-fixed-white':
+                colorScheme === 'white',
             },
             {
               'h-3 w-3': size === 'sm',
@@ -111,6 +161,8 @@ export const TextButton = ({
           )}
         />
       )}
-    </button>
+    </Component>
   );
-};
+}) as <C extends ElementType = 'button'>(
+  p: TextButtonProps<C> & { ref?: ForwardedRef<unknown> },
+) => React.ReactElement | null;
