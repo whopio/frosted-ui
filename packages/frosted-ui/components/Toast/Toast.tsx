@@ -1,6 +1,6 @@
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
-import { Toast, ToastBar, toast } from 'react-hot-toast';
+import { ToastBar, toast, type Toast } from 'react-hot-toast';
 import { IconButton } from '../IconButton';
 
 export const CustomToastBar = ({ t }: { t: Toast }) => {
@@ -29,5 +29,3 @@ export const CustomToastBar = ({ t }: { t: Toast }) => {
     </ToastBar>
   );
 };
-
-export { toast };
