@@ -1,6 +1,6 @@
 import React from 'react';
 import { Toaster as ReactHotToaster } from 'react-hot-toast';
-import { CustomToastBar } from '../Toast';
+import { CustomToastBar } from '../toast';
 
 export const Toaster = () => {
   return (
