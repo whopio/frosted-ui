@@ -3,6 +3,8 @@ import React from 'react';
 import { ToastBar, toast, type Toast } from 'react-hot-toast';
 import { IconButton } from '../IconButton';
 
+export { toast };
+
 export const CustomToastBar = ({ t }: { t: Toast }) => {
   return (
     <ToastBar toast={t}>
