@@ -1,3 +1,5 @@
+'use client';
+
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import React, {
   ButtonHTMLAttributes,

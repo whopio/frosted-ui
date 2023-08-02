@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { Toaster as ReactHotToaster } from 'react-hot-toast';
 import { CustomToastBar } from '../toast';

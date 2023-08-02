@@ -1,4 +1,5 @@
 'use client';
+
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import {
   Content,
@@ -10,8 +11,7 @@ import {
 import React, { ElementType, ReactNode, forwardRef } from 'react';
 import { cn } from '../../lib/classnames';
 import { Icon } from '../Icon';
-import type { TextButtonProps } from '../TextButton';
-import { TextButton } from '../TextButton';
+import { TextButton, type TextButtonProps } from '../TextButton';
 
 export type TooltipVariant = 'default' | 'compact';
 export const TooltipVariants: { [key: string]: TooltipVariant } = {

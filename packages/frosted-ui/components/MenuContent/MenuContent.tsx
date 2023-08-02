@@ -13,7 +13,7 @@ export const MenuContent = forwardRef<
         ref={forwardedRef}
         align="start"
         className={cn(
-          'border-whop-stroke-dark bg-whop-background z-50 mt-1.5 max-h-[var(--radix-dropdown-menu-content-available-height)] w-60 overflow-auto rounded-md border py-1 shadow-lg focus:outline-none',
+          'border-whop-stroke-dark bg-whop-background z-50 mt-1.5 max-h-[var(--radix-dropdown-menu-content-available-height)] w-[244px] overflow-auto rounded-md border py-1 shadow-lg focus:outline-none',
           className,
         )}
         {...props}
