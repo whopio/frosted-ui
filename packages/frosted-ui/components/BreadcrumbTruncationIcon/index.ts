@@ -1,1 +1,2 @@
-export * from "./BreadcrumbTruncationIcon"
+'use client';
+export * from './BreadcrumbTruncationIcon';

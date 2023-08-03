@@ -1,1 +1,2 @@
-export * from "./BreadcrumbItem"
+'use client';
+export * from './BreadcrumbItem';

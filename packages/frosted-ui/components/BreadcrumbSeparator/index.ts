@@ -1,1 +1,2 @@
-export * from "./BreadcrumbSeparator"
+'use client';
+export * from './BreadcrumbSeparator';
