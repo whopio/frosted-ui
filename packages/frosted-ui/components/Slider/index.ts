@@ -1,1 +1,3 @@
-export * from "./Slider"
+'use client';
+
+export * from './Slider';

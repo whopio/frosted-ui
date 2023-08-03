@@ -1,1 +1,3 @@
-export * from "./Checkbox"
+'use client';
+
+export * from './Checkbox';

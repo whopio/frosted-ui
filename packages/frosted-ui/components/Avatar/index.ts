@@ -1,1 +1,3 @@
-export * from "./Avatar"
+'use client';
+
+export * from './Avatar';

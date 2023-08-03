@@ -1,1 +1,3 @@
-export * from "./RadioCardGroup"
+'use client';
+
+export * from './RadioCardGroup';

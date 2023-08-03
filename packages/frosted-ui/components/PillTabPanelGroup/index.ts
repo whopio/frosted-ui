@@ -1,1 +1,3 @@
-export * from "./PillTabPanelGroup"
+'use client';
+
+export * from './PillTabPanelGroup';

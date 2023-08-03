@@ -1,1 +1,3 @@
-export * from "./HorizontalTabListItem"
+'use client';
+
+export * from './HorizontalTabListItem';

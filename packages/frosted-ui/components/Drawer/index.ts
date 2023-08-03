@@ -1,1 +1,3 @@
-export * from "./Drawer"
+'use client';
+
+export * from './Drawer';

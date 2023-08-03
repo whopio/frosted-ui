@@ -1,1 +1,3 @@
-export * from "./ModalContext"
+'use client';
+
+export * from './ModalContext';

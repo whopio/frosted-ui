@@ -1,1 +1,3 @@
-export * from "./Modal"
+'use client';
+
+export * from './Modal';

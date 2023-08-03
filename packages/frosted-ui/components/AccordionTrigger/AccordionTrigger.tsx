@@ -1,3 +1,5 @@
+'use client';
+
 import { Header, Trigger } from '@radix-ui/react-accordion';
 import { motion } from 'framer-motion';
 import * as React from 'react';

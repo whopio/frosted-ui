@@ -1,1 +1,3 @@
-export * from "./Dropzone"
+'use client';
+
+export * from './Dropzone';

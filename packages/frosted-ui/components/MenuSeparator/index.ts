@@ -1,1 +1,3 @@
-export * from "./MenuSeparator"
+'use client';
+
+export * from './MenuSeparator';

@@ -1,1 +1,3 @@
-export * from "./MenuGroup"
+'use client';
+
+export * from './MenuGroup';

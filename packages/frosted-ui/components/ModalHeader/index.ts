@@ -1,1 +1,3 @@
-export * from "./ModalHeader"
+'use client';
+
+export * from './ModalHeader';

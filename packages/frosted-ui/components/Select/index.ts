@@ -1,1 +1,3 @@
-export * from "./Select"
+'use client';
+
+export * from './Select';

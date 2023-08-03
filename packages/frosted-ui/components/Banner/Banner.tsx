@@ -1,4 +1,5 @@
 'use client';
+
 import { faInfoCircle, faXmark } from '@fortawesome/free-solid-svg-icons';
 import React, { useCallback, useState } from 'react';
 import { cn } from '../../lib/classnames';

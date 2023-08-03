@@ -1,1 +1,3 @@
-export * from "./Toaster"
+'use client';
+
+export * from './Toaster';

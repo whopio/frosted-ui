@@ -1,1 +1,3 @@
-export * from "./Table"
+'use client';
+
+export * from './Table';

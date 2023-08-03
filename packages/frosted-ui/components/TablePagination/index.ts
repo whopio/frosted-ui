@@ -1,1 +1,3 @@
-export * from "./TablePagination"
+'use client';
+
+export * from './TablePagination';

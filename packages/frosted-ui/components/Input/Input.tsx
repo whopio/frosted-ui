@@ -2,8 +2,7 @@ import {
   faExclamationCircle,
   faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons';
-import * as React from 'react';
-import { InputHTMLAttributes, forwardRef } from 'react';
+import React, { InputHTMLAttributes, ReactNode, forwardRef } from 'react';
 import { cn } from '../../lib/classnames';
 import { IconDefinition } from '../../lib/icon-types';
 import { Size } from '../../lib/shared-component-types';
@@ -37,7 +36,7 @@ export interface InputProps
   wrapperClassName?: string;
   leftIconClassName?: string;
   /** This is used for the number input being placed directly in the input */
-  rightElementSlot?: React.ReactNode;
+  rightElementSlot?: ReactNode;
 }
 
 const inputStyles =

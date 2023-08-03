@@ -1,1 +1,3 @@
-export * from "./NumberInput"
+'use client';
+
+export * from './NumberInput';

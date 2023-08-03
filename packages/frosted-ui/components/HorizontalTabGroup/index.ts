@@ -1,1 +1,3 @@
-export * from "./HorizontalTabGroup"
+'use client';
+
+export * from './HorizontalTabGroup';

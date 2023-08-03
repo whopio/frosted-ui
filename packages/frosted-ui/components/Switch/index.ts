@@ -1,1 +1,3 @@
-export * from "./Switch"
+'use client';
+
+export * from './Switch';

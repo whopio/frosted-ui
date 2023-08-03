@@ -1,1 +1,3 @@
-export * from "./Progress"
+'use client';
+
+export * from './Progress';

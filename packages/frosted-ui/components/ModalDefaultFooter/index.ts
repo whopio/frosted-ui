@@ -1,1 +1,3 @@
-export * from "./ModalDefaultFooter"
+'use client';
+
+export * from './ModalDefaultFooter';

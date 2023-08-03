@@ -1,1 +1,3 @@
-export * from "./ModalBody"
+'use client';
+
+export * from './ModalBody';

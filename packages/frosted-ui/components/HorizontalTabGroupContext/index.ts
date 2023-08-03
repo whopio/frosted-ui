@@ -1,1 +1,3 @@
-export * from "./HorizontalTabGroupContext"
+'use client';
+
+export * from './HorizontalTabGroupContext';

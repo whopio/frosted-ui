@@ -1,1 +1,3 @@
-export * from "./PillTabList"
+'use client';
+
+export * from './PillTabList';

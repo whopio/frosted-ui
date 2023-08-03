@@ -1,1 +1,3 @@
-export * from "./CodeInput"
+'use client';
+
+export * from './CodeInput';
