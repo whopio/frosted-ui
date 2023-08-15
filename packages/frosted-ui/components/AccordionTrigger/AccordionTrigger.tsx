@@ -18,6 +18,7 @@ const PlusIcon = ({ open }: { open: boolean }) => {
       viewBox="0 0 448 448"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className="shrink-0"
     >
       <motion.path
         d="M224 16C237.3 16 248 26.7 248 40L248 408C248 421.3 237.3 432 224 432C210.7 432 200 421.3 200 408L200 40C200 26.7 210.7 16 224 16Z"
