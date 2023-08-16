@@ -47,7 +47,7 @@
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react-swc": "^3.3.2",
-    "@whop-sdk/turbo-module": "0.0.4",
+    "@whop-sdk/turbo-module": "0.0.5",
     "chokidar": "^3.5.3",
     "concurrently": "^7.6.0",
     "eslint-plugin-react-hooks": "^4.6.0",

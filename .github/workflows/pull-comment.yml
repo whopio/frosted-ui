@@ -2,7 +2,7 @@ on:
   issue_comment:
     types:
       - created
-    branches: 
+    branches:
       - turbo-module/release-*
     excludeBranches:
       - turbo-module/release-*-canary
@@ -24,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Update package.json version number
-        uses: whopio/turbo-module@v0.0.4
-        with: 
+        uses: whopio/turbo-module@v0.0.5
+        with:
           action: update
           token: ${{ github.token }}
