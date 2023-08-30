@@ -1,23 +1,35 @@
 # Welcome to Frosted UI
 
-Frosted is the design system used and and built by [Whop](https://whop.com).
-
-The system is built using:
-
-- Tailwind CSS
-- React + Typescript
-- Framer Motion
-- Radix UI
+Frosted is the design system used and and built by [Whop](https://whop.com). 
 
 ## Getting Started
 
-If your project uses React and Tailwind, you can use Frosted!! To get started, install the package:
+### Prerequisites
 
+- [React](https://reactjs.org/docs/getting-started.html) installed
+- [Tailwind CSS](https://tailwindcss.com/docs/installation) installed and configured
+- [Font Awesome](https://fontawesome.com/docs/web/setup/packages#_1-configure-access) access configured (Only free license required)
+
+### Installation
+
+Install package:
 ```zsh
-pnpm add @whop/frosted-ui
+npm i @whop/frosted-ui
 ```
 
-Then wrap your app in the `TooltipProvider` component and add the Toaster as well:
+Configure your `tailwind.config.ts` to use the Frosted UI theme by wrapping your config with `preset`:
+
+```ts
+import preset from "@whop/frosted-ui/preset";
+
+const config = preset({
+  // your config here
+});
+
+export default config;
+```
+
+Wrap your app in the `TooltipProvider` component and add the `Toaster` as well:
 
 > _**Note:** this example is in Next.js but you can wrap the root of any React project._
 
@@ -34,3 +46,5 @@ export default function App({ Component, pageProps }: AppProps) {
   );
 }
 ```
+
+That's it! You're ready to use Frosted UI. Checkout the [documentation](https://storybook.whop.com) for more information about the components.
