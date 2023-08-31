@@ -21,7 +21,7 @@ export interface InputProps
     InputHTMLAttributes<HTMLInputElement>,
     'size' | 'disabled' | 'readOnly'
   > {
-  label?: LabelProps;
+  label?: LabelProps | string;
   name?: string;
   size?: InputSize;
   placeholder?: string;
@@ -63,9 +63,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   },
   ref,
 ) {
+  const isLabelString = typeof label === 'string';
   return (
     <div className={cn('h-fit w-full', wrapperClassName)}>
-      {label && <Label wrapperClassName="mb-2" {...label} />}
+      {label &&
+        (isLabelString ? (
+          <Label wrapperClassName="mb-2">{label}</Label>
+        ) : (
+          <Label wrapperClassName="mb-2" {...label} />
+        ))}
       <div
         className={cn(
           'relative',
