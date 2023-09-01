@@ -7,7 +7,7 @@
   "types": "index.d.ts",
   "scripts": {
     "build": "concurrently \"pnpm run build:tsc\" \"pnpm run build:swc\"",
-    "build:tsc": "tsc --emitDeclarationOnly",
+    "build:tsc": "tsc --v && tsc --emitDeclarationOnly",
     "build:swc": "concurrently \"pnpm run build:swc:components\" \"pnpm run build:swc:lib\" \"pnpm run build:swc:index\" \"pnpm run build:swc:preset\"",
     "build:swc:components": "swc components -d components",
     "build:swc:lib": "swc lib -d lib",
