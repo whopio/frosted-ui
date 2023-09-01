@@ -27,7 +27,7 @@ jobs:
         if: steps.check.outputs.can-publish == 'true'
       - uses: pnpm/action-setup@v2
         with:
-          version: 7.13.6
+          version: 8.6.9
         if: steps.check.outputs.can-publish == 'true'
       - name: Setup node
         uses: actions/setup-node@v3
