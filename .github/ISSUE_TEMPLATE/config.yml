@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Request new component
+    url: https://github.com/whopio/frosted-ui/discussions/new?category=new-component
+    about: Request a component to be added to Frosted UI
+  - name: Request documentation
+    url: https://github.com/whopio/frosted-ui/discussions/new?category=documentation
+    about: Request documentation enhancements or changes

@@ -1,0 +1,47 @@
+name: Bug Report
+description: Create a bug report for Frosted UI
+labels: ['template: bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This template is to report Frosted bugs.
+        Component or documentation requests should be opened as [discussions](https://github.com/whopio/frosted-ui/discussions).
+
+        Before opening a new issue, please do a [search](https://github.com/whopio/frosted-ui/issues) of existing issues and :+1: upvote the existing issue instead. This will result in a quicker resolution.
+
+  - type: input
+    attributes:
+      label: Link to the code that reproduces this issue or a replay of the bug
+      description: |
+        A link to a **public** GitHub repository or a CodeSandbox
+
+        If a minimal reproduction can't be created, please share a [replay](https://www.replay.io/) of the bug which doesn't require sharing a private repo.
+
+        **Skipping this/providing an invalid link will result in the issue being closed**
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: To Reproduce
+      description: A step-by-step description of how to reproduce the issue, based on the linked reproduction. Screenshots can be provided in the issue body below. If using code blocks, make sure that [syntax highlighting is correct](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks#syntax-highlighting) and double check that the rendered preview is not broken.
+      placeholder: |
+        1. Render add leftIcon to Button
+        2. Click on Button
+        3. Y will happen
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Current vs. Expected behavior
+      description: A clear and concise description of what the bug is, and what you expected to happen.
+      placeholder: 'Following the steps from the previous section, I expected A to happen, but I observed B instead'
+    validations:
+      required: true
+  - type: checkboxes
+    attributes:
+      label: Verify canary release
+      description: 'Please run `npm install frosted-ui@canary` to try the canary version of Frosted that ships often. It includes all features and fixes that have not been released to the stable version yet. Some issues may already be fixed in the canary version, so please verify that your issue reproduces before opening a new issue.'
+      options:
+        - label: I verified that the issue exists in the latest Frosted canary release
+          required: true
