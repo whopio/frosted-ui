@@ -1,6 +1,6 @@
 {
   "name": "turbo-module-monorepo",
-  "version": "0.0.1-canary.13",
+  "version": "0.0.1-canary.14",
   "private": true,
   "workspaces": [
     "packages/*"
