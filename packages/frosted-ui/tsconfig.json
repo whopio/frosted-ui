@@ -5,17 +5,14 @@
     "downlevelIteration": true,
     "target": "ESNEXT",
     "module": "ESNext",
-    "jsx": "react"
+    "jsx": "react",
+    "rootDir": "src",
+    "outDir": "dist"
   },
   "include": [
-    "components/**/*.{tsx,ts}",
-    "components/**/*.stories.tsx",
-    "lib/**/*.ts",
-    "preset/**/*.ts",
-    "turbo/**/*.ts",
-    "index.ts",
-    "*.config.ts",
-    ".eslintrc.cjs"
+    "src/**/*",
   ],
-  "files": []
+  "exclude": [
+    "src/**/*.stories.tsx"
+  ]
 }

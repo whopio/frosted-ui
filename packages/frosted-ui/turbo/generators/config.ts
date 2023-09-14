@@ -22,17 +22,17 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
       const actions = [
         {
           type: 'add',
-          path: 'components/{{pascalCase name}}/{{pascalCase name}}.tsx',
+          path: 'src/components/{{pascalCase name}}/{{pascalCase name}}.tsx',
           templateFile: 'templates/component.hbs',
         },
         {
           type: 'add',
-          path: 'components/{{pascalCase name}}/index.ts',
+          path: 'src/components/{{pascalCase name}}/index.ts',
           templateFile: 'templates/export.hbs',
         },
         {
           type: 'append',
-          path: './index.ts',
+          path: 'src/index.ts',
           template: 'export * from "./components/{{pascalCase name}}";',
         },
       ];
@@ -40,7 +40,7 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
       if (data?.hasStory) {
         actions.push({
           type: 'add',
-          path: 'components/{{pascalCase name}}/{{pascalCase name}}.stories.tsx',
+          path: 'src/components/{{pascalCase name}}/{{pascalCase name}}.stories.tsx',
           templateFile: 'templates/story.hbs',
         });
       }

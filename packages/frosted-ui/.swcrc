@@ -21,6 +21,6 @@
     "\\.stories\\.tsx",
     "\\.d\\.ts",
     "\\.js",
-    "components/Table/mock-data\\.ts"
+    "src/components/Table/mock-data\\.ts"
   ]
 }

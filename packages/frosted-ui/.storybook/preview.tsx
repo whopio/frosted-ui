@@ -1,9 +1,9 @@
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import type { Preview } from '@storybook/react';
 import * as React from 'react';
-import { Toaster } from '../components/Toaster';
-import { TooltipProvider } from '../components/TooltipProvider';
-import '../index.css';
+import { Toaster } from '../src/components/Toaster';
+import { TooltipProvider } from '../src/components/TooltipProvider';
+import '../src/index.css';
 
 const preview: Preview = {
   decorators: [
