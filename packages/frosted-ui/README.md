@@ -20,7 +20,7 @@ npm i @whop/frosted-ui
 Configure your `tailwind.config.ts` to use the Frosted UI theme by wrapping your config with `preset`:
 
 ```ts
-import preset from "@whop/frosted-ui/preset";
+import preset from '@whop/frosted-ui/dist/preset';
 
 const config = preset({
   // your config here
