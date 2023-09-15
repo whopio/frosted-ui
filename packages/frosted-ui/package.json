@@ -15,9 +15,6 @@
     "build:swc": "swc src -d dist",
     "dev": "concurrently \"pnpm run build:tsc --watch\" \"pnpm run build:swc --watch\"",
     "release": "turbo-module publish",
-    "vite-dev": "vite",
-    "vite-build": "tsc && vite build",
-    "vite-preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "create": "npx turbo gen create-component"

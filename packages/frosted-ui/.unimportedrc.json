@@ -4,7 +4,7 @@
   "ignorePatterns": [
     "**/node_modules/**",
     "public/**",
-    "vite.config.ts",
+    "vite.config.js",
     "turbo/generators/config.ts",
     "**/*.stories.tsx",
     "components/Table/mock-data.ts"
