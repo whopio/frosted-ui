@@ -3,6 +3,7 @@
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import {
   Content,
+  Portal,
   TooltipProps as RadixTooltipProps,
   Root,
   TooltipContentProps,
@@ -100,45 +101,47 @@ export const Tooltip = forwardRef<
         >
           {children || <Icon icon={faInfoCircle} className="h-3 w-3" />}
         </Trigger>
-        <Content
-          ref={ref}
-          side={side}
-          align={align}
-          sideOffset={8}
-          className={cn(
-            'animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
-            'w-max-content relative z-50 max-w-[276px] whitespace-normal rounded-md shadow',
-            {
-              'bg-whop-black px-2 py-1.5': variant === 'compact',
-              'bg-whop-background border-whop-stroke w-[276px] border px-[14px] py-2.5':
-                variant === 'default',
-            },
-            contentClassName,
-          )}
-          {...props}
-        >
-          <>
-            {title && variant === 'default' && (
-              <p className="text-subtitle3 text-whop-black mb-2">{title}</p>
+        <Portal>
+          <Content
+            ref={ref}
+            side={side}
+            align={align}
+            sideOffset={8}
+            className={cn(
+              'animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+              'w-max-content relative z-50 max-w-[276px] whitespace-normal rounded-md shadow',
+              {
+                'bg-whop-black px-2 py-1.5': variant === 'compact',
+                'bg-whop-background border-whop-stroke w-[276px] border px-[14px] py-2.5':
+                  variant === 'default',
+              },
+              contentClassName,
             )}
-            <p
-              className={cn('overflow-hidden', {
-                'text-paragraph3 text-whop-black': variant === 'default',
-                'text-subtitle5 text-whop-background': variant === 'compact',
-              })}
-            >
-              {description}
-            </p>
-            {variant === 'default' && linkProps && (
-              <TextButton
-                colorScheme="purple"
-                size="sm"
-                variant="arrow"
-                {...linkProps}
-              />
-            )}
-          </>
-        </Content>
+            {...props}
+          >
+            <>
+              {title && variant === 'default' && (
+                <p className="text-subtitle3 text-whop-black mb-2">{title}</p>
+              )}
+              <p
+                className={cn('overflow-hidden', {
+                  'text-paragraph3 text-whop-black': variant === 'default',
+                  'text-subtitle5 text-whop-background': variant === 'compact',
+                })}
+              >
+                {description}
+              </p>
+              {variant === 'default' && linkProps && (
+                <TextButton
+                  colorScheme="purple"
+                  size="sm"
+                  variant="arrow"
+                  {...linkProps}
+                />
+              )}
+            </>
+          </Content>
+        </Portal>
       </Root>
     );
   },
