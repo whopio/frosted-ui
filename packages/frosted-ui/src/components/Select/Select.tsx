@@ -10,6 +10,7 @@ import type * as Radix from '@radix-ui/react-primitive';
 import {
   Content,
   Icon as IconPrimitive,
+  Portal,
   SelectProps as RadixSelectProps,
   Root,
   ScrollDownButton,
@@ -164,44 +165,49 @@ export const Select = forwardRef<
               />
             </IconPrimitive>
           </Trigger>
-          <Content
-            onCloseAutoFocus={onCloseAutoFocus}
-            onEscapeKeyDown={onEscapeKeyDown}
-            onPointerDownOutside={onPointerDownOutside}
-            position={position}
-            side={side}
-            sideOffset={sideOffset}
-            align={align}
-            alignOffset={alignOffset}
-            avoidCollisions={avoidCollisions}
-            collisionBoundary={collisionBoundary}
-            collisionPadding={collisionPadding}
-            arrowPadding={arrowPadding}
-            sticky={sticky}
-            hideWhenDetached={hideWhenDetached}
-            className={cn(
-              'border-whop-stroke-dark bg-whop-background z-50 mt-1.5 max-h-[var(--radix-select-content-available-height)] w-[244px] overflow-auto rounded-md border py-1 shadow-lg focus:outline-none',
-              contentClassName,
-            )}
-          >
-            <ScrollUpButton className="flex justify-center">
-              <Icon
-                icon={faChevronUp}
-                className="text-whop-dark-gray h-3.5 text-sm"
-              />
-            </ScrollUpButton>
-            <Viewport>
-              {items
-                ? items.map((item) => <SelectItem key={item.value} {...item} />)
-                : children}
-            </Viewport>
-            <ScrollDownButton className="flex justify-center">
-              <Icon
-                icon={faChevronDown}
-                className="text-whop-dark-gray h-3.5 text-sm"
-              />
-            </ScrollDownButton>
-          </Content>
+          <Portal>
+            <Content
+              onCloseAutoFocus={onCloseAutoFocus}
+              onEscapeKeyDown={onEscapeKeyDown}
+              onPointerDownOutside={onPointerDownOutside}
+              position={position}
+              side={side}
+              sideOffset={sideOffset}
+              align={align}
+              alignOffset={alignOffset}
+              avoidCollisions={avoidCollisions}
+              collisionBoundary={collisionBoundary}
+              collisionPadding={collisionPadding}
+              arrowPadding={arrowPadding}
+              sticky={sticky}
+              hideWhenDetached={hideWhenDetached}
+              className={cn(
+                // z-index has to be bigger than z-index of <Modal /> or <Drawer />
+                'z-[111] border-whop-stroke-dark bg-whop-background mt-1.5 max-h-[var(--radix-select-content-available-height)] w-[244px] overflow-auto rounded-md border py-1 shadow-lg focus:outline-none',
+                contentClassName,
+              )}
+            >
+              <ScrollUpButton className="flex justify-center">
+                <Icon
+                  icon={faChevronUp}
+                  className="text-whop-dark-gray h-3.5 text-sm"
+                />
+              </ScrollUpButton>
+              <Viewport>
+                {items
+                  ? items.map((item) => (
+                      <SelectItem key={item.value} {...item} />
+                    ))
+                  : children}
+              </Viewport>
+              <ScrollDownButton className="flex justify-center">
+                <Icon
+                  icon={faChevronDown}
+                  className="text-whop-dark-gray h-3.5 text-sm"
+                />
+              </ScrollDownButton>
+            </Content>
+          </Portal>
         </Root>
         {(errorMessage || helpMessage) && (
           <div
