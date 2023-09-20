@@ -1,4 +1,6 @@
-export const light = {
+import { Theme } from './types';
+
+export const light: Theme = {
   name: 'default',
   transparent: 'transparent',
   extend: {

@@ -1,4 +1,6 @@
-export const darkTwo = {
+import { Theme } from './types';
+
+export const darkTwo: Theme = {
   name: 'biz-dark-2',
   transparent: 'transparent',
   extend: {

@@ -1,4 +1,6 @@
-export const darkOne = {
+import { Theme } from './types';
+
+export const darkOne: Theme = {
   name: 'biz-dark-1',
   transparent: 'transparent',
   extend: {
