@@ -99,6 +99,13 @@ export interface ButtonProps
   isLoading?: boolean;
   loadingText?: string;
   className?: string;
+  /**
+   * @dev Some classes from the regular className prop can be overridden
+   * to ensure a consistent look and prevent unintended circumstances.
+   * To bypass this behavior the overrideClassname prop can be used.
+   * Use with caution.
+   */
+  overrideClassName?: string;
   leftIconClassName?: string;
   rightIconClassName?: string;
 }
@@ -127,6 +134,7 @@ export const Button = forwardRef(function Button<
     leftIconClassName,
     rightIconClassName,
     asComponent,
+    overrideClassName,
     ...props
   }: ButtonComponentProps<C>,
   ref: ForwardedRef<unknown>,
@@ -286,6 +294,7 @@ export const Button = forwardRef(function Button<
           'shadow-sm shadow-white/[50%]':
             hasShadow(variant as string) && colorScheme === 'white',
         },
+        overrideClassName,
       )}
       ref={ref}
       {...props}
