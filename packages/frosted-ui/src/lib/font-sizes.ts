@@ -289,6 +289,38 @@ export const fontSize = {
       fontWeight: '700',
     },
   ],
+  displayL1: [
+    '4.5rem',
+    {
+      lineHeight: '5.4rem',
+      letterSpacing: '0em',
+      fontWeight: '700',
+    },
+  ],
+  displayL2: [
+    '4rem',
+    {
+      lineHeight: '4.8rem',
+      letterSpacing: '0em',
+      fontWeight: '700',
+    },
+  ],
+  displayL3: [
+    '3.5rem',
+    {
+      lineHeight: '4.2rem',
+      letterSpacing: '0em',
+      fontWeight: '700',
+    },
+  ],
+  displayL4: [
+    '3rem',
+    {
+      lineHeight: '3.6rem',
+      letterSpacing: '0em',
+      fontWeight: '700',
+    },
+  ],
   // All uppercase & font-family mono
   mono1: [
     '1.125rem',
@@ -338,4 +370,14 @@ export const fontSize = {
       fontWeight: '600',
     },
   ],
-};
+} as Record<
+  string,
+  [
+    fontSize: string,
+    configuration: Partial<{
+      lineHeight: string;
+      letterSpacing: string;
+      fontWeight: string | number;
+    }>,
+  ]
+>;
