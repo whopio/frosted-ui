@@ -8,6 +8,7 @@ import { IconDefinition } from '../../lib/icon-types';
 import { Size } from '../../lib/shared-component-types';
 import { Icon } from '../Icon';
 import { Label, LabelProps } from '../Label';
+import { Typography } from '../Typography';
 
 export type InputSize = Extract<Size, 'sm' | 'md' | 'lg'>;
 export const InputSizes: { [key: string]: InputSize } = {
@@ -107,13 +108,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           </div>
         )}
         {leftText && !leftIcon && (
-          <label
-            className={cn(
-              'text-whop-dark-gray text-text1 mr-1 select-none w-fit max-w-[128px] whitespace-nowrap overflow-x-auto flex flex-row-reverse',
-            )}
-            htmlFor={name}
-          >
-            {leftText}
+          <label htmlFor={name}>
+            <Typography
+              as="span"
+              variant="text1"
+              className={cn(
+                'text-whop-dark-gray mr-1 select-none w-fit max-w-[128px] whitespace-nowrap overflow-x-auto flex flex-row-reverse',
+              )}
+            >
+              {leftText}
+            </Typography>
           </label>
         )}
         {rightElementSlot && rightElementSlot}
@@ -171,9 +175,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
               className="mt-px h-3"
             />
           )}
-          <div className="text-text5 flex-wrap">
+          <Typography as="div" variant="text5" className="flex-wrap">
             {errorMessage || helpMessage}
-          </div>
+          </Typography>
         </div>
       )}
     </div>

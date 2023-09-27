@@ -7,6 +7,7 @@ import {
 import React, { forwardRef, useId } from 'react';
 import { cn } from '../../lib/classnames';
 import { RadioColorScheme, RadioSize } from '../RadioGroup';
+import { Typography } from '../Typography';
 
 export type RadioItemProps = {
   label?: string;
@@ -27,6 +28,7 @@ export const RadioItem = forwardRef<
   (
     {
       label,
+      // TODO: size doesn't infer proper type. Fix that
       size = 'sm',
       colorScheme = 'brand',
       className,
@@ -73,15 +75,17 @@ export const RadioItem = forwardRef<
         <label
           className={cn(
             'text-whop-black ml-3 cursor-pointer disabled:cursor-not-allowed',
-            {
-              'text-text3': size === 'md',
-              'text-text1': size === 'lg',
-            },
             labelClassName,
           )}
           htmlFor={defaultId}
         >
-          {label}
+          <Typography
+            as="span"
+            variant={size == 'lg' ? 'text1' : 'text3'}
+            className="block"
+          >
+            {label}
+          </Typography>
         </label>
       </div>
     );

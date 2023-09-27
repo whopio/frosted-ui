@@ -11,6 +11,7 @@ import { cn } from '../../lib/classnames';
 import { IconDefinition } from '../../lib/icon-types';
 import { ColorScheme, Size } from '../../lib/shared-component-types';
 import { Icon } from '../Icon';
+import { Typography } from '../Typography';
 
 type AsProp<C extends ElementType> = {
   asComponent?: C;
@@ -76,6 +77,7 @@ export const TextButton = forwardRef(function TextButton<
 >(
   {
     children,
+    // TODO: correct type inference for variant, size, colorScheme ...
     variant = 'arrow',
     size = 'md',
     colorScheme = 'dark-gray',
@@ -96,24 +98,28 @@ export const TextButton = forwardRef(function TextButton<
       ref={ref}
       {...rest}
     >
-      <span
+      <Typography
+        as="span"
+        variant={
+          {
+            underline: {
+              sm: 'text4',
+              md: 'text3',
+              lg: 'text2',
+              xl: 'text1',
+            } as const,
+            arrow: {
+              sm: 'button5',
+              md: 'button4',
+              lg: 'button3',
+              xl: 'button2',
+            } as const,
+          }[variant as TextButtonVariant][size as TextButtonSize]
+        }
         className={cn(
           'transition',
           {
             'hover:underline': variant === 'underline',
-          },
-          {
-            // Arrow
-            'text-button5': size === 'sm' && variant === 'arrow',
-            'text-button4': size === 'md' && variant === 'arrow',
-            'text-button3': size === 'lg' && variant === 'arrow',
-            'text-button2': size === 'xl' && variant === 'arrow',
-
-            // Underline
-            'text-text4': size === 'sm' && variant === 'underline',
-            'text-text3': size === 'md' && variant === 'underline',
-            'text-text2': size === 'lg' && variant === 'underline',
-            'text-text1': size === 'xl' && variant === 'underline',
           },
           {
             'text-whop-dark-gray group-hover:text-whop-black':
@@ -133,7 +139,7 @@ export const TextButton = forwardRef(function TextButton<
         )}
       >
         {children}
-      </span>
+      </Typography>
       {variant === 'arrow' && (
         <Icon
           icon={icon}

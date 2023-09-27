@@ -5,6 +5,7 @@ import React, { forwardRef } from 'react';
 import { cn } from '../../lib/classnames';
 import { Icon } from '../Icon';
 import { MenuSize } from '../Menu';
+import { Typography } from '../Typography';
 
 export const MenuRadioItem = forwardRef<
   React.ElementRef<typeof RadioItem>,
@@ -14,7 +15,7 @@ export const MenuRadioItem = forwardRef<
     <RadioItem
       ref={forwardedRef}
       className={cn(
-        'text-subtitle3 mx-1 flex items-center rounded pl-3 pr-2 transition',
+        'mx-1 flex items-center rounded pl-3 pr-2 transition',
         'focus:bg-whop-hover cursor-pointer select-none outline-none focus:outline-none',
         'data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50',
         {
@@ -35,7 +36,9 @@ export const MenuRadioItem = forwardRef<
           <Icon icon={faCheck} />
         </ItemIndicator>
       </span>
-      {children}
+      <Typography as="span" variant="subtitle3">
+        {children}
+      </Typography>
     </RadioItem>
   );
 });

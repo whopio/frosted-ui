@@ -13,6 +13,7 @@ import {
   RadioCardSize,
   RadioCardVariant,
 } from '../RadioCardGroup';
+import { Typography } from '../Typography';
 
 export type RadioCardItemProps = {
   label: string | ReactNode;
@@ -48,6 +49,45 @@ export const RadioCardItem = forwardRef<
     forwardedRef,
   ) => {
     const defaultId = useId();
+
+    const labelComponent = (
+      <label
+        className={cn(
+          'cursor-pointer space-y-1  text-left group-disabled:cursor-not-allowed',
+          {
+            'mt-[-1px]': size === 'sm' && !!description && variant === 'radio',
+            'mt-[-0.75px]':
+              size === 'md' && !!description && variant === 'radio',
+          },
+        )}
+      >
+        <Typography
+          as="span"
+          variant={
+            (
+              {
+                sm: 'subtitle3',
+                md: 'subtitle1',
+                lg: 'button2',
+              } as const
+            )[size]
+          }
+          className={cn('text-whop-black block w-full', labelClassName)}
+        >
+          {label}
+        </Typography>
+
+        {description && (
+          <Typography
+            as="span"
+            variant={size === 'sm' ? 'paragraph4' : 'paragraph3'}
+            className="text-whop-dark-gray block w-full"
+          >
+            {description}
+          </Typography>
+        )}
+      </label>
+    );
     return href ? (
       <a
         href={href}
@@ -115,41 +155,7 @@ export const RadioCardItem = forwardRef<
               />
             </div>
           )}
-          <label
-            className={cn(
-              'cursor-pointer space-y-1  text-left group-disabled:cursor-not-allowed',
-              {
-                'mt-[-1px]':
-                  size === 'sm' && !!description && variant === 'radio',
-                'mt-[-0.75px]':
-                  size === 'md' && !!description && variant === 'radio',
-              },
-            )}
-          >
-            <span
-              className={cn(
-                'text-whop-black block w-full',
-                {
-                  'text-subtitle3': size === 'sm',
-                  'text-subtitle1': size === 'md',
-                  'text-button2': size === 'lg',
-                },
-                labelClassName,
-              )}
-            >
-              {label}
-            </span>
-            {description && (
-              <span
-                className={cn('text-whop-dark-gray block w-full', {
-                  paragraph4: size === 'sm',
-                  paragraph3: size === 'md' || size === 'lg',
-                })}
-              >
-                {description}
-              </span>
-            )}
-          </label>
+          {labelComponent}
         </Item>
       </a>
     ) : (
@@ -212,41 +218,7 @@ export const RadioCardItem = forwardRef<
             />
           </div>
         )}
-        <label
-          className={cn(
-            'cursor-pointer space-y-1  text-left group-disabled:cursor-not-allowed',
-            {
-              'mt-[-1px]':
-                size === 'sm' && !!description && variant === 'radio',
-              'mt-[-0.75px]':
-                size === 'md' && !!description && variant === 'radio',
-            },
-          )}
-        >
-          <span
-            className={cn(
-              'text-whop-black block w-full',
-              {
-                'text-subtitle3': size === 'sm',
-                'text-subtitle1': size === 'md',
-                'text-button2': size === 'lg',
-              },
-              labelClassName,
-            )}
-          >
-            {label}
-          </span>
-          {description && (
-            <span
-              className={cn('text-whop-dark-gray block w-full', {
-                paragraph4: size === 'sm',
-                paragraph3: size === 'md' || size === 'lg',
-              })}
-            >
-              {description}
-            </span>
-          )}
-        </label>
+        {labelComponent}
       </Item>
     );
   },

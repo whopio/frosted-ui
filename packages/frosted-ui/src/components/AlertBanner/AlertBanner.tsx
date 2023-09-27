@@ -6,6 +6,7 @@ import { ColorScheme } from '../../lib/shared-component-types';
 import { Icon } from '../Icon';
 import { IconButton, IconButtonProps } from '../IconButton';
 import { TextButton, TextButtonProps } from '../TextButton';
+import { Typography } from '../Typography';
 
 export type AlertBannerVariant = 'default' | 'light-anchor';
 export const AlertBannerVariants: { [key: string]: AlertBannerVariant } = {
@@ -107,9 +108,15 @@ export const AlertBanner = ({
       <div className="flex items-start">
         <Icon icon={icon} className={cn('mr-2 h-[18px] w-[18px]', textColor)} />
         <div className="space-y-1">
-          {title && <p className={cn('text-subtitle2', textColor)}>{title}</p>}
+          {title && (
+            <Typography as="h5" variant="subtitle2" className={cn(textColor)}>
+              {title}
+            </Typography>
+          )}
           {description && (
-            <p className={cn('text-paragraph3', textColor)}>{description}</p>
+            <Typography as="p" variant="paragraph3" className={cn(textColor)}>
+              {description}
+            </Typography>
           )}
           {showCta && ctaButtonProps && (
             <TextButton

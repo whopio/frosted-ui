@@ -16,6 +16,7 @@ import {
   Size,
 } from '../../lib/shared-component-types';
 import { Icon } from '../Icon';
+import { Typography } from '../Typography';
 
 export type ButtonSize = Size;
 export const ButtonSizes: { [key: string]: Size } = {
@@ -119,6 +120,7 @@ export const Button = forwardRef(function Button<
 >(
   {
     type = 'button',
+    // TODO: wrong "size" type. Fix that
     size = 'md',
     variant = 'primary',
     colorScheme = 'brand',
@@ -281,11 +283,11 @@ export const Button = forwardRef(function Button<
             variant === 'blank' && colorScheme == 'white',
         },
         {
-          'text-subtitle4 h-6 px-[7px]': size === 'xs',
-          'text-subtitle3 h-8 px-[11px]': size === 'sm',
-          'text-button4 h-10 px-[15px]': size === 'md',
-          'text-button2 h-12 px-[19px]': size === 'lg',
-          'text-button1 h-14 px-[23px]': size === 'xl',
+          'h-6 px-[7px]': size === 'xs',
+          'h-8 px-[11px]': size === 'sm',
+          'h-10 px-[15px]': size === 'md',
+          'h-12 px-[19px]': size === 'lg',
+          'h-14 px-[23px]': size === 'xl',
         },
         {
           '!cursor-not-allowed': isDisabled || isLoading,
@@ -345,7 +347,21 @@ export const Button = forwardRef(function Button<
       />
 
       {/* Render children with a z-index of 10 so they are immune to the backdrop filter */}
-      <div className="z-10 flex items-center justify-center">
+      <Typography
+        as="div"
+        variant={
+          (
+            {
+              xs: 'subtitle4',
+              sm: 'subtitle3',
+              md: 'button4',
+              lg: 'button2',
+              xl: 'button1',
+            } as const
+          )[size as ButtonSize]
+        }
+        className="z-10 flex items-center justify-center"
+      >
         {/* The loading icon is absolute positioned in the center of the box */}
         {isLoading && (
           <Icon className="fa-spin absolute z-20" icon={faSpinner} />
@@ -396,7 +412,7 @@ export const Button = forwardRef(function Button<
             )}
           />
         )}
-      </div>
+      </Typography>
     </Component>
   );
 }) as <C extends ElementType = 'button'>(

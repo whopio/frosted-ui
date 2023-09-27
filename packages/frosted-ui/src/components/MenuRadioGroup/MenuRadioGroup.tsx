@@ -29,11 +29,7 @@ export const MenuRadioGroup = forwardRef<
       <>
         {separatorTop && <MenuSeparator className="mt-1" />}
         <RadioGroup ref={ref} className={cn('mt-1', className)} {...props}>
-          {label && (
-            <MenuLabel className="text-overline4 text-whop-dark-gray mb-1 ml-3 mt-3 uppercase">
-              {label}
-            </MenuLabel>
-          )}
+          {label && <MenuLabel>{label}</MenuLabel>}
           {children}
         </RadioGroup>
         {separatorBottom && <MenuSeparator className="my-1" />}

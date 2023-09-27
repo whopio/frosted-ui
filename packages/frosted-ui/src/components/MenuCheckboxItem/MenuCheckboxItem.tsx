@@ -7,6 +7,7 @@ import React, { forwardRef } from 'react';
 import { cn } from '../../lib/classnames';
 import { Checkbox } from '../Checkbox';
 import { MenuSize } from '../Menu';
+import { Typography } from '../Typography';
 
 export type CheckedState = MenuCheckboxItemProps['checked'];
 
@@ -18,7 +19,7 @@ export const MenuCheckboxItem = forwardRef<
     <CheckboxItem
       ref={forwardedRef}
       className={cn(
-        'text-subtitle3 mx-1 flex items-center rounded pl-3 pr-2 transition',
+        'mx-1 flex items-center rounded pl-3 pr-2 transition',
         'focus:bg-whop-hover cursor-pointer select-none outline-none focus:outline-none',
         'data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50',
         {
@@ -31,7 +32,9 @@ export const MenuCheckboxItem = forwardRef<
     >
       <Checkbox checked={props.checked} colorScheme="black" className="mr-3" />
 
-      {children}
+      <Typography as="span" variant="subtitle3">
+        {children}
+      </Typography>
     </CheckboxItem>
   );
 });
