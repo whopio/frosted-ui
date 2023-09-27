@@ -370,14 +370,4 @@ export const fontSize = {
       fontWeight: '600',
     },
   ],
-} as Record<
-  string,
-  [
-    fontSize: string,
-    configuration: Partial<{
-      lineHeight: string;
-      letterSpacing: string;
-      fontWeight: string | number;
-    }>,
-  ]
->;
+} as const;

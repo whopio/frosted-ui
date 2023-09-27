@@ -37,7 +37,17 @@ export default function frostedPreset({
           mono: ["'Klamp 105 Mono'", ..._fontFamily.mono],
           display: ["'Maison Neue Extended Black'", ..._fontFamily.sans],
         },
-        fontSize,
+        fontSize: fontSize as Record<
+          keyof typeof fontSize,
+          [
+            fontSize: string,
+            configuration: {
+              lineHeight: string;
+              letterSpacing: string;
+              fontWeight: string | number;
+            },
+          ]
+        >,
         colors: light.extend.colors,
         boxShadow: {
           sm: '0px 1px 4px rgba(0, 0, 0, 0.08)',

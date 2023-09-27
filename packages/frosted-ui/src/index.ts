@@ -71,4 +71,5 @@ export * from './components/TextButton';
 export * from './components/Toaster';
 export * from './components/Tooltip';
 export * from './components/TooltipProvider';
+export * from './components/Typography';
 export * from './components/toast';
