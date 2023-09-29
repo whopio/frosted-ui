@@ -183,8 +183,8 @@ export const Select = forwardRef<
               sticky={sticky}
               hideWhenDetached={hideWhenDetached}
               className={cn(
-                // z-index has to be bigger than z-index of <Modal /> or <Drawer />
-                'z-[111] border-whop-stroke-dark bg-whop-background mt-1.5 max-h-[var(--radix-select-content-available-height)] w-[244px] overflow-auto rounded-md border py-1 shadow-lg focus:outline-none',
+                // Z-INDEX: toast 500 -> tooltip 400 -> dropdowns 300 -> modal 200 -> drawer 100
+                'z-[300] border-whop-stroke-dark bg-whop-background mt-1.5 max-h-[var(--radix-select-content-available-height)] w-[244px] overflow-auto rounded-md border py-1 shadow-lg focus:outline-none',
                 contentClassName,
               )}
             >

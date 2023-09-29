@@ -110,7 +110,8 @@ export const Tooltip = forwardRef<
             sideOffset={8}
             className={cn(
               'animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
-              'w-max-content relative z-50 max-w-[276px] whitespace-normal rounded-md shadow',
+              // Z-INDEX: toast 500 -> tooltip 400 -> dropdowns 300 -> modal 200 -> drawer 100
+              'w-max-content relative z-[400] max-w-[276px] whitespace-normal rounded-md shadow',
               {
                 'bg-whop-black px-2 py-1.5': variant === 'compact',
                 'bg-whop-background border-whop-stroke w-[276px] border px-[14px] py-2.5':

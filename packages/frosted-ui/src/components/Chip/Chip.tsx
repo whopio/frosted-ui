@@ -256,7 +256,6 @@ export const Chip = ({
         })}
       />
 
-      {/* Render children with a z-index of 10 so they are immune to the backdrop filter */}
       <Typography
         as="div"
         variant={
@@ -270,12 +269,10 @@ export const Chip = ({
             } as const
           )[size]
         }
-        className="z-10 flex items-center justify-center"
+        className="flex items-center justify-center"
       >
         {/* The loading icon is absolute positioned in the center of the box */}
-        {isLoading && (
-          <Icon className="fa-spin absolute z-20" icon={faSpinner} />
-        )}
+        {isLoading && <Icon className="fa-spin absolute" icon={faSpinner} />}
 
         {/* The left icon is rendered to the left of the children with 2em of margin on the right if children are present */}
         {leftIcon && (

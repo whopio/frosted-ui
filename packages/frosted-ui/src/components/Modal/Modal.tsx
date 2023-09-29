@@ -59,7 +59,12 @@ const ModalRoot = ({
   return (
     <ModalContext.Provider value={{ onClose }}>
       <Transition.Root appear show={open} as={Fragment}>
-        <Dialog as="div" onClose={onClose} className="relative z-[110]">
+        <Dialog
+          as="div"
+          onClose={onClose}
+          // Z-INDEX: toast 500 -> tooltip 400 -> dropdowns 300 -> modal 200 -> drawer 100
+          className="relative z-[200]"
+        >
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"

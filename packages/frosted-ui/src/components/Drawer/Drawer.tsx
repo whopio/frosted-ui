@@ -36,7 +36,12 @@ export const Drawer = ({
 
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="absolute z-[100]" onClose={handleClose}>
+      <Dialog
+        as="div"
+        // Z-INDEX: toast 500 -> tooltip 400 -> dropdowns 300 -> modal 200 -> drawer 100
+        className="absolute z-[100]"
+        onClose={handleClose}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-in-out duration-500"

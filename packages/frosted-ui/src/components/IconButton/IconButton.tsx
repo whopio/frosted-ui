@@ -275,12 +275,9 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
               !isLoading,
           })}
         />
-        {/* Render children with a z-index of 10 so they are immune to the backdrop filter */}
-        <div className="z-10 flex items-center justify-center">
+        <div className="flex items-center justify-center">
           {/* The loading icon is absolute positioned in the center of the box */}
-          {isLoading && (
-            <Icon className="fa-spin absolute z-20" icon={faSpinner} />
-          )}
+          {isLoading && <Icon className="fa-spin absolute" icon={faSpinner} />}
           {/* If icon and no children are present, render them as usual if not loading, and transparent if loading */}
           {icon && (
             <Icon
