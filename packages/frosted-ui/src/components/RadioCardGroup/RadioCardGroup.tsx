@@ -15,11 +15,10 @@ export const RadioCardVariants: { [key: string]: RadioCardVariant } = {
   'No radio': 'no-radio',
 };
 
-export type RadioCardSize = Extract<Size, 'sm' | 'md' | 'lg'>;
+export type RadioCardSize = Extract<Size, 'sm' | 'md'>;
 export const RadioCardSizes: { [key: string]: RadioCardSize } = {
   Small: 'sm',
   Medium: 'md',
-  Large: 'lg',
 };
 
 export type RadioCardColorScheme = Extract<ColorScheme, 'brand' | 'purple'>;

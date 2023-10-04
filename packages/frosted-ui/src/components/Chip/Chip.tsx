@@ -15,13 +15,11 @@ import {
 import { Icon } from '../Icon';
 import { Typography } from '../Typography';
 
-export type ChipSize = Size;
+export type ChipSize = Extract<Size, 'xs' | 'sm' | 'md'>;
 export const ChipSizes: { [key: string]: ChipSize } = {
   'Extra small': 'xs',
   Small: 'sm',
   Medium: 'md',
-  Large: 'lg',
-  'Extra large': 'xl',
 };
 
 export type ChipVariant =
@@ -210,8 +208,6 @@ export const Chip = ({
           'h-6 px-[10px]': size === 'xs',
           'h-8 px-[14px]': size === 'sm',
           'h-10 px-[18px]': size === 'md',
-          'h-12 px-[22px]': size === 'lg',
-          'h-14 px-[26px]': size === 'xl',
         },
         {
           '!cursor-not-allowed': isDisabled || isLoading,
@@ -264,8 +260,6 @@ export const Chip = ({
               xs: 'subtitle4',
               sm: 'subtitle3',
               md: 'button4',
-              lg: 'button2',
-              xl: 'button1',
             } as const
           )[size]
         }
@@ -286,8 +280,6 @@ export const Chip = ({
               { 'mr-[5px] text-[12px]': !!children && size === 'xs' },
               { 'mr-[6px] text-[14px]': !!children && size === 'sm' },
               { 'mr-[7px] text-[14px]': !!children && size === 'md' },
-              { 'mr-[8px] text-[16px]': !!children && size === 'lg' },
-              { 'mr-[9px] text-[16px]': !!children && size === 'xl' },
               leftIconClassName,
             )}
           />
@@ -312,8 +304,6 @@ export const Chip = ({
               { 'ml-[5px] text-[10px]': !!children && size === 'xs' },
               { 'ml-[6px] text-[12px]': !!children && size === 'sm' },
               { 'ml-[7px] text-[12px]': !!children && size === 'md' },
-              { 'ml-[8px] text-[14px]': !!children && size === 'lg' },
-              { 'ml-[9px] text-[14px]': !!children && size === 'xl' },
               rightIconClassName,
             )}
           />

@@ -9,13 +9,7 @@ import { Root as Label } from '@radix-ui/react-label';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useId } from 'react';
 import { cn } from '../../lib/classnames';
-import { ColorScheme, Size } from '../../lib/shared-component-types';
-
-export type CheckboxSize = Extract<Size, 'md' | 'lg'>;
-export const CheckboxSizes: { [key: string]: CheckboxSize } = {
-  Medium: 'md',
-  Large: 'lg',
-};
+import { ColorScheme } from '../../lib/shared-component-types';
 
 export type CheckboxColorScheme = Extract<ColorScheme, 'brand' | 'black'>;
 export const CheckboxColorSchemes: { [key: string]: CheckboxColorScheme } = {
@@ -24,7 +18,6 @@ export const CheckboxColorSchemes: { [key: string]: CheckboxColorScheme } = {
 };
 
 export interface CheckboxProps {
-  size?: CheckboxSize;
   colorScheme?: CheckboxColorScheme;
   wrapperClassName?: string;
   className?: string;
@@ -41,7 +34,6 @@ export interface CheckboxProps {
 }
 
 export const Checkbox = ({
-  size = 'md',
   colorScheme = 'brand',
   label,
   removeMotion = false,
@@ -77,11 +69,8 @@ export const Checkbox = ({
         value={value}
         className={cn(
           'text-whop-background flex appearance-none items-center justify-center border-2 outline-none',
-          'disabled:cursor-not-allowed disabled:opacity-40',
-          {
-            'h-4 w-4 rounded-[2.25px]': size === 'md',
-            'h-5 w-5 rounded-[3px]': size === 'lg',
-          },
+          'disabled:cursor-not-allowed disabled:opacity-40 h-4 w-4 rounded-[2.25px]',
+
           {
             'data-[state=checked]:bg-whop-primary data-[state=indeterminate]:bg-whop-primary data-[state=checked]:border-whop-primary data-[state=indeterminate]:border-whop-primary':
               colorScheme === 'brand',
@@ -94,32 +83,16 @@ export const Checkbox = ({
       >
         <Indicator className={cn('text-whop-background', iconClassName)}>
           {(checked === 'indeterminate' ||
-            defaultChecked === 'indeterminate') && (
-            <IndeterminateIcon
-              className={cn({ 'h-5 w-5 stroke-2': size === 'lg' })}
-            />
-          )}
+            defaultChecked === 'indeterminate') && <IndeterminateIcon />}
           {checked !== 'indeterminate' &&
-            (removeMotion ? (
-              <CheckIcon
-                className={cn({ 'h-5 w-5 stroke-2': size === 'lg' })}
-              />
-            ) : (
-              <MotionCheckIcon
-                className={cn({ 'h-5 w-5 stroke-2 text-white': size === 'lg' })}
-              />
-            ))}
+            (removeMotion ? <CheckIcon /> : <MotionCheckIcon />)}
         </Indicator>
       </Root>
       {label && (
         <Label
           className={cn(
-            'ml-3 cursor-pointer',
+            'ml-3 cursor-pointer text-text3 text-whop-black',
             { 'cursor-not-allowed opacity-40': isDisabled },
-            {
-              'text-text3 text-whop-black': size === 'md',
-              'text-text1 text-whop-black': size === 'lg',
-            },
             labelClassName,
           )}
           htmlFor={id || defaultId}

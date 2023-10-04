@@ -13,13 +13,12 @@ import { MenuItem } from '../MenuItem';
 import { MenuLabel } from '../MenuLabel';
 import { MenuRadioGroup } from '../MenuRadioGroup';
 import { MenuRadioItem } from '../MenuRadioItem';
-import { Menu, MenuSizes } from './Menu';
+import { Menu } from './Menu';
 
 const meta: Meta<typeof Menu> = {
   title: 'General/Menu',
   component: Menu,
   args: {
-    size: 'sm',
     trigger: (
       <IconButton
         size="sm"
@@ -52,29 +51,6 @@ export const ChangeAlignment: Story = {
   },
 };
 
-export const Sizes: Story = {
-  argTypes: {
-    size: {
-      control: false,
-    },
-  },
-  render: (args) => {
-    const sizes = Object.values(MenuSizes);
-    return (
-      <div className="flex justify-between space-x-6">
-        {sizes.map((size) => (
-          <Menu
-            key={size}
-            {...args}
-            size={size}
-            contentProps={{ align: size == 'md' ? 'end' : 'start' }}
-          />
-        ))}
-      </div>
-    );
-  },
-};
-
 export const Composable: Story = {
   args: {
     items: undefined,
@@ -86,34 +62,26 @@ export const Composable: Story = {
     const [item, setItem] = React.useState('item1');
 
     return (
-      <Menu {...args} size={args.size}>
-        <MenuItem size={args.size}>New tab</MenuItem>
-        <MenuItem icon={faStar} size={args.size}>
-          New tab
-        </MenuItem>
+      <Menu {...args}>
+        <MenuItem>New tab</MenuItem>
+        <MenuItem icon={faStar}>New tab</MenuItem>
         <MenuGroup>
           <MenuLabel>Windows</MenuLabel>
-          <MenuItem
-            icon={faStar}
-            onClick={() => alert('Delete clicked')}
-            size={args.size}
-          >
+          <MenuItem icon={faStar} onClick={() => alert('Delete clicked')}>
             New window
           </MenuItem>
-          <MenuItem size={args.size}>New private window</MenuItem>
+          <MenuItem>New private window</MenuItem>
         </MenuGroup>
         <MenuGroup label="Checkbox group">
           <MenuCheckboxItem
             checked={bookmarksChecked}
             onCheckedChange={setBookmarksChecked}
-            size={args.size}
           >
             Show bookmarks
           </MenuCheckboxItem>
           <MenuCheckboxItem
             checked={urlsChecked}
             onCheckedChange={setUrlsChecked}
-            size={args.size}
           >
             Show full urls
           </MenuCheckboxItem>
@@ -123,12 +91,8 @@ export const Composable: Story = {
           value={item}
           onValueChange={setItem}
         >
-          <MenuRadioItem value="item1" size={args.size}>
-            RadioItem
-          </MenuRadioItem>
-          <MenuRadioItem value="item2" size={args.size}>
-            RadioItem
-          </MenuRadioItem>
+          <MenuRadioItem value="item1">RadioItem</MenuRadioItem>
+          <MenuRadioItem value="item2">RadioItem</MenuRadioItem>
         </MenuRadioGroup>
       </Menu>
     );

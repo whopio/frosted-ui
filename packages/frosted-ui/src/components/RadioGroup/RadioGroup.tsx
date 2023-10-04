@@ -6,14 +6,8 @@ import {
 } from '@radix-ui/react-radio-group';
 import React from 'react';
 import { cn } from '../../lib/classnames';
-import { ColorScheme, Size } from '../../lib/shared-component-types';
+import { ColorScheme } from '../../lib/shared-component-types';
 import { RadioItem, RadioItemProps } from '../RadioItem';
-
-export type RadioSize = Extract<Size, 'md' | 'lg'>;
-export const RadioSizes: { [key: string]: RadioSize } = {
-  Medium: 'md',
-  Large: 'lg',
-};
 
 export type RadioColorScheme = Extract<
   ColorScheme,
@@ -27,7 +21,6 @@ export const RadioColorSchemes: { [key: string]: RadioColorScheme } = {
 
 export interface RadioGroupProps {
   items: RadioItemProps[];
-  size?: RadioSize;
   colorScheme?: RadioColorScheme;
   isDisabled?: boolean;
   isRequired?: boolean;
@@ -35,7 +28,6 @@ export interface RadioGroupProps {
 
 export const RadioGroup = ({
   items,
-  size = 'md',
   colorScheme = 'brand',
   isDisabled = false,
   isRequired = false,
@@ -52,12 +44,7 @@ export const RadioGroup = ({
       {...props}
     >
       {items.map((item) => (
-        <RadioItem
-          key={item?.label}
-          size={size}
-          colorScheme={colorScheme}
-          {...item}
-        />
+        <RadioItem key={item?.label} colorScheme={colorScheme} {...item} />
       ))}
     </Root>
   );

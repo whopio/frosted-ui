@@ -4,34 +4,24 @@ import type * as Radix from '@radix-ui/react-primitive';
 import React, { forwardRef } from 'react';
 import { cn } from '../../lib/classnames';
 import { Icon } from '../Icon';
-import { MenuSize } from '../Menu';
 import { Typography } from '../Typography';
 
 export const MenuRadioItem = forwardRef<
   React.ElementRef<typeof RadioItem>,
-  Radix.ComponentPropsWithoutRef<typeof RadioItem> & { size?: MenuSize }
->(({ children, size = 'sm', className, ...props }, forwardedRef) => {
+  Radix.ComponentPropsWithoutRef<typeof RadioItem>
+>(({ children, className, ...props }, forwardedRef) => {
   return (
     <RadioItem
       ref={forwardedRef}
       className={cn(
-        'mx-1 flex items-center rounded pl-3 pr-2 transition',
+        'mx-1 flex items-center rounded pl-3 pr-2 transition h-8',
         'focus:bg-whop-hover cursor-pointer select-none outline-none focus:outline-none',
         'data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50',
-        {
-          'h-8': size === 'sm',
-          'h-10': size === 'md',
-        },
         className,
       )}
       {...props}
     >
-      <span
-        className={cn('mr-3 flex items-center justify-center', {
-          'h-8 w-4': size === 'sm',
-          'h-10 w-5': size === 'md',
-        })}
-      >
+      <span className="mr-3 flex items-center justify-center h-8 w-4">
         <ItemIndicator className="text-sm">
           <Icon icon={faCheck} />
         </ItemIndicator>

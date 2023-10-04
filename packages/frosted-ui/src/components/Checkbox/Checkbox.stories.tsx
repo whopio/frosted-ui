@@ -1,13 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { Checkbox, CheckboxColorSchemes, CheckboxSizes } from './Checkbox';
+import { Checkbox, CheckboxColorSchemes } from './Checkbox';
 
 const meta: Meta<typeof Checkbox> = {
   title: 'Forms/Checkbox',
   component: Checkbox,
   args: {
     colorScheme: 'brand',
-    size: 'md',
     label: 'I agree to the terms and conditions',
     removeMotion: false,
     isDisabled: false,
@@ -34,24 +33,6 @@ export const ColorSchemes: Story = {
       <div className="space-y-6">
         {colorSchemes.map((colorScheme, i) => (
           <Checkbox key={i} {...args} colorScheme={colorScheme} />
-        ))}
-      </div>
-    );
-  },
-};
-
-export const Sizes: Story = {
-  argTypes: {
-    size: {
-      control: false,
-    },
-  },
-  render: (args) => {
-    const sizes = Object.values(CheckboxSizes);
-    return (
-      <div className="space-y-6">
-        {sizes.map((size, i) => (
-          <Checkbox key={i} {...args} size={size} />
         ))}
       </div>
     );

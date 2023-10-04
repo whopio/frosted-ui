@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { RadioColorSchemes, RadioGroup, RadioSizes } from './RadioGroup';
+import { RadioColorSchemes, RadioGroup } from './RadioGroup';
 
 const meta: Meta<typeof RadioGroup> = {
   title: 'Forms/RadioGroup',
@@ -8,7 +8,6 @@ const meta: Meta<typeof RadioGroup> = {
   args: {
     colorScheme: 'brand',
     defaultValue: 'hello',
-    size: 'md',
     isDisabled: false,
     isRequired: false,
     items: [
@@ -31,24 +30,6 @@ export const HorizontalGroup: Story = {
 export const Disabled: Story = {
   args: {
     isDisabled: true,
-  },
-};
-
-export const Sizes: Story = {
-  argTypes: {
-    size: {
-      control: false,
-    },
-  },
-  render: (args) => {
-    const sizes = Object.values(RadioSizes);
-    return (
-      <div className="space-y-6">
-        {sizes.map((size) => (
-          <RadioGroup key={size} {...args} size={size} />
-        ))}
-      </div>
-    );
   },
 };
 

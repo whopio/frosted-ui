@@ -9,7 +9,7 @@ import { Size } from '../../lib/shared-component-types';
 import { Icon } from '../Icon';
 import { Typography } from '../Typography';
 
-export type HorizontalTabSize = Exclude<Size, 'xs' | 'xl'>;
+export type HorizontalTabSize = Extract<Size, 'sm' | 'md'>;
 
 export interface HorizontalTabItemProps {
   icon?: IconDefinition;
@@ -40,12 +40,11 @@ export const HorizontalTabListItem = ({
 
               {
                 'mb-1': size === 'sm',
-                'mb-1.5': size === 'md' || size === 'lg',
+                'mb-1.5': size === 'md',
               },
               {
                 'h-8 px-2.5': size === 'sm',
                 'h-10 px-3': size === 'md',
-                'h-12 px-3': size === 'lg',
               },
             )}
           >
@@ -59,7 +58,7 @@ export const HorizontalTabListItem = ({
                   },
                   {
                     'mr-1.5 h-3.5 w-3.5': size === 'sm',
-                    'mr-[7px] h-4 w-4': size === 'md' || size === 'lg',
+                    'mr-[7px] h-4 w-4': size === 'md',
                   },
                 )}
               />
@@ -86,7 +85,7 @@ export const HorizontalTabListItem = ({
               <div
                 className={cn('z-[2]', {
                   'ml-1.5': size === 'sm',
-                  'ml-[7px]': size === 'md' || size === 'lg',
+                  'ml-[7px]': size === 'md',
                 })}
               >
                 {rightElement}
@@ -100,7 +99,7 @@ export const HorizontalTabListItem = ({
                 'bg-whop-primary absolute bottom-0 z-[2] w-full rounded-t-full',
                 {
                   'h-0.5': size === 'sm',
-                  'h-[3px]': size === 'md' || size === 'lg',
+                  'h-[3px]': size === 'md',
                 },
               )}
               layoutId="activeUnderline"

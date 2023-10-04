@@ -6,10 +6,8 @@ import React, { forwardRef } from 'react';
 import { cn } from '../../lib/classnames';
 import { IconDefinition } from '../../lib/icon-types';
 import { Icon } from '../Icon';
-import { MenuSize } from '../Menu';
 
 export type MenuItemProps = {
-  size?: MenuSize;
   icon?: IconDefinition;
   colorScheme?: 'black' | 'error-red';
 } & DropdownMenuItemProps;
@@ -19,7 +17,7 @@ export const MenuItem = forwardRef<
   Radix.ComponentPropsWithoutRef<typeof Item> & MenuItemProps
 >(
   (
-    { icon, size = 'sm', colorScheme = 'black', children, className, ...props },
+    { icon, colorScheme = 'black', children, className, ...props },
     forwardedRef,
   ) => {
     return (
@@ -29,14 +27,11 @@ export const MenuItem = forwardRef<
           'text-subtitle3 mx-1 flex items-center rounded px-2 transition',
           'cursor-pointer select-none outline-none focus:outline-none',
           'data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50',
+          'h-8',
           {
             'focus:bg-whop-hover text-whop-black': colorScheme === 'black',
             'focus:bg-whop-tag-error-background text-whop-tag-error':
               colorScheme === 'error-red',
-          },
-          {
-            'h-8': size === 'sm',
-            'h-10': size === 'md',
           },
           className,
         )}
