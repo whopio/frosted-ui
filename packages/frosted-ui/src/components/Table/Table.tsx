@@ -169,7 +169,7 @@ export const Table = <Data extends object>({
                           }}
                           key={header.id}
                           className={cn(
-                            'text-overline4 group whitespace-nowrap py-[11px] text-left uppercase',
+                            'text-overline1 group whitespace-nowrap py-[11px] text-left uppercase',
                           )}
                         >
                           {header.isPlaceholder ? null : (
@@ -235,7 +235,7 @@ export const Table = <Data extends object>({
                             <td
                               key={cell.id}
                               style={{ width: cell.column.getSize() }}
-                              className="text-text3 text-whop-black overflow-hidden whitespace-nowrap"
+                              className="text-body2 text-whop-black overflow-hidden whitespace-nowrap"
                               align={(cell.column.columnDef.meta as any)?.align}
                             >
                               {flexRender(

@@ -4,7 +4,7 @@ import { cn } from '../../lib/classnames';
 import { IconDefinition } from '../../lib/icon-types';
 import { Button, ButtonProps } from '../Button';
 import { Icon } from '../Icon';
-import { Typography } from '../Typography';
+import { Text } from '../Text';
 
 export interface EmptyStateProps {
   icon?: IconDefinition;
@@ -35,16 +35,12 @@ export const EmptyState = ({
           <Icon icon={icon} className={'text-whop-gray h-6 w-6'} />
         </div>
         <div>
-          <Typography as="p" variant="header4" className="text-whop-off-black">
+          <Text as="p" variant="h3" className="text-whop-off-black">
             {title}
-          </Typography>
-          <Typography
-            as="p"
-            variant="paragraph3"
-            className="text-whop-dark-gray mt-1"
-          >
+          </Text>
+          <Text as="p" variant="body2" className="text-whop-dark-gray mt-1">
             {description}
-          </Typography>
+          </Text>
         </div>
         <div className="mx-auto flex w-full flex-col-reverse gap-2 sm:flex-row sm:justify-center">
           {secondaryButton && (

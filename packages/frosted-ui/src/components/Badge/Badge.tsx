@@ -1,7 +1,7 @@
 import React from 'react';
 import { cn } from '../../lib/classnames';
 import { ColorScheme, Size } from '../../lib/shared-component-types';
-import { Typography } from '../Typography';
+import { Text } from '../Text';
 
 export type BadgeSize = Extract<Size, 'sm' | 'md'>;
 export const BadgeSizes: { [key: string]: BadgeSize } = {
@@ -110,9 +110,9 @@ export const Badge = ({
       )}
       {...props}
     >
-      <Typography as="span" variant="subtitle5">
+      <Text as="span" variant="button3">
         {text}
-      </Typography>
+      </Text>
     </div>
   );
 };

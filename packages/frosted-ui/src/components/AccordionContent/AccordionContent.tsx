@@ -12,7 +12,7 @@ export const AccordionContent = React.forwardRef<
     <Content
       ref={ref}
       className={cn(
-        'data-[state=open]:animate-slide-from-top data-[state=closed]:animate-slide-to-top overflow-hidden text-sm',
+        'data-[state=open]:animate-slide-from-top data-[state=closed]:animate-slide-to-top overflow-hidden text-body2',
         className,
       )}
       {...props}

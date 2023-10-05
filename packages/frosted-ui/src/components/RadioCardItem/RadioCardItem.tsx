@@ -13,7 +13,7 @@ import {
   RadioCardSize,
   RadioCardVariant,
 } from '../RadioCardGroup';
-import { Typography } from '../Typography';
+import { Text } from '../Text';
 
 export type RadioCardItemProps = {
   label: string | ReactNode;
@@ -61,30 +61,29 @@ export const RadioCardItem = forwardRef<
           },
         )}
       >
-        <Typography
+        <Text
           as="span"
           variant={
             (
               {
-                sm: 'subtitle3',
-                md: 'subtitle1',
-                lg: 'button2',
+                sm: 'button2',
+                md: 'button1',
               } as const
             )[size]
           }
           className={cn('text-whop-black block w-full', labelClassName)}
         >
           {label}
-        </Typography>
+        </Text>
 
         {description && (
-          <Typography
+          <Text
             as="span"
-            variant={size === 'sm' ? 'paragraph4' : 'paragraph3'}
+            variant={size === 'sm' ? 'body2' : 'body1'}
             className="text-whop-dark-gray block w-full"
           >
             {description}
-          </Typography>
+          </Text>
         )}
       </label>
     );

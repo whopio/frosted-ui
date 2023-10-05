@@ -5,7 +5,7 @@ import type * as Radix from '@radix-ui/react-primitive';
 import React, { forwardRef } from 'react';
 import { cn } from '../../lib/classnames';
 import { MenuSeparator } from '../MenuSeparator';
-import { Typography } from '../Typography';
+import { Text } from '../Text';
 
 export const MenuGroup = forwardRef<
   React.ElementRef<typeof Group>,
@@ -32,13 +32,13 @@ export const MenuGroup = forwardRef<
         {separatorTop && <MenuSeparator className="mb-0" />}
         <Group ref={ref} className={cn('mt-1', className)} {...props}>
           {label && (
-            <Typography
+            <Text
               as="label"
-              variant="overline4"
+              variant="overline1"
               className="block text-whop-dark-gray mb-1 ml-3 mt-3 uppercase"
             >
               {label}
-            </Typography>
+            </Text>
           )}
           {children}
         </Group>

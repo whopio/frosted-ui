@@ -1,7 +1,7 @@
 import { Label } from '@radix-ui/react-dropdown-menu';
 import type * as Radix from '@radix-ui/react-primitive';
 import React, { forwardRef } from 'react';
-import { Typography } from '../Typography';
+import { Text } from '../Text';
 
 export const MenuLabel = forwardRef<
   React.ElementRef<typeof Label>,
@@ -13,9 +13,9 @@ export const MenuLabel = forwardRef<
       className="text-whop-dark-gray mb-1 ml-3 mt-3 uppercase"
       {...props}
     >
-      <Typography as="span" variant="overline4" className="block">
+      <Text as="span" variant="overline1" className="block">
         {children}
-      </Typography>
+      </Text>
     </Label>
   );
 });

@@ -24,7 +24,7 @@ export const MenuItem = forwardRef<
       <Item
         ref={forwardedRef}
         className={cn(
-          'text-subtitle3 mx-1 flex items-center rounded px-2 transition',
+          'text-body2 mx-1 flex items-center rounded px-2 transition',
           'cursor-pointer select-none outline-none focus:outline-none',
           'data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50',
           'h-8',

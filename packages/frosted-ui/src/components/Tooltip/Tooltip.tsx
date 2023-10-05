@@ -12,8 +12,8 @@ import {
 import React, { ElementType, ReactNode, forwardRef } from 'react';
 import { cn } from '../../lib/classnames';
 import { Icon } from '../Icon';
+import { Text } from '../Text';
 import { TextButton, type TextButtonProps } from '../TextButton';
-import { Typography } from '../Typography';
 
 export type TooltipVariant = 'default' | 'compact';
 export const TooltipVariants: { [key: string]: TooltipVariant } = {
@@ -127,20 +127,13 @@ export const Tooltip = forwardRef<
           >
             <>
               {title && variant === 'default' && (
-                <Typography
-                  as="p"
-                  variant="subtitle3"
-                  className="text-whop-black mb-2"
-                >
+                <Text as="p" variant="button2" className="text-whop-black mb-2">
                   {title}
-                </Typography>
+                </Text>
               )}
-              <Typography
-                as="p"
-                variant={variant === 'default' ? 'paragraph3' : 'subtitle5'}
-              >
+              <Text as="p" variant="body2">
                 {description}
-              </Typography>
+              </Text>
               {variant === 'default' && linkProps && (
                 <TextButton
                   colorScheme="purple"

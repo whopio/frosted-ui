@@ -6,7 +6,7 @@ import type * as Radix from '@radix-ui/react-primitive';
 import React, { forwardRef } from 'react';
 import { cn } from '../../lib/classnames';
 import { Checkbox } from '../Checkbox';
-import { Typography } from '../Typography';
+import { Text } from '../Text';
 
 export type CheckedState = MenuCheckboxItemProps['checked'];
 
@@ -27,9 +27,9 @@ export const MenuCheckboxItem = forwardRef<
     >
       <Checkbox checked={props.checked} colorScheme="black" className="mr-3" />
 
-      <Typography as="span" variant="subtitle3">
+      <Text as="span" variant="body2">
         {children}
-      </Typography>
+      </Text>
     </CheckboxItem>
   );
 });

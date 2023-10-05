@@ -10,6 +10,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import React, { useId } from 'react';
 import { cn } from '../../lib/classnames';
 import { ColorScheme } from '../../lib/shared-component-types';
+import { Text } from '../Text';
 
 export type CheckboxColorScheme = Extract<ColorScheme, 'brand' | 'black'>;
 export const CheckboxColorSchemes: { [key: string]: CheckboxColorScheme } = {
@@ -89,15 +90,18 @@ export const Checkbox = ({
         </Indicator>
       </Root>
       {label && (
-        <Label
-          className={cn(
-            'ml-3 cursor-pointer text-text3 text-whop-black',
-            { 'cursor-not-allowed opacity-40': isDisabled },
-            labelClassName,
-          )}
-          htmlFor={id || defaultId}
-        >
-          {label}
+        <Label htmlFor={id || defaultId} asChild>
+          <Text
+            as="label"
+            variant="body2"
+            className={cn(
+              'ml-3 cursor-pointer text-whop-black',
+              { 'cursor-not-allowed opacity-40': isDisabled },
+              labelClassName,
+            )}
+          >
+            {label}
+          </Text>
         </Label>
       )}
     </div>

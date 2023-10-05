@@ -6,7 +6,7 @@ import React, { Fragment, ReactNode, useCallback } from 'react';
 import { cn } from '../../lib/classnames';
 import { Button, ButtonProps } from '../Button';
 import { IconButton } from '../IconButton';
-import { Typography } from '../Typography';
+import { Text } from '../Text';
 
 export interface DrawerProps {
   open: boolean;
@@ -75,13 +75,9 @@ export const Drawer = ({
                 <div className="bg-whop-background flex h-full flex-col overflow-y-scroll shadow-xl">
                   <div className="ml-8 mr-[88px] mt-6">
                     <Dialog.Title>
-                      <Typography
-                        as="h2"
-                        variant="header3"
-                        className="text-whop-black"
-                      >
+                      <Text as="h2" variant="h3" className="text-whop-black">
                         {title}
-                      </Typography>
+                      </Text>
                     </Dialog.Title>
 
                     <IconButton
@@ -95,13 +91,13 @@ export const Drawer = ({
 
                     {description && (
                       <Dialog.Description>
-                        <Typography
+                        <Text
                           as="p"
-                          variant="paragraph3"
+                          variant="body2"
                           className="text-whop-dark-gray mt-1.5"
                         >
                           {description}
-                        </Typography>
+                        </Text>
                       </Dialog.Description>
                     )}
                   </div>
