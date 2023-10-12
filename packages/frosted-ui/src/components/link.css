@@ -1,0 +1,88 @@
+.rt-Link {
+  cursor: var(--cursor-link);
+  color: var(--accent-a11);
+  border-radius: calc(0.07em * var(--radius-factor));
+
+  &:where(:focus-visible) {
+    outline-color: var(--color-focus-root);
+    outline-width: 2px;
+    outline-style: solid;
+    outline-offset: 2px;
+  }
+
+  &:where(.rt-high-contrast),
+  :where(.rt-CalloutRoot:not(.rt-high-contrast)) &,
+  :where(.rt-Text, .rt-Heading):where([data-accent-color]:not(.rt-high-contrast)) & {
+    color: var(--accent-12);
+  }
+}
+
+/***************************************************************************************************
+ *                                                                                                 *
+ * UNDERLINE                                                                                       *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+.rt-Link {
+  text-decoration-line: none;
+  text-decoration-style: solid;
+  text-decoration-thickness: min(2px, max(1px, 0.05em));
+  text-underline-offset: calc(0.025em + 2px);
+  text-decoration-color: var(--accent-a5);
+
+  /* Enhancement for bright colors */
+  @supports (color: color-mix(in oklab, white, black)) {
+    & {
+      text-decoration-color: color-mix(in oklab, var(--accent-a5), var(--gray-a6));
+    }
+  }
+
+  &:where(.rt-underline-auto) {
+    @media (hover: hover) {
+      &:where(:hover) {
+        text-decoration-line: underline;
+      }
+    }
+
+    &:where(.rt-high-contrast),
+    :where(.rt-CalloutRoot:not(.rt-high-contrast)) &,
+    :where(.rt-Text, .rt-Heading):where([data-accent-color]:not(.rt-high-contrast)) & {
+      text-decoration-line: underline;
+      text-decoration-color: var(--accent-a6);
+
+      /* Enhancement for bright colors */
+      @supports (color: color-mix(in oklab, white, black)) {
+        & {
+          text-decoration-color: color-mix(in oklab, var(--accent-a6), var(--gray-a6));
+        }
+      }
+    }
+  }
+
+  &:where(.rt-underline-hover) {
+    @media (hover: hover) {
+      &:where(:hover) {
+        text-decoration-line: underline;
+      }
+    }
+  }
+
+  &:where(.rt-underline-always) {
+    text-decoration-line: underline;
+  }
+}
+
+/* all focused states underline */
+
+.rt-Link:where(:focus-visible) {
+  text-decoration-line: none;
+}
+
+/* Enhancement – hide underline for when Link's only child is a Code where underline is hard to see */
+/* prettier-ignore */
+.rt-Link:where(:has(.rt-Code:not(.rt-variant-ghost):only-child)) {
+  text-decoration-line: none;
+}
+.rt-Link:where(:has(.rt-Code:only-child)) {
+  outline: none;
+}

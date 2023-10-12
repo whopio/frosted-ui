@@ -1,0 +1,54 @@
+/* stylelint-disable selector-max-type */
+/* Disable selector-max-type rule to target individual element types. */
+/* Make sure these tags are wrapped in `:where()` for 0 specificity. */
+
+.radix-themes:where([data-is-root-theme='true']) {
+  /* create new stacking context on the root `Theme` so layered components work out of the box */
+  position: relative;
+  z-index: 0;
+}
+
+.rt-reset:where(a) {
+  cursor: var(--cursor-link);
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+}
+
+.rt-reset:where(button) {
+  appearance: none;
+  cursor: var(--cursor-button);
+  background-color: transparent;
+  border: none;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  outline: none;
+  color: inherit;
+  padding: 0;
+  margin: 0;
+  text-align: initial;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.rt-reset:where(h1, h2, h3, h4, h5, h6) {
+  font-size: inherit;
+  font-weight: inherit;
+  margin: 0;
+}
+
+.rt-reset:where(ol, ul) {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rt-reset:where(p) {
+  margin: 0;
+}
+
+.rt-reset:where(pre) {
+  font-family: inherit;
+  margin: 0;
+}

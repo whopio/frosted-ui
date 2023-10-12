@@ -1,0 +1,9 @@
+@breakpoints {
+  .rt-r-fs-0 {
+    flex-shrink: 0;
+  }
+
+  .rt-r-fs-1 {
+    flex-shrink: 1;
+  }
+}
