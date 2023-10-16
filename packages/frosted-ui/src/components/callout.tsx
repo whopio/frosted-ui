@@ -2,7 +2,11 @@
 
 import classNames from 'classnames';
 import * as React from 'react';
-import { withBreakpoints } from '../helpers';
+import {
+  extractMarginProps,
+  withBreakpoints,
+  withMarginProps,
+} from '../helpers';
 import { calloutRootPropDefs } from './callout.props';
 import { Text } from './text';
 import { textPropDefs } from './text.props';
@@ -10,6 +14,7 @@ import { textPropDefs } from './text.props';
 import type {
   ExtractPropsForTag,
   GetPropDefTypes,
+  MarginProps,
   PropsWithoutRefOrColor,
 } from '../helpers';
 
@@ -21,9 +26,11 @@ const CalloutContext = React.createContext<CalloutContextValue>({});
 type CalloutRootElement = React.ElementRef<'div'>;
 interface CalloutRootProps
   extends PropsWithoutRefOrColor<'div'>,
+    MarginProps,
     CalloutContextValue {}
 const CalloutRoot = React.forwardRef<CalloutRootElement, CalloutRootProps>(
   (props, forwardedRef) => {
+    const { rest: marginRest, ...marginProps } = extractMarginProps(props);
     const {
       children,
       className,
@@ -32,7 +39,7 @@ const CalloutRoot = React.forwardRef<CalloutRootElement, CalloutRootProps>(
       color = calloutRootPropDefs.color.default,
       highContrast = calloutRootPropDefs.highContrast.default,
       ...rootProps
-    } = props;
+    } = marginRest;
     return (
       <div
         data-accent-color={color}
@@ -43,6 +50,7 @@ const CalloutRoot = React.forwardRef<CalloutRootElement, CalloutRootProps>(
           withBreakpoints(size, 'rt-r-size'),
           `rt-variant-${variant}`,
           { 'rt-high-contrast': highContrast },
+          withMarginProps(marginProps),
         )}
         ref={forwardedRef}
       >
@@ -61,7 +69,7 @@ const CalloutRoot = React.forwardRef<CalloutRootElement, CalloutRootProps>(
 CalloutRoot.displayName = 'CalloutRoot';
 
 type CalloutIconElement = React.ElementRef<'div'>;
-type CalloutIconProps = PropsWithoutRefOrColor<'div'>;
+interface CalloutIconProps extends PropsWithoutRefOrColor<'div'> {}
 const CalloutIcon = React.forwardRef<CalloutIconElement, CalloutIconProps>(
   (props, forwardedRef) => {
     const { color, size, highContrast } = React.useContext(CalloutContext);
