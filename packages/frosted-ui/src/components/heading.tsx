@@ -1,13 +1,23 @@
 import { Slot } from '@radix-ui/react-slot';
 import classNames from 'classnames';
 import * as React from 'react';
-import { withBreakpoints } from '../helpers';
+import {
+  extractMarginProps,
+  withBreakpoints,
+  withMarginProps,
+} from '../helpers';
 import { headingPropDefs } from './heading.props';
 
-import type { GetPropDefTypes, PropsWithoutRefOrColor } from '../helpers';
+import type {
+  GetPropDefTypes,
+  MarginProps,
+  NiceIntersection,
+  PropsWithoutRefOrColor,
+} from '../helpers';
 
 type HeadingElement = React.ElementRef<'h1'>;
 type HeadingOwnProps = GetPropDefTypes<typeof headingPropDefs>;
+type CommonHeadingProps = NiceIntersection<MarginProps, HeadingOwnProps>;
 type HeadingAsChildProps = {
   asChild?: boolean;
   as?: never;
@@ -16,9 +26,10 @@ type HeadingAsProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   asChild?: never;
 } & PropsWithoutRefOrColor<'h1'>;
-type HeadingProps = HeadingOwnProps & (HeadingAsChildProps | HeadingAsProps);
+type HeadingProps = CommonHeadingProps & (HeadingAsChildProps | HeadingAsProps);
 const Heading = React.forwardRef<HeadingElement, HeadingProps>(
   (props, forwardedRef) => {
+    const { rest: marginRest, ...marginProps } = extractMarginProps(props);
     const {
       children,
       className,
@@ -31,7 +42,7 @@ const Heading = React.forwardRef<HeadingElement, HeadingProps>(
       color = headingPropDefs.color.default,
       highContrast = headingPropDefs.highContrast.default,
       ...headingProps
-    } = props;
+    } = marginRest;
     return (
       <Slot
         data-accent-color={color}
@@ -45,6 +56,7 @@ const Heading = React.forwardRef<HeadingElement, HeadingProps>(
           withBreakpoints(align, 'rt-r-ta'),
           withBreakpoints(trim, 'rt-r-lt'),
           { 'rt-high-contrast': highContrast },
+          withMarginProps(marginProps),
         )}
       >
         {asChild ? children : <Tag>{children}</Tag>}
