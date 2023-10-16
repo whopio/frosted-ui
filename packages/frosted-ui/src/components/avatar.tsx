@@ -3,21 +3,31 @@
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
 import classNames from 'classnames';
 import * as React from 'react';
-import { withBreakpoints } from '../helpers';
+import {
+  extractMarginProps,
+  withBreakpoints,
+  withMarginProps,
+} from '../helpers';
 import { avatarPropDefs } from './avatar.props';
 
-import type { GetPropDefTypes, PropsWithoutRefOrColor } from '../helpers';
+import type {
+  GetPropDefTypes,
+  MarginProps,
+  PropsWithoutRefOrColor,
+} from '../helpers';
 
 type AvatarElement = React.ElementRef<typeof AvatarPrimitive.Image>;
 type AvatarOwnProps = GetPropDefTypes<typeof avatarPropDefs>;
 interface AvatarProps
   extends PropsWithoutRefOrColor<typeof AvatarPrimitive.Image>,
+    MarginProps,
     AvatarOwnProps {
   // TODO: See if we can automate making prop defs with `required: true` non nullable
   fallback: NonNullable<AvatarOwnProps['fallback']>;
 }
 const Avatar = React.forwardRef<AvatarElement, AvatarProps>(
   (props, forwardedRef) => {
+    const { rest: marginRest, ...marginProps } = extractMarginProps(props);
     const {
       className,
       style,
@@ -28,7 +38,7 @@ const Avatar = React.forwardRef<AvatarElement, AvatarProps>(
       radius = avatarPropDefs.radius.default,
       fallback,
       ...imageProps
-    } = props;
+    } = marginRest;
     const [status, setStatus] = React.useState<
       'idle' | 'loading' | 'loaded' | 'error'
     >('idle');
@@ -42,6 +52,7 @@ const Avatar = React.forwardRef<AvatarElement, AvatarProps>(
           withBreakpoints(size, 'rt-r-size'),
           `rt-variant-${variant}`,
           { 'rt-high-contrast': highContrast },
+          withMarginProps(marginProps),
         )}
         style={style}
       >
@@ -79,3 +90,4 @@ const Avatar = React.forwardRef<AvatarElement, AvatarProps>(
 Avatar.displayName = 'Avatar';
 
 export { Avatar };
+export type { AvatarProps };
