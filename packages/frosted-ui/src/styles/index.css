@@ -73,3 +73,6 @@
 @import './utilities/width.css';
 
 @import '../theme-panel.css';
+
+/* Lab */
+@import '../components/lab/shine.css';

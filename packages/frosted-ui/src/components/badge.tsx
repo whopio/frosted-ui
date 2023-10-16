@@ -1,27 +1,15 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import {
-  extractMarginProps,
-  withBreakpoints,
-  withMarginProps,
-} from '../helpers';
+import { withBreakpoints } from '../helpers';
 import { badgePropDefs } from './badge.props';
 
-import type {
-  GetPropDefTypes,
-  MarginProps,
-  PropsWithoutRefOrColor,
-} from '../helpers';
+import type { GetPropDefTypes, PropsWithoutRefOrColor } from '../helpers';
 
 type BadgeElement = React.ElementRef<'span'>;
 type BadgeOwnProps = GetPropDefTypes<typeof badgePropDefs>;
-interface BadgeProps
-  extends PropsWithoutRefOrColor<'span'>,
-    MarginProps,
-    BadgeOwnProps {}
+interface BadgeProps extends PropsWithoutRefOrColor<'span'>, BadgeOwnProps {}
 const Badge = React.forwardRef<BadgeElement, BadgeProps>(
   (props, forwardedRef) => {
-    const { rest: marginRest, ...marginProps } = extractMarginProps(props);
     const {
       className,
       size = badgePropDefs.size.default,
@@ -30,7 +18,7 @@ const Badge = React.forwardRef<BadgeElement, BadgeProps>(
       highContrast = badgePropDefs.highContrast.default,
       radius = badgePropDefs.radius.default,
       ...badgeProps
-    } = marginRest;
+    } = props;
     return (
       <span
         data-accent-color={color}
@@ -43,7 +31,6 @@ const Badge = React.forwardRef<BadgeElement, BadgeProps>(
           withBreakpoints(size, 'rt-r-size'),
           `rt-variant-${variant}`,
           { 'rt-high-contrast': highContrast },
-          withMarginProps(marginProps),
         )}
       />
     );

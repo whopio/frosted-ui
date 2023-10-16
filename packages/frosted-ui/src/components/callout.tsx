@@ -1,17 +1,16 @@
 'use client';
 
-import * as React from 'react';
 import classNames from 'classnames';
+import * as React from 'react';
+import { withBreakpoints } from '../helpers';
+import { calloutRootPropDefs } from './callout.props';
 import { Text } from './text';
 import { textPropDefs } from './text.props';
-import { calloutRootPropDefs } from './callout.props';
-import { extractMarginProps, withMarginProps, withBreakpoints } from '../helpers';
 
 import type {
-  PropsWithoutRefOrColor,
-  MarginProps,
-  GetPropDefTypes,
   ExtractPropsForTag,
+  GetPropDefTypes,
+  PropsWithoutRefOrColor,
 } from '../helpers';
 
 type CalloutRootOwnProps = GetPropDefTypes<typeof calloutRootPropDefs>;
@@ -22,11 +21,9 @@ const CalloutContext = React.createContext<CalloutContextValue>({});
 type CalloutRootElement = React.ElementRef<'div'>;
 interface CalloutRootProps
   extends PropsWithoutRefOrColor<'div'>,
-    MarginProps,
     CalloutContextValue {}
 const CalloutRoot = React.forwardRef<CalloutRootElement, CalloutRootProps>(
   (props, forwardedRef) => {
-    const { rest: marginRest, ...marginProps } = extractMarginProps(props);
     const {
       children,
       className,
@@ -35,7 +32,7 @@ const CalloutRoot = React.forwardRef<CalloutRootElement, CalloutRootProps>(
       color = calloutRootPropDefs.color.default,
       highContrast = calloutRootPropDefs.highContrast.default,
       ...rootProps
-    } = marginRest;
+    } = props;
     return (
       <div
         data-accent-color={color}
@@ -46,28 +43,35 @@ const CalloutRoot = React.forwardRef<CalloutRootElement, CalloutRootProps>(
           withBreakpoints(size, 'rt-r-size'),
           `rt-variant-${variant}`,
           { 'rt-high-contrast': highContrast },
-          withMarginProps(marginProps)
         )}
         ref={forwardedRef}
       >
         <CalloutContext.Provider
-          value={React.useMemo(() => ({ size, color, highContrast }), [size, color, highContrast])}
+          value={React.useMemo(
+            () => ({ size, color, highContrast }),
+            [size, color, highContrast],
+          )}
         >
           {children}
         </CalloutContext.Provider>
       </div>
     );
-  }
+  },
 );
 CalloutRoot.displayName = 'CalloutRoot';
 
 type CalloutIconElement = React.ElementRef<'div'>;
-interface CalloutIconProps extends PropsWithoutRefOrColor<'div'> {}
+type CalloutIconProps = PropsWithoutRefOrColor<'div'>;
 const CalloutIcon = React.forwardRef<CalloutIconElement, CalloutIconProps>(
   (props, forwardedRef) => {
     const { color, size, highContrast } = React.useContext(CalloutContext);
     return (
-      <Text asChild color={color} size={getTextSize(size)} highContrast={highContrast}>
+      <Text
+        asChild
+        color={color}
+        size={getTextSize(size)}
+        highContrast={highContrast}
+      >
         <div
           {...props}
           className={classNames('rt-CalloutIcon', props.className)}
@@ -75,7 +79,7 @@ const CalloutIcon = React.forwardRef<CalloutIconElement, CalloutIconProps>(
         />
       </Text>
     );
-  }
+  },
 );
 CalloutIcon.displayName = 'CalloutIcon';
 
@@ -95,21 +99,26 @@ const CalloutText = React.forwardRef<CalloutTextElement, CalloutTextProps>(
         className={classNames('rt-CalloutText', props.className)}
       />
     );
-  }
+  },
 );
 CalloutText.displayName = 'CalloutText';
 
-function getTextSize(size: CalloutRootOwnProps['size']): React.ComponentProps<typeof Text>['size'] {
+function getTextSize(
+  size: CalloutRootOwnProps['size'],
+): React.ComponentProps<typeof Text>['size'] {
   if (size === undefined) return undefined;
   if (typeof size === 'string') {
     return getNonResponsiveTextSize(size);
   }
   return Object.fromEntries(
-    Object.entries(size).map(([key, value]) => [key, getNonResponsiveTextSize(value)])
+    Object.entries(size).map(([key, value]) => [
+      key,
+      getNonResponsiveTextSize(value),
+    ]),
   );
 }
 function getNonResponsiveTextSize(
-  size: (typeof calloutRootPropDefs.size.values)[number]
+  size: (typeof calloutRootPropDefs.size.values)[number],
 ): (typeof textPropDefs.size.values)[number] {
   return size === '3' ? '3' : '2';
 }
@@ -120,8 +129,8 @@ const Callout = Object.assign(
     Root: CalloutRoot,
     Icon: CalloutIcon,
     Text: CalloutText,
-  }
+  },
 );
 
-export { Callout, CalloutRoot, CalloutIcon, CalloutText };
-export type { CalloutRootProps, CalloutIconProps, CalloutTextProps };
+export { Callout, CalloutIcon, CalloutRoot, CalloutText };
+export type { CalloutIconProps, CalloutRootProps, CalloutTextProps };

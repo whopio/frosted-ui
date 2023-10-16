@@ -16,7 +16,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background-color: var(--color-overlay);
+    /* background-color: var(--color-overlay); */
   }
 }
 
@@ -48,24 +48,57 @@
  *                                                                                                 *
  ***************************************************************************************************/
 
-@breakpoints {
-  .rt-DialogContent {
-    &:where(.rt-r-size-1) {
-      --dialog-content-padding: var(--space-3);
-      border-radius: var(--radius-4);
-    }
-    &:where(.rt-r-size-2) {
-      --dialog-content-padding: var(--space-4);
-      border-radius: var(--radius-4);
-    }
-    &:where(.rt-r-size-3) {
-      --dialog-content-padding: var(--space-5);
-      border-radius: var(--radius-5);
-    }
-    &:where(.rt-r-size-4) {
-      --dialog-content-padding: var(--space-6);
-      border-radius: var(--radius-5);
-    }
+/* @breakpoints { */
+.rt-DialogContent {
+  &:where(.rt-r-size-1) {
+    --dialog-content-padding: var(--space-3);
+    border-radius: var(--radius-4);
+  }
+  &:where(.rt-r-size-2) {
+    --dialog-content-padding: var(--space-4);
+    border-radius: var(--radius-4);
+  }
+  &:where(.rt-r-size-3) {
+    --dialog-content-padding: var(--space-5);
+    border-radius: var(--radius-5);
+  }
+  &:where(.rt-r-size-4) {
+    --dialog-content-padding: var(--space-6);
+    border-radius: var(--radius-5);
+  }
+}
+/* } */
+
+@property --overlay-blur {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+@property --overlay-brightness {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@keyframes rt-blur-in {
+  from {
+    --overlay-blur: 0px;
+    --overlay-brightness: 1;
+  }
+  to {
+    --overlay-blur: 3px;
+    --overlay-brightness: 0.7;
+  }
+}
+
+@keyframes rt-blur-out {
+  from {
+    --overlay-blur: 3px;
+    --overlay-brightness: 0.7;
+  }
+  to {
+    --overlay-blur: 0px;
+    --overlay-brightness: 1;
   }
 }
 
@@ -102,22 +135,26 @@
   }
 
   .rt-DialogOverlay {
+    &::after {
+      backdrop-filter: blur(var(--overlay-blur))
+        brightness(var(--overlay-brightness));
+    }
     /* Keep the overlay mounted until the children have animated */
     &:where([data-state='closed']) {
-      animation: rt-dialog-overlay-no-op 250ms cubic-bezier(0.16, 1, 0.3, 1);
+      animation: rt-blur-out 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     &:where([data-state='open'])::after {
-      animation: rt-fade-in 400ms cubic-bezier(0.16, 1, 0.3, 1);
+      animation: rt-blur-in 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
     &:where([data-state='closed'])::after {
-      animation: rt-fade-out 250ms cubic-bezier(0.16, 1, 0.3, 1);
+      animation: rt-blur-out 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
   }
 
   .rt-DialogContent {
     &:where([data-state='open']) {
-      animation: rt-dialog-content-show 200ms cubic-bezier(0.16, 1, 0.3, 1);
+      animation: rt-dialog-content-show 400ms cubic-bezier(0.16, 1, 0.3, 1);
     }
     &:where([data-state='closed']) {
       animation: rt-dialog-content-hide 150ms cubic-bezier(0.16, 1, 0.3, 1);
