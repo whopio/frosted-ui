@@ -1,13 +1,23 @@
 import { Slot } from '@radix-ui/react-slot';
 import classNames from 'classnames';
 import * as React from 'react';
-import { withBreakpoints } from '../helpers';
+import {
+  extractMarginProps,
+  withBreakpoints,
+  withMarginProps,
+} from '../helpers';
 import { textPropDefs } from './text.props';
 
-import type { GetPropDefTypes, PropsWithoutRefOrColor } from '../helpers';
+import type {
+  GetPropDefTypes,
+  MarginProps,
+  NiceIntersection,
+  PropsWithoutRefOrColor,
+} from '../helpers';
 
 type TextElement = React.ElementRef<'span'>;
 type TextOwnProps = GetPropDefTypes<typeof textPropDefs>;
+type CommonTextProps = NiceIntersection<MarginProps, TextOwnProps>;
 type TextAsChildProps = {
   asChild?: boolean;
   as?: never;
@@ -25,7 +35,7 @@ type TextLabelProps = {
   asChild?: never;
 } & PropsWithoutRefOrColor<'label'>;
 type TextPProps = { as: 'p'; asChild?: never } & PropsWithoutRefOrColor<'p'>;
-type TextProps = TextOwnProps &
+type TextProps = CommonTextProps &
   (
     | TextAsChildProps
     | TextSpanProps
@@ -35,6 +45,7 @@ type TextProps = TextOwnProps &
   );
 
 const Text = React.forwardRef<TextElement, TextProps>((props, forwardedRef) => {
+  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     children,
     className,
@@ -47,7 +58,7 @@ const Text = React.forwardRef<TextElement, TextProps>((props, forwardedRef) => {
     color = textPropDefs.color.default,
     highContrast = textPropDefs.highContrast.default,
     ...textProps
-  } = props;
+  } = marginRest;
   return (
     <Slot
       data-accent-color={color}
@@ -61,6 +72,7 @@ const Text = React.forwardRef<TextElement, TextProps>((props, forwardedRef) => {
         withBreakpoints(align, 'rt-r-ta'),
         withBreakpoints(trim, 'rt-r-lt'),
         { 'rt-high-contrast': highContrast },
+        withMarginProps(marginProps),
       )}
     >
       {asChild ? children : <Tag>{children}</Tag>}
