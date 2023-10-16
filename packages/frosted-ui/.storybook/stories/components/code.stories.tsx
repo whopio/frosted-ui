@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Code } from '../../../src/components/code';
+import React from 'react';
+import { Code, Flex } from '../../../src/components';
 import { codePropDefs } from '../../../src/components/code.props';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -23,4 +24,124 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
-export const Default: Story = {};
+export const Default: Story = {
+  args: {
+    children: 'Code',
+    size: codePropDefs.size.default,
+  },
+};
+
+export const Variant: Story = {
+  args: {
+    size: codePropDefs.size.default,
+  },
+  render: (args) => (
+    <Flex direction="column" align="start" gap="2">
+      <Code {...args} variant="solid">
+        console.log()
+      </Code>
+      <Code {...args} variant="soft">
+        console.log()
+      </Code>
+      <Code {...args} variant="outline">
+        console.log()
+      </Code>
+      <Code {...args} variant="ghost">
+        console.log()
+      </Code>
+    </Flex>
+  ),
+};
+
+export const Size: Story = {
+  render: (args) => (
+    <Flex direction="column" gap="3">
+      <Code {...args} size="1">
+        console.log()
+      </Code>
+      <Code {...args} size="2">
+        console.log()
+      </Code>
+      <Code {...args} size="3">
+        console.log()
+      </Code>
+      <Code {...args} size="4">
+        console.log()
+      </Code>
+      <Code {...args} size="5">
+        console.log()
+      </Code>
+      <Code {...args} size="6">
+        console.log()
+      </Code>
+      <Code {...args} size="7">
+        console.log()
+      </Code>
+      <Code {...args} size="8">
+        console.log()
+      </Code>
+      <Code {...args} size="9">
+        console.log()
+      </Code>
+    </Flex>
+  ),
+};
+
+export const Color: Story = {
+  args: {
+    size: codePropDefs.size.default,
+  },
+  render: (args) => (
+    <Flex direction="column" align="start" gap="2">
+      <Code {...args} color="indigo">
+        console.log()
+      </Code>
+      <Code {...args} color="crimson">
+        console.log()
+      </Code>
+      <Code {...args} color="cyan">
+        console.log()
+      </Code>
+      <Code {...args} color="orange">
+        console.log()
+      </Code>
+    </Flex>
+  ),
+};
+
+export const HighContrast: Story = {
+  name: 'High Contrast',
+  render: (args) => (
+    <Flex gap="3">
+      <Flex direction="column" align="start" gap="2">
+        <Code {...args} variant="solid">
+          console.log()
+        </Code>
+        <Code {...args} variant="soft">
+          console.log()
+        </Code>
+        <Code {...args} variant="outline">
+          console.log()
+        </Code>
+        <Code {...args} variant="ghost">
+          console.log()
+        </Code>
+      </Flex>
+
+      <Flex direction="column" align="start" gap="2">
+        <Code {...args} variant="solid" highContrast>
+          console.log()
+        </Code>
+        <Code {...args} variant="soft" highContrast>
+          console.log()
+        </Code>
+        <Code {...args} variant="outline" highContrast>
+          console.log()
+        </Code>
+        <Code {...args} variant="ghost" highContrast>
+          console.log()
+        </Code>
+      </Flex>
+    </Flex>
+  ),
+};
