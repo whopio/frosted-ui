@@ -19,7 +19,12 @@ const meta = {
         className="Image"
         src="https://images.unsplash.com/photo-1535025183041-0991a977e25b?w=300&dpr=2&q=80"
         alt="Landscape photograph by Tobias Tullius"
-        style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+        style={{
+          objectFit: 'cover',
+          width: '100%',
+          height: '100%',
+          borderRadius: 'var(--radius-2)',
+        }}
       />
     ),
   },
@@ -29,12 +34,12 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
-export const Primary: Story = {
+export const Default: Story = {
   args: {
-    ratio: 16 / 9,
+    ratio: 1.5,
   },
   render: (args) => (
-    <div style={{ width: 300, borderRadius: 12, overflow: 'hidden' }}>
+    <div style={{ width: 300 }}>
       <AspectRatio {...args} />
     </div>
   ),
