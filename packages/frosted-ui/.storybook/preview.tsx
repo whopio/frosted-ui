@@ -6,7 +6,12 @@ import '../styles.css';
 const preview: Preview = {
   decorators: [
     (Story) => (
-      <Theme accentColor="orange" grayColor="gray" radius="full" scaling="100%">
+      <Theme
+        accentColor="orange"
+        grayColor="gray"
+        radius="large"
+        scaling="100%"
+      >
         <Story />
         {/* <ThemePanel /> */}
       </Theme>
