@@ -22,7 +22,7 @@ const meta = {
       style={{
         background: 'var(--gray-a2)',
         borderRadius: 'var(--radius-3)',
-        // width: 500,
+        width: 600,
       }}
     >
       {/* TODO: container size classes not working. Probably something wrong with Radix postCSS plugin */}
