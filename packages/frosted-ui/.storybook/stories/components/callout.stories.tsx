@@ -25,6 +25,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     color: calloutRootPropDefs.color.default,
+    variant: calloutRootPropDefs.variant.default,
     children: (
       <>
         You will need to upgrade to the{' '}
@@ -43,6 +44,7 @@ export const Default: Story = {
 export const Size: Story = {
   args: {
     color: calloutRootPropDefs.color.default,
+    variant: calloutRootPropDefs.variant.default,
     children: (
       <>
         You will need to upgrade to the{' '}
@@ -115,6 +117,7 @@ export const Variant: Story = {
 export const Color: Story = {
   args: {
     color: calloutRootPropDefs.color.default,
+    variant: calloutRootPropDefs.variant.default,
     children: (
       <>
         You will need to upgrade to the{' '}
@@ -152,6 +155,7 @@ export const HighContrast: Story = {
   name: 'High Contrast',
   args: {
     color: calloutRootPropDefs.color.default,
+    variant: calloutRootPropDefs.variant.default,
     children: (
       <>
         You will need to upgrade to the{' '}
