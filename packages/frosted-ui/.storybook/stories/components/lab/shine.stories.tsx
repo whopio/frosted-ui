@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
+import { Text } from '../../../../src/components';
 import { Shine } from '../../../../src/components/lab/shine';
-// import { calloutRootPropDefs } from '../../../../src/components/lab/shine.props';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -11,15 +11,9 @@ const meta = {
   args: {
     puffyness: '2',
     children: (
-      <div
-        style={{
-          fontSize: 92,
-          fontWeight: 'bold',
-          color: 'pink',
-        }}
-      >
+      <Text size="9" weight="bold">
         🧸☔️ Shine! ✨👻
-      </div>
+      </Text>
     ),
   },
   parameters: {
