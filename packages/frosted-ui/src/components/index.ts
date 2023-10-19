@@ -36,6 +36,8 @@ export { Strong } from './strong';
 // export * from './form'; 👈
 export { Checkbox } from './checkbox';
 export * from './checkbox.props';
+export { Progress } from './progress';
+export * from './progress.props';
 export { RadioGroup, RadioGroupItem, RadioGroupRoot } from './radio-group';
 export * from './radio-group.props';
 // export * from './radio-card-group';
