@@ -31,12 +31,12 @@ import { Size } from '../../lib/shared-component-types';
 import { Icon } from '../Icon';
 import { Label, LabelProps } from '../Label';
 import { SelectItem, SelectItemProps } from '../SelectItem';
-import { Text } from '../Text';
 
-export type SelectSize = Extract<Size, 'sm' | 'md'>;
+export type SelectSize = Extract<Size, 'sm' | 'md' | 'lg'>;
 export const SelectSizes: { [key: string]: SelectSize } = {
   Small: 'sm',
   Medium: 'md',
+  Large: 'lg',
 };
 
 export type SelectProps = {
@@ -123,13 +123,14 @@ export const Select = forwardRef<
         >
           <Trigger
             className={cn(
-              'data-[placeholder]:text-whop-dark-gray/[50%] bg-whop-background text-whop-black inline-flex w-full min-w-[244px] select-none items-center justify-between rounded-md pl-3 shadow-sm',
+              'data-[placeholder]:text-whop-dark-gray/[50%] bg-whop-background text-whop-black text-text1 inline-flex w-full min-w-[244px] select-none items-center justify-between rounded-md pl-3 shadow-sm',
               'border-whop-stroke-dark focus:border-whop-field-highlight focus:ring-whop-field-highlight/30 border outline-none transition focus:outline-none focus:ring',
               'data-[disabled]:bg-whop-hover data-[disabled]:cursor-not-allowed data-[disabled]:opacity-75',
               className,
               {
                 'h-8': size === 'sm',
                 'h-10': size === 'md',
+                'h-12': size === 'lg',
               },
               {
                 'pl-[38px]': !!leftIcon,
@@ -147,16 +148,16 @@ export const Select = forwardRef<
                   'text-whop-dark-gray/[75%] pointer-events-none absolute left-3',
                   {
                     'text-[15px]': size === 'sm',
-                    'text-base': size === 'md',
+                    'text-base': size === 'md' || size === 'lg',
                   },
                 )}
               >
                 <Icon icon={leftIcon} />
               </IconPrimitive>
             )}
-            <Text as="span" variant="body1" className="truncate">
+            <span className="truncate">
               <Value placeholder={placeholder} aria-label={value} />
-            </Text>
+            </span>
             <IconPrimitive>
               <Icon
                 icon={faChevronDown}
@@ -222,12 +223,12 @@ export const Select = forwardRef<
             {messageIcon && (
               <Icon
                 icon={helpMessage ? faInfoCircle : faExclamationCircle}
-                className="mt-1 h-3"
+                className="mt-px h-3"
               />
             )}
-            <Text as="div" variant="body2" className="flex-wrap">
+            <div className="text-text5 flex-wrap">
               {errorMessage || helpMessage}
-            </Text>
+            </div>
           </div>
         )}
       </div>

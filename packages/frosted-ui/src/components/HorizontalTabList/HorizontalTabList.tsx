@@ -13,7 +13,7 @@ export const HorizontalTabList = ({
   return (
     <Tab.List
       className={cn(
-        'border-whop-stroke flex appearance-none items-center space-x-3 overflow-scroll border-b',
+        'border-whop-stroke flex appearance-none items-center space-x-3 overflow-auto border-b',
         className,
       )}
     >

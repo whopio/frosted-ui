@@ -12,7 +12,7 @@ export const PillTabList = ({
   return (
     <Tab.List
       className={cn(
-        'bg-whop-hover flex h-10 appearance-none items-center overflow-scroll rounded-full p-1',
+        'bg-whop-hover flex h-10 appearance-none items-center overflow-auto rounded-full p-1',
         {
           'max-w-fit': !fullWidth,
         },

@@ -1,6 +1,7 @@
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import type { Meta, StoryObj } from '@storybook/react';
-import { EmptyState } from './EmptyState';
+import React from 'react';
+import { EmptyState, EmptyStateSizes } from './EmptyState';
 
 const meta: Meta<typeof EmptyState> = {
   title: 'General/EmptyState',
@@ -26,5 +27,23 @@ export const WithButtons: Story = {
     secondaryButton: {
       children: 'Schedule a demo',
     },
+  },
+};
+
+export const Sizes: Story = {
+  argTypes: {
+    size: {
+      control: false,
+    },
+  },
+  render: (args) => {
+    const sizes = Object.values(EmptyStateSizes);
+    return (
+      <div className="space-y-6">
+        {sizes.map((size, i) => (
+          <EmptyState key={i} {...args} size={size} />
+        ))}
+      </div>
+    );
   },
 };

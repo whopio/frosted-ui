@@ -5,10 +5,11 @@ import React from 'react';
 import { cn } from '../../lib/classnames';
 import { ColorScheme, Size } from '../../lib/shared-component-types';
 
-type SwitchSize = Extract<Size, 'sm' | 'md'>;
+type SwitchSize = Exclude<Size, 'xs' | 'xl'>;
 export const SwitchSizes: { [key: string]: SwitchSize } = {
   Small: 'sm',
   Medium: 'md',
+  Large: 'lg',
 };
 
 type SwitchColorScheme = Extract<
@@ -61,6 +62,7 @@ export const Switch = ({
         {
           'h-5 w-[36px]': size === 'sm',
           'h-6 w-11': size === 'md',
+          'h-8 w-[60px]': size === 'lg',
         },
       )}
     >
@@ -71,6 +73,7 @@ export const Switch = ({
           {
             'h-[14px] w-[14px]': size === 'sm',
             'h-4 w-4': size === 'md',
+            'h-[22px] w-[22px]': size === 'lg',
           },
           {
             'translate-x-[3px]': size === 'sm' && !checked,
@@ -78,6 +81,9 @@ export const Switch = ({
 
             'translate-x-[4px]': size === 'md' && !checked,
             'translate-x-[23px]': size === 'md' && checked,
+
+            'translate-x-[5px]': size === 'lg' && !checked,
+            'translate-x-[32px]': size === 'lg' && checked,
           },
         )}
       />

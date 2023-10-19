@@ -4,7 +4,6 @@ import { Header, Trigger } from '@radix-ui/react-accordion';
 import { motion } from 'framer-motion';
 import * as React from 'react';
 import { cn } from '../../lib/classnames';
-import { Text } from '../Text';
 
 const PlusIcon = ({ open }: { open: boolean }) => {
   const variants = {
@@ -43,20 +42,18 @@ export const AccordionTrigger = React.forwardRef<
   }
 >(({ className, children, open = false, ...props }, ref) => {
   return (
-    <Header>
-      <Text as="div" variant="h3" className="flex">
-        <Trigger
-          ref={ref}
-          className={cn(
-            'flex flex-1 cursor-pointer items-center justify-between py-4 text-left font-medium outline-none transition-all focus:outline-none',
-            className,
-          )}
-          {...props}
-        >
-          <div>{children}</div>
-          <PlusIcon open={open} />
-        </Trigger>
-      </Text>
+    <Header className="flex text-header4">
+      <Trigger
+        ref={ref}
+        className={cn(
+          'flex flex-1 cursor-pointer items-center justify-between py-4 text-left font-medium outline-none transition-all focus:outline-none',
+          className,
+        )}
+        {...props}
+      >
+        <div>{children}</div>
+        <PlusIcon open={open} />
+      </Trigger>
     </Header>
   );
 });

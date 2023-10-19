@@ -1,7 +1,6 @@
 import React from 'react';
 import { cn } from '../../lib/classnames';
 import { ColorScheme, Size } from '../../lib/shared-component-types';
-import { Text } from '../Text';
 
 export type BadgeSize = Extract<Size, 'sm' | 'md'>;
 export const BadgeSizes: { [key: string]: BadgeSize } = {
@@ -54,7 +53,7 @@ export const Badge = ({
   return (
     <div
       className={cn(
-        'text-whop-background inline-flex w-auto items-center justify-center rounded-full border border-transparent',
+        'text-whop-background text-subtitle5 inline-flex w-auto items-center justify-center rounded-full border border-transparent',
         className,
         {
           'h-[18px] px-1.5': size === 'sm',
@@ -110,9 +109,7 @@ export const Badge = ({
       )}
       {...props}
     >
-      <Text as="span" variant="button3">
-        {text}
-      </Text>
+      {text}
     </div>
   );
 };

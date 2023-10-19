@@ -16,7 +16,6 @@ import { IconDefinition } from '../../lib/icon-types';
 import { Button, ButtonProps } from '../Button';
 import { Icon } from '../Icon';
 import { Progress } from '../Progress';
-import { Text } from '../Text';
 
 type CustomProps = {
   title?: string;
@@ -102,19 +101,13 @@ export const Dropzone = ({
         className="text-whop-gray mb-4 h-14 w-14 text-[56px]"
       />
 
-      <Text
-        as="p"
-        variant="h3"
-        className="text-whop-black text-center sm:text-left"
-      >
+      <p className="text-subtitle1 text-whop-black text-center sm:text-left">
         {title}
-      </Text>
+      </p>
 
-      <Text
-        as="p"
-        variant="body2"
+      <p
         className={cn(
-          'text-whop-dark-gray mt-2 text-center sm:text-left',
+          'text-paragraph4 text-whop-dark-gray mt-2 text-center sm:text-left',
           { 'opacity-0': Boolean(loading) },
           { 'text-whop-error-red': isDragReject || hasFileRejections },
         )}
@@ -127,7 +120,7 @@ export const Dropzone = ({
         {fileSizeLimit && !isDragReject && !hasFileRejections && (
           <> Max {fileSizeLimit}.</>
         )}
-      </Text>
+      </p>
 
       {Boolean(loading) && typeof loading === 'number' ? (
         <Progress value={Math.round(loading)} className="mt-4" />

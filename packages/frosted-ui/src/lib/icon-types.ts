@@ -1,1 +1,1 @@
-export type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+export type { IconDefinition } from '@fortawesome/free-solid-svg-icons';

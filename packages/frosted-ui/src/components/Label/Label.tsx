@@ -3,7 +3,6 @@
 import { LabelProps as RadixLabelProps, Root } from '@radix-ui/react-label';
 import React from 'react';
 import { cn } from '../../lib/classnames';
-import { Text } from '../Text';
 import { Tooltip, TooltipProps } from '../Tooltip';
 
 export type LabelVariant = 'default' | 'emphasized';
@@ -28,17 +27,13 @@ export const Label = ({
   ...rest
 }: LabelProps) => {
   return (
-    <Text
-      as="div"
-      variant={variant === 'default' ? 'body2' : 'button2'}
-      className={cn('flex items-center', wrapperClassName)}
-    >
+    <div className={cn('flex items-center', wrapperClassName)}>
       <Root
         className={cn(
           'mr-1.5',
           {
-            'text-whop-dark-gray': variant === 'default',
-            'text-whop-black': variant === 'emphasized',
+            'text-text3 text-whop-dark-gray': variant === 'default',
+            'text-subtitle3 text-whop-black': variant === 'emphasized',
           },
           className,
         )}
@@ -52,6 +47,6 @@ export const Label = ({
           buttonClassName="text-xs leading-[12px] text-whop-dark-gray"
         />
       )}
-    </Text>
+    </div>
   );
 };

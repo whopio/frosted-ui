@@ -6,7 +6,6 @@ import React, { Fragment, ReactNode, useCallback } from 'react';
 import { cn } from '../../lib/classnames';
 import { Button, ButtonProps } from '../Button';
 import { IconButton } from '../IconButton';
-import { Text } from '../Text';
 
 export interface DrawerProps {
   open: boolean;
@@ -74,10 +73,11 @@ export const Drawer = ({
               <Dialog.Panel className="pointer-events-auto w-screen max-w-[500px]">
                 <div className="bg-whop-background flex h-full flex-col overflow-y-scroll shadow-xl">
                   <div className="ml-8 mr-[88px] mt-6">
-                    <Dialog.Title>
-                      <Text as="h2" variant="h3" className="text-whop-black">
-                        {title}
-                      </Text>
+                    <Dialog.Title
+                      as="h2"
+                      className={cn('text-header3 text-whop-black')}
+                    >
+                      {title}
                     </Dialog.Title>
 
                     <IconButton
@@ -90,14 +90,13 @@ export const Drawer = ({
                     />
 
                     {description && (
-                      <Dialog.Description>
-                        <Text
-                          as="p"
-                          variant="body2"
-                          className="text-whop-dark-gray mt-1.5"
-                        >
-                          {description}
-                        </Text>
+                      <Dialog.Description
+                        as="p"
+                        className={cn(
+                          'text-whop-dark-gray text-paragraph3 mt-1.5',
+                        )}
+                      >
+                        {description}
                       </Dialog.Description>
                     )}
                   </div>

@@ -14,6 +14,7 @@ import {
 export const HorizontalTabSizes: { [key: string]: HorizontalTabSize } = {
   Small: 'sm',
   Medium: 'md',
+  Large: 'lg',
 };
 
 export interface HorizontalTabProps extends PropsWithChildren {

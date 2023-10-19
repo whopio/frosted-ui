@@ -20,7 +20,7 @@ export const decorators = [
     themes: {
       light: 'light',
       darkOne: 'biz-dark-1',
-      darkTwo: 'biz-dark-2',
+      // darkTwo: 'biz-dark-2',
     },
     defaultTheme: 'light',
   }),
@@ -37,11 +37,6 @@ const preview: Preview = {
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/,
-      },
-    },
-    options: {
-      storySort: {
-        order: ['Design System', 'General', 'Forms'],
       },
     },
   },

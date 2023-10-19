@@ -9,7 +9,7 @@ import {
 } from '../HorizontalTabListItem';
 import { HorizontalTabPanel } from '../HorizontalTabPanel';
 import { HorizontalTabPanelGroup } from '../HorizontalTabPanelGroup';
-import { HorizontalTabGroup, HorizontalTabSizes } from './HorizontalTabGroup';
+import { HorizontalTabGroup } from './HorizontalTabGroup';
 
 const meta: Meta<typeof HorizontalTabGroup> = {
   title: 'General/HorizontalTabGroup',
@@ -90,7 +90,7 @@ export const Animations: Story = {
 
 export const Sizes: Story = {
   render: (args) => {
-    const sizes = Object.values(HorizontalTabSizes);
+    const sizes = ['sm', 'md', 'lg'];
     const [selectedIndex, setSelectedIndex] = React.useState(
       args.defaultTab || 0,
     );

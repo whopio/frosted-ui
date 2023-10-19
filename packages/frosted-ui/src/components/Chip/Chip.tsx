@@ -13,13 +13,14 @@ import {
   Size,
 } from '../../lib/shared-component-types';
 import { Icon } from '../Icon';
-import { Text } from '../Text';
 
-export type ChipSize = Extract<Size, 'xs' | 'sm' | 'md'>;
+export type ChipSize = Size;
 export const ChipSizes: { [key: string]: ChipSize } = {
   'Extra small': 'xs',
   Small: 'sm',
   Medium: 'md',
+  Large: 'lg',
+  'Extra large': 'xl',
 };
 
 export type ChipVariant =
@@ -205,9 +206,11 @@ export const Chip = ({
             variant === 'blank' && colorScheme == 'white',
         },
         {
-          'h-6 px-[10px]': size === 'xs',
-          'h-8 px-[14px]': size === 'sm',
-          'h-10 px-[18px]': size === 'md',
+          'text-subtitle4 h-6 px-[10px]': size === 'xs',
+          'text-subtitle3 h-8 px-[14px]': size === 'sm',
+          'text-button4 h-10 px-[18px]': size === 'md',
+          'text-button2 h-12 px-[22px]': size === 'lg',
+          'text-button1 h-14 px-[26px]': size === 'xl',
         },
         {
           '!cursor-not-allowed': isDisabled || isLoading,
@@ -252,19 +255,8 @@ export const Chip = ({
         })}
       />
 
-      <Text
-        as="div"
-        variant={
-          (
-            {
-              xs: 'button3',
-              sm: 'button3',
-              md: 'button2',
-            } as const
-          )[size]
-        }
-        className="flex items-center justify-center"
-      >
+      {/* Render children with a z-index of 10 so they are immune to the backdrop filter */}
+      <div className="z-10 flex items-center justify-center">
         {/* The loading icon is absolute positioned in the center of the box */}
         {isLoading && <Icon className="fa-spin absolute" icon={faSpinner} />}
 
@@ -280,6 +272,8 @@ export const Chip = ({
               { 'mr-[5px] text-[12px]': !!children && size === 'xs' },
               { 'mr-[6px] text-[14px]': !!children && size === 'sm' },
               { 'mr-[7px] text-[14px]': !!children && size === 'md' },
+              { 'mr-[8px] text-[16px]': !!children && size === 'lg' },
+              { 'mr-[9px] text-[16px]': !!children && size === 'xl' },
               leftIconClassName,
             )}
           />
@@ -304,11 +298,13 @@ export const Chip = ({
               { 'ml-[5px] text-[10px]': !!children && size === 'xs' },
               { 'ml-[6px] text-[12px]': !!children && size === 'sm' },
               { 'ml-[7px] text-[12px]': !!children && size === 'md' },
+              { 'ml-[8px] text-[14px]': !!children && size === 'lg' },
+              { 'ml-[9px] text-[14px]': !!children && size === 'xl' },
               rightIconClassName,
             )}
           />
         )}
-      </Text>
+      </div>
     </button>
   );
 };

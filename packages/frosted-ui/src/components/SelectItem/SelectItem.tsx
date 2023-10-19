@@ -9,7 +9,6 @@ import {
 import React, { forwardRef } from 'react';
 import { cn } from '../../lib/classnames';
 import { Icon } from '../Icon';
-import { Text } from '../Text';
 
 export type SelectItemProps = {
   isDisabled?: boolean;
@@ -23,7 +22,7 @@ export const SelectItem = forwardRef<
   return (
     <Item
       className={cn(
-        'mx-1 flex h-8 items-center rounded pl-[34px] pr-2 transition',
+        'text-subtitle3 mx-1 flex h-8 items-center rounded pl-[34px] pr-2 transition',
         'focus:bg-whop-hover cursor-pointer select-none outline-none focus:outline-none',
         'data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50',
         className,
@@ -35,9 +34,9 @@ export const SelectItem = forwardRef<
       <ItemIndicator className="absolute left-3 text-sm">
         <Icon icon={faCheck} />
       </ItemIndicator>
-      <Text as="span" variant="body2" className="truncate">
+      <span className="truncate">
         <ItemText>{textValue || children}</ItemText>
-      </Text>
+      </span>
     </Item>
   );
 });

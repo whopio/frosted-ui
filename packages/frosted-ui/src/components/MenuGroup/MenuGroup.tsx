@@ -1,11 +1,10 @@
 'use client';
 
-import { Group } from '@radix-ui/react-dropdown-menu';
+import { Group, Label } from '@radix-ui/react-dropdown-menu';
 import type * as Radix from '@radix-ui/react-primitive';
 import React, { forwardRef } from 'react';
 import { cn } from '../../lib/classnames';
 import { MenuSeparator } from '../MenuSeparator';
-import { Text } from '../Text';
 
 export const MenuGroup = forwardRef<
   React.ElementRef<typeof Group>,
@@ -32,13 +31,9 @@ export const MenuGroup = forwardRef<
         {separatorTop && <MenuSeparator className="mb-0" />}
         <Group ref={ref} className={cn('mt-1', className)} {...props}>
           {label && (
-            <Text
-              as="label"
-              variant="overline1"
-              className="block text-whop-dark-gray mb-1 ml-3 mt-3 uppercase"
-            >
+            <Label className="text-overline4 text-whop-dark-gray mb-1 ml-3 mt-3 uppercase">
               {label}
-            </Text>
+            </Label>
           )}
           {children}
         </Group>

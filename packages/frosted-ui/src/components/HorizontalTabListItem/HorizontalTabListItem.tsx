@@ -7,9 +7,8 @@ import { cn } from '../../lib/classnames';
 import { IconDefinition } from '../../lib/icon-types';
 import { Size } from '../../lib/shared-component-types';
 import { Icon } from '../Icon';
-import { Text } from '../Text';
 
-export type HorizontalTabSize = Extract<Size, 'sm' | 'md'>;
+export type HorizontalTabSize = Exclude<Size, 'xs' | 'xl'>;
 
 export interface HorizontalTabItemProps {
   icon?: IconDefinition;
@@ -40,11 +39,12 @@ export const HorizontalTabListItem = ({
 
               {
                 'mb-1': size === 'sm',
-                'mb-1.5': size === 'md',
+                'mb-1.5': size === 'md' || size === 'lg',
               },
               {
                 'h-8 px-2.5': size === 'sm',
                 'h-10 px-3': size === 'md',
+                'h-12 px-3': size === 'lg',
               },
             )}
           >
@@ -58,33 +58,31 @@ export const HorizontalTabListItem = ({
                   },
                   {
                     'mr-1.5 h-3.5 w-3.5': size === 'sm',
-                    'mr-[7px] h-4 w-4': size === 'md',
+                    'mr-[7px] h-4 w-4': size === 'md' || size === 'lg',
                   },
                 )}
               />
             )}
-            <Text
-              as="span"
-              variant={
-                (
-                  {
-                    sm: 'button3',
-                    md: 'button2',
-                  } as const
-                )[size]
-              }
-              className={cn('text-whop-dark-gray z-[2]', {
-                'text-whop-black': selected,
-              })}
+            <span
+              className={cn(
+                'text-whop-dark-gray z-[2]',
+                {
+                  'text-whop-black': selected,
+                },
+                {
+                  'text-subtitle3': size === 'sm',
+                  'text-button3': size === 'md',
+                  'text-button2': size === 'lg',
+                },
+              )}
             >
               {children}
-            </Text>
-
+            </span>
             {rightElement && (
               <div
                 className={cn('z-[2]', {
                   'ml-1.5': size === 'sm',
-                  'ml-[7px]': size === 'md',
+                  'ml-[7px]': size === 'md' || size === 'lg',
                 })}
               >
                 {rightElement}
@@ -98,7 +96,7 @@ export const HorizontalTabListItem = ({
                 'bg-whop-primary absolute bottom-0 z-[2] w-full rounded-t-full',
                 {
                   'h-0.5': size === 'sm',
-                  'h-[3px]': size === 'md',
+                  'h-[3px]': size === 'md' || size === 'lg',
                 },
               )}
               layoutId="activeUnderline"

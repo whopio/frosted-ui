@@ -12,7 +12,6 @@ import {
 import React, { ElementType, ReactNode, forwardRef } from 'react';
 import { cn } from '../../lib/classnames';
 import { Icon } from '../Icon';
-import { Text } from '../Text';
 import { TextButton, type TextButtonProps } from '../TextButton';
 
 export type TooltipVariant = 'default' | 'compact';
@@ -99,6 +98,7 @@ export const Tooltip = forwardRef<
             'text-whop-gray focus:outline-none cursor-default',
             buttonClassName,
           )}
+          type="button"
         >
           {children || <Icon icon={faInfoCircle} className="h-3 w-3" />}
         </Trigger>
@@ -117,23 +117,22 @@ export const Tooltip = forwardRef<
                 'bg-whop-background border-whop-stroke w-[276px] border px-[14px] py-2.5':
                   variant === 'default',
               },
-              {
-                'text-whop-black': variant === 'default',
-                'text-whop-background': variant === 'compact',
-              },
               contentClassName,
             )}
             {...props}
           >
             <>
               {title && variant === 'default' && (
-                <Text as="p" variant="button2" className="text-whop-black mb-2">
-                  {title}
-                </Text>
+                <p className="text-subtitle3 text-whop-black mb-2">{title}</p>
               )}
-              <Text as="p" variant="body2">
+              <p
+                className={cn('overflow-hidden', {
+                  'text-paragraph3 text-whop-black': variant === 'default',
+                  'text-subtitle5 text-whop-background': variant === 'compact',
+                })}
+              >
                 {description}
-              </Text>
+              </p>
               {variant === 'default' && linkProps && (
                 <TextButton
                   colorScheme="purple"
