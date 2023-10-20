@@ -1,0 +1,35 @@
+.dark,
+.dark-theme {
+  --orange-a1: #fb000006;
+  --orange-a2: #fe000013;
+  --orange-a3: #fe260027;
+  --orange-a4: #fe320e34;
+  --orange-a5: #fe371441;
+  --orange-a6: #ff3b1855;
+  --orange-a7: #ff3c1a7a;
+  --orange-a8: #ff3c16c5;
+  --orange-a9: #ff5431e2;
+  --orange-a10: #ff7356f3;
+  --orange-a11: #ff8770ec;
+  --orange-a12: #ffd6cefb;
+}
+/* TODO: P3 palette */
+@supports (color: color(display-p3 1 1 1)) {
+  @media (color-gamut: p3) {
+    .dark,
+    .dark-theme {
+      --orange-a1: #fb000006;
+      --orange-a2: #fe000013;
+      --orange-a3: #fe260027;
+      --orange-a4: #fe320e34;
+      --orange-a5: #fe371441;
+      --orange-a6: #ff3b1855;
+      --orange-a7: #ff3c1a7a;
+      --orange-a8: #ff3c16c5;
+      --orange-a9: #ff5431e2;
+      --orange-a10: #ff7356f3;
+      --orange-a11: #ff8770ec;
+      --orange-a12: #ffd6cefb;
+    }
+  }
+}

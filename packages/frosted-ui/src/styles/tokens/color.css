@@ -78,10 +78,15 @@
 @import '@radix-ui/colors/grass-alpha.css';
 @import '@radix-ui/colors/grass-dark-alpha.css';
 
-@import '@radix-ui/colors/orange.css';
-@import '@radix-ui/colors/orange-dark.css';
-@import '@radix-ui/colors/orange-alpha.css';
-@import '@radix-ui/colors/orange-dark-alpha.css';
+/* Using custom Whop-Orange instead of the Radix orange */
+/* @import '@radix-ui/colors/orange.css'; */
+/* @import '@radix-ui/colors/orange-dark.css'; */
+/* @import '@radix-ui/colors/orange-alpha.css'; */
+/* @import '@radix-ui/colors/orange-dark-alpha.css'; */
+@import '../customPalettes/orange.css';
+@import '../customPalettes/orange-dark.css';
+@import '../customPalettes/orange-alpha.css';
+@import '../customPalettes/orange-dark-alpha.css';
 
 @import '@radix-ui/colors/brown.css';
 @import '@radix-ui/colors/brown-dark.css';
@@ -360,6 +365,7 @@
   --lime-surface: #f6f9f0cc;
   --yellow-surface: #fefbe4cc;
   --amber-surface: #fefae4cc;
+  /* TODO: orange surface */
   --orange-surface: #fff5e9cc;
 
   @supports (color: color(display-p3 1 1 1)) {
@@ -395,6 +401,7 @@
         --lime-surface: color(display-p3 0.9725 0.9765 0.9412 / 0.8);
         --yellow-surface: color(display-p3 0.9961 0.9922 0.902 / 0.8);
         --amber-surface: color(display-p3 0.9922 0.9843 0.902 / 0.8);
+        /* TODO: create orange surface P3 color */
         --orange-surface: color(display-p3 0.9961 0.9608 0.9176 / 0.8);
       }
     }
@@ -433,6 +440,7 @@
   --lime-surface: #1b211580;
   --yellow-surface: #231f1380;
   --amber-surface: #271f1380;
+  /* TODO: orange surface dark */
   --orange-surface: #271d1380;
 
   @supports (color: color(display-p3 1 1 1)) {
@@ -468,6 +476,7 @@
         --lime-surface: color(display-p3 0.1098 0.1255 0.0784 / 0.5);
         --yellow-surface: color(display-p3 0.1333 0.1176 0.0706 / 0.5);
         --amber-surface: color(display-p3 0.1412 0.1176 0.0784 / 0.5);
+        /* TODO: orange surface dark P3 */
         --orange-surface: color(display-p3 0.1412 0.1098 0.0706 / 0.5);
       }
     }

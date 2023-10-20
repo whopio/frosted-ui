@@ -1,0 +1,38 @@
+:root,
+.light,
+.light-theme {
+  --orange-1: #fffcfc;
+  --orange-2: #fff8f7;
+  --orange-3: #fff0ee;
+  --orange-4: #ffe6e2;
+  --orange-5: #fdd8d3;
+  --orange-6: #fac7be;
+  --orange-7: #f3b0a2;
+  --orange-8: #ea9280;
+  --orange-9: #ff6243;
+  --orange-10: #d84224;
+  --orange-11: #c33113;
+  --orange-12: #5c271f;
+}
+
+/* TODO: P3 palette */
+@supports (color: color(display-p3 1 1 1)) {
+  @media (color-gamut: p3) {
+    :root,
+    .light,
+    .light-theme {
+      --orange-1: #fffcfc;
+      --orange-2: #fff8f7;
+      --orange-3: #fff0ee;
+      --orange-4: #ffe6e2;
+      --orange-5: #fdd8d3;
+      --orange-6: #fac7be;
+      --orange-7: #f3b0a2;
+      --orange-8: #ea9280;
+      --orange-9: #ff6243;
+      --orange-10: #d84224;
+      --orange-11: #c33113;
+      --orange-12: #5c271f;
+    }
+  }
+}
