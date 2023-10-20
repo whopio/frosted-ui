@@ -7,6 +7,21 @@
   width: var(--avatar-size);
   height: var(--avatar-size);
   flex-shrink: 0;
+  outline-offset: -1px;
+
+  outline: 1px solid var(--accent-a5);
+  background-color: var(--accent-a3);
+
+  & :where(.rt-AvatarFallback) {
+    color: var(--accent-a11);
+  }
+  &:where(.rt-high-contrast) :where(.rt-AvatarFallback) {
+    color: var(--accent-12);
+  }
+}
+.rt-AvatarRoot[data-status='loaded'] {
+  outline: 1px solid var(--gray-a5);
+  background: none;
 }
 
 .rt-AvatarImage {
@@ -106,36 +121,5 @@
       border-radius: max(var(--radius-6), var(--radius-full));
       letter-spacing: var(--letter-spacing-9);
     }
-  }
-}
-
-/***************************************************************************************************
- *                                                                                                 *
- * VARIANTS                                                                                        *
- *                                                                                                 *
- ***************************************************************************************************/
-
-/* solid */
-
-.rt-AvatarRoot:where(.rt-variant-solid) {
-  & :where(.rt-AvatarFallback) {
-    background-color: var(--accent-9);
-    color: var(--accent-9-contrast);
-  }
-  &:where(.rt-high-contrast) :where(.rt-AvatarFallback) {
-    background-color: var(--accent-12);
-    color: var(--accent-1);
-  }
-}
-
-/* soft */
-
-.rt-AvatarRoot:where(.rt-variant-soft) {
-  & :where(.rt-AvatarFallback) {
-    background-color: var(--accent-a3);
-    color: var(--accent-a11);
-  }
-  &:where(.rt-high-contrast) :where(.rt-AvatarFallback) {
-    color: var(--accent-12);
   }
 }

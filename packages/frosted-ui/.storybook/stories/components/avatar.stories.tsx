@@ -21,17 +21,14 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Default: Story = {
   args: {
-    variant: 'soft',
     fallback: 'AB',
     color: 'blue',
-    // label: 'Button',
   },
   render: (args) => (
     <Flex gap="2">
       <Avatar
         {...args}
         src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
-        fallback="A"
       />
       <Avatar {...args} />
     </Flex>
@@ -40,7 +37,6 @@ export const Default: Story = {
 
 export const Size: Story = {
   args: {
-    variant: 'soft',
     fallback: 'AB',
     src: 'https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop',
     color: 'blue',
@@ -55,19 +51,6 @@ export const Size: Story = {
       <Avatar {...args} size="6" />
       <Avatar {...args} size="7" />
       <Avatar {...args} size="8" />
-    </Flex>
-  ),
-};
-
-export const Variant: Story = {
-  args: {
-    fallback: 'AB',
-    color: 'blue',
-  },
-  render: (args) => (
-    <Flex gap="2">
-      <Avatar {...args} variant="solid" />
-      <Avatar {...args} variant="soft" />
     </Flex>
   ),
 };

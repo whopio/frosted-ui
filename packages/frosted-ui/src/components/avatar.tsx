@@ -32,7 +32,6 @@ const Avatar = React.forwardRef<AvatarElement, AvatarProps>(
       className,
       style,
       size = avatarPropDefs.size.default,
-      variant = avatarPropDefs.variant.default,
       color = avatarPropDefs.color.default,
       highContrast = avatarPropDefs.highContrast.default,
       radius = avatarPropDefs.radius.default,
@@ -46,11 +45,11 @@ const Avatar = React.forwardRef<AvatarElement, AvatarProps>(
       <AvatarPrimitive.Root
         data-accent-color={color}
         data-radius={radius}
+        data-status={status}
         className={classNames(
           'rt-AvatarRoot',
           className,
           withBreakpoints(size, 'rt-r-size'),
-          `rt-variant-${variant}`,
           { 'rt-high-contrast': highContrast },
           withMarginProps(marginProps),
         )}
