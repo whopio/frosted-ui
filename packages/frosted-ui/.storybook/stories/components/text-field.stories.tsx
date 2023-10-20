@@ -110,42 +110,61 @@ export const Size: Story = {
 };
 
 export const Variant: Story = {
-  render: (args) => (
+  render: ({ ref, ...args }) => (
     <Flex direction="column" gap="3" style={{ maxWidth: 400 }}>
-      <TextField.Input variant="surface" placeholder="Search the docs…" />
-      <TextField.Input variant="classic" placeholder="Search the docs…" />
-      <TextField.Input variant="soft" placeholder="Search the docs…" />
+      <TextField.Input
+        placeholder="Search the docs…"
+        {...args}
+        variant="surface"
+      />
+      <TextField.Input
+        placeholder="Search the docs…"
+        {...args}
+        variant="classic"
+      />
+      <TextField.Input
+        placeholder="Search the docs…"
+        {...args}
+        variant="soft"
+      />
     </Flex>
   ),
 };
 
 export const Color: Story = {
-  render: (args) => (
+  render: ({ ref, ...args }) => (
     <Flex direction="column" gap="3" style={{ maxWidth: 400 }}>
       <TextField.Input
+        {...args}
+        variant="soft"
+        placeholder="Search the docs…"
         color="indigo"
-        variant="soft"
-        placeholder="Search the docs…"
       />
       <TextField.Input
+        {...args}
+        variant="soft"
+        placeholder="Search the docs…"
         color="green"
-        variant="soft"
-        placeholder="Search the docs…"
       />
       <TextField.Input
-        color="red"
+        {...args}
         variant="soft"
         placeholder="Search the docs…"
+        color="red"
       />
     </Flex>
   ),
 };
 export const Radius: Story = {
-  render: (args) => (
+  render: ({ ref, ...args }) => (
     <Flex direction="column" gap="3" style={{ maxWidth: 400 }}>
-      <TextField.Input radius="none" placeholder="Search the docs…" />
-      <TextField.Input radius="large" placeholder="Search the docs…" />
-      <TextField.Input radius="full" placeholder="Search the docs…" />
+      <TextField.Input placeholder="Search the docs…" {...args} radius="none" />
+      <TextField.Input
+        placeholder="Search the docs…"
+        {...args}
+        radius="large"
+      />
+      <TextField.Input placeholder="Search the docs…" {...args} radius="full" />
     </Flex>
   ),
 };
