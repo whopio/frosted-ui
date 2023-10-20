@@ -11,8 +11,6 @@ const meta = {
   args: {
     size: switchPropDefs.size.default,
     color: switchPropDefs.color.default,
-    variant: switchPropDefs.variant.default,
-    radius: switchPropDefs.radius.default,
     highContrast: switchPropDefs.highContrast.default,
     disabled: false,
   },
@@ -59,24 +57,6 @@ export const Color: Story = {
   ),
 };
 
-export const Variant: Story = {
-  render: (args) => (
-    <Flex gap="2">
-      <Flex direction="column" gap="3">
-        <Switch {...args} variant="surface" />
-        <Switch {...args} variant="classic" />
-        <Switch {...args} variant="soft" />
-      </Flex>
-
-      <Flex direction="column" gap="3">
-        <Switch {...args} variant="surface" defaultChecked />
-        <Switch {...args} variant="classic" defaultChecked />
-        <Switch {...args} variant="soft" defaultChecked />
-      </Flex>
-    </Flex>
-  ),
-};
-
 export const HighContrast: Story = {
   name: 'High Contrast',
   render: (args) => (
@@ -90,16 +70,6 @@ export const HighContrast: Story = {
       <Switch {...args} color="crimson" defaultChecked />
       <Switch {...args} color="crimson" defaultChecked highContrast />
     </Grid>
-  ),
-};
-
-export const Radius: Story = {
-  render: (args) => (
-    <Flex gap="3">
-      <Switch {...args} radius="none" defaultChecked />
-      <Switch {...args} radius="small" defaultChecked />
-      <Switch {...args} radius="full" defaultChecked />
-    </Flex>
   ),
 };
 
