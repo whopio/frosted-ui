@@ -95,12 +95,14 @@ export const Tooltip = forwardRef<
       <Root open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
         <Trigger
           className={cn(
-            'text-whop-gray focus:outline-none cursor-default',
+            'text-whop-gray focus:outline-none cursor-default inline-block',
             buttonClassName,
           )}
-          type="button"
+          asChild
         >
-          {children || <Icon icon={faInfoCircle} className="h-3 w-3" />}
+          <div>
+            {children || <Icon icon={faInfoCircle} className="h-3 w-3" />}
+          </div>
         </Trigger>
         <Portal>
           <Content
