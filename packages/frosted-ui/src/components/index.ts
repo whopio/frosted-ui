@@ -107,6 +107,14 @@ export {
 } from './dialog';
 export * from './dialog.props';
 export {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerRoot,
+  DrawerTitle,
+  DrawerTrigger,
+} from './drawer';
+export {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
