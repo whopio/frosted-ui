@@ -51,7 +51,7 @@ export const Default: Story = {
             </Button>
           </AlertDialog.Cancel>
           <AlertDialog.Action>
-            <Button variant="solid" color="red">
+            <Button variant="classic" color="red">
               Revoke access
             </Button>
           </AlertDialog.Action>
@@ -116,7 +116,9 @@ export const InsetContent: Story = {
                 </Button>
               </AlertDialog.Cancel>
               <AlertDialog.Action>
-                <Button color="red">Delete users</Button>
+                <Button color="red" variant="classic">
+                  Delete users
+                </Button>
               </AlertDialog.Action>
             </Flex>
           </AlertDialog.Content>

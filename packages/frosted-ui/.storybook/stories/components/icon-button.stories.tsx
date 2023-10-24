@@ -79,9 +79,7 @@ export const Variant: Story = {
   render: (args) => (
     <Flex align="center" gap="4">
       <IconButton {...args} variant="classic" />
-      <IconButton {...args} variant="solid" />
       <IconButton {...args} variant="soft" />
-      <IconButton {...args} variant="outline" />
       <IconButton {...args} variant="surface" />
       <IconButton {...args} variant="ghost" />
     </Flex>
@@ -112,16 +110,12 @@ export const HighContrast: Story = {
     <Flex direction="column" gap="2">
       <Flex gap="2">
         <IconButton {...args} highContrast={false} variant="classic" />
-        <IconButton {...args} highContrast={false} variant="solid" />
         <IconButton {...args} highContrast={false} variant="soft" />
-        <IconButton {...args} highContrast={false} variant="outline" />
         <IconButton {...args} highContrast={false} variant="surface" />
       </Flex>
       <Flex gap="2">
         <IconButton {...args} variant="classic" highContrast />
-        <IconButton {...args} variant="solid" highContrast />
         <IconButton {...args} variant="soft" highContrast />
-        <IconButton {...args} variant="outline" highContrast />
         <IconButton {...args} variant="surface" highContrast />
       </Flex>
     </Flex>

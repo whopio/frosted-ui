@@ -24,6 +24,9 @@ const ExampleIcon = () => (
 const meta = {
   title: 'Controls/Button',
   component: Button,
+  args: {
+    disabled: false,
+  },
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
     layout: 'centered',
@@ -71,9 +74,7 @@ export const Variant: Story = {
   render: (args) => (
     <Flex align="center" gap="4">
       <Button {...args} variant="classic" />
-      <Button {...args} variant="solid" />
       <Button {...args} variant="soft" />
-      <Button {...args} variant="outline" />
       <Button {...args} variant="surface" />
       <Button {...args} variant="ghost" />
     </Flex>
@@ -104,17 +105,15 @@ export const HighContrast: Story = {
     <Flex direction="column" gap="2">
       <Flex gap="2">
         <Button {...args} highContrast={false} variant="classic" />
-        <Button {...args} highContrast={false} variant="solid" />
         <Button {...args} highContrast={false} variant="soft" />
-        <Button {...args} highContrast={false} variant="outline" />
         <Button {...args} highContrast={false} variant="surface" />
+        <Button {...args} highContrast={false} variant="ghost" />
       </Flex>
       <Flex gap="2">
         <Button {...args} variant="classic" highContrast />
-        <Button {...args} variant="solid" highContrast />
         <Button {...args} variant="soft" highContrast />
-        <Button {...args} variant="outline" highContrast />
         <Button {...args} variant="surface" highContrast />
+        <Button {...args} variant="ghost" highContrast />
       </Flex>
     </Flex>
   ),

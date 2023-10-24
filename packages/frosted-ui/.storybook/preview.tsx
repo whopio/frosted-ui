@@ -15,8 +15,8 @@ export const withTheme: Decorator = (Story, context) => {
 
   return (
     <Theme
-      accentColor="orange"
-      panelBackground="translucent"
+      accentColor="iris"
+      panelBackground="solid"
       grayColor="slate"
       radius="medium"
       scaling="100%"
