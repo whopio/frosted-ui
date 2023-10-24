@@ -48,26 +48,26 @@
  *                                                                                                 *
  ***************************************************************************************************/
 
-/* @breakpoints { */
-.rt-DialogContent {
-  &:where(.rt-r-size-1) {
-    --dialog-content-padding: var(--space-3);
-    border-radius: var(--radius-4);
-  }
-  &:where(.rt-r-size-2) {
-    --dialog-content-padding: var(--space-4);
-    border-radius: var(--radius-4);
-  }
-  &:where(.rt-r-size-3) {
-    --dialog-content-padding: var(--space-5);
-    border-radius: var(--radius-5);
-  }
-  &:where(.rt-r-size-4) {
-    --dialog-content-padding: var(--space-6);
-    border-radius: var(--radius-5);
+@breakpoints {
+  .rt-DialogContent {
+    &:where(.rt-r-size-1) {
+      --dialog-content-padding: var(--space-3);
+      border-radius: var(--radius-4);
+    }
+    &:where(.rt-r-size-2) {
+      --dialog-content-padding: var(--space-4);
+      border-radius: var(--radius-4);
+    }
+    &:where(.rt-r-size-3) {
+      --dialog-content-padding: var(--space-5);
+      border-radius: var(--radius-5);
+    }
+    &:where(.rt-r-size-4) {
+      --dialog-content-padding: var(--space-6);
+      border-radius: var(--radius-5);
+    }
   }
 }
-/* } */
 
 @property --overlay-blur {
   syntax: '<length>';
