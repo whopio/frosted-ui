@@ -176,10 +176,18 @@ export * from './icon-button.props';
 export { Link } from './link';
 export * from './link.props';
 // export * from './progress';
+export {
+  Skeleton,
+  SkeletonAvatar,
+  SkeletonRect,
+  SkeletonText,
+} from './lab/skeleton';
+export * from './lab/skeleton.props';
 export { ScrollArea } from './scroll-area';
 export * from './scroll-area.props';
 export { Separator } from './separator';
 export * from './separator.props';
+
 // export * from './skeleton';
 export {
   Table,

@@ -1,0 +1,223 @@
+/* Avatar */
+.rt-SkeletonAvatar {
+  display: inline-block;
+  vertical-align: middle;
+  user-select: none;
+  width: var(--skeleton-avatar-size);
+  height: var(--skeleton-avatar-size);
+  flex-shrink: 0;
+
+  background-size: 400% 100%;
+  background-image: linear-gradient(
+    270deg,
+    var(--skeleton-background-color),
+    var(--skeleton-background-shimmer-color),
+    var(--skeleton-background-shimmer-color),
+    var(--skeleton-background-color)
+  );
+
+  --skeleton-background-color: var(--accent-a2);
+  --skeleton-background-shimmer-color: var(--accent-a3);
+  &:where(.rt-high-contrast) {
+    --skeleton-background-color: var(--accent-a4);
+    --skeleton-background-shimmer-color: var(--accent-a6);
+  }
+}
+
+/***************************************************************************************************
+ *                                                                                                 *
+ * SIZES                                                                                           *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+@breakpoints {
+  .rt-SkeletonAvatar {
+    &:where(.rt-r-size-1) {
+      --skeleton-avatar-size: var(--space-5);
+      border-radius: max(var(--radius-2), var(--radius-full));
+    }
+    &:where(.rt-r-size-2) {
+      --skeleton-avatar-size: var(--space-6);
+      border-radius: max(var(--radius-2), var(--radius-full));
+    }
+    &:where(.rt-r-size-3) {
+      --skeleton-avatar-size: var(--space-7);
+      border-radius: max(var(--radius-3), var(--radius-full));
+    }
+    &:where(.rt-r-size-4) {
+      --skeleton-avatar-size: var(--space-8);
+      border-radius: max(var(--radius-3), var(--radius-full));
+    }
+    &:where(.rt-r-size-5) {
+      --skeleton-avatar-size: var(--space-9);
+      border-radius: max(var(--radius-4), var(--radius-full));
+    }
+    &:where(.rt-r-size-6) {
+      --skeleton-avatar-size: 80px;
+      border-radius: max(var(--radius-5), var(--radius-full));
+    }
+    &:where(.rt-r-size-7) {
+      --skeleton-avatar-size: 96px;
+      border-radius: max(var(--radius-5), var(--radius-full));
+    }
+    &:where(.rt-r-size-8) {
+      --skeleton-avatar-size: 128px;
+      border-radius: max(var(--radius-6), var(--radius-full));
+    }
+    &:where(.rt-r-size-9) {
+      --skeleton-avatar-size: 160px;
+      border-radius: max(var(--radius-6), var(--radius-full));
+    }
+  }
+}
+/* Text */
+
+.rt-SkeletonText {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+
+  height: var(--skeleton-text-line-height);
+
+  --skeleton-background-color: var(--accent-a2);
+  --skeleton-background-shimmer-color: var(--accent-a3);
+  &:where(.rt-high-contrast) {
+    --skeleton-background-color: var(--accent-a4);
+    --skeleton-background-shimmer-color: var(--accent-a6);
+  }
+}
+
+.rt-SkeletonText::after {
+  content: '';
+  width: 100%;
+  height: var(--skeleton-text-size);
+
+  background-size: 400% 100%;
+  background-image: linear-gradient(
+    270deg,
+    var(--skeleton-background-color),
+    var(--skeleton-background-shimmer-color),
+    var(--skeleton-background-shimmer-color),
+    var(--skeleton-background-color)
+  );
+
+  border-radius: var(--skeleton-text-border-radius);
+}
+
+/***************************************************************************************************
+ *                                                                                                 *
+ * SIZES                                                                                           *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+@breakpoints {
+  .rt-SkeletonText {
+    &:where(.rt-r-size-1) {
+      --skeleton-text-size: var(--font-size-1);
+      --skeleton-text-line-height: var(--line-height-1);
+      --skeleton-text-border-radius: var(--radius-1);
+    }
+    &:where(.rt-r-size-2) {
+      --skeleton-text-size: var(--font-size-2);
+      --skeleton-text-line-height: var(--line-height-2);
+      --skeleton-text-border-radius: var(--radius-1);
+    }
+    &:where(.rt-r-size-3) {
+      --skeleton-text-size: var(--font-size-3);
+      --skeleton-text-line-height: var(--line-height-3);
+      --skeleton-text-border-radius: var(--radius-2);
+    }
+    &:where(.rt-r-size-4) {
+      --skeleton-text-size: var(--font-size-4);
+      --skeleton-text-line-height: var(--line-height-4);
+      --skeleton-text-border-radius: var(--radius-2);
+    }
+    &:where(.rt-r-size-5) {
+      --skeleton-text-size: var(--font-size-5);
+      --skeleton-text-line-height: var(--line-height-5);
+      --skeleton-text-border-radius: var(--radius-3);
+    }
+    &:where(.rt-r-size-6) {
+      --skeleton-text-size: var(--font-size-6);
+      --skeleton-text-line-height: var(--line-height-6);
+      --skeleton-text-border-radius: var(--radius-3);
+    }
+    &:where(.rt-r-size-7) {
+      --skeleton-text-size: var(--font-size-7);
+      --skeleton-text-line-height: var(--line-height-7);
+      --skeleton-text-border-radius: var(--radius-4);
+    }
+    &:where(.rt-r-size-8) {
+      --skeleton-text-size: var(--font-size-8);
+      --skeleton-text-line-height: var(--line-height-8);
+      --skeleton-text-border-radius: var(--radius-4);
+    }
+    &:where(.rt-r-size-9) {
+      --skeleton-text-size: var(--font-size-9);
+      --skeleton-text-line-height: var(--line-height-9);
+      --skeleton-text-border-radius: var(--radius-5);
+    }
+  }
+}
+
+/* Rect */
+.rt-SkeletonRect {
+  display: inline-block;
+  vertical-align: middle;
+  user-select: none;
+  flex-shrink: 0;
+
+  background-size: 400% 100%;
+  background-image: linear-gradient(
+    270deg,
+    var(--skeleton-background-color),
+    var(--skeleton-background-shimmer-color),
+    var(--skeleton-background-shimmer-color),
+    var(--skeleton-background-color)
+  );
+
+  --skeleton-background-color: var(--accent-a2);
+  --skeleton-background-shimmer-color: var(--accent-a3);
+  &:where(.rt-high-contrast) {
+    --skeleton-background-color: var(--accent-a4);
+    --skeleton-background-shimmer-color: var(--accent-a6);
+  }
+}
+
+/* Shimmer effect */
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes rt-skeleton-shimmer {
+    from {
+      background-position: 200% 0;
+    }
+    to {
+      background-position: -200% 0;
+    }
+  }
+
+  .rt-SkeletonAvatar,
+  .rt-SkeletonText::after,
+  .rt-SkeletonRect {
+    animation: rt-skeleton-shimmer 8s ease-in-out infinite;
+  }
+
+  .rt-DrawerContent {
+    &:where([data-state='open']) {
+      animation: rt-drawer-content-show 400ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    &:where([data-state='closed']) {
+      animation: rt-drawer-content-hide 300ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    &:where([data-state='open'])::before {
+      animation: rt-drawer-backdrop-show 400ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    &:where([data-state='closed'])::before {
+      animation: rt-drawer-backdrop-hide 300ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+  }
+}

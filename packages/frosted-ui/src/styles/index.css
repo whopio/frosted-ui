@@ -43,6 +43,7 @@
 @import '../components/section.css';
 @import '../components/select.css';
 @import '../components/separator.css';
+@import '../components/lab/skeleton.css';
 @import '../components/slider.css';
 @import '../components/strong.css';
 @import '../components/switch.css';
