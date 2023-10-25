@@ -25,6 +25,8 @@ interface AvatarProps
   // TODO: See if we can automate making prop defs with `required: true` non nullable
   fallback: NonNullable<AvatarOwnProps['fallback']>;
 }
+
+type ImageStatus = 'idle' | 'loading' | 'loaded' | 'error';
 const Avatar = React.forwardRef<AvatarElement, AvatarProps>(
   (props, forwardedRef) => {
     const { rest: marginRest, ...marginProps } = extractMarginProps(props);
@@ -38,14 +40,13 @@ const Avatar = React.forwardRef<AvatarElement, AvatarProps>(
       fallback,
       ...imageProps
     } = marginRest;
-    const [status, setStatus] = React.useState<
-      'idle' | 'loading' | 'loaded' | 'error'
-    >('idle');
+    const [status, setStatus] = React.useState<ImageStatus>('idle');
+    const dataStatus: ImageStatus = imageProps.src ? status : 'idle';
     return (
       <AvatarPrimitive.Root
         data-accent-color={color}
         data-radius={radius}
-        data-status={status}
+        data-status={dataStatus}
         className={classNames(
           'rt-AvatarRoot',
           className,
