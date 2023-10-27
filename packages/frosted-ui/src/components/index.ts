@@ -169,6 +169,14 @@ export { Callout, CalloutIcon, CalloutRoot, CalloutText } from './callout';
 export * from './callout.props';
 export { Card } from './card';
 export * from './card.props';
+export {
+  Breadcrumbs,
+  BreadcrumbsDropdown,
+  BreadcrumbsDropdownItem,
+  BreadcrumbsItem,
+  BreadcrumbsRoot,
+} from './lab/breadcrumbs';
+export * from './lab/breadcrumbs.props';
 // export * from './collapsible';
 // export * from './definition-list';
 export { IconButton } from './icon-button';
@@ -187,7 +195,6 @@ export { ScrollArea } from './scroll-area';
 export * from './scroll-area.props';
 export { Separator } from './separator';
 export * from './separator.props';
-
 // export * from './skeleton';
 export {
   Table,

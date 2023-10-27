@@ -1,0 +1,24 @@
+.rt-BreadcrumbsRoot {
+  display: inline-flex;
+  align-items: center;
+  /* TODO: gap based on size */
+  gap: 16px;
+  user-select: none;
+}
+
+.rt-BreadcrumbsItem,
+.rt-BreadcrumbsRoot .rt-BreadcrumbsLastItem {
+  text-transform: uppercase;
+  font-weight: var(--font-weight-medium);
+}
+
+.rt-BreadcrumbsItem:last-child,
+.rt-BreadcrumbsRoot .rt-BreadcrumbsLastItem {
+  font-weight: var(--font-weight-bold);
+  color: var(--accent-12);
+}
+.rt-BreadcrumbsRoot:where(.rt-high-contrast)
+  .rt-BreadcrumbsRoot
+  .rt-BreadcrumbsLastItem {
+  user-select: none;
+}
