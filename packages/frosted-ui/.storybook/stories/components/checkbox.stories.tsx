@@ -28,11 +28,25 @@ export const Default: Story = {
     highContrast: checkboxPropDefs.highContrast.default,
   },
   render: (args) => (
-    <Text as="label" size="2">
-      <Flex gap="2">
-        <Checkbox defaultChecked {...args} /> Agree to Terms and Conditions
-      </Flex>
-    </Text>
+    <Flex gap="2" direction="column">
+      {/* TODO: text size matching checkbox size */}
+      <Text as="label" size="2">
+        <Flex gap="2">
+          <Checkbox defaultChecked {...args} /> Default
+        </Flex>
+      </Text>
+      <Text as="label" size="2">
+        <Flex gap="2">
+          <Checkbox defaultChecked={true} disabled {...args} /> Disabled checked
+        </Flex>
+      </Text>
+      <Text as="label" size="2">
+        <Flex gap="2">
+          <Checkbox defaultChecked={false} disabled {...args} /> Disabled
+          unchecked
+        </Flex>
+      </Text>
+    </Flex>
   ),
 };
 
@@ -43,25 +57,6 @@ export const Size: Story = {
       <Checkbox defaultChecked {...args} size="2" />
       <Checkbox defaultChecked {...args} size="3" />
     </Flex>
-  ),
-};
-
-export const Variant: Story = {
-  render: (args) => (
-    <Grid rows="4" gap="2" display="inline-grid" flow="column">
-      <Checkbox {...args} variant="surface" checked />
-      <Checkbox {...args} variant="surface" checked={false} />
-      <Checkbox {...args} variant="surface" disabled />
-      <Checkbox {...args} variant="surface" disabled checked />
-      <Checkbox {...args} variant="classic" checked />
-      <Checkbox {...args} variant="classic" checked={false} />
-      <Checkbox {...args} variant="classic" disabled />
-      <Checkbox {...args} variant="classic" disabled checked />
-      <Checkbox {...args} variant="soft" checked />
-      <Checkbox {...args} variant="soft" checked={false} />
-      <Checkbox {...args} variant="soft" disabled />
-      <Checkbox {...args} variant="soft" disabled checked />
-    </Grid>
   ),
 };
 
@@ -100,22 +95,22 @@ export const Alignment: Story = {
         Composing <Code>Checkbox</Code> within <Code>Text</Code> automatically
         centers it with the first line of text.
       </Text>
-      <Text as="label" size="2">
+      <Text as="label" size="3">
         <Flex gap="2">
           <Checkbox {...args} size="1" defaultChecked /> Agree to Terms and
           Conditions
         </Flex>
       </Text>
 
-      <Text as="label" size="3">
+      <Text as="label" size="4">
         <Flex gap="2">
           <Checkbox {...args} size="2" defaultChecked /> Agree to Terms and
           Conditions
         </Flex>
       </Text>
 
-      <Text as="label" size="4">
-        <Flex gap="2">
+      <Text as="label" size="5">
+        <Flex gap="3">
           <Checkbox {...args} size="3" defaultChecked /> Agree to Terms and
           Conditions
         </Flex>
