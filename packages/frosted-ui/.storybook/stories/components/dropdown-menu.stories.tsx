@@ -121,9 +121,7 @@ export const Variant: Story = {
 
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
-          <Button variant="solid" size="2">
-            Solid
-          </Button>
+          <Button size="2">Solid</Button>
         </DropdownMenu.Trigger>
         <DropdownMenu.Content variant="solid">
           <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
@@ -209,7 +207,7 @@ export const HighContrast: Story = {
     <Grid columns="2" gap="3" display="inline-grid">
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
-          <Button variant="solid">Options</Button>
+          <Button>Options</Button>
         </DropdownMenu.Trigger>
         <DropdownMenu.Content variant="solid">
           <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
@@ -221,9 +219,7 @@ export const HighContrast: Story = {
 
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
-          <Button variant="solid" highContrast>
-            Options
-          </Button>
+          <Button highContrast>Options</Button>
         </DropdownMenu.Trigger>
         <DropdownMenu.Content variant="solid" highContrast>
           <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>

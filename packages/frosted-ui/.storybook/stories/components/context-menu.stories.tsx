@@ -30,7 +30,7 @@ const meta = {
           Right-click here
         </Box>
       </ContextMenu.Trigger>
-      <ContextMenu.Content>
+      <ContextMenu.Content variant="soft">
         <ContextMenu.Item shortcut="⌘ E">Edit</ContextMenu.Item>
         <ContextMenu.Item shortcut="⌘ D">Duplicate</ContextMenu.Item>
         <ContextMenu.Separator />
