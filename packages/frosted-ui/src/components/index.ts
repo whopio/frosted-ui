@@ -139,6 +139,13 @@ export {
 } from './hover-card';
 export * from './hover-card.props';
 export {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionRoot,
+  AccordionTrigger,
+} from './lab/accordion';
+export {
   Popover,
   PopoverClose,
   PopoverContent,

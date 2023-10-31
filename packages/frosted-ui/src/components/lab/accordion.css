@@ -1,0 +1,39 @@
+.rt-AccordionItem:focus-within {
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 0 0 2px var(--color-focus-root) inset;
+}
+.rt-AccordionTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.rt-AccordionContent {
+  overflow: hidden;
+}
+.rt-AccordionContent[data-state='open'] {
+  animation: rt-accordion-slide-down 300ms ease-out;
+}
+.rt-AccordionContent[data-state='closed'] {
+  animation: rt-accordion-slide-up 300ms ease-out;
+}
+
+@keyframes rt-accordion-slide-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes rt-accordion-slide-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}

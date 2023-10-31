@@ -10,6 +10,7 @@
 @import './tokens/space.css';
 @import './tokens/typography.css';
 
+@import '../components/lab/accordion.css';
 @import '../components/avatar.css';
 @import '../components/badge.css';
 
