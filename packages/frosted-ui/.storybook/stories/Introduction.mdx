@@ -1,0 +1,63 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Introduction" />
+
+# Welcome to Frosted UI
+
+Frosted is the design system used and and built by [Whop](https://whop.com).
+
+The system is built using:
+
+- React + Typescript
+- Radix UI
+
+## Getting Started
+
+### 1. Install Frosted UI
+
+`pnpm add @whop/frosted-ui`
+
+### 2. Import the CSS file
+
+Import the global CSS file at the root of your application.
+
+```CSS
+import '@whop/frosted-ui/styles.css';
+```
+
+### 3. Add the Theme component
+
+Add `Theme` to your application, wrapping the root component inside of body.
+
+```tsx
+import { Theme } from '@whop/frosted-ui';
+
+export default function () {
+  return (
+    <html>
+      <body>
+        <Theme>
+          <MyApp />
+        </Theme>
+      </body>
+    </html>
+  );
+}
+```
+
+## 4. Start building
+
+You are now ready to use Frosted UI components.
+
+```tsx
+import { Flex, Text, Button } from '@whop/frosted-ui';
+
+export default function MyApp() {
+  return (
+    <Flex direction="column" gap="2">
+      <Text>Hello from Frosted UI!</Text>
+      <Button>Let's go</Button>
+    </Flex>
+  );
+}
+```
