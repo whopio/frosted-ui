@@ -76,7 +76,8 @@
     "@radix-ui/react-tooltip": "^1.0.7",
     "@radix-ui/react-use-callback-ref": "^1.0.1",
     "@radix-ui/react-visually-hidden": "^1.0.3",
-    "classnames": "^2.3.2"
+    "classnames": "^2.3.2",
+    "tslib": "^2.6.2"
   },
   "peerDependencies": {
     "@types/react": "*",
