@@ -166,6 +166,7 @@ export * from './tooltip.props';
 // export * from './accordion';
 export * from './avatar';
 export { Avatar } from './avatar';
+export * from './avatar.props';
 export { Badge } from './badge';
 export * from './badge.props';
 export { Blockquote } from './blockquote';
