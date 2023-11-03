@@ -29,6 +29,10 @@
   box-sizing: border-box;
 }
 
+:global(.dark) .main {
+  background: rgba(255, 255, 255, 0.01);
+}
+
 .asideButton {
   width: 100%;
   height: 42px;
@@ -53,6 +57,14 @@
 }
 :global(.dark) .asideButton:hover {
   box-shadow: 0px 0px 0px 1px var(--gray-a4) inset;
+  background: var(--gray-a2);
+  background-image: linear-gradient(
+    95deg,
+    transparent,
+    transparent,
+    transparent,
+    var(--accent-a4)
+  );
 }
 .main {
   height: 100%;
@@ -66,6 +78,7 @@
   position: absolute;
   bottom: 0;
   right: 0;
+  pointer-events: none;
 }
 
 :global(.dark) .whopSVG > svg:first-child {
@@ -74,4 +87,63 @@
 
 :global(.light) .whopSVG > svg:last-child {
   display: none;
+}
+
+.dashboardCard {
+  flex: 1;
+  box-sizing: border-box;
+  position: relative;
+  min-height: 202px;
+  flex: 1;
+  padding: var(--space-6);
+  border-radius: var(--radius-6);
+  border: 1px solid var(--gray-a3);
+  background: var(--color-panel);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+}
+
+.dashboardCardIcon {
+  position: relative;
+  display: flex;
+  width: 60px;
+  height: 60px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 18px;
+  border: 1px solid var(--gray-a3);
+  background: var(--color-panel);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+}
+
+.dashboardCardIcon::before {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border-radius: 6px;
+  border: 1px solid var(--green-6);
+  background: linear-gradient(to bottom, var(--green-a3), transparent);
+}
+
+.dashboardCardApps {
+  box-sizing: border-box;
+  padding: var(--space-1) var(--space-2);
+
+  display: flex;
+  justify-content: center;
+  gap: var(--space-1);
+
+  border-radius: 8px;
+  border: 1px solid var(--gray-a3);
+}
+
+.dashboardCardApps > *:nth-child(1) {
+  color: var(--blue-9);
+}
+
+.dashboardCardApps > *:nth-child(2) {
+  color: var(--lime-9);
+}
+
+.dashboardCardApps > *:nth-child(3) {
+  color: var(--blue-10);
 }

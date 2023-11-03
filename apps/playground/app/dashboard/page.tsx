@@ -5,10 +5,16 @@ import {
   ClockIcon,
   CodeIcon,
   CookieIcon,
+  DiscordLogoIcon,
   EnvelopeOpenIcon,
+  GearIcon,
+  GitHubLogoIcon,
   HomeIcon,
+  LinkedInLogoIcon,
   MixerVerticalIcon,
   MobileIcon,
+  // App icons
+  NotionLogoIcon,
   ReloadIcon,
   RocketIcon,
 } from '@radix-ui/react-icons';
@@ -18,17 +24,64 @@ import {
   Breadcrumbs,
   Button,
   Card,
+  Checkbox,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuRoot,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
   Flex,
   Heading,
   IconButton,
   Inset,
+  PopoverClose,
+  PopoverContent,
+  PopoverRoot,
+  PopoverTrigger,
   Separator,
+  Strong,
   Text,
+  TextArea,
   TextFieldInput,
   TextFieldRoot,
   Theme,
   ThemePanel,
 } from '@whop/frosted-ui';
+
+const DashboardCard = () => {
+  return (
+    <div className={styles.dashboardCard}>
+      <WhopSVG />
+      <Flex direction="column" gap="5">
+        <Flex justify="between">
+          <div className={styles.dashboardCardIcon} />
+          <Flex direction="column" gap="2">
+            <Text color="gray" size="1" trim="both">
+              <Strong>APPS SUPPORTED</Strong>
+            </Text>
+            <div className={styles.dashboardCardApps}>
+              <NotionLogoIcon width="20" height="20" />
+              <DiscordLogoIcon width="20" height="20" />
+              <LinkedInLogoIcon width="20" height="20" />
+              <GitHubLogoIcon width="20" height="20" />
+            </div>
+          </Flex>
+        </Flex>
+        <Flex direction="column" gap="4">
+          <Heading size="3" trim="both">
+            Trading
+          </Heading>
+          <Text size="2" color="gray" trim="both">
+            Choose this to offer access to trading insights, tips, and lessons.
+          </Text>
+        </Flex>
+      </Flex>
+    </div>
+  );
+};
 
 const WhopSVG = () => {
   return (
@@ -121,6 +174,7 @@ const WhopSVG = () => {
   );
 };
 
+import { users } from '../demo/users';
 import styles from './page.module.css';
 
 export default function Demo() {
@@ -131,58 +185,148 @@ export default function Demo() {
           <div id="root">
             <ThemePanel />
             <aside className={styles.aside}>
-              <Card variant="ghost" style={{ width: '100%' }}>
-                <Flex gap="3" align="center">
-                  <Avatar fallback="PB" />
-                  <Text>Parlay Banditz</Text>
-                  <ChevronDownIcon />
+              <Flex
+                direction="column"
+                justify="between"
+                style={{ height: '100%' }}
+              >
+                <div>
+                  <Flex px="2" py="4">
+                    <PopoverRoot>
+                      <PopoverTrigger>
+                        <Card variant="ghost" style={{ flex: 1 }} asChild>
+                          <button className="rt-reset">
+                            <Flex gap="3" align="center" justify="between">
+                              <Flex gap="3" align="center">
+                                <Avatar fallback="PB" />
+                                <Text>Parlay Banditz</Text>
+                              </Flex>
+                              <ChevronDownIcon />
+                            </Flex>
+                          </button>
+                        </Card>
+                      </PopoverTrigger>
+                      <PopoverContent size="3" style={{ width: 300 }}>
+                        <Flex gap="3">
+                          <Avatar
+                            size="3"
+                            src="https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?&w=64&h=64&dpr=2&q=70&crop=focalpoint&fp-x=0.67&fp-y=0.5&fp-z=1.4&fit=crop"
+                            fallback="A"
+                          />
+                          <Box grow="1">
+                            <TextArea
+                              size="2"
+                              placeholder="Write a comment…"
+                              style={{ height: 80 }}
+                            />
+
+                            <Flex gap="3" mt="3" justify="between">
+                              <Flex align="center" gap="2" asChild>
+                                <label>
+                                  <Checkbox size="2" />
+                                  <Text size="2">Send to group</Text>
+                                </label>
+                              </Flex>
+
+                              <PopoverClose>
+                                <Button autoFocus size="2">
+                                  Comment
+                                </Button>
+                              </PopoverClose>
+                            </Flex>
+                          </Box>
+                        </Flex>
+                      </PopoverContent>
+                    </PopoverRoot>
+                  </Flex>
+                  <Flex direction="column" gap="1" pt="6">
+                    <button className={'rt-reset ' + styles.asideButton}>
+                      <HomeIcon width="24" height="24" />
+                      Home
+                    </button>
+                    <button className={'rt-reset ' + styles.asideButton}>
+                      <AccessibilityIcon width="24" height="24" />
+                      Products
+                    </button>
+                    <button className={'rt-reset ' + styles.asideButton}>
+                      <MixerVerticalIcon width="24" height="24" />
+                      Product pages
+                    </button>
+                    <button className={'rt-reset ' + styles.asideButton}>
+                      <EnvelopeOpenIcon width="24" height="24" />
+                      Apps
+                    </button>
+                    <button className={'rt-reset ' + styles.asideButton}>
+                      <CookieIcon width="24" height="24" />
+                      Links
+                    </button>
+                    <button className={'rt-reset ' + styles.asideButton}>
+                      <MobileIcon width="24" height="24" />
+                      Customers
+                    </button>
+                    <button className={'rt-reset ' + styles.asideButton}>
+                      <ReloadIcon width="24" height="24" />
+                      Stats
+                    </button>
+                    <button className={'rt-reset ' + styles.asideButton}>
+                      <RocketIcon width="24" height="24" />
+                      Affiliates
+                    </button>
+                    <button className={'rt-reset ' + styles.asideButton}>
+                      <ClockIcon width="24" height="24" />
+                      Payments
+                    </button>
+                    <button className={'rt-reset ' + styles.asideButton}>
+                      <CodeIcon width="24" height="24" />
+                      Feedback
+                    </button>
+                    <button className={'rt-reset ' + styles.asideButton}>
+                      <CameraIcon width="24" height="24" />
+                      Resolution center
+                    </button>
+                  </Flex>
+                </div>
+                <Flex align="center" justify="between" p="2">
+                  <Flex align="center" gap="3">
+                    <Avatar fallback="IM" src={users[2].image} />
+                    <Text>Ilya Miskov</Text>
+                  </Flex>
+                  <DropdownMenuRoot>
+                    <DropdownMenuTrigger>
+                      <IconButton variant="surface" size="3">
+                        <GearIcon
+                          width="20"
+                          height="20"
+                          color="var(--gray-10)"
+                        />
+                      </IconButton>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" variant="soft" size="2">
+                      <DropdownMenuItem>Sign up</DropdownMenuItem>
+                      <DropdownMenuItem>Log in</DropdownMenuItem>
+
+                      <DropdownMenuSeparator />
+
+                      <DropdownMenuItem>Air Cover</DropdownMenuItem>
+                      <DropdownMenuItem>Cancellations</DropdownMenuItem>
+                      <DropdownMenuSub>
+                        <DropdownMenuSubTrigger>Hosting</DropdownMenuSubTrigger>
+
+                        <DropdownMenuSubContent>
+                          <DropdownMenuItem>Resources</DropdownMenuItem>
+                          <DropdownMenuItem>Community forum</DropdownMenuItem>
+                          <DropdownMenuItem>Hosting guide</DropdownMenuItem>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem>Your home</DropdownMenuItem>
+                        </DropdownMenuSubContent>
+                      </DropdownMenuSub>
+
+                      <DropdownMenuSeparator />
+
+                      <DropdownMenuItem>Help Centre</DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenuRoot>
                 </Flex>
-              </Card>
-              <Flex direction="column" gap="1" pt="6">
-                <button className={'rt-reset ' + styles.asideButton}>
-                  <HomeIcon width="24" height="24" />
-                  Home
-                </button>
-                <button className={'rt-reset ' + styles.asideButton}>
-                  <AccessibilityIcon width="24" height="24" />
-                  Products
-                </button>
-                <button className={'rt-reset ' + styles.asideButton}>
-                  <MixerVerticalIcon width="24" height="24" />
-                  Product pages
-                </button>
-                <button className={'rt-reset ' + styles.asideButton}>
-                  <EnvelopeOpenIcon width="24" height="24" />
-                  Apps
-                </button>
-                <button className={'rt-reset ' + styles.asideButton}>
-                  <CookieIcon width="24" height="24" />
-                  Links
-                </button>
-                <button className={'rt-reset ' + styles.asideButton}>
-                  <MobileIcon width="24" height="24" />
-                  Customers
-                </button>
-                <button className={'rt-reset ' + styles.asideButton}>
-                  <ReloadIcon width="24" height="24" />
-                  Stats
-                </button>
-                <button className={'rt-reset ' + styles.asideButton}>
-                  <RocketIcon width="24" height="24" />
-                  Affiliates
-                </button>
-                <button className={'rt-reset ' + styles.asideButton}>
-                  <ClockIcon width="24" height="24" />
-                  Payments
-                </button>
-                <button className={'rt-reset ' + styles.asideButton}>
-                  <CodeIcon width="24" height="24" />
-                  Feedback
-                </button>
-                <button className={'rt-reset ' + styles.asideButton}>
-                  <CameraIcon width="24" height="24" />
-                  Resolution center
-                </button>
               </Flex>
             </aside>
             <main className={styles.main}>
@@ -256,17 +400,7 @@ export default function Demo() {
                       </Text>
                     </Flex>
                     <Flex gap="4">
-                      <Card
-                        style={
-                          {
-                            flex: 1,
-                            height: 202,
-                            '--card-border-radius': 'var(--radius-6)',
-                          } as React.CSSProperties
-                        }
-                      >
-                        <WhopSVG />
-                      </Card>
+                      <DashboardCard />
                       <Box style={{ flex: 1 }} />
                       <Box style={{ flex: 1 }} />
                     </Flex>
@@ -279,39 +413,9 @@ export default function Demo() {
                       </Text>
                     </Flex>
                     <Flex gap="4">
-                      <Card
-                        style={
-                          {
-                            flex: 1,
-                            height: 202,
-                            '--card-border-radius': 'var(--radius-6)',
-                          } as React.CSSProperties
-                        }
-                      >
-                        <WhopSVG />
-                      </Card>
-                      <Card
-                        style={
-                          {
-                            flex: 1,
-                            height: 202,
-                            '--card-border-radius': 'var(--radius-6)',
-                          } as React.CSSProperties
-                        }
-                      >
-                        <WhopSVG />
-                      </Card>
-                      <Card
-                        style={
-                          {
-                            flex: 1,
-                            height: 202,
-                            '--card-border-radius': 'var(--radius-6)',
-                          } as React.CSSProperties
-                        }
-                      >
-                        <WhopSVG />
-                      </Card>
+                      <DashboardCard />
+                      <DashboardCard />
+                      <DashboardCard />
                     </Flex>
                   </Flex>
                 </Flex>
