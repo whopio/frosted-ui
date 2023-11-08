@@ -1,15 +1,31 @@
 // prettier-ignore
 const radixColorScalesRegular = ['tomato', 'red', 'ruby', 'crimson', 'pink', 'plum', 'purple', 'violet', 'iris', 'indigo', 'blue', 'cyan', 'teal', 'jade', 'green', 'grass', 'brown', 'orange' ] as const;
-const radixColorScalesBright = ['sky', 'mint', 'lime', 'yellow', 'amber'] as const;
+const radixColorScalesBright = [
+  'sky',
+  'mint',
+  'lime',
+  'yellow',
+  'amber',
+] as const;
 const radixColorScalesMetal = ['gold', 'bronze'] as const;
 // prettier-ignore
 const radixColorScales = [...radixColorScalesRegular, ...radixColorScalesBright, ...radixColorScalesMetal] as const;
 const radixGrayScalePure = 'gray' as const;
-const radixGrayScalesDesaturated = ['mauve', 'slate', 'sage', 'olive', 'sand'] as const;
-const radixGrayScales = [radixGrayScalePure, ...radixGrayScalesDesaturated] as const;
+const radixGrayScalesDesaturated = [
+  'mauve',
+  'slate',
+  'sage',
+  'olive',
+  'sand',
+] as const;
+const radixGrayScales = [
+  radixGrayScalePure,
+  ...radixGrayScalesDesaturated,
+] as const;
+const bnwScales = ['black', 'white'] as const;
 
 function radixGetMatchingGrayScale(
-  colorScale: (typeof radixColorScales)[number]
+  colorScale: (typeof radixColorScales)[number],
 ): (typeof radixGrayScales)[number] {
   switch (colorScale) {
     case 'tomato':
@@ -46,14 +62,16 @@ function radixGetMatchingGrayScale(
 }
 
 export {
-  radixColorScalesRegular,
+  //
+  bnwScales,
+  radixColorScales,
   radixColorScalesBright,
   radixColorScalesMetal,
-  radixColorScales,
-  //
-  radixGrayScalePure,
-  radixGrayScalesDesaturated,
-  radixGrayScales,
+  radixColorScalesRegular,
   //
   radixGetMatchingGrayScale,
+  //
+  radixGrayScalePure,
+  radixGrayScales,
+  radixGrayScalesDesaturated,
 };

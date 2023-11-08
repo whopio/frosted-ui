@@ -1,16 +1,18 @@
+import type { GetPropDefTypes, PropDef } from './helpers';
 import {
-  radixColorScalesRegular,
+  //
+  bnwScales,
+  radixColorScales,
   radixColorScalesBright,
   radixColorScalesMetal,
-  radixColorScales,
-  //
-  radixGrayScalePure,
-  radixGrayScalesDesaturated,
-  radixGrayScales,
+  radixColorScalesRegular,
   //
   radixGetMatchingGrayScale,
+  //
+  radixGrayScalePure,
+  radixGrayScales,
+  radixGrayScalesDesaturated,
 } from './helpers/radix-colors';
-import type { GetPropDefTypes, PropDef } from './helpers';
 
 const appearances = ['inherit', 'light', 'dark'] as const;
 const accentColors = [...radixColorScales, 'gray'] as const;
@@ -24,7 +26,11 @@ const themePropDefs = {
   appearance: { type: 'enum', values: appearances, default: 'inherit' },
   accentColor: { type: 'enum', values: accentColors, default: 'indigo' },
   grayColor: { type: 'enum', values: grayColors, default: 'auto' },
-  panelBackground: { type: 'enum', values: panelBackgrounds, default: 'translucent' },
+  panelBackground: {
+    type: 'enum',
+    values: panelBackgrounds,
+    default: 'translucent',
+  },
   radius: { type: 'enum', values: radii, default: 'medium' },
   scaling: { type: 'enum', values: scalings, default: '100%' },
 } satisfies {
@@ -56,8 +62,14 @@ type ThemeOptions = {
 };
 
 const themeAccentColorsGrouped = [
-  { label: 'Regulars', values: [...radixColorScalesRegular] as ThemeAccentColor[] },
-  { label: 'Brights', values: [...radixColorScalesBright] as ThemeAccentColor[] },
+  {
+    label: 'Regulars',
+    values: [...radixColorScalesRegular] as ThemeAccentColor[],
+  },
+  {
+    label: 'Brights',
+    values: [...radixColorScalesBright] as ThemeAccentColor[],
+  },
   { label: 'Metals', values: [...radixColorScalesMetal] as ThemeAccentColor[] },
   { label: 'Gray', values: ['gray'] as ThemeAccentColor[] },
 ];
@@ -93,20 +105,28 @@ const themeAccentColorsOrdered = [
 
 const themeGrayColorsGrouped = [
   { label: 'Pure', values: [radixGrayScalePure] as ThemeGrayColor[] },
-  { label: 'Desaturated', values: ['auto', ...radixGrayScalesDesaturated] as ThemeGrayColor[] },
+  {
+    label: 'Desaturated',
+    values: ['auto', ...radixGrayScalesDesaturated] as ThemeGrayColor[],
+  },
 ];
 
-function getMatchingGrayColor(accentColor: ThemeAccentColor): (typeof radixGrayScales)[number] {
+const themeBNWColorsGrouped = [{ label: 'B&W', values: bnwScales }];
+
+function getMatchingGrayColor(
+  accentColor: ThemeAccentColor,
+): (typeof radixGrayScales)[number] {
   if (accentColor === 'gray') return 'gray';
   return radixGetMatchingGrayScale(accentColor);
 }
 
 export {
-  themePropDefs,
   getMatchingGrayColor,
   //
   themeAccentColorsGrouped,
   themeAccentColorsOrdered,
+  themeBNWColorsGrouped,
   themeGrayColorsGrouped,
+  themePropDefs,
 };
 export type { ThemeOptions };

@@ -1,0 +1,32 @@
+{
+  "name": "tailwind",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next"
+  },
+  "dependencies": {
+    "@radix-ui/react-icons": "^1.3.0",
+    "@whop/frosted-ui": "*",
+    "next": "^13.4.1",
+    "next-themes": "^0.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-use": "^17.4.0",
+    "seedrandom": "^3.0.5"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.12",
+    "@types/react": "^18.0.22",
+    "@types/react-dom": "^18.0.7",
+    "autoprefixer": "^10.4.16",
+    "eslint-config-custom": "*",
+    "postcss": "^8.4.30",
+    "tailwindcss": "^3.3.5",
+    "typescript": "^4.5.3"
+  }
+}

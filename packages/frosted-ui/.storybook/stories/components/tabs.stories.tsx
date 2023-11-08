@@ -25,7 +25,7 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 
 // TODO: Tabs content jumping in size due to font-weight change
-// This doesn't happen in Radix Themes (might be due to a font in use?)
+// This doesn't happen in Frosted UI (might be due to a font in use?)
 export const Default: Story = {
   render: (args) => (
     <div style={{ width: 600 }}>

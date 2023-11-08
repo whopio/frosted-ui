@@ -242,7 +242,7 @@ export default function Sink() {
                 </nav> */}
                     <Flex py="6" align="center" gap="1">
                       <RadixLogo />
-                      <Heading size="5">Radix Themes</Heading>
+                      <Heading size="5">Frosted UI</Heading>
                     </Flex>
                   </Container>
                 </header>

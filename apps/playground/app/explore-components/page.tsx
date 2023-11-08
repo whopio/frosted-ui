@@ -2852,10 +2852,10 @@ export default function ExploreComponents() {
                               <td style={{ textAlign: 'left' }}>
                                 <Flex gap="6">
                                   <Link href="/" color={color}>
-                                    Radix Themes
+                                    Frosted UI
                                   </Link>
                                   <Link href="/" color={color} highContrast>
-                                    Radix Themes
+                                    Frosted UI
                                   </Link>
                                 </Flex>
                               </td>
@@ -2877,7 +2877,7 @@ export default function ExploreComponents() {
                               </Text>
                             </Box>
                             <Link href="/" size={size}>
-                              Radix Themes
+                              Frosted UI
                             </Link>
                           </Flex>
                         ))}
@@ -2897,7 +2897,7 @@ export default function ExploreComponents() {
                               <td>{upperFirst(weight)}</td>
                               <td style={{ textAlign: 'left' }}>
                                 <Link href="/" weight={weight}>
-                                  Radix Themes
+                                  Frosted UI
                                 </Link>
                               </td>
                             </tr>
