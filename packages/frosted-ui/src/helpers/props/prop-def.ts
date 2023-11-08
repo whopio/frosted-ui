@@ -30,12 +30,14 @@ type RegularPropDef<T> =
   | StringOrNumberPropDef
   | ReactNodePropDef
   | EnumPropDef<T>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ResponsivePropDef<T = any> = RegularPropDef<T> & { responsive: true };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type PropDef<T = any> = RegularPropDef<T> | ResponsivePropDef<T>;
 
 // prettier-ignore
 type GetPropDefType<Def> =
-	  Def extends BooleanPropDef ? (Def extends ResponsivePropDef ? Responsive<boolean> : boolean)
+  Def extends BooleanPropDef ? (Def extends ResponsivePropDef ? Responsive<boolean> : boolean)
   : Def extends StringPropDef ? (Def extends ResponsivePropDef ? Responsive<string> : string)
   : Def extends StringOrNumberPropDef ? (Def extends ResponsivePropDef ? Responsive<string | number> : string | number)
   : Def extends ReactNodePropDef ? (Def extends ResponsivePropDef ? Responsive<React.ReactNode> : React.ReactNode)

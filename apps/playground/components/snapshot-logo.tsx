@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function SnapshotLogo(props: any) {
   return (
     <svg
