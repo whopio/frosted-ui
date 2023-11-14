@@ -40,6 +40,15 @@ type AlertDialogContentElement = React.ElementRef<
 type AlertDialogContentOwnProps = GetPropDefTypes<
   typeof alertDialogContentPropDefs
 >;
+
+type AlertDialogContentContextValue = {
+  size: AlertDialogContentOwnProps['size'];
+};
+const AlertDialogContentContext =
+  React.createContext<AlertDialogContentContextValue>({
+    size: alertDialogContentPropDefs.size.default,
+  });
+
 interface AlertDialogContentProps
   extends Omit<
       React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content>,
@@ -56,6 +65,7 @@ const AlertDialogContent = React.forwardRef<
 >((props, forwardedRef) => {
   const {
     className,
+    children,
     forceMount,
     container,
     size = alertDialogContentPropDefs.size.default,
@@ -74,7 +84,13 @@ const AlertDialogContent = React.forwardRef<
               className,
               withBreakpoints(size, 'rt-r-size'),
             )}
-          />
+          >
+            <AlertDialogContentContext.Provider
+              value={React.useMemo(() => ({ size }), [size])}
+            >
+              {children}
+            </AlertDialogContentContext.Provider>
+          </AlertDialogPrimitive.Content>
         </AlertDialogPrimitive.Overlay>
       </Theme>
     </AlertDialogPrimitive.Portal>
@@ -87,11 +103,45 @@ type AlertDialogTitleProps = React.ComponentPropsWithoutRef<typeof Heading>;
 const AlertDialogTitle = React.forwardRef<
   AlertDialogTitleElement,
   AlertDialogTitleProps
->((props, forwardedRef) => (
-  <AlertDialogPrimitive.Title asChild>
-    <Heading size="5" mb="3" trim="start" {...props} ref={forwardedRef} />
-  </AlertDialogPrimitive.Title>
-));
+>(({ size: sizeProp, mb: mbProp, ...props }, forwardedRef) => {
+  const { size: contextSize } = React.useContext(AlertDialogContentContext);
+  let size: AlertDialogTitleProps['size'];
+
+  if (contextSize) {
+    size = (
+      {
+        '1': '2',
+        '2': '5',
+        '3': '5',
+        '4': '6',
+      } as const
+    )[contextSize];
+  }
+
+  let mb: AlertDialogTitleProps['mb'] = '3';
+
+  if (contextSize) {
+    mb = (
+      {
+        '1': '1',
+        '2': '2',
+        '3': '3',
+        '4': '3',
+      } as const
+    )[contextSize];
+  }
+  return (
+    <AlertDialogPrimitive.Title asChild>
+      <Heading
+        size={sizeProp || size}
+        mb={mbProp || mb}
+        trim="start"
+        {...props}
+        ref={forwardedRef}
+      />
+    </AlertDialogPrimitive.Title>
+  );
+});
 AlertDialogTitle.displayName = 'AlertDialogTitle';
 
 type AlertDialogDescriptionElement = HTMLParagraphElement;
@@ -99,11 +149,45 @@ type AlertDialogDescriptionProps = ExtractPropsForTag<typeof Text, 'p'>;
 const AlertDialogDescription = React.forwardRef<
   AlertDialogDescriptionElement,
   AlertDialogDescriptionProps
->((props, forwardedRef) => (
-  <AlertDialogPrimitive.Description asChild>
-    <Text as="p" size="3" {...props} ref={forwardedRef} />
-  </AlertDialogPrimitive.Description>
-));
+>(({ size: sizeProp, mb: mbProp, ...props }, forwardedRef) => {
+  const { size: contextSize } = React.useContext(AlertDialogContentContext);
+  let size: AlertDialogDescriptionProps['size'];
+
+  if (contextSize) {
+    size = (
+      {
+        '1': '1',
+        '2': '2',
+        '3': '2',
+        '4': '3',
+      } as const
+    )[contextSize];
+  }
+
+  let mb: AlertDialogDescriptionProps['mb'] = '3';
+
+  if (contextSize) {
+    mb = (
+      {
+        '1': '3',
+        '2': '4',
+        '3': '4',
+        '4': '6',
+      } as const
+    )[contextSize];
+  }
+  return (
+    <AlertDialogPrimitive.Description asChild>
+      <Text
+        as="p"
+        size={sizeProp || size}
+        mb={mbProp || mb}
+        {...props}
+        ref={forwardedRef}
+      />
+    </AlertDialogPrimitive.Description>
+  );
+});
 AlertDialogDescription.displayName = 'AlertDialogDescription';
 
 type AlertDialogActionElement = React.ElementRef<

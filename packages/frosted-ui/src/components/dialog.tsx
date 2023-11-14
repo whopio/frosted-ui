@@ -37,6 +37,12 @@ DialogTrigger.displayName = 'DialogTrigger';
 
 type DialogContentElement = React.ElementRef<typeof DialogPrimitive.Content>;
 type DialogContentOwnProps = GetPropDefTypes<typeof dialogContentPropDefs>;
+
+type DialogContentContextValue = { size: DialogContentOwnProps['size'] };
+const DialogContentContext = React.createContext<DialogContentContextValue>({
+  size: dialogContentPropDefs.size.default,
+});
+
 interface DialogContentProps
   extends Omit<
       React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>,
@@ -51,6 +57,7 @@ const DialogContent = React.forwardRef<
 >((props, forwardedRef) => {
   const {
     className,
+    children,
     forceMount,
     container,
     size = dialogContentPropDefs.size.default,
@@ -68,7 +75,13 @@ const DialogContent = React.forwardRef<
               className,
               withBreakpoints(size, 'rt-r-size'),
             )}
-          />
+          >
+            <DialogContentContext.Provider
+              value={React.useMemo(() => ({ size }), [size])}
+            >
+              {children}
+            </DialogContentContext.Provider>
+          </DialogPrimitive.Content>
         </DialogPrimitive.Overlay>
       </Theme>
     </DialogPrimitive.Portal>
@@ -79,11 +92,45 @@ DialogContent.displayName = 'DialogContent';
 type DialogTitleElement = React.ElementRef<typeof Heading>;
 type DialogTitleProps = React.ComponentPropsWithoutRef<typeof Heading>;
 const DialogTitle = React.forwardRef<DialogTitleElement, DialogTitleProps>(
-  (props, forwardedRef) => (
-    <DialogPrimitive.Title asChild>
-      <Heading size="5" mb="3" trim="start" {...props} ref={forwardedRef} />
-    </DialogPrimitive.Title>
-  ),
+  ({ size: sizeProp, mb: mbProp, ...props }, forwardedRef) => {
+    const { size: contextSize } = React.useContext(DialogContentContext);
+    let size: DialogTitleProps['size'];
+
+    if (contextSize) {
+      size = (
+        {
+          '1': '2',
+          '2': '5',
+          '3': '5',
+          '4': '6',
+        } as const
+      )[contextSize];
+    }
+
+    let mb: DialogTitleProps['mb'] = '3';
+
+    if (contextSize) {
+      mb = (
+        {
+          '1': '1',
+          '2': '2',
+          '3': '3',
+          '4': '3',
+        } as const
+      )[contextSize];
+    }
+    return (
+      <DialogPrimitive.Title asChild>
+        <Heading
+          size={sizeProp || size}
+          mb={mbProp || mb}
+          trim="start"
+          {...props}
+          ref={forwardedRef}
+        />
+      </DialogPrimitive.Title>
+    );
+  },
 );
 DialogTitle.displayName = 'DialogTitle';
 
@@ -92,11 +139,45 @@ type DialogDescriptionProps = ExtractPropsForTag<typeof Text, 'p'>;
 const DialogDescription = React.forwardRef<
   DialogDescriptionElement,
   DialogDescriptionProps
->((props, forwardedRef) => (
-  <DialogPrimitive.Description asChild>
-    <Text as="p" size="3" {...props} ref={forwardedRef} />
-  </DialogPrimitive.Description>
-));
+>(({ size: sizeProp, mb: mbProp, ...props }, forwardedRef) => {
+  const { size: contextSize } = React.useContext(DialogContentContext);
+  let size: DialogDescriptionProps['size'];
+
+  if (contextSize) {
+    size = (
+      {
+        '1': '1',
+        '2': '2',
+        '3': '2',
+        '4': '3',
+      } as const
+    )[contextSize];
+  }
+
+  let mb: DialogDescriptionProps['mb'] = '3';
+
+  if (contextSize) {
+    mb = (
+      {
+        '1': '3',
+        '2': '4',
+        '3': '4',
+        '4': '6',
+      } as const
+    )[contextSize];
+  }
+  return (
+    <DialogPrimitive.Description asChild>
+      <Text
+        as="p"
+        size={sizeProp || size}
+        mb={mbProp || mb}
+        {...props}
+        ref={forwardedRef}
+      />
+    </DialogPrimitive.Description>
+  );
+});
 DialogDescription.displayName = 'DialogDescription';
 
 type DialogCloseElement = React.ElementRef<typeof DialogPrimitive.Close>;

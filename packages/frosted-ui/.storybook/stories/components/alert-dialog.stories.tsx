@@ -9,13 +9,16 @@ import {
   Inset,
   Table,
   Text,
+  alertDialogContentPropDefs,
 } from '../../../src/components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
   title: 'Components/AlertDialog',
-  component: AlertDialog.Root,
-  args: {},
+  component: AlertDialog.Content,
+  args: {
+    size: alertDialogContentPropDefs.size.default,
+  },
 
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
@@ -23,7 +26,7 @@ const meta = {
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
-} satisfies Meta<typeof AlertDialog.Root>;
+} satisfies Meta<typeof AlertDialog.Content>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -37,9 +40,9 @@ export const Default: Story = {
           Revoke access
         </Button>
       </AlertDialog.Trigger>
-      <AlertDialog.Content style={{ maxWidth: 450 }}>
-        <AlertDialog.Title mb="3">Revoke access</AlertDialog.Title>
-        <AlertDialog.Description size="2">
+      <AlertDialog.Content style={{ maxWidth: 450 }} {...args}>
+        <AlertDialog.Title>Revoke access</AlertDialog.Title>
+        <AlertDialog.Description>
           Are you sure? This application will no longer be accessible and any
           existing sessions will be expired.
         </AlertDialog.Description>
@@ -61,6 +64,124 @@ export const Default: Story = {
   ),
 };
 
+export const Sizes: Story = {
+  render: ({ children, ...args }) => (
+    <Flex gap="4">
+      <AlertDialog.Root>
+        <AlertDialog.Trigger>
+          <Button variant="classic" color="red">
+            Size 1
+          </Button>
+        </AlertDialog.Trigger>
+        <AlertDialog.Content style={{ maxWidth: 350 }} size="1">
+          <AlertDialog.Title>Revoke access</AlertDialog.Title>
+          <AlertDialog.Description>
+            Are you sure? This application will no longer be accessible and any
+            existing sessions will be expired.
+          </AlertDialog.Description>
+
+          <Flex gap="2" justify="end">
+            <AlertDialog.Cancel>
+              <Button size="1" variant="soft" color="gray">
+                Cancel
+              </Button>
+            </AlertDialog.Cancel>
+            <AlertDialog.Action>
+              <Button size="1" variant="classic" color="red">
+                Revoke access
+              </Button>
+            </AlertDialog.Action>
+          </Flex>
+        </AlertDialog.Content>
+      </AlertDialog.Root>
+
+      <AlertDialog.Root>
+        <AlertDialog.Trigger>
+          <Button variant="classic" color="red">
+            Size 2
+          </Button>
+        </AlertDialog.Trigger>
+        <AlertDialog.Content style={{ maxWidth: 350 }} size="2">
+          <AlertDialog.Title>Revoke access</AlertDialog.Title>
+          <AlertDialog.Description>
+            Are you sure? This application will no longer be accessible and any
+            existing sessions will be expired.
+          </AlertDialog.Description>
+
+          <Flex gap="2" justify="end">
+            <AlertDialog.Cancel>
+              <Button size="2" variant="soft" color="gray">
+                Cancel
+              </Button>
+            </AlertDialog.Cancel>
+            <AlertDialog.Action>
+              <Button size="2" variant="classic" color="red">
+                Revoke access
+              </Button>
+            </AlertDialog.Action>
+          </Flex>
+        </AlertDialog.Content>
+      </AlertDialog.Root>
+
+      <AlertDialog.Root>
+        <AlertDialog.Trigger>
+          <Button variant="classic" color="red">
+            Size 3
+          </Button>
+        </AlertDialog.Trigger>
+        <AlertDialog.Content style={{ maxWidth: 350 }} size="3">
+          <AlertDialog.Title>Revoke access</AlertDialog.Title>
+          <AlertDialog.Description>
+            Are you sure? This application will no longer be accessible and any
+            existing sessions will be expired.
+          </AlertDialog.Description>
+
+          <Flex gap="3" justify="end">
+            <AlertDialog.Cancel>
+              <Button size="2" variant="soft" color="gray">
+                Cancel
+              </Button>
+            </AlertDialog.Cancel>
+            <AlertDialog.Action>
+              <Button size="2" variant="classic" color="red">
+                Revoke access
+              </Button>
+            </AlertDialog.Action>
+          </Flex>
+        </AlertDialog.Content>
+      </AlertDialog.Root>
+
+      <AlertDialog.Root>
+        <AlertDialog.Trigger>
+          <Button variant="classic" color="red">
+            Size 4
+          </Button>
+        </AlertDialog.Trigger>
+        <AlertDialog.Content style={{ maxWidth: 350 }} size="4">
+          <AlertDialog.Title>Revoke access</AlertDialog.Title>
+          <AlertDialog.Description>
+            Are you sure? This application will no longer be accessible and any
+            existing sessions will be expired.
+          </AlertDialog.Description>
+
+          <Flex gap="3" justify="end">
+            <AlertDialog.Cancel>
+              <Button size="3" variant="soft" color="gray">
+                Cancel
+              </Button>
+            </AlertDialog.Cancel>
+            <AlertDialog.Action>
+              <Button size="3" variant="classic" color="red">
+                Revoke access
+              </Button>
+            </AlertDialog.Action>
+          </Flex>
+        </AlertDialog.Content>
+      </AlertDialog.Root>
+    </Flex>
+  ),
+};
+
 export const InsetContent: Story = {
   name: 'With inset content',
   render: ({ children, ...args }) => (
@@ -78,7 +199,7 @@ export const InsetContent: Story = {
           </AlertDialog.Trigger>
           <AlertDialog.Content style={{ maxWidth: 500 }}>
             <AlertDialog.Title>Delete Users</AlertDialog.Title>
-            <AlertDialog.Description size="2">
+            <AlertDialog.Description>
               Are you sure you want to delete these users? This action is
               permanent and cannot be undone.
             </AlertDialog.Description>

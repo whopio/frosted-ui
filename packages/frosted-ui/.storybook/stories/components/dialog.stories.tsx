@@ -9,13 +9,16 @@ import {
   Table,
   Text,
   TextField,
+  dialogContentPropDefs,
 } from '../../../src/components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
   title: 'Components/Dialog',
-  component: Dialog.Root,
-  args: {},
+  component: Dialog.Content,
+  args: {
+    size: dialogContentPropDefs.size.default,
+  },
 
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
@@ -23,7 +26,7 @@ const meta = {
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
-} satisfies Meta<typeof Dialog.Root>;
+} satisfies Meta<typeof Dialog.Content>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -36,11 +39,9 @@ export const Default: Story = {
         <Button>Edit profile</Button>
       </Dialog.Trigger>
 
-      <Dialog.Content style={{ maxWidth: 450 }}>
+      <Dialog.Content style={{ maxWidth: 450 }} {...args}>
         <Dialog.Title>Edit profile</Dialog.Title>
-        <Dialog.Description size="2" mb="4">
-          Make changes to your profile.
-        </Dialog.Description>
+        <Dialog.Description>Make changes to your profile.</Dialog.Description>
 
         <Flex direction="column" gap="3">
           <label>
@@ -78,6 +79,128 @@ export const Default: Story = {
   ),
 };
 
+export const Sizes: Story = {
+  render: ({ children, ...args }) => (
+    <Flex gap="4">
+      <Dialog.Root>
+        <Dialog.Trigger>
+          <Button>Size 1</Button>
+        </Dialog.Trigger>
+
+        <Dialog.Content style={{ maxWidth: 350 }} size="1">
+          <Dialog.Title>Edit profile</Dialog.Title>
+          <Dialog.Description>Make changes to your profile.</Dialog.Description>
+
+          <Flex gap="2" justify="end">
+            <Dialog.Close>
+              <Button
+                size="1"
+                variant="soft"
+                color="gray"
+                onClick={() => alert('Cancel')}
+              >
+                Cancel
+              </Button>
+            </Dialog.Close>
+            <Dialog.Close>
+              <Button size="1" onClick={() => alert('Save')} variant="classic">
+                Save
+              </Button>
+            </Dialog.Close>
+          </Flex>
+        </Dialog.Content>
+      </Dialog.Root>
+
+      <Dialog.Root>
+        <Dialog.Trigger>
+          <Button>Size 2</Button>
+        </Dialog.Trigger>
+
+        <Dialog.Content style={{ maxWidth: 350 }} size="2">
+          <Dialog.Title>Edit profile</Dialog.Title>
+          <Dialog.Description>Make changes to your profile.</Dialog.Description>
+
+          <Flex gap="2" justify="end">
+            <Dialog.Close>
+              <Button
+                size="2"
+                variant="soft"
+                color="gray"
+                onClick={() => alert('Cancel')}
+              >
+                Cancel
+              </Button>
+            </Dialog.Close>
+            <Dialog.Close>
+              <Button size="2" onClick={() => alert('Save')} variant="classic">
+                Save
+              </Button>
+            </Dialog.Close>
+          </Flex>
+        </Dialog.Content>
+      </Dialog.Root>
+
+      <Dialog.Root>
+        <Dialog.Trigger>
+          <Button>Size 3</Button>
+        </Dialog.Trigger>
+
+        <Dialog.Content style={{ maxWidth: 350 }} size="3">
+          <Dialog.Title>Edit profile</Dialog.Title>
+          <Dialog.Description>Make changes to your profile.</Dialog.Description>
+
+          <Flex gap="3" justify="end">
+            <Dialog.Close>
+              <Button
+                size="2"
+                variant="soft"
+                color="gray"
+                onClick={() => alert('Cancel')}
+              >
+                Cancel
+              </Button>
+            </Dialog.Close>
+            <Dialog.Close>
+              <Button size="2" onClick={() => alert('Save')} variant="classic">
+                Save
+              </Button>
+            </Dialog.Close>
+          </Flex>
+        </Dialog.Content>
+      </Dialog.Root>
+
+      <Dialog.Root>
+        <Dialog.Trigger>
+          <Button>Size 4</Button>
+        </Dialog.Trigger>
+
+        <Dialog.Content style={{ maxWidth: 350 }} size="4">
+          <Dialog.Title>Edit profile</Dialog.Title>
+          <Dialog.Description>Make changes to your profile.</Dialog.Description>
+
+          <Flex gap="3" justify="end" align="center">
+            <Dialog.Close>
+              <Button
+                size="3"
+                variant="soft"
+                color="gray"
+                onClick={() => alert('Cancel')}
+              >
+                Cancel
+              </Button>
+            </Dialog.Close>
+            <Dialog.Close>
+              <Button size="3" onClick={() => alert('Save')} variant="classic">
+                Save
+              </Button>
+            </Dialog.Close>
+          </Flex>
+        </Dialog.Content>
+      </Dialog.Root>
+    </Flex>
+  ),
+};
+
 export const InsetContent: Story = {
   name: 'With inset content',
   render: ({ children, ...args }) => (
@@ -85,7 +208,7 @@ export const InsetContent: Story = {
       <Dialog.Trigger>
         <Button>View users</Button>
       </Dialog.Trigger>
-      <Dialog.Content>
+      <Dialog.Content {...args}>
         <Dialog.Title>Users</Dialog.Title>
         <Dialog.Description>
           The following users have access to this project.
