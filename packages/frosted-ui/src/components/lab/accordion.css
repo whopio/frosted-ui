@@ -2,14 +2,31 @@
   position: relative;
   z-index: 1;
   box-shadow: 0 0 0 2px var(--color-focus-root) inset;
+  border-radius: var(--radius-4);
 }
 .rt-AccordionTrigger {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   width: 100%;
-}
+  gap: var(--space-3);
+  background: var(--gray-a3);
+  border-radius: var(--radius-4);
+  padding: var(--space-3) var(--space-5);
+  box-shadow: 0px 0px 0px 1px var(--gray-a5) inset;
 
+  font-size: var(--font-size-1);
+  color: var(--gray-a11);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.rt-AccordionTriggerIcon {
+  transition: 300ms transform ease-out;
+  transform-origin: center;
+}
+.rt-AccordionTrigger[data-state='open'] .rt-AccordionTriggerIcon {
+  transform: rotate(180deg);
+}
 .rt-AccordionContent {
   overflow: hidden;
 }
@@ -36,4 +53,8 @@
   to {
     height: 0;
   }
+}
+
+.rt-AccordionContentInner {
+  padding: var(--space-4) var(--space-5);
 }

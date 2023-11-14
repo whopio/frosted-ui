@@ -90,6 +90,30 @@ const ChevronRightIcon = React.forwardRef<IconElement, IconProps>(
 );
 ChevronRightIcon.displayName = 'ChevronRightIcon';
 
+const TriangleDownIcon = React.forwardRef<IconElement, IconProps>(
+  ({ color = 'currentColor', ...props }, forwardedRef) => {
+    return (
+      <svg
+        width="6"
+        height="7"
+        viewBox="0 0 6 7"
+        fill={color}
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}
+        ref={forwardedRef}
+      >
+        <g>
+          <path
+            d="M2.40796 5.71173L0.097794 2.74247C-0.137283 2.44033 0.0780299 2 0.460851 2H5.53896C5.92178 2 6.13709 2.44033 5.90201 2.74247L3.59185 5.71173C3.29158 6.09767 2.70823 6.09767 2.40796 5.71173Z"
+            fill="currentColor"
+          />
+        </g>
+      </svg>
+    );
+  },
+);
+TriangleDownIcon.displayName = 'TriangleDownIcon';
+
 const InfoCircledIcon = React.forwardRef<IconElement, IconProps>(
   ({ color = 'currentColor', ...props }, forwardedRef) => {
     return (
@@ -120,4 +144,5 @@ export {
   InfoCircledIcon,
   ThickCheckIcon,
   ThickChevronRightIcon,
+  TriangleDownIcon,
 };

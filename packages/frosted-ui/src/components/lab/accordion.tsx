@@ -14,6 +14,7 @@ import {
   withLayoutProps,
   withMarginProps,
 } from '../../helpers';
+import { TriangleDownIcon } from '../../icons';
 
 <AccordionPrimitive.Root collapsible type="single" />;
 type AccordionRootElement = React.ElementRef<typeof AccordionPrimitive.Root>;
@@ -87,7 +88,7 @@ const AccordionTrigger = React.forwardRef<
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const { rest: layoutRest, ...layoutProps } = extractLayoutProps(marginRest);
 
-  const { className, ...accordionTriggerProps } = layoutRest;
+  const { className, children, ...accordionTriggerProps } = layoutRest;
   return (
     <AccordionPrimitive.Trigger
       className={classNames(
@@ -99,7 +100,10 @@ const AccordionTrigger = React.forwardRef<
       )}
       {...accordionTriggerProps}
       ref={forwardedRef}
-    />
+    >
+      <TriangleDownIcon className="rt-AccordionTriggerIcon" />
+      {children}
+    </AccordionPrimitive.Trigger>
   );
 });
 AccordionTrigger.displayName = 'AccordionTrigger';
@@ -113,12 +117,15 @@ type AccordionContentProps = React.ComponentPropsWithoutRef<
 const AccordionContent = React.forwardRef<
   AccordionContentElement,
   AccordionContentProps
->(({ className, ...props }, forwardedRef) => (
-  <AccordionPrimitive.Content
-    className={classNames('rt-AccordionContent', className)}
-    {...props}
-    ref={forwardedRef}
-  />
+>(({ className, children, ...props }, forwardedRef) => (
+  <AccordionPrimitive.Content className="rt-AccordionContent" {...props}>
+    <div
+      className={classNames('rt-AccordionContentInner', className)}
+      ref={forwardedRef}
+    >
+      {children}
+    </div>
+  </AccordionPrimitive.Content>
 ));
 AccordionContent.displayName = 'AccordionContent';
 

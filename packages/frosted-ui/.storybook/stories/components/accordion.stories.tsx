@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Box, Separator, Text } from '../../../src/components';
+import { Flex } from '../../../src/components';
 import {
   Accordion,
   AccordionRootProps,
@@ -39,49 +39,29 @@ export const Single: Story = {
         p="5"
         {...args}
       >
-        <Accordion.Item value="item-1">
-          <Accordion.Trigger p="4" style={{ background: 'var(--gray-a2)' }}>
-            <Text as="span" weight="bold">
-              Is it accessible?
-            </Text>
-          </Accordion.Trigger>
-          <Separator orientation="horizontal" size="4" />
-          <Accordion.Content>
-            <Box p="4">Yes. It adheres to the WAI-ARIA design pattern.</Box>
-            <Separator orientation="horizontal" size="4" />
-          </Accordion.Content>
-        </Accordion.Item>
+        <Flex direction="column" gap="4">
+          <Accordion.Item value="item-1">
+            <Accordion.Trigger>Is it accessible?</Accordion.Trigger>
+            <Accordion.Content>
+              Yes. It adheres to the WAI-ARIA design pattern.
+            </Accordion.Content>
+          </Accordion.Item>
 
-        <Accordion.Item value="item-2">
-          <Accordion.Trigger p="4" style={{ background: 'var(--gray-a2)' }}>
-            <Text as="span" weight="bold">
-              Is it unstyled?
-            </Text>
-          </Accordion.Trigger>
-          <Separator orientation="horizontal" size="4" />
-          <Accordion.Content>
-            <Box p="4">
+          <Accordion.Item value="item-2">
+            <Accordion.Trigger>Is it unstyled?</Accordion.Trigger>
+            <Accordion.Content>
               Yes. It's unstyled by default, giving you freedom over the look
               and feel.
-            </Box>
-            <Separator orientation="horizontal" size="4" />
-          </Accordion.Content>
-        </Accordion.Item>
+            </Accordion.Content>
+          </Accordion.Item>
 
-        <Accordion.Item value="item-3">
-          <Accordion.Trigger p="4" style={{ background: 'var(--gray-a2)' }}>
-            <Text as="span" weight="bold">
-              Can it be animated?
-            </Text>
-          </Accordion.Trigger>
-          <Separator orientation="horizontal" size="4" />
-          <Accordion.Content>
-            <Box p="4">
+          <Accordion.Item value="item-3">
+            <Accordion.Trigger>Can it be animated?</Accordion.Trigger>
+            <Accordion.Content>
               Yes! You can animate the Accordion with CSS or JavaScript.
-            </Box>
-            <Separator orientation="horizontal" size="4" />
-          </Accordion.Content>
-        </Accordion.Item>
+            </Accordion.Content>
+          </Accordion.Item>
+        </Flex>
       </Accordion.Root>
     </div>
   ),
@@ -95,49 +75,29 @@ export const Multiple: Story = {
   render: (args: AccordionRootProps) => (
     <div>
       <Accordion.Root style={{ width: 600 }} p="5" {...args}>
-        <Accordion.Item value="item-1">
-          <Accordion.Trigger p="4" style={{ background: 'var(--gray-a2)' }}>
-            <Text as="span" weight="bold">
-              Is it accessible?
-            </Text>
-          </Accordion.Trigger>
-          <Separator orientation="horizontal" size="4" />
-          <Accordion.Content>
-            <Box p="4">Yes. It adheres to the WAI-ARIA design pattern.</Box>
-            <Separator orientation="horizontal" size="4" />
-          </Accordion.Content>
-        </Accordion.Item>
+        <Flex direction="column" gap="4">
+          <Accordion.Item value="item-1">
+            <Accordion.Trigger>Is it accessible?</Accordion.Trigger>
+            <Accordion.Content>
+              Yes. It adheres to the WAI-ARIA design pattern.
+            </Accordion.Content>
+          </Accordion.Item>
 
-        <Accordion.Item value="item-2">
-          <Accordion.Trigger p="4" style={{ background: 'var(--gray-a2)' }}>
-            <Text as="span" weight="bold">
-              Is it unstyled?
-            </Text>
-          </Accordion.Trigger>
-          <Separator orientation="horizontal" size="4" />
-          <Accordion.Content>
-            <Box p="4">
+          <Accordion.Item value="item-2">
+            <Accordion.Trigger>Is it unstyled?</Accordion.Trigger>
+            <Accordion.Content>
               Yes. It's unstyled by default, giving you freedom over the look
               and feel.
-            </Box>
-            <Separator orientation="horizontal" size="4" />
-          </Accordion.Content>
-        </Accordion.Item>
+            </Accordion.Content>
+          </Accordion.Item>
 
-        <Accordion.Item value="item-3">
-          <Accordion.Trigger p="4" style={{ background: 'var(--gray-a2)' }}>
-            <Text as="span" weight="bold">
-              Can it be animated?
-            </Text>
-          </Accordion.Trigger>
-          <Separator orientation="horizontal" size="4" />
-          <Accordion.Content>
-            <Box p="4">
+          <Accordion.Item value="item-3">
+            <Accordion.Trigger>Can it be animated?</Accordion.Trigger>
+            <Accordion.Content>
               Yes! You can animate the Accordion with CSS or JavaScript.
-            </Box>
-            <Separator orientation="horizontal" size="4" />
-          </Accordion.Content>
-        </Accordion.Item>
+            </Accordion.Content>
+          </Accordion.Item>
+        </Flex>
       </Accordion.Root>
     </div>
   ),
