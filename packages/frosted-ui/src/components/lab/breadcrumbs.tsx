@@ -1,19 +1,16 @@
 import { Slot } from '@radix-ui/react-slot';
 import classNames from 'classnames';
 import * as React from 'react';
-import {
-  extractMarginProps,
-  withBreakpoints,
-  withMarginProps,
-} from '../../helpers';
+import { extractMarginProps, withMarginProps } from '../../helpers';
 import { breadcrumbsPropDefs } from './breadcrumbs.props';
 
-import { Button, DropdownMenu, Separator, Text } from '../';
+import { Button, DropdownMenu, Text } from '../';
 import type {
   GetPropDefTypes,
   MarginProps,
   PropsWithoutRefOrColor,
 } from '../../helpers';
+import { ChevronRightIcon } from '../../icons';
 
 type BreadcrumbsRootChildrenTypes = React.ReactElement<
   BreadcrumbsItemProps | BreadcrumbsDropdownProps
@@ -37,7 +34,6 @@ const BreadcrumbsRoot = React.forwardRef<
     children,
     asChild = false,
 
-    size = breadcrumbsPropDefs.size.default,
     color = breadcrumbsPropDefs.color.default,
     highContrast = breadcrumbsPropDefs.highContrast.default,
     ...baseButtonProps
@@ -47,12 +43,12 @@ const BreadcrumbsRoot = React.forwardRef<
 
   return (
     <Comp
+      data-accent-color={color}
       {...baseButtonProps}
       ref={forwardedRef}
       className={classNames(
         'rt-BreadcrumbsRoot',
         className,
-        withBreakpoints(size, 'rt-r-size'),
         withMarginProps(marginProps),
       )}
     >
@@ -62,7 +58,7 @@ const BreadcrumbsRoot = React.forwardRef<
           const isLastItem = index === count - 1;
 
           const separator = (
-            <Separator orientation="vertical" size="1" color={color} />
+            <ChevronRightIcon className="rt-BreadcrumbsSeparator" />
           );
           if (isLastItem && !child.props.onClick) {
             return (
@@ -70,8 +66,8 @@ const BreadcrumbsRoot = React.forwardRef<
                 {index > 0 ? separator : null}
                 <Text
                   as="div"
-                  color={color}
-                  size={size}
+                  data-accent-color={color}
+                  size={'1'}
                   highContrast={highContrast}
                   children={child.props.children}
                   className={classNames(
@@ -85,7 +81,6 @@ const BreadcrumbsRoot = React.forwardRef<
           } else {
             const breadcrumbChild = React.cloneElement(child, {
               highContrast,
-              size,
               color,
               ...child.props,
             });
@@ -105,7 +100,10 @@ BreadcrumbsRoot.displayName = 'BreadcrumbsRoot';
 
 type BreadcrumbsItemElement = React.ElementRef<typeof Button>;
 interface BreadcrumbsItemProps
-  extends Omit<React.ComponentPropsWithoutRef<typeof Button>, 'variant'> {}
+  extends Omit<
+    React.ComponentPropsWithoutRef<typeof Button>,
+    'variant' | 'size'
+  > {}
 
 const BreadcrumbsItem = React.forwardRef<
   BreadcrumbsItemElement,
@@ -113,6 +111,7 @@ const BreadcrumbsItem = React.forwardRef<
 >((props, forwardedRef) => (
   <Button
     {...props}
+    size="1"
     variant={'ghost'}
     ref={forwardedRef}
     className={classNames('rt-BreadcrumbsItem', props.className)}
@@ -125,21 +124,22 @@ type BreadcrumbsDropdownElement = React.ElementRef<typeof DropdownMenu.Content>;
 interface BreadcrumbsDropdownProps
   extends Omit<
     React.ComponentPropsWithoutRef<typeof DropdownMenu.Content>,
-    'variant'
+    'variant' | 'size'
   > {}
 
 const BreadcrumbsDropdown = React.forwardRef<
   BreadcrumbsDropdownElement,
   BreadcrumbsDropdownProps
->(({ color, highContrast, size, ...props }, forwardedRef) => (
+>(({ color, highContrast, ...props }, forwardedRef) => (
   <DropdownMenu.Root>
     <DropdownMenu.Trigger>
-      <Breadcrumbs.Item color={color} size={size} highContrast={highContrast}>
+      <Breadcrumbs.Item color={color} highContrast={highContrast}>
         ...
       </Breadcrumbs.Item>
     </DropdownMenu.Trigger>
     <DropdownMenu.Content
       {...props}
+      size="2"
       variant="soft"
       color={color}
       highContrast={highContrast}

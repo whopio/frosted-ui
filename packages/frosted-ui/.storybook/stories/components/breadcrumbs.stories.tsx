@@ -21,7 +21,6 @@ type Story = StoryObj<typeof meta>;
 export const WithLinks: Story = {
   name: 'With links',
   args: {
-    size: breadcrumbsPropDefs.size.default,
     color: breadcrumbsPropDefs.color.default,
     highContrast: breadcrumbsPropDefs.highContrast.default,
   },
@@ -41,7 +40,6 @@ export const WithLinks: Story = {
 export const WithOnClick: Story = {
   name: 'With onClick',
   args: {
-    size: breadcrumbsPropDefs.size.default,
     color: breadcrumbsPropDefs.color.default,
     highContrast: breadcrumbsPropDefs.highContrast.default,
   },
@@ -61,7 +59,6 @@ export const WithOnClick: Story = {
 export const Truncated: Story = {
   name: 'Truncated',
   args: {
-    size: breadcrumbsPropDefs.size.default,
     color: breadcrumbsPropDefs.color.default,
     highContrast: breadcrumbsPropDefs.highContrast.default,
   },

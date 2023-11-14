@@ -25,7 +25,7 @@ const ThickCheckIcon = React.forwardRef<IconElement, IconProps>(
         />
       </svg>
     );
-  }
+  },
 );
 ThickCheckIcon.displayName = 'ThickCheckIcon';
 
@@ -44,7 +44,7 @@ const ChevronDownIcon = React.forwardRef<IconElement, IconProps>(
         <path d="M0.135232 3.15803C0.324102 2.95657 0.640521 2.94637 0.841971 3.13523L4.5 6.56464L8.158 3.13523C8.3595 2.94637 8.6759 2.95657 8.8648 3.15803C9.0536 3.35949 9.0434 3.67591 8.842 3.86477L4.84197 7.6148C4.64964 7.7951 4.35036 7.7951 4.15803 7.6148L0.158031 3.86477C-0.0434285 3.67591 -0.0536285 3.35949 0.135232 3.15803Z" />
       </svg>
     );
-  }
+  },
 );
 ChevronDownIcon.displayName = 'ChevronDownIcon';
 
@@ -67,9 +67,28 @@ const ThickChevronRightIcon = React.forwardRef<IconElement, IconProps>(
         />
       </svg>
     );
-  }
+  },
 );
 ThickChevronRightIcon.displayName = 'ThickChevronRightIcon';
+
+const ChevronRightIcon = React.forwardRef<IconElement, IconProps>(
+  ({ color = 'currentColor', ...props }, forwardedRef) => {
+    return (
+      <svg
+        width="6"
+        height="10"
+        viewBox="0 0 6 10"
+        xmlns="http://www.w3.org/2000/svg"
+        fill={color}
+        {...props}
+        ref={forwardedRef}
+      >
+        <path d="M1.25 9.625C1.07422 9.625 0.917969 9.56641 0.800781 9.44922C0.546875 9.21484 0.546875 8.80469 0.800781 8.57031L4.10156 5.25L0.800781 1.94922C0.546875 1.71484 0.546875 1.30469 0.800781 1.07031C1.03516 0.816406 1.44531 0.816406 1.67969 1.07031L5.42969 4.82031C5.68359 5.05469 5.68359 5.46484 5.42969 5.69922L1.67969 9.44922C1.5625 9.56641 1.40625 9.625 1.25 9.625Z" />
+      </svg>
+    );
+  },
+);
+ChevronRightIcon.displayName = 'ChevronRightIcon';
 
 const InfoCircledIcon = React.forwardRef<IconElement, IconProps>(
   ({ color = 'currentColor', ...props }, forwardedRef) => {
@@ -91,8 +110,14 @@ const InfoCircledIcon = React.forwardRef<IconElement, IconProps>(
         />
       </svg>
     );
-  }
+  },
 );
 InfoCircledIcon.displayName = 'InfoCircledIcon';
 
-export { ChevronDownIcon, InfoCircledIcon, ThickCheckIcon, ThickChevronRightIcon };
+export {
+  ChevronDownIcon,
+  ChevronRightIcon,
+  InfoCircledIcon,
+  ThickCheckIcon,
+  ThickChevronRightIcon,
+};

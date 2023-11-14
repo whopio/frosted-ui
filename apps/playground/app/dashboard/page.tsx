@@ -339,7 +339,7 @@ export default function Demo() {
                   justify="between"
                 >
                   <Box>
-                    <Breadcrumbs.Root size="1">
+                    <Breadcrumbs.Root>
                       <Breadcrumbs.Item>PRODUCTS</Breadcrumbs.Item>
                       <Breadcrumbs.Item>PICK A CATEGORY</Breadcrumbs.Item>
                     </Breadcrumbs.Root>
@@ -380,7 +380,7 @@ export default function Demo() {
                     <Card variant="surface">
                       <Inset>
                         <Box px="3" py="2">
-                          <Breadcrumbs.Root size="2">
+                          <Breadcrumbs.Root>
                             <Breadcrumbs.Item>Pick category</Breadcrumbs.Item>
                             <Breadcrumbs.Item>Add an app</Breadcrumbs.Item>
                             <Breadcrumbs.Item>Add price</Breadcrumbs.Item>
