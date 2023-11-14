@@ -1,8 +1,14 @@
 .rt-BaseMenuContent {
   --scrollarea-scrollbar-vertical-margin-top: var(--base-menu-content-padding);
-  --scrollarea-scrollbar-vertical-margin-bottom: var(--base-menu-content-padding);
-  --scrollarea-scrollbar-horizontal-margin-left: var(--base-menu-content-padding);
-  --scrollarea-scrollbar-horizontal-margin-right: var(--base-menu-content-padding);
+  --scrollarea-scrollbar-vertical-margin-bottom: var(
+    --base-menu-content-padding
+  );
+  --scrollarea-scrollbar-horizontal-margin-left: var(
+    --base-menu-content-padding
+  );
+  --scrollarea-scrollbar-horizontal-margin-right: var(
+    --base-menu-content-padding
+  );
 
   display: flex;
   flex-direction: column;
@@ -18,7 +24,12 @@
   overflow: auto;
   padding: var(--base-menu-content-padding);
 
-  :where(.rt-BaseMenuContent:has(.rt-ScrollAreaScrollbar[data-orientation='vertical'])) & {
+  :where(
+      .rt-BaseMenuContent:has(
+          .rt-ScrollAreaScrollbar[data-orientation='vertical']
+        )
+    )
+    & {
     padding-right: var(--space-3);
   }
 }
@@ -176,7 +187,9 @@
  ***************************************************************************************************/
 
 .rt-BaseMenuContent {
-  --base-menu-bg: var(--color-panel-solid);
+  --base-menu-bg: var(--color-panel-translucent);
+  -webkit-backdrop-filter: var(--backdrop-filter-panel);
+  backdrop-filter: var(--backdrop-filter-panel);
   box-shadow: var(--shadow-5);
 }
 .rt-BaseMenuItem:where([data-accent-color]) {
