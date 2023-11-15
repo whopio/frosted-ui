@@ -4,12 +4,6 @@ Frosted is the design system used and and built by [Whop](https://whop.com).
 
 ## Getting Started
 
-### Prerequisites
-
-- [React](https://reactjs.org/docs/getting-started.html) installed
-- [Tailwind CSS](https://tailwindcss.com/docs/installation) installed and configured
-- [Font Awesome](https://fontawesome.com/docs/web/setup/packages#_1-configure-access) access configured (Only free license required)
-
 ### Installation
 
 Install package:
