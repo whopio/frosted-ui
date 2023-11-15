@@ -1,13 +1,13 @@
 import { Pencil2Icon } from '@radix-ui/react-icons';
 import {
-  Button,
-  Container,
-  Flex,
-  Section,
-  Theme,
-  ThemePanel,
-  themeAccentColorsOrdered,
-} from '@whop/frosted-ui';
+    Button,
+    Container,
+    Flex,
+    Section,
+    Theme,
+    ThemePanel,
+    themeAccentColorsOrdered,
+} from 'frosted-ui';
 
 export default function Test() {
   return (

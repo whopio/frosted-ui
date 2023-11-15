@@ -1,5 +1,5 @@
 'use client';
-import { Box, Checkbox, Text } from '@whop/frosted-ui';
+import { Box, Checkbox, Text } from 'frosted-ui';
 import React from 'react';
 
 export function PointerCursorsCheckbox() {

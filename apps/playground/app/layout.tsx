@@ -1,4 +1,4 @@
-import '@whop/frosted-ui/styles.css';
+import 'frosted-ui/styles.css';
 import * as React from 'react';
 import './globals.css';
 

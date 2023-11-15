@@ -15,14 +15,14 @@ The system is built using:
 
 ### 1. Install Frosted UI
 
-`pnpm add @whop/frosted-ui`
+`pnpm add frosted-ui`
 
 ### 2. Import the CSS file
 
 Import the global CSS file at the root of your application.
 
 ```CSS
-import '@whop/frosted-ui/styles.css';
+import 'frosted-ui/styles.css';
 ```
 
 ### 3. Add the Theme component
@@ -30,7 +30,7 @@ import '@whop/frosted-ui/styles.css';
 Add `Theme` to your application, wrapping the root component inside of body.
 
 ```tsx
-import { Theme } from '@whop/frosted-ui';
+import { Theme } from 'frosted-ui';
 
 export default function () {
   return (
@@ -50,7 +50,7 @@ export default function () {
 You are now ready to use Frosted UI components.
 
 ```tsx
-import { Flex, Text, Button } from '@whop/frosted-ui';
+import { Flex, Text, Button } from 'frosted-ui';
 
 export default function MyApp() {
   return (

@@ -11,7 +11,7 @@ import {
   TextArea,
   Theme,
   ThemePanel,
-} from '@whop/frosted-ui';
+} from 'frosted-ui';
 import * as React from 'react';
 
 export default function Test() {

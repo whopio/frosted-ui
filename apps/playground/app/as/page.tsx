@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { Theme, Flex, Heading, Text, Link, Button } from '@whop/frosted-ui';
+import { Button, Flex, Heading, Link, Text, Theme } from 'frosted-ui';
 
 export default function As() {
   return (

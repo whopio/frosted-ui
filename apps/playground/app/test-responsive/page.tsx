@@ -1,23 +1,22 @@
-import * as React from 'react';
-import {
-  Theme,
-  Flex,
-  Grid,
-  TextFieldInput,
-  Text,
-  SelectRoot,
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
-  TextArea,
-  Button,
-  Container,
-  Section,
-  Card,
-  IconButton,
-} from '@whop/frosted-ui';
-import { NextThemeProvider } from '../next-theme-provider';
 import { SunIcon } from '@radix-ui/react-icons';
+import {
+    Button,
+    Card,
+    Container,
+    Flex,
+    Grid,
+    IconButton,
+    Section,
+    SelectContent,
+    SelectItem,
+    SelectRoot,
+    SelectTrigger,
+    Text,
+    TextArea,
+    TextFieldInput,
+    Theme,
+} from 'frosted-ui';
+import { NextThemeProvider } from '../next-theme-provider';
 
 export default function Test() {
   return (

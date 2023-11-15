@@ -36,7 +36,7 @@ In this demo we are going to build a screen which lists users and allows to edit
 
 - I have prepared a Next.js 13 app with the new app router
 - Here I have a blank page shell to get us started
-- Let's install Radix Themes (video of `npm install @whop/frosted-ui`)
+- Let's install Radix Themes (video of `npm install frosted-ui`)
 - I also have some data for a list of users we can pull in, let's render them:
   - Map over users
   - Add fragment with key
@@ -75,4 +75,4 @@ We hope you'll give it a try and let us know what you think!
 
 <!-- slide showing install and link -->
 
-You can install it today with `npm install @whop/frosted-ui` and learn more about it on our website at radix-ui.com/themes.
+You can install it today with `npm install frosted-ui` and learn more about it on our website at radix-ui.com/themes.

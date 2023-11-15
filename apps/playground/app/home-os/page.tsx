@@ -1,25 +1,25 @@
 'use client';
 
 import {
-  ChevronDownIcon,
-  GridIcon,
-  HamburgerMenuIcon,
-  MinusIcon,
-  PlusIcon,
+    ChevronDownIcon,
+    GridIcon,
+    HamburgerMenuIcon,
+    MinusIcon,
+    PlusIcon,
 } from '@radix-ui/react-icons';
 import {
-  Button,
-  Dialog,
-  DropdownMenu,
-  IconButton,
-  Link,
-  Popover,
-  Separator,
-  Text,
-  Theme,
-  //
-  ThemePanel,
-} from '@whop/frosted-ui';
+    Button,
+    Dialog,
+    DropdownMenu,
+    IconButton,
+    Link,
+    Popover,
+    Separator,
+    Text,
+    Theme,
+    //
+    ThemePanel,
+} from 'frosted-ui';
 import * as React from 'react';
 import styles from './page.module.css';
 

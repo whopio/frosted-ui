@@ -1,4 +1,4 @@
-import { radixThemePlugin } from '@whop/frosted-ui';
+import { radixThemePlugin } from 'frosted-ui';
 
 export default {
   darkMode: ['class'],

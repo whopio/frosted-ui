@@ -1,24 +1,23 @@
-import * as React from 'react';
 import {
-  Theme,
-  Container,
-  Section,
-  Flex,
-  Grid,
-  Button,
-  IconButton,
-  Link,
-  PopoverRoot,
-  PopoverTrigger,
-  PopoverContent,
-} from '@whop/frosted-ui';
-import {
-  ChatBubbleIcon,
-  DotsHorizontalIcon,
-  FileTextIcon,
-  QuestionMarkCircledIcon,
-  SunIcon,
+    ChatBubbleIcon,
+    DotsHorizontalIcon,
+    FileTextIcon,
+    QuestionMarkCircledIcon,
+    SunIcon,
 } from '@radix-ui/react-icons';
+import {
+    Button,
+    Container,
+    Flex,
+    Grid,
+    IconButton,
+    Link,
+    PopoverContent,
+    PopoverRoot,
+    PopoverTrigger,
+    Section,
+    Theme,
+} from 'frosted-ui';
 
 export default function Ghost() {
   return (

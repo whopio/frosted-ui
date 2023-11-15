@@ -1,27 +1,27 @@
 import { Pencil1Icon } from '@radix-ui/react-icons';
 import {
-  //
-  Avatar,
-  Button,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogRoot,
-  DialogTitle,
-  DialogTrigger,
-  Flex,
-  IconButton,
-  SelectContent,
-  SelectItem,
-  SelectRoot,
-  SelectTrigger,
-  Separator,
-  Text,
-  TextFieldInput,
-  Theme,
-  //
-  ThemePanel,
-} from '@whop/frosted-ui';
+    //
+    Avatar,
+    Button,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogRoot,
+    DialogTitle,
+    DialogTrigger,
+    Flex,
+    IconButton,
+    SelectContent,
+    SelectItem,
+    SelectRoot,
+    SelectTrigger,
+    Separator,
+    Text,
+    TextFieldInput,
+    Theme,
+    //
+    ThemePanel,
+} from 'frosted-ui';
 import * as React from 'react';
 import styles from './page.module.css';
 import { users } from './users';

@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  transpilePackages: ['@whop/frosted-ui'],
+  transpilePackages: ['frosted-ui'],
   async redirects() {
     return [
       {

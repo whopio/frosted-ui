@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { Theme, Avatar, Flex, ThemePanel } from '@whop/frosted-ui';
+import { Avatar, Flex, Theme, ThemePanel } from 'frosted-ui';
 import { NextThemeProvider } from '../next-theme-provider';
 
 export default function Test() {

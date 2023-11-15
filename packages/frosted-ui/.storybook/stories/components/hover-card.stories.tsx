@@ -2,16 +2,16 @@ import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 
 import {
-  Avatar,
-  Box,
-  Flex,
-  Heading,
-  HoverCard,
-  Inset,
-  Link,
-  Strong,
-  Text,
-  hoverCardContentPropDefs,
+    Avatar,
+    Box,
+    Flex,
+    Heading,
+    HoverCard,
+    Inset,
+    Link,
+    Strong,
+    Text,
+    hoverCardContentPropDefs,
 } from '../../../src/components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -42,7 +42,7 @@ export const Default: Story = {
       <HoverCard.Root>
         <HoverCard.Trigger>
           <Link href="https://github.com/whopio/frosted-ui" target="_blank">
-            @whop/frosted-ui
+            frosted-ui
           </Link>
         </HoverCard.Trigger>
         <HoverCard.Content {...args}>
@@ -53,7 +53,7 @@ export const Default: Story = {
                 Frosted UI
               </Heading>
               <Text as="div" size="2" color="gray">
-                @whop/frosted-ui
+                frosted-ui
               </Text>
 
               <Text as="div" size="2" style={{ maxWidth: 300 }} mt="3">

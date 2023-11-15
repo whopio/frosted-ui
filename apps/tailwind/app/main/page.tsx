@@ -1,25 +1,25 @@
 import {
-  ArrowLeftIcon,
-  ArrowRightIcon,
-  ChevronRightIcon,
+    ArrowLeftIcon,
+    ArrowRightIcon,
+    ChevronRightIcon,
 } from '@radix-ui/react-icons';
 import {
-  Avatar,
-  Box,
-  Button,
-  Card,
-  Container,
-  Heading,
-  IconButton,
-  Inset,
-  Separator,
-  TabsList,
-  TabsRoot,
-  TabsTrigger,
-  Text,
-  Theme,
-  ThemePanel,
-} from '@whop/frosted-ui';
+    Avatar,
+    Box,
+    Button,
+    Card,
+    Container,
+    Heading,
+    IconButton,
+    Inset,
+    Separator,
+    TabsList,
+    TabsRoot,
+    TabsTrigger,
+    Text,
+    Theme,
+    ThemePanel,
+} from 'frosted-ui';
 import WhopLogo from './WhopLogo';
 
 export default function Dashboard() {

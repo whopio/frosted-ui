@@ -2,14 +2,14 @@
 
 import { DownloadIcon, HeartFilledIcon, PlusIcon } from '@radix-ui/react-icons';
 import {
-  Button,
-  Flex,
-  IconButton,
-  Popover,
-  RadioGroupItem,
-  RadioGroupRoot,
-  Text,
-} from '@whop/frosted-ui';
+    Button,
+    Flex,
+    IconButton,
+    Popover,
+    RadioGroupItem,
+    RadioGroupRoot,
+    Text,
+} from 'frosted-ui';
 import * as React from 'react';
 import styles from './page.module.css';
 // TODO: tooltips not working

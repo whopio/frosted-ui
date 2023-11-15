@@ -1,4 +1,4 @@
-import type { ThemeOptions } from '@whop/frosted-ui';
+import type { ThemeOptions } from 'frosted-ui';
 
 type Person = {
   image: string;
