@@ -201,6 +201,13 @@ export {
 export * from './lab/skeleton.props';
 export { ScrollArea } from './scroll-area';
 export * from './scroll-area.props';
+export {
+  SegmentedControl,
+  SegmentedControlContent,
+  SegmentedControlList,
+  SegmentedControlRoot,
+  SegmentedControlTrigger,
+} from './segmented-control';
 export { Separator } from './separator';
 export * from './separator.props';
 // export * from './skeleton';

@@ -1,0 +1,75 @@
+.rt-SegmentedControlList {
+  box-sizing: border-box;
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+
+  background: var(--gray-a2);
+  border-radius: var(--radius-4);
+  scrollbar-width: none;
+  padding: var(--space-1);
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.rt-SegmentedControlTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  position: relative;
+  user-select: none;
+  border-radius: var(--radius-3);
+}
+
+.rt-SegmentedControlTriggerInner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.rt-SegmentedControlContent {
+  position: relative;
+  outline: 0;
+}
+
+.rt-SegmentedControlList {
+  height: var(--space-7);
+  font-size: var(--font-size-2);
+  line-height: var(--line-height-2);
+  letter-spacing: var(--letter-spacing-2);
+  font-weight: var(--font-weight-medium);
+}
+
+.rt-SegmentedControlTrigger {
+  flex: 1;
+  color: var(--gray-a9);
+
+  @media (hover: hover) {
+    &:where(:hover) {
+      color: var(--gray-a11);
+    }
+  }
+  &:where([data-state='active']) {
+    color: var(--gray-a12);
+  }
+  &:where(:focus-visible)::before {
+    outline: 2px solid var(--color-focus-root);
+    outline-offset: 2px;
+  }
+  &:where([data-state='active'])::before {
+    box-sizing: border-box;
+    content: '';
+    position: absolute;
+    border-radius: inherit;
+    inset: 0;
+    background: var(--color-panel-solid);
+    background-image: linear-gradient(var(--white-a3), var(--white-a3));
+    box-shadow:
+      0px 1px 1px 0px rgba(0, 0, 0, 0.05),
+      0px 2px 4px 0px rgba(0, 0, 0, 0.05);
+  }
+}
