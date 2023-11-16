@@ -76,6 +76,29 @@ export const Color: Story = {
   ),
 };
 
+export const SemanticColor: Story = {
+  name: 'Semantic color',
+  args: {
+    size: badgePropDefs.size.default,
+  },
+  render: (args) => (
+    <Flex align="center" gap="2">
+      <Badge {...args} color="info">
+        Info
+      </Badge>
+      <Badge {...args} color="success">
+        Success
+      </Badge>
+      <Badge {...args} color="warning">
+        Warning
+      </Badge>
+      <Badge {...args} color="danger">
+        Danger
+      </Badge>
+    </Flex>
+  ),
+};
+
 export const HighContrast: Story = {
   name: 'High Contrast',
   args: {

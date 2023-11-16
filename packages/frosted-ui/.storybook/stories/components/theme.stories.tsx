@@ -65,3 +65,143 @@ export const Default: Story = {
     </Theme>
   ),
 };
+
+export const Colors: Story = {
+  render: (args) => (
+    <Flex gap="6">
+      <Theme
+        grayColor="slate"
+        accentColor="iris"
+        infoColor="sky"
+        successColor="green"
+        warningColor="yellow"
+        dangerColor="red"
+      >
+        <Flex
+          direction="column"
+          gap="3"
+          p={'4'}
+          style={{
+            background: 'var(--gray-6)',
+            borderRadius: 'var(--radius-5)',
+          }}
+        >
+          <Button variant="classic">Default</Button>
+          <Button variant="classic" color="info">
+            Info
+          </Button>
+          <Button variant="classic" color="success">
+            Success
+          </Button>
+          <Button variant="classic" color="warning">
+            Warning
+          </Button>
+          <Button variant="classic" color="danger">
+            Danger
+          </Button>
+        </Flex>
+      </Theme>
+      <Theme
+        grayColor="gray"
+        accentColor="plum"
+        infoColor="blue"
+        successColor="grass"
+        warningColor="amber"
+        dangerColor="ruby"
+      >
+        <Flex
+          direction="column"
+          gap="3"
+          p={'4'}
+          style={{
+            background: 'var(--gray-6)',
+            borderRadius: 'var(--radius-5)',
+          }}
+        >
+          <Button variant="classic">Default</Button>
+          <Button variant="classic" color="info">
+            Info
+          </Button>
+          <Button variant="classic" color="success">
+            Success
+          </Button>
+          <Button variant="classic" color="warning">
+            Warning
+          </Button>
+          <Button variant="classic" color="danger">
+            Danger
+          </Button>
+        </Flex>
+      </Theme>
+    </Flex>
+  ),
+};
+
+export const Appearance: Story = {
+  render: (args) => (
+    <Flex gap="6">
+      <Theme
+        appearance="light"
+        grayColor="slate"
+        infoColor="sky"
+        successColor="green"
+        warningColor="yellow"
+        dangerColor="red"
+      >
+        <Flex
+          direction="column"
+          gap="3"
+          p={'4'}
+          style={{
+            background: 'var(--color-background)',
+            borderRadius: 'var(--radius-5)',
+          }}
+        >
+          <Button variant="classic" color="info">
+            Info
+          </Button>
+          <Button variant="classic" color="success">
+            Success
+          </Button>
+          <Button variant="classic" color="warning">
+            Warning
+          </Button>
+          <Button variant="classic" color="danger">
+            Danger
+          </Button>
+        </Flex>
+      </Theme>
+      <Theme
+        appearance="dark"
+        grayColor="slate"
+        infoColor="sky"
+        successColor="green"
+        warningColor="yellow"
+        dangerColor="red"
+      >
+        <Flex
+          direction="column"
+          gap="3"
+          p={'4'}
+          style={{
+            background: 'var(--color-background)',
+            borderRadius: 'var(--radius-5)',
+          }}
+        >
+          <Button variant="classic" color="info">
+            Info
+          </Button>
+          <Button variant="classic" color="success">
+            Success
+          </Button>
+          <Button variant="classic" color="warning">
+            Warning
+          </Button>
+          <Button variant="classic" color="danger">
+            Danger
+          </Button>
+        </Flex>
+      </Theme>
+    </Flex>
+  ),
+};

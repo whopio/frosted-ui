@@ -45,7 +45,7 @@ export const Default: Story = {
         <DropdownMenu.Item>Share</DropdownMenu.Item>
         <DropdownMenu.Item>Add to favorites</DropdownMenu.Item>
         <DropdownMenu.Separator />
-        <DropdownMenu.Item shortcut="⌘ ⌫" color="red">
+        <DropdownMenu.Item shortcut="⌘ ⌫" color="danger">
           Delete
         </DropdownMenu.Item>
       </DropdownMenu.Content>
@@ -69,7 +69,7 @@ export const Size: Story = {
           <DropdownMenu.Item shortcut="⌘ N">Archive</DropdownMenu.Item>
 
           <DropdownMenu.Separator />
-          <DropdownMenu.Item shortcut="⌘ ⌫" color="red">
+          <DropdownMenu.Item shortcut="⌘ ⌫" color="danger">
             Delete
           </DropdownMenu.Item>
         </DropdownMenu.Content>
@@ -88,7 +88,7 @@ export const Size: Story = {
           <DropdownMenu.Item shortcut="⌘ N">Archive</DropdownMenu.Item>
 
           <DropdownMenu.Separator />
-          <DropdownMenu.Item shortcut="⌘ ⌫" color="red">
+          <DropdownMenu.Item shortcut="⌘ ⌫" color="danger">
             Delete
           </DropdownMenu.Item>
         </DropdownMenu.Content>

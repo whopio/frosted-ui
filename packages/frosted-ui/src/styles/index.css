@@ -3,6 +3,7 @@
 @import './reset.css';
 
 @import './tokens/color.css';
+@import './tokens/semantic-color.css';
 @import './tokens/cursor.css';
 @import './tokens/radius.css';
 @import './tokens/scaling.css';

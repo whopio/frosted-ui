@@ -1,0 +1,498 @@
+/* * * * * * * * * * * * * * * * * * * */
+/*                                     */
+/*          Map danger colors           */
+/*                                     */
+/* * * * * * * * * * * * * * * * * * * */
+
+/* Default */
+:root,
+[data-danger-color='red'] {
+  --color-surface-danger: var(--red-surface);
+
+  --danger-1: var(--red-1);
+  --danger-2: var(--red-2);
+  --danger-3: var(--red-3);
+  --danger-4: var(--red-4);
+  --danger-5: var(--red-5);
+  --danger-6: var(--red-6);
+  --danger-7: var(--red-7);
+  --danger-8: var(--red-8);
+  --danger-9: var(--red-9);
+  --danger-9-contrast: var(--red-9-contrast);
+  --danger-10: var(--red-10);
+  --danger-11: var(--red-11);
+  --danger-12: var(--red-12);
+
+  --danger-a1: var(--red-a1);
+  --danger-a2: var(--red-a2);
+  --danger-a3: var(--red-a3);
+  --danger-a4: var(--red-a4);
+  --danger-a5: var(--red-a5);
+  --danger-a6: var(--red-a6);
+  --danger-a7: var(--red-a7);
+  --danger-a8: var(--red-a8);
+  --danger-a9: var(--red-a9);
+  --danger-a10: var(--red-a10);
+  --danger-a11: var(--red-a11);
+  --danger-a12: var(--red-a12);
+}
+
+[data-danger-color='tomato'] {
+  --color-surface-danger: var(--tomato-surface);
+
+  --danger-1: var(--tomato-1);
+  --danger-2: var(--tomato-2);
+  --danger-3: var(--tomato-3);
+  --danger-4: var(--tomato-4);
+  --danger-5: var(--tomato-5);
+  --danger-6: var(--tomato-6);
+  --danger-7: var(--tomato-7);
+  --danger-8: var(--tomato-8);
+  --danger-9: var(--tomato-9);
+  --danger-9-contrast: var(--tomato-9-contrast);
+  --danger-10: var(--tomato-10);
+  --danger-11: var(--tomato-11);
+  --danger-12: var(--tomato-12);
+
+  --danger-a1: var(--tomato-a1);
+  --danger-a2: var(--tomato-a2);
+  --danger-a3: var(--tomato-a3);
+  --danger-a4: var(--tomato-a4);
+  --danger-a5: var(--tomato-a5);
+  --danger-a6: var(--tomato-a6);
+  --danger-a7: var(--tomato-a7);
+  --danger-a8: var(--tomato-a8);
+  --danger-a9: var(--tomato-a9);
+  --danger-a10: var(--tomato-a10);
+  --danger-a11: var(--tomato-a11);
+  --danger-a12: var(--tomato-a12);
+}
+
+[data-danger-color='ruby'] {
+  --color-surface-danger: var(--ruby-surface);
+
+  --danger-1: var(--ruby-1);
+  --danger-2: var(--ruby-2);
+  --danger-3: var(--ruby-3);
+  --danger-4: var(--ruby-4);
+  --danger-5: var(--ruby-5);
+  --danger-6: var(--ruby-6);
+  --danger-7: var(--ruby-7);
+  --danger-8: var(--ruby-8);
+  --danger-9: var(--ruby-9);
+  --danger-9-contrast: var(--ruby-9-contrast);
+  --danger-10: var(--ruby-10);
+  --danger-11: var(--ruby-11);
+  --danger-12: var(--ruby-12);
+
+  --danger-a1: var(--ruby-a1);
+  --danger-a2: var(--ruby-a2);
+  --danger-a3: var(--ruby-a3);
+  --danger-a4: var(--ruby-a4);
+  --danger-a5: var(--ruby-a5);
+  --danger-a6: var(--ruby-a6);
+  --danger-a7: var(--ruby-a7);
+  --danger-a8: var(--ruby-a8);
+  --danger-a9: var(--ruby-a9);
+  --danger-a10: var(--ruby-a10);
+  --danger-a11: var(--ruby-a11);
+  --danger-a12: var(--ruby-a12);
+}
+
+/* * * * * * * * * * * * * * * * * * * */
+/*                                     */
+/*          Map warning colors         */
+/*                                     */
+/* * * * * * * * * * * * * * * * * * * */
+
+/* Default */
+:root,
+[data-warning-color='amber'] {
+  --color-surface-warning: var(--amber-surface);
+
+  --warning-1: var(--amber-1);
+  --warning-2: var(--amber-2);
+  --warning-3: var(--amber-3);
+  --warning-4: var(--amber-4);
+  --warning-5: var(--amber-5);
+  --warning-6: var(--amber-6);
+  --warning-7: var(--amber-7);
+  --warning-8: var(--amber-8);
+  --warning-9: var(--amber-9);
+  --warning-9-contrast: var(--amber-9-contrast);
+  --warning-10: var(--amber-10);
+  --warning-11: var(--amber-11);
+  --warning-12: var(--amber-12);
+
+  --warning-a1: var(--amber-a1);
+  --warning-a2: var(--amber-a2);
+  --warning-a3: var(--amber-a3);
+  --warning-a4: var(--amber-a4);
+  --warning-a5: var(--amber-a5);
+  --warning-a6: var(--amber-a6);
+  --warning-a7: var(--amber-a7);
+  --warning-a8: var(--amber-a8);
+  --warning-a9: var(--amber-a9);
+  --warning-a10: var(--amber-a10);
+  --warning-a11: var(--amber-a11);
+  --warning-a12: var(--amber-a12);
+}
+
+[data-warning-color='yellow'] {
+  --color-surface-warning: var(--yellow-surface);
+
+  --warning-1: var(--yellow-1);
+  --warning-2: var(--yellow-2);
+  --warning-3: var(--yellow-3);
+  --warning-4: var(--yellow-4);
+  --warning-5: var(--yellow-5);
+  --warning-6: var(--yellow-6);
+  --warning-7: var(--yellow-7);
+  --warning-8: var(--yellow-8);
+  --warning-9: var(--yellow-9);
+  --warning-9-contrast: var(--yellow-9-contrast);
+  --warning-10: var(--yellow-10);
+  --warning-11: var(--yellow-11);
+  --warning-12: var(--yellow-12);
+
+  --warning-a1: var(--yellow-a1);
+  --warning-a2: var(--yellow-a2);
+  --warning-a3: var(--yellow-a3);
+  --warning-a4: var(--yellow-a4);
+  --warning-a5: var(--yellow-a5);
+  --warning-a6: var(--yellow-a6);
+  --warning-a7: var(--yellow-a7);
+  --warning-a8: var(--yellow-a8);
+  --warning-a9: var(--yellow-a9);
+  --warning-a10: var(--yellow-a10);
+  --warning-a11: var(--yellow-a11);
+  --warning-a12: var(--yellow-a12);
+}
+
+/* * * * * * * * * * * * * * * * * * * */
+/*                                     */
+/*          Map success colors         */
+/*                                     */
+/* * * * * * * * * * * * * * * * * * * */
+
+/* Default */
+:root,
+[data-success-color='green'] {
+  --color-surface-success: var(--green-surface);
+
+  --success-1: var(--green-1);
+  --success-2: var(--green-2);
+  --success-3: var(--green-3);
+  --success-4: var(--green-4);
+  --success-5: var(--green-5);
+  --success-6: var(--green-6);
+  --success-7: var(--green-7);
+  --success-8: var(--green-8);
+  --success-9: var(--green-9);
+  --success-9-contrast: var(--green-9-contrast);
+  --success-10: var(--green-10);
+  --success-11: var(--green-11);
+  --success-12: var(--green-12);
+
+  --success-a1: var(--green-a1);
+  --success-a2: var(--green-a2);
+  --success-a3: var(--green-a3);
+  --success-a4: var(--green-a4);
+  --success-a5: var(--green-a5);
+  --success-a6: var(--green-a6);
+  --success-a7: var(--green-a7);
+  --success-a8: var(--green-a8);
+  --success-a9: var(--green-a9);
+  --success-a10: var(--green-a10);
+  --success-a11: var(--green-a11);
+  --success-a12: var(--green-a12);
+}
+
+[data-success-color='teal'] {
+  --color-surface-success: var(--teal-surface);
+
+  --success-1: var(--teal-1);
+  --success-2: var(--teal-2);
+  --success-3: var(--teal-3);
+  --success-4: var(--teal-4);
+  --success-5: var(--teal-5);
+  --success-6: var(--teal-6);
+  --success-7: var(--teal-7);
+  --success-8: var(--teal-8);
+  --success-9: var(--teal-9);
+  --success-9-contrast: var(--teal-9-contrast);
+  --success-10: var(--teal-10);
+  --success-11: var(--teal-11);
+  --success-12: var(--teal-12);
+
+  --success-a1: var(--teal-a1);
+  --success-a2: var(--teal-a2);
+  --success-a3: var(--teal-a3);
+  --success-a4: var(--teal-a4);
+  --success-a5: var(--teal-a5);
+  --success-a6: var(--teal-a6);
+  --success-a7: var(--teal-a7);
+  --success-a8: var(--teal-a8);
+  --success-a9: var(--teal-a9);
+  --success-a10: var(--teal-a10);
+  --success-a11: var(--teal-a11);
+  --success-a12: var(--teal-a12);
+}
+
+[data-success-color='jade'] {
+  --color-surface-success: var(--jade-surface);
+
+  --success-1: var(--jade-1);
+  --success-2: var(--jade-2);
+  --success-3: var(--jade-3);
+  --success-4: var(--jade-4);
+  --success-5: var(--jade-5);
+  --success-6: var(--jade-6);
+  --success-7: var(--jade-7);
+  --success-8: var(--jade-8);
+  --success-9: var(--jade-9);
+  --success-9-contrast: var(--jade-9-contrast);
+  --success-10: var(--jade-10);
+  --success-11: var(--jade-11);
+  --success-12: var(--jade-12);
+
+  --success-a1: var(--jade-a1);
+  --success-a2: var(--jade-a2);
+  --success-a3: var(--jade-a3);
+  --success-a4: var(--jade-a4);
+  --success-a5: var(--jade-a5);
+  --success-a6: var(--jade-a6);
+  --success-a7: var(--jade-a7);
+  --success-a8: var(--jade-a8);
+  --success-a9: var(--jade-a9);
+  --success-a10: var(--jade-a10);
+  --success-a11: var(--jade-a11);
+  --success-a12: var(--jade-a12);
+}
+
+[data-success-color='grass'] {
+  --color-surface-success: var(--grass-surface);
+
+  --success-1: var(--grass-1);
+  --success-2: var(--grass-2);
+  --success-3: var(--grass-3);
+  --success-4: var(--grass-4);
+  --success-5: var(--grass-5);
+  --success-6: var(--grass-6);
+  --success-7: var(--grass-7);
+  --success-8: var(--grass-8);
+  --success-9: var(--grass-9);
+  --success-9-contrast: var(--grass-9-contrast);
+  --success-10: var(--grass-10);
+  --success-11: var(--grass-11);
+  --success-12: var(--grass-12);
+
+  --success-a1: var(--grass-a1);
+  --success-a2: var(--grass-a2);
+  --success-a3: var(--grass-a3);
+  --success-a4: var(--grass-a4);
+  --success-a5: var(--grass-a5);
+  --success-a6: var(--grass-a6);
+  --success-a7: var(--grass-a7);
+  --success-a8: var(--grass-a8);
+  --success-a9: var(--grass-a9);
+  --success-a10: var(--grass-a10);
+  --success-a11: var(--grass-a11);
+  --success-a12: var(--grass-a12);
+}
+
+/* * * * * * * * * * * * * * * * * * * */
+/*                                     */
+/*          Map info colors            */
+/*                                     */
+/* * * * * * * * * * * * * * * * * * * */
+
+/* Default */
+:root,
+[data-info-color='sky'] {
+  --color-surface-info: var(--sky-surface);
+
+  --info-1: var(--sky-1);
+  --info-2: var(--sky-2);
+  --info-3: var(--sky-3);
+  --info-4: var(--sky-4);
+  --info-5: var(--sky-5);
+  --info-6: var(--sky-6);
+  --info-7: var(--sky-7);
+  --info-8: var(--sky-8);
+  --info-9: var(--sky-9);
+  --info-9-contrast: var(--sky-9-contrast);
+  --info-10: var(--sky-10);
+  --info-11: var(--sky-11);
+  --info-12: var(--sky-12);
+
+  --info-a1: var(--sky-a1);
+  --info-a2: var(--sky-a2);
+  --info-a3: var(--sky-a3);
+  --info-a4: var(--sky-a4);
+  --info-a5: var(--sky-a5);
+  --info-a6: var(--sky-a6);
+  --info-a7: var(--sky-a7);
+  --info-a8: var(--sky-a8);
+  --info-a9: var(--sky-a9);
+  --info-a10: var(--sky-a10);
+  --info-a11: var(--sky-a11);
+  --info-a12: var(--sky-a12);
+}
+
+[data-info-color='blue'] {
+  --color-surface-info: var(--blue-surface);
+
+  --info-1: var(--blue-1);
+  --info-2: var(--blue-2);
+  --info-3: var(--blue-3);
+  --info-4: var(--blue-4);
+  --info-5: var(--blue-5);
+  --info-6: var(--blue-6);
+  --info-7: var(--blue-7);
+  --info-8: var(--blue-8);
+  --info-9: var(--blue-9);
+  --info-9-contrast: var(--blue-9-contrast);
+  --info-10: var(--blue-10);
+  --info-11: var(--blue-11);
+  --info-12: var(--blue-12);
+
+  --info-a1: var(--blue-a1);
+  --info-a2: var(--blue-a2);
+  --info-a3: var(--blue-a3);
+  --info-a4: var(--blue-a4);
+  --info-a5: var(--blue-a5);
+  --info-a6: var(--blue-a6);
+  --info-a7: var(--blue-a7);
+  --info-a8: var(--blue-a8);
+  --info-a9: var(--blue-a9);
+  --info-a10: var(--blue-a10);
+  --info-a11: var(--blue-a11);
+  --info-a12: var(--blue-a12);
+}
+
+/* Mapping to accent color */
+
+[data-accent-color='danger'] {
+  --color-surface-accent: var(--color-surface-danger);
+
+  --accent-1: var(--danger-1);
+  --accent-2: var(--danger-2);
+  --accent-3: var(--danger-3);
+  --accent-4: var(--danger-4);
+  --accent-5: var(--danger-5);
+  --accent-6: var(--danger-6);
+  --accent-7: var(--danger-7);
+  --accent-8: var(--danger-8);
+  --accent-9: var(--danger-9);
+  --accent-9-contrast: var(--danger-9-contrast);
+  --accent-10: var(--danger-10);
+  --accent-11: var(--danger-11);
+  --accent-12: var(--danger-12);
+
+  --accent-a1: var(--danger-a1);
+  --accent-a2: var(--danger-a2);
+  --accent-a3: var(--danger-a3);
+  --accent-a4: var(--danger-a4);
+  --accent-a5: var(--danger-a5);
+  --accent-a6: var(--danger-a6);
+  --accent-a7: var(--danger-a7);
+  --accent-a8: var(--danger-a8);
+  --accent-a9: var(--danger-a9);
+  --accent-a10: var(--danger-a10);
+  --accent-a11: var(--danger-a11);
+  --accent-a12: var(--danger-a12);
+}
+
+[data-accent-color='warning'] {
+  --color-surface-accent: var(--color-surface-warning);
+
+  --accent-1: var(--warning-1);
+  --accent-2: var(--warning-2);
+  --accent-3: var(--warning-3);
+  --accent-4: var(--warning-4);
+  --accent-5: var(--warning-5);
+  --accent-6: var(--warning-6);
+  --accent-7: var(--warning-7);
+  --accent-8: var(--warning-8);
+  --accent-9: var(--warning-9);
+  --accent-9-contrast: var(--warning-9-contrast);
+  --accent-10: var(--warning-10);
+  --accent-11: var(--warning-11);
+  --accent-12: var(--warning-12);
+
+  --accent-a1: var(--warning-a1);
+  --accent-a2: var(--warning-a2);
+  --accent-a3: var(--warning-a3);
+  --accent-a4: var(--warning-a4);
+  --accent-a5: var(--warning-a5);
+  --accent-a6: var(--warning-a6);
+  --accent-a7: var(--warning-a7);
+  --accent-a8: var(--warning-a8);
+  --accent-a9: var(--warning-a9);
+  --accent-a10: var(--warning-a10);
+  --accent-a11: var(--warning-a11);
+  --accent-a12: var(--warning-a12);
+}
+
+[data-accent-color='success'] {
+  --color-surface-accent: var(--color-surface-success);
+
+  --accent-1: var(--success-1);
+  --accent-2: var(--success-2);
+  --accent-3: var(--success-3);
+  --accent-4: var(--success-4);
+  --accent-5: var(--success-5);
+  --accent-6: var(--success-6);
+  --accent-7: var(--success-7);
+  --accent-8: var(--success-8);
+  --accent-9: var(--success-9);
+  --accent-9-contrast: var(--success-9-contrast);
+  --accent-10: var(--success-10);
+  --accent-11: var(--success-11);
+  --accent-12: var(--success-12);
+
+  --accent-a1: var(--success-a1);
+  --accent-a2: var(--success-a2);
+  --accent-a3: var(--success-a3);
+  --accent-a4: var(--success-a4);
+  --accent-a5: var(--success-a5);
+  --accent-a6: var(--success-a6);
+  --accent-a7: var(--success-a7);
+  --accent-a8: var(--success-a8);
+  --accent-a9: var(--success-a9);
+  --accent-a10: var(--success-a10);
+  --accent-a11: var(--success-a11);
+  --accent-a12: var(--success-a12);
+}
+
+[data-accent-color='info'] {
+  --color-surface-accent: var(--color-surface-info);
+
+  --accent-1: var(--info-1);
+  --accent-2: var(--info-2);
+  --accent-3: var(--info-3);
+  --accent-4: var(--info-4);
+  --accent-5: var(--info-5);
+  --accent-6: var(--info-6);
+  --accent-7: var(--info-7);
+  --accent-8: var(--info-8);
+  --accent-9: var(--info-9);
+  --accent-9-contrast: var(--info-9-contrast);
+  --accent-10: var(--info-10);
+  --accent-11: var(--info-11);
+  --accent-12: var(--info-12);
+
+  --accent-a1: var(--info-a1);
+  --accent-a2: var(--info-a2);
+  --accent-a3: var(--info-a3);
+  --accent-a4: var(--info-a4);
+  --accent-a5: var(--info-a5);
+  --accent-a6: var(--info-a6);
+  --accent-a7: var(--info-a7);
+  --accent-a8: var(--info-a8);
+  --accent-a9: var(--info-a9);
+  --accent-a10: var(--info-a10);
+  --accent-a11: var(--info-a11);
+  --accent-a12: var(--info-a12);
+}

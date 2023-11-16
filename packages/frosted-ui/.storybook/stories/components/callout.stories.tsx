@@ -151,6 +151,51 @@ export const Color: Story = {
   ),
 };
 
+export const SemanticColor: Story = {
+  name: 'Semantic color',
+  args: {
+    color: calloutRootPropDefs.color.default,
+    variant: calloutRootPropDefs.variant.default,
+    children: (
+      <>
+        You will need to upgrade to the{' '}
+        <Link href="#">newest Frosted-UI version</Link> now.
+      </>
+    ),
+  },
+  render: ({ children, ...args }: CalloutRootProps) => (
+    <Flex direction="column" gap="3">
+      <Callout.Root {...args} color="info">
+        <Callout.Icon>
+          <Callout.Icon>i</Callout.Icon>
+        </Callout.Icon>
+        <Callout.Text>{children}</Callout.Text>
+      </Callout.Root>
+
+      <Callout.Root {...args} color="success">
+        <Callout.Icon>
+          <Callout.Icon>i</Callout.Icon>
+        </Callout.Icon>
+        <Callout.Text>{children}</Callout.Text>
+      </Callout.Root>
+
+      <Callout.Root {...args} color="warning">
+        <Callout.Icon>
+          <Callout.Icon>i</Callout.Icon>
+        </Callout.Icon>
+        <Callout.Text>{children}</Callout.Text>
+      </Callout.Root>
+
+      <Callout.Root {...args} color="danger">
+        <Callout.Icon>
+          <Callout.Icon>i</Callout.Icon>
+        </Callout.Icon>
+        <Callout.Text>{children}</Callout.Text>
+      </Callout.Root>
+    </Flex>
+  ),
+};
+
 export const HighContrast: Story = {
   name: 'High Contrast',
   args: {
