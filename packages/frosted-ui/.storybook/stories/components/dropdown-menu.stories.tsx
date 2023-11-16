@@ -97,48 +97,6 @@ export const Size: Story = {
   ),
 };
 
-export const Variant: Story = {
-  render: (args) => (
-    <Flex gap="3" align="center">
-      <DropdownMenu.Root>
-        <DropdownMenu.Trigger>
-          <Button variant="soft" size="2">
-            Soft
-          </Button>
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Content variant="soft">
-          <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
-          <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
-          <DropdownMenu.Separator />
-          <DropdownMenu.Item shortcut="⌘ N">Archive</DropdownMenu.Item>
-
-          <DropdownMenu.Separator />
-          <DropdownMenu.Item shortcut="⌘ ⌫" color="red">
-            Delete
-          </DropdownMenu.Item>
-        </DropdownMenu.Content>
-      </DropdownMenu.Root>
-
-      <DropdownMenu.Root>
-        <DropdownMenu.Trigger>
-          <Button size="2">Solid</Button>
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Content variant="solid">
-          <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
-          <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
-          <DropdownMenu.Separator />
-          <DropdownMenu.Item shortcut="⌘ N">Archive</DropdownMenu.Item>
-
-          <DropdownMenu.Separator />
-          <DropdownMenu.Item shortcut="⌘ ⌫" color="red">
-            Delete
-          </DropdownMenu.Item>
-        </DropdownMenu.Content>
-      </DropdownMenu.Root>
-    </Flex>
-  ),
-};
-
 export const Color: Story = {
   render: (args) => (
     <Flex gap="3">
@@ -148,7 +106,7 @@ export const Color: Story = {
             Options
           </Button>
         </DropdownMenu.Trigger>
-        <DropdownMenu.Content variant="soft" color="indigo">
+        <DropdownMenu.Content color="indigo">
           <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
           <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
           <DropdownMenu.Separator />
@@ -162,7 +120,7 @@ export const Color: Story = {
             Options
           </Button>
         </DropdownMenu.Trigger>
-        <DropdownMenu.Content variant="soft" color="cyan">
+        <DropdownMenu.Content color="cyan">
           <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
           <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
           <DropdownMenu.Separator />
@@ -176,7 +134,7 @@ export const Color: Story = {
             Options
           </Button>
         </DropdownMenu.Trigger>
-        <DropdownMenu.Content variant="soft" color="orange">
+        <DropdownMenu.Content color="orange">
           <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
           <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
           <DropdownMenu.Separator />
@@ -190,7 +148,7 @@ export const Color: Story = {
             Options
           </Button>
         </DropdownMenu.Trigger>
-        <DropdownMenu.Content variant="soft" color="crimson">
+        <DropdownMenu.Content color="crimson">
           <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
           <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
           <DropdownMenu.Separator />
@@ -207,33 +165,9 @@ export const HighContrast: Story = {
     <Grid columns="2" gap="3" display="inline-grid">
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
-          <Button>Options</Button>
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Content variant="solid">
-          <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
-          <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
-          <DropdownMenu.Separator />
-          <DropdownMenu.Item shortcut="⌘ N">Archive</DropdownMenu.Item>
-        </DropdownMenu.Content>
-      </DropdownMenu.Root>
-
-      <DropdownMenu.Root>
-        <DropdownMenu.Trigger>
-          <Button highContrast>Options</Button>
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Content variant="solid" highContrast>
-          <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
-          <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
-          <DropdownMenu.Separator />
-          <DropdownMenu.Item shortcut="⌘ N">Archive</DropdownMenu.Item>
-        </DropdownMenu.Content>
-      </DropdownMenu.Root>
-
-      <DropdownMenu.Root>
-        <DropdownMenu.Trigger>
           <Button variant="soft">Options</Button>
         </DropdownMenu.Trigger>
-        <DropdownMenu.Content variant="soft">
+        <DropdownMenu.Content>
           <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
           <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
           <DropdownMenu.Separator />
@@ -247,7 +181,7 @@ export const HighContrast: Story = {
             Options
           </Button>
         </DropdownMenu.Trigger>
-        <DropdownMenu.Content variant="soft" highContrast>
+        <DropdownMenu.Content highContrast>
           <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
           <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
           <DropdownMenu.Separator />
