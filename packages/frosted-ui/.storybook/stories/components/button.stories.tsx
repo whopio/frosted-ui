@@ -96,6 +96,29 @@ export const Color: Story = {
   ),
 };
 
+export const SemanticColor: Story = {
+  name: 'Semantic color',
+  args: {
+    size: buttonPropDefs.size.default,
+  },
+  render: (args) => (
+    <Flex align="center" gap="2">
+      <Button {...args} color="info">
+        Info
+      </Button>
+      <Button {...args} color="success">
+        Success
+      </Button>
+      <Button {...args} color="warning">
+        Warning
+      </Button>
+      <Button {...args} color="danger">
+        Danger
+      </Button>
+    </Flex>
+  ),
+};
+
 export const HighContrast: Story = {
   name: 'High Contrast',
   args: {

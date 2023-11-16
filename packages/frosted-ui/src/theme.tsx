@@ -184,6 +184,13 @@ const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
       appearance = context?.appearance ?? themePropDefs.appearance.default,
       accentColor = context?.accentColor ?? themePropDefs.accentColor.default,
       grayColor = context?.resolvedGrayColor ?? themePropDefs.grayColor.default,
+      dangerColor = context?.dangerColor ?? themePropDefs.dangerColor.default,
+      warningColor = context?.warningColor ??
+        themePropDefs.warningColor.default,
+      successColor = context?.successColor ??
+        themePropDefs.successColor.default,
+      infoColor = context?.infoColor ?? themePropDefs.infoColor.default,
+
       panelBackground = context?.panelBackground ??
         themePropDefs.panelBackground.default,
       radius = context?.radius ?? themePropDefs.radius.default,
@@ -215,6 +222,10 @@ const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
           () => ({
             appearance,
             accentColor,
+            dangerColor,
+            warningColor,
+            successColor,
+            infoColor,
             grayColor,
             resolvedGrayColor,
             panelBackground,
@@ -231,6 +242,10 @@ const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
           [
             appearance,
             accentColor,
+            dangerColor,
+            warningColor,
+            successColor,
+            infoColor,
             grayColor,
             resolvedGrayColor,
             panelBackground,
@@ -249,6 +264,10 @@ const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
         <Comp
           data-is-root-theme={isRoot ? 'true' : 'false'}
           data-accent-color={accentColor}
+          data-danger-color={dangerColor}
+          data-warning-color={warningColor}
+          data-success-color={successColor}
+          data-info-color={infoColor}
           data-gray-color={resolvedGrayColor}
           // for nested `Theme` background
           data-has-background={shouldHaveBackground ? 'true' : 'false'}

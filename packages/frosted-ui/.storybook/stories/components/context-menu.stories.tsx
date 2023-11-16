@@ -50,7 +50,7 @@ const meta = {
         <ContextMenu.Item>Share</ContextMenu.Item>
         <ContextMenu.Item>Add to favorites</ContextMenu.Item>
         <ContextMenu.Separator />
-        <ContextMenu.Item shortcut="⌘ ⌫" color="red">
+        <ContextMenu.Item shortcut="⌘ ⌫" color="danger">
           Delete
         </ContextMenu.Item>
       </ContextMenu.Content>
