@@ -1,167 +1,167 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
-    ArrowRightIcon,
-    CaretDownIcon,
-    InfoCircledIcon,
-    MagnifyingGlassIcon,
-    StarIcon,
+  ArrowRightIcon,
+  CaretDownIcon,
+  InfoCircledIcon,
+  MagnifyingGlassIcon,
+  StarIcon,
 } from '@radix-ui/react-icons';
 import {
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    //
-    AlertDialogRoot,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-    //
-    AspectRatio,
-    //
-    Avatar,
-    //
-    Badge,
-    //
-    Blockquote,
-    //
-    Box,
-    //
-    Button,
-    CalloutIcon,
-    //
-    CalloutRoot,
-    CalloutText,
-    //
-    Card,
-    //
-    Checkbox,
-    //
-    Code,
-    ContextMenuContent,
-    ContextMenuItem,
-    //
-    ContextMenuRoot,
-    ContextMenuSeparator,
-    ContextMenuSub,
-    ContextMenuSubContent,
-    ContextMenuSubTrigger,
-    ContextMenuTrigger,
-    DialogClose,
-    DialogContent,
-    DialogDescription,
-    //
-    DialogRoot,
-    DialogTitle,
-    DialogTrigger,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    //
-    DropdownMenuRoot,
-    DropdownMenuSeparator,
-    DropdownMenuSub,
-    DropdownMenuSubContent,
-    DropdownMenuSubTrigger,
-    DropdownMenuTrigger,
-    //
-    Em,
-    Flex,
-    Grid,
-    //
-    Heading,
-    HoverCardContent,
-    //
-    HoverCardRoot,
-    HoverCardTrigger,
-    //
-    IconButton,
-    //
-    Inset,
-    //
-    Kbd,
-    //
-    Link,
-    PopoverClose,
-    PopoverContent,
-    //
-    PopoverRoot,
-    PopoverTrigger,
-    //
-    Quote,
-    RadioGroupItem,
-    //
-    RadioGroupRoot,
-    //
-    ScrollArea,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    //
-    SelectRoot,
-    SelectSeparator,
-    SelectTrigger,
-    //
-    Separator,
-    //
-    Slider,
-    //
-    Strong,
-    //
-    Switch,
-    TableBody,
-    TableCell,
-    TableColumnHeaderCell,
-    TableHeader,
-    //
-    TableRoot,
-    TableRow,
-    TableRowHeaderCell,
-    TabsContent,
-    TabsList,
-    //
-    TabsRoot,
-    TabsTrigger,
-    //
-    Text,
-    //
-    TextArea,
-    TextFieldInput,
-    //
-    TextFieldRoot,
-    TextFieldSlot,
-    Theme,
-    //
-    ThemePanel,
-    //
-    Tooltip,
-    avatarPropDefs,
-    badgePropDefs,
-    blockquotePropDefs,
-    buttonPropDefs,
-    calloutRootPropDefs,
-    cardPropDefs,
-    checkboxPropDefs,
-    codePropDefs,
-    contextMenuContentPropDefs,
-    dropdownMenuContentPropDefs,
-    headingPropDefs,
-    hoverCardContentPropDefs,
-    iconButtonPropDefs,
-    kbdPropDefs,
-    linkPropDefs,
-    radioGroupPropDefs,
-    selectRootPropDefs,
-    selectTriggerPropDefs,
-    sliderPropDefs,
-    switchPropDefs,
-    tableRootPropDefs,
-    tabsListPropDefs,
-    textAreaPropDefs,
-    textFieldPropDefs,
-    textPropDefs,
-    //
-    // helpers:
-    themeAccentColorsOrdered,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  //
+  AlertDialogRoot,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+  //
+  AspectRatio,
+  //
+  Avatar,
+  //
+  Badge,
+  //
+  Blockquote,
+  //
+  Box,
+  //
+  Button,
+  CalloutIcon,
+  //
+  CalloutRoot,
+  CalloutText,
+  //
+  Card,
+  //
+  Checkbox,
+  //
+  Code,
+  ContextMenuContent,
+  ContextMenuItem,
+  //
+  ContextMenuRoot,
+  ContextMenuSeparator,
+  ContextMenuSub,
+  ContextMenuSubContent,
+  ContextMenuSubTrigger,
+  ContextMenuTrigger,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  //
+  DialogRoot,
+  DialogTitle,
+  DialogTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  //
+  DropdownMenuRoot,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+  //
+  Em,
+  Flex,
+  Grid,
+  //
+  Heading,
+  HoverCardContent,
+  //
+  HoverCardRoot,
+  HoverCardTrigger,
+  //
+  IconButton,
+  //
+  Inset,
+  //
+  Kbd,
+  //
+  Link,
+  PopoverClose,
+  PopoverContent,
+  //
+  PopoverRoot,
+  PopoverTrigger,
+  //
+  Quote,
+  RadioGroupItem,
+  //
+  RadioGroupRoot,
+  //
+  ScrollArea,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  //
+  SelectRoot,
+  SelectSeparator,
+  SelectTrigger,
+  //
+  Separator,
+  //
+  Slider,
+  //
+  Strong,
+  //
+  Switch,
+  TableBody,
+  TableCell,
+  TableColumnHeaderCell,
+  TableHeader,
+  //
+  TableRoot,
+  TableRow,
+  TableRowHeaderCell,
+  TabsContent,
+  TabsList,
+  //
+  TabsRoot,
+  TabsTrigger,
+  //
+  Text,
+  //
+  TextArea,
+  TextFieldInput,
+  //
+  TextFieldRoot,
+  TextFieldSlot,
+  Theme,
+  //
+  ThemePanel,
+  //
+  Tooltip,
+  avatarPropDefs,
+  badgePropDefs,
+  blockquotePropDefs,
+  buttonPropDefs,
+  calloutRootPropDefs,
+  cardPropDefs,
+  checkboxPropDefs,
+  codePropDefs,
+  contextMenuContentPropDefs,
+  dropdownMenuContentPropDefs,
+  headingPropDefs,
+  hoverCardContentPropDefs,
+  iconButtonPropDefs,
+  kbdPropDefs,
+  linkPropDefs,
+  radioGroupPropDefs,
+  selectRootPropDefs,
+  selectTriggerPropDefs,
+  sliderPropDefs,
+  switchPropDefs,
+  tableRootPropDefs,
+  tabsListPropDefs,
+  textAreaPropDefs,
+  textFieldPropDefs,
+  textPropDefs,
+  //
+  // helpers:
+  themeAccentColorsOrdered,
 } from 'frosted-ui';
 import * as React from 'react';
 import { NextThemeProvider } from '../next-theme-provider';
@@ -1626,73 +1626,49 @@ export default function ExploreComponents() {
                           </tr>
                         </thead>
                         <tbody>
-                          {contextMenuContentPropDefs.variant.values.map(
-                            (variant) => (
-                              <tr key={variant}>
-                                <td>{upperFirst(variant)}</td>
-                                <td>
-                                  <ContextMenuRoot>
-                                    <ContextMenuTrigger>
-                                      <RightClickArea variant={variant} />
-                                    </ContextMenuTrigger>
-                                    <ContextMenuContent variant={variant}>
-                                      <ExampleContextMenuContent />
-                                    </ContextMenuContent>
-                                  </ContextMenuRoot>
-                                </td>
-                                <td>
-                                  <ContextMenuRoot>
-                                    <ContextMenuTrigger>
-                                      <RightClickArea
-                                        variant={variant}
-                                        highContrast
-                                      />
-                                    </ContextMenuTrigger>
-                                    <ContextMenuContent
-                                      variant={variant}
-                                      highContrast
-                                    >
-                                      <ExampleContextMenuContent />
-                                    </ContextMenuContent>
-                                  </ContextMenuRoot>
-                                </td>
-                                <td>
-                                  <ContextMenuRoot>
-                                    <ContextMenuTrigger>
-                                      <RightClickArea
-                                        variant={variant}
-                                        color="gray"
-                                      />
-                                    </ContextMenuTrigger>
-                                    <ContextMenuContent
-                                      variant={variant}
-                                      color="gray"
-                                    >
-                                      <ExampleContextMenuContent />
-                                    </ContextMenuContent>
-                                  </ContextMenuRoot>
-                                </td>
-                                <td>
-                                  <ContextMenuRoot>
-                                    <ContextMenuTrigger>
-                                      <RightClickArea
-                                        variant={variant}
-                                        color="gray"
-                                        highContrast
-                                      />
-                                    </ContextMenuTrigger>
-                                    <ContextMenuContent
-                                      variant={variant}
-                                      color="gray"
-                                      highContrast
-                                    >
-                                      <ExampleContextMenuContent />
-                                    </ContextMenuContent>
-                                  </ContextMenuRoot>
-                                </td>
-                              </tr>
-                            ),
-                          )}
+                          <tr>
+                            <td>Default</td>
+                            <td>
+                              <ContextMenuRoot>
+                                <ContextMenuTrigger>
+                                  <RightClickArea />
+                                </ContextMenuTrigger>
+                                <ContextMenuContent>
+                                  <ExampleContextMenuContent />
+                                </ContextMenuContent>
+                              </ContextMenuRoot>
+                            </td>
+                            <td>
+                              <ContextMenuRoot>
+                                <ContextMenuTrigger>
+                                  <RightClickArea highContrast />
+                                </ContextMenuTrigger>
+                                <ContextMenuContent highContrast>
+                                  <ExampleContextMenuContent />
+                                </ContextMenuContent>
+                              </ContextMenuRoot>
+                            </td>
+                            <td>
+                              <ContextMenuRoot>
+                                <ContextMenuTrigger>
+                                  <RightClickArea color="gray" />
+                                </ContextMenuTrigger>
+                                <ContextMenuContent color="gray">
+                                  <ExampleContextMenuContent />
+                                </ContextMenuContent>
+                              </ContextMenuRoot>
+                            </td>
+                            <td>
+                              <ContextMenuRoot>
+                                <ContextMenuTrigger>
+                                  <RightClickArea color="gray" highContrast />
+                                </ContextMenuTrigger>
+                                <ContextMenuContent color="gray" highContrast>
+                                  <ExampleContextMenuContent />
+                                </ContextMenuContent>
+                              </ContextMenuRoot>
+                            </td>
+                          </tr>
                         </tbody>
                       </table>
                     </Box>
@@ -1704,59 +1680,39 @@ export default function ExploreComponents() {
                         <thead>
                           <tr>
                             <th />
-                            {contextMenuContentPropDefs.variant.values.map(
-                              (variant) => (
-                                <th key={variant}>{upperFirst(variant)}</th>
-                              ),
-                            )}
+                            <th>Default</th>
                           </tr>
                         </thead>
                         <tbody>
                           {themeAccentColorsOrdered.map((color) => (
                             <tr key={color}>
                               <td>{upperFirst(color)}</td>
-                              {contextMenuContentPropDefs.variant.values.map(
-                                (variant) => (
-                                  <td key={variant}>
-                                    <Flex
-                                      align="center"
-                                      justify="center"
-                                      gap="4"
+                              <td>
+                                <Flex align="center" justify="center" gap="4">
+                                  <ContextMenuRoot>
+                                    <ContextMenuTrigger>
+                                      <RightClickArea color={color} />
+                                    </ContextMenuTrigger>
+                                    <ContextMenuContent color={color}>
+                                      <ExampleContextMenuContent />
+                                    </ContextMenuContent>
+                                  </ContextMenuRoot>
+                                  <ContextMenuRoot>
+                                    <ContextMenuTrigger>
+                                      <RightClickArea
+                                        color={color}
+                                        highContrast
+                                      />
+                                    </ContextMenuTrigger>
+                                    <ContextMenuContent
+                                      color={color}
+                                      highContrast
                                     >
-                                      <ContextMenuRoot>
-                                        <ContextMenuTrigger>
-                                          <RightClickArea
-                                            variant={variant}
-                                            color={color}
-                                          />
-                                        </ContextMenuTrigger>
-                                        <ContextMenuContent
-                                          variant={variant}
-                                          color={color}
-                                        >
-                                          <ExampleContextMenuContent />
-                                        </ContextMenuContent>
-                                      </ContextMenuRoot>
-                                      <ContextMenuRoot>
-                                        <ContextMenuTrigger>
-                                          <RightClickArea
-                                            variant={variant}
-                                            color={color}
-                                            highContrast
-                                          />
-                                        </ContextMenuTrigger>
-                                        <ContextMenuContent
-                                          variant={variant}
-                                          color={color}
-                                          highContrast
-                                        >
-                                          <ExampleContextMenuContent />
-                                        </ContextMenuContent>
-                                      </ContextMenuRoot>
-                                    </Flex>
-                                  </td>
-                                ),
-                              )}
+                                      <ExampleContextMenuContent />
+                                    </ContextMenuContent>
+                                  </ContextMenuRoot>
+                                </Flex>
+                              </td>
                             </tr>
                           ))}
                         </tbody>
@@ -1770,13 +1726,9 @@ export default function ExploreComponents() {
                         <thead>
                           <tr>
                             <th />
-                            {contextMenuContentPropDefs.variant.values.map(
-                              (variant) => (
-                                <th key={variant} style={{ textAlign: 'left' }}>
-                                  {upperFirst(variant)}
-                                </th>
-                              ),
-                            )}
+                            <th style={{ textAlign: 'left' }}>
+                              {upperFirst('Default')}
+                            </th>
                           </tr>
                         </thead>
                         <tbody>
@@ -1784,28 +1736,18 @@ export default function ExploreComponents() {
                             (size) => (
                               <tr key={size}>
                                 <td>Size {size}</td>
-                                {contextMenuContentPropDefs.variant.values.map(
-                                  (variant) => (
-                                    <td key={variant}>
-                                      <Flex>
-                                        <ContextMenuRoot>
-                                          <ContextMenuTrigger>
-                                            <RightClickArea
-                                              size={size}
-                                              variant={variant}
-                                            />
-                                          </ContextMenuTrigger>
-                                          <ContextMenuContent
-                                            size={size}
-                                            variant={variant}
-                                          >
-                                            <ExampleContextMenuContent />
-                                          </ContextMenuContent>
-                                        </ContextMenuRoot>
-                                      </Flex>
-                                    </td>
-                                  ),
-                                )}
+                                <td>
+                                  <Flex>
+                                    <ContextMenuRoot>
+                                      <ContextMenuTrigger>
+                                        <RightClickArea size={size} />
+                                      </ContextMenuTrigger>
+                                      <ContextMenuContent size={size}>
+                                        <ExampleContextMenuContent />
+                                      </ContextMenuContent>
+                                    </ContextMenuRoot>
+                                  </Flex>
+                                </td>
                               </tr>
                             ),
                           )}
@@ -2040,75 +1982,61 @@ export default function ExploreComponents() {
                           </tr>
                         </thead>
                         <tbody>
-                          {dropdownMenuContentPropDefs.variant.values.map(
-                            (variant) => (
-                              <tr key={variant}>
-                                <td>{upperFirst(variant)}</td>
-                                <td>
-                                  <DropdownMenuRoot>
-                                    <DropdownMenuTrigger>
-                                      <Button>
-                                        Options
-                                        <CaretDownIcon width="16" height="16" />
-                                      </Button>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent variant={variant}>
-                                      <ExampleDropdownMenuContent />
-                                    </DropdownMenuContent>
-                                  </DropdownMenuRoot>
-                                </td>
-                                <td>
-                                  <DropdownMenuRoot>
-                                    <DropdownMenuTrigger>
-                                      <Button highContrast>
-                                        Options
-                                        <CaretDownIcon width="16" height="16" />
-                                      </Button>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent
-                                      variant={variant}
-                                      highContrast
-                                    >
-                                      <ExampleDropdownMenuContent />
-                                    </DropdownMenuContent>
-                                  </DropdownMenuRoot>
-                                </td>
-                                <td>
-                                  <DropdownMenuRoot>
-                                    <DropdownMenuTrigger>
-                                      <Button color="gray">
-                                        Options
-                                        <CaretDownIcon width="16" height="16" />
-                                      </Button>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent
-                                      variant={variant}
-                                      color="gray"
-                                    >
-                                      <ExampleDropdownMenuContent />
-                                    </DropdownMenuContent>
-                                  </DropdownMenuRoot>
-                                </td>
-                                <td>
-                                  <DropdownMenuRoot>
-                                    <DropdownMenuTrigger>
-                                      <Button color="gray" highContrast>
-                                        Options
-                                        <CaretDownIcon width="16" height="16" />
-                                      </Button>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent
-                                      variant={variant}
-                                      color="gray"
-                                      highContrast
-                                    >
-                                      <ExampleDropdownMenuContent />
-                                    </DropdownMenuContent>
-                                  </DropdownMenuRoot>
-                                </td>
-                              </tr>
-                            ),
-                          )}
+                          <tr>
+                            <td>{upperFirst('Default')}</td>
+                            <td>
+                              <DropdownMenuRoot>
+                                <DropdownMenuTrigger>
+                                  <Button>
+                                    Options
+                                    <CaretDownIcon width="16" height="16" />
+                                  </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent>
+                                  <ExampleDropdownMenuContent />
+                                </DropdownMenuContent>
+                              </DropdownMenuRoot>
+                            </td>
+                            <td>
+                              <DropdownMenuRoot>
+                                <DropdownMenuTrigger>
+                                  <Button highContrast>
+                                    Options
+                                    <CaretDownIcon width="16" height="16" />
+                                  </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent highContrast>
+                                  <ExampleDropdownMenuContent />
+                                </DropdownMenuContent>
+                              </DropdownMenuRoot>
+                            </td>
+                            <td>
+                              <DropdownMenuRoot>
+                                <DropdownMenuTrigger>
+                                  <Button color="gray">
+                                    Options
+                                    <CaretDownIcon width="16" height="16" />
+                                  </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent color="gray">
+                                  <ExampleDropdownMenuContent />
+                                </DropdownMenuContent>
+                              </DropdownMenuRoot>
+                            </td>
+                            <td>
+                              <DropdownMenuRoot>
+                                <DropdownMenuTrigger>
+                                  <Button color="gray" highContrast>
+                                    Options
+                                    <CaretDownIcon width="16" height="16" />
+                                  </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent color="gray" highContrast>
+                                  <ExampleDropdownMenuContent />
+                                </DropdownMenuContent>
+                              </DropdownMenuRoot>
+                            </td>
+                          </tr>
                         </tbody>
                       </table>
                     </Box>
@@ -2120,64 +2048,42 @@ export default function ExploreComponents() {
                         <thead>
                           <tr>
                             <th />
-                            {dropdownMenuContentPropDefs.variant.values.map(
-                              (variant) => (
-                                <th key={variant}>{upperFirst(variant)}</th>
-                              ),
-                            )}
+                            <th>{upperFirst('Default')}</th>
                           </tr>
                         </thead>
                         <tbody>
                           {themeAccentColorsOrdered.map((color) => (
                             <tr key={color}>
                               <td>{upperFirst(color)}</td>
-                              {dropdownMenuContentPropDefs.variant.values.map(
-                                (variant) => (
-                                  <td key={variant}>
-                                    <Flex
-                                      align="center"
-                                      justify="center"
-                                      gap="4"
+                              <td>
+                                <Flex align="center" justify="center" gap="4">
+                                  <DropdownMenuRoot>
+                                    <DropdownMenuTrigger>
+                                      <Button color={color}>
+                                        Options
+                                        <CaretDownIcon width="16" height="16" />
+                                      </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent color={color}>
+                                      <ExampleDropdownMenuContent />
+                                    </DropdownMenuContent>
+                                  </DropdownMenuRoot>
+                                  <DropdownMenuRoot>
+                                    <DropdownMenuTrigger>
+                                      <Button color={color} highContrast>
+                                        Options
+                                        <CaretDownIcon width="16" height="16" />
+                                      </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent
+                                      color={color}
+                                      highContrast
                                     >
-                                      <DropdownMenuRoot>
-                                        <DropdownMenuTrigger>
-                                          <Button color={color}>
-                                            Options
-                                            <CaretDownIcon
-                                              width="16"
-                                              height="16"
-                                            />
-                                          </Button>
-                                        </DropdownMenuTrigger>
-                                        <DropdownMenuContent
-                                          variant={variant}
-                                          color={color}
-                                        >
-                                          <ExampleDropdownMenuContent />
-                                        </DropdownMenuContent>
-                                      </DropdownMenuRoot>
-                                      <DropdownMenuRoot>
-                                        <DropdownMenuTrigger>
-                                          <Button color={color} highContrast>
-                                            Options
-                                            <CaretDownIcon
-                                              width="16"
-                                              height="16"
-                                            />
-                                          </Button>
-                                        </DropdownMenuTrigger>
-                                        <DropdownMenuContent
-                                          variant={variant}
-                                          color={color}
-                                          highContrast
-                                        >
-                                          <ExampleDropdownMenuContent />
-                                        </DropdownMenuContent>
-                                      </DropdownMenuRoot>
-                                    </Flex>
-                                  </td>
-                                ),
-                              )}
+                                      <ExampleDropdownMenuContent />
+                                    </DropdownMenuContent>
+                                  </DropdownMenuRoot>
+                                </Flex>
+                              </td>
                             </tr>
                           ))}
                         </tbody>
@@ -2191,13 +2097,9 @@ export default function ExploreComponents() {
                         <thead>
                           <tr>
                             <th />
-                            {dropdownMenuContentPropDefs.variant.values.map(
-                              (variant) => (
-                                <th key={variant} style={{ textAlign: 'left' }}>
-                                  {upperFirst(variant)}
-                                </th>
-                              ),
-                            )}
+                            <th style={{ textAlign: 'left' }}>
+                              {upperFirst('Default')}
+                            </th>
                           </tr>
                         </thead>
                         <tbody>
@@ -2205,30 +2107,23 @@ export default function ExploreComponents() {
                             (size) => (
                               <tr key={size}>
                                 <td>Size {size}</td>
-                                {dropdownMenuContentPropDefs.variant.values.map(
-                                  (variant) => (
-                                    <td key={variant}>
-                                      <Flex>
-                                        <DropdownMenuRoot>
-                                          <DropdownMenuTrigger>
-                                            <Button size={size}>
-                                              Options
-                                              <CaretDownIcon
-                                                {...buttonSizeToIconSize(size)}
-                                              />
-                                            </Button>
-                                          </DropdownMenuTrigger>
-                                          <DropdownMenuContent
-                                            size={size}
-                                            variant={variant}
-                                          >
-                                            <ExampleDropdownMenuContent />
-                                          </DropdownMenuContent>
-                                        </DropdownMenuRoot>
-                                      </Flex>
-                                    </td>
-                                  ),
-                                )}
+                                <td>
+                                  <Flex>
+                                    <DropdownMenuRoot>
+                                      <DropdownMenuTrigger>
+                                        <Button size={size}>
+                                          Options
+                                          <CaretDownIcon
+                                            {...buttonSizeToIconSize(size)}
+                                          />
+                                        </Button>
+                                      </DropdownMenuTrigger>
+                                      <DropdownMenuContent size={size}>
+                                        <ExampleDropdownMenuContent />
+                                      </DropdownMenuContent>
+                                    </DropdownMenuRoot>
+                                  </Flex>
+                                </td>
                               </tr>
                             ),
                           )}
@@ -4939,13 +4834,11 @@ function ExampleDropdownMenuContent() {
 
 function RightClickArea(props: {
   size?: (typeof contextMenuContentPropDefs.size.values)[number];
-  variant?: (typeof contextMenuContentPropDefs.variant.values)[number];
   color?: (typeof contextMenuContentPropDefs.color.values)[number];
   highContrast?: boolean;
 }) {
   const {
     size = contextMenuContentPropDefs.size.default,
-    variant = contextMenuContentPropDefs.variant.default,
     color = 'accent',
     highContrast = contextMenuContentPropDefs.highContrast.default,
   } = props;
@@ -4960,7 +4853,7 @@ function RightClickArea(props: {
         border: `1px dashed var(--accent-7)`,
         cursor: 'default',
         whiteSpace: 'nowrap',
-        backgroundColor: variant === 'soft' ? 'var(--accent-a2)' : undefined,
+        backgroundColor: 'var(--accent-a2)',
       }}
     >
       {/* @ts-ignore */}

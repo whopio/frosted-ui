@@ -1,181 +1,175 @@
 import {
-    ArrowRightIcon,
-    ArrowTopRightIcon,
-    Cross1Icon,
-    DotsHorizontalIcon,
-    InfoCircledIcon,
-    Pencil2Icon,
-    Share2Icon,
-    StarIcon,
+  ArrowRightIcon,
+  ArrowTopRightIcon,
+  Cross1Icon,
+  DotsHorizontalIcon,
+  InfoCircledIcon,
+  Pencil2Icon,
+  Share2Icon,
+  StarIcon,
 } from '@radix-ui/react-icons';
 import {
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    //
-    AlertDialogRoot,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-    //
-    AspectRatio,
-    //
-    Avatar,
-    //
-    Badge,
-    //
-    Blockquote,
-    //
-    Box,
-    //
-    Button,
-    CalloutIcon,
-    //
-    CalloutRoot,
-    CalloutText,
-    //
-    Card,
-    //
-    Checkbox,
-    //
-    Code,
-    //
-    Container,
-    ContextMenuCheckboxItem,
-    ContextMenuContent,
-    ContextMenuGroup,
-    ContextMenuItem,
-    ContextMenuLabel,
-    ContextMenuRadioGroup,
-    ContextMenuRadioItem,
-    //
-    ContextMenuRoot,
-    ContextMenuSeparator,
-    ContextMenuSub,
-    ContextMenuSubContent,
-    ContextMenuSubTrigger,
-    ContextMenuTrigger,
-    DialogClose,
-    DialogContent,
-    DialogDescription,
-    //
-    DialogRoot,
-    DialogTitle,
-    DialogTrigger,
-    DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuRadioGroup,
-    DropdownMenuRadioItem,
-    //
-    DropdownMenuRoot,
-    DropdownMenuSeparator,
-    DropdownMenuSub,
-    DropdownMenuSubContent,
-    DropdownMenuSubTrigger,
-    DropdownMenuTrigger,
-    //
-    Em,
-    Flex,
-    Grid,
-    //
-    Heading,
-    HoverCardContent,
-    //
-    HoverCardRoot,
-    HoverCardTrigger,
-    //
-    IconButton,
-    //
-    Kbd,
-    //
-    Link,
-    PopoverContent,
-    //
-    PopoverRoot,
-    PopoverTrigger,
-    //
-    Quote,
-    RadioGroupItem,
-    //
-    RadioGroupRoot,
-    //
-    ScrollArea,
-    //
-    Section,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    //
-    SelectRoot,
-    SelectSeparator,
-    SelectTrigger,
-    //
-    Separator,
-    //
-    Slider,
-    //
-    Strong,
-    //
-    Switch,
-    TableBody,
-    TableCell,
-    TableColumnHeaderCell,
-    TableHeader,
-    //
-    TableRoot,
-    TableRow,
-    TableRowHeaderCell,
-    TabsContent,
-    TabsList,
-    //
-    TabsRoot,
-    TabsTrigger,
-    //
-    Text,
-    //
-    TextArea,
-    TextFieldInput,
-    //
-    TextFieldRoot,
-    TextFieldSlot,
-    Theme,
-    //
-    ThemePanel,
-    //
-    Tooltip,
-    avatarPropDefs,
-    badgePropDefs,
-    buttonPropDefs,
-    calloutRootPropDefs,
-    cardPropDefs,
-    checkboxPropDefs,
-    codePropDefs,
-    contextMenuContentPropDefs,
-    dropdownMenuContentPropDefs,
-    headingPropDefs,
-    iconButtonPropDefs,
-    kbdPropDefs,
-    linkPropDefs,
-    radioGroupPropDefs,
-    scrollAreaPropDefs,
-    selectContentPropDefs,
-    selectRootPropDefs,
-    selectTriggerPropDefs,
-    sliderPropDefs,
-    switchPropDefs,
-    tableRootPropDefs,
-    tabsListPropDefs,
-    textAreaPropDefs,
-    textFieldPropDefs,
-    textPropDefs,
-    //
-    // helpers:
-    themeAccentColorsGrouped,
-    themeAccentColorsOrdered,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  //
+  AlertDialogRoot,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+  //
+  AspectRatio,
+  //
+  Avatar,
+  //
+  Badge,
+  //
+  Blockquote,
+  //
+  Box,
+  //
+  Button,
+  CalloutIcon,
+  //
+  CalloutRoot,
+  CalloutText,
+  //
+  Card,
+  //
+  Checkbox,
+  //
+  Code,
+  //
+  Container,
+  ContextMenuContent,
+  ContextMenuGroup,
+  ContextMenuItem,
+  ContextMenuLabel,
+  //
+  ContextMenuRoot,
+  ContextMenuSeparator,
+  ContextMenuSub,
+  ContextMenuSubContent,
+  ContextMenuSubTrigger,
+  ContextMenuTrigger,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  //
+  DialogRoot,
+  DialogTitle,
+  DialogTrigger,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  //
+  DropdownMenuRoot,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+  //
+  Em,
+  Flex,
+  Grid,
+  //
+  Heading,
+  HoverCardContent,
+  //
+  HoverCardRoot,
+  HoverCardTrigger,
+  //
+  IconButton,
+  //
+  Kbd,
+  //
+  Link,
+  PopoverContent,
+  //
+  PopoverRoot,
+  PopoverTrigger,
+  //
+  Quote,
+  RadioGroupItem,
+  //
+  RadioGroupRoot,
+  //
+  ScrollArea,
+  //
+  Section,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  //
+  SelectRoot,
+  SelectSeparator,
+  SelectTrigger,
+  //
+  Separator,
+  //
+  Slider,
+  //
+  Strong,
+  //
+  Switch,
+  TableBody,
+  TableCell,
+  TableColumnHeaderCell,
+  TableHeader,
+  //
+  TableRoot,
+  TableRow,
+  TableRowHeaderCell,
+  TabsContent,
+  TabsList,
+  //
+  TabsRoot,
+  TabsTrigger,
+  //
+  Text,
+  //
+  TextArea,
+  TextFieldInput,
+  //
+  TextFieldRoot,
+  TextFieldSlot,
+  Theme,
+  //
+  ThemePanel,
+  //
+  Tooltip,
+  avatarPropDefs,
+  badgePropDefs,
+  buttonPropDefs,
+  calloutRootPropDefs,
+  cardPropDefs,
+  checkboxPropDefs,
+  codePropDefs,
+  contextMenuContentPropDefs,
+  dropdownMenuContentPropDefs,
+  headingPropDefs,
+  iconButtonPropDefs,
+  kbdPropDefs,
+  linkPropDefs,
+  radioGroupPropDefs,
+  scrollAreaPropDefs,
+  selectContentPropDefs,
+  selectRootPropDefs,
+  selectTriggerPropDefs,
+  sliderPropDefs,
+  switchPropDefs,
+  tableRootPropDefs,
+  tabsListPropDefs,
+  textAreaPropDefs,
+  textFieldPropDefs,
+  textPropDefs,
+  //
+  // helpers:
+  themeAccentColorsGrouped,
+  themeAccentColorsOrdered,
 } from 'frosted-ui';
 import * as React from 'react';
 import { NextThemeProvider } from '../next-theme-provider';
@@ -396,74 +390,62 @@ export default function Sink() {
                                 </tr>
                               </thead>
                               <tbody>
-                                {dropdownMenuContentPropDefs.variant.values.map(
-                                  (variant) => (
-                                    <tr key={variant}>
-                                      <RowHeaderCell>{variant}</RowHeaderCell>
-                                      {dropdownMenuContentPropDefs.size.values.map(
-                                        (size) => (
-                                          <td key={size}>
-                                            <DropdownMenuRoot>
-                                              <DropdownMenuTrigger>
-                                                <Button
-                                                  size={size}
-                                                  variant="soft"
-                                                  color="gray"
-                                                >
-                                                  <DotsHorizontalIcon />
-                                                </Button>
-                                              </DropdownMenuTrigger>
-                                              <DropdownMenuContentDemo
-                                                size={size}
-                                                variant={variant}
-                                              />
-                                            </DropdownMenuRoot>
-                                          </td>
-                                        ),
-                                      )}
-                                      <td>
+                                <tr>
+                                  <RowHeaderCell>Default</RowHeaderCell>
+                                  {dropdownMenuContentPropDefs.size.values.map(
+                                    (size) => (
+                                      <td key={size}>
                                         <DropdownMenuRoot>
                                           <DropdownMenuTrigger>
-                                            <Button variant="soft" color="gray">
+                                            <Button
+                                              size={size}
+                                              variant="soft"
+                                              color="gray"
+                                            >
                                               <DotsHorizontalIcon />
                                             </Button>
                                           </DropdownMenuTrigger>
                                           <DropdownMenuContentDemo
-                                            variant={variant}
-                                            highContrast
+                                            size={size}
                                           />
                                         </DropdownMenuRoot>
                                       </td>
-                                      <td>
-                                        <DropdownMenuRoot>
-                                          <DropdownMenuTrigger>
-                                            <Button variant="soft" color="gray">
-                                              <DotsHorizontalIcon />
-                                            </Button>
-                                          </DropdownMenuTrigger>
-                                          <DropdownMenuContentDemo
-                                            variant={variant}
-                                            color="gray"
-                                          />
-                                        </DropdownMenuRoot>
-                                      </td>
-                                      <td>
-                                        <DropdownMenuRoot>
-                                          <DropdownMenuTrigger>
-                                            <Button variant="soft" color="gray">
-                                              <DotsHorizontalIcon />
-                                            </Button>
-                                          </DropdownMenuTrigger>
-                                          <DropdownMenuContentDemo
-                                            variant={variant}
-                                            color="gray"
-                                            highContrast
-                                          />
-                                        </DropdownMenuRoot>
-                                      </td>
-                                    </tr>
-                                  ),
-                                )}
+                                    ),
+                                  )}
+                                  <td>
+                                    <DropdownMenuRoot>
+                                      <DropdownMenuTrigger>
+                                        <Button variant="soft" color="gray">
+                                          <DotsHorizontalIcon />
+                                        </Button>
+                                      </DropdownMenuTrigger>
+                                      <DropdownMenuContentDemo highContrast />
+                                    </DropdownMenuRoot>
+                                  </td>
+                                  <td>
+                                    <DropdownMenuRoot>
+                                      <DropdownMenuTrigger>
+                                        <Button variant="soft" color="gray">
+                                          <DotsHorizontalIcon />
+                                        </Button>
+                                      </DropdownMenuTrigger>
+                                      <DropdownMenuContentDemo color="gray" />
+                                    </DropdownMenuRoot>
+                                  </td>
+                                  <td>
+                                    <DropdownMenuRoot>
+                                      <DropdownMenuTrigger>
+                                        <Button variant="soft" color="gray">
+                                          <DotsHorizontalIcon />
+                                        </Button>
+                                      </DropdownMenuTrigger>
+                                      <DropdownMenuContentDemo
+                                        color="gray"
+                                        highContrast
+                                      />
+                                    </DropdownMenuRoot>
+                                  </td>
+                                </tr>
                               </tbody>
                             </table>
 
@@ -487,13 +469,9 @@ export default function Sink() {
                                       <thead>
                                         <tr>
                                           <ColumnHeaderCell />
-                                          {dropdownMenuContentPropDefs.variant.values.map(
-                                            (variant) => (
-                                              <ColumnHeaderCell key={variant}>
-                                                {variant}
-                                              </ColumnHeaderCell>
-                                            ),
-                                          )}
+                                          <ColumnHeaderCell>
+                                            Default
+                                          </ColumnHeaderCell>
                                         </tr>
                                       </thead>
                                       <tbody>
@@ -502,42 +480,36 @@ export default function Sink() {
                                             <RowHeaderCell>
                                               {color}
                                             </RowHeaderCell>
-                                            {dropdownMenuContentPropDefs.variant.values.map(
-                                              (variant) => (
-                                                <td key={variant}>
-                                                  <DropdownMenuRoot>
-                                                    <DropdownMenuTrigger>
-                                                      <Button
-                                                        variant="soft"
-                                                        color="gray"
-                                                      >
-                                                        <DotsHorizontalIcon />
-                                                      </Button>
-                                                    </DropdownMenuTrigger>
-                                                    <DropdownMenuContentDemo
-                                                      variant={variant}
-                                                      color={color}
-                                                    />
-                                                  </DropdownMenuRoot>
-                                                  <DropdownMenuRoot>
-                                                    <DropdownMenuTrigger>
-                                                      <Button
-                                                        variant="soft"
-                                                        color="gray"
-                                                        ml="2"
-                                                      >
-                                                        <DotsHorizontalIcon />
-                                                      </Button>
-                                                    </DropdownMenuTrigger>
-                                                    <DropdownMenuContentDemo
-                                                      variant={variant}
-                                                      color={color}
-                                                      highContrast
-                                                    />
-                                                  </DropdownMenuRoot>
-                                                </td>
-                                              ),
-                                            )}
+                                            <td>
+                                              <DropdownMenuRoot>
+                                                <DropdownMenuTrigger>
+                                                  <Button
+                                                    variant="soft"
+                                                    color="gray"
+                                                  >
+                                                    <DotsHorizontalIcon />
+                                                  </Button>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContentDemo
+                                                  color={color}
+                                                />
+                                              </DropdownMenuRoot>
+                                              <DropdownMenuRoot>
+                                                <DropdownMenuTrigger>
+                                                  <Button
+                                                    variant="soft"
+                                                    color="gray"
+                                                    ml="2"
+                                                  >
+                                                    <DotsHorizontalIcon />
+                                                  </Button>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContentDemo
+                                                  color={color}
+                                                  highContrast
+                                                />
+                                              </DropdownMenuRoot>
+                                            </td>
                                           </tr>
                                         ))}
                                       </tbody>
@@ -563,27 +535,20 @@ export default function Sink() {
                               </tr>
                             </thead>
                             <tbody>
-                              {contextMenuContentPropDefs.variant.values.map(
-                                (variant) => (
-                                  <tr key={variant}>
-                                    {contextMenuContentPropDefs.size.values.map(
-                                      (size) => (
-                                        <td key={size}>
-                                          <ContextMenuRoot>
-                                            <ContextMenuTrigger>
-                                              <RightClickArea size={size} />
-                                            </ContextMenuTrigger>
-                                            <ContextMenuContentDemo
-                                              size={size}
-                                              variant={variant}
-                                            />
-                                          </ContextMenuRoot>
-                                        </td>
-                                      ),
-                                    )}
-                                  </tr>
-                                ),
-                              )}
+                              <tr>
+                                {contextMenuContentPropDefs.size.values.map(
+                                  (size) => (
+                                    <td key={size}>
+                                      <ContextMenuRoot>
+                                        <ContextMenuTrigger>
+                                          <RightClickArea size={size} />
+                                        </ContextMenuTrigger>
+                                        <ContextMenuContentDemo size={size} />
+                                      </ContextMenuRoot>
+                                    </td>
+                                  ),
+                                )}
+                              </tr>
                             </tbody>
                           </table>
                         </DocsGridSectionItem>
@@ -4693,33 +4658,6 @@ function DropdownMenuContentDemo(
           <a href="#logout">Logout</a>
         </DropdownMenuItem>
       </DropdownMenuGroup>
-
-      {props.variant === 'solid' && (
-        <>
-          <DropdownMenuSeparator />
-
-          <DropdownMenuCheckboxItem shortcut="⌘+B" checked>
-            Show Bookmarks
-          </DropdownMenuCheckboxItem>
-          <DropdownMenuCheckboxItem>Show Full URLs</DropdownMenuCheckboxItem>
-
-          <DropdownMenuSeparator />
-
-          <DropdownMenuLabel>People</DropdownMenuLabel>
-          <DropdownMenuRadioGroup value="pedro">
-            <DropdownMenuRadioItem value="pedro">
-              Pedro Duarte
-            </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="colm">
-              Colm Tuite
-            </DropdownMenuRadioItem>
-          </DropdownMenuRadioGroup>
-
-          <DropdownMenuSeparator />
-
-          <DropdownMenuItem color="red">Delete</DropdownMenuItem>
-        </>
-      )}
     </DropdownMenuContent>
   );
 }
@@ -4754,31 +4692,6 @@ function ContextMenuContentDemo(
           <a href="#logout">Logout</a>
         </ContextMenuItem>
       </ContextMenuGroup>
-
-      {props.variant === 'solid' && (
-        <>
-          <ContextMenuSeparator />
-
-          <ContextMenuCheckboxItem shortcut="⌘+B" checked>
-            Show Bookmarks
-          </ContextMenuCheckboxItem>
-          <ContextMenuCheckboxItem>Show Full URLs</ContextMenuCheckboxItem>
-
-          <ContextMenuSeparator />
-
-          <ContextMenuLabel>People</ContextMenuLabel>
-          <ContextMenuRadioGroup value="pedro">
-            <ContextMenuRadioItem value="pedro">
-              Pedro Duarte
-            </ContextMenuRadioItem>
-            <ContextMenuRadioItem value="colm">Colm Tuite</ContextMenuRadioItem>
-          </ContextMenuRadioGroup>
-
-          <DropdownMenuSeparator />
-
-          <ContextMenuItem color="red">Delete</ContextMenuItem>
-        </>
-      )}
     </ContextMenuContent>
   );
 }

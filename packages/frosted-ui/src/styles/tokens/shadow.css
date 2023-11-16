@@ -63,7 +63,7 @@
     0 12px 32px -16px var(--black-a5);
 
   --shadow-5:
-    0 0 0 1px var(--gray-a6),
+    0 0 0 1px var(--gray-a6) inset,
     0 12px 60px var(--black-a5),
     0 12px 32px -16px var(--black-a7);
 
@@ -103,7 +103,7 @@
       0 12px 32px -16px var(--black-a5);
 
     --shadow-5:
-      0 0 0 1px color-mix(in oklab, var(--gray-a6), var(--gray-6)),
+      0 0 0 1px color-mix(in oklab, var(--gray-a6), var(--gray-6)) inset,
       0 12px 60px var(--black-a5),
       0 12px 32px -16px var(--black-a7);
 

@@ -1,29 +1,29 @@
 import { HamburgerMenuIcon, UploadIcon } from '@radix-ui/react-icons';
 import {
-    Button,
-    DialogClose,
-    DialogContent,
-    DialogDescription,
-    DialogRoot,
-    DialogTitle,
-    DialogTrigger,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuRoot,
-    DropdownMenuSeparator,
-    DropdownMenuSub,
-    DropdownMenuSubContent,
-    DropdownMenuSubTrigger,
-    DropdownMenuTrigger,
-    Heading,
-    IconButton,
-    Link,
-    Separator,
-    Text,
-    Theme,
-    //
-    ThemePanel,
+  Button,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogRoot,
+  DialogTitle,
+  DialogTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuRoot,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+  Heading,
+  IconButton,
+  Link,
+  Separator,
+  Text,
+  Theme,
+  //
+  ThemePanel,
 } from 'frosted-ui';
 import { SnapshotLogo } from '../../components/snapshot-logo';
 import { ImageCard } from './image-card';
@@ -92,7 +92,7 @@ export default function Snapshot() {
                         <HamburgerMenuIcon />
                       </IconButton>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent variant="soft" align="end">
+                    <DropdownMenuContent align="end">
                       <DropdownMenuLabel>Account</DropdownMenuLabel>
                       <DropdownMenuItem shortcut="⌘+P">
                         Profile

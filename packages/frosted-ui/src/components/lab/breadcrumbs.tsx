@@ -140,7 +140,6 @@ const BreadcrumbsDropdown = React.forwardRef<
     <DropdownMenu.Content
       {...props}
       size="2"
-      variant="soft"
       color={color}
       highContrast={highContrast}
       ref={forwardedRef}
