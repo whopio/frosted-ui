@@ -1,7 +1,14 @@
 .rt-TooltipContent {
   padding: var(--space-1) var(--space-2);
-  background-color: var(--gray-12);
-  border-radius: var(--radius-2);
+  background-color: var(--color-panel-translucent);
+  -webkit-backdrop-filter: var(--backdrop-filter-panel);
+  backdrop-filter: var(--backdrop-filter-panel);
+
+  border-radius: var(--radius-3);
+  border: 1px solid var(--gray-a4);
+  outline: 0.5px solid var(--color-tooltip-outline);
+
+  box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.05);
 
   transform-origin: var(--radix-tooltip-content-transform-origin);
 
@@ -26,12 +33,22 @@
   }
 }
 
+/* prettier-ignore */
+:where(.radix-themes) {
+  --color-tooltip-outline: transparent;
+}
+/* prettier-ignore */
+:is(.dark, .dark-theme),
+:is(.dark, .dark-theme) :where(.radix-themes:not(.light, .light-theme)) {
+  --color-tooltip-outline: black;
+}
+
 .rt-TooltipText {
-  color: var(--gray-1);
+  color: var(--gray-12);
   user-select: none;
   cursor: default;
 }
 
 .rt-TooltipArrow {
-  fill: var(--gray-12);
+  fill: transparent;
 }
