@@ -61,3 +61,10 @@ jobs:
           token: ${{ github.token }}
           published: ${{ steps.release.outputs.published }}
           initial-commit: 3d821dfeec0e67a8b33de2993ba292e58b315d06
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          exitOnceUploaded: true
+          onlyChanged: true
+          workingDir: 'packages/frosted-ui'
