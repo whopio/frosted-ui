@@ -51,6 +51,7 @@ jobs:
           action: release
           token: ${{ github.token }}
           version: ${{ steps.check.outputs.version }}
+          initial-commit: 3d821dfeec0e67a8b33de2993ba292e58b315d06
         if: steps.check.outputs.can-publish == 'true'
       - name: Sync auto-release PRs
         uses: whopio/turbo-module@v0.0.5
