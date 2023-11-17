@@ -38,7 +38,6 @@ jobs:
         if: steps.check.outputs.can-publish == 'true'
       - name: Install all packages
         run: pnpm i
-        if: steps.check.outputs.can-publish == 'true'
       - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
         if: steps.check.outputs.can-publish == 'true'
         env:
@@ -61,6 +60,9 @@ jobs:
           token: ${{ github.token }}
           published: ${{ steps.release.outputs.published }}
           initial-commit: 3d821dfeec0e67a8b33de2993ba292e58b315d06
+      - name: Build packages
+        run: pnpm turbo build
+        if: steps.check.outputs.can-publish != 'true'
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         with:
