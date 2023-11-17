@@ -24,18 +24,15 @@ jobs:
           action: check
           token: ${{ github.token }}
       - uses: actions/checkout@v3
-        if: steps.check.outputs.can-publish == 'true'
       - uses: pnpm/action-setup@v2
         with:
           version: 8.6.9
-        if: steps.check.outputs.can-publish == 'true'
       - name: Setup node
         uses: actions/setup-node@v3
         with:
           node-version: 16
           check-latest: true
           cache: pnpm
-        if: steps.check.outputs.can-publish == 'true'
       - name: Install all packages
         run: pnpm i
       - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
