@@ -66,31 +66,32 @@
 
 .rt-TabsTriggerInner,
 .rt-TabsTriggerInnerHidden {
-  padding: var(--tabs-trigger-inner-padding-y) var(--tabs-trigger-inner-padding-x);
+  padding: var(--tabs-trigger-inner-padding-y)
+    var(--tabs-trigger-inner-padding-x);
   border-radius: var(--tabs-trigger-inner-border-radius);
 }
 
 @breakpoints {
   .rt-TabsList {
     &:where(.rt-r-size-1) {
-      height: var(--space-6);
+      height: 36px;
       font-size: var(--font-size-1);
       line-height: var(--line-height-1);
       letter-spacing: var(--letter-spacing-1);
       --tabs-trigger-padding-x: var(--space-1);
-      --tabs-trigger-inner-padding-x: var(--space-1);
-      --tabs-trigger-inner-padding-y: calc(var(--space-1) * 0.5);
-      --tabs-trigger-inner-border-radius: var(--radius-1);
+      --tabs-trigger-inner-padding-x: calc(1.5 * var(--space-1));
+      --tabs-trigger-inner-padding-y: var(--space-1);
+      --tabs-trigger-inner-border-radius: var(--radius-2);
     }
     &:where(.rt-r-size-2) {
       height: var(--space-7);
       font-size: var(--font-size-2);
       line-height: var(--line-height-2);
       letter-spacing: var(--letter-spacing-2);
-      --tabs-trigger-padding-x: var(--space-2);
-      --tabs-trigger-inner-padding-x: var(--space-2);
+      --tabs-trigger-padding-x: var(--space-1);
+      --tabs-trigger-inner-padding-x: calc(1.25 * var(--space-2));
       --tabs-trigger-inner-padding-y: var(--space-1);
-      --tabs-trigger-inner-border-radius: var(--radius-2);
+      --tabs-trigger-inner-border-radius: var(--radius-3);
     }
   }
 }
