@@ -1,6 +1,5 @@
-import { colorProp, radiusProp } from '../helpers';
+import { PropDef, colorProp, radiusProp } from '../helpers';
 import { flexPropDefs } from './flex.props';
-import { PropDef } from '../helpers';
 
 const sizes = ['1', '2', '3'] as const;
 const variants = ['classic', 'surface', 'soft'] as const;
@@ -8,7 +7,7 @@ const variants = ['classic', 'surface', 'soft'] as const;
 const textFieldPropDefs = {
   size: { type: 'enum', values: sizes, default: '2', responsive: true },
   variant: { type: 'enum', values: variants, default: 'surface' },
-  color: colorProp,
+  color: { ...colorProp, default: 'gray' },
   radius: radiusProp,
 } satisfies {
   size: PropDef<(typeof sizes)[number]>;
