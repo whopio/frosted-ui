@@ -46,7 +46,8 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist && rm -rf styles.css",
     "prepublishOnly": "pnpm lint",
     "storybook": "pnpm dev:css & storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "release": "turbo-module publish"
   },
   "dependencies": {
     "@radix-ui/colors": "^3.0.0",
