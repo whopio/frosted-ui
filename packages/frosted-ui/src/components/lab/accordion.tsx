@@ -14,7 +14,6 @@ import {
   withLayoutProps,
   withMarginProps,
 } from '../../helpers';
-import { TriangleDownIcon } from '../../icons';
 
 <AccordionPrimitive.Root collapsible type="single" />;
 type AccordionRootElement = React.ElementRef<typeof AccordionPrimitive.Root>;
@@ -101,7 +100,22 @@ const AccordionTrigger = React.forwardRef<
       {...accordionTriggerProps}
       ref={forwardedRef}
     >
-      <TriangleDownIcon className="rt-AccordionTriggerIcon" />
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="rt-AccordionTriggerIcon"
+      >
+        <path
+          d="M6 12L9.64645 8.35355C9.84171 8.15829 10.1583 8.15829 10.3536 8.35355L14 12"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+      </svg>
+
       {children}
     </AccordionPrimitive.Trigger>
   );
