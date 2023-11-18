@@ -16,6 +16,10 @@ interface ThemeChangeHandlers {
   onAppearanceChange: (appearance: ThemeOptions['appearance']) => void;
   onAccentColorChange: (accentColor: ThemeOptions['accentColor']) => void;
   onGrayColorChange: (grayColor: ThemeOptions['grayColor']) => void;
+  onInfoColorChange: (infoColor: ThemeOptions['infoColor']) => void;
+  onWarningColorChange: (warningColor: ThemeOptions['warningColor']) => void;
+  onSuccessColorChange: (successColor: ThemeOptions['successColor']) => void;
+  onDangerColorChange: (dangerColor: ThemeOptions['dangerColor']) => void;
 }
 
 interface ThemeContextValue extends ThemeOptions, ThemeChangeHandlers {
@@ -59,6 +63,10 @@ const ThemeRoot = React.forwardRef<ThemeImplElement, ThemeRootProps>(
       appearance: appearanceProp = themePropDefs.appearance.default,
       accentColor: accentColorProp = themePropDefs.accentColor.default,
       grayColor: grayColorProp = themePropDefs.grayColor.default,
+      infoColor: infoColorProp = themePropDefs.infoColor.default,
+      successColor: successColorProp = themePropDefs.successColor.default,
+      warningColor: warningColorProp = themePropDefs.warningColor.default,
+      dangerColor: dangerColorProp = themePropDefs.dangerColor.default,
       hasBackground = themePropDefs.hasBackground.default,
       ...rootProps
     } = props;
@@ -70,6 +78,24 @@ const ThemeRoot = React.forwardRef<ThemeImplElement, ThemeRootProps>(
 
     const [grayColor, setGrayColor] = React.useState(grayColorProp);
     React.useEffect(() => setGrayColor(grayColorProp), [grayColorProp]);
+
+    const [infoColor, setInfoColor] = React.useState(infoColorProp);
+    React.useEffect(() => setInfoColor(infoColorProp), [infoColorProp]);
+
+    const [successColor, setSuccessColor] = React.useState(successColorProp);
+    React.useEffect(
+      () => setSuccessColor(successColorProp),
+      [successColorProp],
+    );
+
+    const [warningColor, setWarningColor] = React.useState(warningColorProp);
+    React.useEffect(
+      () => setWarningColor(warningColorProp),
+      [warningColorProp],
+    );
+
+    const [dangerColor, setDangerColor] = React.useState(dangerColorProp);
+    React.useEffect(() => setDangerColor(dangerColorProp), [dangerColorProp]);
 
     // Initial appearance on page load when `appearance` is explicitly set to `light` or `dark`
     const ExplicitRootAppearanceScript = React.memo(
@@ -124,10 +150,18 @@ body { background-color: var(--color-page-background); }
           appearance={appearance}
           accentColor={accentColor}
           grayColor={grayColor}
+          infoColor={infoColor}
+          successColor={successColor}
+          warningColor={warningColor}
+          dangerColor={dangerColor}
           //
           onAppearanceChange={setAppearance}
           onAccentColorChange={setAccentColor}
           onGrayColorChange={setGrayColor}
+          onInfoColorChange={setInfoColor}
+          onSuccessColorChange={setSuccessColor}
+          onWarningColorChange={setWarningColor}
+          onDangerColorChange={setDangerColor}
         />
       </>
     );
@@ -166,6 +200,10 @@ const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
       onAppearanceChange = noop,
       onAccentColorChange = noop,
       onGrayColorChange = noop,
+      onInfoColorChange = noop,
+      onSuccessColorChange = noop,
+      onWarningColorChange = noop,
+      onDangerColorChange = noop,
       //
       ...themeProps
     } = props;
@@ -196,6 +234,10 @@ const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
             onAppearanceChange,
             onAccentColorChange,
             onGrayColorChange,
+            onInfoColorChange,
+            onSuccessColorChange,
+            onWarningColorChange,
+            onDangerColorChange,
           }),
           [
             appearance,
@@ -210,6 +252,10 @@ const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
             onAppearanceChange,
             onAccentColorChange,
             onGrayColorChange,
+            onInfoColorChange,
+            onSuccessColorChange,
+            onWarningColorChange,
+            onDangerColorChange,
           ],
         )}
       >

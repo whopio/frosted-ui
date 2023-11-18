@@ -13,13 +13,17 @@ import {
   Text,
   Theme,
   Tooltip,
+  dangerColors,
   getMatchingGrayColor,
+  infoColors,
   radixGrayScalesDesaturated,
+  successColors,
   themeAccentColorsOrdered,
   // helpers
   themePropDefs,
   updateThemeAppearanceClass,
   useThemeContext,
+  warningColors,
 } from './index';
 
 import type { ThemeOptions } from './index';
@@ -73,6 +77,14 @@ const ThemePanelImpl = React.forwardRef<
     onAccentColorChange,
     grayColor,
     onGrayColorChange,
+    infoColor,
+    onInfoColorChange,
+    successColor,
+    onSuccessColorChange,
+    warningColor,
+    onWarningColorChange,
+    dangerColor,
+    onDangerColorChange,
   } = themeContext;
 
   const hasOnAppearanceChangeProp = onAppearanceChangeProp !== undefined;
@@ -346,6 +358,165 @@ const ThemePanelImpl = React.forwardRef<
               ))}
             </Grid>
 
+            {/* Semantic colors */}
+
+            <Text id="info-color-title" as="p" size="2" weight="medium" mt="5">
+              Info color
+            </Text>
+
+            <Grid
+              columns="10"
+              gap="2"
+              mt="3"
+              role="group"
+              aria-labelledby="info-color-title"
+            >
+              {infoColors.map((color) => (
+                <label
+                  key={color}
+                  className="rt-ThemePanelSwatch"
+                  style={{ backgroundColor: `var(--${color}-9)` }}
+                >
+                  <Tooltip content={upperFirst(color)}>
+                    <input
+                      className="rt-ThemePanelSwatchInput"
+                      type="radio"
+                      name="infoColor"
+                      value={color}
+                      checked={infoColor === color}
+                      onChange={(event) =>
+                        onInfoColorChange(
+                          event.target.value as ThemeOptions['infoColor'],
+                        )
+                      }
+                    />
+                  </Tooltip>
+                </label>
+              ))}
+            </Grid>
+
+            <Text
+              id="success-color-title"
+              as="p"
+              size="2"
+              weight="medium"
+              mt="5"
+            >
+              Success color
+            </Text>
+
+            <Grid
+              columns="10"
+              gap="2"
+              mt="3"
+              role="group"
+              aria-labelledby="success-color-title"
+            >
+              {successColors.map((color) => (
+                <label
+                  key={color}
+                  className="rt-ThemePanelSwatch"
+                  style={{ backgroundColor: `var(--${color}-9)` }}
+                >
+                  <Tooltip content={upperFirst(color)}>
+                    <input
+                      className="rt-ThemePanelSwatchInput"
+                      type="radio"
+                      name="successColor"
+                      value={color}
+                      checked={successColor === color}
+                      onChange={(event) =>
+                        onSuccessColorChange(
+                          event.target.value as ThemeOptions['successColor'],
+                        )
+                      }
+                    />
+                  </Tooltip>
+                </label>
+              ))}
+            </Grid>
+
+            <Text
+              id="warning-color-title"
+              as="p"
+              size="2"
+              weight="medium"
+              mt="5"
+            >
+              Warning color
+            </Text>
+
+            <Grid
+              columns="10"
+              gap="2"
+              mt="3"
+              role="group"
+              aria-labelledby="warning-color-title"
+            >
+              {warningColors.map((color) => (
+                <label
+                  key={color}
+                  className="rt-ThemePanelSwatch"
+                  style={{ backgroundColor: `var(--${color}-9)` }}
+                >
+                  <Tooltip content={upperFirst(color)}>
+                    <input
+                      className="rt-ThemePanelSwatchInput"
+                      type="radio"
+                      name="warningColor"
+                      value={color}
+                      checked={warningColor === color}
+                      onChange={(event) =>
+                        onWarningColorChange(
+                          event.target.value as ThemeOptions['warningColor'],
+                        )
+                      }
+                    />
+                  </Tooltip>
+                </label>
+              ))}
+            </Grid>
+
+            <Text
+              id="danger-color-title"
+              as="p"
+              size="2"
+              weight="medium"
+              mt="5"
+            >
+              Danger color
+            </Text>
+
+            <Grid
+              columns="10"
+              gap="2"
+              mt="3"
+              role="group"
+              aria-labelledby="danger-color-title"
+            >
+              {dangerColors.map((color) => (
+                <label
+                  key={color}
+                  className="rt-ThemePanelSwatch"
+                  style={{ backgroundColor: `var(--${color}-9)` }}
+                >
+                  <Tooltip content={upperFirst(color)}>
+                    <input
+                      className="rt-ThemePanelSwatchInput"
+                      type="radio"
+                      name="dangerColor"
+                      value={color}
+                      checked={dangerColor === color}
+                      onChange={(event) =>
+                        onDangerColorChange(
+                          event.target.value as ThemeOptions['dangerColor'],
+                        )
+                      }
+                    />
+                  </Tooltip>
+                </label>
+              ))}
+            </Grid>
             <Text id="appearance-title" as="p" size="2" weight="medium" mt="5">
               Appearance
             </Text>
