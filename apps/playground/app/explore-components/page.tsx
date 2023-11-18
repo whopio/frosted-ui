@@ -195,10 +195,7 @@ export default function ExploreComponents() {
                     <AlertDialogTrigger>
                       <Button size="1">Open</Button>
                     </AlertDialogTrigger>
-                    <AlertDialogContent
-                      size="1"
-                      style={{ width: 'calc(300px * var(--scaling))' }}
-                    >
+                    <AlertDialogContent size="1" style={{ width: 300 }}>
                       <AlertDialogTitle size="2" mb="1">
                         Revoke access
                       </AlertDialogTitle>
@@ -226,10 +223,7 @@ export default function ExploreComponents() {
                     <AlertDialogTrigger>
                       <Button size="2">Open</Button>
                     </AlertDialogTrigger>
-                    <AlertDialogContent
-                      size="2"
-                      style={{ width: 'calc(400px * var(--scaling))' }}
-                    >
+                    <AlertDialogContent size="2" style={{ width: 400 }}>
                       <AlertDialogTitle mb="2">Revoke access</AlertDialogTitle>
                       <AlertDialogDescription size="2" mb="4">
                         Are you sure? This application will no longer be
@@ -253,10 +247,7 @@ export default function ExploreComponents() {
                     <AlertDialogTrigger>
                       <Button size="3">Open</Button>
                     </AlertDialogTrigger>
-                    <AlertDialogContent
-                      size="3"
-                      style={{ width: 'calc(400px * var(--scaling))' }}
-                    >
+                    <AlertDialogContent size="3" style={{ width: 400 }}>
                       <AlertDialogTitle>Revoke access</AlertDialogTitle>
                       <AlertDialogDescription size="2" mb="4">
                         Are you sure? This application will no longer be
@@ -280,10 +271,7 @@ export default function ExploreComponents() {
                     <AlertDialogTrigger>
                       <Button size="4">Open</Button>
                     </AlertDialogTrigger>
-                    <AlertDialogContent
-                      size="4"
-                      style={{ width: 'calc(450px * var(--scaling))' }}
-                    >
+                    <AlertDialogContent size="4" style={{ width: 450 }}>
                       <AlertDialogTitle size="6">
                         Revoke access
                       </AlertDialogTitle>
@@ -2138,7 +2126,7 @@ export default function ExploreComponents() {
                     Em
                   </Link>
                 </Heading>
-                <Box mb="9" style={{ width: 'calc(580px * var(--scaling))' }}>
+                <Box mb="9" style={{ width: 580 }}>
                   Versions of the <Em>Lorem ipsum</Em> text have been used in
                   typesetting at least since the 1960s, when it was popularized
                   by advertisements for Letraset transfer sheets. It is
@@ -2167,10 +2155,7 @@ export default function ExploreComponents() {
                     <TabsTrigger value="all-weights">All weights</TabsTrigger>
                   </TabsList>
                   <TabsContent value="specimen">
-                    <Box
-                      my="6"
-                      style={{ width: 'calc(560px * var(--scaling))' }}
-                    >
+                    <Box my="6" style={{ width: 560 }}>
                       <Heading size="9">
                         The principles of the typographic craft are difficult to
                         master
@@ -2178,7 +2163,7 @@ export default function ExploreComponents() {
                     </Box>
 
                     <Flex my="6" gap="6">
-                      <Box style={{ width: 'calc(340px * var(--scaling))' }}>
+                      <Box style={{ width: 340 }}>
                         <Heading size="5" mb="2">
                           The principles of the typographic craft are difficult
                           to master
@@ -2191,7 +2176,7 @@ export default function ExploreComponents() {
                         </Text>
                       </Box>
 
-                      <Box style={{ width: 'calc(320px * var(--scaling))' }}>
+                      <Box style={{ width: 320 }}>
                         <Heading size="4" mb="2">
                           The principles of the typographic craft are difficult
                           to master
@@ -2206,7 +2191,7 @@ export default function ExploreComponents() {
                     </Flex>
 
                     <Flex my="6" gap="6">
-                      <Box style={{ width: 'calc(290px * var(--scaling))' }}>
+                      <Box style={{ width: 290 }}>
                         <Heading size="3" mb="1">
                           The principles of the typographic craft are difficult
                           to master
@@ -2219,7 +2204,7 @@ export default function ExploreComponents() {
                         </Text>
                       </Box>
 
-                      <Box style={{ width: 'calc(260px * var(--scaling))' }}>
+                      <Box style={{ width: 260 }}>
                         <Heading size="2" mb="1">
                           The principles of the typographic craft are difficult
                           to master
@@ -2661,11 +2646,7 @@ export default function ExploreComponents() {
                     <TabsTrigger value="all-weights">All weights</TabsTrigger>
                   </TabsList>
                   <TabsContent value="specimen">
-                    <Grid
-                      my="6"
-                      gap="6"
-                      columns="calc(440px * var(--scaling)) calc(440px * var(--scaling))"
-                    >
+                    <Grid my="6" gap="6" columns="440px 440px">
                       <Flex direction="column" gap="6">
                         <Text mb="-4" size="1" color="gray" align="center">
                           Accent
@@ -2981,7 +2962,7 @@ export default function ExploreComponents() {
                     Quote
                   </Link>
                 </Heading>
-                <Box mb="9" style={{ width: 'calc(580px * var(--scaling))' }}>
+                <Box mb="9" style={{ width: 580 }}>
                   <Quote style={{ marginLeft: '-0.4em' }}>
                     A man who would letterspace lower case would steal sheep
                     <span style={{ marginRight: '-0.2em' }}>,</span>
@@ -4009,10 +3990,7 @@ export default function ExploreComponents() {
                   </TabsList>
 
                   <TabsContent value="specimen">
-                    <Box
-                      my="6"
-                      style={{ width: 'calc(760px * var(--scaling))' }}
-                    >
+                    <Box my="6" style={{ width: 760 }}>
                       <Text as="p" size="5">
                         The goal of typography is to relate font size, line
                         height, and line width in a proportional way that
@@ -4025,10 +4003,7 @@ export default function ExploreComponents() {
                       </Text>
                     </Box>
 
-                    <Box
-                      my="6"
-                      style={{ width: 'calc(700px * var(--scaling))' }}
-                    >
+                    <Box my="6" style={{ width: 700 }}>
                       <Text as="p" size="4">
                         The goal of typography is to relate font size, line
                         height, and line width in a proportional way that
@@ -4041,10 +4016,7 @@ export default function ExploreComponents() {
                       </Text>
                     </Box>
 
-                    <Box
-                      my="6"
-                      style={{ width: 'calc(640px * var(--scaling))' }}
-                    >
+                    <Box my="6" style={{ width: 640 }}>
                       <Text as="p" size="3">
                         The goal of typography is to relate font size, line
                         height, and line width in a proportional way that
@@ -4057,10 +4029,7 @@ export default function ExploreComponents() {
                       </Text>
                     </Box>
 
-                    <Box
-                      my="6"
-                      style={{ width: 'calc(572px * var(--scaling))' }}
-                    >
+                    <Box my="6" style={{ width: 572 }}>
                       <Text as="p" size="2">
                         The goal of typography is to relate font size, line
                         height, and line width in a proportional way that
@@ -4078,7 +4047,7 @@ export default function ExploreComponents() {
                       gap="6"
                       columns="2"
                       align="center"
-                      style={{ width: 'calc(540px * var(--scaling))' }}
+                      style={{ width: 540 }}
                     >
                       <Box>
                         <Text size="3" as="div" weight="bold">
@@ -4126,7 +4095,7 @@ export default function ExploreComponents() {
                       gap="6"
                       columns="2"
                       align="center"
-                      style={{ width: 'calc(540px * var(--scaling))' }}
+                      style={{ width: 540 }}
                     >
                       <Box>
                         <Text size="3" as="div" weight="medium">

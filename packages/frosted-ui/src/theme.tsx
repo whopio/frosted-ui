@@ -20,7 +20,6 @@ interface ThemeChangeHandlers {
     panelBackground: ThemeOptions['panelBackground'],
   ) => void;
   onRadiusChange: (radius: ThemeOptions['radius']) => void;
-  onScalingChange: (scaling: ThemeOptions['scaling']) => void;
 }
 
 interface ThemeContextValue extends ThemeOptions, ThemeChangeHandlers {
@@ -67,7 +66,6 @@ const ThemeRoot = React.forwardRef<ThemeImplElement, ThemeRootProps>(
       panelBackground: panelBackgroundProp = themePropDefs.panelBackground
         .default,
       radius: radiusProp = themePropDefs.radius.default,
-      scaling: scalingProp = themePropDefs.scaling.default,
       hasBackground = themePropDefs.hasBackground.default,
       ...rootProps
     } = props;
@@ -89,9 +87,6 @@ const ThemeRoot = React.forwardRef<ThemeImplElement, ThemeRootProps>(
 
     const [radius, setRadius] = React.useState(radiusProp);
     React.useEffect(() => setRadius(radiusProp), [radiusProp]);
-
-    const [scaling, setScaling] = React.useState(scalingProp);
-    React.useEffect(() => setScaling(scalingProp), [scalingProp]);
 
     // Initial appearance on page load when `appearance` is explicitly set to `light` or `dark`
     const ExplicitRootAppearanceScript = React.memo(
@@ -148,14 +143,12 @@ body { background-color: var(--color-page-background); }
           grayColor={grayColor}
           panelBackground={panelBackground}
           radius={radius}
-          scaling={scaling}
           //
           onAppearanceChange={setAppearance}
           onAccentColorChange={setAccentColor}
           onGrayColorChange={setGrayColor}
           onPanelBackgroundChange={setPanelBackground}
           onRadiusChange={setRadius}
-          onScalingChange={setScaling}
         />
       </>
     );
@@ -194,14 +187,12 @@ const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
       panelBackground = context?.panelBackground ??
         themePropDefs.panelBackground.default,
       radius = context?.radius ?? themePropDefs.radius.default,
-      scaling = context?.scaling ?? themePropDefs.scaling.default,
       //
       onAppearanceChange = noop,
       onAccentColorChange = noop,
       onGrayColorChange = noop,
       onPanelBackgroundChange = noop,
       onRadiusChange = noop,
-      onScalingChange = noop,
       //
       ...themeProps
     } = props;
@@ -230,14 +221,12 @@ const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
             resolvedGrayColor,
             panelBackground,
             radius,
-            scaling,
             //
             onAppearanceChange,
             onAccentColorChange,
             onGrayColorChange,
             onPanelBackgroundChange,
             onRadiusChange,
-            onScalingChange,
           }),
           [
             appearance,
@@ -250,14 +239,12 @@ const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
             resolvedGrayColor,
             panelBackground,
             radius,
-            scaling,
             //
             onAppearanceChange,
             onAccentColorChange,
             onGrayColorChange,
             onPanelBackgroundChange,
             onRadiusChange,
-            onScalingChange,
           ],
         )}
       >
@@ -273,7 +260,6 @@ const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
           data-has-background={shouldHaveBackground ? 'true' : 'false'}
           data-panel-background={panelBackground}
           data-radius={radius}
-          data-scaling={scaling}
           ref={forwardedRef}
           {...themeProps}
           className={classNames(

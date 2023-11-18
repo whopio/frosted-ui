@@ -24,7 +24,6 @@ const successColors = ['teal', 'jade', 'green', 'grass'] as const;
 const infoColors = ['blue', 'sky'] as const;
 const panelBackgrounds = ['solid', 'translucent'] as const;
 const radii = ['none', 'small', 'medium', 'large', 'full'] as const;
-const scalings = ['90%', '95%', '100%', '105%', '110%'] as const;
 
 const themePropDefs = {
   hasBackground: { type: 'boolean', default: true },
@@ -42,7 +41,6 @@ const themePropDefs = {
     default: 'translucent',
   },
   radius: { type: 'enum', values: radii, default: 'medium' },
-  scaling: { type: 'enum', values: scalings, default: '100%' },
 } satisfies {
   hasBackground: PropDef<boolean>;
   appearance: PropDef<(typeof appearances)[number]>;
@@ -55,7 +53,6 @@ const themePropDefs = {
 
   panelBackground: PropDef<(typeof panelBackgrounds)[number]>;
   radius: PropDef<(typeof radii)[number]>;
-  scaling: PropDef<(typeof scalings)[number]>;
 };
 
 type ThemeProps = GetPropDefTypes<typeof themePropDefs>;
@@ -65,7 +62,6 @@ type ThemeAccentColor = NonNullable<ThemeProps['accentColor']>;
 type ThemeGrayColor = NonNullable<ThemeProps['grayColor']>;
 type ThemePanelBackground = NonNullable<ThemeProps['panelBackground']>;
 type ThemeRadius = NonNullable<ThemeProps['radius']>;
-type ThemeScaling = NonNullable<ThemeProps['scaling']>;
 type ThemeDangerColor = NonNullable<ThemeProps['dangerColor']>;
 type ThemeWarningColor = NonNullable<ThemeProps['warningColor']>;
 type ThemeSuccessColor = NonNullable<ThemeProps['successColor']>;
@@ -81,7 +77,6 @@ type ThemeOptions = {
   infoColor: ThemeInfoColor;
   panelBackground: ThemePanelBackground;
   radius: ThemeRadius;
-  scaling: ThemeScaling;
 };
 
 const themeAccentColorsGrouped = [
