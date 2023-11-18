@@ -4446,7 +4446,6 @@ export default function Sink() {
                         accentColor="mint"
                         appearance="dark"
                         radius="none"
-                        scaling="90%"
                       >
                         <SampleNestedUI title="Dark, Mint, no radius, 90%">
                           <Theme
@@ -4454,7 +4453,6 @@ export default function Sink() {
                             accentColor="amber"
                             appearance="light"
                             radius="full"
-                            scaling="110%"
                           >
                             <SampleNestedUI title="Light, Amber, full radius, 110%">
                               <Theme
@@ -4462,7 +4460,6 @@ export default function Sink() {
                                 accentColor="tomato"
                                 appearance="dark"
                                 radius="large"
-                                scaling="100%"
                               >
                                 <SampleNestedUI title="Dark, Tomato, large radius, 100%" />
                               </Theme>

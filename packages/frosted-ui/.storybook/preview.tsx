@@ -21,12 +21,7 @@ export const withTheme: Decorator = (Story, context) => {
   }[theme];
 
   return (
-    <Theme
-      accentColor="iris"
-      grayColor={grayColor}
-      radius="medium"
-      scaling="100%"
-    >
+    <Theme accentColor="iris" grayColor={grayColor} radius="medium">
       <Story />
       {/* <ThemePanel /> */}
     </Theme>

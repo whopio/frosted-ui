@@ -62,7 +62,7 @@
     &:where(.rt-r-size-1) {
       --table-border-radius: var(--radius-3);
       --table-cell-padding: var(--space-2);
-      --table-cell-min-height: calc(36px * var(--scaling));
+      --table-cell-min-height: 36px;
 
       & :where(.rt-TableRootTable) {
         font-size: var(--font-size-2);
@@ -72,7 +72,7 @@
     &:where(.rt-r-size-2) {
       --table-border-radius: var(--radius-4);
       --table-cell-padding: var(--space-3);
-      --table-cell-min-height: calc(44px * var(--scaling));
+      --table-cell-min-height: 44px;
 
       & :where(.rt-TableRootTable) {
         font-size: var(--font-size-2);

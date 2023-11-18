@@ -81,8 +81,6 @@ const ThemePanelImpl = React.forwardRef<
     onPanelBackgroundChange,
     radius,
     onRadiusChange,
-    scaling,
-    onScalingChange,
   } = themeContext;
 
   const hasOnAppearanceChangeProp = onAppearanceChangeProp !== undefined;
@@ -128,7 +126,6 @@ const ThemePanelImpl = React.forwardRef<
           ? undefined
           : panelBackground,
       radius: radius === themePropDefs.radius.default ? undefined : radius,
-      scaling: scaling === themePropDefs.scaling.default ? undefined : scaling,
     };
 
     const props = Object.keys(theme)
@@ -209,7 +206,7 @@ const ThemePanelImpl = React.forwardRef<
   }, [appearance, handleAppearanceChange]);
 
   return (
-    <Theme asChild radius="medium" scaling="100%">
+    <Theme asChild radius="medium">
       <Flex
         direction="column"
         position="fixed"
@@ -481,45 +478,6 @@ const ThemePanelImpl = React.forwardRef<
                     </Text>
                   </Box>
                 </Flex>
-              ))}
-            </Grid>
-
-            <Text id="scaling-title" as="p" size="2" weight="medium" mt="5">
-              Scaling
-            </Text>
-
-            <Grid
-              columns="5"
-              gap="2"
-              mt="3"
-              role="group"
-              aria-labelledby="scaling-title"
-            >
-              {themePropDefs.scaling.values.map((value) => (
-                <label key={value} className="rt-ThemePanelRadioCard">
-                  <input
-                    className="rt-ThemePanelRadioCardInput"
-                    type="radio"
-                    name="scaling"
-                    value={value}
-                    checked={scaling === value}
-                    onChange={(event) =>
-                      onScalingChange(
-                        event.target.value as ThemeOptions['scaling'],
-                      )
-                    }
-                  />
-
-                  <Flex align="center" justify="center" height="6">
-                    <Theme asChild scaling={value}>
-                      <Flex align="center" justify="center">
-                        <Text size="1" weight="medium">
-                          {upperFirst(value)}
-                        </Text>
-                      </Flex>
-                    </Theme>
-                  </Flex>
-                </label>
               ))}
             </Grid>
 
