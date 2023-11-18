@@ -123,12 +123,16 @@ function getMatchingGrayColor(
 }
 
 export {
+  dangerColors,
   getMatchingGrayColor,
+  infoColors,
+  successColors,
   //
   themeAccentColorsGrouped,
   themeAccentColorsOrdered,
   themeBNWColorsGrouped,
   themeGrayColorsGrouped,
   themePropDefs,
+  warningColors,
 };
 export type { ThemeOptions };
