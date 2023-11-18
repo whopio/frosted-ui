@@ -1,5 +1,5 @@
 import type { PropDef } from '../../helpers';
-import { colorProp, highContrastProp, radiusProp } from '../../helpers';
+import { colorProp, highContrastProp } from '../../helpers';
 import { avatarPropDefs } from '../avatar.props';
 import { textPropDefs } from '../text.props';
 
@@ -9,12 +9,10 @@ const skeletonAvatarPropDefs = {
   size: avatarPropDefs.size,
   color: { ...colorProp, default: 'gray' },
   highContrast: highContrastProp,
-  radius: avatarPropDefs.radius,
 } satisfies {
   size: PropDef<(typeof sizes)[number]>;
   color: typeof colorProp;
   highContrast: typeof highContrastProp;
-  radius: typeof radiusProp;
 };
 
 const skeletonTextPropDefs = {

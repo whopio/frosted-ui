@@ -121,19 +121,3 @@ export const HighContrast: Story = {
     </Flex>
   ),
 };
-
-export const Radius: Story = {
-  args: {
-    children: 'Badge',
-    size: badgePropDefs.size.default,
-  },
-  render: (args) => (
-    <Flex align="center" gap="2">
-      <Badge {...args} radius="none" />
-      <Badge {...args} radius="small" />
-      <Badge {...args} radius="medium" />
-      <Badge {...args} radius="large" />
-      <Badge {...args} radius="full" />
-    </Flex>
-  ),
-};

@@ -41,7 +41,7 @@ export const Default: Story = {
   },
   render: (args) => (
     <Tooltip {...args}>
-      <IconButton radius="full">
+      <IconButton>
         <ExampleIcon size={16} />
       </IconButton>
     </Tooltip>

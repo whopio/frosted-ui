@@ -87,19 +87,6 @@ export const HighContrast: Story = {
   ),
 };
 
-export const Radius: Story = {
-  args: {
-    fallback: 'AB',
-  },
-  render: (args) => (
-    <Flex gap="2">
-      <Avatar {...args} radius="none" />
-      <Avatar {...args} radius="large" />
-      <Avatar {...args} radius="full" />
-    </Flex>
-  ),
-};
-
 export const Fallback: Story = {
   args: {
     fallback: 'AB',

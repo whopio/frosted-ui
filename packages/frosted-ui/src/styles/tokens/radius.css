@@ -1,4 +1,4 @@
-[data-radius] {
+:root {
   --radius-factor: 1;
   --radius-full: 0px;
   --radius-thumb: 9999px;

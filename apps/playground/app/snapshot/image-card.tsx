@@ -2,13 +2,13 @@
 
 import { DownloadIcon, HeartFilledIcon, PlusIcon } from '@radix-ui/react-icons';
 import {
-    Button,
-    Flex,
-    IconButton,
-    Popover,
-    RadioGroupItem,
-    RadioGroupRoot,
-    Text,
+  Button,
+  Flex,
+  IconButton,
+  Popover,
+  RadioGroupItem,
+  RadioGroupRoot,
+  Text,
 } from 'frosted-ui';
 import * as React from 'react';
 import styles from './page.module.css';
@@ -41,12 +41,11 @@ function ImageCard({ id }: { id: string | number }) {
           <IconButton
             size="3"
             highContrast
-            radius="full"
             style={{ marginRight: 'var(--space-3)' }}
           >
             <HeartFilledIcon />
           </IconButton>
-          <IconButton size="3" highContrast radius="full">
+          <IconButton size="3" highContrast>
             <PlusIcon />
           </IconButton>
         </div>
@@ -55,7 +54,6 @@ function ImageCard({ id }: { id: string | number }) {
             <IconButton
               size="3"
               highContrast
-              radius="full"
               style={{
                 position: 'absolute',
                 bottom: 'var(--space-3)',

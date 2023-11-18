@@ -32,7 +32,6 @@ const ScrollArea = React.forwardRef<ScrollAreaElement, ScrollAreaProps>(
       scrollHideDelay = type !== 'scroll' ? 0 : undefined,
       // dir,
       size = scrollAreaPropDefs.size.default,
-      radius = scrollAreaPropDefs.radius.default,
       scrollbars = scrollAreaPropDefs.scrollbars.default,
       ...viewportProps
     } = marginRest;
@@ -56,7 +55,6 @@ const ScrollArea = React.forwardRef<ScrollAreaElement, ScrollAreaProps>(
 
         {scrollbars !== 'vertical' ? (
           <ScrollAreaPrimitive.Scrollbar
-            data-radius={radius}
             orientation="horizontal"
             className={classNames(
               'rt-ScrollAreaScrollbar',
@@ -69,7 +67,6 @@ const ScrollArea = React.forwardRef<ScrollAreaElement, ScrollAreaProps>(
 
         {scrollbars !== 'horizontal' ? (
           <ScrollAreaPrimitive.Scrollbar
-            data-radius={radius}
             orientation="vertical"
             className={classNames(
               'rt-ScrollAreaScrollbar',

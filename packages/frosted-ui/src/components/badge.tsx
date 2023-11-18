@@ -28,13 +28,11 @@ const Badge = React.forwardRef<BadgeElement, BadgeProps>(
       variant = badgePropDefs.variant.default,
       color = badgePropDefs.color.default,
       highContrast = badgePropDefs.highContrast.default,
-      radius = badgePropDefs.radius.default,
       ...badgeProps
     } = marginRest;
     return (
       <span
         data-accent-color={color}
-        data-radius={radius}
         {...badgeProps}
         ref={forwardedRef}
         className={classNames(

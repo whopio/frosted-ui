@@ -36,7 +36,6 @@ const Avatar = React.forwardRef<AvatarElement, AvatarProps>(
       size = avatarPropDefs.size.default,
       color = avatarPropDefs.color.default,
       highContrast = avatarPropDefs.highContrast.default,
-      radius = avatarPropDefs.radius.default,
       fallback,
       ...imageProps
     } = marginRest;
@@ -45,7 +44,6 @@ const Avatar = React.forwardRef<AvatarElement, AvatarProps>(
     return (
       <AvatarPrimitive.Root
         data-accent-color={color}
-        data-radius={radius}
         data-status={dataStatus}
         className={classNames(
           'rt-AvatarRoot',

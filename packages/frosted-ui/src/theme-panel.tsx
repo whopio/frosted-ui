@@ -79,8 +79,6 @@ const ThemePanelImpl = React.forwardRef<
     onGrayColorChange,
     panelBackground,
     onPanelBackgroundChange,
-    radius,
-    onRadiusChange,
   } = themeContext;
 
   const hasOnAppearanceChangeProp = onAppearanceChangeProp !== undefined;
@@ -125,7 +123,6 @@ const ThemePanelImpl = React.forwardRef<
         panelBackground === themePropDefs.panelBackground.default
           ? undefined
           : panelBackground,
-      radius: radius === themePropDefs.radius.default ? undefined : radius,
     };
 
     const props = Object.keys(theme)
@@ -206,7 +203,7 @@ const ThemePanelImpl = React.forwardRef<
   }, [appearance, handleAppearanceChange]);
 
   return (
-    <Theme asChild radius="medium">
+    <Theme asChild>
       <Flex
         direction="column"
         position="fixed"
@@ -424,60 +421,6 @@ const ThemePanelImpl = React.forwardRef<
                     </Text>
                   </Flex>
                 </label>
-              ))}
-            </Grid>
-
-            <Text id="radius-title" as="p" size="2" weight="medium" mt="5">
-              Radius
-            </Text>
-
-            <Grid
-              columns="5"
-              gap="2"
-              mt="3"
-              role="group"
-              aria-labelledby="radius-title"
-            >
-              {themePropDefs.radius.values.map((value) => (
-                <Flex key={value} direction="column" align="center">
-                  <label className="rt-ThemePanelRadioCard">
-                    <input
-                      className="rt-ThemePanelRadioCardInput"
-                      type="radio"
-                      name="radius"
-                      id={`theme-panel-radius-${value}`}
-                      value={value}
-                      checked={radius === value}
-                      onChange={(event) =>
-                        onRadiusChange(
-                          event.target.value as ThemeOptions['radius'],
-                        )
-                      }
-                    />
-                    <Theme asChild radius={value}>
-                      <Box
-                        m="3"
-                        width="6"
-                        height="6"
-                        style={{
-                          borderTopLeftRadius:
-                            value === 'full' ? '80%' : 'var(--radius-5)',
-                          backgroundImage:
-                            'linear-gradient(to bottom right, var(--accent-3), var(--accent-4))',
-                          borderTop: '2px solid var(--accent-a8)',
-                          borderLeft: '2px solid var(--accent-a8)',
-                        }}
-                      />
-                    </Theme>
-                  </label>
-                  <Box asChild pt="2">
-                    <Text asChild size="1" color="gray">
-                      <label htmlFor={`theme-panel-radius-${value}`}>
-                        {upperFirst(value)}
-                      </label>
-                    </Text>
-                  </Box>
-                </Flex>
               ))}
             </Grid>
 
