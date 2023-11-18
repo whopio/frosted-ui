@@ -1,4 +1,4 @@
-import { colorProp, highContrastProp, radiusProp } from '../helpers';
+import { colorProp, highContrastProp } from '../helpers';
 
 import type { PropDef } from '../helpers';
 
@@ -15,11 +15,9 @@ const triggerVariants = ['classic', 'surface', 'soft', 'ghost'] as const;
 const selectTriggerPropDefs = {
   variant: { type: 'enum', values: triggerVariants, default: 'surface' },
   color: colorProp,
-  radius: radiusProp,
 } satisfies {
   variant: PropDef<(typeof triggerVariants)[number]>;
   color: typeof colorProp;
-  radius: typeof radiusProp;
 };
 
 const contentVariants = ['solid', 'soft'] as const;
@@ -34,4 +32,4 @@ const selectContentPropDefs = {
   highContrast: typeof highContrastProp;
 };
 
-export { selectRootPropDefs, selectTriggerPropDefs, selectContentPropDefs };
+export { selectContentPropDefs, selectRootPropDefs, selectTriggerPropDefs };

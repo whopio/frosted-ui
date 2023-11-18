@@ -19,7 +19,6 @@ interface ThemeChangeHandlers {
   onPanelBackgroundChange: (
     panelBackground: ThemeOptions['panelBackground'],
   ) => void;
-  onRadiusChange: (radius: ThemeOptions['radius']) => void;
 }
 
 interface ThemeContextValue extends ThemeOptions, ThemeChangeHandlers {
@@ -65,7 +64,6 @@ const ThemeRoot = React.forwardRef<ThemeImplElement, ThemeRootProps>(
       grayColor: grayColorProp = themePropDefs.grayColor.default,
       panelBackground: panelBackgroundProp = themePropDefs.panelBackground
         .default,
-      radius: radiusProp = themePropDefs.radius.default,
       hasBackground = themePropDefs.hasBackground.default,
       ...rootProps
     } = props;
@@ -84,9 +82,6 @@ const ThemeRoot = React.forwardRef<ThemeImplElement, ThemeRootProps>(
       () => setPanelBackground(panelBackgroundProp),
       [panelBackgroundProp],
     );
-
-    const [radius, setRadius] = React.useState(radiusProp);
-    React.useEffect(() => setRadius(radiusProp), [radiusProp]);
 
     // Initial appearance on page load when `appearance` is explicitly set to `light` or `dark`
     const ExplicitRootAppearanceScript = React.memo(
@@ -142,13 +137,11 @@ body { background-color: var(--color-page-background); }
           accentColor={accentColor}
           grayColor={grayColor}
           panelBackground={panelBackground}
-          radius={radius}
           //
           onAppearanceChange={setAppearance}
           onAccentColorChange={setAccentColor}
           onGrayColorChange={setGrayColor}
           onPanelBackgroundChange={setPanelBackground}
-          onRadiusChange={setRadius}
         />
       </>
     );
@@ -186,13 +179,11 @@ const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
 
       panelBackground = context?.panelBackground ??
         themePropDefs.panelBackground.default,
-      radius = context?.radius ?? themePropDefs.radius.default,
       //
       onAppearanceChange = noop,
       onAccentColorChange = noop,
       onGrayColorChange = noop,
       onPanelBackgroundChange = noop,
-      onRadiusChange = noop,
       //
       ...themeProps
     } = props;
@@ -220,13 +211,11 @@ const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
             grayColor,
             resolvedGrayColor,
             panelBackground,
-            radius,
             //
             onAppearanceChange,
             onAccentColorChange,
             onGrayColorChange,
             onPanelBackgroundChange,
-            onRadiusChange,
           }),
           [
             appearance,
@@ -238,13 +227,11 @@ const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
             grayColor,
             resolvedGrayColor,
             panelBackground,
-            radius,
             //
             onAppearanceChange,
             onAccentColorChange,
             onGrayColorChange,
             onPanelBackgroundChange,
-            onRadiusChange,
           ],
         )}
       >
@@ -259,7 +246,6 @@ const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
           // for nested `Theme` background
           data-has-background={shouldHaveBackground ? 'true' : 'false'}
           data-panel-background={panelBackground}
-          data-radius={radius}
           ref={forwardedRef}
           {...themeProps}
           className={classNames(

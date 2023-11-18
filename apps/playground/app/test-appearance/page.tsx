@@ -56,27 +56,12 @@ export default function Test() {
 
             <DocsSection title="Mixed nested themes test">
               <SampleNestedUI title="Global theme">
-                <Theme
-                  asChild
-                  accentColor="mint"
-                  appearance="dark"
-                  radius="none"
-                >
-                  <SampleNestedUI title="Dark, Mint, no radius, 90%">
-                    <Theme
-                      asChild
-                      accentColor="amber"
-                      appearance="light"
-                      radius="full"
-                    >
-                      <SampleNestedUI title="Light, Amber, full radius, 110%">
-                        <Theme
-                          asChild
-                          accentColor="tomato"
-                          appearance="dark"
-                          radius="large"
-                        >
-                          <SampleNestedUI title="Dark, Tomato, large radius, 100%" />
+                <Theme asChild accentColor="mint" appearance="dark">
+                  <SampleNestedUI title="Dark, Mint">
+                    <Theme asChild accentColor="amber" appearance="light">
+                      <SampleNestedUI title="Light, Amber">
+                        <Theme asChild accentColor="tomato" appearance="dark">
+                          <SampleNestedUI title="Dark, Tomato" />
                         </Theme>
                       </SampleNestedUI>
                     </Theme>

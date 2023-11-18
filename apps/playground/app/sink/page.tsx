@@ -713,56 +713,6 @@ export default function Sink() {
                     </table>
 
                     <Text as="p" my="5">
-                      <Code>radius</Code> can be set per instance:
-                    </Text>
-
-                    <details>
-                      <summary>
-                        <Text size="2" color="gray">
-                          See specific radius examples
-                        </Text>
-                      </summary>
-                      <Box mt="3">
-                        <table className={styles.table}>
-                          <thead>
-                            <tr>
-                              <ColumnHeaderCell />
-                              {selectRootPropDefs.size.values.map((size) => (
-                                <ColumnHeaderCell key={size}>
-                                  size {size}
-                                </ColumnHeaderCell>
-                              ))}
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {selectTriggerPropDefs.radius.values.map(
-                              (radius) => (
-                                <tr key={radius}>
-                                  <RowHeaderCell>{radius}</RowHeaderCell>
-                                  {selectRootPropDefs.size.values.map(
-                                    (size) => (
-                                      <td key={size}>
-                                        <SelectRoot
-                                          defaultValue="apple"
-                                          size={size}
-                                        >
-                                          <SelectTrigger radius={radius} />
-                                          <SelectContent>
-                                            <SelectItemsDemo />
-                                          </SelectContent>
-                                        </SelectRoot>
-                                      </td>
-                                    ),
-                                  )}
-                                </tr>
-                              ),
-                            )}
-                          </tbody>
-                        </table>
-                      </Box>
-                    </details>
-
-                    <Text as="p" my="5">
                       <Code>color</Code> can be set per instance:
                     </Text>
 
@@ -1151,48 +1101,6 @@ export default function Sink() {
                         <Slider defaultValue={[25, 75]} />
                       </Box>
                     </Grid>
-
-                    <Text as="p" my="5">
-                      <Code>radius</Code> can be set per instance:
-                    </Text>
-
-                    <details>
-                      <summary>
-                        <Text size="2" color="gray">
-                          See specific radius examples
-                        </Text>
-                      </summary>
-                      <Box mt="3">
-                        <table className={styles.table}>
-                          <thead>
-                            <tr>
-                              <ColumnHeaderCell />
-                              {sliderPropDefs.size.values.map((size) => (
-                                <ColumnHeaderCell key={size}>
-                                  size {size}
-                                </ColumnHeaderCell>
-                              ))}
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {sliderPropDefs.radius.values.map((radius) => (
-                              <tr key={radius}>
-                                <RowHeaderCell>{radius}</RowHeaderCell>
-                                {sliderPropDefs.size.values.map((size) => (
-                                  <td key={size} style={{ minWidth: 150 }}>
-                                    <Slider
-                                      size={size}
-                                      radius={radius}
-                                      defaultValue={[50]}
-                                    />
-                                  </td>
-                                ))}
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </Box>
-                    </details>
 
                     <Text as="p" my="5">
                       <Code>color</Code> can be set per instance:
@@ -1841,46 +1749,6 @@ export default function Sink() {
                     </table>
 
                     <Text as="p" my="5">
-                      <Code>radius</Code> can be set per instance:
-                    </Text>
-
-                    <details>
-                      <summary>
-                        <Text size="2" color="gray">
-                          See specific radius examples
-                        </Text>
-                      </summary>
-                      <Box mt="3">
-                        <table className={styles.table}>
-                          <thead>
-                            <tr>
-                              <ColumnHeaderCell />
-                              {buttonPropDefs.size.values.map((size) => (
-                                <ColumnHeaderCell key={size}>
-                                  size {size}
-                                </ColumnHeaderCell>
-                              ))}
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {buttonPropDefs.radius.values.map((radius) => (
-                              <tr key={radius}>
-                                <RowHeaderCell>{radius}</RowHeaderCell>
-                                {buttonPropDefs.size.values.map((size) => (
-                                  <td key={size}>
-                                    <Button size={size} radius={radius}>
-                                      Next <ArrowRightIcon />
-                                    </Button>
-                                  </td>
-                                ))}
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </Box>
-                    </details>
-
-                    <Text as="p" my="5">
                       <Code>color</Code> can be set per instance:
                     </Text>
 
@@ -1999,46 +1867,6 @@ export default function Sink() {
                         ))}
                       </tbody>
                     </table>
-
-                    <Text as="p" my="5">
-                      <Code>radius</Code> can be set per instance:
-                    </Text>
-
-                    <details>
-                      <summary>
-                        <Text size="2" color="gray">
-                          See specific radius examples
-                        </Text>
-                      </summary>
-                      <Box mt="3">
-                        <table className={styles.table}>
-                          <thead>
-                            <tr>
-                              <ColumnHeaderCell />
-                              {iconButtonPropDefs.size.values.map((size) => (
-                                <ColumnHeaderCell key={size}>
-                                  size {size}
-                                </ColumnHeaderCell>
-                              ))}
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {iconButtonPropDefs.radius.values.map((radius) => (
-                              <tr key={radius}>
-                                <RowHeaderCell>{radius}</RowHeaderCell>
-                                {iconButtonPropDefs.size.values.map((size) => (
-                                  <td key={size}>
-                                    <IconButton size={size} radius={radius}>
-                                      <Share2Icon />
-                                    </IconButton>
-                                  </td>
-                                ))}
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </Box>
-                    </details>
 
                     <Text as="p" my="5">
                       <Code>color</Code> can be set per instance:
@@ -2364,48 +2192,6 @@ export default function Sink() {
                     </Flex>
 
                     <Text as="p" my="5">
-                      <Code>radius</Code> can be set per instance:
-                    </Text>
-
-                    <details>
-                      <summary>
-                        <Text size="2" color="gray">
-                          See specific radius examples
-                        </Text>
-                      </summary>
-                      <Box mt="3">
-                        <table className={styles.table}>
-                          <thead>
-                            <tr>
-                              <ColumnHeaderCell />
-                              {textFieldPropDefs.size.values.map((size) => (
-                                <ColumnHeaderCell key={size}>
-                                  size {size}
-                                </ColumnHeaderCell>
-                              ))}
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {textFieldPropDefs.radius.values.map((radius) => (
-                              <tr key={radius}>
-                                <RowHeaderCell>{radius}</RowHeaderCell>
-                                {textFieldPropDefs.size.values.map((size) => (
-                                  <td key={size}>
-                                    <TextFieldInput
-                                      size={size}
-                                      radius={radius}
-                                      placeholder="Your name"
-                                    />
-                                  </td>
-                                ))}
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </Box>
-                    </details>
-
-                    <Text as="p" my="5">
                       <Code>color</Code> can be set per instance:
                     </Text>
 
@@ -2655,46 +2441,6 @@ export default function Sink() {
                     </table>
 
                     <Text as="p" my="5">
-                      <Code>radius</Code> can be set per instance:
-                    </Text>
-
-                    <details>
-                      <summary>
-                        <Text size="2" color="gray">
-                          See specific radius examples
-                        </Text>
-                      </summary>
-                      <Box mt="3">
-                        <table className={styles.table}>
-                          <thead>
-                            <tr>
-                              <ColumnHeaderCell />
-                              {badgePropDefs.size.values.map((size) => (
-                                <ColumnHeaderCell key={size}>
-                                  size {size}
-                                </ColumnHeaderCell>
-                              ))}
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {badgePropDefs.radius.values.map((radius) => (
-                              <tr key={radius}>
-                                <RowHeaderCell>{radius}</RowHeaderCell>
-                                {badgePropDefs.size.values.map((size) => (
-                                  <td key={size}>
-                                    <Badge size={size} radius={radius}>
-                                      {upperFirst(radius)}
-                                    </Badge>
-                                  </td>
-                                ))}
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </Box>
-                    </details>
-
-                    <Text as="p" my="5">
                       <Code>color</Code> can be set per instance:
                     </Text>
 
@@ -2820,49 +2566,6 @@ export default function Sink() {
                         ))}
                       </tbody>
                     </table>
-
-                    <Text as="p" my="5">
-                      <Code>radius</Code> can be set per instance:
-                    </Text>
-
-                    <details>
-                      <summary>
-                        <Text size="2" color="gray">
-                          See specific radius examples
-                        </Text>
-                      </summary>
-                      <Box mt="3">
-                        <table className={styles.table}>
-                          <thead>
-                            <tr>
-                              <ColumnHeaderCell />
-                              {avatarPropDefs.size.values.map((size) => (
-                                <ColumnHeaderCell key={size}>
-                                  size {size}
-                                </ColumnHeaderCell>
-                              ))}
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {avatarPropDefs.radius.values.map((radius) => (
-                              <tr key={radius}>
-                                <RowHeaderCell>{radius}</RowHeaderCell>
-                                {avatarPropDefs.size.values.map((size) => (
-                                  <td key={size}>
-                                    <Avatar
-                                      size={size}
-                                      radius={radius}
-                                      src="./api/avatar"
-                                      fallback="D"
-                                    />
-                                  </td>
-                                ))}
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </Box>
-                    </details>
 
                     <Text as="p" my="5">
                       <Code>color</Code> can be set per instance:
@@ -4336,55 +4039,6 @@ export default function Sink() {
                         ))}
                       </tbody>
                     </table>
-
-                    <Text as="p" my="5">
-                      <Code>radius</Code> can be set per instance:
-                    </Text>
-
-                    <details>
-                      <summary>
-                        <Text size="2" color="gray">
-                          See specific radius examples
-                        </Text>
-                      </summary>
-                      <Box mt="3">
-                        <table className={styles.table}>
-                          <thead>
-                            <tr>
-                              <ColumnHeaderCell />
-                              {scrollAreaPropDefs.size.values.map((size) => (
-                                <ColumnHeaderCell key={size}>
-                                  size {size}
-                                </ColumnHeaderCell>
-                              ))}
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {scrollAreaPropDefs.radius.values.map((radius) => (
-                              <tr key={radius}>
-                                <RowHeaderCell>{radius}</RowHeaderCell>
-                                {scrollAreaPropDefs.size.values.map((size) => (
-                                  <td key={size}>
-                                    <Box style={{ width: 200, height: 20 }}>
-                                      <ScrollArea
-                                        type="always"
-                                        radius={radius}
-                                        size={size}
-                                        scrollbars="horizontal"
-                                      >
-                                        <Box
-                                          style={{ width: 600, height: '100%' }}
-                                        />
-                                      </ScrollArea>
-                                    </Box>
-                                  </td>
-                                ))}
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </Box>
-                    </details>
                   </DocsSection>
 
                   <DocsSection title="Playground">
@@ -4441,27 +4095,16 @@ export default function Sink() {
 
                   <DocsSection title="Mixed nested themes test">
                     <SampleNestedUI title="Global theme">
-                      <Theme
-                        asChild
-                        accentColor="mint"
-                        appearance="dark"
-                        radius="none"
-                      >
-                        <SampleNestedUI title="Dark, Mint, no radius, 90%">
-                          <Theme
-                            asChild
-                            accentColor="amber"
-                            appearance="light"
-                            radius="full"
-                          >
-                            <SampleNestedUI title="Light, Amber, full radius, 110%">
+                      <Theme asChild accentColor="mint" appearance="dark">
+                        <SampleNestedUI title="Dark, Mint">
+                          <Theme asChild accentColor="amber" appearance="light">
+                            <SampleNestedUI title="Light, Amber">
                               <Theme
                                 asChild
                                 accentColor="tomato"
                                 appearance="dark"
-                                radius="large"
                               >
-                                <SampleNestedUI title="Dark, Tomato, large radius, 100%" />
+                                <SampleNestedUI title="Dark, Tomato" />
                               </Theme>
                             </SampleNestedUI>
                           </Theme>

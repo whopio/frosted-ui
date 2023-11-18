@@ -2,16 +2,16 @@ import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 
 import {
-    Avatar,
-    Box,
-    Flex,
-    Heading,
-    HoverCard,
-    Inset,
-    Link,
-    Strong,
-    Text,
-    hoverCardContentPropDefs,
+  Avatar,
+  Box,
+  Flex,
+  Heading,
+  HoverCard,
+  Inset,
+  Link,
+  Strong,
+  Text,
+  hoverCardContentPropDefs,
 } from '../../../src/components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -47,7 +47,7 @@ export const Default: Story = {
         </HoverCard.Trigger>
         <HoverCard.Content {...args}>
           <Flex gap="4">
-            <Avatar size="3" fallback="FUI" radius="full" />
+            <Avatar size="3" fallback="FUI" />
             <Box>
               <Heading size="3" as="h3">
                 Frosted UI

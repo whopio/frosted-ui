@@ -36,14 +36,12 @@ const SkeletonAvatar = React.forwardRef<
     size = skeletonAvatarPropDefs.size.default,
     color = skeletonAvatarPropDefs.color.default,
     highContrast = skeletonAvatarPropDefs.highContrast.default,
-    radius = skeletonAvatarPropDefs.radius.default,
     ...skeletonAvatarProps
   } = marginRest;
 
   return (
     <div
       data-accent-color={color}
-      data-radius={radius}
       className={classNames(
         'rt-SkeletonAvatar',
         className,

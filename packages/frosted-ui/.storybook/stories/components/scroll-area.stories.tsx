@@ -33,7 +33,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     size: scrollAreaPropDefs.size.default,
-    radius: scrollAreaPropDefs.radius.default,
     scrollbars: 'vertical',
   },
   render: (args) => (
@@ -80,7 +79,6 @@ export const Default: Story = {
 export const Size: Story = {
   args: {
     size: scrollAreaPropDefs.size.default,
-    radius: scrollAreaPropDefs.radius.default,
     scrollbars: 'vertical',
   },
   render: (args) => (
@@ -118,54 +116,9 @@ export const Size: Story = {
   ),
 };
 
-export const Radius: Story = {
-  args: {
-    size: scrollAreaPropDefs.size.default,
-    radius: scrollAreaPropDefs.radius.default,
-    scrollbars: 'vertical',
-  },
-  render: (args) => (
-    <Flex direction="column" gap="3">
-      <ScrollArea
-        {...args}
-        radius="none"
-        size="3"
-        type="always"
-        scrollbars="horizontal"
-        style={{ width: 350, height: 20 }}
-      >
-        <Box style={{ width: 800, height: 1 }} />
-      </ScrollArea>
-
-      <ScrollArea
-        {...args}
-        radius="large"
-        size="3"
-        type="always"
-        scrollbars="horizontal"
-        style={{ width: 350, height: 20 }}
-      >
-        <Box style={{ width: 800, height: 1 }} />
-      </ScrollArea>
-
-      <ScrollArea
-        {...args}
-        radius="full"
-        size="3"
-        type="always"
-        scrollbars="horizontal"
-        style={{ width: 350, height: 20 }}
-      >
-        <Box style={{ width: 800, height: 1 }} />
-      </ScrollArea>
-    </Flex>
-  ),
-};
-
 export const Scrollbars: Story = {
   args: {
     size: scrollAreaPropDefs.size.default,
-    radius: scrollAreaPropDefs.radius.default,
     type: 'always',
     scrollbars: 'vertical',
   },

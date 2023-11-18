@@ -34,7 +34,6 @@ type Story = StoryObj<typeof meta>;
 export const AvatarDefault: Story = {
   name: 'Avatar',
   args: {
-    radius: skeletonAvatarPropDefs.radius.default,
     size: skeletonAvatarPropDefs.size.default,
     color: skeletonAvatarPropDefs.color.default,
   },
@@ -44,7 +43,6 @@ export const AvatarDefault: Story = {
 export const AvatarSizes: Story = {
   name: 'Avatar sizes',
   args: {
-    radius: skeletonAvatarPropDefs.radius.default,
     size: skeletonAvatarPropDefs.size.default,
     color: skeletonAvatarPropDefs.color.default,
   },
@@ -66,7 +64,6 @@ export const AvatarSizes: Story = {
 export const AvatarColors: Story = {
   name: 'Avatar colors',
   args: {
-    radius: skeletonAvatarPropDefs.radius.default,
     size: skeletonAvatarPropDefs.size.default,
     color: skeletonAvatarPropDefs.color.default,
   },
@@ -83,7 +80,6 @@ export const AvatarColors: Story = {
 export const AvatarHighContrast: Story = {
   name: 'Avatar high contrast',
   args: {
-    radius: skeletonAvatarPropDefs.radius.default,
     size: skeletonAvatarPropDefs.size.default,
     color: skeletonAvatarPropDefs.color.default,
   },

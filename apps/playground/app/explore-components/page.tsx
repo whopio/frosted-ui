@@ -446,13 +446,7 @@ export default function ExploreComponents() {
                         <thead>
                           <tr>
                             <th />
-                            {avatarPropDefs.radius.values.map((radius) => (
-                              <th key={radius} style={{ textAlign: 'left' }}>
-                                {radius === 'none'
-                                  ? 'No radius'
-                                  : upperFirst(radius)}
-                              </th>
-                            ))}
+                            <th style={{ textAlign: 'left' }}>Default</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -462,15 +456,9 @@ export default function ExploreComponents() {
                           {avatarPropDefs.size.values.map((size) => (
                             <tr key={size}>
                               <td>Size {size}</td>
-                              {avatarPropDefs.radius.values.map((radius) => (
-                                <td key={radius} style={{ textAlign: 'left' }}>
-                                  <Avatar
-                                    size={size}
-                                    radius={radius}
-                                    fallback="BG"
-                                  />
-                                </td>
-                              ))}
+                              <td style={{ textAlign: 'left' }}>
+                                <Avatar size={size} fallback="BG" />
+                              </td>
                             </tr>
                           ))}
                         </tbody>
@@ -582,13 +570,7 @@ export default function ExploreComponents() {
                         <thead>
                           <tr>
                             <th />
-                            {badgePropDefs.radius.values.map((radius) => (
-                              <th key={radius} style={{ textAlign: 'left' }}>
-                                {radius === 'none'
-                                  ? 'No radius'
-                                  : upperFirst(radius)}
-                              </th>
-                            ))}
+                            <th style={{ textAlign: 'left' }}>Default</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -603,22 +585,11 @@ export default function ExploreComponents() {
                                 {badgePropDefs.size.values.map((size) => (
                                   <tr key={size}>
                                     <td>Size {size}</td>
-                                    {badgePropDefs.radius.values.map(
-                                      (radius) => (
-                                        <td
-                                          key={radius}
-                                          style={{ textAlign: 'left' }}
-                                        >
-                                          <Badge
-                                            size={size}
-                                            variant={variant}
-                                            radius={radius}
-                                          >
-                                            New
-                                          </Badge>
-                                        </td>
-                                      ),
-                                    )}
+                                    <td style={{ textAlign: 'left' }}>
+                                      <Badge size={size} variant={variant}>
+                                        New
+                                      </Badge>
+                                    </td>
                                   </tr>
                                 ))}
                               </React.Fragment>
@@ -906,13 +877,7 @@ export default function ExploreComponents() {
                         <thead>
                           <tr>
                             <th />
-                            {buttonPropDefs.radius.values.map((radius) => (
-                              <th key={radius} style={{ textAlign: 'left' }}>
-                                {radius === 'none'
-                                  ? 'No radius'
-                                  : upperFirst(radius)}
-                              </th>
-                            ))}
+                            <th style={{ textAlign: 'left' }}>Default</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -927,25 +892,14 @@ export default function ExploreComponents() {
                                 {buttonPropDefs.size.values.map((size) => (
                                   <tr key={size}>
                                     <td>Size {size}</td>
-                                    {buttonPropDefs.radius.values.map(
-                                      (radius) => (
-                                        <td
-                                          key={radius}
-                                          style={{ textAlign: 'left' }}
-                                        >
-                                          <Button
-                                            size={size}
-                                            variant={variant}
-                                            radius={radius}
-                                          >
-                                            Next{' '}
-                                            <ArrowRightIcon
-                                              {...buttonSizeToIconSize(size)}
-                                            />
-                                          </Button>
-                                        </td>
-                                      ),
-                                    )}
+                                    <td style={{ textAlign: 'left' }}>
+                                      <Button size={size} variant={variant}>
+                                        Next{' '}
+                                        <ArrowRightIcon
+                                          {...buttonSizeToIconSize(size)}
+                                        />
+                                      </Button>
+                                    </td>
                                   </tr>
                                 ))}
                               </React.Fragment>
@@ -2458,13 +2412,7 @@ export default function ExploreComponents() {
                         <thead>
                           <tr>
                             <th />
-                            {iconButtonPropDefs.radius.values.map((radius) => (
-                              <th key={radius} style={{ textAlign: 'left' }}>
-                                {radius === 'none'
-                                  ? 'No radius'
-                                  : upperFirst(radius)}
-                              </th>
-                            ))}
+                            <th style={{ textAlign: 'left' }}>Default</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -2479,24 +2427,13 @@ export default function ExploreComponents() {
                                 {iconButtonPropDefs.size.values.map((size) => (
                                   <tr key={size}>
                                     <td>Size {size}</td>
-                                    {iconButtonPropDefs.radius.values.map(
-                                      (radius) => (
-                                        <td
-                                          key={radius}
-                                          style={{ textAlign: 'left' }}
-                                        >
-                                          <IconButton
-                                            size={size}
-                                            variant={variant}
-                                            radius={radius}
-                                          >
-                                            <StarIcon
-                                              {...buttonSizeToIconSize(size)}
-                                            />
-                                          </IconButton>
-                                        </td>
-                                      ),
-                                    )}
+                                    <td style={{ textAlign: 'left' }}>
+                                      <IconButton size={size} variant={variant}>
+                                        <StarIcon
+                                          {...buttonSizeToIconSize(size)}
+                                        />
+                                      </IconButton>
+                                    </td>
                                   </tr>
                                 ))}
                               </React.Fragment>
@@ -3403,15 +3340,7 @@ export default function ExploreComponents() {
                         <thead>
                           <tr>
                             <th />
-                            {selectTriggerPropDefs.radius.values.map(
-                              (radius) => (
-                                <th key={radius} style={{ textAlign: 'left' }}>
-                                  {radius === 'none'
-                                    ? 'No radius'
-                                    : upperFirst(radius)}
-                                </th>
-                              ),
-                            )}
+                            <th style={{ textAlign: 'left' }}>Default</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -3426,31 +3355,21 @@ export default function ExploreComponents() {
                                 {selectRootPropDefs.size.values.map((size) => (
                                   <tr key={size}>
                                     <td>Size {size}</td>
-                                    {selectTriggerPropDefs.radius.values.map(
-                                      (radius) => (
-                                        <td
-                                          key={radius}
-                                          style={{ textAlign: 'left' }}
+                                    <td style={{ textAlign: 'left' }}>
+                                      <SelectRoot
+                                        size={size}
+                                        defaultValue="apple"
+                                      >
+                                        <SelectTrigger variant={variant} />
+                                        <SelectContent
+                                          variant={selectTriggerVariantToSelectContentVariant(
+                                            variant,
+                                          )}
                                         >
-                                          <SelectRoot
-                                            size={size}
-                                            defaultValue="apple"
-                                          >
-                                            <SelectTrigger
-                                              variant={variant}
-                                              radius={radius}
-                                            />
-                                            <SelectContent
-                                              variant={selectTriggerVariantToSelectContentVariant(
-                                                variant,
-                                              )}
-                                            >
-                                              <ExampleSelectContent />
-                                            </SelectContent>
-                                          </SelectRoot>
-                                        </td>
-                                      ),
-                                    )}
+                                          <ExampleSelectContent />
+                                        </SelectContent>
+                                      </SelectRoot>
+                                    </td>
                                   </tr>
                                 ))}
                               </React.Fragment>
@@ -3612,13 +3531,7 @@ export default function ExploreComponents() {
                         <thead>
                           <tr>
                             <th />
-                            {sliderPropDefs.radius.values.map((radius) => (
-                              <th key={radius} style={{ textAlign: 'left' }}>
-                                {radius === 'none'
-                                  ? 'No radius'
-                                  : upperFirst(radius)}
-                              </th>
-                            ))}
+                            <th style={{ textAlign: 'left' }}>Default</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -3634,29 +3547,19 @@ export default function ExploreComponents() {
                                   (size, sizeIndex) => (
                                     <tr key={size}>
                                       <td>Size {size}</td>
-                                      {sliderPropDefs.radius.values.map(
-                                        (radius) => (
-                                          <td
-                                            key={radius}
-                                            style={{ textAlign: 'left' }}
-                                          >
-                                            <Flex
-                                              align="center"
-                                              justify="start"
-                                              gap="4"
-                                            >
-                                              <Slider
-                                                defaultValue={[
-                                                  33 + 17 * sizeIndex,
-                                                ]}
-                                                size={size}
-                                                variant={variant}
-                                                radius={radius}
-                                              />
-                                            </Flex>
-                                          </td>
-                                        ),
-                                      )}
+                                      <td style={{ textAlign: 'left' }}>
+                                        <Flex
+                                          align="center"
+                                          justify="start"
+                                          gap="4"
+                                        >
+                                          <Slider
+                                            defaultValue={[33 + 17 * sizeIndex]}
+                                            size={size}
+                                            variant={variant}
+                                          />
+                                        </Flex>
+                                      </td>
                                     </tr>
                                   ),
                                 )}
@@ -4601,13 +4504,7 @@ export default function ExploreComponents() {
                         <thead>
                           <tr>
                             <th />
-                            {textFieldPropDefs.radius.values.map((radius) => (
-                              <th key={radius} style={{ textAlign: 'left' }}>
-                                {radius === 'none'
-                                  ? 'No radius'
-                                  : upperFirst(radius)}
-                              </th>
-                            ))}
+                            <th style={{ textAlign: 'left' }}>Default</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -4621,89 +4518,71 @@ export default function ExploreComponents() {
                                 )}
                                 <tr>
                                   <td>Size 1</td>
-                                  {textFieldPropDefs.radius.values.map(
-                                    (radius) => (
-                                      <td key={radius}>
-                                        <TextFieldRoot
-                                          size="1"
-                                          variant={variant}
-                                          radius={radius}
-                                          style={{ width: 140 }}
-                                        >
-                                          <TextFieldSlot>
-                                            <MagnifyingGlassIcon
-                                              width="14"
-                                              height="14"
-                                            />
-                                          </TextFieldSlot>
-                                          <TextFieldInput placeholder="Search" />
-                                        </TextFieldRoot>
-                                      </td>
-                                    ),
-                                  )}
+                                  <td>
+                                    <TextFieldRoot
+                                      size="1"
+                                      variant={variant}
+                                      style={{ width: 140 }}
+                                    >
+                                      <TextFieldSlot>
+                                        <MagnifyingGlassIcon
+                                          width="14"
+                                          height="14"
+                                        />
+                                      </TextFieldSlot>
+                                      <TextFieldInput placeholder="Search" />
+                                    </TextFieldRoot>
+                                  </td>
                                 </tr>
                                 <tr>
                                   <td>Size 2</td>
-                                  {textFieldPropDefs.radius.values.map(
-                                    (radius) => (
-                                      <td key={radius}>
-                                        <TextFieldRoot
-                                          size="2"
-                                          variant={variant}
-                                          radius={radius}
-                                          style={{ width: 160 }}
+                                  <td>
+                                    <TextFieldRoot
+                                      size="2"
+                                      variant={variant}
+                                      style={{ width: 160 }}
+                                    >
+                                      <TextFieldSlot>
+                                        <MagnifyingGlassIcon
+                                          width="16"
+                                          height="16"
+                                        />
+                                      </TextFieldSlot>
+                                      <TextFieldInput placeholder="Search" />
+                                      <TextFieldSlot>
+                                        <IconButton
+                                          variant="ghost"
+                                          color="gray"
+                                          size="1"
                                         >
-                                          <TextFieldSlot>
-                                            <MagnifyingGlassIcon
-                                              width="16"
-                                              height="16"
-                                            />
-                                          </TextFieldSlot>
-                                          <TextFieldInput placeholder="Search" />
-                                          <TextFieldSlot>
-                                            <IconButton
-                                              variant="ghost"
-                                              color="gray"
-                                              size="1"
-                                            >
-                                              <InfoCircledIcon />
-                                            </IconButton>
-                                          </TextFieldSlot>
-                                        </TextFieldRoot>
-                                      </td>
-                                    ),
-                                  )}
+                                          <InfoCircledIcon />
+                                        </IconButton>
+                                      </TextFieldSlot>
+                                    </TextFieldRoot>
+                                  </td>
                                 </tr>
                                 <tr>
                                   <td>Size 3</td>
-                                  {textFieldPropDefs.radius.values.map(
-                                    (radius) => (
-                                      <td key={radius}>
-                                        <TextFieldRoot
-                                          size="3"
-                                          variant={variant}
-                                          radius={radius}
+                                  <td>
+                                    <TextFieldRoot size="3" variant={variant}>
+                                      <TextFieldSlot>
+                                        <MagnifyingGlassIcon
+                                          width="18"
+                                          height="18"
+                                        />
+                                      </TextFieldSlot>
+                                      <TextFieldInput placeholder="Search" />
+                                      <TextFieldSlot>
+                                        <IconButton
+                                          variant="ghost"
+                                          color="gray"
+                                          size="2"
                                         >
-                                          <TextFieldSlot>
-                                            <MagnifyingGlassIcon
-                                              width="18"
-                                              height="18"
-                                            />
-                                          </TextFieldSlot>
-                                          <TextFieldInput placeholder="Search" />
-                                          <TextFieldSlot>
-                                            <IconButton
-                                              variant="ghost"
-                                              color="gray"
-                                              size="2"
-                                            >
-                                              <InfoCircledIcon />
-                                            </IconButton>
-                                          </TextFieldSlot>
-                                        </TextFieldRoot>
-                                      </td>
-                                    ),
-                                  )}
+                                          <InfoCircledIcon />
+                                        </IconButton>
+                                      </TextFieldSlot>
+                                    </TextFieldRoot>
+                                  </td>
                                 </tr>
                               </React.Fragment>
                             ),

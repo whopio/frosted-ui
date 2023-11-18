@@ -18,7 +18,7 @@ const CardContentExample = ({
   size?: '1' | '2' | '3' | '4';
 }) => (
   <Flex gap="3" align="center">
-    <Avatar size="3" radius="full" fallback="IM" color="indigo" />
+    <Avatar size="3" fallback="IM" color="indigo" />
     <Box>
       <Text as="div" size="2" weight="bold">
         Ilya Miskov
@@ -62,7 +62,7 @@ export const Size: Story = {
     <Flex gap="3" direction="column">
       <Card {...args} size="1" style={{ width: 350 }}>
         <Flex gap="3" align="center">
-          <Avatar size="3" radius="full" fallback="T" color="indigo" />
+          <Avatar size="3" fallback="T" color="indigo" />
           <Box>
             <Text as="div" size="2" weight="bold">
               Teodros Girmay
@@ -76,7 +76,7 @@ export const Size: Story = {
 
       <Card {...args} size="2" style={{ width: 425 }}>
         <Flex gap="4" align="center">
-          <Avatar size="4" radius="full" fallback="T" color="indigo" />
+          <Avatar size="4" fallback="T" color="indigo" />
           <Box>
             <Text as="div" weight="bold">
               Teodros Girmay
@@ -90,7 +90,7 @@ export const Size: Story = {
 
       <Card {...args} size="3" style={{ width: 500 }}>
         <Flex gap="4" align="center">
-          <Avatar size="5" radius="full" fallback="T" color="indigo" />
+          <Avatar size="5" fallback="T" color="indigo" />
           <Box>
             <Text as="div" size="4" weight="bold">
               Teodros Girmay

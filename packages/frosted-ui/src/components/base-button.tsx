@@ -32,7 +32,6 @@ const BaseButton = React.forwardRef<BaseButtonElement, BaseButtonProps>(
       variant = baseButtonPropDefs.variant.default,
       color = baseButtonPropDefs.color.default,
       highContrast = baseButtonPropDefs.highContrast.default,
-      radius = baseButtonPropDefs.radius.default,
       ...baseButtonProps
     } = marginRest;
     const Comp = asChild ? Slot : 'button';
@@ -41,7 +40,6 @@ const BaseButton = React.forwardRef<BaseButtonElement, BaseButtonProps>(
         // The `data-disabled` attribute enables correct styles when doing `<Button asChild disabled>`
         data-disabled={baseButtonProps.disabled || undefined}
         data-accent-color={color || (variant === 'surface' ? 'gray' : color)}
-        data-radius={radius}
         {...baseButtonProps}
         ref={forwardedRef}
         className={classNames(

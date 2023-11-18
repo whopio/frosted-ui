@@ -1,22 +1,22 @@
 import {
-    ChatBubbleIcon,
-    DotsHorizontalIcon,
-    FileTextIcon,
-    QuestionMarkCircledIcon,
-    SunIcon,
+  ChatBubbleIcon,
+  DotsHorizontalIcon,
+  FileTextIcon,
+  QuestionMarkCircledIcon,
+  SunIcon,
 } from '@radix-ui/react-icons';
 import {
-    Button,
-    Container,
-    Flex,
-    Grid,
-    IconButton,
-    Link,
-    PopoverContent,
-    PopoverRoot,
-    PopoverTrigger,
-    Section,
-    Theme,
+  Button,
+  Container,
+  Flex,
+  Grid,
+  IconButton,
+  Link,
+  PopoverContent,
+  PopoverRoot,
+  PopoverTrigger,
+  Section,
+  Theme,
 } from 'frosted-ui';
 
 export default function Ghost() {
@@ -46,7 +46,7 @@ export default function Ghost() {
                         </Button>
                         <Button size="1">Save</Button>
                         <Button size="1">Delete</Button>
-                        <IconButton variant="ghost" size="1" radius="full">
+                        <IconButton variant="ghost" size="1">
                           <SunIcon />
                         </IconButton>
                       </Flex>
@@ -64,7 +64,7 @@ export default function Ghost() {
                         </Button>
                         <Button size="2">Save</Button>
                         <Button size="2">Delete</Button>
-                        <IconButton variant="ghost" size="2" radius="full">
+                        <IconButton variant="ghost" size="2">
                           <SunIcon />
                         </IconButton>
                       </Flex>
@@ -82,7 +82,7 @@ export default function Ghost() {
                         </Button>
                         <Button size="3">Save</Button>
                         <Button size="3">Delete</Button>
-                        <IconButton variant="ghost" size="3" radius="full">
+                        <IconButton variant="ghost" size="3">
                           <SunIcon />
                         </IconButton>
                       </Flex>
@@ -106,7 +106,7 @@ export default function Ghost() {
                             Docs
                           </Link>
                         </Flex>
-                        <IconButton variant="ghost" size="2" radius="full">
+                        <IconButton variant="ghost" size="2">
                           <SunIcon />
                         </IconButton>
                       </Flex>

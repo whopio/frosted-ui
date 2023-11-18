@@ -33,7 +33,7 @@ export default function Snapshot() {
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <Theme asChild appearance="dark" accentColor="grass" radius="small">
+        <Theme asChild appearance="dark" accentColor="grass">
           <div id="root">
             <ThemePanel />
 
