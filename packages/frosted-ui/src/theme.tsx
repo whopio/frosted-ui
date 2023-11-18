@@ -16,9 +16,6 @@ interface ThemeChangeHandlers {
   onAppearanceChange: (appearance: ThemeOptions['appearance']) => void;
   onAccentColorChange: (accentColor: ThemeOptions['accentColor']) => void;
   onGrayColorChange: (grayColor: ThemeOptions['grayColor']) => void;
-  onPanelBackgroundChange: (
-    panelBackground: ThemeOptions['panelBackground'],
-  ) => void;
 }
 
 interface ThemeContextValue extends ThemeOptions, ThemeChangeHandlers {
@@ -62,8 +59,6 @@ const ThemeRoot = React.forwardRef<ThemeImplElement, ThemeRootProps>(
       appearance: appearanceProp = themePropDefs.appearance.default,
       accentColor: accentColorProp = themePropDefs.accentColor.default,
       grayColor: grayColorProp = themePropDefs.grayColor.default,
-      panelBackground: panelBackgroundProp = themePropDefs.panelBackground
-        .default,
       hasBackground = themePropDefs.hasBackground.default,
       ...rootProps
     } = props;
@@ -75,13 +70,6 @@ const ThemeRoot = React.forwardRef<ThemeImplElement, ThemeRootProps>(
 
     const [grayColor, setGrayColor] = React.useState(grayColorProp);
     React.useEffect(() => setGrayColor(grayColorProp), [grayColorProp]);
-
-    const [panelBackground, setPanelBackground] =
-      React.useState(panelBackgroundProp);
-    React.useEffect(
-      () => setPanelBackground(panelBackgroundProp),
-      [panelBackgroundProp],
-    );
 
     // Initial appearance on page load when `appearance` is explicitly set to `light` or `dark`
     const ExplicitRootAppearanceScript = React.memo(
@@ -136,12 +124,10 @@ body { background-color: var(--color-page-background); }
           appearance={appearance}
           accentColor={accentColor}
           grayColor={grayColor}
-          panelBackground={panelBackground}
           //
           onAppearanceChange={setAppearance}
           onAccentColorChange={setAccentColor}
           onGrayColorChange={setGrayColor}
-          onPanelBackgroundChange={setPanelBackground}
         />
       </>
     );
@@ -176,14 +162,10 @@ const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
       successColor = context?.successColor ??
         themePropDefs.successColor.default,
       infoColor = context?.infoColor ?? themePropDefs.infoColor.default,
-
-      panelBackground = context?.panelBackground ??
-        themePropDefs.panelBackground.default,
       //
       onAppearanceChange = noop,
       onAccentColorChange = noop,
       onGrayColorChange = noop,
-      onPanelBackgroundChange = noop,
       //
       ...themeProps
     } = props;
@@ -210,12 +192,10 @@ const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
             infoColor,
             grayColor,
             resolvedGrayColor,
-            panelBackground,
             //
             onAppearanceChange,
             onAccentColorChange,
             onGrayColorChange,
-            onPanelBackgroundChange,
           }),
           [
             appearance,
@@ -226,12 +206,10 @@ const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
             infoColor,
             grayColor,
             resolvedGrayColor,
-            panelBackground,
             //
             onAppearanceChange,
             onAccentColorChange,
             onGrayColorChange,
-            onPanelBackgroundChange,
           ],
         )}
       >
@@ -245,7 +223,6 @@ const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
           data-gray-color={resolvedGrayColor}
           // for nested `Theme` background
           data-has-background={shouldHaveBackground ? 'true' : 'false'}
-          data-panel-background={panelBackground}
           ref={forwardedRef}
           {...themeProps}
           className={classNames(
