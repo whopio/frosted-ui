@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@radix-ui/react-icons": "^1.3.0",
-    "frosted-ui": "*",
+    "frosted-ui": "workspace*",
     "next": "^13.4.1",
     "next-themes": "^0.2.1",
     "react": "^18.2.0",
