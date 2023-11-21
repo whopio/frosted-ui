@@ -16,10 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: whopio/unimported-action@v0.0.1
+      - uses: whopio/unimported-action@v0.0.2-canary.0
         with:
-          token: ${{ github.token }}
           projects: 'packages/frosted-ui'
+          token: ${{ github.token }}
+          unimported-version: 1.30.0
 
   install:
     name: Install node modules
