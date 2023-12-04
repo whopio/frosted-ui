@@ -2,9 +2,9 @@
 import * as colors from 'tailwindcss/colors';
 import plugin from 'tailwindcss/plugin';
 import {
+  semanticColors,
   themeAccentColorsGrouped,
   themeAccentColorsOrdered,
-  themeBNWColorsGrouped,
   themeGrayColorsGrouped,
 } from './theme-options';
 
@@ -18,11 +18,9 @@ type RadixColorScales = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 themeAccentColorsGrouped.map((group) => {
   accentColorNames.push(...group.values.filter((color) => color !== 'gray'));
 });
+
 themeGrayColorsGrouped.map((group) => {
   grayColorNames.push(...group.values.filter((color) => color !== 'auto'));
-});
-themeBNWColorsGrouped.map((group) => {
-  grayColorNames.push(...group.values);
 });
 
 export function getColorTokenName(
@@ -72,9 +70,8 @@ export const getColorDefinitions = (
   );
 
   if (!alpha) {
-    colors[
-      `${getColorTokenName(9, useTailwindColorNames, alpha)}-contrast`
-    ] = `var(--${color}-9-contrast)`;
+    colors[`${getColorTokenName(9, useTailwindColorNames, alpha)}-contrast`] =
+      `var(--${color}-9-contrast)`;
     colors['surface'] = `var(--${color}-surface)`;
     colors['DEFAULT'] = `var(--${color}-9)`;
     if (color === 'accent') {
@@ -217,9 +214,8 @@ export const radixThemePlugin = plugin.withOptions(
       };
 
       if (grayColorNames.includes(colorName)) {
-        c[
-          `${getColorTokenName(2, useTailwindColorNames, false)}-translucent`
-        ] = `var(--${colorName}-2-translucent)`;
+        c[`${getColorTokenName(2, useTailwindColorNames, false)}-translucent`] =
+          `var(--${colorName}-2-translucent)`;
       }
 
       return c;
@@ -227,7 +223,7 @@ export const radixThemePlugin = plugin.withOptions(
 
     const allRadixColors = [
       ...accentColorNames,
-      ...grayColorNames,
+      ...semanticColors,
       ...grayColorNames,
     ].reduce<Record<string, Record<string, string>>>((acc, colorName) => {
       acc[colorName] = { ...generateTailwindColors(colorName) };
@@ -457,7 +453,46 @@ export const radixThemePlugin = plugin.withOptions(
           panel: {
             solid: 'var(--color-panel-solid)',
             translucent: 'var(--color-panel-translucent)',
+            // panel-elevation
+            'elevation-a1': 'var(--color-panel-elevation-a1)',
+            'elevation-a2': 'var(--color-panel-elevation-a2)',
+            'elevation-a3': 'var(--color-panel-elevation-a3)',
+            'elevation-a4': 'var(--color-panel-elevation-a4)',
+            'elevation-a5': 'var(--color-panel-elevation-a5)',
+            'elevation-a6': 'var(--color-panel-elevation-a6)',
+            'elevation-a7': 'var(--color-panel-elevation-a7)',
+            'elevation-a8': 'var(--color-panel-elevation-a8)',
+            'elevation-a9': 'var(--color-panel-elevation-a9)',
+            'elevation-a10': 'var(--color-panel-elevation-a10)',
+            'elevation-a11': 'var(--color-panel-elevation-a11)',
+            'elevation-a12': 'var(--color-panel-elevation-a12)',
           },
+          // white
+          'white-a1': 'var(--white-a1)',
+          'white-a2': 'var(--white-a2)',
+          'white-a3': 'var(--white-a3)',
+          'white-a4': 'var(--white-a4)',
+          'white-a5': 'var(--white-a5)',
+          'white-a6': 'var(--white-a6)',
+          'white-a7': 'var(--white-a7)',
+          'white-a8': 'var(--white-a8)',
+          'white-a9': 'var(--white-a9)',
+          'white-a10': 'var(--white-a10)',
+          'white-a11': 'var(--white-a11)',
+          'white-a12': 'var(--white-a12)',
+          // black
+          'black-a1': 'var(--black-a1)',
+          'black-a2': 'var(--black-a2)',
+          'black-a3': 'var(--black-a3)',
+          'black-a4': 'var(--black-a4)',
+          'black-a5': 'var(--black-a5)',
+          'black-a6': 'var(--black-a6)',
+          'black-a7': 'var(--black-a7)',
+          'black-a8': 'var(--black-a8)',
+          'black-a9': 'var(--black-a9)',
+          'black-a10': 'var(--black-a10)',
+          'black-a11': 'var(--black-a11)',
+          'black-a12': 'var(--black-a12)',
           selection: 'var(--color-selection-root)',
           ...allRadixColors,
           ...mappingsOfMissingTailwindColors,

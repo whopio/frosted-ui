@@ -22,7 +22,6 @@ const radixGrayScales = [
   radixGrayScalePure,
   ...radixGrayScalesDesaturated,
 ] as const;
-const bnwScales = ['black', 'white'] as const;
 
 function radixGetMatchingGrayScale(
   colorScale: (typeof radixColorScales)[number],
@@ -63,7 +62,6 @@ function radixGetMatchingGrayScale(
 
 export {
   //
-  bnwScales,
   radixColorScales,
   radixColorScalesBright,
   radixColorScalesMetal,

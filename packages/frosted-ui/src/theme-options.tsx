@@ -1,7 +1,5 @@
 import type { GetPropDefTypes, PropDef } from './helpers';
 import {
-  //
-  bnwScales,
   radixColorScales,
   radixColorScalesBright,
   radixColorScalesMetal,
@@ -14,7 +12,8 @@ import {
   radixGrayScalesDesaturated,
 } from './helpers/radix-colors';
 
-export const semanticColors = ['danger', 'warning', 'success', 'info'] as const;
+const colorPanelElevationColors = ['color-panel-elevation'] as const;
+const semanticColors = ['danger', 'warning', 'success', 'info'] as const;
 const appearances = ['inherit', 'light', 'dark'] as const;
 const accentColors = [...radixColorScales, 'gray'] as const;
 const grayColors = [...radixGrayScales, 'auto'] as const;
@@ -113,8 +112,6 @@ const themeGrayColorsGrouped = [
   },
 ];
 
-const themeBNWColorsGrouped = [{ label: 'B&W', values: bnwScales }];
-
 function getMatchingGrayColor(
   accentColor: ThemeAccentColor,
 ): (typeof radixGrayScales)[number] {
@@ -123,14 +120,15 @@ function getMatchingGrayColor(
 }
 
 export {
+  colorPanelElevationColors,
   dangerColors,
   getMatchingGrayColor,
   infoColors,
+  semanticColors,
   successColors,
   //
   themeAccentColorsGrouped,
   themeAccentColorsOrdered,
-  themeBNWColorsGrouped,
   themeGrayColorsGrouped,
   themePropDefs,
   warningColors,
