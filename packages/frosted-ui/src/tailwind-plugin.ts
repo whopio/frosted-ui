@@ -1,4 +1,4 @@
-// Forked from https://github.com/needim/radix-ui-themes-with-tailwind
+// Forked from https://github.com/needim/frosted-ui-themes-with-tailwind
 import * as colors from 'tailwindcss/colors';
 import plugin from 'tailwindcss/plugin';
 import {
@@ -12,8 +12,8 @@ export const accentColorNames: string[] = [];
 export const grayColorNames: string[] = [];
 export const bnwColorNames: string[] = [];
 
-const radixColorScales = 12;
-type RadixColorScales = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+const frostedColorScales = 12;
+type FrostedColorScales = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
 themeAccentColorsGrouped.map((group) => {
   accentColorNames.push(...group.values.filter((color) => color !== 'gray'));
@@ -24,7 +24,7 @@ themeGrayColorsGrouped.map((group) => {
 });
 
 export function getColorTokenName(
-  number: RadixColorScales,
+  number: FrostedColorScales,
   useTailwindColorNames?: boolean,
   alpha?: boolean,
 ): number | string {
@@ -55,11 +55,11 @@ export const getColorDefinitions = (
   alpha?: boolean,
   useTailwindColorNames?: boolean,
 ) => {
-  const colors = Array.from(Array(radixColorScales).keys()).reduce(
+  const colors = Array.from(Array(frostedColorScales).keys()).reduce(
     (acc, _, i) => {
       acc[
         getColorTokenName(
-          (i + 1) as RadixColorScales,
+          (i + 1) as FrostedColorScales,
           useTailwindColorNames,
           alpha,
         )
@@ -82,15 +82,15 @@ export const getColorDefinitions = (
   return colors;
 };
 
-type RadixColors = Exclude<
+type FrostedColors = Exclude<
   | (typeof themeAccentColorsOrdered)[number]
   | (typeof themeGrayColorsGrouped)[0]['values'][number],
   'auto'
 >;
 
-export const tailwindColorsToRadixMap: Record<
+export const tailwindColorsToFrostedMap: Record<
   'zinc' | 'neutral' | 'stone' | 'emerald' | 'fuchsia' | 'rose',
-  RadixColors | Record<string, string>
+  FrostedColors | Record<string, string>
 > = {
   zinc: 'sand',
   neutral: 'sage',
@@ -100,7 +100,7 @@ export const tailwindColorsToRadixMap: Record<
   rose: 'crimson',
 };
 
-const radixRadiusToTailwindMap = {
+const frostedRadiusToTailwindMap = {
   1: 'xxs',
   2: 'xs',
   3: 'sm',
@@ -110,21 +110,23 @@ const radixRadiusToTailwindMap = {
 } as const;
 
 export function getRadiusTokenName(
-  radius: keyof typeof radixRadiusToTailwindMap,
+  radius: keyof typeof frostedRadiusToTailwindMap,
   useTailwindColorNames?: boolean,
 ): string | number {
-  return useTailwindColorNames ? radixRadiusToTailwindMap[radius] : radius;
+  return useTailwindColorNames ? frostedRadiusToTailwindMap[radius] : radius;
 }
 
-export type RadixThemePluginOptions = {
+export type FrostedThemePluginOptions = {
   useTailwindColorNames?: boolean;
   useTailwindRadiusNames?: boolean;
-  mapMissingTailwindColors?: boolean | Partial<typeof tailwindColorsToRadixMap>;
+  mapMissingTailwindColors?:
+    | boolean
+    | Partial<typeof tailwindColorsToFrostedMap>;
 };
 
-export const radixThemePlugin = plugin.withOptions(
+export const frostedThemePlugin = plugin.withOptions(
   // eslint-disable-next-line no-empty-pattern
-  ({}: RadixThemePluginOptions) => {
+  ({}: FrostedThemePluginOptions) => {
     // TODO: make sure font styles are in sync with Text and Heading style
     return ({ addBase }) => {
       addBase({
@@ -206,7 +208,7 @@ export const radixThemePlugin = plugin.withOptions(
     useTailwindColorNames = true,
     useTailwindRadiusNames = true,
     mapMissingTailwindColors = true,
-  }: RadixThemePluginOptions) => {
+  }: FrostedThemePluginOptions) => {
     function generateTailwindColors(colorName: string) {
       const c = {
         ...getColorDefinitions(colorName, false, useTailwindColorNames),
@@ -221,7 +223,7 @@ export const radixThemePlugin = plugin.withOptions(
       return c;
     }
 
-    const allRadixColors = [
+    const allFrostedColors = [
       ...accentColorNames,
       ...semanticColors,
       ...grayColorNames,
@@ -494,7 +496,7 @@ export const radixThemePlugin = plugin.withOptions(
           'black-a11': 'var(--black-a11)',
           'black-a12': 'var(--black-a12)',
           selection: 'var(--color-selection-root)',
-          ...allRadixColors,
+          ...allFrostedColors,
           ...mappingsOfMissingTailwindColors,
           accent: generateTailwindColors('accent'),
           gray: generateTailwindColors('gray'),
