@@ -1,44 +1,43 @@
 import {
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogRoot,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-    AspectRatio,
-    Box,
-    Button,
-    Card,
-    Container,
-    DialogClose,
-    DialogContent,
-    DialogDescription,
-    DialogRoot,
-    DialogTitle,
-    DialogTrigger,
-    Flex,
-    Grid,
-    HoverCardContent,
-    HoverCardRoot,
-    HoverCardTrigger,
-    Inset,
-    Link,
-    PopoverContent,
-    PopoverRoot,
-    PopoverTrigger,
-    Section,
-    Separator,
-    TableBody,
-    TableCell,
-    TableColumnHeaderCell,
-    TableHeader,
-    TableRoot,
-    TableRow,
-    TableRowHeaderCell,
-    Text,
-    Theme,
-    ThemePanel,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogRoot,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+  AspectRatio,
+  Box,
+  Button,
+  Card,
+  Container,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogRoot,
+  DialogTitle,
+  DialogTrigger,
+  Flex,
+  Grid,
+  HoverCardContent,
+  HoverCardRoot,
+  HoverCardTrigger,
+  Inset,
+  Link,
+  PopoverContent,
+  PopoverRoot,
+  PopoverTrigger,
+  Separator,
+  TableBody,
+  TableCell,
+  TableColumnHeaderCell,
+  TableHeader,
+  TableRoot,
+  TableRow,
+  TableRowHeaderCell,
+  Text,
+  Theme,
+  ThemePanel,
 } from 'frosted-ui';
 import { NextThemeProvider } from '../next-theme-provider';
 
@@ -59,7 +58,12 @@ export default function Test() {
               <ThemePanel />
 
               <Container>
-                <Section>
+                <div
+                  style={{
+                    paddingTop: 'var(--space-5)',
+                    paddingBottom: 'var(--space-5)',
+                  }}
+                >
                   <Grid columns="3" gap="9">
                     <Card size="3">
                       <Text as="p" size="5" weight="bold" trim="start">
@@ -216,7 +220,7 @@ export default function Test() {
                       </div>
                     </Grid>
                   </Grid>
-                </Section>
+                </div>
               </Container>
             </div>
           </Theme>

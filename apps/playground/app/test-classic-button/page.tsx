@@ -1,12 +1,11 @@
 import { Pencil2Icon } from '@radix-ui/react-icons';
 import {
-    Button,
-    Container,
-    Flex,
-    Section,
-    Theme,
-    ThemePanel,
-    themeAccentColorsOrdered,
+  Button,
+  Container,
+  Flex,
+  Theme,
+  ThemePanel,
+  themeAccentColorsOrdered,
 } from 'frosted-ui';
 
 export default function Test() {
@@ -17,7 +16,12 @@ export default function Test() {
           <div id="root">
             <ThemePanel defaultOpen={false} />
             <Container px="5">
-              <Section>
+              <div
+                style={{
+                  paddingTop: 'var(--space-5)',
+                  paddingBottom: 'var(--space-5)',
+                }}
+              >
                 <Flex direction="column" gap="2">
                   {themeAccentColorsOrdered.map((color) => (
                     <Flex key={color} gap="2">
@@ -48,7 +52,7 @@ export default function Test() {
                     </Flex>
                   ))}
                 </Flex>
-              </Section>
+              </div>
             </Container>
           </div>
         </Theme>
