@@ -1,4 +1,4 @@
-.rt-TableRootTable {
+.fui-TableRootTable {
   --table-row-background-color: transparent;
   --table-row-box-shadow: inset 0 -1px var(--gray-a5);
 
@@ -14,20 +14,20 @@
   height: 0;
 }
 
-.rt-TableHeader {
+.fui-TableHeader {
   vertical-align: inherit;
 }
 
-.rt-TableBody {
+.fui-TableBody {
   vertical-align: inherit;
 }
 
-.rt-TableRow {
+.fui-TableRow {
   vertical-align: inherit;
   color: var(--gray-12);
 }
 
-.rt-TableCell {
+.fui-TableCell {
   background-color: var(--table-row-background-color);
   box-shadow: var(--table-row-box-shadow);
   box-sizing: border-box;
@@ -37,17 +37,17 @@
   height: var(--table-cell-min-height);
 
   /* Inset with Table */
-  .rt-Inset :where(&:first-child) {
+  .fui-Inset :where(&:first-child) {
     padding-left: var(--inset-padding, var(--table-cell-padding));
   }
-  .rt-Inset :where(&:last-child) {
+  .fui-Inset :where(&:last-child) {
     padding-right: var(--inset-padding, var(--table-cell-padding));
   }
 }
-.rt-TableColumnHeaderCell {
+.fui-TableColumnHeaderCell {
   font-weight: bold;
 }
-.rt-TableRowHeaderCell {
+.fui-TableRowHeaderCell {
   font-weight: normal;
 }
 
@@ -58,33 +58,33 @@
  ***************************************************************************************************/
 
 @breakpoints {
-  .rt-TableRoot {
-    &:where(.rt-r-size-1) {
+  .fui-TableRoot {
+    &:where(.fui-r-size-1) {
       --table-border-radius: var(--radius-3);
       --table-cell-padding: var(--space-2);
       --table-cell-min-height: 36px;
 
-      & :where(.rt-TableRootTable) {
+      & :where(.fui-TableRootTable) {
         font-size: var(--font-size-2);
         line-height: var(--line-height-2);
       }
     }
-    &:where(.rt-r-size-2) {
+    &:where(.fui-r-size-2) {
       --table-border-radius: var(--radius-4);
       --table-cell-padding: var(--space-3);
       --table-cell-min-height: 44px;
 
-      & :where(.rt-TableRootTable) {
+      & :where(.fui-TableRootTable) {
         font-size: var(--font-size-2);
         line-height: var(--line-height-2);
       }
     }
-    &:where(.rt-r-size-3) {
+    &:where(.fui-r-size-3) {
       --table-border-radius: var(--radius-4);
       --table-cell-padding: var(--space-3) var(--space-4);
       --table-cell-min-height: var(--space-8);
 
-      & :where(.rt-TableRootTable) {
+      & :where(.fui-TableRootTable) {
         font-size: var(--font-size-3);
         line-height: var(--line-height-3);
       }
@@ -100,7 +100,7 @@
 
 /* surface */
 
-.rt-TableRoot:where(.rt-variant-surface) {
+.fui-TableRoot:where(.fui-variant-surface) {
   border: 1px solid var(--gray-a5);
   border-radius: var(--table-border-radius);
   background-color: var(--color-panel);
@@ -110,13 +110,13 @@
   /* When possible, use half-transparent gray for nicer border blending with the background */
   border-color: color-mix(in oklab, var(--gray-a5), var(--gray-6));
 
-  & :where(.rt-TableRootTable) {
+  & :where(.fui-TableRootTable) {
     overflow: hidden;
 
-    & :where(.rt-TableHeader) {
+    & :where(.fui-TableHeader) {
       --table-row-background-color: var(--gray-a2);
     }
-    & :where(.rt-TableBody) :where(.rt-TableRow:last-child) {
+    & :where(.fui-TableBody) :where(.fui-TableRow:last-child) {
       --table-row-box-shadow: none;
     }
   }
@@ -124,7 +124,7 @@
 
 /* ghost */
 
-.rt-TableRoot:where(.rt-variant-ghost) {
+.fui-TableRoot:where(.fui-variant-ghost) {
   --scrollarea-scrollbar-horizontal-margin-left: 0;
   --scrollarea-scrollbar-horizontal-margin-right: 0;
 }

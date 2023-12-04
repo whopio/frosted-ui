@@ -54,12 +54,12 @@ const Tooltip = React.forwardRef<TooltipElement, TooltipProps>(
               collisionPadding={10}
               {...tooltipContentProps}
               ref={forwardedRef}
-              className={classNames('rt-TooltipContent', className)}
+              className={classNames('fui-TooltipContent', className)}
             >
-              <Text as="p" className="rt-TooltipText" size="1">
+              <Text as="p" className="fui-TooltipText" size="1">
                 {content}
               </Text>
-              <TooltipPrimitive.Arrow className="rt-TooltipArrow" />
+              <TooltipPrimitive.Arrow className="fui-TooltipArrow" />
             </TooltipPrimitive.Content>
           </Theme>
         </TooltipPrimitive.Portal>

@@ -64,9 +64,9 @@ const DrawerContent = React.forwardRef<
           aria-describedby={undefined}
           ref={forwardedRef}
           className={classNames(
-            'rt-DrawerContent',
+            'fui-DrawerContent',
             className,
-            withBreakpoints(size, 'rt-r-size'),
+            withBreakpoints(size, 'fui-r-size'),
           )}
         />
       </Theme>
@@ -105,7 +105,7 @@ const DrawerStickyFooter = React.forwardRef<
   DrawerStickyFooterElement,
   DrawerStickyFooterProps
 >(({ children, ...props }, forwardedRef) => (
-  <div className="rt-DrawerStickyFooter" {...props} ref={forwardedRef}>
+  <div className="fui-DrawerStickyFooter" {...props} ref={forwardedRef}>
     {children}
   </div>
 ));
@@ -115,7 +115,7 @@ type DrawerHeaderElement = React.ElementRef<'div'>;
 type DrawerHeaderProps = React.ComponentPropsWithoutRef<'div'>;
 const DrawerHeader = React.forwardRef<DrawerHeaderElement, DrawerHeaderProps>(
   ({ children, ...props }, forwardedRef) => (
-    <div className="rt-DrawerHeader" {...props} ref={forwardedRef}>
+    <div className="fui-DrawerHeader" {...props} ref={forwardedRef}>
       {children}
     </div>
   ),
@@ -160,14 +160,14 @@ const DrawerBody = React.forwardRef<DrawerBodyElement, DrawerBodyProps>(
 
     return (
       <ScrollArea
-        className="rt-BodyScrollArea"
+        className="fui-BodyScrollArea"
         {...props}
         size={'2'}
         ref={localRef}
         scrollbars="vertical"
         type="auto"
       >
-        <div className="rt-DrawerBody" ref={contentRef}>
+        <div className="fui-DrawerBody" ref={contentRef}>
           {children}
         </div>
       </ScrollArea>

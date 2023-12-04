@@ -1,16 +1,16 @@
-import * as React from 'react';
 import classNames from 'classnames';
-import { Slot } from './slot';
-import { flexPropDefs } from './flex.props';
+import * as React from 'react';
 import {
-  extractMarginProps,
-  withMarginProps,
   extractLayoutProps,
-  withLayoutProps,
+  extractMarginProps,
   withBreakpoints,
+  withLayoutProps,
+  withMarginProps,
 } from '../helpers';
+import { flexPropDefs } from './flex.props';
+import { Slot } from './slot';
 
-import type { MarginProps, LayoutProps, GetPropDefTypes } from '../helpers';
+import type { GetPropDefTypes, LayoutProps, MarginProps } from '../helpers';
 
 type FlexElement = React.ElementRef<'div'>;
 type FlexOwnProps = GetPropDefTypes<typeof flexPropDefs>;
@@ -41,16 +41,16 @@ const Flex = React.forwardRef<FlexElement, FlexProps>((props, forwardedRef) => {
       {...flexProps}
       ref={forwardedRef}
       className={classNames(
-        'rt-Flex',
+        'fui-Flex',
         className,
-        withBreakpoints(display, 'rt-r-display'),
-        withBreakpoints(direction, 'rt-r-fd'),
-        withBreakpoints(align, 'rt-r-ai'),
-        withBreakpoints(justify, 'rt-r-jc', { between: 'space-between' }),
-        withBreakpoints(wrap, 'rt-r-fw'),
-        withBreakpoints(gap, 'rt-r-gap'),
+        withBreakpoints(display, 'fui-r-display'),
+        withBreakpoints(direction, 'fui-r-fd'),
+        withBreakpoints(align, 'fui-r-ai'),
+        withBreakpoints(justify, 'fui-r-jc', { between: 'space-between' }),
+        withBreakpoints(wrap, 'fui-r-fw'),
+        withBreakpoints(gap, 'fui-r-gap'),
         withLayoutProps(layoutProps),
-        withMarginProps(marginProps)
+        withMarginProps(marginProps),
       )}
     />
   );

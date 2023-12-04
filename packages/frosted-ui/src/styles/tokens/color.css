@@ -167,7 +167,7 @@
 /*                                     */
 /* * * * * * * * * * * * * * * * * * * */
 
-:where(.radix-themes) {
+:where(.frosted-ui) {
   --color-background: white;
   --color-overlay: var(--black-a6);
   --color-panel-solid: white;
@@ -195,7 +195,7 @@
 }
 
 :is(.dark, .dark-theme),
-:is(.dark, .dark-theme) :where(.radix-themes:not(.light, .light-theme)) {
+:is(.dark, .dark-theme) :where(.frosted-ui:not(.light, .light-theme)) {
   --color-background: var(--gray-1);
   --color-overlay: var(--black-a8);
   --color-panel-solid: var(--gray-2);
@@ -213,12 +213,12 @@
 
 /* Because Chrome is buggy with box-shadow transitions from "transparent" keyword and/or RGB color into P3 colors. */
 /* Note: using `:where` here to guarantee that the P3 color will take over regardless of the output rule order. */
-:where(.radix-themes) {
+:where(.frosted-ui) {
   --color-transparent: rgb(0 0 0 / 0);
 }
 @supports (color: color(display-p3 1 1 1)) {
   @media (color-gamut: p3) {
-    .radix-themes {
+    .frosted-ui {
       --color-transparent: color(display-p3 0 0 0 / 0);
     }
   }
@@ -231,10 +231,10 @@
 /* * * * * * * * * * * * * * * * * * * */
 
 /* Make sure that forced light/dark appearance also sets corresponding browser colors, like input autofill color */
-.radix-themes:where(.light, .light-theme) {
+.frosted-ui:where(.light, .light-theme) {
   color-scheme: light;
 }
-.radix-themes:where(.dark, .dark-theme) {
+.frosted-ui:where(.dark, .dark-theme) {
   color-scheme: dark;
 }
 
@@ -244,13 +244,13 @@
 /*                                     */
 /* * * * * * * * * * * * * * * * * * * */
 
-.radix-themes,
+.frosted-ui,
 [data-accent-color]:where(:not([data-accent-color='gray'])) {
   --color-selection-root: var(--accent-a5);
   --color-focus-root: var(--accent-8);
 }
 
-.radix-themes ::selection {
+.frosted-ui ::selection {
   background-color: var(--color-selection-root);
 }
 
@@ -260,7 +260,7 @@
 /*                                     */
 /* * * * * * * * * * * * * * * * * * * */
 
-.radix-themes {
+.frosted-ui {
   color: var(--gray-12);
 
   &:where([data-has-background='true']) {
@@ -274,7 +274,7 @@
 /*                                     */
 /* * * * * * * * * * * * * * * * * * * */
 
-.radix-themes {
+.frosted-ui {
   &:where([data-panel-background='solid']) {
     --color-panel: var(--color-panel-solid);
   }
@@ -1323,7 +1323,7 @@
 /*                                     */
 /* * * * * * * * * * * * * * * * * * * */
 
-.radix-themes {
+.frosted-ui {
   &:where([data-gray-color='mauve']) {
     --gray-surface: var(--mauve-surface);
 

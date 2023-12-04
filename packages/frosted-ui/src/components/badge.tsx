@@ -36,11 +36,11 @@ const Badge = React.forwardRef<BadgeElement, BadgeProps>(
         {...badgeProps}
         ref={forwardedRef}
         className={classNames(
-          'rt-Badge',
+          'fui-Badge',
           className,
-          withBreakpoints(size, 'rt-r-size'),
-          `rt-variant-${variant}`,
-          { 'rt-high-contrast': highContrast },
+          withBreakpoints(size, 'fui-r-size'),
+          `fui-variant-${variant}`,
+          { 'fui-high-contrast': highContrast },
           withMarginProps(marginProps),
         )}
       />

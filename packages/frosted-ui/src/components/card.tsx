@@ -1,14 +1,21 @@
-import * as React from 'react';
-import classNames from 'classnames';
 import { Slot } from '@radix-ui/react-slot';
+import classNames from 'classnames';
+import * as React from 'react';
+import {
+  extractMarginProps,
+  withBreakpoints,
+  withMarginProps,
+} from '../helpers';
 import { cardPropDefs } from './card.props';
-import { extractMarginProps, withMarginProps, withBreakpoints } from '../helpers';
 
-import type { MarginProps, GetPropDefTypes } from '../helpers';
+import type { GetPropDefTypes, MarginProps } from '../helpers';
 
 type CardElement = React.ElementRef<'div'>;
 type CardOwnProps = GetPropDefTypes<typeof cardPropDefs>;
-interface CardProps extends React.ComponentPropsWithoutRef<'div'>, MarginProps, CardOwnProps {
+interface CardProps
+  extends React.ComponentPropsWithoutRef<'div'>,
+    MarginProps,
+    CardOwnProps {
   asChild?: boolean;
 }
 const Card = React.forwardRef<CardElement, CardProps>((props, forwardedRef) => {
@@ -26,7 +33,9 @@ const Card = React.forwardRef<CardElement, CardProps>((props, forwardedRef) => {
   function getChild() {
     const firstChild = React.Children.only(children) as React.ReactElement;
     return React.cloneElement(firstChild, {
-      children: <div className="rt-CardInner">{firstChild.props.children}</div>,
+      children: (
+        <div className="fui-CardInner">{firstChild.props.children}</div>
+      ),
     });
   }
 
@@ -35,15 +44,15 @@ const Card = React.forwardRef<CardElement, CardProps>((props, forwardedRef) => {
       ref={forwardedRef}
       {...cardProps}
       className={classNames(
-        'rt-reset',
-        'rt-Card',
+        'fui-reset',
+        'fui-Card',
         className,
-        withBreakpoints(size, 'rt-r-size'),
-        `rt-variant-${variant}`,
-        withMarginProps(marginProps)
+        withBreakpoints(size, 'fui-r-size'),
+        `fui-variant-${variant}`,
+        withMarginProps(marginProps),
       )}
     >
-      {asChild ? getChild() : <div className="rt-CardInner">{children}</div>}
+      {asChild ? getChild() : <div className="fui-CardInner">{children}</div>}
     </Comp>
   );
 });

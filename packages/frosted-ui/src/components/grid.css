@@ -1,4 +1,4 @@
-.rt-Grid {
+.fui-Grid {
   box-sizing: border-box;
 
   /* Default values to provide the initial styles in the object syntax, e.g. `<Grid columns={{ md: '2' }} />` */
@@ -27,7 +27,7 @@
 
 /* prettier-ignore */
 @media (--xs) {
-  .rt-Grid {
+  .fui-Grid {
     grid-template-columns:
       var(--grid-template-columns-xs,
       var(--grid-template-columns-initial));
@@ -40,7 +40,7 @@
 
 /* prettier-ignore */
 @media (--sm) {
-  .rt-Grid {
+  .fui-Grid {
     grid-template-columns:
       var(--grid-template-columns-sm,
       var(--grid-template-columns-xs,
@@ -55,7 +55,7 @@
 
 /* prettier-ignore */
 @media (--md) {
-  .rt-Grid {
+  .fui-Grid {
     grid-template-columns:
       var(--grid-template-columns-md,
       var(--grid-template-columns-sm,
@@ -72,7 +72,7 @@
 
 /* prettier-ignore */
 @media (--lg) {
-  .rt-Grid {
+  .fui-Grid {
     grid-template-columns:
       var(--grid-template-columns-lg,
       var(--grid-template-columns-md,
@@ -91,7 +91,7 @@
 
 /* prettier-ignore */
 @media (--xl) {
-  .rt-Grid {
+  .fui-Grid {
     grid-template-columns:
       var(--grid-template-columns-xl,
       var(--grid-template-columns-lg,

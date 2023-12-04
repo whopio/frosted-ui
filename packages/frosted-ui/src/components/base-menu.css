@@ -1,4 +1,4 @@
-.rt-BaseMenuContent {
+.fui-BaseMenuContent {
   --scrollarea-scrollbar-vertical-margin-top: var(--base-menu-content-padding);
   --scrollarea-scrollbar-vertical-margin-bottom: var(
     --base-menu-content-padding
@@ -17,7 +17,7 @@
   background-color: var(--base-menu-bg);
 }
 
-.rt-BaseMenuViewport {
+.fui-BaseMenuViewport {
   flex: 1 1 0%;
   display: flex;
   flex-direction: column;
@@ -25,8 +25,8 @@
   padding: var(--base-menu-content-padding);
 
   :where(
-      .rt-BaseMenuContent:has(
-          .rt-ScrollAreaScrollbar[data-orientation='vertical']
+      .fui-BaseMenuContent:has(
+          .fui-ScrollAreaScrollbar[data-orientation='vertical']
         )
     )
     & {
@@ -34,7 +34,7 @@
   }
 }
 
-.rt-BaseMenuItem {
+.fui-BaseMenuItem {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -55,18 +55,18 @@
   }
 }
 
-.rt-BaseMenuShortcut {
+.fui-BaseMenuShortcut {
   display: flex;
   align-items: center;
   margin-left: var(--space-5);
 }
 
-.rt-BaseMenuSubTriggerIcon {
+.fui-BaseMenuSubTriggerIcon {
   color: inherit;
   margin-right: -2px;
 }
 
-.rt-BaseMenuItemIndicator {
+.fui-BaseMenuItemIndicator {
   position: absolute;
   left: 0;
   width: var(--base-menu-item-padding-left);
@@ -75,7 +75,7 @@
   justify-content: center;
 }
 
-.rt-BaseMenuSeparator {
+.fui-BaseMenuSeparator {
   height: 1px;
   margin-top: var(--space-2);
   margin-bottom: var(--space-2);
@@ -83,7 +83,7 @@
   margin-right: var(--base-menu-item-padding-right);
 }
 
-.rt-BaseMenuLabel {
+.fui-BaseMenuLabel {
   display: flex;
   align-items: center;
   height: var(--base-menu-item-height);
@@ -93,12 +93,12 @@
   user-select: none;
   cursor: default;
 
-  :where(.rt-BaseMenuItem) + & {
+  :where(.fui-BaseMenuItem) + & {
     margin-top: var(--space-2);
   }
 }
 
-.rt-BaseMenuArrow {
+.fui-BaseMenuArrow {
   fill: var(--base-menu-bg);
 }
 
@@ -109,71 +109,71 @@
  ***************************************************************************************************/
 
 @breakpoints {
-  .rt-BaseMenuContent {
-    &:where(.rt-r-size-1) {
+  .fui-BaseMenuContent {
+    &:where(.fui-r-size-1) {
       --base-menu-content-padding: var(--space-1);
       --base-menu-item-padding-left: calc(var(--space-5) / 1.2);
       --base-menu-item-padding-right: var(--space-2);
       --base-menu-item-height: var(--space-5);
       border-radius: var(--radius-3);
 
-      & :where(.rt-BaseMenuItem) {
+      & :where(.fui-BaseMenuItem) {
         font-size: var(--font-size-1);
         line-height: var(--line-height-1);
         letter-spacing: var(--letter-spacing-1);
         border-radius: var(--radius-1);
       }
 
-      & :where(.rt-BaseMenuLabel) {
+      & :where(.fui-BaseMenuLabel) {
         font-size: var(--font-size-1);
         line-height: var(--line-height-1);
         letter-spacing: var(--letter-spacing-1);
       }
 
-      & :where(.rt-BaseMenuItemIndicatorIcon, .rt-BaseMenuSubTriggerIcon) {
+      & :where(.fui-BaseMenuItemIndicatorIcon, .fui-BaseMenuSubTriggerIcon) {
         width: 8px;
         height: 8px;
       }
 
       /* reset with :not:has so we still support browsers without :has */
-      &:where(:not(:has(.rt-BaseMenuCheckboxItem, .rt-BaseMenuRadioItem))) {
+      &:where(:not(:has(.fui-BaseMenuCheckboxItem, .fui-BaseMenuRadioItem))) {
         --base-menu-item-padding-left: var(--space-2);
       }
-      &:where(:has(.rt-BaseMenuCheckboxItem, .rt-BaseMenuRadioItem)) {
+      &:where(:has(.fui-BaseMenuCheckboxItem, .fui-BaseMenuRadioItem)) {
         --base-menu-item-padding-left: calc(var(--space-5) / 1.2);
       }
     }
 
-    &:where(.rt-r-size-2) {
+    &:where(.fui-r-size-2) {
       --base-menu-content-padding: var(--space-2);
       --base-menu-item-padding-left: var(--space-3);
       --base-menu-item-padding-right: var(--space-3);
       --base-menu-item-height: var(--space-6);
       border-radius: var(--radius-4);
 
-      & :where(.rt-BaseMenuItem) {
+      & :where(.fui-BaseMenuItem) {
         font-size: var(--font-size-2);
         line-height: var(--line-height-2);
         letter-spacing: var(--letter-spacing-2);
         border-radius: var(--radius-2);
       }
 
-      & :where(.rt-BaseMenuLabel) {
+      & :where(.fui-BaseMenuLabel) {
         font-size: var(--font-size-2);
         line-height: var(--line-height-2);
         letter-spacing: var(--letter-spacing-2);
       }
 
-      & :where(.rt-BaseMenuItemIndicatorIcon, .rt-BaseMenuSubTriggerIcon) {
+      & :where(.fui-BaseMenuItemIndicatorIcon, .fui-BaseMenuSubTriggerIcon) {
         width: 10px;
         height: 10px;
       }
 
       /* reset with :not:has so we still support browsers without :has */
-      &:where(:not(:has(.rt-BaseMenuCheckboxItem, .rt-BaseMenuRadioItem))) {
+      &:where(:not(:has(.fui-BaseMenuCheckboxItem, .fui-BaseMenuRadioItem))) {
         --base-menu-item-padding-left: var(--space-3);
       }
-      &:where(:has(.rt-BaseMenuCheckboxItem, .rt-BaseMenuRadioItem)) {
+      &:where(:has(.fui-BaseMenuCheckboxItem, .fui-BaseMenuRadioItem)) {
         --base-menu-item-padding-left: var(--space-5);
       }
     }
@@ -181,25 +181,25 @@
 }
 
 /* prettier-ignore */
-:where(.radix-themes) {
+:where(.frosted-ui) {
   --color-base-menu-outline: transparent;
 }
 /* prettier-ignore */
 :is(.dark, .dark-theme),
-:is(.dark, .dark-theme) :where(.radix-themes:not(.light, .light-theme)) {
+:is(.dark, .dark-theme) :where(.frosted-ui:not(.light, .light-theme)) {
   --color-base-menu-outline: black;
 }
 
-.rt-BaseMenuContent {
+.fui-BaseMenuContent {
   --base-menu-bg: var(--color-panel-translucent);
   -webkit-backdrop-filter: var(--backdrop-filter-panel);
   backdrop-filter: var(--backdrop-filter-panel);
   box-shadow: var(--shadow-5);
   outline: 0.5px solid var(--color-base-menu-outline) !important;
-  & :where(.rt-BaseMenuSubTrigger[data-state='open']) {
+  & :where(.fui-BaseMenuSubTrigger[data-state='open']) {
     background-color: var(--gray-a3);
   }
-  & :where(.rt-BaseMenuItem[data-highlighted]) {
+  & :where(.fui-BaseMenuItem[data-highlighted]) {
     background-color: var(--accent-a5);
 
     &:where([data-accent-color]) {
@@ -207,21 +207,21 @@
     }
   }
 }
-.rt-BaseMenuItem:where([data-accent-color]) {
+.fui-BaseMenuItem:where([data-accent-color]) {
   color: var(--accent-a11);
 }
-.rt-BaseMenuItem:where([data-disabled]) {
+.fui-BaseMenuItem:where([data-disabled]) {
   color: var(--gray-a8);
 }
-.rt-BaseMenuShortcut {
+.fui-BaseMenuShortcut {
   color: var(--gray-a11);
 }
-.rt-BaseMenuItem:where([data-disabled], [data-highlighted]),
-.rt-BaseMenuSubTrigger:where([data-state='open']) {
-  & :where(.rt-BaseMenuShortcut) {
+.fui-BaseMenuItem:where([data-disabled], [data-highlighted]),
+.fui-BaseMenuSubTrigger:where([data-state='open']) {
+  & :where(.fui-BaseMenuShortcut) {
     color: inherit;
   }
 }
-.rt-BaseMenuSeparator {
+.fui-BaseMenuSeparator {
   background-color: var(--gray-a6);
 }

@@ -1,4 +1,4 @@
-.rt-Separator {
+.fui-Separator {
   background-color: var(--accent-a6);
 
   &:where([data-orientation='vertical']) {
@@ -18,17 +18,17 @@
  ***************************************************************************************************/
 
 @breakpoints {
-  .rt-Separator {
-    &:where(.rt-r-size-1) {
+  .fui-Separator {
+    &:where(.fui-r-size-1) {
       --separator-size: var(--space-4);
     }
-    &:where(.rt-r-size-2) {
+    &:where(.fui-r-size-2) {
       --separator-size: var(--space-6);
     }
-    &:where(.rt-r-size-3) {
+    &:where(.fui-r-size-3) {
       --separator-size: var(--space-9);
     }
-    &:where(.rt-r-size-4) {
+    &:where(.fui-r-size-4) {
       --separator-size: 100%;
     }
   }

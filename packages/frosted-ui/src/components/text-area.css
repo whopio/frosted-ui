@@ -1,4 +1,4 @@
-.rt-TextAreaRoot {
+.fui-TextAreaRoot {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -6,7 +6,7 @@
   z-index: 0;
 }
 
-.rt-TextAreaInput {
+.fui-TextAreaInput {
   appearance: none;
   padding: 0;
   border-radius: inherit;
@@ -60,7 +60,7 @@
   }
 }
 
-.rt-TextAreaChrome {
+.fui-TextAreaChrome {
   position: absolute;
   border-radius: inherit;
   z-index: 0;
@@ -74,38 +74,50 @@
  ***************************************************************************************************/
 
 @breakpoints {
-  .rt-TextAreaRoot {
-    &:where(.rt-r-size-1) {
+  .fui-TextAreaRoot {
+    &:where(.fui-r-size-1) {
       min-height: var(--space-8);
       border-radius: var(--radius-2);
 
-      & :where(.rt-TextAreaInput) {
-        --text-area-padding-y: calc(var(--space-1) - var(--text-area-border-width));
-        --text-area-padding-x: calc(var(--space-1) * 1.5 - var(--text-area-border-width));
+      & :where(.fui-TextAreaInput) {
+        --text-area-padding-y: calc(
+          var(--space-1) - var(--text-area-border-width)
+        );
+        --text-area-padding-x: calc(
+          var(--space-1) * 1.5 - var(--text-area-border-width)
+        );
         font-size: var(--font-size-1);
         line-height: var(--line-height-1);
         letter-spacing: var(--letter-spacing-1);
       }
     }
-    &:where(.rt-r-size-2) {
+    &:where(.fui-r-size-2) {
       min-height: var(--space-9);
       border-radius: var(--radius-2);
 
-      & :where(.rt-TextAreaInput) {
-        --text-area-padding-y: calc(var(--space-1) * 1.5 - var(--text-area-border-width));
-        --text-area-padding-x: calc(var(--space-2) - var(--text-area-border-width));
+      & :where(.fui-TextAreaInput) {
+        --text-area-padding-y: calc(
+          var(--space-1) * 1.5 - var(--text-area-border-width)
+        );
+        --text-area-padding-x: calc(
+          var(--space-2) - var(--text-area-border-width)
+        );
         font-size: var(--font-size-2);
         line-height: var(--line-height-2);
         letter-spacing: var(--letter-spacing-2);
       }
     }
-    &:where(.rt-r-size-3) {
+    &:where(.fui-r-size-3) {
       min-height: 80px;
       border-radius: var(--radius-3);
 
-      & :where(.rt-TextAreaInput) {
-        --text-area-padding-y: calc(var(--space-2) - var(--text-area-border-width));
-        --text-area-padding-x: calc(var(--space-3) - var(--text-area-border-width));
+      & :where(.fui-TextAreaInput) {
+        --text-area-padding-y: calc(
+          var(--space-2) - var(--text-area-border-width)
+        );
+        --text-area-padding-x: calc(
+          var(--space-3) - var(--text-area-border-width)
+        );
         font-size: var(--font-size-3);
         line-height: var(--line-height-3);
         letter-spacing: var(--letter-spacing-3);
@@ -121,12 +133,12 @@
  ***************************************************************************************************/
 
 /* surface */
-.rt-TextAreaRoot:where(.rt-variant-surface) {
-  & :where(.rt-TextAreaInput) {
+.fui-TextAreaRoot:where(.fui-variant-surface) {
+  & :where(.fui-TextAreaInput) {
     --text-area-border-width: 1px;
     color: var(--gray-12);
 
-    & + :where(.rt-TextAreaChrome) {
+    & + :where(.fui-TextAreaChrome) {
       box-shadow: inset 0 0 0 1px var(--gray-a7);
       background-color: var(--color-surface);
 
@@ -143,12 +155,12 @@
       /* Reliably removes native autofill colors */
       background-clip: text;
       -webkit-text-fill-color: var(--gray-12);
-      & + :where(.rt-TextAreaChrome) {
+      & + :where(.fui-TextAreaChrome) {
         background-color: var(--accent-a4);
       }
     }
     &:where(:disabled, :read-only) {
-      & + :where(.rt-TextAreaChrome) {
+      & + :where(.fui-TextAreaChrome) {
         /* Blend with grey */
         background-image: linear-gradient(var(--gray-a3), var(--gray-a3));
       }
@@ -157,12 +169,12 @@
 }
 
 /* classic */
-.rt-TextAreaRoot:where(.rt-variant-classic) {
-  & :where(.rt-TextAreaInput) {
+.fui-TextAreaRoot:where(.fui-variant-classic) {
+  & :where(.fui-TextAreaInput) {
     --text-area-border-width: 1px;
     color: var(--gray-12);
 
-    & + :where(.rt-TextAreaChrome) {
+    & + :where(.fui-TextAreaChrome) {
       background-color: var(--color-surface);
       box-shadow: var(--shadow-1);
 
@@ -179,12 +191,12 @@
       /* Reliably removes native autofill colors */
       background-clip: text;
       -webkit-text-fill-color: var(--gray-12);
-      & + :where(.rt-TextAreaChrome) {
+      & + :where(.fui-TextAreaChrome) {
         background-color: var(--accent-a4);
       }
     }
     &:where(:disabled, :read-only) {
-      & + :where(.rt-TextAreaChrome) {
+      & + :where(.fui-TextAreaChrome) {
         /* Blend with grey */
         background-image: linear-gradient(var(--gray-a3), var(--gray-a3));
       }
@@ -193,12 +205,12 @@
 }
 
 /* soft */
-.rt-TextAreaRoot:where(.rt-variant-soft) {
-  & :where(.rt-TextAreaInput) {
+.fui-TextAreaRoot:where(.fui-variant-soft) {
+  & :where(.fui-TextAreaInput) {
     --text-area-border-width: 0px;
     color: var(--accent-12);
 
-    & + :where(.rt-TextAreaChrome) {
+    & + :where(.fui-TextAreaChrome) {
       background-color: var(--accent-a3);
     }
     &::selection {
@@ -213,7 +225,7 @@
       /* Reliably removes native autofill colors */
       background-clip: text;
       -webkit-text-fill-color: var(--accent-12);
-      & + :where(.rt-TextAreaChrome) {
+      & + :where(.fui-TextAreaChrome) {
         background-color: var(--accent-a5);
       }
     }
@@ -222,7 +234,7 @@
       outline-color: var(--accent-8);
     }
     &:where(:disabled, :read-only) {
-      & + :where(.rt-TextAreaChrome) {
+      & + :where(.fui-TextAreaChrome) {
         background-color: var(--gray-a4);
       }
     }
@@ -230,7 +242,7 @@
 }
 
 /* all disabled and read-only text-areas */
-.rt-TextAreaInput {
+.fui-TextAreaInput {
   &:where(:disabled, :read-only) {
     cursor: text;
     color: var(--gray-a11);

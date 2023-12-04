@@ -1,22 +1,22 @@
-.rt-BreadcrumbsRoot {
+.fui-BreadcrumbsRoot {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   user-select: none;
 }
-.rt-BreadcrumbsItem:not(:hover) {
+.fui-BreadcrumbsItem:not(:hover) {
   color: var(--accent-10);
 }
 
-.rt-BreadcrumbsItem:last-child,
-.rt-BreadcrumbsRoot .rt-BreadcrumbsLastItem {
+.fui-BreadcrumbsItem:last-child,
+.fui-BreadcrumbsRoot .fui-BreadcrumbsLastItem {
   color: var(--accent-12);
 }
 
-.rt-BreadcrumbsRoot {
+.fui-BreadcrumbsRoot {
   user-select: none;
 }
 
-.rt-BreadcrumbsSeparator {
+.fui-BreadcrumbsSeparator {
   color: var(--accent-7);
 }

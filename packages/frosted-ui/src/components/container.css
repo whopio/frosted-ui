@@ -1,11 +1,11 @@
-.radix-themes {
+.frosted-ui {
   --container-1: 448px;
   --container-2: 688px;
   --container-3: 880px;
   --container-4: 1136px;
 }
 
-.rt-Container {
+.fui-Container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,7 +13,7 @@
   flex-grow: 1;
 }
 
-.rt-ContainerInner {
+.fui-ContainerInner {
   width: 100%;
 }
 
@@ -24,17 +24,17 @@
  ***************************************************************************************************/
 
 @breakpoints {
-  .rt-ContainerInner {
-    :where(.rt-Container.rt-r-size-1) & {
+  .fui-ContainerInner {
+    :where(.fui-Container.fui-r-size-1) & {
       max-width: var(--container-1);
     }
-    :where(.rt-Container.rt-r-size-2) & {
+    :where(.fui-Container.fui-r-size-2) & {
       max-width: var(--container-2);
     }
-    :where(.rt-Container.rt-r-size-3) & {
+    :where(.fui-Container.fui-r-size-3) & {
       max-width: var(--container-3);
     }
-    :where(.rt-Container.rt-r-size-4) & {
+    :where(.fui-Container.fui-r-size-4) & {
       max-width: var(--container-4);
     }
   }

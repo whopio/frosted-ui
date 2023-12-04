@@ -40,7 +40,7 @@ const ScrollArea = React.forwardRef<ScrollAreaElement, ScrollAreaProps>(
         type={type}
         scrollHideDelay={scrollHideDelay}
         className={classNames(
-          'rt-ScrollAreaRoot',
+          'fui-ScrollAreaRoot',
           className,
           withMarginProps(marginProps),
         )}
@@ -49,19 +49,19 @@ const ScrollArea = React.forwardRef<ScrollAreaElement, ScrollAreaProps>(
         <ScrollAreaPrimitive.Viewport
           {...viewportProps}
           ref={forwardedRef}
-          className="rt-ScrollAreaViewport"
+          className="fui-ScrollAreaViewport"
         />
-        <div className="rt-ScrollAreaViewportFocusRing" />
+        <div className="fui-ScrollAreaViewportFocusRing" />
 
         {scrollbars !== 'vertical' ? (
           <ScrollAreaPrimitive.Scrollbar
             orientation="horizontal"
             className={classNames(
-              'rt-ScrollAreaScrollbar',
-              withBreakpoints(size, 'rt-r-size'),
+              'fui-ScrollAreaScrollbar',
+              withBreakpoints(size, 'fui-r-size'),
             )}
           >
-            <ScrollAreaPrimitive.Thumb className="rt-ScrollAreaThumb" />
+            <ScrollAreaPrimitive.Thumb className="fui-ScrollAreaThumb" />
           </ScrollAreaPrimitive.Scrollbar>
         ) : null}
 
@@ -69,16 +69,16 @@ const ScrollArea = React.forwardRef<ScrollAreaElement, ScrollAreaProps>(
           <ScrollAreaPrimitive.Scrollbar
             orientation="vertical"
             className={classNames(
-              'rt-ScrollAreaScrollbar',
-              withBreakpoints(size, 'rt-r-size'),
+              'fui-ScrollAreaScrollbar',
+              withBreakpoints(size, 'fui-r-size'),
             )}
           >
-            <ScrollAreaPrimitive.Thumb className="rt-ScrollAreaThumb" />
+            <ScrollAreaPrimitive.Thumb className="fui-ScrollAreaThumb" />
           </ScrollAreaPrimitive.Scrollbar>
         ) : null}
 
         {scrollbars === 'both' ? (
-          <ScrollAreaPrimitive.Corner className="rt-ScrollAreaCorner" />
+          <ScrollAreaPrimitive.Corner className="fui-ScrollAreaCorner" />
         ) : null}
       </ScrollAreaPrimitive.Root>
     );

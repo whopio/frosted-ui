@@ -35,7 +35,7 @@ const AccordionRoot = React.forwardRef<
     <AccordionPrimitive.Root
       ref={forwardedRef}
       className={classNames(
-        'rt-AccordionRoot',
+        'fui-AccordionRoot',
         className,
         withLayoutProps(layoutProps),
         withMarginProps(marginProps),
@@ -62,7 +62,7 @@ const AccordionItem = React.forwardRef<
     <AccordionPrimitive.Item
       ref={forwardedRef}
       className={classNames(
-        'rt-AccordionItem',
+        'fui-AccordionItem',
         className,
         withMarginProps(marginProps),
       )}
@@ -91,8 +91,8 @@ const AccordionTrigger = React.forwardRef<
   return (
     <AccordionPrimitive.Trigger
       className={classNames(
-        'rt-AccordionTrigger',
-        'rt-reset',
+        'fui-AccordionTrigger',
+        'fui-reset',
         className,
         withLayoutProps(layoutProps),
         withMarginProps(marginProps),
@@ -106,7 +106,7 @@ const AccordionTrigger = React.forwardRef<
         viewBox="0 0 20 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="rt-AccordionTriggerIcon"
+        className="fui-AccordionTriggerIcon"
       >
         <path
           d="M6 12L9.64645 8.35355C9.84171 8.15829 10.1583 8.15829 10.3536 8.35355L14 12"
@@ -132,9 +132,9 @@ const AccordionContent = React.forwardRef<
   AccordionContentElement,
   AccordionContentProps
 >(({ className, children, ...props }, forwardedRef) => (
-  <AccordionPrimitive.Content className="rt-AccordionContent" {...props}>
+  <AccordionPrimitive.Content className="fui-AccordionContent" {...props}>
     <div
-      className={classNames('rt-AccordionContentInner', className)}
+      className={classNames('fui-AccordionContentInner', className)}
       ref={forwardedRef}
     >
       {children}
