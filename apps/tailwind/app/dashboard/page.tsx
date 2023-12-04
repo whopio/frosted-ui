@@ -56,7 +56,7 @@ const SidebarButton = ({ children }: { children: React.ReactNode }) => {
   return (
     <button
       className={
-        'rt-reset flex items-center text-gray-a10 gap-4 w-full h-[42px] pl-4 rounded-5 hover:bg-gray-a3 hover:text-gray-a12 dark:hover:shadow-[0px_0px_0px_1px_var(--gray-a4)_inset] dark:hover:bg-[linear-gradient(_95deg,transparent,transparent,transparent,var(--accent-a4)_)]'
+        'fui-reset flex items-center text-gray-a10 gap-4 w-full h-[42px] pl-4 rounded-5 hover:bg-gray-a3 hover:text-gray-a12 dark:hover:shadow-[0px_0px_0px_1px_var(--gray-a4)_inset] dark:hover:bg-[linear-gradient(_95deg,transparent,transparent,transparent,var(--accent-a4)_)]'
       }
     >
       {children}
@@ -223,7 +223,7 @@ export default function Dashboard() {
                     <PopoverRoot>
                       <PopoverTrigger>
                         <Card variant="ghost" style={{ flex: 1 }} asChild>
-                          <button className="rt-reset">
+                          <button className="fui-reset">
                             <Flex gap="3" align="center" justify="between">
                               <Flex gap="3" align="center">
                                 <Avatar fallback="PB" />

@@ -1,4 +1,4 @@
-.rt-HoverCardContent {
+.fui-HoverCardContent {
   background-color: var(--color-panel-solid);
   box-shadow: var(--shadow-4);
   overflow: auto;
@@ -16,16 +16,16 @@
  ***************************************************************************************************/
 
 @breakpoints {
-  .rt-HoverCardContent {
-    &:where(.rt-r-size-1) {
+  .fui-HoverCardContent {
+    &:where(.fui-r-size-1) {
       --hover-card-content-padding: var(--space-3);
       border-radius: var(--radius-4);
     }
-    &:where(.rt-r-size-2) {
+    &:where(.fui-r-size-2) {
       --hover-card-content-padding: var(--space-4);
       border-radius: var(--radius-4);
     }
-    &:where(.rt-r-size-3) {
+    &:where(.fui-r-size-3) {
       --hover-card-content-padding: var(--space-5);
       border-radius: var(--radius-5);
     }

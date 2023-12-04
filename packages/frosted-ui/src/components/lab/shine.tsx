@@ -60,8 +60,8 @@ const Shine = ({
   }, []);
 
   return (
-    <div className="rt-Shine" {...otherProps}>
-      <svg width="0" height="0" className="rt-ShineSvgFilter">
+    <div className="fui-Shine" {...otherProps}>
+      <svg width="0" height="0" className="fui-ShineSvgFilter">
         <filter id={filterId} ref={filterRef} colorInterpolationFilters="sRGB">
           <feGaussianBlur in="SourceAlpha" stdDeviation={puffyness} />
           <feSpecularLighting

@@ -65,13 +65,13 @@ const Text = React.forwardRef<TextElement, TextProps>((props, forwardedRef) => {
       {...textProps}
       ref={forwardedRef}
       className={classNames(
-        'rt-Text',
+        'fui-Text',
         className,
-        withBreakpoints(size, 'rt-r-size'),
-        withBreakpoints(weight, 'rt-r-weight'),
-        withBreakpoints(align, 'rt-r-ta'),
-        withBreakpoints(trim, 'rt-r-lt'),
-        { 'rt-high-contrast': highContrast },
+        withBreakpoints(size, 'fui-r-size'),
+        withBreakpoints(weight, 'fui-r-weight'),
+        withBreakpoints(align, 'fui-r-ta'),
+        withBreakpoints(trim, 'fui-r-lt'),
+        { 'fui-high-contrast': highContrast },
         withMarginProps(marginProps),
       )}
     >

@@ -272,7 +272,7 @@ const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
           ref={forwardedRef}
           {...themeProps}
           className={classNames(
-            'radix-themes',
+            'frosted-ui',
             {
               // Only apply theme class to nested `Theme` sections.
               //

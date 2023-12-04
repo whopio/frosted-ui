@@ -1,18 +1,18 @@
-import * as React from 'react';
 import classNames from 'classnames';
-import { Slot } from './slot';
-import { gridPropDefs } from './grid.props';
+import * as React from 'react';
 import {
-  extractMarginProps,
-  withMarginProps,
   extractLayoutProps,
-  withLayoutProps,
-  withBreakpoints,
-  isBreakpointsObject,
+  extractMarginProps,
   hasOwnProperty,
+  isBreakpointsObject,
+  withBreakpoints,
+  withLayoutProps,
+  withMarginProps,
 } from '../helpers';
+import { gridPropDefs } from './grid.props';
+import { Slot } from './slot';
 
-import type { MarginProps, LayoutProps, GetPropDefTypes } from '../helpers';
+import type { GetPropDefTypes, LayoutProps, MarginProps } from '../helpers';
 
 type GridElement = React.ElementRef<'div'>;
 type GridOwnProps = GetPropDefTypes<typeof gridPropDefs>;
@@ -92,17 +92,17 @@ const Grid = React.forwardRef<GridElement, GridProps>((props, forwardedRef) => {
       {...gridProps}
       ref={forwardedRef}
       className={classNames(
-        'rt-Grid',
+        'fui-Grid',
         className,
-        withBreakpoints(display, 'rt-r-display'),
-        withBreakpoints(flow, 'rt-r-gaf'),
-        withBreakpoints(align, 'rt-r-ai'),
-        withBreakpoints(justify, 'rt-r-jc', { between: 'space-between' }),
-        withBreakpoints(gap, 'rt-r-gap'),
-        withBreakpoints(gapX, 'rt-r-cg'),
-        withBreakpoints(gapY, 'rt-r-rg'),
+        withBreakpoints(display, 'fui-r-display'),
+        withBreakpoints(flow, 'fui-r-gaf'),
+        withBreakpoints(align, 'fui-r-ai'),
+        withBreakpoints(justify, 'fui-r-jc', { between: 'space-between' }),
+        withBreakpoints(gap, 'fui-r-gap'),
+        withBreakpoints(gapX, 'fui-r-cg'),
+        withBreakpoints(gapY, 'fui-r-rg'),
         withLayoutProps(layoutProps),
-        withMarginProps(marginProps)
+        withMarginProps(marginProps),
       )}
       style={Object.keys(style).length ? style : undefined}
     />

@@ -1,4 +1,4 @@
-.rt-TooltipContent {
+.fui-TooltipContent {
   padding: var(--space-1) var(--space-2);
   background-color: var(--color-panel-translucent);
   -webkit-backdrop-filter: var(--backdrop-filter-panel);
@@ -18,37 +18,37 @@
   @media (prefers-reduced-motion: no-preference) {
     &:where([data-state='delayed-open']) {
       &:where([data-side='top']) {
-        animation-name: rt-slide-up, rt-fade-in;
+        animation-name: fui-slide-up, fui-fade-in;
       }
       &:where([data-side='bottom']) {
-        animation-name: rt-slide-down, rt-fade-in;
+        animation-name: fui-slide-down, fui-fade-in;
       }
       &:where([data-side='left']) {
-        animation-name: rt-slide-left, rt-fade-in;
+        animation-name: fui-slide-left, fui-fade-in;
       }
       &:where([data-side='right']) {
-        animation-name: rt-slide-right, rt-fade-in;
+        animation-name: fui-slide-right, fui-fade-in;
       }
     }
   }
 }
 
 /* prettier-ignore */
-:where(.radix-themes) {
+:where(.frosted-ui) {
   --color-tooltip-outline: transparent;
 }
 /* prettier-ignore */
 :is(.dark, .dark-theme),
-:is(.dark, .dark-theme) :where(.radix-themes:not(.light, .light-theme)) {
+:is(.dark, .dark-theme) :where(.frosted-ui:not(.light, .light-theme)) {
   --color-tooltip-outline: black;
 }
 
-.rt-TooltipText {
+.fui-TooltipText {
   color: var(--gray-12);
   user-select: none;
   cursor: default;
 }
 
-.rt-TooltipArrow {
+.fui-TooltipArrow {
   fill: transparent;
 }

@@ -1,4 +1,4 @@
-.rt-ThemePanelShortcut {
+.fui-ThemePanelShortcut {
   &:where(:focus-visible) {
     outline-style: solid;
     outline-width: 2px;
@@ -7,13 +7,13 @@
   }
 }
 
-.rt-ThemePanelSwatch,
-.rt-ThemePanelRadioCard {
+.fui-ThemePanelSwatch,
+.fui-ThemePanelRadioCard {
   position: relative;
 }
 
-.rt-ThemePanelSwatchInput,
-.rt-ThemePanelRadioCardInput {
+.fui-ThemePanelSwatchInput,
+.fui-ThemePanelRadioCardInput {
   appearance: none;
   margin: 0;
   outline: none;
@@ -23,13 +23,13 @@
   border-radius: inherit;
 }
 
-.rt-ThemePanelSwatch {
+.fui-ThemePanelSwatch {
   width: var(--space-5);
   height: var(--space-5);
   border-radius: 100%;
 }
 
-.rt-ThemePanelSwatchInput {
+.fui-ThemePanelSwatchInput {
   outline-offset: 2px;
 
   &:where(:checked) {
@@ -42,12 +42,12 @@
   }
 }
 
-.rt-ThemePanelRadioCard {
+.fui-ThemePanelRadioCard {
   border-radius: var(--radius-1);
   box-shadow: 0 0 0 1px var(--gray-7);
 }
 
-.rt-ThemePanelRadioCardInput {
+.fui-ThemePanelRadioCardInput {
   outline-offset: -1px;
 
   &:where(:checked) {

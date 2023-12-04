@@ -1,4 +1,4 @@
-.rt-ProgressRoot {
+.fui-ProgressRoot {
   position: relative;
   display: block;
   width: 100%;
@@ -7,7 +7,7 @@
   overflow: hidden;
   background-color: var(--gray-a4);
 }
-.rt-ProgressIndicator {
+.fui-ProgressIndicator {
   height: 100%;
   width: 0%;
   background-color: var(--accent-9);
@@ -20,16 +20,16 @@
  ***************************************************************************************************/
 
 @breakpoints {
-  .rt-ProgressRoot {
-    &:where(.rt-r-size-1) {
+  .fui-ProgressRoot {
+    &:where(.fui-r-size-1) {
       --progress-height: var(--space-2);
       --progress-border-radius: max(var(--radius-1), var(--radius-thumb));
     }
-    &:where(.rt-r-size-2) {
+    &:where(.fui-r-size-2) {
       --progress-height: var(--space-3);
       --progress-border-radius: max(var(--radius-2), var(--radius-thumb));
     }
-    &:where(.rt-r-size-3) {
+    &:where(.fui-r-size-3) {
       --progress-height: var(--space-4);
       --progress-border-radius: max(var(--radius-2), var(--radius-thumb));
     }
@@ -43,7 +43,7 @@
  ***************************************************************************************************/
 
 /* classic */
-.rt-ProgressRoot:where(.rt-variant-classic) {
+.fui-ProgressRoot:where(.fui-variant-classic) {
   background-color: var(--gray-a4);
 
   &::before {
@@ -55,7 +55,7 @@
     box-shadow: var(--shadow-1);
   }
 
-  & :where(.rt-ProgressIndicator) {
+  & :where(.fui-ProgressIndicator) {
     background-color: var(--accent-9);
     box-shadow:
       inset 0 0 0 1px var(--gray-a3),
@@ -67,7 +67,7 @@
 
 /* surface */
 
-.rt-ProgressRoot:where(.rt-variant-surface) {
+.fui-ProgressRoot:where(.fui-variant-surface) {
   background-color: var(--gray-a3);
 
   &::before {
@@ -79,7 +79,7 @@
     box-shadow: inset 0 0 0 1px var(--gray-a5);
   }
 
-  & :where(.rt-ProgressIndicator) {
+  & :where(.fui-ProgressIndicator) {
     background-color: var(--accent-9);
     box-shadow: inset 0 0 0 1px var(--gray-a5);
   }
@@ -87,29 +87,29 @@
 
 /* soft */
 
-.rt-ProgressRoot:where(.rt-variant-soft) {
+.fui-ProgressRoot:where(.fui-variant-soft) {
   background-color: var(--gray-a4);
 
-  & :where(.rt-ProgressIndicator) {
+  & :where(.fui-ProgressIndicator) {
     background-color: var(--accent-6);
   }
 }
 
 /* all high-contrast */
 
-:where(.radix-themes) {
+:where(.frosted-ui) {
   --progress-indicator-high-contrast-background-image: linear-gradient(
     var(--black-a8),
     var(--black-a8)
   );
 }
 :is(.dark, .dark-theme),
-:is(.dark, .dark-theme) :where(.radix-themes:not(.light, .light-theme)) {
+:is(.dark, .dark-theme) :where(.frosted-ui:not(.light, .light-theme)) {
   --progress-indicator-high-contrast-background-image: none;
 }
 
-.rt-ProgressRoot:where(.rt-high-contrast) {
-  & :where(.rt-ProgressIndicator) {
+.fui-ProgressRoot:where(.fui-high-contrast) {
+  & :where(.fui-ProgressIndicator) {
     /* blend black and accent */
     background-image: var(--progress-indicator-high-contrast-background-image);
   }

@@ -2,7 +2,7 @@
 /* Disable selector-max-type rule to target `button` and `a` tags. */
 /* Make sure these tags are wrapped in `:where()` for 0 specificity. */
 
-.rt-Card {
+.fui-Card {
   border-radius: var(--card-border-radius);
   position: relative;
 
@@ -10,7 +10,9 @@
   text-align: initial;
 
   /* Blend inset shadow with container background */
-  --card-after-border-radius: calc(var(--card-border-radius) - var(--card-border-width));
+  --card-after-border-radius: calc(
+    var(--card-border-radius) - var(--card-border-width)
+  );
   border: var(--card-border-width) solid transparent;
   background-clip: padding-box;
 
@@ -32,7 +34,7 @@
   }
 }
 
-.rt-CardInner {
+.fui-CardInner {
   --inset-border-width: var(--card-border-width);
   --inset-border-radius: var(--card-border-radius);
   position: relative;
@@ -46,8 +48,8 @@
    * 1. <Card> with fixed height to clip overflowing content.
    * 2. <Inset> that clips to card’s border-box or padding-box depending on the `clip` value.
    *
-   * To have both (1) and (2), we clip the content at the outer edge of `.rt-Card` border.
-   * To achieve that, `.rt-CardInner` size is increased by the border width amount and put
+   * To have both (1) and (2), we clip the content at the outer edge of `.fui-Card` border.
+   * To achieve that, `.fui-CardInner` size is increased by the border width amount and put
    * back in place using a matching negative margin; inset padding needs a compensation too.
    */
   --inset-padding: calc(var(--card-padding) - var(--card-border-width));
@@ -62,8 +64,8 @@
  *                                                                                                 *
  ***************************************************************************************************/
 
-.rt-Card {
-  &:where(.rt-variant-ghost) {
+.fui-Card {
+  &:where(.fui-variant-ghost) {
     /* We reset the defined margin variables to avoid inheriting them from a higher component */
     /* If a margin IS defined on the component itself, the utility class will win and reset it */
     --margin-top: 0px;
@@ -85,30 +87,30 @@
       --margin-left-override: initial;
     }
 
-    margin: var(--margin-top-override) var(--margin-right-override) var(--margin-bottom-override)
-      var(--margin-left-override);
+    margin: var(--margin-top-override) var(--margin-right-override)
+      var(--margin-bottom-override) var(--margin-left-override);
   }
 }
 
 @breakpoints {
-  .rt-Card {
-    &:where(.rt-r-size-1) {
+  .fui-Card {
+    &:where(.fui-r-size-1) {
       --card-padding: var(--space-3);
       --card-border-radius: var(--radius-4);
     }
-    &:where(.rt-r-size-2) {
+    &:where(.fui-r-size-2) {
       --card-padding: var(--space-4);
       --card-border-radius: var(--radius-4);
     }
-    &:where(.rt-r-size-3) {
+    &:where(.fui-r-size-3) {
       --card-padding: var(--space-5);
       --card-border-radius: var(--radius-5);
     }
-    &:where(.rt-r-size-4) {
+    &:where(.fui-r-size-4) {
       --card-padding: var(--space-6);
       --card-border-radius: var(--radius-5);
     }
-    &:where(.rt-r-size-5) {
+    &:where(.fui-r-size-5) {
       --card-padding: var(--space-8);
       --card-border-radius: var(--radius-6);
     }
@@ -123,7 +125,7 @@
 
 /* surface */
 
-.rt-Card:where(.rt-variant-surface) {
+.fui-Card:where(.fui-variant-surface) {
   --card-border-width: 1px;
   background-color: var(--color-panel);
 
@@ -138,13 +140,17 @@
     @media (hover: hover) {
       &:where(:hover)::after {
         box-shadow: 0 0 0 1px var(--gray-a8);
-        box-shadow: 0 0 0 1px color-mix(in oklab, var(--gray-a8), var(--gray-8) 25%);
+        box-shadow: 0 0 0 1px
+          color-mix(in oklab, var(--gray-a8), var(--gray-8) 25%);
       }
     }
     &:where(:active:not([data-state='open'])) {
       &::after {
-        box-shadow: 0 0 0 1px var(--gray-a8), 0 0 0 1px var(--gray-a6);
-        box-shadow: 0 0 0 1px color-mix(in oklab, var(--gray-a8), var(--gray-8) 25%),
+        box-shadow:
+          0 0 0 1px var(--gray-a8),
+          0 0 0 1px var(--gray-a6);
+        box-shadow:
+          0 0 0 1px color-mix(in oklab, var(--gray-a8), var(--gray-8) 25%),
           0 0 0 1px var(--gray-a6);
       }
       &:where(:focus-visible) {
@@ -155,7 +161,7 @@
 }
 
 /* prettier-ignore */
-:where(.radix-themes) {
+:where(.frosted-ui) {
   /*
    * Make sure that hovered shadows length matches the shadows length at rest for clean transitions:
    * https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow#interpolation
@@ -170,7 +176,7 @@
 }
 /* prettier-ignore */
 :is(.dark, .dark-theme),
-:is(.dark, .dark-theme) :where(.radix-themes:not(.light, .light-theme)) {
+:is(.dark, .dark-theme) :where(.frosted-ui:not(.light, .light-theme)) {
   --card-classic-hover-box-shadow:
     0 0 0 1px var(--gray-a7),
     0 0 1px 1px var(--gray-a7),
@@ -183,7 +189,7 @@
 /* prettier-ignore */
 @supports (color: color-mix(in oklab, white, black)) {
   :is(.dark, .dark-theme),
-  :is(.dark, .dark-theme) :where(.radix-themes:not(.light, .light-theme)) {
+  :is(.dark, .dark-theme) :where(.frosted-ui:not(.light, .light-theme)) {
     --card-classic-hover-box-shadow:
       0 0 0 1px color-mix(in oklab, var(--gray-a7), var(--gray-8)),
       0 0 1px 1px var(--gray-a7),
@@ -194,14 +200,16 @@
   }
 }
 
-.rt-Card:where(.rt-variant-classic) {
+.fui-Card:where(.fui-variant-classic) {
   --card-border-width: 1px;
   background-color: var(--color-panel);
 
   &::after {
     border-radius: var(--card-after-border-radius);
     /* A transparent shadow to transition smoothly to `:active` */
-    box-shadow: 0 0 0 1px var(--color-transparent), var(--shadow-2);
+    box-shadow:
+      0 0 0 1px var(--color-transparent),
+      var(--shadow-2);
     transition: box-shadow 120ms;
   }
 
@@ -217,7 +225,9 @@
     &:where(:active:not([data-state='open'])) {
       &::after {
         transition-duration: 40ms;
-        box-shadow: 0 0 0 1px var(--gray-a5), var(--shadow-2);
+        box-shadow:
+          0 0 0 1px var(--gray-a5),
+          var(--shadow-2);
       }
       &:where(:focus-visible) {
         background-color: var(--gray-a3);
@@ -228,7 +238,7 @@
 
 /* ghost */
 
-.rt-Card:where(.rt-variant-ghost) {
+.fui-Card:where(.fui-variant-ghost) {
   --card-border-width: 0px;
 
   &:where(button, [href]) {

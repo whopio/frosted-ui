@@ -14,7 +14,7 @@ export function PointerCursorsCheckbox() {
       {checked && (
         <style>
           {`
-            .radix-themes {
+            .frosted-ui {
               --cursor-button: pointer;
               --cursor-checkbox: pointer;
               --cursor-disabled: default;

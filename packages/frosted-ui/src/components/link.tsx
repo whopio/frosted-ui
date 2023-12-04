@@ -1,13 +1,20 @@
-import * as React from 'react';
 import classNames from 'classnames';
-import { Text } from './text';
+import * as React from 'react';
 import { linkPropDefs } from './link.props';
+import { Text } from './text';
 
-import type { PropsWithoutRefOrColor, MarginProps, GetPropDefTypes } from '../helpers';
+import type {
+  GetPropDefTypes,
+  MarginProps,
+  PropsWithoutRefOrColor,
+} from '../helpers';
 
 type LinkElement = React.ElementRef<'a'>;
 type LinkOwnProps = GetPropDefTypes<typeof linkPropDefs>;
-interface LinkProps extends PropsWithoutRefOrColor<'a'>, MarginProps, LinkOwnProps {
+interface LinkProps
+  extends PropsWithoutRefOrColor<'a'>,
+    MarginProps,
+    LinkOwnProps {
   asChild?: boolean;
 }
 const Link = React.forwardRef<LinkElement, LinkProps>((props, forwardedRef) => {
@@ -23,7 +30,12 @@ const Link = React.forwardRef<LinkElement, LinkProps>((props, forwardedRef) => {
       {...linkProps}
       ref={forwardedRef}
       asChild
-      className={classNames('rt-reset', 'rt-Link', className, `rt-underline-${underline}`)}
+      className={classNames(
+        'fui-reset',
+        'fui-Link',
+        className,
+        `fui-underline-${underline}`,
+      )}
     >
       {asChild ? children : <a>{children}</a>}
     </Text>

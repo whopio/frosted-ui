@@ -22,7 +22,7 @@ const SegmentedControlRoot = React.forwardRef<
       {...rootProps}
       ref={forwardedRef}
       className={classNames(
-        'rt-SegmentedControlRoot',
+        'fui-SegmentedControlRoot',
         className,
         withMarginProps(marginProps),
       )}
@@ -46,7 +46,7 @@ const SegmentedControlList = React.forwardRef<
     <TabsPrimitive.List
       {...listProps}
       ref={forwardedRef}
-      className={classNames('rt-SegmentedControlList', className)}
+      className={classNames('fui-SegmentedControlList', className)}
     />
   );
 });
@@ -67,12 +67,12 @@ const SegmentedControlTrigger = React.forwardRef<
       {...triggerProps}
       ref={forwardedRef}
       className={classNames(
-        'rt-reset',
-        'rt-SegmentedControlTrigger',
+        'fui-reset',
+        'fui-SegmentedControlTrigger',
         className,
       )}
     >
-      <span className="rt-SegmentedControlTriggerInner">{children}</span>
+      <span className="fui-SegmentedControlTriggerInner">{children}</span>
     </TabsPrimitive.Trigger>
   );
 });
@@ -90,7 +90,7 @@ const SegmentedControlContent = React.forwardRef<
   <TabsPrimitive.Content
     {...props}
     ref={forwardedRef}
-    className={classNames('rt-SegmentedControlContent', props.className)}
+    className={classNames('fui-SegmentedControlContent', props.className)}
   />
 ));
 SegmentedControlContent.displayName = 'SegmentedControlContent';

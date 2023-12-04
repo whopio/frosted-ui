@@ -45,11 +45,11 @@ const CalloutRoot = React.forwardRef<CalloutRootElement, CalloutRootProps>(
         data-accent-color={color}
         {...rootProps}
         className={classNames(
-          'rt-CalloutRoot',
+          'fui-CalloutRoot',
           className,
-          withBreakpoints(size, 'rt-r-size'),
-          `rt-variant-${variant}`,
-          { 'rt-high-contrast': highContrast },
+          withBreakpoints(size, 'fui-r-size'),
+          `fui-variant-${variant}`,
+          { 'fui-high-contrast': highContrast },
           withMarginProps(marginProps),
         )}
         ref={forwardedRef}
@@ -82,7 +82,7 @@ const CalloutIcon = React.forwardRef<CalloutIconElement, CalloutIconProps>(
       >
         <div
           {...props}
-          className={classNames('rt-CalloutIcon', props.className)}
+          className={classNames('fui-CalloutIcon', props.className)}
           ref={forwardedRef}
         />
       </Text>
@@ -104,7 +104,7 @@ const CalloutText = React.forwardRef<CalloutTextElement, CalloutTextProps>(
         highContrast={highContrast}
         {...props}
         ref={forwardedRef}
-        className={classNames('rt-CalloutText', props.className)}
+        className={classNames('fui-CalloutText', props.className)}
       />
     );
   },

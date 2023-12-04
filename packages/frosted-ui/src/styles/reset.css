@@ -2,20 +2,20 @@
 /* Disable selector-max-type rule to target individual element types. */
 /* Make sure these tags are wrapped in `:where()` for 0 specificity. */
 
-.radix-themes:where([data-is-root-theme='true']) {
+.frosted-ui:where([data-is-root-theme='true']) {
   /* create new stacking context on the root `Theme` so layered components work out of the box */
   position: relative;
   z-index: 0;
 }
 
-.rt-reset:where(a) {
+.fui-reset:where(a) {
   cursor: var(--cursor-link);
   text-decoration: none;
   color: inherit;
   outline: none;
 }
 
-.rt-reset:where(button) {
+.fui-reset:where(button) {
   appearance: none;
   cursor: var(--cursor-button);
   background-color: transparent;
@@ -32,23 +32,23 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-.rt-reset:where(h1, h2, h3, h4, h5, h6) {
+.fui-reset:where(h1, h2, h3, h4, h5, h6) {
   font-size: inherit;
   font-weight: inherit;
   margin: 0;
 }
 
-.rt-reset:where(ol, ul) {
+.fui-reset:where(ol, ul) {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.rt-reset:where(p) {
+.fui-reset:where(p) {
   margin: 0;
 }
 
-.rt-reset:where(pre) {
+.fui-reset:where(pre) {
   font-family: inherit;
   margin: 0;
 }

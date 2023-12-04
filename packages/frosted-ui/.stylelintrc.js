@@ -7,7 +7,7 @@ module.exports = {
     // TODO: enable this and fix specificity issues
     // 'selector-max-specificity': ['0,1,1'],
     // Enforce prefixes on classnames and keyframes
-    'selector-class-pattern': /^-?rt-|^radix-themes$|^(light|dark)(-theme)?$/,
-    'keyframes-name-pattern': /^rt-([a-z]|-)+$/,
+    'selector-class-pattern': /^-?fui-|^frosted-ui$|^(light|dark)(-theme)?$/,
+    'keyframes-name-pattern': /^fui-([a-z]|-)+$/,
   },
 };

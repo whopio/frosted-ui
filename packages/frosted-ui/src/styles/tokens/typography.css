@@ -1,6 +1,6 @@
 @import '../fonts.css';
 
-.radix-themes {
+.frosted-ui {
   --font-size-1: 12px;
   --font-size-2: 14px;
   --font-size-3: 16px;
@@ -113,7 +113,7 @@
   --tabs-trigger-inactive-word-spacing: 0em;
 }
 
-.radix-themes {
+.frosted-ui {
   overflow-wrap: break-word;
   font-family: var(--default-font-family);
   font-size: var(--default-font-size);

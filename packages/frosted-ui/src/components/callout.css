@@ -1,16 +1,16 @@
-.rt-CalloutRoot {
+.fui-CalloutRoot {
   display: grid;
   align-items: flex-start;
   justify-content: flex-start;
   text-align: left;
   color: var(--accent-a11);
 
-  &:where(.rt-high-contrast) {
+  &:where(.fui-high-contrast) {
     color: var(--accent-12);
   }
 }
 
-.rt-CalloutIcon {
+.fui-CalloutIcon {
   display: flex;
   align-items: center;
   grid-column-start: -2;
@@ -18,7 +18,7 @@
 }
 
 /* Anything that’s not an icon goes to the right of the icon */
-.rt-CalloutRoot > :where(:not(.rt-CalloutIcon)) {
+.fui-CalloutRoot > :where(:not(.fui-CalloutIcon)) {
   grid-column-start: -1;
 }
 
@@ -29,20 +29,20 @@
  ***************************************************************************************************/
 
 @breakpoints {
-  .rt-CalloutRoot {
-    &:where(.rt-r-size-1) {
+  .fui-CalloutRoot {
+    &:where(.fui-r-size-1) {
       row-gap: var(--space-2);
       column-gap: var(--space-2);
       padding: var(--space-3);
       border-radius: var(--radius-5);
     }
-    &:where(.rt-r-size-2) {
+    &:where(.fui-r-size-2) {
       row-gap: var(--space-2);
       column-gap: var(--space-3);
       padding: var(--space-4);
       border-radius: var(--radius-5);
     }
-    &:where(.rt-r-size-3) {
+    &:where(.fui-r-size-3) {
       row-gap: var(--space-3);
       column-gap: var(--space-4);
       padding: var(--space-5);
@@ -59,19 +59,19 @@
 
 /* soft */
 
-.rt-CalloutRoot:where(.rt-variant-soft) {
+.fui-CalloutRoot:where(.fui-variant-soft) {
   background-color: var(--accent-a3);
 }
 
 /* surface */
 
-.rt-CalloutRoot:where(.rt-variant-surface) {
+.fui-CalloutRoot:where(.fui-variant-surface) {
   box-shadow: inset 0 0 0 1px var(--accent-a6);
   background-color: var(--accent-a2);
 }
 
 /* outline */
 
-.rt-CalloutRoot:where(.rt-variant-outline) {
+.fui-CalloutRoot:where(.fui-variant-outline) {
   box-shadow: inset 0 0 0 1px var(--accent-a7);
 }

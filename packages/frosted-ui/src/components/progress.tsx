@@ -44,13 +44,13 @@ const Progress = React.forwardRef<ProgressElement, ProgressProps>(
         data-accent-color={color}
         ref={forwardedRef}
         className={classNames(
-          'rt-ProgressRoot',
+          'fui-ProgressRoot',
           className,
-          `rt-variant-${variant}`,
+          `fui-variant-${variant}`,
           {
-            'rt-high-contrast': highContrast,
+            'fui-high-contrast': highContrast,
           },
-          withBreakpoints(size, 'rt-r-size'),
+          withBreakpoints(size, 'fui-r-size'),
           withMarginProps(marginProps),
         )}
         value={value}
@@ -58,7 +58,7 @@ const Progress = React.forwardRef<ProgressElement, ProgressProps>(
         {...progressProps}
       >
         <ProgressPrimitive.Indicator
-          className="rt-ProgressIndicator"
+          className="fui-ProgressIndicator"
           style={{ width: `${progress * 100}%` }}
         />
       </ProgressPrimitive.Root>

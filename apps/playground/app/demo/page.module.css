@@ -1,4 +1,4 @@
-.body :global(.rt-DialogContent) {
+.body :global(.fui-DialogContent) {
   max-width: 400px;
 }
 
@@ -6,6 +6,6 @@
   padding: 100px 400px;
 }
 
-.body :global(.rt-SelectTrigger) {
+.body :global(.fui-SelectTrigger) {
   width: 100%;
 }

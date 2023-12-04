@@ -1,16 +1,16 @@
-import * as React from 'react';
 import classNames from 'classnames';
-import { Slot } from './slot';
-import { boxPropDefs } from './box.props';
+import * as React from 'react';
 import {
-  extractMarginProps,
-  withMarginProps,
   extractLayoutProps,
-  withLayoutProps,
+  extractMarginProps,
   withBreakpoints,
+  withLayoutProps,
+  withMarginProps,
 } from '../helpers';
+import { boxPropDefs } from './box.props';
+import { Slot } from './slot';
 
-import type { MarginProps, LayoutProps, GetPropDefTypes } from '../helpers';
+import type { GetPropDefTypes, LayoutProps, MarginProps } from '../helpers';
 
 type BoxElement = React.ElementRef<'div'>;
 type BoxOwnProps = GetPropDefTypes<typeof boxPropDefs>;
@@ -24,18 +24,23 @@ interface BoxProps
 const Box = React.forwardRef<BoxElement, BoxProps>((props, forwardedRef) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const { rest: layoutRest, ...layoutProps } = extractLayoutProps(marginRest);
-  const { className, asChild, display = boxPropDefs.display.default, ...boxProps } = layoutRest;
+  const {
+    className,
+    asChild,
+    display = boxPropDefs.display.default,
+    ...boxProps
+  } = layoutRest;
   const Comp = asChild ? Slot : 'div';
   return (
     <Comp
       {...boxProps}
       ref={forwardedRef}
       className={classNames(
-        'rt-Box',
+        'fui-Box',
         className,
-        withBreakpoints(display, 'rt-r-display'),
+        withBreakpoints(display, 'fui-r-display'),
         withLayoutProps(layoutProps),
-        withMarginProps(marginProps)
+        withMarginProps(marginProps),
       )}
     />
   );

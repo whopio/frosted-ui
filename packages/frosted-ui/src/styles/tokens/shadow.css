@@ -1,5 +1,5 @@
 /* prettier-ignore */
-:where(.radix-themes) {
+:where(.frosted-ui) {
   --shadow-1:
     inset 0 0 0 1px var(--gray-a5),
     inset 0 1.5px 2px 0 var(--gray-a2),
@@ -37,7 +37,7 @@
 
 /* prettier-ignore */
 :is(.dark, .dark-theme),
-:is(.dark, .dark-theme) :where(.radix-themes:not(.light, .light-theme)) {
+:is(.dark, .dark-theme) :where(.frosted-ui:not(.light, .light-theme)) {
   --shadow-1:
     inset 0 -1px 1px 0 var(--gray-a3),
     inset 0 0 0 1px var(--gray-a3),
@@ -77,7 +77,7 @@
 /* prettier-ignore */
 @supports (color: color-mix(in oklab, white, black)) {
   :is(.dark, .dark-theme),
-  :is(.dark, .dark-theme) :where(.radix-themes:not(.light, .light-theme)) {
+  :is(.dark, .dark-theme) :where(.frosted-ui:not(.light, .light-theme)) {
     --shadow-1:
       inset 0 -1px 1px 0 var(--gray-a3),
       inset 0 0 0 1px var(--gray-a3),

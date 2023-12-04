@@ -74,15 +74,15 @@ const AlertDialogContent = React.forwardRef<
   return (
     <AlertDialogPrimitive.Portal container={container} forceMount={forceMount}>
       <Theme asChild>
-        <AlertDialogPrimitive.Overlay className="rt-DialogOverlay rt-AlertDialogOverlay">
+        <AlertDialogPrimitive.Overlay className="fui-DialogOverlay fui-AlertDialogOverlay">
           <AlertDialogPrimitive.Content
             {...contentProps}
             ref={forwardedRef}
             className={classNames(
-              'rt-DialogContent',
-              'rt-AlertDialogContent',
+              'fui-DialogContent',
+              'fui-AlertDialogContent',
               className,
-              withBreakpoints(size, 'rt-r-size'),
+              withBreakpoints(size, 'fui-r-size'),
             )}
           >
             <AlertDialogContentContext.Provider

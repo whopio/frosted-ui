@@ -1,4 +1,4 @@
-.radix-themes {
+.frosted-ui {
   --scrollarea-scrollbar-horizontal-margin-top: var(--space-1);
   --scrollarea-scrollbar-horizontal-margin-bottom: var(--space-1);
   --scrollarea-scrollbar-horizontal-margin-left: var(--space-1);
@@ -9,7 +9,7 @@
   --scrollarea-scrollbar-vertical-margin-right: var(--space-1);
 }
 
-.rt-ScrollAreaRoot {
+.fui-ScrollAreaRoot {
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -17,14 +17,14 @@
   height: 100%;
 }
 
-.rt-ScrollAreaViewport {
+.fui-ScrollAreaViewport {
   width: 100%;
   height: 100%;
 
   /* Stop Chrome back/forward two-finger swipe */
   overscroll-behavior-x: contain;
 
-  &:where(:focus-visible) + :where(.rt-ScrollAreaViewportFocusRing) {
+  &:where(:focus-visible) + :where(.fui-ScrollAreaViewportFocusRing) {
     position: absolute;
     inset: 0;
     pointer-events: none;
@@ -33,7 +33,7 @@
   }
 }
 
-.rt-ScrollAreaScrollbar {
+.fui-ScrollAreaScrollbar {
   display: flex;
   /* Ensures no selection */
   user-select: none;
@@ -50,7 +50,7 @@
   }
 }
 
-.rt-ScrollAreaThumb {
+.fui-ScrollAreaThumb {
   position: relative;
 
   &::before {
@@ -73,18 +73,27 @@
  ***************************************************************************************************/
 
 @breakpoints {
-  .rt-ScrollAreaScrollbar {
-    &:where(.rt-r-size-1) {
+  .fui-ScrollAreaScrollbar {
+    &:where(.fui-r-size-1) {
       --scrollarea-scrollbar-size: var(--space-1);
-      --scrollarea-scrollbar-border-radius: max(var(--radius-1), var(--radius-full));
+      --scrollarea-scrollbar-border-radius: max(
+        var(--radius-1),
+        var(--radius-full)
+      );
     }
-    &:where(.rt-r-size-2) {
+    &:where(.fui-r-size-2) {
       --scrollarea-scrollbar-size: var(--space-2);
-      --scrollarea-scrollbar-border-radius: max(var(--radius-1), var(--radius-full));
+      --scrollarea-scrollbar-border-radius: max(
+        var(--radius-1),
+        var(--radius-full)
+      );
     }
-    &:where(.rt-r-size-3) {
+    &:where(.fui-r-size-3) {
       --scrollarea-scrollbar-size: var(--space-3);
-      --scrollarea-scrollbar-border-radius: max(var(--radius-1), var(--radius-full));
+      --scrollarea-scrollbar-border-radius: max(
+        var(--radius-1),
+        var(--radius-full)
+      );
     }
   }
 }
@@ -95,7 +104,7 @@
  *                                                                                                 *
  ***************************************************************************************************/
 
-.rt-ScrollAreaScrollbar {
+.fui-ScrollAreaScrollbar {
   background-color: var(--gray-a3);
   border-radius: var(--scrollarea-scrollbar-border-radius);
 
@@ -103,10 +112,10 @@
   animation-timing-function: ease-out;
 
   &:where([data-state='visible']) {
-    animation-name: rt-fade-in;
+    animation-name: fui-fade-in;
   }
   &:where([data-state='hidden']) {
-    animation-name: rt-fade-out;
+    animation-name: fui-fade-out;
   }
   &:where([data-orientation='horizontal']) {
     margin-top: var(--scrollarea-scrollbar-horizontal-margin-top);
@@ -122,7 +131,7 @@
   }
 }
 
-.rt-ScrollAreaThumb {
+.fui-ScrollAreaThumb {
   background-color: var(--gray-a8);
   border-radius: inherit;
   transition: background-color 100ms;

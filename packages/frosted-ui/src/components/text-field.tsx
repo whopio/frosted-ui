@@ -47,7 +47,7 @@ const TextFieldRoot = React.forwardRef<
       {...rootProps}
       ref={forwardedRef}
       className={classNames(
-        'rt-TextFieldRoot',
+        'fui-TextFieldRoot',
         className,
         withMarginProps(marginProps),
       )}
@@ -56,7 +56,7 @@ const TextFieldRoot = React.forwardRef<
         if (target.closest('input, button, a')) return;
 
         const input = event.currentTarget.querySelector(
-          '.rt-TextFieldInput',
+          '.fui-TextFieldInput',
         ) as HTMLInputElement | null;
         if (!input) return;
 
@@ -103,10 +103,10 @@ const TextFieldSlot = React.forwardRef<
       {...slotProps}
       ref={forwardedRef}
       className={classNames(
-        'rt-TextFieldSlot',
+        'fui-TextFieldSlot',
         className,
-        withBreakpoints(context?.size, 'rt-r-size'),
-        withBreakpoints(gap, 'rt-r-gap'),
+        withBreakpoints(context?.size, 'fui-r-size'),
+        withBreakpoints(gap, 'fui-r-gap'),
         withPaddingProps(paddingProps),
       )}
     />
@@ -142,13 +142,13 @@ const TextFieldInput = React.forwardRef<
         {...inputProps}
         ref={forwardedRef}
         className={classNames(
-          'rt-TextFieldInput',
+          'fui-TextFieldInput',
           className,
-          withBreakpoints(size, 'rt-r-size'),
-          `rt-variant-${variant}`,
+          withBreakpoints(size, 'fui-r-size'),
+          `fui-variant-${variant}`,
         )}
       />
-      <div data-accent-color={color} className="rt-TextFieldChrome" />
+      <div data-accent-color={color} className="fui-TextFieldChrome" />
     </>
   );
 

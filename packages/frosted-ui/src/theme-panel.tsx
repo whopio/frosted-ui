@@ -241,7 +241,7 @@ const ThemePanelImpl = React.forwardRef<
                 side="bottom"
                 sideOffset={6}
               >
-                <Kbd size="3" tabIndex={0} className="rt-ThemePanelShortcut">
+                <Kbd size="3" tabIndex={0} className="fui-ThemePanelShortcut">
                   ⌘&thinsp;C
                 </Kbd>
               </Tooltip>
@@ -271,7 +271,7 @@ const ThemePanelImpl = React.forwardRef<
               {themeAccentColorsOrdered.map((color) => (
                 <label
                   key={color}
-                  className="rt-ThemePanelSwatch"
+                  className="fui-ThemePanelSwatch"
                   style={{ backgroundColor: `var(--${color}-9)` }}
                 >
                   <Tooltip
@@ -282,7 +282,7 @@ const ThemePanelImpl = React.forwardRef<
                     }`}
                   >
                     <input
-                      className="rt-ThemePanelSwatchInput"
+                      className="fui-ThemePanelSwatchInput"
                       type="radio"
                       name="accentColor"
                       value={color}
@@ -320,14 +320,14 @@ const ThemePanelImpl = React.forwardRef<
               {['auto', 'gray', ...radixGrayScalesDesaturated].map((gray) => (
                 <Flex key={gray} asChild align="center" justify="center">
                   <label
-                    className="rt-ThemePanelSwatch"
+                    className="fui-ThemePanelSwatch"
                     style={{
                       backgroundColor:
                         gray === 'auto'
                           ? `var(--${autoMatchedGray}-9)`
                           : gray === 'gray'
-                          ? 'var(--gray-9)'
-                          : `var(--${gray}-9)`,
+                            ? 'var(--gray-9)'
+                            : `var(--${gray}-9)`,
                       // we override --gray so pure gray doesn't exist anymore
                       // recover something as close as possible by desaturating
                       filter: gray === 'gray' ? 'saturate(0)' : undefined,
@@ -341,7 +341,7 @@ const ThemePanelImpl = React.forwardRef<
                       }`}
                     >
                       <input
-                        className="rt-ThemePanelSwatchInput"
+                        className="fui-ThemePanelSwatchInput"
                         type="radio"
                         name="grayColor"
                         value={gray}
@@ -374,12 +374,12 @@ const ThemePanelImpl = React.forwardRef<
               {infoColors.map((color) => (
                 <label
                   key={color}
-                  className="rt-ThemePanelSwatch"
+                  className="fui-ThemePanelSwatch"
                   style={{ backgroundColor: `var(--${color}-9)` }}
                 >
                   <Tooltip content={upperFirst(color)}>
                     <input
-                      className="rt-ThemePanelSwatchInput"
+                      className="fui-ThemePanelSwatchInput"
                       type="radio"
                       name="infoColor"
                       value={color}
@@ -415,12 +415,12 @@ const ThemePanelImpl = React.forwardRef<
               {successColors.map((color) => (
                 <label
                   key={color}
-                  className="rt-ThemePanelSwatch"
+                  className="fui-ThemePanelSwatch"
                   style={{ backgroundColor: `var(--${color}-9)` }}
                 >
                   <Tooltip content={upperFirst(color)}>
                     <input
-                      className="rt-ThemePanelSwatchInput"
+                      className="fui-ThemePanelSwatchInput"
                       type="radio"
                       name="successColor"
                       value={color}
@@ -456,12 +456,12 @@ const ThemePanelImpl = React.forwardRef<
               {warningColors.map((color) => (
                 <label
                   key={color}
-                  className="rt-ThemePanelSwatch"
+                  className="fui-ThemePanelSwatch"
                   style={{ backgroundColor: `var(--${color}-9)` }}
                 >
                   <Tooltip content={upperFirst(color)}>
                     <input
-                      className="rt-ThemePanelSwatchInput"
+                      className="fui-ThemePanelSwatchInput"
                       type="radio"
                       name="warningColor"
                       value={color}
@@ -497,12 +497,12 @@ const ThemePanelImpl = React.forwardRef<
               {dangerColors.map((color) => (
                 <label
                   key={color}
-                  className="rt-ThemePanelSwatch"
+                  className="fui-ThemePanelSwatch"
                   style={{ backgroundColor: `var(--${color}-9)` }}
                 >
                   <Tooltip content={upperFirst(color)}>
                     <input
-                      className="rt-ThemePanelSwatchInput"
+                      className="fui-ThemePanelSwatchInput"
                       type="radio"
                       name="dangerColor"
                       value={color}
@@ -529,9 +529,9 @@ const ThemePanelImpl = React.forwardRef<
               aria-labelledby="appearance-title"
             >
               {(['light', 'dark'] as const).map((value) => (
-                <label key={value} className="rt-ThemePanelRadioCard">
+                <label key={value} className="fui-ThemePanelRadioCard">
                   <input
-                    className="rt-ThemePanelRadioCardInput"
+                    className="fui-ThemePanelRadioCardInput"
                     type="radio"
                     name="appearance"
                     value={value}

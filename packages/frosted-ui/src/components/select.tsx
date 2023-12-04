@@ -76,19 +76,19 @@ const SelectTrigger = React.forwardRef<
         {...triggerProps}
         ref={forwardedRef}
         className={classNames(
-          'rt-reset',
-          'rt-SelectTrigger',
+          'fui-reset',
+          'fui-SelectTrigger',
           className,
-          withBreakpoints(size, 'rt-r-size'),
-          `rt-variant-${variant}`,
+          withBreakpoints(size, 'fui-r-size'),
+          `fui-variant-${variant}`,
           withMarginProps(marginProps),
         )}
       >
-        <span className="rt-SelectTriggerInner">
+        <span className="fui-SelectTriggerInner">
           <SelectPrimitive.Value placeholder={placeholder} />
         </span>
         <SelectPrimitive.Icon asChild>
-          <ChevronDownIcon className="rt-SelectIcon" />
+          <ChevronDownIcon className="fui-SelectIcon" />
         </SelectPrimitive.Icon>
       </button>
     </SelectPrimitive.Trigger>
@@ -128,28 +128,28 @@ const SelectContent = React.forwardRef<
           {...contentProps}
           ref={forwardedRef}
           className={classNames(
-            { 'rt-PopperContent': contentProps.position === 'popper' },
-            'rt-SelectContent',
+            { 'fui-PopperContent': contentProps.position === 'popper' },
+            'fui-SelectContent',
             className,
-            withBreakpoints(size, 'rt-r-size'),
-            `rt-variant-${variant}`,
-            { 'rt-high-contrast': highContrast },
+            withBreakpoints(size, 'fui-r-size'),
+            `fui-variant-${variant}`,
+            { 'fui-high-contrast': highContrast },
           )}
         >
-          <ScrollAreaPrimitive.Root type="auto" className="rt-ScrollAreaRoot">
-            <SelectPrimitive.Viewport asChild className="rt-SelectViewport">
+          <ScrollAreaPrimitive.Root type="auto" className="fui-ScrollAreaRoot">
+            <SelectPrimitive.Viewport asChild className="fui-SelectViewport">
               <ScrollAreaPrimitive.Viewport
-                className="rt-ScrollAreaViewport"
+                className="fui-ScrollAreaViewport"
                 style={{ overflowY: undefined }}
               >
                 {children}
               </ScrollAreaPrimitive.Viewport>
             </SelectPrimitive.Viewport>
             <ScrollAreaPrimitive.Scrollbar
-              className="rt-ScrollAreaScrollbar rt-r-size-1"
+              className="fui-ScrollAreaScrollbar fui-r-size-1"
               orientation="vertical"
             >
-              <ScrollAreaPrimitive.Thumb className="rt-ScrollAreaThumb" />
+              <ScrollAreaPrimitive.Thumb className="fui-ScrollAreaThumb" />
             </ScrollAreaPrimitive.Scrollbar>
           </ScrollAreaPrimitive.Root>
         </SelectPrimitive.Content>
@@ -169,10 +169,10 @@ const SelectItem = React.forwardRef<SelectItemElement, SelectItemProps>(
       <SelectPrimitive.Item
         {...itemProps}
         ref={forwardedRef}
-        className={classNames('rt-SelectItem', className)}
+        className={classNames('fui-SelectItem', className)}
       >
-        <SelectPrimitive.ItemIndicator className="rt-SelectItemIndicator">
-          <ThickCheckIcon className="rt-SelectItemIndicatorIcon" />
+        <SelectPrimitive.ItemIndicator className="fui-SelectItemIndicator">
+          <ThickCheckIcon className="fui-SelectItemIndicatorIcon" />
         </SelectPrimitive.ItemIndicator>
         <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
       </SelectPrimitive.Item>
@@ -189,7 +189,7 @@ const SelectGroup = React.forwardRef<SelectGroupElement, SelectGroupProps>(
     <SelectPrimitive.Group
       {...props}
       ref={forwardedRef}
-      className={classNames('rt-SelectGroup', props.className)}
+      className={classNames('fui-SelectGroup', props.className)}
     />
   ),
 );
@@ -203,7 +203,7 @@ const SelectLabel = React.forwardRef<SelectLabelElement, SelectLabelProps>(
     <SelectPrimitive.Label
       {...props}
       ref={forwardedRef}
-      className={classNames('rt-SelectLabel', props.className)}
+      className={classNames('fui-SelectLabel', props.className)}
     />
   ),
 );
@@ -221,7 +221,7 @@ const SelectSeparator = React.forwardRef<
   <SelectPrimitive.Separator
     {...props}
     ref={forwardedRef}
-    className={classNames('rt-SelectSeparator', props.className)}
+    className={classNames('fui-SelectSeparator', props.className)}
   />
 ));
 SelectSeparator.displayName = 'SelectSeparator';

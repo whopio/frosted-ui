@@ -1,13 +1,24 @@
-import * as React from 'react';
 import classNames from 'classnames';
+import * as React from 'react';
+import {
+  extractMarginProps,
+  withBreakpoints,
+  withMarginProps,
+} from '../helpers';
 import { codePropDefs } from './code.props';
-import { extractMarginProps, withMarginProps, withBreakpoints } from '../helpers';
 
-import type { PropsWithoutRefOrColor, MarginProps, GetPropDefTypes } from '../helpers';
+import type {
+  GetPropDefTypes,
+  MarginProps,
+  PropsWithoutRefOrColor,
+} from '../helpers';
 
 type CodeElement = React.ElementRef<'code'>;
 type CodeOwnProps = GetPropDefTypes<typeof codePropDefs>;
-interface CodeProps extends PropsWithoutRefOrColor<'code'>, MarginProps, CodeOwnProps {}
+interface CodeProps
+  extends PropsWithoutRefOrColor<'code'>,
+    MarginProps,
+    CodeOwnProps {}
 const Code = React.forwardRef<CodeElement, CodeProps>((props, forwardedRef) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
@@ -25,13 +36,13 @@ const Code = React.forwardRef<CodeElement, CodeProps>((props, forwardedRef) => {
       {...codeProps}
       ref={forwardedRef}
       className={classNames(
-        'rt-Code',
+        'fui-Code',
         className,
-        withBreakpoints(size, 'rt-r-size'),
-        `rt-variant-${variant}`,
-        withBreakpoints(weight, 'rt-r-weight'),
-        { 'rt-high-contrast': highContrast },
-        withMarginProps(marginProps)
+        withBreakpoints(size, 'fui-r-size'),
+        `fui-variant-${variant}`,
+        withBreakpoints(weight, 'fui-r-weight'),
+        { 'fui-high-contrast': highContrast },
+        withMarginProps(marginProps),
       )}
     />
   );
