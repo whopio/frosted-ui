@@ -64,69 +64,6 @@ export const frostedThemePlugin = plugin.withOptions(
           '-webkit-font-smoothing': 'antialiased',
           '-moz-osx-font-smoothing': 'grayscale',
         },
-        em: {
-          fontFamily: 'var(--em-font-family)',
-          fontWeight: 'var(--em-font-weight)',
-          fontSize: 'calc(var(--em-font-size-adjust) * 1em)',
-          fontStyle: 'var(--em-font-style)',
-          lineHeight: '1.25',
-          letterSpacing:
-            'calc(var(--em-letter-spacing) + var(--letter-spacing, var(--default-letter-spacing)))',
-        },
-        h6: {
-          fontFamily: 'var(--heading-font-family)',
-          fontWeight: 'var(--font-weight-bold)',
-          fontSize:
-            'calc(var(--font-size-4) * var(--heading-font-size-adjust))',
-          letterSpacing:
-            'calc(var(--letter-spacing-4) + var(--heading-letter-spacing))',
-          lineHeight: 'var(--heading-line-height-4)',
-        },
-        h5: {
-          fontFamily: 'var(--heading-font-family)',
-          fontWeight: 'var(--font-weight-bold)',
-          fontSize:
-            'calc(var(--font-size-5) * var(--heading-font-size-adjust))',
-          letterSpacing:
-            'calc(var(--letter-spacing-5) + var(--heading-letter-spacing))',
-          lineHeight: 'var(--heading-line-height-5)',
-        },
-        h4: {
-          fontFamily: 'var(--heading-font-family)',
-          fontWeight: 'var(--font-weight-bold)',
-          fontSize:
-            'calc(var(--font-size-6) * var(--heading-font-size-adjust))',
-          letterSpacing:
-            'calc(var(--letter-spacing-6) + var(--heading-letter-spacing))',
-          lineHeight: 'var(--heading-line-height-6)',
-        },
-        h3: {
-          fontFamily: 'var(--heading-font-family)',
-          fontWeight: 'var(--font-weight-bold)',
-          fontSize:
-            'calc(var(--font-size-7) * var(--heading-font-size-adjust))',
-          letterSpacing:
-            'calc(var(--letter-spacing-7) + var(--heading-letter-spacing))',
-          lineHeight: 'var(--heading-line-height-7)',
-        },
-        h2: {
-          fontFamily: 'var(--heading-font-family)',
-          fontWeight: 'var(--font-weight-bold)',
-          fontSize:
-            'calc(var(--font-size-8) * var(--heading-font-size-adjust))',
-          letterSpacing:
-            'calc(var(--letter-spacing-8) + var(--heading-letter-spacing))',
-          lineHeight: 'var(--heading-line-height-8)',
-        },
-        h1: {
-          fontFamily: 'var(--heading-font-family)',
-          fontWeight: 'var(--font-weight-bold)',
-          fontSize:
-            'calc(var(--font-size-9) * var(--heading-font-size-adjust))',
-          letterSpacing:
-            'calc(var(--letter-spacing-9) + var(--heading-letter-spacing))',
-          lineHeight: 'var(--heading-line-height-9)',
-        },
       });
     };
   },
