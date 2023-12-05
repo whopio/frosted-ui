@@ -4,13 +4,11 @@ import plugin from 'tailwindcss/plugin';
 import {
   semanticColors,
   themeAccentColorsGrouped,
-  themeAccentColorsOrdered,
   themeGrayColorsGrouped,
 } from './theme-options';
 
 export const accentColorNames: string[] = [];
 export const grayColorNames: string[] = [];
-export const bnwColorNames: string[] = [];
 
 const frostedColorScales = 12;
 type FrostedColorScales = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
@@ -25,52 +23,23 @@ themeGrayColorsGrouped.map((group) => {
 
 export function getColorTokenName(
   number: FrostedColorScales,
-  useTailwindColorNames?: boolean,
   alpha?: boolean,
 ): number | string {
-  const map: Record<number, number> = {
-    1: 25,
-    2: 50,
-    3: 100,
-    4: 200,
-    5: 300,
-    6: 400,
-    7: 500,
-    8: 600,
-    9: 700,
-    10: 800,
-    11: 900,
-    12: 950,
-  } as const;
-
-  if (!useTailwindColorNames) {
-    return alpha ? 'a' + number : number;
-  }
-  // TODO: this should be a lowercase prefix, not uppercase suffix
-  return alpha ? (('a' + map[number]) as string) : (map[number] as number);
+  return alpha ? 'a' + number : number;
 }
 
-export const getColorDefinitions = (
-  color: string,
-  alpha?: boolean,
-  useTailwindColorNames?: boolean,
-) => {
+export const getColorDefinitions = (color: string, alpha?: boolean) => {
   const colors = Array.from(Array(frostedColorScales).keys()).reduce(
     (acc, _, i) => {
-      acc[
-        getColorTokenName(
-          (i + 1) as FrostedColorScales,
-          useTailwindColorNames,
-          alpha,
-        )
-      ] = `var(--${color}-${alpha ? 'a' : ''}${i + 1})`;
+      acc[getColorTokenName((i + 1) as FrostedColorScales, alpha)] =
+        `var(--${color}-${alpha ? 'a' : ''}${i + 1})`;
       return acc;
     },
     {} as Record<string, string>,
   );
 
   if (!alpha) {
-    colors[`${getColorTokenName(9, useTailwindColorNames, alpha)}-contrast`] =
+    colors[`${getColorTokenName(9, alpha)}-contrast`] =
       `var(--${color}-9-contrast)`;
     colors['surface'] = `var(--${color}-surface)`;
     colors['DEFAULT'] = `var(--${color}-9)`;
@@ -82,51 +51,8 @@ export const getColorDefinitions = (
   return colors;
 };
 
-type FrostedColors = Exclude<
-  | (typeof themeAccentColorsOrdered)[number]
-  | (typeof themeGrayColorsGrouped)[0]['values'][number],
-  'auto'
->;
-
-export const tailwindColorsToFrostedMap: Record<
-  'zinc' | 'neutral' | 'stone' | 'emerald' | 'fuchsia' | 'rose',
-  FrostedColors | Record<string, string>
-> = {
-  zinc: 'sand',
-  neutral: 'sage',
-  stone: 'sand',
-  emerald: 'grass',
-  fuchsia: 'plum',
-  rose: 'crimson',
-};
-
-const frostedRadiusToTailwindMap = {
-  1: 'xxs',
-  2: 'xs',
-  3: 'sm',
-  4: 'md',
-  5: 'lg',
-  6: 'xl',
-} as const;
-
-export function getRadiusTokenName(
-  radius: keyof typeof frostedRadiusToTailwindMap,
-  useTailwindColorNames?: boolean,
-): string | number {
-  return useTailwindColorNames ? frostedRadiusToTailwindMap[radius] : radius;
-}
-
-export type FrostedThemePluginOptions = {
-  useTailwindColorNames?: boolean;
-  useTailwindRadiusNames?: boolean;
-  mapMissingTailwindColors?:
-    | boolean
-    | Partial<typeof tailwindColorsToFrostedMap>;
-};
-
 export const frostedThemePlugin = plugin.withOptions(
-  // eslint-disable-next-line no-empty-pattern
-  ({}: FrostedThemePluginOptions) => {
+  () => {
     // TODO: make sure font styles are in sync with Text and Heading style
     return ({ addBase }) => {
       addBase({
@@ -204,19 +130,15 @@ export const frostedThemePlugin = plugin.withOptions(
       });
     };
   },
-  ({
-    useTailwindColorNames = true,
-    useTailwindRadiusNames = true,
-    mapMissingTailwindColors = true,
-  }: FrostedThemePluginOptions) => {
+  () => {
     function generateTailwindColors(colorName: string) {
       const c = {
-        ...getColorDefinitions(colorName, false, useTailwindColorNames),
-        ...getColorDefinitions(colorName, true, useTailwindColorNames),
+        ...getColorDefinitions(colorName, false),
+        ...getColorDefinitions(colorName, true),
       };
 
       if (grayColorNames.includes(colorName)) {
-        c[`${getColorTokenName(2, useTailwindColorNames, false)}-translucent`] =
+        c[`${getColorTokenName(2, false)}-translucent`] =
           `var(--${colorName}-2-translucent)`;
       }
 
@@ -231,45 +153,6 @@ export const frostedThemePlugin = plugin.withOptions(
       acc[colorName] = { ...generateTailwindColors(colorName) };
       return acc;
     }, {});
-
-    let mappingsOfMissingTailwindColors = {};
-    if (typeof mapMissingTailwindColors === 'boolean') {
-      mappingsOfMissingTailwindColors = {
-        zinc: generateTailwindColors('sand'),
-        neutral: generateTailwindColors('sage'),
-        stone: generateTailwindColors('mauve'),
-        emerald: generateTailwindColors('grass'),
-        fuchsia: generateTailwindColors('plum'),
-        rose: generateTailwindColors('crimson'),
-      };
-    } else if (typeof mapMissingTailwindColors === 'object') {
-      mappingsOfMissingTailwindColors = {
-        zinc:
-          typeof mapMissingTailwindColors['zinc'] === 'string'
-            ? generateTailwindColors(mapMissingTailwindColors['zinc'])
-            : mapMissingTailwindColors['zinc'],
-        neutral:
-          typeof mapMissingTailwindColors['neutral'] === 'string'
-            ? generateTailwindColors(mapMissingTailwindColors['neutral'])
-            : mapMissingTailwindColors['neutral'],
-        stone:
-          typeof mapMissingTailwindColors['stone'] === 'string'
-            ? generateTailwindColors(mapMissingTailwindColors['stone'])
-            : mapMissingTailwindColors['stone'],
-        emerald:
-          typeof mapMissingTailwindColors['emerald'] === 'string'
-            ? generateTailwindColors(mapMissingTailwindColors['emerald'])
-            : mapMissingTailwindColors['emerald'],
-        fuchsia:
-          typeof mapMissingTailwindColors['fuchsia'] === 'string'
-            ? generateTailwindColors(mapMissingTailwindColors['fuchsia'])
-            : mapMissingTailwindColors['fuchsia'],
-        rose:
-          typeof mapMissingTailwindColors['rose'] === 'string'
-            ? generateTailwindColors(mapMissingTailwindColors['rose'])
-            : mapMissingTailwindColors['rose'],
-      };
-    }
 
     return {
       darkMode: 'class',
@@ -392,17 +275,6 @@ export const frostedThemePlugin = plugin.withOptions(
           extrabold: '800',
           black: '900',
         },
-        borderRadius: {
-          none: '0px',
-          [getRadiusTokenName(1, useTailwindRadiusNames)]: 'var(--radius-1)',
-          [getRadiusTokenName(2, useTailwindRadiusNames)]: 'var(--radius-2)',
-          [getRadiusTokenName(3, useTailwindRadiusNames)]: 'var(--radius-3)',
-          DEFAULT: 'var(--radius-3)',
-          [getRadiusTokenName(4, useTailwindRadiusNames)]: 'var(--radius-4)',
-          [getRadiusTokenName(5, useTailwindRadiusNames)]: 'var(--radius-5)',
-          [getRadiusTokenName(6, useTailwindRadiusNames)]: 'var(--radius-6)',
-          full: '99999px',
-        },
         colors: {
           inherit: 'inherit',
           transparent: 'transparent',
@@ -460,7 +332,6 @@ export const frostedThemePlugin = plugin.withOptions(
           'black-a12': 'var(--black-a12)',
           selection: 'var(--color-selection-root)',
           ...allFrostedColors,
-          ...mappingsOfMissingTailwindColors,
           accent: generateTailwindColors('accent'),
           gray: generateTailwindColors('gray'),
         },

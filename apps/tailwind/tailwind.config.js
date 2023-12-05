@@ -10,11 +10,5 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [
-    frostedThemePlugin({
-      useTailwindColorNames: false, // optional
-      useTailwindRadiusNames: false, // optional
-      mapMissingTailwindColors: false, // optional
-    }),
-  ],
+  plugins: [frostedThemePlugin()],
 };
