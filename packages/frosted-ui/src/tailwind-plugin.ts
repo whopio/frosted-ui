@@ -4,13 +4,11 @@ import plugin from 'tailwindcss/plugin';
 import {
   semanticColors,
   themeAccentColorsGrouped,
-  themeAccentColorsOrdered,
   themeGrayColorsGrouped,
 } from './theme-options';
 
 export const accentColorNames: string[] = [];
 export const grayColorNames: string[] = [];
-export const bnwColorNames: string[] = [];
 
 const frostedColorScales = 12;
 type FrostedColorScales = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
@@ -25,52 +23,23 @@ themeGrayColorsGrouped.map((group) => {
 
 export function getColorTokenName(
   number: FrostedColorScales,
-  useTailwindColorNames?: boolean,
   alpha?: boolean,
 ): number | string {
-  const map: Record<number, number> = {
-    1: 25,
-    2: 50,
-    3: 100,
-    4: 200,
-    5: 300,
-    6: 400,
-    7: 500,
-    8: 600,
-    9: 700,
-    10: 800,
-    11: 900,
-    12: 950,
-  } as const;
-
-  if (!useTailwindColorNames) {
-    return alpha ? 'a' + number : number;
-  }
-  // TODO: this should be a lowercase prefix, not uppercase suffix
-  return alpha ? (('a' + map[number]) as string) : (map[number] as number);
+  return alpha ? 'a' + number : number;
 }
 
-export const getColorDefinitions = (
-  color: string,
-  alpha?: boolean,
-  useTailwindColorNames?: boolean,
-) => {
+export const getColorDefinitions = (color: string, alpha?: boolean) => {
   const colors = Array.from(Array(frostedColorScales).keys()).reduce(
     (acc, _, i) => {
-      acc[
-        getColorTokenName(
-          (i + 1) as FrostedColorScales,
-          useTailwindColorNames,
-          alpha,
-        )
-      ] = `var(--${color}-${alpha ? 'a' : ''}${i + 1})`;
+      acc[getColorTokenName((i + 1) as FrostedColorScales, alpha)] =
+        `var(--${color}-${alpha ? 'a' : ''}${i + 1})`;
       return acc;
     },
     {} as Record<string, string>,
   );
 
   if (!alpha) {
-    colors[`${getColorTokenName(9, useTailwindColorNames, alpha)}-contrast`] =
+    colors[`${getColorTokenName(9, alpha)}-contrast`] =
       `var(--${color}-9-contrast)`;
     colors['surface'] = `var(--${color}-surface)`;
     colors['DEFAULT'] = `var(--${color}-9)`;
@@ -82,51 +51,8 @@ export const getColorDefinitions = (
   return colors;
 };
 
-type FrostedColors = Exclude<
-  | (typeof themeAccentColorsOrdered)[number]
-  | (typeof themeGrayColorsGrouped)[0]['values'][number],
-  'auto'
->;
-
-export const tailwindColorsToFrostedMap: Record<
-  'zinc' | 'neutral' | 'stone' | 'emerald' | 'fuchsia' | 'rose',
-  FrostedColors | Record<string, string>
-> = {
-  zinc: 'sand',
-  neutral: 'sage',
-  stone: 'sand',
-  emerald: 'grass',
-  fuchsia: 'plum',
-  rose: 'crimson',
-};
-
-const frostedRadiusToTailwindMap = {
-  1: 'xxs',
-  2: 'xs',
-  3: 'sm',
-  4: 'md',
-  5: 'lg',
-  6: 'xl',
-} as const;
-
-export function getRadiusTokenName(
-  radius: keyof typeof frostedRadiusToTailwindMap,
-  useTailwindColorNames?: boolean,
-): string | number {
-  return useTailwindColorNames ? frostedRadiusToTailwindMap[radius] : radius;
-}
-
-export type FrostedThemePluginOptions = {
-  useTailwindColorNames?: boolean;
-  useTailwindRadiusNames?: boolean;
-  mapMissingTailwindColors?:
-    | boolean
-    | Partial<typeof tailwindColorsToFrostedMap>;
-};
-
 export const frostedThemePlugin = plugin.withOptions(
-  // eslint-disable-next-line no-empty-pattern
-  ({}: FrostedThemePluginOptions) => {
+  () => {
     // TODO: make sure font styles are in sync with Text and Heading style
     return ({ addBase }) => {
       addBase({
@@ -138,85 +64,18 @@ export const frostedThemePlugin = plugin.withOptions(
           '-webkit-font-smoothing': 'antialiased',
           '-moz-osx-font-smoothing': 'grayscale',
         },
-        em: {
-          fontFamily: 'var(--em-font-family)',
-          fontWeight: 'var(--em-font-weight)',
-          fontSize: 'calc(var(--em-font-size-adjust) * 1em)',
-          fontStyle: 'var(--em-font-style)',
-          lineHeight: '1.25',
-          letterSpacing:
-            'calc(var(--em-letter-spacing) + var(--letter-spacing, var(--default-letter-spacing)))',
-        },
-        h6: {
-          fontFamily: 'var(--heading-font-family)',
-          fontWeight: 'var(--font-weight-bold)',
-          fontSize:
-            'calc(var(--font-size-4) * var(--heading-font-size-adjust))',
-          letterSpacing:
-            'calc(var(--letter-spacing-4) + var(--heading-letter-spacing))',
-          lineHeight: 'var(--heading-line-height-4)',
-        },
-        h5: {
-          fontFamily: 'var(--heading-font-family)',
-          fontWeight: 'var(--font-weight-bold)',
-          fontSize:
-            'calc(var(--font-size-5) * var(--heading-font-size-adjust))',
-          letterSpacing:
-            'calc(var(--letter-spacing-5) + var(--heading-letter-spacing))',
-          lineHeight: 'var(--heading-line-height-5)',
-        },
-        h4: {
-          fontFamily: 'var(--heading-font-family)',
-          fontWeight: 'var(--font-weight-bold)',
-          fontSize:
-            'calc(var(--font-size-6) * var(--heading-font-size-adjust))',
-          letterSpacing:
-            'calc(var(--letter-spacing-6) + var(--heading-letter-spacing))',
-          lineHeight: 'var(--heading-line-height-6)',
-        },
-        h3: {
-          fontFamily: 'var(--heading-font-family)',
-          fontWeight: 'var(--font-weight-bold)',
-          fontSize:
-            'calc(var(--font-size-7) * var(--heading-font-size-adjust))',
-          letterSpacing:
-            'calc(var(--letter-spacing-7) + var(--heading-letter-spacing))',
-          lineHeight: 'var(--heading-line-height-7)',
-        },
-        h2: {
-          fontFamily: 'var(--heading-font-family)',
-          fontWeight: 'var(--font-weight-bold)',
-          fontSize:
-            'calc(var(--font-size-8) * var(--heading-font-size-adjust))',
-          letterSpacing:
-            'calc(var(--letter-spacing-8) + var(--heading-letter-spacing))',
-          lineHeight: 'var(--heading-line-height-8)',
-        },
-        h1: {
-          fontFamily: 'var(--heading-font-family)',
-          fontWeight: 'var(--font-weight-bold)',
-          fontSize:
-            'calc(var(--font-size-9) * var(--heading-font-size-adjust))',
-          letterSpacing:
-            'calc(var(--letter-spacing-9) + var(--heading-letter-spacing))',
-          lineHeight: 'var(--heading-line-height-9)',
-        },
       });
     };
   },
-  ({
-    useTailwindColorNames = true,
-    useTailwindRadiusNames = true,
-    mapMissingTailwindColors = true,
-  }: FrostedThemePluginOptions) => {
+  () => {
     function generateTailwindColors(colorName: string) {
       const c = {
-        ...getColorDefinitions(colorName, false, useTailwindColorNames),
-        ...getColorDefinitions(colorName, true, useTailwindColorNames),
+        ...getColorDefinitions(colorName, false),
+        ...getColorDefinitions(colorName, true),
       };
 
       if (grayColorNames.includes(colorName)) {
-        c[`${getColorTokenName(2, useTailwindColorNames, false)}-translucent`] =
+        c[`${getColorTokenName(2, false)}-translucent`] =
           `var(--${colorName}-2-translucent)`;
       }
 
@@ -232,112 +91,19 @@ export const frostedThemePlugin = plugin.withOptions(
       return acc;
     }, {});
 
-    let mappingsOfMissingTailwindColors = {};
-    if (typeof mapMissingTailwindColors === 'boolean') {
-      mappingsOfMissingTailwindColors = {
-        zinc: generateTailwindColors('sand'),
-        neutral: generateTailwindColors('sage'),
-        stone: generateTailwindColors('mauve'),
-        emerald: generateTailwindColors('grass'),
-        fuchsia: generateTailwindColors('plum'),
-        rose: generateTailwindColors('crimson'),
-      };
-    } else if (typeof mapMissingTailwindColors === 'object') {
-      mappingsOfMissingTailwindColors = {
-        zinc:
-          typeof mapMissingTailwindColors['zinc'] === 'string'
-            ? generateTailwindColors(mapMissingTailwindColors['zinc'])
-            : mapMissingTailwindColors['zinc'],
-        neutral:
-          typeof mapMissingTailwindColors['neutral'] === 'string'
-            ? generateTailwindColors(mapMissingTailwindColors['neutral'])
-            : mapMissingTailwindColors['neutral'],
-        stone:
-          typeof mapMissingTailwindColors['stone'] === 'string'
-            ? generateTailwindColors(mapMissingTailwindColors['stone'])
-            : mapMissingTailwindColors['stone'],
-        emerald:
-          typeof mapMissingTailwindColors['emerald'] === 'string'
-            ? generateTailwindColors(mapMissingTailwindColors['emerald'])
-            : mapMissingTailwindColors['emerald'],
-        fuchsia:
-          typeof mapMissingTailwindColors['fuchsia'] === 'string'
-            ? generateTailwindColors(mapMissingTailwindColors['fuchsia'])
-            : mapMissingTailwindColors['fuchsia'],
-        rose:
-          typeof mapMissingTailwindColors['rose'] === 'string'
-            ? generateTailwindColors(mapMissingTailwindColors['rose'])
-            : mapMissingTailwindColors['rose'],
-      };
-    }
-
     return {
       darkMode: 'class',
       theme: {
         fontSize: {
-          xs: [
-            'var(--font-size-1)',
-            {
-              letterSpacing: 'var(--letter-spacing-1)',
-              lineHeight: 'var(--line-height-1)',
-            },
-          ],
-          sm: [
-            'var(--font-size-2)',
-            {
-              letterSpacing: 'var(--letter-spacing-2)',
-              lineHeight: 'var(--line-height-2)',
-            },
-          ],
-          base: [
-            'var(--font-size-3)',
-            {
-              letterSpacing: 'var(--letter-spacing-3)',
-              lineHeight: 'var(--line-height-3)',
-            },
-          ],
-          lg: [
-            'var(--font-size-4)',
-            {
-              letterSpacing: 'var(--letter-spacing-4)',
-              lineHeight: 'var(--line-height-4)',
-            },
-          ],
-          xl: [
-            'var(--font-size-5)',
-            {
-              letterSpacing: 'var(--letter-spacing-5)',
-              lineHeight: 'var(--line-height-5)',
-            },
-          ],
-          '2xl': [
-            'var(--font-size-6)',
-            {
-              letterSpacing: 'var(--letter-spacing-6)',
-              lineHeight: 'var(--line-height-6)',
-            },
-          ],
-          '3xl': [
-            'var(--font-size-7)',
-            {
-              letterSpacing: 'var(--letter-spacing-7)',
-              lineHeight: 'var(--line-height-7)',
-            },
-          ],
-          '4xl': [
-            'var(--font-size-8)',
-            {
-              letterSpacing: 'var(--letter-spacing-8)',
-              lineHeight: 'var(--line-height-8)',
-            },
-          ],
-          '5xl': [
-            'var(--font-size-9)',
-            {
-              letterSpacing: 'var(--letter-spacing-9)',
-              lineHeight: 'var(--line-height-9)',
-            },
-          ],
+          1: 'var(--font-size-1)',
+          2: 'var(--font-size-2)',
+          3: 'var(--font-size-3)',
+          4: 'var(--font-size-4)',
+          5: 'var(--font-size-5)',
+          6: 'var(--font-size-6)',
+          7: 'var(--font-size-7)',
+          8: 'var(--font-size-8)',
+          9: 'var(--font-size-9)',
         },
         lineHeight: {
           1: 'var(--line-height-1)',
@@ -391,54 +157,6 @@ export const frostedThemePlugin = plugin.withOptions(
           bold: 'var(--font-weight-bold)',
           extrabold: '800',
           black: '900',
-        },
-        spacing: {
-          '0': '0px',
-          px: '1px',
-          '0.5': '2px',
-          '1': 'var(--space-1)',
-          '1.5': '6px',
-          '2': 'var(--space-2)',
-          '2.5': '10px',
-          '3': 'var(--space-3)',
-          '3.5': '14px',
-          '4': 'var(--space-4)',
-          '5': '20px',
-          '6': 'var(--space-5)',
-          '7': '28px',
-          '8': 'var(--space-6)',
-          '9': '36px',
-          '10': 'var(--space-7)',
-          '11': '44px',
-          '12': 'var(--space-8)',
-          '14': '56px',
-          '16': 'var(--space-9)',
-          '20': '80px',
-          '24': '96px',
-          '28': '112px',
-          '32': '128px',
-          '36': '144px',
-          '40': '160px',
-          '44': '176px',
-          '48': '192px',
-          '52': '208px',
-          '56': '224px',
-          '60': '240px',
-          '64': '256px',
-          '72': '288px',
-          '80': '320px',
-          '96': '384px',
-        },
-        borderRadius: {
-          none: '0px',
-          [getRadiusTokenName(1, useTailwindRadiusNames)]: 'var(--radius-1)',
-          [getRadiusTokenName(2, useTailwindRadiusNames)]: 'var(--radius-2)',
-          [getRadiusTokenName(3, useTailwindRadiusNames)]: 'var(--radius-3)',
-          DEFAULT: 'var(--radius-3)',
-          [getRadiusTokenName(4, useTailwindRadiusNames)]: 'var(--radius-4)',
-          [getRadiusTokenName(5, useTailwindRadiusNames)]: 'var(--radius-5)',
-          [getRadiusTokenName(6, useTailwindRadiusNames)]: 'var(--radius-6)',
-          full: '99999px',
         },
         colors: {
           inherit: 'inherit',
@@ -497,7 +215,6 @@ export const frostedThemePlugin = plugin.withOptions(
           'black-a12': 'var(--black-a12)',
           selection: 'var(--color-selection-root)',
           ...allFrostedColors,
-          ...mappingsOfMissingTailwindColors,
           accent: generateTailwindColors('accent'),
           gray: generateTailwindColors('gray'),
         },

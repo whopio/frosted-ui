@@ -11,8 +11,6 @@ export { Grid } from './grid';
 export * from './grid.props';
 export { Inset } from './inset';
 export * from './inset.props';
-export { Section } from './section';
-export * from './section.props';
 
 // TYPOGRAPHY
 //------------------------------------------------------------------------------

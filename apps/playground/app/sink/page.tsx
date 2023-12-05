@@ -97,8 +97,6 @@ import {
   RadioGroupRoot,
   //
   ScrollArea,
-  //
-  Section,
   SelectContent,
   SelectGroup,
   SelectItem,
@@ -245,7 +243,12 @@ export default function Sink() {
                 // dir="rtl"
                 >
                   <Container mx="6">
-                    <Section>
+                    <div
+                      style={{
+                        paddingTop: 'var(--space-5)',
+                        padding: 'var(--space-5)',
+                      }}
+                    >
                       <Grid columns="3" gapY="9">
                         <DocsGridSectionItem title="Dialog">
                           <DialogRoot>
@@ -360,12 +363,17 @@ export default function Sink() {
                           </PopoverRoot>
                         </DocsGridSectionItem>
                       </Grid>
-                    </Section>
+                    </div>
                   </Container>
                   <Separator size="4" />
 
                   <Container mx="6">
-                    <Section>
+                    <div
+                      style={{
+                        paddingTop: 'var(--space-5)',
+                        padding: 'var(--space-5)',
+                      }}
+                    >
                       <Grid columns="3" gapY="9">
                         <div style={{ gridColumn: '1 / span 2' }}>
                           <DocsGridSectionItem title="DropdownMenu">
@@ -553,7 +561,7 @@ export default function Sink() {
                           </table>
                         </DocsGridSectionItem>
                       </Grid>
-                    </Section>
+                    </div>
                   </Container>
                   <Separator size="4" />
 
@@ -4393,14 +4401,16 @@ function DocsSection({
   return (
     <>
       <Container mx="6">
-        <Section size="2">
+        <div
+          style={{ paddingTop: 'var(--space-7)', padding: 'var(--space-7)' }}
+        >
           <Heading size="6" weight="regular" mb="4" as="h2">
             <Link href={`#${title}`} id={title}>
               {title}
             </Link>
           </Heading>
           {children}
-        </Section>
+        </div>
       </Container>
       <Separator size="4" />
     </>

@@ -15,7 +15,6 @@ import {
   PopoverContent,
   PopoverRoot,
   PopoverTrigger,
-  Section,
   Theme,
 } from 'frosted-ui';
 
@@ -28,7 +27,13 @@ export default function Ghost() {
             <Container>
               <Grid columns="2">
                 {(['row', 'column'] as const).map((direction) => (
-                  <Section key={direction}>
+                  <div
+                    key={direction}
+                    style={{
+                      paddingTop: 'var(--space-5)',
+                      paddingBottom: 'var(--space-5)',
+                    }}
+                  >
                     <Flex
                       direction={direction === 'row' ? 'column' : 'row'}
                       gap="7"
@@ -139,7 +144,7 @@ export default function Ghost() {
                         </PopoverRoot>
                       </Flex>
                     </Flex>
-                  </Section>
+                  </div>
                 ))}
               </Grid>
 

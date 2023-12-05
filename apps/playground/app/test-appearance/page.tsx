@@ -4,7 +4,6 @@ import {
   Flex,
   Grid,
   Heading,
-  Section,
   Separator,
   Switch,
   Text,
@@ -133,12 +132,17 @@ function DocsSection({
   return (
     <>
       <Container mx="6">
-        <Section size="2">
+        <div
+          style={{
+            paddingTop: 'var(--space-7)',
+            padding: 'var(--space-7)',
+          }}
+        >
           <Heading size="6" weight="regular" mb="4" as="h2">
             {title}
           </Heading>
           {children}
-        </Section>
+        </div>
       </Container>
       <Separator size="4" />
     </>

@@ -16,7 +16,6 @@ import {
   Grid,
   Heading,
   IconButton,
-  Section,
   Text,
   TextFieldInput,
   TextFieldRoot,
@@ -34,7 +33,7 @@ export default function Test() {
           <div id="root">
             <ThemePanel defaultOpen={false} />
             <Container>
-              <Section>
+              <div style={{ padding: 'var(--space-5) 0' }}>
                 <Grid columns="3" gap="6">
                   <Flex direction="column" align="start" gap="3">
                     <Heading size="3" mb="2">
@@ -350,7 +349,7 @@ export default function Test() {
                     </TextFieldRoot>
                   </Flex>
                 </Grid>
-              </Section>
+              </div>
             </Container>
           </div>
         </Theme>
