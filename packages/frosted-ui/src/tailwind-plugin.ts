@@ -95,69 +95,15 @@ export const frostedThemePlugin = plugin.withOptions(
       darkMode: 'class',
       theme: {
         fontSize: {
-          xs: [
-            'var(--font-size-1)',
-            {
-              letterSpacing: 'var(--letter-spacing-1)',
-              lineHeight: 'var(--line-height-1)',
-            },
-          ],
-          sm: [
-            'var(--font-size-2)',
-            {
-              letterSpacing: 'var(--letter-spacing-2)',
-              lineHeight: 'var(--line-height-2)',
-            },
-          ],
-          base: [
-            'var(--font-size-3)',
-            {
-              letterSpacing: 'var(--letter-spacing-3)',
-              lineHeight: 'var(--line-height-3)',
-            },
-          ],
-          lg: [
-            'var(--font-size-4)',
-            {
-              letterSpacing: 'var(--letter-spacing-4)',
-              lineHeight: 'var(--line-height-4)',
-            },
-          ],
-          xl: [
-            'var(--font-size-5)',
-            {
-              letterSpacing: 'var(--letter-spacing-5)',
-              lineHeight: 'var(--line-height-5)',
-            },
-          ],
-          '2xl': [
-            'var(--font-size-6)',
-            {
-              letterSpacing: 'var(--letter-spacing-6)',
-              lineHeight: 'var(--line-height-6)',
-            },
-          ],
-          '3xl': [
-            'var(--font-size-7)',
-            {
-              letterSpacing: 'var(--letter-spacing-7)',
-              lineHeight: 'var(--line-height-7)',
-            },
-          ],
-          '4xl': [
-            'var(--font-size-8)',
-            {
-              letterSpacing: 'var(--letter-spacing-8)',
-              lineHeight: 'var(--line-height-8)',
-            },
-          ],
-          '5xl': [
-            'var(--font-size-9)',
-            {
-              letterSpacing: 'var(--letter-spacing-9)',
-              lineHeight: 'var(--line-height-9)',
-            },
-          ],
+          1: 'var(--font-size-1)',
+          2: 'var(--font-size-2)',
+          3: 'var(--font-size-3)',
+          4: 'var(--font-size-4)',
+          5: 'var(--font-size-5)',
+          6: 'var(--font-size-6)',
+          7: 'var(--font-size-7)',
+          8: 'var(--font-size-8)',
+          9: 'var(--font-size-9)',
         },
         lineHeight: {
           1: 'var(--line-height-1)',
