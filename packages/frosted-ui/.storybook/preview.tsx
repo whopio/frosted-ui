@@ -21,10 +21,24 @@ export const withTheme: Decorator = (Story, context) => {
   }[theme];
 
   return (
-    <Theme accentColor="iris" grayColor={grayColor}>
-      <Story />
-      {/* <ThemePanel /> */}
-    </Theme>
+    <>
+      <style>
+        {`
+.frosted-ui {
+  --default-font-family: Inter, sans-serif;
+}
+@supports (font-variation-settings: normal) {
+  .frosted-ui {
+    --default-font-family: InterVariable, sans-serif;
+  }
+}
+`}
+      </style>
+      <Theme accentColor="iris" grayColor={grayColor}>
+        <Story />
+        {/* <ThemePanel /> */}
+      </Theme>
+    </>
   );
 };
 

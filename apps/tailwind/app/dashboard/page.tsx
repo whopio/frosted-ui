@@ -51,7 +51,12 @@ import {
   ThemePanel,
 } from 'frosted-ui';
 // import { HideCursor } from './hide-cursor';
-
+/* Inter variable setup */
+import localFont from 'next/font/local';
+const interVariable = localFont({
+  src: '../../fonts/InterVariable.woff2',
+  variable: '--inter-variable',
+});
 const SidebarButton = ({ children }: { children: React.ReactNode }) => {
   return (
     <button
@@ -203,7 +208,8 @@ const WhopSVG = () => {
 
 export default function Dashboard() {
   return (
-    <html lang="en" suppressHydrationWarning>
+    /* Inter variable setup */
+    <html lang="en" suppressHydrationWarning className={interVariable.variable}>
       <body>
         {/* <NextThemeProvider> */}
         <Theme asChild appearance="dark" grayColor="gray" accentColor="iris">
@@ -400,7 +406,14 @@ export default function Dashboard() {
                 <Flex pb="7" direction="row" align="center" justify="between">
                   <Box>
                     <Flex direction="column" gap="2">
-                      <Heading size="8">Choose what you're selling</Heading>
+                      <Heading
+                        size="8"
+                        style={{
+                          fontFeatureSettings: `'liga' 1, 'calt' 1`,
+                        }}
+                      >
+                        {"Choose what you're selling ->"}
+                      </Heading>
                       <Text color="gray">Choose what you're selling</Text>
                     </Flex>
                   </Box>
