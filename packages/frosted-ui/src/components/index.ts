@@ -11,8 +11,6 @@ export { Grid } from './grid';
 export * from './grid.props';
 export { Inset } from './inset';
 export * from './inset.props';
-export { Section } from './section';
-export * from './section.props';
 
 // TYPOGRAPHY
 //------------------------------------------------------------------------------
@@ -41,6 +39,7 @@ export * from './progress.props';
 export { RadioGroup, RadioGroupItem, RadioGroupRoot } from './radio-group';
 export * from './radio-group.props';
 // export * from './radio-card-group';
+export { Shine } from './lab/shine';
 export {
   Select,
   SelectContent,

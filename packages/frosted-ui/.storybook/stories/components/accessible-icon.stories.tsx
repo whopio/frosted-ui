@@ -36,7 +36,7 @@ export const Default: Story = {
     label: 'Close',
   },
   render: (args) => (
-    <IconButton radius="full" size="4">
+    <IconButton size="4">
       {/* The accessible label for the icon. This label will be visually
       hidden but announced to screen * reader users, similar to `alt`
       text for `img` tags. */}

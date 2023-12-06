@@ -1,18 +1,53 @@
 import { withBreakpoints } from '../breakpoints';
 
-import type { PropDef, GetPropDefTypes } from './prop-def';
+import type { GetPropDefTypes, PropDef } from './prop-def';
 
 // prettier-ignore
 const marginValues = ['auto', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-1', '-2', '-3', '-4', '-5', '-6', '-7', '-8', '-9'] as const;
 
 const marginPropDefs = {
-  m: { type: 'enum', values: marginValues, default: undefined, responsive: true },
-  mx: { type: 'enum', values: marginValues, default: undefined, responsive: true },
-  my: { type: 'enum', values: marginValues, default: undefined, responsive: true },
-  mt: { type: 'enum', values: marginValues, default: undefined, responsive: true },
-  mr: { type: 'enum', values: marginValues, default: undefined, responsive: true },
-  mb: { type: 'enum', values: marginValues, default: undefined, responsive: true },
-  ml: { type: 'enum', values: marginValues, default: undefined, responsive: true },
+  m: {
+    type: 'enum',
+    values: marginValues,
+    default: undefined,
+    responsive: true,
+  },
+  mx: {
+    type: 'enum',
+    values: marginValues,
+    default: undefined,
+    responsive: true,
+  },
+  my: {
+    type: 'enum',
+    values: marginValues,
+    default: undefined,
+    responsive: true,
+  },
+  mt: {
+    type: 'enum',
+    values: marginValues,
+    default: undefined,
+    responsive: true,
+  },
+  mr: {
+    type: 'enum',
+    values: marginValues,
+    default: undefined,
+    responsive: true,
+  },
+  mb: {
+    type: 'enum',
+    values: marginValues,
+    default: undefined,
+    responsive: true,
+  },
+  ml: {
+    type: 'enum',
+    values: marginValues,
+    default: undefined,
+    responsive: true,
+  },
 } satisfies {
   m: PropDef<(typeof marginValues)[number]>;
   mx: PropDef<(typeof marginValues)[number]>;
@@ -41,17 +76,17 @@ function extractMarginProps<T extends MarginProps>(props: T) {
 
 function withMarginProps(props: MarginProps) {
   return [
-    withBreakpoints(props.m, 'rt-r-m'),
-    withBreakpoints(props.mx, 'rt-r-mx'),
-    withBreakpoints(props.my, 'rt-r-my'),
-    withBreakpoints(props.mt, 'rt-r-mt'),
-    withBreakpoints(props.mr, 'rt-r-mr'),
-    withBreakpoints(props.mb, 'rt-r-mb'),
-    withBreakpoints(props.ml, 'rt-r-ml'),
+    withBreakpoints(props.m, 'fui-r-m'),
+    withBreakpoints(props.mx, 'fui-r-mx'),
+    withBreakpoints(props.my, 'fui-r-my'),
+    withBreakpoints(props.mt, 'fui-r-mt'),
+    withBreakpoints(props.mr, 'fui-r-mr'),
+    withBreakpoints(props.mb, 'fui-r-mb'),
+    withBreakpoints(props.ml, 'fui-r-ml'),
   ]
     .filter(Boolean)
     .join(' ');
 }
 
-export { marginPropDefs, extractMarginProps, withMarginProps };
+export { extractMarginProps, marginPropDefs, withMarginProps };
 export type { MarginProps };

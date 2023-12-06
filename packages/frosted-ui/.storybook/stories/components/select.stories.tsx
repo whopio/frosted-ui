@@ -173,36 +173,6 @@ export const Placeholder: Story = {
   ),
 };
 
-export const Radius: Story = {
-  render: (args) => (
-    <Flex gap="3">
-      <Select.Root {...args} defaultValue="apple">
-        <Select.Trigger radius="none" />
-        <Select.Content>
-          <Select.Item value="apple">Apple</Select.Item>
-          <Select.Item value="orange">Orange</Select.Item>
-        </Select.Content>
-      </Select.Root>
-
-      <Select.Root {...args} defaultValue="apple">
-        <Select.Trigger radius="large" />
-        <Select.Content>
-          <Select.Item value="apple">Apple</Select.Item>
-          <Select.Item value="orange">Orange</Select.Item>
-        </Select.Content>
-      </Select.Root>
-
-      <Select.Root {...args} defaultValue="apple">
-        <Select.Trigger radius="full" />
-        <Select.Content>
-          <Select.Item value="apple">Apple</Select.Item>
-          <Select.Item value="orange">Orange</Select.Item>
-        </Select.Content>
-      </Select.Root>
-    </Flex>
-  ),
-};
-
 export const HighContrast: Story = {
   name: 'High Contrast',
   render: (args) => (

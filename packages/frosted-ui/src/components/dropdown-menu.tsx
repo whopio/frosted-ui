@@ -82,19 +82,19 @@ const DropdownMenuContent = React.forwardRef<
           {...contentProps}
           ref={forwardedRef}
           className={classNames(
-            'rt-PopperContent',
-            'rt-BaseMenuContent',
-            'rt-DropdownMenuContent',
+            'fui-PopperContent',
+            'fui-BaseMenuContent',
+            'fui-DropdownMenuContent',
             className,
-            withBreakpoints(size, 'rt-r-size'),
-            { 'rt-high-contrast': highContrast },
+            withBreakpoints(size, 'fui-r-size'),
+            { 'fui-high-contrast': highContrast },
           )}
         >
           <ScrollArea type="auto">
             <div
               className={classNames(
-                'rt-BaseMenuViewport',
-                'rt-DropdownMenuViewport',
+                'fui-BaseMenuViewport',
+                'fui-DropdownMenuViewport',
               )}
             >
               <DropdownMenuContentContext.Provider
@@ -127,8 +127,8 @@ const DropdownMenuLabel = React.forwardRef<
     {...props}
     ref={forwardedRef}
     className={classNames(
-      'rt-BaseMenuLabel',
-      'rt-DropdownMenuLabel',
+      'fui-BaseMenuLabel',
+      'fui-DropdownMenuLabel',
       props.className,
     )}
   />
@@ -161,15 +161,15 @@ const DropdownMenuItem = React.forwardRef<
       {...itemProps}
       ref={forwardedRef}
       className={classNames(
-        'rt-reset',
-        'rt-BaseMenuItem',
-        'rt-DropdownMenuItem',
+        'fui-reset',
+        'fui-BaseMenuItem',
+        'fui-DropdownMenuItem',
         className,
       )}
     >
       <Slottable>{children}</Slottable>
       {shortcut && (
-        <div className="rt-BaseMenuShortcut rt-DropdownMenuShortcut">
+        <div className="fui-BaseMenuShortcut fui-DropdownMenuShortcut">
           {shortcut}
         </div>
       )}
@@ -191,8 +191,8 @@ const DropdownMenuGroup = React.forwardRef<
     {...props}
     ref={forwardedRef}
     className={classNames(
-      'rt-BaseMenuGroup',
-      'rt-DropdownMenuGroup',
+      'fui-BaseMenuGroup',
+      'fui-DropdownMenuGroup',
       props.className,
     )}
   />
@@ -214,8 +214,8 @@ const DropdownMenuRadioGroup = React.forwardRef<
     {...props}
     ref={forwardedRef}
     className={classNames(
-      'rt-BaseMenuRadioGroup',
-      'rt-DropdownMenuRadioGroup',
+      'fui-BaseMenuRadioGroup',
+      'fui-DropdownMenuRadioGroup',
       props.className,
     )}
   />
@@ -239,16 +239,16 @@ const DropdownMenuRadioItem = React.forwardRef<
       {...itemProps}
       ref={forwardedRef}
       className={classNames(
-        'rt-BaseMenuItem',
-        'rt-BaseMenuRadioItem',
-        'rt-DropdownMenuItem',
-        'rt-DropdownMenuRadioItem',
+        'fui-BaseMenuItem',
+        'fui-BaseMenuRadioItem',
+        'fui-DropdownMenuItem',
+        'fui-DropdownMenuRadioItem',
         className,
       )}
     >
       <Slottable>{children}</Slottable>
-      <DropdownMenuPrimitive.ItemIndicator className="rt-BaseMenuItemIndicator rt-DropdownMenuItemIndicator">
-        <ThickCheckIcon className="rt-BaseMenuItemIndicatorIcon rt-DropdownMenuItemIndicatorIcon" />
+      <DropdownMenuPrimitive.ItemIndicator className="fui-BaseMenuItemIndicator fui-DropdownMenuItemIndicator">
+        <ThickCheckIcon className="fui-BaseMenuItemIndicatorIcon fui-DropdownMenuItemIndicatorIcon" />
       </DropdownMenuPrimitive.ItemIndicator>
     </DropdownMenuPrimitive.RadioItem>
   );
@@ -276,19 +276,19 @@ const DropdownMenuCheckboxItem = React.forwardRef<
       {...itemProps}
       ref={forwardedRef}
       className={classNames(
-        'rt-BaseMenuItem',
-        'rt-BaseMenuCheckboxItem',
-        'rt-DropdownMenuItem',
-        'rt-DropdownMenuCheckboxItem',
+        'fui-BaseMenuItem',
+        'fui-BaseMenuCheckboxItem',
+        'fui-DropdownMenuItem',
+        'fui-DropdownMenuCheckboxItem',
         className,
       )}
     >
       <Slottable>{children}</Slottable>
-      <DropdownMenuPrimitive.ItemIndicator className="rt-BaseMenuItemIndicator rt-DropdownMenuItemIndicator">
-        <ThickCheckIcon className="rt-BaseMenuItemIndicatorIcon rt-ContextMenuItemIndicatorIcon" />
+      <DropdownMenuPrimitive.ItemIndicator className="fui-BaseMenuItemIndicator fui-DropdownMenuItemIndicator">
+        <ThickCheckIcon className="fui-BaseMenuItemIndicatorIcon fui-ContextMenuItemIndicatorIcon" />
       </DropdownMenuPrimitive.ItemIndicator>
       {shortcut && (
-        <div className="rt-BaseMenuShortcut rt-DropdownMenuShortcut">
+        <div className="fui-BaseMenuShortcut fui-DropdownMenuShortcut">
           {shortcut}
         </div>
       )}
@@ -321,16 +321,16 @@ const DropdownMenuSubTrigger = React.forwardRef<
       {...subTriggerProps}
       ref={forwardedRef}
       className={classNames(
-        'rt-BaseMenuItem',
-        'rt-BaseMenuSubTrigger',
-        'rt-DropdownMenuItem',
-        'rt-DropdownMenuSubTrigger',
+        'fui-BaseMenuItem',
+        'fui-BaseMenuSubTrigger',
+        'fui-DropdownMenuItem',
+        'fui-DropdownMenuSubTrigger',
         className,
       )}
     >
       <Slottable>{children}</Slottable>
-      <div className="rt-BaseMenuShortcut rt-DropdownMenuShortcut">
-        <ThickChevronRightIcon className="rt-BaseMenuSubTriggerIcon rt-DropdownMenuSubtriggerIcon" />
+      <div className="fui-BaseMenuShortcut fui-DropdownMenuShortcut">
+        <ThickChevronRightIcon className="fui-BaseMenuSubTriggerIcon fui-DropdownMenuSubtriggerIcon" />
       </div>
     </DropdownMenuPrimitive.SubTrigger>
   );
@@ -369,21 +369,21 @@ const DropdownMenuSubContent = React.forwardRef<
           {...subContentProps}
           ref={forwardedRef}
           className={classNames(
-            'rt-PopperContent',
-            'rt-BaseMenuContent',
-            'rt-BaseMenuSubContent',
-            'rt-DropdownMenuContent',
-            'rt-DropdownMenuSubContent',
+            'fui-PopperContent',
+            'fui-BaseMenuContent',
+            'fui-BaseMenuSubContent',
+            'fui-DropdownMenuContent',
+            'fui-DropdownMenuSubContent',
             className,
-            withBreakpoints(size, 'rt-r-size'),
-            { 'rt-high-contrast': highContrast },
+            withBreakpoints(size, 'fui-r-size'),
+            { 'fui-high-contrast': highContrast },
           )}
         >
           <ScrollArea type="auto">
             <div
               className={classNames(
-                'rt-BaseMenuViewport',
-                'rt-DropdownMenuViewport',
+                'fui-BaseMenuViewport',
+                'fui-DropdownMenuViewport',
               )}
             >
               {children}
@@ -411,8 +411,8 @@ const DropdownMenuSeparator = React.forwardRef<
     {...props}
     ref={forwardedRef}
     className={classNames(
-      'rt-BaseMenuSeparator',
-      'rt-DropdownMenuSeparator',
+      'fui-BaseMenuSeparator',
+      'fui-DropdownMenuSeparator',
       props.className,
     )}
   />

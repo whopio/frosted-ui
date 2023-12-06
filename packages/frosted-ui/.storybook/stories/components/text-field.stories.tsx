@@ -45,7 +45,6 @@ const meta = {
     size: textFieldPropDefs.size.default,
     variant: textFieldPropDefs.variant.default,
     color: textFieldPropDefs.color.default,
-    radius: textFieldPropDefs.radius.default,
   },
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
@@ -152,19 +151,6 @@ export const Color: Story = {
         placeholder="Search the docs…"
         color="red"
       />
-    </Flex>
-  ),
-};
-export const Radius: Story = {
-  render: ({ ref, ...args }) => (
-    <Flex direction="column" gap="3" style={{ maxWidth: 400 }}>
-      <TextField.Input placeholder="Search the docs…" {...args} radius="none" />
-      <TextField.Input
-        placeholder="Search the docs…"
-        {...args}
-        radius="large"
-      />
-      <TextField.Input placeholder="Search the docs…" {...args} radius="full" />
     </Flex>
   ),
 };

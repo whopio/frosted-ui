@@ -1,20 +1,19 @@
 import { SunIcon } from '@radix-ui/react-icons';
 import {
-    Button,
-    Card,
-    Container,
-    Flex,
-    Grid,
-    IconButton,
-    Section,
-    SelectContent,
-    SelectItem,
-    SelectRoot,
-    SelectTrigger,
-    Text,
-    TextArea,
-    TextFieldInput,
-    Theme,
+  Button,
+  Card,
+  Container,
+  Flex,
+  Grid,
+  IconButton,
+  SelectContent,
+  SelectItem,
+  SelectRoot,
+  SelectTrigger,
+  Text,
+  TextArea,
+  TextFieldInput,
+  Theme,
 } from 'frosted-ui';
 import { NextThemeProvider } from '../next-theme-provider';
 
@@ -26,7 +25,7 @@ export default function Test() {
           <Theme asChild>
             <div id="root">
               <Container px="8">
-                <Section size="3">
+                <div style={{ padding: '80px 0' }}>
                   <Card
                     size={{ initial: '3', sm: '4', lg: '5' }}
                     style={{ maxWidth: 500 }}
@@ -98,9 +97,9 @@ export default function Test() {
                       </Grid>
                     </Flex>
                   </Card>
-                </Section>
+                </div>
 
-                <Section size="3">
+                <div style={{ padding: '80px 0' }}>
                   <Flex align="center" gap={{ initial: '3', sm: '4', lg: '5' }}>
                     <IconButton
                       variant="ghost"
@@ -118,7 +117,7 @@ export default function Test() {
                       Change theme
                     </Button>
                   </Flex>
-                </Section>
+                </div>
               </Container>
             </div>
           </Theme>

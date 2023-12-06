@@ -4,6 +4,5 @@ export * from './layout.props';
 export * from './leading-trim.prop';
 export * from './margin.props';
 export * from './prop-def';
-export * from './radius.prop';
 export * from './text-align.prop';
 export * from './weight.prop';

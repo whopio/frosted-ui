@@ -1,22 +1,21 @@
 import {
-    ChatBubbleIcon,
-    DotsHorizontalIcon,
-    FileTextIcon,
-    QuestionMarkCircledIcon,
-    SunIcon,
+  ChatBubbleIcon,
+  DotsHorizontalIcon,
+  FileTextIcon,
+  QuestionMarkCircledIcon,
+  SunIcon,
 } from '@radix-ui/react-icons';
 import {
-    Button,
-    Container,
-    Flex,
-    Grid,
-    IconButton,
-    Link,
-    PopoverContent,
-    PopoverRoot,
-    PopoverTrigger,
-    Section,
-    Theme,
+  Button,
+  Container,
+  Flex,
+  Grid,
+  IconButton,
+  Link,
+  PopoverContent,
+  PopoverRoot,
+  PopoverTrigger,
+  Theme,
 } from 'frosted-ui';
 
 export default function Ghost() {
@@ -28,7 +27,13 @@ export default function Ghost() {
             <Container>
               <Grid columns="2">
                 {(['row', 'column'] as const).map((direction) => (
-                  <Section key={direction}>
+                  <div
+                    key={direction}
+                    style={{
+                      paddingTop: 'var(--space-5)',
+                      paddingBottom: 'var(--space-5)',
+                    }}
+                  >
                     <Flex
                       direction={direction === 'row' ? 'column' : 'row'}
                       gap="7"
@@ -46,7 +51,7 @@ export default function Ghost() {
                         </Button>
                         <Button size="1">Save</Button>
                         <Button size="1">Delete</Button>
-                        <IconButton variant="ghost" size="1" radius="full">
+                        <IconButton variant="ghost" size="1">
                           <SunIcon />
                         </IconButton>
                       </Flex>
@@ -64,7 +69,7 @@ export default function Ghost() {
                         </Button>
                         <Button size="2">Save</Button>
                         <Button size="2">Delete</Button>
-                        <IconButton variant="ghost" size="2" radius="full">
+                        <IconButton variant="ghost" size="2">
                           <SunIcon />
                         </IconButton>
                       </Flex>
@@ -82,7 +87,7 @@ export default function Ghost() {
                         </Button>
                         <Button size="3">Save</Button>
                         <Button size="3">Delete</Button>
-                        <IconButton variant="ghost" size="3" radius="full">
+                        <IconButton variant="ghost" size="3">
                           <SunIcon />
                         </IconButton>
                       </Flex>
@@ -106,7 +111,7 @@ export default function Ghost() {
                             Docs
                           </Link>
                         </Flex>
-                        <IconButton variant="ghost" size="2" radius="full">
+                        <IconButton variant="ghost" size="2">
                           <SunIcon />
                         </IconButton>
                       </Flex>
@@ -139,7 +144,7 @@ export default function Ghost() {
                         </PopoverRoot>
                       </Flex>
                     </Flex>
-                  </Section>
+                  </div>
                 ))}
               </Grid>
 

@@ -16,11 +16,10 @@ interface ThemeChangeHandlers {
   onAppearanceChange: (appearance: ThemeOptions['appearance']) => void;
   onAccentColorChange: (accentColor: ThemeOptions['accentColor']) => void;
   onGrayColorChange: (grayColor: ThemeOptions['grayColor']) => void;
-  onPanelBackgroundChange: (
-    panelBackground: ThemeOptions['panelBackground'],
-  ) => void;
-  onRadiusChange: (radius: ThemeOptions['radius']) => void;
-  onScalingChange: (scaling: ThemeOptions['scaling']) => void;
+  onInfoColorChange: (infoColor: ThemeOptions['infoColor']) => void;
+  onWarningColorChange: (warningColor: ThemeOptions['warningColor']) => void;
+  onSuccessColorChange: (successColor: ThemeOptions['successColor']) => void;
+  onDangerColorChange: (dangerColor: ThemeOptions['dangerColor']) => void;
 }
 
 interface ThemeContextValue extends ThemeOptions, ThemeChangeHandlers {
@@ -64,10 +63,10 @@ const ThemeRoot = React.forwardRef<ThemeImplElement, ThemeRootProps>(
       appearance: appearanceProp = themePropDefs.appearance.default,
       accentColor: accentColorProp = themePropDefs.accentColor.default,
       grayColor: grayColorProp = themePropDefs.grayColor.default,
-      panelBackground: panelBackgroundProp = themePropDefs.panelBackground
-        .default,
-      radius: radiusProp = themePropDefs.radius.default,
-      scaling: scalingProp = themePropDefs.scaling.default,
+      infoColor: infoColorProp = themePropDefs.infoColor.default,
+      successColor: successColorProp = themePropDefs.successColor.default,
+      warningColor: warningColorProp = themePropDefs.warningColor.default,
+      dangerColor: dangerColorProp = themePropDefs.dangerColor.default,
       hasBackground = themePropDefs.hasBackground.default,
       ...rootProps
     } = props;
@@ -80,18 +79,23 @@ const ThemeRoot = React.forwardRef<ThemeImplElement, ThemeRootProps>(
     const [grayColor, setGrayColor] = React.useState(grayColorProp);
     React.useEffect(() => setGrayColor(grayColorProp), [grayColorProp]);
 
-    const [panelBackground, setPanelBackground] =
-      React.useState(panelBackgroundProp);
+    const [infoColor, setInfoColor] = React.useState(infoColorProp);
+    React.useEffect(() => setInfoColor(infoColorProp), [infoColorProp]);
+
+    const [successColor, setSuccessColor] = React.useState(successColorProp);
     React.useEffect(
-      () => setPanelBackground(panelBackgroundProp),
-      [panelBackgroundProp],
+      () => setSuccessColor(successColorProp),
+      [successColorProp],
     );
 
-    const [radius, setRadius] = React.useState(radiusProp);
-    React.useEffect(() => setRadius(radiusProp), [radiusProp]);
+    const [warningColor, setWarningColor] = React.useState(warningColorProp);
+    React.useEffect(
+      () => setWarningColor(warningColorProp),
+      [warningColorProp],
+    );
 
-    const [scaling, setScaling] = React.useState(scalingProp);
-    React.useEffect(() => setScaling(scalingProp), [scalingProp]);
+    const [dangerColor, setDangerColor] = React.useState(dangerColorProp);
+    React.useEffect(() => setDangerColor(dangerColorProp), [dangerColorProp]);
 
     // Initial appearance on page load when `appearance` is explicitly set to `light` or `dark`
     const ExplicitRootAppearanceScript = React.memo(
@@ -146,16 +150,18 @@ body { background-color: var(--color-page-background); }
           appearance={appearance}
           accentColor={accentColor}
           grayColor={grayColor}
-          panelBackground={panelBackground}
-          radius={radius}
-          scaling={scaling}
+          infoColor={infoColor}
+          successColor={successColor}
+          warningColor={warningColor}
+          dangerColor={dangerColor}
           //
           onAppearanceChange={setAppearance}
           onAccentColorChange={setAccentColor}
           onGrayColorChange={setGrayColor}
-          onPanelBackgroundChange={setPanelBackground}
-          onRadiusChange={setRadius}
-          onScalingChange={setScaling}
+          onInfoColorChange={setInfoColor}
+          onSuccessColorChange={setSuccessColor}
+          onWarningColorChange={setWarningColor}
+          onDangerColorChange={setDangerColor}
         />
       </>
     );
@@ -190,18 +196,14 @@ const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
       successColor = context?.successColor ??
         themePropDefs.successColor.default,
       infoColor = context?.infoColor ?? themePropDefs.infoColor.default,
-
-      panelBackground = context?.panelBackground ??
-        themePropDefs.panelBackground.default,
-      radius = context?.radius ?? themePropDefs.radius.default,
-      scaling = context?.scaling ?? themePropDefs.scaling.default,
       //
       onAppearanceChange = noop,
       onAccentColorChange = noop,
       onGrayColorChange = noop,
-      onPanelBackgroundChange = noop,
-      onRadiusChange = noop,
-      onScalingChange = noop,
+      onInfoColorChange = noop,
+      onSuccessColorChange = noop,
+      onWarningColorChange = noop,
+      onDangerColorChange = noop,
       //
       ...themeProps
     } = props;
@@ -228,16 +230,14 @@ const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
             infoColor,
             grayColor,
             resolvedGrayColor,
-            panelBackground,
-            radius,
-            scaling,
             //
             onAppearanceChange,
             onAccentColorChange,
             onGrayColorChange,
-            onPanelBackgroundChange,
-            onRadiusChange,
-            onScalingChange,
+            onInfoColorChange,
+            onSuccessColorChange,
+            onWarningColorChange,
+            onDangerColorChange,
           }),
           [
             appearance,
@@ -248,16 +248,14 @@ const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
             infoColor,
             grayColor,
             resolvedGrayColor,
-            panelBackground,
-            radius,
-            scaling,
             //
             onAppearanceChange,
             onAccentColorChange,
             onGrayColorChange,
-            onPanelBackgroundChange,
-            onRadiusChange,
-            onScalingChange,
+            onInfoColorChange,
+            onSuccessColorChange,
+            onWarningColorChange,
+            onDangerColorChange,
           ],
         )}
       >
@@ -271,13 +269,10 @@ const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
           data-gray-color={resolvedGrayColor}
           // for nested `Theme` background
           data-has-background={shouldHaveBackground ? 'true' : 'false'}
-          data-panel-background={panelBackground}
-          data-radius={radius}
-          data-scaling={scaling}
           ref={forwardedRef}
           {...themeProps}
           className={classNames(
-            'radix-themes',
+            'frosted-ui',
             {
               // Only apply theme class to nested `Theme` sections.
               //

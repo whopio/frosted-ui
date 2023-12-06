@@ -1,26 +1,26 @@
 import { Pencil1Icon } from '@radix-ui/react-icons';
 import {
-    //
-    Avatar,
-    Button,
-    DialogClose,
-    DialogContent,
-    DialogDescription,
-    DialogRoot,
-    DialogTitle,
-    DialogTrigger,
-    Flex,
-    IconButton,
-    SelectContent,
-    SelectItem,
-    SelectRoot,
-    SelectTrigger,
-    Separator,
-    Text,
-    TextFieldInput,
-    Theme,
-    //
-    ThemePanel,
+  //
+  Avatar,
+  Button,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogRoot,
+  DialogTitle,
+  DialogTrigger,
+  Flex,
+  IconButton,
+  SelectContent,
+  SelectItem,
+  SelectRoot,
+  SelectTrigger,
+  Separator,
+  Text,
+  TextFieldInput,
+  Theme,
+  //
+  ThemePanel,
 } from 'frosted-ui';
 import * as React from 'react';
 import styles from './page.module.css';
@@ -30,13 +30,7 @@ export default function Demo() {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={styles.body}>
-        <Theme
-          asChild
-          appearance="dark"
-          accentColor="mint"
-          radius="large"
-          scaling="110%"
-        >
+        <Theme asChild appearance="dark" accentColor="mint">
           <div id="root">
             <ThemePanel />
 
@@ -44,11 +38,7 @@ export default function Demo() {
               <React.Fragment key={user.id}>
                 <Flex align="center" justify="between">
                   <Flex align="center" gap="3">
-                    <Avatar
-                      src={user.image}
-                      fallback={user.name[0]}
-                      radius="full"
-                    />
+                    <Avatar src={user.image} fallback={user.name[0]} />
                     <Flex direction="column">
                       <Text size="2">{user.name}</Text>
                       <Text size="1" color="gray">

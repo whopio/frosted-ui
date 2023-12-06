@@ -1,24 +1,24 @@
 'use client';
 
 import {
-    ChevronDownIcon,
-    GridIcon,
-    HamburgerMenuIcon,
-    MinusIcon,
-    PlusIcon,
+  ChevronDownIcon,
+  GridIcon,
+  HamburgerMenuIcon,
+  MinusIcon,
+  PlusIcon,
 } from '@radix-ui/react-icons';
 import {
-    Button,
-    Dialog,
-    DropdownMenu,
-    IconButton,
-    Link,
-    Popover,
-    Separator,
-    Text,
-    Theme,
-    //
-    ThemePanel,
+  Button,
+  Dialog,
+  DropdownMenu,
+  IconButton,
+  Link,
+  Popover,
+  Separator,
+  Text,
+  Theme,
+  //
+  ThemePanel,
 } from 'frosted-ui';
 import * as React from 'react';
 import styles from './page.module.css';
@@ -33,7 +33,7 @@ export default function HomeOS() {
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <Theme asChild accentColor="orange" radius="large">
+        <Theme asChild accentColor="orange">
           <div id="root">
             <ThemePanel />
 
@@ -636,7 +636,6 @@ const GuestSelectorItem: React.FC<{
         <IconButton
           disabled={value === 0}
           size="1"
-          radius="full"
           onClick={() => onValueChange(value - 1)}
         >
           <MinusIcon />
@@ -650,11 +649,7 @@ const GuestSelectorItem: React.FC<{
           {value}
         </Text>
 
-        <IconButton
-          size="1"
-          radius="full"
-          onClick={() => onValueChange(value + 1)}
-        >
+        <IconButton size="1" onClick={() => onValueChange(value + 1)}>
           <PlusIcon />
         </IconButton>
       </div>

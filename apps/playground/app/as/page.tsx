@@ -2,7 +2,7 @@ import { Button, Flex, Heading, Link, Text, Theme } from 'frosted-ui';
 
 export default function As() {
   return (
-    <Theme asChild accentColor="purple" radius="full">
+    <Theme asChild accentColor="purple">
       <html lang="en">
         <body>
           <div id="root">

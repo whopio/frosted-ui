@@ -45,7 +45,6 @@ export const Default: Story = {
     size: buttonPropDefs.size.default,
     variant: buttonPropDefs.variant.default,
     color: buttonPropDefs.color.default,
-    radius: buttonPropDefs.radius.default,
   },
 };
 
@@ -121,22 +120,6 @@ export const HighContrast: Story = {
         <IconButton {...args} variant="soft" highContrast />
         <IconButton {...args} variant="surface" highContrast />
       </Flex>
-    </Flex>
-  ),
-};
-
-export const Radius: Story = {
-  args: {
-    children: <ExampleIcon size={16} />,
-    size: buttonPropDefs.size.default,
-  },
-  render: (args) => (
-    <Flex align="center" gap="2">
-      <IconButton {...args} radius="none" />
-      <IconButton {...args} radius="small" />
-      <IconButton {...args} radius="medium" />
-      <IconButton {...args} radius="large" />
-      <IconButton {...args} radius="full" />
     </Flex>
   ),
 };

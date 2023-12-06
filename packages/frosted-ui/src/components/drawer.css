@@ -1,4 +1,4 @@
-.rt-DrawerContent {
+.fui-DrawerContent {
   position: fixed;
   top: 0;
   right: 0;
@@ -15,7 +15,7 @@
   background-color: var(--color-panel-solid);
 }
 
-.rt-DrawerContent::before {
+.fui-DrawerContent::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -23,12 +23,12 @@
   box-shadow: var(--shadow-5);
 }
 
-.rt-DrawerHeader {
+.fui-DrawerHeader {
   flex-shrink: 0;
   --inset-padding: var(--drawer-content-padding);
   padding: var(--inset-padding);
 }
-.rt-BodyScrollArea {
+.fui-BodyScrollArea {
   flex-shrink: 0;
   flex: 1;
   overflow-y: auto;
@@ -36,17 +36,17 @@
   flex-grow: 1;
 }
 
-.rt-BodyScrollArea:has([data-is-scrollable='true']) {
+.fui-BodyScrollArea:has([data-is-scrollable='true']) {
   border-bottom: 1px solid var(--gray-6);
   border-top: 1px solid var(--gray-6);
 }
 
-.rt-DrawerBody {
+.fui-DrawerBody {
   --inset-padding: var(--drawer-content-padding);
   padding: var(--inset-padding);
 }
 
-.rt-DrawerStickyFooter {
+.fui-DrawerStickyFooter {
   flex-shrink: 0;
   --inset-padding: var(--drawer-content-padding);
   padding: var(--inset-padding);
@@ -59,24 +59,24 @@
  ***************************************************************************************************/
 
 @breakpoints {
-  .rt-DrawerContent {
-    &:where(.rt-r-size-1) {
+  .fui-DrawerContent {
+    &:where(.fui-r-size-1) {
       --drawer-content-padding: var(--space-3);
     }
-    &:where(.rt-r-size-2) {
+    &:where(.fui-r-size-2) {
       --drawer-content-padding: var(--space-4);
     }
-    &:where(.rt-r-size-3) {
+    &:where(.fui-r-size-3) {
       --drawer-content-padding: var(--space-5);
     }
-    &:where(.rt-r-size-4) {
+    &:where(.fui-r-size-4) {
       --drawer-content-padding: var(--space-6);
     }
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  @keyframes rt-drawer-content-show {
+  @keyframes fui-drawer-content-show {
     from {
       transform: translateX(100%);
     }
@@ -85,7 +85,7 @@
     }
   }
 
-  @keyframes rt-drawer-content-hide {
+  @keyframes fui-drawer-content-hide {
     from {
       transform: translateX(0%);
     }
@@ -94,7 +94,7 @@
     }
   }
 
-  @keyframes rt-drawer-backdrop-show {
+  @keyframes fui-drawer-backdrop-show {
     from {
       opacity: 0;
     }
@@ -103,7 +103,7 @@
     }
   }
 
-  @keyframes rt-drawer-backdrop-hide {
+  @keyframes fui-drawer-backdrop-hide {
     from {
       opacity: 1;
     }
@@ -112,21 +112,21 @@
     }
   }
 
-  .rt-DrawerContent {
+  .fui-DrawerContent {
     &:where([data-state='open']) {
-      animation: rt-drawer-content-show 400ms cubic-bezier(0.16, 1, 0.3, 1);
+      animation: fui-drawer-content-show 400ms cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     &:where([data-state='closed']) {
-      animation: rt-drawer-content-hide 300ms cubic-bezier(0.16, 1, 0.3, 1);
+      animation: fui-drawer-content-hide 300ms cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     &:where([data-state='open'])::before {
-      animation: rt-drawer-backdrop-show 400ms cubic-bezier(0.16, 1, 0.3, 1);
+      animation: fui-drawer-backdrop-show 400ms cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     &:where([data-state='closed'])::before {
-      animation: rt-drawer-backdrop-hide 300ms cubic-bezier(0.16, 1, 0.3, 1);
+      animation: fui-drawer-backdrop-hide 300ms cubic-bezier(0.16, 1, 0.3, 1);
     }
   }
 }

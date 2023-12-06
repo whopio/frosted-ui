@@ -1,17 +1,63 @@
 import { withBreakpoints } from '../breakpoints';
 
-import type { PropDef, GetPropDefTypes } from './prop-def';
+import type { GetPropDefTypes, PropDef } from './prop-def';
 
-const paddingValues = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
+const paddingValues = [
+  '0',
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+] as const;
 
 const paddingPropDefs = {
-  p: { type: 'enum', values: paddingValues, default: undefined, responsive: true },
-  px: { type: 'enum', values: paddingValues, default: undefined, responsive: true },
-  py: { type: 'enum', values: paddingValues, default: undefined, responsive: true },
-  pt: { type: 'enum', values: paddingValues, default: undefined, responsive: true },
-  pr: { type: 'enum', values: paddingValues, default: undefined, responsive: true },
-  pb: { type: 'enum', values: paddingValues, default: undefined, responsive: true },
-  pl: { type: 'enum', values: paddingValues, default: undefined, responsive: true },
+  p: {
+    type: 'enum',
+    values: paddingValues,
+    default: undefined,
+    responsive: true,
+  },
+  px: {
+    type: 'enum',
+    values: paddingValues,
+    default: undefined,
+    responsive: true,
+  },
+  py: {
+    type: 'enum',
+    values: paddingValues,
+    default: undefined,
+    responsive: true,
+  },
+  pt: {
+    type: 'enum',
+    values: paddingValues,
+    default: undefined,
+    responsive: true,
+  },
+  pr: {
+    type: 'enum',
+    values: paddingValues,
+    default: undefined,
+    responsive: true,
+  },
+  pb: {
+    type: 'enum',
+    values: paddingValues,
+    default: undefined,
+    responsive: true,
+  },
+  pl: {
+    type: 'enum',
+    values: paddingValues,
+    default: undefined,
+    responsive: true,
+  },
 } satisfies {
   p: PropDef<(typeof paddingValues)[number]>;
   px: PropDef<(typeof paddingValues)[number]>;
@@ -40,19 +86,25 @@ function extractPaddingProps<T extends PaddingProps>(props: T) {
 
 function withPaddingProps(props: PaddingProps) {
   return [
-    withBreakpoints(props.p, 'rt-r-p'),
-    withBreakpoints(props.px, 'rt-r-px'),
-    withBreakpoints(props.py, 'rt-r-py'),
-    withBreakpoints(props.pt, 'rt-r-pt'),
-    withBreakpoints(props.pr, 'rt-r-pr'),
-    withBreakpoints(props.pb, 'rt-r-pb'),
-    withBreakpoints(props.pl, 'rt-r-pl'),
+    withBreakpoints(props.p, 'fui-r-p'),
+    withBreakpoints(props.px, 'fui-r-px'),
+    withBreakpoints(props.py, 'fui-r-py'),
+    withBreakpoints(props.pt, 'fui-r-pt'),
+    withBreakpoints(props.pr, 'fui-r-pr'),
+    withBreakpoints(props.pb, 'fui-r-pb'),
+    withBreakpoints(props.pl, 'fui-r-pl'),
   ]
     .filter(Boolean)
     .join(' ');
 }
 
-const positionValues = ['static', 'relative', 'absolute', 'fixed', 'sticky'] as const;
+const positionValues = [
+  'static',
+  'relative',
+  'absolute',
+  'fixed',
+  'sticky',
+] as const;
 const positionEdgeValues = ['auto', '0', '50%', '100%'] as const;
 // prettier-ignore
 const widthHeightValues = ['auto', 'min-content', 'max-content', '100%', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
@@ -61,16 +113,66 @@ const flexGrowValues = ['0', '1'] as const;
 
 const layoutPropDefs = {
   ...paddingPropDefs,
-  position: { type: 'enum', values: positionValues, default: undefined, responsive: true },
-  inset: { type: 'enum', values: positionEdgeValues, default: undefined, responsive: true },
-  top: { type: 'enum', values: positionEdgeValues, default: undefined, responsive: true },
-  right: { type: 'enum', values: positionEdgeValues, default: undefined, responsive: true },
-  bottom: { type: 'enum', values: positionEdgeValues, default: undefined, responsive: true },
-  left: { type: 'enum', values: positionEdgeValues, default: undefined, responsive: true },
-  width: { type: 'enum', values: widthHeightValues, default: undefined, responsive: true },
-  height: { type: 'enum', values: widthHeightValues, default: undefined, responsive: true },
-  shrink: { type: 'enum', values: flexShrinkValues, default: undefined, responsive: true },
-  grow: { type: 'enum', values: flexGrowValues, default: undefined, responsive: true },
+  position: {
+    type: 'enum',
+    values: positionValues,
+    default: undefined,
+    responsive: true,
+  },
+  inset: {
+    type: 'enum',
+    values: positionEdgeValues,
+    default: undefined,
+    responsive: true,
+  },
+  top: {
+    type: 'enum',
+    values: positionEdgeValues,
+    default: undefined,
+    responsive: true,
+  },
+  right: {
+    type: 'enum',
+    values: positionEdgeValues,
+    default: undefined,
+    responsive: true,
+  },
+  bottom: {
+    type: 'enum',
+    values: positionEdgeValues,
+    default: undefined,
+    responsive: true,
+  },
+  left: {
+    type: 'enum',
+    values: positionEdgeValues,
+    default: undefined,
+    responsive: true,
+  },
+  width: {
+    type: 'enum',
+    values: widthHeightValues,
+    default: undefined,
+    responsive: true,
+  },
+  height: {
+    type: 'enum',
+    values: widthHeightValues,
+    default: undefined,
+    responsive: true,
+  },
+  shrink: {
+    type: 'enum',
+    values: flexShrinkValues,
+    default: undefined,
+    responsive: true,
+  },
+  grow: {
+    type: 'enum',
+    values: flexGrowValues,
+    default: undefined,
+    responsive: true,
+  },
 } satisfies {
   p: PropDef<(typeof paddingValues)[number]>;
   px: PropDef<(typeof paddingValues)[number]>;
@@ -127,27 +229,27 @@ function extractLayoutProps<T extends LayoutProps>(props: T) {
 function withLayoutProps(props: LayoutProps) {
   return [
     withPaddingProps(props),
-    withBreakpoints(props.position, 'rt-r-position'),
-    withBreakpoints(props.shrink, 'rt-r-fs'),
-    withBreakpoints(props.grow, 'rt-r-fg'),
-    withBreakpoints(props.width, 'rt-r-w'),
-    withBreakpoints(props.height, 'rt-r-h'),
-    withBreakpoints(props.inset, 'rt-r-inset'),
-    withBreakpoints(props.top, 'rt-r-top'),
-    withBreakpoints(props.bottom, 'rt-r-bottom'),
-    withBreakpoints(props.left, 'rt-r-left'),
-    withBreakpoints(props.right, 'rt-r-right'),
+    withBreakpoints(props.position, 'fui-r-position'),
+    withBreakpoints(props.shrink, 'fui-r-fs'),
+    withBreakpoints(props.grow, 'fui-r-fg'),
+    withBreakpoints(props.width, 'fui-r-w'),
+    withBreakpoints(props.height, 'fui-r-h'),
+    withBreakpoints(props.inset, 'fui-r-inset'),
+    withBreakpoints(props.top, 'fui-r-top'),
+    withBreakpoints(props.bottom, 'fui-r-bottom'),
+    withBreakpoints(props.left, 'fui-r-left'),
+    withBreakpoints(props.right, 'fui-r-right'),
   ]
     .filter(Boolean)
     .join(' ');
 }
 
 export {
-  paddingPropDefs,
-  extractPaddingProps,
-  withPaddingProps,
-  layoutPropDefs,
   extractLayoutProps,
+  extractPaddingProps,
+  layoutPropDefs,
+  paddingPropDefs,
   withLayoutProps,
+  withPaddingProps,
 };
-export type { PaddingProps, LayoutProps };
+export type { LayoutProps, PaddingProps };

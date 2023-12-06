@@ -1,4 +1,4 @@
-.rt-Link {
+.fui-Link {
   cursor: var(--cursor-link);
   color: var(--accent-a11);
   border-radius: calc(0.07em * var(--radius-factor));
@@ -10,10 +10,10 @@
     outline-offset: 2px;
   }
 
-  &:where(.rt-high-contrast),
-  :where(.rt-CalloutRoot:not(.rt-high-contrast)) &,
-  :where(.rt-Text, .rt-Heading):where(
-      [data-accent-color]:not(.rt-high-contrast)
+  &:where(.fui-high-contrast),
+  :where(.fui-CalloutRoot:not(.fui-high-contrast)) &,
+  :where(.fui-Text, .fui-Heading):where(
+      [data-accent-color]:not(.fui-high-contrast)
     )
     & {
     color: var(--accent-12);
@@ -26,7 +26,7 @@
  *                                                                                                 *
  ***************************************************************************************************/
 
-.rt-Link {
+.fui-Link {
   text-decoration-line: none;
   text-decoration-style: solid;
   text-decoration-thickness: min(2px, max(1px, 0.05em));
@@ -44,17 +44,17 @@
     }
   }
 
-  &:where(.rt-underline-auto) {
+  &:where(.fui-underline-auto) {
     @media (hover: hover) {
       &:where(:hover) {
         text-decoration-line: underline;
       }
     }
 
-    &:where(.rt-high-contrast),
-    :where(.rt-CalloutRoot:not(.rt-high-contrast)) &,
-    :where(.rt-Text, .rt-Heading):where(
-        [data-accent-color]:not(.rt-high-contrast)
+    &:where(.fui-high-contrast),
+    :where(.fui-CalloutRoot:not(.fui-high-contrast)) &,
+    :where(.fui-Text, .fui-Heading):where(
+        [data-accent-color]:not(.fui-high-contrast)
       )
       & {
       text-decoration-line: underline;
@@ -73,7 +73,7 @@
     }
   }
 
-  &:where(.rt-underline-hover) {
+  &:where(.fui-underline-hover) {
     @media (hover: hover) {
       &:where(:hover) {
         text-decoration-line: underline;
@@ -81,22 +81,22 @@
     }
   }
 
-  &:where(.rt-underline-always) {
+  &:where(.fui-underline-always) {
     text-decoration-line: underline;
   }
 }
 
 /* all focused states underline */
 
-.rt-Link:where(:focus-visible) {
+.fui-Link:where(:focus-visible) {
   text-decoration-line: none;
 }
 
 /* Enhancement – hide underline for when Link's only child is a Code where underline is hard to see */
 /* prettier-ignore */
-.rt-Link:where(:has(.rt-Code:not(.rt-variant-ghost):only-child)) {
+.fui-Link:where(:has(.fui-Code:not(.fui-variant-ghost):only-child)) {
   text-decoration-line: none;
 }
-.rt-Link:where(:has(.rt-Code:only-child)) {
+.fui-Link:where(:has(.fui-Code:only-child)) {
   outline: none;
 }

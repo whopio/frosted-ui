@@ -11,3 +11,20 @@ body {
 * {
   box-sizing: border-box;
 }
+
+/* Inter variable setup */
+.frosted-ui {
+  --default-font-family: var(--inter-variable);
+}
+@supports (font-variation-settings: normal) {
+  .frosted-ui {
+    --default-font-family: var(--inter-variable), sans-serif;
+  }
+}
+/* Inter variable ligatures setup https://rsms.me/inter/download/ */
+/* .frosted-ui {
+  font-feature-settings:
+    'liga' 1,
+    'calt' 1;
+}
+*/

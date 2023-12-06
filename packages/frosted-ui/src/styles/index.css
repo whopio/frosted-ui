@@ -6,7 +6,6 @@
 @import './tokens/semantic-color.css';
 @import './tokens/cursor.css';
 @import './tokens/radius.css';
-@import './tokens/scaling.css';
 @import './tokens/shadow.css';
 @import './tokens/space.css';
 @import './tokens/typography.css';
@@ -43,7 +42,6 @@
 @import '../components/quote.css';
 @import '../components/radio-group.css';
 @import '../components/scroll-area.css';
-@import '../components/section.css';
 @import '../components/segmented-control.css';
 @import '../components/select.css';
 @import '../components/separator.css';

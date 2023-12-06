@@ -1,15 +1,15 @@
-import * as React from 'react';
 import classNames from 'classnames';
-import { containerPropDefs } from './container.props';
+import * as React from 'react';
 import {
-  extractMarginProps,
-  withMarginProps,
   extractLayoutProps,
-  withLayoutProps,
+  extractMarginProps,
   withBreakpoints,
+  withLayoutProps,
+  withMarginProps,
 } from '../helpers';
+import { containerPropDefs } from './container.props';
 
-import type { MarginProps, LayoutProps, GetPropDefTypes } from '../helpers';
+import type { GetPropDefTypes, LayoutProps, MarginProps } from '../helpers';
 
 type ContainerElement = React.ElementRef<'div'>;
 type ContainerOwnProps = GetPropDefTypes<typeof containerPropDefs>;
@@ -18,33 +18,35 @@ interface ContainerProps
     MarginProps,
     LayoutProps,
     ContainerOwnProps {}
-const Container = React.forwardRef<ContainerElement, ContainerProps>((props, forwardedRef) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-  const { rest: layoutRest, ...layoutProps } = extractLayoutProps(marginRest);
-  const {
-    children,
-    className,
-    size = containerPropDefs.size.default,
-    display = containerPropDefs.display.default,
-    ...containerProps
-  } = layoutRest;
-  return (
-    <div
-      {...containerProps}
-      ref={forwardedRef}
-      className={classNames(
-        'rt-Container',
-        className,
-        withBreakpoints(size, 'rt-r-size'),
-        withBreakpoints(display, 'rt-r-display'),
-        withLayoutProps(layoutProps),
-        withMarginProps(marginProps)
-      )}
-    >
-      <div className="rt-ContainerInner">{children}</div>
-    </div>
-  );
-});
+const Container = React.forwardRef<ContainerElement, ContainerProps>(
+  (props, forwardedRef) => {
+    const { rest: marginRest, ...marginProps } = extractMarginProps(props);
+    const { rest: layoutRest, ...layoutProps } = extractLayoutProps(marginRest);
+    const {
+      children,
+      className,
+      size = containerPropDefs.size.default,
+      display = containerPropDefs.display.default,
+      ...containerProps
+    } = layoutRest;
+    return (
+      <div
+        {...containerProps}
+        ref={forwardedRef}
+        className={classNames(
+          'fui-Container',
+          className,
+          withBreakpoints(size, 'fui-r-size'),
+          withBreakpoints(display, 'fui-r-display'),
+          withLayoutProps(layoutProps),
+          withMarginProps(marginProps),
+        )}
+      >
+        <div className="fui-ContainerInner">{children}</div>
+      </div>
+    );
+  },
+);
 Container.displayName = 'Container';
 
 export { Container };

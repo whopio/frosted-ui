@@ -51,12 +51,17 @@ import {
   ThemePanel,
 } from 'frosted-ui';
 // import { HideCursor } from './hide-cursor';
-
+/* Inter variable setup */
+import localFont from 'next/font/local';
+const interVariable = localFont({
+  src: '../../fonts/InterVariable.woff2',
+  variable: '--inter-variable',
+});
 const SidebarButton = ({ children }: { children: React.ReactNode }) => {
   return (
     <button
       className={
-        'rt-reset flex items-center text-gray-a10 gap-4 w-full h-[42px] pl-4 rounded-5 hover:bg-gray-a3 hover:text-gray-a12 dark:hover:shadow-[0px_0px_0px_1px_var(--gray-a4)_inset] dark:hover:bg-[linear-gradient(_95deg,transparent,transparent,transparent,var(--accent-a4)_)]'
+        'fui-reset flex items-center text-gray-a10 gap-4 w-full h-[42px] pl-4 rounded-5 hover:bg-gray-a3 hover:text-gray-a12 dark:hover:shadow-[0px_0px_0px_1px_var(--gray-a4)_inset] dark:hover:bg-[linear-gradient(_95deg,transparent,transparent,transparent,var(--accent-a4)_)]'
       }
     >
       {children}
@@ -203,7 +208,8 @@ const WhopSVG = () => {
 
 export default function Dashboard() {
   return (
-    <html lang="en" suppressHydrationWarning>
+    /* Inter variable setup */
+    <html lang="en" suppressHydrationWarning className={interVariable.variable}>
       <body>
         {/* <NextThemeProvider> */}
         <Theme asChild appearance="dark" grayColor="gray" accentColor="iris">
@@ -223,7 +229,7 @@ export default function Dashboard() {
                     <PopoverRoot>
                       <PopoverTrigger>
                         <Card variant="ghost" style={{ flex: 1 }} asChild>
-                          <button className="rt-reset">
+                          <button className="fui-reset">
                             <Flex gap="3" align="center" justify="between">
                               <Flex gap="3" align="center">
                                 <Avatar fallback="PB" />
@@ -400,7 +406,14 @@ export default function Dashboard() {
                 <Flex pb="7" direction="row" align="center" justify="between">
                   <Box>
                     <Flex direction="column" gap="2">
-                      <Heading size="8">Choose what you're selling</Heading>
+                      <Heading
+                        size="8"
+                        style={{
+                          fontFeatureSettings: `'liga' 1, 'calt' 1`,
+                        }}
+                      >
+                        {"Choose what you're selling ->"}
+                      </Heading>
                       <Text color="gray">Choose what you're selling</Text>
                     </Flex>
                   </Box>

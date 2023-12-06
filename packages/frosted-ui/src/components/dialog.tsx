@@ -66,14 +66,14 @@ const DialogContent = React.forwardRef<
   return (
     <DialogPrimitive.Portal container={container} forceMount={forceMount}>
       <Theme asChild>
-        <DialogPrimitive.Overlay className="rt-DialogOverlay">
+        <DialogPrimitive.Overlay className="fui-DialogOverlay">
           <DialogPrimitive.Content
             {...contentProps}
             ref={forwardedRef}
             className={classNames(
-              'rt-DialogContent',
+              'fui-DialogContent',
               className,
-              withBreakpoints(size, 'rt-r-size'),
+              withBreakpoints(size, 'fui-r-size'),
             )}
           >
             <DialogContentContext.Provider

@@ -6,12 +6,12 @@
  *                                                                                                 *
  ***************************************************************************************************/
 
-.rt-IconButton {
-  &:where(:not(.rt-variant-ghost)) {
+.fui-IconButton {
+  &:where(:not(.fui-variant-ghost)) {
     height: var(--base-button-height);
     width: var(--base-button-height);
   }
-  &:where(.rt-variant-ghost) {
+  &:where(.fui-variant-ghost) {
     padding: var(--icon-button-ghost-padding);
 
     /* We reset the defined margin variables to avoid inheriting them from a higher component */
@@ -22,10 +22,18 @@
     --margin-left: 0px;
 
     /* Define the overrides to incorporate the negative margins */
-    --margin-top-override: calc(var(--margin-top) - var(--icon-button-ghost-padding));
-    --margin-right-override: calc(var(--margin-right) - var(--icon-button-ghost-padding));
-    --margin-bottom-override: calc(var(--margin-bottom) - var(--icon-button-ghost-padding));
-    --margin-left-override: calc(var(--margin-left) - var(--icon-button-ghost-padding));
+    --margin-top-override: calc(
+      var(--margin-top) - var(--icon-button-ghost-padding)
+    );
+    --margin-right-override: calc(
+      var(--margin-right) - var(--icon-button-ghost-padding)
+    );
+    --margin-bottom-override: calc(
+      var(--margin-bottom) - var(--icon-button-ghost-padding)
+    );
+    --margin-left-override: calc(
+      var(--margin-left) - var(--icon-button-ghost-padding)
+    );
 
     /* Reset the overrides on direct children */
     :where(&) > * {
@@ -35,23 +43,23 @@
       --margin-left-override: initial;
     }
 
-    margin: var(--margin-top-override) var(--margin-right-override) var(--margin-bottom-override)
-      var(--margin-left-override);
+    margin: var(--margin-top-override) var(--margin-right-override)
+      var(--margin-bottom-override) var(--margin-left-override);
   }
 }
 
 @breakpoints {
-  .rt-IconButton:where(.rt-variant-ghost) {
-    &:where(.rt-r-size-1) {
+  .fui-IconButton:where(.fui-variant-ghost) {
+    &:where(.fui-r-size-1) {
       --icon-button-ghost-padding: var(--space-1);
     }
-    &:where(.rt-r-size-2) {
+    &:where(.fui-r-size-2) {
       --icon-button-ghost-padding: calc(var(--space-1) * 1.5);
     }
-    &:where(.rt-r-size-3) {
+    &:where(.fui-r-size-3) {
       --icon-button-ghost-padding: var(--space-2);
     }
-    &:where(.rt-r-size-4) {
+    &:where(.fui-r-size-4) {
       --icon-button-ghost-padding: var(--space-3);
     }
   }

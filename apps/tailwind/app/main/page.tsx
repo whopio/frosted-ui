@@ -1,30 +1,37 @@
 import {
-    ArrowLeftIcon,
-    ArrowRightIcon,
-    ChevronRightIcon,
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  ChevronRightIcon,
 } from '@radix-ui/react-icons';
 import {
-    Avatar,
-    Box,
-    Button,
-    Card,
-    Container,
-    Heading,
-    IconButton,
-    Inset,
-    Separator,
-    TabsList,
-    TabsRoot,
-    TabsTrigger,
-    Text,
-    Theme,
-    ThemePanel,
+  Avatar,
+  Box,
+  Button,
+  Card,
+  Container,
+  Heading,
+  IconButton,
+  Inset,
+  Separator,
+  TabsList,
+  TabsRoot,
+  TabsTrigger,
+  Text,
+  Theme,
+  ThemePanel,
+  Tooltip,
 } from 'frosted-ui';
+import localFont from 'next/font/local';
 import WhopLogo from './WhopLogo';
+
+const interVariable = localFont({
+  src: '../../fonts/InterVariable.woff2',
+  variable: '--inter-variable',
+});
 
 export default function Dashboard() {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={interVariable.variable}>
       <body>
         {/* TODO: NextThemeProvider creates some infinite loop and app crashes */}
         {/* <NextThemeProvider> */}
@@ -80,9 +87,11 @@ export default function Dashboard() {
                     Entrepreneurial communities and software to help you earn
                     online.
                   </Text>
-                  <Button variant="classic" size="4" mt="6">
-                    Get some money!
-                  </Button>
+                  <Tooltip content="This is a tooltip">
+                    <Button variant="classic" size="4" mt="6">
+                      Get some money!
+                    </Button>
+                  </Tooltip>
                 </div>
                 <div className="w-[500px] shrink-0 pl-12">
                   <div className="flex gap-2 items-center">

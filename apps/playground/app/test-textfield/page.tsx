@@ -1,29 +1,28 @@
 import {
-    EnvelopeOpenIcon,
-    ExclamationTriangleIcon,
-    EyeClosedIcon,
-    InfoCircledIcon,
-    LockClosedIcon,
-    MagnifyingGlassIcon,
-    PaperPlaneIcon,
-    Share2Icon,
-    StarIcon,
+  EnvelopeOpenIcon,
+  ExclamationTriangleIcon,
+  EyeClosedIcon,
+  InfoCircledIcon,
+  LockClosedIcon,
+  MagnifyingGlassIcon,
+  PaperPlaneIcon,
+  Share2Icon,
+  StarIcon,
 } from '@radix-ui/react-icons';
 import {
-    Button,
-    Container,
-    Flex,
-    Grid,
-    Heading,
-    IconButton,
-    Section,
-    Text,
-    TextFieldInput,
-    TextFieldRoot,
-    TextFieldSlot,
-    Theme,
-    ThemePanel,
-    Tooltip,
+  Button,
+  Container,
+  Flex,
+  Grid,
+  Heading,
+  IconButton,
+  Text,
+  TextFieldInput,
+  TextFieldRoot,
+  TextFieldSlot,
+  Theme,
+  ThemePanel,
+  Tooltip,
 } from 'frosted-ui';
 
 export default function Test() {
@@ -34,7 +33,7 @@ export default function Test() {
           <div id="root">
             <ThemePanel defaultOpen={false} />
             <Container>
-              <Section>
+              <div style={{ padding: 'var(--space-5) 0' }}>
                 <Grid columns="3" gap="6">
                   <Flex direction="column" align="start" gap="3">
                     <Heading size="3" mb="2">
@@ -308,10 +307,10 @@ export default function Test() {
                       </TextFieldSlot>
                       <TextFieldInput placeholder="Your name" />
                       <TextFieldSlot px="1" gap="1">
-                        <IconButton size="2" variant="soft" radius="full">
+                        <IconButton size="2" variant="soft">
                           <Share2Icon />
                         </IconButton>
-                        <IconButton size="2" variant="soft" radius="full">
+                        <IconButton size="2" variant="soft">
                           <StarIcon />
                         </IconButton>
                       </TextFieldSlot>
@@ -335,7 +334,7 @@ export default function Test() {
                       </TextFieldSlot>
                     </TextFieldRoot>
 
-                    <TextFieldRoot size="3" radius="full">
+                    <TextFieldRoot size="3">
                       <TextFieldSlot>
                         <EnvelopeOpenIcon />
                       </TextFieldSlot>
@@ -350,7 +349,7 @@ export default function Test() {
                     </TextFieldRoot>
                   </Flex>
                 </Grid>
-              </Section>
+              </div>
             </Container>
           </div>
         </Theme>

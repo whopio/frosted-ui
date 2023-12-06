@@ -2,49 +2,56 @@
   border-collapse: collapse;
 }
 
-.table th:not(:global(.rt-TableColumnHeaderCell), :global(.rt-TableRowHeaderCell)) {
+.table
+  th:not(
+    :global(.fui-TableColumnHeaderCell),
+    :global(.fui-TableRowHeaderCell)
+  ) {
   font-weight: var(--font-weight-regular);
 }
 
-.table tr:not(:global(.rt-TableRow)) {
+.table tr:not(:global(.fui-TableRow)) {
   vertical-align: middle;
 }
 
-.table th:not(:global(.rt-TableColumnHeaderCell), :global(.rt-TableRowHeaderCell)),
-.table td:not(:global(.rt-TableCell)) {
+.table
+  th:not(:global(.fui-TableColumnHeaderCell), :global(.fui-TableRowHeaderCell)),
+.table td:not(:global(.fui-TableCell)) {
   padding: 0;
   padding-right: var(--space-4);
   padding-bottom: var(--space-4);
   text-align: center;
 }
 
-.table tbody tr td:first-child:not(:global(.rt-TableCell)) {
+.table tbody tr td:first-child:not(:global(.fui-TableCell)) {
   padding-left: 0;
   padding-right: var(--space-4);
   min-width: 64px;
   text-align: left;
 }
 
-.table thead th:not(:global(.rt-TableColumnHeaderCell), :global(.rt-TableRowHeaderCell)),
-.table tbody tr td:first-child:not(:global(.rt-TableCell)) {
+.table
+  thead
+  th:not(:global(.fui-TableColumnHeaderCell), :global(.fui-TableRowHeaderCell)),
+.table tbody tr td:first-child:not(:global(.fui-TableCell)) {
   font-size: var(--font-size-1);
   letter-spacing: var(--letter-spacing-1);
   line-height: var(--line-height-1);
   color: var(--gray-11);
 }
 
-.table :global(.rt-TextFieldRoot) {
+.table :global(.fui-TextFieldRoot) {
   width: 180px;
 }
-.table :global(.rt-TextAreaRoot) {
+.table :global(.fui-TextAreaRoot) {
   width: 180px;
 }
-.table :global(.rt-CalloutRoot) {
+.table :global(.fui-CalloutRoot) {
   white-space: nowrap;
 }
-.table :global(.rt-Badge) {
+.table :global(.fui-Badge) {
   vertical-align: top;
 }
-.table :global(.rt-SliderRoot) {
+.table :global(.fui-SliderRoot) {
   width: 160px;
 }

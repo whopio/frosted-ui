@@ -195,7 +195,7 @@ export default function Demo() {
                     <PopoverRoot>
                       <PopoverTrigger>
                         <Card variant="ghost" style={{ flex: 1 }} asChild>
-                          <button className="rt-reset">
+                          <button className="fui-reset">
                             <Flex gap="3" align="center" justify="between">
                               <Flex gap="3" align="center">
                                 <Avatar fallback="PB" />
@@ -240,47 +240,47 @@ export default function Demo() {
                     </PopoverRoot>
                   </Flex>
                   <Flex direction="column" gap="1" pt="6">
-                    <button className={'rt-reset ' + styles.asideButton}>
+                    <button className={'fui-reset ' + styles.asideButton}>
                       <HomeIcon width="24" height="24" />
                       Home
                     </button>
-                    <button className={'rt-reset ' + styles.asideButton}>
+                    <button className={'fui-reset ' + styles.asideButton}>
                       <AccessibilityIcon width="24" height="24" />
                       Products
                     </button>
-                    <button className={'rt-reset ' + styles.asideButton}>
+                    <button className={'fui-reset ' + styles.asideButton}>
                       <MixerVerticalIcon width="24" height="24" />
                       Product pages
                     </button>
-                    <button className={'rt-reset ' + styles.asideButton}>
+                    <button className={'fui-reset ' + styles.asideButton}>
                       <EnvelopeOpenIcon width="24" height="24" />
                       Apps
                     </button>
-                    <button className={'rt-reset ' + styles.asideButton}>
+                    <button className={'fui-reset ' + styles.asideButton}>
                       <CookieIcon width="24" height="24" />
                       Links
                     </button>
-                    <button className={'rt-reset ' + styles.asideButton}>
+                    <button className={'fui-reset ' + styles.asideButton}>
                       <MobileIcon width="24" height="24" />
                       Customers
                     </button>
-                    <button className={'rt-reset ' + styles.asideButton}>
+                    <button className={'fui-reset ' + styles.asideButton}>
                       <ReloadIcon width="24" height="24" />
                       Stats
                     </button>
-                    <button className={'rt-reset ' + styles.asideButton}>
+                    <button className={'fui-reset ' + styles.asideButton}>
                       <RocketIcon width="24" height="24" />
                       Affiliates
                     </button>
-                    <button className={'rt-reset ' + styles.asideButton}>
+                    <button className={'fui-reset ' + styles.asideButton}>
                       <ClockIcon width="24" height="24" />
                       Payments
                     </button>
-                    <button className={'rt-reset ' + styles.asideButton}>
+                    <button className={'fui-reset ' + styles.asideButton}>
                       <CodeIcon width="24" height="24" />
                       Feedback
                     </button>
-                    <button className={'rt-reset ' + styles.asideButton}>
+                    <button className={'fui-reset ' + styles.asideButton}>
                       <CameraIcon width="24" height="24" />
                       Resolution center
                     </button>

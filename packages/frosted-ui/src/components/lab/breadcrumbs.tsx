@@ -47,7 +47,7 @@ const BreadcrumbsRoot = React.forwardRef<
       {...baseButtonProps}
       ref={forwardedRef}
       className={classNames(
-        'rt-BreadcrumbsRoot',
+        'fui-BreadcrumbsRoot',
         className,
         withMarginProps(marginProps),
       )}
@@ -58,7 +58,7 @@ const BreadcrumbsRoot = React.forwardRef<
           const isLastItem = index === count - 1;
 
           const separator = (
-            <ChevronRightIcon className="rt-BreadcrumbsSeparator" />
+            <ChevronRightIcon className="fui-BreadcrumbsSeparator" />
           );
           if (isLastItem && !child.props.onClick) {
             return (
@@ -71,8 +71,8 @@ const BreadcrumbsRoot = React.forwardRef<
                   highContrast={highContrast}
                   children={child.props.children}
                   className={classNames(
-                    'rt-reset',
-                    'rt-BreadcrumbsLastItem',
+                    'fui-reset',
+                    'fui-BreadcrumbsLastItem',
                     child.props.className,
                   )}
                 />
@@ -114,7 +114,7 @@ const BreadcrumbsItem = React.forwardRef<
     size="1"
     variant={'ghost'}
     ref={forwardedRef}
-    className={classNames('rt-BreadcrumbsItem', props.className)}
+    className={classNames('fui-BreadcrumbsItem', props.className)}
   />
 ));
 

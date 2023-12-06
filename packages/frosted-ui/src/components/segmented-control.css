@@ -1,4 +1,4 @@
-.rt-SegmentedControlList {
+.fui-SegmentedControlList {
   box-sizing: border-box;
   display: flex;
   overflow-x: auto;
@@ -13,7 +13,7 @@
   }
 }
 
-.rt-SegmentedControlTrigger {
+.fui-SegmentedControlTrigger {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,19 +24,19 @@
   border-radius: var(--radius-3);
 }
 
-.rt-SegmentedControlTriggerInner {
+.fui-SegmentedControlTriggerInner {
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
 }
 
-.rt-SegmentedControlContent {
+.fui-SegmentedControlContent {
   position: relative;
   outline: 0;
 }
 
-.rt-SegmentedControlList {
+.fui-SegmentedControlList {
   height: var(--space-7);
   font-size: var(--font-size-2);
   line-height: var(--line-height-2);
@@ -44,7 +44,7 @@
   font-weight: var(--font-weight-medium);
 }
 
-.rt-SegmentedControlTrigger {
+.fui-SegmentedControlTrigger {
   flex: 1;
   color: var(--gray-a9);
 

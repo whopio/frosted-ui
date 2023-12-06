@@ -1,4 +1,4 @@
-import { radixThemePlugin } from 'frosted-ui';
+import { frostedThemePlugin } from 'frosted-ui';
 
 export default {
   darkMode: ['class'],
@@ -10,11 +10,5 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [
-    radixThemePlugin({
-      useTailwindColorNames: false, // optional
-      useTailwindRadiusNames: false, // optional
-      mapMissingTailwindColors: false, // optional
-    }),
-  ],
+  plugins: [frostedThemePlugin()],
 };

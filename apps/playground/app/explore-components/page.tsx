@@ -195,10 +195,7 @@ export default function ExploreComponents() {
                     <AlertDialogTrigger>
                       <Button size="1">Open</Button>
                     </AlertDialogTrigger>
-                    <AlertDialogContent
-                      size="1"
-                      style={{ width: 'calc(300px * var(--scaling))' }}
-                    >
+                    <AlertDialogContent size="1" style={{ width: 300 }}>
                       <AlertDialogTitle size="2" mb="1">
                         Revoke access
                       </AlertDialogTitle>
@@ -226,10 +223,7 @@ export default function ExploreComponents() {
                     <AlertDialogTrigger>
                       <Button size="2">Open</Button>
                     </AlertDialogTrigger>
-                    <AlertDialogContent
-                      size="2"
-                      style={{ width: 'calc(400px * var(--scaling))' }}
-                    >
+                    <AlertDialogContent size="2" style={{ width: 400 }}>
                       <AlertDialogTitle mb="2">Revoke access</AlertDialogTitle>
                       <AlertDialogDescription size="2" mb="4">
                         Are you sure? This application will no longer be
@@ -253,10 +247,7 @@ export default function ExploreComponents() {
                     <AlertDialogTrigger>
                       <Button size="3">Open</Button>
                     </AlertDialogTrigger>
-                    <AlertDialogContent
-                      size="3"
-                      style={{ width: 'calc(400px * var(--scaling))' }}
-                    >
+                    <AlertDialogContent size="3" style={{ width: 400 }}>
                       <AlertDialogTitle>Revoke access</AlertDialogTitle>
                       <AlertDialogDescription size="2" mb="4">
                         Are you sure? This application will no longer be
@@ -280,10 +271,7 @@ export default function ExploreComponents() {
                     <AlertDialogTrigger>
                       <Button size="4">Open</Button>
                     </AlertDialogTrigger>
-                    <AlertDialogContent
-                      size="4"
-                      style={{ width: 'calc(450px * var(--scaling))' }}
-                    >
+                    <AlertDialogContent size="4" style={{ width: 450 }}>
                       <AlertDialogTitle size="6">
                         Revoke access
                       </AlertDialogTitle>
@@ -458,13 +446,7 @@ export default function ExploreComponents() {
                         <thead>
                           <tr>
                             <th />
-                            {avatarPropDefs.radius.values.map((radius) => (
-                              <th key={radius} style={{ textAlign: 'left' }}>
-                                {radius === 'none'
-                                  ? 'No radius'
-                                  : upperFirst(radius)}
-                              </th>
-                            ))}
+                            <th style={{ textAlign: 'left' }}>Default</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -474,15 +456,9 @@ export default function ExploreComponents() {
                           {avatarPropDefs.size.values.map((size) => (
                             <tr key={size}>
                               <td>Size {size}</td>
-                              {avatarPropDefs.radius.values.map((radius) => (
-                                <td key={radius} style={{ textAlign: 'left' }}>
-                                  <Avatar
-                                    size={size}
-                                    radius={radius}
-                                    fallback="BG"
-                                  />
-                                </td>
-                              ))}
+                              <td style={{ textAlign: 'left' }}>
+                                <Avatar size={size} fallback="BG" />
+                              </td>
                             </tr>
                           ))}
                         </tbody>
@@ -594,13 +570,7 @@ export default function ExploreComponents() {
                         <thead>
                           <tr>
                             <th />
-                            {badgePropDefs.radius.values.map((radius) => (
-                              <th key={radius} style={{ textAlign: 'left' }}>
-                                {radius === 'none'
-                                  ? 'No radius'
-                                  : upperFirst(radius)}
-                              </th>
-                            ))}
+                            <th style={{ textAlign: 'left' }}>Default</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -615,22 +585,11 @@ export default function ExploreComponents() {
                                 {badgePropDefs.size.values.map((size) => (
                                   <tr key={size}>
                                     <td>Size {size}</td>
-                                    {badgePropDefs.radius.values.map(
-                                      (radius) => (
-                                        <td
-                                          key={radius}
-                                          style={{ textAlign: 'left' }}
-                                        >
-                                          <Badge
-                                            size={size}
-                                            variant={variant}
-                                            radius={radius}
-                                          >
-                                            New
-                                          </Badge>
-                                        </td>
-                                      ),
-                                    )}
+                                    <td style={{ textAlign: 'left' }}>
+                                      <Badge size={size} variant={variant}>
+                                        New
+                                      </Badge>
+                                    </td>
                                   </tr>
                                 ))}
                               </React.Fragment>
@@ -918,13 +877,7 @@ export default function ExploreComponents() {
                         <thead>
                           <tr>
                             <th />
-                            {buttonPropDefs.radius.values.map((radius) => (
-                              <th key={radius} style={{ textAlign: 'left' }}>
-                                {radius === 'none'
-                                  ? 'No radius'
-                                  : upperFirst(radius)}
-                              </th>
-                            ))}
+                            <th style={{ textAlign: 'left' }}>Default</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -939,25 +892,14 @@ export default function ExploreComponents() {
                                 {buttonPropDefs.size.values.map((size) => (
                                   <tr key={size}>
                                     <td>Size {size}</td>
-                                    {buttonPropDefs.radius.values.map(
-                                      (radius) => (
-                                        <td
-                                          key={radius}
-                                          style={{ textAlign: 'left' }}
-                                        >
-                                          <Button
-                                            size={size}
-                                            variant={variant}
-                                            radius={radius}
-                                          >
-                                            Next{' '}
-                                            <ArrowRightIcon
-                                              {...buttonSizeToIconSize(size)}
-                                            />
-                                          </Button>
-                                        </td>
-                                      ),
-                                    )}
+                                    <td style={{ textAlign: 'left' }}>
+                                      <Button size={size} variant={variant}>
+                                        Next{' '}
+                                        <ArrowRightIcon
+                                          {...buttonSizeToIconSize(size)}
+                                        />
+                                      </Button>
+                                    </td>
                                   </tr>
                                 ))}
                               </React.Fragment>
@@ -2138,7 +2080,7 @@ export default function ExploreComponents() {
                     Em
                   </Link>
                 </Heading>
-                <Box mb="9" style={{ width: 'calc(580px * var(--scaling))' }}>
+                <Box mb="9" style={{ width: 580 }}>
                   Versions of the <Em>Lorem ipsum</Em> text have been used in
                   typesetting at least since the 1960s, when it was popularized
                   by advertisements for Letraset transfer sheets. It is
@@ -2167,10 +2109,7 @@ export default function ExploreComponents() {
                     <TabsTrigger value="all-weights">All weights</TabsTrigger>
                   </TabsList>
                   <TabsContent value="specimen">
-                    <Box
-                      my="6"
-                      style={{ width: 'calc(560px * var(--scaling))' }}
-                    >
+                    <Box my="6" style={{ width: 560 }}>
                       <Heading size="9">
                         The principles of the typographic craft are difficult to
                         master
@@ -2178,7 +2117,7 @@ export default function ExploreComponents() {
                     </Box>
 
                     <Flex my="6" gap="6">
-                      <Box style={{ width: 'calc(340px * var(--scaling))' }}>
+                      <Box style={{ width: 340 }}>
                         <Heading size="5" mb="2">
                           The principles of the typographic craft are difficult
                           to master
@@ -2191,7 +2130,7 @@ export default function ExploreComponents() {
                         </Text>
                       </Box>
 
-                      <Box style={{ width: 'calc(320px * var(--scaling))' }}>
+                      <Box style={{ width: 320 }}>
                         <Heading size="4" mb="2">
                           The principles of the typographic craft are difficult
                           to master
@@ -2206,7 +2145,7 @@ export default function ExploreComponents() {
                     </Flex>
 
                     <Flex my="6" gap="6">
-                      <Box style={{ width: 'calc(290px * var(--scaling))' }}>
+                      <Box style={{ width: 290 }}>
                         <Heading size="3" mb="1">
                           The principles of the typographic craft are difficult
                           to master
@@ -2219,7 +2158,7 @@ export default function ExploreComponents() {
                         </Text>
                       </Box>
 
-                      <Box style={{ width: 'calc(260px * var(--scaling))' }}>
+                      <Box style={{ width: 260 }}>
                         <Heading size="2" mb="1">
                           The principles of the typographic craft are difficult
                           to master
@@ -2473,13 +2412,7 @@ export default function ExploreComponents() {
                         <thead>
                           <tr>
                             <th />
-                            {iconButtonPropDefs.radius.values.map((radius) => (
-                              <th key={radius} style={{ textAlign: 'left' }}>
-                                {radius === 'none'
-                                  ? 'No radius'
-                                  : upperFirst(radius)}
-                              </th>
-                            ))}
+                            <th style={{ textAlign: 'left' }}>Default</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -2494,24 +2427,13 @@ export default function ExploreComponents() {
                                 {iconButtonPropDefs.size.values.map((size) => (
                                   <tr key={size}>
                                     <td>Size {size}</td>
-                                    {iconButtonPropDefs.radius.values.map(
-                                      (radius) => (
-                                        <td
-                                          key={radius}
-                                          style={{ textAlign: 'left' }}
-                                        >
-                                          <IconButton
-                                            size={size}
-                                            variant={variant}
-                                            radius={radius}
-                                          >
-                                            <StarIcon
-                                              {...buttonSizeToIconSize(size)}
-                                            />
-                                          </IconButton>
-                                        </td>
-                                      ),
-                                    )}
+                                    <td style={{ textAlign: 'left' }}>
+                                      <IconButton size={size} variant={variant}>
+                                        <StarIcon
+                                          {...buttonSizeToIconSize(size)}
+                                        />
+                                      </IconButton>
+                                    </td>
                                   </tr>
                                 ))}
                               </React.Fragment>
@@ -2661,11 +2583,7 @@ export default function ExploreComponents() {
                     <TabsTrigger value="all-weights">All weights</TabsTrigger>
                   </TabsList>
                   <TabsContent value="specimen">
-                    <Grid
-                      my="6"
-                      gap="6"
-                      columns="calc(440px * var(--scaling)) calc(440px * var(--scaling))"
-                    >
+                    <Grid my="6" gap="6" columns="440px 440px">
                       <Flex direction="column" gap="6">
                         <Text mb="-4" size="1" color="gray" align="center">
                           Accent
@@ -2981,7 +2899,7 @@ export default function ExploreComponents() {
                     Quote
                   </Link>
                 </Heading>
-                <Box mb="9" style={{ width: 'calc(580px * var(--scaling))' }}>
+                <Box mb="9" style={{ width: 580 }}>
                   <Quote style={{ marginLeft: '-0.4em' }}>
                     A man who would letterspace lower case would steal sheep
                     <span style={{ marginRight: '-0.2em' }}>,</span>
@@ -3422,15 +3340,7 @@ export default function ExploreComponents() {
                         <thead>
                           <tr>
                             <th />
-                            {selectTriggerPropDefs.radius.values.map(
-                              (radius) => (
-                                <th key={radius} style={{ textAlign: 'left' }}>
-                                  {radius === 'none'
-                                    ? 'No radius'
-                                    : upperFirst(radius)}
-                                </th>
-                              ),
-                            )}
+                            <th style={{ textAlign: 'left' }}>Default</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -3445,31 +3355,21 @@ export default function ExploreComponents() {
                                 {selectRootPropDefs.size.values.map((size) => (
                                   <tr key={size}>
                                     <td>Size {size}</td>
-                                    {selectTriggerPropDefs.radius.values.map(
-                                      (radius) => (
-                                        <td
-                                          key={radius}
-                                          style={{ textAlign: 'left' }}
+                                    <td style={{ textAlign: 'left' }}>
+                                      <SelectRoot
+                                        size={size}
+                                        defaultValue="apple"
+                                      >
+                                        <SelectTrigger variant={variant} />
+                                        <SelectContent
+                                          variant={selectTriggerVariantToSelectContentVariant(
+                                            variant,
+                                          )}
                                         >
-                                          <SelectRoot
-                                            size={size}
-                                            defaultValue="apple"
-                                          >
-                                            <SelectTrigger
-                                              variant={variant}
-                                              radius={radius}
-                                            />
-                                            <SelectContent
-                                              variant={selectTriggerVariantToSelectContentVariant(
-                                                variant,
-                                              )}
-                                            >
-                                              <ExampleSelectContent />
-                                            </SelectContent>
-                                          </SelectRoot>
-                                        </td>
-                                      ),
-                                    )}
+                                          <ExampleSelectContent />
+                                        </SelectContent>
+                                      </SelectRoot>
+                                    </td>
                                   </tr>
                                 ))}
                               </React.Fragment>
@@ -3631,13 +3531,7 @@ export default function ExploreComponents() {
                         <thead>
                           <tr>
                             <th />
-                            {sliderPropDefs.radius.values.map((radius) => (
-                              <th key={radius} style={{ textAlign: 'left' }}>
-                                {radius === 'none'
-                                  ? 'No radius'
-                                  : upperFirst(radius)}
-                              </th>
-                            ))}
+                            <th style={{ textAlign: 'left' }}>Default</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -3653,29 +3547,19 @@ export default function ExploreComponents() {
                                   (size, sizeIndex) => (
                                     <tr key={size}>
                                       <td>Size {size}</td>
-                                      {sliderPropDefs.radius.values.map(
-                                        (radius) => (
-                                          <td
-                                            key={radius}
-                                            style={{ textAlign: 'left' }}
-                                          >
-                                            <Flex
-                                              align="center"
-                                              justify="start"
-                                              gap="4"
-                                            >
-                                              <Slider
-                                                defaultValue={[
-                                                  33 + 17 * sizeIndex,
-                                                ]}
-                                                size={size}
-                                                variant={variant}
-                                                radius={radius}
-                                              />
-                                            </Flex>
-                                          </td>
-                                        ),
-                                      )}
+                                      <td style={{ textAlign: 'left' }}>
+                                        <Flex
+                                          align="center"
+                                          justify="start"
+                                          gap="4"
+                                        >
+                                          <Slider
+                                            defaultValue={[33 + 17 * sizeIndex]}
+                                            size={size}
+                                            variant={variant}
+                                          />
+                                        </Flex>
+                                      </td>
                                     </tr>
                                   ),
                                 )}
@@ -4009,10 +3893,7 @@ export default function ExploreComponents() {
                   </TabsList>
 
                   <TabsContent value="specimen">
-                    <Box
-                      my="6"
-                      style={{ width: 'calc(760px * var(--scaling))' }}
-                    >
+                    <Box my="6" style={{ width: 760 }}>
                       <Text as="p" size="5">
                         The goal of typography is to relate font size, line
                         height, and line width in a proportional way that
@@ -4025,10 +3906,7 @@ export default function ExploreComponents() {
                       </Text>
                     </Box>
 
-                    <Box
-                      my="6"
-                      style={{ width: 'calc(700px * var(--scaling))' }}
-                    >
+                    <Box my="6" style={{ width: 700 }}>
                       <Text as="p" size="4">
                         The goal of typography is to relate font size, line
                         height, and line width in a proportional way that
@@ -4041,10 +3919,7 @@ export default function ExploreComponents() {
                       </Text>
                     </Box>
 
-                    <Box
-                      my="6"
-                      style={{ width: 'calc(640px * var(--scaling))' }}
-                    >
+                    <Box my="6" style={{ width: 640 }}>
                       <Text as="p" size="3">
                         The goal of typography is to relate font size, line
                         height, and line width in a proportional way that
@@ -4057,10 +3932,7 @@ export default function ExploreComponents() {
                       </Text>
                     </Box>
 
-                    <Box
-                      my="6"
-                      style={{ width: 'calc(572px * var(--scaling))' }}
-                    >
+                    <Box my="6" style={{ width: 572 }}>
                       <Text as="p" size="2">
                         The goal of typography is to relate font size, line
                         height, and line width in a proportional way that
@@ -4078,7 +3950,7 @@ export default function ExploreComponents() {
                       gap="6"
                       columns="2"
                       align="center"
-                      style={{ width: 'calc(540px * var(--scaling))' }}
+                      style={{ width: 540 }}
                     >
                       <Box>
                         <Text size="3" as="div" weight="bold">
@@ -4126,7 +3998,7 @@ export default function ExploreComponents() {
                       gap="6"
                       columns="2"
                       align="center"
-                      style={{ width: 'calc(540px * var(--scaling))' }}
+                      style={{ width: 540 }}
                     >
                       <Box>
                         <Text size="3" as="div" weight="medium">
@@ -4632,13 +4504,7 @@ export default function ExploreComponents() {
                         <thead>
                           <tr>
                             <th />
-                            {textFieldPropDefs.radius.values.map((radius) => (
-                              <th key={radius} style={{ textAlign: 'left' }}>
-                                {radius === 'none'
-                                  ? 'No radius'
-                                  : upperFirst(radius)}
-                              </th>
-                            ))}
+                            <th style={{ textAlign: 'left' }}>Default</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -4652,89 +4518,71 @@ export default function ExploreComponents() {
                                 )}
                                 <tr>
                                   <td>Size 1</td>
-                                  {textFieldPropDefs.radius.values.map(
-                                    (radius) => (
-                                      <td key={radius}>
-                                        <TextFieldRoot
-                                          size="1"
-                                          variant={variant}
-                                          radius={radius}
-                                          style={{ width: 140 }}
-                                        >
-                                          <TextFieldSlot>
-                                            <MagnifyingGlassIcon
-                                              width="14"
-                                              height="14"
-                                            />
-                                          </TextFieldSlot>
-                                          <TextFieldInput placeholder="Search" />
-                                        </TextFieldRoot>
-                                      </td>
-                                    ),
-                                  )}
+                                  <td>
+                                    <TextFieldRoot
+                                      size="1"
+                                      variant={variant}
+                                      style={{ width: 140 }}
+                                    >
+                                      <TextFieldSlot>
+                                        <MagnifyingGlassIcon
+                                          width="14"
+                                          height="14"
+                                        />
+                                      </TextFieldSlot>
+                                      <TextFieldInput placeholder="Search" />
+                                    </TextFieldRoot>
+                                  </td>
                                 </tr>
                                 <tr>
                                   <td>Size 2</td>
-                                  {textFieldPropDefs.radius.values.map(
-                                    (radius) => (
-                                      <td key={radius}>
-                                        <TextFieldRoot
-                                          size="2"
-                                          variant={variant}
-                                          radius={radius}
-                                          style={{ width: 160 }}
+                                  <td>
+                                    <TextFieldRoot
+                                      size="2"
+                                      variant={variant}
+                                      style={{ width: 160 }}
+                                    >
+                                      <TextFieldSlot>
+                                        <MagnifyingGlassIcon
+                                          width="16"
+                                          height="16"
+                                        />
+                                      </TextFieldSlot>
+                                      <TextFieldInput placeholder="Search" />
+                                      <TextFieldSlot>
+                                        <IconButton
+                                          variant="ghost"
+                                          color="gray"
+                                          size="1"
                                         >
-                                          <TextFieldSlot>
-                                            <MagnifyingGlassIcon
-                                              width="16"
-                                              height="16"
-                                            />
-                                          </TextFieldSlot>
-                                          <TextFieldInput placeholder="Search" />
-                                          <TextFieldSlot>
-                                            <IconButton
-                                              variant="ghost"
-                                              color="gray"
-                                              size="1"
-                                            >
-                                              <InfoCircledIcon />
-                                            </IconButton>
-                                          </TextFieldSlot>
-                                        </TextFieldRoot>
-                                      </td>
-                                    ),
-                                  )}
+                                          <InfoCircledIcon />
+                                        </IconButton>
+                                      </TextFieldSlot>
+                                    </TextFieldRoot>
+                                  </td>
                                 </tr>
                                 <tr>
                                   <td>Size 3</td>
-                                  {textFieldPropDefs.radius.values.map(
-                                    (radius) => (
-                                      <td key={radius}>
-                                        <TextFieldRoot
-                                          size="3"
-                                          variant={variant}
-                                          radius={radius}
+                                  <td>
+                                    <TextFieldRoot size="3" variant={variant}>
+                                      <TextFieldSlot>
+                                        <MagnifyingGlassIcon
+                                          width="18"
+                                          height="18"
+                                        />
+                                      </TextFieldSlot>
+                                      <TextFieldInput placeholder="Search" />
+                                      <TextFieldSlot>
+                                        <IconButton
+                                          variant="ghost"
+                                          color="gray"
+                                          size="2"
                                         >
-                                          <TextFieldSlot>
-                                            <MagnifyingGlassIcon
-                                              width="18"
-                                              height="18"
-                                            />
-                                          </TextFieldSlot>
-                                          <TextFieldInput placeholder="Search" />
-                                          <TextFieldSlot>
-                                            <IconButton
-                                              variant="ghost"
-                                              color="gray"
-                                              size="2"
-                                            >
-                                              <InfoCircledIcon />
-                                            </IconButton>
-                                          </TextFieldSlot>
-                                        </TextFieldRoot>
-                                      </td>
-                                    ),
-                                  )}
+                                          <InfoCircledIcon />
+                                        </IconButton>
+                                      </TextFieldSlot>
+                                    </TextFieldRoot>
+                                  </td>
                                 </tr>
                               </React.Fragment>
                             ),

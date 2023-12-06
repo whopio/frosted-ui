@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable no-undef */
 const fs = require('fs');
 const path = require('path');
 const postcss = require('postcss');
@@ -9,6 +11,7 @@ const breakpoints = postcss
   .parse(breakpointsCss)
   .nodes.map((node) => {
     if (node.type === 'atrule' && node.name === 'custom-media') {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const [_match, name, params] = node.params.match(/--(\w+)\s+(.+)/);
       return { name, params };
     }
@@ -20,7 +23,7 @@ const breakpoints = postcss
 const cache = new WeakMap();
 
 module.exports = () => ({
-  postcssPlugin: 'postcss-radix-themes',
+  postcssPlugin: 'postcss-frosted-ui',
   Comment(comment) {
     // Remove all comments from CSS source
     comment.remove();
@@ -83,25 +86,25 @@ function addPrefix(node, prefix) {
   }
 
   /**
-   * Should match responsive classes (rt-r- prefix):
+   * Should match responsive classes (fui-r- prefix):
    * ```
-   * .rt-r-size-1
-   * .rt-m-2
-   * .-rt-m-2
-   * .rt-Button.rt-r-size-1 (captures "rt-r-size-1")
+   * .fui-r-size-1
+   * .fui-m-2
+   * .-fui-m-2
+   * .fui-Button.fui-r-size-1 (captures "fui-r-size-1")
    * ```
    *
    * Should not match:
-   * .rt-Button
+   * .fui-Button
    */
-  const classNameRegexp = /\.(-?rt-r-[a-z0-9\-]+)/g;
+  const classNameRegexp = /\.(-?fui-r-[a-z0-9-]+)/g;
 
   // Check for rules that use compound props on a component:
-  // - a component name (prefixed with "rt-" and pascal cased)
+  // - a component name (prefixed with "fui-" and pascal cased)
   // - followed by 2 or more prop selectors (lowercase, numbers, -)
   //
-  // e.g. ".rt-DialogContent.rt-r-size-2.gray"
-  if (/\.rt-(?:[A-Z][a-z]+)+(?:\.[a-z0-9\-]+){2,}/.test(node.selector)) {
+  // e.g. ".fui-DialogContent.fui-r-size-2.gray"
+  if (/\.fui-(?:[A-Z][a-z]+)+(?:\.[a-z0-9-]+){2,}/.test(node.selector)) {
     throw Error(`
       "${node.selector}" looks like it uses compound props on a component.
       "@breakpoints" does not support compound props yet.

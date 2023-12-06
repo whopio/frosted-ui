@@ -36,19 +36,17 @@ const SkeletonAvatar = React.forwardRef<
     size = skeletonAvatarPropDefs.size.default,
     color = skeletonAvatarPropDefs.color.default,
     highContrast = skeletonAvatarPropDefs.highContrast.default,
-    radius = skeletonAvatarPropDefs.radius.default,
     ...skeletonAvatarProps
   } = marginRest;
 
   return (
     <div
       data-accent-color={color}
-      data-radius={radius}
       className={classNames(
-        'rt-SkeletonAvatar',
+        'fui-SkeletonAvatar',
         className,
-        withBreakpoints(size, 'rt-r-size'),
-        { 'rt-high-contrast': highContrast },
+        withBreakpoints(size, 'fui-r-size'),
+        { 'fui-high-contrast': highContrast },
         withMarginProps(marginProps),
       )}
       {...skeletonAvatarProps}
@@ -81,10 +79,10 @@ const SkeletonText = React.forwardRef<SkeletonTextElement, SkeletonTextProps>(
       <div
         data-accent-color={color}
         className={classNames(
-          'rt-SkeletonText',
+          'fui-SkeletonText',
           className,
-          withBreakpoints(size, 'rt-r-size'),
-          { 'rt-high-contrast': highContrast },
+          withBreakpoints(size, 'fui-r-size'),
+          { 'fui-high-contrast': highContrast },
           withMarginProps(marginProps),
         )}
         {...skeletonTextProps}
@@ -117,9 +115,9 @@ const SkeletonRect = React.forwardRef<SkeletonRectElement, SkeletonRectProps>(
       <div
         data-accent-color={color}
         className={classNames(
-          'rt-SkeletonRect',
+          'fui-SkeletonRect',
           className,
-          { 'rt-high-contrast': highContrast },
+          { 'fui-high-contrast': highContrast },
           withMarginProps(marginProps),
         )}
         {...skeletonRectProps}

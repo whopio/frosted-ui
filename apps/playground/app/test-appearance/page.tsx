@@ -4,7 +4,6 @@ import {
   Flex,
   Grid,
   Heading,
-  Section,
   Separator,
   Switch,
   Text,
@@ -56,30 +55,12 @@ export default function Test() {
 
             <DocsSection title="Mixed nested themes test">
               <SampleNestedUI title="Global theme">
-                <Theme
-                  asChild
-                  accentColor="mint"
-                  appearance="dark"
-                  radius="none"
-                  scaling="90%"
-                >
-                  <SampleNestedUI title="Dark, Mint, no radius, 90%">
-                    <Theme
-                      asChild
-                      accentColor="amber"
-                      appearance="light"
-                      radius="full"
-                      scaling="110%"
-                    >
-                      <SampleNestedUI title="Light, Amber, full radius, 110%">
-                        <Theme
-                          asChild
-                          accentColor="tomato"
-                          appearance="dark"
-                          radius="large"
-                          scaling="100%"
-                        >
-                          <SampleNestedUI title="Dark, Tomato, large radius, 100%" />
+                <Theme asChild accentColor="mint" appearance="dark">
+                  <SampleNestedUI title="Dark, Mint">
+                    <Theme asChild accentColor="amber" appearance="light">
+                      <SampleNestedUI title="Light, Amber">
+                        <Theme asChild accentColor="tomato" appearance="dark">
+                          <SampleNestedUI title="Dark, Tomato" />
                         </Theme>
                       </SampleNestedUI>
                     </Theme>
@@ -151,12 +132,17 @@ function DocsSection({
   return (
     <>
       <Container mx="6">
-        <Section size="2">
+        <div
+          style={{
+            paddingTop: 'var(--space-7)',
+            padding: 'var(--space-7)',
+          }}
+        >
           <Heading size="6" weight="regular" mb="4" as="h2">
             {title}
           </Heading>
           {children}
-        </Section>
+        </div>
       </Container>
       <Separator size="4" />
     </>

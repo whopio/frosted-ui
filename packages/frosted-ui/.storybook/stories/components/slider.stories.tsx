@@ -12,7 +12,6 @@ const meta = {
     size: sliderPropDefs.size.default,
     color: sliderPropDefs.color.default,
     variant: sliderPropDefs.variant.default,
-    radius: sliderPropDefs.radius.default,
     highContrast: sliderPropDefs.highContrast.default,
     disabled: false,
   },
@@ -80,16 +79,6 @@ export const HighContrast: Story = {
       <Slider {...args} defaultValue={[80]} color="crimson" />
       <Slider {...args} defaultValue={[80]} color="crimson" highContrast />
     </Grid>
-  ),
-};
-
-export const Radius: Story = {
-  render: (args) => (
-    <Flex direction="column" gap="4" style={{ width: 300 }}>
-      <Slider {...args} defaultValue={[25]} radius="none" />
-      <Slider {...args} defaultValue={[50]} radius="small" />
-      <Slider {...args} defaultValue={[75]} radius="full" />
-    </Flex>
   ),
 };
 

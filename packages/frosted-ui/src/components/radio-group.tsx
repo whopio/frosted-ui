@@ -1,12 +1,20 @@
 'use client';
 
-import * as React from 'react';
-import classNames from 'classnames';
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
+import classNames from 'classnames';
+import * as React from 'react';
+import {
+  extractMarginProps,
+  withBreakpoints,
+  withMarginProps,
+} from '../helpers';
 import { radioGroupPropDefs } from './radio-group.props';
-import { extractMarginProps, withMarginProps, withBreakpoints } from '../helpers';
 
-import type { PropsWithoutRefOrColor, MarginProps, GetPropDefTypes } from '../helpers';
+import type {
+  GetPropDefTypes,
+  MarginProps,
+  PropsWithoutRefOrColor,
+} from '../helpers';
 
 type RadioGroupElement = React.ElementRef<typeof RadioGroupPrimitive.Root>;
 type RadioGroupOwnProps = GetPropDefTypes<typeof radioGroupPropDefs>;
@@ -31,43 +39,51 @@ const RadioGroupRoot = React.forwardRef<RadioGroupElement, RadioGroupRootProps>(
         {...rootProps}
         ref={forwardedRef}
         className={classNames(
-          'rt-RadioGroupRoot',
+          'fui-RadioGroupRoot',
           className,
-          withBreakpoints(size, 'rt-r-size'),
-          `rt-variant-${variant}`,
-          { 'rt-high-contrast': highContrast },
-          withMarginProps(marginProps)
+          withBreakpoints(size, 'fui-r-size'),
+          `fui-variant-${variant}`,
+          { 'fui-high-contrast': highContrast },
+          withMarginProps(marginProps),
         )}
       />
     );
-  }
+  },
 );
 RadioGroupRoot.displayName = 'RadioGroupRoot';
 
 type RadioGroupItemElement = React.ElementRef<typeof RadioGroupPrimitive.Item>;
 interface RadioGroupItemProps
-  extends Omit<React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item>, 'children'>,
+  extends Omit<
+      React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item>,
+      'children'
+    >,
     MarginProps {}
-const RadioGroupItem = React.forwardRef<RadioGroupItemElement, RadioGroupItemProps>(
-  (props, forwardedRef) => {
-    const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-    const { className, style, ...itemProps } = marginRest;
-    return (
-      <span
-        className={classNames('rt-RadioGroupItem', className, withMarginProps(marginProps))}
-        style={style}
+const RadioGroupItem = React.forwardRef<
+  RadioGroupItemElement,
+  RadioGroupItemProps
+>((props, forwardedRef) => {
+  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
+  const { className, style, ...itemProps } = marginRest;
+  return (
+    <span
+      className={classNames(
+        'fui-RadioGroupItem',
+        className,
+        withMarginProps(marginProps),
+      )}
+      style={style}
+    >
+      <RadioGroupPrimitive.Item
+        {...itemProps}
+        ref={forwardedRef}
+        className={classNames('fui-reset', 'fui-RadioGroupButton')}
       >
-        <RadioGroupPrimitive.Item
-          {...itemProps}
-          ref={forwardedRef}
-          className={classNames('rt-reset', 'rt-RadioGroupButton')}
-        >
-          <RadioGroupPrimitive.Indicator className="rt-RadioGroupIndicator" />
-        </RadioGroupPrimitive.Item>
-      </span>
-    );
-  }
-);
+        <RadioGroupPrimitive.Indicator className="fui-RadioGroupIndicator" />
+      </RadioGroupPrimitive.Item>
+    </span>
+  );
+});
 RadioGroupItem.displayName = 'RadioGroupItem';
 
 const RadioGroup = Object.assign(
@@ -75,8 +91,8 @@ const RadioGroup = Object.assign(
   {
     Root: RadioGroupRoot,
     Item: RadioGroupItem,
-  }
+  },
 );
 
-export { RadioGroup, RadioGroupRoot, RadioGroupItem };
-export type { RadioGroupRootProps, RadioGroupItemProps };
+export { RadioGroup, RadioGroupItem, RadioGroupRoot };
+export type { RadioGroupItemProps, RadioGroupRootProps };
