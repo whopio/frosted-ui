@@ -1,0 +1,31 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Tailwind plugin" />
+
+# Tailwind plugin
+
+If you want to use Frosted UI with Tailwind CSS, you can use the Frosted UI Tailwind plugin.
+The plugin maps all of the FUI color and font related tokens to Tailwind CSS classes.
+
+## Usage
+
+Add the `frostedThemePlugin` to `plugins` in your `tailwind.config.js` file.
+
+```js
+import { frostedThemePlugin } from 'frosted-ui';
+
+export default {
+  darkMode: ['class'],
+  content: [],
+  theme: {
+    extend: {},
+  },
+  plugins: [frostedThemePlugin()],
+};
+```
+
+Then you can use the Frosted UI tokens via Tailwind classes.
+
+```tsx
+<div className="text-1 leading-1 bg-gray-a2 text-success-9">Frosted UI</div>
+```
