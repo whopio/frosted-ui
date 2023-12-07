@@ -7,8 +7,10 @@
   <a href="https://github.com/whopio/frosted-ui-v2/tree/main/packages/frosted-ui">Source code</a>
 </h3>
 
-![Screenshot 2023-12-07 at 13 11 26](https://github.com/whopio/frosted-ui-v2/assets/28541613/8a0d694e-e7f8-40bc-a672-f0a617053271)
+> [!WARNING]
+> The design system is still a work in progress so you can expect some breaking changes.
 
+![Screenshot 2023-12-07 at 13 11 26](https://github.com/whopio/frosted-ui-v2/assets/28541613/8a0d694e-e7f8-40bc-a672-f0a617053271)
 
 ## Getting Started
 
