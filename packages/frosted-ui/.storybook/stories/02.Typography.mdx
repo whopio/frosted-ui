@@ -1,0 +1,223 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Guides/2. Typography" />
+
+# Typography
+
+Components like `<Heading />` and `<Text />` and used to render titles and body copy respectively.
+Both of them share the same size and weight props to enforce consistent typography in your app.
+
+## Typography scale
+
+The typography scale is a 9 step scale where each step has it's corresponding font-size, line-height and letter-spacing value.
+
+<table>
+  <tr>
+    <td>Step</td>
+    <td>Size</td>
+    <td>Letter spacing</td>
+    <td>Line height</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>12px</td>
+    <td>0.0025em</td>
+    <td>16px</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>14px</td>
+    <td>0em</td>
+    <td>20px</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>16px</td>
+    <td>0em</td>
+    <td>24px</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>18px</td>
+    <td>-0.0025em</td>
+    <td>26px</td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>20px</td>
+    <td>-0.005em</td>
+    <td>28px</td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td>24px</td>
+    <td>-0.00625em</td>
+    <td>30px</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>28px</td>
+    <td>-0.0075em</td>
+    <td>36px</td>
+  </tr>
+  <tr>
+    <td>8</td>
+    <td>35px</td>
+    <td>-0.01em</td>
+    <td>40px</td>
+  </tr>
+  <tr>
+    <td>9</td>
+    <td>60px</td>
+    <td>-0.025em</td>
+    <td>60px</td>
+  </tr>
+</table>
+
+## Weight scale
+
+The weight scale is a 4 step scale where each step has it's corresponding font-weight value.
+
+<table>
+  <tr>
+    <td>Weight</td>
+    <td>Default value</td>
+  </tr>
+  <tr>
+    <td>Light</td>
+    <td>300</td>
+  </tr>
+  <tr>
+    <td>Regular</td>
+    <td>400</td>
+  </tr>
+  <tr>
+    <td>Medium</td>
+    <td>500</td>
+  </tr>
+  <tr>
+    <td>Bold</td>
+    <td>700</td>
+  </tr>
+</table>
+
+## Font families
+
+<table>
+  <tr>
+    <td>Type</td>
+    <td>Default value</td>
+  </tr>
+  <tr>
+    <td>Text, Heading</td>
+    <td>
+      -apple-system, BlinkMacSystemFont, &#39;Segoe UI (Custom)&#39;, Roboto,
+      &#39;Helvetica Neue&#39;, &#39;Open Sans (Custom)&#39;, system-ui,
+      sans-serif, &#39;Apple Color Emoji&#39;, &#39;Segoe UI Emoji&#39;
+    </td>
+  </tr>
+  <tr>
+    <td>Code</td>
+    <td>
+      &#39;Menlo&#39;, &#39;Consolas (Custom)&#39;, &#39;Bitstream Vera Sans
+      Mono&#39;, monospace, &#39;Apple Color Emoji&#39;, &#39;Segoe UI
+      Emoji&#39;
+    </td>
+  </tr>
+  <tr>
+    <td>Emphasis</td>
+    <td>&#39;Times New Roman&#39;, &#39;Times&#39;, serif</td>
+  </tr>
+  <tr>
+    <td>Quote</td>
+    <td>&#39;Times New Roman&#39;, &#39;Times&#39;, serif</td>
+  </tr>
+</table>
+
+To change the default fonts just override the following CSS variables:
+
+```css
+.frosted-ui {
+  --heading-font-family: 'Adobe Text Pro', serif;
+  --default-font-family: 'Inter', sans-serif;
+  --strong-font-family: 'Inter', sans-serif;
+  --em-font-family: 'Inter', sans-serif;
+  --quote-font-family: 'Inter', sans-serif;
+  --code-font-family: 'Fira Code', monospace;
+}
+```
+
+### Self hosted fonts
+
+You can use self-hosted fonts by downloading font files and adding them to your project.
+Then define the named font styles and weights by using `@font-face`.
+
+```css
+@font-face {
+  font-family: 'Inter';
+  src: url('./inter-light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('./inter-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('./inter-medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('./inter-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+```
+
+Then you can override the default font family in CSS in the following way:
+
+```css
+.frosted-ui {
+  --default-font-family: 'Inter', sans-serif;
+}
+```
+
+### Custom fonts with `next/font`
+
+To load fonts using [next/font](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts),
+you can specify a CSS variable name and assign it to the 'inter' font.
+Then, you can use `inter.variable` to add the CSS variable to your HTML document.
+
+```tsx
+import { Inter } from 'next/font/google';
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en" className={inter.variable}>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+Then, just override the CSS variable in your CSS:
+
+```css
+.frosted-ui {
+  --default-font-family: var(--font-inter), sans-serif;
+}
+```
