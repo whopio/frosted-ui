@@ -3,7 +3,7 @@
 <p align="center">Design system used by <a href="https://www.paypal.me/react95">Whop</a></p>
 
 <h3 align="center">
-  <a href="https://main--6557b75e74b4a714d987e6c1.chromatic.com/">Storybook</a> -
+  <a href="https://storybook.whop.com/">Storybook</a> -
   <a href="https://github.com/whopio/frosted-ui-v2/tree/main/packages/frosted-ui">Source code</a>
 </h3>
 
@@ -45,11 +45,11 @@ export default function () {
 ```
 
 ## Guides
-- [Setup steps](https://main--6557b75e74b4a714d987e6c1.chromatic.com/?path=/docs/guides-1-getting-started--docs)
-- [Typography](https://main--6557b75e74b4a714d987e6c1.chromatic.com/?path=/docs/guides-2-typography--docs)
-- [Color system](https://main--6557b75e74b4a714d987e6c1.chromatic.com/?path=/docs/guides-3-color--docs)
-- [Breakpoints](https://main--6557b75e74b4a714d987e6c1.chromatic.com/?path=/docs/guides-4-breakpoints--docs)
-- [Tailwind plugin](https://main--6557b75e74b4a714d987e6c1.chromatic.com/?path=/docs/guides-5-tailwind-plugin--docs)
+- [Setup steps](https://storybook.whop.com/?path=/docs/guides-1-getting-started--docs)
+- [Typography](https://storybook.whop.com/?path=/docs/guides-2-typography--docs)
+- [Color system](https://storybook.whop.com/?path=/docs/guides-3-color--docs)
+- [Breakpoints](https://storybook.whop.com/?path=/docs/guides-4-breakpoints--docs)
+- [Tailwind plugin](https://storybook.whop.com/?path=/docs/guides-5-tailwind-plugin--docs)
 
 ## Acknowledgments
 
