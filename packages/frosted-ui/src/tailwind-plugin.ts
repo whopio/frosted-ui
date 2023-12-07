@@ -94,6 +94,13 @@ export const frostedThemePlugin = plugin.withOptions(
     return {
       darkMode: 'class',
       theme: {
+        screens: {
+          xs: '520px',
+          sm: '768px',
+          md: '1024px',
+          lg: '1280px',
+          xl: '1640px',
+        },
         fontSize: {
           1: 'var(--font-size-1)',
           2: 'var(--font-size-2)',
