@@ -1,6 +1,6 @@
 <h1 align="center">Frosted UI</h1>
 
-<p align="center">Design system used by <a href="https://www.paypal.me/react95">Whop</a></p>
+<p align="center">Design system used by <a href="https://whop.com/">Whop</a></p>
 
 <h3 align="center">
   <a href="https://storybook.whop.com/">Storybook</a> -
@@ -45,6 +45,7 @@ export default function () {
 ```
 
 ## Guides
+
 - [Setup steps](https://storybook.whop.com/?path=/docs/guides-1-getting-started--docs)
 - [Typography](https://storybook.whop.com/?path=/docs/guides-2-typography--docs)
 - [Color system](https://storybook.whop.com/?path=/docs/guides-3-color--docs)
