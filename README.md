@@ -4,7 +4,7 @@
 
 <h3 align="center">
   <a href="https://storybook.whop.com/">Storybook</a> -
-  <a href="https://github.com/whopio/frosted-ui-v2/tree/main/packages/frosted-ui">Source code</a>
+  <a href="https://github.com/whopio/frosted-ui/tree/main/packages/frosted-ui">Source code</a>
 </h3>
 
 > [!WARNING]

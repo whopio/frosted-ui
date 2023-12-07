@@ -126,12 +126,12 @@
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://github.com/whopio/frosted-ui-v2",
+  "homepage": "https://github.com/whopio/frosted-ui",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/whopio/frosted-ui-v2.git"
+    "url": "git+https://github.com/whopio/frosted-ui.git"
   },
   "bugs": {
-    "url": "https://github.com/whopio/frosted-ui-v2/issues"
+    "url": "https://github.com/whopio/frosted-ui/issues"
   }
 }
