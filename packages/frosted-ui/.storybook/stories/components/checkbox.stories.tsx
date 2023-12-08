@@ -29,21 +29,43 @@ export const Default: Story = {
   },
   render: (args) => (
     <Flex gap="2" direction="column">
-      {/* TODO: text size matching checkbox size */}
+      <Checkbox defaultChecked {...args}>
+        Default
+      </Checkbox>
+      <Checkbox defaultChecked={true} disabled {...args}>
+        Disabled checked
+      </Checkbox>
+      <Checkbox defaultChecked={false} disabled {...args}>
+        Disabled unchecked
+      </Checkbox>
+    </Flex>
+  ),
+};
+
+export const Composed: Story = {
+  args: {
+    size: checkboxPropDefs.size.default,
+    color: checkboxPropDefs.color.default,
+    highContrast: checkboxPropDefs.highContrast.default,
+  },
+  render: (args) => (
+    <Flex gap="2" direction="column">
       <Text as="label" size="2">
         <Flex gap="2">
-          <Checkbox defaultChecked {...args} /> Default
+          <Checkbox defaultChecked {...args} />
+          Default
         </Flex>
       </Text>
       <Text as="label" size="2">
         <Flex gap="2">
-          <Checkbox defaultChecked={true} disabled {...args} /> Disabled checked
+          <Checkbox defaultChecked={true} disabled {...args} />
+          Disabled checked
         </Flex>
       </Text>
       <Text as="label" size="2">
         <Flex gap="2">
-          <Checkbox defaultChecked={false} disabled {...args} /> Disabled
-          unchecked
+          <Checkbox defaultChecked={false} disabled {...args} />
+          Disabled unchecked
         </Flex>
       </Text>
     </Flex>
