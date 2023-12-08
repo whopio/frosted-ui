@@ -6,7 +6,7 @@ import { tableRootPropDefs } from '../../../src/components/table.props';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
-  title: 'Components/Table',
+  title: 'Data presentation/Table',
   component: Table.Root,
   args: {
     size: tableRootPropDefs.size.default,

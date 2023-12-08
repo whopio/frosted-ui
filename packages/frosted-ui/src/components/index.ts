@@ -152,6 +152,7 @@ export {
   PopoverTrigger,
 } from './popover';
 export * from './popover.props';
+export { StackedHorizontalBarChart } from './stacked-horizontal-bar-chart';
 export { Tooltip } from './tooltip';
 export * from './tooltip.props';
 
