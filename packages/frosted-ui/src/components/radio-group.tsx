@@ -54,19 +54,19 @@ RadioGroupRoot.displayName = 'RadioGroupRoot';
 
 type RadioGroupItemElement = React.ElementRef<typeof RadioGroupPrimitive.Item>;
 interface RadioGroupItemProps
-  extends Omit<
-      React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item>,
-      'children'
-    >,
+  extends React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item>,
     MarginProps {}
 const RadioGroupItem = React.forwardRef<
   RadioGroupItemElement,
   RadioGroupItemProps
 >((props, forwardedRef) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-  const { className, style, ...itemProps } = marginRest;
+  const { children, className, style, ...itemProps } = marginRest;
+
+  const Comp = children ? 'label' : 'span';
+
   return (
-    <span
+    <Comp
       className={classNames(
         'fui-RadioGroupItem',
         className,
@@ -81,7 +81,8 @@ const RadioGroupItem = React.forwardRef<
       >
         <RadioGroupPrimitive.Indicator className="fui-RadioGroupIndicator" />
       </RadioGroupPrimitive.Item>
-    </span>
+      {children}
+    </Comp>
   );
 });
 RadioGroupItem.displayName = 'RadioGroupItem';

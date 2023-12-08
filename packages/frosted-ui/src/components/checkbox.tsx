@@ -96,16 +96,14 @@ CheckboxCheckmarkIcon.displayName = 'CheckboxCheckmarkIcon';
 type CheckboxElement = React.ElementRef<typeof CheckboxPrimitive.Root>;
 type CheckboxOwnProps = GetPropDefTypes<typeof checkboxPropDefs>;
 interface CheckboxProps
-  extends Omit<
-      PropsWithoutRefOrColor<typeof CheckboxPrimitive.Root>,
-      'children'
-    >,
+  extends PropsWithoutRefOrColor<typeof CheckboxPrimitive.Root>,
     MarginProps,
     CheckboxOwnProps {}
 const Checkbox = React.forwardRef<CheckboxElement, CheckboxProps>(
   (props, forwardedRef) => {
     const { rest: marginRest, ...marginProps } = extractMarginProps(props);
     const {
+      children,
       className,
       style,
       size = checkboxPropDefs.size.default,
@@ -113,8 +111,11 @@ const Checkbox = React.forwardRef<CheckboxElement, CheckboxProps>(
       highContrast = checkboxPropDefs.highContrast.default,
       ...checkboxProps
     } = marginRest;
+
+    const Comp = children ? 'label' : 'span';
+
     return (
-      <span
+      <Comp
         className={classNames(
           'fui-CheckboxRoot',
           className,
@@ -138,7 +139,9 @@ const Checkbox = React.forwardRef<CheckboxElement, CheckboxProps>(
             />
           </CheckboxPrimitive.Indicator>
         </CheckboxPrimitive.Root>
-      </span>
+
+        {children}
+      </Comp>
     );
   },
 );

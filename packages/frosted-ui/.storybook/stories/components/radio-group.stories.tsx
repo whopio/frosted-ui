@@ -33,6 +33,24 @@ export const Default: Story = {
   render: (args) => (
     <RadioGroup.Root defaultValue="1" {...args}>
       <Flex gap="2" direction="column">
+        <RadioGroup.Item value="1">Default</RadioGroup.Item>
+        <RadioGroup.Item value="2">Comfortable</RadioGroup.Item>
+        <RadioGroup.Item value="3">Compact</RadioGroup.Item>
+      </Flex>
+    </RadioGroup.Root>
+  ),
+};
+
+export const Composed: Story = {
+  args: {
+    size: radioGroupPropDefs.size.default,
+    color: radioGroupPropDefs.color.default,
+    variant: radioGroupPropDefs.variant.default,
+    highContrast: radioGroupPropDefs.highContrast.default,
+  },
+  render: (args) => (
+    <RadioGroup.Root defaultValue="1" {...args}>
+      <Flex gap="2" direction="column">
         <Text as="label" size="2">
           <Flex gap="2">
             <RadioGroup.Item value="1" /> Default
