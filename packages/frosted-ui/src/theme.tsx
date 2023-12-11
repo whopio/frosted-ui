@@ -8,6 +8,7 @@ import * as React from 'react';
 import { getMatchingGrayColor, themePropDefs } from './theme-options';
 
 import type { ThemeOptions } from './theme-options';
+import { WithThemeEvents } from './use-theme-events';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = () => {};
@@ -126,7 +127,10 @@ const ThemeRoot = React.forwardRef<ThemeImplElement, ThemeRootProps>(
     return (
       <>
         {appearance !== 'inherit' && (
-          <ExplicitRootAppearanceScript appearance={appearance} />
+          <>
+            <ExplicitRootAppearanceScript appearance={appearance} />
+            <SyncRootElementAppearance appearance={appearance} />
+          </>
         )}
 
         {hasBackground && (
@@ -168,6 +172,25 @@ body { background-color: var(--color-page-background); }
   },
 );
 ThemeRoot.displayName = 'ThemeRoot';
+
+function SyncRootElementAppearance({
+  appearance,
+}: {
+  appearance: Exclude<ThemeOptions['appearance'], 'inherit'>;
+}) {
+  React.useEffect(() => {
+    try {
+      document.documentElement.style.colorScheme = appearance;
+      const cl = document.documentElement.classList;
+      const opposite = appearance === 'light' ? 'dark' : 'light';
+      if (cl.contains(opposite)) cl.remove(opposite);
+      if (!cl.contains(appearance)) cl.add(appearance);
+    } catch {
+      /* ignore errors */
+    }
+  }, [appearance]);
+  return null;
+}
 
 type ThemeImplElement = React.ElementRef<'div'>;
 interface ThemeImplProps extends ThemeImplPublicProps, ThemeImplPrivateProps {}
@@ -259,6 +282,7 @@ const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
           ],
         )}
       >
+        {isRoot && <WithThemeEvents />}
         <Comp
           data-is-root-theme={isRoot ? 'true' : 'false'}
           data-accent-color={accentColor}

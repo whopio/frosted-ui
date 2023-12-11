@@ -15,7 +15,6 @@ import {
   withMarginProps,
 } from '../../helpers';
 
-<AccordionPrimitive.Root collapsible type="single" />;
 type AccordionRootElement = React.ElementRef<typeof AccordionPrimitive.Root>;
 type AccordionRootProps = React.ComponentProps<typeof AccordionPrimitive.Root> &
   MarginProps &
