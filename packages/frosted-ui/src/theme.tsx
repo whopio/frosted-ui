@@ -71,7 +71,10 @@ const ThemeRoot = React.forwardRef<ThemeImplElement, ThemeRootProps>(
       ...rootProps
     } = props;
     const [appearance, setAppearance] = React.useState(appearanceProp);
-    React.useEffect(() => setAppearance(appearanceProp), [appearanceProp]);
+    React.useEffect(() => {
+      console.log('React.useEffect (props)', appearanceProp);
+      setAppearance(appearanceProp), [appearanceProp];
+    });
 
     const [accentColor, setAccentColor] = React.useState(accentColorProp);
     React.useEffect(() => setAccentColor(accentColorProp), [accentColorProp]);
@@ -155,7 +158,13 @@ body { background-color: var(--color-page-background); }
           warningColor={warningColor}
           dangerColor={dangerColor}
           //
-          onAppearanceChange={setAppearance}
+          onAppearanceChange={React.useCallback(
+            (t: any) => {
+              console.log('onAppearanceChange', t);
+              setAppearance(t);
+            },
+            [setAppearance],
+          )}
           onAccentColorChange={setAccentColor}
           onGrayColorChange={setGrayColor}
           onInfoColorChange={setInfoColor}

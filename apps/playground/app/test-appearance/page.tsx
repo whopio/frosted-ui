@@ -9,7 +9,7 @@ import {
   Text,
   TextArea,
   Theme,
-  ThemePanel,
+  WithThemeEvents,
 } from 'frosted-ui';
 import * as React from 'react';
 
@@ -19,7 +19,8 @@ export default function Test() {
       <body>
         <Theme asChild appearance="dark">
           <div id="root">
-            <ThemePanel />
+            <WithThemeEvents />
+            {/* <ThemePanel /> */}
 
             <DocsSection title="Nested appearances test">
               <SampleNestedUI title="Global appearance">
