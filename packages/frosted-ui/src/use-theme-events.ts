@@ -80,7 +80,7 @@ export function useThemeEvents() {
     };
     document.documentElement.addEventListener('frosted-ui:set-theme', listener);
 
-    // Let external code that the component is mounted.
+    // Let external code know that the component is mounted.
     const event = new CustomEvent('frosted-ui:mounted');
     document.documentElement.dispatchEvent(event);
 
