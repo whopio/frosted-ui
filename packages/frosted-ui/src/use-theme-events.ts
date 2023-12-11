@@ -115,7 +115,7 @@ export function useThemeEvents() {
   ]);
 }
 
-export const WithThemeEvents: FC = ({}) => {
+export const WithThemeEvents: FC = () => {
   useThemeEvents();
   return null;
 };

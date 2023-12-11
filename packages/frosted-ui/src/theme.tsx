@@ -185,7 +185,9 @@ function SyncRootElementAppearance({
       const opposite = appearance === 'light' ? 'dark' : 'light';
       if (cl.contains(opposite)) cl.remove(opposite);
       if (!cl.contains(appearance)) cl.add(appearance);
-    } catch {}
+    } catch {
+      /* ignore errors */
+    }
   }, [appearance]);
   return null;
 }
