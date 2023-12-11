@@ -31,11 +31,11 @@ function validateThemeOptions(detail: unknown) {
 
   for (const key of keysToCheck) {
     if (!(key in detail)) continue;
-    if (!validateThemeColor(key, detail[key])) {
-      console.warn(`Invalid value for ${key}: ${detail[key]}`);
+    if (!validateThemeColor(key, (detail as any)[key])) {
+      console.warn(`Invalid value for ${key}: ${(detail as any)[key]}`);
       continue;
     }
-    ret[key] = detail[key];
+    ret[key] = (detail as any)[key];
   }
 
   return ret;
