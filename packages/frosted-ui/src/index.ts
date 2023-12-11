@@ -4,4 +4,3 @@ export * from './tailwind-plugin';
 export { Theme, updateThemeAppearanceClass, useThemeContext } from './theme';
 export * from './theme-options';
 export { ThemePanel } from './theme-panel';
-export { WithThemeEvents } from './use-theme-events';

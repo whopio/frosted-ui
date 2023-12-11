@@ -51,6 +51,8 @@ export function useThemeEvents() {
       }
     };
     document.documentElement.addEventListener('frosted-ui:set-theme', listener);
+
+    // Let external code that the component is mounted.
     const event = new CustomEvent('frosted-ui:mounted');
     document.documentElement.dispatchEvent(event);
 
@@ -63,8 +65,6 @@ export function useThemeEvents() {
       document.documentElement.dispatchEvent(event);
     };
   }, []);
-
-  console.log({ appearance });
 
   // Emit an event when the theme is changed.
   React.useEffect(() => {
@@ -89,10 +89,6 @@ export function useThemeEvents() {
     warningColor,
     dangerColor,
   ]);
-
-  useEffect(() => {
-    onAppearanceChange('light');
-  }, []);
 }
 
 export const WithThemeEvents: FC = ({}) => {
