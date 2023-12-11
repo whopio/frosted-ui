@@ -57,6 +57,7 @@ export const Size: Story = {
   },
   render: (args) => (
     <Flex align="center" gap="2">
+      <Button {...args} size="4" />
       <Button {...args} size="3" />
       <Button {...args} size="2" />
       <Button {...args} size="1" />
@@ -151,6 +152,23 @@ export const WithIcons: Story = {
       <Button {...args}>
         <ExampleIcon /> With icon
       </Button>
+    </Flex>
+  ),
+};
+
+export const Loading: Story = {
+  args: {
+    children: 'Button',
+    size: buttonPropDefs.size.default,
+    color: buttonPropDefs.color.default,
+    loading: true,
+  },
+  render: (args) => (
+    <Flex align="center" gap="4">
+      <Button {...args} variant="classic" />
+      <Button {...args} variant="soft" />
+      <Button {...args} variant="surface" />
+      <Button {...args} variant="ghost" />
     </Flex>
   ),
 };

@@ -6,6 +6,7 @@
   flex-shrink: 0;
   user-select: none;
   vertical-align: top;
+  color: var(--base-button-color);
 }
 
 /***************************************************************************************************
@@ -30,21 +31,25 @@
       --base-button-classic-active-padding-top: 1px;
       --base-button-height: var(--space-5);
       border-radius: var(--radius-3);
+      --base-button-spinner-size: 12px;
     }
     &:where(.fui-r-size-2) {
       --base-button-classic-active-padding-top: 2px;
       --base-button-height: var(--space-6);
       border-radius: var(--radius-4);
+      --base-button-spinner-size: 16px;
     }
     &:where(.fui-r-size-3) {
       --base-button-classic-active-padding-top: 2px;
       --base-button-height: var(--space-7);
       border-radius: var(--radius-4);
+      --base-button-spinner-size: 18px;
     }
     &:where(.fui-r-size-4) {
       --base-button-classic-active-padding-top: 2px;
       --base-button-height: var(--space-8);
       border-radius: var(--radius-5);
+      --base-button-spinner-size: 22px;
     }
   }
 }
@@ -73,7 +78,7 @@
 
 .fui-BaseButton:where(.fui-variant-classic) {
   background-color: var(--accent-9);
-  color: var(--accent-9-contrast);
+  --base-button-color: var(--accent-9-contrast);
   position: relative;
   z-index: 0;
 
@@ -92,7 +97,7 @@
 
   &:where(.fui-high-contrast) {
     background-color: var(--accent-12);
-    color: var(--gray-1);
+    --base-button-color: var(--gray-1);
   }
   &:where(:focus-visible) {
     outline: 2px solid var(--color-focus-root);
@@ -130,7 +135,7 @@
   }
   &:where([data-disabled]) {
     cursor: var(--cursor-disabled);
-    color: var(--gray-a8);
+    --base-button-color: var(--gray-a8);
     background-color: var(--gray-3);
     box-shadow:
     /* highlight*/
@@ -147,14 +152,14 @@
 /* soft / ghost */
 
 .fui-BaseButton:where(.fui-variant-soft, .fui-variant-ghost) {
-  color: var(--accent-a11);
+  --base-button-color: var(--accent-a11);
 
   &:where(.fui-high-contrast) {
-    color: var(--accent-12);
+    --base-button-color: var(--accent-12);
   }
   &:where([data-disabled]) {
     cursor: var(--cursor-disabled);
-    color: var(--gray-a8);
+    --base-button-color: var(--gray-a8);
     background-color: var(--gray-a3);
   }
 }
@@ -179,7 +184,7 @@
   }
   &:where([data-disabled]) {
     cursor: var(--cursor-disabled);
-    color: var(--gray-a8);
+    --base-button-color: var(--gray-a8);
     background-color: var(--gray-a3);
   }
 }
@@ -202,7 +207,7 @@
   }
   &:where([data-disabled]) {
     cursor: var(--cursor-disabled);
-    color: var(--gray-a8);
+    --base-button-color: var(--gray-a8);
     background-color: transparent;
   }
 }
@@ -214,7 +219,7 @@
   box-shadow:
     inset 0 0 0 1px var(--accent-a5),
     0px 2px 2px 0px var(--black-a1);
-  color: var(--accent-12);
+  --base-button-color: var(--accent-12);
 
   @media (hover: hover) {
     &:where(:hover) {
@@ -239,12 +244,36 @@
     outline-offset: -1px;
   }
   &:where(.fui-high-contrast) {
-    color: var(--accent-12);
+    --base-button-color: var(--accent-12);
   }
   &:where([data-disabled]) {
     cursor: var(--cursor-disabled);
-    color: var(--gray-a8);
+    --base-button-color: var(--gray-a8);
     box-shadow: inset 0 0 0 1px var(--gray-a6);
     background-color: var(--gray-a2);
   }
+}
+
+/* Loading state */
+
+@keyframes fui-button-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.fui-BaseButton:where([aria-busy]) {
+  color: transparent;
+  pointer-events: none;
+}
+
+.fui-BaseButtonSpinner {
+  position: absolute;
+  width: var(--base-button-spinner-size);
+  height: var(--base-button-spinner-size);
+  color: var(--base-button-color);
+  animation: fui-button-spin 500ms linear infinite;
 }
