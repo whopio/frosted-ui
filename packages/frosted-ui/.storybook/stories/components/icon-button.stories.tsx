@@ -123,3 +123,20 @@ export const HighContrast: Story = {
     </Flex>
   ),
 };
+
+export const Loading: Story = {
+  args: {
+    children: <ExampleIcon size={16} />,
+    size: buttonPropDefs.size.default,
+    color: buttonPropDefs.color.default,
+    loading: true,
+  },
+  render: (args) => (
+    <Flex align="center" gap="4">
+      <IconButton {...args} variant="classic" />
+      <IconButton {...args} variant="soft" />
+      <IconButton {...args} variant="surface" />
+      <IconButton {...args} variant="ghost" />
+    </Flex>
+  ),
+};
