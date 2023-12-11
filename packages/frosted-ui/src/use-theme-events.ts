@@ -31,10 +31,14 @@ function validateThemeOptions(detail: unknown) {
 
   for (const key of keysToCheck) {
     if (!(key in detail)) continue;
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if (!validateThemeColor(key, (detail as any)[key])) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       console.warn(`Invalid value for ${key}: ${(detail as any)[key]}`);
       continue;
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ret[key] = (detail as any)[key];
   }
 
