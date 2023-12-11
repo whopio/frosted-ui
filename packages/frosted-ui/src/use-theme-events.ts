@@ -2,6 +2,44 @@
 
 import React, { FC, useEffect } from 'react';
 import { useThemeContext } from './theme';
+import { ThemeOptions, themePropDefs } from './theme-options';
+
+function validateThemeColor<
+  K extends Exclude<keyof typeof themePropDefs, 'hasBackground'>,
+>(
+  key: K,
+  value: unknown,
+): value is (typeof themePropDefs)[K]['values'][number] {
+  const validValues = themePropDefs[key].values;
+  return validValues.includes(value as never);
+}
+
+function validateThemeOptions(detail: unknown) {
+  if (typeof detail !== 'object' || !detail) return {};
+
+  const ret: Partial<ThemeOptions> = {};
+
+  const keysToCheck: readonly (keyof ThemeOptions)[] = [
+    'accentColor',
+    'appearance',
+    'dangerColor',
+    'grayColor',
+    'infoColor',
+    'successColor',
+    'warningColor',
+  ];
+
+  for (const key of keysToCheck) {
+    if (!(key in detail)) continue;
+    if (!validateThemeColor(key, detail[key])) {
+      console.warn(`Invalid value for ${key}: ${detail[key]}`);
+      continue;
+    }
+    ret[key] = detail[key];
+  }
+
+  return ret;
+}
 
 export function useThemeEvents() {
   const {
@@ -25,29 +63,15 @@ export function useThemeEvents() {
   // Listen for theme changes from the outside.
   useEffect(() => {
     const listener = (e: Event) => {
-      console.log('GOT SET THEME EVENT', e);
       if (e instanceof CustomEvent) {
-        const {
-          detail: {
-            appearance,
-            accentColor,
-            grayColor,
-            infoColor,
-            successColor,
-            warningColor,
-            dangerColor,
-          },
-        } = e;
-        if (appearance) {
-          console.log('setting appearance to', appearance);
-          onAppearanceChange(appearance);
-        }
-        if (accentColor) onAccentColorChange(accentColor);
-        if (grayColor) onGrayColorChange(grayColor);
-        if (infoColor) onInfoColorChange(infoColor);
-        if (successColor) onSuccessColorChange(successColor);
-        if (warningColor) onWarningColorChange(warningColor);
-        if (dangerColor) onDangerColorChange(dangerColor);
+        const d = validateThemeOptions(e.detail);
+        if (d.appearance) onAppearanceChange(d.appearance);
+        if (d.accentColor) onAccentColorChange(d.accentColor);
+        if (d.grayColor) onGrayColorChange(d.grayColor);
+        if (d.infoColor) onInfoColorChange(d.infoColor);
+        if (d.successColor) onSuccessColorChange(d.successColor);
+        if (d.warningColor) onWarningColorChange(d.warningColor);
+        if (d.dangerColor) onDangerColorChange(d.dangerColor);
       }
     };
     document.documentElement.addEventListener('frosted-ui:set-theme', listener);
