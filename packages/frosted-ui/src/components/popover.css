@@ -1,5 +1,4 @@
 .fui-PopoverContent {
-  background-color: var(--color-panel-solid);
   box-shadow: var(--shadow-5);
   min-width: var(--radix-popover-trigger-width);
   outline: 0;
@@ -9,6 +8,24 @@
   padding: var(--popover-content-padding);
 
   transform-origin: var(--radix-popover-content-transform-origin);
+
+  &:where(.fui-variant-translucent) {
+    background-color: var(--color-panel-translucent);
+    -webkit-backdrop-filter: var(--backdrop-filter-panel);
+    backdrop-filter: var(--backdrop-filter-panel);
+    outline: 0.5px solid var(--color-popover-outline);
+  }
+  &:where(.fui-variant-solid) {
+    background-color: var(--color-panel-solid);
+  }
+}
+/* prettier-ignore */
+:where(.frosted-ui) {
+  --color-popover-outline: transparent;
+}
+:is(.dark, .dark-theme),
+:is(.dark, .dark-theme) :where(.frosted-ui:not(.light, .light-theme)) {
+  --color-popover-outline: black;
 }
 
 /***************************************************************************************************
