@@ -4,7 +4,7 @@
   overflow-x: auto;
   white-space: nowrap;
 
-  background: var(--gray-a2);
+  background: var(--gray-a3);
   border-radius: var(--radius-4);
   scrollbar-width: none;
   padding: var(--space-1);
@@ -26,6 +26,7 @@
 
 .fui-SegmentedControlTriggerInner {
   display: flex;
+  gap: var(--space-2);
   align-items: center;
   justify-content: center;
   position: relative;
@@ -66,10 +67,19 @@
     position: absolute;
     border-radius: inherit;
     inset: 0;
-    background: var(--color-panel-solid);
+    background: var(--color-segmented-control-thumb);
     background-image: linear-gradient(var(--white-a3), var(--white-a3));
     box-shadow:
       0px 1px 1px 0px rgba(0, 0, 0, 0.05),
       0px 2px 4px 0px rgba(0, 0, 0, 0.05);
   }
+}
+
+/* prettier-ignore */
+:where(.frosted-ui) {
+  --color-segmented-control-thumb: var(--color-panel-solid);
+}
+:is(.dark, .dark-theme),
+:is(.dark, .dark-theme) :where(.frosted-ui:not(.light, .light-theme)) {
+  --color-segmented-control-thumb: transparent;
 }
