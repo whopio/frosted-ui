@@ -49,6 +49,7 @@ const PopoverContent = React.forwardRef<
     forceMount,
     container,
     size = popoverContentPropDefs.size.default,
+    variant = popoverContentPropDefs.variant.default,
     ...contentProps
   } = props;
   return (
@@ -63,6 +64,7 @@ const PopoverContent = React.forwardRef<
           className={classNames(
             'fui-PopperContent',
             'fui-PopoverContent',
+            `fui-variant-${variant}`,
             className,
             withBreakpoints(size, 'fui-r-size'),
           )}
