@@ -39,6 +39,27 @@ const BaseButton = React.forwardRef<BaseButtonElement, BaseButtonProps>(
       ...baseButtonProps
     } = marginRest;
     const Comp = asChild ? Slot : 'button';
+
+    const content = asChild ? (
+      children
+    ) : (
+      <>
+        {children}
+
+        {loading && (
+          <svg
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+            className="fui-BaseButtonSpinner"
+          >
+            <path
+              fill="currentColor"
+              d="M7.229 1.173a9.25 9.25 0 1011.655 11.412 1.25 1.25 0 10-2.4-.698 6.75 6.75 0 11-8.506-8.329 1.25 1.25 0 10-.75-2.385z"
+            ></path>
+          </svg>
+        )}
+      </>
+    );
     return (
       <Comp
         data-accent-color={color || (variant === 'surface' ? 'gray' : color)}
@@ -59,22 +80,7 @@ const BaseButton = React.forwardRef<BaseButtonElement, BaseButtonProps>(
         aria-disabled={disabled || loading || undefined}
         disabled={disabled || loading || undefined}
       >
-        <>
-          {children}
-
-          {loading && (
-            <svg
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-              className="fui-BaseButtonSpinner"
-            >
-              <path
-                fill="currentColor"
-                d="M7.229 1.173a9.25 9.25 0 1011.655 11.412 1.25 1.25 0 10-2.4-.698 6.75 6.75 0 11-8.506-8.329 1.25 1.25 0 10-.75-2.385z"
-              ></path>
-            </svg>
-          )}
-        </>
+        {content}
       </Comp>
     );
   },
