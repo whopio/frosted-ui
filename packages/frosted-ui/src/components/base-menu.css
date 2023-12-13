@@ -79,8 +79,8 @@
   height: 1px;
   margin-top: var(--space-2);
   margin-bottom: var(--space-2);
-  margin-left: var(--base-menu-item-padding-left);
-  margin-right: var(--base-menu-item-padding-right);
+  margin-left: calc(-1 * var(--base-menu-content-padding) + 1px);
+  margin-right: calc(-1 * var(--base-menu-content-padding) + 1px);
 }
 
 .fui-BaseMenuLabel {
@@ -177,6 +177,40 @@
         --base-menu-item-padding-left: var(--space-5);
       }
     }
+
+    &:where(.fui-r-size-3) {
+      --base-menu-content-padding: var(--space-2);
+      --base-menu-item-padding-left: var(--space-3);
+      --base-menu-item-padding-right: var(--space-3);
+      --base-menu-item-height: var(--space-7);
+      border-radius: var(--radius-5);
+
+      & :where(.fui-BaseMenuItem) {
+        font-size: var(--font-size-3);
+        line-height: var(--line-height-3);
+        letter-spacing: var(--letter-spacing-3);
+        border-radius: var(--radius-3);
+      }
+
+      & :where(.fui-BaseMenuLabel) {
+        font-size: var(--font-size-3);
+        line-height: var(--line-height-3);
+        letter-spacing: var(--letter-spacing-3);
+      }
+
+      & :where(.fui-BaseMenuItemIndicatorIcon, .fui-BaseMenuSubTriggerIcon) {
+        width: 12px;
+        height: 12px;
+      }
+
+      /* reset with :not:has so we still support browsers without :has */
+      &:where(:not(:has(.fui-BaseMenuCheckboxItem, .fui-BaseMenuRadioItem))) {
+        --base-menu-item-padding-left: var(--space-4);
+      }
+      &:where(:has(.fui-BaseMenuCheckboxItem, .fui-BaseMenuRadioItem)) {
+        --base-menu-item-padding-left: var(--space-6);
+      }
+    }
   }
 }
 
@@ -200,9 +234,10 @@
     background-color: var(--gray-a3);
   }
   & :where(.fui-BaseMenuItem[data-highlighted]) {
-    background-color: var(--accent-a5);
+    background-color: var(--gray-a5);
 
     &:where([data-accent-color]) {
+      background-color: var(--accent-a5);
       color: var(--accent-12);
     }
   }
@@ -214,7 +249,7 @@
   color: var(--gray-a8);
 }
 .fui-BaseMenuShortcut {
-  color: var(--gray-a11);
+  color: var(--gray-a10);
 }
 .fui-BaseMenuItem:where([data-disabled], [data-highlighted]),
 .fui-BaseMenuSubTrigger:where([data-state='open']) {
