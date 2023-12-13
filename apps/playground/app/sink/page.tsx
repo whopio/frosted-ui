@@ -4345,7 +4345,7 @@ function ContextMenuContentDemo(
 }
 
 type RightClickAreaProps = React.ComponentProps<typeof Grid> & {
-  size: '1' | '2';
+  size: '1' | '2' | '3';
 };
 function RightClickArea({ size = '2', ...props }: RightClickAreaProps) {
   return (

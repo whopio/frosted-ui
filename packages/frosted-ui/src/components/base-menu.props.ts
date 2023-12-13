@@ -1,7 +1,7 @@
 import type { PropDef } from '../helpers';
 import { colorProp, highContrastProp } from '../helpers';
 
-const contentSizes = ['1', '2'] as const;
+const contentSizes = ['1', '2', '3'] as const;
 
 const baseMenuContentPropDefs = {
   size: { type: 'enum', values: contentSizes, default: '2', responsive: true },
