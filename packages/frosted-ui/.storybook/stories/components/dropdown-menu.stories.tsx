@@ -20,42 +20,88 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: (args) => (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger>
-        <Button variant="soft">Options</Button>
-      </DropdownMenu.Trigger>
-      <DropdownMenu.Content>
-        <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
-        <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
-        <DropdownMenu.Separator />
-        <DropdownMenu.Item shortcut="⌘ N">Archive</DropdownMenu.Item>
+  render: (args) => {
+    type Order = 'ascending' | 'descending';
+    const [order, setOrder] = React.useState<Order>('ascending');
+    const [showHiddenFiles, setShowHiddenFiles] = React.useState(true);
 
-        <DropdownMenu.Sub>
-          <DropdownMenu.SubTrigger>More</DropdownMenu.SubTrigger>
-          <DropdownMenu.SubContent>
-            <DropdownMenu.Item>Move to project…</DropdownMenu.Item>
-            <DropdownMenu.Item>Move to folder…</DropdownMenu.Item>
-            <DropdownMenu.Separator />
-            <DropdownMenu.Item>Advanced options…</DropdownMenu.Item>
-          </DropdownMenu.SubContent>
-        </DropdownMenu.Sub>
+    return (
+      <DropdownMenu.Root>
+        <DropdownMenu.Trigger>
+          <Button variant="soft">Options</Button>
+        </DropdownMenu.Trigger>
+        <DropdownMenu.Content size="2">
+          <DropdownMenu.Label>Swag</DropdownMenu.Label>
+          <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
+          <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
+          <DropdownMenu.Separator />
+          <DropdownMenu.Item shortcut="⌘ N">Archive</DropdownMenu.Item>
 
-        <DropdownMenu.Separator />
-        <DropdownMenu.Item>Share</DropdownMenu.Item>
-        <DropdownMenu.Item>Add to favorites</DropdownMenu.Item>
-        <DropdownMenu.Separator />
-        <DropdownMenu.Item shortcut="⌘ ⌫" color="danger">
-          Delete
-        </DropdownMenu.Item>
-      </DropdownMenu.Content>
-    </DropdownMenu.Root>
-  ),
+          <DropdownMenu.Sub>
+            <DropdownMenu.SubTrigger>More</DropdownMenu.SubTrigger>
+            <DropdownMenu.SubContent>
+              <DropdownMenu.Item>Move to project…</DropdownMenu.Item>
+              <DropdownMenu.Item>Move to folder…</DropdownMenu.Item>
+              <DropdownMenu.Separator />
+              <DropdownMenu.Item>Advanced options…</DropdownMenu.Item>
+            </DropdownMenu.SubContent>
+          </DropdownMenu.Sub>
+
+          <DropdownMenu.Separator />
+          <DropdownMenu.RadioGroup
+            value={order}
+            onValueChange={(value) => setOrder(value as Order)}
+          >
+            <DropdownMenu.RadioItem value="ascending">
+              Ascending
+            </DropdownMenu.RadioItem>
+            <DropdownMenu.RadioItem value="descending">
+              Descending
+            </DropdownMenu.RadioItem>
+          </DropdownMenu.RadioGroup>
+          <DropdownMenu.Separator />
+
+          <DropdownMenu.CheckboxItem
+            checked={showHiddenFiles}
+            onCheckedChange={setShowHiddenFiles}
+            shortcut="S+ H"
+          >
+            Show hidden files
+          </DropdownMenu.CheckboxItem>
+
+          <DropdownMenu.Separator />
+
+          <DropdownMenu.Item shortcut="⌘ ⌫" color="danger">
+            Delete
+          </DropdownMenu.Item>
+        </DropdownMenu.Content>
+      </DropdownMenu.Root>
+    );
+  },
 };
 
 export const Size: Story = {
   render: (args) => (
     <Flex gap="3" align="center">
+      <DropdownMenu.Root>
+        <DropdownMenu.Trigger>
+          <Button variant="soft" size="3">
+            Large
+          </Button>
+        </DropdownMenu.Trigger>
+        <DropdownMenu.Content size="3">
+          <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
+          <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
+          <DropdownMenu.Separator />
+          <DropdownMenu.Item shortcut="⌘ N">Archive</DropdownMenu.Item>
+
+          <DropdownMenu.Separator />
+          <DropdownMenu.Item shortcut="⌘ ⌫" color="danger">
+            Delete
+          </DropdownMenu.Item>
+        </DropdownMenu.Content>
+      </DropdownMenu.Root>
+
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
           <Button variant="soft" size="2">
