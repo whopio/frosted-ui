@@ -37,6 +37,7 @@ const Avatar = React.forwardRef<AvatarElement, AvatarProps>(
       color = avatarPropDefs.color.default,
       highContrast = avatarPropDefs.highContrast.default,
       fallback,
+      variant = avatarPropDefs.variant.default,
       ...imageProps
     } = marginRest;
     const [status, setStatus] = React.useState<ImageStatus>('idle');
@@ -50,6 +51,7 @@ const Avatar = React.forwardRef<AvatarElement, AvatarProps>(
           className,
           withBreakpoints(size, 'fui-r-size'),
           { 'fui-high-contrast': highContrast },
+          `fui-variant-${variant}`,
           withMarginProps(marginProps),
         )}
         style={style}
