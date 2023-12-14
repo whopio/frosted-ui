@@ -205,7 +205,7 @@
 
       /* reset with :not:has so we still support browsers without :has */
       &:where(:not(:has(.fui-BaseMenuCheckboxItem, .fui-BaseMenuRadioItem))) {
-        --base-menu-item-padding-left: var(--space-4);
+        --base-menu-item-padding-left: var(--space-2);
       }
       &:where(:has(.fui-BaseMenuCheckboxItem, .fui-BaseMenuRadioItem)) {
         --base-menu-item-padding-left: var(--space-6);
