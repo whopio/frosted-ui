@@ -127,7 +127,7 @@
 
 .fui-Card:where(.fui-variant-surface) {
   --card-border-width: 1px;
-  background-color: var(--color-panel);
+  background: var(--card-background);
 
   &::after {
     border-radius: var(--card-after-border-radius);
@@ -173,6 +173,7 @@
     0 2px 3px -2px var(--black-a1),
     0 3px 12px -4px var(--gray-a3),
     0 4px 16px -8px var(--black-a1);
+  --card-background: var(--color-background);
 }
 /* prettier-ignore */
 :is(.dark, .dark-theme),
@@ -184,6 +185,7 @@
     0 0 3px -2px var(--gray-a3),
     0 0 12px -2px var(--gray-a3),
     0 0 16px -8px var(--gray-a9);
+  --card-background: linear-gradient(var(--color-panel-elevation-a3), var(--color-panel-elevation-a3)), var(--color-background);
 }
 
 /* prettier-ignore */
@@ -202,7 +204,7 @@
 
 .fui-Card:where(.fui-variant-classic) {
   --card-border-width: 1px;
-  background-color: var(--color-panel);
+  background: var(--card-background);
 
   &::after {
     border-radius: var(--card-after-border-radius);
