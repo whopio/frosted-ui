@@ -1,0 +1,149 @@
+.fui-CalendarRoot {
+  display: inline-block;
+}
+
+.fui-CalendarHeader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 2px 12px 2px;
+}
+
+.fui-CalendarDropdowns {
+  flex: 1;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+.fui-CalendarDropdowns > * {
+  flex: 1;
+}
+
+.fui-CalendarGrid {
+  width: 100%;
+  user-select: none;
+  border-spacing: 0;
+  border-collapse: collapse;
+  isolation: isolate;
+}
+
+.fui-CalendarGrid th {
+  font-size: var(--font-size-2);
+  font-weight: var(--font-weight-regular);
+  color: var(--gray-a10);
+}
+
+.fui-CalendarGridCellInner {
+  position: relative;
+  cursor: default;
+  text-align: center;
+  padding: 6px 8px;
+  margin: 2px 0;
+  position: relative;
+  outline: none;
+
+  font-size: var(--font-size-2);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-2);
+  color: var(--gray-a12);
+}
+
+.fui-CalendarGridCellInner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.fui-CalendarGridCellInner[data-selection-state]::before {
+  background: var(--accent-a4);
+  border-top-right-radius: inherit;
+  border-bottom-right-radius: inherit;
+  border-top-left-radius: inherit;
+  border-bottom-left-radius: inherit;
+}
+.fui-CalendarGridCellInner[data-selection-state='selected'] {
+  border-radius: 6px;
+}
+
+.fui-CalendarGridCellInner:where(:not([aria-disabled]):hover) {
+  background: var(--gray-a3);
+  border-radius: 6px;
+}
+.fui-CalendarGridCellInner[data-selection-state='range']::before {
+  border-radius: 0;
+}
+.fui-CalendarGridCellInner.selected + .fui-CalendarGridCellInner.selected {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.fui-CalendarGridCellInner:where([aria-disabled]:hover) {
+  cursor: var(--cursor-disabled);
+}
+
+.fui-CalendarGridCellInner[data-rounded='left']::before {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+.fui-CalendarGridCellInner[data-rounded='right']::before {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.fui-CalendarGridCellInner.selected {
+  background: var(--accent-9);
+  color: white;
+}
+
+.fui-CalendarGridCellInner[data-selection-state='start'],
+.fui-CalendarGridCellInner[data-selection-state='end'] {
+  border-radius: 6px;
+}
+.fui-CalendarGridCellInner[data-selection-state='end']::before {
+  border-top-left-radius: unset;
+  border-bottom-left-radius: unset;
+}
+.fui-CalendarGridCellInner[data-selection-state='start']::before {
+  border-top-right-radius: unset;
+  border-bottom-right-radius: unset;
+}
+.fui-CalendarGridCell:has([data-selection-state='start'])
+  + .fui-CalendarGridCell:has([data-selection-state='end'])
+  .fui-CalendarGridCellInner {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.fui-CalendarGridCell:has([data-selection-state='start']):has(
+    + .fui-CalendarGridCell [data-selection-state='end']
+  )
+  .fui-CalendarGridCellInner {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.fui-CalendarGridCellInner.focusRing:focus-visible:after {
+  content: '';
+  position: absolute;
+  inset: 0px;
+  border-radius: 6px;
+  z-index: -1;
+  outline: 2px solid var(--accent-9);
+  outline-offset: 2px;
+  z-index: 1;
+  mix-blend-mode: screen;
+}
+
+.fui-CalendarGridCellInner[aria-disabled] {
+  opacity: 0.6;
+}
+
+.fui-CalendarGridCellInner.unavailable {
+  color: var(--danger-9);
+  text-decoration: line-through;
+}
+
+.fui-CalendarGridCellInnerPlaceholder {
+  opacity: 0;
+  pointer-events: none;
+}
