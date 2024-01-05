@@ -27,7 +27,7 @@
   isolation: isolate;
 }
 
-.fui-CalendarGrid th {
+.fui-CalendarGrid {
   font-size: var(--font-size-2);
   font-weight: var(--font-weight-regular);
   color: var(--gray-a10);
@@ -72,7 +72,8 @@
 .fui-CalendarGridCellInner[data-selection-state='range']::before {
   border-radius: 0;
 }
-.fui-CalendarGridCellInner.selected + .fui-CalendarGridCellInner.selected {
+.fui-CalendarGridCellInner.fui-CalendarGridCell-selected
+  + .fui-CalendarGridCellInner.fui-CalendarGridCell-selected {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -90,7 +91,7 @@
   border-bottom-right-radius: 6px;
 }
 
-.fui-CalendarGridCellInner.selected {
+.fui-CalendarGridCellInner.fui-CalendarGridCell-selected {
   background: var(--accent-9);
   color: white;
 }
@@ -122,7 +123,7 @@
   border-bottom-right-radius: 0;
 }
 
-.fui-CalendarGridCellInner.focusRing:focus-visible:after {
+.fui-CalendarGridCellInner.fui-CalendarGridCell-focusRing:focus-visible:after {
   content: '';
   position: absolute;
   inset: 0px;
@@ -138,7 +139,7 @@
   opacity: 0.6;
 }
 
-.fui-CalendarGridCellInner.unavailable {
+.fui-CalendarGridCellInner.fui-CalendarGridCell-unavailable {
   color: var(--danger-9);
   text-decoration: line-through;
 }

@@ -353,7 +353,6 @@ function CalendarCell({
     buttonProps,
     formattedDate,
     isSelected,
-    isDisabled,
     isOutsideVisibleRange,
     isUnavailable,
   } = useCalendarCell(props, state, ref);
@@ -421,12 +420,10 @@ function CalendarCell({
           isRoundedLeft ? 'left' : isRoundedRight ? 'right' : undefined
         }
         className={classNames('fui-CalendarGridCellInner', {
-          ['selected']:
+          ['fui-CalendarGridCell-selected']:
             isSelectionStart || isSelectionEnd || isSingleDateSelected,
-          ['range-selected']: !(isSelectionStart || isSelectionEnd),
-          ['focusRing']: isFocused && isFocusVisible,
-          ['disabled']: isDisabled,
-          ['unavailable']: isUnavailable,
+          ['fui-CalendarGridCell-focusRing']: isFocused && isFocusVisible,
+          ['fui-CalendarGridCell-unavailable']: isUnavailable,
         })}
       >
         {formattedDate}
