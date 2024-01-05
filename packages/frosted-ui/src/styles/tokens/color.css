@@ -201,7 +201,7 @@
   --color-panel-solid: var(--gray-2);
   --color-panel-translucent: var(--gray-2-translucent);
   --color-surface: rgba(0, 0, 0, 0.25);
-  --backdrop-filter-panel: blur(10px) saturate(190%) contrast(70%)
+  --backdrop-filter-panel: blur(10px) saturate(190%) contrast(90%)
     brightness(80%);
 }
 
