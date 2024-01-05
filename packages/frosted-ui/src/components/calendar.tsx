@@ -17,8 +17,6 @@ import {
 import { useFocusRing } from '@react-aria/focus';
 import { useDateFormatter, useLocale } from '@react-aria/i18n';
 import { mergeProps } from '@react-aria/utils';
-import classNames from 'classnames';
-import React, { useRef } from 'react';
 import {
   CalendarState,
   CalendarStateOptions,
@@ -26,7 +24,9 @@ import {
   RangeCalendarStateOptions,
   useCalendarState,
   useRangeCalendarState,
-} from 'react-stately';
+} from '@react-stately/calendar';
+import classNames from 'classnames';
+import React, { useRef } from 'react';
 
 import { IconButton } from './icon-button';
 import { Select } from './select';

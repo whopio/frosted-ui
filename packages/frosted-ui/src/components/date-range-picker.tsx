@@ -4,9 +4,9 @@ import {
   useDateRangePicker,
 } from '@react-aria/datepicker';
 
+import { useDateRangePickerState } from '@react-stately/datepicker';
 import classNames from 'classnames';
 import React, { useRef } from 'react';
-import { useDateRangePickerState } from 'react-stately';
 import {
   GetPropDefTypes,
   MarginProps,

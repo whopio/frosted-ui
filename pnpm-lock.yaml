@@ -248,15 +248,9 @@ importers:
       classnames:
         specifier: ^2.3.2
         version: 2.3.2
-      react-aria:
-        specifier: ^3.31.0
-        version: 3.31.0(react-dom@18.2.0)(react@18.2.0)
       react-aria-components:
         specifier: 1.0.0-rc.0
         version: 1.0.0-rc.0(react-dom@18.2.0)(react@18.2.0)
-      react-stately:
-        specifier: ^3.29.0
-        version: 3.29.0(react@18.2.0)
       tailwindcss:
         specifier: ^3.3.5
         version: 3.3.5
