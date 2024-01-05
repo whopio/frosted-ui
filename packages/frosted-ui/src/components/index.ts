@@ -32,6 +32,7 @@ export { Strong } from './strong';
 // FORMS
 //------------------------------------------------------------------------------
 // export * from './form'; 👈
+export { Calendar, RangeCalendar } from './calendar';
 export { Checkbox } from './checkbox';
 export * from './checkbox.props';
 export { Progress } from './progress';
@@ -39,6 +40,12 @@ export * from './progress.props';
 export { RadioGroup, RadioGroupItem, RadioGroupRoot } from './radio-group';
 export * from './radio-group.props';
 // export * from './radio-card-group';
+export { DateField } from './date-field';
+export * from './date-field.props';
+export { DatePicker } from './date-picker';
+export * from './date-picker.props';
+export { DateRangePicker } from './date-range-picker';
+export * from './date-range-picker.props';
 export { Shine } from './lab/shine';
 export {
   Select,

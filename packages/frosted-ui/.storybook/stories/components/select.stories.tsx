@@ -8,6 +8,13 @@ const meta = {
   title: 'Controls/Select',
   component: Select.Root,
   args: {},
+  argTypes: {
+    onValueChange: {
+      action: 'onValueChange',
+      description: `(value: string) => void`,
+      type: 'function',
+    },
+  },
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
     layout: 'centered',
