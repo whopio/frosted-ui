@@ -93,6 +93,73 @@ const CheckboxCheckmarkIcon = React.forwardRef<IconElement, IconProps>(
 );
 CheckboxCheckmarkIcon.displayName = 'CheckboxCheckmarkIcon';
 
+const CheckboxIndeterminateIcon = React.forwardRef<IconElement, IconProps>(
+  ({ color = 'currentColor', size, ...props }, forwardedRef) => {
+    switch (size) {
+      case '1':
+        return (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            {...props}
+            ref={forwardedRef}
+          >
+            <path
+              d="M5 8H11"
+              stroke={color}
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+          </svg>
+        );
+      case '2':
+        return (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            {...props}
+            ref={forwardedRef}
+          >
+            <path
+              d="M6 10H14"
+              stroke={color}
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+          </svg>
+        );
+      case '3':
+        return (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            {...props}
+            ref={forwardedRef}
+          >
+            <path
+              d="M7 12H17"
+              stroke={color}
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+          </svg>
+        );
+      default:
+        throw Error('Invalid size');
+    }
+  },
+);
+CheckboxIndeterminateIcon.displayName = 'CheckboxIndeterminateIcon';
+
 type CheckboxElement = React.ElementRef<typeof CheckboxPrimitive.Root>;
 type CheckboxOwnProps = GetPropDefTypes<typeof checkboxPropDefs>;
 interface CheckboxProps
@@ -133,10 +200,17 @@ const Checkbox = React.forwardRef<CheckboxElement, CheckboxProps>(
           })}
         >
           <CheckboxPrimitive.Indicator className="fui-CheckboxIndicator">
-            <CheckboxCheckmarkIcon
-              size={size}
-              className="fui-CheckboxIndicatorIcon"
-            />
+            {checkboxProps.checked === 'indeterminate' ? (
+              <CheckboxIndeterminateIcon
+                size={size}
+                className="fui-CheckboxIndicatorIcon"
+              />
+            ) : (
+              <CheckboxCheckmarkIcon
+                size={size}
+                className="fui-CheckboxIndicatorIcon"
+              />
+            )}
           </CheckboxPrimitive.Indicator>
         </CheckboxPrimitive.Root>
 

@@ -29,14 +29,23 @@ export const Default: Story = {
   },
   render: (args) => (
     <Flex gap="2" direction="column">
-      <Checkbox defaultChecked {...args}>
-        Default
+      <Checkbox checked {...args}>
+        Checked
       </Checkbox>
-      <Checkbox defaultChecked={true} disabled {...args}>
-        Disabled checked
+      <Checkbox checked disabled {...args}>
+        Checked disabled
       </Checkbox>
-      <Checkbox defaultChecked={false} disabled {...args}>
-        Disabled unchecked
+      <Checkbox checked={false} {...args}>
+        Unchecked
+      </Checkbox>
+      <Checkbox checked={false} disabled {...args}>
+        Unchecked disabled
+      </Checkbox>
+      <Checkbox checked={'indeterminate'} {...args}>
+        Indeterminate
+      </Checkbox>
+      <Checkbox checked={'indeterminate'} disabled {...args}>
+        Indeterminate disabled
       </Checkbox>
     </Flex>
   ),
