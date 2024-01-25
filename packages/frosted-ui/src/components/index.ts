@@ -46,6 +46,8 @@ export { DatePicker } from './date-picker';
 export * from './date-picker.props';
 export { DateRangePicker } from './date-range-picker';
 export * from './date-range-picker.props';
+export { FilterChip } from './filter-chip';
+export * from './filter-chip.props';
 export { Shine } from './lab/shine';
 export {
   Select,
