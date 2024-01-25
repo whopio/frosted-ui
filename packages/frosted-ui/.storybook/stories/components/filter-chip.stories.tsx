@@ -55,7 +55,10 @@ export const Default: Story = {
   },
   render: (args) => (
     <Flex gap="2" direction="row">
-      <FilterChip defaultChecked {...args}></FilterChip>
+      <FilterChip defaultChecked {...args}>
+        <ExampleIcon size={16} />
+        Default
+      </FilterChip>
       <FilterChip defaultChecked={true} disabled {...args}>
         <ExampleIcon size={16} />
         Disabled checked
