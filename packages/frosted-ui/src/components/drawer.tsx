@@ -192,17 +192,23 @@ const Drawer = Object.assign(
 
 export {
   Drawer,
+  DrawerBody,
   DrawerClose,
   DrawerContent,
+  DrawerHeader,
   DrawerRoot,
+  DrawerStickyFooter,
   DrawerTitle,
   DrawerTrigger,
 };
 
 export type {
+  DrawerBodyProps,
   DrawerCloseProps,
   DrawerContentProps,
+  DrawerHeaderProps,
   DrawerRootProps,
+  DrawerStickyFooterProps,
   DrawerTitleProps,
   DrawerTriggerProps,
 };

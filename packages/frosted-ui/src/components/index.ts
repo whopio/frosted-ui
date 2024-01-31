@@ -116,9 +116,12 @@ export {
 export * from './dialog.props';
 export {
   Drawer,
+  DrawerBody,
   DrawerClose,
   DrawerContent,
+  DrawerHeader,
   DrawerRoot,
+  DrawerStickyFooter,
   DrawerTitle,
   DrawerTrigger,
 } from './drawer';
