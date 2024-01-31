@@ -162,7 +162,7 @@ const DrawerBody = React.forwardRef<DrawerBodyElement, DrawerBodyProps>(
       <ScrollArea
         className="fui-BodyScrollArea"
         {...props}
-        size={'2'}
+        size={'1'}
         ref={localRef}
         scrollbars="vertical"
         type="auto"
