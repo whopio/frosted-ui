@@ -2,11 +2,14 @@ import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 
 import {
+  Badge,
   Button,
+  Checkbox,
+  DataTable,
   Dialog,
   Flex,
   Inset,
-  Table,
+  ScrollArea,
   Text,
   TextField,
   dialogContentPropDefs,
@@ -215,29 +218,69 @@ export const InsetContent: Story = {
         </Dialog.Description>
 
         <Inset side="x" my="5">
-          <Table.Root>
-            <Table.Header>
-              <Table.Row>
-                <Table.ColumnHeaderCell>Full name</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>Group</Table.ColumnHeaderCell>
-              </Table.Row>
-            </Table.Header>
+          <DataTable.Root variant="ghost" size="1">
+            <ScrollArea scrollbars="horizontal">
+              <DataTable.Table>
+                <DataTable.Header>
+                  <DataTable.Row>
+                    <DataTable.ColumnHeaderCell>
+                      <Flex align="center" gap="3">
+                        <Checkbox />
+                        Full name
+                      </Flex>
+                    </DataTable.ColumnHeaderCell>
+                    <DataTable.ColumnHeaderCell>
+                      Email
+                    </DataTable.ColumnHeaderCell>
+                    <DataTable.ColumnHeaderCell>
+                      Group
+                    </DataTable.ColumnHeaderCell>
+                  </DataTable.Row>
+                </DataTable.Header>
 
-            <Table.Body>
-              <Table.Row>
-                <Table.RowHeaderCell>Danilo Sousa</Table.RowHeaderCell>
-                <Table.Cell>danilo@example.com</Table.Cell>
-                <Table.Cell>Developer</Table.Cell>
-              </Table.Row>
+                <DataTable.Body>
+                  <DataTable.Row>
+                    <DataTable.RowHeaderCell>
+                      <Flex align="center" gap="3">
+                        <Checkbox />
+                        Danilo Sousa
+                      </Flex>
+                    </DataTable.RowHeaderCell>
+                    <DataTable.Cell>danilo@example.com</DataTable.Cell>
+                    <DataTable.Cell>
+                      <Badge color="green">Developer</Badge>
+                    </DataTable.Cell>
+                  </DataTable.Row>
 
-              <Table.Row>
-                <Table.RowHeaderCell>Zahra Ambessa</Table.RowHeaderCell>
-                <Table.Cell>zahra@example.com</Table.Cell>
-                <Table.Cell>Admin</Table.Cell>
-              </Table.Row>
-            </Table.Body>
-          </Table.Root>
+                  <DataTable.Row>
+                    <DataTable.RowHeaderCell>
+                      <Flex align="center" gap="3">
+                        <Checkbox />
+                        Zahra Ambessa
+                      </Flex>
+                    </DataTable.RowHeaderCell>
+                    <DataTable.Cell>zahra@example.com</DataTable.Cell>
+                    <DataTable.Cell>
+                      <Badge color="amber">Admin</Badge>
+                    </DataTable.Cell>
+                  </DataTable.Row>
+
+                  <DataTable.Row>
+                    <DataTable.RowHeaderCell>
+                      <Flex align="center" gap="3">
+                        <Checkbox />
+                        Jasper Eriksson
+                      </Flex>
+                    </DataTable.RowHeaderCell>
+                    <DataTable.Cell>jasper@example.com</DataTable.Cell>
+                    <DataTable.Cell>
+                      <Badge color="green">Developer</Badge>
+                    </DataTable.Cell>
+                  </DataTable.Row>
+                </DataTable.Body>
+              </DataTable.Table>
+            </ScrollArea>
+          </DataTable.Root>
         </Inset>
 
         <Flex gap="3" justify="end">

@@ -205,6 +205,21 @@ export { Link } from './link';
 export * from './link.props';
 // export * from './progress';
 export {
+  DataTable,
+  DataTableBody,
+  DataTableBottomBar,
+  DataTableCell,
+  DataTableColumnHeaderCell,
+  DataTableColumnHeaderCellButton,
+  DataTableFooter,
+  DataTableHeader,
+  DataTableRoot,
+  DataTableRow,
+  DataTableRowHeaderCell,
+  DataTableTable,
+} from './data-table';
+export * from './data-table.props';
+export {
   Skeleton,
   SkeletonAvatar,
   SkeletonRect,
@@ -222,7 +237,6 @@ export {
 } from './segmented-control';
 export { Separator } from './separator';
 export * from './separator.props';
-// export * from './skeleton';
 export {
   Table,
   TableBody,

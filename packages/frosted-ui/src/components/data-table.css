@@ -1,0 +1,191 @@
+.fui-DataTableTable {
+  --table-row-background-color: transparent;
+
+  width: 100%;
+  text-align: left;
+  vertical-align: middle;
+  border-collapse: collapse;
+
+  border-spacing: 0;
+  box-sizing: border-box;
+
+  /* Makes "height: 100%" work on content inside cells */
+  height: 0;
+}
+
+.fui-DataTableHeader {
+  vertical-align: inherit;
+}
+
+.fui-DataTableBody {
+  vertical-align: inherit;
+}
+
+.fui-DataTableRow {
+  vertical-align: inherit;
+  color: var(--gray-12);
+}
+
+.fui-DataTableCell {
+  background-color: var(--table-row-background-color);
+  /* box-shadow: var(--table-row-box-shadow); */
+  box-sizing: border-box;
+  vertical-align: inherit;
+  padding: var(--table-cell-padding);
+  /* Works as min-height */
+  height: var(--table-cell-min-height);
+  color: var(--gray-11);
+  &:where(.fui-DataTableHeader &),
+  &:where(.fui-DataTableFooter &) {
+    padding: var(--table-column-header-cell-padding);
+  }
+
+  /* Applying borders (via box shadow) to table cells instead of rows: */
+  /* Box-shadow applied to table rows doesn't work in Safari */
+  box-shadow: inset 0 -1px var(--gray-a5);
+  &:where(
+      .fui-DataTableRoot:not(:has(.fui-DataTableBottomBar))
+        .fui-DataTableFooter
+        &
+    ) {
+    box-shadow: none;
+  }
+  /* If the first cell in a row only contains a <Checkbox />, remove right padding */
+  &:where(&:first-child:has(> .fui-CheckboxRoot:only-child)) {
+    padding-right: 0;
+
+    /* 
+    Then depending on the size of the checkbox set the width to the size of the checkbox
+    to avoid layout shifts when sorting the table etc 
+    */
+    &:has(.fui-CheckboxRoot.fui-r-size-1) {
+      width: var(--space-4);
+      min-width: 30px;
+    }
+    &:has(.fui-CheckboxRoot.fui-r-size-2) {
+      width: calc(var(--space-4) * 1.25);
+      min-width: 30px;
+    }
+    &:has(.fui-CheckboxRoot.fui-r-size-3) {
+      width: var(--space-5);
+      min-width: 30px;
+    }
+  }
+  /* Change Checkboxes 'inline-flex' to 'flex' so that the Checkbox aligns perfectly vertically */
+  &:where(&:first-child:has(> .fui-CheckboxRoot)) .fui-CheckboxRoot {
+    display: flex;
+  }
+  /* Inset with Table */
+  .fui-Inset :where(&:first-child) {
+    padding-left: var(--inset-padding, var(--table-cell-padding));
+  }
+  .fui-Inset :where(&:last-child) {
+    padding-right: var(--inset-padding, var(--table-cell-padding));
+  }
+}
+.fui-DataTableColumnHeaderCell {
+  font-weight: bold;
+  color: var(--gray-12);
+}
+.fui-DataTableRowHeaderCell {
+  font-weight: normal;
+  color: var(--gray-12);
+  &:where(.fui-DataTableFooter &) {
+    font-weight: bold;
+  }
+}
+.fui-DataTableBottomBar {
+  padding: var(--table-bottom-padding);
+}
+
+/* Increasing specificity to make sure that default "ghost" button styles are overridden */
+.fui-DataTableColumnHeaderCellButton:is(
+    .fui-DataTableColumnHeaderCell .fui-DataTableColumnHeaderCellButton
+  ) {
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+/***************************************************************************************************
+ *                                                                                                 *
+ * SIZES                                                                                           *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+@breakpoints {
+  .fui-DataTableRoot-vars {
+    /* When possible, use half-transparent gray for nicer border blending with the background */
+    --data-table-border-color: color-mix(
+      in oklab,
+      var(--gray-a5),
+      var(--gray-6)
+    );
+
+    &:where(.fui-r-size-1) {
+      --table-border-radius: var(--radius-3);
+      --table-column-header-cell-padding: var(--space-2) var(--space-3);
+      --table-cell-padding: var(--space-2) var(--space-3);
+      --table-cell-min-height: 36px;
+      --table-bottom-padding: var(--space-3) var(--space-3);
+      font-size: var(--font-size-2);
+      line-height: var(--line-height-2);
+    }
+    &:where(.fui-r-size-2) {
+      --table-border-radius: var(--radius-4);
+      --table-column-header-cell-padding: var(--space-2) var(--space-4);
+      --table-cell-padding: var(--space-3) var(--space-4);
+      --table-cell-min-height: 44px;
+      --table-bottom-padding: var(--space-3) var(--space-4);
+      font-size: var(--font-size-3);
+      line-height: var(--line-height-3);
+    }
+  }
+}
+
+/***************************************************************************************************
+ *                                                                                                 *
+ * VARIANTS                                                                                        *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+/* surface */
+
+.fui-DataTableRoot:where(.fui-variant-surface) {
+  border: 1px solid var(--gray-a5);
+  border-radius: var(--table-border-radius);
+  overflow: hidden;
+  /* background-color: var(--color-panel); */
+  /* background-clip: padding-box; */
+  position: relative;
+
+  /* When possible, use half-transparent gray for nicer border blending with the background */
+  border-color: var(--data-table-border-color);
+
+  & :where(.fui-DataTableTable) {
+    overflow: hidden;
+
+    & :where(.fui-DataTableHeader),
+    & :where(.fui-DataTableFooter) {
+      --table-row-background-color: var(--gray-a2);
+    }
+  }
+}
+
+/* ghost */
+
+.fui-DataTableRoot:where(.fui-variant-ghost) {
+  --scrollarea-scrollbar-horizontal-margin-left: 0;
+  --scrollarea-scrollbar-horizontal-margin-right: 0;
+
+  & :where(.fui-DataTableTable) {
+    overflow: hidden;
+  }
+}
+
+.fui-DataTableRoot {
+  & :where(.fui-DataTableHeader .fui-DataTableRow:first-child) {
+    --data-table-border-color: transparent;
+  }
+}
