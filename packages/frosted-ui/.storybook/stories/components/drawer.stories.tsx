@@ -2,10 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 
 import {
+  Badge,
   Button,
+  Checkbox,
   Drawer,
   Flex,
   Inset,
+  ScrollArea,
   Table,
   Text,
   TextField,
@@ -36,7 +39,7 @@ export const Default: Story = {
         <Button>Edit profile</Button>
       </Drawer.Trigger>
 
-      <Drawer.Content>
+      <Drawer.Content style={{ maxWidth: 400 }}>
         <Drawer.Header>
           <Drawer.Title>Edit profile</Drawer.Title>
         </Drawer.Header>
@@ -127,7 +130,7 @@ export const InsetContent: Story = {
       <Drawer.Trigger>
         <Button>View users</Button>
       </Drawer.Trigger>
-      <Drawer.Content>
+      <Drawer.Content style={{ maxWidth: 540 }}>
         <Drawer.Header>
           <Drawer.Title>Users</Drawer.Title>
         </Drawer.Header>
@@ -135,28 +138,64 @@ export const InsetContent: Story = {
           <Text as="p">The following users have access to this project.</Text>
 
           <Inset side="x" my="5">
-            <Table.Root>
-              <Table.Header>
-                <Table.Row>
-                  <Table.ColumnHeaderCell>Full name</Table.ColumnHeaderCell>
-                  <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
-                  <Table.ColumnHeaderCell>Group</Table.ColumnHeaderCell>
-                </Table.Row>
-              </Table.Header>
+            <Table.Root {...args} variant="ghost">
+              <ScrollArea scrollbars="horizontal">
+                <Table.Table>
+                  <Table.Header>
+                    <Table.Row>
+                      <Table.ColumnHeaderCell>
+                        <Flex align="center" gap="3">
+                          <Checkbox />
+                          Full name
+                        </Flex>
+                      </Table.ColumnHeaderCell>
+                      <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
+                      <Table.ColumnHeaderCell>Group</Table.ColumnHeaderCell>
+                    </Table.Row>
+                  </Table.Header>
 
-              <Table.Body>
-                <Table.Row>
-                  <Table.RowHeaderCell>Danilo Sousa</Table.RowHeaderCell>
-                  <Table.Cell>danilo@example.com</Table.Cell>
-                  <Table.Cell>Developer</Table.Cell>
-                </Table.Row>
+                  <Table.Body>
+                    <Table.Row>
+                      <Table.RowHeaderCell>
+                        <Flex align="center" gap="3">
+                          <Checkbox />
+                          Danilo Sousa
+                        </Flex>
+                      </Table.RowHeaderCell>
+                      <Table.Cell>danilo@example.com</Table.Cell>
+                      <Table.Cell>
+                        <Badge color="green">Developer</Badge>
+                      </Table.Cell>
+                    </Table.Row>
 
-                <Table.Row>
-                  <Table.RowHeaderCell>Zahra Ambessa</Table.RowHeaderCell>
-                  <Table.Cell>zahra@example.com</Table.Cell>
-                  <Table.Cell>Admin</Table.Cell>
-                </Table.Row>
-              </Table.Body>
+                    <Table.Row>
+                      <Table.RowHeaderCell>
+                        <Flex align="center" gap="3">
+                          <Checkbox />
+                          Zahra Ambessa
+                        </Flex>
+                      </Table.RowHeaderCell>
+                      <Table.Cell>zahra@example.com</Table.Cell>
+                      <Table.Cell>
+                        <Badge color="amber">Admin</Badge>
+                      </Table.Cell>
+                    </Table.Row>
+
+                    <Table.Row>
+                      <Table.RowHeaderCell>
+                        <Flex align="center" gap="3">
+                          <Checkbox />
+                          Jasper Eriksson
+                        </Flex>
+                      </Table.RowHeaderCell>
+                      <Table.Cell>jasper@example.com</Table.Cell>
+                      <Table.Cell>
+                        <Badge color="green">Developer</Badge>
+                      </Table.Cell>
+                    </Table.Row>
+                  </Table.Body>
+                </Table.Table>
+              </ScrollArea>
             </Table.Root>
           </Inset>
           <Flex gap="3" justify="end">

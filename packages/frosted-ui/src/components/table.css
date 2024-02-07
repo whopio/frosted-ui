@@ -1,12 +1,11 @@
-.fui-TableRootTable {
+.fui-TableTable {
   --table-row-background-color: transparent;
-  --table-row-box-shadow: inset 0 -1px var(--gray-a5);
 
   width: 100%;
   text-align: left;
-  vertical-align: top;
+  vertical-align: middle;
   border-collapse: collapse;
-  border-radius: calc(var(--table-border-radius) - 1px);
+
   border-spacing: 0;
   box-sizing: border-box;
 
@@ -29,13 +28,56 @@
 
 .fui-TableCell {
   background-color: var(--table-row-background-color);
-  box-shadow: var(--table-row-box-shadow);
+  /* box-shadow: var(--table-row-box-shadow); */
   box-sizing: border-box;
   vertical-align: inherit;
   padding: var(--table-cell-padding);
   /* Works as min-height */
   height: var(--table-cell-min-height);
+  color: var(--gray-11);
+  &:where(.fui-TableHeader &),
+  &:where(.fui-TableFooter &) {
+    padding: var(--table-column-header-cell-padding);
+  }
 
+  /* Applying borders (via box shadow) to table cells instead of rows: */
+  /* Box-shadow applied to table rows doesn't work in Safari */
+  box-shadow: inset 0 -1px var(--gray-a5);
+  /* Remove box-shadow from the last row if TableBottomBar is not used */
+  &:where(
+      .fui-TableRoot:not(:has(.fui-TableBottomBar))
+        .fui-TableTable
+        > :is(:last-child)
+        .fui-TableRow:last-child
+        &
+    ) {
+    box-shadow: none;
+  }
+  /* If the first cell in a row only contains a <Checkbox />, remove right padding */
+  &:where(&:first-child:has(> .fui-CheckboxRoot:only-child)) {
+    padding-right: 0;
+
+    /* 
+    Then depending on the size of the checkbox set the width to the size of the checkbox
+    to avoid layout shifts when sorting the table etc 
+    */
+    &:has(.fui-CheckboxRoot.fui-r-size-1) {
+      width: var(--space-4);
+      min-width: 30px;
+    }
+    &:has(.fui-CheckboxRoot.fui-r-size-2) {
+      width: calc(var(--space-4) * 1.25);
+      min-width: 30px;
+    }
+    &:has(.fui-CheckboxRoot.fui-r-size-3) {
+      width: var(--space-5);
+      min-width: 30px;
+    }
+  }
+  /* Change Checkboxes 'inline-flex' to 'flex' so that the Checkbox aligns perfectly vertically */
+  &:where(&:first-child:has(> .fui-CheckboxRoot)) .fui-CheckboxRoot {
+    display: flex;
+  }
   /* Inset with Table */
   .fui-Inset :where(&:first-child) {
     padding-left: var(--inset-padding, var(--table-cell-padding));
@@ -46,11 +88,29 @@
 }
 .fui-TableColumnHeaderCell {
   font-weight: bold;
+  color: var(--gray-12);
 }
 .fui-TableRowHeaderCell {
   font-weight: normal;
+  color: var(--gray-12);
+  &:where(.fui-TableFooter &) {
+    font-weight: bold;
+  }
+}
+.fui-TableBottomBar {
+  padding: var(--table-bottom-padding);
 }
 
+/* Increasing specificity to make sure that default "ghost" button styles are overridden */
+.fui-TableColumnHeaderCellButton:is(
+    .fui-TableColumnHeaderCell .fui-TableColumnHeaderCellButton
+  ) {
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
 /***************************************************************************************************
  *                                                                                                 *
  * SIZES                                                                                           *
@@ -58,36 +118,34 @@
  ***************************************************************************************************/
 
 @breakpoints {
-  .fui-TableRoot {
+  .fui-TableRoot-vars {
+    /* When possible, use half-transparent gray for nicer border blending with the background */
+    --data-table-border-color: color-mix(
+      in oklab,
+      var(--gray-a5),
+      var(--gray-6)
+    );
+
     &:where(.fui-r-size-1) {
       --table-border-radius: var(--radius-3);
-      --table-cell-padding: var(--space-2);
+      --table-column-header-cell-padding: var(--space-2) var(--space-3);
+      --table-cell-padding: var(--space-2) var(--space-3);
       --table-cell-min-height: 36px;
-
-      & :where(.fui-TableRootTable) {
-        font-size: var(--font-size-2);
-        line-height: var(--line-height-2);
-      }
+      --table-bottom-padding: var(--space-3) var(--space-3);
+      font-size: var(--font-size-2);
+      line-height: var(--line-height-2);
     }
     &:where(.fui-r-size-2) {
       --table-border-radius: var(--radius-4);
-      --table-cell-padding: var(--space-3);
-      --table-cell-min-height: 44px;
-
-      & :where(.fui-TableRootTable) {
-        font-size: var(--font-size-2);
-        line-height: var(--line-height-2);
-      }
-    }
-    &:where(.fui-r-size-3) {
-      --table-border-radius: var(--radius-4);
+      --table-column-header-cell-padding: var(--space-2) var(--space-4);
       --table-cell-padding: var(--space-3) var(--space-4);
-      --table-cell-min-height: var(--space-8);
-
-      & :where(.fui-TableRootTable) {
-        font-size: var(--font-size-3);
-        line-height: var(--line-height-3);
-      }
+      --table-cell-min-height: 44px;
+      --table-bottom-padding: var(--space-3) var(--space-4);
+      font-size: var(--font-size-3);
+      line-height: var(--line-height-3);
+    }
+    &:where(.fui-Inset > &) {
+      --table-border-radius: 0px;
     }
   }
 }
@@ -103,21 +161,20 @@
 .fui-TableRoot:where(.fui-variant-surface) {
   border: 1px solid var(--gray-a5);
   border-radius: var(--table-border-radius);
-  background-color: var(--color-panel);
-  background-clip: padding-box;
+  overflow: hidden;
+  /* background-color: var(--color-panel); */
+  /* background-clip: padding-box; */
   position: relative;
 
   /* When possible, use half-transparent gray for nicer border blending with the background */
-  border-color: color-mix(in oklab, var(--gray-a5), var(--gray-6));
+  border-color: var(--data-table-border-color);
 
-  & :where(.fui-TableRootTable) {
+  & :where(.fui-TableTable) {
     overflow: hidden;
 
-    & :where(.fui-TableHeader) {
+    & :where(.fui-TableHeader),
+    & :where(.fui-TableFooter) {
       --table-row-background-color: var(--gray-a2);
-    }
-    & :where(.fui-TableBody) :where(.fui-TableRow:last-child) {
-      --table-row-box-shadow: none;
     }
   }
 }
@@ -127,4 +184,14 @@
 .fui-TableRoot:where(.fui-variant-ghost) {
   --scrollarea-scrollbar-horizontal-margin-left: 0;
   --scrollarea-scrollbar-horizontal-margin-right: 0;
+
+  & :where(.fui-TableTable) {
+    overflow: hidden;
+  }
+}
+
+.fui-TableRoot {
+  & :where(.fui-TableHeader .fui-TableRow:first-child) {
+    --data-table-border-color: transparent;
+  }
 }
