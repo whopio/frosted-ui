@@ -121,6 +121,7 @@ import {
   TableRoot,
   TableRow,
   TableRowHeaderCell,
+  TableTable,
   TabsContent,
   TabsList,
   //
@@ -4590,35 +4591,37 @@ function TableExample(
   const { noEmail, ...rootProps } = props;
   return (
     <TableRoot {...rootProps}>
-      <TableHeader>
-        <TableRow>
-          <TableColumnHeaderCell>Full name</TableColumnHeaderCell>
-          {!noEmail && <TableColumnHeaderCell>Email</TableColumnHeaderCell>}
-          <TableColumnHeaderCell>Group</TableColumnHeaderCell>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        <TableRow>
-          <TableRowHeaderCell>Andy</TableRowHeaderCell>
-          {!noEmail && <TableCell>andy@workos.com</TableCell>}
-          <TableCell>Developer</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableRowHeaderCell>Benoit</TableRowHeaderCell>
-          {!noEmail && <TableCell>benoit@workos.com</TableCell>}
-          <TableCell>Admin</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableRowHeaderCell>Lucas</TableRowHeaderCell>
-          {!noEmail && <TableCell>lucas@workos.com</TableCell>}
-          <TableCell>Developer</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableRowHeaderCell>Vlad</TableRowHeaderCell>
-          {!noEmail && <TableCell>vlad@workos.com</TableCell>}
-          <TableCell>Designer</TableCell>
-        </TableRow>
-      </TableBody>
+      <TableTable>
+        <TableHeader>
+          <TableRow>
+            <TableColumnHeaderCell>Full name</TableColumnHeaderCell>
+            {!noEmail && <TableColumnHeaderCell>Email</TableColumnHeaderCell>}
+            <TableColumnHeaderCell>Group</TableColumnHeaderCell>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableRowHeaderCell>Andy</TableRowHeaderCell>
+            {!noEmail && <TableCell>andy@workos.com</TableCell>}
+            <TableCell>Developer</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableRowHeaderCell>Benoit</TableRowHeaderCell>
+            {!noEmail && <TableCell>benoit@workos.com</TableCell>}
+            <TableCell>Admin</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableRowHeaderCell>Lucas</TableRowHeaderCell>
+            {!noEmail && <TableCell>lucas@workos.com</TableCell>}
+            <TableCell>Developer</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableRowHeaderCell>Vlad</TableRowHeaderCell>
+            {!noEmail && <TableCell>vlad@workos.com</TableCell>}
+            <TableCell>Designer</TableCell>
+          </TableRow>
+        </TableBody>
+      </TableTable>
     </TableRoot>
   );
 }

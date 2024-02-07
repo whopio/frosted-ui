@@ -35,6 +35,7 @@ import {
   TableRoot,
   TableRow,
   TableRowHeaderCell,
+  TableTable,
   Text,
   Theme,
   ThemePanel,
@@ -233,40 +234,41 @@ export default function Test() {
 function TableExample() {
   return (
     <TableRoot style={{ backgroundColor: 'var(--gray-a1)' }}>
-      <TableHeader
-        style={{
-          backgroundColor: 'var(--gray-a2)',
-          borderTop: '1px solid var(--gray-a5)',
-        }}
-      >
-        <TableRow>
-          <TableColumnHeaderCell>Full name</TableColumnHeaderCell>
-          <TableColumnHeaderCell>Email</TableColumnHeaderCell>
-          <TableColumnHeaderCell>Group</TableColumnHeaderCell>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        <TableRow>
-          <TableRowHeaderCell>Andy</TableRowHeaderCell>
-          <TableCell>andy@workos.com</TableCell>
-          <TableCell>Developer</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableRowHeaderCell>Benoit</TableRowHeaderCell>
-          <TableCell>benoit@workos.com</TableCell>
-          <TableCell>Admin</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableRowHeaderCell>Lucas</TableRowHeaderCell>
-          <TableCell>lucas@workos.com</TableCell>
-          <TableCell>Developer</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableRowHeaderCell>Vlad</TableRowHeaderCell>
-          <TableCell>vlad@workos.com</TableCell>
-          <TableCell>Designer</TableCell>
-        </TableRow>
-      </TableBody>
+      <TableTable>
+        <TableHeader
+          style={{
+            backgroundColor: 'var(--gray-a2)',
+          }}
+        >
+          <TableRow>
+            <TableColumnHeaderCell>Full name</TableColumnHeaderCell>
+            <TableColumnHeaderCell>Email</TableColumnHeaderCell>
+            <TableColumnHeaderCell>Group</TableColumnHeaderCell>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableRowHeaderCell>Andy</TableRowHeaderCell>
+            <TableCell>andy@workos.com</TableCell>
+            <TableCell>Developer</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableRowHeaderCell>Benoit</TableRowHeaderCell>
+            <TableCell>benoit@workos.com</TableCell>
+            <TableCell>Admin</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableRowHeaderCell>Lucas</TableRowHeaderCell>
+            <TableCell>lucas@workos.com</TableCell>
+            <TableCell>Developer</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableRowHeaderCell>Vlad</TableRowHeaderCell>
+            <TableCell>vlad@workos.com</TableCell>
+            <TableCell>Designer</TableCell>
+          </TableRow>
+        </TableBody>
+      </TableTable>
     </TableRoot>
   );
 }
