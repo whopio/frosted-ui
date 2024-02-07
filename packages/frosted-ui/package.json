@@ -113,6 +113,7 @@
     "@storybook/react": "^7.4.6",
     "@storybook/react-vite": "^7.4.6",
     "@storybook/testing-library": "^0.2.2",
+    "@tanstack/react-table": "^8.11.8",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.4",
     "@whop-sdk/turbo-module": "^0.0.5",

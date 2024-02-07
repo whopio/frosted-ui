@@ -222,16 +222,19 @@ export {
 } from './segmented-control';
 export { Separator } from './separator';
 export * from './separator.props';
-// export * from './skeleton';
 export {
   Table,
   TableBody,
+  TableBottomBar,
   TableCell,
   TableColumnHeaderCell,
+  TableColumnHeaderCellButton,
+  TableFooter,
   TableHeader,
   TableRoot,
   TableRow,
   TableRowHeaderCell,
+  TableTable,
 } from './table';
 export * from './table.props';
 export { Tabs, TabsContent, TabsList, TabsRoot, TabsTrigger } from './tabs';
