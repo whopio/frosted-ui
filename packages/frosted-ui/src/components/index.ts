@@ -205,21 +205,6 @@ export { Link } from './link';
 export * from './link.props';
 // export * from './progress';
 export {
-  DataTable,
-  DataTableBody,
-  DataTableBottomBar,
-  DataTableCell,
-  DataTableColumnHeaderCell,
-  DataTableColumnHeaderCellButton,
-  DataTableFooter,
-  DataTableHeader,
-  DataTableRoot,
-  DataTableRow,
-  DataTableRowHeaderCell,
-  DataTableTable,
-} from './data-table';
-export * from './data-table.props';
-export {
   Skeleton,
   SkeletonAvatar,
   SkeletonRect,
@@ -240,12 +225,16 @@ export * from './separator.props';
 export {
   Table,
   TableBody,
+  TableBottomBar,
   TableCell,
   TableColumnHeaderCell,
+  TableColumnHeaderCellButton,
+  TableFooter,
   TableHeader,
   TableRoot,
   TableRow,
   TableRowHeaderCell,
+  TableTable,
 } from './table';
 export * from './table.props';
 export { Tabs, TabsContent, TabsList, TabsRoot, TabsTrigger } from './tabs';

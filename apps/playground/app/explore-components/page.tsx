@@ -108,14 +108,15 @@ import {
   Strong,
   //
   Switch,
+  //
   TableBody,
   TableCell,
   TableColumnHeaderCell,
   TableHeader,
-  //
   TableRoot,
   TableRow,
   TableRowHeaderCell,
+  TableTable,
   TabsContent,
   TabsList,
   //
@@ -3731,41 +3732,47 @@ export default function ExploreComponents() {
                       </Flex>
 
                       <TableRoot variant="surface" size="2">
-                        <TableHeader>
-                          <TableRow>
-                            <TableColumnHeaderCell>
-                              Full name
-                            </TableColumnHeaderCell>
-                            <TableColumnHeaderCell>Email</TableColumnHeaderCell>
-                            <TableColumnHeaderCell>Group</TableColumnHeaderCell>
-                          </TableRow>
-                        </TableHeader>
+                        <TableTable>
+                          <TableHeader>
+                            <TableRow>
+                              <TableColumnHeaderCell>
+                                Full name
+                              </TableColumnHeaderCell>
+                              <TableColumnHeaderCell>
+                                Email
+                              </TableColumnHeaderCell>
+                              <TableColumnHeaderCell>
+                                Group
+                              </TableColumnHeaderCell>
+                            </TableRow>
+                          </TableHeader>
 
-                        <TableBody>
-                          <TableRow>
-                            <TableRowHeaderCell>
-                              Danilo Sousa
-                            </TableRowHeaderCell>
-                            <TableCell>danilo@example.com</TableCell>
-                            <TableCell>Developer</TableCell>
-                          </TableRow>
+                          <TableBody>
+                            <TableRow>
+                              <TableRowHeaderCell>
+                                Danilo Sousa
+                              </TableRowHeaderCell>
+                              <TableCell>danilo@example.com</TableCell>
+                              <TableCell>Developer</TableCell>
+                            </TableRow>
 
-                          <TableRow>
-                            <TableRowHeaderCell>
-                              Zahra Ambessa
-                            </TableRowHeaderCell>
-                            <TableCell>zahra@example.com</TableCell>
-                            <TableCell>Admin</TableCell>
-                          </TableRow>
+                            <TableRow>
+                              <TableRowHeaderCell>
+                                Zahra Ambessa
+                              </TableRowHeaderCell>
+                              <TableCell>zahra@example.com</TableCell>
+                              <TableCell>Admin</TableCell>
+                            </TableRow>
 
-                          <TableRow>
-                            <TableRowHeaderCell>
-                              Jasper Eriksson
-                            </TableRowHeaderCell>
-                            <TableCell>jasper@example.com</TableCell>
-                            <TableCell>Developer</TableCell>
-                          </TableRow>
-                        </TableBody>
+                            <TableRow>
+                              <TableRowHeaderCell>
+                                Jasper Eriksson
+                              </TableRowHeaderCell>
+                              <TableCell>jasper@example.com</TableCell>
+                              <TableCell>Developer</TableCell>
+                            </TableRow>
+                          </TableBody>
+                        </TableTable>
                       </TableRoot>
                     </Flex>
                   </Flex>
@@ -3800,45 +3807,47 @@ export default function ExploreComponents() {
                               }}
                             >
                               <TableRoot variant={variant} size={size}>
-                                <TableHeader>
-                                  <TableRow>
-                                    <TableColumnHeaderCell>
-                                      Full name
-                                    </TableColumnHeaderCell>
-                                    <TableColumnHeaderCell>
-                                      Email
-                                    </TableColumnHeaderCell>
-                                    <TableColumnHeaderCell>
-                                      Group
-                                    </TableColumnHeaderCell>
-                                  </TableRow>
-                                </TableHeader>
+                                <TableTable>
+                                  <TableHeader>
+                                    <TableRow>
+                                      <TableColumnHeaderCell>
+                                        Full name
+                                      </TableColumnHeaderCell>
+                                      <TableColumnHeaderCell>
+                                        Email
+                                      </TableColumnHeaderCell>
+                                      <TableColumnHeaderCell>
+                                        Group
+                                      </TableColumnHeaderCell>
+                                    </TableRow>
+                                  </TableHeader>
 
-                                <TableBody>
-                                  <TableRow>
-                                    <TableRowHeaderCell>
-                                      Danilo Sousa
-                                    </TableRowHeaderCell>
-                                    <TableCell>danilo@example.com</TableCell>
-                                    <TableCell>Developer</TableCell>
-                                  </TableRow>
+                                  <TableBody>
+                                    <TableRow>
+                                      <TableRowHeaderCell>
+                                        Danilo Sousa
+                                      </TableRowHeaderCell>
+                                      <TableCell>danilo@example.com</TableCell>
+                                      <TableCell>Developer</TableCell>
+                                    </TableRow>
 
-                                  <TableRow>
-                                    <TableRowHeaderCell>
-                                      Zahra Ambessa
-                                    </TableRowHeaderCell>
-                                    <TableCell>zahra@example.com</TableCell>
-                                    <TableCell>Admin</TableCell>
-                                  </TableRow>
+                                    <TableRow>
+                                      <TableRowHeaderCell>
+                                        Zahra Ambessa
+                                      </TableRowHeaderCell>
+                                      <TableCell>zahra@example.com</TableCell>
+                                      <TableCell>Admin</TableCell>
+                                    </TableRow>
 
-                                  <TableRow>
-                                    <TableRowHeaderCell>
-                                      Jasper Eriksson
-                                    </TableRowHeaderCell>
-                                    <TableCell>jasper@example.com</TableCell>
-                                    <TableCell>Developer</TableCell>
-                                  </TableRow>
-                                </TableBody>
+                                    <TableRow>
+                                      <TableRowHeaderCell>
+                                        Jasper Eriksson
+                                      </TableRowHeaderCell>
+                                      <TableCell>jasper@example.com</TableCell>
+                                      <TableCell>Developer</TableCell>
+                                    </TableRow>
+                                  </TableBody>
+                                </TableTable>
                               </TableRoot>
                             </td>
                           ))}

@@ -5,11 +5,11 @@ import {
   Badge,
   Button,
   Checkbox,
-  DataTable,
   Drawer,
   Flex,
   Inset,
   ScrollArea,
+  Table,
   Text,
   TextField,
 } from '../../../src/components';
@@ -138,69 +138,65 @@ export const InsetContent: Story = {
           <Text as="p">The following users have access to this project.</Text>
 
           <Inset side="x" my="5">
-            <DataTable.Root {...args} variant="ghost">
+            <Table.Root {...args} variant="ghost">
               <ScrollArea scrollbars="horizontal">
-                <DataTable.Table>
-                  <DataTable.Header>
-                    <DataTable.Row>
-                      <DataTable.ColumnHeaderCell>
+                <Table.Table>
+                  <Table.Header>
+                    <Table.Row>
+                      <Table.ColumnHeaderCell>
                         <Flex align="center" gap="3">
                           <Checkbox />
                           Full name
                         </Flex>
-                      </DataTable.ColumnHeaderCell>
-                      <DataTable.ColumnHeaderCell>
-                        Email
-                      </DataTable.ColumnHeaderCell>
-                      <DataTable.ColumnHeaderCell>
-                        Group
-                      </DataTable.ColumnHeaderCell>
-                    </DataTable.Row>
-                  </DataTable.Header>
+                      </Table.ColumnHeaderCell>
+                      <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
+                      <Table.ColumnHeaderCell>Group</Table.ColumnHeaderCell>
+                    </Table.Row>
+                  </Table.Header>
 
-                  <DataTable.Body>
-                    <DataTable.Row>
-                      <DataTable.RowHeaderCell>
+                  <Table.Body>
+                    <Table.Row>
+                      <Table.RowHeaderCell>
                         <Flex align="center" gap="3">
                           <Checkbox />
                           Danilo Sousa
                         </Flex>
-                      </DataTable.RowHeaderCell>
-                      <DataTable.Cell>danilo@example.com</DataTable.Cell>
-                      <DataTable.Cell>
+                      </Table.RowHeaderCell>
+                      <Table.Cell>danilo@example.com</Table.Cell>
+                      <Table.Cell>
                         <Badge color="green">Developer</Badge>
-                      </DataTable.Cell>
-                    </DataTable.Row>
+                      </Table.Cell>
+                    </Table.Row>
 
-                    <DataTable.Row>
-                      <DataTable.RowHeaderCell>
+                    <Table.Row>
+                      <Table.RowHeaderCell>
                         <Flex align="center" gap="3">
                           <Checkbox />
                           Zahra Ambessa
                         </Flex>
-                      </DataTable.RowHeaderCell>
-                      <DataTable.Cell>zahra@example.com</DataTable.Cell>
-                      <DataTable.Cell>
+                      </Table.RowHeaderCell>
+                      <Table.Cell>zahra@example.com</Table.Cell>
+                      <Table.Cell>
                         <Badge color="amber">Admin</Badge>
-                      </DataTable.Cell>
-                    </DataTable.Row>
+                      </Table.Cell>
+                    </Table.Row>
 
-                    <DataTable.Row>
-                      <DataTable.RowHeaderCell>
+                    <Table.Row>
+                      <Table.RowHeaderCell>
                         <Flex align="center" gap="3">
                           <Checkbox />
                           Jasper Eriksson
                         </Flex>
-                      </DataTable.RowHeaderCell>
-                      <DataTable.Cell>jasper@example.com</DataTable.Cell>
-                      <DataTable.Cell>
+                      </Table.RowHeaderCell>
+                      <Table.Cell>jasper@example.com</Table.Cell>
+                      <Table.Cell>
                         <Badge color="green">Developer</Badge>
-                      </DataTable.Cell>
-                    </DataTable.Row>
-                  </DataTable.Body>
-                </DataTable.Table>
+                      </Table.Cell>
+                    </Table.Row>
+                  </Table.Body>
+                </Table.Table>
               </ScrollArea>
-            </DataTable.Root>
+            </Table.Root>
           </Inset>
           <Flex gap="3" justify="end">
             <Drawer.Close>

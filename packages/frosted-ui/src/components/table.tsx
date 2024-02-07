@@ -8,7 +8,7 @@ import {
   withMarginProps,
   withPaddingProps,
 } from '../helpers';
-import { ScrollArea } from './scroll-area';
+import { Button } from './button';
 import {
   tableCellPropDefs,
   tableRootPropDefs,
@@ -36,6 +36,10 @@ const TableRoot = React.forwardRef<TableRootElement, TableRootProps>(
         ref={forwardedRef}
         className={classNames(
           'fui-TableRoot',
+          // This class name applies size related variables to a table.
+          // This class name will allow us to implement things like
+          // column cells Drag and Drop with DragOverlay. (dnd-kit)
+          'fui-TableRoot-vars',
           className,
           `fui-variant-${variant}`,
           withBreakpoints(size, 'fui-r-size'),
@@ -43,14 +47,32 @@ const TableRoot = React.forwardRef<TableRootElement, TableRootProps>(
         )}
         {...rootProps}
       >
-        <ScrollArea>
-          <table className="fui-TableRootTable">{children}</table>
-        </ScrollArea>
+        {children}
       </div>
     );
   },
 );
-TableRoot.displayName = 'Table';
+TableRoot.displayName = 'TableRoot';
+
+type TableTableElement = React.ElementRef<'table'>;
+type TableTableOwnProps = GetPropDefTypes<typeof tableRootPropDefs>;
+interface TableTableProps
+  extends React.ComponentPropsWithoutRef<'table'>,
+    TableTableOwnProps {}
+const TableTable = React.forwardRef<TableTableElement, TableTableProps>(
+  (props, forwardedRef) => {
+    const { className, ...otherProps } = props;
+
+    return (
+      <table
+        ref={forwardedRef}
+        className={classNames('fui-TableTable', className)}
+        {...otherProps}
+      />
+    );
+  },
+);
+TableTable.displayName = 'TableTable';
 
 type TableHeaderElement = React.ElementRef<'thead'>;
 interface TableHeaderProps extends React.ComponentPropsWithoutRef<'thead'> {}
@@ -77,6 +99,19 @@ const TableBody = React.forwardRef<TableBodyElement, TableBodyProps>(
   ),
 );
 TableBody.displayName = 'TableBody';
+
+type TableFooterElement = React.ElementRef<'tfoot'>;
+interface TableFooterProps extends React.ComponentPropsWithoutRef<'tfoot'> {}
+const TableFooter = React.forwardRef<TableFooterElement, TableFooterProps>(
+  (props, forwardedRef) => (
+    <tfoot
+      {...props}
+      ref={forwardedRef}
+      className={classNames('fui-TableFooter', props.className)}
+    />
+  ),
+);
+TableFooter.displayName = 'TableFooter';
 
 type TableRowElement = React.ElementRef<'tr'>;
 type TableRowOwnProps = GetPropDefTypes<typeof tableRowPropDefs>;
@@ -208,6 +243,121 @@ const TableRowHeaderCell = React.forwardRef<
 ));
 TableRowHeaderCell.displayName = 'TableRowHeaderCell';
 
+type TableBottomBarElement = React.ElementRef<'div'>;
+interface TableBottomBarProps extends React.ComponentPropsWithoutRef<'div'> {}
+const TableBottomBar = React.forwardRef<
+  TableBottomBarElement,
+  TableBottomBarProps
+>((props, forwardedRef) => {
+  return (
+    <div
+      ref={forwardedRef}
+      className={classNames('fui-TableBottomBar', props.className)}
+      {...props}
+    />
+  );
+});
+TableBottomBar.displayName = 'TableBottomBar';
+
+type TableColumnHeaderCellButtonElement = React.ElementRef<typeof Button>;
+interface TableColumnHeaderCellButtonProps
+  extends Omit<
+    React.ComponentProps<typeof Button>,
+    'highContrast' | 'color' | 'variant' | 'size'
+  > {
+  sortDirection?: 'asc' | 'desc' | false;
+  isSortable?: boolean;
+}
+const TableColumnHeaderCellButton = React.forwardRef<
+  TableColumnHeaderCellButtonElement,
+  TableColumnHeaderCellButtonProps
+>((props, forwardedRef) => {
+  const { children, sortDirection, isSortable, ...otherProps } = props;
+
+  let icon: React.ReactNode = null;
+
+  if (isSortable) {
+    if (sortDirection === 'asc') {
+      icon = (
+        <svg
+          fill="none"
+          height="12"
+          viewBox="0 0 12 12"
+          width="12"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M6 2L2.5 5.5M6 2L9.5 5.5M6 2V10"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.5"
+          />
+        </svg>
+      );
+    } else if (sortDirection === 'desc') {
+      icon = (
+        <svg
+          fill="none"
+          height="12"
+          viewBox="0 0 12 12"
+          width="12"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M6 10V2M6 10L2.5 6.5M6 10L9.5 6.5"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.5"
+          />
+        </svg>
+      );
+    } else {
+      icon = (
+        <svg
+          fill="none"
+          height="12"
+          viewBox="0 0 12 12"
+          width="12"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M3 8L6 11L9 8"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.5"
+          />
+          <path
+            d="M3 4L6 1L9 4"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.5"
+          />
+        </svg>
+      );
+    }
+  }
+
+  return (
+    <Button
+      ref={forwardedRef}
+      className={classNames('fui-TableColumnHeaderCellButton', props.className)}
+      variant="ghost"
+      color="gray"
+      size="2"
+      highContrast
+      {...otherProps}
+    >
+      {children}
+      {icon}
+    </Button>
+  );
+});
+TableColumnHeaderCellButton.displayName = 'TableColumnHeaderCellButton';
+
 const Table = Object.assign(
   {},
   {
@@ -218,26 +368,38 @@ const Table = Object.assign(
     Cell: TableCell,
     ColumnHeaderCell: TableColumnHeaderCell,
     RowHeaderCell: TableRowHeaderCell,
+    Table: TableTable,
+    BottomBar: TableBottomBar,
+    Footer: TableFooter,
+    ColumnHeaderCellButton: TableColumnHeaderCellButton,
   },
 );
 
 export {
   Table,
   TableBody,
+  TableBottomBar,
   TableCell,
   TableColumnHeaderCell,
+  TableColumnHeaderCellButton,
+  TableFooter,
   TableHeader,
   TableRoot,
   TableRow,
   TableRowHeaderCell,
+  TableTable,
 };
 
 export type {
   TableBodyProps,
+  TableBottomBarProps,
   TableCellProps,
+  TableColumnHeaderCellButtonProps,
   TableColumnHeaderCellProps,
+  TableFooterProps,
   TableHeaderProps,
   TableRootProps,
   TableRowHeaderCellProps,
   TableRowProps,
+  TableTableProps,
 };
