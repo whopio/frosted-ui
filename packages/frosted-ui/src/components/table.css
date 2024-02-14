@@ -42,7 +42,7 @@
 
   /* Applying borders (via box shadow) to table cells instead of rows: */
   /* Box-shadow applied to table rows doesn't work in Safari */
-  box-shadow: inset 0 -1px var(--gray-a5);
+  box-shadow: inset 0 -1px var(--data-table-border-color);
   /* Remove box-shadow from the last row if TableBottomBar is not used */
   &:where(
       .fui-TableRoot:not(:has(.fui-TableBottomBar))
@@ -119,13 +119,6 @@
 
 @breakpoints {
   .fui-TableRoot-vars {
-    /* When possible, use half-transparent gray for nicer border blending with the background */
-    --data-table-border-color: color-mix(
-      in oklab,
-      var(--gray-a5),
-      var(--gray-6)
-    );
-
     &:where(.fui-r-size-1) {
       --table-border-radius: var(--radius-3);
       --table-column-header-cell-padding: var(--space-2) var(--space-3);
@@ -158,6 +151,15 @@
 
 /* surface */
 
+/* When possible, use half-transparent gray for nicer border blending with the background */
+:where(.frosted-ui) {
+  --data-table-border-color: color-mix(in oklab, var(--gray-a5), var(--gray-6));
+}
+:is(.dark, .dark-theme),
+:is(.dark, .dark-theme) :where(.frosted-ui:not(.light, .light-theme)) {
+  --data-table-border-color: color-mix(in oklab, var(--gray-a3), var(--gray-4));
+}
+
 .fui-TableRoot:where(.fui-variant-surface) {
   border: 1px solid var(--gray-a5);
   border-radius: var(--table-border-radius);
@@ -187,11 +189,5 @@
 
   & :where(.fui-TableTable) {
     overflow: hidden;
-  }
-}
-
-.fui-TableRoot {
-  & :where(.fui-TableHeader .fui-TableRow:first-child) {
-    --data-table-border-color: transparent;
   }
 }
