@@ -2,9 +2,10 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
 import {
-  Code,
+  Avatar,
+  Box,
+  Card,
   Flex,
-  Grid,
   RadioItemsGroup,
   Text,
 } from '../../../src/components';
@@ -33,92 +34,148 @@ export const Default: Story = {
   args: {
     size: radioGroupPropDefs.size.default,
     color: radioGroupPropDefs.color.default,
-    variant: radioGroupPropDefs.variant.default,
     highContrast: radioGroupPropDefs.highContrast.default,
   },
   render: (args) => (
     <RadioItemsGroup.Root defaultValue="1" {...args}>
-      <Flex gap="2" direction="column">
-        <RadioItemsGroup.Item value="1">Default</RadioItemsGroup.Item>
-        <RadioItemsGroup.Item value="2">Comfortable</RadioItemsGroup.Item>
-        <RadioItemsGroup.Item value="3">Compact</RadioItemsGroup.Item>
+      <Flex gap="2" direction="row">
+        <RadioItemsGroup.Item value="1">
+          <Flex
+            style={{
+              padding: '8px 24px',
+              borderRadius: 8,
+              border: '1px solid var(--gray-a7)',
+            }}
+          >
+            <Text>One</Text>
+          </Flex>
+        </RadioItemsGroup.Item>
+        <RadioItemsGroup.Item value="2">
+          <Flex
+            style={{
+              padding: '8px 24px',
+              borderRadius: 8,
+              border: '1px solid var(--gray-a7)',
+            }}
+          >
+            <Text>Two</Text>
+          </Flex>
+        </RadioItemsGroup.Item>
+        <RadioItemsGroup.Item value="3">
+          <Flex
+            style={{
+              padding: '8px 24px',
+              borderRadius: 8,
+              border: '1px solid var(--gray-a7)',
+            }}
+          >
+            <Text>Three</Text>
+          </Flex>
+        </RadioItemsGroup.Item>
       </Flex>
     </RadioItemsGroup.Root>
   ),
 };
 
-export const Composed: Story = {
+export const HighContrast: Story = {
   args: {
     size: radioGroupPropDefs.size.default,
     color: radioGroupPropDefs.color.default,
-    variant: radioGroupPropDefs.variant.default,
-    highContrast: radioGroupPropDefs.highContrast.default,
+    highContrast: true,
   },
   render: (args) => (
     <RadioItemsGroup.Root defaultValue="1" {...args}>
-      <Flex gap="2" direction="column">
-        <Text as="label" size="2">
-          <Flex gap="2">
-            <RadioItemsGroup.Item value="1" /> Default
-          </Flex>
-        </Text>
-        <Text as="label" size="2">
-          <Flex gap="2">
-            <RadioItemsGroup.Item value="2" /> Comfortable
-          </Flex>
-        </Text>
-        <Text as="label" size="2">
-          <Flex gap="2">
-            <RadioItemsGroup.Item value="3" /> Compact
-          </Flex>
-        </Text>
+      <Flex gap="2" direction="row">
+        <RadioItemsGroup.Item value="1">
+          <div
+            style={{
+              width: 48,
+              height: 48,
+              borderRadius: 16,
+              background: 'var(--lime-9)',
+            }}
+          />
+        </RadioItemsGroup.Item>
+        <RadioItemsGroup.Item value="2">
+          <div
+            style={{
+              width: 48,
+              height: 48,
+              borderRadius: 16,
+              background: 'var(--teal-9)',
+            }}
+          />
+        </RadioItemsGroup.Item>
+        <RadioItemsGroup.Item value="3">
+          <div
+            style={{
+              width: 48,
+              height: 48,
+              borderRadius: 16,
+              background: 'var(--gold-9)',
+            }}
+          />
+        </RadioItemsGroup.Item>
       </Flex>
     </RadioItemsGroup.Root>
   ),
 };
-
-export const Size: Story = {
+export const WithCard: Story = {
+  args: {
+    size: radioGroupPropDefs.size.default,
+    color: radioGroupPropDefs.color.default,
+    highContrast: radioGroupPropDefs.highContrast.default,
+  },
   render: (args) => (
-    <Flex align="center" gap="2">
-      <RadioItemsGroup.Root {...args} size="1" defaultValue="1">
-        <RadioItemsGroup.Item value="1" />
-      </RadioItemsGroup.Root>
-
-      <RadioItemsGroup.Root {...args} size="2" defaultValue="1">
-        <RadioItemsGroup.Item value="1" />
-      </RadioItemsGroup.Root>
-
-      <RadioItemsGroup.Root {...args} size="3" defaultValue="1">
-        <RadioItemsGroup.Item value="1" />
-      </RadioItemsGroup.Root>
-    </Flex>
-  ),
-};
-
-export const Variant: Story = {
-  render: (args) => (
-    <Flex gap="2">
-      <Flex direction="column" asChild gap="2">
-        <RadioItemsGroup.Root {...args} variant="surface" defaultValue="1">
-          <RadioItemsGroup.Item value="1" />
-          <RadioItemsGroup.Item value="2" />
-        </RadioItemsGroup.Root>
+    <RadioItemsGroup.Root defaultValue="1" {...args}>
+      <Flex gap="2" direction="row">
+        <RadioItemsGroup.Item value="1">
+          <Card size="2" variant="classic">
+            <Flex gap="3" align="center">
+              <Avatar size="3" fallback="AB" color="lime" />
+              <Box>
+                <Text as="div" size="2" weight="bold">
+                  Artur Bień
+                </Text>
+                <Text as="div" size="2" color="gray">
+                  UI engineer
+                </Text>
+              </Box>
+            </Flex>
+          </Card>
+        </RadioItemsGroup.Item>
+        <RadioItemsGroup.Item value="2">
+          <Card size="2" variant="classic">
+            <Flex gap="3" align="center">
+              <Avatar size="3" fallback="IM" color="sky" />
+              <Box>
+                <Text as="div" size="2" weight="bold">
+                  Ilya Miskov
+                </Text>
+                <Text as="div" size="2" color="gray">
+                  Designer
+                </Text>
+              </Box>
+            </Flex>
+          </Card>
+        </RadioItemsGroup.Item>
+        <RadioItemsGroup.Item value="3">
+          <Card size="2" variant="classic">
+            <Flex gap="3" align="center">
+              <Avatar size="3" fallback="SS" color="orange" />
+              <Box>
+                <Text as="div" size="2" weight="bold">
+                  Steven Schwartz
+                </Text>
+                <Text as="div" size="2" color="gray">
+                  CEO
+                </Text>
+              </Box>
+            </Flex>
+          </Card>
+        </RadioItemsGroup.Item>
       </Flex>
-
-      <Flex direction="column" asChild gap="2">
-        <RadioItemsGroup.Root {...args} variant="classic" defaultValue="1">
-          <RadioItemsGroup.Item value="1" />
-          <RadioItemsGroup.Item value="2" />
-        </RadioItemsGroup.Root>
-      </Flex>
-
-      <Flex direction="column" asChild gap="2">
-        <RadioItemsGroup.Root {...args} variant="soft" defaultValue="1">
-          <RadioItemsGroup.Item value="1" />
-          <RadioItemsGroup.Item value="2" />
-        </RadioItemsGroup.Root>
-      </Flex>
-    </Flex>
+    </RadioItemsGroup.Root>
   ),
 };
 
@@ -126,131 +183,83 @@ export const Color: Story = {
   render: (args) => (
     <Flex gap="2">
       <RadioItemsGroup.Root {...args} color="indigo" defaultValue="1">
-        <RadioItemsGroup.Item value="1" />
+        <Flex gap="2" direction="column">
+          <RadioItemsGroup.Item value="1">
+            <Card size="3" variant="classic">
+              1
+            </Card>
+          </RadioItemsGroup.Item>
+          <RadioItemsGroup.Item value="2">
+            <Card size="3" variant="classic">
+              2
+            </Card>
+          </RadioItemsGroup.Item>
+          <RadioItemsGroup.Item value="3">
+            <Card size="3" variant="classic">
+              3
+            </Card>
+          </RadioItemsGroup.Item>
+        </Flex>
       </RadioItemsGroup.Root>
 
       <RadioItemsGroup.Root {...args} color="cyan" defaultValue="1">
-        <RadioItemsGroup.Item value="1" />
+        <Flex gap="2" direction="column">
+          <RadioItemsGroup.Item value="1">
+            <Card size="3" variant="classic">
+              1
+            </Card>
+          </RadioItemsGroup.Item>
+          <RadioItemsGroup.Item value="2">
+            <Card size="3" variant="classic">
+              2
+            </Card>
+          </RadioItemsGroup.Item>
+          <RadioItemsGroup.Item value="3">
+            <Card size="3" variant="classic">
+              3
+            </Card>
+          </RadioItemsGroup.Item>
+        </Flex>
       </RadioItemsGroup.Root>
 
       <RadioItemsGroup.Root {...args} color="orange" defaultValue="1">
-        <RadioItemsGroup.Item value="1" />
+        <Flex gap="2" direction="column">
+          <RadioItemsGroup.Item value="1">
+            <Card size="3" variant="classic">
+              1
+            </Card>
+          </RadioItemsGroup.Item>
+          <RadioItemsGroup.Item value="2">
+            <Card size="3" variant="classic">
+              2
+            </Card>
+          </RadioItemsGroup.Item>
+          <RadioItemsGroup.Item value="3">
+            <Card size="3" variant="classic">
+              3
+            </Card>
+          </RadioItemsGroup.Item>
+        </Flex>
       </RadioItemsGroup.Root>
 
-      <RadioItemsGroup.Root {...args} color="crimson" defaultValue="1">
-        <RadioItemsGroup.Item value="1" />
-      </RadioItemsGroup.Root>
-    </Flex>
-  ),
-};
-
-export const HighContrast: Story = {
-  name: 'High Contrast',
-  render: (args) => (
-    <Grid rows="2" gap="2" display="inline-grid" flow="column">
-      <RadioItemsGroup.Root {...args} color="indigo" defaultValue="1">
-        <RadioItemsGroup.Item value="1" />
-      </RadioItemsGroup.Root>
-
-      <RadioItemsGroup.Root
-        {...args}
-        color="indigo"
-        defaultValue="1"
-        highContrast
-      >
-        <RadioItemsGroup.Item value="1" />
-      </RadioItemsGroup.Root>
-
-      <RadioItemsGroup.Root {...args} color="cyan" defaultValue="1">
-        <RadioItemsGroup.Item value="1" />
-      </RadioItemsGroup.Root>
-
-      <RadioItemsGroup.Root
-        {...args}
-        color="cyan"
-        defaultValue="1"
-        highContrast
-      >
-        <RadioItemsGroup.Item value="1" />
-      </RadioItemsGroup.Root>
-
-      <RadioItemsGroup.Root {...args} color="orange" defaultValue="1">
-        <RadioItemsGroup.Item value="1" />
-      </RadioItemsGroup.Root>
-
-      <RadioItemsGroup.Root
-        {...args}
-        color="orange"
-        defaultValue="1"
-        highContrast
-      >
-        <RadioItemsGroup.Item value="1" />
-      </RadioItemsGroup.Root>
-
-      <RadioItemsGroup.Root {...args} color="crimson" defaultValue="1">
-        <RadioItemsGroup.Item value="1" />
-      </RadioItemsGroup.Root>
-
-      <RadioItemsGroup.Root
-        {...args}
-        color="crimson"
-        defaultValue="1"
-        highContrast
-      >
-        <RadioItemsGroup.Item value="1" />
-      </RadioItemsGroup.Root>
-    </Grid>
-  ),
-};
-
-export const Alignment: Story = {
-  name: 'Alignment with text',
-  render: (args) => (
-    <Flex direction="column" gap="3">
-      <Text mb="3">
-        Composing <Code>RadioItemsGroup</Code> within <Code>Text</Code>{' '}
-        automatically centers it with the first line of text.
-      </Text>
-      <RadioItemsGroup.Root {...args} size="1" defaultValue="1">
-        <Text as="label" size="2">
-          <Flex gap="2">
-            <RadioItemsGroup.Item value="1" /> Default
-          </Flex>
-        </Text>
-
-        <Text as="label" size="2">
-          <Flex gap="2">
-            <RadioItemsGroup.Item value="2" /> Compact
-          </Flex>
-        </Text>
-      </RadioItemsGroup.Root>
-
-      <RadioItemsGroup.Root {...args} size="2" defaultValue="1">
-        <Text as="label" size="3">
-          <Flex gap="2">
-            <RadioItemsGroup.Item value="1" /> Default
-          </Flex>
-        </Text>
-
-        <Text as="label" size="3">
-          <Flex gap="2">
-            <RadioItemsGroup.Item value="2" /> Compact
-          </Flex>
-        </Text>
-      </RadioItemsGroup.Root>
-
-      <RadioItemsGroup.Root {...args} size="3" defaultValue="1">
-        <Text as="label" size="4">
-          <Flex gap="2">
-            <RadioItemsGroup.Item value="1" /> Default
-          </Flex>
-        </Text>
-
-        <Text as="label" size="4">
-          <Flex gap="2">
-            <RadioItemsGroup.Item value="2" /> Compact
-          </Flex>
-        </Text>
+      <RadioItemsGroup.Root {...args} color="lime" defaultValue="1">
+        <Flex gap="2" direction="column">
+          <RadioItemsGroup.Item value="1">
+            <Card size="3" variant="classic">
+              1
+            </Card>
+          </RadioItemsGroup.Item>
+          <RadioItemsGroup.Item value="2">
+            <Card size="3" variant="classic">
+              2
+            </Card>
+          </RadioItemsGroup.Item>
+          <RadioItemsGroup.Item value="3">
+            <Card size="3" variant="classic">
+              3
+            </Card>
+          </RadioItemsGroup.Item>
+        </Flex>
       </RadioItemsGroup.Root>
     </Flex>
   ),

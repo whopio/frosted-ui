@@ -68,26 +68,23 @@ const RadioItemsGroupItem = React.forwardRef<
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const { children, className, style, ...itemProps } = marginRest;
 
-  const Comp = children ? 'label' : 'span';
-
   return (
-    <Comp
+    <RadioItemsGroupPrimitive.Item
+      style={style}
+      {...itemProps}
+      ref={forwardedRef}
       className={classNames(
+        'fui-reset',
+        'fui-RadioItemsGroupButton',
         'fui-RadioItemsGroupItem',
         className,
         withMarginProps(marginProps),
       )}
-      style={style}
+      asChild
     >
-      <RadioItemsGroupPrimitive.Item
-        {...itemProps}
-        ref={forwardedRef}
-        className={classNames('fui-reset', 'fui-RadioItemsGroupButton')}
-      >
-        <RadioItemsGroupPrimitive.Indicator className="fui-RadioItemsGroupIndicator" />
-      </RadioItemsGroupPrimitive.Item>
+      {/* <RadioItemsGroupPrimitive.Indicator className="fui-RadioItemsGroupIndicator" /> */}
       {children}
-    </Comp>
+    </RadioItemsGroupPrimitive.Item>
   );
 });
 RadioItemsGroupItem.displayName = 'RadioItemsGroupItem';
