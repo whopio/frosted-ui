@@ -13,32 +13,32 @@
   &:where(.fui-high-contrast) {
     --radio-items-base-color: var(--accent-12);
   }
-
+  :where(.fui-RadioItemsGroupButton) {
+    position: relative;
+  }
   :where(.fui-RadioItemsGroupButton:focus-visible) {
     outline: 2px solid var(--color-focus-root);
     outline-offset: 2px;
   }
-  :where(.fui-RadioItemsGroupButton[data-state='checked']) {
+  :where(
+      .fui-RadioItemsGroupButton[data-state='checked']
+        .fui-RadioItemsGroupOverlay
+    ) {
+    position: absolute;
+    inset: calc(-1 * var(--parent-border-width));
+    border-radius: var(--parent-border-radius);
     box-shadow:
       inset 0 0 0 2px var(--radio-items-base-color),
       inset 0 0 0 4px var(--color-background);
   }
-  &:where(.fui-high-contrast)
-    :where(.fui-RadioItemsGroupButton[data-state='checked']) {
-  }
-
-  & :where(.fui-RadioItemsGroupButton[data-disabled]) {
-    box-shadow: inset 0 0 0 1px var(--gray-a6);
-    cursor: var(--cursor-disabled);
-  }
 
   /* Handling <Card /> styles as it might be a common use case */
   :where(.fui-Card.fui-RadioItemsGroupButton[data-state='checked']) {
-    border-color: var(--radio-items-base-color);
-    box-shadow: inset 0 0 0 1px var(--radio-items-base-color);
+    /* border-color: var(--radio-items-base-color);
+    box-shadow: inset 0 0 0 1px var(--radio-items-base-color); */
   }
   :where(.fui-RadioItemsGroupButton[data-state='checked'].fui-Card)::after {
-    box-shadow: none;
+    /* box-shadow: none; */
   }
   :where(.fui-RadioItemsGroupButton.fui-Card)::after {
     outline: none;

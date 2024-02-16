@@ -89,13 +89,67 @@ const RadioItemsGroupItem = React.forwardRef<
 });
 RadioItemsGroupItem.displayName = 'RadioItemsGroupItem';
 
+type RadioItemsGroupOverlayElement = React.ElementRef<
+  typeof RadioItemsGroupPrimitive.Item
+>;
+interface RadioItemsGroupOverlayProps
+  extends React.ComponentPropsWithoutRef<typeof RadioItemsGroupPrimitive.Item>,
+    MarginProps {}
+const RadioItemsGroupOverlay = React.forwardRef<
+  RadioItemsGroupOverlayElement,
+  RadioItemsGroupOverlayProps
+>((props, forwardedRef) => {
+  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
+  const { children, className, style, ...itemProps } = marginRest;
+
+  const ref = React.useRef<HTMLDivElement>(null);
+
+  React.useLayoutEffect(() => {
+    const parentElement = ref.current?.parentElement;
+    if (!parentElement) return;
+    const parentElementComputedStyles = getComputedStyle(parentElement);
+    ref.current.style.setProperty(
+      '--parent-border-width',
+      parentElementComputedStyles.borderWidth,
+    );
+    ref.current.style.setProperty(
+      '--parent-border-radius',
+      parentElementComputedStyles.borderRadius,
+    );
+  }, [ref]);
+
+  return (
+    <div
+      ref={ref}
+      style={style}
+      // {...itemProps}
+      // ref={forwardedRef}
+      className={classNames(
+        'fui-RadioItemsGroupOverlay',
+        className,
+        withMarginProps(marginProps),
+      )}
+    ></div>
+  );
+});
+RadioItemsGroupOverlay.displayName = 'RadioItemsGroupOverlay';
 const RadioItemsGroup = Object.assign(
   {},
   {
     Root: RadioItemsGroupRoot,
     Item: RadioItemsGroupItem,
+    Overlay: RadioItemsGroupOverlay,
   },
 );
 
-export { RadioItemsGroup, RadioItemsGroupItem, RadioItemsGroupRoot };
-export type { RadioItemsGroupItemProps, RadioItemsGroupRootProps };
+export {
+  RadioItemsGroup,
+  RadioItemsGroupItem,
+  RadioItemsGroupOverlay,
+  RadioItemsGroupRoot,
+};
+export type {
+  RadioItemsGroupItemProps,
+  RadioItemsGroupOverlayProps,
+  RadioItemsGroupRootProps,
+};

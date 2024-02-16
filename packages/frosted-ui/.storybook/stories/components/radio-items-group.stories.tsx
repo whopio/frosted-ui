@@ -48,6 +48,7 @@ export const Default: Story = {
             }}
           >
             <Text>One</Text>
+            <RadioItemsGroup.Overlay />
           </Flex>
         </RadioItemsGroup.Item>
         <RadioItemsGroup.Item value="2">
@@ -59,6 +60,7 @@ export const Default: Story = {
             }}
           >
             <Text>Two</Text>
+            <RadioItemsGroup.Overlay />
           </Flex>
         </RadioItemsGroup.Item>
         <RadioItemsGroup.Item value="3">
@@ -70,6 +72,7 @@ export const Default: Story = {
             }}
           >
             <Text>Three</Text>
+            <RadioItemsGroup.Overlay />
           </Flex>
         </RadioItemsGroup.Item>
       </Flex>
@@ -94,7 +97,9 @@ export const HighContrast: Story = {
               borderRadius: 16,
               background: 'var(--lime-9)',
             }}
-          />
+          >
+            <RadioItemsGroup.Overlay />
+          </div>
         </RadioItemsGroup.Item>
         <RadioItemsGroup.Item value="2">
           <div
@@ -104,7 +109,9 @@ export const HighContrast: Story = {
               borderRadius: 16,
               background: 'var(--teal-9)',
             }}
-          />
+          >
+            <RadioItemsGroup.Overlay />
+          </div>
         </RadioItemsGroup.Item>
         <RadioItemsGroup.Item value="3">
           <div
@@ -114,7 +121,9 @@ export const HighContrast: Story = {
               borderRadius: 16,
               background: 'var(--gold-9)',
             }}
-          />
+          >
+            <RadioItemsGroup.Overlay />
+          </div>
         </RadioItemsGroup.Item>
       </Flex>
     </RadioItemsGroup.Root>
@@ -142,6 +151,7 @@ export const WithCard: Story = {
                 </Text>
               </Box>
             </Flex>
+            <RadioItemsGroup.Overlay />
           </Card>
         </RadioItemsGroup.Item>
         <RadioItemsGroup.Item value="2">
@@ -157,6 +167,7 @@ export const WithCard: Story = {
                 </Text>
               </Box>
             </Flex>
+            <RadioItemsGroup.Overlay />
           </Card>
         </RadioItemsGroup.Item>
         <RadioItemsGroup.Item value="3">
@@ -172,6 +183,7 @@ export const WithCard: Story = {
                 </Text>
               </Box>
             </Flex>
+            <RadioItemsGroup.Overlay />
           </Card>
         </RadioItemsGroup.Item>
       </Flex>
