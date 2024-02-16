@@ -39,6 +39,12 @@ export { Progress } from './progress';
 export * from './progress.props';
 export { RadioGroup, RadioGroupItem, RadioGroupRoot } from './radio-group';
 export * from './radio-group.props';
+export {
+  RadioItemsGroup,
+  RadioItemsGroupItem,
+  RadioItemsGroupRoot,
+} from './radio-items-group';
+export * from './radio-items-group.props';
 // export * from './radio-card-group';
 export { DateField } from './date-field';
 export * from './date-field.props';

@@ -1,0 +1,257 @@
+import type { Meta, StoryObj } from '@storybook/react';
+
+import React from 'react';
+import {
+  Code,
+  Flex,
+  Grid,
+  RadioItemsGroup,
+  Text,
+} from '../../../src/components';
+import { radioGroupPropDefs } from '../../../src/components/radio-group.props';
+
+// More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+const meta = {
+  title: 'Controls/RadioItemsGroup',
+  component: RadioItemsGroup.Root,
+  args: {
+    disabled: false,
+  },
+  parameters: {
+    // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
+    layout: 'centered',
+  },
+  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
+  tags: ['autodocs'],
+} satisfies Meta<typeof RadioItemsGroup.Root>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+// More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
+export const Default: Story = {
+  args: {
+    size: radioGroupPropDefs.size.default,
+    color: radioGroupPropDefs.color.default,
+    variant: radioGroupPropDefs.variant.default,
+    highContrast: radioGroupPropDefs.highContrast.default,
+  },
+  render: (args) => (
+    <RadioItemsGroup.Root defaultValue="1" {...args}>
+      <Flex gap="2" direction="column">
+        <RadioItemsGroup.Item value="1">Default</RadioItemsGroup.Item>
+        <RadioItemsGroup.Item value="2">Comfortable</RadioItemsGroup.Item>
+        <RadioItemsGroup.Item value="3">Compact</RadioItemsGroup.Item>
+      </Flex>
+    </RadioItemsGroup.Root>
+  ),
+};
+
+export const Composed: Story = {
+  args: {
+    size: radioGroupPropDefs.size.default,
+    color: radioGroupPropDefs.color.default,
+    variant: radioGroupPropDefs.variant.default,
+    highContrast: radioGroupPropDefs.highContrast.default,
+  },
+  render: (args) => (
+    <RadioItemsGroup.Root defaultValue="1" {...args}>
+      <Flex gap="2" direction="column">
+        <Text as="label" size="2">
+          <Flex gap="2">
+            <RadioItemsGroup.Item value="1" /> Default
+          </Flex>
+        </Text>
+        <Text as="label" size="2">
+          <Flex gap="2">
+            <RadioItemsGroup.Item value="2" /> Comfortable
+          </Flex>
+        </Text>
+        <Text as="label" size="2">
+          <Flex gap="2">
+            <RadioItemsGroup.Item value="3" /> Compact
+          </Flex>
+        </Text>
+      </Flex>
+    </RadioItemsGroup.Root>
+  ),
+};
+
+export const Size: Story = {
+  render: (args) => (
+    <Flex align="center" gap="2">
+      <RadioItemsGroup.Root {...args} size="1" defaultValue="1">
+        <RadioItemsGroup.Item value="1" />
+      </RadioItemsGroup.Root>
+
+      <RadioItemsGroup.Root {...args} size="2" defaultValue="1">
+        <RadioItemsGroup.Item value="1" />
+      </RadioItemsGroup.Root>
+
+      <RadioItemsGroup.Root {...args} size="3" defaultValue="1">
+        <RadioItemsGroup.Item value="1" />
+      </RadioItemsGroup.Root>
+    </Flex>
+  ),
+};
+
+export const Variant: Story = {
+  render: (args) => (
+    <Flex gap="2">
+      <Flex direction="column" asChild gap="2">
+        <RadioItemsGroup.Root {...args} variant="surface" defaultValue="1">
+          <RadioItemsGroup.Item value="1" />
+          <RadioItemsGroup.Item value="2" />
+        </RadioItemsGroup.Root>
+      </Flex>
+
+      <Flex direction="column" asChild gap="2">
+        <RadioItemsGroup.Root {...args} variant="classic" defaultValue="1">
+          <RadioItemsGroup.Item value="1" />
+          <RadioItemsGroup.Item value="2" />
+        </RadioItemsGroup.Root>
+      </Flex>
+
+      <Flex direction="column" asChild gap="2">
+        <RadioItemsGroup.Root {...args} variant="soft" defaultValue="1">
+          <RadioItemsGroup.Item value="1" />
+          <RadioItemsGroup.Item value="2" />
+        </RadioItemsGroup.Root>
+      </Flex>
+    </Flex>
+  ),
+};
+
+export const Color: Story = {
+  render: (args) => (
+    <Flex gap="2">
+      <RadioItemsGroup.Root {...args} color="indigo" defaultValue="1">
+        <RadioItemsGroup.Item value="1" />
+      </RadioItemsGroup.Root>
+
+      <RadioItemsGroup.Root {...args} color="cyan" defaultValue="1">
+        <RadioItemsGroup.Item value="1" />
+      </RadioItemsGroup.Root>
+
+      <RadioItemsGroup.Root {...args} color="orange" defaultValue="1">
+        <RadioItemsGroup.Item value="1" />
+      </RadioItemsGroup.Root>
+
+      <RadioItemsGroup.Root {...args} color="crimson" defaultValue="1">
+        <RadioItemsGroup.Item value="1" />
+      </RadioItemsGroup.Root>
+    </Flex>
+  ),
+};
+
+export const HighContrast: Story = {
+  name: 'High Contrast',
+  render: (args) => (
+    <Grid rows="2" gap="2" display="inline-grid" flow="column">
+      <RadioItemsGroup.Root {...args} color="indigo" defaultValue="1">
+        <RadioItemsGroup.Item value="1" />
+      </RadioItemsGroup.Root>
+
+      <RadioItemsGroup.Root
+        {...args}
+        color="indigo"
+        defaultValue="1"
+        highContrast
+      >
+        <RadioItemsGroup.Item value="1" />
+      </RadioItemsGroup.Root>
+
+      <RadioItemsGroup.Root {...args} color="cyan" defaultValue="1">
+        <RadioItemsGroup.Item value="1" />
+      </RadioItemsGroup.Root>
+
+      <RadioItemsGroup.Root
+        {...args}
+        color="cyan"
+        defaultValue="1"
+        highContrast
+      >
+        <RadioItemsGroup.Item value="1" />
+      </RadioItemsGroup.Root>
+
+      <RadioItemsGroup.Root {...args} color="orange" defaultValue="1">
+        <RadioItemsGroup.Item value="1" />
+      </RadioItemsGroup.Root>
+
+      <RadioItemsGroup.Root
+        {...args}
+        color="orange"
+        defaultValue="1"
+        highContrast
+      >
+        <RadioItemsGroup.Item value="1" />
+      </RadioItemsGroup.Root>
+
+      <RadioItemsGroup.Root {...args} color="crimson" defaultValue="1">
+        <RadioItemsGroup.Item value="1" />
+      </RadioItemsGroup.Root>
+
+      <RadioItemsGroup.Root
+        {...args}
+        color="crimson"
+        defaultValue="1"
+        highContrast
+      >
+        <RadioItemsGroup.Item value="1" />
+      </RadioItemsGroup.Root>
+    </Grid>
+  ),
+};
+
+export const Alignment: Story = {
+  name: 'Alignment with text',
+  render: (args) => (
+    <Flex direction="column" gap="3">
+      <Text mb="3">
+        Composing <Code>RadioItemsGroup</Code> within <Code>Text</Code>{' '}
+        automatically centers it with the first line of text.
+      </Text>
+      <RadioItemsGroup.Root {...args} size="1" defaultValue="1">
+        <Text as="label" size="2">
+          <Flex gap="2">
+            <RadioItemsGroup.Item value="1" /> Default
+          </Flex>
+        </Text>
+
+        <Text as="label" size="2">
+          <Flex gap="2">
+            <RadioItemsGroup.Item value="2" /> Compact
+          </Flex>
+        </Text>
+      </RadioItemsGroup.Root>
+
+      <RadioItemsGroup.Root {...args} size="2" defaultValue="1">
+        <Text as="label" size="3">
+          <Flex gap="2">
+            <RadioItemsGroup.Item value="1" /> Default
+          </Flex>
+        </Text>
+
+        <Text as="label" size="3">
+          <Flex gap="2">
+            <RadioItemsGroup.Item value="2" /> Compact
+          </Flex>
+        </Text>
+      </RadioItemsGroup.Root>
+
+      <RadioItemsGroup.Root {...args} size="3" defaultValue="1">
+        <Text as="label" size="4">
+          <Flex gap="2">
+            <RadioItemsGroup.Item value="1" /> Default
+          </Flex>
+        </Text>
+
+        <Text as="label" size="4">
+          <Flex gap="2">
+            <RadioItemsGroup.Item value="2" /> Compact
+          </Flex>
+        </Text>
+      </RadioItemsGroup.Root>
+    </Flex>
+  ),
+};
