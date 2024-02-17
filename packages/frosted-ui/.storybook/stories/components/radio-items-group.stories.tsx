@@ -32,7 +32,6 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Default: Story = {
   args: {
-    size: radioGroupPropDefs.size.default,
     color: radioGroupPropDefs.color.default,
     highContrast: radioGroupPropDefs.highContrast.default,
   },
@@ -42,37 +41,43 @@ export const Default: Story = {
         <RadioItemsGroup.Item value="1">
           <Flex
             style={{
-              padding: '8px 24px',
+              padding: '8px 40px 8px 24px',
               borderRadius: 8,
               border: '1px solid var(--gray-a7)',
             }}
+            gap="2"
+            align="center"
           >
+            <RadioItemsGroup.Icon ml="-3" />
             <Text>One</Text>
-            <RadioItemsGroup.Overlay />
           </Flex>
         </RadioItemsGroup.Item>
         <RadioItemsGroup.Item value="2">
           <Flex
             style={{
-              padding: '8px 24px',
+              padding: '8px 40px 8px 24px',
               borderRadius: 8,
               border: '1px solid var(--gray-a7)',
             }}
+            gap="2"
+            align="center"
           >
+            <RadioItemsGroup.Icon ml="-3" />
             <Text>Two</Text>
-            <RadioItemsGroup.Overlay />
           </Flex>
         </RadioItemsGroup.Item>
         <RadioItemsGroup.Item value="3">
           <Flex
             style={{
-              padding: '8px 24px',
+              padding: '8px 40px 8px 24px',
               borderRadius: 8,
               border: '1px solid var(--gray-a7)',
             }}
+            gap="2"
+            align="center"
           >
+            <RadioItemsGroup.Icon ml="-3" />
             <Text>Three</Text>
-            <RadioItemsGroup.Overlay />
           </Flex>
         </RadioItemsGroup.Item>
       </Flex>
@@ -82,7 +87,6 @@ export const Default: Story = {
 
 export const HighContrast: Story = {
   args: {
-    size: radioGroupPropDefs.size.default,
     color: radioGroupPropDefs.color.default,
     highContrast: true,
   },
@@ -97,9 +101,7 @@ export const HighContrast: Story = {
               borderRadius: 16,
               background: 'var(--lime-9)',
             }}
-          >
-            <RadioItemsGroup.Overlay />
-          </div>
+          ></div>
         </RadioItemsGroup.Item>
         <RadioItemsGroup.Item value="2">
           <div
@@ -109,9 +111,7 @@ export const HighContrast: Story = {
               borderRadius: 16,
               background: 'var(--teal-9)',
             }}
-          >
-            <RadioItemsGroup.Overlay />
-          </div>
+          ></div>
         </RadioItemsGroup.Item>
         <RadioItemsGroup.Item value="3">
           <div
@@ -121,9 +121,7 @@ export const HighContrast: Story = {
               borderRadius: 16,
               background: 'var(--gold-9)',
             }}
-          >
-            <RadioItemsGroup.Overlay />
-          </div>
+          ></div>
         </RadioItemsGroup.Item>
       </Flex>
     </RadioItemsGroup.Root>
@@ -131,7 +129,6 @@ export const HighContrast: Story = {
 };
 export const WithCard: Story = {
   args: {
-    size: radioGroupPropDefs.size.default,
     color: radioGroupPropDefs.color.default,
     highContrast: radioGroupPropDefs.highContrast.default,
   },
@@ -151,7 +148,6 @@ export const WithCard: Story = {
                 </Text>
               </Box>
             </Flex>
-            <RadioItemsGroup.Overlay />
           </Card>
         </RadioItemsGroup.Item>
         <RadioItemsGroup.Item value="2">
@@ -167,7 +163,6 @@ export const WithCard: Story = {
                 </Text>
               </Box>
             </Flex>
-            <RadioItemsGroup.Overlay />
           </Card>
         </RadioItemsGroup.Item>
         <RadioItemsGroup.Item value="3">
@@ -183,7 +178,6 @@ export const WithCard: Story = {
                 </Text>
               </Box>
             </Flex>
-            <RadioItemsGroup.Overlay />
           </Card>
         </RadioItemsGroup.Item>
       </Flex>
@@ -193,86 +187,50 @@ export const WithCard: Story = {
 
 export const Color: Story = {
   render: (args) => (
-    <Flex gap="2">
-      <RadioItemsGroup.Root {...args} color="indigo" defaultValue="1">
-        <Flex gap="2" direction="column">
-          <RadioItemsGroup.Item value="1">
-            <Card size="3" variant="classic">
-              1
-            </Card>
-          </RadioItemsGroup.Item>
-          <RadioItemsGroup.Item value="2">
-            <Card size="3" variant="classic">
-              2
-            </Card>
-          </RadioItemsGroup.Item>
-          <RadioItemsGroup.Item value="3">
-            <Card size="3" variant="classic">
-              3
-            </Card>
-          </RadioItemsGroup.Item>
-        </Flex>
-      </RadioItemsGroup.Root>
+    <Flex gap="2" direction="column">
+      {(['indigo', 'cyan', 'orange', 'lime'] as const).map((color) => (
+        <RadioItemsGroup.Root
+          {...args}
+          color={color}
+          key={color}
+          defaultValue="1"
+        >
+          <Flex gap="2">
+            {['1', '2', '3'].map((value) => (
+              <RadioItemsGroup.Item value={value} key={value}>
+                <Card
+                  size="3"
+                  variant="classic"
+                  style={
+                    {
+                      width: 100,
+                      height: 100,
+                      '--card-border-radius': '20px',
+                    } as React.CSSProperties
+                  }
+                >
+                  <Flex
+                    align="center"
+                    justify="center"
+                    height="100%"
+                    width="100%"
+                  >
+                    {value}
+                  </Flex>
 
-      <RadioItemsGroup.Root {...args} color="cyan" defaultValue="1">
-        <Flex gap="2" direction="column">
-          <RadioItemsGroup.Item value="1">
-            <Card size="3" variant="classic">
-              1
-            </Card>
-          </RadioItemsGroup.Item>
-          <RadioItemsGroup.Item value="2">
-            <Card size="3" variant="classic">
-              2
-            </Card>
-          </RadioItemsGroup.Item>
-          <RadioItemsGroup.Item value="3">
-            <Card size="3" variant="classic">
-              3
-            </Card>
-          </RadioItemsGroup.Item>
-        </Flex>
-      </RadioItemsGroup.Root>
-
-      <RadioItemsGroup.Root {...args} color="orange" defaultValue="1">
-        <Flex gap="2" direction="column">
-          <RadioItemsGroup.Item value="1">
-            <Card size="3" variant="classic">
-              1
-            </Card>
-          </RadioItemsGroup.Item>
-          <RadioItemsGroup.Item value="2">
-            <Card size="3" variant="classic">
-              2
-            </Card>
-          </RadioItemsGroup.Item>
-          <RadioItemsGroup.Item value="3">
-            <Card size="3" variant="classic">
-              3
-            </Card>
-          </RadioItemsGroup.Item>
-        </Flex>
-      </RadioItemsGroup.Root>
-
-      <RadioItemsGroup.Root {...args} color="lime" defaultValue="1">
-        <Flex gap="2" direction="column">
-          <RadioItemsGroup.Item value="1">
-            <Card size="3" variant="classic">
-              1
-            </Card>
-          </RadioItemsGroup.Item>
-          <RadioItemsGroup.Item value="2">
-            <Card size="3" variant="classic">
-              2
-            </Card>
-          </RadioItemsGroup.Item>
-          <RadioItemsGroup.Item value="3">
-            <Card size="3" variant="classic">
-              3
-            </Card>
-          </RadioItemsGroup.Item>
-        </Flex>
-      </RadioItemsGroup.Root>
+                  <RadioItemsGroup.Icon
+                    style={{
+                      position: 'absolute',
+                      top: 12,
+                      right: 12,
+                    }}
+                  />
+                </Card>
+              </RadioItemsGroup.Item>
+            ))}
+          </Flex>
+        </RadioItemsGroup.Root>
+      ))}
     </Flex>
   ),
 };

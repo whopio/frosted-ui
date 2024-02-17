@@ -41,8 +41,8 @@ export { RadioGroup, RadioGroupItem, RadioGroupRoot } from './radio-group';
 export * from './radio-group.props';
 export {
   RadioItemsGroup,
+  RadioItemsGroupIcon,
   RadioItemsGroupItem,
-  RadioItemsGroupOverlay,
   RadioItemsGroupRoot,
 } from './radio-items-group';
 export * from './radio-items-group.props';
