@@ -7,6 +7,7 @@
   :where(.fui-RadioButtonGroupButton) {
     position: relative;
     cursor: default;
+    user-select: none;
   }
   :where(.fui-RadioButtonGroupButton:focus-visible) {
     outline: 2px solid var(--accent-a6);
