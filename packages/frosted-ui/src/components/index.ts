@@ -37,6 +37,13 @@ export { Checkbox } from './checkbox';
 export * from './checkbox.props';
 export { Progress } from './progress';
 export * from './progress.props';
+export {
+  RadioButtonGroup,
+  RadioButtonGroupIcon,
+  RadioButtonGroupItem,
+  RadioButtonGroupRoot,
+} from './radio-button-group';
+export * from './radio-button-group.props';
 export { RadioGroup, RadioGroupItem, RadioGroupRoot } from './radio-group';
 export * from './radio-group.props';
 // export * from './radio-card-group';
