@@ -1,6 +1,6 @@
 import { colorProp, highContrastProp } from '../helpers';
 
-const radioItemsGroupPropDefs = {
+const radioButtonGroupPropDefs = {
   color: colorProp,
   highContrast: highContrastProp,
 } satisfies {
@@ -8,4 +8,4 @@ const radioItemsGroupPropDefs = {
   highContrast: typeof highContrastProp;
 };
 
-export { radioItemsGroupPropDefs };
+export { radioButtonGroupPropDefs };

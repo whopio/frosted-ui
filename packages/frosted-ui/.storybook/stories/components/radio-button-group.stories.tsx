@@ -6,15 +6,15 @@ import {
   Box,
   Card,
   Flex,
-  RadioItemsGroup,
+  RadioButtonGroup,
   Text,
 } from '../../../src/components';
 import { radioGroupPropDefs } from '../../../src/components/radio-group.props';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
-  title: 'Controls/RadioItemsGroup',
-  component: RadioItemsGroup.Root,
+  title: 'Lab/RadioButtonGroup',
+  component: RadioButtonGroup.Root,
   args: {
     disabled: false,
   },
@@ -24,7 +24,7 @@ const meta = {
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
-} satisfies Meta<typeof RadioItemsGroup.Root>;
+} satisfies Meta<typeof RadioButtonGroup.Root>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -36,9 +36,9 @@ export const Default: Story = {
     highContrast: radioGroupPropDefs.highContrast.default,
   },
   render: (args) => (
-    <RadioItemsGroup.Root defaultValue="1" {...args}>
+    <RadioButtonGroup.Root defaultValue="1" {...args}>
       <Flex gap="2" direction="row">
-        <RadioItemsGroup.Item value="1">
+        <RadioButtonGroup.Item value="1">
           <Flex
             style={{
               padding: '8px 40px 8px 24px',
@@ -48,11 +48,11 @@ export const Default: Story = {
             gap="2"
             align="center"
           >
-            <RadioItemsGroup.Icon ml="-3" />
+            <RadioButtonGroup.Icon ml="-3" />
             <Text>One</Text>
           </Flex>
-        </RadioItemsGroup.Item>
-        <RadioItemsGroup.Item value="2">
+        </RadioButtonGroup.Item>
+        <RadioButtonGroup.Item value="2">
           <Flex
             style={{
               padding: '8px 40px 8px 24px',
@@ -62,11 +62,11 @@ export const Default: Story = {
             gap="2"
             align="center"
           >
-            <RadioItemsGroup.Icon ml="-3" />
+            <RadioButtonGroup.Icon ml="-3" />
             <Text>Two</Text>
           </Flex>
-        </RadioItemsGroup.Item>
-        <RadioItemsGroup.Item value="3">
+        </RadioButtonGroup.Item>
+        <RadioButtonGroup.Item value="3">
           <Flex
             style={{
               padding: '8px 40px 8px 24px',
@@ -76,12 +76,12 @@ export const Default: Story = {
             gap="2"
             align="center"
           >
-            <RadioItemsGroup.Icon ml="-3" />
+            <RadioButtonGroup.Icon ml="-3" />
             <Text>Three</Text>
           </Flex>
-        </RadioItemsGroup.Item>
+        </RadioButtonGroup.Item>
       </Flex>
-    </RadioItemsGroup.Root>
+    </RadioButtonGroup.Root>
   ),
 };
 
@@ -91,9 +91,9 @@ export const HighContrast: Story = {
     highContrast: true,
   },
   render: (args) => (
-    <RadioItemsGroup.Root defaultValue="1" {...args}>
+    <RadioButtonGroup.Root defaultValue="1" {...args}>
       <Flex gap="2" direction="row">
-        <RadioItemsGroup.Item value="1">
+        <RadioButtonGroup.Item value="1">
           <div
             style={{
               width: 48,
@@ -102,8 +102,8 @@ export const HighContrast: Story = {
               background: 'var(--lime-9)',
             }}
           ></div>
-        </RadioItemsGroup.Item>
-        <RadioItemsGroup.Item value="2">
+        </RadioButtonGroup.Item>
+        <RadioButtonGroup.Item value="2">
           <div
             style={{
               width: 48,
@@ -112,8 +112,8 @@ export const HighContrast: Story = {
               background: 'var(--teal-9)',
             }}
           ></div>
-        </RadioItemsGroup.Item>
-        <RadioItemsGroup.Item value="3">
+        </RadioButtonGroup.Item>
+        <RadioButtonGroup.Item value="3">
           <div
             style={{
               width: 48,
@@ -122,9 +122,9 @@ export const HighContrast: Story = {
               background: 'var(--gold-9)',
             }}
           ></div>
-        </RadioItemsGroup.Item>
+        </RadioButtonGroup.Item>
       </Flex>
-    </RadioItemsGroup.Root>
+    </RadioButtonGroup.Root>
   ),
 };
 export const WithCard: Story = {
@@ -133,9 +133,9 @@ export const WithCard: Story = {
     highContrast: radioGroupPropDefs.highContrast.default,
   },
   render: (args) => (
-    <RadioItemsGroup.Root defaultValue="1" {...args}>
+    <RadioButtonGroup.Root defaultValue="1" {...args}>
       <Flex gap="2" direction="row">
-        <RadioItemsGroup.Item value="1">
+        <RadioButtonGroup.Item value="1">
           <Card size="2" variant="classic">
             <Flex gap="3" align="center">
               <Avatar size="3" fallback="AB" color="lime" />
@@ -149,8 +149,8 @@ export const WithCard: Story = {
               </Box>
             </Flex>
           </Card>
-        </RadioItemsGroup.Item>
-        <RadioItemsGroup.Item value="2">
+        </RadioButtonGroup.Item>
+        <RadioButtonGroup.Item value="2">
           <Card size="2" variant="classic">
             <Flex gap="3" align="center">
               <Avatar size="3" fallback="IM" color="sky" />
@@ -164,8 +164,8 @@ export const WithCard: Story = {
               </Box>
             </Flex>
           </Card>
-        </RadioItemsGroup.Item>
-        <RadioItemsGroup.Item value="3">
+        </RadioButtonGroup.Item>
+        <RadioButtonGroup.Item value="3">
           <Card size="2" variant="classic">
             <Flex gap="3" align="center">
               <Avatar size="3" fallback="SS" color="orange" />
@@ -179,9 +179,9 @@ export const WithCard: Story = {
               </Box>
             </Flex>
           </Card>
-        </RadioItemsGroup.Item>
+        </RadioButtonGroup.Item>
       </Flex>
-    </RadioItemsGroup.Root>
+    </RadioButtonGroup.Root>
   ),
 };
 
@@ -189,7 +189,7 @@ export const Color: Story = {
   render: (args) => (
     <Flex gap="2" direction="column">
       {(['indigo', 'cyan', 'orange', 'lime'] as const).map((color) => (
-        <RadioItemsGroup.Root
+        <RadioButtonGroup.Root
           {...args}
           color={color}
           key={color}
@@ -197,7 +197,7 @@ export const Color: Story = {
         >
           <Flex gap="2">
             {['1', '2', '3'].map((value) => (
-              <RadioItemsGroup.Item value={value} key={value}>
+              <RadioButtonGroup.Item value={value} key={value}>
                 <Card
                   size="3"
                   variant="classic"
@@ -218,7 +218,7 @@ export const Color: Story = {
                     {value}
                   </Flex>
 
-                  <RadioItemsGroup.Icon
+                  <RadioButtonGroup.Icon
                     style={{
                       position: 'absolute',
                       top: 12,
@@ -226,10 +226,10 @@ export const Color: Story = {
                     }}
                   />
                 </Card>
-              </RadioItemsGroup.Item>
+              </RadioButtonGroup.Item>
             ))}
           </Flex>
-        </RadioItemsGroup.Root>
+        </RadioButtonGroup.Root>
       ))}
     </Flex>
   ),

@@ -1,24 +1,24 @@
-.fui-RadioItemsGroupRoot {
+.fui-RadioButtonGroupRoot {
   --radio-items-base-color: var(--accent-9);
 
   &:where(.fui-high-contrast) {
     --radio-items-base-color: var(--accent-12);
   }
-  :where(.fui-RadioItemsGroupButton) {
+  :where(.fui-RadioButtonGroupButton) {
     position: relative;
     cursor: default;
   }
-  :where(.fui-RadioItemsGroupButton:focus-visible) {
+  :where(.fui-RadioButtonGroupButton:focus-visible) {
     outline: 2px solid var(--accent-a6);
     outline-offset: 2px;
   }
-  :where(.fui-RadioItemsGroupOverlay) {
+  :where(.fui-RadioButtonGroupOverlay) {
     position: absolute;
     pointer-events: none;
   }
   :where(
-      .fui-RadioItemsGroupButton[data-state='checked']
-        .fui-RadioItemsGroupOverlay
+      .fui-RadioButtonGroupButton[data-state='checked']
+        .fui-RadioButtonGroupOverlay
     ) {
     inset: calc(-1 * var(--parent-border-width));
     border-radius: var(--parent-border-radius);
@@ -27,22 +27,23 @@
       inset 0 0 0 4px var(--color-background);
   }
 
-  :where(.fui-RadioItemsGroupIcon) {
+  :where(.fui-RadioButtonGroupIcon) {
     visibility: hidden;
     width: 20px;
+    pointer-events: none;
     height: 20px;
     border-radius: 999px;
     color: var(--accent-9-contrast);
-    pointer-events: none;
   }
   :where(
-      .fui-RadioItemsGroupButton[data-state='checked'] .fui-RadioItemsGroupIcon
+      .fui-RadioButtonGroupButton[data-state='checked']
+        .fui-RadioButtonGroupIcon
     ) {
     visibility: visible;
     background: var(--accent-9);
   }
 
-  :where(.fui-RadioItemsGroupButton.fui-Card)::after {
+  :where(.fui-RadioButtonGroupButton.fui-Card)::after {
     outline: none;
   }
 }
