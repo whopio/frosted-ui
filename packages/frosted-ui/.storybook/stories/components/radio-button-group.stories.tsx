@@ -8,6 +8,7 @@ import {
   Flex,
   RadioButtonGroup,
   Text,
+  Tooltip,
 } from '../../../src/components';
 import { radioGroupPropDefs } from '../../../src/components/radio-group.props';
 
@@ -93,36 +94,49 @@ export const HighContrast: Story = {
   render: (args) => (
     <RadioButtonGroup.Root defaultValue="1" {...args}>
       <Flex gap="2" direction="row">
-        <RadioButtonGroup.Item value="1">
-          <div
-            style={{
-              width: 48,
-              height: 48,
-              borderRadius: 16,
-              background: 'var(--lime-9)',
-            }}
-          ></div>
-        </RadioButtonGroup.Item>
-        <RadioButtonGroup.Item value="2">
-          <div
-            style={{
-              width: 48,
-              height: 48,
-              borderRadius: 16,
-              background: 'var(--teal-9)',
-            }}
-          ></div>
-        </RadioButtonGroup.Item>
-        <RadioButtonGroup.Item value="3">
-          <div
-            style={{
-              width: 48,
-              height: 48,
-              borderRadius: 16,
-              background: 'var(--gold-9)',
-            }}
-          ></div>
-        </RadioButtonGroup.Item>
+        <Tooltip content="Lime">
+          <div>
+            <RadioButtonGroup.Item value="1">
+              <div
+                style={{
+                  width: 48,
+                  height: 48,
+                  borderRadius: 16,
+                  background: 'var(--lime-9)',
+                }}
+              />
+            </RadioButtonGroup.Item>
+          </div>
+        </Tooltip>
+        <Tooltip content="Teal">
+          <div>
+            <RadioButtonGroup.Item value="2">
+              <div
+                style={{
+                  width: 48,
+                  height: 48,
+                  borderRadius: 16,
+                  background: 'var(--teal-9)',
+                }}
+              />
+            </RadioButtonGroup.Item>
+          </div>
+        </Tooltip>
+
+        <Tooltip content="Gold">
+          <div>
+            <RadioButtonGroup.Item value="3">
+              <div
+                style={{
+                  width: 48,
+                  height: 48,
+                  borderRadius: 16,
+                  background: 'var(--gold-9)',
+                }}
+              />
+            </RadioButtonGroup.Item>
+          </div>
+        </Tooltip>
       </Flex>
     </RadioButtonGroup.Root>
   ),
