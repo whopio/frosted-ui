@@ -136,7 +136,7 @@
     box-shadow: 0 0 0 1px color-mix(in oklab, var(--gray-a6), var(--gray-6) 25%);
   }
 
-  &:where(button, [href]) {
+  &:where(button, [href], [type='button']) {
     @media (hover: hover) {
       &:where(:hover)::after {
         box-shadow: 0 0 0 1px var(--gray-a8);
@@ -215,7 +215,7 @@
     transition: box-shadow 120ms;
   }
 
-  &:where(button, [href]) {
+  &:where(button, [href], [type='button']) {
     @media (hover: hover) {
       &:where(:hover) {
         &::after {
@@ -243,7 +243,7 @@
 .fui-Card:where(.fui-variant-ghost) {
   --card-border-width: 0px;
 
-  &:where(button, [href]) {
+  &:where(button, [href], [type='button']) {
     @media (hover: hover) {
       &:where(:hover) {
         background-color: var(--gray-a3);
