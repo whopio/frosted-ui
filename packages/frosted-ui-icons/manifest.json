@@ -1,0 +1,11 @@
+{
+  "icons": {
+    ":default": {
+      "store-20": "icons/default/store-20.svg",
+      "store-16": "icons/default/store-16.svg",
+      "grid-16": "icons/default/grid-16.svg",
+      "gear-20": "icons/default/gear-20.svg",
+      "trash-20": "icons/default/trash-20.svg"
+    }
+  }
+}
