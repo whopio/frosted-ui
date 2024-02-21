@@ -143,10 +143,11 @@ const DrawerBody = React.forwardRef<DrawerBodyElement, DrawerBodyProps>(
     React.useEffect(() => {
       if (!contentRef.current) return;
       const resizeObserver = new ResizeObserver((entries) => {
-        const contentHeight = entries[0].contentRect.height;
+        const contentHeight = entries[0].target.getBoundingClientRect().height;
         // TODO: kinda ugly that we're reaching to a parent element here
         const scrollHeight = localRef.current?.parentElement?.scrollHeight || 0;
         const isScrollable = contentHeight > scrollHeight;
+
         localRef.current?.setAttribute(
           'data-is-scrollable',
           isScrollable.toString(),
