@@ -17,6 +17,8 @@
 .fui-DrawerContent::before {
   content: '';
   position: absolute;
+  /* Place it behind, otherwise it will cover DrawerContent children */
+  z-index: -1;
   inset: 0;
   box-shadow: var(--shadow-5);
 }
