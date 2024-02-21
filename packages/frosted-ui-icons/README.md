@@ -18,7 +18,7 @@ npm install frosted-ui-icons
 
 Import the icons into your React project:
 
-```js
+```tsx
 import { Store16Icon, Store20Icon } from 'frosted-ui-icons';
 
 function MyComponent() {
