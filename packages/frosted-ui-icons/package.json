@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "generate-icon-lib": "*",
-    "tsdx": "0.14.0"
+    "tsdx": "0.14.0",
+    "rimraf": "^5.0.5"
   }
 }
