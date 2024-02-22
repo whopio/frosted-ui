@@ -4,11 +4,23 @@
   "version": "0.0.0",
   "license": "MIT",
   "description": "Frosted UI React Icons",
-  "module": "dist/frosted-ui-icons.esm.js",
-  "main": "index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/cjs/index.js",
+  "types": "./dist/cjs/index.d.ts",
+  "module": "./dist/esm/index.js",
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./dist/cjs/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      },
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      }
+    }
+  },
   "files": [
-    "dist/",
+    "dist/**",
     "index.js",
     "manifest.json"
   ],
@@ -18,16 +30,19 @@
   },
   "scripts": {
     "generate-src": "generate-icon-lib --file=fxRLy35tq3pm2zNy5lAFfL && mv ./icons/default/* ./icons && rmdir ./icons/default && cd ./icons && zip -r ../frosted-ui-icons.zip ./",
-    "build": "rimraf dist && tsdx build --format es,cjs --entry src/index.tsx",
-    "watch": "rimraf dist && tsdx watch --format es,cjs --entry src/index.tsx",
-    "prepublishOnly": "npm run build"
+    "clean": "rimraf dist",
+    "build": "pnpm clean && pnpm build:js",
+    "build:js": "pnpm build:js:cjs && pnpm build:js:esm",
+    "build:js:cjs": "tsc --project tsconfig-cjs.json",
+    "build:js:esm": "tsc --project tsconfig-esm.json",
+    "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
+    "@types/react": "*",
     "react": "^16.x || ^17.x || ^18.x"
   },
   "devDependencies": {
     "generate-icon-lib": "*",
-    "tsdx": "0.14.0",
     "rimraf": "^5.0.5"
   }
 }
