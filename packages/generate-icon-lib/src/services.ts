@@ -293,7 +293,10 @@ export function getIconsPage(document: IFigmaDocument): IFigmaCanvas | null {
 export function getIcons(iconsCanvas: IFigmaCanvas): IIcons {
   return iconsCanvas.children.reduce((icons: IIcons, iconSetNode) => {
     // We technically don't want icon sets to be in Groups, but we should still allow it
-    if (iconSetNode.type === 'FRAME' || iconSetNode.type === 'GROUP') {
+    if (
+      (iconSetNode.type === 'FRAME' || iconSetNode.type === 'GROUP') &&
+      iconSetNode.name === 'Icons-default'
+    ) {
       iconSetNode.children.forEach(iconNode => {
         // Our individual icons frames may be Figma "Components" 🤙
         if (iconNode.type === 'FRAME' || iconNode.type === 'COMPONENT') {
