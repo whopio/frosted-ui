@@ -29,7 +29,7 @@
     "access": "public"
   },
   "scripts": {
-    "generate-src": "cd ../generate-icon-lib && node index.js --file=fxRLy35tq3pm2zNy5lAFfL && cd ../frosted-ui-icons && mv ./icons/default/* ./icons && rmdir ./icons/default && cd ./icons && zip -r ../frosted-ui-icons.zip ./",
+    "generate-src": "generate-icon-lib --file=fxRLy35tq3pm2zNy5lAFfL && mv ./icons/default/* ./icons && rmdir ./icons/default && cd ./icons && zip -r ../frosted-ui-icons.zip ./",
     "clean": "rimraf dist",
     "build": "pnpm clean && pnpm build:js",
     "build:js": "pnpm build:js:cjs && pnpm build:js:esm",
@@ -42,7 +42,9 @@
     "react": "^16.x || ^17.x || ^18.x"
   },
   "devDependencies": {
+    "@types/react": "^16.8.17",
     "generate-icon-lib": "*",
+    "react": "17.0.2",
     "rimraf": "^5.0.5"
   }
 }
