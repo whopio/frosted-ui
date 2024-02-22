@@ -13,19 +13,19 @@ All icons are available as individual React components. Each icon may come in mu
 Install Frosted UI Icons from npm:
 
 ```bash
-npm install frosted-ui-icons
+npm install @frosted-ui/icons
 ```
 
 Import the icons into your React project:
 
 ```tsx
-import { Store16Icon, Store20Icon } from 'frosted-ui-icons';
+import { Store16, Store20 } from '@frosted-ui/icons';
 
 function MyComponent() {
   return (
     <div>
-      <Store16Icon />
-      <Store20Icon />
+      <Store16 />
+      <Store20 />
     </div>
   );
 }

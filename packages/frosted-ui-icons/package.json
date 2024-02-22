@@ -1,7 +1,7 @@
 {
-  "name": "frosted-ui-icons",
+  "name": "@frosted-ui/icons",
   "private": false,
-  "version": "0.0.0",
+  "version": "0.0.1-canary.0",
   "license": "MIT",
   "description": "Frosted UI React Icons",
   "main": "./dist/cjs/index.js",
@@ -42,7 +42,9 @@
     "react": "^16.x || ^17.x || ^18.x"
   },
   "devDependencies": {
+    "@types/react": "^16.8.17",
     "generate-icon-lib": "*",
+    "react": "17.0.2",
     "rimraf": "^5.0.5"
   }
 }
