@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const Trash20Icon = React.forwardRef<SVGSVGElement, IconProps>(
+export const Trash20 = React.forwardRef<SVGSVGElement, IconProps>(
   ({ color = 'currentColor', ...props }, forwardedRef) => {
     return (
       <svg
@@ -32,4 +32,4 @@ export const Trash20Icon = React.forwardRef<SVGSVGElement, IconProps>(
   },
 );
 
-export default Trash20Icon;
+export default Trash20;
