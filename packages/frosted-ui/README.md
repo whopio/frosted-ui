@@ -54,4 +54,4 @@ export default function () {
 
 ## Acknowledgments
 
-Frosted UI is heavily based on [Radix Themes](https://www.radix-ui.com/) design system.
+Frosted UI is heavily based on [Radix Themes](https://www.radix-ui.com/) design system and [Radix Icons](https://github.com/radix-ui/icons).
