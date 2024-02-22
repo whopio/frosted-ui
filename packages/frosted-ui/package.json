@@ -104,6 +104,11 @@
       "optional": true
     }
   },
+  "devDependenciesMeta": {
+    "@frosted-ui/icons": {
+      "injected": true
+    }
+  },
   "devDependencies": {
     "@frosted-ui/icons": "workspace:*",
     "@storybook/addon-essentials": "^7.4.6",
