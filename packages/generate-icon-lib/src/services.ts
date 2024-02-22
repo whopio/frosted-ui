@@ -293,7 +293,10 @@ export function getIconsPage(document: IFigmaDocument): IFigmaCanvas | null {
 export function getIcons(iconsCanvas: IFigmaCanvas): IIcons {
   return iconsCanvas.children.reduce((icons: IIcons, iconSetNode) => {
     // We technically don't want icon sets to be in Groups, but we should still allow it
-    if (iconSetNode.type === 'FRAME' || iconSetNode.type === 'GROUP') {
+    if (
+      (iconSetNode.type === 'FRAME' || iconSetNode.type === 'GROUP') &&
+      iconSetNode.name === 'Icons/Default'
+    ) {
       iconSetNode.children.forEach(iconNode => {
         // Our individual icons frames may be Figma "Components" 🤙
         if (iconNode.type === 'FRAME' || iconNode.type === 'COMPONENT') {
@@ -424,13 +427,13 @@ export async function generateReactComponents(icons: IIcons) {
       return firstIcon.type;
     },
     iconToComponentName(icon: ITemplateIcon) {
-      return `${icon.jsxName}Icon`;
+      return `${icon.jsxName}`;
     },
     iconToPropsName(icon: ITemplateIcon) {
-      return `${icon.jsxName}IconProps`;
+      return `${icon.jsxName}Props`;
     },
     iconToReactFileName(icon: ITemplateIcon) {
-      return `${icon.jsxName}Icon.tsx`;
+      return `${icon.jsxName}.tsx`;
     },
     iconToSVGSourceAsJSX(icon: ITemplateIcon, size: string, type: string) {
       const filePath = labelling.filePathFromIcon({
