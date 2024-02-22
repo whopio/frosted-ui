@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const Facebook20Icon = React.forwardRef<SVGSVGElement, IconProps>(
+export const Facebook20 = React.forwardRef<SVGSVGElement, IconProps>(
   ({ color = 'currentColor', ...props }, forwardedRef) => {
     return (
       <svg
@@ -31,4 +31,4 @@ export const Facebook20Icon = React.forwardRef<SVGSVGElement, IconProps>(
   },
 );
 
-export default Facebook20Icon;
+export default Facebook20;

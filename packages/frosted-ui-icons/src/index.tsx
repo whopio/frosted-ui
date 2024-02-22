@@ -1,8 +1,8 @@
-export { default as Store20Icon } from './Store20Icon';
-export { default as Store16Icon } from './Store16Icon';
-export { default as Grid16Icon } from './Grid16Icon';
-export { default as Gear20Icon } from './Gear20Icon';
-export { default as Trash20Icon } from './Trash20Icon';
-export { default as YouTube20Icon } from './YouTube20Icon';
-export { default as Facebook20Icon } from './Facebook20Icon';
-export { default as Twitter20Icon } from './Twitter20Icon';
+export { default as Store20 } from './Store20';
+export { default as Store16 } from './Store16';
+export { default as Grid16 } from './Grid16';
+export { default as Gear20 } from './Gear20';
+export { default as Trash20 } from './Trash20';
+export { default as YouTube20 } from './YouTube20';
+export { default as Facebook20 } from './Facebook20';
+export { default as Twitter20 } from './Twitter20';

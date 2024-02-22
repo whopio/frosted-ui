@@ -258,6 +258,9 @@ importers:
         specifier: ^2.6.2
         version: 2.6.2
     devDependencies:
+      '@frosted-ui/icons':
+        specifier: workspace:*
+        version: link:../frosted-ui-icons
       '@storybook/addon-essentials':
         specifier: ^7.4.6
         version: 7.4.6(@types/react-dom@18.2.7)(@types/react@18.2.15)(react-dom@18.2.0)(react@18.2.0)
@@ -303,9 +306,6 @@ importers:
       eslint-config-custom:
         specifier: '*'
         version: link:../eslint-config-custom
-      frosted-ui-icons:
-        specifier: '*'
-        version: link:../frosted-ui-icons
       postcss:
         specifier: ^8.4.30
         version: 8.4.30

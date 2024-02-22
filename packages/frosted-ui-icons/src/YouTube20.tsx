@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const YouTube20Icon = React.forwardRef<SVGSVGElement, IconProps>(
+export const YouTube20 = React.forwardRef<SVGSVGElement, IconProps>(
   ({ color = 'currentColor', ...props }, forwardedRef) => {
     return (
       <svg
@@ -24,4 +24,4 @@ export const YouTube20Icon = React.forwardRef<SVGSVGElement, IconProps>(
   },
 );
 
-export default YouTube20Icon;
+export default YouTube20;
