@@ -427,13 +427,13 @@ export async function generateReactComponents(icons: IIcons) {
       return firstIcon.type;
     },
     iconToComponentName(icon: ITemplateIcon) {
-      return `${icon.jsxName}Icon`;
+      return `${icon.jsxName}`;
     },
     iconToPropsName(icon: ITemplateIcon) {
-      return `${icon.jsxName}IconProps`;
+      return `${icon.jsxName}Props`;
     },
     iconToReactFileName(icon: ITemplateIcon) {
-      return `${icon.jsxName}Icon.tsx`;
+      return `${icon.jsxName}.tsx`;
     },
     iconToSVGSourceAsJSX(icon: ITemplateIcon, size: string, type: string) {
       const filePath = labelling.filePathFromIcon({
