@@ -6,4 +6,3 @@ export { default as Trash20Icon } from './Trash20Icon';
 export { default as YouTube20Icon } from './YouTube20Icon';
 export { default as Facebook20Icon } from './Facebook20Icon';
 export { default as Twitter20Icon } from './Twitter20Icon';
-export { default as GearIcon } from './GearIcon';

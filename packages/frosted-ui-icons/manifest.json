@@ -10,6 +10,5 @@
       "facebook-20": "icons/default/facebook-20.svg",
       "twitter-20": "icons/default/twitter-20.svg"
     }
-  },
-  "": { ":frame 1": { "gear": "frame 1/gear.svg" } }
+  }
 }
