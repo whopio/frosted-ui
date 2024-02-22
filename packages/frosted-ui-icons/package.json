@@ -1,0 +1,33 @@
+{
+  "name": "frosted-ui-icons",
+  "private": false,
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "Frosted UI React Icons",
+  "module": "dist/frosted-ui-icons.esm.js",
+  "main": "index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/",
+    "index.js",
+    "manifest.json"
+  ],
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "generate-src": "generate-icon-lib --file=fxRLy35tq3pm2zNy5lAFfL && mv ./icons/default/* ./icons && rmdir ./icons/default && cd ./icons && zip -r ../frosted-ui-icons.zip ./",
+    "build": "rimraf dist && tsdx build --format es,cjs --entry src/index.tsx",
+    "watch": "rimraf dist && tsdx watch --format es,cjs --entry src/index.tsx",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "react": "^16.x || ^17.x || ^18.x"
+  },
+  "devDependencies": {
+    "generate-icon-lib": "*",
+    "tsdx": "0.14.0",
+    "rimraf": "^5.0.5"
+  }
+}
