@@ -35,7 +35,8 @@
     "build:js": "pnpm build:js:cjs && pnpm build:js:esm",
     "build:js:cjs": "tsc --project tsconfig-cjs.json",
     "build:js:esm": "tsc --project tsconfig-esm.json",
-    "prepublishOnly": "pnpm run build"
+    "prepublishOnly": "pnpm run build",
+    "prepare": "pnpm run build"
   },
   "peerDependencies": {
     "@types/react": "*",
@@ -45,6 +46,7 @@
     "@types/react": "^16.8.17",
     "generate-icon-lib": "*",
     "react": "17.0.2",
-    "rimraf": "^5.0.5"
+    "rimraf": "^5.0.5",
+    "typescript": "^4.5.3"
   }
 }
