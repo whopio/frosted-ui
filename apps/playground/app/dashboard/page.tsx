@@ -1,3 +1,4 @@
+'use client';
 import {
   AccessibilityIcon,
   CameraIcon,
@@ -43,6 +44,8 @@ import {
   PopoverTrigger,
   Separator,
   Strong,
+  TabsNavLink,
+  TabsNavRoot,
   Text,
   TextArea,
   TextFieldInput,
@@ -174,10 +177,14 @@ const WhopSVG = () => {
   );
 };
 
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { users } from '../demo/users';
 import styles from './page.module.css';
 
 export default function Demo() {
+  const pathname = usePathname();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={styles.body}>
@@ -330,6 +337,14 @@ export default function Demo() {
               </Flex>
             </aside>
             <main className={styles.main}>
+              <TabsNavRoot>
+                <TabsNavLink asChild active={pathname == '/dashboard'}>
+                  <Link href="/dashboard">Dashboard</Link>
+                </TabsNavLink>
+                <TabsNavLink asChild active={pathname == '/demo'}>
+                  <Link href="/demo">Demo</Link>
+                </TabsNavLink>
+              </TabsNavRoot>
               <Box pl="7" pr="6">
                 <Flex
                   pt="4"
