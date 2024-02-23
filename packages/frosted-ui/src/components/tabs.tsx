@@ -52,6 +52,7 @@ const TabsList = React.forwardRef<TabsListElement, TabsListProps>(
         {...listProps}
         ref={forwardedRef}
         className={classNames(
+          'fui-BaseTabsList',
           'fui-TabsList',
           className,
           withBreakpoints(size, 'fui-r-size'),
@@ -72,10 +73,19 @@ const TabsTrigger = React.forwardRef<TabsTriggerElement, TabsTriggerProps>(
       <TabsPrimitive.Trigger
         {...triggerProps}
         ref={forwardedRef}
-        className={classNames('fui-reset', 'fui-TabsTrigger', className)}
+        className={classNames(
+          'fui-reset',
+          'fui-BaseTabsTrigger',
+          'fui-TabsTrigger',
+          className,
+        )}
       >
-        <span className="fui-TabsTriggerInner">{children}</span>
-        <span className="fui-TabsTriggerInnerHidden">{children}</span>
+        <span className="fui-BaseTabsTriggerInner fui-TabsTriggerInner">
+          {children}
+        </span>
+        <span className="fui-BaseTabsTriggerInnerHidden fui-TabsTriggerInnerHidden">
+          {children}
+        </span>
       </TabsPrimitive.Trigger>
     );
   },
