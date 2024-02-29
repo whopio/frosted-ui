@@ -29,7 +29,7 @@
     "access": "public"
   },
   "scripts": {
-    "generate-src": "generate-icon-lib --file=fxRLy35tq3pm2zNy5lAFfL && mv ./icons/default/* ./icons && rmdir ./icons/default && cd ./icons && zip -r ../frosted-ui-icons.zip ./",
+    "generate-src": "generate-icon-lib --file=Qz3t7Yi565N2u4l3Ha1w99 && mv ./icons/default/* ./icons && rmdir ./icons/default && cd ./icons && zip -r ../frosted-ui-icons.zip ./",
     "clean": "rimraf dist",
     "build": "pnpm clean && pnpm build:js",
     "build:js": "pnpm build:js:cjs && pnpm build:js:esm",
