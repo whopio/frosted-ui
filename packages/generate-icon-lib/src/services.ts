@@ -113,11 +113,7 @@ const labelling = {
     );
   },
   filePathFromIcon(icon: IIcon): string {
-    return path.join(
-      icon.type,
-      labelling.stripSizePrefix(icon.size),
-      `${icon.svgName}.svg`,
-    );
+    return path.join(icon.type, 'icons', `${icon.svgName}.svg`);
   },
   stripSizePrefix(size) {
     return size.replace(/^:?(.*)/, '$1');
@@ -304,9 +300,9 @@ export function getIcons(iconsCanvas: IFigmaCanvas): IIcons {
           // 'Break Link' => 'break-link'
           // 'GitHub Logo' => 'github-logo'
           iconNode.children.forEach(iconVariant => {
-            render({ fileKey: iconVariant.type + ' 🔥🔥🔥' });
+            render({ fileKey: iconVariant.name + ' 🔥🔥🔥' });
 
-            const size = labelling.sizeFromFrameNodeName(iconVariant.name);
+            const size = iconVariant.name.replace('Size=', '');
             const iconNameAndSize = `${iconNode.name} ${size}`;
             const svgName = _.kebabCase(iconNameAndSize);
 
