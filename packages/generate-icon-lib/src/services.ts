@@ -31,6 +31,7 @@ import {
   ITemplateIcon,
 } from './types';
 import { fetch, getSvgo, handleError, pushObjLeafNodesToArr } from './utils';
+import { render } from './view';
 
 const transformers = {
   /**
@@ -112,11 +113,7 @@ const labelling = {
     );
   },
   filePathFromIcon(icon: IIcon): string {
-    return path.join(
-      icon.type,
-      labelling.stripSizePrefix(icon.size),
-      `${icon.svgName}.svg`,
-    );
+    return path.join(icon.type, 'icons', `${icon.svgName}.svg`);
   },
   stripSizePrefix(size) {
     return size.replace(/^:?(.*)/, '$1');
@@ -291,41 +288,47 @@ export function getIconsPage(document: IFigmaDocument): IFigmaCanvas | null {
 }
 
 export function getIcons(iconsCanvas: IFigmaCanvas): IIcons {
-  return iconsCanvas.children.reduce((icons: IIcons, iconSetNode) => {
-    // We technically don't want icon sets to be in Groups, but we should still allow it
+  let swag: IIcons = {};
+  iconsCanvas.children.forEach(iconSetNode => {
     if (
       (iconSetNode.type === 'FRAME' || iconSetNode.type === 'GROUP') &&
       iconSetNode.name === 'Icons/Default'
     ) {
       iconSetNode.children.forEach(iconNode => {
         // Our individual icons frames may be Figma "Components" 🤙
-        if (iconNode.type === 'FRAME' || iconNode.type === 'COMPONENT') {
+        if (iconNode.type === 'COMPONENT_SET') {
           // 'Break Link' => 'break-link'
           // 'GitHub Logo' => 'github-logo'
-          const svgName = _.kebabCase(iconNode.name.toLowerCase());
+          iconNode.children.forEach(iconVariant => {
+            render({ fileKey: iconVariant.name + ' 🔥🔥🔥' });
 
-          // We insert whitespace between lower and uppercase letters
-          // to make sure that lodash preserves existing camel-casing.
-          // 'Break Link' => 'BreakLink'
-          // 'GitHub Logo' => 'GitHubLogo'
-          const jsxName = _.upperFirst(
-            _.camelCase(
-              iconNode.name.replace(/([0-9a-z])([0-9A-Z])/g, '$1 $2'),
-            ),
-          );
+            const size = iconVariant.name.replace('Size=', '');
+            const iconNameAndSize = `${iconNode.name} ${size}`;
+            const svgName = _.kebabCase(iconNameAndSize);
 
-          icons[iconNode.id] = {
-            jsxName,
-            svgName,
-            id: iconNode.id,
-            size: labelling.sizeFromFrameNodeName(iconSetNode.name),
-            type: labelling.typeFromFrameNodeName(iconSetNode.name),
-          };
+            // We insert whitespace between lower and uppercase letters
+            // to make sure that lodash preserves existing camel-casing.
+            // 'Break Link' => 'BreakLink'
+            // 'GitHub Logo' => 'GitHubLogo'
+            const jsxName = _.upperFirst(
+              _.camelCase(
+                iconNameAndSize.replace(/([0-9a-z])([0-9A-Z])/g, '$1 $2'),
+              ),
+            );
+
+            swag[iconVariant.id] = {
+              jsxName,
+              svgName,
+              id: iconVariant.id,
+              size: size,
+              type: labelling.typeFromFrameNodeName(iconVariant.name),
+            };
+          });
         }
       });
     }
-    return icons;
-  }, {});
+  });
+  return swag;
 }
 
 export async function downloadSvgsToFs(
@@ -395,6 +398,7 @@ export async function generateReactComponents(icons: IIcons) {
     types: await getTemplateSource('types.tsx'),
   };
   const firstIcon = Object.values(icons)[0];
+  console.log(firstIcon.svgName);
   const iconsWithVariants = Object.values<ITemplateIcon>(
     Object.keys(icons).reduce(
       (iconsWithVariants: { [name: string]: ITemplateIcon }, iconId) => {

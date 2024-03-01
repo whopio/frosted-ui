@@ -1,0 +1,25 @@
+<svg
+  width="16"
+  height="16"
+  viewBox="0 0 16 16"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  data-fui-icon="true"
+>
+  <path
+    d="M13.75 6.25C13.75 10.8995 8 15.25 8 15.25C8 15.25 2.25 10.8995 2.25 6.25C2.25 2.85051 5.10051 0.75 8 0.75C10.8995 0.75 13.75 2.85051 13.75 6.25Z"
+    stroke="currentColor"
+    stroke-width="1.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <circle
+    cx="8"
+    cy="6.5"
+    r="2.25"
+    stroke="currentColor"
+    stroke-width="1.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>
