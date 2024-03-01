@@ -19,13 +19,13 @@ npm install @frosted-ui/icons
 Import the icons into your React project:
 
 ```tsx
-import { Store16, Store20 } from '@frosted-ui/icons';
+import { Shop16, Shop20 } from '@frosted-ui/icons';
 
 function MyComponent() {
   return (
     <div>
-      <Store16 />
-      <Store20 />
+      <Shop16 />
+      <Shop20 />
     </div>
   );
 }
