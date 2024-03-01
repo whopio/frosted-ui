@@ -2,8 +2,6 @@
 
 A set of icons designed by the [Whop](https://whop.com/) team.
 
-Visit [icons.radix-ui.com](https://icons.radix-ui.com) to browse the icons.
-
 ---
 
 ## Documentation
