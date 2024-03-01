@@ -1,0 +1,42 @@
+on:
+  workflow_dispatch:
+
+name: Release icons
+
+concurrency:
+  group: 'release-icons'
+  cancel-in-progress: false
+
+jobs:
+  release-icons:
+    name: Publish to npm and release on github
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.6.9
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          check-latest: true
+          cache: pnpm
+      - name: Install all packages
+        run: pnpm i
+      - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Generate icon source
+        run: pnpm generate-src
+        working-directory: ./packages/frosted-ui-icons
+        env:
+          FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
+      - name: Build icon package
+        run: pnpm build
+        working-directory: ./packages/frosted-ui-icons
+      - name: Publish to npm
+        run: pnpm publish --no-git-checks
+        working-directory: ./packages/frosted-ui-icons
