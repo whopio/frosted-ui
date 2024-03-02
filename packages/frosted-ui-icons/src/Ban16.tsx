@@ -14,15 +14,14 @@ export const Ban16 = React.forwardRef<SVGSVGElement, IconProps>(
         {...props}
         ref={forwardedRef}
       >
-        <g
-          stroke={color}
-          clipPath="url(#clip0_16_94)"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <circle cx="8" cy="8" r="7.25" />
-          <path d="M13.1265 2.87354L2.87342 13.1266" />
+        <g clipPath="url(#clip0_16_94)">
+          <path
+            d="M13.1265 2.87347L2.87342 13.1265M15.25 8C15.25 12.0041 12.0041 15.25 8 15.25C3.99594 15.25 0.75 12.0041 0.75 8C0.75 3.99594 3.99594 0.75 8 0.75C12.0041 0.75 15.25 3.99594 15.25 8Z"
+            stroke={color}
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </g>
         <defs>
           <clipPath id="clip0_16_94">

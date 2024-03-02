@@ -15,19 +15,10 @@ export const LockFilled16 = React.forwardRef<SVGSVGElement, IconProps>(
         ref={forwardedRef}
       >
         <path
-          d="M1.75 9.25C1.75 8.14543 2.64543 7.25 3.75 7.25H12.25C13.3546 7.25 14.25 8.14543 14.25 9.25V13.25C14.25 14.3546 13.3546 15.25 12.25 15.25H3.75C2.64543 15.25 1.75 14.3546 1.75 13.25V9.25Z"
+          d="M4.5 5C4.5 3.067 6.067 1.5 8 1.5C9.933 1.5 11.5 3.067 11.5 5V6H4.5V5ZM3 6.26756V5C3 2.23858 5.23858 0 8 0C10.7614 0 13 2.23858 13 5V6.26756C13.5978 6.61337 14 7.25972 14 8V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V8C2 7.25972 2.4022 6.61337 3 6.26756Z"
           fill={color}
-          stroke={color}
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M3.75 7.25V5C3.75 2.65279 5.65279 0.75 8 0.75V0.75C10.3472 0.75 12.25 2.65279 12.25 5V7.25"
-          stroke={color}
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+          fillRule="evenodd"
+          clipRule="evenodd"
         />
       </svg>
     );
