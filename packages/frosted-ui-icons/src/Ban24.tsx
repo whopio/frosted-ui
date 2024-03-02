@@ -14,17 +14,8 @@ export const Ban24 = React.forwardRef<SVGSVGElement, IconProps>(
         {...props}
         ref={forwardedRef}
       >
-        <circle
-          cx="12"
-          cy="12"
-          r="10.25"
-          stroke={color}
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
         <path
-          d="M19.2478 4.7522L4.75211 19.2479"
+          d="M19.2478 4.75217L4.75214 19.2479M22.25 12C22.25 17.6609 17.6609 22.25 12 22.25C6.33908 22.25 1.75 17.6609 1.75 12C1.75 6.33908 6.33908 1.75 12 1.75C17.6609 1.75 22.25 6.33908 22.25 12Z"
           stroke={color}
           strokeWidth="1.5"
           strokeLinecap="round"
