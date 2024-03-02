@@ -6,26 +6,8 @@
   xmlns="http://www.w3.org/2000/svg"
   data-fui-icon="true"
 >
-  <circle
-    cx="16"
-    cy="16"
-    r="14.25"
-    stroke="currentColor"
-    stroke-width="1.5"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  />
   <path
-    d="M18.25 13.75V24.2499M14.75 13.75V24.2499M18.25 13.75H12.75M12.75 24.2499L20.25 24.2499"
-    stroke="currentColor"
-    stroke-width="1.5"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  />
-  <circle
-    cx="16.5"
-    cy="9.504"
-    r="1.75"
+    d="M18.25 24.2499V13.75H12.75M14.75 13.75V24.2499M12.75 24.2499H20.25M30.25 16C30.25 23.8701 23.8701 30.25 16 30.25C8.12994 30.25 1.75 23.8701 1.75 16C1.75 8.12994 8.12994 1.75 16 1.75C23.8701 1.75 30.25 8.12994 30.25 16ZM18.25 9.50403C18.25 10.4705 17.4665 11.254 16.5 11.254C15.5335 11.254 14.75 10.4705 14.75 9.50403C14.75 8.53753 15.5335 7.75403 16.5 7.75403C17.4665 7.75403 18.25 8.53753 18.25 9.50403Z"
     stroke="currentColor"
     stroke-width="1.5"
     stroke-linecap="round"

@@ -6,17 +6,8 @@
   xmlns="http://www.w3.org/2000/svg"
   data-fui-icon="true"
 >
-  <circle
-    cx="10"
-    cy="10"
-    r="8.25"
-    stroke="currentColor"
-    stroke-width="1.5"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  />
   <path
-    d="M15.8336 4.16638L4.16636 15.8336"
+    d="M15.8336 4.16638L4.1663 15.8336M18.25 10C18.25 14.5563 14.5563 18.25 10 18.25C5.44365 18.25 1.75 14.5563 1.75 10C1.75 5.44365 5.44365 1.75 10 1.75C14.5563 1.75 18.25 5.44365 18.25 10Z"
     stroke="currentColor"
     stroke-width="1.5"
     stroke-linecap="round"
