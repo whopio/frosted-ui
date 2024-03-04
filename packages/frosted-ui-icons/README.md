@@ -29,6 +29,25 @@ function MyComponent() {
 }
 ```
 
+## Configuring
+
+### next.js
+
+```js
+// next.config.mjs
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  modularizeImports: {
+    '@frosted-ui/icons': {
+      transform: '@frosted-ui/icons/{{member}}',
+      skipDefaultConversion: true,
+    },
+  },
+};
+
+export default nextConfig;
+```
+
 ## Contributing
 
 Please follow our [contributing guidelines](./CONTRIBUTING.md).

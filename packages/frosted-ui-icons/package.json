@@ -1,7 +1,7 @@
 {
   "name": "@frosted-ui/icons",
   "private": false,
-  "version": "0.0.1-canary.2",
+  "version": "0.0.1-canary.3",
   "license": "MIT",
   "description": "Frosted UI React Icons",
   "main": "./dist/cjs/index.js",
@@ -16,6 +16,16 @@
       "import": {
         "types": "./dist/esm/index.d.ts",
         "default": "./dist/esm/index.js"
+      }
+    },
+    "./*": {
+      "require": {
+        "types": "./dist/cjs/*.d.ts",
+        "default": "./dist/cjs/*.js"
+      },
+      "import": {
+        "types": "./dist/esm/*.d.ts",
+        "default": "./dist/esm/*.js"
       }
     }
   },
