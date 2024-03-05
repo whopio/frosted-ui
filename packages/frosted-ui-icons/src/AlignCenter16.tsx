@@ -1,0 +1,29 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const AlignCenter16 = React.forwardRef<SVGSVGElement, IconProps>(
+  ({ color = 'currentColor', ...props }, forwardedRef) => {
+    return (
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        data-fui-icon="true"
+        {...props}
+        ref={forwardedRef}
+      >
+        <path
+          d="M5 2.42877H10.669M2 6.12561H13.338M2 13.5192H13.338M5 9.82233H10.669"
+          stroke={color}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  },
+);
+
+export default AlignCenter16;
