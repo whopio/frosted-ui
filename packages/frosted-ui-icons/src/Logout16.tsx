@@ -14,20 +14,13 @@ export const Logout16 = React.forwardRef<SVGSVGElement, IconProps>(
         {...props}
         ref={forwardedRef}
       >
-        <g
+        <path
+          d="M10 4.37931V2.77C10 1.79246 9.20754 1 8.23 1H4.77C3.79246 1 3 1.79246 3 2.77V13.23C3 14.2075 3.79246 15 4.77 15H8.23C9.20754 15 10 14.2075 10 13.23V11.6207M6.75 8H15.25M15.25 8L11.75 4.75M15.25 8L11.75 11.25"
           stroke={color}
-          clipPath="url(#clip0_14_1614)"
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
-        >
-          <path d="M9.75 4.25V2.52C9.75 1.54246 8.95754.75 7.98.75H2.52C1.54246.75.75 1.54246.75 2.52V13.48C.75 14.4575 1.54246 15.25 2.52 15.25H7.98C8.95754 15.25 9.75 14.4575 9.75 13.48V11.75M6.75 8H15.25M15.25 8L11.75 4.75M15.25 8L11.75 11.25" />
-        </g>
-        <defs>
-          <clipPath id="clip0_14_1614">
-            <path fill={color} d="M0 0H16V16H0z" />
-          </clipPath>
-        </defs>
+        />
       </svg>
     );
   },
