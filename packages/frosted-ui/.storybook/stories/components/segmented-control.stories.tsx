@@ -29,7 +29,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: (args) => (
-    <div style={{ width: 300 }}>
+    <div style={{ width: 'auto' }}>
       <SegmentedControl.Root defaultValue="account">
         <SegmentedControl.List {...args}>
           <SegmentedControl.Trigger value="account">
@@ -45,15 +45,15 @@ export const Default: Story = {
 
         <Box px="4" pt="3" pb="2">
           <SegmentedControl.Content value="account">
-            <Text size="2">Make changes to your account.</Text>
+            <Text size="2">Your account.</Text>
           </SegmentedControl.Content>
 
           <SegmentedControl.Content value="documents">
-            <Text size="2">Access and update your documents.</Text>
+            <Text size="2">Your documents.</Text>
           </SegmentedControl.Content>
 
           <SegmentedControl.Content value="settings">
-            <Text size="2">Edit your profile.</Text>
+            <Text size="2">Your profile.</Text>
           </SegmentedControl.Content>
         </Box>
       </SegmentedControl.Root>
@@ -67,7 +67,7 @@ export const InDrawer: Story = {
       <Drawer.Trigger>
         <Button>View users</Button>
       </Drawer.Trigger>
-      <Drawer.Content>
+      <Drawer.Content style={{ width: 400 }}>
         <Drawer.Header>
           <Drawer.Title>Users</Drawer.Title>
         </Drawer.Header>
