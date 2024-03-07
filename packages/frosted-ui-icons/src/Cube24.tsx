@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const CubeFilled24 = React.forwardRef<SVGSVGElement, IconProps>(
+export const Cube24 = React.forwardRef<SVGSVGElement, IconProps>(
   ({ color = 'currentColor', ...props }, forwardedRef) => {
     return (
       <svg
@@ -23,4 +23,4 @@ export const CubeFilled24 = React.forwardRef<SVGSVGElement, IconProps>(
   },
 );
 
-export default CubeFilled24;
+export default Cube24;
