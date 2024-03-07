@@ -1,0 +1,35 @@
+<svg
+  width="20"
+  height="20"
+  viewBox="0 0 20 20"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  data-fui-icon="true"
+>
+  <g clip-path="url(#clip0_320_93)">
+    <g
+      clip-path="url(#clip1_320_93)"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+    >
+      <path
+        d="M18.75 7.25V12.75C18.75 16.0637 16.0637 18.75 12.75 18.75H7.25C3.93629 18.75 1.25 16.0637 1.25 12.75V7.25C1.25 3.93629 3.93629 1.25 7.25 1.25H12.75C16.0637 1.25 18.75 3.93629 18.75 7.25Z"
+      />
+      <path d="M13.25 6.75L10 10L13.25 13.25" stroke-linejoin="round" />
+      <path d="M6.75 6.75V13.25" />
+    </g>
+  </g>
+  <defs>
+    <clipPath id="clip0_320_93">
+      <path fill="currentColor" d="M0 0H20V20H0z" />
+    </clipPath>
+    <clipPath id="clip1_320_93">
+      <path
+        fill="currentColor"
+        transform="matrix(-1 0 0 1 20 0)"
+        d="M0 0H20V20H0z"
+      />
+    </clipPath>
+  </defs>
+</svg>
