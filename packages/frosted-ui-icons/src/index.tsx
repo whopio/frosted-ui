@@ -366,6 +366,7 @@ export { default as Shop12 } from './Shop12';
 export { default as SparkleRectangle32 } from './SparkleRectangle32';
 export { default as SparkleRectangle24 } from './SparkleRectangle24';
 export { default as SparkleRectangle20 } from './SparkleRectangle20';
+export { default as SparkleRectangle16 } from './SparkleRectangle16';
 export { default as SparkleRectangle12 } from './SparkleRectangle12';
 export { default as Sparkles32 } from './Sparkles32';
 export { default as Sparkles24 } from './Sparkles24';
