@@ -14,27 +14,26 @@ export const FileLines16 = React.forwardRef<SVGSVGElement, IconProps>(
         {...props}
         ref={forwardedRef}
       >
-        <g
+        <path
+          d="M2 12V4C2 2.34315 3.34315 1 5 1H7.60951C8.38693 1 9.13401 1.3018 9.69329 1.8418L13.0838 5.11538C13.6693 5.68071 14 6.45968 14 7.27358V12C14 13.6569 12.6569 15 11 15H5C3.34315 15 2 13.6569 2 12Z"
           stroke={color}
-          clipPath="url(#clip0_309_39)"
           strokeWidth="1.5"
           strokeLinecap="round"
-        >
-          <path
-            d="M1 13V3C1 1.34315 2.34315 0 4 0H6.625H7.92893C9.25501 0 10.5268 0.526783 11.4645 1.46446L13.5355 3.53553C14.4732 4.47322 15 5.74499 15 7.07107V13C15 14.6569 13.6569 16 12 16H4C2.34315 16 1 14.6569 1 13Z"
-            strokeLinejoin="round"
-          />
-          <path d="M9 0.5V5C9 5.55228 9.44772 6 10 6H14.5" />
-          <path
-            d="M4.625 9.23999H8.625M4.625 12.24H11.625"
-            strokeLinejoin="round"
-          />
-        </g>
-        <defs>
-          <clipPath id="clip0_309_39">
-            <path fill={color} d="M0 0H16V16H0z" />
-          </clipPath>
-        </defs>
+          strokeLinejoin="round"
+        />
+        <path
+          d="M9 2V5C9 5.55228 9.44772 6 10 6H13"
+          stroke={color}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+        <path
+          d="M4.625 9.23999H8.625M4.625 12.24H11.625"
+          stroke={color}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
     );
   },
