@@ -14,30 +14,24 @@ export const PlusRectangle24 = React.forwardRef<SVGSVGElement, IconProps>(
         {...props}
         ref={forwardedRef}
       >
-        <g clipPath="url(#clip0_274_103)">
-          <path
-            d="M11.25 16C11.25 16.4142 11.5858 16.75 12 16.75C12.4142 16.75 12.75 16.4142 12.75 16V12.75H16C16.4142 12.75 16.75 12.4142 16.75 12C16.75 11.5858 16.4142 11.25 16 11.25H12.75V8C12.75 7.58579 12.4142 7.25 12 7.25C11.5858 7.25 11.25 7.58579 11.25 8V11.25H8C7.58579 11.25 7.25 11.5858 7.25 12C7.25 12.4142 7.58579 12.75 8 12.75H11.25V16Z"
-            fill={color}
-            fillRule="evenodd"
-            clipRule="evenodd"
-          />
-          <rect
-            x="3"
-            y="3"
-            width="18"
-            height="18"
-            rx="4"
-            stroke={color}
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </g>
-        <defs>
-          <clipPath id="clip0_274_103">
-            <path fill={color} d="M0 0H24V24H0z" />
-          </clipPath>
-        </defs>
+        <path
+          d="M6.75 3.5C4.95507 3.5 3.5 4.95507 3.5 6.75V17.25C3.5 19.0449 4.95507 20.5 6.75 20.5H17.25C19.0449 20.5 20.5 19.0449 20.5 17.25V6.75C20.5 4.95507 19.0449 3.5 17.25 3.5H6.75ZM2 6.75C2 4.12665 4.12665 2 6.75 2H17.25C19.8734 2 22 4.12665 22 6.75V17.25C22 19.8734 19.8734 22 17.25 22H6.75C4.12665 22 2 19.8734 2 17.25V6.75Z"
+          fill={color}
+          fillRule="evenodd"
+          clipRule="evenodd"
+        />
+        <path
+          d="M12 18C11.5858 18 11.25 17.6642 11.25 17.25V6.75C11.25 6.33579 11.5858 6 12 6C12.4142 6 12.75 6.33579 12.75 6.75V17.25C12.75 17.6642 12.4142 18 12 18Z"
+          fill={color}
+          fillRule="evenodd"
+          clipRule="evenodd"
+        />
+        <path
+          d="M6 12C6 11.5858 6.33579 11.25 6.75 11.25H17.25C17.6642 11.25 18 11.5858 18 12C18 12.4142 17.6642 12.75 17.25 12.75H6.75C6.33579 12.75 6 12.4142 6 12Z"
+          fill={color}
+          fillRule="evenodd"
+          clipRule="evenodd"
+        />
       </svg>
     );
   },
