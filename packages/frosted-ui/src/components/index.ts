@@ -35,6 +35,8 @@ export { Strong } from './strong';
 export { Calendar, RangeCalendar } from './calendar';
 export { Checkbox } from './checkbox';
 export * from './checkbox.props';
+export { CircularProgress } from './circular-progress';
+export * from './circular-progress.props';
 export { Progress } from './progress';
 export * from './progress.props';
 export {

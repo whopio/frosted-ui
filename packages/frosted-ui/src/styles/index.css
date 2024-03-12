@@ -41,6 +41,7 @@
 @import '../components/link.css';
 @import '../components/popover.css';
 @import '../components/progress.css';
+@import '../components/circular-progress.css';
 @import '../components/quote.css';
 @import '../components/radio-group.css';
 @import '../components/radio-button-group.css';
