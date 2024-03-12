@@ -33,7 +33,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18.x
           check-latest: true
           cache: pnpm
       - name: Install all packages
@@ -51,7 +51,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18.x
           check-latest: true
           cache: pnpm
       - name: Install all packages
@@ -73,7 +73,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18.x
           check-latest: true
           cache: pnpm
       - name: Install all packages
@@ -95,7 +95,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18.x
           check-latest: true
           cache: pnpm
       - name: Install all packages
@@ -122,7 +122,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18.x
           check-latest: true
           cache: pnpm
       - name: Install all packages
