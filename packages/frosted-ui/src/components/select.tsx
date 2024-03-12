@@ -55,7 +55,10 @@ interface SelectTriggerProps
       'asChild'
     >,
     MarginProps,
-    SelectTriggerOwnProps {}
+    SelectTriggerOwnProps {
+  // TODO: figure out why this is not inferred properly
+  placeholder?: React.ReactNode;
+}
 const SelectTrigger = React.forwardRef<
   SelectTriggerElement,
   SelectTriggerProps
