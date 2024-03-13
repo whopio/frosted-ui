@@ -6,19 +6,20 @@
   xmlns="http://www.w3.org/2000/svg"
   data-fui-icon="true"
 >
-  <g
-    clip-path="url(#clip0_16_14)"
+  <circle
+    cx="8"
+    cy="8"
+    r="7.25"
     stroke="currentColor"
     stroke-width="1.5"
     stroke-linecap="round"
     stroke-linejoin="round"
-  >
-    <circle cx="8" cy="8" r="7.25" />
-    <path d="M5.75 5.75V10.2499M10.25 5.75V10.2499" />
-  </g>
-  <defs>
-    <clipPath id="clip0_16_14">
-      <path fill="currentColor" d="M0 0H16V16H0z" />
-    </clipPath>
-  </defs>
+  />
+  <path
+    d="M5.75 5.75V10.2499M10.25 5.75V10.2499"
+    stroke="currentColor"
+    stroke-width="1.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
 </svg>
