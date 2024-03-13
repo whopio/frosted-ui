@@ -14,28 +14,22 @@ export const ExclamationCircle20 = React.forwardRef<SVGSVGElement, IconProps>(
         {...props}
         ref={forwardedRef}
       >
-        <g stroke={color} clipPath="url(#clip0_198_52)">
-          <circle
-            cx="10"
-            cy="10"
-            r="9"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M10 6V11"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <circle cx="10" cy="15" r=".5" fill={color} />
-        </g>
-        <defs>
-          <clipPath id="clip0_198_52">
-            <path fill={color} d="M0 0H20V20H0z" />
-          </clipPath>
-        </defs>
+        <path
+          d="M10 5.5C10.4142 5.5 10.75 5.83579 10.75 6.25V10.25C10.75 10.6642 10.4142 11 10 11C9.58579 11 9.25 10.6642 9.25 10.25V6.25C9.25 5.83579 9.58579 5.5 10 5.5Z"
+          fill={color}
+          fillRule="evenodd"
+          clipRule="evenodd"
+        />
+        <path
+          d="M11 13.5C11 14.0523 10.5523 14.5 10 14.5C9.44772 14.5 9 14.0523 9 13.5C9 12.9477 9.44772 12.5 10 12.5C10.5523 12.5 11 12.9477 11 13.5Z"
+          fill={color}
+        />
+        <path
+          d="M10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5ZM1 10C1 5.02944 5.02944 1 10 1C14.9706 1 19 5.02944 19 10C19 14.9706 14.9706 19 10 19C5.02944 19 1 14.9706 1 10Z"
+          fill={color}
+          fillRule="evenodd"
+          clipRule="evenodd"
+        />
       </svg>
     );
   },

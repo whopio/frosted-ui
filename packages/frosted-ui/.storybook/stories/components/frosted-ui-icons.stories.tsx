@@ -7,6 +7,7 @@ import { Flex, Tooltip } from '../../../src/components';
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
   title: 'Lab/Icons',
+  // @ts-ignore
   component: Icons.SparkleRectangle20,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
@@ -26,6 +27,7 @@ export const Default: Story = {
       {Object.entries(Icons).map(([name, Icon]) => (
         <div style={{ width: '20%', padding: 8 }}>
           <Tooltip key={name} content={name} delayDuration={0}>
+            {/* @ts-ignore */}
             <Icon />
           </Tooltip>
         </div>
