@@ -14,30 +14,23 @@ export const QuestionCircle16 = React.forwardRef<SVGSVGElement, IconProps>(
         {...props}
         ref={forwardedRef}
       >
-        <g clipPath="url(#clip0_14_1652)">
-          <circle
-            cx="8"
-            cy="8"
-            r="7.25"
-            stroke={color}
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M8 9.25V9C8 8.58579 8.345 8.26224 8.73642 8.12672C9.6174 7.82171 10.25 6.98473 10.25 6C10.25 4.75736 9.24264 3.75 8 3.75C6.75736 3.75 5.75 4.75736 5.75 6V6.25"
-            stroke={color}
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <circle cx="8" cy="12" r="1" fill={color} />
-        </g>
-        <defs>
-          <clipPath id="clip0_14_1652">
-            <path fill={color} d="M0 0H16V16H0z" />
-          </clipPath>
-        </defs>
+        <circle
+          cx="8"
+          cy="8"
+          r="7.25"
+          stroke={color}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M8 9.25V9C8 8.58579 8.345 8.26224 8.73642 8.12672C9.6174 7.82171 10.25 6.98473 10.25 6C10.25 4.75736 9.24264 3.75 8 3.75C6.75736 3.75 5.75 4.75736 5.75 6V6.25"
+          stroke={color}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <circle cx="8" cy="12" r="1" fill={color} />
       </svg>
     );
   },
