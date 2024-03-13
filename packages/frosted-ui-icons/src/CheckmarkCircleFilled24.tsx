@@ -29,7 +29,7 @@ export const CheckmarkCircleFilled24 = React.forwardRef<
       <path
         d="M7 12L10 15.25L16 9"
         stroke={color}
-        strokeWidth="2"
+        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />

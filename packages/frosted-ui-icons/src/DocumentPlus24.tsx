@@ -20,21 +20,15 @@ export const DocumentPlus24 = React.forwardRef<SVGSVGElement, IconProps>(
           strokeWidth="1.5"
           strokeLinecap="round"
         >
-          <g clipPath="url(#clip1_285_66)">
-            <path
-              d="M21 13.5C21 8.80251 21 8.70219 21 6.00065C21 4.34379 19.6569 3 18 3H6C4.34315 3 3 4.34315 3 6V18C3 19.6569 4.34303 21 5.99988 21C8.51331 21 11.1327 21 13.5 21"
-              strokeLinejoin="round"
-            />
-            <path d="M7 8H17M7 16H12M7 12H17" />
-          </g>
-          <path d="M20.25 23.25V20.25M20.25 17.25V20.25M20.25 20.25H17.25M20.25 20.25H23.25" />
+          <path
+            d="M21.1875 13.5573C21.1875 8.74909 21.1875 8.67511 21.1875 5.87715C21.1875 4.2203 19.8444 2.875 18.1875 2.875H5.875C4.21815 2.875 2.875 4.21815 2.875 5.875V18.1875C2.875 19.8444 4.21808 21.1875 5.87493 21.1875C8.44786 21.1875 11.1326 21.1875 13.5573 21.1875"
+            strokeLinejoin="round"
+          />
+          <path d="M7 8H17M7 16H12M7 12H17M20.25 23.25V20.25M20.25 17.25V20.25M20.25 20.25H17.25M20.25 20.25H23.25" />
         </g>
         <defs>
           <clipPath id="clip0_285_66">
             <path fill={color} d="M0 0H24V24H0z" />
-          </clipPath>
-          <clipPath id="clip1_285_66">
-            <path fill={color} transform="translate(2 2)" d="M0 0H20V20H0z" />
           </clipPath>
         </defs>
       </svg>
