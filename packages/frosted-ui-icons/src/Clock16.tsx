@@ -14,21 +14,22 @@ export const Clock16 = React.forwardRef<SVGSVGElement, IconProps>(
         {...props}
         ref={forwardedRef}
       >
-        <g
+        <circle
+          cx="8"
+          cy="8"
+          r="7.25"
           stroke={color}
-          clipPath="url(#clip0_14_1683)"
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
-        >
-          <circle cx="8" cy="8" r="7.25" />
-          <path d="M10.2499 10.25L7.75 8.5L7.75 4.0001" />
-        </g>
-        <defs>
-          <clipPath id="clip0_14_1683">
-            <path fill={color} d="M0 0H16V16H0z" />
-          </clipPath>
-        </defs>
+        />
+        <path
+          d="M10.2499 10.25L7.75 8.5L7.75 4.0001"
+          stroke={color}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
     );
   },
