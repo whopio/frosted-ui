@@ -26,7 +26,7 @@ export const CheckmarkCircle24 = React.forwardRef<SVGSVGElement, IconProps>(
         <path
           d="M7 12L10 15.25L16 9"
           stroke={color}
-          strokeWidth="2"
+          strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
