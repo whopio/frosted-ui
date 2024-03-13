@@ -15,7 +15,7 @@ export const Checkmark24 = React.forwardRef<SVGSVGElement, IconProps>(
         ref={forwardedRef}
       >
         <path
-          d="M3.75 12.75L9 18.25L20.25 6.75"
+          d="M4 13.25L9 18.25L20.25 6.75"
           stroke={color}
           strokeWidth="1.5"
           strokeLinecap="round"
