@@ -302,7 +302,7 @@ export function getIcons(iconsCanvas: IFigmaCanvas): IIcons {
           iconNode.children.forEach(iconVariant => {
             render({ fileKey: iconVariant.name + ' 🔥🔥🔥' });
 
-            const size = iconVariant.name.replace('Size=', '');
+            const size = iconVariant.name.replace(/size=/i, '');
             const iconNameAndSize = `${iconNode.name} ${size}`;
             const svgName = _.kebabCase(iconNameAndSize);
 

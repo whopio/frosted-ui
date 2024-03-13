@@ -14,21 +14,22 @@ export const CheckmarkCircle16 = React.forwardRef<SVGSVGElement, IconProps>(
         {...props}
         ref={forwardedRef}
       >
-        <g
+        <circle
+          cx="8"
+          cy="8"
+          r="7.25"
           stroke={color}
-          clipPath="url(#clip0_324_61)"
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
-        >
-          <circle cx="8" cy="8" r="7.25" />
-          <path d="M4.75 7.75L7 10.25L11.25 5.75" />
-        </g>
-        <defs>
-          <clipPath id="clip0_324_61">
-            <path fill={color} d="M0 0H16V16H0z" />
-          </clipPath>
-        </defs>
+        />
+        <path
+          d="M4.75 7.75L7 10.25L11.25 5.75"
+          stroke={color}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
     );
   },
