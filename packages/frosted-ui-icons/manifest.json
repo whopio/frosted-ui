@@ -17,6 +17,7 @@
       "arrow-down-left-12": "icons/arrow-down-left-12.svg",
       "book-12": "icons/book-12.svg",
       "calendar-12": "icons/calendar-12.svg",
+      "document-plus-12": "icons/document-plus-12.svg",
       "ban-12": "icons/ban-12.svg",
       "checkmark-12": "icons/checkmark-12.svg",
       "checkmark-circle-12": "icons/checkmark-circle-12.svg",
@@ -115,6 +116,7 @@
       "arrow-down-left-16": "icons/arrow-down-left-16.svg",
       "book-16": "icons/book-16.svg",
       "calendar-16": "icons/calendar-16.svg",
+      "document-plus-16": "icons/document-plus-16.svg",
       "ban-16": "icons/ban-16.svg",
       "checkmark-16": "icons/checkmark-16.svg",
       "checkmark-circle-16": "icons/checkmark-circle-16.svg",
@@ -213,6 +215,7 @@
       "arrow-down-left-20": "icons/arrow-down-left-20.svg",
       "book-20": "icons/book-20.svg",
       "calendar-20": "icons/calendar-20.svg",
+      "document-plus-20": "icons/document-plus-20.svg",
       "ban-20": "icons/ban-20.svg",
       "checkmark-20": "icons/checkmark-20.svg",
       "checkmark-circle-20": "icons/checkmark-circle-20.svg",
@@ -410,6 +413,7 @@
       "arrow-down-left-32": "icons/arrow-down-left-32.svg",
       "book-32": "icons/book-32.svg",
       "calendar-32": "icons/calendar-32.svg",
+      "document-plus-32": "icons/document-plus-32.svg",
       "ban-32": "icons/ban-32.svg",
       "checkmark-32": "icons/checkmark-32.svg",
       "checkmark-circle-32": "icons/checkmark-circle-32.svg",
@@ -677,9 +681,6 @@
       "mobile-phone-size-12": "icons/mobile-phone-size-12.svg",
       "monitor-size-12": "icons/monitor-size-12.svg"
     },
-    "k": { "document-plus-k": "icons/document-plus-k.svg" },
-    "Size6": { "document-plus-size-6": "icons/document-plus-size-6.svg" },
-    "Size4": { "document-plus-size-4": "icons/document-plus-size-4.svg" },
     "Property 1=Down Chevron-12": {
       "chevron-down-property-1-down-chevron-12": "icons/chevron-down-property-1-down-chevron-12.svg"
     },

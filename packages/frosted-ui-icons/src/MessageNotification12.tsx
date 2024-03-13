@@ -17,7 +17,7 @@ export const MessageNotification12 = React.forwardRef<SVGSVGElement, IconProps>(
         <g clipPath="url(#clip0_526_241)">
           <mask
             id="a"
-            style={{ maskType: 'luminance' }}
+            style="mask-type:luminance"
             maskUnits="userSpaceOnUse"
             x="0"
             y="0"
