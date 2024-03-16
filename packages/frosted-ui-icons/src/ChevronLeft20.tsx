@@ -15,7 +15,7 @@ export const ChevronLeft20 = React.forwardRef<SVGSVGElement, IconProps>(
         ref={forwardedRef}
       >
         <path
-          d="M13.25 17.25L4.75 10L13.25 2.75"
+          d="M14.3856 1.22876L5.61438 10L14.3856 18.7712"
           stroke={color}
           strokeWidth="1.5"
           strokeLinecap="round"
