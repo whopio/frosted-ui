@@ -83,6 +83,14 @@ export {
 } from './text-field';
 export * from './text-field.props';
 
+export {
+  OTPField,
+  OTPFieldGroup,
+  OTPFieldRoot,
+  OTPFieldSeparator,
+  OTPFieldSlot,
+} from './otp-field';
+
 // OVERLAYS
 //------------------------------------------------------------------------------
 export {
