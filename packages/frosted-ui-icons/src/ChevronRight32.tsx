@@ -6,8 +6,8 @@ export const ChevronRight32 = React.forwardRef<SVGSVGElement, IconProps>(
     return (
       <svg
         width="32"
-        height="32"
-        viewBox="0 0 32 32"
+        height="33"
+        viewBox="0 0 32 33"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         data-fui-icon="true"
@@ -15,7 +15,7 @@ export const ChevronRight32 = React.forwardRef<SVGSVGElement, IconProps>(
         ref={forwardedRef}
       >
         <path
-          d="M9.75 28.25L23.25 16L9.75 3.75"
+          d="M8.5 31.5L23.5 16.5L8.5 1.5"
           stroke={color}
           strokeWidth="1.5"
           strokeLinecap="round"
