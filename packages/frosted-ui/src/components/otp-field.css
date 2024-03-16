@@ -61,9 +61,9 @@
   width: 1px;
   border-radius: 1px;
   background-color: var(--gray-a10);
-  animation: caret-blink 1.25s ease-out infinite;
+  animation: fui-otp-caret-blink 1.25s ease-out infinite;
 }
-@keyframes caret-blink {
+@keyframes fui-otp-caret-blink {
   0%,
   70%,
   100% {
