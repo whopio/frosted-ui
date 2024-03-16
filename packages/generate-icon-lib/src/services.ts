@@ -303,6 +303,12 @@ export function getIcons(iconsCanvas: IFigmaCanvas): IIcons {
             render({ fileKey: iconVariant.name + ' 🔥🔥🔥' });
 
             const size = iconVariant.name.replace(/size=/i, '');
+            if (size === iconVariant.name) {
+              throw new CodedError(
+                ERRORS.UNEXPECTED,
+                `An unexpected icon variant name was encountered: ${iconVariant.name}`,
+              );
+            }
             const iconNameAndSize = `${iconNode.name} ${size}`;
             const svgName = _.kebabCase(iconNameAndSize);
 

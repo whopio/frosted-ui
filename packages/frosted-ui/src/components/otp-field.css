@@ -1,0 +1,90 @@
+.fui-OTPFieldRoot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.fui-OTPFieldGroup {
+  display: flex;
+  align-items: center;
+  --otp-focus-color: var(--color-focus-root);
+}
+
+.fui-OTPFieldSlot {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 40px;
+  width: 40px;
+
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-right-width: 1px;
+
+  font-size: 0.875rem;
+  transition-property: outline;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+
+  box-shadow: var(--shadow-1);
+
+  background-color: var(--color-surface);
+  border-color: transparent;
+  font-variant-numeric: tabular-nums slashed-zero;
+  &:where(:first-child) {
+    border-left-width: 1px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+  &:where(:last-child) {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+  &:where([data-otp-active='true']) {
+    outline: 2px solid var(--otp-focus-color);
+    z-index: 1;
+  }
+}
+
+.fui-OTPFieldCaret {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fui-OTPFieldCaret::before {
+  content: '';
+  height: 16px;
+  width: 1px;
+  border-radius: 1px;
+  background-color: var(--gray-a10);
+  animation: fui-otp-caret-blink 1.25s ease-out infinite;
+}
+@keyframes fui-otp-caret-blink {
+  0%,
+  70%,
+  100% {
+    opacity: 1;
+  }
+  20%,
+  50% {
+    opacity: 0;
+  }
+}
+
+.fui-OTPFieldSeparator {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.fui-OTPFieldSeparator::before {
+  content: '';
+  width: 10px;
+  height: 4px;
+  border-radius: 2px;
+  box-shadow: var(--shadow-1);
+}
