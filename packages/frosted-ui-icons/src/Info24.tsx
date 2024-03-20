@@ -16,7 +16,7 @@ export const Info24 = React.forwardRef<SVGSVGElement, IconProps>(
       >
         <circle cx="10.781" cy="6" r="2" fill={color} />
         <path
-          d="M12.25 20.2188V10.7812H8.78125M12.25 20.2188H8.78125M12.25 20.2188H14.8571"
+          d="M12.25 20.2187V10.7812H8.78128M12.25 20.2187H8.78128M12.25 20.2187H14.8571"
           stroke={color}
           strokeWidth="1.5"
           strokeLinecap="round"
