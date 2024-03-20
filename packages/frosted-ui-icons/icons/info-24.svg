@@ -8,7 +8,7 @@
 >
   <circle cx="10.781" cy="6" r="2" fill="currentColor" />
   <path
-    d="M12.25 20.2188V10.7812H8.78125M12.25 20.2188H8.78125M12.25 20.2188H14.8571"
+    d="M12.25 20.2187V10.7812H8.78128M12.25 20.2187H8.78128M12.25 20.2187H14.8571"
     stroke="currentColor"
     stroke-width="1.5"
     stroke-linecap="round"
