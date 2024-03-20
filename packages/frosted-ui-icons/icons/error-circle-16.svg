@@ -1,0 +1,33 @@
+<svg
+  width="16"
+  height="16"
+  viewBox="0 0 16 16"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  data-fui-icon="true"
+>
+  <g clip-path="url(#clip0_882_785)">
+    <path
+      d="M8 4.5L8 7.5"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <circle cx="8" cy="10.5" r="1" fill="currentColor" />
+    <circle
+      cx="8"
+      cy="8"
+      r="7.25"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </g>
+  <defs>
+    <clipPath id="clip0_882_785">
+      <path fill="currentColor" d="M0 0H16V16H0z" />
+    </clipPath>
+  </defs>
+</svg>

@@ -1,0 +1,29 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const Stats20 = React.forwardRef<SVGSVGElement, IconProps>(
+  ({ color = 'currentColor', ...props }, forwardedRef) => {
+    return (
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        data-fui-icon="true"
+        {...props}
+        ref={forwardedRef}
+      >
+        <path
+          d="M1.75 2.96875V15.0625C1.75 16.2706 2.72938 17.25 3.9375 17.25H18.2812M4.3125 13.0625L8.125 9.25M10.9375 12.0625L8.125 9.25M10.9375 12.0625L16.25 6.75M13.25 6.75H16.25V9.75"
+          stroke={color}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  },
+);
+
+export default Stats20;
