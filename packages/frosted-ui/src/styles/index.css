@@ -47,6 +47,8 @@
 @import '../components/radio-button-group.css';
 @import '../components/scroll-area.css';
 @import '../components/segmented-control.css';
+@import '../components/segmented-control-nav.css';
+@import '../components/segmented-control-radio-group.css';
 @import '../components/select.css';
 @import '../components/separator.css';
 @import '../components/lab/skeleton.css';
