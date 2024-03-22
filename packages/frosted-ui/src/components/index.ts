@@ -242,6 +242,12 @@ export {
   SegmentedControlNavLink,
   SegmentedControlNavRoot,
 } from './segmented-control-nav';
+export {
+  SegmentedControlRadioGroup,
+  SegmentedControlRadioGroupItem,
+  SegmentedControlRadioGroupRoot,
+} from './segmented-control-radio-group';
+
 export * from './segmented-control-nav.props';
 export { Separator } from './separator';
 export * from './separator.props';
