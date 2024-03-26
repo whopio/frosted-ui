@@ -34,7 +34,7 @@ export const Globe12 = React.forwardRef<SVGSVGElement, IconProps>(
           strokeLinejoin="round"
         />
         <path
-          d="M1.07129 4.24982L10.9265 4.24982M1.07129 7.75024L10.9265 7.75024"
+          d="M1.07129 4.24982L10.9265 4.24982M1.07129 7.75021L10.9265 7.75021"
           stroke={color}
           strokeWidth="1.5"
           strokeLinecap="round"

@@ -15,7 +15,7 @@ export const ArrowDownRight12 = React.forwardRef<SVGSVGElement, IconProps>(
         ref={forwardedRef}
       >
         <path
-          d="M2.28761 2.28776L9.71223 9.71239M9.71223 9.71239L3.52505 9.53561M9.71223 9.71239L9.53546 3.5252"
+          d="M2.28767 2.28776L9.7123 9.71239M9.7123 9.71239L3.52511 9.53561M9.7123 9.71239L9.53552 3.5252"
           stroke={color}
           strokeWidth="1.5"
           strokeLinecap="round"
