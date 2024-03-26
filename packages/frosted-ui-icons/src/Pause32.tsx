@@ -15,7 +15,7 @@ export const Pause32 = React.forwardRef<SVGSVGElement, IconProps>(
         ref={forwardedRef}
       >
         <path
-          d="M21.7413 6.75V25.25M10.2586 6.75V25.25"
+          d="M21.7413 6.75V25.25M10.2585 6.75V25.25"
           stroke={color}
           strokeWidth="1.5"
           strokeLinecap="round"

@@ -15,7 +15,7 @@ export const K20 = React.forwardRef<SVGSVGElement, IconProps>(
         ref={forwardedRef}
       >
         <path
-          d="M5.25 2.75V17.25M14.25 2.74997L5.33652 11.6635M6.99997 10L14.25 17.25"
+          d="M5.25 2.75V17.25M14.25 2.75L5.33655 11.6635M7 10L14.25 17.2501"
           stroke={color}
           strokeWidth="1.5"
           strokeLinecap="round"

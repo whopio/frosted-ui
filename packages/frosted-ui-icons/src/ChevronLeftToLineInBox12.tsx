@@ -24,7 +24,7 @@ export const ChevronLeftToLineInBox12 = React.forwardRef<
         strokeLinejoin="round"
       />
       <path
-        d="M3.75 3.75005V8.24995M8.25 3.75005L6.25 6L8.25 8.24995"
+        d="M3.75 3.75006V8.24996M8.25 3.75006L6.25 6.00001L8.25 8.24996"
         stroke={color}
         strokeWidth="1.5"
         strokeLinecap="round"

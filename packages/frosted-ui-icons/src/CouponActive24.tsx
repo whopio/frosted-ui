@@ -15,7 +15,7 @@ export const CouponActive24 = React.forwardRef<SVGSVGElement, IconProps>(
         ref={forwardedRef}
       >
         <path
-          d="M8.22369 15.7763L15.7763 8.22369"
+          d="M8.22369 15.7763L15.7763 8.22368"
           stroke={color}
           strokeWidth="1.5"
           strokeLinecap="round"
