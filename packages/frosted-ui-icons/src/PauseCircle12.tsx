@@ -24,7 +24,7 @@ export const PauseCircle12 = React.forwardRef<SVGSVGElement, IconProps>(
           strokeLinejoin="round"
         />
         <path
-          d="M4.25 4.75006V7.24996M7.75 4.75006V7.24996"
+          d="M4.25 4.75V7.2499M7.75 4.75V7.2499"
           stroke={color}
           strokeWidth="1.5"
           strokeLinecap="round"
