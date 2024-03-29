@@ -14,13 +14,20 @@ export const Export12 = React.forwardRef<SVGSVGElement, IconProps>(
         {...props}
         ref={forwardedRef}
       >
-        <path
-          d="M9.25 7.75V9.1C9.25 10.2874 8.28741 11.25 7.1 11.25H2.9C1.71259 11.25.75 10.2874.75 9.1V4.9C.75 3.71259 1.71259 2.75 2.9 2.75H4.25M11.2499.75H7.74993M11.2499.75V4.25M11.2499.75L5.75 6.25"
+        <g
           stroke={color}
+          clipPath="url(#clip0_882_201)"
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
-        />
+        >
+          <path d="M.75 7.75L.75 9.75C.75 10.5784 1.42157 11.25 2.25 11.25L9.75 11.25C10.5784 11.25 11.25 10.5784 11.25 9.75L11.25 7.75M4.75 7.25V4.80966C4.75 3.67214 5.67214 2.75 6.80966 2.75L9.75 2.75M9.75 2.75L7.75.75M9.75 2.75L7.75 4.75" />
+        </g>
+        <defs>
+          <clipPath id="clip0_882_201">
+            <path fill={color} d="M0 0H12V12H0z" />
+          </clipPath>
+        </defs>
       </svg>
     );
   },
