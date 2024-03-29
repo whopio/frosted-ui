@@ -21,7 +21,6 @@ export const DownloadDocumentFilled16 = React.forwardRef<
         fill={color}
         fillRule="evenodd"
         clipRule="evenodd"
-        fillOpacity=".875"
       />
     </svg>
   );
