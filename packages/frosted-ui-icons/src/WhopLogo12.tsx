@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const WhopLogoSize5 = React.forwardRef<SVGSVGElement, IconProps>(
+export const WhopLogo12 = React.forwardRef<SVGSVGElement, IconProps>(
   ({ color = 'currentColor', ...props }, forwardedRef) => {
     return (
       <svg
@@ -23,4 +23,4 @@ export const WhopLogoSize5 = React.forwardRef<SVGSVGElement, IconProps>(
   },
 );
 
-export default WhopLogoSize5;
+export default WhopLogo12;

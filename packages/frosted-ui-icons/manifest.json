@@ -149,6 +149,7 @@
       "command-12": "icons/command-12.svg",
       "k-12": "icons/k-12.svg",
       "globe-12": "icons/globe-12.svg",
+      "whop-logo-12": "icons/whop-logo-12.svg",
       "arrow-up-right-from-square-12": "icons/arrow-up-right-from-square-12.svg",
       "arrow-up-right-from-square-flush-12": "icons/arrow-up-right-from-square-flush-12.svg",
       "shield-half-12": "icons/shield-half-12.svg",
@@ -1040,7 +1041,6 @@
       "list-check-32": "icons/list-check-32.svg",
       "bold-32": "icons/bold-32.svg",
       "credit-card-filled-32": "icons/credit-card-filled-32.svg"
-    },
-    "size5": { "whop-logo-size-5": "icons/whop-logo-size-5.svg" }
+    }
   }
 }

@@ -742,7 +742,7 @@ export { default as WhopLogo32 } from './WhopLogo32';
 export { default as WhopLogo24 } from './WhopLogo24';
 export { default as WhopLogo20 } from './WhopLogo20';
 export { default as WhopLogo16 } from './WhopLogo16';
-export { default as WhopLogoSize5 } from './WhopLogoSize5';
+export { default as WhopLogo12 } from './WhopLogo12';
 export { default as ArrowUpRightFromSquare32 } from './ArrowUpRightFromSquare32';
 export { default as ArrowUpRightFromSquare24 } from './ArrowUpRightFromSquare24';
 export { default as ArrowUpRightFromSquare20 } from './ArrowUpRightFromSquare20';
