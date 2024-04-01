@@ -84,6 +84,9 @@ function Calendar({ className, ...props }: CalendarProps) {
           // @ts-expect-error fix mismatching onPress and onClick types
           onClick={prevOnPress}
           size="1"
+          // Default button type is "submit" so we need to explicitly set it to "button"
+          // to prevent form submission
+          type="button"
         >
           <CalendaChevronLeftIcon />
         </IconButton>
@@ -97,6 +100,9 @@ function Calendar({ className, ...props }: CalendarProps) {
           // @ts-expect-error fix mismatching onPress and onClick types
           onClick={nextOnPress}
           size="1"
+          // Default button type is "submit" so we need to explicitly set it to "button"
+          // to prevent form submission
+          type="button"
         >
           <CalendaChevronLeftIcon style={{ transform: 'rotate(180deg)' }} />
         </IconButton>
