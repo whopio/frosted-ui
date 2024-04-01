@@ -19,19 +19,16 @@ export const Checklist12 = React.forwardRef<SVGSVGElement, IconProps>(
           fill={color}
           fillRule="evenodd"
           clipRule="evenodd"
-          fillOpacity=".875"
         />
         <path
           d="M4.75 1.5V2.5H7.25V1.5H4.75ZM3.25 1.5C3.25 0.671154 3.92231 0 4.75032 0H7.24968C8.07769 0 8.75 0.671154 8.75 1.5V2.5C8.75 3.32843 8.07843 4 7.25 4H4.75C3.92157 4 3.25 3.32843 3.25 2.5V1.5Z"
           fill={color}
           fillRule="evenodd"
           clipRule="evenodd"
-          fillOpacity=".875"
         />
         <path
           d="M4.5625 6.78125L5.6875 8.0625L7.4375 5.5"
           stroke={color}
-          strokeOpacity=".875"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
