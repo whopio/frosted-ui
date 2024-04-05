@@ -21,6 +21,16 @@
       "import": "./styles.css",
       "require": "./styles.css",
       "default": "./styles.css"
+    },
+    "./*": {
+      "require": {
+        "types": "./dist/cjs/*.d.ts",
+        "default": "./dist/cjs/*.js"
+      },
+      "import": {
+        "types": "./dist/esm/*.d.ts",
+        "default": "./dist/esm/*.js"
+      }
     }
   },
   "sideEffects": false,
@@ -30,7 +40,7 @@
     "styles.css"
   ],
   "scripts": {
-    "build": "pnpm build:js && pnpm build:css",
+    "build": "rm -rf ./dist && pnpm build:js && pnpm build:css",
     "build:js": "pnpm build:js:cjs && pnpm build:js:esm",
     "build:js:cjs": "tsc --project tsconfig-cjs.json",
     "build:js:esm": "tsc --project tsconfig-esm.json",
