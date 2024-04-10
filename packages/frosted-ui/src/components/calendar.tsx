@@ -164,6 +164,7 @@ function RangeCalendar({ className, ...props }: RangeCalendarProps) {
           // @ts-expect-error fix mismatching onPress and onClick types
           onClick={prevOnPress}
           size="1"
+          type="button"
         >
           <CalendaChevronLeftIcon />
         </IconButton>
@@ -177,6 +178,7 @@ function RangeCalendar({ className, ...props }: RangeCalendarProps) {
           // @ts-expect-error fix mismatching onPress and onClick types
           onClick={nextOnPress}
           size="1"
+          type="button"
         >
           <CalendaChevronLeftIcon style={{ transform: 'rotate(180deg)' }} />
         </IconButton>
