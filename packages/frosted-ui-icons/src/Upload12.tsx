@@ -6,28 +6,21 @@ export const Upload12 = React.forwardRef<SVGSVGElement, IconProps>(
     return (
       <svg
         width="12"
-        height="12"
-        viewBox="0 0 12 12"
+        height="13"
+        viewBox="0 0 12 13"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         data-fui-icon="true"
         {...props}
         ref={forwardedRef}
       >
-        <g
+        <path
+          d="M8.125 3.375L6.35355 1.60355C6.1583 1.4083 5.8417 1.4083 5.64645 1.60355L3.875 3.375M6 8.625V1.625M9.625 11.375H2.375"
           stroke={color}
-          clipPath="url(#clip0_882_960)"
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
-        >
-          <path d="M.75 6.75L.75 9.1C.75 10.2874 1.71259 11.25 2.9 11.25L9.1 11.25C10.2874 11.25 11.25 10.2874 11.25 9.1L11.25 6.75M6 7.25L6 .75M6 .75L3.25 3.75M6 .75L8.75 3.75" />
-        </g>
-        <defs>
-          <clipPath id="clip0_882_960">
-            <path fill={color} d="M0 0H12V12H0z" />
-          </clipPath>
-        </defs>
+        />
       </svg>
     );
   },

@@ -20,7 +20,6 @@ export const Leaf12 = React.forwardRef<SVGSVGElement, IconProps>(
             fill={color}
             fillRule="evenodd"
             clipRule="evenodd"
-            fillOpacity=".875"
           />
         </g>
         <defs>
