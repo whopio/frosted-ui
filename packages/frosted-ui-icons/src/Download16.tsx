@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const ArrowDownToLine20 = React.forwardRef<SVGSVGElement, IconProps>(
+export const Download16 = React.forwardRef<SVGSVGElement, IconProps>(
   ({ color = 'currentColor', ...props }, forwardedRef) => {
     return (
       <svg
-        width="20"
-        height="20"
-        viewBox="0 0 20 20"
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         data-fui-icon="true"
@@ -15,7 +15,7 @@ export const ArrowDownToLine20 = React.forwardRef<SVGSVGElement, IconProps>(
         ref={forwardedRef}
       >
         <path
-          d="M13.5417 11.0417L10.5893 13.9941C10.2638 14.3195 9.73618 14.3195 9.41076 13.9941L6.45834 11.0417M10 2.29166V13.9583M16.0417 17.7083H3.95834"
+          d="M10.8333 8.83331L8.47139 11.1952C8.21106 11.4556 7.78892 11.4556 7.52859 11.1952L5.16666 8.83331M7.99999 1.83331V11.1666M12.8333 14.1666H3.16666"
           stroke={color}
           strokeWidth="1.5"
           strokeLinecap="round"
@@ -26,4 +26,4 @@ export const ArrowDownToLine20 = React.forwardRef<SVGSVGElement, IconProps>(
   },
 );
 
-export default ArrowDownToLine20;
+export default Download16;

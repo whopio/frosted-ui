@@ -17,7 +17,6 @@ export const Burger12 = React.forwardRef<SVGSVGElement, IconProps>(
         <g
           stroke={color}
           clipPath="url(#clip0_1122_195)"
-          strokeOpacity=".875"
           strokeWidth="1.5"
           strokeLinecap="round"
         >

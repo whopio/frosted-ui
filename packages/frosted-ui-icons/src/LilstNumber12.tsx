@@ -17,7 +17,6 @@ export const LilstNumber12 = React.forwardRef<SVGSVGElement, IconProps>(
         <path
           d="M9.125 10.125H2.875C2.32271 10.125 1.875 9.6773 1.875 9.125V2.875C1.875 2.32271 2.32271 1.875 2.875 1.875H9.125C9.6773 1.875 10.125 2.32271 10.125 2.875V9.125C10.125 9.6773 9.6773 10.125 9.125 10.125zM6.1875 7.58335H8.21875M6.1875 4.41669H8.21875M4.07812 7.58335H4.17188M4.07812 4.41669H4.17188"
           stroke={color}
-          strokeOpacity=".875"
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
