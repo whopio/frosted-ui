@@ -7,6 +7,10 @@
   user-select: none;
   vertical-align: top;
   color: var(--base-button-color);
+
+  &:where([aria-busy]) {
+    position: relative;
+  }
 }
 
 /***************************************************************************************************
@@ -263,11 +267,6 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-.fui-BaseButton:where([aria-busy]) {
-  color: transparent;
-  pointer-events: none;
 }
 
 .fui-BaseButtonSpinner {
