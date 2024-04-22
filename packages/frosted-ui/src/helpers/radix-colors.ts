@@ -36,7 +36,6 @@ function radixGetMatchingGrayScale(
     case 'purple':
     case 'violet':
       return 'mauve';
-    case 'iris':
     case 'indigo':
     case 'blue':
     case 'sky':
@@ -57,6 +56,8 @@ function radixGetMatchingGrayScale(
     case 'gold':
     case 'bronze':
       return 'sand';
+    case 'iris':
+      return 'gray';
   }
 }
 
