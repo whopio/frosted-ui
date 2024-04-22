@@ -10,6 +10,9 @@ concurrency:
   group: pr-action-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
+env:
+  ESLINT_USE_FLAT_CONFIG: false
+
 jobs:
   unimported:
     name: Check unimported
