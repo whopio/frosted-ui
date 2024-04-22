@@ -251,6 +251,11 @@ export {
 export * from './segmented-control-nav.props';
 export { Separator } from './separator';
 export * from './separator.props';
+
+export { Spinner } from './spinner';
+
+export * from './spinner.props';
+
 export {
   Table,
   TableBody,

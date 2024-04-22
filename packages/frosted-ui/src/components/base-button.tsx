@@ -13,6 +13,13 @@ import type {
   MarginProps,
   PropsWithoutRefOrColor,
 } from '../helpers';
+import {
+  mapButtonSizeToSpinnerSize,
+  mapResponsiveProp,
+} from '../helpers/map-prop-values';
+import { Flex } from './flex';
+import { Spinner } from './spinner';
+import { VisuallyHidden } from './visually-hidden';
 
 type BaseButtonElement = React.ElementRef<'button'>;
 type BaseButtonOwnProps = GetPropDefTypes<typeof baseButtonPropDefs>;
@@ -29,7 +36,7 @@ const BaseButton = React.forwardRef<BaseButtonElement, BaseButtonProps>(
     const {
       children,
       loading,
-      disabled,
+      disabled = props.loading,
       className,
       asChild = false,
       size = baseButtonPropDefs.size.default,
@@ -40,26 +47,6 @@ const BaseButton = React.forwardRef<BaseButtonElement, BaseButtonProps>(
     } = marginRest;
     const Comp = asChild ? Slot : 'button';
 
-    const content = asChild ? (
-      children
-    ) : (
-      <>
-        {children}
-
-        {loading && (
-          <svg
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-            className="fui-BaseButtonSpinner"
-          >
-            <path
-              fill="currentColor"
-              d="M7.229 1.173a9.25 9.25 0 1011.655 11.412 1.25 1.25 0 10-2.4-.698 6.75 6.75 0 11-8.506-8.329 1.25 1.25 0 10-.75-2.385z"
-            ></path>
-          </svg>
-        )}
-      </>
-    );
     return (
       <Comp
         data-accent-color={color || (variant === 'surface' ? 'gray' : color)}
@@ -77,10 +64,42 @@ const BaseButton = React.forwardRef<BaseButtonElement, BaseButtonProps>(
         aria-busy={loading || undefined}
         // The `data-disabled` attribute enables correct styles when doing `<Button asChild disabled>`
         data-disabled={disabled || undefined}
-        aria-disabled={disabled || loading || undefined}
-        disabled={disabled || loading || undefined}
+        disabled={disabled}
       >
-        {content}
+        {props.loading ? (
+          <>
+            {/**
+             * We need a wrapper to set `visibility: hidden` to hide the button content whilst we show the `Spinner`.
+             * The button is a flex container with a `gap`, so we use `display: contents` to ensure the correct flex layout.
+             *
+             * However, `display: contents` removes the content from the accessibility tree in some browsers,
+             * so we force remove it with `aria-hidden` and re-add it in the tree with `VisuallyHidden`
+             */}
+            <span
+              style={{ display: 'contents', visibility: 'hidden' }}
+              aria-hidden
+            >
+              {children}
+            </span>
+            <VisuallyHidden>{children}</VisuallyHidden>
+
+            <Flex
+              asChild
+              align="center"
+              justify="center"
+              position="absolute"
+              inset="0"
+            >
+              <span>
+                <Spinner
+                  size={mapResponsiveProp(size, mapButtonSizeToSpinnerSize)}
+                />
+              </span>
+            </Flex>
+          </>
+        ) : (
+          children
+        )}
       </Comp>
     );
   },

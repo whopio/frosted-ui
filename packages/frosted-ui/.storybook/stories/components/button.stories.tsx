@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { Download16 } from '@frosted-ui/icons';
 import React from 'react';
-import { Button, Flex } from '../../../src/components';
+import { Button, Code, Flex, Spinner, Text } from '../../../src/components';
 import { buttonPropDefs } from '../../../src/components/button.props';
 
 const ExampleIcon = () => (
@@ -161,14 +162,90 @@ export const Loading: Story = {
     children: 'Button',
     size: buttonPropDefs.size.default,
     color: buttonPropDefs.color.default,
+    disabled: undefined,
     loading: true,
   },
   render: (args) => (
-    <Flex align="center" gap="4">
-      <Button {...args} variant="classic" />
-      <Button {...args} variant="soft" />
-      <Button {...args} variant="surface" />
-      <Button {...args} variant="ghost" />
+    <Flex direction="column" gap="5" style={{ maxWidth: 650 }}>
+      <Text>
+        Buttons have their own <Code>loading</Code> prop that automatically
+        composes a spinner.
+      </Text>
+      <Flex align="center" gap="4">
+        <Button {...args} variant="classic" />
+        <Button {...args} variant="soft" />
+        <Button {...args} variant="surface" />
+        <Button {...args} variant="ghost" />
+      </Flex>
+      <Text>
+        If you have an icon inside the button, you can use the button`s{' '}
+        <Code>disabled</Code> state and wrap the icon in a standalone{' '}
+        <Code>{`<Spinner>`}</Code> to achieve a more sophisticated design.
+      </Text>
+      <Flex align="center" gap="4">
+        <Button variant="classic">
+          <Spinner loading={false}>
+            {/* @ts-expect-error -- fix froste icon types */}
+            <Download16 />
+          </Spinner>
+          Download
+        </Button>
+        <Button variant="classic" disabled>
+          <Spinner loading>
+            {/* @ts-expect-error -- fix froste icon types */}
+            <Download16 />
+          </Spinner>
+          Download
+        </Button>
+      </Flex>
+      <Flex align="center" gap="4">
+        <Button variant="soft">
+          <Spinner loading={false}>
+            {/* @ts-expect-error -- fix froste icon types */}
+            <Download16 />
+          </Spinner>
+          Download
+        </Button>
+        <Button variant="soft" disabled>
+          <Spinner loading>
+            {/* @ts-expect-error -- fix froste icon types */}
+            <Download16 />
+          </Spinner>
+          Download
+        </Button>
+      </Flex>
+      <Flex align="center" gap="4">
+        <Button variant="surface">
+          <Spinner loading={false}>
+            {/* @ts-expect-error -- fix froste icon types */}
+            <Download16 />
+          </Spinner>
+          Download
+        </Button>
+        <Button variant="surface" disabled>
+          <Spinner loading>
+            {/* @ts-expect-error -- fix froste icon types */}
+            <Download16 />
+          </Spinner>
+          Download
+        </Button>
+      </Flex>
+      <Flex align="center" gap="4">
+        <Button variant="ghost">
+          <Spinner loading={false}>
+            {/* @ts-expect-error -- fix froste icon types */}
+            <Download16 />
+          </Spinner>
+          Download
+        </Button>
+        <Button variant="ghost" disabled>
+          <Spinner loading>
+            {/* @ts-expect-error -- fix froste icon types */}
+            <Download16 />
+          </Spinner>
+          Download
+        </Button>
+      </Flex>
     </Flex>
   ),
 };

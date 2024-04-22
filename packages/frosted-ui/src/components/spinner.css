@@ -1,0 +1,104 @@
+.frosted-ui {
+  --spinner-opacity: 0.65;
+}
+
+.fui-Spinner {
+  display: block;
+  position: relative;
+  opacity: var(--spinner-opacity);
+}
+
+.fui-SpinnerLeaf {
+  position: absolute;
+  top: 0;
+  left: calc(50% - 12.5% / 2);
+  width: 12.5%;
+  height: 100%;
+  animation: fui-spinner-leaf-fade 800ms linear infinite;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 30%;
+    border-radius: var(--radius-1);
+    background-color: currentColor;
+  }
+
+  &:where(:nth-child(1)) {
+    transform: rotate(0deg);
+    animation-delay: -800ms;
+  }
+  &:where(:nth-child(2)) {
+    transform: rotate(45deg);
+    animation-delay: -700ms;
+  }
+  &:where(:nth-child(3)) {
+    transform: rotate(90deg);
+    animation-delay: -600ms;
+  }
+  &:where(:nth-child(4)) {
+    transform: rotate(135deg);
+    animation-delay: -500ms;
+  }
+  &:where(:nth-child(5)) {
+    transform: rotate(180deg);
+    animation-delay: -400ms;
+  }
+  &:where(:nth-child(6)) {
+    transform: rotate(225deg);
+    animation-delay: -300ms;
+  }
+  &:where(:nth-child(7)) {
+    transform: rotate(270deg);
+    animation-delay: -200ms;
+  }
+  &:where(:nth-child(8)) {
+    transform: rotate(315deg);
+    animation-delay: -100ms;
+  }
+}
+
+@keyframes fui-spinner-leaf-fade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.25;
+  }
+}
+
+/***************************************************************************************************
+ *                                                                                                 *
+ * SIZES                                                                                           *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+@breakpoints {
+  .fui-Spinner {
+    &:where(.fui-r-size-1) {
+      width: var(--space-3);
+      height: var(--space-3);
+    }
+    &:where(.fui-r-size-2) {
+      width: var(--space-4);
+      height: var(--space-4);
+    }
+    &:where(.fui-r-size-3) {
+      width: calc(1.25 * var(--space-4));
+      height: calc(1.25 * var(--space-4));
+    }
+    &:where(.fui-r-size-4) {
+      width: var(--space-5);
+      height: var(--space-5);
+    }
+    &:where(.fui-r-size-5) {
+      width: var(--space-6);
+      height: var(--space-6);
+    }
+    &:where(.fui-r-size-6) {
+      width: var(--space-7);
+      height: var(--space-7);
+    }
+  }
+}
