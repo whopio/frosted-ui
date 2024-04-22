@@ -13,7 +13,7 @@ import {
   renderIdsToSvgs,
   swapGeneratedFiles,
 } from './services';
-import { CodedError, ERRORS } from './types';
+import { CodedError, ERRORS, IIconsSvgUrls } from './types';
 import { handleError } from './utils';
 import { render, unmount } from './view';
 
@@ -85,8 +85,14 @@ async function main() {
   render({
     spinners: [{ text: 'Rendering on the Figma platform...' }],
   });
-  const iconSvgUrls = await renderIdsToSvgs(iconIds, figmaConfig);
+  const half = Math.ceil(iconIds.length / 2);
 
+  const firstHalf = iconIds.slice(0, half);
+  const secondHalf = iconIds.slice(half);
+  const iconSvgUrls1 = await renderIdsToSvgs(firstHalf, figmaConfig);
+  const iconSvgUrls2 = await renderIdsToSvgs(secondHalf, figmaConfig);
+
+  const all = { ...iconSvgUrls1, ...iconSvgUrls2 } as IIconsSvgUrls;
   /* 4. Pull down all rendered SVGs to update our local working package */
   render({
     spinners: [
@@ -102,7 +108,7 @@ async function main() {
   });
 
   let downloadsCompleted = 0;
-  await downloadSvgsToFs(iconSvgUrls, icons, () => {
+  await downloadSvgsToFs(all, icons, () => {
     downloadsCompleted += 1;
     render({
       progress: {
