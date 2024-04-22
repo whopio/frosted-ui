@@ -129,6 +129,7 @@ export const Loading: Story = {
     children: <ExampleIcon size={16} />,
     size: buttonPropDefs.size.default,
     color: buttonPropDefs.color.default,
+    disabled: undefined,
     loading: true,
   },
   render: (args) => (
