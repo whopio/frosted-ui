@@ -17,7 +17,6 @@ export const StorefrontItem24 = React.forwardRef<SVGSVGElement, IconProps>(
         <path
           d="M22.75 8.75V5.25C22.75 3.59315 21.4069 2.25 19.75 2.25H4.25C2.59315 2.25 1.25 3.59315 1.25 5.25V16C1.25 17.6569 2.59315 19 4.25 19H7.25"
           stroke={color}
-          strokeOpacity=".875"
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -27,36 +26,16 @@ export const StorefrontItem24 = React.forwardRef<SVGSVGElement, IconProps>(
           fill={color}
           fillRule="evenodd"
           clipRule="evenodd"
-          fillOpacity=".875"
         />
         <path
           d="M12.503 14.2857C12.1388 14.0886 12.0033 13.6334 12.2004 13.2691C12.3976 12.9049 12.8527 12.7694 13.217 12.9665L16.4978 14.7421L19.7786 12.9665C20.1428 12.7694 20.598 12.9049 20.7951 13.2691C20.9923 13.6334 20.8568 14.0886 20.4925 14.2857L17.2452 16.0431V19.8995C17.2452 20.3137 16.9095 20.6495 16.4952 20.6495C16.081 20.6495 15.7452 20.3137 15.7452 19.8995V16.0404L12.503 14.2857Z"
           fill={color}
           fillRule="evenodd"
           clipRule="evenodd"
-          fillOpacity=".875"
         />
-        <circle
-          cx="4.875"
-          cy="5.625"
-          r="1.125"
-          fill={color}
-          fillOpacity=".875"
-        />
-        <circle
-          cx="8.625"
-          cy="5.625"
-          r="1.125"
-          fill={color}
-          fillOpacity=".875"
-        />
-        <circle
-          cx="12.375"
-          cy="5.625"
-          r="1.125"
-          fill={color}
-          fillOpacity=".875"
-        />
+        <circle cx="4.875" cy="5.625" r="1.125" fill={color} />
+        <circle cx="8.625" cy="5.625" r="1.125" fill={color} />
+        <circle cx="12.375" cy="5.625" r="1.125" fill={color} />
       </svg>
     );
   },

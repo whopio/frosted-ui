@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const ArrowDownToLine32 = React.forwardRef<SVGSVGElement, IconProps>(
+export const Play32 = React.forwardRef<SVGSVGElement, IconProps>(
   ({ color = 'currentColor', ...props }, forwardedRef) => {
     return (
       <svg
@@ -15,15 +15,14 @@ export const ArrowDownToLine32 = React.forwardRef<SVGSVGElement, IconProps>(
         ref={forwardedRef}
       >
         <path
-          d="M21.6667 17.6667L16.9428 22.3905C16.4221 22.9112 15.5779 22.9112 15.0572 22.3905L10.3333 17.6667M16 3.66666V22.3333M25.6667 28.3333H6.33333"
+          d="M7.25 5.48578V26.9142C7.25 27.7165 8.13567 28.2026 8.81249 27.7719L25.6491 17.0577C26.2769 16.6582 26.2769 15.7418 25.6491 15.3423L8.81249 4.62806C8.13567 4.19736 7.25 4.68353 7.25 5.48578Z"
           stroke={color}
+          strokeOpacity=".875"
           strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
         />
       </svg>
     );
   },
 );
 
-export default ArrowDownToLine32;
+export default Play32;

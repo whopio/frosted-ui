@@ -17,7 +17,6 @@ export const Heart12 = React.forwardRef<SVGSVGElement, IconProps>(
         <path
           d="M6 2.78597C9.16655 -0.433825 14.5949 5.5458 6 10.375C-2.59491 5.5458 2.83344 -0.433825 6 2.78597Z"
           stroke={color}
-          strokeOpacity=".875"
           strokeWidth="1.5"
           strokeLinejoin="round"
         />

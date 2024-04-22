@@ -17,7 +17,6 @@ export const Code32 = React.forwardRef<SVGSVGElement, IconProps>(
         <path
           d="M13 27L19 5M24.3333 10.3333L27.9465 14.1724C28.9129 15.1992 28.9129 16.8008 27.9465 17.8276L24.3333 21.6667M7.66667 21.6667L4.05347 17.8276C3.08707 16.8008 3.08707 15.1992 4.05347 14.1724L7.66667 10.3333"
           stroke={color}
-          strokeOpacity=".875"
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"

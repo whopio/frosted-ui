@@ -17,7 +17,6 @@ export const Underline12 = React.forwardRef<SVGSVGElement, IconProps>(
         <path
           d="M2.875 10.375H9.125M2.875 1.65625V5C2.875 6.7259 4.27411 8.125 6 8.125C7.7259 8.125 9.125 6.7259 9.125 5V1.65625"
           stroke={color}
-          strokeOpacity=".875"
           strokeWidth="1.5"
           strokeLinecap="round"
         />

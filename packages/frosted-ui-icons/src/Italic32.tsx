@@ -15,9 +15,8 @@ export const Italic32 = React.forwardRef<SVGSVGElement, IconProps>(
         ref={forwardedRef}
       >
         <path
-          d="M13 5H19.3333M19.3333 5H25.6666M19.3333 5L12.6666 27M12.6666 27H6.33331M12.6666 27H19.0134"
+          d="M13 5H19.3334M19.3334 5H25.6667M19.3334 5L12.6667 27M12.6667 27H6.33337M12.6667 27H19.0135"
           stroke={color}
-          strokeOpacity=".875"
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
