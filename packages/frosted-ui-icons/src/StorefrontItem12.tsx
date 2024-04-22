@@ -17,7 +17,6 @@ export const StorefrontItem12 = React.forwardRef<SVGSVGElement, IconProps>(
         <path
           d="M11.25 5.25V3.25C11.25 2.42157 10.5784 1.75 9.75 1.75H2.25C1.42157 1.75 0.75 2.42157 0.75 3.25V8.75C0.75 9.57843 1.42157 10.25 2.25 10.25H4"
           stroke={color}
-          strokeOpacity=".875"
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -27,29 +26,10 @@ export const StorefrontItem12 = React.forwardRef<SVGSVGElement, IconProps>(
           fill={color}
           fillRule="evenodd"
           clipRule="evenodd"
-          fillOpacity=".875"
         />
-        <circle
-          cx="2.875"
-          cy="3.875"
-          r=".625"
-          fill={color}
-          fillOpacity=".875"
-        />
-        <circle
-          cx="4.625"
-          cy="3.875"
-          r=".625"
-          fill={color}
-          fillOpacity=".875"
-        />
-        <circle
-          cx="6.375"
-          cy="3.875"
-          r=".625"
-          fill={color}
-          fillOpacity=".875"
-        />
+        <circle cx="2.875" cy="3.875" r=".625" fill={color} />
+        <circle cx="4.625" cy="3.875" r=".625" fill={color} />
+        <circle cx="6.375" cy="3.875" r=".625" fill={color} />
       </svg>
     );
   },
