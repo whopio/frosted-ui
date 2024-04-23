@@ -1,6 +1,6 @@
-import { baseButtonPropDefs } from '../components/base-button.props.js';
-import { spinnerPropDefs } from '../components/spinner.props.js';
-import { Responsive } from './breakpoints.js';
+import { baseButtonPropDefs } from '../components/base-button.props';
+import { spinnerPropDefs } from '../components/spinner.props';
+import { Responsive } from './breakpoints';
 
 function mapResponsiveProp<Input extends string, Output>(
   propValue: Responsive<Input> | undefined,
