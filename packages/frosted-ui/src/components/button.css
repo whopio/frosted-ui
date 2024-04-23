@@ -15,44 +15,6 @@
  *                                                                                                 *
  ***************************************************************************************************/
 
-.fui-Button {
-  &:where(.fui-variant-ghost) {
-    padding: var(--button-ghost-padding-y) var(--button-ghost-padding-x);
-
-    /* We reset the defined margin variables to avoid inheriting them from a higher component */
-    /* If a margin IS defined on the component itself, the utility class will win and reset it */
-    --margin-top: 0px;
-    --margin-right: 0px;
-    --margin-bottom: 0px;
-    --margin-left: 0px;
-
-    /* Define the overrides to incorporate the negative margins */
-    --margin-top-override: calc(
-      var(--margin-top) - var(--button-ghost-padding-y)
-    );
-    --margin-right-override: calc(
-      var(--margin-right) - var(--button-ghost-padding-x)
-    );
-    --margin-bottom-override: calc(
-      var(--margin-bottom) - var(--button-ghost-padding-y)
-    );
-    --margin-left-override: calc(
-      var(--margin-left) - var(--button-ghost-padding-x)
-    );
-
-    /* Reset the overrides on direct children */
-    :where(&) > * {
-      --margin-top-override: initial;
-      --margin-right-override: initial;
-      --margin-bottom-override: initial;
-      --margin-left-override: initial;
-    }
-
-    margin: var(--margin-top-override) var(--margin-right-override)
-      var(--margin-bottom-override) var(--margin-left-override);
-  }
-}
-
 @breakpoints {
   .fui-Button {
     &:where(.fui-r-size-1) {
@@ -61,15 +23,8 @@
       line-height: var(--line-height-1);
       letter-spacing: var(--letter-spacing-1);
 
-      &:where(:not(.fui-variant-ghost)) {
-        padding-left: var(--space-2);
-        padding-right: var(--space-2);
-      }
-      &:where(.fui-variant-ghost) {
-        gap: var(--space-1);
-        --button-ghost-padding-x: var(--space-2);
-        --button-ghost-padding-y: var(--space-1);
-      }
+      padding-left: var(--space-2);
+      padding-right: var(--space-2);
     }
     &:where(.fui-r-size-2) {
       gap: var(--space-2);
@@ -77,15 +32,8 @@
       line-height: var(--line-height-2);
       letter-spacing: var(--letter-spacing-2);
 
-      &:where(:not(.fui-variant-ghost)) {
-        padding-left: var(--space-3);
-        padding-right: var(--space-3);
-      }
-      &:where(.fui-variant-ghost) {
-        gap: var(--space-1);
-        --button-ghost-padding-x: var(--space-2);
-        --button-ghost-padding-y: var(--space-1);
-      }
+      padding-left: var(--space-3);
+      padding-right: var(--space-3);
     }
     &:where(.fui-r-size-3) {
       gap: var(--space-3);
@@ -93,15 +41,8 @@
       line-height: var(--line-height-3);
       letter-spacing: var(--letter-spacing-3);
 
-      &:where(:not(.fui-variant-ghost)) {
-        padding-left: var(--space-4);
-        padding-right: var(--space-4);
-      }
-      &:where(.fui-variant-ghost) {
-        gap: var(--space-2);
-        --button-ghost-padding-x: var(--space-3);
-        --button-ghost-padding-y: calc(var(--space-1) * 1.5);
-      }
+      padding-left: var(--space-4);
+      padding-right: var(--space-4);
     }
     &:where(.fui-r-size-4) {
       gap: var(--space-3);
@@ -109,15 +50,8 @@
       line-height: var(--line-height-4);
       letter-spacing: var(--letter-spacing-4);
 
-      &:where(:not(.fui-variant-ghost)) {
-        padding-left: var(--space-5);
-        padding-right: var(--space-5);
-      }
-      &:where(.fui-variant-ghost) {
-        gap: var(--space-2);
-        --button-ghost-padding-x: var(--space-4);
-        --button-ghost-padding-y: var(--space-2);
-      }
+      padding-left: var(--space-5);
+      padding-right: var(--space-5);
     }
   }
 }
