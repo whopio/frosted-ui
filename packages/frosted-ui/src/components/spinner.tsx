@@ -4,15 +4,15 @@ import {
   extractMarginProps,
   withBreakpoints,
   withMarginProps,
-} from '../helpers/index.js';
-import { Flex } from './flex.js';
+} from '../helpers/index';
+import { Flex } from './flex';
 import { spinnerPropDefs } from './spinner.props';
 
 import type {
   GetPropDefTypes,
   MarginProps,
   PropsWithoutRefOrColor,
-} from '../helpers/index.js';
+} from '../helpers/index';
 
 type SpinnerElement = React.ElementRef<'span'>;
 type SpinnerOwnProps = GetPropDefTypes<typeof spinnerPropDefs>;

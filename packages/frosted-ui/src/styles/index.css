@@ -1,6 +1,7 @@
 @import './animations.css';
 @import './breakpoints.css';
 @import './reset.css';
+@import './scrollbars.css';
 
 @import './tokens/color.css';
 @import './tokens/semantic-color.css';

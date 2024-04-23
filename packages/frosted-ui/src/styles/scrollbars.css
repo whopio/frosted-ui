@@ -1,0 +1,20 @@
+*::-webkit-scrollbar {
+  width: var(--space-1);
+  height: var(--space-1);
+}
+*::-webkit-scrollbar-track {
+  background-color: var(--gray-a3);
+}
+
+*::-webkit-scrollbar-corner {
+  background-color: var(--gray-a3);
+}
+*::-webkit-scrollbar-thumb {
+  border-radius: var(--space-1);
+  background-color: var(--gray-a8);
+}
+@media (hover: hover) {
+  :hover::-webkit-scrollbar-thumb:hover {
+    background-color: var(--gray-a9);
+  }
+}
