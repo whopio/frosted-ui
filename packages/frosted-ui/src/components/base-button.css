@@ -20,13 +20,7 @@
  ***************************************************************************************************/
 
 .fui-BaseButton {
-  &:where(:not(.fui-variant-ghost)) {
-    height: var(--base-button-height);
-  }
-  &:where(.fui-variant-ghost) {
-    box-sizing: content-box;
-    height: fit-content;
-  }
+  height: var(--base-button-height);
 }
 
 @breakpoints {
