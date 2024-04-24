@@ -248,7 +248,16 @@ export {
   SegmentedControlRadioGroupRoot,
 } from './segmented-control-radio-group';
 
+export {
+  DataList,
+  DataListItem,
+  DataListLabel,
+  DataListRoot,
+  DataListValue,
+} from './data-list';
 export * from './segmented-control-nav.props';
+
+export * from './data-list.props';
 export { Separator } from './separator';
 export * from './separator.props';
 
