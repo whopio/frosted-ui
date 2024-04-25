@@ -43,7 +43,6 @@ const Tooltip = React.forwardRef<TooltipElement, TooltipProps>(
     const [triggerElement, setTriggerElement] =
       React.useState<HTMLButtonElement | null>(null);
 
-    // ResizeObserver tracking overflow on "triggerElement"
     React.useLayoutEffect(() => {
       if (type === 'overflow' && triggerElement) {
         const updateTriggerOverflow = () => {
@@ -55,17 +54,15 @@ const Tooltip = React.forwardRef<TooltipElement, TooltipProps>(
         };
 
         updateTriggerOverflow();
+
         const resizeObserver = new ResizeObserver(() => {
           updateTriggerOverflow();
         });
-
         resizeObserver.observe(triggerElement);
 
-        // MutationObserver tracking overflow on "triggerElement"
         const mutationObserver = new MutationObserver(() => {
           updateTriggerOverflow();
         });
-
         mutationObserver.observe(triggerElement, {
           attributes: true,
           childList: true,
