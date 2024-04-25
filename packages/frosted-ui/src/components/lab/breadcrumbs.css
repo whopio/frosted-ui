@@ -4,6 +4,10 @@
   gap: 10px;
   user-select: none;
 }
+.fui-BreadcrumbsItem {
+  margin-left: -8px;
+  margin-right: -8px;
+}
 .fui-BreadcrumbsItem:not(:hover) {
   color: var(--accent-10);
 }

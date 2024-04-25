@@ -657,7 +657,9 @@ const columns: ColumnDef<Payment>[] = [
   },
 ];
 
-const TanstackTableExample = () => {
+const TanstackTableExample = (
+  props: React.ComponentProps<typeof Table.Root>,
+) => {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
@@ -736,7 +738,7 @@ const TanstackTableExample = () => {
           </DropdownMenuContent>
         </DropdownMenuRoot>
       </Flex>
-      <Table.Root size="2">
+      <Table.Root {...props}>
         <Table.Table>
           <Table.Header>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -829,5 +831,5 @@ const TanstackTableExample = () => {
   );
 };
 export const TanstackTable: Story = {
-  render: (args) => <TanstackTableExample />,
+  render: (args) => <TanstackTableExample {...args} />,
 };
