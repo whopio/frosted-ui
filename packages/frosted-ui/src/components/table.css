@@ -110,6 +110,9 @@
   font-weight: inherit;
   color: inherit;
   letter-spacing: inherit;
+  /* Accomodating for ghost button size=1 padding */
+  margin-left: calc(-1 * var(--space-2));
+  margin-right: calc(-1 * var(--space-2));
 }
 /***************************************************************************************************
  *                                                                                                 *
