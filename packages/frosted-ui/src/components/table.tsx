@@ -34,6 +34,7 @@ const TableRoot = React.forwardRef<TableRootElement, TableRootProps>(
     return (
       <div
         ref={forwardedRef}
+        {...rootProps}
         className={classNames(
           'fui-TableRoot',
           // This class name applies size related variables to a table.
@@ -45,7 +46,6 @@ const TableRoot = React.forwardRef<TableRootElement, TableRootProps>(
           withBreakpoints(size, 'fui-r-size'),
           withMarginProps(marginProps),
         )}
-        {...rootProps}
       >
         {children}
       </div>
@@ -66,8 +66,8 @@ const TableTable = React.forwardRef<TableTableElement, TableTableProps>(
     return (
       <table
         ref={forwardedRef}
-        className={classNames('fui-TableTable', className)}
         {...otherProps}
+        className={classNames('fui-TableTable', className)}
       />
     );
   },
@@ -252,8 +252,8 @@ const TableBottomBar = React.forwardRef<
   return (
     <div
       ref={forwardedRef}
-      className={classNames('fui-TableBottomBar', props.className)}
       {...props}
+      className={classNames('fui-TableBottomBar', props.className)}
     />
   );
 });
@@ -272,7 +272,8 @@ const TableColumnHeaderCellButton = React.forwardRef<
   TableColumnHeaderCellButtonElement,
   TableColumnHeaderCellButtonProps
 >((props, forwardedRef) => {
-  const { children, sortDirection, isSortable, ...otherProps } = props;
+  const { className, children, sortDirection, isSortable, ...otherProps } =
+    props;
 
   let icon: React.ReactNode = null;
 
@@ -344,10 +345,10 @@ const TableColumnHeaderCellButton = React.forwardRef<
   return (
     <Button
       ref={forwardedRef}
-      className={classNames('fui-TableColumnHeaderCellButton', props.className)}
+      className={classNames('fui-TableColumnHeaderCellButton', className)}
       variant="ghost"
       color="gray"
-      size="2"
+      size="1"
       highContrast
       {...otherProps}
     >
