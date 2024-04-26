@@ -102,17 +102,8 @@ const SegmentedControlNavLink = React.forwardRef<
 
 SegmentedControlNavLink.displayName = 'SegmentedControlNavLink';
 
-const SegmentedControlNav = Object.assign(
-  {},
-  {
-    Root: SegmentedControlNavRoot,
-    Link: SegmentedControlNavLink,
-  },
-);
-
-export {
-  SegmentedControlNav,
-  SegmentedControlNavLink,
-  SegmentedControlNavRoot,
+export { SegmentedControlNavLink as Link, SegmentedControlNavRoot as Root };
+export type {
+  SegmentedControlNavLinkProps as LinkProps,
+  SegmentedControlNavRootProps as RootProps,
 };
-export type { SegmentedControlNavLinkProps, SegmentedControlNavRootProps };

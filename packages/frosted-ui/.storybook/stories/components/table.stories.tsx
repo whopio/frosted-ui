@@ -19,21 +19,14 @@ import {
   Button,
   Checkbox,
   Code,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuRoot,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
+  DropdownMenu,
   Flex,
   IconButton,
   ScrollArea,
   Select,
   Table,
-  TableColumnHeaderCellButton,
   Text,
-  TextFieldInput,
+  TextField,
 } from '../../../src/components';
 import { tableRootPropDefs } from '../../../src/components/table.props';
 
@@ -553,7 +546,7 @@ const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: 'status',
     header: () => (
-      <TableColumnHeaderCellButton>Status</TableColumnHeaderCellButton>
+      <Table.ColumnHeaderCellButton>Status</Table.ColumnHeaderCellButton>
     ),
     cell: ({ row }) => row.getValue('status'),
   },
@@ -561,14 +554,14 @@ const columns: ColumnDef<Payment>[] = [
     accessorKey: 'email',
     header: ({ column }) => {
       return (
-        <TableColumnHeaderCellButton
+        <Table.ColumnHeaderCellButton
           isSortable={column.getCanSort()}
           sortDirection={column.getIsSorted()}
           onClick={() => column.toggleSorting()}
         >
           Email
           {/* <ArrowUpDown className="ml-2 h-4 w-4" /> */}
-        </TableColumnHeaderCellButton>
+        </Table.ColumnHeaderCellButton>
       );
     },
     cell: ({ row }) => row.getValue('email'),
@@ -578,13 +571,13 @@ const columns: ColumnDef<Payment>[] = [
     accessorKey: 'amount',
     header: ({ column }) => {
       return (
-        <TableColumnHeaderCellButton
+        <Table.ColumnHeaderCellButton
           isSortable={column.getCanSort()}
           sortDirection={column.getIsSorted()}
           onClick={() => column.toggleSorting()}
         >
           Amount
-        </TableColumnHeaderCellButton>
+        </Table.ColumnHeaderCellButton>
       );
     },
     cell: ({ row }) => {
@@ -607,8 +600,8 @@ const columns: ColumnDef<Payment>[] = [
 
       return (
         <Flex justify="end">
-          <DropdownMenuRoot>
-            <DropdownMenuTrigger>
+          <DropdownMenu.Root>
+            <DropdownMenu.Trigger>
               <IconButton
                 variant="ghost"
                 color="gray"
@@ -632,25 +625,25 @@ const columns: ColumnDef<Payment>[] = [
                   <circle cx="5" cy="12" r="1"></circle>
                 </svg>
               </IconButton>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>View customer</DropdownMenuItem>
-              <DropdownMenuItem>View payment details</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem
+            </DropdownMenu.Trigger>
+            <DropdownMenu.Content align="end">
+              <DropdownMenu.Item>View customer</DropdownMenu.Item>
+              <DropdownMenu.Item>View payment details</DropdownMenu.Item>
+              <DropdownMenu.Separator />
+              <DropdownMenu.Label>Actions</DropdownMenu.Label>
+              <DropdownMenu.Item
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Copy payment ID
-              </DropdownMenuItem>
-              <DropdownMenuItem
+              </DropdownMenu.Item>
+              <DropdownMenu.Item
                 color="danger"
                 // onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Refund
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenuRoot>
+              </DropdownMenu.Item>
+            </DropdownMenu.Content>
+          </DropdownMenu.Root>
         </Flex>
       );
     },
@@ -698,7 +691,7 @@ const TanstackTableExample = (
     <Flex direction="column" gap="4" style={{ width: 580 }}>
       <Flex gap="4" width="100%">
         <div style={{ width: '100%' }}>
-          <TextFieldInput
+          <TextField.Input
             placeholder="Filter emails..."
             value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
             onChange={(event) =>
@@ -708,20 +701,20 @@ const TanstackTableExample = (
             width={'100%'}
           />
         </div>
-        <DropdownMenuRoot>
-          <DropdownMenuTrigger>
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger>
             <Button variant="surface" className="ml-auto">
               Columns
               {/* <ChevronDown className="ml-2 h-4 w-4" /> */}
             </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content align="end">
             {table
               .getAllColumns()
               .filter((column) => column.getCanHide())
               .map((column) => {
                 return (
-                  <DropdownMenuCheckboxItem
+                  <DropdownMenu.CheckboxItem
                     key={column.id}
                     className="capitalize"
                     checked={column.getIsVisible()}
@@ -732,11 +725,11 @@ const TanstackTableExample = (
                     onSelect={(event) => event.preventDefault()}
                   >
                     {column.id}
-                  </DropdownMenuCheckboxItem>
+                  </DropdownMenu.CheckboxItem>
                 );
               })}
-          </DropdownMenuContent>
-        </DropdownMenuRoot>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
       </Flex>
       <Table.Root {...props}>
         <Table.Table>

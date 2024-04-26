@@ -17,9 +17,7 @@ import {
   Heading,
   IconButton,
   Text,
-  TextFieldInput,
-  TextFieldRoot,
-  TextFieldSlot,
+  TextField,
   Theme,
   ThemePanel,
   Tooltip,
@@ -40,9 +38,9 @@ export default function Test() {
                       Just the input
                     </Heading>
 
-                    <TextFieldInput size="1" placeholder="Your name" />
-                    <TextFieldInput size="2" placeholder="Your name" />
-                    <TextFieldInput size="3" placeholder="Your name" />
+                    <TextField.Input size="1" placeholder="Your name" />
+                    <TextField.Input size="2" placeholder="Your name" />
+                    <TextField.Input size="3" placeholder="Your name" />
                   </Flex>
 
                   <div />
@@ -53,26 +51,26 @@ export default function Test() {
                       Icons (left)
                     </Heading>
 
-                    <TextFieldRoot size="1">
-                      <TextFieldSlot>
+                    <TextField.Root size="1">
+                      <TextField.Slot>
                         <MagnifyingGlassIcon />
-                      </TextFieldSlot>
-                      <TextFieldInput placeholder="Search" />
-                    </TextFieldRoot>
+                      </TextField.Slot>
+                      <TextField.Input placeholder="Search" />
+                    </TextField.Root>
 
-                    <TextFieldRoot size="2">
-                      <TextFieldSlot>
+                    <TextField.Root size="2">
+                      <TextField.Slot>
                         <MagnifyingGlassIcon />
-                      </TextFieldSlot>
-                      <TextFieldInput placeholder="Search" />
-                    </TextFieldRoot>
+                      </TextField.Slot>
+                      <TextField.Input placeholder="Search" />
+                    </TextField.Root>
 
-                    <TextFieldRoot size="3">
-                      <TextFieldSlot>
+                    <TextField.Root size="3">
+                      <TextField.Slot>
                         <MagnifyingGlassIcon />
-                      </TextFieldSlot>
-                      <TextFieldInput placeholder="Search" />
-                    </TextFieldRoot>
+                      </TextField.Slot>
+                      <TextField.Input placeholder="Search" />
+                    </TextField.Root>
                   </Flex>
 
                   <Flex direction="column" align="start" gap="3">
@@ -80,26 +78,26 @@ export default function Test() {
                       Icons (right)
                     </Heading>
 
-                    <TextFieldRoot size="1">
-                      <TextFieldInput placeholder="Your name" />
-                      <TextFieldSlot color="red">
+                    <TextField.Root size="1">
+                      <TextField.Input placeholder="Your name" />
+                      <TextField.Slot color="red">
                         <ExclamationTriangleIcon />
-                      </TextFieldSlot>
-                    </TextFieldRoot>
+                      </TextField.Slot>
+                    </TextField.Root>
 
-                    <TextFieldRoot size="2">
-                      <TextFieldInput placeholder="Your name" />
-                      <TextFieldSlot color="red">
+                    <TextField.Root size="2">
+                      <TextField.Input placeholder="Your name" />
+                      <TextField.Slot color="red">
                         <ExclamationTriangleIcon />
-                      </TextFieldSlot>
-                    </TextFieldRoot>
+                      </TextField.Slot>
+                    </TextField.Root>
 
-                    <TextFieldRoot size="3">
-                      <TextFieldInput placeholder="Your name" />
-                      <TextFieldSlot color="red">
+                    <TextField.Root size="3">
+                      <TextField.Input placeholder="Your name" />
+                      <TextField.Slot color="red">
                         <ExclamationTriangleIcon />
-                      </TextFieldSlot>
-                    </TextFieldRoot>
+                      </TextField.Slot>
+                    </TextField.Root>
                   </Flex>
 
                   <Flex direction="column" align="start" gap="3">
@@ -107,35 +105,35 @@ export default function Test() {
                       Icons (both sides)
                     </Heading>
 
-                    <TextFieldRoot size="1">
-                      <TextFieldSlot>
+                    <TextField.Root size="1">
+                      <TextField.Slot>
                         <MagnifyingGlassIcon />
-                      </TextFieldSlot>
-                      <TextFieldInput placeholder="Your name" />
-                      <TextFieldSlot color="red">
+                      </TextField.Slot>
+                      <TextField.Input placeholder="Your name" />
+                      <TextField.Slot color="red">
                         <ExclamationTriangleIcon />
-                      </TextFieldSlot>
-                    </TextFieldRoot>
+                      </TextField.Slot>
+                    </TextField.Root>
 
-                    <TextFieldRoot size="2">
-                      <TextFieldSlot>
+                    <TextField.Root size="2">
+                      <TextField.Slot>
                         <MagnifyingGlassIcon />
-                      </TextFieldSlot>
-                      <TextFieldInput placeholder="Your name" />
-                      <TextFieldSlot color="red">
+                      </TextField.Slot>
+                      <TextField.Input placeholder="Your name" />
+                      <TextField.Slot color="red">
                         <ExclamationTriangleIcon />
-                      </TextFieldSlot>
-                    </TextFieldRoot>
+                      </TextField.Slot>
+                    </TextField.Root>
 
-                    <TextFieldRoot size="3">
-                      <TextFieldSlot>
+                    <TextField.Root size="3">
+                      <TextField.Slot>
                         <MagnifyingGlassIcon />
-                      </TextFieldSlot>
-                      <TextFieldInput placeholder="Your name" />
-                      <TextFieldSlot color="red">
+                      </TextField.Slot>
+                      <TextField.Input placeholder="Your name" />
+                      <TextField.Slot color="red">
                         <ExclamationTriangleIcon />
-                      </TextFieldSlot>
-                    </TextFieldRoot>
+                      </TextField.Slot>
+                    </TextField.Root>
                   </Flex>
 
                   <Flex direction="column" align="start" gap="3">
@@ -143,61 +141,61 @@ export default function Test() {
                       Ghost buttons
                     </Heading>
 
-                    <TextFieldRoot size="1">
-                      <TextFieldSlot>
+                    <TextField.Root size="1">
+                      <TextField.Slot>
                         <IconButton size="1" variant="ghost" color="gray">
                           <LockClosedIcon />
                         </IconButton>
-                      </TextFieldSlot>
-                      <TextFieldInput placeholder="Your password" />
-                      <TextFieldSlot>
+                      </TextField.Slot>
+                      <TextField.Input placeholder="Your password" />
+                      <TextField.Slot>
                         <IconButton size="1" variant="ghost" color="gray">
                           <EyeClosedIcon />
                         </IconButton>
-                      </TextFieldSlot>
-                    </TextFieldRoot>
+                      </TextField.Slot>
+                    </TextField.Root>
 
-                    <TextFieldRoot size="2">
-                      <TextFieldSlot>
+                    <TextField.Root size="2">
+                      <TextField.Slot>
                         <IconButton size="1" variant="ghost" color="gray">
                           <LockClosedIcon />
                         </IconButton>
-                      </TextFieldSlot>
-                      <TextFieldInput placeholder="Your password" />
-                      <TextFieldSlot>
+                      </TextField.Slot>
+                      <TextField.Input placeholder="Your password" />
+                      <TextField.Slot>
                         <IconButton size="1" variant="ghost" color="gray">
                           <EyeClosedIcon />
                         </IconButton>
-                      </TextFieldSlot>
-                    </TextFieldRoot>
+                      </TextField.Slot>
+                    </TextField.Root>
 
-                    <TextFieldRoot size="3">
-                      <TextFieldSlot>
+                    <TextField.Root size="3">
+                      <TextField.Slot>
                         <IconButton size="2" variant="ghost" color="gray">
                           <LockClosedIcon />
                         </IconButton>
-                      </TextFieldSlot>
-                      <TextFieldInput placeholder="Your password" />
-                      <TextFieldSlot>
+                      </TextField.Slot>
+                      <TextField.Input placeholder="Your password" />
+                      <TextField.Slot>
                         <IconButton size="2" variant="ghost" color="gray">
                           <EyeClosedIcon />
                         </IconButton>
-                      </TextFieldSlot>
-                    </TextFieldRoot>
+                      </TextField.Slot>
+                    </TextField.Root>
 
-                    <TextFieldRoot size="3">
-                      <TextFieldSlot>
+                    <TextField.Root size="3">
+                      <TextField.Slot>
                         <IconButton size="3" variant="ghost" color="gray">
                           <LockClosedIcon />
                         </IconButton>
-                      </TextFieldSlot>
-                      <TextFieldInput placeholder="Your password" />
-                      <TextFieldSlot>
+                      </TextField.Slot>
+                      <TextField.Input placeholder="Your password" />
+                      <TextField.Slot>
                         <IconButton size="3" variant="ghost" color="gray">
                           <EyeClosedIcon />
                         </IconButton>
-                      </TextFieldSlot>
-                    </TextFieldRoot>
+                      </TextField.Slot>
+                    </TextField.Root>
                   </Flex>
 
                   <Flex direction="column" align="start" gap="3">
@@ -205,65 +203,65 @@ export default function Test() {
                       Mixed content
                     </Heading>
 
-                    <TextFieldRoot size="1">
-                      <TextFieldSlot>
+                    <TextField.Root size="1">
+                      <TextField.Slot>
                         <InfoCircledIcon />
-                      </TextFieldSlot>
-                      <TextFieldInput placeholder="Your name" />
-                      <TextFieldSlot>
+                      </TextField.Slot>
+                      <TextField.Input placeholder="Your name" />
+                      <TextField.Slot>
                         <IconButton size="1" variant="ghost" color="gray">
                           <Share2Icon />
                         </IconButton>
                         <IconButton size="1" variant="ghost" color="gray">
                           <StarIcon />
                         </IconButton>
-                      </TextFieldSlot>
-                    </TextFieldRoot>
+                      </TextField.Slot>
+                    </TextField.Root>
 
-                    <TextFieldRoot size="2">
-                      <TextFieldSlot>
+                    <TextField.Root size="2">
+                      <TextField.Slot>
                         <InfoCircledIcon />
-                      </TextFieldSlot>
-                      <TextFieldInput placeholder="Your name" />
-                      <TextFieldSlot>
+                      </TextField.Slot>
+                      <TextField.Input placeholder="Your name" />
+                      <TextField.Slot>
                         <IconButton size="1" variant="ghost" color="gray">
                           <Share2Icon />
                         </IconButton>
                         <IconButton size="1" variant="ghost" color="gray">
                           <StarIcon />
                         </IconButton>
-                      </TextFieldSlot>
-                    </TextFieldRoot>
+                      </TextField.Slot>
+                    </TextField.Root>
 
-                    <TextFieldRoot size="3">
-                      <TextFieldSlot>
+                    <TextField.Root size="3">
+                      <TextField.Slot>
                         <InfoCircledIcon />
-                      </TextFieldSlot>
-                      <TextFieldInput placeholder="Your name" />
-                      <TextFieldSlot>
+                      </TextField.Slot>
+                      <TextField.Input placeholder="Your name" />
+                      <TextField.Slot>
                         <IconButton size="2" variant="ghost" color="gray">
                           <Share2Icon />
                         </IconButton>
                         <IconButton size="2" variant="ghost" color="gray">
                           <StarIcon />
                         </IconButton>
-                      </TextFieldSlot>
-                    </TextFieldRoot>
+                      </TextField.Slot>
+                    </TextField.Root>
 
-                    <TextFieldRoot size="3">
-                      <TextFieldSlot>
+                    <TextField.Root size="3">
+                      <TextField.Slot>
                         <InfoCircledIcon />
-                      </TextFieldSlot>
-                      <TextFieldInput placeholder="Your name" />
-                      <TextFieldSlot gap="4">
+                      </TextField.Slot>
+                      <TextField.Input placeholder="Your name" />
+                      <TextField.Slot gap="4">
                         <IconButton size="3" variant="ghost" color="gray">
                           <Share2Icon />
                         </IconButton>
                         <IconButton size="3" variant="ghost" color="gray">
                           <StarIcon />
                         </IconButton>
-                      </TextFieldSlot>
-                    </TextFieldRoot>
+                      </TextField.Slot>
+                    </TextField.Root>
                   </Flex>
 
                   <Flex direction="column" align="start" gap="3">
@@ -271,82 +269,82 @@ export default function Test() {
                       Fringe (overrides)
                     </Heading>
 
-                    <TextFieldRoot size="1">
-                      <TextFieldSlot>
+                    <TextField.Root size="1">
+                      <TextField.Slot>
                         <InfoCircledIcon />
-                      </TextFieldSlot>
-                      <TextFieldInput placeholder="Your name" />
-                      <TextFieldSlot pr="0" gap="1">
+                      </TextField.Slot>
+                      <TextField.Input placeholder="Your name" />
+                      <TextField.Slot pr="0" gap="1">
                         <IconButton size="1" variant="soft" color="gray">
                           <Share2Icon />
                         </IconButton>
                         <IconButton size="1" variant="soft" color="gray">
                           <StarIcon />
                         </IconButton>
-                      </TextFieldSlot>
-                    </TextFieldRoot>
+                      </TextField.Slot>
+                    </TextField.Root>
 
-                    <TextFieldRoot size="2">
-                      <TextFieldSlot>
+                    <TextField.Root size="2">
+                      <TextField.Slot>
                         <InfoCircledIcon />
-                      </TextFieldSlot>
-                      <TextFieldInput placeholder="Your name" />
-                      <TextFieldSlot px="1" gap="1">
+                      </TextField.Slot>
+                      <TextField.Input placeholder="Your name" />
+                      <TextField.Slot px="1" gap="1">
                         <IconButton size="1" variant="soft" color="gray">
                           <Share2Icon />
                         </IconButton>
                         <IconButton size="1" variant="soft" color="gray">
                           <StarIcon />
                         </IconButton>
-                      </TextFieldSlot>
-                    </TextFieldRoot>
+                      </TextField.Slot>
+                    </TextField.Root>
 
-                    <TextFieldRoot size="3">
-                      <TextFieldSlot>
+                    <TextField.Root size="3">
+                      <TextField.Slot>
                         <InfoCircledIcon />
-                      </TextFieldSlot>
-                      <TextFieldInput placeholder="Your name" />
-                      <TextFieldSlot px="1" gap="1">
+                      </TextField.Slot>
+                      <TextField.Input placeholder="Your name" />
+                      <TextField.Slot px="1" gap="1">
                         <IconButton size="2" variant="soft">
                           <Share2Icon />
                         </IconButton>
                         <IconButton size="2" variant="soft">
                           <StarIcon />
                         </IconButton>
-                      </TextFieldSlot>
-                    </TextFieldRoot>
+                      </TextField.Slot>
+                    </TextField.Root>
 
-                    <TextFieldRoot size="3">
-                      <TextFieldSlot>
+                    <TextField.Root size="3">
+                      <TextField.Slot>
                         <EnvelopeOpenIcon />
-                      </TextFieldSlot>
-                      <TextFieldInput
+                      </TextField.Slot>
+                      <TextField.Input
                         placeholder="your.email"
                         defaultValue="benoit"
                       />
-                      <TextFieldSlot px="1" gap="2">
+                      <TextField.Slot px="1" gap="2">
                         <Text size="3">@workos.com</Text>
                         <Tooltip content="Send email">
                           <IconButton>
                             <PaperPlaneIcon />
                           </IconButton>
                         </Tooltip>
-                      </TextFieldSlot>
-                    </TextFieldRoot>
+                      </TextField.Slot>
+                    </TextField.Root>
 
-                    <TextFieldRoot size="3">
-                      <TextFieldSlot>
+                    <TextField.Root size="3">
+                      <TextField.Slot>
                         <EnvelopeOpenIcon />
-                      </TextFieldSlot>
-                      <TextFieldInput
+                      </TextField.Slot>
+                      <TextField.Input
                         placeholder="your.email"
                         defaultValue="benoit"
                       />
-                      <TextFieldSlot px="1" gap="2">
+                      <TextField.Slot px="1" gap="2">
                         <Text size="3">@workos.com</Text>
                         <Button>Send</Button>
-                      </TextFieldSlot>
-                    </TextFieldRoot>
+                      </TextField.Slot>
+                    </TextField.Root>
                   </Flex>
                 </Grid>
               </div>

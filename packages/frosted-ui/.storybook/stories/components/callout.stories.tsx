@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Code, Flex, Link, Text } from '../../../src/components';
-import { Callout, CalloutRootProps } from '../../../src/components/callout';
+import { Callout, Code, Flex, Link, Text } from '../../../src/components';
+import { RootProps as CalloutRootProps } from '../../../src/components/callout';
 import { calloutRootPropDefs } from '../../../src/components/callout.props';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export

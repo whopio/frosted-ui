@@ -25,28 +25,17 @@ import {
   Button,
   Card,
   Checkbox,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuRoot,
-  DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
+  DropdownMenu,
   Flex,
   Heading,
   IconButton,
   Inset,
-  PopoverClose,
-  PopoverContent,
-  PopoverRoot,
-  PopoverTrigger,
+  Popover,
   Separator,
   Strong,
   Text,
   TextArea,
-  TextFieldInput,
-  TextFieldRoot,
+  TextField,
   Theme,
   ThemePanel,
 } from 'frosted-ui';
@@ -226,8 +215,8 @@ export default function Dashboard() {
               >
                 <div>
                   <Flex px="2" py="4">
-                    <PopoverRoot>
-                      <PopoverTrigger>
+                    <Popover.Root>
+                      <Popover.Trigger>
                         <Card variant="ghost" style={{ flex: 1 }} asChild>
                           <button className="fui-reset">
                             <Flex gap="3" align="center" justify="between">
@@ -239,8 +228,8 @@ export default function Dashboard() {
                             </Flex>
                           </button>
                         </Card>
-                      </PopoverTrigger>
-                      <PopoverContent size="3" style={{ width: 300 }}>
+                      </Popover.Trigger>
+                      <Popover.Content size="3" style={{ width: 300 }}>
                         <Flex gap="3">
                           <Avatar
                             size="3"
@@ -262,16 +251,16 @@ export default function Dashboard() {
                                 </label>
                               </Flex>
 
-                              <PopoverClose>
+                              <Popover.Close>
                                 <Button autoFocus size="2">
                                   Comment
                                 </Button>
-                              </PopoverClose>
+                              </Popover.Close>
                             </Flex>
                           </Box>
                         </Flex>
-                      </PopoverContent>
-                    </PopoverRoot>
+                      </Popover.Content>
+                    </Popover.Root>
                   </Flex>
                   <Flex direction="column" gap="1" pt="6">
                     <SidebarButton>
@@ -325,8 +314,8 @@ export default function Dashboard() {
                     <Avatar fallback="IM" />
                     <Text>Ilya Miskov</Text>
                   </Flex>
-                  <DropdownMenuRoot>
-                    <DropdownMenuTrigger>
+                  <DropdownMenu.Root>
+                    <DropdownMenu.Trigger>
                       <IconButton variant="surface" size="3">
                         <GearIcon
                           width="20"
@@ -334,32 +323,34 @@ export default function Dashboard() {
                           color="var(--gray-10)"
                         />
                       </IconButton>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" size="2">
-                      <DropdownMenuItem>Sign up</DropdownMenuItem>
-                      <DropdownMenuItem>Log in</DropdownMenuItem>
+                    </DropdownMenu.Trigger>
+                    <DropdownMenu.Content align="end" size="2">
+                      <DropdownMenu.Item>Sign up</DropdownMenu.Item>
+                      <DropdownMenu.Item>Log in</DropdownMenu.Item>
 
-                      <DropdownMenuSeparator />
+                      <DropdownMenu.Separator />
 
-                      <DropdownMenuItem>Air Cover</DropdownMenuItem>
-                      <DropdownMenuItem>Cancellations</DropdownMenuItem>
-                      <DropdownMenuSub>
-                        <DropdownMenuSubTrigger>Hosting</DropdownMenuSubTrigger>
+                      <DropdownMenu.Item>Air Cover</DropdownMenu.Item>
+                      <DropdownMenu.Item>Cancellations</DropdownMenu.Item>
+                      <DropdownMenu.Sub>
+                        <DropdownMenu.SubTrigger>
+                          Hosting
+                        </DropdownMenu.SubTrigger>
 
-                        <DropdownMenuSubContent>
-                          <DropdownMenuItem>Resources</DropdownMenuItem>
-                          <DropdownMenuItem>Community forum</DropdownMenuItem>
-                          <DropdownMenuItem>Hosting guide</DropdownMenuItem>
-                          <DropdownMenuSeparator />
-                          <DropdownMenuItem>Your home</DropdownMenuItem>
-                        </DropdownMenuSubContent>
-                      </DropdownMenuSub>
+                        <DropdownMenu.SubContent>
+                          <DropdownMenu.Item>Resources</DropdownMenu.Item>
+                          <DropdownMenu.Item>Community forum</DropdownMenu.Item>
+                          <DropdownMenu.Item>Hosting guide</DropdownMenu.Item>
+                          <DropdownMenu.Separator />
+                          <DropdownMenu.Item>Your home</DropdownMenu.Item>
+                        </DropdownMenu.SubContent>
+                      </DropdownMenu.Sub>
 
-                      <DropdownMenuSeparator />
+                      <DropdownMenu.Separator />
 
-                      <DropdownMenuItem>Help Centre</DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenuRoot>
+                      <DropdownMenu.Item>Help Centre</DropdownMenu.Item>
+                    </DropdownMenu.Content>
+                  </DropdownMenu.Root>
                 </Flex>
               </Flex>
             </aside>
@@ -380,14 +371,14 @@ export default function Dashboard() {
                   </Box>
                   <Box>
                     <Flex gap="4" align="center">
-                      <TextFieldRoot>
-                        <TextFieldInput
+                      <TextField.Root>
+                        <TextField.Input
                           //   color="gray"
                           placeholder="Search"
                           type="search"
                           size="3"
                         />
-                      </TextFieldRoot>
+                      </TextField.Root>
                       <Separator orientation="vertical" />
                       <Flex gap="4" align="center">
                         <IconButton variant="ghost" color="gray" size="3">

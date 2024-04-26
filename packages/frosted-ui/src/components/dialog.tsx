@@ -193,33 +193,20 @@ const DialogClose = React.forwardRef<DialogCloseElement, DialogCloseProps>(
 );
 DialogClose.displayName = 'DialogClose';
 
-const Dialog = Object.assign(
-  {},
-  {
-    Root: DialogRoot,
-    Trigger: DialogTrigger,
-    Content: DialogContent,
-    Title: DialogTitle,
-    Description: DialogDescription,
-    Close: DialogClose,
-  },
-);
-
 export {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogRoot,
-  DialogTitle,
-  DialogTrigger,
+  DialogClose as Close,
+  DialogContent as Content,
+  DialogDescription as Description,
+  DialogRoot as Root,
+  DialogTitle as Title,
+  DialogTrigger as Trigger,
 };
 
 export type {
-  DialogCloseProps,
-  DialogContentProps,
-  DialogDescriptionProps,
-  DialogRootProps,
-  DialogTitleProps,
-  DialogTriggerProps,
+  DialogCloseProps as CloseProps,
+  DialogContentProps as ContentProps,
+  DialogDescriptionProps as DescriptionProps,
+  DialogRootProps as RootProps,
+  DialogTitleProps as TitleProps,
+  DialogTriggerProps as TriggerProps,
 };

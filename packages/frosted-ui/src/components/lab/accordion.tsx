@@ -142,27 +142,16 @@ const AccordionContent = React.forwardRef<
 ));
 AccordionContent.displayName = 'AccordionContent';
 
-const Accordion = Object.assign(
-  {},
-  {
-    Root: AccordionRoot,
-    Trigger: AccordionTrigger,
-    Content: AccordionContent,
-    Item: AccordionItem,
-  },
-);
-
 export {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionRoot,
-  AccordionTrigger,
+  AccordionContent as Content,
+  AccordionItem as Item,
+  AccordionRoot as Root,
+  AccordionTrigger as Trigger,
 };
 
 export type {
-  AccordionContentProps,
-  AccordionItemProps,
-  AccordionRootProps,
-  AccordionTriggerProps,
+  AccordionContentProps as ContentProps,
+  AccordionItemProps as ItemProps,
+  AccordionRootProps as RootProps,
+  AccordionTriggerProps as TriggerProps,
 };
