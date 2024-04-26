@@ -39,12 +39,7 @@ export { CircularProgress } from './circular-progress';
 export * from './circular-progress.props';
 export { Progress } from './progress';
 export * from './progress.props';
-export {
-  RadioButtonGroup,
-  RadioButtonGroupIcon,
-  RadioButtonGroupItem,
-  RadioButtonGroupRoot,
-} from './radio-button-group';
+export * as RadioButtonGroup from './radio-button-group';
 export * from './radio-button-group.props';
 export * as RadioGroup from './radio-group';
 export * from './radio-group.props';
