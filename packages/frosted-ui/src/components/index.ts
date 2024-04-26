@@ -93,16 +93,7 @@ export {
 
 // OVERLAYS
 //------------------------------------------------------------------------------
-export {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogRoot,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from './alert-dialog';
+export * as AlertDialog from './alert-dialog';
 export * from './alert-dialog.props';
 export {
   ContextMenu,

@@ -1,11 +1,5 @@
 import {
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogRoot,
-  AlertDialogTitle,
-  AlertDialogTrigger,
+  AlertDialog,
   AspectRatio,
   Box,
   Button,
@@ -191,33 +185,33 @@ export default function Test() {
                       </div>
 
                       <div>
-                        <AlertDialogRoot>
-                          <AlertDialogTrigger>
+                        <AlertDialog.Root>
+                          <AlertDialog.Trigger>
                             <Button>Alert Dialog</Button>
-                          </AlertDialogTrigger>
-                          <AlertDialogContent style={{ maxWidth: 450 }}>
-                            <AlertDialogTitle>Delete Users</AlertDialogTitle>
-                            <AlertDialogDescription>
+                          </AlertDialog.Trigger>
+                          <AlertDialog.Content style={{ maxWidth: 450 }}>
+                            <AlertDialog.Title>Delete Users</AlertDialog.Title>
+                            <AlertDialog.Description>
                               Are you sure you want to delete the following
                               users? This action cannot be undone.
-                            </AlertDialogDescription>
+                            </AlertDialog.Description>
 
                             <Inset side="x" my="5">
                               <TableExample />
                             </Inset>
 
                             <Flex gap="3" justify="end">
-                              <AlertDialogCancel>
+                              <AlertDialog.Cancel>
                                 <Button variant="soft" color="gray">
                                   Cancel
                                 </Button>
-                              </AlertDialogCancel>
-                              <AlertDialogAction>
+                              </AlertDialog.Cancel>
+                              <AlertDialog.Action>
                                 <Button color="red">Revoke link</Button>
-                              </AlertDialogAction>
+                              </AlertDialog.Action>
                             </Flex>
-                          </AlertDialogContent>
-                        </AlertDialogRoot>
+                          </AlertDialog.Content>
+                        </AlertDialog.Root>
                       </div>
                     </Grid>
                   </Grid>

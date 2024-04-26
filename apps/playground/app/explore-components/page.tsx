@@ -7,14 +7,7 @@ import {
   StarIcon,
 } from '@radix-ui/react-icons';
 import {
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  //
-  AlertDialogRoot,
-  AlertDialogTitle,
-  AlertDialogTrigger,
+  AlertDialog,
   //
   AspectRatio,
   //
@@ -192,109 +185,111 @@ export default function ExploreComponents() {
                   </Link>
                 </Heading>
                 <Flex gap="4" align="center" mb="9">
-                  <AlertDialogRoot>
-                    <AlertDialogTrigger>
+                  <AlertDialog.Root>
+                    <AlertDialog.Trigger>
                       <Button size="1">Open</Button>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent size="1" style={{ width: 300 }}>
-                      <AlertDialogTitle size="2" mb="1">
+                    </AlertDialog.Trigger>
+                    <AlertDialog.Content size="1" style={{ width: 300 }}>
+                      <AlertDialog.Title size="2" mb="1">
                         Revoke access
-                      </AlertDialogTitle>
-                      <AlertDialogDescription size="1" mb="3">
+                      </AlertDialog.Title>
+                      <AlertDialog.Description size="1" mb="3">
                         Are you sure? This application will no longer be
                         accessible and any existing sessions will be expired.
-                      </AlertDialogDescription>
+                      </AlertDialog.Description>
 
                       <Flex gap="2" mt="3" justify="end">
-                        <AlertDialogCancel>
+                        <AlertDialog.Cancel>
                           <Button size="1" variant="soft" color="gray">
                             Cancel
                           </Button>
-                        </AlertDialogCancel>
-                        <AlertDialogAction>
+                        </AlertDialog.Cancel>
+                        <AlertDialog.Action>
                           <Button size="1" color="red">
                             Revoke
                           </Button>
-                        </AlertDialogAction>
+                        </AlertDialog.Action>
                       </Flex>
-                    </AlertDialogContent>
-                  </AlertDialogRoot>
+                    </AlertDialog.Content>
+                  </AlertDialog.Root>
 
-                  <AlertDialogRoot>
-                    <AlertDialogTrigger>
+                  <AlertDialog.Root>
+                    <AlertDialog.Trigger>
                       <Button size="2">Open</Button>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent size="2" style={{ width: 400 }}>
-                      <AlertDialogTitle mb="2">Revoke access</AlertDialogTitle>
-                      <AlertDialogDescription size="2" mb="4">
-                        Are you sure? This application will no longer be
-                        accessible and any existing sessions will be expired.
-                      </AlertDialogDescription>
-
-                      <Flex gap="3" mt="4" justify="end">
-                        <AlertDialogCancel>
-                          <Button variant="soft" color="gray">
-                            Cancel
-                          </Button>
-                        </AlertDialogCancel>
-                        <AlertDialogAction>
-                          <Button color="red">Revoke</Button>
-                        </AlertDialogAction>
-                      </Flex>
-                    </AlertDialogContent>
-                  </AlertDialogRoot>
-
-                  <AlertDialogRoot>
-                    <AlertDialogTrigger>
-                      <Button size="3">Open</Button>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent size="3" style={{ width: 400 }}>
-                      <AlertDialogTitle>Revoke access</AlertDialogTitle>
-                      <AlertDialogDescription size="2" mb="4">
-                        Are you sure? This application will no longer be
-                        accessible and any existing sessions will be expired.
-                      </AlertDialogDescription>
-
-                      <Flex gap="3" mt="4" justify="end">
-                        <AlertDialogCancel>
-                          <Button variant="soft" color="gray">
-                            Cancel
-                          </Button>
-                        </AlertDialogCancel>
-                        <AlertDialogAction>
-                          <Button color="red">Revoke</Button>
-                        </AlertDialogAction>
-                      </Flex>
-                    </AlertDialogContent>
-                  </AlertDialogRoot>
-
-                  <AlertDialogRoot>
-                    <AlertDialogTrigger>
-                      <Button size="4">Open</Button>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent size="4" style={{ width: 450 }}>
-                      <AlertDialogTitle size="6">
+                    </AlertDialog.Trigger>
+                    <AlertDialog.Content size="2" style={{ width: 400 }}>
+                      <AlertDialog.Title mb="2">
                         Revoke access
-                      </AlertDialogTitle>
-                      <AlertDialogDescription size="3" mb="5">
+                      </AlertDialog.Title>
+                      <AlertDialog.Description size="2" mb="4">
                         Are you sure? This application will no longer be
                         accessible and any existing sessions will be expired.
-                      </AlertDialogDescription>
+                      </AlertDialog.Description>
+
+                      <Flex gap="3" mt="4" justify="end">
+                        <AlertDialog.Cancel>
+                          <Button variant="soft" color="gray">
+                            Cancel
+                          </Button>
+                        </AlertDialog.Cancel>
+                        <AlertDialog.Action>
+                          <Button color="red">Revoke</Button>
+                        </AlertDialog.Action>
+                      </Flex>
+                    </AlertDialog.Content>
+                  </AlertDialog.Root>
+
+                  <AlertDialog.Root>
+                    <AlertDialog.Trigger>
+                      <Button size="3">Open</Button>
+                    </AlertDialog.Trigger>
+                    <AlertDialog.Content size="3" style={{ width: 400 }}>
+                      <AlertDialog.Title>Revoke access</AlertDialog.Title>
+                      <AlertDialog.Description size="2" mb="4">
+                        Are you sure? This application will no longer be
+                        accessible and any existing sessions will be expired.
+                      </AlertDialog.Description>
+
+                      <Flex gap="3" mt="4" justify="end">
+                        <AlertDialog.Cancel>
+                          <Button variant="soft" color="gray">
+                            Cancel
+                          </Button>
+                        </AlertDialog.Cancel>
+                        <AlertDialog.Action>
+                          <Button color="red">Revoke</Button>
+                        </AlertDialog.Action>
+                      </Flex>
+                    </AlertDialog.Content>
+                  </AlertDialog.Root>
+
+                  <AlertDialog.Root>
+                    <AlertDialog.Trigger>
+                      <Button size="4">Open</Button>
+                    </AlertDialog.Trigger>
+                    <AlertDialog.Content size="4" style={{ width: 450 }}>
+                      <AlertDialog.Title size="6">
+                        Revoke access
+                      </AlertDialog.Title>
+                      <AlertDialog.Description size="3" mb="5">
+                        Are you sure? This application will no longer be
+                        accessible and any existing sessions will be expired.
+                      </AlertDialog.Description>
 
                       <Flex gap="3" mt="5" justify="end">
-                        <AlertDialogCancel>
+                        <AlertDialog.Cancel>
                           <Button size="3" variant="soft" color="gray">
                             Cancel
                           </Button>
-                        </AlertDialogCancel>
-                        <AlertDialogAction>
+                        </AlertDialog.Cancel>
+                        <AlertDialog.Action>
                           <Button size="3" color="red">
                             Revoke
                           </Button>
-                        </AlertDialogAction>
+                        </AlertDialog.Action>
                       </Flex>
-                    </AlertDialogContent>
-                  </AlertDialogRoot>
+                    </AlertDialog.Content>
+                  </AlertDialog.Root>
                 </Flex>
 
                 <Heading id="aspect-ratio" mb="5">

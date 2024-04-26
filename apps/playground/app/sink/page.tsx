@@ -9,14 +9,7 @@ import {
   StarIcon,
 } from '@radix-ui/react-icons';
 import {
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  //
-  AlertDialogRoot,
-  AlertDialogTitle,
-  AlertDialogTrigger,
+  AlertDialog,
   //
   AspectRatio,
   //
@@ -316,33 +309,33 @@ export default function Sink() {
                         </DocsGridSectionItem>
 
                         <DocsGridSectionItem title="AlertDialog">
-                          <AlertDialogRoot>
-                            <AlertDialogTrigger>
+                          <AlertDialog.Root>
+                            <AlertDialog.Trigger>
                               <Button>Open</Button>
-                            </AlertDialogTrigger>
-                            <AlertDialogContent style={{ maxWidth: 450 }}>
+                            </AlertDialog.Trigger>
+                            <AlertDialog.Content style={{ maxWidth: 450 }}>
                               <Flex direction="column" gap="3">
-                                <AlertDialogTitle>
+                                <AlertDialog.Title>
                                   Revoke setup link
-                                </AlertDialogTitle>
-                                <AlertDialogDescription>
+                                </AlertDialog.Title>
+                                <AlertDialog.Description>
                                   The setup link will no longer be accessible
                                   and any existing setup sessions will be
                                   revoked.
-                                </AlertDialogDescription>
+                                </AlertDialog.Description>
                                 <Flex gap="3" mt="4" justify="end">
-                                  <AlertDialogCancel>
+                                  <AlertDialog.Cancel>
                                     <Button variant="soft" color="gray">
                                       Cancel
                                     </Button>
-                                  </AlertDialogCancel>
-                                  <AlertDialogAction>
+                                  </AlertDialog.Cancel>
+                                  <AlertDialog.Action>
                                     <Button color="red">Revoke link</Button>
-                                  </AlertDialogAction>
+                                  </AlertDialog.Action>
                                 </Flex>
                               </Flex>
-                            </AlertDialogContent>
-                          </AlertDialogRoot>
+                            </AlertDialog.Content>
+                          </AlertDialog.Root>
                         </DocsGridSectionItem>
 
                         <DocsGridSectionItem title="Popover">
