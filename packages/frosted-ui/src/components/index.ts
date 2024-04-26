@@ -112,13 +112,7 @@ export * as Callout from './callout';
 export * from './callout.props';
 export { Card } from './card';
 export * from './card.props';
-export {
-  Breadcrumbs,
-  BreadcrumbsDropdown,
-  BreadcrumbsDropdownItem,
-  BreadcrumbsItem,
-  BreadcrumbsRoot,
-} from './lab/breadcrumbs';
+export * as Breadcrumbs from './lab/breadcrumbs';
 export * from './lab/breadcrumbs.props';
 // export * from './collapsible';
 // export * from './definition-list';

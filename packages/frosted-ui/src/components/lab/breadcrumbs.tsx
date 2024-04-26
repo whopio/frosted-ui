@@ -133,9 +133,9 @@ const BreadcrumbsDropdown = React.forwardRef<
 >(({ color, highContrast, ...props }, forwardedRef) => (
   <DropdownMenu.Root>
     <DropdownMenu.Trigger>
-      <Breadcrumbs.Item color={color} highContrast={highContrast}>
+      <BreadcrumbsItem color={color} highContrast={highContrast}>
         ...
-      </Breadcrumbs.Item>
+      </BreadcrumbsItem>
     </DropdownMenu.Trigger>
     <DropdownMenu.Content
       {...props}
@@ -167,27 +167,16 @@ const BreadcrumbsDropdownItem = React.forwardRef<
 
 BreadcrumbsDropdownItem.displayName = 'BreadcrumbsDropdownItem';
 
-const Breadcrumbs = Object.assign(
-  {},
-  {
-    Root: BreadcrumbsRoot,
-    Item: BreadcrumbsItem,
-    Dropdown: BreadcrumbsDropdown,
-    DropdownItem: BreadcrumbsDropdownItem,
-  },
-);
-
 export {
-  Breadcrumbs,
-  BreadcrumbsDropdown,
-  BreadcrumbsDropdownItem,
-  BreadcrumbsItem,
-  BreadcrumbsRoot,
+  BreadcrumbsDropdown as Dropdown,
+  BreadcrumbsDropdownItem as DropdownItem,
+  BreadcrumbsItem as Item,
+  BreadcrumbsRoot as Root,
 };
 
 export type {
-  BreadcrumbsDropdownItemProps,
-  BreadcrumbsDropdownProps,
-  BreadcrumbsItemProps,
-  BreadcrumbsRootProps,
+  BreadcrumbsDropdownItemProps as DropdownItemProps,
+  BreadcrumbsDropdownProps as DropdownProps,
+  BreadcrumbsItemProps as ItemProps,
+  BreadcrumbsRootProps as RootProps,
 };
