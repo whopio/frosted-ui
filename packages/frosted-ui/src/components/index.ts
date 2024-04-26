@@ -82,12 +82,7 @@ export * from './dialog.props';
 export * as Drawer from './drawer';
 export * as DropdownMenu from './dropdown-menu';
 export * from './dropdown-menu.props';
-export {
-  HoverCard,
-  HoverCardContent,
-  HoverCardRoot,
-  HoverCardTrigger,
-} from './hover-card';
+export * as HoverCard from './hover-card';
 export * from './hover-card.props';
 export {
   Accordion,

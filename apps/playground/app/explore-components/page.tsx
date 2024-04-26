@@ -39,10 +39,7 @@ import {
   Grid,
   //
   Heading,
-  HoverCardContent,
-  //
-  HoverCardRoot,
-  HoverCardTrigger,
+  HoverCard,
   //
   IconButton,
   //
@@ -2227,12 +2224,12 @@ export default function ExploreComponents() {
                   {hoverCardContentPropDefs.size.values.map((size) => (
                     <Text key={size} size={size}>
                       Technology revolutionized{' '}
-                      <HoverCardRoot>
-                        <HoverCardTrigger>
+                      <HoverCard.Root>
+                        <HoverCard.Trigger>
                           <Link href="#">typography</Link>
-                        </HoverCardTrigger>
+                        </HoverCard.Trigger>
 
-                        <HoverCardContent size={size} side="top">
+                        <HoverCard.Content size={size} side="top">
                           <Flex>
                             <Inset side="left" pr="current">
                               <InsetImage style={{ width: 120 }} />
@@ -2248,8 +2245,8 @@ export default function ExploreComponents() {
                               displayed.
                             </Text>
                           </Flex>
-                        </HoverCardContent>
-                      </HoverCardRoot>{' '}
+                        </HoverCard.Content>
+                      </HoverCard.Root>{' '}
                       in the latter twentieth century.
                     </Text>
                   ))}

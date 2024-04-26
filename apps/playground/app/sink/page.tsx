@@ -43,10 +43,7 @@ import {
   Grid,
   //
   Heading,
-  HoverCardContent,
-  //
-  HoverCardRoot,
-  HoverCardTrigger,
+  HoverCard,
   //
   IconButton,
   //
@@ -241,19 +238,19 @@ export default function Sink() {
                         </DocsGridSectionItem>
 
                         <DocsGridSectionItem title="HoverCard">
-                          <HoverCardRoot>
-                            <HoverCardTrigger>
+                          <HoverCard.Root>
+                            <HoverCard.Trigger>
                               <Link>A fancy link</Link>
-                            </HoverCardTrigger>
-                            <HoverCardContent style={{ width: 200 }}>
+                            </HoverCard.Trigger>
+                            <HoverCard.Content style={{ width: 200 }}>
                               <Text as="p" size="2">
                                 Jan Tschichold was a German calligrapher,
                                 typographer and book designer. He played a
                                 significant role in the development of graphic
                                 design in the 20th century.
                               </Text>
-                            </HoverCardContent>
-                          </HoverCardRoot>
+                            </HoverCard.Content>
+                          </HoverCard.Root>
                         </DocsGridSectionItem>
 
                         <DocsGridSectionItem title="Tooltip">

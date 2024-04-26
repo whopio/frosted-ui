@@ -8,9 +8,7 @@ import {
   Dialog,
   Flex,
   Grid,
-  HoverCardContent,
-  HoverCardRoot,
-  HoverCardTrigger,
+  HoverCard,
   Inset,
   Link,
   PopoverContent,
@@ -127,11 +125,11 @@ export default function Test() {
                       </div>
 
                       <div>
-                        <HoverCardRoot>
-                          <HoverCardTrigger>
+                        <HoverCard.Root>
+                          <HoverCard.Trigger>
                             <Link>Hover Card</Link>
-                          </HoverCardTrigger>
-                          <HoverCardContent style={{ width: 400 }}>
+                          </HoverCard.Trigger>
+                          <HoverCard.Content style={{ width: 400 }}>
                             <Flex>
                               <Inset side="left" pr="current">
                                 {image}
@@ -145,8 +143,8 @@ export default function Test() {
                                 </Text>
                               </div>
                             </Flex>
-                          </HoverCardContent>
-                        </HoverCardRoot>
+                          </HoverCard.Content>
+                        </HoverCard.Root>
                       </div>
 
                       <div>
