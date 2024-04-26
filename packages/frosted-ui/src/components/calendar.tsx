@@ -30,8 +30,8 @@ import {
 import classNames from 'classnames';
 import React, { useRef } from 'react';
 
+import { Select } from '../';
 import { IconButton } from './icon-button';
-import { Select } from './select';
 
 export type MappedDateValue<T> = T extends ZonedDateTime
   ? ZonedDateTime
