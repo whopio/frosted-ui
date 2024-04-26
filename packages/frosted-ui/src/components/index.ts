@@ -108,7 +108,7 @@ export { Blockquote } from './blockquote';
 export * from './blockquote.props';
 export { Button } from './button';
 export * from './button.props';
-export { Callout, CalloutIcon, CalloutRoot, CalloutText } from './callout';
+export * as Callout from './callout';
 export * from './callout.props';
 export { Card } from './card';
 export * from './card.props';

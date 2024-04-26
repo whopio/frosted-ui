@@ -22,10 +22,7 @@ import {
   Box,
   //
   Button,
-  CalloutIcon,
-  //
-  CalloutRoot,
-  CalloutText,
+  Callout,
   //
   Card,
   //
@@ -3585,30 +3582,30 @@ export default function Sink() {
                           <tr key={variant}>
                             <RowHeaderCell>{variant}</RowHeaderCell>
                             <td style={{ width: 450 }}>
-                              <CalloutRoot variant={variant}>
-                                <CalloutIcon>
+                              <Callout.Root variant={variant}>
+                                <Callout.Icon>
                                   <InfoCircledIcon />
-                                </CalloutIcon>
-                                <CalloutText>
+                                </Callout.Icon>
+                                <Callout.Text>
                                   We have detected multiple issues in your
                                   application configuration file. Please read
                                   our <Link href="/">Configuration Guide</Link>{' '}
                                   for more details.
-                                </CalloutText>
-                              </CalloutRoot>
+                                </Callout.Text>
+                              </Callout.Root>
                             </td>
                             <td style={{ width: 450 }}>
-                              <CalloutRoot variant={variant} highContrast>
-                                <CalloutIcon>
+                              <Callout.Root variant={variant} highContrast>
+                                <Callout.Icon>
                                   <InfoCircledIcon />
-                                </CalloutIcon>
-                                <CalloutText>
+                                </Callout.Icon>
+                                <Callout.Text>
                                   We have detected multiple issues in your
                                   application configuration file. Please read
                                   our <Link href="/">Configuration Guide</Link>{' '}
                                   for more details.
-                                </CalloutText>
-                              </CalloutRoot>
+                                </Callout.Text>
+                              </Callout.Root>
                             </td>
                           </tr>
                         ))}
@@ -3621,33 +3618,33 @@ export default function Sink() {
                           <tr key={size}>
                             <RowHeaderCell>size {size}</RowHeaderCell>
                             <td style={{ width: 450 }}>
-                              <CalloutRoot size={size}>
-                                <CalloutIcon>
+                              <Callout.Root size={size}>
+                                <Callout.Icon>
                                   <InfoCircledIcon
                                     width={size === '3' ? 20 : 15}
                                     height={size === '3' ? 20 : 15}
                                   />
-                                </CalloutIcon>
-                                <CalloutText>
+                                </Callout.Icon>
+                                <Callout.Text>
                                   We have detected multiple issues in your
                                   application configuration file. Please read
                                   our <Link href="/">Configuration Guide</Link>{' '}
                                   for more details.
-                                </CalloutText>
-                              </CalloutRoot>
+                                </Callout.Text>
+                              </Callout.Root>
                             </td>
                             <td style={{ width: 450 }}>
-                              <CalloutRoot size={size}>
-                                <CalloutIcon>
+                              <Callout.Root size={size}>
+                                <Callout.Icon>
                                   <InfoCircledIcon
                                     width={size === '3' ? 20 : 15}
                                     height={size === '3' ? 20 : 15}
                                   />
-                                </CalloutIcon>
-                                <CalloutText>
+                                </Callout.Icon>
+                                <Callout.Text>
                                   There was an error in your configuration.
-                                </CalloutText>
-                              </CalloutRoot>
+                                </Callout.Text>
+                              </Callout.Root>
                             </td>
                           </tr>
                         ))}
@@ -3694,15 +3691,15 @@ export default function Sink() {
                                           align="start"
                                           gap="2"
                                         >
-                                          <CalloutRoot
+                                          <Callout.Root
                                             variant={variant}
                                             color={color}
                                           >
-                                            <CalloutIcon>
+                                            <Callout.Icon>
                                               <InfoCircledIcon />
-                                            </CalloutIcon>
+                                            </Callout.Icon>
                                             <Flex gap="3">
-                                              <CalloutText>
+                                              <Callout.Text>
                                                 We have detected multiple issues
                                                 in your application
                                                 configuration file. Please read
@@ -3711,7 +3708,7 @@ export default function Sink() {
                                                   Configuration Guide
                                                 </Link>{' '}
                                                 for more details.
-                                              </CalloutText>
+                                              </Callout.Text>
                                               <IconButton
                                                 size="1"
                                                 variant="soft"
@@ -3719,16 +3716,16 @@ export default function Sink() {
                                                 <Cross1Icon />
                                               </IconButton>
                                             </Flex>
-                                          </CalloutRoot>
-                                          <CalloutRoot
+                                          </Callout.Root>
+                                          <Callout.Root
                                             variant={variant}
                                             color={color}
                                             highContrast
                                           >
-                                            <CalloutIcon>
+                                            <Callout.Icon>
                                               <InfoCircledIcon />
-                                            </CalloutIcon>
-                                            <CalloutText>
+                                            </Callout.Icon>
+                                            <Callout.Text>
                                               We have detected multiple issues
                                               in your application configuration
                                               file. Please read our{' '}
@@ -3736,8 +3733,8 @@ export default function Sink() {
                                                 Configuration Guide
                                               </Link>{' '}
                                               for more details.
-                                            </CalloutText>
-                                          </CalloutRoot>
+                                            </Callout.Text>
+                                          </Callout.Root>
                                         </Flex>
                                       </td>
                                     ),
@@ -3765,59 +3762,59 @@ export default function Sink() {
                       >
                         {calloutRootPropDefs.size.values.map((size) => (
                           <React.Fragment key={size}>
-                            <CalloutRoot size={size}>
-                              <CalloutText trim="both">
+                            <Callout.Root size={size}>
+                              <Callout.Text trim="both">
                                 We have detected multiple issues in your
                                 application configuration file. Please read our{' '}
                                 <Link href="/">Configuration Guide</Link> for
                                 more details.
-                              </CalloutText>
-                            </CalloutRoot>
+                              </Callout.Text>
+                            </Callout.Root>
 
-                            <CalloutRoot size={size}>
-                              <CalloutText trim="start">
+                            <Callout.Root size={size}>
+                              <Callout.Text trim="start">
                                 There was an error in your configuration.
-                              </CalloutText>
-                              <CalloutText trim="end">
+                              </Callout.Text>
+                              <Callout.Text trim="end">
                                 We have detected multiple issues in your
                                 application configuration file. Please read our{' '}
                                 <Link href="/">Configuration Guide</Link> for
                                 more details.
-                              </CalloutText>
-                            </CalloutRoot>
+                              </Callout.Text>
+                            </Callout.Root>
 
-                            <CalloutRoot size={size}>
-                              <CalloutIcon>
+                            <Callout.Root size={size}>
+                              <Callout.Icon>
                                 <InfoCircledIcon
                                   width={size === '3' ? 20 : 15}
                                   height={size === '3' ? 20 : 15}
                                 />
-                              </CalloutIcon>
-                              <CalloutText>
+                              </Callout.Icon>
+                              <Callout.Text>
                                 We have detected multiple issues in your
                                 application configuration file. Please read our{' '}
                                 <Link href="/">Configuration Guide</Link> for
                                 more details.
-                              </CalloutText>
-                            </CalloutRoot>
+                              </Callout.Text>
+                            </Callout.Root>
 
-                            <CalloutRoot size={size}>
-                              <CalloutIcon>
+                            <Callout.Root size={size}>
+                              <Callout.Icon>
                                 <InfoCircledIcon
                                   width={size === '3' ? 20 : 15}
                                   height={size === '3' ? 20 : 15}
                                 />
-                              </CalloutIcon>
-                              <CalloutText>
+                              </Callout.Icon>
+                              <Callout.Text>
                                 There was an error in your configuration.
-                              </CalloutText>
-                              <CalloutText>
+                              </Callout.Text>
+                              <Callout.Text>
                                 We have detected multiple issues in your
                                 application configuration file. Please read our{' '}
                                 <Link href="/">Configuration Guide</Link> for
                                 more details.
-                              </CalloutText>
-                            </CalloutRoot>
+                              </Callout.Text>
+                            </Callout.Root>
 
                             <Separator />
                           </React.Fragment>

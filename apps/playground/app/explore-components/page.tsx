@@ -20,10 +20,7 @@ import {
   Box,
   //
   Button,
-  CalloutIcon,
-  //
-  CalloutRoot,
-  CalloutText,
+  Callout,
   //
   Card,
   //
@@ -117,7 +114,7 @@ import {
   textPropDefs,
   //
   // helpers:
-  themeAccentColorsOrdered
+  themeAccentColorsOrdered,
 } from 'frosted-ui';
 import * as React from 'react';
 import { NextThemeProvider } from '../next-theme-provider';
@@ -900,53 +897,53 @@ export default function ExploreComponents() {
                             <tr key={variant}>
                               <td>{upperFirst(variant)}</td>
                               <td>
-                                <CalloutRoot variant={variant}>
-                                  <CalloutIcon>
+                                <Callout.Root variant={variant}>
+                                  <Callout.Icon>
                                     <InfoCircledIcon width="16" height="16" />
-                                  </CalloutIcon>
-                                  <CalloutText>
+                                  </Callout.Icon>
+                                  <Callout.Text>
                                     Please <Link href="#">upgrade</Link> to the
                                     new version.
-                                  </CalloutText>
-                                </CalloutRoot>
-                                <CalloutRoot
+                                  </Callout.Text>
+                                </Callout.Root>
+                                <Callout.Root
                                   variant={variant}
                                   highContrast
                                   mt="4"
                                 >
-                                  <CalloutIcon>
+                                  <Callout.Icon>
                                     <InfoCircledIcon width="16" height="16" />
-                                  </CalloutIcon>
-                                  <CalloutText>
+                                  </Callout.Icon>
+                                  <Callout.Text>
                                     Please <Link href="#">upgrade</Link> to the
                                     new version.
-                                  </CalloutText>
-                                </CalloutRoot>
+                                  </Callout.Text>
+                                </Callout.Root>
                               </td>
                               <td>
-                                <CalloutRoot variant={variant} color="gray">
-                                  <CalloutIcon>
+                                <Callout.Root variant={variant} color="gray">
+                                  <Callout.Icon>
                                     <InfoCircledIcon width="16" height="16" />
-                                  </CalloutIcon>
-                                  <CalloutText>
+                                  </Callout.Icon>
+                                  <Callout.Text>
                                     Please <Link href="#">upgrade</Link> to the
                                     new version.
-                                  </CalloutText>
-                                </CalloutRoot>
-                                <CalloutRoot
+                                  </Callout.Text>
+                                </Callout.Root>
+                                <Callout.Root
                                   variant={variant}
                                   color="gray"
                                   highContrast
                                   mt="4"
                                 >
-                                  <CalloutIcon>
+                                  <Callout.Icon>
                                     <InfoCircledIcon width="16" height="16" />
-                                  </CalloutIcon>
-                                  <CalloutText>
+                                  </Callout.Icon>
+                                  <Callout.Text>
                                     Please <Link href="#">upgrade</Link> to the
                                     new version.
-                                  </CalloutText>
-                                </CalloutRoot>
+                                  </Callout.Text>
+                                </Callout.Root>
                               </td>
                             </tr>
                           ))}
@@ -975,38 +972,38 @@ export default function ExploreComponents() {
                               {calloutRootPropDefs.variant.values.map(
                                 (variant) => (
                                   <td key={variant}>
-                                    <CalloutRoot
+                                    <Callout.Root
                                       variant={variant}
                                       color={color}
                                     >
-                                      <CalloutIcon>
+                                      <Callout.Icon>
                                         <InfoCircledIcon
                                           width="16"
                                           height="16"
                                         />
-                                      </CalloutIcon>
-                                      <CalloutText>
+                                      </Callout.Icon>
+                                      <Callout.Text>
                                         Please <Link href="#">upgrade</Link> to
                                         the new version.
-                                      </CalloutText>
-                                    </CalloutRoot>
-                                    <CalloutRoot
+                                      </Callout.Text>
+                                    </Callout.Root>
+                                    <Callout.Root
                                       variant={variant}
                                       color={color}
                                       highContrast
                                       mt="4"
                                     >
-                                      <CalloutIcon>
+                                      <Callout.Icon>
                                         <InfoCircledIcon
                                           width="16"
                                           height="16"
                                         />
-                                      </CalloutIcon>
-                                      <CalloutText>
+                                      </Callout.Icon>
+                                      <Callout.Text>
                                         Please <Link href="#">upgrade</Link> to
                                         the new version.
-                                      </CalloutText>
-                                    </CalloutRoot>
+                                      </Callout.Text>
+                                    </Callout.Root>
                                   </td>
                                 ),
                               )}
@@ -1040,20 +1037,20 @@ export default function ExploreComponents() {
                                 (variant) => (
                                   <td key={variant}>
                                     <Flex>
-                                      <CalloutRoot
+                                      <Callout.Root
                                         variant={variant}
                                         size={size}
                                       >
-                                        <CalloutIcon>
+                                        <Callout.Icon>
                                           <InfoCircledIcon
                                             {...calloutSizeToIconSize(size)}
                                           />
-                                        </CalloutIcon>
-                                        <CalloutText>
+                                        </Callout.Icon>
+                                        <Callout.Text>
                                           Please <Link href="#">upgrade</Link>{' '}
                                           to the new version.
-                                        </CalloutText>
-                                      </CalloutRoot>
+                                        </Callout.Text>
+                                      </Callout.Root>
                                     </Flex>
                                   </td>
                                 ),
