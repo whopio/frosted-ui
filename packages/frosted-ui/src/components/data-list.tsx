@@ -130,20 +130,15 @@ const DataListValue = React.forwardRef<
 ));
 DataListValue.displayName = 'DataList.Value';
 
-const DataList = Object.assign(
-  {},
-  {
-    Root: DataListRoot,
-    Item: DataListItem,
-    Label: DataListLabel,
-    Value: DataListValue,
-  },
-);
-
-export { DataList, DataListItem, DataListLabel, DataListRoot, DataListValue };
+export {
+  DataListItem as Item,
+  DataListLabel as Label,
+  DataListRoot as Root,
+  DataListValue as Value,
+};
 export type {
-  DataListItemProps,
-  DataListLabelProps,
-  DataListRootProps,
-  DataListValueProps,
+  DataListItemProps as ItemProps,
+  DataListLabelProps as LabelProps,
+  DataListRootProps as RootProps,
+  DataListValueProps as ValueProps,
 };

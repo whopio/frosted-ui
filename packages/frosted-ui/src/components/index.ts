@@ -130,13 +130,7 @@ export * as SegmentedControlNav from './segmented-control-nav';
 export * from './segmented-control-nav.props';
 export * as SegmentedControlRadioGroup from './segmented-control-radio-group';
 
-export {
-  DataList,
-  DataListItem,
-  DataListLabel,
-  DataListRoot,
-  DataListValue,
-} from './data-list';
+export * as DataList from './data-list';
 
 export * from './data-list.props';
 export { Separator } from './separator';
