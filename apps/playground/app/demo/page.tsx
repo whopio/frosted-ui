@@ -11,10 +11,7 @@ import {
   DialogTrigger,
   Flex,
   IconButton,
-  SelectContent,
-  SelectItem,
-  SelectRoot,
-  SelectTrigger,
+  Select,
   Separator,
   Text,
   TextFieldInput,
@@ -65,17 +62,19 @@ export default function Demo() {
                       <Text size="1" weight="bold" color="gray" mb="1">
                         Role
                       </Text>
-                      <SelectRoot defaultValue={user.role}>
-                        <SelectTrigger />
-                        <SelectContent variant="soft" color="gray">
-                          <SelectItem value="viewer">Viewer</SelectItem>
-                          <SelectItem value="maintainer">Maintainer</SelectItem>
-                          <SelectItem value="contributor">
+                      <Select.Root defaultValue={user.role}>
+                        <Select.Trigger />
+                        <Select.Content variant="soft" color="gray">
+                          <Select.Item value="viewer">Viewer</Select.Item>
+                          <Select.Item value="maintainer">
+                            Maintainer
+                          </Select.Item>
+                          <Select.Item value="contributor">
                             Contributor
-                          </SelectItem>
-                          <SelectItem value="admin">Admin</SelectItem>
-                        </SelectContent>
-                      </SelectRoot>
+                          </Select.Item>
+                          <Select.Item value="admin">Admin</Select.Item>
+                        </Select.Content>
+                      </Select.Root>
 
                       <Flex justify="end" gap="3" mt="5">
                         <DialogClose>

@@ -88,14 +88,7 @@ import {
   RadioGroup,
   //
   ScrollArea,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  //
-  SelectRoot,
-  SelectSeparator,
-  SelectTrigger,
+  Select,
   //
   Separator,
   //
@@ -584,58 +577,61 @@ export default function Sink() {
                             <RowHeaderCell>{variant}</RowHeaderCell>
                             {selectRootPropDefs.size.values.map((size) => (
                               <td key={size}>
-                                <SelectRoot defaultValue="apple" size={size}>
-                                  <SelectTrigger variant={variant} />
-                                  <SelectContent>
+                                <Select.Root defaultValue="apple" size={size}>
+                                  <Select.Trigger variant={variant} />
+                                  <Select.Content>
                                     <SelectItemsDemo />
-                                  </SelectContent>
-                                </SelectRoot>
+                                  </Select.Content>
+                                </Select.Root>
                               </td>
                             ))}
                             <td>
-                              <SelectRoot size="2">
-                                <SelectTrigger
+                              <Select.Root size="2">
+                                <Select.Trigger
                                   variant={variant}
                                   placeholder="Choose a fruit"
                                 />
-                                <SelectContent>
+                                <Select.Content>
                                   <SelectItemsDemo />
-                                </SelectContent>
-                              </SelectRoot>
+                                </Select.Content>
+                              </Select.Root>
                             </td>
                             <td />
                             <td>
-                              <SelectRoot defaultValue="apple" size="2">
-                                <SelectTrigger variant={variant} color="gray" />
-                                <SelectContent>
+                              <Select.Root defaultValue="apple" size="2">
+                                <Select.Trigger
+                                  variant={variant}
+                                  color="gray"
+                                />
+                                <Select.Content>
                                   <SelectItemsDemo />
-                                </SelectContent>
-                              </SelectRoot>
+                                </Select.Content>
+                              </Select.Root>
                             </td>
                             <td>
-                              <SelectRoot size="2">
-                                <SelectTrigger
+                              <Select.Root size="2">
+                                <Select.Trigger
                                   variant={variant}
                                   color="gray"
                                   placeholder="Choose a fruit"
                                 />
-                                <SelectContent>
+                                <Select.Content>
                                   <SelectItemsDemo />
-                                </SelectContent>
-                              </SelectRoot>
+                                </Select.Content>
+                              </Select.Root>
                             </td>
                             <td />
                             <td>
-                              <SelectRoot
+                              <Select.Root
                                 defaultValue="apple"
                                 size="2"
                                 disabled
                               >
-                                <SelectTrigger variant={variant} />
-                                <SelectContent>
+                                <Select.Trigger variant={variant} />
+                                <Select.Content>
                                   <SelectItemsDemo />
-                                </SelectContent>
-                              </SelectRoot>
+                                </Select.Content>
+                              </Select.Root>
                             </td>
                           </tr>
                         ))}
@@ -660,52 +656,52 @@ export default function Sink() {
                           <tr key={variant}>
                             <RowHeaderCell>{variant}</RowHeaderCell>
                             <td>
-                              <SelectRoot defaultValue="apple" size="1">
-                                <SelectTrigger />
-                                <SelectContent
+                              <Select.Root defaultValue="apple" size="1">
+                                <Select.Trigger />
+                                <Select.Content
                                   variant={variant}
                                   position="popper"
                                 >
                                   <SelectItemsDemo />
-                                </SelectContent>
-                              </SelectRoot>
+                                </Select.Content>
+                              </Select.Root>
                             </td>
                             <td>
-                              <SelectRoot defaultValue="apple" size="1">
-                                <SelectTrigger />
-                                <SelectContent
+                              <Select.Root defaultValue="apple" size="1">
+                                <Select.Trigger />
+                                <Select.Content
                                   variant={variant}
                                   highContrast
                                   position="popper"
                                 >
                                   <SelectItemsDemo />
-                                </SelectContent>
-                              </SelectRoot>
+                                </Select.Content>
+                              </Select.Root>
                             </td>
                             <td>
-                              <SelectRoot defaultValue="apple" size="1">
-                                <SelectTrigger />
-                                <SelectContent
+                              <Select.Root defaultValue="apple" size="1">
+                                <Select.Trigger />
+                                <Select.Content
                                   variant={variant}
                                   color="gray"
                                   position="popper"
                                 >
                                   <SelectItemsDemo />
-                                </SelectContent>
-                              </SelectRoot>
+                                </Select.Content>
+                              </Select.Root>
                             </td>
                             <td>
-                              <SelectRoot defaultValue="apple" size="1">
-                                <SelectTrigger />
-                                <SelectContent
+                              <Select.Root defaultValue="apple" size="1">
+                                <Select.Trigger />
+                                <Select.Content
                                   variant={variant}
                                   color="gray"
                                   highContrast
                                   position="popper"
                                 >
                                   <SelectItemsDemo />
-                                </SelectContent>
-                              </SelectRoot>
+                                </Select.Content>
+                              </Select.Root>
                             </td>
                           </tr>
                         ))}
@@ -747,21 +743,21 @@ export default function Sink() {
                                   {selectTriggerPropDefs.variant.values.map(
                                     (variant) => (
                                       <td key={variant}>
-                                        <SelectRoot
+                                        <Select.Root
                                           defaultValue="apple"
                                           size="1"
                                         >
-                                          <SelectTrigger
+                                          <Select.Trigger
                                             variant={variant}
                                             color={color}
                                           />
-                                          <SelectContent
+                                          <Select.Content
                                             variant="soft"
                                             color={color}
                                           >
                                             <SelectItemsDemo />
-                                          </SelectContent>
-                                        </SelectRoot>
+                                          </Select.Content>
+                                        </Select.Root>
                                       </td>
                                     ),
                                   )}
@@ -4363,22 +4359,22 @@ function RightClickArea({ size = '2', ...props }: RightClickAreaProps) {
 function SelectItemsDemo() {
   return (
     <>
-      <SelectGroup>
-        <SelectLabel>Fruits</SelectLabel>
-        <SelectItem value="orange">Orange</SelectItem>
-        <SelectItem value="apple">Apple</SelectItem>
-        <SelectItem value="grapes" disabled>
+      <Select.Group>
+        <Select.Label>Fruits</Select.Label>
+        <Select.Item value="orange">Orange</Select.Item>
+        <Select.Item value="apple">Apple</Select.Item>
+        <Select.Item value="grapes" disabled>
           Grape
-        </SelectItem>
-      </SelectGroup>
+        </Select.Item>
+      </Select.Group>
 
-      <SelectSeparator />
+      <Select.Separator />
 
-      <SelectGroup>
-        <SelectLabel>Vegetables</SelectLabel>
-        <SelectItem value="carrot">Carrot</SelectItem>
-        <SelectItem value="potato">Potato</SelectItem>
-      </SelectGroup>
+      <Select.Group>
+        <Select.Label>Vegetables</Select.Label>
+        <Select.Item value="carrot">Carrot</Select.Item>
+        <Select.Item value="potato">Potato</Select.Item>
+      </Select.Group>
     </>
   );
 }
@@ -4550,13 +4546,13 @@ function PlaygroundForm({
         <Text size={size} weight="bold">
           Subject
         </Text>
-        <SelectRoot defaultValue="customer" size={size}>
-          <SelectTrigger variant="classic" />
-          <SelectContent>
-            <SelectItem value="customer">Customer feedback</SelectItem>
-            <SelectItem value="help">Help</SelectItem>
-          </SelectContent>
-        </SelectRoot>
+        <Select.Root defaultValue="customer" size={size}>
+          <Select.Trigger variant="classic" />
+          <Select.Content>
+            <Select.Item value="customer">Customer feedback</Select.Item>
+            <Select.Item value="help">Help</Select.Item>
+          </Select.Content>
+        </Select.Root>
       </Grid>
       <Grid gap="1">
         <Text size={size} weight="bold">

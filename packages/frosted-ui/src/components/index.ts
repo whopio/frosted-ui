@@ -53,16 +53,7 @@ export * from './date-range-picker.props';
 export { FilterChip } from './filter-chip';
 export * from './filter-chip.props';
 export { Shine } from './lab/shine';
-export {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectRoot,
-  SelectSeparator,
-  SelectTrigger,
-} from './select';
+export * as Select from './select';
 export * from './select.props';
 export { Slider } from './slider';
 export * from './slider.props';

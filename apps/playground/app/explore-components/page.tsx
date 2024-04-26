@@ -83,14 +83,7 @@ import {
   RadioGroup,
   //
   ScrollArea,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  //
-  SelectRoot,
-  SelectSeparator,
-  SelectTrigger,
+  Select,
   //
   Separator,
   //
@@ -3221,24 +3214,24 @@ export default function ExploreComponents() {
                               <tr key={variant}>
                                 <td>{upperFirst(variant)}</td>
                                 <td>
-                                  <SelectRoot defaultValue="apple">
-                                    <SelectTrigger variant={variant} />
-                                    <SelectContent
+                                  <Select.Root defaultValue="apple">
+                                    <Select.Trigger variant={variant} />
+                                    <Select.Content
                                       variant={selectTriggerVariantToSelectContentVariant(
                                         variant,
                                       )}
                                     >
                                       <ExampleSelectContent />
-                                    </SelectContent>
-                                  </SelectRoot>
+                                    </Select.Content>
+                                  </Select.Root>
                                 </td>
                                 <td>
-                                  <SelectRoot defaultValue="apple">
-                                    <SelectTrigger
+                                  <Select.Root defaultValue="apple">
+                                    <Select.Trigger
                                       variant={variant}
                                       color="gray"
                                     />
-                                    <SelectContent
+                                    <Select.Content
                                       variant={selectTriggerVariantToSelectContentVariant(
                                         variant,
                                       )}
@@ -3246,35 +3239,35 @@ export default function ExploreComponents() {
                                       highContrast
                                     >
                                       <ExampleSelectContent />
-                                    </SelectContent>
-                                  </SelectRoot>
+                                    </Select.Content>
+                                  </Select.Root>
                                 </td>
                                 <td>
-                                  <SelectRoot>
-                                    <SelectTrigger
+                                  <Select.Root>
+                                    <Select.Trigger
                                       variant={variant}
                                       placeholder="Choose a fruit…"
                                     />
-                                    <SelectContent
+                                    <Select.Content
                                       variant={selectTriggerVariantToSelectContentVariant(
                                         variant,
                                       )}
                                     >
                                       <ExampleSelectContent />
-                                    </SelectContent>
-                                  </SelectRoot>
+                                    </Select.Content>
+                                  </Select.Root>
                                 </td>
                                 <td>
-                                  <SelectRoot defaultValue="apple" disabled>
-                                    <SelectTrigger variant={variant} />
-                                    <SelectContent
+                                  <Select.Root defaultValue="apple" disabled>
+                                    <Select.Trigger variant={variant} />
+                                    <Select.Content
                                       variant={selectTriggerVariantToSelectContentVariant(
                                         variant,
                                       )}
                                     >
                                       <ExampleSelectContent />
-                                    </SelectContent>
-                                  </SelectRoot>
+                                    </Select.Content>
+                                  </Select.Root>
                                 </td>
                               </tr>
                             ),
@@ -3304,20 +3297,20 @@ export default function ExploreComponents() {
                               {selectTriggerPropDefs.variant.values.map(
                                 (variant) => (
                                   <td key={variant}>
-                                    <SelectRoot defaultValue="apple">
-                                      <SelectTrigger
+                                    <Select.Root defaultValue="apple">
+                                      <Select.Trigger
                                         variant={variant}
                                         color={color}
                                       />
-                                      <SelectContent
+                                      <Select.Content
                                         variant={selectTriggerVariantToSelectContentVariant(
                                           variant,
                                         )}
                                         color={color}
                                       >
                                         <ExampleSelectContent />
-                                      </SelectContent>
-                                    </SelectRoot>
+                                      </Select.Content>
+                                    </Select.Root>
                                   </td>
                                 ),
                               )}
@@ -3350,19 +3343,19 @@ export default function ExploreComponents() {
                                   <tr key={size}>
                                     <td>Size {size}</td>
                                     <td style={{ textAlign: 'left' }}>
-                                      <SelectRoot
+                                      <Select.Root
                                         size={size}
                                         defaultValue="apple"
                                       >
-                                        <SelectTrigger variant={variant} />
-                                        <SelectContent
+                                        <Select.Trigger variant={variant} />
+                                        <Select.Content
                                           variant={selectTriggerVariantToSelectContentVariant(
                                             variant,
                                           )}
                                         >
                                           <ExampleSelectContent />
-                                        </SelectContent>
-                                      </SelectRoot>
+                                        </Select.Content>
+                                      </Select.Root>
                                     </td>
                                   </tr>
                                 ))}
@@ -4747,22 +4740,22 @@ function ExampleContextMenuContent() {
 function ExampleSelectContent() {
   return (
     <>
-      <SelectGroup>
-        <SelectLabel>Fruits</SelectLabel>
-        <SelectItem value="orange">Orange</SelectItem>
-        <SelectItem value="apple">Apple</SelectItem>
-        <SelectItem value="grapes" disabled>
+      <Select.Group>
+        <Select.Label>Fruits</Select.Label>
+        <Select.Item value="orange">Orange</Select.Item>
+        <Select.Item value="apple">Apple</Select.Item>
+        <Select.Item value="grapes" disabled>
           Grape
-        </SelectItem>
-      </SelectGroup>
+        </Select.Item>
+      </Select.Group>
 
-      <SelectSeparator />
+      <Select.Separator />
 
-      <SelectGroup>
-        <SelectLabel>Vegetables</SelectLabel>
-        <SelectItem value="carrot">Carrot</SelectItem>
-        <SelectItem value="potato">Potato</SelectItem>
-      </SelectGroup>
+      <Select.Group>
+        <Select.Label>Vegetables</Select.Label>
+        <Select.Item value="carrot">Carrot</Select.Item>
+        <Select.Item value="potato">Potato</Select.Item>
+      </Select.Group>
     </>
   );
 }

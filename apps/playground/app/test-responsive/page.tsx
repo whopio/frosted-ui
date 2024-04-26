@@ -6,10 +6,7 @@ import {
   Flex,
   Grid,
   IconButton,
-  SelectContent,
-  SelectItem,
-  SelectRoot,
-  SelectTrigger,
+  Select,
   Text,
   TextArea,
   TextFieldInput,
@@ -55,18 +52,18 @@ export default function Test() {
                         >
                           Subject
                         </Text>
-                        <SelectRoot
+                        <Select.Root
                           defaultValue="customer"
                           size={{ initial: '1', sm: '2', lg: '3' }}
                         >
-                          <SelectTrigger variant="classic" />
-                          <SelectContent>
-                            <SelectItem value="customer">
+                          <Select.Trigger variant="classic" />
+                          <Select.Content>
+                            <Select.Item value="customer">
                               Customer feedback
-                            </SelectItem>
-                            <SelectItem value="help">Help</SelectItem>
-                          </SelectContent>
-                        </SelectRoot>
+                            </Select.Item>
+                            <Select.Item value="help">Help</Select.Item>
+                          </Select.Content>
+                        </Select.Root>
                       </Grid>
                       <Grid gap={{ initial: '1', sm: '2', lg: '3' }}>
                         <Text
