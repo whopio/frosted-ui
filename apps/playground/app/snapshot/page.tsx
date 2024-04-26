@@ -2,15 +2,7 @@ import { HamburgerMenuIcon, UploadIcon } from '@radix-ui/react-icons';
 import {
   Button,
   Dialog,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuRoot,
-  DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
+  DropdownMenu,
   Heading,
   IconButton,
   Link,
@@ -72,58 +64,60 @@ export default function Snapshot() {
                       Submit a photo
                     </Button>
                   </SubmitPhotoDialog>
-                  <DropdownMenuRoot>
-                    <DropdownMenuTrigger>
+                  <DropdownMenu.Root>
+                    <DropdownMenu.Trigger>
                       <IconButton
                         variant="ghost"
                         style={{ marginRight: 'calc(var(--space-1)*-1)' }}
                       >
                         <HamburgerMenuIcon />
                       </IconButton>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuLabel>Account</DropdownMenuLabel>
-                      <DropdownMenuItem shortcut="⌘+P">
+                    </DropdownMenu.Trigger>
+                    <DropdownMenu.Content align="end">
+                      <DropdownMenu.Label>Account</DropdownMenu.Label>
+                      <DropdownMenu.Item shortcut="⌘+P">
                         Profile
-                      </DropdownMenuItem>
-                      <DropdownMenuItem shortcut="⌘+L">
+                      </DropdownMenu.Item>
+                      <DropdownMenu.Item shortcut="⌘+L">
                         Library
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>Settings</DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuLabel>Snapshot</DropdownMenuLabel>
-                      <DropdownMenuSub>
-                        <DropdownMenuSubTrigger>Company</DropdownMenuSubTrigger>
-                        <DropdownMenuSubContent>
-                          <DropdownMenuItem>About</DropdownMenuItem>
-                          <DropdownMenuItem>History</DropdownMenuItem>
-                          <DropdownMenuItem>Join the team</DropdownMenuItem>
-                          <DropdownMenuItem>Blog</DropdownMenuItem>
-                          <DropdownMenuItem>Press</DropdownMenuItem>
-                          <DropdownMenuItem>Contact us</DropdownMenuItem>
-                          <DropdownMenuItem>Help center</DropdownMenuItem>
-                        </DropdownMenuSubContent>
-                      </DropdownMenuSub>
-                      <DropdownMenuSub>
-                        <DropdownMenuSubTrigger>
+                      </DropdownMenu.Item>
+                      <DropdownMenu.Item>Settings</DropdownMenu.Item>
+                      <DropdownMenu.Separator />
+                      <DropdownMenu.Label>Snapshot</DropdownMenu.Label>
+                      <DropdownMenu.Sub>
+                        <DropdownMenu.SubTrigger>
+                          Company
+                        </DropdownMenu.SubTrigger>
+                        <DropdownMenu.SubContent>
+                          <DropdownMenu.Item>About</DropdownMenu.Item>
+                          <DropdownMenu.Item>History</DropdownMenu.Item>
+                          <DropdownMenu.Item>Join the team</DropdownMenu.Item>
+                          <DropdownMenu.Item>Blog</DropdownMenu.Item>
+                          <DropdownMenu.Item>Press</DropdownMenu.Item>
+                          <DropdownMenu.Item>Contact us</DropdownMenu.Item>
+                          <DropdownMenu.Item>Help center</DropdownMenu.Item>
+                        </DropdownMenu.SubContent>
+                      </DropdownMenu.Sub>
+                      <DropdownMenu.Sub>
+                        <DropdownMenu.SubTrigger>
                           Community
-                        </DropdownMenuSubTrigger>
-                        <DropdownMenuSubContent>
-                          <DropdownMenuItem>
+                        </DropdownMenu.SubTrigger>
+                        <DropdownMenu.SubContent>
+                          <DropdownMenu.Item>
                             Become a contributor
-                          </DropdownMenuItem>
-                          <DropdownMenuItem>Topics</DropdownMenuItem>
-                          <DropdownMenuItem>Collections</DropdownMenuItem>
-                          <DropdownMenuItem>Trends</DropdownMenuItem>
-                          <DropdownMenuItem>Press</DropdownMenuItem>
-                          <DropdownMenuItem>Awards</DropdownMenuItem>
-                          <DropdownMenuItem>Stats</DropdownMenuItem>
-                        </DropdownMenuSubContent>
-                      </DropdownMenuSub>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem>Logout</DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenuRoot>
+                          </DropdownMenu.Item>
+                          <DropdownMenu.Item>Topics</DropdownMenu.Item>
+                          <DropdownMenu.Item>Collections</DropdownMenu.Item>
+                          <DropdownMenu.Item>Trends</DropdownMenu.Item>
+                          <DropdownMenu.Item>Press</DropdownMenu.Item>
+                          <DropdownMenu.Item>Awards</DropdownMenu.Item>
+                          <DropdownMenu.Item>Stats</DropdownMenu.Item>
+                        </DropdownMenu.SubContent>
+                      </DropdownMenu.Sub>
+                      <DropdownMenu.Separator />
+                      <DropdownMenu.Item>Logout</DropdownMenu.Item>
+                    </DropdownMenu.Content>
+                  </DropdownMenu.Root>
                 </div>
                 <div
                   className={styles.container}

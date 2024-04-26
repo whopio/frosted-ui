@@ -32,15 +32,7 @@ import {
   Code,
   ContextMenu,
   Dialog,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  //
-  DropdownMenuRoot,
-  DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
+  DropdownMenu,
   //
   Em,
   Flex,
@@ -1900,56 +1892,56 @@ export default function ExploreComponents() {
                           <tr>
                             <td>{upperFirst('Default')}</td>
                             <td>
-                              <DropdownMenuRoot>
-                                <DropdownMenuTrigger>
+                              <DropdownMenu.Root>
+                                <DropdownMenu.Trigger>
                                   <Button>
                                     Options
                                     <CaretDownIcon width="16" height="16" />
                                   </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent>
+                                </DropdownMenu.Trigger>
+                                <DropdownMenu.Content>
                                   <ExampleDropdownMenuContent />
-                                </DropdownMenuContent>
-                              </DropdownMenuRoot>
+                                </DropdownMenu.Content>
+                              </DropdownMenu.Root>
                             </td>
                             <td>
-                              <DropdownMenuRoot>
-                                <DropdownMenuTrigger>
+                              <DropdownMenu.Root>
+                                <DropdownMenu.Trigger>
                                   <Button highContrast>
                                     Options
                                     <CaretDownIcon width="16" height="16" />
                                   </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent highContrast>
+                                </DropdownMenu.Trigger>
+                                <DropdownMenu.Content highContrast>
                                   <ExampleDropdownMenuContent />
-                                </DropdownMenuContent>
-                              </DropdownMenuRoot>
+                                </DropdownMenu.Content>
+                              </DropdownMenu.Root>
                             </td>
                             <td>
-                              <DropdownMenuRoot>
-                                <DropdownMenuTrigger>
+                              <DropdownMenu.Root>
+                                <DropdownMenu.Trigger>
                                   <Button color="gray">
                                     Options
                                     <CaretDownIcon width="16" height="16" />
                                   </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent color="gray">
+                                </DropdownMenu.Trigger>
+                                <DropdownMenu.Content color="gray">
                                   <ExampleDropdownMenuContent />
-                                </DropdownMenuContent>
-                              </DropdownMenuRoot>
+                                </DropdownMenu.Content>
+                              </DropdownMenu.Root>
                             </td>
                             <td>
-                              <DropdownMenuRoot>
-                                <DropdownMenuTrigger>
+                              <DropdownMenu.Root>
+                                <DropdownMenu.Trigger>
                                   <Button color="gray" highContrast>
                                     Options
                                     <CaretDownIcon width="16" height="16" />
                                   </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent color="gray" highContrast>
+                                </DropdownMenu.Trigger>
+                                <DropdownMenu.Content color="gray" highContrast>
                                   <ExampleDropdownMenuContent />
-                                </DropdownMenuContent>
-                              </DropdownMenuRoot>
+                                </DropdownMenu.Content>
+                              </DropdownMenu.Root>
                             </td>
                           </tr>
                         </tbody>
@@ -1972,31 +1964,31 @@ export default function ExploreComponents() {
                               <td>{upperFirst(color)}</td>
                               <td>
                                 <Flex align="center" justify="center" gap="4">
-                                  <DropdownMenuRoot>
-                                    <DropdownMenuTrigger>
+                                  <DropdownMenu.Root>
+                                    <DropdownMenu.Trigger>
                                       <Button color={color}>
                                         Options
                                         <CaretDownIcon width="16" height="16" />
                                       </Button>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent color={color}>
+                                    </DropdownMenu.Trigger>
+                                    <DropdownMenu.Content color={color}>
                                       <ExampleDropdownMenuContent />
-                                    </DropdownMenuContent>
-                                  </DropdownMenuRoot>
-                                  <DropdownMenuRoot>
-                                    <DropdownMenuTrigger>
+                                    </DropdownMenu.Content>
+                                  </DropdownMenu.Root>
+                                  <DropdownMenu.Root>
+                                    <DropdownMenu.Trigger>
                                       <Button color={color} highContrast>
                                         Options
                                         <CaretDownIcon width="16" height="16" />
                                       </Button>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent
+                                    </DropdownMenu.Trigger>
+                                    <DropdownMenu.Content
                                       color={color}
                                       highContrast
                                     >
                                       <ExampleDropdownMenuContent />
-                                    </DropdownMenuContent>
-                                  </DropdownMenuRoot>
+                                    </DropdownMenu.Content>
+                                  </DropdownMenu.Root>
                                 </Flex>
                               </td>
                             </tr>
@@ -2024,19 +2016,19 @@ export default function ExploreComponents() {
                                 <td>Size {size}</td>
                                 <td>
                                   <Flex>
-                                    <DropdownMenuRoot>
-                                      <DropdownMenuTrigger>
+                                    <DropdownMenu.Root>
+                                      <DropdownMenu.Trigger>
                                         <Button size={size}>
                                           Options
                                           <CaretDownIcon
                                             {...buttonSizeToIconSize(size)}
                                           />
                                         </Button>
-                                      </DropdownMenuTrigger>
-                                      <DropdownMenuContent size={size}>
+                                      </DropdownMenu.Trigger>
+                                      <DropdownMenu.Content size={size}>
                                         <ExampleDropdownMenuContent />
-                                      </DropdownMenuContent>
-                                    </DropdownMenuRoot>
+                                      </DropdownMenu.Content>
+                                    </DropdownMenu.Root>
                                   </Flex>
                                 </td>
                               </tr>
@@ -4634,29 +4626,29 @@ function AvatarIconFallback() {
 function ExampleDropdownMenuContent() {
   return (
     <>
-      <DropdownMenuItem shortcut="⌘ E">Edit</DropdownMenuItem>
-      <DropdownMenuItem shortcut="⌘ D">Duplicate</DropdownMenuItem>
-      <DropdownMenuSeparator />
-      <DropdownMenuItem shortcut="⌘ N">Archive</DropdownMenuItem>
+      <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
+      <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
+      <DropdownMenu.Separator />
+      <DropdownMenu.Item shortcut="⌘ N">Archive</DropdownMenu.Item>
 
-      <DropdownMenuSub>
-        <DropdownMenuSubTrigger>More</DropdownMenuSubTrigger>
-        <DropdownMenuSubContent>
-          <DropdownMenuItem>Move to project…</DropdownMenuItem>
-          <DropdownMenuItem>Move to folder…</DropdownMenuItem>
+      <DropdownMenu.Sub>
+        <DropdownMenu.SubTrigger>More</DropdownMenu.SubTrigger>
+        <DropdownMenu.SubContent>
+          <DropdownMenu.Item>Move to project…</DropdownMenu.Item>
+          <DropdownMenu.Item>Move to folder…</DropdownMenu.Item>
 
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>Advanced options…</DropdownMenuItem>
-        </DropdownMenuSubContent>
-      </DropdownMenuSub>
+          <DropdownMenu.Separator />
+          <DropdownMenu.Item>Advanced options…</DropdownMenu.Item>
+        </DropdownMenu.SubContent>
+      </DropdownMenu.Sub>
 
-      <DropdownMenuSeparator />
-      <DropdownMenuItem>Share</DropdownMenuItem>
-      <DropdownMenuItem>Add to favorites</DropdownMenuItem>
-      <DropdownMenuSeparator />
-      <DropdownMenuItem shortcut="⌘ ⌫" color="red">
+      <DropdownMenu.Separator />
+      <DropdownMenu.Item>Share</DropdownMenu.Item>
+      <DropdownMenu.Item>Add to favorites</DropdownMenu.Item>
+      <DropdownMenu.Separator />
+      <DropdownMenu.Item shortcut="⌘ ⌫" color="red">
         Delete
-      </DropdownMenuItem>
+      </DropdownMenu.Item>
     </>
   );
 }

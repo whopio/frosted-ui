@@ -26,14 +26,7 @@ import {
   Button,
   Card,
   Checkbox,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuRoot,
-  DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
+  DropdownMenu,
   Flex,
   Heading,
   IconButton,
@@ -298,8 +291,8 @@ export default function Demo() {
                     <Avatar fallback="IM" src={users[2].image} />
                     <Text>Ilya Miskov</Text>
                   </Flex>
-                  <DropdownMenuRoot>
-                    <DropdownMenuTrigger>
+                  <DropdownMenu.Root>
+                    <DropdownMenu.Trigger>
                       <IconButton variant="surface" size="3">
                         <GearIcon
                           width="20"
@@ -307,32 +300,34 @@ export default function Demo() {
                           color="var(--gray-10)"
                         />
                       </IconButton>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" size="2">
-                      <DropdownMenuItem>Sign up</DropdownMenuItem>
-                      <DropdownMenuItem>Log in</DropdownMenuItem>
+                    </DropdownMenu.Trigger>
+                    <DropdownMenu.Content align="end" size="2">
+                      <DropdownMenu.Item>Sign up</DropdownMenu.Item>
+                      <DropdownMenu.Item>Log in</DropdownMenu.Item>
 
-                      <DropdownMenuSeparator />
+                      <DropdownMenu.Separator />
 
-                      <DropdownMenuItem>Air Cover</DropdownMenuItem>
-                      <DropdownMenuItem>Cancellations</DropdownMenuItem>
-                      <DropdownMenuSub>
-                        <DropdownMenuSubTrigger>Hosting</DropdownMenuSubTrigger>
+                      <DropdownMenu.Item>Air Cover</DropdownMenu.Item>
+                      <DropdownMenu.Item>Cancellations</DropdownMenu.Item>
+                      <DropdownMenu.Sub>
+                        <DropdownMenu.SubTrigger>
+                          Hosting
+                        </DropdownMenu.SubTrigger>
 
-                        <DropdownMenuSubContent>
-                          <DropdownMenuItem>Resources</DropdownMenuItem>
-                          <DropdownMenuItem>Community forum</DropdownMenuItem>
-                          <DropdownMenuItem>Hosting guide</DropdownMenuItem>
-                          <DropdownMenuSeparator />
-                          <DropdownMenuItem>Your home</DropdownMenuItem>
-                        </DropdownMenuSubContent>
-                      </DropdownMenuSub>
+                        <DropdownMenu.SubContent>
+                          <DropdownMenu.Item>Resources</DropdownMenu.Item>
+                          <DropdownMenu.Item>Community forum</DropdownMenu.Item>
+                          <DropdownMenu.Item>Hosting guide</DropdownMenu.Item>
+                          <DropdownMenu.Separator />
+                          <DropdownMenu.Item>Your home</DropdownMenu.Item>
+                        </DropdownMenu.SubContent>
+                      </DropdownMenu.Sub>
 
-                      <DropdownMenuSeparator />
+                      <DropdownMenu.Separator />
 
-                      <DropdownMenuItem>Help Centre</DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenuRoot>
+                      <DropdownMenu.Item>Help Centre</DropdownMenu.Item>
+                    </DropdownMenu.Content>
+                  </DropdownMenu.Root>
                 </Flex>
               </Flex>
             </aside>

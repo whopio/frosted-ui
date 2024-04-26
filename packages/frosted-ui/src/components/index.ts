@@ -80,22 +80,7 @@ export * from './context-menu.props';
 export * as Dialog from './dialog';
 export * from './dialog.props';
 export * as Drawer from './drawer';
-export {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuRoot,
-  DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
-} from './dropdown-menu';
+export * as DropdownMenu from './dropdown-menu';
 export * from './dropdown-menu.props';
 export {
   HoverCard,

@@ -36,17 +36,7 @@ import {
   Container,
   ContextMenu,
   Dialog,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  //
-  DropdownMenuRoot,
-  DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
+  DropdownMenu,
   //
   Em,
   Flex,
@@ -372,8 +362,8 @@ export default function Sink() {
                                   {dropdownMenuContentPropDefs.size.values.map(
                                     (size) => (
                                       <td key={size}>
-                                        <DropdownMenuRoot>
-                                          <DropdownMenuTrigger>
+                                        <DropdownMenu.Root>
+                                          <DropdownMenu.Trigger>
                                             <Button
                                               size={size}
                                               variant="soft"
@@ -381,46 +371,46 @@ export default function Sink() {
                                             >
                                               <DotsHorizontalIcon />
                                             </Button>
-                                          </DropdownMenuTrigger>
+                                          </DropdownMenu.Trigger>
                                           <DropdownMenuContentDemo
                                             size={size}
                                           />
-                                        </DropdownMenuRoot>
+                                        </DropdownMenu.Root>
                                       </td>
                                     ),
                                   )}
                                   <td>
-                                    <DropdownMenuRoot>
-                                      <DropdownMenuTrigger>
+                                    <DropdownMenu.Root>
+                                      <DropdownMenu.Trigger>
                                         <Button variant="soft" color="gray">
                                           <DotsHorizontalIcon />
                                         </Button>
-                                      </DropdownMenuTrigger>
+                                      </DropdownMenu.Trigger>
                                       <DropdownMenuContentDemo highContrast />
-                                    </DropdownMenuRoot>
+                                    </DropdownMenu.Root>
                                   </td>
                                   <td>
-                                    <DropdownMenuRoot>
-                                      <DropdownMenuTrigger>
+                                    <DropdownMenu.Root>
+                                      <DropdownMenu.Trigger>
                                         <Button variant="soft" color="gray">
                                           <DotsHorizontalIcon />
                                         </Button>
-                                      </DropdownMenuTrigger>
+                                      </DropdownMenu.Trigger>
                                       <DropdownMenuContentDemo color="gray" />
-                                    </DropdownMenuRoot>
+                                    </DropdownMenu.Root>
                                   </td>
                                   <td>
-                                    <DropdownMenuRoot>
-                                      <DropdownMenuTrigger>
+                                    <DropdownMenu.Root>
+                                      <DropdownMenu.Trigger>
                                         <Button variant="soft" color="gray">
                                           <DotsHorizontalIcon />
                                         </Button>
-                                      </DropdownMenuTrigger>
+                                      </DropdownMenu.Trigger>
                                       <DropdownMenuContentDemo
                                         color="gray"
                                         highContrast
                                       />
-                                    </DropdownMenuRoot>
+                                    </DropdownMenu.Root>
                                   </td>
                                 </tr>
                               </tbody>
@@ -458,21 +448,21 @@ export default function Sink() {
                                               {color}
                                             </RowHeaderCell>
                                             <td>
-                                              <DropdownMenuRoot>
-                                                <DropdownMenuTrigger>
+                                              <DropdownMenu.Root>
+                                                <DropdownMenu.Trigger>
                                                   <Button
                                                     variant="soft"
                                                     color="gray"
                                                   >
                                                     <DotsHorizontalIcon />
                                                   </Button>
-                                                </DropdownMenuTrigger>
+                                                </DropdownMenu.Trigger>
                                                 <DropdownMenuContentDemo
                                                   color={color}
                                                 />
-                                              </DropdownMenuRoot>
-                                              <DropdownMenuRoot>
-                                                <DropdownMenuTrigger>
+                                              </DropdownMenu.Root>
+                                              <DropdownMenu.Root>
+                                                <DropdownMenu.Trigger>
                                                   <Button
                                                     variant="soft"
                                                     color="gray"
@@ -480,12 +470,12 @@ export default function Sink() {
                                                   >
                                                     <DotsHorizontalIcon />
                                                   </Button>
-                                                </DropdownMenuTrigger>
+                                                </DropdownMenu.Trigger>
                                                 <DropdownMenuContentDemo
                                                   color={color}
                                                   highContrast
                                                 />
-                                              </DropdownMenuRoot>
+                                              </DropdownMenu.Root>
                                             </td>
                                           </tr>
                                         ))}
@@ -4216,12 +4206,12 @@ export default function Sink() {
                         </a>
                       </Card>
 
-                      <DropdownMenuRoot>
-                        <DropdownMenuTrigger>
+                      <DropdownMenu.Root>
+                        <DropdownMenu.Trigger>
                           <Button>Dropdown Menu</Button>
-                        </DropdownMenuTrigger>
+                        </DropdownMenu.Trigger>
                         <DropdownMenuContentDemo />
-                      </DropdownMenuRoot>
+                      </DropdownMenu.Root>
 
                       <Button>Button</Button>
 
@@ -4249,36 +4239,36 @@ export default function Sink() {
 }
 
 function DropdownMenuContentDemo(
-  props: React.ComponentProps<typeof DropdownMenuContent>,
+  props: React.ComponentProps<typeof DropdownMenu.Content>,
 ) {
   return (
-    <DropdownMenuContent {...props}>
-      <DropdownMenuItem shortcut="⌘+T">New Tab</DropdownMenuItem>
-      <DropdownMenuItem shortcut="⌘+N">New Window</DropdownMenuItem>
-      <DropdownMenuItem shortcut="⇧+⌘+N" disabled>
+    <DropdownMenu.Content {...props}>
+      <DropdownMenu.Item shortcut="⌘+T">New Tab</DropdownMenu.Item>
+      <DropdownMenu.Item shortcut="⌘+N">New Window</DropdownMenu.Item>
+      <DropdownMenu.Item shortcut="⇧+⌘+N" disabled>
         New Private Window
-      </DropdownMenuItem>
-      <DropdownMenuSub>
-        <DropdownMenuSubTrigger>More Tools</DropdownMenuSubTrigger>
+      </DropdownMenu.Item>
+      <DropdownMenu.Sub>
+        <DropdownMenu.SubTrigger>More Tools</DropdownMenu.SubTrigger>
 
-        <DropdownMenuSubContent>
-          <DropdownMenuItem shortcut="⌘+S">Save Page As…</DropdownMenuItem>
-          <DropdownMenuItem>Create Shortcut…</DropdownMenuItem>
-          <DropdownMenuItem>Name Window…</DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>Developer Tools</DropdownMenuItem>
-        </DropdownMenuSubContent>
-      </DropdownMenuSub>
+        <DropdownMenu.SubContent>
+          <DropdownMenu.Item shortcut="⌘+S">Save Page As…</DropdownMenu.Item>
+          <DropdownMenu.Item>Create Shortcut…</DropdownMenu.Item>
+          <DropdownMenu.Item>Name Window…</DropdownMenu.Item>
+          <DropdownMenu.Separator />
+          <DropdownMenu.Item>Developer Tools</DropdownMenu.Item>
+        </DropdownMenu.SubContent>
+      </DropdownMenu.Sub>
 
-      <DropdownMenuSeparator />
-      <DropdownMenuGroup>
-        <DropdownMenuLabel>Other</DropdownMenuLabel>
-        <DropdownMenuItem shortcut="⌘+P">Print</DropdownMenuItem>
-        <DropdownMenuItem shortcut="⌘+Q" asChild>
+      <DropdownMenu.Separator />
+      <DropdownMenu.Group>
+        <DropdownMenu.Label>Other</DropdownMenu.Label>
+        <DropdownMenu.Item shortcut="⌘+P">Print</DropdownMenu.Item>
+        <DropdownMenu.Item shortcut="⌘+Q" asChild>
           <a href="#logout">Logout</a>
-        </DropdownMenuItem>
-      </DropdownMenuGroup>
-    </DropdownMenuContent>
+        </DropdownMenu.Item>
+      </DropdownMenu.Group>
+    </DropdownMenu.Content>
   );
 }
 
