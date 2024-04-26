@@ -1,21 +1,8 @@
 import { HamburgerMenuIcon, UploadIcon } from '@radix-ui/react-icons';
 import {
   Button,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogRoot,
-  DialogTitle,
-  DialogTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuRoot,
-  DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
+  Dialog,
+  DropdownMenu,
   Heading,
   IconButton,
   Link,
@@ -77,58 +64,60 @@ export default function Snapshot() {
                       Submit a photo
                     </Button>
                   </SubmitPhotoDialog>
-                  <DropdownMenuRoot>
-                    <DropdownMenuTrigger>
+                  <DropdownMenu.Root>
+                    <DropdownMenu.Trigger>
                       <IconButton
                         variant="ghost"
                         style={{ marginRight: 'calc(var(--space-1)*-1)' }}
                       >
                         <HamburgerMenuIcon />
                       </IconButton>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuLabel>Account</DropdownMenuLabel>
-                      <DropdownMenuItem shortcut="⌘+P">
+                    </DropdownMenu.Trigger>
+                    <DropdownMenu.Content align="end">
+                      <DropdownMenu.Label>Account</DropdownMenu.Label>
+                      <DropdownMenu.Item shortcut="⌘+P">
                         Profile
-                      </DropdownMenuItem>
-                      <DropdownMenuItem shortcut="⌘+L">
+                      </DropdownMenu.Item>
+                      <DropdownMenu.Item shortcut="⌘+L">
                         Library
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>Settings</DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuLabel>Snapshot</DropdownMenuLabel>
-                      <DropdownMenuSub>
-                        <DropdownMenuSubTrigger>Company</DropdownMenuSubTrigger>
-                        <DropdownMenuSubContent>
-                          <DropdownMenuItem>About</DropdownMenuItem>
-                          <DropdownMenuItem>History</DropdownMenuItem>
-                          <DropdownMenuItem>Join the team</DropdownMenuItem>
-                          <DropdownMenuItem>Blog</DropdownMenuItem>
-                          <DropdownMenuItem>Press</DropdownMenuItem>
-                          <DropdownMenuItem>Contact us</DropdownMenuItem>
-                          <DropdownMenuItem>Help center</DropdownMenuItem>
-                        </DropdownMenuSubContent>
-                      </DropdownMenuSub>
-                      <DropdownMenuSub>
-                        <DropdownMenuSubTrigger>
+                      </DropdownMenu.Item>
+                      <DropdownMenu.Item>Settings</DropdownMenu.Item>
+                      <DropdownMenu.Separator />
+                      <DropdownMenu.Label>Snapshot</DropdownMenu.Label>
+                      <DropdownMenu.Sub>
+                        <DropdownMenu.SubTrigger>
+                          Company
+                        </DropdownMenu.SubTrigger>
+                        <DropdownMenu.SubContent>
+                          <DropdownMenu.Item>About</DropdownMenu.Item>
+                          <DropdownMenu.Item>History</DropdownMenu.Item>
+                          <DropdownMenu.Item>Join the team</DropdownMenu.Item>
+                          <DropdownMenu.Item>Blog</DropdownMenu.Item>
+                          <DropdownMenu.Item>Press</DropdownMenu.Item>
+                          <DropdownMenu.Item>Contact us</DropdownMenu.Item>
+                          <DropdownMenu.Item>Help center</DropdownMenu.Item>
+                        </DropdownMenu.SubContent>
+                      </DropdownMenu.Sub>
+                      <DropdownMenu.Sub>
+                        <DropdownMenu.SubTrigger>
                           Community
-                        </DropdownMenuSubTrigger>
-                        <DropdownMenuSubContent>
-                          <DropdownMenuItem>
+                        </DropdownMenu.SubTrigger>
+                        <DropdownMenu.SubContent>
+                          <DropdownMenu.Item>
                             Become a contributor
-                          </DropdownMenuItem>
-                          <DropdownMenuItem>Topics</DropdownMenuItem>
-                          <DropdownMenuItem>Collections</DropdownMenuItem>
-                          <DropdownMenuItem>Trends</DropdownMenuItem>
-                          <DropdownMenuItem>Press</DropdownMenuItem>
-                          <DropdownMenuItem>Awards</DropdownMenuItem>
-                          <DropdownMenuItem>Stats</DropdownMenuItem>
-                        </DropdownMenuSubContent>
-                      </DropdownMenuSub>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem>Logout</DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenuRoot>
+                          </DropdownMenu.Item>
+                          <DropdownMenu.Item>Topics</DropdownMenu.Item>
+                          <DropdownMenu.Item>Collections</DropdownMenu.Item>
+                          <DropdownMenu.Item>Trends</DropdownMenu.Item>
+                          <DropdownMenu.Item>Press</DropdownMenu.Item>
+                          <DropdownMenu.Item>Awards</DropdownMenu.Item>
+                          <DropdownMenu.Item>Stats</DropdownMenu.Item>
+                        </DropdownMenu.SubContent>
+                      </DropdownMenu.Sub>
+                      <DropdownMenu.Separator />
+                      <DropdownMenu.Item>Logout</DropdownMenu.Item>
+                    </DropdownMenu.Content>
+                  </DropdownMenu.Root>
                 </div>
                 <div
                   className={styles.container}
@@ -304,9 +293,9 @@ export default function Snapshot() {
 
 function SubmitPhotoDialog({ children }: { children: React.ReactNode }) {
   return (
-    <DialogRoot>
-      <DialogTrigger>{children}</DialogTrigger>
-      <DialogContent style={{ maxWidth: 450 }}>
+    <Dialog.Root>
+      <Dialog.Trigger>{children}</Dialog.Trigger>
+      <Dialog.Content style={{ maxWidth: 450 }}>
         <div
           style={{
             display: 'flex',
@@ -314,10 +303,10 @@ function SubmitPhotoDialog({ children }: { children: React.ReactNode }) {
             gap: 'var(--space-3)',
           }}
         >
-          <DialogTitle>Submit a photo</DialogTitle>
-          <DialogDescription size="2">
+          <Dialog.Title>Submit a photo</Dialog.Title>
+          <Dialog.Description size="2">
             Drop a photo here or click to browse your files.
-          </DialogDescription>
+          </Dialog.Description>
 
           <div
             style={{
@@ -340,19 +329,19 @@ function SubmitPhotoDialog({ children }: { children: React.ReactNode }) {
               marginTop: 'var(--space-4)',
             }}
           >
-            <DialogClose>
+            <Dialog.Close>
               <Button variant="soft" color="gray">
                 Cancel
               </Button>
-            </DialogClose>
-            <DialogClose>
+            </Dialog.Close>
+            <Dialog.Close>
               <Button>
                 Submit photo <UploadIcon />
               </Button>
-            </DialogClose>
+            </Dialog.Close>
           </div>
         </div>
-      </DialogContent>
-    </DialogRoot>
+      </Dialog.Content>
+    </Dialog.Root>
   );
 }

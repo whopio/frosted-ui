@@ -131,14 +131,9 @@ function getNonResponsiveTextSize(
   return size === '3' ? '3' : '2';
 }
 
-const Callout = Object.assign(
-  {},
-  {
-    Root: CalloutRoot,
-    Icon: CalloutIcon,
-    Text: CalloutText,
-  },
-);
-
-export { Callout, CalloutIcon, CalloutRoot, CalloutText };
-export type { CalloutIconProps, CalloutRootProps, CalloutTextProps };
+export { CalloutIcon as Icon, CalloutRoot as Root, CalloutText as Text };
+export type {
+  CalloutIconProps as IconProps,
+  CalloutRootProps as RootProps,
+  CalloutTextProps as TextProps,
+};

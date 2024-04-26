@@ -95,26 +95,15 @@ const SegmentedControlContent = React.forwardRef<
 ));
 SegmentedControlContent.displayName = 'SegmentedControlContent';
 
-const SegmentedControl = Object.assign(
-  {},
-  {
-    Root: SegmentedControlRoot,
-    List: SegmentedControlList,
-    Trigger: SegmentedControlTrigger,
-    Content: SegmentedControlContent,
-  },
-);
-
 export {
-  SegmentedControl,
-  SegmentedControlContent,
-  SegmentedControlList,
-  SegmentedControlRoot,
-  SegmentedControlTrigger,
+  SegmentedControlContent as Content,
+  SegmentedControlList as List,
+  SegmentedControlRoot as Root,
+  SegmentedControlTrigger as Trigger,
 };
 export type {
-  SegmentedControlContentProps,
-  SegmentedControlListProps,
-  SegmentedControlRootProps,
-  SegmentedControlTriggerProps,
+  SegmentedControlContentProps as ContentProps,
+  SegmentedControlListProps as ListProps,
+  SegmentedControlRootProps as RootProps,
+  SegmentedControlTriggerProps as TriggerProps,
 };

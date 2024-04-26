@@ -86,18 +86,13 @@ const HoverCardContent = React.forwardRef<
 });
 HoverCardContent.displayName = 'HoverCardContent';
 
-const HoverCard = Object.assign(
-  {},
-  {
-    Root: HoverCardRoot,
-    Trigger: HoverCardTrigger,
-    Content: HoverCardContent,
-  },
-);
-
-export { HoverCard, HoverCardContent, HoverCardRoot, HoverCardTrigger };
+export {
+  HoverCardContent as Content,
+  HoverCardRoot as Root,
+  HoverCardTrigger as Trigger,
+};
 export type {
-  HoverCardContentProps,
-  HoverCardRootProps,
-  HoverCardTriggerProps,
+  HoverCardContentProps as ContentProps,
+  HoverCardRootProps as RootProps,
+  HoverCardTriggerProps as TriggerProps,
 };

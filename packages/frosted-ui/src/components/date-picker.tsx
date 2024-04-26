@@ -15,12 +15,12 @@ import {
   extractMarginProps,
   withMarginProps,
 } from '../helpers';
+import { Popover } from './';
 import { Calendar, MappedDateValue } from './calendar';
 import { DateField } from './date-field';
 import { datePickerPropDefs } from './date-picker.props';
 import { Flex } from './flex';
 import { IconButton } from './icon-button';
-import { Popover } from './popover';
 
 type DatePickerFUIProps = GetPropDefTypes<typeof datePickerPropDefs>;
 

@@ -2,26 +2,20 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from 'input-otp';
 import React from 'react';
-import {
-  OTPFieldGroup,
-  OTPFieldRoot,
-  OTPFieldSeparator,
-  OTPFieldSlot,
-  Text,
-} from '../../../src/components';
+import { OTPField, Text } from '../../../src/components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
   title: 'Lab/OTPField',
-  component: OTPFieldRoot,
-  args: {} as React.ComponentProps<typeof OTPFieldRoot>,
+  component: OTPField.Root,
+  args: {} as React.ComponentProps<typeof OTPField.Root>,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
     layout: 'centered',
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
-} satisfies Meta<typeof OTPFieldRoot>;
+} satisfies Meta<typeof OTPField.Root>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -30,22 +24,22 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: (args) => (
     <div>
-      <OTPFieldRoot
+      <OTPField.Root
         {...args}
         maxLength={6}
         render={({ slots }) => (
           <>
-            <OTPFieldGroup>
+            <OTPField.Group>
               {slots.slice(0, 3).map((slot, index) => (
-                <OTPFieldSlot key={index} {...slot} />
+                <OTPField.Slot key={index} {...slot} />
               ))}{' '}
-            </OTPFieldGroup>
-            <OTPFieldSeparator />
-            <OTPFieldGroup>
+            </OTPField.Group>
+            <OTPField.Separator />
+            <OTPField.Group>
               {slots.slice(3).map((slot, index) => (
-                <OTPFieldSlot key={index} {...slot} />
+                <OTPField.Slot key={index} {...slot} />
               ))}
-            </OTPFieldGroup>
+            </OTPField.Group>
           </>
         )}
       />
@@ -56,16 +50,16 @@ export const Default: Story = {
 export const Pattern: Story = {
   render: (args) => (
     <div>
-      <OTPFieldRoot
+      <OTPField.Root
         {...args}
         maxLength={6}
         pattern={REGEXP_ONLY_DIGITS_AND_CHARS}
         render={({ slots }) => (
-          <OTPFieldGroup>
+          <OTPField.Group>
             {slots.map((slot, index) => (
-              <OTPFieldSlot key={index} {...slot} />
+              <OTPField.Slot key={index} {...slot} />
             ))}{' '}
-          </OTPFieldGroup>
+          </OTPField.Group>
         )}
       />
     </div>
@@ -75,18 +69,18 @@ export const Pattern: Story = {
 export const Separator: Story = {
   render: (args) => (
     <div>
-      <OTPFieldRoot
+      <OTPField.Root
         {...args}
         maxLength={6}
         render={({ slots }) => (
-          <OTPFieldGroup style={{ gap: 4 }}>
+          <OTPField.Group style={{ gap: 4 }}>
             {slots.map((slot, index) => (
               <React.Fragment key={index}>
-                <OTPFieldSlot style={{ borderRadius: 10 }} {...slot} />
-                {index !== slots.length - 1 && <OTPFieldSeparator />}
+                <OTPField.Slot style={{ borderRadius: 10 }} {...slot} />
+                {index !== slots.length - 1 && <OTPField.Separator />}
               </React.Fragment>
             ))}{' '}
-          </OTPFieldGroup>
+          </OTPField.Group>
         )}
       />
     </div>
@@ -100,17 +94,17 @@ export const Controlled: Story = {
     return (
       <div>
         <div style={{ marginBottom: 16 }}>
-          <OTPFieldRoot
+          <OTPField.Root
             {...args}
             maxLength={6}
             value={value}
             onChange={(value) => setValue(value)}
             render={({ slots }) => (
-              <OTPFieldGroup>
+              <OTPField.Group>
                 {slots.map((slot, index) => (
-                  <OTPFieldSlot key={index} {...slot} />
+                  <OTPField.Slot key={index} {...slot} />
                 ))}{' '}
-              </OTPFieldGroup>
+              </OTPField.Group>
             )}
           />
         </div>

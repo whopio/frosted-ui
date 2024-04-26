@@ -109,13 +109,5 @@ const TabsNavLink = React.forwardRef<TabsNavLinkElement, TabsNavLinkProps>(
 
 TabsNavLink.displayName = 'TabsNavLink';
 
-const TabsNav = Object.assign(
-  {},
-  {
-    Root: TabsNavRoot,
-    Link: TabsNavLink,
-  },
-);
-
-export { TabsNav, TabsNavLink, TabsNavRoot };
-export type { TabsNavLinkProps, TabsNavRootProps };
+export { TabsNavLink as Link, TabsNavRoot as Root };
+export type { TabsNavLinkProps as LinkProps, TabsNavRootProps as RootProps };
