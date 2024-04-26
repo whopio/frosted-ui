@@ -125,23 +125,10 @@ export * as Skeleton from './lab/skeleton';
 export * from './lab/skeleton.props';
 export { ScrollArea } from './scroll-area';
 export * from './scroll-area.props';
-export {
-  SegmentedControl,
-  SegmentedControlContent,
-  SegmentedControlList,
-  SegmentedControlRoot,
-  SegmentedControlTrigger,
-} from './segmented-control';
-export {
-  SegmentedControlNav,
-  SegmentedControlNavLink,
-  SegmentedControlNavRoot,
-} from './segmented-control-nav';
-export {
-  SegmentedControlRadioGroup,
-  SegmentedControlRadioGroupItem,
-  SegmentedControlRadioGroupRoot,
-} from './segmented-control-radio-group';
+export * as SegmentedControl from './segmented-control';
+export * as SegmentedControlNav from './segmented-control-nav';
+export * from './segmented-control-nav.props';
+export * as SegmentedControlRadioGroup from './segmented-control-radio-group';
 
 export {
   DataList,
@@ -150,7 +137,6 @@ export {
   DataListRoot,
   DataListValue,
 } from './data-list';
-export * from './segmented-control-nav.props';
 
 export * from './data-list.props';
 export { Separator } from './separator';
