@@ -13,12 +13,15 @@ import {
   Text,
   TextField,
 } from '../../../src/components';
+import { drawerContentPropDefs } from '../../../src/components/drawer.props';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
   title: 'Components/Drawer',
-  component: Drawer.Root,
-  args: {},
+  component: Drawer.Content,
+  args: {
+    size: drawerContentPropDefs.size.default,
+  },
 
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
@@ -26,7 +29,7 @@ const meta = {
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
-} satisfies Meta<typeof Drawer.Root>;
+} satisfies Meta<typeof Drawer.Content>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -39,7 +42,7 @@ export const Default: Story = {
         <Button>Edit profile</Button>
       </Drawer.Trigger>
 
-      <Drawer.Content style={{ maxWidth: 400 }}>
+      <Drawer.Content style={{ maxWidth: 400 }} {...args}>
         <Drawer.Header>
           <Drawer.Title>Edit profile</Drawer.Title>
         </Drawer.Header>
@@ -114,9 +117,16 @@ export const Default: Story = {
           </Flex>
         </Drawer.Body>
         <Drawer.StickyFooter>
-          <Button variant="classic" size="4" style={{ width: '100%' }}>
-            Subscribe
-          </Button>
+          <Drawer.Close>
+            <Button
+              variant="classic"
+              color="lime"
+              size="4"
+              style={{ width: '100%' }}
+            >
+              Subscribe
+            </Button>
+          </Drawer.Close>
         </Drawer.StickyFooter>
       </Drawer.Content>
     </Drawer.Root>
@@ -130,7 +140,7 @@ export const InsetContent: Story = {
       <Drawer.Trigger>
         <Button>View users</Button>
       </Drawer.Trigger>
-      <Drawer.Content style={{ maxWidth: 540 }}>
+      <Drawer.Content style={{ maxWidth: 540 }} {...args}>
         <Drawer.Header>
           <Drawer.Title>Users</Drawer.Title>
         </Drawer.Header>
@@ -138,7 +148,7 @@ export const InsetContent: Story = {
           <Text as="p">The following users have access to this project.</Text>
 
           <Inset side="x" my="5">
-            <Table.Root {...args} variant="ghost">
+            <Table.Root variant="ghost">
               <ScrollArea scrollbars="horizontal">
                 <Table.Table>
                   <Table.Header>
