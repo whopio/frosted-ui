@@ -62,24 +62,6 @@ const OTPFieldSeparator = React.forwardRef<
 ));
 OTPFieldSeparator.displayName = 'OTPFieldSeparator';
 
-const OTPField = Object.assign(
-  {},
-  {
-    Root: OTPFieldRoot,
-    Slot: OTPFieldSlot,
-    Group: OTPFieldGroup,
-    Separator: OTPFieldSeparator,
-  },
-);
-
-export {
-  OTPField,
-  OTPFieldGroup,
-  OTPFieldRoot,
-  OTPFieldSeparator,
-  OTPFieldSlot,
-};
-
 export {
   OTPFieldGroup as Group,
   OTPFieldRoot as Root,
