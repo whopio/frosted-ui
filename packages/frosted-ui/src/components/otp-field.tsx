@@ -79,3 +79,10 @@ export {
   OTPFieldSeparator,
   OTPFieldSlot,
 };
+
+export {
+  OTPFieldGroup as Group,
+  OTPFieldRoot as Root,
+  OTPFieldSeparator as Separator,
+  OTPFieldSlot as Slot,
+};
