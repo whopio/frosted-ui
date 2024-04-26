@@ -140,20 +140,7 @@ export { Spinner } from './spinner';
 
 export * from './spinner.props';
 
-export {
-  Table,
-  TableBody,
-  TableBottomBar,
-  TableCell,
-  TableColumnHeaderCell,
-  TableColumnHeaderCellButton,
-  TableFooter,
-  TableHeader,
-  TableRoot,
-  TableRow,
-  TableRowHeaderCell,
-  TableTable,
-} from './table';
+export * as Table from './table';
 export * from './table.props';
 export { Tabs, TabsContent, TabsList, TabsRoot, TabsTrigger } from './tabs';
 export { TabsNav, TabsNavLink, TabsNavRoot } from './tabs-nav';

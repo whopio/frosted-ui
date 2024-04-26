@@ -25,7 +25,6 @@ import {
   ScrollArea,
   Select,
   Table,
-  TableColumnHeaderCellButton,
   Text,
   TextFieldInput,
 } from '../../../src/components';
@@ -547,7 +546,7 @@ const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: 'status',
     header: () => (
-      <TableColumnHeaderCellButton>Status</TableColumnHeaderCellButton>
+      <Table.ColumnHeaderCellButton>Status</Table.ColumnHeaderCellButton>
     ),
     cell: ({ row }) => row.getValue('status'),
   },
@@ -555,14 +554,14 @@ const columns: ColumnDef<Payment>[] = [
     accessorKey: 'email',
     header: ({ column }) => {
       return (
-        <TableColumnHeaderCellButton
+        <Table.ColumnHeaderCellButton
           isSortable={column.getCanSort()}
           sortDirection={column.getIsSorted()}
           onClick={() => column.toggleSorting()}
         >
           Email
           {/* <ArrowUpDown className="ml-2 h-4 w-4" /> */}
-        </TableColumnHeaderCellButton>
+        </Table.ColumnHeaderCellButton>
       );
     },
     cell: ({ row }) => row.getValue('email'),
@@ -572,13 +571,13 @@ const columns: ColumnDef<Payment>[] = [
     accessorKey: 'amount',
     header: ({ column }) => {
       return (
-        <TableColumnHeaderCellButton
+        <Table.ColumnHeaderCellButton
           isSortable={column.getCanSort()}
           sortDirection={column.getIsSorted()}
           onClick={() => column.toggleSorting()}
         >
           Amount
-        </TableColumnHeaderCellButton>
+        </Table.ColumnHeaderCellButton>
       );
     },
     cell: ({ row }) => {

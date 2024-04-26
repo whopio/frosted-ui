@@ -62,15 +62,7 @@ import {
   Strong,
   //
   Switch,
-  TableBody,
-  TableCell,
-  TableColumnHeaderCell,
-  TableHeader,
-  //
-  TableRoot,
-  TableRow,
-  TableRowHeaderCell,
-  TableTable,
+  Table,
   TabsContent,
   TabsList,
   //
@@ -4538,42 +4530,42 @@ function PlaygroundForm({
 }
 
 function TableExample(
-  props: React.ComponentProps<typeof TableRoot> & { noEmail?: boolean },
+  props: React.ComponentProps<typeof Table.Root> & { noEmail?: boolean },
 ) {
   const { noEmail, ...rootProps } = props;
   return (
-    <TableRoot {...rootProps}>
-      <TableTable>
-        <TableHeader>
-          <TableRow>
-            <TableColumnHeaderCell>Full name</TableColumnHeaderCell>
-            {!noEmail && <TableColumnHeaderCell>Email</TableColumnHeaderCell>}
-            <TableColumnHeaderCell>Group</TableColumnHeaderCell>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <TableRow>
-            <TableRowHeaderCell>Andy</TableRowHeaderCell>
-            {!noEmail && <TableCell>andy@workos.com</TableCell>}
-            <TableCell>Developer</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableRowHeaderCell>Benoit</TableRowHeaderCell>
-            {!noEmail && <TableCell>benoit@workos.com</TableCell>}
-            <TableCell>Admin</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableRowHeaderCell>Lucas</TableRowHeaderCell>
-            {!noEmail && <TableCell>lucas@workos.com</TableCell>}
-            <TableCell>Developer</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableRowHeaderCell>Vlad</TableRowHeaderCell>
-            {!noEmail && <TableCell>vlad@workos.com</TableCell>}
-            <TableCell>Designer</TableCell>
-          </TableRow>
-        </TableBody>
-      </TableTable>
-    </TableRoot>
+    <Table.Root {...rootProps}>
+      <Table.Table>
+        <Table.Header>
+          <Table.Row>
+            <Table.ColumnHeaderCell>Full name</Table.ColumnHeaderCell>
+            {!noEmail && <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>}
+            <Table.ColumnHeaderCell>Group</Table.ColumnHeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          <Table.Row>
+            <Table.RowHeaderCell>Andy</Table.RowHeaderCell>
+            {!noEmail && <Table.Cell>andy@workos.com</Table.Cell>}
+            <Table.Cell>Developer</Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.RowHeaderCell>Benoit</Table.RowHeaderCell>
+            {!noEmail && <Table.Cell>benoit@workos.com</Table.Cell>}
+            <Table.Cell>Admin</Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.RowHeaderCell>Lucas</Table.RowHeaderCell>
+            {!noEmail && <Table.Cell>lucas@workos.com</Table.Cell>}
+            <Table.Cell>Developer</Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.RowHeaderCell>Vlad</Table.RowHeaderCell>
+            {!noEmail && <Table.Cell>vlad@workos.com</Table.Cell>}
+            <Table.Cell>Designer</Table.Cell>
+          </Table.Row>
+        </Table.Body>
+      </Table.Table>
+    </Table.Root>
   );
 }
