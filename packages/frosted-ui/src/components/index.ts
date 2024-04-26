@@ -84,13 +84,7 @@ export * as DropdownMenu from './dropdown-menu';
 export * from './dropdown-menu.props';
 export * as HoverCard from './hover-card';
 export * from './hover-card.props';
-export {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionRoot,
-  AccordionTrigger,
-} from './lab/accordion';
+export * as Accordion from './lab/accordion';
 export {
   Popover,
   PopoverClose,
