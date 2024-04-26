@@ -7,7 +7,6 @@ import { withBreakpoints } from '../helpers';
 import { Theme } from '../theme';
 import { drawerContentPropDefs } from './drawer.props';
 import { Heading } from './heading';
-import { ScrollArea } from './scroll-area';
 
 import type { GetPropDefTypes } from '../helpers';
 
@@ -130,8 +129,8 @@ const DrawerHeader = React.forwardRef<DrawerHeaderElement, DrawerHeaderProps>(
 );
 DrawerHeader.displayName = 'DrawerHeader';
 
-type DrawerBodyElement = React.ElementRef<typeof ScrollArea>;
-type DrawerBodyProps = React.ComponentPropsWithoutRef<typeof ScrollArea>;
+type DrawerBodyElement = React.ElementRef<'div'>;
+type DrawerBodyProps = React.ComponentPropsWithoutRef<'div'>;
 const DrawerBody = React.forwardRef<DrawerBodyElement, DrawerBodyProps>(
   ({ children, className, ...props }, forwardedRef) => {
     const localRef = React.useRef<HTMLDivElement | null>(null);
@@ -168,21 +167,14 @@ const DrawerBody = React.forwardRef<DrawerBodyElement, DrawerBodyProps>(
     }, []);
 
     return (
-      <ScrollArea
-        className="fui-BodyScrollArea"
-        {...props}
-        size={'1'}
-        ref={localRef}
-        scrollbars="vertical"
-        type="auto"
-      >
+      <div className="fui-BodyScrollArea" {...props} ref={localRef}>
         <div
           className={classNames('fui-DrawerBody', className)}
           ref={contentRef}
         >
           {children}
         </div>
-      </ScrollArea>
+      </div>
     );
   },
 );
