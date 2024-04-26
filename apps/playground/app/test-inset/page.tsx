@@ -1,41 +1,19 @@
 import {
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogRoot,
-  AlertDialogTitle,
-  AlertDialogTrigger,
+  AlertDialog,
   AspectRatio,
   Box,
   Button,
   Card,
   Container,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogRoot,
-  DialogTitle,
-  DialogTrigger,
+  Dialog,
   Flex,
   Grid,
-  HoverCardContent,
-  HoverCardRoot,
-  HoverCardTrigger,
+  HoverCard,
   Inset,
   Link,
-  PopoverContent,
-  PopoverRoot,
-  PopoverTrigger,
+  Popover,
   Separator,
-  TableBody,
-  TableCell,
-  TableColumnHeaderCell,
-  TableHeader,
-  TableRoot,
-  TableRow,
-  TableRowHeaderCell,
-  TableTable,
+  Table,
   Text,
   Theme,
   ThemePanel,
@@ -115,11 +93,11 @@ export default function Test() {
 
                     <Grid rows="3" gap="3">
                       <div>
-                        <PopoverRoot>
-                          <PopoverTrigger>
+                        <Popover.Root>
+                          <Popover.Trigger>
                             <Button>Popover</Button>
-                          </PopoverTrigger>
-                          <PopoverContent>
+                          </Popover.Trigger>
+                          <Popover.Content>
                             <Grid columns="1fr 1fr" style={{ width: 400 }}>
                               <div>
                                 <Text as="p" size="3">
@@ -133,16 +111,16 @@ export default function Test() {
                                 {image}
                               </Inset>
                             </Grid>
-                          </PopoverContent>
-                        </PopoverRoot>
+                          </Popover.Content>
+                        </Popover.Root>
                       </div>
 
                       <div>
-                        <HoverCardRoot>
-                          <HoverCardTrigger>
+                        <HoverCard.Root>
+                          <HoverCard.Trigger>
                             <Link>Hover Card</Link>
-                          </HoverCardTrigger>
-                          <HoverCardContent style={{ width: 400 }}>
+                          </HoverCard.Trigger>
+                          <HoverCard.Content style={{ width: 400 }}>
                             <Flex>
                               <Inset side="left" pr="current">
                                 {image}
@@ -156,68 +134,68 @@ export default function Test() {
                                 </Text>
                               </div>
                             </Flex>
-                          </HoverCardContent>
-                        </HoverCardRoot>
+                          </HoverCard.Content>
+                        </HoverCard.Root>
                       </div>
 
                       <div>
-                        <DialogRoot>
-                          <DialogTrigger>
+                        <Dialog.Root>
+                          <Dialog.Trigger>
                             <Button>Dialog</Button>
-                          </DialogTrigger>
-                          <DialogContent>
-                            <DialogTitle>Users</DialogTitle>
-                            <DialogDescription>
+                          </Dialog.Trigger>
+                          <Dialog.Content>
+                            <Dialog.Title>Users</Dialog.Title>
+                            <Dialog.Description>
                               Here are the users that have access to this
                               project.
-                            </DialogDescription>
+                            </Dialog.Description>
 
                             <Inset side="x" my="5">
                               <TableExample />
                             </Inset>
 
                             <Flex gap="3" justify="end">
-                              <DialogClose>
+                              <Dialog.Close>
                                 <Button variant="soft" color="gray">
                                   Cancel
                                 </Button>
-                              </DialogClose>
-                              <DialogClose>
+                              </Dialog.Close>
+                              <Dialog.Close>
                                 <Button>Share</Button>
-                              </DialogClose>
+                              </Dialog.Close>
                             </Flex>
-                          </DialogContent>
-                        </DialogRoot>
+                          </Dialog.Content>
+                        </Dialog.Root>
                       </div>
 
                       <div>
-                        <AlertDialogRoot>
-                          <AlertDialogTrigger>
+                        <AlertDialog.Root>
+                          <AlertDialog.Trigger>
                             <Button>Alert Dialog</Button>
-                          </AlertDialogTrigger>
-                          <AlertDialogContent style={{ maxWidth: 450 }}>
-                            <AlertDialogTitle>Delete Users</AlertDialogTitle>
-                            <AlertDialogDescription>
+                          </AlertDialog.Trigger>
+                          <AlertDialog.Content style={{ maxWidth: 450 }}>
+                            <AlertDialog.Title>Delete Users</AlertDialog.Title>
+                            <AlertDialog.Description>
                               Are you sure you want to delete the following
                               users? This action cannot be undone.
-                            </AlertDialogDescription>
+                            </AlertDialog.Description>
 
                             <Inset side="x" my="5">
                               <TableExample />
                             </Inset>
 
                             <Flex gap="3" justify="end">
-                              <AlertDialogCancel>
+                              <AlertDialog.Cancel>
                                 <Button variant="soft" color="gray">
                                   Cancel
                                 </Button>
-                              </AlertDialogCancel>
-                              <AlertDialogAction>
+                              </AlertDialog.Cancel>
+                              <AlertDialog.Action>
                                 <Button color="red">Revoke link</Button>
-                              </AlertDialogAction>
+                              </AlertDialog.Action>
                             </Flex>
-                          </AlertDialogContent>
-                        </AlertDialogRoot>
+                          </AlertDialog.Content>
+                        </AlertDialog.Root>
                       </div>
                     </Grid>
                   </Grid>
@@ -233,42 +211,42 @@ export default function Test() {
 
 function TableExample() {
   return (
-    <TableRoot style={{ backgroundColor: 'var(--gray-a1)' }}>
-      <TableTable>
-        <TableHeader
+    <Table.Root style={{ backgroundColor: 'var(--gray-a1)' }}>
+      <Table.Table>
+        <Table.Header
           style={{
             backgroundColor: 'var(--gray-a2)',
           }}
         >
-          <TableRow>
-            <TableColumnHeaderCell>Full name</TableColumnHeaderCell>
-            <TableColumnHeaderCell>Email</TableColumnHeaderCell>
-            <TableColumnHeaderCell>Group</TableColumnHeaderCell>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <TableRow>
-            <TableRowHeaderCell>Andy</TableRowHeaderCell>
-            <TableCell>andy@workos.com</TableCell>
-            <TableCell>Developer</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableRowHeaderCell>Benoit</TableRowHeaderCell>
-            <TableCell>benoit@workos.com</TableCell>
-            <TableCell>Admin</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableRowHeaderCell>Lucas</TableRowHeaderCell>
-            <TableCell>lucas@workos.com</TableCell>
-            <TableCell>Developer</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableRowHeaderCell>Vlad</TableRowHeaderCell>
-            <TableCell>vlad@workos.com</TableCell>
-            <TableCell>Designer</TableCell>
-          </TableRow>
-        </TableBody>
-      </TableTable>
-    </TableRoot>
+          <Table.Row>
+            <Table.ColumnHeaderCell>Full name</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>Group</Table.ColumnHeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          <Table.Row>
+            <Table.RowHeaderCell>Andy</Table.RowHeaderCell>
+            <Table.Cell>andy@workos.com</Table.Cell>
+            <Table.Cell>Developer</Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.RowHeaderCell>Benoit</Table.RowHeaderCell>
+            <Table.Cell>benoit@workos.com</Table.Cell>
+            <Table.Cell>Admin</Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.RowHeaderCell>Lucas</Table.RowHeaderCell>
+            <Table.Cell>lucas@workos.com</Table.Cell>
+            <Table.Cell>Developer</Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.RowHeaderCell>Vlad</Table.RowHeaderCell>
+            <Table.Cell>vlad@workos.com</Table.Cell>
+            <Table.Cell>Designer</Table.Cell>
+          </Table.Row>
+        </Table.Body>
+      </Table.Table>
+    </Table.Root>
   );
 }

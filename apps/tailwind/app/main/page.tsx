@@ -13,9 +13,7 @@ import {
   IconButton,
   Inset,
   Separator,
-  TabsList,
-  TabsRoot,
-  TabsTrigger,
+  Tabs,
   Text,
   Theme,
   ThemePanel,
@@ -55,18 +53,20 @@ export default function Dashboard() {
               <Container size="4">
                 <Box>
                   <div className="flex items-center">
-                    <TabsRoot defaultValue="1" className="-mb-[1px]">
-                      <TabsList size="2">
-                        <TabsTrigger value="Reselling">Reselling</TabsTrigger>
-                        <TabsTrigger value="Trading">Trading</TabsTrigger>
-                        <TabsTrigger value="Sports">Sports</TabsTrigger>
-                        <TabsTrigger value="picks">picks</TabsTrigger>
-                        <TabsTrigger value="E-commerce">E-commerce</TabsTrigger>
-                        <TabsTrigger value="Life">Life</TabsTrigger>
-                        <TabsTrigger value="hacks">hacks</TabsTrigger>
-                        <TabsTrigger value="Business">Business</TabsTrigger>
-                      </TabsList>
-                    </TabsRoot>
+                    <Tabs.Root defaultValue="1" className="-mb-[1px]">
+                      <Tabs.List size="2">
+                        <Tabs.Trigger value="Reselling">Reselling</Tabs.Trigger>
+                        <Tabs.Trigger value="Trading">Trading</Tabs.Trigger>
+                        <Tabs.Trigger value="Sports">Sports</Tabs.Trigger>
+                        <Tabs.Trigger value="picks">picks</Tabs.Trigger>
+                        <Tabs.Trigger value="E-commerce">
+                          E-commerce
+                        </Tabs.Trigger>
+                        <Tabs.Trigger value="Life">Life</Tabs.Trigger>
+                        <Tabs.Trigger value="hacks">hacks</Tabs.Trigger>
+                        <Tabs.Trigger value="Business">Business</Tabs.Trigger>
+                      </Tabs.List>
+                    </Tabs.Root>
                   </div>
                 </Box>
               </Container>

@@ -186,23 +186,13 @@ const RadioButtonGroupOverlay = () => {
   return <div ref={ref} className="fui-RadioButtonGroupOverlay" aria-hidden />;
 };
 
-const RadioButtonGroup = Object.assign(
-  {},
-  {
-    Root: RadioButtonGroupRoot,
-    Item: RadioButtonGroupItem,
-    Icon: RadioButtonGroupIcon,
-  },
-);
-
 export {
-  RadioButtonGroup,
-  RadioButtonGroupIcon,
-  RadioButtonGroupItem,
-  RadioButtonGroupRoot,
+  RadioButtonGroupIcon as Icon,
+  RadioButtonGroupItem as Item,
+  RadioButtonGroupRoot as Root,
 };
 export type {
-  RadioButtonGroupIconProps,
-  RadioButtonGroupItemProps,
-  RadioButtonGroupRootProps,
+  RadioButtonGroupIconProps as IconProps,
+  RadioButtonGroupItemProps as ItemProps,
+  RadioButtonGroupRootProps as RootProps,
 };

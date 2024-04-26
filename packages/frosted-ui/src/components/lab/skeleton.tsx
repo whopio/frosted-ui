@@ -128,15 +128,10 @@ const SkeletonRect = React.forwardRef<SkeletonRectElement, SkeletonRectProps>(
 );
 SkeletonRect.displayName = 'SkeletonRect';
 
-const Skeleton = Object.assign(
-  {},
-  {
-    Avatar: SkeletonAvatar,
-    Text: SkeletonText,
-    Rect: SkeletonRect,
-  },
-);
+export { SkeletonAvatar as Avatar, SkeletonRect as Rect, SkeletonText as Text };
 
-export { Skeleton, SkeletonAvatar, SkeletonRect, SkeletonText };
-
-export type { SkeletonAvatarProps, SkeletonRectProps, SkeletonTextProps };
+export type {
+  SkeletonAvatarProps as AvatarProps,
+  SkeletonRectProps as RectProps,
+  SkeletonTextProps as TextProps,
+};

@@ -1,11 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Flex } from '../../../src/components';
-import {
-  Accordion,
-  AccordionRootProps,
-} from '../../../src/components/lab/accordion';
+import { Accordion, Flex } from '../../../src/components';
+import { RootProps as AccordionRootProps } from '../../../src/components/lab/accordion';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {

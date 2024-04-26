@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Avatar, Card, Flex, Text } from '../../../src/components';
-import { Skeleton } from '../../../src/components/lab/skeleton';
+import { Avatar, Card, Flex, Skeleton, Text } from '../../../src/components';
 import {
   skeletonAvatarPropDefs,
   skeletonRectPropDefs,

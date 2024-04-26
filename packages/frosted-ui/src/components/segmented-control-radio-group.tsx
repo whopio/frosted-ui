@@ -71,20 +71,11 @@ const SegmentedControlRadioGroupItem = React.forwardRef<
 });
 SegmentedControlRadioGroupItem.displayName = 'SegmentedControlRadioGroupItem';
 
-const SegmentedControlRadioGroup = Object.assign(
-  {},
-  {
-    Root: SegmentedControlRadioGroupRoot,
-    Item: SegmentedControlRadioGroupItem,
-  },
-);
-
 export {
-  SegmentedControlRadioGroup,
-  SegmentedControlRadioGroupItem,
-  SegmentedControlRadioGroupRoot,
+  SegmentedControlRadioGroupItem as Item,
+  SegmentedControlRadioGroupRoot as Root,
 };
 export type {
-  SegmentedControlRadioGroupItemProps,
-  SegmentedControlRadioGroupRootProps,
+  SegmentedControlRadioGroupItemProps as ItemProps,
+  SegmentedControlRadioGroupRootProps as RootProps,
 };
