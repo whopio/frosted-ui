@@ -67,10 +67,7 @@ import {
   Text,
   //
   TextArea,
-  TextFieldInput,
-  //
-  TextFieldRoot,
-  TextFieldSlot,
+  TextField,
   Theme,
   //
   ThemePanel,
@@ -1106,7 +1103,7 @@ export default function ExploreComponents() {
                               <Text as="div" size="2" weight="medium" mb="2">
                                 Email address
                               </Text>
-                              <TextFieldInput
+                              <TextField.Input
                                 variant="classic"
                                 placeholder="Enter your email"
                               />
@@ -1129,7 +1126,7 @@ export default function ExploreComponents() {
                               <Text as="div" size="2" weight="medium" mb="2">
                                 Password
                               </Text>
-                              <TextFieldInput
+                              <TextField.Input
                                 variant="classic"
                                 placeholder="Enter your password"
                               />
@@ -1687,7 +1684,7 @@ export default function ExploreComponents() {
                           <Text as="div" size="1" mb="1" weight="bold">
                             Name
                           </Text>
-                          <TextFieldInput
+                          <TextField.Input
                             size="1"
                             defaultValue="Freja Johnsen"
                             placeholder="Enter your full name"
@@ -1697,7 +1694,7 @@ export default function ExploreComponents() {
                           <Text as="div" size="1" mb="1" weight="bold">
                             Email
                           </Text>
-                          <TextFieldInput
+                          <TextField.Input
                             size="1"
                             defaultValue="freja@example.com"
                             placeholder="Enter your email"
@@ -1735,7 +1732,7 @@ export default function ExploreComponents() {
                           <Text as="div" size="2" mb="1" weight="bold">
                             Name
                           </Text>
-                          <TextFieldInput
+                          <TextField.Input
                             defaultValue="Freja Johnsen"
                             placeholder="Enter your full name"
                           />
@@ -1744,7 +1741,7 @@ export default function ExploreComponents() {
                           <Text as="div" size="2" mb="1" weight="bold">
                             Email
                           </Text>
-                          <TextFieldInput
+                          <TextField.Input
                             defaultValue="freja@example.com"
                             placeholder="Enter your email"
                           />
@@ -1779,7 +1776,7 @@ export default function ExploreComponents() {
                           <Text as="div" size="2" mb="1" weight="bold">
                             Name
                           </Text>
-                          <TextFieldInput
+                          <TextField.Input
                             defaultValue="Freja Johnsen"
                             placeholder="Enter your full name"
                           />
@@ -1788,7 +1785,7 @@ export default function ExploreComponents() {
                           <Text as="div" size="2" mb="1" weight="bold">
                             Email
                           </Text>
-                          <TextFieldInput
+                          <TextField.Input
                             defaultValue="freja@example.com"
                             placeholder="Enter your email"
                           />
@@ -1823,7 +1820,7 @@ export default function ExploreComponents() {
                           <Text as="div" size="3" mb="1" weight="bold">
                             Name
                           </Text>
-                          <TextFieldInput
+                          <TextField.Input
                             size="3"
                             defaultValue="Freja Johnsen"
                             placeholder="Enter your full name"
@@ -1833,7 +1830,7 @@ export default function ExploreComponents() {
                           <Text as="div" size="3" mb="1" weight="bold">
                             Email
                           </Text>
-                          <TextFieldInput
+                          <TextField.Input
                             size="3"
                             defaultValue="freja@example.com"
                             placeholder="Enter your email"
@@ -4342,15 +4339,15 @@ export default function ExploreComponents() {
                             <tr key={variant}>
                               <td>{upperFirst(variant)}</td>
                               <td>
-                                <TextFieldRoot variant={variant}>
-                                  <TextFieldSlot>
+                                <TextField.Root variant={variant}>
+                                  <TextField.Slot>
                                     <MagnifyingGlassIcon
                                       width="16"
                                       height="16"
                                     />
-                                  </TextFieldSlot>
-                                  <TextFieldInput placeholder="Search" />
-                                  <TextFieldSlot>
+                                  </TextField.Slot>
+                                  <TextField.Input placeholder="Search" />
+                                  <TextField.Slot>
                                     <IconButton
                                       variant="ghost"
                                       color="gray"
@@ -4358,19 +4355,19 @@ export default function ExploreComponents() {
                                     >
                                       <InfoCircledIcon />
                                     </IconButton>
-                                  </TextFieldSlot>
-                                </TextFieldRoot>
+                                  </TextField.Slot>
+                                </TextField.Root>
                               </td>
                               <td>
-                                <TextFieldRoot variant={variant} color="gray">
-                                  <TextFieldSlot>
+                                <TextField.Root variant={variant} color="gray">
+                                  <TextField.Slot>
                                     <MagnifyingGlassIcon
                                       width="16"
                                       height="16"
                                     />
-                                  </TextFieldSlot>
-                                  <TextFieldInput placeholder="Search" />
-                                  <TextFieldSlot>
+                                  </TextField.Slot>
+                                  <TextField.Input placeholder="Search" />
+                                  <TextField.Slot>
                                     <IconButton
                                       variant="ghost"
                                       color="gray"
@@ -4378,23 +4375,23 @@ export default function ExploreComponents() {
                                     >
                                       <InfoCircledIcon />
                                     </IconButton>
-                                  </TextFieldSlot>
-                                </TextFieldRoot>
+                                  </TextField.Slot>
+                                </TextField.Root>
                               </td>
                               <td>
-                                <TextFieldRoot variant={variant}>
-                                  <TextFieldSlot>
+                                <TextField.Root variant={variant}>
+                                  <TextField.Slot>
                                     <MagnifyingGlassIcon
                                       width="16"
                                       height="16"
                                     />
-                                  </TextFieldSlot>
-                                  <TextFieldInput
+                                  </TextField.Slot>
+                                  <TextField.Input
                                     placeholder="Search"
                                     defaultValue="Quick brown fox"
                                     disabled
                                   />
-                                  <TextFieldSlot>
+                                  <TextField.Slot>
                                     <IconButton
                                       variant="ghost"
                                       color="gray"
@@ -4403,23 +4400,23 @@ export default function ExploreComponents() {
                                     >
                                       <InfoCircledIcon />
                                     </IconButton>
-                                  </TextFieldSlot>
-                                </TextFieldRoot>
+                                  </TextField.Slot>
+                                </TextField.Root>
                               </td>
                               <td>
-                                <TextFieldRoot variant={variant}>
-                                  <TextFieldSlot>
+                                <TextField.Root variant={variant}>
+                                  <TextField.Slot>
                                     <MagnifyingGlassIcon
                                       width="16"
                                       height="16"
                                     />
-                                  </TextFieldSlot>
-                                  <TextFieldInput
+                                  </TextField.Slot>
+                                  <TextField.Input
                                     placeholder="Search"
                                     defaultValue="Quick brown fox"
                                     readOnly
                                   />
-                                  <TextFieldSlot>
+                                  <TextField.Slot>
                                     <IconButton
                                       variant="ghost"
                                       color="gray"
@@ -4427,8 +4424,8 @@ export default function ExploreComponents() {
                                     >
                                       <InfoCircledIcon />
                                     </IconButton>
-                                  </TextFieldSlot>
-                                </TextFieldRoot>
+                                  </TextField.Slot>
+                                </TextField.Root>
                               </td>
                             </tr>
                           ))}
@@ -4455,18 +4452,18 @@ export default function ExploreComponents() {
                               {textFieldPropDefs.variant.values.map(
                                 (variant) => (
                                   <td key={variant}>
-                                    <TextFieldRoot
+                                    <TextField.Root
                                       color={color}
                                       variant={variant}
                                     >
-                                      <TextFieldSlot>
+                                      <TextField.Slot>
                                         <MagnifyingGlassIcon
                                           width="16"
                                           height="16"
                                         />
-                                      </TextFieldSlot>
-                                      <TextFieldInput placeholder="Search" />
-                                      <TextFieldSlot>
+                                      </TextField.Slot>
+                                      <TextField.Input placeholder="Search" />
+                                      <TextField.Slot>
                                         <IconButton
                                           variant="ghost"
                                           color="gray"
@@ -4474,8 +4471,8 @@ export default function ExploreComponents() {
                                         >
                                           <InfoCircledIcon />
                                         </IconButton>
-                                      </TextFieldSlot>
-                                    </TextFieldRoot>
+                                      </TextField.Slot>
+                                    </TextField.Root>
                                   </td>
                                 ),
                               )}
@@ -4507,37 +4504,37 @@ export default function ExploreComponents() {
                                 <tr>
                                   <td>Size 1</td>
                                   <td>
-                                    <TextFieldRoot
+                                    <TextField.Root
                                       size="1"
                                       variant={variant}
                                       style={{ width: 140 }}
                                     >
-                                      <TextFieldSlot>
+                                      <TextField.Slot>
                                         <MagnifyingGlassIcon
                                           width="14"
                                           height="14"
                                         />
-                                      </TextFieldSlot>
-                                      <TextFieldInput placeholder="Search" />
-                                    </TextFieldRoot>
+                                      </TextField.Slot>
+                                      <TextField.Input placeholder="Search" />
+                                    </TextField.Root>
                                   </td>
                                 </tr>
                                 <tr>
                                   <td>Size 2</td>
                                   <td>
-                                    <TextFieldRoot
+                                    <TextField.Root
                                       size="2"
                                       variant={variant}
                                       style={{ width: 160 }}
                                     >
-                                      <TextFieldSlot>
+                                      <TextField.Slot>
                                         <MagnifyingGlassIcon
                                           width="16"
                                           height="16"
                                         />
-                                      </TextFieldSlot>
-                                      <TextFieldInput placeholder="Search" />
-                                      <TextFieldSlot>
+                                      </TextField.Slot>
+                                      <TextField.Input placeholder="Search" />
+                                      <TextField.Slot>
                                         <IconButton
                                           variant="ghost"
                                           color="gray"
@@ -4545,22 +4542,22 @@ export default function ExploreComponents() {
                                         >
                                           <InfoCircledIcon />
                                         </IconButton>
-                                      </TextFieldSlot>
-                                    </TextFieldRoot>
+                                      </TextField.Slot>
+                                    </TextField.Root>
                                   </td>
                                 </tr>
                                 <tr>
                                   <td>Size 3</td>
                                   <td>
-                                    <TextFieldRoot size="3" variant={variant}>
-                                      <TextFieldSlot>
+                                    <TextField.Root size="3" variant={variant}>
+                                      <TextField.Slot>
                                         <MagnifyingGlassIcon
                                           width="18"
                                           height="18"
                                         />
-                                      </TextFieldSlot>
-                                      <TextFieldInput placeholder="Search" />
-                                      <TextFieldSlot>
+                                      </TextField.Slot>
+                                      <TextField.Input placeholder="Search" />
+                                      <TextField.Slot>
                                         <IconButton
                                           variant="ghost"
                                           color="gray"
@@ -4568,8 +4565,8 @@ export default function ExploreComponents() {
                                         >
                                           <InfoCircledIcon />
                                         </IconButton>
-                                      </TextFieldSlot>
-                                    </TextFieldRoot>
+                                      </TextField.Slot>
+                                    </TextField.Root>
                                   </td>
                                 </tr>
                               </React.Fragment>

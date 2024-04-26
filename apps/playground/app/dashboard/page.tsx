@@ -37,8 +37,7 @@ import {
   TabsNav,
   Text,
   TextArea,
-  TextFieldInput,
-  TextFieldRoot,
+  TextField,
   Theme,
   ThemePanel,
 } from 'frosted-ui';
@@ -352,14 +351,14 @@ export default function Demo() {
                   </Box>
                   <Box>
                     <Flex gap="4" align="center">
-                      <TextFieldRoot>
-                        <TextFieldInput
+                      <TextField.Root>
+                        <TextField.Input
                           //   color="gray"
                           placeholder="Search"
                           type="search"
                           size="3"
                         />
-                      </TextFieldRoot>
+                      </TextField.Root>
                       <Separator orientation="vertical" />
                       <Flex gap="4" align="center">
                         <IconButton variant="ghost" color="gray" size="3">

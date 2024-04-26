@@ -26,7 +26,7 @@ import {
   Select,
   Table,
   Text,
-  TextFieldInput,
+  TextField,
 } from '../../../src/components';
 import { tableRootPropDefs } from '../../../src/components/table.props';
 
@@ -691,7 +691,7 @@ const TanstackTableExample = (
     <Flex direction="column" gap="4" style={{ width: 580 }}>
       <Flex gap="4" width="100%">
         <div style={{ width: '100%' }}>
-          <TextFieldInput
+          <TextField.Input
             placeholder="Filter emails..."
             value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
             onChange={(event) =>

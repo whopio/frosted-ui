@@ -9,7 +9,7 @@ import {
   Select,
   Text,
   TextArea,
-  TextFieldInput,
+  TextField,
   Theme,
 } from 'frosted-ui';
 import { NextThemeProvider } from '../next-theme-provider';
@@ -39,7 +39,7 @@ export default function Test() {
                         >
                           Email
                         </Text>
-                        <TextFieldInput
+                        <TextField.Input
                           size={{ initial: '1', sm: '2', lg: '3' }}
                           variant="classic"
                           placeholder="Your email"

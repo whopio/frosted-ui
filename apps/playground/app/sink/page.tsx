@@ -68,10 +68,7 @@ import {
   Text,
   //
   TextArea,
-  TextFieldInput,
-  //
-  TextFieldRoot,
-  TextFieldSlot,
+  TextField,
   Theme,
   //
   ThemePanel,
@@ -1901,7 +1898,7 @@ export default function Sink() {
                                 {textFieldPropDefs.size.values.map((size) => (
                                   <td key={size}>
                                     <Flex direction="column" gap="2">
-                                      <TextFieldInput
+                                      <TextField.Input
                                         size={size}
                                         variant={variant}
                                         color={
@@ -1911,7 +1908,7 @@ export default function Sink() {
                                         }
                                         placeholder="Your name"
                                       />
-                                      <TextFieldRoot
+                                      <TextField.Root
                                         size={size}
                                         variant={variant}
                                         color={
@@ -1920,11 +1917,11 @@ export default function Sink() {
                                             : undefined
                                         }
                                       >
-                                        <TextFieldSlot>
+                                        <TextField.Slot>
                                           <InfoCircledIcon />
-                                        </TextFieldSlot>
-                                        <TextFieldInput placeholder="Your name" />
-                                        <TextFieldSlot>
+                                        </TextField.Slot>
+                                        <TextField.Input placeholder="Your name" />
+                                        <TextField.Slot>
                                           <IconButton
                                             size={size === '3' ? '2' : '1'}
                                             variant="ghost"
@@ -1939,9 +1936,9 @@ export default function Sink() {
                                           >
                                             <StarIcon />
                                           </IconButton>
-                                        </TextFieldSlot>
-                                      </TextFieldRoot>
-                                      <TextFieldInput
+                                        </TextField.Slot>
+                                      </TextField.Root>
+                                      <TextField.Input
                                         size={size}
                                         variant={variant}
                                         color={
@@ -1957,7 +1954,7 @@ export default function Sink() {
                                 ))}
                                 <td>
                                   <Flex direction="column" gap="2">
-                                    <TextFieldInput
+                                    <TextField.Input
                                       variant={variant}
                                       color={
                                         label === '+ gray' ? 'gray' : undefined
@@ -1965,20 +1962,20 @@ export default function Sink() {
                                       placeholder="Your name"
                                       disabled
                                     />
-                                    <TextFieldRoot
+                                    <TextField.Root
                                       variant={variant}
                                       color={
                                         label === '+ gray' ? 'gray' : undefined
                                       }
                                     >
-                                      <TextFieldSlot>
+                                      <TextField.Slot>
                                         <InfoCircledIcon />
-                                      </TextFieldSlot>
-                                      <TextFieldInput
+                                      </TextField.Slot>
+                                      <TextField.Input
                                         placeholder="Your name"
                                         disabled
                                       />
-                                      <TextFieldSlot>
+                                      <TextField.Slot>
                                         <IconButton
                                           size="1"
                                           variant="ghost"
@@ -1986,9 +1983,9 @@ export default function Sink() {
                                         >
                                           <StarIcon />
                                         </IconButton>
-                                      </TextFieldSlot>
-                                    </TextFieldRoot>
-                                    <TextFieldInput
+                                      </TextField.Slot>
+                                    </TextField.Root>
+                                    <TextField.Input
                                       variant={variant}
                                       color={
                                         label === '+ gray' ? 'gray' : undefined
@@ -2001,7 +1998,7 @@ export default function Sink() {
                                 </td>
                                 <td>
                                   <Flex direction="column" gap="2">
-                                    <TextFieldInput
+                                    <TextField.Input
                                       variant={variant}
                                       color={
                                         label === '+ gray' ? 'gray' : undefined
@@ -2009,20 +2006,20 @@ export default function Sink() {
                                       placeholder="Your name"
                                       readOnly
                                     />
-                                    <TextFieldRoot
+                                    <TextField.Root
                                       variant={variant}
                                       color={
                                         label === '+ gray' ? 'gray' : undefined
                                       }
                                     >
-                                      <TextFieldSlot>
+                                      <TextField.Slot>
                                         <InfoCircledIcon />
-                                      </TextFieldSlot>
-                                      <TextFieldInput
+                                      </TextField.Slot>
+                                      <TextField.Input
                                         placeholder="Your name"
                                         readOnly
                                       />
-                                      <TextFieldSlot>
+                                      <TextField.Slot>
                                         <IconButton
                                           size="1"
                                           variant="ghost"
@@ -2030,9 +2027,9 @@ export default function Sink() {
                                         >
                                           <StarIcon />
                                         </IconButton>
-                                      </TextFieldSlot>
-                                    </TextFieldRoot>
-                                    <TextFieldInput
+                                      </TextField.Slot>
+                                    </TextField.Root>
+                                    <TextField.Input
                                       variant={variant}
                                       color={
                                         label === '+ gray' ? 'gray' : undefined
@@ -2054,7 +2051,7 @@ export default function Sink() {
                     <Flex align="center" gap="4" mb="9">
                       <Box>
                         <form action="/">
-                          <TextFieldInput
+                          <TextField.Input
                             mb="2"
                             variant="classic"
                             autoComplete="email"
@@ -2062,7 +2059,7 @@ export default function Sink() {
                             size="2"
                             type="email"
                           />
-                          <TextFieldInput
+                          <TextField.Input
                             mb="2"
                             variant="classic"
                             autoComplete="current-password"
@@ -2075,7 +2072,7 @@ export default function Sink() {
                       </Box>
                       <Box>
                         <form action="/">
-                          <TextFieldInput
+                          <TextField.Input
                             mb="2"
                             variant="surface"
                             autoComplete="email"
@@ -2083,7 +2080,7 @@ export default function Sink() {
                             size="2"
                             type="email"
                           />
-                          <TextFieldInput
+                          <TextField.Input
                             mb="2"
                             variant="surface"
                             autoComplete="current-password"
@@ -2096,7 +2093,7 @@ export default function Sink() {
                       </Box>
                       <Box>
                         <form action="/">
-                          <TextFieldInput
+                          <TextField.Input
                             mb="2"
                             variant="soft"
                             autoComplete="email"
@@ -2104,7 +2101,7 @@ export default function Sink() {
                             size="2"
                             type="email"
                           />
-                          <TextFieldInput
+                          <TextField.Input
                             mb="2"
                             variant="soft"
                             autoComplete="current-password"
@@ -2117,7 +2114,7 @@ export default function Sink() {
                       </Box>
                       <Box>
                         <form action="/">
-                          <TextFieldInput
+                          <TextField.Input
                             mb="2"
                             variant="soft"
                             color="gray"
@@ -2126,7 +2123,7 @@ export default function Sink() {
                             size="2"
                             type="email"
                           />
-                          <TextFieldInput
+                          <TextField.Input
                             mb="2"
                             variant="soft"
                             color="gray"
@@ -2175,7 +2172,7 @@ export default function Sink() {
                                   {textFieldPropDefs.variant.values.map(
                                     (variant) => (
                                       <td key={variant}>
-                                        <TextFieldInput
+                                        <TextField.Input
                                           variant={variant}
                                           color={color}
                                           placeholder="Your name"
@@ -4481,7 +4478,7 @@ function PlaygroundForm({
   size,
   ...props
 }: React.ComponentProps<typeof Flex> & {
-  size?: React.ComponentProps<typeof TextFieldInput>['size'];
+  size?: React.ComponentProps<typeof TextField.Input>['size'];
 }) {
   return (
     <Flex direction="column" gap="3" {...props}>
@@ -4489,7 +4486,7 @@ function PlaygroundForm({
         <Text size={size} weight="bold">
           Email
         </Text>
-        <TextFieldInput
+        <TextField.Input
           size={size}
           variant="classic"
           placeholder="Your email"
