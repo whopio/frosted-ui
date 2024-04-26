@@ -30,15 +30,7 @@ import {
   Checkbox,
   //
   Code,
-  ContextMenuContent,
-  ContextMenuItem,
-  //
-  ContextMenuRoot,
-  ContextMenuSeparator,
-  ContextMenuSub,
-  ContextMenuSubContent,
-  ContextMenuSubTrigger,
-  ContextMenuTrigger,
+  ContextMenu,
   DialogClose,
   DialogContent,
   DialogDescription,
@@ -1558,44 +1550,44 @@ export default function ExploreComponents() {
                           <tr>
                             <td>Default</td>
                             <td>
-                              <ContextMenuRoot>
-                                <ContextMenuTrigger>
+                              <ContextMenu.Root>
+                                <ContextMenu.Trigger>
                                   <RightClickArea />
-                                </ContextMenuTrigger>
-                                <ContextMenuContent>
+                                </ContextMenu.Trigger>
+                                <ContextMenu.Content>
                                   <ExampleContextMenuContent />
-                                </ContextMenuContent>
-                              </ContextMenuRoot>
+                                </ContextMenu.Content>
+                              </ContextMenu.Root>
                             </td>
                             <td>
-                              <ContextMenuRoot>
-                                <ContextMenuTrigger>
+                              <ContextMenu.Root>
+                                <ContextMenu.Trigger>
                                   <RightClickArea highContrast />
-                                </ContextMenuTrigger>
-                                <ContextMenuContent highContrast>
+                                </ContextMenu.Trigger>
+                                <ContextMenu.Content highContrast>
                                   <ExampleContextMenuContent />
-                                </ContextMenuContent>
-                              </ContextMenuRoot>
+                                </ContextMenu.Content>
+                              </ContextMenu.Root>
                             </td>
                             <td>
-                              <ContextMenuRoot>
-                                <ContextMenuTrigger>
+                              <ContextMenu.Root>
+                                <ContextMenu.Trigger>
                                   <RightClickArea color="gray" />
-                                </ContextMenuTrigger>
-                                <ContextMenuContent color="gray">
+                                </ContextMenu.Trigger>
+                                <ContextMenu.Content color="gray">
                                   <ExampleContextMenuContent />
-                                </ContextMenuContent>
-                              </ContextMenuRoot>
+                                </ContextMenu.Content>
+                              </ContextMenu.Root>
                             </td>
                             <td>
-                              <ContextMenuRoot>
-                                <ContextMenuTrigger>
+                              <ContextMenu.Root>
+                                <ContextMenu.Trigger>
                                   <RightClickArea color="gray" highContrast />
-                                </ContextMenuTrigger>
-                                <ContextMenuContent color="gray" highContrast>
+                                </ContextMenu.Trigger>
+                                <ContextMenu.Content color="gray" highContrast>
                                   <ExampleContextMenuContent />
-                                </ContextMenuContent>
-                              </ContextMenuRoot>
+                                </ContextMenu.Content>
+                              </ContextMenu.Root>
                             </td>
                           </tr>
                         </tbody>
@@ -1618,28 +1610,28 @@ export default function ExploreComponents() {
                               <td>{upperFirst(color)}</td>
                               <td>
                                 <Flex align="center" justify="center" gap="4">
-                                  <ContextMenuRoot>
-                                    <ContextMenuTrigger>
+                                  <ContextMenu.Root>
+                                    <ContextMenu.Trigger>
                                       <RightClickArea color={color} />
-                                    </ContextMenuTrigger>
-                                    <ContextMenuContent color={color}>
+                                    </ContextMenu.Trigger>
+                                    <ContextMenu.Content color={color}>
                                       <ExampleContextMenuContent />
-                                    </ContextMenuContent>
-                                  </ContextMenuRoot>
-                                  <ContextMenuRoot>
-                                    <ContextMenuTrigger>
+                                    </ContextMenu.Content>
+                                  </ContextMenu.Root>
+                                  <ContextMenu.Root>
+                                    <ContextMenu.Trigger>
                                       <RightClickArea
                                         color={color}
                                         highContrast
                                       />
-                                    </ContextMenuTrigger>
-                                    <ContextMenuContent
+                                    </ContextMenu.Trigger>
+                                    <ContextMenu.Content
                                       color={color}
                                       highContrast
                                     >
                                       <ExampleContextMenuContent />
-                                    </ContextMenuContent>
-                                  </ContextMenuRoot>
+                                    </ContextMenu.Content>
+                                  </ContextMenu.Root>
                                 </Flex>
                               </td>
                             </tr>
@@ -1667,14 +1659,14 @@ export default function ExploreComponents() {
                                 <td>Size {size}</td>
                                 <td>
                                   <Flex>
-                                    <ContextMenuRoot>
-                                      <ContextMenuTrigger>
+                                    <ContextMenu.Root>
+                                      <ContextMenu.Trigger>
                                         <RightClickArea size={size} />
-                                      </ContextMenuTrigger>
-                                      <ContextMenuContent size={size}>
+                                      </ContextMenu.Trigger>
+                                      <ContextMenu.Content size={size}>
                                         <ExampleContextMenuContent />
-                                      </ContextMenuContent>
-                                    </ContextMenuRoot>
+                                      </ContextMenu.Content>
+                                    </ContextMenu.Root>
                                   </Flex>
                                 </td>
                               </tr>
@@ -4710,29 +4702,29 @@ function RightClickArea(props: {
 function ExampleContextMenuContent() {
   return (
     <>
-      <ContextMenuItem shortcut="⌘ E">Edit</ContextMenuItem>
-      <ContextMenuItem shortcut="⌘ D">Duplicate</ContextMenuItem>
-      <ContextMenuSeparator />
-      <ContextMenuItem shortcut="⌘ N">Archive</ContextMenuItem>
+      <ContextMenu.Item shortcut="⌘ E">Edit</ContextMenu.Item>
+      <ContextMenu.Item shortcut="⌘ D">Duplicate</ContextMenu.Item>
+      <ContextMenu.Separator />
+      <ContextMenu.Item shortcut="⌘ N">Archive</ContextMenu.Item>
 
-      <ContextMenuSub>
-        <ContextMenuSubTrigger>More</ContextMenuSubTrigger>
-        <ContextMenuSubContent>
-          <ContextMenuItem>Move to project…</ContextMenuItem>
-          <ContextMenuItem>Move to folder…</ContextMenuItem>
+      <ContextMenu.Sub>
+        <ContextMenu.SubTrigger>More</ContextMenu.SubTrigger>
+        <ContextMenu.SubContent>
+          <ContextMenu.Item>Move to project…</ContextMenu.Item>
+          <ContextMenu.Item>Move to folder…</ContextMenu.Item>
 
-          <ContextMenuSeparator />
-          <ContextMenuItem>Advanced options…</ContextMenuItem>
-        </ContextMenuSubContent>
-      </ContextMenuSub>
+          <ContextMenu.Separator />
+          <ContextMenu.Item>Advanced options…</ContextMenu.Item>
+        </ContextMenu.SubContent>
+      </ContextMenu.Sub>
 
-      <ContextMenuSeparator />
-      <ContextMenuItem>Share</ContextMenuItem>
-      <ContextMenuItem>Add to favorites</ContextMenuItem>
-      <ContextMenuSeparator />
-      <ContextMenuItem shortcut="⌘ ⌫" color="red">
+      <ContextMenu.Separator />
+      <ContextMenu.Item>Share</ContextMenu.Item>
+      <ContextMenu.Item>Add to favorites</ContextMenu.Item>
+      <ContextMenu.Separator />
+      <ContextMenu.Item shortcut="⌘ ⌫" color="red">
         Delete
-      </ContextMenuItem>
+      </ContextMenu.Item>
     </>
   );
 }

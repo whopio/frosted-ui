@@ -34,17 +34,7 @@ import {
   Code,
   //
   Container,
-  ContextMenuContent,
-  ContextMenuGroup,
-  ContextMenuItem,
-  ContextMenuLabel,
-  //
-  ContextMenuRoot,
-  ContextMenuSeparator,
-  ContextMenuSub,
-  ContextMenuSubContent,
-  ContextMenuSubTrigger,
-  ContextMenuTrigger,
+  ContextMenu,
   DialogClose,
   DialogContent,
   DialogDescription,
@@ -532,12 +522,12 @@ export default function Sink() {
                                 {contextMenuContentPropDefs.size.values.map(
                                   (size) => (
                                     <td key={size}>
-                                      <ContextMenuRoot>
-                                        <ContextMenuTrigger>
+                                      <ContextMenu.Root>
+                                        <ContextMenu.Trigger>
                                           <RightClickArea size={size} />
-                                        </ContextMenuTrigger>
+                                        </ContextMenu.Trigger>
                                         <ContextMenuContentDemo size={size} />
-                                      </ContextMenuRoot>
+                                      </ContextMenu.Root>
                                     </td>
                                   ),
                                 )}
@@ -4299,36 +4289,36 @@ function DropdownMenuContentDemo(
 }
 
 function ContextMenuContentDemo(
-  props: React.ComponentProps<typeof ContextMenuContent>,
+  props: React.ComponentProps<typeof ContextMenu.Content>,
 ) {
   return (
-    <ContextMenuContent {...props}>
-      <ContextMenuItem shortcut="⌘+T">New Tab</ContextMenuItem>
-      <ContextMenuItem shortcut="⌘+N">New Window</ContextMenuItem>
-      <ContextMenuItem shortcut="⇧+⌘+N" disabled>
+    <ContextMenu.Content {...props}>
+      <ContextMenu.Item shortcut="⌘+T">New Tab</ContextMenu.Item>
+      <ContextMenu.Item shortcut="⌘+N">New Window</ContextMenu.Item>
+      <ContextMenu.Item shortcut="⇧+⌘+N" disabled>
         New Private Window
-      </ContextMenuItem>
-      <ContextMenuSub>
-        <ContextMenuSubTrigger>More Tools</ContextMenuSubTrigger>
+      </ContextMenu.Item>
+      <ContextMenu.Sub>
+        <ContextMenu.SubTrigger>More Tools</ContextMenu.SubTrigger>
 
-        <ContextMenuSubContent>
-          <ContextMenuItem shortcut="⌘+S">Save Page As…</ContextMenuItem>
-          <ContextMenuItem>Create Shortcut…</ContextMenuItem>
-          <ContextMenuItem>Name Window…</ContextMenuItem>
-          <ContextMenuSeparator />
-          <ContextMenuItem>Developer Tools</ContextMenuItem>
-        </ContextMenuSubContent>
-      </ContextMenuSub>
+        <ContextMenu.SubContent>
+          <ContextMenu.Item shortcut="⌘+S">Save Page As…</ContextMenu.Item>
+          <ContextMenu.Item>Create Shortcut…</ContextMenu.Item>
+          <ContextMenu.Item>Name Window…</ContextMenu.Item>
+          <ContextMenu.Separator />
+          <ContextMenu.Item>Developer Tools</ContextMenu.Item>
+        </ContextMenu.SubContent>
+      </ContextMenu.Sub>
 
-      <ContextMenuSeparator />
-      <ContextMenuGroup>
-        <ContextMenuLabel>Other</ContextMenuLabel>
-        <ContextMenuItem shortcut="⌘+P">Print</ContextMenuItem>
-        <ContextMenuItem shortcut="⌘+Q" asChild>
+      <ContextMenu.Separator />
+      <ContextMenu.Group>
+        <ContextMenu.Label>Other</ContextMenu.Label>
+        <ContextMenu.Item shortcut="⌘+P">Print</ContextMenu.Item>
+        <ContextMenu.Item shortcut="⌘+Q" asChild>
           <a href="#logout">Logout</a>
-        </ContextMenuItem>
-      </ContextMenuGroup>
-    </ContextMenuContent>
+        </ContextMenu.Item>
+      </ContextMenu.Group>
+    </ContextMenu.Content>
   );
 }
 

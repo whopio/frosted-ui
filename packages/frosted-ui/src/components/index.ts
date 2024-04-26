@@ -75,22 +75,7 @@ export * as OTPField from './otp-field';
 //------------------------------------------------------------------------------
 export * as AlertDialog from './alert-dialog';
 export * from './alert-dialog.props';
-export {
-  ContextMenu,
-  ContextMenuCheckboxItem,
-  ContextMenuContent,
-  ContextMenuGroup,
-  ContextMenuItem,
-  ContextMenuLabel,
-  ContextMenuRadioGroup,
-  ContextMenuRadioItem,
-  ContextMenuRoot,
-  ContextMenuSeparator,
-  ContextMenuSub,
-  ContextMenuSubContent,
-  ContextMenuSubTrigger,
-  ContextMenuTrigger,
-} from './context-menu';
+export * as ContextMenu from './context-menu';
 export * from './context-menu.props';
 export {
   Dialog,
