@@ -48,11 +48,7 @@ import {
   Kbd,
   //
   Link,
-  PopoverClose,
-  PopoverContent,
-  //
-  PopoverRoot,
-  PopoverTrigger,
+  Popover,
   //
   Quote,
   RadioGroup,
@@ -121,7 +117,7 @@ import {
   textPropDefs,
   //
   // helpers:
-  themeAccentColorsOrdered,
+  themeAccentColorsOrdered
 } from 'frosted-ui';
 import * as React from 'react';
 import { NextThemeProvider } from '../next-theme-provider';
@@ -2694,14 +2690,14 @@ export default function ExploreComponents() {
                   </Link>
                 </Heading>
                 <Flex align="center" gap="4" my="6">
-                  <PopoverRoot>
-                    <PopoverTrigger>
+                  <Popover.Root>
+                    <Popover.Trigger>
                       <Button size="1">
                         <ChatBubbleIcon width="14" height="14" />
                         Comment
                       </Button>
-                    </PopoverTrigger>
-                    <PopoverContent size="1" style={{ width: 250 }}>
+                    </Popover.Trigger>
+                    <Popover.Content size="1" style={{ width: 250 }}>
                       <Flex gap="3">
                         <Avatar
                           size="2"
@@ -2723,25 +2719,25 @@ export default function ExploreComponents() {
                               </label>
                             </Flex>
 
-                            <PopoverClose>
+                            <Popover.Close>
                               <Button autoFocus size="1">
                                 Comment
                               </Button>
-                            </PopoverClose>
+                            </Popover.Close>
                           </Flex>
                         </Box>
                       </Flex>
-                    </PopoverContent>
-                  </PopoverRoot>
+                    </Popover.Content>
+                  </Popover.Root>
 
-                  <PopoverRoot>
-                    <PopoverTrigger>
+                  <Popover.Root>
+                    <Popover.Trigger>
                       <Button size="2">
                         <ChatBubbleIcon width="16" height="16" />
                         Comment
                       </Button>
-                    </PopoverTrigger>
-                    <PopoverContent size="2" style={{ width: 320 }}>
+                    </Popover.Trigger>
+                    <Popover.Content size="2" style={{ width: 320 }}>
                       <Flex gap="4">
                         <Avatar
                           size="3"
@@ -2761,25 +2757,25 @@ export default function ExploreComponents() {
                               </label>
                             </Flex>
 
-                            <PopoverClose>
+                            <Popover.Close>
                               <Button autoFocus size="2">
                                 Comment
                               </Button>
-                            </PopoverClose>
+                            </Popover.Close>
                           </Flex>
                         </Box>
                       </Flex>
-                    </PopoverContent>
-                  </PopoverRoot>
+                    </Popover.Content>
+                  </Popover.Root>
 
-                  <PopoverRoot>
-                    <PopoverTrigger>
+                  <Popover.Root>
+                    <Popover.Trigger>
                       <Button size="3">
                         <ChatBubbleIcon width="16" height="16" />
                         Comment
                       </Button>
-                    </PopoverTrigger>
-                    <PopoverContent size="3" style={{ width: 400 }}>
+                    </Popover.Trigger>
+                    <Popover.Content size="3" style={{ width: 400 }}>
                       <Flex gap="4">
                         <Avatar
                           size="4"
@@ -2800,25 +2796,25 @@ export default function ExploreComponents() {
                               </label>
                             </Flex>
 
-                            <PopoverClose>
+                            <Popover.Close>
                               <Button autoFocus size="3">
                                 Comment
                               </Button>
-                            </PopoverClose>
+                            </Popover.Close>
                           </Flex>
                         </Box>
                       </Flex>
-                    </PopoverContent>
-                  </PopoverRoot>
+                    </Popover.Content>
+                  </Popover.Root>
 
-                  <PopoverRoot>
-                    <PopoverTrigger>
+                  <Popover.Root>
+                    <Popover.Trigger>
                       <Button size="4">
                         <ChatBubbleIcon width="18" height="18" />
                         Comment
                       </Button>
-                    </PopoverTrigger>
-                    <PopoverContent size="4" style={{ width: 400 }}>
+                    </Popover.Trigger>
+                    <Popover.Content size="4" style={{ width: 400 }}>
                       <Flex gap="4">
                         <Avatar
                           size="5"
@@ -2839,16 +2835,16 @@ export default function ExploreComponents() {
                               </label>
                             </Flex>
 
-                            <PopoverClose>
+                            <Popover.Close>
                               <Button autoFocus size="3">
                                 Comment
                               </Button>
-                            </PopoverClose>
+                            </Popover.Close>
                           </Flex>
                         </Box>
                       </Flex>
-                    </PopoverContent>
-                  </PopoverRoot>
+                    </Popover.Content>
+                  </Popover.Root>
                 </Flex>
 
                 <Heading id="quote" mb="5">

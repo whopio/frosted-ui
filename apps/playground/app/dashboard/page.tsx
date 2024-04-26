@@ -31,10 +31,7 @@ import {
   Heading,
   IconButton,
   Inset,
-  PopoverClose,
-  PopoverContent,
-  PopoverRoot,
-  PopoverTrigger,
+  Popover,
   Separator,
   Strong,
   TabsNavLink,
@@ -192,8 +189,8 @@ export default function Demo() {
               >
                 <div>
                   <Flex px="2" py="4">
-                    <PopoverRoot>
-                      <PopoverTrigger>
+                    <Popover.Root>
+                      <Popover.Trigger>
                         <Card variant="ghost" style={{ flex: 1 }} asChild>
                           <button className="fui-reset">
                             <Flex gap="3" align="center" justify="between">
@@ -205,8 +202,8 @@ export default function Demo() {
                             </Flex>
                           </button>
                         </Card>
-                      </PopoverTrigger>
-                      <PopoverContent size="3" style={{ width: 300 }}>
+                      </Popover.Trigger>
+                      <Popover.Content size="3" style={{ width: 300 }}>
                         <Flex gap="3">
                           <Avatar
                             size="3"
@@ -228,16 +225,16 @@ export default function Demo() {
                                 </label>
                               </Flex>
 
-                              <PopoverClose>
+                              <Popover.Close>
                                 <Button autoFocus size="2">
                                   Comment
                                 </Button>
-                              </PopoverClose>
+                              </Popover.Close>
                             </Flex>
                           </Box>
                         </Flex>
-                      </PopoverContent>
-                    </PopoverRoot>
+                      </Popover.Content>
+                    </Popover.Root>
                   </Flex>
                   <Flex direction="column" gap="1" pt="6">
                     <button className={'fui-reset ' + styles.asideButton}>

@@ -85,13 +85,7 @@ export * from './dropdown-menu.props';
 export * as HoverCard from './hover-card';
 export * from './hover-card.props';
 export * as Accordion from './lab/accordion';
-export {
-  Popover,
-  PopoverClose,
-  PopoverContent,
-  PopoverRoot,
-  PopoverTrigger,
-} from './popover';
+export * as Popover from './popover';
 export * from './popover.props';
 export { StackedHorizontalBarChart } from './stacked-horizontal-bar-chart';
 export { Tooltip } from './tooltip';

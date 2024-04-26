@@ -11,9 +11,7 @@ import {
   HoverCard,
   Inset,
   Link,
-  PopoverContent,
-  PopoverRoot,
-  PopoverTrigger,
+  Popover,
   Separator,
   TableBody,
   TableCell,
@@ -102,11 +100,11 @@ export default function Test() {
 
                     <Grid rows="3" gap="3">
                       <div>
-                        <PopoverRoot>
-                          <PopoverTrigger>
+                        <Popover.Root>
+                          <Popover.Trigger>
                             <Button>Popover</Button>
-                          </PopoverTrigger>
-                          <PopoverContent>
+                          </Popover.Trigger>
+                          <Popover.Content>
                             <Grid columns="1fr 1fr" style={{ width: 400 }}>
                               <div>
                                 <Text as="p" size="3">
@@ -120,8 +118,8 @@ export default function Test() {
                                 {image}
                               </Inset>
                             </Grid>
-                          </PopoverContent>
-                        </PopoverRoot>
+                          </Popover.Content>
+                        </Popover.Root>
                       </div>
 
                       <div>

@@ -12,9 +12,7 @@ import {
   Grid,
   IconButton,
   Link,
-  PopoverContent,
-  PopoverRoot,
-  PopoverTrigger,
+  Popover,
   Theme,
 } from 'frosted-ui';
 
@@ -121,27 +119,27 @@ export default function Ghost() {
                         align={direction === 'row' ? 'center' : 'start'}
                         gap="4"
                       >
-                        <PopoverRoot>
-                          <PopoverTrigger>
+                        <Popover.Root>
+                          <Popover.Trigger>
                             <Button variant="ghost">Open</Button>
-                          </PopoverTrigger>
-                          <PopoverContent
+                          </Popover.Trigger>
+                          <Popover.Content
                             sideOffset={0}
                             style={{ padding: 100 }}
                           />
-                        </PopoverRoot>
+                        </Popover.Root>
 
-                        <PopoverRoot>
-                          <PopoverTrigger>
+                        <Popover.Root>
+                          <Popover.Trigger>
                             <IconButton variant="ghost">
                               <DotsHorizontalIcon />
                             </IconButton>
-                          </PopoverTrigger>
-                          <PopoverContent
+                          </Popover.Trigger>
+                          <Popover.Content
                             sideOffset={0}
                             style={{ padding: 100 }}
                           />
-                        </PopoverRoot>
+                        </Popover.Root>
                       </Flex>
                     </Flex>
                   </div>

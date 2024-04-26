@@ -50,10 +50,7 @@ import {
   Kbd,
   //
   Link,
-  PopoverContent,
-  //
-  PopoverRoot,
-  PopoverTrigger,
+  Popover,
   //
   Quote,
   RadioGroup,
@@ -301,11 +298,11 @@ export default function Sink() {
                         </DocsGridSectionItem>
 
                         <DocsGridSectionItem title="Popover">
-                          <PopoverRoot>
-                            <PopoverTrigger>
+                          <Popover.Root>
+                            <Popover.Trigger>
                               <Button>Popover</Button>
-                            </PopoverTrigger>
-                            <PopoverContent style={{ width: 200 }}>
+                            </Popover.Trigger>
+                            <Popover.Content style={{ width: 200 }}>
                               <Text as="p" size="2" mb="2">
                                 Jan Tschichold was a German calligrapher,
                                 typographer and book designer. He played a
@@ -315,8 +312,8 @@ export default function Sink() {
                               <Button size="1">
                                 Share <Share2Icon />
                               </Button>
-                            </PopoverContent>
-                          </PopoverRoot>
+                            </Popover.Content>
+                          </Popover.Root>
                         </DocsGridSectionItem>
                       </Grid>
                     </div>
