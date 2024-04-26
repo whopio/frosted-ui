@@ -9,6 +9,7 @@ import {
 import { useDateRangePickerState } from '@react-stately/datepicker';
 import classNames from 'classnames';
 import React, { useRef } from 'react';
+import { Popover } from '../';
 import {
   GetPropDefTypes,
   MarginProps,
@@ -20,7 +21,6 @@ import { DateField } from './date-field';
 import { datePickerPropDefs } from './date-picker.props';
 import { Flex } from './flex';
 import { IconButton } from './icon-button';
-import { Popover } from './popover';
 
 interface RangeValue<T> {
   /** The start value of the range. */
