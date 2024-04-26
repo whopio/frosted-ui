@@ -142,8 +142,8 @@ export * from './spinner.props';
 
 export * as Table from './table';
 export * from './table.props';
-export { Tabs, TabsContent, TabsList, TabsRoot, TabsTrigger } from './tabs';
-export { TabsNav, TabsNavLink, TabsNavRoot } from './tabs-nav';
+export * as Tabs from './tabs';
+export * as TabsNav from './tabs-nav';
 export * from './tabs-nav.props';
 export * from './tabs.props';
 // export * from './toast';

@@ -63,11 +63,7 @@ import {
   //
   Switch,
   Table,
-  TabsContent,
-  TabsList,
-  //
-  TabsRoot,
-  TabsTrigger,
+  Tabs,
   //
   Text,
   //
@@ -3849,31 +3845,31 @@ export default function Sink() {
                           <tr key={size}>
                             <RowHeaderCell>size {size}</RowHeaderCell>
                             <td>
-                              <TabsRoot
+                              <Tabs.Root
                                 defaultValue="account"
                                 activationMode="manual"
                               >
-                                <TabsList size={size}>
-                                  <TabsTrigger value="account">
+                                <Tabs.List size={size}>
+                                  <Tabs.Trigger value="account">
                                     Account
-                                  </TabsTrigger>
-                                  <TabsTrigger value="documents">
+                                  </Tabs.Trigger>
+                                  <Tabs.Trigger value="documents">
                                     Documents
-                                  </TabsTrigger>
-                                  <TabsTrigger value="settings">
+                                  </Tabs.Trigger>
+                                  <Tabs.Trigger value="settings">
                                     Settings
-                                  </TabsTrigger>
-                                </TabsList>
-                                <TabsContent value="account">
+                                  </Tabs.Trigger>
+                                </Tabs.List>
+                                <Tabs.Content value="account">
                                   <Box py="5">Account</Box>
-                                </TabsContent>
-                                <TabsContent value="documents">
+                                </Tabs.Content>
+                                <Tabs.Content value="documents">
                                   <Box py="5">Documents</Box>
-                                </TabsContent>
-                                <TabsContent value="settings">
+                                </Tabs.Content>
+                                <Tabs.Content value="settings">
                                   <Box py="5">Settings</Box>
-                                </TabsContent>
-                              </TabsRoot>
+                                </Tabs.Content>
+                              </Tabs.Root>
                             </td>
                           </tr>
                         ))}

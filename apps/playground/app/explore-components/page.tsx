@@ -62,11 +62,7 @@ import {
   Switch,
   //
   Table,
-  TabsContent,
-  TabsList,
-  //
-  TabsRoot,
-  TabsTrigger,
+  Tabs,
   //
   Text,
   //
@@ -277,13 +273,15 @@ export default function ExploreComponents() {
                     Avatar
                   </Link>
                 </Heading>
-                <TabsRoot defaultValue="theme-colors">
-                  <TabsList size="2">
-                    <TabsTrigger value="theme-colors">Theme colors</TabsTrigger>
-                    <TabsTrigger value="all-colors">All colors</TabsTrigger>
-                    <TabsTrigger value="all-sizes">All sizes</TabsTrigger>
-                  </TabsList>
-                  <TabsContent value="theme-colors">
+                <Tabs.Root defaultValue="theme-colors">
+                  <Tabs.List size="2">
+                    <Tabs.Trigger value="theme-colors">
+                      Theme colors
+                    </Tabs.Trigger>
+                    <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
+                    <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
+                  </Tabs.List>
+                  <Tabs.Content value="theme-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -340,9 +338,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-colors">
+                  <Tabs.Content value="all-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -386,9 +384,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-sizes">
+                  <Tabs.Content value="all-sizes">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -412,8 +410,8 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
-                </TabsRoot>
+                  </Tabs.Content>
+                </Tabs.Root>
 
                 <Heading id="badge" mb="5">
                   <Link
@@ -425,13 +423,15 @@ export default function ExploreComponents() {
                     Badge
                   </Link>
                 </Heading>
-                <TabsRoot defaultValue="theme-colors">
-                  <TabsList size="2">
-                    <TabsTrigger value="theme-colors">Theme colors</TabsTrigger>
-                    <TabsTrigger value="all-colors">All colors</TabsTrigger>
-                    <TabsTrigger value="all-sizes">All sizes</TabsTrigger>
-                  </TabsList>
-                  <TabsContent value="theme-colors">
+                <Tabs.Root defaultValue="theme-colors">
+                  <Tabs.List size="2">
+                    <Tabs.Trigger value="theme-colors">
+                      Theme colors
+                    </Tabs.Trigger>
+                    <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
+                    <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
+                  </Tabs.List>
+                  <Tabs.Content value="theme-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -472,9 +472,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-colors">
+                  <Tabs.Content value="all-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -510,9 +510,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-sizes">
+                  <Tabs.Content value="all-sizes">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -546,8 +546,8 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
-                </TabsRoot>
+                  </Tabs.Content>
+                </Tabs.Root>
 
                 <Heading id="blockquote" mb="5">
                   <Link
@@ -559,14 +559,16 @@ export default function ExploreComponents() {
                     Blockquote
                   </Link>
                 </Heading>
-                <TabsRoot defaultValue="theme-colors">
-                  <TabsList size="2">
-                    <TabsTrigger value="theme-colors">Theme colors</TabsTrigger>
-                    <TabsTrigger value="all-colors">All colors</TabsTrigger>
-                    <TabsTrigger value="all-sizes">All sizes</TabsTrigger>
-                    <TabsTrigger value="all-weights">All weights</TabsTrigger>
-                  </TabsList>
-                  <TabsContent value="theme-colors">
+                <Tabs.Root defaultValue="theme-colors">
+                  <Tabs.List size="2">
+                    <Tabs.Trigger value="theme-colors">
+                      Theme colors
+                    </Tabs.Trigger>
+                    <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
+                    <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
+                    <Tabs.Trigger value="all-weights">All weights</Tabs.Trigger>
+                  </Tabs.List>
+                  <Tabs.Content value="theme-colors">
                     <Grid
                       my="6"
                       gap="6"
@@ -627,9 +629,9 @@ export default function ExploreComponents() {
                         </Blockquote>
                       </Flex>
                     </Grid>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-colors">
+                  <Tabs.Content value="all-colors">
                     <Box my="6">
                       <table
                         className={styles.table}
@@ -662,9 +664,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-sizes">
+                  <Tabs.Content value="all-sizes">
                     <Box my="6">
                       <table className={styles.table}>
                         <tbody>
@@ -683,9 +685,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-weights">
+                  <Tabs.Content value="all-weights">
                     <Box my="6">
                       <table
                         className={styles.table}
@@ -709,8 +711,8 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
-                </TabsRoot>
+                  </Tabs.Content>
+                </Tabs.Root>
 
                 <Heading id="button" mb="5">
                   <Link
@@ -722,13 +724,15 @@ export default function ExploreComponents() {
                     Button
                   </Link>
                 </Heading>
-                <TabsRoot defaultValue="theme-colors">
-                  <TabsList size="2">
-                    <TabsTrigger value="theme-colors">Theme colors</TabsTrigger>
-                    <TabsTrigger value="all-colors">All colors</TabsTrigger>
-                    <TabsTrigger value="all-sizes">All sizes</TabsTrigger>
-                  </TabsList>
-                  <TabsContent value="theme-colors">
+                <Tabs.Root defaultValue="theme-colors">
+                  <Tabs.List size="2">
+                    <Tabs.Trigger value="theme-colors">
+                      Theme colors
+                    </Tabs.Trigger>
+                    <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
+                    <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
+                  </Tabs.List>
+                  <Tabs.Content value="theme-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -777,9 +781,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-colors">
+                  <Tabs.Content value="all-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -817,9 +821,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-sizes">
+                  <Tabs.Content value="all-sizes">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -856,8 +860,8 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
-                </TabsRoot>
+                  </Tabs.Content>
+                </Tabs.Root>
 
                 <Heading id="callout" mb="5">
                   <Link
@@ -869,13 +873,15 @@ export default function ExploreComponents() {
                     Callout
                   </Link>
                 </Heading>
-                <TabsRoot defaultValue="theme-colors">
-                  <TabsList size="2">
-                    <TabsTrigger value="theme-colors">Theme colors</TabsTrigger>
-                    <TabsTrigger value="all-colors">All colors</TabsTrigger>
-                    <TabsTrigger value="all-sizes">All sizes</TabsTrigger>
-                  </TabsList>
-                  <TabsContent value="theme-colors">
+                <Tabs.Root defaultValue="theme-colors">
+                  <Tabs.List size="2">
+                    <Tabs.Trigger value="theme-colors">
+                      Theme colors
+                    </Tabs.Trigger>
+                    <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
+                    <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
+                  </Tabs.List>
+                  <Tabs.Content value="theme-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -943,9 +949,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-colors">
+                  <Tabs.Content value="all-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -1005,9 +1011,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-sizes">
+                  <Tabs.Content value="all-sizes">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -1053,8 +1059,8 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
-                </TabsRoot>
+                  </Tabs.Content>
+                </Tabs.Root>
 
                 <Heading id="card" mb="5">
                   <Link
@@ -1219,13 +1225,15 @@ export default function ExploreComponents() {
                     Checkbox
                   </Link>
                 </Heading>
-                <TabsRoot defaultValue="theme-colors">
-                  <TabsList size="2">
-                    <TabsTrigger value="theme-colors">Theme colors</TabsTrigger>
-                    <TabsTrigger value="all-colors">All colors</TabsTrigger>
-                    <TabsTrigger value="all-sizes">All sizes</TabsTrigger>
-                  </TabsList>
-                  <TabsContent value="theme-colors">
+                <Tabs.Root defaultValue="theme-colors">
+                  <Tabs.List size="2">
+                    <Tabs.Trigger value="theme-colors">
+                      Theme colors
+                    </Tabs.Trigger>
+                    <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
+                    <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
+                  </Tabs.List>
+                  <Tabs.Content value="theme-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -1275,9 +1283,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-colors">
+                  <Tabs.Content value="all-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -1306,9 +1314,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-sizes">
+                  <Tabs.Content value="all-sizes">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -1333,8 +1341,8 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
-                </TabsRoot>
+                  </Tabs.Content>
+                </Tabs.Root>
 
                 <Heading id="code" mb="5">
                   <Link
@@ -1346,14 +1354,16 @@ export default function ExploreComponents() {
                     Code
                   </Link>
                 </Heading>
-                <TabsRoot defaultValue="theme-colors">
-                  <TabsList size="2">
-                    <TabsTrigger value="theme-colors">Theme colors</TabsTrigger>
-                    <TabsTrigger value="all-colors">All colors</TabsTrigger>
-                    <TabsTrigger value="all-sizes">All sizes</TabsTrigger>
-                    <TabsTrigger value="all-weights">All weights</TabsTrigger>
-                  </TabsList>
-                  <TabsContent value="theme-colors">
+                <Tabs.Root defaultValue="theme-colors">
+                  <Tabs.List size="2">
+                    <Tabs.Trigger value="theme-colors">
+                      Theme colors
+                    </Tabs.Trigger>
+                    <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
+                    <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
+                    <Tabs.Trigger value="all-weights">All weights</Tabs.Trigger>
+                  </Tabs.List>
+                  <Tabs.Content value="theme-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -1405,9 +1415,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-colors">
+                  <Tabs.Content value="all-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -1446,9 +1456,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-sizes">
+                  <Tabs.Content value="all-sizes">
                     <Box my="6">
                       <Flex direction="column" gap="4">
                         {codePropDefs.size.values.map((size) => (
@@ -1463,9 +1473,9 @@ export default function ExploreComponents() {
                         ))}
                       </Flex>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-weights">
+                  <Tabs.Content value="all-weights">
                     <Box my="6">
                       <table
                         className={styles.table}
@@ -1486,8 +1496,8 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
-                </TabsRoot>
+                  </Tabs.Content>
+                </Tabs.Root>
 
                 <Heading id="context-menu" mb="5">
                   <Link
@@ -1499,13 +1509,15 @@ export default function ExploreComponents() {
                     Context Menu
                   </Link>
                 </Heading>
-                <TabsRoot defaultValue="theme-colors">
-                  <TabsList size="2">
-                    <TabsTrigger value="theme-colors">Theme colors</TabsTrigger>
-                    <TabsTrigger value="all-colors">All colors</TabsTrigger>
-                    <TabsTrigger value="all-sizes">All sizes</TabsTrigger>
-                  </TabsList>
-                  <TabsContent value="theme-colors">
+                <Tabs.Root defaultValue="theme-colors">
+                  <Tabs.List size="2">
+                    <Tabs.Trigger value="theme-colors">
+                      Theme colors
+                    </Tabs.Trigger>
+                    <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
+                    <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
+                  </Tabs.List>
+                  <Tabs.Content value="theme-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -1562,9 +1574,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-colors">
+                  <Tabs.Content value="all-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -1608,9 +1620,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-sizes">
+                  <Tabs.Content value="all-sizes">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -1644,8 +1656,8 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
-                </TabsRoot>
+                  </Tabs.Content>
+                </Tabs.Root>
 
                 <Heading id="dialog" mb="5">
                   <Link
@@ -1855,13 +1867,15 @@ export default function ExploreComponents() {
                     Dropdown Menu
                   </Link>
                 </Heading>
-                <TabsRoot defaultValue="theme-colors">
-                  <TabsList size="2">
-                    <TabsTrigger value="theme-colors">Theme colors</TabsTrigger>
-                    <TabsTrigger value="all-colors">All colors</TabsTrigger>
-                    <TabsTrigger value="all-sizes">All sizes</TabsTrigger>
-                  </TabsList>
-                  <TabsContent value="theme-colors">
+                <Tabs.Root defaultValue="theme-colors">
+                  <Tabs.List size="2">
+                    <Tabs.Trigger value="theme-colors">
+                      Theme colors
+                    </Tabs.Trigger>
+                    <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
+                    <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
+                  </Tabs.List>
+                  <Tabs.Content value="theme-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -1930,9 +1944,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-colors">
+                  <Tabs.Content value="all-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -1979,9 +1993,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-sizes">
+                  <Tabs.Content value="all-sizes">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -2020,8 +2034,8 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
-                </TabsRoot>
+                  </Tabs.Content>
+                </Tabs.Root>
 
                 <Heading id="em" mb="5">
                   <Link color="gray" underline="hover" highContrast href="#em">
@@ -2049,14 +2063,14 @@ export default function ExploreComponents() {
                     Heading
                   </Link>
                 </Heading>
-                <TabsRoot defaultValue="specimen">
-                  <TabsList size="2">
-                    <TabsTrigger value="specimen">Specimen</TabsTrigger>
-                    <TabsTrigger value="all-colors">All colors</TabsTrigger>
-                    <TabsTrigger value="all-sizes">All sizes</TabsTrigger>
-                    <TabsTrigger value="all-weights">All weights</TabsTrigger>
-                  </TabsList>
-                  <TabsContent value="specimen">
+                <Tabs.Root defaultValue="specimen">
+                  <Tabs.List size="2">
+                    <Tabs.Trigger value="specimen">Specimen</Tabs.Trigger>
+                    <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
+                    <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
+                    <Tabs.Trigger value="all-weights">All weights</Tabs.Trigger>
+                  </Tabs.List>
+                  <Tabs.Content value="specimen">
                     <Box my="6" style={{ width: 560 }}>
                       <Heading size="9">
                         The principles of the typographic craft are difficult to
@@ -2119,9 +2133,9 @@ export default function ExploreComponents() {
                         </Text>
                       </Box>
                     </Flex>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-colors">
+                  <Tabs.Content value="all-colors">
                     <Box my="6">
                       <table
                         className={styles.table}
@@ -2144,9 +2158,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-sizes">
+                  <Tabs.Content value="all-sizes">
                     <Box my="6">
                       <table
                         className={styles.table}
@@ -2168,9 +2182,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-weights">
+                  <Tabs.Content value="all-weights">
                     <Box my="6">
                       <table
                         className={styles.table}
@@ -2193,8 +2207,8 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
-                </TabsRoot>
+                  </Tabs.Content>
+                </Tabs.Root>
 
                 <Heading id="hover-card" mb="5">
                   <Link
@@ -2248,13 +2262,15 @@ export default function ExploreComponents() {
                     Icon Button
                   </Link>
                 </Heading>
-                <TabsRoot defaultValue="theme-colors">
-                  <TabsList size="2">
-                    <TabsTrigger value="theme-colors">Theme colors</TabsTrigger>
-                    <TabsTrigger value="all-colors">All colors</TabsTrigger>
-                    <TabsTrigger value="all-sizes">All sizes</TabsTrigger>
-                  </TabsList>
-                  <TabsContent value="theme-colors">
+                <Tabs.Root defaultValue="theme-colors">
+                  <Tabs.List size="2">
+                    <Tabs.Trigger value="theme-colors">
+                      Theme colors
+                    </Tabs.Trigger>
+                    <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
+                    <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
+                  </Tabs.List>
+                  <Tabs.Content value="theme-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -2303,9 +2319,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-colors">
+                  <Tabs.Content value="all-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -2352,9 +2368,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-sizes">
+                  <Tabs.Content value="all-sizes">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -2390,8 +2406,8 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
-                </TabsRoot>
+                  </Tabs.Content>
+                </Tabs.Root>
 
                 <Heading id="inset" mb="5">
                   <Link
@@ -2462,13 +2478,13 @@ export default function ExploreComponents() {
                     Kbd
                   </Link>
                 </Heading>
-                <TabsRoot defaultValue="specimen">
-                  <TabsList size="2">
-                    <TabsTrigger value="specimen">Specimen</TabsTrigger>
-                    <TabsTrigger value="all-sizes">All sizes</TabsTrigger>
-                  </TabsList>
+                <Tabs.Root defaultValue="specimen">
+                  <Tabs.List size="2">
+                    <Tabs.Trigger value="specimen">Specimen</Tabs.Trigger>
+                    <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
+                  </Tabs.List>
 
-                  <TabsContent value="specimen">
+                  <Tabs.Content value="specimen">
                     <Flex direction="column" gap="4" my="6">
                       <Text as="p" size="2">
                         Press <Kbd>⌘ C</Kbd> to show/hide the Theme Panel, or
@@ -2487,9 +2503,9 @@ export default function ExploreComponents() {
                         press <Kbd>⌘ D</Kbd> to toggle dark mode.
                       </Text>
                     </Flex>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-sizes">
+                  <Tabs.Content value="all-sizes">
                     <Box my="6">
                       <Box my="6">
                         <Flex
@@ -2510,8 +2526,8 @@ export default function ExploreComponents() {
                         </Flex>
                       </Box>
                     </Box>
-                  </TabsContent>
-                </TabsRoot>
+                  </Tabs.Content>
+                </Tabs.Root>
 
                 <Heading id="link" mb="5">
                   <Link
@@ -2523,14 +2539,14 @@ export default function ExploreComponents() {
                     Link
                   </Link>
                 </Heading>
-                <TabsRoot defaultValue="specimen">
-                  <TabsList size="2">
-                    <TabsTrigger value="specimen">Specimen</TabsTrigger>
-                    <TabsTrigger value="all-colors">All colors</TabsTrigger>
-                    <TabsTrigger value="all-sizes">All sizes</TabsTrigger>
-                    <TabsTrigger value="all-weights">All weights</TabsTrigger>
-                  </TabsList>
-                  <TabsContent value="specimen">
+                <Tabs.Root defaultValue="specimen">
+                  <Tabs.List size="2">
+                    <Tabs.Trigger value="specimen">Specimen</Tabs.Trigger>
+                    <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
+                    <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
+                    <Tabs.Trigger value="all-weights">All weights</Tabs.Trigger>
+                  </Tabs.List>
+                  <Tabs.Content value="specimen">
                     <Grid my="6" gap="6" columns="440px 440px">
                       <Flex direction="column" gap="6">
                         <Text mb="-4" size="1" color="gray" align="center">
@@ -2598,9 +2614,9 @@ export default function ExploreComponents() {
                         </Text>
                       </Flex>
                     </Grid>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-colors">
+                  <Tabs.Content value="all-colors">
                     <Box my="6">
                       <table
                         className={styles.table}
@@ -2625,9 +2641,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-sizes">
+                  <Tabs.Content value="all-sizes">
                     <Box my="6">
                       <Flex direction="column" gap="4">
                         {linkPropDefs.size.values.map((size) => (
@@ -2644,9 +2660,9 @@ export default function ExploreComponents() {
                         ))}
                       </Flex>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-weights">
+                  <Tabs.Content value="all-weights">
                     <Box my="6">
                       <table
                         className={styles.table}
@@ -2666,8 +2682,8 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
-                </TabsRoot>
+                  </Tabs.Content>
+                </Tabs.Root>
 
                 <Heading id="popover" mb="5">
                   <Link
@@ -2869,13 +2885,15 @@ export default function ExploreComponents() {
                     Radio Group
                   </Link>
                 </Heading>
-                <TabsRoot defaultValue="theme-colors">
-                  <TabsList size="2">
-                    <TabsTrigger value="theme-colors">Theme colors</TabsTrigger>
-                    <TabsTrigger value="all-colors">All colors</TabsTrigger>
-                    <TabsTrigger value="all-sizes">All sizes</TabsTrigger>
-                  </TabsList>
-                  <TabsContent value="theme-colors">
+                <Tabs.Root defaultValue="theme-colors">
+                  <Tabs.List size="2">
+                    <Tabs.Trigger value="theme-colors">
+                      Theme colors
+                    </Tabs.Trigger>
+                    <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
+                    <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
+                  </Tabs.List>
+                  <Tabs.Content value="theme-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -2962,9 +2980,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-colors">
+                  <Tabs.Content value="all-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -3021,9 +3039,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-sizes">
+                  <Tabs.Content value="all-sizes">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -3069,8 +3087,8 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
-                </TabsRoot>
+                  </Tabs.Content>
+                </Tabs.Root>
 
                 <Heading id="scroll area" mb="5">
                   <Link
@@ -3151,13 +3169,15 @@ export default function ExploreComponents() {
                     Select
                   </Link>
                 </Heading>
-                <TabsRoot defaultValue="theme-colors">
-                  <TabsList size="2">
-                    <TabsTrigger value="theme-colors">Theme colors</TabsTrigger>
-                    <TabsTrigger value="all-colors">All colors</TabsTrigger>
-                    <TabsTrigger value="all-sizes">All sizes</TabsTrigger>
-                  </TabsList>
-                  <TabsContent value="theme-colors">
+                <Tabs.Root defaultValue="theme-colors">
+                  <Tabs.List size="2">
+                    <Tabs.Trigger value="theme-colors">
+                      Theme colors
+                    </Tabs.Trigger>
+                    <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
+                    <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
+                  </Tabs.List>
+                  <Tabs.Content value="theme-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -3236,9 +3256,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-colors">
+                  <Tabs.Content value="all-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -3280,9 +3300,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-sizes">
+                  <Tabs.Content value="all-sizes">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -3326,8 +3346,8 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
-                </TabsRoot>
+                  </Tabs.Content>
+                </Tabs.Root>
 
                 <Heading id="separator" mb="5">
                   <Link
@@ -3365,13 +3385,15 @@ export default function ExploreComponents() {
                     Slider
                   </Link>
                 </Heading>
-                <TabsRoot defaultValue="theme-colors">
-                  <TabsList size="2">
-                    <TabsTrigger value="theme-colors">Theme colors</TabsTrigger>
-                    <TabsTrigger value="all-colors">All colors</TabsTrigger>
-                    <TabsTrigger value="all-sizes">All sizes</TabsTrigger>
-                  </TabsList>
-                  <TabsContent value="theme-colors">
+                <Tabs.Root defaultValue="theme-colors">
+                  <Tabs.List size="2">
+                    <Tabs.Trigger value="theme-colors">
+                      Theme colors
+                    </Tabs.Trigger>
+                    <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
+                    <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
+                  </Tabs.List>
+                  <Tabs.Content value="theme-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -3428,9 +3450,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-colors">
+                  <Tabs.Content value="all-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -3471,9 +3493,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-sizes">
+                  <Tabs.Content value="all-sizes">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -3517,8 +3539,8 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
-                </TabsRoot>
+                  </Tabs.Content>
+                </Tabs.Root>
 
                 <Heading id="switch" mb="5">
                   <Link
@@ -3530,13 +3552,15 @@ export default function ExploreComponents() {
                     Switch
                   </Link>
                 </Heading>
-                <TabsRoot defaultValue="theme-colors">
-                  <TabsList size="2">
-                    <TabsTrigger value="theme-colors">Theme colors</TabsTrigger>
-                    <TabsTrigger value="all-colors">All colors</TabsTrigger>
-                    <TabsTrigger value="all-sizes">All sizes</TabsTrigger>
-                  </TabsList>
-                  <TabsContent value="theme-colors">
+                <Tabs.Root defaultValue="theme-colors">
+                  <Tabs.List size="2">
+                    <Tabs.Trigger value="theme-colors">
+                      Theme colors
+                    </Tabs.Trigger>
+                    <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
+                    <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
+                  </Tabs.List>
+                  <Tabs.Content value="theme-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -3586,9 +3610,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-colors">
+                  <Tabs.Content value="all-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -3617,9 +3641,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-sizes">
+                  <Tabs.Content value="all-sizes">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -3644,8 +3668,8 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
-                </TabsRoot>
+                  </Tabs.Content>
+                </Tabs.Root>
 
                 <Heading id="table" mb="5">
                   <Link
@@ -3820,17 +3844,17 @@ export default function ExploreComponents() {
                 </Heading>
                 <Flex gap="8" align="end" mb="9">
                   {tabsListPropDefs.size.values.map((size) => (
-                    <TabsRoot
+                    <Tabs.Root
                       key={size}
                       defaultValue="account"
                       activationMode="manual"
                     >
-                      <TabsList size={size}>
-                        <TabsTrigger value="account">Account</TabsTrigger>
-                        <TabsTrigger value="documents">Documents</TabsTrigger>
-                        <TabsTrigger value="settings">Settings</TabsTrigger>
-                      </TabsList>
-                    </TabsRoot>
+                      <Tabs.List size={size}>
+                        <Tabs.Trigger value="account">Account</Tabs.Trigger>
+                        <Tabs.Trigger value="documents">Documents</Tabs.Trigger>
+                        <Tabs.Trigger value="settings">Settings</Tabs.Trigger>
+                      </Tabs.List>
+                    </Tabs.Root>
                   ))}
                 </Flex>
 
@@ -3844,15 +3868,15 @@ export default function ExploreComponents() {
                     Text
                   </Link>
                 </Heading>
-                <TabsRoot defaultValue="specimen">
-                  <TabsList size="2">
-                    <TabsTrigger value="specimen">Specimen</TabsTrigger>
-                    <TabsTrigger value="all-colors">All colors</TabsTrigger>
-                    <TabsTrigger value="all-sizes">All sizes</TabsTrigger>
-                    <TabsTrigger value="all-weights">All weights</TabsTrigger>
-                  </TabsList>
+                <Tabs.Root defaultValue="specimen">
+                  <Tabs.List size="2">
+                    <Tabs.Trigger value="specimen">Specimen</Tabs.Trigger>
+                    <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
+                    <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
+                    <Tabs.Trigger value="all-weights">All weights</Tabs.Trigger>
+                  </Tabs.List>
 
-                  <TabsContent value="specimen">
+                  <Tabs.Content value="specimen">
                     <Box my="6" style={{ width: 760 }}>
                       <Text as="p" size="5">
                         The goal of typography is to relate font size, line
@@ -4064,9 +4088,9 @@ export default function ExploreComponents() {
                         </Text>
                       </Flex>
                     </Grid>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-colors">
+                  <Tabs.Content value="all-colors">
                     <Box my="6">
                       <table
                         className={styles.table}
@@ -4092,9 +4116,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-sizes">
+                  <Tabs.Content value="all-sizes">
                     <Box my="6">
                       <Flex
                         direction="column"
@@ -4115,9 +4139,9 @@ export default function ExploreComponents() {
                         ))}
                       </Flex>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-weights">
+                  <Tabs.Content value="all-weights">
                     <Box my="6">
                       <table
                         className={styles.table}
@@ -4140,8 +4164,8 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
-                </TabsRoot>
+                  </Tabs.Content>
+                </Tabs.Root>
 
                 <Heading id="text-area" mb="5">
                   <Link
@@ -4153,13 +4177,15 @@ export default function ExploreComponents() {
                     Text Area
                   </Link>
                 </Heading>
-                <TabsRoot defaultValue="theme-colors">
-                  <TabsList size="2">
-                    <TabsTrigger value="theme-colors">Theme colors</TabsTrigger>
-                    <TabsTrigger value="all-colors">All colors</TabsTrigger>
-                    <TabsTrigger value="all-sizes">All sizes</TabsTrigger>
-                  </TabsList>
-                  <TabsContent value="theme-colors">
+                <Tabs.Root defaultValue="theme-colors">
+                  <Tabs.List size="2">
+                    <Tabs.Trigger value="theme-colors">
+                      Theme colors
+                    </Tabs.Trigger>
+                    <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
+                    <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
+                  </Tabs.List>
+                  <Tabs.Content value="theme-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -4209,9 +4235,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-colors">
+                  <Tabs.Content value="all-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -4242,9 +4268,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-sizes">
+                  <Tabs.Content value="all-sizes">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -4278,8 +4304,8 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
-                </TabsRoot>
+                  </Tabs.Content>
+                </Tabs.Root>
 
                 <Heading id="text-field" mb="5">
                   <Link
@@ -4291,13 +4317,15 @@ export default function ExploreComponents() {
                     Text Field
                   </Link>
                 </Heading>
-                <TabsRoot defaultValue="theme-colors">
-                  <TabsList size="2">
-                    <TabsTrigger value="theme-colors">Theme colors</TabsTrigger>
-                    <TabsTrigger value="all-colors">All colors</TabsTrigger>
-                    <TabsTrigger value="all-sizes">All sizes</TabsTrigger>
-                  </TabsList>
-                  <TabsContent value="theme-colors">
+                <Tabs.Root defaultValue="theme-colors">
+                  <Tabs.List size="2">
+                    <Tabs.Trigger value="theme-colors">
+                      Theme colors
+                    </Tabs.Trigger>
+                    <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
+                    <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
+                  </Tabs.List>
+                  <Tabs.Content value="theme-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -4407,9 +4435,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-colors">
+                  <Tabs.Content value="all-colors">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -4456,9 +4484,9 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
+                  </Tabs.Content>
 
-                  <TabsContent value="all-sizes">
+                  <Tabs.Content value="all-sizes">
                     <Box my="6">
                       <table className={styles.table}>
                         <thead>
@@ -4550,8 +4578,8 @@ export default function ExploreComponents() {
                         </tbody>
                       </table>
                     </Box>
-                  </TabsContent>
-                </TabsRoot>
+                  </Tabs.Content>
+                </Tabs.Root>
 
                 <Heading id="tooltip" mb="5">
                   <Link

@@ -34,8 +34,7 @@ import {
   Popover,
   Separator,
   Strong,
-  TabsNavLink,
-  TabsNavRoot,
+  TabsNav,
   Text,
   TextArea,
   TextFieldInput,
@@ -329,14 +328,14 @@ export default function Demo() {
               </Flex>
             </aside>
             <main className={styles.main}>
-              <TabsNavRoot>
-                <TabsNavLink asChild active={pathname == '/dashboard'}>
+              <TabsNav.Root>
+                <TabsNav.Link asChild active={pathname == '/dashboard'}>
                   <Link href="/dashboard">Dashboard</Link>
-                </TabsNavLink>
-                <TabsNavLink asChild active={pathname == '/demo'}>
+                </TabsNav.Link>
+                <TabsNav.Link asChild active={pathname == '/demo'}>
                   <Link href="/demo">Demo</Link>
-                </TabsNavLink>
-              </TabsNavRoot>
+                </TabsNav.Link>
+              </TabsNav.Root>
               <Box pl="7" pr="6">
                 <Flex
                   pt="4"
