@@ -85,9 +85,7 @@ import {
   PopoverTrigger,
   //
   Quote,
-  RadioGroupItem,
-  //
-  RadioGroupRoot,
+  RadioGroup,
   //
   ScrollArea,
   SelectContent,
@@ -1385,41 +1383,41 @@ export default function Sink() {
                                     <tr key={label}>
                                       <RowHeaderCell>{label}</RowHeaderCell>
                                       <td>
-                                        <RadioGroupRoot
+                                        <RadioGroup.Root
                                           variant={variant}
                                           highContrast={
                                             label === '+ high-contrast'
                                           }
                                         >
-                                          <RadioGroupItem value="value" />
-                                        </RadioGroupRoot>
+                                          <RadioGroup.Item value="value" />
+                                        </RadioGroup.Root>
                                       </td>
                                       <td>
-                                        <RadioGroupRoot
+                                        <RadioGroup.Root
                                           variant={variant}
                                           defaultValue="value"
                                           highContrast={
                                             label === '+ high-contrast'
                                           }
                                         >
-                                          <RadioGroupItem value="value" />
-                                        </RadioGroupRoot>
+                                          <RadioGroup.Item value="value" />
+                                        </RadioGroup.Root>
                                       </td>
                                       <td>
-                                        <RadioGroupRoot
+                                        <RadioGroup.Root
                                           variant={variant}
                                           highContrast={
                                             label === '+ high-contrast'
                                           }
                                         >
-                                          <RadioGroupItem
+                                          <RadioGroup.Item
                                             value="value"
                                             disabled
                                           />
-                                        </RadioGroupRoot>
+                                        </RadioGroup.Root>
                                       </td>
                                       <td>
-                                        <RadioGroupRoot
+                                        <RadioGroup.Root
                                           variant={variant}
                                           highContrast={
                                             label === '+ high-contrast'
@@ -1427,8 +1425,8 @@ export default function Sink() {
                                           disabled
                                           defaultValue="value"
                                         >
-                                          <RadioGroupItem value="value" />
-                                        </RadioGroupRoot>
+                                          <RadioGroup.Item value="value" />
+                                        </RadioGroup.Root>
                                       </td>
                                     </tr>
                                   ))}
@@ -1444,12 +1442,12 @@ export default function Sink() {
                               <tr key={size}>
                                 <RowHeaderCell>size {size}</RowHeaderCell>
                                 <td>
-                                  <RadioGroupRoot
+                                  <RadioGroup.Root
                                     size={size}
                                     defaultValue="value"
                                   >
-                                    <RadioGroupItem value="value" />
-                                  </RadioGroupRoot>
+                                    <RadioGroup.Item value="value" />
+                                  </RadioGroup.Root>
                                 </td>
                               </tr>
                             ))}
@@ -1471,12 +1469,12 @@ export default function Sink() {
                         >
                           <Separator size="4" />
 
-                          <RadioGroupRoot defaultValue="1" size="1">
+                          <RadioGroup.Root defaultValue="1" size="1">
                             <Flex direction="column" gap="1">
                               <Text size="1" asChild>
                                 <label>
                                   <Flex gap="2">
-                                    <RadioGroupItem value="1" />
+                                    <RadioGroup.Item value="1" />
                                     <Text>Agree to Terms and Conditions</Text>
                                   </Flex>
                                 </label>
@@ -1484,7 +1482,7 @@ export default function Sink() {
                               <Text size="1" asChild>
                                 <label>
                                   <Flex gap="2">
-                                    <RadioGroupItem value="2" />
+                                    <RadioGroup.Item value="2" />
                                     <Text>
                                       Disagree with Terms and Conditions
                                     </Text>
@@ -1492,16 +1490,16 @@ export default function Sink() {
                                 </label>
                               </Text>
                             </Flex>
-                          </RadioGroupRoot>
+                          </RadioGroup.Root>
 
                           <Separator size="4" />
 
-                          <RadioGroupRoot defaultValue="1" size="1">
+                          <RadioGroup.Root defaultValue="1" size="1">
                             <Flex direction="column" gap="1">
                               <Text size="2" asChild>
                                 <label>
                                   <Flex gap="2">
-                                    <RadioGroupItem value="1" />
+                                    <RadioGroup.Item value="1" />
                                     <Text>Agree to Terms and Conditions</Text>
                                   </Flex>
                                 </label>
@@ -1509,7 +1507,7 @@ export default function Sink() {
                               <Text size="2" asChild>
                                 <label>
                                   <Flex gap="2">
-                                    <RadioGroupItem value="2" />
+                                    <RadioGroup.Item value="2" />
                                     <Text>
                                       Disagree with Terms and Conditions
                                     </Text>
@@ -1517,16 +1515,16 @@ export default function Sink() {
                                 </label>
                               </Text>
                             </Flex>
-                          </RadioGroupRoot>
+                          </RadioGroup.Root>
 
                           <Separator size="4" />
 
-                          <RadioGroupRoot defaultValue="1" size="2">
+                          <RadioGroup.Root defaultValue="1" size="2">
                             <Flex direction="column" gap="1">
                               <Text size="2" asChild>
                                 <label>
                                   <Flex gap="2">
-                                    <RadioGroupItem value="1" />
+                                    <RadioGroup.Item value="1" />
                                     <Text>Agree to Terms and Conditions</Text>
                                   </Flex>
                                 </label>
@@ -1534,7 +1532,7 @@ export default function Sink() {
                               <Text size="2" asChild>
                                 <label>
                                   <Flex gap="2">
-                                    <RadioGroupItem value="2" />
+                                    <RadioGroup.Item value="2" />
                                     <Text>
                                       Disagree with Terms and Conditions
                                     </Text>
@@ -1542,16 +1540,16 @@ export default function Sink() {
                                 </label>
                               </Text>
                             </Flex>
-                          </RadioGroupRoot>
+                          </RadioGroup.Root>
 
                           <Separator size="4" />
 
-                          <RadioGroupRoot defaultValue="1" size="2">
+                          <RadioGroup.Root defaultValue="1" size="2">
                             <Flex direction="column" gap="1">
                               <Text size="3" asChild>
                                 <label>
                                   <Flex gap="2">
-                                    <RadioGroupItem value="1" />
+                                    <RadioGroup.Item value="1" />
                                     <Text>Agree to Terms and Conditions</Text>
                                   </Flex>
                                 </label>
@@ -1559,7 +1557,7 @@ export default function Sink() {
                               <Text size="3" asChild>
                                 <label>
                                   <Flex gap="2">
-                                    <RadioGroupItem value="2" />
+                                    <RadioGroup.Item value="2" />
                                     <Text>
                                       Disagree with Terms and Conditions
                                     </Text>
@@ -1567,16 +1565,16 @@ export default function Sink() {
                                 </label>
                               </Text>
                             </Flex>
-                          </RadioGroupRoot>
+                          </RadioGroup.Root>
 
                           <Separator size="4" />
 
-                          <RadioGroupRoot defaultValue="1" size="3">
+                          <RadioGroup.Root defaultValue="1" size="3">
                             <Flex direction="column" gap="1">
                               <Text size="3" asChild>
                                 <label>
                                   <Flex gap="2">
-                                    <RadioGroupItem value="1" />
+                                    <RadioGroup.Item value="1" />
                                     <Text>Agree to Terms and Conditions</Text>
                                   </Flex>
                                 </label>
@@ -1584,7 +1582,7 @@ export default function Sink() {
                               <Text size="3" asChild>
                                 <label>
                                   <Flex gap="2">
-                                    <RadioGroupItem value="2" />
+                                    <RadioGroup.Item value="2" />
                                     <Text>
                                       Disagree with Terms and Conditions
                                     </Text>
@@ -1592,16 +1590,16 @@ export default function Sink() {
                                 </label>
                               </Text>
                             </Flex>
-                          </RadioGroupRoot>
+                          </RadioGroup.Root>
 
                           <Separator size="4" />
 
-                          <RadioGroupRoot defaultValue="1" size="3">
+                          <RadioGroup.Root defaultValue="1" size="3">
                             <Flex direction="column" gap="1">
                               <Text size="4" asChild>
                                 <label>
                                   <Flex gap="2">
-                                    <RadioGroupItem value="1" />
+                                    <RadioGroup.Item value="1" />
                                     <Text>Agree to Terms and Conditions</Text>
                                   </Flex>
                                 </label>
@@ -1609,7 +1607,7 @@ export default function Sink() {
                               <Text size="4" asChild>
                                 <label>
                                   <Flex gap="2">
-                                    <RadioGroupItem value="2" />
+                                    <RadioGroup.Item value="2" />
                                     <Text>
                                       Disagree with Terms and Conditions
                                     </Text>
@@ -1617,7 +1615,7 @@ export default function Sink() {
                                 </label>
                               </Text>
                             </Flex>
-                          </RadioGroupRoot>
+                          </RadioGroup.Root>
 
                           <Separator size="4" />
                         </Flex>
@@ -1660,21 +1658,21 @@ export default function Sink() {
                                     (variant) => (
                                       <td key={variant}>
                                         <Flex gap="2">
-                                          <RadioGroupRoot
+                                          <RadioGroup.Root
                                             variant={variant}
                                             color={color}
                                             defaultValue="value"
                                           >
-                                            <RadioGroupItem value="value" />
-                                          </RadioGroupRoot>
-                                          <RadioGroupRoot
+                                            <RadioGroup.Item value="value" />
+                                          </RadioGroup.Root>
+                                          <RadioGroup.Root
                                             variant={variant}
                                             color={color}
                                             defaultValue="value"
                                             highContrast
                                           >
-                                            <RadioGroupItem value="value" />
-                                          </RadioGroupRoot>
+                                            <RadioGroup.Item value="value" />
+                                          </RadioGroup.Root>
                                         </Flex>
                                       </td>
                                     ),

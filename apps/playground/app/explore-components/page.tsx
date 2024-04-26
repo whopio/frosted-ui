@@ -80,9 +80,7 @@ import {
   PopoverTrigger,
   //
   Quote,
-  RadioGroupItem,
-  //
-  RadioGroupRoot,
+  RadioGroup,
   //
   ScrollArea,
   SelectContent,
@@ -2940,69 +2938,69 @@ export default function ExploreComponents() {
                               <td>{upperFirst(variant)}</td>
                               <td>
                                 <Flex align="center" justify="center" gap="4">
-                                  <RadioGroupRoot variant={variant}>
-                                    <RadioGroupItem value="value" />
-                                  </RadioGroupRoot>
-                                  <RadioGroupRoot
+                                  <RadioGroup.Root variant={variant}>
+                                    <RadioGroup.Item value="value" />
+                                  </RadioGroup.Root>
+                                  <RadioGroup.Root
                                     variant={variant}
                                     defaultValue="value"
                                   >
-                                    <RadioGroupItem value="value" />
-                                  </RadioGroupRoot>
+                                    <RadioGroup.Item value="value" />
+                                  </RadioGroup.Root>
                                 </Flex>
                               </td>
                               <td>
                                 <Flex align="center" justify="center" gap="4">
-                                  <RadioGroupRoot
+                                  <RadioGroup.Root
                                     variant={variant}
                                     highContrast
                                     defaultValue="value"
                                   >
-                                    <RadioGroupItem value="value" />
-                                  </RadioGroupRoot>
+                                    <RadioGroup.Item value="value" />
+                                  </RadioGroup.Root>
                                 </Flex>
                               </td>
                               <td>
                                 <Flex align="center" justify="center" gap="4">
-                                  <RadioGroupRoot
+                                  <RadioGroup.Root
                                     variant={variant}
                                     color="gray"
                                   >
-                                    <RadioGroupItem value="value" />
-                                  </RadioGroupRoot>
-                                  <RadioGroupRoot
+                                    <RadioGroup.Item value="value" />
+                                  </RadioGroup.Root>
+                                  <RadioGroup.Root
                                     variant={variant}
                                     color="gray"
                                     defaultValue="value"
                                   >
-                                    <RadioGroupItem value="value" />
-                                  </RadioGroupRoot>
+                                    <RadioGroup.Item value="value" />
+                                  </RadioGroup.Root>
                                 </Flex>
                               </td>
                               <td>
                                 <Flex align="center" justify="center" gap="4">
-                                  <RadioGroupRoot
+                                  <RadioGroup.Root
                                     variant={variant}
                                     color="gray"
                                     highContrast
                                     defaultValue="value"
                                   >
-                                    <RadioGroupItem value="value" />
-                                  </RadioGroupRoot>
+                                    <RadioGroup.Item value="value" />
+                                  </RadioGroup.Root>
                                 </Flex>
                               </td>
                               <td>
                                 <Flex align="center" justify="center" gap="4">
-                                  <RadioGroupRoot variant={variant} disabled>
-                                    <RadioGroupItem value="value" />
-                                  </RadioGroupRoot>
-                                  <RadioGroupRoot
+                                  <RadioGroup.Root variant={variant} disabled>
+                                    <RadioGroup.Item value="value" />
+                                  </RadioGroup.Root>
+                                  <RadioGroup.Root
                                     variant={variant}
                                     disabled
                                     defaultValue="value"
                                   >
-                                    <RadioGroupItem value="value" />
-                                  </RadioGroupRoot>
+                                    <RadioGroup.Item value="value" />
+                                  </RadioGroup.Root>
                                 </Flex>
                               </td>
                             </tr>
@@ -3037,29 +3035,29 @@ export default function ExploreComponents() {
                                       justify="center"
                                       gap="4"
                                     >
-                                      <RadioGroupRoot
+                                      <RadioGroup.Root
                                         variant={variant}
                                         color={color}
                                       >
-                                        <RadioGroupItem value="value" />
-                                      </RadioGroupRoot>
+                                        <RadioGroup.Item value="value" />
+                                      </RadioGroup.Root>
 
-                                      <RadioGroupRoot
+                                      <RadioGroup.Root
                                         variant={variant}
                                         color={color}
                                         defaultValue="value"
                                       >
-                                        <RadioGroupItem value="value" />
-                                      </RadioGroupRoot>
+                                        <RadioGroup.Item value="value" />
+                                      </RadioGroup.Root>
 
-                                      <RadioGroupRoot
+                                      <RadioGroup.Root
                                         variant={variant}
                                         color={color}
                                         highContrast
                                         defaultValue="value"
                                       >
-                                        <RadioGroupItem value="value" />
-                                      </RadioGroupRoot>
+                                        <RadioGroup.Item value="value" />
+                                      </RadioGroup.Root>
                                     </Flex>
                                   </td>
                                 ),
@@ -3101,13 +3099,13 @@ export default function ExploreComponents() {
                                       justify="start"
                                       gap="4"
                                     >
-                                      <RadioGroupRoot
+                                      <RadioGroup.Root
                                         size={size}
                                         variant={variant}
                                         defaultValue="value"
                                       >
-                                        <RadioGroupItem value="value" />
-                                      </RadioGroupRoot>
+                                        <RadioGroup.Item value="value" />
+                                      </RadioGroup.Root>
                                     </Flex>
                                   </td>
                                 ),

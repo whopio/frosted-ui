@@ -6,8 +6,7 @@ import {
   Flex,
   IconButton,
   Popover,
-  RadioGroupItem,
-  RadioGroupRoot,
+  RadioGroup,
   Text,
 } from 'frosted-ui';
 import * as React from 'react';
@@ -74,17 +73,17 @@ function ImageCard({ id }: { id: string | number }) {
               <Text as="p" size="3" style={{ marginBottom: 'var(--space-2)' }}>
                 Choose a size:
               </Text>
-              <RadioGroupRoot defaultValue="Small" mb="4">
+              <RadioGroup.Root defaultValue="Small" mb="4">
                 <Flex gap="2" direction="column">
                   {['Small', 'Medium', 'Large'].map((size) => (
                     <Text as="label" size="2" key={size}>
                       <Flex gap="2">
-                        <RadioGroupItem value={size} /> {size}
+                        <RadioGroup.Item value={size} /> {size}
                       </Flex>
                     </Text>
                   ))}
                 </Flex>
-              </RadioGroupRoot>
+              </RadioGroup.Root>
 
               <Popover.Close>
                 <Button size="2" variant="soft">

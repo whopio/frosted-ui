@@ -46,7 +46,7 @@ export {
   RadioButtonGroupRoot,
 } from './radio-button-group';
 export * from './radio-button-group.props';
-export { RadioGroup, RadioGroupItem, RadioGroupRoot } from './radio-group';
+export * as RadioGroup from './radio-group';
 export * from './radio-group.props';
 // export * from './radio-card-group';
 export { DateField } from './date-field';
