@@ -1,12 +1,7 @@
 import { HamburgerMenuIcon, UploadIcon } from '@radix-ui/react-icons';
 import {
   Button,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogRoot,
-  DialogTitle,
-  DialogTrigger,
+  Dialog,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
@@ -304,9 +299,9 @@ export default function Snapshot() {
 
 function SubmitPhotoDialog({ children }: { children: React.ReactNode }) {
   return (
-    <DialogRoot>
-      <DialogTrigger>{children}</DialogTrigger>
-      <DialogContent style={{ maxWidth: 450 }}>
+    <Dialog.Root>
+      <Dialog.Trigger>{children}</Dialog.Trigger>
+      <Dialog.Content style={{ maxWidth: 450 }}>
         <div
           style={{
             display: 'flex',
@@ -314,10 +309,10 @@ function SubmitPhotoDialog({ children }: { children: React.ReactNode }) {
             gap: 'var(--space-3)',
           }}
         >
-          <DialogTitle>Submit a photo</DialogTitle>
-          <DialogDescription size="2">
+          <Dialog.Title>Submit a photo</Dialog.Title>
+          <Dialog.Description size="2">
             Drop a photo here or click to browse your files.
-          </DialogDescription>
+          </Dialog.Description>
 
           <div
             style={{
@@ -340,19 +335,19 @@ function SubmitPhotoDialog({ children }: { children: React.ReactNode }) {
               marginTop: 'var(--space-4)',
             }}
           >
-            <DialogClose>
+            <Dialog.Close>
               <Button variant="soft" color="gray">
                 Cancel
               </Button>
-            </DialogClose>
-            <DialogClose>
+            </Dialog.Close>
+            <Dialog.Close>
               <Button>
                 Submit photo <UploadIcon />
               </Button>
-            </DialogClose>
+            </Dialog.Close>
           </div>
         </div>
-      </DialogContent>
-    </DialogRoot>
+      </Dialog.Content>
+    </Dialog.Root>
   );
 }

@@ -31,13 +31,7 @@ import {
   //
   Code,
   ContextMenu,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  //
-  DialogRoot,
-  DialogTitle,
-  DialogTrigger,
+  Dialog,
   DropdownMenuContent,
   DropdownMenuItem,
   //
@@ -1689,17 +1683,17 @@ export default function ExploreComponents() {
                   </Link>
                 </Heading>
                 <Flex gap="4" align="center" mb="9">
-                  <DialogRoot>
-                    <DialogTrigger>
+                  <Dialog.Root>
+                    <Dialog.Trigger>
                       <Button size="1">Open</Button>
-                    </DialogTrigger>
-                    <DialogContent size="1" style={{ maxWidth: 300 }}>
-                      <DialogTitle size="3" mb="1">
+                    </Dialog.Trigger>
+                    <Dialog.Content size="1" style={{ maxWidth: 300 }}>
+                      <Dialog.Title size="3" mb="1">
                         Edit profile
-                      </DialogTitle>
-                      <DialogDescription size="2" mb="3">
+                      </Dialog.Title>
+                      <Dialog.Description size="2" mb="3">
                         Make changes to your profile.
-                      </DialogDescription>
+                      </Dialog.Description>
 
                       <Flex direction="column" gap="3">
                         <label>
@@ -1725,29 +1719,29 @@ export default function ExploreComponents() {
                       </Flex>
 
                       <Flex gap="2" mt="3" justify="end">
-                        <DialogClose>
+                        <Dialog.Close>
                           <Button size="1" variant="soft" color="gray">
                             Cancel
                           </Button>
-                        </DialogClose>
-                        <DialogClose>
+                        </Dialog.Close>
+                        <Dialog.Close>
                           <Button size="1" autoFocus>
                             Save
                           </Button>
-                        </DialogClose>
+                        </Dialog.Close>
                       </Flex>
-                    </DialogContent>
-                  </DialogRoot>
+                    </Dialog.Content>
+                  </Dialog.Root>
 
-                  <DialogRoot>
-                    <DialogTrigger>
+                  <Dialog.Root>
+                    <Dialog.Trigger>
                       <Button size="2">Open</Button>
-                    </DialogTrigger>
-                    <DialogContent size="2" style={{ maxWidth: 400 }}>
-                      <DialogTitle mb="2">Edit profile</DialogTitle>
-                      <DialogDescription size="2" mb="4">
+                    </Dialog.Trigger>
+                    <Dialog.Content size="2" style={{ maxWidth: 400 }}>
+                      <Dialog.Title mb="2">Edit profile</Dialog.Title>
+                      <Dialog.Description size="2" mb="4">
                         Make changes to your profile.
-                      </DialogDescription>
+                      </Dialog.Description>
 
                       <Flex direction="column" gap="3">
                         <label>
@@ -1771,27 +1765,27 @@ export default function ExploreComponents() {
                       </Flex>
 
                       <Flex gap="3" mt="4" justify="end">
-                        <DialogClose>
+                        <Dialog.Close>
                           <Button variant="soft" color="gray">
                             Cancel
                           </Button>
-                        </DialogClose>
-                        <DialogClose>
+                        </Dialog.Close>
+                        <Dialog.Close>
                           <Button autoFocus>Save</Button>
-                        </DialogClose>
+                        </Dialog.Close>
                       </Flex>
-                    </DialogContent>
-                  </DialogRoot>
+                    </Dialog.Content>
+                  </Dialog.Root>
 
-                  <DialogRoot>
-                    <DialogTrigger>
+                  <Dialog.Root>
+                    <Dialog.Trigger>
                       <Button size="3">Open</Button>
-                    </DialogTrigger>
-                    <DialogContent size="3" style={{ maxWidth: 500 }}>
-                      <DialogTitle>Edit profile</DialogTitle>
-                      <DialogDescription size="2" mb="4">
+                    </Dialog.Trigger>
+                    <Dialog.Content size="3" style={{ maxWidth: 500 }}>
+                      <Dialog.Title>Edit profile</Dialog.Title>
+                      <Dialog.Description size="2" mb="4">
                         Make changes to your profile.
-                      </DialogDescription>
+                      </Dialog.Description>
 
                       <Flex direction="column" gap="3">
                         <label>
@@ -1815,27 +1809,27 @@ export default function ExploreComponents() {
                       </Flex>
 
                       <Flex gap="3" mt="4" justify="end">
-                        <DialogClose>
+                        <Dialog.Close>
                           <Button variant="soft" color="gray">
                             Cancel
                           </Button>
-                        </DialogClose>
-                        <DialogClose>
+                        </Dialog.Close>
+                        <Dialog.Close>
                           <Button autoFocus>Save</Button>
-                        </DialogClose>
+                        </Dialog.Close>
                       </Flex>
-                    </DialogContent>
-                  </DialogRoot>
+                    </Dialog.Content>
+                  </Dialog.Root>
 
-                  <DialogRoot>
-                    <DialogTrigger>
+                  <Dialog.Root>
+                    <Dialog.Trigger>
                       <Button size="4">Open</Button>
-                    </DialogTrigger>
-                    <DialogContent size="4">
-                      <DialogTitle size="6">Edit profile</DialogTitle>
-                      <DialogDescription size="3" mb="5">
+                    </Dialog.Trigger>
+                    <Dialog.Content size="4">
+                      <Dialog.Title size="6">Edit profile</Dialog.Title>
+                      <Dialog.Description size="3" mb="5">
                         Make changes to your profile.
-                      </DialogDescription>
+                      </Dialog.Description>
 
                       <Flex direction="column" gap="5">
                         <label>
@@ -1861,19 +1855,19 @@ export default function ExploreComponents() {
                       </Flex>
 
                       <Flex gap="3" mt="5" justify="end">
-                        <DialogClose>
+                        <Dialog.Close>
                           <Button size="3" variant="soft" color="gray">
                             Cancel
                           </Button>
-                        </DialogClose>
-                        <DialogClose>
+                        </Dialog.Close>
+                        <Dialog.Close>
                           <Button size="3" autoFocus>
                             Save
                           </Button>
-                        </DialogClose>
+                        </Dialog.Close>
                       </Flex>
-                    </DialogContent>
-                  </DialogRoot>
+                    </Dialog.Content>
+                  </Dialog.Root>
                 </Flex>
 
                 <Heading id="dropdown-menu" mb="5">

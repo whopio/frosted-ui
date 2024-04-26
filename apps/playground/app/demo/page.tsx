@@ -3,12 +3,7 @@ import {
   //
   Avatar,
   Button,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogRoot,
-  DialogTitle,
-  DialogTrigger,
+  Dialog,
   Flex,
   IconButton,
   Select,
@@ -43,17 +38,17 @@ export default function Demo() {
                       </Text>
                     </Flex>
                   </Flex>
-                  <DialogRoot>
-                    <DialogTrigger>
+                  <Dialog.Root>
+                    <Dialog.Trigger>
                       <IconButton aria-label="Edit user" variant="soft">
                         <Pencil1Icon />
                       </IconButton>
-                    </DialogTrigger>
-                    <DialogContent>
-                      <DialogTitle>{user.name}</DialogTitle>
-                      <DialogDescription mb="5">
+                    </Dialog.Trigger>
+                    <Dialog.Content>
+                      <Dialog.Title>{user.name}</Dialog.Title>
+                      <Dialog.Description mb="5">
                         Edit and save details below.
-                      </DialogDescription>
+                      </Dialog.Description>
 
                       <Text size="1" weight="bold" color="gray" mb="1">
                         Name
@@ -77,17 +72,17 @@ export default function Demo() {
                       </Select.Root>
 
                       <Flex justify="end" gap="3" mt="5">
-                        <DialogClose>
+                        <Dialog.Close>
                           <Button variant="soft" color="gray">
                             Cancel
                           </Button>
-                        </DialogClose>
-                        <DialogClose>
+                        </Dialog.Close>
+                        <Dialog.Close>
                           <Button>Save</Button>
-                        </DialogClose>
+                        </Dialog.Close>
                       </Flex>
-                    </DialogContent>
-                  </DialogRoot>
+                    </Dialog.Content>
+                  </Dialog.Root>
                 </Flex>
                 <Separator size="4" my="3" />
               </React.Fragment>

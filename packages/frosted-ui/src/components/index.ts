@@ -77,15 +77,7 @@ export * as AlertDialog from './alert-dialog';
 export * from './alert-dialog.props';
 export * as ContextMenu from './context-menu';
 export * from './context-menu.props';
-export {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogRoot,
-  DialogTitle,
-  DialogTrigger,
-} from './dialog';
+export * as Dialog from './dialog';
 export * from './dialog.props';
 export {
   Drawer,

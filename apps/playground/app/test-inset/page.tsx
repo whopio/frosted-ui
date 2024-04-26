@@ -5,12 +5,7 @@ import {
   Button,
   Card,
   Container,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogRoot,
-  DialogTitle,
-  DialogTrigger,
+  Dialog,
   Flex,
   Grid,
   HoverCardContent,
@@ -155,33 +150,33 @@ export default function Test() {
                       </div>
 
                       <div>
-                        <DialogRoot>
-                          <DialogTrigger>
+                        <Dialog.Root>
+                          <Dialog.Trigger>
                             <Button>Dialog</Button>
-                          </DialogTrigger>
-                          <DialogContent>
-                            <DialogTitle>Users</DialogTitle>
-                            <DialogDescription>
+                          </Dialog.Trigger>
+                          <Dialog.Content>
+                            <Dialog.Title>Users</Dialog.Title>
+                            <Dialog.Description>
                               Here are the users that have access to this
                               project.
-                            </DialogDescription>
+                            </Dialog.Description>
 
                             <Inset side="x" my="5">
                               <TableExample />
                             </Inset>
 
                             <Flex gap="3" justify="end">
-                              <DialogClose>
+                              <Dialog.Close>
                                 <Button variant="soft" color="gray">
                                   Cancel
                                 </Button>
-                              </DialogClose>
-                              <DialogClose>
+                              </Dialog.Close>
+                              <Dialog.Close>
                                 <Button>Share</Button>
-                              </DialogClose>
+                              </Dialog.Close>
                             </Flex>
-                          </DialogContent>
-                        </DialogRoot>
+                          </Dialog.Content>
+                        </Dialog.Root>
                       </div>
 
                       <div>

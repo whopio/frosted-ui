@@ -35,13 +35,7 @@ import {
   //
   Container,
   ContextMenu,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  //
-  DialogRoot,
-  DialogTitle,
-  DialogTrigger,
+  Dialog,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
@@ -226,34 +220,34 @@ export default function Sink() {
                     >
                       <Grid columns="3" gapY="9">
                         <DocsGridSectionItem title="Dialog">
-                          <DialogRoot>
-                            <DialogTrigger>
+                          <Dialog.Root>
+                            <Dialog.Trigger>
                               <Button>Open</Button>
-                            </DialogTrigger>
-                            <DialogContent style={{ maxWidth: 450 }}>
+                            </Dialog.Trigger>
+                            <Dialog.Content style={{ maxWidth: 450 }}>
                               <Flex direction="column" gap="3">
-                                <DialogTitle>Share resource</DialogTitle>
-                                <DialogDescription>
+                                <Dialog.Title>Share resource</Dialog.Title>
+                                <Dialog.Description>
                                   Jan Tschichold was a German calligrapher,
                                   typographer and book designer. He played a
                                   significant role in the development of graphic
                                   design in the 20th century.
-                                </DialogDescription>
+                                </Dialog.Description>
                                 <Flex gap="3" mt="4" justify="end">
-                                  <DialogClose>
+                                  <Dialog.Close>
                                     <Button variant="soft" color="gray">
                                       Cancel
                                     </Button>
-                                  </DialogClose>
-                                  <DialogClose>
+                                  </Dialog.Close>
+                                  <Dialog.Close>
                                     <Button>
                                       Share <Share2Icon />
                                     </Button>
-                                  </DialogClose>
+                                  </Dialog.Close>
                                 </Flex>
                               </Flex>
-                            </DialogContent>
-                          </DialogRoot>
+                            </Dialog.Content>
+                          </Dialog.Root>
                         </DocsGridSectionItem>
 
                         <DocsGridSectionItem title="HoverCard">
