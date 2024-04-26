@@ -79,17 +79,7 @@ export * as ContextMenu from './context-menu';
 export * from './context-menu.props';
 export * as Dialog from './dialog';
 export * from './dialog.props';
-export {
-  Drawer,
-  DrawerBody,
-  DrawerClose,
-  DrawerContent,
-  DrawerHeader,
-  DrawerRoot,
-  DrawerStickyFooter,
-  DrawerTitle,
-  DrawerTrigger,
-} from './drawer';
+export * as Drawer from './drawer';
 export {
   DropdownMenu,
   DropdownMenuCheckboxItem,

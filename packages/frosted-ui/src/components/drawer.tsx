@@ -180,39 +180,24 @@ const DrawerBody = React.forwardRef<DrawerBodyElement, DrawerBodyProps>(
 );
 DrawerBody.displayName = 'DrawerBody';
 
-const Drawer = Object.assign(
-  {},
-  {
-    Root: DrawerRoot,
-    Trigger: DrawerTrigger,
-    Content: DrawerContent,
-    Title: DrawerTitle,
-    Close: DrawerClose,
-    Header: DrawerHeader,
-    Body: DrawerBody,
-    StickyFooter: DrawerStickyFooter,
-  },
-);
-
 export {
-  Drawer,
-  DrawerBody,
-  DrawerClose,
-  DrawerContent,
-  DrawerHeader,
-  DrawerRoot,
-  DrawerStickyFooter,
-  DrawerTitle,
-  DrawerTrigger,
+  DrawerBody as Body,
+  DrawerClose as Close,
+  DrawerContent as Content,
+  DrawerHeader as Header,
+  DrawerRoot as Root,
+  DrawerStickyFooter as StickyFooter,
+  DrawerTitle as Title,
+  DrawerTrigger as Trigger,
 };
 
 export type {
-  DrawerBodyProps,
-  DrawerCloseProps,
-  DrawerContentProps,
-  DrawerHeaderProps,
-  DrawerRootProps,
-  DrawerStickyFooterProps,
-  DrawerTitleProps,
-  DrawerTriggerProps,
+  DrawerBodyProps as BodyProps,
+  DrawerCloseProps as CloseProps,
+  DrawerContentProps as ContentProps,
+  DrawerHeaderProps as HeaderProps,
+  DrawerRootProps as RootProps,
+  DrawerStickyFooterProps as StickyFooterProps,
+  DrawerTitleProps as TitleProps,
+  DrawerTriggerProps as TriggerProps,
 };
