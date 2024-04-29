@@ -80,16 +80,10 @@
   position: relative;
   z-index: 0;
 
-  /* prettier-ignore */
   box-shadow:
-    var(--base-button-classic-box-shadow-top),
-    inset 0 0 0 1px var(--accent-9),
-    var(--base-button-classic-box-shadow-bottom);
-
-  box-shadow:
-    /* highlight*/
-    0px 1px 1px 1px var(--white-a5) inset,
-    /* border color */ 0 0 0 1px var(--accent-a9) inset,
+    /* border color */
+    0 0 0 1px var(--accent-a5) inset,
+    /* highlight*/ 0px 1px 1px 1px var(--white-a5) inset,
     /* shadow */ 0px -1px 1px 1px var(--black-a5) inset,
     /* drop shadow */ 0px 2px 2px 0px var(--black-a3);
 
