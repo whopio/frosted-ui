@@ -91,11 +91,11 @@
           var(--space-1) * 1.5 - var(--text-field-border-width)
         );
         /* Clip text to the visible border radius */
-        border-radius: max(var(--radius-2), var(--radius-full));
+        border-radius: max(var(--radius-3), var(--radius-full));
       }
 
       & + :where(.fui-TextFieldChrome) {
-        border-radius: max(var(--radius-2), var(--radius-full));
+        border-radius: max(var(--radius-3), var(--radius-full));
       }
     }
     &:where(.fui-r-size-2) {
@@ -111,11 +111,11 @@
         /* Equivalent to padding-left, but doesn't cut off long values when cursor is at the end */
         text-indent: calc(var(--space-2) - var(--text-field-border-width));
         /* Clip text to the visible border radius */
-        border-radius: max(var(--radius-2), var(--radius-full));
+        border-radius: max(var(--radius-4), var(--radius-full));
       }
 
       & + :where(.fui-TextFieldChrome) {
-        border-radius: max(var(--radius-2), var(--radius-full));
+        border-radius: max(var(--radius-4), var(--radius-full));
       }
     }
     &:where(.fui-r-size-3) {
@@ -131,11 +131,11 @@
         /* Equivalent to padding-left, but doesn't cut off long values when cursor is at the end */
         text-indent: calc(var(--space-3) - var(--text-field-border-width));
         /* Clip text to the visible border radius */
-        border-radius: max(var(--radius-3), var(--radius-full));
+        border-radius: max(var(--radius-4), var(--radius-full));
       }
 
       & + :where(.fui-TextFieldChrome) {
-        border-radius: max(var(--radius-3), var(--radius-full));
+        border-radius: max(var(--radius-4), var(--radius-full));
       }
     }
   }
@@ -161,7 +161,9 @@
 
   & + :where(.fui-TextFieldChrome) {
     background-color: var(--color-surface);
-    box-shadow: inset 0 0 0 1px var(--gray-a7);
+    box-shadow:
+      inset 0 0 0 1px var(--gray-a5),
+      0px 2px 2px 0px var(--black-a1);
     /* Blend inner shadow with page background */
     padding: 1px;
     background-clip: content-box;
