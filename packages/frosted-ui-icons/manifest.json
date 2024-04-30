@@ -208,14 +208,14 @@
       "bold-12": "icons/bold-12.svg",
       "credit-card-filled-12": "icons/credit-card-filled-12.svg",
       "microphone-12": "icons/microphone-12.svg",
-      "reply-filled-12": "icons/reply-filled-12.svg",
-      "reply-12": "icons/reply-12.svg",
-      "arrow-fat-up-12": "icons/arrow-fat-up-12.svg",
       "arrow-fat-down-12": "icons/arrow-fat-down-12.svg",
-      "arrow-fat-up-filled-12": "icons/arrow-fat-up-filled-12.svg",
       "arrow-fat-down-filled-12": "icons/arrow-fat-down-filled-12.svg",
+      "arrow-fat-up-12": "icons/arrow-fat-up-12.svg",
+      "arrow-fat-up-filled-12": "icons/arrow-fat-up-filled-12.svg",
       "play-12": "icons/play-12.svg",
-      "play-filled-12": "icons/play-filled-12.svg"
+      "play-filled-12": "icons/play-filled-12.svg",
+      "reply-12": "icons/reply-12.svg",
+      "reply-filled-12": "icons/reply-filled-12.svg"
     },
     "16": {
       "split-16": "icons/split-16.svg",
@@ -422,14 +422,14 @@
       "bold-16": "icons/bold-16.svg",
       "credit-card-filled-16": "icons/credit-card-filled-16.svg",
       "microphone-16": "icons/microphone-16.svg",
-      "reply-filled-16": "icons/reply-filled-16.svg",
-      "reply-16": "icons/reply-16.svg",
-      "arrow-fat-up-16": "icons/arrow-fat-up-16.svg",
       "arrow-fat-down-16": "icons/arrow-fat-down-16.svg",
-      "arrow-fat-up-filled-16": "icons/arrow-fat-up-filled-16.svg",
       "arrow-fat-down-filled-16": "icons/arrow-fat-down-filled-16.svg",
+      "arrow-fat-up-16": "icons/arrow-fat-up-16.svg",
+      "arrow-fat-up-filled-16": "icons/arrow-fat-up-filled-16.svg",
       "play-16": "icons/play-16.svg",
-      "play-filled-16": "icons/play-filled-16.svg"
+      "play-filled-16": "icons/play-filled-16.svg",
+      "reply-16": "icons/reply-16.svg",
+      "reply-filled-16": "icons/reply-filled-16.svg"
     },
     "20": {
       "split-20": "icons/split-20.svg",
@@ -639,14 +639,14 @@
       "bold-20": "icons/bold-20.svg",
       "credit-card-filled-20": "icons/credit-card-filled-20.svg",
       "microphone-20": "icons/microphone-20.svg",
-      "reply-filled-20": "icons/reply-filled-20.svg",
-      "reply-20": "icons/reply-20.svg",
-      "arrow-fat-up-20": "icons/arrow-fat-up-20.svg",
       "arrow-fat-down-20": "icons/arrow-fat-down-20.svg",
-      "arrow-fat-up-filled-20": "icons/arrow-fat-up-filled-20.svg",
       "arrow-fat-down-filled-20": "icons/arrow-fat-down-filled-20.svg",
+      "arrow-fat-up-20": "icons/arrow-fat-up-20.svg",
+      "arrow-fat-up-filled-20": "icons/arrow-fat-up-filled-20.svg",
       "play-20": "icons/play-20.svg",
-      "play-filled-20": "icons/play-filled-20.svg"
+      "play-filled-20": "icons/play-filled-20.svg",
+      "reply-20": "icons/reply-20.svg",
+      "reply-filled-20": "icons/reply-filled-20.svg"
     },
     "24": {
       "split-24": "icons/split-24.svg",
@@ -856,14 +856,14 @@
       "bold-24": "icons/bold-24.svg",
       "credit-card-filled-24": "icons/credit-card-filled-24.svg",
       "microphone-24": "icons/microphone-24.svg",
-      "reply-filled-24": "icons/reply-filled-24.svg",
-      "reply-24": "icons/reply-24.svg",
-      "arrow-fat-up-24": "icons/arrow-fat-up-24.svg",
       "arrow-fat-down-24": "icons/arrow-fat-down-24.svg",
-      "arrow-fat-up-filled-24": "icons/arrow-fat-up-filled-24.svg",
       "arrow-fat-down-filled-24": "icons/arrow-fat-down-filled-24.svg",
+      "arrow-fat-up-24": "icons/arrow-fat-up-24.svg",
+      "arrow-fat-up-filled-24": "icons/arrow-fat-up-filled-24.svg",
       "play-24": "icons/play-24.svg",
-      "play-filled-24": "icons/play-filled-24.svg"
+      "play-filled-24": "icons/play-filled-24.svg",
+      "reply-24": "icons/reply-24.svg",
+      "reply-filled-24": "icons/reply-filled-24.svg"
     },
     "26": {
       "dna-26": "icons/dna-26.svg",
@@ -1078,14 +1078,14 @@
       "bold-32": "icons/bold-32.svg",
       "credit-card-filled-32": "icons/credit-card-filled-32.svg",
       "microphone-32": "icons/microphone-32.svg",
-      "reply-filled-32": "icons/reply-filled-32.svg",
-      "reply-32": "icons/reply-32.svg",
-      "arrow-fat-up-32": "icons/arrow-fat-up-32.svg",
       "arrow-fat-down-32": "icons/arrow-fat-down-32.svg",
-      "arrow-fat-up-filled-32": "icons/arrow-fat-up-filled-32.svg",
       "arrow-fat-down-filled-32": "icons/arrow-fat-down-filled-32.svg",
+      "arrow-fat-up-32": "icons/arrow-fat-up-32.svg",
+      "arrow-fat-up-filled-32": "icons/arrow-fat-up-filled-32.svg",
       "play-32": "icons/play-32.svg",
-      "play-filled-32": "icons/play-filled-32.svg"
+      "play-filled-32": "icons/play-filled-32.svg",
+      "reply-32": "icons/reply-32.svg",
+      "reply-filled-32": "icons/reply-filled-32.svg"
     }
   }
 }
