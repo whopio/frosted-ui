@@ -15,21 +15,7 @@ export const Ethereum12 = React.forwardRef<SVGSVGElement, IconProps>(
         ref={forwardedRef}
       >
         <path
-          d="M2.5 6L6 11.25 9.5 6M2.5 6L6 .75 9.5 6"
-          stroke={color}
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M2.5 6L6 7.25L9.5 6"
-          stroke={color}
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M2.5 6L6 7.25L9.5 6"
+          d="M2.5 6L6 11.25L9.5 6M2.5 6L6 0.75L9.5 6M2.5 6L6 7.25L9.5 6"
           stroke={color}
           strokeWidth="1.5"
           strokeLinecap="round"

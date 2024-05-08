@@ -23,15 +23,6 @@ export const PlusCircle32 = React.forwardRef<SVGSVGElement, IconProps>(
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        <circle
-          cx="16"
-          cy="16"
-          r="14.25"
-          stroke={color}
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
         <path
           d="M21.6568 16.0007H16H10.3431M16 21.6575V10.3438"
           stroke={color}
