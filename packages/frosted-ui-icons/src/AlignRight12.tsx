@@ -15,7 +15,7 @@ export const AlignRight12 = React.forwardRef<SVGSVGElement, IconProps>(
         ref={forwardedRef}
       >
         <path
-          d="M7 2.06262H10.5M2 4.70844H10M2 10H10M6 7.35419H10"
+          d="M7 2.06262H10.5M2 4.7085H10M2 10H10M6 7.35425H10"
           stroke={color}
           strokeWidth="1.5"
           strokeLinecap="round"

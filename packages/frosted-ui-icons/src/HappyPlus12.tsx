@@ -15,14 +15,7 @@ export const HappyPlus12 = React.forwardRef<SVGSVGElement, IconProps>(
         ref={forwardedRef}
       >
         <path
-          d="M9.75 3.75V2.25M9.75 2.25V0.75M9.75 2.25H8.25M9.75 2.25H11.25"
-          stroke={color}
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M11.25 6C11.25 8.89949 8.89949 11.25 6 11.25C3.10051 11.25 0.75 8.89949 0.75 6C0.75 3.10051 3.10051 0.75 6 0.75"
+          d="M9.75 3.75V2.25M9.75 2.25V.75M9.75 2.25H8.25M9.75 2.25H11.25M11.25 6C11.25 8.89949 8.89949 11.25 6 11.25 3.10051 11.25.75 8.89949.75 6 .75 3.10051 3.10051.75 6 .75"
           stroke={color}
           strokeWidth="1.5"
           strokeLinecap="round"
