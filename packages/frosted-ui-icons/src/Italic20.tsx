@@ -15,7 +15,7 @@ export const Italic20 = React.forwardRef<SVGSVGElement, IconProps>(
         ref={forwardedRef}
       >
         <path
-          d="M8.12504 3.125H12.0834M12.0834 3.125H16.0417M12.0834 3.125L7.91671 16.875M7.91671 16.875H3.95837M7.91671 16.875H11.8835"
+          d="M8.12501 3.125H12.0833M12.0833 3.125H16.0417M12.0833 3.125L7.91668 16.875M7.91668 16.875H3.95834M7.91668 16.875H11.8834"
           stroke={color}
           strokeWidth="1.5"
           strokeLinecap="round"

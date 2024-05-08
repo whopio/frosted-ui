@@ -15,7 +15,7 @@ export const Stats26 = React.forwardRef<SVGSVGElement, IconProps>(
         ref={forwardedRef}
       >
         <path
-          d="M1.25 2.75V12C1.25 12.9665 2.0335 13.75 3 13.75H14.25M3.5 10L6.75 6.75M9 9L6.75 6.75M9 9L13.25 4.75M10.75 4.75H13.25V7.25"
+          d="M1.25 2.75V12C1.25 12.9665 2.0335 13.75 3 13.75H14.25M3.5 10L6.75 6.75L9 9L13.25 4.75M13.25 4.75H10.75M13.25 4.75V7.25"
           stroke={color}
           strokeWidth="1.5"
           strokeLinecap="round"

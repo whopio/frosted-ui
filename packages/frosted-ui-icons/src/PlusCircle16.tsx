@@ -15,21 +15,13 @@ export const PlusCircle16 = React.forwardRef<SVGSVGElement, IconProps>(
         ref={forwardedRef}
       >
         <g
+          stroke={color}
           clipPath="url(#clip0_1057_1133)"
           strokeWidth="1.5"
           strokeLinecap="round"
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7.25"
-            stroke={color}
-            strokeLinejoin="round"
-          />
-          <path
-            d="M10.8285 8.00033H5.17163M8.00006 10.8287V5.17188"
-            stroke={color}
-          />
+          <circle cx="8" cy="8" r="7.25" strokeLinejoin="round" />
+          <path d="M10.8285 8.00033H5.17163M8.00006 10.8287V5.17188" />
         </g>
         <defs>
           <clipPath id="clip0_1057_1133">
