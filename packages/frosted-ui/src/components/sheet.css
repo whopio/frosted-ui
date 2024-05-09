@@ -19,8 +19,8 @@
   display: flex;
   flex-direction: column;
   height: auto;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
   border: 1px solid var(--sheet-border-color);
   background-color: var(--color-panel-solid);
 }
