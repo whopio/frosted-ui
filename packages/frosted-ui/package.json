@@ -100,7 +100,8 @@
     "input-otp": "^1.1.0",
     "react-aria-components": "1.1.1",
     "tailwindcss": "^3.3.5",
-    "tslib": "^2.6.2"
+    "tslib": "^2.6.2",
+    "vaul": "^0.9.1"
   },
   "peerDependencies": {
     "@types/react": "*",
