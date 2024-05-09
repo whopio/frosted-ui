@@ -1,0 +1,63 @@
+.fui-SheetOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.fui-SheetContent {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  margin-top: 96px;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  border: 1px solid var(--gray-a4);
+  background-color: var(--color-panel-solid);
+}
+.fui-SheetContent[vaul-drawer][vaul-drawer-direction='bottom']::after {
+  border-left: 1px solid var(--gray-a4);
+  border-right: 1px solid var(--gray-a4);
+  left: -1px;
+  right: -1px;
+}
+
+.fui-SheetContentSomething {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 16px;
+  height: 8px;
+  width: 100px;
+  border-radius: 999px;
+  background-color: var(--gray-4);
+}
+
+.fui-SheetHeader {
+  display: grid;
+  gap: 6px;
+  padding: 16px;
+  text-align: center;
+  text-align: left;
+}
+
+.fui-SheetFooter {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+}
+
+.fui-SheetTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  color: blue;
+}
+.fui-SheetDescription {
+  color: green;
+}

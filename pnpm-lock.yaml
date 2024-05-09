@@ -263,6 +263,9 @@ importers:
       tslib:
         specifier: ^2.6.2
         version: 2.6.2
+      vaul:
+        specifier: ^0.9.1
+        version: 0.9.1(@types/react-dom@18.2.18)(@types/react@18.2.53)(react-dom@18.2.0)(react@18.2.0)
     devDependencies:
       '@frosted-ui/icons':
         specifier: workspace:*
@@ -13651,6 +13654,20 @@ packages:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
     dev: true
+
+  /vaul@0.9.1(@types/react-dom@18.2.18)(@types/react@18.2.53)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-fAhd7i4RNMinx+WEm6pF3nOl78DFkAazcN04ElLPFF9BMCNGbY/kou8UMhIcicm0rJCNePJP0Yyza60gGOD0Jw==}
+    peerDependencies:
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    dependencies:
+      '@radix-ui/react-dialog': 1.0.5(@types/react-dom@18.2.18)(@types/react@18.2.53)(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    transitivePeerDependencies:
+      - '@types/react'
+      - '@types/react-dom'
+    dev: false
 
   /vite@4.4.11(@types/node@17.0.45):
     resolution: {integrity: sha512-ksNZJlkcU9b0lBwAGZGGaZHCMqHsc8OpgtoYhsQ4/I2v5cnpmmmqe5pM4nv/4Hn6G/2GhTdj0DhZh2e+Er1q5A==}
