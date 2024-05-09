@@ -5,10 +5,15 @@
 }
 
 .fui-SheetContent {
+  --sheet-content-padding: 16px;
+  --inset-padding: var(--sheet-content-padding);
+  --sheet-border-color: var(--gray-a4);
+
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
+  max-height: calc(100% - 48px);
   z-index: 50;
   margin-top: 96px;
   display: flex;
@@ -16,40 +21,34 @@
   height: auto;
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
-  border: 1px solid var(--gray-a4);
+  border: 1px solid var(--sheet-border-color);
   background-color: var(--color-panel-solid);
 }
 .fui-SheetContent[vaul-drawer][vaul-drawer-direction='bottom']::after {
-  border-left: 1px solid var(--gray-a4);
-  border-right: 1px solid var(--gray-a4);
+  border-left: 1px solid var(--sheet-border-color);
+  border-right: 1px solid var(--sheet-border-color);
   left: -1px;
   right: -1px;
 }
-
-.fui-SheetContentSomething {
+.fui-SheetBody {
+  padding: var(--inset-padding);
+}
+.fui-SheetContentHandle {
   margin-left: auto;
   margin-right: auto;
-  margin-top: 16px;
-  height: 8px;
-  width: 100px;
+  margin-top: 12px;
+  margin-bottom: 8px;
+  height: 6px;
+  width: 50px;
   border-radius: 999px;
-  background-color: var(--gray-4);
+  background-color: var(--gray-a5);
 }
 
 .fui-SheetHeader {
   display: grid;
-  gap: 6px;
-  padding: 16px;
+  padding: 0 var(--inset-padding) var(--inset-padding) var(--inset-padding);
   text-align: center;
   text-align: left;
-}
-
-.fui-SheetFooter {
-  margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 16px;
 }
 
 .fui-SheetTitle {
@@ -60,4 +59,20 @@
 }
 .fui-SheetDescription {
   color: green;
+}
+
+.fui-SheetContentHandle,
+.fui-SheetHeader,
+.fui-SheetBody {
+  min-height: 0;
+}
+.fui-SheetContentHandle,
+.fui-SheetHeader {
+  flex-shrink: 0;
+}
+.fui-SheetBody {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
