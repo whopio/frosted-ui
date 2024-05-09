@@ -80,6 +80,7 @@ export * from './hover-card.props';
 export * as Accordion from './lab/accordion';
 export * as Popover from './popover';
 export * from './popover.props';
+export * as Sheet from './sheet';
 export * from './stacked-horizontal-bar-chart';
 export * from './tooltip';
 export * from './tooltip.props';
