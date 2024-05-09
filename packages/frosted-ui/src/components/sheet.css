@@ -5,7 +5,7 @@
 }
 
 .fui-SheetContent {
-  --sheet-content-padding: 24px;
+  --sheet-content-padding: 20px;
   --inset-padding: var(--sheet-content-padding);
   --sheet-border-color: var(--gray-a3);
 
@@ -37,7 +37,7 @@
   margin-left: auto;
   margin-right: auto;
   margin-top: 16px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   height: 5px;
   width: 40px;
   border-radius: 999px;
