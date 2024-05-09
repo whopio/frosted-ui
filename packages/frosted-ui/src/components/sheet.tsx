@@ -135,16 +135,10 @@ type SheetTitleElement = React.ElementRef<typeof Heading>;
 type SheetTitleProps = React.ComponentPropsWithoutRef<typeof Heading>;
 
 const SheetTitle = React.forwardRef<SheetTitleElement, SheetTitleProps>(
-  ({ size = '3', mb: mbProp = '2', ...props }, forwardedRef) => {
+  ({ size = '5', weight = 'bold', ...props }, forwardedRef) => {
     return (
       <DrawerPrimitive.Title asChild>
-        <Heading
-          trim="start"
-          mb={mbProp}
-          {...props}
-          ref={forwardedRef}
-          size={size}
-        />
+        <Heading weight={weight} size={size} {...props} ref={forwardedRef} />
       </DrawerPrimitive.Title>
     );
   },
@@ -157,10 +151,10 @@ type SheetDescriptionProps = ExtractPropsForTag<typeof Text, 'p'>;
 const SheetDescription = React.forwardRef<
   SheetDescriptionElement,
   SheetDescriptionProps
->(({ size = '3', ...props }, forwardedRef) => {
+>(({ size = '3', weight = 'regular', ...props }, forwardedRef) => {
   return (
     <DrawerPrimitive.Description asChild>
-      <Text as="p" size={size} {...props} ref={forwardedRef} />
+      <Text as="p" size={size} weight={weight} {...props} ref={forwardedRef} />
     </DrawerPrimitive.Description>
   );
 });

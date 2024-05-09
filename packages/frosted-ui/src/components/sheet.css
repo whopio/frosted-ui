@@ -5,9 +5,9 @@
 }
 
 .fui-SheetContent {
-  --sheet-content-padding: 16px;
+  --sheet-content-padding: 24px;
   --inset-padding: var(--sheet-content-padding);
-  --sheet-border-color: var(--gray-a4);
+  --sheet-border-color: var(--gray-a3);
 
   position: fixed;
   left: 0;
@@ -15,7 +15,7 @@
   bottom: 0;
   max-height: calc(100% - 48px);
   z-index: 50;
-  margin-top: 96px;
+  /* margin-top: 96px; */
   display: flex;
   flex-direction: column;
   height: auto;
@@ -36,19 +36,18 @@
 .fui-SheetContentHandle {
   margin-left: auto;
   margin-right: auto;
-  margin-top: 12px;
-  margin-bottom: 8px;
-  height: 6px;
-  width: 50px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  height: 5px;
+  width: 40px;
   border-radius: 999px;
-  background-color: var(--gray-a5);
+  background-color: var(--gray-a4);
 }
 
 .fui-SheetHeader {
   display: grid;
   padding: 0 var(--inset-padding) var(--inset-padding) var(--inset-padding);
-  text-align: center;
-  text-align: left;
+  gap: 12px;
 }
 
 .fui-SheetTitle {
