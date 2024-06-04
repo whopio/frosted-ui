@@ -21,7 +21,7 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Default: Story = {
   args: {
-    fallback: 'AB',
+    fallback: 'Cameron Zoub',
     color: 'blue',
   },
   render: (args) => (
@@ -37,7 +37,7 @@ export const Default: Story = {
 
 export const Variant: Story = {
   args: {
-    fallback: 'AB',
+    fallback: 'Cameron Zoub',
     color: 'blue',
   },
   render: (args) => (
@@ -64,7 +64,7 @@ export const Variant: Story = {
 
 export const Size: Story = {
   args: {
-    fallback: 'AB',
+    fallback: 'Cameron Zoub',
     src: 'https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop',
     color: 'blue',
   },
@@ -84,7 +84,7 @@ export const Size: Story = {
 
 export const Color: Story = {
   args: {
-    fallback: 'AB',
+    fallback: 'Cameron Zoub',
   },
   render: (args) => (
     <Flex gap="2">
@@ -98,7 +98,7 @@ export const Color: Story = {
 
 export const HighContrast: Story = {
   args: {
-    fallback: 'AB',
+    fallback: 'Cameron Zoub',
   },
   render: (args) => (
     <Grid rows="2" gap="2" display="inline-grid" flow="column">
@@ -116,11 +116,15 @@ export const HighContrast: Story = {
 
 export const Fallback: Story = {
   args: {
-    fallback: 'AB',
+    fallback: 'Cameron Zoub',
   },
   render: (args) => (
     <Flex gap="2">
-      <Avatar {...args} />
+      <Avatar fallback={<>AB</>} />
+      <Avatar fallback="Ilya Miskov" />
+      <Avatar fallback="John von Neumann" />
+      <Avatar fallback="Grace Hopper 123" />
+      <Avatar fallback="artur_bien" />
       <Avatar
         {...args}
         fallback={
