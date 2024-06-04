@@ -27,7 +27,8 @@ MODIFICATIONS:
 
 - Added "success", "info", "warning" and "danger" color tokens,
 - Added "successColor", "infoColor", "warningColor" and "dangerColor" to `<Theme />` props,
-- Added new components: Calendar, RangeCalendar, DatePicker, DateRangePicker, DateField, SegmentedControl, Skeletons, Accordion, Shine, Breadcrumbs, FilterChip, StackedHorizontalBarChart, Drawer,
+- Added new components: Calendar, RangeCalendar, DatePicker, DateRangePicker, DateField, SegmentedControl, Skeletons, Accordion, Shine, Breadcrumbs, FilterChip, StackedHorizontalBarChart, Drawer, Sheet
 - Removed "scaling", "radius" and "panelBackground" from `<Theme />`,
 - Removed "radius" prop from all components,
 - Changed styles of components,
+- Avatar applying `fallback` string initials logic

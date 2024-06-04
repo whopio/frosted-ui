@@ -15,6 +15,7 @@ import type {
   MarginProps,
   PropsWithoutRefOrColor,
 } from '../helpers';
+import { getInitials } from '../helpers/get-initials';
 
 type AvatarElement = React.ElementRef<typeof AvatarPrimitive.Image>;
 type AvatarOwnProps = GetPropDefTypes<typeof avatarPropDefs>;
@@ -36,12 +37,17 @@ const Avatar = React.forwardRef<AvatarElement, AvatarProps>(
       size = avatarPropDefs.size.default,
       color = avatarPropDefs.color.default,
       highContrast = avatarPropDefs.highContrast.default,
-      fallback,
+      fallback: fallbackProp,
       variant = avatarPropDefs.variant.default,
       ...imageProps
     } = marginRest;
     const [status, setStatus] = React.useState<ImageStatus>('idle');
     const dataStatus: ImageStatus = imageProps.src ? status : 'idle';
+
+    const fallback =
+      typeof fallbackProp === 'string'
+        ? getInitials(fallbackProp)
+        : fallbackProp;
     return (
       <AvatarPrimitive.Root
         data-accent-color={color}
