@@ -141,6 +141,85 @@
   }
 }
 
+/* solid */
+:where(.frosted-ui) {
+  --base-button-solid-active-filter: brightness(0.92) saturate(1.1);
+  --base-button-solid-high-contrast-hover-filter: contrast(0.88) saturate(1.1)
+    brightness(1.1);
+  --base-button-solid-high-contrast-active-filter: contrast(0.82) saturate(1.2)
+    brightness(1.16);
+}
+:is(.dark, .dark-theme),
+:is(.dark, .dark-theme) :where(.frosted-ui:not(.light, .light-theme)) {
+  --base-button-solid-active-filter: brightness(1.08);
+  --base-button-solid-high-contrast-hover-filter: contrast(0.88) saturate(1.3)
+    brightness(1.18);
+  --base-button-solid-high-contrast-active-filter: brightness(0.95)
+    saturate(1.2);
+}
+
+.fui-BaseButton:where(.fui-variant-solid) {
+  position: relative;
+  background-color: var(--accent-9);
+  color: var(--accent-9-contrast);
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: 1px solid var(--black-a2);
+  }
+
+  @media (hover: hover) {
+    &:where(:hover) {
+      background-color: var(--accent-10);
+    }
+  }
+  &:where([data-state='open']) {
+    background-color: var(--accent-10);
+  }
+  &:where(:active:not([data-state='open'])) {
+    background-color: var(--accent-10);
+    filter: var(--base-button-solid-active-filter);
+  }
+  /* Better -webkit-tap-highlight-color */
+  @media (pointer: coarse) {
+    &:where(:active:not([data-state='open'])) {
+      outline: 0.5em solid var(--accent-a4);
+      outline-offset: 0;
+    }
+  }
+  &:where(:focus-visible) {
+    outline: 2px solid var(--color-focus-root);
+    outline-offset: 2px;
+  }
+  &:where(.fui-high-contrast) {
+    background-color: var(--accent-12);
+    color: var(--gray-1);
+
+    @media (hover: hover) {
+      &:where(:hover) {
+        background-color: var(--accent-12);
+        filter: var(--base-button-solid-high-contrast-hover-filter);
+      }
+    }
+    &:where([data-state='open']) {
+      background-color: var(--accent-12);
+      filter: var(--base-button-solid-high-contrast-hover-filter);
+    }
+    &:where(:active:not([data-state='open'])) {
+      background-color: var(--accent-12);
+      filter: var(--base-button-solid-high-contrast-active-filter);
+    }
+  }
+  &:where([data-disabled]) {
+    color: var(--gray-a8);
+    background-color: var(--gray-a3);
+    outline: none;
+    filter: none;
+  }
+}
+
 /* soft / ghost */
 
 .fui-BaseButton:where(.fui-variant-soft, .fui-variant-ghost) {
@@ -248,23 +327,4 @@
     box-shadow: inset 0 0 0 1px var(--gray-a6);
     background-color: var(--gray-a2);
   }
-}
-
-/* Loading state */
-
-@keyframes fui-button-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.fui-BaseButtonSpinner {
-  position: absolute;
-  width: var(--base-button-spinner-size);
-  height: var(--base-button-spinner-size);
-  color: var(--base-button-color);
-  animation: fui-button-spin 500ms linear infinite;
 }

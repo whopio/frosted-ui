@@ -2,7 +2,7 @@ import type { PropDef } from '../helpers';
 import { colorProp, highContrastProp } from '../helpers';
 
 const sizes = ['1', '2', '3', '4'] as const;
-const variants = ['classic', 'soft', 'surface', 'ghost'] as const;
+const variants = ['classic', 'solid', 'soft', 'surface', 'ghost'] as const;
 
 const baseButtonPropDefs = {
   size: { type: 'enum', values: sizes, default: '2', responsive: true },
