@@ -75,6 +75,7 @@ export const Variant: Story = {
   render: (args) => (
     <Flex align="center" gap="4">
       <Button {...args} variant="classic" />
+      <Button {...args} variant="solid" />
       <Button {...args} variant="soft" />
       <Button {...args} variant="surface" />
       <Button {...args} variant="ghost" />
@@ -129,12 +130,14 @@ export const HighContrast: Story = {
     <Flex direction="column" gap="2">
       <Flex gap="2">
         <Button {...args} highContrast={false} variant="classic" />
+        <Button {...args} highContrast={false} variant="solid" />
         <Button {...args} highContrast={false} variant="soft" />
         <Button {...args} highContrast={false} variant="surface" />
         <Button {...args} highContrast={false} variant="ghost" />
       </Flex>
       <Flex gap="2">
         <Button {...args} variant="classic" highContrast />
+        <Button {...args} variant="solid" highContrast />
         <Button {...args} variant="soft" highContrast />
         <Button {...args} variant="surface" highContrast />
         <Button {...args} variant="ghost" highContrast />
@@ -173,6 +176,7 @@ export const Loading: Story = {
       </Text>
       <Flex align="center" gap="4">
         <Button {...args} variant="classic" />
+        <Button {...args} variant="solid" />
         <Button {...args} variant="soft" />
         <Button {...args} variant="surface" />
         <Button {...args} variant="ghost" />
@@ -207,6 +211,22 @@ export const Loading: Story = {
           Download
         </Button>
         <Button {...args} loading={false} variant="soft" disabled>
+          <Spinner loading>
+            {/* @ts-expect-error -- fix frosted icon types */}
+            <Download16 />
+          </Spinner>
+          Download
+        </Button>
+      </Flex>
+      <Flex align="center" gap="4">
+        <Button {...args} loading={false} variant="solid">
+          <Spinner loading={false}>
+            {/* @ts-expect-error -- fix frosted icon types */}
+            <Download16 />
+          </Spinner>
+          Download
+        </Button>
+        <Button {...args} loading={false} variant="solid" disabled>
           <Spinner loading>
             {/* @ts-expect-error -- fix frosted icon types */}
             <Download16 />
