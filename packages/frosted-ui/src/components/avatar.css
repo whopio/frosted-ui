@@ -33,6 +33,8 @@
   height: 100%;
   object-fit: cover;
   border-radius: inherit;
+  /* Fix safari issue where animated avatars were blurred */
+  transform: translateZ(0px);
 }
 
 .fui-AvatarFallback {
