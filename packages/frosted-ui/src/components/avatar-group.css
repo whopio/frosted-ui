@@ -9,6 +9,7 @@
   flex-shrink: 0;
 
   contain: size, layout;
+  overflow: hidden;
   background-color: var(--accent-a3);
 
   --avatar-group-inner-inset: 0.5;
