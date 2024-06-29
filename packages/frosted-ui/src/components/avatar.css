@@ -11,6 +11,7 @@
 
   outline: 1px solid var(--accent-a5);
   background-color: var(--accent-a3);
+  border-radius: max(25%, var(--radius-full));
 
   & :where(.fui-AvatarFallback) {
     color: var(--accent-a11);
@@ -70,58 +71,49 @@
       --avatar-size: var(--space-5);
       --avatar-fallback-one-letter-font-size: var(--font-size-2);
       --avatar-fallback-two-letters-font-size: var(--font-size-1);
-      border-radius: max(25%, var(--radius-full));
       letter-spacing: var(--letter-spacing-1);
     }
     &:where(.fui-r-size-2) {
       --avatar-size: var(--space-6);
       --avatar-fallback-one-letter-font-size: var(--font-size-3);
       --avatar-fallback-two-letters-font-size: var(--font-size-2);
-      border-radius: max(25%, var(--radius-full));
       letter-spacing: var(--letter-spacing-2);
     }
     &:where(.fui-r-size-3) {
       --avatar-size: var(--space-7);
       --avatar-fallback-one-letter-font-size: var(--font-size-4);
       --avatar-fallback-two-letters-font-size: var(--font-size-3);
-      border-radius: max(25%, var(--radius-full));
       letter-spacing: var(--letter-spacing-3);
     }
     &:where(.fui-r-size-4) {
       --avatar-size: var(--space-8);
       --avatar-fallback-one-letter-font-size: var(--font-size-5);
       --avatar-fallback-two-letters-font-size: var(--font-size-4);
-      border-radius: max(25%, var(--radius-full));
       letter-spacing: var(--letter-spacing-4);
     }
     &:where(.fui-r-size-5) {
       --avatar-size: var(--space-9);
       --avatar-fallback-one-letter-font-size: var(--font-size-6);
-      border-radius: max(25%, var(--radius-full));
       letter-spacing: var(--letter-spacing-6);
     }
     &:where(.fui-r-size-6) {
       --avatar-size: 80px;
       --avatar-fallback-one-letter-font-size: var(--font-size-7);
-      border-radius: max(25%, var(--radius-full));
       letter-spacing: var(--letter-spacing-7);
     }
     &:where(.fui-r-size-7) {
       --avatar-size: 96px;
       --avatar-fallback-one-letter-font-size: var(--font-size-7);
-      border-radius: max(25%, var(--radius-full));
       letter-spacing: var(--letter-spacing-7);
     }
     &:where(.fui-r-size-8) {
       --avatar-size: 128px;
       --avatar-fallback-one-letter-font-size: var(--font-size-8);
-      border-radius: max(25%, var(--radius-full));
       letter-spacing: var(--letter-spacing-8);
     }
     &:where(.fui-r-size-9) {
       --avatar-size: 160px;
       --avatar-fallback-one-letter-font-size: var(--font-size-9);
-      border-radius: max(25%, var(--radius-full));
       letter-spacing: var(--letter-spacing-9);
     }
   }
