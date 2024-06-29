@@ -1,0 +1,230 @@
+.fui-AvatarGroupRoot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  user-select: none;
+  width: var(--avatar-group-size);
+  height: var(--avatar-group-size);
+  flex-shrink: 0;
+
+  contain: size, layout;
+  background-color: var(--accent-a3);
+
+  --avatar-group-inner-inset: 0.5;
+  /* Casting PX values to integers to calculate scaling */
+  --size-int: tan(atan2(var(--avatar-group-size), 1px));
+  /* Avatar size="3" is a basis for --avatar-group-inner-scale */
+  --base-size-int: tan(atan2(var(--space-7), 1px));
+  --avatar-group-inner-scale: calc(
+    (var(--size-int) - var(--avatar-group-inner-inset) * 2) /
+      var(--base-size-int)
+  );
+
+  border-radius: max(25%, var(--radius-full));
+
+  &:where(.fui-high-contrast) :where(.fui-AvatarFallback) {
+    color: var(--accent-12);
+  }
+  &:where(.fui-variant-round) {
+    --radius-full: var(--radius-thumb);
+  }
+}
+
+/***************************************************************************************************
+ *                                                                                                 *
+ * SIZES                                                                                           *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+@breakpoints {
+  .fui-AvatarGroupRoot {
+    &:where(.fui-r-size-1) {
+      --avatar-group-size: var(--space-5);
+    }
+    &:where(.fui-r-size-2) {
+      --avatar-group-size: var(--space-6);
+    }
+    &:where(.fui-r-size-3) {
+      --avatar-group-size: var(--space-7);
+    }
+    &:where(.fui-r-size-4) {
+      --avatar-group-size: var(--space-8);
+    }
+    &:where(.fui-r-size-5) {
+      --avatar-group-size: var(--space-9);
+    }
+    &:where(.fui-r-size-6) {
+      --avatar-group-size: 80px;
+    }
+    &:where(.fui-r-size-7) {
+      --avatar-group-size: 96px;
+    }
+    &:where(.fui-r-size-8) {
+      --avatar-group-size: 128px;
+    }
+    &:where(.fui-r-size-9) {
+      --avatar-group-size: 160px;
+    }
+  }
+}
+
+.fui-AvatarGroupRootInner {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+  transform-origin: 0 0;
+  transform: scale(var(--avatar-group-inner-scale));
+  pointer-events: none;
+  left: calc(var(--avatar-group-inner-inset) * 1px);
+  top: calc(var(--avatar-group-inner-inset) * 1px);
+}
+
+.fui-AvatarGroupRoot[data-status='loaded'] {
+  outline: 1px solid var(--gray-a5);
+  background: none;
+}
+
+.fui-AvatarGroupAvatar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+  transform-origin: center;
+  /* Hide items by default to prevent displaying to many avatars in a group */
+  visibility: hidden;
+  background-color: var(--accent-4);
+}
+
+.fui-AvatarGroupRoot:has(.fui-AvatarGroupAvatar:nth-child(1)) {
+  .fui-AvatarGroupAvatar:nth-child(1) {
+    visibility: visible;
+  }
+}
+.fui-AvatarGroupRoot:has(.fui-AvatarGroupAvatar:nth-child(2)) {
+  .fui-AvatarGroupAvatar:nth-child(1) {
+    transform: scale(0.5) translate(-12px, -12px);
+    visibility: visible;
+  }
+
+  .fui-AvatarGroupAvatar:nth-child(2) {
+    transform: scale(0.4) translate(18px, 18px);
+    visibility: visible;
+  }
+}
+.fui-AvatarGroupRoot:has(.fui-AvatarGroupAvatar:nth-child(3)) {
+  .fui-AvatarGroupAvatar:nth-child(1) {
+    transform: scale(0.5) translate(-12px, -12px);
+    visibility: visible;
+  }
+
+  .fui-AvatarGroupAvatar:nth-child(2) {
+    transform: scale(0.4) translate(26px, 10px);
+    visibility: visible;
+  }
+  .fui-AvatarGroupAvatar:nth-child(3) {
+    transform: scale(0.35) translate(-10px, 33px);
+    visibility: visible;
+  }
+}
+
+.fui-AvatarGroupRoot:has(.fui-AvatarGroupAvatar:nth-child(4)) {
+  .fui-AvatarGroupAvatar:nth-child(1) {
+    transform: scale(0.5) translate(-10px, -14px);
+    visibility: visible;
+  }
+  .fui-AvatarGroupAvatar:nth-child(2) {
+    transform: scale(0.4) translate(23px, 12px);
+    visibility: visible;
+  }
+  .fui-AvatarGroupAvatar:nth-child(3) {
+    transform: scale(0.35) translate(-16px, 30px);
+    visibility: visible;
+  }
+  .fui-AvatarGroupAvatar:nth-child(4) {
+    transform: scale(0.25) translate(42px, -36px);
+    visibility: visible;
+  }
+}
+.fui-AvatarGroupRoot:has(.fui-AvatarGroupAvatar:nth-child(5)) {
+  .fui-AvatarGroupAvatar:nth-child(1) {
+    transform: scale(0.46) translate(-16px, -12px);
+    visibility: visible;
+  }
+  .fui-AvatarGroupAvatar:nth-child(2) {
+    transform: scale(0.4) translate(18px, 18px);
+    visibility: visible;
+  }
+  .fui-AvatarGroupAvatar:nth-child(3) {
+    transform: scale(0.32) translate(-23px, 32px);
+    visibility: visible;
+  }
+  .fui-AvatarGroupAvatar:nth-child(4) {
+    transform: scale(0.28) translate(40px, -22px);
+    visibility: visible;
+  }
+  .fui-AvatarGroupAvatar:nth-child(5) {
+    transform: scale(0.22) translate(18px, -64px);
+    visibility: visible;
+  }
+}
+.fui-AvatarGroupRoot:has(.fui-AvatarGroupAvatar:nth-child(6)) {
+  .fui-AvatarGroupAvatar:nth-child(1) {
+    transform: scale(0.46) translate(-16px, -12px);
+    visibility: visible;
+  }
+  .fui-AvatarGroupAvatar:nth-child(2) {
+    transform: scale(0.4) translate(22px, 12px);
+    visibility: visible;
+  }
+  .fui-AvatarGroupAvatar:nth-child(3) {
+    transform: scale(0.32) translate(-14px, 36px);
+    visibility: visible;
+  }
+  .fui-AvatarGroupAvatar:nth-child(4) {
+    transform: scale(0.24) translate(44px, -34px);
+    visibility: visible;
+  }
+  .fui-AvatarGroupAvatar:nth-child(5) {
+    transform: scale(0.2) translate(16px, -72px);
+    visibility: visible;
+  }
+  .fui-AvatarGroupAvatar:nth-child(6) {
+    transform: scale(0.18) translate(-76px, 36px);
+    visibility: visible;
+  }
+}
+.fui-AvatarGroupRoot:has(.fui-AvatarGroupAvatar:nth-child(7)) {
+  .fui-AvatarGroupAvatar:nth-child(1) {
+    transform: scale(0.46) translate(-16px, -12px);
+    visibility: visible;
+  }
+  .fui-AvatarGroupAvatar:nth-child(2) {
+    transform: scale(0.4) translate(24px, 16px);
+    visibility: visible;
+  }
+  .fui-AvatarGroupAvatar:nth-child(3) {
+    transform: scale(0.32) translate(-14px, 36px);
+    visibility: visible;
+  }
+  .fui-AvatarGroupAvatar:nth-child(4) {
+    transform: scale(0.22) translate(50px, -44px);
+    visibility: visible;
+  }
+  .fui-AvatarGroupAvatar:nth-child(5) {
+    transform: scale(0.2) translate(16px, -72px);
+    visibility: visible;
+  }
+  .fui-AvatarGroupAvatar:nth-child(6) {
+    transform: scale(0.18) translate(-76px, 36px);
+    visibility: visible;
+  }
+  .fui-AvatarGroupAvatar:nth-child(7) {
+    transform: scale(0.16) translate(34px, -26px);
+    visibility: visible;
+  }
+}
