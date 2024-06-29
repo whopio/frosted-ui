@@ -88,6 +88,8 @@ export * from './tooltip.props';
 // COMPONENTS
 //------------------------------------------------------------------------------
 export * from './avatar';
+export * as AvatarGroup from './avatar-group';
+export * from './avatar-group.props';
 export * from './avatar.props';
 export * from './badge';
 export * from './badge.props';
