@@ -8,7 +8,7 @@
   height: var(--avatar-group-size);
   flex-shrink: 0;
 
-  contain: size, layout;
+  contain: size layout;
   overflow: hidden;
   background-color: var(--accent-a3);
 
