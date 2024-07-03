@@ -24,6 +24,13 @@
   border: 1px solid var(--sheet-border-color);
   background-color: var(--color-panel-solid);
 }
+
+.fui-SheetContent,
+.fui-SheetContent:focus,
+.fui-SheetContent:focus-visible {
+  outline: none;
+}
+
 .fui-SheetContent[vaul-drawer][vaul-drawer-direction='bottom']::after {
   border-left: 1px solid var(--sheet-border-color);
   border-right: 1px solid var(--sheet-border-color);
