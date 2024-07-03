@@ -2,6 +2,7 @@
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.8);
+  user-select: none;
 }
 
 .fui-SheetContent {
@@ -23,6 +24,7 @@
   border-top-right-radius: 24px;
   border: 1px solid var(--sheet-border-color);
   background-color: var(--color-panel-solid);
+  user-select: none;
 }
 
 .fui-SheetContent,
@@ -36,6 +38,7 @@
   border-right: 1px solid var(--sheet-border-color);
   left: -1px;
   right: -1px;
+  user-select: none;
 }
 .fui-SheetBody {
   padding: var(--inset-padding);
@@ -49,6 +52,8 @@
   width: 40px;
   border-radius: 999px;
   background-color: var(--gray-a4);
+  user-select: none;
+  pointer-events: none;
 }
 
 .fui-SheetHeader {
