@@ -1,7 +1,7 @@
 .fui-SheetOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.4);
   user-select: none;
 }
 
@@ -15,8 +15,6 @@
   right: 0;
   bottom: 0;
   max-height: calc(100% - 48px);
-  z-index: 50;
-  /* margin-top: 96px; */
   display: flex;
   flex-direction: column;
   height: auto;

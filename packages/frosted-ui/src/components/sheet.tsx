@@ -11,9 +11,9 @@ import { Text } from './text';
 
 type SheetRootProps = Omit<
   React.ComponentProps<typeof DrawerPrimitive.Root>,
-  | 'shouldScaleBackground'
   | 'direction'
   // TODO: add support for snap points
+  | 'shouldScaleBackground'
   | 'fadeFromIndex'
   | 'snapPoints'
   | 'activeSnapPoint'
@@ -23,6 +23,21 @@ const SheetRoot = ({ ...props }: SheetRootProps) => (
   <DrawerPrimitive.Root {...props} />
 );
 SheetRoot.displayName = 'SheetRoot';
+
+type SheetNestedRootProps = Omit<
+  React.ComponentProps<typeof DrawerPrimitive.NestedRoot>,
+  | 'direction'
+  // TODO: add support for snap points
+  | 'shouldScaleBackground'
+  | 'fadeFromIndex'
+  | 'snapPoints'
+  | 'activeSnapPoint'
+>;
+
+const SheetNestedRoot = ({ ...props }: SheetNestedRootProps) => (
+  <DrawerPrimitive.NestedRoot {...props} />
+);
+SheetNestedRoot.displayName = 'SheetNestedRoot';
 
 type SheetTriggerElement = React.ElementRef<typeof DrawerPrimitive.Trigger>;
 interface SheetTriggerProps
@@ -166,6 +181,7 @@ export {
   SheetContent as Content,
   SheetDescription as Description,
   SheetHeader as Header,
+  SheetNestedRoot as NestedRoot,
   SheetRoot as Root,
   SheetTitle as Title,
   SheetTrigger as Trigger,
@@ -177,6 +193,7 @@ export {
   SheetContentProps as ContentProps,
   SheetDescriptionProps as DescriptionProps,
   SheetHeaderProps as HeaderProps,
+  SheetNestedRootProps as NestedRootProps,
   SheetRootProps as RootProps,
   SheetTitleProps as TitleProps,
   SheetTriggerProps as TriggerProps,

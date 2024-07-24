@@ -90,6 +90,59 @@ export const Default: Story = {
   ),
 };
 
+export const Nested: Story = {
+  render: ({ children, ...args }) => (
+    <Sheet.Root>
+      <Sheet.Trigger>
+        <Button>Edit profile</Button>
+      </Sheet.Trigger>
+
+      <Sheet.Content {...args}>
+        <Sheet.Header>
+          <Sheet.Title>Message request</Sheet.Title>
+          <Sheet.Description>Artur wants to message you</Sheet.Description>
+        </Sheet.Header>
+        <Sheet.Body>
+          <Flex gap="3" mt="4" justify="end">
+            <Sheet.NestedRoot>
+              <Sheet.Trigger>
+                <Button variant="soft" color="danger">
+                  Block
+                </Button>
+              </Sheet.Trigger>
+              <Sheet.Content>
+                <Sheet.Header>
+                  <Sheet.Title>
+                    Are you sure you want to block Artur?
+                  </Sheet.Title>
+                  <Sheet.Description>
+                    Artur won't be able to message you unless you unblock him.
+                  </Sheet.Description>
+                </Sheet.Header>
+                <Sheet.Body>
+                  <Flex gap="3" mt="4" justify="end">
+                    <Sheet.Close>
+                      <Button size="3">Cancel</Button>
+                    </Sheet.Close>
+                    <Sheet.Close>
+                      <Button variant="classic" color="danger" size="3">
+                        Block
+                      </Button>
+                    </Sheet.Close>
+                  </Flex>
+                </Sheet.Body>
+              </Sheet.Content>
+            </Sheet.NestedRoot>
+            <Sheet.Close>
+              <Button onClick={() => alert('Save')}>Save</Button>
+            </Sheet.Close>
+          </Flex>
+        </Sheet.Body>
+      </Sheet.Content>
+    </Sheet.Root>
+  ),
+};
+
 export const InsetContent: Story = {
   name: 'With inset content',
   render: ({ children, ...args }) => (
