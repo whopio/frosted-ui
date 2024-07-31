@@ -15,9 +15,10 @@ export const Heart12 = React.forwardRef<SVGSVGElement, IconProps>(
         ref={forwardedRef}
       >
         <path
-          d="M6 2.78597C9.16655 -0.433825 14.5949 5.5458 6 10.375C-2.59491 5.5458 2.83344 -0.433825 6 2.78597Z"
+          d="M7.81818 2.75C7.05455 2.75 6.38182 3.17292 6 3.8375C5.61818 3.17292 4.94545 2.75 4.18182 2.75C2.98182 2.75 2 3.8375 2 5.16667C2 7.56319 6 10 6 10C6 10 10 7.58333 10 5.16667C10 3.8375 9.01818 2.75 7.81818 2.75Z"
           stroke={color}
           strokeWidth="1.5"
+          strokeLinecap="round"
           strokeLinejoin="round"
         />
       </svg>

@@ -228,7 +228,12 @@
       "heading-12": "icons/heading-12.svg",
       "list-number-12": "icons/list-number-12.svg",
       "list-bullet-12": "icons/list-bullet-12.svg",
-      "codeblock-12": "icons/codeblock-12.svg"
+      "codeblock-12": "icons/codeblock-12.svg",
+      "leave-review-12": "icons/leave-review-12.svg",
+      "edit-profile-12": "icons/edit-profile-12.svg",
+      "mark-as-unread-12": "icons/mark-as-unread-12.svg",
+      "mark-as-read-12": "icons/mark-as-read-12.svg",
+      "notification-bell-crossed-12": "icons/notification-bell-crossed-12.svg"
     },
     "16": {
       "split-16": "icons/split-16.svg",
@@ -456,7 +461,12 @@
       "heading-16": "icons/heading-16.svg",
       "list-number-16": "icons/list-number-16.svg",
       "list-bullet-16": "icons/list-bullet-16.svg",
-      "codeblock-16": "icons/codeblock-16.svg"
+      "codeblock-16": "icons/codeblock-16.svg",
+      "leave-review-16": "icons/leave-review-16.svg",
+      "edit-profile-16": "icons/edit-profile-16.svg",
+      "mark-as-unread-16": "icons/mark-as-unread-16.svg",
+      "mark-as-read-16": "icons/mark-as-read-16.svg",
+      "notification-bell-crossed-16": "icons/notification-bell-crossed-16.svg"
     },
     "20": {
       "split-20": "icons/split-20.svg",
@@ -686,7 +696,12 @@
       "heading-20": "icons/heading-20.svg",
       "list-number-20": "icons/list-number-20.svg",
       "list-bullet-20": "icons/list-bullet-20.svg",
-      "codeblock-20": "icons/codeblock-20.svg"
+      "codeblock-20": "icons/codeblock-20.svg",
+      "leave-review-20": "icons/leave-review-20.svg",
+      "edit-profile-20": "icons/edit-profile-20.svg",
+      "mark-as-unread-20": "icons/mark-as-unread-20.svg",
+      "mark-as-read-20": "icons/mark-as-read-20.svg",
+      "notification-bell-crossed-20": "icons/notification-bell-crossed-20.svg"
     },
     "24": {
       "split-24": "icons/split-24.svg",
@@ -916,7 +931,12 @@
       "heading-24": "icons/heading-24.svg",
       "list-number-24": "icons/list-number-24.svg",
       "list-bullet-24": "icons/list-bullet-24.svg",
-      "codeblock-24": "icons/codeblock-24.svg"
+      "codeblock-24": "icons/codeblock-24.svg",
+      "leave-review-24": "icons/leave-review-24.svg",
+      "edit-profile-24": "icons/edit-profile-24.svg",
+      "mark-as-unread-24": "icons/mark-as-unread-24.svg",
+      "mark-as-read-24": "icons/mark-as-read-24.svg",
+      "notification-bell-crossed-24": "icons/notification-bell-crossed-24.svg"
     },
     "26": { "dna-26": "icons/dna-26.svg", "stats-26": "icons/stats-26.svg" },
     "32": {
@@ -1147,7 +1167,12 @@
       "heading-32": "icons/heading-32.svg",
       "list-number-32": "icons/list-number-32.svg",
       "list-bullet-32": "icons/list-bullet-32.svg",
-      "codeblock-32": "icons/codeblock-32.svg"
+      "codeblock-32": "icons/codeblock-32.svg",
+      "leave-review-32": "icons/leave-review-32.svg",
+      "edit-profile-32": "icons/edit-profile-32.svg",
+      "mark-as-unread-32": "icons/mark-as-unread-32.svg",
+      "mark-as-read-32": "icons/mark-as-read-32.svg",
+      "notification-bell-crossed-32": "icons/notification-bell-crossed-32.svg"
     }
   }
 }
