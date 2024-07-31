@@ -15,7 +15,7 @@ export const HandWave16 = React.forwardRef<SVGSVGElement, IconProps>(
         ref={forwardedRef}
       >
         <path
-          d="M13.8374 2.96532C13.5688 2.30912 12.6675 1.70331 11.9362 1.47945M1.46429 12.4699C1.57077 13.1213 2.34202 14.173 3.18823 14.4242"
+          d="M13.8372 2.96532C13.5687 2.30912 12.6673 1.70331 11.936 1.47945M1.46429 12.4699C1.57077 13.1213 2.34202 14.173 3.18823 14.4242"
           stroke={color}
           strokeWidth="1.5"
           strokeLinecap="round"

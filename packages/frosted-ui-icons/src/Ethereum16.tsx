@@ -15,14 +15,14 @@ export const Ethereum16 = React.forwardRef<SVGSVGElement, IconProps>(
         ref={forwardedRef}
       >
         <path
-          d="M3.29388 6.85527L8.00002 9.14474L12.7062 6.85527L8.00002 0.75001L3.29388 6.85527Z"
+          d="M3.29382 6.85527L7.99996 9.14474L12.7061 6.85527L7.99996 0.75001L3.29382 6.85527Z"
           stroke={color}
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <path
-          d="M3.29388 8.89035L8.00002 11.4342L12.7062 8.89035L8.00002 15.25L3.29388 8.89035Z"
+          d="M3.29382 8.89035L7.99996 11.4342L12.7061 8.89035L7.99996 15.25L3.29382 8.89035Z"
           stroke={color}
           strokeWidth="1.5"
           strokeLinecap="round"
