@@ -15,7 +15,7 @@ export const ListBullet16 = React.forwardRef<SVGSVGElement, IconProps>(
         ref={forwardedRef}
       >
         <path
-          d="M7.83334 11.1667H13.5M7.83334 4.83337H13.5"
+          d="M7.83337 11.1667H13.5M7.83337 4.83337H13.5"
           stroke={color}
           strokeWidth="1.5"
           strokeLinecap="round"

@@ -15,7 +15,7 @@ export const Download32 = React.forwardRef<SVGSVGElement, IconProps>(
         ref={forwardedRef}
       >
         <path
-          d="M21.6666 17.6667L16.9428 22.3906C16.4221 22.9112 15.5778 22.9112 15.0572 22.3906L10.3333 17.6667M16 3.66669V22.3334M25.6666 28.3334H6.33331"
+          d="M21.6667 17.6667L16.9428 22.3906C16.4222 22.9112 15.5779 22.9112 15.0572 22.3906L10.3334 17.6667M16 3.66669V22.3334M25.6667 28.3334H6.33337"
           stroke={color}
           strokeWidth="1.5"
           strokeLinecap="round"

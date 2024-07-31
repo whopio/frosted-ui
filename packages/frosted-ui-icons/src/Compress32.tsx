@@ -15,7 +15,7 @@ export const Compress32 = React.forwardRef<SVGSVGElement, IconProps>(
         ref={forwardedRef}
       >
         <path
-          d="M16 12.6667V2.5M16 12.6667L11.3333 8M16 12.6667L20.6667 8M16 19.3333L16 29.5M16 19.3333L20.6667 24M16 19.3333L11.3333 24M5 16H27"
+          d="M16 12.6667V2.5M16 12.6667L11.3334 8M16 12.6667L20.6667 8M16 19.3333L16 29.5M16 19.3333L20.6666 24M16 19.3333L11.3333 24M5 16H27"
           stroke={color}
           strokeWidth="1.5"
           strokeLinecap="round"
