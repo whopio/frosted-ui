@@ -1163,3 +1163,8 @@ export { default as NotificationBellCrossed24 } from './NotificationBellCrossed2
 export { default as NotificationBellCrossed20 } from './NotificationBellCrossed20';
 export { default as NotificationBellCrossed16 } from './NotificationBellCrossed16';
 export { default as NotificationBellCrossed12 } from './NotificationBellCrossed12';
+export { default as MessageEdit32 } from './MessageEdit32';
+export { default as MessageEdit24 } from './MessageEdit24';
+export { default as MessageEdit20 } from './MessageEdit20';
+export { default as MessageEdit16 } from './MessageEdit16';
+export { default as MessageEdit12 } from './MessageEdit12';
