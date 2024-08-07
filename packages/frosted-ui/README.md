@@ -4,6 +4,7 @@
 
 <h3 align="center">
   <a href="https://storybook.whop.com/">Storybook</a> -
+  <a href="https://www.figma.com/design/JoDwTV19wxmaK3iv5NLa0Z">Figma UI kit</a> -
   <a href="https://github.com/whopio/frosted-ui/tree/main/packages/frosted-ui">Source code</a>
 </h3>
 
