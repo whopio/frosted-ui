@@ -1,6 +1,6 @@
 <h1 align="center">Frosted UI Icons</h1>
 
-<p align="center">Icons used and design by the <a href="https://whop.com/">Whop</a> team</p>
+<p align="center">Icons used and designed by the <a href="https://whop.com/">Whop</a> team</p>
 
 <h3 align="center">
   <a href="https://www.figma.com/design/Qz3t7Yi565N2u4l3Ha1w99">Figma file</a>
