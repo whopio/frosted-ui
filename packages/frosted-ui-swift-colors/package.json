@@ -6,7 +6,7 @@
   "module": "index.mjs",
   "types": "types/index.d.ts",
   "scripts": {
-    "build": "pnpm clean && pnpm install && pnpm generate-swift-colors",
+    "build": "pnpm clean && pnpm install && pnpm generate-swift-colors && cd ./colors && zip -r ../frosted-ui-swift-colors.zip ./",
     "generate-swift-colors": "node ./scripts/generate-swift-colors.js",
     "prepublishOnly": "pnpm build",
     "postpublish": "pnpm clean",

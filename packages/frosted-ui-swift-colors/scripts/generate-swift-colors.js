@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const allColorScales = require('@radix-ui/colors');
 
-const outputDir = './assets';
+const outputDir = './colors';
 
 function getChannelsFromCssP3(cssColor) {
   const pattern =
