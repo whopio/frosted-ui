@@ -1,0 +1,33 @@
+{
+  "name": "@frosted-ui/icons",
+  "description": "Generating SwiftUI color assets from Radix Colors",
+  "private": false,
+  "version": "0.0.1",
+  "main": "index.js",
+  "module": "index.mjs",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "build": "pnpm clean && pnpm install && pnpm generate-swift-colors && cd ./colors && zip -r ../frosted-ui-swift-colors.zip ./",
+    "generate-swift-colors": "node ./scripts/generate-swift-colors.js",
+    "prepublishOnly": "pnpm build",
+    "postpublish": "pnpm clean",
+    "clean": "git clean -fdX"
+  },
+  "keywords": [
+    "radix",
+    "colors"
+  ],
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@types/node": "^15.0.3",
+    "tslib": "^2.2.0",
+    "typescript": "^4.2.4"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@radix-ui/colors": "^3.0.0"
+  }
+}
