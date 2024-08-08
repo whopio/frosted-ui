@@ -233,7 +233,8 @@
       "edit-profile-12": "icons/edit-profile-12.svg",
       "mark-as-unread-12": "icons/mark-as-unread-12.svg",
       "mark-as-read-12": "icons/mark-as-read-12.svg",
-      "notification-bell-crossed-12": "icons/notification-bell-crossed-12.svg"
+      "notification-bell-crossed-12": "icons/notification-bell-crossed-12.svg",
+      "message-edit-12": "icons/message-edit-12.svg"
     },
     "16": {
       "split-16": "icons/split-16.svg",
@@ -466,7 +467,8 @@
       "edit-profile-16": "icons/edit-profile-16.svg",
       "mark-as-unread-16": "icons/mark-as-unread-16.svg",
       "mark-as-read-16": "icons/mark-as-read-16.svg",
-      "notification-bell-crossed-16": "icons/notification-bell-crossed-16.svg"
+      "notification-bell-crossed-16": "icons/notification-bell-crossed-16.svg",
+      "message-edit-16": "icons/message-edit-16.svg"
     },
     "20": {
       "split-20": "icons/split-20.svg",
@@ -701,7 +703,8 @@
       "edit-profile-20": "icons/edit-profile-20.svg",
       "mark-as-unread-20": "icons/mark-as-unread-20.svg",
       "mark-as-read-20": "icons/mark-as-read-20.svg",
-      "notification-bell-crossed-20": "icons/notification-bell-crossed-20.svg"
+      "notification-bell-crossed-20": "icons/notification-bell-crossed-20.svg",
+      "message-edit-20": "icons/message-edit-20.svg"
     },
     "24": {
       "split-24": "icons/split-24.svg",
@@ -936,7 +939,8 @@
       "edit-profile-24": "icons/edit-profile-24.svg",
       "mark-as-unread-24": "icons/mark-as-unread-24.svg",
       "mark-as-read-24": "icons/mark-as-read-24.svg",
-      "notification-bell-crossed-24": "icons/notification-bell-crossed-24.svg"
+      "notification-bell-crossed-24": "icons/notification-bell-crossed-24.svg",
+      "message-edit-24": "icons/message-edit-24.svg"
     },
     "26": { "dna-26": "icons/dna-26.svg", "stats-26": "icons/stats-26.svg" },
     "32": {
@@ -1172,7 +1176,8 @@
       "edit-profile-32": "icons/edit-profile-32.svg",
       "mark-as-unread-32": "icons/mark-as-unread-32.svg",
       "mark-as-read-32": "icons/mark-as-read-32.svg",
-      "notification-bell-crossed-32": "icons/notification-bell-crossed-32.svg"
+      "notification-bell-crossed-32": "icons/notification-bell-crossed-32.svg",
+      "message-edit-32": "icons/message-edit-32.svg"
     }
   }
 }

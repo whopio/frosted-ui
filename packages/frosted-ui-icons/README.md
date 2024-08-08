@@ -1,12 +1,16 @@
-# Frosted UI Icons
+<h1 align="center">Frosted UI Icons</h1>
 
-A set of icons designed by the [Whop](https://whop.com/) team.
+<p align="center">Icons used and designed by the <a href="https://whop.com/">Whop</a> team</p>
 
----
+<h3 align="center">
+  <a href="https://www.figma.com/design/Qz3t7Yi565N2u4l3Ha1w99">Figma file</a>
+</h3>
+
+<img width="1185" alt="Screenshot 2024-08-07 at 12 35 01" src="https://github.com/user-attachments/assets/bc38e63e-0d83-4ccc-8a7c-2f2dbf63c0fc">
 
 ## Documentation
 
-All icons are available as individual React components. Each icon may come in multiple sizes.
+All icons are available as individual React components. Each icon comes in `16`, `20`, `24` and `32` px size.
 
 Install Frosted UI Icons from npm:
 
