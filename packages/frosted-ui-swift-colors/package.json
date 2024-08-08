@@ -1,0 +1,31 @@
+{
+  "name": "@frosted-ui/icons",
+  "private": false,
+  "version": "0.0.1",
+  "main": "index.js",
+  "module": "index.mjs",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "build": "pnpm clean && pnpm install && rollup -c && pnpm build-css-modules",
+    "build-css-modules": "node ./scripts/build-css-modules.js",
+    "prepublishOnly": "pnpm build",
+    "postpublish": "pnpm clean",
+    "clean": "git clean -fdX"
+  },
+  "keywords": [
+    "radix",
+    "colors"
+  ],
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^8.2.1",
+    "@types/node": "^15.0.3",
+    "rollup": "^2.48.0",
+    "tslib": "^2.2.0",
+    "typescript": "^4.2.4"
+  },
+  "license": "MIT"
+}

@@ -16,7 +16,7 @@ importers:
         version: link:packages/eslint-config-custom
       prettier:
         specifier: latest
-        version: 3.2.5
+        version: 3.3.3
       turbo:
         specifier: latest
         version: 1.12.5
@@ -269,7 +269,7 @@ importers:
     devDependencies:
       '@frosted-ui/icons':
         specifier: workspace:*
-        version: link:../frosted-ui-icons
+        version: link:../frosted-ui-swift-colors
       '@storybook/addon-essentials':
         specifier: ^7.4.6
         version: 7.4.6(@types/react-dom@18.2.18)(@types/react@18.2.53)(react-dom@18.2.0)(react@18.2.0)
@@ -368,6 +368,24 @@ importers:
         version: 5.0.5
       typescript:
         specifier: ^4.5.3
+        version: 4.9.5
+
+  packages/frosted-ui-swift-colors:
+    devDependencies:
+      '@rollup/plugin-typescript':
+        specifier: ^8.2.1
+        version: 8.2.1(rollup@2.48.0)(tslib@2.6.2)(typescript@4.9.5)
+      '@types/node':
+        specifier: ^15.0.3
+        version: 15.0.3
+      rollup:
+        specifier: ^2.48.0
+        version: 2.48.0
+      tslib:
+        specifier: ^2.2.0
+        version: 2.6.2
+      typescript:
+        specifier: ^4.2.4
         version: 4.9.5
 
   packages/generate-icon-lib:
@@ -5179,6 +5197,33 @@ packages:
       react: 18.2.0
     dev: false
 
+  /@rollup/plugin-typescript@8.2.1(rollup@2.48.0)(tslib@2.6.2)(typescript@4.9.5):
+    resolution: {integrity: sha512-Qd2E1pleDR4bwyFxqbjt4eJf+wB0UKVMLc7/BAFDGVdAXQMCsD4DUv5/7/ww47BZCYxWtJqe1Lo0KVNswBJlRw==}
+    engines: {node: '>=8.0.0'}
+    peerDependencies:
+      rollup: ^2.14.0
+      tslib: '*'
+      typescript: '>=3.7.0'
+    dependencies:
+      '@rollup/pluginutils': 3.1.0(rollup@2.48.0)
+      resolve: 1.22.2
+      rollup: 2.48.0
+      tslib: 2.6.2
+      typescript: 4.9.5
+    dev: true
+
+  /@rollup/pluginutils@3.1.0(rollup@2.48.0):
+    resolution: {integrity: sha512-GksZ6pr6TpIjHm8h9lSQ8pi8BE9VeubNT0OMJ3B5uZJ8pz73NPiqOtCog/x2/QzM1ENChPKxMDhiQuRHsqc+lg==}
+    engines: {node: '>= 8.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0
+    dependencies:
+      '@types/estree': 0.0.39
+      estree-walker: 1.0.1
+      picomatch: 2.3.1
+      rollup: 2.48.0
+    dev: true
+
   /@rollup/pluginutils@5.0.5:
     resolution: {integrity: sha512-6aEYR910NyP73oHiJglti74iRyOwgFU4x3meH/H8OJx6Ry0j6cOVZ5X/wTvub7G7Ao6qaHBEaNsV3GLJkSsF+Q==}
     engines: {node: '>=14.0.0'}
@@ -5637,7 +5682,7 @@ packages:
       magic-string: 0.30.5
       remark-external-links: 8.0.0
       remark-slug: 6.1.0
-      rollup: 3.29.4
+      rollup: 2.79.1
       typescript: 5.3.3
       vite: 4.4.11(@types/node@17.0.45)
     transitivePeerDependencies:
@@ -6309,6 +6354,10 @@ packages:
     resolution: {integrity: sha512-AjwI4MvWx3HAOaZqYsjKWyEObT9lcVV0Y0V8nXo6cXzN8ZiMxVhf6F3d/UNvXVGKrEzL/Dluc5p+y9GkzlTWig==}
     dev: true
 
+  /@types/estree@0.0.39:
+    resolution: {integrity: sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==}
+    dev: true
+
   /@types/estree@0.0.51:
     resolution: {integrity: sha512-CuPgU6f3eT/XgKKPqKd/gLZV1Xmvf1a2R5POBOGQa6uv82xpls89HU5zKeVoyR8XzHd1RGNOlQlvUe3CFkjWNQ==}
     dev: true
@@ -6448,6 +6497,10 @@ packages:
   /@types/node@11.13.5:
     resolution: {integrity: sha512-/OMMBnjVtDuwX1tg2pkYVSqRIDSmNTnvVvmvP/2xiMAAWf4a5+JozrApCrO4WCAILmXVxfNoQ3E+0HJbNpFVGg==}
     dev: false
+
+  /@types/node@15.0.3:
+    resolution: {integrity: sha512-/WbxFeBU+0F79z9RdEOXH4CsDga+ibi5M8uEYr91u3CkT/pdWcV8MCook+4wDPnZBexRdwWS+PiVZ2xJviAzcQ==}
+    dev: true
 
   /@types/node@16.18.58:
     resolution: {integrity: sha512-YGncyA25/MaVtQkjWW9r0EFBukZ+JulsLcVZBlGUfIb96OBMjkoRWwQo5IEWJ8Fj06Go3GHw+bjYDitv6BaGsA==}
@@ -8630,6 +8683,10 @@ packages:
       c8: 7.14.0
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /estree-walker@1.0.1:
+    resolution: {integrity: sha512-1fMXF3YP4pZZVozF8j/ZLfvnR8NSIljt56UhbZ5PeeDmmGHpgpdwQt7ITlGvYaQukCvuBRMLEiKiYC+oeIg4cg==}
     dev: true
 
   /estree-walker@2.0.2:
@@ -11461,8 +11518,8 @@ packages:
     hasBin: true
     dev: true
 
-  /prettier@3.2.5:
-    resolution: {integrity: sha512-3/GWa9aOC0YeD7LUfvOG2NiDyhOWRvt1k+rcKhOuYnMY24iiCphgneUfJDyFXd6rZCAnuLBv6UeAULtrhT/F4A==}
+  /prettier@3.3.3:
+    resolution: {integrity: sha512-i2tDNA0O5IrMO757lfrdQZCc2jPNDVntV0m/+4whiDfWaTKfMNgR7Qz0NAeGz/nRqF4m5/6CLzbP4/liHt12Ew==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
@@ -12239,6 +12296,22 @@ packages:
     hasBin: true
     dependencies:
       glob: 10.3.10
+    dev: true
+
+  /rollup@2.48.0:
+    resolution: {integrity: sha512-wl9ZSSSsi5579oscSDYSzGn092tCS076YB+TQrzsGuSfYyJeep8eEWj0eaRjuC5McuMNmcnR8icBqiE/FWNB1A==}
+    engines: {node: '>=10.0.0'}
+    hasBin: true
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: true
+
+  /rollup@2.79.1:
+    resolution: {integrity: sha512-uKxbd0IhMZOhjAiD5oAFp7BqvkA4Dv47qpOCtaNvng4HBwdbWtdOh8f5nZNuk2rp51PMGk3bzfWu5oayNEuYnw==}
+    engines: {node: '>=10.0.0'}
+    hasBin: true
+    optionalDependencies:
+      fsevents: 2.3.2
     dev: true
 
   /rollup@3.29.4:
