@@ -1,0 +1,96 @@
+.fui-WidgetStackRoot {
+  position: relative;
+
+  container-type: size;
+  container-name: fui-widget-stack;
+
+  --widget-stack-radius: 24px;
+  --widget-stack-gutter: 8px;
+  --widget-stack-background: var(--gray-a5);
+  /* Overflow clip so that widgets that are not in the view are not focusable  */
+  overflow: clip;
+  overflow-clip-margin: var(--widget-stack-gutter);
+  user-select: none;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateZ(0);
+}
+
+.fui-WidgetStackRoot::before {
+  content: '';
+  position: absolute;
+  background: var(--widget-stack-background);
+  backdrop-filter: blur(16px);
+  inset: calc(-1 * var(--widget-stack-gutter));
+  z-index: -1;
+}
+.fui-WidgetStackRoot::before,
+.fui-WidgetStackScrollArea {
+  clip-path: inset(
+    var(--widget-stack-gutter) var(--widget-stack-gutter)
+      var(--widget-stack-gutter) var(--widget-stack-gutter) round
+      var(--widget-stack-radius)
+  );
+  transition: 0.2s clip-path ease-out;
+}
+.fui-WidgetStackRoot:hover::before,
+.fui-WidgetStackRoot:hover .fui-WidgetStackScrollArea {
+  clip-path: inset(
+    0 0 0 0 round calc(var(--widget-stack-radius) + var(--widget-stack-gutter))
+  );
+}
+
+.fui-WidgetStackScrollArea {
+  position: absolute;
+  inset: calc(-1 * var(--widget-stack-gutter));
+  overflow-y: scroll;
+  /* clip-path: inset(0 0 0 0 round 24px); */
+
+  contain: strict;
+  will-change: scroll-position;
+  display: flex;
+  flex-direction: column;
+}
+.fui-WidgetStackScrollArea[data-orientation='vertical'] {
+  flex-direction: column;
+  scroll-snap-type: y mandatory;
+}
+.fui-WidgetStackScrollArea[data-orientation='horizontal'] {
+  flex-direction: row;
+  scroll-snap-type: x mandatory;
+}
+.fui-WidgetStackScrollArea {
+  scrollbar-width: none;
+}
+.fui-WidgetStackScrollArea::-webkit-scrollbar {
+  display: none;
+}
+.fui-WidgetStackScrollArea::-webkit-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.fui-WidgetStackItem {
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+  scroll-snap-stop: always;
+  scroll-snap-align: center;
+  transform-style: preserve-3d;
+  perspective-origin: center;
+  perspective: 1000px;
+
+  border: var(--widget-stack-gutter) solid transparent;
+}
+
+.fui-WidgetStackItemContent {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--widget-stack-radius);
+  overflow: hidden;
+}
