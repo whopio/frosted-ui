@@ -16,6 +16,7 @@ import { widgetStackRootPropDefs } from './widget-stack.props';
 type WidgetControls = {
   next: () => void;
   prev: () => void;
+  scrollToIndex: (index: number) => void;
 } | null;
 
 const WidgetStackContext = React.createContext<{
@@ -25,9 +26,14 @@ const WidgetStackContext = React.createContext<{
   setPrevDisabled: (disabled: boolean) => void;
   controls: WidgetControls;
   setControls: (controls: WidgetControls) => void;
-  index: number;
-  setIndex: (index: number) => void;
+  disableAutoPlay: boolean;
+  setDisableAutoPlay: (disabled: boolean) => void;
+  currentWidgetIndex: number;
+  setCurrentWidgetIndex: (index: number) => void;
+  widgetsCount?: number;
+  setWidgetsCount: (count: number) => void;
   orientation?: 'horizontal' | 'vertical';
+  autoPlay?: number;
 }>({
   nextDisabled: false,
   setNextDisabled: (disabled: boolean) => null,
@@ -35,12 +41,17 @@ const WidgetStackContext = React.createContext<{
   setPrevDisabled: (disabled: boolean) => null,
   controls: null,
   setControls: (controls: WidgetControls) => null,
-  index: 0,
-  setIndex: (index: number) => null,
+  disableAutoPlay: false,
+  setDisableAutoPlay: (disabled: boolean) => null,
+  currentWidgetIndex: 0,
+  setCurrentWidgetIndex: (index: number) => null,
+  widgetsCount: 0,
+  setWidgetsCount: (count: number) => null,
   orientation: undefined,
+  autoPlay: undefined,
 });
 
-function useWidgetStack() {
+function _useWidgetStack() {
   const context = React.useContext(WidgetStackContext);
   if (context === undefined) {
     throw new Error('WidgetStackContext must be used within a WidgetStackRoot');
@@ -48,32 +59,89 @@ function useWidgetStack() {
   return context;
 }
 
+export function useWidgetStack() {
+  const context = React.useContext(WidgetStackContext);
+  if (context === undefined) {
+    throw new Error('WidgetStackContext must be used within a WidgetStackRoot');
+  }
+  const {
+    nextDisabled,
+    prevDisabled,
+    currentWidgetIndex,
+    widgetsCount,
+    setDisableAutoPlay,
+    controls,
+  } = context;
+
+  const widgetStackContext = React.useMemo(() => {
+    return {
+      nextDisabled: nextDisabled,
+      prevDisabled: prevDisabled,
+      controls: controls
+        ? {
+            prev: () => {
+              setDisableAutoPlay(true);
+              controls?.prev();
+            },
+            next: () => {
+              setDisableAutoPlay(true);
+              controls?.next();
+            },
+            scrollToIndex: (index: number) => {
+              setDisableAutoPlay(true);
+              controls?.scrollToIndex(index);
+            },
+          }
+        : null,
+      currentWidgetIndex: currentWidgetIndex,
+      widgetsCount: widgetsCount,
+    };
+  }, [
+    nextDisabled,
+    prevDisabled,
+    currentWidgetIndex,
+    widgetsCount,
+    setDisableAutoPlay,
+    controls,
+  ]);
+
+  return widgetStackContext;
+}
 interface WidgetStackRootProps
   extends GetPropDefTypes<typeof widgetStackRootPropDefs> {
   children: React.ReactNode;
+  autoPlay?: number;
 }
 const WidgetStackRoot: React.FC<WidgetStackRootProps> = ({
   children,
   orientation = widgetStackRootPropDefs.orientation.default,
+  autoPlay,
   ...props
 }) => {
   const [controls, setControls] = React.useState<WidgetControls>(null);
-  const [index, setIndex] = React.useState(0);
+  const [currentWidgetIndex, setCurrentWidgetIndex] = React.useState(0);
   const [nextDisabled, setNextDisabled] = React.useState(false);
   const [prevDisabled, setPrevDisabled] = React.useState(false);
+  const [disableAutoPlay, setDisableAutoPlay] = React.useState(false);
+  const [widgetsCount, setWidgetsCount] = React.useState(0);
 
   return (
     <WidgetStackContext.Provider
       value={{
         controls,
         setControls,
-        index,
-        setIndex,
+        disableAutoPlay,
+        setDisableAutoPlay,
+        currentWidgetIndex,
+        setCurrentWidgetIndex,
         nextDisabled,
         setNextDisabled,
         prevDisabled,
         setPrevDisabled,
         orientation,
+        widgetsCount,
+        setWidgetsCount,
+        autoPlay,
       }}
       {...props}
     >
@@ -97,19 +165,27 @@ const WidgetStackStack = React.forwardRef<
   const { className, children, ...rootProps } = marginRest;
 
   const {
-    index,
+    currentWidgetIndex,
     orientation,
-    setIndex,
+    setCurrentWidgetIndex,
+    controls,
     setControls,
     setNextDisabled,
     setPrevDisabled,
-  } = useWidgetStack();
+    autoPlay,
+    disableAutoPlay,
+    setWidgetsCount,
+  } = _useWidgetStack();
   const scrollAreaRef = React.useRef<HTMLDivElement>(null);
 
-  const indexRef = React.useRef(index);
+  useIsomorphicLayoutEffect(() => {
+    setWidgetsCount(React.Children.count(children));
+  }, [children]);
+
+  const currentWidgetIndexRef = React.useRef(currentWidgetIndex);
   React.useEffect(() => {
-    indexRef.current = index;
-  }, [index]);
+    currentWidgetIndexRef.current = currentWidgetIndex;
+  }, [currentWidgetIndex]);
 
   useIsomorphicLayoutEffect(() => {
     const scrollAreaElement = scrollAreaRef.current;
@@ -121,7 +197,7 @@ const WidgetStackStack = React.forwardRef<
     // That's why scrollBy method is used instead.
     const dir = orientation === 'vertical' ? 'top' : 'left';
     const next = () => {
-      const target = items[indexRef.current + 1];
+      const target = items[currentWidgetIndexRef.current + 1];
       if (target) {
         // get distance from top of scrollAreaElement to top of target
         const targetRect = target.getBoundingClientRect();
@@ -134,7 +210,7 @@ const WidgetStackStack = React.forwardRef<
       }
     };
     const prev = () => {
-      const target = items[indexRef.current - 1];
+      const target = items[currentWidgetIndexRef.current - 1];
       if (target) {
         // get distance from top of scrollAreaElement to top of target
         const targetRect = target.getBoundingClientRect();
@@ -146,11 +222,66 @@ const WidgetStackStack = React.forwardRef<
         });
       }
     };
+    const scrollToIndex = (index: number) => {
+      const target = items[index];
+      if (target) {
+        // get distance from top of scrollAreaElement to top of target
+        const targetRect = target.getBoundingClientRect();
+        const scrollAreaRect = scrollAreaElement.getBoundingClientRect();
+        const distance = targetRect[dir] - scrollAreaRect[dir];
+        console.log({ index, distance, target });
+
+        scrollAreaElement.scrollBy({
+          [dir]: distance,
+          behavior: 'smooth',
+        });
+      }
+    };
     setControls({
       next,
       prev,
+      scrollToIndex,
     });
   }, [orientation]);
+
+  const disableAutoPlayRef = React.useRef(disableAutoPlay);
+  const directionRef = React.useRef<'forward' | 'backward'>('forward');
+  const [isHovering, setIsHovering] = React.useState(false);
+  React.useEffect(() => {
+    disableAutoPlayRef.current = disableAutoPlay;
+    if (!autoPlay || disableAutoPlay || isHovering) return;
+
+    const scrollAreaElement = scrollAreaRef.current;
+    if (!scrollAreaElement) return;
+
+    const interval = setInterval(() => {
+      if (disableAutoPlayRef.current) return;
+      const scrollAreaElement = scrollAreaRef.current;
+      if (!scrollAreaElement) return;
+      const items = Array.from(scrollAreaElement.children);
+
+      let scrollToIndex =
+        directionRef.current === 'forward'
+          ? currentWidgetIndexRef.current + 1
+          : currentWidgetIndexRef.current - 1;
+      if (scrollToIndex < 0) {
+        scrollToIndex = 1;
+        directionRef.current = 'forward';
+      } else if (scrollToIndex >= items.length) {
+        scrollToIndex = items.length - 2;
+        directionRef.current = 'backward';
+      }
+      if (directionRef.current === 'forward') {
+        controls?.next();
+      } else {
+        controls?.prev();
+      }
+    }, autoPlay);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [autoPlay, controls, isHovering, disableAutoPlay]);
 
   useIsomorphicLayoutEffect(() => {
     const scrollAreaElement = scrollAreaRef.current;
@@ -214,7 +345,7 @@ const WidgetStackStack = React.forwardRef<
               setNextDisabled(false);
               setPrevDisabled(false);
             }
-            setIndex(index);
+            setCurrentWidgetIndex(index);
           }
         });
       },
@@ -243,6 +374,8 @@ const WidgetStackStack = React.forwardRef<
         withMarginProps(marginProps),
         className,
       )}
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
     >
       <div
         className="fui-WidgetStackScrollArea"
@@ -358,8 +491,7 @@ const WidgetStackNext = React.forwardRef<
   WidgetStackNextElementNext,
   WidgetStackNextProps
 >((props, forwardedRef) => {
-  const { nextDisabled, controls, setControls, setIndex, index } =
-    useWidgetStack();
+  const { nextDisabled, controls } = useWidgetStack();
 
   return (
     <Slot

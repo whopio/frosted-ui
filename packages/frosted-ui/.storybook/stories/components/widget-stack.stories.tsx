@@ -595,3 +595,136 @@ export const WithControls: Story = {
     </WidgetStack.Root>
   ),
 };
+export const AutoPlay: Story = {
+  args: {},
+  render: ({ children, ...args }) => (
+    <WidgetStack.Root orientation="horizontal" autoPlay={4000} {...args}>
+      <Flex direction="row" gap="4" align={'center'}>
+        <WidgetStack.Prev>
+          <IconButton variant="classic">{'<'}</IconButton>
+        </WidgetStack.Prev>
+
+        <WidgetStack.Stack
+          style={{
+            width: 400,
+            height: 200,
+          }}
+        >
+          <WidgetStack.Item>
+            <Flex
+              direction={'column'}
+              width={'100%'}
+              height="100%"
+              justify={'between'}
+              p={'4'}
+              style={{
+                background: 'linear-gradient(var(--blue-9), var(--blue-6))',
+                color: 'var(--blue-9-contrast)',
+              }}
+            >
+              <Flex
+                direction={'column'}
+                width={'100%'}
+                justify={'between'}
+                gap="1"
+              >
+                <Text weight="bold" size="5">
+                  Wrocław
+                </Text>
+                <Text weight="light" size="9">
+                  24
+                </Text>
+              </Flex>
+              <Flex
+                direction={'column'}
+                width={'100%'}
+                justify={'between'}
+                gap="1"
+              >
+                <Text weight="medium" size="3">
+                  Sunny
+                </Text>
+                <Text weight="medium" size="3">
+                  H:73 L:55
+                </Text>
+              </Flex>
+            </Flex>
+          </WidgetStack.Item>
+          <WidgetStack.Item>
+            <Flex
+              direction={'column'}
+              width={'100%'}
+              height="100%"
+              justify={'between'}
+            >
+              <Flex
+                direction={'column'}
+                width={'100%'}
+                justify={'between'}
+                gap="1"
+                style={{
+                  backgroundImage:
+                    'url(https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop)',
+                  backgroundSize: 'cover',
+                  height: '50%',
+                }}
+              ></Flex>
+              <Flex
+                direction={'column'}
+                width={'100%'}
+                p={'4'}
+                style={{
+                  height: '50%',
+                  background: 'var(--gray-2)',
+                }}
+              >
+                <Text weight="medium" size="4" trim="start">
+                  Travis S.
+                </Text>
+                <Text weight="medium" size="2" color="gray">
+                  4am in Toronto
+                </Text>
+                <IconButton
+                  variant="soft"
+                  style={{
+                    position: 'absolute',
+                    right: 16,
+                    bottom: 16,
+                    borderRadius: '50%',
+                  }}
+                  color="blue"
+                  size="4"
+                >
+                  A
+                </IconButton>
+              </Flex>
+            </Flex>
+          </WidgetStack.Item>
+          <WidgetStack.Item>
+            <Flex
+              direction={'column'}
+              width={'100%'}
+              height="100%"
+              justify={'center'}
+              align={'center'}
+              style={{ background: 'var(--grass-9)' }}
+            >
+              <span
+                style={{
+                  fontSize: 96,
+                  lineHeight: 1,
+                }}
+              >
+                🏝️
+              </span>
+            </Flex>
+          </WidgetStack.Item>
+          <WidgetStack.Item style={{ fontSize: 60 }}>🏝️🏴‍☠️⚜️</WidgetStack.Item>
+        </WidgetStack.Stack>
+        <WidgetStack.Next>
+          <IconButton variant="classic">{'>'}</IconButton>
+        </WidgetStack.Next>
+      </Flex>
+    </WidgetStack.Root>
+  ),
+};
