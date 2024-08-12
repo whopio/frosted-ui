@@ -1,7 +1,7 @@
 .fui-WidgetStackStack {
   --widget-stack-radius: 24px;
   --widget-stack-gutter: 8px;
-  --widget-stack-background: var(--gray-a4);
+  --widget-stack-background: var(--gray-a3);
 
   position: relative;
   display: flex;
@@ -16,8 +16,8 @@
   position: absolute;
   inset: calc(-1 * var(--widget-stack-gutter));
 
-  /* contain: strict; */
-  /* will-change: scroll-position; */
+  contain: strict;
+  will-change: scroll-position;
   scrollbar-width: none;
 
   /* Backdrop */
@@ -65,9 +65,7 @@
   flex-shrink: 0;
   scroll-snap-stop: always;
   scroll-snap-align: center;
-  transform-style: preserve-3d;
-  perspective-origin: center;
-  perspective: 1000px;
+
   border: var(--widget-stack-gutter) solid transparent;
   contain: strict;
 }
@@ -81,4 +79,6 @@
 
   border-radius: var(--widget-stack-radius);
   overflow: hidden;
+  transform: translateZ(0)
+    scale(calc(1 + (1 - var(--intersection-ratio)) * -0.3));
 }

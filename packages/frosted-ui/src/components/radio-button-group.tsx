@@ -11,6 +11,7 @@ import type {
   MarginProps,
   PropsWithoutRefOrColor,
 } from '../helpers';
+import { useIsomorphicLayoutEffect } from '../helpers/use-isomorphic-layout-effect';
 
 type RadioButtonGroupOwnProps = GetPropDefTypes<
   typeof radioButtonGroupPropDefs
@@ -161,10 +162,6 @@ const addOverlayToChildren = (children: React.ReactNode): React.ReactNode => {
   }
   return children;
 };
-
-// Avoiding SSR hydration warnings
-const useIsomorphicLayoutEffect =
-  typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect;
 
 const RadioButtonGroupOverlay = () => {
   const ref = React.useRef<HTMLDivElement>(null);

@@ -10,6 +10,7 @@ import type {
   MarginProps,
   PropsWithoutRefOrColor,
 } from '../helpers';
+import { useIsomorphicLayoutEffect } from '../helpers/use-isomorphic-layout-effect';
 import { widgetStackRootPropDefs } from './widget-stack.props';
 
 type WidgetControls = {
@@ -110,7 +111,7 @@ const WidgetStackStack = React.forwardRef<
     indexRef.current = index;
   }, [index]);
 
-  React.useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const scrollAreaElement = scrollAreaRef.current;
     if (!scrollAreaElement) return;
     const items = Array.from(scrollAreaElement.children);
@@ -151,8 +152,43 @@ const WidgetStackStack = React.forwardRef<
     });
   }, [orientation]);
 
-  // intersection observer that observes scrollAreaRef children and triggers alert when one of them is intersecting
-  React.useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
+    const scrollAreaElement = scrollAreaRef.current;
+    if (!scrollAreaElement) return;
+    const updateIntersectionRatios = () => {
+      // check intersection ratio of each child
+      const items = Array.from(scrollAreaElement.children) as HTMLElement[];
+
+      items.forEach((item) => {
+        const targetScrollPosition =
+          orientation === 'vertical' ? item.offsetTop : item.offsetLeft;
+
+        const itemHeight = item.clientHeight;
+
+        const scrollPosition =
+          orientation === 'vertical'
+            ? scrollAreaElement.scrollTop
+            : scrollAreaElement.scrollLeft;
+
+        const dist = Math.abs(targetScrollPosition - scrollPosition);
+        const ratio = 1 - Math.min(dist / itemHeight, 1);
+
+        item.style.setProperty('--intersection-ratio', ratio.toString());
+      });
+    };
+
+    updateIntersectionRatios();
+
+    scrollAreaElement.addEventListener('scroll', updateIntersectionRatios, {
+      passive: true,
+    });
+    return () => {
+      scrollAreaElement.removeEventListener('scroll', updateIntersectionRatios);
+    };
+  }, [children]);
+
+  // Handle next/prev button states
+  useIsomorphicLayoutEffect(() => {
     const scrollAreaElement = scrollAreaRef.current;
 
     if (!scrollAreaElement) return;
@@ -160,6 +196,7 @@ const WidgetStackStack = React.forwardRef<
       (entries) => {
         entries.forEach((entry) => {
           const target = entry.target;
+
           if (entry.isIntersecting) {
             const items = Array.from(scrollAreaElement.children);
             const index = items.indexOf(target);
@@ -219,10 +256,20 @@ const WidgetStackStack = React.forwardRef<
 });
 WidgetStackStack.displayName = 'WidgetStackStack';
 
-function sequence(len: number, max: number) {
-  return Array.from({ length: len }, (v, k) =>
-    parseFloat(((k * max) / (len - 1)).toFixed(2)),
-  );
+const WidgetStackItemContext = React.createContext<{
+  isFullyVisible: boolean;
+}>({
+  isFullyVisible: false,
+});
+
+export function useWidgetStackItem() {
+  const context = React.useContext(WidgetStackItemContext);
+  if (context === undefined) {
+    throw new Error(
+      'WidgetStackItemContext must be used within a WidgetStackItem',
+    );
+  }
+  return context;
 }
 
 type WidgetStackItemElement = React.ElementRef<'div'>;
@@ -236,7 +283,6 @@ const WidgetStackItem = React.forwardRef<
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const { className, children, ...rootProps } = marginRest;
   const ref = React.useRef<HTMLDivElement>(null);
-  const contentRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     if (forwardedRef) {
@@ -248,56 +294,56 @@ const WidgetStackItem = React.forwardRef<
     }
   }, [forwardedRef]);
 
-  React.useEffect(() => {
-    const widgetStackItemElement = ref.current;
-    const stackElement = widgetStackItemElement?.parentElement;
+  const [isFullyVisible, setIsFullyVisible] = React.useState(false);
 
-    if (!widgetStackItemElement || !stackElement) return;
+  useIsomorphicLayoutEffect(() => {
+    const widgetElement = ref.current;
+    const stackElement = widgetElement?.parentElement;
 
+    if (!stackElement || !widgetElement) return;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          const widgetItemContentElement = contentRef.current;
-          if (!widgetItemContentElement) return;
-          widgetItemContentElement.style.transform =
-            'translateZ(' +
-            (-(1 - entry.intersectionRatio) * 500).toFixed(3) +
-            'px)';
+          setIsFullyVisible(entry.intersectionRatio === 1);
         });
       },
       {
         root: stackElement,
         rootMargin: '0px',
-        // sets breakpoints for every 0.5% [0.00, 0.005, 0.01..., 1.00]
-        threshold: sequence(200, 1),
+        threshold: [0, 1],
       },
     );
-    observer.observe(widgetStackItemElement);
+
+    observer.observe(widgetElement);
 
     return () => {
       observer.disconnect();
     };
-  }, []);
+  }, [children]);
 
   return (
-    <div
-      {...rootProps}
-      ref={ref}
-      className={classNames(
-        'fui-WidgetStackItem',
-        className,
-        withMarginProps(marginProps),
-      )}
-      role="group"
-      aria-roledescription="slide"
-    >
+    <WidgetStackItemContext.Provider value={{ isFullyVisible }}>
       <div
-        className={classNames('fui-WidgetStackItemContent')}
-        ref={contentRef}
+        {...rootProps}
+        ref={ref}
+        className={classNames(
+          'fui-WidgetStackItem',
+          className,
+          withMarginProps(marginProps),
+        )}
+        role="group"
+        aria-roledescription="slide"
+        data-fully-visible={isFullyVisible ? 'true' : undefined}
+        // Disable focusing widget content when it's not fully visible
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        inert={isFullyVisible ? undefined : ''}
       >
-        {children}
+        <div className={classNames('fui-WidgetStackItemContent')}>
+          {children}
+        </div>
       </div>
-    </div>
+    </WidgetStackItemContext.Provider>
   );
 });
 
@@ -320,6 +366,7 @@ const WidgetStackNext = React.forwardRef<
       {...props}
       // @ts-ignore --
       disabled={nextDisabled}
+      data-disabled={nextDisabled || undefined}
       onClick={controls?.next}
       ref={forwardedRef}
     />
@@ -344,6 +391,7 @@ const WidgetStackPrev = React.forwardRef<
       {...props}
       // @ts-ignore --
       disabled={prevDisabled}
+      data-disabled={prevDisabled || undefined}
       onClick={controls?.prev}
       ref={forwardedRef}
     />
