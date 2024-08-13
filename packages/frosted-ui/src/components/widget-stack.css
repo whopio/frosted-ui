@@ -1,0 +1,86 @@
+.fui-WidgetStackStack {
+  --widget-stack-radius: 24px;
+  --widget-stack-gutter: 8px;
+  --widget-stack-background: var(--gray-a3);
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+
+  user-select: none;
+}
+
+.fui-WidgetStackScrollArea {
+  position: absolute;
+  inset: calc(-1 * var(--widget-stack-gutter));
+
+  contain: strict;
+  will-change: scroll-position;
+  scrollbar-width: none;
+
+  /* Backdrop */
+  background: var(--widget-stack-background);
+  backdrop-filter: blur(16px);
+
+  transition: 0.2s clip-path ease-out;
+  clip-path: inset(
+    var(--widget-stack-gutter) var(--widget-stack-gutter)
+      var(--widget-stack-gutter) var(--widget-stack-gutter) round
+      var(--widget-stack-radius)
+  );
+
+  &:where(:not(:has(.fui-WidgetStackItem:first-child:last-child)):hover) {
+    clip-path: inset(
+      0 0 0 0 round
+        calc(var(--widget-stack-radius) + var(--widget-stack-gutter))
+    );
+  }
+
+  /* Orientation */
+  display: flex;
+  &:where([data-orientation='vertical']) {
+    flex-direction: column;
+    scroll-snap-type: y mandatory;
+    overflow-y: auto;
+  }
+  &:where([data-orientation='horizontal']) {
+    flex-direction: row;
+    scroll-snap-type: x mandatory;
+    overflow-x: auto;
+  }
+}
+
+/* Hide scrollbar */
+.fui-WidgetStackScrollArea::-webkit-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  display: none;
+}
+
+.fui-WidgetStackItem {
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+  /* Scroll snap stop: always interferes with programmatic scrolling. */
+  /* It breaks when trying to scroll by more than one widget at a time. */
+  /* scroll-snap-stop: always; */
+  scroll-snap-align: center;
+
+  border: var(--widget-stack-gutter) solid transparent;
+  contain: strict;
+}
+
+.fui-WidgetStackItemContent {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: var(--widget-stack-radius);
+  overflow: hidden;
+  transform: translateZ(0)
+    scale(calc(1 + (1 - var(--intersection-ratio)) * -0.3));
+}
