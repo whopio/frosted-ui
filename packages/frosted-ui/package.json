@@ -139,6 +139,7 @@
     "autoprefixer": "^10.4.16",
     "eslint": "^8.15.0",
     "eslint-config-custom": "*",
+    "eslint-plugin-react-hooks": "^4.6.2",
     "postcss": "^8.4.30",
     "postcss-cli": "^10.1.0",
     "postcss-combine-duplicated-selectors": "^10.0.3",
