@@ -36,17 +36,17 @@ const WidgetStackContext = React.createContext<{
   autoPlay?: number;
 }>({
   nextDisabled: false,
-  setNextDisabled: (disabled: boolean) => null,
+  setNextDisabled: () => null,
   prevDisabled: false,
-  setPrevDisabled: (disabled: boolean) => null,
+  setPrevDisabled: () => null,
   controls: null,
-  setControls: (controls: WidgetControls) => null,
+  setControls: () => null,
   disableAutoPlay: false,
-  setDisableAutoPlay: (disabled: boolean) => null,
+  setDisableAutoPlay: () => null,
   currentWidgetIndex: 0,
-  setCurrentWidgetIndex: (index: number) => null,
+  setCurrentWidgetIndex: () => null,
   widgetsCount: 0,
-  setWidgetsCount: (count: number) => null,
+  setWidgetsCount: () => null,
   orientation: undefined,
   autoPlay: undefined,
 });
@@ -496,7 +496,8 @@ const WidgetStackNext = React.forwardRef<
   return (
     <Slot
       {...props}
-      // @ts-ignore --
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore -- fix later
       disabled={nextDisabled}
       data-disabled={nextDisabled || undefined}
       onClick={controls?.next}
@@ -521,7 +522,8 @@ const WidgetStackPrev = React.forwardRef<
   return (
     <Slot
       {...props}
-      // @ts-ignore --
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore -- fix later
       disabled={prevDisabled}
       data-disabled={prevDisabled || undefined}
       onClick={controls?.prev}

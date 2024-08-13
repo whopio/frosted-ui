@@ -468,7 +468,13 @@ export const WithControls: Story = {
     <WidgetStack.Root orientation="horizontal" {...args}>
       <Flex direction="row" gap="4" align={'center'}>
         <WidgetStack.Prev>
-          <IconButton variant="classic">{'<'}</IconButton>
+          <IconButton
+            variant="soft"
+            color="gray"
+            style={{ borderRadius: '50%' }}
+          >
+            {'<'}
+          </IconButton>
         </WidgetStack.Prev>
 
         <WidgetStack.Stack
@@ -589,7 +595,13 @@ export const WithControls: Story = {
           <WidgetStack.Item style={{ fontSize: 60 }}>🏝️🏴‍☠️⚜️</WidgetStack.Item>
         </WidgetStack.Stack>
         <WidgetStack.Next>
-          <IconButton variant="classic">{'>'}</IconButton>
+          <IconButton
+            variant="soft"
+            color="gray"
+            style={{ borderRadius: '50%' }}
+          >
+            {'>'}
+          </IconButton>
         </WidgetStack.Next>
       </Flex>
     </WidgetStack.Root>
@@ -601,7 +613,13 @@ export const AutoPlay: Story = {
     <WidgetStack.Root orientation="horizontal" autoPlay={4000} {...args}>
       <Flex direction="row" gap="4" align={'center'}>
         <WidgetStack.Prev>
-          <IconButton variant="classic">{'<'}</IconButton>
+          <IconButton
+            variant="soft"
+            color="gray"
+            style={{ borderRadius: '50%' }}
+          >
+            {'<'}
+          </IconButton>
         </WidgetStack.Prev>
 
         <WidgetStack.Stack
@@ -722,7 +740,13 @@ export const AutoPlay: Story = {
           <WidgetStack.Item style={{ fontSize: 60 }}>🏝️🏴‍☠️⚜️</WidgetStack.Item>
         </WidgetStack.Stack>
         <WidgetStack.Next>
-          <IconButton variant="classic">{'>'}</IconButton>
+          <IconButton
+            variant="soft"
+            color="gray"
+            style={{ borderRadius: '50%' }}
+          >
+            {'>'}
+          </IconButton>
         </WidgetStack.Next>
       </Flex>
     </WidgetStack.Root>
