@@ -133,6 +133,8 @@ export * as Tabs from './tabs';
 export * as TabsNav from './tabs-nav';
 export * from './tabs-nav.props';
 export * from './tabs.props';
+export * as WidgetStack from './widget-stack';
+export * from './widget-stack.props';
 
 // UTILITIES
 //------------------------------------------------------------------------------

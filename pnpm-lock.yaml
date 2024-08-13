@@ -315,6 +315,9 @@ importers:
       eslint-config-custom:
         specifier: '*'
         version: link:../eslint-config-custom
+      eslint-plugin-react-hooks:
+        specifier: ^4.6.2
+        version: 4.6.2(eslint@8.15.0)
       postcss:
         specifier: ^8.4.30
         version: 8.4.30
@@ -8453,6 +8456,15 @@ packages:
       eslint: 7.32.0
       eslint-plugin-turbo: 1.13.2(eslint@7.32.0)
     dev: false
+
+  /eslint-plugin-react-hooks@4.6.2(eslint@8.15.0):
+    resolution: {integrity: sha512-QzliNJq4GinDBcD8gPB5v0wh6g8q3SUi6EFF0x8N/BL9PoVs0atuGc47ozMRyOWAKdwaZ5OnbOEa3WR+dSGKuQ==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0
+    dependencies:
+      eslint: 8.15.0
+    dev: true
 
   /eslint-plugin-turbo@1.13.2(eslint@7.32.0):
     resolution: {integrity: sha512-QNaihF0hTRjfOBd1SLHrftm8V3pOU35CNS/C0/Z6qY1xxdL1PSv4IctEIldSMX7/A1jOPYwMPO7wYwPXgjgp/g==}
