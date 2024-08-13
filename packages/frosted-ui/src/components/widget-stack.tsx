@@ -544,5 +544,6 @@ export type {
   WidgetStackItemProps as ItemProps,
   WidgetStackNextProps as NextProps,
   WidgetStackPrevProps as PrevProps,
+  WidgetStackRootProps as RootProps,
   WidgetStackStackProps as StackProps,
 };
