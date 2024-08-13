@@ -1,5 +1,5 @@
 {
-  "name": "@frosted-ui/icons",
+  "name": "frosted-ui-swift-colors",
   "description": "Generating SwiftUI color assets from Radix Colors",
   "private": false,
   "version": "0.0.1",
