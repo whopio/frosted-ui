@@ -92,6 +92,7 @@ export function useThemeEvents() {
       const event = new CustomEvent('frosted-ui:unmounted');
       document.documentElement.dispatchEvent(event);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Emit an event when the theme is changed.
