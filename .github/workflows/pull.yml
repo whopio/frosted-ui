@@ -57,7 +57,7 @@ jobs:
       - name: Install all packages
         run: pnpm install
       - name: Run eslint
-        run: pnpx eslint ./ --max-warnings 0
+        run: pnpx eslint@7.32.0 ./ --max-warnings 0
       - name: Run stylelint
         run: pnpm turbo lint:css
 
