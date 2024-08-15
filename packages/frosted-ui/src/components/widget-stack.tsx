@@ -179,7 +179,7 @@ const WidgetStackStack = React.forwardRef<
   const scrollAreaRef = React.useRef<HTMLDivElement>(null);
 
   useIsomorphicLayoutEffect(() => {
-    setWidgetsCount(React.Children.count(children));
+    setWidgetsCount(React.Children.toArray(children).filter(Boolean).length);
   }, [children]);
 
   const currentWidgetIndexRef = React.useRef(currentWidgetIndex);
