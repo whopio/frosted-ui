@@ -70,35 +70,6 @@ jobs:
       - name: Build packages
         run: pnpm turbo build
 
-  chromatic-deployment:
-    runs-on: ubuntu-latest
-    needs: install
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 8.6.9
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18.x
-          check-latest: true
-          cache: pnpm
-      - name: Install all packages
-        run: pnpm install
-      - name: Build packages
-        run: pnpm turbo build
-      - name: Publish to Chromatic
-        uses: chromaui/action@v1
-        with:
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          exitOnceUploaded: true
-          onlyChanged: true
-          workingDir: 'packages/frosted-ui'
-
   test:
     name: Test repository
     needs: build
