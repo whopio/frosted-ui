@@ -3,7 +3,7 @@
 <p align="center">Design system used by <a href="https://whop.com/">Whop</a></p>
 
 <h3 align="center">
-  <a href="https://storybook.whop.com/">Storybook</a> -
+  <a href="https://storybook.whop.dev/">Storybook</a> -
   <a href="https://www.figma.com/design/JoDwTV19wxmaK3iv5NLa0Z">Figma UI kit</a> -
   <a href="https://github.com/whopio/frosted-ui/tree/main/packages/frosted-ui">Source code</a>
 </h3>
@@ -47,11 +47,11 @@ export default function () {
 
 ## Guides
 
-- [Setup steps](https://storybook.whop.com/?path=/docs/guides-1-getting-started--docs)
-- [Typography](https://storybook.whop.com/?path=/docs/guides-2-typography--docs)
-- [Color system](https://storybook.whop.com/?path=/docs/guides-3-color--docs)
-- [Breakpoints](https://storybook.whop.com/?path=/docs/guides-4-breakpoints--docs)
-- [Tailwind plugin](https://storybook.whop.com/?path=/docs/guides-5-tailwind-plugin--docs)
+- [Setup steps](https://storybook.whop.dev/?path=/docs/guides-1-getting-started--docs)
+- [Typography](https://storybook.whop.dev/?path=/docs/guides-2-typography--docs)
+- [Color system](https://storybook.whop.dev/?path=/docs/guides-3-color--docs)
+- [Breakpoints](https://storybook.whop.dev/?path=/docs/guides-4-breakpoints--docs)
+- [Tailwind plugin](https://storybook.whop.dev/?path=/docs/guides-5-tailwind-plugin--docs)
 
 ## Acknowledgments
 
