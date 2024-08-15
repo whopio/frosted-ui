@@ -65,6 +65,7 @@ const decorators = [withTheme];
 
 const preview: Preview = {
   decorators: decorators,
+
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
@@ -74,6 +75,8 @@ const preview: Preview = {
       },
     },
   },
+
+  tags: ['autodocs']
 };
 
 export default preview;
