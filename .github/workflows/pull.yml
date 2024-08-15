@@ -11,17 +11,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  unimported:
-    name: Check unimported
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: whopio/unimported-action@v0.0.2-canary.0
-        with:
-          projects: 'packages/frosted-ui'
-          token: ${{ github.token }}
-          unimported-version: 1.30.0
-
   install:
     name: Install node modules
     runs-on: ubuntu-latest
