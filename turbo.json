@@ -1,14 +1,24 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["**/.env.*local"],
-  "pipeline": {
+  "globalDependencies": [
+    "**/.env.*local"
+  ],
+  "tasks": {
     "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**"],
-      "inputs": ["src/**"]
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "dist/**"
+      ],
+      "inputs": [
+        "src/**"
+      ]
     },
     "release": {
-      "dependsOn": ["build"],
+      "dependsOn": [
+        "build"
+      ],
       "cache": false
     },
     "lint": {
@@ -21,16 +31,30 @@
       "cache": false
     },
     "test": {
-      "dependsOn": ["build"]
-    },    
+      "dependsOn": [
+        "build"
+      ]
+    },
     "build:css": {
-      "outputs": ["styles.css"],
-      "inputs": ["src/**"]
+      "outputs": [
+        "styles.css"
+      ],
+      "inputs": [
+        "src/**"
+      ]
     },
     "frosted-ui#build-storybook": {
-      "dependsOn": ["@frosted-ui/icons#build", "build:css"],
-      "outputs": ["storybook-static/**"],
-      "inputs": ["src/**", ".storybook/**"]
+      "dependsOn": [
+        "@frosted-ui/icons#build",
+        "build:css"
+      ],
+      "outputs": [
+        "storybook-static/**"
+      ],
+      "inputs": [
+        "src/**",
+        ".storybook/**"
+      ]
     }
   }
 }
