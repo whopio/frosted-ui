@@ -31,3 +31,6 @@ yarn-error.log*
 # turbo
 .turbo
 packages/frosted-ui/build-storybook.log
+
+#storybook
+storybook-static

@@ -8,15 +8,16 @@
   ],
   "scripts": {
     "build": "turbo run build",
+    "build:storybook": "turbo run build-storybook",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
+    "@turbo/gen": "^1.10.8",
     "eslint-config-custom": "workspace:*",
     "prettier": "latest",
-    "turbo": "latest",
-    "@turbo/gen": "^1.10.8"
+    "turbo": "2.0.14"
   },
   "engines": {
     "node": ">=14.0.0"
