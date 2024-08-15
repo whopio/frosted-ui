@@ -17,7 +17,7 @@
     "@turbo/gen": "^1.10.8",
     "eslint-config-custom": "workspace:*",
     "prettier": "latest",
-    "turbo": "2.0.14"
+    "turbo": "1.12.5"
   },
   "engines": {
     "node": ">=14.0.0"
