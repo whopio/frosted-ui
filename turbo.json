@@ -22,6 +22,11 @@
     },
     "test": {
       "dependsOn": ["build"]
+    },
+    "frosted-ui#build-storybook": {
+      "dependsOn": ["@frosted-ui/icons#build"],
+      "outputs": ["storybook-static/**"],
+      "inputs": ["src/**", ".storybook/**"]
     }
   }
 }
