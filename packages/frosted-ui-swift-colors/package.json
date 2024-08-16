@@ -11,7 +11,7 @@
     "generate-swift-colors": "node ./scripts/generate-swift-colors.js",
     "prepublishOnly": "pnpm build",
     "postpublish": "pnpm clean",
-    "clean": "git clean -fdX"
+    "clean": "rimraf colors"
   },
   "keywords": [
     "radix",
@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@types/node": "^15.0.3",
+    "rimraf": "^5.0.5",
     "tslib": "^2.2.0",
     "typescript": "^4.2.4"
   },

@@ -4,6 +4,44 @@ const allColorScales = require('@radix-ui/colors');
 
 const outputDir = './colors';
 
+const neutralPalettes = ['gray', 'mauve', 'slate', 'sage', 'olive', 'sand'];
+// The palette that we want to use as the base, neutral color
+const neutralPalette = 'gray';
+const omittedGrayPalettes = neutralPalettes.filter(
+  (palette) => palette !== neutralPalette,
+);
+
+// Contrast colors stay the same between light and dark mode
+const pureWhiteP3 = 'color(display-p3 1 1 1)';
+const contrastColorMapping = {
+  tomato: pureWhiteP3,
+  red: pureWhiteP3,
+  ruby: pureWhiteP3,
+  crimson: pureWhiteP3,
+  pink: pureWhiteP3,
+  plum: pureWhiteP3,
+  purple: pureWhiteP3,
+  violet: pureWhiteP3,
+  iris: pureWhiteP3,
+  indigo: pureWhiteP3,
+  blue: pureWhiteP3,
+  cyan: pureWhiteP3,
+  teal: pureWhiteP3,
+  jade: pureWhiteP3,
+  green: pureWhiteP3,
+  grass: pureWhiteP3,
+  orange: pureWhiteP3,
+  brown: pureWhiteP3,
+  sky: 'color(display-p3 0.113 0.125 0.14)', // light mode slate 12
+  mint: 'color(display-p3 0.107 0.129 0.118)', // light mode sage 12
+  lime: 'color(display-p3 0.117 0.129 0.111)', // light mode olive 12
+  yellow: 'color(display-p3 0.129 0.126 0.111)', // light mode sand 12
+  amber: 'color(display-p3 0.129 0.126 0.111)', // light mode sand 12
+  gold: pureWhiteP3,
+  bronze: pureWhiteP3,
+  gray: pureWhiteP3,
+};
+
 function getChannelsFromCssP3(cssColor) {
   const pattern =
     /color\(display-p3\s+([0-9]*\.?[0-9]+)\s+([0-9]*\.?[0-9]+)\s+([0-9]*\.?[0-9]+)(?:\s*\/\s*([0-9]*\.?[0-9]+))?\)/;
@@ -42,11 +80,18 @@ try {
 }
 
 const colorNames = Object.keys(allColorScales).filter(
-  (key) => !(key.includes('P3') || key.includes('Dark') || key.endsWith('A')),
+  (key) =>
+    !(
+      key.includes('P3') ||
+      key.includes('Dark') ||
+      key.endsWith('A') ||
+      omittedGrayPalettes.some((omittedPalette) =>
+        key.startsWith(omittedPalette),
+      )
+    ),
 );
 
 colorNames.forEach((colorName) => {
-  // TODO: handle lime-9-contrast colors
   // TODO: handle semantic colors (danger, info, success)
   // TODO: handle background and panel colors
   // TODO: handle black and white palettes (they're they're same for light and dark mode)
@@ -75,6 +120,13 @@ colorNames.forEach((colorName) => {
   });
 });
 
+Object.entries(contrastColorMapping).forEach(([shadeName, value]) => {
+  const colorSet = {
+    light: getChannelsFromCssP3(value),
+    dark: getChannelsFromCssP3(value),
+  };
+  createColorAsset(`${shadeName}9contrast`, colorSet.light, colorSet.dark);
+});
 // White and black color palettes are only available in ALPHA variants
 // The values stay the same between the light and the dark mode
 ['white', 'black'].forEach((colorName) => {
