@@ -7,9 +7,10 @@
   width: var(--avatar-size);
   height: var(--avatar-size);
   flex-shrink: 0;
-  outline-offset: -1px;
 
   outline: 1px solid var(--accent-a5);
+  outline-offset: -1px;
+
   background-color: var(--accent-a3);
   border-radius: max(25%, var(--radius-full));
 
@@ -24,7 +25,7 @@
   }
 }
 .fui-AvatarRoot[data-status='loaded'] {
-  outline: 1px solid var(--gray-a5);
+  outline: none;
   background: none;
 }
 
@@ -35,6 +36,11 @@
   border-radius: inherit;
   /* Fix safari issue where animated avatars were blurred */
   transform: translateZ(0px);
+
+  &:where(.fui-AvatarRoot[data-status='loaded'] &) {
+    outline: 1px solid var(--gray-a5);
+    outline-offset: -1px;
+  }
 }
 
 .fui-AvatarFallback {
