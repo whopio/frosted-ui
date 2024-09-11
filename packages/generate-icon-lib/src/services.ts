@@ -306,7 +306,7 @@ export function getIcons(iconsCanvas: IFigmaCanvas): IIcons {
             if (size === iconVariant.name) {
               throw new CodedError(
                 ERRORS.UNEXPECTED,
-                `An unexpected icon variant name was encountered: ${iconVariant.name}`,
+                `An unexpected icon variant name was encountered: ${iconVariant.name} for ${iconNode.name}`,
               );
             }
             const iconNameAndSize = `${iconNode.name} ${size}`;

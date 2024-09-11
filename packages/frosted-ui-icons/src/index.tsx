@@ -1168,3 +1168,8 @@ export { default as MessageEdit24 } from './MessageEdit24';
 export { default as MessageEdit20 } from './MessageEdit20';
 export { default as MessageEdit16 } from './MessageEdit16';
 export { default as MessageEdit12 } from './MessageEdit12';
+export { default as People32 } from './People32';
+export { default as People24 } from './People24';
+export { default as People20 } from './People20';
+export { default as People16 } from './People16';
+export { default as People12 } from './People12';
