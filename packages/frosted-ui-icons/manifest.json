@@ -167,6 +167,7 @@
       "medal-checkmark-12": "icons/medal-checkmark-12.svg",
       "checklist-12": "icons/checklist-12.svg",
       "seal-checkmark-12": "icons/seal-checkmark-12.svg",
+      "seal-checkmark-filled-12": "icons/seal-checkmark-filled-12.svg",
       "shield-checkmark-12": "icons/shield-checkmark-12.svg",
       "exclamation-triangle-12": "icons/exclamation-triangle-12.svg",
       "shield-half-12": "icons/shield-half-12.svg",
@@ -235,7 +236,8 @@
       "mark-as-read-12": "icons/mark-as-read-12.svg",
       "notification-bell-crossed-12": "icons/notification-bell-crossed-12.svg",
       "message-edit-12": "icons/message-edit-12.svg",
-      "people-12": "icons/people-12.svg"
+      "people-12": "icons/people-12.svg",
+      "closed-captions-12": "icons/closed-captions-12.svg"
     },
     "16": {
       "split-16": "icons/split-16.svg",
@@ -402,6 +404,7 @@
       "medal-checkmark-16": "icons/medal-checkmark-16.svg",
       "checklist-16": "icons/checklist-16.svg",
       "seal-checkmark-16": "icons/seal-checkmark-16.svg",
+      "seal-checkmark-filled-16": "icons/seal-checkmark-filled-16.svg",
       "shield-checkmark-16": "icons/shield-checkmark-16.svg",
       "exclamation-triangle-16": "icons/exclamation-triangle-16.svg",
       "shield-half-16": "icons/shield-half-16.svg",
@@ -470,7 +473,8 @@
       "mark-as-read-16": "icons/mark-as-read-16.svg",
       "notification-bell-crossed-16": "icons/notification-bell-crossed-16.svg",
       "message-edit-16": "icons/message-edit-16.svg",
-      "people-16": "icons/people-16.svg"
+      "people-16": "icons/people-16.svg",
+      "closed-captions-16": "icons/closed-captions-16.svg"
     },
     "20": {
       "split-20": "icons/split-20.svg",
@@ -639,6 +643,7 @@
       "medal-checkmark-20": "icons/medal-checkmark-20.svg",
       "checklist-20": "icons/checklist-20.svg",
       "seal-checkmark-20": "icons/seal-checkmark-20.svg",
+      "seal-checkmark-filled-20": "icons/seal-checkmark-filled-20.svg",
       "shield-checkmark-20": "icons/shield-checkmark-20.svg",
       "exclamation-triangle-20": "icons/exclamation-triangle-20.svg",
       "shield-half-20": "icons/shield-half-20.svg",
@@ -707,7 +712,8 @@
       "mark-as-read-20": "icons/mark-as-read-20.svg",
       "notification-bell-crossed-20": "icons/notification-bell-crossed-20.svg",
       "message-edit-20": "icons/message-edit-20.svg",
-      "people-20": "icons/people-20.svg"
+      "people-20": "icons/people-20.svg",
+      "closed-captions-20": "icons/closed-captions-20.svg"
     },
     "24": {
       "split-24": "icons/split-24.svg",
@@ -876,6 +882,7 @@
       "medal-checkmark-24": "icons/medal-checkmark-24.svg",
       "checklist-24": "icons/checklist-24.svg",
       "seal-checkmark-24": "icons/seal-checkmark-24.svg",
+      "seal-checkmark-filled-24": "icons/seal-checkmark-filled-24.svg",
       "shield-checkmark-24": "icons/shield-checkmark-24.svg",
       "exclamation-triangle-24": "icons/exclamation-triangle-24.svg",
       "shield-half-24": "icons/shield-half-24.svg",
@@ -944,7 +951,8 @@
       "mark-as-read-24": "icons/mark-as-read-24.svg",
       "notification-bell-crossed-24": "icons/notification-bell-crossed-24.svg",
       "message-edit-24": "icons/message-edit-24.svg",
-      "people-24": "icons/people-24.svg"
+      "people-24": "icons/people-24.svg",
+      "closed-captions-24": "icons/closed-captions-24.svg"
     },
     "26": { "dna-26": "icons/dna-26.svg", "stats-26": "icons/stats-26.svg" },
     "32": {
@@ -1114,6 +1122,7 @@
       "medal-checkmark-32": "icons/medal-checkmark-32.svg",
       "checklist-32": "icons/checklist-32.svg",
       "seal-checkmark-32": "icons/seal-checkmark-32.svg",
+      "seal-checkmark-filled-32": "icons/seal-checkmark-filled-32.svg",
       "shield-checkmark-32": "icons/shield-checkmark-32.svg",
       "exclamation-triangle-32": "icons/exclamation-triangle-32.svg",
       "shield-half-32": "icons/shield-half-32.svg",
@@ -1182,7 +1191,8 @@
       "mark-as-read-32": "icons/mark-as-read-32.svg",
       "notification-bell-crossed-32": "icons/notification-bell-crossed-32.svg",
       "message-edit-32": "icons/message-edit-32.svg",
-      "people-32": "icons/people-32.svg"
+      "people-32": "icons/people-32.svg",
+      "closed-captions-32": "icons/closed-captions-32.svg"
     }
   }
 }
