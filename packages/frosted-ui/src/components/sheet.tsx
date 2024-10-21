@@ -66,7 +66,6 @@ const SheetClose = React.forwardRef<SheetCloseElement, SheetCloseProps>(
 SheetClose.displayName = 'SheetClose';
 
 const SheetPortal = DrawerPrimitive.Portal;
-SheetPortal.displayName = 'SheetPortal';
 
 type SheetOverlayElement = React.ElementRef<typeof DrawerPrimitive.Overlay>;
 interface SheetOverlayProps

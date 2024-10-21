@@ -6,17 +6,25 @@ import * as React from 'react';
 
 // TODO: margin props, color, variant and size support
 
-const OTPFieldRoot = React.forwardRef<
+type OTPFieldRootProps = React.ComponentPropsWithoutRef<typeof OTPInput>;
+
+const OTPFieldRoot: React.ForwardRefRenderFunction<
   React.ElementRef<typeof OTPInput>,
-  React.ComponentPropsWithoutRef<typeof OTPInput>
->(({ className, ...props }, ref) => (
+  OTPFieldRootProps
+> = ({ className, ...props }, ref) => (
   <OTPInput
     ref={ref}
     containerClassName={classNames('fui-OTPFieldRoot', className)}
     {...props}
   />
-));
-OTPFieldRoot.displayName = 'OTPFieldRoot';
+);
+
+const ForwardedOTPFieldRoot = React.forwardRef<
+  React.ElementRef<typeof OTPInput>,
+  OTPFieldRootProps
+>(OTPFieldRoot);
+
+ForwardedOTPFieldRoot.displayName = 'OTPFieldRoot';
 
 const OTPFieldGroup = React.forwardRef<
   React.ElementRef<'div'>,
@@ -64,7 +72,7 @@ OTPFieldSeparator.displayName = 'OTPFieldSeparator';
 
 export {
   OTPFieldGroup as Group,
-  OTPFieldRoot as Root,
+  ForwardedOTPFieldRoot as Root,
   OTPFieldSeparator as Separator,
   OTPFieldSlot as Slot,
 };

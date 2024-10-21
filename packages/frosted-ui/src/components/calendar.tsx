@@ -391,7 +391,8 @@ function CalendarCell({
 
   let isSingleDateSelected = false;
   if (!('highlightedRange' in state)) {
-    isSingleDateSelected = state.value && props.date.compare(state.value) === 0;
+    isSingleDateSelected =
+      state.value !== null && props.date.compare(state.value) === 0;
   }
 
   const { locale } = useLocale();
