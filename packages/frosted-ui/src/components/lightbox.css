@@ -1,0 +1,141 @@
+.fui-LightboxOverlay {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	inset: 0;
+	padding: 0;
+	overflow: hidden; /* Prevent body scrolling */
+	touch-action: none; /* Disable default touch interactions */
+
+	--color-overlay: rgba(0, 0, 0, 1);
+
+	&::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background-color: var(--color-overlay);
+		z-index: 1;
+	}
+}
+
+.fui-LightboxContent {
+	max-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+
+.fui-LightboxItems {
+	z-index: 2;
+	display: flex;
+	gap: 3rem;
+	margin: 0 80px;
+	position: relative;
+	scroll-snap-type: x mandatory;
+	overflow-x: scroll;
+	overscroll-behavior-x: contain;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+	scroll-behavior: smooth;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
+
+.fui-LightboxItem {
+	position: relative;
+	z-index: 1;
+	flex: 0 0 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	touch-action: pan-y;
+	margin: 20px 0;
+	scroll-snap-align: start;
+
+	& > * {
+		max-width: 100%;
+		max-height: auto;
+	}
+
+	&.fui-LightboxActiveItem {
+		scroll-snap-align: center;
+		scroll-snap-stop: always;
+	}
+}
+
+.fui-LightboxThumbs {
+	display: flex;
+	flex-wrap: nowrap;
+	z-index: 10;
+	gap: 0.75rem;
+	cursor: pointer;
+	position: relative;
+	max-width: 25%;
+	margin: 50px auto;
+	scroll-snap-type: x mandatory;
+	overflow-x: scroll;
+	scroll-behavior: smooth;
+	overscroll-behavior-x: contain;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.fui-LightboxThumb {
+	height: auto;
+	flex: 0 0 100px;
+	aspect-ratio: 3 / 2;
+	padding: 0;
+	cursor: pointer;
+	border: 1px solid;
+	transition: colors ease-in-out 0.3s;
+
+	&.fui-LightboxActiveThumb {
+		border-color: blue !important;
+	}
+
+	& > * {
+		object-fit: cover;
+		height: 100%;
+		width: 100%;
+	}
+}
+
+.fui-LightboxClose {
+	position: relative;
+	z-index: 10;
+}
+
+.fui-LightboxPrevButton {
+	left: 20px;
+}
+
+.fui-LightboxNextButton {
+	right: 20px;
+}
+
+.fui-LightboxNavButton {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 10;
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}

@@ -78,6 +78,7 @@ export * from './dropdown-menu.props';
 export * as HoverCard from './hover-card';
 export * from './hover-card.props';
 export * as Accordion from './lab/accordion';
+export * as Lightbox from './lightbox';
 export * as Popover from './popover';
 export * from './popover.props';
 export * as Sheet from './sheet';
@@ -142,3 +143,4 @@ export * from './accessible-icon';
 export * from './portal';
 export * from './slot';
 export * from './visually-hidden';
+
