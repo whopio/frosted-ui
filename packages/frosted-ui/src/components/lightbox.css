@@ -36,6 +36,7 @@
 	position: relative;
 	scroll-snap-type: x mandatory;
 	overflow-x: scroll;
+	overflow-y: hidden;
 	overscroll-behavior-x: contain;
 	-webkit-overflow-scrolling: touch;
 	scrollbar-width: none;
@@ -59,8 +60,8 @@
 	scroll-snap-align: start;
 
 	& > * {
-		max-width: 100%;
-		max-height: auto;
+		max-height: 100%;
+		max-width: auto;
 	}
 
 	&.fui-LightboxActiveItem {
@@ -77,7 +78,8 @@
 	cursor: pointer;
 	position: relative;
 	max-width: 25%;
-	margin: 50px auto;
+	margin: 0 auto;
+	padding: 20px 10px;
 	scroll-snap-type: x mandatory;
 	overflow-x: scroll;
 	scroll-behavior: smooth;
@@ -94,11 +96,19 @@
 	aspect-ratio: 3 / 2;
 	padding: 0;
 	cursor: pointer;
-	border: 1px solid;
-	transition: colors ease-in-out 0.3s;
+	transition: all ease-in-out 0.1s;
+	overflow: hidden;
+	border-radius: 8px;
+	outline-color: transparent;
+	will-change: transform;
 
 	&.fui-LightboxActiveThumb {
-		border-color: blue !important;
+		transform: scale(1.05);
+	}
+
+	&.fui-LightboxActiveThumb {
+		outline: 1px solid var(--color-focus-root);
+		outline-offset: 2px;
 	}
 
 	& > * {
@@ -111,6 +121,8 @@
 .fui-LightboxClose {
 	position: relative;
 	z-index: 10;
+	color: #fff;
+	cursor: pointer;
 }
 
 .fui-LightboxPrevButton {
@@ -126,6 +138,8 @@
 	top: 50%;
 	transform: translateY(-50%);
 	z-index: 10;
+	color: #fff;
+	cursor: pointer;
 }
 
 .sr-only {

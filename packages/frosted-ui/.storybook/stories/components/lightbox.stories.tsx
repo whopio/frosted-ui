@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 
-import { Button, Flex, Lightbox } from "../../../src/components";
+import { Flex, Lightbox } from "../../../src/components";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -46,18 +46,7 @@ export const Default: Story = {
 						top: 24,
 						right: 24,
 					}}
-				>
-					<button
-						type="button"
-						style={{
-							borderRadius: "50%",
-							height: 50,
-							width: 50,
-						}}
-					>
-						X
-					</button>
-				</Lightbox.Close>
+				/>
 
 				<Lightbox.Items>
 					<img
@@ -95,9 +84,9 @@ export const Default: Story = {
 						bottom: 24,
 					}}
 				>
-					<Lightbox.PrevButton>{"<"}</Lightbox.PrevButton>
+					<Lightbox.PrevButton />
 					<Lightbox.Thumbs />
-					<Lightbox.NextButton>{">"}</Lightbox.NextButton>
+					<Lightbox.NextButton />
 				</Flex>
 			</Lightbox.Content>
 		</Lightbox.Root>

@@ -1,12 +1,13 @@
 "use client";
 
+import { ChevronLeft24, ChevronRight24, XMark24 } from "@frosted-ui/icons";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import classNames from "classnames";
 import React from "react";
 import { getValidChildren } from "../helpers";
 import { useIsomorphicLayoutEffect } from "../helpers/use-isomorphic-layout-effect";
 import { Theme } from "../theme";
-import type { Button } from "./button";
+import { Button } from "./button";
 
 interface LightboxRootProps
 	extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Root> {}
@@ -159,34 +160,41 @@ const LightboxItems: React.FC<LightboxItemsProps> = ({
 	className,
 	...props
 }) => {
-	const { setItems, activeItemIndex } = useLightbox();
+	const { setItems, activeItemIndex, setActiveItemIndex } = useLightbox();
 	const validChildren = getValidChildren<React.ReactNode>(children);
 
 	const containerRef = React.useRef<HTMLDivElement>(null);
 
-	useIsomorphicLayoutEffect(() => {
-		setItems(validChildren);
-	}, []);
+	// Update the active slide based on scroll position
+	const handleScroll = React.useCallback(() => {
+		if (!containerRef.current) return;
 
-	// Scroll to center the active item
-	React.useEffect(() => {
-		if (containerRef.current && validChildren.length > 0) {
-			const container = containerRef.current;
-			const activeChild = container.children[activeItemIndex] as HTMLElement;
-			const containerCenter = container.offsetWidth / 2;
-			const childCenter = activeChild.offsetLeft + activeChild.offsetWidth / 2;
+		const container = containerRef.current;
+		const slideWidth = container.firstElementChild?.clientWidth || 0;
+		const newIndex = Math.round(container.scrollLeft / slideWidth);
 
-			container.scrollTo({
-				left: childCenter - containerCenter,
-				behavior: "smooth",
-			});
+		if (newIndex !== activeItemIndex) {
+			setActiveItemIndex(newIndex);
 		}
-	}, [activeItemIndex, validChildren]);
+	}, [activeItemIndex, setActiveItemIndex]);
+
+	// Attach the scroll event listener
+	React.useEffect(() => {
+		const container = containerRef.current;
+		if (!container) return;
+
+		container.addEventListener("scroll", handleScroll);
+		return () => container.removeEventListener("scroll", handleScroll);
+	}, [handleScroll]);
+
+	React.useEffect(() => {
+		setItems(validChildren);
+	}, [setItems, validChildren]);
 
 	return (
 		<div
-			className={classNames("fui-LightboxItems", className)}
 			ref={containerRef}
+			className={classNames("fui-LightboxItems", className)}
 			{...props}
 		>
 			{validChildren.map((child, i) => {
@@ -207,7 +215,9 @@ const LightboxItems: React.FC<LightboxItemsProps> = ({
 
 type LightboxPrevElement = React.ElementRef<typeof Button>;
 interface LightboxPrevButtonProps
-	extends React.ComponentPropsWithoutRef<typeof Button> {}
+	extends Omit<React.ComponentPropsWithoutRef<typeof Button>, "children"> {
+	children?: never;
+}
 
 const LightboxPrevButton: React.FC<LightboxPrevButtonProps> = React.forwardRef<
 	LightboxPrevElement,
@@ -217,7 +227,8 @@ const LightboxPrevButton: React.FC<LightboxPrevButtonProps> = React.forwardRef<
 	const isDisabled = !loop && activeItemIndex === 0;
 
 	return (
-		<button
+		<Button
+			variant="ghost"
 			onClick={toPrev}
 			ref={ref}
 			disabled={isDisabled}
@@ -228,13 +239,18 @@ const LightboxPrevButton: React.FC<LightboxPrevButtonProps> = React.forwardRef<
 				"fui-LightboxPrevButton",
 			)}
 			{...props}
-		/>
+		>
+			{/* @ts-expect-error -- TODO: fix frosted-icons types issue */}
+			<ChevronLeft24 stroke="white" />
+		</Button>
 	);
 });
 
 type LightboxNextElement = React.ElementRef<typeof Button>;
 interface LightboxNextButtonProps
-	extends React.ComponentPropsWithoutRef<typeof Button> {}
+	extends Omit<React.ComponentPropsWithoutRef<typeof Button>, "children"> {
+	children?: never;
+}
 
 const LightboxNextButton: React.FC<LightboxNextButtonProps> = React.forwardRef<
 	LightboxNextElement,
@@ -244,7 +260,8 @@ const LightboxNextButton: React.FC<LightboxNextButtonProps> = React.forwardRef<
 	const isDisabled = !loop && activeItemIndex === items.length - 1;
 
 	return (
-		<button
+		<Button
+			variant="ghost"
 			onClick={toNext}
 			ref={ref}
 			disabled={isDisabled}
@@ -255,7 +272,10 @@ const LightboxNextButton: React.FC<LightboxNextButtonProps> = React.forwardRef<
 				"fui-LightboxNextButton",
 			)}
 			{...props}
-		/>
+		>
+			{/* @ts-expect-error -- TODO: fix frosted-icons types issue */}
+			<ChevronRight24 stroke="white" />
+		</Button>
 	);
 });
 
@@ -316,8 +336,10 @@ type LightboxCloseElement = React.ElementRef<typeof DialogPrimitive.Close>;
 interface LightboxCloseProps
 	extends Omit<
 		React.ComponentPropsWithoutRef<typeof DialogPrimitive.Close>,
-		"asChild"
-	> {}
+		"asChild" | "children"
+	> {
+	children?: never;
+}
 
 const LightboxClose = React.forwardRef<
 	LightboxCloseElement,
@@ -328,7 +350,12 @@ const LightboxClose = React.forwardRef<
 		{...props}
 		ref={forwardedRef}
 		asChild
-	/>
+	>
+		<Button variant="ghost" aria-label="Close lightbox">
+			{/* @ts-expect-error -- TODO: fix frosted-icons types issue */}
+			<XMark24 />
+		</Button>
+	</DialogPrimitive.Close>
 ));
 
 LightboxClose.displayName = "LightboxClose";
