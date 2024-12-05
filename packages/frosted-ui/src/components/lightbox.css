@@ -1,161 +1,159 @@
 .fui-LightboxOverlay {
-  position: fixed;
-  inset: 0;
-  overflow: hidden; /* Prevent body scrolling */
-  touch-action: none; /* Disable default touch interactions */
+	position: fixed;
+	inset: 0;
+	overflow: hidden; /* Prevent body scrolling */
+	touch-action: none; /* Disable default touch interactions */
 
-  --color-overlay: rgba(0, 0, 0, 1);
+	--color-overlay: rgba(0, 0, 0, 1);
 
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-color: var(--color-overlay);
-    z-index: 1;
-  }
+	&::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background-color: var(--color-overlay);
+		z-index: 1;
+	}
 }
 
 .fui-LightboxContainer {
-  position: relative;
-  display: flex;
-  flex-direction: column;
+	position: relative;
+	display: flex;
+	flex-direction: column;
 }
 
 .fui-LightboxItems {
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  gap: 3rem;
-  position: relative;
-  scroll-snap-type: x mandatory;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  overscroll-behavior-x: contain;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  scroll-behavior: smooth;
+	z-index: 2;
+	display: flex;
+	align-items: center;
+	gap: 3rem;
+	position: relative;
+	scroll-snap-type: x mandatory;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	overscroll-behavior-x: contain;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+	scroll-behavior: smooth;
 
-  @media screen and (max-width: 768px) {
-    gap: 1rem;
-  }
+	@media screen and (max-width: 768px) {
+		gap: 1rem;
+	}
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
+	&::-webkit-scrollbar {
+		display: none;
+	}
 }
 
 .fui-LightboxItem {
-  position: relative;
-  z-index: 1;
-  flex: 0 0 100%;
-  display: flex;
-  scroll-snap-align: start;
-  max-height: 80vh;
-  max-width: auto;
-  justify-content: center;
+	position: relative;
+	z-index: 1;
+	flex: 0 0 100%;
+	display: flex;
+	scroll-snap-align: start;
+	max-height: 80vh;
+	max-width: auto;
+	justify-content: center;
 
-  & > * {
-    max-width: 100%;
-    height: auto;
-  }
+	& > * {
+		max-width: 100%;
+		height: auto;
+	}
 
-  &.fui-LightboxActiveItem {
-    scroll-snap-align: center;
-    scroll-snap-stop: always;
-  }
+	&.fui-LightboxActiveItem {
+		scroll-snap-align: center;
+		scroll-snap-stop: always;
+	}
 }
 
 .fui-LightboxThumbs {
-  display: flex;
-  flex-wrap: nowrap;
-  z-index: 10;
-  gap: 0.5rem;
-  margin: 0 auto;
-  cursor: pointer;
-  position: relative;
-  bottom: 0;
-  width: 100%;
-  padding: 20px 0px;
-  flex: 0 0 100%;
-  max-width: 90%;
-  scroll-snap-type: x mandatory;
-  overflow-x: scroll;
-  overflow-y: auto;
-  scroll-behavior: smooth;
-  overscroll-behavior-x: contain;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+	display: flex;
+	flex-wrap: nowrap;
+	z-index: 10;
+	gap: 0.5rem;
+	margin: 0 auto;
+	cursor: pointer;
+	position: relative;
+	bottom: 0;
+	width: 100%;
+	padding: 20px 0px;
+	flex: 0 0 100%;
+	max-width: 90%;
+	scroll-snap-type: x mandatory;
+	overflow-x: scroll;
+	overflow-y: auto;
+	scroll-behavior: smooth;
+	overscroll-behavior-x: contain;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 
-  @media screen and (min-width: 768px) {
-    max-width: 50%;
-  }
+	@media screen and (min-width: 768px) {
+		max-width: 50%;
+	}
 }
 
 .fui-LightboxThumb {
-  height: auto;
-  flex: 0 0 100px;
-  aspect-ratio: 3 / 2;
-  padding: 0;
-  cursor: pointer;
-  transition: all ease-in-out 0.1s;
-  border-radius: 8px;
-  overflow: hidden;
-  outline-color: transparent;
-  will-change: transform;
+	height: auto;
+	flex: 0 0 100px;
+	aspect-ratio: 3 / 2;
+	padding: 0;
+	cursor: pointer;
+	transition: all ease-in-out 200ms;
+	border-radius: 8px;
+	overflow: hidden;
+	outline-color: transparent;
+	will-change: transform;
 
-  &.fui-LightboxActiveThumb {
-    margin: 0 10px;
-  }
+	&.fui-LightboxActiveThumb {
+		margin: 0 10px;
+		outline: 1px solid var(--color-focus-root);
+		outline-offset: 2px;
+		transform: scale(1.05);
+	}
 
-  &.fui-LightboxActiveThumb {
-    outline: 1px solid var(--color-focus-root);
-    outline-offset: 2px;
-  }
-
-  & > * {
-    object-fit: cover;
-    height: 100%;
-    width: 100%;
-  }
+	& > * {
+		object-fit: cover;
+		height: 100%;
+		width: 100%;
+	}
 }
 
 .fui-LightboxClose {
-  position: absolute;
-  z-index: 10;
-  color: #fff;
-  cursor: pointer;
-  right: 12px;
-  top: 12px;
+	position: absolute;
+	z-index: 10;
+	color: #fff;
+	cursor: pointer;
+	right: 12px;
+	top: 12px;
 }
 
 .fui-LightboxPrevButton {
-  left: 0px;
+	left: 0px;
 }
 
 .fui-LightboxNextButton {
-  right: 0px;
+	right: 0px;
 }
 
 .fui-LightboxNavButton {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 100;
-  color: #fff;
-  cursor: pointer;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 100;
+	color: #fff;
+	cursor: pointer;
 }
 
 .sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
 }
