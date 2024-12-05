@@ -31,8 +31,9 @@
 .fui-LightboxItems {
 	z-index: 2;
 	display: flex;
+	align-items: center;
 	gap: 3rem;
-	margin: 0 80px;
+	height: 90vh;
 	position: relative;
 	scroll-snap-type: x mandatory;
 	overflow-x: scroll;
@@ -43,6 +44,10 @@
 	-ms-overflow-style: none;
 	scroll-behavior: smooth;
 
+	@media screen and (max-width: 768px) {
+		gap: 1rem;
+	}
+
 	&::-webkit-scrollbar {
 		display: none;
 	}
@@ -52,10 +57,8 @@
 	position: relative;
 	z-index: 1;
 	flex: 0 0 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	touch-action: pan-y;
+	max-width: 100vw;
+
 	margin: 20px 0;
 	scroll-snap-align: start;
 
@@ -74,12 +77,14 @@
 	display: flex;
 	flex-wrap: nowrap;
 	z-index: 10;
-	gap: 0.75rem;
+	gap: 0.5rem;
+	margin: 0 auto;
 	cursor: pointer;
 	position: relative;
-	max-width: 25%;
-	margin: 0 auto;
-	padding: 20px 10px;
+	bottom: 0;
+	width: 100%;
+	padding: 20px 30px;
+	max-width: 90%;
 	scroll-snap-type: x mandatory;
 	overflow-x: scroll;
 	scroll-behavior: smooth;
@@ -88,6 +93,10 @@
 	scrollbar-width: none;
 	-ms-overflow-style: none;
 	scrollbar-width: none;
+
+	@media screen and (min-width: 768px) {
+		max-width: 25%;
+	}
 }
 
 .fui-LightboxThumb {
@@ -103,7 +112,7 @@
 	will-change: transform;
 
 	&.fui-LightboxActiveThumb {
-		transform: scale(1.05);
+		margin: 0 10px;
 	}
 
 	&.fui-LightboxActiveThumb {
@@ -119,25 +128,31 @@
 }
 
 .fui-LightboxClose {
-	position: relative;
+	position: absolute;
 	z-index: 10;
 	color: #fff;
 	cursor: pointer;
+	right: 12px;
+	top: 12px;
+}
+
+.fui-LightboxContainer {
+	position: relative;
 }
 
 .fui-LightboxPrevButton {
-	left: 20px;
+	left: 0px;
 }
 
 .fui-LightboxNextButton {
-	right: 20px;
+	right: 0px;
 }
 
 .fui-LightboxNavButton {
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
-	z-index: 10;
+	z-index: 100;
 	color: #fff;
 	cursor: pointer;
 }

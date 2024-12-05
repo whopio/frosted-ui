@@ -7,9 +7,6 @@ import { Flex, Lightbox } from "../../../src/components";
 const meta = {
 	title: "Components/Lightbox",
 	component: Lightbox.Content,
-	args: {
-		loop: true,
-	},
 	parameters: {
 		// Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
 		layout: "centered",
@@ -40,13 +37,7 @@ export const Default: Story = {
 				</Lightbox.Trigger>
 			</Flex>
 			<Lightbox.Content {...args}>
-				<Lightbox.Close
-					style={{
-						position: "absolute",
-						top: 24,
-						right: 24,
-					}}
-				/>
+				<Lightbox.Close />
 
 				<Lightbox.Items>
 					<img
@@ -76,18 +67,7 @@ export const Default: Story = {
 					<img src="https://placehold.co/720x1280" alt="placeholder" />
 				</Lightbox.Items>
 
-				<Flex
-					gap="3"
-					align="center"
-					style={{
-						margin: "0 auto",
-						bottom: 24,
-					}}
-				>
-					<Lightbox.PrevButton />
-					<Lightbox.Thumbs />
-					<Lightbox.NextButton />
-				</Flex>
+				<Lightbox.Thumbs />
 			</Lightbox.Content>
 		</Lightbox.Root>
 	),

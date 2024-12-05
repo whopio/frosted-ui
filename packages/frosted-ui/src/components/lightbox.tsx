@@ -8,6 +8,7 @@ import { getValidChildren } from "../helpers";
 import { useIsomorphicLayoutEffect } from "../helpers/use-isomorphic-layout-effect";
 import { Theme } from "../theme";
 import { Button } from "./button";
+import { Flex } from "./flex";
 
 interface LightboxRootProps
 	extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Root> {}
@@ -49,7 +50,6 @@ interface LightboxContextValue {
 	setItems: (items: React.ReactElement[]) => void;
 	activeItemIndex: number;
 	setActiveItemIndex: (index: number) => void;
-	loop: boolean | undefined;
 	toPrev: () => void;
 	toNext: () => void;
 }
@@ -68,30 +68,30 @@ const LightboxContent: React.FC<LightboxContentProps> = React.forwardRef<
 	LightboxContentElement,
 	LightboxContentProps
 >((props, forwardedRef) => {
-	const { children, loop, className, container, ...contentProps } = props;
+	const { children, className, container, ...contentProps } = props;
 
 	const [items, setItems] = React.useState<React.ReactElement[]>([]);
 	const [activeItemIndex, setActiveItemIndex] = React.useState(0);
 
 	const toPrev = React.useCallback(() => {
 		setActiveItemIndex((current) => {
-			const nextIndex = current - 1;
-			if (nextIndex < 0) {
-				return loop ? items.length - 1 : 0;
+			const prevIndex = current - 1;
+			if (prevIndex < 0) {
+				return 0;
 			}
-			return nextIndex;
+			return prevIndex;
 		});
-	}, [items.length, loop]);
+	}, []);
 
 	const toNext = React.useCallback(() => {
 		setActiveItemIndex((current) => {
 			const nextIndex = current + 1;
 			if (nextIndex >= items.length) {
-				return loop ? 0 : items.length - 1;
+				return items.length - 1;
 			}
 			return nextIndex;
 		});
-	}, [items.length, loop]);
+	}, [items.length]);
 
 	// Handle keyboard navigation
 	React.useEffect(() => {
@@ -116,12 +116,10 @@ const LightboxContent: React.FC<LightboxContentProps> = React.forwardRef<
 			setItems,
 			activeItemIndex,
 			setActiveItemIndex,
-
-			loop,
 			toPrev,
 			toNext,
 		}),
-		[items, activeItemIndex, loop, toPrev, toNext],
+		[items, activeItemIndex, toPrev, toNext],
 	);
 
 	return (
@@ -161,8 +159,8 @@ const LightboxItems: React.FC<LightboxItemsProps> = ({
 	...props
 }) => {
 	const { setItems, activeItemIndex, setActiveItemIndex } = useLightbox();
-	const validChildren = getValidChildren<React.ReactNode>(children);
 
+	const validChildren = getValidChildren<React.ReactNode>(children);
 	const containerRef = React.useRef<HTMLDivElement>(null);
 
 	// Update the active slide based on scroll position
@@ -173,10 +171,22 @@ const LightboxItems: React.FC<LightboxItemsProps> = ({
 		const slideWidth = container.firstElementChild?.clientWidth || 0;
 		const newIndex = Math.round(container.scrollLeft / slideWidth);
 
-		if (newIndex !== activeItemIndex) {
-			setActiveItemIndex(newIndex);
+		setActiveItemIndex(newIndex);
+	}, [setActiveItemIndex]);
+
+	React.useEffect(() => {
+		if (!containerRef.current) return;
+
+		const container = containerRef.current;
+		const activeItem = container.children[activeItemIndex] as HTMLElement;
+
+		if (activeItem) {
+			container.scrollTo({
+				left: activeItem.offsetLeft,
+				behavior: "smooth",
+			});
 		}
-	}, [activeItemIndex, setActiveItemIndex]);
+	}, [activeItemIndex]);
 
 	// Attach the scroll event listener
 	React.useEffect(() => {
@@ -187,28 +197,40 @@ const LightboxItems: React.FC<LightboxItemsProps> = ({
 		return () => container.removeEventListener("scroll", handleScroll);
 	}, [handleScroll]);
 
-	React.useEffect(() => {
+	useIsomorphicLayoutEffect(() => {
 		setItems(validChildren);
-	}, [setItems, validChildren]);
+	}, []);
 
 	return (
-		<div
-			ref={containerRef}
-			className={classNames("fui-LightboxItems", className)}
-			{...props}
-		>
-			{validChildren.map((child, i) => {
-				return (
-					<div
-						className={classNames("fui-LightboxItem", {
-							"fui-LightboxActiveItem": activeItemIndex === i,
-						})}
-						key={child.key}
-					>
-						{React.cloneElement(child, {})}
-					</div>
-				);
-			})}
+		<div className="fiu-LightboxContainer">
+			<div
+				ref={containerRef}
+				className={classNames("fui-LightboxItems", className)}
+				{...props}
+			>
+				{validChildren.map((child, i) => {
+					return (
+						<div
+							className={classNames("fui-LightboxItem", {
+								"fui-LightboxActiveItem": activeItemIndex === i,
+							})}
+							key={child.key}
+						>
+							{React.cloneElement(child, {})}
+						</div>
+					);
+				})}
+			</div>
+			<Flex
+				gap="3"
+				align="center"
+				style={{
+					margin: "0 auto",
+				}}
+			>
+				<LightboxPrevButton />
+				<LightboxNextButton />
+			</Flex>
 		</div>
 	);
 };
@@ -223,15 +245,14 @@ const LightboxPrevButton: React.FC<LightboxPrevButtonProps> = React.forwardRef<
 	LightboxPrevElement,
 	LightboxPrevButtonProps
 >(({ className, ...props }, ref) => {
-	const { toPrev, activeItemIndex, loop } = useLightbox();
-	const isDisabled = !loop && activeItemIndex === 0;
+	const { toPrev, activeItemIndex, items } = useLightbox();
 
 	return (
 		<Button
 			variant="ghost"
 			onClick={toPrev}
 			ref={ref}
-			disabled={isDisabled}
+			disabled={activeItemIndex === 0}
 			aria-label="Previous item"
 			className={classNames(
 				className,
@@ -256,15 +277,14 @@ const LightboxNextButton: React.FC<LightboxNextButtonProps> = React.forwardRef<
 	LightboxNextElement,
 	LightboxNextButtonProps
 >(({ className, ...props }, ref) => {
-	const { toNext, activeItemIndex, items, loop } = useLightbox();
-	const isDisabled = !loop && activeItemIndex === items.length - 1;
+	const { toNext, activeItemIndex, items } = useLightbox();
 
 	return (
 		<Button
 			variant="ghost"
 			onClick={toNext}
 			ref={ref}
-			disabled={isDisabled}
+			disabled={activeItemIndex === items.length - 1}
 			aria-label="Next item"
 			className={classNames(
 				className,
