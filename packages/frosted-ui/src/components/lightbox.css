@@ -15,12 +15,10 @@
   }
 }
 
-.fui-LightboxContent {
+.fui-LightboxContainer {
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
 }
 
 .fui-LightboxItems {
@@ -92,7 +90,7 @@
   scrollbar-width: none;
 
   @media screen and (min-width: 768px) {
-    max-width: 25%;
+    max-width: 50%;
   }
 }
 
@@ -131,12 +129,6 @@
   cursor: pointer;
   right: 12px;
   top: 12px;
-}
-
-.fui-LightboxContainer {
-  position: relative;
-  display: flex;
-  flex-direction: column;
 }
 
 .fui-LightboxPrevButton {

@@ -8,7 +8,6 @@ import { getValidChildren } from '../helpers';
 import { useIsomorphicLayoutEffect } from '../helpers/use-isomorphic-layout-effect';
 import { Theme } from '../theme';
 import { Button } from './button';
-import { Flex } from './flex';
 
 interface LightboxRootProps
   extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Root> {}
@@ -132,7 +131,7 @@ const LightboxContent: React.FC<LightboxContentProps> = React.forwardRef<
       </DialogPrimitive.Description>
 
       <Theme asChild>
-        <DialogPrimitive.Overlay className="fui-DialogOverlay fui-LightboxOverlay">
+        <DialogPrimitive.Overlay className="fui-LightboxOverlay">
           <DialogPrimitive.Content
             {...contentProps}
             ref={forwardedRef}
@@ -219,17 +218,10 @@ const LightboxItems: React.FC<LightboxItemsProps> = ({
           );
         })}
       </div>
-      <Flex
-        gap="3"
-        align="center"
-        style={{
-          margin: '0 auto',
-        }}
-      >
-        <LightboxClose />
-        <LightboxPrevButton />
-        <LightboxNextButton />
-      </Flex>
+
+      <LightboxClose />
+      <LightboxPrevButton />
+      <LightboxNextButton />
     </div>
   );
 };
