@@ -76,7 +76,7 @@
   position: relative;
   bottom: 0;
   width: 100%;
-  padding: 20px 30px;
+  padding: 20px 0px;
   flex: 0 0 100%;
   max-width: 90%;
   scroll-snap-type: x mandatory;
