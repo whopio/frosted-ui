@@ -169,7 +169,9 @@ const LightboxItems: React.FC<LightboxItemsProps> = ({
     const container = containerRef.current;
     const slideWidth = container.firstElementChild?.clientWidth || 0;
     const newIndex = Math.round(container.scrollLeft / slideWidth);
-  }, []);
+
+    setActiveItemIndex(newIndex);
+  }, [setActiveItemIndex]);
 
   React.useEffect(() => {
     if (!containerRef.current) return;
