@@ -1,6 +1,9 @@
 .fui-LightboxOverlay {
 	position: fixed;
 	inset: 0;
+	display: flex;
+
+	align-items: center;
 	overflow: hidden; /* Prevent body scrolling */
 	touch-action: none; /* Disable default touch interactions */
 
@@ -15,9 +18,15 @@
 	}
 }
 
+.fui-LightboxContent {
+	display: flex;
+	flex-direction: column;
+}
+
 .fui-LightboxContainer {
 	position: relative;
 	display: flex;
+	flex: 1;
 	flex-direction: column;
 }
 
@@ -71,6 +80,7 @@
 	display: flex;
 	flex-wrap: nowrap;
 	z-index: 10;
+	flex: 1;
 	gap: 0.5rem;
 	margin: 0 auto;
 	cursor: pointer;
