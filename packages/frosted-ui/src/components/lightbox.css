@@ -157,7 +157,8 @@
 	cursor: pointer;
 }
 
-.sr-only {
+.fui-LightboxTitle,
+.fui-LightboxDescription {
 	position: absolute;
 	width: 1px;
 	height: 1px;

@@ -129,8 +129,10 @@ const LightboxContent: React.FC<LightboxContentProps> = React.forwardRef<
 
   return (
     <DialogPrimitive.Portal container={container}>
-      <DialogPrimitive.Title className="sr-only">{title}</DialogPrimitive.Title>
-      <DialogPrimitive.Description className="sr-only">
+      <DialogPrimitive.Title className="fui-LightboxTitle">
+        {title}
+      </DialogPrimitive.Title>
+      <DialogPrimitive.Description className="fui-LightboxDescription">
         {description}
       </DialogPrimitive.Description>
 
