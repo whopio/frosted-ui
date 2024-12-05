@@ -170,9 +170,7 @@ const LightboxItems: React.FC<LightboxItemsProps> = ({
 		const container = containerRef.current;
 		const slideWidth = container.firstElementChild?.clientWidth || 0;
 		const newIndex = Math.round(container.scrollLeft / slideWidth);
-
-		setActiveItemIndex(newIndex);
-	}, [setActiveItemIndex]);
+	}, []);
 
 	React.useEffect(() => {
 		if (!containerRef.current) return;
@@ -202,7 +200,7 @@ const LightboxItems: React.FC<LightboxItemsProps> = ({
 	}, []);
 
 	return (
-		<div className="fiu-LightboxContainer">
+		<div className="fui-LightboxContainer">
 			<div
 				ref={containerRef}
 				className={classNames("fui-LightboxItems", className)}
