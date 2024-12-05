@@ -218,7 +218,6 @@ const LightboxItems: React.FC<LightboxItemsProps> = ({
           );
         })}
       </div>
-
       <LightboxClose />
       <LightboxPrevButton />
       <LightboxNextButton />
