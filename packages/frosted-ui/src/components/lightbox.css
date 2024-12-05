@@ -104,6 +104,7 @@
   cursor: pointer;
   transition: all ease-in-out 0.1s;
   border-radius: 8px;
+  overflow: hidden;
   outline-color: transparent;
   will-change: transform;
 
