@@ -3,46 +3,11 @@
 import { ChevronLeft24, ChevronRight24, XMark24 } from "@frosted-ui/icons";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import classNames from "classnames";
-import React from "react";
+import React, { type ComponentPropsWithoutRef } from "react";
 import { getValidChildren } from "../helpers";
 import { useIsomorphicLayoutEffect } from "../helpers/use-isomorphic-layout-effect";
 import { Theme } from "../theme";
 import { Button } from "./button";
-
-interface LightboxRootProps
-	extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Root> {}
-
-const LightboxRoot: React.FC<LightboxRootProps> = (props) => {
-	return <DialogPrimitive.Root {...props} />;
-};
-
-type LightboxTriggerElement = React.ElementRef<typeof DialogPrimitive.Trigger>;
-
-interface LightboxTriggerProps
-	extends Omit<
-		React.ComponentPropsWithoutRef<typeof DialogPrimitive.Trigger>,
-		"asChild"
-	> {}
-
-const LightboxTrigger: React.FC<LightboxTriggerProps> = React.forwardRef<
-	LightboxTriggerElement,
-	LightboxTriggerProps
->((props, forwardedRef) => {
-	return <DialogPrimitive.Trigger {...props} ref={forwardedRef} asChild />;
-});
-
-LightboxTrigger.displayName = "LightboxTrigger";
-
-type LightboxContentElement = React.ElementRef<typeof DialogPrimitive.Content>;
-
-interface LightboxContentProps
-	extends Omit<
-		React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>,
-		"asChild"
-	> {
-	loop?: boolean;
-	container?: React.ComponentProps<typeof DialogPrimitive.Portal>["container"];
-}
 
 interface LightboxContextValue {
 	items: React.ReactElement[];
@@ -63,12 +28,10 @@ const useLightbox = () => {
 	return context;
 };
 
-const LightboxContent: React.FC<LightboxContentProps> = React.forwardRef<
-	LightboxContentElement,
-	LightboxContentProps
->((props, forwardedRef) => {
-	const { children, className, container, ...contentProps } = props;
+interface LightboxRootProps
+	extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Root> {}
 
+const LightboxRoot: React.FC<LightboxRootProps> = (props) => {
 	const [items, setItems] = React.useState<React.ReactElement[]>([]);
 	const [activeItemIndex, setActiveItemIndex] = React.useState(0);
 
@@ -122,12 +85,53 @@ const LightboxContent: React.FC<LightboxContentProps> = React.forwardRef<
 	);
 
 	return (
+		<LightboxContext.Provider value={contextValue}>
+			<DialogPrimitive.Root {...props} />
+		</LightboxContext.Provider>
+	);
+};
+
+type LightboxTriggerElement = React.ElementRef<typeof DialogPrimitive.Trigger>;
+
+interface LightboxTriggerProps extends ComponentPropsWithoutRef<"img"> {}
+
+const LightboxTrigger: React.FC<LightboxTriggerProps> = React.forwardRef<
+	LightboxTriggerElement,
+	LightboxTriggerProps
+>((props, forwardedRef) => {
+	return (
+		<DialogPrimitive.Trigger ref={forwardedRef} asChild>
+			<img {...props} />
+		</DialogPrimitive.Trigger>
+	);
+});
+
+LightboxTrigger.displayName = "LightboxTrigger";
+
+type LightboxContentElement = React.ElementRef<typeof DialogPrimitive.Content>;
+
+interface LightboxContentProps
+	extends Omit<
+		React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>,
+		"asChild"
+	> {
+	loop?: boolean;
+	container?: React.ComponentProps<typeof DialogPrimitive.Portal>["container"];
+	title: string;
+	description: string;
+}
+
+const LightboxContent: React.FC<LightboxContentProps> = React.forwardRef<
+	LightboxContentElement,
+	LightboxContentProps
+>(({ title, description, ...props }, forwardedRef) => {
+	const { children, className, container, ...contentProps } = props;
+
+	return (
 		<DialogPrimitive.Portal container={container}>
-			<DialogPrimitive.Title className="sr-only">
-				Test title
-			</DialogPrimitive.Title>
+			<DialogPrimitive.Title className="sr-only">{title}</DialogPrimitive.Title>
 			<DialogPrimitive.Description className="sr-only">
-				Test description
+				{description}
 			</DialogPrimitive.Description>
 
 			<Theme asChild>
@@ -137,9 +141,7 @@ const LightboxContent: React.FC<LightboxContentProps> = React.forwardRef<
 						ref={forwardedRef}
 						className={classNames("fui-LightboxContent", className)}
 					>
-						<LightboxContext.Provider value={contextValue}>
-							{children}
-						</LightboxContext.Provider>
+						{children}
 					</DialogPrimitive.Content>
 				</DialogPrimitive.Overlay>
 			</Theme>
@@ -413,6 +415,7 @@ export {
 	LightboxItems as Items,
 	LightboxRoot as Root,
 	LightboxThumbs as Thumbs,
+	LightboxTriggers as Triggers,
 	LightboxTrigger as Trigger,
 	LightboxImage as Image,
 	LightboxVideo as Video,
@@ -423,6 +426,7 @@ export type {
 	LightboxItemsProps as ItemsProps,
 	LightboxRootProps as RootProps,
 	LightboxThumbsProps as ThumbsProps,
+	LightboxTriggersProps as TriggersProps,
 	LightboxTriggerProps as TriggerProps,
 	LightboxImageProps as ImageProps,
 	LightboxVideoProps as VideoProps,

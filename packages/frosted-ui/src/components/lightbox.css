@@ -168,3 +168,64 @@
 	white-space: nowrap;
 	border-width: 0;
 }
+
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes fui-dialog-overlay-no-op {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fui-dialog-content-show {
+    from {
+      opacity: 0;
+      transform: translateY(5px) scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0px) scale(1);
+    }
+  }
+
+  @keyframes fui-dialog-content-hide {
+    from {
+      opacity: 1;
+      transform: translateY(0px) scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(5px) scale(0.99);
+    }
+  }
+
+  .fui-DialogOverlay {
+    &::after {
+      backdrop-filter: blur(var(--overlay-blur))
+        brightness(var(--overlay-brightness));
+    }
+    /* Keep the overlay mounted until the children have animated */
+    &:where([data-state='closed']) {
+      animation: fui-blur-out 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    &:where([data-state='open'])::after {
+      animation: fui-blur-in 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    &:where([data-state='closed'])::after {
+      animation: fui-blur-out 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  }
+
+  .fui-DialogContent {
+    &:where([data-state='open']) {
+      animation: fui-dialog-content-show 400ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    &:where([data-state='closed']) {
+      animation: fui-dialog-content-hide 150ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+  }
+}

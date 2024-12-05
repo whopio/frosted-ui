@@ -11,6 +11,10 @@ const meta = {
 		// Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
 		layout: "centered",
 	},
+	args: {
+		title: "Lightbox title",
+		description: "Lightbox description",
+	},
 	// This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
 	tags: ["autodocs"],
 } satisfies Meta<typeof Lightbox.Content>;
@@ -23,18 +27,14 @@ export const Default: Story = {
 	render: ({ children, ...args }) => (
 		<Lightbox.Root>
 			<Flex gap="3">
-				<Lightbox.Trigger>
-					<img
-						src="https://img-v2-prod.whop.com/hBOMqb1G4YIzR0jw7qnF0_IkXBoAOh78ybHZt_mKrT8/rs:fit:1280:720/el:1/dpr:2/aHR0cHM6Ly9hc3NldHMud2hvcC5jb20vdXBsb2Fkcy8yMDI0LTExLTEyL3VzZXJfMjMzNDg3XzAxMmY0ZDBkLWY1M2UtNGJhZS1iOTNhLWI3YTVhODhjMjA1Yy5wbmc"
-						alt="placeholder"
-					/>
-				</Lightbox.Trigger>
-				<Lightbox.Trigger>
-					<img
-						src="https://img-v2-prod.whop.com/7nS_TeQmzSCCznok6NSF4dsz-UivsmFcSIejHh_diFU/rs:fit:1280:720/el:1/dpr:2/aHR0cHM6Ly9hc3NldHMud2hvcC5jb20vdXBsb2Fkcy8yMDI0LTExLTEyL3VzZXJfMjMzNDg3XzM1YmRkZjAwLTgzNDMtNDE4Yy1hYzYzLWZkY2VmYWU2YzBhYS5wbmc"
-						alt="placeholder"
-					/>
-				</Lightbox.Trigger>
+				<Lightbox.Trigger
+					src="https://img-v2-prod.whop.com/hBOMqb1G4YIzR0jw7qnF0_IkXBoAOh78ybHZt_mKrT8/rs:fit:1280:720/el:1/dpr:2/aHR0cHM6Ly9hc3NldHMud2hvcC5jb20vdXBsb2Fkcy8yMDI0LTExLTEyL3VzZXJfMjMzNDg3XzAxMmY0ZDBkLWY1M2UtNGJhZS1iOTNhLWI3YTVhODhjMjA1Yy5wbmc"
+					alt="placeholder"
+				/>
+				<Lightbox.Trigger
+					src="https://img-v2-prod.whop.com/7nS_TeQmzSCCznok6NSF4dsz-UivsmFcSIejHh_diFU/rs:fit:1280:720/el:1/dpr:2/aHR0cHM6Ly9hc3NldHMud2hvcC5jb20vdXBsb2Fkcy8yMDI0LTExLTEyL3VzZXJfMjMzNDg3XzM1YmRkZjAwLTgzNDMtNDE4Yy1hYzYzLWZkY2VmYWU2YzBhYS5wbmc"
+					alt="placeholder"
+				/>
 			</Flex>
 			<Lightbox.Content {...args}>
 				<Lightbox.Items>
