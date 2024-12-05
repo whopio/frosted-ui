@@ -136,7 +136,6 @@ const LightboxContent: React.FC<LightboxContentProps> = React.forwardRef<
 						{...contentProps}
 						ref={forwardedRef}
 						className={classNames("fui-LightboxContent", className)}
-						aria-roledescription="carousel"
 					>
 						<LightboxContext.Provider value={contextValue}>
 							{children}
