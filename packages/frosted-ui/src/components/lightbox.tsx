@@ -242,6 +242,28 @@ const LightboxItems: React.FC<LightboxItemsProps> = ({
 	);
 };
 
+type LightboxImageProps = React.ComponentPropsWithoutRef<"img">;
+
+const LightboxImage: React.FC<LightboxImageProps> = (props) => {
+	return <img {...props} />;
+};
+
+type LightboxVideoProps = React.ComponentPropsWithoutRef<"video">;
+
+const LightboxVideo: React.FC<LightboxVideoProps> = ({
+	controls = true,
+	...props
+}) => {
+	const { activeItemIndex } = useLightbox();
+	const videoRef = React.useRef<HTMLVideoElement>(null);
+
+	if (!videoRef.current?.parentNode?.querySelector(".fui-LightboxActiveItem")) {
+		videoRef.current?.pause();
+	}
+
+	return <video controls={controls} {...props} ref={videoRef} />;
+};
+
 type LightboxPrevElement = React.ElementRef<typeof Button>;
 interface LightboxPrevButtonProps
 	extends Omit<React.ComponentPropsWithoutRef<typeof Button>, "children"> {
@@ -339,6 +361,8 @@ const LightboxThumbs: React.FC<LightboxThumbsProps> = ({
 			{...props}
 		>
 			{items.map((item, index) => {
+				const isVideo = item.type === LightboxVideo;
+				const imgSrc: string = isVideo ? item.props.poster : item.props.src;
 				return (
 					<button
 						onClick={() => setActiveItemIndex(index)}
@@ -348,10 +372,7 @@ const LightboxThumbs: React.FC<LightboxThumbsProps> = ({
 							"fui-LightboxActiveThumb": activeItemIndex === index,
 						})}
 					>
-						{React.cloneElement(item, {
-							className: "fui-LightboxThumbImage",
-							style: {},
-						})}
+						<img src={imgSrc} alt="" className="fui-LightboxThumbImage" />
 					</button>
 				);
 			})}
@@ -393,6 +414,8 @@ export {
 	LightboxRoot as Root,
 	LightboxThumbs as Thumbs,
 	LightboxTrigger as Trigger,
+	LightboxImage as Image,
+	LightboxVideo as Video,
 };
 
 export type {
@@ -401,4 +424,6 @@ export type {
 	LightboxRootProps as RootProps,
 	LightboxThumbsProps as ThumbsProps,
 	LightboxTriggerProps as TriggerProps,
+	LightboxImageProps as ImageProps,
+	LightboxVideoProps as VideoProps,
 };
