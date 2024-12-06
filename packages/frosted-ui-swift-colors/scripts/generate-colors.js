@@ -2,7 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const allColorScales = require('@radix-ui/colors');
 
-const outputDir = './colors';
+const swiftOutputDir = './colors';
+const kotlinOutputDir = './kotlin-colors';
 
 const neutralPalettes = ['gray', 'mauve', 'slate', 'sage', 'olive', 'sand'];
 // The palette that we want to use as the base, neutral color
@@ -72,9 +73,14 @@ function getChannelsFromCssP3(cssColor) {
 }
 
 try {
-  if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir);
+  if (!fs.existsSync(swiftOutputDir)) {
+    fs.mkdirSync(swiftOutputDir);
   }
+  if (!fs.existsSync(kotlinOutputDir)) {
+    fs.mkdirSync(kotlinOutputDir);
+  }
+  console.log('Creating Kotlin color file');
+  createKotlinColorFile();
 } catch (err) {
   console.error(err);
 }
@@ -92,9 +98,6 @@ const colorNames = Object.keys(allColorScales).filter(
 );
 
 colorNames.forEach((colorName) => {
-  // TODO: handle semantic colors (danger, info, success)
-  // TODO: handle background and panel colors
-  // TODO: handle black and white palettes (they're they're same for light and dark mode)
   if (colorName === 'blackA' || colorName === 'whiteA') return;
 
   const p3colorName = colorName + 'P3';
@@ -105,19 +108,25 @@ colorNames.forEach((colorName) => {
         allColorScales[colorName + 'Dark' + 'P3'][shadeName],
       ),
     };
-    createColorAsset(shadeName, colorSet.light, colorSet.dark);
+    createSwiftColorAsset(shadeName, colorSet.light, colorSet.dark);
+    createKotlinColorAsset(shadeName, colorSet.light, colorSet.dark);
   });
 
-  const p3colorNameAlpha = p3colorName + 'A';
-  Object.keys(allColorScales[p3colorNameAlpha]).forEach((shadeName) => {
-    const colorSet = {
-      light: getChannelsFromCssP3(allColorScales[p3colorNameAlpha][shadeName]),
-      dark: getChannelsFromCssP3(
-        allColorScales[colorName + 'Dark' + 'P3A'][shadeName],
-      ),
-    };
-    createColorAsset(shadeName, colorSet.light, colorSet.dark);
-  });
+  const p3colorNameAlpha = colorName + 'P3A';
+  if (allColorScales[p3colorNameAlpha]) {
+    Object.keys(allColorScales[p3colorNameAlpha]).forEach((shadeName) => {
+      const colorSet = {
+        light: getChannelsFromCssP3(
+          allColorScales[p3colorNameAlpha][shadeName],
+        ),
+        dark: getChannelsFromCssP3(
+          allColorScales[colorName + 'DarkP3A'][shadeName],
+        ),
+      };
+      createSwiftColorAsset(shadeName, colorSet.light, colorSet.dark);
+      createKotlinColorAsset(shadeName, colorSet.light, colorSet.dark);
+    });
+  }
 });
 
 Object.entries(contrastColorMapping).forEach(([shadeName, value]) => {
@@ -125,7 +134,12 @@ Object.entries(contrastColorMapping).forEach(([shadeName, value]) => {
     light: getChannelsFromCssP3(value),
     dark: getChannelsFromCssP3(value),
   };
-  createColorAsset(`${shadeName}9contrast`, colorSet.light, colorSet.dark);
+  createSwiftColorAsset(`${shadeName}9contrast`, colorSet.light, colorSet.dark);
+  createKotlinColorAsset(
+    `${shadeName}9contrast`,
+    colorSet.light,
+    colorSet.dark,
+  );
 });
 // White and black color palettes are only available in ALPHA variants
 // The values stay the same between the light and the dark mode
@@ -141,12 +155,79 @@ Object.entries(contrastColorMapping).forEach(([shadeName, value]) => {
       light: shade,
       dark: shade,
     };
-    createColorAsset(shadeName, colorSet.light, colorSet.dark);
+    createSwiftColorAsset(shadeName, colorSet.light, colorSet.dark);
+    createKotlinColorAsset(shadeName, colorSet.light, colorSet.dark);
   });
 });
 
-function createColorAsset(shadeName, light, dark) {
-  const folderName = `${outputDir}/${shadeName}.colorset`;
+function createKotlinColorFile() {
+  const folderName = `${kotlinOutputDir}`;
+  const initialContent = `package com.whop.android.ui.theme
+
+import androidx.compose.ui.graphics.Color
+
+object Colors {
+    // Light theme colors
+    object Light {
+    }
+
+    // Dark theme colors 
+    object Dark {
+    }
+}
+`;
+
+  if (!fs.existsSync(folderName)) {
+    fs.mkdirSync(folderName, { recursive: true });
+  }
+
+  fs.writeFileSync(path.join(folderName, 'Color.kt'), initialContent);
+}
+
+function p3ToHex(p3Color) {
+  // Convert P3 values (0-1) to RGB (0-255)
+  const r = Math.round(parseFloat(p3Color.red) * 255);
+  const g = Math.round(parseFloat(p3Color.green) * 255);
+  const b = Math.round(parseFloat(p3Color.blue) * 255);
+  const a = Math.round(parseFloat(p3Color.alpha) * 255);
+
+  // Format as hex string with alpha
+  return `0x${a.toString(16).padStart(2, '0')}${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`.toUpperCase();
+}
+
+function createKotlinColorAsset(shadeName, light, dark) {
+  const filePath = path.join(kotlinOutputDir, 'Color.kt');
+  let content = fs.readFileSync(filePath, 'utf8');
+
+  // Convert P3 colors to Kotlin hex format
+  const lightColorStr = `Color(${p3ToHex(light)})`;
+  const darkColorStr = `Color(${p3ToHex(dark)})`;
+
+  const varName = shadeName.charAt(0).toUpperCase() + shadeName.slice(1);
+
+  const lightObjectStart =
+    content.indexOf('object Light {') + 'object Light {'.length;
+  const darkObjectStart =
+    content.indexOf('object Dark {') + 'object Dark {'.length;
+
+  const beforeLight = content.slice(0, lightObjectStart);
+  const afterLight = content.slice(lightObjectStart);
+  content =
+    beforeLight + `\n        val ${varName} = ${lightColorStr}` + afterLight;
+
+  const newDarkObjectStart =
+    content.indexOf('object Dark {') + 'object Dark {'.length;
+
+  const beforeDark = content.slice(0, newDarkObjectStart);
+  const afterDark = content.slice(newDarkObjectStart);
+  content =
+    beforeDark + `\n        val ${varName} = ${darkColorStr}` + afterDark;
+
+  fs.writeFileSync(filePath, content);
+}
+
+function createSwiftColorAsset(shadeName, light, dark) {
+  const folderName = `${swiftOutputDir}/${shadeName}.colorset`;
   try {
     if (!fs.existsSync(folderName)) {
       fs.mkdirSync(folderName);
@@ -196,4 +277,26 @@ function createColorAsset(shadeName, light, dark) {
   }
 }`,
   );
+}
+
+function generateKotlinColor(colorName, colorValue) {
+  // Convert the color value to hex format
+  const hex = colorValue.toUpperCase().replace('#', '');
+  // Add alpha channel FF at the end if not present (fully opaque)
+  const fullHex = hex.length === 6 ? `${hex}FF` : hex;
+  return `    val ${colorName} = Color(0xFF${fullHex})`;
+}
+
+function generateKotlinColors(colors) {
+  const colorDefinitions = Object.entries(colors)
+    .map(([name, value]) => generateKotlinColor(name, value))
+    .join('\n');
+
+  return `package com.frosted.ui.theme
+
+import androidx.compose.ui.graphics.Color
+
+object FrostedColors {
+${colorDefinitions}
+}`;
 }
