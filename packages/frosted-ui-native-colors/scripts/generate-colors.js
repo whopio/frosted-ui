@@ -278,25 +278,3 @@ function createSwiftColorAsset(shadeName, light, dark) {
 }`,
   );
 }
-
-function generateKotlinColor(colorName, colorValue) {
-  // Convert the color value to hex format
-  const hex = colorValue.toUpperCase().replace('#', '');
-  // Add alpha channel FF at the end if not present (fully opaque)
-  const fullHex = hex.length === 6 ? `${hex}FF` : hex;
-  return `    val ${colorName} = Color(0xFF${fullHex})`;
-}
-
-function generateKotlinColors(colors) {
-  const colorDefinitions = Object.entries(colors)
-    .map(([name, value]) => generateKotlinColor(name, value))
-    .join('\n');
-
-  return `package com.frosted.ui.theme
-
-import androidx.compose.ui.graphics.Color
-
-object FrostedColors {
-${colorDefinitions}
-}`;
-}
