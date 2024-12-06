@@ -3,7 +3,7 @@
 import { ChevronLeft24, ChevronRight24, XMark24 } from "@frosted-ui/icons";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import classNames from "classnames";
-import React, { type ComponentPropsWithoutRef } from "react";
+import React, { Children, type ComponentPropsWithoutRef } from "react";
 import { getValidChildren } from "../helpers";
 import { useIsomorphicLayoutEffect } from "../helpers/use-isomorphic-layout-effect";
 import { Theme } from "../theme";
@@ -121,15 +121,16 @@ const LightboxTriggers: React.FC<LightboxTriggersProps> = ({
 
 type LightboxTriggerElement = React.ElementRef<typeof DialogPrimitive.Trigger>;
 
-interface LightboxTriggerProps extends ComponentPropsWithoutRef<"img"> {}
+interface LightboxTriggerProps
+	extends Omit<DialogPrimitive.DialogTriggerProps, "asChild"> {}
 
 const LightboxTrigger: React.FC<LightboxTriggerProps> = React.forwardRef<
 	LightboxTriggerElement,
 	LightboxTriggerProps
->((props, forwardedRef) => {
+>(({ children, ...props }, forwardedRef) => {
 	return (
-		<DialogPrimitive.Trigger ref={forwardedRef} asChild>
-			<img {...props} />
+		<DialogPrimitive.Trigger ref={forwardedRef} asChild {...props}>
+			{children}
 		</DialogPrimitive.Trigger>
 	);
 });
