@@ -14,7 +14,7 @@ const Button = React.forwardRef<ButtonElement, ButtonProps>(
     />
   ),
 );
-Button.displayName = 'Button';
+Button.displayName = 'ButtonTest';
 
 export { Button };
 export type { ButtonProps };
