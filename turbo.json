@@ -4,7 +4,7 @@
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**"],
+      "outputs": ["dist/**", "*.css", "index.js", "index.mjs"],
       "inputs": ["src/**"]
     },
     "release": {
@@ -22,7 +22,7 @@
     },
     "test": {
       "dependsOn": ["build"]
-    },    
+    },
     "build:css": {
       "outputs": ["styles.css"],
       "inputs": ["src/**"]

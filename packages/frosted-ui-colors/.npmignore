@@ -1,0 +1,8 @@
+/src/
+/scripts/
+.gitignore
+tsconfig.json
+rollup.config.js
+yarn.lock
+pnpm.lock
+package-lock.json
