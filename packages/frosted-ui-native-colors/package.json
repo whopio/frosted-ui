@@ -14,7 +14,7 @@
     "clean": "rimraf colors"
   },
   "keywords": [
-    "radix",
+    "frosted-ui",
     "colors"
   ],
   "sideEffects": false,
