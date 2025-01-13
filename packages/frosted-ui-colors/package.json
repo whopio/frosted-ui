@@ -8,11 +8,11 @@
   "module": "index.mjs",
   "types": "types/index.d.ts",
   "scripts": {
-    "build": "pnpm clean && pnpm install && rollup -c && pnpm build-css-modules",
+    "build": "pnpm clean && pnpm install && pnpm rollup -c && pnpm build-css-modules",
     "build-css-modules": "node ./scripts/build-css-modules.js",
     "prepublishOnly": "pnpm build",
     "postpublish": "pnpm clean",
-    "clean": "git clean -fdX",
+    "clean": "rm -f *.css index.js index.mjs",
     "release": "turbo-module publish"
   },
   "keywords": [
