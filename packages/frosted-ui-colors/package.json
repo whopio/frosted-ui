@@ -1,0 +1,34 @@
+{
+  "name": "@frosted-ui/colors",
+  "private": false,
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "Frosted UI Colors",
+  "main": "index.js",
+  "module": "index.mjs",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "build": "pnpm clean && pnpm install && pnpm rollup -c && pnpm build-css-modules",
+    "build-css-modules": "node ./scripts/build-css-modules.js",
+    "prepublishOnly": "pnpm build",
+    "postpublish": "pnpm clean",
+    "clean": "rm -f *.css index.js index.mjs",
+    "release": "turbo-module publish"
+  },
+  "keywords": [
+    "frosted-ui",
+    "colors"
+  ],
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^8.2.1",
+    "@types/node": "^15.0.3",
+    "@whop-sdk/turbo-module": "^0.0.5",
+    "rollup": "^2.48.0",
+    "tslib": "^2.2.0",
+    "typescript": "^4.2.4"
+  }
+}
