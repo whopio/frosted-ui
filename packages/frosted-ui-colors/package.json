@@ -1,17 +1,18 @@
 {
-  "name": "frosted-ui-native-colors",
-  "description": "Generating SwiftUI and Kotlin color assets from Radix Colors",
+  "name": "@frosted-ui/colors",
   "private": false,
   "version": "0.0.1",
+  "license": "MIT",
+  "description": "Frosted UI Colors",
   "main": "index.js",
   "module": "index.mjs",
   "types": "types/index.d.ts",
   "scripts": {
-    "build": "pnpm clean && pnpm install && pnpm generate-colors && cd ./colors && zip -r ../frosted-ui-swift-colors.zip ./",
-    "generate-colors": "node ./scripts/generate-colors.js",
+    "build": "pnpm clean && pnpm install && rollup -c && pnpm build-css-modules",
+    "build-css-modules": "node ./scripts/build-css-modules.js",
     "prepublishOnly": "pnpm build",
     "postpublish": "pnpm clean",
-    "clean": "rimraf colors"
+    "clean": "git clean -fdX"
   },
   "keywords": [
     "frosted-ui",
@@ -22,13 +23,10 @@
     "access": "public"
   },
   "devDependencies": {
+    "@rollup/plugin-typescript": "^8.2.1",
     "@types/node": "^15.0.3",
-    "rimraf": "^5.0.5",
+    "rollup": "^2.48.0",
     "tslib": "^2.2.0",
     "typescript": "^4.2.4"
-  },
-  "license": "MIT",
-  "dependencies": {
-    "@radix-ui/colors": "^3.0.0"
   }
 }
