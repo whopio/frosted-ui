@@ -116,7 +116,7 @@
 
   /* stylelint-disable */
   &:where(:not([data-disabled])) > svg {
-    color: var(--accent-10);
+    color: var(--accent-a11);
   }
   /* stylelint-enable */
 }

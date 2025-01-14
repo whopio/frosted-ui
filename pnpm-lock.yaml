@@ -141,8 +141,8 @@ importers:
   packages/frosted-ui:
     dependencies:
       '@frosted-ui/colors':
-        specifier: 0.0.1-canary.50
-        version: 0.0.1-canary.50
+        specifier: 0.0.1-canary.51
+        version: 0.0.1-canary.51
       '@internationalized/date':
         specifier: ^3.5.6
         version: 3.5.6
@@ -400,8 +400,8 @@ importers:
   packages/frosted-ui-native-colors:
     dependencies:
       '@frosted-ui/colors':
-        specifier: 0.0.1-canary.50
-        version: 0.0.1-canary.50
+        specifier: 0.0.1-canary.51
+        version: 0.0.1-canary.51
     devDependencies:
       '@types/node':
         specifier: ^15.0.3
@@ -1355,8 +1355,8 @@ packages:
       tslib: 2.8.0
     dev: false
 
-  /@frosted-ui/colors@0.0.1-canary.50:
-    resolution: {integrity: sha512-ACe7SThCM4/MMAjVd0qg168fhkFgkKIUOTGrWLLewA8DYBIA7ThRALaI82AjfK+XijTS2XI9YG1wlFY1ymD6dA==}
+  /@frosted-ui/colors@0.0.1-canary.51:
+    resolution: {integrity: sha512-/8JvOk2DhTnuo9AtEnQZr0fi1n4mHUY3yTJmG07M1Pay34O9lCnrcJiBFHdErQmlAFjTmME5XohnbQP6omsPsw==}
     dev: false
 
   /@humanwhocodes/config-array@0.13.0:

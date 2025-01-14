@@ -29,6 +29,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@frosted-ui/colors": "0.0.1-canary.50"
+    "@frosted-ui/colors": "0.0.1-canary.51"
   }
 }
