@@ -201,7 +201,7 @@ export default function Dashboard() {
     <html lang="en" suppressHydrationWarning className={interVariable.variable}>
       <body>
         {/* <NextThemeProvider> */}
-        <Theme asChild appearance="dark" grayColor="gray" accentColor="iris">
+        <Theme asChild appearance="dark" grayColor="gray" accentColor="blue">
           <div
             id="root"
             className="w-full h-[100vh] bg-gray-1 flex flex-no-wrap p-2"

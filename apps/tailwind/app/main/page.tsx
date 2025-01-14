@@ -33,7 +33,7 @@ export default function Dashboard() {
       <body>
         {/* TODO: NextThemeProvider creates some infinite loop and app crashes */}
         {/* <NextThemeProvider> */}
-        <Theme asChild appearance="dark" grayColor="gray" accentColor="iris">
+        <Theme asChild appearance="dark" grayColor="gray" accentColor="blue">
           <div id="root" className="w-full bg-gray-1">
             <ThemePanel />
             <header className="sticky top-0 backdrop-blur-lg z-10 backdrop-saturate-150">
@@ -126,13 +126,17 @@ export default function Dashboard() {
                     </Text>
                   </div>
                   <div className="text-center">
-                    <Heading size="7">#172,264,047</Heading>
+                    <Heading size="7" color="magenta">
+                      #172,264,047
+                    </Heading>
                     <Text size="2" color="gray">
                       Purchased on Whop
                     </Text>
                   </div>
                   <div className="text-center">
-                    <Heading size="7">#172,264,047</Heading>
+                    <Heading size="7" color="pink">
+                      #172,264,047
+                    </Heading>
                     <Text size="2" color="gray">
                       Purchased on Whop
                     </Text>

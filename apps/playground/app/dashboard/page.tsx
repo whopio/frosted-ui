@@ -176,7 +176,7 @@ export default function Demo() {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={styles.body}>
-        <Theme asChild appearance="light" grayColor="gray" accentColor="iris">
+        <Theme asChild appearance="light" grayColor="gray" accentColor="blue">
           <div id="root">
             <ThemePanel />
             <aside className={styles.aside}>
