@@ -177,6 +177,8 @@ function getPeopleForColor(color: ThemeOptions['accentColor']) {
     case 'gold':
     case 'bronze':
       return neutralPeople;
+    default:
+      return [person12, person24, person29];
   }
 }
 
