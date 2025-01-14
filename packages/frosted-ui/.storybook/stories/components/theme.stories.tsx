@@ -70,8 +70,8 @@ export const Colors: Story = {
   render: (args) => (
     <Flex gap="6">
       <Theme
-        grayColor="slate"
-        accentColor="iris"
+        grayColor="gray"
+        accentColor="blue"
         infoColor="sky"
         successColor="green"
         warningColor="yellow"

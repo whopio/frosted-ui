@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const allColorScales = require('@radix-ui/colors');
+const allColorScales = require('@frosted-ui/colors');
 
 const swiftOutputDir = './colors';
 const kotlinOutputDir = './kotlin-colors';
@@ -24,23 +24,26 @@ const contrastColorMapping = {
   purple: pureWhiteP3,
   violet: pureWhiteP3,
   iris: pureWhiteP3,
-  indigo: pureWhiteP3,
-  blue: pureWhiteP3,
   cyan: pureWhiteP3,
   teal: pureWhiteP3,
   jade: pureWhiteP3,
   green: pureWhiteP3,
   grass: pureWhiteP3,
-  orange: pureWhiteP3,
   brown: pureWhiteP3,
   sky: 'color(display-p3 0.113 0.125 0.14)', // light mode slate 12
   mint: 'color(display-p3 0.107 0.129 0.118)', // light mode sage 12
-  lime: 'color(display-p3 0.117 0.129 0.111)', // light mode olive 12
   yellow: 'color(display-p3 0.129 0.126 0.111)', // light mode sand 12
   amber: 'color(display-p3 0.129 0.126 0.111)', // light mode sand 12
   gold: pureWhiteP3,
   bronze: pureWhiteP3,
   gray: pureWhiteP3,
+  /* Whop Brand Colors */
+  blue: pureWhiteP3,
+  orange: pureWhiteP3,
+  indigo: pureWhiteP3,
+  lemon: 'color(display-p3 0.125 0.141 0.051)', // #20240d
+  lime: 'color(display-p3 0.086 0.153 0.082)', // #162715
+  magenta: 'color(display-p3 0.078 0.071 0.071)', //#141212
 };
 
 function getChannelsFromCssP3(cssColor) {

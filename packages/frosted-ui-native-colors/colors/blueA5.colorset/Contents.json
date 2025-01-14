@@ -4,9 +4,9 @@
       "color" : {
         "color-space" : "display-p3",
         "components" : {
-          "alpha" : "0.212",
-          "blue" : "0.984",
-          "green" : "0.502",
+          "alpha" : "0.185",
+          "blue" : "0.937",
+          "green" : "0.326",
           "red" : "0.004"
         }
       },
@@ -22,10 +22,10 @@
       "color" : {
         "color-space" : "display-p3",
         "components" : {
-          "alpha" : "0.400",
+          "alpha" : "0.421",
           "blue" : "1.000",
-          "green" : "0.510",
-          "red" : "0.098"
+          "green" : "0.431",
+          "red" : "0.228"
         }
       },
       "idiom" : "universal"
