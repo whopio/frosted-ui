@@ -82,7 +82,6 @@ const themeAccentColorsOrdered = [
   'brown',
   'yellow',
   'amber',
-  'orange',
   'tomato',
   'red',
   'ruby',
@@ -92,16 +91,20 @@ const themeAccentColorsOrdered = [
   'purple',
   'violet',
   'iris',
-  'indigo',
-  'blue',
   'cyan',
   'teal',
   'jade',
   'green',
   'grass',
-  'lime',
   'mint',
   'sky',
+  // Whop Brand Colors
+  'blue',
+  'orange',
+  'indigo',
+  'magenta',
+  'lemon',
+  'lime',
 ] as ThemeAccentColor[];
 
 const themeGrayColorsGrouped = [
