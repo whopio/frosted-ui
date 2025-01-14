@@ -15,11 +15,6 @@ export const withTheme: Decorator = (Story, context) => {
     document.body.style.backgroundColor = 'var(--color-page-background)';
   }, [isDarkTheme]);
 
-  const grayColor = {
-    light: 'slate' as const,
-    dark: 'gray' as const,
-  }[theme];
-
   return (
     <>
       <style>
@@ -34,7 +29,7 @@ export const withTheme: Decorator = (Story, context) => {
 }
 `}
       </style>
-      <Theme accentColor="iris" grayColor={grayColor}>
+      <Theme accentColor="blue" grayColor={'gray'}>
         <Story />
         {/* <ThemePanel /> */}
       </Theme>
@@ -76,7 +71,7 @@ const preview: Preview = {
     },
   },
 
-  tags: ['autodocs']
+  tags: ['autodocs'],
 };
 
 export default preview;
