@@ -1498,66 +1498,6 @@ export const mintP3A = {
   mintA12: 'color(display-p3 0.136 0.259 0.236)',
 };
 
-export const lime = {
-  lime1: '#fcfdfa',
-  lime2: '#f8faf3',
-  lime3: '#eef6d6',
-  lime4: '#e2f0bd',
-  lime5: '#d3e7a6',
-  lime6: '#c2da91',
-  lime7: '#abc978',
-  lime8: '#8db654',
-  lime9: '#bdee63',
-  lime10: '#b0e64c',
-  lime11: '#5c7c2f',
-  lime12: '#37401c',
-};
-
-export const limeA = {
-  limeA1: '#66990005',
-  limeA2: '#6b95000c',
-  limeA3: '#96c80029',
-  limeA4: '#8fc60042',
-  limeA5: '#81bb0059',
-  limeA6: '#72aa006e',
-  limeA7: '#61990087',
-  limeA8: '#559200ab',
-  limeA9: '#93e4009c',
-  limeA10: '#8fdc00b3',
-  limeA11: '#375f00d0',
-  limeA12: '#1e2900e3',
-};
-
-export const limeP3 = {
-  lime1: 'color(display-p3 0.989 0.992 0.981)',
-  lime2: 'color(display-p3 0.975 0.98 0.954)',
-  lime3: 'color(display-p3 0.939 0.965 0.851)',
-  lime4: 'color(display-p3 0.896 0.94 0.76)',
-  lime5: 'color(display-p3 0.843 0.903 0.678)',
-  lime6: 'color(display-p3 0.778 0.852 0.599)',
-  lime7: 'color(display-p3 0.694 0.784 0.508)',
-  lime8: 'color(display-p3 0.585 0.707 0.378)',
-  lime9: 'color(display-p3 0.78 0.928 0.466)',
-  lime10: 'color(display-p3 0.734 0.896 0.397)',
-  lime11: 'color(display-p3 0.386 0.482 0.227)',
-  lime12: 'color(display-p3 0.222 0.25 0.128)',
-};
-
-export const limeP3A = {
-  limeA1: 'color(display-p3 0.412 0.608 0.02 / 0.02)',
-  limeA2: 'color(display-p3 0.514 0.592 0.024 / 0.048)',
-  limeA3: 'color(display-p3 0.584 0.765 0.008 / 0.15)',
-  limeA4: 'color(display-p3 0.561 0.757 0.004 / 0.24)',
-  limeA5: 'color(display-p3 0.514 0.698 0.004 / 0.322)',
-  limeA6: 'color(display-p3 0.443 0.627 0 / 0.4)',
-  limeA7: 'color(display-p3 0.376 0.561 0.004 / 0.491)',
-  limeA8: 'color(display-p3 0.333 0.529 0 / 0.624)',
-  limeA9: 'color(display-p3 0.588 0.867 0 / 0.534)',
-  limeA10: 'color(display-p3 0.561 0.827 0 / 0.604)',
-  limeA11: 'color(display-p3 0.386 0.482 0.227)',
-  limeA12: 'color(display-p3 0.222 0.25 0.128)',
-};
-
 export const yellow = {
   yellow1: '#fdfdf9',
   yellow2: '#fefce9',
@@ -1920,64 +1860,64 @@ export const indigoP3A = {
   indigoA12: 'color(display-p3 0.0784 0 0.3882 / 0.899)',
 };
 
-export const limeGreen = {
-  limeGreen1: '#fafefa',
-  limeGreen2: '#f4fcf3',
-  limeGreen3: '#dffbdc',
-  limeGreen4: '#caf8c6',
-  limeGreen5: '#b4f1af',
-  limeGreen6: '#9be696',
-  limeGreen7: '#7bd676',
-  limeGreen8: '#42c340',
-  limeGreen9: '#06d718',
-  limeGreen10: '#00cb00',
-  limeGreen11: '#008600',
-  limeGreen12: '#194318',
+export const lime = {
+  lime1: '#fafefa',
+  lime2: '#f4fcf3',
+  lime3: '#dffbdc',
+  lime4: '#caf8c6',
+  lime5: '#b4f1af',
+  lime6: '#9be696',
+  lime7: '#7bd676',
+  lime8: '#42c340',
+  lime9: '#06d718',
+  lime10: '#00cb00',
+  lime11: '#008600',
+  lime12: '#194318',
 };
 
-export const limeGreenA = {
-  limeGreenA1: '#00cc0005',
-  limeGreenA2: '#16c0000c',
-  limeGreenA3: '#16e20023',
-  limeGreenA4: '#12e00039',
-  limeGreenA5: '#10d30050',
-  limeGreenA6: '#0dc30069',
-  limeGreenA7: '#0ab30089',
-  limeGreenA8: '#03af00bf',
-  limeGreenA9: '#00d612f9',
-  limeGreenA10: '#00cb00',
-  limeGreenA11: '#008600',
-  limeGreenA12: '#013000e7',
+export const limeA = {
+  limeA1: '#00cc0005',
+  limeA2: '#16c0000c',
+  limeA3: '#16e20023',
+  limeA4: '#12e00039',
+  limeA5: '#10d30050',
+  limeA6: '#0dc30069',
+  limeA7: '#0ab30089',
+  limeA8: '#03af00bf',
+  limeA9: '#00d612f9',
+  limeA10: '#00cb00',
+  limeA11: '#008600',
+  limeA12: '#013000e7',
 };
 
-export const limeGreenP3 = {
-  limeGreen1: 'color(display-p3 0.9836 0.9961 0.9805)',
-  limeGreen2: 'color(display-p3 0.9614 0.9862 0.9553)',
-  limeGreen3: 'color(display-p3 0.8945 0.9821 0.8729)',
-  limeGreen4: 'color(display-p3 0.8269 0.9657 0.7927)',
-  limeGreen5: 'color(display-p3 0.7545 0.9369 0.7099)',
-  limeGreen6: 'color(display-p3 0.6723 0.8927 0.6185)',
-  limeGreen7: 'color(display-p3 0.5673 0.8305 0.5032)',
-  limeGreen8: 'color(display-p3 0.4126 0.7539 0.3277)',
-  limeGreen9: 'color(display-p3 0.3843 0.8306 0.2661)',
-  limeGreen10: 'color(display-p3 0.3386 0.7852 0.2155)',
-  limeGreen11: 'color(display-p3 0.2169 0.5168 0.1352)',
-  limeGreen12: 'color(display-p3 0.1424 0.2578 0.1142)',
+export const limeP3 = {
+  lime1: 'color(display-p3 0.9836 0.9961 0.9805)',
+  lime2: 'color(display-p3 0.9614 0.9862 0.9553)',
+  lime3: 'color(display-p3 0.8945 0.9821 0.8729)',
+  lime4: 'color(display-p3 0.8269 0.9657 0.7927)',
+  lime5: 'color(display-p3 0.7545 0.9369 0.7099)',
+  lime6: 'color(display-p3 0.6723 0.8927 0.6185)',
+  lime7: 'color(display-p3 0.5673 0.8305 0.5032)',
+  lime8: 'color(display-p3 0.4126 0.7539 0.3277)',
+  lime9: 'color(display-p3 0.3843 0.8306 0.2661)',
+  lime10: 'color(display-p3 0.3386 0.7852 0.2155)',
+  lime11: 'color(display-p3 0.2169 0.5168 0.1352)',
+  lime12: 'color(display-p3 0.1424 0.2578 0.1142)',
 };
 
-export const limeGreenP3A = {
-  limeGreenA1: 'color(display-p3 0.2157 0.8039 0.0196 / 0.02)',
-  limeGreenA2: 'color(display-p3 0.1098 0.7333 0.0196 / 0.044)',
-  limeGreenA3: 'color(display-p3 0.1882 0.851 0.0078 / 0.13)',
-  limeGreenA4: 'color(display-p3 0.1725 0.851 0.0039 / 0.208)',
-  limeGreenA5: 'color(display-p3 0.1647 0.7882 0.0039 / 0.291)',
-  limeGreenA6: 'color(display-p3 0.149 0.7255 0.0039 / 0.381)',
-  limeGreenA7: 'color(display-p3 0.1373 0.6627 0.0039 / 0.499)',
-  limeGreenA8: 'color(display-p3 0.1294 0.6353 0 / 0.675)',
-  limeGreenA9: 'color(display-p3 0.1608 0.7686 0 / 0.734)',
-  limeGreenA10: 'color(display-p3 0.1686 0.7216 0 / 0.769)',
-  limeGreenA11: 'color(display-p3 0.102 0.4392 0 / 0.859)',
-  limeGreenA12: 'color(display-p3 0.0314 0.1647 0 / 0.887)',
+export const limeP3A = {
+  limeA1: 'color(display-p3 0.2157 0.8039 0.0196 / 0.02)',
+  limeA2: 'color(display-p3 0.1098 0.7333 0.0196 / 0.044)',
+  limeA3: 'color(display-p3 0.1882 0.851 0.0078 / 0.13)',
+  limeA4: 'color(display-p3 0.1725 0.851 0.0039 / 0.208)',
+  limeA5: 'color(display-p3 0.1647 0.7882 0.0039 / 0.291)',
+  limeA6: 'color(display-p3 0.149 0.7255 0.0039 / 0.381)',
+  limeA7: 'color(display-p3 0.1373 0.6627 0.0039 / 0.499)',
+  limeA8: 'color(display-p3 0.1294 0.6353 0 / 0.675)',
+  limeA9: 'color(display-p3 0.1608 0.7686 0 / 0.734)',
+  limeA10: 'color(display-p3 0.1686 0.7216 0 / 0.769)',
+  limeA11: 'color(display-p3 0.102 0.4392 0 / 0.859)',
+  limeA12: 'color(display-p3 0.0314 0.1647 0 / 0.887)',
 };
 
 export const magenta = {
