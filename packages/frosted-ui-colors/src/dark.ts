@@ -958,66 +958,6 @@ export const indigoDarkP3A = {
   indigoA12: 'color(display-p3 0.848 0.881 0.99)',
 };
 
-export const blueDark = {
-  blue1: '#0d1520',
-  blue2: '#111927',
-  blue3: '#0d2847',
-  blue4: '#003362',
-  blue5: '#004074',
-  blue6: '#104d87',
-  blue7: '#205d9e',
-  blue8: '#2870bd',
-  blue9: '#0090ff',
-  blue10: '#3b9eff',
-  blue11: '#70b8ff',
-  blue12: '#c2e6ff',
-};
-
-export const blueDarkA = {
-  blueA1: '#004df211',
-  blueA2: '#1166fb18',
-  blueA3: '#0077ff3a',
-  blueA4: '#0075ff57',
-  blueA5: '#0081fd6b',
-  blueA6: '#0f89fd7f',
-  blueA7: '#2a91fe98',
-  blueA8: '#3094feb9',
-  blueA9: '#0090ff',
-  blueA10: '#3b9eff',
-  blueA11: '#70b8ff',
-  blueA12: '#c2e6ff',
-};
-
-export const blueDarkP3 = {
-  blue1: 'color(display-p3 0.057 0.081 0.122)',
-  blue2: 'color(display-p3 0.072 0.098 0.147)',
-  blue3: 'color(display-p3 0.078 0.154 0.27)',
-  blue4: 'color(display-p3 0.033 0.197 0.37)',
-  blue5: 'color(display-p3 0.08 0.245 0.441)',
-  blue6: 'color(display-p3 0.14 0.298 0.511)',
-  blue7: 'color(display-p3 0.195 0.361 0.6)',
-  blue8: 'color(display-p3 0.239 0.434 0.72)',
-  blue9: 'color(display-p3 0.247 0.556 0.969)',
-  blue10: 'color(display-p3 0.344 0.612 0.973)',
-  blue11: 'color(display-p3 0.49 0.72 1)',
-  blue12: 'color(display-p3 0.788 0.898 0.99)',
-};
-
-export const blueDarkP3A = {
-  blueA1: 'color(display-p3 0 0.333 1 / 0.059)',
-  blueA2: 'color(display-p3 0.114 0.435 0.988 / 0.085)',
-  blueA3: 'color(display-p3 0.122 0.463 1 / 0.219)',
-  blueA4: 'color(display-p3 0 0.467 1 / 0.324)',
-  blueA5: 'color(display-p3 0.098 0.51 1 / 0.4)',
-  blueA6: 'color(display-p3 0.224 0.557 1 / 0.475)',
-  blueA7: 'color(display-p3 0.294 0.584 1 / 0.572)',
-  blueA8: 'color(display-p3 0.314 0.592 1 / 0.702)',
-  blueA9: 'color(display-p3 0.251 0.573 0.996 / 0.967)',
-  blueA10: 'color(display-p3 0.357 0.631 1 / 0.971)',
-  blueA11: 'color(display-p3 0.49 0.72 1)',
-  blueA12: 'color(display-p3 0.788 0.898 0.99)',
-};
-
 export const cyanDark = {
   cyan1: '#0b161a',
   cyan2: '#101b20',
@@ -1860,65 +1800,66 @@ export const orangeDarkP3A = {
 
 // ****** WHOP COLORS ***** Base Gray 9 #6e6e6e , Background #111111
 
-export const byzantineBlueDark = {
-  byzantineBlue1: '#0b111d',
-  byzantineBlue2: '#0f1727',
-  byzantineBlue3: '#11254c',
-  byzantineBlue4: '#142f66',
-  byzantineBlue5: '#1a3979',
-  byzantineBlue6: '#23448a',
-  byzantineBlue7: '#2b519e',
-  byzantineBlue8: '#325eb9',
-  byzantineBlue9: '#1754d8',
-  byzantineBlue10: '#0543c7',
-  byzantineBlue11: '#88b5ff',
-  byzantineBlue12: '#d1e2ff',
+export const blueDark = {
+  blue1: '#0b111d',
+  blue2: '#0f1727',
+  blue3: '#11254c',
+  blue4: '#142f66',
+  blue5: '#1a3979',
+  blue6: '#23448a',
+  blue7: '#2b519e',
+  blue8: '#325eb9',
+  blue9: '#1754d8',
+  blue10: '#0543c7',
+  blue11: '#88b5ff',
+  blue12: '#d1e2ff',
 };
 
-export const byzantineBlueDarkA = {
-  byzantineBlueA1: '#0012fd0d',
-  byzantineBlueA2: '#0051fb18',
-  byzantineBlueA3: '#1161fd40',
-  byzantineBlueA4: '#1a65fd5c',
-  byzantineBlueA5: '#256cfd70',
-  byzantineBlueA6: '#3576ff82',
-  byzantineBlueA7: '#3d7cfe98',
-  byzantineBlueA8: '#407effb4',
-  byzantineBlueA9: '#1861fed6',
-  byzantineBlueA10: '#0253ffc3',
-  byzantineBlueA11: '#88b5ff',
-  byzantineBlueA12: '#d1e2ff',
+export const blueDarkA = {
+  blueA1: '#0012fd0d',
+  blueA2: '#0051fb18',
+  blueA3: '#1161fd40',
+  blueA4: '#1a65fd5c',
+  blueA5: '#256cfd70',
+  blueA6: '#3576ff82',
+  blueA7: '#3d7cfe98',
+  blueA8: '#407effb4',
+  blueA9: '#1861fed6',
+  blueA10: '#0253ffc3',
+  blueA11: '#88b5ff',
+  blueA12: '#d1e2ff',
 };
 
-export const byzantineBlueDarkP3 = {
-  byzantineBlue1: 'color(display-p3 0.0465 0.0657 0.1105)',
-  byzantineBlue2: 'color(display-p3 0.0663 0.0906 0.1476)',
-  byzantineBlue3: 'color(display-p3 0.0859 0.1415 0.2862)',
-  byzantineBlue4: 'color(display-p3 0.1043 0.1801 0.3856)',
-  byzantineBlue5: 'color(display-p3 0.1332 0.2211 0.4586)',
-  byzantineBlue6: 'color(display-p3 0.1682 0.2649 0.5215)',
-  byzantineBlue7: 'color(display-p3 0.2045 0.3132 0.5992)',
-  byzantineBlue8: 'color(display-p3 0.2392 0.3661 0.7024)',
-  byzantineBlue9: 'color(display-p3 0.1632 0.3246 0.8163)',
-  byzantineBlue10: 'color(display-p3 0.108 0.2592 0.7498)',
-  byzantineBlue11: 'color(display-p3 0.5682 0.7055 1)',
-  byzantineBlue12: 'color(display-p3 0.8327 0.8855 1)',
+export const blueDarkP3 = {
+  blue1: 'color(display-p3 0.0465 0.0657 0.1105)',
+  blue2: 'color(display-p3 0.0663 0.0906 0.1476)',
+  blue3: 'color(display-p3 0.0859 0.1415 0.2862)',
+  blue4: 'color(display-p3 0.1043 0.1801 0.3856)',
+  blue5: 'color(display-p3 0.1332 0.2211 0.4586)',
+  blue6: 'color(display-p3 0.1682 0.2649 0.5215)',
+  blue7: 'color(display-p3 0.2045 0.3132 0.5992)',
+  blue8: 'color(display-p3 0.2392 0.3661 0.7024)',
+  blue9: 'color(display-p3 0.1632 0.3246 0.8163)',
+  blue10: 'color(display-p3 0.108 0.2592 0.7498)',
+  blue11: 'color(display-p3 0.5682 0.7055 1)',
+  blue12: 'color(display-p3 0.8327 0.8855 1)',
 };
 
-export const byzantineBlueDarkP3A = {
-  byzantineBlueA1: 'color(display-p3 0 0.0667 0.9882 / 0.047)',
-  byzantineBlueA2: 'color(display-p3 0.0667 0.3333 0.9922 / 0.089)',
-  byzantineBlueA3: 'color(display-p3 0.1529 0.4 1 / 0.236)',
-  byzantineBlueA4: 'color(display-p3 0.1843 0.4039 1 / 0.341)',
-  byzantineBlueA5: 'color(display-p3 0.2275 0.4314 1 / 0.421)',
-  byzantineBlueA6: 'color(display-p3 0.2745 0.4667 1 / 0.488)',
-  byzantineBlueA7: 'color(display-p3 0.3098 0.502 1 / 0.572)',
-  byzantineBlueA8: 'color(display-p3 0.3216 0.5059 1 / 0.681)',
-  byzantineBlueA9: 'color(display-p3 0.1922 0.3922 1 / 0.803)',
-  byzantineBlueA10: 'color(display-p3 0.1216 0.3294 1 / 0.736)',
-  byzantineBlueA11: 'color(display-p3 0.5843 0.7255 1 / 0.975)',
-  byzantineBlueA12: 'color(display-p3 0.8431 0.8941 1 / 0.988)',
+export const blueDarkP3A = {
+  blueA1: 'color(display-p3 0 0.0667 0.9882 / 0.047)',
+  blueA2: 'color(display-p3 0.0667 0.3333 0.9922 / 0.089)',
+  blueA3: 'color(display-p3 0.1529 0.4 1 / 0.236)',
+  blueA4: 'color(display-p3 0.1843 0.4039 1 / 0.341)',
+  blueA5: 'color(display-p3 0.2275 0.4314 1 / 0.421)',
+  blueA6: 'color(display-p3 0.2745 0.4667 1 / 0.488)',
+  blueA7: 'color(display-p3 0.3098 0.502 1 / 0.572)',
+  blueA8: 'color(display-p3 0.3216 0.5059 1 / 0.681)',
+  blueA9: 'color(display-p3 0.1922 0.3922 1 / 0.803)',
+  blueA10: 'color(display-p3 0.1216 0.3294 1 / 0.736)',
+  blueA11: 'color(display-p3 0.5843 0.7255 1 / 0.975)',
+  blueA12: 'color(display-p3 0.8431 0.8941 1 / 0.988)',
 };
+
 export const dragonFireDark = {
   dragonFire1: '#170f0d',
   dragonFire2: '#1f1412',
@@ -1978,6 +1919,7 @@ export const dragonFireDarkP3A = {
   dragonFireA11: 'color(display-p3 1 0.6275 0.5137 / 0.937)',
   dragonFireA12: 'color(display-p3 1 0.8549 0.8078 / 0.971)',
 };
+
 export const lemonLimeDark = {
   lemonLime1: '#10120a',
   lemonLime2: '#17190f',
@@ -2037,6 +1979,7 @@ export const lemonLimeDarkP3A = {
   lemonLimeA11: 'color(display-p3 0.9216 1 0.4314 / 0.891)',
   lemonLimeA12: 'color(display-p3 0.9529 1 0.7529 / 0.958)',
 };
+
 export const electricIndigoDark = {
   electricIndigo1: '#100f1f',
   electricIndigo2: '#16142b',
@@ -2096,6 +2039,7 @@ export const electricIndigoDarkP3A = {
   electricIndigoA11: 'color(display-p3 0.6902 0.6745 1 / 0.975)',
   electricIndigoA12: 'color(display-p3 0.8784 0.8784 1 / 0.988)',
 };
+
 export const limeGreenDark = {
   limeGreen1: '#0c130b',
   limeGreen2: '#121b11',
@@ -2155,6 +2099,7 @@ export const limeGreenDarkP3A = {
   limeGreenA11: 'color(display-p3 0.4706 1 0.3294 / 0.845)',
   limeGreenA12: 'color(display-p3 0.7725 1 0.7137 / 0.954)',
 };
+
 export const magentaDark = {
   magenta1: '#180e11',
   magenta2: '#211217',
