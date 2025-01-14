@@ -140,12 +140,12 @@ importers:
 
   packages/frosted-ui:
     dependencies:
+      '@frosted-ui/colors':
+        specifier: 0.0.1-canary.50
+        version: 0.0.1-canary.50
       '@internationalized/date':
         specifier: ^3.5.6
         version: 3.5.6
-      '@radix-ui/colors':
-        specifier: ^3.0.0
-        version: 3.0.0
       '@radix-ui/primitive':
         specifier: ^1.1.0
         version: 1.1.0
@@ -1353,6 +1353,10 @@ packages:
     resolution: {integrity: sha512-t5tOGMgZ/i5+ALl2/offNqAQq/lfUnKLEw0mXQI4N4bqpedhrSE+fyKLpwnd22sK0dif6AV+ufQcTsKShB9J1g==}
     dependencies:
       tslib: 2.8.0
+    dev: false
+
+  /@frosted-ui/colors@0.0.1-canary.50:
+    resolution: {integrity: sha512-ACe7SThCM4/MMAjVd0qg168fhkFgkKIUOTGrWLLewA8DYBIA7ThRALaI82AjfK+XijTS2XI9YG1wlFY1ymD6dA==}
     dev: false
 
   /@humanwhocodes/config-array@0.13.0:
