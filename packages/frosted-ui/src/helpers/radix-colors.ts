@@ -1,11 +1,34 @@
 // prettier-ignore
-const radixColorScalesRegular = ['tomato', 'red', 'ruby', 'crimson', 'pink', 'plum', 'purple', 'violet', 'iris', 'indigo', 'blue', 'cyan', 'teal', 'jade', 'green', 'grass', 'brown', 'orange' ] as const;
+const radixColorScalesRegular = [
+  'tomato',
+  'red',
+  'ruby',
+  'crimson',
+  'pink',
+  'plum',
+  'purple',
+  'violet',
+  'iris',
+  'cyan',
+  'teal',
+  'jade',
+  'green',
+  'grass',
+  'brown',
+  // Whop Brand Colors
+  'blue',
+  'orange',
+  'indigo',
+] as const;
 const radixColorScalesBright = [
   'sky',
   'mint',
-  'lime',
   'yellow',
   'amber',
+  // Whop Brand Colors
+  'lime',
+  'lemon',
+  'magenta',
 ] as const;
 const radixColorScalesMetal = ['gold', 'bronze'] as const;
 // prettier-ignore
@@ -36,8 +59,6 @@ function radixGetMatchingGrayScale(
     case 'purple':
     case 'violet':
       return 'mauve';
-    case 'indigo':
-    case 'blue':
     case 'sky':
     case 'cyan':
       return 'slate';
@@ -47,16 +68,20 @@ function radixGetMatchingGrayScale(
     case 'green':
       return 'sage';
     case 'grass':
-    case 'lime':
       return 'olive';
     case 'yellow':
     case 'amber':
-    case 'orange':
     case 'brown':
     case 'gold':
     case 'bronze':
       return 'sand';
     case 'iris':
+    case 'blue':
+    case 'orange':
+    case 'indigo':
+    case 'magenta':
+    case 'lime':
+    case 'lemon':
       return 'gray';
   }
 }
