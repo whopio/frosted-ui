@@ -1630,7 +1630,7 @@ export const blueDark = {
   blue7: '#2b519e',
   blue8: '#325eb9',
   blue9: '#1754d8',
-  blue10: '#0543c7',
+  blue10: '#406cc8',
   blue11: '#88b5ff',
   blue12: '#d1e2ff',
 };
@@ -1645,7 +1645,7 @@ export const blueDarkA = {
   blueA7: '#3d7cfe98',
   blueA8: '#407effb4',
   blueA9: '#1861fed6',
-  blueA10: '#0253ffc3',
+  blueA10: '#6397ffa8',
   blueA11: '#88b5ff',
   blueA12: '#d1e2ff',
 };
@@ -1660,7 +1660,7 @@ export const blueDarkP3 = {
   blue7: 'color(display-p3 0.2045 0.3132 0.5992)',
   blue8: 'color(display-p3 0.2392 0.3661 0.7024)',
   blue9: 'color(display-p3 0.1632 0.3246 0.8163)',
-  blue10: 'color(display-p3 0.108 0.2592 0.7498)',
+  blue10: 'color(display-p3 0.290 0.420 0.760)',
   blue11: 'color(display-p3 0.5682 0.7055 1)',
   blue12: 'color(display-p3 0.8327 0.8855 1)',
 };
@@ -1675,7 +1675,7 @@ export const blueDarkP3A = {
   blueA7: 'color(display-p3 0.3098 0.502 1 / 0.572)',
   blueA8: 'color(display-p3 0.3216 0.5059 1 / 0.681)',
   blueA9: 'color(display-p3 0.1922 0.3922 1 / 0.803)',
-  blueA10: 'color(display-p3 0.1216 0.3294 1 / 0.736)',
+  blueA10: 'color(display-p3 0.430 0.590 0.970 / 0.660)',
   blueA11: 'color(display-p3 0.5843 0.7255 1 / 0.975)',
   blueA12: 'color(display-p3 0.8431 0.8941 1 / 0.988)',
 };
@@ -1810,7 +1810,7 @@ export const indigoDark = {
   indigo7: '#5039b3',
   indigo8: '#6045d6',
   indigo9: '#6318f8',
-  indigo10: '#5800e6',
+  indigo10: '#7855ff',
   indigo11: '#ada8ff',
   indigo12: '#ddf',
 };
@@ -1825,7 +1825,7 @@ export const indigoDarkA = {
   indigoA7: '#6e4cffae',
   indigoA8: '#704ffed4',
   indigoA9: '#6619fff8',
-  indigoA10: '#6000fee5',
+  indigoA10: '#8869ffd7',
   indigoA11: '#ada8ff',
   indigoA12: '#ddddff',
 };
@@ -1840,7 +1840,7 @@ export const indigoDarkP3 = {
   indigo7: 'color(display-p3 0.3001 0.2284 0.6756)',
   indigo8: 'color(display-p3 0.3613 0.2735 0.8079)',
   indigo9: 'color(display-p3 0.3562 0.1176 0.9345)',
-  indigo10: 'color(display-p3 0.309 0 0.8658)',
+  indigo10: 'color(display-p3 0.450 0.340 0.980)',
   indigo11: 'color(display-p3 0.6727 0.6534 1)',
   indigo12: 'color(display-p3 0.8675 0.8681 1)',
 };
@@ -1855,7 +1855,7 @@ export const indigoDarkP3A = {
   indigoA7: 'color(display-p3 0.4275 0.3137 1 / 0.652)',
   indigoA8: 'color(display-p3 0.4392 0.3294 1 / 0.795)',
   indigoA9: 'color(display-p3 0.3804 0.1216 1 / 0.929)',
-  indigoA10: 'color(display-p3 0.3569 0.0431 1 / 0.858)',
+  indigoA10: 'color(display-p3 0.510 0.410 1 / 0.84)',
   indigoA11: 'color(display-p3 0.6902 0.6745 1 / 0.975)',
   indigoA12: 'color(display-p3 0.8784 0.8784 1 / 0.988)',
 };
