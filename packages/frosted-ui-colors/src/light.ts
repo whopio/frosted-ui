@@ -1738,66 +1738,6 @@ export const amberP3A = {
   amberA12: 'color(display-p3 0.294 0.208 0.145)',
 };
 
-export const orange = {
-  orange1: '#fefcfb',
-  orange2: '#fff7ed',
-  orange3: '#ffefd6',
-  orange4: '#ffdfb5',
-  orange5: '#ffd19a',
-  orange6: '#ffc182',
-  orange7: '#f5ae73',
-  orange8: '#ec9455',
-  orange9: '#f76b15',
-  orange10: '#ef5f00',
-  orange11: '#cc4e00',
-  orange12: '#582d1d',
-};
-
-export const orangeA = {
-  orangeA1: '#c0400004',
-  orangeA2: '#ff8e0012',
-  orangeA3: '#ff9c0029',
-  orangeA4: '#ff91014a',
-  orangeA5: '#ff8b0065',
-  orangeA6: '#ff81007d',
-  orangeA7: '#ed6c008c',
-  orangeA8: '#e35f00aa',
-  orangeA9: '#f65e00ea',
-  orangeA10: '#ef5f00',
-  orangeA11: '#cc4e00',
-  orangeA12: '#431200e2',
-};
-
-export const orangeP3 = {
-  orange1: 'color(display-p3 0.995 0.988 0.985)',
-  orange2: 'color(display-p3 0.994 0.968 0.934)',
-  orange3: 'color(display-p3 0.989 0.938 0.85)',
-  orange4: 'color(display-p3 1 0.874 0.687)',
-  orange5: 'color(display-p3 1 0.821 0.583)',
-  orange6: 'color(display-p3 0.975 0.767 0.545)',
-  orange7: 'color(display-p3 0.919 0.693 0.486)',
-  orange8: 'color(display-p3 0.877 0.597 0.379)',
-  orange9: 'color(display-p3 0.9 0.45 0.2)',
-  orange10: 'color(display-p3 0.87 0.409 0.164)',
-  orange11: 'color(display-p3 0.76 0.34 0)',
-  orange12: 'color(display-p3 0.323 0.185 0.127)',
-};
-
-export const orangeP3A = {
-  orangeA1: 'color(display-p3 0.757 0.267 0.024 / 0.016)',
-  orangeA2: 'color(display-p3 0.886 0.533 0.008 / 0.067)',
-  orangeA3: 'color(display-p3 0.922 0.584 0.008 / 0.15)',
-  orangeA4: 'color(display-p3 1 0.604 0.004 / 0.314)',
-  orangeA5: 'color(display-p3 1 0.569 0.004 / 0.416)',
-  orangeA6: 'color(display-p3 0.949 0.494 0.004 / 0.455)',
-  orangeA7: 'color(display-p3 0.839 0.408 0 / 0.514)',
-  orangeA8: 'color(display-p3 0.804 0.349 0 / 0.62)',
-  orangeA9: 'color(display-p3 0.878 0.314 0 / 0.8)',
-  orangeA10: 'color(display-p3 0.843 0.29 0 / 0.836)',
-  orangeA11: 'color(display-p3 0.76 0.34 0)',
-  orangeA12: 'color(display-p3 0.323 0.185 0.127)',
-};
-
 // ****** WHOP COLORS ****** Base Gray 9 #8d8d8d, background #ffffff
 
 export const blue = {
@@ -1860,64 +1800,64 @@ export const blueP3A = {
   blueA12: 'color(display-p3 0 0.0745 0.2824 / 0.891)',
 };
 
-export const dragonFire = {
-  dragonFire1: '#fffcfb',
-  dragonFire2: '#fff7f4',
-  dragonFire3: '#ffeae4',
-  dragonFire4: '#ffd8cb',
-  dragonFire5: '#ffc9b8',
-  dragonFire6: '#ffb8a3',
-  dragonFire7: '#ffa38d',
-  dragonFire8: '#f7886e',
-  dragonFire9: '#fa4616',
-  dragonFire10: '#ec3400',
-  dragonFire11: '#dd2400',
-  dragonFire12: '#5f2518',
+export const orange = {
+  orange1: '#fffcfb',
+  orange2: '#fff7f4',
+  orange3: '#ffeae4',
+  orange4: '#ffd8cb',
+  orange5: '#ffc9b8',
+  orange6: '#ffb8a3',
+  orange7: '#ffa38d',
+  orange8: '#f7886e',
+  orange9: '#fa4616',
+  orange10: '#ec3400',
+  orange11: '#dd2400',
+  orange12: '#5f2518',
 };
 
-export const dragonFireA = {
-  dragonFireA1: '#ff400004',
-  dragonFireA2: '#ff46000b',
-  dragonFireA3: '#ff39001b',
-  dragonFireA4: '#ff400034',
-  dragonFireA5: '#ff3e0047',
-  dragonFireA6: '#ff3b005c',
-  dragonFireA7: '#ff320072',
-  dragonFireA8: '#f12e0091',
-  dragonFireA9: '#fa3500e9',
-  dragonFireA10: '#ec3400',
-  dragonFireA11: '#dd2400',
-  dragonFireA12: '#4e0e00e7',
+export const orangeA = {
+  orangeA1: '#ff400004',
+  orangeA2: '#ff46000b',
+  orangeA3: '#ff39001b',
+  orangeA4: '#ff400034',
+  orangeA5: '#ff3e0047',
+  orangeA6: '#ff3b005c',
+  orangeA7: '#ff320072',
+  orangeA8: '#f12e0091',
+  orangeA9: '#fa3500e9',
+  orangeA10: '#ec3400',
+  orangeA11: '#dd2400',
+  orangeA12: '#4e0e00e7',
 };
 
-export const dragonFireP3 = {
-  dragonFire1: 'color(display-p3 0.9978 0.9885 0.9856)',
-  dragonFire2: 'color(display-p3 0.9992 0.9689 0.9596)',
-  dragonFire3: 'color(display-p3 1 0.9209 0.8965)',
-  dragonFire4: 'color(display-p3 1 0.8524 0.8)',
-  dragonFire5: 'color(display-p3 1 0.7925 0.724)',
-  dragonFire6: 'color(display-p3 0.9936 0.7338 0.6567)',
-  dragonFire7: 'color(display-p3 0.9501 0.6574 0.572)',
-  dragonFire8: 'color(display-p3 0.9107 0.5559 0.4555)',
-  dragonFire9: 'color(display-p3 0.9049 0.3335 0.1831)',
-  dragonFire10: 'color(display-p3 0.8535 0.2731 0.1143)',
-  dragonFire11: 'color(display-p3 0.7978 0.2236 0.0507)',
-  dragonFire12: 'color(display-p3 0.3453 0.1605 0.1105)',
+export const orangeP3 = {
+  orange1: 'color(display-p3 0.9978 0.9885 0.9856)',
+  orange2: 'color(display-p3 0.9992 0.9689 0.9596)',
+  orange3: 'color(display-p3 1 0.9209 0.8965)',
+  orange4: 'color(display-p3 1 0.8524 0.8)',
+  orange5: 'color(display-p3 1 0.7925 0.724)',
+  orange6: 'color(display-p3 0.9936 0.7338 0.6567)',
+  orange7: 'color(display-p3 0.9501 0.6574 0.572)',
+  orange8: 'color(display-p3 0.9107 0.5559 0.4555)',
+  orange9: 'color(display-p3 0.9049 0.3335 0.1831)',
+  orange10: 'color(display-p3 0.8535 0.2731 0.1143)',
+  orange11: 'color(display-p3 0.7978 0.2236 0.0507)',
+  orange12: 'color(display-p3 0.3453 0.1605 0.1105)',
 };
 
-export const dragonFireP3A = {
-  dragonFireA1: 'color(display-p3 0.7569 0.2667 0.0235 / 0.016)',
-  dragonFireA2: 'color(display-p3 0.9137 0.2902 0.0196 / 0.044)',
-  dragonFireA3: 'color(display-p3 0.8471 0.2314 0.0039 / 0.102)',
-  dragonFireA4: 'color(display-p3 0.8824 0.2471 0.0078 / 0.197)',
-  dragonFireA5: 'color(display-p3 0.8863 0.2392 0.0039 / 0.267)',
-  dragonFireA6: 'color(display-p3 0.8745 0.2314 0.0039 / 0.346)',
-  dragonFireA7: 'color(display-p3 0.8824 0.1961 0.0039 / 0.428)',
-  dragonFireA8: 'color(display-p3 0.8353 0.1882 0 / 0.546)',
-  dragonFireA9: 'color(display-p3 0.8863 0.1843 0 / 0.816)',
-  dragonFireA10: 'color(display-p3 0.8275 0.1608 0 / 0.863)',
-  dragonFireA11: 'color(display-p3 0.7686 0.1176 0 / 0.879)',
-  dragonFireA12: 'color(display-p3 0.2627 0.0549 0 / 0.891)',
+export const orangeP3A = {
+  orangeA1: 'color(display-p3 0.7569 0.2667 0.0235 / 0.016)',
+  orangeA2: 'color(display-p3 0.9137 0.2902 0.0196 / 0.044)',
+  orangeA3: 'color(display-p3 0.8471 0.2314 0.0039 / 0.102)',
+  orangeA4: 'color(display-p3 0.8824 0.2471 0.0078 / 0.197)',
+  orangeA5: 'color(display-p3 0.8863 0.2392 0.0039 / 0.267)',
+  orangeA6: 'color(display-p3 0.8745 0.2314 0.0039 / 0.346)',
+  orangeA7: 'color(display-p3 0.8824 0.1961 0.0039 / 0.428)',
+  orangeA8: 'color(display-p3 0.8353 0.1882 0 / 0.546)',
+  orangeA9: 'color(display-p3 0.8863 0.1843 0 / 0.816)',
+  orangeA10: 'color(display-p3 0.8275 0.1608 0 / 0.863)',
+  orangeA11: 'color(display-p3 0.7686 0.1176 0 / 0.879)',
+  orangeA12: 'color(display-p3 0.2627 0.0549 0 / 0.891)',
 };
 
 export const lemonLime = {
