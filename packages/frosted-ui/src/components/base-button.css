@@ -164,13 +164,6 @@
   position: relative;
   background-color: var(--accent-9);
   color: var(--accent-9-contrast);
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    border: 1px solid var(--black-a2);
-  }
 
   @media (hover: hover) {
     &:where(:hover) {

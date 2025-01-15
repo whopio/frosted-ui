@@ -44,10 +44,16 @@ const Avatar = React.forwardRef<AvatarElement, AvatarProps>(
     const [status, setStatus] = React.useState<ImageStatus>('idle');
     const dataStatus: ImageStatus = imageProps.src ? status : 'idle';
 
-    const fallback =
-      typeof fallbackProp === 'string'
-        ? getInitials(fallbackProp)
-        : fallbackProp;
+    const fallback = React.useMemo(() => {
+      if (typeof fallbackProp !== 'string') return fallbackProp;
+      try {
+        return getInitials(fallbackProp);
+      } catch (error) {
+        console.error('Error generating initials:', error);
+        return fallbackProp;
+      }
+    }, [fallbackProp]);
+
     return (
       <AvatarPrimitive.Root
         data-accent-color={color}
