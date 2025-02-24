@@ -25,8 +25,8 @@ const infoColors = ['blue', 'sky'] as const;
 const themePropDefs = {
   hasBackground: { type: 'boolean', default: true },
   appearance: { type: 'enum', values: appearances, default: 'inherit' },
-  accentColor: { type: 'enum', values: accentColors, default: 'iris' },
-  grayColor: { type: 'enum', values: grayColors, default: 'auto' },
+  accentColor: { type: 'enum', values: accentColors, default: 'blue' },
+  grayColor: { type: 'enum', values: grayColors, default: 'gray' },
   dangerColor: { type: 'enum', values: dangerColors, default: 'red' },
   warningColor: { type: 'enum', values: warningColors, default: 'amber' },
   successColor: { type: 'enum', values: successColors, default: 'green' },
