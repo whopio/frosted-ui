@@ -101,6 +101,7 @@ export const frostedThemePlugin = plugin.withOptions(
           xl: '1640px',
         },
         fontSize: {
+          0: 'var(--font-size-0)',
           1: 'var(--font-size-1)',
           2: 'var(--font-size-2)',
           3: 'var(--font-size-3)',
@@ -112,6 +113,7 @@ export const frostedThemePlugin = plugin.withOptions(
           9: 'var(--font-size-9)',
         },
         lineHeight: {
+          0: 'var(--line-height-0)',
           1: 'var(--line-height-1)',
           2: 'var(--line-height-2)',
           3: 'var(--line-height-3)',
@@ -137,6 +139,7 @@ export const frostedThemePlugin = plugin.withOptions(
           quote: 'var(--quote-font-family)',
         },
         letterSpacing: {
+          0: 'var(--letter-spacing-0)',
           1: 'var(--letter-spacing-1)',
           2: 'var(--letter-spacing-2)',
           3: 'var(--letter-spacing-3)',

@@ -20,7 +20,7 @@ const skeletonTextPropDefs = {
   color: { ...colorProp, default: 'gray' },
   highContrast: highContrastProp,
 } satisfies {
-  size: PropDef<(typeof sizes)[number]>;
+  size: PropDef<(typeof textPropDefs.size.values)[number]>;
   color: typeof colorProp;
   highContrast: typeof highContrastProp;
 };
