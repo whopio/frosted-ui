@@ -38,6 +38,7 @@ export const Size: Story = {
   },
   render: (args) => (
     <Flex direction="column" gap="3">
+      <Link {...args} size="0" />
       <Link {...args} size="1" />
       <Link {...args} size="2" />
       <Link {...args} size="3" />

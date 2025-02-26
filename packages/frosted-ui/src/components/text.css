@@ -22,6 +22,11 @@
 
 @breakpoints {
   .fui-Text {
+    &:where(.fui-r-size-0) {
+      font-size: var(--font-size-0);
+      --line-height: var(--line-height-0);
+      --letter-spacing: var(--letter-spacing-0);
+    }
     &:where(.fui-r-size-1) {
       font-size: var(--font-size-1);
       --line-height: var(--line-height-1);

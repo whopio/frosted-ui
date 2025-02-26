@@ -31,6 +31,9 @@ export const Default: Story = {
 export const Size: Story = {
   render: (args) => (
     <Flex direction="column" gap="3">
+      <Heading {...args} size="0">
+        The quick brown fox jumps over the lazy dog.
+      </Heading>
       <Heading {...args} size="1">
         The quick brown fox jumps over the lazy dog.
       </Heading>
