@@ -38,6 +38,9 @@ export const Default: Story = {
 export const Size: Story = {
   render: (args) => (
     <Flex direction="column" gap="3">
+      <Text {...args} size="0">
+        The quick brown fox jumps over the lazy dog.
+      </Text>
       <Text {...args} size="1">
         The quick brown fox jumps over the lazy dog.
       </Text>
@@ -63,6 +66,28 @@ export const Size: Story = {
         The quick brown fox jumps over the lazy dog.
       </Text>
       <Text {...args} size="9">
+        The quick brown fox jumps over the lazy dog.
+      </Text>
+    </Flex>
+  ),
+};
+
+export const Weight: Story = {
+  render: (args) => (
+    <Flex direction="column" gap="3">
+      <Text {...args} weight="light">
+        The quick brown fox jumps over the lazy dog.
+      </Text>
+      <Text {...args} weight="regular">
+        The quick brown fox jumps over the lazy dog.
+      </Text>
+      <Text {...args} weight="medium">
+        The quick brown fox jumps over the lazy dog.
+      </Text>
+      <Text {...args} weight="semi-bold">
+        The quick brown fox jumps over the lazy dog.
+      </Text>
+      <Text {...args} weight="bold">
         The quick brown fox jumps over the lazy dog.
       </Text>
     </Flex>
