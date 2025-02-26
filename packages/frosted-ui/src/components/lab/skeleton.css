@@ -113,6 +113,11 @@
 
 @breakpoints {
   .fui-SkeletonText {
+    &:where(.fui-r-size-0) {
+      --skeleton-text-size: var(--font-size-0);
+      --skeleton-text-line-height: var(--line-height-0);
+      --skeleton-text-border-radius: var(--radius-1);
+    }
     &:where(.fui-r-size-1) {
       --skeleton-text-size: var(--font-size-1);
       --skeleton-text-line-height: var(--line-height-1);

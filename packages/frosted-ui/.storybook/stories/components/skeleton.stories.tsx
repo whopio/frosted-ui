@@ -123,6 +123,7 @@ export const TextSizes: Story = {
   },
   render: ({ children, ...args }) => (
     <Flex direction="column" gap="3">
+      <Skeleton.Text {...args} size="0" style={{ width: 400 }} />
       <Skeleton.Text {...args} size="1" style={{ width: 400 }} />
       <Skeleton.Text {...args} size="2" style={{ width: 400 }} />
       <Skeleton.Text {...args} size="3" style={{ width: 400 }} />
