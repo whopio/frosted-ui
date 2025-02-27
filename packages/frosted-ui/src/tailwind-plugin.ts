@@ -178,6 +178,7 @@ export const frostedThemePlugin = plugin.withOptions(
             DEFAULT: 'var(--color-surface)',
             accent: 'var(--color-surface-accent)',
           },
+          stroke: 'var(--color-stroke)',
           overlay: 'var(--color-overlay)',
           panel: {
             solid: 'var(--color-panel-solid)',
