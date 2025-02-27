@@ -256,8 +256,8 @@ export const ScrollableContent: Story = {
             style={{
               flex: 1,
               overflowY: 'auto',
-              borderTop: '1px solid vaR(--gray-a4)',
-              borderBottom: '1px solid vaR(--gray-a4)',
+              borderTop: '1px solid var(--gray-a4)',
+              borderBottom: '1px solid var(--gray-a4)',
             }}
           >
             <Text as="p" size="2" mb="4">
