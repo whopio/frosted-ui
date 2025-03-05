@@ -19,7 +19,7 @@ import { getInitials } from '../helpers/get-initials';
 
 type AvatarOwnProps = GetPropDefTypes<typeof avatarPropDefs>;
 interface AvatarProps
-  extends Omit<PropsWithoutRefOrColor<typeof AvatarPrimitive.Image>, 'color'>,
+  extends PropsWithoutRefOrColor<typeof AvatarPrimitive.Image>,
     MarginProps,
     AvatarOwnProps {
   // TODO: See if we can automate making prop defs with `required: true` non nullable

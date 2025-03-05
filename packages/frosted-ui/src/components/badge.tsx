@@ -15,7 +15,7 @@ import type {
 
 type BadgeOwnProps = GetPropDefTypes<typeof badgePropDefs>;
 interface BadgeProps
-  extends Omit<PropsWithoutRefOrColor<'span'>, 'color'>,
+  extends PropsWithoutRefOrColor<'span'>,
     MarginProps,
     BadgeOwnProps {}
 
