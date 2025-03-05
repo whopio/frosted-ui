@@ -6,11 +6,11 @@ import * as React from 'react';
 import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
 import { switchPropDefs } from './switch.props';
 
-import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
+import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
 
 type SwitchOwnProps = GetPropDefTypes<typeof switchPropDefs>;
 interface SwitchProps
-  extends Omit<PropsWithoutRefOrColor<typeof SwitchPrimitive.Root>, 'children'>,
+  extends Omit<PropsWithoutColor<typeof SwitchPrimitive.Root>, 'children'>,
     MarginProps,
     SwitchOwnProps {}
 

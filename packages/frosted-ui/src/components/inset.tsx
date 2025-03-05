@@ -6,7 +6,7 @@ import { insetPropDefs } from './inset.props';
 import type { GetPropDefTypes, MarginProps } from '../helpers';
 
 type InsetOwnProps = GetPropDefTypes<typeof insetPropDefs>;
-interface InsetProps extends React.ComponentPropsWithoutRef<'div'>, MarginProps, InsetOwnProps {}
+interface InsetProps extends React.ComponentProps<'div'>, MarginProps, InsetOwnProps {}
 
 const Inset = (props: InsetProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);

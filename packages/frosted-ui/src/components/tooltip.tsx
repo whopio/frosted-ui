@@ -11,8 +11,8 @@ import type { GetPropDefTypes } from '../helpers';
 
 type TooltipOwnProps = GetPropDefTypes<typeof tooltipPropDefs>;
 interface TooltipProps
-  extends React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Root>,
-    Omit<React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>, 'content'>,
+  extends React.ComponentProps<typeof TooltipPrimitive.Root>,
+    Omit<React.ComponentProps<typeof TooltipPrimitive.Content>, 'content'>,
     TooltipOwnProps {
   // TODO: See if we can automate making prop defs with `required: true` non nullable
   content: NonNullable<TooltipOwnProps['content']>;

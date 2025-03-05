@@ -4,18 +4,18 @@ import * as React from 'react';
 import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
 import { headingPropDefs } from './heading.props';
 
-import type { GetPropDefTypes, MarginProps, NiceIntersection, PropsWithoutRefOrColor } from '../helpers';
+import type { GetPropDefTypes, MarginProps, NiceIntersection, PropsWithoutColor } from '../helpers';
 
 type HeadingOwnProps = GetPropDefTypes<typeof headingPropDefs>;
 type CommonHeadingProps = NiceIntersection<MarginProps, HeadingOwnProps>;
 type HeadingAsChildProps = {
   asChild?: boolean;
   as?: never;
-} & PropsWithoutRefOrColor<'h1'>;
+} & PropsWithoutColor<'h1'>;
 type HeadingAsProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   asChild?: never;
-} & PropsWithoutRefOrColor<'h1'>;
+} & PropsWithoutColor<'h1'>;
 type HeadingProps = CommonHeadingProps & (HeadingAsChildProps | HeadingAsProps);
 
 const Heading = (props: HeadingProps) => {

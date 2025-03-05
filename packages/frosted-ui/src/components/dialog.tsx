@@ -11,11 +11,11 @@ import { Text } from './text';
 
 import type { ExtractPropsForTag, GetPropDefTypes } from '../helpers';
 
-interface DialogRootProps extends Omit<React.ComponentPropsWithoutRef<typeof DialogPrimitive.Root>, 'modal'> {}
+interface DialogRootProps extends Omit<React.ComponentProps<typeof DialogPrimitive.Root>, 'modal'> {}
 const DialogRoot: React.FC<DialogRootProps> = (props) => <DialogPrimitive.Root {...props} modal />;
 DialogRoot.displayName = 'DialogRoot';
 
-interface DialogTriggerProps extends Omit<React.ComponentPropsWithoutRef<typeof DialogPrimitive.Trigger>, 'asChild'> {}
+interface DialogTriggerProps extends Omit<React.ComponentProps<typeof DialogPrimitive.Trigger>, 'asChild'> {}
 const DialogTrigger = (props: DialogTriggerProps) => <DialogPrimitive.Trigger {...props} asChild />;
 DialogTrigger.displayName = 'DialogTrigger';
 
@@ -27,7 +27,7 @@ const DialogContentContext = React.createContext<DialogContentContextValue>({
 });
 
 interface DialogContentProps
-  extends Omit<React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>, 'asChild'>,
+  extends Omit<React.ComponentProps<typeof DialogPrimitive.Content>, 'asChild'>,
     DialogContentOwnProps {
   container?: React.ComponentProps<typeof DialogPrimitive.Portal>['container'];
 }
@@ -59,7 +59,7 @@ const DialogContent = (props: DialogContentProps) => {
 };
 DialogContent.displayName = 'DialogContent';
 
-type DialogTitleProps = React.ComponentPropsWithoutRef<typeof Heading>;
+type DialogTitleProps = React.ComponentProps<typeof Heading>;
 const DialogTitle = ({ size: sizeProp, mb: mbProp, ...props }: DialogTitleProps) => {
   const { size: contextSize } = React.useContext(DialogContentContext);
   let size: DialogTitleProps['size'];
@@ -131,7 +131,7 @@ const DialogDescription = ({ size: sizeProp, mb: mbProp, ...props }: DialogDescr
 };
 DialogDescription.displayName = 'DialogDescription';
 
-interface DialogCloseProps extends Omit<React.ComponentPropsWithoutRef<typeof DialogPrimitive.Close>, 'asChild'> {}
+interface DialogCloseProps extends Omit<React.ComponentProps<typeof DialogPrimitive.Close>, 'asChild'> {}
 const DialogClose = (props: DialogCloseProps) => <DialogPrimitive.Close {...props} asChild />;
 DialogClose.displayName = 'DialogClose';
 

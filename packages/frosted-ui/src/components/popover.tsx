@@ -9,19 +9,18 @@ import { popoverContentPropDefs } from './popover.props';
 
 import type { GetPropDefTypes } from '../helpers';
 
-interface PopoverRootProps extends React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Root> {}
+interface PopoverRootProps extends React.ComponentProps<typeof PopoverPrimitive.Root> {}
 const PopoverRoot: React.FC<PopoverRootProps> = (props: PopoverRootProps) => <PopoverPrimitive.Root {...props} />;
 PopoverRoot.displayName = 'PopoverRoot';
 
-interface PopoverTriggerProps
-  extends Omit<React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Trigger>, 'asChild'> {}
+interface PopoverTriggerProps extends Omit<React.ComponentProps<typeof PopoverPrimitive.Trigger>, 'asChild'> {}
 
 const PopoverTrigger = (props: PopoverTriggerProps) => <PopoverPrimitive.Trigger {...props} asChild />;
 PopoverTrigger.displayName = 'PopoverTrigger';
 
 type PopoverContentOwnProps = GetPropDefTypes<typeof popoverContentPropDefs>;
 interface PopoverContentProps
-  extends Omit<React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>, 'asChild'>,
+  extends Omit<React.ComponentProps<typeof PopoverPrimitive.Content>, 'asChild'>,
     PopoverContentOwnProps {
   container?: React.ComponentProps<typeof PopoverPrimitive.Portal>['container'];
 }
@@ -57,7 +56,7 @@ const PopoverContent = (props: PopoverContentProps) => {
 };
 PopoverContent.displayName = 'PopoverContent';
 
-interface PopoverCloseProps extends Omit<React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Close>, 'asChild'> {}
+interface PopoverCloseProps extends Omit<React.ComponentProps<typeof PopoverPrimitive.Close>, 'asChild'> {}
 
 const PopoverClose = (props: PopoverCloseProps) => <PopoverPrimitive.Close {...props} asChild />;
 PopoverClose.displayName = 'PopoverClose';

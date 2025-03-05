@@ -6,13 +6,10 @@ import * as React from 'react';
 import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
 import { filterChipPropDefs } from './filter-chip.props';
 
-import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
+import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
 
 type FilterChipOwnProps = GetPropDefTypes<typeof filterChipPropDefs>;
-interface FilterChipProps
-  extends PropsWithoutRefOrColor<typeof CheckboxPrimitive.Root>,
-    MarginProps,
-    FilterChipOwnProps {
+interface FilterChipProps extends PropsWithoutColor<typeof CheckboxPrimitive.Root>, MarginProps, FilterChipOwnProps {
   children: React.ReactNode;
 }
 

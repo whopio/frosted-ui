@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import * as React from 'react';
 import { BaseButton } from './base-button';
 
-interface ButtonProps extends React.ComponentPropsWithoutRef<typeof BaseButton> {}
+interface ButtonProps extends React.ComponentProps<typeof BaseButton> {}
 
 const Button = (props: ButtonProps) => <BaseButton {...props} className={classNames('fui-Button', props.className)} />;
 

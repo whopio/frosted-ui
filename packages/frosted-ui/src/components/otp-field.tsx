@@ -6,7 +6,7 @@ import * as React from 'react';
 
 // TODO: margin props, color, variant and size support
 
-type OTPFieldRootProps = React.ComponentPropsWithoutRef<typeof OTPInput>;
+type OTPFieldRootProps = React.ComponentProps<typeof OTPInput>;
 
 const OTPFieldRoot = ({ className, ...props }: OTPFieldRootProps) => (
   <OTPInput containerClassName={classNames('fui-OTPFieldRoot', className)} {...props} />
@@ -14,14 +14,14 @@ const OTPFieldRoot = ({ className, ...props }: OTPFieldRootProps) => (
 
 OTPFieldRoot.displayName = 'OTPFieldRoot';
 
-type OTPFieldGroupProps = React.ComponentPropsWithoutRef<'div'>;
+type OTPFieldGroupProps = React.ComponentProps<'div'>;
 
 const OTPFieldGroup = ({ className, ...props }: OTPFieldGroupProps) => (
   <div data-accent-color className={classNames('fui-OTPFieldGroup', className)} {...props} />
 );
 OTPFieldGroup.displayName = 'OTPFieldGroup';
 
-type OTPFieldSlotProps = SlotProps & React.ComponentPropsWithoutRef<'div'>;
+type OTPFieldSlotProps = SlotProps & React.ComponentProps<'div'>;
 
 const OTPFieldSlot = ({ char, hasFakeCaret, isActive, className, ...props }: OTPFieldSlotProps) => {
   return (
@@ -33,7 +33,7 @@ const OTPFieldSlot = ({ char, hasFakeCaret, isActive, className, ...props }: OTP
 };
 OTPFieldSlot.displayName = 'OTPFieldSlot';
 
-type OTPFieldSeparatorProps = React.ComponentPropsWithoutRef<'div'>;
+type OTPFieldSeparatorProps = React.ComponentProps<'div'>;
 
 const OTPFieldSeparator = ({ ...props }: OTPFieldSeparatorProps) => (
   <div role="separator" className="fui-OTPFieldSeparator" {...props}></div>

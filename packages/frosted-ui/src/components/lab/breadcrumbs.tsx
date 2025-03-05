@@ -5,13 +5,13 @@ import { extractMarginProps, withMarginProps } from '../../helpers';
 import { breadcrumbsPropDefs } from './breadcrumbs.props';
 
 import { Button, DropdownMenu, Text } from '../';
-import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../../helpers';
+import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../../helpers';
 import { ChevronRightIcon } from '../../icons';
 
 type BreadcrumbsRootChildrenTypes = React.ReactElement<BreadcrumbsItemProps | BreadcrumbsDropdownProps>;
 
 type BreadcrumbsRootOwnProps = GetPropDefTypes<typeof breadcrumbsPropDefs>;
-interface BreadcrumbsRootProps extends PropsWithoutRefOrColor<'nav'>, MarginProps, BreadcrumbsRootOwnProps {
+interface BreadcrumbsRootProps extends PropsWithoutColor<'nav'>, MarginProps, BreadcrumbsRootOwnProps {
   asChild?: boolean;
 }
 
@@ -71,7 +71,7 @@ const BreadcrumbsRoot = (props: BreadcrumbsRootProps) => {
 };
 BreadcrumbsRoot.displayName = 'BreadcrumbsRoot';
 
-interface BreadcrumbsItemProps extends Omit<React.ComponentPropsWithoutRef<typeof Button>, 'variant' | 'size'> {}
+interface BreadcrumbsItemProps extends Omit<React.ComponentProps<typeof Button>, 'variant' | 'size'> {}
 
 const BreadcrumbsItem = (props: BreadcrumbsItemProps) => (
   <Button {...props} size="1" variant={'ghost'} className={classNames('fui-BreadcrumbsItem', props.className)} />
@@ -80,7 +80,7 @@ const BreadcrumbsItem = (props: BreadcrumbsItemProps) => (
 BreadcrumbsItem.displayName = 'BreadcrumbsItem';
 
 interface BreadcrumbsDropdownProps
-  extends Omit<React.ComponentPropsWithoutRef<typeof DropdownMenu.Content>, 'variant' | 'size'> {}
+  extends Omit<React.ComponentProps<typeof DropdownMenu.Content>, 'variant' | 'size'> {}
 
 const BreadcrumbsDropdown = ({ color, highContrast, ...props }: BreadcrumbsDropdownProps) => (
   <DropdownMenu.Root>
@@ -97,8 +97,7 @@ const BreadcrumbsDropdown = ({ color, highContrast, ...props }: BreadcrumbsDropd
 
 BreadcrumbsDropdown.displayName = 'BreadcrumbsDropdown';
 
-interface BreadcrumbsDropdownItemProps
-  extends Omit<React.ComponentPropsWithoutRef<typeof DropdownMenu.Item>, 'color'> {}
+interface BreadcrumbsDropdownItemProps extends Omit<React.ComponentProps<typeof DropdownMenu.Item>, 'color'> {}
 
 const BreadcrumbsDropdownItem = (props: BreadcrumbsDropdownItemProps) => <DropdownMenu.Item {...props} />;
 

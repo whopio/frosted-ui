@@ -4,10 +4,10 @@ import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers
 import { Flex } from './flex';
 import { spinnerPropDefs } from './spinner.props';
 
-import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers/index';
+import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers/index';
 
 type SpinnerOwnProps = GetPropDefTypes<typeof spinnerPropDefs>;
-interface SpinnerProps extends PropsWithoutRefOrColor<'span'>, MarginProps, SpinnerOwnProps {}
+interface SpinnerProps extends PropsWithoutColor<'span'>, MarginProps, SpinnerOwnProps {}
 
 const Spinner = (props: SpinnerProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
