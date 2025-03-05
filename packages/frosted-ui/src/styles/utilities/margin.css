@@ -8,10 +8,8 @@
     --margin-right: 0px;
     --margin-bottom: 0px;
     --margin-left: 0px;
-    margin: var(--margin-top-override, var(--margin-top))
-      var(--margin-right-override, var(--margin-right))
-      var(--margin-bottom-override, var(--margin-bottom))
-      var(--margin-left-override, var(--margin-left));
+    margin: var(--margin-top-override, var(--margin-top)) var(--margin-right-override, var(--margin-right))
+      var(--margin-bottom-override, var(--margin-bottom)) var(--margin-left-override, var(--margin-left));
   }
 
   .fui-r-m-1 {
@@ -19,10 +17,8 @@
     --margin-right: var(--space-1);
     --margin-bottom: var(--space-1);
     --margin-left: var(--space-1);
-    margin: var(--margin-top-override, var(--margin-top))
-      var(--margin-right-override, var(--margin-right))
-      var(--margin-bottom-override, var(--margin-bottom))
-      var(--margin-left-override, var(--margin-left));
+    margin: var(--margin-top-override, var(--margin-top)) var(--margin-right-override, var(--margin-right))
+      var(--margin-bottom-override, var(--margin-bottom)) var(--margin-left-override, var(--margin-left));
   }
 
   .fui-r-m-2 {
@@ -30,10 +26,8 @@
     --margin-right: var(--space-2);
     --margin-bottom: var(--space-2);
     --margin-left: var(--space-2);
-    margin: var(--margin-top-override, var(--margin-top))
-      var(--margin-right-override, var(--margin-right))
-      var(--margin-bottom-override, var(--margin-bottom))
-      var(--margin-left-override, var(--margin-left));
+    margin: var(--margin-top-override, var(--margin-top)) var(--margin-right-override, var(--margin-right))
+      var(--margin-bottom-override, var(--margin-bottom)) var(--margin-left-override, var(--margin-left));
   }
 
   .fui-r-m-3 {
@@ -41,10 +35,8 @@
     --margin-right: var(--space-3);
     --margin-bottom: var(--space-3);
     --margin-left: var(--space-3);
-    margin: var(--margin-top-override, var(--margin-top))
-      var(--margin-right-override, var(--margin-right))
-      var(--margin-bottom-override, var(--margin-bottom))
-      var(--margin-left-override, var(--margin-left));
+    margin: var(--margin-top-override, var(--margin-top)) var(--margin-right-override, var(--margin-right))
+      var(--margin-bottom-override, var(--margin-bottom)) var(--margin-left-override, var(--margin-left));
   }
 
   .fui-r-m-4 {
@@ -52,10 +44,8 @@
     --margin-right: var(--space-4);
     --margin-bottom: var(--space-4);
     --margin-left: var(--space-4);
-    margin: var(--margin-top-override, var(--margin-top))
-      var(--margin-right-override, var(--margin-right))
-      var(--margin-bottom-override, var(--margin-bottom))
-      var(--margin-left-override, var(--margin-left));
+    margin: var(--margin-top-override, var(--margin-top)) var(--margin-right-override, var(--margin-right))
+      var(--margin-bottom-override, var(--margin-bottom)) var(--margin-left-override, var(--margin-left));
   }
 
   .fui-r-m-5 {
@@ -63,10 +53,8 @@
     --margin-right: var(--space-5);
     --margin-bottom: var(--space-5);
     --margin-left: var(--space-5);
-    margin: var(--margin-top-override, var(--margin-top))
-      var(--margin-right-override, var(--margin-right))
-      var(--margin-bottom-override, var(--margin-bottom))
-      var(--margin-left-override, var(--margin-left));
+    margin: var(--margin-top-override, var(--margin-top)) var(--margin-right-override, var(--margin-right))
+      var(--margin-bottom-override, var(--margin-bottom)) var(--margin-left-override, var(--margin-left));
   }
 
   .fui-r-m-6 {
@@ -74,10 +62,8 @@
     --margin-right: var(--space-6);
     --margin-bottom: var(--space-6);
     --margin-left: var(--space-6);
-    margin: var(--margin-top-override, var(--margin-top))
-      var(--margin-right-override, var(--margin-right))
-      var(--margin-bottom-override, var(--margin-bottom))
-      var(--margin-left-override, var(--margin-left));
+    margin: var(--margin-top-override, var(--margin-top)) var(--margin-right-override, var(--margin-right))
+      var(--margin-bottom-override, var(--margin-bottom)) var(--margin-left-override, var(--margin-left));
   }
 
   .fui-r-m-7 {
@@ -85,10 +71,8 @@
     --margin-right: var(--space-7);
     --margin-bottom: var(--space-7);
     --margin-left: var(--space-7);
-    margin: var(--margin-top-override, var(--margin-top))
-      var(--margin-right-override, var(--margin-right))
-      var(--margin-bottom-override, var(--margin-bottom))
-      var(--margin-left-override, var(--margin-left));
+    margin: var(--margin-top-override, var(--margin-top)) var(--margin-right-override, var(--margin-right))
+      var(--margin-bottom-override, var(--margin-bottom)) var(--margin-left-override, var(--margin-left));
   }
 
   .fui-r-m-8 {
@@ -96,10 +80,8 @@
     --margin-right: var(--space-8);
     --margin-bottom: var(--space-8);
     --margin-left: var(--space-8);
-    margin: var(--margin-top-override, var(--margin-top))
-      var(--margin-right-override, var(--margin-right))
-      var(--margin-bottom-override, var(--margin-bottom))
-      var(--margin-left-override, var(--margin-left));
+    margin: var(--margin-top-override, var(--margin-top)) var(--margin-right-override, var(--margin-right))
+      var(--margin-bottom-override, var(--margin-bottom)) var(--margin-left-override, var(--margin-left));
   }
 
   .fui-r-m-9 {
@@ -107,10 +89,8 @@
     --margin-right: var(--space-9);
     --margin-bottom: var(--space-9);
     --margin-left: var(--space-9);
-    margin: var(--margin-top-override, var(--margin-top))
-      var(--margin-right-override, var(--margin-right))
-      var(--margin-bottom-override, var(--margin-bottom))
-      var(--margin-left-override, var(--margin-left));
+    margin: var(--margin-top-override, var(--margin-top)) var(--margin-right-override, var(--margin-right))
+      var(--margin-bottom-override, var(--margin-bottom)) var(--margin-left-override, var(--margin-left));
   }
 
   .-fui-r-m-1 {
@@ -118,10 +98,8 @@
     --margin-right: calc(-1 * var(--space-1));
     --margin-bottom: calc(-1 * var(--space-1));
     --margin-left: calc(-1 * var(--space-1));
-    margin: var(--margin-top-override, var(--margin-top))
-      var(--margin-right-override, var(--margin-right))
-      var(--margin-bottom-override, var(--margin-bottom))
-      var(--margin-left-override, var(--margin-left));
+    margin: var(--margin-top-override, var(--margin-top)) var(--margin-right-override, var(--margin-right))
+      var(--margin-bottom-override, var(--margin-bottom)) var(--margin-left-override, var(--margin-left));
   }
 
   .-fui-r-m-2 {
@@ -129,10 +107,8 @@
     --margin-right: calc(-1 * var(--space-2));
     --margin-bottom: calc(-1 * var(--space-2));
     --margin-left: calc(-1 * var(--space-2));
-    margin: var(--margin-top-override, var(--margin-top))
-      var(--margin-right-override, var(--margin-right))
-      var(--margin-bottom-override, var(--margin-bottom))
-      var(--margin-left-override, var(--margin-left));
+    margin: var(--margin-top-override, var(--margin-top)) var(--margin-right-override, var(--margin-right))
+      var(--margin-bottom-override, var(--margin-bottom)) var(--margin-left-override, var(--margin-left));
   }
 
   .-fui-r-m-3 {
@@ -140,10 +116,8 @@
     --margin-right: calc(-1 * var(--space-3));
     --margin-bottom: calc(-1 * var(--space-3));
     --margin-left: calc(-1 * var(--space-3));
-    margin: var(--margin-top-override, var(--margin-top))
-      var(--margin-right-override, var(--margin-right))
-      var(--margin-bottom-override, var(--margin-bottom))
-      var(--margin-left-override, var(--margin-left));
+    margin: var(--margin-top-override, var(--margin-top)) var(--margin-right-override, var(--margin-right))
+      var(--margin-bottom-override, var(--margin-bottom)) var(--margin-left-override, var(--margin-left));
   }
 
   .-fui-r-m-4 {
@@ -151,10 +125,8 @@
     --margin-right: calc(-1 * var(--space-4));
     --margin-bottom: calc(-1 * var(--space-4));
     --margin-left: calc(-1 * var(--space-4));
-    margin: var(--margin-top-override, var(--margin-top))
-      var(--margin-right-override, var(--margin-right))
-      var(--margin-bottom-override, var(--margin-bottom))
-      var(--margin-left-override, var(--margin-left));
+    margin: var(--margin-top-override, var(--margin-top)) var(--margin-right-override, var(--margin-right))
+      var(--margin-bottom-override, var(--margin-bottom)) var(--margin-left-override, var(--margin-left));
   }
 
   .-fui-r-m-5 {
@@ -162,10 +134,8 @@
     --margin-right: calc(-1 * var(--space-5));
     --margin-bottom: calc(-1 * var(--space-5));
     --margin-left: calc(-1 * var(--space-5));
-    margin: var(--margin-top-override, var(--margin-top))
-      var(--margin-right-override, var(--margin-right))
-      var(--margin-bottom-override, var(--margin-bottom))
-      var(--margin-left-override, var(--margin-left));
+    margin: var(--margin-top-override, var(--margin-top)) var(--margin-right-override, var(--margin-right))
+      var(--margin-bottom-override, var(--margin-bottom)) var(--margin-left-override, var(--margin-left));
   }
 
   .-fui-r-m-6 {
@@ -173,10 +143,8 @@
     --margin-right: calc(-1 * var(--space-6));
     --margin-bottom: calc(-1 * var(--space-6));
     --margin-left: calc(-1 * var(--space-6));
-    margin: var(--margin-top-override, var(--margin-top))
-      var(--margin-right-override, var(--margin-right))
-      var(--margin-bottom-override, var(--margin-bottom))
-      var(--margin-left-override, var(--margin-left));
+    margin: var(--margin-top-override, var(--margin-top)) var(--margin-right-override, var(--margin-right))
+      var(--margin-bottom-override, var(--margin-bottom)) var(--margin-left-override, var(--margin-left));
   }
 
   .-fui-r-m-7 {
@@ -184,10 +152,8 @@
     --margin-right: calc(-1 * var(--space-7));
     --margin-bottom: calc(-1 * var(--space-7));
     --margin-left: calc(-1 * var(--space-7));
-    margin: var(--margin-top-override, var(--margin-top))
-      var(--margin-right-override, var(--margin-right))
-      var(--margin-bottom-override, var(--margin-bottom))
-      var(--margin-left-override, var(--margin-left));
+    margin: var(--margin-top-override, var(--margin-top)) var(--margin-right-override, var(--margin-right))
+      var(--margin-bottom-override, var(--margin-bottom)) var(--margin-left-override, var(--margin-left));
   }
 
   .-fui-r-m-8 {
@@ -195,10 +161,8 @@
     --margin-right: calc(-1 * var(--space-8));
     --margin-bottom: calc(-1 * var(--space-8));
     --margin-left: calc(-1 * var(--space-8));
-    margin: var(--margin-top-override, var(--margin-top))
-      var(--margin-right-override, var(--margin-right))
-      var(--margin-bottom-override, var(--margin-bottom))
-      var(--margin-left-override, var(--margin-left));
+    margin: var(--margin-top-override, var(--margin-top)) var(--margin-right-override, var(--margin-right))
+      var(--margin-bottom-override, var(--margin-bottom)) var(--margin-left-override, var(--margin-left));
   }
 
   .-fui-r-m-9 {
@@ -206,10 +170,8 @@
     --margin-right: calc(-1 * var(--space-9));
     --margin-bottom: calc(-1 * var(--space-9));
     --margin-left: calc(-1 * var(--space-9));
-    margin: var(--margin-top-override, var(--margin-top))
-      var(--margin-right-override, var(--margin-right))
-      var(--margin-bottom-override, var(--margin-bottom))
-      var(--margin-left-override, var(--margin-left));
+    margin: var(--margin-top-override, var(--margin-top)) var(--margin-right-override, var(--margin-right))
+      var(--margin-bottom-override, var(--margin-bottom)) var(--margin-left-override, var(--margin-left));
   }
 
   .fui-r-mx-auto {

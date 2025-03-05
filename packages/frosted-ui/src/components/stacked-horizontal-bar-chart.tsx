@@ -12,9 +12,7 @@ type StackedHorizontalBarChartData = {
   color: (typeof colorProp.values)[number]; // Color for the bar
 };
 
-type StackedHorizontalBarChartElement = React.ElementRef<'div'>;
-interface StackedHorizontalBarChartOwnProps
-  extends React.ComponentPropsWithoutRef<'div'> {}
+interface StackedHorizontalBarChartOwnProps extends React.ComponentPropsWithoutRef<'div'> {}
 
 interface StackedHorizontalBarChartProps
   extends React.ComponentPropsWithoutRef<'div'>,
@@ -23,10 +21,7 @@ interface StackedHorizontalBarChartProps
   data: StackedHorizontalBarChartData[];
 }
 
-const StackedHorizontalBarChart = React.forwardRef<
-  StackedHorizontalBarChartElement,
-  StackedHorizontalBarChartProps
->((props, forwardedRef) => {
+const StackedHorizontalBarChart = (props: StackedHorizontalBarChartProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const { className, data, ...rootProps } = marginRest;
 
@@ -35,27 +30,14 @@ const StackedHorizontalBarChart = React.forwardRef<
   return (
     <div
       {...rootProps}
-      ref={forwardedRef}
-      className={classNames(
-        'fui-StackedHorizontalBarChart',
-        className,
-        withMarginProps(marginProps),
-      )}
+      className={classNames('fui-StackedHorizontalBarChart', className, withMarginProps(marginProps))}
     >
       {data.map((dataPoint, i) => {
         // Round to max 2 decimal places
-        const percent = `${
-          Math.round((dataPoint.value / sum) * 100 * 100) / 100
-        }%`;
-        const label =
-          typeof dataPoint.label === 'string'
-            ? dataPoint.label
-            : dataPoint.label(dataPoint.value, percent);
+        const percent = `${Math.round((dataPoint.value / sum) * 100 * 100) / 100}%`;
+        const label = typeof dataPoint.label === 'string' ? dataPoint.label : dataPoint.label(dataPoint.value, percent);
 
-        const ariaLabel =
-          typeof dataPoint.label === 'string'
-            ? `${dataPoint.label} ${percent}`
-            : label;
+        const ariaLabel = typeof dataPoint.label === 'string' ? `${dataPoint.label} ${percent}` : label;
 
         return (
           <Tooltip
@@ -76,7 +58,7 @@ const StackedHorizontalBarChart = React.forwardRef<
       })}
     </div>
   );
-});
+};
 
 StackedHorizontalBarChart.displayName = 'StackedHorizontalBarChart';
 

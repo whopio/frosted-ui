@@ -9,12 +9,7 @@ import { Headers } from 'node-fetch';
 import * as path from 'path';
 import * as prettier from 'prettier';
 import * as tempy from 'tempy';
-import {
-  FILE_PATH_ENTRY,
-  FILE_PATH_MANIFEST,
-  FILE_PATH_TYPES,
-  FOLDER_PATH_ICONS,
-} from './consts';
+import { FILE_PATH_ENTRY, FILE_PATH_MANIFEST, FILE_PATH_TYPES, FOLDER_PATH_ICONS } from './consts';
 import {
   CodedError,
   ERRORS,
@@ -49,7 +44,7 @@ const transformers = {
   injectCurrentColor(svgRaw: string) {
     const $ = cheerio.load(svgRaw, { xmlMode: true });
     $('*').each((i, el) => {
-      Object.keys(el.attribs).forEach(attrKey => {
+      Object.keys(el.attribs).forEach((attrKey) => {
         if (['fill', 'stroke'].includes(attrKey)) {
           const val = $(el).attr(attrKey);
           if (val !== 'none') {
@@ -70,16 +65,12 @@ const transformers = {
   readyForJSX(svgRaw: string) {
     const $ = cheerio.load(svgRaw, { xmlMode: true });
     $('*').each((i, el) => {
-      Object.keys(el.attribs).forEach(attrKey => {
+      Object.keys(el.attribs).forEach((attrKey) => {
         if (attrKey.includes('-') && !attrKey.startsWith('data-')) {
-          $(el)
-            .attr(_.camelCase(attrKey), el.attribs[attrKey])
-            .removeAttr(attrKey);
+          $(el).attr(_.camelCase(attrKey), el.attribs[attrKey]).removeAttr(attrKey);
         }
         if (attrKey === 'class') {
-          $(el)
-            .attr('className', el.attribs[attrKey])
-            .removeAttr(attrKey);
+          $(el).attr('className', el.attribs[attrKey]).removeAttr(attrKey);
         }
       });
     });
@@ -89,7 +80,7 @@ const transformers = {
       .toString()
       .replace(/stroke=['|"]currentColor['|"]/g, 'stroke={color}')
       .replace(/fill=['|"]currentColor['|"]/g, 'fill={color}')
-      .replace('props="..."', '{...props}')
+      .replace('props="..."', '{...props}');
   },
 };
 
@@ -103,12 +94,7 @@ const labelling = {
   sizeFromFrameNodeName(nodeName: string): string {
     // Note: We ensure ordering by assignment-time in the object, and avoid numerical
     // key ordering, by adding a non-numerical to the key.
-    return labelling.addSizePrefix(
-      path
-        .basename(nodeName)
-        .toLowerCase()
-        .trim(),
-    );
+    return labelling.addSizePrefix(path.basename(nodeName).toLowerCase().trim());
   },
   filePathFromIcon(icon: IIcon): string {
     return path.join(icon.type, 'icons', `${icon.svgName}.svg`);
@@ -127,7 +113,7 @@ const currentListOfAddedFiles = [];
 
 export async function prechecks() {
   /* We can't work offline. */
-  isOnline().then(isOn => {
+  isOnline().then((isOn) => {
     if (!isOn) {
       throw new CodedError(
         ERRORS.NETWORK_OFFLINE,
@@ -138,19 +124,11 @@ export async function prechecks() {
   });
 
   /* We don't want to end up deleted work-in-progress. */
-  const [
-    { stdout: trackedFiles },
-    { stdout: untrackedFiles },
-  ] = await Promise.all([
+  const [{ stdout: trackedFiles }, { stdout: untrackedFiles }] = await Promise.all([
     // Checks for uncommitted changes.
     execa('git', ['diff-index', 'HEAD', '--', FOLDER_PATH_ICONS]),
     // Checks for untracked files.
-    execa('git', [
-      'ls-files',
-      '--others',
-      '--exclude-standard',
-      FOLDER_PATH_ICONS,
-    ]),
+    execa('git', ['ls-files', '--others', '--exclude-standard', FOLDER_PATH_ICONS]),
   ]);
   if (trackedFiles.length > 0 || untrackedFiles.length > 0) {
     handleError(
@@ -163,29 +141,12 @@ export async function prechecks() {
     );
     console.error(`
 ${chalk.bold('Git Status')} ${chalk.dim(
-      `(${[
-        '--no-renames',
-        '--untracked-files',
-        '--short',
-        '--',
-        FOLDER_PATH_ICONS,
-      ].join(' ')})`,
+      `(${['--no-renames', '--untracked-files', '--short', '--', FOLDER_PATH_ICONS].join(' ')})`,
     )}
 `);
-    await execa(
-      'git',
-      [
-        'status',
-        '--no-renames',
-        '--untracked-files',
-        '--short',
-        '--',
-        FOLDER_PATH_ICONS,
-      ],
-      {
-        stdio: 'inherit',
-      },
-    );
+    await execa('git', ['status', '--no-renames', '--untracked-files', '--short', '--', FOLDER_PATH_ICONS], {
+      stdio: 'inherit',
+    });
     process.exit(1);
   }
 }
@@ -200,9 +161,7 @@ export function createFigmaConfig(fileKey: string): IFigmaConfig {
   };
 }
 
-export async function getFigmaDocument(
-  config: IFigmaConfig,
-): Promise<IFigmaDocument> {
+export async function getFigmaDocument(config: IFigmaConfig): Promise<IFigmaDocument> {
   const resp = await fetch(`${config.baseUrl}/v1/files/${config.fileKey}`, {
     headers: config.headers,
   });
@@ -216,16 +175,10 @@ export async function getFigmaDocument(
   return data.document;
 }
 
-export async function renderIdsToSvgs(
-  ids: string[],
-  config: IFigmaConfig,
-): Promise<IIconsSvgUrls> {
-  const resp = await fetch(
-    `${config.baseUrl}/v1/images/${config.fileKey}?ids=${ids}&format=svg`,
-    {
-      headers: config.headers,
-    },
-  );
+export async function renderIdsToSvgs(ids: string[], config: IFigmaConfig): Promise<IIconsSvgUrls> {
+  const resp = await fetch(`${config.baseUrl}/v1/images/${config.fileKey}?ids=${ids}&format=svg`, {
+    headers: config.headers,
+  });
 
   // We can't be sure the response, when an error, will have a body that can be streamed to JSON.
   let data: IFigmaFileImageResponse = {
@@ -235,26 +188,19 @@ export async function renderIdsToSvgs(
   if (resp.headers.get('content-type').includes('application/json')) {
     data = (await resp.json()) as IFigmaFileImageResponse;
   }
-  const error =
-    typeof data.err === 'object' ? JSON.stringify(data.err, null, 2) : data.err;
+  const error = typeof data.err === 'object' ? JSON.stringify(data.err, null, 2) : data.err;
 
   if (!resp.ok) {
     switch (resp.status) {
       case 400:
-        throw new CodedError(
-          ERRORS.FIGMA_API,
-          `Unexpected error encountered from Figma API\n${error}`,
-        );
+        throw new CodedError(ERRORS.FIGMA_API, `Unexpected error encountered from Figma API\n${error}`);
       case 404:
         throw new CodedError(
           ERRORS.FIGMA_API,
           "One or more of the icons couldn't be found in Figma. Check to see if they still exist, and try again.",
         );
       case 500:
-        throw new CodedError(
-          ERRORS.FIGMA_API,
-          'Figma could not render the icons. ಠ_ಠ',
-        );
+        throw new CodedError(ERRORS.FIGMA_API, 'Figma could not render the icons. ಠ_ಠ');
       default:
         throw new CodedError(
           ERRORS.UNEXPECTED,
@@ -266,11 +212,7 @@ export async function renderIdsToSvgs(
   if (!data.images || !Object.keys(data.images).length) {
     throw new CodedError(
       ERRORS.UNEXPECTED,
-      `An error occured after rendering icons in Figma. Render response:\n${JSON.stringify(
-        data,
-        null,
-        2,
-      )}`,
+      `An error occured after rendering icons in Figma. Render response:\n${JSON.stringify(data, null, 2)}`,
     );
   }
 
@@ -278,26 +220,21 @@ export async function renderIdsToSvgs(
 }
 
 export function getIconsPage(document: IFigmaDocument): IFigmaCanvas | null {
-  const canvas = document.children.find(
-    page => page.name.toLowerCase() === 'icons',
-  );
+  const canvas = document.children.find((page) => page.name.toLowerCase() === 'icons');
 
   return canvas && canvas.type === 'CANVAS' ? canvas : null;
 }
 
 export function getIcons(iconsCanvas: IFigmaCanvas): IIcons {
   let swag: IIcons = {};
-  iconsCanvas.children.forEach(iconSetNode => {
-    if (
-      (iconSetNode.type === 'FRAME' || iconSetNode.type === 'GROUP') &&
-      iconSetNode.name === 'Icons/Default'
-    ) {
-      iconSetNode.children.forEach(iconNode => {
+  iconsCanvas.children.forEach((iconSetNode) => {
+    if ((iconSetNode.type === 'FRAME' || iconSetNode.type === 'GROUP') && iconSetNode.name === 'Icons/Default') {
+      iconSetNode.children.forEach((iconNode) => {
         // Our individual icons frames may be Figma "Components" 🤙
         if (iconNode.type === 'COMPONENT_SET') {
           // 'Break Link' => 'break-link'
           // 'GitHub Logo' => 'github-logo'
-          iconNode.children.forEach(iconVariant => {
+          iconNode.children.forEach((iconVariant) => {
             render({ fileKey: iconVariant.name + ' 🔥🔥🔥' });
 
             const size = iconVariant.name.replace(/size=/i, '');
@@ -314,11 +251,7 @@ export function getIcons(iconsCanvas: IFigmaCanvas): IIcons {
             // to make sure that lodash preserves existing camel-casing.
             // 'Break Link' => 'BreakLink'
             // 'GitHub Logo' => 'GitHubLogo'
-            const jsxName = _.upperFirst(
-              _.camelCase(
-                iconNameAndSize.replace(/([0-9a-z])([0-9A-Z])/g, '$1 $2'),
-              ),
-            );
+            const jsxName = _.upperFirst(_.camelCase(iconNameAndSize.replace(/([0-9a-z])([0-9A-Z])/g, '$1 $2')));
 
             swag[iconVariant.id] = {
               jsxName,
@@ -335,23 +268,18 @@ export function getIcons(iconsCanvas: IFigmaCanvas): IIcons {
   return swag;
 }
 
-export async function downloadSvgsToFs(
-  urls: IIconsSvgUrls,
-  icons: IIcons,
-  onProgress: () => void,
-) {
+export async function downloadSvgsToFs(urls: IIconsSvgUrls, icons: IIcons, onProgress: () => void) {
   await Promise.all(
-    Object.keys(urls).map(async iconId => {
-      const processedSvg = await (await fetch(urls[iconId]))
+    Object.keys(urls).map(async (iconId) => {
+      const processedSvg = await (
+        await fetch(urls[iconId])
+      )
         .text()
-        .then(async svgRaw => transformers.passSVGO(svgRaw))
-        .then(svgRaw => transformers.injectCurrentColor(svgRaw))
-        .then(svgRaw => transformers.prettify(svgRaw));
+        .then(async (svgRaw) => transformers.passSVGO(svgRaw))
+        .then((svgRaw) => transformers.injectCurrentColor(svgRaw))
+        .then((svgRaw) => transformers.prettify(svgRaw));
 
-      const filePath = path.resolve(
-        currentTempDir,
-        labelling.filePathFromIcon(icons[iconId]),
-      );
+      const filePath = path.resolve(currentTempDir, labelling.filePathFromIcon(icons[iconId]));
       await fs.outputFile(filePath, processedSvg, { encoding: 'utf8' });
       currentListOfAddedFiles.push(filePath);
       onProgress();
@@ -370,9 +298,7 @@ export function iconsToManifest(icons: IIcons): IIconManifest {
       iconManifest[icon.type][icon.size] = {};
     }
     if (!iconManifest[icon.type][icon.size][icon.svgName]) {
-      iconManifest[icon.type][icon.size][
-        icon.svgName
-      ] = labelling.filePathFromIcon(icon);
+      iconManifest[icon.type][icon.size][icon.svgName] = labelling.filePathFromIcon(icon);
     }
 
     return iconManifest;
@@ -380,9 +306,7 @@ export function iconsToManifest(icons: IIcons): IIconManifest {
 }
 
 export function iconsToSvgPaths(icons: IIcons) {
-  return Object.keys(icons).map(iconId =>
-    labelling.filePathFromIcon(icons[iconId]),
-  );
+  return Object.keys(icons).map((iconId) => labelling.filePathFromIcon(icons[iconId]));
 }
 
 export function filePathToSVGinJSXSync(filePath: string) {
@@ -392,7 +316,7 @@ export function filePathToSVGinJSXSync(filePath: string) {
 }
 
 export async function generateReactComponents(icons: IIcons) {
-  const getTemplateSource = templateFile =>
+  const getTemplateSource = (templateFile) =>
     fs.readFile(path.resolve(__dirname, './templates/', templateFile), {
       encoding: 'utf8',
     });
@@ -404,27 +328,22 @@ export async function generateReactComponents(icons: IIcons) {
   const firstIcon = Object.values(icons)[0];
   console.log(firstIcon.svgName);
   const iconsWithVariants = Object.values<ITemplateIcon>(
-    Object.keys(icons).reduce(
-      (iconsWithVariants: { [name: string]: ITemplateIcon }, iconId) => {
-        const icon = iconsWithVariants[icons[iconId].svgName] || {
-          ids: [],
-          sizes: [],
-          types: [],
-          svgName: icons[iconId].svgName,
-          jsxName: icons[iconId].jsxName,
-        };
-        icon.ids = _.uniq(icon.ids.concat(icons[iconId].id));
-        icon.sizes = _.uniq(
-          icon.sizes.concat(labelling.stripSizePrefix(icons[iconId].size)),
-        );
-        icon.types = _.uniq(icon.types.concat(icons[iconId].type));
+    Object.keys(icons).reduce((iconsWithVariants: { [name: string]: ITemplateIcon }, iconId) => {
+      const icon = iconsWithVariants[icons[iconId].svgName] || {
+        ids: [],
+        sizes: [],
+        types: [],
+        svgName: icons[iconId].svgName,
+        jsxName: icons[iconId].jsxName,
+      };
+      icon.ids = _.uniq(icon.ids.concat(icons[iconId].id));
+      icon.sizes = _.uniq(icon.sizes.concat(labelling.stripSizePrefix(icons[iconId].size)));
+      icon.types = _.uniq(icon.types.concat(icons[iconId].type));
 
-        iconsWithVariants[icons[iconId].svgName] = icon;
+      iconsWithVariants[icons[iconId].svgName] = icon;
 
-        return iconsWithVariants;
-      },
-      {},
-    ),
+      return iconsWithVariants;
+    }, {}),
   );
 
   const templateHelpers = {
@@ -454,11 +373,9 @@ export async function generateReactComponents(icons: IIcons) {
       return filePathToSVGinJSXSync(filePath);
     },
     iconHasSizeAndType(icon: ITemplateIcon, size: string, type: string) {
-      return icon.ids.some(iconId => {
+      return icon.ids.some((iconId) => {
         const prefixedSize = labelling.addSizePrefix(size);
-        return (
-          icons[iconId].size === prefixedSize && icons[iconId].type === type
-        );
+        return icons[iconId].size === prefixedSize && icons[iconId].type === type;
       });
     },
     stripExtension(fileName) {
@@ -478,11 +395,7 @@ export async function generateReactComponents(icons: IIcons) {
       ...prettierOptions,
       parser: 'typescript',
     });
-    const iconComponentFilePath = path.resolve(
-      currentTempDir,
-      'src/',
-      templateHelpers.iconToReactFileName(icon),
-    );
+    const iconComponentFilePath = path.resolve(currentTempDir, 'src/', templateHelpers.iconToReactFileName(icon));
     await fs.outputFile(iconComponentFilePath, iconSource);
     currentListOfAddedFiles.push(iconComponentFilePath);
   }
@@ -507,18 +420,9 @@ export async function generateReactComponents(icons: IIcons) {
 }
 
 export async function getCurrentIconManifest(): Promise<IIconManifest> {
-  const { stdout: gitRootDir } = await execa('git', [
-    'rev-parse',
-    '--show-toplevel',
-  ]);
-  const gitRelativePathToManifest = path.relative(
-    gitRootDir,
-    path.resolve(process.cwd(), FILE_PATH_MANIFEST),
-  );
-  const { stdout: currentManifest } = await execa('git', [
-    'show',
-    `HEAD:${gitRelativePathToManifest}`,
-  ]);
+  const { stdout: gitRootDir } = await execa('git', ['rev-parse', '--show-toplevel']);
+  const gitRelativePathToManifest = path.relative(gitRootDir, path.resolve(process.cwd(), FILE_PATH_MANIFEST));
+  const { stdout: currentManifest } = await execa('git', ['show', `HEAD:${gitRelativePathToManifest}`]);
   return JSON.parse(currentManifest);
 }
 
@@ -550,13 +454,8 @@ export async function swapGeneratedFiles(
   //  2. The top-level dirs needed for new SVGs
   pushObjLeafNodesToArr(nextIconManifest, generatedFilePaths);
   //  3. The top-level dirs for generated source
-  generatedFilePaths = generatedFilePaths.concat([
-    FILE_PATH_ENTRY,
-    FILE_PATH_TYPES,
-  ]);
-  const topLevelDirs: string[] = _.uniq(
-    generatedFilePaths.map(filePath => filePath.replace(/^([\w-]+).*/, '$1')),
-  );
+  generatedFilePaths = generatedFilePaths.concat([FILE_PATH_ENTRY, FILE_PATH_TYPES]);
+  const topLevelDirs: string[] = _.uniq(generatedFilePaths.map((filePath) => filePath.replace(/^([\w-]+).*/, '$1')));
   for (const i in topLevelDirs) {
     const topLevelDir = topLevelDirs[i];
     await fs.remove(path.resolve(process.cwd(), topLevelDir));
@@ -571,47 +470,23 @@ export async function swapGeneratedFiles(
 }
 
 export async function getGitCustomDiff(touchedPaths): Promise<IDiffSummary[]> {
-  const { stdout: gitRootDir } = await execa('git', [
-    'rev-parse',
-    '--show-toplevel',
-  ]);
+  const { stdout: gitRootDir } = await execa('git', ['rev-parse', '--show-toplevel']);
   /* Stage all changes to tracked files. */
   /* Stage the "intent" to add for all untracked files. */
-  await execa('git', [
-    'add',
-    '-f',
-    '--ignore-removal',
-    '--intent-to-add',
-    '--',
-    ...touchedPaths,
-  ]);
+  await execa('git', ['add', '-f', '--ignore-removal', '--intent-to-add', '--', ...touchedPaths]);
   /* Grab the lines changed per file, as well as the kind of change (D, M, A) */
   const [{ stdout: numstatRaw }, { stdout: nameStatRaw }] = await Promise.all([
-    execa('git', [
-      'diff',
-      '--numstat',
-      '--no-renames',
-      '--',
-      FOLDER_PATH_ICONS,
-    ]),
-    execa('git', [
-      'diff',
-      '--name-status',
-      '--no-renames',
-      '--',
-      FOLDER_PATH_ICONS,
-    ]),
+    execa('git', ['diff', '--numstat', '--no-renames', '--', FOLDER_PATH_ICONS]),
+    execa('git', ['diff', '--name-status', '--no-renames', '--', FOLDER_PATH_ICONS]),
   ]);
 
   /* Transform the raw stdout to renderable data. */
-  const nameStat = nameStatRaw.split('\n').map(line => line[0]);
+  const nameStat = nameStatRaw.split('\n').map((line) => line[0]);
   const diffSummaries: IDiffSummary[] = numstatRaw
     .split('\n')
-    .map(line => line.split('\t'))
+    .map((line) => line.split('\t'))
     .map(([additions, deletions, filePath], i) => {
-      const filePathFromCwd = filePath
-        .replace(path.relative(gitRootDir, process.cwd()), '')
-        .replace(/^\//, '');
+      const filePathFromCwd = filePath.replace(path.relative(gitRootDir, process.cwd()), '').replace(/^\//, '');
 
       return {
         status: nameStat[i] || 'M',

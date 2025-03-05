@@ -76,16 +76,8 @@ const DashboardCard = () => {
             <div className="flex justify-center gap-1 px-2 py-1 rounded-3 border border-gray-a3">
               <NotionLogoIcon width="20" height="20" className="text-blue-9" />
               <DiscordLogoIcon width="20" height="20" className="text-lime-9" />
-              <LinkedInLogoIcon
-                width="20"
-                height="20"
-                className="text-yellow-9"
-              />
-              <GitHubLogoIcon
-                width="20"
-                height="20"
-                className="text-tomato-9"
-              />
+              <LinkedInLogoIcon width="20" height="20" className="text-yellow-9" />
+              <GitHubLogoIcon width="20" height="20" className="text-tomato-9" />
             </div>
           </Flex>
         </Flex>
@@ -202,17 +194,10 @@ export default function Dashboard() {
       <body>
         {/* <NextThemeProvider> */}
         <Theme asChild appearance="dark" grayColor="gray" accentColor="blue">
-          <div
-            id="root"
-            className="w-full h-[100vh] bg-gray-1 flex flex-no-wrap p-2"
-          >
+          <div id="root" className="w-full h-[100vh] bg-gray-1 flex flex-no-wrap p-2">
             <ThemePanel />
             <aside className="h-full w-[300px] py-2 px-4">
-              <Flex
-                direction="column"
-                justify="between"
-                style={{ height: '100%' }}
-              >
+              <Flex direction="column" justify="between" style={{ height: '100%' }}>
                 <div>
                   <Flex px="2" py="4">
                     <Popover.Root>
@@ -237,11 +222,7 @@ export default function Dashboard() {
                             fallback="A"
                           />
                           <Box grow="1">
-                            <TextArea
-                              size="2"
-                              placeholder="Write a comment…"
-                              style={{ height: 80 }}
-                            />
+                            <TextArea size="2" placeholder="Write a comment…" style={{ height: 80 }} />
 
                             <Flex gap="3" mt="3" justify="between">
                               <Flex align="center" gap="2" asChild>
@@ -317,11 +298,7 @@ export default function Dashboard() {
                   <DropdownMenu.Root>
                     <DropdownMenu.Trigger>
                       <IconButton variant="surface" size="3">
-                        <GearIcon
-                          width="20"
-                          height="20"
-                          color="var(--gray-10)"
-                        />
+                        <GearIcon width="20" height="20" color="var(--gray-10)" />
                       </IconButton>
                     </DropdownMenu.Trigger>
                     <DropdownMenu.Content align="end" size="2">
@@ -333,9 +310,7 @@ export default function Dashboard() {
                       <DropdownMenu.Item>Air Cover</DropdownMenu.Item>
                       <DropdownMenu.Item>Cancellations</DropdownMenu.Item>
                       <DropdownMenu.Sub>
-                        <DropdownMenu.SubTrigger>
-                          Hosting
-                        </DropdownMenu.SubTrigger>
+                        <DropdownMenu.SubTrigger>Hosting</DropdownMenu.SubTrigger>
 
                         <DropdownMenu.SubContent>
                           <DropdownMenu.Item>Resources</DropdownMenu.Item>
@@ -356,13 +331,7 @@ export default function Dashboard() {
             </aside>
             <main className="h-full flex-1 rounded-5 border border-solid border-gray-a4 dark:bg-[rgba(255,255,255,0.01)]">
               <Box pl="7" pr="6">
-                <Flex
-                  pt="4"
-                  pb="4"
-                  direction="row"
-                  align="center"
-                  justify="between"
-                >
+                <Flex pt="4" pb="4" direction="row" align="center" justify="between">
                   <Box>
                     <Breadcrumbs.Root>
                       <Breadcrumbs.Item>PRODUCTS</Breadcrumbs.Item>
@@ -452,12 +421,7 @@ export default function Dashboard() {
                   </Flex>
                 </Flex>
                 <Flex mt="6">
-                  <Button
-                    variant="soft"
-                    color="gray"
-                    style={{ width: '100%' }}
-                    size="4"
-                  >
+                  <Button variant="soft" color="gray" style={{ width: '100%' }} size="4">
                     Load more
                   </Button>
                 </Flex>

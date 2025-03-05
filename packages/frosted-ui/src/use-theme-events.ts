@@ -4,9 +4,7 @@ import React, { FC, useEffect } from 'react';
 import { useThemeContext } from './theme';
 import { ThemeOptions, themePropDefs } from './theme-options';
 
-function validateThemeColor<
-  K extends Exclude<keyof typeof themePropDefs, 'hasBackground'>,
->(
+function validateThemeColor<K extends Exclude<keyof typeof themePropDefs, 'hasBackground'>>(
   key: K,
   value: unknown,
 ): value is (typeof themePropDefs)[K]['values'][number] {
@@ -85,10 +83,7 @@ export function useThemeEvents() {
     document.documentElement.dispatchEvent(event);
 
     return () => {
-      document.documentElement.removeEventListener(
-        'frosted-ui:set-theme',
-        listener,
-      );
+      document.documentElement.removeEventListener('frosted-ui:set-theme', listener);
       const event = new CustomEvent('frosted-ui:unmounted');
       document.documentElement.dispatchEvent(event);
     };
@@ -109,15 +104,7 @@ export function useThemeEvents() {
       },
     });
     document.documentElement.dispatchEvent(event);
-  }, [
-    appearance,
-    accentColor,
-    grayColor,
-    infoColor,
-    successColor,
-    warningColor,
-    dangerColor,
-  ]);
+  }, [appearance, accentColor, grayColor, infoColor, successColor, warningColor, dangerColor]);
 }
 
 export const WithThemeEvents: FC = () => {

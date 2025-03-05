@@ -6,32 +6,20 @@ import * as React from 'react';
 import { extractMarginProps, withMarginProps } from '../helpers';
 import { radioButtonGroupPropDefs } from './radio-button-group.props';
 
-import type {
-  GetPropDefTypes,
-  MarginProps,
-  PropsWithoutRefOrColor,
-} from '../helpers';
+import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
 import { useIsomorphicLayoutEffect } from '../helpers/use-isomorphic-layout-effect';
 
-type RadioButtonGroupOwnProps = GetPropDefTypes<
-  typeof radioButtonGroupPropDefs
->;
+type RadioButtonGroupOwnProps = GetPropDefTypes<typeof radioButtonGroupPropDefs>;
 
 type RadioButtonGroupContextValue = RadioButtonGroupOwnProps;
-const RadioButtonGroupContext =
-  React.createContext<RadioButtonGroupContextValue>({});
+const RadioButtonGroupContext = React.createContext<RadioButtonGroupContextValue>({});
 
-type RadioButtonGroupElement = React.ElementRef<
-  typeof RadioButtonGroupPrimitive.Root
->;
 interface RadioButtonGroupRootProps
   extends PropsWithoutRefOrColor<typeof RadioButtonGroupPrimitive.Root>,
     MarginProps,
     RadioButtonGroupOwnProps {}
-const RadioButtonGroupRoot = React.forwardRef<
-  RadioButtonGroupElement,
-  RadioButtonGroupRootProps
->((props, forwardedRef) => {
+
+const RadioButtonGroupRoot = (props: RadioButtonGroupRootProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     className,
@@ -44,7 +32,6 @@ const RadioButtonGroupRoot = React.forwardRef<
     <RadioButtonGroupPrimitive.Root
       data-accent-color={color}
       {...rootProps}
-      ref={forwardedRef}
       className={classNames(
         'fui-RadioButtonGroupRoot',
         className,
@@ -52,29 +39,19 @@ const RadioButtonGroupRoot = React.forwardRef<
         withMarginProps(marginProps),
       )}
     >
-      <RadioButtonGroupContext.Provider
-        value={React.useMemo(
-          () => ({ color, highContrast }),
-          [color, highContrast],
-        )}
-      >
+      <RadioButtonGroupContext.Provider value={React.useMemo(() => ({ color, highContrast }), [color, highContrast])}>
         {children}
       </RadioButtonGroupContext.Provider>
     </RadioButtonGroupPrimitive.Root>
   );
-});
+};
 RadioButtonGroupRoot.displayName = 'RadioButtonGroupRoot';
 
-type RadioButtonGroupItemElement = React.ElementRef<
-  typeof RadioButtonGroupPrimitive.Item
->;
 interface RadioButtonGroupItemProps
   extends React.ComponentPropsWithoutRef<typeof RadioButtonGroupPrimitive.Item>,
     MarginProps {}
-const RadioButtonGroupItem = React.forwardRef<
-  RadioButtonGroupItemElement,
-  RadioButtonGroupItemProps
->((props, forwardedRef) => {
+
+const RadioButtonGroupItem = (props: RadioButtonGroupItemProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const { children, className, style, ...itemProps } = marginRest;
 
@@ -83,7 +60,6 @@ const RadioButtonGroupItem = React.forwardRef<
     <RadioButtonGroupPrimitive.Item
       style={style}
       {...itemProps}
-      ref={forwardedRef}
       className={classNames(
         'fui-reset',
         'fui-RadioButtonGroupButton',
@@ -96,17 +72,12 @@ const RadioButtonGroupItem = React.forwardRef<
       {updatedChildren}
     </RadioButtonGroupPrimitive.Item>
   );
-});
+};
 RadioButtonGroupItem.displayName = 'RadioButtonGroupItem';
 
-type RadioButtonGroupIconElement = React.ElementRef<'div'>;
-interface RadioButtonGroupIconProps
-  extends MarginProps,
-    Omit<PropsWithoutRefOrColor<'div'>, 'children'> {}
-const RadioButtonGroupIcon = React.forwardRef<
-  RadioButtonGroupIconElement,
-  RadioButtonGroupIconProps
->((props, forwardedRef) => {
+interface RadioButtonGroupIconProps extends MarginProps, Omit<PropsWithoutRefOrColor<'div'>, 'children'> {}
+
+const RadioButtonGroupIcon = (props: RadioButtonGroupIconProps) => {
   const { color, highContrast } = React.useContext(RadioButtonGroupContext);
 
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
@@ -122,15 +93,8 @@ const RadioButtonGroupIcon = React.forwardRef<
       )}
       aria-hidden
       {...itemProps}
-      ref={forwardedRef}
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 20 20"
-        fill="none"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
         <path
           d="M6 10.5L8.5 13L14 7.5"
           stroke="currentColor"
@@ -141,7 +105,7 @@ const RadioButtonGroupIcon = React.forwardRef<
       </svg>
     </div>
   );
-});
+};
 RadioButtonGroupIcon.displayName = 'RadioButtonGroupIcon';
 
 const addOverlayToChildren = (children: React.ReactNode): React.ReactNode => {
@@ -155,9 +119,7 @@ const addOverlayToChildren = (children: React.ReactNode): React.ReactNode => {
     return React.cloneElement(
       child,
       {},
-      React.Children.toArray(child.props.children).concat(
-        <RadioButtonGroupOverlay />,
-      ),
+      React.Children.toArray(child.props.children).concat(<RadioButtonGroupOverlay />),
     );
   }
   return children;
@@ -170,24 +132,14 @@ const RadioButtonGroupOverlay = () => {
     const parentElement = ref.current?.parentElement;
     if (!parentElement) return;
     const parentElementComputedStyles = getComputedStyle(parentElement);
-    ref.current.style.setProperty(
-      '--parent-border-width',
-      parentElementComputedStyles.borderWidth,
-    );
-    ref.current.style.setProperty(
-      '--parent-border-radius',
-      parentElementComputedStyles.borderRadius,
-    );
+    ref.current.style.setProperty('--parent-border-width', parentElementComputedStyles.borderWidth);
+    ref.current.style.setProperty('--parent-border-radius', parentElementComputedStyles.borderRadius);
   }, [ref]);
 
   return <div ref={ref} className="fui-RadioButtonGroupOverlay" aria-hidden />;
 };
 
-export {
-  RadioButtonGroupIcon as Icon,
-  RadioButtonGroupItem as Item,
-  RadioButtonGroupRoot as Root,
-};
+export { RadioButtonGroupIcon as Icon, RadioButtonGroupItem as Item, RadioButtonGroupRoot as Root };
 export type {
   RadioButtonGroupIconProps as IconProps,
   RadioButtonGroupItemProps as ItemProps,

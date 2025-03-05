@@ -17,10 +17,7 @@
   --size-int: tan(atan2(var(--avatar-group-size), 1px));
   /* Avatar size="3" is a basis for --avatar-group-inner-scale */
   --base-size-int: tan(atan2(var(--space-7), 1px));
-  --avatar-group-inner-scale: calc(
-    (var(--size-int) - var(--avatar-group-inner-inset) * 2) /
-      var(--base-size-int)
-  );
+  --avatar-group-inner-scale: calc((var(--size-int) - var(--avatar-group-inner-inset) * 2) / var(--base-size-int));
 
   border-radius: max(25%, var(--radius-full));
 

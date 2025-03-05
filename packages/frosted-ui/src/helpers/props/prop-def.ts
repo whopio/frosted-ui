@@ -24,12 +24,7 @@ type EnumPropDef<T> = {
   required?: boolean;
 };
 
-type RegularPropDef<T> =
-  | BooleanPropDef
-  | StringPropDef
-  | StringOrNumberPropDef
-  | ReactNodePropDef
-  | EnumPropDef<T>;
+type RegularPropDef<T> = BooleanPropDef | StringPropDef | StringOrNumberPropDef | ReactNodePropDef | EnumPropDef<T>;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ResponsivePropDef<T = any> = RegularPropDef<T> & { responsive: true };
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

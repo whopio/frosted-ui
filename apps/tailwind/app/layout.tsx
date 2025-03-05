@@ -7,10 +7,6 @@ export const metadata = {
   description: 'A playground of Frosted UI components',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return children;
 }

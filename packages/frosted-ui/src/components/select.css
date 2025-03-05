@@ -48,12 +48,7 @@
   box-sizing: border-box;
   padding: var(--select-content-padding);
 
-  :where(
-      .fui-SelectContent:has(
-          .fui-ScrollAreaScrollbar[data-orientation='vertical']
-        )
-    )
-    & {
+  :where(.fui-SelectContent:has(.fui-ScrollAreaScrollbar[data-orientation='vertical'])) & {
     padding-right: var(--space-3);
   }
 }
@@ -121,8 +116,7 @@
   &:where(.fui-variant-ghost) {
     box-sizing: content-box;
     height: fit-content;
-    padding: var(--select-trigger-ghost-padding-y)
-      var(--select-trigger-ghost-padding-x);
+    padding: var(--select-trigger-ghost-padding-y) var(--select-trigger-ghost-padding-x);
 
     /* We reset the defined margin variables to avoid inheriting them from a higher component */
     /* If a margin IS defined on the component itself, the utility class will win and reset it */
@@ -132,18 +126,10 @@
     --margin-left: 0px;
 
     /* Define the overrides to incorporate the negative margins */
-    --margin-top-override: calc(
-      var(--margin-top) - var(--select-trigger-ghost-padding-y)
-    );
-    --margin-right-override: calc(
-      var(--margin-right) - var(--select-trigger-ghost-padding-x)
-    );
-    --margin-bottom-override: calc(
-      var(--margin-bottom) - var(--select-trigger-ghost-padding-y)
-    );
-    --margin-left-override: calc(
-      var(--margin-left) - var(--select-trigger-ghost-padding-x)
-    );
+    --margin-top-override: calc(var(--margin-top) - var(--select-trigger-ghost-padding-y));
+    --margin-right-override: calc(var(--margin-right) - var(--select-trigger-ghost-padding-x));
+    --margin-bottom-override: calc(var(--margin-bottom) - var(--select-trigger-ghost-padding-y));
+    --margin-left-override: calc(var(--margin-left) - var(--select-trigger-ghost-padding-x));
 
     /* Reset the overrides on direct children */
     :where(&) > * {
@@ -153,8 +139,8 @@
       --margin-left-override: initial;
     }
 
-    margin: var(--margin-top-override) var(--margin-right-override)
-      var(--margin-bottom-override) var(--margin-left-override);
+    margin: var(--margin-top-override) var(--margin-right-override) var(--margin-bottom-override)
+      var(--margin-left-override);
   }
 }
 
@@ -360,11 +346,7 @@
     background-clip: content-box;
     border-radius: inherit;
     pointer-events: none;
-    background-image: linear-gradient(
-        var(--black-a1) -20%,
-        transparent,
-        var(--white-a1) 130%
-      ),
+    background-image: linear-gradient(var(--black-a1) -20%, transparent, var(--white-a1) 130%),
       linear-gradient(var(--color-surface), transparent);
   }
 
@@ -375,11 +357,7 @@
         var(--select-trigger-classic-box-shadow);
 
       &::before {
-        background-image: linear-gradient(
-            var(--black-a1) -15%,
-            transparent,
-            var(--white-a1) 120%
-          ),
+        background-image: linear-gradient(var(--black-a1) -15%, transparent, var(--white-a1) 120%),
           linear-gradient(var(--gray-2), var(--gray-1));
       }
     }
@@ -390,11 +368,7 @@
       var(--select-trigger-classic-box-shadow);
 
     &::before {
-      background-image: linear-gradient(
-          var(--black-a1) -15%,
-          transparent,
-          var(--white-a1) 120%
-        ),
+      background-image: linear-gradient(var(--black-a1) -15%, transparent, var(--white-a1) 120%),
         linear-gradient(var(--gray-2), var(--gray-1));
     }
   }
@@ -404,11 +378,7 @@
     /* Use disabled button style for the shadow */
     box-shadow: var(--base-button-classic-disabled-box-shadow);
     &::before {
-      background-image: linear-gradient(
-          var(--black-a1) -20%,
-          transparent,
-          var(--white-a1) 130%
-        ),
+      background-image: linear-gradient(var(--black-a1) -20%, transparent, var(--white-a1) 130%),
         linear-gradient(var(--color-surface), transparent);
     }
   }

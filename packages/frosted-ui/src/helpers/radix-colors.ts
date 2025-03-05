@@ -34,21 +34,10 @@ const radixColorScalesMetal = ['gold', 'bronze'] as const;
 // prettier-ignore
 const radixColorScales = [...radixColorScalesRegular, ...radixColorScalesBright, ...radixColorScalesMetal] as const;
 const radixGrayScalePure = 'gray' as const;
-const radixGrayScalesDesaturated = [
-  'mauve',
-  'slate',
-  'sage',
-  'olive',
-  'sand',
-] as const;
-const radixGrayScales = [
-  radixGrayScalePure,
-  ...radixGrayScalesDesaturated,
-] as const;
+const radixGrayScalesDesaturated = ['mauve', 'slate', 'sage', 'olive', 'sand'] as const;
+const radixGrayScales = [radixGrayScalePure, ...radixGrayScalesDesaturated] as const;
 
-function radixGetMatchingGrayScale(
-  colorScale: (typeof radixColorScales)[number],
-): (typeof radixGrayScales)[number] {
+function radixGetMatchingGrayScale(colorScale: (typeof radixColorScales)[number]): (typeof radixGrayScales)[number] {
   switch (colorScale) {
     case 'tomato':
     case 'red':

@@ -27,8 +27,4 @@ const baseMenuCheckboxItemPropDefs = {
   shortcut: PropDef<string>;
 };
 
-export {
-  baseMenuCheckboxItemPropDefs,
-  baseMenuContentPropDefs,
-  baseMenuItemPropDefs,
-};
+export { baseMenuCheckboxItemPropDefs, baseMenuContentPropDefs, baseMenuItemPropDefs };
