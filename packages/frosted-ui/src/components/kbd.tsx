@@ -6,7 +6,7 @@ import { kbdPropDefs } from './kbd.props';
 import type { MarginProps } from '../helpers';
 
 type KbdOwnProps = GetPropDefTypes<typeof kbdPropDefs>;
-interface KbdProps extends React.ComponentPropsWithoutRef<'kbd'>, MarginProps, KbdOwnProps {}
+interface KbdProps extends React.ComponentProps<'kbd'>, MarginProps, KbdOwnProps {}
 
 const Kbd = (props: KbdProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);

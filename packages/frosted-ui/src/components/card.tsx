@@ -7,7 +7,7 @@ import { cardPropDefs } from './card.props';
 import type { GetPropDefTypes, MarginProps } from '../helpers';
 
 type CardOwnProps = GetPropDefTypes<typeof cardPropDefs>;
-interface CardProps extends React.ComponentPropsWithoutRef<'div'>, MarginProps, CardOwnProps {
+interface CardProps extends React.ComponentProps<'div'>, MarginProps, CardOwnProps {
   asChild?: boolean;
 }
 

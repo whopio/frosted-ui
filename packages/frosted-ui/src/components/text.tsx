@@ -4,27 +4,27 @@ import * as React from 'react';
 import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
 import { textPropDefs } from './text.props';
 
-import type { GetPropDefTypes, MarginProps, NiceIntersection, PropsWithoutRefOrColor } from '../helpers';
+import type { GetPropDefTypes, MarginProps, NiceIntersection, PropsWithoutColor } from '../helpers';
 
 type TextOwnProps = GetPropDefTypes<typeof textPropDefs>;
 type CommonTextProps = NiceIntersection<MarginProps, TextOwnProps>;
 type TextAsChildProps = {
   asChild?: boolean;
   as?: never;
-} & PropsWithoutRefOrColor<'span'>;
+} & PropsWithoutColor<'span'>;
 type TextSpanProps = {
   as?: 'span';
   asChild?: never;
-} & PropsWithoutRefOrColor<'span'>;
+} & PropsWithoutColor<'span'>;
 type TextDivProps = {
   as: 'div';
   asChild?: never;
-} & PropsWithoutRefOrColor<'div'>;
+} & PropsWithoutColor<'div'>;
 type TextLabelProps = {
   as: 'label';
   asChild?: never;
-} & PropsWithoutRefOrColor<'label'>;
-type TextPProps = { as: 'p'; asChild?: never } & PropsWithoutRefOrColor<'p'>;
+} & PropsWithoutColor<'label'>;
+type TextPProps = { as: 'p'; asChild?: never } & PropsWithoutColor<'p'>;
 type TextProps = CommonTextProps & (TextAsChildProps | TextSpanProps | TextDivProps | TextLabelProps | TextPProps);
 
 const Text = (props: TextProps) => {

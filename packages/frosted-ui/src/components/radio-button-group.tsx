@@ -6,7 +6,7 @@ import * as React from 'react';
 import { extractMarginProps, withMarginProps } from '../helpers';
 import { radioButtonGroupPropDefs } from './radio-button-group.props';
 
-import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
+import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
 import { useIsomorphicLayoutEffect } from '../helpers/use-isomorphic-layout-effect';
 
 type RadioButtonGroupOwnProps = GetPropDefTypes<typeof radioButtonGroupPropDefs>;
@@ -15,7 +15,7 @@ type RadioButtonGroupContextValue = RadioButtonGroupOwnProps;
 const RadioButtonGroupContext = React.createContext<RadioButtonGroupContextValue>({});
 
 interface RadioButtonGroupRootProps
-  extends PropsWithoutRefOrColor<typeof RadioButtonGroupPrimitive.Root>,
+  extends PropsWithoutColor<typeof RadioButtonGroupPrimitive.Root>,
     MarginProps,
     RadioButtonGroupOwnProps {}
 
@@ -47,9 +47,7 @@ const RadioButtonGroupRoot = (props: RadioButtonGroupRootProps) => {
 };
 RadioButtonGroupRoot.displayName = 'RadioButtonGroupRoot';
 
-interface RadioButtonGroupItemProps
-  extends React.ComponentPropsWithoutRef<typeof RadioButtonGroupPrimitive.Item>,
-    MarginProps {}
+interface RadioButtonGroupItemProps extends React.ComponentProps<typeof RadioButtonGroupPrimitive.Item>, MarginProps {}
 
 const RadioButtonGroupItem = (props: RadioButtonGroupItemProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
@@ -75,7 +73,7 @@ const RadioButtonGroupItem = (props: RadioButtonGroupItemProps) => {
 };
 RadioButtonGroupItem.displayName = 'RadioButtonGroupItem';
 
-interface RadioButtonGroupIconProps extends MarginProps, Omit<PropsWithoutRefOrColor<'div'>, 'children'> {}
+interface RadioButtonGroupIconProps extends MarginProps, Omit<PropsWithoutColor<'div'>, 'children'> {}
 
 const RadioButtonGroupIcon = (props: RadioButtonGroupIconProps) => {
   const { color, highContrast } = React.useContext(RadioButtonGroupContext);

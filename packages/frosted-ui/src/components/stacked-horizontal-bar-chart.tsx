@@ -12,10 +12,10 @@ type StackedHorizontalBarChartData = {
   color: (typeof colorProp.values)[number]; // Color for the bar
 };
 
-interface StackedHorizontalBarChartOwnProps extends React.ComponentPropsWithoutRef<'div'> {}
+interface StackedHorizontalBarChartOwnProps extends React.ComponentProps<'div'> {}
 
 interface StackedHorizontalBarChartProps
-  extends React.ComponentPropsWithoutRef<'div'>,
+  extends React.ComponentProps<'div'>,
     MarginProps,
     StackedHorizontalBarChartOwnProps {
   data: StackedHorizontalBarChartData[];
