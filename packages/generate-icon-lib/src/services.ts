@@ -86,12 +86,10 @@ const transformers = {
 
     return $('svg')
       .attr('props', '...')
-      .attr('ref', 'forwardedRef')
       .toString()
       .replace(/stroke=['|"]currentColor['|"]/g, 'stroke={color}')
       .replace(/fill=['|"]currentColor['|"]/g, 'fill={color}')
       .replace('props="..."', '{...props}')
-      .replace('ref="forwardedRef"', 'ref={forwardedRef}');
   },
 };
 

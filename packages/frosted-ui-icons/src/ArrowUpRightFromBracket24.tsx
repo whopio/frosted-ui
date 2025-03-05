@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const ArrowUpRightFromBracket24 = React.forwardRef<
-  SVGSVGElement,
-  IconProps
->(({ color = 'currentColor', ...props }, forwardedRef) => {
+export const ArrowUpRightFromBracket24 = ({
+  color = 'currentColor',
+  ...props
+}: IconProps) => {
   return (
     <svg
       width="24"
@@ -14,7 +14,6 @@ export const ArrowUpRightFromBracket24 = React.forwardRef<
       xmlns="http://www.w3.org/2000/svg"
       data-fui-icon="true"
       {...props}
-      ref={forwardedRef}
     >
       <path
         d="M2.5 16.75L2.5 18.75C2.5 20.2688 3.73122 21.5 5.25 21.5H18.75C20.2688 21.5 21.5 20.2688 21.5 18.75V16.75C21.5 16.3358 21.8358 16 22.25 16C22.6642 16 23 16.3358 23 16.75V18.75C23 21.0972 21.0972 23 18.75 23H5.25C2.90279 23 1 21.0972 1 18.75L1 16.75C1 16.3358 1.33579 16 1.75 16C2.16421 16 2.5 16.3358 2.5 16.75Z"
@@ -30,6 +29,6 @@ export const ArrowUpRightFromBracket24 = React.forwardRef<
       />
     </svg>
   );
-});
+};
 
 export default ArrowUpRightFromBracket24;
