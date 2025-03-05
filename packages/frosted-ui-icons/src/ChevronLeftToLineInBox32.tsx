@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const ChevronLeftToLineInBox32 = React.forwardRef<
-  SVGSVGElement,
-  IconProps
->(({ color = 'currentColor', ...props }, forwardedRef) => {
+export const ChevronLeftToLineInBox32 = ({
+  color = 'currentColor',
+  ...props
+}: IconProps) => {
   return (
     <svg
       width="32"
@@ -14,7 +14,6 @@ export const ChevronLeftToLineInBox32 = React.forwardRef<
       xmlns="http://www.w3.org/2000/svg"
       data-fui-icon="true"
       {...props}
-      ref={forwardedRef}
     >
       <path
         d="M3.25 22.25V9.75C3.25 5.88401 6.38401 2.75 10.25 2.75H22.75C26.616 2.75 29.75 5.88401 29.75 9.75V22.25C29.75 26.116 26.616 29.25 22.75 29.25H10.25C6.38401 29.25 3.25 26.116 3.25 22.25Z"
@@ -32,6 +31,6 @@ export const ChevronLeftToLineInBox32 = React.forwardRef<
       />
     </svg>
   );
-});
+};
 
 export default ChevronLeftToLineInBox32;
