@@ -39,138 +39,127 @@ function useThemeContext() {
 }
 
 interface ThemeProps extends ThemeRootProps {}
-const Theme = React.forwardRef<ThemeImplElement, ThemeProps>(
-  (props, forwardedRef) => {
-    const context = React.useContext(ThemeContext);
-    const isRoot = context === undefined;
-    if (isRoot) {
-      return (
-        <TooltipPrimitive.Provider>
-          <DirectionProvider dir="ltr">
-            <ThemeRoot {...props} ref={forwardedRef} />
-          </DirectionProvider>
-        </TooltipPrimitive.Provider>
-      );
-    }
-    return <ThemeImpl {...props} ref={forwardedRef} />;
-  },
-);
+const Theme = (props: ThemeProps) => {
+  const context = React.useContext(ThemeContext);
+  const isRoot = context === undefined;
+  if (isRoot) {
+    return (
+      <TooltipPrimitive.Provider>
+        <DirectionProvider dir="ltr">
+          <ThemeRoot {...props} />
+        </DirectionProvider>
+      </TooltipPrimitive.Provider>
+    );
+  }
+  return <ThemeImpl {...props} />;
+};
 Theme.displayName = 'Theme';
 
 interface ThemeRootProps extends ThemeImplPublicProps {}
-const ThemeRoot = React.forwardRef<ThemeImplElement, ThemeRootProps>(
-  (props, forwardedRef) => {
-    const {
-      appearance: appearanceProp = themePropDefs.appearance.default,
-      accentColor: accentColorProp = themePropDefs.accentColor.default,
-      grayColor: grayColorProp = themePropDefs.grayColor.default,
-      infoColor: infoColorProp = themePropDefs.infoColor.default,
-      successColor: successColorProp = themePropDefs.successColor.default,
-      warningColor: warningColorProp = themePropDefs.warningColor.default,
-      dangerColor: dangerColorProp = themePropDefs.dangerColor.default,
-      hasBackground = themePropDefs.hasBackground.default,
-      ...rootProps
-    } = props;
-    const [appearance, setAppearance] = React.useState(appearanceProp);
-    React.useEffect(() => setAppearance(appearanceProp), [appearanceProp]);
+const ThemeRoot = (props: ThemeRootProps) => {
+  const {
+    appearance: appearanceProp = themePropDefs.appearance.default,
+    accentColor: accentColorProp = themePropDefs.accentColor.default,
+    grayColor: grayColorProp = themePropDefs.grayColor.default,
+    infoColor: infoColorProp = themePropDefs.infoColor.default,
+    successColor: successColorProp = themePropDefs.successColor.default,
+    warningColor: warningColorProp = themePropDefs.warningColor.default,
+    dangerColor: dangerColorProp = themePropDefs.dangerColor.default,
+    hasBackground = themePropDefs.hasBackground.default,
+    ...rootProps
+  } = props;
+  const [appearance, setAppearance] = React.useState(appearanceProp);
+  React.useEffect(() => setAppearance(appearanceProp), [appearanceProp]);
 
-    const [accentColor, setAccentColor] = React.useState(accentColorProp);
-    React.useEffect(() => setAccentColor(accentColorProp), [accentColorProp]);
+  const [accentColor, setAccentColor] = React.useState(accentColorProp);
+  React.useEffect(() => setAccentColor(accentColorProp), [accentColorProp]);
 
-    const [grayColor, setGrayColor] = React.useState(grayColorProp);
-    React.useEffect(() => setGrayColor(grayColorProp), [grayColorProp]);
+  const [grayColor, setGrayColor] = React.useState(grayColorProp);
+  React.useEffect(() => setGrayColor(grayColorProp), [grayColorProp]);
 
-    const [infoColor, setInfoColor] = React.useState(infoColorProp);
-    React.useEffect(() => setInfoColor(infoColorProp), [infoColorProp]);
+  const [infoColor, setInfoColor] = React.useState(infoColorProp);
+  React.useEffect(() => setInfoColor(infoColorProp), [infoColorProp]);
 
-    const [successColor, setSuccessColor] = React.useState(successColorProp);
-    React.useEffect(
-      () => setSuccessColor(successColorProp),
-      [successColorProp],
-    );
+  const [successColor, setSuccessColor] = React.useState(successColorProp);
+  React.useEffect(() => setSuccessColor(successColorProp), [successColorProp]);
 
-    const [warningColor, setWarningColor] = React.useState(warningColorProp);
-    React.useEffect(
-      () => setWarningColor(warningColorProp),
-      [warningColorProp],
-    );
+  const [warningColor, setWarningColor] = React.useState(warningColorProp);
+  React.useEffect(() => setWarningColor(warningColorProp), [warningColorProp]);
 
-    const [dangerColor, setDangerColor] = React.useState(dangerColorProp);
-    React.useEffect(() => setDangerColor(dangerColorProp), [dangerColorProp]);
+  const [dangerColor, setDangerColor] = React.useState(dangerColorProp);
+  React.useEffect(() => setDangerColor(dangerColorProp), [dangerColorProp]);
 
-    // Initial appearance on page load when `appearance` is explicitly set to `light` or `dark`
-    const ExplicitRootAppearanceScript = React.memo(
-      ({
-        appearance,
-      }: {
-        appearance: Exclude<ThemeOptions['appearance'], 'inherit'>;
-      }) => (
-        <script
+  // Initial appearance on page load when `appearance` is explicitly set to `light` or `dark`
+  const ExplicitRootAppearanceScript = React.memo(
+    ({
+      appearance,
+    }: {
+      appearance: Exclude<ThemeOptions['appearance'], 'inherit'>;
+    }) => (
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `!(function(){try{var d=document.documentElement,c=d.classList;c.remove('light','dark');d.style.colorScheme='${appearance}';c.add('${appearance}');}catch(e){}})();`,
+        }}
+      ></script>
+    ),
+    () => true, // Never re-render
+  );
+  ExplicitRootAppearanceScript.displayName = 'ExplicitRootAppearanceScript';
+
+  // Client-side only changes when `appearance` prop is changed while developing
+  React.useEffect(
+    () => updateThemeAppearanceClass(appearanceProp),
+    [appearanceProp],
+  );
+
+  const resolvedGrayColor =
+    grayColor === 'auto' ? getMatchingGrayColor(accentColor) : grayColor;
+
+  return (
+    <>
+      {appearance !== 'inherit' && (
+        <>
+          <ExplicitRootAppearanceScript appearance={appearance} />
+          <SyncRootElementAppearance appearance={appearance} />
+        </>
+      )}
+
+      {hasBackground && (
+        <style
           dangerouslySetInnerHTML={{
-            __html: `!(function(){try{var d=document.documentElement,c=d.classList;c.remove('light','dark');d.style.colorScheme='${appearance}';c.add('${appearance}');}catch(e){}})();`,
-          }}
-        ></script>
-      ),
-      () => true, // Never re-render
-    );
-    ExplicitRootAppearanceScript.displayName = 'ExplicitRootAppearanceScript';
-
-    // Client-side only changes when `appearance` prop is changed while developing
-    React.useEffect(
-      () => updateThemeAppearanceClass(appearanceProp),
-      [appearanceProp],
-    );
-
-    const resolvedGrayColor =
-      grayColor === 'auto' ? getMatchingGrayColor(accentColor) : grayColor;
-
-    return (
-      <>
-        {appearance !== 'inherit' && (
-          <>
-            <ExplicitRootAppearanceScript appearance={appearance} />
-            <SyncRootElementAppearance appearance={appearance} />
-          </>
-        )}
-
-        {hasBackground && (
-          <style
-            dangerouslySetInnerHTML={{
-              __html: `
+            __html: `
 :root, .light, .light-theme { --color-page-background: white; }
 .dark, .dark-theme { --color-page-background: var(--${resolvedGrayColor}-1); }
 body { background-color: var(--color-page-background); }
 `,
-            }}
-          />
-        )}
-
-        <ThemeImpl
-          {...rootProps}
-          ref={forwardedRef}
-          isRoot
-          hasBackground={hasBackground}
-          //
-          appearance={appearance}
-          accentColor={accentColor}
-          grayColor={grayColor}
-          infoColor={infoColor}
-          successColor={successColor}
-          warningColor={warningColor}
-          dangerColor={dangerColor}
-          //
-          onAppearanceChange={setAppearance}
-          onAccentColorChange={setAccentColor}
-          onGrayColorChange={setGrayColor}
-          onInfoColorChange={setInfoColor}
-          onSuccessColorChange={setSuccessColor}
-          onWarningColorChange={setWarningColor}
-          onDangerColorChange={setDangerColor}
+          }}
         />
-      </>
-    );
-  },
-);
+      )}
+
+      <ThemeImpl
+        {...rootProps}
+        isRoot
+        hasBackground={hasBackground}
+        //
+        appearance={appearance}
+        accentColor={accentColor}
+        grayColor={grayColor}
+        infoColor={infoColor}
+        successColor={successColor}
+        warningColor={warningColor}
+        dangerColor={dangerColor}
+        //
+        onAppearanceChange={setAppearance}
+        onAccentColorChange={setAccentColor}
+        onGrayColorChange={setGrayColor}
+        onInfoColorChange={setInfoColor}
+        onSuccessColorChange={setSuccessColor}
+        onWarningColorChange={setWarningColor}
+        onDangerColorChange={setDangerColor}
+      />
+    </>
+  );
+};
 ThemeRoot.displayName = 'ThemeRoot';
 
 function SyncRootElementAppearance({
@@ -192,7 +181,6 @@ function SyncRootElementAppearance({
   return null;
 }
 
-type ThemeImplElement = React.ElementRef<'div'>;
 interface ThemeImplProps extends ThemeImplPublicProps, ThemeImplPrivateProps {}
 interface ThemeImplPublicProps
   extends Omit<React.ComponentPropsWithoutRef<'div'>, 'dir'>,
@@ -202,117 +190,112 @@ interface ThemeImplPublicProps
   hasBackground?: boolean;
 }
 interface ThemeImplPrivateProps extends Partial<ThemeChangeHandlers> {}
-const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
-  (props, forwardedRef) => {
-    const context = React.useContext(ThemeContext);
-    const {
-      asChild,
-      isRoot,
-      hasBackground,
-      //
-      appearance = context?.appearance ?? themePropDefs.appearance.default,
-      accentColor = context?.accentColor ?? themePropDefs.accentColor.default,
-      grayColor = context?.resolvedGrayColor ?? themePropDefs.grayColor.default,
-      dangerColor = context?.dangerColor ?? themePropDefs.dangerColor.default,
-      warningColor = context?.warningColor ??
-        themePropDefs.warningColor.default,
-      successColor = context?.successColor ??
-        themePropDefs.successColor.default,
-      infoColor = context?.infoColor ?? themePropDefs.infoColor.default,
-      //
-      onAppearanceChange = noop,
-      onAccentColorChange = noop,
-      onGrayColorChange = noop,
-      onInfoColorChange = noop,
-      onSuccessColorChange = noop,
-      onWarningColorChange = noop,
-      onDangerColorChange = noop,
-      //
-      ...themeProps
-    } = props;
-    const Comp = asChild ? Slot : 'div';
-    const resolvedGrayColor =
-      grayColor === 'auto' ? getMatchingGrayColor(accentColor) : grayColor;
-    const isExplicitAppearance =
-      props.appearance !== undefined && props.appearance !== 'inherit';
-    const isExplicitGrayColor = props.grayColor !== undefined;
-    const shouldHaveBackground =
-      !isRoot &&
-      (hasBackground === true ||
-        (hasBackground !== false &&
-          (isExplicitAppearance || isExplicitGrayColor)));
-    return (
-      <ThemeContext.Provider
-        value={React.useMemo(
-          () => ({
-            appearance,
-            accentColor,
-            dangerColor,
-            warningColor,
-            successColor,
-            infoColor,
-            grayColor,
-            resolvedGrayColor,
+const ThemeImpl = (props: ThemeImplProps) => {
+  const context = React.useContext(ThemeContext);
+  const {
+    asChild,
+    isRoot,
+    hasBackground,
+    //
+    appearance = context?.appearance ?? themePropDefs.appearance.default,
+    accentColor = context?.accentColor ?? themePropDefs.accentColor.default,
+    grayColor = context?.resolvedGrayColor ?? themePropDefs.grayColor.default,
+    dangerColor = context?.dangerColor ?? themePropDefs.dangerColor.default,
+    warningColor = context?.warningColor ?? themePropDefs.warningColor.default,
+    successColor = context?.successColor ?? themePropDefs.successColor.default,
+    infoColor = context?.infoColor ?? themePropDefs.infoColor.default,
+    //
+    onAppearanceChange = noop,
+    onAccentColorChange = noop,
+    onGrayColorChange = noop,
+    onInfoColorChange = noop,
+    onSuccessColorChange = noop,
+    onWarningColorChange = noop,
+    onDangerColorChange = noop,
+    //
+    ...themeProps
+  } = props;
+  const Comp = asChild ? Slot : 'div';
+  const resolvedGrayColor =
+    grayColor === 'auto' ? getMatchingGrayColor(accentColor) : grayColor;
+  const isExplicitAppearance =
+    props.appearance !== undefined && props.appearance !== 'inherit';
+  const isExplicitGrayColor = props.grayColor !== undefined;
+  const shouldHaveBackground =
+    !isRoot &&
+    (hasBackground === true ||
+      (hasBackground !== false &&
+        (isExplicitAppearance || isExplicitGrayColor)));
+  return (
+    <ThemeContext.Provider
+      value={React.useMemo(
+        () => ({
+          appearance,
+          accentColor,
+          dangerColor,
+          warningColor,
+          successColor,
+          infoColor,
+          grayColor,
+          resolvedGrayColor,
+          //
+          onAppearanceChange,
+          onAccentColorChange,
+          onGrayColorChange,
+          onInfoColorChange,
+          onSuccessColorChange,
+          onWarningColorChange,
+          onDangerColorChange,
+        }),
+        [
+          appearance,
+          accentColor,
+          dangerColor,
+          warningColor,
+          successColor,
+          infoColor,
+          grayColor,
+          resolvedGrayColor,
+          //
+          onAppearanceChange,
+          onAccentColorChange,
+          onGrayColorChange,
+          onInfoColorChange,
+          onSuccessColorChange,
+          onWarningColorChange,
+          onDangerColorChange,
+        ],
+      )}
+    >
+      {isRoot && <WithThemeEvents />}
+      <Comp
+        data-is-root-theme={isRoot ? 'true' : 'false'}
+        data-accent-color={accentColor}
+        data-danger-color={dangerColor}
+        data-warning-color={warningColor}
+        data-success-color={successColor}
+        data-info-color={infoColor}
+        data-gray-color={resolvedGrayColor}
+        // for nested `Theme` background
+        data-has-background={shouldHaveBackground ? 'true' : 'false'}
+        {...themeProps}
+        className={classNames(
+          'frosted-ui',
+          {
+            // Only apply theme class to nested `Theme` sections.
             //
-            onAppearanceChange,
-            onAccentColorChange,
-            onGrayColorChange,
-            onInfoColorChange,
-            onSuccessColorChange,
-            onWarningColorChange,
-            onDangerColorChange,
-          }),
-          [
-            appearance,
-            accentColor,
-            dangerColor,
-            warningColor,
-            successColor,
-            infoColor,
-            grayColor,
-            resolvedGrayColor,
-            //
-            onAppearanceChange,
-            onAccentColorChange,
-            onGrayColorChange,
-            onInfoColorChange,
-            onSuccessColorChange,
-            onWarningColorChange,
-            onDangerColorChange,
-          ],
+            // If it's the root `Theme`, we either rely on
+            // - something else setting the theme class when root `appearance` is `inherit`
+            // - our script setting it when root `appearance` is explicit
+            light: !isRoot && appearance === 'light',
+            dark: !isRoot && appearance === 'dark',
+          },
+          themeProps.className,
         )}
-      >
-        {isRoot && <WithThemeEvents />}
-        <Comp
-          data-is-root-theme={isRoot ? 'true' : 'false'}
-          data-accent-color={accentColor}
-          data-danger-color={dangerColor}
-          data-warning-color={warningColor}
-          data-success-color={successColor}
-          data-info-color={infoColor}
-          data-gray-color={resolvedGrayColor}
-          // for nested `Theme` background
-          data-has-background={shouldHaveBackground ? 'true' : 'false'}
-          ref={forwardedRef}
-          {...themeProps}
-          className={classNames(
-            'frosted-ui',
-            {
-              // Only apply theme class to nested `Theme` sections.
-              //
-              // If it's the root `Theme`, we either rely on
-              // - something else setting the theme class when root `appearance` is `inherit`
-              // - our script setting it when root `appearance` is explicit
-              light: !isRoot && appearance === 'light',
-              dark: !isRoot && appearance === 'dark',
-            },
-            themeProps.className,
-          )}
-        />
-      </ThemeContext.Provider>
-    );
-  },
-);
+      />
+    </ThemeContext.Provider>
+  );
+};
 ThemeImpl.displayName = 'ThemeImpl';
 
 function updateThemeAppearanceClass(appearance: ThemeOptions['appearance']) {
