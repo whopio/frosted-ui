@@ -16,21 +16,17 @@ const PopoverRoot: React.FC<PopoverRootProps> = (props: PopoverRootProps) => (
 );
 PopoverRoot.displayName = 'PopoverRoot';
 
-type PopoverTriggerElement = React.ElementRef<typeof PopoverPrimitive.Trigger>;
 interface PopoverTriggerProps
   extends Omit<
     React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Trigger>,
     'asChild'
   > {}
-const PopoverTrigger = React.forwardRef<
-  PopoverTriggerElement,
-  PopoverTriggerProps
->((props, forwardedRef) => (
-  <PopoverPrimitive.Trigger {...props} ref={forwardedRef} asChild />
-));
+
+const PopoverTrigger = (props: PopoverTriggerProps) => (
+  <PopoverPrimitive.Trigger {...props} asChild />
+);
 PopoverTrigger.displayName = 'PopoverTrigger';
 
-type PopoverContentElement = React.ElementRef<typeof PopoverPrimitive.Content>;
 type PopoverContentOwnProps = GetPropDefTypes<typeof popoverContentPropDefs>;
 interface PopoverContentProps
   extends Omit<
@@ -40,10 +36,8 @@ interface PopoverContentProps
     PopoverContentOwnProps {
   container?: React.ComponentProps<typeof PopoverPrimitive.Portal>['container'];
 }
-const PopoverContent = React.forwardRef<
-  PopoverContentElement,
-  PopoverContentProps
->((props, forwardedRef) => {
+
+const PopoverContent = (props: PopoverContentProps) => {
   const {
     className,
     forceMount,
@@ -60,7 +54,6 @@ const PopoverContent = React.forwardRef<
           sideOffset={8}
           collisionPadding={10}
           {...contentProps}
-          ref={forwardedRef}
           className={classNames(
             'fui-PopperContent',
             'fui-PopoverContent',
@@ -72,19 +65,17 @@ const PopoverContent = React.forwardRef<
       </Theme>
     </PopoverPrimitive.Portal>
   );
-});
+};
 PopoverContent.displayName = 'PopoverContent';
 
-type PopoverCloseElement = React.ElementRef<typeof PopoverPrimitive.Close>;
 interface PopoverCloseProps
   extends Omit<
     React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Close>,
     'asChild'
   > {}
-const PopoverClose = React.forwardRef<PopoverCloseElement, PopoverCloseProps>(
-  (props, forwardedRef) => (
-    <PopoverPrimitive.Close {...props} ref={forwardedRef} asChild />
-  ),
+
+const PopoverClose = (props: PopoverCloseProps) => (
+  <PopoverPrimitive.Close {...props} asChild />
 );
 PopoverClose.displayName = 'PopoverClose';
 

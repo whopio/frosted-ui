@@ -49,7 +49,7 @@ const transformers = {
   injectCurrentColor(svgRaw: string) {
     const $ = cheerio.load(svgRaw, { xmlMode: true });
     $('*').each((i, el) => {
-      Object.keys(el.attribs).forEach(attrKey => {
+      Object.keys(el.attribs).forEach((attrKey) => {
         if (['fill', 'stroke'].includes(attrKey)) {
           const val = $(el).attr(attrKey);
           if (val !== 'none') {
@@ -70,16 +70,14 @@ const transformers = {
   readyForJSX(svgRaw: string) {
     const $ = cheerio.load(svgRaw, { xmlMode: true });
     $('*').each((i, el) => {
-      Object.keys(el.attribs).forEach(attrKey => {
+      Object.keys(el.attribs).forEach((attrKey) => {
         if (attrKey.includes('-') && !attrKey.startsWith('data-')) {
           $(el)
             .attr(_.camelCase(attrKey), el.attribs[attrKey])
             .removeAttr(attrKey);
         }
         if (attrKey === 'class') {
-          $(el)
-            .attr('className', el.attribs[attrKey])
-            .removeAttr(attrKey);
+          $(el).attr('className', el.attribs[attrKey]).removeAttr(attrKey);
         }
       });
     });
@@ -89,7 +87,7 @@ const transformers = {
       .toString()
       .replace(/stroke=['|"]currentColor['|"]/g, 'stroke={color}')
       .replace(/fill=['|"]currentColor['|"]/g, 'fill={color}')
-      .replace('props="..."', '{...props}')
+      .replace('props="..."', '{...props}');
   },
 };
 
@@ -104,10 +102,7 @@ const labelling = {
     // Note: We ensure ordering by assignment-time in the object, and avoid numerical
     // key ordering, by adding a non-numerical to the key.
     return labelling.addSizePrefix(
-      path
-        .basename(nodeName)
-        .toLowerCase()
-        .trim(),
+      path.basename(nodeName).toLowerCase().trim(),
     );
   },
   filePathFromIcon(icon: IIcon): string {
@@ -127,7 +122,7 @@ const currentListOfAddedFiles = [];
 
 export async function prechecks() {
   /* We can't work offline. */
-  isOnline().then(isOn => {
+  isOnline().then((isOn) => {
     if (!isOn) {
       throw new CodedError(
         ERRORS.NETWORK_OFFLINE,
@@ -138,20 +133,18 @@ export async function prechecks() {
   });
 
   /* We don't want to end up deleted work-in-progress. */
-  const [
-    { stdout: trackedFiles },
-    { stdout: untrackedFiles },
-  ] = await Promise.all([
-    // Checks for uncommitted changes.
-    execa('git', ['diff-index', 'HEAD', '--', FOLDER_PATH_ICONS]),
-    // Checks for untracked files.
-    execa('git', [
-      'ls-files',
-      '--others',
-      '--exclude-standard',
-      FOLDER_PATH_ICONS,
-    ]),
-  ]);
+  const [{ stdout: trackedFiles }, { stdout: untrackedFiles }] =
+    await Promise.all([
+      // Checks for uncommitted changes.
+      execa('git', ['diff-index', 'HEAD', '--', FOLDER_PATH_ICONS]),
+      // Checks for untracked files.
+      execa('git', [
+        'ls-files',
+        '--others',
+        '--exclude-standard',
+        FOLDER_PATH_ICONS,
+      ]),
+    ]);
   if (trackedFiles.length > 0 || untrackedFiles.length > 0) {
     handleError(
       new CodedError(
@@ -279,7 +272,7 @@ export async function renderIdsToSvgs(
 
 export function getIconsPage(document: IFigmaDocument): IFigmaCanvas | null {
   const canvas = document.children.find(
-    page => page.name.toLowerCase() === 'icons',
+    (page) => page.name.toLowerCase() === 'icons',
   );
 
   return canvas && canvas.type === 'CANVAS' ? canvas : null;
@@ -287,17 +280,17 @@ export function getIconsPage(document: IFigmaDocument): IFigmaCanvas | null {
 
 export function getIcons(iconsCanvas: IFigmaCanvas): IIcons {
   let swag: IIcons = {};
-  iconsCanvas.children.forEach(iconSetNode => {
+  iconsCanvas.children.forEach((iconSetNode) => {
     if (
       (iconSetNode.type === 'FRAME' || iconSetNode.type === 'GROUP') &&
       iconSetNode.name === 'Icons/Default'
     ) {
-      iconSetNode.children.forEach(iconNode => {
+      iconSetNode.children.forEach((iconNode) => {
         // Our individual icons frames may be Figma "Components" 🤙
         if (iconNode.type === 'COMPONENT_SET') {
           // 'Break Link' => 'break-link'
           // 'GitHub Logo' => 'github-logo'
-          iconNode.children.forEach(iconVariant => {
+          iconNode.children.forEach((iconVariant) => {
             render({ fileKey: iconVariant.name + ' 🔥🔥🔥' });
 
             const size = iconVariant.name.replace(/size=/i, '');
@@ -341,12 +334,14 @@ export async function downloadSvgsToFs(
   onProgress: () => void,
 ) {
   await Promise.all(
-    Object.keys(urls).map(async iconId => {
-      const processedSvg = await (await fetch(urls[iconId]))
+    Object.keys(urls).map(async (iconId) => {
+      const processedSvg = await (
+        await fetch(urls[iconId])
+      )
         .text()
-        .then(async svgRaw => transformers.passSVGO(svgRaw))
-        .then(svgRaw => transformers.injectCurrentColor(svgRaw))
-        .then(svgRaw => transformers.prettify(svgRaw));
+        .then(async (svgRaw) => transformers.passSVGO(svgRaw))
+        .then((svgRaw) => transformers.injectCurrentColor(svgRaw))
+        .then((svgRaw) => transformers.prettify(svgRaw));
 
       const filePath = path.resolve(
         currentTempDir,
@@ -370,9 +365,8 @@ export function iconsToManifest(icons: IIcons): IIconManifest {
       iconManifest[icon.type][icon.size] = {};
     }
     if (!iconManifest[icon.type][icon.size][icon.svgName]) {
-      iconManifest[icon.type][icon.size][
-        icon.svgName
-      ] = labelling.filePathFromIcon(icon);
+      iconManifest[icon.type][icon.size][icon.svgName] =
+        labelling.filePathFromIcon(icon);
     }
 
     return iconManifest;
@@ -380,7 +374,7 @@ export function iconsToManifest(icons: IIcons): IIconManifest {
 }
 
 export function iconsToSvgPaths(icons: IIcons) {
-  return Object.keys(icons).map(iconId =>
+  return Object.keys(icons).map((iconId) =>
     labelling.filePathFromIcon(icons[iconId]),
   );
 }
@@ -392,7 +386,7 @@ export function filePathToSVGinJSXSync(filePath: string) {
 }
 
 export async function generateReactComponents(icons: IIcons) {
-  const getTemplateSource = templateFile =>
+  const getTemplateSource = (templateFile) =>
     fs.readFile(path.resolve(__dirname, './templates/', templateFile), {
       encoding: 'utf8',
     });
@@ -454,7 +448,7 @@ export async function generateReactComponents(icons: IIcons) {
       return filePathToSVGinJSXSync(filePath);
     },
     iconHasSizeAndType(icon: ITemplateIcon, size: string, type: string) {
-      return icon.ids.some(iconId => {
+      return icon.ids.some((iconId) => {
         const prefixedSize = labelling.addSizePrefix(size);
         return (
           icons[iconId].size === prefixedSize && icons[iconId].type === type
@@ -555,7 +549,7 @@ export async function swapGeneratedFiles(
     FILE_PATH_TYPES,
   ]);
   const topLevelDirs: string[] = _.uniq(
-    generatedFilePaths.map(filePath => filePath.replace(/^([\w-]+).*/, '$1')),
+    generatedFilePaths.map((filePath) => filePath.replace(/^([\w-]+).*/, '$1')),
   );
   for (const i in topLevelDirs) {
     const topLevelDir = topLevelDirs[i];
@@ -604,10 +598,10 @@ export async function getGitCustomDiff(touchedPaths): Promise<IDiffSummary[]> {
   ]);
 
   /* Transform the raw stdout to renderable data. */
-  const nameStat = nameStatRaw.split('\n').map(line => line[0]);
+  const nameStat = nameStatRaw.split('\n').map((line) => line[0]);
   const diffSummaries: IDiffSummary[] = numstatRaw
     .split('\n')
-    .map(line => line.split('\t'))
+    .map((line) => line.split('\t'))
     .map(([additions, deletions, filePath], i) => {
       const filePathFromCwd = filePath
         .replace(path.relative(gitRootDir, process.cwd()), '')

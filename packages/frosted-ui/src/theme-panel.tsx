@@ -50,7 +50,7 @@ ThemePanel.displayName = 'ThemePanel';
 type ThemePanelImplElement = React.ElementRef<typeof Box>;
 interface ThemePanelImplProps
   extends React.ComponentPropsWithoutRef<typeof Box>,
-    ThemePanelImplPrivateProps {
+  ThemePanelImplPrivateProps {
   onAppearanceChange?: (
     value: Exclude<ThemeOptions['appearance'], 'inherit'>,
   ) => void;
@@ -275,11 +275,10 @@ const ThemePanelImpl = React.forwardRef<
                   style={{ backgroundColor: `var(--${color}-9)` }}
                 >
                   <Tooltip
-                    content={`${upperFirst(color)}${
-                      accentColor === 'gray' && resolvedGrayColor !== 'gray'
-                        ? ` (${upperFirst(resolvedGrayColor)})`
-                        : ''
-                    }`}
+                    content={`${upperFirst(color)}${accentColor === 'gray' && resolvedGrayColor !== 'gray'
+                      ? ` (${upperFirst(resolvedGrayColor)})`
+                      : ''
+                      }`}
                   >
                     <input
                       className="fui-ThemePanelSwatchInput"
@@ -334,11 +333,10 @@ const ThemePanelImpl = React.forwardRef<
                     }}
                   >
                     <Tooltip
-                      content={`${upperFirst(gray)}${
-                        gray === 'auto'
-                          ? ` (${upperFirst(autoMatchedGray)})`
-                          : ''
-                      }`}
+                      content={`${upperFirst(gray)}${gray === 'auto'
+                        ? ` (${upperFirst(autoMatchedGray)})`
+                        : ''
+                        }`}
                     >
                       <input
                         className="fui-ThemePanelSwatchInput"
@@ -627,3 +625,4 @@ function upperFirst(string: string) {
 
 export { ThemePanel };
 export type { ThemePanelProps };
+

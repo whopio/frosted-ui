@@ -10,13 +10,13 @@ import { kbdPropDefs } from './kbd.props';
 
 import type { MarginProps } from '../helpers';
 
-type KbdElement = React.ElementRef<'kbd'>;
 type KbdOwnProps = GetPropDefTypes<typeof kbdPropDefs>;
 interface KbdProps
   extends React.ComponentPropsWithoutRef<'kbd'>,
     MarginProps,
     KbdOwnProps {}
-const Kbd = React.forwardRef<KbdElement, KbdProps>((props, forwardedRef) => {
+
+const Kbd = (props: KbdProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     className,
@@ -26,7 +26,6 @@ const Kbd = React.forwardRef<KbdElement, KbdProps>((props, forwardedRef) => {
   return (
     <kbd
       {...kbdProps}
-      ref={forwardedRef}
       className={classNames(
         'fui-Kbd',
         className,
@@ -35,7 +34,7 @@ const Kbd = React.forwardRef<KbdElement, KbdProps>((props, forwardedRef) => {
       )}
     />
   );
-});
+};
 Kbd.displayName = 'Kbd';
 
 export { Kbd };

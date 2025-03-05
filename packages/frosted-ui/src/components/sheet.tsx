@@ -39,101 +39,73 @@ const SheetNestedRoot = ({ ...props }: SheetNestedRootProps) => (
 );
 SheetNestedRoot.displayName = 'SheetNestedRoot';
 
-type SheetTriggerElement = React.ElementRef<typeof DrawerPrimitive.Trigger>;
 interface SheetTriggerProps
   extends Omit<
     React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Trigger>,
     'asChild'
   > {}
-const SheetTrigger = React.forwardRef<SheetTriggerElement, SheetTriggerProps>(
-  (props, forwardedRef) => (
-    <DrawerPrimitive.Trigger {...props} ref={forwardedRef} asChild />
-  ),
+const SheetTrigger = (props: SheetTriggerProps) => (
+  <DrawerPrimitive.Trigger {...props} asChild />
 );
 SheetTrigger.displayName = 'SheetTrigger';
 
-type SheetCloseElement = React.ElementRef<typeof DrawerPrimitive.Close>;
 interface SheetCloseProps
   extends Omit<
     React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Close>,
     'asChild'
   > {}
-const SheetClose = React.forwardRef<SheetCloseElement, SheetCloseProps>(
-  (props, forwardedRef) => (
-    <DrawerPrimitive.Close {...props} ref={forwardedRef} asChild />
-  ),
+const SheetClose = (props: SheetCloseProps) => (
+  <DrawerPrimitive.Close {...props} asChild />
 );
 SheetClose.displayName = 'SheetClose';
 
 const SheetPortal = DrawerPrimitive.Portal;
 
-type SheetOverlayElement = React.ElementRef<typeof DrawerPrimitive.Overlay>;
 interface SheetOverlayProps
   extends React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay> {}
 
-const SheetOverlay = React.forwardRef<SheetOverlayElement, SheetOverlayProps>(
-  ({ className, ...props }, forwardedRef) => (
-    <DrawerPrimitive.Overlay
-      ref={forwardedRef}
-      className={classNames('fui-SheetOverlay', className)}
-      {...props}
-    />
-  ),
+const SheetOverlay = ({ className, ...props }: SheetOverlayProps) => (
+  <DrawerPrimitive.Overlay
+    className={classNames('fui-SheetOverlay', className)}
+    {...props}
+  />
 );
 SheetOverlay.displayName = 'SheetOverlay';
 
-type SheetContentElement = React.ElementRef<typeof DrawerPrimitive.Content>;
 interface SheetContentProps
   extends React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content> {}
 
-const SheetContent = React.forwardRef<SheetContentElement, SheetContentProps>(
-  ({ className, children, ...props }, forwardedRef) => (
-    <SheetPortal>
-      <Theme asChild>
-        <SheetOverlay />
-      </Theme>
-      <Theme asChild>
-        <DrawerPrimitive.Content
-          ref={forwardedRef}
-          className={classNames('fui-SheetContent', className)}
-          {...props}
-        >
-          <div className="fui-SheetContentHandle" />
-          {children}
-        </DrawerPrimitive.Content>
-      </Theme>
-    </SheetPortal>
-  ),
+const SheetContent = ({ className, children, ...props }: SheetContentProps) => (
+  <SheetPortal>
+    <Theme asChild>
+      <SheetOverlay />
+    </Theme>
+    <Theme asChild>
+      <DrawerPrimitive.Content
+        className={classNames('fui-SheetContent', className)}
+        {...props}
+      >
+        <div className="fui-SheetContentHandle" />
+        {children}
+      </DrawerPrimitive.Content>
+    </Theme>
+  </SheetPortal>
 );
 SheetContent.displayName = 'SheetContent';
 
-type SheetHeaderElement = React.ElementRef<'div'>;
 type SheetHeaderProps = React.ComponentPropsWithoutRef<'div'>;
-const SheetHeader = React.forwardRef<SheetHeaderElement, SheetHeaderProps>(
-  ({ children, className, ...props }, forwardedRef) => (
-    <div
-      className={classNames('fui-SheetHeader', className)}
-      {...props}
-      ref={forwardedRef}
-    >
-      {children}
-    </div>
-  ),
+const SheetHeader = ({ children, className, ...props }: SheetHeaderProps) => (
+  <div className={classNames('fui-SheetHeader', className)} {...props}>
+    {children}
+  </div>
 );
 SheetHeader.displayName = 'SheetHeader';
 
-type SheetBodyElement = React.ElementRef<'div'>;
 type SheetBodyProps = React.ComponentPropsWithoutRef<'div'>;
-const SheetBody = React.forwardRef<SheetBodyElement, SheetBodyProps>(
-  ({ children, className, ...props }, forwardedRef) => (
-    <div
-      className={classNames('fui-SheetBody', className)}
-      {...props}
-      ref={forwardedRef}
-    >
-      {children}
-    </div>
-  ),
+const SheetBody = ({ children, className, ...props }: SheetBodyProps) => (
+  <div className={classNames('fui-SheetBody', className)} {...props}>
+    {children}
+  </div>
 );
 SheetBody.displayName = 'SheetBody';
 
@@ -145,33 +117,34 @@ const SheetFooter = ({
 );
 SheetFooter.displayName = 'SheetFooter';
 
-type SheetTitleElement = React.ElementRef<typeof Heading>;
 type SheetTitleProps = React.ComponentPropsWithoutRef<typeof Heading>;
 
-const SheetTitle = React.forwardRef<SheetTitleElement, SheetTitleProps>(
-  ({ size = '5', weight = 'bold', ...props }, forwardedRef) => {
-    return (
-      <DrawerPrimitive.Title asChild>
-        <Heading weight={weight} size={size} {...props} ref={forwardedRef} />
-      </DrawerPrimitive.Title>
-    );
-  },
-);
+const SheetTitle = ({
+  size = '5',
+  weight = 'bold',
+  ...props
+}: SheetTitleProps) => {
+  return (
+    <DrawerPrimitive.Title asChild>
+      <Heading weight={weight} size={size} {...props} />
+    </DrawerPrimitive.Title>
+  );
+};
 SheetTitle.displayName = 'SheetTitle';
 
-type SheetDescriptionElement = HTMLParagraphElement;
 type SheetDescriptionProps = ExtractPropsForTag<typeof Text, 'p'>;
 
-const SheetDescription = React.forwardRef<
-  SheetDescriptionElement,
-  SheetDescriptionProps
->(({ size = '3', weight = 'regular', ...props }, forwardedRef) => {
+const SheetDescription = ({
+  size = '3',
+  weight = 'regular',
+  ...props
+}: SheetDescriptionProps) => {
   return (
     <DrawerPrimitive.Description asChild>
-      <Text as="p" size={size} weight={weight} {...props} ref={forwardedRef} />
+      <Text as="p" size={size} weight={weight} {...props} />
     </DrawerPrimitive.Description>
   );
-});
+};
 SheetDescription.displayName = 'SheetDescription';
 
 export {

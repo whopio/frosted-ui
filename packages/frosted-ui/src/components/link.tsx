@@ -9,7 +9,6 @@ import type {
   PropsWithoutRefOrColor,
 } from '../helpers';
 
-type LinkElement = React.ElementRef<'a'>;
 type LinkOwnProps = GetPropDefTypes<typeof linkPropDefs>;
 interface LinkProps
   extends PropsWithoutRefOrColor<'a'>,
@@ -17,7 +16,8 @@ interface LinkProps
     LinkOwnProps {
   asChild?: boolean;
 }
-const Link = React.forwardRef<LinkElement, LinkProps>((props, forwardedRef) => {
+
+const Link = (props: LinkProps) => {
   const {
     children,
     className,
@@ -28,7 +28,6 @@ const Link = React.forwardRef<LinkElement, LinkProps>((props, forwardedRef) => {
   return (
     <Text
       {...linkProps}
-      ref={forwardedRef}
       asChild
       className={classNames(
         'fui-reset',
@@ -40,7 +39,7 @@ const Link = React.forwardRef<LinkElement, LinkProps>((props, forwardedRef) => {
       {asChild ? children : <a>{children}</a>}
     </Text>
   );
-});
+};
 Link.displayName = 'Link';
 
 export { Link };

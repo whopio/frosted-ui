@@ -3,11 +3,7 @@
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import classNames from 'classnames';
 import * as React from 'react';
-import type {
-  LayoutProps,
-  MarginProps,
-  PropsWithoutRefOrColor,
-} from '../../helpers';
+import type { LayoutProps, MarginProps } from '../../helpers';
 import {
   extractLayoutProps,
   extractMarginProps,
@@ -15,15 +11,11 @@ import {
   withMarginProps,
 } from '../../helpers';
 
-type AccordionRootElement = React.ElementRef<typeof AccordionPrimitive.Root>;
 type AccordionRootProps = React.ComponentProps<typeof AccordionPrimitive.Root> &
   MarginProps &
   LayoutProps;
 
-const AccordionRoot = React.forwardRef<
-  AccordionRootElement,
-  AccordionRootProps
->((props, forwardedRef) => {
+const AccordionRoot = (props: AccordionRootProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const { rest: layoutRest, ...layoutProps } = extractLayoutProps(marginRest);
 
@@ -32,7 +24,6 @@ const AccordionRoot = React.forwardRef<
   return (
     // @ts-expect-error - `type` and 'collapsible' issues
     <AccordionPrimitive.Root
-      ref={forwardedRef}
       className={classNames(
         'fui-AccordionRoot',
         className,
@@ -42,24 +33,19 @@ const AccordionRoot = React.forwardRef<
       {...accordionRootProps}
     />
   );
-});
+};
 AccordionRoot.displayName = 'Root';
 
-type AccordionItemElement = React.ElementRef<typeof AccordionPrimitive.Item>;
 interface AccordionItemProps
-  extends PropsWithoutRefOrColor<typeof AccordionPrimitive.Item>,
+  extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>,
     MarginProps {}
 
-const AccordionItem = React.forwardRef<
-  AccordionItemElement,
-  AccordionItemProps
->((props, forwardedRef) => {
+const AccordionItem = (props: AccordionItemProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const { className, ...accordionItemProps } = marginRest;
 
   return (
     <AccordionPrimitive.Item
-      ref={forwardedRef}
       className={classNames(
         'fui-AccordionItem',
         className,
@@ -68,21 +54,15 @@ const AccordionItem = React.forwardRef<
       {...accordionItemProps}
     />
   );
-});
+};
 AccordionItem.displayName = 'Item';
 
-type AccordionTriggerElement = React.ElementRef<
-  typeof AccordionPrimitive.Trigger
->;
 type AccordionTriggerProps = React.ComponentPropsWithoutRef<
   typeof AccordionPrimitive.Trigger
 > &
   MarginProps &
   LayoutProps;
-const AccordionTrigger = React.forwardRef<
-  AccordionTriggerElement,
-  AccordionTriggerProps
->((props, forwardedRef) => {
+const AccordionTrigger = (props: AccordionTriggerProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const { rest: layoutRest, ...layoutProps } = extractLayoutProps(marginRest);
 
@@ -97,7 +77,6 @@ const AccordionTrigger = React.forwardRef<
         withMarginProps(marginProps),
       )}
       {...accordionTriggerProps}
-      ref={forwardedRef}
     >
       <svg
         width="20"
@@ -118,28 +97,23 @@ const AccordionTrigger = React.forwardRef<
       {children}
     </AccordionPrimitive.Trigger>
   );
-});
+};
 AccordionTrigger.displayName = 'AccordionTrigger';
 
-type AccordionContentElement = React.ElementRef<
-  typeof AccordionPrimitive.Content
->;
 type AccordionContentProps = React.ComponentPropsWithoutRef<
   typeof AccordionPrimitive.Content
 >;
-const AccordionContent = React.forwardRef<
-  AccordionContentElement,
-  AccordionContentProps
->(({ className, children, ...props }, forwardedRef) => (
+const AccordionContent = ({
+  className,
+  children,
+  ...props
+}: AccordionContentProps) => (
   <AccordionPrimitive.Content className="fui-AccordionContent" {...props}>
-    <div
-      className={classNames('fui-AccordionContentInner', className)}
-      ref={forwardedRef}
-    >
+    <div className={classNames('fui-AccordionContentInner', className)}>
       {children}
     </div>
   </AccordionPrimitive.Content>
-));
+);
 AccordionContent.displayName = 'AccordionContent';
 
 export {

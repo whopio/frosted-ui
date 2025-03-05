@@ -148,9 +148,8 @@ async function main() {
 
   /* 6. Generate React Components from the SVGs */
 
-  const [previousIconManifest, nextIconManifest] = await generateIconManifest(
-    icons,
-  );
+  const [previousIconManifest, nextIconManifest] =
+    await generateIconManifest(icons);
 
   render({
     spinners: [
@@ -196,6 +195,6 @@ main()
   .then(() => {
     console.log('Bai 👋');
   })
-  .catch(err => handleError(err));
+  .catch((err) => handleError(err));
 
-process.addListener('unhandledRejection', err => handleError(err));
+process.addListener('unhandledRejection', (err) => handleError(err));

@@ -50,10 +50,10 @@ export function fetch(
   return new Promise((resolve, reject) => {
     const attemptFetch = (remainingRetries: number) => {
       nodeFetch(url, fetchOptions)
-        .then(res => {
+        .then((res) => {
           resolve(res);
         })
-        .catch(async err => {
+        .catch(async (err) => {
           if (remainingRetries > 0) {
             await asyncDelay(retryOptions.delay);
             attemptFetch(--remainingRetries);
@@ -82,7 +82,7 @@ export function fetch(
 }
 
 function asyncDelay(timeout: number) {
-  return new Promise<void>(resolve => {
+  return new Promise<void>((resolve) => {
     setTimeout(() => {
       resolve();
     }, timeout);

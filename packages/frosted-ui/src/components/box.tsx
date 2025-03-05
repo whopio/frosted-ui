@@ -12,7 +12,6 @@ import { Slot } from './slot';
 
 import type { GetPropDefTypes, LayoutProps, MarginProps } from '../helpers';
 
-type BoxElement = React.ElementRef<'div'>;
 type BoxOwnProps = GetPropDefTypes<typeof boxPropDefs>;
 interface BoxProps
   extends React.ComponentPropsWithoutRef<'div'>,
@@ -21,7 +20,8 @@ interface BoxProps
     BoxOwnProps {
   asChild?: boolean;
 }
-const Box = React.forwardRef<BoxElement, BoxProps>((props, forwardedRef) => {
+
+const Box = (props: BoxProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const { rest: layoutRest, ...layoutProps } = extractLayoutProps(marginRest);
   const {
@@ -34,7 +34,6 @@ const Box = React.forwardRef<BoxElement, BoxProps>((props, forwardedRef) => {
   return (
     <Comp
       {...boxProps}
-      ref={forwardedRef}
       className={classNames(
         'fui-Box',
         className,
@@ -44,7 +43,7 @@ const Box = React.forwardRef<BoxElement, BoxProps>((props, forwardedRef) => {
       )}
     />
   );
-});
+};
 Box.displayName = 'Box';
 
 export { Box };

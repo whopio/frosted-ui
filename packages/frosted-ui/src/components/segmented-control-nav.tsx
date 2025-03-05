@@ -12,9 +12,6 @@ import {
 } from '../helpers';
 import { segmentedControlNavLinkPropDefs } from './segmented-control-nav.props';
 
-type SegmentedControlNavRootElement = React.ElementRef<
-  typeof NavigationMenu.Root
->;
 interface SegmentedControlNavRootProps
   extends Omit<
       React.ComponentPropsWithoutRef<typeof NavigationMenu.Root>,
@@ -27,10 +24,8 @@ interface SegmentedControlNavRootProps
       | 'skipDelayDuration'
     >,
     MarginProps {}
-const SegmentedControlNavRoot = React.forwardRef<
-  SegmentedControlNavRootElement,
-  SegmentedControlNavRootProps
->((props, forwardedRef) => {
+
+const SegmentedControlNavRoot = (props: SegmentedControlNavRootProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const { children, className, ...rootProps } = marginRest;
 
@@ -39,7 +34,6 @@ const SegmentedControlNavRoot = React.forwardRef<
       className="fui-SegmentedControlNavRoot"
       {...rootProps}
       asChild={false}
-      ref={forwardedRef}
       orientation="horizontal"
     >
       <NavigationMenu.List
@@ -54,12 +48,9 @@ const SegmentedControlNavRoot = React.forwardRef<
       </NavigationMenu.List>
     </NavigationMenu.Root>
   );
-});
+};
 SegmentedControlNavRoot.displayName = 'SegmentedControlNavRoot';
 
-type SegmentedControlNavLinkElement = React.ElementRef<
-  typeof NavigationMenu.Link
->;
 type SegmentedControlNavLinkOwnProps = GetPropDefTypes<
   typeof segmentedControlNavLinkPropDefs
 >;
@@ -69,17 +60,14 @@ interface SegmentedControlNavLinkProps
       'onSelect'
     >,
     SegmentedControlNavLinkOwnProps {}
-const SegmentedControlNavLink = React.forwardRef<
-  SegmentedControlNavLinkElement,
-  SegmentedControlNavLinkProps
->((props, forwardedRef) => {
+
+const SegmentedControlNavLink = (props: SegmentedControlNavLinkProps) => {
   const { asChild, children, className, ...linkProps } = props;
 
   return (
     <NavigationMenu.Item className="fui-SegmentedControlNavItem">
       <NavigationMenu.Link
         {...linkProps}
-        ref={forwardedRef}
         className={classNames(
           'fui-reset',
           'fui-BaseSegmentedControlTrigger',
@@ -98,7 +86,7 @@ const SegmentedControlNavLink = React.forwardRef<
       </NavigationMenu.Link>
     </NavigationMenu.Item>
   );
-});
+};
 
 SegmentedControlNavLink.displayName = 'SegmentedControlNavLink';
 

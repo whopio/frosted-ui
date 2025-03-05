@@ -14,7 +14,6 @@ import { Slot } from './slot';
 
 import type { GetPropDefTypes, LayoutProps, MarginProps } from '../helpers';
 
-type GridElement = React.ElementRef<'div'>;
 type GridOwnProps = GetPropDefTypes<typeof gridPropDefs>;
 interface GridProps
   extends React.ComponentPropsWithoutRef<'div'>,
@@ -23,7 +22,8 @@ interface GridProps
     GridOwnProps {
   asChild?: boolean;
 }
-const Grid = React.forwardRef<GridElement, GridProps>((props, forwardedRef) => {
+
+const Grid = (props: GridProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const { rest: layoutRest, ...layoutProps } = extractLayoutProps(marginRest);
   const {
@@ -90,7 +90,6 @@ const Grid = React.forwardRef<GridElement, GridProps>((props, forwardedRef) => {
   return (
     <Comp
       {...gridProps}
-      ref={forwardedRef}
       className={classNames(
         'fui-Grid',
         className,
@@ -107,7 +106,7 @@ const Grid = React.forwardRef<GridElement, GridProps>((props, forwardedRef) => {
       style={Object.keys(style).length ? style : undefined}
     />
   );
-});
+};
 Grid.displayName = 'Grid';
 
 function parseGridValue(value: string | undefined) {

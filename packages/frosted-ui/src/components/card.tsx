@@ -10,7 +10,6 @@ import { cardPropDefs } from './card.props';
 
 import type { GetPropDefTypes, MarginProps } from '../helpers';
 
-type CardElement = React.ElementRef<'div'>;
 type CardOwnProps = GetPropDefTypes<typeof cardPropDefs>;
 interface CardProps
   extends React.ComponentPropsWithoutRef<'div'>,
@@ -18,7 +17,8 @@ interface CardProps
     CardOwnProps {
   asChild?: boolean;
 }
-const Card = React.forwardRef<CardElement, CardProps>((props, forwardedRef) => {
+
+const Card = (props: CardProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     asChild,
@@ -41,7 +41,6 @@ const Card = React.forwardRef<CardElement, CardProps>((props, forwardedRef) => {
 
   return (
     <Comp
-      ref={forwardedRef}
       {...cardProps}
       className={classNames(
         'fui-reset',
@@ -55,7 +54,7 @@ const Card = React.forwardRef<CardElement, CardProps>((props, forwardedRef) => {
       {asChild ? getChild() : <div className="fui-CardInner">{children}</div>}
     </Comp>
   );
-});
+};
 Card.displayName = 'Card';
 
 export { Card };

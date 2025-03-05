@@ -12,7 +12,6 @@ type StackedHorizontalBarChartData = {
   color: (typeof colorProp.values)[number]; // Color for the bar
 };
 
-type StackedHorizontalBarChartElement = React.ElementRef<'div'>;
 interface StackedHorizontalBarChartOwnProps
   extends React.ComponentPropsWithoutRef<'div'> {}
 
@@ -23,10 +22,7 @@ interface StackedHorizontalBarChartProps
   data: StackedHorizontalBarChartData[];
 }
 
-const StackedHorizontalBarChart = React.forwardRef<
-  StackedHorizontalBarChartElement,
-  StackedHorizontalBarChartProps
->((props, forwardedRef) => {
+const StackedHorizontalBarChart = (props: StackedHorizontalBarChartProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const { className, data, ...rootProps } = marginRest;
 
@@ -35,7 +31,6 @@ const StackedHorizontalBarChart = React.forwardRef<
   return (
     <div
       {...rootProps}
-      ref={forwardedRef}
       className={classNames(
         'fui-StackedHorizontalBarChart',
         className,
@@ -76,7 +71,7 @@ const StackedHorizontalBarChart = React.forwardRef<
       })}
     </div>
   );
-});
+};
 
 StackedHorizontalBarChart.displayName = 'StackedHorizontalBarChart';
 

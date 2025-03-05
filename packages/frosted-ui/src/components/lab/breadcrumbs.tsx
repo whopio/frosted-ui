@@ -16,7 +16,6 @@ type BreadcrumbsRootChildrenTypes = React.ReactElement<
   BreadcrumbsItemProps | BreadcrumbsDropdownProps
 >;
 
-type BreadcrumbsRootElement = React.ElementRef<'nav'>;
 type BreadcrumbsRootOwnProps = GetPropDefTypes<typeof breadcrumbsPropDefs>;
 interface BreadcrumbsRootProps
   extends PropsWithoutRefOrColor<'nav'>,
@@ -24,16 +23,13 @@ interface BreadcrumbsRootProps
     BreadcrumbsRootOwnProps {
   asChild?: boolean;
 }
-const BreadcrumbsRoot = React.forwardRef<
-  BreadcrumbsRootElement,
-  BreadcrumbsRootProps
->((props, forwardedRef) => {
+
+const BreadcrumbsRoot = (props: BreadcrumbsRootProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     className,
     children,
     asChild = false,
-
     color = breadcrumbsPropDefs.color.default,
     highContrast = breadcrumbsPropDefs.highContrast.default,
     ...baseButtonProps
@@ -45,7 +41,6 @@ const BreadcrumbsRoot = React.forwardRef<
     <Comp
       data-accent-color={color}
       {...baseButtonProps}
-      ref={forwardedRef}
       className={classNames(
         'fui-BreadcrumbsRoot',
         className,
@@ -95,42 +90,37 @@ const BreadcrumbsRoot = React.forwardRef<
       )}
     </Comp>
   );
-});
+};
 BreadcrumbsRoot.displayName = 'BreadcrumbsRoot';
 
-type BreadcrumbsItemElement = React.ElementRef<typeof Button>;
 interface BreadcrumbsItemProps
   extends Omit<
     React.ComponentPropsWithoutRef<typeof Button>,
     'variant' | 'size'
   > {}
 
-const BreadcrumbsItem = React.forwardRef<
-  BreadcrumbsItemElement,
-  BreadcrumbsItemProps
->((props, forwardedRef) => (
+const BreadcrumbsItem = (props: BreadcrumbsItemProps) => (
   <Button
     {...props}
     size="1"
     variant={'ghost'}
-    ref={forwardedRef}
     className={classNames('fui-BreadcrumbsItem', props.className)}
   />
-));
+);
 
 BreadcrumbsItem.displayName = 'BreadcrumbsItem';
 
-type BreadcrumbsDropdownElement = React.ElementRef<typeof DropdownMenu.Content>;
 interface BreadcrumbsDropdownProps
   extends Omit<
     React.ComponentPropsWithoutRef<typeof DropdownMenu.Content>,
     'variant' | 'size'
   > {}
 
-const BreadcrumbsDropdown = React.forwardRef<
-  BreadcrumbsDropdownElement,
-  BreadcrumbsDropdownProps
->(({ color, highContrast, ...props }, forwardedRef) => (
+const BreadcrumbsDropdown = ({
+  color,
+  highContrast,
+  ...props
+}: BreadcrumbsDropdownProps) => (
   <DropdownMenu.Root>
     <DropdownMenu.Trigger>
       <BreadcrumbsItem color={color} highContrast={highContrast}>
@@ -142,28 +132,23 @@ const BreadcrumbsDropdown = React.forwardRef<
       size="2"
       color={color}
       highContrast={highContrast}
-      ref={forwardedRef}
     >
       {props.children}
     </DropdownMenu.Content>
   </DropdownMenu.Root>
-));
+);
 
 BreadcrumbsDropdown.displayName = 'BreadcrumbsDropdown';
 
-type BreadcrumbsDropdownItemElement = React.ElementRef<
-  typeof DropdownMenu.Item
->;
 interface BreadcrumbsDropdownItemProps
   extends Omit<
     React.ComponentPropsWithoutRef<typeof DropdownMenu.Item>,
     'color'
   > {}
 
-const BreadcrumbsDropdownItem = React.forwardRef<
-  BreadcrumbsDropdownItemElement,
-  BreadcrumbsDropdownItemProps
->((props, forwardedRef) => <DropdownMenu.Item {...props} ref={forwardedRef} />);
+const BreadcrumbsDropdownItem = (props: BreadcrumbsDropdownItemProps) => (
+  <DropdownMenu.Item {...props} />
+);
 
 BreadcrumbsDropdownItem.displayName = 'BreadcrumbsDropdownItem';
 

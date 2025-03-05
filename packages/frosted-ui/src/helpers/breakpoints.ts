@@ -19,7 +19,7 @@ type Responsive<T> = T | Partial<Record<Breakpoints, T>>;
 function withBreakpoints(
   value: Responsive<string | boolean> | undefined, // Value to check
   classPrefix = '', // CSS class prefix, e.g. "px" in "px-1" class
-  valueMap?: Record<string, string> // Optionally, an object to map prop values to a different CSS suffix
+  valueMap?: Record<string, string>, // Optionally, an object to map prop values to a different CSS suffix
 ) {
   const classes: string[] = [];
 
@@ -68,7 +68,7 @@ function withBreakpoints(
 }
 
 function isBreakpointsObject<V extends string>(
-  obj: Responsive<V | Omit<string, V>> | undefined
+  obj: Responsive<V | Omit<string, V>> | undefined,
 ): obj is Record<Breakpoints, string> {
   return typeof obj === 'object';
 }

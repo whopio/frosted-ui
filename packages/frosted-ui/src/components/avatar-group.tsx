@@ -1,6 +1,5 @@
 'use client';
 
-import * as AvatarPrimitive from '@radix-ui/react-avatar';
 import classNames from 'classnames';
 import * as React from 'react';
 import type {
@@ -16,17 +15,14 @@ import {
 import { Avatar } from './avatar';
 import { avatarGroupPropDefs } from './avatar-group.props';
 
-type AvatarGroupRootElement = React.ElementRef<'div'>;
 type AvatarGroupRootOwnProps = GetPropDefTypes<typeof avatarGroupPropDefs>;
 
 interface AvatarGroupRootProps
   extends PropsWithoutRefOrColor<'div'>,
     MarginProps,
     AvatarGroupRootOwnProps {}
-const AvatarGroupRoot = React.forwardRef<
-  AvatarGroupRootElement,
-  AvatarGroupRootProps
->((props, forwardedRef) => {
+
+const AvatarGroupRoot = (props: AvatarGroupRootProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     className,
@@ -41,7 +37,6 @@ const AvatarGroupRoot = React.forwardRef<
     <div
       data-accent-color={color}
       {...rootProps}
-      ref={forwardedRef}
       className={classNames(
         'fui-AvatarGroupRoot',
         className,
@@ -53,7 +48,7 @@ const AvatarGroupRoot = React.forwardRef<
       <div className="fui-AvatarGroupRootInner">{children}</div>
     </div>
   );
-});
+};
 
 AvatarGroupRoot.displayName = 'AvatarGroupRoot';
 
@@ -62,21 +57,15 @@ type AvatarGroupAvatarProps = Omit<
   'size' | 'variant'
 >;
 
-type AvatarElement = React.ElementRef<typeof AvatarPrimitive.Image>;
-
-const AvatarGroupAvatar = React.forwardRef<
-  AvatarElement,
-  AvatarGroupAvatarProps
->(({ className, ...props }, forwardedRef) => {
+const AvatarGroupAvatar = ({ className, ...props }: AvatarGroupAvatarProps) => {
   return (
     <Avatar
       size="3"
       className={classNames('fui-AvatarGroupAvatar', className)}
       {...props}
-      ref={forwardedRef}
     />
   );
-});
+};
 
 AvatarGroupAvatar.displayName = 'AvatarGroupAvatar';
 

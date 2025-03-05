@@ -15,7 +15,6 @@ import type {
   PropsWithoutRefOrColor,
 } from '../helpers';
 
-type TextElement = React.ElementRef<'span'>;
 type TextOwnProps = GetPropDefTypes<typeof textPropDefs>;
 type CommonTextProps = NiceIntersection<MarginProps, TextOwnProps>;
 type TextAsChildProps = {
@@ -44,7 +43,7 @@ type TextProps = CommonTextProps &
     | TextPProps
   );
 
-const Text = React.forwardRef<TextElement, TextProps>((props, forwardedRef) => {
+const Text = (props: TextProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     children,
@@ -63,7 +62,6 @@ const Text = React.forwardRef<TextElement, TextProps>((props, forwardedRef) => {
     <Slot
       data-accent-color={color}
       {...textProps}
-      ref={forwardedRef}
       className={classNames(
         'fui-Text',
         className,
@@ -78,7 +76,7 @@ const Text = React.forwardRef<TextElement, TextProps>((props, forwardedRef) => {
       {asChild ? children : <Tag>{children}</Tag>}
     </Slot>
   );
-});
+};
 Text.displayName = 'Text';
 
 export { Text };

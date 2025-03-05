@@ -151,16 +151,13 @@ const WidgetStackRoot: React.FC<WidgetStackRootProps> = ({
 };
 WidgetStackRoot.displayName = 'WidgetStackRoot';
 
-type WidgetStackStackElement = React.ElementRef<'div'>;
 interface WidgetStackStackProps
   extends PropsWithoutRefOrColor<'div'>,
     MarginProps {
   asChild?: boolean;
 }
-const WidgetStackStack = React.forwardRef<
-  WidgetStackStackElement,
-  WidgetStackStackProps
->((props, forwardedRef) => {
+
+const WidgetStackStack = (props: WidgetStackStackProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const { className, children, ...rootProps } = marginRest;
 
@@ -368,7 +365,7 @@ const WidgetStackStack = React.forwardRef<
   return (
     <div
       {...rootProps}
-      ref={forwardedRef}
+      ref={scrollAreaRef}
       className={classNames(
         'fui-WidgetStackStack',
         withMarginProps(marginProps),
@@ -377,16 +374,12 @@ const WidgetStackStack = React.forwardRef<
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      <div
-        className="fui-WidgetStackScrollArea"
-        data-orientation={orientation}
-        ref={scrollAreaRef}
-      >
+      <div className="fui-WidgetStackScrollArea" data-orientation={orientation}>
         {children}
       </div>
     </div>
   );
-});
+};
 WidgetStackStack.displayName = 'WidgetStackStack';
 
 const WidgetStackItemContext = React.createContext<{
@@ -405,27 +398,14 @@ export function useWidgetStackItem() {
   return context;
 }
 
-type WidgetStackItemElement = React.ElementRef<'div'>;
 interface WidgetStackItemProps
   extends React.ComponentPropsWithoutRef<'div'>,
     MarginProps {}
-const WidgetStackItem = React.forwardRef<
-  WidgetStackItemElement,
-  WidgetStackItemProps
->((props, forwardedRef) => {
+
+const WidgetStackItem = (props: WidgetStackItemProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const { className, children, ...rootProps } = marginRest;
   const ref = React.useRef<HTMLDivElement>(null);
-
-  React.useEffect(() => {
-    if (forwardedRef) {
-      if (typeof forwardedRef === 'function') {
-        forwardedRef(ref.current);
-      } else if (forwardedRef.current) {
-        forwardedRef.current = ref.current;
-      }
-    }
-  }, [forwardedRef]);
 
   const [isFullyVisible, setIsFullyVisible] = React.useState(false);
 
@@ -478,19 +458,17 @@ const WidgetStackItem = React.forwardRef<
       </div>
     </WidgetStackItemContext.Provider>
   );
-});
+};
 
-type WidgetStackNextElementNext = React.ElementRef<'button'>;
+WidgetStackItem.displayName = 'WidgetStackItem';
+
 interface WidgetStackNextProps
   extends Omit<
     React.ComponentPropsWithoutRef<'button'>,
     'asChild' | 'disabled' | 'onClick'
   > {}
 
-const WidgetStackNext = React.forwardRef<
-  WidgetStackNextElementNext,
-  WidgetStackNextProps
->((props, forwardedRef) => {
+const WidgetStackNext = (props: WidgetStackNextProps) => {
   const { nextDisabled, controls } = useWidgetStack();
 
   return (
@@ -501,23 +479,18 @@ const WidgetStackNext = React.forwardRef<
       disabled={nextDisabled}
       data-disabled={nextDisabled || undefined}
       onClick={controls?.next}
-      ref={forwardedRef}
     />
   );
-});
+};
 WidgetStackNext.displayName = 'WidgetStackNext';
 
-type WidgetStackPrevElement = React.ElementRef<'button'>;
 interface WidgetStackPrevProps
   extends Omit<
     React.ComponentPropsWithoutRef<'button'>,
     'asChild' | 'disabled' | 'onClick'
   > {}
 
-const WidgetStackPrev = React.forwardRef<
-  WidgetStackPrevElement,
-  WidgetStackPrevProps
->((props, forwardedRef) => {
+const WidgetStackPrev = (props: WidgetStackPrevProps) => {
   const { prevDisabled, controls } = useWidgetStack();
   return (
     <Slot
@@ -527,10 +500,9 @@ const WidgetStackPrev = React.forwardRef<
       disabled={prevDisabled}
       data-disabled={prevDisabled || undefined}
       onClick={controls?.prev}
-      ref={forwardedRef}
     />
   );
-});
+};
 WidgetStackPrev.displayName = 'WidgetStackPrev';
 
 export {

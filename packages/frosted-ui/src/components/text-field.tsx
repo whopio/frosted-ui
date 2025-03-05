@@ -24,15 +24,12 @@ const TextFieldContext = React.createContext<TextFieldContextValue | undefined>(
   undefined,
 );
 
-type TextFieldRootElement = React.ElementRef<'div'>;
 interface TextFieldRootProps
   extends PropsWithoutRefOrColor<'div'>,
-    MarginProps,
-    TextFieldContextValue {}
-const TextFieldRoot = React.forwardRef<
-  TextFieldRootElement,
-  TextFieldRootProps
->((props, forwardedRef) => {
+  MarginProps,
+  TextFieldContextValue { }
+
+const TextFieldRoot = (props: TextFieldRootProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     children,
@@ -45,7 +42,6 @@ const TextFieldRoot = React.forwardRef<
   return (
     <div
       {...rootProps}
-      ref={forwardedRef}
       className={classNames(
         'fui-TextFieldRoot',
         className,
@@ -76,15 +72,15 @@ const TextFieldRoot = React.forwardRef<
       </TextFieldContext.Provider>
     </div>
   );
-});
+};
 TextFieldRoot.displayName = 'TextFieldRoot';
 
 type TextFieldSlotElement = React.ElementRef<'div'>;
 type TextFieldSlotOwnProps = GetPropDefTypes<typeof textFieldSlotPropDefs>;
 interface TextFieldSlotProps
   extends PropsWithoutRefOrColor<'div'>,
-    PaddingProps,
-    TextFieldSlotOwnProps {}
+  PaddingProps,
+  TextFieldSlotOwnProps { }
 const TextFieldSlot = React.forwardRef<
   TextFieldSlotElement,
   TextFieldSlotProps
@@ -118,8 +114,8 @@ type TextFieldInputElement = React.ElementRef<'input'>;
 type TextFieldInputOwnProps = GetPropDefTypes<typeof textFieldPropDefs>;
 interface TextFieldInputProps
   extends Omit<PropsWithoutRefOrColor<'input'>, 'size'>,
-    MarginProps,
-    TextFieldInputOwnProps {}
+  MarginProps,
+  TextFieldInputOwnProps { }
 const TextFieldInput = React.forwardRef<
   TextFieldInputElement,
   TextFieldInputProps
@@ -165,10 +161,11 @@ TextFieldInput.displayName = 'TextFieldInput';
 export {
   TextFieldInput as Input,
   TextFieldRoot as Root,
-  TextFieldSlot as Slot,
+  TextFieldSlot as Slot
 };
 export type {
   TextFieldInputProps as InputProps,
   TextFieldRootProps as RootProps,
-  TextFieldSlotProps as SlotProps,
+  TextFieldSlotProps as SlotProps
 };
+

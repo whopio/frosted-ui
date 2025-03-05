@@ -10,53 +10,40 @@ import { hoverCardContentPropDefs } from './hover-card.props';
 import type { GetPropDefTypes } from '../helpers';
 
 interface HoverCardRootProps
-  extends React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Root> {}
+  extends React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Root> { }
 const HoverCardRoot: React.FC<HoverCardRootProps> = (props) => (
   <HoverCardPrimitive.Root closeDelay={150} openDelay={200} {...props} />
 );
 HoverCardRoot.displayName = 'HoverCardRoot';
 
-type HoverCardTriggerElement = React.ElementRef<
-  typeof HoverCardPrimitive.Trigger
->;
 interface HoverCardTriggerProps
   extends Omit<
     React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Trigger>,
     'asChild'
-  > {}
-const HoverCardTrigger = React.forwardRef<
-  HoverCardTriggerElement,
-  HoverCardTriggerProps
->((props, forwardedRef) => (
+  > { }
+const HoverCardTrigger = (props: HoverCardTriggerProps) => (
   <HoverCardPrimitive.Trigger
-    ref={forwardedRef}
     className={classNames('fui-HoverCardTrigger', props.className)}
     {...props}
     asChild
   />
-));
+);
 HoverCardTrigger.displayName = 'HoverCardTrigger';
 
-type HoverCardContentElement = React.ElementRef<
-  typeof HoverCardPrimitive.Content
->;
 type HoverCardContentOwnProps = GetPropDefTypes<
   typeof hoverCardContentPropDefs
 >;
 interface HoverCardContentProps
   extends Omit<
-      React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Content>,
-      'asChild'
-    >,
-    HoverCardContentOwnProps {
+    React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Content>,
+    'asChild'
+  >,
+  HoverCardContentOwnProps {
   container?: React.ComponentProps<
     typeof HoverCardPrimitive.Portal
   >['container'];
 }
-const HoverCardContent = React.forwardRef<
-  HoverCardContentElement,
-  HoverCardContentProps
->((props, forwardedRef) => {
+const HoverCardContent = (props: HoverCardContentProps) => {
   const {
     className,
     forceMount,
@@ -72,7 +59,6 @@ const HoverCardContent = React.forwardRef<
           sideOffset={8}
           collisionPadding={10}
           {...contentProps}
-          ref={forwardedRef}
           className={classNames(
             'fui-PopperContent',
             'fui-HoverCardContent',
@@ -83,16 +69,17 @@ const HoverCardContent = React.forwardRef<
       </Theme>
     </HoverCardPrimitive.Portal>
   );
-});
+};
 HoverCardContent.displayName = 'HoverCardContent';
 
 export {
   HoverCardContent as Content,
   HoverCardRoot as Root,
-  HoverCardTrigger as Trigger,
+  HoverCardTrigger as Trigger
 };
 export type {
   HoverCardContentProps as ContentProps,
   HoverCardRootProps as RootProps,
-  HoverCardTriggerProps as TriggerProps,
+  HoverCardTriggerProps as TriggerProps
 };
+
