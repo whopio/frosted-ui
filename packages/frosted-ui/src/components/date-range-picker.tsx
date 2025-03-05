@@ -1,21 +1,12 @@
 'use client';
 
-import {
-  AriaDateRangePickerProps,
-  DateValue,
-  useDateRangePicker,
-} from '@react-aria/datepicker';
+import { AriaDateRangePickerProps, DateValue, useDateRangePicker } from '@react-aria/datepicker';
 
 import { useDateRangePickerState } from '@react-stately/datepicker';
 import classNames from 'classnames';
 import React, { useRef } from 'react';
 import { Popover } from '../';
-import {
-  GetPropDefTypes,
-  MarginProps,
-  extractMarginProps,
-  withMarginProps,
-} from '../helpers';
+import { GetPropDefTypes, MarginProps, extractMarginProps, withMarginProps } from '../helpers';
 import { MappedDateValue, RangeCalendar } from './calendar';
 import { DateField } from './date-field';
 import { datePickerPropDefs } from './date-picker.props';
@@ -39,9 +30,7 @@ interface DateRangePickerProps<T extends DateValue>
   onChange?: (value: RangeValue<MappedDateValue<T>> | null) => void;
 }
 
-export function DateRangePicker<T extends DateValue>(
-  props: DateRangePickerProps<T>,
-) {
+export function DateRangePicker<T extends DateValue>(props: DateRangePickerProps<T>) {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const { className, ...otherProps } = marginRest;
 
@@ -61,11 +50,7 @@ export function DateRangePicker<T extends DateValue>(
     groupProps,
     startFieldProps: { onChange: onStartChange, ...startFieldProps },
     endFieldProps: { onChange: onEndChange, ...endFieldProps },
-    buttonProps: {
-      isDisabled: isButtonDisabled,
-      onPress: onButtonClick,
-      ...otherButtonProps
-    },
+    buttonProps: { isDisabled: isButtonDisabled, onPress: onButtonClick, ...otherButtonProps },
     calendarProps,
   } = useDateRangePicker(props, state, ref);
 
@@ -76,11 +61,7 @@ export function DateRangePicker<T extends DateValue>(
       gap="1"
       {...groupProps}
       ref={ref}
-      className={classNames(
-        'fui-DateRangePickerRoot',
-        className,
-        withMarginProps(marginProps),
-      )}
+      className={classNames('fui-DateRangePickerRoot', className, withMarginProps(marginProps))}
     >
       <DateField
         {...startFieldProps}
@@ -96,10 +77,7 @@ export function DateRangePicker<T extends DateValue>(
         // @ts-expect-error TODO: Aria onChange types exclude NULL which is wrong
         onChange={onEndChange}
       />
-      <Popover.Root
-        open={state.isOpen}
-        onOpenChange={(open) => state.setOpen(open)}
-      >
+      <Popover.Root open={state.isOpen} onOpenChange={(open) => state.setOpen(open)}>
         <Popover.Trigger>
           <IconButton
             {...otherButtonProps}
@@ -116,13 +94,7 @@ export function DateRangePicker<T extends DateValue>(
             }}
             size={size}
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g>
                 <path
                   fillRule="evenodd"

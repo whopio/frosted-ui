@@ -1,8 +1,7 @@
 :where(.frosted-ui) {
   --switch-disabled-blend-mode: multiply;
   --switch-button-high-contrast-checked-color-overlay: var(--black-a8);
-  --switch-button-high-contrast-checked-active-before-filter: contrast(0.82)
-    saturate(1.2) brightness(1.16);
+  --switch-button-high-contrast-checked-active-before-filter: contrast(0.82) saturate(1.2) brightness(1.16);
 }
 
 :is(.dark, .dark-theme),
@@ -125,11 +124,7 @@
 .fui-SwitchRoot {
   & :where(.fui-SwitchButton) {
     &::before {
-      background-image: linear-gradient(
-        to right,
-        var(--accent-9) 40%,
-        transparent 60%
-      );
+      background-image: linear-gradient(to right, var(--accent-9) 40%, transparent 60%);
       background-color: var(--gray-a4);
       box-shadow: var(--shadow-1);
     }

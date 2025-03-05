@@ -59,14 +59,10 @@
         inset 0 0 0 1px var(--gray-a7),
         var(--shadow-1);
     }
-    &:where(:is([data-state='checked'], [data-state='indeterminate'])):not(
-        :disabled
-      ):hover {
+    &:where(:is([data-state='checked'], [data-state='indeterminate'])):not(:disabled):hover {
       background-color: var(--accent-10);
     }
-    &:where(:is([data-state='checked'], [data-state='indeterminate'])):not(
-        :disabled
-      ):active {
+    &:where(:is([data-state='checked'], [data-state='indeterminate'])):not(:disabled):active {
       background-color: var(--accent-11);
     }
   }

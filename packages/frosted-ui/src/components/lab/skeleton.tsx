@@ -2,34 +2,14 @@
 
 import classNames from 'classnames';
 import * as React from 'react';
-import type {
-  GetPropDefTypes,
-  MarginProps,
-  PropsWithoutRefOrColor,
-} from '../../helpers';
-import {
-  extractMarginProps,
-  withBreakpoints,
-  withMarginProps,
-} from '../../helpers';
-import {
-  skeletonAvatarPropDefs,
-  skeletonRectPropDefs,
-  skeletonTextPropDefs,
-} from './skeleton.props';
+import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../../helpers';
+import { extractMarginProps, withBreakpoints, withMarginProps } from '../../helpers';
+import { skeletonAvatarPropDefs, skeletonRectPropDefs, skeletonTextPropDefs } from './skeleton.props';
 
-// TODO: omit children
-type SkeletonAvatarElement = React.ElementRef<'div'>;
 type SkeletonAvatarOwnProps = GetPropDefTypes<typeof skeletonAvatarPropDefs>;
 
-interface SkeletonAvatarProps
-  extends PropsWithoutRefOrColor<'div'>,
-    MarginProps,
-    SkeletonAvatarOwnProps {}
-const SkeletonAvatar = React.forwardRef<
-  SkeletonAvatarElement,
-  SkeletonAvatarProps
->((props, forwardedRef) => {
+interface SkeletonAvatarProps extends PropsWithoutRefOrColor<'div'>, MarginProps, SkeletonAvatarOwnProps {}
+const SkeletonAvatar = (props: SkeletonAvatarProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     className,
@@ -50,88 +30,67 @@ const SkeletonAvatar = React.forwardRef<
         withMarginProps(marginProps),
       )}
       {...skeletonAvatarProps}
-      ref={forwardedRef}
     />
   );
-});
+};
 SkeletonAvatar.displayName = 'SkeletonAvatar';
 
-// TODO: omit children
-type SkeletonTextElement = React.ElementRef<'div'>;
 type SkeletonTextOwnProps = GetPropDefTypes<typeof skeletonTextPropDefs>;
 
-interface SkeletonTextProps
-  extends PropsWithoutRefOrColor<'div'>,
-    MarginProps,
-    SkeletonTextOwnProps {}
-const SkeletonText = React.forwardRef<SkeletonTextElement, SkeletonTextProps>(
-  (props, forwardedRef) => {
-    const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-    const {
-      className,
-      size = skeletonTextPropDefs.size.default,
-      color = skeletonTextPropDefs.color.default,
-      highContrast = skeletonTextPropDefs.highContrast.default,
-      ...skeletonTextProps
-    } = marginRest;
+interface SkeletonTextProps extends PropsWithoutRefOrColor<'div'>, MarginProps, SkeletonTextOwnProps {}
+const SkeletonText = (props: SkeletonTextProps) => {
+  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
+  const {
+    className,
+    size = skeletonTextPropDefs.size.default,
+    color = skeletonTextPropDefs.color.default,
+    highContrast = skeletonTextPropDefs.highContrast.default,
+    ...skeletonTextProps
+  } = marginRest;
 
-    return (
-      <div
-        data-accent-color={color}
-        className={classNames(
-          'fui-SkeletonText',
-          className,
-          withBreakpoints(size, 'fui-r-size'),
-          { 'fui-high-contrast': highContrast },
-          withMarginProps(marginProps),
-        )}
-        {...skeletonTextProps}
-        ref={forwardedRef}
-      />
-    );
-  },
-);
+  return (
+    <div
+      data-accent-color={color}
+      className={classNames(
+        'fui-SkeletonText',
+        className,
+        withBreakpoints(size, 'fui-r-size'),
+        { 'fui-high-contrast': highContrast },
+        withMarginProps(marginProps),
+      )}
+      {...skeletonTextProps}
+    />
+  );
+};
 SkeletonText.displayName = 'SkeletonText';
 
-// TODO: omit children
-type SkeletonRectElement = React.ElementRef<'div'>;
 type SkeletonRectOwnProps = GetPropDefTypes<typeof skeletonRectPropDefs>;
 
-interface SkeletonRectProps
-  extends PropsWithoutRefOrColor<'div'>,
-    MarginProps,
-    SkeletonRectOwnProps {}
-const SkeletonRect = React.forwardRef<SkeletonRectElement, SkeletonRectProps>(
-  (props, forwardedRef) => {
-    const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-    const {
-      className,
-      color = skeletonRectPropDefs.color.default,
-      highContrast = skeletonRectPropDefs.highContrast.default,
-      ...skeletonRectProps
-    } = marginRest;
+interface SkeletonRectProps extends PropsWithoutRefOrColor<'div'>, MarginProps, SkeletonRectOwnProps {}
+const SkeletonRect = (props: SkeletonRectProps) => {
+  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
+  const {
+    className,
+    color = skeletonRectPropDefs.color.default,
+    highContrast = skeletonRectPropDefs.highContrast.default,
+    ...skeletonRectProps
+  } = marginRest;
 
-    return (
-      <div
-        data-accent-color={color}
-        className={classNames(
-          'fui-SkeletonRect',
-          className,
-          { 'fui-high-contrast': highContrast },
-          withMarginProps(marginProps),
-        )}
-        {...skeletonRectProps}
-        ref={forwardedRef}
-      />
-    );
-  },
-);
+  return (
+    <div
+      data-accent-color={color}
+      className={classNames(
+        'fui-SkeletonRect',
+        className,
+        { 'fui-high-contrast': highContrast },
+        withMarginProps(marginProps),
+      )}
+      {...skeletonRectProps}
+    />
+  );
+};
 SkeletonRect.displayName = 'SkeletonRect';
 
 export { SkeletonAvatar as Avatar, SkeletonRect as Rect, SkeletonText as Text };
 
-export type {
-  SkeletonAvatarProps as AvatarProps,
-  SkeletonRectProps as RectProps,
-  SkeletonTextProps as TextProps,
-};
+export type { SkeletonAvatarProps as AvatarProps, SkeletonRectProps as RectProps, SkeletonTextProps as TextProps };

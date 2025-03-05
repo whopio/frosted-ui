@@ -10,9 +10,7 @@
   text-align: initial;
 
   /* Blend inset shadow with container background */
-  --card-after-border-radius: calc(
-    var(--card-border-radius) - var(--card-border-width)
-  );
+  --card-after-border-radius: calc(var(--card-border-radius) - var(--card-border-width));
   border: var(--card-border-width) solid transparent;
   background-clip: padding-box;
 
@@ -87,8 +85,8 @@
       --margin-left-override: initial;
     }
 
-    margin: var(--margin-top-override) var(--margin-right-override)
-      var(--margin-bottom-override) var(--margin-left-override);
+    margin: var(--margin-top-override) var(--margin-right-override) var(--margin-bottom-override)
+      var(--margin-left-override);
   }
 }
 
@@ -140,8 +138,7 @@
     @media (hover: hover) {
       &:where(:hover)::after {
         box-shadow: 0 0 0 1px var(--gray-a8);
-        box-shadow: 0 0 0 1px
-          color-mix(in oklab, var(--gray-a8), var(--gray-8) 25%);
+        box-shadow: 0 0 0 1px color-mix(in oklab, var(--gray-a8), var(--gray-8) 25%);
       }
     }
     &:where(:active:not([data-state='open'])) {

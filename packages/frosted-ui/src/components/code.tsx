@@ -1,25 +1,14 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import {
-  extractMarginProps,
-  withBreakpoints,
-  withMarginProps,
-} from '../helpers';
+import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
 import { codePropDefs } from './code.props';
 
-import type {
-  GetPropDefTypes,
-  MarginProps,
-  PropsWithoutRefOrColor,
-} from '../helpers';
+import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
 
-type CodeElement = React.ElementRef<'code'>;
 type CodeOwnProps = GetPropDefTypes<typeof codePropDefs>;
-interface CodeProps
-  extends PropsWithoutRefOrColor<'code'>,
-    MarginProps,
-    CodeOwnProps {}
-const Code = React.forwardRef<CodeElement, CodeProps>((props, forwardedRef) => {
+interface CodeProps extends PropsWithoutRefOrColor<'code'>, MarginProps, CodeOwnProps {}
+
+const Code = (props: CodeProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     className,
@@ -34,7 +23,6 @@ const Code = React.forwardRef<CodeElement, CodeProps>((props, forwardedRef) => {
     <code
       data-accent-color={color}
       {...codeProps}
-      ref={forwardedRef}
       className={classNames(
         'fui-Code',
         className,
@@ -46,7 +34,7 @@ const Code = React.forwardRef<CodeElement, CodeProps>((props, forwardedRef) => {
       )}
     />
   );
-});
+};
 Code.displayName = 'Code';
 
 export { Code };

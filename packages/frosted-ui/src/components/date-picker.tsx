@@ -1,20 +1,11 @@
 'use client';
 
-import {
-  AriaDatePickerProps,
-  DateValue,
-  useDatePicker,
-} from '@react-aria/datepicker';
+import { AriaDatePickerProps, DateValue, useDatePicker } from '@react-aria/datepicker';
 
 import { useDatePickerState } from '@react-stately/datepicker';
 import classNames from 'classnames';
 import React, { useRef } from 'react';
-import {
-  GetPropDefTypes,
-  MarginProps,
-  extractMarginProps,
-  withMarginProps,
-} from '../helpers';
+import { GetPropDefTypes, MarginProps, extractMarginProps, withMarginProps } from '../helpers';
 import { Popover } from './';
 import { Calendar, MappedDateValue } from './calendar';
 import { DateField } from './date-field';
@@ -24,10 +15,7 @@ import { IconButton } from './icon-button';
 
 type DatePickerFUIProps = GetPropDefTypes<typeof datePickerPropDefs>;
 
-interface DatePickerProps<T extends DateValue>
-  extends AriaDatePickerProps<T>,
-    DatePickerFUIProps,
-    MarginProps {
+interface DatePickerProps<T extends DateValue> extends AriaDatePickerProps<T>, DatePickerFUIProps, MarginProps {
   className?: string;
   onChange?: (value: MappedDateValue<T> | undefined) => void;
 }
@@ -48,11 +36,7 @@ export function DatePicker<T extends DateValue>(props: DatePickerProps<T>) {
   const {
     groupProps,
     fieldProps: { onChange, ...otherFieldProps },
-    buttonProps: {
-      isDisabled: isButtonDisabled,
-      onPress: onButtonClick,
-      ...buttonProps
-    },
+    buttonProps: { isDisabled: isButtonDisabled, onPress: onButtonClick, ...buttonProps },
     calendarProps,
   } = useDatePicker(props, state, ref);
 
@@ -63,11 +47,7 @@ export function DatePicker<T extends DateValue>(props: DatePickerProps<T>) {
       gap="1"
       {...groupProps}
       ref={ref}
-      className={classNames(
-        'fui-DatePickerRoot',
-        className,
-        withMarginProps(marginProps),
-      )}
+      className={classNames('fui-DatePickerRoot', className, withMarginProps(marginProps))}
     >
       <DateField
         {...otherFieldProps}
@@ -76,10 +56,7 @@ export function DatePicker<T extends DateValue>(props: DatePickerProps<T>) {
         // @ts-expect-error React Arias onChange type is incorrect - it's missing UNDEFINED
         onChange={onChange}
       />
-      <Popover.Root
-        open={state.isOpen}
-        onOpenChange={(open) => state.setOpen(open)}
-      >
+      <Popover.Root open={state.isOpen} onOpenChange={(open) => state.setOpen(open)}>
         <Popover.Trigger
           {...buttonProps}
           disabled={isButtonDisabled}
@@ -95,13 +72,7 @@ export function DatePicker<T extends DateValue>(props: DatePickerProps<T>) {
           }}
         >
           <IconButton size={size}>
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g>
                 <path
                   fillRule="evenodd"

@@ -7,15 +7,50 @@ const justifyValues = ['start', 'center', 'end', 'between'] as const;
 const gapValues = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
 
 const gridPropDefs = {
-  display: { type: 'enum', values: displayValues, default: undefined, responsive: true },
+  display: {
+    type: 'enum',
+    values: displayValues,
+    default: undefined,
+    responsive: true,
+  },
   columns: { type: 'string', default: undefined, responsive: true },
   rows: { type: 'string', default: undefined, responsive: true },
-  flow: { type: 'enum', values: flowValues, default: undefined, responsive: true },
-  align: { type: 'enum', values: alignValues, default: undefined, responsive: true },
-  justify: { type: 'enum', values: justifyValues, default: undefined, responsive: true },
-  gap: { type: 'enum', values: gapValues, default: undefined, responsive: true },
-  gapX: { type: 'enum', values: gapValues, default: undefined, responsive: true },
-  gapY: { type: 'enum', values: gapValues, default: undefined, responsive: true },
+  flow: {
+    type: 'enum',
+    values: flowValues,
+    default: undefined,
+    responsive: true,
+  },
+  align: {
+    type: 'enum',
+    values: alignValues,
+    default: undefined,
+    responsive: true,
+  },
+  justify: {
+    type: 'enum',
+    values: justifyValues,
+    default: undefined,
+    responsive: true,
+  },
+  gap: {
+    type: 'enum',
+    values: gapValues,
+    default: undefined,
+    responsive: true,
+  },
+  gapX: {
+    type: 'enum',
+    values: gapValues,
+    default: undefined,
+    responsive: true,
+  },
+  gapY: {
+    type: 'enum',
+    values: gapValues,
+    default: undefined,
+    responsive: true,
+  },
 } satisfies {
   display: PropDef<(typeof displayValues)[number]>;
   columns: PropDef<string>;

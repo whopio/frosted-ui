@@ -179,8 +179,7 @@
   --color-panel-solid: white;
   --color-panel-translucent: rgba(255, 255, 255, 0.5);
   --color-surface: rgba(255, 255, 255, 0.9);
-  --backdrop-filter-panel: blur(20px) saturate(190%) contrast(50%)
-    brightness(130%);
+  --backdrop-filter-panel: blur(20px) saturate(190%) contrast(50%) brightness(130%);
   --color-stroke: var(--gray-a5);
   /* 
   Used as an overlay (via background-image gradient)
@@ -207,8 +206,7 @@
   --color-panel-solid: var(--gray-2);
   --color-panel-translucent: var(--gray-2-translucent);
   --color-surface: rgba(0, 0, 0, 0.25);
-  --backdrop-filter-panel: blur(20px) saturate(190%) contrast(90%)
-    brightness(80%);
+  --backdrop-filter-panel: blur(20px) saturate(190%) contrast(90%) brightness(80%);
   --color-stroke: var(--gray-a4);
 }
 

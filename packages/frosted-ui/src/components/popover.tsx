@@ -9,41 +9,24 @@ import { popoverContentPropDefs } from './popover.props';
 
 import type { GetPropDefTypes } from '../helpers';
 
-interface PopoverRootProps
-  extends React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Root> {}
-const PopoverRoot: React.FC<PopoverRootProps> = (props: PopoverRootProps) => (
-  <PopoverPrimitive.Root {...props} />
-);
+interface PopoverRootProps extends React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Root> {}
+const PopoverRoot: React.FC<PopoverRootProps> = (props: PopoverRootProps) => <PopoverPrimitive.Root {...props} />;
 PopoverRoot.displayName = 'PopoverRoot';
 
-type PopoverTriggerElement = React.ElementRef<typeof PopoverPrimitive.Trigger>;
 interface PopoverTriggerProps
-  extends Omit<
-    React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Trigger>,
-    'asChild'
-  > {}
-const PopoverTrigger = React.forwardRef<
-  PopoverTriggerElement,
-  PopoverTriggerProps
->((props, forwardedRef) => (
-  <PopoverPrimitive.Trigger {...props} ref={forwardedRef} asChild />
-));
+  extends Omit<React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Trigger>, 'asChild'> {}
+
+const PopoverTrigger = (props: PopoverTriggerProps) => <PopoverPrimitive.Trigger {...props} asChild />;
 PopoverTrigger.displayName = 'PopoverTrigger';
 
-type PopoverContentElement = React.ElementRef<typeof PopoverPrimitive.Content>;
 type PopoverContentOwnProps = GetPropDefTypes<typeof popoverContentPropDefs>;
 interface PopoverContentProps
-  extends Omit<
-      React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>,
-      'asChild'
-    >,
+  extends Omit<React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>, 'asChild'>,
     PopoverContentOwnProps {
   container?: React.ComponentProps<typeof PopoverPrimitive.Portal>['container'];
 }
-const PopoverContent = React.forwardRef<
-  PopoverContentElement,
-  PopoverContentProps
->((props, forwardedRef) => {
+
+const PopoverContent = (props: PopoverContentProps) => {
   const {
     className,
     forceMount,
@@ -60,7 +43,6 @@ const PopoverContent = React.forwardRef<
           sideOffset={8}
           collisionPadding={10}
           {...contentProps}
-          ref={forwardedRef}
           className={classNames(
             'fui-PopperContent',
             'fui-PopoverContent',
@@ -72,28 +54,15 @@ const PopoverContent = React.forwardRef<
       </Theme>
     </PopoverPrimitive.Portal>
   );
-});
+};
 PopoverContent.displayName = 'PopoverContent';
 
-type PopoverCloseElement = React.ElementRef<typeof PopoverPrimitive.Close>;
-interface PopoverCloseProps
-  extends Omit<
-    React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Close>,
-    'asChild'
-  > {}
-const PopoverClose = React.forwardRef<PopoverCloseElement, PopoverCloseProps>(
-  (props, forwardedRef) => (
-    <PopoverPrimitive.Close {...props} ref={forwardedRef} asChild />
-  ),
-);
+interface PopoverCloseProps extends Omit<React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Close>, 'asChild'> {}
+
+const PopoverClose = (props: PopoverCloseProps) => <PopoverPrimitive.Close {...props} asChild />;
 PopoverClose.displayName = 'PopoverClose';
 
-export {
-  PopoverClose as Close,
-  PopoverContent as Content,
-  PopoverRoot as Root,
-  PopoverTrigger as Trigger,
-};
+export { PopoverClose as Close, PopoverContent as Content, PopoverRoot as Root, PopoverTrigger as Trigger };
 export type {
   PopoverCloseProps as CloseProps,
   PopoverContentProps as ContentProps,

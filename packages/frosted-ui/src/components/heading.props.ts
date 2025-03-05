@@ -1,11 +1,5 @@
 import type { PropDef } from '../helpers';
-import {
-  alignProp,
-  colorProp,
-  highContrastProp,
-  trimProp,
-  weightProp,
-} from '../helpers';
+import { alignProp, colorProp, highContrastProp, trimProp, weightProp } from '../helpers';
 
 const sizes = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
 const weights = weightProp.values;

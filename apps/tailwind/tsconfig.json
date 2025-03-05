@@ -22,11 +22,7 @@
     "declarationMap": false,
     "incremental": true,
     "jsx": "preserve",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "module": "esnext",
     "noEmit": true,
     "resolveJsonModule": true,
@@ -42,7 +38,5 @@
     "../../packages/frosted-ui/src/tailwindPlugin.ts",
     "tailwind.config.js"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

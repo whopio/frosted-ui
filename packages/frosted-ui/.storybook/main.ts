@@ -17,7 +17,7 @@ const config: StorybookConfig = {
     getAbsolutePath('@storybook/addon-essentials'),
     getAbsolutePath('@storybook/addon-onboarding'),
     getAbsolutePath('@storybook/addon-interactions'),
-    getAbsolutePath("@storybook/addon-mdx-gfm")
+    getAbsolutePath('@storybook/addon-mdx-gfm'),
   ],
 
   framework: {
@@ -28,7 +28,7 @@ const config: StorybookConfig = {
   docs: {},
 
   typescript: {
-    reactDocgen: 'react-docgen-typescript'
-  }
+    reactDocgen: 'react-docgen-typescript',
+  },
 };
 export default config;

@@ -1,14 +1,8 @@
 .fui-BaseMenuContent {
   --scrollarea-scrollbar-vertical-margin-top: var(--base-menu-content-padding);
-  --scrollarea-scrollbar-vertical-margin-bottom: var(
-    --base-menu-content-padding
-  );
-  --scrollarea-scrollbar-horizontal-margin-left: var(
-    --base-menu-content-padding
-  );
-  --scrollarea-scrollbar-horizontal-margin-right: var(
-    --base-menu-content-padding
-  );
+  --scrollarea-scrollbar-vertical-margin-bottom: var(--base-menu-content-padding);
+  --scrollarea-scrollbar-horizontal-margin-left: var(--base-menu-content-padding);
+  --scrollarea-scrollbar-horizontal-margin-right: var(--base-menu-content-padding);
 
   display: flex;
   flex-direction: column;
@@ -24,12 +18,7 @@
   overflow: auto;
   padding: var(--base-menu-content-padding);
 
-  :where(
-      .fui-BaseMenuContent:has(
-          .fui-ScrollAreaScrollbar[data-orientation='vertical']
-        )
-    )
-    & {
+  :where(.fui-BaseMenuContent:has(.fui-ScrollAreaScrollbar[data-orientation='vertical'])) & {
     padding-right: var(--space-3);
   }
 }

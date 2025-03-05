@@ -12,27 +12,14 @@ import {
 } from '../helpers';
 import { textFieldPropDefs, textFieldSlotPropDefs } from './text-field.props';
 
-import type {
-  GetPropDefTypes,
-  MarginProps,
-  PaddingProps,
-  PropsWithoutRefOrColor,
-} from '../helpers';
+import type { GetPropDefTypes, MarginProps, PaddingProps, PropsWithoutRefOrColor } from '../helpers';
 
 type TextFieldContextValue = GetPropDefTypes<typeof textFieldPropDefs>;
-const TextFieldContext = React.createContext<TextFieldContextValue | undefined>(
-  undefined,
-);
+const TextFieldContext = React.createContext<TextFieldContextValue | undefined>(undefined);
 
-type TextFieldRootElement = React.ElementRef<'div'>;
-interface TextFieldRootProps
-  extends PropsWithoutRefOrColor<'div'>,
-    MarginProps,
-    TextFieldContextValue {}
-const TextFieldRoot = React.forwardRef<
-  TextFieldRootElement,
-  TextFieldRootProps
->((props, forwardedRef) => {
+interface TextFieldRootProps extends PropsWithoutRefOrColor<'div'>, MarginProps, TextFieldContextValue {}
+
+const TextFieldRoot = (props: TextFieldRootProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     children,
@@ -45,24 +32,16 @@ const TextFieldRoot = React.forwardRef<
   return (
     <div
       {...rootProps}
-      ref={forwardedRef}
-      className={classNames(
-        'fui-TextFieldRoot',
-        className,
-        withMarginProps(marginProps),
-      )}
+      className={classNames('fui-TextFieldRoot', className, withMarginProps(marginProps))}
       onPointerDown={composeEventHandlers(rootProps.onPointerDown, (event) => {
         const target = event.target as HTMLElement;
         if (target.closest('input, button, a')) return;
 
-        const input = event.currentTarget.querySelector(
-          '.fui-TextFieldInput',
-        ) as HTMLInputElement | null;
+        const input = event.currentTarget.querySelector('.fui-TextFieldInput') as HTMLInputElement | null;
         if (!input) return;
 
         const position = input.compareDocumentPosition(target);
-        const targetIsBeforeInput =
-          (position & Node.DOCUMENT_POSITION_PRECEDING) !== 0;
+        const targetIsBeforeInput = (position & Node.DOCUMENT_POSITION_PRECEDING) !== 0;
         const cursorPosition = targetIsBeforeInput ? 0 : input.value.length;
 
         requestAnimationFrame(() => {
@@ -71,24 +50,16 @@ const TextFieldRoot = React.forwardRef<
         });
       })}
     >
-      <TextFieldContext.Provider value={{ size, variant, color }}>
-        {children}
-      </TextFieldContext.Provider>
+      <TextFieldContext.Provider value={{ size, variant, color }}>{children}</TextFieldContext.Provider>
     </div>
   );
-});
+};
 TextFieldRoot.displayName = 'TextFieldRoot';
 
 type TextFieldSlotElement = React.ElementRef<'div'>;
 type TextFieldSlotOwnProps = GetPropDefTypes<typeof textFieldSlotPropDefs>;
-interface TextFieldSlotProps
-  extends PropsWithoutRefOrColor<'div'>,
-    PaddingProps,
-    TextFieldSlotOwnProps {}
-const TextFieldSlot = React.forwardRef<
-  TextFieldSlotElement,
-  TextFieldSlotProps
->((props, forwardedRef) => {
+interface TextFieldSlotProps extends PropsWithoutRefOrColor<'div'>, PaddingProps, TextFieldSlotOwnProps {}
+const TextFieldSlot = React.forwardRef<TextFieldSlotElement, TextFieldSlotProps>((props, forwardedRef) => {
   const { rest: paddingRest, ...paddingProps } = extractPaddingProps(props);
   const {
     className,
@@ -120,10 +91,7 @@ interface TextFieldInputProps
   extends Omit<PropsWithoutRefOrColor<'input'>, 'size'>,
     MarginProps,
     TextFieldInputOwnProps {}
-const TextFieldInput = React.forwardRef<
-  TextFieldInputElement,
-  TextFieldInputProps
->((props, forwardedRef) => {
+const TextFieldInput = React.forwardRef<TextFieldInputElement, TextFieldInputProps>((props, forwardedRef) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const context = React.useContext(TextFieldContext);
   const hasRoot = context !== undefined;
@@ -162,13 +130,5 @@ const TextFieldInput = React.forwardRef<
 });
 TextFieldInput.displayName = 'TextFieldInput';
 
-export {
-  TextFieldInput as Input,
-  TextFieldRoot as Root,
-  TextFieldSlot as Slot,
-};
-export type {
-  TextFieldInputProps as InputProps,
-  TextFieldRootProps as RootProps,
-  TextFieldSlotProps as SlotProps,
-};
+export { TextFieldInput as Input, TextFieldRoot as Root, TextFieldSlot as Slot };
+export type { TextFieldInputProps as InputProps, TextFieldRootProps as RootProps, TextFieldSlotProps as SlotProps };

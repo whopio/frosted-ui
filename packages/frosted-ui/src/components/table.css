@@ -44,13 +44,7 @@
   /* Box-shadow applied to table rows doesn't work in Safari */
   box-shadow: inset 0 -1px var(--data-table-border-color);
   /* Remove box-shadow from the last row if TableBottomBar is not used */
-  &:where(
-      .fui-TableRoot:not(:has(.fui-TableBottomBar))
-        .fui-TableTable
-        > :is(:last-child)
-        .fui-TableRow:last-child
-        &
-    ) {
+  &:where(.fui-TableRoot:not(:has(.fui-TableBottomBar)) .fui-TableTable > :is(:last-child) .fui-TableRow:last-child &) {
     box-shadow: none;
   }
   /* If the first cell in a row only contains a <Checkbox />, remove right padding */
@@ -102,9 +96,7 @@
 }
 
 /* Increasing specificity to make sure that default "ghost" button styles are overridden */
-.fui-TableColumnHeaderCellButton:is(
-    .fui-TableColumnHeaderCell .fui-TableColumnHeaderCellButton
-  ) {
+.fui-TableColumnHeaderCellButton:is(.fui-TableColumnHeaderCell .fui-TableColumnHeaderCellButton) {
   font-size: inherit;
   line-height: inherit;
   font-weight: inherit;

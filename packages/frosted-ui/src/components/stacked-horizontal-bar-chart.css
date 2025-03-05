@@ -10,12 +10,7 @@
 
 .fui-StackedHorizontalBarChartBar {
   height: 100%;
-  background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.15) 0%,
-      rgba(0, 0, 0, 0.15) 100%
-    ),
-    var(--accent-9);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(0, 0, 0, 0.15) 100%), var(--accent-9);
   transition: 0.2s width cubic-bezier(0.33, 1, 0.68, 1);
   min-width: 2px;
   border-radius: 1px;
@@ -30,12 +25,7 @@
   position: absolute;
   inset: -1px;
   border-radius: inherit;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    transparent,
-    var(--accent-a4)
-  );
+  background: linear-gradient(to bottom, transparent, transparent, var(--accent-a4));
   mix-blend-mode: overlay;
   pointer-events: none;
 }
