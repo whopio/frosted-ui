@@ -7,7 +7,7 @@ import { extractMarginProps, withMarginProps } from '../helpers';
 
 import type { MarginProps } from '../helpers';
 
-interface SegmentedControlRootProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Root>, MarginProps {}
+interface SegmentedControlRootProps extends React.ComponentProps<typeof TabsPrimitive.Root>, MarginProps {}
 
 const SegmentedControlRoot = (props: SegmentedControlRootProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
@@ -21,9 +21,9 @@ const SegmentedControlRoot = (props: SegmentedControlRootProps) => {
 };
 SegmentedControlRoot.displayName = 'SegmentedControlRoot';
 
-interface SegmentedControlListOwnProps extends React.ComponentPropsWithoutRef<'div'> {}
+interface SegmentedControlListOwnProps extends React.ComponentProps<'div'> {}
 interface SegmentedControlListProps
-  extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>,
+  extends React.ComponentProps<typeof TabsPrimitive.List>,
     SegmentedControlListOwnProps {}
 
 const SegmentedControlList = (props: SegmentedControlListProps) => {
@@ -32,7 +32,7 @@ const SegmentedControlList = (props: SegmentedControlListProps) => {
 };
 SegmentedControlList.displayName = 'SegmentedControlList';
 
-interface SegmentedControlTriggerProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger> {}
+interface SegmentedControlTriggerProps extends React.ComponentProps<typeof TabsPrimitive.Trigger> {}
 
 const SegmentedControlTrigger = (props: SegmentedControlTriggerProps) => {
   const { className, children, ...triggerProps } = props;
@@ -47,7 +47,7 @@ const SegmentedControlTrigger = (props: SegmentedControlTriggerProps) => {
 };
 SegmentedControlTrigger.displayName = 'SegmentedControlTrigger';
 
-interface SegmentedControlContentProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content> {}
+interface SegmentedControlContentProps extends React.ComponentProps<typeof TabsPrimitive.Content> {}
 
 const SegmentedControlContent = (props: SegmentedControlContentProps) => (
   <TabsPrimitive.Content {...props} className={classNames('fui-SegmentedControlContent', props.className)} />

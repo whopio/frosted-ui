@@ -10,17 +10,17 @@ import { Heading } from './heading';
 
 import type { GetPropDefTypes } from '../helpers';
 
-interface DrawerRootProps extends Omit<React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Root>, 'modal'> {}
+interface DrawerRootProps extends Omit<React.ComponentProps<typeof DrawerPrimitive.Root>, 'modal'> {}
 const DrawerRoot: React.FC<DrawerRootProps> = (props) => <DrawerPrimitive.Root {...props} modal />;
 DrawerRoot.displayName = 'DrawerRoot';
 
-interface DrawerTriggerProps extends Omit<React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Trigger>, 'asChild'> {}
+interface DrawerTriggerProps extends Omit<React.ComponentProps<typeof DrawerPrimitive.Trigger>, 'asChild'> {}
 const DrawerTrigger = (props: DrawerTriggerProps) => <DrawerPrimitive.Trigger {...props} asChild />;
 DrawerTrigger.displayName = 'DrawerTrigger';
 
 type DrawerContentOwnProps = GetPropDefTypes<typeof drawerContentPropDefs>;
 interface DrawerContentProps
-  extends Omit<React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>, 'asChild'>,
+  extends Omit<React.ComponentProps<typeof DrawerPrimitive.Content>, 'asChild'>,
     DrawerContentOwnProps {
   container?: React.ComponentProps<typeof DrawerPrimitive.Portal>['container'];
 }
@@ -40,7 +40,7 @@ const DrawerContent = (props: DrawerContentProps) => {
 };
 DrawerContent.displayName = 'DrawerContent';
 
-type DrawerTitleProps = React.ComponentPropsWithoutRef<typeof Heading>;
+type DrawerTitleProps = React.ComponentProps<typeof Heading>;
 const DrawerTitle = (props: DrawerTitleProps) => (
   <DrawerPrimitive.Title asChild>
     <Heading size="5" trim="both" {...props} />
@@ -48,11 +48,11 @@ const DrawerTitle = (props: DrawerTitleProps) => (
 );
 DrawerTitle.displayName = 'DrawerTitle';
 
-interface DrawerCloseProps extends Omit<React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Close>, 'asChild'> {}
+interface DrawerCloseProps extends Omit<React.ComponentProps<typeof DrawerPrimitive.Close>, 'asChild'> {}
 const DrawerClose = (props: DrawerCloseProps) => <DrawerPrimitive.Close {...props} asChild />;
 DrawerClose.displayName = 'DrawerClose';
 
-type DrawerStickyFooterProps = React.ComponentPropsWithoutRef<'div'>;
+type DrawerStickyFooterProps = React.ComponentProps<'div'>;
 const DrawerStickyFooter = ({ children, className, ...props }: DrawerStickyFooterProps) => (
   <div className={classNames('fui-DrawerStickyFooter', className)} {...props}>
     {children}
@@ -60,7 +60,7 @@ const DrawerStickyFooter = ({ children, className, ...props }: DrawerStickyFoote
 );
 DrawerStickyFooter.displayName = 'DrawerStickyFooter';
 
-type DrawerHeaderProps = React.ComponentPropsWithoutRef<'div'>;
+type DrawerHeaderProps = React.ComponentProps<'div'>;
 const DrawerHeader = ({ children, className, ...props }: DrawerHeaderProps) => (
   <div className={classNames('fui-DrawerHeader', className)} {...props}>
     {children}
@@ -68,7 +68,7 @@ const DrawerHeader = ({ children, className, ...props }: DrawerHeaderProps) => (
 );
 DrawerHeader.displayName = 'DrawerHeader';
 
-type DrawerBodyProps = React.ComponentPropsWithoutRef<'div'>;
+type DrawerBodyProps = React.ComponentProps<'div'>;
 const DrawerBody = ({ children, className, ...props }: DrawerBodyProps) => {
   const localRef = React.useRef<HTMLDivElement | null>(null);
   const contentRef = React.useRef<HTMLDivElement | null>(null);

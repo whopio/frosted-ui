@@ -16,7 +16,7 @@ import { tabsNavLinkPropDefs, tabsNavPropDefs } from './tabs-nav.props';
 type TabsNavOwnProps = GetPropDefTypes<typeof tabsNavPropDefs>;
 interface TabsNavRootProps
   extends Omit<
-      React.ComponentPropsWithoutRef<typeof NavigationMenu.Root>,
+      React.ComponentProps<typeof NavigationMenu.Root>,
       'asChild' | 'orientation' | 'defauValue' | 'value' | 'onValueChange' | 'delayDuration' | 'skipDelayDuration'
     >,
     MarginProps,
@@ -47,7 +47,7 @@ TabsNavRoot.displayName = 'TabsNavRoot';
 
 type TabsNavLinkOwnProps = GetPropDefTypes<typeof tabsNavLinkPropDefs>;
 interface TabsNavLinkProps
-  extends Omit<React.ComponentPropsWithoutRef<typeof NavigationMenu.Link>, 'onSelect'>,
+  extends Omit<React.ComponentProps<typeof NavigationMenu.Link>, 'onSelect'>,
     TabsNavLinkOwnProps {}
 
 const TabsNavLink = (props: TabsNavLinkProps) => {

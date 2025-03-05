@@ -6,11 +6,11 @@ import * as React from 'react';
 import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
 import { sliderPropDefs } from './slider.props';
 
-import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
+import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
 
 type SliderOwnProps = GetPropDefTypes<typeof sliderPropDefs>;
 interface SliderProps
-  extends Omit<PropsWithoutRefOrColor<typeof SliderPrimitive.Root>, 'children'>,
+  extends Omit<PropsWithoutColor<typeof SliderPrimitive.Root>, 'children'>,
     MarginProps,
     SliderOwnProps {}
 

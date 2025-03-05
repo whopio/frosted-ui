@@ -8,7 +8,7 @@ import { tabsListPropDefs } from './tabs.props';
 
 import type { GetPropDefTypes, MarginProps } from '../helpers';
 
-interface TabsRootProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Root>, MarginProps {}
+interface TabsRootProps extends React.ComponentProps<typeof TabsPrimitive.Root>, MarginProps {}
 
 const TabsRoot = (props: TabsRootProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
@@ -23,7 +23,7 @@ const TabsRoot = (props: TabsRootProps) => {
 TabsRoot.displayName = 'TabsRoot';
 
 type TabsListOwnProps = GetPropDefTypes<typeof tabsListPropDefs>;
-interface TabsListProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>, TabsListOwnProps {}
+interface TabsListProps extends React.ComponentProps<typeof TabsPrimitive.List>, TabsListOwnProps {}
 
 const TabsList = (props: TabsListProps) => {
   const { className, size = tabsListPropDefs.size.default, ...listProps } = props;
@@ -36,7 +36,7 @@ const TabsList = (props: TabsListProps) => {
 };
 TabsList.displayName = 'TabsList';
 
-interface TabsTriggerProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger> {}
+interface TabsTriggerProps extends React.ComponentProps<typeof TabsPrimitive.Trigger> {}
 
 const TabsTrigger = (props: TabsTriggerProps) => {
   const { className, children, ...triggerProps } = props;
@@ -52,7 +52,7 @@ const TabsTrigger = (props: TabsTriggerProps) => {
 };
 TabsTrigger.displayName = 'TabsTrigger';
 
-interface TabsContentProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content> {}
+interface TabsContentProps extends React.ComponentProps<typeof TabsPrimitive.Content> {}
 
 const TabsContent = (props: TabsContentProps) => (
   <TabsPrimitive.Content {...props} className={classNames('fui-TabsContent', props.className)} />

@@ -12,12 +12,12 @@ import {
 } from '../helpers';
 import { textFieldPropDefs, textFieldSlotPropDefs } from './text-field.props';
 
-import type { GetPropDefTypes, MarginProps, PaddingProps, PropsWithoutRefOrColor } from '../helpers';
+import type { GetPropDefTypes, MarginProps, PaddingProps, PropsWithoutColor } from '../helpers';
 
 type TextFieldContextValue = GetPropDefTypes<typeof textFieldPropDefs>;
 const TextFieldContext = React.createContext<TextFieldContextValue | undefined>(undefined);
 
-interface TextFieldRootProps extends PropsWithoutRefOrColor<'div'>, MarginProps, TextFieldContextValue {}
+interface TextFieldRootProps extends PropsWithoutColor<'div'>, MarginProps, TextFieldContextValue {}
 
 const TextFieldRoot = (props: TextFieldRootProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
@@ -58,7 +58,7 @@ TextFieldRoot.displayName = 'TextFieldRoot';
 
 type TextFieldSlotElement = React.ElementRef<'div'>;
 type TextFieldSlotOwnProps = GetPropDefTypes<typeof textFieldSlotPropDefs>;
-interface TextFieldSlotProps extends PropsWithoutRefOrColor<'div'>, PaddingProps, TextFieldSlotOwnProps {}
+interface TextFieldSlotProps extends PropsWithoutColor<'div'>, PaddingProps, TextFieldSlotOwnProps {}
 const TextFieldSlot = React.forwardRef<TextFieldSlotElement, TextFieldSlotProps>((props, forwardedRef) => {
   const { rest: paddingRest, ...paddingProps } = extractPaddingProps(props);
   const {
@@ -87,10 +87,7 @@ TextFieldSlot.displayName = 'TextFieldSlot';
 
 type TextFieldInputElement = React.ElementRef<'input'>;
 type TextFieldInputOwnProps = GetPropDefTypes<typeof textFieldPropDefs>;
-interface TextFieldInputProps
-  extends Omit<PropsWithoutRefOrColor<'input'>, 'size'>,
-    MarginProps,
-    TextFieldInputOwnProps {}
+interface TextFieldInputProps extends Omit<PropsWithoutColor<'input'>, 'size'>, MarginProps, TextFieldInputOwnProps {}
 const TextFieldInput = React.forwardRef<TextFieldInputElement, TextFieldInputProps>((props, forwardedRef) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const context = React.useContext(TextFieldContext);

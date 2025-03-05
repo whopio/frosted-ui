@@ -2,13 +2,13 @@
 
 import classNames from 'classnames';
 import * as React from 'react';
-import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../../helpers';
+import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../../helpers';
 import { extractMarginProps, withBreakpoints, withMarginProps } from '../../helpers';
 import { skeletonAvatarPropDefs, skeletonRectPropDefs, skeletonTextPropDefs } from './skeleton.props';
 
 type SkeletonAvatarOwnProps = GetPropDefTypes<typeof skeletonAvatarPropDefs>;
 
-interface SkeletonAvatarProps extends PropsWithoutRefOrColor<'div'>, MarginProps, SkeletonAvatarOwnProps {}
+interface SkeletonAvatarProps extends PropsWithoutColor<'div'>, MarginProps, SkeletonAvatarOwnProps {}
 const SkeletonAvatar = (props: SkeletonAvatarProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
@@ -37,7 +37,7 @@ SkeletonAvatar.displayName = 'SkeletonAvatar';
 
 type SkeletonTextOwnProps = GetPropDefTypes<typeof skeletonTextPropDefs>;
 
-interface SkeletonTextProps extends PropsWithoutRefOrColor<'div'>, MarginProps, SkeletonTextOwnProps {}
+interface SkeletonTextProps extends PropsWithoutColor<'div'>, MarginProps, SkeletonTextOwnProps {}
 const SkeletonText = (props: SkeletonTextProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
@@ -66,7 +66,7 @@ SkeletonText.displayName = 'SkeletonText';
 
 type SkeletonRectOwnProps = GetPropDefTypes<typeof skeletonRectPropDefs>;
 
-interface SkeletonRectProps extends PropsWithoutRefOrColor<'div'>, MarginProps, SkeletonRectOwnProps {}
+interface SkeletonRectProps extends PropsWithoutColor<'div'>, MarginProps, SkeletonRectOwnProps {}
 const SkeletonRect = (props: SkeletonRectProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {

@@ -3,7 +3,7 @@
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import classNames from 'classnames';
 import * as React from 'react';
-import type { LayoutProps, MarginProps, PropsWithoutRefOrColor } from '../../helpers';
+import type { LayoutProps, MarginProps, PropsWithoutColor } from '../../helpers';
 import { extractLayoutProps, extractMarginProps, withLayoutProps, withMarginProps } from '../../helpers';
 
 type AccordionRootProps = React.ComponentProps<typeof AccordionPrimitive.Root> & MarginProps & LayoutProps;
@@ -24,7 +24,7 @@ const AccordionRoot = (props: AccordionRootProps) => {
 };
 AccordionRoot.displayName = 'Root';
 
-interface AccordionItemProps extends PropsWithoutRefOrColor<typeof AccordionPrimitive.Item>, MarginProps {}
+interface AccordionItemProps extends PropsWithoutColor<typeof AccordionPrimitive.Item>, MarginProps {}
 
 const AccordionItem = (props: AccordionItemProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
@@ -39,9 +39,7 @@ const AccordionItem = (props: AccordionItemProps) => {
 };
 AccordionItem.displayName = 'Item';
 
-type AccordionTriggerProps = React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> &
-  MarginProps &
-  LayoutProps;
+type AccordionTriggerProps = React.ComponentProps<typeof AccordionPrimitive.Trigger> & MarginProps & LayoutProps;
 const AccordionTrigger = (props: AccordionTriggerProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const { rest: layoutRest, ...layoutProps } = extractLayoutProps(marginRest);
@@ -80,7 +78,7 @@ const AccordionTrigger = (props: AccordionTriggerProps) => {
 };
 AccordionTrigger.displayName = 'AccordionTrigger';
 
-type AccordionContentProps = React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>;
+type AccordionContentProps = React.ComponentProps<typeof AccordionPrimitive.Content>;
 const AccordionContent = ({ className, children, ...props }: AccordionContentProps) => (
   <AccordionPrimitive.Content className="fui-AccordionContent" {...props}>
     <div className={classNames('fui-AccordionContentInner', className)}>{children}</div>
