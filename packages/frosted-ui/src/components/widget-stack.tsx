@@ -365,7 +365,6 @@ const WidgetStackStack = (props: WidgetStackStackProps) => {
   return (
     <div
       {...rootProps}
-      ref={scrollAreaRef}
       className={classNames(
         'fui-WidgetStackStack',
         withMarginProps(marginProps),
@@ -374,7 +373,11 @@ const WidgetStackStack = (props: WidgetStackStackProps) => {
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      <div className="fui-WidgetStackScrollArea" data-orientation={orientation}>
+      <div
+        className="fui-WidgetStackScrollArea"
+        data-orientation={orientation}
+        ref={scrollAreaRef}
+      >
         {children}
       </div>
     </div>

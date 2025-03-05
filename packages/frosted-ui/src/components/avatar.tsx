@@ -10,15 +10,16 @@ import {
 } from '../helpers';
 import { avatarPropDefs } from './avatar.props';
 
-import type { GetPropDefTypes, MarginProps } from '../helpers';
+import type {
+  GetPropDefTypes,
+  MarginProps,
+  PropsWithoutRefOrColor,
+} from '../helpers';
 import { getInitials } from '../helpers/get-initials';
 
 type AvatarOwnProps = GetPropDefTypes<typeof avatarPropDefs>;
 interface AvatarProps
-  extends Omit<
-      React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>,
-      'color'
-    >,
+  extends Omit<PropsWithoutRefOrColor<typeof AvatarPrimitive.Image>, 'color'>,
     MarginProps,
     AvatarOwnProps {
   // TODO: See if we can automate making prop defs with `required: true` non nullable

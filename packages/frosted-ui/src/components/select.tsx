@@ -17,7 +17,11 @@ import {
   selectTriggerPropDefs,
 } from './select.props';
 
-import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
+import type {
+  GetPropDefTypes,
+  MarginProps,
+  PropsWithoutRefOrColor,
+} from '../helpers';
 
 type SelectRootOwnProps = GetPropDefTypes<typeof selectRootPropDefs>;
 
@@ -26,7 +30,7 @@ const SelectContext = React.createContext<SelectContextValue>({});
 
 interface SelectRootProps
   extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Root>,
-  SelectContextValue { }
+    SelectContextValue {}
 const SelectRoot: React.FC<SelectRootProps> = (props) => {
   const {
     children,
@@ -46,11 +50,11 @@ SelectRoot.displayName = 'SelectRoot';
 type SelectTriggerOwnProps = GetPropDefTypes<typeof selectTriggerPropDefs>;
 interface SelectTriggerProps
   extends Omit<
-    PropsWithoutRefOrColor<typeof SelectPrimitive.Trigger>,
-    'asChild'
-  >,
-  MarginProps,
-  SelectTriggerOwnProps {
+      PropsWithoutRefOrColor<typeof SelectPrimitive.Trigger>,
+      'asChild'
+    >,
+    MarginProps,
+    SelectTriggerOwnProps {
   // TODO: figure out why this is not inferred properly
   placeholder?: React.ReactNode;
 }
@@ -94,7 +98,7 @@ SelectTrigger.displayName = 'SelectTrigger';
 type SelectContentOwnProps = GetPropDefTypes<typeof selectContentPropDefs>;
 interface SelectContentProps
   extends PropsWithoutRefOrColor<typeof SelectPrimitive.Content>,
-  SelectContentOwnProps {
+    SelectContentOwnProps {
   container?: React.ComponentProps<typeof SelectPrimitive.Portal>['container'];
 }
 
@@ -151,7 +155,7 @@ const SelectContent = (props: SelectContentProps) => {
 SelectContent.displayName = 'SelectContent';
 
 interface SelectItemProps
-  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item> { }
+  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item> {}
 
 const SelectItem = (props: SelectItemProps) => {
   const { className, children, ...itemProps } = props;
@@ -170,7 +174,7 @@ const SelectItem = (props: SelectItemProps) => {
 SelectItem.displayName = 'SelectItem';
 
 interface SelectGroupProps
-  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Group> { }
+  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Group> {}
 
 const SelectGroup = (props: SelectGroupProps) => (
   <SelectPrimitive.Group
@@ -181,7 +185,7 @@ const SelectGroup = (props: SelectGroupProps) => (
 SelectGroup.displayName = 'SelectGroup';
 
 interface SelectLabelProps
-  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label> { }
+  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label> {}
 
 const SelectLabel = (props: SelectLabelProps) => (
   <SelectPrimitive.Label
@@ -192,7 +196,7 @@ const SelectLabel = (props: SelectLabelProps) => (
 SelectLabel.displayName = 'SelectLabel';
 
 interface SelectSeparatorProps
-  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator> { }
+  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator> {}
 
 const SelectSeparator = (props: SelectSeparatorProps) => (
   <SelectPrimitive.Separator
@@ -209,7 +213,7 @@ export {
   SelectLabel as Label,
   SelectRoot as Root,
   SelectSeparator as Separator,
-  SelectTrigger as Trigger
+  SelectTrigger as Trigger,
 };
 
 export type {
@@ -219,6 +223,5 @@ export type {
   SelectLabelProps as LabelProps,
   SelectRootProps as RootProps,
   SelectSeparatorProps as SeparatorProps,
-  SelectTriggerProps as TriggerProps
+  SelectTriggerProps as TriggerProps,
 };
-

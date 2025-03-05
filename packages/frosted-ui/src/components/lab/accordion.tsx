@@ -3,7 +3,11 @@
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import classNames from 'classnames';
 import * as React from 'react';
-import type { LayoutProps, MarginProps } from '../../helpers';
+import type {
+  LayoutProps,
+  MarginProps,
+  PropsWithoutRefOrColor,
+} from '../../helpers';
 import {
   extractLayoutProps,
   extractMarginProps,
@@ -37,7 +41,7 @@ const AccordionRoot = (props: AccordionRootProps) => {
 AccordionRoot.displayName = 'Root';
 
 interface AccordionItemProps
-  extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>,
+  extends PropsWithoutRefOrColor<typeof AccordionPrimitive.Item>,
     MarginProps {}
 
 const AccordionItem = (props: AccordionItemProps) => {

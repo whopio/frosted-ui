@@ -19,9 +19,9 @@ import {
 
 type DataListRootOwnProps = GetPropDefTypes<typeof dataListRootPropDefs>;
 interface DataListRootProps
-  extends React.ComponentPropsWithoutRef<'dl'>,
-  MarginProps,
-  DataListRootOwnProps { }
+  extends PropsWithoutRefOrColor<'dl'>,
+    MarginProps,
+    DataListRootOwnProps {}
 
 const DataListRoot = (props: DataListRootProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
@@ -54,8 +54,8 @@ DataListRoot.displayName = 'DataList.Root';
 
 type DataListItemOwnProps = GetPropDefTypes<typeof dataListItemPropDefs>;
 interface DataListItemProps
-  extends React.ComponentPropsWithoutRef<'div'>,
-  DataListItemOwnProps { }
+  extends PropsWithoutRefOrColor<'div'>,
+    DataListItemOwnProps {}
 
 const DataListItem = (props: DataListItemProps) => {
   const {
@@ -80,7 +80,7 @@ DataListItem.displayName = 'DataList.Item';
 type DataListLabelOwnProps = GetPropDefTypes<typeof dataListLabelPropDefs>;
 interface DataListLabelProps
   extends PropsWithoutRefOrColor<'dt'>,
-  DataListLabelOwnProps { }
+    DataListLabelOwnProps {}
 
 const DataListLabel = (props: DataListLabelProps) => {
   const {
@@ -104,7 +104,7 @@ const DataListLabel = (props: DataListLabelProps) => {
 };
 DataListLabel.displayName = 'DataList.Label';
 
-interface DataListValueProps extends React.ComponentPropsWithoutRef<'dd'> { }
+interface DataListValueProps extends React.ComponentPropsWithoutRef<'dd'> {}
 
 const DataListValue = ({
   children,
@@ -121,12 +121,11 @@ export {
   DataListItem as Item,
   DataListLabel as Label,
   DataListRoot as Root,
-  DataListValue as Value
+  DataListValue as Value,
 };
 export type {
   DataListItemProps as ItemProps,
   DataListLabelProps as LabelProps,
   DataListRootProps as RootProps,
-  DataListValueProps as ValueProps
+  DataListValueProps as ValueProps,
 };
-

@@ -6,7 +6,11 @@ import * as React from 'react';
 import { extractMarginProps, withMarginProps } from '../helpers';
 import { radioButtonGroupPropDefs } from './radio-button-group.props';
 
-import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
+import type {
+  GetPropDefTypes,
+  MarginProps,
+  PropsWithoutRefOrColor,
+} from '../helpers';
 import { useIsomorphicLayoutEffect } from '../helpers/use-isomorphic-layout-effect';
 
 type RadioButtonGroupOwnProps = GetPropDefTypes<
@@ -19,8 +23,8 @@ const RadioButtonGroupContext =
 
 interface RadioButtonGroupRootProps
   extends PropsWithoutRefOrColor<typeof RadioButtonGroupPrimitive.Root>,
-  MarginProps,
-  RadioButtonGroupOwnProps { }
+    MarginProps,
+    RadioButtonGroupOwnProps {}
 
 const RadioButtonGroupRoot = (props: RadioButtonGroupRootProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
@@ -57,7 +61,7 @@ RadioButtonGroupRoot.displayName = 'RadioButtonGroupRoot';
 
 interface RadioButtonGroupItemProps
   extends React.ComponentPropsWithoutRef<typeof RadioButtonGroupPrimitive.Item>,
-  MarginProps { }
+    MarginProps {}
 
 const RadioButtonGroupItem = (props: RadioButtonGroupItemProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
@@ -85,7 +89,7 @@ RadioButtonGroupItem.displayName = 'RadioButtonGroupItem';
 
 interface RadioButtonGroupIconProps
   extends MarginProps,
-  Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> { }
+    Omit<PropsWithoutRefOrColor<'div'>, 'children'> {}
 
 const RadioButtonGroupIcon = (props: RadioButtonGroupIconProps) => {
   const { color, highContrast } = React.useContext(RadioButtonGroupContext);
@@ -166,11 +170,10 @@ const RadioButtonGroupOverlay = () => {
 export {
   RadioButtonGroupIcon as Icon,
   RadioButtonGroupItem as Item,
-  RadioButtonGroupRoot as Root
+  RadioButtonGroupRoot as Root,
 };
 export type {
   RadioButtonGroupIconProps as IconProps,
   RadioButtonGroupItemProps as ItemProps,
-  RadioButtonGroupRootProps as RootProps
+  RadioButtonGroupRootProps as RootProps,
 };
-

@@ -25,8 +25,8 @@ const CalloutContext = React.createContext<CalloutContextValue>({});
 
 interface CalloutRootProps
   extends PropsWithoutRefOrColor<'div'>,
-  MarginProps,
-  CalloutContextValue { }
+    MarginProps,
+    CalloutContextValue {}
 
 const CalloutRoot = (props: CalloutRootProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
@@ -65,7 +65,7 @@ const CalloutRoot = (props: CalloutRootProps) => {
 };
 CalloutRoot.displayName = 'CalloutRoot';
 
-interface CalloutIconProps extends PropsWithoutRefOrColor<'div'> { }
+interface CalloutIconProps extends PropsWithoutRefOrColor<'div'> {}
 
 const CalloutIcon = (props: CalloutIconProps) => {
   const { color, size, highContrast } = React.useContext(CalloutContext);
@@ -126,5 +126,5 @@ export { CalloutIcon as Icon, CalloutRoot as Root, CalloutText as Text };
 export type {
   CalloutIconProps as IconProps,
   CalloutRootProps as RootProps,
-  CalloutTextProps as TextProps
+  CalloutTextProps as TextProps,
 };

@@ -18,8 +18,8 @@ import {
 type TableRootOwnProps = GetPropDefTypes<typeof tableRootPropDefs>;
 interface TableRootProps
   extends React.ComponentPropsWithoutRef<'div'>,
-  MarginProps,
-  TableRootOwnProps { }
+    MarginProps,
+    TableRootOwnProps {}
 const TableRoot = (props: TableRootProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
@@ -53,7 +53,7 @@ TableRoot.displayName = 'TableRoot';
 type TableTableOwnProps = GetPropDefTypes<typeof tableRootPropDefs>;
 interface TableTableProps
   extends React.ComponentPropsWithoutRef<'table'>,
-  TableTableOwnProps { }
+    TableTableOwnProps {}
 const TableTable = (props: TableTableProps) => {
   const { className, ...otherProps } = props;
 
@@ -66,7 +66,7 @@ const TableTable = (props: TableTableProps) => {
 };
 TableTable.displayName = 'TableTable';
 
-interface TableHeaderProps extends React.ComponentPropsWithoutRef<'thead'> { }
+interface TableHeaderProps extends React.ComponentPropsWithoutRef<'thead'> {}
 const TableHeader = (props: TableHeaderProps) => (
   <thead
     {...props}
@@ -75,13 +75,13 @@ const TableHeader = (props: TableHeaderProps) => (
 );
 TableHeader.displayName = 'TableHeader';
 
-interface TableBodyProps extends React.ComponentPropsWithoutRef<'tbody'> { }
+interface TableBodyProps extends React.ComponentPropsWithoutRef<'tbody'> {}
 const TableBody = (props: TableBodyProps) => (
   <tbody {...props} className={classNames('fui-TableBody', props.className)} />
 );
 TableBody.displayName = 'TableBody';
 
-interface TableFooterProps extends React.ComponentPropsWithoutRef<'tfoot'> { }
+interface TableFooterProps extends React.ComponentPropsWithoutRef<'tfoot'> {}
 const TableFooter = (props: TableFooterProps) => (
   <tfoot
     {...props}
@@ -93,7 +93,7 @@ TableFooter.displayName = 'TableFooter';
 type TableRowOwnProps = GetPropDefTypes<typeof tableRowPropDefs>;
 interface TableRowProps
   extends Omit<React.ComponentPropsWithoutRef<'tr'>, keyof TableRowOwnProps>,
-  TableRowOwnProps { }
+    TableRowOwnProps {}
 const TableRow = (props: TableRowProps) => {
   const {
     className,
@@ -121,11 +121,11 @@ TableRow.displayName = 'TableRow';
 type TableCellImplOwnProps = GetPropDefTypes<typeof tableCellPropDefs>;
 interface TableCellImplProps
   extends Omit<
-    React.ComponentPropsWithoutRef<'td'>,
-    keyof TableCellImplOwnProps
-  >,
-  PaddingProps,
-  TableCellImplOwnProps {
+      React.ComponentPropsWithoutRef<'td'>,
+      keyof TableCellImplOwnProps
+    >,
+    PaddingProps,
+    TableCellImplOwnProps {
   tag?: 'td' | 'th';
 }
 const TableCellImpl = (props: TableCellImplProps) => {
@@ -158,7 +158,7 @@ const TableCellImpl = (props: TableCellImplProps) => {
 TableCellImpl.displayName = 'TableCellImpl';
 
 interface TableCellProps
-  extends Omit<React.ComponentPropsWithoutRef<typeof TableCellImpl>, 'tag'> { }
+  extends Omit<React.ComponentPropsWithoutRef<typeof TableCellImpl>, 'tag'> {}
 const TableCell = (props: TableCellProps) => (
   <TableCellImpl {...props} tag="td" />
 );
@@ -166,11 +166,11 @@ TableCell.displayName = 'TableCell';
 
 interface TableColumnHeaderCellProps
   extends Omit<
-    React.ComponentPropsWithoutRef<'th'>,
-    keyof TableCellImplOwnProps
-  >,
-  PaddingProps,
-  TableCellImplOwnProps { }
+      React.ComponentPropsWithoutRef<'th'>,
+      keyof TableCellImplOwnProps
+    >,
+    PaddingProps,
+    TableCellImplOwnProps {}
 const TableColumnHeaderCell = (props: TableColumnHeaderCellProps) => (
   <TableCellImpl
     scope="col"
@@ -183,11 +183,11 @@ TableColumnHeaderCell.displayName = 'TableColumnHeaderCell';
 
 interface TableRowHeaderCellProps
   extends Omit<
-    React.ComponentPropsWithoutRef<'th'>,
-    keyof TableCellImplOwnProps
-  >,
-  PaddingProps,
-  TableCellImplOwnProps { }
+      React.ComponentPropsWithoutRef<'th'>,
+      keyof TableCellImplOwnProps
+    >,
+    PaddingProps,
+    TableCellImplOwnProps {}
 const TableRowHeaderCell = (props: TableRowHeaderCellProps) => (
   <TableCellImpl
     scope="row"
@@ -198,7 +198,7 @@ const TableRowHeaderCell = (props: TableRowHeaderCellProps) => (
 );
 TableRowHeaderCell.displayName = 'TableRowHeaderCell';
 
-interface TableBottomBarProps extends React.ComponentPropsWithoutRef<'div'> { }
+interface TableBottomBarProps extends React.ComponentPropsWithoutRef<'div'> {}
 const TableBottomBar = (props: TableBottomBarProps) => (
   <div
     {...props}
@@ -259,7 +259,7 @@ export {
   TableRoot as Root,
   TableRow as Row,
   TableRowHeaderCell as RowHeaderCell,
-  TableTable as Table
+  TableTable as Table,
 };
 
 export type {
@@ -273,6 +273,5 @@ export type {
   TableRootProps as RootProps,
   TableRowHeaderCellProps as RowHeaderCellProps,
   TableRowProps as RowProps,
-  TableTableProps as TableProps
+  TableTableProps as TableProps,
 };
-

@@ -10,14 +10,14 @@ import {
 import { flexPropDefs } from './flex.props';
 import { Slot } from './slot';
 
-import type { GetPropDefTypes, LayoutProps, MarginProps, PropsWithoutRefOrColor } from '../helpers';
+import type { GetPropDefTypes, LayoutProps, MarginProps } from '../helpers';
 
 type FlexOwnProps = GetPropDefTypes<typeof flexPropDefs>;
 interface FlexProps
-  extends PropsWithoutRefOrColor<'div'>,
-  MarginProps,
-  LayoutProps,
-  FlexOwnProps {
+  extends React.ComponentPropsWithoutRef<'div'>,
+    MarginProps,
+    LayoutProps,
+    FlexOwnProps {
   asChild?: boolean;
 }
 
@@ -58,4 +58,3 @@ Flex.displayName = 'Flex';
 
 export { Flex };
 export type { FlexProps };
-

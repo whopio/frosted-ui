@@ -10,13 +10,17 @@ import {
 } from '../helpers';
 import { separatorPropDefs } from './separator.props';
 
-import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
+import type {
+  GetPropDefTypes,
+  MarginProps,
+  PropsWithoutRefOrColor,
+} from '../helpers';
 
 type SeparatorOwnProps = GetPropDefTypes<typeof separatorPropDefs>;
 interface SeparatorProps
   extends PropsWithoutRefOrColor<typeof SeparatorPrimitive.Root>,
-  MarginProps,
-  SeparatorOwnProps { }
+    MarginProps,
+    SeparatorOwnProps {}
 
 const Separator = (props: SeparatorProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
@@ -43,4 +47,3 @@ Separator.displayName = 'Separator';
 
 export { Separator };
 export type { SeparatorProps };
-

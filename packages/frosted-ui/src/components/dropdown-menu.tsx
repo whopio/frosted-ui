@@ -17,7 +17,7 @@ import { ScrollArea } from './scroll-area';
 import type { GetPropDefTypes, PropsWithoutRefOrColor } from '../helpers';
 
 interface DropdownMenuRootProps
-  extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Root> { }
+  extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Root> {}
 const DropdownMenuRoot: React.FC<DropdownMenuRootProps> = (props) => (
   <DropdownMenuPrimitive.Root {...props} />
 );
@@ -27,7 +27,7 @@ interface DropdownMenuTriggerProps
   extends Omit<
     React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Trigger>,
     'asChild'
-  > { }
+  > {}
 
 const DropdownMenuTrigger = (props: DropdownMenuTriggerProps) => (
   <DropdownMenuPrimitive.Trigger {...props} asChild />
@@ -43,7 +43,7 @@ const DropdownMenuContentContext =
 
 interface DropdownMenuContentProps
   extends PropsWithoutRefOrColor<typeof DropdownMenuPrimitive.Content>,
-  DropdownMenuContentContextValue {
+    DropdownMenuContentContextValue {
   container?: React.ComponentProps<
     typeof DropdownMenuPrimitive.Portal
   >['container'];
@@ -105,7 +105,7 @@ const DropdownMenuContent = (props: DropdownMenuContentProps) => {
 DropdownMenuContent.displayName = 'DropdownMenuContent';
 
 interface DropdownMenuLabelProps
-  extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label> { }
+  extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label> {}
 
 const DropdownMenuLabel = (props: DropdownMenuLabelProps) => (
   <DropdownMenuPrimitive.Label
@@ -124,7 +124,7 @@ type DropdownMenuItemOwnProps = GetPropDefTypes<
 >;
 interface DropdownMenuItemProps
   extends PropsWithoutRefOrColor<typeof DropdownMenuPrimitive.Item>,
-  DropdownMenuItemOwnProps { }
+    DropdownMenuItemOwnProps {}
 
 const DropdownMenuItem = (props: DropdownMenuItemProps) => {
   const {
@@ -157,7 +157,7 @@ const DropdownMenuItem = (props: DropdownMenuItemProps) => {
 DropdownMenuItem.displayName = 'DropdownMenuItem';
 
 interface DropdownMenuGroupProps
-  extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Group> { }
+  extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Group> {}
 
 const DropdownMenuGroup = (props: DropdownMenuGroupProps) => (
   <DropdownMenuPrimitive.Group
@@ -174,7 +174,7 @@ DropdownMenuGroup.displayName = 'DropdownMenuGroup';
 interface DropdownMenuRadioGroupProps
   extends React.ComponentPropsWithoutRef<
     typeof DropdownMenuPrimitive.RadioGroup
-  > { }
+  > {}
 
 const DropdownMenuRadioGroup = (props: DropdownMenuRadioGroupProps) => (
   <DropdownMenuPrimitive.RadioGroup
@@ -191,7 +191,7 @@ DropdownMenuRadioGroup.displayName = 'DropdownMenuRadioGroup';
 interface DropdownMenuRadioItemProps
   extends React.ComponentPropsWithoutRef<
     typeof DropdownMenuPrimitive.RadioItem
-  > { }
+  > {}
 
 const DropdownMenuRadioItem = (props: DropdownMenuRadioItemProps) => {
   const { children, className, ...itemProps } = props;
@@ -220,9 +220,9 @@ type DropdownMenuCheckboxItemOwnProps = GetPropDefTypes<
 >;
 interface DropdownMenuCheckboxItemProps
   extends React.ComponentPropsWithoutRef<
-    typeof DropdownMenuPrimitive.CheckboxItem
-  >,
-  DropdownMenuCheckboxItemOwnProps { }
+      typeof DropdownMenuPrimitive.CheckboxItem
+    >,
+    DropdownMenuCheckboxItemOwnProps {}
 
 const DropdownMenuCheckboxItem = (props: DropdownMenuCheckboxItemProps) => {
   const { children, className, shortcut, ...itemProps } = props;
@@ -252,7 +252,7 @@ const DropdownMenuCheckboxItem = (props: DropdownMenuCheckboxItemProps) => {
 DropdownMenuCheckboxItem.displayName = 'DropdownMenuCheckboxItem';
 
 interface DropdownMenuSubProps
-  extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Sub> { }
+  extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Sub> {}
 const DropdownMenuSub: React.FC<DropdownMenuSubProps> = (props) => (
   <DropdownMenuPrimitive.Sub {...props} />
 );
@@ -261,7 +261,7 @@ DropdownMenuSub.displayName = 'DropdownMenuSub';
 interface DropdownMenuSubTriggerProps
   extends React.ComponentPropsWithoutRef<
     typeof DropdownMenuPrimitive.SubTrigger
-  > { }
+  > {}
 
 const DropdownMenuSubTrigger = (props: DropdownMenuSubTriggerProps) => {
   const { className, children, ...subTriggerProps } = props;
@@ -340,7 +340,7 @@ DropdownMenuSubContent.displayName = 'DropdownMenuSubContent';
 interface DropdownMenuSeparatorProps
   extends React.ComponentPropsWithoutRef<
     typeof DropdownMenuPrimitive.Separator
-  > { }
+  > {}
 
 const DropdownMenuSeparator = (props: DropdownMenuSeparatorProps) => (
   <DropdownMenuPrimitive.Separator
@@ -367,7 +367,7 @@ export {
   DropdownMenuSub as Sub,
   DropdownMenuSubContent as SubContent,
   DropdownMenuSubTrigger as SubTrigger,
-  DropdownMenuTrigger as Trigger
+  DropdownMenuTrigger as Trigger,
 };
 
 export type {
@@ -383,6 +383,5 @@ export type {
   DropdownMenuSubContentProps as SubContentProps,
   DropdownMenuSubProps as SubProps,
   DropdownMenuSubTriggerProps as SubTriggerProps,
-  DropdownMenuTriggerProps as TriggerProps
+  DropdownMenuTriggerProps as TriggerProps,
 };
-

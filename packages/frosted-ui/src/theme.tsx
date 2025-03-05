@@ -11,7 +11,7 @@ import type { ThemeOptions } from './theme-options';
 import { WithThemeEvents } from './use-theme-events';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-const noop = () => { };
+const noop = () => {};
 
 interface ThemeChangeHandlers {
   onAppearanceChange: (appearance: ThemeOptions['appearance']) => void;
@@ -38,7 +38,7 @@ function useThemeContext() {
   return context;
 }
 
-interface ThemeProps extends ThemeRootProps { }
+interface ThemeProps extends ThemeRootProps {}
 const Theme = React.forwardRef<ThemeImplElement, ThemeProps>(
   (props, forwardedRef) => {
     const context = React.useContext(ThemeContext);
@@ -57,7 +57,7 @@ const Theme = React.forwardRef<ThemeImplElement, ThemeProps>(
 );
 Theme.displayName = 'Theme';
 
-interface ThemeRootProps extends ThemeImplPublicProps { }
+interface ThemeRootProps extends ThemeImplPublicProps {}
 const ThemeRoot = React.forwardRef<ThemeImplElement, ThemeRootProps>(
   (props, forwardedRef) => {
     const {
@@ -193,15 +193,15 @@ function SyncRootElementAppearance({
 }
 
 type ThemeImplElement = React.ElementRef<'div'>;
-interface ThemeImplProps extends ThemeImplPublicProps, ThemeImplPrivateProps { }
+interface ThemeImplProps extends ThemeImplPublicProps, ThemeImplPrivateProps {}
 interface ThemeImplPublicProps
   extends Omit<React.ComponentPropsWithoutRef<'div'>, 'dir'>,
-  Partial<ThemeOptions> {
+    Partial<ThemeOptions> {
   asChild?: boolean;
   isRoot?: boolean;
   hasBackground?: boolean;
 }
-interface ThemeImplPrivateProps extends Partial<ThemeChangeHandlers> { }
+interface ThemeImplPrivateProps extends Partial<ThemeChangeHandlers> {}
 const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
   (props, forwardedRef) => {
     const context = React.useContext(ThemeContext);
@@ -215,9 +215,9 @@ const ThemeImpl = React.forwardRef<ThemeImplElement, ThemeImplProps>(
       grayColor = context?.resolvedGrayColor ?? themePropDefs.grayColor.default,
       dangerColor = context?.dangerColor ?? themePropDefs.dangerColor.default,
       warningColor = context?.warningColor ??
-      themePropDefs.warningColor.default,
+        themePropDefs.warningColor.default,
       successColor = context?.successColor ??
-      themePropDefs.successColor.default,
+        themePropDefs.successColor.default,
       infoColor = context?.infoColor ?? themePropDefs.infoColor.default,
       //
       onAppearanceChange = noop,
@@ -337,4 +337,3 @@ function updateThemeAppearanceClass(appearance: ThemeOptions['appearance']) {
 
 export { Theme, updateThemeAppearanceClass, useThemeContext };
 export type { ThemeProps };
-

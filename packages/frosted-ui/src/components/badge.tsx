@@ -7,11 +7,15 @@ import {
 } from '../helpers';
 import { badgePropDefs } from './badge.props';
 
-import type { GetPropDefTypes, MarginProps } from '../helpers';
+import type {
+  GetPropDefTypes,
+  MarginProps,
+  PropsWithoutRefOrColor,
+} from '../helpers';
 
 type BadgeOwnProps = GetPropDefTypes<typeof badgePropDefs>;
 interface BadgeProps
-  extends Omit<React.ComponentPropsWithoutRef<'span'>, 'color'>,
+  extends Omit<PropsWithoutRefOrColor<'span'>, 'color'>,
     MarginProps,
     BadgeOwnProps {}
 
