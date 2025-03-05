@@ -35,24 +35,24 @@ type SheetNestedRootProps = Omit<
 const SheetNestedRoot = ({ ...props }: SheetNestedRootProps) => <DrawerPrimitive.NestedRoot {...props} />;
 SheetNestedRoot.displayName = 'SheetNestedRoot';
 
-interface SheetTriggerProps extends Omit<React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Trigger>, 'asChild'> {}
+interface SheetTriggerProps extends Omit<React.ComponentProps<typeof DrawerPrimitive.Trigger>, 'asChild'> {}
 const SheetTrigger = (props: SheetTriggerProps) => <DrawerPrimitive.Trigger {...props} asChild />;
 SheetTrigger.displayName = 'SheetTrigger';
 
-interface SheetCloseProps extends Omit<React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Close>, 'asChild'> {}
+interface SheetCloseProps extends Omit<React.ComponentProps<typeof DrawerPrimitive.Close>, 'asChild'> {}
 const SheetClose = (props: SheetCloseProps) => <DrawerPrimitive.Close {...props} asChild />;
 SheetClose.displayName = 'SheetClose';
 
 const SheetPortal = DrawerPrimitive.Portal;
 
-interface SheetOverlayProps extends React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay> {}
+interface SheetOverlayProps extends React.ComponentProps<typeof DrawerPrimitive.Overlay> {}
 
 const SheetOverlay = ({ className, ...props }: SheetOverlayProps) => (
   <DrawerPrimitive.Overlay className={classNames('fui-SheetOverlay', className)} {...props} />
 );
 SheetOverlay.displayName = 'SheetOverlay';
 
-interface SheetContentProps extends React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content> {}
+interface SheetContentProps extends React.ComponentProps<typeof DrawerPrimitive.Content> {}
 
 const SheetContent = ({ className, children, ...props }: SheetContentProps) => (
   <SheetPortal>
@@ -69,7 +69,7 @@ const SheetContent = ({ className, children, ...props }: SheetContentProps) => (
 );
 SheetContent.displayName = 'SheetContent';
 
-type SheetHeaderProps = React.ComponentPropsWithoutRef<'div'>;
+type SheetHeaderProps = React.ComponentProps<'div'>;
 const SheetHeader = ({ children, className, ...props }: SheetHeaderProps) => (
   <div className={classNames('fui-SheetHeader', className)} {...props}>
     {children}
@@ -77,7 +77,7 @@ const SheetHeader = ({ children, className, ...props }: SheetHeaderProps) => (
 );
 SheetHeader.displayName = 'SheetHeader';
 
-type SheetBodyProps = React.ComponentPropsWithoutRef<'div'>;
+type SheetBodyProps = React.ComponentProps<'div'>;
 const SheetBody = ({ children, className, ...props }: SheetBodyProps) => (
   <div className={classNames('fui-SheetBody', className)} {...props}>
     {children}
@@ -90,7 +90,7 @@ const SheetFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElemen
 );
 SheetFooter.displayName = 'SheetFooter';
 
-type SheetTitleProps = React.ComponentPropsWithoutRef<typeof Heading>;
+type SheetTitleProps = React.ComponentProps<typeof Heading>;
 
 const SheetTitle = ({ size = '5', weight = 'bold', ...props }: SheetTitleProps) => {
   return (

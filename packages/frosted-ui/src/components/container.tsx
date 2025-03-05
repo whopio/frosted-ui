@@ -6,7 +6,7 @@ import { containerPropDefs } from './container.props';
 import type { GetPropDefTypes, LayoutProps, MarginProps } from '../helpers';
 
 type ContainerOwnProps = GetPropDefTypes<typeof containerPropDefs>;
-interface ContainerProps extends React.ComponentPropsWithoutRef<'div'>, MarginProps, LayoutProps, ContainerOwnProps {}
+interface ContainerProps extends React.ComponentProps<'div'>, MarginProps, LayoutProps, ContainerOwnProps {}
 
 const Container = (props: ContainerProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);

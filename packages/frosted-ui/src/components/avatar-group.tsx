@@ -2,14 +2,14 @@
 
 import classNames from 'classnames';
 import * as React from 'react';
-import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
+import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
 import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
 import { Avatar } from './avatar';
 import { avatarGroupPropDefs } from './avatar-group.props';
 
 type AvatarGroupRootOwnProps = GetPropDefTypes<typeof avatarGroupPropDefs>;
 
-interface AvatarGroupRootProps extends PropsWithoutRefOrColor<'div'>, MarginProps, AvatarGroupRootOwnProps {}
+interface AvatarGroupRootProps extends PropsWithoutColor<'div'>, MarginProps, AvatarGroupRootOwnProps {}
 
 const AvatarGroupRoot = (props: AvatarGroupRootProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);

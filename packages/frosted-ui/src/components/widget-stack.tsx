@@ -5,7 +5,7 @@ import * as React from 'react';
 import { extractMarginProps, withMarginProps } from '../helpers';
 
 import { Slot } from '@radix-ui/react-slot';
-import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
+import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
 import { useIsomorphicLayoutEffect } from '../helpers/use-isomorphic-layout-effect';
 import { widgetStackRootPropDefs } from './widget-stack.props';
 
@@ -132,7 +132,7 @@ const WidgetStackRoot: React.FC<WidgetStackRootProps> = ({
 };
 WidgetStackRoot.displayName = 'WidgetStackRoot';
 
-interface WidgetStackStackProps extends PropsWithoutRefOrColor<'div'>, MarginProps {
+interface WidgetStackStackProps extends PropsWithoutColor<'div'>, MarginProps {
   asChild?: boolean;
 }
 
@@ -362,7 +362,7 @@ export function useWidgetStackItem() {
   return context;
 }
 
-interface WidgetStackItemProps extends React.ComponentPropsWithoutRef<'div'>, MarginProps {}
+interface WidgetStackItemProps extends React.ComponentProps<'div'>, MarginProps {}
 
 const WidgetStackItem = (props: WidgetStackItemProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
@@ -418,8 +418,7 @@ const WidgetStackItem = (props: WidgetStackItemProps) => {
 
 WidgetStackItem.displayName = 'WidgetStackItem';
 
-interface WidgetStackNextProps
-  extends Omit<React.ComponentPropsWithoutRef<'button'>, 'asChild' | 'disabled' | 'onClick'> {}
+interface WidgetStackNextProps extends Omit<React.ComponentProps<'button'>, 'asChild' | 'disabled' | 'onClick'> {}
 
 const WidgetStackNext = (props: WidgetStackNextProps) => {
   const { nextDisabled, controls } = useWidgetStack();
@@ -437,8 +436,7 @@ const WidgetStackNext = (props: WidgetStackNextProps) => {
 };
 WidgetStackNext.displayName = 'WidgetStackNext';
 
-interface WidgetStackPrevProps
-  extends Omit<React.ComponentPropsWithoutRef<'button'>, 'asChild' | 'disabled' | 'onClick'> {}
+interface WidgetStackPrevProps extends Omit<React.ComponentProps<'button'>, 'asChild' | 'disabled' | 'onClick'> {}
 
 const WidgetStackPrev = (props: WidgetStackPrevProps) => {
   const { prevDisabled, controls } = useWidgetStack();

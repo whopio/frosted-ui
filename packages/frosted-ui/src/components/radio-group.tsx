@@ -6,11 +6,11 @@ import * as React from 'react';
 import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
 import { radioGroupPropDefs } from './radio-group.props';
 
-import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
+import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
 
 type RadioGroupOwnProps = GetPropDefTypes<typeof radioGroupPropDefs>;
 interface RadioGroupRootProps
-  extends PropsWithoutRefOrColor<typeof RadioGroupPrimitive.Root>,
+  extends PropsWithoutColor<typeof RadioGroupPrimitive.Root>,
     MarginProps,
     RadioGroupOwnProps {}
 
@@ -41,7 +41,7 @@ const RadioGroupRoot = (props: RadioGroupRootProps) => {
 };
 RadioGroupRoot.displayName = 'RadioGroupRoot';
 
-interface RadioGroupItemProps extends React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item>, MarginProps {}
+interface RadioGroupItemProps extends React.ComponentProps<typeof RadioGroupPrimitive.Item>, MarginProps {}
 
 const RadioGroupItem = (props: RadioGroupItemProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);

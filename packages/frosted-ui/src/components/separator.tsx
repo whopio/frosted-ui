@@ -6,13 +6,10 @@ import * as React from 'react';
 import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
 import { separatorPropDefs } from './separator.props';
 
-import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
+import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
 
 type SeparatorOwnProps = GetPropDefTypes<typeof separatorPropDefs>;
-interface SeparatorProps
-  extends PropsWithoutRefOrColor<typeof SeparatorPrimitive.Root>,
-    MarginProps,
-    SeparatorOwnProps {}
+interface SeparatorProps extends PropsWithoutColor<typeof SeparatorPrimitive.Root>, MarginProps, SeparatorOwnProps {}
 
 const Separator = (props: SeparatorProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);

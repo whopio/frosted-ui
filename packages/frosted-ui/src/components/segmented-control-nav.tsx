@@ -8,7 +8,7 @@ import { segmentedControlNavLinkPropDefs } from './segmented-control-nav.props';
 
 interface SegmentedControlNavRootProps
   extends Omit<
-      React.ComponentPropsWithoutRef<typeof NavigationMenu.Root>,
+      React.ComponentProps<typeof NavigationMenu.Root>,
       'asChild' | 'orientation' | 'defauValue' | 'value' | 'onValueChange' | 'delayDuration' | 'skipDelayDuration'
     >,
     MarginProps {}
@@ -36,7 +36,7 @@ SegmentedControlNavRoot.displayName = 'SegmentedControlNavRoot';
 
 type SegmentedControlNavLinkOwnProps = GetPropDefTypes<typeof segmentedControlNavLinkPropDefs>;
 interface SegmentedControlNavLinkProps
-  extends Omit<React.ComponentPropsWithoutRef<typeof NavigationMenu.Link>, 'onSelect'>,
+  extends Omit<React.ComponentProps<typeof NavigationMenu.Link>, 'onSelect'>,
     SegmentedControlNavLinkOwnProps {}
 
 const SegmentedControlNavLink = (props: SegmentedControlNavLinkProps) => {

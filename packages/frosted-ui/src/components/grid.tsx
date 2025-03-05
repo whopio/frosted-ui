@@ -15,7 +15,7 @@ import { Slot } from './slot';
 import type { GetPropDefTypes, LayoutProps, MarginProps } from '../helpers';
 
 type GridOwnProps = GetPropDefTypes<typeof gridPropDefs>;
-interface GridProps extends React.ComponentPropsWithoutRef<'div'>, MarginProps, LayoutProps, GridOwnProps {
+interface GridProps extends React.ComponentProps<'div'>, MarginProps, LayoutProps, GridOwnProps {
   asChild?: boolean;
 }
 

@@ -7,7 +7,7 @@ import { Slot } from './slot';
 import type { GetPropDefTypes, LayoutProps, MarginProps } from '../helpers';
 
 type BoxOwnProps = GetPropDefTypes<typeof boxPropDefs>;
-interface BoxProps extends React.ComponentPropsWithoutRef<'div'>, MarginProps, LayoutProps, BoxOwnProps {
+interface BoxProps extends React.ComponentProps<'div'>, MarginProps, LayoutProps, BoxOwnProps {
   asChild?: boolean;
 }
 

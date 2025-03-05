@@ -3,10 +3,10 @@ import * as React from 'react';
 import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
 import { codePropDefs } from './code.props';
 
-import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
+import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
 
 type CodeOwnProps = GetPropDefTypes<typeof codePropDefs>;
-interface CodeProps extends PropsWithoutRefOrColor<'code'>, MarginProps, CodeOwnProps {}
+interface CodeProps extends PropsWithoutColor<'code'>, MarginProps, CodeOwnProps {}
 
 const Code = (props: CodeProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);

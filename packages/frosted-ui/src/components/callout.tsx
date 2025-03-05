@@ -7,14 +7,14 @@ import { calloutRootPropDefs } from './callout.props';
 import { Text } from './text';
 import { textPropDefs } from './text.props';
 
-import type { ExtractPropsForTag, GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
+import type { ExtractPropsForTag, GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
 
 type CalloutRootOwnProps = GetPropDefTypes<typeof calloutRootPropDefs>;
 
 type CalloutContextValue = CalloutRootOwnProps;
 const CalloutContext = React.createContext<CalloutContextValue>({});
 
-interface CalloutRootProps extends PropsWithoutRefOrColor<'div'>, MarginProps, CalloutContextValue {}
+interface CalloutRootProps extends PropsWithoutColor<'div'>, MarginProps, CalloutContextValue {}
 
 const CalloutRoot = (props: CalloutRootProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
@@ -50,7 +50,7 @@ const CalloutRoot = (props: CalloutRootProps) => {
 };
 CalloutRoot.displayName = 'CalloutRoot';
 
-interface CalloutIconProps extends PropsWithoutRefOrColor<'div'> {}
+interface CalloutIconProps extends PropsWithoutColor<'div'> {}
 
 const CalloutIcon = (props: CalloutIconProps) => {
   const { color, size, highContrast } = React.useContext(CalloutContext);

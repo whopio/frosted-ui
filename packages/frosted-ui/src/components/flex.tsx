@@ -4,10 +4,10 @@ import { extractLayoutProps, extractMarginProps, withBreakpoints, withLayoutProp
 import { flexPropDefs } from './flex.props';
 import { Slot } from './slot';
 
-import type { GetPropDefTypes, LayoutProps, MarginProps, PropsWithoutRefOrColor } from '../helpers';
+import type { GetPropDefTypes, LayoutProps, MarginProps, PropsWithoutColor } from '../helpers';
 
 type FlexOwnProps = GetPropDefTypes<typeof flexPropDefs>;
-interface FlexProps extends PropsWithoutRefOrColor<'div'>, MarginProps, LayoutProps, FlexOwnProps {
+interface FlexProps extends PropsWithoutColor<'div'>, MarginProps, LayoutProps, FlexOwnProps {
   asChild?: boolean;
 }
 

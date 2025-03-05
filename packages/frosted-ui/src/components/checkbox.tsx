@@ -6,9 +6,9 @@ import * as React from 'react';
 import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
 import { checkboxPropDefs } from './checkbox.props';
 
-import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
+import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
 
-interface IconProps extends React.ComponentPropsWithoutRef<'svg'> {
+interface IconProps extends React.ComponentProps<'svg'> {
   children?: never;
   color?: string;
   size: CheckboxOwnProps['size'];
@@ -67,7 +67,7 @@ const CheckboxIndeterminateIcon = ({ color = 'currentColor', size, ...props }: I
 CheckboxIndeterminateIcon.displayName = 'CheckboxIndeterminateIcon';
 
 type CheckboxOwnProps = GetPropDefTypes<typeof checkboxPropDefs>;
-interface CheckboxProps extends PropsWithoutRefOrColor<typeof CheckboxPrimitive.Root>, MarginProps, CheckboxOwnProps {}
+interface CheckboxProps extends PropsWithoutColor<typeof CheckboxPrimitive.Root>, MarginProps, CheckboxOwnProps {}
 
 const Checkbox = (props: CheckboxProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);

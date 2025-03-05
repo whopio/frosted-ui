@@ -4,14 +4,14 @@ import * as React from 'react';
 import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
 import { baseButtonPropDefs } from './base-button.props';
 
-import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
+import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
 import { mapButtonSizeToSpinnerSize, mapResponsiveProp } from '../helpers/map-prop-values';
 import { Flex } from './flex';
 import { Spinner } from './spinner';
 import { VisuallyHidden } from './visually-hidden';
 
 type BaseButtonOwnProps = GetPropDefTypes<typeof baseButtonPropDefs>;
-interface BaseButtonProps extends PropsWithoutRefOrColor<'button'>, MarginProps, BaseButtonOwnProps {
+interface BaseButtonProps extends PropsWithoutColor<'button'>, MarginProps, BaseButtonOwnProps {
   asChild?: boolean;
   loading?: boolean;
 }

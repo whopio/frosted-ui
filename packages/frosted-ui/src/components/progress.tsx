@@ -6,7 +6,7 @@ import * as React from 'react';
 import {
   GetPropDefTypes,
   MarginProps,
-  PropsWithoutRefOrColor,
+  PropsWithoutColor,
   extractMarginProps,
   withBreakpoints,
   withMarginProps,
@@ -15,7 +15,7 @@ import { progressPropDefs } from './progress.props';
 
 type ProgressOwnProps = GetPropDefTypes<typeof progressPropDefs>;
 interface ProgressProps
-  extends Omit<PropsWithoutRefOrColor<typeof ProgressPrimitive.Root>, 'children'>,
+  extends Omit<PropsWithoutColor<typeof ProgressPrimitive.Root>, 'children'>,
     MarginProps,
     ProgressOwnProps {}
 

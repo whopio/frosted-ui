@@ -3,10 +3,10 @@ import * as React from 'react';
 import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
 import { badgePropDefs } from './badge.props';
 
-import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
+import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
 
 type BadgeOwnProps = GetPropDefTypes<typeof badgePropDefs>;
-interface BadgeProps extends PropsWithoutRefOrColor<'span'>, MarginProps, BadgeOwnProps {}
+interface BadgeProps extends PropsWithoutColor<'span'>, MarginProps, BadgeOwnProps {}
 
 const Badge = (props: BadgeProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);

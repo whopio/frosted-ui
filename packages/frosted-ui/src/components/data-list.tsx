@@ -6,7 +6,7 @@ import { Text } from './text';
 
 import {
   extractMarginProps,
-  PropsWithoutRefOrColor,
+  PropsWithoutColor,
   withBreakpoints,
   withMarginProps,
   type GetPropDefTypes,
@@ -14,7 +14,7 @@ import {
 } from '../helpers';
 
 type DataListRootOwnProps = GetPropDefTypes<typeof dataListRootPropDefs>;
-interface DataListRootProps extends PropsWithoutRefOrColor<'dl'>, MarginProps, DataListRootOwnProps {}
+interface DataListRootProps extends PropsWithoutColor<'dl'>, MarginProps, DataListRootOwnProps {}
 
 const DataListRoot = (props: DataListRootProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
@@ -46,7 +46,7 @@ const DataListRoot = (props: DataListRootProps) => {
 DataListRoot.displayName = 'DataList.Root';
 
 type DataListItemOwnProps = GetPropDefTypes<typeof dataListItemPropDefs>;
-interface DataListItemProps extends PropsWithoutRefOrColor<'div'>, DataListItemOwnProps {}
+interface DataListItemProps extends PropsWithoutColor<'div'>, DataListItemOwnProps {}
 
 const DataListItem = (props: DataListItemProps) => {
   const { className, align = dataListItemPropDefs.align.default, ...dataListItemProps } = props;
@@ -61,7 +61,7 @@ const DataListItem = (props: DataListItemProps) => {
 DataListItem.displayName = 'DataList.Item';
 
 type DataListLabelOwnProps = GetPropDefTypes<typeof dataListLabelPropDefs>;
-interface DataListLabelProps extends PropsWithoutRefOrColor<'dt'>, DataListLabelOwnProps {}
+interface DataListLabelProps extends PropsWithoutColor<'dt'>, DataListLabelOwnProps {}
 
 const DataListLabel = (props: DataListLabelProps) => {
   const {
@@ -81,7 +81,7 @@ const DataListLabel = (props: DataListLabelProps) => {
 };
 DataListLabel.displayName = 'DataList.Label';
 
-interface DataListValueProps extends React.ComponentPropsWithoutRef<'dd'> {}
+interface DataListValueProps extends React.ComponentProps<'dd'> {}
 
 const DataListValue = ({ children, className, ...props }: DataListValueProps) => (
   <dd {...props} className={classNames(className, 'fui-DataListValue')}>

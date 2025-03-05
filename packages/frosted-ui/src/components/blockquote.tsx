@@ -3,10 +3,10 @@ import * as React from 'react';
 import { blockquotePropDefs } from './blockquote.props';
 import { Text } from './text';
 
-import type { GetPropDefTypes, PropsWithoutRefOrColor } from '../helpers';
+import type { GetPropDefTypes, PropsWithoutColor } from '../helpers';
 
 type BlockQuoteOwnProps = GetPropDefTypes<typeof blockquotePropDefs>;
-interface BlockquoteProps extends PropsWithoutRefOrColor<'blockquote'>, BlockQuoteOwnProps {}
+interface BlockquoteProps extends PropsWithoutColor<'blockquote'>, BlockQuoteOwnProps {}
 
 const Blockquote = (props: BlockquoteProps) => {
   const { children, className, ...blockquoteProps } = props;
