@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const DragHandleHorizontal16 = React.forwardRef<
-  SVGSVGElement,
-  IconProps
->(({ color = 'currentColor', ...props }, forwardedRef) => {
+export const DragHandleHorizontal16 = ({
+  color = 'currentColor',
+  ...props
+}: IconProps) => {
   return (
     <svg
       width="16"
@@ -14,7 +14,6 @@ export const DragHandleHorizontal16 = React.forwardRef<
       xmlns="http://www.w3.org/2000/svg"
       data-fui-icon="true"
       {...props}
-      ref={forwardedRef}
     >
       <circle cx="3" cy="10" r="1" transform="rotate(-90 3 10)" fill={color} />
       <circle cx="3" cy="6" r="1" transform="rotate(-90 3 6)" fill={color} />
@@ -30,6 +29,6 @@ export const DragHandleHorizontal16 = React.forwardRef<
       <circle cx="13" cy="6" r="1" transform="rotate(-90 13 6)" fill={color} />
     </svg>
   );
-});
+};
 
 export default DragHandleHorizontal16;
