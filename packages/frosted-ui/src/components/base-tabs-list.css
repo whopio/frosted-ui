@@ -29,20 +29,12 @@
 .fui-BaseTabsTriggerInner {
   position: absolute;
 
-  :where(
-      .fui-BaseTabsTrigger[data-state='inactive'],
-      .fui-TabsNavLink:not([data-active])
-    )
-    & {
+  :where(.fui-BaseTabsTrigger[data-state='inactive'], .fui-TabsNavLink:not([data-active])) & {
     letter-spacing: var(--tabs-trigger-inactive-letter-spacing);
     word-spacing: var(--tabs-trigger-inactive-word-spacing);
   }
 
-  :where(
-      .fui-BaseTabsTrigger[data-state='active'],
-      .fui-TabsNavLink[data-active]
-    )
-    & {
+  :where(.fui-BaseTabsTrigger[data-state='active'], .fui-TabsNavLink[data-active]) & {
     font-weight: var(--font-weight-medium);
     letter-spacing: var(--tabs-trigger-active-letter-spacing);
     word-spacing: var(--tabs-trigger-active-word-spacing);
@@ -74,8 +66,7 @@
 
 .fui-BaseTabsTriggerInner,
 .fui-BaseTabsTriggerInnerHidden {
-  padding: var(--tabs-trigger-inner-padding-y)
-    var(--tabs-trigger-inner-padding-x);
+  padding: var(--tabs-trigger-inner-padding-y) var(--tabs-trigger-inner-padding-x);
   border-radius: var(--tabs-trigger-inner-border-radius);
 }
 

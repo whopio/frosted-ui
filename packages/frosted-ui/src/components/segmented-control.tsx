@@ -7,9 +7,7 @@ import { extractMarginProps, withMarginProps } from '../helpers';
 
 import type { MarginProps } from '../helpers';
 
-interface SegmentedControlRootProps
-  extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Root>,
-    MarginProps {}
+interface SegmentedControlRootProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Root>, MarginProps {}
 
 const SegmentedControlRoot = (props: SegmentedControlRootProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
@@ -17,46 +15,31 @@ const SegmentedControlRoot = (props: SegmentedControlRootProps) => {
   return (
     <TabsPrimitive.Root
       {...rootProps}
-      className={classNames(
-        'fui-BaseSegmentedControlRoot',
-        className,
-        withMarginProps(marginProps),
-      )}
+      className={classNames('fui-BaseSegmentedControlRoot', className, withMarginProps(marginProps))}
     />
   );
 };
 SegmentedControlRoot.displayName = 'SegmentedControlRoot';
 
-interface SegmentedControlListOwnProps
-  extends React.ComponentPropsWithoutRef<'div'> {}
+interface SegmentedControlListOwnProps extends React.ComponentPropsWithoutRef<'div'> {}
 interface SegmentedControlListProps
   extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>,
     SegmentedControlListOwnProps {}
 
 const SegmentedControlList = (props: SegmentedControlListProps) => {
   const { className, ...listProps } = props;
-  return (
-    <TabsPrimitive.List
-      {...listProps}
-      className={classNames('fui-BaseSegmentedControlList', className)}
-    />
-  );
+  return <TabsPrimitive.List {...listProps} className={classNames('fui-BaseSegmentedControlList', className)} />;
 };
 SegmentedControlList.displayName = 'SegmentedControlList';
 
-interface SegmentedControlTriggerProps
-  extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger> {}
+interface SegmentedControlTriggerProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger> {}
 
 const SegmentedControlTrigger = (props: SegmentedControlTriggerProps) => {
   const { className, children, ...triggerProps } = props;
   return (
     <TabsPrimitive.Trigger
       {...triggerProps}
-      className={classNames(
-        'fui-reset',
-        'fui-BaseSegmentedControlTrigger',
-        className,
-      )}
+      className={classNames('fui-reset', 'fui-BaseSegmentedControlTrigger', className)}
     >
       <span className="fui-BaseSegmentedControlTriggerInner">{children}</span>
     </TabsPrimitive.Trigger>
@@ -64,14 +47,10 @@ const SegmentedControlTrigger = (props: SegmentedControlTriggerProps) => {
 };
 SegmentedControlTrigger.displayName = 'SegmentedControlTrigger';
 
-interface SegmentedControlContentProps
-  extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content> {}
+interface SegmentedControlContentProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content> {}
 
 const SegmentedControlContent = (props: SegmentedControlContentProps) => (
-  <TabsPrimitive.Content
-    {...props}
-    className={classNames('fui-SegmentedControlContent', props.className)}
-  />
+  <TabsPrimitive.Content {...props} className={classNames('fui-SegmentedControlContent', props.className)} />
 );
 SegmentedControlContent.displayName = 'SegmentedControlContent';
 

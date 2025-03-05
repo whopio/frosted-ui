@@ -17,33 +17,17 @@ type TabsNavOwnProps = GetPropDefTypes<typeof tabsNavPropDefs>;
 interface TabsNavRootProps
   extends Omit<
       React.ComponentPropsWithoutRef<typeof NavigationMenu.Root>,
-      | 'asChild'
-      | 'orientation'
-      | 'defauValue'
-      | 'value'
-      | 'onValueChange'
-      | 'delayDuration'
-      | 'skipDelayDuration'
+      'asChild' | 'orientation' | 'defauValue' | 'value' | 'onValueChange' | 'delayDuration' | 'skipDelayDuration'
     >,
     MarginProps,
     TabsNavOwnProps {}
 
 const TabsNavRoot = (props: TabsNavRootProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-  const {
-    children,
-    className,
-    size = tabsNavPropDefs.size.default,
-    ...rootProps
-  } = marginRest;
+  const { children, className, size = tabsNavPropDefs.size.default, ...rootProps } = marginRest;
 
   return (
-    <NavigationMenu.Root
-      className="fui-TabsNavRoot"
-      {...rootProps}
-      asChild={false}
-      orientation="horizontal"
-    >
+    <NavigationMenu.Root className="fui-TabsNavRoot" {...rootProps} asChild={false} orientation="horizontal">
       <NavigationMenu.List
         className={classNames(
           'fui-reset',
@@ -63,10 +47,7 @@ TabsNavRoot.displayName = 'TabsNavRoot';
 
 type TabsNavLinkOwnProps = GetPropDefTypes<typeof tabsNavLinkPropDefs>;
 interface TabsNavLinkProps
-  extends Omit<
-      React.ComponentPropsWithoutRef<typeof NavigationMenu.Link>,
-      'onSelect'
-    >,
+  extends Omit<React.ComponentPropsWithoutRef<typeof NavigationMenu.Link>, 'onSelect'>,
     TabsNavLinkOwnProps {}
 
 const TabsNavLink = (props: TabsNavLinkProps) => {
@@ -76,24 +57,15 @@ const TabsNavLink = (props: TabsNavLinkProps) => {
     <NavigationMenu.Item className="fui-TabsNavItem">
       <NavigationMenu.Link
         {...linkProps}
-        className={classNames(
-          'fui-reset',
-          'fui-BaseTabsTrigger',
-          'fui-TabsNavLink',
-          className,
-        )}
+        className={classNames('fui-reset', 'fui-BaseTabsTrigger', 'fui-TabsNavLink', className)}
         // eslint-disable-next-line @typescript-eslint/no-empty-function
         onSelect={() => {}}
         asChild={asChild}
       >
         {getSubtree({ asChild, children }, (children) => (
           <>
-            <span className="fui-BaseTabsTriggerInner fui-TabsNavLinkInner">
-              {children}
-            </span>
-            <span className="fui-BaseTabsTriggerInnerHidden fui-TabsNavLinkInnerHidden">
-              {children}
-            </span>
+            <span className="fui-BaseTabsTriggerInner fui-TabsNavLinkInner">{children}</span>
+            <span className="fui-BaseTabsTriggerInnerHidden fui-TabsNavLinkInnerHidden">{children}</span>
           </>
         ))}
       </NavigationMenu.Link>

@@ -3,9 +3,7 @@ import * as React from 'react';
 
 interface EmProps extends React.ComponentPropsWithoutRef<'em'> {}
 
-const Em = (props: EmProps) => (
-  <em {...props} className={classNames('fui-Em', props.className)} />
-);
+const Em = (props: EmProps) => <em {...props} className={classNames('fui-Em', props.className)} />;
 Em.displayName = 'Em';
 
 export { Em };

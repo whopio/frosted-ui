@@ -28,26 +28,14 @@ const Shine = ({
         x: event.pageX - window.scrollX,
         y: event.pageY - window.scrollY,
       };
-      lightElement.setAttribute(
-        'y',
-        (mouse.current.y - childrenBox.top).toString(),
-      );
-      lightElement.setAttribute(
-        'x',
-        (mouse.current.x - childrenBox.left).toString(),
-      );
+      lightElement.setAttribute('y', (mouse.current.y - childrenBox.top).toString());
+      lightElement.setAttribute('x', (mouse.current.x - childrenBox.left).toString());
     };
 
     const onScroll = () => {
       const childrenBox = children.getBoundingClientRect();
-      lightElement.setAttribute(
-        'y',
-        (mouse.current.y - childrenBox.top).toString(),
-      );
-      lightElement.setAttribute(
-        'x',
-        (mouse.current.x - childrenBox.left).toString(),
-      );
+      lightElement.setAttribute('y', (mouse.current.y - childrenBox.top).toString());
+      lightElement.setAttribute('x', (mouse.current.x - childrenBox.left).toString());
     };
 
     document.addEventListener('pointermove', onPointerMove);
@@ -76,27 +64,11 @@ const Shine = ({
           >
             <fePointLight x="60" y="69" z="300" />
           </feSpecularLighting>
-          <feComposite
-            result="reflections"
-            in="light-source"
-            in2="SourceAlpha"
-            operator="in"
-          />
-          <feComposite
-            in="SourceGraphic"
-            in2="reflections"
-            operator="arithmetic"
-            k1="0"
-            k2="1"
-            k3="1"
-            k4="0"
-          />
+          <feComposite result="reflections" in="light-source" in2="SourceAlpha" operator="in" />
+          <feComposite in="SourceGraphic" in2="reflections" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" />
         </filter>
       </svg>
-      <div
-        style={{ filter: `url(#${filterId})`, isolation: 'isolate' }}
-        ref={childrenWrapperRef}
-      >
+      <div style={{ filter: `url(#${filterId})`, isolation: 'isolate' }} ref={childrenWrapperRef}>
         {children}
       </div>
     </div>

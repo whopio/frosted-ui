@@ -1,20 +1,13 @@
 import { Slot } from '@radix-ui/react-slot';
 import classNames from 'classnames';
 import * as React from 'react';
-import {
-  extractMarginProps,
-  withBreakpoints,
-  withMarginProps,
-} from '../helpers';
+import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
 import { cardPropDefs } from './card.props';
 
 import type { GetPropDefTypes, MarginProps } from '../helpers';
 
 type CardOwnProps = GetPropDefTypes<typeof cardPropDefs>;
-interface CardProps
-  extends React.ComponentPropsWithoutRef<'div'>,
-    MarginProps,
-    CardOwnProps {
+interface CardProps extends React.ComponentPropsWithoutRef<'div'>, MarginProps, CardOwnProps {
   asChild?: boolean;
 }
 
@@ -33,9 +26,7 @@ const Card = (props: CardProps) => {
   function getChild() {
     const firstChild = React.Children.only(children) as React.ReactElement;
     return React.cloneElement(firstChild, {
-      children: (
-        <div className="fui-CardInner">{firstChild.props.children}</div>
-      ),
+      children: <div className="fui-CardInner">{firstChild.props.children}</div>,
     });
   }
 

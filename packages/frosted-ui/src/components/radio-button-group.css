@@ -17,10 +17,7 @@
     position: absolute;
     pointer-events: none;
   }
-  :where(
-    .fui-RadioButtonGroupButton[data-state='checked']
-      .fui-RadioButtonGroupOverlay
-  ) {
+  :where(.fui-RadioButtonGroupButton[data-state='checked'] .fui-RadioButtonGroupOverlay) {
     inset: calc(-1 * var(--parent-border-width));
     border-radius: var(--parent-border-radius);
     box-shadow:
@@ -36,9 +33,7 @@
     border-radius: 999px;
     color: var(--accent-9-contrast);
   }
-  :where(
-    .fui-RadioButtonGroupButton[data-state='checked'] .fui-RadioButtonGroupIcon
-  ) {
+  :where(.fui-RadioButtonGroupButton[data-state='checked'] .fui-RadioButtonGroupIcon) {
     visibility: visible;
     background: var(--accent-9);
   }

@@ -15,10 +15,7 @@ import { progressPropDefs } from './progress.props';
 
 type ProgressOwnProps = GetPropDefTypes<typeof progressPropDefs>;
 interface ProgressProps
-  extends Omit<
-      PropsWithoutRefOrColor<typeof ProgressPrimitive.Root>,
-      'children'
-    >,
+  extends Omit<PropsWithoutRefOrColor<typeof ProgressPrimitive.Root>, 'children'>,
     MarginProps,
     ProgressOwnProps {}
 
@@ -54,10 +51,7 @@ const Progress = (props: ProgressProps) => {
       max={max}
       {...progressProps}
     >
-      <ProgressPrimitive.Indicator
-        className="fui-ProgressIndicator"
-        style={{ width: `${progress * 100}%` }}
-      />
+      <ProgressPrimitive.Indicator className="fui-ProgressIndicator" style={{ width: `${progress * 100}%` }} />
     </ProgressPrimitive.Root>
   );
 };

@@ -12,10 +12,7 @@ import type { GetPropDefTypes } from '../helpers';
 type TooltipOwnProps = GetPropDefTypes<typeof tooltipPropDefs>;
 interface TooltipProps
   extends React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Root>,
-    Omit<
-      React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>,
-      'content'
-    >,
+    Omit<React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>, 'content'>,
     TooltipOwnProps {
   // TODO: See if we can automate making prop defs with `required: true` non nullable
   content: NonNullable<TooltipOwnProps['content']>;
@@ -39,8 +36,7 @@ const Tooltip = (props: TooltipProps) => {
   } = props;
 
   const [isOverflowing, setIsOverflowing] = React.useState(false);
-  const [triggerElement, setTriggerElement] =
-    React.useState<HTMLButtonElement | null>(null);
+  const [triggerElement, setTriggerElement] = React.useState<HTMLButtonElement | null>(null);
 
   React.useLayoutEffect(() => {
     if (type === 'overflow' && triggerElement) {
@@ -78,18 +74,9 @@ const Tooltip = (props: TooltipProps) => {
   }, [triggerElement, type]);
 
   const rootProps = {
-    open:
-      open !== undefined
-        ? type === 'overflow'
-          ? open && isOverflowing
-          : open
-        : open,
+    open: open !== undefined ? (type === 'overflow' ? open && isOverflowing : open) : open,
     defaultOpen:
-      defaultOpen !== undefined
-        ? type === 'overflow'
-          ? defaultOpen && isOverflowing
-          : defaultOpen
-        : defaultOpen,
+      defaultOpen !== undefined ? (type === 'overflow' ? defaultOpen && isOverflowing : defaultOpen) : defaultOpen,
     onOpenChange,
     delayDuration,
     disableHoverableContent,

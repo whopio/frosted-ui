@@ -10,54 +10,29 @@ import { Heading } from './heading';
 
 import type { GetPropDefTypes } from '../helpers';
 
-interface DrawerRootProps
-  extends Omit<
-    React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Root>,
-    'modal'
-  > {}
-const DrawerRoot: React.FC<DrawerRootProps> = (props) => (
-  <DrawerPrimitive.Root {...props} modal />
-);
+interface DrawerRootProps extends Omit<React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Root>, 'modal'> {}
+const DrawerRoot: React.FC<DrawerRootProps> = (props) => <DrawerPrimitive.Root {...props} modal />;
 DrawerRoot.displayName = 'DrawerRoot';
 
-interface DrawerTriggerProps
-  extends Omit<
-    React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Trigger>,
-    'asChild'
-  > {}
-const DrawerTrigger = (props: DrawerTriggerProps) => (
-  <DrawerPrimitive.Trigger {...props} asChild />
-);
+interface DrawerTriggerProps extends Omit<React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Trigger>, 'asChild'> {}
+const DrawerTrigger = (props: DrawerTriggerProps) => <DrawerPrimitive.Trigger {...props} asChild />;
 DrawerTrigger.displayName = 'DrawerTrigger';
 
 type DrawerContentOwnProps = GetPropDefTypes<typeof drawerContentPropDefs>;
 interface DrawerContentProps
-  extends Omit<
-      React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>,
-      'asChild'
-    >,
+  extends Omit<React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>, 'asChild'>,
     DrawerContentOwnProps {
   container?: React.ComponentProps<typeof DrawerPrimitive.Portal>['container'];
 }
 const DrawerContent = (props: DrawerContentProps) => {
-  const {
-    className,
-    forceMount,
-    container,
-    size = drawerContentPropDefs.size.default,
-    ...contentProps
-  } = props;
+  const { className, forceMount, container, size = drawerContentPropDefs.size.default, ...contentProps } = props;
   return (
     <DrawerPrimitive.Portal container={container} forceMount={forceMount}>
       <Theme asChild>
         <DrawerPrimitive.Content
           {...contentProps}
           aria-describedby={undefined}
-          className={classNames(
-            'fui-DrawerContent',
-            className,
-            withBreakpoints(size, 'fui-r-size'),
-          )}
+          className={classNames('fui-DrawerContent', className, withBreakpoints(size, 'fui-r-size'))}
         />
       </Theme>
     </DrawerPrimitive.Portal>
@@ -73,22 +48,12 @@ const DrawerTitle = (props: DrawerTitleProps) => (
 );
 DrawerTitle.displayName = 'DrawerTitle';
 
-interface DrawerCloseProps
-  extends Omit<
-    React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Close>,
-    'asChild'
-  > {}
-const DrawerClose = (props: DrawerCloseProps) => (
-  <DrawerPrimitive.Close {...props} asChild />
-);
+interface DrawerCloseProps extends Omit<React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Close>, 'asChild'> {}
+const DrawerClose = (props: DrawerCloseProps) => <DrawerPrimitive.Close {...props} asChild />;
 DrawerClose.displayName = 'DrawerClose';
 
 type DrawerStickyFooterProps = React.ComponentPropsWithoutRef<'div'>;
-const DrawerStickyFooter = ({
-  children,
-  className,
-  ...props
-}: DrawerStickyFooterProps) => (
+const DrawerStickyFooter = ({ children, className, ...props }: DrawerStickyFooterProps) => (
   <div className={classNames('fui-DrawerStickyFooter', className)} {...props}>
     {children}
   </div>
@@ -117,10 +82,7 @@ const DrawerBody = ({ children, className, ...props }: DrawerBodyProps) => {
       const scrollHeight = localRef.current?.parentElement?.scrollHeight || 0;
       const isScrollable = contentHeight > scrollHeight;
 
-      localRef.current?.setAttribute(
-        'data-is-scrollable',
-        isScrollable.toString(),
-      );
+      localRef.current?.setAttribute('data-is-scrollable', isScrollable.toString());
     });
     resizeObserver.observe(contentRef.current);
     return () => {

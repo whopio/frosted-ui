@@ -9,48 +9,27 @@ import { hoverCardContentPropDefs } from './hover-card.props';
 
 import type { GetPropDefTypes } from '../helpers';
 
-interface HoverCardRootProps
-  extends React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Root> {}
+interface HoverCardRootProps extends React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Root> {}
 const HoverCardRoot: React.FC<HoverCardRootProps> = (props) => (
   <HoverCardPrimitive.Root closeDelay={150} openDelay={200} {...props} />
 );
 HoverCardRoot.displayName = 'HoverCardRoot';
 
 interface HoverCardTriggerProps
-  extends Omit<
-    React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Trigger>,
-    'asChild'
-  > {}
+  extends Omit<React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Trigger>, 'asChild'> {}
 const HoverCardTrigger = (props: HoverCardTriggerProps) => (
-  <HoverCardPrimitive.Trigger
-    className={classNames('fui-HoverCardTrigger', props.className)}
-    {...props}
-    asChild
-  />
+  <HoverCardPrimitive.Trigger className={classNames('fui-HoverCardTrigger', props.className)} {...props} asChild />
 );
 HoverCardTrigger.displayName = 'HoverCardTrigger';
 
-type HoverCardContentOwnProps = GetPropDefTypes<
-  typeof hoverCardContentPropDefs
->;
+type HoverCardContentOwnProps = GetPropDefTypes<typeof hoverCardContentPropDefs>;
 interface HoverCardContentProps
-  extends Omit<
-      React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Content>,
-      'asChild'
-    >,
+  extends Omit<React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Content>, 'asChild'>,
     HoverCardContentOwnProps {
-  container?: React.ComponentProps<
-    typeof HoverCardPrimitive.Portal
-  >['container'];
+  container?: React.ComponentProps<typeof HoverCardPrimitive.Portal>['container'];
 }
 const HoverCardContent = (props: HoverCardContentProps) => {
-  const {
-    className,
-    forceMount,
-    container,
-    size = hoverCardContentPropDefs.size.default,
-    ...contentProps
-  } = props;
+  const { className, forceMount, container, size = hoverCardContentPropDefs.size.default, ...contentProps } = props;
   return (
     <HoverCardPrimitive.Portal container={container} forceMount={forceMount}>
       <Theme asChild>
@@ -72,11 +51,7 @@ const HoverCardContent = (props: HoverCardContentProps) => {
 };
 HoverCardContent.displayName = 'HoverCardContent';
 
-export {
-  HoverCardContent as Content,
-  HoverCardRoot as Root,
-  HoverCardTrigger as Trigger,
-};
+export { HoverCardContent as Content, HoverCardRoot as Root, HoverCardTrigger as Trigger };
 export type {
   HoverCardContentProps as ContentProps,
   HoverCardRootProps as RootProps,

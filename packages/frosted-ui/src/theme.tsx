@@ -26,9 +26,7 @@ interface ThemeChangeHandlers {
 interface ThemeContextValue extends ThemeOptions, ThemeChangeHandlers {
   resolvedGrayColor: ThemeOptions['grayColor'];
 }
-const ThemeContext = React.createContext<ThemeContextValue | undefined>(
-  undefined,
-);
+const ThemeContext = React.createContext<ThemeContextValue | undefined>(undefined);
 
 function useThemeContext() {
   const context = React.useContext(ThemeContext);
@@ -91,11 +89,7 @@ const ThemeRoot = (props: ThemeRootProps) => {
 
   // Initial appearance on page load when `appearance` is explicitly set to `light` or `dark`
   const ExplicitRootAppearanceScript = React.memo(
-    ({
-      appearance,
-    }: {
-      appearance: Exclude<ThemeOptions['appearance'], 'inherit'>;
-    }) => (
+    ({ appearance }: { appearance: Exclude<ThemeOptions['appearance'], 'inherit'> }) => (
       <script
         dangerouslySetInnerHTML={{
           __html: `!(function(){try{var d=document.documentElement,c=d.classList;c.remove('light','dark');d.style.colorScheme='${appearance}';c.add('${appearance}');}catch(e){}})();`,
@@ -107,13 +101,9 @@ const ThemeRoot = (props: ThemeRootProps) => {
   ExplicitRootAppearanceScript.displayName = 'ExplicitRootAppearanceScript';
 
   // Client-side only changes when `appearance` prop is changed while developing
-  React.useEffect(
-    () => updateThemeAppearanceClass(appearanceProp),
-    [appearanceProp],
-  );
+  React.useEffect(() => updateThemeAppearanceClass(appearanceProp), [appearanceProp]);
 
-  const resolvedGrayColor =
-    grayColor === 'auto' ? getMatchingGrayColor(accentColor) : grayColor;
+  const resolvedGrayColor = grayColor === 'auto' ? getMatchingGrayColor(accentColor) : grayColor;
 
   return (
     <>
@@ -162,11 +152,7 @@ body { background-color: var(--color-page-background); }
 };
 ThemeRoot.displayName = 'ThemeRoot';
 
-function SyncRootElementAppearance({
-  appearance,
-}: {
-  appearance: Exclude<ThemeOptions['appearance'], 'inherit'>;
-}) {
+function SyncRootElementAppearance({ appearance }: { appearance: Exclude<ThemeOptions['appearance'], 'inherit'> }) {
   React.useEffect(() => {
     try {
       document.documentElement.style.colorScheme = appearance;
@@ -182,9 +168,7 @@ function SyncRootElementAppearance({
 }
 
 interface ThemeImplProps extends ThemeImplPublicProps, ThemeImplPrivateProps {}
-interface ThemeImplPublicProps
-  extends Omit<React.ComponentPropsWithoutRef<'div'>, 'dir'>,
-    Partial<ThemeOptions> {
+interface ThemeImplPublicProps extends Omit<React.ComponentPropsWithoutRef<'div'>, 'dir'>, Partial<ThemeOptions> {
   asChild?: boolean;
   isRoot?: boolean;
   hasBackground?: boolean;
@@ -216,16 +200,11 @@ const ThemeImpl = (props: ThemeImplProps) => {
     ...themeProps
   } = props;
   const Comp = asChild ? Slot : 'div';
-  const resolvedGrayColor =
-    grayColor === 'auto' ? getMatchingGrayColor(accentColor) : grayColor;
-  const isExplicitAppearance =
-    props.appearance !== undefined && props.appearance !== 'inherit';
+  const resolvedGrayColor = grayColor === 'auto' ? getMatchingGrayColor(accentColor) : grayColor;
+  const isExplicitAppearance = props.appearance !== undefined && props.appearance !== 'inherit';
   const isExplicitGrayColor = props.grayColor !== undefined;
   const shouldHaveBackground =
-    !isRoot &&
-    (hasBackground === true ||
-      (hasBackground !== false &&
-        (isExplicitAppearance || isExplicitGrayColor)));
+    !isRoot && (hasBackground === true || (hasBackground !== false && (isExplicitAppearance || isExplicitGrayColor)));
   return (
     <ThemeContext.Provider
       value={React.useMemo(
@@ -302,10 +281,7 @@ function updateThemeAppearanceClass(appearance: ThemeOptions['appearance']) {
   if (appearance === 'inherit') return;
   const root = document.documentElement;
 
-  if (
-    root.classList.contains('light-theme') ||
-    root.classList.contains('dark-theme')
-  ) {
+  if (root.classList.contains('light-theme') || root.classList.contains('dark-theme')) {
     root.classList.remove('light-theme', 'dark-theme');
     root.style.colorScheme = appearance;
     root.classList.add(`${appearance}-theme`);

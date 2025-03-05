@@ -12,8 +12,7 @@ type StackedHorizontalBarChartData = {
   color: (typeof colorProp.values)[number]; // Color for the bar
 };
 
-interface StackedHorizontalBarChartOwnProps
-  extends React.ComponentPropsWithoutRef<'div'> {}
+interface StackedHorizontalBarChartOwnProps extends React.ComponentPropsWithoutRef<'div'> {}
 
 interface StackedHorizontalBarChartProps
   extends React.ComponentPropsWithoutRef<'div'>,
@@ -31,26 +30,14 @@ const StackedHorizontalBarChart = (props: StackedHorizontalBarChartProps) => {
   return (
     <div
       {...rootProps}
-      className={classNames(
-        'fui-StackedHorizontalBarChart',
-        className,
-        withMarginProps(marginProps),
-      )}
+      className={classNames('fui-StackedHorizontalBarChart', className, withMarginProps(marginProps))}
     >
       {data.map((dataPoint, i) => {
         // Round to max 2 decimal places
-        const percent = `${
-          Math.round((dataPoint.value / sum) * 100 * 100) / 100
-        }%`;
-        const label =
-          typeof dataPoint.label === 'string'
-            ? dataPoint.label
-            : dataPoint.label(dataPoint.value, percent);
+        const percent = `${Math.round((dataPoint.value / sum) * 100 * 100) / 100}%`;
+        const label = typeof dataPoint.label === 'string' ? dataPoint.label : dataPoint.label(dataPoint.value, percent);
 
-        const ariaLabel =
-          typeof dataPoint.label === 'string'
-            ? `${dataPoint.label} ${percent}`
-            : label;
+        const ariaLabel = typeof dataPoint.label === 'string' ? `${dataPoint.label} ${percent}` : label;
 
         return (
           <Tooltip

@@ -3,18 +3,10 @@
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 import classNames from 'classnames';
 import * as React from 'react';
-import {
-  extractMarginProps,
-  withBreakpoints,
-  withMarginProps,
-} from '../helpers';
+import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
 import { radioGroupPropDefs } from './radio-group.props';
 
-import type {
-  GetPropDefTypes,
-  MarginProps,
-  PropsWithoutRefOrColor,
-} from '../helpers';
+import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
 
 type RadioGroupOwnProps = GetPropDefTypes<typeof radioGroupPropDefs>;
 interface RadioGroupRootProps
@@ -49,9 +41,7 @@ const RadioGroupRoot = (props: RadioGroupRootProps) => {
 };
 RadioGroupRoot.displayName = 'RadioGroupRoot';
 
-interface RadioGroupItemProps
-  extends React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item>,
-    MarginProps {}
+interface RadioGroupItemProps extends React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item>, MarginProps {}
 
 const RadioGroupItem = (props: RadioGroupItemProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
@@ -60,18 +50,8 @@ const RadioGroupItem = (props: RadioGroupItemProps) => {
   const Comp = children ? 'label' : 'span';
 
   return (
-    <Comp
-      className={classNames(
-        'fui-RadioGroupItem',
-        className,
-        withMarginProps(marginProps),
-      )}
-      style={style}
-    >
-      <RadioGroupPrimitive.Item
-        {...itemProps}
-        className={classNames('fui-reset', 'fui-RadioGroupButton')}
-      >
+    <Comp className={classNames('fui-RadioGroupItem', className, withMarginProps(marginProps))} style={style}>
+      <RadioGroupPrimitive.Item {...itemProps} className={classNames('fui-reset', 'fui-RadioGroupButton')}>
         <RadioGroupPrimitive.Indicator className="fui-RadioGroupIndicator" />
       </RadioGroupPrimitive.Item>
       {children}
@@ -81,7 +61,4 @@ const RadioGroupItem = (props: RadioGroupItemProps) => {
 RadioGroupItem.displayName = 'RadioGroupItem';
 
 export { RadioGroupItem as Item, RadioGroupRoot as Root };
-export type {
-  RadioGroupItemProps as ItemProps,
-  RadioGroupRootProps as RootProps,
-};
+export type { RadioGroupItemProps as ItemProps, RadioGroupRootProps as RootProps };

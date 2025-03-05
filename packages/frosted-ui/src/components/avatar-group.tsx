@@ -2,25 +2,14 @@
 
 import classNames from 'classnames';
 import * as React from 'react';
-import type {
-  GetPropDefTypes,
-  MarginProps,
-  PropsWithoutRefOrColor,
-} from '../helpers';
-import {
-  extractMarginProps,
-  withBreakpoints,
-  withMarginProps,
-} from '../helpers';
+import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
+import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
 import { Avatar } from './avatar';
 import { avatarGroupPropDefs } from './avatar-group.props';
 
 type AvatarGroupRootOwnProps = GetPropDefTypes<typeof avatarGroupPropDefs>;
 
-interface AvatarGroupRootProps
-  extends PropsWithoutRefOrColor<'div'>,
-    MarginProps,
-    AvatarGroupRootOwnProps {}
+interface AvatarGroupRootProps extends PropsWithoutRefOrColor<'div'>, MarginProps, AvatarGroupRootOwnProps {}
 
 const AvatarGroupRoot = (props: AvatarGroupRootProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
@@ -52,19 +41,10 @@ const AvatarGroupRoot = (props: AvatarGroupRootProps) => {
 
 AvatarGroupRoot.displayName = 'AvatarGroupRoot';
 
-type AvatarGroupAvatarProps = Omit<
-  React.ComponentProps<typeof Avatar>,
-  'size' | 'variant'
->;
+type AvatarGroupAvatarProps = Omit<React.ComponentProps<typeof Avatar>, 'size' | 'variant'>;
 
 const AvatarGroupAvatar = ({ className, ...props }: AvatarGroupAvatarProps) => {
-  return (
-    <Avatar
-      size="3"
-      className={classNames('fui-AvatarGroupAvatar', className)}
-      {...props}
-    />
-  );
+  return <Avatar size="3" className={classNames('fui-AvatarGroupAvatar', className)} {...props} />;
 };
 
 AvatarGroupAvatar.displayName = 'AvatarGroupAvatar';
@@ -72,7 +52,4 @@ AvatarGroupAvatar.displayName = 'AvatarGroupAvatar';
 export type { AvatarGroupAvatarProps, AvatarGroupRootProps };
 
 export { AvatarGroupAvatar as Avatar, AvatarGroupRoot as Root };
-export type {
-  AvatarGroupAvatarProps as AvatarProps,
-  AvatarGroupRootProps as RootProps,
-};
+export type { AvatarGroupAvatarProps as AvatarProps, AvatarGroupRootProps as RootProps };

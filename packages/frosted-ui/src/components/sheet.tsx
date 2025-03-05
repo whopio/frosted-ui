@@ -19,9 +19,7 @@ type SheetRootProps = Omit<
   | 'activeSnapPoint'
 >;
 
-const SheetRoot = ({ ...props }: SheetRootProps) => (
-  <DrawerPrimitive.Root {...props} />
-);
+const SheetRoot = ({ ...props }: SheetRootProps) => <DrawerPrimitive.Root {...props} />;
 SheetRoot.displayName = 'SheetRoot';
 
 type SheetNestedRootProps = Omit<
@@ -34,46 +32,27 @@ type SheetNestedRootProps = Omit<
   | 'activeSnapPoint'
 >;
 
-const SheetNestedRoot = ({ ...props }: SheetNestedRootProps) => (
-  <DrawerPrimitive.NestedRoot {...props} />
-);
+const SheetNestedRoot = ({ ...props }: SheetNestedRootProps) => <DrawerPrimitive.NestedRoot {...props} />;
 SheetNestedRoot.displayName = 'SheetNestedRoot';
 
-interface SheetTriggerProps
-  extends Omit<
-    React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Trigger>,
-    'asChild'
-  > {}
-const SheetTrigger = (props: SheetTriggerProps) => (
-  <DrawerPrimitive.Trigger {...props} asChild />
-);
+interface SheetTriggerProps extends Omit<React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Trigger>, 'asChild'> {}
+const SheetTrigger = (props: SheetTriggerProps) => <DrawerPrimitive.Trigger {...props} asChild />;
 SheetTrigger.displayName = 'SheetTrigger';
 
-interface SheetCloseProps
-  extends Omit<
-    React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Close>,
-    'asChild'
-  > {}
-const SheetClose = (props: SheetCloseProps) => (
-  <DrawerPrimitive.Close {...props} asChild />
-);
+interface SheetCloseProps extends Omit<React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Close>, 'asChild'> {}
+const SheetClose = (props: SheetCloseProps) => <DrawerPrimitive.Close {...props} asChild />;
 SheetClose.displayName = 'SheetClose';
 
 const SheetPortal = DrawerPrimitive.Portal;
 
-interface SheetOverlayProps
-  extends React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay> {}
+interface SheetOverlayProps extends React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay> {}
 
 const SheetOverlay = ({ className, ...props }: SheetOverlayProps) => (
-  <DrawerPrimitive.Overlay
-    className={classNames('fui-SheetOverlay', className)}
-    {...props}
-  />
+  <DrawerPrimitive.Overlay className={classNames('fui-SheetOverlay', className)} {...props} />
 );
 SheetOverlay.displayName = 'SheetOverlay';
 
-interface SheetContentProps
-  extends React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content> {}
+interface SheetContentProps extends React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content> {}
 
 const SheetContent = ({ className, children, ...props }: SheetContentProps) => (
   <SheetPortal>
@@ -81,10 +60,7 @@ const SheetContent = ({ className, children, ...props }: SheetContentProps) => (
       <SheetOverlay />
     </Theme>
     <Theme asChild>
-      <DrawerPrimitive.Content
-        className={classNames('fui-SheetContent', className)}
-        {...props}
-      >
+      <DrawerPrimitive.Content className={classNames('fui-SheetContent', className)} {...props}>
         <div className="fui-SheetContentHandle" />
         {children}
       </DrawerPrimitive.Content>
@@ -109,21 +85,14 @@ const SheetBody = ({ children, className, ...props }: SheetBodyProps) => (
 );
 SheetBody.displayName = 'SheetBody';
 
-const SheetFooter = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
+const SheetFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div className={classNames('fui-SheetFooter', className)} {...props} />
 );
 SheetFooter.displayName = 'SheetFooter';
 
 type SheetTitleProps = React.ComponentPropsWithoutRef<typeof Heading>;
 
-const SheetTitle = ({
-  size = '5',
-  weight = 'bold',
-  ...props
-}: SheetTitleProps) => {
+const SheetTitle = ({ size = '5', weight = 'bold', ...props }: SheetTitleProps) => {
   return (
     <DrawerPrimitive.Title asChild>
       <Heading weight={weight} size={size} {...props} />
@@ -134,11 +103,7 @@ SheetTitle.displayName = 'SheetTitle';
 
 type SheetDescriptionProps = ExtractPropsForTag<typeof Text, 'p'>;
 
-const SheetDescription = ({
-  size = '3',
-  weight = 'regular',
-  ...props
-}: SheetDescriptionProps) => {
+const SheetDescription = ({ size = '3', weight = 'regular', ...props }: SheetDescriptionProps) => {
   return (
     <DrawerPrimitive.Description asChild>
       <Text as="p" size={size} weight={weight} {...props} />

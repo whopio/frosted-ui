@@ -1,19 +1,10 @@
 import { Slot } from '@radix-ui/react-slot';
 import classNames from 'classnames';
 import * as React from 'react';
-import {
-  extractMarginProps,
-  withBreakpoints,
-  withMarginProps,
-} from '../helpers';
+import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
 import { headingPropDefs } from './heading.props';
 
-import type {
-  GetPropDefTypes,
-  MarginProps,
-  NiceIntersection,
-  PropsWithoutRefOrColor,
-} from '../helpers';
+import type { GetPropDefTypes, MarginProps, NiceIntersection, PropsWithoutRefOrColor } from '../helpers';
 
 type HeadingOwnProps = GetPropDefTypes<typeof headingPropDefs>;
 type CommonHeadingProps = NiceIntersection<MarginProps, HeadingOwnProps>;

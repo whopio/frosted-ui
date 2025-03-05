@@ -13,14 +13,9 @@ import {
 } from '../helpers';
 import { circularProgressPropDefs } from './circular-progress.props';
 
-type CircularProgressOwnProps = GetPropDefTypes<
-  typeof circularProgressPropDefs
->;
+type CircularProgressOwnProps = GetPropDefTypes<typeof circularProgressPropDefs>;
 interface CircularProgressProps
-  extends Omit<
-      PropsWithoutRefOrColor<typeof ProgressPrimitive.Root>,
-      'children'
-    >,
+  extends Omit<PropsWithoutRefOrColor<typeof ProgressPrimitive.Root>, 'children'>,
     MarginProps,
     CircularProgressOwnProps {}
 

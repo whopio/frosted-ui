@@ -14,20 +14,14 @@ interface SegmentedControlRadioGroupRootProps
     >,
     MarginProps {}
 
-const SegmentedControlRadioGroupRoot = (
-  props: SegmentedControlRadioGroupRootProps,
-) => {
+const SegmentedControlRadioGroupRoot = (props: SegmentedControlRadioGroupRootProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const { className, children, ...rootProps } = marginRest;
   return (
     <RadioGroupPrimitive.Root
       {...rootProps}
       orientation="horizontal"
-      className={classNames(
-        'fui-RadioGroupRoot',
-        className,
-        withMarginProps(marginProps),
-      )}
+      className={classNames('fui-RadioGroupRoot', className, withMarginProps(marginProps))}
     >
       <div className="fui-BaseSegmentedControlList">{children}</div>
     </RadioGroupPrimitive.Root>
@@ -39,21 +33,14 @@ interface SegmentedControlRadioGroupItemProps
   extends React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item>,
     MarginProps {}
 
-const SegmentedControlRadioGroupItem = (
-  props: SegmentedControlRadioGroupItemProps,
-) => {
+const SegmentedControlRadioGroupItem = (props: SegmentedControlRadioGroupItemProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const { children, className, style, ...itemProps } = marginRest;
 
   return (
     <RadioGroupPrimitive.Item
       {...itemProps}
-      className={classNames(
-        'fui-reset',
-        'fui-BaseSegmentedControlTrigger',
-        className,
-        withMarginProps(marginProps),
-      )}
+      className={classNames('fui-reset', 'fui-BaseSegmentedControlTrigger', className, withMarginProps(marginProps))}
       style={style}
     >
       <span className="fui-BaseSegmentedControlTriggerInner">{children}</span>
@@ -62,11 +49,5 @@ const SegmentedControlRadioGroupItem = (
 };
 SegmentedControlRadioGroupItem.displayName = 'SegmentedControlRadioGroupItem';
 
-export {
-  SegmentedControlRadioGroupItem as Item,
-  SegmentedControlRadioGroupRoot as Root,
-};
-export type {
-  SegmentedControlRadioGroupItemProps as ItemProps,
-  SegmentedControlRadioGroupRootProps as RootProps,
-};
+export { SegmentedControlRadioGroupItem as Item, SegmentedControlRadioGroupRoot as Root };
+export type { SegmentedControlRadioGroupItemProps as ItemProps, SegmentedControlRadioGroupRootProps as RootProps };

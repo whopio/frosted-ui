@@ -10,9 +10,7 @@ function mapResponsiveProp<Input extends string, Output>(
   if (typeof propValue === 'string') {
     return mapValue(propValue);
   }
-  return Object.fromEntries(
-    Object.entries(propValue).map(([key, value]) => [key, mapValue(value)]),
-  );
+  return Object.fromEntries(Object.entries(propValue).map(([key, value]) => [key, mapValue(value)]));
 }
 
 function mapButtonSizeToSpinnerSize(

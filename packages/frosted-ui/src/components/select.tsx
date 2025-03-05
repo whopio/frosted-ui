@@ -4,44 +4,24 @@ import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
 import * as SelectPrimitive from '@radix-ui/react-select';
 import classNames from 'classnames';
 import * as React from 'react';
-import {
-  extractMarginProps,
-  withBreakpoints,
-  withMarginProps,
-} from '../helpers';
+import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
 import { ChevronDownIcon, ThickCheckIcon } from '../icons';
 import { Theme, useThemeContext } from '../theme';
-import {
-  selectContentPropDefs,
-  selectRootPropDefs,
-  selectTriggerPropDefs,
-} from './select.props';
+import { selectContentPropDefs, selectRootPropDefs, selectTriggerPropDefs } from './select.props';
 
-import type {
-  GetPropDefTypes,
-  MarginProps,
-  PropsWithoutRefOrColor,
-} from '../helpers';
+import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
 
 type SelectRootOwnProps = GetPropDefTypes<typeof selectRootPropDefs>;
 
 type SelectContextValue = SelectRootOwnProps;
 const SelectContext = React.createContext<SelectContextValue>({});
 
-interface SelectRootProps
-  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Root>,
-    SelectContextValue {}
+interface SelectRootProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Root>, SelectContextValue {}
 const SelectRoot: React.FC<SelectRootProps> = (props) => {
-  const {
-    children,
-    size = selectRootPropDefs.size.default,
-    ...rootProps
-  } = props;
+  const { children, size = selectRootPropDefs.size.default, ...rootProps } = props;
   return (
     <SelectPrimitive.Root {...rootProps}>
-      <SelectContext.Provider value={React.useMemo(() => ({ size }), [size])}>
-        {children}
-      </SelectContext.Provider>
+      <SelectContext.Provider value={React.useMemo(() => ({ size }), [size])}>{children}</SelectContext.Provider>
     </SelectPrimitive.Root>
   );
 };
@@ -49,10 +29,7 @@ SelectRoot.displayName = 'SelectRoot';
 
 type SelectTriggerOwnProps = GetPropDefTypes<typeof selectTriggerPropDefs>;
 interface SelectTriggerProps
-  extends Omit<
-      PropsWithoutRefOrColor<typeof SelectPrimitive.Trigger>,
-      'asChild'
-    >,
+  extends Omit<PropsWithoutRefOrColor<typeof SelectPrimitive.Trigger>, 'asChild'>,
     MarginProps,
     SelectTriggerOwnProps {
   // TODO: figure out why this is not inferred properly
@@ -96,9 +73,7 @@ const SelectTrigger = (props: SelectTriggerProps) => {
 SelectTrigger.displayName = 'SelectTrigger';
 
 type SelectContentOwnProps = GetPropDefTypes<typeof selectContentPropDefs>;
-interface SelectContentProps
-  extends PropsWithoutRefOrColor<typeof SelectPrimitive.Content>,
-    SelectContentOwnProps {
+interface SelectContentProps extends PropsWithoutRefOrColor<typeof SelectPrimitive.Content>, SelectContentOwnProps {
   container?: React.ComponentProps<typeof SelectPrimitive.Portal>['container'];
 }
 
@@ -133,17 +108,11 @@ const SelectContent = (props: SelectContentProps) => {
         >
           <ScrollAreaPrimitive.Root type="auto" className="fui-ScrollAreaRoot">
             <SelectPrimitive.Viewport asChild className="fui-SelectViewport">
-              <ScrollAreaPrimitive.Viewport
-                className="fui-ScrollAreaViewport"
-                style={{ overflowY: undefined }}
-              >
+              <ScrollAreaPrimitive.Viewport className="fui-ScrollAreaViewport" style={{ overflowY: undefined }}>
                 {children}
               </ScrollAreaPrimitive.Viewport>
             </SelectPrimitive.Viewport>
-            <ScrollAreaPrimitive.Scrollbar
-              className="fui-ScrollAreaScrollbar fui-r-size-1"
-              orientation="vertical"
-            >
+            <ScrollAreaPrimitive.Scrollbar className="fui-ScrollAreaScrollbar fui-r-size-1" orientation="vertical">
               <ScrollAreaPrimitive.Thumb className="fui-ScrollAreaThumb" />
             </ScrollAreaPrimitive.Scrollbar>
           </ScrollAreaPrimitive.Root>
@@ -154,16 +123,12 @@ const SelectContent = (props: SelectContentProps) => {
 };
 SelectContent.displayName = 'SelectContent';
 
-interface SelectItemProps
-  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item> {}
+interface SelectItemProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item> {}
 
 const SelectItem = (props: SelectItemProps) => {
   const { className, children, ...itemProps } = props;
   return (
-    <SelectPrimitive.Item
-      {...itemProps}
-      className={classNames('fui-SelectItem', className)}
-    >
+    <SelectPrimitive.Item {...itemProps} className={classNames('fui-SelectItem', className)}>
       <SelectPrimitive.ItemIndicator className="fui-SelectItemIndicator">
         <ThickCheckIcon className="fui-SelectItemIndicatorIcon" />
       </SelectPrimitive.ItemIndicator>
@@ -173,36 +138,24 @@ const SelectItem = (props: SelectItemProps) => {
 };
 SelectItem.displayName = 'SelectItem';
 
-interface SelectGroupProps
-  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Group> {}
+interface SelectGroupProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Group> {}
 
 const SelectGroup = (props: SelectGroupProps) => (
-  <SelectPrimitive.Group
-    {...props}
-    className={classNames('fui-SelectGroup', props.className)}
-  />
+  <SelectPrimitive.Group {...props} className={classNames('fui-SelectGroup', props.className)} />
 );
 SelectGroup.displayName = 'SelectGroup';
 
-interface SelectLabelProps
-  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label> {}
+interface SelectLabelProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label> {}
 
 const SelectLabel = (props: SelectLabelProps) => (
-  <SelectPrimitive.Label
-    {...props}
-    className={classNames('fui-SelectLabel', props.className)}
-  />
+  <SelectPrimitive.Label {...props} className={classNames('fui-SelectLabel', props.className)} />
 );
 SelectLabel.displayName = 'SelectLabel';
 
-interface SelectSeparatorProps
-  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator> {}
+interface SelectSeparatorProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator> {}
 
 const SelectSeparator = (props: SelectSeparatorProps) => (
-  <SelectPrimitive.Separator
-    {...props}
-    className={classNames('fui-SelectSeparator', props.className)}
-  />
+  <SelectPrimitive.Separator {...props} className={classNames('fui-SelectSeparator', props.className)} />
 );
 SelectSeparator.displayName = 'SelectSeparator';
 

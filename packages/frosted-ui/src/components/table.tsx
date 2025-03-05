@@ -9,17 +9,10 @@ import {
   withPaddingProps,
 } from '../helpers';
 import { Button } from './button';
-import {
-  tableCellPropDefs,
-  tableRootPropDefs,
-  tableRowPropDefs,
-} from './table.props';
+import { tableCellPropDefs, tableRootPropDefs, tableRowPropDefs } from './table.props';
 
 type TableRootOwnProps = GetPropDefTypes<typeof tableRootPropDefs>;
-interface TableRootProps
-  extends React.ComponentPropsWithoutRef<'div'>,
-    MarginProps,
-    TableRootOwnProps {}
+interface TableRootProps extends React.ComponentPropsWithoutRef<'div'>, MarginProps, TableRootOwnProps {}
 const TableRoot = (props: TableRootProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
@@ -51,27 +44,17 @@ const TableRoot = (props: TableRootProps) => {
 TableRoot.displayName = 'TableRoot';
 
 type TableTableOwnProps = GetPropDefTypes<typeof tableRootPropDefs>;
-interface TableTableProps
-  extends React.ComponentPropsWithoutRef<'table'>,
-    TableTableOwnProps {}
+interface TableTableProps extends React.ComponentPropsWithoutRef<'table'>, TableTableOwnProps {}
 const TableTable = (props: TableTableProps) => {
   const { className, ...otherProps } = props;
 
-  return (
-    <table
-      {...otherProps}
-      className={classNames('fui-TableTable', className)}
-    />
-  );
+  return <table {...otherProps} className={classNames('fui-TableTable', className)} />;
 };
 TableTable.displayName = 'TableTable';
 
 interface TableHeaderProps extends React.ComponentPropsWithoutRef<'thead'> {}
 const TableHeader = (props: TableHeaderProps) => (
-  <thead
-    {...props}
-    className={classNames('fui-TableHeader', props.className)}
-  />
+  <thead {...props} className={classNames('fui-TableHeader', props.className)} />
 );
 TableHeader.displayName = 'TableHeader';
 
@@ -83,23 +66,14 @@ TableBody.displayName = 'TableBody';
 
 interface TableFooterProps extends React.ComponentPropsWithoutRef<'tfoot'> {}
 const TableFooter = (props: TableFooterProps) => (
-  <tfoot
-    {...props}
-    className={classNames('fui-TableFooter', props.className)}
-  />
+  <tfoot {...props} className={classNames('fui-TableFooter', props.className)} />
 );
 TableFooter.displayName = 'TableFooter';
 
 type TableRowOwnProps = GetPropDefTypes<typeof tableRowPropDefs>;
-interface TableRowProps
-  extends Omit<React.ComponentPropsWithoutRef<'tr'>, keyof TableRowOwnProps>,
-    TableRowOwnProps {}
+interface TableRowProps extends Omit<React.ComponentPropsWithoutRef<'tr'>, keyof TableRowOwnProps>, TableRowOwnProps {}
 const TableRow = (props: TableRowProps) => {
-  const {
-    className,
-    align = tableRowPropDefs.align.default,
-    ...rowProps
-  } = props;
+  const { className, align = tableRowPropDefs.align.default, ...rowProps } = props;
   return (
     <tr
       {...rowProps}
@@ -120,10 +94,7 @@ TableRow.displayName = 'TableRow';
 
 type TableCellImplOwnProps = GetPropDefTypes<typeof tableCellPropDefs>;
 interface TableCellImplProps
-  extends Omit<
-      React.ComponentPropsWithoutRef<'td'>,
-      keyof TableCellImplOwnProps
-    >,
+  extends Omit<React.ComponentPropsWithoutRef<'td'>, keyof TableCellImplOwnProps>,
     PaddingProps,
     TableCellImplOwnProps {
   tag?: 'td' | 'th';
@@ -157,74 +128,41 @@ const TableCellImpl = (props: TableCellImplProps) => {
 };
 TableCellImpl.displayName = 'TableCellImpl';
 
-interface TableCellProps
-  extends Omit<React.ComponentPropsWithoutRef<typeof TableCellImpl>, 'tag'> {}
-const TableCell = (props: TableCellProps) => (
-  <TableCellImpl {...props} tag="td" />
-);
+interface TableCellProps extends Omit<React.ComponentPropsWithoutRef<typeof TableCellImpl>, 'tag'> {}
+const TableCell = (props: TableCellProps) => <TableCellImpl {...props} tag="td" />;
 TableCell.displayName = 'TableCell';
 
 interface TableColumnHeaderCellProps
-  extends Omit<
-      React.ComponentPropsWithoutRef<'th'>,
-      keyof TableCellImplOwnProps
-    >,
+  extends Omit<React.ComponentPropsWithoutRef<'th'>, keyof TableCellImplOwnProps>,
     PaddingProps,
     TableCellImplOwnProps {}
 const TableColumnHeaderCell = (props: TableColumnHeaderCellProps) => (
-  <TableCellImpl
-    scope="col"
-    {...props}
-    tag="th"
-    className={classNames('fui-TableColumnHeaderCell', props.className)}
-  />
+  <TableCellImpl scope="col" {...props} tag="th" className={classNames('fui-TableColumnHeaderCell', props.className)} />
 );
 TableColumnHeaderCell.displayName = 'TableColumnHeaderCell';
 
 interface TableRowHeaderCellProps
-  extends Omit<
-      React.ComponentPropsWithoutRef<'th'>,
-      keyof TableCellImplOwnProps
-    >,
+  extends Omit<React.ComponentPropsWithoutRef<'th'>, keyof TableCellImplOwnProps>,
     PaddingProps,
     TableCellImplOwnProps {}
 const TableRowHeaderCell = (props: TableRowHeaderCellProps) => (
-  <TableCellImpl
-    scope="row"
-    {...props}
-    tag="th"
-    className={classNames('fui-TableRowHeaderCell', props.className)}
-  />
+  <TableCellImpl scope="row" {...props} tag="th" className={classNames('fui-TableRowHeaderCell', props.className)} />
 );
 TableRowHeaderCell.displayName = 'TableRowHeaderCell';
 
 interface TableBottomBarProps extends React.ComponentPropsWithoutRef<'div'> {}
 const TableBottomBar = (props: TableBottomBarProps) => (
-  <div
-    {...props}
-    className={classNames('fui-TableBottomBar', props.className)}
-  />
+  <div {...props} className={classNames('fui-TableBottomBar', props.className)} />
 );
 TableBottomBar.displayName = 'TableBottomBar';
 
 interface TableColumnHeaderCellButtonProps
-  extends Omit<
-    React.ComponentProps<typeof Button>,
-    'highContrast' | 'color' | 'variant' | 'size'
-  > {
+  extends Omit<React.ComponentProps<typeof Button>, 'highContrast' | 'color' | 'variant' | 'size'> {
   sortDirection?: 'asc' | 'desc' | false;
   isSortable?: boolean;
 }
-const TableColumnHeaderCellButton = (
-  props: TableColumnHeaderCellButtonProps,
-) => {
-  const {
-    children,
-    className,
-    sortDirection,
-    isSortable = false,
-    ...buttonProps
-  } = props;
+const TableColumnHeaderCellButton = (props: TableColumnHeaderCellButtonProps) => {
+  const { children, className, sortDirection, isSortable = false, ...buttonProps } = props;
   return (
     <Button
       variant="ghost"

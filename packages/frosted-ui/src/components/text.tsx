@@ -1,19 +1,10 @@
 import { Slot } from '@radix-ui/react-slot';
 import classNames from 'classnames';
 import * as React from 'react';
-import {
-  extractMarginProps,
-  withBreakpoints,
-  withMarginProps,
-} from '../helpers';
+import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
 import { textPropDefs } from './text.props';
 
-import type {
-  GetPropDefTypes,
-  MarginProps,
-  NiceIntersection,
-  PropsWithoutRefOrColor,
-} from '../helpers';
+import type { GetPropDefTypes, MarginProps, NiceIntersection, PropsWithoutRefOrColor } from '../helpers';
 
 type TextOwnProps = GetPropDefTypes<typeof textPropDefs>;
 type CommonTextProps = NiceIntersection<MarginProps, TextOwnProps>;
@@ -34,14 +25,7 @@ type TextLabelProps = {
   asChild?: never;
 } & PropsWithoutRefOrColor<'label'>;
 type TextPProps = { as: 'p'; asChild?: never } & PropsWithoutRefOrColor<'p'>;
-type TextProps = CommonTextProps &
-  (
-    | TextAsChildProps
-    | TextSpanProps
-    | TextDivProps
-    | TextLabelProps
-    | TextPProps
-  );
+type TextProps = CommonTextProps & (TextAsChildProps | TextSpanProps | TextDivProps | TextLabelProps | TextPProps);
 
 const Text = (props: TextProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);

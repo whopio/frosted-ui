@@ -1,11 +1,4 @@
-import {
-  Box,
-  Color,
-  Instance as InkInstance,
-  Static,
-  Text,
-  render as inkRender,
-} from 'ink';
+import { Box, Color, Instance as InkInstance, Static, Text, render as inkRender } from 'ink';
 import InkSpinner from 'ink-spinner';
 import React from 'react';
 import { IDiffSummary } from './types';
@@ -75,11 +68,7 @@ const CliView = ({ state }: ICliViewProps) => {
 
       {state.progress && (
         <Box marginLeft={1}>
-          <Spinner
-            text={`${state.progress.text} [${Math.floor(
-              state.progress.percent * 100,
-            )}%]`}
-          />
+          <Spinner text={`${state.progress.text} [${Math.floor(state.progress.percent * 100)}%]`} />
         </Box>
       )}
 
@@ -89,18 +78,10 @@ const CliView = ({ state }: ICliViewProps) => {
 };
 
 const DiffView = ({ state }: ICliViewProps) => {
-  const statsWithChanges = state.diff.filter(
-    (stat) => stat.additions > 0 || stat.deletions > 0,
-  );
+  const statsWithChanges = state.diff.filter((stat) => stat.additions > 0 || stat.deletions > 0);
   const totals = {
-    additions: statsWithChanges.reduce(
-      (total, stat) => stat.additions + total,
-      0,
-    ),
-    deletions: statsWithChanges.reduce(
-      (total, stat) => stat.deletions + total,
-      0,
-    ),
+    additions: statsWithChanges.reduce((total, stat) => stat.additions + total, 0),
+    deletions: statsWithChanges.reduce((total, stat) => stat.deletions + total, 0),
   };
   return (
     <Static>
@@ -123,13 +104,7 @@ const DiffView = ({ state }: ICliViewProps) => {
             ))}
           </Box>
 
-          <Box
-            flexDirection="column"
-            justifyContent="flex-end"
-            alignItems="flex-end"
-            flexGrow={0}
-            paddingLeft={1}
-          >
+          <Box flexDirection="column" justifyContent="flex-end" alignItems="flex-end" flexGrow={0} paddingLeft={1}>
             {statsWithChanges.map((stat) => (
               <Text key={stat.filePath}>{stat.additions + stat.deletions}</Text>
             ))}
@@ -140,19 +115,9 @@ const DiffView = ({ state }: ICliViewProps) => {
               <Box key={stat.filePath}>
                 {stat.status === 'D' && <Color red>Removed</Color>}
                 {stat.status === 'A' && <Color green>New</Color>}
-                {stat.status === 'M' &&
-                stat.additions > 0 &&
-                stat.deletions === 0 ? (
-                  <Color green>++</Color>
-                ) : null}
-                {stat.status === 'M' &&
-                stat.additions === 0 &&
-                stat.deletions > 0 ? (
-                  <Color red>--</Color>
-                ) : null}
-                {stat.status === 'M' &&
-                stat.additions > 0 &&
-                stat.deletions > 0 ? (
+                {stat.status === 'M' && stat.additions > 0 && stat.deletions === 0 ? <Color green>++</Color> : null}
+                {stat.status === 'M' && stat.additions === 0 && stat.deletions > 0 ? <Color red>--</Color> : null}
+                {stat.status === 'M' && stat.additions > 0 && stat.deletions > 0 ? (
                   <>
                     <Color green>+</Color>
                     <Color red>-</Color>
@@ -164,9 +129,8 @@ const DiffView = ({ state }: ICliViewProps) => {
         </Box>,
         <Box key="numstat-summary" marginLeft={1} marginTop={1}>
           <Color underline>
-            {statsWithChanges.length} file updates, {totals.additions} additions{' '}
-            <Color green>(+)</Color>, {totals.deletions} deletions{' '}
-            <Color red>(-)</Color>
+            {statsWithChanges.length} file updates, {totals.additions} additions <Color green>(+)</Color>,{' '}
+            {totals.deletions} deletions <Color red>(-)</Color>
           </Color>
         </Box>,
       ]}

@@ -115,9 +115,7 @@ const themeGrayColorsGrouped = [
   },
 ];
 
-function getMatchingGrayColor(
-  accentColor: ThemeAccentColor,
-): (typeof radixGrayScales)[number] {
+function getMatchingGrayColor(accentColor: ThemeAccentColor): (typeof radixGrayScales)[number] {
   if (accentColor === 'gray') return 'gray';
   return radixGetMatchingGrayScale(accentColor);
 }

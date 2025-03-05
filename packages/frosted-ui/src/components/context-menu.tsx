@@ -16,35 +16,22 @@ import { ScrollArea } from './scroll-area';
 
 import type { GetPropDefTypes, PropsWithoutRefOrColor } from '../helpers';
 
-interface ContextMenuRootProps
-  extends React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Root> {}
-const ContextMenuRoot: React.FC<ContextMenuRootProps> = (props) => (
-  <ContextMenuPrimitive.Root {...props} />
-);
+interface ContextMenuRootProps extends React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Root> {}
+const ContextMenuRoot: React.FC<ContextMenuRootProps> = (props) => <ContextMenuPrimitive.Root {...props} />;
 ContextMenuRoot.displayName = 'ContextMenuRoot';
 
 interface ContextMenuTriggerProps
-  extends Omit<
-    React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Trigger>,
-    'asChild'
-  > {}
-const ContextMenuTrigger = (props: ContextMenuTriggerProps) => (
-  <ContextMenuPrimitive.Trigger {...props} asChild />
-);
+  extends Omit<React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Trigger>, 'asChild'> {}
+const ContextMenuTrigger = (props: ContextMenuTriggerProps) => <ContextMenuPrimitive.Trigger {...props} asChild />;
 ContextMenuTrigger.displayName = 'ContextMenuTrigger';
 
-type ContextMenuContentOwnProps = GetPropDefTypes<
-  typeof contextMenuContentPropDefs
->;
+type ContextMenuContentOwnProps = GetPropDefTypes<typeof contextMenuContentPropDefs>;
 type ContextMenuContentContextValue = ContextMenuContentOwnProps;
-const ContextMenuContentContext =
-  React.createContext<ContextMenuContentContextValue>({});
+const ContextMenuContentContext = React.createContext<ContextMenuContentContextValue>({});
 interface ContextMenuContentProps
   extends PropsWithoutRefOrColor<typeof ContextMenuPrimitive.Content>,
     ContextMenuContentContextValue {
-  container?: React.ComponentProps<
-    typeof ContextMenuPrimitive.Portal
-  >['container'];
+  container?: React.ComponentProps<typeof ContextMenuPrimitive.Portal>['container'];
 }
 const ContextMenuContent = (props: ContextMenuContentProps) => {
   const themeContext = useThemeContext();
@@ -77,12 +64,7 @@ const ContextMenuContent = (props: ContextMenuContentProps) => {
           )}
         >
           <ScrollArea type="auto">
-            <div
-              className={classNames(
-                'fui-BaseMenuViewport',
-                'fui-ContextMenuViewport',
-              )}
-            >
+            <div className={classNames('fui-BaseMenuViewport', 'fui-ContextMenuViewport')}>
               <ContextMenuContentContext.Provider
                 value={React.useMemo(
                   () => ({ size, color: resolvedColor, highContrast }),
@@ -100,16 +82,11 @@ const ContextMenuContent = (props: ContextMenuContentProps) => {
 };
 ContextMenuContent.displayName = 'ContextMenuContent';
 
-interface ContextMenuLabelProps
-  extends PropsWithoutRefOrColor<typeof ContextMenuPrimitive.Label> {}
+interface ContextMenuLabelProps extends PropsWithoutRefOrColor<typeof ContextMenuPrimitive.Label> {}
 const ContextMenuLabel = (props: ContextMenuLabelProps) => (
   <ContextMenuPrimitive.Label
     {...props}
-    className={classNames(
-      'fui-BaseMenuLabel',
-      'fui-ContextMenuLabel',
-      props.className,
-    )}
+    className={classNames('fui-BaseMenuLabel', 'fui-ContextMenuLabel', props.className)}
   />
 );
 ContextMenuLabel.displayName = 'ContextMenuLabel';
@@ -119,69 +96,39 @@ interface ContextMenuItemProps
   extends PropsWithoutRefOrColor<typeof ContextMenuPrimitive.Item>,
     ContextMenuItemOwnProps {}
 const ContextMenuItem = (props: ContextMenuItemProps) => {
-  const {
-    className,
-    children,
-    color = contextMenuItemPropDefs.color.default,
-    shortcut,
-    ...itemProps
-  } = props;
+  const { className, children, color = contextMenuItemPropDefs.color.default, shortcut, ...itemProps } = props;
   return (
     <ContextMenuPrimitive.Item
       data-accent-color={color}
       {...itemProps}
-      className={classNames(
-        'fui-reset',
-        'fui-BaseMenuItem',
-        'fui-ContextMenuItem',
-        className,
-      )}
+      className={classNames('fui-reset', 'fui-BaseMenuItem', 'fui-ContextMenuItem', className)}
     >
       <Slottable>{children}</Slottable>
-      {shortcut && (
-        <div className="fui-BaseMenuShortcut fui-ContextMenuShortcut">
-          {shortcut}
-        </div>
-      )}
+      {shortcut && <div className="fui-BaseMenuShortcut fui-ContextMenuShortcut">{shortcut}</div>}
     </ContextMenuPrimitive.Item>
   );
 };
 ContextMenuItem.displayName = 'ContextMenuItem';
 
-interface ContextMenuGroupProps
-  extends React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Group> {}
+interface ContextMenuGroupProps extends React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Group> {}
 const ContextMenuGroup = (props: ContextMenuGroupProps) => (
   <ContextMenuPrimitive.Group
     {...props}
-    className={classNames(
-      'fui-BaseMenuGroup',
-      'fui-ContextMenuGroup',
-      props.className,
-    )}
+    className={classNames('fui-BaseMenuGroup', 'fui-ContextMenuGroup', props.className)}
   />
 );
 ContextMenuGroup.displayName = 'ContextMenuGroup';
 
-interface ContextMenuRadioGroupProps
-  extends React.ComponentPropsWithoutRef<
-    typeof ContextMenuPrimitive.RadioGroup
-  > {}
+interface ContextMenuRadioGroupProps extends React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.RadioGroup> {}
 const ContextMenuRadioGroup = (props: ContextMenuRadioGroupProps) => (
   <ContextMenuPrimitive.RadioGroup
     {...props}
-    className={classNames(
-      'fui-BaseMenuRadioGroup',
-      'fui-ContextMenuRadioGroup',
-      props.className,
-    )}
+    className={classNames('fui-BaseMenuRadioGroup', 'fui-ContextMenuRadioGroup', props.className)}
   />
 );
 ContextMenuRadioGroup.displayName = 'ContextMenuRadioGroup';
 
-interface ContextMenuRadioItemProps
-  extends React.ComponentPropsWithoutRef<
-    typeof ContextMenuPrimitive.RadioItem
-  > {}
+interface ContextMenuRadioItemProps extends React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.RadioItem> {}
 const ContextMenuRadioItem = (props: ContextMenuRadioItemProps) => {
   const { children, className, ...itemProps } = props;
   return (
@@ -204,13 +151,9 @@ const ContextMenuRadioItem = (props: ContextMenuRadioItemProps) => {
 };
 ContextMenuRadioItem.displayName = 'ContextMenuRadioItem';
 
-type ContextMenuCheckboxItemOwnProps = GetPropDefTypes<
-  typeof contextMenuCheckboxItemPropDefs
->;
+type ContextMenuCheckboxItemOwnProps = GetPropDefTypes<typeof contextMenuCheckboxItemPropDefs>;
 interface ContextMenuCheckboxItemProps
-  extends React.ComponentPropsWithoutRef<
-      typeof ContextMenuPrimitive.CheckboxItem
-    >,
+  extends React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.CheckboxItem>,
     ContextMenuCheckboxItemOwnProps {}
 const ContextMenuCheckboxItem = (props: ContextMenuCheckboxItemProps) => {
   const { children, className, shortcut, ...itemProps } = props;
@@ -229,27 +172,17 @@ const ContextMenuCheckboxItem = (props: ContextMenuCheckboxItemProps) => {
       <ContextMenuPrimitive.ItemIndicator className="fui-BaseMenuItemIndicator fui-ContextMenuItemIndicator">
         <ThickCheckIcon className="fui-BaseMenuItemIndicatorIcon fui-ContextMenuItemIndicatorIcon" />
       </ContextMenuPrimitive.ItemIndicator>
-      {shortcut && (
-        <div className="fui-BaseMenuShortcut fui-ContextMenuShortcut">
-          {shortcut}
-        </div>
-      )}
+      {shortcut && <div className="fui-BaseMenuShortcut fui-ContextMenuShortcut">{shortcut}</div>}
     </ContextMenuPrimitive.CheckboxItem>
   );
 };
 ContextMenuCheckboxItem.displayName = 'ContextMenuCheckboxItem';
 
-interface ContextMenuSubProps
-  extends React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Sub> {}
-const ContextMenuSub: React.FC<ContextMenuSubProps> = (props) => (
-  <ContextMenuPrimitive.Sub {...props} />
-);
+interface ContextMenuSubProps extends React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Sub> {}
+const ContextMenuSub: React.FC<ContextMenuSubProps> = (props) => <ContextMenuPrimitive.Sub {...props} />;
 ContextMenuSub.displayName = 'ContextMenuSub';
 
-interface ContextMenuSubTriggerProps
-  extends React.ComponentPropsWithoutRef<
-    typeof ContextMenuPrimitive.SubTrigger
-  > {}
+interface ContextMenuSubTriggerProps extends React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.SubTrigger> {}
 const ContextMenuSubTrigger = (props: ContextMenuSubTriggerProps) => {
   const { className, children, ...subTriggerProps } = props;
   return (
@@ -270,19 +203,12 @@ const ContextMenuSubTrigger = (props: ContextMenuSubTriggerProps) => {
 };
 ContextMenuSubTrigger.displayName = 'ContextMenuSubTrigger';
 
-interface ContextMenuSubContentProps
-  extends React.ComponentPropsWithoutRef<
-    typeof ContextMenuPrimitive.SubContent
-  > {
-  container?: React.ComponentProps<
-    typeof ContextMenuPrimitive.Portal
-  >['container'];
+interface ContextMenuSubContentProps extends React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.SubContent> {
+  container?: React.ComponentProps<typeof ContextMenuPrimitive.Portal>['container'];
 }
 const ContextMenuSubContent = (props: ContextMenuSubContentProps) => {
   const { className, children, container, forceMount, ...contentProps } = props;
-  const { size, color, highContrast } = React.useContext(
-    ContextMenuContentContext,
-  );
+  const { size, color, highContrast } = React.useContext(ContextMenuContentContext);
   return (
     <ContextMenuPrimitive.Portal container={container} forceMount={forceMount}>
       <Theme asChild>
@@ -303,14 +229,7 @@ const ContextMenuSubContent = (props: ContextMenuSubContentProps) => {
           )}
         >
           <ScrollArea type="auto">
-            <div
-              className={classNames(
-                'fui-BaseMenuViewport',
-                'fui-ContextMenuViewport',
-              )}
-            >
-              {children}
-            </div>
+            <div className={classNames('fui-BaseMenuViewport', 'fui-ContextMenuViewport')}>{children}</div>
           </ScrollArea>
         </ContextMenuPrimitive.SubContent>
       </Theme>
@@ -319,18 +238,11 @@ const ContextMenuSubContent = (props: ContextMenuSubContentProps) => {
 };
 ContextMenuSubContent.displayName = 'ContextMenuSubContent';
 
-interface ContextMenuSeparatorProps
-  extends React.ComponentPropsWithoutRef<
-    typeof ContextMenuPrimitive.Separator
-  > {}
+interface ContextMenuSeparatorProps extends React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Separator> {}
 const ContextMenuSeparator = (props: ContextMenuSeparatorProps) => (
   <ContextMenuPrimitive.Separator
     {...props}
-    className={classNames(
-      'fui-BaseMenuSeparator',
-      'fui-ContextMenuSeparator',
-      props.className,
-    )}
+    className={classNames('fui-BaseMenuSeparator', 'fui-ContextMenuSeparator', props.className)}
   />
 );
 ContextMenuSeparator.displayName = 'ContextMenuSeparator';

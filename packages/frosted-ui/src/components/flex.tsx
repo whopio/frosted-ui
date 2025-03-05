@@ -1,28 +1,13 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import {
-  extractLayoutProps,
-  extractMarginProps,
-  withBreakpoints,
-  withLayoutProps,
-  withMarginProps,
-} from '../helpers';
+import { extractLayoutProps, extractMarginProps, withBreakpoints, withLayoutProps, withMarginProps } from '../helpers';
 import { flexPropDefs } from './flex.props';
 import { Slot } from './slot';
 
-import type {
-  GetPropDefTypes,
-  LayoutProps,
-  MarginProps,
-  PropsWithoutRefOrColor,
-} from '../helpers';
+import type { GetPropDefTypes, LayoutProps, MarginProps, PropsWithoutRefOrColor } from '../helpers';
 
 type FlexOwnProps = GetPropDefTypes<typeof flexPropDefs>;
-interface FlexProps
-  extends PropsWithoutRefOrColor<'div'>,
-    MarginProps,
-    LayoutProps,
-    FlexOwnProps {
+interface FlexProps extends PropsWithoutRefOrColor<'div'>, MarginProps, LayoutProps, FlexOwnProps {
   asChild?: boolean;
 }
 

@@ -11,45 +11,29 @@ import { Text } from './text';
 
 import type { ExtractPropsForTag, GetPropDefTypes } from '../helpers';
 
-interface AlertDialogRootProps
-  extends React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Root> {}
-const AlertDialogRoot: React.FC<AlertDialogRootProps> = (props) => (
-  <AlertDialogPrimitive.Root {...props} />
-);
+interface AlertDialogRootProps extends React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Root> {}
+const AlertDialogRoot: React.FC<AlertDialogRootProps> = (props) => <AlertDialogPrimitive.Root {...props} />;
 AlertDialogRoot.displayName = 'AlertDialogRoot';
 
 interface AlertDialogTriggerProps
-  extends Omit<
-    React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Trigger>,
-    'asChild'
-  > {}
+  extends Omit<React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Trigger>, 'asChild'> {}
 
-const AlertDialogTrigger = (props: AlertDialogTriggerProps) => (
-  <AlertDialogPrimitive.Trigger {...props} asChild />
-);
+const AlertDialogTrigger = (props: AlertDialogTriggerProps) => <AlertDialogPrimitive.Trigger {...props} asChild />;
 AlertDialogTrigger.displayName = 'AlertDialogTrigger';
 
-type AlertDialogContentOwnProps = GetPropDefTypes<
-  typeof alertDialogContentPropDefs
->;
+type AlertDialogContentOwnProps = GetPropDefTypes<typeof alertDialogContentPropDefs>;
 
 type AlertDialogContentContextValue = {
   size: AlertDialogContentOwnProps['size'];
 };
-const AlertDialogContentContext =
-  React.createContext<AlertDialogContentContextValue>({
-    size: alertDialogContentPropDefs.size.default,
-  });
+const AlertDialogContentContext = React.createContext<AlertDialogContentContextValue>({
+  size: alertDialogContentPropDefs.size.default,
+});
 
 interface AlertDialogContentProps
-  extends Omit<
-      React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content>,
-      'asChild'
-    >,
+  extends Omit<React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content>, 'asChild'>,
     AlertDialogContentOwnProps {
-  container?: React.ComponentProps<
-    typeof AlertDialogPrimitive.Portal
-  >['container'];
+  container?: React.ComponentProps<typeof AlertDialogPrimitive.Portal>['container'];
 }
 
 const AlertDialogContent = (props: AlertDialogContentProps) => {
@@ -74,9 +58,7 @@ const AlertDialogContent = (props: AlertDialogContentProps) => {
               withBreakpoints(size, 'fui-r-size'),
             )}
           >
-            <AlertDialogContentContext.Provider
-              value={React.useMemo(() => ({ size }), [size])}
-            >
+            <AlertDialogContentContext.Provider value={React.useMemo(() => ({ size }), [size])}>
               {children}
             </AlertDialogContentContext.Provider>
           </AlertDialogPrimitive.Content>
@@ -89,11 +71,7 @@ AlertDialogContent.displayName = 'AlertDialogContent';
 
 type AlertDialogTitleProps = React.ComponentPropsWithoutRef<typeof Heading>;
 
-const AlertDialogTitle = ({
-  size: sizeProp,
-  mb: mbProp,
-  ...props
-}: AlertDialogTitleProps) => {
+const AlertDialogTitle = ({ size: sizeProp, mb: mbProp, ...props }: AlertDialogTitleProps) => {
   const { size: contextSize } = React.useContext(AlertDialogContentContext);
   let size: AlertDialogTitleProps['size'];
 
@@ -122,12 +100,7 @@ const AlertDialogTitle = ({
   }
   return (
     <AlertDialogPrimitive.Title asChild>
-      <Heading
-        size={sizeProp || size}
-        mb={mbProp || mb}
-        trim="start"
-        {...props}
-      />
+      <Heading size={sizeProp || size} mb={mbProp || mb} trim="start" {...props} />
     </AlertDialogPrimitive.Title>
   );
 };
@@ -135,11 +108,7 @@ AlertDialogTitle.displayName = 'AlertDialogTitle';
 
 type AlertDialogDescriptionProps = ExtractPropsForTag<typeof Text, 'p'>;
 
-const AlertDialogDescription = ({
-  size: sizeProp,
-  mb: mbProp,
-  ...props
-}: AlertDialogDescriptionProps) => {
+const AlertDialogDescription = ({ size: sizeProp, mb: mbProp, ...props }: AlertDialogDescriptionProps) => {
   const { size: contextSize } = React.useContext(AlertDialogContentContext);
   let size: AlertDialogDescriptionProps['size'];
 
@@ -175,25 +144,15 @@ const AlertDialogDescription = ({
 AlertDialogDescription.displayName = 'AlertDialogDescription';
 
 interface AlertDialogActionProps
-  extends Omit<
-    React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Action>,
-    'asChild'
-  > {}
+  extends Omit<React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Action>, 'asChild'> {}
 
-const AlertDialogAction = (props: AlertDialogActionProps) => (
-  <AlertDialogPrimitive.Action {...props} asChild />
-);
+const AlertDialogAction = (props: AlertDialogActionProps) => <AlertDialogPrimitive.Action {...props} asChild />;
 AlertDialogAction.displayName = 'AlertDialogAction';
 
 interface AlertDialogCancelProps
-  extends Omit<
-    React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Cancel>,
-    'asChild'
-  > {}
+  extends Omit<React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Cancel>, 'asChild'> {}
 
-const AlertDialogCancel = (props: AlertDialogCancelProps) => (
-  <AlertDialogPrimitive.Cancel {...props} asChild />
-);
+const AlertDialogCancel = (props: AlertDialogCancelProps) => <AlertDialogPrimitive.Cancel {...props} asChild />;
 AlertDialogCancel.displayName = 'AlertDialogCancel';
 
 export {

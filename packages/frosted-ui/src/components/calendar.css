@@ -72,8 +72,7 @@
 .fui-CalendarGridCellInner[data-selection-state='range']::before {
   border-radius: 0;
 }
-.fui-CalendarGridCellInner.fui-CalendarGridCell-selected
-  + .fui-CalendarGridCellInner.fui-CalendarGridCell-selected {
+.fui-CalendarGridCellInner.fui-CalendarGridCell-selected + .fui-CalendarGridCellInner.fui-CalendarGridCell-selected {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -115,9 +114,7 @@
   border-bottom-left-radius: 0;
 }
 
-.fui-CalendarGridCell:has([data-selection-state='start']):has(
-    + .fui-CalendarGridCell [data-selection-state='end']
-  )
+.fui-CalendarGridCell:has([data-selection-state='start']):has(+ .fui-CalendarGridCell [data-selection-state='end'])
   .fui-CalendarGridCellInner {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;

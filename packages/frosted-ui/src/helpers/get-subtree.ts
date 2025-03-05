@@ -12,14 +12,10 @@ export function getSubtree(
   content: React.ReactNode | ((children: React.ReactNode) => React.ReactNode),
 ) {
   const { asChild, children } = options;
-  if (!asChild)
-    return typeof content === 'function' ? content(children) : content;
+  if (!asChild) return typeof content === 'function' ? content(children) : content;
 
   const firstChild = React.Children.only(children) as React.ReactElement;
   return React.cloneElement(firstChild, {
-    children:
-      typeof content === 'function'
-        ? content(firstChild.props.children)
-        : content,
+    children: typeof content === 'function' ? content(firstChild.props.children) : content,
   });
 }

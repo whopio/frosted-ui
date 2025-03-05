@@ -28,47 +28,27 @@ import {
 
 import type { ThemeOptions } from './index';
 
-interface ThemePanelProps
-  extends Omit<ThemePanelImplProps, keyof ThemePanelImplPrivateProps> {
+interface ThemePanelProps extends Omit<ThemePanelImplProps, keyof ThemePanelImplPrivateProps> {
   defaultOpen?: boolean;
 }
 const ThemePanel = React.forwardRef<ThemePanelImplElement, ThemePanelProps>(
   ({ defaultOpen = true, ...props }, forwardedRef) => {
     const [open, setOpen] = React.useState(defaultOpen);
-    return (
-      <ThemePanelImpl
-        {...props}
-        ref={forwardedRef}
-        open={open}
-        onOpenChange={setOpen}
-      />
-    );
+    return <ThemePanelImpl {...props} ref={forwardedRef} open={open} onOpenChange={setOpen} />;
   },
 );
 ThemePanel.displayName = 'ThemePanel';
 
 type ThemePanelImplElement = React.ElementRef<typeof Box>;
-interface ThemePanelImplProps
-  extends React.ComponentPropsWithoutRef<typeof Box>,
-    ThemePanelImplPrivateProps {
-  onAppearanceChange?: (
-    value: Exclude<ThemeOptions['appearance'], 'inherit'>,
-  ) => void;
+interface ThemePanelImplProps extends React.ComponentPropsWithoutRef<typeof Box>, ThemePanelImplPrivateProps {
+  onAppearanceChange?: (value: Exclude<ThemeOptions['appearance'], 'inherit'>) => void;
 }
 interface ThemePanelImplPrivateProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
-const ThemePanelImpl = React.forwardRef<
-  ThemePanelImplElement,
-  ThemePanelImplProps
->((props, forwardedRef) => {
-  const {
-    open,
-    onOpenChange,
-    onAppearanceChange: onAppearanceChangeProp,
-    ...panelProps
-  } = props;
+const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplProps>((props, forwardedRef) => {
+  const { open, onOpenChange, onAppearanceChange: onAppearanceChangeProp, ...panelProps } = props;
   const themeContext = useThemeContext();
   const {
     appearance,
@@ -95,9 +75,7 @@ const ThemePanelImpl = React.forwardRef<
       const cleanup = disableAnimation();
 
       if (hasOnAppearanceChangeProp) {
-        handleAppearanceChangeProp(
-          appearance as Exclude<ThemeOptions['appearance'], 'inherit'>,
-        );
+        handleAppearanceChangeProp(appearance as Exclude<ThemeOptions['appearance'], 'inherit'>);
       } else {
         updateThemeAppearanceClass(appearance);
       }
@@ -110,21 +88,12 @@ const ThemePanelImpl = React.forwardRef<
   const autoMatchedGray = getMatchingGrayColor(accentColor);
   const resolvedGrayColor = grayColor === 'auto' ? autoMatchedGray : grayColor;
 
-  const [copyState, setCopyState] = React.useState<
-    'idle' | 'copying' | 'copied'
-  >('idle');
+  const [copyState, setCopyState] = React.useState<'idle' | 'copying' | 'copied'>('idle');
   async function handleCopyThemeConfig() {
     const theme: Partial<ThemeOptions> = {
-      appearance:
-        appearance === themePropDefs.appearance.default
-          ? undefined
-          : appearance,
-      accentColor:
-        accentColor === themePropDefs.accentColor.default
-          ? undefined
-          : accentColor,
-      grayColor:
-        grayColor === themePropDefs.grayColor.default ? undefined : grayColor,
+      appearance: appearance === themePropDefs.appearance.default ? undefined : appearance,
+      accentColor: accentColor === themePropDefs.accentColor.default ? undefined : accentColor,
+      grayColor: grayColor === themePropDefs.grayColor.default ? undefined : grayColor,
     };
 
     const props = Object.keys(theme)
@@ -143,12 +112,7 @@ const ThemePanelImpl = React.forwardRef<
   // quickly show/hide using ⌘C
   React.useEffect(() => {
     function handleKeydown(event: KeyboardEvent) {
-      const isCmdC =
-        event.metaKey &&
-        event.key === 'c' &&
-        !event.shiftKey &&
-        !event.altKey &&
-        !event.ctrlKey;
+      const isCmdC = event.metaKey && event.key === 'c' && !event.shiftKey && !event.altKey && !event.ctrlKey;
       if (isCmdC && window.getSelection()?.toString() === '') {
         onOpenChange(!open);
       }
@@ -169,9 +133,9 @@ const ThemePanelImpl = React.forwardRef<
     return () => document.removeEventListener('keydown', handleKeydown);
   }, [appearance, handleAppearanceChange]);
 
-  const [resolvedAppearance, setResolvedAppearance] = React.useState<
-    'light' | 'dark' | null
-  >(appearance === 'inherit' ? null : appearance);
+  const [resolvedAppearance, setResolvedAppearance] = React.useState<'light' | 'dark' | null>(
+    appearance === 'inherit' ? null : appearance,
+  );
   React.useEffect(() => {
     const root = document.documentElement;
     const body = document.body;
@@ -236,11 +200,7 @@ const ThemePanelImpl = React.forwardRef<
         <ScrollArea>
           <Box grow="1" p="5" position="relative">
             <Box position="absolute" top="0" right="0" m="2">
-              <Tooltip
-                content="Press ⌘&thinsp;C to show/hide the Theme Panel"
-                side="bottom"
-                sideOffset={6}
-              >
+              <Tooltip content="Press ⌘&thinsp;C to show/hide the Theme Panel" side="bottom" sideOffset={6}>
                 <Kbd size="3" tabIndex={0} className="fui-ThemePanelShortcut">
                   ⌘&thinsp;C
                 </Kbd>
@@ -251,29 +211,13 @@ const ThemePanelImpl = React.forwardRef<
               Theme
             </Heading>
 
-            <Text
-              id="accent-color-title"
-              as="p"
-              size="2"
-              weight="medium"
-              mt="5"
-            >
+            <Text id="accent-color-title" as="p" size="2" weight="medium" mt="5">
               Accent color
             </Text>
 
-            <Grid
-              columns="10"
-              gap="2"
-              mt="3"
-              role="group"
-              aria-labelledby="accent-color-title"
-            >
+            <Grid columns="10" gap="2" mt="3" role="group" aria-labelledby="accent-color-title">
               {themeAccentColorsOrdered.map((color) => (
-                <label
-                  key={color}
-                  className="fui-ThemePanelSwatch"
-                  style={{ backgroundColor: `var(--${color}-9)` }}
-                >
+                <label key={color} className="fui-ThemePanelSwatch" style={{ backgroundColor: `var(--${color}-9)` }}>
                   <Tooltip
                     content={`${upperFirst(color)}${
                       accentColor === 'gray' && resolvedGrayColor !== 'gray'
@@ -287,11 +231,7 @@ const ThemePanelImpl = React.forwardRef<
                       name="accentColor"
                       value={color}
                       checked={accentColor === color}
-                      onChange={(event) =>
-                        onAccentColorChange(
-                          event.target.value as ThemeOptions['accentColor'],
-                        )
-                      }
+                      onChange={(event) => onAccentColorChange(event.target.value as ThemeOptions['accentColor'])}
                     />
                   </Tooltip>
                 </label>
@@ -299,24 +239,12 @@ const ThemePanelImpl = React.forwardRef<
             </Grid>
 
             <Flex asChild align="center" justify="between">
-              <Text
-                as="p"
-                id="gray-color-title"
-                size="2"
-                weight="medium"
-                mt="5"
-              >
+              <Text as="p" id="gray-color-title" size="2" weight="medium" mt="5">
                 Gray color
               </Text>
             </Flex>
 
-            <Grid
-              columns="10"
-              gap="2"
-              mt="3"
-              role="group"
-              aria-labelledby="gray-color-title"
-            >
+            <Grid columns="10" gap="2" mt="3" role="group" aria-labelledby="gray-color-title">
               {['auto', 'gray', ...radixGrayScalesDesaturated].map((gray) => (
                 <Flex key={gray} asChild align="center" justify="center">
                   <label
@@ -334,11 +262,7 @@ const ThemePanelImpl = React.forwardRef<
                     }}
                   >
                     <Tooltip
-                      content={`${upperFirst(gray)}${
-                        gray === 'auto'
-                          ? ` (${upperFirst(autoMatchedGray)})`
-                          : ''
-                      }`}
+                      content={`${upperFirst(gray)}${gray === 'auto' ? ` (${upperFirst(autoMatchedGray)})` : ''}`}
                     >
                       <input
                         className="fui-ThemePanelSwatchInput"
@@ -346,11 +270,7 @@ const ThemePanelImpl = React.forwardRef<
                         name="grayColor"
                         value={gray}
                         checked={grayColor === gray}
-                        onChange={(event) =>
-                          onGrayColorChange(
-                            event.target.value as ThemeOptions['grayColor'],
-                          )
-                        }
+                        onChange={(event) => onGrayColorChange(event.target.value as ThemeOptions['grayColor'])}
                       />
                     </Tooltip>
                   </label>
@@ -364,19 +284,9 @@ const ThemePanelImpl = React.forwardRef<
               Info color
             </Text>
 
-            <Grid
-              columns="10"
-              gap="2"
-              mt="3"
-              role="group"
-              aria-labelledby="info-color-title"
-            >
+            <Grid columns="10" gap="2" mt="3" role="group" aria-labelledby="info-color-title">
               {infoColors.map((color) => (
-                <label
-                  key={color}
-                  className="fui-ThemePanelSwatch"
-                  style={{ backgroundColor: `var(--${color}-9)` }}
-                >
+                <label key={color} className="fui-ThemePanelSwatch" style={{ backgroundColor: `var(--${color}-9)` }}>
                   <Tooltip content={upperFirst(color)}>
                     <input
                       className="fui-ThemePanelSwatchInput"
@@ -384,40 +294,20 @@ const ThemePanelImpl = React.forwardRef<
                       name="infoColor"
                       value={color}
                       checked={infoColor === color}
-                      onChange={(event) =>
-                        onInfoColorChange(
-                          event.target.value as ThemeOptions['infoColor'],
-                        )
-                      }
+                      onChange={(event) => onInfoColorChange(event.target.value as ThemeOptions['infoColor'])}
                     />
                   </Tooltip>
                 </label>
               ))}
             </Grid>
 
-            <Text
-              id="success-color-title"
-              as="p"
-              size="2"
-              weight="medium"
-              mt="5"
-            >
+            <Text id="success-color-title" as="p" size="2" weight="medium" mt="5">
               Success color
             </Text>
 
-            <Grid
-              columns="10"
-              gap="2"
-              mt="3"
-              role="group"
-              aria-labelledby="success-color-title"
-            >
+            <Grid columns="10" gap="2" mt="3" role="group" aria-labelledby="success-color-title">
               {successColors.map((color) => (
-                <label
-                  key={color}
-                  className="fui-ThemePanelSwatch"
-                  style={{ backgroundColor: `var(--${color}-9)` }}
-                >
+                <label key={color} className="fui-ThemePanelSwatch" style={{ backgroundColor: `var(--${color}-9)` }}>
                   <Tooltip content={upperFirst(color)}>
                     <input
                       className="fui-ThemePanelSwatchInput"
@@ -425,40 +315,20 @@ const ThemePanelImpl = React.forwardRef<
                       name="successColor"
                       value={color}
                       checked={successColor === color}
-                      onChange={(event) =>
-                        onSuccessColorChange(
-                          event.target.value as ThemeOptions['successColor'],
-                        )
-                      }
+                      onChange={(event) => onSuccessColorChange(event.target.value as ThemeOptions['successColor'])}
                     />
                   </Tooltip>
                 </label>
               ))}
             </Grid>
 
-            <Text
-              id="warning-color-title"
-              as="p"
-              size="2"
-              weight="medium"
-              mt="5"
-            >
+            <Text id="warning-color-title" as="p" size="2" weight="medium" mt="5">
               Warning color
             </Text>
 
-            <Grid
-              columns="10"
-              gap="2"
-              mt="3"
-              role="group"
-              aria-labelledby="warning-color-title"
-            >
+            <Grid columns="10" gap="2" mt="3" role="group" aria-labelledby="warning-color-title">
               {warningColors.map((color) => (
-                <label
-                  key={color}
-                  className="fui-ThemePanelSwatch"
-                  style={{ backgroundColor: `var(--${color}-9)` }}
-                >
+                <label key={color} className="fui-ThemePanelSwatch" style={{ backgroundColor: `var(--${color}-9)` }}>
                   <Tooltip content={upperFirst(color)}>
                     <input
                       className="fui-ThemePanelSwatchInput"
@@ -466,40 +336,20 @@ const ThemePanelImpl = React.forwardRef<
                       name="warningColor"
                       value={color}
                       checked={warningColor === color}
-                      onChange={(event) =>
-                        onWarningColorChange(
-                          event.target.value as ThemeOptions['warningColor'],
-                        )
-                      }
+                      onChange={(event) => onWarningColorChange(event.target.value as ThemeOptions['warningColor'])}
                     />
                   </Tooltip>
                 </label>
               ))}
             </Grid>
 
-            <Text
-              id="danger-color-title"
-              as="p"
-              size="2"
-              weight="medium"
-              mt="5"
-            >
+            <Text id="danger-color-title" as="p" size="2" weight="medium" mt="5">
               Danger color
             </Text>
 
-            <Grid
-              columns="10"
-              gap="2"
-              mt="3"
-              role="group"
-              aria-labelledby="danger-color-title"
-            >
+            <Grid columns="10" gap="2" mt="3" role="group" aria-labelledby="danger-color-title">
               {dangerColors.map((color) => (
-                <label
-                  key={color}
-                  className="fui-ThemePanelSwatch"
-                  style={{ backgroundColor: `var(--${color}-9)` }}
-                >
+                <label key={color} className="fui-ThemePanelSwatch" style={{ backgroundColor: `var(--${color}-9)` }}>
                   <Tooltip content={upperFirst(color)}>
                     <input
                       className="fui-ThemePanelSwatchInput"
@@ -507,11 +357,7 @@ const ThemePanelImpl = React.forwardRef<
                       name="dangerColor"
                       value={color}
                       checked={dangerColor === color}
-                      onChange={(event) =>
-                        onDangerColorChange(
-                          event.target.value as ThemeOptions['dangerColor'],
-                        )
-                      }
+                      onChange={(event) => onDangerColorChange(event.target.value as ThemeOptions['dangerColor'])}
                     />
                   </Tooltip>
                 </label>
@@ -521,13 +367,7 @@ const ThemePanelImpl = React.forwardRef<
               Appearance
             </Text>
 
-            <Grid
-              columns="2"
-              gap="2"
-              mt="3"
-              role="group"
-              aria-labelledby="appearance-title"
-            >
+            <Grid columns="2" gap="2" mt="3" role="group" aria-labelledby="appearance-title">
               {(['light', 'dark'] as const).map((value) => (
                 <label key={value} className="fui-ThemePanelRadioCard">
                   <input
@@ -585,11 +425,7 @@ const ThemePanelImpl = React.forwardRef<
               ))}
             </Grid>
 
-            <Button
-              mt="5"
-              style={{ width: '100%' }}
-              onClick={handleCopyThemeConfig}
-            >
+            <Button mt="5" style={{ width: '100%' }} onClick={handleCopyThemeConfig}>
               {copyState === 'copied' ? 'Copied' : 'Copy Theme'}
             </Button>
           </Box>

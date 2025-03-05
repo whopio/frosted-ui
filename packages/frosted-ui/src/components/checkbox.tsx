@@ -3,18 +3,10 @@
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 import classNames from 'classnames';
 import * as React from 'react';
-import {
-  extractMarginProps,
-  withBreakpoints,
-  withMarginProps,
-} from '../helpers';
+import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
 import { checkboxPropDefs } from './checkbox.props';
 
-import type {
-  GetPropDefTypes,
-  MarginProps,
-  PropsWithoutRefOrColor,
-} from '../helpers';
+import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
 
 interface IconProps extends React.ComponentPropsWithoutRef<'svg'> {
   children?: never;
@@ -22,67 +14,24 @@ interface IconProps extends React.ComponentPropsWithoutRef<'svg'> {
   size: CheckboxOwnProps['size'];
 }
 
-const CheckboxCheckmarkIcon = ({
-  color = 'currentColor',
-  size,
-  ...props
-}: IconProps) => {
+const CheckboxCheckmarkIcon = ({ color = 'currentColor', size, ...props }: IconProps) => {
   switch (size) {
     case '1':
       return (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          {...props}
-        >
-          <path
-            d="M4 8.5L6.5 11L12 5.5"
-            stroke={color}
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" {...props}>
+          <path d="M4 8.5L6.5 11L12 5.5" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       );
     case '2':
       return (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 20 20"
-          fill="none"
-          {...props}
-        >
-          <path
-            d="M5 11L8 14L15 7"
-            stroke={color}
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" {...props}>
+          <path d="M5 11L8 14L15 7" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       );
     case '3':
       return (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          {...props}
-        >
-          <path
-            d="M7 13L10 16L17 9"
-            stroke={color}
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" {...props}>
+          <path d="M7 13L10 16L17 9" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       );
     default:
@@ -91,64 +40,24 @@ const CheckboxCheckmarkIcon = ({
 };
 CheckboxCheckmarkIcon.displayName = 'CheckboxCheckmarkIcon';
 
-const CheckboxIndeterminateIcon = ({
-  color = 'currentColor',
-  size,
-  ...props
-}: IconProps) => {
+const CheckboxIndeterminateIcon = ({ color = 'currentColor', size, ...props }: IconProps) => {
   switch (size) {
     case '1':
       return (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          {...props}
-        >
-          <path
-            d="M5 8H11"
-            stroke={color}
-            strokeWidth="1.5"
-            strokeLinecap="round"
-          />
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" {...props}>
+          <path d="M5 8H11" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
         </svg>
       );
     case '2':
       return (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 20 20"
-          fill="none"
-          {...props}
-        >
-          <path
-            d="M6 10H14"
-            stroke={color}
-            strokeWidth="1.5"
-            strokeLinecap="round"
-          />
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" {...props}>
+          <path d="M6 10H14" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
         </svg>
       );
     case '3':
       return (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          {...props}
-        >
-          <path
-            d="M7 12H17"
-            stroke={color}
-            strokeWidth="1.5"
-            strokeLinecap="round"
-          />
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" {...props}>
+          <path d="M7 12H17" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
         </svg>
       );
     default:
@@ -158,10 +67,7 @@ const CheckboxIndeterminateIcon = ({
 CheckboxIndeterminateIcon.displayName = 'CheckboxIndeterminateIcon';
 
 type CheckboxOwnProps = GetPropDefTypes<typeof checkboxPropDefs>;
-interface CheckboxProps
-  extends PropsWithoutRefOrColor<typeof CheckboxPrimitive.Root>,
-    MarginProps,
-    CheckboxOwnProps {}
+interface CheckboxProps extends PropsWithoutRefOrColor<typeof CheckboxPrimitive.Root>, MarginProps, CheckboxOwnProps {}
 
 const Checkbox = (props: CheckboxProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
@@ -196,15 +102,9 @@ const Checkbox = (props: CheckboxProps) => {
       >
         <CheckboxPrimitive.Indicator className="fui-CheckboxIndicator">
           {checkboxProps.checked === 'indeterminate' ? (
-            <CheckboxIndeterminateIcon
-              size={size}
-              className="fui-CheckboxIndicatorIcon"
-            />
+            <CheckboxIndeterminateIcon size={size} className="fui-CheckboxIndicatorIcon" />
           ) : (
-            <CheckboxCheckmarkIcon
-              size={size}
-              className="fui-CheckboxIndicatorIcon"
-            />
+            <CheckboxCheckmarkIcon size={size} className="fui-CheckboxIndicatorIcon" />
           )}
         </CheckboxPrimitive.Indicator>
       </CheckboxPrimitive.Root>

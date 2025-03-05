@@ -8,14 +8,7 @@ interface IconProps extends React.ComponentPropsWithoutRef<'svg'> {
 const ThickCheckIcon = (props: IconProps) => {
   const { color = 'currentColor', ...restProps } = props;
   return (
-    <svg
-      width="9"
-      height="9"
-      viewBox="0 0 9 9"
-      fill={color}
-      xmlns="http://www.w3.org/2000/svg"
-      {...restProps}
-    >
+    <svg width="9" height="9" viewBox="0 0 9 9" fill={color} xmlns="http://www.w3.org/2000/svg" {...restProps}>
       <path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -29,14 +22,7 @@ ThickCheckIcon.displayName = 'ThickCheckIcon';
 const ChevronDownIcon = (props: IconProps) => {
   const { color = 'currentColor', ...restProps } = props;
   return (
-    <svg
-      width="9"
-      height="9"
-      viewBox="0 0 9 9"
-      fill={color}
-      xmlns="http://www.w3.org/2000/svg"
-      {...restProps}
-    >
+    <svg width="9" height="9" viewBox="0 0 9 9" fill={color} xmlns="http://www.w3.org/2000/svg" {...restProps}>
       <path d="M0.135232 3.15803C0.324102 2.95657 0.640521 2.94637 0.841971 3.13523L4.5 6.56464L8.158 3.13523C8.3595 2.94637 8.6759 2.95657 8.8648 3.15803C9.0536 3.35949 9.0434 3.67591 8.842 3.86477L4.84197 7.6148C4.64964 7.7951 4.35036 7.7951 4.15803 7.6148L0.158031 3.86477C-0.0434285 3.67591 -0.0536285 3.35949 0.135232 3.15803Z" />
     </svg>
   );
@@ -46,14 +32,7 @@ ChevronDownIcon.displayName = 'ChevronDownIcon';
 const ThickChevronRightIcon = (props: IconProps) => {
   const { color = 'currentColor', ...restProps } = props;
   return (
-    <svg
-      width="9"
-      height="9"
-      viewBox="0 0 9 9"
-      fill={color}
-      xmlns="http://www.w3.org/2000/svg"
-      {...restProps}
-    >
+    <svg width="9" height="9" viewBox="0 0 9 9" fill={color} xmlns="http://www.w3.org/2000/svg" {...restProps}>
       <path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -67,14 +46,7 @@ ThickChevronRightIcon.displayName = 'ThickChevronRightIcon';
 const ChevronRightIcon = (props: IconProps) => {
   const { color = 'currentColor', ...restProps } = props;
   return (
-    <svg
-      width="6"
-      height="10"
-      viewBox="0 0 6 10"
-      xmlns="http://www.w3.org/2000/svg"
-      fill={color}
-      {...restProps}
-    >
+    <svg width="6" height="10" viewBox="0 0 6 10" xmlns="http://www.w3.org/2000/svg" fill={color} {...restProps}>
       <path d="M1.25 9.625C1.07422 9.625 0.917969 9.56641 0.800781 9.44922C0.546875 9.21484 0.546875 8.80469 0.800781 8.57031L4.10156 5.25L0.800781 1.94922C0.546875 1.71484 0.546875 1.30469 0.800781 1.07031C1.03516 0.816406 1.44531 0.816406 1.67969 1.07031L5.42969 4.82031C5.68359 5.05469 5.68359 5.46484 5.42969 5.69922L1.67969 9.44922C1.5625 9.56641 1.40625 9.625 1.25 9.625Z" />
     </svg>
   );
@@ -84,14 +56,7 @@ ChevronRightIcon.displayName = 'ChevronRightIcon';
 const TriangleDownIcon = (props: IconProps) => {
   const { color = 'currentColor', ...restProps } = props;
   return (
-    <svg
-      width="6"
-      height="7"
-      viewBox="0 0 6 7"
-      fill={color}
-      xmlns="http://www.w3.org/2000/svg"
-      {...restProps}
-    >
+    <svg width="6" height="7" viewBox="0 0 6 7" fill={color} xmlns="http://www.w3.org/2000/svg" {...restProps}>
       <g>
         <path
           d="M2.40796 5.71173L0.097794 2.74247C-0.137283 2.44033 0.0780299 2 0.460851 2H5.53896C5.92178 2 6.13709 2.44033 5.90201 2.74247L3.59185 5.71173C3.29158 6.09767 2.70823 6.09767 2.40796 5.71173Z"
@@ -106,14 +71,7 @@ TriangleDownIcon.displayName = 'TriangleDownIcon';
 const InfoCircledIcon = (props: IconProps) => {
   const { color = 'currentColor', ...restProps } = props;
   return (
-    <svg
-      width="15"
-      height="15"
-      viewBox="0 0 15 15"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...restProps}
-    >
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" {...restProps}>
       <path
         d="M7.49991 0.876892C3.84222 0.876892 0.877075 3.84204 0.877075 7.49972C0.877075 11.1574 3.84222 14.1226 7.49991 14.1226C11.1576 14.1226 14.1227 11.1574 14.1227 7.49972C14.1227 3.84204 11.1576 0.876892 7.49991 0.876892ZM1.82707 7.49972C1.82707 4.36671 4.36689 1.82689 7.49991 1.82689C10.6329 1.82689 13.1727 4.36671 13.1727 7.49972C13.1727 10.6327 10.6329 13.1726 7.49991 13.1726C4.36689 13.1726 1.82707 10.6327 1.82707 7.49972ZM8.24992 4.49999C8.24992 4.9142 7.91413 5.24999 7.49992 5.24999C7.08571 5.24999 6.74992 4.9142 6.74992 4.49999C6.74992 4.08577 7.08571 3.74999 7.49992 3.74999C7.91413 3.74999 8.24992 4.08577 8.24992 4.49999ZM6.00003 5.99999H6.50003H7.50003C7.77618 5.99999 8.00003 6.22384 8.00003 6.49999V9.99999H8.50003H9.00003V11H8.50003H7.50003H6.50003H6.00003V9.99999H6.50003H7.00003V6.99999H6.50003H6.00003V5.99999Z"
         fill={color}
@@ -125,11 +83,4 @@ const InfoCircledIcon = (props: IconProps) => {
 };
 InfoCircledIcon.displayName = 'InfoCircledIcon';
 
-export {
-  ChevronDownIcon,
-  ChevronRightIcon,
-  InfoCircledIcon,
-  ThickCheckIcon,
-  ThickChevronRightIcon,
-  TriangleDownIcon,
-};
+export { ChevronDownIcon, ChevronRightIcon, InfoCircledIcon, ThickCheckIcon, ThickChevronRightIcon, TriangleDownIcon };

@@ -6,20 +6,13 @@ import * as React from 'react';
 import { extractMarginProps, withMarginProps } from '../helpers';
 import { radioButtonGroupPropDefs } from './radio-button-group.props';
 
-import type {
-  GetPropDefTypes,
-  MarginProps,
-  PropsWithoutRefOrColor,
-} from '../helpers';
+import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
 import { useIsomorphicLayoutEffect } from '../helpers/use-isomorphic-layout-effect';
 
-type RadioButtonGroupOwnProps = GetPropDefTypes<
-  typeof radioButtonGroupPropDefs
->;
+type RadioButtonGroupOwnProps = GetPropDefTypes<typeof radioButtonGroupPropDefs>;
 
 type RadioButtonGroupContextValue = RadioButtonGroupOwnProps;
-const RadioButtonGroupContext =
-  React.createContext<RadioButtonGroupContextValue>({});
+const RadioButtonGroupContext = React.createContext<RadioButtonGroupContextValue>({});
 
 interface RadioButtonGroupRootProps
   extends PropsWithoutRefOrColor<typeof RadioButtonGroupPrimitive.Root>,
@@ -46,12 +39,7 @@ const RadioButtonGroupRoot = (props: RadioButtonGroupRootProps) => {
         withMarginProps(marginProps),
       )}
     >
-      <RadioButtonGroupContext.Provider
-        value={React.useMemo(
-          () => ({ color, highContrast }),
-          [color, highContrast],
-        )}
-      >
+      <RadioButtonGroupContext.Provider value={React.useMemo(() => ({ color, highContrast }), [color, highContrast])}>
         {children}
       </RadioButtonGroupContext.Provider>
     </RadioButtonGroupPrimitive.Root>
@@ -87,9 +75,7 @@ const RadioButtonGroupItem = (props: RadioButtonGroupItemProps) => {
 };
 RadioButtonGroupItem.displayName = 'RadioButtonGroupItem';
 
-interface RadioButtonGroupIconProps
-  extends MarginProps,
-    Omit<PropsWithoutRefOrColor<'div'>, 'children'> {}
+interface RadioButtonGroupIconProps extends MarginProps, Omit<PropsWithoutRefOrColor<'div'>, 'children'> {}
 
 const RadioButtonGroupIcon = (props: RadioButtonGroupIconProps) => {
   const { color, highContrast } = React.useContext(RadioButtonGroupContext);
@@ -108,13 +94,7 @@ const RadioButtonGroupIcon = (props: RadioButtonGroupIconProps) => {
       aria-hidden
       {...itemProps}
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 20 20"
-        fill="none"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
         <path
           d="M6 10.5L8.5 13L14 7.5"
           stroke="currentColor"
@@ -139,9 +119,7 @@ const addOverlayToChildren = (children: React.ReactNode): React.ReactNode => {
     return React.cloneElement(
       child,
       {},
-      React.Children.toArray(child.props.children).concat(
-        <RadioButtonGroupOverlay />,
-      ),
+      React.Children.toArray(child.props.children).concat(<RadioButtonGroupOverlay />),
     );
   }
   return children;
@@ -154,24 +132,14 @@ const RadioButtonGroupOverlay = () => {
     const parentElement = ref.current?.parentElement;
     if (!parentElement) return;
     const parentElementComputedStyles = getComputedStyle(parentElement);
-    ref.current.style.setProperty(
-      '--parent-border-width',
-      parentElementComputedStyles.borderWidth,
-    );
-    ref.current.style.setProperty(
-      '--parent-border-radius',
-      parentElementComputedStyles.borderRadius,
-    );
+    ref.current.style.setProperty('--parent-border-width', parentElementComputedStyles.borderWidth);
+    ref.current.style.setProperty('--parent-border-radius', parentElementComputedStyles.borderRadius);
   }, [ref]);
 
   return <div ref={ref} className="fui-RadioButtonGroupOverlay" aria-hidden />;
 };
 
-export {
-  RadioButtonGroupIcon as Icon,
-  RadioButtonGroupItem as Item,
-  RadioButtonGroupRoot as Root,
-};
+export { RadioButtonGroupIcon as Icon, RadioButtonGroupItem as Item, RadioButtonGroupRoot as Root };
 export type {
   RadioButtonGroupIconProps as IconProps,
   RadioButtonGroupItemProps as ItemProps,

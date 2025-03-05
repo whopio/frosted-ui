@@ -2,31 +2,19 @@
 
 import classNames from 'classnames';
 import * as React from 'react';
-import {
-  extractMarginProps,
-  withBreakpoints,
-  withMarginProps,
-} from '../helpers';
+import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
 import { calloutRootPropDefs } from './callout.props';
 import { Text } from './text';
 import { textPropDefs } from './text.props';
 
-import type {
-  ExtractPropsForTag,
-  GetPropDefTypes,
-  MarginProps,
-  PropsWithoutRefOrColor,
-} from '../helpers';
+import type { ExtractPropsForTag, GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
 
 type CalloutRootOwnProps = GetPropDefTypes<typeof calloutRootPropDefs>;
 
 type CalloutContextValue = CalloutRootOwnProps;
 const CalloutContext = React.createContext<CalloutContextValue>({});
 
-interface CalloutRootProps
-  extends PropsWithoutRefOrColor<'div'>,
-    MarginProps,
-    CalloutContextValue {}
+interface CalloutRootProps extends PropsWithoutRefOrColor<'div'>, MarginProps, CalloutContextValue {}
 
 const CalloutRoot = (props: CalloutRootProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
@@ -53,10 +41,7 @@ const CalloutRoot = (props: CalloutRootProps) => {
       )}
     >
       <CalloutContext.Provider
-        value={React.useMemo(
-          () => ({ size, color, highContrast }),
-          [size, color, highContrast],
-        )}
+        value={React.useMemo(() => ({ size, color, highContrast }), [size, color, highContrast])}
       >
         {children}
       </CalloutContext.Provider>
@@ -70,16 +55,8 @@ interface CalloutIconProps extends PropsWithoutRefOrColor<'div'> {}
 const CalloutIcon = (props: CalloutIconProps) => {
   const { color, size, highContrast } = React.useContext(CalloutContext);
   return (
-    <Text
-      asChild
-      color={color}
-      size={getTextSize(size)}
-      highContrast={highContrast}
-    >
-      <div
-        {...props}
-        className={classNames('fui-CalloutIcon', props.className)}
-      />
+    <Text asChild color={color} size={getTextSize(size)} highContrast={highContrast}>
+      <div {...props} className={classNames('fui-CalloutIcon', props.className)} />
     </Text>
   );
 };
@@ -102,19 +79,12 @@ const CalloutText = (props: CalloutTextProps) => {
 };
 CalloutText.displayName = 'CalloutText';
 
-function getTextSize(
-  size: CalloutRootOwnProps['size'],
-): React.ComponentProps<typeof Text>['size'] {
+function getTextSize(size: CalloutRootOwnProps['size']): React.ComponentProps<typeof Text>['size'] {
   if (size === undefined) return undefined;
   if (typeof size === 'string') {
     return getNonResponsiveTextSize(size);
   }
-  return Object.fromEntries(
-    Object.entries(size).map(([key, value]) => [
-      key,
-      getNonResponsiveTextSize(value),
-    ]),
-  );
+  return Object.fromEntries(Object.entries(size).map(([key, value]) => [key, getNonResponsiveTextSize(value)]));
 }
 function getNonResponsiveTextSize(
   size: (typeof calloutRootPropDefs.size.values)[number],
@@ -123,8 +93,4 @@ function getNonResponsiveTextSize(
 }
 
 export { CalloutIcon as Icon, CalloutRoot as Root, CalloutText as Text };
-export type {
-  CalloutIconProps as IconProps,
-  CalloutRootProps as RootProps,
-  CalloutTextProps as TextProps,
-};
+export type { CalloutIconProps as IconProps, CalloutRootProps as RootProps, CalloutTextProps as TextProps };

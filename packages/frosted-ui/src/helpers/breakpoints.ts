@@ -38,10 +38,7 @@ function withBreakpoints(
 
         const suffix = valueMap?.[matchedValue] ?? matchedValue;
 
-        const className =
-          bp === 'initial'
-            ? `${prefix}${delimiter}${suffix}`
-            : `${bp}:${prefix}${delimiter}${suffix}`;
+        const className = bp === 'initial' ? `${prefix}${delimiter}${suffix}` : `${bp}:${prefix}${delimiter}${suffix}`;
 
         classes.push(className);
       }

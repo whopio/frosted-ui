@@ -5,22 +5,13 @@ import { extractMarginProps, withMarginProps } from '../../helpers';
 import { breadcrumbsPropDefs } from './breadcrumbs.props';
 
 import { Button, DropdownMenu, Text } from '../';
-import type {
-  GetPropDefTypes,
-  MarginProps,
-  PropsWithoutRefOrColor,
-} from '../../helpers';
+import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../../helpers';
 import { ChevronRightIcon } from '../../icons';
 
-type BreadcrumbsRootChildrenTypes = React.ReactElement<
-  BreadcrumbsItemProps | BreadcrumbsDropdownProps
->;
+type BreadcrumbsRootChildrenTypes = React.ReactElement<BreadcrumbsItemProps | BreadcrumbsDropdownProps>;
 
 type BreadcrumbsRootOwnProps = GetPropDefTypes<typeof breadcrumbsPropDefs>;
-interface BreadcrumbsRootProps
-  extends PropsWithoutRefOrColor<'nav'>,
-    MarginProps,
-    BreadcrumbsRootOwnProps {
+interface BreadcrumbsRootProps extends PropsWithoutRefOrColor<'nav'>, MarginProps, BreadcrumbsRootOwnProps {
   asChild?: boolean;
 }
 
@@ -41,98 +32,64 @@ const BreadcrumbsRoot = (props: BreadcrumbsRootProps) => {
     <Comp
       data-accent-color={color}
       {...baseButtonProps}
-      className={classNames(
-        'fui-BreadcrumbsRoot',
-        className,
-        withMarginProps(marginProps),
-      )}
+      className={classNames('fui-BreadcrumbsRoot', className, withMarginProps(marginProps))}
     >
-      {React.Children.map(
-        children as BreadcrumbsRootChildrenTypes,
-        (child, index) => {
-          const isLastItem = index === count - 1;
+      {React.Children.map(children as BreadcrumbsRootChildrenTypes, (child, index) => {
+        const isLastItem = index === count - 1;
 
-          const separator = (
-            <ChevronRightIcon className="fui-BreadcrumbsSeparator" />
+        const separator = <ChevronRightIcon className="fui-BreadcrumbsSeparator" />;
+        if (isLastItem && !child.props.onClick) {
+          return (
+            <>
+              {index > 0 ? separator : null}
+              <Text
+                as="div"
+                data-accent-color={color}
+                size={'1'}
+                highContrast={highContrast}
+                children={child.props.children}
+                className={classNames('fui-reset', 'fui-BreadcrumbsLastItem', child.props.className)}
+              />
+            </>
           );
-          if (isLastItem && !child.props.onClick) {
-            return (
-              <>
-                {index > 0 ? separator : null}
-                <Text
-                  as="div"
-                  data-accent-color={color}
-                  size={'1'}
-                  highContrast={highContrast}
-                  children={child.props.children}
-                  className={classNames(
-                    'fui-reset',
-                    'fui-BreadcrumbsLastItem',
-                    child.props.className,
-                  )}
-                />
-              </>
-            );
-          } else {
-            const breadcrumbChild = React.cloneElement(child, {
-              highContrast,
-              color,
-              ...child.props,
-            });
-            return (
-              <>
-                {index > 0 ? separator : null}
-                {breadcrumbChild}
-              </>
-            );
-          }
-        },
-      )}
+        } else {
+          const breadcrumbChild = React.cloneElement(child, {
+            highContrast,
+            color,
+            ...child.props,
+          });
+          return (
+            <>
+              {index > 0 ? separator : null}
+              {breadcrumbChild}
+            </>
+          );
+        }
+      })}
     </Comp>
   );
 };
 BreadcrumbsRoot.displayName = 'BreadcrumbsRoot';
 
-interface BreadcrumbsItemProps
-  extends Omit<
-    React.ComponentPropsWithoutRef<typeof Button>,
-    'variant' | 'size'
-  > {}
+interface BreadcrumbsItemProps extends Omit<React.ComponentPropsWithoutRef<typeof Button>, 'variant' | 'size'> {}
 
 const BreadcrumbsItem = (props: BreadcrumbsItemProps) => (
-  <Button
-    {...props}
-    size="1"
-    variant={'ghost'}
-    className={classNames('fui-BreadcrumbsItem', props.className)}
-  />
+  <Button {...props} size="1" variant={'ghost'} className={classNames('fui-BreadcrumbsItem', props.className)} />
 );
 
 BreadcrumbsItem.displayName = 'BreadcrumbsItem';
 
 interface BreadcrumbsDropdownProps
-  extends Omit<
-    React.ComponentPropsWithoutRef<typeof DropdownMenu.Content>,
-    'variant' | 'size'
-  > {}
+  extends Omit<React.ComponentPropsWithoutRef<typeof DropdownMenu.Content>, 'variant' | 'size'> {}
 
-const BreadcrumbsDropdown = ({
-  color,
-  highContrast,
-  ...props
-}: BreadcrumbsDropdownProps) => (
+const BreadcrumbsDropdown = ({ color, highContrast, ...props }: BreadcrumbsDropdownProps) => (
   <DropdownMenu.Root>
     <DropdownMenu.Trigger>
       <BreadcrumbsItem color={color} highContrast={highContrast}>
         ...
       </BreadcrumbsItem>
     </DropdownMenu.Trigger>
-    <DropdownMenu.Content
-      {...props}
-      size="2"
-      color={color}
-      highContrast={highContrast}
-    >
+    <DropdownMenu.Content {...props} size="2" color={color} highContrast={highContrast}>
       {props.children}
     </DropdownMenu.Content>
   </DropdownMenu.Root>
@@ -141,14 +98,9 @@ const BreadcrumbsDropdown = ({
 BreadcrumbsDropdown.displayName = 'BreadcrumbsDropdown';
 
 interface BreadcrumbsDropdownItemProps
-  extends Omit<
-    React.ComponentPropsWithoutRef<typeof DropdownMenu.Item>,
-    'color'
-  > {}
+  extends Omit<React.ComponentPropsWithoutRef<typeof DropdownMenu.Item>, 'color'> {}
 
-const BreadcrumbsDropdownItem = (props: BreadcrumbsDropdownItemProps) => (
-  <DropdownMenu.Item {...props} />
-);
+const BreadcrumbsDropdownItem = (props: BreadcrumbsDropdownItemProps) => <DropdownMenu.Item {...props} />;
 
 BreadcrumbsDropdownItem.displayName = 'BreadcrumbsDropdownItem';
 

@@ -1,12 +1,7 @@
 import type { PropDef } from '../helpers';
 
 const displayValues = ['none', 'inline-flex', 'flex'] as const;
-const directionValues = [
-  'row',
-  'column',
-  'row-reverse',
-  'column-reverse',
-] as const;
+const directionValues = ['row', 'column', 'row-reverse', 'column-reverse'] as const;
 const alignValues = ['start', 'center', 'end', 'baseline', 'stretch'] as const;
 const justifyValues = ['start', 'center', 'end', 'between'] as const;
 const wrapValues = ['nowrap', 'wrap', 'wrap-reverse'] as const;

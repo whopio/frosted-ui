@@ -1,11 +1,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
-import {
-  dataListItemPropDefs,
-  dataListLabelPropDefs,
-  dataListRootPropDefs,
-} from './data-list.props';
+import { dataListItemPropDefs, dataListLabelPropDefs, dataListRootPropDefs } from './data-list.props';
 import { Text } from './text';
 
 import {
@@ -18,10 +14,7 @@ import {
 } from '../helpers';
 
 type DataListRootOwnProps = GetPropDefTypes<typeof dataListRootPropDefs>;
-interface DataListRootProps
-  extends PropsWithoutRefOrColor<'dl'>,
-    MarginProps,
-    DataListRootOwnProps {}
+interface DataListRootProps extends PropsWithoutRefOrColor<'dl'>, MarginProps, DataListRootOwnProps {}
 
 const DataListRoot = (props: DataListRootProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
@@ -53,34 +46,22 @@ const DataListRoot = (props: DataListRootProps) => {
 DataListRoot.displayName = 'DataList.Root';
 
 type DataListItemOwnProps = GetPropDefTypes<typeof dataListItemPropDefs>;
-interface DataListItemProps
-  extends PropsWithoutRefOrColor<'div'>,
-    DataListItemOwnProps {}
+interface DataListItemProps extends PropsWithoutRefOrColor<'div'>, DataListItemOwnProps {}
 
 const DataListItem = (props: DataListItemProps) => {
-  const {
-    className,
-    align = dataListItemPropDefs.align.default,
-    ...dataListItemProps
-  } = props;
+  const { className, align = dataListItemPropDefs.align.default, ...dataListItemProps } = props;
 
   return (
     <div
       {...dataListItemProps}
-      className={classNames(
-        'fui-DataListItem',
-        withBreakpoints(align, 'fui-r-ai'),
-        className,
-      )}
+      className={classNames('fui-DataListItem', withBreakpoints(align, 'fui-r-ai'), className)}
     />
   );
 };
 DataListItem.displayName = 'DataList.Item';
 
 type DataListLabelOwnProps = GetPropDefTypes<typeof dataListLabelPropDefs>;
-interface DataListLabelProps
-  extends PropsWithoutRefOrColor<'dt'>,
-    DataListLabelOwnProps {}
+interface DataListLabelProps extends PropsWithoutRefOrColor<'dt'>, DataListLabelOwnProps {}
 
 const DataListLabel = (props: DataListLabelProps) => {
   const {
@@ -94,11 +75,7 @@ const DataListLabel = (props: DataListLabelProps) => {
     <dt
       {...dataListLabelProps}
       data-accent-color={color}
-      className={classNames(
-        'fui-DataListLabel',
-        { 'fui-high-contrast': highContrast },
-        className,
-      )}
+      className={classNames('fui-DataListLabel', { 'fui-high-contrast': highContrast }, className)}
     />
   );
 };
@@ -106,23 +83,14 @@ DataListLabel.displayName = 'DataList.Label';
 
 interface DataListValueProps extends React.ComponentPropsWithoutRef<'dd'> {}
 
-const DataListValue = ({
-  children,
-  className,
-  ...props
-}: DataListValueProps) => (
+const DataListValue = ({ children, className, ...props }: DataListValueProps) => (
   <dd {...props} className={classNames(className, 'fui-DataListValue')}>
     {children}
   </dd>
 );
 DataListValue.displayName = 'DataList.Value';
 
-export {
-  DataListItem as Item,
-  DataListLabel as Label,
-  DataListRoot as Root,
-  DataListValue as Value,
-};
+export { DataListItem as Item, DataListLabel as Label, DataListRoot as Root, DataListValue as Value };
 export type {
   DataListItemProps as ItemProps,
   DataListLabelProps as LabelProps,

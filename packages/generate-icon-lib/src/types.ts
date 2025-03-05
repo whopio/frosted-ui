@@ -76,7 +76,5 @@ interface ErrorResponse {
 }
 export type IFigmaCanvas = Canvas;
 export type IFigmaDocument = Document;
-export interface IFigmaFileImageResponse
-  extends Omit<FileImageResponse, 'err' | 'status'>,
-    ErrorResponse {}
+export interface IFigmaFileImageResponse extends Omit<FileImageResponse, 'err' | 'status'>, ErrorResponse {}
 export interface IFigmaFileResponse extends FileResponse, ErrorResponse {}

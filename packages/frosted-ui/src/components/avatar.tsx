@@ -3,25 +3,14 @@
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
 import classNames from 'classnames';
 import * as React from 'react';
-import {
-  extractMarginProps,
-  withBreakpoints,
-  withMarginProps,
-} from '../helpers';
+import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
 import { avatarPropDefs } from './avatar.props';
 
-import type {
-  GetPropDefTypes,
-  MarginProps,
-  PropsWithoutRefOrColor,
-} from '../helpers';
+import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
 import { getInitials } from '../helpers/get-initials';
 
 type AvatarOwnProps = GetPropDefTypes<typeof avatarPropDefs>;
-interface AvatarProps
-  extends PropsWithoutRefOrColor<typeof AvatarPrimitive.Image>,
-    MarginProps,
-    AvatarOwnProps {
+interface AvatarProps extends PropsWithoutRefOrColor<typeof AvatarPrimitive.Image>, MarginProps, AvatarOwnProps {
   // TODO: See if we can automate making prop defs with `required: true` non nullable
   fallback: NonNullable<AvatarOwnProps['fallback']>;
 }
@@ -66,17 +55,13 @@ const Avatar = (props: AvatarProps) => {
       )}
       style={style}
     >
-      {status === 'idle' || status === 'loading' ? (
-        <span className="fui-AvatarFallback" />
-      ) : null}
+      {status === 'idle' || status === 'loading' ? <span className="fui-AvatarFallback" /> : null}
 
       {status === 'error' ? (
         <AvatarPrimitive.Fallback
           className={classNames('fui-AvatarFallback', {
-            'fui-one-letter':
-              typeof fallback === 'string' && fallback.length === 1,
-            'fui-two-letters':
-              typeof fallback === 'string' && fallback.length === 2,
+            'fui-one-letter': typeof fallback === 'string' && fallback.length === 1,
+            'fui-two-letters': typeof fallback === 'string' && fallback.length === 2,
           })}
           delayMs={0}
         >

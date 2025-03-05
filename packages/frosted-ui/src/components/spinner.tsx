@@ -1,24 +1,13 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import {
-  extractMarginProps,
-  withBreakpoints,
-  withMarginProps,
-} from '../helpers/index';
+import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers/index';
 import { Flex } from './flex';
 import { spinnerPropDefs } from './spinner.props';
 
-import type {
-  GetPropDefTypes,
-  MarginProps,
-  PropsWithoutRefOrColor,
-} from '../helpers/index';
+import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers/index';
 
 type SpinnerOwnProps = GetPropDefTypes<typeof spinnerPropDefs>;
-interface SpinnerProps
-  extends PropsWithoutRefOrColor<'span'>,
-    MarginProps,
-    SpinnerOwnProps {}
+interface SpinnerProps extends PropsWithoutRefOrColor<'span'>, MarginProps, SpinnerOwnProps {}
 
 const Spinner = (props: SpinnerProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
@@ -73,13 +62,7 @@ const Spinner = (props: SpinnerProps) => {
           {children}
         </span>
 
-        <Flex
-          asChild
-          align="center"
-          justify="center"
-          position="absolute"
-          inset="0"
-        >
+        <Flex asChild align="center" justify="center" position="absolute" inset="0">
           <span>{spinner}</span>
         </Flex>
       </span>

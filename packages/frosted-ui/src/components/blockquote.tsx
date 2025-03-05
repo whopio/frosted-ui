@@ -6,18 +6,12 @@ import { Text } from './text';
 import type { GetPropDefTypes, PropsWithoutRefOrColor } from '../helpers';
 
 type BlockQuoteOwnProps = GetPropDefTypes<typeof blockquotePropDefs>;
-interface BlockquoteProps
-  extends PropsWithoutRefOrColor<'blockquote'>,
-    BlockQuoteOwnProps {}
+interface BlockquoteProps extends PropsWithoutRefOrColor<'blockquote'>, BlockQuoteOwnProps {}
 
 const Blockquote = (props: BlockquoteProps) => {
   const { children, className, ...blockquoteProps } = props;
   return (
-    <Text
-      asChild
-      {...blockquoteProps}
-      className={classNames('fui-Blockquote', className)}
-    >
+    <Text asChild {...blockquoteProps} className={classNames('fui-Blockquote', className)}>
       <blockquote>{children}</blockquote>
     </Text>
   );

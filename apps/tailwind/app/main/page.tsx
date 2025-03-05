@@ -1,8 +1,4 @@
-import {
-  ArrowLeftIcon,
-  ArrowRightIcon,
-  ChevronRightIcon,
-} from '@radix-ui/react-icons';
+import { ArrowLeftIcon, ArrowRightIcon, ChevronRightIcon } from '@radix-ui/react-icons';
 import {
   Avatar,
   Box,
@@ -37,10 +33,7 @@ export default function Dashboard() {
           <div id="root" className="w-full bg-gray-1">
             <ThemePanel />
             <header className="sticky top-0 backdrop-blur-lg z-10 backdrop-saturate-150">
-              <div
-                className="absolute inset-0 bg-panel-translucent -z-[1]"
-                style={{ filter: 'url(#myFilter' }}
-              />
+              <div className="absolute inset-0 bg-panel-translucent -z-[1]" style={{ filter: 'url(#myFilter' }} />
               <Container size="4">
                 <Box>
                   <div className="py-4 flex items-center">
@@ -59,9 +52,7 @@ export default function Dashboard() {
                         <Tabs.Trigger value="Trading">Trading</Tabs.Trigger>
                         <Tabs.Trigger value="Sports">Sports</Tabs.Trigger>
                         <Tabs.Trigger value="picks">picks</Tabs.Trigger>
-                        <Tabs.Trigger value="E-commerce">
-                          E-commerce
-                        </Tabs.Trigger>
+                        <Tabs.Trigger value="E-commerce">E-commerce</Tabs.Trigger>
                         <Tabs.Trigger value="Life">Life</Tabs.Trigger>
                         <Tabs.Trigger value="hacks">hacks</Tabs.Trigger>
                         <Tabs.Trigger value="Business">Business</Tabs.Trigger>
@@ -70,12 +61,7 @@ export default function Dashboard() {
                   </div>
                 </Box>
               </Container>
-              <Separator
-                color="gray"
-                orientation="horizontal"
-                size="4"
-                className="relative z-[1]"
-              />
+              <Separator color="gray" orientation="horizontal" size="4" className="relative z-[1]" />
             </header>
             <Container size="4">
               <div className="pt-[120px] flex flex-nowrap">
@@ -84,8 +70,7 @@ export default function Dashboard() {
                     A marketplace for really cool internet products.
                   </Heading>
                   <Text as="p" color="gray" size="5" mt="4">
-                    Entrepreneurial communities and software to help you earn
-                    online.
+                    Entrepreneurial communities and software to help you earn online.
                   </Text>
                   <Tooltip content="This is a tooltip">
                     <Button variant="classic" size="4" mt="6">
@@ -104,8 +89,7 @@ export default function Dashboard() {
                   <div
                     className="flex flex-col gap-3 mt-4"
                     style={{
-                      WebkitMaskImage:
-                        'linear-gradient(175deg, black, transparent)',
+                      WebkitMaskImage: 'linear-gradient(175deg, black, transparent)',
                     }}
                   >
                     <ActivityCard title="Goat Sports Club" />
@@ -178,11 +162,7 @@ export default function Dashboard() {
         <svg>
           <defs>
             <filter id="myFilter">
-              <feTurbulence
-                type="fractalNoise"
-                baseFrequency="0.55"
-                numOctaves="2"
-              />
+              <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="2" />
               <feComponentTransfer>
                 <feFuncA type="linear" slope="89" intercept="-15" />
               </feComponentTransfer>
@@ -215,10 +195,7 @@ const GalleryCard = ({ title }: { title: string }) => {
   return (
     <Card variant="classic" size="2" className="w-[400px]">
       <Inset side="top" pb="current">
-        <img
-          src="https://picsum.photos/seed/picsum/200/300"
-          className="w-full h-[160px]"
-        />
+        <img src="https://picsum.photos/seed/picsum/200/300" className="w-full h-[160px]" />
       </Inset>
       <div className="flex items-center gap-4">
         <Avatar size="3" fallback="AB" />

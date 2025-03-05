@@ -136,8 +136,7 @@
 
   .fui-DialogOverlay {
     &::after {
-      backdrop-filter: blur(var(--overlay-blur))
-        brightness(var(--overlay-brightness));
+      backdrop-filter: blur(var(--overlay-blur)) brightness(var(--overlay-brightness));
     }
     /* Keep the overlay mounted until the children have animated */
     &:where([data-state='closed']) {

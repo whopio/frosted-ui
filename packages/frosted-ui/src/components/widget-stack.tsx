@@ -5,11 +5,7 @@ import * as React from 'react';
 import { extractMarginProps, withMarginProps } from '../helpers';
 
 import { Slot } from '@radix-ui/react-slot';
-import type {
-  GetPropDefTypes,
-  MarginProps,
-  PropsWithoutRefOrColor,
-} from '../helpers';
+import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
 import { useIsomorphicLayoutEffect } from '../helpers/use-isomorphic-layout-effect';
 import { widgetStackRootPropDefs } from './widget-stack.props';
 
@@ -64,14 +60,7 @@ export function useWidgetStack() {
   if (context === undefined) {
     throw new Error('WidgetStackContext must be used within a WidgetStackRoot');
   }
-  const {
-    nextDisabled,
-    prevDisabled,
-    currentWidgetIndex,
-    widgetsCount,
-    setDisableAutoPlay,
-    controls,
-  } = context;
+  const { nextDisabled, prevDisabled, currentWidgetIndex, widgetsCount, setDisableAutoPlay, controls } = context;
 
   const widgetStackContext = React.useMemo(() => {
     return {
@@ -96,19 +85,11 @@ export function useWidgetStack() {
       currentWidgetIndex: currentWidgetIndex,
       widgetsCount: widgetsCount,
     };
-  }, [
-    nextDisabled,
-    prevDisabled,
-    currentWidgetIndex,
-    widgetsCount,
-    setDisableAutoPlay,
-    controls,
-  ]);
+  }, [nextDisabled, prevDisabled, currentWidgetIndex, widgetsCount, setDisableAutoPlay, controls]);
 
   return widgetStackContext;
 }
-interface WidgetStackRootProps
-  extends GetPropDefTypes<typeof widgetStackRootPropDefs> {
+interface WidgetStackRootProps extends GetPropDefTypes<typeof widgetStackRootPropDefs> {
   children: React.ReactNode;
   autoPlay?: number;
 }
@@ -151,9 +132,7 @@ const WidgetStackRoot: React.FC<WidgetStackRootProps> = ({
 };
 WidgetStackRoot.displayName = 'WidgetStackRoot';
 
-interface WidgetStackStackProps
-  extends PropsWithoutRefOrColor<'div'>,
-    MarginProps {
+interface WidgetStackStackProps extends PropsWithoutRefOrColor<'div'>, MarginProps {
   asChild?: boolean;
 }
 
@@ -258,9 +237,7 @@ const WidgetStackStack = (props: WidgetStackStackProps) => {
       const items = Array.from(scrollAreaElement.children);
 
       let scrollToIndex =
-        directionRef.current === 'forward'
-          ? currentWidgetIndexRef.current + 1
-          : currentWidgetIndexRef.current - 1;
+        directionRef.current === 'forward' ? currentWidgetIndexRef.current + 1 : currentWidgetIndexRef.current - 1;
       if (scrollToIndex < 0) {
         scrollToIndex = 1;
         directionRef.current = 'forward';
@@ -288,15 +265,11 @@ const WidgetStackStack = (props: WidgetStackStackProps) => {
       const items = Array.from(scrollAreaElement.children) as HTMLElement[];
 
       items.forEach((item) => {
-        const targetScrollPosition =
-          orientation === 'vertical' ? item.offsetTop : item.offsetLeft;
+        const targetScrollPosition = orientation === 'vertical' ? item.offsetTop : item.offsetLeft;
 
         const itemHeight = item.clientHeight;
 
-        const scrollPosition =
-          orientation === 'vertical'
-            ? scrollAreaElement.scrollTop
-            : scrollAreaElement.scrollLeft;
+        const scrollPosition = orientation === 'vertical' ? scrollAreaElement.scrollTop : scrollAreaElement.scrollLeft;
 
         const dist = Math.abs(targetScrollPosition - scrollPosition);
         const ratio = 1 - Math.min(dist / itemHeight, 1);
@@ -353,9 +326,7 @@ const WidgetStackStack = (props: WidgetStackStackProps) => {
       },
     );
 
-    Array.from(scrollAreaElement.children).forEach((child) =>
-      observer.observe(child),
-    );
+    Array.from(scrollAreaElement.children).forEach((child) => observer.observe(child));
 
     return () => {
       observer.disconnect();
@@ -365,19 +336,11 @@ const WidgetStackStack = (props: WidgetStackStackProps) => {
   return (
     <div
       {...rootProps}
-      className={classNames(
-        'fui-WidgetStackStack',
-        withMarginProps(marginProps),
-        className,
-      )}
+      className={classNames('fui-WidgetStackStack', withMarginProps(marginProps), className)}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      <div
-        className="fui-WidgetStackScrollArea"
-        data-orientation={orientation}
-        ref={scrollAreaRef}
-      >
+      <div className="fui-WidgetStackScrollArea" data-orientation={orientation} ref={scrollAreaRef}>
         {children}
       </div>
     </div>
@@ -394,16 +357,12 @@ const WidgetStackItemContext = React.createContext<{
 export function useWidgetStackItem() {
   const context = React.useContext(WidgetStackItemContext);
   if (context === undefined) {
-    throw new Error(
-      'WidgetStackItemContext must be used within a WidgetStackItem',
-    );
+    throw new Error('WidgetStackItemContext must be used within a WidgetStackItem');
   }
   return context;
 }
 
-interface WidgetStackItemProps
-  extends React.ComponentPropsWithoutRef<'div'>,
-    MarginProps {}
+interface WidgetStackItemProps extends React.ComponentPropsWithoutRef<'div'>, MarginProps {}
 
 const WidgetStackItem = (props: WidgetStackItemProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
@@ -442,11 +401,7 @@ const WidgetStackItem = (props: WidgetStackItemProps) => {
       <div
         {...rootProps}
         ref={ref}
-        className={classNames(
-          'fui-WidgetStackItem',
-          className,
-          withMarginProps(marginProps),
-        )}
+        className={classNames('fui-WidgetStackItem', className, withMarginProps(marginProps))}
         role="group"
         aria-roledescription="slide"
         data-fully-visible={isFullyVisible ? 'true' : undefined}
@@ -455,9 +410,7 @@ const WidgetStackItem = (props: WidgetStackItemProps) => {
         // @ts-ignore
         inert={isFullyVisible ? undefined : ''}
       >
-        <div className={classNames('fui-WidgetStackItemContent')}>
-          {children}
-        </div>
+        <div className={classNames('fui-WidgetStackItemContent')}>{children}</div>
       </div>
     </WidgetStackItemContext.Provider>
   );
@@ -466,10 +419,7 @@ const WidgetStackItem = (props: WidgetStackItemProps) => {
 WidgetStackItem.displayName = 'WidgetStackItem';
 
 interface WidgetStackNextProps
-  extends Omit<
-    React.ComponentPropsWithoutRef<'button'>,
-    'asChild' | 'disabled' | 'onClick'
-  > {}
+  extends Omit<React.ComponentPropsWithoutRef<'button'>, 'asChild' | 'disabled' | 'onClick'> {}
 
 const WidgetStackNext = (props: WidgetStackNextProps) => {
   const { nextDisabled, controls } = useWidgetStack();
@@ -488,10 +438,7 @@ const WidgetStackNext = (props: WidgetStackNextProps) => {
 WidgetStackNext.displayName = 'WidgetStackNext';
 
 interface WidgetStackPrevProps
-  extends Omit<
-    React.ComponentPropsWithoutRef<'button'>,
-    'asChild' | 'disabled' | 'onClick'
-  > {}
+  extends Omit<React.ComponentPropsWithoutRef<'button'>, 'asChild' | 'disabled' | 'onClick'> {}
 
 const WidgetStackPrev = (props: WidgetStackPrevProps) => {
   const { prevDisabled, controls } = useWidgetStack();

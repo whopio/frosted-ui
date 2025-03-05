@@ -3,18 +3,10 @@
 import * as SliderPrimitive from '@radix-ui/react-slider';
 import classNames from 'classnames';
 import * as React from 'react';
-import {
-  extractMarginProps,
-  withBreakpoints,
-  withMarginProps,
-} from '../helpers';
+import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
 import { sliderPropDefs } from './slider.props';
 
-import type {
-  GetPropDefTypes,
-  MarginProps,
-  PropsWithoutRefOrColor,
-} from '../helpers';
+import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
 
 type SliderOwnProps = GetPropDefTypes<typeof sliderPropDefs>;
 interface SliderProps
@@ -54,15 +46,13 @@ const Slider = (props: SliderProps) => {
           data-inverted={sliderProps.inverted ? '' : undefined}
         />
       </SliderPrimitive.Track>
-      {(sliderProps.value ?? sliderProps.defaultValue ?? []).map(
-        (value, index) => (
-          <SliderPrimitive.Thumb
-            key={index}
-            className="fui-SliderThumb"
-            {...(tabIndex !== undefined ? { tabIndex } : undefined)}
-          />
-        ),
-      )}
+      {(sliderProps.value ?? sliderProps.defaultValue ?? []).map((value, index) => (
+        <SliderPrimitive.Thumb
+          key={index}
+          className="fui-SliderThumb"
+          {...(tabIndex !== undefined ? { tabIndex } : undefined)}
+        />
+      ))}
     </SliderPrimitive.Root>
   );
 };

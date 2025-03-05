@@ -3,18 +3,10 @@
 import * as SwitchPrimitive from '@radix-ui/react-switch';
 import classNames from 'classnames';
 import * as React from 'react';
-import {
-  extractMarginProps,
-  withBreakpoints,
-  withMarginProps,
-} from '../helpers';
+import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
 import { switchPropDefs } from './switch.props';
 
-import type {
-  GetPropDefTypes,
-  MarginProps,
-  PropsWithoutRefOrColor,
-} from '../helpers';
+import type { GetPropDefTypes, MarginProps, PropsWithoutRefOrColor } from '../helpers';
 
 type SwitchOwnProps = GetPropDefTypes<typeof switchPropDefs>;
 interface SwitchProps
