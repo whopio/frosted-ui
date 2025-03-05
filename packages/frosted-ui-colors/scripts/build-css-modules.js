@@ -22,9 +22,7 @@ Object.keys(allColorScales)
       selector = '.dark, .dark-theme';
     }
 
-    const srgbValues = Object.entries(allColorScales).find(
-      ([name]) => name === key,
-    )[1];
+    const srgbValues = Object.entries(allColorScales).find(([name]) => name === key)[1];
 
     const srgbCssProperties = Object.entries(srgbValues)
       .map(([name, value]) => [toCssCasing(name), value])
@@ -46,10 +44,7 @@ Object.keys(allColorScales)
     p3CssRule = `  ${matchesP3MediaRule} {\n${p3CssRule}\n  }`;
     p3CssRule = `${supportsP3AtRule} {\n${p3CssRule}\n}`;
 
-    fs.writeFileSync(
-      path.join(outputDir, toFileName(key) + '.css'),
-      `${srgbCssRule}\n\n${p3CssRule}`,
-    );
+    fs.writeFileSync(path.join(outputDir, toFileName(key) + '.css'), `${srgbCssRule}\n\n${p3CssRule}`);
   });
 
 function toCssCasing(str) {

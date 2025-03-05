@@ -1,7 +1,5 @@
 {
-  "include": [
-    "src/**/*"
-  ],
+  "include": ["src/**/*"],
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
@@ -17,10 +15,7 @@
     "declaration": true,
     "jsx": "react",
     "paths": {
-      "*": [
-        "node_modules/*",
-        "src/types/*"
-      ]
+      "*": ["node_modules/*", "src/types/*"]
     }
   }
 }

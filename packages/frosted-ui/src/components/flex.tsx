@@ -1,27 +1,17 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import {
-  extractLayoutProps,
-  extractMarginProps,
-  withBreakpoints,
-  withLayoutProps,
-  withMarginProps,
-} from '../helpers';
+import { extractLayoutProps, extractMarginProps, withBreakpoints, withLayoutProps, withMarginProps } from '../helpers';
 import { flexPropDefs } from './flex.props';
 import { Slot } from './slot';
 
-import type { GetPropDefTypes, LayoutProps, MarginProps } from '../helpers';
+import type { GetPropDefTypes, LayoutProps, MarginProps, PropsWithoutRefOrColor } from '../helpers';
 
-type FlexElement = React.ElementRef<'div'>;
 type FlexOwnProps = GetPropDefTypes<typeof flexPropDefs>;
-interface FlexProps
-  extends React.ComponentPropsWithoutRef<'div'>,
-    MarginProps,
-    LayoutProps,
-    FlexOwnProps {
+interface FlexProps extends PropsWithoutRefOrColor<'div'>, MarginProps, LayoutProps, FlexOwnProps {
   asChild?: boolean;
 }
-const Flex = React.forwardRef<FlexElement, FlexProps>((props, forwardedRef) => {
+
+const Flex = (props: FlexProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const { rest: layoutRest, ...layoutProps } = extractLayoutProps(marginRest);
   const {
@@ -39,7 +29,6 @@ const Flex = React.forwardRef<FlexElement, FlexProps>((props, forwardedRef) => {
   return (
     <Comp
       {...flexProps}
-      ref={forwardedRef}
       className={classNames(
         'fui-Flex',
         className,
@@ -54,7 +43,7 @@ const Flex = React.forwardRef<FlexElement, FlexProps>((props, forwardedRef) => {
       )}
     />
   );
-});
+};
 Flex.displayName = 'Flex';
 
 export { Flex };

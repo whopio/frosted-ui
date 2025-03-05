@@ -1,24 +1,17 @@
 import { Slot } from '@radix-ui/react-slot';
 import classNames from 'classnames';
 import * as React from 'react';
-import {
-  extractMarginProps,
-  withBreakpoints,
-  withMarginProps,
-} from '../helpers';
+import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
 import { cardPropDefs } from './card.props';
 
 import type { GetPropDefTypes, MarginProps } from '../helpers';
 
-type CardElement = React.ElementRef<'div'>;
 type CardOwnProps = GetPropDefTypes<typeof cardPropDefs>;
-interface CardProps
-  extends React.ComponentPropsWithoutRef<'div'>,
-    MarginProps,
-    CardOwnProps {
+interface CardProps extends React.ComponentPropsWithoutRef<'div'>, MarginProps, CardOwnProps {
   asChild?: boolean;
 }
-const Card = React.forwardRef<CardElement, CardProps>((props, forwardedRef) => {
+
+const Card = (props: CardProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     asChild,
@@ -33,15 +26,12 @@ const Card = React.forwardRef<CardElement, CardProps>((props, forwardedRef) => {
   function getChild() {
     const firstChild = React.Children.only(children) as React.ReactElement;
     return React.cloneElement(firstChild, {
-      children: (
-        <div className="fui-CardInner">{firstChild.props.children}</div>
-      ),
+      children: <div className="fui-CardInner">{firstChild.props.children}</div>,
     });
   }
 
   return (
     <Comp
-      ref={forwardedRef}
       {...cardProps}
       className={classNames(
         'fui-reset',
@@ -55,7 +45,7 @@ const Card = React.forwardRef<CardElement, CardProps>((props, forwardedRef) => {
       {asChild ? getChild() : <div className="fui-CardInner">{children}</div>}
     </Comp>
   );
-});
+};
 Card.displayName = 'Card';
 
 export { Card };

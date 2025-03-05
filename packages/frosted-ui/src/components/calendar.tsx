@@ -73,10 +73,7 @@ function Calendar({ className, ...props }: CalendarProps) {
   } = useCalendar(props, state);
 
   return (
-    <div
-      {...calendarProps}
-      className={classNames('fui-CalendarRoot', className)}
-    >
+    <div {...calendarProps} className={classNames('fui-CalendarRoot', className)}>
       <div className={'fui-CalendarHeader'}>
         <IconButton
           {...otherPrevButtonProps}
@@ -112,10 +109,7 @@ function Calendar({ className, ...props }: CalendarProps) {
   );
 }
 
-type RangeCalendarProps = Omit<
-  RangeCalendarStateOptions,
-  'locale' | 'createCalendar'
-> & {
+type RangeCalendarProps = Omit<RangeCalendarStateOptions, 'locale' | 'createCalendar'> & {
   className?: string;
 };
 
@@ -188,11 +182,7 @@ function RangeCalendar({ className, ...props }: RangeCalendarProps) {
   );
 }
 
-function MonthDropdown({
-  state,
-}: {
-  state: CalendarState | RangeCalendarState;
-}) {
+function MonthDropdown({ state }: { state: CalendarState | RangeCalendarState }) {
   const months: Array<string> = [];
   const formatter = useDateFormatter({
     month: 'long',
@@ -203,9 +193,7 @@ function MonthDropdown({
   // current locale and calendar system. Note that in some calendar
   // systems, such as the Hebrew, the number of months may differ
   // between years.
-  const numMonths = state.focusedDate.calendar.getMonthsInYear(
-    state.focusedDate,
-  );
+  const numMonths = state.focusedDate.calendar.getMonthsInYear(state.focusedDate);
   for (let i = 1; i <= numMonths; i++) {
     const date = state.focusedDate.set({ month: i });
     months.push(formatter.format(date.toDate(state.timeZone)));
@@ -243,11 +231,7 @@ type YearItem = {
   formatted: string;
 };
 
-function YearDropdown({
-  state,
-}: {
-  state: CalendarState | RangeCalendarState;
-}) {
+function YearDropdown({ state }: { state: CalendarState | RangeCalendarState }) {
   const years: Array<YearItem> = [];
   const formatter = useDateFormatter({
     year: 'numeric',
@@ -291,18 +275,10 @@ function YearDropdown({
   );
 }
 
-function CalendarGrid({
-  state,
-  ...props
-}: {
-  state: CalendarState | RangeCalendarState;
-}) {
+function CalendarGrid({ state, ...props }: { state: CalendarState | RangeCalendarState }) {
   const { locale } = useLocale();
 
-  const { gridProps, headerProps, weekDays } = useCalendarGrid(
-    { ...props, weekdayStyle: 'narrow' },
-    state,
-  );
+  const { gridProps, headerProps, weekDays } = useCalendarGrid({ ...props, weekdayStyle: 'narrow' }, state);
 
   // Get the number of weeks in the month so we can render the proper number of rows.
   const weeksInMonth = getWeeksInMonth(state.visibleRange.start, locale);
@@ -321,23 +297,14 @@ function CalendarGrid({
           <tr key={weekIndex}>
             {state
               .getDatesInWeek(weekIndex)
-              .map((date, i) =>
-                date ? (
-                  <CalendarCell key={i} state={state} date={date} />
-                ) : (
-                  <td key={i} />
-                ),
-              )}
+              .map((date, i) => (date ? <CalendarCell key={i} state={state} date={date} /> : <td key={i} />))}
           </tr>
         ))}
         {[...new Array(placeholderWeeks).keys()].map((_, index) => (
           <tr key={`filler-${index}`}>
             {[...new Array(7).keys()].map((_, i) => (
               <td key={i}>
-                <div
-                  aria-hidden
-                  className="fui-CalendarGridCellInner fui-CalendarGridCellInnerPlaceholder"
-                >
+                <div aria-hidden className="fui-CalendarGridCellInner fui-CalendarGridCellInnerPlaceholder">
                   0
                 </div>
               </td>
@@ -356,14 +323,11 @@ function CalendarCell({
   state: CalendarState | RangeCalendarState;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const {
-    cellProps,
-    buttonProps,
-    formattedDate,
-    isSelected,
-    isOutsideVisibleRange,
-    isUnavailable,
-  } = useCalendarCell(props, state, ref);
+  const { cellProps, buttonProps, formattedDate, isSelected, isOutsideVisibleRange, isUnavailable } = useCalendarCell(
+    props,
+    state,
+    ref,
+  );
 
   const { focusProps, isFocused, isFocusVisible } = useFocusRing();
 
@@ -384,27 +348,22 @@ function CalendarCell({
     const { highlightedRange } = state;
     const { start, end } = highlightedRange;
     if (start && end) {
-      isHighlighted =
-        props.date.compare(start) >= 0 && props.date.compare(end) <= 0;
+      isHighlighted = props.date.compare(start) >= 0 && props.date.compare(end) <= 0;
     }
   }
 
   let isSingleDateSelected = false;
   if (!('highlightedRange' in state)) {
-    isSingleDateSelected =
-      state.value !== null && props.date.compare(state.value) === 0;
+    isSingleDateSelected = state.value !== null && props.date.compare(state.value) === 0;
   }
 
   const { locale } = useLocale();
 
   const dayOfWeek = getDayOfWeek(props.date, locale);
-  const isRoundedLeft =
-    isSelected && (isSelectionStart || dayOfWeek === 0 || props.date.day === 1);
+  const isRoundedLeft = isSelected && (isSelectionStart || dayOfWeek === 0 || props.date.day === 1);
   const isRoundedRight =
     isSelected &&
-    (isSelectionEnd ||
-      dayOfWeek === 6 ||
-      props.date.day === props.date.calendar.getDaysInMonth(props.date));
+    (isSelectionEnd || dayOfWeek === 6 || props.date.day === props.date.calendar.getDaysInMonth(props.date));
 
   return (
     <td {...cellProps} className="fui-CalendarGridCell">
@@ -425,12 +384,9 @@ function CalendarCell({
                     ? 'range'
                     : undefined
         }
-        data-rounded={
-          isRoundedLeft ? 'left' : isRoundedRight ? 'right' : undefined
-        }
+        data-rounded={isRoundedLeft ? 'left' : isRoundedRight ? 'right' : undefined}
         className={classNames('fui-CalendarGridCellInner', {
-          ['fui-CalendarGridCell-selected']:
-            isSelectionStart || isSelectionEnd || isSingleDateSelected,
+          ['fui-CalendarGridCell-selected']: isSelectionStart || isSelectionEnd || isSingleDateSelected,
           ['fui-CalendarGridCell-focusRing']: isFocused && isFocusVisible,
           ['fui-CalendarGridCell-unavailable']: isUnavailable,
         })}
@@ -442,14 +398,7 @@ function CalendarCell({
 }
 
 const CalendaChevronLeftIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path
       d="M9.5 3.5L5.35355 7.64645C5.15829 7.84171 5.15829 8.15829 5.35355 8.35355L9.5 12.5"
       stroke="currentColor"

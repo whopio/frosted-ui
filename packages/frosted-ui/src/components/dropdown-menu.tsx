@@ -16,49 +16,27 @@ import { ScrollArea } from './scroll-area';
 
 import type { GetPropDefTypes, PropsWithoutRefOrColor } from '../helpers';
 
-interface DropdownMenuRootProps
-  extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Root> {}
-const DropdownMenuRoot: React.FC<DropdownMenuRootProps> = (props) => (
-  <DropdownMenuPrimitive.Root {...props} />
-);
+interface DropdownMenuRootProps extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Root> {}
+const DropdownMenuRoot: React.FC<DropdownMenuRootProps> = (props) => <DropdownMenuPrimitive.Root {...props} />;
 DropdownMenuRoot.displayName = 'DropdownMenuRoot';
 
-type DropdownMenuTriggerElement = React.ElementRef<
-  typeof DropdownMenuPrimitive.Trigger
->;
 interface DropdownMenuTriggerProps
-  extends Omit<
-    React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Trigger>,
-    'asChild'
-  > {}
-const DropdownMenuTrigger = React.forwardRef<
-  DropdownMenuTriggerElement,
-  DropdownMenuTriggerProps
->((props, forwardedRef) => (
-  <DropdownMenuPrimitive.Trigger {...props} ref={forwardedRef} asChild />
-));
+  extends Omit<React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Trigger>, 'asChild'> {}
+
+const DropdownMenuTrigger = (props: DropdownMenuTriggerProps) => <DropdownMenuPrimitive.Trigger {...props} asChild />;
 DropdownMenuTrigger.displayName = 'DropdownMenuTrigger';
 
-type DropdownMenuContentOwnProps = GetPropDefTypes<
-  typeof dropdownMenuContentPropDefs
->;
+type DropdownMenuContentOwnProps = GetPropDefTypes<typeof dropdownMenuContentPropDefs>;
 type DropdownMenuContentContextValue = DropdownMenuContentOwnProps;
-const DropdownMenuContentContext =
-  React.createContext<DropdownMenuContentContextValue>({});
-type DropdownMenuContentElement = React.ElementRef<
-  typeof DropdownMenuPrimitive.Content
->;
+const DropdownMenuContentContext = React.createContext<DropdownMenuContentContextValue>({});
+
 interface DropdownMenuContentProps
   extends PropsWithoutRefOrColor<typeof DropdownMenuPrimitive.Content>,
     DropdownMenuContentContextValue {
-  container?: React.ComponentProps<
-    typeof DropdownMenuPrimitive.Portal
-  >['container'];
+  container?: React.ComponentProps<typeof DropdownMenuPrimitive.Portal>['container'];
 }
-const DropdownMenuContent = React.forwardRef<
-  DropdownMenuContentElement,
-  DropdownMenuContentProps
->((props, forwardedRef) => {
+
+const DropdownMenuContent = (props: DropdownMenuContentProps) => {
   const themeContext = useThemeContext();
   const {
     className,
@@ -80,7 +58,6 @@ const DropdownMenuContent = React.forwardRef<
           sideOffset={4}
           collisionPadding={10}
           {...contentProps}
-          ref={forwardedRef}
           className={classNames(
             'fui-PopperContent',
             'fui-BaseMenuContent',
@@ -91,12 +68,7 @@ const DropdownMenuContent = React.forwardRef<
           )}
         >
           <ScrollArea type="auto">
-            <div
-              className={classNames(
-                'fui-BaseMenuViewport',
-                'fui-DropdownMenuViewport',
-              )}
-            >
+            <div className={classNames('fui-BaseMenuViewport', 'fui-DropdownMenuViewport')}>
               <DropdownMenuContentContext.Provider
                 value={React.useMemo(
                   () => ({ size, color: resolvedColor, highContrast }),
@@ -111,133 +83,66 @@ const DropdownMenuContent = React.forwardRef<
       </Theme>
     </DropdownMenuPrimitive.Portal>
   );
-});
+};
 DropdownMenuContent.displayName = 'DropdownMenuContent';
 
-type DropdownMenuLabelElement = React.ElementRef<
-  typeof DropdownMenuPrimitive.Label
->;
-interface DropdownMenuLabelProps
-  extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label> {}
-const DropdownMenuLabel = React.forwardRef<
-  DropdownMenuLabelElement,
-  DropdownMenuLabelProps
->((props, forwardedRef) => (
+interface DropdownMenuLabelProps extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label> {}
+
+const DropdownMenuLabel = (props: DropdownMenuLabelProps) => (
   <DropdownMenuPrimitive.Label
     {...props}
-    ref={forwardedRef}
-    className={classNames(
-      'fui-BaseMenuLabel',
-      'fui-DropdownMenuLabel',
-      props.className,
-    )}
+    className={classNames('fui-BaseMenuLabel', 'fui-DropdownMenuLabel', props.className)}
   />
-));
+);
 DropdownMenuLabel.displayName = 'DropdownMenuLabel';
 
-type DropdownMenuItemElement = React.ElementRef<
-  typeof DropdownMenuPrimitive.Item
->;
-type DropdownMenuItemOwnProps = GetPropDefTypes<
-  typeof dropdownMenuItemPropDefs
->;
+type DropdownMenuItemOwnProps = GetPropDefTypes<typeof dropdownMenuItemPropDefs>;
 interface DropdownMenuItemProps
   extends PropsWithoutRefOrColor<typeof DropdownMenuPrimitive.Item>,
     DropdownMenuItemOwnProps {}
-const DropdownMenuItem = React.forwardRef<
-  DropdownMenuItemElement,
-  DropdownMenuItemProps
->((props, forwardedRef) => {
-  const {
-    className,
-    children,
-    color = dropdownMenuItemPropDefs.color.default,
-    shortcut,
-    ...itemProps
-  } = props;
+
+const DropdownMenuItem = (props: DropdownMenuItemProps) => {
+  const { className, children, color = dropdownMenuItemPropDefs.color.default, shortcut, ...itemProps } = props;
   return (
     <DropdownMenuPrimitive.Item
       data-accent-color={color}
       {...itemProps}
-      ref={forwardedRef}
-      className={classNames(
-        'fui-reset',
-        'fui-BaseMenuItem',
-        'fui-DropdownMenuItem',
-        className,
-      )}
+      className={classNames('fui-reset', 'fui-BaseMenuItem', 'fui-DropdownMenuItem', className)}
     >
       <Slottable>{children}</Slottable>
-      {shortcut && (
-        <div className="fui-BaseMenuShortcut fui-DropdownMenuShortcut">
-          {shortcut}
-        </div>
-      )}
+      {shortcut && <div className="fui-BaseMenuShortcut fui-DropdownMenuShortcut">{shortcut}</div>}
     </DropdownMenuPrimitive.Item>
   );
-});
+};
 DropdownMenuItem.displayName = 'DropdownMenuItem';
 
-type DropdownMenuGroupElement = React.ElementRef<
-  typeof DropdownMenuPrimitive.Group
->;
-interface DropdownMenuGroupProps
-  extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Group> {}
-const DropdownMenuGroup = React.forwardRef<
-  DropdownMenuGroupElement,
-  DropdownMenuGroupProps
->((props, forwardedRef) => (
+interface DropdownMenuGroupProps extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Group> {}
+
+const DropdownMenuGroup = (props: DropdownMenuGroupProps) => (
   <DropdownMenuPrimitive.Group
     {...props}
-    ref={forwardedRef}
-    className={classNames(
-      'fui-BaseMenuGroup',
-      'fui-DropdownMenuGroup',
-      props.className,
-    )}
+    className={classNames('fui-BaseMenuGroup', 'fui-DropdownMenuGroup', props.className)}
   />
-));
+);
 DropdownMenuGroup.displayName = 'DropdownMenuGroup';
 
-type DropdownMenuRadioGroupElement = React.ElementRef<
-  typeof DropdownMenuPrimitive.RadioGroup
->;
-interface DropdownMenuRadioGroupProps
-  extends React.ComponentPropsWithoutRef<
-    typeof DropdownMenuPrimitive.RadioGroup
-  > {}
-const DropdownMenuRadioGroup = React.forwardRef<
-  DropdownMenuRadioGroupElement,
-  DropdownMenuRadioGroupProps
->((props, forwardedRef) => (
+interface DropdownMenuRadioGroupProps extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.RadioGroup> {}
+
+const DropdownMenuRadioGroup = (props: DropdownMenuRadioGroupProps) => (
   <DropdownMenuPrimitive.RadioGroup
     {...props}
-    ref={forwardedRef}
-    className={classNames(
-      'fui-BaseMenuRadioGroup',
-      'fui-DropdownMenuRadioGroup',
-      props.className,
-    )}
+    className={classNames('fui-BaseMenuRadioGroup', 'fui-DropdownMenuRadioGroup', props.className)}
   />
-));
+);
 DropdownMenuRadioGroup.displayName = 'DropdownMenuRadioGroup';
 
-type DropdownMenuRadioItemElement = React.ElementRef<
-  typeof DropdownMenuPrimitive.RadioItem
->;
-interface DropdownMenuRadioItemProps
-  extends React.ComponentPropsWithoutRef<
-    typeof DropdownMenuPrimitive.RadioItem
-  > {}
-const DropdownMenuRadioItem = React.forwardRef<
-  DropdownMenuRadioItemElement,
-  DropdownMenuRadioItemProps
->((props, forwardedRef) => {
+interface DropdownMenuRadioItemProps extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.RadioItem> {}
+
+const DropdownMenuRadioItem = (props: DropdownMenuRadioItemProps) => {
   const { children, className, ...itemProps } = props;
   return (
     <DropdownMenuPrimitive.RadioItem
       {...itemProps}
-      ref={forwardedRef}
       className={classNames(
         'fui-BaseMenuItem',
         'fui-BaseMenuRadioItem',
@@ -252,29 +157,19 @@ const DropdownMenuRadioItem = React.forwardRef<
       </DropdownMenuPrimitive.ItemIndicator>
     </DropdownMenuPrimitive.RadioItem>
   );
-});
+};
 DropdownMenuRadioItem.displayName = 'DropdownMenuRadioItem';
 
-type DropdownMenuCheckboxItemElement = React.ElementRef<
-  typeof DropdownMenuPrimitive.CheckboxItem
->;
-type DropdownMenuCheckboxItemOwnProps = GetPropDefTypes<
-  typeof dropdownMenuCheckboxItemPropDefs
->;
+type DropdownMenuCheckboxItemOwnProps = GetPropDefTypes<typeof dropdownMenuCheckboxItemPropDefs>;
 interface DropdownMenuCheckboxItemProps
-  extends React.ComponentPropsWithoutRef<
-      typeof DropdownMenuPrimitive.CheckboxItem
-    >,
+  extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.CheckboxItem>,
     DropdownMenuCheckboxItemOwnProps {}
-const DropdownMenuCheckboxItem = React.forwardRef<
-  DropdownMenuCheckboxItemElement,
-  DropdownMenuCheckboxItemProps
->((props, forwardedRef) => {
+
+const DropdownMenuCheckboxItem = (props: DropdownMenuCheckboxItemProps) => {
   const { children, className, shortcut, ...itemProps } = props;
   return (
     <DropdownMenuPrimitive.CheckboxItem
       {...itemProps}
-      ref={forwardedRef}
       className={classNames(
         'fui-BaseMenuItem',
         'fui-BaseMenuCheckboxItem',
@@ -285,41 +180,25 @@ const DropdownMenuCheckboxItem = React.forwardRef<
     >
       <Slottable>{children}</Slottable>
       <DropdownMenuPrimitive.ItemIndicator className="fui-BaseMenuItemIndicator fui-DropdownMenuItemIndicator">
-        <ThickCheckIcon className="fui-BaseMenuItemIndicatorIcon fui-ContextMenuItemIndicatorIcon" />
+        <ThickCheckIcon className="fui-BaseMenuItemIndicatorIcon fui-DropdownMenuItemIndicatorIcon" />
       </DropdownMenuPrimitive.ItemIndicator>
-      {shortcut && (
-        <div className="fui-BaseMenuShortcut fui-DropdownMenuShortcut">
-          {shortcut}
-        </div>
-      )}
+      {shortcut && <div className="fui-BaseMenuShortcut fui-DropdownMenuShortcut">{shortcut}</div>}
     </DropdownMenuPrimitive.CheckboxItem>
   );
-});
+};
 DropdownMenuCheckboxItem.displayName = 'DropdownMenuCheckboxItem';
 
-interface DropdownMenuSubProps
-  extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Sub> {}
-const DropdownMenuSub: React.FC<DropdownMenuSubProps> = (props) => (
-  <DropdownMenuPrimitive.Sub {...props} />
-);
+interface DropdownMenuSubProps extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Sub> {}
+const DropdownMenuSub: React.FC<DropdownMenuSubProps> = (props) => <DropdownMenuPrimitive.Sub {...props} />;
 DropdownMenuSub.displayName = 'DropdownMenuSub';
 
-type DropdownMenuSubTriggerElement = React.ElementRef<
-  typeof DropdownMenuPrimitive.SubTrigger
->;
-interface DropdownMenuSubTriggerProps
-  extends React.ComponentPropsWithoutRef<
-    typeof DropdownMenuPrimitive.SubTrigger
-  > {}
-const DropdownMenuSubTrigger = React.forwardRef<
-  DropdownMenuSubTriggerElement,
-  DropdownMenuSubTriggerProps
->((props, forwardedRef) => {
+interface DropdownMenuSubTriggerProps extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubTrigger> {}
+
+const DropdownMenuSubTrigger = (props: DropdownMenuSubTriggerProps) => {
   const { className, children, ...subTriggerProps } = props;
   return (
     <DropdownMenuPrimitive.SubTrigger
       {...subTriggerProps}
-      ref={forwardedRef}
       className={classNames(
         'fui-BaseMenuItem',
         'fui-BaseMenuSubTrigger',
@@ -330,44 +209,29 @@ const DropdownMenuSubTrigger = React.forwardRef<
     >
       <Slottable>{children}</Slottable>
       <div className="fui-BaseMenuShortcut fui-DropdownMenuShortcut">
-        <ThickChevronRightIcon className="fui-BaseMenuSubTriggerIcon fui-DropdownMenuSubtriggerIcon" />
+        <ThickChevronRightIcon className="fui-BaseMenuSubTriggerIcon fui-DropdownMenuSubTriggerIcon" />
       </div>
     </DropdownMenuPrimitive.SubTrigger>
   );
-});
+};
 DropdownMenuSubTrigger.displayName = 'DropdownMenuSubTrigger';
 
-type DropdownMenuSubContentElement = React.ElementRef<
-  typeof DropdownMenuPrimitive.SubContent
->;
-interface DropdownMenuSubContentProps
-  extends React.ComponentPropsWithoutRef<
-    typeof DropdownMenuPrimitive.SubContent
-  > {
-  container?: React.ComponentProps<
-    typeof DropdownMenuPrimitive.Portal
-  >['container'];
+interface DropdownMenuSubContentProps extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent> {
+  container?: React.ComponentProps<typeof DropdownMenuPrimitive.Portal>['container'];
 }
-const DropdownMenuSubContent = React.forwardRef<
-  DropdownMenuSubContentElement,
-  DropdownMenuSubContentProps
->((props, forwardedRef) => {
-  const { className, children, container, forceMount, ...subContentProps } =
-    props;
-  const { size, color, highContrast } = React.useContext(
-    DropdownMenuContentContext,
-  );
+
+const DropdownMenuSubContent = (props: DropdownMenuSubContentProps) => {
+  const { className, children, container, forceMount, ...subContentProps } = props;
+  const { size, color, highContrast } = React.useContext(DropdownMenuContentContext);
   return (
     <DropdownMenuPrimitive.Portal container={container} forceMount={forceMount}>
       <Theme asChild>
         <DropdownMenuPrimitive.SubContent
           data-accent-color={color}
-          alignOffset={-Number(size) * 4}
-          // Side offset accounts for the outer solid box-shadow
-          sideOffset={1}
+          alignOffset={-4}
+          sideOffset={2}
           collisionPadding={10}
           {...subContentProps}
-          ref={forwardedRef}
           className={classNames(
             'fui-PopperContent',
             'fui-BaseMenuContent',
@@ -380,43 +244,23 @@ const DropdownMenuSubContent = React.forwardRef<
           )}
         >
           <ScrollArea type="auto">
-            <div
-              className={classNames(
-                'fui-BaseMenuViewport',
-                'fui-DropdownMenuViewport',
-              )}
-            >
-              {children}
-            </div>
+            <div className={classNames('fui-BaseMenuViewport', 'fui-DropdownMenuViewport')}>{children}</div>
           </ScrollArea>
         </DropdownMenuPrimitive.SubContent>
       </Theme>
     </DropdownMenuPrimitive.Portal>
   );
-});
+};
 DropdownMenuSubContent.displayName = 'DropdownMenuSubContent';
 
-type DropdownMenuSeparatorElement = React.ElementRef<
-  typeof DropdownMenuPrimitive.Separator
->;
-interface DropdownMenuSeparatorProps
-  extends React.ComponentPropsWithoutRef<
-    typeof DropdownMenuPrimitive.Separator
-  > {}
-const DropdownMenuSeparator = React.forwardRef<
-  DropdownMenuSeparatorElement,
-  DropdownMenuSeparatorProps
->((props, forwardedRef) => (
+interface DropdownMenuSeparatorProps extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator> {}
+
+const DropdownMenuSeparator = (props: DropdownMenuSeparatorProps) => (
   <DropdownMenuPrimitive.Separator
     {...props}
-    ref={forwardedRef}
-    className={classNames(
-      'fui-BaseMenuSeparator',
-      'fui-DropdownMenuSeparator',
-      props.className,
-    )}
+    className={classNames('fui-BaseMenuSeparator', 'fui-DropdownMenuSeparator', props.className)}
   />
-));
+);
 DropdownMenuSeparator.displayName = 'DropdownMenuSeparator';
 
 export {

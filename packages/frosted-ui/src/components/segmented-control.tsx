@@ -7,92 +7,51 @@ import { extractMarginProps, withMarginProps } from '../helpers';
 
 import type { MarginProps } from '../helpers';
 
-type SegmentedControlRootElement = React.ElementRef<typeof TabsPrimitive.Root>;
-interface SegmentedControlRootProps
-  extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Root>,
-    MarginProps {}
-const SegmentedControlRoot = React.forwardRef<
-  SegmentedControlRootElement,
-  SegmentedControlRootProps
->((props, forwardedRef) => {
+interface SegmentedControlRootProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Root>, MarginProps {}
+
+const SegmentedControlRoot = (props: SegmentedControlRootProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const { className, ...rootProps } = marginRest;
   return (
     <TabsPrimitive.Root
       {...rootProps}
-      ref={forwardedRef}
-      className={classNames(
-        'fui-BaseSegmentedControlRoot',
-        className,
-        withMarginProps(marginProps),
-      )}
+      className={classNames('fui-BaseSegmentedControlRoot', className, withMarginProps(marginProps))}
     />
   );
-});
+};
 SegmentedControlRoot.displayName = 'SegmentedControlRoot';
 
-type SegmentedControlListElement = React.ElementRef<typeof TabsPrimitive.List>;
-interface SegmentedControlListOwnProps
-  extends React.ComponentPropsWithoutRef<'div'> {}
+interface SegmentedControlListOwnProps extends React.ComponentPropsWithoutRef<'div'> {}
 interface SegmentedControlListProps
   extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>,
     SegmentedControlListOwnProps {}
-const SegmentedControlList = React.forwardRef<
-  SegmentedControlListElement,
-  SegmentedControlListProps
->((props, forwardedRef) => {
+
+const SegmentedControlList = (props: SegmentedControlListProps) => {
   const { className, ...listProps } = props;
-  return (
-    <TabsPrimitive.List
-      {...listProps}
-      ref={forwardedRef}
-      className={classNames('fui-BaseSegmentedControlList', className)}
-    />
-  );
-});
+  return <TabsPrimitive.List {...listProps} className={classNames('fui-BaseSegmentedControlList', className)} />;
+};
 SegmentedControlList.displayName = 'SegmentedControlList';
 
-type SegmentedControlTriggerElement = React.ElementRef<
-  typeof TabsPrimitive.Trigger
->;
-interface SegmentedControlTriggerProps
-  extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger> {}
-const SegmentedControlTrigger = React.forwardRef<
-  SegmentedControlTriggerElement,
-  SegmentedControlTriggerProps
->((props, forwardedRef) => {
+interface SegmentedControlTriggerProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger> {}
+
+const SegmentedControlTrigger = (props: SegmentedControlTriggerProps) => {
   const { className, children, ...triggerProps } = props;
   return (
     <TabsPrimitive.Trigger
       {...triggerProps}
-      ref={forwardedRef}
-      className={classNames(
-        'fui-reset',
-        'fui-BaseSegmentedControlTrigger',
-        className,
-      )}
+      className={classNames('fui-reset', 'fui-BaseSegmentedControlTrigger', className)}
     >
       <span className="fui-BaseSegmentedControlTriggerInner">{children}</span>
     </TabsPrimitive.Trigger>
   );
-});
+};
 SegmentedControlTrigger.displayName = 'SegmentedControlTrigger';
 
-type SegmentedControlContentElement = React.ElementRef<
-  typeof TabsPrimitive.Content
->;
-interface SegmentedControlContentProps
-  extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content> {}
-const SegmentedControlContent = React.forwardRef<
-  SegmentedControlContentElement,
-  SegmentedControlContentProps
->((props, forwardedRef) => (
-  <TabsPrimitive.Content
-    {...props}
-    ref={forwardedRef}
-    className={classNames('fui-SegmentedControlContent', props.className)}
-  />
-));
+interface SegmentedControlContentProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content> {}
+
+const SegmentedControlContent = (props: SegmentedControlContentProps) => (
+  <TabsPrimitive.Content {...props} className={classNames('fui-SegmentedControlContent', props.className)} />
+);
 SegmentedControlContent.displayName = 'SegmentedControlContent';
 
 export {

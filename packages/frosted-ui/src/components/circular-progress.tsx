@@ -13,22 +13,13 @@ import {
 } from '../helpers';
 import { circularProgressPropDefs } from './circular-progress.props';
 
-type CircularProgressElement = React.ElementRef<typeof ProgressPrimitive.Root>;
-type CircularProgressOwnProps = GetPropDefTypes<
-  typeof circularProgressPropDefs
->;
+type CircularProgressOwnProps = GetPropDefTypes<typeof circularProgressPropDefs>;
 interface CircularProgressProps
-  extends Omit<
-      PropsWithoutRefOrColor<typeof ProgressPrimitive.Root>,
-      'children'
-    >,
+  extends Omit<PropsWithoutRefOrColor<typeof ProgressPrimitive.Root>, 'children'>,
     MarginProps,
     CircularProgressOwnProps {}
 
-const CircularProgress = React.forwardRef<
-  CircularProgressElement,
-  CircularProgressProps
->((props, forwardedRef) => {
+const CircularProgress = (props: CircularProgressProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     className,
@@ -45,7 +36,6 @@ const CircularProgress = React.forwardRef<
   return (
     <ProgressPrimitive.Root
       data-accent-color={color}
-      ref={forwardedRef}
       className={classNames(
         'fui-CircularProgressRoot',
         className,
@@ -69,7 +59,7 @@ const CircularProgress = React.forwardRef<
       />
     </ProgressPrimitive.Root>
   );
-});
+};
 
 CircularProgress.displayName = 'CircularProgress';
 

@@ -46,11 +46,7 @@
     outline: 2px solid var(--color-focus-root);
     outline-offset: 2px;
   }
-  &:where(
-      [data-state='active'],
-      [data-state='checked'],
-      [data-active]
-    )::before {
+  &:where([data-state='active'], [data-state='checked'], [data-active])::before {
     background: var(--color-segmented-control-thumb);
     background-image: linear-gradient(var(--white-a3), var(--white-a3));
     box-shadow:

@@ -2,18 +2,7 @@ import { withBreakpoints } from '../breakpoints';
 
 import type { GetPropDefTypes, PropDef } from './prop-def';
 
-const paddingValues = [
-  '0',
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '8',
-  '9',
-] as const;
+const paddingValues = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
 
 const paddingPropDefs = {
   p: {
@@ -98,13 +87,7 @@ function withPaddingProps(props: PaddingProps) {
     .join(' ');
 }
 
-const positionValues = [
-  'static',
-  'relative',
-  'absolute',
-  'fixed',
-  'sticky',
-] as const;
+const positionValues = ['static', 'relative', 'absolute', 'fixed', 'sticky'] as const;
 const positionEdgeValues = ['auto', '0', '50%', '100%'] as const;
 // prettier-ignore
 const widthHeightValues = ['auto', 'min-content', 'max-content', '100%', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
@@ -244,12 +227,5 @@ function withLayoutProps(props: LayoutProps) {
     .join(' ');
 }
 
-export {
-  extractLayoutProps,
-  extractPaddingProps,
-  layoutPropDefs,
-  paddingPropDefs,
-  withLayoutProps,
-  withPaddingProps,
-};
+export { extractLayoutProps, extractPaddingProps, layoutPropDefs, paddingPropDefs, withLayoutProps, withPaddingProps };
 export type { LayoutProps, PaddingProps };

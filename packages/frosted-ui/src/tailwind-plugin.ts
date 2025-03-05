@@ -1,11 +1,7 @@
 // Forked from https://github.com/needim/frosted-ui-themes-with-tailwind
 import * as colors from 'tailwindcss/colors';
 import plugin from 'tailwindcss/plugin';
-import {
-  semanticColors,
-  themeAccentColorsGrouped,
-  themeGrayColorsGrouped,
-} from './theme-options';
+import { semanticColors, themeAccentColorsGrouped, themeGrayColorsGrouped } from './theme-options';
 
 export const accentColorNames: string[] = [];
 export const grayColorNames: string[] = [];
@@ -21,26 +17,21 @@ themeGrayColorsGrouped.map((group) => {
   grayColorNames.push(...group.values.filter((color) => color !== 'auto'));
 });
 
-export function getColorTokenName(
-  number: FrostedColorScales,
-  alpha?: boolean,
-): number | string {
+export function getColorTokenName(number: FrostedColorScales, alpha?: boolean): number | string {
   return alpha ? 'a' + number : number;
 }
 
 export const getColorDefinitions = (color: string, alpha?: boolean) => {
   const colors = Array.from(Array(frostedColorScales).keys()).reduce(
     (acc, _, i) => {
-      acc[getColorTokenName((i + 1) as FrostedColorScales, alpha)] =
-        `var(--${color}-${alpha ? 'a' : ''}${i + 1})`;
+      acc[getColorTokenName((i + 1) as FrostedColorScales, alpha)] = `var(--${color}-${alpha ? 'a' : ''}${i + 1})`;
       return acc;
     },
     {} as Record<string, string>,
   );
 
   if (!alpha) {
-    colors[`${getColorTokenName(9, alpha)}-contrast`] =
-      `var(--${color}-9-contrast)`;
+    colors[`${getColorTokenName(9, alpha)}-contrast`] = `var(--${color}-9-contrast)`;
     colors['surface'] = `var(--${color}-surface)`;
     colors['DEFAULT'] = `var(--${color}-9)`;
     if (color === 'accent') {
@@ -74,18 +65,15 @@ export const frostedThemePlugin = plugin.withOptions(
       };
 
       if (grayColorNames.includes(colorName)) {
-        c[`${getColorTokenName(2, false)}-translucent`] =
-          `var(--${colorName}-2-translucent)`;
+        c[`${getColorTokenName(2, false)}-translucent`] = `var(--${colorName}-2-translucent)`;
       }
 
       return c;
     }
 
-    const allFrostedColors = [
-      ...accentColorNames,
-      ...semanticColors,
-      ...grayColorNames,
-    ].reduce<Record<string, Record<string, string>>>((acc, colorName) => {
+    const allFrostedColors = [...accentColorNames, ...semanticColors, ...grayColorNames].reduce<
+      Record<string, Record<string, string>>
+    >((acc, colorName) => {
       acc[colorName] = { ...generateTailwindColors(colorName) };
       return acc;
     }, {});

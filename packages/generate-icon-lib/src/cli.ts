@@ -56,10 +56,7 @@ async function main() {
 
   const document = await getFigmaDocument(figmaConfig);
   render({
-    spinners: [
-      { success: true, text: 'Found the Figma file 👌' },
-      { text: 'Finding all Icons in the designs...' },
-    ],
+    spinners: [{ success: true, text: 'Found the Figma file 👌' }, { text: 'Finding all Icons in the designs...' }],
   });
 
   /* 2. Filter nodes for our Icons page */
@@ -148,9 +145,7 @@ async function main() {
 
   /* 6. Generate React Components from the SVGs */
 
-  const [previousIconManifest, nextIconManifest] = await generateIconManifest(
-    icons,
-  );
+  const [previousIconManifest, nextIconManifest] = await generateIconManifest(icons);
 
   render({
     spinners: [
@@ -165,10 +160,7 @@ async function main() {
   });
 
   /* 7. Apply all new files, while removing previous dirs/files entirely. */
-  const touchedPaths = await swapGeneratedFiles(
-    previousIconManifest,
-    nextIconManifest,
-  );
+  const touchedPaths = await swapGeneratedFiles(previousIconManifest, nextIconManifest);
 
   render({
     spinners: [
@@ -196,6 +188,6 @@ main()
   .then(() => {
     console.log('Bai 👋');
   })
-  .catch(err => handleError(err));
+  .catch((err) => handleError(err));
 
-process.addListener('unhandledRejection', err => handleError(err));
+process.addListener('unhandledRejection', (err) => handleError(err));

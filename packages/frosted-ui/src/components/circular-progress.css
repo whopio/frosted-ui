@@ -67,8 +67,7 @@
 .fui-CircularProgressIndicator {
   position: absolute;
   inset: 0;
-  border: var(--circular-progress-border-thickness) solid
-    var(--circular-progress-color);
+  border: var(--circular-progress-border-thickness) solid var(--circular-progress-color);
   border-radius: inherit;
   --mask: conic-gradient(
     black calc(1turn * var(--circular-progress-progress)),

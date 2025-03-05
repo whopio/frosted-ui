@@ -1,14 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function SnapshotLogo(props: any) {
   return (
-    <svg
-      width="559"
-      height="191"
-      viewBox="0 0 559 191"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
+    <svg width="559" height="191" viewBox="0 0 559 191" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path
         d="M106.396 60H74.3965V50H106.396C117.442 50 126.396 58.9543 126.396 70V102H116.396V70C116.396 64.4772 111.919 60 106.396 60Z"
         fill="var(--accent-9)"

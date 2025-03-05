@@ -25,20 +25,12 @@
     }
     &:where(.fui-r-clip-padding-box) {
       --inset-border-radius-calc: var(--inset-border-radius, 0px);
-      --inset-padding-calc: calc(
-        var(--inset-padding, 0px) + var(--inset-border-width, 0px)
-      );
+      --inset-padding-calc: calc(var(--inset-padding, 0px) + var(--inset-border-width, 0px));
     }
     &:where(.fui-r-side-top) {
-      --margin-top-override: calc(
-        var(--margin-top) - var(--inset-padding-calc)
-      );
-      --margin-left-override: calc(
-        var(--margin-left) - var(--inset-padding-calc)
-      );
-      --margin-right-override: calc(
-        var(--margin-right) - var(--inset-padding-calc)
-      );
+      --margin-top-override: calc(var(--margin-top) - var(--inset-padding-calc));
+      --margin-left-override: calc(var(--margin-left) - var(--inset-padding-calc));
+      --margin-right-override: calc(var(--margin-right) - var(--inset-padding-calc));
       margin-top: var(--margin-top-override);
       margin-left: var(--margin-left-override);
       margin-right: var(--margin-right-override);
@@ -46,15 +38,9 @@
       border-top-right-radius: var(--inset-border-radius-calc);
     }
     &:where(.fui-r-side-bottom) {
-      --margin-left-override: calc(
-        var(--margin-left) - var(--inset-padding-calc)
-      );
-      --margin-right-override: calc(
-        var(--margin-right) - var(--inset-padding-calc)
-      );
-      --margin-bottom-override: calc(
-        var(--margin-bottom) - var(--inset-padding-calc)
-      );
+      --margin-left-override: calc(var(--margin-left) - var(--inset-padding-calc));
+      --margin-right-override: calc(var(--margin-right) - var(--inset-padding-calc));
+      --margin-bottom-override: calc(var(--margin-bottom) - var(--inset-padding-calc));
       margin-left: var(--margin-left-override);
       margin-right: var(--margin-right-override);
       margin-bottom: var(--margin-bottom-override);
@@ -62,15 +48,9 @@
       border-bottom-right-radius: var(--inset-border-radius-calc);
     }
     &:where(.fui-r-side-left) {
-      --margin-top-override: calc(
-        var(--margin-top) - var(--inset-padding-calc)
-      );
-      --margin-bottom-override: calc(
-        var(--margin-bottom) - var(--inset-padding-calc)
-      );
-      --margin-left-override: calc(
-        var(--margin-left) - var(--inset-padding-calc)
-      );
+      --margin-top-override: calc(var(--margin-top) - var(--inset-padding-calc));
+      --margin-bottom-override: calc(var(--margin-bottom) - var(--inset-padding-calc));
+      --margin-left-override: calc(var(--margin-left) - var(--inset-padding-calc));
       margin-top: var(--margin-top-override);
       margin-bottom: var(--margin-bottom-override);
       margin-left: var(--margin-left-override);
@@ -78,15 +58,9 @@
       border-bottom-left-radius: var(--inset-border-radius-calc);
     }
     &:where(.fui-r-side-right) {
-      --margin-top-override: calc(
-        var(--margin-top) - var(--inset-padding-calc)
-      );
-      --margin-bottom-override: calc(
-        var(--margin-bottom) - var(--inset-padding-calc)
-      );
-      --margin-right-override: calc(
-        var(--margin-right) - var(--inset-padding-calc)
-      );
+      --margin-top-override: calc(var(--margin-top) - var(--inset-padding-calc));
+      --margin-bottom-override: calc(var(--margin-bottom) - var(--inset-padding-calc));
+      --margin-right-override: calc(var(--margin-right) - var(--inset-padding-calc));
       margin-top: var(--margin-top-override);
       margin-bottom: var(--margin-bottom-override);
       margin-right: var(--margin-right-override);
@@ -94,40 +68,24 @@
       border-bottom-right-radius: var(--inset-border-radius-calc);
     }
     &:where(.fui-r-side-x) {
-      --margin-left-override: calc(
-        var(--margin-left) - var(--inset-padding-calc)
-      );
-      --margin-right-override: calc(
-        var(--margin-right) - var(--inset-padding-calc)
-      );
+      --margin-left-override: calc(var(--margin-left) - var(--inset-padding-calc));
+      --margin-right-override: calc(var(--margin-right) - var(--inset-padding-calc));
       margin-left: var(--margin-left-override);
       margin-right: var(--margin-right-override);
     }
     &:where(.fui-r-side-y) {
-      --margin-top-override: calc(
-        var(--margin-top) - var(--inset-padding-calc)
-      );
-      --margin-bottom-override: calc(
-        var(--margin-bottom) - var(--inset-padding-calc)
-      );
+      --margin-top-override: calc(var(--margin-top) - var(--inset-padding-calc));
+      --margin-bottom-override: calc(var(--margin-bottom) - var(--inset-padding-calc));
       margin-top: var(--margin-top-override);
       margin-bottom: var(--margin-bottom-override);
     }
     &:where(.fui-r-side-all) {
-      --margin-top-override: calc(
-        var(--margin-top) - var(--inset-padding-calc)
-      );
-      --margin-right-override: calc(
-        var(--margin-right) - var(--inset-padding-calc)
-      );
-      --margin-bottom-override: calc(
-        var(--margin-bottom) - var(--inset-padding-calc)
-      );
-      --margin-left-override: calc(
-        var(--margin-left) - var(--inset-padding-calc)
-      );
-      margin: var(--margin-top-override) var(--margin-right-override)
-        var(--margin-bottom-override) var(--margin-left-override);
+      --margin-top-override: calc(var(--margin-top) - var(--inset-padding-calc));
+      --margin-right-override: calc(var(--margin-right) - var(--inset-padding-calc));
+      --margin-bottom-override: calc(var(--margin-bottom) - var(--inset-padding-calc));
+      --margin-left-override: calc(var(--margin-left) - var(--inset-padding-calc));
+      margin: var(--margin-top-override) var(--margin-right-override) var(--margin-bottom-override)
+        var(--margin-left-override);
       border-radius: var(--inset-border-radius-calc);
     }
   }

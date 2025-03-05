@@ -23,7 +23,11 @@ export const users: User[] = [
   },
   {
     id: 'user3',
-    image: avatar('1632765854612-9b02b6ec2b15', { x: 0.4, y: 0.35, zoom: 1.05 }),
+    image: avatar('1632765854612-9b02b6ec2b15', {
+      x: 0.4,
+      y: 0.35,
+      zoom: 1.05,
+    }),
     name: 'Zahra Ambessa',
     handle: '@zahraambessa',
     role: 'viewer',
@@ -63,7 +67,10 @@ export const users: User[] = [
 //
 //
 //
-function avatar(id: string, params?: { x?: number; y?: number; zoom?: number }) {
+function avatar(
+  id: string,
+  params?: { x?: number; y?: number; zoom?: number },
+) {
   let crop = '';
   if (params === undefined) {
     crop = 'faces';

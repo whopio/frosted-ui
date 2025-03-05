@@ -1,11 +1,4 @@
-import {
-  Box,
-  Color,
-  Instance as InkInstance,
-  Static,
-  Text,
-  render as inkRender,
-} from 'ink';
+import { Box, Color, Instance as InkInstance, Static, Text, render as inkRender } from 'ink';
 import InkSpinner from 'ink-spinner';
 import React from 'react';
 import { IDiffSummary } from './types';
@@ -58,16 +51,16 @@ const CliView = ({ state }: ICliViewProps) => {
         <Box marginLeft={1} flexDirection="column">
           <Static>
             {state.spinners
-              .filter(entry => entry.success)
-              .map(entry => (
+              .filter((entry) => entry.success)
+              .map((entry) => (
                 <Box marginLeft={1} key={entry.text}>
                   <Color green>✓</Color> <Text>{entry.text}</Text>
                 </Box>
               ))}
           </Static>
           {state.spinners
-            .filter(entry => !entry.success)
-            .map(entry => (
+            .filter((entry) => !entry.success)
+            .map((entry) => (
               <Spinner key={entry.text} text={entry.text} />
             ))}
         </Box>
@@ -75,11 +68,7 @@ const CliView = ({ state }: ICliViewProps) => {
 
       {state.progress && (
         <Box marginLeft={1}>
-          <Spinner
-            text={`${state.progress.text} [${Math.floor(
-              state.progress.percent * 100,
-            )}%]`}
-          />
+          <Spinner text={`${state.progress.text} [${Math.floor(state.progress.percent * 100)}%]`} />
         </Box>
       )}
 
@@ -89,18 +78,10 @@ const CliView = ({ state }: ICliViewProps) => {
 };
 
 const DiffView = ({ state }: ICliViewProps) => {
-  const statsWithChanges = state.diff.filter(
-    stat => stat.additions > 0 || stat.deletions > 0,
-  );
+  const statsWithChanges = state.diff.filter((stat) => stat.additions > 0 || stat.deletions > 0);
   const totals = {
-    additions: statsWithChanges.reduce(
-      (total, stat) => stat.additions + total,
-      0,
-    ),
-    deletions: statsWithChanges.reduce(
-      (total, stat) => stat.deletions + total,
-      0,
-    ),
+    additions: statsWithChanges.reduce((total, stat) => stat.additions + total, 0),
+    deletions: statsWithChanges.reduce((total, stat) => stat.deletions + total, 0),
   };
   return (
     <Static>
@@ -110,7 +91,7 @@ const DiffView = ({ state }: ICliViewProps) => {
         </Box>,
         <Box key="numstat-files" marginLeft={1} marginTop={1}>
           <Box flexDirection="column" flexGrow={0}>
-            {statsWithChanges.map(stat => (
+            {statsWithChanges.map((stat) => (
               <Color key={stat.filePath} dim>
                 {stat.filePath}
               </Color>
@@ -118,41 +99,25 @@ const DiffView = ({ state }: ICliViewProps) => {
           </Box>
 
           <Box flexDirection="column" flexGrow={0} paddingLeft={1}>
-            {statsWithChanges.map(stat => (
+            {statsWithChanges.map((stat) => (
               <Text key={stat.filePath}>|</Text>
             ))}
           </Box>
 
-          <Box
-            flexDirection="column"
-            justifyContent="flex-end"
-            alignItems="flex-end"
-            flexGrow={0}
-            paddingLeft={1}
-          >
-            {statsWithChanges.map(stat => (
+          <Box flexDirection="column" justifyContent="flex-end" alignItems="flex-end" flexGrow={0} paddingLeft={1}>
+            {statsWithChanges.map((stat) => (
               <Text key={stat.filePath}>{stat.additions + stat.deletions}</Text>
             ))}
           </Box>
 
           <Box flexDirection="column" paddingLeft={1}>
-            {statsWithChanges.map(stat => (
+            {statsWithChanges.map((stat) => (
               <Box key={stat.filePath}>
                 {stat.status === 'D' && <Color red>Removed</Color>}
                 {stat.status === 'A' && <Color green>New</Color>}
-                {stat.status === 'M' &&
-                stat.additions > 0 &&
-                stat.deletions === 0 ? (
-                  <Color green>++</Color>
-                ) : null}
-                {stat.status === 'M' &&
-                stat.additions === 0 &&
-                stat.deletions > 0 ? (
-                  <Color red>--</Color>
-                ) : null}
-                {stat.status === 'M' &&
-                stat.additions > 0 &&
-                stat.deletions > 0 ? (
+                {stat.status === 'M' && stat.additions > 0 && stat.deletions === 0 ? <Color green>++</Color> : null}
+                {stat.status === 'M' && stat.additions === 0 && stat.deletions > 0 ? <Color red>--</Color> : null}
+                {stat.status === 'M' && stat.additions > 0 && stat.deletions > 0 ? (
                   <>
                     <Color green>+</Color>
                     <Color red>-</Color>
@@ -164,9 +129,8 @@ const DiffView = ({ state }: ICliViewProps) => {
         </Box>,
         <Box key="numstat-summary" marginLeft={1} marginTop={1}>
           <Color underline>
-            {statsWithChanges.length} file updates, {totals.additions} additions{' '}
-            <Color green>(+)</Color>, {totals.deletions} deletions{' '}
-            <Color red>(-)</Color>
+            {statsWithChanges.length} file updates, {totals.additions} additions <Color green>(+)</Color>,{' '}
+            {totals.deletions} deletions <Color red>(-)</Color>
           </Color>
         </Box>,
       ]}

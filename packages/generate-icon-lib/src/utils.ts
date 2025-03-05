@@ -12,9 +12,7 @@ export function handleError(err, exit = true) {
   console.log('');
   if (err instanceof CodedError) {
     console.error(
-      `${chalk.red.bold('ERROR: ')}${chalk.bgRed.black.bold.inverse(
-        ` ${err.code} `,
-      )}
+      `${chalk.red.bold('ERROR: ')}${chalk.bgRed.black.bold.inverse(` ${err.code} `)}
 ${err.message}
 ${chalk.dim(
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -22,11 +20,7 @@ ${chalk.dim(
 )}`.trim(),
     );
   } else {
-    console.log(
-      `${chalk.red.bold('ERROR: ')}${chalk.bgRed.black.bold.inverse(
-        ' UNHANDLED ',
-      )}\n`,
-    );
+    console.log(`${chalk.red.bold('ERROR: ')}${chalk.bgRed.black.bold.inverse(' UNHANDLED ')}\n`);
     console.error(err);
   }
 
@@ -42,18 +36,15 @@ const defaultRetry = {
   retries: 2,
 };
 
-export function fetch(
-  url: string,
-  fetchOptions: RequestInitWithRetry = {},
-): Promise<Response> {
+export function fetch(url: string, fetchOptions: RequestInitWithRetry = {}): Promise<Response> {
   const retryOptions = { ...defaultRetry, ...fetchOptions.retry };
   return new Promise((resolve, reject) => {
     const attemptFetch = (remainingRetries: number) => {
       nodeFetch(url, fetchOptions)
-        .then(res => {
+        .then((res) => {
           resolve(res);
         })
-        .catch(async err => {
+        .catch(async (err) => {
           if (remainingRetries > 0) {
             await asyncDelay(retryOptions.delay);
             attemptFetch(--remainingRetries);
@@ -65,10 +56,7 @@ export function fetch(
             currentOnlineCheck = null;
             if (!isOn) {
               reject(
-                new CodedError(
-                  ERRORS.NETWORK_OFFLINE,
-                  'An internet connection is required to find and render Icons.',
-                ),
+                new CodedError(ERRORS.NETWORK_OFFLINE, 'An internet connection is required to find and render Icons.'),
               );
             } else {
               reject(err);
@@ -82,18 +70,14 @@ export function fetch(
 }
 
 function asyncDelay(timeout: number) {
-  return new Promise<void>(resolve => {
+  return new Promise<void>((resolve) => {
     setTimeout(() => {
       resolve();
     }, timeout);
   });
 }
 
-export function pushObjLeafNodesToArr(
-  obj: object,
-  arr: string[],
-  accessor: PropertyName[] = [],
-) {
+export function pushObjLeafNodesToArr(obj: object, arr: string[], accessor: PropertyName[] = []) {
   _.forEach(accessor.length ? _.get(obj, accessor) : obj, (v, k) => {
     if (v == null) return;
     const currentAccessor = accessor.concat(k);
