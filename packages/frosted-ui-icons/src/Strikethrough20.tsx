@@ -1,28 +1,28 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const Strikethrough20 = React.forwardRef<SVGSVGElement, IconProps>(
-  ({ color = 'currentColor', ...props }, forwardedRef) => {
-    return (
-      <svg
-        width="20"
-        height="20"
-        viewBox="0 0 20 20"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        data-fui-icon="true"
-        {...props}
-        ref={forwardedRef}
-      >
-        <path
-          d="M14.6482 5.71758C14.4393 4.71347 13.5658 2.29166 10.0015 2.29166C6.57557 2.29166 5.29085 4.5195 5.29085 6.14582C5.29085 8.67724 7.62885 9.33816 10.0015 9.97141M4.97404 14.2824C5.29458 15.2865 6.43713 17.7083 10.0015 17.7083C13.4274 17.7083 14.9262 15.4805 14.9262 13.8542C14.9262 13.2277 14.7831 12.7158 14.5316 12.2905M2.29175 9.99999H17.7084"
-          stroke={color}
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      </svg>
-    );
-  },
-);
+export const Strikethrough20 = ({
+  color = 'currentColor',
+  ...props
+}: IconProps) => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M14.6481 5.71761C14.4392 4.7135 13.5657 2.29169 10.0014 2.29169C6.57544 2.29169 5.29073 4.51953 5.29073 6.14585C5.29073 8.67727 7.62873 9.33819 10.0014 9.97144M4.97392 14.2824C5.29446 15.2865 6.43701 17.7084 10.0014 17.7084C13.4273 17.7084 14.9261 15.4805 14.9261 13.8542C14.9261 13.2277 14.783 12.7159 14.5315 12.2905M2.29163 10H17.7083"
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+};
 
 export default Strikethrough20;
