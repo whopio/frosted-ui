@@ -1,4 +1,3 @@
-import 'frosted-ui/styles.css';
 import * as React from 'react';
 import './globals.css';
 

@@ -1,14 +1,10 @@
-@layer tw_base, frosted_ui, tw_components_utils;
+@config "../tailwind.config.js";
+@layer theme, base, frosted_ui, components, utilities;
+
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/preflight.css' layer(base);
+@import 'tailwindcss/utilities.css' layer(utilities);
 @import 'frosted-ui/styles.css' layer(frosted_ui);
-
-@layer tw_base {
-  @tailwind base;
-}
-
-@layer tw_components_utils {
-  @tailwind components;
-  @tailwind utilities;
-}
 
 body {
   height: 100%;

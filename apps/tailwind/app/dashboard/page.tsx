@@ -38,6 +38,7 @@ import {
   TextField,
   Theme,
   ThemePanel,
+  Tooltip,
 } from 'frosted-ui';
 // import { HideCursor } from './hide-cursor';
 /* Inter variable setup */
@@ -59,7 +60,7 @@ const SidebarButton = ({ children }: { children: React.ReactNode }) => {
 };
 const DashboardCard = () => {
   return (
-    <div className="flex-1 relative min-h-[202px] p-6 border border-gray-a3 rounded-6 overflow-hidden bg-panel-solid">
+    <div className="flex-1 relative min-h-[202px] p-6 border border-gray-a3 rounded-lg overflow-hidden bg-panel-solid">
       <WhopSVG />
       <Flex direction="column" gap="5">
         <Flex justify="between">
@@ -71,7 +72,9 @@ const DashboardCard = () => {
           />
           <Flex direction="column" gap="2">
             <Text color="gray" size="1" trim="both">
-              <Strong>APPS SUPPORTED</Strong>
+              <Tooltip content="SWAG" open>
+                <Strong>APPS SUPPORTED</Strong>
+              </Tooltip>
             </Text>
             <div className="flex justify-center gap-1 px-2 py-1 rounded-3 border border-gray-a3">
               <NotionLogoIcon width="20" height="20" className="text-blue-9" />
