@@ -25,20 +25,16 @@ export default {
 ```
 
 Then instead of importing `frosted-ui/styles.css` stylesheet in your JSX,
-do it in your Tailwind `globals.css` file like this:
+do it in your Tailwind `globals.css` file like this. Remember to use the `@config` directive to point to your `tailwind.config.js` file.
 
 ```css
-@layer tw_base, frosted_ui, tw_components_utils;
+@config "../tailwind.config.js";
+@layer theme, base, frosted_ui, components, utilities;
+
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/preflight.css' layer(base);
+@import 'tailwindcss/utilities.css' layer(utilities);
 @import 'frosted-ui/styles.css' layer(frosted_ui);
-
-@layer tw_base {
-  @tailwind base;
-}
-
-@layer tw_components_utils {
-  @tailwind components;
-  @tailwind utilities;
-}
 ```
 
 Then you can use the Frosted UI tokens via Tailwind classes.
