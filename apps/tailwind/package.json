@@ -20,13 +20,13 @@
     "seedrandom": "^3.0.5"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.14",
     "@types/node": "^17.0.12",
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
-    "autoprefixer": "^10.4.16",
     "eslint-config-custom": "workspace:*",
     "postcss": "^8.4.30",
-    "tailwindcss": "^3.3.5",
+    "tailwindcss": "^4.0.14",
     "typescript": "^4.5.3"
   }
 }
