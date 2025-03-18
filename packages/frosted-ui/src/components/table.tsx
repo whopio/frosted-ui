@@ -70,6 +70,13 @@ const TableFooter = (props: TableFooterProps) => (
 );
 TableFooter.displayName = 'TableFooter';
 
+const alignMap = {
+  baseline: 'baseline',
+  start: 'top',
+  center: 'middle',
+  end: 'bottom',
+} as const;
+
 type TableRowOwnProps = GetPropDefTypes<typeof tableRowPropDefs>;
 interface TableRowProps extends Omit<React.ComponentProps<'tr'>, keyof TableRowOwnProps>, TableRowOwnProps {}
 const TableRow = (props: TableRowProps) => {
@@ -77,16 +84,7 @@ const TableRow = (props: TableRowProps) => {
   return (
     <tr
       {...rowProps}
-      className={classNames(
-        'fui-TableRow',
-        className,
-        withBreakpoints(align, 'fui-r-va', {
-          baseline: 'baseline',
-          start: 'top',
-          center: 'middle',
-          end: 'bottom',
-        }),
-      )}
+      className={classNames('fui-TableRow', className, align ? `fui-r-va-${alignMap[align]}` : undefined)}
     />
   );
 };
