@@ -1,21 +1,19 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import type { GetPropDefTypes, MarginProps, PaddingProps } from '../helpers';
-import { extractMarginProps, extractPaddingProps, withMarginProps, withPaddingProps } from '../helpers';
+import type { GetPropDefTypes } from '../helpers';
 import { Button } from './button';
 import { tableCellPropDefs, tableRootPropDefs, tableRowPropDefs } from './table.props';
 
 type TableRootOwnProps = GetPropDefTypes<typeof tableRootPropDefs>;
-interface TableRootProps extends React.ComponentProps<'div'>, MarginProps, TableRootOwnProps {}
+interface TableRootProps extends React.ComponentProps<'div'>, TableRootOwnProps {}
 const TableRoot = (props: TableRootProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     className,
     children,
     size = tableRootPropDefs.size.default,
     variant = tableRootPropDefs.variant.default,
     ...rootProps
-  } = marginRest;
+  } = props;
   return (
     <div
       {...rootProps}
@@ -28,7 +26,6 @@ const TableRoot = (props: TableRootProps) => {
         className,
         `fui-variant-${variant}`,
         `fui-r-size-${size}`,
-        withMarginProps(marginProps),
       )}
     >
       {children}
@@ -93,12 +90,10 @@ const justifyMap = {
 type TableCellImplOwnProps = GetPropDefTypes<typeof tableCellPropDefs>;
 interface TableCellImplProps
   extends Omit<React.ComponentProps<'td'>, keyof TableCellImplOwnProps>,
-    PaddingProps,
     TableCellImplOwnProps {
   tag?: 'td' | 'th';
 }
 const TableCellImpl = (props: TableCellImplProps) => {
-  const { rest: paddingRest, ...paddingProps } = extractPaddingProps(props);
   const {
     tag: Tag = 'td',
     className,
@@ -106,16 +101,11 @@ const TableCellImpl = (props: TableCellImplProps) => {
     justify = tableCellPropDefs.justify.default,
     width = tableCellPropDefs.width.default,
     ...cellProps
-  } = paddingRest;
+  } = props;
   return (
     <Tag
       {...cellProps}
-      className={classNames(
-        'fui-TableCell',
-        className,
-        withPaddingProps(paddingProps),
-        justify ? `fui-r-ta-${justifyMap[justify]}` : undefined,
-      )}
+      className={classNames('fui-TableCell', className, justify ? `fui-r-ta-${justifyMap[justify]}` : undefined)}
       style={{ width, ...style }}
     />
   );
@@ -128,7 +118,6 @@ TableCell.displayName = 'TableCell';
 
 interface TableColumnHeaderCellProps
   extends Omit<React.ComponentProps<'th'>, keyof TableCellImplOwnProps>,
-    PaddingProps,
     TableCellImplOwnProps {}
 const TableColumnHeaderCell = (props: TableColumnHeaderCellProps) => (
   <TableCellImpl scope="col" {...props} tag="th" className={classNames('fui-TableColumnHeaderCell', props.className)} />
@@ -137,7 +126,6 @@ TableColumnHeaderCell.displayName = 'TableColumnHeaderCell';
 
 interface TableRowHeaderCellProps
   extends Omit<React.ComponentProps<'th'>, keyof TableCellImplOwnProps>,
-    PaddingProps,
     TableCellImplOwnProps {}
 const TableRowHeaderCell = (props: TableRowHeaderCellProps) => (
   <TableCellImpl scope="row" {...props} tag="th" className={classNames('fui-TableRowHeaderCell', props.className)} />
