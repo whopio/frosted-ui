@@ -33,30 +33,24 @@ export const Single: Story = {
       <Accordion.Root
         // collapsible
         style={{ width: 600 }}
-        p="5"
         {...args}
       >
         <Flex direction="column" gap="4">
           <Accordion.Item value="item-1">
             <Accordion.Trigger>Is it accessible?</Accordion.Trigger>
-            <Accordion.Content>
-              Yes. It adheres to the WAI-ARIA design pattern.
-            </Accordion.Content>
+            <Accordion.Content>Yes. It adheres to the WAI-ARIA design pattern.</Accordion.Content>
           </Accordion.Item>
 
           <Accordion.Item value="item-2">
             <Accordion.Trigger>Is it unstyled?</Accordion.Trigger>
             <Accordion.Content>
-              Yes. It's unstyled by default, giving you freedom over the look
-              and feel.
+              Yes. It's unstyled by default, giving you freedom over the look and feel.
             </Accordion.Content>
           </Accordion.Item>
 
           <Accordion.Item value="item-3">
             <Accordion.Trigger>Can it be animated?</Accordion.Trigger>
-            <Accordion.Content>
-              Yes! You can animate the Accordion with CSS or JavaScript.
-            </Accordion.Content>
+            <Accordion.Content>Yes! You can animate the Accordion with CSS or JavaScript.</Accordion.Content>
           </Accordion.Item>
         </Flex>
       </Accordion.Root>
@@ -71,28 +65,23 @@ export const Multiple: Story = {
   },
   render: (args: AccordionRootProps) => (
     <div>
-      <Accordion.Root style={{ width: 600 }} p="5" {...args}>
+      <Accordion.Root style={{ width: 600 }} {...args}>
         <Flex direction="column" gap="4">
           <Accordion.Item value="item-1">
             <Accordion.Trigger>Is it accessible?</Accordion.Trigger>
-            <Accordion.Content>
-              Yes. It adheres to the WAI-ARIA design pattern.
-            </Accordion.Content>
+            <Accordion.Content>Yes. It adheres to the WAI-ARIA design pattern.</Accordion.Content>
           </Accordion.Item>
 
           <Accordion.Item value="item-2">
             <Accordion.Trigger>Is it unstyled?</Accordion.Trigger>
             <Accordion.Content>
-              Yes. It's unstyled by default, giving you freedom over the look
-              and feel.
+              Yes. It's unstyled by default, giving you freedom over the look and feel.
             </Accordion.Content>
           </Accordion.Item>
 
           <Accordion.Item value="item-3">
             <Accordion.Trigger>Can it be animated?</Accordion.Trigger>
-            <Accordion.Content>
-              Yes! You can animate the Accordion with CSS or JavaScript.
-            </Accordion.Content>
+            <Accordion.Content>Yes! You can animate the Accordion with CSS or JavaScript.</Accordion.Content>
           </Accordion.Item>
         </Flex>
       </Accordion.Root>
