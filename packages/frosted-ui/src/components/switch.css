@@ -91,17 +91,15 @@
  *                                                                                                 *
  ***************************************************************************************************/
 
-@breakpoints {
-  .fui-SwitchRoot {
-    &:where(.fui-r-size-1) {
-      --switch-height: var(--space-4);
-    }
-    &:where(.fui-r-size-2) {
-      --switch-height: var(--space-5);
-    }
-    &:where(.fui-r-size-3) {
-      --switch-height: calc(var(--space-6));
-    }
+.fui-SwitchRoot {
+  &:where(.fui-r-size-1) {
+    --switch-height: var(--space-4);
+  }
+  &:where(.fui-r-size-2) {
+    --switch-height: var(--space-5);
+  }
+  &:where(.fui-r-size-3) {
+    --switch-height: calc(var(--space-6));
   }
 }
 

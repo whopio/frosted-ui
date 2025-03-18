@@ -59,17 +59,15 @@
  *                                                                                                 *
  ***************************************************************************************************/
 
-@breakpoints {
-  .fui-DrawerContent {
-    &:where(.fui-r-size-1) {
-      --drawer-content-padding: var(--space-3);
-    }
-    &:where(.fui-r-size-2) {
-      --drawer-content-padding: var(--space-4);
-    }
-    &:where(.fui-r-size-3) {
-      --drawer-content-padding: var(--space-5);
-    }
+.fui-DrawerContent {
+  &:where(.fui-r-size-1) {
+    --drawer-content-padding: var(--space-3);
+  }
+  &:where(.fui-r-size-2) {
+    --drawer-content-padding: var(--space-4);
+  }
+  &:where(.fui-r-size-3) {
+    --drawer-content-padding: var(--space-5);
   }
 }
 

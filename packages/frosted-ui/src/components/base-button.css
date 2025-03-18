@@ -23,32 +23,30 @@
   height: var(--base-button-height);
 }
 
-@breakpoints {
-  .fui-BaseButton {
-    &:where(.fui-r-size-1) {
-      --base-button-classic-active-padding-top: 1px;
-      --base-button-height: var(--space-5);
-      border-radius: var(--radius-3);
-      --base-button-spinner-size: 12px;
-    }
-    &:where(.fui-r-size-2) {
-      --base-button-classic-active-padding-top: 2px;
-      --base-button-height: var(--space-6);
-      border-radius: var(--radius-4);
-      --base-button-spinner-size: 16px;
-    }
-    &:where(.fui-r-size-3) {
-      --base-button-classic-active-padding-top: 2px;
-      --base-button-height: var(--space-7);
-      border-radius: var(--radius-4);
-      --base-button-spinner-size: 18px;
-    }
-    &:where(.fui-r-size-4) {
-      --base-button-classic-active-padding-top: 2px;
-      --base-button-height: var(--space-8);
-      border-radius: var(--radius-5);
-      --base-button-spinner-size: 22px;
-    }
+.fui-BaseButton {
+  &:where(.fui-r-size-1) {
+    --base-button-classic-active-padding-top: 1px;
+    --base-button-height: var(--space-5);
+    border-radius: var(--radius-3);
+    --base-button-spinner-size: 12px;
+  }
+  &:where(.fui-r-size-2) {
+    --base-button-classic-active-padding-top: 2px;
+    --base-button-height: var(--space-6);
+    border-radius: var(--radius-4);
+    --base-button-spinner-size: 16px;
+  }
+  &:where(.fui-r-size-3) {
+    --base-button-classic-active-padding-top: 2px;
+    --base-button-height: var(--space-7);
+    border-radius: var(--radius-4);
+    --base-button-spinner-size: 18px;
+  }
+  &:where(.fui-r-size-4) {
+    --base-button-classic-active-padding-top: 2px;
+    --base-button-height: var(--space-8);
+    border-radius: var(--radius-5);
+    --base-button-spinner-size: 22px;
   }
 }
 

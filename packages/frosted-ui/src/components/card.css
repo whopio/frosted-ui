@@ -90,28 +90,26 @@
   }
 }
 
-@breakpoints {
-  .fui-Card {
-    &:where(.fui-r-size-1) {
-      --card-padding: var(--space-3);
-      --card-border-radius: var(--radius-4);
-    }
-    &:where(.fui-r-size-2) {
-      --card-padding: var(--space-4);
-      --card-border-radius: var(--radius-4);
-    }
-    &:where(.fui-r-size-3) {
-      --card-padding: var(--space-5);
-      --card-border-radius: var(--radius-5);
-    }
-    &:where(.fui-r-size-4) {
-      --card-padding: var(--space-6);
-      --card-border-radius: var(--radius-5);
-    }
-    &:where(.fui-r-size-5) {
-      --card-padding: var(--space-8);
-      --card-border-radius: var(--radius-6);
-    }
+.fui-Card {
+  &:where(.fui-r-size-1) {
+    --card-padding: var(--space-3);
+    --card-border-radius: var(--radius-4);
+  }
+  &:where(.fui-r-size-2) {
+    --card-padding: var(--space-4);
+    --card-border-radius: var(--radius-4);
+  }
+  &:where(.fui-r-size-3) {
+    --card-padding: var(--space-5);
+    --card-border-radius: var(--radius-5);
+  }
+  &:where(.fui-r-size-4) {
+    --card-padding: var(--space-6);
+    --card-border-radius: var(--radius-5);
+  }
+  &:where(.fui-r-size-5) {
+    --card-padding: var(--space-8);
+    --card-border-radius: var(--radius-6);
   }
 }
 
