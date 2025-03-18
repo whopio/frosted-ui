@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+import { extractMarginProps, withMarginProps } from '../helpers';
 import { codePropDefs } from './code.props';
 
 import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
@@ -28,7 +28,7 @@ const Code = (props: CodeProps) => {
         className,
         `fui-r-size-${size}`,
         `fui-variant-${variant}`,
-        withBreakpoints(weight, 'fui-r-weight'),
+        `fui-r-weight-${weight}`,
         { 'fui-high-contrast': highContrast },
         withMarginProps(marginProps),
       )}

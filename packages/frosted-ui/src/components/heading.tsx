@@ -1,7 +1,7 @@
 import { Slot } from '@radix-ui/react-slot';
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+import { extractMarginProps, withMarginProps } from '../helpers';
 import { headingPropDefs } from './heading.props';
 
 import type { GetPropDefTypes, MarginProps, NiceIntersection, PropsWithoutColor } from '../helpers';
@@ -41,9 +41,9 @@ const Heading = (props: HeadingProps) => {
         'fui-Heading',
         className,
         `fui-r-size-${size}`,
-        withBreakpoints(weight, 'fui-r-weight'),
-        withBreakpoints(align, 'fui-r-ta'),
-        withBreakpoints(trim, 'fui-r-lt'),
+        `fui-r-weight-${weight}`,
+        `fui-r-ta-${align}`,
+        `fui-r-lt-${trim}`,
         { 'fui-high-contrast': highContrast },
         withMarginProps(marginProps),
       )}

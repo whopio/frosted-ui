@@ -6,7 +6,6 @@ const trimProp = {
   type: 'enum',
   values: trimValues,
   default: undefined,
-  responsive: true,
 } satisfies PropDef<(typeof trimValues)[number]>;
 
 export { trimProp };

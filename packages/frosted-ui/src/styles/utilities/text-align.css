@@ -1,13 +1,11 @@
-@breakpoints {
-  .fui-r-ta-left {
-    text-align: left;
-  }
+.fui-r-ta-left {
+  text-align: left;
+}
 
-  .fui-r-ta-center {
-    text-align: center;
-  }
+.fui-r-ta-center {
+  text-align: center;
+}
 
-  .fui-r-ta-right {
-    text-align: right;
-  }
+.fui-r-ta-right {
+  text-align: right;
 }

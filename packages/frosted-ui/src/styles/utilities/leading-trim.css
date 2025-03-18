@@ -1,32 +1,30 @@
-@breakpoints {
-  .fui-r-lt-normal::before,
-  .fui-r-lt-end::before,
-  .fui-r-lt-normal::after,
-  .fui-r-lt-start::after {
-    content: none;
-  }
+.fui-r-lt-normal::before,
+.fui-r-lt-end::before,
+.fui-r-lt-normal::after,
+.fui-r-lt-start::after {
+  content: none;
+}
 
-  .fui-r-lt-start::before,
-  .fui-r-lt-both::before,
-  .fui-r-lt-end::after,
-  .fui-r-lt-both::after {
-    content: '';
-    display: table;
-  }
+.fui-r-lt-start::before,
+.fui-r-lt-both::before,
+.fui-r-lt-end::after,
+.fui-r-lt-both::after {
+  content: '';
+  display: table;
+}
 
-  .fui-r-lt-start::before,
-  .fui-r-lt-both::before {
-    margin-bottom: calc(
-      var(--leading-trim-start, var(--default-leading-trim-start)) -
-        var(--line-height, calc(1em * var(--default-line-height))) / 2
-    );
-  }
+.fui-r-lt-start::before,
+.fui-r-lt-both::before {
+  margin-bottom: calc(
+    var(--leading-trim-start, var(--default-leading-trim-start)) -
+      var(--line-height, calc(1em * var(--default-line-height))) / 2
+  );
+}
 
-  .fui-r-lt-end::after,
-  .fui-r-lt-both::after {
-    margin-top: calc(
-      var(--leading-trim-end, var(--default-leading-trim-end)) -
-        var(--line-height, calc(1em * var(--default-line-height))) / 2
-    );
-  }
+.fui-r-lt-end::after,
+.fui-r-lt-both::after {
+  margin-top: calc(
+    var(--leading-trim-end, var(--default-leading-trim-end)) -
+      var(--line-height, calc(1em * var(--default-line-height))) / 2
+  );
 }

@@ -34,7 +34,7 @@ const DataListRoot = (props: DataListRootProps) => {
         className={classNames(
           'fui-DataListRoot',
           `fui-r-size-${size}`,
-          withBreakpoints(trim, 'fui-r-lt'),
+          `fui-r-lt-${trim}`,
           withBreakpoints(orientation, 'fui-r-orientation'),
           withMarginProps(marginProps),
           className,
