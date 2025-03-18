@@ -108,9 +108,7 @@ export default function ExploreComponents() {
         <NextThemeProvider>
           <Theme asChild>
             <div id="root">
-              <Box display={{ initial: 'none', lg: 'block' }}>
-                <ThemePanel />
-              </Box>
+              <ThemePanel />
 
               <Box m={{ initial: '3', md: '6', xl: '9' }}>
                 <Heading id="alert-dialog" style={{ marginBottom: 24 }}>

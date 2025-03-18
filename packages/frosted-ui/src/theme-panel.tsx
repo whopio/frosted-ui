@@ -175,8 +175,6 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
         position="fixed"
         top="0"
         right="0"
-        mr="4"
-        mt="4"
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         inert={open ? undefined : ''}
@@ -184,6 +182,8 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
         ref={forwardedRef}
         style={{
           zIndex: 9999,
+          marginRight: 16,
+          marginTop: 16,
           overflow: 'hidden',
           maxHeight: 'calc(100vh - var(--space-4) - var(--space-4))',
           borderRadius: 'var(--radius-4)',
@@ -199,7 +199,7 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
       >
         <ScrollArea>
           <Box grow="1" p="5" position="relative">
-            <Box position="absolute" top="0" right="0" m="2">
+            <Box position="absolute" top="0" right="0" style={{ margin: 8 }}>
               <Tooltip content="Press ⌘&thinsp;C to show/hide the Theme Panel" side="bottom" sideOffset={6}>
                 <Kbd size="3" tabIndex={0} className="fui-ThemePanelShortcut">
                   ⌘&thinsp;C
@@ -230,7 +230,7 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
               Accent color
             </Text>
 
-            <Grid columns="10" gap="2" mt="3" role="group" aria-labelledby="accent-color-title">
+            <Grid columns="10" gap="2" style={{ marginTop: 12 }} role="group" aria-labelledby="accent-color-title">
               {themeAccentColorsOrdered.map((color) => (
                 <label key={color} className="fui-ThemePanelSwatch" style={{ backgroundColor: `var(--${color}-9)` }}>
                   <Tooltip
@@ -267,7 +267,7 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
               </Text>
             </Flex>
 
-            <Grid columns="10" gap="2" mt="3" role="group" aria-labelledby="gray-color-title">
+            <Grid columns="10" gap="2" style={{ marginTop: 12 }} role="group" aria-labelledby="gray-color-title">
               {['auto', 'gray', ...radixGrayScalesDesaturated].map((gray) => (
                 <Flex key={gray} asChild align="center" justify="center">
                   <label
@@ -315,7 +315,7 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
               Info color
             </Text>
 
-            <Grid columns="10" gap="2" mt="3" role="group" aria-labelledby="info-color-title">
+            <Grid columns="10" gap="2" style={{ marginTop: 12 }} role="group" aria-labelledby="info-color-title">
               {infoColors.map((color) => (
                 <label key={color} className="fui-ThemePanelSwatch" style={{ backgroundColor: `var(--${color}-9)` }}>
                   <Tooltip content={upperFirst(color)}>
@@ -344,7 +344,7 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
               Success color
             </Text>
 
-            <Grid columns="10" gap="2" mt="3" role="group" aria-labelledby="success-color-title">
+            <Grid columns="10" gap="2" style={{ marginTop: 12 }} role="group" aria-labelledby="success-color-title">
               {successColors.map((color) => (
                 <label key={color} className="fui-ThemePanelSwatch" style={{ backgroundColor: `var(--${color}-9)` }}>
                   <Tooltip content={upperFirst(color)}>
@@ -373,7 +373,7 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
               Warning color
             </Text>
 
-            <Grid columns="10" gap="2" mt="3" role="group" aria-labelledby="warning-color-title">
+            <Grid columns="10" gap="2" style={{ marginTop: 12 }} role="group" aria-labelledby="warning-color-title">
               {warningColors.map((color) => (
                 <label key={color} className="fui-ThemePanelSwatch" style={{ backgroundColor: `var(--${color}-9)` }}>
                   <Tooltip content={upperFirst(color)}>
@@ -402,7 +402,7 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
               Danger color
             </Text>
 
-            <Grid columns="10" gap="2" mt="3" role="group" aria-labelledby="danger-color-title">
+            <Grid columns="10" gap="2" style={{ marginTop: 12 }} role="group" aria-labelledby="danger-color-title">
               {dangerColors.map((color) => (
                 <label key={color} className="fui-ThemePanelSwatch" style={{ backgroundColor: `var(--${color}-9)` }}>
                   <Tooltip content={upperFirst(color)}>
@@ -430,7 +430,7 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
               Appearance
             </Text>
 
-            <Grid columns="2" gap="2" mt="3" role="group" aria-labelledby="appearance-title">
+            <Grid columns="2" gap="2" style={{ marginTop: 12 }} role="group" aria-labelledby="appearance-title">
               {(['light', 'dark'] as const).map((value) => (
                 <label key={value} className="fui-ThemePanelRadioCard">
                   <input

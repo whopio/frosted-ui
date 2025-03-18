@@ -11,13 +11,7 @@ interface ContainerProps extends React.ComponentProps<'div'>, MarginProps, Layou
 const Container = (props: ContainerProps) => {
   const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const { rest: layoutRest, ...layoutProps } = extractLayoutProps(marginRest);
-  const {
-    children,
-    className,
-    size = containerPropDefs.size.default,
-    display = containerPropDefs.display.default,
-    ...containerProps
-  } = layoutRest;
+  const { children, className, size = containerPropDefs.size.default, ...containerProps } = layoutRest;
   return (
     <div
       {...containerProps}
@@ -25,7 +19,6 @@ const Container = (props: ContainerProps) => {
         'fui-Container',
         className,
         withBreakpoints(size, 'fui-r-size'),
-        withBreakpoints(display, 'fui-r-display'),
         withLayoutProps(layoutProps),
         withMarginProps(marginProps),
       )}

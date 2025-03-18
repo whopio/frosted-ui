@@ -8,12 +8,6 @@ const wrapValues = ['nowrap', 'wrap', 'wrap-reverse'] as const;
 const gapValues = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
 
 const flexPropDefs = {
-  display: {
-    type: 'enum',
-    values: displayValues,
-    default: 'flex',
-    responsive: true,
-  },
   direction: {
     type: 'enum',
     values: directionValues,
@@ -45,7 +39,6 @@ const flexPropDefs = {
     responsive: true,
   },
 } satisfies {
-  display: PropDef<(typeof displayValues)[number]>;
   direction: PropDef<(typeof directionValues)[number]>;
   align: PropDef<(typeof alignValues)[number]>;
   justify: PropDef<(typeof justifyValues)[number]>;
