@@ -51,7 +51,7 @@ const SidebarButton = ({ children }: { children: React.ReactNode }) => {
   return (
     <button
       className={
-        'fui-reset flex items-center text-gray-a10 gap-4 w-full h-[42px] pl-4 rounded-5 hover:bg-gray-a3 hover:text-gray-a12 dark:hover:shadow-[0px_0px_0px_1px_var(--gray-a4)_inset] dark:hover:bg-[linear-gradient(_95deg,transparent,transparent,transparent,var(--accent-a4)_)]'
+        'fui-reset flex items-center text-gray-a10 gap-4 w-full h-[42px] pl-4 rounded-md hover:bg-gray-a3 hover:text-gray-a12 dark:hover:shadow-[0px_0px_0px_1px_var(--gray-a4)_inset] dark:hover:bg-[linear-gradient(_95deg,transparent,transparent,transparent,var(--accent-a4)_)]'
       }
     >
       {children}
@@ -193,7 +193,7 @@ const WhopSVG = () => {
 export default function Dashboard() {
   return (
     /* Inter variable setup */
-    <html lang="en" suppressHydrationWarning className={interVariable.variable}>
+    <html lang="en" suppressHydrationWarning className={'frosted-ui ' + interVariable.variable}>
       <body>
         {/* <NextThemeProvider> */}
         <Theme asChild appearance="dark" grayColor="gray" accentColor="blue">
