@@ -64,7 +64,7 @@ AlertDialogContent.displayName = 'AlertDialogContent';
 
 type AlertDialogTitleProps = React.ComponentProps<typeof Heading>;
 
-const AlertDialogTitle = ({ size: sizeProp, mb: mbProp, ...props }: AlertDialogTitleProps) => {
+const AlertDialogTitle = ({ size: sizeProp, ...props }: AlertDialogTitleProps) => {
   const { size: contextSize } = React.useContext(AlertDialogContentContext);
   let size: AlertDialogTitleProps['size'];
 
@@ -79,21 +79,9 @@ const AlertDialogTitle = ({ size: sizeProp, mb: mbProp, ...props }: AlertDialogT
     )[contextSize];
   }
 
-  let mb: AlertDialogTitleProps['mb'] = '3';
-
-  if (contextSize) {
-    mb = (
-      {
-        '1': '1',
-        '2': '2',
-        '3': '3',
-        '4': '3',
-      } as const
-    )[contextSize];
-  }
   return (
     <AlertDialogPrimitive.Title asChild>
-      <Heading size={sizeProp || size} mb={mbProp || mb} trim="start" {...props} />
+      <Heading size={sizeProp || size} trim="start" {...props} />
     </AlertDialogPrimitive.Title>
   );
 };
@@ -101,7 +89,7 @@ AlertDialogTitle.displayName = 'AlertDialogTitle';
 
 type AlertDialogDescriptionProps = ExtractPropsForTag<typeof Text, 'p'>;
 
-const AlertDialogDescription = ({ size: sizeProp, mb: mbProp, ...props }: AlertDialogDescriptionProps) => {
+const AlertDialogDescription = ({ size: sizeProp, ...props }: AlertDialogDescriptionProps) => {
   const { size: contextSize } = React.useContext(AlertDialogContentContext);
   let size: AlertDialogDescriptionProps['size'];
 
@@ -116,21 +104,9 @@ const AlertDialogDescription = ({ size: sizeProp, mb: mbProp, ...props }: AlertD
     )[contextSize];
   }
 
-  let mb: AlertDialogDescriptionProps['mb'] = '3';
-
-  if (contextSize) {
-    mb = (
-      {
-        '1': '3',
-        '2': '4',
-        '3': '4',
-        '4': '6',
-      } as const
-    )[contextSize];
-  }
   return (
     <AlertDialogPrimitive.Description asChild>
-      <Text as="p" size={sizeProp || size} mb={mbProp || mb} {...props} />
+      <Text as="p" size={sizeProp || size} {...props} />
     </AlertDialogPrimitive.Description>
   );
 };

@@ -59,7 +59,7 @@ const DialogContent = (props: DialogContentProps) => {
 DialogContent.displayName = 'DialogContent';
 
 type DialogTitleProps = React.ComponentProps<typeof Heading>;
-const DialogTitle = ({ size: sizeProp, mb: mbProp, ...props }: DialogTitleProps) => {
+const DialogTitle = ({ size: sizeProp, ...props }: DialogTitleProps) => {
   const { size: contextSize } = React.useContext(DialogContentContext);
   let size: DialogTitleProps['size'];
 
@@ -74,28 +74,16 @@ const DialogTitle = ({ size: sizeProp, mb: mbProp, ...props }: DialogTitleProps)
     )[contextSize];
   }
 
-  let mb: DialogTitleProps['mb'] = '3';
-
-  if (contextSize) {
-    mb = (
-      {
-        '1': '1',
-        '2': '2',
-        '3': '3',
-        '4': '3',
-      } as const
-    )[contextSize];
-  }
   return (
     <DialogPrimitive.Title asChild>
-      <Heading size={sizeProp || size} mb={mbProp || mb} trim="start" {...props} />
+      <Heading size={sizeProp || size} trim="start" {...props} />
     </DialogPrimitive.Title>
   );
 };
 DialogTitle.displayName = 'DialogTitle';
 
 type DialogDescriptionProps = ExtractPropsForTag<typeof Text, 'p'>;
-const DialogDescription = ({ size: sizeProp, mb: mbProp, ...props }: DialogDescriptionProps) => {
+const DialogDescription = ({ size: sizeProp, ...props }: DialogDescriptionProps) => {
   const { size: contextSize } = React.useContext(DialogContentContext);
   let size: DialogDescriptionProps['size'];
 
@@ -110,21 +98,9 @@ const DialogDescription = ({ size: sizeProp, mb: mbProp, ...props }: DialogDescr
     )[contextSize];
   }
 
-  let mb: DialogDescriptionProps['mb'] = '3';
-
-  if (contextSize) {
-    mb = (
-      {
-        '1': '3',
-        '2': '4',
-        '3': '4',
-        '4': '6',
-      } as const
-    )[contextSize];
-  }
   return (
     <DialogPrimitive.Description asChild>
-      <Text as="p" size={sizeProp || size} mb={mbProp || mb} {...props} />
+      <Text as="p" size={sizeProp || size} {...props} />
     </DialogPrimitive.Description>
   );
 };
