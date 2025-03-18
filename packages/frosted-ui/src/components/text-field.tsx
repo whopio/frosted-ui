@@ -3,13 +3,7 @@
 import { composeEventHandlers } from '@radix-ui/primitive';
 import classNames from 'classnames';
 import * as React from 'react';
-import {
-  extractMarginProps,
-  extractPaddingProps,
-  withBreakpoints,
-  withMarginProps,
-  withPaddingProps,
-} from '../helpers';
+import { extractMarginProps, extractPaddingProps, withMarginProps, withPaddingProps } from '../helpers';
 import { textFieldPropDefs, textFieldSlotPropDefs } from './text-field.props';
 
 import type { GetPropDefTypes, MarginProps, PaddingProps, PropsWithoutColor } from '../helpers';
@@ -61,12 +55,7 @@ type TextFieldSlotOwnProps = GetPropDefTypes<typeof textFieldSlotPropDefs>;
 interface TextFieldSlotProps extends PropsWithoutColor<'div'>, PaddingProps, TextFieldSlotOwnProps {}
 const TextFieldSlot = React.forwardRef<TextFieldSlotElement, TextFieldSlotProps>((props, forwardedRef) => {
   const { rest: paddingRest, ...paddingProps } = extractPaddingProps(props);
-  const {
-    className,
-    color = textFieldSlotPropDefs.color.default,
-    gap = textFieldSlotPropDefs.gap.default,
-    ...slotProps
-  } = paddingRest;
+  const { className, color = textFieldSlotPropDefs.color.default, ...slotProps } = paddingRest;
   const context = React.useContext(TextFieldContext);
   return (
     <div
@@ -76,8 +65,7 @@ const TextFieldSlot = React.forwardRef<TextFieldSlotElement, TextFieldSlotProps>
       className={classNames(
         'fui-TextFieldSlot',
         className,
-        withBreakpoints(context?.size, 'fui-r-size'),
-        withBreakpoints(gap, 'fui-r-gap'),
+        `fui-r-size-${context?.size}`,
         withPaddingProps(paddingProps),
       )}
     />

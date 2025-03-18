@@ -1,5 +1,4 @@
 import { PropDef, colorProp } from '../helpers';
-import { flexPropDefs } from './flex.props';
 
 const sizes = ['1', '2', '3'] as const;
 const variants = ['classic', 'surface', 'soft'] as const;
@@ -16,10 +15,8 @@ const textFieldPropDefs = {
 
 const textFieldSlotPropDefs = {
   color: colorProp,
-  gap: flexPropDefs.gap,
 } satisfies {
   color: typeof colorProp;
-  gap: typeof flexPropDefs.gap;
 };
 
 export { textFieldPropDefs, textFieldSlotPropDefs };
