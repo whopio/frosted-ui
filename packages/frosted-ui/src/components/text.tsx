@@ -49,7 +49,7 @@ const Text = (props: TextProps) => {
       className={classNames(
         'fui-Text',
         className,
-        withBreakpoints(size, 'fui-r-size'),
+        `fui-r-size-${size}`,
         withBreakpoints(weight, 'fui-r-weight'),
         withBreakpoints(align, 'fui-r-ta'),
         withBreakpoints(trim, 'fui-r-lt'),

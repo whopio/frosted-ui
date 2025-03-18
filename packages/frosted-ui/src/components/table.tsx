@@ -33,7 +33,7 @@ const TableRoot = (props: TableRootProps) => {
         'fui-TableRoot-vars',
         className,
         `fui-variant-${variant}`,
-        withBreakpoints(size, 'fui-r-size'),
+        `fui-r-size-${size}`,
         withMarginProps(marginProps),
       )}
     >

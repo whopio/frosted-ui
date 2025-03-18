@@ -26,7 +26,7 @@ const Code = (props: CodeProps) => {
       className={classNames(
         'fui-Code',
         className,
-        withBreakpoints(size, 'fui-r-size'),
+        `fui-r-size-${size}`,
         `fui-variant-${variant}`,
         withBreakpoints(weight, 'fui-r-weight'),
         { 'fui-high-contrast': highContrast },

@@ -40,7 +40,7 @@ const Heading = (props: HeadingProps) => {
       className={classNames(
         'fui-Heading',
         className,
-        withBreakpoints(size, 'fui-r-size'),
+        `fui-r-size-${size}`,
         withBreakpoints(weight, 'fui-r-weight'),
         withBreakpoints(align, 'fui-r-ta'),
         withBreakpoints(trim, 'fui-r-lt'),

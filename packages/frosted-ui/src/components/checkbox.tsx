@@ -3,7 +3,7 @@
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+import { extractMarginProps, withMarginProps } from '../helpers';
 import { checkboxPropDefs } from './checkbox.props';
 
 import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
@@ -85,12 +85,7 @@ const Checkbox = (props: CheckboxProps) => {
 
   return (
     <Comp
-      className={classNames(
-        'fui-CheckboxRoot',
-        className,
-        withBreakpoints(size, 'fui-r-size'),
-        withMarginProps(marginProps),
-      )}
+      className={classNames('fui-CheckboxRoot', className, `fui-r-size-${size}`, withMarginProps(marginProps))}
       style={style}
     >
       <CheckboxPrimitive.Root

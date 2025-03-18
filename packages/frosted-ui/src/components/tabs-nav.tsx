@@ -3,14 +3,7 @@
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import classNames from 'classnames';
 import * as React from 'react';
-import {
-  GetPropDefTypes,
-  MarginProps,
-  extractMarginProps,
-  getSubtree,
-  withBreakpoints,
-  withMarginProps,
-} from '../helpers';
+import { GetPropDefTypes, MarginProps, extractMarginProps, getSubtree, withMarginProps } from '../helpers';
 import { tabsNavLinkPropDefs, tabsNavPropDefs } from './tabs-nav.props';
 
 type TabsNavOwnProps = GetPropDefTypes<typeof tabsNavPropDefs>;
@@ -35,7 +28,7 @@ const TabsNavRoot = (props: TabsNavRootProps) => {
           'fui-TabsNavList',
           className,
           withMarginProps(marginProps),
-          withBreakpoints(size, 'fui-r-size'),
+          `fui-r-size-${size}`,
         )}
       >
         {children}

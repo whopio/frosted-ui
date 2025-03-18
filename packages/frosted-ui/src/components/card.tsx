@@ -1,7 +1,7 @@
 import { Slot } from '@radix-ui/react-slot';
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+import { extractMarginProps, withMarginProps } from '../helpers';
 import { cardPropDefs } from './card.props';
 
 import type { GetPropDefTypes, MarginProps } from '../helpers';
@@ -37,7 +37,7 @@ const Card = (props: CardProps) => {
         'fui-reset',
         'fui-Card',
         className,
-        withBreakpoints(size, 'fui-r-size'),
+        `fui-r-size-${size}`,
         `fui-variant-${variant}`,
         withMarginProps(marginProps),
       )}

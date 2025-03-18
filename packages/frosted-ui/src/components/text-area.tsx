@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+import { extractMarginProps, withMarginProps } from '../helpers';
 import { textAreaPropDefs } from './text-area.props';
 
 import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
@@ -25,7 +25,7 @@ const TextArea = (props: TextAreaProps) => {
       className={classNames(
         'fui-TextAreaRoot',
         className,
-        withBreakpoints(size, 'fui-r-size'),
+        `fui-r-size-${size}`,
         `fui-variant-${variant}`,
         withMarginProps(marginProps),
       )}

@@ -3,7 +3,7 @@
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+import { extractMarginProps, withMarginProps } from '../helpers';
 import { avatarPropDefs } from './avatar.props';
 
 import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
@@ -48,7 +48,7 @@ const Avatar = (props: AvatarProps) => {
       className={classNames(
         'fui-AvatarRoot',
         className,
-        withBreakpoints(size, 'fui-r-size'),
+        `fui-r-size-${size}`,
         { 'fui-high-contrast': highContrast },
         `fui-variant-${variant}`,
         withMarginProps(marginProps),

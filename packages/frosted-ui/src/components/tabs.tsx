@@ -3,7 +3,7 @@
 import * as TabsPrimitive from '@radix-ui/react-tabs';
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+import { extractMarginProps, withMarginProps } from '../helpers';
 import { tabsListPropDefs } from './tabs.props';
 
 import type { GetPropDefTypes, MarginProps } from '../helpers';
@@ -30,7 +30,7 @@ const TabsList = (props: TabsListProps) => {
   return (
     <TabsPrimitive.List
       {...listProps}
-      className={classNames('fui-BaseTabsList', 'fui-TabsList', className, withBreakpoints(size, 'fui-r-size'))}
+      className={classNames('fui-BaseTabsList', 'fui-TabsList', className, `fui-r-size-${size}`)}
     />
   );
 };

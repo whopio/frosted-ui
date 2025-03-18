@@ -106,12 +106,7 @@ const TextFieldInput = React.forwardRef<TextFieldInputElement, TextFieldInputPro
         spellCheck="false"
         {...inputProps}
         ref={forwardedRef}
-        className={classNames(
-          'fui-TextFieldInput',
-          className,
-          withBreakpoints(size, 'fui-r-size'),
-          `fui-variant-${variant}`,
-        )}
+        className={classNames('fui-TextFieldInput', className, `fui-r-size-${size}`, `fui-variant-${variant}`)}
       />
       <div data-accent-color={color} className="fui-TextFieldChrome" />
     </>

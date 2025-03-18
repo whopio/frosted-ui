@@ -3,7 +3,6 @@
 import * as DrawerPrimitive from '@radix-ui/react-dialog';
 import classNames from 'classnames';
 import * as React from 'react';
-import { withBreakpoints } from '../helpers';
 import { Theme } from '../theme';
 import { drawerContentPropDefs } from './drawer.props';
 import { Heading } from './heading';
@@ -32,7 +31,7 @@ const DrawerContent = (props: DrawerContentProps) => {
         <DrawerPrimitive.Content
           {...contentProps}
           aria-describedby={undefined}
-          className={classNames('fui-DrawerContent', className, withBreakpoints(size, 'fui-r-size'))}
+          className={classNames('fui-DrawerContent', className, `fui-r-size-${size}`)}
         />
       </Theme>
     </DrawerPrimitive.Portal>

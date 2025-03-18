@@ -3,7 +3,7 @@
 import * as SwitchPrimitive from '@radix-ui/react-switch';
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+import { extractMarginProps, withMarginProps } from '../helpers';
 import { switchPropDefs } from './switch.props';
 
 import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
@@ -29,7 +29,7 @@ const Switch = (props: SwitchProps) => {
       className={classNames(
         'fui-SwitchRoot',
         className,
-        withBreakpoints(size, 'fui-r-size'),
+        `fui-r-size-${size}`,
         { 'fui-high-contrast': highContrast },
         withMarginProps(marginProps),
       )}

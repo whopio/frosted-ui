@@ -3,7 +3,7 @@
 import * as SeparatorPrimitive from '@radix-ui/react-separator';
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+import { extractMarginProps, withMarginProps } from '../helpers';
 import { separatorPropDefs } from './separator.props';
 
 import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
@@ -23,12 +23,7 @@ const Separator = (props: SeparatorProps) => {
     <SeparatorPrimitive.Root
       data-accent-color={color}
       {...separatorProps}
-      className={classNames(
-        'fui-Separator',
-        className,
-        withBreakpoints(size, 'fui-r-size'),
-        withMarginProps(marginProps),
-      )}
+      className={classNames('fui-Separator', className, `fui-r-size-${size}`, withMarginProps(marginProps))}
     />
   );
 };

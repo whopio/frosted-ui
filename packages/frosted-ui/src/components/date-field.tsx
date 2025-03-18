@@ -8,7 +8,7 @@ import {
   DateInput as AriaDateInput,
   DateSegment as AriaDateSegment,
 } from 'react-aria-components';
-import { MarginProps, extractMarginProps, withBreakpoints, withMarginProps, type GetPropDefTypes } from '../helpers';
+import { MarginProps, extractMarginProps, withMarginProps, type GetPropDefTypes } from '../helpers';
 import { MappedDateValue } from './calendar';
 import { dateFieldPropDefs } from './date-field.props';
 
@@ -32,12 +32,7 @@ function DateField<T extends AriaDateValue>(props: DateFieldProps<T>) {
   return (
     <AriaDateField
       data-accent-color={color}
-      className={classNames(
-        'fui-DateFieldRoot',
-        className,
-        withBreakpoints(size, 'fui-r-size'),
-        withMarginProps(marginProps),
-      )}
+      className={classNames('fui-DateFieldRoot', className, `fui-r-size-${size}`, withMarginProps(marginProps))}
       {...dateFieldProps}
     >
       <AriaDateInput className="fui-DateFieldInput">

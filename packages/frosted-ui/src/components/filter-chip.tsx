@@ -3,7 +3,7 @@
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+import { extractMarginProps, withMarginProps } from '../helpers';
 import { filterChipPropDefs } from './filter-chip.props';
 
 import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
@@ -28,13 +28,7 @@ const FilterChip = (props: FilterChipProps) => {
     <CheckboxPrimitive.Root
       data-accent-color={color}
       {...checkboxProps}
-      className={classNames(
-        'fui-reset',
-        'fui-BaseChip',
-        className,
-        withBreakpoints(size, 'fui-r-size'),
-        withMarginProps(marginProps),
-      )}
+      className={classNames('fui-reset', 'fui-BaseChip', className, `fui-r-size-${size}`, withMarginProps(marginProps))}
       style={style}
     >
       {children}

@@ -3,7 +3,7 @@
 import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+import { extractMarginProps, withMarginProps } from '../helpers';
 import { scrollAreaPropDefs } from './scroll-area.props';
 
 import type { GetPropDefTypes, MarginProps } from '../helpers';
@@ -40,7 +40,7 @@ const ScrollArea = (props: ScrollAreaProps) => {
       {scrollbars !== 'vertical' ? (
         <ScrollAreaPrimitive.Scrollbar
           orientation="horizontal"
-          className={classNames('fui-ScrollAreaScrollbar', withBreakpoints(size, 'fui-r-size'))}
+          className={classNames('fui-ScrollAreaScrollbar', `fui-r-size-${size}`)}
         >
           <ScrollAreaPrimitive.Thumb className="fui-ScrollAreaThumb" />
         </ScrollAreaPrimitive.Scrollbar>
@@ -49,7 +49,7 @@ const ScrollArea = (props: ScrollAreaProps) => {
       {scrollbars !== 'horizontal' ? (
         <ScrollAreaPrimitive.Scrollbar
           orientation="vertical"
-          className={classNames('fui-ScrollAreaScrollbar', withBreakpoints(size, 'fui-r-size'))}
+          className={classNames('fui-ScrollAreaScrollbar', `fui-r-size-${size}`)}
         >
           <ScrollAreaPrimitive.Thumb className="fui-ScrollAreaThumb" />
         </ScrollAreaPrimitive.Scrollbar>

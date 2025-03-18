@@ -3,7 +3,7 @@
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+import { extractMarginProps, withMarginProps } from '../helpers';
 import { radioGroupPropDefs } from './radio-group.props';
 
 import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
@@ -31,7 +31,7 @@ const RadioGroupRoot = (props: RadioGroupRootProps) => {
       className={classNames(
         'fui-RadioGroupRoot',
         className,
-        withBreakpoints(size, 'fui-r-size'),
+        `fui-r-size-${size}`,
         `fui-variant-${variant}`,
         { 'fui-high-contrast': highContrast },
         withMarginProps(marginProps),

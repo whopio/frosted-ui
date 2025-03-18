@@ -3,7 +3,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../../helpers';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../../helpers';
+import { extractMarginProps, withMarginProps } from '../../helpers';
 import { skeletonAvatarPropDefs, skeletonRectPropDefs, skeletonTextPropDefs } from './skeleton.props';
 
 type SkeletonAvatarOwnProps = GetPropDefTypes<typeof skeletonAvatarPropDefs>;
@@ -25,7 +25,7 @@ const SkeletonAvatar = (props: SkeletonAvatarProps) => {
       className={classNames(
         'fui-SkeletonAvatar',
         className,
-        withBreakpoints(size, 'fui-r-size'),
+        `fui-r-size-${size}`,
         { 'fui-high-contrast': highContrast },
         withMarginProps(marginProps),
       )}
@@ -54,7 +54,7 @@ const SkeletonText = (props: SkeletonTextProps) => {
       className={classNames(
         'fui-SkeletonText',
         className,
-        withBreakpoints(size, 'fui-r-size'),
+        `fui-r-size-${size}`,
         { 'fui-high-contrast': highContrast },
         withMarginProps(marginProps),
       )}

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import { GetPropDefTypes, extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+import { GetPropDefTypes, extractMarginProps, withMarginProps } from '../helpers';
 import { kbdPropDefs } from './kbd.props';
 
 import type { MarginProps } from '../helpers';
@@ -14,7 +14,7 @@ const Kbd = (props: KbdProps) => {
   return (
     <kbd
       {...kbdProps}
-      className={classNames('fui-Kbd', className, withBreakpoints(size, 'fui-r-size'), withMarginProps(marginProps))}
+      className={classNames('fui-Kbd', className, `fui-r-size-${size}`, withMarginProps(marginProps))}
     />
   );
 };

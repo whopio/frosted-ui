@@ -3,14 +3,7 @@
 import * as ProgressPrimitive from '@radix-ui/react-progress';
 import classNames from 'classnames';
 import * as React from 'react';
-import {
-  GetPropDefTypes,
-  MarginProps,
-  PropsWithoutColor,
-  extractMarginProps,
-  withBreakpoints,
-  withMarginProps,
-} from '../helpers';
+import { GetPropDefTypes, MarginProps, PropsWithoutColor, extractMarginProps, withMarginProps } from '../helpers';
 import { progressPropDefs } from './progress.props';
 
 type ProgressOwnProps = GetPropDefTypes<typeof progressPropDefs>;
@@ -44,7 +37,7 @@ const Progress = (props: ProgressProps) => {
         {
           'fui-high-contrast': highContrast,
         },
-        withBreakpoints(size, 'fui-r-size'),
+        `fui-r-size-${size}`,
         withMarginProps(marginProps),
       )}
       value={value}

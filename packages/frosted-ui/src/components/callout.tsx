@@ -2,7 +2,7 @@
 
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+import { extractMarginProps, withMarginProps } from '../helpers';
 import { calloutRootPropDefs } from './callout.props';
 import { Text } from './text';
 import { textPropDefs } from './text.props';
@@ -34,7 +34,7 @@ const CalloutRoot = (props: CalloutRootProps) => {
       className={classNames(
         'fui-CalloutRoot',
         className,
-        withBreakpoints(size, 'fui-r-size'),
+        `fui-r-size-${size}`,
         `fui-variant-${variant}`,
         { 'fui-high-contrast': highContrast },
         withMarginProps(marginProps),

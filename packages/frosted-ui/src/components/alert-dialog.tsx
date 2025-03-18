@@ -3,7 +3,6 @@
 import * as AlertDialogPrimitive from '@radix-ui/react-alert-dialog';
 import classNames from 'classnames';
 import * as React from 'react';
-import { withBreakpoints } from '../helpers';
 import { Theme } from '../theme';
 import { alertDialogContentPropDefs } from './alert-dialog.props';
 import { Heading } from './heading';
@@ -50,12 +49,7 @@ const AlertDialogContent = (props: AlertDialogContentProps) => {
         <AlertDialogPrimitive.Overlay className="fui-DialogOverlay fui-AlertDialogOverlay">
           <AlertDialogPrimitive.Content
             {...contentProps}
-            className={classNames(
-              'fui-DialogContent',
-              'fui-AlertDialogContent',
-              className,
-              withBreakpoints(size, 'fui-r-size'),
-            )}
+            className={classNames('fui-DialogContent', 'fui-AlertDialogContent', className, `fui-r-size-${size}`)}
           >
             <AlertDialogContentContext.Provider value={React.useMemo(() => ({ size }), [size])}>
               {children}

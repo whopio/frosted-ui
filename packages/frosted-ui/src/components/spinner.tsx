@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers/index';
+import { extractMarginProps, withMarginProps } from '../helpers/index';
 import { Flex } from './flex';
 import { spinnerPropDefs } from './spinner.props';
 
@@ -25,12 +25,7 @@ const Spinner = (props: SpinnerProps) => {
   const spinner = (
     <span
       {...spinnerProps}
-      className={classNames(
-        'fui-Spinner',
-        withBreakpoints(size, 'fui-r-size'),
-        withMarginProps(marginProps),
-        className,
-      )}
+      className={classNames('fui-Spinner', `fui-r-size-${size}`, withMarginProps(marginProps), className)}
     >
       <span className="fui-SpinnerLeaf" />
       <span className="fui-SpinnerLeaf" />

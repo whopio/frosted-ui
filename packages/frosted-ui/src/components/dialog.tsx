@@ -3,7 +3,6 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import classNames from 'classnames';
 import * as React from 'react';
-import { withBreakpoints } from '../helpers';
 import { Theme } from '../theme';
 import { dialogContentPropDefs } from './dialog.props';
 import { Heading } from './heading';
@@ -46,7 +45,7 @@ const DialogContent = (props: DialogContentProps) => {
         <DialogPrimitive.Overlay className="fui-DialogOverlay">
           <DialogPrimitive.Content
             {...contentProps}
-            className={classNames('fui-DialogContent', className, withBreakpoints(size, 'fui-r-size'))}
+            className={classNames('fui-DialogContent', className, `fui-r-size-${size}`)}
           >
             <DialogContentContext.Provider value={React.useMemo(() => ({ size }), [size])}>
               {children}

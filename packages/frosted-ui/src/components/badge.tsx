@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+import { extractMarginProps, withMarginProps } from '../helpers';
 import { badgePropDefs } from './badge.props';
 
 import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
@@ -25,7 +25,7 @@ const Badge = (props: BadgeProps) => {
       className={classNames(
         'fui-Badge',
         className,
-        withBreakpoints(size, 'fui-r-size'),
+        `fui-r-size-${size}`,
         `fui-variant-${variant}`,
         { 'fui-high-contrast': highContrast },
         withMarginProps(marginProps),

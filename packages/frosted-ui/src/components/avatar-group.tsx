@@ -3,7 +3,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+import { extractMarginProps, withMarginProps } from '../helpers';
 import { Avatar } from './avatar';
 import { avatarGroupPropDefs } from './avatar-group.props';
 
@@ -29,7 +29,7 @@ const AvatarGroupRoot = (props: AvatarGroupRootProps) => {
       className={classNames(
         'fui-AvatarGroupRoot',
         className,
-        withBreakpoints(size, 'fui-r-size'),
+        `fui-r-size-${size}`,
         `fui-variant-${variant}`,
         withMarginProps(marginProps),
       )}

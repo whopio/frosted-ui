@@ -1,7 +1,7 @@
 import { Slot } from '@radix-ui/react-slot';
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+import { extractMarginProps, withMarginProps } from '../helpers';
 import { baseButtonPropDefs } from './base-button.props';
 
 import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
@@ -40,7 +40,7 @@ const BaseButton = (props: BaseButtonProps) => {
         'fui-reset',
         'fui-BaseButton',
         className,
-        withBreakpoints(size, 'fui-r-size'),
+        `fui-r-size-${size}`,
         `fui-variant-${variant}`,
         { 'fui-high-contrast': highContrast },
         withMarginProps(marginProps),
