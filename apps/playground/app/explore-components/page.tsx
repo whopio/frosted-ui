@@ -1,11 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import {
-  ArrowRightIcon,
-  CaretDownIcon,
-  InfoCircledIcon,
-  MagnifyingGlassIcon,
-  StarIcon,
-} from '@radix-ui/react-icons';
+import { ArrowRightIcon, CaretDownIcon, InfoCircledIcon, MagnifyingGlassIcon, StarIcon } from '@radix-ui/react-icons';
 import {
   AlertDialog,
   //
@@ -119,13 +113,8 @@ export default function ExploreComponents() {
               </Box>
 
               <Box m={{ initial: '3', md: '6', xl: '9' }}>
-                <Heading id="alert-dialog" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#alert-dialog"
-                  >
+                <Heading id="alert-dialog" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#alert-dialog">
                     Alert Dialog
                   </Link>
                 </Heading>
@@ -135,12 +124,12 @@ export default function ExploreComponents() {
                       <Button size="1">Open</Button>
                     </AlertDialog.Trigger>
                     <AlertDialog.Content size="1" style={{ width: 300 }}>
-                      <AlertDialog.Title size="2" mb="1">
+                      <AlertDialog.Title size="2" style={{ marginBottom: 8 }}>
                         Revoke access
                       </AlertDialog.Title>
-                      <AlertDialog.Description size="1" mb="3">
-                        Are you sure? This application will no longer be
-                        accessible and any existing sessions will be expired.
+                      <AlertDialog.Description size="1" style={{ marginBottom: 12 }}>
+                        Are you sure? This application will no longer be accessible and any existing sessions will be
+                        expired.
                       </AlertDialog.Description>
 
                       <Flex gap="2" mt="3" justify="end">
@@ -163,15 +152,13 @@ export default function ExploreComponents() {
                       <Button size="2">Open</Button>
                     </AlertDialog.Trigger>
                     <AlertDialog.Content size="2" style={{ width: 400 }}>
-                      <AlertDialog.Title mb="2">
-                        Revoke access
-                      </AlertDialog.Title>
-                      <AlertDialog.Description size="2" mb="4">
-                        Are you sure? This application will no longer be
-                        accessible and any existing sessions will be expired.
+                      <AlertDialog.Title style={{ marginBottom: 8 }}>Revoke access</AlertDialog.Title>
+                      <AlertDialog.Description size="2" style={{ marginBottom: 20 }}>
+                        Are you sure? This application will no longer be accessible and any existing sessions will be
+                        expired.
                       </AlertDialog.Description>
 
-                      <Flex gap="3" mt="4" justify="end">
+                      <Flex gap="3" style={{ marginTop: 16 }} justify="end">
                         <AlertDialog.Cancel>
                           <Button variant="soft" color="gray">
                             Cancel
@@ -190,12 +177,12 @@ export default function ExploreComponents() {
                     </AlertDialog.Trigger>
                     <AlertDialog.Content size="3" style={{ width: 400 }}>
                       <AlertDialog.Title>Revoke access</AlertDialog.Title>
-                      <AlertDialog.Description size="2" mb="4">
-                        Are you sure? This application will no longer be
-                        accessible and any existing sessions will be expired.
+                      <AlertDialog.Description size="2" style={{ marginBottom: 20 }}>
+                        Are you sure? This application will no longer be accessible and any existing sessions will be
+                        expired.
                       </AlertDialog.Description>
 
-                      <Flex gap="3" mt="4" justify="end">
+                      <Flex gap="3" style={{ marginTop: 16 }} justify="end">
                         <AlertDialog.Cancel>
                           <Button variant="soft" color="gray">
                             Cancel
@@ -213,12 +200,10 @@ export default function ExploreComponents() {
                       <Button size="4">Open</Button>
                     </AlertDialog.Trigger>
                     <AlertDialog.Content size="4" style={{ width: 450 }}>
-                      <AlertDialog.Title size="6">
-                        Revoke access
-                      </AlertDialog.Title>
-                      <AlertDialog.Description size="3" mb="5">
-                        Are you sure? This application will no longer be
-                        accessible and any existing sessions will be expired.
+                      <AlertDialog.Title size="6">Revoke access</AlertDialog.Title>
+                      <AlertDialog.Description size="3" style={{ marginBottom: 24 }}>
+                        Are you sure? This application will no longer be accessible and any existing sessions will be
+                        expired.
                       </AlertDialog.Description>
 
                       <Flex gap="3" mt="5" justify="end">
@@ -237,44 +222,30 @@ export default function ExploreComponents() {
                   </AlertDialog.Root>
                 </Flex>
 
-                <Heading id="aspect-ratio" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#aspect-ratio"
-                  >
+                <Heading id="aspect-ratio" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#aspect-ratio">
                     Aspect Ratio
                   </Link>
                 </Heading>
                 <Grid columns="4" gap="4" mb="9">
                   {['2 / 3', '1 / 1', '16 / 9'].map((ratio) => (
                     <div key={ratio}>
-                      <Text as="p" size="1" color="gray" mb="2">
+                      <Text as="p" size="1" color="gray" style={{ marginBottom: 8 }}>
                         {ratio.replace(' / ', ':')}
                       </Text>
-                      <AspectRatio ratio={eval(ratio)}>
-                        {aspectRatioImage}
-                      </AspectRatio>
+                      <AspectRatio ratio={eval(ratio)}>{aspectRatioImage}</AspectRatio>
                     </div>
                   ))}
                 </Grid>
 
-                <Heading id="avatar" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#avatar"
-                  >
+                <Heading id="avatar" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#avatar">
                     Avatar
                   </Link>
                 </Heading>
                 <Tabs.Root defaultValue="theme-colors">
                   <Tabs.List size="2">
-                    <Tabs.Trigger value="theme-colors">
-                      Theme colors
-                    </Tabs.Trigger>
+                    <Tabs.Trigger value="theme-colors">Theme colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
                   </Tabs.List>
@@ -292,10 +263,7 @@ export default function ExploreComponents() {
                           <tr>
                             <td>{upperFirst('Default')}</td>
                             <td>
-                              <Avatar
-                                src={getPeopleForColor('gray')[0].image}
-                                fallback="V"
-                              />
+                              <Avatar src={getPeopleForColor('gray')[0].image} fallback="V" />
                             </td>
                             <td>
                               <Avatar fallback="V" />
@@ -310,11 +278,7 @@ export default function ExploreComponents() {
                               <Avatar fallback="V" highContrast />
                             </td>
                             <td>
-                              <Avatar
-                                color="gray"
-                                src={getPeopleForColor('gray')[0 + 2].image}
-                                fallback="V"
-                              />
+                              <Avatar color="gray" src={getPeopleForColor('gray')[0 + 2].image} fallback="V" />
                             </td>
                             <td>
                               <Avatar color="gray" fallback="V" />
@@ -323,10 +287,7 @@ export default function ExploreComponents() {
                               <Avatar color="gray" fallback="BG" />
                             </td>
                             <td>
-                              <Avatar
-                                color="gray"
-                                fallback={<AvatarIconFallback />}
-                              />
+                              <Avatar color="gray" fallback={<AvatarIconFallback />} />
                             </td>
                             <td>
                               <Avatar color="gray" fallback="V" highContrast />
@@ -351,11 +312,7 @@ export default function ExploreComponents() {
                             <tr key={color}>
                               <td>{upperFirst(color)}</td>
                               <td>
-                                <Avatar
-                                  color={color}
-                                  src={getPeopleForColor(color)[0].image}
-                                  fallback="V"
-                                />
+                                <Avatar color={color} src={getPeopleForColor(color)[0].image} fallback="V" />
                               </td>
                               <td>
                                 <Avatar color={color} fallback="V" />
@@ -364,17 +321,10 @@ export default function ExploreComponents() {
                                 <Avatar color={color} fallback="BG" />
                               </td>
                               <td>
-                                <Avatar
-                                  color={color}
-                                  fallback={<AvatarIconFallback />}
-                                />
+                                <Avatar color={color} fallback={<AvatarIconFallback />} />
                               </td>
                               <td>
-                                <Avatar
-                                  color={color}
-                                  fallback="V"
-                                  highContrast
-                                />
+                                <Avatar color={color} fallback="V" highContrast />
                               </td>
                             </tr>
                           ))}
@@ -410,21 +360,14 @@ export default function ExploreComponents() {
                   </Tabs.Content>
                 </Tabs.Root>
 
-                <Heading id="badge" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#badge"
-                  >
+                <Heading id="badge" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#badge">
                     Badge
                   </Link>
                 </Heading>
                 <Tabs.Root defaultValue="theme-colors">
                   <Tabs.List size="2">
-                    <Tabs.Trigger value="theme-colors">
-                      Theme colors
-                    </Tabs.Trigger>
+                    <Tabs.Trigger value="theme-colors">Theme colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
                   </Tabs.List>
@@ -455,11 +398,7 @@ export default function ExploreComponents() {
                                   <Badge variant={variant} color="gray">
                                     New
                                   </Badge>
-                                  <Badge
-                                    variant={variant}
-                                    color="gray"
-                                    highContrast
-                                  >
+                                  <Badge variant={variant} color="gray" highContrast>
                                     New
                                   </Badge>
                                 </Flex>
@@ -492,11 +431,7 @@ export default function ExploreComponents() {
                                     <Badge variant={variant} color={color}>
                                       New
                                     </Badge>
-                                    <Badge
-                                      variant={variant}
-                                      color={color}
-                                      highContrast
-                                    >
+                                    <Badge variant={variant} color={color} highContrast>
                                       New
                                     </Badge>
                                   </Flex>
@@ -519,108 +454,88 @@ export default function ExploreComponents() {
                           </tr>
                         </thead>
                         <tbody>
-                          {badgePropDefs.variant.values.map(
-                            (variant, index) => (
-                              <React.Fragment key={variant}>
-                                {index > 0 && (
-                                  <tr>
-                                    <td>&nbsp;</td>
-                                  </tr>
-                                )}
-                                {badgePropDefs.size.values.map((size) => (
-                                  <tr key={size}>
-                                    <td>Size {size}</td>
-                                    <td style={{ textAlign: 'left' }}>
-                                      <Badge size={size} variant={variant}>
-                                        New
-                                      </Badge>
-                                    </td>
-                                  </tr>
-                                ))}
-                              </React.Fragment>
-                            ),
-                          )}
+                          {badgePropDefs.variant.values.map((variant, index) => (
+                            <React.Fragment key={variant}>
+                              {index > 0 && (
+                                <tr>
+                                  <td>&nbsp;</td>
+                                </tr>
+                              )}
+                              {badgePropDefs.size.values.map((size) => (
+                                <tr key={size}>
+                                  <td>Size {size}</td>
+                                  <td style={{ textAlign: 'left' }}>
+                                    <Badge size={size} variant={variant}>
+                                      New
+                                    </Badge>
+                                  </td>
+                                </tr>
+                              ))}
+                            </React.Fragment>
+                          ))}
                         </tbody>
                       </table>
                     </Box>
                   </Tabs.Content>
                 </Tabs.Root>
 
-                <Heading id="blockquote" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#blockquote"
-                  >
+                <Heading id="blockquote" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#blockquote">
                     Blockquote
                   </Link>
                 </Heading>
                 <Tabs.Root defaultValue="theme-colors">
                   <Tabs.List size="2">
-                    <Tabs.Trigger value="theme-colors">
-                      Theme colors
-                    </Tabs.Trigger>
+                    <Tabs.Trigger value="theme-colors">Theme colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
                     <Tabs.Trigger value="all-weights">All weights</Tabs.Trigger>
                   </Tabs.List>
                   <Tabs.Content value="theme-colors">
-                    <Grid
-                      my="6"
-                      gap="6"
-                      columns="auto auto"
-                      style={{ whiteSpace: 'nowrap' }}
-                    >
+                    <Grid my="6" gap="6" columns="auto auto" style={{ whiteSpace: 'nowrap' }}>
                       <Flex direction="column" gap="6">
-                        <Text mb="-4" size="1" color="gray" align="center">
+                        <Text style={{ marginBottom: -20 }} size="1" color="gray" align="center">
                           Accent
                         </Text>
 
                         <Blockquote size="4">
-                          Perfect typography is certainly the most elusive of
-                          all arts.
+                          Perfect typography is certainly the most elusive of all arts.
                           <br />
                           Sculpture in stone alone comes near it in obstinacy.
                         </Blockquote>
 
                         <Blockquote size="3">
-                          Perfect typography is certainly the most elusive of
-                          all arts.
+                          Perfect typography is certainly the most elusive of all arts.
                           <br />
                           Sculpture in stone alone comes near it in obstinacy.
                         </Blockquote>
 
                         <Blockquote size="2">
-                          Perfect typography is certainly the most elusive of
-                          all arts.
+                          Perfect typography is certainly the most elusive of all arts.
                           <br />
                           Sculpture in stone alone comes near it in obstinacy.
                         </Blockquote>
                       </Flex>
 
                       <Flex direction="column" gap="6">
-                        <Text mb="-4" size="1" color="gray" align="center">
+                        <Text style={{ marginBottom: -20 }} size="1" color="gray" align="center">
                           Gray
                         </Text>
 
                         <Blockquote size="4" color="gray">
-                          Perfect typography is certainly the most elusive of
-                          all arts.
+                          Perfect typography is certainly the most elusive of all arts.
                           <br />
                           Sculpture in stone alone comes near it in obstinacy.
                         </Blockquote>
 
                         <Blockquote size="3" color="gray">
-                          Perfect typography is certainly the most elusive of
-                          all arts.
+                          Perfect typography is certainly the most elusive of all arts.
                           <br />
                           Sculpture in stone alone comes near it in obstinacy.
                         </Blockquote>
 
                         <Blockquote size="2" color="gray">
-                          Perfect typography is certainly the most elusive of
-                          all arts.
+                          Perfect typography is certainly the most elusive of all arts.
                           <br />
                           Sculpture in stone alone comes near it in obstinacy.
                         </Blockquote>
@@ -630,10 +545,7 @@ export default function ExploreComponents() {
 
                   <Tabs.Content value="all-colors">
                     <Box my="6">
-                      <table
-                        className={styles.table}
-                        style={{ whiteSpace: 'nowrap' }}
-                      >
+                      <table className={styles.table} style={{ whiteSpace: 'nowrap' }}>
                         <tbody>
                           {themeAccentColorsOrdered.map((color) => (
                             <tr key={color}>
@@ -641,18 +553,14 @@ export default function ExploreComponents() {
                               <td style={{ textAlign: 'left' }}>
                                 <Flex gap="6">
                                   <Blockquote color={color}>
-                                    Perfect typography is certainly the most
-                                    elusive of all arts.
+                                    Perfect typography is certainly the most elusive of all arts.
                                     <br />
-                                    Sculpture in stone alone comes near it in
-                                    obstinacy.
+                                    Sculpture in stone alone comes near it in obstinacy.
                                   </Blockquote>
                                   <Blockquote color={color} highContrast>
-                                    Perfect typography is certainly the most
-                                    elusive of all arts.
+                                    Perfect typography is certainly the most elusive of all arts.
                                     <br />
-                                    Sculpture in stone alone comes near it in
-                                    obstinacy.
+                                    Sculpture in stone alone comes near it in obstinacy.
                                   </Blockquote>
                                 </Flex>
                               </td>
@@ -686,21 +594,16 @@ export default function ExploreComponents() {
 
                   <Tabs.Content value="all-weights">
                     <Box my="6">
-                      <table
-                        className={styles.table}
-                        style={{ whiteSpace: 'nowrap' }}
-                      >
+                      <table className={styles.table} style={{ whiteSpace: 'nowrap' }}>
                         <tbody>
                           {blockquotePropDefs.weight.values.map((weight) => (
                             <tr key={weight}>
                               <td>{upperFirst(weight)}</td>
                               <td style={{ textAlign: 'left' }}>
                                 <Blockquote weight={weight}>
-                                  Perfect typography is certainly the most
-                                  elusive of all arts.
+                                  Perfect typography is certainly the most elusive of all arts.
                                   <br />
-                                  Sculpture in stone alone comes near it in
-                                  obstinacy.
+                                  Sculpture in stone alone comes near it in obstinacy.
                                 </Blockquote>
                               </td>
                             </tr>
@@ -711,21 +614,14 @@ export default function ExploreComponents() {
                   </Tabs.Content>
                 </Tabs.Root>
 
-                <Heading id="button" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#button"
-                  >
+                <Heading id="button" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#button">
                     Button
                   </Link>
                 </Heading>
                 <Tabs.Root defaultValue="theme-colors">
                   <Tabs.List size="2">
-                    <Tabs.Trigger value="theme-colors">
-                      Theme colors
-                    </Tabs.Trigger>
+                    <Tabs.Trigger value="theme-colors">Theme colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
                   </Tabs.List>
@@ -760,11 +656,7 @@ export default function ExploreComponents() {
                                 </Button>
                               </td>
                               <td>
-                                <Button
-                                  variant={variant}
-                                  color="gray"
-                                  highContrast
-                                >
+                                <Button variant={variant} color="gray" highContrast>
                                   Next <ArrowRightIcon width="16" height="16" />
                                 </Button>
                               </td>
@@ -799,16 +691,10 @@ export default function ExploreComponents() {
                                 <td key={variant}>
                                   <Flex align="center" justify="center" gap="4">
                                     <Button variant={variant} color={color}>
-                                      Next{' '}
-                                      <ArrowRightIcon width="16" height="16" />
+                                      Next <ArrowRightIcon width="16" height="16" />
                                     </Button>
-                                    <Button
-                                      variant={variant}
-                                      color={color}
-                                      highContrast
-                                    >
-                                      Next{' '}
-                                      <ArrowRightIcon width="16" height="16" />
+                                    <Button variant={variant} color={color} highContrast>
+                                      Next <ArrowRightIcon width="16" height="16" />
                                     </Button>
                                   </Flex>
                                 </td>
@@ -830,51 +716,39 @@ export default function ExploreComponents() {
                           </tr>
                         </thead>
                         <tbody>
-                          {buttonPropDefs.variant.values.map(
-                            (variant, index) => (
-                              <React.Fragment key={variant}>
-                                {index > 0 && (
-                                  <tr>
-                                    <td>&nbsp;</td>
-                                  </tr>
-                                )}
-                                {buttonPropDefs.size.values.map((size) => (
-                                  <tr key={size}>
-                                    <td>Size {size}</td>
-                                    <td style={{ textAlign: 'left' }}>
-                                      <Button size={size} variant={variant}>
-                                        Next{' '}
-                                        <ArrowRightIcon
-                                          {...buttonSizeToIconSize(size)}
-                                        />
-                                      </Button>
-                                    </td>
-                                  </tr>
-                                ))}
-                              </React.Fragment>
-                            ),
-                          )}
+                          {buttonPropDefs.variant.values.map((variant, index) => (
+                            <React.Fragment key={variant}>
+                              {index > 0 && (
+                                <tr>
+                                  <td>&nbsp;</td>
+                                </tr>
+                              )}
+                              {buttonPropDefs.size.values.map((size) => (
+                                <tr key={size}>
+                                  <td>Size {size}</td>
+                                  <td style={{ textAlign: 'left' }}>
+                                    <Button size={size} variant={variant}>
+                                      Next <ArrowRightIcon {...buttonSizeToIconSize(size)} />
+                                    </Button>
+                                  </td>
+                                </tr>
+                              ))}
+                            </React.Fragment>
+                          ))}
                         </tbody>
                       </table>
                     </Box>
                   </Tabs.Content>
                 </Tabs.Root>
 
-                <Heading id="callout" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#callout"
-                  >
+                <Heading id="callout" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#callout">
                     Callout
                   </Link>
                 </Heading>
                 <Tabs.Root defaultValue="theme-colors">
                   <Tabs.List size="2">
-                    <Tabs.Trigger value="theme-colors">
-                      Theme colors
-                    </Tabs.Trigger>
+                    <Tabs.Trigger value="theme-colors">Theme colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
                   </Tabs.List>
@@ -898,21 +772,15 @@ export default function ExploreComponents() {
                                     <InfoCircledIcon width="16" height="16" />
                                   </Callout.Icon>
                                   <Callout.Text>
-                                    Please <Link href="#">upgrade</Link> to the
-                                    new version.
+                                    Please <Link href="#">upgrade</Link> to the new version.
                                   </Callout.Text>
                                 </Callout.Root>
-                                <Callout.Root
-                                  variant={variant}
-                                  highContrast
-                                  mt="4"
-                                >
+                                <Callout.Root variant={variant} highContrast style={{ marginTop: 16 }}>
                                   <Callout.Icon>
                                     <InfoCircledIcon width="16" height="16" />
                                   </Callout.Icon>
                                   <Callout.Text>
-                                    Please <Link href="#">upgrade</Link> to the
-                                    new version.
+                                    Please <Link href="#">upgrade</Link> to the new version.
                                   </Callout.Text>
                                 </Callout.Root>
                               </td>
@@ -922,22 +790,15 @@ export default function ExploreComponents() {
                                     <InfoCircledIcon width="16" height="16" />
                                   </Callout.Icon>
                                   <Callout.Text>
-                                    Please <Link href="#">upgrade</Link> to the
-                                    new version.
+                                    Please <Link href="#">upgrade</Link> to the new version.
                                   </Callout.Text>
                                 </Callout.Root>
-                                <Callout.Root
-                                  variant={variant}
-                                  color="gray"
-                                  highContrast
-                                  mt="4"
-                                >
+                                <Callout.Root variant={variant} color="gray" highContrast style={{ marginTop: 16 }}>
                                   <Callout.Icon>
                                     <InfoCircledIcon width="16" height="16" />
                                   </Callout.Icon>
                                   <Callout.Text>
-                                    Please <Link href="#">upgrade</Link> to the
-                                    new version.
+                                    Please <Link href="#">upgrade</Link> to the new version.
                                   </Callout.Text>
                                 </Callout.Root>
                               </td>
@@ -954,55 +815,35 @@ export default function ExploreComponents() {
                         <thead>
                           <tr>
                             <th />
-                            {calloutRootPropDefs.variant.values.map(
-                              (variant) => (
-                                <th key={variant}>{upperFirst(variant)}</th>
-                              ),
-                            )}
+                            {calloutRootPropDefs.variant.values.map((variant) => (
+                              <th key={variant}>{upperFirst(variant)}</th>
+                            ))}
                           </tr>
                         </thead>
                         <tbody>
                           {themeAccentColorsOrdered.map((color) => (
                             <tr key={color}>
                               <td>{upperFirst(color)}</td>
-                              {calloutRootPropDefs.variant.values.map(
-                                (variant) => (
-                                  <td key={variant}>
-                                    <Callout.Root
-                                      variant={variant}
-                                      color={color}
-                                    >
-                                      <Callout.Icon>
-                                        <InfoCircledIcon
-                                          width="16"
-                                          height="16"
-                                        />
-                                      </Callout.Icon>
-                                      <Callout.Text>
-                                        Please <Link href="#">upgrade</Link> to
-                                        the new version.
-                                      </Callout.Text>
-                                    </Callout.Root>
-                                    <Callout.Root
-                                      variant={variant}
-                                      color={color}
-                                      highContrast
-                                      mt="4"
-                                    >
-                                      <Callout.Icon>
-                                        <InfoCircledIcon
-                                          width="16"
-                                          height="16"
-                                        />
-                                      </Callout.Icon>
-                                      <Callout.Text>
-                                        Please <Link href="#">upgrade</Link> to
-                                        the new version.
-                                      </Callout.Text>
-                                    </Callout.Root>
-                                  </td>
-                                ),
-                              )}
+                              {calloutRootPropDefs.variant.values.map((variant) => (
+                                <td key={variant}>
+                                  <Callout.Root variant={variant} color={color}>
+                                    <Callout.Icon>
+                                      <InfoCircledIcon width="16" height="16" />
+                                    </Callout.Icon>
+                                    <Callout.Text>
+                                      Please <Link href="#">upgrade</Link> to the new version.
+                                    </Callout.Text>
+                                  </Callout.Root>
+                                  <Callout.Root variant={variant} color={color} highContrast style={{ marginTop: 16 }}>
+                                    <Callout.Icon>
+                                      <InfoCircledIcon width="16" height="16" />
+                                    </Callout.Icon>
+                                    <Callout.Text>
+                                      Please <Link href="#">upgrade</Link> to the new version.
+                                    </Callout.Text>
+                                  </Callout.Root>
+                                </td>
+                              ))}
                             </tr>
                           ))}
                         </tbody>
@@ -1016,41 +857,31 @@ export default function ExploreComponents() {
                         <thead>
                           <tr>
                             <th />
-                            {calloutRootPropDefs.variant.values.map(
-                              (variant) => (
-                                <th key={variant} style={{ textAlign: 'left' }}>
-                                  {upperFirst(variant)}
-                                </th>
-                              ),
-                            )}
+                            {calloutRootPropDefs.variant.values.map((variant) => (
+                              <th key={variant} style={{ textAlign: 'left' }}>
+                                {upperFirst(variant)}
+                              </th>
+                            ))}
                           </tr>
                         </thead>
                         <tbody>
                           {calloutRootPropDefs.size.values.map((size) => (
                             <tr key={size}>
                               <td>Size {size}</td>
-                              {calloutRootPropDefs.variant.values.map(
-                                (variant) => (
-                                  <td key={variant}>
-                                    <Flex>
-                                      <Callout.Root
-                                        variant={variant}
-                                        size={size}
-                                      >
-                                        <Callout.Icon>
-                                          <InfoCircledIcon
-                                            {...calloutSizeToIconSize(size)}
-                                          />
-                                        </Callout.Icon>
-                                        <Callout.Text>
-                                          Please <Link href="#">upgrade</Link>{' '}
-                                          to the new version.
-                                        </Callout.Text>
-                                      </Callout.Root>
-                                    </Flex>
-                                  </td>
-                                ),
-                              )}
+                              {calloutRootPropDefs.variant.values.map((variant) => (
+                                <td key={variant}>
+                                  <Flex>
+                                    <Callout.Root variant={variant} size={size}>
+                                      <Callout.Icon>
+                                        <InfoCircledIcon {...calloutSizeToIconSize(size)} />
+                                      </Callout.Icon>
+                                      <Callout.Text>
+                                        Please <Link href="#">upgrade</Link> to the new version.
+                                      </Callout.Text>
+                                    </Callout.Root>
+                                  </Flex>
+                                </td>
+                              ))}
                             </tr>
                           ))}
                         </tbody>
@@ -1059,24 +890,15 @@ export default function ExploreComponents() {
                   </Tabs.Content>
                 </Tabs.Root>
 
-                <Heading id="card" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#card"
-                  >
+                <Heading id="card" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#card">
                     Card
                   </Link>
                 </Heading>
                 <Box my="6" style={{ whiteSpace: 'nowrap' }}>
                   <Box my="6">
                     <Flex direction="column" mb="9" style={{ width: 1000 }}>
-                      <Flex
-                        justify="center"
-                        position="relative"
-                        style={{ padding: 100 }}
-                      >
+                      <Flex justify="center" position="relative" style={{ padding: 100 }}>
                         <Flex
                           align="center"
                           justify="center"
@@ -1084,52 +906,37 @@ export default function ExploreComponents() {
                           inset="0"
                           style={{ overflow: 'hidden' }}
                         >
-                          <PanelBackgroundImage
-                            id="1"
-                            width="100%"
-                            height="200%"
-                          />
+                          <PanelBackgroundImage id="1" width="100%" height="200%" />
                         </Flex>
 
                         <Card variant="classic" size="4" style={{ width: 400 }}>
-                          <Box height="7" mb="4">
-                            <Heading as="h3" size="6" mt="-1">
+                          <Box height="7" style={{ marginBottom: 20 }}>
+                            <Heading as="h3" size="6" style={{ marginTop: 4 }}>
                               Sign up
                             </Heading>
                           </Box>
 
-                          <Box mb="5">
+                          <Box style={{ marginBottom: 24 }}>
                             <label>
-                              <Text as="div" size="2" weight="medium" mb="2">
+                              <Text as="div" size="2" weight="medium" style={{ marginBottom: 8 }}>
                                 Email address
                               </Text>
-                              <TextField.Input
-                                variant="classic"
-                                placeholder="Enter your email"
-                              />
+                              <TextField.Input variant="classic" placeholder="Enter your email" />
                             </label>
                           </Box>
 
-                          <Box mb="5" position="relative">
-                            <Box
-                              position="absolute"
-                              top="0"
-                              right="0"
-                              style={{ marginTop: -2 }}
-                            >
+                          <Box style={{ marginBottom: 24 }} position="relative">
+                            <Box position="absolute" top="0" right="0" style={{ marginTop: -2 }}>
                               <Link href="#card" size="2">
                                 Forgot password?
                               </Link>
                             </Box>
 
                             <label>
-                              <Text as="div" size="2" weight="medium" mb="2">
+                              <Text as="div" size="2" weight="medium" style={{ marginBottom: 8 }}>
                                 Password
                               </Text>
-                              <TextField.Input
-                                variant="classic"
-                                placeholder="Enter your password"
-                              />
+                              <TextField.Input variant="classic" placeholder="Enter your password" />
                             </label>
                           </Box>
 
@@ -1167,9 +974,12 @@ export default function ExploreComponents() {
                                     asChild
                                     variant={variant}
                                     size={size}
-                                    mr="2"
-                                    ml={variant === 'ghost' ? '3' : '0'}
-                                    my={variant === 'ghost' ? '4' : '0'}
+                                    style={{
+                                      marginRight: 8,
+                                      marginLeft: variant === 'ghost' ? 12 : 0,
+                                      marginTop: variant === 'ghost' ? 16 : 0,
+                                      marginBottom: variant === 'ghost' ? 16 : 0,
+                                    }}
                                   >
                                     <button>
                                       <Flex
@@ -1180,9 +990,7 @@ export default function ExploreComponents() {
                                         <Avatar
                                           // @ts-ignore
                                           size={String(+size + 2)}
-                                          src={
-                                            getPeopleForColor('gray')[0].image
-                                          }
+                                          src={getPeopleForColor('gray')[0].image}
                                           fallback="V"
                                         />
                                         <Box>
@@ -1212,21 +1020,14 @@ export default function ExploreComponents() {
                   </Box>
                 </Box>
 
-                <Heading id="checkbox" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#checkbox"
-                  >
+                <Heading id="checkbox" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#checkbox">
                     Checkbox
                   </Link>
                 </Heading>
                 <Tabs.Root defaultValue="theme-colors">
                   <Tabs.List size="2">
-                    <Tabs.Trigger value="theme-colors">
-                      Theme colors
-                    </Tabs.Trigger>
+                    <Tabs.Trigger value="theme-colors">Theme colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
                   </Tabs.List>
@@ -1263,11 +1064,7 @@ export default function ExploreComponents() {
                             </td>
                             <td>
                               <Flex align="center" justify="center" gap="4">
-                                <Checkbox
-                                  color="gray"
-                                  highContrast
-                                  defaultChecked
-                                />
+                                <Checkbox color="gray" highContrast defaultChecked />
                               </Flex>
                             </td>
                             <td>
@@ -1299,11 +1096,7 @@ export default function ExploreComponents() {
                                 <Flex align="center" justify="center" gap="4">
                                   <Checkbox color={color} />
                                   <Checkbox color={color} defaultChecked />
-                                  <Checkbox
-                                    color={color}
-                                    highContrast
-                                    defaultChecked
-                                  />
+                                  <Checkbox color={color} highContrast defaultChecked />
                                 </Flex>
                               </td>
                             </tr>
@@ -1319,9 +1112,7 @@ export default function ExploreComponents() {
                         <thead>
                           <tr>
                             <th />
-                            <th style={{ textAlign: 'left' }}>
-                              {upperFirst('Default')}
-                            </th>
+                            <th style={{ textAlign: 'left' }}>{upperFirst('Default')}</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -1341,21 +1132,14 @@ export default function ExploreComponents() {
                   </Tabs.Content>
                 </Tabs.Root>
 
-                <Heading id="code" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#code"
-                  >
+                <Heading id="code" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#code">
                     Code
                   </Link>
                 </Heading>
                 <Tabs.Root defaultValue="theme-colors">
                   <Tabs.List size="2">
-                    <Tabs.Trigger value="theme-colors">
-                      Theme colors
-                    </Tabs.Trigger>
+                    <Tabs.Trigger value="theme-colors">Theme colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
                     <Tabs.Trigger value="all-weights">All weights</Tabs.Trigger>
@@ -1372,10 +1156,7 @@ export default function ExploreComponents() {
                         </thead>
                         <tbody>
                           {codePropDefs.variant.values.map((variant) => (
-                            <tr
-                              key={variant}
-                              style={{ verticalAlign: 'baseline' }}
-                            >
+                            <tr key={variant} style={{ verticalAlign: 'baseline' }}>
                               <td>{upperFirst(variant)}</td>
                               <td>
                                 <Flex>
@@ -1398,11 +1179,7 @@ export default function ExploreComponents() {
                               </td>
                               <td>
                                 <Flex>
-                                  <Code
-                                    variant={variant}
-                                    color="gray"
-                                    highContrast
-                                  >
+                                  <Code variant={variant} color="gray" highContrast>
                                     console.log()
                                   </Code>
                                 </Flex>
@@ -1427,10 +1204,7 @@ export default function ExploreComponents() {
                         </thead>
                         <tbody>
                           {themeAccentColorsOrdered.map((color) => (
-                            <tr
-                              key={color}
-                              style={{ verticalAlign: 'baseline' }}
-                            >
+                            <tr key={color} style={{ verticalAlign: 'baseline' }}>
                               <td>{upperFirst(color)}</td>
                               {codePropDefs.variant.values.map((variant) => (
                                 <td key={variant}>
@@ -1438,11 +1212,7 @@ export default function ExploreComponents() {
                                     <Code variant={variant} color={color}>
                                       console.log()
                                     </Code>
-                                    <Code
-                                      variant={variant}
-                                      color={color}
-                                      highContrast
-                                    >
+                                    <Code variant={variant} color={color} highContrast>
                                       console.log()
                                     </Code>
                                   </Flex>
@@ -1474,16 +1244,10 @@ export default function ExploreComponents() {
 
                   <Tabs.Content value="all-weights">
                     <Box my="6">
-                      <table
-                        className={styles.table}
-                        style={{ whiteSpace: 'nowrap' }}
-                      >
+                      <table className={styles.table} style={{ whiteSpace: 'nowrap' }}>
                         <tbody>
                           {(['regular', 'bold'] as const).map((weight) => (
-                            <tr
-                              key={weight}
-                              style={{ verticalAlign: 'baseline' }}
-                            >
+                            <tr key={weight} style={{ verticalAlign: 'baseline' }}>
                               <td>{upperFirst(weight)}</td>
                               <td style={{ textAlign: 'left' }}>
                                 <Code weight={weight}>console.log()</Code>
@@ -1496,21 +1260,14 @@ export default function ExploreComponents() {
                   </Tabs.Content>
                 </Tabs.Root>
 
-                <Heading id="context-menu" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#context-menu"
-                  >
+                <Heading id="context-menu" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#context-menu">
                     Context Menu
                   </Link>
                 </Heading>
                 <Tabs.Root defaultValue="theme-colors">
                   <Tabs.List size="2">
-                    <Tabs.Trigger value="theme-colors">
-                      Theme colors
-                    </Tabs.Trigger>
+                    <Tabs.Trigger value="theme-colors">Theme colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
                   </Tabs.List>
@@ -1598,15 +1355,9 @@ export default function ExploreComponents() {
                                   </ContextMenu.Root>
                                   <ContextMenu.Root>
                                     <ContextMenu.Trigger>
-                                      <RightClickArea
-                                        color={color}
-                                        highContrast
-                                      />
+                                      <RightClickArea color={color} highContrast />
                                     </ContextMenu.Trigger>
-                                    <ContextMenu.Content
-                                      color={color}
-                                      highContrast
-                                    >
+                                    <ContextMenu.Content color={color} highContrast>
                                       <ExampleContextMenuContent />
                                     </ContextMenu.Content>
                                   </ContextMenu.Root>
@@ -1625,44 +1376,35 @@ export default function ExploreComponents() {
                         <thead>
                           <tr>
                             <th />
-                            <th style={{ textAlign: 'left' }}>
-                              {upperFirst('Default')}
-                            </th>
+                            <th style={{ textAlign: 'left' }}>{upperFirst('Default')}</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {contextMenuContentPropDefs.size.values.map(
-                            (size) => (
-                              <tr key={size}>
-                                <td>Size {size}</td>
-                                <td>
-                                  <Flex>
-                                    <ContextMenu.Root>
-                                      <ContextMenu.Trigger>
-                                        <RightClickArea size={size} />
-                                      </ContextMenu.Trigger>
-                                      <ContextMenu.Content size={size}>
-                                        <ExampleContextMenuContent />
-                                      </ContextMenu.Content>
-                                    </ContextMenu.Root>
-                                  </Flex>
-                                </td>
-                              </tr>
-                            ),
-                          )}
+                          {contextMenuContentPropDefs.size.values.map((size) => (
+                            <tr key={size}>
+                              <td>Size {size}</td>
+                              <td>
+                                <Flex>
+                                  <ContextMenu.Root>
+                                    <ContextMenu.Trigger>
+                                      <RightClickArea size={size} />
+                                    </ContextMenu.Trigger>
+                                    <ContextMenu.Content size={size}>
+                                      <ExampleContextMenuContent />
+                                    </ContextMenu.Content>
+                                  </ContextMenu.Root>
+                                </Flex>
+                              </td>
+                            </tr>
+                          ))}
                         </tbody>
                       </table>
                     </Box>
                   </Tabs.Content>
                 </Tabs.Root>
 
-                <Heading id="dialog" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#dialog"
-                  >
+                <Heading id="dialog" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#dialog">
                     Dialog
                   </Link>
                 </Heading>
@@ -1672,33 +1414,25 @@ export default function ExploreComponents() {
                       <Button size="1">Open</Button>
                     </Dialog.Trigger>
                     <Dialog.Content size="1" style={{ maxWidth: 300 }}>
-                      <Dialog.Title size="3" mb="1">
+                      <Dialog.Title size="3" style={{ marginBottom: 8 }}>
                         Edit profile
                       </Dialog.Title>
-                      <Dialog.Description size="2" mb="3">
+                      <Dialog.Description size="2" style={{ marginBottom: 12 }}>
                         Make changes to your profile.
                       </Dialog.Description>
 
                       <Flex direction="column" gap="3">
                         <label>
-                          <Text as="div" size="1" mb="1" weight="bold">
+                          <Text as="div" size="1" style={{ marginBottom: 8 }} weight="bold">
                             Name
                           </Text>
-                          <TextField.Input
-                            size="1"
-                            defaultValue="Freja Johnsen"
-                            placeholder="Enter your full name"
-                          />
+                          <TextField.Input size="1" defaultValue="Freja Johnsen" placeholder="Enter your full name" />
                         </label>
                         <label>
-                          <Text as="div" size="1" mb="1" weight="bold">
+                          <Text as="div" size="1" style={{ marginBottom: 8 }} weight="bold">
                             Email
                           </Text>
-                          <TextField.Input
-                            size="1"
-                            defaultValue="freja@example.com"
-                            placeholder="Enter your email"
-                          />
+                          <TextField.Input size="1" defaultValue="freja@example.com" placeholder="Enter your email" />
                         </label>
                       </Flex>
 
@@ -1722,33 +1456,27 @@ export default function ExploreComponents() {
                       <Button size="2">Open</Button>
                     </Dialog.Trigger>
                     <Dialog.Content size="2" style={{ maxWidth: 400 }}>
-                      <Dialog.Title mb="2">Edit profile</Dialog.Title>
-                      <Dialog.Description size="2" mb="4">
+                      <Dialog.Title style={{ marginBottom: 8 }}>Edit profile</Dialog.Title>
+                      <Dialog.Description size="2" style={{ marginBottom: 20 }}>
                         Make changes to your profile.
                       </Dialog.Description>
 
                       <Flex direction="column" gap="3">
                         <label>
-                          <Text as="div" size="2" mb="1" weight="bold">
+                          <Text as="div" size="2" style={{ marginBottom: 8 }} weight="bold">
                             Name
                           </Text>
-                          <TextField.Input
-                            defaultValue="Freja Johnsen"
-                            placeholder="Enter your full name"
-                          />
+                          <TextField.Input defaultValue="Freja Johnsen" placeholder="Enter your full name" />
                         </label>
                         <label>
-                          <Text as="div" size="2" mb="1" weight="bold">
+                          <Text as="div" size="2" style={{ marginBottom: 8 }} weight="bold">
                             Email
                           </Text>
-                          <TextField.Input
-                            defaultValue="freja@example.com"
-                            placeholder="Enter your email"
-                          />
+                          <TextField.Input defaultValue="freja@example.com" placeholder="Enter your email" />
                         </label>
                       </Flex>
 
-                      <Flex gap="3" mt="4" justify="end">
+                      <Flex gap="3" style={{ marginTop: 16 }} justify="end">
                         <Dialog.Close>
                           <Button variant="soft" color="gray">
                             Cancel
@@ -1767,32 +1495,26 @@ export default function ExploreComponents() {
                     </Dialog.Trigger>
                     <Dialog.Content size="3" style={{ maxWidth: 500 }}>
                       <Dialog.Title>Edit profile</Dialog.Title>
-                      <Dialog.Description size="2" mb="4">
+                      <Dialog.Description size="2" style={{ marginBottom: 20 }}>
                         Make changes to your profile.
                       </Dialog.Description>
 
                       <Flex direction="column" gap="3">
                         <label>
-                          <Text as="div" size="2" mb="1" weight="bold">
+                          <Text as="div" size="2" style={{ marginBottom: 8 }} weight="bold">
                             Name
                           </Text>
-                          <TextField.Input
-                            defaultValue="Freja Johnsen"
-                            placeholder="Enter your full name"
-                          />
+                          <TextField.Input defaultValue="Freja Johnsen" placeholder="Enter your full name" />
                         </label>
                         <label>
-                          <Text as="div" size="2" mb="1" weight="bold">
+                          <Text as="div" size="2" style={{ marginBottom: 8 }} weight="bold">
                             Email
                           </Text>
-                          <TextField.Input
-                            defaultValue="freja@example.com"
-                            placeholder="Enter your email"
-                          />
+                          <TextField.Input defaultValue="freja@example.com" placeholder="Enter your email" />
                         </label>
                       </Flex>
 
-                      <Flex gap="3" mt="4" justify="end">
+                      <Flex gap="3" style={{ marginTop: 16 }} justify="end">
                         <Dialog.Close>
                           <Button variant="soft" color="gray">
                             Cancel
@@ -1811,30 +1533,22 @@ export default function ExploreComponents() {
                     </Dialog.Trigger>
                     <Dialog.Content size="4">
                       <Dialog.Title size="6">Edit profile</Dialog.Title>
-                      <Dialog.Description size="3" mb="5">
+                      <Dialog.Description size="3" style={{ marginBottom: 24 }}>
                         Make changes to your profile.
                       </Dialog.Description>
 
                       <Flex direction="column" gap="5">
                         <label>
-                          <Text as="div" size="3" mb="1" weight="bold">
+                          <Text as="div" size="3" style={{ marginBottom: 8 }} weight="bold">
                             Name
                           </Text>
-                          <TextField.Input
-                            size="3"
-                            defaultValue="Freja Johnsen"
-                            placeholder="Enter your full name"
-                          />
+                          <TextField.Input size="3" defaultValue="Freja Johnsen" placeholder="Enter your full name" />
                         </label>
                         <label>
-                          <Text as="div" size="3" mb="1" weight="bold">
+                          <Text as="div" size="3" style={{ marginBottom: 8 }} weight="bold">
                             Email
                           </Text>
-                          <TextField.Input
-                            size="3"
-                            defaultValue="freja@example.com"
-                            placeholder="Enter your email"
-                          />
+                          <TextField.Input size="3" defaultValue="freja@example.com" placeholder="Enter your email" />
                         </label>
                       </Flex>
 
@@ -1854,21 +1568,14 @@ export default function ExploreComponents() {
                   </Dialog.Root>
                 </Flex>
 
-                <Heading id="dropdown-menu" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#dropdown-menu"
-                  >
+                <Heading id="dropdown-menu" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#dropdown-menu">
                     Dropdown Menu
                   </Link>
                 </Heading>
                 <Tabs.Root defaultValue="theme-colors">
                   <Tabs.List size="2">
-                    <Tabs.Trigger value="theme-colors">
-                      Theme colors
-                    </Tabs.Trigger>
+                    <Tabs.Trigger value="theme-colors">Theme colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
                   </Tabs.List>
@@ -1976,10 +1683,7 @@ export default function ExploreComponents() {
                                         <CaretDownIcon width="16" height="16" />
                                       </Button>
                                     </DropdownMenu.Trigger>
-                                    <DropdownMenu.Content
-                                      color={color}
-                                      highContrast
-                                    >
+                                    <DropdownMenu.Content color={color} highContrast>
                                       <ExampleDropdownMenuContent />
                                     </DropdownMenu.Content>
                                   </DropdownMenu.Root>
@@ -1998,65 +1702,50 @@ export default function ExploreComponents() {
                         <thead>
                           <tr>
                             <th />
-                            <th style={{ textAlign: 'left' }}>
-                              {upperFirst('Default')}
-                            </th>
+                            <th style={{ textAlign: 'left' }}>{upperFirst('Default')}</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {dropdownMenuContentPropDefs.size.values.map(
-                            (size) => (
-                              <tr key={size}>
-                                <td>Size {size}</td>
-                                <td>
-                                  <Flex>
-                                    <DropdownMenu.Root>
-                                      <DropdownMenu.Trigger>
-                                        <Button size={size}>
-                                          Options
-                                          <CaretDownIcon
-                                            {...buttonSizeToIconSize(size)}
-                                          />
-                                        </Button>
-                                      </DropdownMenu.Trigger>
-                                      <DropdownMenu.Content size={size}>
-                                        <ExampleDropdownMenuContent />
-                                      </DropdownMenu.Content>
-                                    </DropdownMenu.Root>
-                                  </Flex>
-                                </td>
-                              </tr>
-                            ),
-                          )}
+                          {dropdownMenuContentPropDefs.size.values.map((size) => (
+                            <tr key={size}>
+                              <td>Size {size}</td>
+                              <td>
+                                <Flex>
+                                  <DropdownMenu.Root>
+                                    <DropdownMenu.Trigger>
+                                      <Button size={size}>
+                                        Options
+                                        <CaretDownIcon {...buttonSizeToIconSize(size)} />
+                                      </Button>
+                                    </DropdownMenu.Trigger>
+                                    <DropdownMenu.Content size={size}>
+                                      <ExampleDropdownMenuContent />
+                                    </DropdownMenu.Content>
+                                  </DropdownMenu.Root>
+                                </Flex>
+                              </td>
+                            </tr>
+                          ))}
                         </tbody>
                       </table>
                     </Box>
                   </Tabs.Content>
                 </Tabs.Root>
 
-                <Heading id="em" mb="5">
+                <Heading id="em" style={{ marginBottom: 24 }}>
                   <Link color="gray" underline="hover" highContrast href="#em">
                     Em
                   </Link>
                 </Heading>
                 <Box mb="9" style={{ width: 580 }}>
-                  Versions of the <Em>Lorem ipsum</Em> text have been used in
-                  typesetting at least since the 1960s, when it was popularized
-                  by advertisements for Letraset transfer sheets. It is
-                  typically a corrupted version of{' '}
-                  <Em>De finibus bonorum et malorum</Em>, a 1st-century BC text
-                  by the Roman statesman and philosopher Cicero, with words
-                  altered, added, and removed to make it nonsensical and
-                  improper Latin.
+                  Versions of the <Em>Lorem ipsum</Em> text have been used in typesetting at least since the 1960s, when
+                  it was popularized by advertisements for Letraset transfer sheets. It is typically a corrupted version
+                  of <Em>De finibus bonorum et malorum</Em>, a 1st-century BC text by the Roman statesman and
+                  philosopher Cicero, with words altered, added, and removed to make it nonsensical and improper Latin.
                 </Box>
 
-                <Heading id="heading" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#heading"
-                  >
+                <Heading id="heading" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#heading">
                     Heading
                   </Link>
                 </Heading>
@@ -2069,64 +1758,49 @@ export default function ExploreComponents() {
                   </Tabs.List>
                   <Tabs.Content value="specimen">
                     <Box my="6" style={{ width: 560 }}>
-                      <Heading size="9">
-                        The principles of the typographic craft are difficult to
-                        master
-                      </Heading>
+                      <Heading size="9">The principles of the typographic craft are difficult to master</Heading>
                     </Box>
 
                     <Flex my="6" gap="6">
                       <Box style={{ width: 340 }}>
-                        <Heading size="5" mb="2">
-                          The principles of the typographic craft are difficult
-                          to master
+                        <Heading size="5" style={{ marginBottom: 8 }}>
+                          The principles of the typographic craft are difficult to master
                         </Heading>
                         <Text as="p" size="3">
-                          The goal of typography is to relate font size, line
-                          height, and line width in a proportional way that
-                          maximizes beauty and makes reading easier and more
-                          pleasant.
+                          The goal of typography is to relate font size, line height, and line width in a proportional
+                          way that maximizes beauty and makes reading easier and more pleasant.
                         </Text>
                       </Box>
 
                       <Box style={{ width: 320 }}>
-                        <Heading size="4" mb="2">
-                          The principles of the typographic craft are difficult
-                          to master
+                        <Heading size="4" style={{ marginBottom: 8 }}>
+                          The principles of the typographic craft are difficult to master
                         </Heading>
                         <Text as="p" size="3">
-                          The goal of typography is to relate font size, line
-                          height, and line width in a proportional way that
-                          maximizes beauty and makes reading easier and more
-                          pleasant.
+                          The goal of typography is to relate font size, line height, and line width in a proportional
+                          way that maximizes beauty and makes reading easier and more pleasant.
                         </Text>
                       </Box>
                     </Flex>
 
                     <Flex my="6" gap="6">
                       <Box style={{ width: 290 }}>
-                        <Heading size="3" mb="1">
-                          The principles of the typographic craft are difficult
-                          to master
+                        <Heading size="3" style={{ marginBottom: 8 }}>
+                          The principles of the typographic craft are difficult to master
                         </Heading>
                         <Text as="p" size="2">
-                          The goal of typography is to relate font size, line
-                          height, and line width in a proportional way that
-                          maximizes beauty and makes reading easier and more
-                          pleasant.
+                          The goal of typography is to relate font size, line height, and line width in a proportional
+                          way that maximizes beauty and makes reading easier and more pleasant.
                         </Text>
                       </Box>
 
                       <Box style={{ width: 260 }}>
-                        <Heading size="2" mb="1">
-                          The principles of the typographic craft are difficult
-                          to master
+                        <Heading size="2" style={{ marginBottom: 8 }}>
+                          The principles of the typographic craft are difficult to master
                         </Heading>
                         <Text as="p" size="1">
-                          The goal of typography is to relate font size, line
-                          height, and line width in a proportional way that
-                          maximizes beauty and makes reading easier and more
-                          pleasant.
+                          The goal of typography is to relate font size, line height, and line width in a proportional
+                          way that maximizes beauty and makes reading easier and more pleasant.
                         </Text>
                       </Box>
                     </Flex>
@@ -2134,18 +1808,13 @@ export default function ExploreComponents() {
 
                   <Tabs.Content value="all-colors">
                     <Box my="6">
-                      <table
-                        className={styles.table}
-                        style={{ whiteSpace: 'nowrap' }}
-                      >
+                      <table className={styles.table} style={{ whiteSpace: 'nowrap' }}>
                         <tbody>
                           {themeAccentColorsOrdered.map((color) => (
                             <tr key={color}>
                               <td>{upperFirst(color)}</td>
                               <td>
-                                <Heading color={color}>
-                                  The quick brown fox jumps over the lazy dog
-                                </Heading>
+                                <Heading color={color}>The quick brown fox jumps over the lazy dog</Heading>
                                 <Heading color={color} highContrast>
                                   The quick brown fox jumps over the lazy dog
                                 </Heading>
@@ -2159,10 +1828,7 @@ export default function ExploreComponents() {
 
                   <Tabs.Content value="all-sizes">
                     <Box my="6">
-                      <table
-                        className={styles.table}
-                        style={{ whiteSpace: 'nowrap' }}
-                      >
+                      <table className={styles.table} style={{ whiteSpace: 'nowrap' }}>
                         <tbody>
                           {headingPropDefs.size.values.map((size) => (
                             <tr key={size}>
@@ -2183,21 +1849,13 @@ export default function ExploreComponents() {
 
                   <Tabs.Content value="all-weights">
                     <Box my="6">
-                      <table
-                        className={styles.table}
-                        style={{ whiteSpace: 'nowrap' }}
-                      >
+                      <table className={styles.table} style={{ whiteSpace: 'nowrap' }}>
                         <tbody>
                           {headingPropDefs.weight.values.map((weight) => (
-                            <tr
-                              key={weight}
-                              style={{ verticalAlign: 'baseline' }}
-                            >
+                            <tr key={weight} style={{ verticalAlign: 'baseline' }}>
                               <td>{upperFirst(weight)}</td>
                               <td style={{ textAlign: 'left' }}>
-                                <Heading weight={weight}>
-                                  The quick brown fox jumps over the lazy dog
-                                </Heading>
+                                <Heading weight={weight}>The quick brown fox jumps over the lazy dog</Heading>
                               </td>
                             </tr>
                           ))}
@@ -2207,13 +1865,8 @@ export default function ExploreComponents() {
                   </Tabs.Content>
                 </Tabs.Root>
 
-                <Heading id="hover-card" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#hover-card"
-                  >
+                <Heading id="hover-card" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#hover-card">
                     Hover Card
                   </Link>
                 </Heading>
@@ -2231,15 +1884,9 @@ export default function ExploreComponents() {
                             <Inset side="left" pr="current">
                               <InsetImage style={{ width: 120 }} />
                             </Inset>
-                            <Text
-                              as="p"
-                              size={size}
-                              style={{ maxWidth: 150 + 50 * Number(size) }}
-                            >
-                              <Strong>Typography</Strong> is the art and
-                              technique of arranging type to make written
-                              language legible, readable and appealing when
-                              displayed.
+                            <Text as="p" size={size} style={{ maxWidth: 150 + 50 * Number(size) }}>
+                              <Strong>Typography</Strong> is the art and technique of arranging type to make written
+                              language legible, readable and appealing when displayed.
                             </Text>
                           </Flex>
                         </HoverCard.Content>
@@ -2249,21 +1896,14 @@ export default function ExploreComponents() {
                   ))}
                 </Flex>
 
-                <Heading id="icon-button" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#icon-button"
-                  >
+                <Heading id="icon-button" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#icon-button">
                     Icon Button
                   </Link>
                 </Heading>
                 <Tabs.Root defaultValue="theme-colors">
                   <Tabs.List size="2">
-                    <Tabs.Trigger value="theme-colors">
-                      Theme colors
-                    </Tabs.Trigger>
+                    <Tabs.Trigger value="theme-colors">Theme colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
                   </Tabs.List>
@@ -2298,11 +1938,7 @@ export default function ExploreComponents() {
                                 </IconButton>
                               </td>
                               <td>
-                                <IconButton
-                                  variant={variant}
-                                  color="gray"
-                                  highContrast
-                                >
+                                <IconButton variant={variant} color="gray" highContrast>
                                   <StarIcon width="16" height="16" />
                                 </IconButton>
                               </td>
@@ -2324,42 +1960,27 @@ export default function ExploreComponents() {
                         <thead>
                           <tr>
                             <th />
-                            {iconButtonPropDefs.variant.values.map(
-                              (variant) => (
-                                <th key={variant}>{upperFirst(variant)}</th>
-                              ),
-                            )}
+                            {iconButtonPropDefs.variant.values.map((variant) => (
+                              <th key={variant}>{upperFirst(variant)}</th>
+                            ))}
                           </tr>
                         </thead>
                         <tbody>
                           {themeAccentColorsOrdered.map((color) => (
                             <tr key={color}>
                               <td>{upperFirst(color)}</td>
-                              {iconButtonPropDefs.variant.values.map(
-                                (variant) => (
-                                  <td key={variant}>
-                                    <Flex
-                                      align="center"
-                                      justify="center"
-                                      gap="4"
-                                    >
-                                      <IconButton
-                                        variant={variant}
-                                        color={color}
-                                      >
-                                        <StarIcon width="16" height="16" />
-                                      </IconButton>
-                                      <IconButton
-                                        variant={variant}
-                                        color={color}
-                                        highContrast
-                                      >
-                                        <StarIcon width="16" height="16" />
-                                      </IconButton>
-                                    </Flex>
-                                  </td>
-                                ),
-                              )}
+                              {iconButtonPropDefs.variant.values.map((variant) => (
+                                <td key={variant}>
+                                  <Flex align="center" justify="center" gap="4">
+                                    <IconButton variant={variant} color={color}>
+                                      <StarIcon width="16" height="16" />
+                                    </IconButton>
+                                    <IconButton variant={variant} color={color} highContrast>
+                                      <StarIcon width="16" height="16" />
+                                    </IconButton>
+                                  </Flex>
+                                </td>
+                              ))}
                             </tr>
                           ))}
                         </tbody>
@@ -2377,42 +1998,33 @@ export default function ExploreComponents() {
                           </tr>
                         </thead>
                         <tbody>
-                          {iconButtonPropDefs.variant.values.map(
-                            (variant, index) => (
-                              <React.Fragment key={variant}>
-                                {index > 0 && (
-                                  <tr>
-                                    <td>&nbsp;</td>
-                                  </tr>
-                                )}
-                                {iconButtonPropDefs.size.values.map((size) => (
-                                  <tr key={size}>
-                                    <td>Size {size}</td>
-                                    <td style={{ textAlign: 'left' }}>
-                                      <IconButton size={size} variant={variant}>
-                                        <StarIcon
-                                          {...buttonSizeToIconSize(size)}
-                                        />
-                                      </IconButton>
-                                    </td>
-                                  </tr>
-                                ))}
-                              </React.Fragment>
-                            ),
-                          )}
+                          {iconButtonPropDefs.variant.values.map((variant, index) => (
+                            <React.Fragment key={variant}>
+                              {index > 0 && (
+                                <tr>
+                                  <td>&nbsp;</td>
+                                </tr>
+                              )}
+                              {iconButtonPropDefs.size.values.map((size) => (
+                                <tr key={size}>
+                                  <td>Size {size}</td>
+                                  <td style={{ textAlign: 'left' }}>
+                                    <IconButton size={size} variant={variant}>
+                                      <StarIcon {...buttonSizeToIconSize(size)} />
+                                    </IconButton>
+                                  </td>
+                                </tr>
+                              ))}
+                            </React.Fragment>
+                          ))}
                         </tbody>
                       </table>
                     </Box>
                   </Tabs.Content>
                 </Tabs.Root>
 
-                <Heading id="inset" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#inset"
-                  >
+                <Heading id="inset" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#inset">
                     Inset
                   </Link>
                 </Heading>
@@ -2424,9 +2036,8 @@ export default function ExploreComponents() {
                           <InsetImage />
                         </Inset>
                         <Text as="p" size="3" style={{ width: 240 }}>
-                          <Strong>Typography</Strong> is the art and technique
-                          of arranging type to make written language legible,
-                          readable and appealing when displayed.
+                          <Strong>Typography</Strong> is the art and technique of arranging type to make written
+                          language legible, readable and appealing when displayed.
                         </Text>
                       </Flex>
                     </Card>
@@ -2434,9 +2045,8 @@ export default function ExploreComponents() {
                     <Card size="2">
                       <Flex>
                         <Text as="p" size="3" style={{ width: 240 }}>
-                          <Strong>Typography</Strong> is the art and technique
-                          of arranging type to make written language legible,
-                          readable and appealing when displayed.
+                          <Strong>Typography</Strong> is the art and technique of arranging type to make written
+                          language legible, readable and appealing when displayed.
                         </Text>
                         <Inset side="right" clip="padding-box" pl="current">
                           <InsetImage />
@@ -2451,17 +2061,15 @@ export default function ExploreComponents() {
                         <InsetImage style={{ width: '100%', height: 160 }} />
                       </Inset>
                       <Text as="p" size="3" style={{ width: 240 }}>
-                        <Strong>Typography</Strong> is the art and technique of
-                        arranging type to make written language legible,
-                        readable and appealing when displayed.
+                        <Strong>Typography</Strong> is the art and technique of arranging type to make written language
+                        legible, readable and appealing when displayed.
                       </Text>
                     </Card>
 
                     <Card size="2" style={{ width: 300 }}>
                       <Text as="p" size="3" style={{ width: 240 }}>
-                        <Strong>Typography</Strong> is the art and technique of
-                        arranging type to make written language legible,
-                        readable and appealing when displayed.
+                        <Strong>Typography</Strong> is the art and technique of arranging type to make written language
+                        legible, readable and appealing when displayed.
                       </Text>
                       <Inset side="bottom" clip="padding-box" pt="current">
                         <InsetImage style={{ width: '100%', height: 160 }} />
@@ -2470,7 +2078,7 @@ export default function ExploreComponents() {
                   </Flex>
                 </Box>
 
-                <Heading id="kbd" mb="5">
+                <Heading id="kbd" style={{ marginBottom: 24 }}>
                   <Link color="gray" underline="hover" highContrast href="#kbd">
                     Kbd
                   </Link>
@@ -2484,20 +2092,16 @@ export default function ExploreComponents() {
                   <Tabs.Content value="specimen">
                     <Flex direction="column" gap="4" my="6">
                       <Text as="p" size="2">
-                        Press <Kbd>⌘ C</Kbd> to show/hide the Theme Panel, or
-                        press <Kbd>⌘ D</Kbd> to toggle dark mode.
+                        Press <Kbd>⌘ C</Kbd> to show/hide the Theme Panel, or press <Kbd>⌘ D</Kbd> to toggle dark mode.
                       </Text>
                       <Text as="p" size="3">
-                        Press <Kbd>⌘ C</Kbd> to show/hide the Theme Panel, or
-                        press <Kbd>⌘ D</Kbd> to toggle dark mode.
+                        Press <Kbd>⌘ C</Kbd> to show/hide the Theme Panel, or press <Kbd>⌘ D</Kbd> to toggle dark mode.
                       </Text>
                       <Text as="p" size="4">
-                        Press <Kbd>⌘ C</Kbd> to show/hide the Theme Panel, or
-                        press <Kbd>⌘ D</Kbd> to toggle dark mode.
+                        Press <Kbd>⌘ C</Kbd> to show/hide the Theme Panel, or press <Kbd>⌘ D</Kbd> to toggle dark mode.
                       </Text>
                       <Text as="p" size="5">
-                        Press <Kbd>⌘ C</Kbd> to show/hide the Theme Panel, or
-                        press <Kbd>⌘ D</Kbd> to toggle dark mode.
+                        Press <Kbd>⌘ C</Kbd> to show/hide the Theme Panel, or press <Kbd>⌘ D</Kbd> to toggle dark mode.
                       </Text>
                     </Flex>
                   </Tabs.Content>
@@ -2505,11 +2109,7 @@ export default function ExploreComponents() {
                   <Tabs.Content value="all-sizes">
                     <Box my="6">
                       <Box my="6">
-                        <Flex
-                          direction="column"
-                          gap="4"
-                          style={{ whiteSpace: 'nowrap' }}
-                        >
+                        <Flex direction="column" gap="4" style={{ whiteSpace: 'nowrap' }}>
                           {kbdPropDefs.size.values.map((size) => (
                             <Flex align="center" key={size}>
                               <Box shrink="0" style={{ width: 80 }}>
@@ -2526,13 +2126,8 @@ export default function ExploreComponents() {
                   </Tabs.Content>
                 </Tabs.Root>
 
-                <Heading id="link" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#link"
-                  >
+                <Heading id="link" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#link">
                     Link
                   </Link>
                 </Heading>
@@ -2546,67 +2141,55 @@ export default function ExploreComponents() {
                   <Tabs.Content value="specimen">
                     <Grid my="6" gap="6" columns="440px 440px">
                       <Flex direction="column" gap="6">
-                        <Text mb="-4" size="1" color="gray" align="center">
+                        <Text style={{ marginBottom: -20 }} size="1" color="gray" align="center">
                           Accent
                         </Text>
 
                         <Text as="p" size="4">
-                          Susan Kare is an American artist and{' '}
-                          <Link href="#link">graphic designer</Link>, who
-                          contributed <Link href="#link">interface</Link>{' '}
-                          elements and <Link href="#link">typefaces</Link> for
-                          the first <Link href="#link">Apple Macintosh</Link>{' '}
+                          Susan Kare is an American artist and <Link href="#link">graphic designer</Link>, who
+                          contributed <Link href="#link">interface</Link> elements and{' '}
+                          <Link href="#link">typefaces</Link> for the first <Link href="#link">Apple Macintosh</Link>{' '}
                           personal computer from 1983 to 1986.
                         </Text>
 
                         <Text as="p" size="3">
-                          Susan Kare is an American artist and{' '}
-                          <Link href="#link">graphic designer</Link>, who
-                          contributed <Link href="#link">interface</Link>{' '}
-                          elements and <Link href="#link">typefaces</Link> for
-                          the first <Link href="#link">Apple Macintosh</Link>{' '}
+                          Susan Kare is an American artist and <Link href="#link">graphic designer</Link>, who
+                          contributed <Link href="#link">interface</Link> elements and{' '}
+                          <Link href="#link">typefaces</Link> for the first <Link href="#link">Apple Macintosh</Link>{' '}
                           personal computer from 1983 to 1986.
                         </Text>
 
                         <Text as="p" size="2">
-                          Susan Kare is an American artist and{' '}
-                          <Link href="#link">graphic designer</Link>, who
-                          contributed <Link href="#link">interface</Link>{' '}
-                          elements and <Link href="#link">typefaces</Link> for
-                          the first <Link href="#link">Apple Macintosh</Link>{' '}
+                          Susan Kare is an American artist and <Link href="#link">graphic designer</Link>, who
+                          contributed <Link href="#link">interface</Link> elements and{' '}
+                          <Link href="#link">typefaces</Link> for the first <Link href="#link">Apple Macintosh</Link>{' '}
                           personal computer from 1983 to 1986.
                         </Text>
                       </Flex>
 
                       <Flex direction="column" gap="6">
-                        <Text mb="-4" size="1" color="gray" align="center">
+                        <Text style={{ marginBottom: -20 }} size="1" color="gray" align="center">
                           Gray
                         </Text>
 
                         <Text as="p" size="4" color="gray">
-                          Susan Kare is an American artist and{' '}
-                          <Link href="#link">graphic designer</Link>, who
-                          contributed <Link href="#link">interface</Link>{' '}
-                          elements and <Link href="#link">typefaces</Link> for
-                          the first <Link href="#link">Apple Macintosh</Link>{' '}
+                          Susan Kare is an American artist and <Link href="#link">graphic designer</Link>, who
+                          contributed <Link href="#link">interface</Link> elements and{' '}
+                          <Link href="#link">typefaces</Link> for the first <Link href="#link">Apple Macintosh</Link>{' '}
                           personal computer from 1983 to 1986.
                         </Text>
 
                         <Text as="p" size="3" color="gray">
-                          Susan Kare is an American artist and{' '}
-                          <Link href="#link">graphic designer</Link>, who
-                          contributed <Link href="#link">interface</Link>{' '}
-                          elements and <Link href="#link">typefaces</Link> for
-                          the first <Link href="#link">Apple Macintosh</Link>{' '}
+                          Susan Kare is an American artist and <Link href="#link">graphic designer</Link>, who
+                          contributed <Link href="#link">interface</Link> elements and{' '}
+                          <Link href="#link">typefaces</Link> for the first <Link href="#link">Apple Macintosh</Link>{' '}
                           personal computer from 1983 to 1986.
                         </Text>
 
                         <Text as="p" size="2" color="gray">
-                          Susan Kare is an American artist and{' '}
-                          <Link href="#link">graphic designer</Link>, who
-                          contributed <Link href="#link">interface</Link>{' '}
-                          elements and <Link href="#link">typefaces</Link> for
-                          the first <Link href="#link">Apple Macintosh</Link>{' '}
+                          Susan Kare is an American artist and <Link href="#link">graphic designer</Link>, who
+                          contributed <Link href="#link">interface</Link> elements and{' '}
+                          <Link href="#link">typefaces</Link> for the first <Link href="#link">Apple Macintosh</Link>{' '}
                           personal computer from 1983 to 1986.
                         </Text>
                       </Flex>
@@ -2615,10 +2198,7 @@ export default function ExploreComponents() {
 
                   <Tabs.Content value="all-colors">
                     <Box my="6">
-                      <table
-                        className={styles.table}
-                        style={{ whiteSpace: 'nowrap' }}
-                      >
+                      <table className={styles.table} style={{ whiteSpace: 'nowrap' }}>
                         <tbody>
                           {themeAccentColorsOrdered.map((color) => (
                             <tr key={color}>
@@ -2661,10 +2241,7 @@ export default function ExploreComponents() {
 
                   <Tabs.Content value="all-weights">
                     <Box my="6">
-                      <table
-                        className={styles.table}
-                        style={{ whiteSpace: 'nowrap' }}
-                      >
+                      <table className={styles.table} style={{ whiteSpace: 'nowrap' }}>
                         <tbody>
                           {linkPropDefs.weight.values.map((weight) => (
                             <tr key={weight}>
@@ -2682,13 +2259,8 @@ export default function ExploreComponents() {
                   </Tabs.Content>
                 </Tabs.Root>
 
-                <Heading id="popover" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#popover"
-                  >
+                <Heading id="popover" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#popover">
                     Popover
                   </Link>
                 </Heading>
@@ -2708,11 +2280,7 @@ export default function ExploreComponents() {
                           fallback="A"
                         />
                         <Box grow="1">
-                          <TextArea
-                            size="1"
-                            placeholder="Write a comment…"
-                            style={{ height: 80 }}
-                          />
+                          <TextArea size="1" placeholder="Write a comment…" style={{ height: 80 }} />
 
                           <Flex gap="3" mt="3" justify="between">
                             <Flex align="center" gap="2" asChild>
@@ -2748,10 +2316,7 @@ export default function ExploreComponents() {
                           fallback="A"
                         />
                         <Box grow="1">
-                          <TextArea
-                            placeholder="Write a comment…"
-                            style={{ height: 100 }}
-                          />
+                          <TextArea placeholder="Write a comment…" style={{ height: 100 }} />
                           <Flex gap="3" mt="3" justify="between">
                             <Flex align="center" gap="2" asChild>
                               <label>
@@ -2786,12 +2351,8 @@ export default function ExploreComponents() {
                           fallback="A"
                         />
                         <Box grow="1">
-                          <TextArea
-                            size="3"
-                            placeholder="Write a comment…"
-                            style={{ height: 120 }}
-                          />
-                          <Flex gap="3" mt="4" justify="between">
+                          <TextArea size="3" placeholder="Write a comment…" style={{ height: 120 }} />
+                          <Flex gap="3" style={{ marginTop: 16 }} justify="between">
                             <Flex align="center" gap="2" asChild>
                               <label>
                                 <Checkbox />
@@ -2825,12 +2386,8 @@ export default function ExploreComponents() {
                           fallback="A"
                         />
                         <Box grow="1">
-                          <TextArea
-                            size="3"
-                            placeholder="Write a comment…"
-                            style={{ height: 120 }}
-                          />
-                          <Flex gap="3" mt="4" justify="between">
+                          <TextArea size="3" placeholder="Write a comment…" style={{ height: 120 }} />
+                          <Flex gap="3" style={{ marginTop: 16 }} justify="between">
                             <Flex align="center" gap="2" asChild>
                               <label>
                                 <Checkbox size="2" />
@@ -2850,13 +2407,8 @@ export default function ExploreComponents() {
                   </Popover.Root>
                 </Flex>
 
-                <Heading id="quote" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#quote"
-                  >
+                <Heading id="quote" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#quote">
                     Quote
                   </Link>
                 </Heading>
@@ -2865,28 +2417,19 @@ export default function ExploreComponents() {
                     A man who would letterspace lower case would steal sheep
                     <span style={{ marginRight: '-0.2em' }}>,</span>
                   </Quote>{' '}
-                  Frederic Goudy liked to say. The reason for not letterspacing
-                  lower case is that it hampers legibility. But there are some
-                  lowercase alphabets to which this principle doesn’t apply.
-                  Moderate letterspacing can make a face such as lowercase
-                  Univers bold condensed more legible rather than less
+                  Frederic Goudy liked to say. The reason for not letterspacing lower case is that it hampers
+                  legibility. But there are some lowercase alphabets to which this principle doesn’t apply. Moderate
+                  letterspacing can make a face such as lowercase Univers bold condensed more legible rather than less
                 </Box>
 
-                <Heading id="radio-group" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#radio-group"
-                  >
+                <Heading id="radio-group" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#radio-group">
                     Radio Group
                   </Link>
                 </Heading>
                 <Tabs.Root defaultValue="theme-colors">
                   <Tabs.List size="2">
-                    <Tabs.Trigger value="theme-colors">
-                      Theme colors
-                    </Tabs.Trigger>
+                    <Tabs.Trigger value="theme-colors">Theme colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
                   </Tabs.List>
@@ -2910,50 +2453,31 @@ export default function ExploreComponents() {
                                   <RadioGroup.Root variant={variant}>
                                     <RadioGroup.Item value="value" />
                                   </RadioGroup.Root>
-                                  <RadioGroup.Root
-                                    variant={variant}
-                                    defaultValue="value"
-                                  >
+                                  <RadioGroup.Root variant={variant} defaultValue="value">
                                     <RadioGroup.Item value="value" />
                                   </RadioGroup.Root>
                                 </Flex>
                               </td>
                               <td>
                                 <Flex align="center" justify="center" gap="4">
-                                  <RadioGroup.Root
-                                    variant={variant}
-                                    highContrast
-                                    defaultValue="value"
-                                  >
+                                  <RadioGroup.Root variant={variant} highContrast defaultValue="value">
                                     <RadioGroup.Item value="value" />
                                   </RadioGroup.Root>
                                 </Flex>
                               </td>
                               <td>
                                 <Flex align="center" justify="center" gap="4">
-                                  <RadioGroup.Root
-                                    variant={variant}
-                                    color="gray"
-                                  >
+                                  <RadioGroup.Root variant={variant} color="gray">
                                     <RadioGroup.Item value="value" />
                                   </RadioGroup.Root>
-                                  <RadioGroup.Root
-                                    variant={variant}
-                                    color="gray"
-                                    defaultValue="value"
-                                  >
+                                  <RadioGroup.Root variant={variant} color="gray" defaultValue="value">
                                     <RadioGroup.Item value="value" />
                                   </RadioGroup.Root>
                                 </Flex>
                               </td>
                               <td>
                                 <Flex align="center" justify="center" gap="4">
-                                  <RadioGroup.Root
-                                    variant={variant}
-                                    color="gray"
-                                    highContrast
-                                    defaultValue="value"
-                                  >
+                                  <RadioGroup.Root variant={variant} color="gray" highContrast defaultValue="value">
                                     <RadioGroup.Item value="value" />
                                   </RadioGroup.Root>
                                 </Flex>
@@ -2963,11 +2487,7 @@ export default function ExploreComponents() {
                                   <RadioGroup.Root variant={variant} disabled>
                                     <RadioGroup.Item value="value" />
                                   </RadioGroup.Root>
-                                  <RadioGroup.Root
-                                    variant={variant}
-                                    disabled
-                                    defaultValue="value"
-                                  >
+                                  <RadioGroup.Root variant={variant} disabled defaultValue="value">
                                     <RadioGroup.Item value="value" />
                                   </RadioGroup.Root>
                                 </Flex>
@@ -2985,52 +2505,32 @@ export default function ExploreComponents() {
                         <thead>
                           <tr>
                             <th />
-                            {radioGroupPropDefs.variant.values.map(
-                              (variant) => (
-                                <th key={variant}>{upperFirst(variant)}</th>
-                              ),
-                            )}
+                            {radioGroupPropDefs.variant.values.map((variant) => (
+                              <th key={variant}>{upperFirst(variant)}</th>
+                            ))}
                           </tr>
                         </thead>
                         <tbody>
                           {themeAccentColorsOrdered.map((color) => (
                             <tr key={color}>
                               <td>{upperFirst(color)}</td>
-                              {radioGroupPropDefs.variant.values.map(
-                                (variant) => (
-                                  <td key={variant}>
-                                    <Flex
-                                      align="center"
-                                      justify="center"
-                                      gap="4"
-                                    >
-                                      <RadioGroup.Root
-                                        variant={variant}
-                                        color={color}
-                                      >
-                                        <RadioGroup.Item value="value" />
-                                      </RadioGroup.Root>
+                              {radioGroupPropDefs.variant.values.map((variant) => (
+                                <td key={variant}>
+                                  <Flex align="center" justify="center" gap="4">
+                                    <RadioGroup.Root variant={variant} color={color}>
+                                      <RadioGroup.Item value="value" />
+                                    </RadioGroup.Root>
 
-                                      <RadioGroup.Root
-                                        variant={variant}
-                                        color={color}
-                                        defaultValue="value"
-                                      >
-                                        <RadioGroup.Item value="value" />
-                                      </RadioGroup.Root>
+                                    <RadioGroup.Root variant={variant} color={color} defaultValue="value">
+                                      <RadioGroup.Item value="value" />
+                                    </RadioGroup.Root>
 
-                                      <RadioGroup.Root
-                                        variant={variant}
-                                        color={color}
-                                        highContrast
-                                        defaultValue="value"
-                                      >
-                                        <RadioGroup.Item value="value" />
-                                      </RadioGroup.Root>
-                                    </Flex>
-                                  </td>
-                                ),
-                              )}
+                                    <RadioGroup.Root variant={variant} color={color} highContrast defaultValue="value">
+                                      <RadioGroup.Item value="value" />
+                                    </RadioGroup.Root>
+                                  </Flex>
+                                </td>
+                              ))}
                             </tr>
                           ))}
                         </tbody>
@@ -3044,41 +2544,26 @@ export default function ExploreComponents() {
                         <thead>
                           <tr>
                             <th />
-                            {radioGroupPropDefs.variant.values.map(
-                              (variant) => (
-                                <th key={variant} style={{ textAlign: 'left' }}>
-                                  {upperFirst(variant)}
-                                </th>
-                              ),
-                            )}
+                            {radioGroupPropDefs.variant.values.map((variant) => (
+                              <th key={variant} style={{ textAlign: 'left' }}>
+                                {upperFirst(variant)}
+                              </th>
+                            ))}
                           </tr>
                         </thead>
                         <tbody>
                           {radioGroupPropDefs.size.values.map((size) => (
                             <tr key={size}>
                               <td>Size {size}</td>
-                              {radioGroupPropDefs.variant.values.map(
-                                (variant) => (
-                                  <td
-                                    key={variant}
-                                    style={{ textAlign: 'left' }}
-                                  >
-                                    <Flex
-                                      align="center"
-                                      justify="start"
-                                      gap="4"
-                                    >
-                                      <RadioGroup.Root
-                                        size={size}
-                                        variant={variant}
-                                        defaultValue="value"
-                                      >
-                                        <RadioGroup.Item value="value" />
-                                      </RadioGroup.Root>
-                                    </Flex>
-                                  </td>
-                                ),
-                              )}
+                              {radioGroupPropDefs.variant.values.map((variant) => (
+                                <td key={variant} style={{ textAlign: 'left' }}>
+                                  <Flex align="center" justify="start" gap="4">
+                                    <RadioGroup.Root size={size} variant={variant} defaultValue="value">
+                                      <RadioGroup.Item value="value" />
+                                    </RadioGroup.Root>
+                                  </Flex>
+                                </td>
+                              ))}
                             </tr>
                           ))}
                         </tbody>
@@ -3087,13 +2572,8 @@ export default function ExploreComponents() {
                   </Tabs.Content>
                 </Tabs.Root>
 
-                <Heading id="scroll area" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#scroll area"
-                  >
+                <Heading id="scroll area" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#scroll area">
                     Scroll Area
                   </Link>
                 </Heading>
@@ -3108,45 +2588,32 @@ export default function ExploreComponents() {
                           height: 180,
                           // @ts-ignore
                           '--scrollarea-scrollbar-margin-top': 'var(--space-3)',
-                          '--scrollarea-scrollbar-margin-bottom':
-                            'var(--space-3)',
-                          '--scrollarea-scrollbar-margin-left':
-                            'var(--space-3)',
-                          '--scrollarea-scrollbar-margin-right':
-                            'var(--space-3)',
+                          '--scrollarea-scrollbar-margin-bottom': 'var(--space-3)',
+                          '--scrollarea-scrollbar-margin-left': 'var(--space-3)',
+                          '--scrollarea-scrollbar-margin-right': 'var(--space-3)',
                         }}
                       >
                         <Inset p="current" style={{ margin: 0 }}>
                           <Box pr="5">
                             <Flex direction="column" gap="4">
                               <Text as="p" size="2">
-                                Three fundamental aspects of typography are
-                                legibility, readability, and aesthetics.
-                                Although in a non-technical sense “legible” and
-                                “readable” are often used synonymously,
-                                typographically they are separate but related
-                                concepts.
+                                Three fundamental aspects of typography are legibility, readability, and aesthetics.
+                                Although in a non-technical sense “legible” and “readable” are often used synonymously,
+                                typographically they are separate but related concepts.
                               </Text>
 
                               <Text as="p" size="2">
-                                Legibility describes how easily individual
-                                characters can be distinguished from one
-                                another. It is described by Walter Tracy as “the
-                                quality of being decipherable and recognisable”.
-                                For instance, if a “b” and an “h”, or a “3” and
-                                an “8”, are difficult to distinguish at small
-                                sizes, this is a problem of legibility.
+                                Legibility describes how easily individual characters can be distinguished from one
+                                another. It is described by Walter Tracy as “the quality of being decipherable and
+                                recognisable”. For instance, if a “b” and an “h”, or a “3” and an “8”, are difficult to
+                                distinguish at small sizes, this is a problem of legibility.
                               </Text>
 
                               <Text as="p" size="2">
-                                Typographers are concerned with legibility
-                                insofar as it is their job to select the correct
-                                font to use. Brush Script is an example of a
-                                font containing many characters that might be
-                                difficult to distinguish. The selection of cases
-                                influences the legibility of typography because
-                                using only uppercase letters (all-caps) reduces
-                                legibility.
+                                Typographers are concerned with legibility insofar as it is their job to select the
+                                correct font to use. Brush Script is an example of a font containing many characters
+                                that might be difficult to distinguish. The selection of cases influences the legibility
+                                of typography because using only uppercase letters (all-caps) reduces legibility.
                               </Text>
                             </Flex>
                           </Box>
@@ -3156,21 +2623,14 @@ export default function ExploreComponents() {
                   </Card>
                 </Flex>
 
-                <Heading id="select" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#select"
-                  >
+                <Heading id="select" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#select">
                     Select
                   </Link>
                 </Heading>
                 <Tabs.Root defaultValue="theme-colors">
                   <Tabs.List size="2">
-                    <Tabs.Trigger value="theme-colors">
-                      Theme colors
-                    </Tabs.Trigger>
+                    <Tabs.Trigger value="theme-colors">Theme colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
                   </Tabs.List>
@@ -3187,69 +2647,47 @@ export default function ExploreComponents() {
                           </tr>
                         </thead>
                         <tbody>
-                          {selectTriggerPropDefs.variant.values.map(
-                            (variant) => (
-                              <tr key={variant}>
-                                <td>{upperFirst(variant)}</td>
-                                <td>
-                                  <Select.Root defaultValue="apple">
-                                    <Select.Trigger variant={variant} />
-                                    <Select.Content
-                                      variant={selectTriggerVariantToSelectContentVariant(
-                                        variant,
-                                      )}
-                                    >
-                                      <ExampleSelectContent />
-                                    </Select.Content>
-                                  </Select.Root>
-                                </td>
-                                <td>
-                                  <Select.Root defaultValue="apple">
-                                    <Select.Trigger
-                                      variant={variant}
-                                      color="gray"
-                                    />
-                                    <Select.Content
-                                      variant={selectTriggerVariantToSelectContentVariant(
-                                        variant,
-                                      )}
-                                      color="gray"
-                                      highContrast
-                                    >
-                                      <ExampleSelectContent />
-                                    </Select.Content>
-                                  </Select.Root>
-                                </td>
-                                <td>
-                                  <Select.Root>
-                                    <Select.Trigger
-                                      variant={variant}
-                                      placeholder="Choose a fruit…"
-                                    />
-                                    <Select.Content
-                                      variant={selectTriggerVariantToSelectContentVariant(
-                                        variant,
-                                      )}
-                                    >
-                                      <ExampleSelectContent />
-                                    </Select.Content>
-                                  </Select.Root>
-                                </td>
-                                <td>
-                                  <Select.Root defaultValue="apple" disabled>
-                                    <Select.Trigger variant={variant} />
-                                    <Select.Content
-                                      variant={selectTriggerVariantToSelectContentVariant(
-                                        variant,
-                                      )}
-                                    >
-                                      <ExampleSelectContent />
-                                    </Select.Content>
-                                  </Select.Root>
-                                </td>
-                              </tr>
-                            ),
-                          )}
+                          {selectTriggerPropDefs.variant.values.map((variant) => (
+                            <tr key={variant}>
+                              <td>{upperFirst(variant)}</td>
+                              <td>
+                                <Select.Root defaultValue="apple">
+                                  <Select.Trigger variant={variant} />
+                                  <Select.Content variant={selectTriggerVariantToSelectContentVariant(variant)}>
+                                    <ExampleSelectContent />
+                                  </Select.Content>
+                                </Select.Root>
+                              </td>
+                              <td>
+                                <Select.Root defaultValue="apple">
+                                  <Select.Trigger variant={variant} color="gray" />
+                                  <Select.Content
+                                    variant={selectTriggerVariantToSelectContentVariant(variant)}
+                                    color="gray"
+                                    highContrast
+                                  >
+                                    <ExampleSelectContent />
+                                  </Select.Content>
+                                </Select.Root>
+                              </td>
+                              <td>
+                                <Select.Root>
+                                  <Select.Trigger variant={variant} placeholder="Choose a fruit…" />
+                                  <Select.Content variant={selectTriggerVariantToSelectContentVariant(variant)}>
+                                    <ExampleSelectContent />
+                                  </Select.Content>
+                                </Select.Root>
+                              </td>
+                              <td>
+                                <Select.Root defaultValue="apple" disabled>
+                                  <Select.Trigger variant={variant} />
+                                  <Select.Content variant={selectTriggerVariantToSelectContentVariant(variant)}>
+                                    <ExampleSelectContent />
+                                  </Select.Content>
+                                </Select.Root>
+                              </td>
+                            </tr>
+                          ))}
                         </tbody>
                       </table>
                     </Box>
@@ -3261,37 +2699,28 @@ export default function ExploreComponents() {
                         <thead>
                           <tr>
                             <th />
-                            {selectTriggerPropDefs.variant.values.map(
-                              (variant) => (
-                                <th key={variant}>{upperFirst(variant)}</th>
-                              ),
-                            )}
+                            {selectTriggerPropDefs.variant.values.map((variant) => (
+                              <th key={variant}>{upperFirst(variant)}</th>
+                            ))}
                           </tr>
                         </thead>
                         <tbody>
                           {themeAccentColorsOrdered.map((color) => (
                             <tr key={color}>
                               <td>{upperFirst(color)}</td>
-                              {selectTriggerPropDefs.variant.values.map(
-                                (variant) => (
-                                  <td key={variant}>
-                                    <Select.Root defaultValue="apple">
-                                      <Select.Trigger
-                                        variant={variant}
-                                        color={color}
-                                      />
-                                      <Select.Content
-                                        variant={selectTriggerVariantToSelectContentVariant(
-                                          variant,
-                                        )}
-                                        color={color}
-                                      >
-                                        <ExampleSelectContent />
-                                      </Select.Content>
-                                    </Select.Root>
-                                  </td>
-                                ),
-                              )}
+                              {selectTriggerPropDefs.variant.values.map((variant) => (
+                                <td key={variant}>
+                                  <Select.Root defaultValue="apple">
+                                    <Select.Trigger variant={variant} color={color} />
+                                    <Select.Content
+                                      variant={selectTriggerVariantToSelectContentVariant(variant)}
+                                      color={color}
+                                    >
+                                      <ExampleSelectContent />
+                                    </Select.Content>
+                                  </Select.Root>
+                                </td>
+                              ))}
                             </tr>
                           ))}
                         </tbody>
@@ -3309,57 +2738,43 @@ export default function ExploreComponents() {
                           </tr>
                         </thead>
                         <tbody>
-                          {selectTriggerPropDefs.variant.values.map(
-                            (variant, index) => (
-                              <React.Fragment key={variant}>
-                                {index > 0 && (
-                                  <tr>
-                                    <td>&nbsp;</td>
-                                  </tr>
-                                )}
-                                {selectRootPropDefs.size.values.map((size) => (
-                                  <tr key={size}>
-                                    <td>Size {size}</td>
-                                    <td style={{ textAlign: 'left' }}>
-                                      <Select.Root
-                                        size={size}
-                                        defaultValue="apple"
-                                      >
-                                        <Select.Trigger variant={variant} />
-                                        <Select.Content
-                                          variant={selectTriggerVariantToSelectContentVariant(
-                                            variant,
-                                          )}
-                                        >
-                                          <ExampleSelectContent />
-                                        </Select.Content>
-                                      </Select.Root>
-                                    </td>
-                                  </tr>
-                                ))}
-                              </React.Fragment>
-                            ),
-                          )}
+                          {selectTriggerPropDefs.variant.values.map((variant, index) => (
+                            <React.Fragment key={variant}>
+                              {index > 0 && (
+                                <tr>
+                                  <td>&nbsp;</td>
+                                </tr>
+                              )}
+                              {selectRootPropDefs.size.values.map((size) => (
+                                <tr key={size}>
+                                  <td>Size {size}</td>
+                                  <td style={{ textAlign: 'left' }}>
+                                    <Select.Root size={size} defaultValue="apple">
+                                      <Select.Trigger variant={variant} />
+                                      <Select.Content variant={selectTriggerVariantToSelectContentVariant(variant)}>
+                                        <ExampleSelectContent />
+                                      </Select.Content>
+                                    </Select.Root>
+                                  </td>
+                                </tr>
+                              ))}
+                            </React.Fragment>
+                          ))}
                         </tbody>
                       </table>
                     </Box>
                   </Tabs.Content>
                 </Tabs.Root>
 
-                <Heading id="separator" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#separator"
-                  >
+                <Heading id="separator" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#separator">
                     Separator
                   </Link>
                 </Heading>
                 <Flex my="6" style={{ whiteSpace: 'nowrap' }}>
                   <Text size="2">
                     Tools for building high-quality, accessible UI.
-                    <Separator my="3" size="4" />
+                    <Separator style={{ marginTop: 12, marginBottom: 12 }} size="4" />
                     <Flex gap="3" align="center">
                       Themes
                       <Separator orientation="vertical" />
@@ -3372,21 +2787,14 @@ export default function ExploreComponents() {
                   </Text>
                 </Flex>
 
-                <Heading id="slider" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#slider"
-                  >
+                <Heading id="slider" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#slider">
                     Slider
                   </Link>
                 </Heading>
                 <Tabs.Root defaultValue="theme-colors">
                   <Tabs.List size="2">
-                    <Tabs.Trigger value="theme-colors">
-                      Theme colors
-                    </Tabs.Trigger>
+                    <Tabs.Trigger value="theme-colors">Theme colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
                   </Tabs.List>
@@ -3402,48 +2810,26 @@ export default function ExploreComponents() {
                           </tr>
                         </thead>
                         <tbody>
-                          {sliderPropDefs.variant.values.map(
-                            (variant, index) => (
-                              <tr key={variant}>
-                                <td>{upperFirst(variant)}</td>
-                                <td>
-                                  <Slider
-                                    defaultValue={[33 + 17 * index]}
-                                    variant={variant}
-                                  />
-                                </td>
-                                <td>
-                                  <Slider
-                                    defaultValue={[33 + 17 * index]}
-                                    variant={variant}
-                                    highContrast
-                                  />
-                                </td>
-                                <td>
-                                  <Slider
-                                    defaultValue={[33 + 17 * index]}
-                                    variant={variant}
-                                    color="gray"
-                                  />
-                                </td>
-                                <td>
-                                  <Slider
-                                    defaultValue={[33 + 17 * index]}
-                                    variant={variant}
-                                    color="gray"
-                                    highContrast
-                                  />
-                                </td>
-                                <td>
-                                  <Slider
-                                    defaultValue={[33 + 17 * index]}
-                                    variant={variant}
-                                    disabled
-                                  />
-                                </td>
-                              </tr>
-                            ),
-                          )}
+                          {sliderPropDefs.variant.values.map((variant, index) => (
+                            <tr key={variant}>
+                              <td>{upperFirst(variant)}</td>
+                              <td>
+                                <Slider defaultValue={[33 + 17 * index]} variant={variant} />
+                              </td>
+                              <td>
+                                <Slider defaultValue={[33 + 17 * index]} variant={variant} highContrast />
+                              </td>
+                              <td>
+                                <Slider defaultValue={[33 + 17 * index]} variant={variant} color="gray" />
+                              </td>
+                              <td>
+                                <Slider defaultValue={[33 + 17 * index]} variant={variant} color="gray" highContrast />
+                              </td>
+                              <td>
+                                <Slider defaultValue={[33 + 17 * index]} variant={variant} disabled />
+                              </td>
+                            </tr>
+                          ))}
                         </tbody>
                       </table>
                     </Box>
@@ -3469,11 +2855,7 @@ export default function ExploreComponents() {
                               {sliderPropDefs.variant.values.map((variant) => (
                                 <React.Fragment key={variant}>
                                   <td>
-                                    <Slider
-                                      defaultValue={[30 + index * 2]}
-                                      color={color}
-                                      variant={variant}
-                                    />
+                                    <Slider defaultValue={[30 + index * 2]} color={color} variant={variant} />
                                   </td>
                                   <td>
                                     <Slider
@@ -3502,58 +2884,39 @@ export default function ExploreComponents() {
                           </tr>
                         </thead>
                         <tbody>
-                          {sliderPropDefs.variant.values.map(
-                            (variant, index) => (
-                              <React.Fragment key={variant}>
-                                {index > 0 && (
-                                  <tr>
-                                    <td>&nbsp;</td>
-                                  </tr>
-                                )}
-                                {sliderPropDefs.size.values.map(
-                                  (size, sizeIndex) => (
-                                    <tr key={size}>
-                                      <td>Size {size}</td>
-                                      <td style={{ textAlign: 'left' }}>
-                                        <Flex
-                                          align="center"
-                                          justify="start"
-                                          gap="4"
-                                        >
-                                          <Slider
-                                            defaultValue={[33 + 17 * sizeIndex]}
-                                            size={size}
-                                            variant={variant}
-                                          />
-                                        </Flex>
-                                      </td>
-                                    </tr>
-                                  ),
-                                )}
-                              </React.Fragment>
-                            ),
-                          )}
+                          {sliderPropDefs.variant.values.map((variant, index) => (
+                            <React.Fragment key={variant}>
+                              {index > 0 && (
+                                <tr>
+                                  <td>&nbsp;</td>
+                                </tr>
+                              )}
+                              {sliderPropDefs.size.values.map((size, sizeIndex) => (
+                                <tr key={size}>
+                                  <td>Size {size}</td>
+                                  <td style={{ textAlign: 'left' }}>
+                                    <Flex align="center" justify="start" gap="4">
+                                      <Slider defaultValue={[33 + 17 * sizeIndex]} size={size} variant={variant} />
+                                    </Flex>
+                                  </td>
+                                </tr>
+                              ))}
+                            </React.Fragment>
+                          ))}
                         </tbody>
                       </table>
                     </Box>
                   </Tabs.Content>
                 </Tabs.Root>
 
-                <Heading id="switch" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#switch"
-                  >
+                <Heading id="switch" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#switch">
                     Switch
                   </Link>
                 </Heading>
                 <Tabs.Root defaultValue="theme-colors">
                   <Tabs.List size="2">
-                    <Tabs.Trigger value="theme-colors">
-                      Theme colors
-                    </Tabs.Trigger>
+                    <Tabs.Trigger value="theme-colors">Theme colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
                   </Tabs.List>
@@ -3590,11 +2953,7 @@ export default function ExploreComponents() {
                             </td>
                             <td>
                               <Flex align="center" justify="center" gap="4">
-                                <Switch
-                                  color="gray"
-                                  highContrast
-                                  defaultChecked
-                                />
+                                <Switch color="gray" highContrast defaultChecked />
                               </Flex>
                             </td>
                             <td>
@@ -3626,11 +2985,7 @@ export default function ExploreComponents() {
                                 <Flex align="center" justify="center" gap="4">
                                   <Switch color={color} />
                                   <Switch color={color} defaultChecked />
-                                  <Switch
-                                    color={color}
-                                    highContrast
-                                    defaultChecked
-                                  />
+                                  <Switch color={color} highContrast defaultChecked />
                                 </Flex>
                               </td>
                             </tr>
@@ -3668,23 +3023,14 @@ export default function ExploreComponents() {
                   </Tabs.Content>
                 </Tabs.Root>
 
-                <Heading id="table" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#table"
-                  >
+                <Heading id="table" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#table">
                     Table
                   </Link>
                 </Heading>
                 <Box my="6" style={{ whiteSpace: 'nowrap' }}>
                   <Flex direction="column" mb="9" style={{ width: 1000 }}>
-                    <Flex
-                      justify="center"
-                      position="relative"
-                      style={{ padding: 100 }}
-                    >
+                    <Flex justify="center" position="relative" style={{ padding: 100 }}>
                       <Flex
                         align="center"
                         justify="center"
@@ -3692,50 +3038,34 @@ export default function ExploreComponents() {
                         inset="0"
                         style={{ overflow: 'hidden' }}
                       >
-                        <PanelBackgroundImage
-                          id="1"
-                          width="100%"
-                          height="200%"
-                        />
+                        <PanelBackgroundImage id="1" width="100%" height="200%" />
                       </Flex>
 
                       <Table.Root variant="surface" size="2">
                         <Table.Table>
                           <Table.Header>
                             <Table.Row>
-                              <Table.ColumnHeaderCell>
-                                Full name
-                              </Table.ColumnHeaderCell>
-                              <Table.ColumnHeaderCell>
-                                Email
-                              </Table.ColumnHeaderCell>
-                              <Table.ColumnHeaderCell>
-                                Group
-                              </Table.ColumnHeaderCell>
+                              <Table.ColumnHeaderCell>Full name</Table.ColumnHeaderCell>
+                              <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
+                              <Table.ColumnHeaderCell>Group</Table.ColumnHeaderCell>
                             </Table.Row>
                           </Table.Header>
 
                           <Table.Body>
                             <Table.Row>
-                              <Table.RowHeaderCell>
-                                Danilo Sousa
-                              </Table.RowHeaderCell>
+                              <Table.RowHeaderCell>Danilo Sousa</Table.RowHeaderCell>
                               <Table.Cell>danilo@example.com</Table.Cell>
                               <Table.Cell>Developer</Table.Cell>
                             </Table.Row>
 
                             <Table.Row>
-                              <Table.RowHeaderCell>
-                                Zahra Ambessa
-                              </Table.RowHeaderCell>
+                              <Table.RowHeaderCell>Zahra Ambessa</Table.RowHeaderCell>
                               <Table.Cell>zahra@example.com</Table.Cell>
                               <Table.Cell>Admin</Table.Cell>
                             </Table.Row>
 
                             <Table.Row>
-                              <Table.RowHeaderCell>
-                                Jasper Eriksson
-                              </Table.RowHeaderCell>
+                              <Table.RowHeaderCell>Jasper Eriksson</Table.RowHeaderCell>
                               <Table.Cell>jasper@example.com</Table.Cell>
                               <Table.Cell>Developer</Table.Cell>
                             </Table.Row>
@@ -3778,44 +3108,28 @@ export default function ExploreComponents() {
                                 <Table.Table>
                                   <Table.Header>
                                     <Table.Row>
-                                      <Table.ColumnHeaderCell>
-                                        Full name
-                                      </Table.ColumnHeaderCell>
-                                      <Table.ColumnHeaderCell>
-                                        Email
-                                      </Table.ColumnHeaderCell>
-                                      <Table.ColumnHeaderCell>
-                                        Group
-                                      </Table.ColumnHeaderCell>
+                                      <Table.ColumnHeaderCell>Full name</Table.ColumnHeaderCell>
+                                      <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
+                                      <Table.ColumnHeaderCell>Group</Table.ColumnHeaderCell>
                                     </Table.Row>
                                   </Table.Header>
 
                                   <Table.Body>
                                     <Table.Row>
-                                      <Table.RowHeaderCell>
-                                        Danilo Sousa
-                                      </Table.RowHeaderCell>
-                                      <Table.Cell>
-                                        danilo@example.com
-                                      </Table.Cell>
+                                      <Table.RowHeaderCell>Danilo Sousa</Table.RowHeaderCell>
+                                      <Table.Cell>danilo@example.com</Table.Cell>
                                       <Table.Cell>Developer</Table.Cell>
                                     </Table.Row>
 
                                     <Table.Row>
-                                      <Table.RowHeaderCell>
-                                        Zahra Ambessa
-                                      </Table.RowHeaderCell>
+                                      <Table.RowHeaderCell>Zahra Ambessa</Table.RowHeaderCell>
                                       <Table.Cell>zahra@example.com</Table.Cell>
                                       <Table.Cell>Admin</Table.Cell>
                                     </Table.Row>
 
                                     <Table.Row>
-                                      <Table.RowHeaderCell>
-                                        Jasper Eriksson
-                                      </Table.RowHeaderCell>
-                                      <Table.Cell>
-                                        jasper@example.com
-                                      </Table.Cell>
+                                      <Table.RowHeaderCell>Jasper Eriksson</Table.RowHeaderCell>
+                                      <Table.Cell>jasper@example.com</Table.Cell>
                                       <Table.Cell>Developer</Table.Cell>
                                     </Table.Row>
                                   </Table.Body>
@@ -3829,23 +3143,14 @@ export default function ExploreComponents() {
                   </table>
                 </Box>
 
-                <Heading id="tabs" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#tabs"
-                  >
+                <Heading id="tabs" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#tabs">
                     Tabs
                   </Link>
                 </Heading>
                 <Flex gap="8" align="end" mb="9">
                   {tabsListPropDefs.size.values.map((size) => (
-                    <Tabs.Root
-                      key={size}
-                      defaultValue="account"
-                      activationMode="manual"
-                    >
+                    <Tabs.Root key={size} defaultValue="account" activationMode="manual">
                       <Tabs.List size={size}>
                         <Tabs.Trigger value="account">Account</Tabs.Trigger>
                         <Tabs.Trigger value="documents">Documents</Tabs.Trigger>
@@ -3855,13 +3160,8 @@ export default function ExploreComponents() {
                   ))}
                 </Flex>
 
-                <Heading id="text" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#text"
-                  >
+                <Heading id="text" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#text">
                     Text
                   </Link>
                 </Heading>
@@ -3876,70 +3176,51 @@ export default function ExploreComponents() {
                   <Tabs.Content value="specimen">
                     <Box my="6" style={{ width: 760 }}>
                       <Text as="p" size="5">
-                        The goal of typography is to relate font size, line
-                        height, and line width in a proportional way that
-                        maximizes beauty and makes reading easier and more
-                        pleasant. The question is: What proportion(s) will give
-                        us the best results? The golden ratio is often observed
-                        in nature where beauty and utility intersect; perhaps we
-                        can use this “divine” proportion to enhance these
+                        The goal of typography is to relate font size, line height, and line width in a proportional way
+                        that maximizes beauty and makes reading easier and more pleasant. The question is: What
+                        proportion(s) will give us the best results? The golden ratio is often observed in nature where
+                        beauty and utility intersect; perhaps we can use this “divine” proportion to enhance these
                         attributes in our typography.
                       </Text>
                     </Box>
 
                     <Box my="6" style={{ width: 700 }}>
                       <Text as="p" size="4">
-                        The goal of typography is to relate font size, line
-                        height, and line width in a proportional way that
-                        maximizes beauty and makes reading easier and more
-                        pleasant. The question is: What proportion(s) will give
-                        us the best results? The golden ratio is often observed
-                        in nature where beauty and utility intersect; perhaps we
-                        can use this “divine” proportion to enhance these
+                        The goal of typography is to relate font size, line height, and line width in a proportional way
+                        that maximizes beauty and makes reading easier and more pleasant. The question is: What
+                        proportion(s) will give us the best results? The golden ratio is often observed in nature where
+                        beauty and utility intersect; perhaps we can use this “divine” proportion to enhance these
                         attributes in our typography.
                       </Text>
                     </Box>
 
                     <Box my="6" style={{ width: 640 }}>
                       <Text as="p" size="3">
-                        The goal of typography is to relate font size, line
-                        height, and line width in a proportional way that
-                        maximizes beauty and makes reading easier and more
-                        pleasant. The question is: What proportion(s) will give
-                        us the best results? The golden ratio is often observed
-                        in nature where beauty and utility intersect; perhaps we
-                        can use this “divine” proportion to enhance these
+                        The goal of typography is to relate font size, line height, and line width in a proportional way
+                        that maximizes beauty and makes reading easier and more pleasant. The question is: What
+                        proportion(s) will give us the best results? The golden ratio is often observed in nature where
+                        beauty and utility intersect; perhaps we can use this “divine” proportion to enhance these
                         attributes in our typography.
                       </Text>
                     </Box>
 
                     <Box my="6" style={{ width: 572 }}>
                       <Text as="p" size="2">
-                        The goal of typography is to relate font size, line
-                        height, and line width in a proportional way that
-                        maximizes beauty and makes reading easier and more
-                        pleasant. The question is: What proportion(s) will give
-                        us the best results? The golden ratio is often observed
-                        in nature where beauty and utility intersect; perhaps we
-                        can use this “divine” proportion to enhance these
+                        The goal of typography is to relate font size, line height, and line width in a proportional way
+                        that maximizes beauty and makes reading easier and more pleasant. The question is: What
+                        proportion(s) will give us the best results? The golden ratio is often observed in nature where
+                        beauty and utility intersect; perhaps we can use this “divine” proportion to enhance these
                         attributes in our typography.
                       </Text>
                     </Box>
 
-                    <Grid
-                      my="7"
-                      gap="6"
-                      columns="2"
-                      align="center"
-                      style={{ width: 540 }}
-                    >
+                    <Grid my="7" gap="6" columns="2" align="center" style={{ width: 540 }}>
                       <Box>
                         <Text size="3" as="div" weight="bold">
                           Quick Look
                         </Text>
                         <Text size="2" as="div">
-                          Extensions from the installed software may add new
-                          features to this app.
+                          Extensions from the installed software may add new features to this app.
                         </Text>
                       </Box>
 
@@ -3948,8 +3229,7 @@ export default function ExploreComponents() {
                           Quick Look
                         </Text>
                         <Text size="2" as="div">
-                          Extensions from the installed software may add new
-                          features to this app.
+                          Extensions from the installed software may add new features to this app.
                         </Text>
                       </Box>
 
@@ -3958,8 +3238,7 @@ export default function ExploreComponents() {
                           Quick Look
                         </Text>
                         <Text size="1" as="div">
-                          Extensions from the installed software may add new
-                          features to this app.
+                          Extensions from the installed software may add new features to this app.
                         </Text>
                       </Box>
 
@@ -3968,26 +3247,18 @@ export default function ExploreComponents() {
                           Quick Look
                         </Text>
                         <Text size="1" as="div">
-                          Extensions from the installed software may add new
-                          features to this app.
+                          Extensions from the installed software may add new features to this app.
                         </Text>
                       </Box>
                     </Grid>
 
-                    <Grid
-                      my="7"
-                      gap="6"
-                      columns="2"
-                      align="center"
-                      style={{ width: 540 }}
-                    >
+                    <Grid my="7" gap="6" columns="2" align="center" style={{ width: 540 }}>
                       <Box>
                         <Text size="3" as="div" weight="medium">
                           Quick Look
                         </Text>
                         <Text size="2" as="div" color="gray">
-                          Extensions from the installed software may add new
-                          features to this app.
+                          Extensions from the installed software may add new features to this app.
                         </Text>
                       </Box>
 
@@ -3996,8 +3267,7 @@ export default function ExploreComponents() {
                           Quick Look
                         </Text>
                         <Text size="2" as="div" color="gray">
-                          Extensions from the installed software may add new
-                          features to this app.
+                          Extensions from the installed software may add new features to this app.
                         </Text>
                       </Box>
 
@@ -4006,8 +3276,7 @@ export default function ExploreComponents() {
                           Quick Look
                         </Text>
                         <Text size="1" as="div" color="gray">
-                          Extensions from the installed software may add new
-                          features to this app.
+                          Extensions from the installed software may add new features to this app.
                         </Text>
                       </Box>
 
@@ -4016,26 +3285,14 @@ export default function ExploreComponents() {
                           Quick Look
                         </Text>
                         <Text size="1" as="div" color="gray">
-                          Extensions from the installed software may add new
-                          features to this app.
+                          Extensions from the installed software may add new features to this app.
                         </Text>
                       </Box>
                     </Grid>
 
-                    <Grid
-                      my="7"
-                      gap="6"
-                      columns="repeat(4, auto)"
-                      align="center"
-                      style={{ whiteSpace: 'nowrap' }}
-                    >
+                    <Grid my="7" gap="6" columns="repeat(4, auto)" align="center" style={{ whiteSpace: 'nowrap' }}>
                       <Flex direction="column" align="center" gap="1">
-                        <Button
-                          variant="surface"
-                          color="gray"
-                          highContrast
-                          size="1"
-                        >
+                        <Button variant="surface" color="gray" highContrast size="1">
                           Quick Look
                         </Button>
                         <Text size="1" color="gray">
@@ -4044,12 +3301,7 @@ export default function ExploreComponents() {
                       </Flex>
 
                       <Flex direction="column" align="center" gap="1">
-                        <Button
-                          variant="surface"
-                          color="gray"
-                          highContrast
-                          size="2"
-                        >
+                        <Button variant="surface" color="gray" highContrast size="2">
                           Quick Look
                         </Button>
                         <Text size="1" color="gray">
@@ -4058,12 +3310,7 @@ export default function ExploreComponents() {
                       </Flex>
 
                       <Flex direction="column" align="center" gap="1">
-                        <Button
-                          variant="surface"
-                          color="gray"
-                          highContrast
-                          size="2"
-                        >
+                        <Button variant="surface" color="gray" highContrast size="2">
                           Quick Look
                         </Button>
                         <Text size="2" color="gray">
@@ -4072,12 +3319,7 @@ export default function ExploreComponents() {
                       </Flex>
 
                       <Flex direction="column" align="center" gap="1">
-                        <Button
-                          variant="surface"
-                          color="gray"
-                          highContrast
-                          size="3"
-                        >
+                        <Button variant="surface" color="gray" highContrast size="3">
                           Quick Look
                         </Button>
                         <Text size="2" color="gray">
@@ -4089,19 +3331,13 @@ export default function ExploreComponents() {
 
                   <Tabs.Content value="all-colors">
                     <Box my="6">
-                      <table
-                        className={styles.table}
-                        style={{ whiteSpace: 'nowrap' }}
-                      >
+                      <table className={styles.table} style={{ whiteSpace: 'nowrap' }}>
                         <tbody>
                           {themeAccentColorsOrdered.map((color) => (
-                            <tr
-                              key={color}
-                              style={{ verticalAlign: 'baseline' }}
-                            >
+                            <tr key={color} style={{ verticalAlign: 'baseline' }}>
                               <td>{upperFirst(color)}</td>
                               <td>
-                                <Text mr="4" color={color}>
+                                <Text style={{ marginRight: 16 }} color={color}>
                                   The quick brown fox jumps over the lazy dog
                                 </Text>
                                 <Text color={color} highContrast>
@@ -4117,11 +3353,7 @@ export default function ExploreComponents() {
 
                   <Tabs.Content value="all-sizes">
                     <Box my="6">
-                      <Flex
-                        direction="column"
-                        gap="4"
-                        style={{ whiteSpace: 'nowrap' }}
-                      >
+                      <Flex direction="column" gap="4" style={{ whiteSpace: 'nowrap' }}>
                         {textPropDefs.size.values.map((size) => (
                           <Flex align="center" key={size}>
                             <Box shrink="0" style={{ width: 80 }}>
@@ -4129,9 +3361,7 @@ export default function ExploreComponents() {
                                 Size {size}
                               </Text>
                             </Box>
-                            <Text size={size}>
-                              The quick brown fox jumped over the lazy dog
-                            </Text>
+                            <Text size={size}>The quick brown fox jumped over the lazy dog</Text>
                           </Flex>
                         ))}
                       </Flex>
@@ -4140,21 +3370,13 @@ export default function ExploreComponents() {
 
                   <Tabs.Content value="all-weights">
                     <Box my="6">
-                      <table
-                        className={styles.table}
-                        style={{ whiteSpace: 'nowrap' }}
-                      >
+                      <table className={styles.table} style={{ whiteSpace: 'nowrap' }}>
                         <tbody>
                           {textPropDefs.weight.values.map((weight) => (
-                            <tr
-                              key={weight}
-                              style={{ verticalAlign: 'baseline' }}
-                            >
+                            <tr key={weight} style={{ verticalAlign: 'baseline' }}>
                               <td>{upperFirst(weight)}</td>
                               <td style={{ textAlign: 'left' }}>
-                                <Text weight={weight}>
-                                  The quick brown fox jumps over the lazy dog
-                                </Text>
+                                <Text weight={weight}>The quick brown fox jumps over the lazy dog</Text>
                               </td>
                             </tr>
                           ))}
@@ -4164,21 +3386,14 @@ export default function ExploreComponents() {
                   </Tabs.Content>
                 </Tabs.Root>
 
-                <Heading id="text-area" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#text-area"
-                  >
+                <Heading id="text-area" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#text-area">
                     Text Area
                   </Link>
                 </Heading>
                 <Tabs.Root defaultValue="theme-colors">
                   <Tabs.List size="2">
-                    <Tabs.Trigger value="theme-colors">
-                      Theme colors
-                    </Tabs.Trigger>
+                    <Tabs.Trigger value="theme-colors">Theme colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
                   </Tabs.List>
@@ -4199,17 +3414,10 @@ export default function ExploreComponents() {
                             <tr key={variant}>
                               <td>{upperFirst(variant)}</td>
                               <td>
-                                <TextArea
-                                  variant={variant}
-                                  placeholder="Reply to comment"
-                                />
+                                <TextArea variant={variant} placeholder="Reply to comment" />
                               </td>
                               <td>
-                                <TextArea
-                                  variant={variant}
-                                  color="gray"
-                                  placeholder="Reply to comment"
-                                />
+                                <TextArea variant={variant} color="gray" placeholder="Reply to comment" />
                               </td>
                               <td>
                                 <TextArea
@@ -4249,17 +3457,11 @@ export default function ExploreComponents() {
                           {themeAccentColorsOrdered.map((color) => (
                             <tr key={color}>
                               <td>{upperFirst(color)}</td>
-                              {textAreaPropDefs.variant.values.map(
-                                (variant) => (
-                                  <td key={variant}>
-                                    <TextArea
-                                      color={color}
-                                      variant={variant}
-                                      placeholder="Reply to comment"
-                                    />
-                                  </td>
-                                ),
-                              )}
+                              {textAreaPropDefs.variant.values.map((variant) => (
+                                <td key={variant}>
+                                  <TextArea color={color} variant={variant} placeholder="Reply to comment" />
+                                </td>
+                              ))}
                             </tr>
                           ))}
                         </tbody>
@@ -4284,18 +3486,16 @@ export default function ExploreComponents() {
                           {textAreaPropDefs.size.values.map((size) => (
                             <tr key={size}>
                               <td>Size {size}</td>
-                              {textAreaPropDefs.variant.values.map(
-                                (variant) => (
-                                  <td key={variant}>
-                                    <TextArea
-                                      size={size}
-                                      variant={variant}
-                                      placeholder="Reply to comment"
-                                      style={{ width: 120 + Number(size) * 20 }}
-                                    />
-                                  </td>
-                                ),
-                              )}
+                              {textAreaPropDefs.variant.values.map((variant) => (
+                                <td key={variant}>
+                                  <TextArea
+                                    size={size}
+                                    variant={variant}
+                                    placeholder="Reply to comment"
+                                    style={{ width: 120 + Number(size) * 20 }}
+                                  />
+                                </td>
+                              ))}
                             </tr>
                           ))}
                         </tbody>
@@ -4304,21 +3504,14 @@ export default function ExploreComponents() {
                   </Tabs.Content>
                 </Tabs.Root>
 
-                <Heading id="text-field" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#text-field"
-                  >
+                <Heading id="text-field" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#text-field">
                     Text Field
                   </Link>
                 </Heading>
                 <Tabs.Root defaultValue="theme-colors">
                   <Tabs.List size="2">
-                    <Tabs.Trigger value="theme-colors">
-                      Theme colors
-                    </Tabs.Trigger>
+                    <Tabs.Trigger value="theme-colors">Theme colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-colors">All colors</Tabs.Trigger>
                     <Tabs.Trigger value="all-sizes">All sizes</Tabs.Trigger>
                   </Tabs.List>
@@ -4341,18 +3534,11 @@ export default function ExploreComponents() {
                               <td>
                                 <TextField.Root variant={variant}>
                                   <TextField.Slot>
-                                    <MagnifyingGlassIcon
-                                      width="16"
-                                      height="16"
-                                    />
+                                    <MagnifyingGlassIcon width="16" height="16" />
                                   </TextField.Slot>
                                   <TextField.Input placeholder="Search" />
                                   <TextField.Slot>
-                                    <IconButton
-                                      variant="ghost"
-                                      color="gray"
-                                      size="1"
-                                    >
+                                    <IconButton variant="ghost" color="gray" size="1">
                                       <InfoCircledIcon />
                                     </IconButton>
                                   </TextField.Slot>
@@ -4361,18 +3547,11 @@ export default function ExploreComponents() {
                               <td>
                                 <TextField.Root variant={variant} color="gray">
                                   <TextField.Slot>
-                                    <MagnifyingGlassIcon
-                                      width="16"
-                                      height="16"
-                                    />
+                                    <MagnifyingGlassIcon width="16" height="16" />
                                   </TextField.Slot>
                                   <TextField.Input placeholder="Search" />
                                   <TextField.Slot>
-                                    <IconButton
-                                      variant="ghost"
-                                      color="gray"
-                                      size="1"
-                                    >
+                                    <IconButton variant="ghost" color="gray" size="1">
                                       <InfoCircledIcon />
                                     </IconButton>
                                   </TextField.Slot>
@@ -4381,23 +3560,11 @@ export default function ExploreComponents() {
                               <td>
                                 <TextField.Root variant={variant}>
                                   <TextField.Slot>
-                                    <MagnifyingGlassIcon
-                                      width="16"
-                                      height="16"
-                                    />
+                                    <MagnifyingGlassIcon width="16" height="16" />
                                   </TextField.Slot>
-                                  <TextField.Input
-                                    placeholder="Search"
-                                    defaultValue="Quick brown fox"
-                                    disabled
-                                  />
+                                  <TextField.Input placeholder="Search" defaultValue="Quick brown fox" disabled />
                                   <TextField.Slot>
-                                    <IconButton
-                                      variant="ghost"
-                                      color="gray"
-                                      size="1"
-                                      disabled
-                                    >
+                                    <IconButton variant="ghost" color="gray" size="1" disabled>
                                       <InfoCircledIcon />
                                     </IconButton>
                                   </TextField.Slot>
@@ -4406,22 +3573,11 @@ export default function ExploreComponents() {
                               <td>
                                 <TextField.Root variant={variant}>
                                   <TextField.Slot>
-                                    <MagnifyingGlassIcon
-                                      width="16"
-                                      height="16"
-                                    />
+                                    <MagnifyingGlassIcon width="16" height="16" />
                                   </TextField.Slot>
-                                  <TextField.Input
-                                    placeholder="Search"
-                                    defaultValue="Quick brown fox"
-                                    readOnly
-                                  />
+                                  <TextField.Input placeholder="Search" defaultValue="Quick brown fox" readOnly />
                                   <TextField.Slot>
-                                    <IconButton
-                                      variant="ghost"
-                                      color="gray"
-                                      size="1"
-                                    >
+                                    <IconButton variant="ghost" color="gray" size="1">
                                       <InfoCircledIcon />
                                     </IconButton>
                                   </TextField.Slot>
@@ -4449,33 +3605,21 @@ export default function ExploreComponents() {
                           {themeAccentColorsOrdered.map((color) => (
                             <tr key={color}>
                               <td>{upperFirst(color)}</td>
-                              {textFieldPropDefs.variant.values.map(
-                                (variant) => (
-                                  <td key={variant}>
-                                    <TextField.Root
-                                      color={color}
-                                      variant={variant}
-                                    >
-                                      <TextField.Slot>
-                                        <MagnifyingGlassIcon
-                                          width="16"
-                                          height="16"
-                                        />
-                                      </TextField.Slot>
-                                      <TextField.Input placeholder="Search" />
-                                      <TextField.Slot>
-                                        <IconButton
-                                          variant="ghost"
-                                          color="gray"
-                                          size="1"
-                                        >
-                                          <InfoCircledIcon />
-                                        </IconButton>
-                                      </TextField.Slot>
-                                    </TextField.Root>
-                                  </td>
-                                ),
-                              )}
+                              {textFieldPropDefs.variant.values.map((variant) => (
+                                <td key={variant}>
+                                  <TextField.Root color={color} variant={variant}>
+                                    <TextField.Slot>
+                                      <MagnifyingGlassIcon width="16" height="16" />
+                                    </TextField.Slot>
+                                    <TextField.Input placeholder="Search" />
+                                    <TextField.Slot>
+                                      <IconButton variant="ghost" color="gray" size="1">
+                                        <InfoCircledIcon />
+                                      </IconButton>
+                                    </TextField.Slot>
+                                  </TextField.Root>
+                                </td>
+                              ))}
                             </tr>
                           ))}
                         </tbody>
@@ -4493,98 +3637,66 @@ export default function ExploreComponents() {
                           </tr>
                         </thead>
                         <tbody>
-                          {textFieldPropDefs.variant.values.map(
-                            (variant, index) => (
-                              <React.Fragment key={variant}>
-                                {index > 0 && (
-                                  <tr>
-                                    <td>&nbsp;</td>
-                                  </tr>
-                                )}
+                          {textFieldPropDefs.variant.values.map((variant, index) => (
+                            <React.Fragment key={variant}>
+                              {index > 0 && (
                                 <tr>
-                                  <td>Size 1</td>
-                                  <td>
-                                    <TextField.Root
-                                      size="1"
-                                      variant={variant}
-                                      style={{ width: 140 }}
-                                    >
-                                      <TextField.Slot>
-                                        <MagnifyingGlassIcon
-                                          width="14"
-                                          height="14"
-                                        />
-                                      </TextField.Slot>
-                                      <TextField.Input placeholder="Search" />
-                                    </TextField.Root>
-                                  </td>
+                                  <td>&nbsp;</td>
                                 </tr>
-                                <tr>
-                                  <td>Size 2</td>
-                                  <td>
-                                    <TextField.Root
-                                      size="2"
-                                      variant={variant}
-                                      style={{ width: 160 }}
-                                    >
-                                      <TextField.Slot>
-                                        <MagnifyingGlassIcon
-                                          width="16"
-                                          height="16"
-                                        />
-                                      </TextField.Slot>
-                                      <TextField.Input placeholder="Search" />
-                                      <TextField.Slot>
-                                        <IconButton
-                                          variant="ghost"
-                                          color="gray"
-                                          size="1"
-                                        >
-                                          <InfoCircledIcon />
-                                        </IconButton>
-                                      </TextField.Slot>
-                                    </TextField.Root>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>Size 3</td>
-                                  <td>
-                                    <TextField.Root size="3" variant={variant}>
-                                      <TextField.Slot>
-                                        <MagnifyingGlassIcon
-                                          width="18"
-                                          height="18"
-                                        />
-                                      </TextField.Slot>
-                                      <TextField.Input placeholder="Search" />
-                                      <TextField.Slot>
-                                        <IconButton
-                                          variant="ghost"
-                                          color="gray"
-                                          size="2"
-                                        >
-                                          <InfoCircledIcon />
-                                        </IconButton>
-                                      </TextField.Slot>
-                                    </TextField.Root>
-                                  </td>
-                                </tr>
-                              </React.Fragment>
-                            ),
-                          )}
+                              )}
+                              <tr>
+                                <td>Size 1</td>
+                                <td>
+                                  <TextField.Root size="1" variant={variant} style={{ width: 140 }}>
+                                    <TextField.Slot>
+                                      <MagnifyingGlassIcon width="14" height="14" />
+                                    </TextField.Slot>
+                                    <TextField.Input placeholder="Search" />
+                                  </TextField.Root>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Size 2</td>
+                                <td>
+                                  <TextField.Root size="2" variant={variant} style={{ width: 160 }}>
+                                    <TextField.Slot>
+                                      <MagnifyingGlassIcon width="16" height="16" />
+                                    </TextField.Slot>
+                                    <TextField.Input placeholder="Search" />
+                                    <TextField.Slot>
+                                      <IconButton variant="ghost" color="gray" size="1">
+                                        <InfoCircledIcon />
+                                      </IconButton>
+                                    </TextField.Slot>
+                                  </TextField.Root>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Size 3</td>
+                                <td>
+                                  <TextField.Root size="3" variant={variant}>
+                                    <TextField.Slot>
+                                      <MagnifyingGlassIcon width="18" height="18" />
+                                    </TextField.Slot>
+                                    <TextField.Input placeholder="Search" />
+                                    <TextField.Slot>
+                                      <IconButton variant="ghost" color="gray" size="2">
+                                        <InfoCircledIcon />
+                                      </IconButton>
+                                    </TextField.Slot>
+                                  </TextField.Root>
+                                </td>
+                              </tr>
+                            </React.Fragment>
+                          ))}
                         </tbody>
                       </table>
                     </Box>
                   </Tabs.Content>
                 </Tabs.Root>
 
-                <Heading id="tooltip" mb="5">
-                  <Link
-                    color="gray"
-                    underline="hover"
-                    highContrast
-                    href="#tooltip"
-                  >
+                <Heading id="tooltip" style={{ marginBottom: 24 }}>
+                  <Link color="gray" underline="hover" highContrast href="#tooltip">
                     Tooltip
                   </Link>
                 </Heading>
@@ -4758,20 +3870,14 @@ const aspectRatioImage = (
   />
 );
 
-function buttonSizeToIconSize(
-  buttonSize: (typeof buttonPropDefs.size.values)[number],
-) {
-  if (buttonSize === '1' || buttonSize === '2')
-    return { width: 16, height: 16 };
+function buttonSizeToIconSize(buttonSize: (typeof buttonPropDefs.size.values)[number]) {
+  if (buttonSize === '1' || buttonSize === '2') return { width: 16, height: 16 };
   if (buttonSize === '3') return { width: 18, height: 18 };
   if (buttonSize === '4') return { width: 20, height: 20 };
 }
 
-function calloutSizeToIconSize(
-  calloutSize: (typeof calloutRootPropDefs.size.values)[number],
-) {
-  if (calloutSize === '1' || calloutSize === '2')
-    return { width: 16, height: 16 };
+function calloutSizeToIconSize(calloutSize: (typeof calloutRootPropDefs.size.values)[number]) {
+  if (calloutSize === '1' || calloutSize === '2') return { width: 16, height: 16 };
   if (calloutSize === '3') return { width: 20, height: 20 };
 }
 
@@ -4803,14 +3909,7 @@ function upperFirst(string: string) {
 }
 
 const ChatBubbleIcon = (props: React.ComponentPropsWithoutRef<'svg'>) => (
-  <svg
-    width="15"
-    height="15"
-    viewBox="0 0 15 15"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
+  <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path
       d="M12.5 3L2.5 3.00002C1.67157 3.00002 1 3.6716 1 4.50002V9.50003C1 10.3285 1.67157 11 2.5 11H7.50003C7.63264 11 7.75982 11.0527 7.85358 11.1465L10 13.2929V11.5C10 11.2239 10.2239 11 10.5 11H12.5C13.3284 11 14 10.3285 14 9.50003V4.5C14 3.67157 13.3284 3 12.5 3ZM2.49999 2.00002L12.5 2C13.8807 2 15 3.11929 15 4.5V9.50003C15 10.8807 13.8807 12 12.5 12H11V14.5C11 14.7022 10.8782 14.8845 10.6913 14.9619C10.5045 15.0393 10.2894 14.9965 10.1464 14.8536L7.29292 12H2.5C1.11929 12 0 10.8807 0 9.50003V4.50002C0 3.11931 1.11928 2.00003 2.49999 2.00002Z"
       fill="currentColor"
@@ -4820,11 +3919,7 @@ const ChatBubbleIcon = (props: React.ComponentPropsWithoutRef<'svg'>) => (
   </svg>
 );
 
-const PanelBackgroundImage = ({
-  id,
-  style,
-  ...props
-}: React.ComponentPropsWithoutRef<'svg'> & { id: string }) => (
+const PanelBackgroundImage = ({ id, style, ...props }: React.ComponentPropsWithoutRef<'svg'> & { id: string }) => (
   <svg
     width="2560"
     height="1920"
@@ -4869,16 +3964,8 @@ const PanelBackgroundImage = ({
         colorInterpolationFilters="sRGB"
       >
         <feFlood floodOpacity="0" result="BackgroundImageFix" />
-        <feBlend
-          mode="normal"
-          in="SourceGraphic"
-          in2="BackgroundImageFix"
-          result="shape"
-        />
-        <feGaussianBlur
-          stdDeviation="82"
-          result="effect1_foregroundBlur_37_453"
-        />
+        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feGaussianBlur stdDeviation="82" result="effect1_foregroundBlur_37_453" />
       </filter>
       <radialGradient
         id={`paint0_radial_37_453-${id}`}

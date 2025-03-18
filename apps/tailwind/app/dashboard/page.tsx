@@ -394,7 +394,7 @@ export default function Dashboard() {
                     </Card>
                   </Box>
                 </Flex>
-                <Separator size="4" mb="6" />
+                <Separator size="4" />
                 <Flex direction="column" gap="9">
                   <Flex direction="column" gap="5">
                     <Flex direction="column" gap="2">

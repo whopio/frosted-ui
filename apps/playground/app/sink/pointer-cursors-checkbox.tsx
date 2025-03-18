@@ -8,7 +8,7 @@ export function PointerCursorsCheckbox() {
   return (
     <Box>
       <label>
-        <Checkbox mr="2" onCheckedChange={(value) => setChecked(!!value)} />
+        <Checkbox style={{ marginRight: 8 }} onCheckedChange={(value) => setChecked(!!value)} />
         <Text size="2">Use pointer cursors</Text>
       </label>
       {checked && (
