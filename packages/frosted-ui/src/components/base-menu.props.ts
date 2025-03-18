@@ -4,7 +4,7 @@ import { colorProp, highContrastProp } from '../helpers';
 const contentSizes = ['1', '2', '3'] as const;
 
 const baseMenuContentPropDefs = {
-  size: { type: 'enum', values: contentSizes, default: '2', responsive: true },
+  size: { type: 'enum', values: contentSizes, default: '2' },
   color: colorProp,
   highContrast: highContrastProp,
 } satisfies {

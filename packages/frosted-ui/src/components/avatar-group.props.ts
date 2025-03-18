@@ -5,7 +5,7 @@ const variants = ['round', 'square'] as const;
 
 const avatarGroupPropDefs = {
   color: { ...colorProp, default: 'gray' },
-  size: { type: 'enum', values: sizes, default: '3', responsive: true },
+  size: { type: 'enum', values: sizes, default: '3' },
   variant: { type: 'enum', values: variants, default: 'round' },
 } satisfies {
   color: typeof colorProp;

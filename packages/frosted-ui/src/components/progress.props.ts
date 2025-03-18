@@ -5,7 +5,7 @@ const sizes = ['1', '2', '3'] as const;
 const variants = ['classic', 'surface', 'soft'] as const;
 
 const progressPropDefs = {
-  size: { type: 'enum', values: sizes, default: '3', responsive: true },
+  size: { type: 'enum', values: sizes, default: '3' },
   variant: { type: 'enum', values: variants, default: 'soft' },
   color: { ...colorProp, default: undefined },
   highContrast: highContrastProp,
