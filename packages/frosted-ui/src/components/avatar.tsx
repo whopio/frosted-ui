@@ -3,21 +3,19 @@
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withMarginProps } from '../helpers';
 import { avatarPropDefs } from './avatar.props';
 
-import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
+import type { GetPropDefTypes, PropsWithoutColor } from '../helpers';
 import { getInitials } from '../helpers/get-initials';
 
 type AvatarOwnProps = GetPropDefTypes<typeof avatarPropDefs>;
-interface AvatarProps extends PropsWithoutColor<typeof AvatarPrimitive.Image>, MarginProps, AvatarOwnProps {
+interface AvatarProps extends PropsWithoutColor<typeof AvatarPrimitive.Image>, AvatarOwnProps {
   // TODO: See if we can automate making prop defs with `required: true` non nullable
   fallback: NonNullable<AvatarOwnProps['fallback']>;
 }
 
 type ImageStatus = 'idle' | 'loading' | 'loaded' | 'error';
 const Avatar = (props: AvatarProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     className,
     style,
@@ -27,7 +25,7 @@ const Avatar = (props: AvatarProps) => {
     fallback: fallbackProp,
     variant = avatarPropDefs.variant.default,
     ...imageProps
-  } = marginRest;
+  } = props;
   const [status, setStatus] = React.useState<ImageStatus>('idle');
   const dataStatus: ImageStatus = imageProps.src ? status : 'idle';
 
@@ -51,7 +49,6 @@ const Avatar = (props: AvatarProps) => {
         `fui-r-size-${size}`,
         { 'fui-high-contrast': highContrast },
         `fui-variant-${variant}`,
-        withMarginProps(marginProps),
       )}
       style={style}
     >

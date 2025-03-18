@@ -3,18 +3,16 @@
 import { composeEventHandlers } from '@radix-ui/primitive';
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, extractPaddingProps, withMarginProps, withPaddingProps } from '../helpers';
 import { textFieldPropDefs, textFieldSlotPropDefs } from './text-field.props';
 
-import type { GetPropDefTypes, MarginProps, PaddingProps, PropsWithoutColor } from '../helpers';
+import type { GetPropDefTypes, PropsWithoutColor } from '../helpers';
 
 type TextFieldContextValue = GetPropDefTypes<typeof textFieldPropDefs>;
 const TextFieldContext = React.createContext<TextFieldContextValue | undefined>(undefined);
 
-interface TextFieldRootProps extends PropsWithoutColor<'div'>, MarginProps, TextFieldContextValue {}
+interface TextFieldRootProps extends PropsWithoutColor<'div'>, TextFieldContextValue {}
 
 const TextFieldRoot = (props: TextFieldRootProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     children,
     className,
@@ -22,11 +20,11 @@ const TextFieldRoot = (props: TextFieldRootProps) => {
     variant = textFieldPropDefs.variant.default,
     color = textFieldPropDefs.color.default,
     ...rootProps
-  } = marginRest;
+  } = props;
   return (
     <div
       {...rootProps}
-      className={classNames('fui-TextFieldRoot', className, withMarginProps(marginProps))}
+      className={classNames('fui-TextFieldRoot', className)}
       onPointerDown={composeEventHandlers(rootProps.onPointerDown, (event) => {
         const target = event.target as HTMLElement;
         if (target.closest('input, button, a')) return;
@@ -52,22 +50,16 @@ TextFieldRoot.displayName = 'TextFieldRoot';
 
 type TextFieldSlotElement = React.ElementRef<'div'>;
 type TextFieldSlotOwnProps = GetPropDefTypes<typeof textFieldSlotPropDefs>;
-interface TextFieldSlotProps extends PropsWithoutColor<'div'>, PaddingProps, TextFieldSlotOwnProps {}
+interface TextFieldSlotProps extends PropsWithoutColor<'div'>, TextFieldSlotOwnProps {}
 const TextFieldSlot = React.forwardRef<TextFieldSlotElement, TextFieldSlotProps>((props, forwardedRef) => {
-  const { rest: paddingRest, ...paddingProps } = extractPaddingProps(props);
-  const { className, color = textFieldSlotPropDefs.color.default, ...slotProps } = paddingRest;
+  const { className, color = textFieldSlotPropDefs.color.default, ...slotProps } = props;
   const context = React.useContext(TextFieldContext);
   return (
     <div
       data-accent-color={color}
       {...slotProps}
       ref={forwardedRef}
-      className={classNames(
-        'fui-TextFieldSlot',
-        className,
-        `fui-r-size-${context?.size}`,
-        withPaddingProps(paddingProps),
-      )}
+      className={classNames('fui-TextFieldSlot', className, `fui-r-size-${context?.size}`)}
     />
   );
 });
@@ -75,9 +67,8 @@ TextFieldSlot.displayName = 'TextFieldSlot';
 
 type TextFieldInputElement = React.ElementRef<'input'>;
 type TextFieldInputOwnProps = GetPropDefTypes<typeof textFieldPropDefs>;
-interface TextFieldInputProps extends Omit<PropsWithoutColor<'input'>, 'size'>, MarginProps, TextFieldInputOwnProps {}
+interface TextFieldInputProps extends Omit<PropsWithoutColor<'input'>, 'size'>, TextFieldInputOwnProps {}
 const TextFieldInput = React.forwardRef<TextFieldInputElement, TextFieldInputProps>((props, forwardedRef) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const context = React.useContext(TextFieldContext);
   const hasRoot = context !== undefined;
   const {
@@ -86,7 +77,7 @@ const TextFieldInput = React.forwardRef<TextFieldInputElement, TextFieldInputPro
     variant = context?.variant ?? textFieldPropDefs.variant.default,
     color = context?.color ?? textFieldPropDefs.color.default,
     ...inputProps
-  } = marginRest;
+  } = props;
   const input = (
     <>
       <input
@@ -103,7 +94,7 @@ const TextFieldInput = React.forwardRef<TextFieldInputElement, TextFieldInputPro
   return hasRoot ? (
     input
   ) : (
-    <TextFieldRoot {...marginProps} size={size} variant={variant} color={color}>
+    <TextFieldRoot size={size} variant={variant} color={color}>
       {input}
     </TextFieldRoot>
   );

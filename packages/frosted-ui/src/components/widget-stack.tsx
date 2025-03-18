@@ -2,10 +2,9 @@
 
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withMarginProps } from '../helpers';
 
 import { Slot } from '@radix-ui/react-slot';
-import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
+import type { GetPropDefTypes, PropsWithoutColor } from '../helpers';
 import { useIsomorphicLayoutEffect } from '../helpers/use-isomorphic-layout-effect';
 import { widgetStackRootPropDefs } from './widget-stack.props';
 
@@ -132,13 +131,12 @@ const WidgetStackRoot: React.FC<WidgetStackRootProps> = ({
 };
 WidgetStackRoot.displayName = 'WidgetStackRoot';
 
-interface WidgetStackStackProps extends PropsWithoutColor<'div'>, MarginProps {
+interface WidgetStackStackProps extends PropsWithoutColor<'div'> {
   asChild?: boolean;
 }
 
 const WidgetStackStack = (props: WidgetStackStackProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-  const { className, children, ...rootProps } = marginRest;
+  const { className, children, ...rootProps } = props;
 
   const {
     currentWidgetIndex,
@@ -336,7 +334,7 @@ const WidgetStackStack = (props: WidgetStackStackProps) => {
   return (
     <div
       {...rootProps}
-      className={classNames('fui-WidgetStackStack', withMarginProps(marginProps), className)}
+      className={classNames('fui-WidgetStackStack', className)}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
@@ -362,11 +360,10 @@ export function useWidgetStackItem() {
   return context;
 }
 
-interface WidgetStackItemProps extends React.ComponentProps<'div'>, MarginProps {}
+interface WidgetStackItemProps extends React.ComponentProps<'div'> {}
 
 const WidgetStackItem = (props: WidgetStackItemProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-  const { className, children, ...rootProps } = marginRest;
+  const { className, children, ...rootProps } = props;
   const ref = React.useRef<HTMLDivElement>(null);
 
   const [isFullyVisible, setIsFullyVisible] = React.useState(false);
@@ -401,7 +398,7 @@ const WidgetStackItem = (props: WidgetStackItemProps) => {
       <div
         {...rootProps}
         ref={ref}
-        className={classNames('fui-WidgetStackItem', className, withMarginProps(marginProps))}
+        className={classNames('fui-WidgetStackItem', className)}
         role="group"
         aria-roledescription="slide"
         data-fully-visible={isFullyVisible ? 'true' : undefined}

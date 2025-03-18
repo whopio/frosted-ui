@@ -1,32 +1,27 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withMarginProps } from '../helpers/index';
+
 import { Flex } from './flex';
 import { spinnerPropDefs } from './spinner.props';
 
-import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers/index';
+import type { GetPropDefTypes, PropsWithoutColor } from '../helpers/index';
 
 type SpinnerOwnProps = GetPropDefTypes<typeof spinnerPropDefs>;
-interface SpinnerProps extends PropsWithoutColor<'span'>, MarginProps, SpinnerOwnProps {}
+interface SpinnerProps extends PropsWithoutColor<'span'>, SpinnerOwnProps {}
 
 const Spinner = (props: SpinnerProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-
   const {
     children,
     className,
     loading = spinnerPropDefs.loading.default,
     size = spinnerPropDefs.size.default,
     ...spinnerProps
-  } = marginRest;
+  } = props;
 
   if (!loading) return children;
 
   const spinner = (
-    <span
-      {...spinnerProps}
-      className={classNames('fui-Spinner', `fui-r-size-${size}`, withMarginProps(marginProps), className)}
-    >
+    <span {...spinnerProps} className={classNames('fui-Spinner', `fui-r-size-${size}`, className)}>
       <span className="fui-SpinnerLeaf" />
       <span className="fui-SpinnerLeaf" />
       <span className="fui-SpinnerLeaf" />

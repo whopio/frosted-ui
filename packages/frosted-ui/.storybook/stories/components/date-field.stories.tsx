@@ -1,11 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import {
-  getLocalTimeZone,
-  parseDate,
-  parseZonedDateTime,
-  today,
-} from '@internationalized/date';
+import { getLocalTimeZone, parseDate, parseZonedDateTime, today } from '@internationalized/date';
 import React from 'react';
 import { DateField, Flex, dateFieldPropDefs } from '../../../src/components';
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -33,11 +28,7 @@ export const Default: Story = {
   args: {},
   render: (args) => (
     <div style={{ width: 300 }}>
-      <DateField
-        {...args}
-        defaultValue={parseDate('2020-02-03')}
-        onChange={(date) => console.log(date?.toString())}
-      />
+      <DateField {...args} defaultValue={parseDate('2020-02-03')} onChange={(date) => console.log(date?.toString())} />
     </div>
   ),
 };
@@ -72,24 +63,11 @@ export const WithTime: Story = {
   args: {},
   render: (args) => (
     <Flex direction={'column'} gap="4" style={{ width: 300 }}>
+      <DateField {...args} defaultValue={parseZonedDateTime('2022-11-07T00:45[America/Los_Angeles]')} />
+      <DateField {...args} defaultValue={parseZonedDateTime('2022-11-07T00:45[America/Los_Angeles]')} hideTimeZone />
       <DateField
         {...args}
-        defaultValue={parseZonedDateTime(
-          '2022-11-07T00:45[America/Los_Angeles]',
-        )}
-      />
-      <DateField
-        {...args}
-        defaultValue={parseZonedDateTime(
-          '2022-11-07T00:45[America/Los_Angeles]',
-        )}
-        hideTimeZone
-      />
-      <DateField
-        {...args}
-        defaultValue={parseZonedDateTime(
-          '2022-11-07T00:45[America/Los_Angeles]',
-        )}
+        defaultValue={parseZonedDateTime('2022-11-07T00:45[America/Los_Angeles]')}
         hideTimeZone
         granularity="second"
       />

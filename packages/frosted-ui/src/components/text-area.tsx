@@ -1,15 +1,13 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withMarginProps } from '../helpers';
 import { textAreaPropDefs } from './text-area.props';
 
-import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
+import type { GetPropDefTypes, PropsWithoutColor } from '../helpers';
 
 type TextAreaOwnProps = GetPropDefTypes<typeof textAreaPropDefs>;
-interface TextAreaProps extends Omit<PropsWithoutColor<'textarea'>, 'size'>, MarginProps, TextAreaOwnProps {}
+interface TextAreaProps extends Omit<PropsWithoutColor<'textarea'>, 'size'>, TextAreaOwnProps {}
 
 const TextArea = (props: TextAreaProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     className,
     size = textAreaPropDefs.size.default,
@@ -17,18 +15,12 @@ const TextArea = (props: TextAreaProps) => {
     color = textAreaPropDefs.color.default,
     style,
     ...textAreaProps
-  } = marginRest;
+  } = props;
   return (
     <div
       data-accent-color={color}
       style={style}
-      className={classNames(
-        'fui-TextAreaRoot',
-        className,
-        `fui-r-size-${size}`,
-        `fui-variant-${variant}`,
-        withMarginProps(marginProps),
-      )}
+      className={classNames('fui-TextAreaRoot', className, `fui-r-size-${size}`, `fui-variant-${variant}`)}
     >
       <textarea className="fui-TextAreaInput" {...textAreaProps} />
       <div className="fui-TextAreaChrome" />

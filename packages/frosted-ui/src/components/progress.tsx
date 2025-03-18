@@ -3,17 +3,13 @@
 import * as ProgressPrimitive from '@radix-ui/react-progress';
 import classNames from 'classnames';
 import * as React from 'react';
-import { GetPropDefTypes, MarginProps, PropsWithoutColor, extractMarginProps, withMarginProps } from '../helpers';
+import { GetPropDefTypes, PropsWithoutColor } from '../helpers';
 import { progressPropDefs } from './progress.props';
 
 type ProgressOwnProps = GetPropDefTypes<typeof progressPropDefs>;
-interface ProgressProps
-  extends Omit<PropsWithoutColor<typeof ProgressPrimitive.Root>, 'children'>,
-    MarginProps,
-    ProgressOwnProps {}
+interface ProgressProps extends Omit<PropsWithoutColor<typeof ProgressPrimitive.Root>, 'children'>, ProgressOwnProps {}
 
 const Progress = (props: ProgressProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     className,
     size = progressPropDefs.size.default,
@@ -23,7 +19,7 @@ const Progress = (props: ProgressProps) => {
     value = 0,
     max = 100,
     ...progressProps
-  } = marginRest;
+  } = props;
 
   const progress = Math.max(0, Math.min((value || 0) / max, 100));
 
@@ -38,7 +34,6 @@ const Progress = (props: ProgressProps) => {
           'fui-high-contrast': highContrast,
         },
         `fui-r-size-${size}`,
-        withMarginProps(marginProps),
       )}
       value={value}
       max={max}

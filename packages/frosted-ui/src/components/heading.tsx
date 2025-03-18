@@ -1,13 +1,13 @@
 import { Slot } from '@radix-ui/react-slot';
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withMarginProps } from '../helpers';
+
 import { headingPropDefs } from './heading.props';
 
-import type { GetPropDefTypes, MarginProps, NiceIntersection, PropsWithoutColor } from '../helpers';
+import type { GetPropDefTypes, PropsWithoutColor } from '../helpers';
 
 type HeadingOwnProps = GetPropDefTypes<typeof headingPropDefs>;
-type CommonHeadingProps = NiceIntersection<MarginProps, HeadingOwnProps>;
+
 type HeadingAsChildProps = {
   asChild?: boolean;
   as?: never;
@@ -16,10 +16,9 @@ type HeadingAsProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   asChild?: never;
 } & PropsWithoutColor<'h1'>;
-type HeadingProps = CommonHeadingProps & (HeadingAsChildProps | HeadingAsProps);
+type HeadingProps = HeadingOwnProps & (HeadingAsChildProps | HeadingAsProps);
 
 const Heading = (props: HeadingProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     children,
     className,
@@ -32,7 +31,7 @@ const Heading = (props: HeadingProps) => {
     color = headingPropDefs.color.default,
     highContrast = headingPropDefs.highContrast.default,
     ...headingProps
-  } = marginRest;
+  } = props;
   return (
     <Slot
       data-accent-color={color}
@@ -45,7 +44,6 @@ const Heading = (props: HeadingProps) => {
         `fui-r-ta-${align}`,
         `fui-r-lt-${trim}`,
         { 'fui-high-contrast': highContrast },
-        withMarginProps(marginProps),
       )}
     >
       {asChild ? children : <Tag>{children}</Tag>}

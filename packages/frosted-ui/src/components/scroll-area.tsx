@@ -3,20 +3,18 @@
 import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withMarginProps } from '../helpers';
+
 import { scrollAreaPropDefs } from './scroll-area.props';
 
-import type { GetPropDefTypes, MarginProps } from '../helpers';
+import type { GetPropDefTypes } from '../helpers';
 
 type ScrollAreaOwnProps = GetPropDefTypes<typeof scrollAreaPropDefs>;
 interface ScrollAreaProps
   extends React.ComponentPropsWithRef<typeof ScrollAreaPrimitive.Root>,
     Omit<React.ComponentPropsWithRef<typeof ScrollAreaPrimitive.Viewport>, 'dir'>,
-    MarginProps,
     ScrollAreaOwnProps {}
 
 const ScrollArea = (props: ScrollAreaProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     className,
     style,
@@ -26,12 +24,12 @@ const ScrollArea = (props: ScrollAreaProps) => {
     size = scrollAreaPropDefs.size.default,
     scrollbars = scrollAreaPropDefs.scrollbars.default,
     ...viewportProps
-  } = marginRest;
+  } = props;
   return (
     <ScrollAreaPrimitive.Root
       type={type}
       scrollHideDelay={scrollHideDelay}
-      className={classNames('fui-ScrollAreaRoot', className, withMarginProps(marginProps))}
+      className={classNames('fui-ScrollAreaRoot', className)}
       style={style}
     >
       <ScrollAreaPrimitive.Viewport {...viewportProps} className="fui-ScrollAreaViewport" />

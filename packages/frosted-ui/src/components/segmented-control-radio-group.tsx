@@ -3,22 +3,19 @@
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withMarginProps } from '../helpers';
 
-import type { MarginProps, PropsWithoutColor } from '../helpers';
+import { type PropsWithoutColor } from '../helpers';
 
 interface SegmentedControlRadioGroupRootProps
-  extends Omit<PropsWithoutColor<typeof RadioGroupPrimitive.Root>, 'orientation' | 'loop' | 'required' | 'asChild'>,
-    MarginProps {}
+  extends Omit<PropsWithoutColor<typeof RadioGroupPrimitive.Root>, 'orientation' | 'loop' | 'required' | 'asChild'> {}
 
 const SegmentedControlRadioGroupRoot = (props: SegmentedControlRadioGroupRootProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-  const { className, children, ...rootProps } = marginRest;
+  const { className, children, ...rootProps } = props;
   return (
     <RadioGroupPrimitive.Root
       {...rootProps}
       orientation="horizontal"
-      className={classNames('fui-RadioGroupRoot', className, withMarginProps(marginProps))}
+      className={classNames('fui-RadioGroupRoot', className)}
     >
       <div className="fui-BaseSegmentedControlList">{children}</div>
     </RadioGroupPrimitive.Root>
@@ -26,18 +23,15 @@ const SegmentedControlRadioGroupRoot = (props: SegmentedControlRadioGroupRootPro
 };
 SegmentedControlRadioGroupRoot.displayName = 'SegmentedControlRadioGroupRoot';
 
-interface SegmentedControlRadioGroupItemProps
-  extends React.ComponentProps<typeof RadioGroupPrimitive.Item>,
-    MarginProps {}
+interface SegmentedControlRadioGroupItemProps extends React.ComponentProps<typeof RadioGroupPrimitive.Item> {}
 
 const SegmentedControlRadioGroupItem = (props: SegmentedControlRadioGroupItemProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-  const { children, className, style, ...itemProps } = marginRest;
+  const { children, className, style, ...itemProps } = props;
 
   return (
     <RadioGroupPrimitive.Item
       {...itemProps}
-      className={classNames('fui-reset', 'fui-BaseSegmentedControlTrigger', className, withMarginProps(marginProps))}
+      className={classNames('fui-reset', 'fui-BaseSegmentedControlTrigger', className)}
       style={style}
     >
       <span className="fui-BaseSegmentedControlTriggerInner">{children}</span>

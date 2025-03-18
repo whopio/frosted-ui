@@ -4,28 +4,19 @@ import * as React from 'react';
 import { dataListItemPropDefs, dataListLabelPropDefs, dataListRootPropDefs } from './data-list.props';
 import { Text } from './text';
 
-import {
-  extractMarginProps,
-  PropsWithoutColor,
-  withBreakpoints,
-  withMarginProps,
-  type GetPropDefTypes,
-  type MarginProps,
-} from '../helpers';
+import { PropsWithoutColor, type GetPropDefTypes } from '../helpers';
 
 type DataListRootOwnProps = GetPropDefTypes<typeof dataListRootPropDefs>;
-interface DataListRootProps extends PropsWithoutColor<'dl'>, MarginProps, DataListRootOwnProps {}
+interface DataListRootProps extends PropsWithoutColor<'dl'>, DataListRootOwnProps {}
 
 const DataListRoot = (props: DataListRootProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-
   const {
     className,
     size = dataListRootPropDefs.size.default,
     trim = dataListRootPropDefs.trim.default,
     orientation = dataListRootPropDefs.orientation.default,
     ...dataListProps
-  } = marginRest;
+  } = props;
 
   return (
     <Text asChild>
@@ -36,7 +27,7 @@ const DataListRoot = (props: DataListRootProps) => {
           `fui-r-size-${size}`,
           `fui-r-lt-${trim}`,
           `fui-r-orientation-${orientation}`,
-          withMarginProps(marginProps),
+
           className,
         )}
       />
@@ -54,7 +45,7 @@ const DataListItem = (props: DataListItemProps) => {
   return (
     <div
       {...dataListItemProps}
-      className={classNames('fui-DataListItem', withBreakpoints(align, 'fui-r-ai'), className)}
+      className={classNames('fui-DataListItem', align ? `fui-r-ai-${align}` : undefined, className)}
     />
   );
 };

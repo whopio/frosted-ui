@@ -3,19 +3,15 @@
 import * as SwitchPrimitive from '@radix-ui/react-switch';
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withMarginProps } from '../helpers';
+
 import { switchPropDefs } from './switch.props';
 
-import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
+import type { GetPropDefTypes, PropsWithoutColor } from '../helpers';
 
 type SwitchOwnProps = GetPropDefTypes<typeof switchPropDefs>;
-interface SwitchProps
-  extends Omit<PropsWithoutColor<typeof SwitchPrimitive.Root>, 'children'>,
-    MarginProps,
-    SwitchOwnProps {}
+interface SwitchProps extends Omit<PropsWithoutColor<typeof SwitchPrimitive.Root>, 'children'>, SwitchOwnProps {}
 
 const Switch = (props: SwitchProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     className,
     style,
@@ -23,16 +19,10 @@ const Switch = (props: SwitchProps) => {
     color = switchPropDefs.color.default,
     highContrast = switchPropDefs.highContrast.default,
     ...switchProps
-  } = marginRest;
+  } = props;
   return (
     <span
-      className={classNames(
-        'fui-SwitchRoot',
-        className,
-        `fui-r-size-${size}`,
-        { 'fui-high-contrast': highContrast },
-        withMarginProps(marginProps),
-      )}
+      className={classNames('fui-SwitchRoot', className, `fui-r-size-${size}`, { 'fui-high-contrast': highContrast })}
       style={style}
     >
       <SwitchPrimitive.Root

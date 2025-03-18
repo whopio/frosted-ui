@@ -5,7 +5,7 @@ import { AriaDatePickerProps, DateValue, useDatePicker } from '@react-aria/datep
 import { useDatePickerState } from '@react-stately/datepicker';
 import classNames from 'classnames';
 import React, { useRef } from 'react';
-import { GetPropDefTypes, MarginProps, extractMarginProps, withMarginProps } from '../helpers';
+import { GetPropDefTypes } from '../helpers';
 import { Popover } from './';
 import { Calendar, MappedDateValue } from './calendar';
 import { DateField } from './date-field';
@@ -15,20 +15,18 @@ import { IconButton } from './icon-button';
 
 type DatePickerFUIProps = GetPropDefTypes<typeof datePickerPropDefs>;
 
-interface DatePickerProps<T extends DateValue> extends AriaDatePickerProps<T>, DatePickerFUIProps, MarginProps {
+interface DatePickerProps<T extends DateValue> extends AriaDatePickerProps<T>, DatePickerFUIProps {
   className?: string;
   onChange?: (value: MappedDateValue<T> | undefined) => void;
 }
 
 export function DatePicker<T extends DateValue>(props: DatePickerProps<T>) {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-  const { className, ...otherProps } = marginRest;
-
   const {
+    className,
     color = datePickerPropDefs.color.default,
     size = datePickerPropDefs.size.default,
     ...datePickerProps
-  } = otherProps;
+  } = props;
 
   const state = useDatePickerState(datePickerProps);
 
@@ -47,7 +45,7 @@ export function DatePicker<T extends DateValue>(props: DatePickerProps<T>) {
       gap="1"
       {...groupProps}
       ref={ref}
-      className={classNames('fui-DatePickerRoot', className, withMarginProps(marginProps))}
+      className={classNames('fui-DatePickerRoot', className)}
     >
       <DateField
         {...otherFieldProps}
