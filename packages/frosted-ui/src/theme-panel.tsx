@@ -207,11 +207,26 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
               </Tooltip>
             </Box>
 
-            <Heading size="5" trim="both" as="h3" mb="5">
+            <Heading
+              size="5"
+              trim="both"
+              as="h3"
+              style={{
+                marginBottom: 24,
+              }}
+            >
               Theme
             </Heading>
 
-            <Text id="accent-color-title" as="p" size="2" weight="medium" mt="5">
+            <Text
+              id="accent-color-title"
+              as="p"
+              size="2"
+              weight="medium"
+              style={{
+                marginTop: 24,
+              }}
+            >
               Accent color
             </Text>
 
@@ -239,7 +254,15 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
             </Grid>
 
             <Flex asChild align="center" justify="between">
-              <Text as="p" id="gray-color-title" size="2" weight="medium" mt="5">
+              <Text
+                as="p"
+                id="gray-color-title"
+                size="2"
+                weight="medium"
+                style={{
+                  marginTop: 24,
+                }}
+              >
                 Gray color
               </Text>
             </Flex>
@@ -280,7 +303,15 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
 
             {/* Semantic colors */}
 
-            <Text id="info-color-title" as="p" size="2" weight="medium" mt="5">
+            <Text
+              id="info-color-title"
+              as="p"
+              size="2"
+              weight="medium"
+              style={{
+                marginTop: 24,
+              }}
+            >
               Info color
             </Text>
 
@@ -301,7 +332,15 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
               ))}
             </Grid>
 
-            <Text id="success-color-title" as="p" size="2" weight="medium" mt="5">
+            <Text
+              id="success-color-title"
+              as="p"
+              size="2"
+              weight="medium"
+              style={{
+                marginTop: 24,
+              }}
+            >
               Success color
             </Text>
 
@@ -322,7 +361,15 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
               ))}
             </Grid>
 
-            <Text id="warning-color-title" as="p" size="2" weight="medium" mt="5">
+            <Text
+              id="warning-color-title"
+              as="p"
+              size="2"
+              weight="medium"
+              style={{
+                marginTop: 24,
+              }}
+            >
               Warning color
             </Text>
 
@@ -343,7 +390,15 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
               ))}
             </Grid>
 
-            <Text id="danger-color-title" as="p" size="2" weight="medium" mt="5">
+            <Text
+              id="danger-color-title"
+              as="p"
+              size="2"
+              weight="medium"
+              style={{
+                marginTop: 24,
+              }}
+            >
               Danger color
             </Text>
 
@@ -363,7 +418,15 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
                 </label>
               ))}
             </Grid>
-            <Text id="appearance-title" as="p" size="2" weight="medium" mt="5">
+            <Text
+              id="appearance-title"
+              as="p"
+              size="2"
+              weight="medium"
+              style={{
+                marginTop: 24,
+              }}
+            >
               Appearance
             </Text>
 
@@ -425,7 +488,13 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
               ))}
             </Grid>
 
-            <Button mt="5" style={{ width: '100%' }} onClick={handleCopyThemeConfig}>
+            <Button
+              style={{
+                marginTop: 24,
+                width: '100%',
+              }}
+              onClick={handleCopyThemeConfig}
+            >
               {copyState === 'copied' ? 'Copied' : 'Copy Theme'}
             </Button>
           </Box>

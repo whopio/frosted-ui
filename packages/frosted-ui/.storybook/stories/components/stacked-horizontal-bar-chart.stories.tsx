@@ -120,7 +120,7 @@ export const Animated: Story = {
               <SegmentedControl.Trigger value="React95">React95</SegmentedControl.Trigger>
             </SegmentedControl.List>
           </SegmentedControl.Root>
-          <StackedHorizontalBarChart data={data} mb={'4'} />
+          <StackedHorizontalBarChart data={data} />
           <Flex direction={'column'} gap={'3'}>
             {data.map((dataPoint, i) => (
               <>
