@@ -1,13 +1,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import type { GetPropDefTypes, MarginProps, PaddingProps } from '../helpers';
-import {
-  extractMarginProps,
-  extractPaddingProps,
-  withBreakpoints,
-  withMarginProps,
-  withPaddingProps,
-} from '../helpers';
+import { extractMarginProps, extractPaddingProps, withMarginProps, withPaddingProps } from '../helpers';
 import { Button } from './button';
 import { tableCellPropDefs, tableRootPropDefs, tableRowPropDefs } from './table.props';
 
@@ -90,6 +84,12 @@ const TableRow = (props: TableRowProps) => {
 };
 TableRow.displayName = 'TableRow';
 
+const justifyMap = {
+  start: 'left',
+  center: 'center',
+  end: 'right',
+} as const;
+
 type TableCellImplOwnProps = GetPropDefTypes<typeof tableCellPropDefs>;
 interface TableCellImplProps
   extends Omit<React.ComponentProps<'td'>, keyof TableCellImplOwnProps>,
@@ -114,11 +114,7 @@ const TableCellImpl = (props: TableCellImplProps) => {
         'fui-TableCell',
         className,
         withPaddingProps(paddingProps),
-        withBreakpoints(justify, 'fui-r-ta', {
-          start: 'left',
-          center: 'center',
-          end: 'right',
-        }),
+        justify ? `fui-r-ta-${justifyMap[justify]}` : undefined,
       )}
       style={{ width, ...style }}
     />
