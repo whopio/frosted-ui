@@ -1,12 +1,5 @@
 import { Pencil2Icon } from '@radix-ui/react-icons';
-import {
-  Button,
-  Container,
-  Flex,
-  Theme,
-  ThemePanel,
-  themeAccentColorsOrdered,
-} from 'frosted-ui';
+import { Button, Container, Flex, Theme, ThemePanel, themeAccentColorsOrdered } from 'frosted-ui';
 
 export default function Test() {
   return (
@@ -33,7 +26,7 @@ export default function Test() {
                         <Pencil2Icon />
                         Edit
                       </Button>
-                      <Button color={color} ml="4">
+                      <Button color={color} style={{ marginLeft: 16 }}>
                         <Pencil2Icon />
                         Edit
                       </Button>
@@ -41,7 +34,7 @@ export default function Test() {
                         <Pencil2Icon />
                         Edit
                       </Button>
-                      <Button variant="soft" color={color} ml="4">
+                      <Button variant="soft" color={color} style={{ marginLeft: 16 }}>
                         <Pencil2Icon />
                         Edit
                       </Button>

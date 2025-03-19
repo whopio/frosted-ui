@@ -9,13 +9,11 @@ const dataListRootPropDefs = {
     type: 'enum',
     values: orientationValues,
     default: 'horizontal',
-    responsive: true,
   },
   size: {
     type: 'enum',
     values: sizes,
     default: '2',
-    responsive: true,
   },
   trim: {
     ...trimProp,
@@ -30,7 +28,6 @@ const dataListItemPropDefs = {
   align: {
     type: 'enum',
     values: alignValues,
-    responsive: true,
     default: undefined,
   },
 } satisfies {

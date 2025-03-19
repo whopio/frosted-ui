@@ -75,60 +75,53 @@ export default function Test() {
   );
 }
 
-const SampleNestedUI = React.forwardRef<
-  React.ElementRef<typeof Flex>,
-  React.ComponentPropsWithoutRef<typeof Flex>
->(({ children, title, ...props }, forwardedRef) => {
-  return (
-    <Flex
-      p="5"
-      gap="9"
-      {...props}
-      ref={forwardedRef}
-      style={{
-        boxShadow: '0 0 0 1px var(--gray-a6)',
-        borderRadius: 'var(--radius-2)',
-      }}
-    >
-      <div>
-        <Heading size="2" trim="start" mb="3">
-          {title}
-        </Heading>
-        <Flex direction="column" gap="3">
-          <Grid gap="1">
-            <Text as="p" weight="bold">
-              Feedback
-            </Text>
-            <TextArea variant="classic" placeholder="Your feedback" />
-          </Grid>
-          <Flex asChild justify="between">
-            <label>
-              <Text color="gray" size="2">
-                Attach screenshot?
+const SampleNestedUI = React.forwardRef<React.ElementRef<typeof Flex>, React.ComponentPropsWithoutRef<typeof Flex>>(
+  ({ children, title, ...props }, forwardedRef) => {
+    return (
+      <Flex
+        p="5"
+        gap="9"
+        {...props}
+        ref={forwardedRef}
+        style={{
+          boxShadow: '0 0 0 1px var(--gray-a6)',
+          borderRadius: 'var(--radius-2)',
+        }}
+      >
+        <div>
+          <Heading size="2" trim="start" style={{ marginBottom: 12 }}>
+            {title}
+          </Heading>
+          <Flex direction="column" gap="3">
+            <Grid gap="1">
+              <Text as="p" weight="bold">
+                Feedback
               </Text>
-              <Switch size="1" defaultChecked highContrast />
-            </label>
+              <TextArea variant="classic" placeholder="Your feedback" />
+            </Grid>
+            <Flex asChild justify="between">
+              <label>
+                <Text color="gray" size="2">
+                  Attach screenshot?
+                </Text>
+                <Switch size="1" defaultChecked highContrast />
+              </label>
+            </Flex>
+            <Grid columns="2" gap="2">
+              <Button variant="surface">Back</Button>
+              <Button variant="classic">Submit</Button>
+            </Grid>
           </Flex>
-          <Grid columns="2" gap="2">
-            <Button variant="surface">Back</Button>
-            <Button variant="classic">Submit</Button>
-          </Grid>
-        </Flex>
-      </div>
+        </div>
 
-      {children}
-    </Flex>
-  );
-});
+        {children}
+      </Flex>
+    );
+  },
+);
 SampleNestedUI.displayName = 'SampleNestedUI';
 
-function DocsSection({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
+function DocsSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <>
       <Container mx="6">
@@ -138,7 +131,7 @@ function DocsSection({
             padding: 'var(--space-7)',
           }}
         >
-          <Heading size="6" weight="regular" mb="4" as="h2">
+          <Heading size="6" weight="regular" style={{ marginBottom: 16 }} as="h2">
             {title}
           </Heading>
           {children}

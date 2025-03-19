@@ -25,10 +25,3 @@ body {
     --default-font-family: var(--inter-variable), sans-serif;
   }
 }
-/* Inter variable ligatures setup https://rsms.me/inter/download/ */
-/* .frosted-ui {
-  font-feature-settings:
-    'liga' 1,
-    'calt' 1;
-}
-*/

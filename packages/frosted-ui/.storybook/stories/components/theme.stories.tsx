@@ -1,16 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import {
-  Button,
-  Card,
-  Code,
-  Flex,
-  Grid,
-  Switch,
-  Text,
-  TextArea,
-} from '../../../src/components';
+import { Button, Card, Code, Flex, Grid, Switch, Text, TextArea } from '../../../src/components';
 import { Theme } from '../../../src/theme';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -35,13 +26,13 @@ export const Default: Story = {
       <div style={{ padding: '30px 80px' }}>
         <Flex direction="column" gap="3">
           <Text>
-            Wrap a component tree in the <Code>Theme</Code> component to provide
-            or modify configuration for all children.
+            Wrap a component tree in the <Code>Theme</Code> component to provide or modify configuration for all
+            children.
           </Text>
           <Card size="2" style={{ maxWidth: 400 }} variant="classic">
             <Flex direction="column" gap="3">
               <Grid gap="1">
-                <Text as="div" weight="bold" size="2" mb="1">
+                <Text as="div" weight="bold" size="2" style={{ marginBottom: 4 }}>
                   Feedback
                 </Text>
                 <TextArea placeholder="Write your feedback…" />

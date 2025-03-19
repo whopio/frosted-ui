@@ -97,17 +97,15 @@
  *                                                                                                 *
  ***************************************************************************************************/
 
-@breakpoints {
-  .fui-SliderRoot {
-    &:where(.fui-r-size-1) {
-      --slider-track-size: calc(var(--space-2) * 0.75);
-    }
-    &:where(.fui-r-size-2) {
-      --slider-track-size: var(--space-2);
-    }
-    &:where(.fui-r-size-3) {
-      --slider-track-size: calc(var(--space-2) * 1.25);
-    }
+.fui-SliderRoot {
+  &:where(.fui-r-size-1) {
+    --slider-track-size: calc(var(--space-2) * 0.75);
+  }
+  &:where(.fui-r-size-2) {
+    --slider-track-size: var(--space-2);
+  }
+  &:where(.fui-r-size-3) {
+    --slider-track-size: calc(var(--space-2) * 1.25);
   }
 }
 
@@ -213,8 +211,9 @@
   }
 
   & :where(.fui-SliderThumb) {
-    --slider-thumb-box-shadow: 0 0 0 1px var(--black-a3), 0 0 0 1px var(--gray-a2), 0 0 0 1px var(--accent-a2),
-      0 1px 2px var(--gray-a4), 0 1px 3px -0.5px var(--gray-a3);
+    --slider-thumb-box-shadow:
+      0 0 0 1px var(--black-a3), 0 0 0 1px var(--gray-a2), 0 0 0 1px var(--accent-a2), 0 1px 2px var(--gray-a4),
+      0 1px 3px -0.5px var(--gray-a3);
 
     &:where([data-disabled])::after {
       background-color: var(--gray-1);

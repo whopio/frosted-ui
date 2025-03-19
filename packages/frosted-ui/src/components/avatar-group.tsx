@@ -2,17 +2,15 @@
 
 import classNames from 'classnames';
 import * as React from 'react';
-import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+import type { GetPropDefTypes, PropsWithoutColor } from '../helpers';
 import { Avatar } from './avatar';
 import { avatarGroupPropDefs } from './avatar-group.props';
 
 type AvatarGroupRootOwnProps = GetPropDefTypes<typeof avatarGroupPropDefs>;
 
-interface AvatarGroupRootProps extends PropsWithoutColor<'div'>, MarginProps, AvatarGroupRootOwnProps {}
+interface AvatarGroupRootProps extends PropsWithoutColor<'div'>, AvatarGroupRootOwnProps {}
 
 const AvatarGroupRoot = (props: AvatarGroupRootProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     className,
     children,
@@ -20,19 +18,13 @@ const AvatarGroupRoot = (props: AvatarGroupRootProps) => {
     variant = avatarGroupPropDefs.variant.default,
     color = avatarGroupPropDefs.color.default,
     ...rootProps
-  } = marginRest;
+  } = props;
 
   return (
     <div
       data-accent-color={color}
       {...rootProps}
-      className={classNames(
-        'fui-AvatarGroupRoot',
-        className,
-        withBreakpoints(size, 'fui-r-size'),
-        `fui-variant-${variant}`,
-        withMarginProps(marginProps),
-      )}
+      className={classNames('fui-AvatarGroupRoot', className, `fui-r-size-${size}`, `fui-variant-${variant}`)}
     >
       <div className="fui-AvatarGroupRootInner">{children}</div>
     </div>

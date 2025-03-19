@@ -1,14 +1,7 @@
 'use client';
 
 import { DownloadIcon, HeartFilledIcon, PlusIcon } from '@radix-ui/react-icons';
-import {
-  Button,
-  Flex,
-  IconButton,
-  Popover,
-  RadioGroup,
-  Text,
-} from 'frosted-ui';
+import { Button, Flex, IconButton, Popover, RadioGroup, Text } from 'frosted-ui';
 import * as React from 'react';
 import styles from './page.module.css';
 // TODO: tooltips not working
@@ -26,10 +19,7 @@ function ImageCard({ id }: { id: string | number }) {
           height: 400,
         }}
       />
-      <div
-        className={styles.imageCardOverlay}
-        data-visible={open ? '' : undefined}
-      >
+      <div className={styles.imageCardOverlay} data-visible={open ? '' : undefined}>
         <div
           style={{
             position: 'absolute',
@@ -37,11 +27,7 @@ function ImageCard({ id }: { id: string | number }) {
             right: 'var(--space-3)',
           }}
         >
-          <IconButton
-            size="3"
-            highContrast
-            style={{ marginRight: 'var(--space-3)' }}
-          >
+          <IconButton size="3" highContrast style={{ marginRight: 'var(--space-3)' }}>
             <HeartFilledIcon />
           </IconButton>
           <IconButton size="3" highContrast>
@@ -73,7 +59,7 @@ function ImageCard({ id }: { id: string | number }) {
               <Text as="p" size="3" style={{ marginBottom: 'var(--space-2)' }}>
                 Choose a size:
               </Text>
-              <RadioGroup.Root defaultValue="Small" mb="4">
+              <RadioGroup.Root defaultValue="Small" style={{ marginBottom: 16 }}>
                 <Flex gap="2" direction="column">
                   {['Small', 'Medium', 'Large'].map((size) => (
                     <Text as="label" size="2" key={size}>

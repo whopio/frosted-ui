@@ -72,20 +72,18 @@
  *                                                                                                 *
  ***************************************************************************************************/
 
-@breakpoints {
-  .fui-ScrollAreaScrollbar {
-    &:where(.fui-r-size-1) {
-      --scrollarea-scrollbar-size: var(--space-1);
-      --scrollarea-scrollbar-border-radius: max(var(--radius-1), var(--radius-full));
-    }
-    &:where(.fui-r-size-2) {
-      --scrollarea-scrollbar-size: var(--space-2);
-      --scrollarea-scrollbar-border-radius: max(var(--radius-1), var(--radius-full));
-    }
-    &:where(.fui-r-size-3) {
-      --scrollarea-scrollbar-size: var(--space-3);
-      --scrollarea-scrollbar-border-radius: max(var(--radius-1), var(--radius-full));
-    }
+.fui-ScrollAreaScrollbar {
+  &:where(.fui-r-size-1) {
+    --scrollarea-scrollbar-size: var(--space-1);
+    --scrollarea-scrollbar-border-radius: max(var(--radius-1), var(--radius-full));
+  }
+  &:where(.fui-r-size-2) {
+    --scrollarea-scrollbar-size: var(--space-2);
+    --scrollarea-scrollbar-border-radius: max(var(--radius-1), var(--radius-full));
+  }
+  &:where(.fui-r-size-3) {
+    --scrollarea-scrollbar-size: var(--space-3);
+    --scrollarea-scrollbar-border-radius: max(var(--radius-1), var(--radius-full));
   }
 }
 

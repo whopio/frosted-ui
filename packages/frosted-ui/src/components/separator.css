@@ -17,19 +17,17 @@
  *                                                                                                 *
  ***************************************************************************************************/
 
-@breakpoints {
-  .fui-Separator {
-    &:where(.fui-r-size-1) {
-      --separator-size: var(--space-4);
-    }
-    &:where(.fui-r-size-2) {
-      --separator-size: var(--space-6);
-    }
-    &:where(.fui-r-size-3) {
-      --separator-size: var(--space-9);
-    }
-    &:where(.fui-r-size-4) {
-      --separator-size: 100%;
-    }
+.fui-Separator {
+  &:where(.fui-r-size-1) {
+    --separator-size: var(--space-4);
+  }
+  &:where(.fui-r-size-2) {
+    --separator-size: var(--space-6);
+  }
+  &:where(.fui-r-size-3) {
+    --separator-size: var(--space-9);
+  }
+  &:where(.fui-r-size-4) {
+    --separator-size: 100%;
   }
 }

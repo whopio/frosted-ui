@@ -1,14 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import {
-  Card,
-  Flex,
-  SegmentedControl,
-  Separator,
-  StackedHorizontalBarChart,
-  Text,
-} from '../../../src/components';
+import { Card, Flex, SegmentedControl, Separator, StackedHorizontalBarChart, Text } from '../../../src/components';
 import type { StackedHorizontalBarChartProps } from '../../../src/components/stacked-horizontal-bar-chart';
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -120,23 +113,14 @@ export const Animated: Story = {
         }}
       >
         <div style={{ width: 300 }}>
-          <SegmentedControl.Root
-            value={state}
-            onValueChange={(value) => setState(value as LibraryType)}
-          >
+          <SegmentedControl.Root value={state} onValueChange={(value) => setState(value as LibraryType)}>
             <SegmentedControl.List>
-              <SegmentedControl.Trigger value="FrostedUI">
-                Frosted UI
-              </SegmentedControl.Trigger>
-              <SegmentedControl.Trigger value="BaseUI">
-                Base UI
-              </SegmentedControl.Trigger>
-              <SegmentedControl.Trigger value="React95">
-                React95
-              </SegmentedControl.Trigger>
+              <SegmentedControl.Trigger value="FrostedUI">Frosted UI</SegmentedControl.Trigger>
+              <SegmentedControl.Trigger value="BaseUI">Base UI</SegmentedControl.Trigger>
+              <SegmentedControl.Trigger value="React95">React95</SegmentedControl.Trigger>
             </SegmentedControl.List>
           </SegmentedControl.Root>
-          <StackedHorizontalBarChart data={data} mt={'8'} mb={'4'} />
+          <StackedHorizontalBarChart data={data} />
           <Flex direction={'column'} gap={'3'}>
             {data.map((dataPoint, i) => (
               <>

@@ -4,7 +4,6 @@ import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import { Slottable } from '@radix-ui/react-slot';
 import classNames from 'classnames';
 import * as React from 'react';
-import { withBreakpoints } from '../helpers';
 import { ThickCheckIcon, ThickChevronRightIcon } from '../icons';
 import { Theme, useThemeContext } from '../theme';
 import {
@@ -63,7 +62,7 @@ const DropdownMenuContent = (props: DropdownMenuContentProps) => {
             'fui-BaseMenuContent',
             'fui-DropdownMenuContent',
             className,
-            withBreakpoints(size, 'fui-r-size'),
+            `fui-r-size-${size}`,
             { 'fui-high-contrast': highContrast },
           )}
         >
@@ -239,7 +238,7 @@ const DropdownMenuSubContent = (props: DropdownMenuSubContentProps) => {
             'fui-DropdownMenuContent',
             'fui-DropdownMenuSubContent',
             className,
-            withBreakpoints(size, 'fui-r-size'),
+            `fui-r-size-${size}`,
             { 'fui-high-contrast': highContrast },
           )}
         >

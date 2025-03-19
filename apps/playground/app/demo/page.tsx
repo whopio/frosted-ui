@@ -46,27 +46,21 @@ export default function Demo() {
                     </Dialog.Trigger>
                     <Dialog.Content>
                       <Dialog.Title>{user.name}</Dialog.Title>
-                      <Dialog.Description mb="5">
-                        Edit and save details below.
-                      </Dialog.Description>
+                      <Dialog.Description style={{ marginBottom: 24 }}>Edit and save details below.</Dialog.Description>
 
-                      <Text size="1" weight="bold" color="gray" mb="1">
+                      <Text size="1" weight="bold" color="gray" style={{ marginBottom: 8 }}>
                         Name
                       </Text>
-                      <TextField.Input defaultValue={user.name} mb="2" />
-                      <Text size="1" weight="bold" color="gray" mb="1">
+                      <TextField.Input defaultValue={user.name} style={{ marginBottom: 16 }} />
+                      <Text size="1" weight="bold" color="gray" style={{ marginBottom: 8 }}>
                         Role
                       </Text>
                       <Select.Root defaultValue={user.role}>
                         <Select.Trigger />
                         <Select.Content variant="soft" color="gray">
                           <Select.Item value="viewer">Viewer</Select.Item>
-                          <Select.Item value="maintainer">
-                            Maintainer
-                          </Select.Item>
-                          <Select.Item value="contributor">
-                            Contributor
-                          </Select.Item>
+                          <Select.Item value="maintainer">Maintainer</Select.Item>
+                          <Select.Item value="contributor">Contributor</Select.Item>
                           <Select.Item value="admin">Admin</Select.Item>
                         </Select.Content>
                       </Select.Root>
@@ -84,7 +78,7 @@ export default function Demo() {
                     </Dialog.Content>
                   </Dialog.Root>
                 </Flex>
-                <Separator size="4" my="3" />
+                <Separator size="4" style={{ marginTop: 24, marginBottom: 24 }} />
               </React.Fragment>
             ))}
           </div>

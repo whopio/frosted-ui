@@ -1,13 +1,13 @@
 import { Slot } from '@radix-ui/react-slot';
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+
 import { textPropDefs } from './text.props';
 
-import type { GetPropDefTypes, MarginProps, NiceIntersection, PropsWithoutColor } from '../helpers';
+import type { GetPropDefTypes, PropsWithoutColor } from '../helpers';
 
 type TextOwnProps = GetPropDefTypes<typeof textPropDefs>;
-type CommonTextProps = NiceIntersection<MarginProps, TextOwnProps>;
+
 type TextAsChildProps = {
   asChild?: boolean;
   as?: never;
@@ -25,10 +25,9 @@ type TextLabelProps = {
   asChild?: never;
 } & PropsWithoutColor<'label'>;
 type TextPProps = { as: 'p'; asChild?: never } & PropsWithoutColor<'p'>;
-type TextProps = CommonTextProps & (TextAsChildProps | TextSpanProps | TextDivProps | TextLabelProps | TextPProps);
+type TextProps = TextOwnProps & (TextAsChildProps | TextSpanProps | TextDivProps | TextLabelProps | TextPProps);
 
 const Text = (props: TextProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     children,
     className,
@@ -41,7 +40,7 @@ const Text = (props: TextProps) => {
     color = textPropDefs.color.default,
     highContrast = textPropDefs.highContrast.default,
     ...textProps
-  } = marginRest;
+  } = props;
   return (
     <Slot
       data-accent-color={color}
@@ -49,12 +48,11 @@ const Text = (props: TextProps) => {
       className={classNames(
         'fui-Text',
         className,
-        withBreakpoints(size, 'fui-r-size'),
-        withBreakpoints(weight, 'fui-r-weight'),
-        withBreakpoints(align, 'fui-r-ta'),
-        withBreakpoints(trim, 'fui-r-lt'),
+        `fui-r-size-${size}`,
+        `fui-r-weight-${weight}`,
+        `fui-r-ta-${align}`,
+        `fui-r-lt-${trim}`,
         { 'fui-high-contrast': highContrast },
-        withMarginProps(marginProps),
       )}
     >
       {asChild ? children : <Tag>{children}</Tag>}

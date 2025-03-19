@@ -112,29 +112,27 @@
  *                                                                                                 *
  ***************************************************************************************************/
 
-@breakpoints {
-  .fui-TableRoot-vars {
-    &:where(.fui-r-size-1) {
-      --table-border-radius: var(--radius-3);
-      --table-column-header-cell-padding: var(--space-2) var(--space-3);
-      --table-cell-padding: var(--space-2) var(--space-3);
-      --table-cell-min-height: 36px;
-      --table-bottom-padding: var(--space-3) var(--space-3);
-      font-size: var(--font-size-2);
-      line-height: var(--line-height-2);
-    }
-    &:where(.fui-r-size-2) {
-      --table-border-radius: var(--radius-4);
-      --table-column-header-cell-padding: var(--space-2) var(--space-4);
-      --table-cell-padding: var(--space-3) var(--space-4);
-      --table-cell-min-height: 44px;
-      --table-bottom-padding: var(--space-3) var(--space-4);
-      font-size: var(--font-size-3);
-      line-height: var(--line-height-3);
-    }
-    &:where(.fui-Inset > &) {
-      --table-border-radius: 0px;
-    }
+.fui-TableRoot-vars {
+  &:where(.fui-r-size-1) {
+    --table-border-radius: var(--radius-3);
+    --table-column-header-cell-padding: var(--space-2) var(--space-3);
+    --table-cell-padding: var(--space-2) var(--space-3);
+    --table-cell-min-height: 36px;
+    --table-bottom-padding: var(--space-3) var(--space-3);
+    font-size: var(--font-size-2);
+    line-height: var(--line-height-2);
+  }
+  &:where(.fui-r-size-2) {
+    --table-border-radius: var(--radius-4);
+    --table-column-header-cell-padding: var(--space-2) var(--space-4);
+    --table-cell-padding: var(--space-3) var(--space-4);
+    --table-cell-min-height: 44px;
+    --table-bottom-padding: var(--space-3) var(--space-4);
+    font-size: var(--font-size-3);
+    line-height: var(--line-height-3);
+  }
+  &:where(.fui-Inset > &) {
+    --table-border-radius: 0px;
   }
 }
 

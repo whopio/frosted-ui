@@ -15,19 +15,17 @@
  *                                                                                                 *
  ***************************************************************************************************/
 
-@breakpoints {
-  .fui-HoverCardContent {
-    &:where(.fui-r-size-1) {
-      --hover-card-content-padding: var(--space-3);
-      border-radius: var(--radius-4);
-    }
-    &:where(.fui-r-size-2) {
-      --hover-card-content-padding: var(--space-4);
-      border-radius: var(--radius-4);
-    }
-    &:where(.fui-r-size-3) {
-      --hover-card-content-padding: var(--space-5);
-      border-radius: var(--radius-5);
-    }
+.fui-HoverCardContent {
+  &:where(.fui-r-size-1) {
+    --hover-card-content-padding: var(--space-3);
+    border-radius: var(--radius-4);
+  }
+  &:where(.fui-r-size-2) {
+    --hover-card-content-padding: var(--space-4);
+    border-radius: var(--radius-4);
+  }
+  &:where(.fui-r-size-3) {
+    --hover-card-content-padding: var(--space-5);
+    border-radius: var(--radius-5);
   }
 }

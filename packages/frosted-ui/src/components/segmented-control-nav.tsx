@@ -3,19 +3,17 @@
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import classNames from 'classnames';
 import * as React from 'react';
-import { GetPropDefTypes, MarginProps, extractMarginProps, getSubtree, withMarginProps } from '../helpers';
+import { GetPropDefTypes, getSubtree } from '../helpers';
 import { segmentedControlNavLinkPropDefs } from './segmented-control-nav.props';
 
 interface SegmentedControlNavRootProps
   extends Omit<
-      React.ComponentProps<typeof NavigationMenu.Root>,
-      'asChild' | 'orientation' | 'defauValue' | 'value' | 'onValueChange' | 'delayDuration' | 'skipDelayDuration'
-    >,
-    MarginProps {}
+    React.ComponentProps<typeof NavigationMenu.Root>,
+    'asChild' | 'orientation' | 'defauValue' | 'value' | 'onValueChange' | 'delayDuration' | 'skipDelayDuration'
+  > {}
 
 const SegmentedControlNavRoot = (props: SegmentedControlNavRootProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-  const { children, className, ...rootProps } = marginRest;
+  const { children, className, ...rootProps } = props;
 
   return (
     <NavigationMenu.Root
@@ -24,9 +22,7 @@ const SegmentedControlNavRoot = (props: SegmentedControlNavRootProps) => {
       asChild={false}
       orientation="horizontal"
     >
-      <NavigationMenu.List
-        className={classNames('fui-reset', 'fui-BaseSegmentedControlList', className, withMarginProps(marginProps))}
-      >
+      <NavigationMenu.List className={classNames('fui-reset', 'fui-BaseSegmentedControlList', className)}>
         {children}
       </NavigationMenu.List>
     </NavigationMenu.Root>

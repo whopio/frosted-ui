@@ -3,10 +3,10 @@
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+
 import { checkboxPropDefs } from './checkbox.props';
 
-import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
+import type { GetPropDefTypes, PropsWithoutColor } from '../helpers';
 
 interface IconProps extends React.ComponentProps<'svg'> {
   children?: never;
@@ -67,10 +67,9 @@ const CheckboxIndeterminateIcon = ({ color = 'currentColor', size, ...props }: I
 CheckboxIndeterminateIcon.displayName = 'CheckboxIndeterminateIcon';
 
 type CheckboxOwnProps = GetPropDefTypes<typeof checkboxPropDefs>;
-interface CheckboxProps extends PropsWithoutColor<typeof CheckboxPrimitive.Root>, MarginProps, CheckboxOwnProps {}
+interface CheckboxProps extends PropsWithoutColor<typeof CheckboxPrimitive.Root>, CheckboxOwnProps {}
 
 const Checkbox = (props: CheckboxProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     children,
     className,
@@ -79,20 +78,12 @@ const Checkbox = (props: CheckboxProps) => {
     color = checkboxPropDefs.color.default,
     highContrast = checkboxPropDefs.highContrast.default,
     ...checkboxProps
-  } = marginRest;
+  } = props;
 
   const Comp = children ? 'label' : 'span';
 
   return (
-    <Comp
-      className={classNames(
-        'fui-CheckboxRoot',
-        className,
-        withBreakpoints(size, 'fui-r-size'),
-        withMarginProps(marginProps),
-      )}
-      style={style}
-    >
+    <Comp className={classNames('fui-CheckboxRoot', className, `fui-r-size-${size}`)} style={style}>
       <CheckboxPrimitive.Root
         data-accent-color={color}
         {...checkboxProps}

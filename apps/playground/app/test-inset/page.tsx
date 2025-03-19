@@ -48,14 +48,13 @@ export default function Test() {
                       <Text as="p" size="5" weight="bold" trim="start">
                         Title
                       </Text>
-                      <Text as="p" size="2" color="gray" mb="2">
+                      <Text as="p" size="2" color="gray" style={{ marginBottom: 8 }}>
                         Subtitle
                       </Text>
 
                       <Text as="p" trim="end">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Integer nec odio. Praesent libero. Sed cursus ante
-                        dapibus diam. Sed nisi.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed
+                        cursus ante dapibus diam. Sed nisi.
                       </Text>
 
                       <Inset side="bottom" clip="padding-box" pt="current">
@@ -68,14 +67,13 @@ export default function Test() {
                         <Text as="p" size="5" weight="bold" trim="start">
                           Title
                         </Text>
-                        <Text as="p" size="2" color="gray" mb="2">
+                        <Text as="p" size="2" color="gray" style={{ marginBottom: 8 }}>
                           Subtitle
                         </Text>
 
                         <Text as="p" trim="end">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Integer nec odio. Praesent libero. Sed cursus
-                          ante dapibus diam. Sed nisi.
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.
+                          Sed cursus ante dapibus diam. Sed nisi.
                         </Text>
 
                         <Inset side="x" py="current">
@@ -101,10 +99,8 @@ export default function Test() {
                             <Grid columns="1fr 1fr" style={{ width: 400 }}>
                               <div>
                                 <Text as="p" size="3">
-                                  Jan Tschichold was a German calligrapher,
-                                  typographer and book designer. He played a
-                                  significant role in the development of graphic
-                                  design in the 20th century.
+                                  Jan Tschichold was a German calligrapher, typographer and book designer. He played a
+                                  significant role in the development of graphic design in the 20th century.
                                 </Text>
                               </div>
                               <Inset side="right" pl="current">
@@ -127,10 +123,8 @@ export default function Test() {
                               </Inset>
                               <div>
                                 <Text as="p" size="2">
-                                  Jan Tschichold was a German calligrapher,
-                                  typographer and book designer. He played a
-                                  significant role in the development of graphic
-                                  design in the 20th century.
+                                  Jan Tschichold was a German calligrapher, typographer and book designer. He played a
+                                  significant role in the development of graphic design in the 20th century.
                                 </Text>
                               </div>
                             </Flex>
@@ -146,8 +140,7 @@ export default function Test() {
                           <Dialog.Content>
                             <Dialog.Title>Users</Dialog.Title>
                             <Dialog.Description>
-                              Here are the users that have access to this
-                              project.
+                              Here are the users that have access to this project.
                             </Dialog.Description>
 
                             <Inset side="x" my="5">
@@ -176,8 +169,7 @@ export default function Test() {
                           <AlertDialog.Content style={{ maxWidth: 450 }}>
                             <AlertDialog.Title>Delete Users</AlertDialog.Title>
                             <AlertDialog.Description>
-                              Are you sure you want to delete the following
-                              users? This action cannot be undone.
+                              Are you sure you want to delete the following users? This action cannot be undone.
                             </AlertDialog.Description>
 
                             <Inset side="x" my="5">

@@ -3,7 +3,6 @@
 import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
 import classNames from 'classnames';
 import * as React from 'react';
-import { withBreakpoints } from '../helpers';
 import { Theme } from '../theme';
 import { hoverCardContentPropDefs } from './hover-card.props';
 
@@ -37,12 +36,7 @@ const HoverCardContent = (props: HoverCardContentProps) => {
           sideOffset={8}
           collisionPadding={10}
           {...contentProps}
-          className={classNames(
-            'fui-PopperContent',
-            'fui-HoverCardContent',
-            className,
-            withBreakpoints(size, 'fui-r-size'),
-          )}
+          className={classNames('fui-PopperContent', 'fui-HoverCardContent', className, `fui-r-size-${size}`)}
         />
       </Theme>
     </HoverCardPrimitive.Portal>

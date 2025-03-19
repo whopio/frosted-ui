@@ -39,9 +39,8 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: ({ children, ...args }) => (
     <div>
-      <Text mb="6" as="p">
-        <Code>{'<DataList />'}</Code> component displays metadata as a list of
-        key-value pairs.
+      <Text as="p">
+        <Code>{'<DataList />'}</Code> component displays metadata as a list of key-value pairs.
       </Text>
       <DataList.Root {...args}>
         <DataList.Item align="center">
@@ -68,12 +67,7 @@ export const Default: Story = {
             <Flex align="center" gap="2">
               <Code variant="ghost">biz_AB23XH123A</Code>
               <Tooltip content="Copy">
-                <IconButton
-                  size="1"
-                  aria-label="Copy value"
-                  color="gray"
-                  variant="ghost"
-                >
+                <IconButton size="1" aria-label="Copy value" color="gray" variant="ghost">
                   {/* @ts-expect-error -- TODO: fix frosted icons types */}
                   <Copy12 />
                 </IconButton>
@@ -225,10 +219,8 @@ export const Orientation: Story = {
   render: ({ children, orientation, ...args }) => (
     <Flex direction="column" gap="8">
       <div>
-        <Heading size="3" mb="3">
-          Horizontal
-        </Heading>
-        <Separator orientation="horizontal" size="4" mb="3" />
+        <Heading size="3">Horizontal</Heading>
+        <Separator orientation="horizontal" size="4" />
         <DataList.Root orientation={'horizontal'} {...args}>
           <DataList.Item>
             <DataList.Label
@@ -263,10 +255,8 @@ export const Orientation: Story = {
         </DataList.Root>
       </div>
       <div>
-        <Heading size="3" mb="3">
-          Vertical
-        </Heading>
-        <Separator orientation="horizontal" size="4" mb="3" />
+        <Heading size="3">Vertical</Heading>
+        <Separator orientation="horizontal" size="4" />
         <DataList.Root orientation={'vertical'} {...args}>
           <DataList.Item>
             <DataList.Label
@@ -308,9 +298,7 @@ export const Color: Story = {
   render: ({ children, ...args }) => (
     <Flex direction="column" gap="4">
       <Text>
-        Use the <Code>color</Code> prop on the{' '}
-        <Code>{'<DataList.Label />'}</Code> component to assign a specific
-        color.
+        Use the <Code>color</Code> prop on the <Code>{'<DataList.Label />'}</Code> component to assign a specific color.
       </Text>
       <DataList.Root orientation="vertical" {...args}>
         <DataList.Item>
@@ -346,9 +334,8 @@ export const HighContrast: Story = {
   render: ({ children, ...args }) => (
     <Flex direction="column" gap="4">
       <Text>
-        Use the <Code>highContrast</Code> prop on the{' '}
-        <Code>{'<DataList.Label />'}</Code> component <br /> to increase color
-        contrast with the background.
+        Use the <Code>highContrast</Code> prop on the <Code>{'<DataList.Label />'}</Code> component <br /> to increase
+        color contrast with the background.
       </Text>
       <Flex gap="9">
         <DataList.Root orientation="vertical">

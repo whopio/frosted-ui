@@ -3,19 +3,15 @@
 import * as SliderPrimitive from '@radix-ui/react-slider';
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+
 import { sliderPropDefs } from './slider.props';
 
-import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
+import type { GetPropDefTypes, PropsWithoutColor } from '../helpers';
 
 type SliderOwnProps = GetPropDefTypes<typeof sliderPropDefs>;
-interface SliderProps
-  extends Omit<PropsWithoutColor<typeof SliderPrimitive.Root>, 'children'>,
-    MarginProps,
-    SliderOwnProps {}
+interface SliderProps extends Omit<PropsWithoutColor<typeof SliderPrimitive.Root>, 'children'>, SliderOwnProps {}
 
 const Slider = (props: SliderProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     className,
     size = sliderPropDefs.size.default,
@@ -24,19 +20,14 @@ const Slider = (props: SliderProps) => {
     highContrast = sliderPropDefs.highContrast.default,
     tabIndex,
     ...sliderProps
-  } = marginRest;
+  } = props;
   return (
     <SliderPrimitive.Root
       data-accent-color={color}
       {...sliderProps}
-      className={classNames(
-        'fui-SliderRoot',
-        className,
-        withBreakpoints(size, 'fui-r-size'),
-        `fui-variant-${variant}`,
-        { 'fui-high-contrast': highContrast },
-        withMarginProps(marginProps),
-      )}
+      className={classNames('fui-SliderRoot', className, `fui-r-size-${size}`, `fui-variant-${variant}`, {
+        'fui-high-contrast': highContrast,
+      })}
     >
       <SliderPrimitive.Track className="fui-SliderTrack">
         <SliderPrimitive.Range

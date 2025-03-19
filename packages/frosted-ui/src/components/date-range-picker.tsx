@@ -6,7 +6,7 @@ import { useDateRangePickerState } from '@react-stately/datepicker';
 import classNames from 'classnames';
 import React, { useRef } from 'react';
 import { Popover } from '../';
-import { GetPropDefTypes, MarginProps, extractMarginProps, withMarginProps } from '../helpers';
+import { GetPropDefTypes } from '../helpers';
 import { MappedDateValue, RangeCalendar } from './calendar';
 import { DateField } from './date-field';
 import { datePickerPropDefs } from './date-picker.props';
@@ -22,17 +22,13 @@ interface RangeValue<T> {
 
 type DateRangePickerFUIProps = GetPropDefTypes<typeof datePickerPropDefs>;
 
-interface DateRangePickerProps<T extends DateValue>
-  extends AriaDateRangePickerProps<T>,
-    DateRangePickerFUIProps,
-    MarginProps {
+interface DateRangePickerProps<T extends DateValue> extends AriaDateRangePickerProps<T>, DateRangePickerFUIProps {
   className?: string;
   onChange?: (value: RangeValue<MappedDateValue<T>> | null) => void;
 }
 
 export function DateRangePicker<T extends DateValue>(props: DateRangePickerProps<T>) {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-  const { className, ...otherProps } = marginRest;
+  const { className, ...otherProps } = props;
 
   const {
     color = datePickerPropDefs.color.default,
@@ -61,7 +57,7 @@ export function DateRangePicker<T extends DateValue>(props: DateRangePickerProps
       gap="1"
       {...groupProps}
       ref={ref}
-      className={classNames('fui-DateRangePickerRoot', className, withMarginProps(marginProps))}
+      className={classNames('fui-DateRangePickerRoot', className)}
     >
       <DateField
         {...startFieldProps}

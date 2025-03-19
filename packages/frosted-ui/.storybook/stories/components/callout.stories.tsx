@@ -28,8 +28,7 @@ export const Default: Story = {
     variant: calloutRootPropDefs.variant.default,
     children: (
       <>
-        You will need to upgrade to the{' '}
-        <Link href="#">newest Frosted-UI version</Link> now.
+        You will need to upgrade to the <Link href="#">newest Frosted-UI version</Link> now.
       </>
     ),
   },
@@ -47,8 +46,7 @@ export const Size: Story = {
     variant: calloutRootPropDefs.variant.default,
     children: (
       <>
-        You will need to upgrade to the{' '}
-        <Link href="#">newest Frosted-UI version</Link> now.
+        You will need to upgrade to the <Link href="#">newest Frosted-UI version</Link> now.
       </>
     ),
   },
@@ -83,8 +81,7 @@ export const Variant: Story = {
     color: calloutRootPropDefs.color.default,
     children: (
       <>
-        You will need to upgrade to the{' '}
-        <Link href="#">newest Frosted-UI version</Link> now.
+        You will need to upgrade to the <Link href="#">newest Frosted-UI version</Link> now.
       </>
     ),
   },
@@ -120,8 +117,7 @@ export const Color: Story = {
     variant: calloutRootPropDefs.variant.default,
     children: (
       <>
-        You will need to upgrade to the{' '}
-        <Link href="#">newest Frosted-UI version</Link> now.
+        You will need to upgrade to the <Link href="#">newest Frosted-UI version</Link> now.
       </>
     ),
   },
@@ -158,8 +154,7 @@ export const SemanticColor: Story = {
     variant: calloutRootPropDefs.variant.default,
     children: (
       <>
-        You will need to upgrade to the{' '}
-        <Link href="#">newest Frosted-UI version</Link> now.
+        You will need to upgrade to the <Link href="#">newest Frosted-UI version</Link> now.
       </>
     ),
   },
@@ -203,8 +198,7 @@ export const HighContrast: Story = {
     variant: calloutRootPropDefs.variant.default,
     children: (
       <>
-        You will need to upgrade to the{' '}
-        <Link href="#">newest Frosted-UI version</Link> now.
+        You will need to upgrade to the <Link href="#">newest Frosted-UI version</Link> now.
       </>
     ),
   },
@@ -235,27 +229,20 @@ export const AsAlert: Story = {
       <div style={{ maxWidth: 500 }}>
         <Text>
           Add a native{' '}
-          <Link
-            href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/alert_role"
-            target="_blank"
-          >
+          <Link href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/alert_role" target="_blank">
             WAI-ARIA <Code>alert</Code> role
           </Link>{' '}
-          to the callout when the user’s immediate attention is required, like
-          when an error message appears. The screen reader will be interrupted,
-          announcing the new content immediately.
+          to the callout when the user’s immediate attention is required, like when an error message appears. The screen
+          reader will be interrupted, announcing the new content immediately.
         </Text>
       </div>
       <br />
       <div style={{ display: 'inline-block' }}>
-        <Callout.Root {...args} color="red" role="alert" mt={'6'}>
+        <Callout.Root {...args} color="red" role="alert">
           <Callout.Icon>
             <Callout.Icon>🚨</Callout.Icon>
           </Callout.Icon>
-          <Callout.Text>
-            Access denied. Please contact the network administrator to view this
-            page.
-          </Callout.Text>
+          <Callout.Text>Access denied. Please contact the network administrator to view this page.</Callout.Text>
         </Callout.Root>
       </div>
     </>

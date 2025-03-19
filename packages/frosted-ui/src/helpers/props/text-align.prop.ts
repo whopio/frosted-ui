@@ -6,7 +6,6 @@ const alignProp = {
   type: 'enum',
   values: alignValues,
   default: undefined,
-  responsive: true,
 } satisfies PropDef<(typeof alignValues)[number]>;
 
 export { alignProp };

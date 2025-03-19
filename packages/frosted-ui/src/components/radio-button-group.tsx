@@ -3,10 +3,10 @@
 import * as RadioButtonGroupPrimitive from '@radix-ui/react-radio-group';
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withMarginProps } from '../helpers';
+
 import { radioButtonGroupPropDefs } from './radio-button-group.props';
 
-import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
+import { type GetPropDefTypes, type PropsWithoutColor } from '../helpers';
 import { useIsomorphicLayoutEffect } from '../helpers/use-isomorphic-layout-effect';
 
 type RadioButtonGroupOwnProps = GetPropDefTypes<typeof radioButtonGroupPropDefs>;
@@ -16,28 +16,21 @@ const RadioButtonGroupContext = React.createContext<RadioButtonGroupContextValue
 
 interface RadioButtonGroupRootProps
   extends PropsWithoutColor<typeof RadioButtonGroupPrimitive.Root>,
-    MarginProps,
     RadioButtonGroupOwnProps {}
 
 const RadioButtonGroupRoot = (props: RadioButtonGroupRootProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     className,
     color = radioButtonGroupPropDefs.color.default,
     highContrast = radioButtonGroupPropDefs.highContrast.default,
     children,
     ...rootProps
-  } = marginRest;
+  } = props;
   return (
     <RadioButtonGroupPrimitive.Root
       data-accent-color={color}
       {...rootProps}
-      className={classNames(
-        'fui-RadioButtonGroupRoot',
-        className,
-        { 'fui-high-contrast': highContrast },
-        withMarginProps(marginProps),
-      )}
+      className={classNames('fui-RadioButtonGroupRoot', className, { 'fui-high-contrast': highContrast })}
     >
       <RadioButtonGroupContext.Provider value={React.useMemo(() => ({ color, highContrast }), [color, highContrast])}>
         {children}
@@ -47,24 +40,17 @@ const RadioButtonGroupRoot = (props: RadioButtonGroupRootProps) => {
 };
 RadioButtonGroupRoot.displayName = 'RadioButtonGroupRoot';
 
-interface RadioButtonGroupItemProps extends React.ComponentProps<typeof RadioButtonGroupPrimitive.Item>, MarginProps {}
+interface RadioButtonGroupItemProps extends React.ComponentProps<typeof RadioButtonGroupPrimitive.Item> {}
 
 const RadioButtonGroupItem = (props: RadioButtonGroupItemProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-  const { children, className, style, ...itemProps } = marginRest;
+  const { children, className, style, ...itemProps } = props;
 
   const updatedChildren = addOverlayToChildren(children);
   return (
     <RadioButtonGroupPrimitive.Item
       style={style}
       {...itemProps}
-      className={classNames(
-        'fui-reset',
-        'fui-RadioButtonGroupButton',
-        'fui-RadioButtonGroupItem',
-        className,
-        withMarginProps(marginProps),
-      )}
+      className={classNames('fui-reset', 'fui-RadioButtonGroupButton', 'fui-RadioButtonGroupItem', className)}
       asChild
     >
       {updatedChildren}
@@ -73,22 +59,16 @@ const RadioButtonGroupItem = (props: RadioButtonGroupItemProps) => {
 };
 RadioButtonGroupItem.displayName = 'RadioButtonGroupItem';
 
-interface RadioButtonGroupIconProps extends MarginProps, Omit<PropsWithoutColor<'div'>, 'children'> {}
+interface RadioButtonGroupIconProps extends Omit<PropsWithoutColor<'div'>, 'children'> {}
 
 const RadioButtonGroupIcon = (props: RadioButtonGroupIconProps) => {
   const { color, highContrast } = React.useContext(RadioButtonGroupContext);
 
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-  const { className, ...itemProps } = marginRest;
+  const { className, ...itemProps } = props;
   return (
     <div
       data-accent-color={color}
-      className={classNames(
-        'fui-RadioButtonGroupIcon',
-        { 'fui-high-contrast': highContrast },
-        withMarginProps(marginProps),
-        className,
-      )}
+      className={classNames('fui-RadioButtonGroupIcon', { 'fui-high-contrast': highContrast }, className)}
       aria-hidden
       {...itemProps}
     >
