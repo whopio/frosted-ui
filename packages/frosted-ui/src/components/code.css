@@ -16,53 +16,51 @@
  *                                                                                                 *
  ***************************************************************************************************/
 
-@breakpoints {
-  .fui-Code {
-    &:where(.fui-r-size-1) {
-      font-size: calc(var(--font-size-1) * var(--code-variant-font-size-adjust));
-      line-height: var(--line-height-1);
-      --letter-spacing: var(--letter-spacing-1);
-    }
-    &:where(.fui-r-size-2) {
-      font-size: calc(var(--font-size-2) * var(--code-variant-font-size-adjust));
-      line-height: var(--line-height-2);
-      --letter-spacing: var(--letter-spacing-2);
-    }
-    &:where(.fui-r-size-3) {
-      font-size: calc(var(--font-size-3) * var(--code-variant-font-size-adjust));
-      line-height: var(--line-height-3);
-      --letter-spacing: var(--letter-spacing-3);
-    }
-    &:where(.fui-r-size-4) {
-      font-size: calc(var(--font-size-4) * var(--code-variant-font-size-adjust));
-      line-height: var(--line-height-4);
-      --letter-spacing: var(--letter-spacing-4);
-    }
-    &:where(.fui-r-size-5) {
-      font-size: calc(var(--font-size-5) * var(--code-variant-font-size-adjust));
-      line-height: var(--line-height-5);
-      --letter-spacing: var(--letter-spacing-5);
-    }
-    &:where(.fui-r-size-6) {
-      font-size: calc(var(--font-size-6) * var(--code-variant-font-size-adjust));
-      line-height: var(--line-height-6);
-      --letter-spacing: var(--letter-spacing-6);
-    }
-    &:where(.fui-r-size-7) {
-      font-size: calc(var(--font-size-7) * var(--code-variant-font-size-adjust));
-      line-height: var(--line-height-7);
-      --letter-spacing: var(--letter-spacing-7);
-    }
-    &:where(.fui-r-size-8) {
-      font-size: calc(var(--font-size-8) * var(--code-variant-font-size-adjust));
-      line-height: var(--line-height-8);
-      --letter-spacing: var(--letter-spacing-8);
-    }
-    &:where(.fui-r-size-9) {
-      font-size: calc(var(--font-size-9) * var(--code-variant-font-size-adjust));
-      line-height: var(--line-height-9);
-      --letter-spacing: var(--letter-spacing-9);
-    }
+.fui-Code {
+  &:where(.fui-r-size-1) {
+    font-size: calc(var(--font-size-1) * var(--code-variant-font-size-adjust));
+    line-height: var(--line-height-1);
+    --letter-spacing: var(--letter-spacing-1);
+  }
+  &:where(.fui-r-size-2) {
+    font-size: calc(var(--font-size-2) * var(--code-variant-font-size-adjust));
+    line-height: var(--line-height-2);
+    --letter-spacing: var(--letter-spacing-2);
+  }
+  &:where(.fui-r-size-3) {
+    font-size: calc(var(--font-size-3) * var(--code-variant-font-size-adjust));
+    line-height: var(--line-height-3);
+    --letter-spacing: var(--letter-spacing-3);
+  }
+  &:where(.fui-r-size-4) {
+    font-size: calc(var(--font-size-4) * var(--code-variant-font-size-adjust));
+    line-height: var(--line-height-4);
+    --letter-spacing: var(--letter-spacing-4);
+  }
+  &:where(.fui-r-size-5) {
+    font-size: calc(var(--font-size-5) * var(--code-variant-font-size-adjust));
+    line-height: var(--line-height-5);
+    --letter-spacing: var(--letter-spacing-5);
+  }
+  &:where(.fui-r-size-6) {
+    font-size: calc(var(--font-size-6) * var(--code-variant-font-size-adjust));
+    line-height: var(--line-height-6);
+    --letter-spacing: var(--letter-spacing-6);
+  }
+  &:where(.fui-r-size-7) {
+    font-size: calc(var(--font-size-7) * var(--code-variant-font-size-adjust));
+    line-height: var(--line-height-7);
+    --letter-spacing: var(--letter-spacing-7);
+  }
+  &:where(.fui-r-size-8) {
+    font-size: calc(var(--font-size-8) * var(--code-variant-font-size-adjust));
+    line-height: var(--line-height-8);
+    --letter-spacing: var(--letter-spacing-8);
+  }
+  &:where(.fui-r-size-9) {
+    font-size: calc(var(--font-size-9) * var(--code-variant-font-size-adjust));
+    line-height: var(--line-height-9);
+    --letter-spacing: var(--letter-spacing-9);
   }
 }
 

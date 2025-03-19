@@ -4,7 +4,7 @@ import { colorProp, highContrastProp } from '../helpers';
 const sizes = ['1', '2', '3'] as const;
 
 const checkboxPropDefs = {
-  size: { type: 'enum', values: sizes, default: '2', responsive: true },
+  size: { type: 'enum', values: sizes, default: '2' },
   color: colorProp,
   highContrast: highContrastProp,
 } satisfies {

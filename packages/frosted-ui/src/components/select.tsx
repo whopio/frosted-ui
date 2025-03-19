@@ -4,12 +4,12 @@ import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
 import * as SelectPrimitive from '@radix-ui/react-select';
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+
 import { ChevronDownIcon, ThickCheckIcon } from '../icons';
 import { Theme, useThemeContext } from '../theme';
 import { selectContentPropDefs, selectRootPropDefs, selectTriggerPropDefs } from './select.props';
 
-import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
+import type { GetPropDefTypes, PropsWithoutColor } from '../helpers';
 
 type SelectRootOwnProps = GetPropDefTypes<typeof selectRootPropDefs>;
 
@@ -30,21 +30,19 @@ SelectRoot.displayName = 'SelectRoot';
 type SelectTriggerOwnProps = GetPropDefTypes<typeof selectTriggerPropDefs>;
 interface SelectTriggerProps
   extends Omit<PropsWithoutColor<typeof SelectPrimitive.Trigger>, 'asChild'>,
-    MarginProps,
     SelectTriggerOwnProps {
   // TODO: figure out why this is not inferred properly
   placeholder?: React.ReactNode;
 }
 
 const SelectTrigger = (props: SelectTriggerProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     className,
     variant = selectTriggerPropDefs.variant.default,
     color = selectTriggerPropDefs.color.default,
     placeholder,
     ...triggerProps
-  } = marginRest;
+  } = props;
   const { size } = React.useContext(SelectContext);
   return (
     <SelectPrimitive.Trigger asChild>
@@ -55,9 +53,8 @@ const SelectTrigger = (props: SelectTriggerProps) => {
           'fui-reset',
           'fui-SelectTrigger',
           className,
-          withBreakpoints(size, 'fui-r-size'),
+          `fui-r-size-${size}`,
           `fui-variant-${variant}`,
-          withMarginProps(marginProps),
         )}
       >
         <span className="fui-SelectTriggerInner">
@@ -101,7 +98,7 @@ const SelectContent = (props: SelectContentProps) => {
             { 'fui-PopperContent': contentProps.position === 'popper' },
             'fui-SelectContent',
             className,
-            withBreakpoints(size, 'fui-r-size'),
+            `fui-r-size-${size}`,
             `fui-variant-${variant}`,
             { 'fui-high-contrast': highContrast },
           )}

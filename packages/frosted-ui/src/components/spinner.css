@@ -74,31 +74,29 @@
  *                                                                                                 *
  ***************************************************************************************************/
 
-@breakpoints {
-  .fui-Spinner {
-    &:where(.fui-r-size-1) {
-      width: var(--space-3);
-      height: var(--space-3);
-    }
-    &:where(.fui-r-size-2) {
-      width: var(--space-4);
-      height: var(--space-4);
-    }
-    &:where(.fui-r-size-3) {
-      width: calc(1.25 * var(--space-4));
-      height: calc(1.25 * var(--space-4));
-    }
-    &:where(.fui-r-size-4) {
-      width: var(--space-5);
-      height: var(--space-5);
-    }
-    &:where(.fui-r-size-5) {
-      width: var(--space-6);
-      height: var(--space-6);
-    }
-    &:where(.fui-r-size-6) {
-      width: var(--space-7);
-      height: var(--space-7);
-    }
+.fui-Spinner {
+  &:where(.fui-r-size-1) {
+    width: var(--space-3);
+    height: var(--space-3);
+  }
+  &:where(.fui-r-size-2) {
+    width: var(--space-4);
+    height: var(--space-4);
+  }
+  &:where(.fui-r-size-3) {
+    width: calc(1.25 * var(--space-4));
+    height: calc(1.25 * var(--space-4));
+  }
+  &:where(.fui-r-size-4) {
+    width: var(--space-5);
+    height: var(--space-5);
+  }
+  &:where(.fui-r-size-5) {
+    width: var(--space-6);
+    height: var(--space-6);
+  }
+  &:where(.fui-r-size-6) {
+    width: var(--space-7);
+    height: var(--space-7);
   }
 }

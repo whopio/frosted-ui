@@ -5,16 +5,7 @@ import {
   QuestionMarkCircledIcon,
   SunIcon,
 } from '@radix-ui/react-icons';
-import {
-  Button,
-  Container,
-  Flex,
-  Grid,
-  IconButton,
-  Link,
-  Popover,
-  Theme,
-} from 'frosted-ui';
+import { Button, Container, Flex, Grid, IconButton, Link, Popover, Theme } from 'frosted-ui';
 
 export default function Ghost() {
   return (
@@ -32,15 +23,8 @@ export default function Ghost() {
                       paddingBottom: 'var(--space-5)',
                     }}
                   >
-                    <Flex
-                      direction={direction === 'row' ? 'column' : 'row'}
-                      gap="7"
-                    >
-                      <Flex
-                        direction={direction}
-                        align={direction === 'row' ? 'center' : 'start'}
-                        gap="4"
-                      >
+                    <Flex direction={direction === 'row' ? 'column' : 'row'} gap="7">
+                      <Flex direction={direction} align={direction === 'row' ? 'center' : 'start'} gap="4">
                         <Button variant="ghost" size="1">
                           Action
                         </Button>
@@ -54,11 +38,7 @@ export default function Ghost() {
                         </IconButton>
                       </Flex>
 
-                      <Flex
-                        direction={direction}
-                        align={direction === 'row' ? 'center' : 'start'}
-                        gap="4"
-                      >
+                      <Flex direction={direction} align={direction === 'row' ? 'center' : 'start'} gap="4">
                         <Button variant="ghost" size="2">
                           Action
                         </Button>
@@ -72,11 +52,7 @@ export default function Ghost() {
                         </IconButton>
                       </Flex>
 
-                      <Flex
-                        direction={direction}
-                        align={direction === 'row' ? 'center' : 'start'}
-                        gap="5"
-                      >
+                      <Flex direction={direction} align={direction === 'row' ? 'center' : 'start'} gap="5">
                         <Button variant="ghost" size="3">
                           Action
                         </Button>
@@ -90,11 +66,7 @@ export default function Ghost() {
                         </IconButton>
                       </Flex>
 
-                      <Flex
-                        direction={direction}
-                        align={direction === 'row' ? 'center' : 'start'}
-                        gap="4"
-                      >
+                      <Flex direction={direction} align={direction === 'row' ? 'center' : 'start'} gap="4">
                         <Button variant="ghost" size="2">
                           <QuestionMarkCircledIcon />
                           Help
@@ -114,19 +86,12 @@ export default function Ghost() {
                         </IconButton>
                       </Flex>
 
-                      <Flex
-                        direction={direction}
-                        align={direction === 'row' ? 'center' : 'start'}
-                        gap="4"
-                      >
+                      <Flex direction={direction} align={direction === 'row' ? 'center' : 'start'} gap="4">
                         <Popover.Root>
                           <Popover.Trigger>
                             <Button variant="ghost">Open</Button>
                           </Popover.Trigger>
-                          <Popover.Content
-                            sideOffset={0}
-                            style={{ padding: 100 }}
-                          />
+                          <Popover.Content sideOffset={0} style={{ padding: 100 }} />
                         </Popover.Root>
 
                         <Popover.Root>
@@ -135,10 +100,7 @@ export default function Ghost() {
                               <DotsHorizontalIcon />
                             </IconButton>
                           </Popover.Trigger>
-                          <Popover.Content
-                            sideOffset={0}
-                            style={{ padding: 100 }}
-                          />
+                          <Popover.Content sideOffset={0} style={{ padding: 100 }} />
                         </Popover.Root>
                       </Flex>
                     </Flex>
@@ -153,7 +115,7 @@ export default function Ghost() {
                 </Flex>
 
                 <Flex align="center">
-                  <Button variant="ghost" mr="5">
+                  <Button variant="ghost" style={{ marginRight: 20 }}>
                     Cancel
                   </Button>
                   <Button>Save</Button>
@@ -167,7 +129,7 @@ export default function Ghost() {
                 </Flex>
 
                 <Flex align="center">
-                  <Button variant="ghost" mr="auto">
+                  <Button variant="ghost" style={{ marginRight: 'auto' }}>
                     Cancel
                   </Button>
                   <Button>Save</Button>

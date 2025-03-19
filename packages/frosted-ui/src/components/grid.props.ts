@@ -1,18 +1,11 @@
 import type { PropDef } from '../helpers';
 
-const displayValues = ['none', 'inline-grid', 'grid'] as const;
 const flowValues = ['row', 'column', 'dense', 'row-dense', 'column-dense'] as const;
 const alignValues = ['start', 'center', 'end', 'baseline', 'stretch'] as const;
 const justifyValues = ['start', 'center', 'end', 'between'] as const;
 const gapValues = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
 
 const gridPropDefs = {
-  display: {
-    type: 'enum',
-    values: displayValues,
-    default: undefined,
-    responsive: true,
-  },
   columns: { type: 'string', default: undefined, responsive: true },
   rows: { type: 'string', default: undefined, responsive: true },
   flow: {
@@ -52,7 +45,6 @@ const gridPropDefs = {
     responsive: true,
   },
 } satisfies {
-  display: PropDef<(typeof displayValues)[number]>;
   columns: PropDef<string>;
   rows: PropDef<string>;
   flow: PropDef<(typeof flowValues)[number]>;

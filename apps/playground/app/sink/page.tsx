@@ -194,10 +194,8 @@ export default function Sink() {
                               <Flex direction="column" gap="3">
                                 <Dialog.Title>Share resource</Dialog.Title>
                                 <Dialog.Description>
-                                  Jan Tschichold was a German calligrapher,
-                                  typographer and book designer. He played a
-                                  significant role in the development of graphic
-                                  design in the 20th century.
+                                  Jan Tschichold was a German calligrapher, typographer and book designer. He played a
+                                  significant role in the development of graphic design in the 20th century.
                                 </Dialog.Description>
                                 <Flex gap="3" mt="4" justify="end">
                                   <Dialog.Close>
@@ -223,10 +221,8 @@ export default function Sink() {
                             </HoverCard.Trigger>
                             <HoverCard.Content style={{ width: 200 }}>
                               <Text as="p" size="2">
-                                Jan Tschichold was a German calligrapher,
-                                typographer and book designer. He played a
-                                significant role in the development of graphic
-                                design in the 20th century.
+                                Jan Tschichold was a German calligrapher, typographer and book designer. He played a
+                                significant role in the development of graphic design in the 20th century.
                               </Text>
                             </HoverCard.Content>
                           </HoverCard.Root>
@@ -256,12 +252,9 @@ export default function Sink() {
                             </AlertDialog.Trigger>
                             <AlertDialog.Content style={{ maxWidth: 450 }}>
                               <Flex direction="column" gap="3">
-                                <AlertDialog.Title>
-                                  Revoke setup link
-                                </AlertDialog.Title>
+                                <AlertDialog.Title>Revoke setup link</AlertDialog.Title>
                                 <AlertDialog.Description>
-                                  The setup link will no longer be accessible
-                                  and any existing setup sessions will be
+                                  The setup link will no longer be accessible and any existing setup sessions will be
                                   revoked.
                                 </AlertDialog.Description>
                                 <Flex gap="3" mt="4" justify="end">
@@ -285,11 +278,9 @@ export default function Sink() {
                               <Button>Popover</Button>
                             </Popover.Trigger>
                             <Popover.Content style={{ width: 200 }}>
-                              <Text as="p" size="2" mb="2">
-                                Jan Tschichold was a German calligrapher,
-                                typographer and book designer. He played a
-                                significant role in the development of graphic
-                                design in the 20th century.
+                              <Text as="p" size="2">
+                                Jan Tschichold was a German calligrapher, typographer and book designer. He played a
+                                significant role in the development of graphic design in the 20th century.
                               </Text>
                               <Button size="1">
                                 Share <Share2Icon />
@@ -316,45 +307,29 @@ export default function Sink() {
                               <thead>
                                 <tr>
                                   <ColumnHeaderCell />
-                                  {dropdownMenuContentPropDefs.size.values.map(
-                                    (size) => (
-                                      <ColumnHeaderCell key={size}>
-                                        size {size}
-                                      </ColumnHeaderCell>
-                                    ),
-                                  )}
-                                  <ColumnHeaderCell>
-                                    + high-contrast
-                                  </ColumnHeaderCell>
+                                  {dropdownMenuContentPropDefs.size.values.map((size) => (
+                                    <ColumnHeaderCell key={size}>size {size}</ColumnHeaderCell>
+                                  ))}
+                                  <ColumnHeaderCell>+ high-contrast</ColumnHeaderCell>
                                   <ColumnHeaderCell>gray</ColumnHeaderCell>
-                                  <ColumnHeaderCell>
-                                    + high-contrast
-                                  </ColumnHeaderCell>
+                                  <ColumnHeaderCell>+ high-contrast</ColumnHeaderCell>
                                 </tr>
                               </thead>
                               <tbody>
                                 <tr>
                                   <RowHeaderCell>Default</RowHeaderCell>
-                                  {dropdownMenuContentPropDefs.size.values.map(
-                                    (size) => (
-                                      <td key={size}>
-                                        <DropdownMenu.Root>
-                                          <DropdownMenu.Trigger>
-                                            <Button
-                                              size={size}
-                                              variant="soft"
-                                              color="gray"
-                                            >
-                                              <DotsHorizontalIcon />
-                                            </Button>
-                                          </DropdownMenu.Trigger>
-                                          <DropdownMenuContentDemo
-                                            size={size}
-                                          />
-                                        </DropdownMenu.Root>
-                                      </td>
-                                    ),
-                                  )}
+                                  {dropdownMenuContentPropDefs.size.values.map((size) => (
+                                    <td key={size}>
+                                      <DropdownMenu.Root>
+                                        <DropdownMenu.Trigger>
+                                          <Button size={size} variant="soft" color="gray">
+                                            <DotsHorizontalIcon />
+                                          </Button>
+                                        </DropdownMenu.Trigger>
+                                        <DropdownMenuContentDemo size={size} />
+                                      </DropdownMenu.Root>
+                                    </td>
+                                  ))}
                                   <td>
                                     <DropdownMenu.Root>
                                       <DropdownMenu.Trigger>
@@ -382,17 +357,14 @@ export default function Sink() {
                                           <DotsHorizontalIcon />
                                         </Button>
                                       </DropdownMenu.Trigger>
-                                      <DropdownMenuContentDemo
-                                        color="gray"
-                                        highContrast
-                                      />
+                                      <DropdownMenuContentDemo color="gray" highContrast />
                                     </DropdownMenu.Root>
                                   </td>
                                 </tr>
                               </tbody>
                             </table>
 
-                            <Text as="p" my="5">
+                            <Text as="p">
                               <Code>color</Code> can be set per instance:
                             </Text>
 
@@ -402,64 +374,46 @@ export default function Sink() {
                                   See colors & variants combinations
                                 </Text>
                               </summary>
-                              {themeAccentColorsGrouped.map(
-                                ({ label, values }) => (
-                                  <React.Fragment key={label}>
-                                    <Text as="p" weight="bold" mt="6" mb="4">
-                                      {label}
-                                    </Text>
-                                    <table className={styles.table}>
-                                      <thead>
-                                        <tr>
-                                          <ColumnHeaderCell />
-                                          <ColumnHeaderCell>
-                                            Default
-                                          </ColumnHeaderCell>
+                              {themeAccentColorsGrouped.map(({ label, values }) => (
+                                <React.Fragment key={label}>
+                                  <Text as="p" weight="bold">
+                                    {label}
+                                  </Text>
+                                  <table className={styles.table}>
+                                    <thead>
+                                      <tr>
+                                        <ColumnHeaderCell />
+                                        <ColumnHeaderCell>Default</ColumnHeaderCell>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {values.map((color) => (
+                                        <tr key={color}>
+                                          <RowHeaderCell>{color}</RowHeaderCell>
+                                          <td>
+                                            <DropdownMenu.Root>
+                                              <DropdownMenu.Trigger>
+                                                <Button variant="soft" color="gray">
+                                                  <DotsHorizontalIcon />
+                                                </Button>
+                                              </DropdownMenu.Trigger>
+                                              <DropdownMenuContentDemo color={color} />
+                                            </DropdownMenu.Root>
+                                            <DropdownMenu.Root>
+                                              <DropdownMenu.Trigger>
+                                                <Button variant="soft" color="gray">
+                                                  <DotsHorizontalIcon />
+                                                </Button>
+                                              </DropdownMenu.Trigger>
+                                              <DropdownMenuContentDemo color={color} highContrast />
+                                            </DropdownMenu.Root>
+                                          </td>
                                         </tr>
-                                      </thead>
-                                      <tbody>
-                                        {values.map((color) => (
-                                          <tr key={color}>
-                                            <RowHeaderCell>
-                                              {color}
-                                            </RowHeaderCell>
-                                            <td>
-                                              <DropdownMenu.Root>
-                                                <DropdownMenu.Trigger>
-                                                  <Button
-                                                    variant="soft"
-                                                    color="gray"
-                                                  >
-                                                    <DotsHorizontalIcon />
-                                                  </Button>
-                                                </DropdownMenu.Trigger>
-                                                <DropdownMenuContentDemo
-                                                  color={color}
-                                                />
-                                              </DropdownMenu.Root>
-                                              <DropdownMenu.Root>
-                                                <DropdownMenu.Trigger>
-                                                  <Button
-                                                    variant="soft"
-                                                    color="gray"
-                                                    ml="2"
-                                                  >
-                                                    <DotsHorizontalIcon />
-                                                  </Button>
-                                                </DropdownMenu.Trigger>
-                                                <DropdownMenuContentDemo
-                                                  color={color}
-                                                  highContrast
-                                                />
-                                              </DropdownMenu.Root>
-                                            </td>
-                                          </tr>
-                                        ))}
-                                      </tbody>
-                                    </table>
-                                  </React.Fragment>
-                                ),
-                              )}
+                                      ))}
+                                    </tbody>
+                                  </table>
+                                </React.Fragment>
+                              ))}
                             </details>
                           </DocsGridSectionItem>
                         </div>
@@ -468,29 +422,23 @@ export default function Sink() {
                           <table className={styles.table}>
                             <thead>
                               <tr>
-                                {contextMenuContentPropDefs.size.values.map(
-                                  (size) => (
-                                    <ColumnHeaderCell key={size}>
-                                      size {size}
-                                    </ColumnHeaderCell>
-                                  ),
-                                )}
+                                {contextMenuContentPropDefs.size.values.map((size) => (
+                                  <ColumnHeaderCell key={size}>size {size}</ColumnHeaderCell>
+                                ))}
                               </tr>
                             </thead>
                             <tbody>
                               <tr>
-                                {contextMenuContentPropDefs.size.values.map(
-                                  (size) => (
-                                    <td key={size}>
-                                      <ContextMenu.Root>
-                                        <ContextMenu.Trigger>
-                                          <RightClickArea size={size} />
-                                        </ContextMenu.Trigger>
-                                        <ContextMenuContentDemo size={size} />
-                                      </ContextMenu.Root>
-                                    </td>
-                                  ),
-                                )}
+                                {contextMenuContentPropDefs.size.values.map((size) => (
+                                  <td key={size}>
+                                    <ContextMenu.Root>
+                                      <ContextMenu.Trigger>
+                                        <RightClickArea size={size} />
+                                      </ContextMenu.Trigger>
+                                      <ContextMenuContentDemo size={size} />
+                                    </ContextMenu.Root>
+                                  </td>
+                                ))}
                               </tr>
                             </tbody>
                           </table>
@@ -501,17 +449,13 @@ export default function Sink() {
                   <Separator size="4" />
 
                   <DocsSection title="Select">
-                    <Text as="p" my="5">
-                      Trigger variants:
-                    </Text>
+                    <Text as="p">Trigger variants:</Text>
                     <table className={styles.table}>
                       <thead>
                         <tr>
                           <ColumnHeaderCell />
                           {selectRootPropDefs.size.values.map((size) => (
-                            <ColumnHeaderCell key={size}>
-                              size {size}
-                            </ColumnHeaderCell>
+                            <ColumnHeaderCell key={size}>size {size}</ColumnHeaderCell>
                           ))}
                           <ColumnHeaderCell>+ placeholder</ColumnHeaderCell>
                           <ColumnHeaderCell />
@@ -537,10 +481,7 @@ export default function Sink() {
                             ))}
                             <td>
                               <Select.Root size="2">
-                                <Select.Trigger
-                                  variant={variant}
-                                  placeholder="Choose a fruit"
-                                />
+                                <Select.Trigger variant={variant} placeholder="Choose a fruit" />
                                 <Select.Content>
                                   <SelectItemsDemo />
                                 </Select.Content>
@@ -549,10 +490,7 @@ export default function Sink() {
                             <td />
                             <td>
                               <Select.Root defaultValue="apple" size="2">
-                                <Select.Trigger
-                                  variant={variant}
-                                  color="gray"
-                                />
+                                <Select.Trigger variant={variant} color="gray" />
                                 <Select.Content>
                                   <SelectItemsDemo />
                                 </Select.Content>
@@ -560,11 +498,7 @@ export default function Sink() {
                             </td>
                             <td>
                               <Select.Root size="2">
-                                <Select.Trigger
-                                  variant={variant}
-                                  color="gray"
-                                  placeholder="Choose a fruit"
-                                />
+                                <Select.Trigger variant={variant} color="gray" placeholder="Choose a fruit" />
                                 <Select.Content>
                                   <SelectItemsDemo />
                                 </Select.Content>
@@ -572,11 +506,7 @@ export default function Sink() {
                             </td>
                             <td />
                             <td>
-                              <Select.Root
-                                defaultValue="apple"
-                                size="2"
-                                disabled
-                              >
+                              <Select.Root defaultValue="apple" size="2" disabled>
                                 <Select.Trigger variant={variant} />
                                 <Select.Content>
                                   <SelectItemsDemo />
@@ -588,9 +518,7 @@ export default function Sink() {
                       </tbody>
                     </table>
 
-                    <Text as="p" my="5">
-                      Content variants:
-                    </Text>
+                    <Text as="p">Content variants:</Text>
                     <table className={styles.table}>
                       <thead>
                         <tr>
@@ -608,10 +536,7 @@ export default function Sink() {
                             <td>
                               <Select.Root defaultValue="apple" size="1">
                                 <Select.Trigger />
-                                <Select.Content
-                                  variant={variant}
-                                  position="popper"
-                                >
+                                <Select.Content variant={variant} position="popper">
                                   <SelectItemsDemo />
                                 </Select.Content>
                               </Select.Root>
@@ -619,11 +544,7 @@ export default function Sink() {
                             <td>
                               <Select.Root defaultValue="apple" size="1">
                                 <Select.Trigger />
-                                <Select.Content
-                                  variant={variant}
-                                  highContrast
-                                  position="popper"
-                                >
+                                <Select.Content variant={variant} highContrast position="popper">
                                   <SelectItemsDemo />
                                 </Select.Content>
                               </Select.Root>
@@ -631,11 +552,7 @@ export default function Sink() {
                             <td>
                               <Select.Root defaultValue="apple" size="1">
                                 <Select.Trigger />
-                                <Select.Content
-                                  variant={variant}
-                                  color="gray"
-                                  position="popper"
-                                >
+                                <Select.Content variant={variant} color="gray" position="popper">
                                   <SelectItemsDemo />
                                 </Select.Content>
                               </Select.Root>
@@ -643,12 +560,7 @@ export default function Sink() {
                             <td>
                               <Select.Root defaultValue="apple" size="1">
                                 <Select.Trigger />
-                                <Select.Content
-                                  variant={variant}
-                                  color="gray"
-                                  highContrast
-                                  position="popper"
-                                >
+                                <Select.Content variant={variant} color="gray" highContrast position="popper">
                                   <SelectItemsDemo />
                                 </Select.Content>
                               </Select.Root>
@@ -658,7 +570,7 @@ export default function Sink() {
                       </tbody>
                     </table>
 
-                    <Text as="p" my="5">
+                    <Text as="p">
                       <Code>color</Code> can be set per instance:
                     </Text>
 
@@ -670,47 +582,32 @@ export default function Sink() {
                       </summary>
                       {themeAccentColorsGrouped.map(({ label, values }) => (
                         <React.Fragment key={label}>
-                          <Text as="p" weight="bold" mt="6" mb="4">
+                          <Text as="p" weight="bold">
                             {label}
                           </Text>
                           <table className={styles.table}>
                             <thead>
                               <tr>
                                 <ColumnHeaderCell />
-                                {selectTriggerPropDefs.variant.values.map(
-                                  (variant) => (
-                                    <ColumnHeaderCell key={variant}>
-                                      {variant}
-                                    </ColumnHeaderCell>
-                                  ),
-                                )}
+                                {selectTriggerPropDefs.variant.values.map((variant) => (
+                                  <ColumnHeaderCell key={variant}>{variant}</ColumnHeaderCell>
+                                ))}
                               </tr>
                             </thead>
                             <tbody>
                               {values.map((color) => (
                                 <tr key={color}>
                                   <RowHeaderCell>{color}</RowHeaderCell>
-                                  {selectTriggerPropDefs.variant.values.map(
-                                    (variant) => (
-                                      <td key={variant}>
-                                        <Select.Root
-                                          defaultValue="apple"
-                                          size="1"
-                                        >
-                                          <Select.Trigger
-                                            variant={variant}
-                                            color={color}
-                                          />
-                                          <Select.Content
-                                            variant="soft"
-                                            color={color}
-                                          >
-                                            <SelectItemsDemo />
-                                          </Select.Content>
-                                        </Select.Root>
-                                      </td>
-                                    ),
-                                  )}
+                                  {selectTriggerPropDefs.variant.values.map((variant) => (
+                                    <td key={variant}>
+                                      <Select.Root defaultValue="apple" size="1">
+                                        <Select.Trigger variant={variant} color={color} />
+                                        <Select.Content variant="soft" color={color}>
+                                          <SelectItemsDemo />
+                                        </Select.Content>
+                                      </Select.Root>
+                                    </td>
+                                  ))}
                                 </tr>
                               ))}
                             </tbody>
@@ -730,9 +627,7 @@ export default function Sink() {
                               <ColumnHeaderCell>not checked</ColumnHeaderCell>
                               <ColumnHeaderCell>checked</ColumnHeaderCell>
                               <ColumnHeaderCell>disabled</ColumnHeaderCell>
-                              <ColumnHeaderCell>
-                                disabled checked
-                              </ColumnHeaderCell>
+                              <ColumnHeaderCell>disabled checked</ColumnHeaderCell>
                             </tr>
                           </thead>
                           <tbody>
@@ -741,28 +636,16 @@ export default function Sink() {
                                 <tr key={label}>
                                   <RowHeaderCell>{label}</RowHeaderCell>
                                   <td>
-                                    <Switch
-                                      highContrast={label === '+ high-contrast'}
-                                    />
+                                    <Switch highContrast={label === '+ high-contrast'} />
                                   </td>
                                   <td>
-                                    <Switch
-                                      highContrast={label === '+ high-contrast'}
-                                      defaultChecked
-                                    />
+                                    <Switch highContrast={label === '+ high-contrast'} defaultChecked />
                                   </td>
                                   <td>
-                                    <Switch
-                                      highContrast={label === '+ high-contrast'}
-                                      disabled
-                                    />
+                                    <Switch highContrast={label === '+ high-contrast'} disabled />
                                   </td>
                                   <td>
-                                    <Switch
-                                      highContrast={label === '+ high-contrast'}
-                                      disabled
-                                      defaultChecked
-                                    />
+                                    <Switch highContrast={label === '+ high-contrast'} disabled defaultChecked />
                                   </td>
                                 </tr>
                               ))}
@@ -776,10 +659,7 @@ export default function Sink() {
                               <tr key={size}>
                                 <RowHeaderCell>size {size}</RowHeaderCell>
                                 <td>
-                                  <Switch
-                                    size={size}
-                                    defaultChecked={size === '2'}
-                                  />
+                                  <Switch size={size} defaultChecked={size === '2'} />
                                 </td>
                               </tr>
                             ))}
@@ -794,11 +674,7 @@ export default function Sink() {
                           </Text>
                         </Box>
 
-                        <Flex
-                          direction="column"
-                          gap="5"
-                          style={{ maxWidth: 320 }}
-                        >
+                        <Flex direction="column" gap="5" style={{ maxWidth: 320 }}>
                           <Separator size="4" />
 
                           <Text size="1" asChild>
@@ -870,7 +746,7 @@ export default function Sink() {
                       </div>
                     </Grid>
 
-                    <Text as="p" my="5">
+                    <Text as="p">
                       <Code>color</Code> can be set per instance:
                     </Text>
 
@@ -882,7 +758,7 @@ export default function Sink() {
                       </summary>
                       {themeAccentColorsGrouped.map(({ label, values }) => (
                         <React.Fragment key={label}>
-                          <Text as="p" weight="bold" mt="6" mb="4">
+                          <Text as="p" weight="bold">
                             {label}
                           </Text>
                           <table className={styles.table}>
@@ -900,17 +776,8 @@ export default function Sink() {
                                   <RowHeaderCell>{color}</RowHeaderCell>
                                   <td>
                                     <Switch color={color} />
-                                    <Switch
-                                      color={color}
-                                      defaultChecked
-                                      ml="2"
-                                    />
-                                    <Switch
-                                      color={color}
-                                      highContrast
-                                      defaultChecked
-                                      ml="2"
-                                    />
+                                    <Switch color={color} defaultChecked />
+                                    <Switch color={color} highContrast defaultChecked />
                                   </td>
                                 </tr>
                               ))}
@@ -929,59 +796,38 @@ export default function Sink() {
                             <tr>
                               <ColumnHeaderCell />
                               <ColumnHeaderCell>color</ColumnHeaderCell>
-                              <ColumnHeaderCell>
-                                + high-contrast
-                              </ColumnHeaderCell>
+                              <ColumnHeaderCell>+ high-contrast</ColumnHeaderCell>
                               <ColumnHeaderCell>gray</ColumnHeaderCell>
-                              <ColumnHeaderCell>
-                                + high-contrast
-                              </ColumnHeaderCell>
+                              <ColumnHeaderCell>+ high-contrast</ColumnHeaderCell>
                               <ColumnHeaderCell>disabled</ColumnHeaderCell>
                             </tr>
                           </thead>
                           <tbody>
-                            {sliderPropDefs.variant.values.map(
-                              (variant, index) => (
-                                <tr key={variant}>
-                                  <RowHeaderCell>{variant}</RowHeaderCell>
-                                  <td style={{ minWidth: 150 }}>
-                                    <Slider
-                                      variant={variant}
-                                      defaultValue={[33 + index * 10]}
-                                    />
-                                  </td>
-                                  <td style={{ minWidth: 150 }}>
-                                    <Slider
-                                      variant={variant}
-                                      highContrast
-                                      defaultValue={[33 + index * 10]}
-                                    />
-                                  </td>
-                                  <td style={{ minWidth: 150 }}>
-                                    <Slider
-                                      variant={variant}
-                                      color="gray"
-                                      defaultValue={[33 + index * 10]}
-                                    />
-                                  </td>
-                                  <td style={{ minWidth: 150 }}>
-                                    <Slider
-                                      variant={variant}
-                                      color="gray"
-                                      highContrast
-                                      defaultValue={[33 + index * 10]}
-                                    />
-                                  </td>
-                                  <td style={{ minWidth: 150 }}>
-                                    <Slider
-                                      variant={variant}
-                                      defaultValue={[33 + index * 10]}
-                                      disabled
-                                    />
-                                  </td>
-                                </tr>
-                              ),
-                            )}
+                            {sliderPropDefs.variant.values.map((variant, index) => (
+                              <tr key={variant}>
+                                <RowHeaderCell>{variant}</RowHeaderCell>
+                                <td style={{ minWidth: 150 }}>
+                                  <Slider variant={variant} defaultValue={[33 + index * 10]} />
+                                </td>
+                                <td style={{ minWidth: 150 }}>
+                                  <Slider variant={variant} highContrast defaultValue={[33 + index * 10]} />
+                                </td>
+                                <td style={{ minWidth: 150 }}>
+                                  <Slider variant={variant} color="gray" defaultValue={[33 + index * 10]} />
+                                </td>
+                                <td style={{ minWidth: 150 }}>
+                                  <Slider
+                                    variant={variant}
+                                    color="gray"
+                                    highContrast
+                                    defaultValue={[33 + index * 10]}
+                                  />
+                                </td>
+                                <td style={{ minWidth: 150 }}>
+                                  <Slider variant={variant} defaultValue={[33 + index * 10]} disabled />
+                                </td>
+                              </tr>
+                            ))}
                           </tbody>
                         </table>
                       </div>
@@ -993,10 +839,7 @@ export default function Sink() {
                               <tr key={size}>
                                 <RowHeaderCell>size {size}</RowHeaderCell>
                                 <td style={{ minWidth: 316 }}>
-                                  <Slider
-                                    size={size}
-                                    defaultValue={[33 + index * 10]}
-                                  />
+                                  <Slider size={size} defaultValue={[33 + index * 10]} />
                                 </td>
                               </tr>
                             ))}
@@ -1009,21 +852,12 @@ export default function Sink() {
                           {sliderPropDefs.size.values.map((size, i, sizes) => {
                             return (
                               <React.Fragment key={size}>
-                                {[
-                                  ...sliderPropDefs.variant.values,
-                                  ...sliderPropDefs.variant.values,
-                                ]
+                                {[...sliderPropDefs.variant.values, ...sliderPropDefs.variant.values]
                                   .sort()
                                   .map((variant, j, variants) => {
-                                    const stepCount =
-                                      variants.length * sizes.length - 1;
+                                    const stepCount = variants.length * sizes.length - 1;
                                     const step = i * variants.length + j;
-                                    const value =
-                                      25 +
-                                      Math.round(
-                                        Math.sin(Math.PI * (step / stepCount)) *
-                                          50,
-                                      );
+                                    const value = 25 + Math.round(Math.sin(Math.PI * (step / stepCount)) * 50);
                                     return (
                                       <Slider
                                         key={step}
@@ -1031,9 +865,7 @@ export default function Sink() {
                                         defaultValue={[value]}
                                         size={size}
                                         variant={variant}
-                                        highContrast={
-                                          step % 2 === 1 ? true : false
-                                        }
+                                        highContrast={step % 2 === 1 ? true : false}
                                       />
                                     );
                                   })}
@@ -1048,7 +880,7 @@ export default function Sink() {
                       </Box>
                     </Grid>
 
-                    <Text as="p" my="5">
+                    <Text as="p">
                       <Code>color</Code> can be set per instance:
                     </Text>
 
@@ -1060,49 +892,28 @@ export default function Sink() {
                       </summary>
                       {themeAccentColorsGrouped.map(({ label, values }) => (
                         <React.Fragment key={label}>
-                          <Text as="p" weight="bold" mt="6" mb="4">
+                          <Text as="p" weight="bold">
                             {label}
                           </Text>
                           <table className={styles.table}>
                             <thead>
                               <tr>
                                 <ColumnHeaderCell />
-                                {sliderPropDefs.variant.values.map(
-                                  (variant) => (
-                                    <RowHeaderCell key={variant}>
-                                      {variant}
-                                    </RowHeaderCell>
-                                  ),
-                                )}
+                                {sliderPropDefs.variant.values.map((variant) => (
+                                  <RowHeaderCell key={variant}>{variant}</RowHeaderCell>
+                                ))}
                               </tr>
                             </thead>
                             <tbody>
                               {values.map((color) => (
                                 <tr key={color}>
                                   <RowHeaderCell>{color}</RowHeaderCell>
-                                  {sliderPropDefs.variant.values.map(
-                                    (variant) => (
-                                      <td
-                                        key={variant}
-                                        style={{ minWidth: 150 }}
-                                      >
-                                        <Slider
-                                          variant={variant}
-                                          color={color}
-                                          defaultValue={[50]}
-                                          mt="3"
-                                        />
-                                        <Slider
-                                          variant={variant}
-                                          color={color}
-                                          highContrast
-                                          defaultValue={[50]}
-                                          mt="5"
-                                          mb="3"
-                                        />
-                                      </td>
-                                    ),
-                                  )}
+                                  {sliderPropDefs.variant.values.map((variant) => (
+                                    <td key={variant} style={{ minWidth: 150 }}>
+                                      <Slider variant={variant} color={color} defaultValue={[50]} />
+                                      <Slider variant={variant} color={color} highContrast defaultValue={[50]} />
+                                    </td>
+                                  ))}
                                 </tr>
                               ))}
                             </tbody>
@@ -1122,9 +933,7 @@ export default function Sink() {
                               <ColumnHeaderCell>not checked</ColumnHeaderCell>
                               <ColumnHeaderCell>checked</ColumnHeaderCell>
                               <ColumnHeaderCell>disabled</ColumnHeaderCell>
-                              <ColumnHeaderCell>
-                                disabled checked
-                              </ColumnHeaderCell>
+                              <ColumnHeaderCell>disabled checked</ColumnHeaderCell>
                             </tr>
                           </thead>
                           <tbody>
@@ -1155,11 +964,7 @@ export default function Sink() {
                                 <Checkbox highContrast disabled />
                               </td>
                               <td>
-                                <Checkbox
-                                  highContrast
-                                  disabled
-                                  defaultChecked
-                                />
+                                <Checkbox highContrast disabled defaultChecked />
                               </td>
                             </tr>
                           </tbody>
@@ -1186,11 +991,7 @@ export default function Sink() {
                           </Text>
                         </Box>
 
-                        <Flex
-                          direction="column"
-                          gap="5"
-                          style={{ maxWidth: 320 }}
-                        >
+                        <Flex direction="column" gap="5" style={{ maxWidth: 320 }}>
                           <Separator size="4" />
 
                           <Text size="1" asChild>
@@ -1262,7 +1063,7 @@ export default function Sink() {
                       </div>
                     </Grid>
 
-                    <Text as="p" my="5">
+                    <Text as="p">
                       <Code>color</Code> can be set per instance:
                     </Text>
 
@@ -1274,7 +1075,7 @@ export default function Sink() {
                       </summary>
                       {themeAccentColorsGrouped.map(({ label, values }) => (
                         <React.Fragment key={label}>
-                          <Text as="p" weight="bold" mt="6" mb="4">
+                          <Text as="p" weight="bold">
                             {label}
                           </Text>
                           <table className={styles.table}>
@@ -1290,12 +1091,7 @@ export default function Sink() {
                                   <RowHeaderCell>{color}</RowHeaderCell>
                                   <td>
                                     <Checkbox color={color} defaultChecked />
-                                    <Checkbox
-                                      color={color}
-                                      highContrast
-                                      defaultChecked
-                                      ml="2"
-                                    />
+                                    <Checkbox color={color} highContrast defaultChecked />
                                   </td>
                                 </tr>
                               ))}
@@ -1316,69 +1112,48 @@ export default function Sink() {
                               <ColumnHeaderCell>not checked</ColumnHeaderCell>
                               <ColumnHeaderCell>checked</ColumnHeaderCell>
                               <ColumnHeaderCell>disabled</ColumnHeaderCell>
-                              <ColumnHeaderCell>
-                                disabled checked
-                              </ColumnHeaderCell>
+                              <ColumnHeaderCell>disabled checked</ColumnHeaderCell>
                             </tr>
                           </thead>
                           <tbody>
-                            {radioGroupPropDefs.variant.values.map(
-                              (variant) => (
-                                <React.Fragment key={variant}>
-                                  {[variant, '+ high-contrast'].map((label) => (
-                                    <tr key={label}>
-                                      <RowHeaderCell>{label}</RowHeaderCell>
-                                      <td>
-                                        <RadioGroup.Root
-                                          variant={variant}
-                                          highContrast={
-                                            label === '+ high-contrast'
-                                          }
-                                        >
-                                          <RadioGroup.Item value="value" />
-                                        </RadioGroup.Root>
-                                      </td>
-                                      <td>
-                                        <RadioGroup.Root
-                                          variant={variant}
-                                          defaultValue="value"
-                                          highContrast={
-                                            label === '+ high-contrast'
-                                          }
-                                        >
-                                          <RadioGroup.Item value="value" />
-                                        </RadioGroup.Root>
-                                      </td>
-                                      <td>
-                                        <RadioGroup.Root
-                                          variant={variant}
-                                          highContrast={
-                                            label === '+ high-contrast'
-                                          }
-                                        >
-                                          <RadioGroup.Item
-                                            value="value"
-                                            disabled
-                                          />
-                                        </RadioGroup.Root>
-                                      </td>
-                                      <td>
-                                        <RadioGroup.Root
-                                          variant={variant}
-                                          highContrast={
-                                            label === '+ high-contrast'
-                                          }
-                                          disabled
-                                          defaultValue="value"
-                                        >
-                                          <RadioGroup.Item value="value" />
-                                        </RadioGroup.Root>
-                                      </td>
-                                    </tr>
-                                  ))}
-                                </React.Fragment>
-                              ),
-                            )}
+                            {radioGroupPropDefs.variant.values.map((variant) => (
+                              <React.Fragment key={variant}>
+                                {[variant, '+ high-contrast'].map((label) => (
+                                  <tr key={label}>
+                                    <RowHeaderCell>{label}</RowHeaderCell>
+                                    <td>
+                                      <RadioGroup.Root variant={variant} highContrast={label === '+ high-contrast'}>
+                                        <RadioGroup.Item value="value" />
+                                      </RadioGroup.Root>
+                                    </td>
+                                    <td>
+                                      <RadioGroup.Root
+                                        variant={variant}
+                                        defaultValue="value"
+                                        highContrast={label === '+ high-contrast'}
+                                      >
+                                        <RadioGroup.Item value="value" />
+                                      </RadioGroup.Root>
+                                    </td>
+                                    <td>
+                                      <RadioGroup.Root variant={variant} highContrast={label === '+ high-contrast'}>
+                                        <RadioGroup.Item value="value" disabled />
+                                      </RadioGroup.Root>
+                                    </td>
+                                    <td>
+                                      <RadioGroup.Root
+                                        variant={variant}
+                                        highContrast={label === '+ high-contrast'}
+                                        disabled
+                                        defaultValue="value"
+                                      >
+                                        <RadioGroup.Item value="value" />
+                                      </RadioGroup.Root>
+                                    </td>
+                                  </tr>
+                                ))}
+                              </React.Fragment>
+                            ))}
                           </tbody>
                         </table>
 
@@ -1388,10 +1163,7 @@ export default function Sink() {
                               <tr key={size}>
                                 <RowHeaderCell>size {size}</RowHeaderCell>
                                 <td>
-                                  <RadioGroup.Root
-                                    size={size}
-                                    defaultValue="value"
-                                  >
+                                  <RadioGroup.Root size={size} defaultValue="value">
                                     <RadioGroup.Item value="value" />
                                   </RadioGroup.Root>
                                 </td>
@@ -1408,11 +1180,7 @@ export default function Sink() {
                           </Text>
                         </Box>
 
-                        <Flex
-                          direction="column"
-                          gap="5"
-                          style={{ maxWidth: 320 }}
-                        >
+                        <Flex direction="column" gap="5" style={{ maxWidth: 320 }}>
                           <Separator size="4" />
 
                           <RadioGroup.Root defaultValue="1" size="1">
@@ -1429,9 +1197,7 @@ export default function Sink() {
                                 <label>
                                   <Flex gap="2">
                                     <RadioGroup.Item value="2" />
-                                    <Text>
-                                      Disagree with Terms and Conditions
-                                    </Text>
+                                    <Text>Disagree with Terms and Conditions</Text>
                                   </Flex>
                                 </label>
                               </Text>
@@ -1454,9 +1220,7 @@ export default function Sink() {
                                 <label>
                                   <Flex gap="2">
                                     <RadioGroup.Item value="2" />
-                                    <Text>
-                                      Disagree with Terms and Conditions
-                                    </Text>
+                                    <Text>Disagree with Terms and Conditions</Text>
                                   </Flex>
                                 </label>
                               </Text>
@@ -1479,9 +1243,7 @@ export default function Sink() {
                                 <label>
                                   <Flex gap="2">
                                     <RadioGroup.Item value="2" />
-                                    <Text>
-                                      Disagree with Terms and Conditions
-                                    </Text>
+                                    <Text>Disagree with Terms and Conditions</Text>
                                   </Flex>
                                 </label>
                               </Text>
@@ -1504,9 +1266,7 @@ export default function Sink() {
                                 <label>
                                   <Flex gap="2">
                                     <RadioGroup.Item value="2" />
-                                    <Text>
-                                      Disagree with Terms and Conditions
-                                    </Text>
+                                    <Text>Disagree with Terms and Conditions</Text>
                                   </Flex>
                                 </label>
                               </Text>
@@ -1529,9 +1289,7 @@ export default function Sink() {
                                 <label>
                                   <Flex gap="2">
                                     <RadioGroup.Item value="2" />
-                                    <Text>
-                                      Disagree with Terms and Conditions
-                                    </Text>
+                                    <Text>Disagree with Terms and Conditions</Text>
                                   </Flex>
                                 </label>
                               </Text>
@@ -1554,9 +1312,7 @@ export default function Sink() {
                                 <label>
                                   <Flex gap="2">
                                     <RadioGroup.Item value="2" />
-                                    <Text>
-                                      Disagree with Terms and Conditions
-                                    </Text>
+                                    <Text>Disagree with Terms and Conditions</Text>
                                   </Flex>
                                 </label>
                               </Text>
@@ -1568,7 +1324,7 @@ export default function Sink() {
                       </div>
                     </Grid>
 
-                    <Text as="p" my="5">
+                    <Text as="p">
                       <Code>color</Code> can be set per instance:
                     </Text>
 
@@ -1580,49 +1336,39 @@ export default function Sink() {
                       </summary>
                       {themeAccentColorsGrouped.map(({ label, values }) => (
                         <React.Fragment key={label}>
-                          <Text as="p" weight="bold" mt="6" mb="4">
+                          <Text as="p" weight="bold">
                             {label}
                           </Text>
                           <table className={styles.table}>
                             <thead>
                               <tr>
                                 <ColumnHeaderCell />
-                                {radioGroupPropDefs.variant.values.map(
-                                  (variant) => (
-                                    <ColumnHeaderCell key={variant}>
-                                      {variant}
-                                    </ColumnHeaderCell>
-                                  ),
-                                )}
+                                {radioGroupPropDefs.variant.values.map((variant) => (
+                                  <ColumnHeaderCell key={variant}>{variant}</ColumnHeaderCell>
+                                ))}
                               </tr>
                             </thead>
                             <tbody>
                               {values.map((color) => (
                                 <tr key={color}>
                                   <RowHeaderCell>{color}</RowHeaderCell>
-                                  {radioGroupPropDefs.variant.values.map(
-                                    (variant) => (
-                                      <td key={variant}>
-                                        <Flex gap="2">
-                                          <RadioGroup.Root
-                                            variant={variant}
-                                            color={color}
-                                            defaultValue="value"
-                                          >
-                                            <RadioGroup.Item value="value" />
-                                          </RadioGroup.Root>
-                                          <RadioGroup.Root
-                                            variant={variant}
-                                            color={color}
-                                            defaultValue="value"
-                                            highContrast
-                                          >
-                                            <RadioGroup.Item value="value" />
-                                          </RadioGroup.Root>
-                                        </Flex>
-                                      </td>
-                                    ),
-                                  )}
+                                  {radioGroupPropDefs.variant.values.map((variant) => (
+                                    <td key={variant}>
+                                      <Flex gap="2">
+                                        <RadioGroup.Root variant={variant} color={color} defaultValue="value">
+                                          <RadioGroup.Item value="value" />
+                                        </RadioGroup.Root>
+                                        <RadioGroup.Root
+                                          variant={variant}
+                                          color={color}
+                                          defaultValue="value"
+                                          highContrast
+                                        >
+                                          <RadioGroup.Item value="value" />
+                                        </RadioGroup.Root>
+                                      </Flex>
+                                    </td>
+                                  ))}
                                 </tr>
                               ))}
                             </tbody>
@@ -1631,7 +1377,7 @@ export default function Sink() {
                       ))}
                     </details>
 
-                    <Separator size="3" my="5" />
+                    <Separator size="3" />
                   </DocsSection>
 
                   <DocsSection title="Button">
@@ -1640,9 +1386,7 @@ export default function Sink() {
                         <tr>
                           <ColumnHeaderCell />
                           {buttonPropDefs.size.values.map((size) => (
-                            <ColumnHeaderCell key={size}>
-                              size {size}
-                            </ColumnHeaderCell>
+                            <ColumnHeaderCell key={size}>size {size}</ColumnHeaderCell>
                           ))}
                           <ColumnHeaderCell>+ high-contrast</ColumnHeaderCell>
                           <ColumnHeaderCell />
@@ -1675,11 +1419,7 @@ export default function Sink() {
                               </Button>
                             </td>
                             <td>
-                              <Button
-                                variant={variant}
-                                color="gray"
-                                highContrast
-                              >
+                              <Button variant={variant} color="gray" highContrast>
                                 Next <ArrowRightIcon />
                               </Button>
                             </td>
@@ -1694,7 +1434,7 @@ export default function Sink() {
                       </tbody>
                     </table>
 
-                    <Text as="p" my="5">
+                    <Text as="p">
                       <Code>color</Code> can be set per instance:
                     </Text>
 
@@ -1706,45 +1446,34 @@ export default function Sink() {
                       </summary>
                       {themeAccentColorsGrouped.map(({ label, values }) => (
                         <React.Fragment key={label}>
-                          <Text as="p" weight="bold" mt="6" mb="4">
+                          <Text as="p" weight="bold">
                             {label}
                           </Text>
                           <table className={styles.table}>
                             <thead>
                               <tr>
                                 <ColumnHeaderCell />
-                                {buttonPropDefs.variant.values.map(
-                                  (variant) => (
-                                    <ColumnHeaderCell key={variant}>
-                                      {variant}
-                                    </ColumnHeaderCell>
-                                  ),
-                                )}
+                                {buttonPropDefs.variant.values.map((variant) => (
+                                  <ColumnHeaderCell key={variant}>{variant}</ColumnHeaderCell>
+                                ))}
                               </tr>
                             </thead>
                             <tbody>
                               {values.map((color) => (
                                 <tr key={color}>
                                   <RowHeaderCell>{color}</RowHeaderCell>
-                                  {buttonPropDefs.variant.values.map(
-                                    (variant) => (
-                                      <td key={variant}>
-                                        <Button variant={variant} color={color}>
-                                          <Pencil2Icon />
-                                          Edit
-                                        </Button>
-                                        <Button
-                                          variant={variant}
-                                          color={color}
-                                          highContrast
-                                          ml="2"
-                                        >
-                                          <Pencil2Icon />
-                                          Edit
-                                        </Button>
-                                      </td>
-                                    ),
-                                  )}
+                                  {buttonPropDefs.variant.values.map((variant) => (
+                                    <td key={variant}>
+                                      <Button variant={variant} color={color}>
+                                        <Pencil2Icon />
+                                        Edit
+                                      </Button>
+                                      <Button variant={variant} color={color} highContrast>
+                                        <Pencil2Icon />
+                                        Edit
+                                      </Button>
+                                    </td>
+                                  ))}
                                 </tr>
                               ))}
                             </tbody>
@@ -1760,9 +1489,7 @@ export default function Sink() {
                         <tr>
                           <ColumnHeaderCell />
                           {iconButtonPropDefs.size.values.map((size) => (
-                            <ColumnHeaderCell key={size}>
-                              size {size}
-                            </ColumnHeaderCell>
+                            <ColumnHeaderCell key={size}>size {size}</ColumnHeaderCell>
                           ))}
                           <ColumnHeaderCell>+ high-contrast</ColumnHeaderCell>
                           <ColumnHeaderCell />
@@ -1795,11 +1522,7 @@ export default function Sink() {
                               </IconButton>
                             </td>
                             <td>
-                              <IconButton
-                                variant={variant}
-                                color="gray"
-                                highContrast
-                              >
+                              <IconButton variant={variant} color="gray" highContrast>
                                 <Share2Icon />
                               </IconButton>
                             </td>
@@ -1814,7 +1537,7 @@ export default function Sink() {
                       </tbody>
                     </table>
 
-                    <Text as="p" my="5">
+                    <Text as="p">
                       <Code>color</Code> can be set per instance:
                     </Text>
 
@@ -1826,46 +1549,32 @@ export default function Sink() {
                       </summary>
                       {themeAccentColorsGrouped.map(({ label, values }) => (
                         <React.Fragment key={label}>
-                          <Text as="p" weight="bold" mt="6" mb="4">
+                          <Text as="p" weight="bold">
                             {label}
                           </Text>
                           <table className={styles.table}>
                             <thead>
                               <tr>
                                 <ColumnHeaderCell />
-                                {iconButtonPropDefs.variant.values.map(
-                                  (variant) => (
-                                    <ColumnHeaderCell key={variant}>
-                                      {variant}
-                                    </ColumnHeaderCell>
-                                  ),
-                                )}
+                                {iconButtonPropDefs.variant.values.map((variant) => (
+                                  <ColumnHeaderCell key={variant}>{variant}</ColumnHeaderCell>
+                                ))}
                               </tr>
                             </thead>
                             <tbody>
                               {values.map((color) => (
                                 <tr key={color}>
                                   <RowHeaderCell>{color}</RowHeaderCell>
-                                  {iconButtonPropDefs.variant.values.map(
-                                    (variant) => (
-                                      <td key={variant}>
-                                        <IconButton
-                                          variant={variant}
-                                          color={color}
-                                        >
-                                          <Share2Icon />
-                                        </IconButton>
-                                        <IconButton
-                                          variant={variant}
-                                          color={color}
-                                          highContrast
-                                          ml="2"
-                                        >
-                                          <Share2Icon />
-                                        </IconButton>
-                                      </td>
-                                    ),
-                                  )}
+                                  {iconButtonPropDefs.variant.values.map((variant) => (
+                                    <td key={variant}>
+                                      <IconButton variant={variant} color={color}>
+                                        <Share2Icon />
+                                      </IconButton>
+                                      <IconButton variant={variant} color={color} highContrast>
+                                        <Share2Icon />
+                                      </IconButton>
+                                    </td>
+                                  ))}
                                 </tr>
                               ))}
                             </tbody>
@@ -1881,9 +1590,7 @@ export default function Sink() {
                         <tr>
                           <ColumnHeaderCell />
                           {textFieldPropDefs.size.values.map((size) => (
-                            <ColumnHeaderCell key={size}>
-                              size {size}
-                            </ColumnHeaderCell>
+                            <ColumnHeaderCell key={size}>size {size}</ColumnHeaderCell>
                           ))}
                           <ColumnHeaderCell>disabled</ColumnHeaderCell>
                           <ColumnHeaderCell>read-only</ColumnHeaderCell>
@@ -1901,39 +1608,23 @@ export default function Sink() {
                                       <TextField.Input
                                         size={size}
                                         variant={variant}
-                                        color={
-                                          label === '+ gray'
-                                            ? 'gray'
-                                            : undefined
-                                        }
+                                        color={label === '+ gray' ? 'gray' : undefined}
                                         placeholder="Your name"
                                       />
                                       <TextField.Root
                                         size={size}
                                         variant={variant}
-                                        color={
-                                          label === '+ gray'
-                                            ? 'gray'
-                                            : undefined
-                                        }
+                                        color={label === '+ gray' ? 'gray' : undefined}
                                       >
                                         <TextField.Slot>
                                           <InfoCircledIcon />
                                         </TextField.Slot>
                                         <TextField.Input placeholder="Your name" />
                                         <TextField.Slot>
-                                          <IconButton
-                                            size={size === '3' ? '2' : '1'}
-                                            variant="ghost"
-                                            color="gray"
-                                          >
+                                          <IconButton size={size === '3' ? '2' : '1'} variant="ghost" color="gray">
                                             <Share2Icon />
                                           </IconButton>
-                                          <IconButton
-                                            size={size === '3' ? '2' : '1'}
-                                            variant="ghost"
-                                            color="gray"
-                                          >
+                                          <IconButton size={size === '3' ? '2' : '1'} variant="ghost" color="gray">
                                             <StarIcon />
                                           </IconButton>
                                         </TextField.Slot>
@@ -1941,11 +1632,7 @@ export default function Sink() {
                                       <TextField.Input
                                         size={size}
                                         variant={variant}
-                                        color={
-                                          label === '+ gray'
-                                            ? 'gray'
-                                            : undefined
-                                        }
+                                        color={label === '+ gray' ? 'gray' : undefined}
                                         placeholder="Your name"
                                         defaultValue="The quick brown fox jumped over the lazy dog"
                                       />
@@ -1956,40 +1643,24 @@ export default function Sink() {
                                   <Flex direction="column" gap="2">
                                     <TextField.Input
                                       variant={variant}
-                                      color={
-                                        label === '+ gray' ? 'gray' : undefined
-                                      }
+                                      color={label === '+ gray' ? 'gray' : undefined}
                                       placeholder="Your name"
                                       disabled
                                     />
-                                    <TextField.Root
-                                      variant={variant}
-                                      color={
-                                        label === '+ gray' ? 'gray' : undefined
-                                      }
-                                    >
+                                    <TextField.Root variant={variant} color={label === '+ gray' ? 'gray' : undefined}>
                                       <TextField.Slot>
                                         <InfoCircledIcon />
                                       </TextField.Slot>
-                                      <TextField.Input
-                                        placeholder="Your name"
-                                        disabled
-                                      />
+                                      <TextField.Input placeholder="Your name" disabled />
                                       <TextField.Slot>
-                                        <IconButton
-                                          size="1"
-                                          variant="ghost"
-                                          color="gray"
-                                        >
+                                        <IconButton size="1" variant="ghost" color="gray">
                                           <StarIcon />
                                         </IconButton>
                                       </TextField.Slot>
                                     </TextField.Root>
                                     <TextField.Input
                                       variant={variant}
-                                      color={
-                                        label === '+ gray' ? 'gray' : undefined
-                                      }
+                                      color={label === '+ gray' ? 'gray' : undefined}
                                       placeholder="Your name"
                                       disabled
                                       defaultValue="The quick brown fox jumped over the lazy dog"
@@ -2000,40 +1671,24 @@ export default function Sink() {
                                   <Flex direction="column" gap="2">
                                     <TextField.Input
                                       variant={variant}
-                                      color={
-                                        label === '+ gray' ? 'gray' : undefined
-                                      }
+                                      color={label === '+ gray' ? 'gray' : undefined}
                                       placeholder="Your name"
                                       readOnly
                                     />
-                                    <TextField.Root
-                                      variant={variant}
-                                      color={
-                                        label === '+ gray' ? 'gray' : undefined
-                                      }
-                                    >
+                                    <TextField.Root variant={variant} color={label === '+ gray' ? 'gray' : undefined}>
                                       <TextField.Slot>
                                         <InfoCircledIcon />
                                       </TextField.Slot>
-                                      <TextField.Input
-                                        placeholder="Your name"
-                                        readOnly
-                                      />
+                                      <TextField.Input placeholder="Your name" readOnly />
                                       <TextField.Slot>
-                                        <IconButton
-                                          size="1"
-                                          variant="ghost"
-                                          color="gray"
-                                        >
+                                        <IconButton size="1" variant="ghost" color="gray">
                                           <StarIcon />
                                         </IconButton>
                                       </TextField.Slot>
                                     </TextField.Root>
                                     <TextField.Input
                                       variant={variant}
-                                      color={
-                                        label === '+ gray' ? 'gray' : undefined
-                                      }
+                                      color={label === '+ gray' ? 'gray' : undefined}
                                       placeholder="Your name"
                                       readOnly
                                       defaultValue="The quick brown fox jumped over the lazy dog"
@@ -2047,12 +1702,11 @@ export default function Sink() {
                       </tbody>
                     </table>
 
-                    <Separator my="8" />
+                    <Separator />
                     <Flex align="center" gap="4" mb="9">
                       <Box>
                         <form action="/">
                           <TextField.Input
-                            mb="2"
                             variant="classic"
                             autoComplete="email"
                             placeholder="Autofill (Email)"
@@ -2060,7 +1714,6 @@ export default function Sink() {
                             type="email"
                           />
                           <TextField.Input
-                            mb="2"
                             variant="classic"
                             autoComplete="current-password"
                             placeholder="Autofill (Password)"
@@ -2073,7 +1726,6 @@ export default function Sink() {
                       <Box>
                         <form action="/">
                           <TextField.Input
-                            mb="2"
                             variant="surface"
                             autoComplete="email"
                             placeholder="Autofill (Email)"
@@ -2081,7 +1733,6 @@ export default function Sink() {
                             type="email"
                           />
                           <TextField.Input
-                            mb="2"
                             variant="surface"
                             autoComplete="current-password"
                             placeholder="Autofill (Password)"
@@ -2094,7 +1745,6 @@ export default function Sink() {
                       <Box>
                         <form action="/">
                           <TextField.Input
-                            mb="2"
                             variant="soft"
                             autoComplete="email"
                             placeholder="Autofill (Email)"
@@ -2102,7 +1752,6 @@ export default function Sink() {
                             type="email"
                           />
                           <TextField.Input
-                            mb="2"
                             variant="soft"
                             autoComplete="current-password"
                             placeholder="Autofill (Password)"
@@ -2115,7 +1764,6 @@ export default function Sink() {
                       <Box>
                         <form action="/">
                           <TextField.Input
-                            mb="2"
                             variant="soft"
                             color="gray"
                             autoComplete="email"
@@ -2124,7 +1772,6 @@ export default function Sink() {
                             type="email"
                           />
                           <TextField.Input
-                            mb="2"
                             variant="soft"
                             color="gray"
                             autoComplete="current-password"
@@ -2137,7 +1784,7 @@ export default function Sink() {
                       </Box>
                     </Flex>
 
-                    <Text as="p" my="5">
+                    <Text as="p">
                       <Code>color</Code> can be set per instance:
                     </Text>
 
@@ -2149,37 +1796,27 @@ export default function Sink() {
                       </summary>
                       {themeAccentColorsGrouped.map(({ label, values }) => (
                         <React.Fragment key={label}>
-                          <Text as="p" weight="bold" mt="6" mb="4">
+                          <Text as="p" weight="bold">
                             {label}
                           </Text>
                           <table className={styles.table}>
                             <thead>
                               <tr>
                                 <ColumnHeaderCell />
-                                {textFieldPropDefs.variant.values.map(
-                                  (variant) => (
-                                    <ColumnHeaderCell key={variant}>
-                                      {variant}
-                                    </ColumnHeaderCell>
-                                  ),
-                                )}
+                                {textFieldPropDefs.variant.values.map((variant) => (
+                                  <ColumnHeaderCell key={variant}>{variant}</ColumnHeaderCell>
+                                ))}
                               </tr>
                             </thead>
                             <tbody>
                               {values.map((color) => (
                                 <tr key={color}>
                                   <RowHeaderCell>{color}</RowHeaderCell>
-                                  {textFieldPropDefs.variant.values.map(
-                                    (variant) => (
-                                      <td key={variant}>
-                                        <TextField.Input
-                                          variant={variant}
-                                          color={color}
-                                          placeholder="Your name"
-                                        />
-                                      </td>
-                                    ),
-                                  )}
+                                  {textFieldPropDefs.variant.values.map((variant) => (
+                                    <td key={variant}>
+                                      <TextField.Input variant={variant} color={color} placeholder="Your name" />
+                                    </td>
+                                  ))}
                                 </tr>
                               ))}
                             </tbody>
@@ -2195,9 +1832,7 @@ export default function Sink() {
                         <tr>
                           <ColumnHeaderCell />
                           {textAreaPropDefs.size.values.map((size) => (
-                            <ColumnHeaderCell key={size}>
-                              size {size}
-                            </ColumnHeaderCell>
+                            <ColumnHeaderCell key={size}>size {size}</ColumnHeaderCell>
                           ))}
                           <ColumnHeaderCell>disabled</ColumnHeaderCell>
                           <ColumnHeaderCell>read-only</ColumnHeaderCell>
@@ -2212,19 +1847,14 @@ export default function Sink() {
                                 {textAreaPropDefs.size.values.map((size) => (
                                   <td key={size}>
                                     <TextArea
-                                      mb="2"
                                       size={size}
                                       variant={variant}
-                                      color={
-                                        label === '+ gray' ? 'gray' : undefined
-                                      }
+                                      color={label === '+ gray' ? 'gray' : undefined}
                                       placeholder="Your feedback"
                                     />
                                     <TextArea
                                       variant={variant}
-                                      color={
-                                        label === '+ gray' ? 'gray' : undefined
-                                      }
+                                      color={label === '+ gray' ? 'gray' : undefined}
                                       placeholder="Your feedback"
                                       defaultValue="The :autofill CSS pseudo-class matches when an <input> element has its value autofilled by the browser."
                                     />
@@ -2232,40 +1862,30 @@ export default function Sink() {
                                 ))}
                                 <td>
                                   <TextArea
-                                    mb="2"
                                     disabled
                                     variant={variant}
-                                    color={
-                                      label === '+ gray' ? 'gray' : undefined
-                                    }
+                                    color={label === '+ gray' ? 'gray' : undefined}
                                     placeholder="Your feedback"
                                   />
                                   <TextArea
                                     disabled
                                     variant={variant}
-                                    color={
-                                      label === '+ gray' ? 'gray' : undefined
-                                    }
+                                    color={label === '+ gray' ? 'gray' : undefined}
                                     placeholder="Your feedback"
                                     defaultValue="The :autofill CSS pseudo-class matches when an <input> element has its value autofilled by the browser."
                                   />
                                 </td>
                                 <td>
                                   <TextArea
-                                    mb="2"
                                     readOnly
                                     variant={variant}
-                                    color={
-                                      label === '+ gray' ? 'gray' : undefined
-                                    }
+                                    color={label === '+ gray' ? 'gray' : undefined}
                                     placeholder="Your feedback"
                                   />
                                   <TextArea
                                     readOnly
                                     variant={variant}
-                                    color={
-                                      label === '+ gray' ? 'gray' : undefined
-                                    }
+                                    color={label === '+ gray' ? 'gray' : undefined}
                                     placeholder="Your feedback"
                                     defaultValue="The :autofill CSS pseudo-class matches when an <input> element has its value autofilled by the browser."
                                   />
@@ -2277,7 +1897,7 @@ export default function Sink() {
                       </tbody>
                     </table>
 
-                    <Text as="p" my="5">
+                    <Text as="p">
                       <Code>color</Code> can be set per instance:
                     </Text>
 
@@ -2289,37 +1909,27 @@ export default function Sink() {
                       </summary>
                       {themeAccentColorsGrouped.map(({ label, values }) => (
                         <React.Fragment key={label}>
-                          <Text as="p" weight="bold" mt="6" mb="4">
+                          <Text as="p" weight="bold">
                             {label}
                           </Text>
                           <table className={styles.table}>
                             <thead>
                               <tr>
                                 <ColumnHeaderCell />
-                                {textAreaPropDefs.variant.values.map(
-                                  (variant) => (
-                                    <ColumnHeaderCell key={variant}>
-                                      {variant}
-                                    </ColumnHeaderCell>
-                                  ),
-                                )}
+                                {textAreaPropDefs.variant.values.map((variant) => (
+                                  <ColumnHeaderCell key={variant}>{variant}</ColumnHeaderCell>
+                                ))}
                               </tr>
                             </thead>
                             <tbody>
                               {values.map((color) => (
                                 <tr key={color}>
                                   <RowHeaderCell>{color}</RowHeaderCell>
-                                  {textAreaPropDefs.variant.values.map(
-                                    (variant) => (
-                                      <td key={variant}>
-                                        <TextArea
-                                          variant={variant}
-                                          color={color}
-                                          placeholder="Your name"
-                                        />
-                                      </td>
-                                    ),
-                                  )}
+                                  {textAreaPropDefs.variant.values.map((variant) => (
+                                    <td key={variant}>
+                                      <TextArea variant={variant} color={color} placeholder="Your name" />
+                                    </td>
+                                  ))}
                                 </tr>
                               ))}
                             </tbody>
@@ -2335,9 +1945,7 @@ export default function Sink() {
                         <tr>
                           <ColumnHeaderCell />
                           {badgePropDefs.size.values.map((size) => (
-                            <ColumnHeaderCell key={size}>
-                              size {size}
-                            </ColumnHeaderCell>
+                            <ColumnHeaderCell key={size}>size {size}</ColumnHeaderCell>
                           ))}
                         </tr>
                       </thead>
@@ -2347,33 +1955,13 @@ export default function Sink() {
                             <RowHeaderCell>{variant}</RowHeaderCell>
                             {badgePropDefs.size.values.map((size) => (
                               <td key={size}>
-                                <Flex
-                                  key={variant}
-                                  gap="3"
-                                  wrap="wrap"
-                                  style={{ maxWidth: 600 }}
-                                >
-                                  {(
-                                    ['red', 'yellow', 'green', 'gray'] as const
-                                  ).map((color) => (
-                                    <Flex
-                                      key={color}
-                                      direction="column"
-                                      gap="1"
-                                    >
-                                      <Badge
-                                        size={size}
-                                        variant={variant}
-                                        color={color}
-                                      >
+                                <Flex key={variant} gap="3" wrap="wrap" style={{ maxWidth: 600 }}>
+                                  {(['red', 'yellow', 'green', 'gray'] as const).map((color) => (
+                                    <Flex key={color} direction="column" gap="1">
+                                      <Badge size={size} variant={variant} color={color}>
                                         {upperFirst(color)}
                                       </Badge>
-                                      <Badge
-                                        size={size}
-                                        variant={variant}
-                                        color={color}
-                                        highContrast
-                                      >
+                                      <Badge size={size} variant={variant} color={color} highContrast>
                                         {upperFirst(color)}
                                       </Badge>
                                     </Flex>
@@ -2386,7 +1974,7 @@ export default function Sink() {
                       </tbody>
                     </table>
 
-                    <Text as="p" my="5">
+                    <Text as="p">
                       <Code>color</Code> can be set per instance:
                     </Text>
 
@@ -2398,7 +1986,7 @@ export default function Sink() {
                       </summary>
                       {themeAccentColorsGrouped.map(({ label, values }) => (
                         <React.Fragment key={label}>
-                          <Text as="p" weight="bold" mt="6" mb="4">
+                          <Text as="p" weight="bold">
                             {label}
                           </Text>
                           <table className={styles.table}>
@@ -2406,9 +1994,7 @@ export default function Sink() {
                               <tr>
                                 <ColumnHeaderCell />
                                 {badgePropDefs.variant.values.map((variant) => (
-                                  <ColumnHeaderCell key={variant}>
-                                    {variant}
-                                  </ColumnHeaderCell>
+                                  <ColumnHeaderCell key={variant}>{variant}</ColumnHeaderCell>
                                 ))}
                               </tr>
                             </thead>
@@ -2416,31 +2002,18 @@ export default function Sink() {
                               {values.map((color) => (
                                 <tr key={color}>
                                   <RowHeaderCell>{color}</RowHeaderCell>
-                                  {badgePropDefs.variant.values.map(
-                                    (variant) => (
-                                      <td key={variant}>
-                                        <Flex
-                                          direction="column"
-                                          align="start"
-                                          gap="1"
-                                        >
-                                          <Badge
-                                            variant={variant}
-                                            color={color}
-                                          >
-                                            {color}
-                                          </Badge>
-                                          <Badge
-                                            variant={variant}
-                                            color={color}
-                                            highContrast
-                                          >
-                                            {color}
-                                          </Badge>
-                                        </Flex>
-                                      </td>
-                                    ),
-                                  )}
+                                  {badgePropDefs.variant.values.map((variant) => (
+                                    <td key={variant}>
+                                      <Flex direction="column" align="start" gap="1">
+                                        <Badge variant={variant} color={color}>
+                                          {color}
+                                        </Badge>
+                                        <Badge variant={variant} color={color} highContrast>
+                                          {color}
+                                        </Badge>
+                                      </Flex>
+                                    </td>
+                                  ))}
                                 </tr>
                               ))}
                             </tbody>
@@ -2499,11 +2072,7 @@ export default function Sink() {
                             <RowHeaderCell>{size}</RowHeaderCell>
                             <td>
                               <Flex gap="3">
-                                <Avatar
-                                  size={size}
-                                  src="./api/avatar"
-                                  fallback="D"
-                                />
+                                <Avatar size={size} src="./api/avatar" fallback="D" />
                                 <Avatar size={size} fallback="D" />
                                 <Avatar size={size} fallback="BG" />
                               </Flex>
@@ -2513,7 +2082,7 @@ export default function Sink() {
                       </tbody>
                     </table>
 
-                    <Text as="p" my="5">
+                    <Text as="p">
                       <Code>color</Code> can be set per instance:
                     </Text>
 
@@ -2525,7 +2094,7 @@ export default function Sink() {
                       </summary>
                       {themeAccentColorsGrouped.map(({ label, values }) => (
                         <React.Fragment key={label}>
-                          <Text as="p" weight="bold" mt="6" mb="4">
+                          <Text as="p" weight="bold">
                             {label}
                           </Text>
                           <table className={styles.table}>
@@ -2541,12 +2110,7 @@ export default function Sink() {
                                   <RowHeaderCell>{color}</RowHeaderCell>
                                   <td>
                                     <Avatar color={color} fallback="D" />
-                                    <Avatar
-                                      color={color}
-                                      highContrast
-                                      fallback="D"
-                                      ml="2"
-                                    />
+                                    <Avatar color={color} highContrast fallback="D" />
                                   </td>
                                 </tr>
                               ))}
@@ -2591,15 +2155,10 @@ export default function Sink() {
                       </tbody>
                     </table>
 
-                    <Grid
-                      columns="4"
-                      gap="5"
-                      my="7"
-                      style={{ marginLeft: 124 }}
-                    >
+                    <Grid columns="4" gap="5" my="7" style={{ marginLeft: 124 }}>
                       <div>
                         <Heading>Contacts</Heading>
-                        <Text as="p" color="gray" mb="4">
+                        <Text as="p" color="gray">
                           Here are all your contacts:
                         </Text>
                         <Flex direction="column" gap="3">
@@ -2624,7 +2183,7 @@ export default function Sink() {
                       </div>
                       <div>
                         <Heading>Contacts</Heading>
-                        <Text as="p" color="gray" mb="4">
+                        <Text as="p" color="gray">
                           Here are all your contacts:
                         </Text>
                         <Flex direction="column" gap="3">
@@ -2649,7 +2208,7 @@ export default function Sink() {
                       </div>
                       <div>
                         <Heading>Contacts</Heading>
-                        <Text as="p" color="gray" mb="4">
+                        <Text as="p" color="gray">
                           Here are all your contacts:
                         </Text>
                         <Flex direction="column" gap="5">
@@ -2680,28 +2239,13 @@ export default function Sink() {
                           <tr key={size}>
                             <RowHeaderCell>size {size}</RowHeaderCell>
                             <td>
-                              <Card
-                                size={size}
-                                style={{ maxWidth: 'fit-content' }}
-                              >
-                                <Text
-                                  as="p"
-                                  size={size}
-                                  weight="bold"
-                                  mb={size}
-                                >
+                              <Card size={size} style={{ maxWidth: 'fit-content' }}>
+                                <Text as="p" size={size} weight="bold">
                                   Typography
                                 </Text>
-                                <Text
-                                  as="p"
-                                  color="gray"
-                                  size={size}
-                                  style={{ maxWidth: '40ch' }}
-                                >
-                                  The goal of typography is to relate font size,
-                                  line height, and line width in a proportional
-                                  way that maximizes beauty and makes reading
-                                  easier and more pleasant.
+                                <Text as="p" color="gray" size={size} style={{ maxWidth: '40ch' }}>
+                                  The goal of typography is to relate font size, line height, and line width in a
+                                  proportional way that maximizes beauty and makes reading easier and more pleasant.
                                 </Text>
                               </Card>
                             </td>
@@ -2712,7 +2256,7 @@ export default function Sink() {
                   </DocsSection>
 
                   <DocsSection title="Table">
-                    <Grid columns="2" gap="5" mb="3">
+                    <Grid columns="2" gap="5">
                       <Flex direction="column" gap="3">
                         <Text color="gray" size="2">
                           surface
@@ -2728,10 +2272,10 @@ export default function Sink() {
                       </Flex>
                     </Grid>
 
-                    <Grid columns="3" gap="5" mt="5">
+                    <Grid columns="3" gap="5">
                       {tableRootPropDefs.size.values.map((size) => (
                         <div key={size}>
-                          <Text as="p" color="gray" size="2" mb="3">
+                          <Text as="p" color="gray" size="2">
                             size {size}
                           </Text>
                           <TableExample size={size} variant="surface" noEmail />
@@ -2743,96 +2287,73 @@ export default function Sink() {
                   <DocsSection title="Typography">
                     <Flex direction="column" gap="5" style={{ maxWidth: 688 }}>
                       <Text as="p" size="3">
-                        The CSS rule{' '}
-                        <Code>-webkit-font-smoothing: antialiased;</Code> has
-                        been applied to all fonts.google.com pages where fonts
-                        are rendered. This results in browsers using the{' '}
-                        <Strong>greyscale antialiasing method</Strong> rather
-                        than default <Em>subpixel rendering</Em> of fonts. Press{' '}
-                        <Kbd>⌘ Q</Kbd> to quit.{' '}
+                        The CSS rule <Code>-webkit-font-smoothing: antialiased;</Code> has been applied to all
+                        fonts.google.com pages where fonts are rendered. This results in browsers using the{' '}
+                        <Strong>greyscale antialiasing method</Strong> rather than default <Em>subpixel rendering</Em>{' '}
+                        of fonts. Press <Kbd>⌘ Q</Kbd> to quit.{' '}
                         <Quote>
-                          I believe this was probably introduced to get around
-                          inconsistencies in rendering between browsers
+                          I believe this was probably introduced to get around inconsistencies in rendering between
+                          browsers
                         </Quote>
                         , particular between Chrome and Safari on MacOS.
                       </Text>
 
-                      <Heading size="9">
-                        The principles of the Typographic Craft are difficult to
-                        master
-                      </Heading>
+                      <Heading size="9">The principles of the Typographic Craft are difficult to master</Heading>
 
                       <Heading size="8">
-                        The goal of typography is to relate font size, line
-                        height, and line width
+                        The goal of typography is to relate font size, line height, and line width
                       </Heading>
 
                       <Heading size="7">
-                        The goal of typography is to relate font size, line
-                        height, and line width in a proportional way
+                        The goal of typography is to relate font size, line height, and line width in a proportional way
                       </Heading>
 
                       <Heading size="6">
-                        The goal of typography is to relate font size, line
-                        height, and line width in a proportional way
+                        The goal of typography is to relate font size, line height, and line width in a proportional way
                       </Heading>
 
                       <Text color="gray" size="5">
-                        The goal of typography is to relate font size, line
-                        height, and line width in a proportional way that
-                        maximizes beauty and makes reading easier and more
-                        pleasant.
+                        The goal of typography is to relate font size, line height, and line width in a proportional way
+                        that maximizes beauty and makes reading easier and more pleasant.
                       </Text>
 
                       <Text as="p" size="4">
-                        The goal of typography is to relate font size, line
-                        height, and line width in a proportional way that
-                        maximizes beauty and makes reading easier and more
-                        pleasant. The question is: What proportion(s) will give
-                        us the best results? The golden ratio is often observed
-                        in nature where beauty and utility intersect; perhaps we
-                        can use this “divine” proportion to enhance these
+                        The goal of typography is to relate font size, line height, and line width in a proportional way
+                        that maximizes beauty and makes reading easier and more pleasant. The question is: What
+                        proportion(s) will give us the best results? The golden ratio is often observed in nature where
+                        beauty and utility intersect; perhaps we can use this “divine” proportion to enhance these
                         attributes in our typography.
                       </Text>
 
                       <Text as="p" size="3" style={{ maxWidth: 600 }}>
-                        The goal of typography is to relate font size, line
-                        height, and line width in a proportional way that
-                        maximizes beauty and makes reading easier and more
-                        pleasant. The question is: What proportion(s) will give
-                        us the best results? The golden ratio is often observed
-                        in nature where beauty and utility intersect; perhaps we
-                        can use this “divine” proportion to enhance these
+                        The goal of typography is to relate font size, line height, and line width in a proportional way
+                        that maximizes beauty and makes reading easier and more pleasant. The question is: What
+                        proportion(s) will give us the best results? The golden ratio is often observed in nature where
+                        beauty and utility intersect; perhaps we can use this “divine” proportion to enhance these
                         attributes in our typography.
                       </Text>
 
                       <Grid columns="2" gap="5">
                         <Text as="p" size="2" style={{ maxWidth: 400 }}>
-                          The goal of typography is to relate font size, line
-                          height, and line width in a proportional way that
-                          maximizes beauty and makes reading easier and more
-                          pleasant. The question is: What proportion(s) will
-                          give us the best results? The golden ratio is often
-                          observed in nature where beauty and utility intersect;
-                          perhaps we can use this “divine” proportion to enhance
+                          The goal of typography is to relate font size, line height, and line width in a proportional
+                          way that maximizes beauty and makes reading easier and more pleasant. The question is: What
+                          proportion(s) will give us the best results? The golden ratio is often observed in nature
+                          where beauty and utility intersect; perhaps we can use this “divine” proportion to enhance
                           these attributes in our typography.
                         </Text>
 
                         <Text as="p" size="1" style={{ maxWidth: 400 }}>
-                          The goal of typography is to relate font size, line
-                          height, and line width in a proportional way that
-                          maximizes beauty and makes reading easier and more
-                          pleasant. The question is: What proportion(s) will
-                          give us the best results? The golden ratio is often
-                          observed in nature where beauty and utility intersect;
-                          perhaps we can use this “divine” proportion to enhance
+                          The goal of typography is to relate font size, line height, and line width in a proportional
+                          way that maximizes beauty and makes reading easier and more pleasant. The question is: What
+                          proportion(s) will give us the best results? The golden ratio is often observed in nature
+                          where beauty and utility intersect; perhaps we can use this “divine” proportion to enhance
                           these attributes in our typography.
                         </Text>
                       </Grid>
 
-                      <Separator size="3" my="5" />
+                      <Separator size="3" />
 
-                      <Flex gap="4" mb="5">
+                      <Flex gap="4">
                         <Link color="purple" href="/">
                           This is a link
                         </Link>
@@ -2852,7 +2373,7 @@ export default function Sink() {
                           This is a link
                         </Link>
                       </Flex>
-                      <Flex gap="4" mb="5">
+                      <Flex gap="4">
                         <Link color="purple" highContrast href="/">
                           This is a link
                         </Link>
@@ -2873,88 +2394,58 @@ export default function Sink() {
                         </Link>
                       </Flex>
 
-                      <Separator size="3" my="5" />
+                      <Separator size="3" />
 
                       <Box style={{ width: '55%' }}>
-                        <Heading size="5" mb="2">
-                          The principles of the Typographic Craft are difficult
-                          to master
-                        </Heading>
+                        <Heading size="5">The principles of the Typographic Craft are difficult to master</Heading>
                         <Text as="p" size="4">
-                          The goal of typography is to relate font size, line
-                          height, and line width in a proportional way that
-                          maximizes beauty and makes reading easier and more
-                          pleasant.
+                          The goal of typography is to relate font size, line height, and line width in a proportional
+                          way that maximizes beauty and makes reading easier and more pleasant.
                         </Text>
                       </Box>
 
                       <Grid columns="2" gap="5" mb="7">
                         <Box>
-                          <Heading size="4" mb="2">
-                            The principles of the Typographic Craft are
-                            difficult to master
-                          </Heading>
+                          <Heading size="4">The principles of the Typographic Craft are difficult to master</Heading>
                           <Text as="p" size="3">
-                            The goal of typography is to relate font size, line
-                            height, and line width in a proportional way that
-                            maximizes beauty and makes reading easier and more
-                            pleasant.
+                            The goal of typography is to relate font size, line height, and line width in a proportional
+                            way that maximizes beauty and makes reading easier and more pleasant.
                           </Text>
                         </Box>
                         <Box>
-                          <Heading size="3" mb="2">
-                            The principles of the Typographic Craft are
-                            difficult to master
-                          </Heading>
+                          <Heading size="3">The principles of the Typographic Craft are difficult to master</Heading>
                           <Text as="p" size="2">
-                            The goal of typography is to relate font size, line
-                            height, and line width in a proportional way that
-                            maximizes beauty and makes reading easier and more
-                            pleasant.
+                            The goal of typography is to relate font size, line height, and line width in a proportional
+                            way that maximizes beauty and makes reading easier and more pleasant.
                           </Text>
                         </Box>
                       </Grid>
 
                       <Grid columns="3" gap="5">
                         <Box>
-                          <Heading size="2" mb="1">
-                            The principles of the Typographic Craft are
-                            difficult to master
-                          </Heading>
+                          <Heading size="2">The principles of the Typographic Craft are difficult to master</Heading>
                           <Text as="p" size="2">
-                            The goal of typography is to relate font size, line
-                            height, and line width in a proportional way that
-                            maximizes beauty and makes reading easier and more
-                            pleasant.
+                            The goal of typography is to relate font size, line height, and line width in a proportional
+                            way that maximizes beauty and makes reading easier and more pleasant.
                           </Text>
                         </Box>
                         <Box>
-                          <Heading size="2" mb="1">
-                            The principles of the Typographic Craft are
-                            difficult to master
-                          </Heading>
+                          <Heading size="2">The principles of the Typographic Craft are difficult to master</Heading>
                           <Text as="p" size="1">
-                            The goal of typography is to relate font size, line
-                            height, and line width in a proportional way that
-                            maximizes beauty and makes reading easier and more
-                            pleasant.
+                            The goal of typography is to relate font size, line height, and line width in a proportional
+                            way that maximizes beauty and makes reading easier and more pleasant.
                           </Text>
                         </Box>
                         <Box>
-                          <Heading size="1" mb="1">
-                            The principles of the Typographic Craft are
-                            difficult to master
-                          </Heading>
+                          <Heading size="1">The principles of the Typographic Craft are difficult to master</Heading>
                           <Text as="p" size="1">
-                            The goal of typography is to relate font size, line
-                            height, and line width in a proportional way that
-                            maximizes beauty and makes reading easier and more
-                            pleasant.
+                            The goal of typography is to relate font size, line height, and line width in a proportional
+                            way that maximizes beauty and makes reading easier and more pleasant.
                           </Text>
                         </Box>
                       </Grid>
 
-                      <Separator size="3" my="5" />
+                      <Separator size="3" />
 
                       <Grid columns="2" gap="5">
                         <Box style={{ maxWidth: 250 }}>
@@ -2993,7 +2484,7 @@ export default function Sink() {
                         </Box>
                       </Grid>
 
-                      <Separator size="3" my="5" />
+                      <Separator size="3" />
 
                       <Grid columns="2" gap="5">
                         <Box style={{ maxWidth: 250 }}>
@@ -3001,8 +2492,7 @@ export default function Sink() {
                             Quick Look
                           </Text>
                           <Text as="p" color="gray" size="1">
-                            Extensions from added software for something to do
-                            with Apple Finder.
+                            Extensions from added software for something to do with Apple Finder.
                           </Text>
                         </Box>
                         <Box style={{ maxWidth: 250 }}>
@@ -3010,8 +2500,7 @@ export default function Sink() {
                             Quick Look
                           </Text>
                           <Text as="p" color="gray" size="1">
-                            Extensions from added software for something to do
-                            with Apple Finder.
+                            Extensions from added software for something to do with Apple Finder.
                           </Text>
                         </Box>
                       </Grid>
@@ -3022,8 +2511,7 @@ export default function Sink() {
                             Quick Look
                           </Text>
                           <Text as="p" color="gray" size="2">
-                            Extensions from added software for something to do
-                            with Apple Finder.
+                            Extensions from added software for something to do with Apple Finder.
                           </Text>
                         </Box>
                         <Box style={{ maxWidth: 250 }}>
@@ -3031,62 +2519,50 @@ export default function Sink() {
                             Quick Look
                           </Text>
                           <Text as="p" color="gray" size="2">
-                            Extensions from added software for something to do
-                            with Apple Finder.
+                            Extensions from added software for something to do with Apple Finder.
                           </Text>
                         </Box>
                       </Grid>
 
-                      <Separator size="3" my="5" />
+                      <Separator size="3" />
 
                       <Grid columns="2" gap="5">
                         <Box style={{ maxWidth: 250, textAlign: 'center' }}>
-                          <Button size="1" mb="1">
-                            Quick Look
-                          </Button>
+                          <Button size="1">Quick Look</Button>
                           <Text as="p" color="gray" size="1">
                             Verification needed
                           </Text>
                         </Box>
                         <Box style={{ maxWidth: 250, textAlign: 'center' }}>
-                          <Button size="2" mb="1">
-                            Quick Look
-                          </Button>
+                          <Button size="2">Quick Look</Button>
                           <Text as="p" color="gray" size="1">
                             Verification needed
                           </Text>
                         </Box>
                         <Box style={{ maxWidth: 250, textAlign: 'center' }}>
-                          <Button size="1" mb="1">
-                            Quick Look
-                          </Button>
+                          <Button size="1">Quick Look</Button>
                           <Text as="p" color="gray" size="2">
                             Verification needed
                           </Text>
                         </Box>
                         <Box style={{ maxWidth: 250, textAlign: 'center' }}>
-                          <Button size="2" mb="1">
-                            Quick Look
-                          </Button>
+                          <Button size="2">Quick Look</Button>
                           <Text as="p" color="gray" size="2">
                             Verification needed
                           </Text>
                         </Box>
                       </Grid>
 
-                      <Separator size="3" my="5" />
+                      <Separator size="3" />
 
                       <Blockquote>
-                        The CSS rule{' '}
-                        <Code>-webkit-font-smoothing: antialiased;</Code> has
-                        been applied to all fonts.google.com pages where fonts
-                        are rendered. This results in browsers using the{' '}
-                        <strong>greyscale antialiasing method</strong> rather
-                        than default <Em>subpixel rendering</Em> of fonts. Press{' '}
-                        <Kbd>⌘ Q</Kbd> to quit.{' '}
+                        The CSS rule <Code>-webkit-font-smoothing: antialiased;</Code> has been applied to all
+                        fonts.google.com pages where fonts are rendered. This results in browsers using the{' '}
+                        <strong>greyscale antialiasing method</strong> rather than default <Em>subpixel rendering</Em>{' '}
+                        of fonts. Press <Kbd>⌘ Q</Kbd> to quit.{' '}
                         <Quote>
-                          I believe this was probably introduced to get around
-                          inconsistencies in rendering between browsers
+                          I believe this was probably introduced to get around inconsistencies in rendering between
+                          browsers
                         </Quote>
                         , particular between Chrome and Safari on MacOS.
                       </Blockquote>
@@ -3108,27 +2584,22 @@ export default function Sink() {
 
                     <Flex direction="column" gap="5" mt="8">
                       <Flex gap="5">
-                        {(['red', 'yellow', 'green', 'gray'] as const).map(
-                          (color) => (
-                            <Flex key={color} direction="column" gap="1">
-                              <Text color={color}>{upperFirst(color)}</Text>
-                              <Text color={color} highContrast>
-                                {upperFirst(color)}
-                              </Text>
-                            </Flex>
-                          ),
-                        )}
+                        {(['red', 'yellow', 'green', 'gray'] as const).map((color) => (
+                          <Flex key={color} direction="column" gap="1">
+                            <Text color={color}>{upperFirst(color)}</Text>
+                            <Text color={color} highContrast>
+                              {upperFirst(color)}
+                            </Text>
+                          </Flex>
+                        ))}
                       </Flex>
 
                       <Text as="p" color="red" highContrast>
-                        This is some red text in high-contrast and this{' '}
-                        <Text color="blue">word</Text> should be blue.
+                        This is some red text in high-contrast and this <Text color="blue">word</Text> should be blue.
                       </Text>
 
                       <Text as="p" color="red">
-                        This is some red text and this{' '}
-                        <Text highContrast>word</Text> should be in
-                        high-contrast.
+                        This is some red text and this <Text highContrast>word</Text> should be in high-contrast.
                       </Text>
                     </Flex>
                   </DocsSection>
@@ -3174,16 +2645,13 @@ export default function Sink() {
                     <Grid columns="400px 400px" gap="5" my="7">
                       {codePropDefs.variant.values.map((variant) => (
                         <Text as="p" size="3" key={variant}>
-                          The CSS rule{' '}
-                          <Code variant={variant}>antialiased</Code> has been
-                          applied to all fonts.google.com pages where fonts are
-                          rendered. This results in browsers using the{' '}
-                          <Strong>greyscale antialiasing method</Strong> rather
-                          than default <Em>subpixel rendering</Em> of fonts.
-                          Press <Kbd>⌘ Q</Kbd> to quit.{' '}
+                          The CSS rule <Code variant={variant}>antialiased</Code> has been applied to all
+                          fonts.google.com pages where fonts are rendered. This results in browsers using the{' '}
+                          <Strong>greyscale antialiasing method</Strong> rather than default <Em>subpixel rendering</Em>{' '}
+                          of fonts. Press <Kbd>⌘ Q</Kbd> to quit.{' '}
                           <Quote>
-                            I believe this was probably introduced to get around
-                            inconsistencies in rendering between browsers
+                            I believe this was probably introduced to get around inconsistencies in rendering between
+                            browsers
                           </Quote>
                           , particular between Chrome and Safari on MacOS.
                         </Text>
@@ -3199,9 +2667,8 @@ export default function Sink() {
                               {'<'}code{'>'}
                             </Code>
                           </Link>{' '}
-                          HTML element displays its contents styled in a fashion
-                          intended to indicate that the text is a short fragment
-                          of computer code.
+                          HTML element displays its contents styled in a fashion intended to indicate that the text is a
+                          short fragment of computer code.
                         </Text>
                       ))}
                     </Grid>
@@ -3218,7 +2685,7 @@ export default function Sink() {
                         ))}
                     </Flex>
 
-                    <Text as="p" my="5">
+                    <Text as="p">
                       <Code>color</Code> can be set per instance:
                     </Text>
 
@@ -3230,7 +2697,7 @@ export default function Sink() {
                       </summary>
                       {themeAccentColorsGrouped.map(({ label, values }) => (
                         <React.Fragment key={label}>
-                          <Text as="p" weight="bold" mt="6" mb="4">
+                          <Text as="p" weight="bold">
                             {label}
                           </Text>
                           <table className={styles.table}>
@@ -3238,9 +2705,7 @@ export default function Sink() {
                               <tr>
                                 <ColumnHeaderCell />
                                 {codePropDefs.variant.values.map((variant) => (
-                                  <ColumnHeaderCell key={variant}>
-                                    {variant}
-                                  </ColumnHeaderCell>
+                                  <ColumnHeaderCell key={variant}>{variant}</ColumnHeaderCell>
                                 ))}
                               </tr>
                             </thead>
@@ -3248,15 +2713,13 @@ export default function Sink() {
                               {values.map((color) => (
                                 <tr key={color}>
                                   <RowHeaderCell>{color}</RowHeaderCell>
-                                  {codePropDefs.variant.values.map(
-                                    (variant) => (
-                                      <td key={variant}>
-                                        <Code variant={variant} color={color}>
-                                          console.log()
-                                        </Code>
-                                      </td>
-                                    ),
-                                  )}
+                                  {codePropDefs.variant.values.map((variant) => (
+                                    <td key={variant}>
+                                      <Code variant={variant} color={color}>
+                                        console.log()
+                                      </Code>
+                                    </td>
+                                  ))}
                                 </tr>
                               ))}
                             </tbody>
@@ -3278,7 +2741,7 @@ export default function Sink() {
                           </Heading>
                         ))}
 
-                      <Flex direction="column" gap="6" mt="5">
+                      <Flex direction="column" gap="6">
                         <Heading size="9" style={{ width: '50%' }}>
                           Principles of the Typographic Craft
                         </Heading>
@@ -3311,35 +2774,28 @@ export default function Sink() {
 
                     <Flex direction="column" gap="5" mt="8">
                       <Flex gap="5">
-                        {(['red', 'yellow', 'green', 'gray'] as const).map(
-                          (color) => (
-                            <Flex key={color} direction="column" gap="1">
-                              <Heading color={color}>
-                                {upperFirst(color)}
-                              </Heading>
-                              <Heading color={color} highContrast>
-                                {upperFirst(color)}
-                              </Heading>
-                            </Flex>
-                          ),
-                        )}
+                        {(['red', 'yellow', 'green', 'gray'] as const).map((color) => (
+                          <Flex key={color} direction="column" gap="1">
+                            <Heading color={color}>{upperFirst(color)}</Heading>
+                            <Heading color={color} highContrast>
+                              {upperFirst(color)}
+                            </Heading>
+                          </Flex>
+                        ))}
                       </Flex>
 
                       <Heading color="red" highContrast>
-                        This is some red text in high-contrast and this{' '}
-                        <Text color="blue">word</Text> should be blue.
+                        This is some red text in high-contrast and this <Text color="blue">word</Text> should be blue.
                       </Heading>
 
                       <Heading color="red">
-                        This is some red text and this{' '}
-                        <Text highContrast>word</Text> should be in
-                        high-contrast.
+                        This is some red text and this <Text highContrast>word</Text> should be in high-contrast.
                       </Heading>
                     </Flex>
                   </DocsSection>
 
                   <DocsSection title="Link">
-                    <Flex gap="4" mb="5">
+                    <Flex gap="4">
                       <Link color="purple" href="/">
                         This is a link
                       </Link>
@@ -3363,7 +2819,7 @@ export default function Sink() {
                         <Link href="/">This is a link</Link>
                       </Text>
                     </Flex>
-                    <Flex gap="4" mb="5">
+                    <Flex gap="4">
                       <Link color="purple" highContrast href="/">
                         This is a link
                       </Link>
@@ -3384,7 +2840,7 @@ export default function Sink() {
                       </Link>
                     </Flex>
 
-                    <Flex direction="column" align="start" gap="4" mb="5">
+                    <Flex direction="column" align="start" gap="4">
                       {linkPropDefs.size.values
                         .slice()
                         .reverse()
@@ -3409,109 +2865,77 @@ export default function Sink() {
                       </Flex>
 
                       <Text as="p" size="6">
-                        Single Sign-On (SSO) is the most frequently asked for
-                        requirement by enterprise organizations looking to adopt
-                        new SaaS applications. SSO enables authentication via an
-                        organization’s Identity Provider (IdP), such as Google
-                        Workspace or Okta, as opposed to users or{' '}
-                        <Link href="/">IT admins</Link> managing hundreds, if
-                        not thousands, of usernames and passwords. Facilitate
-                        greater security, easier account management, and
-                        accelerated application onboarding and adoption by{' '}
-                        <Link href="/">adding SSO to your app</Link>.
+                        Single Sign-On (SSO) is the most frequently asked for requirement by enterprise organizations
+                        looking to adopt new SaaS applications. SSO enables authentication via an organization’s
+                        Identity Provider (IdP), such as Google Workspace or Okta, as opposed to users or{' '}
+                        <Link href="/">IT admins</Link> managing hundreds, if not thousands, of usernames and passwords.
+                        Facilitate greater security, easier account management, and accelerated application onboarding
+                        and adoption by <Link href="/">adding SSO to your app</Link>.
                       </Text>
 
                       <Text as="p" size="6">
-                        Single Sign-On (SSO) is the most frequently asked for
-                        requirement by enterprise organizations looking to adopt
-                        new SaaS applications. SSO enables authentication via an
-                        organization’s Identity Provider (IdP), such as Google
-                        Workspace or Okta, as opposed to users or{' '}
-                        <Link href="/">IT admins</Link> managing hundreds, if
-                        not thousands, of usernames and passwords. Facilitate
-                        greater security, easier account management, and
-                        accelerated application onboarding and adoption by{' '}
-                        <Link href="/">adding SSO to your app</Link>.
+                        Single Sign-On (SSO) is the most frequently asked for requirement by enterprise organizations
+                        looking to adopt new SaaS applications. SSO enables authentication via an organization’s
+                        Identity Provider (IdP), such as Google Workspace or Okta, as opposed to users or{' '}
+                        <Link href="/">IT admins</Link> managing hundreds, if not thousands, of usernames and passwords.
+                        Facilitate greater security, easier account management, and accelerated application onboarding
+                        and adoption by <Link href="/">adding SSO to your app</Link>.
                       </Text>
 
-                      <Separator size="3" my="5" />
+                      <Separator size="3" />
 
                       <Text as="p" color="gray" size="6">
-                        Single Sign-On (SSO) is the most frequently asked for
-                        requirement by enterprise organizations looking to adopt
-                        new SaaS applications. SSO enables authentication via an
-                        organization’s Identity Provider (IdP), such as Google
-                        Workspace or Okta, as opposed to users or{' '}
-                        <Link href="/">IT admins</Link> managing hundreds, if
-                        not thousands, of usernames and passwords. Facilitate
-                        greater security, easier account management, and
-                        accelerated application onboarding and adoption by{' '}
-                        <Link href="/">adding SSO to your app</Link>.
+                        Single Sign-On (SSO) is the most frequently asked for requirement by enterprise organizations
+                        looking to adopt new SaaS applications. SSO enables authentication via an organization’s
+                        Identity Provider (IdP), such as Google Workspace or Okta, as opposed to users or{' '}
+                        <Link href="/">IT admins</Link> managing hundreds, if not thousands, of usernames and passwords.
+                        Facilitate greater security, easier account management, and accelerated application onboarding
+                        and adoption by <Link href="/">adding SSO to your app</Link>.
                       </Text>
 
                       <Text as="p" color="purple" size="6">
-                        Single Sign-On (SSO) is the most frequently asked for
-                        requirement by enterprise organizations looking to adopt
-                        new SaaS applications. SSO enables authentication via an
-                        organization’s Identity Provider (IdP), such as Google
-                        Workspace or Okta, as opposed to users or{' '}
-                        <Link href="/">IT admins</Link> managing hundreds, if
-                        not thousands, of usernames and passwords. Facilitate
-                        greater security, easier account management, and
-                        accelerated application onboarding and adoption by{' '}
-                        <Link href="/">adding SSO to your app</Link>.
+                        Single Sign-On (SSO) is the most frequently asked for requirement by enterprise organizations
+                        looking to adopt new SaaS applications. SSO enables authentication via an organization’s
+                        Identity Provider (IdP), such as Google Workspace or Okta, as opposed to users or{' '}
+                        <Link href="/">IT admins</Link> managing hundreds, if not thousands, of usernames and passwords.
+                        Facilitate greater security, easier account management, and accelerated application onboarding
+                        and adoption by <Link href="/">adding SSO to your app</Link>.
                       </Text>
 
                       <Text as="p" color="blue" size="6">
-                        Single Sign-On (SSO) is the most frequently asked for
-                        requirement by enterprise organizations looking to adopt
-                        new SaaS applications. SSO enables authentication via an
-                        organization’s Identity Provider (IdP), such as Google
-                        Workspace or Okta, as opposed to users or{' '}
-                        <Link href="/">IT admins</Link> managing hundreds, if
-                        not thousands, of usernames and passwords. Facilitate
-                        greater security, easier account management, and
-                        accelerated application onboarding and adoption by{' '}
-                        <Link href="/">adding SSO to your app</Link>.
+                        Single Sign-On (SSO) is the most frequently asked for requirement by enterprise organizations
+                        looking to adopt new SaaS applications. SSO enables authentication via an organization’s
+                        Identity Provider (IdP), such as Google Workspace or Okta, as opposed to users or{' '}
+                        <Link href="/">IT admins</Link> managing hundreds, if not thousands, of usernames and passwords.
+                        Facilitate greater security, easier account management, and accelerated application onboarding
+                        and adoption by <Link href="/">adding SSO to your app</Link>.
                       </Text>
 
                       <Text as="p" color="green" size="6">
-                        Single Sign-On (SSO) is the most frequently asked for
-                        requirement by enterprise organizations looking to adopt
-                        new SaaS applications. SSO enables authentication via an
-                        organization’s Identity Provider (IdP), such as Google
-                        Workspace or Okta, as opposed to users or{' '}
-                        <Link href="/">IT admins</Link> managing hundreds, if
-                        not thousands, of usernames and passwords. Facilitate
-                        greater security, easier account management, and
-                        accelerated application onboarding and adoption by{' '}
-                        <Link href="/">adding SSO to your app</Link>.
+                        Single Sign-On (SSO) is the most frequently asked for requirement by enterprise organizations
+                        looking to adopt new SaaS applications. SSO enables authentication via an organization’s
+                        Identity Provider (IdP), such as Google Workspace or Okta, as opposed to users or{' '}
+                        <Link href="/">IT admins</Link> managing hundreds, if not thousands, of usernames and passwords.
+                        Facilitate greater security, easier account management, and accelerated application onboarding
+                        and adoption by <Link href="/">adding SSO to your app</Link>.
                       </Text>
 
                       <Text as="p" color="yellow" size="6">
-                        Single Sign-On (SSO) is the most frequently asked for
-                        requirement by enterprise organizations looking to adopt
-                        new SaaS applications. SSO enables authentication via an
-                        organization’s Identity Provider (IdP), such as Google
-                        Workspace or Okta, as opposed to users or{' '}
-                        <Link href="/">IT admins</Link> managing hundreds, if
-                        not thousands, of usernames and passwords. Facilitate
-                        greater security, easier account management, and
-                        accelerated application onboarding and adoption by{' '}
-                        <Link href="/">adding SSO to your app</Link>.
+                        Single Sign-On (SSO) is the most frequently asked for requirement by enterprise organizations
+                        looking to adopt new SaaS applications. SSO enables authentication via an organization’s
+                        Identity Provider (IdP), such as Google Workspace or Okta, as opposed to users or{' '}
+                        <Link href="/">IT admins</Link> managing hundreds, if not thousands, of usernames and passwords.
+                        Facilitate greater security, easier account management, and accelerated application onboarding
+                        and adoption by <Link href="/">adding SSO to your app</Link>.
                       </Text>
 
                       <Text as="p" color="red" size="6">
-                        Single Sign-On (SSO) is the most frequently asked for
-                        requirement by enterprise organizations looking to adopt
-                        new SaaS applications. SSO enables authentication via an
-                        organization’s Identity Provider (IdP), such as Google
-                        Workspace or Okta, as opposed to users or{' '}
-                        <Link href="/">IT admins</Link> managing hundreds, if
-                        not thousands, of usernames and passwords. Facilitate
-                        greater security, easier account management, and
-                        accelerated application onboarding and adoption by{' '}
-                        <Link href="/">adding SSO to your app</Link>.
+                        Single Sign-On (SSO) is the most frequently asked for requirement by enterprise organizations
+                        looking to adopt new SaaS applications. SSO enables authentication via an organization’s
+                        Identity Provider (IdP), such as Google Workspace or Okta, as opposed to users or{' '}
+                        <Link href="/">IT admins</Link> managing hundreds, if not thousands, of usernames and passwords.
+                        Facilitate greater security, easier account management, and accelerated application onboarding
+                        and adoption by <Link href="/">adding SSO to your app</Link>.
                       </Text>
                     </Flex>
                   </DocsSection>
@@ -3519,36 +2943,21 @@ export default function Sink() {
                   <DocsSection title="Blockquote">
                     <Flex direction="column" align="start" gap="5">
                       <Blockquote size="6" style={{ maxWidth: '50ch' }}>
-                        The goal of typography is to relate font size, line
-                        height, and line width in a proportional way that
-                        maximizes beauty and makes reading easier and more
-                        pleasant. The question is: What proportion(s) will give
-                        us the best results?
-                      </Blockquote>
-
-                      <Blockquote
-                        size="4"
-                        style={{ maxWidth: '50ch' }}
-                        color="gray"
-                        highContrast
-                      >
-                        The goal of typography is to relate font size, line
-                        height, and line width in a proportional way that
-                        maximizes <Text color="pink">beauty</Text> and makes
-                        reading easier and more pleasant. The question is: What
+                        The goal of typography is to relate font size, line height, and line width in a proportional way
+                        that maximizes beauty and makes reading easier and more pleasant. The question is: What
                         proportion(s) will give us the best results?
                       </Blockquote>
 
-                      <Blockquote
-                        size="2"
-                        style={{ maxWidth: '50ch' }}
-                        color="blue"
-                      >
-                        The goal of typography is to relate font size, line
-                        height, and line width in a proportional way that
-                        maximizes <Text highContrast>beauty</Text> and makes
-                        reading easier and more pleasant. The question is: What
-                        proportion(s) will give us the best results?
+                      <Blockquote size="4" style={{ maxWidth: '50ch' }} color="gray" highContrast>
+                        The goal of typography is to relate font size, line height, and line width in a proportional way
+                        that maximizes <Text color="pink">beauty</Text> and makes reading easier and more pleasant. The
+                        question is: What proportion(s) will give us the best results?
+                      </Blockquote>
+
+                      <Blockquote size="2" style={{ maxWidth: '50ch' }} color="blue">
+                        The goal of typography is to relate font size, line height, and line width in a proportional way
+                        that maximizes <Text highContrast>beauty</Text> and makes reading easier and more pleasant. The
+                        question is: What proportion(s) will give us the best results?
                       </Blockquote>
                     </Flex>
                   </DocsSection>
@@ -3572,10 +2981,8 @@ export default function Sink() {
                                   <InfoCircledIcon />
                                 </Callout.Icon>
                                 <Callout.Text>
-                                  We have detected multiple issues in your
-                                  application configuration file. Please read
-                                  our <Link href="/">Configuration Guide</Link>{' '}
-                                  for more details.
+                                  We have detected multiple issues in your application configuration file. Please read
+                                  our <Link href="/">Configuration Guide</Link> for more details.
                                 </Callout.Text>
                               </Callout.Root>
                             </td>
@@ -3585,10 +2992,8 @@ export default function Sink() {
                                   <InfoCircledIcon />
                                 </Callout.Icon>
                                 <Callout.Text>
-                                  We have detected multiple issues in your
-                                  application configuration file. Please read
-                                  our <Link href="/">Configuration Guide</Link>{' '}
-                                  for more details.
+                                  We have detected multiple issues in your application configuration file. Please read
+                                  our <Link href="/">Configuration Guide</Link> for more details.
                                 </Callout.Text>
                               </Callout.Root>
                             </td>
@@ -3605,30 +3010,20 @@ export default function Sink() {
                             <td style={{ width: 450 }}>
                               <Callout.Root size={size}>
                                 <Callout.Icon>
-                                  <InfoCircledIcon
-                                    width={size === '3' ? 20 : 15}
-                                    height={size === '3' ? 20 : 15}
-                                  />
+                                  <InfoCircledIcon width={size === '3' ? 20 : 15} height={size === '3' ? 20 : 15} />
                                 </Callout.Icon>
                                 <Callout.Text>
-                                  We have detected multiple issues in your
-                                  application configuration file. Please read
-                                  our <Link href="/">Configuration Guide</Link>{' '}
-                                  for more details.
+                                  We have detected multiple issues in your application configuration file. Please read
+                                  our <Link href="/">Configuration Guide</Link> for more details.
                                 </Callout.Text>
                               </Callout.Root>
                             </td>
                             <td style={{ width: 450 }}>
                               <Callout.Root size={size}>
                                 <Callout.Icon>
-                                  <InfoCircledIcon
-                                    width={size === '3' ? 20 : 15}
-                                    height={size === '3' ? 20 : 15}
-                                  />
+                                  <InfoCircledIcon width={size === '3' ? 20 : 15} height={size === '3' ? 20 : 15} />
                                 </Callout.Icon>
-                                <Callout.Text>
-                                  There was an error in your configuration.
-                                </Callout.Text>
+                                <Callout.Text>There was an error in your configuration.</Callout.Text>
                               </Callout.Root>
                             </td>
                           </tr>
@@ -3636,7 +3031,7 @@ export default function Sink() {
                       </tbody>
                     </table>
 
-                    <Text as="p" my="5">
+                    <Text as="p">
                       <Code>color</Code> can be set per instance:
                     </Text>
 
@@ -3648,82 +3043,52 @@ export default function Sink() {
                       </summary>
                       {themeAccentColorsGrouped.map(({ label, values }) => (
                         <React.Fragment key={label}>
-                          <Text as="p" weight="bold" mt="6" mb="4">
+                          <Text as="p" weight="bold">
                             {label}
                           </Text>
                           <table className={styles.table}>
                             <thead>
                               <tr>
                                 <ColumnHeaderCell />
-                                {calloutRootPropDefs.variant.values.map(
-                                  (variant) => (
-                                    <ColumnHeaderCell key={variant}>
-                                      {variant}
-                                    </ColumnHeaderCell>
-                                  ),
-                                )}
+                                {calloutRootPropDefs.variant.values.map((variant) => (
+                                  <ColumnHeaderCell key={variant}>{variant}</ColumnHeaderCell>
+                                ))}
                               </tr>
                             </thead>
                             <tbody>
                               {values.map((color) => (
                                 <tr key={color}>
                                   <RowHeaderCell>{color}</RowHeaderCell>
-                                  {calloutRootPropDefs.variant.values.map(
-                                    (variant) => (
-                                      <td key={variant}>
-                                        <Flex
-                                          direction="column"
-                                          align="start"
-                                          gap="2"
-                                        >
-                                          <Callout.Root
-                                            variant={variant}
-                                            color={color}
-                                          >
-                                            <Callout.Icon>
-                                              <InfoCircledIcon />
-                                            </Callout.Icon>
-                                            <Flex gap="3">
-                                              <Callout.Text>
-                                                We have detected multiple issues
-                                                in your application
-                                                configuration file. Please read
-                                                our{' '}
-                                                <Link href="/">
-                                                  Configuration Guide
-                                                </Link>{' '}
-                                                for more details.
-                                              </Callout.Text>
-                                              <IconButton
-                                                size="1"
-                                                variant="soft"
-                                              >
-                                                <Cross1Icon />
-                                              </IconButton>
-                                            </Flex>
-                                          </Callout.Root>
-                                          <Callout.Root
-                                            variant={variant}
-                                            color={color}
-                                            highContrast
-                                          >
-                                            <Callout.Icon>
-                                              <InfoCircledIcon />
-                                            </Callout.Icon>
+                                  {calloutRootPropDefs.variant.values.map((variant) => (
+                                    <td key={variant}>
+                                      <Flex direction="column" align="start" gap="2">
+                                        <Callout.Root variant={variant} color={color}>
+                                          <Callout.Icon>
+                                            <InfoCircledIcon />
+                                          </Callout.Icon>
+                                          <Flex gap="3">
                                             <Callout.Text>
-                                              We have detected multiple issues
-                                              in your application configuration
-                                              file. Please read our{' '}
-                                              <Link href="/">
-                                                Configuration Guide
-                                              </Link>{' '}
-                                              for more details.
+                                              We have detected multiple issues in your application configuration file.
+                                              Please read our <Link href="/">Configuration Guide</Link> for more
+                                              details.
                                             </Callout.Text>
-                                          </Callout.Root>
-                                        </Flex>
-                                      </td>
-                                    ),
-                                  )}
+                                            <IconButton size="1" variant="soft">
+                                              <Cross1Icon />
+                                            </IconButton>
+                                          </Flex>
+                                        </Callout.Root>
+                                        <Callout.Root variant={variant} color={color} highContrast>
+                                          <Callout.Icon>
+                                            <InfoCircledIcon />
+                                          </Callout.Icon>
+                                          <Callout.Text>
+                                            We have detected multiple issues in your application configuration file.
+                                            Please read our <Link href="/">Configuration Guide</Link> for more details.
+                                          </Callout.Text>
+                                        </Callout.Root>
+                                      </Flex>
+                                    </td>
+                                  ))}
                                 </tr>
                               ))}
                             </tbody>
@@ -3739,65 +3104,42 @@ export default function Sink() {
                         </Text>
                       </summary>
 
-                      <Flex
-                        direction="column"
-                        my="5"
-                        gap="5"
-                        style={{ maxWidth: 500 }}
-                      >
+                      <Flex direction="column" gap="5" style={{ maxWidth: 500 }}>
                         {calloutRootPropDefs.size.values.map((size) => (
                           <React.Fragment key={size}>
                             <Callout.Root size={size}>
                               <Callout.Text trim="both">
-                                We have detected multiple issues in your
-                                application configuration file. Please read our{' '}
-                                <Link href="/">Configuration Guide</Link> for
-                                more details.
+                                We have detected multiple issues in your application configuration file. Please read our{' '}
+                                <Link href="/">Configuration Guide</Link> for more details.
                               </Callout.Text>
                             </Callout.Root>
 
                             <Callout.Root size={size}>
-                              <Callout.Text trim="start">
-                                There was an error in your configuration.
-                              </Callout.Text>
+                              <Callout.Text trim="start">There was an error in your configuration.</Callout.Text>
                               <Callout.Text trim="end">
-                                We have detected multiple issues in your
-                                application configuration file. Please read our{' '}
-                                <Link href="/">Configuration Guide</Link> for
-                                more details.
+                                We have detected multiple issues in your application configuration file. Please read our{' '}
+                                <Link href="/">Configuration Guide</Link> for more details.
                               </Callout.Text>
                             </Callout.Root>
 
                             <Callout.Root size={size}>
                               <Callout.Icon>
-                                <InfoCircledIcon
-                                  width={size === '3' ? 20 : 15}
-                                  height={size === '3' ? 20 : 15}
-                                />
+                                <InfoCircledIcon width={size === '3' ? 20 : 15} height={size === '3' ? 20 : 15} />
                               </Callout.Icon>
                               <Callout.Text>
-                                We have detected multiple issues in your
-                                application configuration file. Please read our{' '}
-                                <Link href="/">Configuration Guide</Link> for
-                                more details.
+                                We have detected multiple issues in your application configuration file. Please read our{' '}
+                                <Link href="/">Configuration Guide</Link> for more details.
                               </Callout.Text>
                             </Callout.Root>
 
                             <Callout.Root size={size}>
                               <Callout.Icon>
-                                <InfoCircledIcon
-                                  width={size === '3' ? 20 : 15}
-                                  height={size === '3' ? 20 : 15}
-                                />
+                                <InfoCircledIcon width={size === '3' ? 20 : 15} height={size === '3' ? 20 : 15} />
                               </Callout.Icon>
+                              <Callout.Text>There was an error in your configuration.</Callout.Text>
                               <Callout.Text>
-                                There was an error in your configuration.
-                              </Callout.Text>
-                              <Callout.Text>
-                                We have detected multiple issues in your
-                                application configuration file. Please read our{' '}
-                                <Link href="/">Configuration Guide</Link> for
-                                more details.
+                                We have detected multiple issues in your application configuration file. Please read our{' '}
+                                <Link href="/">Configuration Guide</Link> for more details.
                               </Callout.Text>
                             </Callout.Root>
 
@@ -3842,20 +3184,11 @@ export default function Sink() {
                           <tr key={size}>
                             <RowHeaderCell>size {size}</RowHeaderCell>
                             <td>
-                              <Tabs.Root
-                                defaultValue="account"
-                                activationMode="manual"
-                              >
+                              <Tabs.Root defaultValue="account" activationMode="manual">
                                 <Tabs.List size={size}>
-                                  <Tabs.Trigger value="account">
-                                    Account
-                                  </Tabs.Trigger>
-                                  <Tabs.Trigger value="documents">
-                                    Documents
-                                  </Tabs.Trigger>
-                                  <Tabs.Trigger value="settings">
-                                    Settings
-                                  </Tabs.Trigger>
+                                  <Tabs.Trigger value="account">Account</Tabs.Trigger>
+                                  <Tabs.Trigger value="documents">Documents</Tabs.Trigger>
+                                  <Tabs.Trigger value="settings">Settings</Tabs.Trigger>
                                 </Tabs.List>
                                 <Tabs.Content value="account">
                                   <Box py="5">Account</Box>
@@ -3877,34 +3210,28 @@ export default function Sink() {
                   <DocsSection title="AspectRatio">
                     <Grid gap="5" columns="4">
                       <div>
-                        <Text as="p" size="1" color="gray" mb="2">
+                        <Text as="p" size="1" color="gray">
                           1x2
                         </Text>
-                        <AspectRatio ratio={1 / 2}>
-                          {aspectRatioImage}
-                        </AspectRatio>
+                        <AspectRatio ratio={1 / 2}>{aspectRatioImage}</AspectRatio>
                       </div>
                       <div>
-                        <Text as="p" size="1" color="gray" mb="2">
+                        <Text as="p" size="1" color="gray">
                           1x1
                         </Text>
                         <AspectRatio>{aspectRatioImage}</AspectRatio>
                       </div>
                       <div>
-                        <Text as="p" size="1" color="gray" mb="2">
+                        <Text as="p" size="1" color="gray">
                           16x9
                         </Text>
-                        <AspectRatio ratio={16 / 9}>
-                          {aspectRatioImage}
-                        </AspectRatio>
+                        <AspectRatio ratio={16 / 9}>{aspectRatioImage}</AspectRatio>
                       </div>
                       <div>
-                        <Text as="p" size="1" color="gray" mb="2">
+                        <Text as="p" size="1" color="gray">
                           2x1
                         </Text>
-                        <AspectRatio ratio={2 / 1}>
-                          {aspectRatioImage}
-                        </AspectRatio>
+                        <AspectRatio ratio={2 / 1}>{aspectRatioImage}</AspectRatio>
                       </div>
                     </Grid>
                   </DocsSection>
@@ -3913,7 +3240,6 @@ export default function Sink() {
                     <Box style={{ width: 300, height: 350 }} mb="6">
                       <ScrollArea>
                         <Box
-                          mb="3"
                           style={{
                             height: 200,
                             width: 600,
@@ -3921,31 +3247,23 @@ export default function Sink() {
                           }}
                         />
                         <Text as="p">
-                          The goal of typography is to relate font size, line
-                          height, and line width in a proportional way that
-                          maximizes beauty and makes reading easier and more
-                          pleasant. The question is: What proportion(s) will
-                          give us the best results? The golden ratio is often
-                          observed in nature where beauty and utility intersect;
-                          perhaps we can use this “divine” proportion to enhance
+                          The goal of typography is to relate font size, line height, and line width in a proportional
+                          way that maximizes beauty and makes reading easier and more pleasant. The question is: What
+                          proportion(s) will give us the best results? The golden ratio is often observed in nature
+                          where beauty and utility intersect; perhaps we can use this “divine” proportion to enhance
                           these attributes in our typography.
                         </Text>
                         <Box style={{ width: 300 }} my="3">
-                          <AspectRatio ratio={16 / 9}>
-                            {aspectRatioImage}
-                          </AspectRatio>
+                          <AspectRatio ratio={16 / 9}>{aspectRatioImage}</AspectRatio>
                         </Box>
                         <Text as="p" size="3">
-                          The CSS rule{' '}
-                          <Code>-webkit-font-smoothing: antialiased;</Code> has
-                          been applied to all fonts.google.com pages where fonts
-                          are rendered. This results in browsers using the{' '}
-                          <Strong>greyscale antialiasing method</Strong> rather
-                          than default <Em>subpixel rendering</Em> of fonts.
-                          Press <Kbd>⌘ Q</Kbd> to quit.{' '}
+                          The CSS rule <Code>-webkit-font-smoothing: antialiased;</Code> has been applied to all
+                          fonts.google.com pages where fonts are rendered. This results in browsers using the{' '}
+                          <Strong>greyscale antialiasing method</Strong> rather than default <Em>subpixel rendering</Em>{' '}
+                          of fonts. Press <Kbd>⌘ Q</Kbd> to quit.{' '}
                           <Quote>
-                            I believe this was probably introduced to get around
-                            inconsistencies in rendering between browsers
+                            I believe this was probably introduced to get around inconsistencies in rendering between
+                            browsers
                           </Quote>
                           , particular between Chrome and Safari on MacOS.
                         </Text>
@@ -3972,11 +3290,7 @@ export default function Sink() {
                             <RowHeaderCell>size {size}</RowHeaderCell>
                             <td>
                               <Box style={{ width: 200, height: 20 }}>
-                                <ScrollArea
-                                  type="always"
-                                  size={size}
-                                  scrollbars="horizontal"
-                                >
+                                <ScrollArea type="always" size={size} scrollbars="horizontal">
                                   <Box style={{ width: 600, height: '100%' }} />
                                 </ScrollArea>
                               </Box>
@@ -3988,21 +3302,17 @@ export default function Sink() {
                   </DocsSection>
 
                   <DocsSection title="Playground">
-                    <Text as="p" mb="5">
-                      In this section, I am just throwing together some of the
-                      components to get a sense of how harmonious they are.
+                    <Text as="p">
+                      In this section, I am just throwing together some of the components to get a sense of how
+                      harmonious they are.
                     </Text>
                     <Flex gap="9">
                       {textFieldPropDefs.size.values.map((size) => (
-                        <PlaygroundForm
-                          key={size}
-                          size={size}
-                          style={{ width: (Number(size) + 1) * 100 }}
-                        />
+                        <PlaygroundForm key={size} size={size} style={{ width: (Number(size) + 1) * 100 }} />
                       ))}
                     </Flex>
 
-                    <Card size="4" style={{ width: 400 }} mt="3">
+                    <Card size="4" style={{ width: 400 }}>
                       <PlaygroundForm size="2" />
                     </Card>
                   </DocsSection>
@@ -4045,11 +3355,7 @@ export default function Sink() {
                         <SampleNestedUI title="Dark, Mint">
                           <Theme asChild accentColor="amber" appearance="light">
                             <SampleNestedUI title="Light, Amber">
-                              <Theme
-                                asChild
-                                accentColor="tomato"
-                                appearance="dark"
-                              >
+                              <Theme asChild accentColor="tomato" appearance="dark">
                                 <SampleNestedUI title="Dark, Tomato" />
                               </Theme>
                             </SampleNestedUI>
@@ -4060,7 +3366,7 @@ export default function Sink() {
                   </DocsSection>
 
                   <DocsSection title="Shadow tokens">
-                    <Flex direction="column" gap="3" mt="6" mb="5">
+                    <Flex direction="column" gap="3">
                       <Flex
                         style={{
                           flex: 1,
@@ -4072,12 +3378,7 @@ export default function Sink() {
                         gap="5"
                       >
                         {[...new Array(6)].map((_, i) => (
-                          <Flex
-                            grow="1"
-                            align="center"
-                            justify="center"
-                            key={i}
-                          >
+                          <Flex grow="1" align="center" justify="center" key={i}>
                             <Box
                               grow="1"
                               style={{
@@ -4094,13 +3395,7 @@ export default function Sink() {
 
                       <Flex align="center" gap="1" px="9">
                         {[...new Array(6)].map((_, i) => (
-                          <Flex
-                            align="center"
-                            justify="center"
-                            height="100%"
-                            width="100%"
-                            key={i}
-                          >
+                          <Flex align="center" justify="center" height="100%" width="100%" key={i}>
                             <Text size="1" color="gray">
                               {i + 1}
                             </Text>
@@ -4129,10 +3424,7 @@ export default function Sink() {
                       <Box style={{ height: 256 }}>
                         <Grid columns="5" gap="3" height="100%">
                           {Array.from(Array(5).keys()).map((i) => (
-                            <Box
-                              key={i}
-                              style={{ background: 'var(--accent-9)' }}
-                            />
+                            <Box key={i} style={{ background: 'var(--accent-9)' }} />
                           ))}
                         </Grid>
                       </Box>
@@ -4140,10 +3432,7 @@ export default function Sink() {
                       <Box style={{ height: 256 }}>
                         <Grid columns={{ initial: '5' }} gap="3" height="100%">
                           {Array.from(Array(20).keys()).map((i) => (
-                            <Box
-                              key={i}
-                              style={{ background: 'var(--accent-9)' }}
-                            />
+                            <Box key={i} style={{ background: 'var(--accent-9)' }} />
                           ))}
                         </Grid>
                       </Box>
@@ -4151,7 +3440,7 @@ export default function Sink() {
                   </DocsSection>
 
                   <DocsSection title="Separator">
-                    <Flex direction="column" gap="5" my="5">
+                    <Flex direction="column" gap="5">
                       {themeAccentColorsOrdered.map((color) => (
                         <Separator key={color} size="4" color={color} />
                       ))}
@@ -4159,7 +3448,7 @@ export default function Sink() {
                   </DocsSection>
 
                   <DocsSection title="Cursors">
-                    <Flex align="center" gap="5" wrap="wrap" my="5">
+                    <Flex align="center" gap="5" wrap="wrap">
                       <Card asChild>
                         <button>
                           <Text as="p" size="2" weight="bold" trim="start">
@@ -4214,9 +3503,7 @@ export default function Sink() {
   );
 }
 
-function DropdownMenuContentDemo(
-  props: React.ComponentProps<typeof DropdownMenu.Content>,
-) {
+function DropdownMenuContentDemo(props: React.ComponentProps<typeof DropdownMenu.Content>) {
   return (
     <DropdownMenu.Content {...props}>
       <DropdownMenu.Item shortcut="⌘+T">New Tab</DropdownMenu.Item>
@@ -4248,9 +3535,7 @@ function DropdownMenuContentDemo(
   );
 }
 
-function ContextMenuContentDemo(
-  props: React.ComponentProps<typeof ContextMenu.Content>,
-) {
+function ContextMenuContentDemo(props: React.ComponentProps<typeof ContextMenu.Content>) {
   return (
     <ContextMenu.Content {...props}>
       <ContextMenu.Item shortcut="⌘+T">New Tab</ContextMenu.Item>
@@ -4329,20 +3614,12 @@ function SelectItemsDemo() {
   );
 }
 
-function DocsSection({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
+function DocsSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <>
       <Container mx="6">
-        <div
-          style={{ paddingTop: 'var(--space-7)', padding: 'var(--space-7)' }}
-        >
-          <Heading size="6" weight="regular" mb="4" as="h2">
+        <div style={{ paddingTop: 'var(--space-7)', padding: 'var(--space-7)' }}>
+          <Heading size="6" weight="regular" as="h2">
             <Link href={`#${title}`} id={title}>
               {title}
             </Link>
@@ -4355,16 +3632,10 @@ function DocsSection({
   );
 }
 
-function DocsGridSectionItem({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
+function DocsGridSectionItem({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <Heading size="6" weight="regular" mb="4" as="h2">
+      <Heading size="6" weight="regular" as="h2">
         <Link href={`#${title}`} id={title}>
           {title}
         </Link>
@@ -4427,51 +3698,50 @@ function CustomUserIcon() {
   );
 }
 
-const SampleNestedUI = React.forwardRef<
-  React.ElementRef<typeof Flex>,
-  React.ComponentPropsWithoutRef<typeof Flex>
->(({ children, title, ...props }, forwardedRef) => {
-  return (
-    <Flex
-      p="5"
-      gap="9"
-      {...props}
-      ref={forwardedRef}
-      style={{
-        boxShadow: '0 0 0 1px var(--gray-a6)',
-        borderRadius: 'var(--radius-2)',
-      }}
-    >
-      <div>
-        <Heading size="2" trim="start" mb="3">
-          {title}
-        </Heading>
-        <Flex direction="column" gap="3">
-          <Grid gap="1">
-            <Text as="p" weight="bold">
-              Feedback
-            </Text>
-            <TextArea variant="classic" placeholder="Your feedback" />
-          </Grid>
-          <Flex asChild justify="between">
-            <label>
-              <Text color="gray" size="2">
-                Attach screenshot?
+const SampleNestedUI = React.forwardRef<React.ElementRef<typeof Flex>, React.ComponentPropsWithoutRef<typeof Flex>>(
+  ({ children, title, ...props }, forwardedRef) => {
+    return (
+      <Flex
+        p="5"
+        gap="9"
+        {...props}
+        ref={forwardedRef}
+        style={{
+          boxShadow: '0 0 0 1px var(--gray-a6)',
+          borderRadius: 'var(--radius-2)',
+        }}
+      >
+        <div>
+          <Heading size="2" trim="start">
+            {title}
+          </Heading>
+          <Flex direction="column" gap="3">
+            <Grid gap="1">
+              <Text as="p" weight="bold">
+                Feedback
               </Text>
-              <Switch size="1" defaultChecked highContrast />
-            </label>
+              <TextArea variant="classic" placeholder="Your feedback" />
+            </Grid>
+            <Flex asChild justify="between">
+              <label>
+                <Text color="gray" size="2">
+                  Attach screenshot?
+                </Text>
+                <Switch size="1" defaultChecked highContrast />
+              </label>
+            </Flex>
+            <Grid columns="2" gap="2">
+              <Button variant="surface">Back</Button>
+              <Button variant="classic">Submit</Button>
+            </Grid>
           </Flex>
-          <Grid columns="2" gap="2">
-            <Button variant="surface">Back</Button>
-            <Button variant="classic">Submit</Button>
-          </Grid>
-        </Flex>
-      </div>
+        </div>
 
-      {children}
-    </Flex>
-  );
-});
+        {children}
+      </Flex>
+    );
+  },
+);
 SampleNestedUI.displayName = 'SampleNestedUI';
 
 function PlaygroundForm({
@@ -4486,11 +3756,7 @@ function PlaygroundForm({
         <Text size={size} weight="bold">
           Email
         </Text>
-        <TextField.Input
-          size={size}
-          variant="classic"
-          placeholder="Your email"
-        />
+        <TextField.Input size={size} variant="classic" placeholder="Your email" />
       </Grid>
       <Grid gap="1">
         <Text size={size} weight="bold">
@@ -4522,9 +3788,7 @@ function PlaygroundForm({
   );
 }
 
-function TableExample(
-  props: React.ComponentProps<typeof Table.Root> & { noEmail?: boolean },
-) {
+function TableExample(props: React.ComponentProps<typeof Table.Root> & { noEmail?: boolean }) {
   const { noEmail, ...rootProps } = props;
   return (
     <Table.Root {...rootProps}>

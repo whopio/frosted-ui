@@ -23,19 +23,17 @@
  *                                                                                                 *
  ***************************************************************************************************/
 
-@breakpoints {
-  .fui-ContainerInner {
-    :where(.fui-Container.fui-r-size-1) & {
-      max-width: var(--container-1);
-    }
-    :where(.fui-Container.fui-r-size-2) & {
-      max-width: var(--container-2);
-    }
-    :where(.fui-Container.fui-r-size-3) & {
-      max-width: var(--container-3);
-    }
-    :where(.fui-Container.fui-r-size-4) & {
-      max-width: var(--container-4);
-    }
+.fui-ContainerInner {
+  :where(.fui-Container.fui-r-size-1) & {
+    max-width: var(--container-1);
+  }
+  :where(.fui-Container.fui-r-size-2) & {
+    max-width: var(--container-2);
+  }
+  :where(.fui-Container.fui-r-size-3) & {
+    max-width: var(--container-3);
+  }
+  :where(.fui-Container.fui-r-size-4) & {
+    max-width: var(--container-4);
   }
 }

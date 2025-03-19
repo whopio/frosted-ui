@@ -77,13 +77,7 @@ const DashboardCard = () => {
 const WhopSVG = () => {
   return (
     <div className={styles.whopSVG}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="306"
-        height="117"
-        viewBox="0 0 306 117"
-        fill="none"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="306" height="117" viewBox="0 0 306 117" fill="none">
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -119,13 +113,7 @@ const WhopSVG = () => {
           </linearGradient>
         </defs>
       </svg>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="306"
-        height="117"
-        viewBox="0 0 306 117"
-        fill="none"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="306" height="117" viewBox="0 0 306 117" fill="none">
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -180,11 +168,7 @@ export default function Demo() {
           <div id="root">
             <ThemePanel />
             <aside className={styles.aside}>
-              <Flex
-                direction="column"
-                justify="between"
-                style={{ height: '100%' }}
-              >
+              <Flex direction="column" justify="between" style={{ height: '100%' }}>
                 <div>
                   <Flex px="2" py="4">
                     <Popover.Root>
@@ -209,11 +193,7 @@ export default function Demo() {
                             fallback="A"
                           />
                           <Box grow="1">
-                            <TextArea
-                              size="2"
-                              placeholder="Write a comment…"
-                              style={{ height: 80 }}
-                            />
+                            <TextArea size="2" placeholder="Write a comment…" style={{ height: 80 }} />
 
                             <Flex gap="3" mt="3" justify="between">
                               <Flex align="center" gap="2" asChild>
@@ -289,11 +269,7 @@ export default function Demo() {
                   <DropdownMenu.Root>
                     <DropdownMenu.Trigger>
                       <IconButton variant="surface" size="3">
-                        <GearIcon
-                          width="20"
-                          height="20"
-                          color="var(--gray-10)"
-                        />
+                        <GearIcon width="20" height="20" color="var(--gray-10)" />
                       </IconButton>
                     </DropdownMenu.Trigger>
                     <DropdownMenu.Content align="end" size="2">
@@ -305,9 +281,7 @@ export default function Demo() {
                       <DropdownMenu.Item>Air Cover</DropdownMenu.Item>
                       <DropdownMenu.Item>Cancellations</DropdownMenu.Item>
                       <DropdownMenu.Sub>
-                        <DropdownMenu.SubTrigger>
-                          Hosting
-                        </DropdownMenu.SubTrigger>
+                        <DropdownMenu.SubTrigger>Hosting</DropdownMenu.SubTrigger>
 
                         <DropdownMenu.SubContent>
                           <DropdownMenu.Item>Resources</DropdownMenu.Item>
@@ -336,13 +310,7 @@ export default function Demo() {
                 </TabsNav.Link>
               </TabsNav.Root>
               <Box pl="7" pr="6">
-                <Flex
-                  pt="4"
-                  pb="4"
-                  direction="row"
-                  align="center"
-                  justify="between"
-                >
+                <Flex pt="4" pb="4" direction="row" align="center" justify="between">
                   <Box>
                     <Breadcrumbs.Root>
                       <Breadcrumbs.Item>PRODUCTS</Breadcrumbs.Item>
@@ -395,7 +363,7 @@ export default function Demo() {
                     </Card>
                   </Box>
                 </Flex>
-                <Separator size="4" mb="6" />
+                <Separator size="4" />
                 <Flex direction="column" gap="9">
                   <Flex direction="column" gap="5">
                     <Flex direction="column" gap="2">
@@ -425,12 +393,7 @@ export default function Demo() {
                   </Flex>
                 </Flex>
                 <Flex mt="6">
-                  <Button
-                    variant="soft"
-                    color="gray"
-                    style={{ width: '100%' }}
-                    size="4"
-                  >
+                  <Button variant="soft" color="gray" style={{ width: '100%' }} size="4">
                     Load more
                   </Button>
                 </Flex>

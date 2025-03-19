@@ -34,7 +34,7 @@ export default function Test() {
               <div style={{ padding: 'var(--space-5) 0' }}>
                 <Grid columns="3" gap="6">
                   <Flex direction="column" align="start" gap="3">
-                    <Heading size="3" mb="2">
+                    <Heading size="3" style={{ marginBottom: 8 }}>
                       Just the input
                     </Heading>
 
@@ -47,7 +47,7 @@ export default function Test() {
                   <div />
 
                   <Flex direction="column" align="start" gap="3">
-                    <Heading size="3" mb="2">
+                    <Heading size="3" style={{ marginBottom: 8 }}>
                       Icons (left)
                     </Heading>
 
@@ -74,7 +74,7 @@ export default function Test() {
                   </Flex>
 
                   <Flex direction="column" align="start" gap="3">
-                    <Heading size="3" mb="2">
+                    <Heading size="3" style={{ marginBottom: 8 }}>
                       Icons (right)
                     </Heading>
 
@@ -101,7 +101,7 @@ export default function Test() {
                   </Flex>
 
                   <Flex direction="column" align="start" gap="3">
-                    <Heading size="3" mb="2">
+                    <Heading size="3" style={{ marginBottom: 8 }}>
                       Icons (both sides)
                     </Heading>
 
@@ -137,7 +137,7 @@ export default function Test() {
                   </Flex>
 
                   <Flex direction="column" align="start" gap="3">
-                    <Heading size="3" mb="2">
+                    <Heading size="3" style={{ marginBottom: 8 }}>
                       Ghost buttons
                     </Heading>
 
@@ -199,7 +199,7 @@ export default function Test() {
                   </Flex>
 
                   <Flex direction="column" align="start" gap="3">
-                    <Heading size="3" mb="2">
+                    <Heading size="3" style={{ marginBottom: 8 }}>
                       Mixed content
                     </Heading>
 
@@ -253,7 +253,7 @@ export default function Test() {
                         <InfoCircledIcon />
                       </TextField.Slot>
                       <TextField.Input placeholder="Your name" />
-                      <TextField.Slot gap="4">
+                      <TextField.Slot style={{ gap: 16 }}>
                         <IconButton size="3" variant="ghost" color="gray">
                           <Share2Icon />
                         </IconButton>
@@ -265,7 +265,7 @@ export default function Test() {
                   </Flex>
 
                   <Flex direction="column" align="start" gap="3">
-                    <Heading size="3" mb="2">
+                    <Heading size="3" style={{ marginBottom: 8 }}>
                       Fringe (overrides)
                     </Heading>
 
@@ -274,7 +274,7 @@ export default function Test() {
                         <InfoCircledIcon />
                       </TextField.Slot>
                       <TextField.Input placeholder="Your name" />
-                      <TextField.Slot pr="0" gap="1">
+                      <TextField.Slot style={{ paddingRight: 0, gap: 8 }}>
                         <IconButton size="1" variant="soft" color="gray">
                           <Share2Icon />
                         </IconButton>
@@ -289,7 +289,13 @@ export default function Test() {
                         <InfoCircledIcon />
                       </TextField.Slot>
                       <TextField.Input placeholder="Your name" />
-                      <TextField.Slot px="1" gap="1">
+                      <TextField.Slot
+                        style={{
+                          paddingLeft: 4,
+                          paddingRight: 4,
+                          gap: 4,
+                        }}
+                      >
                         <IconButton size="1" variant="soft" color="gray">
                           <Share2Icon />
                         </IconButton>
@@ -304,7 +310,13 @@ export default function Test() {
                         <InfoCircledIcon />
                       </TextField.Slot>
                       <TextField.Input placeholder="Your name" />
-                      <TextField.Slot px="1" gap="1">
+                      <TextField.Slot
+                        style={{
+                          paddingLeft: 4,
+                          paddingRight: 4,
+                          gap: 4,
+                        }}
+                      >
                         <IconButton size="2" variant="soft">
                           <Share2Icon />
                         </IconButton>
@@ -318,11 +330,14 @@ export default function Test() {
                       <TextField.Slot>
                         <EnvelopeOpenIcon />
                       </TextField.Slot>
-                      <TextField.Input
-                        placeholder="your.email"
-                        defaultValue="benoit"
-                      />
-                      <TextField.Slot px="1" gap="2">
+                      <TextField.Input placeholder="your.email" defaultValue="benoit" />
+                      <TextField.Slot
+                        style={{
+                          paddingLeft: 4,
+                          paddingRight: 4,
+                          gap: 4,
+                        }}
+                      >
                         <Text size="3">@workos.com</Text>
                         <Tooltip content="Send email">
                           <IconButton>
@@ -336,11 +351,14 @@ export default function Test() {
                       <TextField.Slot>
                         <EnvelopeOpenIcon />
                       </TextField.Slot>
-                      <TextField.Input
-                        placeholder="your.email"
-                        defaultValue="benoit"
-                      />
-                      <TextField.Slot px="1" gap="2">
+                      <TextField.Input placeholder="your.email" defaultValue="benoit" />
+                      <TextField.Slot
+                        style={{
+                          paddingLeft: 4,
+                          paddingRight: 4,
+                          gap: 4,
+                        }}
+                      >
                         <Text size="3">@workos.com</Text>
                         <Button>Send</Button>
                       </TextField.Slot>

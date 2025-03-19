@@ -3,22 +3,16 @@
 import * as TabsPrimitive from '@radix-ui/react-tabs';
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+
 import { tabsListPropDefs } from './tabs.props';
 
-import type { GetPropDefTypes, MarginProps } from '../helpers';
+import type { GetPropDefTypes } from '../helpers';
 
-interface TabsRootProps extends React.ComponentProps<typeof TabsPrimitive.Root>, MarginProps {}
+interface TabsRootProps extends React.ComponentProps<typeof TabsPrimitive.Root> {}
 
 const TabsRoot = (props: TabsRootProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-  const { className, ...rootProps } = marginRest;
-  return (
-    <TabsPrimitive.Root
-      {...rootProps}
-      className={classNames('fui-TabsRoot', className, withMarginProps(marginProps))}
-    />
-  );
+  const { className, ...rootProps } = props;
+  return <TabsPrimitive.Root {...rootProps} className={classNames('fui-TabsRoot', className)} />;
 };
 TabsRoot.displayName = 'TabsRoot';
 
@@ -30,7 +24,7 @@ const TabsList = (props: TabsListProps) => {
   return (
     <TabsPrimitive.List
       {...listProps}
-      className={classNames('fui-BaseTabsList', 'fui-TabsList', className, withBreakpoints(size, 'fui-r-size'))}
+      className={classNames('fui-BaseTabsList', 'fui-TabsList', className, `fui-r-size-${size}`)}
     />
   );
 };

@@ -2,22 +2,21 @@
 
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+
 import { calloutRootPropDefs } from './callout.props';
 import { Text } from './text';
 import { textPropDefs } from './text.props';
 
-import type { ExtractPropsForTag, GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
+import type { ExtractPropsForTag, GetPropDefTypes, PropsWithoutColor } from '../helpers';
 
 type CalloutRootOwnProps = GetPropDefTypes<typeof calloutRootPropDefs>;
 
 type CalloutContextValue = CalloutRootOwnProps;
 const CalloutContext = React.createContext<CalloutContextValue>({});
 
-interface CalloutRootProps extends PropsWithoutColor<'div'>, MarginProps, CalloutContextValue {}
+interface CalloutRootProps extends PropsWithoutColor<'div'>, CalloutContextValue {}
 
 const CalloutRoot = (props: CalloutRootProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     children,
     className,
@@ -26,19 +25,14 @@ const CalloutRoot = (props: CalloutRootProps) => {
     color = calloutRootPropDefs.color.default,
     highContrast = calloutRootPropDefs.highContrast.default,
     ...rootProps
-  } = marginRest;
+  } = props;
   return (
     <div
       data-accent-color={color}
       {...rootProps}
-      className={classNames(
-        'fui-CalloutRoot',
-        className,
-        withBreakpoints(size, 'fui-r-size'),
-        `fui-variant-${variant}`,
-        { 'fui-high-contrast': highContrast },
-        withMarginProps(marginProps),
-      )}
+      className={classNames('fui-CalloutRoot', className, `fui-r-size-${size}`, `fui-variant-${variant}`, {
+        'fui-high-contrast': highContrast,
+      })}
     >
       <CalloutContext.Provider
         value={React.useMemo(() => ({ size, color, highContrast }), [size, color, highContrast])}
@@ -81,10 +75,8 @@ CalloutText.displayName = 'CalloutText';
 
 function getTextSize(size: CalloutRootOwnProps['size']): React.ComponentProps<typeof Text>['size'] {
   if (size === undefined) return undefined;
-  if (typeof size === 'string') {
-    return getNonResponsiveTextSize(size);
-  }
-  return Object.fromEntries(Object.entries(size).map(([key, value]) => [key, getNonResponsiveTextSize(value)]));
+
+  return getNonResponsiveTextSize(size);
 }
 function getNonResponsiveTextSize(
   size: (typeof calloutRootPropDefs.size.values)[number],

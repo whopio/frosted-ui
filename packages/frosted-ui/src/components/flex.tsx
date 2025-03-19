@@ -17,7 +17,6 @@ const Flex = (props: FlexProps) => {
   const {
     className,
     asChild,
-    display = flexPropDefs.display.default,
     direction = flexPropDefs.direction.default,
     align = flexPropDefs.align.default,
     justify = flexPropDefs.justify.default,
@@ -32,7 +31,6 @@ const Flex = (props: FlexProps) => {
       className={classNames(
         'fui-Flex',
         className,
-        withBreakpoints(display, 'fui-r-display'),
         withBreakpoints(direction, 'fui-r-fd'),
         withBreakpoints(align, 'fui-r-ai'),
         withBreakpoints(justify, 'fui-r-jc', { between: 'space-between' }),

@@ -1,23 +1,22 @@
 import { Slot } from '@radix-ui/react-slot';
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+
 import { baseButtonPropDefs } from './base-button.props';
 
-import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
-import { mapButtonSizeToSpinnerSize, mapResponsiveProp } from '../helpers/map-prop-values';
+import type { GetPropDefTypes, PropsWithoutColor } from '../helpers';
+import { mapButtonSizeToSpinnerSize } from '../helpers/map-prop-values';
 import { Flex } from './flex';
 import { Spinner } from './spinner';
 import { VisuallyHidden } from './visually-hidden';
 
 type BaseButtonOwnProps = GetPropDefTypes<typeof baseButtonPropDefs>;
-interface BaseButtonProps extends PropsWithoutColor<'button'>, MarginProps, BaseButtonOwnProps {
+interface BaseButtonProps extends PropsWithoutColor<'button'>, BaseButtonOwnProps {
   asChild?: boolean;
   loading?: boolean;
 }
 
 const BaseButton = (props: BaseButtonProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     children,
     loading,
@@ -29,22 +28,16 @@ const BaseButton = (props: BaseButtonProps) => {
     color = baseButtonPropDefs.color.default,
     highContrast = baseButtonPropDefs.highContrast.default,
     ...baseButtonProps
-  } = marginRest;
+  } = props;
   const Comp = asChild ? Slot : 'button';
 
   return (
     <Comp
       data-accent-color={color || (variant === 'surface' ? 'gray' : color)}
       {...baseButtonProps}
-      className={classNames(
-        'fui-reset',
-        'fui-BaseButton',
-        className,
-        withBreakpoints(size, 'fui-r-size'),
-        `fui-variant-${variant}`,
-        { 'fui-high-contrast': highContrast },
-        withMarginProps(marginProps),
-      )}
+      className={classNames('fui-reset', 'fui-BaseButton', className, `fui-r-size-${size}`, `fui-variant-${variant}`, {
+        'fui-high-contrast': highContrast,
+      })}
       aria-busy={loading || undefined}
       // The `data-disabled` attribute enables correct styles when doing `<Button asChild disabled>`
       data-disabled={disabled || undefined}
@@ -66,7 +59,7 @@ const BaseButton = (props: BaseButtonProps) => {
 
           <Flex asChild align="center" justify="center" position="absolute" inset="0">
             <span>
-              <Spinner size={mapResponsiveProp(size, mapButtonSizeToSpinnerSize)} />
+              <Spinner size={mapButtonSizeToSpinnerSize(size)} />
             </span>
           </Flex>
         </>
