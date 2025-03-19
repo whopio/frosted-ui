@@ -1,3 +1,23 @@
+.fui-r-ai-start {
+  align-items: flex-start;
+}
+
+.fui-r-ai-center {
+  align-items: center;
+}
+
+.fui-r-ai-end {
+  align-items: flex-end;
+}
+
+.fui-r-ai-baseline {
+  align-items: baseline;
+}
+
+.fui-r-ai-stretch {
+  align-items: stretch;
+}
+
 .fui-DataListRoot {
   font-family: var(--default-font-family);
   font-weight: var(--font-weight-normal);

@@ -158,7 +158,7 @@ export const Orientation: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-8)' }}>
       <div>
         <Heading size="3">Horizontal</Heading>
-        <Separator orientation="horizontal" size="4" />
+        <Separator orientation="horizontal" size="4" style={{ marginBottom: 16, marginTop: 16 }} />
         <DataList.Root orientation={'horizontal'} {...args}>
           <DataList.Item>
             <DataList.Label>Name</DataList.Label>
@@ -182,7 +182,7 @@ export const Orientation: Story = {
       </div>
       <div>
         <Heading size="3">Vertical</Heading>
-        <Separator orientation="horizontal" size="4" />
+        <Separator orientation="horizontal" size="4" style={{ marginBottom: 16, marginTop: 16 }} />
         <DataList.Root orientation={'vertical'} {...args}>
           <DataList.Item>
             <DataList.Label>Name</DataList.Label>

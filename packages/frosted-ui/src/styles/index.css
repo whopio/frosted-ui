@@ -72,7 +72,6 @@
 @import '../components/tooltip.css';
 @import '../components/widget-stack.css';
 
-@import './utilities/align-items.css';
 @import './utilities/font-weight.css';
 @import './utilities/inset.css';
 @import './utilities/leading-trim.css';
