@@ -5,7 +5,6 @@ import {
   Avatar,
   Button,
   Checkbox,
-  Flex,
   Heading,
   IconButton,
   Inset,
@@ -44,7 +43,7 @@ export const Default: Story = {
         <Button variant="soft">Comment</Button>
       </Popover.Trigger>
       <Popover.Content {...args} style={{ width: 360 }}>
-        <Flex gap="3">
+        <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
           <Avatar
             size="2"
             src="https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?&w=64&h=64&dpr=2&q=70&crop=focalpoint&fp-x=0.67&fp-y=0.5&fp-z=1.4&fit=crop"
@@ -52,20 +51,18 @@ export const Default: Story = {
           />
           <div style={{ flexGrow: 1 }}>
             <TextArea placeholder="Write a comment…" style={{ height: 80 }} />
-            <Flex gap="3" style={{ marginTop: 12 }} justify="between">
-              <Flex align="center" gap="2" asChild>
-                <Text as="label" size="2">
-                  <Checkbox />
-                  <Text>Send to group</Text>
-                </Text>
-              </Flex>
+            <div style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 12, justifyContent: 'space-between' }}>
+              <Text as="label" size="2" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+                <Checkbox />
+                <Text>Send to group</Text>
+              </Text>
 
               <Popover.Close>
                 <Button size="1">Comment</Button>
               </Popover.Close>
-            </Flex>
+            </div>
           </div>
-        </Flex>
+        </div>
       </Popover.Content>
     </Popover.Root>
   ),
@@ -80,7 +77,7 @@ export const Variant: Story = {
     const [appearance, setAppearance] = React.useState<Appearance>('light');
 
     return (
-      <Flex gap="5" align="center">
+      <div style={{ display: 'flex', gap: 'var(--space-5)', alignItems: 'center' }}>
         <Popover.Root>
           <Popover.Trigger>
             <IconButton variant="ghost" color="gray" size="3">
@@ -108,10 +105,10 @@ export const Variant: Story = {
             </SegmentedControl.Root>
             <Separator orientation="horizontal" size="4" style={{ marginTop: 12, marginBottom: 12 }} />
             <Text as="label" size="2">
-              <Flex gap="2" align="center">
+              <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
                 <Switch />
                 Auto switching
-              </Flex>
+              </div>
             </Text>
           </Popover.Content>
         </Popover.Root>
@@ -142,14 +139,14 @@ export const Variant: Story = {
             </SegmentedControl.Root>
             <Separator orientation="horizontal" size="4" style={{ marginTop: 16, marginBottom: 16 }} />
             <Text as="label" size="2">
-              <Flex gap="2" align="center">
+              <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
                 <Switch />
                 Auto switching
-              </Flex>
+              </div>
             </Text>
           </Popover.Content>
         </Popover.Root>
-      </Flex>
+      </div>
     );
   },
 };
@@ -182,13 +179,13 @@ export const InsetContent: Story = {
               Minimalistic 3D rendering wallpaper.
             </Text>
 
-            <Flex direction="column" align="stretch">
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
               <Popover.Close>
                 <Button size="1" variant="soft">
                   Copy link
                 </Button>
               </Popover.Close>
-            </Flex>
+            </div>
           </div>
         </div>
       </Popover.Content>

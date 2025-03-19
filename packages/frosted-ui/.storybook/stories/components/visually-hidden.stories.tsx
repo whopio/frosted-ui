@@ -1,23 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import {
-  Button,
-  Code,
-  Flex,
-  Link,
-  Text,
-  VisuallyHidden,
-} from '../../../src/components';
+import { Button, Code, Link, Text, VisuallyHidden } from '../../../src/components';
 
 const CrossIcon = () => (
-  <svg
-    viewBox="0 0 32 32"
-    width={24}
-    height={24}
-    fill="none"
-    stroke="currentColor"
-  >
+  <svg viewBox="0 0 32 32" width={24} height={24} fill="none" stroke="currentColor">
     <path d="M2 30 L30 2 M30 30 L2 2" />
   </svg>
 );
@@ -40,18 +27,14 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Default: Story = {
   render: (args) => (
-    <Flex direction="column" gap="4">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
       <Text>
-        Anything you put inside this component will be hidden visually but will
-        be announced by screen readers. See{' '}
-        <Link href="https://www.radix-ui.com/primitives/docs/utilities/visually-hidden">
-          Radix UI docs
-        </Link>
-        .
+        Anything you put inside this component will be hidden visually but will be announced by screen readers. See{' '}
+        <Link href="https://www.radix-ui.com/primitives/docs/utilities/visually-hidden">Radix UI docs</Link>.
       </Text>
       <Text>
-        This is useful in certain scenarios as an alternative to traditional
-        labelling with <Code>aria-label</Code> or <Code>aria-labelledby</Code>.
+        This is useful in certain scenarios as an alternative to traditional labelling with <Code>aria-label</Code> or{' '}
+        <Code>aria-labelledby</Code>.
       </Text>
       <div>
         <Button size="4">
@@ -59,6 +42,6 @@ export const Default: Story = {
           <VisuallyHidden>Close</VisuallyHidden>
         </Button>
       </div>
-    </Flex>
+    </div>
   ),
 };
