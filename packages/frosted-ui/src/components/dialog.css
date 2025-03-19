@@ -50,21 +50,37 @@
 
 .fui-DialogContent {
   &:where(.fui-r-size-1) {
+    --dialog-title-mb: var(--space-1);
+    --dialog-description-mb: var(--space-3);
     --dialog-content-padding: var(--space-3);
     border-radius: var(--radius-4);
   }
   &:where(.fui-r-size-2) {
+    --dialog-title-mb: var(--space-2);
+    --dialog-description-mb: var(--space-4);
     --dialog-content-padding: var(--space-4);
     border-radius: var(--radius-4);
   }
   &:where(.fui-r-size-3) {
+    --dialog-title-mb: var(--space-3);
+    --dialog-description-mb: var(--space-4);
     --dialog-content-padding: var(--space-5);
     border-radius: var(--radius-5);
   }
   &:where(.fui-r-size-4) {
+    --dialog-title-mb: var(--space-3);
+    --dialog-description-mb: var(--space-6);
     --dialog-content-padding: var(--space-6);
     border-radius: var(--radius-5);
   }
+}
+
+.fui-DialogTitle:where(.fui-Heading) {
+  margin-bottom: var(--dialog-title-mb);
+}
+
+.fui-DialogDescription {
+  margin-bottom: var(--dialog-description-mb);
 }
 
 @property --overlay-blur {
