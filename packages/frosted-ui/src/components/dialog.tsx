@@ -59,7 +59,7 @@ const DialogContent = (props: DialogContentProps) => {
 DialogContent.displayName = 'DialogContent';
 
 type DialogTitleProps = React.ComponentProps<typeof Heading>;
-const DialogTitle = ({ size: sizeProp, ...props }: DialogTitleProps) => {
+const DialogTitle = ({ size: sizeProp, className, ...props }: DialogTitleProps) => {
   const { size: contextSize } = React.useContext(DialogContentContext);
   let size: DialogTitleProps['size'];
 
@@ -76,14 +76,14 @@ const DialogTitle = ({ size: sizeProp, ...props }: DialogTitleProps) => {
 
   return (
     <DialogPrimitive.Title asChild>
-      <Heading size={sizeProp || size} trim="start" {...props} />
+      <Heading size={sizeProp || size} trim="start" className={classNames('fui-DialogTitle', className)} {...props} />
     </DialogPrimitive.Title>
   );
 };
 DialogTitle.displayName = 'DialogTitle';
 
 type DialogDescriptionProps = ExtractPropsForTag<typeof Text, 'p'>;
-const DialogDescription = ({ size: sizeProp, ...props }: DialogDescriptionProps) => {
+const DialogDescription = ({ size: sizeProp, className, ...props }: DialogDescriptionProps) => {
   const { size: contextSize } = React.useContext(DialogContentContext);
   let size: DialogDescriptionProps['size'];
 
@@ -100,7 +100,7 @@ const DialogDescription = ({ size: sizeProp, ...props }: DialogDescriptionProps)
 
   return (
     <DialogPrimitive.Description asChild>
-      <Text as="p" size={sizeProp || size} {...props} />
+      <Text as="p" size={sizeProp || size} className={classNames('fui-DialogDescription', className)} {...props} />
     </DialogPrimitive.Description>
   );
 };

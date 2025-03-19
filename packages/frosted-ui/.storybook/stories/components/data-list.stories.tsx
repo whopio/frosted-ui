@@ -39,7 +39,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: ({ children, ...args }) => (
     <div>
-      <Text as="p">
+      <Text as="p" style={{ marginBottom: 32 }}>
         <Code>{'<DataList />'}</Code> component displays metadata as a list of key-value pairs.
       </Text>
       <DataList.Root {...args}>

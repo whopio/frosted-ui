@@ -11,12 +11,19 @@
 @import './tokens/space.css';
 @import './tokens/typography.css';
 
+@import '../components/heading.css';
+@import '../components/text.css';
+/* dialog, alert dialog, drawer and sheet need to be imported AFTER text and heading to ensure proper heading and description styles */
+@import '../components/alert-dialog.css';
+@import '../components/dialog.css';
+@import '../components/drawer.css';
+@import '../components/sheet.css';
+
 @import '../components/lab/accordion.css';
 @import '../components/avatar.css';
 @import '../components/avatar-group.css';
 @import '../components/badge.css';
 
-@import '../components/alert-dialog.css';
 @import '../components/blockquote.css';
 @import '../components/box.css';
 @import '../components/lab/breadcrumbs.css';
@@ -29,15 +36,11 @@
 @import '../components/container.css';
 @import '../components/context-menu.css';
 @import '../components/data-list.css';
-@import '../components/dialog.css';
-@import '../components/drawer.css';
-@import '../components/sheet.css';
 @import '../components/dropdown-menu.css';
 @import '../components/em.css';
 @import '../components/filter-chip.css';
 @import '../components/flex.css';
 @import '../components/grid.css';
-@import '../components/heading.css';
 @import '../components/hover-card.css';
 @import '../components/icon-button.css';
 @import '../components/inset.css';
@@ -68,7 +71,6 @@
 @import '../components/text-field.css';
 @import '../components/otp-field.css';
 @import '../components/date-field.css';
-@import '../components/text.css';
 @import '../components/tooltip.css';
 @import '../components/widget-stack.css';
 
