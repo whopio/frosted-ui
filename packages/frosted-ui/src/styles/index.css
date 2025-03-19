@@ -73,7 +73,6 @@
 @import '../components/widget-stack.css';
 
 @import './utilities/align-items.css';
-@import './utilities/flex-shrink.css';
 @import './utilities/flex-wrap.css';
 @import './utilities/font-weight.css';
 @import './utilities/gap.css';
