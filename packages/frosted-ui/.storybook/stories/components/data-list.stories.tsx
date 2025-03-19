@@ -5,7 +5,6 @@ import {
   Badge,
   Code,
   DataList,
-  Flex,
   Heading,
   IconButton,
   Link,
@@ -44,12 +43,7 @@ export const Default: Story = {
       </Text>
       <DataList.Root {...args}>
         <DataList.Item align="center">
-          <DataList.Label
-
-          //   minWidth="88px"
-          >
-            Status
-          </DataList.Label>
+          <DataList.Label>Status</DataList.Label>
           <DataList.Value>
             <Badge color="jade" variant="soft" size="1">
               Active
@@ -57,14 +51,9 @@ export const Default: Story = {
           </DataList.Value>
         </DataList.Item>
         <DataList.Item>
-          <DataList.Label
-
-          //   minWidth="88px"
-          >
-            ID
-          </DataList.Label>
+          <DataList.Label>ID</DataList.Label>
           <DataList.Value>
-            <Flex align="center" gap="2">
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
               <Code variant="ghost">biz_AB23XH123A</Code>
               <Tooltip content="Copy">
                 <IconButton size="1" aria-label="Copy value" color="gray" variant="ghost">
@@ -72,36 +61,21 @@ export const Default: Story = {
                   <Copy12 />
                 </IconButton>
               </Tooltip>
-            </Flex>
+            </div>
           </DataList.Value>
         </DataList.Item>
         <DataList.Item>
-          <DataList.Label
-
-          //   minWidth="88px"
-          >
-            Name
-          </DataList.Label>
+          <DataList.Label>Name</DataList.Label>
           <DataList.Value>Artur Bień</DataList.Value>
         </DataList.Item>
         <DataList.Item>
-          <DataList.Label
-
-          //   minWidth="88px"
-          >
-            Email
-          </DataList.Label>
+          <DataList.Label>Email</DataList.Label>
           <DataList.Value>
             <Link href="mailto:artur@whop.com">artur@whop.com</Link>
           </DataList.Value>
         </DataList.Item>
         <DataList.Item>
-          <DataList.Label
-
-          //   minWidth="88px"
-          >
-            Company
-          </DataList.Label>
+          <DataList.Label>Company</DataList.Label>
           <DataList.Value>
             <Link target="_blank" href="https://whop.com">
               Whop
@@ -114,32 +88,20 @@ export const Default: Story = {
 };
 export const Size: Story = {
   render: ({ children, size, ...args }) => (
-    <Flex direction="column" gap="8">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-8)' }}>
       <DataList.Root {...args} size="1">
         <DataList.Item>
-          <DataList.Label
-          // minWidth="88px"
-          >
-            Name
-          </DataList.Label>
+          <DataList.Label>Name</DataList.Label>
           <DataList.Value>Artur Bień</DataList.Value>
         </DataList.Item>
         <DataList.Item>
-          <DataList.Label
-          // minWidth="88px"
-          >
-            Email
-          </DataList.Label>
+          <DataList.Label>Email</DataList.Label>
           <DataList.Value>
             <Link href="mailto:artur@whop.com">artur@whop.com</Link>
           </DataList.Value>
         </DataList.Item>
         <DataList.Item>
-          <DataList.Label
-          // minWidth="88px"
-          >
-            Company
-          </DataList.Label>
+          <DataList.Label>Company</DataList.Label>
           <DataList.Value>
             <Link target="_blank" href="https://whop.com">
               Whop
@@ -149,29 +111,17 @@ export const Size: Story = {
       </DataList.Root>
       <DataList.Root {...args} size="2">
         <DataList.Item>
-          <DataList.Label
-          // minWidth="88px"
-          >
-            Name
-          </DataList.Label>
+          <DataList.Label>Name</DataList.Label>
           <DataList.Value>Artur Bień</DataList.Value>
         </DataList.Item>
         <DataList.Item>
-          <DataList.Label
-          // minWidth="88px"
-          >
-            Email
-          </DataList.Label>
+          <DataList.Label>Email</DataList.Label>
           <DataList.Value>
             <Link href="mailto:artur@whop.com">artur@whop.com</Link>
           </DataList.Value>
         </DataList.Item>
         <DataList.Item>
-          <DataList.Label
-          // minWidth="88px"
-          >
-            Company
-          </DataList.Label>
+          <DataList.Label>Company</DataList.Label>
           <DataList.Value>
             <Link target="_blank" href="https://whop.com">
               Whop
@@ -181,29 +131,17 @@ export const Size: Story = {
       </DataList.Root>
       <DataList.Root {...args} size="3">
         <DataList.Item>
-          <DataList.Label
-          // minWidth="88px"
-          >
-            Name
-          </DataList.Label>
+          <DataList.Label>Name</DataList.Label>
           <DataList.Value>Artur Bień</DataList.Value>
         </DataList.Item>
         <DataList.Item>
-          <DataList.Label
-          // minWidth="88px"
-          >
-            Email
-          </DataList.Label>
+          <DataList.Label>Email</DataList.Label>
           <DataList.Value>
             <Link href="mailto:artur@whop.com">artur@whop.com</Link>
           </DataList.Value>
         </DataList.Item>
         <DataList.Item>
-          <DataList.Label
-          // minWidth="88px"
-          >
-            Company
-          </DataList.Label>
+          <DataList.Label>Company</DataList.Label>
           <DataList.Value>
             <Link target="_blank" href="https://whop.com">
               Whop
@@ -211,41 +149,29 @@ export const Size: Story = {
           </DataList.Value>
         </DataList.Item>
       </DataList.Root>
-    </Flex>
+    </div>
   ),
 };
 
 export const Orientation: Story = {
   render: ({ children, orientation, ...args }) => (
-    <Flex direction="column" gap="8">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-8)' }}>
       <div>
         <Heading size="3">Horizontal</Heading>
         <Separator orientation="horizontal" size="4" />
         <DataList.Root orientation={'horizontal'} {...args}>
           <DataList.Item>
-            <DataList.Label
-            // minWidth="88px"
-            >
-              Name
-            </DataList.Label>
+            <DataList.Label>Name</DataList.Label>
             <DataList.Value>Artur Bień</DataList.Value>
           </DataList.Item>
           <DataList.Item>
-            <DataList.Label
-            // minWidth="88px"
-            >
-              Email
-            </DataList.Label>
+            <DataList.Label>Email</DataList.Label>
             <DataList.Value>
               <Link href="mailto:artur@whop.com">artur@whop.com</Link>
             </DataList.Value>
           </DataList.Item>
           <DataList.Item>
-            <DataList.Label
-            // minWidth="88px"
-            >
-              Company
-            </DataList.Label>
+            <DataList.Label>Company</DataList.Label>
             <DataList.Value>
               <Link target="_blank" href="https://whop.com">
                 Whop
@@ -259,29 +185,17 @@ export const Orientation: Story = {
         <Separator orientation="horizontal" size="4" />
         <DataList.Root orientation={'vertical'} {...args}>
           <DataList.Item>
-            <DataList.Label
-            // minWidth="88px"
-            >
-              Name
-            </DataList.Label>
+            <DataList.Label>Name</DataList.Label>
             <DataList.Value>Artur Bień</DataList.Value>
           </DataList.Item>
           <DataList.Item>
-            <DataList.Label
-            // minWidth="88px"
-            >
-              Email
-            </DataList.Label>
+            <DataList.Label>Email</DataList.Label>
             <DataList.Value>
               <Link href="mailto:artur@whop.com">artur@whop.com</Link>
             </DataList.Value>
           </DataList.Item>
           <DataList.Item>
-            <DataList.Label
-            // minWidth="88px"
-            >
-              Company
-            </DataList.Label>
+            <DataList.Label>Company</DataList.Label>
             <DataList.Value>
               <Link target="_blank" href="https://whop.com">
                 Whop
@@ -290,13 +204,13 @@ export const Orientation: Story = {
           </DataList.Item>
         </DataList.Root>
       </div>
-    </Flex>
+    </div>
   ),
 };
 
 export const Color: Story = {
   render: ({ children, ...args }) => (
-    <Flex direction="column" gap="4">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
       <Text>
         Use the <Code>color</Code> prop on the <Code>{'<DataList.Label />'}</Code> component to assign a specific color.
       </Text>
@@ -326,18 +240,18 @@ export const Color: Story = {
           <DataList.Value>Crimson</DataList.Value>
         </DataList.Item>
       </DataList.Root>
-    </Flex>
+    </div>
   ),
 };
 export const HighContrast: Story = {
   name: 'High Contrast',
   render: ({ children, ...args }) => (
-    <Flex direction="column" gap="4">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
       <Text>
         Use the <Code>highContrast</Code> prop on the <Code>{'<DataList.Label />'}</Code> component <br /> to increase
         color contrast with the background.
       </Text>
-      <Flex gap="9">
+      <div style={{ display: 'flex', gap: 'var(--space-9)' }}>
         <DataList.Root orientation="vertical">
           <DataList.Item>
             <DataList.Label color="iris">Name</DataList.Label>
@@ -383,7 +297,7 @@ export const HighContrast: Story = {
             <DataList.Value>Crimson</DataList.Value>
           </DataList.Item>
         </DataList.Root>
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   ),
 };

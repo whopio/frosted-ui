@@ -3,7 +3,6 @@ import React from 'react';
 
 import {
   Avatar,
-  Flex,
   Heading,
   HoverCard,
   Inset,
@@ -45,7 +44,7 @@ export const Default: Story = {
           </Link>
         </HoverCard.Trigger>
         <HoverCard.Content {...args}>
-          <Flex gap="4">
+          <div style={{ display: 'flex', gap: 'var(--space-4)' }}>
             <Avatar size="3" fallback="FUI" />
             <div>
               <Heading size="3" as="h3">
@@ -55,11 +54,11 @@ export const Default: Story = {
                 frosted-ui
               </Text>
 
-              <Text as="div" size="2" style={{ maxWidth: 300 }} mt="3">
+              <Text as="div" size="2" style={{ maxWidth: 300, marginTop: 'var(--space-3)' }}>
                 React components library built on top of Radix Themes.
               </Text>
             </div>
-          </Flex>
+          </div>
         </HoverCard.Content>
       </HoverCard.Root>{' '}
       for updates.
@@ -69,7 +68,7 @@ export const Default: Story = {
 
 export const Size: Story = {
   render: ({ children, ...args }) => (
-    <Flex gap="4">
+    <div style={{ display: 'flex', gap: 'var(--space-4)' }}>
       <HoverCard.Root>
         <HoverCard.Trigger>
           <Link href="#">Size one</Link>
@@ -105,7 +104,7 @@ export const Size: Story = {
           </Text>
         </HoverCard.Content>
       </HoverCard.Root>
-    </Flex>
+    </div>
   ),
 };
 
@@ -120,7 +119,7 @@ export const InsetContent: Story = {
         </HoverCard.Trigger>
 
         <HoverCard.Content {...args}>
-          <Flex>
+          <div style={{ display: 'flex' }}>
             <Inset side="left" pr="current">
               <img
                 src="https://images.unsplash.com/photo-1617050318658-a9a3175e34cb?&auto=format&fit=crop&w=300&q=80"
@@ -140,7 +139,7 @@ export const InsetContent: Story = {
               readable and appealing when displayed. The arrangement of type involves selecting typefaces, point sizes,
               line lengths, line-spacing (leading), and letter-spacing (tracking)…
             </Text>
-          </Flex>
+          </div>
         </HoverCard.Content>
       </HoverCard.Root>{' '}
       in the latter twentieth century.
