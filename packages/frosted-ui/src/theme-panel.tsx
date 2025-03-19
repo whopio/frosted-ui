@@ -1,10 +1,9 @@
 'use client';
 
 import { useCallbackRef } from '@radix-ui/react-use-callback-ref';
-import * as React from 'react';
+
 import {
   Button,
-  Flex,
   Heading,
   Kbd,
   ScrollArea,
@@ -24,6 +23,7 @@ import {
   warningColors,
 } from './index';
 
+import React from 'react';
 import type { ThemeOptions } from './index';
 
 interface ThemePanelProps extends Omit<ThemePanelImplProps, keyof ThemePanelImplPrivateProps> {
@@ -168,17 +168,18 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
 
   return (
     <Theme asChild>
-      <Flex
-        direction="column"
-        position="fixed"
-        top="0"
-        right="0"
+      <div
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         inert={open ? undefined : ''}
         {...panelProps}
         ref={forwardedRef}
         style={{
+          display: 'flex',
+          flexDirection: 'column',
+          position: 'fixed',
+          top: 0,
+          right: 0,
           zIndex: 9999,
           marginRight: 16,
           marginTop: 16,
@@ -260,19 +261,20 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
               ))}
             </div>
 
-            <Flex asChild align="center" justify="between">
-              <Text
-                as="p"
-                id="gray-color-title"
-                size="2"
-                weight="medium"
-                style={{
-                  marginTop: 24,
-                }}
-              >
-                Gray color
-              </Text>
-            </Flex>
+            <Text
+              as="p"
+              id="gray-color-title"
+              size="2"
+              weight="medium"
+              style={{
+                marginTop: 24,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
+              Gray color
+            </Text>
 
             <div
               style={{
@@ -285,35 +287,35 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
               aria-labelledby="gray-color-title"
             >
               {['auto', 'gray', ...radixGrayScalesDesaturated].map((gray) => (
-                <Flex key={gray} asChild align="center" justify="center">
-                  <label
-                    className="fui-ThemePanelSwatch"
-                    style={{
-                      backgroundColor:
-                        gray === 'auto'
-                          ? `var(--${autoMatchedGray}-9)`
-                          : gray === 'gray'
-                            ? 'var(--gray-9)'
-                            : `var(--${gray}-9)`,
-                      // we override --gray so pure gray doesn't exist anymore
-                      // recover something as close as possible by desaturating
-                      filter: gray === 'gray' ? 'saturate(0)' : undefined,
-                    }}
-                  >
-                    <Tooltip
-                      content={`${upperFirst(gray)}${gray === 'auto' ? ` (${upperFirst(autoMatchedGray)})` : ''}`}
-                    >
-                      <input
-                        className="fui-ThemePanelSwatchInput"
-                        type="radio"
-                        name="grayColor"
-                        value={gray}
-                        checked={grayColor === gray}
-                        onChange={(event) => onGrayColorChange(event.target.value as ThemeOptions['grayColor'])}
-                      />
-                    </Tooltip>
-                  </label>
-                </Flex>
+                <label
+                  key={gray}
+                  className="fui-ThemePanelSwatch"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor:
+                      gray === 'auto'
+                        ? `var(--${autoMatchedGray}-9)`
+                        : gray === 'gray'
+                          ? 'var(--gray-9)'
+                          : `var(--${gray}-9)`,
+                    // we override --gray so pure gray doesn't exist anymore
+                    // recover something as close as possible by desaturating
+                    filter: gray === 'gray' ? 'saturate(0)' : undefined,
+                  }}
+                >
+                  <Tooltip content={`${upperFirst(gray)}${gray === 'auto' ? ` (${upperFirst(autoMatchedGray)})` : ''}`}>
+                    <input
+                      className="fui-ThemePanelSwatchInput"
+                      type="radio"
+                      name="grayColor"
+                      value={gray}
+                      checked={grayColor === gray}
+                      onChange={(event) => onGrayColorChange(event.target.value as ThemeOptions['grayColor'])}
+                    />
+                  </Tooltip>
+                </label>
               ))}
             </div>
 
@@ -502,7 +504,15 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
                     }}
                     onClick={() => handleAppearanceChange(value)}
                   />
-                  <Flex align="center" justify="center" height="6" gap="2">
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      height: 'var(--space-6)',
+                      gap: 'var(--space-2)',
+                    }}
+                  >
                     {value === 'light' ? (
                       <svg
                         width="15"
@@ -539,7 +549,7 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
                     <Text size="1" weight="medium">
                       {upperFirst(value)}
                     </Text>
-                  </Flex>
+                  </div>
                 </label>
               ))}
             </div>
@@ -555,7 +565,7 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
             </Button>
           </div>
         </ScrollArea>
-      </Flex>
+      </div>
     </Theme>
   );
 });
