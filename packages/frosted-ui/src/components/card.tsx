@@ -1,18 +1,17 @@
 import { Slot } from '@radix-ui/react-slot';
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+
 import { cardPropDefs } from './card.props';
 
-import type { GetPropDefTypes, MarginProps } from '../helpers';
+import type { GetPropDefTypes } from '../helpers';
 
 type CardOwnProps = GetPropDefTypes<typeof cardPropDefs>;
-interface CardProps extends React.ComponentProps<'div'>, MarginProps, CardOwnProps {
+interface CardProps extends React.ComponentProps<'div'>, CardOwnProps {
   asChild?: boolean;
 }
 
 const Card = (props: CardProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     asChild,
     children,
@@ -20,7 +19,7 @@ const Card = (props: CardProps) => {
     size = cardPropDefs.size.default,
     variant = cardPropDefs.variant.default,
     ...cardProps
-  } = marginRest;
+  } = props;
   const Comp = asChild ? Slot : 'div';
 
   function getChild() {
@@ -33,14 +32,7 @@ const Card = (props: CardProps) => {
   return (
     <Comp
       {...cardProps}
-      className={classNames(
-        'fui-reset',
-        'fui-Card',
-        className,
-        withBreakpoints(size, 'fui-r-size'),
-        `fui-variant-${variant}`,
-        withMarginProps(marginProps),
-      )}
+      className={classNames('fui-reset', 'fui-Card', className, `fui-r-size-${size}`, `fui-variant-${variant}`)}
     >
       {asChild ? getChild() : <div className="fui-CardInner">{children}</div>}
     </Comp>

@@ -4,7 +4,6 @@ import * as ContextMenuPrimitive from '@radix-ui/react-context-menu';
 import { Slottable } from '@radix-ui/react-slot';
 import classNames from 'classnames';
 import * as React from 'react';
-import { withBreakpoints } from '../helpers';
 import { ThickCheckIcon, ThickChevronRightIcon } from '../icons';
 import { Theme, useThemeContext } from '../theme';
 import {
@@ -58,7 +57,7 @@ const ContextMenuContent = (props: ContextMenuContentProps) => {
             'fui-BaseMenuContent',
             'fui-ContextMenuContent',
             className,
-            withBreakpoints(size, 'fui-r-size'),
+            `fui-r-size-${size}`,
             { 'fui-high-contrast': highContrast },
           )}
         >
@@ -221,7 +220,7 @@ const ContextMenuSubContent = (props: ContextMenuSubContentProps) => {
             'fui-ContextMenuContent',
             'fui-ContextMenuSubContent',
             className,
-            withBreakpoints(size, 'fui-r-size'),
+            `fui-r-size-${size}`,
             { 'fui-high-contrast': highContrast },
           )}
         >

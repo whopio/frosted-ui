@@ -3,7 +3,6 @@
 import * as PopoverPrimitive from '@radix-ui/react-popover';
 import classNames from 'classnames';
 import * as React from 'react';
-import { withBreakpoints } from '../helpers';
 import { Theme } from '../theme';
 import { popoverContentPropDefs } from './popover.props';
 
@@ -47,7 +46,7 @@ const PopoverContent = (props: PopoverContentProps) => {
             'fui-PopoverContent',
             `fui-variant-${variant}`,
             className,
-            withBreakpoints(size, 'fui-r-size'),
+            `fui-r-size-${size}`,
           )}
         />
       </Theme>

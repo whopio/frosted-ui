@@ -1,22 +1,20 @@
 import { Slot } from '@radix-ui/react-slot';
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withMarginProps } from '../../helpers';
 import { breadcrumbsPropDefs } from './breadcrumbs.props';
 
 import { Button, DropdownMenu, Text } from '../';
-import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../../helpers';
+import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 import { ChevronRightIcon } from '../../icons';
 
 type BreadcrumbsRootChildrenTypes = React.ReactElement<BreadcrumbsItemProps | BreadcrumbsDropdownProps>;
 
 type BreadcrumbsRootOwnProps = GetPropDefTypes<typeof breadcrumbsPropDefs>;
-interface BreadcrumbsRootProps extends PropsWithoutColor<'nav'>, MarginProps, BreadcrumbsRootOwnProps {
+interface BreadcrumbsRootProps extends PropsWithoutColor<'nav'>, BreadcrumbsRootOwnProps {
   asChild?: boolean;
 }
 
 const BreadcrumbsRoot = (props: BreadcrumbsRootProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     className,
     children,
@@ -24,16 +22,12 @@ const BreadcrumbsRoot = (props: BreadcrumbsRootProps) => {
     color = breadcrumbsPropDefs.color.default,
     highContrast = breadcrumbsPropDefs.highContrast.default,
     ...baseButtonProps
-  } = marginRest;
+  } = props;
   const Comp = asChild ? Slot : 'nav';
   const count = React.Children.count(children);
 
   return (
-    <Comp
-      data-accent-color={color}
-      {...baseButtonProps}
-      className={classNames('fui-BreadcrumbsRoot', className, withMarginProps(marginProps))}
-    >
+    <Comp data-accent-color={color} {...baseButtonProps} className={classNames('fui-BreadcrumbsRoot', className)}>
       {React.Children.map(children as BreadcrumbsRootChildrenTypes, (child, index) => {
         const isLastItem = index === count - 1;
 

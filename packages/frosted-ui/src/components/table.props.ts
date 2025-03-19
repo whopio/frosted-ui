@@ -4,7 +4,7 @@ const sizes = ['1', '2'] as const;
 const variants = ['surface', 'ghost'] as const;
 
 const tableRootPropDefs = {
-  size: { type: 'enum', values: sizes, default: '2', responsive: true },
+  size: { type: 'enum', values: sizes, default: '2' },
   variant: { type: 'enum', values: variants, default: 'surface' },
 } satisfies {
   size: PropDef<(typeof sizes)[number]>;
@@ -18,7 +18,6 @@ const tableRowPropDefs = {
     type: 'enum',
     values: rowAlign,
     default: undefined,
-    responsive: true,
   },
 } satisfies {
   align: PropDef<(typeof rowAlign)[number]>;
@@ -31,7 +30,6 @@ const tableCellPropDefs = {
     type: 'enum',
     values: cellJustify,
     default: undefined,
-    responsive: true,
   },
   width: { type: 'string | number', default: undefined },
 } satisfies {

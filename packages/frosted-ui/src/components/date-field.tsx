@@ -8,36 +8,29 @@ import {
   DateInput as AriaDateInput,
   DateSegment as AriaDateSegment,
 } from 'react-aria-components';
-import { MarginProps, extractMarginProps, withBreakpoints, withMarginProps, type GetPropDefTypes } from '../helpers';
+import { type GetPropDefTypes } from '../helpers';
 import { MappedDateValue } from './calendar';
 import { dateFieldPropDefs } from './date-field.props';
 
 type DateFieldFUIProps = GetPropDefTypes<typeof dateFieldPropDefs>;
-interface DateFieldProps<T extends AriaDateValue> extends AriaDateFieldProps<T>, DateFieldFUIProps, MarginProps {
+interface DateFieldProps<T extends AriaDateValue> extends AriaDateFieldProps<T>, DateFieldFUIProps {
   className?: string;
   // TODO: React Aria types for onChange are incorrect - missing UNDEFINED type
   onChange?: (value: MappedDateValue<T> | undefined) => void;
 }
 
 function DateField<T extends AriaDateValue>(props: DateFieldProps<T>) {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-  const { className, ...otherProps } = marginRest;
-
   const {
+    className,
     color = dateFieldPropDefs.color.default,
     size = dateFieldPropDefs.size.default,
     ...dateFieldProps
-  } = otherProps;
+  } = props;
 
   return (
     <AriaDateField
       data-accent-color={color}
-      className={classNames(
-        'fui-DateFieldRoot',
-        className,
-        withBreakpoints(size, 'fui-r-size'),
-        withMarginProps(marginProps),
-      )}
+      className={classNames('fui-DateFieldRoot', className, `fui-r-size-${size}`)}
       {...dateFieldProps}
     >
       <AriaDateInput className="fui-DateFieldInput">

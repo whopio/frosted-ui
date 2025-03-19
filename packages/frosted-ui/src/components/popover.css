@@ -34,23 +34,21 @@
  *                                                                                                 *
  ***************************************************************************************************/
 
-@breakpoints {
-  .fui-PopoverContent {
-    &:where(.fui-r-size-1) {
-      --popover-content-padding: var(--space-3);
-      border-radius: var(--radius-4);
-    }
-    &:where(.fui-r-size-2) {
-      --popover-content-padding: var(--space-4);
-      border-radius: var(--radius-4);
-    }
-    &:where(.fui-r-size-3) {
-      --popover-content-padding: var(--space-5);
-      border-radius: var(--radius-5);
-    }
-    &:where(.fui-r-size-4) {
-      --popover-content-padding: var(--space-6);
-      border-radius: var(--radius-5);
-    }
+.fui-PopoverContent {
+  &:where(.fui-r-size-1) {
+    --popover-content-padding: var(--space-3);
+    border-radius: var(--radius-4);
+  }
+  &:where(.fui-r-size-2) {
+    --popover-content-padding: var(--space-4);
+    border-radius: var(--radius-4);
+  }
+  &:where(.fui-r-size-3) {
+    --popover-content-padding: var(--space-5);
+    border-radius: var(--radius-5);
+  }
+  &:where(.fui-r-size-4) {
+    --popover-content-padding: var(--space-6);
+    border-radius: var(--radius-5);
   }
 }

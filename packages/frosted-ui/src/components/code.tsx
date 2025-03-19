@@ -1,15 +1,14 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+
 import { codePropDefs } from './code.props';
 
-import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
+import type { GetPropDefTypes, PropsWithoutColor } from '../helpers';
 
 type CodeOwnProps = GetPropDefTypes<typeof codePropDefs>;
-interface CodeProps extends PropsWithoutColor<'code'>, MarginProps, CodeOwnProps {}
+interface CodeProps extends PropsWithoutColor<'code'>, CodeOwnProps {}
 
 const Code = (props: CodeProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     className,
     size = codePropDefs.size.default,
@@ -18,7 +17,7 @@ const Code = (props: CodeProps) => {
     color = codePropDefs.color.default,
     highContrast = codePropDefs.highContrast.default,
     ...codeProps
-  } = marginRest;
+  } = props;
   return (
     <code
       data-accent-color={color}
@@ -26,11 +25,10 @@ const Code = (props: CodeProps) => {
       className={classNames(
         'fui-Code',
         className,
-        withBreakpoints(size, 'fui-r-size'),
+        `fui-r-size-${size}`,
         `fui-variant-${variant}`,
-        withBreakpoints(weight, 'fui-r-weight'),
+        `fui-r-weight-${weight}`,
         { 'fui-high-contrast': highContrast },
-        withMarginProps(marginProps),
       )}
     />
   );

@@ -25,7 +25,6 @@ const Grid = (props: GridProps) => {
   const {
     className,
     asChild,
-    display = gridPropDefs.display.default,
     columns = gridPropDefs.columns.default,
     rows = gridPropDefs.rows.default,
     flow = gridPropDefs.flow.default,
@@ -89,7 +88,6 @@ const Grid = (props: GridProps) => {
       className={classNames(
         'fui-Grid',
         className,
-        withBreakpoints(display, 'fui-r-display'),
         withBreakpoints(flow, 'fui-r-gaf'),
         withBreakpoints(align, 'fui-r-ai'),
         withBreakpoints(justify, 'fui-r-jc', { between: 'space-between' }),

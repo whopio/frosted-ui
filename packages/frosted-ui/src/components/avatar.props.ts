@@ -5,7 +5,7 @@ const sizes = ['1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
 const variants = ['round', 'square'] as const;
 
 const avatarPropDefs = {
-  size: { type: 'enum', values: sizes, default: '3', responsive: true },
+  size: { type: 'enum', values: sizes, default: '3' },
   variant: { type: 'enum', values: variants, default: 'round' },
   color: { ...colorProp, default: undefined },
   highContrast: highContrastProp,

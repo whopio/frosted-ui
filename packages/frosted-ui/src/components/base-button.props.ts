@@ -5,7 +5,7 @@ const sizes = ['1', '2', '3', '4'] as const;
 const variants = ['classic', 'solid', 'soft', 'surface', 'ghost'] as const;
 
 const baseButtonPropDefs = {
-  size: { type: 'enum', values: sizes, default: '2', responsive: true },
+  size: { type: 'enum', values: sizes, default: '2' },
   variant: { type: 'enum', values: variants, default: 'surface' },
   color: colorProp,
   highContrast: highContrastProp,

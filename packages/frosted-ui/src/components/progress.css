@@ -19,20 +19,18 @@
  *                                                                                                 *
  ***************************************************************************************************/
 
-@breakpoints {
-  .fui-ProgressRoot {
-    &:where(.fui-r-size-1) {
-      --progress-height: var(--space-2);
-      --progress-border-radius: max(var(--radius-1), var(--radius-thumb));
-    }
-    &:where(.fui-r-size-2) {
-      --progress-height: var(--space-3);
-      --progress-border-radius: max(var(--radius-2), var(--radius-thumb));
-    }
-    &:where(.fui-r-size-3) {
-      --progress-height: var(--space-4);
-      --progress-border-radius: max(var(--radius-2), var(--radius-thumb));
-    }
+.fui-ProgressRoot {
+  &:where(.fui-r-size-1) {
+    --progress-height: var(--space-2);
+    --progress-border-radius: max(var(--radius-1), var(--radius-thumb));
+  }
+  &:where(.fui-r-size-2) {
+    --progress-height: var(--space-3);
+    --progress-border-radius: max(var(--radius-2), var(--radius-thumb));
+  }
+  &:where(.fui-r-size-3) {
+    --progress-height: var(--space-4);
+    --progress-border-radius: max(var(--radius-2), var(--radius-thumb));
   }
 }
 

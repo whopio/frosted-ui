@@ -35,35 +35,33 @@
  *                                                                                                 *
  ***************************************************************************************************/
 
-@breakpoints {
-  .fui-AvatarGroupRoot {
-    &:where(.fui-r-size-1) {
-      --avatar-group-size: var(--space-5);
-    }
-    &:where(.fui-r-size-2) {
-      --avatar-group-size: var(--space-6);
-    }
-    &:where(.fui-r-size-3) {
-      --avatar-group-size: var(--space-7);
-    }
-    &:where(.fui-r-size-4) {
-      --avatar-group-size: var(--space-8);
-    }
-    &:where(.fui-r-size-5) {
-      --avatar-group-size: var(--space-9);
-    }
-    &:where(.fui-r-size-6) {
-      --avatar-group-size: 80px;
-    }
-    &:where(.fui-r-size-7) {
-      --avatar-group-size: 96px;
-    }
-    &:where(.fui-r-size-8) {
-      --avatar-group-size: 128px;
-    }
-    &:where(.fui-r-size-9) {
-      --avatar-group-size: 160px;
-    }
+.fui-AvatarGroupRoot {
+  &:where(.fui-r-size-1) {
+    --avatar-group-size: var(--space-5);
+  }
+  &:where(.fui-r-size-2) {
+    --avatar-group-size: var(--space-6);
+  }
+  &:where(.fui-r-size-3) {
+    --avatar-group-size: var(--space-7);
+  }
+  &:where(.fui-r-size-4) {
+    --avatar-group-size: var(--space-8);
+  }
+  &:where(.fui-r-size-5) {
+    --avatar-group-size: var(--space-9);
+  }
+  &:where(.fui-r-size-6) {
+    --avatar-group-size: 80px;
+  }
+  &:where(.fui-r-size-7) {
+    --avatar-group-size: 96px;
+  }
+  &:where(.fui-r-size-8) {
+    --avatar-group-size: 128px;
+  }
+  &:where(.fui-r-size-9) {
+    --avatar-group-size: 160px;
   }
 }
 

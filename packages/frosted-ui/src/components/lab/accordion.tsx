@@ -3,57 +3,32 @@
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import classNames from 'classnames';
 import * as React from 'react';
-import type { LayoutProps, MarginProps, PropsWithoutColor } from '../../helpers';
-import { extractLayoutProps, extractMarginProps, withLayoutProps, withMarginProps } from '../../helpers';
+import type { PropsWithoutColor } from '../../helpers';
 
-type AccordionRootProps = React.ComponentProps<typeof AccordionPrimitive.Root> & MarginProps & LayoutProps;
+type AccordionRootProps = React.ComponentProps<typeof AccordionPrimitive.Root>;
 
 const AccordionRoot = (props: AccordionRootProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-  const { rest: layoutRest, ...layoutProps } = extractLayoutProps(marginRest);
+  const { className, ...accordionRootProps } = props;
 
-  const { className, ...accordionRootProps } = layoutRest;
-
-  return (
-    // @ts-expect-error - `type` and 'collapsible' issues
-    <AccordionPrimitive.Root
-      className={classNames('fui-AccordionRoot', className, withLayoutProps(layoutProps), withMarginProps(marginProps))}
-      {...accordionRootProps}
-    />
-  );
+  return <AccordionPrimitive.Root className={classNames('fui-AccordionRoot', className)} {...accordionRootProps} />;
 };
 AccordionRoot.displayName = 'Root';
 
-interface AccordionItemProps extends PropsWithoutColor<typeof AccordionPrimitive.Item>, MarginProps {}
+interface AccordionItemProps extends PropsWithoutColor<typeof AccordionPrimitive.Item> {}
 
 const AccordionItem = (props: AccordionItemProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-  const { className, ...accordionItemProps } = marginRest;
+  const { className, ...accordionItemProps } = props;
 
-  return (
-    <AccordionPrimitive.Item
-      className={classNames('fui-AccordionItem', className, withMarginProps(marginProps))}
-      {...accordionItemProps}
-    />
-  );
+  return <AccordionPrimitive.Item className={classNames('fui-AccordionItem', className)} {...accordionItemProps} />;
 };
 AccordionItem.displayName = 'Item';
 
-type AccordionTriggerProps = React.ComponentProps<typeof AccordionPrimitive.Trigger> & MarginProps & LayoutProps;
+type AccordionTriggerProps = React.ComponentProps<typeof AccordionPrimitive.Trigger>;
 const AccordionTrigger = (props: AccordionTriggerProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-  const { rest: layoutRest, ...layoutProps } = extractLayoutProps(marginRest);
-
-  const { className, children, ...accordionTriggerProps } = layoutRest;
+  const { className, children, ...accordionTriggerProps } = props;
   return (
     <AccordionPrimitive.Trigger
-      className={classNames(
-        'fui-AccordionTrigger',
-        'fui-reset',
-        className,
-        withLayoutProps(layoutProps),
-        withMarginProps(marginProps),
-      )}
+      className={classNames('fui-AccordionTrigger', 'fui-reset', className)}
       {...accordionTriggerProps}
     >
       <svg

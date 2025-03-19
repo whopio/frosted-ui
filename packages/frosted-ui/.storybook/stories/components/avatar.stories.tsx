@@ -101,7 +101,7 @@ export const HighContrast: Story = {
     fallback: 'Cameron Zoub',
   },
   render: (args) => (
-    <Grid rows="2" gap="2" display="inline-grid" flow="column">
+    <Grid rows="2" gap="2" style={{ display: 'inline-grid' }} flow="column">
       <Avatar {...args} color="indigo" />
       <Avatar {...args} color="indigo" highContrast />
       <Avatar {...args} color="cyan" />
