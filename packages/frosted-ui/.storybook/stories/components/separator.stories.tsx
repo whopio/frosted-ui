@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Flex, Separator, Text } from '../../../src/components';
+import { Separator, Text } from '../../../src/components';
 import { separatorPropDefs } from '../../../src/components/separator.props';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -28,8 +28,8 @@ export const Default: Story = {
   render: (args) => (
     <Text size="2">
       Tools for building high-quality, accessible UI.
-      <Separator {...args} orientation="horizontal" my="3" size="4" />
-      <Flex gap="3" align="center">
+      <Separator {...args} orientation="horizontal" size="4" style={{ margin: 'var(--space-3) 0' }} />
+      <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center' }}>
         Themes
         <Separator {...args} orientation="vertical" />
         Primitives
@@ -37,46 +37,46 @@ export const Default: Story = {
         Icons
         <Separator {...args} orientation="vertical" />
         Colors
-      </Flex>
+      </div>
     </Text>
   ),
 };
 
 export const Size: Story = {
   render: (args) => (
-    <Flex direction="column" gap="6">
-      <Flex direction="column" gap="4">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
         <Separator {...args} orientation="horizontal" size="4" />
         <Separator {...args} orientation="horizontal" size="3" />
         <Separator {...args} orientation="horizontal" size="2" />
         <Separator {...args} orientation="horizontal" size="1" />
-      </Flex>
-      <Flex align="center" gap="4" style={{ height: 96 }}>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)', height: 96 }}>
         <Separator {...args} orientation="vertical" size="4" />
         <Separator {...args} orientation="vertical" size="3" />
         <Separator {...args} orientation="vertical" size="2" />
         <Separator {...args} orientation="vertical" size="1" />
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   ),
 };
 
 export const Color: Story = {
   render: (args) => (
-    <Flex direction="column" gap="3">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
       <Separator {...args} color="indigo" size="3" />
       <Separator {...args} color="cyan" size="3" />
       <Separator {...args} color="orange" size="3" />
       <Separator {...args} color="crimson" size="3" />
-    </Flex>
+    </div>
   ),
 };
 
 export const Orientation: Story = {
   render: (args) => (
-    <Flex align="center" gap="4">
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
       <Separator {...args} orientation="horizontal" />
       <Separator {...args} orientation="vertical" />
-    </Flex>
+    </div>
   ),
 };

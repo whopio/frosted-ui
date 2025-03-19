@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
 import React from 'react';
-import { Avatar, Flex } from '../../../src/components';
+import { Avatar } from '../../../src/components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -25,13 +24,13 @@ export const Default: Story = {
     color: 'blue',
   },
   render: (args) => (
-    <Flex gap="2">
+    <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
       <Avatar
         {...args}
         src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
       />
       <Avatar {...args} />
-    </Flex>
+    </div>
   ),
 };
 
@@ -41,24 +40,24 @@ export const Variant: Story = {
     color: 'blue',
   },
   render: (args) => (
-    <Flex direction="column" gap="4">
-      <Flex gap="2">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+      <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
         <Avatar
           {...args}
           src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
           variant="round"
         />
         <Avatar {...args} variant="round" />
-      </Flex>
-      <Flex gap="2">
+      </div>
+      <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
         <Avatar
           {...args}
           src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
           variant="square"
         />
         <Avatar {...args} variant="square" />
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   ),
 };
 
@@ -69,7 +68,7 @@ export const Size: Story = {
     color: 'blue',
   },
   render: (args) => (
-    <Flex align="center" gap="4">
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
       <Avatar {...args} size="1" />
       <Avatar {...args} size="2" />
       <Avatar {...args} size="3" />
@@ -78,7 +77,7 @@ export const Size: Story = {
       <Avatar {...args} size="6" />
       <Avatar {...args} size="7" />
       <Avatar {...args} size="8" />
-    </Flex>
+    </div>
   ),
 };
 
@@ -87,12 +86,12 @@ export const Color: Story = {
     fallback: 'Cameron Zoub',
   },
   render: (args) => (
-    <Flex gap="2">
+    <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
       <Avatar {...args} color="indigo" />
       <Avatar {...args} color="cyan" />
       <Avatar {...args} color="orange" />
       <Avatar {...args} color="crimson" />
-    </Flex>
+    </div>
   ),
 };
 
@@ -119,7 +118,7 @@ export const Fallback: Story = {
     fallback: 'Cameron Zoub',
   },
   render: (args) => (
-    <Flex gap="2">
+    <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
       <Avatar fallback={<>AB</>} />
       <Avatar fallback="Ilya Miskov" />
       <Avatar fallback="John von Neumann" />
@@ -135,6 +134,6 @@ export const Fallback: Story = {
           </div>
         }
       />
-    </Flex>
+    </div>
   ),
 };

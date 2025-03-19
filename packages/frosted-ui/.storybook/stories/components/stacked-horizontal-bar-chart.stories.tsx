@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Card, Flex, SegmentedControl, Separator, StackedHorizontalBarChart, Text } from '../../../src/components';
+import { Card, SegmentedControl, Separator, StackedHorizontalBarChart, Text } from '../../../src/components';
 import type { StackedHorizontalBarChartProps } from '../../../src/components/stacked-horizontal-bar-chart';
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -112,7 +112,7 @@ export const Animated: Story = {
           backgroundImage: `linear-gradient(var(--color-panel-elevation-a3), var(--color-panel-elevation-a3))`,
         }}
       >
-        <div style={{ width: 300 }}>
+        <div style={{ width: 300, display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
           <SegmentedControl.Root value={state} onValueChange={(value) => setState(value as LibraryType)}>
             <SegmentedControl.List>
               <SegmentedControl.Trigger value="FrostedUI">Frosted UI</SegmentedControl.Trigger>
@@ -121,12 +121,15 @@ export const Animated: Story = {
             </SegmentedControl.List>
           </SegmentedControl.Root>
           <StackedHorizontalBarChart data={data} />
-          <Flex direction={'column'} gap={'3'}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
             {data.map((dataPoint, i) => (
               <>
                 {i !== 0 && <Separator size="4" orientation="horizontal" />}
-                <Flex align="center" justify="between" key={dataPoint.label}>
-                  <Flex align="center" gap="2">
+                <div
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+                  key={dataPoint.label}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
                     <div
                       style={{
                         width: 'var(--space-3)',
@@ -138,12 +141,12 @@ export const Animated: Story = {
                     <Text size="2" color="gray">
                       {dataPoint.label}
                     </Text>
-                  </Flex>
+                  </div>
                   <Text size="2">{dataPoint.value}%</Text>
-                </Flex>
+                </div>
               </>
             ))}
-          </Flex>
+          </div>
         </div>
       </Card>
     );

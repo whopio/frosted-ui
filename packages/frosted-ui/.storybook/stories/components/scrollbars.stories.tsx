@@ -1,7 +1,7 @@
 import type { StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Flex, Text } from '../../../src/components';
+import { Text } from '../../../src/components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -21,10 +21,8 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Default: Story = {
   render: (args) => (
-    <Flex direction="column" gap="4">
-      <Text>
-        Frosted-UI comes with custom styles for native CSS scrollbars:
-      </Text>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+      <Text>Frosted-UI comes with custom styles for native CSS scrollbars:</Text>
       <div
         style={{
           width: 400,
@@ -76,6 +74,6 @@ export const Default: Story = {
           }}
         ></div>
       </div>
-    </Flex>
+    </div>
   ),
 };

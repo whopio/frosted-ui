@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Button, Code, Flex, Portal, Text } from '../../../src/components';
+import { Button, Code, Portal, Text } from '../../../src/components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -27,19 +27,17 @@ export const Default: Story = {
     const portalContainerElement = portalContainerRef.current;
     return (
       <>
-        <Flex direction={'column'} gap="4">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
           <Text>
-            Anything you put inside this component will be rendered in a
-            separate <Code>{`<div>`}</Code> element.
+            Anything you put inside this component will be rendered in a separate <Code>{`<div>`}</Code> element.
             <br />
-            By default, this element will be appended to{' '}
-            <Code>document.body</Code> but you can choose a different container
-            by using the container prop.
+            By default, this element will be appended to <Code>document.body</Code> but you can choose a different
+            container by using the container prop.
           </Text>
           <div>
             <Button onClick={() => setOpen(true)}>Open Portal</Button>
           </div>
-        </Flex>
+        </div>
         <div id="portal-container" ref={portalContainerRef} />
         {portalContainerElement && open ? (
           <Portal container={portalContainerElement}>

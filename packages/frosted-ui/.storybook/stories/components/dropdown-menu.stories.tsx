@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Button, DropdownMenu, Flex } from '../../../src/components';
+import { Button, DropdownMenu } from '../../../src/components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -71,7 +71,7 @@ export const Default: Story = {
 
 export const Size: Story = {
   render: (args) => (
-    <Flex gap="3" align="center">
+    <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center' }}>
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
           <Button variant="soft" size="3">
@@ -128,13 +128,13 @@ export const Size: Story = {
           </DropdownMenu.Item>
         </DropdownMenu.Content>
       </DropdownMenu.Root>
-    </Flex>
+    </div>
   ),
 };
 
 export const Color: Story = {
   render: (args) => (
-    <Flex gap="3">
+    <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
           <Button variant="soft" color="indigo">
@@ -190,7 +190,7 @@ export const Color: Story = {
           <DropdownMenu.Item shortcut="⌘ N">Archive</DropdownMenu.Item>
         </DropdownMenu.Content>
       </DropdownMenu.Root>
-    </Flex>
+    </div>
   ),
 };
 

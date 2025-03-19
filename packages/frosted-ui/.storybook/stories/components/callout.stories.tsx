@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Callout, Code, Flex, Link, Text } from '../../../src/components';
+import { Callout, Code, Link, Text } from '../../../src/components';
 import { RootProps as CalloutRootProps } from '../../../src/components/callout';
 import { calloutRootPropDefs } from '../../../src/components/callout.props';
 
@@ -51,7 +51,7 @@ export const Size: Story = {
     ),
   },
   render: ({ children, ...args }: CalloutRootProps) => (
-    <Flex direction="column" gap="3" align="start">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', alignItems: 'flex-start' }}>
       <Callout.Root {...args} size="3">
         <Callout.Icon>
           <Callout.Icon>i</Callout.Icon>
@@ -72,7 +72,7 @@ export const Size: Story = {
         </Callout.Icon>
         <Callout.Text>{children}</Callout.Text>
       </Callout.Root>
-    </Flex>
+    </div>
   ),
 };
 
@@ -86,7 +86,7 @@ export const Variant: Story = {
     ),
   },
   render: ({ children, ...args }: CalloutRootProps) => (
-    <Flex direction="column" gap="3">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
       <Callout.Root {...args} variant="soft">
         <Callout.Icon>
           <Callout.Icon>i</Callout.Icon>
@@ -107,7 +107,7 @@ export const Variant: Story = {
         </Callout.Icon>
         <Callout.Text>{children}</Callout.Text>
       </Callout.Root>
-    </Flex>
+    </div>
   ),
 };
 
@@ -122,7 +122,7 @@ export const Color: Story = {
     ),
   },
   render: ({ children, ...args }: CalloutRootProps) => (
-    <Flex direction="column" gap="3">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
       <Callout.Root {...args} color="blue">
         <Callout.Icon>
           <Callout.Icon>i</Callout.Icon>
@@ -143,7 +143,7 @@ export const Color: Story = {
         </Callout.Icon>
         <Callout.Text>{children}</Callout.Text>
       </Callout.Root>
-    </Flex>
+    </div>
   ),
 };
 
@@ -159,7 +159,7 @@ export const SemanticColor: Story = {
     ),
   },
   render: ({ children, ...args }: CalloutRootProps) => (
-    <Flex direction="column" gap="3">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
       <Callout.Root {...args} color="info">
         <Callout.Icon>
           <Callout.Icon>i</Callout.Icon>
@@ -187,7 +187,7 @@ export const SemanticColor: Story = {
         </Callout.Icon>
         <Callout.Text>{children}</Callout.Text>
       </Callout.Root>
-    </Flex>
+    </div>
   ),
 };
 
@@ -203,7 +203,7 @@ export const HighContrast: Story = {
     ),
   },
   render: ({ children, ...args }: CalloutRootProps) => (
-    <Flex direction="column" gap="3">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
       <Callout.Root {...args} variant="soft">
         <Callout.Icon>
           <Callout.Icon>i</Callout.Icon>
@@ -217,7 +217,7 @@ export const HighContrast: Story = {
         </Callout.Icon>
         <Callout.Text>{children}</Callout.Text>
       </Callout.Root>
-    </Flex>
+    </div>
   ),
 };
 
@@ -232,7 +232,7 @@ export const AsAlert: Story = {
           <Link href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/alert_role" target="_blank">
             WAI-ARIA <Code>alert</Code> role
           </Link>{' '}
-          to the callout when the user’s immediate attention is required, like when an error message appears. The screen
+          to the callout when the user's immediate attention is required, like when an error message appears. The screen
           reader will be interrupted, announcing the new content immediately.
         </Text>
       </div>

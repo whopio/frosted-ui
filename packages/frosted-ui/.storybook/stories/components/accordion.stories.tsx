@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Accordion, Flex } from '../../../src/components';
+import { Accordion } from '../../../src/components';
 import { RootProps as AccordionRootProps } from '../../../src/components/lab/accordion';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -35,7 +35,7 @@ export const Single: Story = {
         style={{ width: 600 }}
         {...args}
       >
-        <Flex direction="column" gap="4">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
           <Accordion.Item value="item-1">
             <Accordion.Trigger>Is it accessible?</Accordion.Trigger>
             <Accordion.Content>Yes. It adheres to the WAI-ARIA design pattern.</Accordion.Content>
@@ -52,7 +52,7 @@ export const Single: Story = {
             <Accordion.Trigger>Can it be animated?</Accordion.Trigger>
             <Accordion.Content>Yes! You can animate the Accordion with CSS or JavaScript.</Accordion.Content>
           </Accordion.Item>
-        </Flex>
+        </div>
       </Accordion.Root>
     </div>
   ),
@@ -66,7 +66,7 @@ export const Multiple: Story = {
   render: (args: AccordionRootProps) => (
     <div>
       <Accordion.Root style={{ width: 600 }} {...args}>
-        <Flex direction="column" gap="4">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
           <Accordion.Item value="item-1">
             <Accordion.Trigger>Is it accessible?</Accordion.Trigger>
             <Accordion.Content>Yes. It adheres to the WAI-ARIA design pattern.</Accordion.Content>
@@ -83,7 +83,7 @@ export const Multiple: Story = {
             <Accordion.Trigger>Can it be animated?</Accordion.Trigger>
             <Accordion.Content>Yes! You can animate the Accordion with CSS or JavaScript.</Accordion.Content>
           </Accordion.Item>
-        </Flex>
+        </div>
       </Accordion.Root>
     </div>
   ),
