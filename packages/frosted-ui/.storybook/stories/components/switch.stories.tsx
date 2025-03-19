@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Flex, Grid, Switch, Text } from '../../../src/components';
+import { Flex, Switch, Text } from '../../../src/components';
 import { switchPropDefs } from '../../../src/components/switch.props';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -60,7 +60,15 @@ export const Color: Story = {
 export const HighContrast: Story = {
   name: 'High Contrast',
   render: (args) => (
-    <Grid rows="2" gapX="2" gapY="3" display="inline-grid" flow="column">
+    <div
+      style={{
+        display: 'inline-grid',
+        gridTemplateRows: 'repeat(2, 1fr)',
+        columnGap: 'var(--space-2)',
+        rowGap: 'var(--space-3)',
+        gridAutoFlow: 'column',
+      }}
+    >
       <Switch {...args} color="indigo" defaultChecked />
       <Switch {...args} color="indigo" defaultChecked highContrast />
       <Switch {...args} color="cyan" defaultChecked />
@@ -69,7 +77,7 @@ export const HighContrast: Story = {
       <Switch {...args} color="orange" defaultChecked highContrast />
       <Switch {...args} color="crimson" defaultChecked />
       <Switch {...args} color="crimson" defaultChecked highContrast />
-    </Grid>
+    </div>
   ),
 };
 

@@ -6,7 +6,6 @@ import {
   Button,
   Checkbox,
   Flex,
-  Grid,
   Heading,
   IconButton,
   Inset,
@@ -167,7 +166,7 @@ export const InsetContent: Story = {
         <Button variant="soft">Share image</Button>
       </Popover.Trigger>
       <Popover.Content style={{ width: 360 }} {...args}>
-        <Grid columns="120px 1fr">
+        <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr' }}>
           <Inset side="left" pr="current">
             <img
               src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?&auto=format&fit=crop&w=400&q=80"
@@ -191,7 +190,7 @@ export const InsetContent: Story = {
               </Popover.Close>
             </Flex>
           </div>
-        </Grid>
+        </div>
       </Popover.Content>
     </Popover.Root>
   ),

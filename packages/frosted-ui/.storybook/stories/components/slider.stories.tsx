@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Flex, Grid, Slider } from '../../../src/components';
+import { Flex, Slider } from '../../../src/components';
 import { sliderPropDefs } from '../../../src/components/slider.props';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -69,7 +69,7 @@ export const Variant: Story = {
 export const HighContrast: Story = {
   name: 'High Contrast',
   render: (args) => (
-    <Grid columns="2" gap="4" style={{ width: 300 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--space-4)', width: 300 }}>
       <Slider {...args} defaultValue={[20]} color="indigo" />
       <Slider {...args} defaultValue={[20]} color="indigo" highContrast />
       <Slider {...args} defaultValue={[40]} color="cyan" />
@@ -78,7 +78,7 @@ export const HighContrast: Story = {
       <Slider {...args} defaultValue={[60]} color="orange" highContrast />
       <Slider {...args} defaultValue={[80]} color="crimson" />
       <Slider {...args} defaultValue={[80]} color="crimson" highContrast />
-    </Grid>
+    </div>
   ),
 };
 

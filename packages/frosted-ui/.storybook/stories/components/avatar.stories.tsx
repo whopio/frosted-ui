@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Avatar, Flex, Grid } from '../../../src/components';
+import { Avatar, Flex } from '../../../src/components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -101,7 +101,7 @@ export const HighContrast: Story = {
     fallback: 'Cameron Zoub',
   },
   render: (args) => (
-    <Grid rows="2" gap="2" style={{ display: 'inline-grid' }} flow="column">
+    <div style={{ display: 'inline-grid', gridTemplateRows: 'repeat(2, 1fr)', gap: '8px', gridAutoFlow: 'column' }}>
       <Avatar {...args} color="indigo" />
       <Avatar {...args} color="indigo" highContrast />
       <Avatar {...args} color="cyan" />
@@ -110,7 +110,7 @@ export const HighContrast: Story = {
       <Avatar {...args} color="orange" highContrast />
       <Avatar {...args} color="crimson" />
       <Avatar {...args} color="crimson" highContrast />
-    </Grid>
+    </div>
   ),
 };
 

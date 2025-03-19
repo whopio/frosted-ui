@@ -5,8 +5,6 @@ export * from './container';
 export * from './container.props';
 export * from './flex';
 export * from './flex.props';
-export * from './grid';
-export * from './grid.props';
 export * from './inset';
 export * from './inset.props';
 

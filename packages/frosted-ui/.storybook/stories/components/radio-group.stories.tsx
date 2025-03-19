@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Code, Flex, Grid, RadioGroup, Text } from '../../../src/components';
+import { Code, Flex, RadioGroup, Text } from '../../../src/components';
 import { radioGroupPropDefs } from '../../../src/components/radio-group.props';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -141,7 +141,14 @@ export const Color: Story = {
 export const HighContrast: Story = {
   name: 'High Contrast',
   render: (args) => (
-    <Grid rows="2" gap="2" display="inline-grid" flow="column">
+    <div
+      style={{
+        display: 'inline-grid',
+        gridTemplateRows: 'repeat(2, 1fr)',
+        gap: 'var(--space-2)',
+        gridAutoFlow: 'column',
+      }}
+    >
       <RadioGroup.Root {...args} color="indigo" defaultValue="1">
         <RadioGroup.Item value="1" />
       </RadioGroup.Root>
@@ -173,7 +180,7 @@ export const HighContrast: Story = {
       <RadioGroup.Root {...args} color="crimson" defaultValue="1" highContrast>
         <RadioGroup.Item value="1" />
       </RadioGroup.Root>
-    </Grid>
+    </div>
   ),
 };
 
@@ -181,9 +188,8 @@ export const Alignment: Story = {
   name: 'Alignment with text',
   render: (args) => (
     <Flex direction="column" gap="3">
-      <Text mb="3">
-        Composing <Code>RadioGroup</Code> within <Code>Text</Code> automatically
-        centers it with the first line of text.
+      <Text style={{ marginBottom: 12 }}>
+        Composing <Code>RadioGroup</Code> within <Code>Text</Code> automatically centers it with the first line of text.
       </Text>
       <RadioGroup.Root {...args} size="1" defaultValue="1">
         <Text as="label" size="2">

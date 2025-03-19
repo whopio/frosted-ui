@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Flex, Grid, Heading, ScrollArea, Text } from '../../../src/components';
+import { Flex, Heading, ScrollArea, Text } from '../../../src/components';
 import { scrollAreaPropDefs } from '../../../src/components/scroll-area.props';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -88,7 +88,7 @@ export const Scrollbars: Story = {
     scrollbars: 'vertical',
   },
   render: (args) => (
-    <Grid columns="2" gap="2">
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--space-2)' }}>
       <ScrollArea {...args} type="always" scrollbars="vertical" style={{ height: 150 }}>
         <Flex p="2" pr="8" direction="column" gap="4">
           <Text size="2" trim="both">
@@ -120,6 +120,6 @@ export const Scrollbars: Story = {
           </Text>
         </Flex>
       </ScrollArea>
-    </Grid>
+    </div>
   ),
 };

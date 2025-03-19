@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Button, Card, Code, Flex, Grid, Switch, Text, TextArea } from '../../../src/components';
+import { Button, Card, Code, Flex, Switch, Text, TextArea } from '../../../src/components';
 import { Theme } from '../../../src/theme';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -31,12 +31,12 @@ export const Default: Story = {
           </Text>
           <Card size="2" style={{ maxWidth: 400 }} variant="classic">
             <Flex direction="column" gap="3">
-              <Grid gap="1">
+              <div style={{ display: 'grid', gap: 4 }}>
                 <Text as="div" weight="bold" size="2" style={{ marginBottom: 4 }}>
                   Feedback
                 </Text>
                 <TextArea placeholder="Write your feedback…" />
-              </Grid>
+              </div>
               <Flex asChild justify="between">
                 <label>
                   <Text color="gray" size="2">
@@ -45,10 +45,10 @@ export const Default: Story = {
                   <Switch size="1" defaultChecked />
                 </label>
               </Flex>
-              <Grid columns="2" gap="2">
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--space-2)' }}>
                 <Button variant="surface">Back</Button>
                 <Button>Send</Button>
-              </Grid>
+              </div>
             </Flex>
           </Card>
         </Flex>
