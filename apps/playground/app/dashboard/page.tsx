@@ -1,3 +1,4 @@
+'use client';
 import {
   AccessibilityIcon,
   CameraIcon,
@@ -32,54 +33,30 @@ import {
   Popover,
   Separator,
   Strong,
+  TabsNav,
   Text,
   TextArea,
   TextField,
   Theme,
   ThemePanel,
-  Tooltip,
 } from 'frosted-ui';
-// import { HideCursor } from './hide-cursor';
-/* Inter variable setup */
-import localFont from 'next/font/local';
-const interVariable = localFont({
-  src: '../../fonts/InterVariable.woff2',
-  variable: '--inter-variable',
-});
-const SidebarButton = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <button
-      className={
-        'fui-reset flex items-center text-gray-a10 gap-4 w-full h-[42px] pl-4 rounded-md hover:bg-gray-a3 hover:text-gray-a12 dark:hover:shadow-[0px_0px_0px_1px_var(--gray-a4)_inset] dark:hover:bg-[linear-gradient(_95deg,transparent,transparent,transparent,var(--accent-a4)_)]'
-      }
-    >
-      {children}
-    </button>
-  );
-};
+
 const DashboardCard = () => {
   return (
-    <div className="flex-1 relative min-h-[202px] p-6 border border-gray-a3 rounded-lg overflow-hidden bg-panel-solid">
+    <div className={styles.dashboardCard}>
       <WhopSVG />
       <Flex direction="column" gap="5">
         <Flex justify="between">
-          <div
-            className={[
-              'relative flex w-[60px] h-[60px] justify-center items-center rounded-[18px] border border-gray-a3 bg-panel-solid',
-              "after:content-[''] after:absolute after:inset-[12px] after:border after:border-green-6 after:rounded-3 after:bg-gradient-to-b from-green-a3 to-transparent",
-            ].join(' ')}
-          />
+          <div className={styles.dashboardCardIcon} />
           <Flex direction="column" gap="2">
             <Text color="gray" size="1" trim="both">
-              <Tooltip content="SWAG" open>
-                <Strong>APPS SUPPORTED</Strong>
-              </Tooltip>
+              <Strong>APPS SUPPORTED</Strong>
             </Text>
-            <div className="flex justify-center gap-1 px-2 py-1 rounded-3 border border-gray-a3">
-              <NotionLogoIcon width="20" height="20" className="text-blue-9" />
-              <DiscordLogoIcon width="20" height="20" className="text-lime-9" />
-              <LinkedInLogoIcon width="20" height="20" className="text-yellow-9" />
-              <GitHubLogoIcon width="20" height="20" className="text-tomato-9" />
+            <div className={styles.dashboardCardApps}>
+              <NotionLogoIcon width="20" height="20" />
+              <DiscordLogoIcon width="20" height="20" />
+              <LinkedInLogoIcon width="20" height="20" />
+              <GitHubLogoIcon width="20" height="20" />
             </div>
           </Flex>
         </Flex>
@@ -98,15 +75,8 @@ const DashboardCard = () => {
 
 const WhopSVG = () => {
   return (
-    <div className="absolute bottom-0 right-0 pointer-events-none">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="306"
-        height="117"
-        viewBox="0 0 306 117"
-        fill="none"
-        className="dark:hidden"
-      >
+    <div className={styles.whopSVG}>
+      <svg xmlns="http://www.w3.org/2000/svg" width="306" height="117" viewBox="0 0 306 117" fill="none">
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -142,14 +112,7 @@ const WhopSVG = () => {
           </linearGradient>
         </defs>
       </svg>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="306"
-        height="117"
-        viewBox="0 0 306 117"
-        fill="none"
-        className="hidden dark:block"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="306" height="117" viewBox="0 0 306 117" fill="none">
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -189,16 +152,21 @@ const WhopSVG = () => {
   );
 };
 
-export default function Dashboard() {
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { users } from '../demo/users';
+import styles from './page.module.css';
+
+export default function Demo() {
+  const pathname = usePathname();
+
   return (
-    /* Inter variable setup */
-    <html lang="en" suppressHydrationWarning className={'frosted-ui ' + interVariable.variable}>
-      <body>
-        {/* <NextThemeProvider> */}
-        <Theme asChild appearance="dark" grayColor="gray" accentColor="blue">
-          <div id="root" className="w-full h-[100vh] bg-gray-1 flex flex-no-wrap p-2">
+    <html lang="en" suppressHydrationWarning>
+      <body className={styles.body}>
+        <Theme asChild appearance="light" grayColor="gray" accentColor="blue">
+          <div id="root">
             <ThemePanel />
-            <aside className="h-full w-[300px] py-2 px-4">
+            <aside className={styles.aside}>
               <Flex direction="column" justify="between" style={{ height: '100%' }}>
                 <div>
                   <Flex px="2" py="4">
@@ -246,55 +214,55 @@ export default function Dashboard() {
                     </Popover.Root>
                   </Flex>
                   <Flex direction="column" gap="1" pt="6">
-                    <SidebarButton>
+                    <button className={'fui-reset ' + styles.asideButton}>
                       <HomeIcon width="24" height="24" />
                       Home
-                    </SidebarButton>
-                    <SidebarButton>
+                    </button>
+                    <button className={'fui-reset ' + styles.asideButton}>
                       <AccessibilityIcon width="24" height="24" />
                       Products
-                    </SidebarButton>
-                    <SidebarButton>
+                    </button>
+                    <button className={'fui-reset ' + styles.asideButton}>
                       <MixerVerticalIcon width="24" height="24" />
                       Product pages
-                    </SidebarButton>
-                    <SidebarButton>
+                    </button>
+                    <button className={'fui-reset ' + styles.asideButton}>
                       <EnvelopeOpenIcon width="24" height="24" />
                       Apps
-                    </SidebarButton>
-                    <SidebarButton>
+                    </button>
+                    <button className={'fui-reset ' + styles.asideButton}>
                       <CookieIcon width="24" height="24" />
                       Links
-                    </SidebarButton>
-                    <SidebarButton>
+                    </button>
+                    <button className={'fui-reset ' + styles.asideButton}>
                       <MobileIcon width="24" height="24" />
                       Customers
-                    </SidebarButton>
-                    <SidebarButton>
+                    </button>
+                    <button className={'fui-reset ' + styles.asideButton}>
                       <ReloadIcon width="24" height="24" />
                       Stats
-                    </SidebarButton>
-                    <SidebarButton>
+                    </button>
+                    <button className={'fui-reset ' + styles.asideButton}>
                       <RocketIcon width="24" height="24" />
                       Affiliates
-                    </SidebarButton>
-                    <SidebarButton>
+                    </button>
+                    <button className={'fui-reset ' + styles.asideButton}>
                       <ClockIcon width="24" height="24" />
                       Payments
-                    </SidebarButton>
-                    <SidebarButton>
+                    </button>
+                    <button className={'fui-reset ' + styles.asideButton}>
                       <CodeIcon width="24" height="24" />
                       Feedback
-                    </SidebarButton>
-                    <SidebarButton>
+                    </button>
+                    <button className={'fui-reset ' + styles.asideButton}>
                       <CameraIcon width="24" height="24" />
                       Resolution center
-                    </SidebarButton>
+                    </button>
                   </Flex>
                 </div>
                 <Flex align="center" justify="between" p="2">
                   <Flex align="center" gap="3">
-                    <Avatar fallback="IM" />
+                    <Avatar fallback="IM" src={users[2].image} />
                     <Text>Ilya Miskov</Text>
                   </Flex>
                   <DropdownMenu.Root>
@@ -331,8 +299,16 @@ export default function Dashboard() {
                 </Flex>
               </Flex>
             </aside>
-            <main className="h-full flex-1 rounded-5 border border-solid border-gray-a4 dark:bg-[rgba(255,255,255,0.01)]">
-              <div style={{ paddingLeft: 54, paddingRight: 48 }}>
+            <main className={styles.main}>
+              <TabsNav.Root>
+                <TabsNav.Link asChild active={pathname == '/dashboard'}>
+                  <Link href="/dashboard">Dashboard</Link>
+                </TabsNav.Link>
+                <TabsNav.Link asChild active={pathname == '/demo'}>
+                  <Link href="/demo">Demo</Link>
+                </TabsNav.Link>
+              </TabsNav.Root>
+              <div style={{ paddingLeft: 32, paddingRight: 32 }}>
                 <Flex pt="4" pb="4" direction="row" align="center" justify="between">
                   <div>
                     <Breadcrumbs.Root>
@@ -368,14 +344,7 @@ export default function Dashboard() {
                 <Flex pb="7" direction="row" align="center" justify="between">
                   <div>
                     <Flex direction="column" gap="2">
-                      <Heading
-                        size="8"
-                        style={{
-                          fontFeatureSettings: `'liga' 1, 'calt' 1`,
-                        }}
-                      >
-                        {"Choose what you're selling ->"}
-                      </Heading>
+                      <Heading size="8">Choose what you're selling</Heading>
                       <Text color="gray">Choose what you're selling</Text>
                     </Flex>
                   </div>
@@ -426,7 +395,7 @@ export default function Dashboard() {
                     </Flex>
                   </Flex>
                 </Flex>
-                <Flex style={{ marginTop: 32 }}>
+                <Flex style={{ marginTop: 12 }}>
                   <Button variant="soft" color="gray" style={{ width: '100%' }} size="4">
                     Load more
                   </Button>
@@ -435,7 +404,6 @@ export default function Dashboard() {
             </main>
           </div>
         </Theme>
-        {/* </NextThemeProvider> */}
       </body>
     </html>
   );

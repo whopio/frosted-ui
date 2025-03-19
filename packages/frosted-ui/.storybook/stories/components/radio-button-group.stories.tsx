@@ -1,15 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import {
-  Avatar,
-  Box,
-  Card,
-  Flex,
-  RadioButtonGroup,
-  Text,
-  Tooltip,
-} from '../../../src/components';
+import { Avatar, Card, Flex, RadioButtonGroup, Text, Tooltip } from '../../../src/components';
 import { radioGroupPropDefs } from '../../../src/components/radio-group.props';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -49,7 +41,7 @@ export const Default: Story = {
             gap="2"
             align="center"
           >
-            <RadioButtonGroup.Icon ml="-3" />
+            <RadioButtonGroup.Icon style={{ marginLeft: -12 }} />
             <Text>One</Text>
           </Flex>
         </RadioButtonGroup.Item>
@@ -63,7 +55,7 @@ export const Default: Story = {
             gap="2"
             align="center"
           >
-            <RadioButtonGroup.Icon ml="-3" />
+            <RadioButtonGroup.Icon style={{ marginLeft: -12 }} />
             <Text>Two</Text>
           </Flex>
         </RadioButtonGroup.Item>
@@ -77,7 +69,7 @@ export const Default: Story = {
             gap="2"
             align="center"
           >
-            <RadioButtonGroup.Icon ml="-3" />
+            <RadioButtonGroup.Icon style={{ marginLeft: -12 }} />
             <Text>Three</Text>
           </Flex>
         </RadioButtonGroup.Item>
@@ -153,14 +145,14 @@ export const WithCard: Story = {
           <Card size="2" variant="classic">
             <Flex gap="3" align="center">
               <Avatar size="3" fallback="AB" color="lime" />
-              <Box>
+              <div>
                 <Text as="div" size="2" weight="bold">
                   Artur Bień
                 </Text>
                 <Text as="div" size="2" color="gray">
                   UI engineer
                 </Text>
-              </Box>
+              </div>
             </Flex>
           </Card>
         </RadioButtonGroup.Item>
@@ -168,14 +160,14 @@ export const WithCard: Story = {
           <Card size="2" variant="classic">
             <Flex gap="3" align="center">
               <Avatar size="3" fallback="IM" color="sky" />
-              <Box>
+              <div>
                 <Text as="div" size="2" weight="bold">
                   Ilya Miskov
                 </Text>
                 <Text as="div" size="2" color="gray">
                   Designer
                 </Text>
-              </Box>
+              </div>
             </Flex>
           </Card>
         </RadioButtonGroup.Item>
@@ -183,14 +175,14 @@ export const WithCard: Story = {
           <Card size="2" variant="classic">
             <Flex gap="3" align="center">
               <Avatar size="3" fallback="SS" color="orange" />
-              <Box>
+              <div>
                 <Text as="div" size="2" weight="bold">
                   Steven Schwartz
                 </Text>
                 <Text as="div" size="2" color="gray">
                   CEO
                 </Text>
-              </Box>
+              </div>
             </Flex>
           </Card>
         </RadioButtonGroup.Item>
@@ -203,12 +195,7 @@ export const Color: Story = {
   render: (args) => (
     <Flex gap="2" direction="column">
       {(['indigo', 'cyan', 'orange', 'lime'] as const).map((color) => (
-        <RadioButtonGroup.Root
-          {...args}
-          color={color}
-          key={color}
-          defaultValue="1"
-        >
+        <RadioButtonGroup.Root {...args} color={color} key={color} defaultValue="1">
           <Flex gap="2">
             {['1', '2', '3'].map((value) => (
               <RadioButtonGroup.Item value={value} key={value}>
@@ -223,12 +210,7 @@ export const Color: Story = {
                     } as React.CSSProperties
                   }
                 >
-                  <Flex
-                    align="center"
-                    justify="center"
-                    height="100%"
-                    width="100%"
-                  >
+                  <Flex align="center" justify="center" height="100%" width="100%">
                     {value}
                   </Flex>
 

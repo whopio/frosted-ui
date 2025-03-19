@@ -1,13 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import {
-  Box,
-  Button,
-  Drawer,
-  SegmentedControl,
-  Text,
-} from '../../../src/components';
+import { Button, Drawer, SegmentedControl, Text } from '../../../src/components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -32,18 +26,12 @@ export const Default: Story = {
     <div style={{ width: 'auto' }}>
       <SegmentedControl.Root defaultValue="account">
         <SegmentedControl.List {...args}>
-          <SegmentedControl.Trigger value="account">
-            Account
-          </SegmentedControl.Trigger>
-          <SegmentedControl.Trigger value="documents">
-            Documents
-          </SegmentedControl.Trigger>
-          <SegmentedControl.Trigger value="settings">
-            Settings
-          </SegmentedControl.Trigger>
+          <SegmentedControl.Trigger value="account">Account</SegmentedControl.Trigger>
+          <SegmentedControl.Trigger value="documents">Documents</SegmentedControl.Trigger>
+          <SegmentedControl.Trigger value="settings">Settings</SegmentedControl.Trigger>
         </SegmentedControl.List>
 
-        <Box px="4" pt="3" pb="2">
+        <div style={{ padding: '12px 16px 8px 16px' }}>
           <SegmentedControl.Content value="account">
             <Text size="2">Your account.</Text>
           </SegmentedControl.Content>
@@ -55,7 +43,7 @@ export const Default: Story = {
           <SegmentedControl.Content value="settings">
             <Text size="2">Your profile.</Text>
           </SegmentedControl.Content>
-        </Box>
+        </div>
       </SegmentedControl.Root>
     </div>
   ),
@@ -74,18 +62,12 @@ export const InDrawer: Story = {
         <Drawer.Body>
           <SegmentedControl.Root defaultValue="account">
             <SegmentedControl.List {...args}>
-              <SegmentedControl.Trigger value="account">
-                Account
-              </SegmentedControl.Trigger>
-              <SegmentedControl.Trigger value="documents">
-                Documents
-              </SegmentedControl.Trigger>
-              <SegmentedControl.Trigger value="settings">
-                Settings
-              </SegmentedControl.Trigger>
+              <SegmentedControl.Trigger value="account">Account</SegmentedControl.Trigger>
+              <SegmentedControl.Trigger value="documents">Documents</SegmentedControl.Trigger>
+              <SegmentedControl.Trigger value="settings">Settings</SegmentedControl.Trigger>
             </SegmentedControl.List>
 
-            <Box px="4" pt="3" pb="2">
+            <div style={{ padding: '12px 16px 8px 16px' }}>
               <SegmentedControl.Content value="account">
                 <Text size="2">Make changes to your account.</Text>
               </SegmentedControl.Content>
@@ -97,7 +79,7 @@ export const InDrawer: Story = {
               <SegmentedControl.Content value="settings">
                 <Text size="2">Edit your profile.</Text>
               </SegmentedControl.Content>
-            </Box>
+            </div>
           </SegmentedControl.Root>
         </Drawer.Body>
       </Drawer.Content>

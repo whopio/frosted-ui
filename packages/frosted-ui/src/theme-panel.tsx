@@ -3,7 +3,6 @@
 import { useCallbackRef } from '@radix-ui/react-use-callback-ref';
 import * as React from 'react';
 import {
-  Box,
   Button,
   Flex,
   Grid,
@@ -39,8 +38,8 @@ const ThemePanel = React.forwardRef<ThemePanelImplElement, ThemePanelProps>(
 );
 ThemePanel.displayName = 'ThemePanel';
 
-type ThemePanelImplElement = React.ElementRef<typeof Box>;
-interface ThemePanelImplProps extends React.ComponentPropsWithoutRef<typeof Box>, ThemePanelImplPrivateProps {
+type ThemePanelImplElement = React.ElementRef<'div'>;
+interface ThemePanelImplProps extends React.ComponentPropsWithoutRef<'div'>, ThemePanelImplPrivateProps {
   onAppearanceChange?: (value: Exclude<ThemeOptions['appearance'], 'inherit'>) => void;
 }
 interface ThemePanelImplPrivateProps {
@@ -198,14 +197,14 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
         }}
       >
         <ScrollArea>
-          <Box grow="1" p="5" position="relative">
-            <Box position="absolute" top="0" right="0" style={{ margin: 8 }}>
+          <div style={{ position: 'relative', flexGrow: 1, padding: 24 }}>
+            <div style={{ margin: 8, position: 'absolute', top: 0, right: 0 }}>
               <Tooltip content="Press ⌘&thinsp;C to show/hide the Theme Panel" side="bottom" sideOffset={6}>
                 <Kbd size="3" tabIndex={0} className="fui-ThemePanelShortcut">
                   ⌘&thinsp;C
                 </Kbd>
               </Tooltip>
-            </Box>
+            </div>
 
             <Heading
               size="5"
@@ -497,7 +496,7 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
             >
               {copyState === 'copied' ? 'Copied' : 'Copy Theme'}
             </Button>
-          </Box>
+          </div>
         </ScrollArea>
       </Flex>
     </Theme>

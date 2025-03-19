@@ -1,7 +1,6 @@
 // LAYOUT
 //------------------------------------------------------------------------------
 export * from './aspectRatio';
-export * from './box';
 export * from './container';
 export * from './container.props';
 export * from './flex';

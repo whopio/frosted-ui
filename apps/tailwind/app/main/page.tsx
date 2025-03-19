@@ -1,7 +1,6 @@
 import { ArrowLeftIcon, ArrowRightIcon, ChevronRightIcon } from '@radix-ui/react-icons';
 import {
   Avatar,
-  Box,
   Button,
   Card,
   Container,
@@ -35,16 +34,16 @@ export default function Dashboard() {
             <header className="sticky top-0 backdrop-blur-lg z-10 backdrop-saturate-150">
               <div className="absolute inset-0 bg-panel-translucent -z-[1]" style={{ filter: 'url(#myFilter' }} />
               <Container size="4">
-                <Box>
+                <div>
                   <div className="py-4 flex items-center">
                     <WhopLogo className="w-[137px] h-auto" />
                   </div>
-                </Box>
+                </div>
               </Container>
 
               <Separator color="gray" orientation="horizontal" size="4" />
               <Container size="4">
-                <Box>
+                <div>
                   <div className="flex items-center">
                     <Tabs.Root defaultValue="1" className="-mb-[1px]">
                       <Tabs.List size="2">
@@ -59,7 +58,7 @@ export default function Dashboard() {
                       </Tabs.List>
                     </Tabs.Root>
                   </div>
-                </Box>
+                </div>
               </Container>
               <Separator color="gray" orientation="horizontal" size="4" className="relative z-[1]" />
             </header>

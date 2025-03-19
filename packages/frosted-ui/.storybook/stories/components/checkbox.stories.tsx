@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Box, Code, Flex, Grid, Text } from '../../../src/components';
+import { Code, Flex, Text } from '../../../src/components';
 import { Checkbox } from '../../../src/components/checkbox';
 import { checkboxPropDefs } from '../../../src/components/checkbox.props';
 
@@ -105,7 +105,13 @@ export const Color: Story = {
 export const HighContrast: Story = {
   name: 'High Contrast',
   render: (args) => (
-    <Grid rows="2" gap="2" display="inline-grid" flow="column">
+    <div
+      style={{
+        display: 'inline-grid',
+        gridTemplateColumns: 'repeat(2, 1fr)',
+        gap: '2',
+      }}
+    >
       <Checkbox {...args} color="indigo" defaultChecked />
       <Checkbox {...args} color="indigo" defaultChecked highContrast />
       <Checkbox {...args} color="cyan" defaultChecked />
@@ -114,7 +120,7 @@ export const HighContrast: Story = {
       <Checkbox {...args} color="orange" defaultChecked highContrast />
       <Checkbox {...args} color="crimson" defaultChecked />
       <Checkbox {...args} color="crimson" defaultChecked highContrast />
-    </Grid>
+    </div>
   ),
 };
 
@@ -122,39 +128,34 @@ export const Alignment: Story = {
   name: 'Alignment with text',
   render: (args) => (
     <Flex direction="column" gap="3">
-      <Text mb="3">
-        Composing <Code>Checkbox</Code> within <Code>Text</Code> automatically
-        centers it with the first line of text.
+      <Text style={{ marginBottom: 12 }}>
+        Composing <Code>Checkbox</Code> within <Code>Text</Code> automatically centers it with the first line of text.
       </Text>
       <Text as="label" size="3">
         <Flex gap="2">
-          <Checkbox {...args} size="1" defaultChecked /> Agree to Terms and
-          Conditions
+          <Checkbox {...args} size="1" defaultChecked /> Agree to Terms and Conditions
         </Flex>
       </Text>
 
       <Text as="label" size="4">
         <Flex gap="2">
-          <Checkbox {...args} size="2" defaultChecked /> Agree to Terms and
-          Conditions
+          <Checkbox {...args} size="2" defaultChecked /> Agree to Terms and Conditions
         </Flex>
       </Text>
 
       <Text as="label" size="5">
         <Flex gap="3">
-          <Checkbox {...args} size="3" defaultChecked /> Agree to Terms and
-          Conditions
+          <Checkbox {...args} size="3" defaultChecked /> Agree to Terms and Conditions
         </Flex>
       </Text>
 
-      <Box style={{ maxWidth: 300 }}>
+      <div style={{ maxWidth: 300 }}>
         <Text as="label" size="4">
           <Flex gap="2">
-            <Checkbox defaultChecked /> It is automatically well-aligned with
-            multi-line text too.
+            <Checkbox defaultChecked /> It is automatically well-aligned with multi-line text too.
           </Flex>
         </Text>
-      </Box>
+      </div>
     </Flex>
   ),
 };

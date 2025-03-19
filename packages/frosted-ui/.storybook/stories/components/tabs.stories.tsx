@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Box, Tabs, Text } from '../../../src/components';
+import { Tabs, Text } from '../../../src/components';
 import { tabsListPropDefs } from '../../../src/components/tabs.props';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -36,7 +36,7 @@ export const Default: Story = {
           <Tabs.Trigger value="settings">Settings</Tabs.Trigger>
         </Tabs.List>
 
-        <Box px="4" pt="3" pb="2">
+        <div style={{ padding: '12px 16px 8px 16px' }}>
           <Tabs.Content value="account">
             <Text size="2">Make changes to your account.</Text>
           </Tabs.Content>
@@ -46,11 +46,9 @@ export const Default: Story = {
           </Tabs.Content>
 
           <Tabs.Content value="settings">
-            <Text size="2">
-              Edit your profile or update contact information.
-            </Text>
+            <Text size="2">Edit your profile or update contact information.</Text>
           </Tabs.Content>
-        </Box>
+        </div>
       </Tabs.Root>
     </div>
   ),

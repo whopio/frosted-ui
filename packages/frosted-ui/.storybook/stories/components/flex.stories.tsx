@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Box } from '../../../src/components/box';
 import { Flex } from '../../../src/components/flex';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -17,7 +16,7 @@ const meta = {
   },
   render: (args) => (
     <Flex {...args}>
-      <Box width="9" height="9" shrink="0">
+      <div style={{ width: 50, height: 50, flexShrink: '0' }}>
         <div
           style={{
             width: '100%',
@@ -26,8 +25,8 @@ const meta = {
               'repeating-linear-gradient( 45deg, var(--orange-8), var(--orange-8) 5px, var(--orange-6) 5px, var(--orange-6) 25px )',
           }}
         ></div>
-      </Box>
-      <Box width="9" height="9" shrink="0">
+      </div>
+      <div style={{ width: 50, height: 50, flexShrink: '0' }}>
         <div
           style={{
             width: '100%',
@@ -36,8 +35,8 @@ const meta = {
               'repeating-linear-gradient( 45deg, var(--orange-8), var(--orange-8) 5px, var(--orange-6) 5px, var(--orange-6) 25px )',
           }}
         ></div>
-      </Box>
-      <Box width="9" height="9" shrink="0">
+      </div>
+      <div style={{ width: 50, height: 50, flexShrink: '0' }}>
         <div
           style={{
             width: '100%',
@@ -46,7 +45,7 @@ const meta = {
               'repeating-linear-gradient( 45deg, var(--orange-8), var(--orange-8) 5px, var(--orange-6) 5px, var(--orange-6) 25px )',
           }}
         ></div>
-      </Box>
+      </div>
     </Flex>
   ),
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs

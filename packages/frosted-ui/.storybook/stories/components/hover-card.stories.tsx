@@ -3,7 +3,6 @@ import React from 'react';
 
 import {
   Avatar,
-  Box,
   Flex,
   Heading,
   HoverCard,
@@ -48,7 +47,7 @@ export const Default: Story = {
         <HoverCard.Content {...args}>
           <Flex gap="4">
             <Avatar size="3" fallback="FUI" />
-            <Box>
+            <div>
               <Heading size="3" as="h3">
                 Frosted UI
               </Heading>
@@ -59,7 +58,7 @@ export const Default: Story = {
               <Text as="div" size="2" style={{ maxWidth: 300 }} mt="3">
                 React components library built on top of Radix Themes.
               </Text>
-            </Box>
+            </div>
           </Flex>
         </HoverCard.Content>
       </HoverCard.Root>{' '}
@@ -77,9 +76,8 @@ export const Size: Story = {
         </HoverCard.Trigger>
         <HoverCard.Content size="1">
           <Text as="div" size="1" style={{ maxWidth: 325 }}>
-            <Strong>Typography</Strong> is the art and technique of arranging
-            type to make written language legible, readable and appealing when
-            displayed.
+            <Strong>Typography</Strong> is the art and technique of arranging type to make written language legible,
+            readable and appealing when displayed.
           </Text>
         </HoverCard.Content>
       </HoverCard.Root>
@@ -90,9 +88,8 @@ export const Size: Story = {
         </HoverCard.Trigger>
         <HoverCard.Content size="2">
           <Text as="div" size="2" style={{ maxWidth: 350 }}>
-            <Strong>Typography</Strong> is the art and technique of arranging
-            type to make written language legible, readable and appealing when
-            displayed.
+            <Strong>Typography</Strong> is the art and technique of arranging type to make written language legible,
+            readable and appealing when displayed.
           </Text>
         </HoverCard.Content>
       </HoverCard.Root>
@@ -103,9 +100,8 @@ export const Size: Story = {
         </HoverCard.Trigger>
         <HoverCard.Content size="3">
           <Text as="div" size="3" style={{ maxWidth: 400 }}>
-            <Strong>Typography</Strong> is the art and technique of arranging
-            type to make written language legible, readable and appealing when
-            displayed.
+            <Strong>Typography</Strong> is the art and technique of arranging type to make written language legible,
+            readable and appealing when displayed.
           </Text>
         </HoverCard.Content>
       </HoverCard.Root>
@@ -140,11 +136,9 @@ export const InsetContent: Story = {
             </Inset>
 
             <Text size="2" style={{ maxWidth: 250 }} as="p">
-              <Strong>Typography</Strong> is the art and technique of arranging
-              type to make written language legible, readable and appealing when
-              displayed. The arrangement of type involves selecting typefaces,
-              point sizes, line lengths, line-spacing (leading), and
-              letter-spacing (tracking)…
+              <Strong>Typography</Strong> is the art and technique of arranging type to make written language legible,
+              readable and appealing when displayed. The arrangement of type involves selecting typefaces, point sizes,
+              line lengths, line-spacing (leading), and letter-spacing (tracking)…
             </Text>
           </Flex>
         </HoverCard.Content>

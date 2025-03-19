@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Box } from '../../../src/components/box';
 import { Container } from '../../../src/components/container';
 import { containerPropDefs } from '../../../src/components/container.props';
 
@@ -18,7 +17,7 @@ const meta = {
     layout: 'centered',
   },
   render: (args) => (
-    <Box
+    <div
       style={{
         background: 'var(--gray-a2)',
         borderRadius: 'var(--radius-3)',
@@ -33,10 +32,10 @@ const meta = {
               'repeating-linear-gradient( 45deg, var(--orange-8), var(--orange-8) 5px, var(--orange-6) 5px, var(--orange-6) 25px )',
           }}
         >
-          <Box py="9" />
+          <div style={{ paddingTop: 50, paddingBottom: 50 }} />
         </div>
       </Container>
-    </Box>
+    </div>
   ),
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],

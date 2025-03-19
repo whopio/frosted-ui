@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
 import { ContextMenu } from '../../../src/components';
-import { Box } from '../../../src/components/box';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -16,7 +15,7 @@ const meta = {
   render: (args) => (
     <ContextMenu.Root>
       <ContextMenu.Trigger>
-        <Box
+        <div
           style={{
             background: 'var(--gray-a2)',
             borderRadius: 'var(--radius-3)',
@@ -28,7 +27,7 @@ const meta = {
           }}
         >
           Right-click here
-        </Box>
+        </div>
       </ContextMenu.Trigger>
       <ContextMenu.Content>
         <ContextMenu.Item shortcut="⌘ E">Edit</ContextMenu.Item>
