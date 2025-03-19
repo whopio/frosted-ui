@@ -19,6 +19,8 @@
 @import '../components/drawer.css';
 @import '../components/sheet.css';
 
+@import '../components/date-picker.css';
+@import '../components/date-range-picker.css';
 @import '../components/lab/accordion.css';
 @import '../components/avatar.css';
 @import '../components/avatar-group.css';
