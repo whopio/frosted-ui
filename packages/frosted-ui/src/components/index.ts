@@ -1,8 +1,6 @@
 // LAYOUT
 //------------------------------------------------------------------------------
 export * from './aspectRatio';
-export * from './flex';
-export * from './flex.props';
 export * from './inset';
 export * from './inset.props';
 
