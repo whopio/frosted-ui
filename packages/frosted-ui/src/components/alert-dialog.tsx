@@ -64,7 +64,7 @@ AlertDialogContent.displayName = 'AlertDialogContent';
 
 type AlertDialogTitleProps = React.ComponentProps<typeof Heading>;
 
-const AlertDialogTitle = ({ size: sizeProp, ...props }: AlertDialogTitleProps) => {
+const AlertDialogTitle = ({ size: sizeProp, className, ...props }: AlertDialogTitleProps) => {
   const { size: contextSize } = React.useContext(AlertDialogContentContext);
   let size: AlertDialogTitleProps['size'];
 
@@ -81,7 +81,7 @@ const AlertDialogTitle = ({ size: sizeProp, ...props }: AlertDialogTitleProps) =
 
   return (
     <AlertDialogPrimitive.Title asChild>
-      <Heading size={sizeProp || size} trim="start" {...props} />
+      <Heading size={sizeProp || size} trim="start" className={classNames('fui-DialogTitle', className)} {...props} />
     </AlertDialogPrimitive.Title>
   );
 };
@@ -89,7 +89,7 @@ AlertDialogTitle.displayName = 'AlertDialogTitle';
 
 type AlertDialogDescriptionProps = ExtractPropsForTag<typeof Text, 'p'>;
 
-const AlertDialogDescription = ({ size: sizeProp, ...props }: AlertDialogDescriptionProps) => {
+const AlertDialogDescription = ({ size: sizeProp, className, ...props }: AlertDialogDescriptionProps) => {
   const { size: contextSize } = React.useContext(AlertDialogContentContext);
   let size: AlertDialogDescriptionProps['size'];
 
@@ -106,7 +106,7 @@ const AlertDialogDescription = ({ size: sizeProp, ...props }: AlertDialogDescrip
 
   return (
     <AlertDialogPrimitive.Description asChild>
-      <Text as="p" size={sizeProp || size} {...props} />
+      <Text as="p" size={sizeProp || size} className={classNames('fui-DialogDescription', className)} {...props} />
     </AlertDialogPrimitive.Description>
   );
 };

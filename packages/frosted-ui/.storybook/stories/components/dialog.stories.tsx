@@ -48,22 +48,16 @@ export const Default: Story = {
 
         <Flex direction="column" gap="3">
           <label>
-            <Text as="div" size="2" mb="1" weight="bold">
+            <Text as="div" size="2" style={{ marginBottom: 4 }} weight="bold">
               Name
             </Text>
-            <TextField.Input
-              defaultValue="Freja Johnsen"
-              placeholder="Enter your full name"
-            />
+            <TextField.Input defaultValue="Freja Johnsen" placeholder="Enter your full name" />
           </label>
           <label>
-            <Text as="div" size="2" mb="1" weight="bold">
+            <Text as="div" size="2" style={{ marginBottom: 4 }} weight="bold">
               Email
             </Text>
-            <TextField.Input
-              defaultValue="freja@example.com"
-              placeholder="Enter your email"
-            />
+            <TextField.Input defaultValue="freja@example.com" placeholder="Enter your email" />
           </label>
         </Flex>
 
@@ -96,12 +90,7 @@ export const Sizes: Story = {
 
           <Flex gap="2" justify="end">
             <Dialog.Close>
-              <Button
-                size="1"
-                variant="soft"
-                color="gray"
-                onClick={() => alert('Cancel')}
-              >
+              <Button size="1" variant="soft" color="gray" onClick={() => alert('Cancel')}>
                 Cancel
               </Button>
             </Dialog.Close>
@@ -125,12 +114,7 @@ export const Sizes: Story = {
 
           <Flex gap="2" justify="end">
             <Dialog.Close>
-              <Button
-                size="2"
-                variant="soft"
-                color="gray"
-                onClick={() => alert('Cancel')}
-              >
+              <Button size="2" variant="soft" color="gray" onClick={() => alert('Cancel')}>
                 Cancel
               </Button>
             </Dialog.Close>
@@ -154,12 +138,7 @@ export const Sizes: Story = {
 
           <Flex gap="3" justify="end">
             <Dialog.Close>
-              <Button
-                size="2"
-                variant="soft"
-                color="gray"
-                onClick={() => alert('Cancel')}
-              >
+              <Button size="2" variant="soft" color="gray" onClick={() => alert('Cancel')}>
                 Cancel
               </Button>
             </Dialog.Close>
@@ -183,12 +162,7 @@ export const Sizes: Story = {
 
           <Flex gap="3" justify="end" align="center">
             <Dialog.Close>
-              <Button
-                size="3"
-                variant="soft"
-                color="gray"
-                onClick={() => alert('Cancel')}
-              >
+              <Button size="3" variant="soft" color="gray" onClick={() => alert('Cancel')}>
                 Cancel
               </Button>
             </Dialog.Close>
@@ -213,9 +187,7 @@ export const InsetContent: Story = {
       </Dialog.Trigger>
       <Dialog.Content {...args}>
         <Dialog.Title>Users</Dialog.Title>
-        <Dialog.Description>
-          The following users have access to this project.
-        </Dialog.Description>
+        <Dialog.Description>The following users have access to this project.</Dialog.Description>
 
         <Inset side="x" my="5">
           <Table.Root variant="ghost" size="1">
