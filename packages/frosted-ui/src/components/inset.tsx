@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import { withBreakpoints } from '../helpers';
 import { insetPropDefs } from './inset.props';
 
 import type { GetPropDefTypes } from '../helpers';
@@ -28,15 +27,15 @@ const Inset = (props: InsetProps) => {
       className={classNames(
         'fui-Inset',
         className,
-        withBreakpoints(side, 'fui-r-side'),
-        withBreakpoints(clip, 'fui-r-clip'),
-        withBreakpoints(p, 'fui-r-p'),
-        withBreakpoints(px, 'fui-r-px'),
-        withBreakpoints(py, 'fui-r-py'),
-        withBreakpoints(pt, 'fui-r-pt'),
-        withBreakpoints(pr, 'fui-r-pr'),
-        withBreakpoints(pb, 'fui-r-pb'),
-        withBreakpoints(pl, 'fui-r-pl'),
+        `fui-r-side-${side}`,
+        `fui-r-clip-${clip}`,
+        p ? `fui-r-p-${p}` : undefined,
+        px ? `fui-r-px-${px}` : undefined,
+        py ? `fui-r-py-${py}` : undefined,
+        pt ? `fui-r-pt-${pt}` : undefined,
+        pr ? `fui-r-pr-${pr}` : undefined,
+        pb ? `fui-r-pb-${pb}` : undefined,
+        pl ? `fui-r-pl-${pl}` : undefined,
       )}
     />
   );
