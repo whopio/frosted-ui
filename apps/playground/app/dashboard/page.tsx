@@ -195,7 +195,7 @@ export default function Demo() {
                           <Box grow="1">
                             <TextArea size="2" placeholder="Write a comment…" style={{ height: 80 }} />
 
-                            <Flex gap="3" mt="3" justify="between">
+                            <Flex gap="3" style={{ marginTop: 12 }} justify="between">
                               <Flex align="center" gap="2" asChild>
                                 <label>
                                   <Checkbox size="2" />
@@ -392,7 +392,7 @@ export default function Demo() {
                     </Flex>
                   </Flex>
                 </Flex>
-                <Flex mt="6">
+                <Flex style={{ marginTop: 12 }}>
                   <Button variant="soft" color="gray" style={{ width: '100%' }} size="4">
                     Load more
                   </Button>

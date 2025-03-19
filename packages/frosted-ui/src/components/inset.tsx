@@ -1,15 +1,14 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
+import { withBreakpoints } from '../helpers';
 import { insetPropDefs } from './inset.props';
 
-import type { GetPropDefTypes, MarginProps } from '../helpers';
+import type { GetPropDefTypes } from '../helpers';
 
 type InsetOwnProps = GetPropDefTypes<typeof insetPropDefs>;
-interface InsetProps extends React.ComponentProps<'div'>, MarginProps, InsetOwnProps {}
+interface InsetProps extends React.ComponentProps<'div'>, InsetOwnProps {}
 
 const Inset = (props: InsetProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     className,
     side = insetPropDefs.side.default,
@@ -22,7 +21,7 @@ const Inset = (props: InsetProps) => {
     pb,
     pl,
     ...insetProps
-  } = marginRest;
+  } = props;
   return (
     <div
       {...insetProps}
@@ -38,7 +37,6 @@ const Inset = (props: InsetProps) => {
         withBreakpoints(pr, 'fui-r-pr'),
         withBreakpoints(pb, 'fui-r-pb'),
         withBreakpoints(pl, 'fui-r-pl'),
-        withMarginProps(marginProps),
       )}
     />
   );

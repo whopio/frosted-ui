@@ -143,7 +143,7 @@ export default function Test() {
                               Here are the users that have access to this project.
                             </Dialog.Description>
 
-                            <Inset side="x" my="5">
+                            <Inset side="x" style={{ marginTop: 24, marginBottom: 24 }}>
                               <TableExample />
                             </Inset>
 
@@ -172,7 +172,7 @@ export default function Test() {
                               Are you sure you want to delete the following users? This action cannot be undone.
                             </AlertDialog.Description>
 
-                            <Inset side="x" my="5">
+                            <Inset side="x" style={{ marginTop: 24, marginBottom: 24 }}>
                               <TableExample />
                             </Inset>
 

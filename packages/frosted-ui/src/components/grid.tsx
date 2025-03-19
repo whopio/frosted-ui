@@ -1,27 +1,18 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import {
-  extractLayoutProps,
-  extractMarginProps,
-  hasOwnProperty,
-  isBreakpointsObject,
-  withBreakpoints,
-  withLayoutProps,
-  withMarginProps,
-} from '../helpers';
+import { extractLayoutProps, hasOwnProperty, isBreakpointsObject, withBreakpoints, withLayoutProps } from '../helpers';
 import { gridPropDefs } from './grid.props';
 import { Slot } from './slot';
 
-import type { GetPropDefTypes, LayoutProps, MarginProps } from '../helpers';
+import type { GetPropDefTypes, LayoutProps } from '../helpers';
 
 type GridOwnProps = GetPropDefTypes<typeof gridPropDefs>;
-interface GridProps extends React.ComponentProps<'div'>, MarginProps, LayoutProps, GridOwnProps {
+interface GridProps extends React.ComponentProps<'div'>, LayoutProps, GridOwnProps {
   asChild?: boolean;
 }
 
 const Grid = (props: GridProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-  const { rest: layoutRest, ...layoutProps } = extractLayoutProps(marginRest);
+  const { rest: layoutRest, ...layoutProps } = extractLayoutProps(props);
   const {
     className,
     asChild,
@@ -95,7 +86,6 @@ const Grid = (props: GridProps) => {
         withBreakpoints(gapX, 'fui-r-cg'),
         withBreakpoints(gapY, 'fui-r-rg'),
         withLayoutProps(layoutProps),
-        withMarginProps(marginProps),
       )}
       style={Object.keys(style).length ? style : undefined}
     />

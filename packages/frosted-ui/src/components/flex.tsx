@@ -1,19 +1,18 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractLayoutProps, extractMarginProps, withBreakpoints, withLayoutProps, withMarginProps } from '../helpers';
+import { extractLayoutProps, withBreakpoints, withLayoutProps } from '../helpers';
 import { flexPropDefs } from './flex.props';
 import { Slot } from './slot';
 
-import type { GetPropDefTypes, LayoutProps, MarginProps, PropsWithoutColor } from '../helpers';
+import type { GetPropDefTypes, LayoutProps, PropsWithoutColor } from '../helpers';
 
 type FlexOwnProps = GetPropDefTypes<typeof flexPropDefs>;
-interface FlexProps extends PropsWithoutColor<'div'>, MarginProps, LayoutProps, FlexOwnProps {
+interface FlexProps extends PropsWithoutColor<'div'>, LayoutProps, FlexOwnProps {
   asChild?: boolean;
 }
 
 const Flex = (props: FlexProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
-  const { rest: layoutRest, ...layoutProps } = extractLayoutProps(marginRest);
+  const { rest: layoutRest, ...layoutProps } = extractLayoutProps(props);
   const {
     className,
     asChild,
@@ -37,7 +36,6 @@ const Flex = (props: FlexProps) => {
         withBreakpoints(wrap, 'fui-r-fw'),
         withBreakpoints(gap, 'fui-r-gap'),
         withLayoutProps(layoutProps),
-        withMarginProps(marginProps),
       )}
     />
   );

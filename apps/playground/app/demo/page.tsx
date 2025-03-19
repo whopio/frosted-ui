@@ -65,7 +65,7 @@ export default function Demo() {
                         </Select.Content>
                       </Select.Root>
 
-                      <Flex justify="end" gap="3" mt="5">
+                      <Flex justify="end" gap="3" style={{ marginTop: 20 }}>
                         <Dialog.Close>
                           <Button variant="soft" color="gray">
                             Cancel
