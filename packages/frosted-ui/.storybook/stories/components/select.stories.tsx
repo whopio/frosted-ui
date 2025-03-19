@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Flex, Select } from '../../../src/components';
+import { Select } from '../../../src/components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -52,7 +52,7 @@ export const Default: Story = {
 
 export const Size: Story = {
   render: (args) => (
-    <Flex gap="3" align="center">
+    <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center' }}>
       <Select.Root {...args} size="1" defaultValue="apple">
         <Select.Trigger />
         <Select.Content>
@@ -76,13 +76,13 @@ export const Size: Story = {
           <Select.Item value="orange">Orange</Select.Item>
         </Select.Content>
       </Select.Root>
-    </Flex>
+    </div>
   ),
 };
 
 export const Variant: Story = {
   render: (args) => (
-    <Flex gap="3" align="center">
+    <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center' }}>
       <Select.Root {...args} defaultValue="apple">
         <Select.Trigger variant="surface" />
         <Select.Content>
@@ -114,13 +114,13 @@ export const Variant: Story = {
           <Select.Item value="orange">Orange</Select.Item>
         </Select.Content>
       </Select.Root>
-    </Flex>
+    </div>
   ),
 };
 
 export const Color: Story = {
   render: (args) => (
-    <Flex gap="3">
+    <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
       <Select.Root {...args} defaultValue="apple">
         <Select.Trigger color="indigo" variant="soft" />
         <Select.Content color="indigo">
@@ -152,7 +152,7 @@ export const Color: Story = {
           <Select.Item value="orange">Orange</Select.Item>
         </Select.Content>
       </Select.Root>
-    </Flex>
+    </div>
   ),
 };
 
@@ -183,7 +183,7 @@ export const Placeholder: Story = {
 export const HighContrast: Story = {
   name: 'High Contrast',
   render: (args) => (
-    <Flex gap="3">
+    <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
       <Select.Root defaultValue="apple">
         <Select.Trigger variant="soft" />
         <Select.Content variant="solid">
@@ -199,7 +199,7 @@ export const HighContrast: Story = {
           <Select.Item value="orange">Orange</Select.Item>
         </Select.Content>
       </Select.Root>
-    </Flex>
+    </div>
   ),
 };
 

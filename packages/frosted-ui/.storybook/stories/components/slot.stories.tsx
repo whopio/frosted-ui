@@ -1,15 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Flex, Link, Slot, Text } from '../../../src/components';
+import { Link, Slot, Text } from '../../../src/components';
 
-const CustomButton = ({
-  asChild,
-  ...props
-}: {
-  asChild?: boolean;
-  children: React.ReactNode;
-}) => {
+const CustomButton = ({ asChild, ...props }: { asChild?: boolean; children: React.ReactNode }) => {
   const Comp = asChild ? Slot : 'button';
   return (
     <Comp
@@ -41,19 +35,16 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {},
   render: (args) => (
-    <Flex direction="column" gap="4">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
       <Text>
         Can be used to support your own `asChild` prop. See{' '}
-        <Link href="https://www.radix-ui.com/primitives/docs/utilities/slot">
-          Radix UI docs
-        </Link>
-        .
+        <Link href="https://www.radix-ui.com/primitives/docs/utilities/slot">Radix UI docs</Link>.
       </Text>
       <div>
         <CustomButton asChild>
           <a href="/contact">Contact</a>
         </CustomButton>
       </div>
-    </Flex>
+    </div>
   ),
 };

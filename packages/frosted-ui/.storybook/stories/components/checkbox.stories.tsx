@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Code, Flex, Text } from '../../../src/components';
+import { Code, Text } from '../../../src/components';
 import { Checkbox } from '../../../src/components/checkbox';
 import { checkboxPropDefs } from '../../../src/components/checkbox.props';
 
@@ -28,7 +28,7 @@ export const Default: Story = {
     highContrast: checkboxPropDefs.highContrast.default,
   },
   render: (args) => (
-    <Flex gap="2" direction="column">
+    <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'column' }}>
       <Checkbox checked {...args}>
         Checked
       </Checkbox>
@@ -47,7 +47,7 @@ export const Default: Story = {
       <Checkbox checked={'indeterminate'} disabled {...args}>
         Indeterminate disabled
       </Checkbox>
-    </Flex>
+    </div>
   ),
 };
 
@@ -58,47 +58,47 @@ export const Composed: Story = {
     highContrast: checkboxPropDefs.highContrast.default,
   },
   render: (args) => (
-    <Flex gap="2" direction="column">
+    <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'column' }}>
       <Text as="label" size="2">
-        <Flex gap="2">
+        <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
           <Checkbox defaultChecked {...args} />
           Default
-        </Flex>
+        </div>
       </Text>
       <Text as="label" size="2">
-        <Flex gap="2">
+        <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
           <Checkbox defaultChecked={true} disabled {...args} />
           Disabled checked
-        </Flex>
+        </div>
       </Text>
       <Text as="label" size="2">
-        <Flex gap="2">
+        <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
           <Checkbox defaultChecked={false} disabled {...args} />
           Disabled unchecked
-        </Flex>
+        </div>
       </Text>
-    </Flex>
+    </div>
   ),
 };
 
 export const Size: Story = {
   render: (args) => (
-    <Flex gap="2">
+    <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
       <Checkbox defaultChecked {...args} size="1" />
       <Checkbox defaultChecked {...args} size="2" />
       <Checkbox defaultChecked {...args} size="3" />
-    </Flex>
+    </div>
   ),
 };
 
 export const Color: Story = {
   render: (args) => (
-    <Flex gap="2">
+    <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
       <Checkbox {...args} color="indigo" defaultChecked />
       <Checkbox {...args} color="cyan" defaultChecked />
       <Checkbox {...args} color="orange" defaultChecked />
       <Checkbox {...args} color="crimson" defaultChecked />
-    </Flex>
+    </div>
   ),
 };
 
@@ -109,7 +109,7 @@ export const HighContrast: Story = {
       style={{
         display: 'inline-grid',
         gridTemplateColumns: 'repeat(2, 1fr)',
-        gap: '2',
+        gap: '8px',
       }}
     >
       <Checkbox {...args} color="indigo" defaultChecked />
@@ -127,35 +127,35 @@ export const HighContrast: Story = {
 export const Alignment: Story = {
   name: 'Alignment with text',
   render: (args) => (
-    <Flex direction="column" gap="3">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
       <Text style={{ marginBottom: 12 }}>
         Composing <Code>Checkbox</Code> within <Code>Text</Code> automatically centers it with the first line of text.
       </Text>
       <Text as="label" size="3">
-        <Flex gap="2">
+        <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
           <Checkbox {...args} size="1" defaultChecked /> Agree to Terms and Conditions
-        </Flex>
+        </div>
       </Text>
 
       <Text as="label" size="4">
-        <Flex gap="2">
+        <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
           <Checkbox {...args} size="2" defaultChecked /> Agree to Terms and Conditions
-        </Flex>
+        </div>
       </Text>
 
       <Text as="label" size="5">
-        <Flex gap="3">
+        <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
           <Checkbox {...args} size="3" defaultChecked /> Agree to Terms and Conditions
-        </Flex>
+        </div>
       </Text>
 
       <div style={{ maxWidth: 300 }}>
         <Text as="label" size="4">
-          <Flex gap="2">
+          <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
             <Checkbox defaultChecked /> It is automatically well-aligned with multi-line text too.
-          </Flex>
+          </div>
         </Text>
       </div>
-    </Flex>
+    </div>
   ),
 };

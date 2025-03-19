@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Avatar, Card, Flex, RadioButtonGroup, Text, Tooltip } from '../../../src/components';
+import { Avatar, Card, RadioButtonGroup, Text, Tooltip } from '../../../src/components';
 import { radioGroupPropDefs } from '../../../src/components/radio-group.props';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -30,50 +30,53 @@ export const Default: Story = {
   },
   render: (args) => (
     <RadioButtonGroup.Root defaultValue="1" {...args}>
-      <Flex gap="2" direction="row">
+      <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'row' }}>
         <RadioButtonGroup.Item value="1">
-          <Flex
+          <div
             style={{
+              display: 'flex',
               padding: '8px 40px 8px 24px',
               borderRadius: 8,
               border: '1px solid var(--gray-a7)',
+              gap: 'var(--space-2)',
+              alignItems: 'center',
             }}
-            gap="2"
-            align="center"
           >
             <RadioButtonGroup.Icon style={{ marginLeft: -12 }} />
             <Text>One</Text>
-          </Flex>
+          </div>
         </RadioButtonGroup.Item>
         <RadioButtonGroup.Item value="2">
-          <Flex
+          <div
             style={{
+              display: 'flex',
               padding: '8px 40px 8px 24px',
               borderRadius: 8,
               border: '1px solid var(--gray-a7)',
+              gap: 'var(--space-2)',
+              alignItems: 'center',
             }}
-            gap="2"
-            align="center"
           >
             <RadioButtonGroup.Icon style={{ marginLeft: -12 }} />
             <Text>Two</Text>
-          </Flex>
+          </div>
         </RadioButtonGroup.Item>
         <RadioButtonGroup.Item value="3">
-          <Flex
+          <div
             style={{
+              display: 'flex',
               padding: '8px 40px 8px 24px',
               borderRadius: 8,
               border: '1px solid var(--gray-a7)',
+              gap: 'var(--space-2)',
+              alignItems: 'center',
             }}
-            gap="2"
-            align="center"
           >
             <RadioButtonGroup.Icon style={{ marginLeft: -12 }} />
             <Text>Three</Text>
-          </Flex>
+          </div>
         </RadioButtonGroup.Item>
-      </Flex>
+      </div>
     </RadioButtonGroup.Root>
   ),
 };
@@ -85,7 +88,7 @@ export const HighContrast: Story = {
   },
   render: (args) => (
     <RadioButtonGroup.Root defaultValue="1" {...args}>
-      <Flex gap="2" direction="row">
+      <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'row' }}>
         <Tooltip content="Lime">
           <div>
             <RadioButtonGroup.Item value="1">
@@ -114,7 +117,6 @@ export const HighContrast: Story = {
             </RadioButtonGroup.Item>
           </div>
         </Tooltip>
-
         <Tooltip content="Gold">
           <div>
             <RadioButtonGroup.Item value="3">
@@ -129,10 +131,11 @@ export const HighContrast: Story = {
             </RadioButtonGroup.Item>
           </div>
         </Tooltip>
-      </Flex>
+      </div>
     </RadioButtonGroup.Root>
   ),
 };
+
 export const WithCard: Story = {
   args: {
     color: radioGroupPropDefs.color.default,
@@ -140,10 +143,10 @@ export const WithCard: Story = {
   },
   render: (args) => (
     <RadioButtonGroup.Root defaultValue="1" {...args}>
-      <Flex gap="2" direction="row">
+      <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'row' }}>
         <RadioButtonGroup.Item value="1">
           <Card size="2" variant="classic">
-            <Flex gap="3" align="center">
+            <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center' }}>
               <Avatar size="3" fallback="AB" color="lime" />
               <div>
                 <Text as="div" size="2" weight="bold">
@@ -153,12 +156,12 @@ export const WithCard: Story = {
                   UI engineer
                 </Text>
               </div>
-            </Flex>
+            </div>
           </Card>
         </RadioButtonGroup.Item>
         <RadioButtonGroup.Item value="2">
           <Card size="2" variant="classic">
-            <Flex gap="3" align="center">
+            <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center' }}>
               <Avatar size="3" fallback="IM" color="sky" />
               <div>
                 <Text as="div" size="2" weight="bold">
@@ -168,12 +171,12 @@ export const WithCard: Story = {
                   Designer
                 </Text>
               </div>
-            </Flex>
+            </div>
           </Card>
         </RadioButtonGroup.Item>
         <RadioButtonGroup.Item value="3">
           <Card size="2" variant="classic">
-            <Flex gap="3" align="center">
+            <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center' }}>
               <Avatar size="3" fallback="SS" color="orange" />
               <div>
                 <Text as="div" size="2" weight="bold">
@@ -183,25 +186,26 @@ export const WithCard: Story = {
                   CEO
                 </Text>
               </div>
-            </Flex>
+            </div>
           </Card>
         </RadioButtonGroup.Item>
-      </Flex>
+      </div>
     </RadioButtonGroup.Root>
   ),
 };
 
 export const Color: Story = {
   render: (args) => (
-    <Flex gap="2" direction="column">
+    <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'column' }}>
       {(['indigo', 'cyan', 'orange', 'lime'] as const).map((color) => (
         <RadioButtonGroup.Root {...args} color={color} key={color} defaultValue="1">
-          <Flex gap="2">
+          <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
             {['1', '2', '3'].map((value) => (
               <RadioButtonGroup.Item value={value} key={value}>
                 <Card
                   size="3"
                   variant="classic"
+                  // @ts-expect-error - TODO: fix this
                   style={
                     {
                       width: 100,
@@ -210,9 +214,17 @@ export const Color: Story = {
                     } as React.CSSProperties
                   }
                 >
-                  <Flex align="center" justify="center" height="100%" width="100%">
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      height: '100%',
+                      width: '100%',
+                    }}
+                  >
                     {value}
-                  </Flex>
+                  </div>
 
                   <RadioButtonGroup.Icon
                     style={{
@@ -224,9 +236,9 @@ export const Color: Story = {
                 </Card>
               </RadioButtonGroup.Item>
             ))}
-          </Flex>
+          </div>
         </RadioButtonGroup.Root>
       ))}
-    </Flex>
+    </div>
   ),
 };
