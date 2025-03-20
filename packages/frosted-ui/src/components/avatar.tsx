@@ -1,8 +1,8 @@
 'use client';
 
-import * as AvatarPrimitive from '@radix-ui/react-avatar';
 import classNames from 'classnames';
 import * as React from 'react';
+import * as AvatarPrimitive from '../forked-primitives/avatar';
 import { avatarPropDefs } from './avatar.props';
 
 import type { GetPropDefTypes, PropsWithoutColor } from '../helpers';
