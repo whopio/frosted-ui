@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { fn } from '@storybook/test';
 import React from 'react';
 import { Avatar } from '../../../src/components';
 
@@ -12,6 +13,9 @@ const meta = {
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
+  args: {
+    onLoadingStatusChange: fn(),
+  },
 } satisfies Meta<typeof Avatar>;
 
 export default meta;
