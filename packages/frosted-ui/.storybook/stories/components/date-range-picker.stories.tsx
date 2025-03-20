@@ -1,17 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import {
-  DateValue,
-  getLocalTimeZone,
-  parseDate,
-} from '@internationalized/date';
+import { DateValue, getLocalTimeZone, parseDate } from '@internationalized/date';
 import { useDateFormatter } from '@react-aria/i18n';
 import React from 'react';
 import {
   Button,
   DateField,
   DateRangePicker,
-  Flex,
   Inset,
   Popover,
   RangeCalendar,
@@ -30,10 +25,7 @@ const meta = {
       start: parseDate('2020-02-03'),
       end: parseDate('2020-02-08'),
     },
-    onChange: (date) =>
-      console.log(
-        date ? date.start.toString() + ' - ' + date.end.toString() : date,
-      ),
+    onChange: (date) => console.log(date ? date.start.toString() + ' - ' + date.end.toString() : date),
     'aria-label': 'Birth date',
     isDisabled: false,
   },
@@ -52,20 +44,20 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {},
   render: (args) => (
-    <Flex direction="column" gap="5">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
       <DateRangePicker {...args} />
-    </Flex>
+    </div>
   ),
 };
 
 export const Sizes: Story = {
   args: {},
   render: (args) => (
-    <Flex direction="column" gap="5">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
       <DateRangePicker {...args} size="1" />
       <DateRangePicker {...args} size="2" />
       <DateRangePicker {...args} size="3" />
-    </Flex>
+    </div>
   ),
 };
 
@@ -81,9 +73,7 @@ export const Custom: Story = {
       end: DateValue | null;
     }>(date || { start: null, end: null });
 
-    const [focusedDate, setFocusedDate] = React.useState<
-      DateValue | undefined
-    >();
+    const [focusedDate, setFocusedDate] = React.useState<DateValue | undefined>();
 
     let formatter = useDateFormatter({ dateStyle: 'medium' });
 
@@ -111,20 +101,21 @@ export const Custom: Story = {
               <CalendarIcon />
               Selected date:{' '}
               {date
-                ? formatter.formatRange(
-                    date.start.toDate(getLocalTimeZone()),
-                    date.end.toDate(getLocalTimeZone()),
-                  )
+                ? formatter.formatRange(date.start.toDate(getLocalTimeZone()), date.end.toDate(getLocalTimeZone()))
                 : '--'}
             </Button>
           </Popover.Trigger>
-          <Popover.Content
-            variant="translucent"
-            align="center"
-            style={{ minWidth: 'unset' }}
-          >
-            <Flex direction="column" justify="center">
-              <Flex mb="4" gap="3" justify="between" align="center">
+          <Popover.Content variant="translucent" align="center" style={{ minWidth: 'unset' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  marginBottom: 'var(--space-4)',
+                  gap: 'var(--space-3)',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
                 <DateField
                   aria-label="Start date"
                   value={calendarDate.start}
@@ -148,21 +139,34 @@ export const Custom: Story = {
                     setFocusedDate(date || undefined);
                   }}
                 />
-              </Flex>
+              </div>
               <RangeCalendar
                 value={
-                  calendarDate.start && calendarDate.end
-                    ? { start: calendarDate.start, end: calendarDate.end }
-                    : null
+                  calendarDate.start && calendarDate.end ? { start: calendarDate.start, end: calendarDate.end } : null
                 }
-                onChange={setCalendarDate}
+                onChange={(value) => {
+                  if (value === null) {
+                    setCalendarDate({ start: null, end: null });
+                  } else {
+                    setCalendarDate({ start: value.start, end: value.end });
+                  }
+                }}
                 focusedValue={focusedDate}
                 onFocusChange={setFocusedDate}
               />
-              <Inset side="x" mt="4">
-                <Separator size="4" />
-              </Inset>
-              <Flex pt="4" gap="2" justify={'between'}>
+              <div style={{ marginTop: 'var(--space-4)' }}>
+                <Inset side="x">
+                  <Separator size="4" />
+                </Inset>
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  paddingTop: 'var(--space-4)',
+                  gap: 'var(--space-2)',
+                  justifyContent: 'space-between',
+                }}
+              >
                 <Popover.Close>
                   <Button style={{ flex: 1 }}>Cancel</Button>
                 </Popover.Close>
@@ -190,8 +194,8 @@ export const Custom: Story = {
                     Set
                   </Button>
                 </Popover.Close>
-              </Flex>
-            </Flex>
+              </div>
+            </div>
           </Popover.Content>
         </Popover.Root>
       </div>
@@ -200,13 +204,7 @@ export const Custom: Story = {
 };
 
 const ArrowRightIcon = () => (
-  <svg
-    width="12"
-    height="12"
-    viewBox="0 0 12 12"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M0.75 6H11.25M11.25 6L7 1.75M11.25 6L7 10.25"
       stroke="var(--gray-a10)"
@@ -218,13 +216,7 @@ const ArrowRightIcon = () => (
 );
 
 const CalendarIcon = () => (
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g clipPath="url(#clip0_1869_102855)">
       <path
         fillRule="evenodd"

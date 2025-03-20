@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Code, Flex, Switch, Text } from '../../../src/components';
-import { Spinner } from '../../../src/components/spinner';
+import { Code, Spinner, Switch, Text } from '../../../src/components';
 import { spinnerPropDefs } from '../../../src/components/spinner.props';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -35,27 +34,26 @@ export const Default: Story = {
 export const Sizes: Story = {
   name: 'Size',
   render: ({ children, ...args }) => (
-    <Flex align="center" gap="4">
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
       <Spinner {...args} size="1" />
       <Spinner {...args} size="2" />
       <Spinner {...args} size="3" />
       <Spinner {...args} size="4" />
       <Spinner {...args} size="5" />
       <Spinner {...args} size="6" />
-    </Flex>
+    </div>
   ),
 };
 
 export const WithChildren: Story = {
   name: 'With children',
   render: ({ children, ...args }) => (
-    <Flex direction="column" gap="5" style={{ maxWidth: 640 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)', maxWidth: 640 }}>
       <Text>
-        Use the <Code>loading</Code> prop to control whether the spinner or its
-        children are displayed. Spinner preserves the dimensions of children
-        when they are hidden and disables interactive elements.
+        Use the <Code>loading</Code> prop to control whether the spinner or its children are displayed. Spinner
+        preserves the dimensions of children when they are hidden and disables interactive elements.
       </Text>
-      <Flex gap="4">
+      <div style={{ display: 'flex', gap: 'var(--space-4)' }}>
         <Spinner loading={true}>
           <Switch defaultChecked />
         </Spinner>
@@ -63,7 +61,7 @@ export const WithChildren: Story = {
         <Spinner loading={false}>
           <Switch defaultChecked />
         </Spinner>
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   ),
 };

@@ -1,13 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import {
-  Flex,
-  IconButton,
-  Text,
-  WidgetStack,
-  widgetStackRootPropDefs,
-} from '../../../src/components';
+import { IconButton, Text, WidgetStack, widgetStackRootPropDefs } from '../../../src/components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -40,22 +34,26 @@ export const Default: Story = {
         }}
       >
         <WidgetStack.Item>
-          <Flex
-            direction={'column'}
-            width={'100%'}
-            height="100%"
-            justify={'between'}
-            p={'4'}
+          <div
             style={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
+              height: '100%',
+              justifyContent: 'space-between',
+              padding: 'var(--space-4)',
               background: 'linear-gradient(var(--blue-9), var(--blue-6))',
               color: 'var(--blue-9-contrast)',
             }}
           >
-            <Flex
-              direction={'column'}
-              width={'100%'}
-              justify={'between'}
-              gap="1"
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: '100%',
+                justifyContent: 'space-between',
+                gap: 'var(--space-1)',
+              }}
             >
               <Text weight="bold" size="5">
                 Wrocław
@@ -63,12 +61,15 @@ export const Default: Story = {
               <Text weight="light" size="9">
                 24
               </Text>
-            </Flex>
-            <Flex
-              direction={'column'}
-              width={'100%'}
-              justify={'between'}
-              gap="1"
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: '100%',
+                justifyContent: 'space-between',
+                gap: 'var(--space-1)',
+              }}
             >
               <Text weight="medium" size="3">
                 Sunny
@@ -76,33 +77,38 @@ export const Default: Story = {
               <Text weight="medium" size="3">
                 H:73 L:55
               </Text>
-            </Flex>
-          </Flex>
+            </div>
+          </div>
         </WidgetStack.Item>
         <WidgetStack.Item>
-          <Flex
-            direction={'column'}
-            width={'100%'}
-            height="100%"
-            justify={'between'}
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
+              height: '100%',
+              justifyContent: 'space-between',
+            }}
           >
-            <Flex
-              direction={'column'}
-              width={'100%'}
-              justify={'between'}
-              gap="1"
+            <div
               style={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: '100%',
+                justifyContent: 'space-between',
+                gap: 'var(--space-1)',
                 backgroundImage:
                   'url(https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop)',
                 backgroundSize: 'cover',
                 height: '50%',
               }}
-            ></Flex>
-            <Flex
-              direction={'column'}
-              width={'100%'}
-              p={'4'}
+            ></div>
+            <div
               style={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: '100%',
+                padding: 'var(--space-4)',
                 height: '50%',
                 background: 'var(--gray-2)',
               }}
@@ -126,17 +132,20 @@ export const Default: Story = {
               >
                 A
               </IconButton>
-            </Flex>
-          </Flex>
+            </div>
+          </div>
         </WidgetStack.Item>
         <WidgetStack.Item>
-          <Flex
-            direction={'column'}
-            width={'100%'}
-            height="100%"
-            justify={'center'}
-            align={'center'}
-            style={{ background: 'var(--grass-9)' }}
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
+              height: '100%',
+              justifyContent: 'center',
+              alignItems: 'center',
+              background: 'var(--grass-9)',
+            }}
           >
             <span
               style={{
@@ -146,7 +155,7 @@ export const Default: Story = {
             >
               🏝️
             </span>
-          </Flex>
+          </div>
         </WidgetStack.Item>
         <WidgetStack.Item style={{ fontSize: 60 }}>🏝️🏴‍☠️⚜️</WidgetStack.Item>
       </WidgetStack.Stack>
@@ -157,7 +166,7 @@ export const Default: Story = {
 export const Orientation: Story = {
   args: {},
   render: ({ children, ...args }) => (
-    <Flex gap="8">
+    <div style={{ display: 'flex', gap: 'var(--space-8)' }}>
       <WidgetStack.Root orientation="horizontal">
         <WidgetStack.Stack
           style={{
@@ -166,22 +175,26 @@ export const Orientation: Story = {
           }}
         >
           <WidgetStack.Item>
-            <Flex
-              direction={'column'}
-              width={'100%'}
-              height="100%"
-              justify={'between'}
-              p={'4'}
+            <div
               style={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: '100%',
+                height: '100%',
+                justifyContent: 'space-between',
+                padding: 'var(--space-4)',
                 background: 'linear-gradient(var(--blue-9), var(--blue-6))',
                 color: 'var(--blue-9-contrast)',
               }}
             >
-              <Flex
-                direction={'column'}
-                width={'100%'}
-                justify={'between'}
-                gap="1"
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  justifyContent: 'space-between',
+                  gap: 'var(--space-1)',
+                }}
               >
                 <Text weight="bold" size="5">
                   Wrocław
@@ -189,12 +202,15 @@ export const Orientation: Story = {
                 <Text weight="light" size="9">
                   24
                 </Text>
-              </Flex>
-              <Flex
-                direction={'column'}
-                width={'100%'}
-                justify={'between'}
-                gap="1"
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  justifyContent: 'space-between',
+                  gap: 'var(--space-1)',
+                }}
               >
                 <Text weight="medium" size="3">
                   Sunny
@@ -202,33 +218,38 @@ export const Orientation: Story = {
                 <Text weight="medium" size="3">
                   H:73 L:55
                 </Text>
-              </Flex>
-            </Flex>
+              </div>
+            </div>
           </WidgetStack.Item>
           <WidgetStack.Item>
-            <Flex
-              direction={'column'}
-              width={'100%'}
-              height="100%"
-              justify={'between'}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: '100%',
+                height: '100%',
+                justifyContent: 'space-between',
+              }}
             >
-              <Flex
-                direction={'column'}
-                width={'100%'}
-                justify={'between'}
-                gap="1"
+              <div
                 style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  justifyContent: 'space-between',
+                  gap: 'var(--space-1)',
                   backgroundImage:
                     'url(https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop)',
                   backgroundSize: 'cover',
                   height: '50%',
                 }}
-              ></Flex>
-              <Flex
-                direction={'column'}
-                width={'100%'}
-                p={'4'}
+              ></div>
+              <div
                 style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  padding: 'var(--space-4)',
                   height: '50%',
                   background: 'var(--gray-2)',
                 }}
@@ -252,29 +273,9 @@ export const Orientation: Story = {
                 >
                   A
                 </IconButton>
-              </Flex>
-            </Flex>
+              </div>
+            </div>
           </WidgetStack.Item>
-          <WidgetStack.Item>
-            <Flex
-              direction={'column'}
-              width={'100%'}
-              height="100%"
-              justify={'center'}
-              align={'center'}
-              style={{ background: 'var(--grass-9)' }}
-            >
-              <span
-                style={{
-                  fontSize: 96,
-                  lineHeight: 1,
-                }}
-              >
-                🏝️
-              </span>
-            </Flex>
-          </WidgetStack.Item>
-          <WidgetStack.Item style={{ fontSize: 60 }}>🏝️🏴‍☠️⚜️</WidgetStack.Item>
         </WidgetStack.Stack>
       </WidgetStack.Root>
 
@@ -286,22 +287,26 @@ export const Orientation: Story = {
           }}
         >
           <WidgetStack.Item>
-            <Flex
-              direction={'column'}
-              width={'100%'}
-              height="100%"
-              justify={'between'}
-              p={'4'}
+            <div
               style={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: '100%',
+                height: '100%',
+                justifyContent: 'space-between',
+                padding: 'var(--space-4)',
                 background: 'linear-gradient(var(--blue-9), var(--blue-6))',
                 color: 'var(--blue-9-contrast)',
               }}
             >
-              <Flex
-                direction={'column'}
-                width={'100%'}
-                justify={'between'}
-                gap="1"
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  justifyContent: 'space-between',
+                  gap: 'var(--space-1)',
+                }}
               >
                 <Text weight="bold" size="5">
                   Wrocław
@@ -309,12 +314,15 @@ export const Orientation: Story = {
                 <Text weight="light" size="9">
                   24
                 </Text>
-              </Flex>
-              <Flex
-                direction={'column'}
-                width={'100%'}
-                justify={'between'}
-                gap="1"
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  justifyContent: 'space-between',
+                  gap: 'var(--space-1)',
+                }}
               >
                 <Text weight="medium" size="3">
                   Sunny
@@ -322,33 +330,38 @@ export const Orientation: Story = {
                 <Text weight="medium" size="3">
                   H:73 L:55
                 </Text>
-              </Flex>
-            </Flex>
+              </div>
+            </div>
           </WidgetStack.Item>
           <WidgetStack.Item>
-            <Flex
-              direction={'column'}
-              width={'100%'}
-              height="100%"
-              justify={'between'}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: '100%',
+                height: '100%',
+                justifyContent: 'space-between',
+              }}
             >
-              <Flex
-                direction={'column'}
-                width={'100%'}
-                justify={'between'}
-                gap="1"
+              <div
                 style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  justifyContent: 'space-between',
+                  gap: 'var(--space-1)',
                   backgroundImage:
                     'url(https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop)',
                   backgroundSize: 'cover',
                   height: '50%',
                 }}
-              ></Flex>
-              <Flex
-                direction={'column'}
-                width={'100%'}
-                p={'4'}
+              ></div>
+              <div
                 style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  padding: 'var(--space-4)',
                   height: '50%',
                   background: 'var(--gray-2)',
                 }}
@@ -372,17 +385,20 @@ export const Orientation: Story = {
                 >
                   A
                 </IconButton>
-              </Flex>
-            </Flex>
+              </div>
+            </div>
           </WidgetStack.Item>
           <WidgetStack.Item>
-            <Flex
-              direction={'column'}
-              width={'100%'}
-              height="100%"
-              justify={'center'}
-              align={'center'}
-              style={{ background: 'var(--grass-9)' }}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: '100%',
+                height: '100%',
+                justifyContent: 'center',
+                alignItems: 'center',
+                background: 'var(--grass-9)',
+              }}
             >
               <span
                 style={{
@@ -392,23 +408,20 @@ export const Orientation: Story = {
               >
                 🏝️
               </span>
-            </Flex>
+            </div>
           </WidgetStack.Item>
           <WidgetStack.Item style={{ fontSize: 60 }}>🏝️🏴‍☠️⚜️</WidgetStack.Item>
         </WidgetStack.Stack>
       </WidgetStack.Root>
-    </Flex>
+    </div>
   ),
 };
 
 export const SingleWidget: Story = {
   args: {},
   render: ({ children, ...args }) => (
-    <Flex direction="column" gap="8">
-      <Text>
-        When single widget is inside, the scrolling and animations are blocked
-        automatically.
-      </Text>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-8)' }}>
+      <Text>When single widget is inside, the scrolling and animations are blocked automatically.</Text>
       <WidgetStack.Root {...args}>
         <WidgetStack.Stack
           style={{
@@ -417,22 +430,26 @@ export const SingleWidget: Story = {
           }}
         >
           <WidgetStack.Item>
-            <Flex
-              direction={'column'}
-              width={'100%'}
-              height="100%"
-              justify={'between'}
-              p={'4'}
+            <div
               style={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: '100%',
+                height: '100%',
+                justifyContent: 'space-between',
+                padding: 'var(--space-4)',
                 background: 'linear-gradient(var(--blue-9), var(--blue-6))',
                 color: 'var(--blue-9-contrast)',
               }}
             >
-              <Flex
-                direction={'column'}
-                width={'100%'}
-                justify={'between'}
-                gap="1"
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  justifyContent: 'space-between',
+                  gap: 'var(--space-1)',
+                }}
               >
                 <Text weight="bold" size="5">
                   Wrocław
@@ -440,12 +457,15 @@ export const SingleWidget: Story = {
                 <Text weight="light" size="9">
                   24
                 </Text>
-              </Flex>
-              <Flex
-                direction={'column'}
-                width={'100%'}
-                justify={'between'}
-                gap="1"
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  justifyContent: 'space-between',
+                  gap: 'var(--space-1)',
+                }}
               >
                 <Text weight="medium" size="3">
                   Sunny
@@ -453,12 +473,12 @@ export const SingleWidget: Story = {
                 <Text weight="medium" size="3">
                   H:73 L:55
                 </Text>
-              </Flex>
-            </Flex>
+              </div>
+            </div>
           </WidgetStack.Item>
         </WidgetStack.Stack>
       </WidgetStack.Root>
-    </Flex>
+    </div>
   ),
 };
 
@@ -466,13 +486,9 @@ export const WithControls: Story = {
   args: {},
   render: ({ children, ...args }) => (
     <WidgetStack.Root orientation="horizontal" {...args}>
-      <Flex direction="row" gap="4" align={'center'}>
+      <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--space-4)', alignItems: 'center' }}>
         <WidgetStack.Prev>
-          <IconButton
-            variant="soft"
-            color="gray"
-            style={{ borderRadius: '50%' }}
-          >
+          <IconButton variant="soft" color="gray" style={{ borderRadius: '50%' }}>
             {'<'}
           </IconButton>
         </WidgetStack.Prev>
@@ -484,22 +500,26 @@ export const WithControls: Story = {
           }}
         >
           <WidgetStack.Item>
-            <Flex
-              direction={'column'}
-              width={'100%'}
-              height="100%"
-              justify={'between'}
-              p={'4'}
+            <div
               style={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: '100%',
+                height: '100%',
+                justifyContent: 'space-between',
+                padding: 'var(--space-4)',
                 background: 'linear-gradient(var(--blue-9), var(--blue-6))',
                 color: 'var(--blue-9-contrast)',
               }}
             >
-              <Flex
-                direction={'column'}
-                width={'100%'}
-                justify={'between'}
-                gap="1"
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  justifyContent: 'space-between',
+                  gap: 'var(--space-1)',
+                }}
               >
                 <Text weight="bold" size="5">
                   Wrocław
@@ -507,12 +527,15 @@ export const WithControls: Story = {
                 <Text weight="light" size="9">
                   24
                 </Text>
-              </Flex>
-              <Flex
-                direction={'column'}
-                width={'100%'}
-                justify={'between'}
-                gap="1"
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  justifyContent: 'space-between',
+                  gap: 'var(--space-1)',
+                }}
               >
                 <Text weight="medium" size="3">
                   Sunny
@@ -520,33 +543,38 @@ export const WithControls: Story = {
                 <Text weight="medium" size="3">
                   H:73 L:55
                 </Text>
-              </Flex>
-            </Flex>
+              </div>
+            </div>
           </WidgetStack.Item>
           <WidgetStack.Item>
-            <Flex
-              direction={'column'}
-              width={'100%'}
-              height="100%"
-              justify={'between'}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: '100%',
+                height: '100%',
+                justifyContent: 'space-between',
+              }}
             >
-              <Flex
-                direction={'column'}
-                width={'100%'}
-                justify={'between'}
-                gap="1"
+              <div
                 style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  justifyContent: 'space-between',
+                  gap: 'var(--space-1)',
                   backgroundImage:
                     'url(https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop)',
                   backgroundSize: 'cover',
                   height: '50%',
                 }}
-              ></Flex>
-              <Flex
-                direction={'column'}
-                width={'100%'}
-                p={'4'}
+              ></div>
+              <div
                 style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  padding: 'var(--space-4)',
                   height: '50%',
                   background: 'var(--gray-2)',
                 }}
@@ -570,17 +598,20 @@ export const WithControls: Story = {
                 >
                   A
                 </IconButton>
-              </Flex>
-            </Flex>
+              </div>
+            </div>
           </WidgetStack.Item>
           <WidgetStack.Item>
-            <Flex
-              direction={'column'}
-              width={'100%'}
-              height="100%"
-              justify={'center'}
-              align={'center'}
-              style={{ background: 'var(--grass-9)' }}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: '100%',
+                height: '100%',
+                justifyContent: 'center',
+                alignItems: 'center',
+                background: 'var(--grass-9)',
+              }}
             >
               <span
                 style={{
@@ -590,20 +621,16 @@ export const WithControls: Story = {
               >
                 🏝️
               </span>
-            </Flex>
+            </div>
           </WidgetStack.Item>
           <WidgetStack.Item style={{ fontSize: 60 }}>🏝️🏴‍☠️⚜️</WidgetStack.Item>
         </WidgetStack.Stack>
         <WidgetStack.Next>
-          <IconButton
-            variant="soft"
-            color="gray"
-            style={{ borderRadius: '50%' }}
-          >
+          <IconButton variant="soft" color="gray" style={{ borderRadius: '50%' }}>
             {'>'}
           </IconButton>
         </WidgetStack.Next>
-      </Flex>
+      </div>
     </WidgetStack.Root>
   ),
 };
@@ -611,13 +638,9 @@ export const AutoPlay: Story = {
   args: {},
   render: ({ children, ...args }) => (
     <WidgetStack.Root orientation="horizontal" autoPlay={4000} {...args}>
-      <Flex direction="row" gap="4" align={'center'}>
+      <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--space-4)', alignItems: 'center' }}>
         <WidgetStack.Prev>
-          <IconButton
-            variant="soft"
-            color="gray"
-            style={{ borderRadius: '50%' }}
-          >
+          <IconButton variant="soft" color="gray" style={{ borderRadius: '50%' }}>
             {'<'}
           </IconButton>
         </WidgetStack.Prev>
@@ -629,22 +652,26 @@ export const AutoPlay: Story = {
           }}
         >
           <WidgetStack.Item>
-            <Flex
-              direction={'column'}
-              width={'100%'}
-              height="100%"
-              justify={'between'}
-              p={'4'}
+            <div
               style={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: '100%',
+                height: '100%',
+                justifyContent: 'space-between',
+                padding: 'var(--space-4)',
                 background: 'linear-gradient(var(--blue-9), var(--blue-6))',
                 color: 'var(--blue-9-contrast)',
               }}
             >
-              <Flex
-                direction={'column'}
-                width={'100%'}
-                justify={'between'}
-                gap="1"
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  justifyContent: 'space-between',
+                  gap: 'var(--space-1)',
+                }}
               >
                 <Text weight="bold" size="5">
                   Wrocław
@@ -652,12 +679,15 @@ export const AutoPlay: Story = {
                 <Text weight="light" size="9">
                   24
                 </Text>
-              </Flex>
-              <Flex
-                direction={'column'}
-                width={'100%'}
-                justify={'between'}
-                gap="1"
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  justifyContent: 'space-between',
+                  gap: 'var(--space-1)',
+                }}
               >
                 <Text weight="medium" size="3">
                   Sunny
@@ -665,33 +695,38 @@ export const AutoPlay: Story = {
                 <Text weight="medium" size="3">
                   H:73 L:55
                 </Text>
-              </Flex>
-            </Flex>
+              </div>
+            </div>
           </WidgetStack.Item>
           <WidgetStack.Item>
-            <Flex
-              direction={'column'}
-              width={'100%'}
-              height="100%"
-              justify={'between'}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: '100%',
+                height: '100%',
+                justifyContent: 'space-between',
+              }}
             >
-              <Flex
-                direction={'column'}
-                width={'100%'}
-                justify={'between'}
-                gap="1"
+              <div
                 style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  justifyContent: 'space-between',
+                  gap: 'var(--space-1)',
                   backgroundImage:
                     'url(https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop)',
                   backgroundSize: 'cover',
                   height: '50%',
                 }}
-              ></Flex>
-              <Flex
-                direction={'column'}
-                width={'100%'}
-                p={'4'}
+              ></div>
+              <div
                 style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  padding: 'var(--space-4)',
                   height: '50%',
                   background: 'var(--gray-2)',
                 }}
@@ -715,17 +750,20 @@ export const AutoPlay: Story = {
                 >
                   A
                 </IconButton>
-              </Flex>
-            </Flex>
+              </div>
+            </div>
           </WidgetStack.Item>
           <WidgetStack.Item>
-            <Flex
-              direction={'column'}
-              width={'100%'}
-              height="100%"
-              justify={'center'}
-              align={'center'}
-              style={{ background: 'var(--grass-9)' }}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: '100%',
+                height: '100%',
+                justifyContent: 'center',
+                alignItems: 'center',
+                background: 'var(--grass-9)',
+              }}
             >
               <span
                 style={{
@@ -735,20 +773,16 @@ export const AutoPlay: Story = {
               >
                 🏝️
               </span>
-            </Flex>
+            </div>
           </WidgetStack.Item>
           <WidgetStack.Item style={{ fontSize: 60 }}>🏝️🏴‍☠️⚜️</WidgetStack.Item>
         </WidgetStack.Stack>
         <WidgetStack.Next>
-          <IconButton
-            variant="soft"
-            color="gray"
-            style={{ borderRadius: '50%' }}
-          >
+          <IconButton variant="soft" color="gray" style={{ borderRadius: '50%' }}>
             {'>'}
           </IconButton>
         </WidgetStack.Next>
-      </Flex>
+      </div>
     </WidgetStack.Root>
   ),
 };

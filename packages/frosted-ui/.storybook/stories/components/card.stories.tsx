@@ -1,33 +1,21 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import {
-  Avatar,
-  Box,
-  Card,
-  Code,
-  Flex,
-  Inset,
-  Text,
-} from '../../../src/components';
+import { Avatar, Card, Code, Inset, Text } from '../../../src/components';
 import { cardPropDefs } from '../../../src/components/card.props';
 
-const CardContentExample = ({
-  size = '2',
-}: {
-  size?: '1' | '2' | '3' | '4';
-}) => (
-  <Flex gap="3" align="center">
+const CardContentExample = ({ size = '2' }: { size?: '1' | '2' | '3' | '4' }) => (
+  <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center' }}>
     <Avatar size="3" fallback="IM" color="indigo" />
-    <Box>
+    <div>
       <Text as="div" size="2" weight="bold">
         Ilya Miskov
       </Text>
       <Text as="div" size="2" color="gray">
         I love how we have the freedom to explore skeuomorphism
       </Text>
-    </Box>
-  </Flex>
+    </div>
+  </div>
 );
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -59,49 +47,49 @@ export const Size: Story = {
     size: cardPropDefs.size.default,
   },
   render: ({ children, ...args }) => (
-    <Flex gap="3" direction="column">
+    <div style={{ display: 'flex', gap: 'var(--space-3)', flexDirection: 'column' }}>
       <Card {...args} size="1" style={{ width: 350 }}>
-        <Flex gap="3" align="center">
+        <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center' }}>
           <Avatar size="3" fallback="T" color="indigo" />
-          <Box>
+          <div>
             <Text as="div" size="2" weight="bold">
               Teodros Girmay
             </Text>
             <Text as="div" size="2" color="gray">
               Engineering
             </Text>
-          </Box>
-        </Flex>
+          </div>
+        </div>
       </Card>
 
       <Card {...args} size="2" style={{ width: 425 }}>
-        <Flex gap="4" align="center">
+        <div style={{ display: 'flex', gap: 'var(--space-4)', alignItems: 'center' }}>
           <Avatar size="4" fallback="T" color="indigo" />
-          <Box>
+          <div>
             <Text as="div" weight="bold">
               Teodros Girmay
             </Text>
             <Text as="div" color="gray">
               Engineering
             </Text>
-          </Box>
-        </Flex>
+          </div>
+        </div>
       </Card>
 
       <Card {...args} size="3" style={{ width: 500 }}>
-        <Flex gap="4" align="center">
+        <div style={{ display: 'flex', gap: 'var(--space-4)', alignItems: 'center' }}>
           <Avatar size="5" fallback="T" color="indigo" />
-          <Box>
+          <div>
             <Text as="div" size="4" weight="bold">
               Teodros Girmay
             </Text>
             <Text as="div" size="4" color="gray">
               Engineering
             </Text>
-          </Box>
-        </Flex>
+          </div>
+        </div>
       </Card>
-    </Flex>
+    </div>
   ),
 };
 
@@ -110,7 +98,7 @@ export const Variant: Story = {
     children: <CardContentExample />,
   },
   render: ({ children, ...args }) => (
-    <Flex direction="column" gap="6">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
       <Card {...args} variant="classic">
         {children}
       </Card>
@@ -120,7 +108,7 @@ export const Variant: Story = {
       <Card {...args} variant="surface">
         {children}
       </Card>
-    </Flex>
+    </div>
   ),
 };
 
@@ -142,8 +130,7 @@ export const InsetContent: Story = {
         />
       </Inset>
       <Text as="p" size="3">
-        Use <Code>{'<Inset />'}</Code> component to align content flush with the
-        sides of the card.
+        Use <Code>{'<Inset />'}</Code> component to align content flush with the sides of the card.
       </Text>
     </Card>
   ),
@@ -152,21 +139,20 @@ export const InsetContent: Story = {
 export const AsAnotherElement: Story = {
   name: 'As another element',
   render: ({ children, ...args }) => (
-    <Flex direction="column" gap="6">
-      <Box>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
+      <div>
         <Text>
-          Use the <Code>asChild</Code> prop to render the card as a link or a
-          button. This prop adds styles for the interactive states, like hover
-          and focus.
+          Use the <Code>asChild</Code> prop to render the card as a link or a button. This prop adds styles for the
+          interactive states, like hover and focus.
         </Text>
-      </Box>
-      <Box>
+      </div>
+      <div>
         <Card {...args} asChild style={{ maxWidth: 350 }}>
           <a href="#">
             <CardContentExample />
           </a>
         </Card>
-      </Box>
-    </Flex>
+      </div>
+    </div>
   ),
 };

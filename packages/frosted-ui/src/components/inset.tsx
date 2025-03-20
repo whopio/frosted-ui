@@ -1,15 +1,13 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import { extractMarginProps, withBreakpoints, withMarginProps } from '../helpers';
 import { insetPropDefs } from './inset.props';
 
-import type { GetPropDefTypes, MarginProps } from '../helpers';
+import type { GetPropDefTypes } from '../helpers';
 
 type InsetOwnProps = GetPropDefTypes<typeof insetPropDefs>;
-interface InsetProps extends React.ComponentProps<'div'>, MarginProps, InsetOwnProps {}
+interface InsetProps extends React.ComponentProps<'div'>, InsetOwnProps {}
 
 const Inset = (props: InsetProps) => {
-  const { rest: marginRest, ...marginProps } = extractMarginProps(props);
   const {
     className,
     side = insetPropDefs.side.default,
@@ -22,23 +20,22 @@ const Inset = (props: InsetProps) => {
     pb,
     pl,
     ...insetProps
-  } = marginRest;
+  } = props;
   return (
     <div
       {...insetProps}
       className={classNames(
         'fui-Inset',
         className,
-        withBreakpoints(side, 'fui-r-side'),
-        withBreakpoints(clip, 'fui-r-clip'),
-        withBreakpoints(p, 'fui-r-p'),
-        withBreakpoints(px, 'fui-r-px'),
-        withBreakpoints(py, 'fui-r-py'),
-        withBreakpoints(pt, 'fui-r-pt'),
-        withBreakpoints(pr, 'fui-r-pr'),
-        withBreakpoints(pb, 'fui-r-pb'),
-        withBreakpoints(pl, 'fui-r-pl'),
-        withMarginProps(marginProps),
+        `fui-r-side-${side}`,
+        `fui-r-clip-${clip}`,
+        p ? `fui-r-p-${p}` : undefined,
+        px ? `fui-r-px-${px}` : undefined,
+        py ? `fui-r-py-${py}` : undefined,
+        pt ? `fui-r-pt-${pt}` : undefined,
+        pr ? `fui-r-pr-${pr}` : undefined,
+        pb ? `fui-r-pb-${pb}` : undefined,
+        pl ? `fui-r-pl-${pl}` : undefined,
       )}
     />
   );

@@ -1,18 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 
-import {
-  Badge,
-  Button,
-  Checkbox,
-  Flex,
-  Inset,
-  ScrollArea,
-  Sheet,
-  Table,
-  Text,
-  TextField,
-} from '../../../src/components';
+import { Badge, Button, Checkbox, Inset, ScrollArea, Sheet, Table, Text, TextField } from '../../../src/components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -47,43 +36,33 @@ export const Default: Story = {
           <Sheet.Description>Make changes to your profile.</Sheet.Description>
         </Sheet.Header>
         <Sheet.Body>
-          <Flex direction="column" gap="3">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
             <label>
-              <Text as="div" size="2" mb="1" weight="bold">
+              <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                 Name
               </Text>
-              <TextField.Input
-                size="3"
-                defaultValue="Freja Johnsen"
-                placeholder="Enter your full name"
-              />
+              <TextField.Input size="3" defaultValue="Freja Johnsen" placeholder="Enter your full name" />
             </label>
             <label>
-              <Text as="div" size="2" mb="1" weight="bold">
+              <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                 Email
               </Text>
-              <TextField.Input
-                size="3"
-                defaultValue="freja@example.com"
-                placeholder="Enter your email"
-              />
+              <TextField.Input size="3" defaultValue="freja@example.com" placeholder="Enter your email" />
             </label>
-          </Flex>
+          </div>
 
-          <Flex gap="3" mt="4" justify="end">
+          <div
+            style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-4)', justifyContent: 'flex-end' }}
+          >
             <Sheet.Close>
-              <Button
-                variant="soft"
-                color="gray"
-                onClick={() => alert('Cancel')}
-              >
+              <Button variant="soft" color="gray" onClick={() => alert('Cancel')}>
                 Cancel
               </Button>
             </Sheet.Close>
             <Sheet.Close>
               <Button onClick={() => alert('Save')}>Save</Button>
             </Sheet.Close>
-          </Flex>
+          </div>
         </Sheet.Body>
       </Sheet.Content>
     </Sheet.Root>
@@ -103,7 +82,9 @@ export const Nested: Story = {
           <Sheet.Description>Artur wants to message you</Sheet.Description>
         </Sheet.Header>
         <Sheet.Body>
-          <Flex gap="3" mt="4" justify="end">
+          <div
+            style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-4)', justifyContent: 'flex-end' }}
+          >
             <Sheet.NestedRoot>
               <Sheet.Trigger>
                 <Button variant="soft" color="danger">
@@ -112,15 +93,18 @@ export const Nested: Story = {
               </Sheet.Trigger>
               <Sheet.Content>
                 <Sheet.Header>
-                  <Sheet.Title>
-                    Are you sure you want to block Artur?
-                  </Sheet.Title>
-                  <Sheet.Description>
-                    Artur won't be able to message you unless you unblock him.
-                  </Sheet.Description>
+                  <Sheet.Title>Are you sure you want to block Artur?</Sheet.Title>
+                  <Sheet.Description>Artur won't be able to message you unless you unblock him.</Sheet.Description>
                 </Sheet.Header>
                 <Sheet.Body>
-                  <Flex gap="3" mt="4" justify="end">
+                  <div
+                    style={{
+                      display: 'flex',
+                      gap: 'var(--space-3)',
+                      marginTop: 'var(--space-4)',
+                      justifyContent: 'flex-end',
+                    }}
+                  >
                     <Sheet.Close>
                       <Button size="3">Cancel</Button>
                     </Sheet.Close>
@@ -129,14 +113,14 @@ export const Nested: Story = {
                         Block
                       </Button>
                     </Sheet.Close>
-                  </Flex>
+                  </div>
                 </Sheet.Body>
               </Sheet.Content>
             </Sheet.NestedRoot>
             <Sheet.Close>
               <Button onClick={() => alert('Save')}>Save</Button>
             </Sheet.Close>
-          </Flex>
+          </div>
         </Sheet.Body>
       </Sheet.Content>
     </Sheet.Root>
@@ -153,23 +137,21 @@ export const InsetContent: Story = {
       <Sheet.Content {...args}>
         <Sheet.Header>
           <Sheet.Title>Users</Sheet.Title>
-          <Sheet.Description>
-            The following users have access to this project.
-          </Sheet.Description>
+          <Sheet.Description>The following users have access to this project.</Sheet.Description>
         </Sheet.Header>
 
         <Sheet.Body>
-          <Inset side="x" mb="4">
+          <Inset side="x" style={{ marginBottom: 'var(--space-4)' }}>
             <Table.Root variant="ghost" size="1">
               <ScrollArea scrollbars="horizontal">
                 <Table.Table>
                   <Table.Header>
                     <Table.Row>
                       <Table.ColumnHeaderCell>
-                        <Flex align="center" gap="3">
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
                           <Checkbox />
                           Full name
-                        </Flex>
+                        </div>
                       </Table.ColumnHeaderCell>
                       <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
                       <Table.ColumnHeaderCell>Group</Table.ColumnHeaderCell>
@@ -179,10 +161,10 @@ export const InsetContent: Story = {
                   <Table.Body>
                     <Table.Row>
                       <Table.RowHeaderCell>
-                        <Flex align="center" gap="3">
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
                           <Checkbox />
                           Danilo Sousa
-                        </Flex>
+                        </div>
                       </Table.RowHeaderCell>
                       <Table.Cell>danilo@example.com</Table.Cell>
                       <Table.Cell>
@@ -192,10 +174,10 @@ export const InsetContent: Story = {
 
                     <Table.Row>
                       <Table.RowHeaderCell>
-                        <Flex align="center" gap="3">
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
                           <Checkbox />
                           Zahra Ambessa
-                        </Flex>
+                        </div>
                       </Table.RowHeaderCell>
                       <Table.Cell>zahra@example.com</Table.Cell>
                       <Table.Cell>
@@ -205,10 +187,10 @@ export const InsetContent: Story = {
 
                     <Table.Row>
                       <Table.RowHeaderCell>
-                        <Flex align="center" gap="3">
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
                           <Checkbox />
                           Jasper Eriksson
-                        </Flex>
+                        </div>
                       </Table.RowHeaderCell>
                       <Table.Cell>jasper@example.com</Table.Cell>
                       <Table.Cell>
@@ -221,13 +203,13 @@ export const InsetContent: Story = {
             </Table.Root>
           </Inset>
 
-          <Flex gap="3" justify="end">
+          <div style={{ display: 'flex', gap: 'var(--space-3)', justifyContent: 'flex-end' }}>
             <Sheet.Close>
               <Button variant="soft" color="gray">
                 Close
               </Button>
             </Sheet.Close>
-          </Flex>
+          </div>
         </Sheet.Body>
       </Sheet.Content>
     </Sheet.Root>
@@ -244,9 +226,7 @@ export const ScrollableContent: Story = {
       <Sheet.Content {...args}>
         <Sheet.Header>
           <Sheet.Title>Users</Sheet.Title>
-          <Sheet.Description>
-            The following users have access to this project.
-          </Sheet.Description>
+          <Sheet.Description>The following users have access to this project.</Sheet.Description>
         </Sheet.Header>
         <Sheet.Body>
           <Inset
@@ -260,113 +240,71 @@ export const ScrollableContent: Story = {
               borderBottom: '1px solid var(--gray-a4)',
             }}
           >
-            <Text as="p" size="2" mb="4">
-              Make changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes
+            <Text as="p" size="2" style={{ marginBottom: 'var(--space-4)' }}>
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes
             </Text>
-            <Text as="p" size="2" mb="4">
-              Make changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes
+            <Text as="p" size="2" style={{ marginBottom: 'var(--space-4)' }}>
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes
             </Text>
-            <Text as="p" size="2" mb="4">
-              Make changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes to your profile. Make
-              changes to your profile. Make changes
+            <Text as="p" size="2" style={{ marginBottom: 'var(--space-4)' }}>
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
+              Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+              your profile. Make changes
             </Text>
           </Inset>
         </Sheet.Body>
@@ -388,28 +326,21 @@ export const Controlled: Story = {
         <Sheet.Content {...args}>
           <Sheet.Header>
             <Sheet.Title>Delete account</Sheet.Title>
-            <Sheet.Description color="gray">
-              Are you sure you want to delete your account?
-            </Sheet.Description>
+            <Sheet.Description color="gray">Are you sure you want to delete your account?</Sheet.Description>
           </Sheet.Header>
           <Sheet.Body>
-            <Flex direction="column" gap="3" style={{ width: '100%' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: '100%' }}>
               <Sheet.Close onClick={() => setOpen(false)}>
                 <Button variant="surface" style={{ width: '100%' }} size="3">
                   Cancel
                 </Button>
               </Sheet.Close>
               <Sheet.Close onClick={() => setOpen(false)}>
-                <Button
-                  variant="classic"
-                  color="danger"
-                  style={{ width: '100%' }}
-                  size="3"
-                >
+                <Button variant="classic" color="danger" style={{ width: '100%' }} size="3">
                   Delete account
                 </Button>
               </Sheet.Close>
-            </Flex>
+            </div>
           </Sheet.Body>
         </Sheet.Content>
       </Sheet.Root>

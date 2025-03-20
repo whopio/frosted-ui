@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { Button } from 'react-aria-components';
 import { colorProp } from '../../../src';
-import { AvatarGroup, Flex } from '../../../src/components';
+import { AvatarGroup } from '../../../src/components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -69,28 +69,18 @@ export const Default: Story = {
     const [users, setUsers] = React.useState(availableUsers);
 
     return (
-      <Flex gap="2">
+      <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
         <AvatarGroup.Root {...args} size="3">
           {users.map((user) => (
-            <AvatarGroup.Avatar
-              fallback={user.name}
-              color={user.color}
-              key={user.name}
-              src={user.src}
-            />
+            <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />
           ))}
         </AvatarGroup.Root>
         <AvatarGroup.Root {...args} size="9">
           {users.map((user) => (
-            <AvatarGroup.Avatar
-              fallback={user.name}
-              color={user.color}
-              key={user.name}
-              src={user.src}
-            />
+            <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />
           ))}
         </AvatarGroup.Root>
-        <Flex direction="column" gap="2">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
           {availableUsers.map((user) => (
             <Button
               key={user.name}
@@ -105,8 +95,8 @@ export const Default: Story = {
               Toggle {user.name}
             </Button>
           ))}
-        </Flex>
-      </Flex>
+        </div>
+      </div>
     );
   },
 };
@@ -114,145 +104,80 @@ export const Default: Story = {
 export const Size: Story = {
   args: {},
   render: (args) => (
-    <Flex align="center" gap="4">
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
       <AvatarGroup.Root {...args} size="1">
         {availableUsers.map((user) => (
-          <AvatarGroup.Avatar
-            fallback={user.name}
-            color={user.color}
-            key={user.name}
-            src={user.src}
-          />
+          <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />
         ))}
       </AvatarGroup.Root>
       <AvatarGroup.Root {...args} size="2">
         {availableUsers.map((user) => (
-          <AvatarGroup.Avatar
-            fallback={user.name}
-            color={user.color}
-            key={user.name}
-            src={user.src}
-          />
+          <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />
         ))}
       </AvatarGroup.Root>
       <AvatarGroup.Root {...args} size="3">
         {availableUsers.map((user) => (
-          <AvatarGroup.Avatar
-            fallback={user.name}
-            color={user.color}
-            key={user.name}
-            src={user.src}
-          />
+          <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />
         ))}
       </AvatarGroup.Root>
       <AvatarGroup.Root {...args} size="4">
         {availableUsers.map((user) => (
-          <AvatarGroup.Avatar
-            fallback={user.name}
-            color={user.color}
-            key={user.name}
-            src={user.src}
-          />
+          <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />
         ))}
       </AvatarGroup.Root>
       <AvatarGroup.Root {...args} size="5">
         {availableUsers.map((user) => (
-          <AvatarGroup.Avatar
-            fallback={user.name}
-            color={user.color}
-            key={user.name}
-            src={user.src}
-          />
+          <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />
         ))}
       </AvatarGroup.Root>
       <AvatarGroup.Root {...args} size="6">
         {availableUsers.map((user) => (
-          <AvatarGroup.Avatar
-            fallback={user.name}
-            color={user.color}
-            key={user.name}
-            src={user.src}
-          />
+          <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />
         ))}
       </AvatarGroup.Root>
       <AvatarGroup.Root {...args} size="7">
         {availableUsers.map((user) => (
-          <AvatarGroup.Avatar
-            fallback={user.name}
-            color={user.color}
-            key={user.name}
-            src={user.src}
-          />
+          <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />
         ))}
       </AvatarGroup.Root>
       <AvatarGroup.Root {...args} size="8">
         {availableUsers.map((user) => (
-          <AvatarGroup.Avatar
-            fallback={user.name}
-            color={user.color}
-            key={user.name}
-            src={user.src}
-          />
+          <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />
         ))}
       </AvatarGroup.Root>
       <AvatarGroup.Root {...args} size="9">
         {availableUsers.map((user) => (
-          <AvatarGroup.Avatar
-            fallback={user.name}
-            color={user.color}
-            key={user.name}
-            src={user.src}
-          />
+          <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />
         ))}
       </AvatarGroup.Root>
-    </Flex>
+    </div>
   ),
 };
 
 export const Color: Story = {
   args: {},
   render: (args) => (
-    <Flex gap="2">
+    <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
       <AvatarGroup.Root size="5" {...args} color="indigo">
         {availableUsers.map((user) => (
-          <AvatarGroup.Avatar
-            fallback={user.name}
-            color={user.color}
-            key={user.name}
-            src={user.src}
-          />
+          <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />
         ))}
       </AvatarGroup.Root>
       <AvatarGroup.Root size="5" {...args} color="cyan">
         {availableUsers.map((user) => (
-          <AvatarGroup.Avatar
-            fallback={user.name}
-            color={user.color}
-            key={user.name}
-            src={user.src}
-          />
+          <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />
         ))}
       </AvatarGroup.Root>
       <AvatarGroup.Root size="5" {...args} color="orange">
         {availableUsers.map((user) => (
-          <AvatarGroup.Avatar
-            fallback={user.name}
-            color={user.color}
-            key={user.name}
-            src={user.src}
-          />
+          <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />
         ))}
       </AvatarGroup.Root>
       <AvatarGroup.Root size="5" {...args} color="gold">
         {availableUsers.map((user) => (
-          <AvatarGroup.Avatar
-            fallback={user.name}
-            color={user.color}
-            key={user.name}
-            src={user.src}
-          />
+          <AvatarGroup.Avatar fallback={user.name} color={user.color} key={user.name} src={user.src} />
         ))}
       </AvatarGroup.Root>
-    </Flex>
+    </div>
   ),
 };

@@ -6,7 +6,6 @@ import { baseButtonPropDefs } from './base-button.props';
 
 import type { GetPropDefTypes, PropsWithoutColor } from '../helpers';
 import { mapButtonSizeToSpinnerSize } from '../helpers/map-prop-values';
-import { Flex } from './flex';
 import { Spinner } from './spinner';
 import { VisuallyHidden } from './visually-hidden';
 
@@ -57,11 +56,17 @@ const BaseButton = (props: BaseButtonProps) => {
           </span>
           <VisuallyHidden>{children}</VisuallyHidden>
 
-          <Flex asChild align="center" justify="center" position="absolute" inset="0">
-            <span>
-              <Spinner size={mapButtonSizeToSpinnerSize(size)} />
-            </span>
-          </Flex>
+          <span
+            style={{
+              position: 'absolute',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              inset: '0',
+            }}
+          >
+            <Spinner size={mapButtonSizeToSpinnerSize(size)} />
+          </span>
         </>
       ) : (
         children

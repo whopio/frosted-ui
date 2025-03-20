@@ -3,10 +3,10 @@ import * as React from 'react';
 import { linkPropDefs } from './link.props';
 import { Text } from './text';
 
-import type { GetPropDefTypes, MarginProps, PropsWithoutColor } from '../helpers';
+import type { GetPropDefTypes, PropsWithoutColor } from '../helpers';
 
 type LinkOwnProps = GetPropDefTypes<typeof linkPropDefs>;
-interface LinkProps extends PropsWithoutColor<'a'>, MarginProps, LinkOwnProps {
+interface LinkProps extends PropsWithoutColor<'a'>, LinkOwnProps {
   asChild?: boolean;
 }
 

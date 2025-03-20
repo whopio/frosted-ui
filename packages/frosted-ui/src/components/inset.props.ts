@@ -5,54 +5,46 @@ const clipValues = ['border-box', 'padding-box'] as const;
 const paddingValues = ['current', '0'] as const;
 
 const insetPropDefs = {
-  side: { type: 'enum', values: sides, default: 'all', responsive: true },
+  side: { type: 'enum', values: sides, default: 'all' },
   clip: {
     type: 'enum',
     values: clipValues,
     default: 'border-box',
-    responsive: true,
   },
   p: {
     type: 'enum',
     values: paddingValues,
     default: undefined,
-    responsive: true,
   },
   px: {
     type: 'enum',
     values: paddingValues,
     default: undefined,
-    responsive: true,
   },
   py: {
     type: 'enum',
     values: paddingValues,
     default: undefined,
-    responsive: true,
   },
   pt: {
     type: 'enum',
     values: paddingValues,
     default: undefined,
-    responsive: true,
   },
   pr: {
     type: 'enum',
     values: paddingValues,
     default: undefined,
-    responsive: true,
   },
   pb: {
     type: 'enum',
     values: paddingValues,
     default: undefined,
-    responsive: true,
   },
   pl: {
     type: 'enum',
     values: paddingValues,
     default: undefined,
-    responsive: true,
   },
 } satisfies {
   side: PropDef<(typeof sides)[number]>;

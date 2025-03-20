@@ -2,14 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { DateValue, parseDate } from '@internationalized/date';
 import React from 'react';
-import {
-  Button,
-  Calendar,
-  DatePicker,
-  Flex,
-  Popover,
-  datePickerPropDefs,
-} from '../../../src/components';
+import { Button, Calendar, DatePicker, Popover, datePickerPropDefs } from '../../../src/components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -38,20 +31,20 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {},
   render: (args) => (
-    <Flex direction="column" gap="5">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
       <DatePicker {...args} />
-    </Flex>
+    </div>
   ),
 };
 
 export const Sizes: Story = {
   args: {},
   render: (args) => (
-    <Flex direction="column" gap="5">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
       <DatePicker {...args} size="1" />
       <DatePicker {...args} size="2" />
       <DatePicker {...args} size="3" />
-    </Flex>
+    </div>
   ),
 };
 
@@ -69,11 +62,7 @@ export const Custom: Story = {
               <CalendarIcon /> {date.toString()}
             </Button>
           </Popover.Trigger>
-          <Popover.Content
-            variant="translucent"
-            align="center"
-            style={{ width: 'unset' }}
-          >
+          <Popover.Content variant="translucent" align="center" style={{ width: 'unset' }}>
             <Calendar
               minValue={parseDate('2020-01-03')}
               defaultValue={date}
@@ -91,13 +80,7 @@ export const Custom: Story = {
 };
 
 const CalendarIcon = () => (
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g clipPath="url(#clip0_1869_102855)">
       <path
         fillRule="evenodd"

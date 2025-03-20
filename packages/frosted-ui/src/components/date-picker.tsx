@@ -10,7 +10,6 @@ import { Popover } from './';
 import { Calendar, MappedDateValue } from './calendar';
 import { DateField } from './date-field';
 import { datePickerPropDefs } from './date-picker.props';
-import { Flex } from './flex';
 import { IconButton } from './icon-button';
 
 type DatePickerFUIProps = GetPropDefTypes<typeof datePickerPropDefs>;
@@ -39,14 +38,7 @@ export function DatePicker<T extends DateValue>(props: DatePickerProps<T>) {
   } = useDatePicker(props, state, ref);
 
   return (
-    <Flex
-      align="center"
-      direction="row"
-      gap="1"
-      {...groupProps}
-      ref={ref}
-      className={classNames('fui-DatePickerRoot', className)}
-    >
+    <div {...groupProps} ref={ref} className={classNames('fui-DatePickerRoot', className)}>
       <DateField
         {...otherFieldProps}
         color={color}
@@ -86,6 +78,6 @@ export function DatePicker<T extends DateValue>(props: DatePickerProps<T>) {
           <Calendar {...calendarProps} />
         </Popover.Content>
       </Popover.Root>
-    </Flex>
+    </div>
   );
 }

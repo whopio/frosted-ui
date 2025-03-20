@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { getLocalTimeZone, parseDate, parseZonedDateTime, today } from '@internationalized/date';
 import React from 'react';
-import { DateField, Flex, dateFieldPropDefs } from '../../../src/components';
+import { DateField, dateFieldPropDefs } from '../../../src/components';
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
   title: 'Controls/Dates/DateField',
@@ -36,25 +36,25 @@ export const Default: Story = {
 export const Size: Story = {
   args: {},
   render: (args) => (
-    <Flex direction={'column'} gap="4" style={{ width: 300 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', width: 300 }}>
       <DateField {...args} defaultValue={parseDate('2020-02-03')} size="1" />
       <DateField {...args} defaultValue={parseDate('2020-02-03')} size="2" />
       <DateField {...args} defaultValue={parseDate('2020-02-03')} size="3" />
-    </Flex>
+    </div>
   ),
 };
 
 export const MinValue: Story = {
   args: {},
   render: (args) => (
-    <Flex direction={'column'} gap="4" style={{ width: 300 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', width: 300 }}>
       <DateField
         {...args}
         minValue={today(getLocalTimeZone())}
         defaultValue={parseDate('2020-02-03')}
         validationBehavior="aria"
       />
-    </Flex>
+    </div>
   ),
 };
 
@@ -62,7 +62,7 @@ export const WithTime: Story = {
   name: 'With time',
   args: {},
   render: (args) => (
-    <Flex direction={'column'} gap="4" style={{ width: 300 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', width: 300 }}>
       <DateField {...args} defaultValue={parseZonedDateTime('2022-11-07T00:45[America/Los_Angeles]')} />
       <DateField {...args} defaultValue={parseZonedDateTime('2022-11-07T00:45[America/Los_Angeles]')} hideTimeZone />
       <DateField
@@ -71,6 +71,6 @@ export const WithTime: Story = {
         hideTimeZone
         granularity="second"
       />
-    </Flex>
+    </div>
   ),
 };

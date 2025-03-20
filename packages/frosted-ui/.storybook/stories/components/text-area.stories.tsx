@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Flex, TextArea } from '../../../src/components';
+import { TextArea } from '../../../src/components';
 import { textAreaPropDefs } from '../../../src/components/text-area.props';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -36,45 +36,30 @@ export const Default: Story = {
 
 export const Size: Story = {
   render: (args) => (
-    <Flex direction="column" gap="3" style={{ maxWidth: 500 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', maxWidth: 500 }}>
       <TextArea placeholder="Reply to comment…" {...args} size="1" />
       <TextArea placeholder="Reply to comment…" {...args} size="2" />
       <TextArea placeholder="Reply to comment…" {...args} size="3" />
-    </Flex>
+    </div>
   ),
 };
 
 export const Variant: Story = {
   render: (args) => (
-    <Flex direction="column" gap="3" style={{ maxWidth: 500 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', maxWidth: 500 }}>
       <TextArea placeholder="Reply to comment…" {...args} variant="surface" />
       <TextArea placeholder="Reply to comment…" {...args} variant="classic" />
       <TextArea placeholder="Reply to comment…" {...args} variant="soft" />
-    </Flex>
+    </div>
   ),
 };
 
 export const Color: Story = {
   render: (args) => (
-    <Flex direction="column" gap="3" style={{ maxWidth: 500 }}>
-      <TextArea
-        variant="soft"
-        placeholder="Reply to comment…"
-        {...args}
-        color="blue"
-      />
-      <TextArea
-        variant="soft"
-        placeholder="Reply to comment…"
-        {...args}
-        color="green"
-      />
-      <TextArea
-        variant="soft"
-        placeholder="Reply to comment…"
-        {...args}
-        color="red"
-      />
-    </Flex>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', maxWidth: 500 }}>
+      <TextArea variant="soft" placeholder="Reply to comment…" {...args} color="blue" />
+      <TextArea variant="soft" placeholder="Reply to comment…" {...args} color="green" />
+      <TextArea variant="soft" placeholder="Reply to comment…" {...args} color="red" />
+    </div>
   ),
 };

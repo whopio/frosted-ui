@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Flex, Progress } from '../../../src/components';
+import { Progress } from '../../../src/components';
 import { progressPropDefs } from '../../../src/components/progress.props';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -34,9 +34,9 @@ export const Default: Story = {
     color: progressPropDefs.color.default,
   },
   render: (args) => (
-    <Flex direction="column" gap="3" style={{ width: 300 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 300 }}>
       <Progress {...args} />
-    </Flex>
+    </div>
   ),
 };
 
@@ -47,11 +47,11 @@ export const Size: Story = {
     color: progressPropDefs.color.default,
   },
   render: (args) => (
-    <Flex direction="column" gap="3" style={{ width: 300 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 300 }}>
       <Progress {...args} size="3" />
       <Progress {...args} size="2" />
       <Progress {...args} size="1" />
-    </Flex>
+    </div>
   ),
 };
 
@@ -61,11 +61,11 @@ export const Variant: Story = {
     color: progressPropDefs.color.default,
   },
   render: (args) => (
-    <Flex direction="column" gap="3" style={{ width: 300 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 300 }}>
       <Progress {...args} variant="soft" />
       <Progress {...args} variant="surface" />
       <Progress {...args} variant="classic" />
-    </Flex>
+    </div>
   ),
 };
 
@@ -74,12 +74,12 @@ export const Color: Story = {
     size: progressPropDefs.size.default,
   },
   render: (args) => (
-    <Flex direction="column" gap="3" style={{ width: 300 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 300 }}>
       <Progress {...args} color="indigo" />
       <Progress {...args} color="cyan" />
       <Progress {...args} color="orange" />
       <Progress {...args} color="crimson" />
-    </Flex>
+    </div>
   ),
 };
 
@@ -87,17 +87,17 @@ export const HighContrast: Story = {
   name: 'High Contrast',
   args: {},
   render: (args) => (
-    <Flex direction="row" gap="2">
-      <Flex direction="column" gap="3" style={{ width: 300 }}>
+    <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--space-2)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 300 }}>
         <Progress {...args} variant="soft" highContrast={false} />
         <Progress {...args} variant="surface" highContrast={false} />
         <Progress {...args} variant="classic" highContrast={false} />
-      </Flex>
-      <Flex direction="column" gap="3" style={{ width: 300 }}>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 300 }}>
         <Progress {...args} variant="soft" highContrast />
         <Progress {...args} variant="surface" highContrast />
         <Progress {...args} variant="classic" highContrast />
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   ),
 };
