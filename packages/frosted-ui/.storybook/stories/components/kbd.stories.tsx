@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Flex, Kbd } from '../../../src/components/';
+import { Kbd } from '../../../src/components/';
 import { kbdPropDefs } from '../../../src/components/kbd.props';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -30,7 +30,7 @@ export const Default: Story = {
 
 export const Size: Story = {
   render: (args) => (
-    <Flex direction="column" gap="3">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
       <div>
         <Kbd {...args} size="1">
           Shift + Tab
@@ -76,6 +76,6 @@ export const Size: Story = {
           Shift + Tab
         </Kbd>
       </div>
-    </Flex>
+    </div>
   ),
 };

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import * as Icons from '@frosted-ui/icons';
 import React from 'react';
-import { Flex, Tooltip } from '../../../src/components';
+import { Tooltip } from '../../../src/components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -23,7 +23,7 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Default: Story = {
   render: (args) => (
-    <Flex direction="row" style={{ width: 400 }} wrap="wrap">
+    <div style={{ display: 'flex', flexDirection: 'row', width: 400, flexWrap: 'wrap' }}>
       {Object.entries(Icons).map(([name, Icon]) => (
         <div style={{ width: '20%', padding: 8 }}>
           <Tooltip key={name} content={name} delayDuration={0}>
@@ -32,6 +32,6 @@ export const Default: Story = {
           </Tooltip>
         </div>
       ))}
-    </Flex>
+    </div>
   ),
 };

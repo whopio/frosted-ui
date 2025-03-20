@@ -10,7 +10,6 @@ import { GetPropDefTypes } from '../helpers';
 import { MappedDateValue, RangeCalendar } from './calendar';
 import { DateField } from './date-field';
 import { datePickerPropDefs } from './date-picker.props';
-import { Flex } from './flex';
 import { IconButton } from './icon-button';
 
 interface RangeValue<T> {
@@ -51,14 +50,7 @@ export function DateRangePicker<T extends DateValue>(props: DateRangePickerProps
   } = useDateRangePicker(props, state, ref);
 
   return (
-    <Flex
-      align="center"
-      direction="row"
-      gap="1"
-      {...groupProps}
-      ref={ref}
-      className={classNames('fui-DateRangePickerRoot', className)}
-    >
+    <div {...groupProps} ref={ref} className={classNames('fui-DateRangePickerRoot', className)}>
       <DateField
         {...startFieldProps}
         color={color}
@@ -106,6 +98,6 @@ export function DateRangePicker<T extends DateValue>(props: DateRangePickerProps
           <RangeCalendar {...calendarProps} />
         </Popover.Content>
       </Popover.Root>
-    </Flex>
+    </div>
   );
 }

@@ -1,3 +1,63 @@
+.fui-r-p-0 {
+  padding: 0;
+}
+
+.fui-r-p-current {
+  padding: var(--inset-padding);
+}
+
+.fui-r-px-0 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.fui-r-px-current {
+  padding-left: var(--inset-padding);
+  padding-right: var(--inset-padding);
+}
+
+.fui-r-py-0 {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.fui-r-py-current {
+  padding-top: var(--inset-padding);
+  padding-bottom: var(--inset-padding);
+}
+
+.fui-r-pt-0 {
+  padding-top: 0;
+}
+
+.fui-r-pt-current {
+  padding-top: var(--inset-padding);
+}
+
+.fui-r-pr-0 {
+  padding-right: 0;
+}
+
+.fui-r-pr-current {
+  padding-right: var(--inset-padding);
+}
+
+.fui-r-pb-0 {
+  padding-bottom: 0;
+}
+
+.fui-r-pb-current {
+  padding-bottom: var(--inset-padding);
+}
+
+.fui-r-pl-0 {
+  padding-left: 0;
+}
+
+.fui-r-pl-current {
+  padding-left: var(--inset-padding);
+}
+
 .fui-Inset {
   /* We reset the defined margin variables to avoid inheriting them from a higher component */
   /* If a margin IS defined on the component itself, the utility class will win and reset it */

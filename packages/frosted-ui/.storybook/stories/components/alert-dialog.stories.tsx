@@ -1,16 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 
-import {
-  AlertDialog,
-  Button,
-  Code,
-  Flex,
-  Inset,
-  Table,
-  Text,
-  alertDialogContentPropDefs,
-} from '../../../src/components';
+import { AlertDialog, Button, Code, Inset, Table, Text, alertDialogContentPropDefs } from '../../../src/components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -43,11 +34,12 @@ export const Default: Story = {
       <AlertDialog.Content style={{ maxWidth: 450 }} {...args}>
         <AlertDialog.Title>Revoke access</AlertDialog.Title>
         <AlertDialog.Description>
-          Are you sure? This application will no longer be accessible and any
-          existing sessions will be expired.
+          Are you sure? This application will no longer be accessible and any existing sessions will be expired.
         </AlertDialog.Description>
 
-        <Flex gap="3" mt="4" justify="end">
+        <div
+          style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-4)', justifyContent: 'flex-end' }}
+        >
           <AlertDialog.Cancel>
             <Button variant="soft" color="gray">
               Cancel
@@ -58,7 +50,7 @@ export const Default: Story = {
               Revoke access
             </Button>
           </AlertDialog.Action>
-        </Flex>
+        </div>
       </AlertDialog.Content>
     </AlertDialog.Root>
   ),
@@ -66,7 +58,7 @@ export const Default: Story = {
 
 export const Sizes: Story = {
   render: ({ children, ...args }) => (
-    <Flex gap="4">
+    <div style={{ display: 'flex', gap: 'var(--space-4)' }}>
       <AlertDialog.Root>
         <AlertDialog.Trigger>
           <Button variant="classic" color="red">
@@ -76,11 +68,10 @@ export const Sizes: Story = {
         <AlertDialog.Content style={{ maxWidth: 350 }} size="1">
           <AlertDialog.Title>Revoke access</AlertDialog.Title>
           <AlertDialog.Description>
-            Are you sure? This application will no longer be accessible and any
-            existing sessions will be expired.
+            Are you sure? This application will no longer be accessible and any existing sessions will be expired.
           </AlertDialog.Description>
 
-          <Flex gap="2" justify="end">
+          <div style={{ display: 'flex', gap: 'var(--space-2)', justifyContent: 'flex-end' }}>
             <AlertDialog.Cancel>
               <Button size="1" variant="soft" color="gray">
                 Cancel
@@ -91,7 +82,7 @@ export const Sizes: Story = {
                 Revoke access
               </Button>
             </AlertDialog.Action>
-          </Flex>
+          </div>
         </AlertDialog.Content>
       </AlertDialog.Root>
 
@@ -104,11 +95,10 @@ export const Sizes: Story = {
         <AlertDialog.Content style={{ maxWidth: 350 }} size="2">
           <AlertDialog.Title>Revoke access</AlertDialog.Title>
           <AlertDialog.Description>
-            Are you sure? This application will no longer be accessible and any
-            existing sessions will be expired.
+            Are you sure? This application will no longer be accessible and any existing sessions will be expired.
           </AlertDialog.Description>
 
-          <Flex gap="2" justify="end">
+          <div style={{ display: 'flex', gap: 'var(--space-2)', justifyContent: 'flex-end' }}>
             <AlertDialog.Cancel>
               <Button size="2" variant="soft" color="gray">
                 Cancel
@@ -119,7 +109,7 @@ export const Sizes: Story = {
                 Revoke access
               </Button>
             </AlertDialog.Action>
-          </Flex>
+          </div>
         </AlertDialog.Content>
       </AlertDialog.Root>
 
@@ -132,11 +122,10 @@ export const Sizes: Story = {
         <AlertDialog.Content style={{ maxWidth: 350 }} size="3">
           <AlertDialog.Title>Revoke access</AlertDialog.Title>
           <AlertDialog.Description>
-            Are you sure? This application will no longer be accessible and any
-            existing sessions will be expired.
+            Are you sure? This application will no longer be accessible and any existing sessions will be expired.
           </AlertDialog.Description>
 
-          <Flex gap="3" justify="end">
+          <div style={{ display: 'flex', gap: 'var(--space-3)', justifyContent: 'flex-end' }}>
             <AlertDialog.Cancel>
               <Button size="2" variant="soft" color="gray">
                 Cancel
@@ -147,7 +136,7 @@ export const Sizes: Story = {
                 Revoke access
               </Button>
             </AlertDialog.Action>
-          </Flex>
+          </div>
         </AlertDialog.Content>
       </AlertDialog.Root>
 
@@ -160,11 +149,10 @@ export const Sizes: Story = {
         <AlertDialog.Content style={{ maxWidth: 350 }} size="4">
           <AlertDialog.Title>Revoke access</AlertDialog.Title>
           <AlertDialog.Description>
-            Are you sure? This application will no longer be accessible and any
-            existing sessions will be expired.
+            Are you sure? This application will no longer be accessible and any existing sessions will be expired.
           </AlertDialog.Description>
 
-          <Flex gap="3" justify="end">
+          <div style={{ display: 'flex', gap: 'var(--space-3)', justifyContent: 'flex-end' }}>
             <AlertDialog.Cancel>
               <Button size="3" variant="soft" color="gray">
                 Cancel
@@ -175,20 +163,20 @@ export const Sizes: Story = {
                 Revoke access
               </Button>
             </AlertDialog.Action>
-          </Flex>
+          </div>
         </AlertDialog.Content>
       </AlertDialog.Root>
-    </Flex>
+    </div>
   ),
 };
 
 export const InsetContent: Story = {
   name: 'With inset content',
   render: ({ children, ...args }) => (
-    <Flex direction="column" align={'center'} gap="6">
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-6)' }}>
       <Text>
-        Use the <Code>Inset</Code> component to align content flush with the
-        sides of the dialog (bypassing its padding).
+        Use the <Code>Inset</Code> component to align content flush with the sides of the dialog (bypassing its
+        padding).
       </Text>
       <div>
         <AlertDialog.Root>
@@ -200,11 +188,10 @@ export const InsetContent: Story = {
           <AlertDialog.Content style={{ maxWidth: 500 }}>
             <AlertDialog.Title>Delete Users</AlertDialog.Title>
             <AlertDialog.Description>
-              Are you sure you want to delete these users? This action is
-              permanent and cannot be undone.
+              Are you sure you want to delete these users? This action is permanent and cannot be undone.
             </AlertDialog.Description>
 
-            <Inset side="x" my="5">
+            <Inset side="x" style={{ marginTop: 'var(--space-5)', marginBottom: 'var(--space-5)' }}>
               <Table.Root>
                 <Table.Header>
                   <Table.Row>
@@ -230,7 +217,7 @@ export const InsetContent: Story = {
               </Table.Root>
             </Inset>
 
-            <Flex gap="3" justify="end">
+            <div style={{ display: 'flex', gap: 'var(--space-3)', justifyContent: 'flex-end' }}>
               <AlertDialog.Cancel>
                 <Button variant="soft" color="gray">
                   Cancel
@@ -241,10 +228,10 @@ export const InsetContent: Story = {
                   Delete users
                 </Button>
               </AlertDialog.Action>
-            </Flex>
+            </div>
           </AlertDialog.Content>
         </AlertDialog.Root>
       </div>
-    </Flex>
+    </div>
   ),
 };

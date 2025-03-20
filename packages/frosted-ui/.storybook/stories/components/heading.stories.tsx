@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 
-import { Flex } from '../../../src/components/flex';
 import { Heading } from '../../../src/components/heading';
 import { headingPropDefs } from '../../../src/components/heading.props';
 
@@ -30,7 +29,7 @@ export const Default: Story = {
 
 export const Size: Story = {
   render: (args) => (
-    <Flex direction="column" gap="3">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
       <Heading {...args} size="0">
         The quick brown fox jumps over the lazy dog.
       </Heading>
@@ -61,13 +60,13 @@ export const Size: Story = {
       <Heading {...args} size="9">
         The quick brown fox jumps over the lazy dog.
       </Heading>
-    </Flex>
+    </div>
   ),
 };
 
 export const Color: Story = {
   render: (args) => (
-    <Flex direction="column" gap="3">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
       <Heading {...args} color="indigo">
         The quick brown fox jumps over the lazy dog.
       </Heading>
@@ -80,13 +79,13 @@ export const Color: Story = {
       <Heading {...args} color="crimson">
         The quick brown fox jumps over the lazy dog.
       </Heading>
-    </Flex>
+    </div>
   ),
 };
 
 export const Align: Story = {
   render: (args) => (
-    <Flex direction="column" gap="3" style={{ width: 500 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 500 }}>
       <Heading {...args} align="left">
         Left-aligned
       </Heading>
@@ -96,13 +95,13 @@ export const Align: Story = {
       <Heading {...args} align="right">
         Right-aligned
       </Heading>
-    </Flex>
+    </div>
   ),
 };
 
 export const Trim: Story = {
   render: (args) => (
-    <Flex direction="column" gap="3">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
       <Heading
         {...args}
         trim="normal"
@@ -125,14 +124,14 @@ export const Trim: Story = {
       >
         With trim
       </Heading>
-    </Flex>
+    </div>
   ),
 };
 
 export const HighContrast: Story = {
   name: 'High Contrast',
   render: (args) => (
-    <Flex direction="column" gap="3">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
       <Heading {...args} highContrast color="indigo">
         The quick brown fox jumps over the lazy dog.
       </Heading>
@@ -145,6 +144,6 @@ export const HighContrast: Story = {
       <Heading {...args} highContrast color="crimson">
         The quick brown fox jumps over the lazy dog.
       </Heading>
-    </Flex>
+    </div>
   ),
 };

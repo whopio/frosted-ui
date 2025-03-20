@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
 import React from 'react';
-import { Button, Card, Code, Flex, Grid, Switch, Text, TextArea } from '../../../src/components';
+import { Button, Card, Code, Switch, Text, TextArea } from '../../../src/components';
 import { Theme } from '../../../src/theme';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -24,34 +23,32 @@ export const Default: Story = {
   render: (args) => (
     <Theme {...args}>
       <div style={{ padding: '30px 80px' }}>
-        <Flex direction="column" gap="3">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
           <Text>
             Wrap a component tree in the <Code>Theme</Code> component to provide or modify configuration for all
             children.
           </Text>
           <Card size="2" style={{ maxWidth: 400 }} variant="classic">
-            <Flex direction="column" gap="3">
-              <Grid gap="1">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+              <div style={{ display: 'grid', gap: 4 }}>
                 <Text as="div" weight="bold" size="2" style={{ marginBottom: 4 }}>
                   Feedback
                 </Text>
                 <TextArea placeholder="Write your feedback…" />
-              </Grid>
-              <Flex asChild justify="between">
-                <label>
-                  <Text color="gray" size="2">
-                    Attach screenshot?
-                  </Text>
-                  <Switch size="1" defaultChecked />
-                </label>
-              </Flex>
-              <Grid columns="2" gap="2">
+              </div>
+              <label style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Text color="gray" size="2">
+                  Attach screenshot?
+                </Text>
+                <Switch size="1" defaultChecked />
+              </label>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--space-2)' }}>
                 <Button variant="surface">Back</Button>
                 <Button>Send</Button>
-              </Grid>
-            </Flex>
+              </div>
+            </div>
           </Card>
-        </Flex>
+        </div>
       </div>
     </Theme>
   ),
@@ -59,7 +56,7 @@ export const Default: Story = {
 
 export const Colors: Story = {
   render: (args) => (
-    <Flex gap="6">
+    <div style={{ display: 'flex', gap: 'var(--space-6)' }}>
       <Theme
         grayColor="gray"
         accentColor="blue"
@@ -68,11 +65,12 @@ export const Colors: Story = {
         warningColor="yellow"
         dangerColor="red"
       >
-        <Flex
-          direction="column"
-          gap="3"
-          p={'4'}
+        <div
           style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'var(--space-3)',
+            padding: 'var(--space-4)',
             background: 'var(--gray-6)',
             borderRadius: 'var(--radius-5)',
           }}
@@ -90,7 +88,7 @@ export const Colors: Story = {
           <Button variant="classic" color="danger">
             Danger
           </Button>
-        </Flex>
+        </div>
       </Theme>
       <Theme
         grayColor="gray"
@@ -100,11 +98,12 @@ export const Colors: Story = {
         warningColor="amber"
         dangerColor="ruby"
       >
-        <Flex
-          direction="column"
-          gap="3"
-          p={'4'}
+        <div
           style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'var(--space-3)',
+            padding: 'var(--space-4)',
             background: 'var(--gray-6)',
             borderRadius: 'var(--radius-5)',
           }}
@@ -122,15 +121,15 @@ export const Colors: Story = {
           <Button variant="classic" color="danger">
             Danger
           </Button>
-        </Flex>
+        </div>
       </Theme>
-    </Flex>
+    </div>
   ),
 };
 
 export const Appearance: Story = {
   render: (args) => (
-    <Flex gap="6">
+    <div style={{ display: 'flex', gap: 'var(--space-6)' }}>
       <Theme
         appearance="light"
         grayColor="slate"
@@ -139,11 +138,12 @@ export const Appearance: Story = {
         warningColor="yellow"
         dangerColor="red"
       >
-        <Flex
-          direction="column"
-          gap="3"
-          p={'4'}
+        <div
           style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'var(--space-3)',
+            padding: 'var(--space-4)',
             background: 'var(--color-background)',
             borderRadius: 'var(--radius-5)',
           }}
@@ -160,7 +160,7 @@ export const Appearance: Story = {
           <Button variant="classic" color="danger">
             Danger
           </Button>
-        </Flex>
+        </div>
       </Theme>
       <Theme
         appearance="dark"
@@ -170,11 +170,12 @@ export const Appearance: Story = {
         warningColor="yellow"
         dangerColor="red"
       >
-        <Flex
-          direction="column"
-          gap="3"
-          p={'4'}
+        <div
           style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'var(--space-3)',
+            padding: 'var(--space-4)',
             background: 'var(--color-background)',
             borderRadius: 'var(--radius-5)',
           }}
@@ -191,8 +192,8 @@ export const Appearance: Story = {
           <Button variant="classic" color="danger">
             Danger
           </Button>
-        </Flex>
+        </div>
       </Theme>
-    </Flex>
+    </div>
   ),
 };

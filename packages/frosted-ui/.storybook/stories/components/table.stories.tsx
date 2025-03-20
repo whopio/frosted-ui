@@ -20,7 +20,6 @@ import {
   Checkbox,
   Code,
   DropdownMenu,
-  Flex,
   IconButton,
   ScrollArea,
   Select,
@@ -95,17 +94,17 @@ export const Default: Story = {
 
 export const Variant: Story = {
   render: (args) => (
-    <Flex direction="row" gap="3">
+    <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--space-3)' }}>
       <div>
         <Table.Root {...args} variant="ghost">
           <Table.Table>
             <Table.Header>
               <Table.Row>
                 <Table.ColumnHeaderCell>
-                  <Flex align="center" gap="3">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
                     <Checkbox />
                     Full name
-                  </Flex>
+                  </div>
                 </Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>Group</Table.ColumnHeaderCell>
@@ -115,10 +114,10 @@ export const Variant: Story = {
             <Table.Body>
               <Table.Row>
                 <Table.RowHeaderCell>
-                  <Flex align="center" gap="3">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
                     <Checkbox />
                     Danilo Sousa
-                  </Flex>
+                  </div>
                 </Table.RowHeaderCell>
                 <Table.Cell>danilo@example.com</Table.Cell>
                 <Table.Cell>
@@ -128,10 +127,10 @@ export const Variant: Story = {
 
               <Table.Row>
                 <Table.RowHeaderCell>
-                  <Flex align="center" gap="3">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
                     <Checkbox />
                     Zahra Ambessa
-                  </Flex>
+                  </div>
                 </Table.RowHeaderCell>
                 <Table.Cell>zahra@example.com</Table.Cell>
                 <Table.Cell>
@@ -141,10 +140,10 @@ export const Variant: Story = {
 
               <Table.Row>
                 <Table.RowHeaderCell>
-                  <Flex align="center" gap="3">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
                     <Checkbox />
                     Jasper Eriksson
-                  </Flex>
+                  </div>
                 </Table.RowHeaderCell>
                 <Table.Cell>jasper@example.com</Table.Cell>
                 <Table.Cell>
@@ -161,10 +160,10 @@ export const Variant: Story = {
             <Table.Header>
               <Table.Row>
                 <Table.ColumnHeaderCell>
-                  <Flex align="center" gap="3">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
                     <Checkbox />
                     Full name
-                  </Flex>
+                  </div>
                 </Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>Group</Table.ColumnHeaderCell>
@@ -174,10 +173,10 @@ export const Variant: Story = {
             <Table.Body>
               <Table.Row>
                 <Table.RowHeaderCell>
-                  <Flex align="center" gap="3">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
                     <Checkbox />
                     Danilo Sousa
-                  </Flex>
+                  </div>
                 </Table.RowHeaderCell>
                 <Table.Cell>danilo@example.com</Table.Cell>
                 <Table.Cell>
@@ -187,10 +186,10 @@ export const Variant: Story = {
 
               <Table.Row>
                 <Table.RowHeaderCell>
-                  <Flex align="center" gap="3">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
                     <Checkbox />
                     Zahra Ambessa
-                  </Flex>
+                  </div>
                 </Table.RowHeaderCell>
                 <Table.Cell>zahra@example.com</Table.Cell>
                 <Table.Cell>
@@ -200,10 +199,10 @@ export const Variant: Story = {
 
               <Table.Row>
                 <Table.RowHeaderCell>
-                  <Flex align="center" gap="3">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
                     <Checkbox />
                     Jasper Eriksson
-                  </Flex>
+                  </div>
                 </Table.RowHeaderCell>
                 <Table.Cell>jasper@example.com</Table.Cell>
                 <Table.Cell>
@@ -214,18 +213,26 @@ export const Variant: Story = {
           </Table.Table>
         </Table.Root>
       </div>
-    </Flex>
+    </div>
   ),
 };
 
 export const TableFooter: Story = {
   render: (args) => (
-    <Flex direction="column" gap="6" justify="center" align="center">
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 'var(--space-6)',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
       <Text style={{ maxWidth: 700 }}>
-        The <Code>{'<TableFooter />'}</Code> component is usually used as
-        summary of the columns, e.g., a sum of the given numbers in a column.
+        The <Code>{'<TableFooter />'}</Code> component is usually used as summary of the columns, e.g., a sum of the
+        given numbers in a column.
       </Text>
-      <Flex direction="row" gap="8">
+      <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--space-8)' }}>
         <div>
           <Table.Root {...args} variant="ghost">
             <Table.Table>
@@ -300,20 +307,16 @@ export const TableFooter: Story = {
             </Table.Table>
           </Table.Root>
         </div>
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   ),
 };
 
 export const HorizontalScroll: Story = {
   render: (args) => (
-    <Flex direction="row" gap="8">
+    <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--space-8)' }}>
       <div>
-        <Table.Root
-          {...args}
-          variant="ghost"
-          style={{ maxWidth: 400, whiteSpace: 'nowrap' }}
-        >
+        <Table.Root {...args} variant="ghost" style={{ maxWidth: 400, whiteSpace: 'nowrap' }}>
           <ScrollArea scrollbars="horizontal">
             <Table.Table>
               <Table.Header>
@@ -378,11 +381,7 @@ export const HorizontalScroll: Story = {
         </Table.Root>
       </div>
       <div>
-        <Table.Root
-          {...args}
-          variant="surface"
-          style={{ maxWidth: 400, whiteSpace: 'nowrap' }}
-        >
+        <Table.Root {...args} variant="surface" style={{ maxWidth: 400, whiteSpace: 'nowrap' }}>
           <ScrollArea scrollbars="horizontal">
             <Table.Table>
               <Table.Header>
@@ -446,7 +445,7 @@ export const HorizontalScroll: Story = {
           </Table.BottomBar>
         </Table.Root>
       </div>
-    </Flex>
+    </div>
   ),
 };
 
@@ -525,10 +524,7 @@ const columns: ColumnDef<Payment>[] = [
     id: 'select',
     header: ({ table }) => (
       <Checkbox
-        checked={
-          table.getIsAllRowsSelected() ||
-          (table.getIsSomeRowsSelected() && 'indeterminate')
-        }
+        checked={table.getIsAllRowsSelected() || (table.getIsSomeRowsSelected() && 'indeterminate')}
         onCheckedChange={(value) => table.toggleAllRowsSelected(!!value)}
         aria-label="Select all"
       />
@@ -545,9 +541,7 @@ const columns: ColumnDef<Payment>[] = [
   },
   {
     accessorKey: 'status',
-    header: () => (
-      <Table.ColumnHeaderCellButton>Status</Table.ColumnHeaderCellButton>
-    ),
+    header: () => <Table.ColumnHeaderCellButton>Status</Table.ColumnHeaderCellButton>,
     cell: ({ row }) => row.getValue('status'),
   },
   {
@@ -599,15 +593,10 @@ const columns: ColumnDef<Payment>[] = [
       const payment = row.original;
 
       return (
-        <Flex justify="end">
+        <div style={{ display: 'flex', justifyContent: 'end' }}>
           <DropdownMenu.Root>
             <DropdownMenu.Trigger>
-              <IconButton
-                variant="ghost"
-                color="gray"
-                aria-label="Open menu"
-                style={{ margin: 0 }}
-              >
+              <IconButton variant="ghost" color="gray" aria-label="Open menu" style={{ margin: 0 }}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -631,9 +620,7 @@ const columns: ColumnDef<Payment>[] = [
               <DropdownMenu.Item>View payment details</DropdownMenu.Item>
               <DropdownMenu.Separator />
               <DropdownMenu.Label>Actions</DropdownMenu.Label>
-              <DropdownMenu.Item
-                onClick={() => navigator.clipboard.writeText(payment.id)}
-              >
+              <DropdownMenu.Item onClick={() => navigator.clipboard.writeText(payment.id)}>
                 Copy payment ID
               </DropdownMenu.Item>
               <DropdownMenu.Item
@@ -644,21 +631,16 @@ const columns: ColumnDef<Payment>[] = [
               </DropdownMenu.Item>
             </DropdownMenu.Content>
           </DropdownMenu.Root>
-        </Flex>
+        </div>
       );
     },
   },
 ];
 
-const TanstackTableExample = (
-  props: React.ComponentProps<typeof Table.Root>,
-) => {
+const TanstackTableExample = (props: React.ComponentProps<typeof Table.Root>) => {
   const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    [],
-  );
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
   const [pagination, setPagination] = React.useState({
@@ -688,15 +670,13 @@ const TanstackTableExample = (
   });
 
   return (
-    <Flex direction="column" gap="4" style={{ width: 580 }}>
-      <Flex gap="4" width="100%">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', width: 580 }}>
+      <div style={{ display: 'flex', gap: 'var(--space-4)', width: '100%' }}>
         <div style={{ width: '100%' }}>
           <TextField.Input
             placeholder="Filter emails..."
             value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
-            onChange={(event) =>
-              table.getColumn('email')?.setFilterValue(event.target.value)
-            }
+            onChange={(event) => table.getColumn('email')?.setFilterValue(event.target.value)}
             style={{ width: '100%' }}
             width={'100%'}
           />
@@ -705,7 +685,6 @@ const TanstackTableExample = (
           <DropdownMenu.Trigger>
             <Button variant="surface" className="ml-auto">
               Columns
-              {/* <ChevronDown className="ml-2 h-4 w-4" /> */}
             </Button>
           </DropdownMenu.Trigger>
           <DropdownMenu.Content align="end">
@@ -718,10 +697,7 @@ const TanstackTableExample = (
                     key={column.id}
                     className="capitalize"
                     checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                    // Prevents dropdown from closing when clicking on the checkbox
+                    onCheckedChange={(value) => column.toggleVisibility(!!value)}
                     onSelect={(event) => event.preventDefault()}
                   >
                     {column.id}
@@ -730,7 +706,7 @@ const TanstackTableExample = (
               })}
           </DropdownMenu.Content>
         </DropdownMenu.Root>
-      </Flex>
+      </div>
       <Table.Root {...props}>
         <Table.Table>
           <Table.Header>
@@ -739,12 +715,7 @@ const TanstackTableExample = (
                 {headerGroup.headers.map((header) => {
                   return (
                     <Table.ColumnHeaderCell key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </Table.ColumnHeaderCell>
                   );
                 })}
@@ -754,17 +725,9 @@ const TanstackTableExample = (
           <Table.Body>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <Table.Row
-                  key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
-                >
+                <Table.Row key={row.id} data-state={row.getIsSelected() && 'selected'}>
                   {row.getVisibleCells().map((cell) => (
-                    <Table.Cell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </Table.Cell>
+                    <Table.Cell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Table.Cell>
                   ))}
                 </Table.Row>
               ))
@@ -776,33 +739,21 @@ const TanstackTableExample = (
           </Table.Body>
         </Table.Table>
         <Table.BottomBar>
-          <Flex align="center" justify="between">
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <Text color="gray" size="2">
-              {table.getFilteredSelectedRowModel().rows.length} of{' '}
-              {table.getFilteredRowModel().rows.length} row(s) selected.
+              {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
+              selected.
             </Text>
-            <Flex gap="2">
-              <Button
-                variant="surface"
-                // size="sm"
-                onClick={() => table.previousPage()}
-                disabled={!table.getCanPreviousPage()}
-              >
+            <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+              <Button variant="surface" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
                 Previous
               </Button>
-              <Button
-                variant="surface"
-                // size="sm"
-                onClick={() => table.nextPage()}
-                disabled={!table.getCanNextPage()}
-              >
+              <Button variant="surface" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
                 Next
               </Button>
 
               <Select.Root
-                onValueChange={(newPerPage) =>
-                  table.setPageSize(Number(newPerPage))
-                }
+                onValueChange={(newPerPage) => table.setPageSize(Number(newPerPage))}
                 size="2"
                 value={table.getState().pagination.pageSize.toString()}
                 aria-label="Rows per page"
@@ -816,11 +767,11 @@ const TanstackTableExample = (
                   ))}
                 </Select.Content>
               </Select.Root>
-            </Flex>
-          </Flex>
+            </div>
+          </div>
         </Table.BottomBar>
       </Table.Root>
-    </Flex>
+    </div>
   );
 };
 export const TanstackTable: Story = {

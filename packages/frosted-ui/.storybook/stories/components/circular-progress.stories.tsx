@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { CircularProgress, Flex } from '../../../src/components';
+import { CircularProgress } from '../../../src/components';
 import { circularProgressPropDefs } from '../../../src/components/circular-progress.props';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -32,9 +32,9 @@ export const Default: Story = {
     color: circularProgressPropDefs.color.default,
   },
   render: (args) => (
-    <Flex direction="column" gap="3" style={{ width: 300 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 300 }}>
       <CircularProgress {...args} />
-    </Flex>
+    </div>
   ),
 };
 
@@ -44,11 +44,11 @@ export const Size: Story = {
     color: circularProgressPropDefs.color.default,
   },
   render: (args) => (
-    <Flex direction="column" gap="3" style={{ width: 300 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 300 }}>
       {circularProgressPropDefs.size.values.map((size) => (
         <CircularProgress {...args} size={size} key={size} />
       ))}
-    </Flex>
+    </div>
   ),
 };
 
@@ -57,12 +57,12 @@ export const Color: Story = {
     size: circularProgressPropDefs.size.default,
   },
   render: (args) => (
-    <Flex direction="column" gap="3" style={{ width: 300 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 300 }}>
       <CircularProgress {...args} color="indigo" />
       <CircularProgress {...args} color="cyan" />
       <CircularProgress {...args} color="orange" />
       <CircularProgress {...args} color="crimson" />
-    </Flex>
+    </div>
   ),
 };
 
@@ -70,13 +70,13 @@ export const HighContrast: Story = {
   name: 'High Contrast',
   args: {},
   render: (args) => (
-    <Flex direction="row" gap="2">
-      <Flex direction="column" gap="3" style={{ width: 300 }}>
+    <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--space-2)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 300 }}>
         <CircularProgress {...args} highContrast={false} />
-      </Flex>
-      <Flex direction="column" gap="3" style={{ width: 300 }}>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 300 }}>
         <CircularProgress {...args} highContrast />
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   ),
 };

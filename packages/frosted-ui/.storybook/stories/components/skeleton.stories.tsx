@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Avatar, Card, Flex, Skeleton, Text } from '../../../src/components';
+import { Avatar, Card, Skeleton, Text } from '../../../src/components';
 import {
   skeletonAvatarPropDefs,
   skeletonRectPropDefs,
@@ -46,7 +46,7 @@ export const AvatarSizes: Story = {
     color: skeletonAvatarPropDefs.color.default,
   },
   render: ({ children, ...args }) => (
-    <Flex direction="row" gap="3">
+    <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--space-3)' }}>
       <Skeleton.Avatar {...args} size="1" />
       <Skeleton.Avatar {...args} size="2" />
       <Skeleton.Avatar {...args} size="3" />
@@ -56,7 +56,7 @@ export const AvatarSizes: Story = {
       <Skeleton.Avatar {...args} size="7" />
       <Skeleton.Avatar {...args} size="8" />
       <Skeleton.Avatar {...args} size="9" />
-    </Flex>
+    </div>
   ),
 };
 
@@ -67,12 +67,12 @@ export const AvatarColors: Story = {
     color: skeletonAvatarPropDefs.color.default,
   },
   render: ({ children, ...args }) => (
-    <Flex direction="row" gap="3">
+    <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--space-3)' }}>
       <Skeleton.Avatar {...args} color="indigo" />
       <Skeleton.Avatar {...args} color="cyan" />
       <Skeleton.Avatar {...args} color="orange" />
       <Skeleton.Avatar {...args} color="crimson" />
-    </Flex>
+    </div>
   ),
 };
 
@@ -83,22 +83,22 @@ export const AvatarHighContrast: Story = {
     color: skeletonAvatarPropDefs.color.default,
   },
   render: ({ children, ...args }) => (
-    <Flex direction="column" gap="2">
-      <Flex gap="2">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+      <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
         <Skeleton.Avatar {...args} color="gray" highContrast={false} />
         <Skeleton.Avatar {...args} color="indigo" highContrast={false} />
         <Skeleton.Avatar {...args} color="cyan" highContrast={false} />
         <Skeleton.Avatar {...args} color="orange" highContrast={false} />
         <Skeleton.Avatar {...args} color="crimson" highContrast={false} />
-      </Flex>
-      <Flex gap="2">
+      </div>
+      <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
         <Skeleton.Avatar {...args} color="gray" highContrast />
         <Skeleton.Avatar {...args} color="indigo" highContrast />
         <Skeleton.Avatar {...args} color="cyan" highContrast />
         <Skeleton.Avatar {...args} color="orange" highContrast />
         <Skeleton.Avatar {...args} color="crimson" highContrast />
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   ),
 };
 
@@ -110,9 +110,7 @@ export const TextDefault: Story = {
     size: skeletonTextPropDefs.size.default,
     color: skeletonTextPropDefs.color.default,
   },
-  render: ({ children, ...args }) => (
-    <Skeleton.Text {...args} style={{ width: 400 }} />
-  ),
+  render: ({ children, ...args }) => <Skeleton.Text {...args} style={{ width: 400 }} />,
 };
 
 export const TextSizes: Story = {
@@ -122,7 +120,7 @@ export const TextSizes: Story = {
     color: skeletonTextPropDefs.color.default,
   },
   render: ({ children, ...args }) => (
-    <Flex direction="column" gap="3">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
       <Skeleton.Text {...args} size="0" style={{ width: 400 }} />
       <Skeleton.Text {...args} size="1" style={{ width: 400 }} />
       <Skeleton.Text {...args} size="2" style={{ width: 400 }} />
@@ -133,7 +131,7 @@ export const TextSizes: Story = {
       <Skeleton.Text {...args} size="7" style={{ width: 400 }} />
       <Skeleton.Text {...args} size="8" style={{ width: 400 }} />
       <Skeleton.Text {...args} size="9" style={{ width: 400 }} />
-    </Flex>
+    </div>
   ),
 };
 
@@ -144,12 +142,12 @@ export const TextColors: Story = {
     color: skeletonTextPropDefs.color.default,
   },
   render: ({ children, ...args }) => (
-    <Flex direction="column" gap="3">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
       <Skeleton.Text {...args} color="indigo" style={{ width: 400 }} />
       <Skeleton.Text {...args} color="cyan" style={{ width: 400 }} />
       <Skeleton.Text {...args} color="orange" style={{ width: 400 }} />
       <Skeleton.Text {...args} color="crimson" style={{ width: 400 }} />
-    </Flex>
+    </div>
   ),
 };
 
@@ -160,72 +158,22 @@ export const TextHighContrast: Story = {
     color: skeletonTextPropDefs.color.default,
   },
   render: ({ children, ...args }) => (
-    <Flex direction="row" gap="2">
-      <Flex direction="column" gap="2">
-        <Skeleton.Text
-          {...args}
-          color="gray"
-          highContrast={false}
-          style={{ width: 400 }}
-        />
-        <Skeleton.Text
-          {...args}
-          color="indigo"
-          highContrast={false}
-          style={{ width: 400 }}
-        />
-        <Skeleton.Text
-          {...args}
-          color="cyan"
-          highContrast={false}
-          style={{ width: 400 }}
-        />
-        <Skeleton.Text
-          {...args}
-          color="orange"
-          highContrast={false}
-          style={{ width: 400 }}
-        />
-        <Skeleton.Text
-          {...args}
-          color="crimson"
-          highContrast={false}
-          style={{ width: 400 }}
-        />
-      </Flex>
-      <Flex direction="column" gap="2">
-        <Skeleton.Text
-          {...args}
-          color="gray"
-          highContrast
-          style={{ width: 400 }}
-        />
-        <Skeleton.Text
-          {...args}
-          color="indigo"
-          highContrast
-          style={{ width: 400 }}
-        />
-        <Skeleton.Text
-          {...args}
-          color="cyan"
-          highContrast
-          style={{ width: 400 }}
-        />
-        <Skeleton.Text
-          {...args}
-          color="orange"
-          highContrast
-          style={{ width: 400 }}
-        />
-        <Skeleton.Text
-          {...args}
-          color="crimson"
-          highContrast
-          style={{ width: 400 }}
-        />
-      </Flex>
-    </Flex>
+    <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--space-2)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+        <Skeleton.Text {...args} color="gray" highContrast={false} style={{ width: 400 }} />
+        <Skeleton.Text {...args} color="indigo" highContrast={false} style={{ width: 400 }} />
+        <Skeleton.Text {...args} color="cyan" highContrast={false} style={{ width: 400 }} />
+        <Skeleton.Text {...args} color="orange" highContrast={false} style={{ width: 400 }} />
+        <Skeleton.Text {...args} color="crimson" highContrast={false} style={{ width: 400 }} />
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+        <Skeleton.Text {...args} color="gray" highContrast style={{ width: 400 }} />
+        <Skeleton.Text {...args} color="indigo" highContrast style={{ width: 400 }} />
+        <Skeleton.Text {...args} color="cyan" highContrast style={{ width: 400 }} />
+        <Skeleton.Text {...args} color="orange" highContrast style={{ width: 400 }} />
+        <Skeleton.Text {...args} color="crimson" highContrast style={{ width: 400 }} />
+      </div>
+    </div>
   ),
 };
 
@@ -235,9 +183,7 @@ export const RectDefault: Story = {
   args: {
     color: skeletonRectPropDefs.color.default,
   },
-  render: ({ children, ...args }) => (
-    <Skeleton.Rect style={{ width: 140, height: 140 }} {...args} />
-  ),
+  render: ({ children, ...args }) => <Skeleton.Rect style={{ width: 140, height: 140 }} {...args} />,
 };
 
 export const RectColors: Story = {
@@ -246,28 +192,12 @@ export const RectColors: Story = {
     color: skeletonRectPropDefs.color.default,
   },
   render: ({ children, ...args }) => (
-    <Flex direction="row" gap="3">
-      <Skeleton.Rect
-        style={{ width: 140, height: 140 }}
-        {...args}
-        color="indigo"
-      />
-      <Skeleton.Rect
-        style={{ width: 140, height: 140 }}
-        {...args}
-        color="cyan"
-      />
-      <Skeleton.Rect
-        style={{ width: 140, height: 140 }}
-        {...args}
-        color="orange"
-      />
-      <Skeleton.Rect
-        style={{ width: 140, height: 140 }}
-        {...args}
-        color="crimson"
-      />
-    </Flex>
+    <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--space-3)' }}>
+      <Skeleton.Rect style={{ width: 140, height: 140 }} {...args} color="indigo" />
+      <Skeleton.Rect style={{ width: 140, height: 140 }} {...args} color="cyan" />
+      <Skeleton.Rect style={{ width: 140, height: 140 }} {...args} color="orange" />
+      <Skeleton.Rect style={{ width: 140, height: 140 }} {...args} color="crimson" />
+    </div>
   ),
 };
 
@@ -277,72 +207,22 @@ export const RectHighContrast: Story = {
     color: skeletonRectPropDefs.color.default,
   },
   render: ({ children, ...args }) => (
-    <Flex direction="column" gap="2">
-      <Flex gap="2">
-        <Skeleton.Rect
-          style={{ width: 140, height: 140 }}
-          {...args}
-          color="gray"
-          highContrast={false}
-        />
-        <Skeleton.Rect
-          style={{ width: 140, height: 140 }}
-          {...args}
-          color="indigo"
-          highContrast={false}
-        />
-        <Skeleton.Rect
-          style={{ width: 140, height: 140 }}
-          {...args}
-          color="cyan"
-          highContrast={false}
-        />
-        <Skeleton.Rect
-          style={{ width: 140, height: 140 }}
-          {...args}
-          color="orange"
-          highContrast={false}
-        />
-        <Skeleton.Rect
-          style={{ width: 140, height: 140 }}
-          {...args}
-          color="crimson"
-          highContrast={false}
-        />
-      </Flex>
-      <Flex gap="2">
-        <Skeleton.Rect
-          style={{ width: 140, height: 140 }}
-          {...args}
-          color="gray"
-          highContrast
-        />
-        <Skeleton.Rect
-          style={{ width: 140, height: 140 }}
-          {...args}
-          color="indigo"
-          highContrast
-        />
-        <Skeleton.Rect
-          style={{ width: 140, height: 140 }}
-          {...args}
-          color="cyan"
-          highContrast
-        />
-        <Skeleton.Rect
-          style={{ width: 140, height: 140 }}
-          {...args}
-          color="orange"
-          highContrast
-        />
-        <Skeleton.Rect
-          style={{ width: 140, height: 140 }}
-          {...args}
-          color="crimson"
-          highContrast
-        />
-      </Flex>
-    </Flex>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+      <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+        <Skeleton.Rect style={{ width: 140, height: 140 }} {...args} color="gray" highContrast={false} />
+        <Skeleton.Rect style={{ width: 140, height: 140 }} {...args} color="indigo" highContrast={false} />
+        <Skeleton.Rect style={{ width: 140, height: 140 }} {...args} color="cyan" highContrast={false} />
+        <Skeleton.Rect style={{ width: 140, height: 140 }} {...args} color="orange" highContrast={false} />
+        <Skeleton.Rect style={{ width: 140, height: 140 }} {...args} color="crimson" highContrast={false} />
+      </div>
+      <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+        <Skeleton.Rect style={{ width: 140, height: 140 }} {...args} color="gray" highContrast />
+        <Skeleton.Rect style={{ width: 140, height: 140 }} {...args} color="indigo" highContrast />
+        <Skeleton.Rect style={{ width: 140, height: 140 }} {...args} color="cyan" highContrast />
+        <Skeleton.Rect style={{ width: 140, height: 140 }} {...args} color="orange" highContrast />
+        <Skeleton.Rect style={{ width: 140, height: 140 }} {...args} color="crimson" highContrast />
+      </div>
+    </div>
   ),
 };
 
@@ -394,19 +274,22 @@ export const Composed: Story = {
             />
           )}
         </div>
-        <Flex direction="row" gap="4" align="center" mt={'4'}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: 'var(--space-4)',
+            alignItems: 'center',
+            marginTop: 'var(--space-4)',
+          }}
+        >
           {show ? (
-            <Avatar
-              highContrast={args.highContrast}
-              color={args.color}
-              fallback="AB"
-              size="6"
-            />
+            <Avatar highContrast={args.highContrast} color={args.color} fallback="AB" size="6" />
           ) : (
             <Skeleton.Avatar {...args} size="6" />
           )}
 
-          <Flex direction="column" gap="2">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
             {show ? (
               <>
                 <Text highContrast={args.highContrast} size="6">
@@ -426,8 +309,8 @@ export const Composed: Story = {
                 <Skeleton.Text {...args} size="2" style={{ width: 200 }} />
               </>
             )}
-          </Flex>
-        </Flex>
+          </div>
+        </div>
       </Card>
     );
   },
@@ -487,40 +370,31 @@ export const ComposedColor: Story = {
             />
           )}
         </div>
-        <Flex direction="row" gap="4" align="center" mt={'4'}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: 'var(--space-4)',
+            alignItems: 'center',
+            marginTop: 'var(--space-4)',
+          }}
+        >
           {show ? (
-            <Avatar
-              highContrast={args.highContrast}
-              color={args.color}
-              fallback="AB"
-              size="6"
-            />
+            <Avatar highContrast={args.highContrast} color={args.color} fallback="AB" size="6" />
           ) : (
             <Skeleton.Avatar {...args} size="6" />
           )}
 
-          <Flex direction="column" gap="2">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
             {show ? (
               <>
-                <Text
-                  color={args.color}
-                  highContrast={args.highContrast}
-                  size="6"
-                >
+                <Text color={args.color} highContrast={args.highContrast} size="6">
                   Artur
                 </Text>
-                <Text
-                  color={args.color}
-                  highContrast={args.highContrast}
-                  size="2"
-                >
+                <Text color={args.color} highContrast={args.highContrast} size="2">
                   Design Engineer at Whop
                 </Text>
-                <Text
-                  color={args.color}
-                  highContrast={args.highContrast}
-                  size="2"
-                >
+                <Text color={args.color} highContrast={args.highContrast} size="2">
                   Professional button polisher.
                 </Text>
               </>
@@ -531,8 +405,8 @@ export const ComposedColor: Story = {
                 <Skeleton.Text {...args} size="2" style={{ width: 200 }} />
               </>
             )}
-          </Flex>
-        </Flex>
+          </div>
+        </div>
       </div>
     );
   },

@@ -1,18 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 
-import {
-  Badge,
-  Button,
-  Checkbox,
-  Drawer,
-  Flex,
-  Inset,
-  ScrollArea,
-  Table,
-  Text,
-  TextField,
-} from '../../../src/components';
+import { Badge, Button, Checkbox, Drawer, Inset, ScrollArea, Table, Text, TextField } from '../../../src/components';
 import { drawerContentPropDefs } from '../../../src/components/drawer.props';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -47,83 +36,60 @@ export const Default: Story = {
           <Drawer.Title>Edit profile</Drawer.Title>
         </Drawer.Header>
         <Drawer.Body>
-          <Text as="p" size="2" mb="4">
-            Make changes to your profile. Make changes to your profile. Make
-            changes to your profile. Make changes to your profile. Make changes
-            to your profile. Make changes to your profile. Make changes to your
-            profile. Make changes to your profile. Make changes to your profile.
-            Make changes to your profile. Make changes to your profile. Make
-            changes to your profile. Make changes to your profile. Make changes
-            to your profile. Make changes to your profile. Make changes to your
-            profile. Make changes to your profile. Make changes to your profile.
-            Make changes to your profile. Make changes to your profile. Make
-            changes to your profile. Make changes to your profile. Make changes
-            to your profile. Make changes to your profile. Make changes to your
-            profile. Make changes to your profile. Make changes to your profile.
-            Make changes to your profile. Make changes to your profile. Make
-            changes to your profile. Make changes to your profile. Make changes
-            to your profile. Make changes to your profile. Make changes to your
-            profile. Make changes to your profile. Make changes to your profile.
-            Make changes to your profile. Make changes to your profile. Make
-            changes to your profile. Make changes to your profile. Make changes
-            to your profile. Make changes to your profile. Make changes to your
-            profile. Make changes to your profile. Make changes to your profile.
-            Make changes to your profile. Make changes to your profile. Make
-            changes to your profile. Make changes to your profile. Make changes
-            to your profile. Make changes to your profile. Make changes to your
-            profile. Make changes to your profile. Make changes to your profile.
-            Make changes to your profile. Make changes to your profile. Make
-            changes to your profile. Make changes to your profile. Make changes
-            to your profile. Make changes to your profile. Make changes to your
-            profile. Make changes to your profile. Make changes to your profile.
-            Make changes to your profile. Make changes to your profile. Make
-            changes to your profile. Make changes to your profile. Make changes
+          <Text as="p" size="2" style={{ marginBottom: 'var(--space-4)' }}>
+            Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
+            your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile. Make
+            changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to your
+            profile. Make changes to your profile. Make changes to your profile. Make changes to your profile. Make
+            changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to your
+            profile. Make changes to your profile. Make changes to your profile. Make changes to your profile. Make
+            changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to your
+            profile. Make changes to your profile. Make changes to your profile. Make changes to your profile. Make
+            changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to your
+            profile. Make changes to your profile. Make changes to your profile. Make changes to your profile. Make
+            changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to your
+            profile. Make changes to your profile. Make changes to your profile. Make changes to your profile. Make
+            changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to your
+            profile. Make changes to your profile. Make changes to your profile. Make changes to your profile. Make
+            changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to your
+            profile. Make changes to your profile. Make changes to your profile. Make changes to your profile. Make
+            changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to your
+            profile. Make changes to your profile. Make changes to your profile. Make changes to your profile. Make
+            changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to your
+            profile. Make changes
           </Text>
 
-          <Flex direction="column" gap="3">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
             <label>
-              <Text as="div" size="2" mb="1" weight="bold">
+              <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                 Name
               </Text>
-              <TextField.Input
-                defaultValue="Freja Johnsen"
-                placeholder="Enter your full name"
-              />
+              <TextField.Input defaultValue="Freja Johnsen" placeholder="Enter your full name" />
             </label>
             <label>
-              <Text as="div" size="2" mb="1" weight="bold">
+              <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                 Email
               </Text>
-              <TextField.Input
-                defaultValue="freja@example.com"
-                placeholder="Enter your email"
-              />
+              <TextField.Input defaultValue="freja@example.com" placeholder="Enter your email" />
             </label>
-          </Flex>
+          </div>
 
-          <Flex gap="3" mt="4" justify="end">
+          <div
+            style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-4)', justifyContent: 'flex-end' }}
+          >
             <Drawer.Close>
-              <Button
-                variant="soft"
-                color="gray"
-                onClick={() => alert('Cancel')}
-              >
+              <Button variant="soft" color="gray" onClick={() => alert('Cancel')}>
                 Cancel
               </Button>
             </Drawer.Close>
             <Drawer.Close>
               <Button onClick={() => alert('Save')}>Save</Button>
             </Drawer.Close>
-          </Flex>
+          </div>
         </Drawer.Body>
         <Drawer.StickyFooter>
           <Drawer.Close>
-            <Button
-              variant="classic"
-              color="lime"
-              size="4"
-              style={{ width: '100%' }}
-            >
+            <Button variant="classic" color="lime" size="4" style={{ width: '100%' }}>
               Subscribe
             </Button>
           </Drawer.Close>
@@ -147,17 +113,17 @@ export const InsetContent: Story = {
         <Drawer.Body>
           <Text as="p">The following users have access to this project.</Text>
 
-          <Inset side="x" my="5">
+          <Inset side="x" style={{ marginTop: 'var(--space-5)', marginBottom: 'var(--space-5)' }}>
             <Table.Root variant="ghost">
               <ScrollArea scrollbars="horizontal">
                 <Table.Table>
                   <Table.Header>
                     <Table.Row>
                       <Table.ColumnHeaderCell>
-                        <Flex align="center" gap="3">
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
                           <Checkbox />
                           Full name
-                        </Flex>
+                        </div>
                       </Table.ColumnHeaderCell>
                       <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
                       <Table.ColumnHeaderCell>Group</Table.ColumnHeaderCell>
@@ -167,10 +133,10 @@ export const InsetContent: Story = {
                   <Table.Body>
                     <Table.Row>
                       <Table.RowHeaderCell>
-                        <Flex align="center" gap="3">
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
                           <Checkbox />
                           Danilo Sousa
-                        </Flex>
+                        </div>
                       </Table.RowHeaderCell>
                       <Table.Cell>danilo@example.com</Table.Cell>
                       <Table.Cell>
@@ -180,10 +146,10 @@ export const InsetContent: Story = {
 
                     <Table.Row>
                       <Table.RowHeaderCell>
-                        <Flex align="center" gap="3">
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
                           <Checkbox />
                           Zahra Ambessa
-                        </Flex>
+                        </div>
                       </Table.RowHeaderCell>
                       <Table.Cell>zahra@example.com</Table.Cell>
                       <Table.Cell>
@@ -193,10 +159,10 @@ export const InsetContent: Story = {
 
                     <Table.Row>
                       <Table.RowHeaderCell>
-                        <Flex align="center" gap="3">
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
                           <Checkbox />
                           Jasper Eriksson
-                        </Flex>
+                        </div>
                       </Table.RowHeaderCell>
                       <Table.Cell>jasper@example.com</Table.Cell>
                       <Table.Cell>
@@ -208,13 +174,13 @@ export const InsetContent: Story = {
               </ScrollArea>
             </Table.Root>
           </Inset>
-          <Flex gap="3" justify="end">
+          <div style={{ display: 'flex', gap: 'var(--space-3)', justifyContent: 'flex-end' }}>
             <Drawer.Close>
               <Button variant="soft" color="gray">
                 Close
               </Button>
             </Drawer.Close>
-          </Flex>
+          </div>
         </Drawer.Body>
       </Drawer.Content>
     </Drawer.Root>

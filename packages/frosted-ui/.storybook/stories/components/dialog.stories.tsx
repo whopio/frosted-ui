@@ -6,7 +6,6 @@ import {
   Button,
   Checkbox,
   Dialog,
-  Flex,
   Inset,
   ScrollArea,
   Table,
@@ -46,7 +45,7 @@ export const Default: Story = {
         <Dialog.Title>Edit profile</Dialog.Title>
         <Dialog.Description>Make changes to your profile.</Dialog.Description>
 
-        <Flex direction="column" gap="3">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
           <label>
             <Text as="div" size="2" style={{ marginBottom: 4 }} weight="bold">
               Name
@@ -59,9 +58,11 @@ export const Default: Story = {
             </Text>
             <TextField.Input defaultValue="freja@example.com" placeholder="Enter your email" />
           </label>
-        </Flex>
+        </div>
 
-        <Flex gap="3" mt="4" justify="end">
+        <div
+          style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-4)', justifyContent: 'flex-end' }}
+        >
           <Dialog.Close>
             <Button variant="soft" color="gray" onClick={() => alert('Cancel')}>
               Cancel
@@ -70,7 +71,7 @@ export const Default: Story = {
           <Dialog.Close>
             <Button onClick={() => alert('Save')}>Save</Button>
           </Dialog.Close>
-        </Flex>
+        </div>
       </Dialog.Content>
     </Dialog.Root>
   ),
@@ -78,7 +79,7 @@ export const Default: Story = {
 
 export const Sizes: Story = {
   render: ({ children, ...args }) => (
-    <Flex gap="4">
+    <div style={{ display: 'flex', gap: 'var(--space-4)' }}>
       <Dialog.Root>
         <Dialog.Trigger>
           <Button>Size 1</Button>
@@ -88,7 +89,7 @@ export const Sizes: Story = {
           <Dialog.Title>Edit profile</Dialog.Title>
           <Dialog.Description>Make changes to your profile.</Dialog.Description>
 
-          <Flex gap="2" justify="end">
+          <div style={{ display: 'flex', gap: 'var(--space-2)', justifyContent: 'flex-end' }}>
             <Dialog.Close>
               <Button size="1" variant="soft" color="gray" onClick={() => alert('Cancel')}>
                 Cancel
@@ -99,7 +100,7 @@ export const Sizes: Story = {
                 Save
               </Button>
             </Dialog.Close>
-          </Flex>
+          </div>
         </Dialog.Content>
       </Dialog.Root>
 
@@ -112,7 +113,7 @@ export const Sizes: Story = {
           <Dialog.Title>Edit profile</Dialog.Title>
           <Dialog.Description>Make changes to your profile.</Dialog.Description>
 
-          <Flex gap="2" justify="end">
+          <div style={{ display: 'flex', gap: 'var(--space-2)', justifyContent: 'flex-end' }}>
             <Dialog.Close>
               <Button size="2" variant="soft" color="gray" onClick={() => alert('Cancel')}>
                 Cancel
@@ -123,7 +124,7 @@ export const Sizes: Story = {
                 Save
               </Button>
             </Dialog.Close>
-          </Flex>
+          </div>
         </Dialog.Content>
       </Dialog.Root>
 
@@ -136,7 +137,7 @@ export const Sizes: Story = {
           <Dialog.Title>Edit profile</Dialog.Title>
           <Dialog.Description>Make changes to your profile.</Dialog.Description>
 
-          <Flex gap="3" justify="end">
+          <div style={{ display: 'flex', gap: 'var(--space-3)', justifyContent: 'flex-end' }}>
             <Dialog.Close>
               <Button size="2" variant="soft" color="gray" onClick={() => alert('Cancel')}>
                 Cancel
@@ -147,7 +148,7 @@ export const Sizes: Story = {
                 Save
               </Button>
             </Dialog.Close>
-          </Flex>
+          </div>
         </Dialog.Content>
       </Dialog.Root>
 
@@ -160,7 +161,7 @@ export const Sizes: Story = {
           <Dialog.Title>Edit profile</Dialog.Title>
           <Dialog.Description>Make changes to your profile.</Dialog.Description>
 
-          <Flex gap="3" justify="end" align="center">
+          <div style={{ display: 'flex', gap: 'var(--space-3)', justifyContent: 'flex-end', alignItems: 'center' }}>
             <Dialog.Close>
               <Button size="3" variant="soft" color="gray" onClick={() => alert('Cancel')}>
                 Cancel
@@ -171,10 +172,10 @@ export const Sizes: Story = {
                 Save
               </Button>
             </Dialog.Close>
-          </Flex>
+          </div>
         </Dialog.Content>
       </Dialog.Root>
-    </Flex>
+    </div>
   ),
 };
 
@@ -189,17 +190,17 @@ export const InsetContent: Story = {
         <Dialog.Title>Users</Dialog.Title>
         <Dialog.Description>The following users have access to this project.</Dialog.Description>
 
-        <Inset side="x" my="5">
+        <Inset side="x" style={{ marginTop: 'var(--space-5)', marginBottom: 'var(--space-5)' }}>
           <Table.Root variant="ghost" size="1">
             <ScrollArea scrollbars="horizontal">
               <Table.Table>
                 <Table.Header>
                   <Table.Row>
                     <Table.ColumnHeaderCell>
-                      <Flex align="center" gap="3">
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
                         <Checkbox />
                         Full name
-                      </Flex>
+                      </div>
                     </Table.ColumnHeaderCell>
                     <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
                     <Table.ColumnHeaderCell>Group</Table.ColumnHeaderCell>
@@ -209,10 +210,10 @@ export const InsetContent: Story = {
                 <Table.Body>
                   <Table.Row>
                     <Table.RowHeaderCell>
-                      <Flex align="center" gap="3">
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
                         <Checkbox />
                         Danilo Sousa
-                      </Flex>
+                      </div>
                     </Table.RowHeaderCell>
                     <Table.Cell>danilo@example.com</Table.Cell>
                     <Table.Cell>
@@ -222,10 +223,10 @@ export const InsetContent: Story = {
 
                   <Table.Row>
                     <Table.RowHeaderCell>
-                      <Flex align="center" gap="3">
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
                         <Checkbox />
                         Zahra Ambessa
-                      </Flex>
+                      </div>
                     </Table.RowHeaderCell>
                     <Table.Cell>zahra@example.com</Table.Cell>
                     <Table.Cell>
@@ -235,10 +236,10 @@ export const InsetContent: Story = {
 
                   <Table.Row>
                     <Table.RowHeaderCell>
-                      <Flex align="center" gap="3">
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
                         <Checkbox />
                         Jasper Eriksson
-                      </Flex>
+                      </div>
                     </Table.RowHeaderCell>
                     <Table.Cell>jasper@example.com</Table.Cell>
                     <Table.Cell>
@@ -250,14 +251,6 @@ export const InsetContent: Story = {
             </ScrollArea>
           </Table.Root>
         </Inset>
-
-        <Flex gap="3" justify="end">
-          <Dialog.Close>
-            <Button variant="soft" color="gray">
-              Close
-            </Button>
-          </Dialog.Close>
-        </Flex>
       </Dialog.Content>
     </Dialog.Root>
   ),

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Badge, Flex } from '../../../src/components';
+import { Badge } from '../../../src/components';
 import { badgePropDefs } from '../../../src/components/badge.props';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -38,10 +38,10 @@ export const Size: Story = {
     color: badgePropDefs.color.default,
   },
   render: (args) => (
-    <Flex align="center" gap="2">
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
       <Badge {...args} size="2" />
       <Badge {...args} size="1" />
-    </Flex>
+    </div>
   ),
 };
 
@@ -52,12 +52,12 @@ export const Variant: Story = {
     color: badgePropDefs.color.default,
   },
   render: (args) => (
-    <Flex align="center" gap="2">
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
       <Badge {...args} variant="solid" />
       <Badge {...args} variant="soft" />
       <Badge {...args} variant="outline" />
       <Badge {...args} variant="surface" />
-    </Flex>
+    </div>
   ),
 };
 
@@ -67,12 +67,12 @@ export const Color: Story = {
     size: badgePropDefs.size.default,
   },
   render: (args) => (
-    <Flex align="center" gap="2">
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
       <Badge {...args} color="indigo" />
       <Badge {...args} color="cyan" />
       <Badge {...args} color="orange" />
       <Badge {...args} color="crimson" />
-    </Flex>
+    </div>
   ),
 };
 
@@ -82,7 +82,7 @@ export const SemanticColor: Story = {
     size: badgePropDefs.size.default,
   },
   render: (args) => (
-    <Flex align="center" gap="2">
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
       <Badge {...args} color="info">
         Info
       </Badge>
@@ -95,7 +95,7 @@ export const SemanticColor: Story = {
       <Badge {...args} color="danger">
         Danger
       </Badge>
-    </Flex>
+    </div>
   ),
 };
 
@@ -105,19 +105,19 @@ export const HighContrast: Story = {
     children: 'Badge',
   },
   render: (args) => (
-    <Flex direction="column" gap="2">
-      <Flex gap="2">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+      <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
         <Badge {...args} highContrast={false} variant="solid" />
         <Badge {...args} highContrast={false} variant="soft" />
         <Badge {...args} highContrast={false} variant="outline" />
         <Badge {...args} highContrast={false} variant="surface" />
-      </Flex>
-      <Flex gap="2">
+      </div>
+      <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
         <Badge {...args} variant="solid" highContrast />
         <Badge {...args} variant="soft" highContrast />
         <Badge {...args} variant="outline" highContrast />
         <Badge {...args} variant="surface" highContrast />
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   ),
 };

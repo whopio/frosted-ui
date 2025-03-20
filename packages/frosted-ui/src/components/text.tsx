@@ -48,10 +48,10 @@ const Text = (props: TextProps) => {
       className={classNames(
         'fui-Text',
         className,
-        `fui-r-size-${size}`,
-        `fui-r-weight-${weight}`,
-        `fui-r-ta-${align}`,
-        `fui-r-lt-${trim}`,
+        size ? `fui-r-size-${size}` : undefined,
+        weight ? `fui-r-weight-${weight}` : undefined,
+        align ? `fui-r-ta-${align}` : undefined,
+        trim ? `fui-r-lt-${trim}` : undefined,
         { 'fui-high-contrast': highContrast },
       )}
     >
