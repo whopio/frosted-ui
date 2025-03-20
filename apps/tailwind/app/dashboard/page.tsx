@@ -20,13 +20,11 @@ import {
 } from '@radix-ui/react-icons';
 import {
   Avatar,
-  Box,
   Breadcrumbs,
   Button,
   Card,
   Checkbox,
   DropdownMenu,
-  Flex,
   Heading,
   IconButton,
   Inset,
@@ -62,15 +60,15 @@ const DashboardCard = () => {
   return (
     <div className="flex-1 relative min-h-[202px] p-6 border border-gray-a3 rounded-lg overflow-hidden bg-panel-solid">
       <WhopSVG />
-      <Flex direction="column" gap="5">
-        <Flex justify="between">
+      <div className="flex flex-col gap-6">
+        <div className="flex justify-between">
           <div
             className={[
               'relative flex w-[60px] h-[60px] justify-center items-center rounded-[18px] border border-gray-a3 bg-panel-solid',
               "after:content-[''] after:absolute after:inset-[12px] after:border after:border-green-6 after:rounded-3 after:bg-gradient-to-b from-green-a3 to-transparent",
             ].join(' ')}
           />
-          <Flex direction="column" gap="2">
+          <div className="flex flex-col gap-2">
             <Text color="gray" size="1" trim="both">
               <Tooltip content="SWAG" open>
                 <Strong>APPS SUPPORTED</Strong>
@@ -82,17 +80,17 @@ const DashboardCard = () => {
               <LinkedInLogoIcon width="20" height="20" className="text-yellow-9" />
               <GitHubLogoIcon width="20" height="20" className="text-tomato-9" />
             </div>
-          </Flex>
-        </Flex>
-        <Flex direction="column" gap="4">
+          </div>
+        </div>
+        <div className="flex flex-col gap-4">
           <Heading size="3" trim="both">
             Trading
           </Heading>
           <Text size="2" color="gray" trim="both">
             Choose this to offer access to trading insights, tips, and lessons.
           </Text>
-        </Flex>
-      </Flex>
+        </div>
+      </div>
     </div>
   );
 };
@@ -200,53 +198,53 @@ export default function Dashboard() {
           <div id="root" className="w-full h-[100vh] bg-gray-1 flex flex-no-wrap p-2">
             <ThemePanel />
             <aside className="h-full w-[300px] py-2 px-4">
-              <Flex direction="column" justify="between" style={{ height: '100%' }}>
+              <div className="flex flex-col justify-between h-full">
                 <div>
-                  <Flex px="2" py="4">
+                  <div className="flex px-4 py-2">
                     <Popover.Root>
                       <Popover.Trigger>
                         <Card variant="ghost" style={{ flex: 1 }} asChild>
                           <button className="fui-reset">
-                            <Flex gap="3" align="center" justify="between">
-                              <Flex gap="3" align="center">
+                            <div className="flex items-center justify-between gap-3">
+                              <div className="flex items-center gap-3">
                                 <Avatar fallback="PB" />
                                 <Text>Parlay Banditz</Text>
-                              </Flex>
+                              </div>
                               <ChevronDownIcon />
-                            </Flex>
+                            </div>
                           </button>
                         </Card>
                       </Popover.Trigger>
                       <Popover.Content size="3" style={{ width: 300 }}>
-                        <Flex gap="3">
+                        <div className="flex gap-3">
                           <Avatar
                             size="3"
                             src="https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?&w=64&h=64&dpr=2&q=70&crop=focalpoint&fp-x=0.67&fp-y=0.5&fp-z=1.4&fit=crop"
                             fallback="A"
                           />
-                          <Box grow="1">
+                          <div style={{ flexGrow: 1 }}>
                             <TextArea size="2" placeholder="Write a comment…" style={{ height: 80 }} />
 
-                            <Flex gap="3" mt="3" justify="between">
-                              <Flex align="center" gap="2" asChild>
+                            <div className="flex justify-between items-center gap-3 mt-3">
+                              <div className="flex items-center gap-2">
                                 <label>
                                   <Checkbox size="2" />
                                   <Text size="2">Send to group</Text>
                                 </label>
-                              </Flex>
+                              </div>
 
                               <Popover.Close>
                                 <Button autoFocus size="2">
                                   Comment
                                 </Button>
                               </Popover.Close>
-                            </Flex>
-                          </Box>
-                        </Flex>
+                            </div>
+                          </div>
+                        </div>
                       </Popover.Content>
                     </Popover.Root>
-                  </Flex>
-                  <Flex direction="column" gap="1" pt="6">
+                  </div>
+                  <div className="flex flex-col gap-1 pt-6">
                     <SidebarButton>
                       <HomeIcon width="24" height="24" />
                       Home
@@ -291,13 +289,13 @@ export default function Dashboard() {
                       <CameraIcon width="24" height="24" />
                       Resolution center
                     </SidebarButton>
-                  </Flex>
+                  </div>
                 </div>
-                <Flex align="center" justify="between" p="2">
-                  <Flex align="center" gap="3">
+                <div className="flex items-center justify-between p-2">
+                  <div className="flex items-center gap-3">
                     <Avatar fallback="IM" />
                     <Text>Ilya Miskov</Text>
-                  </Flex>
+                  </div>
                   <DropdownMenu.Root>
                     <DropdownMenu.Trigger>
                       <IconButton variant="surface" size="3">
@@ -329,30 +327,25 @@ export default function Dashboard() {
                       <DropdownMenu.Item>Help Centre</DropdownMenu.Item>
                     </DropdownMenu.Content>
                   </DropdownMenu.Root>
-                </Flex>
-              </Flex>
+                </div>
+              </div>
             </aside>
             <main className="h-full flex-1 rounded-5 border border-solid border-gray-a4 dark:bg-[rgba(255,255,255,0.01)]">
-              <Box pl="7" pr="6">
-                <Flex pt="4" pb="4" direction="row" align="center" justify="between">
-                  <Box>
+              <div className="px-[54px] pr-12">
+                <div className="flex flex-row items-center justify-between py-4">
+                  <div>
                     <Breadcrumbs.Root>
                       <Breadcrumbs.Item>PRODUCTS</Breadcrumbs.Item>
                       <Breadcrumbs.Item>PICK A CATEGORY</Breadcrumbs.Item>
                     </Breadcrumbs.Root>
-                  </Box>
-                  <Box>
-                    <Flex gap="4" align="center">
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-4">
                       <TextField.Root>
-                        <TextField.Input
-                          //   color="gray"
-                          placeholder="Search"
-                          type="search"
-                          size="3"
-                        />
+                        <TextField.Input placeholder="Search" type="search" size="3" />
                       </TextField.Root>
                       <Separator orientation="vertical" />
-                      <Flex gap="4" align="center">
+                      <div className="flex items-center gap-4">
                         <IconButton variant="ghost" color="gray" size="3">
                           <CookieIcon width="20" height="20" />
                         </IconButton>
@@ -362,13 +355,13 @@ export default function Dashboard() {
                         <IconButton variant="ghost" color="gray" size="3">
                           <MixerVerticalIcon width="20" height="20" />
                         </IconButton>
-                      </Flex>
-                    </Flex>
-                  </Box>
-                </Flex>
-                <Flex pb="7" direction="row" align="center" justify="between">
-                  <Box>
-                    <Flex direction="column" gap="2">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-row items-center justify-between pb-7">
+                  <div>
+                    <div className="flex flex-col gap-2">
                       <Heading
                         size="8"
                         style={{
@@ -378,57 +371,57 @@ export default function Dashboard() {
                         {"Choose what you're selling ->"}
                       </Heading>
                       <Text color="gray">Choose what you're selling</Text>
-                    </Flex>
-                  </Box>
-                  <Box>
+                    </div>
+                  </div>
+                  <div>
                     <Card variant="surface">
                       <Inset>
-                        <Box px="3" py="2">
+                        <div className="px-3 py-2">
                           <Breadcrumbs.Root>
                             <Breadcrumbs.Item>Pick category</Breadcrumbs.Item>
                             <Breadcrumbs.Item>Add an app</Breadcrumbs.Item>
                             <Breadcrumbs.Item>Add price</Breadcrumbs.Item>
                           </Breadcrumbs.Root>
-                        </Box>
+                        </div>
                       </Inset>
                     </Card>
-                  </Box>
-                </Flex>
+                  </div>
+                </div>
                 <Separator size="4" />
-                <Flex direction="column" gap="9">
-                  <Flex direction="column" gap="5">
-                    <Flex direction="column" gap="2">
+                <div className="flex flex-col gap-9">
+                  <div className="flex flex-col gap-5">
+                    <div className="flex flex-col gap-2">
                       <Heading size="4">Recommended for you</Heading>
                       <Text size="2" color="gray">
                         Our most popular picks
                       </Text>
-                    </Flex>
-                    <Flex gap="4">
+                    </div>
+                    <div className="flex gap-4">
                       <DashboardCard />
-                      <Box style={{ flex: 1 }} />
-                      <Box style={{ flex: 1 }} />
-                    </Flex>
-                  </Flex>
-                  <Flex direction="column" gap="5">
-                    <Flex direction="column" gap="2">
+                      <div className="flex-1" />
+                      <div className="flex-1" />
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-5">
+                    <div className="flex flex-col gap-2">
                       <Heading size="4">All categories</Heading>
                       <Text size="2" color="gray">
                         Our most popular picks
                       </Text>
-                    </Flex>
-                    <Flex gap="4">
+                    </div>
+                    <div className="flex gap-4">
                       <DashboardCard />
                       <DashboardCard />
                       <DashboardCard />
-                    </Flex>
-                  </Flex>
-                </Flex>
-                <Flex mt="6">
-                  <Button variant="soft" color="gray" style={{ width: '100%' }} size="4">
+                    </div>
+                  </div>
+                </div>
+                <div className="flex mt-8">
+                  <Button variant="soft" color="gray" className="w-full" size="4">
                     Load more
                   </Button>
-                </Flex>
-              </Box>
+                </div>
+              </div>
             </main>
           </div>
         </Theme>

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Code, Flex } from '../../../src/components';
+import { Code } from '../../../src/components';
 import { codePropDefs } from '../../../src/components/code.props';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -36,7 +36,7 @@ export const Variant: Story = {
     size: codePropDefs.size.default,
   },
   render: (args) => (
-    <Flex direction="column" align="start" gap="2">
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'start', gap: 'var(--space-2)' }}>
       <Code {...args} variant="solid">
         console.log()
       </Code>
@@ -49,13 +49,13 @@ export const Variant: Story = {
       <Code {...args} variant="ghost">
         console.log()
       </Code>
-    </Flex>
+    </div>
   ),
 };
 
 export const Size: Story = {
   render: (args) => (
-    <Flex direction="column" gap="3">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
       <Code {...args} size="1">
         console.log()
       </Code>
@@ -83,7 +83,7 @@ export const Size: Story = {
       <Code {...args} size="9">
         console.log()
       </Code>
-    </Flex>
+    </div>
   ),
 };
 
@@ -92,7 +92,7 @@ export const Color: Story = {
     size: codePropDefs.size.default,
   },
   render: (args) => (
-    <Flex direction="column" align="start" gap="2">
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'start', gap: 'var(--space-2)' }}>
       <Code {...args} color="indigo">
         console.log()
       </Code>
@@ -105,15 +105,15 @@ export const Color: Story = {
       <Code {...args} color="orange">
         console.log()
       </Code>
-    </Flex>
+    </div>
   ),
 };
 
 export const HighContrast: Story = {
   name: 'High Contrast',
   render: (args) => (
-    <Flex gap="3">
-      <Flex direction="column" align="start" gap="2">
+    <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'start', gap: 'var(--space-2)' }}>
         <Code {...args} variant="solid">
           console.log()
         </Code>
@@ -126,9 +126,9 @@ export const HighContrast: Story = {
         <Code {...args} variant="ghost">
           console.log()
         </Code>
-      </Flex>
+      </div>
 
-      <Flex direction="column" align="start" gap="2">
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'start', gap: 'var(--space-2)' }}>
         <Code {...args} variant="solid" highContrast>
           console.log()
         </Code>
@@ -141,7 +141,7 @@ export const HighContrast: Story = {
         <Code {...args} variant="ghost" highContrast>
           console.log()
         </Code>
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   ),
 };

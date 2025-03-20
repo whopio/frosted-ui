@@ -1,12 +1,9 @@
 'use client';
 
 import { useCallbackRef } from '@radix-ui/react-use-callback-ref';
-import * as React from 'react';
+
 import {
-  Box,
   Button,
-  Flex,
-  Grid,
   Heading,
   Kbd,
   ScrollArea,
@@ -26,6 +23,7 @@ import {
   warningColors,
 } from './index';
 
+import React from 'react';
 import type { ThemeOptions } from './index';
 
 interface ThemePanelProps extends Omit<ThemePanelImplProps, keyof ThemePanelImplPrivateProps> {
@@ -39,8 +37,8 @@ const ThemePanel = React.forwardRef<ThemePanelImplElement, ThemePanelProps>(
 );
 ThemePanel.displayName = 'ThemePanel';
 
-type ThemePanelImplElement = React.ElementRef<typeof Box>;
-interface ThemePanelImplProps extends React.ComponentPropsWithoutRef<typeof Box>, ThemePanelImplPrivateProps {
+type ThemePanelImplElement = React.ElementRef<'div'>;
+interface ThemePanelImplProps extends React.ComponentPropsWithoutRef<'div'>, ThemePanelImplPrivateProps {
   onAppearanceChange?: (value: Exclude<ThemeOptions['appearance'], 'inherit'>) => void;
 }
 interface ThemePanelImplPrivateProps {
@@ -170,17 +168,18 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
 
   return (
     <Theme asChild>
-      <Flex
-        direction="column"
-        position="fixed"
-        top="0"
-        right="0"
+      <div
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         inert={open ? undefined : ''}
         {...panelProps}
         ref={forwardedRef}
         style={{
+          display: 'flex',
+          flexDirection: 'column',
+          position: 'fixed',
+          top: 0,
+          right: 0,
           zIndex: 9999,
           marginRight: 16,
           marginTop: 16,
@@ -198,14 +197,14 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
         }}
       >
         <ScrollArea>
-          <Box grow="1" p="5" position="relative">
-            <Box position="absolute" top="0" right="0" style={{ margin: 8 }}>
+          <div style={{ position: 'relative', flexGrow: 1, padding: 24 }}>
+            <div style={{ margin: 8, position: 'absolute', top: 0, right: 0 }}>
               <Tooltip content="Press ⌘&thinsp;C to show/hide the Theme Panel" side="bottom" sideOffset={6}>
                 <Kbd size="3" tabIndex={0} className="fui-ThemePanelShortcut">
                   ⌘&thinsp;C
                 </Kbd>
               </Tooltip>
-            </Box>
+            </div>
 
             <Heading
               size="5"
@@ -230,7 +229,16 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
               Accent color
             </Text>
 
-            <Grid columns="10" gap="2" style={{ marginTop: 12 }} role="group" aria-labelledby="accent-color-title">
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(10, 1fr)',
+                gap: 'var(--space-2)',
+                marginTop: 12,
+              }}
+              role="group"
+              aria-labelledby="accent-color-title"
+            >
               {themeAccentColorsOrdered.map((color) => (
                 <label key={color} className="fui-ThemePanelSwatch" style={{ backgroundColor: `var(--${color}-9)` }}>
                   <Tooltip
@@ -251,55 +259,65 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
                   </Tooltip>
                 </label>
               ))}
-            </Grid>
+            </div>
 
-            <Flex asChild align="center" justify="between">
-              <Text
-                as="p"
-                id="gray-color-title"
-                size="2"
-                weight="medium"
-                style={{
-                  marginTop: 24,
-                }}
-              >
-                Gray color
-              </Text>
-            </Flex>
+            <Text
+              as="p"
+              id="gray-color-title"
+              size="2"
+              weight="medium"
+              style={{
+                marginTop: 24,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
+              Gray color
+            </Text>
 
-            <Grid columns="10" gap="2" style={{ marginTop: 12 }} role="group" aria-labelledby="gray-color-title">
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(10, 1fr)',
+                gap: 'var(--space-2)',
+                marginTop: 12,
+              }}
+              role="group"
+              aria-labelledby="gray-color-title"
+            >
               {['auto', 'gray', ...radixGrayScalesDesaturated].map((gray) => (
-                <Flex key={gray} asChild align="center" justify="center">
-                  <label
-                    className="fui-ThemePanelSwatch"
-                    style={{
-                      backgroundColor:
-                        gray === 'auto'
-                          ? `var(--${autoMatchedGray}-9)`
-                          : gray === 'gray'
-                            ? 'var(--gray-9)'
-                            : `var(--${gray}-9)`,
-                      // we override --gray so pure gray doesn't exist anymore
-                      // recover something as close as possible by desaturating
-                      filter: gray === 'gray' ? 'saturate(0)' : undefined,
-                    }}
-                  >
-                    <Tooltip
-                      content={`${upperFirst(gray)}${gray === 'auto' ? ` (${upperFirst(autoMatchedGray)})` : ''}`}
-                    >
-                      <input
-                        className="fui-ThemePanelSwatchInput"
-                        type="radio"
-                        name="grayColor"
-                        value={gray}
-                        checked={grayColor === gray}
-                        onChange={(event) => onGrayColorChange(event.target.value as ThemeOptions['grayColor'])}
-                      />
-                    </Tooltip>
-                  </label>
-                </Flex>
+                <label
+                  key={gray}
+                  className="fui-ThemePanelSwatch"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor:
+                      gray === 'auto'
+                        ? `var(--${autoMatchedGray}-9)`
+                        : gray === 'gray'
+                          ? 'var(--gray-9)'
+                          : `var(--${gray}-9)`,
+                    // we override --gray so pure gray doesn't exist anymore
+                    // recover something as close as possible by desaturating
+                    filter: gray === 'gray' ? 'saturate(0)' : undefined,
+                  }}
+                >
+                  <Tooltip content={`${upperFirst(gray)}${gray === 'auto' ? ` (${upperFirst(autoMatchedGray)})` : ''}`}>
+                    <input
+                      className="fui-ThemePanelSwatchInput"
+                      type="radio"
+                      name="grayColor"
+                      value={gray}
+                      checked={grayColor === gray}
+                      onChange={(event) => onGrayColorChange(event.target.value as ThemeOptions['grayColor'])}
+                    />
+                  </Tooltip>
+                </label>
               ))}
-            </Grid>
+            </div>
 
             {/* Semantic colors */}
 
@@ -315,7 +333,16 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
               Info color
             </Text>
 
-            <Grid columns="10" gap="2" style={{ marginTop: 12 }} role="group" aria-labelledby="info-color-title">
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(10, 1fr)',
+                gap: 'var(--space-2)',
+                marginTop: 12,
+              }}
+              role="group"
+              aria-labelledby="info-color-title"
+            >
               {infoColors.map((color) => (
                 <label key={color} className="fui-ThemePanelSwatch" style={{ backgroundColor: `var(--${color}-9)` }}>
                   <Tooltip content={upperFirst(color)}>
@@ -330,7 +357,7 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
                   </Tooltip>
                 </label>
               ))}
-            </Grid>
+            </div>
 
             <Text
               id="success-color-title"
@@ -344,7 +371,16 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
               Success color
             </Text>
 
-            <Grid columns="10" gap="2" style={{ marginTop: 12 }} role="group" aria-labelledby="success-color-title">
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(10, 1fr)',
+                gap: 'var(--space-2)',
+                marginTop: 12,
+              }}
+              role="group"
+              aria-labelledby="success-color-title"
+            >
               {successColors.map((color) => (
                 <label key={color} className="fui-ThemePanelSwatch" style={{ backgroundColor: `var(--${color}-9)` }}>
                   <Tooltip content={upperFirst(color)}>
@@ -359,7 +395,7 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
                   </Tooltip>
                 </label>
               ))}
-            </Grid>
+            </div>
 
             <Text
               id="warning-color-title"
@@ -373,7 +409,16 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
               Warning color
             </Text>
 
-            <Grid columns="10" gap="2" style={{ marginTop: 12 }} role="group" aria-labelledby="warning-color-title">
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(10, 1fr)',
+                gap: 'var(--space-2)',
+                marginTop: 12,
+              }}
+              role="group"
+              aria-labelledby="warning-color-title"
+            >
               {warningColors.map((color) => (
                 <label key={color} className="fui-ThemePanelSwatch" style={{ backgroundColor: `var(--${color}-9)` }}>
                   <Tooltip content={upperFirst(color)}>
@@ -388,7 +433,7 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
                   </Tooltip>
                 </label>
               ))}
-            </Grid>
+            </div>
 
             <Text
               id="danger-color-title"
@@ -402,7 +447,16 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
               Danger color
             </Text>
 
-            <Grid columns="10" gap="2" style={{ marginTop: 12 }} role="group" aria-labelledby="danger-color-title">
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(10, 1fr)',
+                gap: 'var(--space-2)',
+                marginTop: 12,
+              }}
+              role="group"
+              aria-labelledby="danger-color-title"
+            >
               {dangerColors.map((color) => (
                 <label key={color} className="fui-ThemePanelSwatch" style={{ backgroundColor: `var(--${color}-9)` }}>
                   <Tooltip content={upperFirst(color)}>
@@ -417,7 +471,7 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
                   </Tooltip>
                 </label>
               ))}
-            </Grid>
+            </div>
             <Text
               id="appearance-title"
               as="p"
@@ -430,7 +484,11 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
               Appearance
             </Text>
 
-            <Grid columns="2" gap="2" style={{ marginTop: 12 }} role="group" aria-labelledby="appearance-title">
+            <div
+              style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--space-2)', marginTop: 12 }}
+              role="group"
+              aria-labelledby="appearance-title"
+            >
               {(['light', 'dark'] as const).map((value) => (
                 <label key={value} className="fui-ThemePanelRadioCard">
                   <input
@@ -446,7 +504,15 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
                     }}
                     onClick={() => handleAppearanceChange(value)}
                   />
-                  <Flex align="center" justify="center" height="6" gap="2">
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      height: 'var(--space-6)',
+                      gap: 'var(--space-2)',
+                    }}
+                  >
                     {value === 'light' ? (
                       <svg
                         width="15"
@@ -483,10 +549,10 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
                     <Text size="1" weight="medium">
                       {upperFirst(value)}
                     </Text>
-                  </Flex>
+                  </div>
                 </label>
               ))}
-            </Grid>
+            </div>
 
             <Button
               style={{
@@ -497,9 +563,9 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
             >
               {copyState === 'copied' ? 'Copied' : 'Copy Theme'}
             </Button>
-          </Box>
+          </div>
         </ScrollArea>
-      </Flex>
+      </div>
     </Theme>
   );
 });

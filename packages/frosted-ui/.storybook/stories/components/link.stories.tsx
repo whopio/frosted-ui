@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Flex, Link } from '../../../src/components';
+import { Link } from '../../../src/components';
 import { linkPropDefs } from '../../../src/components/link.props';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -37,7 +37,7 @@ export const Size: Story = {
     color: linkPropDefs.color.default,
   },
   render: (args) => (
-    <Flex direction="column" gap="3">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
       <Link {...args} size="0" />
       <Link {...args} size="1" />
       <Link {...args} size="2" />
@@ -48,7 +48,7 @@ export const Size: Story = {
       <Link {...args} size="7" />
       <Link {...args} size="8" />
       <Link {...args} size="9" />
-    </Flex>
+    </div>
   ),
 };
 
@@ -60,12 +60,12 @@ export const Color: Story = {
     color: linkPropDefs.color.default,
   },
   render: (args) => (
-    <Flex direction="column" align="start" gap="2">
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'start', gap: 'var(--space-2)' }}>
       <Link {...args} color="indigo" />
       <Link {...args} color="cyan" />
       <Link {...args} color="orange" />
       <Link {...args} color="crimson" />
-    </Flex>
+    </div>
   ),
 };
 
@@ -77,11 +77,11 @@ export const Underline: Story = {
     color: linkPropDefs.color.default,
   },
   render: (args) => (
-    <Flex direction="column" align="start" gap="2">
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'start', gap: 'var(--space-2)' }}>
       <Link {...args} underline="auto" />
       <Link {...args} underline="hover" />
       <Link {...args} underline="always" />
-    </Flex>
+    </div>
   ),
 };
 
@@ -94,9 +94,9 @@ export const HighContrast: Story = {
     color: linkPropDefs.color.default,
   },
   render: (args) => (
-    <Flex direction="column">
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
       <Link {...args} />
       <Link {...args} highContrast />
-    </Flex>
+    </div>
   ),
 };

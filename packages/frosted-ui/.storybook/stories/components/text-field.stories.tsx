@@ -8,7 +8,7 @@ import {
   ThreeDotsHorizontal20,
 } from '@frosted-ui/icons';
 import React from 'react';
-import { Button, Flex, IconButton, TextField } from '../../../src/components';
+import { Button, IconButton, TextField } from '../../../src/components';
 import { textFieldPropDefs } from '../../../src/components/text-field.props';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -48,8 +48,8 @@ export const Default: Story = {
 
 export const Size: Story = {
   render: (args) => (
-    <Flex direction="column" gap="3" style={{ maxWidth: 400 }}>
-      <Flex align="center" gap="2">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', maxWidth: 400 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
         <TextField.Root {...args}>
           <TextField.Slot>
             {/* @ts-expect-error -- TODO: fix frosted-icons types issue */}
@@ -60,9 +60,9 @@ export const Size: Story = {
         <Button size="1" variant={args.variant}>
           Search
         </Button>
-      </Flex>
+      </div>
 
-      <Flex align="center" gap="2">
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
         <TextField.Root {...args}>
           <TextField.Slot>
             {/* @ts-expect-error -- TODO: fix frosted-icons types issue */}
@@ -79,16 +79,16 @@ export const Size: Story = {
         <Button size="2" variant={args.variant}>
           Search
         </Button>
-      </Flex>
+      </div>
 
-      <Flex align="center" gap="2">
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
         <TextField.Root {...args}>
           <TextField.Slot>
             {/* @ts-expect-error -- TODO: fix frosted-icons types issue */}
             <MagnifyingGlass20 />
           </TextField.Slot>
           <TextField.Input placeholder="Search the docs…" size="3" />
-          <TextField.Slot pr="3">
+          <TextField.Slot style={{ paddingRight: 'var(--space-3)' }}>
             <IconButton color="gray" size="2" variant="ghost">
               {/* @ts-expect-error -- TODO: fix frosted-icons types issue */}
               <ThreeDotsHorizontal20 />
@@ -98,65 +98,34 @@ export const Size: Story = {
         <Button size="3" variant={args.variant}>
           Search
         </Button>
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   ),
 };
 
 export const Variant: Story = {
   render: ({ ref, ...args }) => (
-    <Flex direction="row" gap="5">
-      <Flex direction="column" gap="3" style={{ maxWidth: 400 }}>
-        <TextField.Input
-          placeholder="Search the docs…"
-          {...args}
-          variant="surface"
-        />
-        <TextField.Input
-          placeholder="Search the docs…"
-          {...args}
-          variant="classic"
-        />
-        <TextField.Input
-          placeholder="Search the docs…"
-          {...args}
-          variant="soft"
-        />
-      </Flex>
-      <Flex direction="column" gap="3" style={{ maxWidth: 400 }}>
-        <TextField.Input
-          disabled
-          placeholder="Search the docs…"
-          {...args}
-          variant="surface"
-        />
-        <TextField.Input
-          disabled
-          placeholder="Search the docs…"
-          {...args}
-          variant="classic"
-        />
-        <TextField.Input
-          disabled
-          placeholder="Search the docs…"
-          {...args}
-          variant="soft"
-        />
-      </Flex>
-    </Flex>
+    <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--space-5)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', maxWidth: 400 }}>
+        <TextField.Input placeholder="Search the docs…" {...args} variant="surface" />
+        <TextField.Input placeholder="Search the docs…" {...args} variant="classic" />
+        <TextField.Input placeholder="Search the docs…" {...args} variant="soft" />
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', maxWidth: 400 }}>
+        <TextField.Input disabled placeholder="Search the docs…" {...args} variant="surface" />
+        <TextField.Input disabled placeholder="Search the docs…" {...args} variant="classic" />
+        <TextField.Input disabled placeholder="Search the docs…" {...args} variant="soft" />
+      </div>
+    </div>
   ),
 };
 
 export const Color: Story = {
   render: ({ ref, ...args }) => (
-    <Flex direction="column" gap="3" style={{ maxWidth: 400 }}>
-      <TextField.Input
-        {...args}
-        placeholder="Search the docs…"
-        color="indigo"
-      />
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', maxWidth: 400 }}>
+      <TextField.Input {...args} placeholder="Search the docs…" color="indigo" />
       <TextField.Input {...args} placeholder="Search the docs…" color="green" />
       <TextField.Input {...args} placeholder="Search the docs…" color="red" />
-    </Flex>
+    </div>
   ),
 };

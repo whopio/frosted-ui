@@ -1,10 +1,8 @@
 import { ArrowLeftIcon, ArrowRightIcon, ChevronRightIcon } from '@radix-ui/react-icons';
 import {
   Avatar,
-  Box,
   Button,
   Card,
-  Container,
   Heading,
   IconButton,
   Inset,
@@ -34,17 +32,37 @@ export default function Dashboard() {
             <ThemePanel />
             <header className="sticky top-0 backdrop-blur-lg z-10 backdrop-saturate-150">
               <div className="absolute inset-0 bg-panel-translucent -z-[1]" style={{ filter: 'url(#myFilter' }} />
-              <Container size="4">
-                <Box>
+              <div
+                style={{
+                  maxWidth: '1136px',
+                  width: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  flexShrink: 0,
+                  flexGrow: 1,
+                }}
+              >
+                <div>
                   <div className="py-4 flex items-center">
                     <WhopLogo className="w-[137px] h-auto" />
                   </div>
-                </Box>
-              </Container>
+                </div>
+              </div>
 
               <Separator color="gray" orientation="horizontal" size="4" />
-              <Container size="4">
-                <Box>
+              <div
+                style={{
+                  maxWidth: '1136px',
+                  width: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  flexShrink: 0,
+                  flexGrow: 1,
+                }}
+              >
+                <div>
                   <div className="flex items-center">
                     <Tabs.Root defaultValue="1" className="-mb-[1px]">
                       <Tabs.List size="2">
@@ -59,11 +77,21 @@ export default function Dashboard() {
                       </Tabs.List>
                     </Tabs.Root>
                   </div>
-                </Box>
-              </Container>
+                </div>
+              </div>
               <Separator color="gray" orientation="horizontal" size="4" className="relative z-[1]" />
             </header>
-            <Container size="4">
+            <div
+              style={{
+                maxWidth: '1136px',
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                flexShrink: 0,
+                flexGrow: 1,
+              }}
+            >
               <div className="pt-[120px] flex flex-nowrap">
                 <div className="w-full">
                   <Heading size="9" trim="start">
@@ -99,9 +127,19 @@ export default function Dashboard() {
                   </div>
                 </div>
               </div>
-            </Container>
+            </div>
             <div className="mt-12 bg-gray-3">
-              <Container>
+              <div
+                style={{
+                  maxWidth: '1136px',
+                  width: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  flexShrink: 0,
+                  flexGrow: 1,
+                }}
+              >
                 <div className="flex justify-center gap-12 py-12">
                   <div className="text-center">
                     <Heading size="7">#172,264,047</Heading>
@@ -126,10 +164,20 @@ export default function Dashboard() {
                     </Text>
                   </div>
                 </div>
-              </Container>
+              </div>
             </div>
             <div className="mt-10">
-              <Container>
+              <div
+                style={{
+                  maxWidth: '1136px',
+                  width: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  flexShrink: 0,
+                  flexGrow: 1,
+                }}
+              >
                 <div className="flex items-center justify-between">
                   <div>
                     <Heading size="5">Trending Products</Heading>
@@ -154,7 +202,7 @@ export default function Dashboard() {
                   <GalleryCard title="Parlay Kings" />
                   <GalleryCard title="Parlay Kings" />
                 </div>
-              </Container>
+              </div>
             </div>
           </div>
         </Theme>

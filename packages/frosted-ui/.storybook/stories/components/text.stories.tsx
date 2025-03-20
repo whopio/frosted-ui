@@ -1,11 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Box } from '../../../src/components/box';
 import { Checkbox } from '../../../src/components/checkbox';
 import { Code } from '../../../src/components/code';
 import { Em } from '../../../src/components/em';
-import { Flex } from '../../../src/components/flex';
 import { Kbd } from '../../../src/components/kbd';
 import { Link } from '../../../src/components/link';
 import { Text } from '../../../src/components/text';
@@ -37,7 +35,7 @@ export const Default: Story = {
 
 export const Size: Story = {
   render: (args) => (
-    <Flex direction="column" gap="3">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
       <Text {...args} size="0">
         The quick brown fox jumps over the lazy dog.
       </Text>
@@ -68,13 +66,13 @@ export const Size: Story = {
       <Text {...args} size="9">
         The quick brown fox jumps over the lazy dog.
       </Text>
-    </Flex>
+    </div>
   ),
 };
 
 export const Weight: Story = {
   render: (args) => (
-    <Flex direction="column" gap="3">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
       <Text {...args} weight="light">
         The quick brown fox jumps over the lazy dog.
       </Text>
@@ -90,13 +88,13 @@ export const Weight: Story = {
       <Text {...args} weight="bold">
         The quick brown fox jumps over the lazy dog.
       </Text>
-    </Flex>
+    </div>
   ),
 };
 
 export const Color: Story = {
   render: (args) => (
-    <Flex direction="column" gap="3">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
       <Text {...args} color="indigo">
         The quick brown fox jumps over the lazy dog.
       </Text>
@@ -109,13 +107,13 @@ export const Color: Story = {
       <Text {...args} color="crimson">
         The quick brown fox jumps over the lazy dog.
       </Text>
-    </Flex>
+    </div>
   ),
 };
 
 export const Align: Story = {
   render: (args) => (
-    <Flex direction="column" gap="3" style={{ width: 500 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: 500 }}>
       <Text {...args} align="left">
         Left-aligned
       </Text>
@@ -125,13 +123,13 @@ export const Align: Story = {
       <Text {...args} align="right">
         Right-aligned
       </Text>
-    </Flex>
+    </div>
   ),
 };
 
 export const Trim: Story = {
   render: (args) => (
-    <Flex direction="column" gap="3">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
       <Text
         {...args}
         trim="normal"
@@ -154,16 +152,15 @@ export const Trim: Story = {
       >
         With trim
       </Text>
-    </Flex>
+    </div>
   ),
 };
 
 export const Formatting: Story = {
   render: (args) => (
     <Text size="5" {...args}>
-      Look, such a helpful <Link href="#">link</Link>, an{' '}
-      <Em>italic emphasis</Em>, a piece of computer <Code>code</Code>, and even
-      a hotkey combination <Kbd>⇧⌘A</Kbd> within the text.
+      Look, such a helpful <Link href="#">link</Link>, an <Em>italic emphasis</Em>, a piece of computer{' '}
+      <Code>code</Code>, and even a hotkey combination <Kbd>⇧⌘A</Kbd> within the text.
     </Text>
   ),
 };
@@ -171,22 +168,21 @@ export const Formatting: Story = {
 export const FormControls: Story = {
   name: 'With form controls',
   render: (args) => (
-    <Box style={{ maxWidth: 300 }}>
-      <Text size="3">
-        <Flex gap="2">
-          <Checkbox defaultChecked /> Composing Text with a form control like
-          Checkbox, RadioGroup, or Switch automatically centers the control with
-          the first line of text, even when the text is multi-line.
-        </Flex>
+    <div style={{ maxWidth: 300 }}>
+      <Text size="3" asChild>
+        <div style={{ display: 'flex', gap: 12 }}>
+          <Checkbox defaultChecked /> Composing Text with a form control like Checkbox, RadioGroup, or Switch
+          automatically centers the control with the first line of text, even when the text is multi-line.
+        </div>
       </Text>
-    </Box>
+    </div>
   ),
 };
 
 export const HighContrast: Story = {
   name: 'High Contrast',
   render: (args) => (
-    <Flex direction="column" gap="3">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
       <Text {...args} highContrast color="indigo">
         The quick brown fox jumps over the lazy dog.
       </Text>
@@ -199,6 +195,6 @@ export const HighContrast: Story = {
       <Text {...args} highContrast color="crimson">
         The quick brown fox jumps over the lazy dog.
       </Text>
-    </Flex>
+    </div>
   ),
 };

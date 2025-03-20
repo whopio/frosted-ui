@@ -3,11 +3,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import {
   Avatar,
-  Box,
   Button,
   Checkbox,
-  Flex,
-  Grid,
   Heading,
   IconButton,
   Inset,
@@ -46,28 +43,26 @@ export const Default: Story = {
         <Button variant="soft">Comment</Button>
       </Popover.Trigger>
       <Popover.Content {...args} style={{ width: 360 }}>
-        <Flex gap="3">
+        <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
           <Avatar
             size="2"
             src="https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?&w=64&h=64&dpr=2&q=70&crop=focalpoint&fp-x=0.67&fp-y=0.5&fp-z=1.4&fit=crop"
             fallback="A"
           />
-          <Box grow="1">
+          <div style={{ flexGrow: 1 }}>
             <TextArea placeholder="Write a comment…" style={{ height: 80 }} />
-            <Flex gap="3" mt="3" justify="between">
-              <Flex align="center" gap="2" asChild>
-                <Text as="label" size="2">
-                  <Checkbox />
-                  <Text>Send to group</Text>
-                </Text>
-              </Flex>
+            <div style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 12, justifyContent: 'space-between' }}>
+              <Text as="label" size="2" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+                <Checkbox />
+                <Text>Send to group</Text>
+              </Text>
 
               <Popover.Close>
                 <Button size="1">Comment</Button>
               </Popover.Close>
-            </Flex>
-          </Box>
-        </Flex>
+            </div>
+          </div>
+        </div>
       </Popover.Content>
     </Popover.Root>
   ),
@@ -82,27 +77,20 @@ export const Variant: Story = {
     const [appearance, setAppearance] = React.useState<Appearance>('light');
 
     return (
-      <Flex gap="5" align="center">
+      <div style={{ display: 'flex', gap: 'var(--space-5)', alignItems: 'center' }}>
         <Popover.Root>
           <Popover.Trigger>
             <IconButton variant="ghost" color="gray" size="3">
               <AppearanceIcon />
             </IconButton>
           </Popover.Trigger>
-          <Popover.Content
-            {...args}
-            variant="translucent"
-            align="center"
-            style={{ width: 292 }}
-          >
-            <Heading size="3" mb="2">
+          <Popover.Content {...args} variant="translucent" align="center" style={{ width: 292 }}>
+            <Heading size="3" style={{ marginBottom: 12 }}>
               Theme
             </Heading>
             <SegmentedControl.Root
               value={appearance}
-              onValueChange={(appearance) =>
-                setAppearance(appearance as Appearance)
-              }
+              onValueChange={(appearance) => setAppearance(appearance as Appearance)}
             >
               <SegmentedControl.List>
                 <SegmentedControl.Trigger value="light">
@@ -115,12 +103,12 @@ export const Variant: Story = {
                 </SegmentedControl.Trigger>
               </SegmentedControl.List>
             </SegmentedControl.Root>
-            <Separator orientation="horizontal" size="4" my="4" />
+            <Separator orientation="horizontal" size="4" style={{ marginTop: 12, marginBottom: 12 }} />
             <Text as="label" size="2">
-              <Flex gap="2" align="center">
+              <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
                 <Switch />
                 Auto switching
-              </Flex>
+              </div>
             </Text>
           </Popover.Content>
         </Popover.Root>
@@ -130,20 +118,13 @@ export const Variant: Story = {
               <AppearanceIcon />
             </IconButton>
           </Popover.Trigger>
-          <Popover.Content
-            {...args}
-            variant="solid"
-            align="center"
-            style={{ width: 292 }}
-          >
-            <Heading size="3" mb="2">
+          <Popover.Content {...args} variant="solid" align="center" style={{ width: 292 }}>
+            <Heading size="3" style={{ marginBottom: 8 }}>
               Theme
             </Heading>
             <SegmentedControl.Root
               value={appearance}
-              onValueChange={(appearance) =>
-                setAppearance(appearance as Appearance)
-              }
+              onValueChange={(appearance) => setAppearance(appearance as Appearance)}
             >
               <SegmentedControl.List>
                 <SegmentedControl.Trigger value="light">
@@ -156,16 +137,16 @@ export const Variant: Story = {
                 </SegmentedControl.Trigger>
               </SegmentedControl.List>
             </SegmentedControl.Root>
-            <Separator orientation="horizontal" size="4" my="4" />
+            <Separator orientation="horizontal" size="4" style={{ marginTop: 16, marginBottom: 16 }} />
             <Text as="label" size="2">
-              <Flex gap="2" align="center">
+              <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
                 <Switch />
                 Auto switching
-              </Flex>
+              </div>
             </Text>
           </Popover.Content>
         </Popover.Root>
-      </Flex>
+      </div>
     );
   },
 };
@@ -182,7 +163,7 @@ export const InsetContent: Story = {
         <Button variant="soft">Share image</Button>
       </Popover.Trigger>
       <Popover.Content style={{ width: 360 }} {...args}>
-        <Grid columns="120px 1fr">
+        <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr' }}>
           <Inset side="left" pr="current">
             <img
               src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?&auto=format&fit=crop&w=400&q=80"
@@ -191,35 +172,29 @@ export const InsetContent: Story = {
           </Inset>
 
           <div>
-            <Heading size="2" mb="1">
+            <Heading size="2" style={{ marginBottom: 4 }}>
               Share this image
             </Heading>
-            <Text as="p" size="2" mb="4" color="gray">
+            <Text as="p" size="2" style={{ marginBottom: 16 }} color="gray">
               Minimalistic 3D rendering wallpaper.
             </Text>
 
-            <Flex direction="column" align="stretch">
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
               <Popover.Close>
                 <Button size="1" variant="soft">
                   Copy link
                 </Button>
               </Popover.Close>
-            </Flex>
+            </div>
           </div>
-        </Grid>
+        </div>
       </Popover.Content>
     </Popover.Root>
   ),
 };
 
 const LightModeIcon = () => (
-  <svg
-    width="20"
-    height="20"
-    viewBox="0 0 20 20"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g clip-path="url(#clip0_1411_65802)">
       <mask id="path-1-inside-1_1411_65802" fill="white">
         <path
@@ -243,69 +218,17 @@ const LightModeIcon = () => (
 );
 
 const DarkModeIcon = () => (
-  <svg
-    width="20"
-    height="20"
-    viewBox="0 0 20 20"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g clip-path="url(#clip0_1411_65816)">
-      <circle
-        cx="10"
-        cy="10"
-        r="3.25"
-        stroke="currentColor"
-        strokeWidth="1.5"
-      />
-      <path
-        d="M10 3V1"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-      <path
-        d="M17 10H19"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-      <path
-        d="M1 10L3 10"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-      <path
-        d="M10 19V17"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-      <path
-        d="M14.9498 5.0502L16.364 3.63599"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-      <path
-        d="M14.9497 14.9497L16.3639 16.3639"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-      <path
-        d="M3.63599 3.63599L5.0502 5.0502"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-      <path
-        d="M3.63608 16.3639L5.05029 14.9497"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
+      <circle cx="10" cy="10" r="3.25" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M10 3V1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M17 10H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M1 10L3 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M10 19V17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M14.9498 5.0502L16.364 3.63599" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M14.9497 14.9497L16.3639 16.3639" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M3.63599 3.63599L5.0502 5.0502" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M3.63608 16.3639L5.05029 14.9497" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
     </g>
     <defs>
       <clipPath id="clip0_1411_65816">
@@ -316,13 +239,7 @@ const DarkModeIcon = () => (
 );
 
 const AppearanceIcon = () => (
-  <svg
-    width="20"
-    height="20"
-    viewBox="0 0 20 20"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g clip-path="url(#clip0_1402_143841)">
       <path
         d="M10 1.25C5 1.25 1.25 5 1.25 10C1.25 14.6939 4.28561 17.0376 6.55714 18.1344C7.89989 18.7827 9.34365 17.9439 9.85683 16.5439C10.9906 13.451 11.4382 13.7412 15.8146 13.7498C15.9355 13.7501 16.0605 13.7564 16.1813 13.7511C16.794 13.724 18.75 13.3734 18.75 10C18.75 5 15 1.25 10 1.25Z"

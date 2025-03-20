@@ -1,17 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { FilterChip, Flex } from '../../../src/components';
+import { FilterChip } from '../../../src/components';
 import { filterChipPropDefs } from '../../../src/components/filter-chip.props';
 
 const ExampleIcon = ({ size }: { size: number }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 20 20"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width={size} height={size} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M3 8C3 6 5.70833 3 9.5 3C13.2917 3 16 6 16 8M16 8H13M16 8V8C16.5523 8 17 7.55228 17 7V4"
       stroke="currentColor"
@@ -54,7 +48,7 @@ export const Default: Story = {
     color: filterChipPropDefs.color.default,
   },
   render: (args) => (
-    <Flex gap="2" direction="row">
+    <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'row' }}>
       <FilterChip defaultChecked {...args}>
         <ExampleIcon size={16} />
         Default
@@ -67,13 +61,13 @@ export const Default: Story = {
         <ExampleIcon size={16} />
         Disabled unchecked
       </FilterChip>
-    </Flex>
+    </div>
   ),
 };
 
 export const Size: Story = {
   render: (args) => (
-    <Flex gap="2">
+    <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
       <FilterChip defaultChecked {...args} size="1">
         <ExampleIcon size={16} /> Size 1
       </FilterChip>
@@ -83,13 +77,13 @@ export const Size: Story = {
       <FilterChip defaultChecked {...args} size="3">
         <ExampleIcon size={24} /> Size 3
       </FilterChip>
-    </Flex>
+    </div>
   ),
 };
 
 export const Color: Story = {
   render: (args) => (
-    <Flex gap="2">
+    <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
       <FilterChip {...args} color="indigo" defaultChecked>
         <ExampleIcon size={20} />
         Indigo
@@ -106,6 +100,6 @@ export const Color: Story = {
         <ExampleIcon size={20} />
         Crimson
       </FilterChip>
-    </Flex>
+    </div>
   ),
 };
