@@ -37,7 +37,7 @@ const Avatar = React.forwardRef<AvatarElement, AvatarProps>((props: ScopedProps<
       imageLoadingStatus={imageLoadingStatus}
       onImageLoadingStatusChange={setImageLoadingStatus}
     >
-      <Primitive.span {...avatarProps} ref={forwardedRef} />
+      <Primitive.span {...avatarProps} data-status={imageLoadingStatus} ref={forwardedRef} />
     </AvatarProvider>
   );
 });
@@ -92,7 +92,7 @@ interface AvatarFallbackProps extends PrimitiveSpanProps {
 
 const AvatarFallback = React.forwardRef<AvatarFallbackElement, AvatarFallbackProps>(
   (props: ScopedProps<AvatarFallbackProps>, forwardedRef) => {
-    const { __scopeAvatar, delayMs, ...fallbackProps } = props;
+    const { __scopeAvatar, delayMs, children, ...fallbackProps } = props;
     const context = useAvatarContext(FALLBACK_NAME, __scopeAvatar);
     const [canRender, setCanRender] = React.useState(delayMs === undefined);
 
@@ -104,7 +104,9 @@ const AvatarFallback = React.forwardRef<AvatarFallbackElement, AvatarFallbackPro
     }, [delayMs]);
 
     return canRender && context.imageLoadingStatus !== 'loaded' ? (
-      <Primitive.span {...fallbackProps} ref={forwardedRef} />
+      <Primitive.span {...fallbackProps} ref={forwardedRef}>
+        {context.imageLoadingStatus === 'idle' || context.imageLoadingStatus === 'loading' ? null : children}
+      </Primitive.span>
     ) : null;
   },
 );
