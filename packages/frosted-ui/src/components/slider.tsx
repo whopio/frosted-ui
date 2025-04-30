@@ -1,7 +1,7 @@
 'use client';
 
-import * as SliderPrimitive from '@radix-ui/react-slider';
 import classNames from 'classnames';
+import { Slider as SliderPrimitive } from 'radix-ui';
 import * as React from 'react';
 
 import { sliderPropDefs } from './slider.props';

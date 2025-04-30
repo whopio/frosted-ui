@@ -1,5 +1,5 @@
-import { Slot } from '@radix-ui/react-slot';
 import classNames from 'classnames';
+import { Slot } from 'radix-ui';
 import * as React from 'react';
 import { breadcrumbsPropDefs } from './breadcrumbs.props';
 
@@ -23,7 +23,7 @@ const BreadcrumbsRoot = (props: BreadcrumbsRootProps) => {
     highContrast = breadcrumbsPropDefs.highContrast.default,
     ...baseButtonProps
   } = props;
-  const Comp = asChild ? Slot : 'nav';
+  const Comp = asChild ? Slot.Root : 'nav';
   const count = React.Children.count(children);
 
   return (

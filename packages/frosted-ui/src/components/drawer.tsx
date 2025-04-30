@@ -1,7 +1,7 @@
 'use client';
 
-import * as DrawerPrimitive from '@radix-ui/react-dialog';
 import classNames from 'classnames';
+import { Dialog as DrawerPrimitive } from 'radix-ui';
 import * as React from 'react';
 import { Theme } from '../theme';
 import { drawerContentPropDefs } from './drawer.props';

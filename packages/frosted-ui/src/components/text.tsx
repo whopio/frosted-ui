@@ -1,5 +1,5 @@
-import { Slot } from '@radix-ui/react-slot';
 import classNames from 'classnames';
+import { Slot } from 'radix-ui';
 import * as React from 'react';
 
 import { textPropDefs } from './text.props';
@@ -42,7 +42,7 @@ const Text = (props: TextProps) => {
     ...textProps
   } = props;
   return (
-    <Slot
+    <Slot.Root
       data-accent-color={color}
       {...textProps}
       className={classNames(
@@ -56,7 +56,7 @@ const Text = (props: TextProps) => {
       )}
     >
       {asChild ? children : <Tag>{children}</Tag>}
-    </Slot>
+    </Slot.Root>
   );
 };
 Text.displayName = 'Text';

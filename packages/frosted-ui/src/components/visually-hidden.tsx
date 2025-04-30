@@ -1,3 +1,3 @@
 'use client';
 
-export { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+export { VisuallyHidden } from 'radix-ui';

@@ -1,8 +1,7 @@
 'use client';
 
-import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
-import * as SelectPrimitive from '@radix-ui/react-select';
 import classNames from 'classnames';
+import { ScrollArea as ScrollAreaPrimitive, Select as SelectPrimitive } from 'radix-ui';
 import * as React from 'react';
 
 import { ChevronDownIcon, ThickCheckIcon } from '../icons';

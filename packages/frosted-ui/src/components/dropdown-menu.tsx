@@ -1,8 +1,7 @@
 'use client';
 
-import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
-import { Slottable } from '@radix-ui/react-slot';
 import classNames from 'classnames';
+import { DropdownMenu as DropdownMenuPrimitive, Slot } from 'radix-ui';
 import * as React from 'react';
 import { ThickCheckIcon, ThickChevronRightIcon } from '../icons';
 import { Theme, useThemeContext } from '../theme';
@@ -108,7 +107,7 @@ const DropdownMenuItem = (props: DropdownMenuItemProps) => {
       {...itemProps}
       className={classNames('fui-reset', 'fui-BaseMenuItem', 'fui-DropdownMenuItem', className)}
     >
-      <Slottable>{children}</Slottable>
+      <Slot.Slottable>{children}</Slot.Slottable>
       {shortcut && <div className="fui-BaseMenuShortcut fui-DropdownMenuShortcut">{shortcut}</div>}
     </DropdownMenuPrimitive.Item>
   );
@@ -150,7 +149,7 @@ const DropdownMenuRadioItem = (props: DropdownMenuRadioItemProps) => {
         className,
       )}
     >
-      <Slottable>{children}</Slottable>
+      <Slot.Slottable>{children}</Slot.Slottable>
       <DropdownMenuPrimitive.ItemIndicator className="fui-BaseMenuItemIndicator fui-DropdownMenuItemIndicator">
         <ThickCheckIcon className="fui-BaseMenuItemIndicatorIcon fui-DropdownMenuItemIndicatorIcon" />
       </DropdownMenuPrimitive.ItemIndicator>
@@ -177,7 +176,7 @@ const DropdownMenuCheckboxItem = (props: DropdownMenuCheckboxItemProps) => {
         className,
       )}
     >
-      <Slottable>{children}</Slottable>
+      <Slot.Slottable>{children}</Slot.Slottable>
       <DropdownMenuPrimitive.ItemIndicator className="fui-BaseMenuItemIndicator fui-DropdownMenuItemIndicator">
         <ThickCheckIcon className="fui-BaseMenuItemIndicatorIcon fui-DropdownMenuItemIndicatorIcon" />
       </DropdownMenuPrimitive.ItemIndicator>
@@ -206,7 +205,7 @@ const DropdownMenuSubTrigger = (props: DropdownMenuSubTriggerProps) => {
         className,
       )}
     >
-      <Slottable>{children}</Slottable>
+      <Slot.Slottable>{children}</Slot.Slottable>
       <div className="fui-BaseMenuShortcut fui-DropdownMenuShortcut">
         <ThickChevronRightIcon className="fui-BaseMenuSubTriggerIcon fui-DropdownMenuSubTriggerIcon" />
       </div>

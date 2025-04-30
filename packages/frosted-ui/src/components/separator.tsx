@@ -1,7 +1,7 @@
 'use client';
 
-import * as SeparatorPrimitive from '@radix-ui/react-separator';
 import classNames from 'classnames';
+import { Separator as SeparatorPrimitive } from 'radix-ui';
 import * as React from 'react';
 
 import { separatorPropDefs } from './separator.props';
