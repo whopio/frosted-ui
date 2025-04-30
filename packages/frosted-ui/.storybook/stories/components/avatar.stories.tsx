@@ -123,11 +123,11 @@ export const Fallback: Story = {
   },
   render: (args) => (
     <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
-      <Avatar fallback={<>AB</>} />
-      <Avatar fallback="Ilya Miskov" />
-      <Avatar fallback="John von Neumann" />
-      <Avatar fallback="Grace Hopper 123" />
-      <Avatar fallback="artur_bien" />
+      <Avatar {...args} fallback={<>AB</>} />
+      <Avatar {...args} fallback="Ilya Miskov" />
+      <Avatar {...args} fallback="John von Neumann" />
+      <Avatar {...args} fallback="Grace Hopper 123" />
+      <Avatar {...args} fallback="artur_bien" />
       <Avatar
         {...args}
         fallback={

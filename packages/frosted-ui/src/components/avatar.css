@@ -1,4 +1,6 @@
 .fui-AvatarRoot {
+  container-type: inline-size;
+
   display: inline-grid;
   place-items: center;
   vertical-align: middle;
@@ -52,6 +54,7 @@
   z-index: 0;
   width: 100%;
   height: 100%;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -76,63 +79,43 @@
   font-weight: var(--font-weight-medium);
   text-transform: uppercase;
 
+  line-height: 1.4;
+  letter-spacing: 0.05em;
   &:where(.fui-one-letter) {
-    font-size: var(--avatar-fallback-one-letter-font-size);
+    font-size: 45cqw;
   }
   &:where(.fui-two-letters) {
     /* prettier-ignore */
-    font-size: var(--avatar-fallback-two-letters-font-size, var(--avatar-fallback-one-letter-font-size));
+    font-size: 40cqw;
   }
 }
 
 .fui-AvatarRoot {
   &:where(.fui-r-size-1) {
     --avatar-size: var(--space-5);
-    --avatar-fallback-one-letter-font-size: var(--font-size-2);
-    --avatar-fallback-two-letters-font-size: var(--font-size-1);
-    letter-spacing: var(--letter-spacing-1);
   }
   &:where(.fui-r-size-2) {
     --avatar-size: var(--space-6);
-    --avatar-fallback-one-letter-font-size: var(--font-size-3);
-    --avatar-fallback-two-letters-font-size: var(--font-size-2);
-    letter-spacing: var(--letter-spacing-2);
   }
   &:where(.fui-r-size-3) {
     --avatar-size: var(--space-7);
-    --avatar-fallback-one-letter-font-size: var(--font-size-4);
-    --avatar-fallback-two-letters-font-size: var(--font-size-3);
-    letter-spacing: var(--letter-spacing-3);
   }
   &:where(.fui-r-size-4) {
     --avatar-size: var(--space-8);
-    --avatar-fallback-one-letter-font-size: var(--font-size-5);
-    --avatar-fallback-two-letters-font-size: var(--font-size-4);
-    letter-spacing: var(--letter-spacing-4);
   }
   &:where(.fui-r-size-5) {
     --avatar-size: var(--space-9);
-    --avatar-fallback-one-letter-font-size: var(--font-size-6);
-    letter-spacing: var(--letter-spacing-6);
   }
   &:where(.fui-r-size-6) {
     --avatar-size: 80px;
-    --avatar-fallback-one-letter-font-size: var(--font-size-7);
-    letter-spacing: var(--letter-spacing-7);
   }
   &:where(.fui-r-size-7) {
     --avatar-size: 96px;
-    --avatar-fallback-one-letter-font-size: var(--font-size-7);
-    letter-spacing: var(--letter-spacing-7);
   }
   &:where(.fui-r-size-8) {
     --avatar-size: 128px;
-    --avatar-fallback-one-letter-font-size: var(--font-size-8);
-    letter-spacing: var(--letter-spacing-8);
   }
   &:where(.fui-r-size-9) {
     --avatar-size: 160px;
-    --avatar-fallback-one-letter-font-size: var(--font-size-9);
-    letter-spacing: var(--letter-spacing-9);
   }
 }
