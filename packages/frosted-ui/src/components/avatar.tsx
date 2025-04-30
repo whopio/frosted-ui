@@ -114,6 +114,7 @@ const Avatar = (props: AvatarProps) => {
     variant = avatarPropDefs.variant.default,
     ...imageProps
   } = props;
+
   const fallback = React.useMemo(() => {
     if (typeof fallbackProp !== 'string') return fallbackProp;
     try {
@@ -141,7 +142,9 @@ const Avatar = (props: AvatarProps) => {
       <span
         className={classNames('fui-AvatarFallback', {
           'fui-one-letter': typeof fallback === 'string' && fallback.length === 1,
-          'fui-two-letters': typeof fallback === 'string' && fallback.length === 2,
+          // apply fui-two-letters if fallback is not a single letter.
+          // this also handles a case where <>Something</> is passed in as fallback (ReactNode  )
+          'fui-two-letters': !(typeof fallback === 'string' && fallback.length === 1),
         })}
       >
         {fallback}
