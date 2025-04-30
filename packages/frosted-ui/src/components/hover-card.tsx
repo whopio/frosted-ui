@@ -1,7 +1,7 @@
 'use client';
 
-import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
 import classNames from 'classnames';
+import { HoverCard as HoverCardPrimitive } from 'radix-ui';
 import * as React from 'react';
 import { Theme } from '../theme';
 import { hoverCardContentPropDefs } from './hover-card.props';

@@ -1,7 +1,7 @@
 'use client';
 
-import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
 import classNames from 'classnames';
+import { ScrollArea as ScrollAreaPrimitive } from 'radix-ui';
 import * as React from 'react';
 
 import { scrollAreaPropDefs } from './scroll-area.props';

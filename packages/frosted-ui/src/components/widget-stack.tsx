@@ -3,7 +3,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
-import { Slot } from '@radix-ui/react-slot';
+import { Slot } from 'radix-ui';
 import type { GetPropDefTypes, PropsWithoutColor } from '../helpers';
 import { useIsomorphicLayoutEffect } from '../helpers/use-isomorphic-layout-effect';
 import { widgetStackRootPropDefs } from './widget-stack.props';
@@ -421,7 +421,7 @@ const WidgetStackNext = (props: WidgetStackNextProps) => {
   const { nextDisabled, controls } = useWidgetStack();
 
   return (
-    <Slot
+    <Slot.Root
       {...props}
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore -- fix later
@@ -438,7 +438,7 @@ interface WidgetStackPrevProps extends Omit<React.ComponentProps<'button'>, 'asC
 const WidgetStackPrev = (props: WidgetStackPrevProps) => {
   const { prevDisabled, controls } = useWidgetStack();
   return (
-    <Slot
+    <Slot.Root
       {...props}
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore -- fix later

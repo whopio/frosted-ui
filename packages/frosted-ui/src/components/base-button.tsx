@@ -1,5 +1,5 @@
-import { Slot } from '@radix-ui/react-slot';
 import classNames from 'classnames';
+import { Slot } from 'radix-ui';
 import * as React from 'react';
 
 import { baseButtonPropDefs } from './base-button.props';
@@ -28,7 +28,7 @@ const BaseButton = (props: BaseButtonProps) => {
     highContrast = baseButtonPropDefs.highContrast.default,
     ...baseButtonProps
   } = props;
-  const Comp = asChild ? Slot : 'button';
+  const Comp = asChild ? Slot.Root : 'button';
 
   return (
     <Comp
@@ -54,7 +54,7 @@ const BaseButton = (props: BaseButtonProps) => {
           <span style={{ display: 'contents', visibility: 'hidden' }} aria-hidden>
             {children}
           </span>
-          <VisuallyHidden>{children}</VisuallyHidden>
+          <VisuallyHidden.Root>{children}</VisuallyHidden.Root>
 
           <span
             style={{

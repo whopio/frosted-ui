@@ -1,7 +1,7 @@
 'use client';
 
-import * as SwitchPrimitive from '@radix-ui/react-switch';
 import classNames from 'classnames';
+import { Switch as SwitchPrimitive } from 'radix-ui';
 import * as React from 'react';
 
 import { switchPropDefs } from './switch.props';

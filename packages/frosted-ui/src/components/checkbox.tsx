@@ -1,7 +1,7 @@
 'use client';
 
-import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 import classNames from 'classnames';
+import { Checkbox as CheckboxPrimitive } from 'radix-ui';
 import * as React from 'react';
 
 import { checkboxPropDefs } from './checkbox.props';
