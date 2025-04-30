@@ -118,30 +118,7 @@ const Avatar = (props: AvatarProps) => {
   const fallback = React.useMemo(() => {
     if (typeof fallbackProp !== 'string') return fallbackProp;
     try {
-      const initials = getInitials(fallbackProp);
-      const initialsSvg = (
-        <svg
-          width="40"
-          height="40"
-          viewBox="0 0 40 40"
-          xmlns="http://www.w3.org/2000/svg"
-          className="fui-AvatarInitials"
-        >
-          {/* Text initials */}
-          <text
-            x="20"
-            y="20"
-            textAnchor="middle"
-            dominantBaseline="central"
-            fill="currentColor"
-            fontSize={18}
-            fontWeight="500"
-          >
-            {initials}
-          </text>
-        </svg>
-      );
-      return initialsSvg;
+      return getInitials(fallbackProp);
     } catch (error) {
       console.error('Error generating initials:', error);
       return fallbackProp;
@@ -165,7 +142,9 @@ const Avatar = (props: AvatarProps) => {
       <span
         className={classNames('fui-AvatarFallback', {
           'fui-one-letter': typeof fallback === 'string' && fallback.length === 1,
-          'fui-two-letters': typeof fallback === 'string' && fallback.length === 2,
+          // apply fui-two-letters if fallback is not a single letter.
+          // this also handles a case where <>Something</> is passed in as fallback (ReactNode  )
+          'fui-two-letters': !(typeof fallback === 'string' && fallback.length === 1),
         })}
       >
         {fallback}
