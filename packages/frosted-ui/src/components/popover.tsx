@@ -1,7 +1,7 @@
 'use client';
 
-import * as PopoverPrimitive from '@radix-ui/react-popover';
 import classNames from 'classnames';
+import { Popover as PopoverPrimitive } from 'radix-ui';
 import * as React from 'react';
 import { Theme } from '../theme';
 import { popoverContentPropDefs } from './popover.props';

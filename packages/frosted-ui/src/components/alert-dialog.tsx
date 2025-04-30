@@ -1,7 +1,7 @@
 'use client';
 
-import * as AlertDialogPrimitive from '@radix-ui/react-alert-dialog';
 import classNames from 'classnames';
+import { AlertDialog as AlertDialogPrimitive } from 'radix-ui';
 import * as React from 'react';
 import { Theme } from '../theme';
 import { alertDialogContentPropDefs } from './alert-dialog.props';

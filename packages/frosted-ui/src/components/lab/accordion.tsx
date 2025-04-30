@@ -1,7 +1,7 @@
 'use client';
 
-import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import classNames from 'classnames';
+import { Accordion as AccordionPrimitive } from 'radix-ui';
 import * as React from 'react';
 import type { PropsWithoutColor } from '../../helpers';
 

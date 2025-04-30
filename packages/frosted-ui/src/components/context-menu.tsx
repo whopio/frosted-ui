@@ -1,8 +1,7 @@
 'use client';
 
-import * as ContextMenuPrimitive from '@radix-ui/react-context-menu';
-import { Slottable } from '@radix-ui/react-slot';
 import classNames from 'classnames';
+import { ContextMenu as ContextMenuPrimitive, Slot } from 'radix-ui';
 import * as React from 'react';
 import { ThickCheckIcon, ThickChevronRightIcon } from '../icons';
 import { Theme, useThemeContext } from '../theme';
@@ -99,7 +98,7 @@ const ContextMenuItem = (props: ContextMenuItemProps) => {
       {...itemProps}
       className={classNames('fui-reset', 'fui-BaseMenuItem', 'fui-ContextMenuItem', className)}
     >
-      <Slottable>{children}</Slottable>
+      <Slot.Slottable>{children}</Slot.Slottable>
       {shortcut && <div className="fui-BaseMenuShortcut fui-ContextMenuShortcut">{shortcut}</div>}
     </ContextMenuPrimitive.Item>
   );
@@ -138,7 +137,7 @@ const ContextMenuRadioItem = (props: ContextMenuRadioItemProps) => {
         className,
       )}
     >
-      <Slottable>{children}</Slottable>
+      <Slot.Slottable>{children}</Slot.Slottable>
       <ContextMenuPrimitive.ItemIndicator className="fui-BaseMenuItemIndicator fui-ContextMenuItemIndicator">
         <ThickCheckIcon className="fui-BaseMenuItemIndicatorIcon fui-ContextMenuItemIndicatorIcon" />
       </ContextMenuPrimitive.ItemIndicator>
@@ -164,7 +163,7 @@ const ContextMenuCheckboxItem = (props: ContextMenuCheckboxItemProps) => {
         className,
       )}
     >
-      <Slottable>{children}</Slottable>
+      <Slot.Slottable>{children}</Slot.Slottable>
       <ContextMenuPrimitive.ItemIndicator className="fui-BaseMenuItemIndicator fui-ContextMenuItemIndicator">
         <ThickCheckIcon className="fui-BaseMenuItemIndicatorIcon fui-ContextMenuItemIndicatorIcon" />
       </ContextMenuPrimitive.ItemIndicator>
@@ -192,7 +191,7 @@ const ContextMenuSubTrigger = (props: ContextMenuSubTriggerProps) => {
         className,
       )}
     >
-      <Slottable>{children}</Slottable>
+      <Slot.Slottable>{children}</Slot.Slottable>
       <ThickChevronRightIcon className="fui-BaseMenuSubTriggerIcon fui-ContextMenuSubTriggerIcon" />
     </ContextMenuPrimitive.SubTrigger>
   );

@@ -1,5 +1,5 @@
-import { Slot } from '@radix-ui/react-slot';
 import classNames from 'classnames';
+import { Slot } from 'radix-ui';
 import * as React from 'react';
 
 import { cardPropDefs } from './card.props';
@@ -20,7 +20,7 @@ const Card = (props: CardProps) => {
     variant = cardPropDefs.variant.default,
     ...cardProps
   } = props;
-  const Comp = asChild ? Slot : 'div';
+  const Comp = asChild ? Slot.Root : 'div';
 
   function getChild() {
     const firstChild = React.Children.only(children) as React.ReactElement;

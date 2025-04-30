@@ -4,13 +4,7 @@ import React from 'react';
 import { AccessibleIcon, IconButton } from '../../../src/components';
 
 const CrossIcon = () => (
-  <svg
-    viewBox="0 0 32 32"
-    width={24}
-    height={24}
-    fill="none"
-    stroke="currentColor"
-  >
+  <svg viewBox="0 0 32 32" width={24} height={24} fill="none" stroke="currentColor">
     <path d="M2 30 L30 2 M30 30 L2 2" />
   </svg>
 );
@@ -18,14 +12,14 @@ const CrossIcon = () => (
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
   title: 'Utilities/AccessibleIcon',
-  component: AccessibleIcon,
+  component: AccessibleIcon.Root,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
     layout: 'centered',
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
-} satisfies Meta<typeof AccessibleIcon>;
+} satisfies Meta<typeof AccessibleIcon.Root>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -40,9 +34,9 @@ export const Default: Story = {
       {/* The accessible label for the icon. This label will be visually
       hidden but announced to screen * reader users, similar to `alt`
       text for `img` tags. */}
-      <AccessibleIcon {...args}>
+      <AccessibleIcon.Root {...args}>
         <CrossIcon />
-      </AccessibleIcon>
+      </AccessibleIcon.Root>
     </IconButton>
   ),
 };

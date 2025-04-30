@@ -1,7 +1,7 @@
 'use client';
 
-import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import classNames from 'classnames';
+import { NavigationMenu } from 'radix-ui';
 import * as React from 'react';
 import { GetPropDefTypes, getSubtree } from '../helpers';
 import { segmentedControlNavLinkPropDefs } from './segmented-control-nav.props';

@@ -1,9 +1,9 @@
 'use client';
 
 import { DirectionProvider } from '@radix-ui/react-direction';
-import { Slot } from '@radix-ui/react-slot';
-import * as TooltipPrimitive from '@radix-ui/react-tooltip';
+
 import classNames from 'classnames';
+import { Slot, Tooltip as TooltipPrimitive } from 'radix-ui';
 import * as React from 'react';
 import { getMatchingGrayColor, themePropDefs } from './theme-options';
 
@@ -199,7 +199,7 @@ const ThemeImpl = (props: ThemeImplProps) => {
     //
     ...themeProps
   } = props;
-  const Comp = asChild ? Slot : 'div';
+  const Comp = asChild ? Slot.Root : 'div';
   const resolvedGrayColor = grayColor === 'auto' ? getMatchingGrayColor(accentColor) : grayColor;
   const isExplicitAppearance = props.appearance !== undefined && props.appearance !== 'inherit';
   const isExplicitGrayColor = props.grayColor !== undefined;
