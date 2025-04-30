@@ -50,6 +50,7 @@
 }
 
 .fui-AvatarFallback {
+  pointer-events: none;
   grid-area: 1 / 1;
   z-index: 0;
   width: 100%;
