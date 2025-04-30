@@ -26,7 +26,7 @@
     --radius-full: var(--radius-thumb);
   }
 }
-.fui-AvatarRoot[data-status='loaded'] {
+.fui-AvatarRoot:where(:has(.fui-AvatarImage[data-status='loaded'])) {
   outline: none;
   background: none;
 }
