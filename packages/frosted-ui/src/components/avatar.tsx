@@ -114,10 +114,34 @@ const Avatar = (props: AvatarProps) => {
     variant = avatarPropDefs.variant.default,
     ...imageProps
   } = props;
+
   const fallback = React.useMemo(() => {
     if (typeof fallbackProp !== 'string') return fallbackProp;
     try {
-      return getInitials(fallbackProp);
+      const initials = getInitials(fallbackProp);
+      const initialsSvg = (
+        <svg
+          width="40"
+          height="40"
+          viewBox="0 0 40 40"
+          xmlns="http://www.w3.org/2000/svg"
+          className="fui-AvatarInitials"
+        >
+          {/* Text initials */}
+          <text
+            x="20"
+            y="20"
+            textAnchor="middle"
+            dominantBaseline="central"
+            fill="currentColor"
+            fontSize={18}
+            fontWeight="500"
+          >
+            {initials}
+          </text>
+        </svg>
+      );
+      return initialsSvg;
     } catch (error) {
       console.error('Error generating initials:', error);
       return fallbackProp;
