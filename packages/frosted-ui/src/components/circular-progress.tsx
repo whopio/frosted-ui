@@ -1,7 +1,7 @@
 'use client';
 
-import * as ProgressPrimitive from '@radix-ui/react-progress';
 import classNames from 'classnames';
+import { Progress as ProgressPrimitive } from 'radix-ui';
 import * as React from 'react';
 import { GetPropDefTypes, PropsWithoutColor } from '../helpers';
 import { circularProgressPropDefs } from './circular-progress.props';

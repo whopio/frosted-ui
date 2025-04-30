@@ -1,7 +1,7 @@
 'use client';
 
-import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 import classNames from 'classnames';
+import { RadioGroup as RadioGroupPrimitive } from 'radix-ui';
 import * as React from 'react';
 
 import { radioGroupPropDefs } from './radio-group.props';

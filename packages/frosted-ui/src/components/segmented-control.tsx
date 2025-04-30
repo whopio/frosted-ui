@@ -1,7 +1,7 @@
 'use client';
 
-import * as TabsPrimitive from '@radix-ui/react-tabs';
 import classNames from 'classnames';
+import { Tabs as TabsPrimitive } from 'radix-ui';
 import * as React from 'react';
 
 interface SegmentedControlRootProps extends React.ComponentProps<typeof TabsPrimitive.Root> {}

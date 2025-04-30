@@ -1,7 +1,7 @@
 'use client';
 
-import * as DialogPrimitive from '@radix-ui/react-dialog';
 import classNames from 'classnames';
+import { Dialog as DialogPrimitive } from 'radix-ui';
 import * as React from 'react';
 import { Theme } from '../theme';
 import { dialogContentPropDefs } from './dialog.props';

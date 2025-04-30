@@ -1,5 +1,5 @@
-import { Slot } from '@radix-ui/react-slot';
 import classNames from 'classnames';
+import { Slot } from 'radix-ui';
 import * as React from 'react';
 
 import { headingPropDefs } from './heading.props';
@@ -33,7 +33,7 @@ const Heading = (props: HeadingProps) => {
     ...headingProps
   } = props;
   return (
-    <Slot
+    <Slot.Root
       data-accent-color={color}
       {...headingProps}
       className={classNames(
@@ -47,7 +47,7 @@ const Heading = (props: HeadingProps) => {
       )}
     >
       {asChild ? children : <Tag>{children}</Tag>}
-    </Slot>
+    </Slot.Root>
   );
 };
 Heading.displayName = 'Heading';
