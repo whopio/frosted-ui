@@ -103,6 +103,9 @@ importers:
       '@radix-ui/primitive':
         specifier: ^1.1.1
         version: 1.1.1
+      '@radix-ui/react-context':
+        specifier: ^1.1.2
+        version: 1.1.2(@types/react@18.3.11)(react@18.3.1)
       '@radix-ui/react-direction':
         specifier: ^1.1.0
         version: 1.1.1(@types/react@18.3.11)(react@18.3.1)
@@ -111,6 +114,9 @@ importers:
         version: 2.1.0(@types/react-dom@18.3.1)(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-use-callback-ref':
         specifier: ^1.1.0
+        version: 1.1.1(@types/react@18.3.11)(react@18.3.1)
+      '@radix-ui/react-use-layout-effect':
+        specifier: ^1.1.1
         version: 1.1.1(@types/react@18.3.11)(react@18.3.1)
       '@react-aria/calendar':
         specifier: ^3.5.13
