@@ -24,10 +24,10 @@
   &:where(.fui-variant-round) {
     --radius-full: var(--radius-thumb);
   }
-}
-.fui-AvatarRoot:where(:has(.fui-AvatarImage[data-status='loaded'])) {
-  outline: none;
-  background: none;
+  &:where([data-status='loaded']) {
+    outline: none;
+    background: none;
+  }
 }
 
 .fui-AvatarImage {
