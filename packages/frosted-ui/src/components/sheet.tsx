@@ -43,7 +43,7 @@ interface SheetCloseProps extends Omit<React.ComponentProps<typeof DrawerPrimiti
 const SheetClose = (props: SheetCloseProps) => <DrawerPrimitive.Close {...props} asChild />;
 SheetClose.displayName = 'SheetClose';
 
-const SheetPortal = DrawerPrimitive.Portal;
+const SheetPortal = DrawerPrimitive.Portal as React.ComponentType<{ children?: React.ReactNode }>;
 
 interface SheetOverlayProps extends React.ComponentProps<typeof DrawerPrimitive.Overlay> {}
 
@@ -56,15 +56,17 @@ interface SheetContentProps extends React.ComponentProps<typeof DrawerPrimitive.
 
 const SheetContent = ({ className, children, ...props }: SheetContentProps) => (
   <SheetPortal>
-    <Theme asChild>
-      <SheetOverlay />
-    </Theme>
-    <Theme asChild>
-      <DrawerPrimitive.Content className={classNames('fui-SheetContent', className)} {...props}>
-        <div className="fui-SheetContentHandle" />
-        {children}
-      </DrawerPrimitive.Content>
-    </Theme>
+    <>
+      <Theme asChild>
+        <SheetOverlay />
+      </Theme>
+      <Theme asChild>
+        <DrawerPrimitive.Content className={classNames('fui-SheetContent', className)} {...props}>
+          <div className="fui-SheetContentHandle" />
+          {children}
+        </DrawerPrimitive.Content>
+      </Theme>
+    </>
   </SheetPortal>
 );
 SheetContent.displayName = 'SheetContent';
