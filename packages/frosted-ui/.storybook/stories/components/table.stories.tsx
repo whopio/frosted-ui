@@ -715,7 +715,9 @@ const TanstackTableExample = (props: React.ComponentProps<typeof Table.Root>) =>
                 {headerGroup.headers.map((header) => {
                   return (
                     <Table.ColumnHeaderCell key={header.id}>
-                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                      {header.isPlaceholder
+                        ? null
+                        : (flexRender(header.column.columnDef.header, header.getContext()) as React.ReactNode)}
                     </Table.ColumnHeaderCell>
                   );
                 })}
@@ -727,7 +729,9 @@ const TanstackTableExample = (props: React.ComponentProps<typeof Table.Root>) =>
               table.getRowModel().rows.map((row) => (
                 <Table.Row key={row.id} data-state={row.getIsSelected() && 'selected'}>
                   {row.getVisibleCells().map((cell) => (
-                    <Table.Cell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Table.Cell>
+                    <Table.Cell key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext()) as React.ReactNode}
+                    </Table.Cell>
                   ))}
                 </Table.Row>
               ))

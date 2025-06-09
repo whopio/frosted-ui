@@ -22,80 +22,90 @@ type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Default: Story = {
-  render: (args) => (
-    <div>
-      <OTPField.Root
-        {...args}
-        maxLength={6}
-        render={({ slots }) => (
-          <>
-            <OTPField.Group>
-              {slots.slice(0, 3).map((slot, index) => (
-                <OTPField.Slot key={index} {...slot} />
-              ))}{' '}
-            </OTPField.Group>
-            <OTPField.Separator />
-            <OTPField.Group>
-              {slots.slice(3).map((slot, index) => (
-                <OTPField.Slot key={index} {...slot} />
-              ))}
-            </OTPField.Group>
-          </>
-        )}
-      />
-    </div>
-  ),
+  render: (args) => {
+    const { children, ...otherArgs } = args;
+    return (
+      <div>
+        <OTPField.Root
+          {...otherArgs}
+          maxLength={6}
+          render={({ slots }) => (
+            <>
+              <OTPField.Group>
+                {slots.slice(0, 3).map((slot, index) => (
+                  <OTPField.Slot key={index} {...slot} />
+                ))}{' '}
+              </OTPField.Group>
+              <OTPField.Separator />
+              <OTPField.Group>
+                {slots.slice(3).map((slot, index) => (
+                  <OTPField.Slot key={index} {...slot} />
+                ))}
+              </OTPField.Group>
+            </>
+          )}
+        />
+      </div>
+    );
+  },
 };
 
 export const Pattern: Story = {
-  render: (args) => (
-    <div>
-      <OTPField.Root
-        {...args}
-        maxLength={6}
-        pattern={REGEXP_ONLY_DIGITS_AND_CHARS}
-        render={({ slots }) => (
-          <OTPField.Group>
-            {slots.map((slot, index) => (
-              <OTPField.Slot key={index} {...slot} />
-            ))}{' '}
-          </OTPField.Group>
-        )}
-      />
-    </div>
-  ),
+  render: (args) => {
+    const { children, ...otherArgs } = args;
+    return (
+      <div>
+        <OTPField.Root
+          {...otherArgs}
+          maxLength={6}
+          pattern={REGEXP_ONLY_DIGITS_AND_CHARS}
+          render={({ slots }) => (
+            <OTPField.Group>
+              {slots.map((slot, index) => (
+                <OTPField.Slot key={index} {...slot} />
+              ))}{' '}
+            </OTPField.Group>
+          )}
+        />
+      </div>
+    );
+  },
 };
 
 export const Separator: Story = {
-  render: (args) => (
-    <div>
-      <OTPField.Root
-        {...args}
-        maxLength={6}
-        render={({ slots }) => (
-          <OTPField.Group style={{ gap: 4 }}>
-            {slots.map((slot, index) => (
-              <React.Fragment key={index}>
-                <OTPField.Slot style={{ borderRadius: 10 }} {...slot} />
-                {index !== slots.length - 1 && <OTPField.Separator />}
-              </React.Fragment>
-            ))}{' '}
-          </OTPField.Group>
-        )}
-      />
-    </div>
-  ),
+  render: (args) => {
+    const { children, ...otherArgs } = args;
+    return (
+      <div>
+        <OTPField.Root
+          {...otherArgs}
+          maxLength={6}
+          render={({ slots }) => (
+            <OTPField.Group style={{ gap: 4 }}>
+              {slots.map((slot, index) => (
+                <React.Fragment key={index}>
+                  <OTPField.Slot style={{ borderRadius: 10 }} {...slot} />
+                  {index !== slots.length - 1 && <OTPField.Separator />}
+                </React.Fragment>
+              ))}{' '}
+            </OTPField.Group>
+          )}
+        />
+      </div>
+    );
+  },
 };
 
 export const Controlled: Story = {
   render: (args) => {
+    const { children, ...otherArgs } = args;
     const [value, setValue] = React.useState('');
 
     return (
       <div>
         <div style={{ marginBottom: 16 }}>
           <OTPField.Root
-            {...args}
+            {...otherArgs}
             maxLength={6}
             value={value}
             onChange={(value) => setValue(value)}
