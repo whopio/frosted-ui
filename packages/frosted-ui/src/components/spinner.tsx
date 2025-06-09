@@ -47,13 +47,7 @@ const Spinner = (props: SpinnerProps) => {
        * `display: contents` removes the content from the accessibility tree in some browsers,
        * so we force remove it with `aria-hidden`
        */}
-      <span
-        aria-hidden
-        style={{ display: 'contents', visibility: 'hidden' }}
-        // Workaround to use `inert` until https://github.com/facebook/react/pull/24730 is merged.
-        // eslint-disable-next-line no-constant-condition
-        {...{ inert: true ? '' : undefined }}
-      >
+      <span aria-hidden style={{ display: 'contents', visibility: 'hidden' }} inert>
         {children}
       </span>
 
