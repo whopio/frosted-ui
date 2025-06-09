@@ -1,1 +1,1 @@
-export * from './segmented-control';
+export * as SegmentedControl from './segmented-control';

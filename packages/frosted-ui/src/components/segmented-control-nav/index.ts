@@ -1,2 +1,2 @@
-export * from './segmented-control-nav';
+export * as SegmentedControlNav from './segmented-control-nav';
 export * from './segmented-control-nav.props';

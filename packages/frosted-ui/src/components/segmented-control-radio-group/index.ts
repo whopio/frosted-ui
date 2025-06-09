@@ -1,1 +1,1 @@
-export * from './segmented-control-radio-group';
+export * as SegmentedControlRadioGroup from './segmented-control-radio-group';

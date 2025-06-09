@@ -1,1 +1,1 @@
-export * from './otp-field';
+export * as OTPField from './otp-field';

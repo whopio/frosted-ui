@@ -1,2 +1,2 @@
-export * from './breadcrumbs';
+export * as Breadcrumbs from './breadcrumbs';
 export * from './breadcrumbs.props';

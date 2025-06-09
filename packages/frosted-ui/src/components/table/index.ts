@@ -1,2 +1,2 @@
-export * from './table';
+export * as Table from './table';
 export * from './table.props';
