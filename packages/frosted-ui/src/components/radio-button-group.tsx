@@ -110,8 +110,8 @@ const RadioButtonGroupOverlay = () => {
     const parentElement = ref.current?.parentElement;
     if (!parentElement) return;
     const parentElementComputedStyles = getComputedStyle(parentElement);
-    ref.current.style.setProperty('--parent-border-width', parentElementComputedStyles.borderWidth);
-    ref.current.style.setProperty('--parent-border-radius', parentElementComputedStyles.borderRadius);
+    ref.current?.style.setProperty('--parent-border-width', parentElementComputedStyles.borderWidth);
+    ref.current?.style.setProperty('--parent-border-radius', parentElementComputedStyles.borderRadius);
   }, [ref]);
 
   return <div ref={ref} className="fui-RadioButtonGroupOverlay" aria-hidden />;

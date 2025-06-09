@@ -86,8 +86,8 @@
   "peerDependencies": {
     "@types/react": "*",
     "@types/react-dom": "*",
-    "react": "^16.8 || ^17.0 || ^18.0",
-    "react-dom": "^16.8 || ^17.0 || ^18.0"
+    "react": "^16.8 || ^17.0 || ^18.0 || ^19.0",
+    "react-dom": "^16.8 || ^17.0 || ^18.0 || ^19.0"
   },
   "peerDependenciesMeta": {
     "@types/react": {
@@ -104,18 +104,18 @@
   },
   "devDependencies": {
     "@frosted-ui/icons": "workspace:0.0.1-canary.20",
-    "@storybook/addon-essentials": "^8.3.6",
-    "@storybook/addon-interactions": "^8.3.6",
-    "@storybook/addon-links": "^8.3.6",
-    "@storybook/addon-mdx-gfm": "^8.3.6",
-    "@storybook/addon-onboarding": "^8.3.6",
-    "@storybook/blocks": "^8.3.6",
-    "@storybook/react": "^8.3.6",
-    "@storybook/react-vite": "^8.3.6",
-    "@storybook/test": "^8.3.6",
+    "@storybook/addon-essentials": "^8.5.3",
+    "@storybook/addon-interactions": "^8.5.3",
+    "@storybook/addon-links": "^8.5.3",
+    "@storybook/addon-mdx-gfm": "^8.5.3",
+    "@storybook/addon-onboarding": "^8.5.3",
+    "@storybook/blocks": "^8.5.3",
+    "@storybook/react": "^8.5.3",
+    "@storybook/react-vite": "^8.5.3",
+    "@storybook/test": "^8.5.3",
     "@tanstack/react-table": "^8.20.5",
-    "@types/react": "^18.3.11",
-    "@types/react-dom": "^18.3.1",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
     "@whop-sdk/turbo-module": "^0.0.5",
     "autoprefixer": "^10.4.20",
     "eslint": "^8.57.1",
@@ -128,9 +128,9 @@
     "postcss-discard-empty": "^6.0.3",
     "postcss-import": "^15.1.0",
     "postcss-nesting": "^12.1.5",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "storybook": "^8.3.6",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "storybook": "^8.5.3",
     "stylelint": "^15.11.0",
     "typescript": "^5.6.3"
   },
