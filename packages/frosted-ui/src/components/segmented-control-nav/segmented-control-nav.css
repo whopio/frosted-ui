@@ -1,0 +1,6 @@
+@import '../base-segmented-control-list/base-segmented-control-list.css';
+
+.fui-SegmentedControlNavItem {
+  display: flex;
+  flex: 1;
+}
