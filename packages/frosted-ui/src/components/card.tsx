@@ -23,7 +23,7 @@ const Card = (props: CardProps) => {
   const Comp = asChild ? Slot.Root : 'div';
 
   function getChild() {
-    const firstChild = React.Children.only(children) as React.ReactElement;
+    const firstChild = React.Children.only(children) as React.ReactElement<{ children?: React.ReactNode }>;
     return React.cloneElement(firstChild, {
       children: <div className="fui-CardInner">{firstChild.props.children}</div>,
     });
