@@ -1,13 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Checkbox } from '../../../src/components/checkbox';
-import { Code } from '../../../src/components/code';
-import { Em } from '../../../src/components/em';
-import { Kbd } from '../../../src/components/kbd';
-import { Link } from '../../../src/components/link';
-import { Text } from '../../../src/components/text';
-import { textPropDefs } from '../../../src/components/text.props';
+
+import { Checkbox, Code, Em, Kbd, Link, Text, textPropDefs } from '../../../src/components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {

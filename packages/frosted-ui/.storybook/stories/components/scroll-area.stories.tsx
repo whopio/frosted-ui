@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Heading, ScrollArea, Text } from '../../../src/components';
-import { scrollAreaPropDefs } from '../../../src/components/scroll-area.props';
+import { Heading, ScrollArea, Text, scrollAreaPropDefs } from '../../../src/components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {

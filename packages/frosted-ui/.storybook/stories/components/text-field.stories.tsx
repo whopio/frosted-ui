@@ -8,8 +8,7 @@ import {
   ThreeDotsHorizontal20,
 } from '@frosted-ui/icons';
 import React from 'react';
-import { Button, IconButton, TextField } from '../../../src/components';
-import { textFieldPropDefs } from '../../../src/components/text-field.props';
+import { Button, IconButton, TextField, textFieldPropDefs } from '../../../src/components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {

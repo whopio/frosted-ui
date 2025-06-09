@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { FilterChip } from '../../../src/components';
-import { filterChipPropDefs } from '../../../src/components/filter-chip.props';
+import { FilterChip, filterChipPropDefs } from '../../../src/components';
 
 const ExampleIcon = ({ size }: { size: number }) => (
   <svg width={size} height={size} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

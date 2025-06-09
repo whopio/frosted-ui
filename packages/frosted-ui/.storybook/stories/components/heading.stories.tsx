@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 
-import { Heading } from '../../../src/components/heading';
-import { headingPropDefs } from '../../../src/components/heading.props';
+import { Heading, headingPropDefs } from '../../../src/components/heading';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {

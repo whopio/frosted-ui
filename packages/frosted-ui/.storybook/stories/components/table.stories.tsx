@@ -26,8 +26,8 @@ import {
   Table,
   Text,
   TextField,
+  tableRootPropDefs,
 } from '../../../src/components';
-import { tableRootPropDefs } from '../../../src/components/table.props';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {

@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Code, Spinner, Switch, Text } from '../../../src/components';
-import { spinnerPropDefs } from '../../../src/components/spinner.props';
+import { Code, Spinner, Switch, Text, spinnerPropDefs } from '../../../src/components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
