@@ -1,9 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Code, Text } from '../../../src/components';
-import { Checkbox } from '../../../src/components/checkbox';
-import { checkboxPropDefs } from '../../../src/components/checkbox.props';
+import { Checkbox, Code, Text, checkboxPropDefs } from '../../../src/components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {

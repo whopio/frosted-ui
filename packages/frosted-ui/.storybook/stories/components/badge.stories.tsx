@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Badge } from '../../../src/components';
-import { badgePropDefs } from '../../../src/components/badge.props';
+import { Badge, badgePropDefs } from '../../../src/components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {

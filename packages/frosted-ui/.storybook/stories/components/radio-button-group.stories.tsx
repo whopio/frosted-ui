@@ -204,7 +204,6 @@ export const Color: Story = {
                 <Card
                   size="3"
                   variant="classic"
-                  // @ts-expect-error - TODO: fix this
                   style={
                     {
                       width: 100,

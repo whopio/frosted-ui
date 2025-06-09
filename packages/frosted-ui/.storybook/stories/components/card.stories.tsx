@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Avatar, Card, Code, Inset, Text } from '../../../src/components';
-import { cardPropDefs } from '../../../src/components/card.props';
+import { Avatar, Card, Code, Inset, Text, cardPropDefs } from '../../../src/components';
 
 const CardContentExample = ({ size = '2' }: { size?: '1' | '2' | '3' | '4' }) => (
   <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center' }}>
