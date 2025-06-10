@@ -1,0 +1,10 @@
+@import '../base-tabs-list/base-tabs-list.css';
+
+.fui-TabsContent {
+  position: relative;
+  outline: 0;
+}
+
+.fui-TabsContent:where(:focus-visible) {
+  outline: 2px solid var(--color-focus-root);
+}

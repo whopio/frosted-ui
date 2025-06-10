@@ -2,11 +2,11 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import * as Icons from '@frosted-ui/icons';
 import React from 'react';
-import { Tooltip } from '../../../src/components';
+import { Tooltip } from '../../../src/components/tooltip';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
-  title: 'Lab/Icons',
+  title: 'Utilities/Icons',
   // @ts-ignore
   component: Icons.SparkleRectangle20,
   parameters: {
