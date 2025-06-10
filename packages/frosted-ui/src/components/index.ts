@@ -1,6 +1,6 @@
 // LAYOUT
 //------------------------------------------------------------------------------
-export * from './aspectRatio';
+export * from './aspect-ratio';
 export * from './inset';
 
 // TYPOGRAPHY
