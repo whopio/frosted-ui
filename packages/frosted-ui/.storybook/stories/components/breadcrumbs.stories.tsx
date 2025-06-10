@@ -5,7 +5,7 @@ import { Breadcrumbs, breadcrumbsPropDefs } from '../../../src/components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
-  title: 'Lab/Breadcrumbs',
+  title: 'Components/Breadcrumbs',
   component: Breadcrumbs.Root,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
@@ -46,12 +46,8 @@ export const WithOnClick: Story = {
   render: (args) => (
     <Breadcrumbs.Root {...args}>
       <Breadcrumbs.Item onClick={() => alert('Home')}>Home</Breadcrumbs.Item>
-      <Breadcrumbs.Item onClick={() => alert('Products')}>
-        Products
-      </Breadcrumbs.Item>
-      <Breadcrumbs.Item onClick={() => alert('Sneaker Bot')}>
-        Sneaker Bot
-      </Breadcrumbs.Item>
+      <Breadcrumbs.Item onClick={() => alert('Products')}>Products</Breadcrumbs.Item>
+      <Breadcrumbs.Item onClick={() => alert('Sneaker Bot')}>Sneaker Bot</Breadcrumbs.Item>
     </Breadcrumbs.Root>
   ),
 };

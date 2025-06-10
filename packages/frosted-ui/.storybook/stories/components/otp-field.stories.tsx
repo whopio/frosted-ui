@@ -6,7 +6,7 @@ import { OTPField, Text } from '../../../src/components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
-  title: 'Lab/OTPField',
+  title: 'Controls/OTPField',
   component: OTPField.Root,
   args: {} as React.ComponentProps<typeof OTPField.Root>,
   parameters: {

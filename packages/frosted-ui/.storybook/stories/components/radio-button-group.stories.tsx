@@ -5,7 +5,7 @@ import { Avatar, Card, RadioButtonGroup, Text, Tooltip, radioGroupPropDefs } fro
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
-  title: 'Lab/RadioButtonGroup',
+  title: 'Controls/RadioButtonGroup',
   component: RadioButtonGroup.Root,
   args: {
     disabled: false,

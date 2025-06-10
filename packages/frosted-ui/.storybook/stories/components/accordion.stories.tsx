@@ -6,7 +6,7 @@ import { RootProps as AccordionRootProps } from '../../../src/components/accordi
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
-  title: 'Lab/Accordion',
+  title: 'Layout/Accordion',
   component: Accordion.Root,
   args: {},
   parameters: {

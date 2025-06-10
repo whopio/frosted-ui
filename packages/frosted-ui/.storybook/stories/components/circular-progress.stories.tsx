@@ -5,7 +5,7 @@ import { CircularProgress, circularProgressPropDefs } from '../../../src/compone
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
-  title: 'Lab/CircularProgress',
+  title: 'Components/CircularProgress',
   component: CircularProgress,
   args: {
     size: circularProgressPropDefs.size.default,

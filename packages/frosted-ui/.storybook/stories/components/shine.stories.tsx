@@ -5,7 +5,7 @@ import { Shine, Text } from '../../../src/components';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
-  title: 'Lab/Shine',
+  title: 'Utilities/Shine',
   component: Shine,
   args: {
     puffyness: '2',
