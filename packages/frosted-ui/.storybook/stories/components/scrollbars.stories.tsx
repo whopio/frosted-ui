@@ -1,7 +1,7 @@
 import type { StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Text } from '../../../src/components';
+import { Text } from '../../../src/components/text';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {

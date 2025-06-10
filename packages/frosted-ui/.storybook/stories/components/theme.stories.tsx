@@ -40,7 +40,7 @@ export const Default: Story = {
                 <Text color="gray" size="2">
                   Attach screenshot?
                 </Text>
-                <Switch size="1" defaultChecked />
+                <Switch size="1" checked />
               </label>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--space-2)' }}>
                 <Button variant="surface">Back</Button>
