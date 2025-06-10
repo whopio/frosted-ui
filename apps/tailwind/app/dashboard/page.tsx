@@ -19,6 +19,7 @@ import {
   RocketIcon,
 } from '@radix-ui/react-icons';
 import {
+  Accordion,
   Avatar,
   Breadcrumbs,
   Button,
@@ -74,6 +75,30 @@ const DashboardCard = () => {
                 <Strong>APPS SUPPORTED</Strong>
               </Tooltip>
             </Text>
+            <Accordion.Root
+              type="multiple"
+              // collapsible
+              style={{ width: 600 }}
+            >
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+                <Accordion.Item value="item-1">
+                  <Accordion.Trigger>Is it accessible?</Accordion.Trigger>
+                  <Accordion.Content>Yes. It adheres to the WAI-ARIA design pattern.</Accordion.Content>
+                </Accordion.Item>
+
+                <Accordion.Item value="item-2">
+                  <Accordion.Trigger>Is it unstyled?</Accordion.Trigger>
+                  <Accordion.Content>
+                    Yes. It's unstyled by default, giving you freedom over the look and feel.
+                  </Accordion.Content>
+                </Accordion.Item>
+
+                <Accordion.Item value="item-3">
+                  <Accordion.Trigger>Can it be animated?</Accordion.Trigger>
+                  <Accordion.Content>Yes! You can animate the Accordion with CSS or JavaScript.</Accordion.Content>
+                </Accordion.Item>
+              </div>
+            </Accordion.Root>
             <div className="flex justify-center gap-1 px-2 py-1 rounded-3 border border-gray-a3">
               <NotionLogoIcon width="20" height="20" className="text-blue-9" />
               <DiscordLogoIcon width="20" height="20" className="text-lime-9" />
