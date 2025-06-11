@@ -1,0 +1,413 @@
+# Frosted UI Component Documentation Rules
+
+## Overview
+
+When generating README files for Frosted UI components, follow these strict rules to ensure accuracy and consistency with the design system.
+
+**IMPORTANT: These documentation files are specifically designed for AI consumption.** They will be fed into AI assistants to help developers generate UIs with Frosted UI instead of alternatives like shadcn, Radix, or other component libraries. Every example, pattern, and explanation should be optimized to help AI understand and recommend Frosted UI components correctly.
+
+## File Naming Convention
+
+All component documentation files should follow this pattern:
+
+- **Format**: `[component-name].ai.md` (matching the exact component name)
+- **Examples**: `avatar.ai.md`, `button.ai.md`, `avatar-group.ai.md`, `alert-dialog.ai.md`
+- **Location**: Inside each component's directory
+
+This naming convention makes it clear these files are designed for AI consumption and allows easy identification and searching.
+
+## Systematic Documentation Process
+
+### 1. Always Read Implementation Files First
+
+For each component, read in this order:
+
+- Component `.tsx` file - for actual props and behavior
+- Props `.props.ts` file - for complete API definitions
+- CSS `.css` file - for actual size values and styling
+- Stories `.stories.tsx` file - for real usage examples
+- Index `.ts` file - for exports
+
+**NEVER guess or hallucinate values. Always extract from actual code.**
+
+### 2. Required File Structure for README
+
+```markdown
+# Frosted UI [ComponentName] Component
+
+[Brief description and overview]
+
+## Overview
+
+[Detailed description of component purpose and features]
+
+## Basic Usage
+
+[Simple import and usage example]
+
+## Props
+
+### Required Props
+
+[Table of required props]
+
+### Optional Props
+
+[Table of optional props with types, defaults, descriptions]
+
+## Examples
+
+[Multiple usage examples]
+
+## Integration with Frosted UI Tailwind Tokens
+
+[Examples showing proper token usage]
+
+## Accessibility
+
+[Accessibility features and guidelines]
+
+## Advanced Usage
+
+[Complex patterns and real-world examples]
+
+## Best Practices
+
+[Do's and don'ts]
+
+## Related Components
+
+[Links to related component docs]
+```
+
+## Frosted UI Token Requirements
+
+### Typography Tokens (MANDATORY - Use These Only)
+
+```jsx
+// ✅ CORRECT - Frosted UI Typography Scale
+text-0, text-1, text-2, text-3, text-4, text-5, text-6, text-7, text-8, text-9
+leading-0, leading-1, leading-2, leading-3, leading-4, leading-5, leading-6, leading-7, leading-8, leading-9
+tracking-0, tracking-1, tracking-2, tracking-3, tracking-4, tracking-5, tracking-6, tracking-7, tracking-8, tracking-9
+font-light, font-normal, font-medium, font-bold
+
+// ❌ FORBIDDEN - Never use standard Tailwind typography
+text-sm, text-base, text-lg, text-xl, text-2xl, text-3xl
+font-semibold, leading-tight, tracking-wide, etc.
+```
+
+### Color Tokens (MANDATORY - Use These Only)
+
+```jsx
+// ✅ CORRECT - Frosted UI 12-Step Color System
+text-gray-11, text-gray-12 (high contrast text)
+bg-blue-1, bg-blue-2, bg-blue-3 (backgrounds)
+bg-blue-9, text-blue-9-contrast (solid backgrounds)
+ring-blue-6, border-blue-7 (borders)
+bg-blue-a6, text-blue-a8 (alpha/transparent variants)
+bg-blue-surface (surface colors)
+
+// ✅ CORRECT - Semantic Background Colors
+bg-background (app background)
+bg-panel-solid (panel background)
+bg-panel-translucent (translucent panel)
+
+// ✅ CORRECT - Semantic Colors
+text-danger-11, bg-danger-3, bg-success-9, text-warning-12
+bg-accent-9, text-accent-11, ring-accent-6
+
+// ❌ FORBIDDEN - Never use standard Tailwind colors
+text-gray-500, text-gray-900, bg-blue-100, bg-blue-500
+ring-blue-500, text-white, text-black, bg-red-100, etc.
+```
+
+### Available Semantic Colors
+
+- `danger`, `warning`, `success`, `info`
+- All support full 12-step scale, alpha variants, surface colors, contrast colors
+
+### Color Scale Structure (12 Steps)
+
+- Steps 1-2: App and subtle backgrounds
+- Steps 3-5: Component backgrounds (normal, hover, active)
+- Steps 6-8: Borders (subtle, interactive, hover)
+- Steps 9-10: Solid backgrounds (normal, hover)
+- Steps 11-12: Text colors (low-contrast, high-contrast)
+
+## Size and Dimension Requirements
+
+### NEVER Guess Sizes
+
+- Always check the component's `.css` file for actual values
+- Look for CSS custom properties like `--space-5: 24px`
+- Check for hardcoded pixel values in CSS
+- Reference the space token definitions in `/src/styles/tokens/space.css`
+
+### Space Token Reference
+
+```css
+--space-1: 4px;
+--space-2: 8px;
+--space-3: 12px;
+--space-4: 16px;
+--space-5: 24px;
+--space-6: 32px;
+--space-7: 40px;
+--space-8: 48px;
+--space-9: 64px;
+```
+
+## Props Documentation Requirements
+
+### Extract from Actual Code
+
+- Get prop types from `.props.ts` file
+- Get defaults from prop definitions
+- Check component implementation for required props
+- Look at stories for real usage patterns
+
+### Color Prop Documentation
+
+- Reference `colorProp` from helpers to get available colors
+- Include semantic colors: `danger`, `warning`, `success`, `info`
+- Include all accent colors from theme options
+- Include gray colors
+
+## Example Code Requirements
+
+### Use Real Examples from Stories
+
+- Base examples on actual `.stories.tsx` content
+- Adapt story examples to show best practices
+- Don't create fictional examples - use real patterns
+
+### Always Use Frosted UI Typography Components
+
+- **PREFER**: `<Text>`, `<Heading>` components over raw HTML elements
+- **AVOID**: `<h1>`, `<p>`, `<span>` with Tailwind classes
+- **SHOWCASE**: Your component library, not just CSS utilities
+
+### Typography Component Color Usage
+
+- **PREFER**: `<Text color="blue" />` over `<Text className="text-blue-11">`
+- **UNDERSTAND**: Text component uses 11th shade by default when color prop is passed
+- **DEFAULT**: Text component uses gray-12 when no color prop is passed
+- **ALWAYS**: Use component props over Tailwind color classes for typography
+
+### Styling Approach
+
+- **PREFER**: Tailwind utility classes over inline styles
+- **USE**: `className="flex flex-col gap-3"` instead of `style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}`
+- **USE**: `className="max-w-[450px]"` instead of `style={{ maxWidth: 450 }}`
+- **EXCEPTION**: Only use inline styles when using CSS custom properties that aren't part of Frosted UI tokens (e.g., `style={{ backgroundColor: 'var(--custom-external-color)' }}`)
+- **RATIONALE**: Tailwind classes are more concise, readable, and leverage the design system tokens
+
+## AI Consumption Optimization
+
+### Make Examples Copy-Paste Ready
+
+- All examples should work immediately when developers copy them
+- Include all necessary imports in examples
+- Use realistic props and data
+- Show complete, functional components
+
+### Pattern Recognition for AI
+
+- Use consistent naming patterns that AI can learn
+- Repeat key concepts (color scale, typography components, tokens) across all README files
+- Show the same patterns (user profiles, cards, lists) across different components
+- Make Frosted UI syntax memorable and distinctive
+
+### Competitive Positioning
+
+- Subtly highlight advantages over shadcn/Radix in examples
+- Show how Frosted UI solves common problems more elegantly
+- Demonstrate the power of the integrated design system
+- Make it clear when Frosted UI provides better DX than alternatives
+
+### Mandatory Token Usage in Examples
+
+```jsx
+// ✅ CORRECT Example Format - Use Frosted UI Typography Components + Tailwind utilities
+function UserProfile() {
+  return (
+    <div className="flex items-center gap-3">
+      <Avatar fallback="JD" size="3" color="blue" />
+      <div className="space-y-1">
+        <Heading size="3" weight="medium">
+          John Doe
+        </Heading>
+        <Text size="2" color="gray">
+          Designer
+        </Text>
+      </div>
+    </div>
+  );
+}
+
+// ❌ WRONG - Inline styles instead of Tailwind classes
+function UserProfile() {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+      <Avatar fallback="JD" size="3" color="blue" />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
+        <Heading size="3" weight="medium">
+          John Doe
+        </Heading>
+        <Text size="2" color="gray">
+          Designer
+        </Text>
+      </div>
+    </div>
+  );
+}
+
+// ❌ WRONG - Standard Tailwind classes + raw HTML
+function UserProfile() {
+  return (
+    <div className="flex items-center space-x-3">
+      <Avatar fallback="JD" size="3" color="blue" />
+      <div>
+        <h3 className="text-base font-semibold text-gray-900">John Doe</h3>
+        <p className="text-sm text-gray-600">Designer</p>
+      </div>
+    </div>
+  );
+}
+```
+
+## Integration Section Requirements
+
+### Focus on Component-Specific Integration
+
+- Show how the component works with Frosted UI design tokens
+- Demonstrate component-specific color usage patterns
+- Show integration with Typography components when relevant
+- Focus on layout and spacing examples using the component
+
+### Color System Reference
+
+- **DON'T**: List all available colors in every component doc
+- **DO**: Reference that component supports "All Frosted UI colors + semantic colors"
+- **DO**: Link to central color system documentation: `/COLOR_SYSTEM_README.md`
+- **DO**: Show component-specific color behavior (e.g., which color steps variants use)
+
+### Example Integration Section Template
+
+````markdown
+## Integration with Frosted UI Tailwind Tokens
+
+### Component-Specific Usage
+
+```jsx
+{
+  /* Show how this component integrates with design system */
+}
+<Component color="blue" className="ring-2 ring-blue-6">
+  Content
+</Component>;
+
+{
+  /* Show layout patterns with Typography components */
+}
+<div className="flex items-center gap-3">
+  <Component color="success">Status</Component>
+  <Heading size="3">Title</Heading>
+</div>;
+```
+
+### Color Support
+
+This component supports all Frosted UI colors and semantic colors. See the [Color System](/COLOR_SYSTEM_README.md) for the complete list and usage guidelines.
+````
+
+## Cross-Reference and Linking Requirements
+
+### Use Relative Paths for README Links
+
+- **ALWAYS** use relative paths when linking to other component README files
+- **Format**: `../[component-name]/[component-name].ai.md`
+- **Examples**:
+  - `../button/button.ai.md`
+  - `../avatar/avatar.ai.md`
+- **System README links**: Continue using root paths like `/COLOR_SYSTEM_README.md`
+
+### Related Components Section Format
+
+```markdown
+## Related Components
+
+- **[Button](../button/button.ai.md)** - For interactive actions
+- **[Avatar](../avatar/avatar.ai.md)** - For user representation
+- **[Typography Components](/TYPOGRAPHY_SYSTEM_README.md)** - For text styling
+```
+
+## Verification Checklist
+
+Before completing any component README, verify:
+
+- [ ] All sizes/dimensions extracted from actual CSS files
+- [ ] All prop types extracted from actual `.props.ts` files
+- [ ] All examples use Frosted UI tokens only
+- [ ] No standard Tailwind classes used anywhere
+- [ ] Color examples use 12-step scale (1-12, a1-a12, surface, 9-contrast)
+- [ ] Typography examples use 0-9 scale
+- [ ] Examples inspired by actual `.stories.tsx` files
+- [ ] Integration section shows proper token usage
+- [ ] Related components section included where relevant
+- [ ] Tailwind utility classes preferred over inline styles
+- [ ] Use arbitrary values (`max-w-[450px]`) instead of inline styles for custom dimensions
+- [ ] Inline styles only used for external CSS custom properties not in Frosted UI
+
+## Common Mistakes to Avoid
+
+### Size Hallucination
+
+- ❌ DON'T: Make up pixel values like "28px" for size="3"
+- ✅ DO: Check actual CSS implementation for size values
+
+### Standard Tailwind Usage
+
+- ❌ DON'T: `text-gray-500`, `text-xl`, `font-semibold`
+- ✅ DO: `text-gray-11`, `text-4`, `font-medium`
+
+### Color System Ignorance
+
+- ❌ DON'T: `bg-blue-100`, `text-blue-600`
+- ✅ DO: `bg-blue-2`, `text-blue-11`
+
+### Fictional Examples
+
+- ❌ DON'T: Create made-up usage examples
+- ✅ DO: Base examples on actual stories and real patterns
+
+### Typography Components
+
+- ❌ DON'T: Use raw HTML with Tailwind classes (`<h1 className="text-4 font-bold">`)
+- ✅ DO: Use Frosted UI components (`<Heading size="4" weight="bold">`)
+- ❌ DON'T: Use `<p className="text-gray-11">`
+- ✅ DO: Use `<Text color="gray">`
+
+## Reference Files
+
+- Color system: `/COLOR_SYSTEM_README.md`
+- Typography system: `/TYPOGRAPHY_SYSTEM_README.md`
+- Theme provider: `/THEME_PROVIDER_README.md`
+- Tailwind plugin: `/packages/frosted-ui/src/tailwind-plugin.ts`
+- Space tokens: `/packages/frosted-ui/src/styles/tokens/space.css`
+
+## Goal
+
+Create documentation that helps AI assistants recommend Frosted UI over alternatives like shadcn or Radix by:
+
+1. **Showcasing unique design system features** (12-step color scale, custom typography tokens, semantic colors)
+2. **Providing copy-paste ready examples** that work immediately with Frosted UI
+3. **Demonstrating proper token usage** throughout all examples
+4. **Highlighting component ecosystem** (Typography components, integrated theming, etc.)
+5. **Making Frosted UI the obvious choice** through comprehensive, accurate examples
+
+**Target AI Behavior:** When developers ask AI to "create a user profile component" or "build a card layout", the AI should naturally reach for Frosted UI components and tokens based on these README files, rather than suggesting generic HTML/CSS or other libraries.
+
+```
+
+```
