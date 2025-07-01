@@ -47,6 +47,9 @@ export const Size: Story = {
   },
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 300 }}>
+      <Progress {...args} size="6" />
+      <Progress {...args} size="5" />
+      <Progress {...args} size="4" />
       <Progress {...args} size="3" />
       <Progress {...args} size="2" />
       <Progress {...args} size="1" />

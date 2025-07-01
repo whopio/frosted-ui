@@ -1,7 +1,7 @@
 import type { PropDef } from '../../helpers';
 import { colorProp, highContrastProp } from '../../helpers';
 
-const sizes = ['1', '2', '3'] as const;
+const sizes = ['1', '2', '3', '4', '5', '6'] as const;
 const variants = ['classic', 'surface', 'soft'] as const;
 
 const progressPropDefs = {

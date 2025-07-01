@@ -3,7 +3,7 @@
   display: block;
   width: 100%;
   height: var(--progress-height);
-  border-radius: var(--progress-border-radius);
+  border-radius: var(--radius-thumb);
   overflow: hidden;
   background-color: var(--gray-a4);
 }
@@ -21,16 +21,22 @@
 
 .fui-ProgressRoot {
   &:where(.fui-r-size-1) {
-    --progress-height: var(--space-2);
-    --progress-border-radius: max(var(--radius-1), var(--radius-thumb));
+    --progress-height: 2px;
   }
   &:where(.fui-r-size-2) {
-    --progress-height: var(--space-3);
-    --progress-border-radius: max(var(--radius-2), var(--radius-thumb));
+    --progress-height: 4px;
   }
   &:where(.fui-r-size-3) {
-    --progress-height: var(--space-4);
-    --progress-border-radius: max(var(--radius-2), var(--radius-thumb));
+    --progress-height: 6px;
+  }
+  &:where(.fui-r-size-4) {
+    --progress-height: 8px;
+  }
+  &:where(.fui-r-size-5) {
+    --progress-height: 12px;
+  }
+  &:where(.fui-r-size-6) {
+    --progress-height: 16px;
   }
 }
 
