@@ -212,7 +212,12 @@ export const Alignment: Story = {
         </Text>
       </RadioGroup.Root>
 
-      <RadioGroup.Root {...args} size="2" defaultValue="1">
+      <RadioGroup.Root
+        {...args}
+        size="2"
+        defaultValue="1"
+        style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}
+      >
         <Text as="label" size="3">
           <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
             <RadioGroup.Item value="1" /> Default
@@ -226,7 +231,12 @@ export const Alignment: Story = {
         </Text>
       </RadioGroup.Root>
 
-      <RadioGroup.Root {...args} size="3" defaultValue="1">
+      <RadioGroup.Root
+        {...args}
+        size="3"
+        defaultValue="1"
+        style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}
+      >
         <Text as="label" size="4">
           <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
             <RadioGroup.Item value="1" /> Default
