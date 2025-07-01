@@ -9,7 +9,6 @@ const meta = {
   component: Progress,
   args: {
     size: progressPropDefs.size.default,
-    variant: progressPropDefs.variant.default,
     color: progressPropDefs.color.default,
     value: 40,
     max: 100,
@@ -29,7 +28,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     size: progressPropDefs.size.default,
-    variant: progressPropDefs.variant.default,
     color: progressPropDefs.color.default,
   },
   render: (args) => (
@@ -42,7 +40,6 @@ export const Default: Story = {
 export const Size: Story = {
   args: {
     size: progressPropDefs.size.default,
-    variant: progressPropDefs.variant.default,
     color: progressPropDefs.color.default,
   },
   render: (args) => (
@@ -53,20 +50,6 @@ export const Size: Story = {
       <Progress {...args} size="3" />
       <Progress {...args} size="2" />
       <Progress {...args} size="1" />
-    </div>
-  ),
-};
-
-export const Variant: Story = {
-  args: {
-    size: progressPropDefs.size.default,
-    color: progressPropDefs.color.default,
-  },
-  render: (args) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 300 }}>
-      <Progress {...args} variant="soft" />
-      <Progress {...args} variant="surface" />
-      <Progress {...args} variant="classic" />
     </div>
   ),
 };
@@ -91,14 +74,10 @@ export const HighContrast: Story = {
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--space-2)' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 300 }}>
-        <Progress {...args} variant="soft" highContrast={false} />
-        <Progress {...args} variant="surface" highContrast={false} />
-        <Progress {...args} variant="classic" highContrast={false} />
+        <Progress {...args} highContrast={false} />
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 300 }}>
-        <Progress {...args} variant="soft" highContrast />
-        <Progress {...args} variant="surface" highContrast />
-        <Progress {...args} variant="classic" highContrast />
+        <Progress {...args} highContrast />
       </div>
     </div>
   ),
