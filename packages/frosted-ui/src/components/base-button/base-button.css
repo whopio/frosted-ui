@@ -80,12 +80,10 @@
   text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.32);
 
   box-shadow:
-    /* border color */
-    0 0 0 1px var(--accent-a5) inset,
-    /* highlight*/ 0px 1px 1.5px 1px var(--white-a7) inset,
-    /* shadow */ 0px -1px 1.5px 1px var(--black-a5) inset,
-    /* drop shadow */ 0px 2px 2px 0px var(--black-a3);
-
+    0 0 0 1px var(--accent-a9) inset,
+    0px 1px 2px 0px rgba(0, 0, 0, 0.15),
+    0px -1px 1px 1px rgba(0, 0, 0, 0.08) inset,
+    0px 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
   &:where(.fui-high-contrast) {
     background-color: var(--accent-12);
     --base-button-color: var(--gray-1);
@@ -116,7 +114,10 @@
     padding-top: var(--base-button-classic-active-padding-top);
 
     /* prettier-ignore */
-    box-shadow: 0 0 0 1px var(--accent-10) inset, 0px 3px 4px 0px var(--black-a4) inset;
+    box-shadow: 
+    0px 1px 2px 0px rgba(0, 0, 0, 0.15),
+    0px -1px 1px 1px rgba(0, 0, 0, 0.08) inset,
+    0px 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
 
     &:where(.fui-high-contrast) {
       background-color: var(--accent-12);
@@ -127,12 +128,12 @@
     cursor: var(--cursor-disabled);
     --base-button-color: var(--gray-a8);
     background-color: var(--gray-3);
+
     box-shadow:
-    /* highlight*/
-      0px 1px 1.5px 1px var(--white-a3) inset,
-      /* border color */ 0 0 0 1px var(--gray-a4) inset,
-      /* shadow */ 0px -1px 1.5px 1px var(--black-a5) inset,
-      /* drop shadow */ 0px 2px 2px 0px var(--black-a3);
+      0 0 0 1px var(--gray-a4) inset,
+      0px 1px 2px 0px rgba(0, 0, 0, 0.15),
+      0px -1px 1px 1px rgba(0, 0, 0, 0.08) inset,
+      0px 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
     background-image: none;
     filter: none;
     text-shadow: none;
