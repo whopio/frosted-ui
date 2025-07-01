@@ -51,10 +51,10 @@
     &:where([data-state='unchecked']):not(:disabled):active {
       box-shadow: inset 0 0 0 1px var(--gray-a9);
     }
-    &:where(:is([data-state='checked'], [data-state='indeterminate'])):not(:disabled):hover {
+    &:where(:is([data-state='checked'], [data-state='indeterminate'])):not(:disabled):not(.fui-high-contrast):hover {
       background-color: var(--accent-10);
     }
-    &:where(:is([data-state='checked'], [data-state='indeterminate'])):not(:disabled):active {
+    &:where(:is([data-state='checked'], [data-state='indeterminate'])):not(:disabled):not(.fui-high-contrast):active {
       background-color: var(--accent-11);
     }
   }
