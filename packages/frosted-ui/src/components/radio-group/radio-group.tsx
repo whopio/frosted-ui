@@ -15,7 +15,6 @@ const RadioGroupRoot = (props: RadioGroupRootProps) => {
   const {
     className,
     size = radioGroupPropDefs.size.default,
-    variant = radioGroupPropDefs.variant.default,
     color = radioGroupPropDefs.color.default,
     highContrast = radioGroupPropDefs.highContrast.default,
     ...rootProps
@@ -24,7 +23,7 @@ const RadioGroupRoot = (props: RadioGroupRootProps) => {
     <RadioGroupPrimitive.Root
       data-accent-color={color}
       {...rootProps}
-      className={classNames('fui-RadioGroupRoot', className, `fui-r-size-${size}`, `fui-variant-${variant}`, {
+      className={classNames('fui-RadioGroupRoot', className, `fui-r-size-${size}`, {
         'fui-high-contrast': highContrast,
       })}
     />

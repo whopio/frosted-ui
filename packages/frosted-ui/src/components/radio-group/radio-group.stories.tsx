@@ -25,7 +25,6 @@ export const Default: Story = {
   args: {
     size: radioGroupPropDefs.size.default,
     color: radioGroupPropDefs.color.default,
-    variant: radioGroupPropDefs.variant.default,
     highContrast: radioGroupPropDefs.highContrast.default,
   },
   render: (args) => (
@@ -43,7 +42,6 @@ export const Composed: Story = {
   args: {
     size: radioGroupPropDefs.size.default,
     color: radioGroupPropDefs.color.default,
-    variant: radioGroupPropDefs.variant.default,
     highContrast: radioGroupPropDefs.highContrast.default,
   },
   render: (args) => (
@@ -82,42 +80,6 @@ export const Size: Story = {
 
       <RadioGroup.Root {...args} size="3" defaultValue="1">
         <RadioGroup.Item value="1" />
-      </RadioGroup.Root>
-    </div>
-  ),
-};
-
-export const Variant: Story = {
-  render: (args) => (
-    <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
-      <RadioGroup.Root
-        {...args}
-        variant="surface"
-        defaultValue="1"
-        style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}
-      >
-        <RadioGroup.Item value="1" />
-        <RadioGroup.Item value="2" />
-      </RadioGroup.Root>
-
-      <RadioGroup.Root
-        {...args}
-        variant="classic"
-        defaultValue="1"
-        style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}
-      >
-        <RadioGroup.Item value="1" />
-        <RadioGroup.Item value="2" />
-      </RadioGroup.Root>
-
-      <RadioGroup.Root
-        {...args}
-        variant="soft"
-        defaultValue="1"
-        style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}
-      >
-        <RadioGroup.Item value="1" />
-        <RadioGroup.Item value="2" />
       </RadioGroup.Root>
     </div>
   ),

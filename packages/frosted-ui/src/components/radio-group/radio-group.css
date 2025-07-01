@@ -63,17 +63,7 @@
     --letter-spacing: var(--letter-spacing-4);
     --radio-group-item-size: var(--space-5);
   }
-}
 
-/***************************************************************************************************
- *                                                                                                 *
- * VARIANTS                                                                                        *
- *                                                                                                 *
- ***************************************************************************************************/
-
-/* surface */
-
-.fui-RadioGroupRoot:where(.fui-variant-surface) {
   :where(.fui-RadioGroupButton[data-state='unchecked']) {
     background-color: var(--color-surface);
     box-shadow: inset 0 0 0 1px var(--gray-a7);
@@ -88,59 +78,6 @@
   }
   & :where(.fui-RadioGroupButton[data-disabled]) {
     box-shadow: inset 0 0 0 1px var(--gray-a6);
-    background-color: var(--gray-a3);
-    cursor: var(--cursor-disabled);
-    color: var(--gray-a8);
-  }
-}
-
-/* classic */
-
-.fui-RadioGroupRoot:where(.fui-variant-classic) {
-  :where(.fui-RadioGroupButton[data-state='unchecked']) {
-    background-color: var(--color-surface);
-    box-shadow:
-      inset 0 0 0 1px var(--gray-7),
-      var(--shadow-1);
-  }
-  :where(.fui-RadioGroupButton[data-state='checked']) {
-    background-color: var(--accent-9);
-    background-image: linear-gradient(to bottom, var(--white-a3), transparent, var(--black-a3));
-    box-shadow:
-      inset 0 0.5px 0.5px var(--white-a4),
-      inset 0 -0.5px 0.5px var(--black-a4);
-    color: var(--accent-9-contrast);
-  }
-  &:where(.fui-high-contrast) :where(.fui-RadioGroupButton[data-state='checked']) {
-    background-color: var(--accent-12);
-    color: var(--accent-1);
-  }
-  & :where(.fui-RadioGroupButton[data-disabled]) {
-    box-shadow: var(--shadow-1);
-    background-color: var(--gray-a3);
-    background-image: none;
-    cursor: var(--cursor-disabled);
-    color: var(--gray-a8);
-  }
-}
-
-/* soft */
-
-.fui-RadioGroupRoot:where(.fui-variant-soft) {
-  :where(.fui-RadioGroupButton) {
-    background-color: var(--accent-a5);
-  }
-  :where(.fui-RadioGroupButton[data-state='checked']) {
-    color: var(--accent-11);
-  }
-  &:where(.fui-high-contrast) :where(.fui-RadioGroupButton[data-state='checked']) {
-    color: var(--accent-12);
-  }
-  & :where(.fui-RadioGroupButton:focus-visible) {
-    /* Use gray outline when component color is gray */
-    outline-color: var(--accent-a8);
-  }
-  & :where(.fui-RadioGroupButton[data-disabled]) {
     background-color: var(--gray-a3);
     cursor: var(--cursor-disabled);
     color: var(--gray-a8);
