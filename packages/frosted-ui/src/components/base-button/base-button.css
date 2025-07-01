@@ -113,11 +113,7 @@
     background: var(--accent-9) linear-gradient(to bottom, transparent, var(--white-a4));
     padding-top: var(--base-button-classic-active-padding-top);
 
-    /* prettier-ignore */
-    box-shadow: 
-    0px 1px 2px 0px rgba(0, 0, 0, 0.15),
-    0px -1px 1px 1px rgba(0, 0, 0, 0.08) inset,
-    0px 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
+    box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.2) inset;
 
     &:where(.fui-high-contrast) {
       background-color: var(--accent-12);
