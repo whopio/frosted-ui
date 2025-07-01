@@ -19,6 +19,32 @@
     flex-direction: column;
     width: var(--slider-thumb-size);
   }
+
+  & :where(.fui-SliderTrack) {
+    background-color: var(--gray-a4);
+    /* Blend with white to increase contrast in dark mode */
+    background-image: linear-gradient(var(--white-a1), var(--white-a1));
+
+    &:where([data-disabled]) {
+      background-color: var(--gray-a4);
+      background-image: none;
+    }
+  }
+
+  & :where(.fui-SliderRange) {
+    background-color: var(--accent-9);
+  }
+
+  & :where(.fui-SliderThumb) {
+    --slider-thumb-box-shadow:
+      0 0 0 1px var(--black-a3), 0 0 0 1px var(--gray-a2), 0 0 0 1px var(--accent-a2), 0 1px 2px var(--gray-a4),
+      0 1px 3px -0.5px var(--gray-a3);
+
+    &:where([data-disabled])::after {
+      background-color: var(--gray-1);
+      box-shadow: 0 0 0 1px var(--gray-5);
+    }
+  }
 }
 
 .fui-SliderTrack {
@@ -109,119 +135,6 @@
   }
 }
 
-/***************************************************************************************************
- *                                                                                                 *
- * VARIANTS                                                                                        *
- *                                                                                                 *
- ***************************************************************************************************/
-
-/* surface */
-
-.fui-SliderRoot:where(.fui-variant-surface) {
-  & :where(.fui-SliderTrack) {
-    background-color: var(--gray-a3);
-    box-shadow: inset 0 0 0 1px var(--gray-a5);
-
-    &:where([data-disabled]) {
-      box-shadow: inset 0 0 0 1px var(--gray-a4);
-    }
-  }
-
-  & :where(.fui-SliderRange) {
-    background-color: var(--accent-9);
-    box-shadow: inset 0 0 0 1px var(--gray-a5);
-  }
-
-  & :where(.fui-SliderThumb) {
-    --slider-thumb-box-shadow: 0 0 0 1px var(--black-a4);
-
-    &:where([data-disabled])::after {
-      background-color: var(--gray-1);
-      box-shadow: 0 0 0 1px var(--gray-6);
-    }
-  }
-}
-
-/* classic */
-
-.fui-SliderRoot:where(.fui-variant-classic) {
-  & :where(.fui-SliderTrack) {
-    background-color: var(--gray-a3);
-    position: relative;
-
-    &::before {
-      content: '';
-      inset: 0;
-      position: absolute;
-      border-radius: inherit;
-      box-shadow: var(--shadow-1);
-    }
-    &:where([data-disabled])::before {
-      opacity: 0.5;
-    }
-  }
-
-  & :where(.fui-SliderRange) {
-    background-color: var(--accent-9);
-    box-shadow:
-      inset 0 0 0 1px var(--gray-a3),
-      inset 0 0 0 1px var(--accent-a4),
-      inset 0 0 0 1px var(--black-a1),
-      inset 0 1.5px 2px 0 var(--black-a2);
-
-    &:where(.fui-high-contrast) {
-      box-shadow:
-        inset 0 0 0 1px var(--gray-a3),
-        inset 0 0 0 1px var(--black-a2),
-        inset 0 1.5px 2px 0 var(--black-a2);
-    }
-  }
-
-  & :where(.fui-SliderThumb) {
-    /* prettier-ignore */
-    --slider-thumb-box-shadow:
-      0 0 0 1px var(--black-a3),
-      0 1px 3px var(--black-a1),
-      0 2px 4px -1px var(--black-a1);
-
-    &:where([data-disabled])::after {
-      background-color: var(--gray-1);
-      box-shadow: 0 0 0 1px var(--gray-6);
-    }
-  }
-}
-
-/* soft */
-
-.fui-SliderRoot:where(.fui-variant-soft) {
-  & :where(.fui-SliderTrack) {
-    background-color: var(--gray-a4);
-    /* Blend with white to increase contrast in dark mode */
-    background-image: linear-gradient(var(--white-a1), var(--white-a1));
-
-    &:where([data-disabled]) {
-      background-color: var(--gray-a4);
-      background-image: none;
-    }
-  }
-
-  & :where(.fui-SliderRange) {
-    background-image: linear-gradient(var(--accent-a5), var(--accent-a5));
-    background-color: var(--accent-6);
-  }
-
-  & :where(.fui-SliderThumb) {
-    --slider-thumb-box-shadow:
-      0 0 0 1px var(--black-a3), 0 0 0 1px var(--gray-a2), 0 0 0 1px var(--accent-a2), 0 1px 2px var(--gray-a4),
-      0 1px 3px -0.5px var(--gray-a3);
-
-    &:where([data-disabled])::after {
-      background-color: var(--gray-1);
-      box-shadow: 0 0 0 1px var(--gray-5);
-    }
-  }
-}
-
 /* all high-contrast */
 
 :where(.frosted-ui) {
@@ -234,7 +147,7 @@
 .fui-SliderRoot:where(.fui-high-contrast) {
   & :where(.fui-SliderRange) {
     /* blend black and accent */
-    background-image: var(--slider-range-high-contrast-background-image);
+    background: var(--accent-12);
   }
 }
 
@@ -254,8 +167,6 @@
     mix-blend-mode: var(--slider-disabled-blend-mode);
   }
   .fui-SliderRange:where(&) {
-    background-color: transparent;
-    background-image: none;
-    box-shadow: none;
+    background-color: var(--gray-a5);
   }
 }
