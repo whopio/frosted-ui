@@ -37,18 +37,18 @@
 .fui-PopoverContent {
   &:where(.fui-r-size-1) {
     --popover-content-padding: var(--space-3);
-    border-radius: var(--radius-4);
+    border-radius: 8px;
   }
   &:where(.fui-r-size-2) {
     --popover-content-padding: var(--space-4);
-    border-radius: var(--radius-4);
+    border-radius: 12px;
   }
   &:where(.fui-r-size-3) {
     --popover-content-padding: var(--space-5);
-    border-radius: var(--radius-5);
+    border-radius: 16px;
   }
   &:where(.fui-r-size-4) {
     --popover-content-padding: var(--space-6);
-    border-radius: var(--radius-5);
+    border-radius: 20px;
   }
 }
