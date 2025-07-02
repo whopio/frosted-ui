@@ -27,7 +27,14 @@ interface HoverCardContentProps
   container?: React.ComponentProps<typeof HoverCardPrimitive.Portal>['container'];
 }
 const HoverCardContent = (props: HoverCardContentProps) => {
-  const { className, forceMount, container, size = hoverCardContentPropDefs.size.default, ...contentProps } = props;
+  const {
+    className,
+    forceMount,
+    container,
+    size = hoverCardContentPropDefs.size.default,
+    variant = hoverCardContentPropDefs.variant.default,
+    ...contentProps
+  } = props;
   return (
     <HoverCardPrimitive.Portal container={container} forceMount={forceMount}>
       <Theme asChild>
@@ -36,7 +43,13 @@ const HoverCardContent = (props: HoverCardContentProps) => {
           sideOffset={8}
           collisionPadding={10}
           {...contentProps}
-          className={classNames('fui-PopperContent', 'fui-HoverCardContent', className, `fui-r-size-${size}`)}
+          className={classNames(
+            'fui-PopperContent',
+            'fui-HoverCardContent',
+            `fui-variant-${variant}`,
+            className,
+            `fui-r-size-${size}`,
+          )}
         />
       </Theme>
     </HoverCardPrimitive.Portal>

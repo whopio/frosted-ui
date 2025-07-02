@@ -24,6 +24,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     size: hoverCardContentPropDefs.size.default,
+    variant: hoverCardContentPropDefs.variant.default,
   },
   render: (args) => (
     <Text>
@@ -58,6 +59,9 @@ export const Default: Story = {
 };
 
 export const Size: Story = {
+  args: {
+    variant: hoverCardContentPropDefs.variant.default,
+  },
   render: (args) => (
     <div style={{ display: 'flex', gap: 'var(--space-4)' }}>
       <HoverCard.Root>
@@ -101,6 +105,10 @@ export const Size: Story = {
 
 export const InsetContent: Story = {
   name: 'With inset content',
+  args: {
+    size: hoverCardContentPropDefs.size.default,
+    variant: hoverCardContentPropDefs.variant.default,
+  },
   render: (args) => (
     <Text>
       Technology revolutionized{' '}
