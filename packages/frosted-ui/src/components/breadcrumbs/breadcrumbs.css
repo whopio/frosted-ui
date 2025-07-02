@@ -16,6 +16,7 @@
 .fui-BreadcrumbsItem:last-child,
 .fui-BreadcrumbsRoot .fui-BreadcrumbsLastItem {
   color: var(--accent-12);
+  font-weight: var(--font-weight-medium);
 }
 
 .fui-BreadcrumbsRoot {
