@@ -221,6 +221,17 @@
   backdrop-filter: var(--backdrop-filter-panel);
   box-shadow: var(--shadow-5);
   outline: 0.5px solid var(--color-base-menu-outline) !important;
+
+  &:where(.fui-variant-translucent) {
+    background-color: var(--color-panel-translucent);
+    -webkit-backdrop-filter: var(--backdrop-filter-panel);
+    backdrop-filter: var(--backdrop-filter-panel);
+    outline: 0.5px solid var(--color-popover-outline);
+  }
+  &:where(.fui-variant-solid) {
+    background-color: var(--color-panel-solid);
+  }
+
   & :where(.fui-BaseMenuSubTrigger[data-state='open']) {
     background-color: var(--gray-a3);
   }

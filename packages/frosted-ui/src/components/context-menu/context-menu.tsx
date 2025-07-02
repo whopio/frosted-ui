@@ -37,7 +37,7 @@ const ContextMenuContent = (props: ContextMenuContentProps) => {
     children,
     size = contextMenuContentPropDefs.size.default,
     color = contextMenuContentPropDefs.color.default,
-    highContrast = contextMenuContentPropDefs.highContrast.default,
+    variant = contextMenuContentPropDefs.variant.default,
     container,
     forceMount,
     ...contentProps
@@ -55,18 +55,15 @@ const ContextMenuContent = (props: ContextMenuContentProps) => {
             'fui-PopperContent',
             'fui-BaseMenuContent',
             'fui-ContextMenuContent',
+            `fui-variant-${variant}`,
             className,
             `fui-r-size-${size}`,
-            { 'fui-high-contrast': highContrast },
           )}
         >
           <ScrollArea type="auto">
             <div className={classNames('fui-BaseMenuViewport', 'fui-ContextMenuViewport')}>
               <ContextMenuContentContext.Provider
-                value={React.useMemo(
-                  () => ({ size, color: resolvedColor, highContrast }),
-                  [size, resolvedColor, highContrast],
-                )}
+                value={React.useMemo(() => ({ size, color: resolvedColor, variant }), [size, resolvedColor, variant])}
               >
                 {children}
               </ContextMenuContentContext.Provider>
@@ -203,7 +200,7 @@ interface ContextMenuSubContentProps extends React.ComponentProps<typeof Context
 }
 const ContextMenuSubContent = (props: ContextMenuSubContentProps) => {
   const { className, children, container, forceMount, ...contentProps } = props;
-  const { size, color, highContrast } = React.useContext(ContextMenuContentContext);
+  const { size, color, variant } = React.useContext(ContextMenuContentContext);
   return (
     <ContextMenuPrimitive.Portal container={container} forceMount={forceMount}>
       <Theme asChild>
@@ -218,9 +215,9 @@ const ContextMenuSubContent = (props: ContextMenuSubContentProps) => {
             'fui-BaseMenuSubContent',
             'fui-ContextMenuContent',
             'fui-ContextMenuSubContent',
+            `fui-variant-${variant}`,
             className,
             `fui-r-size-${size}`,
-            { 'fui-high-contrast': highContrast },
           )}
         >
           <ScrollArea type="auto">

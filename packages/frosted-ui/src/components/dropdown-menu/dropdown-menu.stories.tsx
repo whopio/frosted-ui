@@ -22,6 +22,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     size: dropdownMenuContentPropDefs.size.default,
+    variant: dropdownMenuContentPropDefs.variant.default,
   },
   render: (args) => {
     type Order = 'ascending' | 'descending';
@@ -73,6 +74,9 @@ export const Default: Story = {
 };
 
 export const Size: Story = {
+  args: {
+    variant: dropdownMenuContentPropDefs.variant.default,
+  },
   render: (args) => (
     <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center' }}>
       <DropdownMenu.Root>
@@ -155,39 +159,6 @@ export const Color: Story = {
           <DropdownMenu.Item shortcut="⌘ N" color="danger">
             Archive
           </DropdownMenu.Item>
-        </DropdownMenu.Content>
-      </DropdownMenu.Root>
-    </div>
-  ),
-};
-
-export const HighContrast: Story = {
-  name: 'High Contrast',
-  render: (args) => (
-    <div style={{ display: 'inline-grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--space-3)' }}>
-      <DropdownMenu.Root>
-        <DropdownMenu.Trigger>
-          <Button variant="soft">Options</Button>
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Content {...args}>
-          <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
-          <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
-          <DropdownMenu.Separator />
-          <DropdownMenu.Item shortcut="⌘ N">Archive</DropdownMenu.Item>
-        </DropdownMenu.Content>
-      </DropdownMenu.Root>
-
-      <DropdownMenu.Root>
-        <DropdownMenu.Trigger>
-          <Button variant="soft" highContrast>
-            Options
-          </Button>
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Content {...args} highContrast>
-          <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
-          <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
-          <DropdownMenu.Separator />
-          <DropdownMenu.Item shortcut="⌘ N">Archive</DropdownMenu.Item>
         </DropdownMenu.Content>
       </DropdownMenu.Root>
     </div>
