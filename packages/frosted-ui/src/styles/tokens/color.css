@@ -177,7 +177,7 @@
   --color-background: white;
   --color-overlay: var(--black-a6);
   --color-panel-solid: white;
-  --color-panel-translucent: rgba(255, 255, 255, 0.5);
+  --color-panel-translucent: rgba(255, 255, 255, 0.7);
   --color-surface: rgba(255, 255, 255, 0.9);
   --backdrop-filter-panel: blur(20px) saturate(190%) contrast(50%) brightness(130%);
   --color-stroke: var(--gray-a5);
