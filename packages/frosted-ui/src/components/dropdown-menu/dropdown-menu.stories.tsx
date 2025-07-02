@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Button, DropdownMenu } from '..';
+import { Button, DropdownMenu, dropdownMenuContentPropDefs } from '..';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -20,6 +20,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+  args: {
+    size: dropdownMenuContentPropDefs.size.default,
+  },
   render: (args) => {
     type Order = 'ascending' | 'descending';
     const [order, setOrder] = React.useState<Order>('ascending');
@@ -30,7 +33,7 @@ export const Default: Story = {
         <DropdownMenu.Trigger>
           <Button variant="soft">Options</Button>
         </DropdownMenu.Trigger>
-        <DropdownMenu.Content size="2" {...args}>
+        <DropdownMenu.Content {...args}>
           <DropdownMenu.Label>Swag</DropdownMenu.Label>
           <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
           <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
@@ -137,57 +140,21 @@ export const Color: Story = {
     <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
-          <Button variant="soft" color="indigo">
+          <Button variant="soft" color="gray">
             Options
           </Button>
         </DropdownMenu.Trigger>
-        <DropdownMenu.Content {...args} color="indigo">
-          <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
-          <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
+        <DropdownMenu.Content {...args}>
+          <DropdownMenu.Item shortcut="⌘ E" color="info">
+            Edit
+          </DropdownMenu.Item>
+          <DropdownMenu.Item shortcut="⌘ D" color="success">
+            Duplicate
+          </DropdownMenu.Item>
           <DropdownMenu.Separator />
-          <DropdownMenu.Item shortcut="⌘ N">Archive</DropdownMenu.Item>
-        </DropdownMenu.Content>
-      </DropdownMenu.Root>
-
-      <DropdownMenu.Root>
-        <DropdownMenu.Trigger>
-          <Button variant="soft" color="cyan">
-            Options
-          </Button>
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Content {...args} color="cyan">
-          <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
-          <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
-          <DropdownMenu.Separator />
-          <DropdownMenu.Item shortcut="⌘ N">Archive</DropdownMenu.Item>
-        </DropdownMenu.Content>
-      </DropdownMenu.Root>
-
-      <DropdownMenu.Root>
-        <DropdownMenu.Trigger>
-          <Button variant="soft" color="orange">
-            Options
-          </Button>
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Content {...args} color="orange">
-          <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
-          <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
-          <DropdownMenu.Separator />
-          <DropdownMenu.Item shortcut="⌘ N">Archive</DropdownMenu.Item>
-        </DropdownMenu.Content>
-      </DropdownMenu.Root>
-
-      <DropdownMenu.Root>
-        <DropdownMenu.Trigger>
-          <Button variant="soft" color="crimson">
-            Options
-          </Button>
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Content {...args} color="crimson">
-          <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
-          <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
-          <DropdownMenu.Separator />
-          <DropdownMenu.Item shortcut="⌘ N">Archive</DropdownMenu.Item>
+          <DropdownMenu.Item shortcut="⌘ N" color="danger">
+            Archive
+          </DropdownMenu.Item>
         </DropdownMenu.Content>
       </DropdownMenu.Root>
     </div>

@@ -66,8 +66,8 @@
 
 .fui-BaseMenuSeparator {
   height: 1px;
-  margin-top: var(--space-2);
-  margin-bottom: var(--space-2);
+  margin-top: 4px;
+  margin-bottom: 4px;
   margin-left: calc(-1 * var(--base-menu-content-padding) + 1px);
   margin-right: calc(-1 * var(--base-menu-content-padding) + 1px);
 }
@@ -81,6 +81,7 @@
   color: var(--gray-a10);
   user-select: none;
   cursor: default;
+  font-weight: var(--font-weight-semi-bold);
 
   :where(.fui-BaseMenuItem) + & {
     margin-top: var(--space-2);
@@ -98,24 +99,25 @@
  ***************************************************************************************************/
 
 .fui-BaseMenuContent {
+  --base-menu-content-padding: var(--space-1);
+
   &:where(.fui-r-size-1) {
-    --base-menu-content-padding: var(--space-1);
-    --base-menu-item-padding-left: calc(var(--space-5) / 1.2);
-    --base-menu-item-padding-right: var(--space-2);
+    --base-menu-item-padding-left: 8px;
+    --base-menu-item-padding-right: 8px;
     --base-menu-item-height: var(--space-5);
-    border-radius: var(--radius-3);
+    border-radius: 8px;
 
     & :where(.fui-BaseMenuItem) {
       font-size: var(--font-size-1);
       line-height: var(--line-height-1);
       letter-spacing: var(--letter-spacing-1);
-      border-radius: var(--radius-1);
+      border-radius: 4px;
     }
 
     & :where(.fui-BaseMenuLabel) {
-      font-size: var(--font-size-1);
-      line-height: var(--line-height-1);
-      letter-spacing: var(--letter-spacing-1);
+      font-size: var(--font-size-0);
+      line-height: var(--line-height-0);
+      letter-spacing: var(--letter-spacing-0);
     }
 
     & :where(.fui-BaseMenuItemIndicatorIcon, .fui-BaseMenuSubTriggerIcon) {
@@ -125,31 +127,34 @@
 
     /* reset with :not:has so we still support browsers without :has */
     &:where(:not(:has(.fui-BaseMenuCheckboxItem, .fui-BaseMenuRadioItem))) {
-      --base-menu-item-padding-left: var(--space-2);
+      --base-menu-item-padding-left: 8px;
     }
     &:where(:has(.fui-BaseMenuCheckboxItem, .fui-BaseMenuRadioItem)) {
-      --base-menu-item-padding-left: calc(var(--space-5) / 1.2);
+      --base-menu-item-padding-left: 24px;
     }
   }
 
   &:where(.fui-r-size-2) {
-    --base-menu-content-padding: var(--space-2);
-    --base-menu-item-padding-left: var(--space-3);
-    --base-menu-item-padding-right: var(--space-3);
+    --base-menu-item-padding-left: 10px;
+    --base-menu-item-padding-right: 10px;
     --base-menu-item-height: var(--space-6);
-    border-radius: var(--radius-4);
+    border-radius: 10px;
+
+    & :where(.fui-BaseMenuItem) {
+      border-radius: var(--radius-3);
+    }
 
     & :where(.fui-BaseMenuItem) {
       font-size: var(--font-size-2);
       line-height: var(--line-height-2);
       letter-spacing: var(--letter-spacing-2);
-      border-radius: var(--radius-2);
+      border-radius: 6px;
     }
 
     & :where(.fui-BaseMenuLabel) {
-      font-size: var(--font-size-2);
-      line-height: var(--line-height-2);
-      letter-spacing: var(--letter-spacing-2);
+      font-size: var(--font-size-1);
+      line-height: var(--line-height-1);
+      letter-spacing: var(--letter-spacing-1);
     }
 
     & :where(.fui-BaseMenuItemIndicatorIcon, .fui-BaseMenuSubTriggerIcon) {
@@ -159,31 +164,30 @@
 
     /* reset with :not:has so we still support browsers without :has */
     &:where(:not(:has(.fui-BaseMenuCheckboxItem, .fui-BaseMenuRadioItem))) {
-      --base-menu-item-padding-left: var(--space-3);
+      --base-menu-item-padding-left: 10px;
     }
     &:where(:has(.fui-BaseMenuCheckboxItem, .fui-BaseMenuRadioItem)) {
-      --base-menu-item-padding-left: var(--space-5);
+      --base-menu-item-padding-left: 26px;
     }
   }
 
   &:where(.fui-r-size-3) {
-    --base-menu-content-padding: var(--space-2);
-    --base-menu-item-padding-left: var(--space-3);
-    --base-menu-item-padding-right: var(--space-3);
+    --base-menu-item-padding-left: 12px;
+    --base-menu-item-padding-right: 12px;
     --base-menu-item-height: var(--space-7);
-    border-radius: var(--radius-5);
+    border-radius: 12px;
 
     & :where(.fui-BaseMenuItem) {
       font-size: var(--font-size-3);
       line-height: var(--line-height-3);
       letter-spacing: var(--letter-spacing-3);
-      border-radius: var(--radius-3);
+      border-radius: 8px;
     }
 
     & :where(.fui-BaseMenuLabel) {
-      font-size: var(--font-size-3);
-      line-height: var(--line-height-3);
-      letter-spacing: var(--letter-spacing-3);
+      font-size: var(--font-size-2);
+      line-height: var(--line-height-2);
+      letter-spacing: var(--letter-spacing-2);
     }
 
     & :where(.fui-BaseMenuItemIndicatorIcon, .fui-BaseMenuSubTriggerIcon) {
@@ -193,10 +197,10 @@
 
     /* reset with :not:has so we still support browsers without :has */
     &:where(:not(:has(.fui-BaseMenuCheckboxItem, .fui-BaseMenuRadioItem))) {
-      --base-menu-item-padding-left: var(--space-2);
+      --base-menu-item-padding-left: 12px;
     }
     &:where(:has(.fui-BaseMenuCheckboxItem, .fui-BaseMenuRadioItem)) {
-      --base-menu-item-padding-left: var(--space-6);
+      --base-menu-item-padding-left: 28px;
     }
   }
 }
@@ -221,7 +225,7 @@
     background-color: var(--gray-a3);
   }
   & :where(.fui-BaseMenuItem[data-highlighted]) {
-    background-color: var(--gray-a5);
+    background-color: var(--gray-a4);
 
     &:where([data-accent-color]) {
       background-color: var(--accent-a5);
