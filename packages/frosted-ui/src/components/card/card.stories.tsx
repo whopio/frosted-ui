@@ -87,6 +87,34 @@ export const Size: Story = {
           </div>
         </div>
       </Card>
+
+      <Card {...args} size="4" style={{ width: 500 }}>
+        <div style={{ display: 'flex', gap: 'var(--space-4)', alignItems: 'center' }}>
+          <Avatar size="5" fallback="T" color="indigo" />
+          <div>
+            <Text as="div" size="4" weight="bold">
+              Teodros Girmay
+            </Text>
+            <Text as="div" size="4" color="gray">
+              Engineering
+            </Text>
+          </div>
+        </div>
+      </Card>
+
+      <Card {...args} size="5" style={{ width: 500 }}>
+        <div style={{ display: 'flex', gap: 'var(--space-4)', alignItems: 'center' }}>
+          <Avatar size="5" fallback="T" color="indigo" />
+          <div>
+            <Text as="div" size="4" weight="bold">
+              Teodros Girmay
+            </Text>
+            <Text as="div" size="4" color="gray">
+              Engineering
+            </Text>
+          </div>
+        </div>
+      </Card>
     </div>
   ),
 };
