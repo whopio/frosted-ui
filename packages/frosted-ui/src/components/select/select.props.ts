@@ -10,7 +10,7 @@ const selectRootPropDefs = {
   size: PropDef<(typeof sizes)[number]>;
 };
 
-const triggerVariants = ['classic', 'surface', 'soft', 'ghost'] as const;
+const triggerVariants = ['surface', 'soft', 'ghost'] as const;
 
 const selectTriggerPropDefs = {
   variant: { type: 'enum', values: triggerVariants, default: 'surface' },
@@ -20,15 +20,9 @@ const selectTriggerPropDefs = {
   color: typeof colorProp;
 };
 
-const contentVariants = ['solid', 'soft'] as const;
-
 const selectContentPropDefs = {
-  variant: { type: 'enum', values: contentVariants, default: 'solid' },
-  color: colorProp,
   highContrast: highContrastProp,
 } satisfies {
-  variant: PropDef<(typeof contentVariants)[number]>;
-  color: typeof colorProp;
   highContrast: typeof highContrastProp;
 };
 
