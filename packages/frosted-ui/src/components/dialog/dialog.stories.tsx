@@ -179,7 +179,7 @@ export const InsetContent: Story = {
         <Dialog.Title>Users</Dialog.Title>
         <Dialog.Description>The following users have access to this project.</Dialog.Description>
 
-        <Inset side="x" style={{ marginTop: 'var(--space-5)', marginBottom: 'var(--space-5)' }}>
+        <Inset side="x" style={{ marginTop: 20 }}>
           <Table.Root variant="ghost" size="1">
             <ScrollArea scrollbars="horizontal">
               <Table.Table>

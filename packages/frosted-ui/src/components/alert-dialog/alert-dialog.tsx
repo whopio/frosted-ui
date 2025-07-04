@@ -71,7 +71,7 @@ const AlertDialogTitle = ({ size: sizeProp, className, ...props }: AlertDialogTi
   if (contextSize) {
     size = (
       {
-        '1': '2',
+        '1': '3',
         '2': '5',
         '3': '5',
         '4': '6',

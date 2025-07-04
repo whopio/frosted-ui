@@ -51,11 +51,16 @@ export const Default: Story = {
           />
           <div style={{ flexGrow: 1 }}>
             <TextArea placeholder="Write a comment…" style={{ height: 80 }} />
-            <div style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 12, justifyContent: 'space-between' }}>
-              <Text as="label" size="2" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
-                <Checkbox />
-                <Text>Send to group</Text>
-              </Text>
+            <div
+              style={{
+                display: 'flex',
+                gap: 'var(--space-3)',
+                marginTop: 12,
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <Checkbox size="2">Send to group</Checkbox>
 
               <Popover.Close>
                 <Button size="1">Comment</Button>

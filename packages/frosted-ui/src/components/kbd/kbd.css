@@ -27,7 +27,7 @@
   justify-content: center;
   flex-shrink: 0;
   font-family: var(--default-font-family);
-  font-weight: normal;
+  font-weight: var(--font-weight-medium);
   vertical-align: text-top;
   white-space: nowrap;
   user-select: none;

@@ -214,7 +214,7 @@ function MonthDropdown({ state }: { state: CalendarState | RangeCalendarState })
       disabled={state.isDisabled}
       size="1"
     >
-      <Select.Trigger variant="classic" />
+      <Select.Trigger variant="surface" />
       <Select.Content>
         {months.map((month, i) => (
           <Select.Item key={i} value={(i + 1).toString()}>
@@ -263,7 +263,7 @@ function YearDropdown({ state }: { state: CalendarState | RangeCalendarState }) 
       disabled={state.isDisabled}
       size="1"
     >
-      <Select.Trigger variant="classic" onClick={(e) => e.stopPropagation()} />
+      <Select.Trigger variant="surface" onClick={(e) => e.stopPropagation()} />
       <Select.Content>
         {years.map((year, i) => (
           <Select.Item key={i} value={i.toString()}>

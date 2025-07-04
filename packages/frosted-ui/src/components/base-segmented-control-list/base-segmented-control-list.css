@@ -23,7 +23,7 @@
   user-select: none;
   border-radius: var(--radius-3);
   padding: 0 var(--space-2);
-
+  font-weight: var(--font-weight-medium);
   flex: 1;
   color: var(--gray-a9);
 

@@ -88,11 +88,11 @@
       /* Equivalent to padding-left, but doesn't cut off long values when cursor is at the end. */
       text-indent: calc(var(--space-1) * 1.5 - var(--text-field-border-width));
       /* Clip text to the visible border radius */
-      border-radius: max(var(--radius-3), var(--radius-full));
+      border-radius: max(6px, var(--radius-full));
     }
 
     & + :where(.fui-TextFieldChrome) {
-      border-radius: max(var(--radius-3), var(--radius-full));
+      border-radius: max(6px, var(--radius-full));
     }
   }
   &:where(.fui-r-size-2) {
@@ -108,11 +108,11 @@
       /* Equivalent to padding-left, but doesn't cut off long values when cursor is at the end */
       text-indent: calc(var(--space-2) - var(--text-field-border-width));
       /* Clip text to the visible border radius */
-      border-radius: max(var(--radius-4), var(--radius-full));
+      border-radius: max(8px, var(--radius-full));
     }
 
     & + :where(.fui-TextFieldChrome) {
-      border-radius: max(var(--radius-4), var(--radius-full));
+      border-radius: max(8px, var(--radius-full));
     }
   }
   &:where(.fui-r-size-3) {
@@ -128,11 +128,11 @@
       /* Equivalent to padding-left, but doesn't cut off long values when cursor is at the end */
       text-indent: calc(var(--space-3) - var(--text-field-border-width));
       /* Clip text to the visible border radius */
-      border-radius: max(var(--radius-4), var(--radius-full));
+      border-radius: max(10px, var(--radius-full));
     }
 
     & + :where(.fui-TextFieldChrome) {
-      border-radius: max(var(--radius-4), var(--radius-full));
+      border-radius: max(10px, var(--radius-full));
     }
   }
 }
@@ -159,7 +159,7 @@
     background-color: var(--color-surface);
     box-shadow:
       inset 0 0 0 1px var(--gray-a5),
-      0px 2px 2px 0px var(--black-a1);
+      0px 1px 2px 0px rgba(0, 0, 0, 0.05);
     /* Blend inner shadow with page background */
     padding: 1px;
     background-clip: content-box;
@@ -178,44 +178,6 @@
       background-color: var(--accent-a3);
       box-shadow:
         inset 0 0 0 1px var(--gray-a7),
-        inset 0 0 0 1px var(--accent-a4);
-    }
-  }
-  &:where(:disabled, :read-only) {
-    & + :where(.fui-TextFieldChrome) {
-      /* Blend with grey */
-      background-image: linear-gradient(var(--gray-a3), var(--gray-a3));
-    }
-  }
-}
-
-/* classic */
-
-.fui-TextFieldInput:where(.fui-variant-classic) {
-  --text-field-border-width: 1px;
-  color: var(--gray-12);
-
-  & + :where(.fui-TextFieldChrome) {
-    background-color: var(--color-surface);
-    box-shadow: var(--shadow-1);
-    /* Blend inner shadow with page background */
-    padding: 1px;
-    background-clip: content-box;
-  }
-  &::placeholder {
-    color: var(--gray-a10);
-    /* Firefox */
-    opacity: 1;
-  }
-  &:where(:autofill, [data-com-onepassword-filled]) {
-    /* Reliably removes native autofill colors */
-    background-clip: text;
-    -webkit-text-fill-color: var(--gray-12);
-
-    & + :where(.fui-TextFieldChrome) {
-      background-color: var(--accent-a3);
-      box-shadow:
-        var(--shadow-1),
         inset 0 0 0 1px var(--accent-a4);
     }
   }

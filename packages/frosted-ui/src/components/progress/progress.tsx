@@ -13,7 +13,6 @@ const Progress = (props: ProgressProps) => {
   const {
     className,
     size = progressPropDefs.size.default,
-    variant = progressPropDefs.variant.default,
     color = progressPropDefs.color.default,
     highContrast = progressPropDefs.highContrast.default,
     value = 0,
@@ -29,7 +28,6 @@ const Progress = (props: ProgressProps) => {
       className={classNames(
         'fui-ProgressRoot',
         className,
-        `fui-variant-${variant}`,
         {
           'fui-high-contrast': highContrast,
         },

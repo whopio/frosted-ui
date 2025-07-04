@@ -4,8 +4,8 @@ import classNames from 'classnames';
 import { ScrollArea as ScrollAreaPrimitive, Select as SelectPrimitive } from 'radix-ui';
 import * as React from 'react';
 
-import { ChevronDownIcon, ThickCheckIcon } from '../../icons';
-import { Theme, useThemeContext } from '../../theme';
+import { ThickCheckIcon } from '../../icons';
+import { Theme } from '../../theme';
 import { selectContentPropDefs, selectRootPropDefs, selectTriggerPropDefs } from './select.props';
 
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
@@ -60,7 +60,22 @@ const SelectTrigger = (props: SelectTriggerProps) => {
           <SelectPrimitive.Value placeholder={placeholder} />
         </span>
         <SelectPrimitive.Icon asChild>
-          <ChevronDownIcon className="fui-SelectIcon" />
+          <svg
+            className="fui-SelectIcon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="3.25 5.25 9.5 5.5"
+            fill="none"
+          >
+            <path
+              d="M4 6L8 10L12 6"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </SelectPrimitive.Icon>
       </button>
     </SelectPrimitive.Trigger>
@@ -77,20 +92,15 @@ const SelectContent = (props: SelectContentProps) => {
   const {
     className,
     children,
-    variant = selectContentPropDefs.variant.default,
     highContrast = selectContentPropDefs.highContrast.default,
-    color = selectContentPropDefs.color.default,
     container,
     ...contentProps
   } = props;
   const { size } = React.useContext(SelectContext);
-  const themeContext = useThemeContext();
-  const resolvedColor = color ?? themeContext.accentColor;
   return (
     <SelectPrimitive.Portal container={container}>
       <Theme asChild>
         <SelectPrimitive.Content
-          data-accent-color={resolvedColor}
           sideOffset={4}
           {...contentProps}
           className={classNames(
@@ -98,7 +108,6 @@ const SelectContent = (props: SelectContentProps) => {
             'fui-SelectContent',
             className,
             `fui-r-size-${size}`,
-            `fui-variant-${variant}`,
             { 'fui-high-contrast': highContrast },
           )}
         >

@@ -5,9 +5,6 @@ import { Dialog as DrawerPrimitive } from 'radix-ui';
 import * as React from 'react';
 import { Theme } from '../../theme';
 import { Heading } from '../heading';
-import { drawerContentPropDefs } from './drawer.props';
-
-import type { GetPropDefTypes } from '../../helpers';
 
 interface DrawerRootProps extends Omit<React.ComponentProps<typeof DrawerPrimitive.Root>, 'modal'> {}
 const DrawerRoot: React.FC<DrawerRootProps> = (props) => <DrawerPrimitive.Root {...props} modal />;
@@ -17,22 +14,21 @@ interface DrawerTriggerProps extends Omit<React.ComponentProps<typeof DrawerPrim
 const DrawerTrigger = (props: DrawerTriggerProps) => <DrawerPrimitive.Trigger {...props} asChild />;
 DrawerTrigger.displayName = 'DrawerTrigger';
 
-type DrawerContentOwnProps = GetPropDefTypes<typeof drawerContentPropDefs>;
-interface DrawerContentProps
-  extends Omit<React.ComponentProps<typeof DrawerPrimitive.Content>, 'asChild'>,
-    DrawerContentOwnProps {
+interface DrawerContentProps extends Omit<React.ComponentProps<typeof DrawerPrimitive.Content>, 'asChild'> {
   container?: React.ComponentProps<typeof DrawerPrimitive.Portal>['container'];
 }
 const DrawerContent = (props: DrawerContentProps) => {
-  const { className, forceMount, container, size = drawerContentPropDefs.size.default, ...contentProps } = props;
+  const { className, forceMount, container, ...contentProps } = props;
   return (
     <DrawerPrimitive.Portal container={container} forceMount={forceMount}>
       <Theme asChild>
-        <DrawerPrimitive.Content
-          {...contentProps}
-          aria-describedby={undefined}
-          className={classNames('fui-DrawerContent', className, `fui-r-size-${size}`)}
-        />
+        <DrawerPrimitive.Overlay className="fui-DialogOverlay">
+          <DrawerPrimitive.Content
+            {...contentProps}
+            aria-describedby={undefined}
+            className={classNames('fui-DrawerContent', className)}
+          />
+        </DrawerPrimitive.Overlay>
       </Theme>
     </DrawerPrimitive.Portal>
   );
@@ -42,7 +38,7 @@ DrawerContent.displayName = 'DrawerContent';
 type DrawerTitleProps = React.ComponentProps<typeof Heading>;
 const DrawerTitle = (props: DrawerTitleProps) => (
   <DrawerPrimitive.Title asChild>
-    <Heading size="5" trim="both" {...props} />
+    <Heading size="4" weight="semi-bold" {...props} />
   </DrawerPrimitive.Title>
 );
 DrawerTitle.displayName = 'DrawerTitle';
