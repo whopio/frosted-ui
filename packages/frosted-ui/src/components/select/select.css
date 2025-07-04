@@ -42,6 +42,10 @@
     max-height: var(--radix-select-content-available-height);
     transform-origin: var(--radix-select-content-transform-origin);
   }
+
+  & :where(.fui-SelectItem[data-highlighted]) {
+    background-color: var(--gray-a4);
+  }
 }
 
 .fui-SelectViewport {
@@ -80,10 +84,10 @@
 
 .fui-SelectSeparator {
   height: 1px;
-  margin-top: var(--space-2);
-  margin-bottom: var(--space-2);
-  margin-left: var(--select-item-indicator-width);
-  margin-right: var(--select-separator-margin-right);
+  margin-top: 4px;
+  margin-bottom: 4px;
+  margin-left: calc(-1 * var(--select-content-padding) + 1px);
+  margin-right: calc(-1 * var(--select-content-padding) + 1px);
 }
 
 .fui-SelectLabel {
@@ -95,6 +99,7 @@
   color: var(--gray-a10);
   user-select: none;
   cursor: default;
+  font-weight: var(--font-weight-semi-bold);
 
   :where(.fui-SelectItem) + & {
     margin-top: var(--space-2);
@@ -109,39 +114,7 @@
 
 .fui-SelectTrigger {
   color: var(--gray-12);
-
-  &:where(:not(.fui-variant-ghost)) {
-    height: var(--select-trigger-height);
-  }
-  &:where(.fui-variant-ghost) {
-    box-sizing: content-box;
-    height: fit-content;
-    padding: var(--select-trigger-ghost-padding-y) var(--select-trigger-ghost-padding-x);
-
-    /* We reset the defined margin variables to avoid inheriting them from a higher component */
-    /* If a margin IS defined on the component itself, the utility class will win and reset it */
-    --margin-top: 0px;
-    --margin-right: 0px;
-    --margin-bottom: 0px;
-    --margin-left: 0px;
-
-    /* Define the overrides to incorporate the negative margins */
-    --margin-top-override: calc(var(--margin-top) - var(--select-trigger-ghost-padding-y));
-    --margin-right-override: calc(var(--margin-right) - var(--select-trigger-ghost-padding-x));
-    --margin-bottom-override: calc(var(--margin-bottom) - var(--select-trigger-ghost-padding-y));
-    --margin-left-override: calc(var(--margin-left) - var(--select-trigger-ghost-padding-x));
-
-    /* Reset the overrides on direct children */
-    :where(&) > * {
-      --margin-top-override: initial;
-      --margin-right-override: initial;
-      --margin-bottom-override: initial;
-      --margin-left-override: initial;
-    }
-
-    margin: var(--margin-top-override) var(--margin-right-override) var(--margin-bottom-override)
-      var(--margin-left-override);
-  }
+  height: var(--select-trigger-height);
 }
 
 .fui-SelectTrigger {
@@ -151,15 +124,14 @@
     font-size: var(--font-size-1);
     line-height: var(--line-height-1);
     letter-spacing: var(--letter-spacing-1);
-    border-radius: max(var(--radius-1), var(--radius-full));
+    border-radius: 6px;
 
-    &:where(:not(.fui-variant-ghost)) {
-      padding-left: var(--space-2);
-      padding-right: var(--space-2);
-    }
-    &:where(.fui-variant-ghost) {
-      --select-trigger-ghost-padding-x: var(--space-2);
-      --select-trigger-ghost-padding-y: var(--space-1);
+    padding-left: var(--space-2);
+    padding-right: var(--space-2);
+
+    & :where(.fui-SelectIcon) {
+      width: 8px;
+      height: 8px;
     }
   }
   &:where(.fui-r-size-2) {
@@ -168,15 +140,15 @@
     font-size: var(--font-size-2);
     line-height: var(--line-height-2);
     letter-spacing: var(--letter-spacing-2);
-    border-radius: max(var(--radius-2), var(--radius-full));
+    border-radius: 8px;
 
-    &:where(:not(.fui-variant-ghost)) {
-      padding-left: var(--space-3);
-      padding-right: var(--space-3);
-    }
-    &:where(.fui-variant-ghost) {
-      --select-trigger-ghost-padding-x: var(--space-2);
-      --select-trigger-ghost-padding-y: var(--space-1);
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+
+    & :where(.fui-SelectIcon) {
+      width: 10px;
+      height: 10px;
+      margin-bottom: -1px;
     }
   }
   &:where(.fui-r-size-3) {
@@ -185,19 +157,15 @@
     font-size: var(--font-size-3);
     line-height: var(--line-height-3);
     letter-spacing: var(--letter-spacing-3);
-    border-radius: max(var(--radius-3), var(--radius-full));
+    border-radius: 10px;
 
-    &:where(:not(.fui-variant-ghost)) {
-      padding-left: var(--space-4);
-      padding-right: var(--space-4);
-    }
-    &:where(.fui-variant-ghost) {
-      --select-trigger-ghost-padding-x: var(--space-3);
-      --select-trigger-ghost-padding-y: calc(var(--space-1) * 1.5);
-    }
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+
     & :where(.fui-SelectIcon) {
-      width: 11px;
-      height: 11px;
+      width: 12px;
+      height: 12px;
+      margin-bottom: -2px;
     }
   }
 }
@@ -209,50 +177,46 @@
  ***************************************************************************************************/
 
 .fui-SelectContent {
+  --select-content-padding: var(--space-1);
+
   &:where(.fui-r-size-1) {
-    --select-content-padding: var(--space-1);
     --select-item-height: var(--space-5);
     --select-item-indicator-width: calc(var(--space-5) / 1.2);
     --select-separator-margin-right: var(--space-2);
-    border-radius: var(--radius-3);
+    border-radius: 8px;
 
     & :where(.fui-SelectLabel) {
-      font-size: var(--font-size-1);
-      letter-spacing: var(--letter-spacing-1);
-      line-height: var(--line-height-1);
+      font-size: var(--font-size-0);
+      letter-spacing: var(--letter-spacing-0);
+      line-height: var(--line-height-0);
     }
     & :where(.fui-SelectItem) {
       font-size: var(--font-size-1);
       line-height: var(--line-height-1);
       letter-spacing: var(--letter-spacing-1);
-      border-radius: var(--radius-1);
+      border-radius: 4px;
     }
     & :where(.fui-SelectItemIndicatorIcon) {
       width: 8px;
       height: 8px;
     }
   }
-  &:where(.fui-r-size-2, .fui-r-size-3) {
-    --select-content-padding: var(--space-2);
+  &:where(.fui-r-size-2) {
     --select-item-height: var(--space-6);
-    --select-item-indicator-width: var(--space-5);
-    --select-separator-margin-right: var(--space-3);
-    border-radius: var(--radius-4);
+    --select-item-indicator-width: calc(var(--space-6) / 1.2);
+    --select-separator-margin-right: var(--space-2);
+    border-radius: 10px;
 
     & :where(.fui-SelectLabel) {
-      font-size: var(--font-size-2);
-      letter-spacing: var(--letter-spacing-2);
-      line-height: var(--line-height-2);
+      font-size: var(--font-size-1);
+      letter-spacing: var(--letter-spacing-1);
+      line-height: var(--line-height-1);
     }
     & :where(.fui-SelectItem) {
-      line-height: var(--line-height-2);
-      border-radius: var(--radius-2);
-    }
-  }
-  &:where(.fui-r-size-2) {
-    & :where(.fui-SelectItem) {
       font-size: var(--font-size-2);
+      line-height: var(--line-height-2);
       letter-spacing: var(--letter-spacing-2);
+      border-radius: 6px;
     }
     & :where(.fui-SelectItemIndicatorIcon) {
       width: 10px;
@@ -260,13 +224,25 @@
     }
   }
   &:where(.fui-r-size-3) {
+    --select-item-height: var(--space-7);
+    --select-item-indicator-width: calc(var(--space-7) / 1.2);
+    --select-separator-margin-right: var(--space-2);
+    border-radius: 12px;
+
+    & :where(.fui-SelectLabel) {
+      font-size: var(--font-size-2);
+      letter-spacing: var(--letter-spacing-2);
+      line-height: var(--line-height-2);
+    }
     & :where(.fui-SelectItem) {
       font-size: var(--font-size-3);
+      line-height: var(--line-height-3);
       letter-spacing: var(--letter-spacing-3);
+      border-radius: 8px;
     }
     & :where(.fui-SelectItemIndicatorIcon) {
-      width: 10px;
-      height: 10px;
+      width: 12px;
+      height: 12px;
     }
   }
 }
@@ -282,15 +258,19 @@
 .fui-SelectTrigger:where(.fui-variant-surface) {
   color: var(--gray-12);
   background-color: var(--color-surface);
-  box-shadow: inset 0 0 0 1px var(--gray-a7);
+  box-shadow:
+    inset 0 0 0 1px var(--gray-a5),
+    0px 1px 2px 0px rgba(0, 0, 0, 0.06);
 
   @media (hover: hover) {
     &:where(:hover) {
-      box-shadow: inset 0 0 0 1px var(--gray-a8);
+      box-shadow:
+        inset 0 0 0 1px var(--gray-a7),
+        0px 1px 2px 0px rgba(0, 0, 0, 0.06);
     }
   }
   &:where([data-state='open']) {
-    box-shadow: inset 0 0 0 1px var(--gray-a8);
+    box-shadow: inset 0 0 0 1px var(--gray-a7);
   }
   &:where(:disabled) {
     cursor: var(--cursor-disabled);
@@ -446,9 +426,19 @@
  * MENU VARIANTS                                                                                   *
  *                                                                                                 *
  ***************************************************************************************************/
+/* prettier-ignore */
+:where(.frosted-ui) {
+  --color-select-outline: transparent;
+}
+/* prettier-ignore */
+:is(.dark, .dark-theme),
+:is(.dark, .dark-theme) :where(.frosted-ui:not(.light, .light-theme)) {
+  --color-select-outline: black;
+}
 
 .fui-SelectContent {
   box-shadow: var(--shadow-5);
+  outline: 0.5px solid var(--color-base-menu-outline) !important;
 }
 
 .fui-SelectItem:where([data-disabled]) {
@@ -457,25 +447,4 @@
 
 .fui-SelectSeparator {
   background-color: var(--gray-a6);
-}
-
-/* solid */
-
-.fui-SelectContent:where(.fui-variant-solid) {
-  & :where(.fui-SelectItem[data-highlighted]) {
-    background-color: var(--accent-9);
-    color: var(--accent-9-contrast);
-  }
-  &:where(.fui-high-contrast) :where(.fui-SelectItem[data-highlighted]) {
-    background-color: var(--accent-12);
-    color: var(--accent-1);
-  }
-}
-
-/* soft */
-
-.fui-SelectContent:where(.fui-variant-soft) {
-  & :where(.fui-SelectItem[data-highlighted]) {
-    background-color: var(--accent-a5);
-  }
 }

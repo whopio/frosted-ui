@@ -541,7 +541,15 @@ const columns: ColumnDef<Payment>[] = [
   },
   {
     accessorKey: 'status',
-    header: () => <Table.ColumnHeaderCellButton>Status</Table.ColumnHeaderCellButton>,
+    header: ({ column }) => (
+      <Table.ColumnHeaderCellButton
+        isSortable={column.getCanSort()}
+        sortDirection={column.getIsSorted()}
+        onClick={() => column.toggleSorting()}
+      >
+        Status
+      </Table.ColumnHeaderCellButton>
+    ),
     cell: ({ row }) => row.getValue('status'),
   },
   {

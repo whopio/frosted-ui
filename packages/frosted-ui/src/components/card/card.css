@@ -93,23 +93,23 @@
 .fui-Card {
   &:where(.fui-r-size-1) {
     --card-padding: var(--space-3);
-    --card-border-radius: var(--radius-4);
+    --card-border-radius: 12px;
   }
   &:where(.fui-r-size-2) {
     --card-padding: var(--space-4);
-    --card-border-radius: var(--radius-4);
+    --card-border-radius: 16px;
   }
   &:where(.fui-r-size-3) {
     --card-padding: var(--space-5);
-    --card-border-radius: var(--radius-5);
+    --card-border-radius: 16px;
   }
   &:where(.fui-r-size-4) {
     --card-padding: var(--space-6);
-    --card-border-radius: var(--radius-5);
+    --card-border-radius: 20px;
   }
   &:where(.fui-r-size-5) {
-    --card-padding: var(--space-8);
-    --card-border-radius: var(--radius-6);
+    --card-padding: var(--space-7);
+    --card-border-radius: 24px;
   }
 }
 
@@ -168,7 +168,7 @@
     0 2px 3px -2px var(--black-a1),
     0 3px 12px -4px var(--gray-a3),
     0 4px 16px -8px var(--black-a1);
-  --card-background: var(--color-background);
+  --card-background: var(--color-panel-solid);
 }
 /* prettier-ignore */
 :is(.dark, .dark-theme),
@@ -180,7 +180,7 @@
     0 0 3px -2px var(--gray-a3),
     0 0 12px -2px var(--gray-a3),
     0 0 16px -8px var(--gray-a9);
-  --card-background: linear-gradient(var(--color-panel-elevation-a3), var(--color-panel-elevation-a3)), var(--color-background);
+  --card-background: var(--color-panel-solid);
 }
 
 /* prettier-ignore */

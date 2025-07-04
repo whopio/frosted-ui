@@ -47,7 +47,6 @@ export const Variant: Story = {
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', maxWidth: 500 }}>
       <TextArea placeholder="Reply to comment…" {...args} variant="surface" />
-      <TextArea placeholder="Reply to comment…" {...args} variant="classic" />
       <TextArea placeholder="Reply to comment…" {...args} variant="soft" />
     </div>
   ),

@@ -34,9 +34,10 @@
 }
 .fui-DateFieldSegment:where(:not([data-type='literal'])) {
   box-sizing: content-box;
-  border-radius: calc(var(--radius) - var(--padding));
-  padding: 0 2px;
-  color: var(--accent-12);
+  border-radius: max(calc(var(--radius) / 2), 4px);
+  /* 1px padding top to center text vertically */
+  padding: 1px 2px 0px;
+  color: var(--gray-12);
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -73,20 +74,20 @@
     --font-size: var(--font-size-1);
     --letter-spacing: var(--letter-spacing-1);
     --padding: 4px;
-    --radius: var(--radius-3);
+    --radius: 6px;
   }
   &:where(.fui-r-size-2) {
     --height: var(--space-6);
     --font-size: var(--font-size-2);
     --letter-spacing: var(--letter-spacing-2);
     --padding: 6px;
-    --radius: var(--radius-4);
+    --radius: 8px;
   }
   &:where(.fui-r-size-3) {
     --height: var(--space-7);
     --font-size: var(--font-size-3);
     --letter-spacing: var(--letter-spacing-3);
     --padding: 8px;
-    --radius: var(--radius-5);
+    --radius: 10px;
   }
 }

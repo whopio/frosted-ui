@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { InfoCircle16 } from '@frosted-ui/icons';
 import React from 'react';
 import { Callout, Code, Link, Text, calloutRootPropDefs } from '..';
 import { RootProps as CalloutRootProps } from '../../../src/components/callout/callout';
@@ -33,7 +34,10 @@ export const Default: Story = {
   },
   render: ({ children, ...args }: CalloutRootProps) => (
     <Callout.Root {...args}>
-      <Callout.Icon>i</Callout.Icon>
+      <Callout.Icon>
+        {/* @ts-expect-error -- fix frosted icon types */}
+        <InfoCircle16 />
+      </Callout.Icon>
       <Callout.Text>{children}</Callout.Text>
     </Callout.Root>
   ),
@@ -53,21 +57,30 @@ export const Size: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', alignItems: 'flex-start' }}>
       <Callout.Root {...args} size="3">
         <Callout.Icon>
-          <Callout.Icon>i</Callout.Icon>
+          <Callout.Icon>
+            {/* @ts-expect-error -- fix frosted icon types */}
+            <InfoCircle16 />
+          </Callout.Icon>
         </Callout.Icon>
         <Callout.Text>{children}</Callout.Text>
       </Callout.Root>
 
       <Callout.Root {...args} size="2">
         <Callout.Icon>
-          <Callout.Icon>i</Callout.Icon>
+          <Callout.Icon>
+            {/* @ts-expect-error -- fix frosted icon types */}
+            <InfoCircle16 />
+          </Callout.Icon>
         </Callout.Icon>
         <Callout.Text>{children}</Callout.Text>
       </Callout.Root>
 
       <Callout.Root {...args} size="1">
         <Callout.Icon>
-          <Callout.Icon>i</Callout.Icon>
+          <Callout.Icon>
+            {/* @ts-expect-error -- fix frosted icon types */}
+            <InfoCircle16 />
+          </Callout.Icon>
         </Callout.Icon>
         <Callout.Text>{children}</Callout.Text>
       </Callout.Root>
@@ -88,21 +101,30 @@ export const Variant: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
       <Callout.Root {...args} variant="soft">
         <Callout.Icon>
-          <Callout.Icon>i</Callout.Icon>
+          <Callout.Icon>
+            {/* @ts-expect-error -- fix frosted icon types */}
+            <InfoCircle16 />
+          </Callout.Icon>
         </Callout.Icon>
         <Callout.Text>{children}</Callout.Text>
       </Callout.Root>
 
       <Callout.Root {...args} variant="surface">
         <Callout.Icon>
-          <Callout.Icon>i</Callout.Icon>
+          <Callout.Icon>
+            {/* @ts-expect-error -- fix frosted icon types */}
+            <InfoCircle16 />
+          </Callout.Icon>
         </Callout.Icon>
         <Callout.Text>{children}</Callout.Text>
       </Callout.Root>
 
       <Callout.Root {...args} variant="outline">
         <Callout.Icon>
-          <Callout.Icon>i</Callout.Icon>
+          <Callout.Icon>
+            {/* @ts-expect-error -- fix frosted icon types */}
+            <InfoCircle16 />
+          </Callout.Icon>
         </Callout.Icon>
         <Callout.Text>{children}</Callout.Text>
       </Callout.Root>
@@ -124,21 +146,30 @@ export const Color: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
       <Callout.Root {...args} color="blue">
         <Callout.Icon>
-          <Callout.Icon>i</Callout.Icon>
+          <Callout.Icon>
+            {/* @ts-expect-error -- fix frosted icon types */}
+            <InfoCircle16 />
+          </Callout.Icon>
         </Callout.Icon>
         <Callout.Text>{children}</Callout.Text>
       </Callout.Root>
 
       <Callout.Root {...args} color="green">
         <Callout.Icon>
-          <Callout.Icon>i</Callout.Icon>
+          <Callout.Icon>
+            {/* @ts-expect-error -- fix frosted icon types */}
+            <InfoCircle16 />
+          </Callout.Icon>
         </Callout.Icon>
         <Callout.Text>{children}</Callout.Text>
       </Callout.Root>
 
       <Callout.Root {...args} color="red">
         <Callout.Icon>
-          <Callout.Icon>i</Callout.Icon>
+          <Callout.Icon>
+            {/* @ts-expect-error -- fix frosted icon types */}
+            <InfoCircle16 />
+          </Callout.Icon>
         </Callout.Icon>
         <Callout.Text>{children}</Callout.Text>
       </Callout.Root>
@@ -161,28 +192,40 @@ export const SemanticColor: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
       <Callout.Root {...args} color="info">
         <Callout.Icon>
-          <Callout.Icon>i</Callout.Icon>
+          <Callout.Icon>
+            {/* @ts-expect-error -- fix frosted icon types */}
+            <InfoCircle16 />
+          </Callout.Icon>
         </Callout.Icon>
         <Callout.Text>{children}</Callout.Text>
       </Callout.Root>
 
       <Callout.Root {...args} color="success">
         <Callout.Icon>
-          <Callout.Icon>i</Callout.Icon>
+          <Callout.Icon>
+            {/* @ts-expect-error -- fix frosted icon types */}
+            <InfoCircle16 />
+          </Callout.Icon>
         </Callout.Icon>
         <Callout.Text>{children}</Callout.Text>
       </Callout.Root>
 
       <Callout.Root {...args} color="warning">
         <Callout.Icon>
-          <Callout.Icon>i</Callout.Icon>
+          <Callout.Icon>
+            {/* @ts-expect-error -- fix frosted icon types */}
+            <InfoCircle16 />
+          </Callout.Icon>
         </Callout.Icon>
         <Callout.Text>{children}</Callout.Text>
       </Callout.Root>
 
       <Callout.Root {...args} color="danger">
         <Callout.Icon>
-          <Callout.Icon>i</Callout.Icon>
+          <Callout.Icon>
+            {/* @ts-expect-error -- fix frosted icon types */}
+            <InfoCircle16 />
+          </Callout.Icon>
         </Callout.Icon>
         <Callout.Text>{children}</Callout.Text>
       </Callout.Root>
@@ -205,14 +248,20 @@ export const HighContrast: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
       <Callout.Root {...args} variant="soft">
         <Callout.Icon>
-          <Callout.Icon>i</Callout.Icon>
+          <Callout.Icon>
+            {/* @ts-expect-error -- fix frosted icon types */}
+            <InfoCircle16 />
+          </Callout.Icon>
         </Callout.Icon>
         <Callout.Text>{children}</Callout.Text>
       </Callout.Root>
 
       <Callout.Root {...args} variant="soft" highContrast>
         <Callout.Icon>
-          <Callout.Icon>i</Callout.Icon>
+          <Callout.Icon>
+            {/* @ts-expect-error -- fix frosted icon types */}
+            <InfoCircle16 />
+          </Callout.Icon>
         </Callout.Icon>
         <Callout.Text>{children}</Callout.Text>
       </Callout.Root>

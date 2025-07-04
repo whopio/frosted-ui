@@ -10,7 +10,6 @@ const meta = {
   args: {
     size: sliderPropDefs.size.default,
     color: sliderPropDefs.color.default,
-    variant: sliderPropDefs.variant.default,
     highContrast: sliderPropDefs.highContrast.default,
     disabled: false,
   },
@@ -51,16 +50,6 @@ export const Color: Story = {
       <Slider {...args} defaultValue={[40]} color="cyan" />
       <Slider {...args} defaultValue={[60]} color="orange" />
       <Slider {...args} defaultValue={[80]} color="crimson" />
-    </div>
-  ),
-};
-
-export const Variant: Story = {
-  render: (args) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', width: 300 }}>
-      <Slider {...args} defaultValue={[25]} variant="surface" />
-      <Slider {...args} defaultValue={[50]} variant="classic" />
-      <Slider {...args} defaultValue={[75]} variant="soft" />
     </div>
   ),
 };

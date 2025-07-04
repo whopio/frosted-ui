@@ -40,8 +40,8 @@ const DropdownMenuContent = (props: DropdownMenuContentProps) => {
     className,
     children,
     size = dropdownMenuContentPropDefs.size.default,
-    highContrast = dropdownMenuContentPropDefs.highContrast.default,
     color = dropdownMenuItemPropDefs.color.default,
+    variant = dropdownMenuContentPropDefs.variant.default,
     container,
     forceMount,
     ...contentProps
@@ -60,18 +60,15 @@ const DropdownMenuContent = (props: DropdownMenuContentProps) => {
             'fui-PopperContent',
             'fui-BaseMenuContent',
             'fui-DropdownMenuContent',
+            `fui-variant-${variant}`,
             className,
             `fui-r-size-${size}`,
-            { 'fui-high-contrast': highContrast },
           )}
         >
           <ScrollArea type="auto">
             <div className={classNames('fui-BaseMenuViewport', 'fui-DropdownMenuViewport')}>
               <DropdownMenuContentContext.Provider
-                value={React.useMemo(
-                  () => ({ size, color: resolvedColor, highContrast }),
-                  [size, resolvedColor, highContrast],
-                )}
+                value={React.useMemo(() => ({ size, color: resolvedColor, variant }), [size, resolvedColor, variant])}
               >
                 {children}
               </DropdownMenuContentContext.Provider>
@@ -220,7 +217,7 @@ interface DropdownMenuSubContentProps extends React.ComponentProps<typeof Dropdo
 
 const DropdownMenuSubContent = (props: DropdownMenuSubContentProps) => {
   const { className, children, container, forceMount, ...subContentProps } = props;
-  const { size, color, highContrast } = React.useContext(DropdownMenuContentContext);
+  const { size, color, variant } = React.useContext(DropdownMenuContentContext);
   return (
     <DropdownMenuPrimitive.Portal container={container} forceMount={forceMount}>
       <Theme asChild>
@@ -236,9 +233,9 @@ const DropdownMenuSubContent = (props: DropdownMenuSubContentProps) => {
             'fui-BaseMenuSubContent',
             'fui-DropdownMenuContent',
             'fui-DropdownMenuSubContent',
+            `fui-variant-${variant}`,
             className,
             `fui-r-size-${size}`,
-            { 'fui-high-contrast': highContrast },
           )}
         >
           <ScrollArea type="auto">

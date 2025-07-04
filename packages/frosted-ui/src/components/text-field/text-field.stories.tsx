@@ -108,12 +108,10 @@ export const Variant: Story = {
     <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--space-5)' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', maxWidth: 400 }}>
         <TextField.Input placeholder="Search the docs…" {...args} variant="surface" />
-        <TextField.Input placeholder="Search the docs…" {...args} variant="classic" />
         <TextField.Input placeholder="Search the docs…" {...args} variant="soft" />
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', maxWidth: 400 }}>
         <TextField.Input disabled placeholder="Search the docs…" {...args} variant="surface" />
-        <TextField.Input disabled placeholder="Search the docs…" {...args} variant="classic" />
         <TextField.Input disabled placeholder="Search the docs…" {...args} variant="soft" />
       </div>
     </div>

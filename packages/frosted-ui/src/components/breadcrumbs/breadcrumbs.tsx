@@ -15,14 +15,7 @@ interface BreadcrumbsRootProps extends PropsWithoutColor<'nav'>, BreadcrumbsRoot
 }
 
 const BreadcrumbsRoot = (props: BreadcrumbsRootProps) => {
-  const {
-    className,
-    children,
-    asChild = false,
-    color = breadcrumbsPropDefs.color.default,
-    highContrast = breadcrumbsPropDefs.highContrast.default,
-    ...baseButtonProps
-  } = props;
+  const { className, children, asChild = false, color = breadcrumbsPropDefs.color.default, ...baseButtonProps } = props;
   const Comp = asChild ? Slot.Root : 'nav';
   const count = React.Children.count(children);
 
@@ -40,7 +33,6 @@ const BreadcrumbsRoot = (props: BreadcrumbsRootProps) => {
                 as="div"
                 data-accent-color={color}
                 size={'1'}
-                highContrast={highContrast}
                 children={child.props.children}
                 className={classNames('fui-reset', 'fui-BreadcrumbsLastItem', child.props.className)}
               />
@@ -48,7 +40,6 @@ const BreadcrumbsRoot = (props: BreadcrumbsRootProps) => {
           );
         } else {
           const breadcrumbChild = React.cloneElement(child, {
-            highContrast,
             color,
             ...child.props,
           });
@@ -76,14 +67,12 @@ BreadcrumbsItem.displayName = 'BreadcrumbsItem';
 interface BreadcrumbsDropdownProps
   extends Omit<React.ComponentProps<typeof DropdownMenu.Content>, 'variant' | 'size'> {}
 
-const BreadcrumbsDropdown = ({ color, highContrast, ...props }: BreadcrumbsDropdownProps) => (
+const BreadcrumbsDropdown = ({ color, ...props }: BreadcrumbsDropdownProps) => (
   <DropdownMenu.Root>
     <DropdownMenu.Trigger>
-      <BreadcrumbsItem color={color} highContrast={highContrast}>
-        ...
-      </BreadcrumbsItem>
+      <BreadcrumbsItem color={color}>...</BreadcrumbsItem>
     </DropdownMenu.Trigger>
-    <DropdownMenu.Content {...props} size="2" color={color} highContrast={highContrast}>
+    <DropdownMenu.Content {...props} size="2" color={color}>
       {props.children}
     </DropdownMenu.Content>
   </DropdownMenu.Root>

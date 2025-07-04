@@ -22,7 +22,6 @@ export const WithLinks: Story = {
   name: 'With links',
   args: {
     color: breadcrumbsPropDefs.color.default,
-    highContrast: breadcrumbsPropDefs.highContrast.default,
   },
   render: (args) => (
     <Breadcrumbs.Root {...args}>
@@ -41,7 +40,6 @@ export const WithOnClick: Story = {
   name: 'With onClick',
   args: {
     color: breadcrumbsPropDefs.color.default,
-    highContrast: breadcrumbsPropDefs.highContrast.default,
   },
   render: (args) => (
     <Breadcrumbs.Root {...args}>
@@ -56,7 +54,6 @@ export const Truncated: Story = {
   name: 'Truncated',
   args: {
     color: breadcrumbsPropDefs.color.default,
-    highContrast: breadcrumbsPropDefs.highContrast.default,
   },
   render: (args) => (
     <Breadcrumbs.Root {...args}>

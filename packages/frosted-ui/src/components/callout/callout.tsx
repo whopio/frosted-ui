@@ -65,6 +65,7 @@ const CalloutText = (props: CalloutTextProps) => {
       size={getTextSize(size)}
       color={color}
       highContrast={highContrast}
+      weight="medium"
       {...props}
       className={classNames('fui-CalloutText', props.className)}
     />

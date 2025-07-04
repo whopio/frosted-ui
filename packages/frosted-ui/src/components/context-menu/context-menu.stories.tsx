@@ -1,13 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { ContextMenu } from '..';
+import { ContextMenu, contextMenuContentPropDefs } from '..';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
   title: 'Controls/ContextMenu',
   component: ContextMenu.Content,
-  args: {},
+  args: {
+    variant: contextMenuContentPropDefs.variant.default,
+  },
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
     layout: 'centered',
@@ -57,7 +59,7 @@ const meta = {
   ),
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
-} satisfies Meta<typeof ContextMenu.Root>;
+} satisfies Meta<typeof ContextMenu.Content>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
