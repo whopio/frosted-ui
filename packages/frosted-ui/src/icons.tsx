@@ -73,4 +73,45 @@ const InfoCircledIcon = (props: IconProps) => {
 };
 InfoCircledIcon.displayName = 'InfoCircledIcon';
 
-export { ChevronRightIcon, InfoCircledIcon, ThickCheckIcon, ThickChevronRightIcon, TriangleDownIcon };
+function CalendarIcon({ size }: { size: '1' | '2' | '3' }): React.JSX.Element {
+  switch (size) {
+    case '1':
+      return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path
+            d="M1.25 5.75H10.75M3.75 0.75V2.75M8.25 0.75V2.75M2.5 11.25H9.5C10.1904 11.25 10.75 10.6904 10.75 10V4C10.75 3.30964 10.1904 2.75 9.5 2.75H2.5C1.80964 2.75 1.25 3.30964 1.25 4V10C1.25 10.6904 1.80964 11.25 2.5 11.25Z"
+            stroke="var(--gray-a11)"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      );
+    case '2':
+      return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path
+            d="M1.5 7.22222H14.5M4.62 1V3.07407M11.38 1V3.07407M4.1 15H11.9C13.3359 15 14.5 13.8393 14.5 12.4074V5.66667C14.5 4.23482 13.3359 3.07407 11.9 3.07407H4.1C2.66406 3.07407 1.5 4.23482 1.5 5.66667V12.4074C1.5 13.8393 2.66406 15 4.1 15Z"
+            stroke="var(--gray-a11)"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      );
+    case '3':
+      return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path
+            d="M1.75 7.75H18.25M6.75 1.75V3.75M13.25 1.75V3.75M4.32 18.25H15.68C17.0994 18.25 18.25 17.0994 18.25 15.68V6.32C18.25 4.90063 17.0994 3.75 15.68 3.75H4.32C2.90063 3.75 1.75 4.90063 1.75 6.32V15.68C1.75 17.0994 2.90063 18.25 4.32 18.25Z"
+            stroke="var(--gray-a11)"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      );
+  }
+}
+
+export { CalendarIcon, ChevronRightIcon, InfoCircledIcon, ThickCheckIcon, ThickChevronRightIcon, TriangleDownIcon };
