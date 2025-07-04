@@ -19,12 +19,12 @@
     0 4px 16px -8px var(--black-a2);
 
   --shadow-4:
-    0 0 0 1px var(--gray-a3),
+    0 0 0 1px var(--gray-a6),
     0 8px 40px var(--black-a1),
     0 12px 32px -16px var(--gray-a3);
 
   --shadow-5:
-    0 0 0 1px var(--gray-a3),
+    0 0 0 1px var(--gray-a5),
     0 12px 60px var(--black-a3),
     0 12px 32px -16px var(--gray-a5);
 

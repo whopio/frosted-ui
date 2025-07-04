@@ -66,7 +66,7 @@ const DialogTitle = ({ size: sizeProp, className, ...props }: DialogTitleProps) 
   if (contextSize) {
     size = (
       {
-        '1': '2',
+        '1': '3',
         '2': '5',
         '3': '5',
         '4': '6',

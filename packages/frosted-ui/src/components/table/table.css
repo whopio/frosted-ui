@@ -124,7 +124,7 @@
   }
   &:where(.fui-r-size-2) {
     --table-border-radius: var(--radius-4);
-    --table-column-header-cell-padding: var(--space-2) var(--space-4);
+    --table-column-header-cell-padding: var(--space-3) var(--space-4);
     --table-cell-padding: var(--space-3) var(--space-4);
     --table-cell-min-height: 44px;
     --table-bottom-padding: var(--space-3) var(--space-4);

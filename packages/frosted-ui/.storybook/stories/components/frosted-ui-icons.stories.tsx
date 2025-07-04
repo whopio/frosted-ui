@@ -22,7 +22,7 @@ type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Default: Story = {
-  render: (args) => (
+  render: () => (
     <div style={{ display: 'flex', flexDirection: 'row', width: 400, flexWrap: 'wrap' }}>
       {Object.entries(Icons).map(([name, Icon]) => (
         <div style={{ width: '20%', padding: 8 }}>

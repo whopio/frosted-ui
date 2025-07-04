@@ -7,6 +7,24 @@
   padding: var(--hover-card-content-padding);
 
   transform-origin: var(--radix-hover-card-content-transform-origin);
+
+  &:where(.fui-variant-translucent) {
+    background-color: var(--color-panel-translucent);
+    -webkit-backdrop-filter: var(--backdrop-filter-panel);
+    backdrop-filter: var(--backdrop-filter-panel);
+    outline: 0.5px solid var(--color-popover-outline);
+  }
+  &:where(.fui-variant-solid) {
+    background-color: var(--color-panel-solid);
+  }
+}
+/* prettier-ignore */
+:where(.frosted-ui) {
+  --color-popover-outline: transparent;
+}
+:is(.dark, .dark-theme),
+:is(.dark, .dark-theme) :where(.frosted-ui:not(.light, .light-theme)) {
+  --color-popover-outline: black;
 }
 
 /***************************************************************************************************
@@ -18,14 +36,14 @@
 .fui-HoverCardContent {
   &:where(.fui-r-size-1) {
     --hover-card-content-padding: var(--space-3);
-    border-radius: var(--radius-4);
+    border-radius: 8px;
   }
   &:where(.fui-r-size-2) {
     --hover-card-content-padding: var(--space-4);
-    border-radius: var(--radius-4);
+    border-radius: 12px;
   }
   &:where(.fui-r-size-3) {
     --hover-card-content-padding: var(--space-5);
-    border-radius: var(--radius-5);
+    border-radius: 16px;
   }
 }

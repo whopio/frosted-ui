@@ -1,16 +1,18 @@
 import type { PropDef } from '../../helpers';
-import { colorProp, highContrastProp } from '../../helpers';
+import { colorProp } from '../../helpers';
 
 const contentSizes = ['1', '2', '3'] as const;
+
+const variants = ['solid', 'translucent'] as const;
 
 const baseMenuContentPropDefs = {
   size: { type: 'enum', values: contentSizes, default: '2' },
   color: colorProp,
-  highContrast: highContrastProp,
+  variant: { type: 'enum', values: variants, default: 'translucent' },
 } satisfies {
   size: PropDef<(typeof contentSizes)[number]>;
   color: typeof colorProp;
-  highContrast: typeof highContrastProp;
+  variant: PropDef<(typeof variants)[number]>;
 };
 
 const baseMenuItemPropDefs = {

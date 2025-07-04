@@ -1,15 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 
-import { Badge, Button, Checkbox, Drawer, Inset, ScrollArea, Table, Text, TextField, drawerContentPropDefs } from '..';
+import { Badge, Button, Checkbox, Drawer, Inset, ScrollArea, Table, Text, TextField } from '..';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
   title: 'Components/Drawer',
   component: Drawer.Content,
-  args: {
-    size: drawerContentPropDefs.size.default,
-  },
+  args: {},
 
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
@@ -30,7 +28,7 @@ export const Default: Story = {
         <Button>Edit profile</Button>
       </Drawer.Trigger>
 
-      <Drawer.Content style={{ maxWidth: 400 }} {...args}>
+      <Drawer.Content {...args} onOpenAutoFocus={(e) => e.preventDefault()}>
         <Drawer.Header>
           <Drawer.Title>Edit profile</Drawer.Title>
         </Drawer.Header>

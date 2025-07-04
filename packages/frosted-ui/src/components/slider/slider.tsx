@@ -15,7 +15,6 @@ const Slider = (props: SliderProps) => {
   const {
     className,
     size = sliderPropDefs.size.default,
-    variant = sliderPropDefs.variant.default,
     color = sliderPropDefs.color.default,
     highContrast = sliderPropDefs.highContrast.default,
     tabIndex,
@@ -25,7 +24,7 @@ const Slider = (props: SliderProps) => {
     <SliderPrimitive.Root
       data-accent-color={color}
       {...sliderProps}
-      className={classNames('fui-SliderRoot', className, `fui-r-size-${size}`, `fui-variant-${variant}`, {
+      className={classNames('fui-SliderRoot', className, `fui-r-size-${size}`, {
         'fui-high-contrast': highContrast,
       })}
     >

@@ -12,11 +12,10 @@
   padding-left: var(--space-4);
   padding-right: var(--space-4);
 
-  &::after {
+  &::before {
     content: '';
     position: absolute;
     inset: 0;
-    /* background-color: var(--color-overlay); */
   }
 }
 
@@ -53,25 +52,25 @@
     --dialog-title-mb: var(--space-1);
     --dialog-description-mb: var(--space-3);
     --dialog-content-padding: var(--space-3);
-    border-radius: var(--radius-4);
+    border-radius: 8px;
   }
   &:where(.fui-r-size-2) {
     --dialog-title-mb: var(--space-2);
     --dialog-description-mb: var(--space-4);
     --dialog-content-padding: var(--space-4);
-    border-radius: var(--radius-4);
+    border-radius: 12px;
   }
   &:where(.fui-r-size-3) {
     --dialog-title-mb: var(--space-3);
-    --dialog-description-mb: var(--space-4);
-    --dialog-content-padding: var(--space-5);
-    border-radius: var(--radius-5);
+    --dialog-description-mb: 20px;
+    --dialog-content-padding: 20px;
+    border-radius: 16px;
   }
   &:where(.fui-r-size-4) {
     --dialog-title-mb: var(--space-3);
-    --dialog-description-mb: var(--space-6);
-    --dialog-content-padding: var(--space-6);
-    border-radius: var(--radius-5);
+    --dialog-description-mb: var(--space-5);
+    --dialog-content-padding: var(--space-5);
+    border-radius: 20px;
   }
 }
 
@@ -149,7 +148,7 @@
   }
 
   .fui-DialogOverlay {
-    &::after {
+    &::before {
       backdrop-filter: blur(var(--overlay-blur)) brightness(var(--overlay-brightness));
     }
     /* Keep the overlay mounted until the children have animated */
@@ -157,10 +156,10 @@
       animation: fui-blur-out 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
-    &:where([data-state='open'])::after {
+    &:where([data-state='open'])::before {
       animation: fui-blur-in 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    &:where([data-state='closed'])::after {
+    &:where([data-state='closed'])::before {
       animation: fui-blur-out 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
   }
