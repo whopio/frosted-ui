@@ -105,6 +105,8 @@
   /* Accomodating for ghost button size=1 padding */
   margin-left: calc(-1 * var(--space-2));
   margin-right: calc(-1 * var(--space-2));
+  padding-left: var(--space-2);
+  padding-right: var(--space-2);
 }
 /***************************************************************************************************
  *                                                                                                 *
@@ -124,7 +126,7 @@
   }
   &:where(.fui-r-size-2) {
     --table-border-radius: var(--radius-4);
-    --table-column-header-cell-padding: var(--space-3) var(--space-4);
+    --table-column-header-cell-padding: var(--space-2) var(--space-4);
     --table-cell-padding: var(--space-3) var(--space-4);
     --table-cell-min-height: 44px;
     --table-bottom-padding: var(--space-3) var(--space-4);
