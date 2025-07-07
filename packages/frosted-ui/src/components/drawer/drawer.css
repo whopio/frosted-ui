@@ -20,8 +20,13 @@
 
 .fui-DrawerHeader {
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
   --inset-padding: var(--drawer-content-padding);
   padding: var(--inset-padding);
+  border-bottom: 1px solid var(--color-stroke);
 }
 .fui-BodyScrollArea {
   flex-shrink: 0;
@@ -29,13 +34,6 @@
   overflow-y: auto;
   -webkit-box-flex: 1;
   flex-grow: 1;
-
-  &:where([data-is-scrollable='true']) {
-    border-top: 1px solid var(--gray-a5);
-  }
-  &:where([data-is-scrollable='true']:has(+ .fui-DrawerStickyFooter)) {
-    border-bottom: 1px solid var(--gray-a5);
-  }
 }
 
 .fui-DrawerBody {
@@ -47,6 +45,7 @@
   flex-shrink: 0;
   --inset-padding: var(--drawer-content-padding);
   padding: var(--inset-padding);
+  border-top: 1px solid var(--color-stroke);
 }
 
 @media (prefers-reduced-motion: no-preference) {
