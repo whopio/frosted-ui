@@ -68,23 +68,6 @@ const DrawerBody = ({ children, className, ...props }: DrawerBodyProps) => {
   const localRef = React.useRef<HTMLDivElement | null>(null);
   const contentRef = React.useRef<HTMLDivElement | null>(null);
 
-  // Track if the content is scrollable and set 'data-is-scrollable' attribute
-  React.useEffect(() => {
-    if (!contentRef.current) return;
-    const resizeObserver = new ResizeObserver((entries) => {
-      const contentHeight = entries[0].target.getBoundingClientRect().height;
-      // TODO: kinda ugly that we're reaching to a parent element here
-      const scrollHeight = localRef.current?.parentElement?.scrollHeight || 0;
-      const isScrollable = contentHeight > scrollHeight;
-
-      localRef.current?.setAttribute('data-is-scrollable', isScrollable.toString());
-    });
-    resizeObserver.observe(contentRef.current);
-    return () => {
-      resizeObserver.disconnect();
-    };
-  }, []);
-
   return (
     <div className="fui-BodyScrollArea" {...props} ref={localRef}>
       <div className={classNames('fui-DrawerBody', className)} ref={contentRef}>
