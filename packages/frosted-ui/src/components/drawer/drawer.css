@@ -20,6 +20,10 @@
 
 .fui-DrawerHeader {
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
   --inset-padding: var(--drawer-content-padding);
   padding: var(--inset-padding);
   border-bottom: 1px solid var(--color-stroke);

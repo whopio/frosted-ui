@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 
-import { Badge, Button, Checkbox, Drawer, Inset, ScrollArea, Table, Text, TextField } from '..';
+import { XMark16 } from '@frosted-ui/icons';
+import { Badge, Button, Checkbox, Drawer, IconButton, Inset, ScrollArea, Table, Text, TextField } from '..';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -31,6 +32,12 @@ export const Default: Story = {
       <Drawer.Content {...args} onOpenAutoFocus={(e) => e.preventDefault()}>
         <Drawer.Header>
           <Drawer.Title>Edit profile</Drawer.Title>
+          <Drawer.Close>
+            <IconButton size="1" color="gray" variant="ghost">
+              {/* @ts-expect-error -- fix frosted icon types */}
+              <XMark16 />
+            </IconButton>
+          </Drawer.Close>
         </Drawer.Header>
         <Drawer.Body>
           <Text as="p" size="2" style={{ marginBottom: 'var(--space-4)' }}>
@@ -106,6 +113,12 @@ export const InsetContent: Story = {
       <Drawer.Content style={{ maxWidth: 540 }} {...args}>
         <Drawer.Header>
           <Drawer.Title>Users</Drawer.Title>
+          <Drawer.Close>
+            <IconButton size="1" color="gray" variant="ghost">
+              {/* @ts-expect-error -- fix frosted icon types */}
+              <XMark16 />
+            </IconButton>
+          </Drawer.Close>
         </Drawer.Header>
         <Drawer.Body>
           <Text as="p">The following users have access to this project.</Text>
