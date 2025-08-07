@@ -238,9 +238,22 @@ function YearDropdown({ state }: { state: CalendarState | RangeCalendarState }) 
     timeZone: state.timeZone,
   });
 
-  // Format 20 years on each side of the current year according
-  // to the current locale and calendar system.
-  for (let i = -20; i <= 20; i++) {
+  // Calculate the year range based on minValue and maxValue if provided
+  let startYear = -20;
+  let endYear = 20;
+
+  if (state.minValue) {
+    const yearsFromMin = state.focusedDate.year - state.minValue.year;
+    startYear = -yearsFromMin;
+  }
+
+  if (state.maxValue) {
+    const yearsToMax = state.maxValue.year - state.focusedDate.year;
+    endYear = yearsToMax;
+  }
+
+  // Format years according to the calculated range
+  for (let i = startYear; i <= endYear; i++) {
     const date = state.focusedDate.add({ years: i });
     years.push({
       value: date,
@@ -255,10 +268,13 @@ function YearDropdown({ state }: { state: CalendarState | RangeCalendarState }) 
     state.setFocused(false);
   };
 
+  // Find the index of the current focused year
+  const currentYearIndex = years.findIndex((year) => year.value.year === state.focusedDate.year);
+
   return (
     <Select.Root
       aria-label="Year"
-      value={(20).toString()}
+      value={currentYearIndex.toString()}
       onValueChange={onChange}
       disabled={state.isDisabled}
       size="1"
