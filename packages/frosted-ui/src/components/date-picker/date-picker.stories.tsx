@@ -11,7 +11,9 @@ const meta = {
   args: {
     size: datePickerPropDefs.size.default,
     color: datePickerPropDefs.color.default,
+    minValue: parseDate('1901-01-03'),
     defaultValue: parseDate('2020-02-03'),
+    maxValue: parseDate('2022-03-03'),
     onChange: (date) => console.log(date?.toString()),
     'aria-label': 'Birth date',
     isDisabled: false,
