@@ -15,7 +15,7 @@ export default function HomeScreen() {
     >
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome!</ThemedText>
-        <Button variant="solid" action="positive">
+        <Button variant="solid" action="positive" className="bg-primary-500">
           <ButtonText>Click me</ButtonText>
         </Button>
         <HelloWave />
