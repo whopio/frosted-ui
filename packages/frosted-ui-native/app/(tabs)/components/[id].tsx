@@ -29,7 +29,7 @@ const componentExamples: Record<string, ComponentExample[]> = {
       description: 'Default solid button with primary action',
       code: '<Button variant="solid" action="primary">\n  <ButtonText>Primary Button</ButtonText>\n</Button>',
       component: (
-        <Button variant="solid" action="primary">
+        <Button variant="solid" color="blue">
           <ButtonText>Primary Button</ButtonText>
         </Button>
       ),
@@ -40,7 +40,7 @@ const componentExamples: Record<string, ComponentExample[]> = {
       description: 'Solid button with positive action (success)',
       code: '<Button variant="solid" action="positive">\n  <ButtonText>Success</ButtonText>\n</Button>',
       component: (
-        <Button variant="solid" action="positive">
+        <Button variant="outline">
           <ButtonText>Success</ButtonText>
         </Button>
       ),
