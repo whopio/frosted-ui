@@ -10,12 +10,12 @@ import { Button, ButtonText } from '@/components/ui/button';
 export default function HomeScreen() {
   return (
     <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
+      headerBackgroundColor={{ light: 'var(--red-9)', dark: '#1D3D47' }}
       headerImage={<Image source={require('@/assets/images/partial-react-logo.png')} style={styles.reactLogo} />}
     >
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome!</ThemedText>
-        <Button variant="solid" action="positive" className="bg-primary-500">
+        <Button variant="solid" action="positive" className="bg-blue-a9">
           <ButtonText>Click me</ButtonText>
         </Button>
         <HelloWave />

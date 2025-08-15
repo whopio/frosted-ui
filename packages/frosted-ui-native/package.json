@@ -35,6 +35,7 @@
     "expo-system-ui": "~5.0.10",
     "expo-web-browser": "~14.2.0",
     "nativewind": "^4.1.23",
+    "@frosted-ui/colors": "workspace:*",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-native": "0.79.5",
