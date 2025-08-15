@@ -70,9 +70,6 @@ function createDarkColorMappings() {
 const lightColorMappings = createLightColorMappings();
 const darkColorMappings = createDarkColorMappings();
 
-console.log('Light mappings:', lightColorMappings);
-console.log('Dark mappings:', darkColorMappings);
-
 export const config = {
   light: vars(lightColorMappings),
   dark: vars(darkColorMappings),
