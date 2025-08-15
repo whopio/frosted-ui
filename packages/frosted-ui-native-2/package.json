@@ -1,0 +1,70 @@
+{
+  "name": "frosted-ui-native-2",
+  "version": "1.0.0",
+  "main": "node_modules/expo/AppEntry.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "storybook:web": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "storybook-generate": "sb-rn-get-stories",
+    "storybook": "cross-env EXPO_PUBLIC_STORYBOOK_ENABLED='true' expo start",
+    "storybook:ios": "cross-env EXPO_PUBLIC_STORYBOOK_ENABLED='true' expo start --ios",
+    "storybook:android": "cross-env EXPO_PUBLIC_STORYBOOK_ENABLED='true' expo start --android"
+  },
+  "dependencies": {
+    "@gorhom/bottom-sheet": "^5.1.2",
+    "@react-native-async-storage/async-storage": "2.1.2",
+    "@react-native-community/datetimepicker": "8.3.0",
+    "@react-native-community/slider": "4.5.6",
+    "expo": "~53.0.9",
+    "expo-constants": "~17.1.6",
+    "expo-status-bar": "~2.2.3",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "react-native": "0.79.2",
+    "react-native-gesture-handler": "~2.24.0",
+    "react-native-reanimated": "~3.17.4",
+    "react-native-safe-area-context": "5.4.0",
+    "react-native-svg": "15.11.2",
+    "react-native-web": "^0.20.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.0",
+    "@babel/preset-env": "^7.25.4",
+    "@chromatic-com/storybook": "^4.0.0",
+    "@expo/metro-runtime": "~5.0.4",
+    "@storybook/addon-docs": "^9",
+    "@storybook/addon-ondevice-actions": "^9",
+    "@storybook/addon-ondevice-backgrounds": "^9",
+    "@storybook/addon-ondevice-controls": "^9",
+    "@storybook/addon-ondevice-notes": "^9",
+    "@storybook/react": "^9",
+    "@storybook/react-native": "^9",
+    "@storybook/react-native-web-vite": "^9",
+    "@types/react": "~19.0.10",
+    "babel-plugin-react-docgen-typescript": "^1.5.1",
+    "cross-env": "^7.0.3",
+    "storybook": "^9",
+    "typescript": "~5.8.3",
+    "vite": "^6.3.5"
+  },
+  "resolutions": {
+    "react-docgen-typescript": "2.2.2",
+    "react-native-web": "^0.20.0"
+  },
+  "overrides": {
+    "react-docgen-typescript": "2.2.2",
+    "react-native-web": "^0.20.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "react-docgen-typescript": "2.2.2",
+      "react-native-web": "^0.20.0"
+    }
+  },
+  "private": true
+}
