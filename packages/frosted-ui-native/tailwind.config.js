@@ -46,8 +46,8 @@ module.exports = {
     },
   ],
   theme: {
+    colors: generateColorScales(),
     extend: {
-      colors: generateColorScales(),
       fontFamily: {
         heading: undefined,
         body: undefined,
