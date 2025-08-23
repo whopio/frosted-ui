@@ -1,14 +1,13 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { fn } from "storybook/test";
-import { View } from "react-native";
-import { MyButton } from "./Button";
+import type { Meta, StoryObj } from '@storybook/react';
+import { View } from 'react-native';
+import { fn } from 'storybook/test';
+import { GluestackUIProvider } from '../gluestack-ui-provider';
+import { Button, ButtonText } from './button';
 
 const meta = {
-  title: "MyButton",
-  component: MyButton,
-  args: {
-    text: "Hello world",
-  },
+  title: 'MyButton',
+  component: Button,
+  args: {},
   decorators: [
     (Story) => (
       <View style={{ padding: 16 }}>
@@ -16,7 +15,7 @@ const meta = {
       </View>
     ),
   ],
-} satisfies Meta<typeof MyButton>;
+} satisfies Meta<typeof Button>;
 
 export default meta;
 
@@ -26,4 +25,11 @@ export const Basic: Story = {
   args: {
     onPress: fn(),
   },
+  render: (args) => (
+    <GluestackUIProvider mode="light">
+      <Button variant="solid" color="blue">
+        <ButtonText>Swag</ButtonText>
+      </Button>
+    </GluestackUIProvider>
+  ),
 };

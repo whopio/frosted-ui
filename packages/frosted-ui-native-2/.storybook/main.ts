@@ -18,6 +18,25 @@ const main: StorybookConfig = {
   typescript: {
     reactDocgen: "react-docgen",
   },
+
+  viteFinal: async (config) => {
+    // Add buffer polyfill
+    config.define = {
+      ...config.define,
+      global: 'globalThis',
+    };
+    
+    // Ensure react-native is aliased to react-native-web
+    config.resolve = {
+      ...config.resolve,
+      alias: {
+        ...config.resolve?.alias,
+        'react-native': 'react-native-web',
+      },
+    };
+
+    return config;
+  },
 };
 
 export default main;
