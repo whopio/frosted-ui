@@ -24,7 +24,7 @@
   &:where(.fui-high-contrast) :where(.fui-AvatarFallback) {
     color: var(--accent-12);
   }
-  &:where(.fui-variant-round) {
+  &:where(.fui-shape-circle) {
     --radius-full: var(--radius-thumb);
   }
 }
