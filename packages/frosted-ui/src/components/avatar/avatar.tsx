@@ -23,7 +23,7 @@ const Avatar = (props: AvatarProps) => {
     color = avatarPropDefs.color.default,
     highContrast = avatarPropDefs.highContrast.default,
     fallback: fallbackProp,
-    variant = avatarPropDefs.variant.default,
+    shape = avatarPropDefs.shape.default,
     ...imageProps
   } = props;
   const [status, setStatus] = React.useState<ImageStatus>('idle');
@@ -48,7 +48,7 @@ const Avatar = (props: AvatarProps) => {
         className,
         `fui-r-size-${size}`,
         { 'fui-high-contrast': highContrast },
-        `fui-variant-${variant}`,
+        `fui-shape-${shape}`,
       )}
       style={style}
     >

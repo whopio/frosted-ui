@@ -38,7 +38,7 @@ export const Default: Story = {
   ),
 };
 
-export const Variant: Story = {
+export const Shape: Story = {
   args: {
     fallback: 'Cameron Zoub',
     color: 'blue',
@@ -49,17 +49,17 @@ export const Variant: Story = {
         <Avatar
           {...args}
           src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
-          variant="round"
+          shape="circle"
         />
-        <Avatar {...args} variant="round" />
+        <Avatar {...args} shape="circle" />
       </div>
       <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
         <Avatar
           {...args}
           src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
-          variant="square"
+          shape="square"
         />
-        <Avatar {...args} variant="square" />
+        <Avatar {...args} shape="square" />
       </div>
     </div>
   ),

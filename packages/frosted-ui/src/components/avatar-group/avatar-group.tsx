@@ -15,7 +15,7 @@ const AvatarGroupRoot = (props: AvatarGroupRootProps) => {
     className,
     children,
     size = avatarGroupPropDefs.size.default,
-    variant = avatarGroupPropDefs.variant.default,
+    shape = avatarGroupPropDefs.shape.default,
     color = avatarGroupPropDefs.color.default,
     ...rootProps
   } = props;
@@ -24,7 +24,7 @@ const AvatarGroupRoot = (props: AvatarGroupRootProps) => {
     <div
       data-accent-color={color}
       {...rootProps}
-      className={classNames('fui-AvatarGroupRoot', className, `fui-r-size-${size}`, `fui-variant-${variant}`)}
+      className={classNames('fui-AvatarGroupRoot', className, `fui-r-size-${size}`, `fui-shape-${shape}`)}
     >
       <div className="fui-AvatarGroupRootInner">{children}</div>
     </div>
@@ -33,7 +33,7 @@ const AvatarGroupRoot = (props: AvatarGroupRootProps) => {
 
 AvatarGroupRoot.displayName = 'AvatarGroupRoot';
 
-type AvatarGroupAvatarProps = Omit<React.ComponentProps<typeof Avatar>, 'size' | 'variant'>;
+type AvatarGroupAvatarProps = Omit<React.ComponentProps<typeof Avatar>, 'size' | 'shape'>;
 
 const AvatarGroupAvatar = ({ className, ...props }: AvatarGroupAvatarProps) => {
   return <Avatar size="3" className={classNames('fui-AvatarGroupAvatar', className)} {...props} />;
