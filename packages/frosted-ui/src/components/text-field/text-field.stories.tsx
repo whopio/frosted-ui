@@ -4,6 +4,7 @@ import {
   MagnifyingGlass12,
   MagnifyingGlass16,
   MagnifyingGlass20,
+  MagnifyingGlass24,
   ThreeDotsHorizontal16,
   ThreeDotsHorizontal20,
 } from '@frosted-ui/icons';
@@ -49,12 +50,12 @@ export const Size: Story = {
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', maxWidth: 400 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
-        <TextField.Root {...args}>
+        <TextField.Root {...args} size="1">
           <TextField.Slot>
             {/* @ts-expect-error -- TODO: fix frosted-icons types issue */}
             <MagnifyingGlass12 />
           </TextField.Slot>
-          <TextField.Input placeholder="Search the docs…" size="1" />
+          <TextField.Input placeholder="Search the docs…" />
         </TextField.Root>
         <Button size="1" variant={args.variant}>
           Search
@@ -62,12 +63,12 @@ export const Size: Story = {
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
-        <TextField.Root {...args}>
+        <TextField.Root {...args} size="2">
           <TextField.Slot>
             {/* @ts-expect-error -- TODO: fix frosted-icons types issue */}
             <MagnifyingGlass16 />
           </TextField.Slot>
-          <TextField.Input placeholder="Search the docs…" size="2" />
+          <TextField.Input placeholder="Search the docs…" />
           <TextField.Slot>
             <IconButton color="gray" size="1" variant="ghost">
               {/* @ts-expect-error -- TODO: fix frosted-icons types issue */}
@@ -81,12 +82,12 @@ export const Size: Story = {
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
-        <TextField.Root {...args}>
+        <TextField.Root {...args} size="3">
           <TextField.Slot>
             {/* @ts-expect-error -- TODO: fix frosted-icons types issue */}
             <MagnifyingGlass20 />
           </TextField.Slot>
-          <TextField.Input placeholder="Search the docs…" size="3" />
+          <TextField.Input placeholder="Search the docs…" />
           <TextField.Slot style={{ paddingRight: 'var(--space-3)' }}>
             <IconButton color="gray" size="2" variant="ghost">
               {/* @ts-expect-error -- TODO: fix frosted-icons types issue */}
@@ -95,6 +96,24 @@ export const Size: Story = {
           </TextField.Slot>
         </TextField.Root>
         <Button size="3" variant={args.variant}>
+          Search
+        </Button>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+        <TextField.Root {...args} size="4">
+          <TextField.Slot>
+            {/* @ts-expect-error -- TODO: fix frosted-icons types issue */}
+            <MagnifyingGlass24 />
+          </TextField.Slot>
+          <TextField.Input placeholder="Search the docs…" />
+          <TextField.Slot style={{ paddingRight: 'var(--space-3)' }}>
+            <IconButton color="gray" size="2" variant="ghost">
+              {/* @ts-expect-error -- TODO: fix frosted-icons types issue */}
+              <ThreeDotsHorizontal20 />
+            </IconButton>
+          </TextField.Slot>
+        </TextField.Root>
+        <Button size="4" variant={args.variant}>
           Search
         </Button>
       </div>
