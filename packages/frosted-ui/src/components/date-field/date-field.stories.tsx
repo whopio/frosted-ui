@@ -40,6 +40,7 @@ export const Size: Story = {
       <DateField {...args} defaultValue={parseDate('2020-02-03')} size="1" />
       <DateField {...args} defaultValue={parseDate('2020-02-03')} size="2" />
       <DateField {...args} defaultValue={parseDate('2020-02-03')} size="3" />
+      <DateField {...args} defaultValue={parseDate('2020-02-03')} size="4" />
     </div>
   ),
 };

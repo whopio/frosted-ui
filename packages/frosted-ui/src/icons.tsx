@@ -73,7 +73,7 @@ const InfoCircledIcon = (props: IconProps) => {
 };
 InfoCircledIcon.displayName = 'InfoCircledIcon';
 
-function CalendarIcon({ size }: { size: '1' | '2' | '3' }): React.JSX.Element {
+function CalendarIcon({ size }: { size: '1' | '2' | '3' | '4' }): React.JSX.Element {
   switch (size) {
     case '1':
       return (
@@ -100,6 +100,18 @@ function CalendarIcon({ size }: { size: '1' | '2' | '3' }): React.JSX.Element {
         </svg>
       );
     case '3':
+      return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path
+            d="M1.75 7.75H18.25M6.75 1.75V3.75M13.25 1.75V3.75M4.32 18.25H15.68C17.0994 18.25 18.25 17.0994 18.25 15.68V6.32C18.25 4.90063 17.0994 3.75 15.68 3.75H4.32C2.90063 3.75 1.75 4.90063 1.75 6.32V15.68C1.75 17.0994 2.90063 18.25 4.32 18.25Z"
+            stroke="var(--gray-a11)"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      );
+    case '4':
       return (
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
           <path

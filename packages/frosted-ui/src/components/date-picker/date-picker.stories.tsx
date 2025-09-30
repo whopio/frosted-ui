@@ -46,6 +46,7 @@ export const Sizes: Story = {
       <DatePicker {...args} size="1" />
       <DatePicker {...args} size="2" />
       <DatePicker {...args} size="3" />
+      <DatePicker {...args} size="4" />
     </div>
   ),
 };
