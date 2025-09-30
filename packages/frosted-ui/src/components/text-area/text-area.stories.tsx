@@ -39,6 +39,7 @@ export const Size: Story = {
       <TextArea placeholder="Reply to comment…" {...args} size="1" />
       <TextArea placeholder="Reply to comment…" {...args} size="2" />
       <TextArea placeholder="Reply to comment…" {...args} size="3" />
+      <TextArea placeholder="Reply to comment…" {...args} size="4" />
     </div>
   ),
 };

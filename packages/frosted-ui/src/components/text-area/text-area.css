@@ -110,6 +110,18 @@
       letter-spacing: var(--letter-spacing-3);
     }
   }
+  &:where(.fui-r-size-4) {
+    min-height: 96px;
+    border-radius: 14px;
+
+    & :where(.fui-TextAreaInput) {
+      --text-area-padding-y: calc(var(--space-3) - var(--text-area-border-width));
+      --text-area-padding-x: calc(var(--space-4) - var(--text-area-border-width));
+      font-size: var(--font-size-4);
+      line-height: var(--line-height-4);
+      letter-spacing: var(--letter-spacing-4);
+    }
+  }
 }
 
 /***************************************************************************************************

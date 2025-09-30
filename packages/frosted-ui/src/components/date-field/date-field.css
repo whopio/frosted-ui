@@ -90,4 +90,11 @@
     --padding: 8px;
     --radius: 10px;
   }
+  &:where(.fui-r-size-4) {
+    --height: var(--space-8);
+    --font-size: var(--font-size-4);
+    --letter-spacing: var(--letter-spacing-4);
+    --padding: 10px;
+    --radius: 14px;
+  }
 }

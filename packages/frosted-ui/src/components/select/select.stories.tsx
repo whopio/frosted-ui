@@ -25,7 +25,7 @@ export const Default: Story = {
     color: selectTriggerPropDefs.color.default,
   },
   render: (args) => (
-    <Select.Root defaultValue="apple">
+    <Select.Root defaultValue="apple" size="4">
       <Select.Trigger {...args} />
       <Select.Content>
         <Select.Group>
@@ -71,6 +71,14 @@ export const Size: Story = {
       </Select.Root>
 
       <Select.Root size="3" defaultValue="apple">
+        <Select.Trigger {...args} />
+        <Select.Content>
+          <Select.Item value="apple">Apple</Select.Item>
+          <Select.Item value="orange">Orange</Select.Item>
+        </Select.Content>
+      </Select.Root>
+
+      <Select.Root size="4" defaultValue="apple">
         <Select.Trigger {...args} />
         <Select.Content>
           <Select.Item value="apple">Apple</Select.Item>
