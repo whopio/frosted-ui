@@ -1,6 +1,6 @@
 import { PropDef, colorProp } from '../../helpers';
 
-const sizes = ['1', '2', '3'] as const;
+const sizes = ['1', '2', '3', '4'] as const;
 
 const dateFieldPropDefs = {
   size: { type: 'enum', values: sizes, default: '2' },

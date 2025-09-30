@@ -59,19 +59,24 @@
 
 .fui-TextFieldSlot {
   &:where(.fui-r-size-1) {
-    gap: var(--space-2);
-    padding-left: var(--space-1);
-    padding-right: var(--space-1);
+    gap: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
   }
   &:where(.fui-r-size-2) {
-    gap: var(--space-2);
-    padding-left: var(--space-2);
-    padding-right: var(--space-2);
+    gap: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
   }
   &:where(.fui-r-size-3) {
-    gap: var(--space-3);
-    padding-left: var(--space-3);
-    padding-right: var(--space-3);
+    gap: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  &:where(.fui-r-size-4) {
+    gap: 12px;
+    padding-left: 12px;
+    padding-right: 12px;
   }
 }
 .fui-TextFieldInput {
@@ -133,6 +138,26 @@
 
     & + :where(.fui-TextFieldChrome) {
       border-radius: max(10px, var(--radius-full));
+    }
+  }
+  &:where(.fui-r-size-4) {
+    height: var(--space-8);
+    font-size: var(--font-size-4);
+    letter-spacing: var(--letter-spacing-4);
+
+    /* Tweak text alignment */
+    padding-top: 0.5px;
+    padding-bottom: 1px;
+
+    &:where(:first-child) {
+      /* Equivalent to padding-left, but doesn't cut off long values when cursor is at the end */
+      text-indent: calc(var(--space-3) - var(--text-field-border-width));
+      /* Clip text to the visible border radius */
+      border-radius: max(14px, var(--radius-full));
+    }
+
+    & + :where(.fui-TextFieldChrome) {
+      border-radius: max(14px, var(--radius-full));
     }
   }
 }

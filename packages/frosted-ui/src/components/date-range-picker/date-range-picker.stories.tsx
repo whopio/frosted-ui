@@ -57,6 +57,7 @@ export const Sizes: Story = {
       <DateRangePicker {...args} size="1" />
       <DateRangePicker {...args} size="2" />
       <DateRangePicker {...args} size="3" />
+      <DateRangePicker {...args} size="4" />
     </div>
   ),
 };
