@@ -97,7 +97,7 @@ const addOverlayToChildren = (children: React.ReactNode): React.ReactNode => {
     return React.cloneElement(
       child,
       {},
-      React.Children.toArray(child.props.children).concat(<RadioButtonGroupOverlay />),
+      React.Children.toArray(child.props.children).concat(<RadioButtonGroupOverlay key="radio-button-group-overlay" />),
     );
   }
   return children;
