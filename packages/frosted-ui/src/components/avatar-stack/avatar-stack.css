@@ -67,7 +67,9 @@
 
 .fui-AvatarStackAvatar:where(:not(:is(:last-child))) {
   margin-left: calc(var(--avatar-stack-offset) * -1);
-  
+}
+
+.fui-AvatarStackAvatar:where(:has(+ .fui-shape-circle)) {
   mask-image: 
   radial-gradient(
     /* Size of the circle cutout - avatar size plus double outline width for full thickness */
@@ -78,4 +80,21 @@
     /* - 0.5px transition for smooth edges */
     transparent calc((var(--avatar-size) + var(--mask-outline-width) * 2) / 2 - 0.5px), 
     white calc((var(--avatar-size) + var(--mask-outline-width) * 2) / 2));
+}
+.fui-AvatarStackAvatar:where(:has(+ .fui-shape-square)) {
+  /* Base layer keeps current avatar visible; SVG layer is subtracted to create the cutout */
+  mask-image:
+    linear-gradient(#fff, #fff),
+    url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjI1IiByeT0iMjUiIGZpbGw9IiNmZmYiLz48L3N2Zz4=");
+  mask-repeat: no-repeat, no-repeat;
+  mask-position:
+    0 0,
+    calc(var(--avatar-stack-offset) - var(--avatar-size) - var(--mask-outline-width)) 50%;
+  mask-size:
+    100% 100%,
+    calc(var(--avatar-size) + var(--mask-outline-width) * 2) calc(var(--avatar-size) + var(--mask-outline-width) * 2);
+  /* Subtract the SVG layer from the base to create a hole */
+  mask-composite: exclude;
+  /* Safari/WebKit */
+  -webkit-mask-composite: xor;
 }

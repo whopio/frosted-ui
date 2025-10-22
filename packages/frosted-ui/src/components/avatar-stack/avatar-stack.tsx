@@ -7,11 +7,9 @@ import { Avatar } from '../avatar';
 import { avatarStackPropDefs } from './avatar-stack.props';
 
 const AvatarStackContext = React.createContext<{
-  size: (typeof avatarStackPropDefs.size.values)[number];
-  shape: (typeof avatarStackPropDefs.shape.values)[number];
+  size: (typeof avatarStackPropDefs.size.values)[number]; 
 }>({
   size: avatarStackPropDefs.size.default,
-  shape: avatarStackPropDefs.shape.default,
 });
 
 type AvatarStackRootOwnProps = GetPropDefTypes<typeof avatarStackPropDefs>;
@@ -23,8 +21,7 @@ const AvatarStackRoot = (props: AvatarStackRootProps) => {
     className,
     children,
     size = avatarStackPropDefs.size.default,
-    shape = avatarStackPropDefs.shape.default,
-    
+
     ...rootProps
   } = props;
 
@@ -37,9 +34,9 @@ const AvatarStackRoot = (props: AvatarStackRootProps) => {
   return (
     <div
       {...rootProps}
-      className={classNames('fui-AvatarStackRoot', className, `fui-r-size-${size}`, `fui-shape-${shape}`)}
+      className={classNames('fui-AvatarStackRoot', className, `fui-r-size-${size}`)}
     >
-      <AvatarStackContext.Provider value={{ size, shape }}>
+      <AvatarStackContext.Provider value={{ size }}>
         {reversedChildren}
       </AvatarStackContext.Provider>
     </div>
@@ -48,11 +45,11 @@ const AvatarStackRoot = (props: AvatarStackRootProps) => {
 
 AvatarStackRoot.displayName = 'AvatarStackRoot';
 
-type AvatarStackAvatarProps = Omit<React.ComponentProps<typeof Avatar>, 'size' | 'shape'>;
+type AvatarStackAvatarProps = Omit<React.ComponentProps<typeof Avatar>, 'size'>;
 
 const AvatarStackAvatar = ({ className, ...props }: AvatarStackAvatarProps) => {
-  const { size, shape } = React.useContext(AvatarStackContext);
-  return <Avatar size={size} shape={shape} className={classNames('fui-AvatarStackAvatar', className)} {...props} />;
+  const { size } = React.useContext(AvatarStackContext);
+  return <Avatar size={size}  className={classNames('fui-AvatarStackAvatar', className)} {...props} />;
 };
 
 AvatarStackAvatar.displayName = 'AvatarStackAvatar';
