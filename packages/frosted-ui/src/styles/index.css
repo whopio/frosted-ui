@@ -24,6 +24,7 @@
 @import '../components/accordion/accordion.css';
 @import '../components/avatar/avatar.css';
 @import '../components/avatar-group/avatar-group.css';
+@import '../components/avatar-stack/avatar-stack.css';
 @import '../components/badge/badge.css';
 
 @import '../components/blockquote/blockquote.css';

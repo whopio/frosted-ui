@@ -31,41 +31,42 @@
  ***************************************************************************************************/
 
 .fui-SkeletonAvatar {
+  &:where(.fui-shape-circle) {
+    border-radius: 50%;
+  }
+  &:where(.fui-shape-square) {
+    border-radius: 25%;
+  }
+
+  &:where(.fui-r-size-0) {
+    --skeleton-avatar-size: var(--space-4);
+  }
   &:where(.fui-r-size-1) {
     --skeleton-avatar-size: var(--space-5);
-    border-radius: max(var(--radius-2), var(--radius-full));
   }
   &:where(.fui-r-size-2) {
     --skeleton-avatar-size: var(--space-6);
-    border-radius: max(var(--radius-2), var(--radius-full));
   }
   &:where(.fui-r-size-3) {
     --skeleton-avatar-size: var(--space-7);
-    border-radius: max(var(--radius-3), var(--radius-full));
   }
   &:where(.fui-r-size-4) {
     --skeleton-avatar-size: var(--space-8);
-    border-radius: max(var(--radius-3), var(--radius-full));
   }
   &:where(.fui-r-size-5) {
     --skeleton-avatar-size: var(--space-9);
-    border-radius: max(var(--radius-4), var(--radius-full));
   }
   &:where(.fui-r-size-6) {
     --skeleton-avatar-size: 80px;
-    border-radius: max(var(--radius-5), var(--radius-full));
   }
   &:where(.fui-r-size-7) {
     --skeleton-avatar-size: 96px;
-    border-radius: max(var(--radius-5), var(--radius-full));
   }
   &:where(.fui-r-size-8) {
     --skeleton-avatar-size: 128px;
-    border-radius: max(var(--radius-6), var(--radius-full));
   }
   &:where(.fui-r-size-9) {
     --skeleton-avatar-size: 160px;
-    border-radius: max(var(--radius-6), var(--radius-full));
   }
 }
 /* Text */
