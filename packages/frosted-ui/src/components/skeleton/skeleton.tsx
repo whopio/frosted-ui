@@ -74,6 +74,5 @@ const SkeletonRect = (props: SkeletonRectProps) => {
 SkeletonRect.displayName = 'SkeletonRect';
 
 export { SkeletonAvatar as Avatar, SkeletonRect as Rect, SkeletonText as Text };
-
-  export type { SkeletonAvatarProps as AvatarProps, SkeletonRectProps as RectProps, SkeletonTextProps as TextProps };
+export type { SkeletonAvatarProps as AvatarProps, SkeletonRectProps as RectProps, SkeletonTextProps as TextProps };
 
