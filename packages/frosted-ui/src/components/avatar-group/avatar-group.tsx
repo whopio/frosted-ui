@@ -41,7 +41,6 @@ const AvatarGroupAvatar = ({ className, ...props }: AvatarGroupAvatarProps) => {
 
 AvatarGroupAvatar.displayName = 'AvatarGroupAvatar';
 
-export type { AvatarGroupAvatarProps, AvatarGroupRootProps };
-
 export { AvatarGroupAvatar as Avatar, AvatarGroupRoot as Root };
 export type { AvatarGroupAvatarProps as AvatarProps, AvatarGroupRootProps as RootProps };
+

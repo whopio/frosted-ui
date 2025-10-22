@@ -1,0 +1,100 @@
+.fui-AvatarStackRoot {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  justify-content: start;
+  user-select: none;
+  flex-shrink: 0;
+  position: relative;
+
+
+  &:where(.fui-high-contrast) :where(.fui-AvatarFallback) {
+    color: var(--accent-12);
+  }
+  &:where(.fui-shape-circle) {
+    --radius-full: var(--radius-thumb);
+  }
+}
+
+/***************************************************************************************************
+ *                                                                                                 *
+ * SIZES                                                                                           *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+.fui-AvatarStackRoot {
+  &:where(.fui-r-size-0) {
+    --avatar-stack-offset: 4px;
+    --mask-outline-width: 2px;
+  }
+  &:where(.fui-r-size-1) {
+    --avatar-stack-offset: 8px;
+    --mask-outline-width: 2px;
+  }
+  &:where(.fui-r-size-2) {
+    --avatar-stack-offset: 12px;
+    --mask-outline-width: 2px;
+  }
+  &:where(.fui-r-size-3) {
+    --avatar-stack-offset: 16px;
+    --mask-outline-width: 3px;
+  }
+  &:where(.fui-r-size-4) {
+    --avatar-stack-offset: 20px;
+    --mask-outline-width: 3px;
+  }
+  &:where(.fui-r-size-5) {
+    --avatar-stack-offset: 24px;
+    --mask-outline-width: 4px;
+  }
+  &:where(.fui-r-size-6) {
+    --avatar-stack-offset: 28px;
+    --mask-outline-width: 4px;
+  }
+  &:where(.fui-r-size-7) {
+    --avatar-stack-offset: 32px;
+    --mask-outline-width: 5px;
+  }
+  &:where(.fui-r-size-8) {
+    --avatar-stack-offset: 48px;
+    --mask-outline-width: 6px;
+  }
+  &:where(.fui-r-size-9) {
+    --avatar-stack-offset: 56px;
+    --mask-outline-width: 8px;
+  }
+}
+
+.fui-AvatarStackAvatar:where(:not(:is(:last-child))) {
+  margin-left: calc(var(--avatar-stack-offset) * -1);
+}
+
+.fui-AvatarStackAvatar:where(:has(+ .fui-shape-circle)) {
+  mask-image: 
+  radial-gradient(
+    /* Size of the circle cutout - avatar size plus double outline width for full thickness */
+    calc(var(--avatar-size) + var(--mask-outline-width) * 2) at 
+    /* Position at the center of the next avatar: left edge + half avatar size */
+    calc(var(--avatar-stack-offset) - (var(--avatar-size) / 2)) 50%, 
+    /* Create a sharp transition from transparent to white with outline width */
+    /* - 0.5px transition for smooth edges */
+    transparent calc((var(--avatar-size) + var(--mask-outline-width) * 2) / 2 - 0.5px), 
+    white calc((var(--avatar-size) + var(--mask-outline-width) * 2) / 2));
+}
+.fui-AvatarStackAvatar:where(:has(+ .fui-shape-square)) {
+  /* Base layer keeps current avatar visible; SVG layer is subtracted to create the cutout */
+  mask-image:
+    linear-gradient(#fff, #fff),
+    url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjI1IiByeT0iMjUiIGZpbGw9IiNmZmYiLz48L3N2Zz4=");
+  mask-repeat: no-repeat, no-repeat;
+  mask-position:
+    0 0,
+    calc(var(--avatar-stack-offset) - var(--avatar-size) - var(--mask-outline-width)) 50%;
+  mask-size:
+    100% 100%,
+    calc(var(--avatar-size) + var(--mask-outline-width) * 2) calc(var(--avatar-size) + var(--mask-outline-width) * 2);
+  /* Subtract the SVG layer from the base to create a hole */
+  mask-composite: exclude;
+  /* Safari/WebKit */
+  -webkit-mask-composite: xor;
+}

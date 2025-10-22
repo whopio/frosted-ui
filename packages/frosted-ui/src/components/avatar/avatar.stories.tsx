@@ -73,6 +73,7 @@ export const Size: Story = {
   },
   render: (args) => (
     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
+      <Avatar {...args} size="0" />
       <Avatar {...args} size="1" />
       <Avatar {...args} size="2" />
       <Avatar {...args} size="3" />

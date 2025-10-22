@@ -12,6 +12,7 @@ const SkeletonAvatar = (props: SkeletonAvatarProps) => {
   const {
     className,
     size = skeletonAvatarPropDefs.size.default,
+    shape = skeletonAvatarPropDefs.shape.default,
     color = skeletonAvatarPropDefs.color.default,
     highContrast = skeletonAvatarPropDefs.highContrast.default,
     ...skeletonAvatarProps
@@ -20,7 +21,7 @@ const SkeletonAvatar = (props: SkeletonAvatarProps) => {
   return (
     <div
       data-accent-color={color}
-      className={classNames('fui-SkeletonAvatar', className, `fui-r-size-${size}`, {
+      className={classNames('fui-SkeletonAvatar', className, `fui-r-size-${size}`, `fui-shape-${shape}`, {
         'fui-high-contrast': highContrast,
       })}
       {...skeletonAvatarProps}
@@ -73,5 +74,5 @@ const SkeletonRect = (props: SkeletonRectProps) => {
 SkeletonRect.displayName = 'SkeletonRect';
 
 export { SkeletonAvatar as Avatar, SkeletonRect as Rect, SkeletonText as Text };
-
 export type { SkeletonAvatarProps as AvatarProps, SkeletonRectProps as RectProps, SkeletonTextProps as TextProps };
+
