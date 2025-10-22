@@ -55,6 +55,7 @@ export * from './tooltip';
 //------------------------------------------------------------------------------
 export * from './avatar';
 export * from './avatar-group';
+export * from './avatar-stack';
 export * from './badge';
 export * from './blockquote';
 export * from './breadcrumbs';
@@ -87,3 +88,4 @@ export * from './accessible-icon';
 export * from './portal';
 export * from './slot';
 export * from './visually-hidden';
+
