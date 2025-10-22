@@ -56,11 +56,11 @@
     --mask-outline-width: 5px;
   }
   &:where(.fui-r-size-8) {
-    --avatar-stack-offset: 36px;
+    --avatar-stack-offset: 48px;
     --mask-outline-width: 6px;
   }
   &:where(.fui-r-size-9) {
-    --avatar-stack-offset: 40px;
+    --avatar-stack-offset: 56px;
     --mask-outline-width: 8px;
   }
 }
