@@ -78,6 +78,9 @@
 }
 
 .fui-AvatarRoot {
+  &:where(.fui-r-size-0) {
+    --avatar-size: var(--space-4);
+  }
   &:where(.fui-r-size-1) {
     --avatar-size: var(--space-5);
   }
