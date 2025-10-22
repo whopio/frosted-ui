@@ -42,6 +42,7 @@ export const AvatarSizes: Story = {
   },
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--space-3)' }}>
+      <Skeleton.Avatar {...args} size="0" />
       <Skeleton.Avatar {...args} size="1" />
       <Skeleton.Avatar {...args} size="2" />
       <Skeleton.Avatar {...args} size="3" />
