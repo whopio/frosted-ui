@@ -31,83 +31,32 @@ const Tooltip = (props: TooltipProps) => {
     content,
     container,
     forceMount,
-    type = tooltipPropDefs.type.default,
     ...tooltipContentProps
   } = props;
-
-  const [isOverflowing, setIsOverflowing] = React.useState(false);
-  const [triggerElement, setTriggerElement] = React.useState<HTMLButtonElement | null>(null);
-
-  React.useLayoutEffect(() => {
-    if (type === 'overflow' && triggerElement) {
-      const updateTriggerOverflow = () => {
-        const isOverflowing =
-          triggerElement.offsetWidth < triggerElement.scrollWidth ||
-          triggerElement.offsetHeight < triggerElement.scrollHeight;
-
-        setIsOverflowing(isOverflowing);
-      };
-
-      updateTriggerOverflow();
-
-      const resizeObserver = new ResizeObserver(() => {
-        updateTriggerOverflow();
-      });
-      resizeObserver.observe(triggerElement);
-
-      const mutationObserver = new MutationObserver(() => {
-        updateTriggerOverflow();
-      });
-      mutationObserver.observe(triggerElement, {
-        attributes: true,
-        childList: true,
-        subtree: true,
-      });
-
-      return () => {
-        resizeObserver.disconnect();
-        mutationObserver.disconnect();
-      };
-    } else {
-      setIsOverflowing(false);
-    }
-  }, [triggerElement, type]);
-
   const rootProps = {
-    open: open !== undefined ? (type === 'overflow' ? open && isOverflowing : open) : open,
-    defaultOpen:
-      defaultOpen !== undefined ? (type === 'overflow' ? defaultOpen && isOverflowing : defaultOpen) : defaultOpen,
+    open,
+    defaultOpen,
     onOpenChange,
     delayDuration,
     disableHoverableContent,
   };
-
   return (
     <TooltipPrimitive.Root {...rootProps}>
-      <TooltipPrimitive.Trigger
-        asChild
-        ref={(e) => {
-          setTriggerElement(e as HTMLButtonElement);
-        }}
-      >
-        {children}
-      </TooltipPrimitive.Trigger>
+      <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
       <TooltipPrimitive.Portal container={container} forceMount={forceMount}>
-        {(type === 'overflow' ? isOverflowing : true) ? (
-          <Theme asChild>
-            <TooltipPrimitive.Content
-              sideOffset={4}
-              collisionPadding={10}
-              {...tooltipContentProps}
-              className={classNames('fui-TooltipContent', className)}
-            >
-              <Text as="p" className="fui-TooltipText" size="1">
-                {content}
-              </Text>
-              <TooltipPrimitive.Arrow className="fui-TooltipArrow" />
-            </TooltipPrimitive.Content>
-          </Theme>
-        ) : null}
+        <Theme asChild>
+          <TooltipPrimitive.Content
+            sideOffset={4}
+            collisionPadding={10}
+            {...tooltipContentProps}
+            className={classNames('fui-TooltipContent', className)}
+          >
+            <Text as="p" className="fui-TooltipText" size="1">
+              {content}
+            </Text>
+            <TooltipPrimitive.Arrow className="fui-TooltipArrow" />
+          </TooltipPrimitive.Content>
+        </Theme>
       </TooltipPrimitive.Portal>
     </TooltipPrimitive.Root>
   );

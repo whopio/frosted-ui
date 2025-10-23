@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { IconButton, Text, Tooltip, tooltipPropDefs } from '..';
+import { IconButton, Tooltip } from '..';
 
 const ExampleIcon = ({ size }: { size: number }) => (
   <svg width={size} height={size} viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -17,9 +17,7 @@ const ExampleIcon = ({ size }: { size: number }) => (
 const meta = {
   title: 'Components/Tooltip',
   component: Tooltip,
-  args: {
-    type: tooltipPropDefs.type.default,
-  },
+  args: {},
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
     layout: 'centered',
@@ -43,33 +41,4 @@ export const Default: Story = {
       </IconButton>
     </Tooltip>
   ),
-};
-
-export const ShowOnOverflow: Story = {
-  name: 'Show on overflow',
-  args: {
-    content: 'This is a really long text',
-    type: 'overflow',
-  },
-  render: ({ content, type }) => {
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
-        <Tooltip content={content} type={type} defaultOpen>
-          <Text>{content}</Text>
-        </Tooltip>
-        <Tooltip content={content} type={type} defaultOpen>
-          <Text
-            style={{
-              width: 100,
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            {content}
-          </Text>
-        </Tooltip>
-      </div>
-    );
-  },
 };
