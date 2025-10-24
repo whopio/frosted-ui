@@ -7,20 +7,11 @@
   height: var(--skeleton-avatar-size);
   flex-shrink: 0;
 
-  background-size: 400% 100%;
-  background-image: linear-gradient(
-    270deg,
-    var(--skeleton-background-color),
-    var(--skeleton-background-shimmer-color),
-    var(--skeleton-background-shimmer-color),
-    var(--skeleton-background-color)
-  );
+  background: var(--skeleton-background-color);
 
-  --skeleton-background-color: var(--accent-a2);
-  --skeleton-background-shimmer-color: var(--accent-a3);
+  --skeleton-background-color: var(--accent-a3);
   &:where(.fui-high-contrast) {
     --skeleton-background-color: var(--accent-a4);
-    --skeleton-background-shimmer-color: var(--accent-a6);
   }
 }
 
@@ -76,14 +67,11 @@
   align-items: center;
   justify-content: center;
   margin: 0;
-
   height: var(--skeleton-text-line-height);
 
-  --skeleton-background-color: var(--accent-a2);
-  --skeleton-background-shimmer-color: var(--accent-a3);
+  --skeleton-background-color: var(--accent-a3);
   &:where(.fui-high-contrast) {
     --skeleton-background-color: var(--accent-a4);
-    --skeleton-background-shimmer-color: var(--accent-a6);
   }
 }
 
@@ -92,15 +80,7 @@
   width: 100%;
   height: var(--skeleton-text-size);
 
-  background-size: 400% 100%;
-  background-image: linear-gradient(
-    270deg,
-    var(--skeleton-background-color),
-    var(--skeleton-background-shimmer-color),
-    var(--skeleton-background-shimmer-color),
-    var(--skeleton-background-color)
-  );
-
+  background: var(--skeleton-background-color);
   border-radius: var(--skeleton-text-border-radius);
 }
 
@@ -170,56 +150,25 @@
   user-select: none;
   flex-shrink: 0;
 
-  background-size: 400% 100%;
-  background-image: linear-gradient(
-    270deg,
-    var(--skeleton-background-color),
-    var(--skeleton-background-shimmer-color),
-    var(--skeleton-background-shimmer-color),
-    var(--skeleton-background-color)
-  );
+  background: var(--skeleton-background-color);
 
-  --skeleton-background-color: var(--accent-a2);
-  --skeleton-background-shimmer-color: var(--accent-a3);
+  --skeleton-background-color: var(--accent-a3);
   &:where(.fui-high-contrast) {
     --skeleton-background-color: var(--accent-a4);
-    --skeleton-background-shimmer-color: var(--accent-a6);
   }
 }
 
 /* Shimmer effect */
-
 @media (prefers-reduced-motion: no-preference) {
-  @keyframes fui-skeleton-shimmer {
-    from {
-      background-position: 200% 0;
-    }
-    to {
-      background-position: -200% 0;
+  @keyframes fui-skeleton-pulse {
+    50% {
+      opacity: 0.5;
     }
   }
 
   .fui-SkeletonAvatar,
   .fui-SkeletonText::after,
   .fui-SkeletonRect {
-    animation: fui-skeleton-shimmer 8s ease-in-out infinite;
-  }
-
-  .fui-DrawerContent {
-    &:where([data-state='open']) {
-      animation: fui-drawer-content-show 400ms cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    &:where([data-state='closed']) {
-      animation: fui-drawer-content-hide 300ms cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    &:where([data-state='open'])::before {
-      animation: fui-drawer-backdrop-show 400ms cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    &:where([data-state='closed'])::before {
-      animation: fui-drawer-backdrop-hide 300ms cubic-bezier(0.16, 1, 0.3, 1);
-    }
+    animation: fui-skeleton-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 }
