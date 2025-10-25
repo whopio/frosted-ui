@@ -171,8 +171,10 @@
   --card-background: var(--color-panel-solid);
 }
 /* prettier-ignore */
-:is(.dark, .dark-theme),
-:is(.dark, .dark-theme) :where(.frosted-ui:not(.light, .light-theme)) {
+.dark,
+.dark-theme,
+.dark :where(.frosted-ui:not(.light, .light-theme)),
+.dark-theme :where(.frosted-ui:not(.light, .light-theme)) {
   --card-classic-hover-box-shadow:
     0 0 0 1px var(--gray-a7),
     0 0 1px 1px var(--gray-a7),
@@ -183,16 +185,14 @@
   --card-background: var(--color-panel-solid);
 }
 
-/* prettier-ignore */
 @supports (color: color-mix(in oklab, white, black)) {
-  :is(.dark, .dark-theme),
-  :is(.dark, .dark-theme) :where(.frosted-ui:not(.light, .light-theme)) {
+  .dark,
+  .dark-theme,
+  .dark :where(.frosted-ui:not(.light, .light-theme)),
+  .dark-theme :where(.frosted-ui:not(.light, .light-theme)) {
     --card-classic-hover-box-shadow:
-      0 0 0 1px color-mix(in oklab, var(--gray-a7), var(--gray-8)),
-      0 0 1px 1px var(--gray-a7),
-      0 0 1px -1px var(--gray-a4),
-      0 0 3px -2px var(--gray-a3),
-      0 0 12px -2px var(--gray-a3),
+      0 0 0 1px color-mix(in oklab, var(--gray-a7), var(--gray-8)), 0 0 1px 1px var(--gray-a7),
+      0 0 1px -1px var(--gray-a4), 0 0 3px -2px var(--gray-a3), 0 0 12px -2px var(--gray-a3),
       0 0 16px -8px var(--gray-a9);
   }
 }

@@ -65,8 +65,10 @@
   --base-button-classic-high-contrast-active-filter: contrast(0.82) saturate(1.2) brightness(1.16);
 }
 /* prettier-ignore */
-:is(.dark, .dark-theme),
-:is(.dark, .dark-theme) :where(.frosted-ui:not(.light, .light-theme)) {
+.dark,
+.dark-theme,
+.dark :where(.frosted-ui:not(.light, .light-theme)),
+.dark-theme :where(.frosted-ui:not(.light, .light-theme)) {
   --base-button-classic-active-filter: brightness(1.08);
   --base-button-classic-high-contrast-hover-filter: contrast(0.88) saturate(1.3) brightness(1.14);
   --base-button-classic-high-contrast-active-filter: brightness(0.95) saturate(1.2);
@@ -142,8 +144,10 @@
   --base-button-solid-high-contrast-hover-filter: contrast(0.88) saturate(1.1) brightness(1.1);
   --base-button-solid-high-contrast-active-filter: contrast(0.82) saturate(1.2) brightness(1.16);
 }
-:is(.dark, .dark-theme),
-:is(.dark, .dark-theme) :where(.frosted-ui:not(.light, .light-theme)) {
+.dark,
+.dark-theme,
+.dark :where(.frosted-ui:not(.light, .light-theme)),
+.dark-theme :where(.frosted-ui:not(.light, .light-theme)) {
   --base-button-solid-active-filter: brightness(1.08);
   --base-button-solid-high-contrast-hover-filter: contrast(0.88) saturate(1.3) brightness(1.18);
   --base-button-solid-high-contrast-active-filter: brightness(0.95) saturate(1.2);

@@ -8,8 +8,10 @@
     0 0 0 0.05em var(--gray-a5),
     0 0.08em 0.17em var(--gray-a7);
 }
-:is(.dark, .dark-theme),
-:is(.dark, .dark-theme) :where(.frosted-ui:not(.light, .light-theme)) {
+.dark,
+.dark-theme,
+.dark :where(.frosted-ui:not(.light, .light-theme)),
+.dark-theme :where(.frosted-ui:not(.light, .light-theme)) {
   /* prettier-ignore */
   --kbd-box-shadow:
     inset 0 -0.05em 0.5em var(--gray-a3),
