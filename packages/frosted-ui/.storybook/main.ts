@@ -46,5 +46,22 @@ const config: StorybookConfig = {
       },
     },
   },
+
+  viteFinal: (config) => {
+    return {
+      ...config,
+      optimizeDeps: {
+        ...config.optimizeDeps,
+        exclude: [
+          '@storybook/addon-docs',
+          '@storybook/blocks',
+          '@storybook/theming',
+          '@storybook/components',
+          '@storybook/preview-api',
+          '@storybook/manager-api',
+        ],
+      },
+    };
+  },
 };
 export default config;
