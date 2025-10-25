@@ -150,8 +150,10 @@
 :where(.frosted-ui) {
   --data-table-border-color: color-mix(in oklab, var(--gray-a5), var(--gray-6));
 }
-:is(.dark, .dark-theme),
-:is(.dark, .dark-theme) :where(.frosted-ui:not(.light, .light-theme)) {
+.dark,
+.dark-theme,
+.dark :where(.frosted-ui:not(.light, .light-theme)),
+.dark-theme :where(.frosted-ui:not(.light, .light-theme)) {
   --data-table-border-color: color-mix(in oklab, var(--gray-a3), var(--gray-4));
 }
 
