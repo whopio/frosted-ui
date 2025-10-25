@@ -211,8 +211,10 @@
   --color-base-menu-outline: transparent;
 }
 /* prettier-ignore */
-:is(.dark, .dark-theme),
-:is(.dark, .dark-theme) :where(.frosted-ui:not(.light, .light-theme)) {
+.dark,
+.dark-theme,
+.dark :where(.frosted-ui:not(.light, .light-theme)),
+.dark-theme :where(.frosted-ui:not(.light, .light-theme)) {
   --color-base-menu-outline: black;
 }
 
