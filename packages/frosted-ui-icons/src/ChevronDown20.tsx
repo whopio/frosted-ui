@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const ChevronDown20 = ({
-  color = 'currentColor',
-  ...props
-}: IconProps) => {
+export const ChevronDown20 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
       width="20"
@@ -16,7 +13,7 @@ export const ChevronDown20 = ({
       {...props}
     >
       <path
-        d="M1.22876 5.61426L10 14.3855L18.7712 5.61426"
+        d="M3.25 7.25L9.75 13.75L16.25 7.25"
         stroke={color}
         strokeWidth="1.5"
         strokeLinecap="round"

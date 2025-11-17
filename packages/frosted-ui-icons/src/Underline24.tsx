@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const Underline24 = ({
-  color = 'currentColor',
-  ...props
-}: IconProps) => {
+export const Underline24 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
       width="24"
@@ -16,10 +13,8 @@ export const Underline24 = ({
       {...props}
     >
       <path
-        d="M5.75 20.75H18.25M5.75 3.75V12C5.75 15.4518 8.54822 18.25 12 18.25C15.4518 18.25 18.25 15.4518 18.25 12V3.75"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
+        d="M18.25 20C18.6642 20 19 20.3358 19 20.75C19 21.1642 18.6642 21.5 18.25 21.5H5.75C5.33579 21.5 5 21.1642 5 20.75C5 20.3358 5.33579 20 5.75 20H18.25ZM18.25 3C18.6642 3 19 3.33579 19 3.75V12C19 15.866 15.866 19 12 19C8.13401 19 5 15.866 5 12V3.75C5 3.33579 5.33579 3 5.75 3C6.16421 3 6.5 3.33579 6.5 3.75V12C6.5 15.0376 8.96243 17.5 12 17.5C15.0376 17.5 17.5 15.0376 17.5 12V3.75C17.5 3.33579 17.8358 3 18.25 3Z"
+        fill={color}
       />
     </svg>
   );

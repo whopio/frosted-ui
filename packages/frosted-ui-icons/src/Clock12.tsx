@@ -12,21 +12,9 @@ export const Clock12 = ({ color = 'currentColor', ...props }: IconProps) => {
       data-fui-icon="true"
       {...props}
     >
-      <circle
-        cx="6"
-        cy="6"
-        r="5.25"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
       <path
-        d="M7.2499 7.25L5.75 6.75L5.75 3.7501"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        d="M6 0C9.31371 0 12 2.68629 12 6C12 9.31371 9.31371 12 6 12C2.68629 12 0 9.31371 0 6C0 2.68629 2.68629 0 6 0ZM6 1.5C3.51472 1.5 1.5 3.51472 1.5 6C1.5 8.48528 3.51472 10.5 6 10.5C8.48528 10.5 10.5 8.48528 10.5 6C10.5 3.51472 8.48528 1.5 6 1.5ZM5.75 3C6.16418 3 6.49995 3.33583 6.5 3.75V6.20898L7.4873 6.53809C7.88021 6.66911 8.09192 7.09438 7.96094 7.4873C7.82986 7.88007 7.40554 8.09281 7.0127 7.96191L5.5127 7.46191L5.40332 7.41504C5.15837 7.28745 5 7.03263 5 6.75V3.75C5.00005 3.33583 5.33582 3 5.75 3Z"
+        fill={color}
       />
     </svg>
   );

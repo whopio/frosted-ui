@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const CheckmarkCircle16 = ({
-  color = 'currentColor',
-  ...props
-}: IconProps) => {
+export const CheckmarkCircle16 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
       width="16"
@@ -15,21 +12,9 @@ export const CheckmarkCircle16 = ({
       data-fui-icon="true"
       {...props}
     >
-      <circle
-        cx="8"
-        cy="8"
-        r="7.25"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
       <path
-        d="M4.75 7.75L7 10.25L11.25 5.75"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        d="M8 1C11.866 1 15 4.13401 15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8C1 4.13401 4.13401 1 8 1ZM8 2.5C4.96243 2.5 2.5 4.96243 2.5 8C2.5 11.0376 4.96243 13.5 8 13.5C11.0376 13.5 13.5 11.0376 13.5 8C13.5 4.96243 11.0376 2.5 8 2.5ZM9.96973 5.96973C10.2626 5.67683 10.7374 5.67683 11.0303 5.96973C11.3232 6.26262 11.3232 6.73738 11.0303 7.03027L7.53027 10.5303C7.23738 10.8231 6.7626 10.8231 6.46973 10.5303L4.96973 9.03027C4.67685 8.7374 4.67688 8.26262 4.96973 7.96973C5.26262 7.67683 5.73738 7.67683 6.03027 7.96973L7 8.93945L9.96973 5.96973Z"
+        fill={color}
       />
     </svg>
   );

@@ -12,15 +12,7 @@ export const Sad32 = ({ color = 'currentColor', ...props }: IconProps) => {
       data-fui-icon="true"
       {...props}
     >
-      <circle
-        cx="16"
-        cy="16"
-        r="14.25"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <circle cx="16" cy="16" r="14.25" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       <circle cx="9.5" cy="17.5" r="1.5" fill={color} />
       <circle cx="22.499" cy="17.5" r="1.5" fill={color} />
       <path

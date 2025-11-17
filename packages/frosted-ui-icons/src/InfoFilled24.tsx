@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const InfoFilled24 = ({
-  color = 'currentColor',
-  ...props
-}: IconProps) => {
+export const InfoFilled24 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
       width="24"
@@ -15,13 +12,9 @@ export const InfoFilled24 = ({
       data-fui-icon="true"
       {...props}
     >
-      <circle cx="10.781" cy="6" r="2" fill={color} />
       <path
-        d="M12.25 20.2188V10.7812H8.78125M12.25 20.2188H8.78125M12.25 20.2188H14.8571"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        d="M12.25 10.0312C12.6642 10.0312 13 10.367 13 10.7812V19.4688H14.8574C15.2715 19.4689 15.6074 19.8046 15.6074 20.2188C15.6074 20.6329 15.2715 20.9686 14.8574 20.9688H8.78125C8.36704 20.9688 8.03125 20.633 8.03125 20.2188C8.03125 19.8045 8.36704 19.4688 8.78125 19.4688H11.5V11.5312H8.78125C8.36704 11.5312 8.03125 11.1955 8.03125 10.7812C8.03125 10.367 8.36704 10.0312 8.78125 10.0312H12.25ZM10.7812 4C11.8858 4 12.7812 4.89543 12.7812 6C12.7812 7.10457 11.8858 8 10.7812 8C9.67668 8 8.78125 7.10457 8.78125 6C8.78125 4.89543 9.67668 4 10.7812 4Z"
+        fill={color}
       />
     </svg>
   );

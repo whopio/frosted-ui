@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const ChevronLeft20 = ({
-  color = 'currentColor',
-  ...props
-}: IconProps) => {
+export const ChevronLeft20 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
       width="20"
@@ -15,13 +12,7 @@ export const ChevronLeft20 = ({
       data-fui-icon="true"
       {...props}
     >
-      <path
-        d="M14.3856 1.22876L5.61438 10L14.3856 18.7712"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <path d="M13 3.5L6.5 10L13 16.5" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 };

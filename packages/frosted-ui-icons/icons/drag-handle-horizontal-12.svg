@@ -1,27 +1,8 @@
-<svg
-  width="12"
-  height="12"
-  viewBox="0 0 12 12"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
-  data-fui-icon="true"
->
+<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="true">
   <circle cx="2" cy="8" r="1" transform="rotate(-90 2 8)" fill="currentColor" />
   <circle cx="2" cy="4" r="1" transform="rotate(-90 2 4)" fill="currentColor" />
   <circle cx="6" cy="8" r="1" transform="rotate(-90 6 8)" fill="currentColor" />
   <circle cx="6" cy="4" r="1" transform="rotate(-90 6 4)" fill="currentColor" />
-  <circle
-    cx="10"
-    cy="8"
-    r="1"
-    transform="rotate(-90 10 8)"
-    fill="currentColor"
-  />
-  <circle
-    cx="10"
-    cy="4"
-    r="1"
-    transform="rotate(-90 10 4)"
-    fill="currentColor"
-  />
+  <circle cx="10" cy="8" r="1" transform="rotate(-90 10 8)" fill="currentColor" />
+  <circle cx="10" cy="4" r="1" transform="rotate(-90 10 4)" fill="currentColor" />
 </svg>

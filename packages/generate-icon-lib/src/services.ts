@@ -67,10 +67,14 @@ const transformers = {
     $('*').each((i, el) => {
       Object.keys(el.attribs).forEach((attrKey) => {
         if (attrKey.includes('-') && !attrKey.startsWith('data-')) {
-          $(el).attr(_.camelCase(attrKey), el.attribs[attrKey]).removeAttr(attrKey);
+          $(el)
+            .attr(_.camelCase(attrKey), el.attribs[attrKey])
+            .removeAttr(attrKey);
         }
         if (attrKey === 'class') {
-          $(el).attr('className', el.attribs[attrKey]).removeAttr(attrKey);
+          $(el)
+            .attr('className', el.attribs[attrKey])
+            .removeAttr(attrKey);
         }
       });
     });
@@ -94,7 +98,12 @@ const labelling = {
   sizeFromFrameNodeName(nodeName: string): string {
     // Note: We ensure ordering by assignment-time in the object, and avoid numerical
     // key ordering, by adding a non-numerical to the key.
-    return labelling.addSizePrefix(path.basename(nodeName).toLowerCase().trim());
+    return labelling.addSizePrefix(
+      path
+        .basename(nodeName)
+        .toLowerCase()
+        .trim(),
+    );
   },
   filePathFromIcon(icon: IIcon): string {
     return path.join(icon.type, 'icons', `${icon.svgName}.svg`);
@@ -220,7 +229,7 @@ export async function renderIdsToSvgs(ids: string[], config: IFigmaConfig): Prom
 }
 
 export function getIconsPage(document: IFigmaDocument): IFigmaCanvas | null {
-  const canvas = document.children.find((page) => page.name.toLowerCase() === 'icons');
+  const canvas = document.children.find((page) => page.name.toLowerCase() === 'product icons');
 
   return canvas && canvas.type === 'CANVAS' ? canvas : null;
 }
@@ -271,9 +280,7 @@ export function getIcons(iconsCanvas: IFigmaCanvas): IIcons {
 export async function downloadSvgsToFs(urls: IIconsSvgUrls, icons: IIcons, onProgress: () => void) {
   await Promise.all(
     Object.keys(urls).map(async (iconId) => {
-      const processedSvg = await (
-        await fetch(urls[iconId])
-      )
+      const processedSvg = await (await fetch(urls[iconId]))
         .text()
         .then(async (svgRaw) => transformers.passSVGO(svgRaw))
         .then((svgRaw) => transformers.injectCurrentColor(svgRaw))

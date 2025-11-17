@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const PlusCircle32 = ({
-  color = 'currentColor',
-  ...props
-}: IconProps) => {
+export const PlusCircle32 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
       width="32"
@@ -15,20 +12,9 @@ export const PlusCircle32 = ({
       data-fui-icon="true"
       {...props}
     >
-      <circle
-        cx="16"
-        cy="16"
-        r="14.25"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
       <path
-        d="M21.6568 16.0007H16H10.3431M16 21.6575V10.3438"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
+        d="M16 1C24.2843 1 31 7.71573 31 16C31 24.2843 24.2843 31 16 31C7.71573 31 1 24.2843 1 16C1 7.71573 7.71573 1 16 1ZM16 2.5C8.54416 2.5 2.5 8.54416 2.5 16C2.5 23.4558 8.54416 29.5 16 29.5C23.4558 29.5 29.5 23.4558 29.5 16C29.5 8.54416 23.4558 2.5 16 2.5ZM16 9.59375C16.414 9.59395 16.75 9.92966 16.75 10.3438V15.251H21.6562C22.0705 15.251 22.4062 15.5868 22.4062 16.001C22.4061 16.415 22.0704 16.751 21.6562 16.751H16.75V21.6572C16.75 22.0713 16.414 22.407 16 22.4072C15.586 22.407 15.25 22.0713 15.25 21.6572V16.751H10.3428C9.92883 16.7508 9.59294 16.4149 9.59277 16.001C9.59277 15.5869 9.92873 15.2512 10.3428 15.251H15.25V10.3438C15.25 9.92966 15.586 9.59395 16 9.59375Z"
+        fill={color}
       />
     </svg>
   );

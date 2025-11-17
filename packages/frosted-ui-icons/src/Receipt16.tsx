@@ -13,7 +13,7 @@ export const Receipt16 = ({ color = 'currentColor', ...props }: IconProps) => {
       {...props}
     >
       <path
-        d="M4.16668 13.625L2.25 15.125V.875H13.75V15.125L11.8333 13.625 9.91667 15.125 8.00001 13.625 6.08335 15.125 4.16668 13.625zM5.125 5.25H10.875M5.125 8H10.875M5.125 10.75H8.25"
+        d="M4.5 13.5L2.5 15V1H13.5V15L11.5 13.5 9.75 15 8 13.5 6.25 15 4.5 13.5zM5.5 4H10.5M5.5 7H8.5"
         stroke={color}
         strokeWidth="1.5"
         strokeLinecap="round"

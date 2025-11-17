@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const HappyPlus12 = ({
-  color = 'currentColor',
-  ...props
-}: IconProps) => {
+export const HappyPlus12 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
       width="12"
@@ -23,13 +20,7 @@ export const HappyPlus12 = ({
         strokeLinejoin="round"
       />
       <circle cx="3.813" cy="5.781" r=".75" fill={color} />
-      <circle
-        cx=".75"
-        cy=".75"
-        r=".75"
-        transform="matrix(-1 0 0 1 9.094 5.031)"
-        fill={color}
-      />
+      <circle cx=".75" cy=".75" r=".75" transform="matrix(-1 0 0 1 9.094 5.031)" fill={color} />
       <path
         d="M7.59375 8.0625C7.59375 8.0625 7.125 9 6 9C4.875 9 4.40625 8.0625 4.40625 8.0625"
         stroke={color}
