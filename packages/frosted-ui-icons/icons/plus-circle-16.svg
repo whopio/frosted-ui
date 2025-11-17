@@ -1,23 +1,11 @@
-<svg
-  width="16"
-  height="16"
-  viewBox="0 0 16 16"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
-  data-fui-icon="true"
->
-  <g
-    clip-path="url(#clip0_1057_1133)"
-    stroke="currentColor"
-    stroke-width="1.5"
-    stroke-linecap="round"
-  >
-    <circle cx="8" cy="8" r="7.25" stroke-linejoin="round" />
-    <path d="M10.8285 8.00033H5.17163M8.00006 10.8287V5.17188" />
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="true">
+  <g clip-path="url(#clip0_1057_1133)">
+    <path
+      d="M8 0C12.4183 0 16 3.58172 16 8C16 12.4183 12.4183 16 8 16C3.58172 16 0 12.4183 0 8C0 3.58172 3.58172 0 8 0ZM8 1.5C4.41015 1.5 1.5 4.41015 1.5 8C1.5 11.5899 4.41015 14.5 8 14.5C11.5899 14.5 14.5 11.5899 14.5 8C14.5 4.41015 11.5899 1.5 8 1.5ZM8 4.42188C8.4141 4.42201 8.75 4.75774 8.75 5.17188V7.25H10.8291C11.2429 7.25035 11.5789 7.58615 11.5791 8C11.5791 8.414 11.243 8.74965 10.8291 8.75H8.75V10.8291C8.7498 11.2431 8.41398 11.579 8 11.5791C7.58605 11.5789 7.2502 11.243 7.25 10.8291V8.75H5.17188C4.75766 8.75 4.42188 8.41421 4.42188 8C4.42206 7.58594 4.75777 7.25 5.17188 7.25H7.25V5.17188C7.25 4.75776 7.58593 4.42204 8 4.42188Z"
+      fill="currentColor"
+    />
   </g>
   <defs>
-    <clipPath id="clip0_1057_1133">
-      <path fill="currentColor" d="M0 0H16V16H0z" />
-    </clipPath>
+    <clipPath id="clip0_1057_1133"><path fill="currentColor" d="M0 0H16V16H0z" /></clipPath>
   </defs>
 </svg>

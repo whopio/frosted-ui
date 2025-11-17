@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const DollarCircleFilled20 = ({
-  color = 'currentColor',
-  ...props
-}: IconProps) => {
+export const DollarCircleFilled20 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
       width="20"

@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const ArrowDownLeft24 = ({
-  color = 'currentColor',
-  ...props
-}: IconProps) => {
+export const ArrowDownLeft24 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
       width="24"
@@ -16,11 +13,8 @@ export const ArrowDownLeft24 = ({
       {...props}
     >
       <path
-        d="M17.8336 6.16649L6.16634 17.8337M6.16634 17.8337L6.34312 8.81814M6.16634 17.8337L15.182 17.657"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        d="M17.3036 5.63599C17.5965 5.3433 18.0713 5.34316 18.3641 5.63599C18.6569 5.92881 18.6568 6.40363 18.3641 6.69653L8.01355 17.0471L15.1669 16.9075C15.5808 16.8994 15.9231 17.228 15.9315 17.6418C15.9396 18.0558 15.611 18.3981 15.1971 18.4065L6.18152 18.5833C5.97757 18.5872 5.77987 18.5087 5.63562 18.3645C5.49138 18.2203 5.41289 18.0225 5.41687 17.8186L5.59363 8.80298C5.60201 8.38909 5.94433 8.06051 6.35828 8.0686C6.77217 8.07698 7.10076 8.41929 7.09265 8.83325L6.953 15.9866L17.3036 5.63599Z"
+        fill={color}
       />
     </svg>
   );

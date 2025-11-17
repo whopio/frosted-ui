@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const Percentage32 = ({
-  color = 'currentColor',
-  ...props
-}: IconProps) => {
+export const Percentage32 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
       width="32"
@@ -34,13 +31,7 @@ export const Percentage32 = ({
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <path
-        d="M26.25 5.75L5.75 26.25"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <path d="M26.25 5.75L5.75 26.25" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 };

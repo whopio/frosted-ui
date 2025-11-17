@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const DragHandleHorizontal20 = ({
-  color = 'currentColor',
-  ...props
-}: IconProps) => {
+export const DragHandleHorizontal20 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
       width="20"
@@ -17,21 +14,9 @@ export const DragHandleHorizontal20 = ({
     >
       <circle cx="4" cy="13" r="1" transform="rotate(-90 4 13)" fill={color} />
       <circle cx="4" cy="7" r="1" transform="rotate(-90 4 7)" fill={color} />
-      <circle
-        cx="10"
-        cy="13"
-        r="1"
-        transform="rotate(-90 10 13)"
-        fill={color}
-      />
+      <circle cx="10" cy="13" r="1" transform="rotate(-90 10 13)" fill={color} />
       <circle cx="10" cy="7" r="1" transform="rotate(-90 10 7)" fill={color} />
-      <circle
-        cx="16"
-        cy="13"
-        r="1"
-        transform="rotate(-90 16 13)"
-        fill={color}
-      />
+      <circle cx="16" cy="13" r="1" transform="rotate(-90 16 13)" fill={color} />
       <circle cx="16" cy="7" r="1" transform="rotate(-90 16 7)" fill={color} />
     </svg>
   );

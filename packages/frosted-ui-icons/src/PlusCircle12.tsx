@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const PlusCircle12 = ({
-  color = 'currentColor',
-  ...props
-}: IconProps) => {
+export const PlusCircle12 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
       width="12"
@@ -15,14 +12,11 @@ export const PlusCircle12 = ({
       data-fui-icon="true"
       {...props}
     >
-      <g
-        stroke={color}
-        clipPath="url(#clip0_1057_1136)"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      >
-        <circle cx="6" cy="6" r="5.25" strokeLinejoin="round" />
-        <path d="M8.12128 6.00025H3.87866M5.99998 8.12155V3.87891" />
+      <g clipPath="url(#clip0_1057_1136)">
+        <path
+          d="M6 0C9.31371 0 12 2.68629 12 6C12 9.31371 9.31371 12 6 12C2.68629 12 0 9.31371 0 6C0 2.68629 2.68629 0 6 0ZM6 1.5C3.51472 1.5 1.5 3.51472 1.5 6C1.5 8.48528 3.51472 10.5 6 10.5C8.48528 10.5 10.5 8.48528 10.5 6C10.5 3.51472 8.48528 1.5 6 1.5ZM6 3.12891C6.4141 3.12904 6.75 3.46477 6.75 3.87891V5.25H8.12109C8.53511 5.25013 8.87096 5.58598 8.87109 6C8.87109 6.41413 8.5352 6.74987 8.12109 6.75H6.75V8.12109C6.75 8.53523 6.4141 8.87096 6 8.87109C5.58589 8.87097 5.25 8.53523 5.25 8.12109V6.75H3.87891C3.46469 6.75 3.12891 6.41421 3.12891 6C3.12904 5.5859 3.46478 5.25 3.87891 5.25H5.25V3.87891C5.25 3.46477 5.58589 3.12903 6 3.12891Z"
+          fill={color}
+        />
       </g>
       <defs>
         <clipPath id="clip0_1057_1136">

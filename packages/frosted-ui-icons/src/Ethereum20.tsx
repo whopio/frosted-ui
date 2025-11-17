@@ -13,7 +13,7 @@ export const Ethereum20 = ({ color = 'currentColor', ...props }: IconProps) => {
       {...props}
     >
       <path
-        d="M3.99561 8.53946L9.99999 11.4605L16.0044 8.53946L9.99999 0.749985L3.99561 8.53946Z"
+        d="M3.99561 8.53952L9.99999 11.4606L16.0044 8.53952L9.99999 0.750046L3.99561 8.53952Z"
         stroke={color}
         strokeWidth="1.5"
         strokeLinecap="round"

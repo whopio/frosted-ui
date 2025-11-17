@@ -1,11 +1,4 @@
-<svg
-  width="16"
-  height="16"
-  viewBox="0 0 16 16"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
-  data-fui-icon="true"
->
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="true">
   <g clip-path="url(#clip0_1679_659)" fill="currentColor">
     <path
       d="M4 5C4.55228 5 5 4.55228 5 4 5 3.44772 4.55228 3 4 3 3.44772 3 3 3.44772 3 4 3 4.55228 3.44772 5 4 5zM7 5C7.55228 5 8 4.55228 8 4 8 3.44772 7.55228 3 7 3 6.44772 3 6 3.44772 6 4 6 4.55228 6.44772 5 7 5z"
@@ -17,8 +10,6 @@
     />
   </g>
   <defs>
-    <clipPath id="clip0_1679_659">
-      <path fill="currentColor" d="M0 0H16V16H0z" />
-    </clipPath>
+    <clipPath id="clip0_1679_659"><path fill="currentColor" d="M0 0H16V16H0z" /></clipPath>
   </defs>
 </svg>

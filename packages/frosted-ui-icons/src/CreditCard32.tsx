@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const CreditCard32 = ({
-  color = 'currentColor',
-  ...props
-}: IconProps) => {
+export const CreditCard32 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
       width="32"
@@ -16,11 +13,8 @@ export const CreditCard32 = ({
       {...props}
     >
       <path
-        d="M1.75 12.25H30.25M6.75 20.75H13.25M5.25 26.25H26.75C28.683 26.25 30.25 24.683 30.25 22.75V9.25C30.25 7.317 28.683 5.75 26.75 5.75H5.25C3.317 5.75 1.75 7.317 1.75 9.25V22.75C1.75 24.683 3.317 26.25 5.25 26.25Z"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        d="M26.75 5C29.0972 5 31 6.90279 31 9.25V22.75C31 25.0972 29.0972 27 26.75 27H5.25C2.90279 27 1 25.0972 1 22.75V9.25C1 6.90279 2.90279 5 5.25 5H26.75ZM2.5 22.75C2.5 24.2688 3.73122 25.5 5.25 25.5H26.75C28.2688 25.5 29.5 24.2688 29.5 22.75V13H2.5V22.75ZM13.25 20C13.6642 20 14 20.3358 14 20.75C14 21.1642 13.6642 21.5 13.25 21.5H6.75C6.33579 21.5 6 21.1642 6 20.75C6 20.3358 6.33579 20 6.75 20H13.25ZM5.25 6.5C3.73122 6.5 2.5 7.73122 2.5 9.25V11.5H29.5V9.25C29.5 7.73122 28.2688 6.5 26.75 6.5H5.25Z"
+        fill={color}
       />
     </svg>
   );

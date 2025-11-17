@@ -1,15 +1,5 @@
-<svg
-  width="16"
-  height="16"
-  viewBox="0 0 16 16"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
-  data-fui-icon="true"
->
-  <path
-    d="M0 4.54C0 3.1372 1.1372 2 2.54 2H13.46C14.8628 2 16 3.1372 16 4.54V5H0V4.54Z"
-    fill="currentColor"
-  />
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="true">
+  <path d="M0 4.54C0 3.1372 1.1372 2 2.54 2H13.46C14.8628 2 16 3.1372 16 4.54V5H0V4.54Z" fill="currentColor" />
   <path
     fill-rule="evenodd"
     clip-rule="evenodd"

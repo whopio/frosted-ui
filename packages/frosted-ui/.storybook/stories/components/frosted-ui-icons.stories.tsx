@@ -28,7 +28,11 @@ export const Default: Story = {
         <div style={{ width: '20%', padding: 8 }}>
           <Tooltip key={name} content={name} delayDuration={0}>
             {/* @ts-ignore */}
-            <Icon />
+            <Icon
+              style={{
+                color: 'var(--gray-a10)',
+              }}
+            />
           </Tooltip>
         </div>
       ))}

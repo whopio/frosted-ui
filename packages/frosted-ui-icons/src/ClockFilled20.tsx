@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const ClockFilled20 = ({
-  color = 'currentColor',
-  ...props
-}: IconProps) => {
+export const ClockFilled20 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
       width="20"
