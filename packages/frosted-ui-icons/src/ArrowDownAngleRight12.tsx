@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const ArrowDownAngleRight12 = ({
-  color = 'currentColor',
-  ...props
-}: IconProps) => {
+export const ArrowDownAngleRight12 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
       width="12"
@@ -25,11 +22,7 @@ export const ArrowDownAngleRight12 = ({
       </g>
       <defs>
         <clipPath id="clip0_882_1444">
-          <path
-            fill={color}
-            transform="matrix(-1 0 0 1 12 0)"
-            d="M0 0H12V12H0z"
-          />
+          <path fill={color} transform="matrix(-1 0 0 1 12 0)" d="M0 0H12V12H0z" />
         </clipPath>
       </defs>
     </svg>

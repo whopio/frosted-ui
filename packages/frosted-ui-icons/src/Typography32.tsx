@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const Typography32 = ({
-  color = 'currentColor',
-  ...props
-}: IconProps) => {
+export const Typography32 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
       width="32"
@@ -16,11 +13,8 @@ export const Typography32 = ({
       {...props}
     >
       <path
-        d="M2 6.48V2H16M30 6.48V2H16M16 2V30M16 30H21.3846M16 30H9.53846"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        d="M30 1.25C30.4142 1.25 30.75 1.58579 30.75 2V6.48047C30.7497 6.89447 30.4141 7.23047 30 7.23047C29.5859 7.23047 29.2503 6.89447 29.25 6.48047V2.75H16.75V29.25H21.3848C21.7989 29.2501 22.1348 29.5858 22.1348 30C22.1348 30.4142 21.7989 30.7499 21.3848 30.75H9.53809C9.12405 30.7498 8.78809 30.4141 8.78809 30C8.78809 29.5859 9.12405 29.2502 9.53809 29.25H15.25V2.75H2.75V6.48047C2.74975 6.89447 2.41406 7.23047 2 7.23047C1.58594 7.23047 1.25025 6.89447 1.25 6.48047V2C1.25 1.58579 1.58579 1.25 2 1.25H30Z"
+        fill={color}
       />
     </svg>
   );

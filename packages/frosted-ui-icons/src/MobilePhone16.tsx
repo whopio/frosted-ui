@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const MobilePhone16 = ({
-  color = 'currentColor',
-  ...props
-}: IconProps) => {
+export const MobilePhone16 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
       width="16"
@@ -16,7 +13,7 @@ export const MobilePhone16 = ({
       {...props}
     >
       <path
-        d="M6.50004 12.3959H9.50004M5.83337 14.8334H10.1667C11.2713 14.8334 12.1667 13.938 12.1667 12.8334V3.16669C12.1667 2.06212 11.2713 1.16669 10.1667 1.16669H5.83337C4.72881 1.16669 3.83337 2.06212 3.83337 3.16669V12.8334C3.83337 13.938 4.72881 14.8334 5.83337 14.8334Z"
+        d="M6.50004 12.3958H9.50004M5.83337 14.8333H10.1667C11.2713 14.8333 12.1667 13.9379 12.1667 12.8333V3.16663C12.1667 2.06206 11.2713 1.16663 10.1667 1.16663H5.83337C4.72881 1.16663 3.83337 2.06206 3.83337 3.16663V12.8333C3.83337 13.9379 4.72881 14.8333 5.83337 14.8333Z"
         stroke={color}
         strokeWidth="1.5"
         strokeLinecap="round"

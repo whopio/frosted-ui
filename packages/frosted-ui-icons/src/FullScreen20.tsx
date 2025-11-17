@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const FullScreen20 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M6.8 18H5.75C3.67893 18 2 16.3211 2 14.25V13.4783M13.2 18H14.25C16.3211 18 18 16.3211 18 14.25V13.4783M13.2 2H14.25C16.3211 2 18 3.67893 18 5.75V6.52174M6.8 2H5.75C3.67893 2 2 3.67893 2 5.75V6.52174"
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+};
+
+export default FullScreen20;

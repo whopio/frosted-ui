@@ -12,12 +12,7 @@ export const Burger12 = ({ color = 'currentColor', ...props }: IconProps) => {
       data-fui-icon="true"
       {...props}
     >
-      <g
-        stroke={color}
-        clipPath="url(#clip0_1122_195)"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      >
+      <g stroke={color} clipPath="url(#clip0_1122_195)" strokeWidth="1.5" strokeLinecap="round">
         <path
           d="M8.97458 11.043H3.02542C2.18295 11.043 1.5 10.4069 1.5 9.5644 1.5 9.14318 1.84149 8.80169 2.26271 8.80169H9.73729C10.1585 8.80169 10.5 9.14318 10.5 9.5644 10.5 10.4069 9.81705 11.043 8.97458 11.043zM9.73729 4.25H2.26271C1.84149 4.25 1.5 3.79526 1.5 3.37404 1.5 2.11034 2.52444 1.0859 3.78814 1.0859H8.21186C9.47556 1.0859 10.5 2.11034 10.5 3.37404 10.5 3.79526 10.1585 4.25 9.73729 4.25z"
           strokeMiterlimit="10"

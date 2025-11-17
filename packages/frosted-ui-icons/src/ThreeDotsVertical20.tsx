@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const ThreeDotsVertical20 = ({
-  color = 'currentColor',
-  ...props
-}: IconProps) => {
+export const ThreeDotsVertical20 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
       width="20"
@@ -15,20 +12,8 @@ export const ThreeDotsVertical20 = ({
       data-fui-icon="true"
       {...props}
     >
-      <circle
-        cx="10"
-        cy="16"
-        r="1"
-        transform="rotate(180 10 16)"
-        fill={color}
-      />
-      <circle
-        cx="10"
-        cy="10"
-        r="1"
-        transform="rotate(180 10 10)"
-        fill={color}
-      />
+      <circle cx="10" cy="16" r="1" transform="rotate(180 10 16)" fill={color} />
+      <circle cx="10" cy="10" r="1" transform="rotate(180 10 10)" fill={color} />
       <circle cx="10" cy="4" r="1" transform="rotate(180 10 4)" fill={color} />
     </svg>
   );

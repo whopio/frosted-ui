@@ -21,23 +21,17 @@ export const MailOut12 = ({ color = 'currentColor', ...props }: IconProps) => {
           strokeLinejoin="round"
         />
         <path
-          d="M0.75 3.81839L4.32409 5.96651C4.63272 6.152 4.98601 6.25 5.34609 6.25V6.25C5.70618 6.25 6.05947 6.152 6.3681 5.96651L9.94219 3.81839"
+          d="M0.75 3.81836L4.32409 5.96648C4.63272 6.15197 4.98601 6.24997 5.34609 6.24997C5.70618 6.24997 6.05947 6.15197 6.3681 5.96648L9.94219 3.81836"
           stroke={color}
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <path
-          d="M11.8198 7.82209L10.4256 6.44592C10.2677 6.29 10 6.4019 10 6.62384V9.37617C10 9.59812 10.2677 9.71001 10.4256 9.55409L11.8198 8.17793C11.9189 8.08004 11.9189 7.91997 11.8198 7.82209Z"
+          d="M11.8198 7.82205L10.4256 6.44589C10.2677 6.28997 10 6.40187 10 6.62381V9.37614C10 9.59809 10.2677 9.70998 10.4256 9.55406L11.8198 8.1779C11.9189 8.08001 11.9189 7.91994 11.8198 7.82205Z"
           fill={color}
         />
-        <path
-          d="M8 8H10.25"
-          stroke={color}
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+        <path d="M8 8H10.25" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       </g>
       <defs>
         <clipPath id="clip0_882_336">

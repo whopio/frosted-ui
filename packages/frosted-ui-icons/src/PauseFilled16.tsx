@@ -1,0 +1,23 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const PauseFilled16 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M4.66699 1.50033C5.40322 1.5005 6 2.09706 6 2.83333V13.1663C6 13.9026 5.40322 14.5001 4.66699 14.5003H3.33301C2.59678 14.5001 2 13.9026 2 13.1663V2.83333C2 2.09706 2.59678 1.5005 3.33301 1.50033H4.66699ZM12.667 1.50033C13.4032 1.5005 14 2.09706 14 2.83333V13.1663C14 13.9026 13.4032 14.5001 12.667 14.5003H11.333C10.5968 14.5001 10 13.9026 10 13.1663V2.83333C10 2.09706 10.5968 1.5005 11.333 1.50033H12.667Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+export default PauseFilled16;

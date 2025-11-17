@@ -1,0 +1,26 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const Pin16 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M7.99996 11.25H11.7452C12.7467 11.25 13.372 10.1653 12.8703 9.29865L11.4611 6.86462C11.3228 6.62577 11.25 6.35467 11.25 6.07868V3.05C11.25 2.33203 10.668 1.75 9.95 1.75H6.05C5.33203 1.75 4.75 2.33203 4.75 3.05V6.07868C4.75 6.35467 4.67718 6.62577 4.5389 6.86462L3.12973 9.29865C2.62797 10.1653 3.25335 11.25 4.25478 11.25H7.99996ZM7.99996 11.25V14.25"
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export default Pin16;

@@ -1,13 +1,6 @@
-<svg
-  width="20"
-  height="20"
-  viewBox="0 0 20 20"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
-  data-fui-icon="true"
->
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="true">
   <path
-    d="M18.7712 14.3857L10 5.6145L1.22876 14.3857"
+    d="M16.25 12.75L9.75 6.25L3.25 12.75"
     stroke="currentColor"
     stroke-width="1.5"
     stroke-linecap="round"

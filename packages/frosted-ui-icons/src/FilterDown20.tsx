@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const FilterDown20 = ({
-  color = 'currentColor',
-  ...props
-}: IconProps) => {
+export const FilterDown20 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
       width="20"
@@ -16,10 +13,8 @@ export const FilterDown20 = ({
       {...props}
     >
       <path
-        d="M2.75 4.25H17.25M7.75 15.75H12.25M5.25 10H14.75"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
+        d="M12.25 15C12.6642 15 13 15.3358 13 15.75C13 16.1642 12.6642 16.5 12.25 16.5H7.75C7.33579 16.5 7 16.1642 7 15.75C7 15.3358 7.33579 15 7.75 15H12.25ZM14.75 9.25C15.1642 9.25 15.5 9.58579 15.5 10C15.5 10.4142 15.1642 10.75 14.75 10.75H5.25C4.83579 10.75 4.5 10.4142 4.5 10C4.5 9.58579 4.83579 9.25 5.25 9.25H14.75ZM17.25 3.5C17.6642 3.5 18 3.83579 18 4.25C18 4.66421 17.6642 5 17.25 5H2.75C2.33579 5 2 4.66421 2 4.25C2 3.83579 2.33579 3.5 2.75 3.5H17.25Z"
+        fill={color}
       />
     </svg>
   );

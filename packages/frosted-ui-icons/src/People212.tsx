@@ -1,0 +1,42 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const People212 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <g clipPath="url(#clip0_4061_30)">
+        <path
+          d="M3.33806 5.82727C2.16928 6.12873 1.48183 6.82174 1.07749 7.53268C0.382187 8.75519 1.03625 10.2388 2.40304 10.5703C2.96196 10.7058 3.66772 10.8 4.55 10.8C5.28915 10.8 5.90441 10.7339 6.41323 10.6328C7.96696 10.3239 8.65568 8.61108 7.72138 7.3318C7.25571 6.69419 6.54689 6.10023 5.47042 5.82727"
+          stroke={color}
+          strokeWidth="1.5"
+        />
+        <path
+          d="M10.0252 8.5877C9.96887 8.99807 10.2559 9.37638 10.6663 9.43268C11.0766 9.48897 11.455 9.20194 11.5112 8.79157L10.0252 8.5877ZM8.54142 5.82077C9.50286 6.56367 10.1981 7.32679 10.0252 8.5877L11.5112 8.79157C11.8019 6.67321 10.4971 5.43633 9.45858 4.63382L8.54142 5.82077Z"
+          fill={color}
+        />
+        <circle cx="4.4" cy="3.6" r="2.4" stroke={color} strokeWidth="1.5" />
+        <path
+          d="M9 5.25893C9.64639 4.98583 10.1 4.34594 10.1 3.60011C10.1 2.85427 9.64639 2.21438 9 1.94128"
+          stroke={color}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_4061_30">
+          <path fill={color} d="M0 0H12V12H0z" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+};
+
+export default People212;
