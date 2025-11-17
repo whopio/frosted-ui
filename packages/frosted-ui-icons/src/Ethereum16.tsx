@@ -13,14 +13,14 @@ export const Ethereum16 = ({ color = 'currentColor', ...props }: IconProps) => {
       {...props}
     >
       <path
-        d="M3.29382 6.85527L7.99996 9.14474L12.7061 6.85527L7.99996 0.75001L3.29382 6.85527Z"
+        d="M3.29395 6.8553L8.00009 9.14478L12.7062 6.8553L8.00009 0.75004L3.29395 6.8553Z"
         stroke={color}
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M3.29382 8.89035L7.99996 11.4342L12.7061 8.89035L7.99996 15.25L3.29382 8.89035Z"
+        d="M3.29395 8.89038L8.00009 11.4342L12.7062 8.89038L8.00009 15.25L3.29395 8.89038Z"
         stroke={color}
         strokeWidth="1.5"
         strokeLinecap="round"

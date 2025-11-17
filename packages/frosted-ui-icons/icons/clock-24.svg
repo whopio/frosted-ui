@@ -1,25 +1,6 @@
-<svg
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
-  data-fui-icon="true"
->
-  <circle
-    cx="12"
-    cy="12"
-    r="10.25"
-    stroke="currentColor"
-    stroke-width="1.5"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  />
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="true">
   <path
-    d="M15.2499 15.25L11.75 12.5L11.75 6.0001"
-    stroke="currentColor"
-    stroke-width="1.5"
-    stroke-linecap="round"
-    stroke-linejoin="round"
+    d="M12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12C1 5.92487 5.92487 1 12 1ZM12 2.5C6.75329 2.5 2.5 6.75329 2.5 12C2.5 17.2467 6.75329 21.5 12 21.5C17.2467 21.5 21.5 17.2467 21.5 12C21.5 6.75329 17.2467 2.5 12 2.5ZM11.75 5.25C12.1642 5.25 12.4999 5.58583 12.5 6V12.1357L15.7129 14.6602C16.0385 14.916 16.0954 15.3872 15.8398 15.7129C15.5839 16.0386 15.1118 16.0958 14.7861 15.8398L11.2871 13.0898C11.1061 12.9477 11 12.7301 11 12.5V6C11.0001 5.58583 11.3358 5.25 11.75 5.25Z"
+    fill="currentColor"
   />
 </svg>

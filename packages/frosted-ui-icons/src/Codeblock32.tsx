@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const Codeblock32 = ({
-  color = 'currentColor',
-  ...props
-}: IconProps) => {
+export const Codeblock32 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
       width="32"
@@ -23,7 +20,7 @@ export const Codeblock32 = ({
         strokeLinejoin="round"
       />
       <path
-        d="M15.688 6.81567L17.7698 8.69326C18.3266 9.19544 18.3266 9.97875 17.7698 10.4809L15.688 12.3585M9.77029 13.9405L13.4165 5.00003M7.49937 12.3585L5.4176 10.4809C4.8608 9.97875 4.8608 9.19544 5.4176 8.69326L7.49937 6.81567"
+        d="M15.688 6.81572L17.7698 8.69331C18.3266 9.19549 18.3266 9.97879 17.7698 10.481L15.688 12.3586M9.77029 13.9406L13.4165 5.00008M7.49937 12.3586L5.4176 10.481C4.8608 9.97879 4.8608 9.19549 5.4176 8.69331L7.49937 6.81572"
         stroke={color}
         strokeWidth="1.5"
         strokeLinecap="round"

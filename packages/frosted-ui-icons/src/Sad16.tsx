@@ -13,23 +13,9 @@ export const Sad16 = ({ color = 'currentColor', ...props }: IconProps) => {
       {...props}
     >
       <g clipPath="url(#clip0_882_983)">
-        <circle
-          cx="8"
-          cy="8"
-          r="7.25"
-          stroke={color}
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+        <circle cx="8" cy="8" r="7.25" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         <circle cx="4.875" cy="8.875" r=".875" fill={color} />
-        <circle
-          cx=".875"
-          cy=".875"
-          r=".875"
-          transform="matrix(-1 0 0 1 12 8)"
-          fill={color}
-        />
+        <circle cx=".875" cy=".875" r=".875" transform="matrix(-1 0 0 1 12 8)" fill={color} />
         <path
           d="M10.125 12C10.125 12 9.5 10.75 8 10.75C6.5 10.75 5.875 12 5.875 12"
           stroke={color}

@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const PauseCircle16 = ({
-  color = 'currentColor',
-  ...props
-}: IconProps) => {
+export const PauseCircle16 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
       width="16"
@@ -15,21 +12,9 @@ export const PauseCircle16 = ({
       data-fui-icon="true"
       {...props}
     >
-      <circle
-        cx="8"
-        cy="8"
-        r="7.25"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
       <path
-        d="M5.75 5.75V10.2499M10.25 5.75V10.2499"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        d="M8 0C12.4183 0 16 3.58172 16 8C16 12.4183 12.4183 16 8 16C3.58172 16 0 12.4183 0 8C0 3.58172 3.58172 0 8 0ZM8 1.5C4.41015 1.5 1.5 4.41015 1.5 8C1.5 11.5899 4.41015 14.5 8 14.5C11.5899 14.5 14.5 11.5899 14.5 8C14.5 4.41015 11.5899 1.5 8 1.5ZM5.75 5C6.16421 5 6.5 5.33579 6.5 5.75V10.25C6.49995 10.6642 6.16418 11 5.75 11C5.33582 11 5.00005 10.6642 5 10.25V5.75C5 5.33579 5.33579 5 5.75 5ZM10.25 5C10.6642 5 11 5.33579 11 5.75V10.25C10.9999 10.6642 10.6642 11 10.25 11C9.83582 11 9.50005 10.6642 9.5 10.25V5.75C9.5 5.33579 9.83579 5 10.25 5Z"
+        fill={color}
       />
     </svg>
   );

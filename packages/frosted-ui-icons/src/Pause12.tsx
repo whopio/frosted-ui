@@ -13,11 +13,8 @@ export const Pause12 = ({ color = 'currentColor', ...props }: IconProps) => {
       {...props}
     >
       <path
-        d="M8.25 2.75V9.25M3.75 2.75V9.25"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        d="M3.5 2C3.91421 2 4.25 2.33579 4.25 2.75V9.25C4.25 9.66421 3.91421 10 3.5 10C3.08579 10 2.75 9.66421 2.75 9.25V2.75C2.75 2.33579 3.08579 2 3.5 2ZM8.5 2C8.91421 2 9.25 2.33579 9.25 2.75V9.25C9.25 9.66421 8.91421 10 8.5 10C8.08579 10 7.75 9.66421 7.75 9.25V2.75C7.75 2.33579 8.08579 2 8.5 2Z"
+        fill={color}
       />
     </svg>
   );

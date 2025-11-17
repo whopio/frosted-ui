@@ -64,7 +64,7 @@ async function main() {
   if (!iconsCanvas) {
     throw new CodedError(
       ERRORS.NO_ICONS_PAGE,
-      'Expected an "Icons" page to exist in the Figma File. Please rename your primary page to "Icons" if you have not already.',
+      'Expected an "Product Icons" page to exist in the Figma File. Please rename your primary page to "Product Icons" if you have not already.',
     );
   }
 
@@ -74,7 +74,7 @@ async function main() {
   if (!iconIds.length) {
     throw new CodedError(
       ERRORS.NO_ICONS_IN_SETS,
-      'Expected one or more icon-sets to be in the "Icons" page. Please try again when you have created Frames to group icon-sets; refer to documentation for more details.',
+      'Expected one or more icon-sets to be in the "Product Icons" page. Please try again when you have created Frames to group icon-sets; refer to documentation for more details.',
     );
   }
 

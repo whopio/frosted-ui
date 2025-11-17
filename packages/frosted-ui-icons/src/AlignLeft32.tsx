@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const AlignLeft32 = ({
-  color = 'currentColor',
-  ...props
-}: IconProps) => {
+export const AlignLeft32 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
       width="32"
@@ -16,11 +13,8 @@ export const AlignLeft32 = ({
       {...props}
     >
       <path
-        d="M4 4H17M4 12H28M4 27H28M4 19H17"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        d="M28 26.25C28.4142 26.25 28.75 26.5858 28.75 27C28.75 27.4142 28.4142 27.75 28 27.75H4C3.58579 27.75 3.25 27.4142 3.25 27C3.25 26.5858 3.58579 26.25 4 26.25H28ZM17 18.25C17.4142 18.25 17.75 18.5858 17.75 19C17.75 19.4142 17.4142 19.75 17 19.75H4C3.58579 19.75 3.25 19.4142 3.25 19C3.25 18.5858 3.58579 18.25 4 18.25H17ZM28 11.25C28.4142 11.25 28.75 11.5858 28.75 12C28.75 12.4142 28.4142 12.75 28 12.75H4C3.58579 12.75 3.25 12.4142 3.25 12C3.25 11.5858 3.58579 11.25 4 11.25H28ZM17 3.25C17.4142 3.25 17.75 3.58579 17.75 4C17.75 4.41421 17.4142 4.75 17 4.75H4C3.58579 4.75 3.25 4.41421 3.25 4C3.25 3.58579 3.58579 3.25 4 3.25H17Z"
+        fill={color}
       />
     </svg>
   );
