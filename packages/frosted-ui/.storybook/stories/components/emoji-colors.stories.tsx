@@ -274,10 +274,10 @@ function InteractiveDemo() {
             Usage:
           </Text>
           <pre style={{ margin: 0, whiteSpace: 'pre-wrap' }}>
-            {`import { useColorForEmoji } from 'frosted-ui';
+            {`import { getColorForEmoji } from 'frosted-ui';
 
-const color = useColorForEmoji('${inputEmoji}');
-// Returns: '${color}'`}
+const color = getColorForEmoji('${inputEmoji}');
+// Returns: '${color || 'undefined'}'`}
           </pre>
         </div>
       </div>
