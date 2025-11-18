@@ -24,15 +24,9 @@ export async function extractColors(imageBuffer: Buffer): Promise<ExtractedColor
     return { r: Math.round(r), g: Math.round(g), b: Math.round(b) };
   };
 
-  // Find the most dominant color by population
-  let dominantSwatch = null;
-  let maxPopulation = 0;
-  for (const [key, swatch] of Object.entries(palette)) {
-    if (swatch && swatch.getPopulation() > maxPopulation) {
-      maxPopulation = swatch.getPopulation();
-      dominantSwatch = swatch;
-    }
-  }
+  // Use Muted as dominant (typically the most common/background color)
+  // If Muted doesn't exist, fall back to DarkMuted or LightMuted
+  const dominantColor = toRGB(palette.Muted || palette.DarkMuted || palette.LightMuted);
 
   return {
     vibrant: toRGB(palette.Vibrant),
@@ -41,7 +35,7 @@ export async function extractColors(imageBuffer: Buffer): Promise<ExtractedColor
     darkMuted: toRGB(palette.DarkMuted),
     lightVibrant: toRGB(palette.LightVibrant),
     lightMuted: toRGB(palette.LightMuted),
-    dominant: toRGB(dominantSwatch),
+    dominant: dominantColor,
   };
 }
 
