@@ -1,4 +1,5 @@
 import convert from 'color-convert';
+import * as lightColors from '../../../../frosted-ui-colors/src/light';
 import { radixColorScales } from '../../../src/helpers/radix-colors';
 import type { RGBColor } from './emoji-renderer';
 
@@ -7,38 +8,21 @@ export const COLOR_SCALES = [...radixColorScales, 'gray'] as const;
 
 export type ColorScale = (typeof COLOR_SCALES)[number];
 
-// Color-9 hex values from @frosted-ui/colors (light theme)
-// These are the solid, vibrant colors from each scale
-export const COLOR_9_VALUES: Record<ColorScale, string> = {
-  tomato: '#e54d2e',
-  red: '#e5484d',
-  ruby: '#e54666',
-  crimson: '#e93d82',
-  pink: '#d6409f',
-  plum: '#ab4aba',
-  purple: '#8e4ec6',
-  violet: '#6e56cf',
-  iris: '#5b5bd6',
-  indigo: '#6318f8',
-  blue: '#1754d8',
-  cyan: '#00a2c7',
-  teal: '#12a594',
-  jade: '#29a383',
-  green: '#30a46c',
-  grass: '#46a758',
-  lime: '#06d718',
-  yellow: '#ffe629',
-  amber: '#ffc53d',
-  orange: '#fa4616',
-  lemon: '#d7f100',
-  magenta: '#ff008d',
-  brown: '#ad7f58',
-  gold: '#978365',
-  bronze: '#a18072',
-  sky: '#7ce2fe',
-  mint: '#86ead4',
-  gray: '#8d8d8d',
-};
+// Dynamically build COLOR_9_VALUES from the light theme colors
+// These are the solid, vibrant colors (9th shade) from each scale
+export const COLOR_9_VALUES: Record<ColorScale, string> = {} as Record<ColorScale, string>;
+
+for (const scale of COLOR_SCALES) {
+  const colorObj = lightColors[scale as keyof typeof lightColors];
+  const color9Key = `${scale}9` as keyof typeof colorObj;
+
+  if (colorObj && typeof colorObj === 'object' && color9Key in colorObj) {
+    COLOR_9_VALUES[scale] = (colorObj as Record<string, string>)[color9Key];
+  } else {
+    console.warn(`Could not find ${scale}9 in light colors`);
+    COLOR_9_VALUES[scale] = '#000000'; // fallback
+  }
+}
 
 /**
  * Converts hex color to RGB
