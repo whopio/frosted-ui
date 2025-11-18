@@ -10,19 +10,21 @@ The emoji color system automatically maps emojis to color scales in the Frosted 
 
 - 🎨 **Automatic color mapping** for 1,864+ emojis
 - 🎯 **Perceptual color matching** using LAB color space (Delta E)
-- ⚡ **Zero runtime overhead** - all mappings are pre-generated
-- 🔧 **Easy to use** - simple React hook interface
+- ⚡ **Zero runtime overhead** - all mappings are pre-generated, just an O(1) object lookup
+- 🔧 **Simple to use** - just a function call, no hooks needed
 - 🔄 **Regeneratable** - update mappings when new emojis are added
+- 🛡️ **Type-safe** - returns `ColorScale | undefined` for full control
 
 ## Usage
 
-### Using the Hook
+### Basic Usage
 
 ```tsx
-import { useColorForEmoji } from 'frosted-ui';
+import { getColorForEmoji } from 'frosted-ui';
 
 function EmojiButton({ emoji, children }) {
-  const color = useColorForEmoji(emoji);
+  // Provide your own fallback with nullish coalescing
+  const color = getColorForEmoji(emoji) ?? 'gray';
 
   return (
     <Button color={color}>
@@ -32,20 +34,27 @@ function EmojiButton({ emoji, children }) {
 }
 
 // Examples:
-<EmojiButton emoji="❤️">Love</EmojiButton>    // Returns color: 'red'
-<EmojiButton emoji="🌎">World</EmojiButton>   // Returns color: 'cyan'
-<EmojiButton emoji="🔥">Fire</EmojiButton>    // Returns color: 'orange'
-<EmojiButton emoji="🌟">Star</EmojiButton>    // Returns color: 'yellow'
+<EmojiButton emoji="❤️">Love</EmojiButton>    // color: 'red'
+<EmojiButton emoji="🌎">World</EmojiButton>   // color: 'cyan'
+<EmojiButton emoji="🔥">Fire</EmojiButton>    // color: 'orange'
+<EmojiButton emoji="🌟">Star</EmojiButton>    // color: 'yellow'
 ```
 
-### Using the Helper Function
-
-If you don't need React hooks, you can use the helper function directly:
+### With Custom Fallbacks
 
 ```tsx
 import { getColorForEmoji } from 'frosted-ui';
 
-const color = getColorForEmoji('🍋'); // Returns 'lemon'
+// Use different fallbacks for different contexts
+const brandColor = getColorForEmoji(emoji) ?? 'blue';
+const safeColor = getColorForEmoji(emoji) || 'gray';
+
+// Handle missing emojis explicitly
+const color = getColorForEmoji(emoji);
+if (!color) {
+  console.warn('Unknown emoji:', emoji);
+  return 'gray';
+}
 ```
 
 ### Direct Access to the Map

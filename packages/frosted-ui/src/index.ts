@@ -1,6 +1,5 @@
 export * from './components';
 export * from './helpers';
-export * from './hooks';
 export * from './tailwind-plugin';
 export { Theme, updateThemeAppearanceClass, useThemeContext } from './theme';
 export * from './theme-options';

@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
 import { Badge, StackedHorizontalBarChart, Text, TextField } from '../../../src/components';
-import { emojiColorMap, type ColorScale } from '../../../src/helpers/emoji-colors';
-import { useColorForEmoji } from '../../../src/hooks';
+import { emojiColorMap, getColorForEmoji, type ColorScale } from '../../../src/helpers/emoji-colors';
 
 const meta = {
   title: 'Utilities/Emoji Colors',
@@ -192,7 +191,7 @@ export const AllEmojis: Story = {
 
 function InteractiveDemo() {
   const [inputEmoji, setInputEmoji] = useState('❤️');
-  const color = useColorForEmoji(inputEmoji);
+  const color = getColorForEmoji(inputEmoji);
   const displayColor = color ?? 'gray';
 
   const examples = [
@@ -214,7 +213,7 @@ function InteractiveDemo() {
         Interactive Demo
       </Text>
       <Text size="3" color="gray" style={{ display: 'block', marginBottom: 'var(--space-5)' }}>
-        Try the <code>useColorForEmoji</code> hook with different emojis
+        Try the <code>getColorForEmoji</code> function with different emojis
       </Text>
 
       <div
@@ -257,7 +256,7 @@ function InteractiveDemo() {
             {examples.map(({ emoji, label }) => (
               <Badge
                 key={emoji}
-                color={useColorForEmoji(emoji)}
+                color={getColorForEmoji(emoji) ?? 'gray'}
                 variant="soft"
                 style={{ cursor: 'pointer', fontSize: '16px' }}
                 onClick={() => setInputEmoji(emoji)}
