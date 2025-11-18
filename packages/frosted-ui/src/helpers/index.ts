@@ -1,4 +1,5 @@
 export * from './breakpoints';
+export * from './emoji-colors';
 export * from './extract-props-for-tag';
 export * from './get-initials';
 export * from './get-subtree';
