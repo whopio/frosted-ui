@@ -53,6 +53,7 @@
     "lint": "pnpm lint:js && pnpm lint:css",
     "lint:js": "eslint \"src/**/*.ts*\"",
     "lint:css": "stylelint \"src/**/*.css\"",
+    "generate:emoji-colors": "tsx scripts/emoji-colors/generate.ts",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist && rm -rf styles.css",
     "prepublishOnly": "pnpm lint",
     "storybook": "pnpm dev:css & storybook dev -p 6006",
@@ -103,7 +104,8 @@
     }
   },
   "devDependencies": {
-    "@frosted-ui/icons": "workspace:0.0.1-canary.20",
+    "@frosted-ui/icons": "workspace:*",
+    "@napi-rs/canvas": "^0.1.60",
     "@storybook/addon-essentials": "^8.5.3",
     "@storybook/addon-interactions": "^8.5.3",
     "@storybook/addon-links": "^8.5.3",
@@ -114,10 +116,14 @@
     "@storybook/react-vite": "^8.5.3",
     "@storybook/test": "^8.5.3",
     "@tanstack/react-table": "^8.20.5",
+    "@types/color-convert": "^2.0.3",
+    "@types/node": "^22.10.2",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@whop-sdk/turbo-module": "^0.0.5",
     "autoprefixer": "^10.4.20",
+    "color-convert": "^2.0.1",
+    "emoji-datasource": "^15.1.2",
     "eslint": "^8.57.1",
     "eslint-config-custom": "workspace:*",
     "eslint-plugin-react-hooks": "^4.6.2",
@@ -132,6 +138,7 @@
     "react-dom": "^19.0.0",
     "storybook": "^8.5.3",
     "stylelint": "^15.11.0",
+    "tsx": "^4.19.2",
     "typescript": "^5.6.3"
   },
   "publishConfig": {

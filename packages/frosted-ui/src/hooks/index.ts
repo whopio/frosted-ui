@@ -1,0 +1,1 @@
+export { useColorForEmoji } from './useColorForEmoji';
