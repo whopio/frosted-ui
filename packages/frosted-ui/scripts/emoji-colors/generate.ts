@@ -1,0 +1,210 @@
+import emojiData from 'emoji-datasource/emoji.json';
+import * as fs from 'fs';
+import * as path from 'path';
+import { extractColors } from './utils/color-extractor';
+import { findClosestColorScale, isGrayscale, type ColorScale } from './utils/color-matcher';
+import { renderEmojiToBuffer } from './utils/emoji-renderer';
+
+// Deprioritized colors - we'll try to find more vibrant alternatives for these muted/earth tones
+const DEPRIORITIZED_COLORS: ColorScale[] = ['gray', 'brown', 'bronze', 'gold'];
+
+interface EmojiEntry {
+  unified: string;
+  name: string;
+  category: string;
+  short_name: string;
+  has_img_apple: boolean;
+  has_img_google: boolean;
+  obsoleted_by?: string;
+  skin_variations?: Record<string, unknown>;
+}
+
+/**
+ * Converts Unicode codepoint string to emoji character
+ */
+function unifiedToEmoji(unified: string): string {
+  return unified
+    .split('-')
+    .map((hex) => String.fromCodePoint(parseInt(hex, 16)))
+    .join('');
+}
+
+/**
+ * Filters emoji data to get only fully-qualified emojis
+ */
+function getEmojiList(): Array<{ emoji: string; name: string }> {
+  const emojis: Array<{ emoji: string; name: string }> = [];
+
+  for (const entry of emojiData as EmojiEntry[]) {
+    // Skip if obsoleted by another emoji
+    if (entry.obsoleted_by) {
+      continue;
+    }
+
+    // Only include emojis with Apple images (generally well-supported)
+    if (!entry.has_img_apple) {
+      continue;
+    }
+
+    const emoji = unifiedToEmoji(entry.unified);
+    emojis.push({
+      emoji,
+      name: entry.name || entry.short_name,
+    });
+
+    // Note: We're excluding skin tone variations for now
+    // They can inherit the base emoji's color
+  }
+
+  return emojis;
+}
+
+/**
+ * Processes a single emoji and returns its color scale
+ *
+ * Strategy using node-vibrant:
+ * 1. Try dominant color first (most common color in the emoji)
+ * 2. If that matches to deprioritized colors (gray/brown/bronze/gold), try vibrant colors
+ * 3. Only use deprioritized colors if no better alternative exists
+ */
+async function processEmoji(emoji: string, name: string): Promise<ColorScale> {
+  try {
+    // Render emoji and extract colors using node-vibrant
+    const imageBuffer = renderEmojiToBuffer(emoji);
+    const colors = await extractColors(imageBuffer);
+
+    // Strategy 1: Try dominant color first
+    let fallbackScale: ColorScale | undefined;
+    if (colors.dominant && !isGrayscale(colors.dominant)) {
+      const dominantScale = findClosestColorScale(colors.dominant);
+
+      // If dominant is not deprioritized, use it
+      if (!DEPRIORITIZED_COLORS.includes(dominantScale)) {
+        return dominantScale;
+      }
+      // Store as fallback
+      fallbackScale = dominantScale;
+    }
+
+    // Strategy 2: Dominant was deprioritized, try vibrant colors
+    // Try vibrant
+    if (colors.vibrant && !isGrayscale(colors.vibrant)) {
+      const vibrantScale = findClosestColorScale(colors.vibrant);
+      if (!DEPRIORITIZED_COLORS.includes(vibrantScale)) {
+        return vibrantScale;
+      }
+      if (!fallbackScale) fallbackScale = vibrantScale;
+    }
+
+    // Try light vibrant
+    if (colors.lightVibrant && !isGrayscale(colors.lightVibrant)) {
+      const lightVibrantScale = findClosestColorScale(colors.lightVibrant);
+      if (!DEPRIORITIZED_COLORS.includes(lightVibrantScale)) {
+        return lightVibrantScale;
+      }
+      if (!fallbackScale) fallbackScale = lightVibrantScale;
+    }
+
+    // Try dark vibrant
+    if (colors.darkVibrant && !isGrayscale(colors.darkVibrant)) {
+      const darkVibrantScale = findClosestColorScale(colors.darkVibrant);
+      if (!DEPRIORITIZED_COLORS.includes(darkVibrantScale)) {
+        return darkVibrantScale;
+      }
+      if (!fallbackScale) fallbackScale = darkVibrantScale;
+    }
+
+    // Return fallback if we have one, otherwise gray
+    return fallbackScale || 'gray';
+  } catch (error) {
+    console.error(`Error processing ${emoji} (${name}):`, error);
+    return 'gray';
+  }
+}
+
+/**
+ * Main generation function
+ */
+async function generateEmojiColors() {
+  console.log('🎨 Starting emoji color generation...\n');
+
+  const emojis = getEmojiList();
+  console.log(`📊 Processing ${emojis.length} emojis...\n`);
+
+  const emojiColorMap: Record<string, ColorScale> = {};
+  const stats: Record<ColorScale, number> = {} as Record<ColorScale, number>;
+
+  let processed = 0;
+  for (const { emoji, name } of emojis) {
+    const colorScale = await processEmoji(emoji, name);
+    emojiColorMap[emoji] = colorScale;
+
+    // Update stats
+    stats[colorScale] = (stats[colorScale] || 0) + 1;
+
+    processed++;
+    if (processed % 100 === 0) {
+      console.log(`Processed ${processed}/${emojis.length} emojis...`);
+    }
+  }
+
+  console.log(`\n✅ Processed all ${processed} emojis!\n`);
+
+  // Print statistics
+  console.log('📈 Color distribution:');
+  const sortedStats = Object.entries(stats).sort((a, b) => b[1] - a[1]);
+  for (const [color, count] of sortedStats) {
+    const percentage = ((count / processed) * 100).toFixed(1);
+    console.log(`  ${color.padEnd(10)} ${count.toString().padStart(4)} (${percentage}%)`);
+  }
+
+  // Generate TypeScript file
+  const outputPath = path.join(__dirname, '../../src/helpers/emoji-colors.ts');
+
+  const fileContent = `// This file is auto-generated by scripts/emoji-colors/generate.ts
+// Do not edit manually. Run \`pnpm generate:emoji-colors\` to regenerate.
+// Generated on: ${new Date().toISOString()}
+// Total emojis: ${processed}
+
+import type { radixColorScales } from './radix-colors';
+
+export type ColorScale = (typeof radixColorScales)[number] | 'gray';
+
+/**
+ * Maps emojis to their corresponding color scale in the Frosted UI color system.
+ * The color is determined by analyzing the dominant color of the emoji and matching
+ * it to the closest color-9 shade in our color palette.
+ */
+export const emojiColorMap: Record<string, ColorScale> = ${JSON.stringify(emojiColorMap, null, 2)};
+
+/**
+ * Gets the color scale for a given emoji.
+ * Returns \`undefined\` if the emoji is not found, allowing developers to provide their own fallback.
+ * 
+ * @param emoji - The emoji string to look up
+ * @returns The corresponding ColorScale or \`undefined\` if not found
+ * 
+ * @example
+ * const color = getColorForEmoji('❤️') ?? 'gray'; // Use 'gray' as fallback
+ * const color = getColorForEmoji('❤️') || 'red';  // Use 'red' as fallback
+ */
+export function getColorForEmoji(emoji: string): ColorScale | undefined {
+  if (!emoji || typeof emoji !== 'string') {
+    return undefined;
+  }
+  return emojiColorMap[emoji];
+}
+`;
+
+  fs.writeFileSync(outputPath, fileContent, 'utf-8');
+  console.log(`\n💾 Saved emoji color map to: ${outputPath}`);
+  console.log(`📦 File size: ${(fs.statSync(outputPath).size / 1024).toFixed(2)} KB\n`);
+
+  console.log('🎉 Done!\n');
+}
+
+// Run the script
+generateEmojiColors().catch((error) => {
+  console.error('❌ Error:', error);
+  process.exit(1);
+});
