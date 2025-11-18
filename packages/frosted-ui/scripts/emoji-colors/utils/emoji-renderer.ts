@@ -4,6 +4,7 @@ export interface RGBColor {
   r: number;
   g: number;
   b: number;
+  a: number;
 }
 
 /**
@@ -18,7 +19,8 @@ export function renderEmojiAndExtractColors(emoji: string): RGBColor[] {
   ctx.clearRect(0, 0, size, size);
 
   // Set font and render emoji
-  ctx.font = `${size * 0.75}px Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"`;
+  // Prioritize emoji fonts to ensure colored rendering
+  ctx.font = `${size * 0.75}px "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Segoe UI Symbol", sans-serif`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillText(emoji, size / 2, size / 2);
@@ -37,7 +39,7 @@ export function renderEmojiAndExtractColors(emoji: string): RGBColor[] {
 
     // Only include pixels with significant alpha
     if (a > 50) {
-      colors.push({ r, g, b });
+      colors.push({ r, g, b, a });
     }
   }
 
