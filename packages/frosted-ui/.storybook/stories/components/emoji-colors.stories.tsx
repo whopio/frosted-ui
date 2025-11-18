@@ -153,7 +153,8 @@ function EmojiGrid() {
   );
 }
 
-function EmojiCard({ emoji, color }: { emoji: string; color: ColorScale }) {
+function EmojiCard({ emoji, color }: { emoji: string; color: ColorScale | undefined }) {
+  const displayColor = color ?? 'gray';
   return (
     <div
       style={{
@@ -162,7 +163,7 @@ function EmojiCard({ emoji, color }: { emoji: string; color: ColorScale }) {
         alignItems: 'center',
         gap: 'var(--space-2)',
         padding: 'var(--space-3)',
-        background: 'var(--gray-2)',
+
         borderRadius: 'var(--radius-3)',
         transition: 'all 0.2s ease',
         cursor: 'pointer',
@@ -175,11 +176,11 @@ function EmojiCard({ emoji, color }: { emoji: string; color: ColorScale }) {
         e.currentTarget.style.background = 'var(--gray-2)';
         e.currentTarget.style.transform = 'scale(1)';
       }}
-      title={`${emoji} → ${color}`}
+      title={`${emoji} → ${displayColor}`}
     >
       <span style={{ fontSize: '32px', lineHeight: 1 }}>{emoji}</span>
-      <Badge color={color} size="1" variant="soft">
-        {color}
+      <Badge color={displayColor} size="1" variant="soft">
+        {displayColor}
       </Badge>
     </div>
   );
@@ -192,6 +193,7 @@ export const AllEmojis: Story = {
 function InteractiveDemo() {
   const [inputEmoji, setInputEmoji] = useState('❤️');
   const color = useColorForEmoji(inputEmoji);
+  const displayColor = color ?? 'gray';
 
   const examples = [
     { emoji: '❤️', label: 'Heart' },
@@ -242,8 +244,8 @@ function InteractiveDemo() {
           <Text size="2" weight="bold" style={{ display: 'block', marginBottom: 'var(--space-2)' }}>
             Detected color:
           </Text>
-          <Badge color={color} size="2" variant="solid" style={{ fontSize: '18px' }}>
-            {inputEmoji} → {color}
+          <Badge color={displayColor} size="2" variant="solid" style={{ fontSize: '18px' }}>
+            {inputEmoji} → {color || 'undefined (not found)'}
           </Badge>
         </div>
 

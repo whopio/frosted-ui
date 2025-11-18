@@ -179,10 +179,20 @@ export const emojiColorMap: Record<string, ColorScale> = ${JSON.stringify(emojiC
 
 /**
  * Gets the color scale for a given emoji.
- * Returns 'gray' as fallback if the emoji is not found.
+ * Returns \`undefined\` if the emoji is not found, allowing developers to provide their own fallback.
+ * 
+ * @param emoji - The emoji string to look up
+ * @returns The corresponding ColorScale or \`undefined\` if not found
+ * 
+ * @example
+ * const color = getColorForEmoji('❤️') ?? 'gray'; // Use 'gray' as fallback
+ * const color = getColorForEmoji('❤️') || 'red';  // Use 'red' as fallback
  */
-export function getColorForEmoji(emoji: string): ColorScale {
-  return emojiColorMap[emoji] || 'gray';
+export function getColorForEmoji(emoji: string): ColorScale | undefined {
+  if (!emoji || typeof emoji !== 'string') {
+    return undefined;
+  }
+  return emojiColorMap[emoji];
 }
 `;
 
