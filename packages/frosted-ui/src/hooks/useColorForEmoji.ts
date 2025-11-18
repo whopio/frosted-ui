@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { getColorForEmoji, type ColorScale } from '../helpers/emoji-colors';
+import { getColorForEmoji } from '../helpers/emoji-colors';
 
 /**
  * A React hook that returns the color scale for a given emoji.
@@ -23,6 +23,6 @@ import { getColorForEmoji, type ColorScale } from '../helpers/emoji-colors';
  * <EmojiWithColor emoji="🔥" />  // Returns 'orange'
  * ```
  */
-export function useColorForEmoji(emoji: string): ColorScale {
+export function useColorForEmoji(emoji: string) {
   return useMemo(() => getColorForEmoji(emoji), [emoji]);
 }

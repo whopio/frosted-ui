@@ -1,37 +1,9 @@
 import convert from 'color-convert';
+import { radixColorScales } from '../../../src/helpers/radix-colors';
 import type { RGBColor } from './emoji-renderer';
 
 // Color scales from radix-colors.ts
-export const COLOR_SCALES = [
-  'tomato',
-  'red',
-  'ruby',
-  'crimson',
-  'pink',
-  'plum',
-  'purple',
-  'violet',
-  'iris',
-  'cyan',
-  'teal',
-  'jade',
-  'green',
-  'grass',
-  'brown',
-  'blue',
-  'orange',
-  'indigo',
-  'sky',
-  'mint',
-  'yellow',
-  'amber',
-  'lime',
-  'lemon',
-  'magenta',
-  'gold',
-  'bronze',
-  'gray',
-] as const;
+export const COLOR_SCALES = [...radixColorScales, 'gray'] as const;
 
 export type ColorScale = (typeof COLOR_SCALES)[number];
 
