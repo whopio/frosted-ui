@@ -1,6 +1,11 @@
 import Vibrant from 'node-vibrant';
 import type { RGBColor } from './emoji-renderer';
 
+// Type for node-vibrant swatch (has getRgb method)
+interface VibrantSwatch {
+  getRgb(): [number, number, number];
+}
+
 export interface ExtractedColors {
   vibrant: RGBColor | null;
   muted: RGBColor | null;
@@ -18,7 +23,7 @@ export async function extractColors(imageBuffer: Buffer): Promise<ExtractedColor
   const palette = await Vibrant.from(imageBuffer).getPalette();
 
   // Helper to convert Vibrant swatch to RGBColor
-  const toRGB = (swatch: any): RGBColor | null => {
+  const toRGB = (swatch: VibrantSwatch | null): RGBColor | null => {
     if (!swatch) return null;
     const [r, g, b] = swatch.getRgb();
     return { r: Math.round(r), g: Math.round(g), b: Math.round(b) };
