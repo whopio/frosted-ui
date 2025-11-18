@@ -117,7 +117,7 @@
     "@storybook/test": "^8.5.3",
     "@tanstack/react-table": "^8.20.5",
     "@types/color-convert": "^2.0.3",
-    "@types/node": "^22.10.2",
+    "@types/node": "^22.19.1",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@whop-sdk/turbo-module": "^0.0.5",
