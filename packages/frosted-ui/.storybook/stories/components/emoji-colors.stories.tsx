@@ -167,14 +167,6 @@ function EmojiCard({ emoji, color }: { emoji: string; color: ColorScale | undefi
         transition: 'all 0.2s ease',
         cursor: 'pointer',
       }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.background = 'var(--gray-3)';
-        e.currentTarget.style.transform = 'scale(1.05)';
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.background = 'var(--gray-2)';
-        e.currentTarget.style.transform = 'scale(1)';
-      }}
       title={`${emoji} → ${displayColor}`}
     >
       <span style={{ fontSize: '32px', lineHeight: 1 }}>{emoji}</span>
