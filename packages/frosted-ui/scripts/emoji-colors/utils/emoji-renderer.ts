@@ -4,13 +4,12 @@ export interface RGBColor {
   r: number;
   g: number;
   b: number;
-  a: number;
 }
 
 /**
- * Renders an emoji on a canvas and extracts all non-transparent pixel colors
+ * Renders an emoji on a canvas and returns the image buffer for color extraction
  */
-export function renderEmojiAndExtractColors(emoji: string): RGBColor[] {
+export function renderEmojiToBuffer(emoji: string): Buffer {
   const size = 128;
   const canvas = createCanvas(size, size);
   const ctx = canvas.getContext('2d');
@@ -25,23 +24,6 @@ export function renderEmojiAndExtractColors(emoji: string): RGBColor[] {
   ctx.textBaseline = 'middle';
   ctx.fillText(emoji, size / 2, size / 2);
 
-  // Extract pixel data
-  const imageData = ctx.getImageData(0, 0, size, size);
-  const pixels = imageData.data;
-  const colors: RGBColor[] = [];
-
-  // Extract non-transparent pixels
-  for (let i = 0; i < pixels.length; i += 4) {
-    const r = pixels[i];
-    const g = pixels[i + 1];
-    const b = pixels[i + 2];
-    const a = pixels[i + 3];
-
-    // Only include pixels with significant alpha
-    if (a > 50) {
-      colors.push({ r, g, b, a });
-    }
-  }
-
-  return colors;
+  // Return as PNG buffer for node-vibrant
+  return canvas.toBuffer('image/png');
 }

@@ -1,9 +1,12 @@
 import emojiData from 'emoji-datasource/emoji.json';
 import * as fs from 'fs';
 import * as path from 'path';
-import { getDominantColor, getWeightedDominantColor } from './utils/color-extractor';
+import { extractColors } from './utils/color-extractor';
 import { findClosestColorScale, isGrayscale, type ColorScale } from './utils/color-matcher';
-import { renderEmojiAndExtractColors } from './utils/emoji-renderer';
+import { renderEmojiToBuffer } from './utils/emoji-renderer';
+
+// Deprioritized colors - we'll try to find more vibrant alternatives for these muted/earth tones
+const DEPRIORITIZED_COLORS: ColorScale[] = ['gray', 'brown', 'bronze', 'gold'];
 
 interface EmojiEntry {
   unified: string;
@@ -58,38 +61,61 @@ function getEmojiList(): Array<{ emoji: string; name: string }> {
 
 /**
  * Processes a single emoji and returns its color scale
+ *
+ * Strategy using node-vibrant:
+ * 1. Try dominant color first (most common color in the emoji)
+ * 2. If that matches to deprioritized colors (gray/brown/bronze/gold), try vibrant colors
+ * 3. Only use deprioritized colors if no better alternative exists
  */
-function processEmoji(emoji: string, name: string): ColorScale {
+async function processEmoji(emoji: string, name: string): Promise<ColorScale> {
   try {
-    // Extract colors from emoji
-    const colors = renderEmojiAndExtractColors(emoji);
+    // Render emoji and extract colors using node-vibrant
+    const imageBuffer = renderEmojiToBuffer(emoji);
+    const colors = await extractColors(imageBuffer);
 
-    if (colors.length === 0) {
-      console.warn(`No colors extracted for ${emoji} (${name}), defaulting to gray`);
-      return 'gray';
+    // Strategy 1: Try dominant color first
+    let fallbackScale: ColorScale | undefined;
+    if (colors.dominant && !isGrayscale(colors.dominant)) {
+      const dominantScale = findClosestColorScale(colors.dominant);
+
+      // If dominant is not deprioritized, use it
+      if (!DEPRIORITIZED_COLORS.includes(dominantScale)) {
+        return dominantScale;
+      }
+      // Store as fallback
+      fallbackScale = dominantScale;
     }
 
-    // Get dominant color using weighted approach (prefers saturated colors)
-    let dominantColor = getWeightedDominantColor(colors);
-
-    // Fallback to simple dominant color if weighted fails
-    if (!dominantColor) {
-      dominantColor = getDominantColor(colors);
+    // Strategy 2: Dominant was deprioritized, try vibrant colors
+    // Try vibrant
+    if (colors.vibrant && !isGrayscale(colors.vibrant)) {
+      const vibrantScale = findClosestColorScale(colors.vibrant);
+      if (!DEPRIORITIZED_COLORS.includes(vibrantScale)) {
+        return vibrantScale;
+      }
+      if (!fallbackScale) fallbackScale = vibrantScale;
     }
 
-    if (!dominantColor) {
-      console.warn(`Failed to extract dominant color for ${emoji} (${name}), defaulting to gray`);
-      return 'gray';
+    // Try light vibrant
+    if (colors.lightVibrant && !isGrayscale(colors.lightVibrant)) {
+      const lightVibrantScale = findClosestColorScale(colors.lightVibrant);
+      if (!DEPRIORITIZED_COLORS.includes(lightVibrantScale)) {
+        return lightVibrantScale;
+      }
+      if (!fallbackScale) fallbackScale = lightVibrantScale;
     }
 
-    // If color is grayscale, return gray
-    if (isGrayscale(dominantColor)) {
-      return 'gray';
+    // Try dark vibrant
+    if (colors.darkVibrant && !isGrayscale(colors.darkVibrant)) {
+      const darkVibrantScale = findClosestColorScale(colors.darkVibrant);
+      if (!DEPRIORITIZED_COLORS.includes(darkVibrantScale)) {
+        return darkVibrantScale;
+      }
+      if (!fallbackScale) fallbackScale = darkVibrantScale;
     }
 
-    // Find closest color scale
-    const colorScale = findClosestColorScale(dominantColor);
-    return colorScale;
+    // Return fallback if we have one, otherwise gray
+    return fallbackScale || 'gray';
   } catch (error) {
     console.error(`Error processing ${emoji} (${name}):`, error);
     return 'gray';
@@ -110,7 +136,7 @@ async function generateEmojiColors() {
 
   let processed = 0;
   for (const { emoji, name } of emojis) {
-    const colorScale = processEmoji(emoji, name);
+    const colorScale = await processEmoji(emoji, name);
     emojiColorMap[emoji] = colorScale;
 
     // Update stats
