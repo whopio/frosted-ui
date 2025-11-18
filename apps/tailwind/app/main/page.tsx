@@ -1,6 +1,7 @@
 import { ArrowLeftIcon, ArrowRightIcon, ChevronRightIcon } from '@radix-ui/react-icons';
 import {
   Avatar,
+  Badge,
   Button,
   Card,
   Heading,
@@ -12,6 +13,7 @@ import {
   Theme,
   ThemePanel,
   Tooltip,
+  getColorForEmoji,
 } from 'frosted-ui';
 import localFont from 'next/font/local';
 import WhopLogo from './WhopLogo';
@@ -20,6 +22,8 @@ const interVariable = localFont({
   src: '../../fonts/InterVariable.woff2',
   variable: '--inter-variable',
 });
+
+const colorfulEmojis = ['🌈', '🔥', '💙', '💚', '💛', '💜'];
 
 export default function Dashboard() {
   return (
@@ -113,6 +117,11 @@ export default function Dashboard() {
                       LIVE
                     </Text>
                   </div>
+                  {colorfulEmojis.map((emoji) => (
+                    <Badge key={emoji} color={getColorForEmoji(emoji) ?? 'gray'} size="2" variant="surface">
+                      {emoji} {getColorForEmoji(emoji)}
+                    </Badge>
+                  ))}
 
                   <div
                     className="flex flex-col gap-3 mt-4"
