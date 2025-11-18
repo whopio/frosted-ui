@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
-import { Badge, Text, TextField } from '../../../src/components';
+import { Badge, StackedHorizontalBarChart, Text, TextField } from '../../../src/components';
 import { emojiColorMap, type ColorScale } from '../../../src/helpers/emoji-colors';
 import { useColorForEmoji } from '../../../src/hooks';
 
@@ -118,9 +118,24 @@ function EmojiGrid() {
           borderRadius: 'var(--radius-4)',
         }}
       >
-        <Text size="2" weight="bold" style={{ display: 'block', marginBottom: 'var(--space-2)' }}>
+        <Text size="2" weight="bold" style={{ display: 'block', marginBottom: 'var(--space-3)' }}>
           Color Distribution
         </Text>
+
+        {/* Visualization */}
+        <div style={{ marginBottom: 'var(--space-4)' }}>
+          <StackedHorizontalBarChart
+            data={Object.entries(colorStats)
+              .sort(([, a], [, b]) => b - a)
+              .map(([color, count]) => ({
+                label: (value: number, percent: string) => `${color}: ${value} (${percent})`,
+                value: count,
+                color: color as ColorScale,
+              }))}
+          />
+        </div>
+
+        {/* Detailed Stats */}
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-2)' }}>
           {Object.entries(colorStats)
             .sort(([, a], [, b]) => b - a)
