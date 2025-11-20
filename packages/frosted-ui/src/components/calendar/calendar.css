@@ -35,7 +35,7 @@
 
 .fui-CalendarGridCellInner {
   position: relative;
-  cursor: default;
+  cursor: var(--cursor-button);
   text-align: center;
   padding: 6px 8px;
   margin: 2px 0;
