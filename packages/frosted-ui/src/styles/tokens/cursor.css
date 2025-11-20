@@ -1,11 +1,11 @@
 .frosted-ui {
-  --cursor-button: default;
-  --cursor-checkbox: default;
+  --cursor-button: pointer;
+  --cursor-checkbox: pointer;
   --cursor-disabled: not-allowed;
   --cursor-link: pointer;
-  --cursor-menu-item: default;
-  --cursor-radio: default;
-  --cursor-slider-thumb: default;
-  --cursor-slider-thumb-active: default;
-  --cursor-switch: default;
+  --cursor-menu-item: pointer;
+  --cursor-radio: pointer;
+  --cursor-slider-thumb: pointer;
+  --cursor-slider-thumb-active: pointer;
+  --cursor-switch: pointer;
 }
