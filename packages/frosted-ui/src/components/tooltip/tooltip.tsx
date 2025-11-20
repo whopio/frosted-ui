@@ -51,7 +51,7 @@ const Tooltip = (props: TooltipProps) => {
             {...tooltipContentProps}
             className={classNames('fui-TooltipContent', className)}
           >
-            <Text as="p" className="fui-TooltipText" size="1">
+            <Text as="p" className="fui-TooltipText" size="2">
               {content}
             </Text>
             <TooltipPrimitive.Arrow className="fui-TooltipArrow" />
