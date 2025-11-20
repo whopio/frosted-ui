@@ -6,7 +6,7 @@
   }
   :where(.fui-RadioButtonGroupButton) {
     position: relative;
-    cursor: default;
+    cursor: var(--cursor-button);
     user-select: none;
   }
   :where(.fui-RadioButtonGroupButton:focus-visible) {
