@@ -11,6 +11,7 @@ coverage
 # build output
 dist/
 packages/frosted-ui/styles.css
+packages/frosted-ui/styles.lite.css
 
 # misc
 .DS_Store
