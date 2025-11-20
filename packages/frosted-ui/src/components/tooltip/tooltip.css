@@ -1,8 +1,7 @@
 .fui-TooltipContent {
   padding: var(--space-1) var(--space-2);
-  background-color: var(--color-panel-translucent);
-  -webkit-backdrop-filter: var(--backdrop-filter-panel);
-  backdrop-filter: var(--backdrop-filter-panel);
+  background-color: var(--gray-12);
+  color: var(--gray-1);
 
   border-radius: var(--radius-4);
   border: 1px solid var(--gray-a6);
@@ -46,11 +45,11 @@
 }
 
 .fui-TooltipText {
-  color: var(--gray-12);
+  color: var(--gray-1);
   user-select: none;
   cursor: default;
 }
 
 .fui-TooltipArrow {
-  fill: transparent;
+  fill: var(--gray-12);
 }
