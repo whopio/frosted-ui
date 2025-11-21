@@ -22,6 +22,11 @@
       "require": "./styles.css",
       "default": "./styles.css"
     },
+    "./styles.lite.css": {
+      "import": "./styles.lite.css",
+      "require": "./styles.lite.css",
+      "default": "./styles.lite.css"
+    },
     "./*": {
       "require": {
         "types": "./dist/cjs/*.d.ts",
@@ -37,14 +42,15 @@
   "license": "MIT",
   "files": [
     "dist/**",
-    "styles.css"
+    "styles.css",
+    "styles.lite.css"
   ],
   "scripts": {
     "build": "rm -rf ./dist && pnpm build:js && pnpm build:css",
     "build:js": "pnpm build:js:cjs && pnpm build:js:esm",
     "build:js:cjs": "tsc --project tsconfig-cjs.json",
     "build:js:esm": "tsc --project tsconfig-esm.json",
-    "build:css": "postcss src/styles/index.css -o styles.css",
+    "build:css": "postcss src/styles/index.css -o styles.css && node scripts/build-lite-css.js src/styles/index.css -o styles.lite.css",
     "dev": "pnpm dev:js & pnpm dev:css",
     "dev:js": "pnpm dev:js:cjs & pnpm dev:js:esm",
     "dev:js:cjs": "tsc --project tsconfig-cjs.json --watch",
@@ -54,7 +60,7 @@
     "lint:js": "eslint \"src/**/*.ts*\"",
     "lint:css": "stylelint \"src/**/*.css\"",
     "generate:emoji-colors": "tsx scripts/emoji-colors/generate.ts",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist && rm -rf styles.css",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist && rm -rf styles.css && rm -rf styles.lite.css",
     "prepublishOnly": "pnpm lint",
     "storybook": "pnpm dev:css & storybook dev -p 6006",
     "build-storybook": "storybook build --webpack-stats-json",
