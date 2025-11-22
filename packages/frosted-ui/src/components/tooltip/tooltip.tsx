@@ -26,7 +26,7 @@ const Tooltip = (props: TooltipProps) => {
     open,
     defaultOpen,
     onOpenChange,
-    delayDuration,
+    delayDuration = 400,
     disableHoverableContent,
     content,
     container,
