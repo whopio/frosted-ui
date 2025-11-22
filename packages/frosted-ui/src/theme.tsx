@@ -294,5 +294,78 @@ function updateThemeAppearanceClass(appearance: ThemeOptions['appearance']) {
   }
 }
 
-export { Theme, updateThemeAppearanceClass, useThemeContext };
-export type { ThemeProps };
+function resolveAppearanceFromDOM(): 'light' | 'dark' {
+  if (typeof document === 'undefined') return 'light';
+  const root = document.documentElement;
+  const body = document.body;
+  const hasDarkClass =
+    root.classList.contains('dark') ||
+    root.classList.contains('dark-theme') ||
+    body.classList.contains('dark') ||
+    body.classList.contains('dark-theme');
+  return hasDarkClass ? 'dark' : 'light';
+}
+
+interface ReversedThemeProps extends Omit<ThemeProps, 'appearance'> {}
+const ReversedTheme = React.memo((props: ReversedThemeProps) => {
+  const context = React.useContext(ThemeContext);
+
+  // If we have explicit context appearance, compute directly (most efficient)
+  const hasExplicitAppearance = context?.appearance === 'light' || context?.appearance === 'dark';
+
+  const reversedAppearanceFromContext = React.useMemo((): 'light' | 'dark' => {
+    if (!hasExplicitAppearance) return 'dark'; // fallback, will be overridden by state
+    return context.appearance === 'light' ? 'dark' : 'light';
+  }, [context?.appearance, hasExplicitAppearance]);
+
+  // Only use state + DOM watching when we don't have explicit context
+  const [domAppearance, setDomAppearance] = React.useState<'light' | 'dark'>(() => resolveAppearanceFromDOM());
+
+  React.useEffect(() => {
+    // If we have explicit appearance from context, no need to watch DOM
+    if (hasExplicitAppearance) {
+      return;
+    }
+
+    // Watch for class changes on document.documentElement and document.body
+    const updateFromDOM = () => {
+      const resolved = resolveAppearanceFromDOM();
+      setDomAppearance(resolved);
+    };
+
+    // Use MutationObserver to watch for class changes
+    const observer = new MutationObserver(() => {
+      updateFromDOM();
+    });
+
+    // Observe both documentElement and body for class changes
+    if (typeof document !== 'undefined') {
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class'],
+      });
+      observer.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class'],
+      });
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [hasExplicitAppearance]);
+
+  // Use context-based when available, otherwise use DOM-based
+  const reversedAppearance = hasExplicitAppearance
+    ? reversedAppearanceFromContext
+    : domAppearance === 'light'
+      ? 'dark'
+      : 'light';
+
+  // Render Theme with the reversed appearance
+  return <Theme {...props} appearance={reversedAppearance} />;
+});
+ReversedTheme.displayName = 'ReversedTheme';
+
+export { ReversedTheme, Theme, updateThemeAppearanceClass, useThemeContext };
+export type { ReversedThemeProps, ThemeProps };
