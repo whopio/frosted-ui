@@ -307,51 +307,35 @@ function resolveAppearanceFromDOM(): 'light' | 'dark' {
 }
 
 interface ReversedThemeProps extends Omit<ThemeProps, 'appearance'> {}
-const ReversedTheme = (props: ReversedThemeProps) => {
+const ReversedTheme = React.memo((props: ReversedThemeProps) => {
   const context = React.useContext(ThemeContext);
 
-  // Resolve the current appearance from context or DOM
-  const resolveCurrentAppearance = React.useCallback((): 'light' | 'dark' => {
-    // If we have a context with an explicit appearance, use it
-    if (context?.appearance === 'light' || context?.appearance === 'dark') {
-      return context.appearance;
-    }
-    // Otherwise, resolve from DOM
-    return resolveAppearanceFromDOM();
-  }, [context?.appearance]);
+  // If we have explicit context appearance, compute directly (most efficient)
+  const hasExplicitAppearance = context?.appearance === 'light' || context?.appearance === 'dark';
 
-  // Get the current appearance reactively
-  const [currentAppearance, setCurrentAppearance] = React.useState<'light' | 'dark'>(resolveCurrentAppearance);
+  const reversedAppearanceFromContext = React.useMemo((): 'light' | 'dark' => {
+    if (!hasExplicitAppearance) return 'dark'; // fallback, will be overridden by state
+    return context.appearance === 'light' ? 'dark' : 'light';
+  }, [context?.appearance, hasExplicitAppearance]);
 
-  // Update when context appearance changes
+  // Only use state + DOM watching when we don't have explicit context
+  const [domAppearance, setDomAppearance] = React.useState<'light' | 'dark'>(() => resolveAppearanceFromDOM());
+
   React.useEffect(() => {
-    setCurrentAppearance(resolveCurrentAppearance());
-  }, [resolveCurrentAppearance]);
-
-  // Watch for DOM changes when appearance is 'inherit' or no context
-  React.useEffect(() => {
-    // If we have an explicit appearance from context, no need to watch DOM
-    if (context?.appearance === 'light' || context?.appearance === 'dark') {
+    // If we have explicit appearance from context, no need to watch DOM
+    if (hasExplicitAppearance) {
       return;
     }
 
     // Watch for class changes on document.documentElement and document.body
     const updateFromDOM = () => {
       const resolved = resolveAppearanceFromDOM();
-      setCurrentAppearance(resolved);
+      setDomAppearance(resolved);
     };
 
-    // Initial check
-    updateFromDOM();
-
     // Use MutationObserver to watch for class changes
-    const observer = new MutationObserver((mutations) => {
-      for (const mutation of mutations) {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-          updateFromDOM();
-          break;
-        }
-      }
+    const observer = new MutationObserver(() => {
+      updateFromDOM();
     });
 
     // Observe both documentElement and body for class changes
@@ -369,14 +353,18 @@ const ReversedTheme = (props: ReversedThemeProps) => {
     return () => {
       observer.disconnect();
     };
-  }, [context?.appearance]);
+  }, [hasExplicitAppearance]);
 
-  // Calculate the opposite appearance
-  const reversedAppearance: 'light' | 'dark' = currentAppearance === 'light' ? 'dark' : 'light';
+  // Use context-based when available, otherwise use DOM-based
+  const reversedAppearance = hasExplicitAppearance
+    ? reversedAppearanceFromContext
+    : domAppearance === 'light'
+      ? 'dark'
+      : 'light';
 
   // Render Theme with the reversed appearance
   return <Theme {...props} appearance={reversedAppearance} />;
-};
+});
 ReversedTheme.displayName = 'ReversedTheme';
 
 export { ReversedTheme, Theme, updateThemeAppearanceClass, useThemeContext };
