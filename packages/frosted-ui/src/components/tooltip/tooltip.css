@@ -11,22 +11,22 @@
 
   transform-origin: var(--radix-tooltip-content-transform-origin);
 
-  animation-duration: 200ms;
-  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-duration: 100ms;
+  animation-timing-function: ease-out;
 
   @media (prefers-reduced-motion: no-preference) {
     &:where([data-state='delayed-open']) {
       &:where([data-side='top']) {
-        animation-name: fui-slide-up, fui-fade-in;
+        animation-name: fui-slide-from-top, fui-fade-in;
       }
       &:where([data-side='bottom']) {
-        animation-name: fui-slide-down, fui-fade-in;
+        animation-name: fui-slide-from-bottom, fui-fade-in;
       }
       &:where([data-side='left']) {
-        animation-name: fui-slide-left, fui-fade-in;
+        animation-name: fui-slide-from-left, fui-fade-in;
       }
       &:where([data-side='right']) {
-        animation-name: fui-slide-right, fui-fade-in;
+        animation-name: fui-slide-from-right, fui-fade-in;
       }
     }
   }
