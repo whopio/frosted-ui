@@ -3,7 +3,7 @@
 import classNames from 'classnames';
 import { Tooltip as TooltipPrimitive } from 'radix-ui';
 import * as React from 'react';
-import { Theme } from '../../theme';
+import { ReversedTheme } from '../../theme';
 import { Text } from '../text';
 import { tooltipPropDefs } from './tooltip.props';
 
@@ -44,7 +44,7 @@ const Tooltip = (props: TooltipProps) => {
     <TooltipPrimitive.Root {...rootProps}>
       <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
       <TooltipPrimitive.Portal container={container} forceMount={forceMount}>
-        <Theme asChild>
+        <ReversedTheme asChild>
           <TooltipPrimitive.Content
             sideOffset={4}
             collisionPadding={10}
@@ -56,7 +56,7 @@ const Tooltip = (props: TooltipProps) => {
             </Text>
             <TooltipPrimitive.Arrow className="fui-TooltipArrow" />
           </TooltipPrimitive.Content>
-        </Theme>
+        </ReversedTheme>
       </TooltipPrimitive.Portal>
     </TooltipPrimitive.Root>
   );

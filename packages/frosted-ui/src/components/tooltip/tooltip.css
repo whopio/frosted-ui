@@ -1,7 +1,6 @@
 .fui-TooltipContent {
   padding: var(--space-1) var(--space-2);
-  background-color: var(--gray-12);
-  color: var(--gray-1);
+  background-color: var(--color-background);
 
   border-radius: var(--radius-4);
 
@@ -46,11 +45,10 @@
 }
 
 .fui-TooltipText {
-  color: var(--gray-1);
   user-select: none;
   cursor: default;
 }
 
 .fui-TooltipArrow {
-  fill: var(--gray-12);
+  fill: var(--color-background);
 }

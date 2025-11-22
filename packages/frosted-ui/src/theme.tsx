@@ -294,5 +294,90 @@ function updateThemeAppearanceClass(appearance: ThemeOptions['appearance']) {
   }
 }
 
-export { Theme, updateThemeAppearanceClass, useThemeContext };
-export type { ThemeProps };
+function resolveAppearanceFromDOM(): 'light' | 'dark' {
+  if (typeof document === 'undefined') return 'light';
+  const root = document.documentElement;
+  const body = document.body;
+  const hasDarkClass =
+    root.classList.contains('dark') ||
+    root.classList.contains('dark-theme') ||
+    body.classList.contains('dark') ||
+    body.classList.contains('dark-theme');
+  return hasDarkClass ? 'dark' : 'light';
+}
+
+interface ReversedThemeProps extends Omit<ThemeProps, 'appearance'> {}
+const ReversedTheme = (props: ReversedThemeProps) => {
+  const context = React.useContext(ThemeContext);
+
+  // Resolve the current appearance from context or DOM
+  const resolveCurrentAppearance = React.useCallback((): 'light' | 'dark' => {
+    // If we have a context with an explicit appearance, use it
+    if (context?.appearance === 'light' || context?.appearance === 'dark') {
+      return context.appearance;
+    }
+    // Otherwise, resolve from DOM
+    return resolveAppearanceFromDOM();
+  }, [context?.appearance]);
+
+  // Get the current appearance reactively
+  const [currentAppearance, setCurrentAppearance] = React.useState<'light' | 'dark'>(resolveCurrentAppearance);
+
+  // Update when context appearance changes
+  React.useEffect(() => {
+    setCurrentAppearance(resolveCurrentAppearance());
+  }, [resolveCurrentAppearance]);
+
+  // Watch for DOM changes when appearance is 'inherit' or no context
+  React.useEffect(() => {
+    // If we have an explicit appearance from context, no need to watch DOM
+    if (context?.appearance === 'light' || context?.appearance === 'dark') {
+      return;
+    }
+
+    // Watch for class changes on document.documentElement and document.body
+    const updateFromDOM = () => {
+      const resolved = resolveAppearanceFromDOM();
+      setCurrentAppearance(resolved);
+    };
+
+    // Initial check
+    updateFromDOM();
+
+    // Use MutationObserver to watch for class changes
+    const observer = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          updateFromDOM();
+          break;
+        }
+      }
+    });
+
+    // Observe both documentElement and body for class changes
+    if (typeof document !== 'undefined') {
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class'],
+      });
+      observer.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class'],
+      });
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [context?.appearance]);
+
+  // Calculate the opposite appearance
+  const reversedAppearance: 'light' | 'dark' = currentAppearance === 'light' ? 'dark' : 'light';
+
+  // Render Theme with the reversed appearance
+  return <Theme {...props} appearance={reversedAppearance} />;
+};
+ReversedTheme.displayName = 'ReversedTheme';
+
+export { ReversedTheme, Theme, updateThemeAppearanceClass, useThemeContext };
+export type { ReversedThemeProps, ThemeProps };
