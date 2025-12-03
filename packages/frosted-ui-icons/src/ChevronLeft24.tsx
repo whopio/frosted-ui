@@ -12,7 +12,10 @@ export const ChevronLeft24 = ({ color = 'currentColor', ...props }: IconProps) =
       data-fui-icon="true"
       {...props}
     >
-      <path d="M16 3L7 12L16 21" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M15.4697 2.46973C15.7626 2.17683 16.2374 2.17683 16.5303 2.46973C16.8231 2.76262 16.8231 3.2374 16.5303 3.53027L8.06055 12L16.5303 20.4697C16.8231 20.7626 16.8231 21.2374 16.5303 21.5303C16.2374 21.8231 15.7626 21.8231 15.4697 21.5303L6.46973 12.5303C6.17683 12.2374 6.17683 11.7626 6.46973 11.4697L15.4697 2.46973Z"
+        fill={color}
+      />
     </svg>
   );
 };

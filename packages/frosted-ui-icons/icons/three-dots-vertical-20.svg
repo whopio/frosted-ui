@@ -1,5 +1,6 @@
 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="true">
-  <circle cx="10" cy="16" r="1" transform="rotate(180 10 16)" fill="currentColor" />
-  <circle cx="10" cy="10" r="1" transform="rotate(180 10 10)" fill="currentColor" />
-  <circle cx="10" cy="4" r="1" transform="rotate(180 10 4)" fill="currentColor" />
+  <path
+    d="M8.5 16C8.5 15.1716 9.17157 14.5 10 14.5C10.8284 14.5 11.5 15.1716 11.5 16C11.5 16.8284 10.8284 17.5 10 17.5C9.17157 17.5 8.5 16.8284 8.5 16ZM8.5 10C8.5 9.17157 9.17157 8.5 10 8.5C10.8284 8.5 11.5 9.17157 11.5 10C11.5 10.8284 10.8284 11.5 10 11.5C9.17157 11.5 8.5 10.8284 8.5 10ZM8.5 4C8.5 3.17157 9.17157 2.5 10 2.5C10.8284 2.5 11.5 3.17157 11.5 4C11.5 4.82843 10.8284 5.5 10 5.5C9.17157 5.5 8.5 4.82843 8.5 4Z"
+    fill="currentColor"
+  />
 </svg>
