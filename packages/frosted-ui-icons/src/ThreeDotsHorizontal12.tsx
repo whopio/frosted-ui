@@ -12,9 +12,10 @@ export const ThreeDotsHorizontal12 = ({ color = 'currentColor', ...props }: Icon
       data-fui-icon="true"
       {...props}
     >
-      <circle cx="2" cy="6" r="1" transform="rotate(-90 2 6)" fill={color} />
-      <circle cx="6" cy="6" r="1" transform="rotate(-90 6 6)" fill={color} />
-      <circle cx="10" cy="6" r="1" transform="rotate(-90 10 6)" fill={color} />
+      <path
+        d="M2 5C2.55228 5 3 5.44772 3 6C3 6.55228 2.55228 7 2 7C1.44772 7 1 6.55228 1 6C1 5.44772 1.44772 5 2 5ZM6 5C6.55228 5 7 5.44772 7 6C7 6.55228 6.55228 7 6 7C5.44772 7 5 6.55228 5 6C5 5.44772 5.44772 5 6 5ZM10 5C10.5523 5 11 5.44772 11 6C11 6.55228 10.5523 7 10 7C9.44771 7 9 6.55228 9 6C9 5.44772 9.44771 5 10 5Z"
+        fill={color}
+      />
     </svg>
   );
 };
