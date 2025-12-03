@@ -12,12 +12,10 @@ export const DragHandleHorizontal12 = ({ color = 'currentColor', ...props }: Ico
       data-fui-icon="true"
       {...props}
     >
-      <circle cx="2" cy="8" r="1" transform="rotate(-90 2 8)" fill={color} />
-      <circle cx="2" cy="4" r="1" transform="rotate(-90 2 4)" fill={color} />
-      <circle cx="6" cy="8" r="1" transform="rotate(-90 6 8)" fill={color} />
-      <circle cx="6" cy="4" r="1" transform="rotate(-90 6 4)" fill={color} />
-      <circle cx="10" cy="8" r="1" transform="rotate(-90 10 8)" fill={color} />
-      <circle cx="10" cy="4" r="1" transform="rotate(-90 10 4)" fill={color} />
+      <path
+        d="M9 8C9 7.44772 9.44772 7 10 7C10.5523 7 11 7.44771 11 8C11 8.55228 10.5523 9 10 9C9.44771 9 9 8.55228 9 8ZM9 4C9 3.44771 9.44772 3 10 3C10.5523 3 11 3.44771 11 4C11 4.55228 10.5523 5 10 5C9.44771 5 9 4.55228 9 4ZM5 8C5 7.44772 5.44772 7 6 7C6.55228 7 7 7.44772 7 8C7 8.55228 6.55228 9 6 9C5.44772 9 5 8.55228 5 8ZM5 4C5 3.44772 5.44772 3 6 3C6.55228 3 7 3.44772 7 4C7 4.55228 6.55228 5 6 5C5.44772 5 5 4.55228 5 4ZM1 8C1 7.44772 1.44772 7 2 7C2.55228 7 3 7.44772 3 8C3 8.55228 2.55228 9 2 9C1.44772 9 1 8.55228 1 8ZM1 4C1 3.44772 1.44772 3 2 3C2.55228 3 3 3.44772 3 4C3 4.55228 2.55228 5 2 5C1.44772 5 1 4.55228 1 4Z"
+        fill={color}
+      />
     </svg>
   );
 };

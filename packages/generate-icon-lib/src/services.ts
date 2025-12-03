@@ -394,17 +394,31 @@ export async function generateReactComponents(icons: IIcons) {
   /* Generate Icon Component Modules */
   for (const i in iconsWithVariants) {
     const icon = iconsWithVariants[i];
-    const iconSourceRaw = await ejs.render(templates.icon, {
-      icon,
-      ...templateHelpers,
-    });
-    const iconSource = prettier.format(iconSourceRaw, {
-      ...prettierOptions,
-      parser: 'typescript',
-    });
-    const iconComponentFilePath = path.resolve(currentTempDir, 'src/', templateHelpers.iconToReactFileName(icon));
-    await fs.outputFile(iconComponentFilePath, iconSource);
-    currentListOfAddedFiles.push(iconComponentFilePath);
+    try {
+      const iconSourceRaw = await ejs.render(templates.icon, {
+        icon,
+        ...templateHelpers,
+      });
+      const iconSource = prettier.format(iconSourceRaw, {
+        ...prettierOptions,
+        parser: 'typescript',
+      });
+      const iconComponentFilePath = path.resolve(currentTempDir, 'src/', templateHelpers.iconToReactFileName(icon));
+      await fs.outputFile(iconComponentFilePath, iconSource);
+      currentListOfAddedFiles.push(iconComponentFilePath);
+    } catch (error) {
+      const typeList = icon.types?.join(', ') || '—';
+      const sizeList = icon.sizes?.join(', ') || '—';
+      console.error(
+        `
+${chalk.bgRed.white(' ICON GENERATION FAILED ')}
+${chalk.bold(icon.jsxName)} (${icon.svgName})
+types: ${typeList}
+sizes: ${sizeList}
+`,
+      );
+      throw error;
+    }
   }
 
   /* Generate Entry Module */
