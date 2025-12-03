@@ -1,8 +1,6 @@
 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="true">
-  <circle cx="25" cy="21" r="1.25" transform="rotate(-90 25 21)" fill="currentColor" />
-  <circle cx="16" cy="21" r="1.25" transform="rotate(-90 16 21)" fill="currentColor" />
-  <circle cx="7" cy="21" r="1.25" transform="rotate(-90 7 21)" fill="currentColor" />
-  <circle cx="25" cy="11" r="1.25" transform="rotate(-90 25 11)" fill="currentColor" />
-  <circle cx="16" cy="11" r="1.25" transform="rotate(-90 16 11)" fill="currentColor" />
-  <circle cx="7" cy="11" r="1.25" transform="rotate(-90 7 11)" fill="currentColor" />
+  <path
+    d="M23 21C23 19.8954 23.8954 19 25 19C26.1046 19 27 19.8954 27 21C27 22.1046 26.1046 23 25 23C23.8954 23 23 22.1046 23 21ZM23 11C23 9.89543 23.8954 9 25 9C26.1046 9 27 9.89543 27 11C27 12.1046 26.1046 13 25 13C23.8954 13 23 12.1046 23 11ZM14 21C14 19.8954 14.8954 19 16 19C17.1046 19 18 19.8954 18 21C18 22.1046 17.1046 23 16 23C14.8954 23 14 22.1046 14 21ZM14 11C14 9.89543 14.8954 9 16 9C17.1046 9 18 9.89543 18 11C18 12.1046 17.1046 13 16 13C14.8954 13 14 12.1046 14 11ZM5 21C5 19.8954 5.89543 19 7 19C8.10457 19 9 19.8954 9 21C9 22.1046 8.10457 23 7 23C5.89543 23 5 22.1046 5 21ZM5 11C5 9.89543 5.89543 9 7 9C8.10457 9 9 9.89543 9 11C9 12.1046 8.10457 13 7 13C5.89543 13 5 12.1046 5 11Z"
+    fill="currentColor"
+  />
 </svg>
