@@ -48,18 +48,22 @@ const config: StorybookConfig = {
   },
 
   viteFinal: (config) => {
+    const excludes = [
+      ...(config.optimizeDeps?.exclude ?? []),
+      '@storybook/addon-docs',
+      '@storybook/blocks',
+      '@storybook/theming',
+      '@storybook/components',
+      '@storybook/preview-api',
+      '@storybook/manager-api',
+      '@mdx-js/react',
+    ];
+
     return {
       ...config,
       optimizeDeps: {
         ...config.optimizeDeps,
-        exclude: [
-          '@storybook/addon-docs',
-          '@storybook/blocks',
-          '@storybook/theming',
-          '@storybook/components',
-          '@storybook/preview-api',
-          '@storybook/manager-api',
-        ],
+        exclude: Array.from(new Set(excludes)),
       },
     };
   },
