@@ -177,7 +177,7 @@
   --color-background: white;
   --color-overlay: var(--black-a6);
   --color-panel-solid: white;
-  --color-panel-translucent: rgba(255, 255, 255, 0.7);
+  --color-panel-translucent: rgba(255, 255, 255, 0.85);
   --color-surface: rgba(255, 255, 255, 0.9);
   --backdrop-filter-panel: blur(20px) saturate(190%) contrast(50%) brightness(130%);
   --color-stroke: var(--gray-a5);
@@ -210,6 +210,19 @@
   --color-surface: rgba(0, 0, 0, 0.25);
   --backdrop-filter-panel: blur(20px) saturate(190%) contrast(90%) brightness(80%);
   --color-stroke: var(--gray-a4);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :where(.frosted-ui) {
+    --color-panel-translucent: var(--color-panel-solid);
+  }
+
+  .dark,
+  .dark-theme,
+  .dark :where(.frosted-ui:not(.light, .light-theme)),
+  .dark-theme :where(.frosted-ui:not(.light, .light-theme)) {
+    --color-panel-translucent: var(--color-panel-solid);
+  }
 }
 
 /* * * * * * * * * * * * * * * * * * * */
@@ -337,22 +350,22 @@
 
 .dark,
 .dark-theme {
-  --gray-2-translucent: #1d1d1d80;
-  --mauve-2-translucent: #1e1d1e80;
-  --slate-2-translucent: #1b1d1e80;
-  --sage-2-translucent: #1a1c1b80;
-  --olive-2-translucent: #1b1c1a80;
-  --sand-2-translucent: #1d1d1b80;
+  --gray-2-translucent: #1d1d1dd9;
+  --mauve-2-translucent: #1e1d1ed9;
+  --slate-2-translucent: #1b1d1ed9;
+  --sage-2-translucent: #1a1c1bd9;
+  --olive-2-translucent: #1b1c1ad9;
+  --sand-2-translucent: #1d1d1bd9;
 
   @supports (color: color(display-p3 1 1 1)) {
     @media (color-gamut: p3) {
       & {
-        --gray-2-translucent: color(display-p3 0.1137 0.1137 0.1137 / 0.5);
-        --mauve-2-translucent: color(display-p3 0.1176 0.1137 0.1176 / 0.5);
-        --slate-2-translucent: color(display-p3 0.1059 0.1137 0.1176 / 0.5);
-        --sage-2-translucent: color(display-p3 0.102 0.1137 0.1059 / 0.5);
-        --olive-2-translucent: color(display-p3 0.1059 0.1137 0.102 / 0.5);
-        --sand-2-translucent: color(display-p3 0.1137 0.1137 0.1059 / 0.5);
+        --gray-2-translucent: color(display-p3 0.1137 0.1137 0.1137 / 0.85);
+        --mauve-2-translucent: color(display-p3 0.1176 0.1137 0.1176 / 0.85);
+        --slate-2-translucent: color(display-p3 0.1059 0.1137 0.1176 / 0.85);
+        --sage-2-translucent: color(display-p3 0.102 0.1137 0.1059 / 0.85);
+        --olive-2-translucent: color(display-p3 0.1059 0.1137 0.102 / 0.85);
+        --sand-2-translucent: color(display-p3 0.1137 0.1137 0.1059 / 0.85);
       }
     }
   }
