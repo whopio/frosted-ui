@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const SadFace24 = ({ color = 'currentColor', ...props }: IconProps) => {
+export const Sad24 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
       width="24"
@@ -27,4 +27,4 @@ export const SadFace24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-export default SadFace24;
+export default Sad24;
