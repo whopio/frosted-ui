@@ -17,7 +17,7 @@ const createFrostedColorTokens = (paletteExports) =>
       return acc;
     }
 
-    Object.entries(paletteValues).forEach(([shadeKey, colorValue]) => {
+    Object.entries(paletteValues).forEach(([shadeKey]) => {
       const stepMatch = shadeKey.match(/(\d+)$/);
 
       if (!stepMatch) {
@@ -25,7 +25,8 @@ const createFrostedColorTokens = (paletteExports) =>
       }
 
       const variantSuffix = `${isAlphaPalette ? 'a' : ''}${stepMatch[1]}`;
-      acc[`${normalizedBase}-${variantSuffix}`] = colorValue;
+      const cssVarName = `--${normalizedBase}-${variantSuffix}`;
+      acc[`${normalizedBase}-${variantSuffix}`] = `var(${cssVarName})`;
     });
 
     return acc;

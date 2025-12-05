@@ -124,7 +124,7 @@ export default function KitchenSinkScreen() {
   return (
     <>
       <Stack.Screen options={SCREEN_OPTIONS} />
-      <ScrollView className="bg-magenta-a9 flex-1">
+      <ScrollView className="bg-black-a12 flex-1">
         <View className="gap-8 p-4 pt-24">
           {/* Typography Section */}
           <ComponentSection title="Typography">
