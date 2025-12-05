@@ -5,7 +5,6 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { AspectRatio } from '@/components/ui/aspect-ratio';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,6 +16,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -61,6 +61,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
+import { Icon } from '@/components/ui/icon';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -112,7 +113,6 @@ import {
 import { useColorScheme } from 'nativewind';
 import * as React from 'react';
 import { Image, ScrollView, View } from 'react-native';
-import { Icon } from '@/components/ui/icon';
 
 const SCREEN_OPTIONS = {
   title: 'Component Kitchen Sink',
@@ -124,7 +124,7 @@ export default function KitchenSinkScreen() {
   return (
     <>
       <Stack.Screen options={SCREEN_OPTIONS} />
-      <ScrollView className="flex-1 bg-background">
+      <ScrollView className="bg-magenta-a9 flex-1">
         <View className="gap-8 p-4 pt-24">
           {/* Typography Section */}
           <ComponentSection title="Typography">

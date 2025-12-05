@@ -333,6 +333,9 @@ importers:
 
   packages/frosted-ui-react-native:
     dependencies:
+      '@frosted-ui/colors':
+        specifier: workspace:*
+        version: link:../frosted-ui-colors
       '@react-navigation/native':
         specifier: ^7.0.0
         version: 7.1.24(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)

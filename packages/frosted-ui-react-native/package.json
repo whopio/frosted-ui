@@ -10,6 +10,7 @@
     "clean": "rm -rf .expo node_modules"
   },
   "dependencies": {
+    "@frosted-ui/colors": "workspace:*",
     "@react-navigation/native": "^7.0.0",
     "@rn-primitives/accordion": "^1.2.0",
     "@rn-primitives/alert-dialog": "^1.2.0",

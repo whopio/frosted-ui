@@ -1,4 +1,37 @@
+/* eslint-env node */
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 const { hairlineWidth } = require('nativewind/theme');
+const frostedColors = require('@frosted-ui/colors');
+
+const createFrostedColorTokens = (paletteExports) =>
+  Object.entries(paletteExports).reduce((acc, [paletteName, paletteValues]) => {
+    const isObjectPalette =
+      paletteValues && typeof paletteValues === 'object' && !Array.isArray(paletteValues);
+    const isAlphaPalette = paletteName.endsWith('A');
+    const baseName = (isAlphaPalette ? paletteName.slice(0, -1) : paletteName) || '';
+    const normalizedBase = baseName.toLowerCase();
+    const isSupportedName = /^[a-z]+$/.test(normalizedBase) && !paletteName.includes('P3');
+
+    if (!isObjectPalette || !isSupportedName) {
+      return acc;
+    }
+
+    Object.entries(paletteValues).forEach(([shadeKey, colorValue]) => {
+      const stepMatch = shadeKey.match(/(\d+)$/);
+
+      if (!stepMatch) {
+        return;
+      }
+
+      const variantSuffix = `${isAlphaPalette ? 'a' : ''}${stepMatch[1]}`;
+      acc[`${normalizedBase}-${variantSuffix}`] = colorValue;
+    });
+
+    return acc;
+  }, {});
+
+const frostedColorTokens = createFrostedColorTokens(frostedColors);
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -8,6 +41,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        ...frostedColorTokens,
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
