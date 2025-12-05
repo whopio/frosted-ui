@@ -1,3 +1,5 @@
+import { getAccentColorTheme } from '@/lib/color-utils';
+import type { AccentColor } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import * as Slot from '@rn-primitives/slot';
 import * as React from 'react';
@@ -30,17 +32,29 @@ const weightClasses: Record<(typeof textWeights)[number], string> = {
 type TextSize = (typeof textSizes)[number];
 type TextWeight = (typeof textWeights)[number];
 
-type TextProps = Omit<React.ComponentProps<typeof RNText>, 'size' | 'weight'> & {
+type TextProps = Omit<React.ComponentProps<typeof RNText>, 'size' | 'weight' | 'color'> & {
   asChild?: boolean;
   size?: TextSize;
   weight?: TextWeight;
+  color?: AccentColor;
 };
 
 const TextClassContext = React.createContext<string | undefined>(undefined);
 
-function Text({ className, asChild = false, size, weight, role, ...props }: TextProps) {
+function Text({
+  className,
+  asChild = false,
+  size,
+  weight,
+  color,
+  role,
+  style,
+  ...props
+}: TextProps) {
   const textClass = React.useContext(TextClassContext);
   const Component = asChild ? Slot.Text : RNText;
+  const accentTheme = color ? getAccentColorTheme(color) : undefined;
+  const colorClass = color ? 'text-accent-11' : 'text-gray-12';
 
   return (
     <Component
@@ -48,9 +62,10 @@ function Text({ className, asChild = false, size, weight, role, ...props }: Text
         textClass,
         size && sizeClasses[size],
         weight && weightClasses[weight],
-        'text-gray-12',
+        colorClass,
         className
       )}
+      style={[accentTheme, style]}
       role={role}
       {...props}
     />

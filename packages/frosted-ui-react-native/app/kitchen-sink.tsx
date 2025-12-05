@@ -143,6 +143,17 @@ export default function KitchenSinkScreen() {
               </View>
               <View className="gap-2">
                 <Text weight="semi-bold" className="text-gray-a10">
+                  Heading Colors
+                </Text>
+                <Heading color="blue">Heading with blue color</Heading>
+                <Heading color="yellow">Heading with yellow color</Heading>
+                <Heading color="green">Heading with green color</Heading>
+                <Heading color="red">Heading with red color</Heading>
+                <Heading color="purple">Heading with purple color</Heading>
+                <Heading color="orange">Heading with orange color</Heading>
+              </View>
+              <View className="gap-2">
+                <Text weight="semi-bold" className="text-gray-a10">
                   Text Sizes
                 </Text>
                 {TEXT_SIZES.map((size) => (
@@ -160,6 +171,21 @@ export default function KitchenSinkScreen() {
                     Text weight {weight}
                   </Text>
                 ))}
+              </View>
+              <View className="gap-2">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Text Colors
+                </Text>
+                <Text color="blue">Text with blue color</Text>
+                <Text color="yellow">Text with yellow color</Text>
+                <Text color="green">Text with green color</Text>
+                <Text color="red">Text with red color</Text>
+                <Text color="purple">Text with purple color</Text>
+                <Text color="orange">Text with orange color</Text>
+                <Text color="cyan">Text with cyan color</Text>
+                <Text color="pink">Text with pink color</Text>
+                <Text color="amber">Text with amber color</Text>
+                <Text color="teal">Text with teal color</Text>
               </View>
             </View>
           </ComponentSection>

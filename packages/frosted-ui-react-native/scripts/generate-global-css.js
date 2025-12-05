@@ -176,6 +176,38 @@ const stepNineContrastVars = {
   '--lime-9-contrast': '#162715',
 };
 
+// Generate accent color variables that map to blue by default
+// These can be overridden via data-accent-color attribute (web) or theme context (native)
+const accentColorVars = {
+  // Solid accent colors (1-12)
+  '--accent-1': 'var(--blue-1)',
+  '--accent-2': 'var(--blue-2)',
+  '--accent-3': 'var(--blue-3)',
+  '--accent-4': 'var(--blue-4)',
+  '--accent-5': 'var(--blue-5)',
+  '--accent-6': 'var(--blue-6)',
+  '--accent-7': 'var(--blue-7)',
+  '--accent-8': 'var(--blue-8)',
+  '--accent-9': 'var(--blue-9)',
+  '--accent-9-contrast': 'var(--blue-9-contrast)',
+  '--accent-10': 'var(--blue-10)',
+  '--accent-11': 'var(--blue-11)',
+  '--accent-12': 'var(--blue-12)',
+  // Alpha accent colors (a1-a12)
+  '--accent-a1': 'var(--blue-a1)',
+  '--accent-a2': 'var(--blue-a2)',
+  '--accent-a3': 'var(--blue-a3)',
+  '--accent-a4': 'var(--blue-a4)',
+  '--accent-a5': 'var(--blue-a5)',
+  '--accent-a6': 'var(--blue-a6)',
+  '--accent-a7': 'var(--blue-a7)',
+  '--accent-a8': 'var(--blue-a8)',
+  '--accent-a9': 'var(--blue-a9)',
+  '--accent-a10': 'var(--blue-a10)',
+  '--accent-a11': 'var(--blue-a11)',
+  '--accent-a12': 'var(--blue-a12)',
+};
+
 const buildSelectorBlock = (selector, sections) => {
   const lines = sections.flatMap((vars) => formatVarLines(vars));
   return `${selector} {\n${indentBlock(lines.join('\n'))}\n}`;
@@ -190,10 +222,22 @@ const cssSections = [
   '@tailwind utilities;',
   '',
   '@layer base {',
-  indentBlock(buildSelectorBlock(':root', [baseLightVars, stepNineContrastVars, lightColorVars])),
+  indentBlock(
+    buildSelectorBlock(':root', [
+      baseLightVars,
+      stepNineContrastVars,
+      lightColorVars,
+      accentColorVars,
+    ])
+  ),
   '',
   indentBlock(
-    buildSelectorBlock('.dark:root', [baseDarkVars, stepNineContrastVars, darkColorVars])
+    buildSelectorBlock('.dark:root', [
+      baseDarkVars,
+      stepNineContrastVars,
+      darkColorVars,
+      accentColorVars,
+    ])
   ),
   '}',
   '',

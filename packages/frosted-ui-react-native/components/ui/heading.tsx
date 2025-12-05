@@ -1,4 +1,5 @@
 import { Text } from '@/components/ui/text';
+import type { AccentColor } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import type * as React from 'react';
 import { Platform } from 'react-native';
@@ -30,23 +31,27 @@ const weightClasses: Record<(typeof headingWeights)[number], string> = {
 type HeadingSize = (typeof headingSizes)[number];
 type HeadingWeight = (typeof headingWeights)[number];
 
-type HeadingProps = Omit<React.ComponentProps<typeof Text>, 'variant'> & {
+type HeadingProps = Omit<React.ComponentProps<typeof Text>, 'variant' | 'color'> & {
   size?: HeadingSize;
   weight?: HeadingWeight;
+  color?: AccentColor;
 };
 
 function Heading({
   size = '6',
   weight = 'bold',
+  color,
   className,
   role: roleProp,
   ...props
 }: HeadingProps) {
   const role = Platform.OS === 'web' ? (roleProp ?? 'heading') : roleProp;
+  const colorClass = color ? 'text-accent-11' : 'text-gray-12';
 
   return (
     <Text
-      className={cn('text-gray-12', sizeClasses[size], weightClasses[weight], className)}
+      className={cn(colorClass, sizeClasses[size], weightClasses[weight], className)}
+      color={color}
       role={role}
       {...props}
     />

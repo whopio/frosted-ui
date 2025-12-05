@@ -129,6 +129,36 @@ const createFrostedColorTokens = (paletteExports) =>
 
 const frostedColorTokens = createFrostedColorTokens(frostedColors);
 
+// Generate accent color tokens that map to CSS variables
+// These default to blue but can be overridden via CSS variables
+const accentColorTokens = {
+  1: 'var(--accent-1)',
+  2: 'var(--accent-2)',
+  3: 'var(--accent-3)',
+  4: 'var(--accent-4)',
+  5: 'var(--accent-5)',
+  6: 'var(--accent-6)',
+  7: 'var(--accent-7)',
+  8: 'var(--accent-8)',
+  9: 'var(--accent-9)',
+  '9-contrast': 'var(--accent-9-contrast)',
+  10: 'var(--accent-10)',
+  11: 'var(--accent-11)',
+  12: 'var(--accent-12)',
+  a1: 'var(--accent-a1)',
+  a2: 'var(--accent-a2)',
+  a3: 'var(--accent-a3)',
+  a4: 'var(--accent-a4)',
+  a5: 'var(--accent-a5)',
+  a6: 'var(--accent-a6)',
+  a7: 'var(--accent-a7)',
+  a8: 'var(--accent-a8)',
+  a9: 'var(--accent-a9)',
+  a10: 'var(--accent-a10)',
+  a11: 'var(--accent-a11)',
+  a12: 'var(--accent-a12)',
+};
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
@@ -143,6 +173,7 @@ module.exports = {
       transparent: 'transparent',
       current: 'currentColor',
       inherit: 'inherit',
+      accent: accentColorTokens,
       ...frostedColorTokens,
       ...contrastColorTokens,
       ...semanticColorVars,
