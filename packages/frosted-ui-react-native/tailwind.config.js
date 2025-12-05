@@ -19,6 +19,50 @@ const semanticColorVars = {
   'sand-2-translucent': 'var(--sand-2-translucent)',
 };
 
+const typographyScale = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].reduce(
+  (acc, step) => ({
+    ...acc,
+    [`${step}`]: [
+      `var(--font-size-${step})`,
+      {
+        lineHeight: `var(--line-height-${step})`,
+        letterSpacing: `var(--letter-spacing-${step})`,
+      },
+    ],
+  }),
+  {}
+);
+
+const fontWeightScale = {
+  thin: '100',
+  extralight: '200',
+  light: 'var(--font-weight-light)',
+  normal: 'var(--font-weight-regular)',
+  medium: 'var(--font-weight-medium)',
+  semibold: '600',
+  bold: 'var(--font-weight-bold)',
+  extrabold: '800',
+  black: '900',
+};
+
+const lineHeightScale = {
+  none: '1',
+  tight: '1.25',
+  snug: '1.375',
+  normal: '1.5',
+  relaxed: '1.625',
+  loose: '2',
+};
+
+const letterSpacingScale = {
+  tighter: '-0.05em',
+  tight: '-0.025em',
+  normal: '0',
+  wide: '0.025em',
+  wider: '0.05em',
+  widest: '0.1em',
+};
+
 const contrastColorNames = [
   'tomato',
   'red',
@@ -91,6 +135,10 @@ module.exports = {
   content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}'],
   presets: [require('nativewind/preset')],
   theme: {
+    fontSize: typographyScale,
+    lineHeight: lineHeightScale,
+    letterSpacing: letterSpacingScale,
+    fontWeight: fontWeightScale,
     colors: {
       transparent: 'transparent',
       current: 'currentColor',

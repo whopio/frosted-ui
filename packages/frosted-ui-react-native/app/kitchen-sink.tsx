@@ -60,6 +60,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { Heading } from '@/components/ui/heading';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import { Icon } from '@/components/ui/icon';
 import { Input } from '@/components/ui/input';
@@ -114,6 +115,8 @@ import { useColorScheme } from 'nativewind';
 import * as React from 'react';
 import { Image, ScrollView, View } from 'react-native';
 
+const HEADING_SIZES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
+
 const SCREEN_OPTIONS = {
   title: 'Component Kitchen Sink',
   headerTransparent: true,
@@ -129,6 +132,13 @@ export default function KitchenSinkScreen() {
           {/* Typography Section */}
           <ComponentSection title="Typography">
             <View className="gap-4">
+              <View className="gap-2">
+                {HEADING_SIZES.map((size) => (
+                  <Heading key={size} size={size} as="h2">
+                    Heading size {size}
+                  </Heading>
+                ))}
+              </View>
               <Text variant="h1">Heading 1</Text>
               <Text variant="h2">Heading 2</Text>
               <Text variant="h3">Heading 3</Text>
