@@ -352,19 +352,125 @@ export default function KitchenSinkScreen() {
 
           {/* Badges Section */}
           <ComponentSection title="Badges">
-            <View className="flex-row flex-wrap gap-2">
-              <Badge>
-                <Text>Default</Text>
-              </Badge>
-              <Badge variant="secondary">
-                <Text>Secondary</Text>
-              </Badge>
-              <Badge variant="destructive">
-                <Text>Destructive</Text>
-              </Badge>
-              <Badge variant="outline">
-                <Text>Outline</Text>
-              </Badge>
+            <View className="gap-6">
+              {/* Variants */}
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Variants
+                </Text>
+                <View className="flex-row flex-wrap gap-2">
+                  <Badge variant="solid" color="blue">
+                    <Text>Solid</Text>
+                  </Badge>
+                  <Badge variant="soft" color="blue">
+                    <Text>Soft</Text>
+                  </Badge>
+                  <Badge variant="surface" color="blue">
+                    <Text>Surface</Text>
+                  </Badge>
+                  <Badge variant="outline" color="blue">
+                    <Text>Outline</Text>
+                  </Badge>
+                </View>
+              </View>
+
+              {/* Colors */}
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Colors
+                </Text>
+                <View className="gap-2">
+                  <View className="flex-row flex-wrap gap-2">
+                    <Badge variant="solid" color="blue">
+                      <Text>Blue</Text>
+                    </Badge>
+                    <Badge variant="solid" color="yellow">
+                      <Text>Yellow</Text>
+                    </Badge>
+                    <Badge variant="solid" color="green">
+                      <Text>Green</Text>
+                    </Badge>
+                    <Badge variant="solid" color="red">
+                      <Text>Red</Text>
+                    </Badge>
+                    <Badge variant="solid" color="purple">
+                      <Text>Purple</Text>
+                    </Badge>
+                  </View>
+                  <View className="flex-row flex-wrap gap-2">
+                    <Badge variant="soft" color="blue">
+                      <Text>Blue</Text>
+                    </Badge>
+                    <Badge variant="soft" color="yellow">
+                      <Text>Yellow</Text>
+                    </Badge>
+                    <Badge variant="soft" color="green">
+                      <Text>Green</Text>
+                    </Badge>
+                    <Badge variant="soft" color="red">
+                      <Text>Red</Text>
+                    </Badge>
+                    <Badge variant="soft" color="purple">
+                      <Text>Purple</Text>
+                    </Badge>
+                  </View>
+                  <View className="flex-row flex-wrap gap-2">
+                    <Badge variant="surface" color="blue">
+                      <Text>Blue</Text>
+                    </Badge>
+                    <Badge variant="surface" color="yellow">
+                      <Text>Yellow</Text>
+                    </Badge>
+                    <Badge variant="surface" color="green">
+                      <Text>Green</Text>
+                    </Badge>
+                    <Badge variant="surface" color="red">
+                      <Text>Red</Text>
+                    </Badge>
+                    <Badge variant="surface" color="purple">
+                      <Text>Purple</Text>
+                    </Badge>
+                  </View>
+                  <View className="flex-row flex-wrap gap-2">
+                    <Badge variant="outline" color="blue">
+                      <Text>Blue</Text>
+                    </Badge>
+                    <Badge variant="outline" color="yellow">
+                      <Text>Yellow</Text>
+                    </Badge>
+                    <Badge variant="outline" color="green">
+                      <Text>Green</Text>
+                    </Badge>
+                    <Badge variant="outline" color="red">
+                      <Text>Red</Text>
+                    </Badge>
+                    <Badge variant="outline" color="purple">
+                      <Text>Purple</Text>
+                    </Badge>
+                  </View>
+                </View>
+              </View>
+
+              {/* Sizes */}
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Sizes
+                </Text>
+                <View className="flex-row flex-wrap gap-2">
+                  <Badge variant="solid" color="blue" size="1">
+                    <Text>Size 1</Text>
+                  </Badge>
+                  <Badge variant="solid" color="blue" size="2">
+                    <Text>Size 2</Text>
+                  </Badge>
+                  <Badge variant="soft" color="blue" size="1">
+                    <Text>Size 1</Text>
+                  </Badge>
+                  <Badge variant="soft" color="blue" size="2">
+                    <Text>Size 2</Text>
+                  </Badge>
+                </View>
+              </View>
             </View>
           </ComponentSection>
 

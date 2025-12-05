@@ -1,67 +1,101 @@
 import { TextClassContext } from '@/components/ui/text';
+import { getAccentColorTheme } from '@/lib/color-utils';
+import type { AccentColor, Color } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import * as Slot from '@rn-primitives/slot';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { Platform, View, ViewProps } from 'react-native';
+import { cva } from 'class-variance-authority';
+import * as React from 'react';
+import { Platform, View, type ViewStyle } from 'react-native';
 
-const badgeVariants = cva(
+const badgeSizes = ['1', '2'] as const;
+const badgeVariants = ['solid', 'soft', 'surface', 'outline'] as const;
+
+const badgeVariantsCva = cva(
   cn(
-    'border-stroke group shrink-0 flex-row items-center justify-center gap-1 overflow-hidden rounded-md border px-2 py-0.5',
+    'box-border shrink-0 flex-row items-center justify-center self-start font-medium',
     Platform.select({
-      web: 'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive w-fit whitespace-nowrap transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 [&>svg]:pointer-events-none [&>svg]:size-3',
+      web: 'whitespace-nowrap',
     })
   ),
   {
     variants: {
       variant: {
-        default: cn(
-          'border-transparent bg-primary',
-          Platform.select({ web: '[a&]:hover:bg-primary/90' })
-        ),
-        secondary: cn(
-          'border-transparent bg-secondary',
-          Platform.select({ web: '[a&]:hover:bg-secondary/90' })
-        ),
-        destructive: cn(
-          'border-transparent bg-destructive',
-          Platform.select({ web: '[a&]:hover:bg-destructive/90' })
-        ),
-        outline: Platform.select({ web: '[a&]:hover:bg-accent [a&]:hover:text-accent-foreground' }),
+        solid: 'bg-accent-9',
+        soft: 'bg-accent-a3',
+        surface: 'bg-accent-a2 border-accent-a7 border',
+        outline: 'border-accent-a8 border',
+      },
+      size: {
+        '1': 'h-[20px] gap-1 rounded-[6px] px-2',
+        '2': 'h-[28px] gap-1.5 rounded-[8px] px-3',
       },
     },
     defaultVariants: {
-      variant: 'default',
+      variant: 'soft',
+      size: '1',
     },
   }
 );
 
-const badgeTextVariants = cva('text-xs font-medium', {
+const badgeTextVariants = cva('', {
   variants: {
     variant: {
-      default: 'text-gray-12-foreground',
-      secondary: 'text-secondary-foreground',
-      destructive: 'text-white',
-      outline: 'text-gray-12',
+      solid: 'text-accent-9-contrast',
+      soft: 'text-accent-a11',
+      surface: 'text-accent-a11',
+      outline: 'text-accent-a11',
+    },
+    size: {
+      '1': 'text-1',
+      '2': 'text-2',
     },
   },
   defaultVariants: {
-    variant: 'default',
+    variant: 'soft',
+    size: '1',
   },
 });
 
-type BadgeProps = ViewProps &
-  React.RefAttributes<View> & {
-    asChild?: boolean;
-  } & VariantProps<typeof badgeVariants>;
+type BadgeSize = (typeof badgeSizes)[number];
+type BadgeVariant = (typeof badgeVariants)[number];
 
-function Badge({ className, variant, asChild, ...props }: BadgeProps) {
+type BadgeProps = React.ComponentProps<typeof View> & {
+  asChild?: boolean;
+  size?: BadgeSize;
+  variant?: BadgeVariant;
+  color?: Color;
+};
+
+function Badge({
+  className,
+  variant = 'soft',
+  size = '1',
+  color,
+  style,
+  asChild,
+  ...props
+}: BadgeProps) {
   const Component = asChild ? Slot.View : View;
+  // Only apply accent theme for accent colors, not semantic colors
+  const accentTheme =
+    color && !['danger', 'warning', 'success', 'info'].includes(color)
+      ? (getAccentColorTheme(color as AccentColor) as ViewStyle)
+      : undefined;
+
+  const textColorClass = badgeTextVariants({ variant, size });
+
+  const mergedStyle = accentTheme ? [accentTheme, style] : style;
+
   return (
-    <TextClassContext.Provider value={badgeTextVariants({ variant })}>
-      <Component className={cn(badgeVariants({ variant }), className)} {...props} />
+    <TextClassContext.Provider value={textColorClass}>
+      <Component
+        className={cn(badgeVariantsCva({ variant, size }), className)}
+        style={mergedStyle}
+        {...props}
+      />
     </TextClassContext.Provider>
   );
 }
 
-export { Badge, badgeTextVariants, badgeVariants };
+export { Badge, badgeTextVariants, badgeVariantsCva };
 export type { BadgeProps };
