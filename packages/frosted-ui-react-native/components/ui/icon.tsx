@@ -42,12 +42,7 @@ cssInterop(IconImpl, {
  */
 function Icon({ as: IconComponent, className, size = 14, ...props }: IconProps) {
   return (
-    <IconImpl
-      as={IconComponent}
-      className={cn('text-foreground', className)}
-      size={size}
-      {...props}
-    />
+    <IconImpl as={IconComponent} className={cn('text-gray-12', className)} size={size} {...props} />
   );
 }
 

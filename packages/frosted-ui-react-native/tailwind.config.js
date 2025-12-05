@@ -4,6 +4,57 @@
 const { hairlineWidth } = require('nativewind/theme');
 const frostedColors = require('@frosted-ui/colors');
 
+const semanticColorVars = {
+  background: 'var(--color-background)',
+  overlay: 'var(--color-overlay)',
+  'panel-solid': 'var(--color-panel-solid)',
+  'panel-translucent': 'var(--color-panel-translucent)',
+  surface: 'var(--color-surface)',
+  stroke: 'var(--color-stroke)',
+  'gray-2-translucent': 'var(--gray-2-translucent)',
+  'mauve-2-translucent': 'var(--mauve-2-translucent)',
+  'slate-2-translucent': 'var(--slate-2-translucent)',
+  'sage-2-translucent': 'var(--sage-2-translucent)',
+  'olive-2-translucent': 'var(--olive-2-translucent)',
+  'sand-2-translucent': 'var(--sand-2-translucent)',
+};
+
+const contrastColorNames = [
+  'tomato',
+  'red',
+  'ruby',
+  'crimson',
+  'pink',
+  'plum',
+  'purple',
+  'violet',
+  'iris',
+  'cyan',
+  'teal',
+  'jade',
+  'green',
+  'grass',
+  'brown',
+  'sky',
+  'mint',
+  'yellow',
+  'amber',
+  'gold',
+  'bronze',
+  'gray',
+  'blue',
+  'orange',
+  'indigo',
+  'magenta',
+  'lemon',
+  'lime',
+];
+
+const contrastColorTokens = contrastColorNames.reduce((acc, name) => {
+  acc[`${name}-9-contrast`] = `var(--${name}-9-contrast)`;
+  return acc;
+}, {});
+
 const createFrostedColorTokens = (paletteExports) =>
   Object.entries(paletteExports).reduce((acc, [paletteName, paletteValues]) => {
     const isObjectPalette =
@@ -40,43 +91,15 @@ module.exports = {
   content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}'],
   presets: [require('nativewind/preset')],
   theme: {
+    colors: {
+      transparent: 'transparent',
+      current: 'currentColor',
+      inherit: 'inherit',
+      ...frostedColorTokens,
+      ...contrastColorTokens,
+      ...semanticColorVars,
+    },
     extend: {
-      colors: {
-        ...frostedColorTokens,
-        border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
-        primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))',
-        },
-        secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))',
-        },
-        destructive: {
-          DEFAULT: 'hsl(var(--destructive))',
-          foreground: 'hsl(var(--destructive-foreground))',
-        },
-        muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))',
-        },
-        accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))',
-        },
-        popover: {
-          DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))',
-        },
-        card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))',
-        },
-      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',

@@ -14,7 +14,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: cn(
-          'bg-primary shadow-sm shadow-black/5 active:bg-primary/90',
+          'bg-blue-9 shadow-sm shadow-black/5 active:bg-primary/90',
           Platform.select({ web: 'hover:bg-primary/90' })
         ),
         destructive: cn(
@@ -24,7 +24,7 @@ const buttonVariants = cva(
           })
         ),
         outline: cn(
-          'border border-border bg-background shadow-sm shadow-black/5 active:bg-accent dark:border-input dark:bg-input/30 dark:active:bg-input/50',
+          'border-stroke dark:border-stroke border bg-background shadow-sm shadow-black/5 active:bg-accent dark:bg-input/30 dark:active:bg-input/50',
           Platform.select({
             web: 'hover:bg-accent dark:hover:bg-input/50',
           })
@@ -55,13 +55,13 @@ const buttonVariants = cva(
 
 const buttonTextVariants = cva(
   cn(
-    'text-sm font-medium text-foreground',
+    'text-gray-12 text-sm font-medium',
     Platform.select({ web: 'pointer-events-none transition-colors' })
   ),
   {
     variants: {
       variant: {
-        default: 'text-primary-foreground',
+        default: 'text-gray-12-foreground',
         destructive: 'text-white',
         outline: cn(
           'group-active:text-accent-foreground',
@@ -70,7 +70,7 @@ const buttonTextVariants = cva(
         secondary: 'text-secondary-foreground',
         ghost: 'group-active:text-accent-foreground',
         link: cn(
-          'text-primary group-active:underline',
+          'text-gray-12 group-active:underline',
           Platform.select({ web: 'underline-offset-4 hover:underline group-hover:underline' })
         ),
       },

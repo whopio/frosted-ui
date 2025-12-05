@@ -6,7 +6,7 @@ import { Platform, Text as RNText, type Role } from 'react-native';
 
 const textVariants = cva(
   cn(
-    'text-base text-foreground',
+    'text-gray-12 text-base',
     Platform.select({
       web: 'select-text',
     })
@@ -14,13 +14,13 @@ const textVariants = cva(
   {
     variants: {
       variant: {
-        default: '',
+        default: 'text-gray-12',
         h1: cn(
           'text-center text-4xl font-extrabold tracking-tight',
           Platform.select({ web: 'scroll-m-20 text-balance' })
         ),
         h2: cn(
-          'border-b border-border pb-2 text-3xl font-semibold tracking-tight',
+          'text-gray-12 border-stroke border-b pb-2 text-3xl font-semibold tracking-tight',
           Platform.select({ web: 'scroll-m-20 first:mt-0' })
         ),
         h3: cn('text-2xl font-semibold tracking-tight', Platform.select({ web: 'scroll-m-20' })),
@@ -30,10 +30,10 @@ const textVariants = cva(
         code: cn(
           'relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold'
         ),
-        lead: 'text-xl text-muted-foreground',
+        lead: 'text-gray-12 text-xl',
         large: 'text-lg font-semibold',
         small: 'text-sm font-medium leading-none',
-        muted: 'text-sm text-muted-foreground',
+        muted: 'text-gray-12 text-sm',
       },
     },
     defaultVariants: {

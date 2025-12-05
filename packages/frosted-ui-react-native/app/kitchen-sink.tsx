@@ -124,7 +124,7 @@ export default function KitchenSinkScreen() {
   return (
     <>
       <Stack.Screen options={SCREEN_OPTIONS} />
-      <ScrollView className="bg-black-a12 flex-1">
+      <ScrollView className="flex-1 bg-background">
         <View className="gap-8 p-4 pt-24">
           {/* Typography Section */}
           <ComponentSection title="Typography">
@@ -645,7 +645,7 @@ function ComponentSection({ title, children }: { title: string; children: React.
   return (
     <View className="gap-4">
       <View className="flex-row items-center gap-2">
-        <Icon as={ChevronRightIcon} className="text-primary" />
+        <Icon as={ChevronRightIcon} className="text-gray-12" />
         <Text variant="h3" className="text-2xl">
           {title}
         </Text>
@@ -860,7 +860,7 @@ function ContextMenuDemo() {
   return (
     <ContextMenu>
       <ContextMenuTrigger>
-        <View className="flex h-32 items-center justify-center rounded-md border border-dashed border-border">
+        <View className="border-stroke flex h-32 items-center justify-center rounded-md border border-dashed">
           <Text className="text-sm text-muted-foreground">Right click / Long press here</Text>
         </View>
       </ContextMenuTrigger>
@@ -970,15 +970,15 @@ function CollapsibleDemo() {
             </Button>
           </CollapsibleTrigger>
         </View>
-        <View className="rounded-md border border-border px-4 py-3">
+        <View className="border-stroke rounded-md border px-4 py-3">
           <Text variant="code">@radix-ui/primitives</Text>
         </View>
         <CollapsibleContent>
           <View className="gap-2">
-            <View className="rounded-md border border-border px-4 py-3">
+            <View className="border-stroke rounded-md border px-4 py-3">
               <Text variant="code">@radix-ui/colors</Text>
             </View>
-            <View className="rounded-md border border-border px-4 py-3">
+            <View className="border-stroke rounded-md border px-4 py-3">
               <Text variant="code">@stitches/react</Text>
             </View>
           </View>

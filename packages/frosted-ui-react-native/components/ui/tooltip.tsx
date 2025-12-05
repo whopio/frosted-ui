@@ -34,14 +34,14 @@ function TooltipContent({
                 : FadeInUp.withInitialValues({ transform: [{ translateY: -5 }] })
             }
             exiting={FadeOut}>
-            <TextClassContext.Provider value="text-xs text-primary-foreground">
+            <TextClassContext.Provider value="text-xs text-gray-12-foreground">
               <TooltipPrimitive.Content
                 sideOffset={sideOffset}
                 className={cn(
-                  'bg-primary z-50 rounded-md px-3 py-2 sm:py-1.5',
+                  'z-50 rounded-md bg-primary px-3 py-2 sm:py-1.5',
                   Platform.select({
                     web: cn(
-                      'animate-in fade-in-0 zoom-in-95 origin-(--radix-tooltip-content-transform-origin) w-fit text-balance',
+                      'origin-(--radix-tooltip-content-transform-origin) w-fit text-balance animate-in fade-in-0 zoom-in-95',
                       side === 'bottom' && 'slide-in-from-top-2',
                       side === 'left' && 'slide-in-from-right-2',
                       side === 'right' && 'slide-in-from-left-2',

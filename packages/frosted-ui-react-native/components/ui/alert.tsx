@@ -21,14 +21,14 @@ function Alert({
   return (
     <TextClassContext.Provider
       value={cn(
-        'text-sm text-foreground',
+        'text-sm text-gray-12',
         variant === 'destructive' && 'text-destructive',
         className
       )}>
       <View
         role="alert"
         className={cn(
-          'bg-card border-border relative w-full rounded-lg border px-4 pb-2 pt-3.5',
+          'border-stroke bg-panel-solid relative w-full rounded-lg border px-4 pb-2 pt-3.5',
           className
         )}
         {...props}>
@@ -64,7 +64,7 @@ function AlertDescription({
   return (
     <Text
       className={cn(
-        'text-muted-foreground ml-0.5 pb-1.5 pl-6 text-sm leading-relaxed',
+        'ml-0.5 pb-1.5 pl-6 text-sm leading-relaxed text-muted-foreground',
         textClass?.includes('text-destructive') && 'text-destructive/90',
         className
       )}

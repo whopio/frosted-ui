@@ -1,4 +1,5 @@
 /* eslint-env node */
+/* eslint-disable @typescript-eslint/no-var-requires */
 
 const fs = require('fs');
 const path = require('path');
@@ -41,56 +42,27 @@ const createColorVars = ({ isDark }) => {
 };
 
 const baseLightVars = {
-  '--background': '0 0% 100%',
-  '--foreground': '0 0% 3.9%',
-  '--card': '0 0% 100%',
-  '--card-foreground': '0 0% 3.9%',
-  '--popover': '0 0% 100%',
-  '--popover-foreground': '0 0% 3.9%',
-  '--primary': '0 0% 9%',
-  '--primary-foreground': '0 0% 98%',
-  '--secondary': '0 0% 96.1%',
-  '--secondary-foreground': '0 0% 9%',
-  '--muted': '0 0% 96.1%',
-  '--muted-foreground': '0 0% 45.1%',
-  '--accent': '0 0% 96.1%',
-  '--accent-foreground': '0 0% 9%',
-  '--destructive': '0 84.2% 60.2%',
-  '--border': '0 0% 89.8%',
-  '--input': '0 0% 89.8%',
-  '--ring': '0 0% 63%',
-  '--radius': '0.625rem',
-  '--chart-1': '12 76% 61%',
-  '--chart-2': '173 58% 39%',
-  '--chart-3': '197 37% 24%',
-  '--chart-4': '43 74% 66%',
-  '--chart-5': '27 87% 67%',
+  '--color-background': 'white',
+  '--color-overlay': 'var(--black-a6)',
+  '--color-panel-solid': 'white',
+  '--color-panel-translucent': 'rgba(255, 255, 255, 0.85)',
+  '--color-surface': 'rgba(255, 255, 255, 0.9)',
+  '--color-stroke': 'var(--gray-a5)',
 };
 
 const baseDarkVars = {
-  '--background': '0 0% 3.9%',
-  '--foreground': '0 0% 98%',
-  '--card': '0 0% 3.9%',
-  '--card-foreground': '0 0% 98%',
-  '--popover': '0 0% 3.9%',
-  '--popover-foreground': '0 0% 98%',
-  '--primary': '0 0% 98%',
-  '--primary-foreground': '0 0% 9%',
-  '--secondary': '0 0% 14.9%',
-  '--secondary-foreground': '0 0% 98%',
-  '--muted': '0 0% 14.9%',
-  '--muted-foreground': '0 0% 63.9%',
-  '--accent': '0 0% 14.9%',
-  '--accent-foreground': '0 0% 98%',
-  '--destructive': '0 70.9% 59.4%',
-  '--border': '0 0% 14.9%',
-  '--input': '0 0% 14.9%',
-  '--ring': '300 0% 45%',
-  '--chart-1': '220 70% 50%',
-  '--chart-2': '160 60% 45%',
-  '--chart-3': '30 80% 55%',
-  '--chart-4': '280 65% 60%',
-  '--chart-5': '340 75% 55%',
+  '--color-background': 'var(--gray-1)',
+  '--color-overlay': 'var(--black-a8)',
+  '--color-panel-solid': 'var(--gray-2)',
+  '--color-panel-translucent': 'var(--gray-2-translucent)',
+  '--color-surface': 'rgba(0, 0, 0, 0.25)',
+  '--color-stroke': 'var(--gray-a4)',
+  '--gray-2-translucent': '#1D1D1DD9',
+  '--mauve-2-translucent': '#1E1D1ED9',
+  '--slate-2-translucent': '#1B1D1ED9',
+  '--sage-2-translucent': '#1A1C1BD9',
+  '--olive-2-translucent': '#1B1C1AD9',
+  '--sand-2-translucent': '#1D1D1BD9',
 };
 
 const formatVarLines = (vars) => Object.entries(vars).map(([name, value]) => `${name}: ${value};`);
@@ -103,26 +75,61 @@ const indentBlock = (block, indent = 2) => {
     .join('\n');
 };
 
-const buildSelectorBlock = (selector, baseVars, colorVars) => {
-  const lines = [...formatVarLines(baseVars), ...formatVarLines(colorVars)];
+const stepNineContrastVars = {
+  '--tomato-9-contrast': 'white',
+  '--red-9-contrast': 'white',
+  '--ruby-9-contrast': 'white',
+  '--crimson-9-contrast': 'white',
+  '--pink-9-contrast': 'white',
+  '--plum-9-contrast': 'white',
+  '--purple-9-contrast': 'white',
+  '--violet-9-contrast': 'white',
+  '--iris-9-contrast': 'white',
+  '--cyan-9-contrast': 'white',
+  '--teal-9-contrast': 'white',
+  '--jade-9-contrast': 'white',
+  '--green-9-contrast': 'white',
+  '--grass-9-contrast': 'white',
+  '--brown-9-contrast': 'white',
+  '--sky-9-contrast': '#1C2024',
+  '--mint-9-contrast': '#1A211E',
+  '--yellow-9-contrast': '#21201C',
+  '--amber-9-contrast': '#21201C',
+  '--gold-9-contrast': 'white',
+  '--bronze-9-contrast': 'white',
+  '--gray-9-contrast': 'white',
+  '--blue-9-contrast': 'white',
+  '--orange-9-contrast': 'white',
+  '--indigo-9-contrast': 'white',
+  '--magenta-9-contrast': '#141212',
+  '--lemon-9-contrast': '#20240D',
+  '--lime-9-contrast': '#162715',
+};
+
+const buildSelectorBlock = (selector, sections) => {
+  const lines = sections.flatMap((vars) => formatVarLines(vars));
   return `${selector} {\n${indentBlock(lines.join('\n'))}\n}`;
 };
 
 const lightColorVars = createColorVars({ isDark: false });
 const darkColorVars = createColorVars({ isDark: true });
 
-const css = [
+const cssSections = [
   '@tailwind base;',
   '@tailwind components;',
   '@tailwind utilities;',
   '',
   '@layer base {',
-  indentBlock(buildSelectorBlock(':root', baseLightVars, lightColorVars)),
+  indentBlock(buildSelectorBlock(':root', [baseLightVars, stepNineContrastVars, lightColorVars])),
   '',
-  indentBlock(buildSelectorBlock('.dark:root', baseDarkVars, darkColorVars)),
+  indentBlock(
+    buildSelectorBlock('.dark:root', [baseDarkVars, stepNineContrastVars, darkColorVars])
+  ),
   '}',
   '',
-].join('\n');
+];
+
+const css = cssSections.join('\n');
 
 const targetPath = path.join(__dirname, '..', 'global.css');
 
