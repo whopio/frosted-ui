@@ -106,7 +106,6 @@ import {
   MailIcon,
   MoonStarIcon,
   SettingsIcon,
-  StarIcon,
   SunIcon,
   UnderlineIcon,
   UserIcon,
@@ -192,69 +191,162 @@ export default function KitchenSinkScreen() {
 
           {/* Buttons Section */}
           <ComponentSection title="Buttons">
-            <View className="gap-4">
-              <Text size="1" className="text-gray-a10">
-                Button Variants
-              </Text>
-              <View className="flex-row flex-wrap gap-2">
-                <Button>
-                  <Text>Default</Text>
-                </Button>
-                <Button variant="secondary">
-                  <Text>Secondary</Text>
-                </Button>
-                <Button variant="destructive">
-                  <Text>Destructive</Text>
-                </Button>
-                <Button variant="outline">
-                  <Text>Outline</Text>
-                </Button>
-                <Button variant="ghost">
-                  <Text>Ghost</Text>
-                </Button>
-                <Button variant="link">
-                  <Text>Link</Text>
-                </Button>
+            <View className="gap-6">
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Variants - Blue
+                </Text>
+                <View className="flex-row flex-wrap gap-2">
+                  <Button variant="solid" color="blue">
+                    <Text>Solid</Text>
+                  </Button>
+                  <Button variant="soft" color="blue">
+                    <Text>Soft</Text>
+                  </Button>
+                  <Button variant="surface" color="blue">
+                    <Text>Surface</Text>
+                  </Button>
+                  <Button variant="ghost" color="blue">
+                    <Text>Ghost</Text>
+                  </Button>
+                </View>
               </View>
 
-              <Text size="1" className="text-gray-a10">
-                Button Sizes
-              </Text>
-              <View className="flex-row flex-wrap items-center gap-2">
-                <Button size="sm">
-                  <Text>Small</Text>
-                </Button>
-                <Button size="default">
-                  <Text>Default</Text>
-                </Button>
-                <Button size="lg">
-                  <Text>Large</Text>
-                </Button>
-                <Button size="icon">
-                  <Icon as={StarIcon} />
-                </Button>
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Variants - Yellow
+                </Text>
+                <View className="flex-row flex-wrap gap-2">
+                  <Button variant="solid" color="yellow">
+                    <Text>Solid</Text>
+                  </Button>
+                  <Button variant="soft" color="yellow">
+                    <Text>Soft</Text>
+                  </Button>
+                  <Button variant="surface" color="yellow">
+                    <Text>Surface</Text>
+                  </Button>
+                  <Button variant="ghost" color="yellow">
+                    <Text>Ghost</Text>
+                  </Button>
+                </View>
               </View>
 
-              <Text size="1" className="text-gray-a10">
-                With Icons
-              </Text>
-              <View className="flex-row flex-wrap gap-2">
-                <Button>
-                  <Icon as={MailIcon} />
-                  <Text>Email</Text>
-                </Button>
-                <Button variant="outline">
-                  <Text>Notifications</Text>
-                  <Icon as={BellIcon} />
-                </Button>
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Variants - Green
+                </Text>
+                <View className="flex-row flex-wrap gap-2">
+                  <Button variant="solid" color="green">
+                    <Text>Solid</Text>
+                  </Button>
+                  <Button variant="soft" color="green">
+                    <Text>Soft</Text>
+                  </Button>
+                  <Button variant="surface" color="green">
+                    <Text>Surface</Text>
+                  </Button>
+                  <Button variant="ghost" color="green">
+                    <Text>Ghost</Text>
+                  </Button>
+                </View>
               </View>
 
-              <Text size="1" className="text-gray-a10">
-                Disabled State
-              </Text>
-              <Button disabled>
-                <Text>Disabled Button</Text>
-              </Button>
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Variants - Red
+                </Text>
+                <View className="flex-row flex-wrap gap-2">
+                  <Button variant="solid" color="red">
+                    <Text>Solid</Text>
+                  </Button>
+                  <Button variant="soft" color="red">
+                    <Text>Soft</Text>
+                  </Button>
+                  <Button variant="surface" color="red">
+                    <Text>Surface</Text>
+                  </Button>
+                  <Button variant="ghost" color="red">
+                    <Text>Ghost</Text>
+                  </Button>
+                </View>
+              </View>
+
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Variants - Purple
+                </Text>
+                <View className="flex-row flex-wrap gap-2">
+                  <Button variant="solid" color="purple">
+                    <Text>Solid</Text>
+                  </Button>
+                  <Button variant="soft" color="purple">
+                    <Text>Soft</Text>
+                  </Button>
+                  <Button variant="surface" color="purple">
+                    <Text>Surface</Text>
+                  </Button>
+                  <Button variant="ghost" color="purple">
+                    <Text>Ghost</Text>
+                  </Button>
+                </View>
+              </View>
+
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Button Sizes
+                </Text>
+                <View className="flex-row flex-wrap items-center gap-2">
+                  <Button size="1">
+                    <Text>Size 1</Text>
+                  </Button>
+                  <Button size="2">
+                    <Text>Size 2</Text>
+                  </Button>
+                  <Button size="3">
+                    <Text>Size 3</Text>
+                  </Button>
+                  <Button size="4">
+                    <Text>Size 4</Text>
+                  </Button>
+                </View>
+              </View>
+
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  With Icons
+                </Text>
+                <View className="flex-row flex-wrap gap-2">
+                  <Button variant="solid" color="blue">
+                    <Icon as={MailIcon} />
+                    <Text>Email</Text>
+                  </Button>
+                  <Button variant="surface" color="green">
+                    <Text>Notifications</Text>
+                    <Icon as={BellIcon} />
+                  </Button>
+                </View>
+              </View>
+
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Disabled State
+                </Text>
+                <View className="flex-row flex-wrap gap-2">
+                  <Button variant="solid" color="blue" disabled>
+                    <Text>Disabled Solid</Text>
+                  </Button>
+                  <Button variant="soft" color="blue" disabled>
+                    <Text>Disabled Soft</Text>
+                  </Button>
+                  <Button variant="surface" color="blue" disabled>
+                    <Text>Disabled Surface</Text>
+                  </Button>
+                  <Button variant="ghost" color="blue" disabled>
+                    <Text>Disabled Ghost</Text>
+                  </Button>
+                </View>
+              </View>
             </View>
           </ComponentSection>
 

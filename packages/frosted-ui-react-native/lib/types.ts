@@ -31,3 +31,13 @@ export type AccentColor =
   | 'gold'
   | 'bronze'
   | 'gray';
+
+/**
+ * Semantic colors
+ */
+export type SemanticColor = 'danger' | 'warning' | 'success' | 'info';
+
+/**
+ * All available color values for component color props
+ */
+export type Color = AccentColor | SemanticColor;

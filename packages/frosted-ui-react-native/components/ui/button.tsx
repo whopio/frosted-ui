@@ -1,108 +1,133 @@
 import { TextClassContext } from '@/components/ui/text';
+import { getAccentColorTheme } from '@/lib/color-utils';
+import type { AccentColor, Color } from '@/lib/types';
 import { cn } from '@/lib/utils';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { Platform, Pressable } from 'react-native';
+import { cva } from 'class-variance-authority';
+import * as React from 'react';
+import { Platform, Pressable, type PressableStateCallbackType, type ViewStyle } from 'react-native';
 
-const buttonVariants = cva(
+const buttonSizes = ['1', '2', '3', '4'] as const;
+const buttonVariants = ['solid', 'soft', 'surface', 'ghost'] as const;
+
+const buttonVariantsCva = cva(
   cn(
-    'group shrink-0 flex-row items-center justify-center gap-2 rounded-md shadow-none',
+    'group shrink-0 flex-row items-center justify-center gap-2',
+    '[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:text-current',
     Platform.select({
-      web: "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive whitespace-nowrap outline-none transition-all focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+      web: "focus-visible:outline-accent-a8 whitespace-nowrap outline-none transition-all focus-visible:outline-2 focus-visible:outline-offset-2 disabled:pointer-events-none [&_svg:not([class*='size-'])]:size-4",
     })
   ),
   {
     variants: {
       variant: {
-        default: cn(
-          'bg-blue-9 shadow-sm shadow-black/5 active:bg-primary/90',
-          Platform.select({ web: 'hover:bg-primary/90' })
-        ),
-        destructive: cn(
-          'bg-destructive shadow-sm shadow-black/5 active:bg-destructive/90 dark:bg-destructive/60',
+        solid: cn(
+          'bg-accent-9 active:bg-accent-10 disabled:bg-gray-a3',
           Platform.select({
-            web: 'hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40',
+            web: 'hover:bg-accent-10 active:[filter:brightness(0.92)_saturate(1.1)] disabled:filter-none dark:active:[filter:brightness(1.08)]',
           })
         ),
-        outline: cn(
-          'border-stroke dark:border-stroke border bg-background shadow-sm shadow-black/5 active:bg-accent dark:bg-input/30 dark:active:bg-input/50',
-          Platform.select({
-            web: 'hover:bg-accent dark:hover:bg-input/50',
-          })
+        soft: cn(
+          'bg-accent-a3 active:bg-accent-a5 disabled:bg-gray-a3',
+          Platform.select({ web: 'hover:bg-accent-a4' })
         ),
-        secondary: cn(
-          'bg-secondary shadow-sm shadow-black/5 active:bg-secondary/80',
-          Platform.select({ web: 'hover:bg-secondary/80' })
+        surface: cn(
+          'bg-panel-solid border-stroke active:bg-gray-a3 disabled:bg-gray-a2 disabled:border-gray-a6 border',
+          Platform.select({ web: 'hover:border-gray-a7' })
         ),
         ghost: cn(
-          'active:bg-accent dark:active:bg-accent/50',
-          Platform.select({ web: 'hover:bg-accent dark:hover:bg-accent/50' })
+          'active:bg-accent-a4 disabled:bg-transparent',
+          Platform.select({ web: 'hover:bg-accent-a3' })
         ),
-        link: '',
       },
       size: {
-        default: cn('h-10 px-4 py-2 sm:h-9', Platform.select({ web: 'has-[>svg]:px-3' })),
-        sm: cn('h-9 gap-1.5 rounded-md px-3 sm:h-8', Platform.select({ web: 'has-[>svg]:px-2.5' })),
-        lg: cn('h-11 rounded-md px-6 sm:h-10', Platform.select({ web: 'has-[>svg]:px-4' })),
-        icon: 'h-10 w-10 sm:h-9 sm:w-9',
+        '1': 'h-6 gap-1 rounded-[6px] px-2',
+        '2': 'h-8 gap-2 rounded-[8px] px-3',
+        '3': 'h-10 gap-3 rounded-[10px] px-4',
+        '4': 'h-12 gap-3 rounded-[14px] px-6',
       },
     },
     defaultVariants: {
-      variant: 'default',
-      size: 'default',
+      variant: 'surface',
+      size: '2',
     },
   }
 );
 
-const buttonTextVariants = cva(
-  cn(
-    'text-gray-12 text-sm font-medium',
-    Platform.select({ web: 'pointer-events-none transition-colors' })
-  ),
-  {
-    variants: {
-      variant: {
-        default: 'text-gray-12-foreground',
-        destructive: 'text-white',
-        outline: cn(
-          'group-active:text-accent-foreground',
-          Platform.select({ web: 'group-hover:text-accent-foreground' })
-        ),
-        secondary: 'text-secondary-foreground',
-        ghost: 'group-active:text-accent-foreground',
-        link: cn(
-          'text-gray-12 group-active:underline',
-          Platform.select({ web: 'underline-offset-4 hover:underline group-hover:underline' })
-        ),
-      },
-      size: {
-        default: '',
-        sm: '',
-        lg: '',
-        icon: '',
-      },
+const buttonTextVariants = cva('font-medium', {
+  variants: {
+    variant: {
+      solid: 'text-accent-9-contrast',
+      soft: 'text-accent-a11',
+      surface: 'text-accent-a11',
+      ghost: 'text-accent-a11',
     },
-    defaultVariants: {
-      variant: 'default',
-      size: 'default',
+    size: {
+      '1': 'text-1',
+      '2': 'text-2',
+      '3': 'text-3',
+      '4': 'text-4',
     },
-  }
-);
+    disabled: {
+      true: 'text-gray-a8',
+      false: '',
+    },
+  },
+  defaultVariants: {
+    variant: 'surface',
+    size: '2',
+    disabled: false,
+  },
+});
 
-type ButtonProps = React.ComponentProps<typeof Pressable> &
-  React.RefAttributes<typeof Pressable> &
-  VariantProps<typeof buttonVariants>;
+type ButtonSize = (typeof buttonSizes)[number];
+type ButtonVariant = (typeof buttonVariants)[number];
 
-function Button({ className, variant, size, ...props }: ButtonProps) {
+type ButtonProps = React.ComponentProps<typeof Pressable> & {
+  size?: ButtonSize;
+  variant?: ButtonVariant;
+  color?: Color;
+};
+
+function Button({
+  className,
+  variant = 'surface',
+  size = '2',
+  color,
+  style,
+  disabled,
+  ...props
+}: ButtonProps) {
+  // Only apply accent theme for accent colors, not semantic colors
+  const accentTheme =
+    color && !['danger', 'warning', 'success', 'info'].includes(color)
+      ? (getAccentColorTheme(color as AccentColor) as ViewStyle)
+      : undefined;
+
+  // For surface variant with gray color, use accent-12 instead of accent-a11
+  const baseTextClass = buttonTextVariants({ variant, size, disabled: !!disabled });
+  const textColorClass =
+    variant === 'surface' && color === 'gray' && !disabled
+      ? baseTextClass.replace('text-accent-a11', 'text-accent-12')
+      : baseTextClass;
+
+  const mergedStyle = accentTheme
+    ? typeof style === 'function'
+      ? (state: PressableStateCallbackType) => [accentTheme, style(state)]
+      : [accentTheme, style]
+    : style;
+
   return (
-    <TextClassContext.Provider value={buttonTextVariants({ variant, size })}>
+    <TextClassContext.Provider value={textColorClass}>
       <Pressable
-        className={cn(props.disabled && 'opacity-50', buttonVariants({ variant, size }), className)}
+        className={cn(buttonVariantsCva({ variant, size }), className)}
+        style={mergedStyle}
         role="button"
+        disabled={disabled}
         {...props}
       />
     </TextClassContext.Provider>
   );
 }
 
-export { Button, buttonTextVariants, buttonVariants };
+export { Button, buttonTextVariants, buttonVariantsCva };
 export type { ButtonProps };

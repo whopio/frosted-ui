@@ -54,7 +54,8 @@ function Text({
   const textClass = React.useContext(TextClassContext);
   const Component = asChild ? Slot.Text : RNText;
   const accentTheme = color ? getAccentColorTheme(color) : undefined;
-  const colorClass = color ? 'text-accent-11' : 'text-gray-12';
+  // Only apply default color class if there's no textClass from context
+  const colorClass = textClass ? undefined : color ? 'text-accent-11' : 'text-gray-12';
 
   return (
     <Component
