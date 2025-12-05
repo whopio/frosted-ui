@@ -1,89 +1,61 @@
 import { cn } from '@/lib/utils';
 import * as Slot from '@rn-primitives/slot';
-import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
-import { Platform, Text as RNText, type Role } from 'react-native';
+import { Text as RNText } from 'react-native';
 
-const textVariants = cva(
-  cn(
-    'text-gray-12 text-base',
-    Platform.select({
-      web: 'select-text',
-    })
-  ),
-  {
-    variants: {
-      variant: {
-        default: 'text-gray-12',
-        h1: cn(
-          'text-center text-4xl font-extrabold tracking-tight',
-          Platform.select({ web: 'scroll-m-20 text-balance' })
-        ),
-        h2: cn(
-          'text-gray-12 border-stroke border-b pb-2 text-3xl font-semibold tracking-tight',
-          Platform.select({ web: 'scroll-m-20 first:mt-0' })
-        ),
-        h3: cn('text-2xl font-semibold tracking-tight', Platform.select({ web: 'scroll-m-20' })),
-        h4: cn('text-xl font-semibold tracking-tight', Platform.select({ web: 'scroll-m-20' })),
-        p: 'mt-3 leading-7 sm:mt-6',
-        blockquote: 'mt-4 border-l-2 pl-3 italic sm:mt-6 sm:pl-6',
-        code: cn(
-          'relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold'
-        ),
-        lead: 'text-gray-12 text-xl',
-        large: 'text-lg font-semibold',
-        small: 'text-sm font-medium leading-none',
-        muted: 'text-gray-12 text-sm',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
-    },
-  }
-);
+const textSizes = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
+const textWeights = ['light', 'regular', 'medium', 'semi-bold', 'bold'] as const;
 
-type TextVariantProps = VariantProps<typeof textVariants>;
-
-type TextVariant = NonNullable<TextVariantProps['variant']>;
-
-const ROLE: Partial<Record<TextVariant, Role>> = {
-  h1: 'heading',
-  h2: 'heading',
-  h3: 'heading',
-  h4: 'heading',
-  blockquote: Platform.select({ web: 'blockquote' as Role }),
-  code: Platform.select({ web: 'code' as Role }),
+const sizeClasses: Record<(typeof textSizes)[number], string> = {
+  '0': 'text-0',
+  '1': 'text-1',
+  '2': 'text-2',
+  '3': 'text-3',
+  '4': 'text-4',
+  '5': 'text-5',
+  '6': 'text-6',
+  '7': 'text-7',
+  '8': 'text-8',
+  '9': 'text-9',
 };
 
-const ARIA_LEVEL: Partial<Record<TextVariant, string>> = {
-  h1: '1',
-  h2: '2',
-  h3: '3',
-  h4: '4',
+const weightClasses: Record<(typeof textWeights)[number], string> = {
+  light: 'font-light',
+  regular: 'font-normal',
+  medium: 'font-medium',
+  'semi-bold': 'font-semibold',
+  bold: 'font-bold',
+};
+
+type TextSize = (typeof textSizes)[number];
+type TextWeight = (typeof textWeights)[number];
+
+type TextProps = Omit<React.ComponentProps<typeof RNText>, 'size' | 'weight'> & {
+  asChild?: boolean;
+  size?: TextSize;
+  weight?: TextWeight;
 };
 
 const TextClassContext = React.createContext<string | undefined>(undefined);
 
-function Text({
-  className,
-  asChild = false,
-  variant = 'default',
-  ...props
-}: React.ComponentProps<typeof RNText> &
-  TextVariantProps &
-  React.RefAttributes<RNText> & {
-    asChild?: boolean;
-  }) {
+function Text({ className, asChild = false, size, weight, role, ...props }: TextProps) {
   const textClass = React.useContext(TextClassContext);
   const Component = asChild ? Slot.Text : RNText;
+
   return (
     <Component
-      className={cn(textVariants({ variant }), textClass, className)}
-      role={variant ? ROLE[variant] : undefined}
-      aria-level={variant ? ARIA_LEVEL[variant] : undefined}
+      className={cn(
+        textClass,
+        size && sizeClasses[size],
+        weight && weightClasses[weight],
+        'text-gray-12',
+        className
+      )}
+      role={role}
       {...props}
     />
   );
 }
 
 export { Text, TextClassContext };
+export type { TextProps };

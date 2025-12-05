@@ -64,7 +64,7 @@ function AlertDescription({
   return (
     <Text
       className={cn(
-        'ml-0.5 pb-1.5 pl-6 text-sm leading-relaxed text-muted-foreground',
+        'text-gray-a10 ml-0.5 pb-1.5 pl-6 text-sm leading-relaxed',
         textClass?.includes('text-destructive') && 'text-destructive/90',
         className
       )}

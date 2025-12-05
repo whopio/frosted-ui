@@ -116,6 +116,8 @@ import * as React from 'react';
 import { Image, ScrollView, View } from 'react-native';
 
 const HEADING_SIZES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
+const TEXT_SIZES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
+const TEXT_WEIGHTS = ['light', 'regular', 'medium', 'semi-bold', 'bold'] as const;
 
 const SCREEN_OPTIONS = {
   title: 'Component Kitchen Sink',
@@ -134,33 +136,38 @@ export default function KitchenSinkScreen() {
             <View className="gap-4">
               <View className="gap-2">
                 {HEADING_SIZES.map((size) => (
-                  <Heading key={size} size={size} as="h2">
+                  <Heading key={size} size={size}>
                     Heading size {size}
                   </Heading>
                 ))}
               </View>
-              <Text variant="h1">Heading 1</Text>
-              <Text variant="h2">Heading 2</Text>
-              <Text variant="h3">Heading 3</Text>
-              <Text variant="h4">Heading 4</Text>
-              <Text variant="lead">Lead text for introducing content</Text>
-              <Text variant="p">
-                This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              </Text>
-              <Text variant="large">Large text</Text>
-              <Text variant="small">Small text</Text>
-              <Text variant="muted">Muted text</Text>
-              <Text variant="code">inline code</Text>
-              <Text variant="blockquote">
-                "This is a blockquote. It can contain longer passages of text."
-              </Text>
+              <View className="gap-2">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Text Sizes
+                </Text>
+                {TEXT_SIZES.map((size) => (
+                  <Text key={size} size={size}>
+                    Text size {size}
+                  </Text>
+                ))}
+              </View>
+              <View className="gap-2">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Text Weights
+                </Text>
+                {TEXT_WEIGHTS.map((weight) => (
+                  <Text key={weight} weight={weight}>
+                    Text weight {weight}
+                  </Text>
+                ))}
+              </View>
             </View>
           </ComponentSection>
 
           {/* Buttons Section */}
           <ComponentSection title="Buttons">
             <View className="gap-4">
-              <Text variant="small" className="text-muted-foreground">
+              <Text size="1" className="text-gray-a10">
                 Button Variants
               </Text>
               <View className="flex-row flex-wrap gap-2">
@@ -184,7 +191,7 @@ export default function KitchenSinkScreen() {
                 </Button>
               </View>
 
-              <Text variant="small" className="text-muted-foreground">
+              <Text size="1" className="text-gray-a10">
                 Button Sizes
               </Text>
               <View className="flex-row flex-wrap items-center gap-2">
@@ -202,7 +209,7 @@ export default function KitchenSinkScreen() {
                 </Button>
               </View>
 
-              <Text variant="small" className="text-muted-foreground">
+              <Text size="1" className="text-gray-a10">
                 With Icons
               </Text>
               <View className="flex-row flex-wrap gap-2">
@@ -216,7 +223,7 @@ export default function KitchenSinkScreen() {
                 </Button>
               </View>
 
-              <Text variant="small" className="text-muted-foreground">
+              <Text size="1" className="text-gray-a10">
                 Disabled State
               </Text>
               <Button disabled>
@@ -331,7 +338,7 @@ export default function KitchenSinkScreen() {
                 <ToggleSingleDemo />
               </View>
 
-              <Text variant="small" className="text-muted-foreground">
+              <Text size="1" className="text-gray-a10">
                 Toggle Group
               </Text>
               <ToggleGroupDemo />
@@ -508,10 +515,10 @@ export default function KitchenSinkScreen() {
               <PopoverContent>
                 <View className="gap-4">
                   <View className="gap-2">
-                    <Text variant="small" className="font-semibold">
+                    <Text size="1" weight="semi-bold" className="text-gray-a10">
                       Dimensions
                     </Text>
-                    <Text variant="muted">Set the dimensions for the layer.</Text>
+                    <Text>Set the dimensions for the layer.</Text>
                   </View>
                   <View className="gap-2">
                     <Label nativeID="width">Width</Label>
@@ -559,7 +566,7 @@ export default function KitchenSinkScreen() {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <Text variant="small" className="text-muted-foreground">
+              <Text size="1" className="text-gray-a10">
                 With Checkbox and Radio Items
               </Text>
               <DropdownMenuDemo />
@@ -607,15 +614,13 @@ export default function KitchenSinkScreen() {
                     </AvatarFallback>
                   </Avatar>
                   <View className="flex-1 gap-1">
-                    <Text variant="small" className="font-semibold">
+                    <Text size="1" weight="semi-bold" className="text-gray-a10">
                       @nextjs
                     </Text>
-                    <Text variant="muted">
-                      The React Framework – created and maintained by @vercel.
-                    </Text>
+                    <Text>The React Framework – created and maintained by @vercel.</Text>
                     <View className="flex-row items-center gap-2 pt-2">
                       <Icon as={CalendarIcon} className="size-3" />
-                      <Text variant="muted">Joined December 2021</Text>
+                      <Text>Joined December 2021</Text>
                     </View>
                   </View>
                 </View>
@@ -656,9 +661,7 @@ function ComponentSection({ title, children }: { title: string; children: React.
     <View className="gap-4">
       <View className="flex-row items-center gap-2">
         <Icon as={ChevronRightIcon} className="text-gray-12" />
-        <Text variant="h3" className="text-2xl">
-          {title}
-        </Text>
+        <Heading size="3">{title}</Heading>
       </View>
       <Card>
         <CardContent className="pt-6">{children}</CardContent>
@@ -871,7 +874,7 @@ function ContextMenuDemo() {
     <ContextMenu>
       <ContextMenuTrigger>
         <View className="border-stroke flex h-32 items-center justify-center rounded-md border border-dashed">
-          <Text className="text-sm text-muted-foreground">Right click / Long press here</Text>
+          <Text className="text-gray-a10 text-sm">Right click / Long press here</Text>
         </View>
       </ContextMenuTrigger>
       <ContextMenuContent>
@@ -949,13 +952,13 @@ function HoverCardDemo() {
             </AvatarFallback>
           </Avatar>
           <View className="flex-1 gap-1">
-            <Text variant="small" className="font-semibold">
+            <Text size="1" weight="semi-bold" className="text-gray-a10">
               @nextjs
             </Text>
-            <Text variant="muted">The React Framework – created and maintained by @vercel.</Text>
+            <Text>The React Framework – created and maintained by @vercel.</Text>
             <View className="flex-row items-center gap-2 pt-2">
               <Icon as={CalendarIcon} className="size-3" />
-              <Text variant="muted">Joined December 2021</Text>
+              <Text>Joined December 2021</Text>
             </View>
           </View>
         </View>
@@ -971,7 +974,7 @@ function CollapsibleDemo() {
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
       <View className="gap-4">
         <View className="flex-row items-center justify-between">
-          <Text variant="small" className="font-semibold">
+          <Text size="1" weight="semi-bold" className="text-gray-a10">
             @peduarte starred 3 repositories
           </Text>
           <CollapsibleTrigger asChild>
@@ -981,15 +984,15 @@ function CollapsibleDemo() {
           </CollapsibleTrigger>
         </View>
         <View className="border-stroke rounded-md border px-4 py-3">
-          <Text variant="code">@radix-ui/primitives</Text>
+          <Text className="font-mono">@radix-ui/primitives</Text>
         </View>
         <CollapsibleContent>
           <View className="gap-2">
             <View className="border-stroke rounded-md border px-4 py-3">
-              <Text variant="code">@radix-ui/colors</Text>
+              <Text className="font-mono">@radix-ui/colors</Text>
             </View>
             <View className="border-stroke rounded-md border px-4 py-3">
-              <Text variant="code">@stitches/react</Text>
+              <Text className="font-mono">@stitches/react</Text>
             </View>
           </View>
         </CollapsibleContent>

@@ -10,7 +10,7 @@ const toggleVariants = cva(
   cn(
     'group flex flex-row items-center justify-center gap-2 rounded-md active:bg-muted',
     Platform.select({
-      web: 'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex cursor-default whitespace-nowrap outline-none transition-[color,box-shadow] hover:bg-muted hover:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none [&_svg]:pointer-events-none',
+      web: 'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:text-gray-a10 inline-flex cursor-default whitespace-nowrap outline-none transition-[color,box-shadow] hover:bg-muted focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none [&_svg]:pointer-events-none',
     })
   ),
   {
@@ -51,7 +51,7 @@ function Toggle({
         'text-sm text-gray-12 font-medium',
         props.pressed
           ? 'text-accent-foreground'
-          : Platform.select({ web: 'group-hover:text-muted-foreground' }),
+          : Platform.select({ web: 'group-hover:text-gray-a10' }),
         className
       )}>
       <TogglePrimitive.Root

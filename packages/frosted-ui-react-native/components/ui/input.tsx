@@ -17,11 +17,11 @@ function Input({
           ),
         Platform.select({
           web: cn(
-            'selection:text-gray-12-foreground outline-none transition-[color,box-shadow] selection:bg-primary placeholder:text-muted-foreground md:text-sm',
+            'selection:text-gray-12-foreground placeholder:text-gray-a10 outline-none transition-[color,box-shadow] selection:bg-primary md:text-sm',
             'focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50',
             'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive'
           ),
-          native: 'placeholder:text-muted-foreground/50',
+          native: 'placeholder:text-gray-a10/50',
         }),
         className
       )}

@@ -27,46 +27,27 @@ const weightClasses: Record<(typeof headingWeights)[number], string> = {
   bold: 'font-bold',
 };
 
-const ARIA_LEVEL = {
-  h1: '1',
-  h2: '2',
-  h3: '3',
-  h4: '4',
-  h5: '5',
-  h6: '6',
-} as const;
-
 type HeadingSize = (typeof headingSizes)[number];
 type HeadingWeight = (typeof headingWeights)[number];
-type HeadingAs = keyof typeof ARIA_LEVEL;
 
 type HeadingProps = Omit<React.ComponentProps<typeof Text>, 'variant'> & {
   size?: HeadingSize;
   weight?: HeadingWeight;
-  as?: HeadingAs;
 };
 
 function Heading({
   size = '6',
   weight = 'bold',
-  as = 'h1',
   className,
   role: roleProp,
   ...props
 }: HeadingProps) {
   const role = Platform.OS === 'web' ? (roleProp ?? 'heading') : roleProp;
-  const ariaLevelProps =
-    Platform.OS === 'web'
-      ? ({
-          'aria-level': ARIA_LEVEL[as],
-        } as const)
-      : undefined;
 
   return (
     <Text
       className={cn('text-gray-12', sizeClasses[size], weightClasses[weight], className)}
       role={role}
-      {...ariaLevelProps}
       {...props}
     />
   );

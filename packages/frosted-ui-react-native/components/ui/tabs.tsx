@@ -34,7 +34,7 @@ function TabsTrigger({
   return (
     <TextClassContext.Provider
       value={cn(
-        'text-gray-12 dark:text-muted-foreground text-sm font-medium',
+        'text-gray-12 dark:text-gray-a10 text-sm font-medium',
         value === props.value && 'dark:text-gray-12'
       )}>
       <TabsPrimitive.Trigger

@@ -98,7 +98,7 @@ function AccordionTrigger({
                 as={ChevronDown}
                 size={16}
                 className={cn(
-                  'shrink-0 text-muted-foreground',
+                  'text-gray-a10 shrink-0',
                   Platform.select({
                     web: 'pointer-events-none translate-y-0.5 transition-transform duration-200',
                   })

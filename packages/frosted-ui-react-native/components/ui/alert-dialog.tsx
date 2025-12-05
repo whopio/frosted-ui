@@ -107,7 +107,7 @@ function AlertDialogDescription({
   React.RefAttributes<AlertDialogPrimitive.DescriptionRef>) {
   return (
     <AlertDialogPrimitive.Description
-      className={cn('text-sm text-muted-foreground', className)}
+      className={cn('text-gray-a10 text-sm', className)}
       {...props}
     />
   );

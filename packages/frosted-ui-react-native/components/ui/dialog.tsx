@@ -121,10 +121,7 @@ function DialogDescription({
   ...props
 }: DialogPrimitive.DescriptionProps & React.RefAttributes<DialogPrimitive.DescriptionRef>) {
   return (
-    <DialogPrimitive.Description
-      className={cn('text-sm text-muted-foreground', className)}
-      {...props}
-    />
+    <DialogPrimitive.Description className={cn('text-gray-a10 text-sm', className)} {...props} />
   );
 }
 
