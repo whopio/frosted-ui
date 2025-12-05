@@ -31,8 +31,10 @@ const buttonVariantsCva = cva(
           Platform.select({ web: 'hover:bg-accent-a4' })
         ),
         surface: cn(
-          'bg-panel-solid border-stroke active:bg-gray-a3 disabled:bg-gray-a2 disabled:border-gray-a6 border',
-          Platform.select({ web: 'hover:border-gray-a7' })
+          'bg-panel-solid border-stroke active:bg-gray-a3 disabled:bg-gray-a2 disabled:border-gray-a6 border shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] active:shadow-none disabled:shadow-none',
+          Platform.select({
+            web: 'hover:border-gray-a7',
+          })
         ),
         ghost: cn(
           'active:bg-accent-a4 disabled:bg-transparent',
