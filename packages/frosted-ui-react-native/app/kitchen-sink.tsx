@@ -648,10 +648,45 @@ export default function KitchenSinkScreen() {
 
           {/* Checkbox Section */}
           <ComponentSection title="Checkbox">
-            <View className="gap-4">
-              <CheckboxItem label="Accept terms and conditions" />
-              <CheckboxItem label="Subscribe to newsletter" />
-              <CheckboxItem label="Enable notifications" defaultChecked />
+            <View className="gap-6">
+              {/* Sizes */}
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Sizes
+                </Text>
+                <View className="flex-row items-center gap-4">
+                  <CheckboxItem label="Size 1" size="1" defaultChecked />
+                  <CheckboxItem label="Size 2" size="2" defaultChecked />
+                  <CheckboxItem label="Size 3" size="3" defaultChecked />
+                </View>
+              </View>
+
+              {/* Colors */}
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Colors
+                </Text>
+                <View className="flex-row flex-wrap gap-4">
+                  <CheckboxItem label="Blue" color="blue" defaultChecked />
+                  <CheckboxItem label="Green" color="green" defaultChecked />
+                  <CheckboxItem label="Red" color="red" defaultChecked />
+                  <CheckboxItem label="Purple" color="purple" defaultChecked />
+                  <CheckboxItem label="Yellow" color="yellow" defaultChecked />
+                </View>
+              </View>
+
+              {/* States */}
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  States
+                </Text>
+                <View className="gap-3">
+                  <CheckboxItem label="Unchecked" />
+                  <CheckboxItem label="Checked" defaultChecked />
+                  <CheckboxItem label="Disabled unchecked" disabled />
+                  <CheckboxItem label="Disabled checked" defaultChecked disabled />
+                </View>
+              </View>
             </View>
           </ComponentSection>
 
@@ -1009,16 +1044,28 @@ function ComponentSection({ title, children }: { title: string; children: React.
 function CheckboxItem({
   label,
   defaultChecked = false,
+  size,
+  color,
+  disabled = false,
 }: {
   label: string;
   defaultChecked?: boolean;
+  size?: '1' | '2' | '3';
+  color?: 'blue' | 'green' | 'red' | 'purple' | 'yellow';
+  disabled?: boolean;
 }) {
   const [checked, setChecked] = React.useState(defaultChecked);
   return (
     <View className="flex-row items-center gap-2">
-      <Checkbox checked={checked} onCheckedChange={setChecked} />
+      <Checkbox
+        checked={checked}
+        onCheckedChange={setChecked}
+        size={size}
+        color={color}
+        disabled={disabled}
+      />
       <Label
-        onPress={() => setChecked((prev) => !prev)}
+        onPress={() => !disabled && setChecked((prev) => !prev)}
         nativeID={label.replace(/\s+/g, '-').toLowerCase()}>
         {label}
       </Label>
