@@ -789,12 +789,49 @@ export default function KitchenSinkScreen() {
 
           {/* Progress Section */}
           <ComponentSection title="Progress">
-            <View className="gap-4">
-              <Progress value={0} />
-              <Progress value={25} />
-              <Progress value={50} />
-              <Progress value={75} />
-              <Progress value={100} />
+            <View className="gap-6">
+              {/* Sizes */}
+              <View className="gap-2">
+                <Text size="2" weight="medium">
+                  Sizes
+                </Text>
+                <View className="gap-3">
+                  <Progress size="1" value={60} />
+                  <Progress size="2" value={60} />
+                  <Progress size="3" value={60} />
+                  <Progress size="4" value={60} />
+                  <Progress size="5" value={60} />
+                  <Progress size="6" value={60} />
+                </View>
+              </View>
+
+              {/* Colors */}
+              <View className="gap-2">
+                <Text size="2" weight="medium">
+                  Colors
+                </Text>
+                <View className="gap-3">
+                  <Progress size="3" color="blue" value={60} />
+                  <Progress size="3" color="green" value={60} />
+                  <Progress size="3" color="red" value={60} />
+                  <Progress size="3" color="purple" value={60} />
+                  <Progress size="3" color="gray" value={60} />
+                </View>
+              </View>
+
+              {/* Values */}
+              <View className="gap-2">
+                <Text size="2" weight="medium">
+                  Values
+                </Text>
+                <View className="gap-3">
+                  <Progress value={0} />
+                  <Progress value={25} />
+                  <Progress value={50} />
+                  <Progress value={75} />
+                  <Progress value={100} />
+                </View>
+              </View>
             </View>
           </ComponentSection>
 

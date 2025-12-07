@@ -1,82 +1,96 @@
-import { cn } from '@/lib/utils';
-import * as ProgressPrimitive from '@rn-primitives/progress';
-import { Platform, View } from 'react-native';
-import Animated, {
-  Extrapolation,
-  interpolate,
-  useAnimatedStyle,
-  useDerivedValue,
-  withSpring,
-} from 'react-native-reanimated';
+import type { AccentColor, Color } from '@/lib/types';
+import { useThemeVars } from '@/lib/use-theme-vars';
+import * as React from 'react';
+import { View, type ViewProps, type ViewStyle } from 'react-native';
 
-function Progress({
-  className,
-  value,
-  indicatorClassName,
-  ...props
-}: ProgressPrimitive.RootProps &
-  React.RefAttributes<ProgressPrimitive.RootRef> & {
-    indicatorClassName?: string;
-  }) {
-  return (
-    <ProgressPrimitive.Root
-      className={cn('bg-primary/20 relative h-2 w-full overflow-hidden rounded-full', className)}
-      {...props}>
-      <Indicator value={value} className={indicatorClassName} />
-    </ProgressPrimitive.Root>
-  );
+const progressSizes = ['1', '2', '3', '4', '5', '6'] as const;
+
+type ProgressSize = (typeof progressSizes)[number];
+
+function resolveAccentFromColor(color?: Color): AccentColor {
+  if (!color) return 'blue';
+  switch (color) {
+    case 'danger':
+      return 'red';
+    case 'warning':
+      return 'amber';
+    case 'success':
+      return 'green';
+    case 'info':
+      return 'blue';
+    default:
+      return color as AccentColor;
+  }
 }
 
-export { Progress };
+// Size styles from CSS:
+// Size 1: 2px, Size 2: 4px, Size 3: 6px, Size 4: 8px, Size 5: 12px, Size 6: 16px
+function getHeight(size: ProgressSize): number {
+  switch (size) {
+    case '1':
+      return 2;
+    case '2':
+      return 4;
+    case '3':
+      return 6;
+    case '4':
+      return 8;
+    case '5':
+      return 12;
+    case '6':
+      return 16;
+  }
+}
 
-const Indicator = Platform.select({
-  web: WebIndicator,
-  native: NativeIndicator,
-  default: NullIndicator,
-});
-
-type IndicatorProps = {
-  value: number | undefined | null;
-  className?: string;
+type ProgressProps = ViewProps & {
+  size?: ProgressSize;
+  color?: Color;
+  value?: number;
+  max?: number;
 };
 
-function WebIndicator({ value, className }: IndicatorProps) {
-  if (Platform.OS !== 'web') {
-    return null;
-  }
+function Progress({ size = '6', color, value = 0, max = 100, style, ...props }: ProgressProps) {
+  const { colors } = useThemeVars();
+
+  const accentColor = resolveAccentFromColor(color);
+  const palette = colors.palettes[accentColor];
+  const gray = colors.palettes.gray;
+
+  const height = getHeight(size);
+
+  // Calculate progress percentage
+  const progress = Math.max(0, Math.min((value || 0) / max, 1));
+  const progressPercent = progress * 100;
+
+  // Track style
+  const trackStyle: ViewStyle = {
+    width: '100%',
+    height,
+    borderRadius: height / 2, // Fully rounded (radius-thumb)
+    backgroundColor: gray.a4,
+    overflow: 'hidden',
+  };
+
+  // Indicator style
+  const indicatorStyle: ViewStyle = {
+    height: '100%',
+    width: `${progressPercent}%`,
+    backgroundColor: palette['9'],
+    borderRadius: height / 2,
+  };
 
   return (
     <View
-      className={cn('bg-primary h-full w-full flex-1 transition-all', className)}
-      style={{ transform: `translateX(-${100 - (value ?? 0)}%)` }}>
-      <ProgressPrimitive.Indicator className={cn('h-full w-full', className)} />
+      role="progressbar"
+      aria-valuemin={0}
+      aria-valuemax={max}
+      aria-valuenow={value}
+      style={[trackStyle, style]}
+      {...props}>
+      <View style={indicatorStyle} />
     </View>
   );
 }
 
-function NativeIndicator({ value, className }: IndicatorProps) {
-  const progress = useDerivedValue(() => value ?? 0);
-
-  const indicator = useAnimatedStyle(() => {
-    return {
-      width: withSpring(
-        `${interpolate(progress.value, [0, 100], [1, 100], Extrapolation.CLAMP)}%`,
-        { overshootClamping: true }
-      ),
-    };
-  }, [value]);
-
-  if (Platform.OS === 'web') {
-    return null;
-  }
-
-  return (
-    <ProgressPrimitive.Indicator asChild>
-      <Animated.View style={indicator} className={cn('bg-foreground h-full', className)} />
-    </ProgressPrimitive.Indicator>
-  );
-}
-
-function NullIndicator(_props: IndicatorProps) {
-  return null;
-}
+export { Progress };
+export type { ProgressProps };
