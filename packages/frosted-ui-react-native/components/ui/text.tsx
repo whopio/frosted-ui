@@ -1,4 +1,4 @@
-import { getAccentColorTheme } from '@/lib/color-utils';
+import { getNativeAccentColor } from '@/lib/native-colors';
 import type { AccentColor } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import * as Slot from '@rn-primitives/slot';
@@ -40,6 +40,13 @@ type TextProps = Omit<React.ComponentProps<typeof RNText>, 'size' | 'weight' | '
 };
 
 const TextClassContext = React.createContext<string | undefined>(undefined);
+type TextStyleContextValue = {
+  size?: TextSize;
+  weight?: TextWeight;
+  color?: string;
+};
+
+const TextStyleContext = React.createContext<TextStyleContextValue | undefined>(undefined);
 
 function Text({
   className,
@@ -52,26 +59,37 @@ function Text({
   ...props
 }: TextProps) {
   const textClass = React.useContext(TextClassContext);
+  const textStyleContext = React.useContext(TextStyleContext);
   const Component = asChild ? Slot.Text : RNText;
-  const accentTheme = color ? getAccentColorTheme(color) : undefined;
-  // Only apply default color class if there's no textClass from context
-  const colorClass = textClass ? undefined : color ? 'text-accent-11' : 'text-gray-12';
+
+  const effectiveSize = size ?? textStyleContext?.size;
+  const effectiveWeight = weight ?? textStyleContext?.weight;
+
+  // Use direct color values from Frosted colors on all platforms.
+  // Priority: explicit color prop > context color override > default gray-12.
+  const resolvedColor =
+    color && getNativeAccentColor(color, '11')
+      ? getNativeAccentColor(color, '11')
+      : (textStyleContext?.color ?? getNativeAccentColor('gray', '12'));
+
+  const colorStyle = {
+    color: resolvedColor,
+  };
 
   return (
     <Component
       className={cn(
         textClass,
-        size && sizeClasses[size],
-        weight && weightClasses[weight],
-        colorClass,
+        effectiveSize && sizeClasses[effectiveSize],
+        effectiveWeight && weightClasses[effectiveWeight],
         className
       )}
-      style={[accentTheme, style]}
+      style={[colorStyle, style]}
       role={role}
       {...props}
     />
   );
 }
 
-export { Text, TextClassContext };
+export { Text, TextClassContext, TextStyleContext };
 export type { TextProps };

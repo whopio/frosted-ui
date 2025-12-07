@@ -4,7 +4,7 @@ import type { AccentColor, Color } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { cva } from 'class-variance-authority';
 import * as React from 'react';
-import { Platform, Pressable, type PressableStateCallbackType, type ViewStyle } from 'react-native';
+import { Platform, Pressable, View, type ViewStyle } from 'react-native';
 
 const buttonSizes = ['1', '2', '3', '4'] as const;
 const buttonVariants = ['solid', 'soft', 'surface', 'ghost'] as const;
@@ -99,11 +99,13 @@ function Button({
   disabled,
   ...props
 }: ButtonProps) {
-  // Only apply accent theme for accent colors, not semantic colors
-  const accentTheme =
-    color && !['danger', 'warning', 'success', 'info'].includes(color)
-      ? (getAccentColorTheme(color as AccentColor) as ViewStyle)
-      : undefined;
+  const isAccentColor = color && !['danger', 'warning', 'success', 'info'].includes(color);
+
+  // Get the accent theme - wrap in View to make CSS variables available to children
+  // This is critical on native where CSS variables set on a component aren't accessible to Tailwind classes
+  const accentTheme = isAccentColor
+    ? (getAccentColorTheme(color as AccentColor) as ViewStyle)
+    : undefined;
 
   // For surface variant with gray color, use accent-12 instead of accent-a11
   const baseTextClass = buttonTextVariants({ variant, size, disabled: !!disabled });
@@ -112,23 +114,28 @@ function Button({
       ? baseTextClass.replace('text-accent-a11', 'text-accent-12')
       : baseTextClass;
 
-  const mergedStyle = accentTheme
-    ? typeof style === 'function'
-      ? (state: PressableStateCallbackType) => [accentTheme, style(state)]
-      : [accentTheme, style]
-    : style;
-
-  return (
+  const buttonContent = (
     <TextClassContext.Provider value={textColorClass}>
       <Pressable
         className={cn(buttonVariantsCva({ variant, size }), className)}
-        style={mergedStyle}
+        style={style}
         role="button"
         disabled={disabled}
         {...props}
       />
     </TextClassContext.Provider>
   );
+
+  // Wrap in View with accentTheme to make CSS variables available to all children
+  // This ensures Tailwind classes like bg-accent-9 and text-accent-11 can access the CSS variables
+  // The View is layout-neutral (no flex, no size constraints) so it doesn't affect button layout
+  if (accentTheme) {
+    return (
+      <View style={[accentTheme, { flexShrink: 0, alignSelf: 'flex-start' }]}>{buttonContent}</View>
+    );
+  }
+
+  return buttonContent;
 }
 
 export { Button, buttonTextVariants, buttonVariantsCva };

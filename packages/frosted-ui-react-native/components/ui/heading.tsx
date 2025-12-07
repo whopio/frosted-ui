@@ -46,11 +46,10 @@ function Heading({
   ...props
 }: HeadingProps) {
   const role = Platform.OS === 'web' ? (roleProp ?? 'heading') : roleProp;
-  const colorClass = color ? 'text-accent-11' : 'text-gray-12';
 
   return (
     <Text
-      className={cn(colorClass, sizeClasses[size], weightClasses[weight], className)}
+      className={cn(sizeClasses[size], weightClasses[weight], className)}
       color={color}
       role={role}
       {...props}
