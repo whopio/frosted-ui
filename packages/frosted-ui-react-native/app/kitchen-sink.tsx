@@ -79,7 +79,7 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Switch } from '@/components/ui/switch';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs } from '@/components/ui/tabs';
 import { Text } from '@/components/ui/text';
 import { Textarea } from '@/components/ui/textarea';
 import { Toggle } from '@/components/ui/toggle';
@@ -1291,76 +1291,122 @@ function ToggleSingleDemo() {
 }
 
 function TabsDemo() {
-  const [value, setValue] = React.useState('account');
+  const [value1, setValue1] = React.useState('account');
+  const [value2, setValue2] = React.useState('tab1');
+
   return (
-    <Tabs value={value} onValueChange={setValue} className="w-full">
-      <TabsList className="w-full flex-row">
-        <TabsTrigger value="account" className="flex-1">
-          <Text>Account</Text>
-        </TabsTrigger>
-        <TabsTrigger value="password" className="flex-1">
-          <Text>Password</Text>
-        </TabsTrigger>
-      </TabsList>
-      <TabsContent value="account">
-        <Card>
-          <View className="gap-6">
-            <View className="gap-1.5">
-              <Heading size="3">Account</Heading>
-              <Text color="gray">
-                Make changes to your account here. Click save when you're done.
-              </Text>
-            </View>
-            <View className="gap-4">
-              <View className="gap-2">
-                <Label nativeID="name">Name</Label>
-                <Input placeholder="Enter your name" aria-labelledby="name" />
+    <View className="gap-6">
+      {/* Sizes */}
+      <View className="gap-2">
+        <Text size="2" weight="medium">
+          Sizes
+        </Text>
+        <View className="gap-4">
+          <Tabs.Root size="1" value={value2} onValueChange={setValue2}>
+            <Tabs.List>
+              <Tabs.Trigger value="tab1">
+                <Text>Tab 1</Text>
+              </Tabs.Trigger>
+              <Tabs.Trigger value="tab2">
+                <Text>Tab 2</Text>
+              </Tabs.Trigger>
+              <Tabs.Trigger value="tab3">
+                <Text>Tab 3</Text>
+              </Tabs.Trigger>
+            </Tabs.List>
+          </Tabs.Root>
+
+          <Tabs.Root size="2" value={value2} onValueChange={setValue2}>
+            <Tabs.List>
+              <Tabs.Trigger value="tab1">
+                <Text>Tab 1</Text>
+              </Tabs.Trigger>
+              <Tabs.Trigger value="tab2">
+                <Text>Tab 2</Text>
+              </Tabs.Trigger>
+              <Tabs.Trigger value="tab3">
+                <Text>Tab 3</Text>
+              </Tabs.Trigger>
+            </Tabs.List>
+          </Tabs.Root>
+        </View>
+      </View>
+
+      {/* Full Example */}
+      <View className="gap-2">
+        <Text size="2" weight="medium">
+          Full Example
+        </Text>
+        <Tabs.Root value={value1} onValueChange={setValue1}>
+          <Tabs.List>
+            <Tabs.Trigger value="account">
+              <Text>Account</Text>
+            </Tabs.Trigger>
+            <Tabs.Trigger value="password">
+              <Text>Password</Text>
+            </Tabs.Trigger>
+          </Tabs.List>
+          <Tabs.Content value="account">
+            <Card>
+              <View className="gap-6">
+                <View className="gap-1.5">
+                  <Heading size="3">Account</Heading>
+                  <Text color="gray">
+                    Make changes to your account here. Click save when you're done.
+                  </Text>
+                </View>
+                <View className="gap-4">
+                  <View className="gap-2">
+                    <Label nativeID="name">Name</Label>
+                    <Input placeholder="Enter your name" aria-labelledby="name" />
+                  </View>
+                  <View className="gap-2">
+                    <Label nativeID="username">Username</Label>
+                    <Input placeholder="Enter your username" aria-labelledby="username" />
+                  </View>
+                </View>
+                <View className="flex-row items-center">
+                  <Button>
+                    <Text>Save changes</Text>
+                  </Button>
+                </View>
               </View>
-              <View className="gap-2">
-                <Label nativeID="username">Username</Label>
-                <Input placeholder="Enter your username" aria-labelledby="username" />
+            </Card>
+          </Tabs.Content>
+          <Tabs.Content value="password">
+            <Card>
+              <View className="gap-6">
+                <View className="gap-1.5">
+                  <Heading size="3">Password</Heading>
+                  <Text color="gray">
+                    Change your password here. After saving, you'll be logged out.
+                  </Text>
+                </View>
+                <View className="gap-4">
+                  <View className="gap-2">
+                    <Label nativeID="current">Current password</Label>
+                    <Input
+                      placeholder="Enter current password"
+                      secureTextEntry
+                      aria-labelledby="current"
+                    />
+                  </View>
+                  <View className="gap-2">
+                    <Label nativeID="new">New password</Label>
+                    <Input placeholder="Enter new password" secureTextEntry aria-labelledby="new" />
+                  </View>
+                </View>
+                <View className="flex-row items-center">
+                  <Button>
+                    <Text>Save password</Text>
+                  </Button>
+                </View>
               </View>
-            </View>
-            <View className="flex-row items-center">
-              <Button>
-                <Text>Save changes</Text>
-              </Button>
-            </View>
-          </View>
-        </Card>
-      </TabsContent>
-      <TabsContent value="password">
-        <Card>
-          <View className="gap-6">
-            <View className="gap-1.5">
-              <Heading size="3">Password</Heading>
-              <Text color="gray">
-                Change your password here. After saving, you'll be logged out.
-              </Text>
-            </View>
-            <View className="gap-4">
-              <View className="gap-2">
-                <Label nativeID="current">Current password</Label>
-                <Input
-                  placeholder="Enter current password"
-                  secureTextEntry
-                  aria-labelledby="current"
-                />
-              </View>
-              <View className="gap-2">
-                <Label nativeID="new">New password</Label>
-                <Input placeholder="Enter new password" secureTextEntry aria-labelledby="new" />
-              </View>
-            </View>
-            <View className="flex-row items-center">
-              <Button>
-                <Text>Save password</Text>
-              </Button>
-            </View>
-          </View>
-        </Card>
-      </TabsContent>
-    </Tabs>
+            </Card>
+          </Tabs.Content>
+        </Tabs.Root>
+      </View>
+    </View>
   );
 }
 

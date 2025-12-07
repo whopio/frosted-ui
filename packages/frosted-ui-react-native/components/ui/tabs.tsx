@@ -1,68 +1,189 @@
-import { TextClassContext } from '@/components/ui/text';
-import { cn } from '@/lib/utils';
+import { TextStyleContext } from '@/components/ui/text';
+import { themeVars } from '@/lib/theme-vars';
+import { useThemeVars } from '@/lib/use-theme-vars';
 import * as TabsPrimitive from '@rn-primitives/tabs';
-import { Platform } from 'react-native';
+import * as React from 'react';
+import { View, type ViewStyle } from 'react-native';
 
-function Tabs({
-  className,
-  ...props
-}: TabsPrimitive.RootProps & React.RefAttributes<TabsPrimitive.RootRef>) {
-  return <TabsPrimitive.Root className={cn('flex flex-col gap-2', className)} {...props} />;
+const tabsSizes = ['1', '2'] as const;
+
+type TabsSize = (typeof tabsSizes)[number];
+
+type TabsContextValue = {
+  size: TabsSize;
+  value?: string;
+};
+
+const TabsContext = React.createContext<TabsContextValue>({
+  size: '2',
+  value: undefined,
+});
+
+// Size styles from CSS:
+// Size 1: height: 36px, font-size-1
+// Size 2: height: var(--space-7) = 40px, font-size-2
+function getListHeight(size: TabsSize): number {
+  switch (size) {
+    case '1':
+      return 36;
+    case '2':
+      return 40;
+  }
 }
 
-function TabsList({
-  className,
-  ...props
-}: TabsPrimitive.ListProps & React.RefAttributes<TabsPrimitive.ListRef>) {
+function getTextSize(size: TabsSize): keyof typeof themeVars.typography {
+  switch (size) {
+    case '1':
+      return '1';
+    case '2':
+      return '2';
+  }
+}
+
+function getTriggerPadding(size: TabsSize): {
+  paddingX: number;
+  innerPaddingX: number;
+  innerPaddingY: number;
+} {
+  switch (size) {
+    case '1':
+      return { paddingX: 4, innerPaddingX: 6, innerPaddingY: 4 }; // space-1 = 4px
+    case '2':
+      return { paddingX: 4, innerPaddingX: 10, innerPaddingY: 4 }; // 1.25 * space-2 = 10px
+  }
+}
+
+type TabsRootProps = TabsPrimitive.RootProps & {
+  size?: TabsSize;
+};
+
+function TabsRoot({ size = '2', value, onValueChange, children, ...props }: TabsRootProps) {
+  const contextValue = React.useMemo(() => ({ size, value }), [size, value]);
+
   return (
-    <TabsPrimitive.List
-      className={cn(
-        'flex h-9 flex-row items-center justify-center rounded-lg bg-muted p-[3px]',
-        Platform.select({ web: 'inline-flex w-fit', native: 'mr-auto' }),
-        className
-      )}
-      {...props}
-    />
+    <TabsContext.Provider value={contextValue}>
+      <TabsPrimitive.Root value={value} onValueChange={onValueChange} {...props}>
+        {children}
+      </TabsPrimitive.Root>
+    </TabsContext.Provider>
   );
 }
 
-function TabsTrigger({
-  className,
-  ...props
-}: TabsPrimitive.TriggerProps & React.RefAttributes<TabsPrimitive.TriggerRef>) {
-  const { value } = TabsPrimitive.useRootContext();
+type TabsListProps = TabsPrimitive.ListProps;
+
+function TabsList({ children, ...props }: TabsListProps) {
+  const { size } = React.useContext(TabsContext);
+  const { colors } = useThemeVars();
+  const gray = colors.palettes.gray;
+
+  const height = getListHeight(size);
+
+  const listStyle: ViewStyle = {
+    flexDirection: 'row',
+    height,
+    borderBottomWidth: 1,
+    borderBottomColor: gray.a5,
+    alignItems: 'stretch',
+  };
+
   return (
-    <TextClassContext.Provider
-      value={cn(
-        'text-gray-12 dark:text-gray-a10 text-sm font-medium',
-        value === props.value && 'dark:text-gray-12'
-      )}>
-      <TabsPrimitive.Trigger
-        className={cn(
-          'flex h-[calc(100%-1px)] flex-row items-center justify-center gap-1.5 rounded-md border border-transparent px-2 py-1 shadow-none shadow-black/5',
-          Platform.select({
-            web: 'inline-flex cursor-default whitespace-nowrap transition-[color,box-shadow] focus-visible:border-ring focus-visible:outline-1 focus-visible:outline-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0',
-          }),
-          props.disabled && 'opacity-50',
-          props.value === value && 'bg-background dark:border-foreground/10 dark:bg-input/30',
-          className
-        )}
-        {...props}
-      />
-    </TextClassContext.Provider>
+    <TabsPrimitive.List {...props}>
+      <View style={listStyle}>{children}</View>
+    </TabsPrimitive.List>
   );
 }
 
-function TabsContent({
-  className,
-  ...props
-}: TabsPrimitive.ContentProps & React.RefAttributes<TabsPrimitive.ContentRef>) {
+type TabsTriggerInnerProps = {
+  value?: string;
+  hovered?: boolean;
+  children?: React.ReactNode;
+};
+
+function TabsTriggerInner({ value, hovered, children }: TabsTriggerInnerProps) {
+  const { size, value: activeValue } = React.useContext(TabsContext);
+  const { colors } = useThemeVars();
+
+  const gray = colors.palettes.gray;
+  const accent = colors.palettes.blue; // Default accent
+
+  const isActive = value === activeValue;
+  const { paddingX, innerPaddingX, innerPaddingY } = getTriggerPadding(size);
+  const textSize = getTextSize(size);
+
+  // Text color - gray-12 on hover or active, gray-a11 otherwise
+  const textColor = isActive || hovered ? gray['12'] : gray.a11;
+
+  // Trigger wrapper style - stretch to full height
+  const triggerStyle: ViewStyle = {
+    paddingHorizontal: paddingX,
+    flexShrink: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative',
+    height: '100%',
+  };
+
+  // Inner content style with hover background
+  const innerStyle: ViewStyle = {
+    paddingHorizontal: innerPaddingX,
+    paddingVertical: innerPaddingY,
+    borderRadius: size === '1' ? 4 : 6, // radius-2 or radius-3
+    backgroundColor: hovered ? gray.a3 : undefined,
+  };
+
+  // Active indicator (bottom border)
+  const activeIndicatorStyle: ViewStyle = {
+    position: 'absolute',
+    bottom: -1,
+    left: 0,
+    right: 0,
+    height: 2,
+    backgroundColor: accent['10'],
+  };
+
   return (
-    <TabsPrimitive.Content
-      className={cn(Platform.select({ web: 'flex-1 outline-none' }), className)}
-      {...props}
-    />
+    <TextStyleContext.Provider
+      value={{ size: textSize, weight: isActive ? 'medium' : 'regular', color: textColor }}>
+      <View style={triggerStyle}>
+        <View style={innerStyle}>{children}</View>
+        {isActive && <View style={activeIndicatorStyle} />}
+      </View>
+    </TextStyleContext.Provider>
   );
 }
 
-export { Tabs, TabsContent, TabsList, TabsTrigger };
+type TabsTriggerProps = Omit<TabsPrimitive.TriggerProps, 'children'> & {
+  children?: React.ReactNode;
+};
+
+function TabsTrigger({ value, children, ...props }: TabsTriggerProps) {
+  const [hovered, setHovered] = React.useState(false);
+
+  return (
+    <TabsPrimitive.Trigger
+      value={value}
+      onHoverIn={() => setHovered(true)}
+      onHoverOut={() => setHovered(false)}
+      {...props}>
+      <TabsTriggerInner value={value} hovered={hovered}>
+        {children}
+      </TabsTriggerInner>
+    </TabsPrimitive.Trigger>
+  );
+}
+
+type TabsContentProps = TabsPrimitive.ContentProps;
+
+function TabsContent({ ...props }: TabsContentProps) {
+  return <TabsPrimitive.Content {...props} />;
+}
+
+const Tabs = {
+  Root: TabsRoot,
+  List: TabsList,
+  Trigger: TabsTrigger,
+  Content: TabsContent,
+};
+
+export { Tabs, TabsContent, TabsList, TabsRoot, TabsTrigger };
+export type { TabsContentProps, TabsListProps, TabsRootProps, TabsTriggerProps };
