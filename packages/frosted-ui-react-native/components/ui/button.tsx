@@ -3,7 +3,7 @@ import { themeVars } from '@/lib/theme-vars';
 import type { AccentColor, Color } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import * as React from 'react';
-import { Pressable, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Platform, Pressable, View, type StyleProp, type ViewStyle } from 'react-native';
 
 const buttonSizes = ['1', '2', '3', '4'] as const;
 const buttonVariants = ['solid', 'soft', 'surface', 'ghost'] as const;
@@ -44,9 +44,15 @@ function Button({
   children,
   onPressIn,
   onPressOut,
+  onFocus,
+  onBlur,
+  onHoverIn,
+  onHoverOut,
   ...pressableProps
 }: ButtonProps) {
   const [pressed, setPressed] = React.useState(false);
+  const [hovered, setHovered] = React.useState(false);
+  const [focused, setFocused] = React.useState(false);
   const accentColor = resolveAccentFromColor(color);
 
   const palette = themeVars.colors.light.palettes[accentColor];
@@ -64,6 +70,7 @@ function Button({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    cursor: disabled ? ('not-allowed' as ViewStyle['cursor']) : 'pointer',
   };
 
   // Size styles
@@ -99,20 +106,21 @@ function Button({
   } else {
     switch (variant) {
       case 'solid':
-        backgroundColor = pressed ? palette['10'] : palette['9'];
+        backgroundColor = pressed ? palette['10'] : hovered ? palette['10'] : palette['9'];
         break;
       case 'soft':
-        backgroundColor = pressed ? palette.a5 : palette.a3;
+        backgroundColor = pressed ? palette.a5 : hovered ? palette.a4 : palette.a3;
         break;
       case 'surface':
-        backgroundColor = pressed
-          ? themeVars.colors.light.surface
-          : themeVars.colors.light.panelSolid;
-        borderColor = themeVars.colors.light.stroke;
+        // Default: panelSolid bg, gray-a5 border (stroke), outer shadow
+        // Hover: same bg, gray-a7 border, outer shadow
+        // Pressed: gray-a3 bg, gray-a6 border, no outer shadow
+        backgroundColor = pressed ? gray.a3 : themeVars.colors.light.panelSolid;
+        borderColor = pressed ? gray.a6 : hovered ? gray.a7 : gray.a5;
         borderWidth = 1;
         break;
       case 'ghost':
-        backgroundColor = pressed ? palette.a4 : undefined;
+        backgroundColor = pressed ? palette.a4 : hovered ? palette.a3 : undefined;
         break;
     }
   }
@@ -134,11 +142,30 @@ function Button({
         }
       : undefined;
 
+  // Focus outline using accent-a8
+  const focusStyle: ViewStyle | undefined =
+    focused && !disabled
+      ? {
+          outlineWidth: 2,
+          outlineStyle: 'solid',
+          outlineColor: palette.a8,
+          outlineOffset: 2,
+        }
+      : undefined;
+
+  // Solid button pressed filter (web only): brightness(0.92) saturate(1.1)
+  const pressedFilter: ViewStyle | undefined =
+    Platform.OS === 'web' && pressed && !disabled && variant === 'solid'
+      ? { filter: 'brightness(0.92) saturate(1.1)' }
+      : undefined;
+
   const combinedStyle: ViewStyle = {
     ...baseStyle,
     ...sizeStyle,
     ...variantStyle,
     ...surfaceShadow,
+    ...focusStyle,
+    ...pressedFilter,
   };
 
   const handlePressIn = React.useCallback(
@@ -157,6 +184,44 @@ function Button({
     [onPressOut]
   );
 
+  const handleHoverIn = React.useCallback(
+    (e: Parameters<NonNullable<typeof onHoverIn>>[0]) => {
+      setHovered(true);
+      onHoverIn?.(e);
+    },
+    [onHoverIn]
+  );
+
+  const handleHoverOut = React.useCallback(
+    (e: Parameters<NonNullable<typeof onHoverOut>>[0]) => {
+      setHovered(false);
+      onHoverOut?.(e);
+    },
+    [onHoverOut]
+  );
+
+  const handleFocus = React.useCallback(
+    (e: Parameters<NonNullable<typeof onFocus>>[0]) => {
+      // Only show focus ring on keyboard navigation (focus-visible)
+      if (Platform.OS === 'web') {
+        const target = e.target as unknown as HTMLElement | undefined;
+        if (target?.matches?.(':focus-visible')) {
+          setFocused(true);
+        }
+      }
+      onFocus?.(e);
+    },
+    [onFocus]
+  );
+
+  const handleBlur = React.useCallback(
+    (e: Parameters<NonNullable<typeof onBlur>>[0]) => {
+      setFocused(false);
+      onBlur?.(e);
+    },
+    [onBlur]
+  );
+
   return (
     <View className={cn(className)} style={style}>
       <TextStyleContext.Provider
@@ -171,6 +236,10 @@ function Button({
           disabled={disabled}
           onPressIn={handlePressIn}
           onPressOut={handlePressOut}
+          onHoverIn={handleHoverIn}
+          onHoverOut={handleHoverOut}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           {...pressableProps}>
           {children}
         </Pressable>
