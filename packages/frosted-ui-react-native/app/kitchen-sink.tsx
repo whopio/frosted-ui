@@ -20,6 +20,7 @@ import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Callout } from '@/components/ui/callout';
 import { Card } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
@@ -94,10 +95,12 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
   CreditCardIcon,
+  InfoIcon,
   ItalicIcon,
   LogOutIcon,
   MailIcon,
   MoonStarIcon,
+  RocketIcon,
   SettingsIcon,
   SunIcon,
   UnderlineIcon,
@@ -519,6 +522,120 @@ export default function KitchenSinkScreen() {
                 <AlertTitle>Destructive Alert</AlertTitle>
                 <AlertDescription>This alert indicates an error or warning.</AlertDescription>
               </Alert>
+            </View>
+          </ComponentSection>
+
+          {/* Callout Section */}
+          <ComponentSection title="Callout">
+            <View className="gap-6">
+              {/* Variants */}
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Variants
+                </Text>
+                <Callout.Root variant="soft" color="blue">
+                  <Callout.Icon>
+                    <Icon as={InfoIcon} />
+                  </Callout.Icon>
+                  <Callout.Text>
+                    <Text>Soft variant callout with helpful information.</Text>
+                  </Callout.Text>
+                </Callout.Root>
+                <Callout.Root variant="surface" color="blue">
+                  <Callout.Icon>
+                    <Icon as={InfoIcon} />
+                  </Callout.Icon>
+                  <Callout.Text>
+                    <Text>Surface variant callout with helpful information.</Text>
+                  </Callout.Text>
+                </Callout.Root>
+                <Callout.Root variant="outline" color="blue">
+                  <Callout.Icon>
+                    <Icon as={InfoIcon} />
+                  </Callout.Icon>
+                  <Callout.Text>
+                    <Text>Outline variant callout with helpful information.</Text>
+                  </Callout.Text>
+                </Callout.Root>
+              </View>
+
+              {/* Colors */}
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Colors
+                </Text>
+                <Callout.Root color="gray">
+                  <Callout.Icon>
+                    <Icon as={InfoIcon} />
+                  </Callout.Icon>
+                  <Callout.Text>
+                    <Text>Gray callout for neutral information.</Text>
+                  </Callout.Text>
+                </Callout.Root>
+                <Callout.Root color="blue">
+                  <Callout.Icon>
+                    <Icon as={InfoIcon} />
+                  </Callout.Icon>
+                  <Callout.Text>
+                    <Text>Blue callout for informational messages.</Text>
+                  </Callout.Text>
+                </Callout.Root>
+                <Callout.Root color="green">
+                  <Callout.Icon>
+                    <Icon as={RocketIcon} />
+                  </Callout.Icon>
+                  <Callout.Text>
+                    <Text>Green callout for success messages.</Text>
+                  </Callout.Text>
+                </Callout.Root>
+                <Callout.Root color="yellow">
+                  <Callout.Icon>
+                    <Icon as={AlertCircleIcon} />
+                  </Callout.Icon>
+                  <Callout.Text>
+                    <Text>Yellow callout for warnings.</Text>
+                  </Callout.Text>
+                </Callout.Root>
+                <Callout.Root color="red">
+                  <Callout.Icon>
+                    <Icon as={AlertCircleIcon} />
+                  </Callout.Icon>
+                  <Callout.Text>
+                    <Text>Red callout for errors or critical information.</Text>
+                  </Callout.Text>
+                </Callout.Root>
+              </View>
+
+              {/* Sizes */}
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Sizes
+                </Text>
+                <Callout.Root size="1" color="purple">
+                  <Callout.Icon>
+                    <Icon as={InfoIcon} />
+                  </Callout.Icon>
+                  <Callout.Text>
+                    <Text>Size 1 - Compact callout.</Text>
+                  </Callout.Text>
+                </Callout.Root>
+                <Callout.Root size="2" color="purple">
+                  <Callout.Icon>
+                    <Icon as={InfoIcon} />
+                  </Callout.Icon>
+                  <Callout.Text>
+                    <Text>Size 2 - Default callout size.</Text>
+                  </Callout.Text>
+                </Callout.Root>
+                <Callout.Root size="3" color="purple">
+                  <Callout.Icon>
+                    <Icon as={InfoIcon} />
+                  </Callout.Icon>
+                  <Callout.Text>
+                    <Text>Size 3 - Larger callout for emphasis.</Text>
+                  </Callout.Text>
+                </Callout.Root>
+              </View>
             </View>
           </ComponentSection>
 
