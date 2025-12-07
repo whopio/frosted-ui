@@ -1,4 +1,5 @@
-import { TextClassContext } from '@/components/ui/text';
+import { TextStyleContext } from '@/components/ui/text';
+import { themeVars } from '@/lib/theme-vars';
 import { cn } from '@/lib/utils';
 import type { LucideIcon, LucideProps } from 'lucide-react-native';
 import { cssInterop } from 'nativewind';
@@ -42,13 +43,21 @@ cssInterop(IconImpl, {
  * @param {number} size - Icon size (defaults to 14).
  * @param {...LucideProps} ...props - Additional Lucide icon props passed to the "as" icon.
  */
-function Icon({ as: IconComponent, className, size = 14, ...props }: IconProps) {
-  const textClass = React.useContext(TextClassContext);
-  // Use textClass from context if available, otherwise default to text-gray-12
-  const colorClass = textClass || 'text-gray-12';
+function Icon({ as: IconComponent, className, size = 14, color, ...props }: IconProps) {
+  const textStyleContext = React.useContext(TextStyleContext);
+
+  // Use color from context if available, otherwise default to gray-12
+  const resolvedColor =
+    color ?? textStyleContext?.color ?? themeVars.colors.light.palettes.gray['12'];
 
   return (
-    <IconImpl as={IconComponent} className={cn(colorClass, className)} size={size} {...props} />
+    <IconImpl
+      as={IconComponent}
+      className={cn(className)}
+      size={size}
+      color={resolvedColor}
+      {...props}
+    />
   );
 }
 
