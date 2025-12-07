@@ -108,30 +108,18 @@ function Switch({
     // Checked state - accent background with inset shadow for inner border
     trackStateStyle = {
       backgroundColor: palette['9'],
-      ...(Platform.OS === 'web'
-        ? {
-            boxShadow: `inset 0 0 0 1px ${gray.a3}, inset 0 0 0 1px ${palette.a4}, inset 0 1.5px 2px 0 rgba(0,0,0,0.1)`,
-          }
-        : {
-            // Native fallback - subtle border
-            borderWidth: 1,
-            borderColor: palette['10'],
-          }),
+      ...(Platform.OS === 'web' && {
+        boxShadow: `inset 0 0 0 1px ${gray.a3}, inset 0 0 0 1px ${palette.a4}, inset 0 1.5px 2px 0 rgba(0,0,0,0.1)`,
+      }),
     };
   } else {
     // Unchecked state - gray background with inset shadow (--shadow-1)
     // --shadow-1: inset 0 0 0 1px var(--gray-a5), inset 0 1.5px 2px 0 var(--gray-a2)
     trackStateStyle = {
       backgroundColor: gray.a4,
-      ...(Platform.OS === 'web'
-        ? {
-            boxShadow: `inset 0 0 0 1px ${gray.a5}, inset 0 1.5px 2px 0 ${gray.a2}`,
-          }
-        : {
-            // Native fallback
-            borderWidth: 1,
-            borderColor: gray.a5,
-          }),
+      ...(Platform.OS === 'web' && {
+        boxShadow: `inset 0 0 0 1px ${gray.a5}, inset 0 1.5px 2px 0 ${gray.a2}`,
+      }),
     };
   }
 
