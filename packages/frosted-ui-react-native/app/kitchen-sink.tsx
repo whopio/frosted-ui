@@ -16,7 +16,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Callout } from '@/components/ui/callout';
@@ -837,23 +837,66 @@ export default function KitchenSinkScreen() {
 
           {/* Avatar Section */}
           <ComponentSection title="Avatar">
-            <View className="flex-row flex-wrap gap-4">
-              <Avatar alt="User avatar">
-                <AvatarImage source={{ uri: 'https://github.com/shadcn.png' }} />
-                <AvatarFallback>
-                  <Text>CN</Text>
-                </AvatarFallback>
-              </Avatar>
-              <Avatar alt="User with fallback">
-                <AvatarFallback>
-                  <Text>AB</Text>
-                </AvatarFallback>
-              </Avatar>
-              <Avatar alt="User icon">
-                <AvatarFallback>
-                  <Icon as={UserIcon} />
-                </AvatarFallback>
-              </Avatar>
+            <View className="gap-6">
+              {/* Sizes */}
+              <View className="gap-2">
+                <Text size="2" weight="medium">
+                  Sizes
+                </Text>
+                <View className="flex-row flex-wrap items-center gap-3">
+                  <Avatar size="0" fallback="John Doe" />
+                  <Avatar size="1" fallback="John Doe" />
+                  <Avatar size="2" fallback="John Doe" />
+                  <Avatar size="3" fallback="John Doe" />
+                  <Avatar size="4" fallback="John Doe" />
+                  <Avatar size="5" fallback="John Doe" />
+                  <Avatar size="6" fallback="John Doe" />
+                  <Avatar size="7" fallback="John Doe" />
+                  <Avatar size="8" fallback="John Doe" />
+                  <Avatar size="9" fallback="John Doe" />
+                </View>
+              </View>
+
+              {/* Colors */}
+              <View className="gap-2">
+                <Text size="2" weight="medium">
+                  Colors
+                </Text>
+                <View className="flex-row flex-wrap gap-3">
+                  <Avatar color="blue" fallback="Blue" />
+                  <Avatar color="green" fallback="Green" />
+                  <Avatar color="red" fallback="Red" />
+                  <Avatar color="purple" fallback="Purple" />
+                  <Avatar color="gray" fallback="Gray" />
+                </View>
+              </View>
+
+              {/* Shapes */}
+              <View className="gap-2">
+                <Text size="2" weight="medium">
+                  Shapes
+                </Text>
+                <View className="flex-row gap-3">
+                  <Avatar shape="circle" size="4" fallback="Circle" />
+                  <Avatar shape="square" size="4" fallback="Square" />
+                </View>
+              </View>
+
+              {/* With Image */}
+              <View className="gap-2">
+                <Text size="2" weight="medium">
+                  With Image
+                </Text>
+                <View className="flex-row gap-3">
+                  <Avatar size="4" src="https://github.com/shadcn.png" fallback="CN" />
+                  <Avatar
+                    size="4"
+                    color="blue"
+                    src="https://invalid-url.com/image.png"
+                    fallback="Fallback"
+                  />
+                </View>
+              </View>
             </View>
           </ComponentSection>
 
@@ -1078,11 +1121,7 @@ export default function KitchenSinkScreen() {
               </HoverCardTrigger>
               <HoverCardContent>
                 <View className="flex-row gap-4">
-                  <Avatar alt="Next.js">
-                    <AvatarFallback>
-                      <Text>NX</Text>
-                    </AvatarFallback>
-                  </Avatar>
+                  <Avatar size="3" fallback="Next.js" />
                   <View className="flex-1 gap-1">
                     <Text size="1" weight="semi-bold" className="text-gray-a10">
                       @nextjs
@@ -1472,11 +1511,7 @@ function HoverCardDemo() {
       </HoverCardTrigger>
       <HoverCardContent>
         <View className="flex-row gap-4">
-          <Avatar alt="Next.js">
-            <AvatarFallback>
-              <Text>NX</Text>
-            </AvatarFallback>
-          </Avatar>
+          <Avatar size="3" fallback="Next.js" />
           <View className="flex-1 gap-1">
             <Text size="1" weight="semi-bold" className="text-gray-a10">
               @nextjs
