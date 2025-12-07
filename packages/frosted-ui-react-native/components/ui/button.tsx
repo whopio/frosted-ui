@@ -73,15 +73,15 @@ function Button({
     cursor: disabled ? ('not-allowed' as ViewStyle['cursor']) : 'pointer',
   };
 
-  // Size styles
+  // Size styles (including gap between children)
   const sizeStyle: ViewStyle =
     size === '1'
-      ? { height: 24, paddingHorizontal: 8, borderRadius: 6 }
+      ? { height: 24, paddingHorizontal: 8, borderRadius: 6, gap: 4 }
       : size === '2'
-        ? { height: 32, paddingHorizontal: 12, borderRadius: 8 }
+        ? { height: 32, paddingHorizontal: 12, borderRadius: 8, gap: 8 }
         : size === '3'
-          ? { height: 40, paddingHorizontal: 16, borderRadius: 10 }
-          : { height: 48, paddingHorizontal: 24, borderRadius: 14 };
+          ? { height: 40, paddingHorizontal: 16, borderRadius: 10, gap: 12 }
+          : { height: 48, paddingHorizontal: 24, borderRadius: 14, gap: 12 };
 
   // Variant background / border, including pressed state
   let backgroundColor: string | undefined;
