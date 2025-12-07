@@ -1,4 +1,4 @@
-import { TextStyleContext } from '@/components/ui/text';
+import { Text, TextStyleContext } from '@/components/ui/text';
 import { themeVars } from '@/lib/theme-vars';
 import { useThemeVars } from '@/lib/use-theme-vars';
 import * as TabsPrimitive from '@rn-primitives/tabs';
@@ -141,11 +141,14 @@ function TabsTriggerInner({ value, hovered, children }: TabsTriggerInnerProps) {
     backgroundColor: accent['10'],
   };
 
+  // Wrap string children in Text component
+  const content = typeof children === 'string' ? <Text>{children}</Text> : children;
+
   return (
     <TextStyleContext.Provider
       value={{ size: textSize, weight: isActive ? 'medium' : 'regular', color: textColor }}>
       <View style={triggerStyle}>
-        <View style={innerStyle}>{children}</View>
+        <View style={innerStyle}>{content}</View>
         {isActive && <View style={activeIndicatorStyle} />}
       </View>
     </TextStyleContext.Provider>
