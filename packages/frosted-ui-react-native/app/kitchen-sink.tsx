@@ -4,7 +4,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -506,22 +505,6 @@ export default function KitchenSinkScreen() {
                   </View>
                 </Card>
               </View>
-            </View>
-          </ComponentSection>
-
-          {/* Alerts Section */}
-          <ComponentSection title="Alerts">
-            <View className="gap-4">
-              <Alert icon={AlertCircleIcon}>
-                <AlertTitle>Default Alert</AlertTitle>
-                <AlertDescription>
-                  This is a default alert with some descriptive text.
-                </AlertDescription>
-              </Alert>
-              <Alert icon={AlertCircleIcon} variant="destructive">
-                <AlertTitle>Destructive Alert</AlertTitle>
-                <AlertDescription>This alert indicates an error or warning.</AlertDescription>
-              </Alert>
             </View>
           </ComponentSection>
 
