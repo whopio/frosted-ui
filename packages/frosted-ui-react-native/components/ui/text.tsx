@@ -1,5 +1,6 @@
 import { themeVars } from '@/lib/theme-vars';
 import type { AccentColor } from '@/lib/types';
+import { useThemeVars } from '@/lib/use-theme-vars';
 import { cn } from '@/lib/utils';
 import * as Slot from '@rn-primitives/slot';
 import * as React from 'react';
@@ -34,6 +35,7 @@ function Text({
   style,
   ...props
 }: TextProps) {
+  const { colors, typography, fontWeights } = useThemeVars();
   const textStyleContext = React.useContext(TextStyleContext);
   const Component = asChild ? Slot.Text : RNText;
 
@@ -43,12 +45,12 @@ function Text({
   // Use direct color values from Frosted colors on all platforms.
   // Priority: explicit color prop > context color override > default gray-12.
   const resolvedColor =
-    (color && themeVars.colors.light.palettes[color]['11']) ??
+    (color && colors.palettes[color]['11']) ??
     textStyleContext?.color ??
-    themeVars.colors.light.palettes.gray['12'];
+    colors.palettes.gray['12'];
 
-  const typo = effectiveSize ? themeVars.typography[effectiveSize] : undefined;
-  const fontWeightValue = effectiveWeight ? themeVars.fontWeights[effectiveWeight] : undefined;
+  const typo = effectiveSize ? typography[effectiveSize] : undefined;
+  const fontWeightValue = effectiveWeight ? fontWeights[effectiveWeight] : undefined;
 
   const typographyStyle = typo
     ? {

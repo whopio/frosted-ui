@@ -1,6 +1,6 @@
 import { TextStyleContext } from '@/components/ui/text';
-import { themeVars } from '@/lib/theme-vars';
 import type { AccentColor, Color } from '@/lib/types';
+import { useThemeVars } from '@/lib/use-theme-vars';
 import { cn } from '@/lib/utils';
 import * as React from 'react';
 import { Platform, Pressable, View, type StyleProp, type ViewStyle } from 'react-native';
@@ -50,13 +50,14 @@ function Button({
   onHoverOut,
   ...pressableProps
 }: ButtonProps) {
+  const { colors } = useThemeVars();
   const [pressed, setPressed] = React.useState(false);
   const [hovered, setHovered] = React.useState(false);
   const [focused, setFocused] = React.useState(false);
   const accentColor = resolveAccentFromColor(color);
 
-  const palette = themeVars.colors.light.palettes[accentColor];
-  const gray = themeVars.colors.light.palettes.gray;
+  const palette = colors.palettes[accentColor];
+  const gray = colors.palettes.gray;
 
   const textColor =
     disabled && gray.a8
@@ -115,7 +116,7 @@ function Button({
         // Default: panelSolid bg, gray-a5 border (stroke), outer shadow
         // Hover: same bg, gray-a7 border, outer shadow
         // Pressed: gray-a3 bg, gray-a6 border, no outer shadow
-        backgroundColor = pressed ? gray.a3 : themeVars.colors.light.panelSolid;
+        backgroundColor = pressed ? gray.a3 : colors.panelSolid;
         borderColor = pressed ? gray.a6 : hovered ? gray.a7 : gray.a5;
         borderWidth = 1;
         break;

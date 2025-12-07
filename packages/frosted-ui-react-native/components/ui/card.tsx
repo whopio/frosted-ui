@@ -1,5 +1,4 @@
-import { themeVars } from '@/lib/theme-vars';
-import { useColorScheme } from 'nativewind';
+import { useThemeVars } from '@/lib/use-theme-vars';
 import { View, type ViewProps, type ViewStyle } from 'react-native';
 
 const cardVariants = ['soft', 'surface', 'ghost'] as const;
@@ -12,8 +11,7 @@ type CardProps = ViewProps &
   };
 
 function Card({ variant = 'surface', style, ...props }: CardProps) {
-  const { colorScheme } = useColorScheme();
-  const colors = themeVars.colors[colorScheme === 'dark' ? 'dark' : 'light'];
+  const { colors } = useThemeVars();
   const gray = colors.palettes.gray;
 
   const baseStyle: ViewStyle = {

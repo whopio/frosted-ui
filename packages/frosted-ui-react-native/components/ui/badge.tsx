@@ -1,10 +1,6 @@
 import { TextStyleContext } from '@/components/ui/text';
-import {
-  getNativeAccentAlphaColor,
-  getNativeAccentColor,
-  getNativeAccentContrastColor,
-} from '@/lib/native-colors';
 import type { AccentColor, Color } from '@/lib/types';
+import { useThemeVars } from '@/lib/use-theme-vars';
 import * as Slot from '@rn-primitives/slot';
 import * as React from 'react';
 import { View, type ViewStyle } from 'react-native';
@@ -22,10 +18,27 @@ type BadgeProps = React.ComponentProps<typeof View> & {
   color?: Color;
 };
 
+function resolveAccentFromColor(color?: Color): AccentColor {
+  if (!color) return 'blue';
+  switch (color) {
+    case 'danger':
+      return 'red';
+    case 'warning':
+      return 'amber';
+    case 'success':
+      return 'green';
+    case 'info':
+      return 'blue';
+    default:
+      return color as AccentColor;
+  }
+}
+
 function Badge({ variant = 'soft', size = '1', color, style, asChild, ...props }: BadgeProps) {
+  const { colors } = useThemeVars();
   const Component = asChild ? Slot.View : View;
-  const isAccentColor = color && !['danger', 'warning', 'success', 'info'].includes(color);
-  const accentColor = (isAccentColor ? color : 'blue') as AccentColor;
+  const accentColor = resolveAccentFromColor(color);
+  const palette = colors.palettes[accentColor];
 
   // Base layout (same on all platforms)
   const baseStyle: ViewStyle = {
@@ -49,34 +62,34 @@ function Badge({ variant = 'soft', size = '1', color, style, asChild, ...props }
           borderRadius: 8,
         };
 
-  // Variant-specific background / border colors using native color helpers
+  // Variant-specific background / border colors
   let variantStyle: ViewStyle = {};
   switch (variant) {
     case 'solid': {
       variantStyle = {
-        backgroundColor: getNativeAccentColor(accentColor, '9'),
+        backgroundColor: palette['9'],
         borderWidth: 0,
       };
       break;
     }
     case 'soft': {
       variantStyle = {
-        backgroundColor: getNativeAccentAlphaColor(accentColor, 'a3'),
+        backgroundColor: palette.a3,
         borderWidth: 0,
       };
       break;
     }
     case 'surface': {
       variantStyle = {
-        backgroundColor: getNativeAccentAlphaColor(accentColor, 'a2'),
-        borderColor: getNativeAccentAlphaColor(accentColor, 'a7'),
+        backgroundColor: palette.a2,
+        borderColor: palette.a7,
         borderWidth: 1,
       };
       break;
     }
     case 'outline': {
       variantStyle = {
-        borderColor: getNativeAccentAlphaColor(accentColor, 'a8'),
+        borderColor: palette.a8,
         borderWidth: 1,
       };
       break;
@@ -88,10 +101,7 @@ function Badge({ variant = 'soft', size = '1', color, style, asChild, ...props }
   const mergedStyle = [baseStyle, sizeStyle, variantStyle, style] as ViewStyle[];
 
   // Text styles for any Text rendered inside Badge
-  const textColor =
-    variant === 'solid'
-      ? getNativeAccentContrastColor(accentColor)
-      : (getNativeAccentAlphaColor(accentColor, 'a11') ?? getNativeAccentColor(accentColor, '11'));
+  const textColor = variant === 'solid' ? palette['9-contrast'] : palette.a11 || palette['11'];
 
   return (
     <TextStyleContext.Provider
