@@ -780,10 +780,66 @@ export default function KitchenSinkScreen() {
 
           {/* Separator Section */}
           <ComponentSection title="Separator">
-            <View className="gap-4">
-              <Text>Content above separator</Text>
-              <Separator />
-              <Text>Content below separator</Text>
+            <View className="gap-6">
+              {/* Default Demo */}
+              <View className="gap-2">
+                <Text size="2" weight="medium">
+                  Default
+                </Text>
+                <View>
+                  <Text size="2">Tools for building high-quality, accessible UI.</Text>
+                  <Separator size="4" style={{ marginVertical: 12 }} />
+                  <View className="flex-row items-center gap-3">
+                    <Text size="2">Themes</Text>
+                    <Separator orientation="vertical" />
+                    <Text size="2">Primitives</Text>
+                    <Separator orientation="vertical" />
+                    <Text size="2">Icons</Text>
+                    <Separator orientation="vertical" />
+                    <Text size="2">Colors</Text>
+                  </View>
+                </View>
+              </View>
+
+              {/* Sizes - Horizontal */}
+              <View className="gap-2">
+                <Text size="2" weight="medium">
+                  Sizes (Horizontal)
+                </Text>
+                <View className="gap-3">
+                  <Separator size="1" />
+                  <Separator size="2" />
+                  <Separator size="3" />
+                  <Separator size="4" />
+                </View>
+              </View>
+
+              {/* Sizes - Vertical */}
+              <View className="gap-2">
+                <Text size="2" weight="medium">
+                  Sizes (Vertical)
+                </Text>
+                <View className="flex-row items-center gap-3" style={{ height: 64 }}>
+                  <Separator size="1" orientation="vertical" />
+                  <Separator size="2" orientation="vertical" />
+                  <Separator size="3" orientation="vertical" />
+                  <Separator size="4" orientation="vertical" />
+                </View>
+              </View>
+
+              {/* Colors */}
+              <View className="gap-2">
+                <Text size="2" weight="medium">
+                  Colors
+                </Text>
+                <View className="gap-3">
+                  <Separator size="4" color="gray" />
+                  <Separator size="4" color="blue" />
+                  <Separator size="4" color="green" />
+                  <Separator size="4" color="red" />
+                  <Separator size="4" color="purple" />
+                </View>
+              </View>
             </View>
           </ComponentSection>
 
