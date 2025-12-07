@@ -184,5 +184,5 @@ function Avatar({ src, fallback, size = '3', shape = 'circle', color }: AvatarPr
   );
 }
 
-export { Avatar };
-export type { AvatarProps };
+export { Avatar, avatarShapes, avatarSizes, getAvatarSize };
+export type { AvatarProps, AvatarShape, AvatarSize };

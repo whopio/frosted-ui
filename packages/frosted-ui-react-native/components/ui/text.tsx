@@ -74,4 +74,4 @@ function Text({
 }
 
 export { Text, TextClassContext, TextStyleContext };
-export type { TextProps };
+export type { TextProps, TextSize };

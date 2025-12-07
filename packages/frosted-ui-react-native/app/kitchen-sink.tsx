@@ -915,10 +915,80 @@ export default function KitchenSinkScreen() {
 
           {/* Skeleton Section */}
           <ComponentSection title="Skeleton">
-            <View className="gap-4">
-              <Skeleton className="h-12 w-12 rounded-full" />
-              <Skeleton className="h-4 w-full" />
-              <Skeleton className="h-4 w-3/4" />
+            <View className="gap-6">
+              {/* Avatar Skeletons */}
+              <View className="gap-2">
+                <Text size="2" weight="medium">
+                  Avatar Sizes
+                </Text>
+                <View className="flex-row flex-wrap items-center gap-3">
+                  <Skeleton.Avatar size="0" />
+                  <Skeleton.Avatar size="1" />
+                  <Skeleton.Avatar size="2" />
+                  <Skeleton.Avatar size="3" />
+                  <Skeleton.Avatar size="4" />
+                  <Skeleton.Avatar size="5" />
+                  <Skeleton.Avatar size="6" />
+                  <Skeleton.Avatar size="7" />
+                  <Skeleton.Avatar size="8" />
+                  <Skeleton.Avatar size="9" />
+                </View>
+              </View>
+
+              {/* Avatar Shapes */}
+              <View className="gap-2">
+                <Text size="2" weight="medium">
+                  Avatar Shapes
+                </Text>
+                <View className="flex-row gap-3">
+                  <Skeleton.Avatar size="4" shape="circle" />
+                  <Skeleton.Avatar size="4" shape="square" />
+                </View>
+              </View>
+
+              {/* Text Skeletons */}
+              <View className="gap-2">
+                <Text size="2" weight="medium">
+                  Text Sizes
+                </Text>
+                <View className="gap-2">
+                  <Skeleton.Text size="0" style={{ width: '60%' }} />
+                  <Skeleton.Text size="1" style={{ width: '60%' }} />
+                  <Skeleton.Text size="2" style={{ width: '80%' }} />
+                  <Skeleton.Text size="3" style={{ width: '100%' }} />
+                  <Skeleton.Text size="4" style={{ width: '70%' }} />
+                  <Skeleton.Text size="5" style={{ width: '50%' }} />
+                  <Skeleton.Text size="6" style={{ width: '50%' }} />
+                  <Skeleton.Text size="7" style={{ width: '70%' }} />
+                  <Skeleton.Text size="8" style={{ width: '65%' }} />
+                  <Skeleton.Text size="9" style={{ width: '25%' }} />
+                </View>
+              </View>
+
+              {/* Rect Skeletons */}
+              <View className="gap-2">
+                <Text size="2" weight="medium">
+                  Rectangles
+                </Text>
+                <View className="gap-3">
+                  <Skeleton.Rect style={{ width: 200, height: 120, borderRadius: 8 }} />
+                  <Skeleton.Rect style={{ width: '100%', height: 16, borderRadius: 4 }} />
+                </View>
+              </View>
+
+              {/* Colors */}
+              <View className="gap-2">
+                <Text size="2" weight="medium">
+                  Colors
+                </Text>
+                <View className="flex-row flex-wrap gap-3">
+                  <Skeleton.Avatar color="gray" />
+                  <Skeleton.Avatar color="blue" />
+                  <Skeleton.Avatar color="green" />
+                  <Skeleton.Avatar color="red" />
+                  <Skeleton.Avatar color="purple" />
+                </View>
+              </View>
             </View>
           </ComponentSection>
 
