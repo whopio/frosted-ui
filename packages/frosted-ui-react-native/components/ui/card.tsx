@@ -1,52 +1,58 @@
-import { Text, TextClassContext } from '@/components/ui/text';
-import { cn } from '@/lib/utils';
-import { View, type ViewProps } from 'react-native';
+import { themeVars } from '@/lib/theme-vars';
+import { useColorScheme } from 'nativewind';
+import { View, type ViewProps, type ViewStyle } from 'react-native';
 
-function Card({ className, ...props }: ViewProps & React.RefAttributes<View>) {
-  return (
-    <TextClassContext.Provider value="text-gray-12">
-      <View
-        className={cn(
-          'border-stroke bg-panel-solid flex flex-col gap-6 rounded-xl border py-6 shadow-sm shadow-black/5',
-          className
-        )}
-        {...props}
-      />
-    </TextClassContext.Provider>
-  );
+const cardVariants = ['soft', 'surface', 'ghost'] as const;
+
+type CardVariant = (typeof cardVariants)[number];
+
+type CardProps = ViewProps &
+  React.RefAttributes<View> & {
+    variant?: CardVariant;
+  };
+
+function Card({ variant = 'surface', style, ...props }: CardProps) {
+  const { colorScheme } = useColorScheme();
+  const colors = themeVars.colors[colorScheme === 'dark' ? 'dark' : 'light'];
+  const gray = colors.palettes.gray;
+
+  const baseStyle: ViewStyle = {
+    padding: 16,
+    borderRadius: 16,
+  };
+
+  let variantStyle: ViewStyle = {};
+
+  switch (variant) {
+    case 'soft':
+      variantStyle = {
+        backgroundColor: gray.a3,
+      };
+      break;
+    case 'surface':
+      variantStyle = {
+        backgroundColor: colors.panelSolid,
+        borderWidth: 1,
+        borderColor: colors.stroke,
+        shadowColor: '#000000',
+        shadowOpacity: 0.05,
+        shadowOffset: { width: 0, height: 1 },
+        shadowRadius: 2,
+        elevation: 2,
+      };
+      break;
+    case 'ghost':
+      // No styles
+      break;
+  }
+
+  const combinedStyle: ViewStyle = {
+    ...baseStyle,
+    ...variantStyle,
+  };
+
+  return <View style={[combinedStyle, style]} {...props} />;
 }
 
-function CardHeader({ className, ...props }: ViewProps & React.RefAttributes<View>) {
-  return <View className={cn('flex flex-col gap-1.5 px-6', className)} {...props} />;
-}
-
-function CardTitle({
-  className,
-  ...props
-}: React.ComponentProps<typeof Text> & React.RefAttributes<Text>) {
-  return (
-    <Text
-      role="heading"
-      aria-level={3}
-      className={cn('font-semibold leading-none', className)}
-      {...props}
-    />
-  );
-}
-
-function CardDescription({
-  className,
-  ...props
-}: React.ComponentProps<typeof Text> & React.RefAttributes<Text>) {
-  return <Text className={cn('text-gray-a10 text-sm', className)} {...props} />;
-}
-
-function CardContent({ className, ...props }: ViewProps & React.RefAttributes<View>) {
-  return <View className={cn('px-6', className)} {...props} />;
-}
-
-function CardFooter({ className, ...props }: ViewProps & React.RefAttributes<View>) {
-  return <View className={cn('flex flex-row items-center px-6', className)} {...props} />;
-}
-
-export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle };
+export { Card };
+export type { CardProps, CardVariant };

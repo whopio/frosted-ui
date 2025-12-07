@@ -20,14 +20,7 @@ import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import {
@@ -476,20 +469,41 @@ export default function KitchenSinkScreen() {
 
           {/* Cards Section */}
           <ComponentSection title="Cards">
-            <Card>
-              <CardHeader>
-                <CardTitle>Card Title</CardTitle>
-                <CardDescription>Card description goes here</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Text>This is the card content area. You can put any content here.</Text>
-              </CardContent>
-              <CardFooter>
-                <Button>
-                  <Text>Action</Text>
-                </Button>
-              </CardFooter>
-            </Card>
+            <View className="gap-4">
+              <View className="gap-2">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Surface (default)
+                </Text>
+                <Card variant="surface">
+                  <View className="gap-1.5">
+                    <Heading size="3">Card Title</Heading>
+                    <Text color="gray">Card description goes here</Text>
+                  </View>
+                </Card>
+              </View>
+              <View className="gap-2">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Soft
+                </Text>
+                <Card variant="soft">
+                  <View className="gap-1.5">
+                    <Heading size="3">Card Title</Heading>
+                    <Text color="gray">Card description goes here</Text>
+                  </View>
+                </Card>
+              </View>
+              <View className="gap-2">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Ghost
+                </Text>
+                <Card variant="ghost">
+                  <View className="gap-1.5">
+                    <Heading size="3">Card Title</Heading>
+                    <Text color="gray">Card description goes here</Text>
+                  </View>
+                </Card>
+              </View>
+            </View>
           </ComponentSection>
 
           {/* Alerts Section */}
@@ -688,7 +702,7 @@ export default function KitchenSinkScreen() {
                 </DialogHeader>
                 <DialogFooter>
                   <DialogClose asChild>
-                    <Button variant="outline">
+                    <Button variant="surface">
                       <Text>Cancel</Text>
                     </Button>
                   </DialogClose>
@@ -704,7 +718,7 @@ export default function KitchenSinkScreen() {
           <ComponentSection title="Alert Dialog">
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button variant="destructive">
+                <Button variant="solid" color="red">
                   <Text>Delete Account</Text>
                 </Button>
               </AlertDialogTrigger>
@@ -732,7 +746,7 @@ export default function KitchenSinkScreen() {
           <ComponentSection title="Popover">
             <Popover>
               <PopoverTrigger asChild>
-                <Button variant="outline">
+                <Button variant="surface">
                   <Text>Open Popover</Text>
                 </Button>
               </PopoverTrigger>
@@ -762,7 +776,7 @@ export default function KitchenSinkScreen() {
             <View className="gap-4">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline">
+                  <Button variant="surface">
                     <Text>Open Menu</Text>
                     <Icon as={ChevronDownIcon} />
                   </Button>
@@ -826,7 +840,7 @@ export default function KitchenSinkScreen() {
           <ComponentSection title="Tooltip">
             <HoverCard>
               <HoverCardTrigger asChild>
-                <Button variant="link">
+                <Button variant="ghost" color="blue">
                   <Text>@nextjs</Text>
                 </Button>
               </HoverCardTrigger>
@@ -856,7 +870,7 @@ export default function KitchenSinkScreen() {
           <ComponentSection title="Tooltip">
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button variant="outline">
+                <Button variant="surface">
                   <Text>Hover me</Text>
                 </Button>
               </TooltipTrigger>
@@ -887,9 +901,7 @@ function ComponentSection({ title, children }: { title: string; children: React.
         <Icon as={ChevronRightIcon} className="text-gray-12" />
         <Heading size="3">{title}</Heading>
       </View>
-      <Card>
-        <CardContent className="pt-6">{children}</CardContent>
-      </Card>
+      <Card>{children}</Card>
     </View>
   );
 }
@@ -1036,56 +1048,60 @@ function TabsDemo() {
       </TabsList>
       <TabsContent value="account">
         <Card>
-          <CardHeader>
-            <CardTitle>Account</CardTitle>
-            <CardDescription>
-              Make changes to your account here. Click save when you're done.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="gap-4">
-            <View className="gap-2">
-              <Label nativeID="name">Name</Label>
-              <Input placeholder="Enter your name" aria-labelledby="name" />
+          <View className="gap-6">
+            <View className="gap-1.5">
+              <Heading size="3">Account</Heading>
+              <Text color="gray">
+                Make changes to your account here. Click save when you're done.
+              </Text>
             </View>
-            <View className="gap-2">
-              <Label nativeID="username">Username</Label>
-              <Input placeholder="Enter your username" aria-labelledby="username" />
+            <View className="gap-4">
+              <View className="gap-2">
+                <Label nativeID="name">Name</Label>
+                <Input placeholder="Enter your name" aria-labelledby="name" />
+              </View>
+              <View className="gap-2">
+                <Label nativeID="username">Username</Label>
+                <Input placeholder="Enter your username" aria-labelledby="username" />
+              </View>
             </View>
-          </CardContent>
-          <CardFooter>
-            <Button>
-              <Text>Save changes</Text>
-            </Button>
-          </CardFooter>
+            <View className="flex-row items-center">
+              <Button>
+                <Text>Save changes</Text>
+              </Button>
+            </View>
+          </View>
         </Card>
       </TabsContent>
       <TabsContent value="password">
         <Card>
-          <CardHeader>
-            <CardTitle>Password</CardTitle>
-            <CardDescription>
-              Change your password here. After saving, you'll be logged out.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="gap-4">
-            <View className="gap-2">
-              <Label nativeID="current">Current password</Label>
-              <Input
-                placeholder="Enter current password"
-                secureTextEntry
-                aria-labelledby="current"
-              />
+          <View className="gap-6">
+            <View className="gap-1.5">
+              <Heading size="3">Password</Heading>
+              <Text color="gray">
+                Change your password here. After saving, you'll be logged out.
+              </Text>
             </View>
-            <View className="gap-2">
-              <Label nativeID="new">New password</Label>
-              <Input placeholder="Enter new password" secureTextEntry aria-labelledby="new" />
+            <View className="gap-4">
+              <View className="gap-2">
+                <Label nativeID="current">Current password</Label>
+                <Input
+                  placeholder="Enter current password"
+                  secureTextEntry
+                  aria-labelledby="current"
+                />
+              </View>
+              <View className="gap-2">
+                <Label nativeID="new">New password</Label>
+                <Input placeholder="Enter new password" secureTextEntry aria-labelledby="new" />
+              </View>
             </View>
-          </CardContent>
-          <CardFooter>
-            <Button>
-              <Text>Save password</Text>
-            </Button>
-          </CardFooter>
+            <View className="flex-row items-center">
+              <Button>
+                <Text>Save password</Text>
+              </Button>
+            </View>
+          </View>
         </Card>
       </TabsContent>
     </Tabs>
@@ -1131,7 +1147,7 @@ function DropdownMenuDemo() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">
+        <Button variant="surface">
           <Text>Preferences</Text>
           <Icon as={ChevronDownIcon} />
         </Button>
@@ -1164,7 +1180,7 @@ function HoverCardDemo() {
   return (
     <HoverCard>
       <HoverCardTrigger asChild>
-        <Button variant="link">
+        <Button variant="ghost" color="blue">
           <Text>@nextjs</Text>
         </Button>
       </HoverCardTrigger>
@@ -1202,7 +1218,7 @@ function CollapsibleDemo() {
             @peduarte starred 3 repositories
           </Text>
           <CollapsibleTrigger asChild>
-            <Button variant="ghost" size="sm">
+            <Button variant="ghost" size="2">
               <Icon as={ChevronDownIcon} className={isOpen ? 'rotate-180' : ''} />
             </Button>
           </CollapsibleTrigger>
@@ -1287,8 +1303,8 @@ function ThemeToggle() {
   return (
     <Button
       onPressIn={toggleColorScheme}
-      size="icon"
-      variant="ghost"
+      size="4"
+      variant="surface"
       className="ios:size-9 rounded-full web:mx-4">
       <Icon as={THEME_ICONS[colorScheme ?? 'light']} className="size-5" />
     </Button>
