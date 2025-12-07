@@ -722,10 +722,45 @@ export default function KitchenSinkScreen() {
 
           {/* Switch Section */}
           <ComponentSection title="Switch">
-            <View className="gap-4">
-              <SwitchItem label="Enable notifications" />
-              <SwitchItem label="Dark mode" defaultChecked />
-              <SwitchItem label="Disabled switch" disabled />
+            <View className="gap-6">
+              {/* Sizes */}
+              <View className="gap-2">
+                <Text size="2" weight="medium">
+                  Sizes
+                </Text>
+                <View className="flex-row items-center gap-6">
+                  <SwitchItem size="1" defaultChecked />
+                  <SwitchItem size="2" defaultChecked />
+                  <SwitchItem size="3" defaultChecked />
+                </View>
+              </View>
+
+              {/* Colors */}
+              <View className="gap-2">
+                <Text size="2" weight="medium">
+                  Colors
+                </Text>
+                <View className="flex-row flex-wrap gap-6">
+                  <SwitchItem color="blue" defaultChecked />
+                  <SwitchItem color="green" defaultChecked />
+                  <SwitchItem color="red" defaultChecked />
+                  <SwitchItem color="purple" defaultChecked />
+                  <SwitchItem color="gray" defaultChecked />
+                </View>
+              </View>
+
+              {/* States */}
+              <View className="gap-2">
+                <Text size="2" weight="medium">
+                  States
+                </Text>
+                <View className="gap-3">
+                  <SwitchItem label="Unchecked" />
+                  <SwitchItem label="Checked" defaultChecked />
+                  <SwitchItem label="Disabled unchecked" disabled />
+                  <SwitchItem label="Disabled checked" disabled defaultChecked />
+                </View>
+              </View>
             </View>
           </ComponentSection>
 
@@ -1127,21 +1162,28 @@ function SwitchItem({
   label,
   defaultChecked = false,
   disabled = false,
+  size,
+  color,
 }: {
-  label: string;
+  label?: string;
   defaultChecked?: boolean;
   disabled?: boolean;
+  size?: '1' | '2' | '3';
+  color?: 'blue' | 'green' | 'red' | 'purple' | 'gray';
 }) {
   const [checked, setChecked] = React.useState(defaultChecked);
+  const id = label?.replace(/\s+/g, '-').toLowerCase();
   return (
-    <View className="flex-row items-center justify-between">
-      <Label nativeID={label.replace(/\s+/g, '-').toLowerCase()}>{label}</Label>
+    <View className="flex-row items-center gap-3">
       <Switch
         checked={checked}
         onCheckedChange={setChecked}
         disabled={disabled}
-        aria-labelledby={label.replace(/\s+/g, '-').toLowerCase()}
+        size={size}
+        color={color}
+        aria-labelledby={id}
       />
+      {label && <Label nativeID={id}>{label}</Label>}
     </View>
   );
 }
