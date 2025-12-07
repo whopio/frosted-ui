@@ -69,6 +69,7 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Progress } from '@/components/ui/progress';
 import { RadioGroup } from '@/components/ui/radio-group';
+import { SegmentedControl } from '@/components/ui/segmented-control';
 import {
   Select,
   SelectContent,
@@ -1085,6 +1086,11 @@ export default function KitchenSinkScreen() {
             <TabsDemo />
           </ComponentSection>
 
+          {/* SegmentedControl Section */}
+          <ComponentSection title="SegmentedControl">
+            <SegmentedControlDemo />
+          </ComponentSection>
+
           {/* Dialog Section */}
           <ComponentSection title="Dialog">
             <Dialog>
@@ -1556,6 +1562,34 @@ function TabsDemo() {
         </Tabs.Root>
       </View>
     </View>
+  );
+}
+
+function SegmentedControlDemo() {
+  const [value, setValue] = React.useState('account');
+
+  return (
+    <SegmentedControl.Root value={value} onValueChange={setValue}>
+      <SegmentedControl.List>
+        <SegmentedControl.Trigger value="account">Account</SegmentedControl.Trigger>
+        <SegmentedControl.Trigger value="documents">Documents</SegmentedControl.Trigger>
+        <SegmentedControl.Trigger value="settings">Settings</SegmentedControl.Trigger>
+      </SegmentedControl.List>
+
+      <View style={{ paddingTop: 12, paddingHorizontal: 4 }}>
+        <SegmentedControl.Content value="account">
+          <Text size="2">Your account.</Text>
+        </SegmentedControl.Content>
+
+        <SegmentedControl.Content value="documents">
+          <Text size="2">Your documents.</Text>
+        </SegmentedControl.Content>
+
+        <SegmentedControl.Content value="settings">
+          <Text size="2">Your settings.</Text>
+        </SegmentedControl.Content>
+      </View>
+    </SegmentedControl.Root>
   );
 }
 

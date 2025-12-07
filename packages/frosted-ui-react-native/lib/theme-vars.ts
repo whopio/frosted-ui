@@ -182,12 +182,37 @@ const darkPalettes: Record<AccentColor, ColorShades> = accentColors.reduce(
 
 // Resolve overlay / stroke from raw color palettes so native can use real values
 const blackA = frostedColors.blackA as Record<string, string> | undefined;
+const whiteA = frostedColors.whiteA as Record<string, string> | undefined;
 const grayDark = frostedColors.grayDark as Record<string, string> | undefined;
+
+// Build black and white alpha palettes (same for light and dark mode)
+type AlphaOnlyShades = { [K in AlphaShadeKey]: string };
+
+function buildAlphaPalette(
+  alphaColors: Record<string, string> | undefined,
+  prefix: string
+): AlphaOnlyShades {
+  const result: Partial<AlphaOnlyShades> = {};
+  (
+    ['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8', 'a9', 'a10', 'a11', 'a12'] as AlphaShadeKey[]
+  ).forEach((aShade) => {
+    const numeric = aShade.slice(1);
+    const key = `${prefix}A${numeric}`;
+    result[aShade] = alphaColors?.[key] ?? '';
+  });
+  return result as AlphaOnlyShades;
+}
+
+const blackAlpha = buildAlphaPalette(blackA, 'black');
+const whiteAlpha = buildAlphaPalette(whiteA, 'white');
 
 export const themeVars = {
   typography,
   fontWeights,
   colors: {
+    // Black and white alpha palettes (same in light and dark mode)
+    black: blackAlpha,
+    white: whiteAlpha,
     light: {
       palettes: lightPalettes,
       background: 'white',
