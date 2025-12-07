@@ -28,7 +28,7 @@ function resolveAccentFromColor(color?: Color): AccentColor {
 // Size styles from CSS:
 // Size 1: --checkbox-size: var(--space-4) = 16px, border-radius: var(--radius-2) = 4px
 // Size 2: --checkbox-size: calc(var(--space-4) * 1.25) = 20px, border-radius: var(--radius-3) = 6px
-// Size 3: --checkbox-size: var(--space-5) = 20px, border-radius: var(--radius-3) = 6px
+// Size 3: --checkbox-size: var(--space-5) = 24px, border-radius: var(--radius-3) = 6px
 function getSizeStyle(size: CheckboxSize): {
   boxSize: number;
   borderRadius: number;
@@ -40,7 +40,7 @@ function getSizeStyle(size: CheckboxSize): {
     case '2':
       return { boxSize: 20, borderRadius: 6, iconSize: 14 };
     case '3':
-      return { boxSize: 20, borderRadius: 6, iconSize: 16 };
+      return { boxSize: 24, borderRadius: 6, iconSize: 18 };
   }
 }
 

@@ -68,7 +68,7 @@ import {
 } from '@/components/ui/menubar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Progress } from '@/components/ui/progress';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { RadioGroup } from '@/components/ui/radio-group';
 import {
   Select,
   SelectContent,
@@ -692,7 +692,32 @@ export default function KitchenSinkScreen() {
 
           {/* Radio Group Section */}
           <ComponentSection title="Radio Group">
-            <RadioGroupDemo />
+            <View className="gap-6">
+              {/* Sizes */}
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Sizes
+                </Text>
+                <View className="flex-row gap-6">
+                  <RadioGroupDemo size="1" color="blue" />
+                  <RadioGroupDemo size="2" color="blue" />
+                  <RadioGroupDemo size="3" color="blue" />
+                </View>
+              </View>
+
+              {/* Colors */}
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Colors
+                </Text>
+                <View className="flex-row flex-wrap gap-6">
+                  <RadioGroupDemo size="2" color="blue" />
+                  <RadioGroupDemo size="2" color="green" />
+                  <RadioGroupDemo size="2" color="red" />
+                  <RadioGroupDemo size="2" color="purple" />
+                </View>
+              </View>
+            </View>
           </ComponentSection>
 
           {/* Switch Section */}
@@ -1073,23 +1098,28 @@ function CheckboxItem({
   );
 }
 
-function RadioGroupDemo() {
-  const [value, setValue] = React.useState('comfortable');
+function RadioGroupDemo({
+  size,
+  color,
+}: {
+  size?: '1' | '2' | '3';
+  color?: 'blue' | 'green' | 'red' | 'purple';
+}) {
+  const [value, setValue] = React.useState('option1');
+  const id = `radio-${size}-${color}`;
   return (
-    <RadioGroup value={value} onValueChange={setValue} className="gap-3">
-      <View className="flex-row items-center gap-2">
-        <RadioGroupItem aria-labelledby="default-radio" value="default" />
-        <Label nativeID="default-radio">Default</Label>
+    <RadioGroup.Root value={value} onValueChange={setValue} size={size} color={color}>
+      <View className="gap-2">
+        <View className="flex-row items-center gap-2">
+          <RadioGroup.Item aria-labelledby={`${id}-1`} value="option1" />
+          <Label nativeID={`${id}-1`}>Option 1</Label>
+        </View>
+        <View className="flex-row items-center gap-2">
+          <RadioGroup.Item aria-labelledby={`${id}-2`} value="option2" />
+          <Label nativeID={`${id}-2`}>Option 2</Label>
+        </View>
       </View>
-      <View className="flex-row items-center gap-2">
-        <RadioGroupItem aria-labelledby="comfortable-radio" value="comfortable" />
-        <Label nativeID="comfortable-radio">Comfortable</Label>
-      </View>
-      <View className="flex-row items-center gap-2">
-        <RadioGroupItem aria-labelledby="compact-radio" value="compact" />
-        <Label nativeID="compact-radio">Compact</Label>
-      </View>
-    </RadioGroup>
+    </RadioGroup.Root>
   );
 }
 
