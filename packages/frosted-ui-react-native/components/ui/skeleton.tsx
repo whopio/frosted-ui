@@ -9,7 +9,6 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withRepeat,
-  withSequence,
   withTiming,
 } from 'react-native-reanimated';
 
@@ -58,13 +57,11 @@ function usePulseAnimation() {
     // Skip on web - we use CSS animations there
     if (Platform.OS === 'web') return;
 
+    // Use withRepeat with reverse=true for smooth looping: 1 → 0.5 → 1 → 0.5 → ...
     opacity.value = withRepeat(
-      withSequence(
-        withTiming(0.5, { duration: 1000, easing: Easing.bezier(0.4, 0, 0.6, 1) }),
-        withTiming(1, { duration: 1000, easing: Easing.bezier(0.4, 0, 0.6, 1) })
-      ),
+      withTiming(0.5, { duration: 1000, easing: Easing.bezier(0.4, 0, 0.6, 1) }),
       -1, // Infinite repeat
-      false // Don't reverse
+      true // Reverse on each iteration
     );
   }, [opacity]);
 
