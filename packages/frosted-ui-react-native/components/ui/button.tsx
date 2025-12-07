@@ -1,94 +1,38 @@
-import { TextClassContext } from '@/components/ui/text';
-import { getAccentColorTheme } from '@/lib/color-utils';
+import { TextStyleContext } from '@/components/ui/text';
+import { themeVars } from '@/lib/theme-vars';
 import type { AccentColor, Color } from '@/lib/types';
 import { cn } from '@/lib/utils';
-import { cva } from 'class-variance-authority';
 import * as React from 'react';
-import { Platform, Pressable, View, type ViewStyle } from 'react-native';
+import { Pressable, View, type StyleProp, type ViewStyle } from 'react-native';
 
 const buttonSizes = ['1', '2', '3', '4'] as const;
 const buttonVariants = ['solid', 'soft', 'surface', 'ghost'] as const;
 
-const buttonVariantsCva = cva(
-  cn(
-    'group shrink-0 flex-row items-center justify-center gap-2',
-    '[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:text-current',
-    Platform.select({
-      web: "focus-visible:outline-accent-a8 whitespace-nowrap outline-none transition-all focus-visible:outline-2 focus-visible:outline-offset-2 disabled:pointer-events-none disabled:cursor-not-allowed [&_svg:not([class*='size-'])]:size-4",
-    })
-  ),
-  {
-    variants: {
-      variant: {
-        solid: cn(
-          'bg-accent-9 active:bg-accent-10 disabled:bg-gray-a3',
-          Platform.select({
-            web: 'hover:bg-accent-10 active:[filter:brightness(0.92)_saturate(1.1)] disabled:filter-none dark:active:[filter:brightness(1.08)]',
-          })
-        ),
-        soft: cn(
-          'bg-accent-a3 active:bg-accent-a5 disabled:bg-gray-a3',
-          Platform.select({ web: 'hover:bg-accent-a4' })
-        ),
-        surface: cn(
-          'bg-panel-solid border-stroke active:bg-gray-a3 disabled:bg-gray-a2 disabled:border-gray-a6 border shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] active:shadow-none disabled:shadow-none',
-          Platform.select({
-            web: 'hover:border-gray-a7',
-          })
-        ),
-        ghost: cn(
-          'active:bg-accent-a4 disabled:bg-transparent',
-          Platform.select({ web: 'hover:bg-accent-a3' })
-        ),
-      },
-      size: {
-        '1': 'h-6 gap-1 rounded-[6px] px-2',
-        '2': 'h-8 gap-2 rounded-[8px] px-3',
-        '3': 'h-10 gap-3 rounded-[10px] px-4',
-        '4': 'h-12 gap-3 rounded-[14px] px-6',
-      },
-    },
-    defaultVariants: {
-      variant: 'surface',
-      size: '2',
-    },
-  }
-);
-
-const buttonTextVariants = cva('font-medium', {
-  variants: {
-    variant: {
-      solid: 'text-accent-9-contrast',
-      soft: 'text-accent-a11',
-      surface: 'text-accent-a11',
-      ghost: 'text-accent-a11',
-    },
-    size: {
-      '1': 'text-1',
-      '2': 'text-2',
-      '3': 'text-3',
-      '4': 'text-4',
-    },
-    disabled: {
-      true: 'text-gray-a8',
-      false: '',
-    },
-  },
-  defaultVariants: {
-    variant: 'surface',
-    size: '2',
-    disabled: false,
-  },
-});
-
 type ButtonSize = (typeof buttonSizes)[number];
 type ButtonVariant = (typeof buttonVariants)[number];
 
-type ButtonProps = React.ComponentProps<typeof Pressable> & {
+type ButtonProps = Omit<React.ComponentProps<typeof Pressable>, 'style'> & {
   size?: ButtonSize;
   variant?: ButtonVariant;
   color?: Color;
+  style?: StyleProp<ViewStyle>;
 };
+
+function resolveAccentFromColor(color?: Color): AccentColor {
+  if (!color) return 'blue';
+  switch (color) {
+    case 'danger':
+      return 'red';
+    case 'warning':
+      return 'amber';
+    case 'success':
+      return 'green';
+    case 'info':
+      return 'blue';
+    default:
+      return color as AccentColor;
+  }
+}
 
 function Button({
   className,
@@ -97,46 +41,143 @@ function Button({
   color,
   style,
   disabled,
-  ...props
+  children,
+  onPressIn,
+  onPressOut,
+  ...pressableProps
 }: ButtonProps) {
-  const isAccentColor = color && !['danger', 'warning', 'success', 'info'].includes(color);
+  const [pressed, setPressed] = React.useState(false);
+  const accentColor = resolveAccentFromColor(color);
 
-  // Get the accent theme - wrap in View to make CSS variables available to children
-  // This is critical on native where CSS variables set on a component aren't accessible to Tailwind classes
-  const accentTheme = isAccentColor
-    ? (getAccentColorTheme(color as AccentColor) as ViewStyle)
-    : undefined;
+  const palette = themeVars.colors.light.palettes[accentColor];
+  const gray = themeVars.colors.light.palettes.gray;
 
-  // For surface variant with gray color, use accent-12 instead of accent-a11
-  const baseTextClass = buttonTextVariants({ variant, size, disabled: !!disabled });
-  const textColorClass =
-    variant === 'surface' && color === 'gray' && !disabled
-      ? baseTextClass.replace('text-accent-a11', 'text-accent-12')
-      : baseTextClass;
+  const textColor =
+    disabled && gray.a8
+      ? gray.a8
+      : variant === 'solid'
+        ? palette['9-contrast']
+        : palette.a11 || palette['11'];
 
-  const buttonContent = (
-    <TextClassContext.Provider value={textColorClass}>
-      <Pressable
-        className={cn(buttonVariantsCva({ variant, size }), className)}
-        style={style}
-        role="button"
-        disabled={disabled}
-        {...props}
-      />
-    </TextClassContext.Provider>
-  );
+  // Base layout
+  const baseStyle: ViewStyle = {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  };
 
-  // Wrap in View with accentTheme to make CSS variables available to all children
-  // This ensures Tailwind classes like bg-accent-9 and text-accent-11 can access the CSS variables
-  // The View is layout-neutral (no flex, no size constraints) so it doesn't affect button layout
-  if (accentTheme) {
-    return (
-      <View style={[accentTheme, { flexShrink: 0, alignSelf: 'flex-start' }]}>{buttonContent}</View>
-    );
+  // Size styles
+  const sizeStyle: ViewStyle =
+    size === '1'
+      ? { height: 24, paddingHorizontal: 8, borderRadius: 6 }
+      : size === '2'
+        ? { height: 32, paddingHorizontal: 12, borderRadius: 8 }
+        : size === '3'
+          ? { height: 40, paddingHorizontal: 16, borderRadius: 10 }
+          : { height: 48, paddingHorizontal: 24, borderRadius: 14 };
+
+  // Variant background / border, including pressed state
+  let backgroundColor: string | undefined;
+  let borderColor: string | undefined;
+  let borderWidth: number | undefined;
+
+  if (disabled) {
+    switch (variant) {
+      case 'solid':
+      case 'soft':
+        backgroundColor = gray.a3;
+        break;
+      case 'surface':
+        backgroundColor = gray.a2;
+        borderColor = gray.a6;
+        borderWidth = 1;
+        break;
+      case 'ghost':
+        backgroundColor = 'transparent';
+        break;
+    }
+  } else {
+    switch (variant) {
+      case 'solid':
+        backgroundColor = pressed ? palette['10'] : palette['9'];
+        break;
+      case 'soft':
+        backgroundColor = pressed ? palette.a5 : palette.a3;
+        break;
+      case 'surface':
+        backgroundColor = pressed
+          ? themeVars.colors.light.surface
+          : themeVars.colors.light.panelSolid;
+        borderColor = themeVars.colors.light.stroke;
+        borderWidth = 1;
+        break;
+      case 'ghost':
+        backgroundColor = pressed ? palette.a4 : undefined;
+        break;
+    }
   }
 
-  return buttonContent;
+  const variantStyle: ViewStyle = {
+    backgroundColor,
+    borderColor,
+    borderWidth,
+  };
+
+  const surfaceShadow: ViewStyle | undefined =
+    !disabled && !pressed && variant === 'surface'
+      ? {
+          shadowColor: '#000000',
+          shadowOpacity: 0.05,
+          shadowOffset: { width: 0, height: 1 },
+          shadowRadius: 2,
+          elevation: 2,
+        }
+      : undefined;
+
+  const combinedStyle: ViewStyle = {
+    ...baseStyle,
+    ...sizeStyle,
+    ...variantStyle,
+    ...surfaceShadow,
+  };
+
+  const handlePressIn = React.useCallback(
+    (e: Parameters<NonNullable<typeof onPressIn>>[0]) => {
+      setPressed(true);
+      onPressIn?.(e);
+    },
+    [onPressIn]
+  );
+
+  const handlePressOut = React.useCallback(
+    (e: Parameters<NonNullable<typeof onPressOut>>[0]) => {
+      setPressed(false);
+      onPressOut?.(e);
+    },
+    [onPressOut]
+  );
+
+  return (
+    <View className={cn(className)} style={style}>
+      <TextStyleContext.Provider
+        value={{
+          size: size as '1' | '2' | '3' | '4',
+          weight: 'medium',
+          color: textColor,
+        }}>
+        <Pressable
+          style={combinedStyle}
+          role="button"
+          disabled={disabled}
+          onPressIn={handlePressIn}
+          onPressOut={handlePressOut}
+          {...pressableProps}>
+          {children}
+        </Pressable>
+      </TextStyleContext.Provider>
+    </View>
+  );
 }
 
-export { Button, buttonTextVariants, buttonVariantsCva };
+export { Button };
 export type { ButtonProps };
