@@ -100,9 +100,12 @@ function Switch({
   // Track state-based styles
   let trackStateStyle: ViewStyle;
   if (disabled) {
+    // Disabled state - same inset shadow as unchecked
     trackStateStyle = {
       backgroundColor: gray.a3,
-      opacity: 0.5,
+      ...(Platform.OS === 'web' && {
+        boxShadow: `inset 0 0 0 1px ${gray.a3}, inset 0 1.5px 2px 0 ${gray.a2}`,
+      }),
     };
   } else if (checked) {
     // Checked state - accent background with inset shadow for inner border
@@ -151,11 +154,12 @@ function Switch({
   // Thumb shadow based on state
   let thumbShadowStyle: ViewStyle;
   if (disabled) {
+    // Disabled thumb - visible border like other states
     thumbShadowStyle = {
       backgroundColor: gray['2'],
       ...(Platform.OS === 'web'
         ? {
-            boxShadow: `0 0 0 1px ${gray.a2}, 0 1px 3px rgba(0,0,0,0.05)`,
+            boxShadow: `0 0 0 1px ${gray.a3}, 0 1px 3px rgba(0,0,0,0.05)`,
           }
         : {
             shadowColor: '#000',
