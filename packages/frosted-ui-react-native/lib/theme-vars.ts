@@ -182,9 +182,7 @@ const darkPalettes: Record<AccentColor, ColorShades> = accentColors.reduce(
 
 // Resolve overlay / stroke from raw color palettes so native can use real values
 const blackA = frostedColors.blackA as Record<string, string> | undefined;
-const grayA = frostedColors.grayA as Record<string, string> | undefined;
 const grayDark = frostedColors.grayDark as Record<string, string> | undefined;
-const grayDarkA = frostedColors.grayDarkA as Record<string, string> | undefined;
 
 export const themeVars = {
   typography,
@@ -197,7 +195,7 @@ export const themeVars = {
       panelSolid: 'white',
       panelTranslucent: 'rgba(255, 255, 255, 0.85)',
       surface: 'rgba(255, 255, 255, 0.9)',
-      stroke: grayA?.grayA5 ?? 'rgba(15, 23, 42, 0.35)',
+      stroke: lightPalettes.gray.a5,
     },
     dark: {
       palettes: darkPalettes,
@@ -206,7 +204,7 @@ export const themeVars = {
       panelSolid: grayDark?.gray2 ?? '#181818',
       panelTranslucent: '#1D1D1DD9', // --gray-2-translucent
       surface: 'rgba(0, 0, 0, 0.25)',
-      stroke: grayDarkA?.grayDarkA4 ?? 'rgba(148, 163, 184, 0.4)',
+      stroke: darkPalettes.gray.a4,
     },
   },
 };
