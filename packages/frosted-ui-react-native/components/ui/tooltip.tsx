@@ -1,64 +1,95 @@
 import { NativeOnlyAnimatedView } from '@/components/ui/native-only-animated-view';
-import { TextClassContext } from '@/components/ui/text';
-import { cn } from '@/lib/utils';
+import { Text } from '@/components/ui/text';
+import { useThemeVars } from '@/lib/use-theme-vars';
 import * as TooltipPrimitive from '@rn-primitives/tooltip';
 import * as React from 'react';
-import { Platform, StyleSheet } from 'react-native';
-import { FadeInDown, FadeInUp, FadeOut } from 'react-native-reanimated';
+import { Platform, StyleSheet, View, type ViewStyle } from 'react-native';
+import { FadeIn, FadeOut } from 'react-native-reanimated';
 import { FullWindowOverlay as RNFullWindowOverlay } from 'react-native-screens';
-
-const Tooltip = TooltipPrimitive.Root;
-
-const TooltipTrigger = TooltipPrimitive.Trigger;
 
 const FullWindowOverlay = Platform.OS === 'ios' ? RNFullWindowOverlay : React.Fragment;
 
-function TooltipContent({
-  className,
+interface TooltipProps extends Omit<TooltipPrimitive.RootProps, 'delayDuration'> {
+  /** The content to display in the tooltip */
+  content: React.ReactNode;
+  /** The trigger element */
+  children: React.ReactNode;
+  /** Delay before showing tooltip (ms) */
+  delayDuration?: number;
+  /** Side offset from trigger */
+  sideOffset?: number;
+  /** Which side to show tooltip */
+  side?: 'top' | 'bottom' | 'left' | 'right';
+  /** Portal host name */
+  portalHost?: string;
+}
+
+/**
+ * Tooltip component matching web version.
+ * Uses reversed theme appearance (light mode shows dark tooltip, dark mode shows light tooltip).
+ */
+function Tooltip({
+  children,
+  content,
+  delayDuration = 400,
   sideOffset = 4,
-  portalHost,
   side = 'top',
-  ...props
-}: TooltipPrimitive.ContentProps &
-  React.RefAttributes<TooltipPrimitive.ContentRef> & {
-    portalHost?: string;
-  }) {
+  portalHost,
+  ...rootProps
+}: TooltipProps) {
+  const { invertedColors } = useThemeVars();
+
+  // Use inverted theme colors - tooltip shows opposite of current theme
+  const backgroundColor = invertedColors.background;
+  const textColor = invertedColors.palettes.gray['12'];
+
+  // Shadow style
+  const shadowStyle: ViewStyle = Platform.select({
+    web: {
+      boxShadow: `
+        0 4px 16px -8px rgba(0, 0, 0, 0.08),
+        0 3px 12px -4px rgba(0, 0, 0, 0.05),
+        0 2px 3px -2px rgba(0, 0, 61, 0.05)
+      `.trim(),
+    } as ViewStyle,
+    default: {
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.1,
+      shadowRadius: 8,
+      elevation: 4,
+    },
+  }) as ViewStyle;
+
+  const contentStyle: ViewStyle = {
+    backgroundColor,
+    paddingVertical: 4, // space-1
+    paddingHorizontal: 8, // space-2
+    borderRadius: 10, // radius-4
+    ...shadowStyle,
+  };
+
   return (
-    <TooltipPrimitive.Portal hostName={portalHost}>
-      <FullWindowOverlay>
-        <TooltipPrimitive.Overlay style={Platform.select({ native: StyleSheet.absoluteFill })}>
-          <NativeOnlyAnimatedView
-            entering={
-              side === 'top'
-                ? FadeInDown.withInitialValues({ transform: [{ translateY: 3 }] }).duration(150)
-                : FadeInUp.withInitialValues({ transform: [{ translateY: -5 }] })
-            }
-            exiting={FadeOut}>
-            <TextClassContext.Provider value="text-xs text-gray-12-foreground">
-              <TooltipPrimitive.Content
-                sideOffset={sideOffset}
-                className={cn(
-                  'z-50 rounded-md bg-primary px-3 py-2 sm:py-1.5',
-                  Platform.select({
-                    web: cn(
-                      'origin-(--radix-tooltip-content-transform-origin) w-fit text-balance animate-in fade-in-0 zoom-in-95',
-                      side === 'bottom' && 'slide-in-from-top-2',
-                      side === 'left' && 'slide-in-from-right-2',
-                      side === 'right' && 'slide-in-from-left-2',
-                      side === 'top' && 'slide-in-from-bottom-2'
-                    ),
-                  }),
-                  className
-                )}
-                side={side}
-                {...props}
-              />
-            </TextClassContext.Provider>
-          </NativeOnlyAnimatedView>
-        </TooltipPrimitive.Overlay>
-      </FullWindowOverlay>
-    </TooltipPrimitive.Portal>
+    <TooltipPrimitive.Root delayDuration={delayDuration} {...rootProps}>
+      <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
+      <TooltipPrimitive.Portal hostName={portalHost}>
+        <FullWindowOverlay>
+          <TooltipPrimitive.Overlay style={Platform.select({ native: StyleSheet.absoluteFill })}>
+            <NativeOnlyAnimatedView entering={FadeIn.duration(100)} exiting={FadeOut.duration(100)}>
+              <TooltipPrimitive.Content sideOffset={sideOffset} side={side}>
+                <View style={contentStyle}>
+                  <Text size="2" style={{ color: textColor }}>
+                    {content}
+                  </Text>
+                </View>
+              </TooltipPrimitive.Content>
+            </NativeOnlyAnimatedView>
+          </TooltipPrimitive.Overlay>
+        </FullWindowOverlay>
+      </TooltipPrimitive.Portal>
+    </TooltipPrimitive.Root>
   );
 }
 
-export { Tooltip, TooltipContent, TooltipTrigger };
+export { Tooltip };
+export type { TooltipProps };

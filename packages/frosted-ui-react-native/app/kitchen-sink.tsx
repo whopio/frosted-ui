@@ -85,7 +85,7 @@ import { Text } from '@/components/ui/text';
 import { Textarea } from '@/components/ui/textarea';
 import { Toggle } from '@/components/ui/toggle';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { Tooltip } from '@/components/ui/tooltip';
 import { Stack } from 'expo-router';
 import {
   AlertCircleIcon,
@@ -1327,16 +1327,25 @@ export default function KitchenSinkScreen() {
 
           {/* Tooltip Section */}
           <ComponentSection title="Tooltip">
-            <Tooltip>
-              <TooltipTrigger asChild>
+            <View className="flex-row gap-4">
+              <Tooltip content="Add to library">
                 <Button variant="surface">
                   <Text>Hover me</Text>
                 </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <Text>Add to library</Text>
-              </TooltipContent>
-            </Tooltip>
+              </Tooltip>
+
+              <Tooltip content="This is a longer tooltip message" side="bottom">
+                <Button variant="soft">
+                  <Text>Bottom tooltip</Text>
+                </Button>
+              </Tooltip>
+
+              <Tooltip content="Quick tip!" delayDuration={100}>
+                <Button variant="ghost">
+                  <Text>Fast tooltip</Text>
+                </Button>
+              </Tooltip>
+            </View>
           </ComponentSection>
 
           {/* Collapsible Section */}
