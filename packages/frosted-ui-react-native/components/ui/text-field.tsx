@@ -38,6 +38,8 @@ interface TextFieldContextValue {
   variant: TextFieldVariant;
   color: ReturnType<typeof resolveAccentFromColor>;
   disabled?: boolean;
+  onFocus?: () => void;
+  onBlur?: () => void;
 }
 
 const TextFieldContext = React.createContext<TextFieldContextValue | undefined>(undefined);
@@ -85,6 +87,7 @@ interface TextFieldRootProps extends ViewProps {
   variant?: TextFieldVariant;
   color?: Color;
   disabled?: boolean;
+  focused?: boolean; // Optional prop to control focus from outside
   children: React.ReactNode;
 }
 
@@ -93,12 +96,15 @@ function TextFieldRoot({
   variant = 'surface',
   color = 'gray',
   disabled = false,
+  focused: focusedProp,
   style,
   children,
   ...props
 }: TextFieldRootProps) {
   const { colors } = useThemeVars();
   const accentColor = resolveAccentFromColor(color);
+  const [internalFocused, setInternalFocused] = React.useState(false);
+  const focused = focusedProp !== undefined ? focusedProp : internalFocused;
 
   const sizeStyle = getSizeStyle(size);
 
@@ -122,16 +128,34 @@ function TextFieldRoot({
     }
   }
 
+  // Focus outline (web only)
+  const focusStyle: ViewStyle | undefined =
+    focused && !disabled && Platform.OS === 'web'
+      ? ({
+          outline: `2px solid ${colors.palettes[accentColor].a8}`,
+          outlineOffset: -1,
+        } as ViewStyle)
+      : undefined;
+
   const rootStyle: ViewStyle = {
     flexDirection: 'row',
     alignItems: 'center',
     height: sizeStyle.height,
     borderRadius: sizeStyle.borderRadius,
     ...variantStyle,
+    ...focusStyle,
   };
 
   return (
-    <TextFieldContext.Provider value={{ size, variant, color: accentColor, disabled }}>
+    <TextFieldContext.Provider
+      value={{
+        size,
+        variant,
+        color: accentColor,
+        disabled,
+        onFocus: () => setInternalFocused(true),
+        onBlur: () => setInternalFocused(false),
+      }}>
       <View style={[rootStyle, style]} {...props}>
         {children}
       </View>
@@ -241,11 +265,34 @@ function TextFieldInput({
   // If no context (no Root), wrap in Root
   const hasRoot = context !== undefined;
 
+  // When no root, manage focus state locally and pass to Root
+  const [localFocused, setLocalFocused] = React.useState(false);
+
+  const handleFocus: TextInputProps['onFocus'] = (e) => {
+    if (hasRoot) {
+      context?.onFocus?.();
+    } else {
+      setLocalFocused(true);
+    }
+    props.onFocus?.(e);
+  };
+
+  const handleBlur: TextInputProps['onBlur'] = (e) => {
+    if (hasRoot) {
+      context?.onBlur?.();
+    } else {
+      setLocalFocused(false);
+    }
+    props.onBlur?.(e);
+  };
+
   const input = (
     <TextInput
       style={[inputStyle, style]}
       placeholderTextColor={placeholderColor}
       editable={editable}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
       {...props}
     />
   );
@@ -254,8 +301,14 @@ function TextFieldInput({
     return input;
   }
 
+  // When no root, create one with focus state management
   return (
-    <TextFieldRoot size={size} variant={variant} color={color} disabled={disabled}>
+    <TextFieldRoot
+      size={size}
+      variant={variant}
+      color={color}
+      disabled={disabled}
+      focused={localFocused}>
       {input}
     </TextFieldRoot>
   );

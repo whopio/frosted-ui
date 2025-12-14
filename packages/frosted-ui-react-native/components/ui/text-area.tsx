@@ -102,6 +102,7 @@ function TextArea({
   const accentColor = resolveAccentFromColor(color);
   const sizeStyle = getTextAreaSizeStyle(size);
   const disabled = editable === false;
+  const [focused, setFocused] = React.useState(false);
 
   // Variant styles
   let variantStyle =
@@ -123,6 +124,15 @@ function TextArea({
     }
   }
 
+  // Focus outline (web only)
+  const focusStyle: ViewStyle | undefined =
+    focused && !disabled && Platform.OS === 'web'
+      ? ({
+          outline: `2px solid ${colors.palettes[accentColor].a8}`,
+          outlineOffset: -1,
+        } as ViewStyle)
+      : undefined;
+
   // Text and placeholder colors
   const { textColor, placeholderColor } = getTextInputColors(
     variant,
@@ -136,6 +146,7 @@ function TextArea({
     minHeight: sizeStyle.minHeight,
     borderRadius: sizeStyle.borderRadius,
     ...variantStyle,
+    ...focusStyle,
   };
 
   const inputStyle: TextStyle = {
@@ -155,6 +166,16 @@ function TextArea({
       : {}),
   };
 
+  const handleFocus: TextInputProps['onFocus'] = (e) => {
+    setFocused(true);
+    props.onFocus?.(e);
+  };
+
+  const handleBlur: TextInputProps['onBlur'] = (e) => {
+    setFocused(false);
+    props.onBlur?.(e);
+  };
+
   return (
     <View style={rootStyle}>
       <TextInput
@@ -162,6 +183,8 @@ function TextArea({
         placeholderTextColor={placeholderColor}
         editable={editable}
         multiline
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         {...props}
       />
     </View>
