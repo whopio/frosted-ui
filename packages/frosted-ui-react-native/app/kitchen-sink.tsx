@@ -82,6 +82,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Switch } from '@/components/ui/switch';
 import { Tabs } from '@/components/ui/tabs';
 import { Text } from '@/components/ui/text';
+import { TextField } from '@/components/ui/text-field';
 import { Textarea } from '@/components/ui/textarea';
 import { Toggle } from '@/components/ui/toggle';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
@@ -101,6 +102,7 @@ import {
   MailIcon,
   MoonStarIcon,
   RocketIcon,
+  SearchIcon,
   SettingsIcon,
   SunIcon,
   UnderlineIcon,
@@ -623,8 +625,74 @@ export default function KitchenSinkScreen() {
             </View>
           </ComponentSection>
 
+          {/* TextField Section */}
+          <ComponentSection title="TextField">
+            <View className="gap-6">
+              {/* Variants */}
+              <View className="gap-3">
+                <Text size="2" weight="medium" color="gray">
+                  Variants
+                </Text>
+                <TextField.Input placeholder="Surface variant (default)" />
+                <TextField.Input variant="soft" placeholder="Soft variant" />
+              </View>
+
+              {/* Sizes */}
+              <View className="gap-3">
+                <Text size="2" weight="medium" color="gray">
+                  Sizes
+                </Text>
+                <TextField.Input size="1" placeholder="Size 1" />
+                <TextField.Input size="2" placeholder="Size 2 (default)" />
+                <TextField.Input size="3" placeholder="Size 3" />
+                <TextField.Input size="4" placeholder="Size 4" />
+              </View>
+
+              {/* Colors (soft variant) */}
+              <View className="gap-3">
+                <Text size="2" weight="medium" color="gray">
+                  Colors (soft variant)
+                </Text>
+                <TextField.Input variant="soft" color="blue" placeholder="Blue" />
+                <TextField.Input variant="soft" color="green" placeholder="Green" />
+                <TextField.Input variant="soft" color="red" placeholder="Red" />
+              </View>
+
+              {/* With Slots */}
+              <View className="gap-3">
+                <Text size="2" weight="medium" color="gray">
+                  With Slots
+                </Text>
+                <TextField.Root>
+                  <TextField.Slot>
+                    <Icon as={SearchIcon} className="size-4" />
+                  </TextField.Slot>
+                  <TextField.Input placeholder="Search..." />
+                </TextField.Root>
+
+                <TextField.Root size="3">
+                  <TextField.Slot>
+                    <Icon as={MailIcon} className="size-5" />
+                  </TextField.Slot>
+                  <TextField.Input placeholder="Enter email" />
+                  <TextField.Slot>
+                    <Icon as={InfoIcon} className="size-5" />
+                  </TextField.Slot>
+                </TextField.Root>
+              </View>
+
+              {/* Disabled */}
+              <View className="gap-3">
+                <Text size="2" weight="medium" color="gray">
+                  Disabled
+                </Text>
+                <TextField.Input placeholder="Disabled" editable={false} />
+              </View>
+            </View>
+          </ComponentSection>
+
           {/* Form Inputs Section */}
-          <ComponentSection title="Form Inputs">
+          <ComponentSection title="Form Inputs (Legacy)">
             <View className="gap-4">
               <View className="gap-2">
                 <Label nativeID="email">Email</Label>
