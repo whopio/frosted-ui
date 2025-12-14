@@ -54,7 +54,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Heading } from '@/components/ui/heading';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
+import { HoverCard } from '@/components/ui/hover-card';
 import { Icon } from '@/components/ui/icon';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -1245,32 +1245,6 @@ export default function KitchenSinkScreen() {
 
           {/* Tooltip Section */}
           <ComponentSection title="Tooltip">
-            <HoverCard>
-              <HoverCardTrigger asChild>
-                <Button variant="ghost" color="blue">
-                  <Text>@nextjs</Text>
-                </Button>
-              </HoverCardTrigger>
-              <HoverCardContent>
-                <View className="flex-row gap-4">
-                  <Avatar size="3" fallback="Next.js" />
-                  <View className="flex-1 gap-1">
-                    <Text size="1" weight="semi-bold" className="text-gray-a10">
-                      @nextjs
-                    </Text>
-                    <Text>The React Framework – created and maintained by @vercel.</Text>
-                    <View className="flex-row items-center gap-2 pt-2">
-                      <Icon as={CalendarIcon} className="size-3" />
-                      <Text>Joined December 2021</Text>
-                    </View>
-                  </View>
-                </View>
-              </HoverCardContent>
-            </HoverCard>
-          </ComponentSection>
-
-          {/* Tooltip Section */}
-          <ComponentSection title="Tooltip">
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button variant="surface">
@@ -1598,8 +1572,8 @@ function ContextMenuDemo() {
   return (
     <ContextMenu>
       <ContextMenuTrigger>
-        <View className="border-stroke flex h-32 items-center justify-center rounded-md border border-dashed">
-          <Text className="text-gray-a10 text-sm">Right click / Long press here</Text>
+        <View className="flex h-32 items-center justify-center rounded-md border border-dashed border-stroke">
+          <Text className="text-sm text-gray-a10">Right click / Long press here</Text>
         </View>
       </ContextMenuTrigger>
       <ContextMenuContent>
@@ -1663,28 +1637,102 @@ function DropdownMenuDemo() {
 
 function HoverCardDemo() {
   return (
-    <HoverCard>
-      <HoverCardTrigger asChild>
-        <Button variant="ghost" color="blue">
-          <Text>@nextjs</Text>
-        </Button>
-      </HoverCardTrigger>
-      <HoverCardContent>
-        <View className="flex-row gap-4">
-          <Avatar size="3" fallback="Next.js" />
-          <View className="flex-1 gap-1">
-            <Text size="1" weight="semi-bold" className="text-gray-a10">
-              @nextjs
-            </Text>
-            <Text>The React Framework – created and maintained by @vercel.</Text>
-            <View className="flex-row items-center gap-2 pt-2">
-              <Icon as={CalendarIcon} className="size-3" />
-              <Text>Joined December 2021</Text>
+    <View className="gap-6">
+      {/* Default (translucent, size 2) */}
+      <View className="gap-2">
+        <Text size="2" weight="medium" color="gray">
+          Default (translucent)
+        </Text>
+        <HoverCard.Root>
+          <HoverCard.Trigger asChild>
+            <Button variant="ghost" color="blue">
+              <Text>@nextjs</Text>
+            </Button>
+          </HoverCard.Trigger>
+          <HoverCard.Content>
+            <View style={{ flexDirection: 'row', gap: 16 }}>
+              <Avatar size="3" fallback="Next.js" />
+              <View style={{ flex: 1, gap: 4 }}>
+                <Text size="1" weight="semi-bold" color="gray">
+                  @nextjs
+                </Text>
+                <Text>The React Framework – created and maintained by @vercel.</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, paddingTop: 8 }}>
+                  <Icon as={CalendarIcon} className="size-3" />
+                  <Text size="2">Joined December 2021</Text>
+                </View>
+              </View>
             </View>
-          </View>
+          </HoverCard.Content>
+        </HoverCard.Root>
+      </View>
+
+      {/* Solid variant */}
+      <View className="gap-2">
+        <Text size="2" weight="medium" color="gray">
+          Solid variant
+        </Text>
+        <HoverCard.Root>
+          <HoverCard.Trigger asChild>
+            <Button variant="ghost" color="violet">
+              <Text>@radix</Text>
+            </Button>
+          </HoverCard.Trigger>
+          <HoverCard.Content variant="solid">
+            <View style={{ flexDirection: 'row', gap: 16 }}>
+              <Avatar size="3" fallback="R" color="violet" />
+              <View style={{ flex: 1, gap: 4 }}>
+                <Text size="1" weight="semi-bold" color="gray">
+                  @radix
+                </Text>
+                <Text>Unstyled, accessible UI components for React.</Text>
+              </View>
+            </View>
+          </HoverCard.Content>
+        </HoverCard.Root>
+      </View>
+
+      {/* Sizes */}
+      <View className="gap-2">
+        <Text size="2" weight="medium" color="gray">
+          Sizes
+        </Text>
+        <View className="flex-row gap-4">
+          <HoverCard.Root>
+            <HoverCard.Trigger asChild>
+              <Button variant="soft" size="1">
+                <Text>Size 1</Text>
+              </Button>
+            </HoverCard.Trigger>
+            <HoverCard.Content size="1">
+              <Text size="1">Small hover card content with size 1.</Text>
+            </HoverCard.Content>
+          </HoverCard.Root>
+
+          <HoverCard.Root>
+            <HoverCard.Trigger asChild>
+              <Button variant="soft" size="2">
+                <Text>Size 2</Text>
+              </Button>
+            </HoverCard.Trigger>
+            <HoverCard.Content size="2">
+              <Text size="2">Medium hover card content with size 2.</Text>
+            </HoverCard.Content>
+          </HoverCard.Root>
+
+          <HoverCard.Root>
+            <HoverCard.Trigger asChild>
+              <Button variant="soft" size="3">
+                <Text>Size 3</Text>
+              </Button>
+            </HoverCard.Trigger>
+            <HoverCard.Content size="3">
+              <Text size="3">Large hover card content with size 3.</Text>
+            </HoverCard.Content>
+          </HoverCard.Root>
         </View>
-      </HoverCardContent>
-    </HoverCard>
+      </View>
+    </View>
   );
 }
 
@@ -1704,15 +1752,15 @@ function CollapsibleDemo() {
             </Button>
           </CollapsibleTrigger>
         </View>
-        <View className="border-stroke rounded-md border px-4 py-3">
+        <View className="rounded-md border border-stroke px-4 py-3">
           <Text className="font-mono">@radix-ui/primitives</Text>
         </View>
         <CollapsibleContent>
           <View className="gap-2">
-            <View className="border-stroke rounded-md border px-4 py-3">
+            <View className="rounded-md border border-stroke px-4 py-3">
               <Text className="font-mono">@radix-ui/colors</Text>
             </View>
-            <View className="border-stroke rounded-md border px-4 py-3">
+            <View className="rounded-md border border-stroke px-4 py-3">
               <Text className="font-mono">@stitches/react</Text>
             </View>
           </View>
