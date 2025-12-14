@@ -753,7 +753,7 @@ export default function KitchenSinkScreen() {
                 <View className="flex-col gap-3">
                   {/* Size 1 */}
                   <View className="flex-row items-center gap-2">
-                    <TextField.Root size="1">
+                    <TextField.Root size="1" className="flex-1">
                       <TextField.Slot>
                         <Icon as={SearchIcon} size={12} />
                       </TextField.Slot>
@@ -766,7 +766,7 @@ export default function KitchenSinkScreen() {
 
                   {/* Size 2 */}
                   <View className="flex-row items-center gap-2">
-                    <TextField.Root size="2">
+                    <TextField.Root size="2" className="flex-1">
                       <TextField.Slot>
                         <Icon as={SearchIcon} size={16} />
                       </TextField.Slot>
@@ -784,7 +784,7 @@ export default function KitchenSinkScreen() {
 
                   {/* Size 3 */}
                   <View className="flex-row items-center gap-2">
-                    <TextField.Root size="3">
+                    <TextField.Root size="3" className="flex-1">
                       <TextField.Slot>
                         <Icon as={SearchIcon} size={20} />
                       </TextField.Slot>
@@ -802,7 +802,7 @@ export default function KitchenSinkScreen() {
 
                   {/* Size 4 */}
                   <View className="flex-row items-center gap-2">
-                    <TextField.Root size="4">
+                    <TextField.Root size="4" className="flex-1">
                       <TextField.Slot>
                         <Icon as={SearchIcon} size={24} />
                       </TextField.Slot>

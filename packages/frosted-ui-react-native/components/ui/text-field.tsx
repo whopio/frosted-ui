@@ -260,6 +260,7 @@ function TextFieldSlot({ color, style, children, ...props }: TextFieldSlotProps)
 
   const slotStyle: ViewStyle = {
     flexShrink: 0,
+    flexGrow: 0, // Slots should not grow, only maintain their size
     flexDirection: 'row',
     alignItems: 'center',
     height: '100%',
@@ -347,6 +348,7 @@ const TextFieldInput = React.forwardRef<TextInput, TextFieldInputProps>(
 
     const inputStyle: TextStyle = {
       flex: 1,
+      minWidth: 0, // Allow input to shrink below content width
       height: inputHeight,
       fontSize: sizeStyle.fontSize,
       color: textColor,
