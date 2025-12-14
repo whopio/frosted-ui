@@ -56,8 +56,10 @@ function Button({
   const [focused, setFocused] = React.useState(false);
   const accentColor = resolveAccentFromColor(color);
 
-  const palette = colors.palettes[accentColor];
   const gray = colors.palettes.gray;
+  // All AccentColors should be in palettes, but TypeScript's index signature types
+  // don't guarantee it with bracket notation. Fallback to gray as defensive programming.
+  const palette = colors.palettes[accentColor] ?? gray;
 
   const textColor =
     disabled && gray.a8

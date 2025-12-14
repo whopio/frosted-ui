@@ -101,6 +101,7 @@ import {
   LogOutIcon,
   MailIcon,
   MoonStarIcon,
+  MoreVertical,
   RocketIcon,
   SearchIcon,
   SettingsIcon,
@@ -658,27 +659,79 @@ export default function KitchenSinkScreen() {
                 <TextField.Input variant="soft" color="red" placeholder="Red" />
               </View>
 
-              {/* With Slots */}
+              {/* With Slots - Size Story */}
               <View className="gap-3">
                 <Text size="2" weight="medium" color="gray">
                   With Slots
                 </Text>
-                <TextField.Root>
-                  <TextField.Slot>
-                    <Icon as={SearchIcon} className="size-4" />
-                  </TextField.Slot>
-                  <TextField.Input placeholder="Search..." />
-                </TextField.Root>
+                <View className="flex-col gap-3">
+                  {/* Size 1 */}
+                  <View className="flex-row items-center gap-2">
+                    <TextField.Root size="1">
+                      <TextField.Slot>
+                        <Icon as={SearchIcon} size={12} />
+                      </TextField.Slot>
+                      <TextField.Input placeholder="Search the docs…" />
+                    </TextField.Root>
+                    <Button size="1" variant="surface">
+                      <Text>Search</Text>
+                    </Button>
+                  </View>
 
-                <TextField.Root size="3">
-                  <TextField.Slot>
-                    <Icon as={MailIcon} className="size-5" />
-                  </TextField.Slot>
-                  <TextField.Input placeholder="Enter email" />
-                  <TextField.Slot>
-                    <Icon as={InfoIcon} className="size-5" />
-                  </TextField.Slot>
-                </TextField.Root>
+                  {/* Size 2 */}
+                  <View className="flex-row items-center gap-2">
+                    <TextField.Root size="2">
+                      <TextField.Slot>
+                        <Icon as={SearchIcon} size={16} />
+                      </TextField.Slot>
+                      <TextField.Input placeholder="Search the docs…" />
+                      <TextField.Slot>
+                        <Button size="1" variant="ghost" color="gray">
+                          <Icon as={MoreVertical} size={16} />
+                        </Button>
+                      </TextField.Slot>
+                    </TextField.Root>
+                    <Button size="2" variant="surface">
+                      <Text>Search</Text>
+                    </Button>
+                  </View>
+
+                  {/* Size 3 */}
+                  <View className="flex-row items-center gap-2">
+                    <TextField.Root size="3">
+                      <TextField.Slot>
+                        <Icon as={SearchIcon} size={20} />
+                      </TextField.Slot>
+                      <TextField.Input placeholder="Search the docs…" />
+                      <TextField.Slot style={{ paddingRight: 12 }}>
+                        <Button size="2" variant="ghost" color="gray">
+                          <Icon as={MoreVertical} size={20} />
+                        </Button>
+                      </TextField.Slot>
+                    </TextField.Root>
+                    <Button size="3" variant="surface">
+                      <Text>Search</Text>
+                    </Button>
+                  </View>
+
+                  {/* Size 4 */}
+                  <View className="flex-row items-center gap-2">
+                    <TextField.Root size="4">
+                      <TextField.Slot>
+                        <Icon as={SearchIcon} size={24} />
+                      </TextField.Slot>
+                      <TextField.Input placeholder="Search the docs…" />
+                      <TextField.Slot style={{ paddingRight: 12 }}>
+                        <Button size="2" variant="ghost" color="gray">
+                          <Icon as={MoreVertical} size={20} />
+                        </Button>
+                      </TextField.Slot>
+                    </TextField.Root>
+                    <Button size="4" variant="surface">
+                      <Text>Search</Text>
+                    </Button>
+                  </View>
+                </View>
               </View>
 
               {/* Disabled */}

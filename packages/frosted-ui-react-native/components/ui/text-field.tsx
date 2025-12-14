@@ -16,6 +16,7 @@ import {
   Platform,
   TextInput,
   View,
+  type GestureResponderEvent,
   type TextInputProps,
   type TextStyle,
   type ViewProps,
@@ -40,6 +41,7 @@ interface TextFieldContextValue {
   disabled?: boolean;
   onFocus?: () => void;
   onBlur?: () => void;
+  inputRef?: React.RefObject<TextInput | null>;
 }
 
 const TextFieldContext = React.createContext<TextFieldContextValue | undefined>(undefined);
@@ -105,6 +107,7 @@ function TextFieldRoot({
   const accentColor = resolveAccentFromColor(color);
   const [internalFocused, setInternalFocused] = React.useState(false);
   const focused = focusedProp !== undefined ? focusedProp : internalFocused;
+  const inputRef = React.useRef<TextInput>(null);
 
   const sizeStyle = getSizeStyle(size);
 
@@ -145,6 +148,75 @@ function TextFieldRoot({
     ...focusStyle,
   };
 
+  // Handle pointer/touch events to focus input when clicking on non-button elements
+  const handlePointerDown = React.useCallback(
+    (event: Parameters<NonNullable<ViewProps['onPointerDown']>>[0]) => {
+      if (disabled || !inputRef.current) return;
+
+      // On web, we can access the DOM target
+      if (Platform.OS === 'web') {
+        // Access the native DOM event
+        // On React Native Web, the event structure may vary, so we check both
+        const eventAny = event as unknown as {
+          nativeEvent?: { target?: HTMLElement };
+          target?: HTMLElement;
+        };
+        const nativeEvent = eventAny.nativeEvent || eventAny;
+        const target = nativeEvent.target as HTMLElement | null;
+        if (!target) return;
+
+        // If clicking on input, button, or anchor, don't focus (let them handle it)
+        if (target.closest('input, button, a')) return;
+
+        // Focus the input
+        requestAnimationFrame(() => {
+          inputRef.current?.focus();
+        });
+      }
+    },
+    [disabled]
+  );
+
+  // Handle native touch events (iOS/Android)
+  const handleStartShouldSetResponder = React.useCallback(
+    (event: GestureResponderEvent) => {
+      if (disabled || !inputRef.current) return false;
+
+      // Check if the touch target is a button-like component
+      // On native, we check the component type from the event
+      const target = event.target;
+      if (!target) return false;
+
+      // Check if target is the TextInput itself - don't focus in that case
+      // We can't directly compare refs, but we can check if it's an input
+      const targetType = (target as { constructor?: { name?: string } }).constructor?.name || '';
+      const isInput = targetType.includes('TextInput') || targetType.includes('RCTTextInput');
+
+      if (isInput) {
+        return false; // Let the input handle it
+      }
+
+      // Check if target is a button-like component
+      // Buttons (Pressable, TouchableOpacity) typically have these in their name
+      const isButtonLike =
+        targetType.includes('Touchable') ||
+        targetType.includes('Pressable') ||
+        targetType.includes('Button');
+
+      if (isButtonLike) {
+        return false; // Let the button handle it
+      }
+
+      // Focus the input for other touches (like icons in slots)
+      requestAnimationFrame(() => {
+        inputRef.current?.focus();
+      });
+
+      return false; // Don't capture the responder, let the event bubble
+    },
+    [disabled]
+  );
+
   return (
     <TextFieldContext.Provider
       value={{
@@ -152,10 +224,16 @@ function TextFieldRoot({
         variant,
         color: accentColor,
         disabled,
+        inputRef,
         onFocus: () => setInternalFocused(true),
         onBlur: () => setInternalFocused(false),
       }}>
-      <View style={[rootStyle, style]} {...props}>
+      <View
+        style={[rootStyle, style]}
+        {...(Platform.OS === 'web'
+          ? { onPointerDown: handlePointerDown }
+          : { onStartShouldSetResponder: handleStartShouldSetResponder })}
+        {...props}>
         {children}
       </View>
     </TextFieldContext.Provider>
@@ -217,106 +295,125 @@ interface TextFieldInputProps extends Omit<TextInputProps, 'style'> {
   style?: TextStyle;
 }
 
-function TextFieldInput({
-  size: sizeProp,
-  variant: variantProp,
-  color: colorProp,
-  style,
-  editable,
-  ...props
-}: TextFieldInputProps) {
-  const context = React.useContext(TextFieldContext);
-  const { colors } = useThemeVars();
+const TextFieldInput = React.forwardRef<TextInput, TextFieldInputProps>(
+  (
+    { size: sizeProp, variant: variantProp, color: colorProp, style, editable, ...props },
+    forwardedRef
+  ) => {
+    const context = React.useContext(TextFieldContext);
+    const { colors } = useThemeVars();
 
-  const size = sizeProp ?? context?.size ?? '2';
-  const variant = variantProp ?? context?.variant ?? 'surface';
-  const color = colorProp ? resolveAccentFromColor(colorProp) : (context?.color ?? 'gray');
-  const disabled = editable === false || context?.disabled;
+    const size = sizeProp ?? context?.size ?? '2';
+    const variant = variantProp ?? context?.variant ?? 'surface';
+    const color = colorProp ? resolveAccentFromColor(colorProp) : (context?.color ?? 'gray');
+    const disabled = editable === false || context?.disabled;
 
-  const sizeStyle = getSizeStyle(size);
+    // Create a callback ref that sets all necessary refs
+    const setRefs = React.useCallback(
+      (instance: TextInput | null) => {
+        // Set context ref if it exists
+        if (context?.inputRef) {
+          (context.inputRef as React.MutableRefObject<TextInput | null>).current = instance;
+        }
+        // Set forwarded ref if it exists
+        if (forwardedRef) {
+          if (typeof forwardedRef === 'function') {
+            forwardedRef(instance);
+          } else {
+            forwardedRef.current = instance;
+          }
+        }
+      },
+      [context?.inputRef, forwardedRef]
+    );
 
-  // Text and placeholder colors based on variant and disabled state
-  // TextField uses 0.6 opacity for soft variant placeholder (TextArea uses 0.65)
-  const { textColor, placeholderColor: basePlaceholderColor } = getTextInputColors(
-    variant,
-    colors,
-    color,
-    disabled
-  );
-  const placeholderColor =
-    variant === 'soft' && !disabled
-      ? hexToRgba(colors.palettes[color]['12'], 0.6)
-      : basePlaceholderColor;
+    const sizeStyle = getSizeStyle(size);
 
-  // Account for border height: surface variant has 1px border top and bottom (2px total)
-  const inputHeight = variant === 'surface' ? sizeStyle.height - 2 : sizeStyle.height;
+    // Text and placeholder colors based on variant and disabled state
+    // TextField uses 0.6 opacity for soft variant placeholder (TextArea uses 0.65)
+    const { textColor, placeholderColor: basePlaceholderColor } = getTextInputColors(
+      variant,
+      colors,
+      color,
+      disabled
+    );
+    const placeholderColor =
+      variant === 'soft' && !disabled
+        ? hexToRgba(colors.palettes[color]['12'], 0.6)
+        : basePlaceholderColor;
 
-  const inputStyle: TextStyle = {
-    flex: 1,
-    height: inputHeight,
-    fontSize: sizeStyle.fontSize,
-    color: textColor,
-    paddingHorizontal: sizeStyle.paddingHorizontal,
-    // Remove default styling
-    ...(Platform.OS === 'web'
-      ? ({
-          outline: 'none',
-          backgroundColor: 'transparent',
-        } as TextStyle)
-      : {}),
-  };
+    // Account for border height: surface variant has 1px border top and bottom (2px total)
+    const inputHeight = variant === 'surface' ? sizeStyle.height - 2 : sizeStyle.height;
 
-  // If no context (no Root), wrap in Root
-  const hasRoot = context !== undefined;
+    const inputStyle: TextStyle = {
+      flex: 1,
+      height: inputHeight,
+      fontSize: sizeStyle.fontSize,
+      color: textColor,
+      paddingHorizontal: sizeStyle.paddingHorizontal,
+      // Remove default styling
+      ...(Platform.OS === 'web'
+        ? ({
+            outline: 'none',
+            backgroundColor: 'transparent',
+          } as TextStyle)
+        : {}),
+    };
 
-  // When no root, manage focus state locally and pass to Root
-  const [localFocused, setLocalFocused] = React.useState(false);
+    // If no context (no Root), wrap in Root
+    const hasRoot = context !== undefined;
 
-  const handleFocus: TextInputProps['onFocus'] = (e) => {
+    // When no root, manage focus state locally and pass to Root
+    const [localFocused, setLocalFocused] = React.useState(false);
+
+    const handleFocus: TextInputProps['onFocus'] = (e) => {
+      if (hasRoot) {
+        context?.onFocus?.();
+      } else {
+        setLocalFocused(true);
+      }
+      props.onFocus?.(e);
+    };
+
+    const handleBlur: TextInputProps['onBlur'] = (e) => {
+      if (hasRoot) {
+        context?.onBlur?.();
+      } else {
+        setLocalFocused(false);
+      }
+      props.onBlur?.(e);
+    };
+
+    const input = (
+      <TextInput
+        ref={setRefs}
+        style={[inputStyle, style]}
+        placeholderTextColor={placeholderColor}
+        editable={editable}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        {...props}
+      />
+    );
+
     if (hasRoot) {
-      context?.onFocus?.();
-    } else {
-      setLocalFocused(true);
+      return input;
     }
-    props.onFocus?.(e);
-  };
 
-  const handleBlur: TextInputProps['onBlur'] = (e) => {
-    if (hasRoot) {
-      context?.onBlur?.();
-    } else {
-      setLocalFocused(false);
-    }
-    props.onBlur?.(e);
-  };
-
-  const input = (
-    <TextInput
-      style={[inputStyle, style]}
-      placeholderTextColor={placeholderColor}
-      editable={editable}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
-      {...props}
-    />
-  );
-
-  if (hasRoot) {
-    return input;
+    // When no root, create one with focus state management
+    return (
+      <TextFieldRoot
+        size={size}
+        variant={variant}
+        color={color}
+        disabled={disabled}
+        focused={localFocused}>
+        {input}
+      </TextFieldRoot>
+    );
   }
-
-  // When no root, create one with focus state management
-  return (
-    <TextFieldRoot
-      size={size}
-      variant={variant}
-      color={color}
-      disabled={disabled}
-      focused={localFocused}>
-      {input}
-    </TextFieldRoot>
-  );
-}
+);
+TextFieldInput.displayName = 'TextFieldInput';
 
 // ============================================================================
 // Export composite component
