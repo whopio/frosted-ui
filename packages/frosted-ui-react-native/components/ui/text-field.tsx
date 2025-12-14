@@ -184,6 +184,7 @@ function TextFieldSlot({ color, style, children, ...props }: TextFieldSlotProps)
     flexShrink: 0,
     flexDirection: 'row',
     alignItems: 'center',
+    height: '100%',
     gap: padding,
     paddingHorizontal: padding,
   };
