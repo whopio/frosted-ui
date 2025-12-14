@@ -140,7 +140,6 @@ function TextFieldRoot({
   const rootStyle: ViewStyle = {
     flexDirection: 'row',
     alignItems: 'center',
-    height: sizeStyle.height,
     borderRadius: sizeStyle.borderRadius,
     ...variantStyle,
     ...focusStyle,
@@ -248,8 +247,12 @@ function TextFieldInput({
       ? hexToRgba(colors.palettes[color]['12'], 0.6)
       : basePlaceholderColor;
 
+  // Account for border height: surface variant has 1px border top and bottom (2px total)
+  const inputHeight = variant === 'surface' ? sizeStyle.height - 2 : sizeStyle.height;
+
   const inputStyle: TextStyle = {
     flex: 1,
+    height: inputHeight,
     fontSize: sizeStyle.fontSize,
     color: textColor,
     paddingHorizontal: sizeStyle.paddingHorizontal,
