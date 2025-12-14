@@ -66,7 +66,7 @@ import {
   MenubarSeparator,
   MenubarTrigger,
 } from '@/components/ui/menubar';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Popover } from '@/components/ui/popover';
 import { Progress } from '@/components/ui/progress';
 import { RadioGroup } from '@/components/ui/radio-group';
 import { SegmentedControl } from '@/components/ui/segmented-control';
@@ -1151,31 +1151,113 @@ export default function KitchenSinkScreen() {
 
           {/* Popover Section */}
           <ComponentSection title="Popover">
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button variant="surface">
-                  <Text>Open Popover</Text>
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent>
-                <View className="gap-4">
-                  <View className="gap-2">
-                    <Text size="1" weight="semi-bold" className="text-gray-a10">
-                      Dimensions
-                    </Text>
-                    <Text>Set the dimensions for the layer.</Text>
-                  </View>
-                  <View className="gap-2">
-                    <Label nativeID="width">Width</Label>
-                    <Input placeholder="100%" aria-labelledby="width" />
-                  </View>
-                  <View className="gap-2">
-                    <Label nativeID="height">Height</Label>
-                    <Input placeholder="25px" aria-labelledby="height" />
-                  </View>
+            <View className="gap-6">
+              {/* Default (translucent, size 2) */}
+              <View className="gap-2">
+                <Text size="2" weight="medium" color="gray">
+                  Default (translucent)
+                </Text>
+                <Popover.Root>
+                  <Popover.Trigger asChild>
+                    <Button variant="surface">
+                      <Text>Open Popover</Text>
+                    </Button>
+                  </Popover.Trigger>
+                  <Popover.Content>
+                    <View style={{ gap: 16 }}>
+                      <View style={{ gap: 8 }}>
+                        <Text size="1" weight="semi-bold" color="gray">
+                          Dimensions
+                        </Text>
+                        <Text>Set the dimensions for the layer.</Text>
+                      </View>
+                      <View style={{ gap: 8 }}>
+                        <Label nativeID="width">Width</Label>
+                        <Input placeholder="100%" aria-labelledby="width" />
+                      </View>
+                      <View style={{ gap: 8 }}>
+                        <Label nativeID="height">Height</Label>
+                        <Input placeholder="25px" aria-labelledby="height" />
+                      </View>
+                    </View>
+                  </Popover.Content>
+                </Popover.Root>
+              </View>
+
+              {/* Solid variant */}
+              <View className="gap-2">
+                <Text size="2" weight="medium" color="gray">
+                  Solid variant
+                </Text>
+                <Popover.Root>
+                  <Popover.Trigger asChild>
+                    <Button variant="soft">
+                      <Text>Solid Popover</Text>
+                    </Button>
+                  </Popover.Trigger>
+                  <Popover.Content variant="solid">
+                    <View style={{ gap: 8 }}>
+                      <Text weight="medium">Solid Background</Text>
+                      <Text size="2" color="gray">
+                        This popover has a solid background without backdrop blur.
+                      </Text>
+                    </View>
+                  </Popover.Content>
+                </Popover.Root>
+              </View>
+
+              {/* Sizes */}
+              <View className="gap-2">
+                <Text size="2" weight="medium" color="gray">
+                  Sizes
+                </Text>
+                <View className="flex-row flex-wrap gap-4">
+                  <Popover.Root>
+                    <Popover.Trigger asChild>
+                      <Button variant="soft" size="1">
+                        <Text>Size 1</Text>
+                      </Button>
+                    </Popover.Trigger>
+                    <Popover.Content size="1">
+                      <Text size="1">Small popover content.</Text>
+                    </Popover.Content>
+                  </Popover.Root>
+
+                  <Popover.Root>
+                    <Popover.Trigger asChild>
+                      <Button variant="soft" size="2">
+                        <Text>Size 2</Text>
+                      </Button>
+                    </Popover.Trigger>
+                    <Popover.Content size="2">
+                      <Text size="2">Medium popover content.</Text>
+                    </Popover.Content>
+                  </Popover.Root>
+
+                  <Popover.Root>
+                    <Popover.Trigger asChild>
+                      <Button variant="soft" size="3">
+                        <Text>Size 3</Text>
+                      </Button>
+                    </Popover.Trigger>
+                    <Popover.Content size="3">
+                      <Text size="3">Large popover content.</Text>
+                    </Popover.Content>
+                  </Popover.Root>
+
+                  <Popover.Root>
+                    <Popover.Trigger asChild>
+                      <Button variant="soft" size="4">
+                        <Text>Size 4</Text>
+                      </Button>
+                    </Popover.Trigger>
+                    <Popover.Content size="4">
+                      <Text size="4">Extra large popover content.</Text>
+                    </Popover.Content>
+                  </Popover.Root>
                 </View>
-              </PopoverContent>
-            </Popover>
+              </View>
+            </View>
           </ComponentSection>
 
           {/* Dropdown Menu Section */}

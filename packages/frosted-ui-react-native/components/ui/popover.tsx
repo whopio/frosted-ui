@@ -1,51 +1,78 @@
 import { NativeOnlyAnimatedView } from '@/components/ui/native-only-animated-view';
-import { TextClassContext } from '@/components/ui/text';
-import { cn } from '@/lib/utils';
+import { getPanelContentStyle, type PanelSize, type PanelVariant } from '@/lib/panel-styles';
+import { useThemeVars } from '@/lib/use-theme-vars';
 import * as PopoverPrimitive from '@rn-primitives/popover';
 import * as React from 'react';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import { FadeIn, FadeOut } from 'react-native-reanimated';
 import { FullWindowOverlay as RNFullWindowOverlay } from 'react-native-screens';
 
-const Popover = PopoverPrimitive.Root;
+// ============================================================================
+// Types
+// ============================================================================
+
+type PopoverSize = PanelSize; // '1' | '2' | '3' | '4'
+type PopoverVariant = PanelVariant;
+
+// ============================================================================
+// Popover.Root
+// ============================================================================
+
+type PopoverRootProps = PopoverPrimitive.RootProps;
+
+const PopoverRoot = PopoverPrimitive.Root;
+
+// ============================================================================
+// Popover.Trigger
+// ============================================================================
 
 const PopoverTrigger = PopoverPrimitive.Trigger;
 
+// ============================================================================
+// Popover.Close
+// ============================================================================
+
+const PopoverClose = PopoverPrimitive.Close;
+
+// ============================================================================
+// Popover.Content
+// ============================================================================
+
 const FullWindowOverlay = Platform.OS === 'ios' ? RNFullWindowOverlay : React.Fragment;
 
+type PopoverContentProps = PopoverPrimitive.ContentProps & {
+  size?: PopoverSize;
+  variant?: PopoverVariant;
+  portalHost?: string;
+};
+
 function PopoverContent({
-  className,
-  align = 'center',
-  sideOffset = 4,
+  size = '2',
+  variant = 'translucent',
+  align = 'start',
+  sideOffset = 8,
   portalHost,
+  style,
+  children,
   ...props
-}: PopoverPrimitive.ContentProps &
-  React.RefAttributes<PopoverPrimitive.ContentRef> & {
-    portalHost?: string;
-  }) {
+}: PopoverContentProps) {
+  const { colors, isDark } = useThemeVars();
+
+  const contentStyle = getPanelContentStyle({
+    size,
+    variant,
+    colors,
+    isDark,
+  });
+
   return (
     <PopoverPrimitive.Portal hostName={portalHost}>
       <FullWindowOverlay>
         <PopoverPrimitive.Overlay style={Platform.select({ native: StyleSheet.absoluteFill })}>
           <NativeOnlyAnimatedView entering={FadeIn.duration(200)} exiting={FadeOut}>
-            <TextClassContext.Provider value="text-popover-foreground">
-              <PopoverPrimitive.Content
-                align={align}
-                sideOffset={sideOffset}
-                className={cn(
-                  'border-stroke outline-hidden z-50 w-72 rounded-md border bg-popover p-4 shadow-md shadow-black/5',
-                  Platform.select({
-                    web: cn(
-                      'origin-(--radix-popover-content-transform-origin) cursor-auto animate-in fade-in-0 zoom-in-95',
-                      props.side === 'bottom' && 'slide-in-from-top-2',
-                      props.side === 'top' && 'slide-in-from-bottom-2'
-                    ),
-                  }),
-                  className
-                )}
-                {...props}
-              />
-            </TextClassContext.Provider>
+            <PopoverPrimitive.Content align={align} sideOffset={sideOffset} {...props}>
+              <View style={[contentStyle, style]}>{children}</View>
+            </PopoverPrimitive.Content>
           </NativeOnlyAnimatedView>
         </PopoverPrimitive.Overlay>
       </FullWindowOverlay>
@@ -53,4 +80,16 @@ function PopoverContent({
   );
 }
 
-export { Popover, PopoverContent, PopoverTrigger };
+// ============================================================================
+// Export composite component
+// ============================================================================
+
+const Popover = {
+  Root: PopoverRoot,
+  Trigger: PopoverTrigger,
+  Close: PopoverClose,
+  Content: PopoverContent,
+};
+
+export { Popover, PopoverClose, PopoverContent, PopoverRoot, PopoverTrigger };
+export type { PopoverContentProps, PopoverRootProps, PopoverSize, PopoverVariant };
