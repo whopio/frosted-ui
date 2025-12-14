@@ -1,4 +1,15 @@
-import type { AccentColor, Color } from '@/lib/types';
+import {
+  getDisabledSoftStyle,
+  getDisabledSurfaceStyle,
+  getSoftVariantStyle,
+  getSurfaceVariantStyle,
+  getTextInputColors,
+  hexToRgba,
+  resolveAccentFromColor,
+  type TextInputSize,
+  type TextInputVariant,
+} from '@/lib/text-input-styles';
+import type { Color } from '@/lib/types';
 import { useThemeVars } from '@/lib/use-theme-vars';
 import * as React from 'react';
 import {
@@ -15,36 +26,8 @@ import {
 // Types
 // ============================================================================
 
-type TextFieldSize = '1' | '2' | '3' | '4';
-type TextFieldVariant = 'surface' | 'soft';
-
-function resolveAccentFromColor(color?: Color): AccentColor {
-  if (!color) return 'gray';
-  switch (color) {
-    case 'danger':
-      return 'red';
-    case 'warning':
-      return 'amber';
-    case 'success':
-      return 'green';
-    case 'info':
-      return 'blue';
-    default:
-      return color as AccentColor;
-  }
-}
-
-/**
- * Convert hex color to rgba with specified opacity
- */
-function hexToRgba(hex: string, opacity: number): string {
-  // Remove # if present
-  const cleanHex = hex.replace('#', '');
-  const r = parseInt(cleanHex.substring(0, 2), 16);
-  const g = parseInt(cleanHex.substring(2, 4), 16);
-  const b = parseInt(cleanHex.substring(4, 6), 16);
-  return `rgba(${r}, ${g}, ${b}, ${opacity})`;
-}
+type TextFieldSize = TextInputSize;
+type TextFieldVariant = TextInputVariant;
 
 // ============================================================================
 // Context
@@ -53,7 +36,8 @@ function hexToRgba(hex: string, opacity: number): string {
 interface TextFieldContextValue {
   size: TextFieldSize;
   variant: TextFieldVariant;
-  color: AccentColor;
+  color: ReturnType<typeof resolveAccentFromColor>;
+  disabled?: boolean;
 }
 
 const TextFieldContext = React.createContext<TextFieldContextValue | undefined>(undefined);
@@ -100,6 +84,7 @@ interface TextFieldRootProps extends ViewProps {
   size?: TextFieldSize;
   variant?: TextFieldVariant;
   color?: Color;
+  disabled?: boolean;
   children: React.ReactNode;
 }
 
@@ -107,53 +92,46 @@ function TextFieldRoot({
   size = '2',
   variant = 'surface',
   color = 'gray',
+  disabled = false,
   style,
   children,
   ...props
 }: TextFieldRootProps) {
   const { colors } = useThemeVars();
   const accentColor = resolveAccentFromColor(color);
-  const palette = colors.palettes[accentColor];
-  const grayPalette = colors.palettes.gray;
 
   const sizeStyle = getSizeStyle(size);
 
   // Background and border based on variant
-  const getVariantStyle = (): ViewStyle => {
+  let variantStyle =
+    variant === 'surface'
+      ? getSurfaceVariantStyle(colors)
+      : getSoftVariantStyle(colors, accentColor);
+
+  // Apply disabled styles (surface keeps border, soft replaces background)
+  if (disabled) {
     if (variant === 'surface') {
-      return {
-        backgroundColor: colors.surface,
-        borderWidth: 1,
-        borderColor: grayPalette.a5,
-        ...(Platform.OS === 'web'
-          ? ({
-              boxShadow: '0px 1px 2px 0px rgba(0, 0, 0, 0.05)',
-            } as ViewStyle)
-          : {
-              shadowColor: '#000',
-              shadowOffset: { width: 0, height: 1 },
-              shadowOpacity: 0.05,
-              shadowRadius: 2,
-              elevation: 1,
-            }),
+      // Surface: keep border, replace background
+      variantStyle = {
+        ...variantStyle,
+        ...getDisabledSurfaceStyle(colors),
       };
+    } else {
+      // Soft: replace background completely
+      variantStyle = getDisabledSoftStyle(colors);
     }
-    // soft variant
-    return {
-      backgroundColor: palette.a3,
-    };
-  };
+  }
 
   const rootStyle: ViewStyle = {
     flexDirection: 'row',
     alignItems: 'center',
     height: sizeStyle.height,
     borderRadius: sizeStyle.borderRadius,
-    ...getVariantStyle(),
+    ...variantStyle,
   };
 
   return (
-    <TextFieldContext.Provider value={{ size, variant, color: accentColor }}>
+    <TextFieldContext.Provider value={{ size, variant, color: accentColor, disabled }}>
       <View style={[rootStyle, style]} {...props}>
         {children}
       </View>
@@ -220,6 +198,7 @@ function TextFieldInput({
   variant: variantProp,
   color: colorProp,
   style,
+  editable,
   ...props
 }: TextFieldInputProps) {
   const context = React.useContext(TextFieldContext);
@@ -228,15 +207,22 @@ function TextFieldInput({
   const size = sizeProp ?? context?.size ?? '2';
   const variant = variantProp ?? context?.variant ?? 'surface';
   const color = colorProp ? resolveAccentFromColor(colorProp) : (context?.color ?? 'gray');
+  const disabled = editable === false || context?.disabled;
 
-  const palette = colors.palettes[color];
-  const grayPalette = colors.palettes.gray;
   const sizeStyle = getSizeStyle(size);
 
-  // Text and placeholder colors based on variant
-  // Soft variant placeholder: accent-12 at 0.6 opacity
-  const textColor = variant === 'surface' ? grayPalette['12'] : palette['12'];
-  const placeholderColor = variant === 'surface' ? grayPalette.a10 : hexToRgba(palette['12'], 0.6);
+  // Text and placeholder colors based on variant and disabled state
+  // TextField uses 0.6 opacity for soft variant placeholder (TextArea uses 0.65)
+  const { textColor, placeholderColor: basePlaceholderColor } = getTextInputColors(
+    variant,
+    colors,
+    color,
+    disabled
+  );
+  const placeholderColor =
+    variant === 'soft' && !disabled
+      ? hexToRgba(colors.palettes[color]['12'], 0.6)
+      : basePlaceholderColor;
 
   const inputStyle: TextStyle = {
     flex: 1,
@@ -256,7 +242,12 @@ function TextFieldInput({
   const hasRoot = context !== undefined;
 
   const input = (
-    <TextInput style={[inputStyle, style]} placeholderTextColor={placeholderColor} {...props} />
+    <TextInput
+      style={[inputStyle, style]}
+      placeholderTextColor={placeholderColor}
+      editable={editable}
+      {...props}
+    />
   );
 
   if (hasRoot) {
@@ -264,7 +255,7 @@ function TextFieldInput({
   }
 
   return (
-    <TextFieldRoot size={size} variant={variant} color={color}>
+    <TextFieldRoot size={size} variant={variant} color={color} disabled={disabled}>
       {input}
     </TextFieldRoot>
   );

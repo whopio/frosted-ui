@@ -82,8 +82,8 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Switch } from '@/components/ui/switch';
 import { Tabs } from '@/components/ui/tabs';
 import { Text } from '@/components/ui/text';
+import { TextArea } from '@/components/ui/text-area';
 import { TextField } from '@/components/ui/text-field';
-import { Textarea } from '@/components/ui/textarea';
 import { Toggle } from '@/components/ui/toggle';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { Tooltip } from '@/components/ui/tooltip';
@@ -686,7 +686,52 @@ export default function KitchenSinkScreen() {
                 <Text size="2" weight="medium" color="gray">
                   Disabled
                 </Text>
-                <TextField.Input placeholder="Disabled" editable={false} />
+                <TextField.Input placeholder="Disabled (surface)" editable={false} />
+                <TextField.Input variant="soft" placeholder="Disabled (soft)" editable={false} />
+              </View>
+            </View>
+          </ComponentSection>
+
+          {/* TextArea Section */}
+          <ComponentSection title="TextArea">
+            <View className="gap-6">
+              {/* Variants */}
+              <View className="gap-3">
+                <Text size="2" weight="medium" color="gray">
+                  Variants
+                </Text>
+                <TextArea placeholder="Surface variant (default)" />
+                <TextArea variant="soft" placeholder="Soft variant" />
+              </View>
+
+              {/* Sizes */}
+              <View className="gap-3">
+                <Text size="2" weight="medium" color="gray">
+                  Sizes
+                </Text>
+                <TextArea size="1" placeholder="Size 1" />
+                <TextArea size="2" placeholder="Size 2 (default)" />
+                <TextArea size="3" placeholder="Size 3" />
+                <TextArea size="4" placeholder="Size 4" />
+              </View>
+
+              {/* Colors (soft variant) */}
+              <View className="gap-3">
+                <Text size="2" weight="medium" color="gray">
+                  Colors (soft variant)
+                </Text>
+                <TextArea variant="soft" color="blue" placeholder="Blue" />
+                <TextArea variant="soft" color="green" placeholder="Green" />
+                <TextArea variant="soft" color="red" placeholder="Red" />
+              </View>
+
+              {/* Disabled */}
+              <View className="gap-3">
+                <Text size="2" weight="medium" color="gray">
+                  Disabled
+                </Text>
+                <TextArea placeholder="Disabled (surface)" editable={false} />
+                <TextArea variant="soft" placeholder="Disabled (soft)" editable={false} />
               </View>
             </View>
           </ComponentSection>
@@ -697,15 +742,6 @@ export default function KitchenSinkScreen() {
               <View className="gap-2">
                 <Label nativeID="email">Email</Label>
                 <Input placeholder="Enter your email" aria-labelledby="email" />
-              </View>
-
-              <View className="gap-2">
-                <Label nativeID="message">Message</Label>
-                <Textarea
-                  placeholder="Type your message here"
-                  aria-labelledby="message"
-                  className="min-h-[100px]"
-                />
               </View>
 
               <View className="gap-2">
