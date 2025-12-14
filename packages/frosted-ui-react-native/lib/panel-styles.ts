@@ -102,7 +102,15 @@ function getPanelContentStyle(options: PanelStyleOptions): ViewStyle {
   const { size, variant, colors, isDark } = options;
 
   const sizeStyle = getPanelSizeStyle(size);
-  const backgroundColor = variant === 'solid' ? colors.panelSolid : colors.panelTranslucent;
+
+  // TODO: Handle translucent variant properly on native (iOS/Android) with blur effect
+  // For now, native always uses solid background since backdrop-filter is web-only
+  // and native blur requires additional setup (expo-blur or @react-native-community/blur)
+  const backgroundColor =
+    Platform.OS === 'web' && variant === 'translucent'
+      ? colors.panelTranslucent
+      : colors.panelSolid;
+
   const backdropStyle = getPanelBackdropStyle(variant, isDark);
   const shadowStyle = getPanelShadowStyle(colors, isDark);
   const borderStyle = getPanelBorderStyle(colors, isDark);
