@@ -56,6 +56,7 @@ import {
 import { Heading } from '@/components/ui/heading';
 import { HoverCard } from '@/components/ui/hover-card';
 import { Icon } from '@/components/ui/icon';
+import { IconButton } from '@/components/ui/icon-button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -344,6 +345,91 @@ export default function KitchenSinkScreen() {
                   <Button variant="ghost" color="blue" disabled>
                     <Text>Disabled Ghost</Text>
                   </Button>
+                </View>
+              </View>
+            </View>
+          </ComponentSection>
+
+          {/* IconButton Section */}
+          <ComponentSection title="IconButton">
+            <View className="gap-6">
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Variants - Blue
+                </Text>
+                <View className="flex-row flex-wrap gap-2">
+                  <IconButton variant="solid" color="blue">
+                    <Icon as={SettingsIcon} size={16} />
+                  </IconButton>
+                  <IconButton variant="soft" color="blue">
+                    <Icon as={SettingsIcon} size={16} />
+                  </IconButton>
+                  <IconButton variant="surface" color="blue">
+                    <Icon as={SettingsIcon} size={16} />
+                  </IconButton>
+                  <IconButton variant="ghost" color="blue">
+                    <Icon as={SettingsIcon} size={16} />
+                  </IconButton>
+                </View>
+              </View>
+
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Sizes
+                </Text>
+                <View className="flex-row flex-wrap items-center gap-2">
+                  <IconButton size="1">
+                    <Icon as={SettingsIcon} size={12} />
+                  </IconButton>
+                  <IconButton size="2">
+                    <Icon as={SettingsIcon} size={16} />
+                  </IconButton>
+                  <IconButton size="3">
+                    <Icon as={SettingsIcon} size={20} />
+                  </IconButton>
+                  <IconButton size="4">
+                    <Icon as={SettingsIcon} size={24} />
+                  </IconButton>
+                </View>
+              </View>
+
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Colors
+                </Text>
+                <View className="flex-row flex-wrap gap-2">
+                  <IconButton color="indigo">
+                    <Icon as={SettingsIcon} size={16} />
+                  </IconButton>
+                  <IconButton color="cyan">
+                    <Icon as={SettingsIcon} size={16} />
+                  </IconButton>
+                  <IconButton color="orange">
+                    <Icon as={SettingsIcon} size={16} />
+                  </IconButton>
+                  <IconButton color="crimson">
+                    <Icon as={SettingsIcon} size={16} />
+                  </IconButton>
+                </View>
+              </View>
+
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Disabled State
+                </Text>
+                <View className="flex-row flex-wrap gap-2">
+                  <IconButton variant="solid" color="blue" disabled>
+                    <Icon as={SettingsIcon} size={16} />
+                  </IconButton>
+                  <IconButton variant="soft" color="blue" disabled>
+                    <Icon as={SettingsIcon} size={16} />
+                  </IconButton>
+                  <IconButton variant="surface" color="blue" disabled>
+                    <Icon as={SettingsIcon} size={16} />
+                  </IconButton>
+                  <IconButton variant="ghost" color="blue" disabled>
+                    <Icon as={SettingsIcon} size={16} />
+                  </IconButton>
                 </View>
               </View>
             </View>
@@ -686,9 +772,9 @@ export default function KitchenSinkScreen() {
                       </TextField.Slot>
                       <TextField.Input placeholder="Search the docs…" />
                       <TextField.Slot>
-                        <Button size="1" variant="ghost" color="gray">
+                        <IconButton size="1" variant="ghost" color="gray">
                           <Icon as={MoreVertical} size={16} />
-                        </Button>
+                        </IconButton>
                       </TextField.Slot>
                     </TextField.Root>
                     <Button size="2" variant="surface">
@@ -704,9 +790,9 @@ export default function KitchenSinkScreen() {
                       </TextField.Slot>
                       <TextField.Input placeholder="Search the docs…" />
                       <TextField.Slot style={{ paddingRight: 12 }}>
-                        <Button size="2" variant="ghost" color="gray">
+                        <IconButton size="2" variant="ghost" color="gray">
                           <Icon as={MoreVertical} size={20} />
-                        </Button>
+                        </IconButton>
                       </TextField.Slot>
                     </TextField.Root>
                     <Button size="3" variant="surface">
@@ -722,9 +808,9 @@ export default function KitchenSinkScreen() {
                       </TextField.Slot>
                       <TextField.Input placeholder="Search the docs…" />
                       <TextField.Slot style={{ paddingRight: 12 }}>
-                        <Button size="2" variant="ghost" color="gray">
+                        <IconButton size="2" variant="ghost" color="gray">
                           <Icon as={MoreVertical} size={20} />
-                        </Button>
+                        </IconButton>
                       </TextField.Slot>
                     </TextField.Root>
                     <Button size="4" variant="surface">
