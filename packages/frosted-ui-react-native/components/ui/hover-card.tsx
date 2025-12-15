@@ -68,7 +68,11 @@ function HoverCardContent({
       <FullWindowOverlay>
         <HoverCardPrimitive.Overlay style={Platform.select({ native: StyleSheet.absoluteFill })}>
           <NativeOnlyAnimatedView entering={FadeIn} exiting={FadeOut}>
-            <HoverCardPrimitive.Content align={align} sideOffset={sideOffset} {...props}>
+            <HoverCardPrimitive.Content
+              align={align}
+              sideOffset={sideOffset}
+              insets={{ top: 8, right: 8, bottom: 8, left: 8 }}
+              {...props}>
               <View style={[contentStyle, style]}>{children}</View>
             </HoverCardPrimitive.Content>
           </NativeOnlyAnimatedView>

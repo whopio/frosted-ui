@@ -1986,7 +1986,7 @@ function HoverCardDemo() {
           <HoverCard.Content>
             <View style={{ flexDirection: 'row', gap: 16 }}>
               <Avatar size="3" fallback="Next.js" />
-              <View style={{ flex: 1, gap: 4 }}>
+              <View style={{ gap: 4 }}>
                 <Text size="1" weight="semi-bold" color="gray">
                   @nextjs
                 </Text>
@@ -2015,7 +2015,7 @@ function HoverCardDemo() {
           <HoverCard.Content variant="solid">
             <View style={{ flexDirection: 'row', gap: 16 }}>
               <Avatar size="3" fallback="R" color="violet" />
-              <View style={{ flex: 1, gap: 4 }}>
+              <View style={{ gap: 4 }}>
                 <Text size="1" weight="semi-bold" color="gray">
                   @radix
                 </Text>

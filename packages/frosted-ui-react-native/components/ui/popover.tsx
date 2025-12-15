@@ -70,7 +70,11 @@ function PopoverContent({
       <FullWindowOverlay>
         <PopoverPrimitive.Overlay style={Platform.select({ native: StyleSheet.absoluteFill })}>
           <NativeOnlyAnimatedView entering={FadeIn.duration(200)} exiting={FadeOut}>
-            <PopoverPrimitive.Content align={align} sideOffset={sideOffset} {...props}>
+            <PopoverPrimitive.Content
+              align={align}
+              insets={{ top: 8, right: 8, bottom: 8, left: 8 }}
+              sideOffset={sideOffset}
+              {...props}>
               <View style={[contentStyle, style]}>{children}</View>
             </PopoverPrimitive.Content>
           </NativeOnlyAnimatedView>
