@@ -23,15 +23,7 @@ import { Callout } from '@/components/ui/callout';
 import { Card } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import {
-  ContextMenu,
-  ContextMenuCheckboxItem,
-  ContextMenuContent,
-  ContextMenuItem,
-  ContextMenuLabel,
-  ContextMenuSeparator,
-  ContextMenuTrigger,
-} from '@/components/ui/context-menu';
+import { ContextMenu } from '@/components/ui/context-menu';
 import {
   Dialog,
   DialogClose,
@@ -80,7 +72,6 @@ import {
   CalendarIcon,
   ChevronDownIcon,
   ChevronRightIcon,
-  CreditCardIcon,
   InfoIcon,
   ItalicIcon,
   MailIcon,
@@ -91,7 +82,6 @@ import {
   SettingsIcon,
   SunIcon,
   UnderlineIcon,
-  UserIcon,
 } from 'lucide-react-native';
 import { useColorScheme } from 'nativewind';
 import * as React from 'react';
@@ -1619,7 +1609,35 @@ export default function KitchenSinkScreen() {
 
           {/* Context Menu Section */}
           <ComponentSection title="Context Menu">
-            <ContextMenuDemo />
+            <View className="gap-6">
+              {/* Default Demo */}
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Default
+                </Text>
+                <ContextMenuDefaultDemo />
+              </View>
+
+              {/* Sizes */}
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Sizes
+                </Text>
+                <View className="gap-3">
+                  <ContextMenuSizeDemo size="1" label="Small" />
+                  <ContextMenuSizeDemo size="2" label="Default" />
+                  <ContextMenuSizeDemo size="3" label="Large" />
+                </View>
+              </View>
+
+              {/* Colors */}
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Item Colors
+                </Text>
+                <ContextMenuColorDemo />
+              </View>
+            </View>
           </ComponentSection>
 
           {/* Menubar Section */}
@@ -2054,35 +2072,97 @@ function SegmentedControlDemo() {
   );
 }
 
-function ContextMenuDemo() {
-  const [checked, setChecked] = React.useState(true);
+function ContextMenuDefaultDemo() {
+  type Order = 'ascending' | 'descending';
+  const [order, setOrder] = React.useState<Order>('ascending');
+  const [showHiddenFiles, setShowHiddenFiles] = React.useState(true);
+
   return (
-    <ContextMenu>
-      <ContextMenuTrigger>
+    <ContextMenu.Root>
+      <ContextMenu.Trigger>
         <View className="flex h-32 items-center justify-center rounded-md border border-dashed border-stroke">
           <Text className="text-sm text-gray-a10">Right click / Long press here</Text>
         </View>
-      </ContextMenuTrigger>
-      <ContextMenuContent>
-        <ContextMenuItem>
-          <Icon as={UserIcon} />
-          <Text>Profile</Text>
-        </ContextMenuItem>
-        <ContextMenuItem>
-          <Icon as={CreditCardIcon} />
-          <Text>Billing</Text>
-        </ContextMenuItem>
-        <ContextMenuSeparator />
-        <ContextMenuCheckboxItem checked={checked} onCheckedChange={setChecked}>
-          <Text>Show Toolbar</Text>
-        </ContextMenuCheckboxItem>
-        <ContextMenuLabel>More</ContextMenuLabel>
-        <ContextMenuItem>
-          <Icon as={SettingsIcon} />
-          <Text>Settings</Text>
-        </ContextMenuItem>
-      </ContextMenuContent>
-    </ContextMenu>
+      </ContextMenu.Trigger>
+      <ContextMenu.Content>
+        <ContextMenu.Label>Actions</ContextMenu.Label>
+        <ContextMenu.Item>Edit</ContextMenu.Item>
+        <ContextMenu.Item>Duplicate</ContextMenu.Item>
+        <ContextMenu.Separator />
+        <ContextMenu.Item>Archive</ContextMenu.Item>
+
+        <ContextMenu.Separator />
+        <ContextMenu.RadioGroup value={order} onValueChange={(value) => setOrder(value as Order)}>
+          <ContextMenu.RadioItem value="ascending">Ascending</ContextMenu.RadioItem>
+          <ContextMenu.RadioItem value="descending">Descending</ContextMenu.RadioItem>
+        </ContextMenu.RadioGroup>
+        <ContextMenu.Separator />
+
+        <ContextMenu.CheckboxItem checked={showHiddenFiles} onCheckedChange={setShowHiddenFiles}>
+          Show hidden files
+        </ContextMenu.CheckboxItem>
+
+        <ContextMenu.Separator />
+
+        <ContextMenu.Item color="danger">Delete</ContextMenu.Item>
+      </ContextMenu.Content>
+    </ContextMenu.Root>
+  );
+}
+
+function ContextMenuSizeDemo({ size, label }: { size: '1' | '2' | '3'; label: string }) {
+  type Order = 'ascending' | 'descending';
+  const [order, setOrder] = React.useState<Order>('ascending');
+  const [showHiddenFiles, setShowHiddenFiles] = React.useState(true);
+
+  return (
+    <ContextMenu.Root size={size}>
+      <ContextMenu.Trigger>
+        <View className="flex h-20 items-center justify-center rounded-md border border-dashed border-stroke">
+          <Text className="text-sm text-gray-a10">{label} - Right click / Long press</Text>
+        </View>
+      </ContextMenu.Trigger>
+      <ContextMenu.Content>
+        <ContextMenu.Label>Actions</ContextMenu.Label>
+        <ContextMenu.Item>Edit</ContextMenu.Item>
+        <ContextMenu.Item>Duplicate</ContextMenu.Item>
+        <ContextMenu.Separator />
+        <ContextMenu.Item>Archive</ContextMenu.Item>
+
+        <ContextMenu.Separator />
+        <ContextMenu.RadioGroup value={order} onValueChange={(value) => setOrder(value as Order)}>
+          <ContextMenu.RadioItem value="ascending">Ascending</ContextMenu.RadioItem>
+          <ContextMenu.RadioItem value="descending">Descending</ContextMenu.RadioItem>
+        </ContextMenu.RadioGroup>
+        <ContextMenu.Separator />
+
+        <ContextMenu.CheckboxItem checked={showHiddenFiles} onCheckedChange={setShowHiddenFiles}>
+          Show hidden files
+        </ContextMenu.CheckboxItem>
+
+        <ContextMenu.Separator />
+
+        <ContextMenu.Item color="danger">Delete</ContextMenu.Item>
+      </ContextMenu.Content>
+    </ContextMenu.Root>
+  );
+}
+
+function ContextMenuColorDemo() {
+  return (
+    <ContextMenu.Root>
+      <ContextMenu.Trigger>
+        <View className="flex h-20 items-center justify-center rounded-md border border-dashed border-stroke">
+          <Text className="text-sm text-gray-a10">Right click / Long press here</Text>
+        </View>
+      </ContextMenu.Trigger>
+      <ContextMenu.Content>
+        <ContextMenu.Item color="blue">Edit (info)</ContextMenu.Item>
+        <ContextMenu.Item color="green">Duplicate (success)</ContextMenu.Item>
+        <ContextMenu.Separator />
+        <ContextMenu.Item color="danger">Archive (danger)</ContextMenu.Item>
+      </ContextMenu.Content>
+    </ContextMenu.Root>
   );
 }
 

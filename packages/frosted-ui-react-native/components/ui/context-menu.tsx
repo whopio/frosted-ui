@@ -1,277 +1,729 @@
-import { Icon } from '@/components/ui/icon';
 import { NativeOnlyAnimatedView } from '@/components/ui/native-only-animated-view';
-import { TextClassContext } from '@/components/ui/text';
-import { cn } from '@/lib/utils';
+import { Text, TextStyleContext } from '@/components/ui/text';
+import type { Color } from '@/lib/types';
+import { useThemeVars } from '@/lib/use-theme-vars';
 import * as ContextMenuPrimitive from '@rn-primitives/context-menu';
-import { Check, ChevronDown, ChevronRight, ChevronUp } from 'lucide-react-native';
 import * as React from 'react';
 import {
   Platform,
-  type StyleProp,
+  ScrollView,
   StyleSheet,
-  Text,
-  type TextProps,
+  useWindowDimensions,
   View,
   type ViewStyle,
 } from 'react-native';
-import { FadeIn } from 'react-native-reanimated';
+import { FadeIn, FadeOut } from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FullWindowOverlay as RNFullWindowOverlay } from 'react-native-screens';
+import Svg, { Path } from 'react-native-svg';
 
-const ContextMenu = ContextMenuPrimitive.Root;
-const ContextMenuTrigger = ContextMenuPrimitive.Trigger;
-const ContextMenuGroup = ContextMenuPrimitive.Group;
-const ContextMenuSub = ContextMenuPrimitive.Sub;
-const ContextMenuRadioGroup = ContextMenuPrimitive.RadioGroup;
+// ============================================================================
+// Custom icons matching web version
+// ============================================================================
 
-function ContextMenuSubTrigger({
-  className,
-  inset,
-  children,
-  iconClassName,
-  ...props
-}: ContextMenuPrimitive.SubTriggerProps &
-  React.RefAttributes<ContextMenuPrimitive.SubTriggerRef> & {
-    children?: React.ReactNode;
-    iconClassName?: string;
-    inset?: boolean;
-  }) {
-  const { open } = ContextMenuPrimitive.useSubContext();
-  const icon = Platform.OS === 'web' ? ChevronRight : open ? ChevronUp : ChevronDown;
+function ContextMenuCheckIcon({ size, color }: { size: number; color: string }) {
   return (
-    <TextClassContext.Provider
-      value={cn(
-        'text-sm select-none group-active:text-accent-foreground',
-        open && 'text-accent-foreground'
-      )}>
-      <ContextMenuPrimitive.SubTrigger
-        className={cn(
-          'group flex flex-row items-center rounded-sm px-2 py-2 active:bg-accent sm:py-1.5',
-          Platform.select({
-            web: 'cursor-default outline-none focus:bg-accent focus:text-accent-foreground [&_svg]:pointer-events-none',
-          }),
-          open && cn('bg-accent', Platform.select({ native: 'mb-1' })),
-          inset && 'pl-8'
-        )}
-        {...props}>
-        <>{children}</>
-        <Icon as={icon} className={cn('text-gray-12 ml-auto size-4 shrink-0', iconClassName)} />
-      </ContextMenuPrimitive.SubTrigger>
-    </TextClassContext.Provider>
-  );
-}
-
-function ContextMenuSubContent({
-  className,
-  ...props
-}: ContextMenuPrimitive.SubContentProps & React.RefAttributes<ContextMenuPrimitive.SubContentRef>) {
-  return (
-    <NativeOnlyAnimatedView entering={FadeIn}>
-      <ContextMenuPrimitive.SubContent
-        className={cn(
-          'border-stroke overflow-hidden rounded-md border bg-popover p-1 shadow-lg shadow-black/5',
-          Platform.select({
-            web: 'origin-(--radix-context-menu-content-transform-origin) z-50 min-w-[8rem] animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
-          }),
-          className
-        )}
-        {...props}
+    <Svg width={size} height={size} viewBox="0 0 9 9" fill={color}>
+      <Path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M8.53547 0.62293C8.88226 0.849446 8.97976 1.3142 8.75325 1.66099L4.5083 8.1599C4.38833 8.34356 4.19397 8.4655 3.9764 8.49358C3.75883 8.52167 3.53987 8.45309 3.3772 8.30591L0.616113 5.80777C0.308959 5.52987 0.285246 5.05559 0.563148 4.74844C0.84105 4.44128 1.31533 4.41757 1.62249 4.69547L3.73256 6.60459L7.49741 0.840706C7.72393 0.493916 8.18868 0.396414 8.53547 0.62293Z"
       />
-    </NativeOnlyAnimatedView>
+    </Svg>
   );
 }
+
+function ContextMenuChevronRightIcon({ size, color }: { size: number; color: string }) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 9 9" fill="none" stroke={color} strokeWidth={1.5}>
+      <Path d="M3 1.5L6 4.5L3 7.5" />
+    </Svg>
+  );
+}
+
+// ============================================================================
+// Types
+// ============================================================================
+
+type ContextMenuSize = '1' | '2' | '3';
+type ContextMenuVariant = 'solid' | 'soft';
+
+// ============================================================================
+// Context
+// ============================================================================
+
+type ContextMenuContextValue = {
+  size: ContextMenuSize;
+  variant: ContextMenuVariant;
+  color?: Color;
+  hasIndicators?: boolean; // When true, all items get extra left padding to align with checkbox/radio indicators
+};
+
+const ContextMenuContext = React.createContext<ContextMenuContextValue>({
+  size: '2',
+  variant: 'solid',
+  hasIndicators: false,
+});
+
+// ============================================================================
+// Size/Style helpers (same as DropdownMenu)
+// ============================================================================
+
+function getMenuSizeStyles(size: ContextMenuSize) {
+  return {
+    contentPadding: 4, // --space-1
+    contentBorderRadius: size === '1' ? 8 : size === '2' ? 10 : 12,
+    itemHeight: size === '1' ? 24 : size === '2' ? 32 : 40,
+    itemPaddingLeft: size === '1' ? 8 : size === '2' ? 10 : 12,
+    itemPaddingRight: size === '1' ? 8 : size === '2' ? 10 : 12,
+    itemBorderRadius: size === '1' ? 4 : size === '2' ? 6 : 8,
+    // For checkbox/radio items, use larger left padding
+    itemIndicatorPaddingLeft: size === '1' ? 24 : size === '2' ? 26 : 28,
+    iconSize: size === '1' ? 8 : size === '2' ? 10 : 12,
+    itemFontSize: size === '1' ? '1' : size === '2' ? '2' : '3',
+    labelFontSize: size === '1' ? '0' : size === '2' ? '1' : '2',
+  } as const;
+}
+
+// ============================================================================
+// ContextMenu.Root
+// ============================================================================
+
+type ContextMenuRootProps = ContextMenuPrimitive.RootProps & {
+  size?: ContextMenuSize;
+  variant?: ContextMenuVariant;
+  color?: Color;
+};
+
+function ContextMenuRoot({ size = '2', variant = 'solid', color, ...props }: ContextMenuRootProps) {
+  const contextValue = React.useMemo(() => ({ size, variant, color }), [size, variant, color]);
+
+  return (
+    <ContextMenuContext.Provider value={contextValue}>
+      <ContextMenuPrimitive.Root {...props} />
+    </ContextMenuContext.Provider>
+  );
+}
+
+// ============================================================================
+// ContextMenu.Trigger
+// ============================================================================
+
+type ContextMenuTriggerProps = ContextMenuPrimitive.TriggerProps;
+
+function ContextMenuTrigger(props: ContextMenuTriggerProps) {
+  return <ContextMenuPrimitive.Trigger {...props} />;
+}
+
+// ============================================================================
+// ContextMenu.Content
+// ============================================================================
 
 const FullWindowOverlay = Platform.OS === 'ios' ? RNFullWindowOverlay : React.Fragment;
 
-function ContextMenuContent({
-  className,
-  overlayClassName,
-  overlayStyle,
-  portalHost,
-  ...props
-}: ContextMenuPrimitive.ContentProps &
-  React.RefAttributes<ContextMenuPrimitive.ContentRef> & {
-    overlayStyle?: StyleProp<ViewStyle>;
-    overlayClassName?: string;
-    portalHost?: string;
-  }) {
+type ContextMenuContentProps = Omit<ContextMenuPrimitive.ContentProps, 'children'> & {
+  portalHost?: string;
+  children?: React.ReactNode;
+};
+
+function ContextMenuContent({ portalHost, children, ...props }: ContextMenuContentProps) {
+  const { size, variant, color } = React.useContext(ContextMenuContext);
+  const { colors, isDark } = useThemeVars();
+  const { height: windowHeight } = useWindowDimensions();
+  const safeAreaInsets = useSafeAreaInsets();
+
+  const sizeStyles = getMenuSizeStyles(size);
+
+  // Calculate available height for native
+  const nativeMaxHeight = Math.max(
+    150,
+    windowHeight - safeAreaInsets.top - safeAreaInsets.bottom - 100
+  );
+
+  // Insets for collision detection
+  const contentInsets = {
+    top: safeAreaInsets.top + 8,
+    bottom: safeAreaInsets.bottom + 8,
+    left: safeAreaInsets.left + 8,
+    right: safeAreaInsets.right + 8,
+  };
+
+  // Detect if content has checkbox or radio items to adjust padding for all items
+  const hasIndicators = React.useMemo(() => {
+    let found = false;
+    React.Children.forEach(children, (child) => {
+      if (React.isValidElement(child)) {
+        if (
+          child.type === ContextMenuCheckboxItem ||
+          child.type === ContextMenuRadioItem ||
+          child.type === ContextMenuRadioGroup
+        ) {
+          found = true;
+        }
+      }
+    });
+    return found;
+  }, [children]);
+
+  // Re-provide context inside portal with hasIndicators
+  const contextValue = React.useMemo(
+    () => ({ size, variant, color, hasIndicators }),
+    [size, variant, color, hasIndicators]
+  );
+
+  const backgroundColor = variant === 'solid' ? colors.panelSolid : colors.panelTranslucent;
+
   return (
     <ContextMenuPrimitive.Portal hostName={portalHost}>
       <FullWindowOverlay>
-        <ContextMenuPrimitive.Overlay
-          style={Platform.select({
-            web: overlayStyle ?? undefined,
-            native: overlayStyle
-              ? StyleSheet.flatten([
-                  StyleSheet.absoluteFill,
-                  overlayStyle as typeof StyleSheet.absoluteFill,
-                ])
-              : StyleSheet.absoluteFill,
-          })}
-          className={overlayClassName}>
-          <NativeOnlyAnimatedView entering={FadeIn}>
-            <TextClassContext.Provider value="text-popover-foreground">
-              <ContextMenuPrimitive.Content
-                className={cn(
-                  'border-stroke min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 shadow-lg shadow-black/5',
-                  Platform.select({
-                    web: cn(
-                      'max-h-(--radix-context-menu-content-available-height) origin-(--radix-context-menu-content-transform-origin) z-50 cursor-default animate-in fade-in-0 zoom-in-95',
-                      props.side === 'bottom' && 'slide-in-from-top-2',
-                      props.side === 'top' && 'slide-in-from-bottom-2'
-                    ),
-                  }),
-                  className
-                )}
-                {...props}
-              />
-            </TextClassContext.Provider>
-          </NativeOnlyAnimatedView>
+        <ContextMenuPrimitive.Overlay style={Platform.select({ native: StyleSheet.absoluteFill })}>
+          <ContextMenuContext.Provider value={contextValue}>
+            <TextStyleContext.Provider value={{ size: '2', weight: 'regular', color: 'gray' }}>
+              <NativeOnlyAnimatedView entering={FadeIn} exiting={FadeOut}>
+                <ContextMenuPrimitive.Content
+                  insets={Platform.OS !== 'web' ? contentInsets : undefined}
+                  style={{
+                    backgroundColor,
+                    borderRadius: sizeStyles.contentBorderRadius,
+                    minWidth: 128,
+                    ...Platform.select({
+                      web: {
+                        boxShadow: isDark
+                          ? `0 0 0 1px ${colors.palettes.gray.a6}, 0 12px 60px ${colors.palettes.black.a5}, 0 12px 32px -16px ${colors.palettes.black.a7}`
+                          : `0 0 0 1px ${colors.palettes.gray.a5}, 0 12px 60px ${colors.palettes.black.a3}, 0 12px 32px -16px ${colors.palettes.gray.a5}`,
+                        backdropFilter:
+                          variant === 'soft'
+                            ? 'saturate(1.8) blur(20px) contrast(1.05) brightness(1.05)'
+                            : undefined,
+                        overflow: 'hidden',
+                      },
+                      default: {
+                        maxHeight: nativeMaxHeight,
+                        borderWidth: 1,
+                        borderColor: isDark ? colors.palettes.gray.a6 : colors.palettes.gray.a5,
+                        shadowColor: '#000000',
+                        shadowOpacity: isDark ? 0.3 : 0.15,
+                        shadowOffset: { width: 0, height: 12 },
+                        shadowRadius: 30,
+                        elevation: 12,
+                      },
+                    }),
+                  }}
+                  {...props}>
+                  {Platform.OS === 'web' ? (
+                    <View
+                      style={
+                        {
+                          padding: sizeStyles.contentPadding,
+                          maxHeight: 'var(--radix-context-menu-content-available-height)',
+                          overflow: 'auto',
+                        } as unknown as ViewStyle
+                      }>
+                      {children}
+                    </View>
+                  ) : (
+                    <ScrollView
+                      style={{ maxHeight: nativeMaxHeight - sizeStyles.contentPadding * 2 - 2 }}
+                      contentContainerStyle={{ padding: sizeStyles.contentPadding }}
+                      showsVerticalScrollIndicator
+                      bounces={false}>
+                      {children}
+                    </ScrollView>
+                  )}
+                </ContextMenuPrimitive.Content>
+              </NativeOnlyAnimatedView>
+            </TextStyleContext.Provider>
+          </ContextMenuContext.Provider>
         </ContextMenuPrimitive.Overlay>
       </FullWindowOverlay>
     </ContextMenuPrimitive.Portal>
   );
 }
 
-function ContextMenuItem({
-  className,
-  inset,
-  variant,
-  ...props
-}: ContextMenuPrimitive.ItemProps &
-  React.RefAttributes<ContextMenuPrimitive.ItemRef> & {
-    className?: string;
-    inset?: boolean;
-    variant?: 'default' | 'destructive';
-  }) {
+// ============================================================================
+// ContextMenu.Item
+// ============================================================================
+
+type ContextMenuItemProps = Omit<ContextMenuPrimitive.ItemProps, 'children'> & {
+  color?: Color;
+  children?: React.ReactNode;
+};
+
+function ContextMenuItem({ children, disabled, color, ...props }: ContextMenuItemProps) {
+  const { size, hasIndicators } = React.useContext(ContextMenuContext);
+  const { colors } = useThemeVars();
+  const [hovered, setHovered] = React.useState(false);
+  const [pressed, setPressed] = React.useState(false);
+
+  const sizeStyles = getMenuSizeStyles(size);
+
+  // Resolve accent color for colored items (like danger -> red)
+  const resolvedColor =
+    color === 'danger'
+      ? 'red'
+      : color === 'success'
+        ? 'green'
+        : color === 'warning'
+          ? 'yellow'
+          : color === 'info'
+            ? 'blue'
+            : color;
+  const accentPalette = resolvedColor
+    ? colors.palettes[resolvedColor as keyof typeof colors.palettes] || colors.palettes.gray
+    : null;
+  const isHighlighted = hovered || pressed;
+
+  // Background color on highlight
+  const highlightBg = accentPalette ? accentPalette.a5 : colors.palettes.gray.a4;
+
+  // Text color
+  const textColor = disabled
+    ? colors.palettes.gray.a8
+    : accentPalette
+      ? isHighlighted
+        ? ((accentPalette as { '12'?: string; a11?: string })['12'] ?? accentPalette.a11)
+        : accentPalette.a11
+      : colors.palettes.gray['12'];
+
+  // Use indicator padding when menu has checkbox/radio items
+  const paddingLeft = hasIndicators
+    ? sizeStyles.itemIndicatorPaddingLeft
+    : sizeStyles.itemPaddingLeft;
+
+  const itemStyle = React.useMemo<ViewStyle>(
+    () => ({
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      height: sizeStyles.itemHeight,
+      paddingLeft,
+      paddingRight: sizeStyles.itemPaddingRight,
+      borderRadius: sizeStyles.itemBorderRadius,
+      backgroundColor: isHighlighted ? highlightBg : undefined,
+      ...Platform.select({
+        web: {
+          cursor: disabled ? 'not-allowed' : 'default',
+          userSelect: 'none',
+          outline: 'none',
+        } as unknown as ViewStyle,
+      }),
+    }),
+    [sizeStyles, paddingLeft, isHighlighted, highlightBg, disabled]
+  );
+
+  // Web-specific hover handlers
+  const webHoverProps =
+    Platform.OS === 'web'
+      ? {
+          onMouseEnter: () => setHovered(true),
+          onMouseLeave: () => setHovered(false),
+        }
+      : {};
+
   return (
-    <TextClassContext.Provider
-      value={cn(
-        'select-none text-sm text-popover-foreground group-active:text-popover-foreground',
-        variant === 'destructive' && 'text-destructive group-active:text-destructive'
-      )}>
-      <ContextMenuPrimitive.Item
-        className={cn(
-          'group relative flex flex-row items-center gap-2 rounded-sm px-2 py-2 active:bg-accent sm:py-1.5',
-          Platform.select({
-            web: cn(
-              'cursor-default outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none',
-              variant === 'destructive' && 'focus:bg-destructive/10 dark:focus:bg-destructive/20'
-            ),
-          }),
-          variant === 'destructive' && 'active:bg-destructive/10 dark:active:bg-destructive/20',
-          props.disabled && 'opacity-50',
-          inset && 'pl-8',
-          className
-        )}
-        {...props}
-      />
-    </TextClassContext.Provider>
+    <ContextMenuPrimitive.Item
+      disabled={disabled}
+      onHoverIn={Platform.OS !== 'web' ? () => setHovered(true) : undefined}
+      onHoverOut={Platform.OS !== 'web' ? () => setHovered(false) : undefined}
+      onPressIn={() => setPressed(true)}
+      onPressOut={() => setPressed(false)}
+      style={itemStyle}
+      {...webHoverProps}
+      {...props}>
+      <Text size={sizeStyles.itemFontSize as any} style={{ color: textColor }}>
+        {children}
+      </Text>
+    </ContextMenuPrimitive.Item>
   );
 }
 
-function ContextMenuCheckboxItem({
-  className,
-  children,
-  ...props
-}: ContextMenuPrimitive.CheckboxItemProps &
-  React.RefAttributes<ContextMenuPrimitive.CheckboxItemRef> & {
-    children?: React.ReactNode;
-  }) {
+// ============================================================================
+// ContextMenu.CheckboxItem
+// ============================================================================
+
+type ContextMenuCheckboxItemProps = Omit<ContextMenuPrimitive.CheckboxItemProps, 'children'> & {
+  children?: React.ReactNode;
+};
+
+function ContextMenuCheckboxItem({ children, disabled, ...props }: ContextMenuCheckboxItemProps) {
+  const { size } = React.useContext(ContextMenuContext);
+  const { colors } = useThemeVars();
+  const [hovered, setHovered] = React.useState(false);
+  const [pressed, setPressed] = React.useState(false);
+
+  const sizeStyles = getMenuSizeStyles(size);
+  const isHighlighted = hovered || pressed;
+  const highlightBg = colors.palettes.gray.a4;
+  const textColor = disabled ? colors.palettes.gray.a8 : colors.palettes.gray['12'];
+
+  const itemStyle = React.useMemo<ViewStyle>(
+    () => ({
+      flexDirection: 'row',
+      alignItems: 'center',
+      height: sizeStyles.itemHeight,
+      paddingLeft: sizeStyles.itemIndicatorPaddingLeft,
+      paddingRight: sizeStyles.itemPaddingRight,
+      borderRadius: sizeStyles.itemBorderRadius,
+      backgroundColor: isHighlighted ? highlightBg : undefined,
+      position: 'relative',
+      ...Platform.select({
+        web: {
+          cursor: disabled ? 'not-allowed' : 'default',
+          userSelect: 'none',
+          outline: 'none',
+        } as unknown as ViewStyle,
+      }),
+    }),
+    [sizeStyles, isHighlighted, highlightBg, disabled]
+  );
+
+  const webHoverProps =
+    Platform.OS === 'web'
+      ? {
+          onMouseEnter: () => setHovered(true),
+          onMouseLeave: () => setHovered(false),
+        }
+      : {};
+
   return (
-    <TextClassContext.Provider value="text-sm text-popover-foreground select-none group-active:text-accent-foreground">
-      <ContextMenuPrimitive.CheckboxItem
-        className={cn(
-          'group relative flex flex-row items-center gap-2 rounded-sm py-2 pl-8 pr-2 active:bg-accent sm:py-1.5',
-          Platform.select({
-            web: 'cursor-default outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none',
-          }),
-          props.disabled && 'opacity-50',
-          className
-        )}
+    <ContextMenuPrimitive.CheckboxItem
+      disabled={disabled}
+      onHoverIn={Platform.OS !== 'web' ? () => setHovered(true) : undefined}
+      onHoverOut={Platform.OS !== 'web' ? () => setHovered(false) : undefined}
+      onPressIn={() => setPressed(true)}
+      onPressOut={() => setPressed(false)}
+      style={itemStyle}
+      {...webHoverProps}
+      {...props}>
+      <ContextMenuPrimitive.ItemIndicator
+        style={{
+          position: 'absolute',
+          left: 0,
+          width: sizeStyles.itemIndicatorPaddingLeft,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <ContextMenuCheckIcon size={sizeStyles.iconSize} color={textColor} />
+      </ContextMenuPrimitive.ItemIndicator>
+      <Text size={sizeStyles.itemFontSize as any} style={{ color: textColor }}>
+        {children}
+      </Text>
+    </ContextMenuPrimitive.CheckboxItem>
+  );
+}
+
+// ============================================================================
+// ContextMenu.RadioGroup
+// ============================================================================
+
+type ContextMenuRadioGroupProps = ContextMenuPrimitive.RadioGroupProps;
+
+function ContextMenuRadioGroup(props: ContextMenuRadioGroupProps) {
+  return <ContextMenuPrimitive.RadioGroup {...props} />;
+}
+
+// ============================================================================
+// ContextMenu.RadioItem
+// ============================================================================
+
+type ContextMenuRadioItemProps = Omit<ContextMenuPrimitive.RadioItemProps, 'children'> & {
+  children?: React.ReactNode;
+};
+
+function ContextMenuRadioItem({ children, disabled, ...props }: ContextMenuRadioItemProps) {
+  const { size } = React.useContext(ContextMenuContext);
+  const { colors } = useThemeVars();
+  const [hovered, setHovered] = React.useState(false);
+  const [pressed, setPressed] = React.useState(false);
+
+  const sizeStyles = getMenuSizeStyles(size);
+  const isHighlighted = hovered || pressed;
+  const highlightBg = colors.palettes.gray.a4;
+  const textColor = disabled ? colors.palettes.gray.a8 : colors.palettes.gray['12'];
+
+  const itemStyle = React.useMemo<ViewStyle>(
+    () => ({
+      flexDirection: 'row',
+      alignItems: 'center',
+      height: sizeStyles.itemHeight,
+      paddingLeft: sizeStyles.itemIndicatorPaddingLeft,
+      paddingRight: sizeStyles.itemPaddingRight,
+      borderRadius: sizeStyles.itemBorderRadius,
+      backgroundColor: isHighlighted ? highlightBg : undefined,
+      position: 'relative',
+      ...Platform.select({
+        web: {
+          cursor: disabled ? 'not-allowed' : 'default',
+          userSelect: 'none',
+          outline: 'none',
+        } as unknown as ViewStyle,
+      }),
+    }),
+    [sizeStyles, isHighlighted, highlightBg, disabled]
+  );
+
+  const webHoverProps =
+    Platform.OS === 'web'
+      ? {
+          onMouseEnter: () => setHovered(true),
+          onMouseLeave: () => setHovered(false),
+        }
+      : {};
+
+  return (
+    <ContextMenuPrimitive.RadioItem
+      disabled={disabled}
+      onHoverIn={Platform.OS !== 'web' ? () => setHovered(true) : undefined}
+      onHoverOut={Platform.OS !== 'web' ? () => setHovered(false) : undefined}
+      onPressIn={() => setPressed(true)}
+      onPressOut={() => setPressed(false)}
+      style={itemStyle}
+      {...webHoverProps}
+      {...props}>
+      <ContextMenuPrimitive.ItemIndicator
+        style={{
+          position: 'absolute',
+          left: 0,
+          width: sizeStyles.itemIndicatorPaddingLeft,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <ContextMenuCheckIcon size={sizeStyles.iconSize} color={textColor} />
+      </ContextMenuPrimitive.ItemIndicator>
+      <Text size={sizeStyles.itemFontSize as any} style={{ color: textColor }}>
+        {children}
+      </Text>
+    </ContextMenuPrimitive.RadioItem>
+  );
+}
+
+// ============================================================================
+// ContextMenu.Label
+// ============================================================================
+
+type ContextMenuLabelProps = ContextMenuPrimitive.LabelProps;
+
+function ContextMenuLabel({ children, ...props }: ContextMenuLabelProps) {
+  const { size, hasIndicators } = React.useContext(ContextMenuContext);
+  const { colors } = useThemeVars();
+
+  const sizeStyles = getMenuSizeStyles(size);
+
+  // Use indicator padding when menu has checkbox/radio items
+  const paddingLeft = hasIndicators
+    ? sizeStyles.itemIndicatorPaddingLeft
+    : sizeStyles.itemPaddingLeft;
+
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        height: sizeStyles.itemHeight,
+        paddingLeft,
+        paddingRight: sizeStyles.itemPaddingRight,
+        ...Platform.select({
+          web: {
+            cursor: 'default',
+            userSelect: 'none',
+          } as unknown as ViewStyle,
+        }),
+      }}>
+      <Text
+        size={sizeStyles.labelFontSize as any}
+        weight="semi-bold"
+        style={{ color: colors.palettes.gray.a10 }}
         {...props}>
-        <View className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
-          <ContextMenuPrimitive.ItemIndicator>
-            <Icon
-              as={Check}
-              className={cn('text-gray-12 size-4', Platform.select({ web: 'pointer-events-none' }))}
-            />
-          </ContextMenuPrimitive.ItemIndicator>
-        </View>
-        <>{children}</>
-      </ContextMenuPrimitive.CheckboxItem>
-    </TextClassContext.Provider>
+        {children}
+      </Text>
+    </View>
   );
 }
 
-function ContextMenuRadioItem({
-  className,
-  children,
-  ...props
-}: ContextMenuPrimitive.RadioItemProps &
-  React.RefAttributes<ContextMenuPrimitive.RadioItemRef> & {
-    children?: React.ReactNode;
-  }) {
-  return (
-    <TextClassContext.Provider value="text-sm text-popover-foreground select-none group-active:text-accent-foreground">
-      <ContextMenuPrimitive.RadioItem
-        className={cn(
-          'group relative flex flex-row items-center gap-2 rounded-sm py-2 pl-8 pr-2 active:bg-accent sm:py-1.5',
-          Platform.select({
-            web: 'cursor-default outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none',
-          }),
-          props.disabled && 'opacity-50',
-          className
-        )}
-        {...props}>
-        <View className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
-          <ContextMenuPrimitive.ItemIndicator>
-            <View className="h-2 w-2 rounded-full bg-foreground" />
-          </ContextMenuPrimitive.ItemIndicator>
-        </View>
-        <>{children}</>
-      </ContextMenuPrimitive.RadioItem>
-    </TextClassContext.Provider>
-  );
-}
+// ============================================================================
+// ContextMenu.Separator
+// ============================================================================
 
-function ContextMenuLabel({
-  className,
-  inset,
-  ...props
-}: ContextMenuPrimitive.LabelProps &
-  React.RefAttributes<ContextMenuPrimitive.LabelRef> & {
-    className?: string;
-    inset?: boolean;
-  }) {
-  return (
-    <ContextMenuPrimitive.Label
-      className={cn(
-        'text-gray-12 px-2 py-2 text-sm font-medium sm:py-1.5',
-        inset && 'pl-8',
-        className
-      )}
-      {...props}
-    />
-  );
-}
+type ContextMenuSeparatorProps = ContextMenuPrimitive.SeparatorProps;
 
-function ContextMenuSeparator({
-  className,
-  ...props
-}: ContextMenuPrimitive.SeparatorProps & React.RefAttributes<ContextMenuPrimitive.SeparatorRef>) {
+function ContextMenuSeparator(props: ContextMenuSeparatorProps) {
+  const { size } = React.useContext(ContextMenuContext);
+  const { colors } = useThemeVars();
+
+  const sizeStyles = getMenuSizeStyles(size);
+
   return (
     <ContextMenuPrimitive.Separator
-      className={cn('-mx-1 my-1 h-px bg-border', className)}
+      style={{
+        height: 1,
+        backgroundColor: colors.palettes.gray.a6,
+        marginVertical: 4,
+        marginHorizontal: -sizeStyles.contentPadding + 1,
+      }}
       {...props}
     />
   );
 }
 
-function ContextMenuShortcut({ className, ...props }: TextProps & React.RefAttributes<Text>) {
+// ============================================================================
+// ContextMenu.Group
+// ============================================================================
+
+type ContextMenuGroupProps = ContextMenuPrimitive.GroupProps;
+
+function ContextMenuGroup(props: ContextMenuGroupProps) {
+  return <ContextMenuPrimitive.Group {...props} />;
+}
+
+// ============================================================================
+// ContextMenu.Sub
+// ============================================================================
+
+type ContextMenuSubProps = ContextMenuPrimitive.SubProps;
+
+function ContextMenuSub(props: ContextMenuSubProps) {
+  return <ContextMenuPrimitive.Sub {...props} />;
+}
+
+// ============================================================================
+// ContextMenu.SubTrigger
+// ============================================================================
+
+type ContextMenuSubTriggerProps = Omit<ContextMenuPrimitive.SubTriggerProps, 'children'> & {
+  children?: React.ReactNode;
+};
+
+function ContextMenuSubTrigger({ children, disabled, ...props }: ContextMenuSubTriggerProps) {
+  const { size, hasIndicators } = React.useContext(ContextMenuContext);
+  const { colors } = useThemeVars();
+  const [hovered, setHovered] = React.useState(false);
+  const [pressed, setPressed] = React.useState(false);
+
+  const sizeStyles = getMenuSizeStyles(size);
+  const isHighlighted = hovered || pressed;
+  const highlightBg = colors.palettes.gray.a4;
+  const textColor = disabled ? colors.palettes.gray.a8 : colors.palettes.gray['12'];
+
+  // Use indicator padding when menu has checkbox/radio items
+  const paddingLeft = hasIndicators
+    ? sizeStyles.itemIndicatorPaddingLeft
+    : sizeStyles.itemPaddingLeft;
+
+  const itemStyle = React.useMemo<ViewStyle>(
+    () => ({
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      height: sizeStyles.itemHeight,
+      paddingLeft,
+      paddingRight: sizeStyles.itemPaddingRight,
+      borderRadius: sizeStyles.itemBorderRadius,
+      backgroundColor: isHighlighted ? highlightBg : undefined,
+      ...Platform.select({
+        web: {
+          cursor: disabled ? 'not-allowed' : 'default',
+          userSelect: 'none',
+          outline: 'none',
+        } as unknown as ViewStyle,
+      }),
+    }),
+    [sizeStyles, paddingLeft, isHighlighted, highlightBg, disabled]
+  );
+
+  const webHoverProps =
+    Platform.OS === 'web'
+      ? {
+          onMouseEnter: () => setHovered(true),
+          onMouseLeave: () => setHovered(false),
+        }
+      : {};
+
   return (
-    <Text className={cn('text-gray-a10 ml-auto text-xs tracking-widest', className)} {...props} />
+    <ContextMenuPrimitive.SubTrigger
+      disabled={disabled}
+      onHoverIn={Platform.OS !== 'web' ? () => setHovered(true) : undefined}
+      onHoverOut={Platform.OS !== 'web' ? () => setHovered(false) : undefined}
+      onPressIn={() => setPressed(true)}
+      onPressOut={() => setPressed(false)}
+      style={itemStyle}
+      {...webHoverProps}
+      {...props}>
+      <Text size={sizeStyles.itemFontSize as any} style={{ color: textColor }}>
+        {children}
+      </Text>
+      <ContextMenuChevronRightIcon size={sizeStyles.iconSize} color={textColor} />
+    </ContextMenuPrimitive.SubTrigger>
   );
 }
+
+// ============================================================================
+// ContextMenu.SubContent
+// ============================================================================
+
+type ContextMenuSubContentProps = ContextMenuPrimitive.SubContentProps;
+
+function ContextMenuSubContent(props: ContextMenuSubContentProps) {
+  const { size, variant } = React.useContext(ContextMenuContext);
+  const { colors, isDark } = useThemeVars();
+
+  const sizeStyles = getMenuSizeStyles(size);
+  const backgroundColor = variant === 'solid' ? colors.panelSolid : colors.panelTranslucent;
+
+  return (
+    <NativeOnlyAnimatedView entering={FadeIn} exiting={FadeOut}>
+      <ContextMenuPrimitive.SubContent
+        style={{
+          backgroundColor,
+          borderRadius: sizeStyles.contentBorderRadius,
+          minWidth: 128,
+          padding: sizeStyles.contentPadding,
+          ...Platform.select({
+            web: {
+              boxShadow: isDark
+                ? `0 0 0 1px ${colors.palettes.gray.a6}, 0 12px 60px ${colors.palettes.black.a5}, 0 12px 32px -16px ${colors.palettes.black.a7}`
+                : `0 0 0 1px ${colors.palettes.gray.a5}, 0 12px 60px ${colors.palettes.black.a3}, 0 12px 32px -16px ${colors.palettes.gray.a5}`,
+              backdropFilter:
+                variant === 'soft'
+                  ? 'saturate(1.8) blur(20px) contrast(1.05) brightness(1.05)'
+                  : undefined,
+              overflow: 'hidden',
+            },
+            default: {
+              borderWidth: 1,
+              borderColor: isDark ? colors.palettes.gray.a6 : colors.palettes.gray.a5,
+              shadowColor: '#000000',
+              shadowOpacity: isDark ? 0.3 : 0.15,
+              shadowOffset: { width: 0, height: 12 },
+              shadowRadius: 30,
+              elevation: 12,
+            },
+          }),
+        }}
+        {...props}
+      />
+    </NativeOnlyAnimatedView>
+  );
+}
+
+// ============================================================================
+// Exports
+// ============================================================================
+
+const ContextMenu = {
+  Root: ContextMenuRoot,
+  Trigger: ContextMenuTrigger,
+  Content: ContextMenuContent,
+  Item: ContextMenuItem,
+  CheckboxItem: ContextMenuCheckboxItem,
+  RadioGroup: ContextMenuRadioGroup,
+  RadioItem: ContextMenuRadioItem,
+  Label: ContextMenuLabel,
+  Separator: ContextMenuSeparator,
+  Group: ContextMenuGroup,
+  Sub: ContextMenuSub,
+  SubTrigger: ContextMenuSubTrigger,
+  SubContent: ContextMenuSubContent,
+};
 
 export {
   ContextMenu,
@@ -282,10 +734,28 @@ export {
   ContextMenuLabel,
   ContextMenuRadioGroup,
   ContextMenuRadioItem,
+  ContextMenuRoot,
   ContextMenuSeparator,
-  ContextMenuShortcut,
   ContextMenuSub,
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuTrigger,
+};
+
+export type {
+  ContextMenuCheckboxItemProps,
+  ContextMenuContentProps,
+  ContextMenuGroupProps,
+  ContextMenuItemProps,
+  ContextMenuLabelProps,
+  ContextMenuRadioGroupProps,
+  ContextMenuRadioItemProps,
+  ContextMenuRootProps,
+  ContextMenuSeparatorProps,
+  ContextMenuSize,
+  ContextMenuSubContentProps,
+  ContextMenuSubProps,
+  ContextMenuSubTriggerProps,
+  ContextMenuTriggerProps,
+  ContextMenuVariant,
 };
