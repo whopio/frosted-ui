@@ -42,17 +42,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { DropdownMenu } from '@/components/ui/dropdown-menu';
 import { Heading } from '@/components/ui/heading';
 import { HoverCard } from '@/components/ui/hover-card';
 import { Icon } from '@/components/ui/icon';
@@ -93,7 +83,6 @@ import {
   CreditCardIcon,
   InfoIcon,
   ItalicIcon,
-  LogOutIcon,
   MailIcon,
   MoonStarIcon,
   MoreVertical,
@@ -1499,41 +1488,42 @@ export default function KitchenSinkScreen() {
 
           {/* Dropdown Menu Section */}
           <ComponentSection title="Dropdown Menu">
-            <View className="gap-4">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="surface">
-                    <Text>Open Menu</Text>
-                    <Icon as={ChevronDownIcon} />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <Icon as={UserIcon} />
-                    <Text>Profile</Text>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Icon as={CreditCardIcon} />
-                    <Text>Billing</Text>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Icon as={SettingsIcon} />
-                    <Text>Settings</Text>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem variant="destructive">
-                    <Icon as={LogOutIcon} />
-                    <Text>Log out</Text>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+            <View className="gap-6">
+              {/* Default Demo */}
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Default
+                </Text>
+                <DropdownMenuDefaultDemo />
+              </View>
 
-              <Text size="1" className="text-gray-a10">
-                With Checkbox and Radio Items
-              </Text>
-              <DropdownMenuDemo />
+              {/* Sizes */}
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Sizes
+                </Text>
+                <View className="flex-row flex-wrap items-center gap-3">
+                  <DropdownMenuSizeDemo size="1" label="Small" />
+                  <DropdownMenuSizeDemo size="2" label="Default" />
+                  <DropdownMenuSizeDemo size="3" label="Large" />
+                </View>
+              </View>
+
+              {/* Colors */}
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Item Colors
+                </Text>
+                <DropdownMenuColorDemo />
+              </View>
+
+              {/* With Submenu */}
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  With Submenu
+                </Text>
+                <DropdownMenuWithSubmenuDemo />
+              </View>
             </View>
           </ComponentSection>
 
@@ -2096,39 +2086,125 @@ function ContextMenuDemo() {
   );
 }
 
-function DropdownMenuDemo() {
-  const [showStatusBar, setShowStatusBar] = React.useState(true);
-  const [position, setPosition] = React.useState('bottom');
+function DropdownMenuDefaultDemo() {
+  type Order = 'ascending' | 'descending';
+  const [order, setOrder] = React.useState<Order>('ascending');
+  const [showHiddenFiles, setShowHiddenFiles] = React.useState(true);
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="surface">
-          <Text>Preferences</Text>
-          <Icon as={ChevronDownIcon} />
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger asChild>
+        <Button variant="soft">
+          <Text>Options</Text>
         </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuLabel>Appearance</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuCheckboxItem checked={showStatusBar} onCheckedChange={setShowStatusBar}>
-          <Text>Status Bar</Text>
-        </DropdownMenuCheckboxItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
-        <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
-          <DropdownMenuRadioItem value="top">
-            <Text>Top</Text>
-          </DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="bottom">
-            <Text>Bottom</Text>
-          </DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="right">
-            <Text>Right</Text>
-          </DropdownMenuRadioItem>
-        </DropdownMenuRadioGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Content>
+        <DropdownMenu.Label>Actions</DropdownMenu.Label>
+        <DropdownMenu.Item>Edit</DropdownMenu.Item>
+        <DropdownMenu.Item>Duplicate</DropdownMenu.Item>
+        <DropdownMenu.Separator />
+        <DropdownMenu.Item>Archive</DropdownMenu.Item>
+
+        <DropdownMenu.Separator />
+        <DropdownMenu.RadioGroup value={order} onValueChange={(value) => setOrder(value as Order)}>
+          <DropdownMenu.RadioItem value="ascending">Ascending</DropdownMenu.RadioItem>
+          <DropdownMenu.RadioItem value="descending">Descending</DropdownMenu.RadioItem>
+        </DropdownMenu.RadioGroup>
+        <DropdownMenu.Separator />
+
+        <DropdownMenu.CheckboxItem checked={showHiddenFiles} onCheckedChange={setShowHiddenFiles}>
+          Show hidden files
+        </DropdownMenu.CheckboxItem>
+
+        <DropdownMenu.Separator />
+
+        <DropdownMenu.Item color="danger">Delete</DropdownMenu.Item>
+      </DropdownMenu.Content>
+    </DropdownMenu.Root>
+  );
+}
+
+function DropdownMenuSizeDemo({ size, label }: { size: '1' | '2' | '3'; label: string }) {
+  type Order = 'ascending' | 'descending';
+  const [order, setOrder] = React.useState<Order>('ascending');
+  const [showHiddenFiles, setShowHiddenFiles] = React.useState(true);
+
+  return (
+    <DropdownMenu.Root size={size}>
+      <DropdownMenu.Trigger asChild>
+        <Button variant="soft" size={size === '1' ? '1' : size === '2' ? '2' : '3'}>
+          <Text>{label}</Text>
+        </Button>
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Content>
+        <DropdownMenu.Label>Actions</DropdownMenu.Label>
+        <DropdownMenu.Item>Edit</DropdownMenu.Item>
+        <DropdownMenu.Item>Duplicate</DropdownMenu.Item>
+        <DropdownMenu.Separator />
+        <DropdownMenu.Item>Archive</DropdownMenu.Item>
+
+        <DropdownMenu.Separator />
+        <DropdownMenu.RadioGroup value={order} onValueChange={(value) => setOrder(value as Order)}>
+          <DropdownMenu.RadioItem value="ascending">Ascending</DropdownMenu.RadioItem>
+          <DropdownMenu.RadioItem value="descending">Descending</DropdownMenu.RadioItem>
+        </DropdownMenu.RadioGroup>
+        <DropdownMenu.Separator />
+
+        <DropdownMenu.CheckboxItem checked={showHiddenFiles} onCheckedChange={setShowHiddenFiles}>
+          Show hidden files
+        </DropdownMenu.CheckboxItem>
+
+        <DropdownMenu.Separator />
+
+        <DropdownMenu.Item color="danger">Delete</DropdownMenu.Item>
+      </DropdownMenu.Content>
+    </DropdownMenu.Root>
+  );
+}
+
+function DropdownMenuColorDemo() {
+  return (
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger asChild>
+        <Button variant="soft" color="gray">
+          <Text>Options</Text>
+        </Button>
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Content>
+        <DropdownMenu.Item color="blue">Edit (info)</DropdownMenu.Item>
+        <DropdownMenu.Item color="green">Duplicate (success)</DropdownMenu.Item>
+        <DropdownMenu.Separator />
+        <DropdownMenu.Item color="danger">Archive (danger)</DropdownMenu.Item>
+      </DropdownMenu.Content>
+    </DropdownMenu.Root>
+  );
+}
+
+function DropdownMenuWithSubmenuDemo() {
+  return (
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger asChild>
+        <Button variant="soft">
+          <Text>Options</Text>
+        </Button>
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Content>
+        <DropdownMenu.Item>Edit</DropdownMenu.Item>
+        <DropdownMenu.Item>Duplicate</DropdownMenu.Item>
+        <DropdownMenu.Separator />
+        <DropdownMenu.Sub>
+          <DropdownMenu.SubTrigger>More</DropdownMenu.SubTrigger>
+          <DropdownMenu.SubContent>
+            <DropdownMenu.Item>Move to project…</DropdownMenu.Item>
+            <DropdownMenu.Item>Move to folder…</DropdownMenu.Item>
+            <DropdownMenu.Separator />
+            <DropdownMenu.Item>Advanced options…</DropdownMenu.Item>
+          </DropdownMenu.SubContent>
+        </DropdownMenu.Sub>
+        <DropdownMenu.Separator />
+        <DropdownMenu.Item color="danger">Delete</DropdownMenu.Item>
+      </DropdownMenu.Content>
+    </DropdownMenu.Root>
   );
 }
 
