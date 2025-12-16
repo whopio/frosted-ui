@@ -1,4 +1,4 @@
-import { Text } from '@/components';
+import { Text } from '@/index';
 import { Link, Stack } from 'expo-router';
 import { View } from 'react-native';
 

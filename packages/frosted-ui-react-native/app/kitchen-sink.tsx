@@ -31,7 +31,7 @@ import {
   TextArea,
   TextField,
   Tooltip,
-} from '@/components';
+} from '@/index';
 import { Stack } from 'expo-router';
 import {
   AlertCircleIcon,
