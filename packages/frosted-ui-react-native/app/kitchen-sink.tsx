@@ -4,17 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
+import { AlertDialog } from '@/components/ui/alert-dialog';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Avatar } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -1515,30 +1505,152 @@ export default function KitchenSinkScreen() {
 
           {/* Alert Dialog Section */}
           <ComponentSection title="Alert Dialog">
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <Button variant="solid" color="red">
-                  <Text>Delete Account</Text>
-                </Button>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete your account and
-                    remove your data from our servers.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>
-                    <Text>Cancel</Text>
-                  </AlertDialogCancel>
-                  <AlertDialogAction>
-                    <Text>Delete</Text>
-                  </AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
+            <View className="gap-4">
+              {/* Default Demo */}
+              <View className="gap-2">
+                <Text size="2" weight="medium">
+                  Default
+                </Text>
+                <AlertDialog.Root>
+                  <AlertDialog.Trigger>
+                    <Button variant="solid" color="red">
+                      <Text>Revoke access</Text>
+                    </Button>
+                  </AlertDialog.Trigger>
+                  <AlertDialog.Content style={{ maxWidth: 450 }}>
+                    <AlertDialog.Title>Revoke access</AlertDialog.Title>
+                    <AlertDialog.Description>
+                      Are you sure? This application will no longer be accessible and any existing
+                      sessions will be expired.
+                    </AlertDialog.Description>
+                    <View style={{ flexDirection: 'row', gap: 12, justifyContent: 'flex-end' }}>
+                      <AlertDialog.Cancel>
+                        <Button variant="soft" color="gray">
+                          <Text>Cancel</Text>
+                        </Button>
+                      </AlertDialog.Cancel>
+                      <AlertDialog.Action>
+                        <Button variant="solid" color="red">
+                          <Text>Revoke access</Text>
+                        </Button>
+                      </AlertDialog.Action>
+                    </View>
+                  </AlertDialog.Content>
+                </AlertDialog.Root>
+              </View>
+
+              {/* Sizes Demo */}
+              <View className="gap-2">
+                <Text size="2" weight="medium">
+                  Sizes
+                </Text>
+                <View className="flex-row flex-wrap gap-3">
+                  <AlertDialog.Root>
+                    <AlertDialog.Trigger>
+                      <Button color="red">
+                        <Text>Size 1</Text>
+                      </Button>
+                    </AlertDialog.Trigger>
+                    <AlertDialog.Content size="1" style={{ maxWidth: 350 }}>
+                      <AlertDialog.Title>Revoke access</AlertDialog.Title>
+                      <AlertDialog.Description>
+                        Are you sure? This application will no longer be accessible.
+                      </AlertDialog.Description>
+                      <View style={{ flexDirection: 'row', gap: 8, justifyContent: 'flex-end' }}>
+                        <AlertDialog.Cancel>
+                          <Button size="1" variant="soft" color="gray">
+                            <Text>Cancel</Text>
+                          </Button>
+                        </AlertDialog.Cancel>
+                        <AlertDialog.Action>
+                          <Button size="1" color="red">
+                            <Text>Revoke</Text>
+                          </Button>
+                        </AlertDialog.Action>
+                      </View>
+                    </AlertDialog.Content>
+                  </AlertDialog.Root>
+
+                  <AlertDialog.Root>
+                    <AlertDialog.Trigger>
+                      <Button color="red">
+                        <Text>Size 2</Text>
+                      </Button>
+                    </AlertDialog.Trigger>
+                    <AlertDialog.Content size="2" style={{ maxWidth: 350 }}>
+                      <AlertDialog.Title>Revoke access</AlertDialog.Title>
+                      <AlertDialog.Description>
+                        Are you sure? This application will no longer be accessible.
+                      </AlertDialog.Description>
+                      <View style={{ flexDirection: 'row', gap: 8, justifyContent: 'flex-end' }}>
+                        <AlertDialog.Cancel>
+                          <Button size="2" variant="soft" color="gray">
+                            <Text>Cancel</Text>
+                          </Button>
+                        </AlertDialog.Cancel>
+                        <AlertDialog.Action>
+                          <Button size="2" color="red">
+                            <Text>Revoke</Text>
+                          </Button>
+                        </AlertDialog.Action>
+                      </View>
+                    </AlertDialog.Content>
+                  </AlertDialog.Root>
+
+                  <AlertDialog.Root>
+                    <AlertDialog.Trigger>
+                      <Button color="red">
+                        <Text>Size 3</Text>
+                      </Button>
+                    </AlertDialog.Trigger>
+                    <AlertDialog.Content size="3" style={{ maxWidth: 350 }}>
+                      <AlertDialog.Title>Revoke access</AlertDialog.Title>
+                      <AlertDialog.Description>
+                        Are you sure? This application will no longer be accessible.
+                      </AlertDialog.Description>
+                      <View style={{ flexDirection: 'row', gap: 12, justifyContent: 'flex-end' }}>
+                        <AlertDialog.Cancel>
+                          <Button size="2" variant="soft" color="gray">
+                            <Text>Cancel</Text>
+                          </Button>
+                        </AlertDialog.Cancel>
+                        <AlertDialog.Action>
+                          <Button size="2" color="red">
+                            <Text>Revoke</Text>
+                          </Button>
+                        </AlertDialog.Action>
+                      </View>
+                    </AlertDialog.Content>
+                  </AlertDialog.Root>
+
+                  <AlertDialog.Root>
+                    <AlertDialog.Trigger>
+                      <Button color="red">
+                        <Text>Size 4</Text>
+                      </Button>
+                    </AlertDialog.Trigger>
+                    <AlertDialog.Content size="4" style={{ maxWidth: 350 }}>
+                      <AlertDialog.Title>Revoke access</AlertDialog.Title>
+                      <AlertDialog.Description>
+                        Are you sure? This application will no longer be accessible.
+                      </AlertDialog.Description>
+                      <View style={{ flexDirection: 'row', gap: 12, justifyContent: 'flex-end' }}>
+                        <AlertDialog.Cancel>
+                          <Button size="3" variant="soft" color="gray">
+                            <Text>Cancel</Text>
+                          </Button>
+                        </AlertDialog.Cancel>
+                        <AlertDialog.Action>
+                          <Button size="3" color="red">
+                            <Text>Revoke</Text>
+                          </Button>
+                        </AlertDialog.Action>
+                      </View>
+                    </AlertDialog.Content>
+                  </AlertDialog.Root>
+                </View>
+              </View>
+            </View>
           </ComponentSection>
 
           {/* Popover Section */}
