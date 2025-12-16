@@ -25,6 +25,7 @@ function Label({
       onPressIn={onPressIn}
       onPressOut={onPressOut}
       disabled={disabled}>
+      {/* @ts-expect-error - Known React type version mismatch */}
       <LabelPrimitive.Text
         className={cn(
           'text-gray-12 text-sm font-medium',

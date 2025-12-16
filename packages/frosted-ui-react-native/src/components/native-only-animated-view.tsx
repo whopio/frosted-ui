@@ -16,6 +16,7 @@ function NativeOnlyAnimatedView(
   if (Platform.OS === 'web') {
     return <>{props.children as React.ReactNode}</>;
   } else {
+    // @ts-expect-error - Known type incompatibility between react-native-reanimated and @types/react
     return <Animated.View {...props} />;
   }
 }

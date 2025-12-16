@@ -315,7 +315,9 @@ function SelectTrigger({
 
   const renderTriggerContent = () => (
     <>
-      {typeof children === 'function' ? children({ pressed, hovered }) : children}
+      {typeof children === 'function'
+        ? children({ pressed, hovered } as Parameters<typeof children>[0] & { hovered: boolean })
+        : children}
       <View style={chevronContainer}>
         <SelectChevronIcon size={iconSize} color={iconColor} />
       </View>

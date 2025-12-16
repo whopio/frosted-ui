@@ -1,12 +1,13 @@
 {
   "name": "@frosted-ui/react-native",
-  "main": "expo-router/entry",
   "version": "1.0.0",
-  "types": "./src/index.ts",
+  "main": "expo-router/entry",
+  "types": "./dist/index.d.ts",
+  "module": "./dist/index.js",
   "exports": {
     ".": {
-      "types": "./src/index.ts",
-      "default": "./src/index.ts"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     }
   },
   "scripts": {
@@ -14,7 +15,9 @@
     "android": "expo start -c --android",
     "ios": "expo start -c --ios",
     "web": "expo start -c --web",
+    "build": "pnpm clean:dist && tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
     "clean": "rm -rf .expo node_modules",
+    "clean:dist": "rm -rf dist",
     "generate:global-css": "node scripts/generate-global-css.js"
   },
   "dependencies": {
@@ -54,10 +57,10 @@
     "expo-system-ui": "~6.0.8",
     "lucide-react-native": "^0.545.0",
     "nativewind": "^4.2.1",
-    "react-native-css-interop": "^0.2.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-native": "0.81.5",
+    "react-native-css-interop": "^0.2.1",
     "react-native-reanimated": "~4.1.1",
     "react-native-safe-area-context": "~5.6.0",
     "react-native-screens": "~4.16.0",
@@ -73,6 +76,7 @@
     "@types/react": "~19.1.10",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.6.14",
+    "tsc-alias": "^1.8.16",
     "typescript": "~5.9.2"
   },
   "private": true
