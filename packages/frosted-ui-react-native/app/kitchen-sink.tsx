@@ -56,6 +56,7 @@ import { SegmentedControl } from '@/components/ui/segmented-control';
 import { Select } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Spinner } from '@/components/ui/spinner';
 import { Switch } from '@/components/ui/switch';
 import { Tabs } from '@/components/ui/tabs';
 import { Text } from '@/components/ui/text';
@@ -1055,6 +1056,45 @@ export default function KitchenSinkScreen() {
                   <Separator size="4" color="green" />
                   <Separator size="4" color="red" />
                   <Separator size="4" color="purple" />
+                </View>
+              </View>
+            </View>
+          </ComponentSection>
+
+          {/* Spinner Section */}
+          <ComponentSection title="Spinner">
+            <View className="gap-6">
+              {/* Sizes */}
+              <View className="gap-2">
+                <Text size="2" weight="medium">
+                  Sizes
+                </Text>
+                <View className="flex-row flex-wrap items-center gap-4">
+                  <Spinner size="1" />
+                  <Spinner size="2" />
+                  <Spinner size="3" />
+                  <Spinner size="4" />
+                  <Spinner size="5" />
+                  <Spinner size="6" />
+                </View>
+              </View>
+
+              {/* With Loading State */}
+              <View className="gap-2">
+                <Text size="2" weight="medium">
+                  With Loading State (wrapping children)
+                </Text>
+                <View className="flex-row gap-4">
+                  <Spinner loading={true}>
+                    <Button>
+                      <Text>Submit</Text>
+                    </Button>
+                  </Spinner>
+                  <Spinner loading={false}>
+                    <Button>
+                      <Text>Submit</Text>
+                    </Button>
+                  </Spinner>
                 </View>
               </View>
             </View>
