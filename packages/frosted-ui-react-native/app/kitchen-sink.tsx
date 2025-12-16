@@ -12,7 +12,6 @@ import { Button } from '@/components/ui/button';
 import { Callout } from '@/components/ui/callout';
 import { Card } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { ContextMenu } from '@/components/ui/context-menu';
 import { Dialog } from '@/components/ui/dialog';
 import { DropdownMenu } from '@/components/ui/dropdown-menu';
@@ -20,16 +19,7 @@ import { Heading } from '@/components/ui/heading';
 import { HoverCard } from '@/components/ui/hover-card';
 import { Icon } from '@/components/ui/icon';
 import { IconButton } from '@/components/ui/icon-button';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import {
-  Menubar,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarSeparator,
-  MenubarTrigger,
-} from '@/components/ui/menubar';
 import { Popover } from '@/components/ui/popover';
 import { Progress } from '@/components/ui/progress';
 import { RadioGroup } from '@/components/ui/radio-group';
@@ -43,19 +33,14 @@ import { Tabs } from '@/components/ui/tabs';
 import { Text } from '@/components/ui/text';
 import { TextArea } from '@/components/ui/text-area';
 import { TextField } from '@/components/ui/text-field';
-import { Toggle } from '@/components/ui/toggle';
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { Tooltip } from '@/components/ui/tooltip';
 import { Stack } from 'expo-router';
 import {
   AlertCircleIcon,
   BellIcon,
-  BoldIcon,
   CalendarIcon,
-  ChevronDownIcon,
   ChevronRightIcon,
   InfoIcon,
-  ItalicIcon,
   MailIcon,
   MoonStarIcon,
   MoreVertical,
@@ -63,7 +48,6 @@ import {
   SearchIcon,
   SettingsIcon,
   SunIcon,
-  UnderlineIcon,
 } from 'lucide-react-native';
 import { useColorScheme } from 'nativewind';
 import * as React from 'react';
@@ -830,21 +814,6 @@ export default function KitchenSinkScreen() {
             </View>
           </ComponentSection>
 
-          {/* Form Inputs Section */}
-          <ComponentSection title="Form Inputs (Legacy)">
-            <View className="gap-4">
-              <View className="gap-2">
-                <Label nativeID="email">Email</Label>
-                <Input placeholder="Enter your email" aria-labelledby="email" />
-              </View>
-
-              <View className="gap-2">
-                <Label nativeID="disabled">Disabled Input</Label>
-                <Input placeholder="Disabled input" editable={false} aria-labelledby="disabled" />
-              </View>
-            </View>
-          </ComponentSection>
-
           {/* Checkbox Section */}
           <ComponentSection title="Checkbox">
             <View className="gap-6">
@@ -960,20 +929,6 @@ export default function KitchenSinkScreen() {
                   <SwitchItem label="Disabled checked" disabled defaultChecked />
                 </View>
               </View>
-            </View>
-          </ComponentSection>
-
-          {/* Toggle Section */}
-          <ComponentSection title="Toggle">
-            <View className="gap-4">
-              <View className="flex-row flex-wrap gap-2">
-                <ToggleSingleDemo />
-              </View>
-
-              <Text size="1" className="text-gray-a10">
-                Toggle Group
-              </Text>
-              <ToggleGroupDemo />
             </View>
           </ComponentSection>
 
@@ -1677,11 +1632,15 @@ export default function KitchenSinkScreen() {
                       </View>
                       <View style={{ gap: 8 }}>
                         <Label nativeID="width">Width</Label>
-                        <Input placeholder="100%" aria-labelledby="width" />
+                        <TextField.Root size="2">
+                          <TextField.Input placeholder="100%" aria-labelledby="width" />
+                        </TextField.Root>
                       </View>
                       <View style={{ gap: 8 }}>
                         <Label nativeID="height">Height</Label>
-                        <Input placeholder="25px" aria-labelledby="height" />
+                        <TextField.Root size="2">
+                          <TextField.Input placeholder="25px" aria-labelledby="height" />
+                        </TextField.Root>
                       </View>
                     </View>
                   </Popover.Content>
@@ -1928,11 +1887,6 @@ export default function KitchenSinkScreen() {
             </View>
           </ComponentSection>
 
-          {/* Menubar Section */}
-          <ComponentSection title="Menubar">
-            <MenubarDemo />
-          </ComponentSection>
-
           {/* Hover Card Section */}
           <ComponentSection title="Hover Card">
             <HoverCardDemo />
@@ -1959,11 +1913,6 @@ export default function KitchenSinkScreen() {
                 </Button>
               </Tooltip>
             </View>
-          </ComponentSection>
-
-          {/* Collapsible Section */}
-          <ComponentSection title="Collapsible">
-            <CollapsibleDemo />
           </ComponentSection>
 
           {/* Bottom padding for scroll */}
@@ -2071,23 +2020,6 @@ function SwitchItem({
       />
       {label && <Label nativeID={id}>{label}</Label>}
     </View>
-  );
-}
-
-function ToggleGroupDemo() {
-  const [value, setValue] = React.useState<string[]>([]);
-  return (
-    <ToggleGroup type="multiple" value={value} onValueChange={setValue} className="flex-row">
-      <ToggleGroupItem value="bold" aria-label="Toggle bold">
-        <Icon as={BoldIcon} />
-      </ToggleGroupItem>
-      <ToggleGroupItem value="italic" aria-label="Toggle italic">
-        <Icon as={ItalicIcon} />
-      </ToggleGroupItem>
-      <ToggleGroupItem value="underline" aria-label="Toggle underline">
-        <Icon as={UnderlineIcon} />
-      </ToggleGroupItem>
-    </ToggleGroup>
   );
 }
 
@@ -2208,26 +2140,6 @@ function SelectGroupedDemo() {
   );
 }
 
-function ToggleSingleDemo() {
-  const [bold, setBold] = React.useState(false);
-  const [italic, setItalic] = React.useState(false);
-  const [underline, setUnderline] = React.useState(false);
-
-  return (
-    <>
-      <Toggle pressed={bold} onPressedChange={setBold}>
-        <Icon as={BoldIcon} />
-      </Toggle>
-      <Toggle pressed={italic} onPressedChange={setItalic}>
-        <Icon as={ItalicIcon} />
-      </Toggle>
-      <Toggle pressed={underline} onPressedChange={setUnderline}>
-        <Icon as={UnderlineIcon} />
-      </Toggle>
-    </>
-  );
-}
-
 function TabsDemo() {
   const [value1, setValue1] = React.useState('account');
   const [value2, setValue2] = React.useState('tab1');
@@ -2283,11 +2195,15 @@ function TabsDemo() {
               <View className="gap-4">
                 <View className="gap-2">
                   <Label nativeID="name">Name</Label>
-                  <Input placeholder="Enter your name" aria-labelledby="name" />
+                  <TextField.Root size="2">
+                    <TextField.Input placeholder="Enter your name" aria-labelledby="name" />
+                  </TextField.Root>
                 </View>
                 <View className="gap-2">
                   <Label nativeID="username">Username</Label>
-                  <Input placeholder="Enter your username" aria-labelledby="username" />
+                  <TextField.Root size="2">
+                    <TextField.Input placeholder="Enter your username" aria-labelledby="username" />
+                  </TextField.Root>
                 </View>
               </View>
               <View className="flex-row items-center">
@@ -2308,15 +2224,23 @@ function TabsDemo() {
               <View className="gap-4">
                 <View className="gap-2">
                   <Label nativeID="current">Current password</Label>
-                  <Input
-                    placeholder="Enter current password"
-                    secureTextEntry
-                    aria-labelledby="current"
-                  />
+                  <TextField.Root size="2">
+                    <TextField.Input
+                      placeholder="Enter current password"
+                      secureTextEntry
+                      aria-labelledby="current"
+                    />
+                  </TextField.Root>
                 </View>
                 <View className="gap-2">
                   <Label nativeID="new">New password</Label>
-                  <Input placeholder="Enter new password" secureTextEntry aria-labelledby="new" />
+                  <TextField.Root size="2">
+                    <TextField.Input
+                      placeholder="Enter new password"
+                      secureTextEntry
+                      aria-labelledby="new"
+                    />
+                  </TextField.Root>
                 </View>
               </View>
               <View className="flex-row items-center">
@@ -2674,92 +2598,6 @@ function HoverCardDemo() {
         </View>
       </View>
     </View>
-  );
-}
-
-function CollapsibleDemo() {
-  const [isOpen, setIsOpen] = React.useState(false);
-
-  return (
-    <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-      <View className="gap-4">
-        <View className="flex-row items-center justify-between">
-          <Text size="1" weight="semi-bold" className="text-gray-a10">
-            @peduarte starred 3 repositories
-          </Text>
-          <CollapsibleTrigger asChild>
-            <Button variant="ghost" size="2">
-              <Icon as={ChevronDownIcon} className={isOpen ? 'rotate-180' : ''} />
-            </Button>
-          </CollapsibleTrigger>
-        </View>
-        <View className="rounded-md border border-stroke px-4 py-3">
-          <Text className="font-mono">@radix-ui/primitives</Text>
-        </View>
-        <CollapsibleContent>
-          <View className="gap-2">
-            <View className="rounded-md border border-stroke px-4 py-3">
-              <Text className="font-mono">@radix-ui/colors</Text>
-            </View>
-            <View className="rounded-md border border-stroke px-4 py-3">
-              <Text className="font-mono">@stitches/react</Text>
-            </View>
-          </View>
-        </CollapsibleContent>
-      </View>
-    </Collapsible>
-  );
-}
-
-function MenubarDemo() {
-  const [value, setValue] = React.useState<string | undefined>();
-  return (
-    <Menubar value={value} onValueChange={setValue}>
-      <MenubarMenu value="file">
-        <MenubarTrigger>
-          <Text>File</Text>
-        </MenubarTrigger>
-        <MenubarContent>
-          <MenubarItem>
-            <Text>New Tab</Text>
-          </MenubarItem>
-          <MenubarItem>
-            <Text>New Window</Text>
-          </MenubarItem>
-          <MenubarSeparator />
-          <MenubarItem>
-            <Text>Share</Text>
-          </MenubarItem>
-          <MenubarSeparator />
-          <MenubarItem>
-            <Text>Print</Text>
-          </MenubarItem>
-        </MenubarContent>
-      </MenubarMenu>
-      <MenubarMenu value="edit">
-        <MenubarTrigger>
-          <Text>Edit</Text>
-        </MenubarTrigger>
-        <MenubarContent>
-          <MenubarItem>
-            <Text>Undo</Text>
-          </MenubarItem>
-          <MenubarItem>
-            <Text>Redo</Text>
-          </MenubarItem>
-          <MenubarSeparator />
-          <MenubarItem>
-            <Text>Cut</Text>
-          </MenubarItem>
-          <MenubarItem>
-            <Text>Copy</Text>
-          </MenubarItem>
-          <MenubarItem>
-            <Text>Paste</Text>
-          </MenubarItem>
-        </MenubarContent>
-      </MenubarMenu>
-    </Menubar>
   );
 }
 
