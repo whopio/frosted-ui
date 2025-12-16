@@ -20,19 +20,19 @@ type PopoverVariant = PanelVariant;
 
 type PopoverRootProps = PopoverPrimitive.RootProps;
 
-const PopoverRoot = PopoverPrimitive.Root;
+const PopoverRoot: typeof PopoverPrimitive.Root = PopoverPrimitive.Root;
 
 // ============================================================================
 // Popover.Trigger
 // ============================================================================
 
-const PopoverTrigger = PopoverPrimitive.Trigger;
+const PopoverTrigger: typeof PopoverPrimitive.Trigger = PopoverPrimitive.Trigger;
 
 // ============================================================================
 // Popover.Close
 // ============================================================================
 
-const PopoverClose = PopoverPrimitive.Close;
+const PopoverClose: typeof PopoverPrimitive.Close = PopoverPrimitive.Close;
 
 // ============================================================================
 // Popover.Content
@@ -88,7 +88,12 @@ function PopoverContent({
 // Export composite component
 // ============================================================================
 
-const Popover = {
+const Popover: {
+  Root: typeof PopoverRoot;
+  Trigger: typeof PopoverTrigger;
+  Close: typeof PopoverClose;
+  Content: typeof PopoverContent;
+} = {
   Root: PopoverRoot,
   Trigger: PopoverTrigger,
   Close: PopoverClose,

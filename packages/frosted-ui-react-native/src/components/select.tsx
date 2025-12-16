@@ -783,13 +783,22 @@ function SelectSeparator({ ...props }: SelectSeparatorProps) {
 // Select.Group
 // ============================================================================
 
-const SelectGroup = SelectPrimitive.Group;
+const SelectGroup: typeof SelectPrimitive.Group = SelectPrimitive.Group;
 
 // ============================================================================
 // Export composite component
 // ============================================================================
 
-const Select = {
+const Select: {
+  Root: typeof SelectRoot;
+  Trigger: typeof SelectTrigger;
+  Value: typeof SelectValue;
+  Content: typeof SelectContent;
+  Item: typeof SelectItem;
+  Label: typeof SelectLabel;
+  Separator: typeof SelectSeparator;
+  Group: typeof SelectGroup;
+} = {
   Root: SelectRoot,
   Trigger: SelectTrigger,
   Value: SelectValue,

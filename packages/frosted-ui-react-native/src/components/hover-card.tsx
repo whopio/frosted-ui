@@ -32,7 +32,7 @@ function HoverCardRoot({ openDelay = 200, closeDelay = 150, ...props }: HoverCar
 // HoverCard.Trigger
 // ============================================================================
 
-const HoverCardTrigger = HoverCardPrimitive.Trigger;
+const HoverCardTrigger: typeof HoverCardPrimitive.Trigger = HoverCardPrimitive.Trigger;
 
 // ============================================================================
 // HoverCard.Content
@@ -86,7 +86,11 @@ function HoverCardContent({
 // Export composite component
 // ============================================================================
 
-const HoverCard = {
+const HoverCard: {
+  Root: typeof HoverCardRoot;
+  Trigger: typeof HoverCardTrigger;
+  Content: typeof HoverCardContent;
+} = {
   Root: HoverCardRoot,
   Trigger: HoverCardTrigger,
   Content: HoverCardContent,
