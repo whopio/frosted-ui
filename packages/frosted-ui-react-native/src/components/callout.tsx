@@ -1,4 +1,4 @@
-import { TextStyleContext } from '@/components/ui/text';
+import { TextStyleContext } from '@/components/text';
 import type { AccentColor, Color } from '@/lib/types';
 import { useThemeVars } from '@/lib/use-theme-vars';
 import * as React from 'react';

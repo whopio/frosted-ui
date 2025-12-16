@@ -1,4 +1,4 @@
-import { NativeOnlyAnimatedView } from '@/components/ui/native-only-animated-view';
+import { NativeOnlyAnimatedView } from '@/components/native-only-animated-view';
 import { getPanelContentStyle, type PanelSize, type PanelVariant } from '@/lib/panel-styles';
 import { useThemeVars } from '@/lib/use-theme-vars';
 import * as PopoverPrimitive from '@rn-primitives/popover';

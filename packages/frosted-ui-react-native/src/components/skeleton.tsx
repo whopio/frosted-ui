@@ -1,5 +1,5 @@
-import { getAvatarSize, type AvatarShape, type AvatarSize } from '@/components/ui/avatar';
-import type { TextSize } from '@/components/ui/text';
+import { getAvatarSize, type AvatarShape, type AvatarSize } from '@/components/avatar';
+import type { TextSize } from '@/components/text';
 import type { AccentColor, Color } from '@/lib/types';
 import { useThemeVars } from '@/lib/use-theme-vars';
 import * as React from 'react';

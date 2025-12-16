@@ -1,4 +1,4 @@
-import { Button, Code, Icon, IconButton, Text } from '@/components/ui';
+import { Button, Code, Icon, IconButton, Text } from '@/components';
 import { Link, Stack } from 'expo-router';
 import { MoonStarIcon, StarIcon, SunIcon } from 'lucide-react-native';
 import { useColorScheme } from 'nativewind';

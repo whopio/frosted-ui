@@ -1,4 +1,4 @@
-import { TextStyleContext } from '@/components/ui/text';
+import { TextStyleContext } from '@/components/text';
 import { themeVars } from '@/lib/theme-vars';
 import { cn } from '@/lib/utils';
 import type { LucideIcon, LucideProps } from 'lucide-react-native';

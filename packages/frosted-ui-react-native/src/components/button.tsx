@@ -1,5 +1,4 @@
-import { TextStyleContext } from '@/components/ui/text';
-import type { Color } from '@/lib/types';
+import { TextStyleContext } from '@/components/text';
 import {
   getButtonFocusStyle,
   getButtonPressedFilter,
@@ -11,19 +10,20 @@ import {
   type ButtonSize,
   type ButtonVariant,
 } from '@/lib/button-styles';
+import type { Color } from '@/lib/types';
 import { useThemeVars } from '@/lib/use-theme-vars';
 import { cn } from '@/lib/utils';
 import * as React from 'react';
 import { Platform, Pressable, View, type StyleProp, type ViewStyle } from 'react-native';
 
-type IconButtonProps = Omit<React.ComponentProps<typeof Pressable>, 'style'> & {
+type ButtonProps = Omit<React.ComponentProps<typeof Pressable>, 'style'> & {
   size?: ButtonSize;
   variant?: ButtonVariant;
   color?: Color;
   style?: StyleProp<ViewStyle>;
 };
 
-function IconButton({
+function Button({
   className,
   variant = 'surface',
   size = '2',
@@ -38,7 +38,7 @@ function IconButton({
   onHoverIn,
   onHoverOut,
   ...pressableProps
-}: IconButtonProps) {
+}: ButtonProps) {
   const { colors } = useThemeVars();
   const [pressed, setPressed] = React.useState(false);
   const [hovered, setHovered] = React.useState(false);
@@ -60,8 +60,8 @@ function IconButton({
     cursor: disabled ? ('not-allowed' as ViewStyle['cursor']) : 'pointer',
   };
 
-  // Size styles for IconButton: square (width = height), no horizontal padding
-  const sizeStyle = getButtonSizeStyle(size, true);
+  // Size styles (including gap between children)
+  const sizeStyle = getButtonSizeStyle(size, false);
 
   // Variant background / border, including pressed state
   const variantStyle = getButtonVariantStyle(
@@ -171,6 +171,5 @@ function IconButton({
   );
 }
 
-export { IconButton };
-export type { IconButtonProps };
-
+export { Button };
+export type { ButtonProps };

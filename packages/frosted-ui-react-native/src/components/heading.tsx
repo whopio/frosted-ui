@@ -1,4 +1,4 @@
-import { Text } from '@/components/ui/text';
+import { Text } from '@/components/text';
 import { themeVars } from '@/lib/theme-vars';
 import type { AccentColor } from '@/lib/types';
 import type * as React from 'react';

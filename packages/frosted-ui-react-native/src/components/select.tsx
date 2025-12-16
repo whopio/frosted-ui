@@ -1,5 +1,5 @@
-import { NativeOnlyAnimatedView } from '@/components/ui/native-only-animated-view';
-import { Text, TextStyleContext } from '@/components/ui/text';
+import { NativeOnlyAnimatedView } from '@/components/native-only-animated-view';
+import { Text, TextStyleContext } from '@/components/text';
 import {
   getButtonFocusStyle,
   getButtonPressedFilter,

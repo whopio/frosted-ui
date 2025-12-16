@@ -1,4 +1,4 @@
-import { Text, TextStyleContext } from '@/components/ui/text';
+import { Text, TextStyleContext } from '@/components/text';
 import { useThemeVars } from '@/lib/use-theme-vars';
 import * as TabsPrimitive from '@rn-primitives/tabs';
 import * as React from 'react';

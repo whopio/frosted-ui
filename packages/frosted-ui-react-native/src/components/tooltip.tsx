@@ -1,5 +1,5 @@
-import { NativeOnlyAnimatedView } from '@/components/ui/native-only-animated-view';
-import { Text } from '@/components/ui/text';
+import { NativeOnlyAnimatedView } from '@/components/native-only-animated-view';
+import { Text } from '@/components/text';
 import { useThemeVars } from '@/lib/use-theme-vars';
 import * as TooltipPrimitive from '@rn-primitives/tooltip';
 import * as React from 'react';
