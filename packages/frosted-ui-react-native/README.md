@@ -1,73 +1,102 @@
-# Minimal Template
+# @frosted-ui/react-native
 
-This is a [React Native](https://reactnative.dev/) project built with [Expo](https://expo.dev/) and [React Native Reusables](https://reactnativereusables.com).
+A beautiful, accessible component library for React Native built with NativeWind and React Native Reusables.
 
-It was initialized using the following command:
+## Installation
 
-```bash
-npx @react-native-reusables/cli@latest init -t @frosted-ui/react-native
-```
+### For Bare React Native Projects
 
-## Getting Started
-
-To run the development server:
+1. Install the package and its peer dependencies:
 
 ```bash
-    npm run dev
-    # or
-    yarn dev
-    # or
-    pnpm dev
-    # or
-    bun dev
+npm install @frosted-ui/react-native
+# or
+yarn add @frosted-ui/react-native
+# or
+pnpm add @frosted-ui/react-native
 ```
 
-This will start the Expo Dev Server. Open the app in:
-
-- **iOS**: press `i` to launch in the iOS simulator _(Mac only)_
-- **Android**: press `a` to launch in the Android emulator
-- **Web**: press `w` to run in a browser
-
-You can also scan the QR code using the [Expo Go](https://expo.dev/go) app on your device. This project fully supports running in Expo Go for quick testing on physical devices.
-
-## Adding components
-
-You can add more reusable components using the CLI:
+2. Install peer dependencies:
 
 ```bash
-npx react-native-reusables/cli@latest add [...components]
+npm install react react-native nativewind react-native-reanimated react-native-safe-area-context react-native-screens react-native-svg lucide-react-native
+# or
+yarn add react react-native nativewind react-native-reanimated react-native-safe-area-context react-native-screens react-native-svg lucide-react-native
+# or
+pnpm add react react-native nativewind react-native-reanimated react-native-safe-area-context react-native-screens react-native-svg lucide-react-native
 ```
 
-> e.g. `npx react-native-reusables/cli@latest add input textarea`
+3. **Setup NativeWind**: Follow the [NativeWind v4 installation guide](https://www.nativewind.dev/v4/overview/installation) for your project.
 
-If you don't specify any component names, you'll be prompted to select which components to add interactively. Use the `--all` flag to install all available components at once.
+4. **Setup React Native Reanimated**: Follow the [React Native Reanimated installation guide](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/getting-started/).
 
-## Project Features
+5. **Setup React Native Screens**: Follow the [React Native Screens installation guide](https://github.com/software-mansion/react-native-screens#installation).
 
-- ⚛️ Built with [Expo Router](https://expo.dev/router)
-- 🎨 Styled with [Tailwind CSS](https://tailwindcss.com/) via [Nativewind](https://www.nativewind.dev/)
-- 📦 UI powered by [React Native Reusables](https://github.com/founded-labs/react-native-reusables)
-- 🚀 New Architecture enabled
-- 🔥 Edge to Edge enabled
-- 📱 Runs on iOS, Android, and Web
+6. **Setup React Native SVG**: Follow the [React Native SVG installation guide](https://github.com/software-mansion/react-native-svg#installation).
 
-## Learn More
+### For Expo Projects
 
-To dive deeper into the technologies used:
+The package works with Expo projects as well. Follow the same installation steps above, and Expo will handle the native module linking automatically.
 
-- [React Native Docs](https://reactnative.dev/docs/getting-started)
-- [Expo Docs](https://docs.expo.dev/)
-- [Nativewind Docs](https://www.nativewind.dev/)
-- [React Native Reusables](https://reactnativereusables.com)
+## Usage
 
-## Deploy with EAS
+```tsx
+import { Button, Text } from '@frosted-ui/react-native';
 
-The easiest way to deploy your app is with [Expo Application Services (EAS)](https://expo.dev/eas).
+export default function App() {
+  return (
+    <Button variant="surface" size="2">
+      <Text>Hello World</Text>
+    </Button>
+  );
+}
+```
 
-- [EAS Build](https://docs.expo.dev/build/introduction/)
-- [EAS Updates](https://docs.expo.dev/eas-update/introduction/)
-- [EAS Submit](https://docs.expo.dev/submit/introduction/)
+## Requirements
 
----
+- React >= 18.0.0
+- React Native >= 0.70.0
+- NativeWind >= 4.0.0
+- React Native Reanimated >= 3.0.0
+- React Native Safe Area Context >= 4.0.0
+- React Native Screens >= 3.0.0
+- React Native SVG >= 13.0.0
+- Lucide React Native >= 0.300.0
 
-If you enjoy using React Native Reusables, please consider giving it a ⭐ on [GitHub](https://github.com/founded-labs/react-native-reusables). Your support means a lot!
+## Components
+
+This library includes a comprehensive set of UI components:
+
+- Accordion
+- Alert Dialog
+- Avatar
+- Badge
+- Button
+- Card
+- Checkbox
+- Dialog
+- Dropdown Menu
+- Hover Card
+- Icon
+- Label
+- Popover
+- Progress
+- Radio Group
+- Select
+- Separator
+- Skeleton
+- Spinner
+- Switch
+- Tabs
+- Text
+- Text Field
+- Text Area
+- Tooltip
+
+## Styling
+
+This library uses NativeWind (Tailwind CSS for React Native) for styling. Make sure your project is configured with NativeWind v4.
+
+## License
+
+MIT

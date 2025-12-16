@@ -418,9 +418,6 @@ importers:
       '@frosted-ui/colors':
         specifier: workspace:*
         version: link:../frosted-ui-colors
-      '@react-navigation/native':
-        specifier: ^7.0.0
-        version: 7.1.24(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/accordion':
         specifier: ^1.2.0
         version: 1.2.0(@types/react-dom@19.1.6(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
@@ -499,6 +496,19 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      tailwind-merge:
+        specifier: ^3.3.1
+        version: 3.4.0
+    devDependencies:
+      '@babel/core':
+        specifier: ^7.26.0
+        version: 7.28.5
+      '@react-navigation/native':
+        specifier: ^7.0.0
+        version: 7.1.24(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      '@types/react':
+        specifier: ~19.1.10
+        version: 19.1.17
       expo:
         specifier: ^54.0.26
         version: 54.0.27(@babel/core@7.28.5)(@expo/metro-runtime@6.1.2)(expo-router@6.0.17)(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
@@ -523,6 +533,12 @@ importers:
       nativewind:
         specifier: ^4.2.1
         version: 4.2.1(2ukccf653rjpsopiuu6qdgtgli)
+      prettier:
+        specifier: ^3.6.2
+        version: 3.7.4
+      prettier-plugin-tailwindcss:
+        specifier: ^0.6.14
+        version: 0.6.14(prettier@3.7.4)
       react:
         specifier: 19.1.0
         version: 19.1.0
@@ -553,28 +569,12 @@ importers:
       react-native-worklets:
         specifier: 0.5.1
         version: 0.5.1(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
-      tailwind-merge:
-        specifier: ^3.3.1
-        version: 3.4.0
       tailwindcss:
         specifier: ^3.4.14
         version: 3.4.18(ts-node@10.9.1(@types/node@22.19.1)(typescript@5.9.3))
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.18(ts-node@10.9.1(@types/node@22.19.1)(typescript@5.9.3)))
-    devDependencies:
-      '@babel/core':
-        specifier: ^7.26.0
-        version: 7.28.5
-      '@types/react':
-        specifier: ~19.1.10
-        version: 19.1.17
-      prettier:
-        specifier: ^3.6.2
-        version: 3.7.4
-      prettier-plugin-tailwindcss:
-        specifier: ^0.6.14
-        version: 0.6.14(prettier@3.7.4)
       tsc-alias:
         specifier: ^1.8.16
         version: 1.8.16
