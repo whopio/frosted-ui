@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Callout } from '@/components/ui/callout';
 import { Card } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Code } from '@/components/ui/code';
 import { ContextMenu } from '@/components/ui/context-menu';
 import { Dialog } from '@/components/ui/dialog';
 import { DropdownMenu } from '@/components/ui/dropdown-menu';
@@ -119,6 +120,63 @@ export default function KitchenSinkScreen() {
                 <Text color="pink">Text with pink color</Text>
                 <Text color="amber">Text with amber color</Text>
                 <Text color="teal">Text with teal color</Text>
+              </View>
+            </View>
+          </ComponentSection>
+
+          {/* Code Section */}
+          <ComponentSection title="Code">
+            <View className="gap-6">
+              {/* Variants */}
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Variants
+                </Text>
+                <View className="flex-row flex-wrap gap-2">
+                  <Code variant="soft">soft</Code>
+                  <Code variant="solid">solid</Code>
+                  <Code variant="outline">outline</Code>
+                  <Code variant="ghost">ghost</Code>
+                </View>
+              </View>
+
+              {/* Sizes */}
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Sizes
+                </Text>
+                <View className="gap-1">
+                  <Code size="1">Code size 1</Code>
+                  <Code size="2">Code size 2</Code>
+                  <Code size="3">Code size 3</Code>
+                  <Code size="4">Code size 4</Code>
+                  <Code size="5">Code size 5</Code>
+                </View>
+              </View>
+
+              {/* Colors */}
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Colors
+                </Text>
+                <View className="flex-row flex-wrap gap-2">
+                  <Code color="gray">gray</Code>
+                  <Code color="blue">blue</Code>
+                  <Code color="green">green</Code>
+                  <Code color="red">red</Code>
+                  <Code color="purple">purple</Code>
+                  <Code color="orange">orange</Code>
+                </View>
+              </View>
+
+              {/* Inline usage */}
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Inline Usage
+                </Text>
+                <Text>
+                  Run <Code>npm install</Code> to install dependencies.
+                </Text>
               </View>
             </View>
           </ComponentSection>
