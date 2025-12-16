@@ -1,35 +1,37 @@
-import { Accordion } from '@/components/ui/accordion';
-import { AlertDialog } from '@/components/ui/alert-dialog';
-import { AspectRatio } from '@/components/ui/aspect-ratio';
-import { Avatar } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Callout } from '@/components/ui/callout';
-import { Card } from '@/components/ui/card';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Code } from '@/components/ui/code';
-import { ContextMenu } from '@/components/ui/context-menu';
-import { Dialog } from '@/components/ui/dialog';
-import { DropdownMenu } from '@/components/ui/dropdown-menu';
-import { Heading } from '@/components/ui/heading';
-import { HoverCard } from '@/components/ui/hover-card';
-import { Icon } from '@/components/ui/icon';
-import { IconButton } from '@/components/ui/icon-button';
-import { Label } from '@/components/ui/label';
-import { Popover } from '@/components/ui/popover';
-import { Progress } from '@/components/ui/progress';
-import { RadioGroup } from '@/components/ui/radio-group';
-import { SegmentedControl } from '@/components/ui/segmented-control';
-import { Select } from '@/components/ui/select';
-import { Separator } from '@/components/ui/separator';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Spinner } from '@/components/ui/spinner';
-import { Switch } from '@/components/ui/switch';
-import { Tabs } from '@/components/ui/tabs';
-import { Text } from '@/components/ui/text';
-import { TextArea } from '@/components/ui/text-area';
-import { TextField } from '@/components/ui/text-field';
-import { Tooltip } from '@/components/ui/tooltip';
+import {
+  Accordion,
+  AlertDialog,
+  AspectRatio,
+  Avatar,
+  Badge,
+  Button,
+  Callout,
+  Card,
+  Checkbox,
+  Code,
+  ContextMenu,
+  Dialog,
+  DropdownMenu,
+  Heading,
+  HoverCard,
+  Icon,
+  IconButton,
+  Label,
+  Popover,
+  Progress,
+  RadioGroup,
+  SegmentedControl,
+  Select,
+  Separator,
+  Skeleton,
+  Spinner,
+  Switch,
+  Tabs,
+  Text,
+  TextArea,
+  TextField,
+  Tooltip,
+} from '@/components/ui';
 import { Stack } from 'expo-router';
 import {
   AlertCircleIcon,
