@@ -1982,11 +1982,15 @@ function RadioGroupDemo({
       <View className="gap-2">
         <View className="flex-row items-center gap-2">
           <RadioGroup.Item aria-labelledby={`${id}-1`} value="option1" />
-          <Label nativeID={`${id}-1`}>Option 1</Label>
+          <Label nativeID={`${id}-1`} onPress={() => setValue('option1')}>
+            Option 1
+          </Label>
         </View>
         <View className="flex-row items-center gap-2">
           <RadioGroup.Item aria-labelledby={`${id}-2`} value="option2" />
-          <Label nativeID={`${id}-2`}>Option 2</Label>
+          <Label nativeID={`${id}-2`} onPress={() => setValue('option2')}>
+            Option 2
+          </Label>
         </View>
       </View>
     </RadioGroup.Root>
