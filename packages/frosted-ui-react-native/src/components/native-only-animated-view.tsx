@@ -20,7 +20,11 @@ const NativeOnlyAnimatedView = React.forwardRef<any, AnimatedViewProps>(
     }
 
     // Animated.View expects its own ref type; cast to satisfy differing React typings.
-    return <Animated.View ref={ref as any} {...rest} />;
+    return (
+      <Animated.View ref={ref as any} {...rest}>
+        {children}
+      </Animated.View>
+    );
   }
 );
 
