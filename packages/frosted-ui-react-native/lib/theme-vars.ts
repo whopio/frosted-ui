@@ -206,15 +206,20 @@ function buildAlphaPalette(
 const blackAlpha = buildAlphaPalette(blackA, 'black');
 const whiteAlpha = buildAlphaPalette(whiteA, 'white');
 
+// Black and white palettes (same for light and dark mode)
+export function blackAndWhitePalettes() {
+  return {
+    black: blackAlpha,
+    white: whiteAlpha,
+  };
+}
+
 export const themeVars = {
   typography,
   fontWeights,
   colors: {
-    // Black and white alpha palettes (same in light and dark mode)
-    black: blackAlpha,
-    white: whiteAlpha,
     light: {
-      palettes: lightPalettes,
+      palettes: { ...lightPalettes, ...blackAndWhitePalettes() },
       background: 'white',
       overlay: blackA?.blackA6 ?? 'rgba(0, 0, 0, 0.35)',
       panelSolid: 'white',
@@ -223,7 +228,7 @@ export const themeVars = {
       stroke: lightPalettes.gray.a5,
     },
     dark: {
-      palettes: darkPalettes,
+      palettes: { ...darkPalettes, ...blackAndWhitePalettes() },
       background: grayDark?.gray1 ?? '#111111',
       overlay: blackA?.blackA8 ?? 'rgba(0, 0, 0, 0.5)',
       panelSolid: grayDark?.gray2 ?? '#181818',

@@ -13,9 +13,6 @@ export function useThemeVars() {
     fontWeights: themeVars.fontWeights,
     colors,
     invertedColors,
-    // Black and white alpha palettes (same in light and dark mode)
-    black: themeVars.colors.black,
-    white: themeVars.colors.white,
     isDark,
   };
 }

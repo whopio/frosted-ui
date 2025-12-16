@@ -71,13 +71,7 @@ import { Popover } from '@/components/ui/popover';
 import { Progress } from '@/components/ui/progress';
 import { RadioGroup } from '@/components/ui/radio-group';
 import { SegmentedControl } from '@/components/ui/segmented-control';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Select } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Switch } from '@/components/ui/switch';
@@ -1545,10 +1539,90 @@ export default function KitchenSinkScreen() {
 
           {/* Select Section */}
           <ComponentSection title="Select">
-            <View className="gap-4">
-              <View className="gap-2">
-                <Label nativeID="framework">Select a framework</Label>
-                <SelectDemo />
+            <View className="gap-6">
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Variants - Blue
+                </Text>
+                <View className="flex-row flex-wrap gap-2">
+                  <SelectDemo variant="surface" color="blue" />
+                  <SelectDemo variant="soft" color="blue" />
+                  <SelectDemo variant="ghost" color="blue" />
+                </View>
+              </View>
+
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Variants - Green
+                </Text>
+                <View className="flex-row flex-wrap gap-2">
+                  <SelectDemo variant="surface" color="green" />
+                  <SelectDemo variant="soft" color="green" />
+                  <SelectDemo variant="ghost" color="green" />
+                </View>
+              </View>
+
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Variants - Red
+                </Text>
+                <View className="flex-row flex-wrap gap-2">
+                  <SelectDemo variant="surface" color="red" />
+                  <SelectDemo variant="soft" color="red" />
+                  <SelectDemo variant="ghost" color="red" />
+                </View>
+              </View>
+
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Variants - Purple
+                </Text>
+                <View className="flex-row flex-wrap gap-2">
+                  <SelectDemo variant="surface" color="purple" />
+                  <SelectDemo variant="soft" color="purple" />
+                  <SelectDemo variant="ghost" color="purple" />
+                </View>
+              </View>
+
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Select Sizes
+                </Text>
+                <View className="flex-row flex-wrap items-center gap-2">
+                  <SelectDemo size="1" />
+                  <SelectDemo size="2" />
+                  <SelectDemo size="3" />
+                  <SelectDemo size="4" />
+                </View>
+              </View>
+
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Disabled State
+                </Text>
+                <View className="flex-row flex-wrap gap-2">
+                  <SelectDemo variant="surface" color="blue" disabled />
+                  <SelectDemo variant="soft" color="blue" disabled />
+                  <SelectDemo variant="ghost" color="blue" disabled />
+                </View>
+              </View>
+
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  Many Options (Scrollable)
+                </Text>
+                <View className="flex-row flex-wrap gap-2">
+                  <SelectManyOptionsDemo />
+                </View>
+              </View>
+
+              <View className="gap-3">
+                <Text weight="semi-bold" className="text-gray-a10">
+                  With Groups, Labels & Separators
+                </Text>
+                <View className="flex-row flex-wrap gap-2">
+                  <SelectGroupedDemo />
+                </View>
               </View>
             </View>
           </ComponentSection>
@@ -1721,31 +1795,120 @@ function ToggleGroupDemo() {
   );
 }
 
-function SelectDemo() {
+function SelectDemo({
+  size,
+  variant,
+  color,
+  disabled,
+}: {
+  size?: '1' | '2' | '3' | '4';
+  variant?: 'surface' | 'soft' | 'ghost';
+  color?: 'blue' | 'green' | 'red' | 'purple' | 'yellow';
+  disabled?: boolean;
+}) {
   const [value, setValue] = React.useState<{ value: string; label: string } | undefined>();
   return (
-    <Select value={value} onValueChange={setValue}>
-      <SelectTrigger>
-        <SelectValue placeholder="Select a framework" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem label="Next.js" value="next">
+    <Select.Root size={size} value={value} onValueChange={setValue}>
+      <Select.Trigger variant={variant} color={color} disabled={disabled}>
+        <Select.Value placeholder="Select a framework" />
+      </Select.Trigger>
+      <Select.Content>
+        <Select.Item value="next" label="Next.js">
           Next.js
-        </SelectItem>
-        <SelectItem label="React" value="react">
+        </Select.Item>
+        <Select.Item value="react" label="React">
           React
-        </SelectItem>
-        <SelectItem label="Vue" value="vue">
+        </Select.Item>
+        <Select.Item value="vue" label="Vue">
           Vue
-        </SelectItem>
-        <SelectItem label="Svelte" value="svelte">
+        </Select.Item>
+        <Select.Item value="svelte" label="Svelte">
           Svelte
-        </SelectItem>
-        <SelectItem label="Angular" value="angular">
+        </Select.Item>
+        <Select.Item value="angular" label="Angular">
           Angular
-        </SelectItem>
-      </SelectContent>
-    </Select>
+        </Select.Item>
+      </Select.Content>
+    </Select.Root>
+  );
+}
+
+function SelectManyOptionsDemo() {
+  const [value, setValue] = React.useState<{ value: string; label: string } | undefined>();
+  const options = Array.from({ length: 40 }, (_, i) => ({
+    value: `option-${i + 1}`,
+    label: `Option ${i + 1}`,
+  }));
+
+  return (
+    <Select.Root value={value} onValueChange={setValue}>
+      <Select.Trigger>
+        <Select.Value placeholder="Select an option" />
+      </Select.Trigger>
+      <Select.Content>
+        {options.map((option) => (
+          <Select.Item key={option.value} value={option.value} label={option.label}>
+            {option.label}
+          </Select.Item>
+        ))}
+      </Select.Content>
+    </Select.Root>
+  );
+}
+
+function SelectGroupedDemo() {
+  const [value, setValue] = React.useState<{ value: string; label: string } | undefined>();
+
+  return (
+    <Select.Root value={value} onValueChange={setValue}>
+      <Select.Trigger>
+        <Select.Value placeholder="Select a food" />
+      </Select.Trigger>
+      <Select.Content>
+        <Select.Group>
+          <Select.Label>Fruits</Select.Label>
+          <Select.Item value="apple" label="Apple">
+            Apple
+          </Select.Item>
+          <Select.Item value="banana" label="Banana">
+            Banana
+          </Select.Item>
+          <Select.Item value="orange" label="Orange">
+            Orange
+          </Select.Item>
+        </Select.Group>
+
+        <Select.Separator />
+
+        <Select.Group>
+          <Select.Label>Vegetables</Select.Label>
+          <Select.Item value="carrot" label="Carrot">
+            Carrot
+          </Select.Item>
+          <Select.Item value="broccoli" label="Broccoli">
+            Broccoli
+          </Select.Item>
+          <Select.Item value="spinach" label="Spinach">
+            Spinach
+          </Select.Item>
+        </Select.Group>
+
+        <Select.Separator />
+
+        <Select.Group>
+          <Select.Label>Proteins</Select.Label>
+          <Select.Item value="chicken" label="Chicken">
+            Chicken
+          </Select.Item>
+          <Select.Item value="beef" label="Beef">
+            Beef
+          </Select.Item>
+          <Select.Item value="fish" label="Fish">
+            Fish
+          </Select.Item>
+        </Select.Group>
+      </Select.Content>
+    </Select.Root>
   );
 }
 

@@ -23,13 +23,18 @@ export function resolveAccentFromColor(color?: Color): AccentColor {
 }
 
 export function getButtonSizeStyle(size: ButtonSize, isIconButton = false): ViewStyle {
+  // Based on web CSS:
+  // Size 1: height=space-5(24), gap=space-1(4), padding=space-2(8), radius=6
+  // Size 2: height=space-6(32), gap=space-1*1.5(6), padding=space-3(12), radius=8
+  // Size 3: height=space-7(40), gap=space-2(8), padding=space-4(16), radius=10
+  // Size 4: height=space-8(48), gap=space-3(12), padding=space-4(16), radius=14
   const baseSize =
     size === '1'
       ? { height: 24, borderRadius: 6, gap: 4 }
       : size === '2'
-        ? { height: 32, borderRadius: 8, gap: 8 }
+        ? { height: 32, borderRadius: 8, gap: 6 }
         : size === '3'
-          ? { height: 40, borderRadius: 10, gap: 12 }
+          ? { height: 40, borderRadius: 10, gap: 8 }
           : { height: 48, borderRadius: 14, gap: 12 };
 
   if (isIconButton) {
@@ -42,7 +47,7 @@ export function getButtonSizeStyle(size: ButtonSize, isIconButton = false): View
   }
 
   // Regular Button: horizontal padding based on size
-  const paddingHorizontal = size === '1' ? 8 : size === '2' ? 12 : size === '3' ? 16 : 24;
+  const paddingHorizontal = size === '1' ? 8 : size === '2' ? 12 : size === '3' ? 16 : 16;
 
   return {
     ...baseSize,

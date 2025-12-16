@@ -70,7 +70,7 @@ function SegmentedControlTriggerInner({
   children,
 }: SegmentedControlTriggerInnerProps) {
   const { value: activeValue } = React.useContext(SegmentedControlContext);
-  const { colors, white, isDark } = useThemeVars();
+  const { colors, isDark } = useThemeVars();
 
   const gray = colors.palettes.gray;
 
@@ -99,7 +99,7 @@ function SegmentedControlTriggerInner({
   const activeStyle: ViewStyle | undefined = isActive
     ? isDark
       ? {
-          backgroundColor: white.a3,
+          backgroundColor: colors.palettes.white.a3,
         }
       : {
           backgroundColor: colors.panelSolid,
