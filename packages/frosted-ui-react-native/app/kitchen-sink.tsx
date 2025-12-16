@@ -1,9 +1,4 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
+import { Accordion } from '@/components/ui/accordion';
 import { AlertDialog } from '@/components/ui/alert-dialog';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Avatar } from '@/components/ui/avatar';
@@ -1243,34 +1238,69 @@ export default function KitchenSinkScreen() {
 
           {/* Accordion Section */}
           <ComponentSection title="Accordion">
-            <Accordion type="multiple" collapsible className="w-full">
-              <AccordionItem value="item-1">
-                <AccordionTrigger>
-                  <Text>Is it accessible?</Text>
-                </AccordionTrigger>
-                <AccordionContent>
-                  <Text>Yes. It adheres to the WAI-ARIA design pattern.</Text>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-2">
-                <AccordionTrigger>
-                  <Text>Is it styled?</Text>
-                </AccordionTrigger>
-                <AccordionContent>
-                  <Text>
-                    Yes. It comes with default styles that match the other components' aesthetic.
-                  </Text>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-3">
-                <AccordionTrigger>
-                  <Text>Is it animated?</Text>
-                </AccordionTrigger>
-                <AccordionContent>
-                  <Text>Yes. It's animated by default with smooth transitions.</Text>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
+            <View style={{ gap: 24 }}>
+              {/* Single */}
+              <View style={{ gap: 8 }}>
+                <Text size="2" weight="medium" color="gray">
+                  Single
+                </Text>
+                <Accordion.Root type="single" defaultValue="item-1">
+                  <View style={{ gap: 16 }}>
+                    <Accordion.Item value="item-1">
+                      <Accordion.Trigger>Is it accessible?</Accordion.Trigger>
+                      <Accordion.Content>
+                        <Text>Yes. It adheres to the WAI-ARIA design pattern.</Text>
+                      </Accordion.Content>
+                    </Accordion.Item>
+                    <Accordion.Item value="item-2">
+                      <Accordion.Trigger>Is it unstyled?</Accordion.Trigger>
+                      <Accordion.Content>
+                        <Text>
+                          Yes. It's unstyled by default, giving you freedom over the look and feel.
+                        </Text>
+                      </Accordion.Content>
+                    </Accordion.Item>
+                    <Accordion.Item value="item-3">
+                      <Accordion.Trigger>Can it be animated?</Accordion.Trigger>
+                      <Accordion.Content>
+                        <Text>Yes! You can animate the Accordion with CSS or JavaScript.</Text>
+                      </Accordion.Content>
+                    </Accordion.Item>
+                  </View>
+                </Accordion.Root>
+              </View>
+
+              {/* Multiple */}
+              <View style={{ gap: 8 }}>
+                <Text size="2" weight="medium" color="gray">
+                  Multiple
+                </Text>
+                <Accordion.Root type="multiple" defaultValue={['item-1', 'item-2']}>
+                  <View style={{ gap: 16 }}>
+                    <Accordion.Item value="item-1">
+                      <Accordion.Trigger>Is it accessible?</Accordion.Trigger>
+                      <Accordion.Content>
+                        <Text>Yes. It adheres to the WAI-ARIA design pattern.</Text>
+                      </Accordion.Content>
+                    </Accordion.Item>
+                    <Accordion.Item value="item-2">
+                      <Accordion.Trigger>Is it unstyled?</Accordion.Trigger>
+                      <Accordion.Content>
+                        <Text>
+                          Yes. It's unstyled by default, giving you freedom over the look and feel.
+                        </Text>
+                      </Accordion.Content>
+                    </Accordion.Item>
+                    <Accordion.Item value="item-3">
+                      <Accordion.Trigger>Can it be animated?</Accordion.Trigger>
+                      <Accordion.Content>
+                        <Text>Yes! You can animate the Accordion with CSS or JavaScript.</Text>
+                      </Accordion.Content>
+                    </Accordion.Item>
+                  </View>
+                </Accordion.Root>
+              </View>
+            </View>
           </ComponentSection>
 
           {/* Tabs Section */}

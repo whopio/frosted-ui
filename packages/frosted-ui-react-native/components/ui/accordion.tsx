@@ -1,141 +1,147 @@
-import { Icon } from '@/components/ui/icon';
-import { TextClassContext } from '@/components/ui/text';
-import { cn } from '@/lib/utils';
+import { useThemeVars } from '@/lib/use-theme-vars';
 import * as AccordionPrimitive from '@rn-primitives/accordion';
-import { ChevronDown } from 'lucide-react-native';
-import { Platform, Pressable, View } from 'react-native';
-import Animated, {
-  FadeOutUp,
-  LayoutAnimationConfig,
-  LinearTransition,
-  useAnimatedStyle,
-  useDerivedValue,
-  withTiming,
-} from 'react-native-reanimated';
+import * as React from 'react';
+import { Platform, Pressable, View, type ViewStyle } from 'react-native';
+import Svg, { Path } from 'react-native-svg';
+import { Text } from './text';
 
-function Accordion({
-  children,
-  ...props
-}: Omit<AccordionPrimitive.RootProps, 'asChild'> &
-  React.RefAttributes<AccordionPrimitive.RootRef>) {
+// Custom chevron icon that matches web version
+function ChevronIcon({ size, color }: { size: number; color: string }) {
   return (
-    <LayoutAnimationConfig skipEntering>
-      <AccordionPrimitive.Root
-        {...(props as AccordionPrimitive.RootProps)}
-        asChild={Platform.OS !== 'web'}>
-        <Animated.View layout={LinearTransition.duration(200)}>{children}</Animated.View>
-      </AccordionPrimitive.Root>
-    </LayoutAnimationConfig>
+    <Svg width={size} height={size} viewBox="0 0 20 20" fill="none">
+      <Path
+        d="M6 12L9.64645 8.35355C9.84171 8.15829 10.1583 8.15829 10.3536 8.35355L14 12"
+        stroke={color}
+        strokeWidth={1.5}
+        strokeLinecap="round"
+      />
+    </Svg>
   );
 }
 
-function AccordionItem({
-  children,
-  className,
-  value,
-  ...props
-}: AccordionPrimitive.ItemProps & React.RefAttributes<AccordionPrimitive.ItemRef>) {
+type AccordionRootProps = Omit<AccordionPrimitive.RootProps, 'asChild'> &
+  React.RefAttributes<AccordionPrimitive.RootRef>;
+
+function AccordionRoot({ children, ...props }: AccordionRootProps) {
   return (
-    <AccordionPrimitive.Item
-      className={cn(
-        'border-stroke border-b',
-        Platform.select({ web: 'last:border-b-0' }),
-        className
-      )}
-      value={value}
-      asChild
-      {...props}>
-      <Animated.View
-        className="native:overflow-hidden"
-        layout={Platform.select({ native: LinearTransition.duration(200) })}>
-        {children}
-      </Animated.View>
+    <AccordionPrimitive.Root {...(props as AccordionPrimitive.RootProps)}>
+      {children}
+    </AccordionPrimitive.Root>
+  );
+}
+
+type AccordionItemProps = AccordionPrimitive.ItemProps &
+  React.RefAttributes<AccordionPrimitive.ItemRef>;
+
+function AccordionItem({ children, value, ...props }: AccordionItemProps) {
+  return (
+    // @ts-expect-error - Known type incompatibility with rn-primitives
+    <AccordionPrimitive.Item value={value} {...props}>
+      {children}
     </AccordionPrimitive.Item>
   );
 }
 
-const Trigger = Platform.OS === 'web' ? View : Pressable;
+const TriggerWrapper = Platform.OS === 'web' ? View : Pressable;
 
-function AccordionTrigger({
-  className,
-  children,
-  ...props
-}: AccordionPrimitive.TriggerProps & {
+type AccordionTriggerProps = AccordionPrimitive.TriggerProps & {
   children?: React.ReactNode;
-} & React.RefAttributes<AccordionPrimitive.TriggerRef>) {
-  const { isExpanded } = AccordionPrimitive.useItemContext();
+} & React.RefAttributes<AccordionPrimitive.TriggerRef>;
 
-  const progress = useDerivedValue(
-    () => (isExpanded ? withTiming(1, { duration: 250 }) : withTiming(0, { duration: 200 })),
-    [isExpanded]
-  );
-  const chevronStyle = useAnimatedStyle(
-    () => ({
-      transform: [{ rotate: `${progress.value * 180}deg` }],
-    }),
-    [progress]
-  );
+function AccordionTrigger({ children, ...props }: AccordionTriggerProps) {
+  const { isExpanded } = AccordionPrimitive.useItemContext();
+  const { colors } = useThemeVars();
+  const gray = colors.palettes.gray;
+
+  // Trigger styles matching web CSS
+  const triggerStyle: ViewStyle = {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    gap: 8, // space-2
+    backgroundColor: gray.a3,
+    borderRadius: 8, // radius-4
+    paddingVertical: 8, // space-2
+    paddingHorizontal: 16, // space-4
+    // Inset border using boxShadow on web, borderWidth on native
+    ...(Platform.OS === 'web'
+      ? {
+          boxShadow: `0px 0px 0px 1px ${gray.a5} inset`,
+        }
+      : {
+          borderWidth: 1,
+          borderColor: gray.a5,
+        }),
+  };
+
+  // Focus style for web
+  const focusStyle: ViewStyle | undefined =
+    Platform.OS === 'web'
+      ? ({
+          outlineWidth: 0,
+        } as ViewStyle)
+      : undefined;
+
+  // Chevron rotation style
+  const chevronStyle: ViewStyle = {
+    transform: [{ rotate: isExpanded ? '0deg' : '180deg' }],
+  };
 
   return (
-    <TextClassContext.Provider
-      value={cn(
-        'text-left text-sm font-medium',
-        Platform.select({ web: 'group-hover:underline' })
-      )}>
-      <AccordionPrimitive.Header>
-        <AccordionPrimitive.Trigger {...props} asChild>
-          <Trigger
-            className={cn(
-              'flex-row items-start justify-between gap-4 rounded-md py-4 disabled:opacity-50',
-              Platform.select({
-                web: 'flex flex-1 outline-none transition-all hover:underline focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none [&[data-state=open]>svg]:rotate-180',
-              }),
-              className
-            )}>
-            <>{children}</>
-            <Animated.View style={chevronStyle}>
-              <Icon
-                as={ChevronDown}
-                size={16}
-                className={cn(
-                  'text-gray-a10 shrink-0',
-                  Platform.select({
-                    web: 'pointer-events-none translate-y-0.5 transition-transform duration-200',
-                  })
-                )}
-              />
-            </Animated.View>
-          </Trigger>
-        </AccordionPrimitive.Trigger>
-      </AccordionPrimitive.Header>
-    </TextClassContext.Provider>
+    <AccordionPrimitive.Header>
+      {/* @ts-expect-error - Known type incompatibility with rn-primitives asChild */}
+      <AccordionPrimitive.Trigger {...props} asChild>
+        <TriggerWrapper style={[triggerStyle, focusStyle]}>
+          <View style={chevronStyle}>
+            <ChevronIcon size={20} color={gray.a11} />
+          </View>
+          <View style={{ flex: 1 }}>
+            <Text
+              size="1"
+              weight="bold"
+              style={{
+                color: gray.a11,
+                textTransform: 'uppercase',
+                letterSpacing: 0.06 * 12, // 0.06em at font-size 12px
+              }}>
+              {children}
+            </Text>
+          </View>
+        </TriggerWrapper>
+      </AccordionPrimitive.Trigger>
+    </AccordionPrimitive.Header>
   );
 }
 
-function AccordionContent({
-  className,
-  children,
-  ...props
-}: AccordionPrimitive.ContentProps & React.RefAttributes<AccordionPrimitive.ContentRef>) {
-  const { isExpanded } = AccordionPrimitive.useItemContext();
+type AccordionContentProps = AccordionPrimitive.ContentProps &
+  React.RefAttributes<AccordionPrimitive.ContentRef>;
+
+function AccordionContent({ children, ...props }: AccordionContentProps) {
+  // Content inner padding matching web CSS
+  const contentInnerStyle: ViewStyle = {
+    paddingVertical: 16, // space-4
+    paddingHorizontal: 20, // space-5
+  };
+
   return (
-    <TextClassContext.Provider value="text-sm">
-      <AccordionPrimitive.Content
-        className={cn(
-          'overflow-hidden',
-          Platform.select({
-            web: isExpanded ? 'animate-accordion-down' : 'animate-accordion-up',
-          })
-        )}
-        {...props}>
-        <Animated.View
-          exiting={Platform.select({ native: FadeOutUp.duration(200) })}
-          className={cn('pb-4', className)}>
-          {children}
-        </Animated.View>
-      </AccordionPrimitive.Content>
-    </TextClassContext.Provider>
+    // @ts-expect-error - Known type incompatibility with rn-primitives
+    <AccordionPrimitive.Content {...props}>
+      <View style={contentInnerStyle}>{children}</View>
+    </AccordionPrimitive.Content>
   );
 }
 
-export { Accordion, AccordionContent, AccordionItem, AccordionTrigger };
+const Accordion = {
+  Root: AccordionRoot,
+  Item: AccordionItem,
+  Trigger: AccordionTrigger,
+  Content: AccordionContent,
+};
+
+export { Accordion, AccordionContent, AccordionItem, AccordionRoot, AccordionTrigger };
+export type {
+  AccordionContentProps,
+  AccordionItemProps,
+  AccordionRootProps,
+  AccordionTriggerProps,
+};
