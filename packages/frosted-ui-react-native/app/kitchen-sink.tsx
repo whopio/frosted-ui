@@ -24,16 +24,7 @@ import { Card } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { ContextMenu } from '@/components/ui/context-menu';
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
+import { Dialog } from '@/components/ui/dialog';
 import { DropdownMenu } from '@/components/ui/dropdown-menu';
 import { Heading } from '@/components/ui/heading';
 import { HoverCard } from '@/components/ui/hover-card';
@@ -1349,32 +1340,177 @@ export default function KitchenSinkScreen() {
 
           {/* Dialog Section */}
           <ComponentSection title="Dialog">
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button>
-                  <Text>Open Dialog</Text>
-                </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Are you absolutely sure?</DialogTitle>
-                  <DialogDescription>
-                    This action cannot be undone. This will permanently delete your account and
-                    remove your data from our servers.
-                  </DialogDescription>
-                </DialogHeader>
-                <DialogFooter>
-                  <DialogClose asChild>
-                    <Button variant="surface">
-                      <Text>Cancel</Text>
+            <View className="gap-4">
+              {/* Default Demo */}
+              <View className="gap-2">
+                <Text size="2" weight="medium">
+                  Default
+                </Text>
+                <Dialog.Root>
+                  <Dialog.Trigger>
+                    <Button>
+                      <Text>Edit profile</Text>
                     </Button>
-                  </DialogClose>
-                  <Button>
-                    <Text>Continue</Text>
-                  </Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
+                  </Dialog.Trigger>
+                  <Dialog.Content style={{ maxWidth: 450 }}>
+                    <Dialog.Title>Edit profile</Dialog.Title>
+                    <Dialog.Description>Make changes to your profile.</Dialog.Description>
+                    <View style={{ gap: 12 }}>
+                      <View>
+                        <Text size="2" weight="bold" style={{ marginBottom: 4 }}>
+                          Name
+                        </Text>
+                        <TextField.Root>
+                          <TextField.Input
+                            defaultValue="Freja Johnsen"
+                            placeholder="Enter your full name"
+                          />
+                        </TextField.Root>
+                      </View>
+                      <View>
+                        <Text size="2" weight="bold" style={{ marginBottom: 4 }}>
+                          Email
+                        </Text>
+                        <TextField.Root>
+                          <TextField.Input
+                            defaultValue="freja@example.com"
+                            placeholder="Enter your email"
+                          />
+                        </TextField.Root>
+                      </View>
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        gap: 12,
+                        marginTop: 16,
+                        justifyContent: 'flex-end',
+                      }}>
+                      <Dialog.Close>
+                        <Button variant="soft" color="gray">
+                          <Text>Cancel</Text>
+                        </Button>
+                      </Dialog.Close>
+                      <Dialog.Close>
+                        <Button>
+                          <Text>Save</Text>
+                        </Button>
+                      </Dialog.Close>
+                    </View>
+                  </Dialog.Content>
+                </Dialog.Root>
+              </View>
+
+              {/* Sizes Demo */}
+              <View className="gap-2">
+                <Text size="2" weight="medium">
+                  Sizes
+                </Text>
+                <View className="flex-row flex-wrap gap-3">
+                  <Dialog.Root>
+                    <Dialog.Trigger>
+                      <Button>
+                        <Text>Size 1</Text>
+                      </Button>
+                    </Dialog.Trigger>
+                    <Dialog.Content size="1" style={{ maxWidth: 350 }}>
+                      <Dialog.Title>Edit profile</Dialog.Title>
+                      <Dialog.Description>Make changes to your profile.</Dialog.Description>
+                      <View style={{ flexDirection: 'row', gap: 8, justifyContent: 'flex-end' }}>
+                        <Dialog.Close>
+                          <Button size="1" variant="soft" color="gray">
+                            <Text>Cancel</Text>
+                          </Button>
+                        </Dialog.Close>
+                        <Dialog.Close>
+                          <Button size="1">
+                            <Text>Save</Text>
+                          </Button>
+                        </Dialog.Close>
+                      </View>
+                    </Dialog.Content>
+                  </Dialog.Root>
+
+                  <Dialog.Root>
+                    <Dialog.Trigger>
+                      <Button>
+                        <Text>Size 2</Text>
+                      </Button>
+                    </Dialog.Trigger>
+                    <Dialog.Content size="2" style={{ maxWidth: 350 }}>
+                      <Dialog.Title>Edit profile</Dialog.Title>
+                      <Dialog.Description>Make changes to your profile.</Dialog.Description>
+                      <View style={{ flexDirection: 'row', gap: 8, justifyContent: 'flex-end' }}>
+                        <Dialog.Close>
+                          <Button size="2" variant="soft" color="gray">
+                            <Text>Cancel</Text>
+                          </Button>
+                        </Dialog.Close>
+                        <Dialog.Close>
+                          <Button size="2" variant="solid">
+                            <Text>Save</Text>
+                          </Button>
+                        </Dialog.Close>
+                      </View>
+                    </Dialog.Content>
+                  </Dialog.Root>
+
+                  <Dialog.Root>
+                    <Dialog.Trigger>
+                      <Button>
+                        <Text>Size 3</Text>
+                      </Button>
+                    </Dialog.Trigger>
+                    <Dialog.Content size="3" style={{ maxWidth: 350 }}>
+                      <Dialog.Title>Edit profile</Dialog.Title>
+                      <Dialog.Description>Make changes to your profile.</Dialog.Description>
+                      <View style={{ flexDirection: 'row', gap: 12, justifyContent: 'flex-end' }}>
+                        <Dialog.Close>
+                          <Button size="2" variant="soft" color="gray">
+                            <Text>Cancel</Text>
+                          </Button>
+                        </Dialog.Close>
+                        <Dialog.Close>
+                          <Button size="2" variant="solid">
+                            <Text>Save</Text>
+                          </Button>
+                        </Dialog.Close>
+                      </View>
+                    </Dialog.Content>
+                  </Dialog.Root>
+
+                  <Dialog.Root>
+                    <Dialog.Trigger>
+                      <Button>
+                        <Text>Size 4</Text>
+                      </Button>
+                    </Dialog.Trigger>
+                    <Dialog.Content size="4" style={{ maxWidth: 350 }}>
+                      <Dialog.Title>Edit profile</Dialog.Title>
+                      <Dialog.Description>Make changes to your profile.</Dialog.Description>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          gap: 12,
+                          justifyContent: 'flex-end',
+                          alignItems: 'center',
+                        }}>
+                        <Dialog.Close>
+                          <Button size="3" variant="soft" color="gray">
+                            <Text>Cancel</Text>
+                          </Button>
+                        </Dialog.Close>
+                        <Dialog.Close>
+                          <Button size="3" variant="solid">
+                            <Text>Save</Text>
+                          </Button>
+                        </Dialog.Close>
+                      </View>
+                    </Dialog.Content>
+                  </Dialog.Root>
+                </View>
+              </View>
+            </View>
           </ComponentSection>
 
           {/* Alert Dialog Section */}
