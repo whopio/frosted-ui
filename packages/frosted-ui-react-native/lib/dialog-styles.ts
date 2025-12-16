@@ -140,24 +140,27 @@ export function getDialogOverlayStyle(): ViewStyle {
 }
 
 export function getDialogBackdropStyle(): ViewStyle {
-  return Platform.OS === 'web'
-    ? ({
-        position: 'absolute' as const,
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backdropFilter: 'blur(3px) brightness(0.7)',
-        WebkitBackdropFilter: 'blur(3px) brightness(0.7)',
-      } as ViewStyle)
-    : {
-        position: 'absolute' as const,
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      };
+  if (Platform.OS === 'web') {
+    return {
+      position: 'absolute' as const,
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backdropFilter: 'blur(3px) brightness(0.7)',
+      WebkitBackdropFilter: 'blur(3px) brightness(0.7)',
+    } as ViewStyle;
+  }
+
+  // Native: semi-transparent black backdrop
+  return {
+    position: 'absolute' as const,
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  };
 }
 
 // ============================================================================
@@ -184,7 +187,10 @@ export function getDialogContentStyle(
   // Extract maxWidth from style prop if provided
   const flatStyle = userStyle
     ? Array.isArray(userStyle)
-      ? Object.assign({}, ...userStyle.filter((s): s is ViewStyle => s != null && typeof s === 'object'))
+      ? Object.assign(
+          {},
+          ...userStyle.filter((s): s is ViewStyle => s != null && typeof s === 'object')
+        )
       : typeof userStyle === 'object' && userStyle != null
         ? userStyle
         : {}
@@ -206,4 +212,3 @@ export function getDialogContentStyle(
     ...shadowStyle,
   };
 }
-

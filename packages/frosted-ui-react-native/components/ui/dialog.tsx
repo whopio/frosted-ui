@@ -1,5 +1,4 @@
 import { Heading } from '@/components/ui/heading';
-import { NativeOnlyAnimatedView } from '@/components/ui/native-only-animated-view';
 import { Text } from '@/components/ui/text';
 import {
   getDialogBackdropStyle,
@@ -13,8 +12,15 @@ import {
 import { useThemeVars } from '@/lib/use-theme-vars';
 import * as DialogPrimitive from '@rn-primitives/dialog';
 import * as React from 'react';
-import { Platform, StyleSheet, useWindowDimensions, View, type ViewStyle } from 'react-native';
-import { FadeIn, FadeOut } from 'react-native-reanimated';
+import {
+  Platform,
+  Pressable,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+  type ViewStyle,
+} from 'react-native';
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { FullWindowOverlay as RNFullWindowOverlay } from 'react-native-screens';
 
 // ============================================================================
@@ -61,16 +67,39 @@ function DialogOverlay({
   const overlayStyle = getDialogOverlayStyle();
   const backdropStyle = getDialogBackdropStyle();
 
+  if (Platform.OS === 'web') {
+    return (
+      <FullWindowOverlay>
+        {/* @ts-expect-error - Known type incompatibility with rn-primitives */}
+        <DialogPrimitive.Overlay style={overlayStyle} {...props}>
+          <View style={backdropStyle} pointerEvents="none" />
+          {children}
+        </DialogPrimitive.Overlay>
+      </FullWindowOverlay>
+    );
+  }
+
+  // Native: Use Pressable as direct child with asChild to handle onPress for dismissal
+  // The Pressable receives onPress from the primitive to close the dialog when backdrop is tapped
+  const nativeBackdropStyle = getDialogBackdropStyle();
+
   return (
     <FullWindowOverlay>
       {/* @ts-expect-error - Known type incompatibility with rn-primitives */}
-      <DialogPrimitive.Overlay style={overlayStyle} {...props} asChild={Platform.OS !== 'web'}>
-        <NativeOnlyAnimatedView entering={FadeIn.duration(200)} exiting={FadeOut.duration(150)}>
-          <View style={backdropStyle} />
-          <NativeOnlyAnimatedView entering={FadeIn.delay(50)} exiting={FadeOut.duration(150)}>
+      <DialogPrimitive.Overlay {...props} asChild>
+        <Pressable style={overlayStyle}>
+          {/* Animated backdrop */}
+          <Animated.View
+            entering={FadeIn.duration(200)}
+            exiting={FadeOut.duration(150)}
+            style={nativeBackdropStyle}
+            pointerEvents="none"
+          />
+          {/* Animated content */}
+          <Animated.View entering={FadeIn.duration(200)} exiting={FadeOut.duration(150)}>
             {children}
-          </NativeOnlyAnimatedView>
-        </NativeOnlyAnimatedView>
+          </Animated.View>
+        </Pressable>
       </DialogPrimitive.Overlay>
     </FullWindowOverlay>
   );
