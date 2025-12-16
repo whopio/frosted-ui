@@ -6,6 +6,9 @@
     "paths": {
       "@/*": [
         "src/*"
+      ],
+      "@frosted-ui/react-native": [
+        "./src/index.ts"
       ]
     }
   },

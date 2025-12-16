@@ -31,7 +31,7 @@ import {
   TextArea,
   TextField,
   Tooltip,
-} from '@/index';
+} from '@frosted-ui/react-native';
 import { Stack } from 'expo-router';
 import {
   AlertCircleIcon,

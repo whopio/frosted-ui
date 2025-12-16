@@ -1,4 +1,4 @@
-import { Text } from '@/index';
+import { Text } from '@frosted-ui/react-native';
 import { Link, Stack } from 'expo-router';
 import { View } from 'react-native';
 

@@ -1,7 +1,14 @@
 {
-  "name": "frosted-ui-react-native",
+  "name": "@frosted-ui/react-native",
   "main": "expo-router/entry",
   "version": "1.0.0",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
   "scripts": {
     "dev": "expo start -c",
     "android": "expo start -c --android",

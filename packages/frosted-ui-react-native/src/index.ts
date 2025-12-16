@@ -6,4 +6,3 @@ export * from './components';
 //------------------------------------------------------------------------------
 export * from './lib/types';
 export * from './lib/use-theme-vars';
-
