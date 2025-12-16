@@ -2643,12 +2643,13 @@ function ThemeToggle() {
   };
 
   return (
-    <Button
+    <IconButton
       onPressIn={toggleColorScheme}
-      size="4"
-      variant="surface"
-      className="ios:size-9 rounded-full web:mx-4">
+      size="3"
+      variant="ghost"
+      color="gray"
+      className="rounded-full web:mx-4">
       <Icon as={THEME_ICONS[colorScheme ?? 'light']} className="size-5" />
-    </Button>
+    </IconButton>
   );
 }

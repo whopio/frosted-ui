@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
+import { IconButton } from '@/components/ui/icon-button';
 import { Text } from '@/components/ui/text';
 import { Link, Stack } from 'expo-router';
 import { MoonStarIcon, StarIcon, SunIcon } from 'lucide-react-native';
@@ -32,26 +33,26 @@ export default function Screen() {
       <View className="flex-1 items-center justify-center gap-8 p-4">
         <Image source={LOGO[colorScheme ?? 'light']} style={IMAGE_STYLE} resizeMode="contain" />
         <View className="gap-2 p-4">
-          <Text className="ios:text-gray-12 text-gray-a10 font-mono text-sm">
+          <Text className="ios:text-gray-12 text-sm font-mono text-gray-a10">
             1. Edit <Text variant="code">app/index.tsx</Text> to get started.
           </Text>
-          <Text className="ios:text-gray-12 text-gray-a10 font-mono text-sm">
+          <Text className="ios:text-gray-12 text-sm font-mono text-gray-a10">
             2. Save to see your changes instantly.
           </Text>
         </View>
         <View className="flex-row flex-wrap justify-center gap-2">
           <Link href="/kitchen-sink" asChild>
-            <Button size="lg">
+            <Button size="3" variant="solid">
               <Text>View Kitchen Sink</Text>
             </Button>
           </Link>
           <Link href="https://reactnativereusables.com" asChild>
-            <Button variant="outline">
+            <Button size="3" color="gray" variant="soft">
               <Text>Browse the Docs</Text>
             </Button>
           </Link>
           <Link href="https://github.com/founded-labs/react-native-reusables" asChild>
-            <Button variant="ghost">
+            <Button size="3" variant="ghost">
               <Text>Star the Repo</Text>
               <Icon as={StarIcon} />
             </Button>
@@ -71,12 +72,13 @@ function ThemeToggle() {
   const { colorScheme, toggleColorScheme } = useColorScheme();
 
   return (
-    <Button
+    <IconButton
       onPressIn={toggleColorScheme}
-      size="icon"
+      size="3"
       variant="ghost"
-      className="ios:size-9 rounded-full web:mx-4">
+      color="gray"
+      className="rounded-full web:mx-4">
       <Icon as={THEME_ICONS[colorScheme ?? 'light']} className="size-5" />
-    </Button>
+    </IconButton>
   );
 }
