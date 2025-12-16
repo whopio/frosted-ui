@@ -6,8 +6,8 @@ import * as React from 'react';
 import { Image, type ImageStyle, View } from 'react-native';
 
 const LOGO = {
-  light: require('@/assets/images/react-native-reusables-light.png'),
-  dark: require('@/assets/images/react-native-reusables-dark.png'),
+  light: require('../assets/images/react-native-reusables-light.png'),
+  dark: require('../assets/images/react-native-reusables-dark.png'),
 };
 
 const SCREEN_OPTIONS = {
