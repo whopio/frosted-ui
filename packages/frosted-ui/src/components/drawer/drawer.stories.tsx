@@ -34,7 +34,6 @@ export const Default: Story = {
           <Drawer.Title>Edit profile</Drawer.Title>
           <Drawer.Close>
             <IconButton size="1" color="gray" variant="ghost">
-              {/* @ts-expect-error -- fix frosted icon types */}
               <XMark16 />
             </IconButton>
           </Drawer.Close>
@@ -115,7 +114,6 @@ export const InsetContent: Story = {
           <Drawer.Title>Users</Drawer.Title>
           <Drawer.Close>
             <IconButton size="1" color="gray" variant="ghost">
-              {/* @ts-expect-error -- fix frosted icon types */}
               <XMark16 />
             </IconButton>
           </Drawer.Close>
