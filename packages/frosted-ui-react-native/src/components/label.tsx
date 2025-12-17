@@ -1,41 +1,53 @@
-import { cn } from '@/lib/utils';
+import { useThemeVars } from '@/lib/use-theme-vars';
 import * as LabelPrimitive from '@rn-primitives/label';
-import { Platform } from 'react-native';
+import { StyleSheet, type TextStyle, type ViewStyle } from 'react-native';
+
+type LabelProps = LabelPrimitive.TextProps & {
+  disabled?: boolean;
+};
 
 function Label({
-  className,
   onPress,
   onLongPress,
   onPressIn,
   onPressOut,
   disabled,
+  style,
   ...props
-}: LabelPrimitive.TextProps & React.RefAttributes<LabelPrimitive.TextRef>) {
+}: LabelProps) {
+  const { colors, typography, fontWeights } = useThemeVars();
+
+  const rootStyle: ViewStyle = {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    opacity: disabled ? 0.5 : 1,
+    cursor: (disabled ? 'not-allowed' : 'default') as ViewStyle['cursor'],
+  };
+
+  const textStyle: TextStyle = {
+    color: colors.palettes.gray['12'],
+    fontSize: typography['2'].fontSize,
+    lineHeight: typography['2'].lineHeight,
+    letterSpacing: typography['2'].letterSpacing,
+    fontWeight: fontWeights.medium,
+  };
+
+  const combinedTextStyle = StyleSheet.flatten([textStyle, style]);
+
   return (
     <LabelPrimitive.Root
-      className={cn(
-        'flex select-none flex-row items-center gap-2',
-        Platform.select({
-          web: 'cursor-default leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-50 group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50',
-        }),
-        disabled && 'opacity-50'
-      )}
+      style={rootStyle}
       onPress={onPress}
       onLongPress={onLongPress}
       onPressIn={onPressIn}
       onPressOut={onPressOut}
       disabled={disabled}>
-      {/* @ts-expect-error - Known React type version mismatch */}
-      <LabelPrimitive.Text
-        className={cn(
-          'text-gray-12 text-sm font-medium',
-          Platform.select({ web: 'leading-none' }),
-          className
-        )}
-        {...props}
-      />
+      <LabelPrimitive.Text style={combinedTextStyle} {...props} />
     </LabelPrimitive.Root>
   );
 }
 
 export { Label };
+export type { LabelProps };
+
