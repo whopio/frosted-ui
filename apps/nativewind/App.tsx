@@ -1,20 +1,18 @@
 import './global.css';
 
-import { StatusBar, Text, View, useColorScheme } from 'react-native';
+import { StatusBar, Text, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 function App() {
-  const isDarkMode = useColorScheme() === 'dark';
-
   return (
     <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <SafeAreaView className="flex-1 bg-white">
-        <View className="flex-1 items-center justify-center p-6">
-          <Text className="text-3xl font-bold text-red-900 mb-2">
-            React Native
+      <StatusBar barStyle="dark-content" />
+      <SafeAreaView className="flex-1 bg-background">
+        <View className="flex-1 items-center justify-center p-6 bg-gray-a3">
+          <Text className="text-6 font-bold text-blue-11 mb-2">Frosted UI</Text>
+          <Text className="text-2 text-magenta-11">
+            React Native + NativeWind
           </Text>
-          <Text className="text-lg text-gray-600">with NativeWind</Text>
         </View>
       </SafeAreaView>
     </SafeAreaProvider>

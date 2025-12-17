@@ -8,7 +8,7 @@ const monorepoRoot = path.resolve(__dirname, '../..');
  * Metro configuration for pnpm monorepo with NativeWind
  * @type {import('@react-native/metro-config').MetroConfig}
  */
-const config = {
+const config = mergeConfig(getDefaultConfig(__dirname), {
   watchFolders: [monorepoRoot],
   resolver: {
     nodeModulesPaths: [
@@ -16,8 +16,6 @@ const config = {
       path.resolve(monorepoRoot, 'node_modules'),
     ],
   },
-};
-
-module.exports = withNativeWind(mergeConfig(getDefaultConfig(__dirname), config), {
-  input: './global.css',
 });
+
+module.exports = withNativeWind(config, { input: './global.css' });

@@ -8,10 +8,14 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
-    }
+    },
+    "./global.css": "./global.css",
+    "./tailwind-preset": "./tailwind-preset.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "global.css",
+    "tailwind-preset.js"
   ],
   "peerDependencies": {
     "react": ">=18.0.0",
