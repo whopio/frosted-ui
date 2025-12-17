@@ -12,6 +12,8 @@
     "./global.css": "./global.css",
     "./tailwind-preset": "./tailwind-preset.js"
   },
+  "sideEffects": false,
+  "license": "MIT",
   "files": [
     "dist",
     "global.css",
@@ -98,5 +100,15 @@
     "typescript": "~5.9.2",
     "@whop-sdk/turbo-module": "^0.0.5"
   },
-  "private": true
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/whopio/frosted-ui",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whopio/frosted-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/whopio/frosted-ui/issues"
+  }
 }
