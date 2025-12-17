@@ -35,7 +35,6 @@ type AccordionItemProps = AccordionPrimitive.ItemProps &
 
 function AccordionItem({ children, value, ...props }: AccordionItemProps) {
   return (
-    // @ts-expect-error - Known type incompatibility with rn-primitives
     <AccordionPrimitive.Item value={value} {...props}>
       {children}
     </AccordionPrimitive.Item>
@@ -89,7 +88,6 @@ function AccordionTrigger({ children, ...props }: AccordionTriggerProps) {
 
   return (
     <AccordionPrimitive.Header>
-      {/* @ts-expect-error - Known type incompatibility with rn-primitives asChild */}
       <AccordionPrimitive.Trigger {...props} asChild>
         <TriggerWrapper style={[triggerStyle, focusStyle]}>
           <View style={chevronStyle}>
@@ -124,7 +122,6 @@ function AccordionContent({ children, ...props }: AccordionContentProps) {
   };
 
   return (
-    // @ts-expect-error - Known type incompatibility with rn-primitives
     <AccordionPrimitive.Content {...props}>
       <View style={contentInnerStyle}>{children}</View>
     </AccordionPrimitive.Content>

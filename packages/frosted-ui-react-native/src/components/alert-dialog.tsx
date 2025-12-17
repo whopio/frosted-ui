@@ -60,7 +60,6 @@ function AlertDialogOverlay({
   if (Platform.OS === 'web') {
     return (
       <FullWindowOverlay>
-        {/* @ts-expect-error - Known type incompatibility with rn-primitives */}
         <AlertDialogPrimitive.Overlay style={overlayStyle} {...props}>
           <View style={backdropStyle} pointerEvents="none" />
           {children}
@@ -74,7 +73,6 @@ function AlertDialogOverlay({
 
   return (
     <FullWindowOverlay>
-      {/* @ts-expect-error - Known type incompatibility with rn-primitives */}
       <AlertDialogPrimitive.Overlay {...props} asChild>
         <View style={overlayStyle}>
           {/* Animated backdrop */}
@@ -131,7 +129,6 @@ function AlertDialogContent({
   return (
     <AlertDialogPrimitive.Portal hostName={portalHost}>
       <AlertDialogOverlay>
-        {/* @ts-expect-error - Known type incompatibility with rn-primitives */}
         <AlertDialogPrimitive.Content style={finalStyle} {...props}>
           <AlertDialogContentContext.Provider value={contextValue}>
             {children}

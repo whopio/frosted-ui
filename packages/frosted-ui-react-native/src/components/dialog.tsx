@@ -70,7 +70,6 @@ function DialogOverlay({
   if (Platform.OS === 'web') {
     return (
       <FullWindowOverlay>
-        {/* @ts-expect-error - Known type incompatibility with rn-primitives */}
         <DialogPrimitive.Overlay style={overlayStyle} {...props}>
           <View style={backdropStyle} pointerEvents="none" />
           {children}
@@ -85,7 +84,6 @@ function DialogOverlay({
 
   return (
     <FullWindowOverlay>
-      {/* @ts-expect-error - Known type incompatibility with rn-primitives */}
       <DialogPrimitive.Overlay {...props} asChild>
         <Pressable style={overlayStyle}>
           {/* Animated backdrop */}
@@ -136,7 +134,6 @@ function DialogContent({ size = '3', portalHost, children, style, ...props }: Di
   return (
     <DialogPrimitive.Portal hostName={portalHost}>
       <DialogOverlay>
-        {/* @ts-expect-error - Known type incompatibility with rn-primitives */}
         <DialogPrimitive.Content style={finalStyle} {...props}>
           <DialogContentContext.Provider value={contextValue}>
             {children}
