@@ -13,6 +13,7 @@ type AnimatedViewProps = React.ComponentProps<typeof Animated.View>;
  *   <Text>I am only animated on native</Text>
  * </NativeOnlyAnimatedView>
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Animated.View ref types don't align with React's forwardRef
 const NativeOnlyAnimatedView = React.forwardRef<any, AnimatedViewProps>(
   ({ children, ...rest }, ref) => {
     if (Platform.OS === 'web') {
@@ -21,6 +22,7 @@ const NativeOnlyAnimatedView = React.forwardRef<any, AnimatedViewProps>(
 
     // Animated.View expects its own ref type; cast to satisfy differing React typings.
     return (
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- ref type mismatch between React and Reanimated
       <Animated.View ref={ref as any} {...rest}>
         {children}
       </Animated.View>

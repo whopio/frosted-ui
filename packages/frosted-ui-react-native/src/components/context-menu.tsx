@@ -1,5 +1,5 @@
 import { NativeOnlyAnimatedView } from '@/components/native-only-animated-view';
-import { Text, TextStyleContext } from '@/components/text';
+import { Text, TextStyleContext, type TextSize } from '@/components/text';
 import type { Color } from '@/lib/types';
 import { useThemeVars } from '@/lib/use-theme-vars';
 import * as ContextMenuPrimitive from '@rn-primitives/context-menu';
@@ -330,7 +330,7 @@ function ContextMenuItem({ children, disabled, color, ...props }: ContextMenuIte
       style={itemStyle}
       {...webHoverProps}
       {...props}>
-      <Text size={sizeStyles.itemFontSize as any} style={{ color: textColor }}>
+      <Text size={sizeStyles.itemFontSize as TextSize} style={{ color: textColor }}>
         {children}
       </Text>
     </ContextMenuPrimitive.Item>
@@ -405,7 +405,7 @@ function ContextMenuCheckboxItem({ children, disabled, ...props }: ContextMenuCh
         }}>
         <ContextMenuCheckIcon size={sizeStyles.iconSize} color={textColor} />
       </ContextMenuPrimitive.ItemIndicator>
-      <Text size={sizeStyles.itemFontSize as any} style={{ color: textColor }}>
+      <Text size={sizeStyles.itemFontSize as TextSize} style={{ color: textColor }}>
         {children}
       </Text>
     </ContextMenuPrimitive.CheckboxItem>
@@ -490,7 +490,7 @@ function ContextMenuRadioItem({ children, disabled, ...props }: ContextMenuRadio
         }}>
         <ContextMenuCheckIcon size={sizeStyles.iconSize} color={textColor} />
       </ContextMenuPrimitive.ItemIndicator>
-      <Text size={sizeStyles.itemFontSize as any} style={{ color: textColor }}>
+      <Text size={sizeStyles.itemFontSize as TextSize} style={{ color: textColor }}>
         {children}
       </Text>
     </ContextMenuPrimitive.RadioItem>
@@ -530,7 +530,7 @@ function ContextMenuLabel({ children, ...props }: ContextMenuLabelProps) {
         }),
       }}>
       <Text
-        size={sizeStyles.labelFontSize as any}
+        size={sizeStyles.labelFontSize as TextSize}
         weight="semi-bold"
         style={{ color: colors.palettes.gray.a10 }}
         {...props}>
@@ -648,7 +648,7 @@ function ContextMenuSubTrigger({ children, disabled, ...props }: ContextMenuSubT
       style={itemStyle}
       {...webHoverProps}
       {...props}>
-      <Text size={sizeStyles.itemFontSize as any} style={{ color: textColor }}>
+      <Text size={sizeStyles.itemFontSize as TextSize} style={{ color: textColor }}>
         {children}
       </Text>
       <ContextMenuChevronRightIcon size={sizeStyles.iconSize} color={textColor} />

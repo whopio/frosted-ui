@@ -137,7 +137,8 @@ function SelectRoot({ size = '2', value, onValueChange, children, ...props }: Se
     (newValue: { value: string; label: string } | undefined) => {
       if (newValue && labelMapRef.current.has(newValue.value)) {
         // Use the label from our map (web primitive doesn't pass correct label)
-        onValueChange?.({ value: newValue.value, label: labelMapRef.current.get(newValue.value)! });
+        const label = labelMapRef.current.get(newValue.value) ?? '';
+        onValueChange?.({ value: newValue.value, label });
       } else {
         onValueChange?.(newValue);
       }
@@ -526,7 +527,9 @@ function SelectContent({ portalHost, position = 'popper', ...props }: SelectCont
                         // On web, Radix calculates available height dynamically via CSS variable
                         ...Platform.select({
                           web: {
-                            maxHeight: 'var(--radix-select-content-available-height)' as any,
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any -- CSS variable not in ViewStyle type
+                            maxHeight:
+                              'var(--radix-select-content-available-height)' as unknown as number,
                             overflow: 'auto',
                           },
                           default: {
@@ -633,6 +636,7 @@ function SelectItem({ children, disabled, label, value, ...props }: SelectItemPr
 
   // Handle focus - only track keyboard focus (focus-visible) on web
   const handleFocus = React.useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- cross-platform event type
     (e: any) => {
       if (Platform.OS === 'web') {
         const target = e.target as HTMLElement | undefined;
@@ -646,6 +650,7 @@ function SelectItem({ children, disabled, label, value, ...props }: SelectItemPr
   );
 
   const handleBlur = React.useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- cross-platform event type
     (e: any) => {
       setFocused(false);
       props.onBlur?.(e);

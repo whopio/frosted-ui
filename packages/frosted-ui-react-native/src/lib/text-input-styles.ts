@@ -1,6 +1,6 @@
 import type { AccentColor, Color } from '@/lib/types';
 import { useThemeVars } from '@/lib/use-theme-vars';
-import { Platform, type TextStyle, type ViewStyle } from 'react-native';
+import { Platform, type ViewStyle } from 'react-native';
 
 // ============================================================================
 // Types
@@ -48,7 +48,9 @@ export function hexToRgba(hex: string, opacity: number): string {
 /**
  * Get background and border styles for surface variant
  */
-export function getSurfaceVariantStyle(colors: ReturnType<typeof useThemeVars>['colors']): ViewStyle {
+export function getSurfaceVariantStyle(
+  colors: ReturnType<typeof useThemeVars>['colors']
+): ViewStyle {
   return {
     backgroundColor: colors.surface,
     borderWidth: 1,
@@ -129,11 +131,8 @@ export function getDisabledSurfaceStyle(
 /**
  * Get disabled background style for soft variant
  */
-export function getDisabledSoftStyle(
-  colors: ReturnType<typeof useThemeVars>['colors']
-): ViewStyle {
+export function getDisabledSoftStyle(colors: ReturnType<typeof useThemeVars>['colors']): ViewStyle {
   return {
     backgroundColor: colors.palettes.gray.a4,
   };
 }
-

@@ -1,5 +1,5 @@
 import { NativeOnlyAnimatedView } from '@/components/native-only-animated-view';
-import { Text, TextStyleContext } from '@/components/text';
+import { Text, TextStyleContext, type TextSize } from '@/components/text';
 import type { Color } from '@/lib/types';
 import { useThemeVars } from '@/lib/use-theme-vars';
 import * as DropdownMenuPrimitive from '@rn-primitives/dropdown-menu';
@@ -337,7 +337,7 @@ function DropdownMenuItem({ children, disabled, color, ...props }: DropdownMenuI
       style={itemStyle}
       {...webHoverProps}
       {...props}>
-      <Text size={sizeStyles.itemFontSize as any} style={{ color: textColor }}>
+      <Text size={sizeStyles.itemFontSize as TextSize} style={{ color: textColor }}>
         {children}
       </Text>
     </DropdownMenuPrimitive.Item>
@@ -412,7 +412,7 @@ function DropdownMenuCheckboxItem({ children, disabled, ...props }: DropdownMenu
         }}>
         <DropdownMenuCheckIcon size={sizeStyles.iconSize} color={textColor} />
       </DropdownMenuPrimitive.ItemIndicator>
-      <Text size={sizeStyles.itemFontSize as any} style={{ color: textColor }}>
+      <Text size={sizeStyles.itemFontSize as TextSize} style={{ color: textColor }}>
         {children}
       </Text>
     </DropdownMenuPrimitive.CheckboxItem>
@@ -497,7 +497,7 @@ function DropdownMenuRadioItem({ children, disabled, ...props }: DropdownMenuRad
         }}>
         <DropdownMenuCheckIcon size={sizeStyles.iconSize} color={textColor} />
       </DropdownMenuPrimitive.ItemIndicator>
-      <Text size={sizeStyles.itemFontSize as any} style={{ color: textColor }}>
+      <Text size={sizeStyles.itemFontSize as TextSize} style={{ color: textColor }}>
         {children}
       </Text>
     </DropdownMenuPrimitive.RadioItem>
@@ -537,7 +537,7 @@ function DropdownMenuLabel({ children, ...props }: DropdownMenuLabelProps) {
         }),
       }}>
       <Text
-        size={sizeStyles.labelFontSize as any}
+        size={sizeStyles.labelFontSize as TextSize}
         weight="semi-bold"
         style={{ color: colors.palettes.gray.a10 }}
         {...props}>
@@ -655,7 +655,7 @@ function DropdownMenuSubTrigger({ children, disabled, ...props }: DropdownMenuSu
       style={itemStyle}
       {...webHoverProps}
       {...props}>
-      <Text size={sizeStyles.itemFontSize as any} style={{ color: textColor }}>
+      <Text size={sizeStyles.itemFontSize as TextSize} style={{ color: textColor }}>
         {children}
       </Text>
       <DropdownMenuChevronRightIcon size={sizeStyles.iconSize} color={textColor} />
