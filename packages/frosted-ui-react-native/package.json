@@ -35,7 +35,8 @@
     "build": "pnpm clean:dist && tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
     "clean": "rm -rf .expo node_modules",
     "clean:dist": "rm -rf dist",
-    "generate:global-css": "node scripts/generate-global-css.js"
+    "generate:global-css": "node scripts/generate-global-css.js",
+    "release": "turbo-module publish"
   },
   "dependencies": {
     "@frosted-ui/colors": "workspace:*",
@@ -94,7 +95,8 @@
     "tailwindcss": "^3.4.14",
     "tailwindcss-animate": "^1.0.7",
     "tsc-alias": "^1.8.16",
-    "typescript": "~5.9.2"
+    "typescript": "~5.9.2",
+    "@whop-sdk/turbo-module": "^0.0.5"
   },
   "private": true
 }
