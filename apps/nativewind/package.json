@@ -1,5 +1,5 @@
 {
-  "name": "@frosted-ui/nativewind-app",
+  "name": "nativewind",
   "version": "0.0.1",
   "private": true,
   "scripts": {
