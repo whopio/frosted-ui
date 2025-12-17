@@ -27,15 +27,12 @@ export const Default: Story = {
       onValueChange={(value) => console.log('🟢 onValueChange ', value)}
     >
       <SegmentedControlRadioGroup.Item value="system">
-        {/* @ts-expect-error -- fix types in frosted icons */}
         <Monitor20 />
       </SegmentedControlRadioGroup.Item>
       <SegmentedControlRadioGroup.Item value="light-mode">
-        {/* @ts-expect-error -- fix types in frosted icons */}
         <Sun20 />
       </SegmentedControlRadioGroup.Item>
       <SegmentedControlRadioGroup.Item value="dark-mode">
-        {/* @ts-expect-error -- fix types in frosted icons */}
         <Moon20 />
       </SegmentedControlRadioGroup.Item>
     </SegmentedControlRadioGroup.Root>
