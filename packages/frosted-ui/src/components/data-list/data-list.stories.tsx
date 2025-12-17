@@ -2,16 +2,16 @@ import { Copy12 } from '@frosted-ui/icons';
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import {
-  Badge,
-  Code,
-  DataList,
-  Heading,
-  IconButton,
-  Link,
-  Separator,
-  Text,
-  Tooltip,
-  dataListRootPropDefs,
+    Badge,
+    Code,
+    DataList,
+    Heading,
+    IconButton,
+    Link,
+    Separator,
+    Text,
+    Tooltip,
+    dataListRootPropDefs,
 } from '../../../src/components/';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -57,7 +57,6 @@ export const Default: Story = {
               <Code variant="ghost">biz_AB23XH123A</Code>
               <Tooltip content="Copy">
                 <IconButton size="1" aria-label="Copy value" color="gray" variant="ghost">
-                  {/* @ts-expect-error -- TODO: fix frosted icons types */}
                   <Copy12 />
                 </IconButton>
               </Tooltip>
