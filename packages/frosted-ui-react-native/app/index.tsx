@@ -73,13 +73,10 @@ export default function Screen() {
               <Text>View components</Text>
             </Button>
           </Link>
-          <Link href="https://reactnativereusables.com" asChild>
-            <Button size="3" color="gray" variant="soft">
-              <Text>Browse the docs</Text>
-            </Button>
-          </Link>
-          <Link href="https://github.com/founded-labs/react-native-reusables" asChild>
-            <Button size="3" variant="ghost" color="blue">
+          <Link
+            href="https://github.com/whopio/frosted-ui/tree/main/packages/frosted-ui-react-native"
+            asChild>
+            <Button size="3" variant="soft" color="gray">
               <Icon as={StarIcon} />
               <Text>Star the repo</Text>
             </Button>

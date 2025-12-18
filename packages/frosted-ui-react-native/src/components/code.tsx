@@ -37,7 +37,8 @@ function Code({
     fontFamily: Platform.select({
       ios: 'Menlo',
       android: 'monospace',
-      web: 'var(--code-font-family), monospace',
+      default:
+        'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace',
     }),
     fontSize: adjustedFontSize,
     lineHeight: typo.lineHeight,
