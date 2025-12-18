@@ -81,7 +81,7 @@ export function getButtonVariantStyle(
         // Default: panelSolid bg, gray-a5 border (stroke), outer shadow
         // Hover: same bg, gray-a7 border, outer shadow
         // Pressed: gray-a3 bg, gray-a6 border, no outer shadow
-        backgroundColor = pressed ? gray.a3 : colors.panelSolid;
+        backgroundColor = pressed ? gray['3'] : colors.panelSolid;
         borderColor = pressed ? gray.a6 : hovered ? gray.a7 : gray.a5;
         borderWidth = 1;
         break;
