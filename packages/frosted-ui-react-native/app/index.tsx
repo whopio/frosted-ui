@@ -49,7 +49,7 @@ export default function Screen() {
     <>
       <Stack.Screen
         options={{
-          title: 'Frosted UI x React Native',
+          title: 'Frosted UI',
           ...headerOptions,
         }}
       />

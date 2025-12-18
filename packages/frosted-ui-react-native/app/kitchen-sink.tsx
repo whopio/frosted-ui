@@ -92,7 +92,7 @@ export default function KitchenSinkScreen() {
     <>
       <Stack.Screen
         options={{
-          title: 'Component Kitchen Sink',
+          title: 'Components',
           ...headerOptions,
         }}
       />

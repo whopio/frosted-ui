@@ -3,13 +3,16 @@ import {
   ThemeProvider as FrostedThemeProvider,
   useTheme,
   useThemeTokens,
+  type AccentColor,
 } from '@frosted-ui/react-native';
 import { ThemeProvider as NavigationThemeProvider } from '@react-navigation/native';
 import { PortalHost } from '@rn-primitives/portal';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as SystemUI from 'expo-system-ui';
-import { useEffect } from 'react';
+import * as React from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { AccentColorContext } from './_accent-color-context';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -35,9 +38,22 @@ function RootLayoutContent() {
 }
 
 export default function RootLayout() {
+  const [accentColor, setAccentColorState] = useState<AccentColor>('blue');
+
+  const setAccentColor = useCallback((color: AccentColor) => {
+    setAccentColorState(color);
+  }, []);
+
+  const contextValue = React.useMemo(
+    () => ({ accentColor, setAccentColor }),
+    [accentColor, setAccentColor]
+  );
+
   return (
-    <FrostedThemeProvider accentColor="magenta">
-      <RootLayoutContent />
-    </FrostedThemeProvider>
+    <AccentColorContext.Provider value={contextValue}>
+      <FrostedThemeProvider accentColor={accentColor}>
+        <RootLayoutContent />
+      </FrostedThemeProvider>
+    </AccentColorContext.Provider>
   );
 }
