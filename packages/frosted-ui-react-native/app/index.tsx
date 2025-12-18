@@ -57,11 +57,7 @@ export default function Screen() {
         <Image source={LOGO[colorScheme]} style={IMAGE_STYLE} resizeMode="contain" />
         <View style={s.textContainer}>
           <Text size="3" style={{ color: colors.palettes.gray.a10 }}>
-            1. Edit{' '}
-            <Code color="blue" size="3">
-              app/index.tsx
-            </Code>{' '}
-            to get started.
+            1. Edit <Code size="3">app/index.tsx</Code> to get started.
           </Text>
           <Text size="3" style={{ color: colors.palettes.gray.a10 }}>
             2. Save to see your changes instantly.

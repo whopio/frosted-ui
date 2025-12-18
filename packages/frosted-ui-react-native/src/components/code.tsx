@@ -1,5 +1,5 @@
 import { themeTokens } from '@/lib/theme-tokens';
-import type { AccentColor } from '@/lib/types';
+import type { Color } from '@/lib/types';
 import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as React from 'react';
 import { Platform, Text as RNText, type TextStyle } from 'react-native';
@@ -12,20 +12,15 @@ type CodeProps = Omit<React.ComponentProps<typeof RNText>, 'style'> & {
   size?: CodeSize;
   variant?: CodeVariant;
   weight?: CodeWeight;
-  color?: AccentColor;
+  color?: Color;
   style?: TextStyle;
 };
 
-function Code({
-  size = '2',
-  variant = 'soft',
-  weight,
-  color = 'gray',
-  style,
-  ...props
-}: CodeProps) {
+function Code({ size = '2', variant = 'soft', weight, color, style, ...props }: CodeProps) {
   const { colors, typography, fontWeights } = useThemeTokens();
-  const palette = colors.palettes[color] ?? colors.palettes.gray;
+  const gray = colors.palettes.gray;
+  // Default to accent color, fallback to gray
+  const palette = colors.palettes[color ?? 'accent'] ?? gray;
 
   // Typography from theme, with 0.95 font size adjustment like web
   const typo = typography[size];

@@ -1538,7 +1538,7 @@ export default function KitchenSinkScreen() {
                         </Button>
                       </AlertDialog.Cancel>
                       <AlertDialog.Action>
-                        <Button variant="solid" color="red">
+                        <Button variant="solid" color="danger">
                           <Text>Revoke access</Text>
                         </Button>
                       </AlertDialog.Action>
@@ -2607,7 +2607,7 @@ function HoverCardDemo() {
         </Text>
         <HoverCard.Root>
           <HoverCard.Trigger asChild>
-            <Button variant="ghost" color="blue">
+            <Button variant="ghost">
               <Text>@nextjs</Text>
             </Button>
           </HoverCard.Trigger>
@@ -2636,7 +2636,7 @@ function HoverCardDemo() {
         </Text>
         <HoverCard.Root>
           <HoverCard.Trigger asChild>
-            <Button variant="ghost" color="violet">
+            <Button variant="ghost">
               <Text>@radix</Text>
             </Button>
           </HoverCard.Trigger>
