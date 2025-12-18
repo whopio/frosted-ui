@@ -12,9 +12,9 @@ import { MoonStarIcon, StarIcon, SunIcon } from 'lucide-react-native';
 import * as React from 'react';
 import { Image, type ImageStyle, StyleSheet, View } from 'react-native';
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
+// eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
 const LOGO_LIGHT = require('../assets/images/react-native-reusables-light.png');
-// eslint-disable-next-line @typescript-eslint/no-require-imports
+// eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
 const LOGO_DARK = require('../assets/images/react-native-reusables-dark.png');
 
 const LOGO = {
