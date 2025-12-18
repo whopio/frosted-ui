@@ -4,11 +4,8 @@ import { useThemeVars } from '@/lib/use-theme-vars';
 import * as React from 'react';
 import { Platform, Text as RNText, type TextStyle } from 'react-native';
 
-const codeSizes = ['1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
-const codeVariants = ['solid', 'soft', 'outline', 'ghost'] as const;
-
-type CodeSize = (typeof codeSizes)[number];
-type CodeVariant = (typeof codeVariants)[number];
+type CodeSize = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+type CodeVariant = 'solid' | 'soft' | 'outline' | 'ghost';
 type CodeWeight = keyof typeof themeVars.fontWeights;
 
 type CodeProps = Omit<React.ComponentProps<typeof RNText>, 'style'> & {
@@ -115,4 +112,3 @@ function Code({
 
 export { Code };
 export type { CodeProps, CodeSize, CodeVariant };
-

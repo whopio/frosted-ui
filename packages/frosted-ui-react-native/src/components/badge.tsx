@@ -5,11 +5,8 @@ import * as Slot from '@rn-primitives/slot';
 import * as React from 'react';
 import { View, type ViewStyle } from 'react-native';
 
-const badgeSizes = ['1', '2'] as const;
-const badgeVariants = ['solid', 'soft', 'surface', 'outline'] as const;
-
-type BadgeSize = (typeof badgeSizes)[number];
-type BadgeVariant = (typeof badgeVariants)[number];
+type BadgeSize = '1' | '2';
+type BadgeVariant = 'solid' | 'soft' | 'surface' | 'outline';
 
 type BadgeProps = React.ComponentProps<typeof View> & {
   asChild?: boolean;

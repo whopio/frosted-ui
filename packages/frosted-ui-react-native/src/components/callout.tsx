@@ -4,11 +4,8 @@ import { useThemeVars } from '@/lib/use-theme-vars';
 import * as React from 'react';
 import { View, type ViewProps, type ViewStyle } from 'react-native';
 
-const calloutSizes = ['1', '2', '3'] as const;
-const calloutVariants = ['soft', 'surface', 'outline'] as const;
-
-type CalloutSize = (typeof calloutSizes)[number];
-type CalloutVariant = (typeof calloutVariants)[number];
+type CalloutSize = '1' | '2' | '3';
+type CalloutVariant = 'soft' | 'surface' | 'outline';
 
 type CalloutContextValue = {
   size: CalloutSize;

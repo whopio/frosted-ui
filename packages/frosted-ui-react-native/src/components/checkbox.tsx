@@ -5,9 +5,7 @@ import { Check } from 'lucide-react-native';
 import * as React from 'react';
 import { Platform, View, type ViewStyle } from 'react-native';
 
-const checkboxSizes = ['1', '2', '3'] as const;
-
-type CheckboxSize = (typeof checkboxSizes)[number];
+type CheckboxSize = '1' | '2' | '3';
 
 function resolveAccentFromColor(color?: Color): AccentColor {
   if (!color) return 'blue';

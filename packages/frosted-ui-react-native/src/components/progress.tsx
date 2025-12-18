@@ -3,9 +3,7 @@ import { useThemeVars } from '@/lib/use-theme-vars';
 import * as React from 'react';
 import { View, type ViewProps, type ViewStyle } from 'react-native';
 
-const progressSizes = ['1', '2', '3', '4', '5', '6'] as const;
-
-type ProgressSize = (typeof progressSizes)[number];
+type ProgressSize = '1' | '2' | '3' | '4' | '5' | '6';
 
 function resolveAccentFromColor(color?: Color): AccentColor {
   if (!color) return 'blue';

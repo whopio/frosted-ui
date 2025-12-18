@@ -4,9 +4,7 @@ import * as RadioGroupPrimitive from '@rn-primitives/radio-group';
 import * as React from 'react';
 import { Platform, View, type ViewStyle } from 'react-native';
 
-const radioSizes = ['1', '2', '3'] as const;
-
-type RadioSize = (typeof radioSizes)[number];
+type RadioSize = '1' | '2' | '3';
 
 type RadioGroupContextValue = {
   size: RadioSize;

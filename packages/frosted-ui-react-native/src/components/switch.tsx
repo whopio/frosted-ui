@@ -4,9 +4,7 @@ import * as SwitchPrimitive from '@rn-primitives/switch';
 import * as React from 'react';
 import { Platform, View, type ViewStyle } from 'react-native';
 
-const switchSizes = ['1', '2', '3'] as const;
-
-type SwitchSize = (typeof switchSizes)[number];
+type SwitchSize = '1' | '2' | '3';
 
 function resolveAccentFromColor(color?: Color): AccentColor {
   if (!color) return 'blue';

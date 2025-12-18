@@ -5,9 +5,7 @@ import * as TabsPrimitive from '@rn-primitives/tabs';
 import * as React from 'react';
 import { View, type ViewStyle } from 'react-native';
 
-const tabsSizes = ['1', '2'] as const;
-
-type TabsSize = (typeof tabsSizes)[number];
+type TabsSize = '1' | '2';
 
 type TabsContextValue = {
   size: TabsSize;

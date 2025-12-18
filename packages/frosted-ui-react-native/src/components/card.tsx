@@ -1,9 +1,7 @@
 import { useThemeVars } from '@/lib/use-theme-vars';
 import { View, type ViewProps, type ViewStyle } from 'react-native';
 
-const cardVariants = ['soft', 'surface', 'ghost'] as const;
-
-type CardVariant = (typeof cardVariants)[number];
+type CardVariant = 'soft' | 'surface' | 'ghost';
 
 type CardProps = ViewProps &
   React.RefAttributes<View> & {
