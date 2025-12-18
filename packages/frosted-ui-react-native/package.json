@@ -1,6 +1,7 @@
 {
   "name": "@frosted-ui/react-native",
   "version": "0.0.0",
+  "private": false,
   "main": "expo-router/entry",
   "types": "./dist/index.d.ts",
   "module": "./dist/index.js",
