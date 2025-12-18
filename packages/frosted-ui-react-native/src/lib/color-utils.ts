@@ -23,6 +23,8 @@ export function resolveAccentFromColor(
   if (!color) return defaultColor;
 
   switch (color) {
+    case 'accent':
+      return semanticColors.accentColor;
     case 'danger':
       return semanticColors.dangerColor;
     case 'warning':
