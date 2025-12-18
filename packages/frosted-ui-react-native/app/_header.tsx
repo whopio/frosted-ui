@@ -34,12 +34,7 @@ export function ThemeToggle() {
   const { colorScheme, toggleColorScheme } = useTheme();
 
   return (
-    <IconButton
-      onPressIn={toggleColorScheme}
-      size="3"
-      variant="ghost"
-      color="gray"
-      style={styles.themeToggle}>
+    <IconButton onPressIn={toggleColorScheme} size="3" variant="ghost" style={styles.themeToggle}>
       <Icon as={THEME_ICONS[colorScheme]} size={20} />
     </IconButton>
   );

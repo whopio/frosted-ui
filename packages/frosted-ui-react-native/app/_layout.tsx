@@ -1,4 +1,4 @@
-import { NAV_THEME } from '@/lib/theme';
+import { useNavTheme } from '@/lib/theme';
 import {
   ThemeProvider as FrostedThemeProvider,
   useTheme,
@@ -19,13 +19,14 @@ export {
 function RootLayoutContent() {
   const { colorScheme } = useTheme();
   const { colors } = useThemeTokens();
+  const navTheme = useNavTheme();
 
   useEffect(() => {
     SystemUI.setBackgroundColorAsync(colors.background);
   }, [colors.background]);
 
   return (
-    <NavigationThemeProvider value={NAV_THEME[colorScheme]}>
+    <NavigationThemeProvider value={navTheme[colorScheme]}>
       <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
       <Stack />
       <PortalHost />

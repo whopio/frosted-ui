@@ -21,3 +21,7 @@ export type {
   ThemeProviderProps,
   WarningColor,
 } from './lib/theme-context';
+
+// NAVIGATION
+//------------------------------------------------------------------------------
+export { NAV_THEME, useNavTheme } from './lib/theme';
