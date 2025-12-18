@@ -95,13 +95,17 @@ interface TextAreaProps extends Omit<TextInputProps, 'style'> {
 function TextArea({
   size = '2',
   variant = 'surface',
-  color = 'gray',
+  color,
   style,
   editable,
   ...props
 }: TextAreaProps) {
   const { colors } = useThemeTokens();
+  const gray = colors.palettes.gray;
+  // For soft variant background/text, use gray as default
   const paletteKey: PaletteKey = color ?? 'gray';
+  // For focus outline, use accent as default
+  const focusPalette = colors.palettes[color ?? 'accent'] ?? gray;
   const sizeStyle = getTextAreaSizeStyle(size);
   const disabled = editable === false;
   const [focused, setFocused] = React.useState(false);
@@ -126,11 +130,11 @@ function TextArea({
     }
   }
 
-  // Focus outline (web only)
+  // Focus outline (web only) - uses accent color by default
   const focusStyle: ViewStyle | undefined =
     focused && !disabled && Platform.OS === 'web'
       ? ({
-          outline: `2px solid ${colors.palettes[paletteKey].a8}`,
+          outline: `2px solid ${focusPalette.a8}`,
           outlineOffset: -1,
         } as ViewStyle)
       : undefined;

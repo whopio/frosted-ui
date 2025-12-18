@@ -98,7 +98,7 @@ interface TextFieldRootProps extends ViewProps {
 function TextFieldRoot({
   size = '2',
   variant = 'surface',
-  color = 'gray',
+  color,
   disabled = false,
   focused: focusedProp,
   style,
@@ -106,7 +106,11 @@ function TextFieldRoot({
   ...props
 }: TextFieldRootProps) {
   const { colors } = useThemeTokens();
+  const gray = colors.palettes.gray;
+  // For soft variant background/text, use gray as default
   const paletteKey: PaletteKey = color ?? 'gray';
+  // For focus outline, use accent as default
+  const focusPalette = colors.palettes[color ?? 'accent'] ?? gray;
   const [internalFocused, setInternalFocused] = React.useState(false);
   const focused = focusedProp !== undefined ? focusedProp : internalFocused;
   const inputRef = React.useRef<TextInput>(null);
@@ -133,11 +137,11 @@ function TextFieldRoot({
     }
   }
 
-  // Focus outline (web only)
+  // Focus outline (web only) - uses accent color by default
   const focusStyle: ViewStyle | undefined =
     focused && !disabled && Platform.OS === 'web'
       ? ({
-          outline: `2px solid ${colors.palettes[paletteKey].a8}`,
+          outline: `2px solid ${focusPalette.a8}`,
           outlineOffset: -1,
         } as ViewStyle)
       : undefined;
@@ -307,7 +311,9 @@ const TextFieldInput = React.forwardRef<TextInput, TextFieldInputProps>(
 
     const size = sizeProp ?? context?.size ?? '2';
     const variant = variantProp ?? context?.variant ?? 'surface';
-    const color: PaletteKey = colorProp ?? context?.color ?? 'gray';
+    // Keep color undefined if not explicitly set, so TextFieldRoot uses accent for focus
+    const color: PaletteKey | undefined = colorProp ?? context?.color;
+    const colorForStyles: PaletteKey = color ?? 'gray';
     const disabled = editable === false || context?.disabled;
 
     // Create a callback ref that sets all necessary refs
@@ -336,12 +342,12 @@ const TextFieldInput = React.forwardRef<TextInput, TextFieldInputProps>(
     const { textColor, placeholderColor: basePlaceholderColor } = getTextInputColors(
       variant,
       colors,
-      color,
+      colorForStyles,
       disabled
     );
     const placeholderColor =
       variant === 'soft' && !disabled
-        ? hexToRgba(colors.palettes[color]['12'], 0.6)
+        ? hexToRgba(colors.palettes[colorForStyles]['12'], 0.6)
         : basePlaceholderColor;
 
     // Account for border height: surface variant has 1px border top and bottom (2px total)
@@ -404,6 +410,7 @@ const TextFieldInput = React.forwardRef<TextInput, TextFieldInputProps>(
     }
 
     // When no root, create one with focus state management
+    // Pass color only if explicitly set, so TextFieldRoot uses accent for focus by default
     return (
       <TextFieldRoot
         size={size}
