@@ -61,10 +61,6 @@ jobs:
       - name: Install dependencies
         run: pnpm i
 
-      - name: Build
-        run: pnpm turbo build
-        if: steps.check.outputs.can-publish == 'true'
-
       - name: Run turbo release flow
         env:
           NPM_CONFIG_PROVENANCE: 'true'

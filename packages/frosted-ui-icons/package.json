@@ -38,6 +38,14 @@
   "publishConfig": {
     "access": "public"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/whopio/frosted-ui.git"
+  },
+  "homepage": "https://github.com/whopio/frosted-ui",
+  "bugs": {
+    "url": "https://github.com/whopio/frosted-ui/issues"
+  },
   "scripts": {
     "generate-src": "generate-icon-lib --file=Qz3t7Yi565N2u4l3Ha1w99 && cd ./icons && zip -r ../frosted-ui-icons.zip ./",
     "clean": "rimraf dist",

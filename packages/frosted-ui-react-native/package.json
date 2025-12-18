@@ -92,7 +92,7 @@
   "homepage": "https://github.com/whopio/frosted-ui",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/whopio/frosted-ui.git"
+    "url": "https://github.com/whopio/frosted-ui.git"
   },
   "bugs": {
     "url": "https://github.com/whopio/frosted-ui/issues"

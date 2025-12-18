@@ -21,6 +21,14 @@
   "publishConfig": {
     "access": "public"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/whopio/frosted-ui.git"
+  },
+  "homepage": "https://github.com/whopio/frosted-ui",
+  "bugs": {
+    "url": "https://github.com/whopio/frosted-ui/issues"
+  },
   "devDependencies": {
     "@types/node": "^15.0.3",
     "rimraf": "^5.0.5",
