@@ -1,6 +1,6 @@
 import { getAvatarSize, type AvatarShape, type AvatarSize } from '@/components/avatar';
 import type { TextSize } from '@/components/text';
-import type { AccentColor, Color } from '@/lib/types';
+import type { Color } from '@/lib/types';
 import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as React from 'react';
 import { Platform, View, type ViewProps, type ViewStyle } from 'react-native';
@@ -11,22 +11,6 @@ import Animated, {
   withRepeat,
   withTiming,
 } from 'react-native-reanimated';
-
-function resolveAccentFromColor(color?: Color): AccentColor {
-  if (!color) return 'gray';
-  switch (color) {
-    case 'danger':
-      return 'red';
-    case 'warning':
-      return 'amber';
-    case 'success':
-      return 'green';
-    case 'info':
-      return 'blue';
-    default:
-      return color as AccentColor;
-  }
-}
 
 // Text border radius based on size
 function getTextBorderRadius(size: TextSize): number {
@@ -119,8 +103,8 @@ function SkeletonAvatar({
   const { colors } = useThemeTokens();
   const animatedStyle = usePulseAnimation();
 
-  const accentColor = resolveAccentFromColor(color);
-  const palette = colors.palettes[accentColor];
+  const gray = colors.palettes.gray;
+  const palette = colors.palettes[color] ?? gray;
 
   const avatarSize = getAvatarSize(size);
   const borderRadius = shape === 'circle' ? avatarSize / 2 : avatarSize * 0.25;
@@ -153,8 +137,8 @@ function SkeletonText({ size = '3', color = 'gray', style, ...props }: SkeletonT
   const { colors, typography } = useThemeTokens();
   const animatedStyle = usePulseAnimation();
 
-  const accentColor = resolveAccentFromColor(color);
-  const palette = colors.palettes[accentColor];
+  const gray = colors.palettes.gray;
+  const palette = colors.palettes[color] ?? gray;
 
   const typo = typography[size];
   const borderRadius = getTextBorderRadius(size);
@@ -200,8 +184,8 @@ function SkeletonRect({ color = 'gray', style, ...props }: SkeletonRectProps) {
   const { colors } = useThemeTokens();
   const animatedStyle = usePulseAnimation();
 
-  const accentColor = resolveAccentFromColor(color);
-  const palette = colors.palettes[accentColor];
+  const gray = colors.palettes.gray;
+  const palette = colors.palettes[color] ?? gray;
 
   const rectStyle: ViewStyle = {
     backgroundColor: palette.a3,

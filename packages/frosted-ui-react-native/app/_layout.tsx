@@ -35,7 +35,7 @@ function RootLayoutContent() {
 
 export default function RootLayout() {
   return (
-    <FrostedThemeProvider>
+    <FrostedThemeProvider accentColor="magenta">
       <RootLayoutContent />
     </FrostedThemeProvider>
   );

@@ -1,4 +1,4 @@
-import type { AccentColor, Color } from '@/lib/types';
+import type { Color } from '@/lib/types';
 import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as RadioGroupPrimitive from '@rn-primitives/radio-group';
 import * as React from 'react';
@@ -8,30 +8,14 @@ type RadioSize = '1' | '2' | '3';
 
 type RadioGroupContextValue = {
   size: RadioSize;
-  color: AccentColor;
+  color: Color | 'accent';
   value?: string;
 };
 
 const RadioGroupContext = React.createContext<RadioGroupContextValue>({
   size: '2',
-  color: 'blue',
+  color: 'accent',
 });
-
-function resolveAccentFromColor(color?: Color): AccentColor {
-  if (!color) return 'blue';
-  switch (color) {
-    case 'danger':
-      return 'red';
-    case 'warning':
-      return 'amber';
-    case 'success':
-      return 'green';
-    case 'info':
-      return 'blue';
-    default:
-      return color as AccentColor;
-  }
-}
 
 // Size styles from CSS:
 // Size 1: --radio-group-item-size: var(--space-4) = 16px
@@ -54,11 +38,9 @@ type RadioGroupRootProps = RadioGroupPrimitive.RootProps & {
 };
 
 function RadioGroupRoot({ size = '2', color, value, ...props }: RadioGroupRootProps) {
-  const accentColor = resolveAccentFromColor(color);
-
   const contextValue = React.useMemo(
-    () => ({ size, color: accentColor, value }),
-    [size, accentColor, value]
+    (): RadioGroupContextValue => ({ size, color: color ?? 'accent', value }),
+    [size, color, value]
   );
 
   return (
@@ -75,8 +57,10 @@ function RadioGroupItem({ value, disabled, onFocus, onBlur, ...props }: RadioGro
   const { colors } = useThemeTokens();
   const [focused, setFocused] = React.useState(false);
 
-  const palette = colors.palettes[color];
   const gray = colors.palettes.gray;
+  // Semantic colors (accent, danger, etc.) are added by useThemeTokens
+  // Fallback to gray if palette key doesn't exist
+  const palette = colors.palettes[color] ?? gray;
 
   const itemSize = getItemSize(size);
   const indicatorSize = itemSize * 0.4; // 40% scale like CSS

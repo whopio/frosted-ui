@@ -6,7 +6,6 @@ import {
   getButtonSizeStyle,
   getButtonTextColor,
   getButtonVariantStyle,
-  resolveAccentFromColor,
   type ButtonSize,
   type ButtonVariant,
 } from '@/lib/button-styles';
@@ -41,12 +40,11 @@ function Button({
   const [pressed, setPressed] = React.useState(false);
   const [hovered, setHovered] = React.useState(false);
   const [focused, setFocused] = React.useState(false);
-  const accentColor = resolveAccentFromColor(color);
 
   const gray = colors.palettes.gray;
-  // All AccentColors should be in palettes, but TypeScript's index signature types
-  // don't guarantee it with bracket notation. Fallback to gray as defensive programming.
-  const palette = colors.palettes[accentColor] ?? gray;
+  // Semantic colors (accent, danger, etc.) are added by useThemeTokens
+  // Fallback to gray if palette key doesn't exist
+  const palette = colors.palettes[color ?? 'accent'] ?? gray;
 
   const textColor = getButtonTextColor(variant, palette, gray, disabled ?? false);
 

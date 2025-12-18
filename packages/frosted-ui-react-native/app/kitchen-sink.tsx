@@ -204,16 +204,16 @@ export default function KitchenSinkScreen() {
               <View style={s.gap3}>
                 <SectionLabel>Variants - Blue</SectionLabel>
                 <View style={[s.row, s.wrap, s.gap2]}>
-                  <Button variant="solid" color="blue">
+                  <Button variant="solid">
                     <Text>Solid</Text>
                   </Button>
-                  <Button variant="soft" color="blue">
+                  <Button variant="soft">
                     <Text>Soft</Text>
                   </Button>
-                  <Button variant="surface" color="blue">
+                  <Button variant="surface">
                     <Text>Surface</Text>
                   </Button>
-                  <Button variant="ghost" color="blue">
+                  <Button variant="ghost">
                     <Text>Ghost</Text>
                   </Button>
                 </View>
@@ -349,16 +349,16 @@ export default function KitchenSinkScreen() {
               <View style={s.gap3}>
                 <SectionLabel>Variants - Blue</SectionLabel>
                 <View style={[s.row, s.wrap, s.gap2]}>
-                  <IconButton variant="solid" color="blue">
+                  <IconButton variant="solid">
                     <Icon as={SettingsIcon} size={16} />
                   </IconButton>
-                  <IconButton variant="soft" color="blue">
+                  <IconButton variant="soft">
                     <Icon as={SettingsIcon} size={16} />
                   </IconButton>
-                  <IconButton variant="surface" color="blue">
+                  <IconButton variant="surface">
                     <Icon as={SettingsIcon} size={16} />
                   </IconButton>
-                  <IconButton variant="ghost" color="blue">
+                  <IconButton variant="ghost">
                     <Icon as={SettingsIcon} size={16} />
                   </IconButton>
                 </View>
@@ -427,16 +427,16 @@ export default function KitchenSinkScreen() {
               <View style={s.gap3}>
                 <SectionLabel>Variants</SectionLabel>
                 <View style={[s.row, s.wrap, s.gap2]}>
-                  <Badge variant="solid" color="blue">
+                  <Badge variant="solid">
                     <Text>Solid</Text>
                   </Badge>
-                  <Badge variant="soft" color="blue">
+                  <Badge variant="soft">
                     <Text>Soft</Text>
                   </Badge>
-                  <Badge variant="surface" color="blue">
+                  <Badge variant="surface">
                     <Text>Surface</Text>
                   </Badge>
-                  <Badge variant="outline" color="blue">
+                  <Badge variant="outline">
                     <Text>Outline</Text>
                   </Badge>
                 </View>
@@ -577,7 +577,7 @@ export default function KitchenSinkScreen() {
               {/* Variants */}
               <View style={s.gap3}>
                 <SectionLabel>Variants</SectionLabel>
-                <Callout.Root variant="soft" color="blue">
+                <Callout.Root variant="soft">
                   <Callout.Icon>
                     <Icon as={InfoIcon} />
                   </Callout.Icon>
@@ -585,7 +585,7 @@ export default function KitchenSinkScreen() {
                     <Text>Soft variant callout with helpful information.</Text>
                   </Callout.Text>
                 </Callout.Root>
-                <Callout.Root variant="surface" color="blue">
+                <Callout.Root variant="surface">
                   <Callout.Icon>
                     <Icon as={InfoIcon} />
                   </Callout.Icon>
@@ -593,7 +593,7 @@ export default function KitchenSinkScreen() {
                     <Text>Surface variant callout with helpful information.</Text>
                   </Callout.Text>
                 </Callout.Root>
-                <Callout.Root variant="outline" color="blue">
+                <Callout.Root variant="outline">
                   <Callout.Icon>
                     <Icon as={InfoIcon} />
                   </Callout.Icon>
@@ -887,9 +887,9 @@ export default function KitchenSinkScreen() {
               <View style={s.gap3}>
                 <SectionLabel>Sizes</SectionLabel>
                 <View style={[s.row, s.gap6]}>
-                  <RadioGroupDemo size="1" color="blue" />
-                  <RadioGroupDemo size="2" color="blue" />
-                  <RadioGroupDemo size="3" color="blue" />
+                  <RadioGroupDemo size="1" />
+                  <RadioGroupDemo size="2" />
+                  <RadioGroupDemo size="3" />
                 </View>
               </View>
 

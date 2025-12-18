@@ -1,25 +1,9 @@
-import type { AccentColor, Color } from '@/lib/types';
+import type { Color } from '@/lib/types';
 import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as React from 'react';
 import { View, type ViewProps, type ViewStyle } from 'react-native';
 
 type ProgressSize = '1' | '2' | '3' | '4' | '5' | '6';
-
-function resolveAccentFromColor(color?: Color): AccentColor {
-  if (!color) return 'blue';
-  switch (color) {
-    case 'danger':
-      return 'red';
-    case 'warning':
-      return 'amber';
-    case 'success':
-      return 'green';
-    case 'info':
-      return 'blue';
-    default:
-      return color as AccentColor;
-  }
-}
 
 // Size styles from CSS:
 // Size 1: 2px, Size 2: 4px, Size 3: 6px, Size 4: 8px, Size 5: 12px, Size 6: 16px
@@ -50,9 +34,10 @@ type ProgressProps = ViewProps & {
 function Progress({ size = '6', color, value = 0, max = 100, style, ...props }: ProgressProps) {
   const { colors } = useThemeTokens();
 
-  const accentColor = resolveAccentFromColor(color);
-  const palette = colors.palettes[accentColor];
   const gray = colors.palettes.gray;
+  // Semantic colors (accent, danger, etc.) are added by useThemeTokens
+  // Fallback to gray if palette key doesn't exist
+  const palette = colors.palettes[color ?? 'accent'] ?? gray;
 
   const height = getHeight(size);
 

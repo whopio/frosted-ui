@@ -5,7 +5,6 @@ import {
   getSurfaceVariantStyle,
   getTextInputColors,
   hexToRgba,
-  resolveAccentFromColor,
   type TextInputSize,
   type TextInputVariant,
 } from '@/lib/text-input-styles';
@@ -30,6 +29,9 @@ import {
 type TextFieldSize = TextInputSize;
 type TextFieldVariant = TextInputVariant;
 
+// Palette key - Color with 'gray' as default (for text inputs)
+type PaletteKey = Color | 'gray';
+
 // ============================================================================
 // Context
 // ============================================================================
@@ -37,7 +39,7 @@ type TextFieldVariant = TextInputVariant;
 interface TextFieldContextValue {
   size: TextFieldSize;
   variant: TextFieldVariant;
-  color: ReturnType<typeof resolveAccentFromColor>;
+  color: PaletteKey;
   disabled?: boolean;
   onFocus?: () => void;
   onBlur?: () => void;
@@ -104,7 +106,7 @@ function TextFieldRoot({
   ...props
 }: TextFieldRootProps) {
   const { colors } = useThemeTokens();
-  const accentColor = resolveAccentFromColor(color);
+  const paletteKey: PaletteKey = color ?? 'gray';
   const [internalFocused, setInternalFocused] = React.useState(false);
   const focused = focusedProp !== undefined ? focusedProp : internalFocused;
   const inputRef = React.useRef<TextInput>(null);
@@ -115,7 +117,7 @@ function TextFieldRoot({
   let variantStyle =
     variant === 'surface'
       ? getSurfaceVariantStyle(colors)
-      : getSoftVariantStyle(colors, accentColor);
+      : getSoftVariantStyle(colors, paletteKey);
 
   // Apply disabled styles (surface keeps border, soft replaces background)
   if (disabled) {
@@ -135,7 +137,7 @@ function TextFieldRoot({
   const focusStyle: ViewStyle | undefined =
     focused && !disabled && Platform.OS === 'web'
       ? ({
-          outline: `2px solid ${colors.palettes[accentColor].a8}`,
+          outline: `2px solid ${colors.palettes[paletteKey].a8}`,
           outlineOffset: -1,
         } as ViewStyle)
       : undefined;
@@ -222,7 +224,7 @@ function TextFieldRoot({
       value={{
         size,
         variant,
-        color: accentColor,
+        color: paletteKey,
         disabled,
         inputRef,
         onFocus: () => setInternalFocused(true),
@@ -253,8 +255,7 @@ function TextFieldSlot({ color, style, children, ...props }: TextFieldSlotProps)
   const context = React.useContext(TextFieldContext);
   const { colors } = useThemeTokens();
 
-  const accentColor = color ? resolveAccentFromColor(color) : undefined;
-  const slotColor = accentColor ? colors.palettes[accentColor].a11 : colors.palettes.gray.a11;
+  const slotColor = color ? colors.palettes[color].a11 : colors.palettes.gray.a11;
 
   const padding = getSlotPadding(context?.size ?? '2');
 
@@ -306,7 +307,7 @@ const TextFieldInput = React.forwardRef<TextInput, TextFieldInputProps>(
 
     const size = sizeProp ?? context?.size ?? '2';
     const variant = variantProp ?? context?.variant ?? 'surface';
-    const color = colorProp ? resolveAccentFromColor(colorProp) : (context?.color ?? 'gray');
+    const color: PaletteKey = colorProp ?? context?.color ?? 'gray';
     const disabled = editable === false || context?.disabled;
 
     // Create a callback ref that sets all necessary refs
