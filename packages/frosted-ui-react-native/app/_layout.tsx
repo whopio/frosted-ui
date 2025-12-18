@@ -1,5 +1,3 @@
-import '../global.css';
-
 import { NAV_THEME } from '@/lib/theme';
 import { ThemeProvider as FrostedThemeProvider, useTheme } from '@frosted-ui/react-native';
 import { ThemeProvider as NavigationThemeProvider } from '@react-navigation/native';

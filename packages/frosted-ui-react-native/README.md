@@ -1,6 +1,6 @@
 # @frosted-ui/react-native
 
-A beautiful, accessible component library for React Native built with NativeWind and React Native Reusables.
+A beautiful, accessible component library for React Native with a built-in design system.
 
 ## Installation
 
@@ -19,20 +19,18 @@ pnpm add @frosted-ui/react-native
 2. Install peer dependencies:
 
 ```bash
-npm install react react-native nativewind react-native-reanimated react-native-safe-area-context react-native-screens react-native-svg lucide-react-native
+npm install react react-native react-native-reanimated react-native-safe-area-context react-native-screens react-native-svg lucide-react-native
 # or
-yarn add react react-native nativewind react-native-reanimated react-native-safe-area-context react-native-screens react-native-svg lucide-react-native
+yarn add react react-native react-native-reanimated react-native-safe-area-context react-native-screens react-native-svg lucide-react-native
 # or
-pnpm add react react-native nativewind react-native-reanimated react-native-safe-area-context react-native-screens react-native-svg lucide-react-native
+pnpm add react react-native react-native-reanimated react-native-safe-area-context react-native-screens react-native-svg lucide-react-native
 ```
 
-3. **Setup NativeWind**: Follow the [NativeWind v4 installation guide](https://www.nativewind.dev/v4/overview/installation) for your project.
+3. **Setup React Native Reanimated**: Follow the [React Native Reanimated installation guide](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/getting-started/).
 
-4. **Setup React Native Reanimated**: Follow the [React Native Reanimated installation guide](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/getting-started/).
+4. **Setup React Native Screens**: Follow the [React Native Screens installation guide](https://github.com/software-mansion/react-native-screens#installation).
 
-5. **Setup React Native Screens**: Follow the [React Native Screens installation guide](https://github.com/software-mansion/react-native-screens#installation).
-
-6. **Setup React Native SVG**: Follow the [React Native SVG installation guide](https://github.com/software-mansion/react-native-svg#installation).
+5. **Setup React Native SVG**: Follow the [React Native SVG installation guide](https://github.com/software-mansion/react-native-svg#installation).
 
 ### For Expo Projects
 
@@ -41,13 +39,61 @@ The package works with Expo projects as well. Follow the same installation steps
 ## Usage
 
 ```tsx
-import { Button, Text } from '@frosted-ui/react-native';
+import { Button, Text, ThemeProvider } from '@frosted-ui/react-native';
 
 export default function App() {
   return (
-    <Button variant="surface" size="2">
-      <Text>Hello World</Text>
+    <ThemeProvider>
+      <Button variant="surface" size="2">
+        <Text>Hello World</Text>
+      </Button>
+    </ThemeProvider>
+  );
+}
+```
+
+### Theme Management
+
+The library provides a `ThemeProvider` for managing light/dark mode:
+
+```tsx
+import { ThemeProvider, useTheme } from '@frosted-ui/react-native';
+
+function MyComponent() {
+  const { colorScheme, toggleColorScheme } = useTheme();
+  
+  return (
+    <Button onPress={toggleColorScheme}>
+      <Text>Current theme: {colorScheme}</Text>
     </Button>
+  );
+}
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <MyComponent />
+    </ThemeProvider>
+  );
+}
+```
+
+### Accessing Theme Colors
+
+Use `useThemeVars` to access the design system colors in your components:
+
+```tsx
+import { useThemeVars } from '@frosted-ui/react-native';
+
+function MyComponent() {
+  const { colors, isDark } = useThemeVars();
+  
+  return (
+    <View style={{ backgroundColor: colors.background }}>
+      <Text style={{ color: colors.palettes.gray['12'] }}>
+        Hello World
+      </Text>
+    </View>
   );
 }
 ```
@@ -56,7 +102,6 @@ export default function App() {
 
 - React >= 18.0.0
 - React Native >= 0.70.0
-- NativeWind >= 4.0.0
 - React Native Reanimated >= 3.0.0
 - React Native Safe Area Context >= 4.0.0
 - React Native Screens >= 3.0.0
@@ -95,7 +140,7 @@ This library includes a comprehensive set of UI components:
 
 ## Styling
 
-This library uses NativeWind (Tailwind CSS for React Native) for styling. Make sure your project is configured with NativeWind v4.
+This library uses React Native's built-in styling system with a comprehensive design system. All components support light and dark mode out of the box, and include multiple color palettes (28+ accent colors) and variants.
 
 ## License
 

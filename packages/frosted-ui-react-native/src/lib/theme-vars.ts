@@ -2,7 +2,7 @@
 
 import type { AccentColor } from './types';
 
-// Typography steps (0-9) based on typography.css / global.css tokens.
+// Typography steps (0-9) based on Frosted UI design system tokens.
 // Values are in px; React Native treats them as logical pixels.
 const typography = {
   '0': { fontSize: 10, lineHeight: 12, letterSpacing: 0.01 },
@@ -163,22 +163,7 @@ const darkPalettes: Record<AccentColor, ColorShades> = accentColors.reduce(
   {} as Record<AccentColor, ColorShades>
 );
 
-// Semantic surface tokens (mirroring global.css)
-// Light mode:
-//   --color-background: white;
-//   --color-overlay: var(--black-a6);
-//   --color-panel-solid: white;
-//   --color-panel-translucent: rgba(255, 255, 255, 0.85);
-//   --color-surface: rgba(255, 255, 255, 0.9);
-//   --color-stroke: var(--gray-a5);
-//
-// Dark mode:
-//   --color-background: var(--gray-1);
-//   --color-overlay: var(--black-a8);
-//   --color-panel-solid: var(--gray-2);
-//   --color-panel-translucent: var(--gray-2-translucent);
-//   --color-surface: rgba(0, 0, 0, 0.25);
-//   --color-stroke: var(--gray-a4);
+// Semantic surface tokens for light/dark modes
 
 // Resolve overlay / stroke from raw color palettes so native can use real values
 const blackA = frostedColors.blackA as Record<string, string> | undefined;

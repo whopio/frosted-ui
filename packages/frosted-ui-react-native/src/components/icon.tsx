@@ -13,9 +13,6 @@ type IconProps = LucideProps & {
  * This component allows you to render any Lucide icon with automatic color
  * inheritance from TextStyleContext.
  *
- * For NativeWind users: className is passed through to the icon component.
- * You can set up cssInterop in your app if you need className support.
- *
  * @component
  * @example
  * ```tsx

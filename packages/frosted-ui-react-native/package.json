@@ -8,19 +8,14 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
-    },
-    "./global.css": "./global.css",
-    "./tailwind-preset": "./tailwind-preset.js"
+    }
   },
   "files": [
-    "dist",
-    "global.css",
-    "tailwind-preset.js"
+    "dist"
   ],
   "peerDependencies": {
     "react": ">=18.0.0",
     "react-native": ">=0.70.0",
-    "nativewind": "^4.0.0",
     "react-native-reanimated": ">=3.0.0",
     "react-native-safe-area-context": ">=4.0.0",
     "react-native-screens": ">=3.0.0",
@@ -35,7 +30,6 @@
     "build": "pnpm clean:dist && tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
     "clean": "rm -rf .expo node_modules",
     "clean:dist": "rm -rf dist",
-    "generate:global-css": "node scripts/generate-global-css.js",
     "release": "turbo-module publish"
   },
   "dependencies": {
@@ -63,10 +57,7 @@
     "@rn-primitives/tabs": "^1.2.0",
     "@rn-primitives/toggle": "^1.2.0",
     "@rn-primitives/toggle-group": "^1.2.0",
-    "@rn-primitives/tooltip": "^1.2.0",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "tailwind-merge": "^3.3.1"
+    "@rn-primitives/tooltip": "^1.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
@@ -79,21 +70,16 @@
     "expo-status-bar": "~3.0.8",
     "expo-system-ui": "~6.0.8",
     "lucide-react-native": "^0.545.0",
-    "nativewind": "^4.2.1",
     "prettier": "^3.6.2",
-    "prettier-plugin-tailwindcss": "^0.6.14",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-native": "0.81.5",
-    "react-native-css-interop": "^0.2.1",
     "react-native-reanimated": "~4.1.1",
     "react-native-safe-area-context": "~5.6.0",
     "react-native-screens": "~4.16.0",
     "react-native-svg": "15.12.1",
     "react-native-web": "^0.21.0",
     "react-native-worklets": "0.5.1",
-    "tailwindcss": "^3.4.14",
-    "tailwindcss-animate": "^1.0.7",
     "tsc-alias": "^1.8.16",
     "typescript": "~5.9.2",
     "@whop-sdk/turbo-module": "^0.0.5"
