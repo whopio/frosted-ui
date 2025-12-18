@@ -86,20 +86,19 @@ function AccentColorPicker() {
     />
   );
 
-  // iOS: Use native ActionSheet for better UX
+  // iOS: Use native ActionSheet
+  // Note: userInterfaceStyle for dark mode doesn't work in Expo Go, only in dev client builds
   if (Platform.OS === 'ios') {
     const handlePress = () => {
       const options = [...ACCENT_COLORS.map((c) => c.label), 'Cancel'];
       const cancelButtonIndex = options.length - 1;
-      const currentIndex = ACCENT_COLORS.findIndex((c) => c.value === accentColor);
 
       ActionSheetIOS.showActionSheetWithOptions(
         {
           title: 'Accent Color',
           options,
           cancelButtonIndex,
-          // Highlight current selection (iOS 14+)
-          ...(currentIndex >= 0 && { destructiveButtonIndex: undefined }),
+          tintColor: colors.palettes.accent['9'],
         },
         (buttonIndex) => {
           if (buttonIndex !== cancelButtonIndex && buttonIndex < ACCENT_COLORS.length) {

@@ -16,13 +16,13 @@
     "dist"
   ],
   "peerDependencies": {
+    "lucide-react-native": ">=0.300.0",
     "react": ">=18.0.0",
     "react-native": ">=0.70.0",
     "react-native-reanimated": ">=3.0.0",
     "react-native-safe-area-context": ">=4.0.0",
     "react-native-screens": ">=3.0.0",
-    "react-native-svg": ">=13.0.0",
-    "lucide-react-native": ">=0.300.0"
+    "react-native-svg": ">=13.0.0"
   },
   "scripts": {
     "dev": "expo start -c",
@@ -65,6 +65,7 @@
     "@babel/core": "^7.26.0",
     "@react-navigation/native": "^7.0.0",
     "@types/react": "~19.1.10",
+    "@whop-sdk/turbo-module": "^0.0.5",
     "expo": "^54.0.26",
     "expo-linking": "~8.0.9",
     "expo-router": "~6.0.16",
@@ -83,8 +84,7 @@
     "react-native-web": "^0.21.0",
     "react-native-worklets": "0.5.1",
     "tsc-alias": "^1.8.16",
-    "typescript": "~5.9.2",
-    "@whop-sdk/turbo-module": "^0.0.5"
+    "typescript": "~5.9.2"
   },
   "publishConfig": {
     "access": "public"

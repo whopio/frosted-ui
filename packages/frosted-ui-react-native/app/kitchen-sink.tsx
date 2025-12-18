@@ -202,7 +202,7 @@ export default function KitchenSinkScreen() {
           <ComponentSection title="Buttons">
             <View style={s.gap6}>
               <View style={s.gap3}>
-                <SectionLabel>Variants - Blue</SectionLabel>
+                <SectionLabel>Variants - Default (accent)</SectionLabel>
                 <View style={[s.row, s.wrap, s.gap2]}>
                   <Button variant="solid">
                     <Text>Solid</Text>
@@ -347,7 +347,7 @@ export default function KitchenSinkScreen() {
           <ComponentSection title="IconButton">
             <View style={s.gap6}>
               <View style={s.gap3}>
-                <SectionLabel>Variants - Blue</SectionLabel>
+                <SectionLabel>Variants - Default (accent)</SectionLabel>
                 <View style={[s.row, s.wrap, s.gap2]}>
                   <IconButton variant="solid">
                     <Icon as={SettingsIcon} size={16} />
@@ -1813,11 +1813,11 @@ export default function KitchenSinkScreen() {
           <ComponentSection title="Select">
             <View style={s.gap6}>
               <View style={s.gap3}>
-                <SectionLabel>Variants - Blue</SectionLabel>
+                <SectionLabel>Variants - Default</SectionLabel>
                 <View style={[s.row, s.wrap, s.gap2]}>
-                  <SelectDemo variant="surface" color="blue" />
-                  <SelectDemo variant="soft" color="blue" />
-                  <SelectDemo variant="ghost" color="blue" />
+                  <SelectDemo variant="surface" />
+                  <SelectDemo variant="soft" />
+                  <SelectDemo variant="ghost" />
                 </View>
               </View>
 
