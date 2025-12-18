@@ -1,7 +1,6 @@
 import { themeVars } from '@/lib/theme-vars';
 import type { AccentColor } from '@/lib/types';
 import { useThemeVars } from '@/lib/use-theme-vars';
-import { cn } from '@/lib/utils';
 import * as Slot from '@rn-primitives/slot';
 import * as React from 'react';
 import { Text as RNText } from 'react-native';
@@ -25,16 +24,7 @@ type TextStyleContextValue = {
 
 const TextStyleContext = React.createContext<TextStyleContextValue | undefined>(undefined);
 
-function Text({
-  className,
-  asChild = false,
-  size,
-  weight,
-  color,
-  role,
-  style,
-  ...props
-}: TextProps) {
+function Text({ asChild = false, size, weight, color, role, style, ...props }: TextProps) {
   const { colors, typography, fontWeights } = useThemeVars();
   const textStyleContext = React.useContext(TextStyleContext);
   const Component = asChild ? Slot.Text : RNText;
@@ -42,12 +32,12 @@ function Text({
   const effectiveSize = size ?? textStyleContext?.size;
   const effectiveWeight = weight ?? textStyleContext?.weight;
 
-  // Use direct color values from Frosted colors on all platforms.
-  // Priority: explicit color prop > context color override > default gray-12.
-  const resolvedColor =
-    (color && colors.palettes[color]['11']) ??
-    textStyleContext?.color ??
-    colors.palettes.gray['12'];
+  // Only apply color style if explicitly set via prop or context.
+  // This allows className color overrides (e.g., NativeWind) to work.
+  const hasExplicitColor = color || textStyleContext?.color;
+  const resolvedColor = hasExplicitColor
+    ? ((color && colors.palettes[color]['11']) ?? textStyleContext?.color)
+    : undefined;
 
   const typo = effectiveSize ? typography[effectiveSize] : undefined;
   const fontWeightValue = effectiveWeight ? fontWeights[effectiveWeight] : undefined;
@@ -60,16 +50,11 @@ function Text({
       }
     : undefined;
 
-  const colorStyle = { color: resolvedColor };
+  const colorStyle = resolvedColor ? { color: resolvedColor } : undefined;
   const weightStyle = fontWeightValue ? { fontWeight: fontWeightValue } : undefined;
 
   return (
-    <Component
-      className={cn(className)}
-      style={[typographyStyle, weightStyle, colorStyle, style]}
-      role={role}
-      {...props}
-    />
+    <Component style={[typographyStyle, weightStyle, colorStyle, style]} role={role} {...props} />
   );
 }
 

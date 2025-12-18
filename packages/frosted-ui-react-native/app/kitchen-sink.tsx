@@ -191,7 +191,7 @@ export default function KitchenSinkScreen() {
                   Variants - Blue
                 </Text>
                 <View className="flex-row flex-wrap gap-2">
-                  <Button variant="solid" color="blue">
+                  <Button variant="solid" color="blue" className="bg-red-9">
                     <Text>Solid</Text>
                   </Button>
                   <Button variant="soft" color="blue">

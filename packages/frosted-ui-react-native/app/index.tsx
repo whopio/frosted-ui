@@ -47,6 +47,11 @@ export default function Screen() {
               <Text>View components</Text>
             </Button>
           </Link>
+          <Link href="/classname-demo" asChild>
+            <Button size="3" variant="soft" color="purple">
+              <Text>className Demo</Text>
+            </Button>
+          </Link>
           <Link href="https://reactnativereusables.com" asChild>
             <Button size="3" color="gray" variant="soft">
               <Text>Browse the docs</Text>

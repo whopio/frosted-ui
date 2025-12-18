@@ -12,9 +12,8 @@ import {
 } from '@/lib/button-styles';
 import type { Color } from '@/lib/types';
 import { useThemeVars } from '@/lib/use-theme-vars';
-import { cn } from '@/lib/utils';
 import * as React from 'react';
-import { Platform, Pressable, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Platform, Pressable, type StyleProp, type ViewStyle } from 'react-native';
 
 type ButtonProps = Omit<React.ComponentProps<typeof Pressable>, 'style'> & {
   size?: ButtonSize;
@@ -24,7 +23,6 @@ type ButtonProps = Omit<React.ComponentProps<typeof Pressable>, 'style'> & {
 };
 
 function Button({
-  className,
   variant = 'surface',
   size = '2',
   color,
@@ -146,28 +144,26 @@ function Button({
   );
 
   return (
-    <View className={cn(className)} style={style}>
-      <TextStyleContext.Provider
-        value={{
-          size: size as '1' | '2' | '3' | '4',
-          weight: 'medium',
-          color: textColor,
-        }}>
-        <Pressable
-          style={combinedStyle}
-          role="button"
-          disabled={disabled}
-          onPressIn={handlePressIn}
-          onPressOut={handlePressOut}
-          onHoverIn={handleHoverIn}
-          onHoverOut={handleHoverOut}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          {...pressableProps}>
-          {children}
-        </Pressable>
-      </TextStyleContext.Provider>
-    </View>
+    <TextStyleContext.Provider
+      value={{
+        size: size as '1' | '2' | '3' | '4',
+        weight: 'medium',
+        color: textColor,
+      }}>
+      <Pressable
+        style={[combinedStyle, style]}
+        role="button"
+        disabled={disabled}
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
+        onHoverIn={handleHoverIn}
+        onHoverOut={handleHoverOut}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        {...pressableProps}>
+        {children}
+      </Pressable>
+    </TextStyleContext.Provider>
   );
 }
 

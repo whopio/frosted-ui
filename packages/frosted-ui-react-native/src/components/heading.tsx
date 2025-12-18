@@ -13,19 +13,10 @@ type HeadingProps = Omit<React.ComponentProps<typeof Text>, 'variant' | 'color'>
   color?: AccentColor;
 };
 
-function Heading({
-  size = '6',
-  weight = 'bold',
-  color,
-  className,
-  role: roleProp,
-  ...props
-}: HeadingProps) {
+function Heading({ size = '6', weight = 'bold', color, role: roleProp, ...props }: HeadingProps) {
   const role = Platform.OS === 'web' ? (roleProp ?? 'heading') : roleProp;
 
-  return (
-    <Text size={size} weight={weight} className={className} color={color} role={role} {...props} />
-  );
+  return <Text size={size} weight={weight} color={color} role={role} {...props} />;
 }
 
 export { Heading };

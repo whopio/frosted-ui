@@ -41,7 +41,7 @@ function getSeparatorSize(size: SeparatorSize): number | '100%' {
   }
 }
 
-type SeparatorProps = Omit<SeparatorPrimitive.RootProps, 'className'> & {
+type SeparatorProps = SeparatorPrimitive.RootProps & {
   size?: SeparatorSize;
   color?: Color;
 };
