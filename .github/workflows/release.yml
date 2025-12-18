@@ -37,6 +37,13 @@ jobs:
         with:
           version: 9.15.4
 
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          check-latest: true
+          cache: pnpm
+
       - name: Debug OIDC env presence (no secrets)
         run: |
           echo "GITHUB_ACTIONS=$GITHUB_ACTIONS"
