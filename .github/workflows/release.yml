@@ -20,19 +20,23 @@ jobs:
       contents: write
       pull-requests: write
     steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
+
       - name: Check package.json for version increase
         id: check
         uses: whopio/turbo-module@v0.1.0-canary.3
         with:
           action: check
           token: ${{ github.token }}
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          ref: ${{ github.head_ref }}
-      - uses: pnpm/action-setup@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
           version: 9.15.4
+
       - name: Setup node
         uses: actions/setup-node@v4
         with:
@@ -40,18 +44,28 @@ jobs:
           check-latest: true
           cache: pnpm
 
+      - name: Debug OIDC env presence (no secrets)
+        run: |
+          echo "GITHUB_ACTIONS=$GITHUB_ACTIONS"
+          echo "ACTIONS_ID_TOKEN_REQUEST_URL: $([ -n "$ACTIONS_ID_TOKEN_REQUEST_URL" ] && echo present || echo missing)"
+          echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN: $([ -n "$ACTIONS_ID_TOKEN_REQUEST_TOKEN" ] && echo present || echo missing)"
+
       - name: Update npm for OIDC trusted publishing
         run: npm install -g npm@latest
+        if: steps.check.outputs.can-publish == 'true'
+
+      - name: Clear npm auth to force OIDC
+        run: |
+          npm config delete //registry.npmjs.org/:_authToken || true
+          npm config delete @whop:registry || true
         if: steps.check.outputs.can-publish == 'true'
 
       - name: Install dependencies
         run: pnpm i
 
-      # Removed since we are using OIDC for authentication now
-      # - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
-      #   if: steps.check.outputs.can-publish == 'true'
-      #   env:
-      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Build
+        run: pnpm turbo build
+        if: steps.check.outputs.can-publish == 'true'
 
       - name: Run turbo release flow
         env:
