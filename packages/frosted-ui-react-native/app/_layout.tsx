@@ -1,9 +1,15 @@
 import { NAV_THEME } from '@/lib/theme';
-import { ThemeProvider as FrostedThemeProvider, useTheme } from '@frosted-ui/react-native';
+import {
+  ThemeProvider as FrostedThemeProvider,
+  useTheme,
+  useThemeVars,
+} from '@frosted-ui/react-native';
 import { ThemeProvider as NavigationThemeProvider } from '@react-navigation/native';
 import { PortalHost } from '@rn-primitives/portal';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import * as SystemUI from 'expo-system-ui';
+import { useEffect } from 'react';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -12,6 +18,11 @@ export {
 
 function RootLayoutContent() {
   const { colorScheme } = useTheme();
+  const { colors } = useThemeVars();
+
+  useEffect(() => {
+    SystemUI.setBackgroundColorAsync(colors.background);
+  }, [colors.background]);
 
   return (
     <NavigationThemeProvider value={NAV_THEME[colorScheme]}>

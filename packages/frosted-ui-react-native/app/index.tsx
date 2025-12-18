@@ -1,16 +1,9 @@
-import {
-  Button,
-  Code,
-  Icon,
-  IconButton,
-  Text,
-  useTheme,
-  useThemeVars,
-} from '@frosted-ui/react-native';
+import { Button, Code, Icon, Text, useTheme, useThemeVars } from '@frosted-ui/react-native';
 import { Link, Stack } from 'expo-router';
-import { MoonStarIcon, StarIcon, SunIcon } from 'lucide-react-native';
+import { StarIcon } from 'lucide-react-native';
 import * as React from 'react';
 import { Image, type ImageStyle, StyleSheet, View } from 'react-native';
+import { useHeaderOptions } from './_header';
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
 const LOGO_LIGHT = require('../assets/images/react-native-reusables-light.png');
@@ -20,12 +13,6 @@ const LOGO_DARK = require('../assets/images/react-native-reusables-dark.png');
 const LOGO = {
   light: LOGO_LIGHT,
   dark: LOGO_DARK,
-};
-
-const SCREEN_OPTIONS = {
-  title: 'Frosted UI x React Native',
-  headerTransparent: true,
-  headerRight: () => <ThemeToggle />,
 };
 
 const IMAGE_STYLE: ImageStyle = {
@@ -51,18 +38,21 @@ const s = StyleSheet.create({
     justifyContent: 'center',
     gap: 8,
   },
-  roundedFull: {
-    borderRadius: 9999,
-  },
 });
 
 export default function Screen() {
   const { colorScheme } = useTheme();
   const { colors } = useThemeVars();
+  const headerOptions = useHeaderOptions();
 
   return (
     <>
-      <Stack.Screen options={SCREEN_OPTIONS} />
+      <Stack.Screen
+        options={{
+          title: 'Frosted UI x React Native',
+          ...headerOptions,
+        }}
+      />
       <View style={s.container}>
         <Image source={LOGO[colorScheme]} style={IMAGE_STYLE} resizeMode="contain" />
         <View style={s.textContainer}>
@@ -97,25 +87,5 @@ export default function Screen() {
         </View>
       </View>
     </>
-  );
-}
-
-const THEME_ICONS = {
-  light: SunIcon,
-  dark: MoonStarIcon,
-};
-
-function ThemeToggle() {
-  const { colorScheme, toggleColorScheme } = useTheme();
-
-  return (
-    <IconButton
-      onPressIn={toggleColorScheme}
-      size="3"
-      variant="ghost"
-      color="gray"
-      style={s.roundedFull}>
-      <Icon as={THEME_ICONS[colorScheme]} size={20} />
-    </IconButton>
   );
 }

@@ -31,7 +31,6 @@ import {
   TextArea,
   TextField,
   Tooltip,
-  useTheme,
   useThemeVars,
 } from '@frosted-ui/react-native';
 import { Stack } from 'expo-router';
@@ -42,25 +41,18 @@ import {
   ChevronRightIcon,
   InfoIcon,
   MailIcon,
-  MoonStarIcon,
   MoreVertical,
   RocketIcon,
   SearchIcon,
   SettingsIcon,
-  SunIcon,
 } from 'lucide-react-native';
 import * as React from 'react';
 import { Image, ScrollView, StyleSheet, View } from 'react-native';
+import { useHeaderOptions } from './_header';
 
 const HEADING_SIZES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
 const TEXT_SIZES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
 const TEXT_WEIGHTS = ['light', 'regular', 'medium', 'semi-bold', 'bold'] as const;
-
-const SCREEN_OPTIONS = {
-  title: 'Component Kitchen Sink',
-  headerTransparent: true,
-  headerRight: () => <ThemeToggle />,
-};
 
 // Common styles
 const s = StyleSheet.create({
@@ -95,9 +87,15 @@ const s = StyleSheet.create({
 
 export default function KitchenSinkScreen() {
   const { colors } = useThemeVars();
+  const headerOptions = useHeaderOptions();
   return (
     <>
-      <Stack.Screen options={SCREEN_OPTIONS} />
+      <Stack.Screen
+        options={{
+          title: 'Component Kitchen Sink',
+          ...headerOptions,
+        }}
+      />
       <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
         <View style={[s.gap8, s.p4, s.pt24]}>
           {/* Typography Section */}
@@ -2657,24 +2655,5 @@ function HoverCardDemo() {
         </View>
       </View>
     </View>
-  );
-}
-
-function ThemeToggle() {
-  const { colorScheme, toggleColorScheme } = useTheme();
-  const THEME_ICONS = {
-    light: SunIcon,
-    dark: MoonStarIcon,
-  };
-
-  return (
-    <IconButton
-      onPressIn={toggleColorScheme}
-      size="3"
-      variant="ghost"
-      color="gray"
-      style={s.roundedFull}>
-      <Icon as={THEME_ICONS[colorScheme]} size={20} />
-    </IconButton>
   );
 }
