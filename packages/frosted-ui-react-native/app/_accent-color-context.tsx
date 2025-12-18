@@ -8,6 +8,7 @@ type AccentColorContextValue = {
 
 export const AccentColorContext = React.createContext<AccentColorContextValue>({
   accentColor: 'blue',
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   setAccentColor: () => {},
 });
 
