@@ -31,6 +31,8 @@ import {
   TextArea,
   TextField,
   Tooltip,
+  useTheme,
+  useThemeVars,
 } from '@frosted-ui/react-native';
 import { Stack } from 'expo-router';
 import {
@@ -47,9 +49,8 @@ import {
   SettingsIcon,
   SunIcon,
 } from 'lucide-react-native';
-import { useColorScheme } from 'nativewind';
 import * as React from 'react';
-import { Image, ScrollView, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, View } from 'react-native';
 
 const HEADING_SIZES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
 const TEXT_SIZES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
@@ -61,26 +62,56 @@ const SCREEN_OPTIONS = {
   headerRight: () => <ThemeToggle />,
 };
 
+// Common styles
+const s = StyleSheet.create({
+  // Gaps
+  gap1: { gap: 4 },
+  gap1_5: { gap: 6 },
+  gap2: { gap: 8 },
+  gap3: { gap: 12 },
+  gap4: { gap: 16 },
+  gap6: { gap: 24 },
+  gap8: { gap: 32 },
+  // Padding
+  p4: { padding: 16 },
+  pt24: { paddingTop: 96 },
+  // Flex
+  flex1: { flex: 1 },
+  row: { flexDirection: 'row' },
+  wrap: { flexWrap: 'wrap' },
+  itemsCenter: { alignItems: 'center' },
+  justifyCenter: { justifyContent: 'center' },
+  // Dimensions
+  wFull: { width: '100%' },
+  hFull: { height: '100%' },
+  maxWMd: { maxWidth: 448 },
+  h8: { height: 32 },
+  h20: { height: 80 },
+  h32: { height: 128 },
+  // Border radius
+  roundedMd: { borderRadius: 6 },
+  roundedFull: { borderRadius: 9999 },
+});
+
 export default function KitchenSinkScreen() {
+  const { colors } = useThemeVars();
   return (
     <>
       <Stack.Screen options={SCREEN_OPTIONS} />
-      <ScrollView className="flex-1 bg-background">
-        <View className="gap-8 p-4 pt-24">
+      <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
+        <View style={[s.gap8, s.p4, s.pt24]}>
           {/* Typography Section */}
           <ComponentSection title="Typography">
-            <View className="gap-4">
-              <View className="gap-2">
+            <View style={s.gap4}>
+              <View style={s.gap2}>
                 {HEADING_SIZES.map((size) => (
                   <Heading key={size} size={size}>
                     Heading size {size}
                   </Heading>
                 ))}
               </View>
-              <View className="gap-2">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Heading Colors
-                </Text>
+              <View style={s.gap2}>
+                <SectionLabel>Heading Colors</SectionLabel>
                 <Heading color="blue">Heading with blue color</Heading>
                 <Heading color="yellow">Heading with yellow color</Heading>
                 <Heading color="green">Heading with green color</Heading>
@@ -88,30 +119,24 @@ export default function KitchenSinkScreen() {
                 <Heading color="purple">Heading with purple color</Heading>
                 <Heading color="orange">Heading with orange color</Heading>
               </View>
-              <View className="gap-2">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Text Sizes
-                </Text>
+              <View style={s.gap2}>
+                <SectionLabel>Text Sizes</SectionLabel>
                 {TEXT_SIZES.map((size) => (
                   <Text key={size} size={size}>
                     Text size {size}
                   </Text>
                 ))}
               </View>
-              <View className="gap-2">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Text Weights
-                </Text>
+              <View style={s.gap2}>
+                <SectionLabel>Text Weights</SectionLabel>
                 {TEXT_WEIGHTS.map((weight) => (
                   <Text key={weight} weight={weight}>
                     Text weight {weight}
                   </Text>
                 ))}
               </View>
-              <View className="gap-2">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Text Colors
-                </Text>
+              <View style={s.gap2}>
+                <SectionLabel>Text Colors</SectionLabel>
                 <Text color="blue">Text with blue color</Text>
                 <Text color="yellow">Text with yellow color</Text>
                 <Text color="green">Text with green color</Text>
@@ -128,13 +153,11 @@ export default function KitchenSinkScreen() {
 
           {/* Code Section */}
           <ComponentSection title="Code">
-            <View className="gap-6">
+            <View style={s.gap6}>
               {/* Variants */}
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Variants
-                </Text>
-                <View className="flex-row flex-wrap gap-2">
+              <View style={s.gap3}>
+                <SectionLabel>Variants</SectionLabel>
+                <View style={[s.row, s.wrap, s.gap2]}>
                   <Code variant="soft">soft</Code>
                   <Code variant="solid">solid</Code>
                   <Code variant="outline">outline</Code>
@@ -143,11 +166,9 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Sizes */}
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Sizes
-                </Text>
-                <View className="gap-1">
+              <View style={s.gap3}>
+                <SectionLabel>Sizes</SectionLabel>
+                <View style={s.gap1}>
                   <Code size="1">Code size 1</Code>
                   <Code size="2">Code size 2</Code>
                   <Code size="3">Code size 3</Code>
@@ -157,11 +178,9 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Colors */}
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Colors
-                </Text>
-                <View className="flex-row flex-wrap gap-2">
+              <View style={s.gap3}>
+                <SectionLabel>Colors</SectionLabel>
+                <View style={[s.row, s.wrap, s.gap2]}>
                   <Code color="gray">gray</Code>
                   <Code color="blue">blue</Code>
                   <Code color="green">green</Code>
@@ -172,10 +191,8 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Inline usage */}
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Inline Usage
-                </Text>
+              <View style={s.gap3}>
+                <SectionLabel>Inline Usage</SectionLabel>
                 <Text>
                   Run <Code>npm install</Code> to install dependencies.
                 </Text>
@@ -185,13 +202,11 @@ export default function KitchenSinkScreen() {
 
           {/* Buttons Section */}
           <ComponentSection title="Buttons">
-            <View className="gap-6">
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Variants - Blue
-                </Text>
-                <View className="flex-row flex-wrap gap-2">
-                  <Button variant="solid" color="blue" className="bg-red-9">
+            <View style={s.gap6}>
+              <View style={s.gap3}>
+                <SectionLabel>Variants - Blue</SectionLabel>
+                <View style={[s.row, s.wrap, s.gap2]}>
+                  <Button variant="solid" color="blue">
                     <Text>Solid</Text>
                   </Button>
                   <Button variant="soft" color="blue">
@@ -206,11 +221,9 @@ export default function KitchenSinkScreen() {
                 </View>
               </View>
 
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Variants - Yellow
-                </Text>
-                <View className="flex-row flex-wrap gap-2">
+              <View style={s.gap3}>
+                <SectionLabel>Variants - Yellow</SectionLabel>
+                <View style={[s.row, s.wrap, s.gap2]}>
                   <Button variant="solid" color="yellow">
                     <Text>Solid</Text>
                   </Button>
@@ -226,11 +239,9 @@ export default function KitchenSinkScreen() {
                 </View>
               </View>
 
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Variants - Green
-                </Text>
-                <View className="flex-row flex-wrap gap-2">
+              <View style={s.gap3}>
+                <SectionLabel>Variants - Green</SectionLabel>
+                <View style={[s.row, s.wrap, s.gap2]}>
                   <Button variant="solid" color="green">
                     <Text>Solid</Text>
                   </Button>
@@ -246,11 +257,9 @@ export default function KitchenSinkScreen() {
                 </View>
               </View>
 
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Variants - Red
-                </Text>
-                <View className="flex-row flex-wrap gap-2">
+              <View style={s.gap3}>
+                <SectionLabel>Variants - Red</SectionLabel>
+                <View style={[s.row, s.wrap, s.gap2]}>
                   <Button variant="solid" color="red">
                     <Text>Solid</Text>
                   </Button>
@@ -266,11 +275,9 @@ export default function KitchenSinkScreen() {
                 </View>
               </View>
 
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Variants - Purple
-                </Text>
-                <View className="flex-row flex-wrap gap-2">
+              <View style={s.gap3}>
+                <SectionLabel>Variants - Purple</SectionLabel>
+                <View style={[s.row, s.wrap, s.gap2]}>
                   <Button variant="solid" color="purple">
                     <Text>Solid</Text>
                   </Button>
@@ -286,11 +293,9 @@ export default function KitchenSinkScreen() {
                 </View>
               </View>
 
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Button Sizes
-                </Text>
-                <View className="flex-row flex-wrap items-center gap-2">
+              <View style={s.gap3}>
+                <SectionLabel>Button Sizes</SectionLabel>
+                <View style={[s.row, s.wrap, s.itemsCenter, s.gap2]}>
                   <Button size="1">
                     <Text>Size 1</Text>
                   </Button>
@@ -306,11 +311,9 @@ export default function KitchenSinkScreen() {
                 </View>
               </View>
 
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  With Icons
-                </Text>
-                <View className="flex-row flex-wrap gap-2">
+              <View style={s.gap3}>
+                <SectionLabel>With Icons</SectionLabel>
+                <View style={[s.row, s.wrap, s.gap2]}>
                   <Button variant="solid" color="blue">
                     <Icon as={MailIcon} />
                     <Text>Email</Text>
@@ -322,11 +325,9 @@ export default function KitchenSinkScreen() {
                 </View>
               </View>
 
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Disabled State
-                </Text>
-                <View className="flex-row flex-wrap gap-2">
+              <View style={s.gap3}>
+                <SectionLabel>Disabled State</SectionLabel>
+                <View style={[s.row, s.wrap, s.gap2]}>
                   <Button variant="solid" color="blue" disabled>
                     <Text>Disabled Solid</Text>
                   </Button>
@@ -346,12 +347,10 @@ export default function KitchenSinkScreen() {
 
           {/* IconButton Section */}
           <ComponentSection title="IconButton">
-            <View className="gap-6">
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Variants - Blue
-                </Text>
-                <View className="flex-row flex-wrap gap-2">
+            <View style={s.gap6}>
+              <View style={s.gap3}>
+                <SectionLabel>Variants - Blue</SectionLabel>
+                <View style={[s.row, s.wrap, s.gap2]}>
                   <IconButton variant="solid" color="blue">
                     <Icon as={SettingsIcon} size={16} />
                   </IconButton>
@@ -367,11 +366,9 @@ export default function KitchenSinkScreen() {
                 </View>
               </View>
 
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Sizes
-                </Text>
-                <View className="flex-row flex-wrap items-center gap-2">
+              <View style={s.gap3}>
+                <SectionLabel>Sizes</SectionLabel>
+                <View style={[s.row, s.wrap, s.itemsCenter, s.gap2]}>
                   <IconButton size="1">
                     <Icon as={SettingsIcon} size={12} />
                   </IconButton>
@@ -387,11 +384,9 @@ export default function KitchenSinkScreen() {
                 </View>
               </View>
 
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Colors
-                </Text>
-                <View className="flex-row flex-wrap gap-2">
+              <View style={s.gap3}>
+                <SectionLabel>Colors</SectionLabel>
+                <View style={[s.row, s.wrap, s.gap2]}>
                   <IconButton color="indigo">
                     <Icon as={SettingsIcon} size={16} />
                   </IconButton>
@@ -407,11 +402,9 @@ export default function KitchenSinkScreen() {
                 </View>
               </View>
 
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Disabled State
-                </Text>
-                <View className="flex-row flex-wrap gap-2">
+              <View style={s.gap3}>
+                <SectionLabel>Disabled State</SectionLabel>
+                <View style={[s.row, s.wrap, s.gap2]}>
                   <IconButton variant="solid" color="blue" disabled>
                     <Icon as={SettingsIcon} size={16} />
                   </IconButton>
@@ -431,13 +424,11 @@ export default function KitchenSinkScreen() {
 
           {/* Badges Section */}
           <ComponentSection title="Badges">
-            <View className="gap-6">
+            <View style={s.gap6}>
               {/* Variants */}
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Variants
-                </Text>
-                <View className="flex-row flex-wrap gap-2">
+              <View style={s.gap3}>
+                <SectionLabel>Variants</SectionLabel>
+                <View style={[s.row, s.wrap, s.gap2]}>
                   <Badge variant="solid" color="blue">
                     <Text>Solid</Text>
                   </Badge>
@@ -454,12 +445,10 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Colors */}
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Colors
-                </Text>
-                <View className="gap-2">
-                  <View className="flex-row flex-wrap gap-2">
+              <View style={s.gap3}>
+                <SectionLabel>Colors</SectionLabel>
+                <View style={s.gap2}>
+                  <View style={[s.row, s.wrap, s.gap2]}>
                     <Badge variant="solid" color="blue">
                       <Text>Blue</Text>
                     </Badge>
@@ -476,7 +465,7 @@ export default function KitchenSinkScreen() {
                       <Text>Purple</Text>
                     </Badge>
                   </View>
-                  <View className="flex-row flex-wrap gap-2">
+                  <View style={[s.row, s.wrap, s.gap2]}>
                     <Badge variant="soft" color="blue">
                       <Text>Blue</Text>
                     </Badge>
@@ -493,7 +482,7 @@ export default function KitchenSinkScreen() {
                       <Text>Purple</Text>
                     </Badge>
                   </View>
-                  <View className="flex-row flex-wrap gap-2">
+                  <View style={[s.row, s.wrap, s.gap2]}>
                     <Badge variant="surface" color="blue">
                       <Text>Blue</Text>
                     </Badge>
@@ -510,7 +499,7 @@ export default function KitchenSinkScreen() {
                       <Text>Purple</Text>
                     </Badge>
                   </View>
-                  <View className="flex-row flex-wrap gap-2">
+                  <View style={[s.row, s.wrap, s.gap2]}>
                     <Badge variant="outline" color="blue">
                       <Text>Blue</Text>
                     </Badge>
@@ -531,11 +520,9 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Sizes */}
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Sizes
-                </Text>
-                <View className="flex-row flex-wrap gap-2">
+              <View style={s.gap3}>
+                <SectionLabel>Sizes</SectionLabel>
+                <View style={[s.row, s.wrap, s.gap2]}>
                   <Badge variant="solid" color="blue" size="1">
                     <Text>Size 1</Text>
                   </Badge>
@@ -555,35 +542,29 @@ export default function KitchenSinkScreen() {
 
           {/* Cards Section */}
           <ComponentSection title="Cards">
-            <View className="gap-4">
-              <View className="gap-2">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Surface (default)
-                </Text>
+            <View style={s.gap4}>
+              <View style={s.gap2}>
+                <SectionLabel>Surface (default)</SectionLabel>
                 <Card variant="surface">
-                  <View className="gap-1.5">
+                  <View style={s.gap1_5}>
                     <Heading size="3">Card Title</Heading>
                     <Text color="gray">Card description goes here</Text>
                   </View>
                 </Card>
               </View>
-              <View className="gap-2">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Soft
-                </Text>
+              <View style={s.gap2}>
+                <SectionLabel>Soft</SectionLabel>
                 <Card variant="soft">
-                  <View className="gap-1.5">
+                  <View style={s.gap1_5}>
                     <Heading size="3">Card Title</Heading>
                     <Text color="gray">Card description goes here</Text>
                   </View>
                 </Card>
               </View>
-              <View className="gap-2">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Ghost
-                </Text>
+              <View style={s.gap2}>
+                <SectionLabel>Ghost</SectionLabel>
                 <Card variant="ghost">
-                  <View className="gap-1.5">
+                  <View style={s.gap1_5}>
                     <Heading size="3">Card Title</Heading>
                     <Text color="gray">Card description goes here</Text>
                   </View>
@@ -594,12 +575,10 @@ export default function KitchenSinkScreen() {
 
           {/* Callout Section */}
           <ComponentSection title="Callout">
-            <View className="gap-6">
+            <View style={s.gap6}>
               {/* Variants */}
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Variants
-                </Text>
+              <View style={s.gap3}>
+                <SectionLabel>Variants</SectionLabel>
                 <Callout.Root variant="soft" color="blue">
                   <Callout.Icon>
                     <Icon as={InfoIcon} />
@@ -627,10 +606,8 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Colors */}
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Colors
-                </Text>
+              <View style={s.gap3}>
+                <SectionLabel>Colors</SectionLabel>
                 <Callout.Root color="gray">
                   <Callout.Icon>
                     <Icon as={InfoIcon} />
@@ -674,10 +651,8 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Sizes */}
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Sizes
-                </Text>
+              <View style={s.gap3}>
+                <SectionLabel>Sizes</SectionLabel>
                 <Callout.Root size="1" color="purple">
                   <Callout.Icon>
                     <Icon as={InfoIcon} />
@@ -708,9 +683,9 @@ export default function KitchenSinkScreen() {
 
           {/* TextField Section */}
           <ComponentSection title="TextField">
-            <View className="gap-6">
+            <View style={s.gap6}>
               {/* Variants */}
-              <View className="gap-3">
+              <View style={s.gap3}>
                 <Text size="2" weight="medium" color="gray">
                   Variants
                 </Text>
@@ -719,7 +694,7 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Sizes */}
-              <View className="gap-3">
+              <View style={s.gap3}>
                 <Text size="2" weight="medium" color="gray">
                   Sizes
                 </Text>
@@ -730,7 +705,7 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Colors (soft variant) */}
-              <View className="gap-3">
+              <View style={s.gap3}>
                 <Text size="2" weight="medium" color="gray">
                   Colors (soft variant)
                 </Text>
@@ -740,14 +715,14 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* With Slots - Size Story */}
-              <View className="gap-3">
+              <View style={s.gap3}>
                 <Text size="2" weight="medium" color="gray">
                   With Slots
                 </Text>
-                <View className="flex-col gap-3">
+                <View style={s.gap3}>
                   {/* Size 1 */}
-                  <View className="flex-row items-center gap-2">
-                    <TextField.Root size="1" className="flex-1">
+                  <View style={[s.row, s.itemsCenter, s.gap2]}>
+                    <TextField.Root size="1" style={s.flex1}>
                       <TextField.Slot>
                         <Icon as={SearchIcon} size={12} />
                       </TextField.Slot>
@@ -759,8 +734,8 @@ export default function KitchenSinkScreen() {
                   </View>
 
                   {/* Size 2 */}
-                  <View className="flex-row items-center gap-2">
-                    <TextField.Root size="2" className="flex-1">
+                  <View style={[s.row, s.itemsCenter, s.gap2]}>
+                    <TextField.Root size="2" style={s.flex1}>
                       <TextField.Slot>
                         <Icon as={SearchIcon} size={16} />
                       </TextField.Slot>
@@ -777,8 +752,8 @@ export default function KitchenSinkScreen() {
                   </View>
 
                   {/* Size 3 */}
-                  <View className="flex-row items-center gap-2">
-                    <TextField.Root size="3" className="flex-1">
+                  <View style={[s.row, s.itemsCenter, s.gap2]}>
+                    <TextField.Root size="3" style={s.flex1}>
                       <TextField.Slot>
                         <Icon as={SearchIcon} size={20} />
                       </TextField.Slot>
@@ -795,8 +770,8 @@ export default function KitchenSinkScreen() {
                   </View>
 
                   {/* Size 4 */}
-                  <View className="flex-row items-center gap-2">
-                    <TextField.Root size="4" className="flex-1">
+                  <View style={[s.row, s.itemsCenter, s.gap2]}>
+                    <TextField.Root size="4" style={s.flex1}>
                       <TextField.Slot>
                         <Icon as={SearchIcon} size={24} />
                       </TextField.Slot>
@@ -815,7 +790,7 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Disabled */}
-              <View className="gap-3">
+              <View style={s.gap3}>
                 <Text size="2" weight="medium" color="gray">
                   Disabled
                 </Text>
@@ -827,9 +802,9 @@ export default function KitchenSinkScreen() {
 
           {/* TextArea Section */}
           <ComponentSection title="TextArea">
-            <View className="gap-6">
+            <View style={s.gap6}>
               {/* Variants */}
-              <View className="gap-3">
+              <View style={s.gap3}>
                 <Text size="2" weight="medium" color="gray">
                   Variants
                 </Text>
@@ -838,7 +813,7 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Sizes */}
-              <View className="gap-3">
+              <View style={s.gap3}>
                 <Text size="2" weight="medium" color="gray">
                   Sizes
                 </Text>
@@ -849,7 +824,7 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Colors (soft variant) */}
-              <View className="gap-3">
+              <View style={s.gap3}>
                 <Text size="2" weight="medium" color="gray">
                   Colors (soft variant)
                 </Text>
@@ -859,7 +834,7 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Disabled */}
-              <View className="gap-3">
+              <View style={s.gap3}>
                 <Text size="2" weight="medium" color="gray">
                   Disabled
                 </Text>
@@ -871,13 +846,11 @@ export default function KitchenSinkScreen() {
 
           {/* Checkbox Section */}
           <ComponentSection title="Checkbox">
-            <View className="gap-6">
+            <View style={s.gap6}>
               {/* Sizes */}
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Sizes
-                </Text>
-                <View className="flex-row items-center gap-4">
+              <View style={s.gap3}>
+                <SectionLabel>Sizes</SectionLabel>
+                <View style={[s.row, s.itemsCenter, s.gap4]}>
                   <CheckboxItem label="Size 1" size="1" defaultChecked />
                   <CheckboxItem label="Size 2" size="2" defaultChecked />
                   <CheckboxItem label="Size 3" size="3" defaultChecked />
@@ -885,11 +858,9 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Colors */}
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Colors
-                </Text>
-                <View className="flex-row flex-wrap gap-4">
+              <View style={s.gap3}>
+                <SectionLabel>Colors</SectionLabel>
+                <View style={[s.row, s.wrap, s.gap4]}>
                   <CheckboxItem label="Blue" color="blue" defaultChecked />
                   <CheckboxItem label="Green" color="green" defaultChecked />
                   <CheckboxItem label="Red" color="red" defaultChecked />
@@ -899,11 +870,9 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* States */}
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  States
-                </Text>
-                <View className="gap-3">
+              <View style={s.gap3}>
+                <SectionLabel>States</SectionLabel>
+                <View style={s.gap3}>
                   <CheckboxItem label="Unchecked" />
                   <CheckboxItem label="Checked" defaultChecked />
                   <CheckboxItem label="Disabled unchecked" disabled />
@@ -915,13 +884,11 @@ export default function KitchenSinkScreen() {
 
           {/* Radio Group Section */}
           <ComponentSection title="Radio Group">
-            <View className="gap-6">
+            <View style={s.gap6}>
               {/* Sizes */}
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Sizes
-                </Text>
-                <View className="flex-row gap-6">
+              <View style={s.gap3}>
+                <SectionLabel>Sizes</SectionLabel>
+                <View style={[s.row, s.gap6]}>
                   <RadioGroupDemo size="1" color="blue" />
                   <RadioGroupDemo size="2" color="blue" />
                   <RadioGroupDemo size="3" color="blue" />
@@ -929,11 +896,9 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Colors */}
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Colors
-                </Text>
-                <View className="flex-row flex-wrap gap-6">
+              <View style={s.gap3}>
+                <SectionLabel>Colors</SectionLabel>
+                <View style={[s.row, s.wrap, s.gap6]}>
                   <RadioGroupDemo size="2" color="blue" />
                   <RadioGroupDemo size="2" color="green" />
                   <RadioGroupDemo size="2" color="red" />
@@ -945,13 +910,13 @@ export default function KitchenSinkScreen() {
 
           {/* Switch Section */}
           <ComponentSection title="Switch">
-            <View className="gap-6">
+            <View style={s.gap6}>
               {/* Sizes */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium">
                   Sizes
                 </Text>
-                <View className="flex-row items-center gap-6">
+                <View style={[s.row, s.itemsCenter, s.gap6]}>
                   <SwitchItem size="1" defaultChecked />
                   <SwitchItem size="2" defaultChecked />
                   <SwitchItem size="3" defaultChecked />
@@ -959,11 +924,11 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Colors */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium">
                   Colors
                 </Text>
-                <View className="flex-row flex-wrap gap-6">
+                <View style={[s.row, s.wrap, s.gap6]}>
                   <SwitchItem color="blue" defaultChecked />
                   <SwitchItem color="green" defaultChecked />
                   <SwitchItem color="red" defaultChecked />
@@ -973,11 +938,11 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* States */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium">
                   States
                 </Text>
-                <View className="gap-3">
+                <View style={s.gap3}>
                   <SwitchItem label="Unchecked" />
                   <SwitchItem label="Checked" defaultChecked />
                   <SwitchItem label="Disabled unchecked" disabled />
@@ -989,16 +954,16 @@ export default function KitchenSinkScreen() {
 
           {/* Separator Section */}
           <ComponentSection title="Separator">
-            <View className="gap-6">
+            <View style={s.gap6}>
               {/* Default Demo */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium">
                   Default
                 </Text>
                 <View>
                   <Text size="2">Tools for building high-quality, accessible UI.</Text>
                   <Separator size="4" style={{ marginVertical: 12 }} />
-                  <View className="flex-row items-center gap-3">
+                  <View style={[s.row, s.itemsCenter, s.gap3]}>
                     <Text size="2">Themes</Text>
                     <Separator orientation="vertical" />
                     <Text size="2">Primitives</Text>
@@ -1011,11 +976,11 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Sizes - Horizontal */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium">
                   Sizes (Horizontal)
                 </Text>
-                <View className="gap-3">
+                <View style={s.gap3}>
                   <Separator size="1" />
                   <Separator size="2" />
                   <Separator size="3" />
@@ -1024,11 +989,11 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Sizes - Vertical */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium">
                   Sizes (Vertical)
                 </Text>
-                <View className="flex-row items-center gap-3" style={{ height: 64 }}>
+                <View style={[s.row, s.itemsCenter, s.gap3, { height: 64 }]}>
                   <Separator size="1" orientation="vertical" />
                   <Separator size="2" orientation="vertical" />
                   <Separator size="3" orientation="vertical" />
@@ -1037,11 +1002,11 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Colors */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium">
                   Colors
                 </Text>
-                <View className="gap-3">
+                <View style={s.gap3}>
                   <Separator size="4" color="gray" />
                   <Separator size="4" color="blue" />
                   <Separator size="4" color="green" />
@@ -1054,13 +1019,13 @@ export default function KitchenSinkScreen() {
 
           {/* Spinner Section */}
           <ComponentSection title="Spinner">
-            <View className="gap-6">
+            <View style={s.gap6}>
               {/* Sizes */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium">
                   Sizes
                 </Text>
-                <View className="flex-row flex-wrap items-center gap-4">
+                <View style={[s.row, s.wrap, s.itemsCenter, s.gap4]}>
                   <Spinner size="1" />
                   <Spinner size="2" />
                   <Spinner size="3" />
@@ -1071,11 +1036,11 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* With Loading State */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium">
                   With Loading State (wrapping children)
                 </Text>
-                <View className="flex-row gap-4">
+                <View style={[s.row, s.gap4]}>
                   <Spinner loading={true}>
                     <Button>
                       <Text>Submit</Text>
@@ -1093,13 +1058,13 @@ export default function KitchenSinkScreen() {
 
           {/* Progress Section */}
           <ComponentSection title="Progress">
-            <View className="gap-6">
+            <View style={s.gap6}>
               {/* Sizes */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium">
                   Sizes
                 </Text>
-                <View className="gap-3">
+                <View style={s.gap3}>
                   <Progress size="1" value={60} />
                   <Progress size="2" value={60} />
                   <Progress size="3" value={60} />
@@ -1110,11 +1075,11 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Colors */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium">
                   Colors
                 </Text>
-                <View className="gap-3">
+                <View style={s.gap3}>
                   <Progress size="3" color="blue" value={60} />
                   <Progress size="3" color="green" value={60} />
                   <Progress size="3" color="red" value={60} />
@@ -1124,11 +1089,11 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Values */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium">
                   Values
                 </Text>
-                <View className="gap-3">
+                <View style={s.gap3}>
                   <Progress value={0} />
                   <Progress value={25} />
                   <Progress value={50} />
@@ -1141,13 +1106,13 @@ export default function KitchenSinkScreen() {
 
           {/* Avatar Section */}
           <ComponentSection title="Avatar">
-            <View className="gap-6">
+            <View style={s.gap6}>
               {/* Sizes */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium">
                   Sizes
                 </Text>
-                <View className="flex-row flex-wrap items-center gap-3">
+                <View style={[s.row, s.wrap, s.itemsCenter, s.gap3]}>
                   <Avatar size="0" fallback="John Doe" />
                   <Avatar size="1" fallback="John Doe" />
                   <Avatar size="2" fallback="John Doe" />
@@ -1162,11 +1127,11 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Colors */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium">
                   Colors
                 </Text>
-                <View className="flex-row flex-wrap gap-3">
+                <View style={[s.row, s.wrap, s.gap3]}>
                   <Avatar color="blue" fallback="Blue" />
                   <Avatar color="green" fallback="Green" />
                   <Avatar color="red" fallback="Red" />
@@ -1176,22 +1141,22 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Shapes */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium">
                   Shapes
                 </Text>
-                <View className="flex-row gap-3">
+                <View style={[s.row, s.gap3]}>
                   <Avatar shape="circle" size="4" fallback="Circle" />
                   <Avatar shape="square" size="4" fallback="Square" />
                 </View>
               </View>
 
               {/* With Image */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium">
                   With Image
                 </Text>
-                <View className="flex-row gap-3">
+                <View style={[s.row, s.gap3]}>
                   <Avatar size="4" src="https://github.com/shadcn.png" fallback="CN" />
                   <Avatar
                     size="4"
@@ -1206,11 +1171,11 @@ export default function KitchenSinkScreen() {
 
           {/* Aspect Ratio Section */}
           <ComponentSection title="Aspect Ratio">
-            <View className="w-full max-w-md">
+            <View style={[s.wFull, s.maxWMd]}>
               <AspectRatio ratio={16 / 9}>
                 <Image
                   source={{ uri: 'https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd' }}
-                  className="h-full w-full rounded-md"
+                  style={[s.hFull, s.wFull, s.roundedMd]}
                   resizeMode="cover"
                 />
               </AspectRatio>
@@ -1219,13 +1184,13 @@ export default function KitchenSinkScreen() {
 
           {/* Skeleton Section */}
           <ComponentSection title="Skeleton">
-            <View className="gap-6">
+            <View style={s.gap6}>
               {/* Avatar Skeletons */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium">
                   Avatar Sizes
                 </Text>
-                <View className="flex-row flex-wrap items-center gap-3">
+                <View style={[s.row, s.wrap, s.itemsCenter, s.gap3]}>
                   <Skeleton.Avatar size="0" />
                   <Skeleton.Avatar size="1" />
                   <Skeleton.Avatar size="2" />
@@ -1240,22 +1205,22 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Avatar Shapes */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium">
                   Avatar Shapes
                 </Text>
-                <View className="flex-row gap-3">
+                <View style={[s.row, s.gap3]}>
                   <Skeleton.Avatar size="4" shape="circle" />
                   <Skeleton.Avatar size="4" shape="square" />
                 </View>
               </View>
 
               {/* Text Skeletons */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium">
                   Text Sizes
                 </Text>
-                <View className="gap-2">
+                <View style={s.gap2}>
                   <Skeleton.Text size="0" style={{ width: '60%' }} />
                   <Skeleton.Text size="1" style={{ width: '60%' }} />
                   <Skeleton.Text size="2" style={{ width: '80%' }} />
@@ -1270,22 +1235,22 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Rect Skeletons */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium">
                   Rectangles
                 </Text>
-                <View className="gap-3">
+                <View style={s.gap3}>
                   <Skeleton.Rect style={{ width: 200, height: 120, borderRadius: 8 }} />
                   <Skeleton.Rect style={{ width: '100%', height: 16, borderRadius: 4 }} />
                 </View>
               </View>
 
               {/* Colors */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium">
                   Colors
                 </Text>
-                <View className="flex-row flex-wrap gap-3">
+                <View style={[s.row, s.wrap, s.gap3]}>
                   <Skeleton.Avatar color="gray" />
                   <Skeleton.Avatar color="blue" />
                   <Skeleton.Avatar color="green" />
@@ -1375,9 +1340,9 @@ export default function KitchenSinkScreen() {
 
           {/* Dialog Section */}
           <ComponentSection title="Dialog">
-            <View className="gap-4">
+            <View style={s.gap4}>
               {/* Default Demo */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium">
                   Default
                 </Text>
@@ -1437,11 +1402,11 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Sizes Demo */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium">
                   Sizes
                 </Text>
-                <View className="flex-row flex-wrap gap-3">
+                <View style={[s.row, s.wrap, s.gap3]}>
                   <Dialog.Root>
                     <Dialog.Trigger>
                       <Button>
@@ -1550,9 +1515,9 @@ export default function KitchenSinkScreen() {
 
           {/* Alert Dialog Section */}
           <ComponentSection title="Alert Dialog">
-            <View className="gap-4">
+            <View style={s.gap4}>
               {/* Default Demo */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium">
                   Default
                 </Text>
@@ -1585,11 +1550,11 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Sizes Demo */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium">
                   Sizes
                 </Text>
-                <View className="flex-row flex-wrap gap-3">
+                <View style={[s.row, s.wrap, s.gap3]}>
                   <AlertDialog.Root>
                     <AlertDialog.Trigger>
                       <Button color="red">
@@ -1700,9 +1665,9 @@ export default function KitchenSinkScreen() {
 
           {/* Popover Section */}
           <ComponentSection title="Popover">
-            <View className="gap-6">
+            <View style={s.gap6}>
               {/* Default (translucent, size 2) */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium" color="gray">
                   Default (translucent)
                 </Text>
@@ -1738,7 +1703,7 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Solid variant */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium" color="gray">
                   Solid variant
                 </Text>
@@ -1760,11 +1725,11 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Sizes */}
-              <View className="gap-2">
+              <View style={s.gap2}>
                 <Text size="2" weight="medium" color="gray">
                   Sizes
                 </Text>
-                <View className="flex-row flex-wrap gap-4">
+                <View style={[s.row, s.wrap, s.gap4]}>
                   <Popover.Root>
                     <Popover.Trigger asChild>
                       <Button variant="soft" size="1">
@@ -1815,21 +1780,17 @@ export default function KitchenSinkScreen() {
 
           {/* Dropdown Menu Section */}
           <ComponentSection title="Dropdown Menu">
-            <View className="gap-6">
+            <View style={s.gap6}>
               {/* Default Demo */}
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Default
-                </Text>
+              <View style={s.gap3}>
+                <SectionLabel>Default</SectionLabel>
                 <DropdownMenuDefaultDemo />
               </View>
 
               {/* Sizes */}
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Sizes
-                </Text>
-                <View className="flex-row flex-wrap items-center gap-3">
+              <View style={s.gap3}>
+                <SectionLabel>Sizes</SectionLabel>
+                <View style={[s.row, s.wrap, s.itemsCenter, s.gap3]}>
                   <DropdownMenuSizeDemo size="1" label="Small" />
                   <DropdownMenuSizeDemo size="2" label="Default" />
                   <DropdownMenuSizeDemo size="3" label="Large" />
@@ -1837,18 +1798,14 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Colors */}
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Item Colors
-                </Text>
+              <View style={s.gap3}>
+                <SectionLabel>Item Colors</SectionLabel>
                 <DropdownMenuColorDemo />
               </View>
 
               {/* With Submenu */}
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  With Submenu
-                </Text>
+              <View style={s.gap3}>
+                <SectionLabel>With Submenu</SectionLabel>
                 <DropdownMenuWithSubmenuDemo />
               </View>
             </View>
@@ -1856,56 +1813,46 @@ export default function KitchenSinkScreen() {
 
           {/* Select Section */}
           <ComponentSection title="Select">
-            <View className="gap-6">
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Variants - Blue
-                </Text>
-                <View className="flex-row flex-wrap gap-2">
+            <View style={s.gap6}>
+              <View style={s.gap3}>
+                <SectionLabel>Variants - Blue</SectionLabel>
+                <View style={[s.row, s.wrap, s.gap2]}>
                   <SelectDemo variant="surface" color="blue" />
                   <SelectDemo variant="soft" color="blue" />
                   <SelectDemo variant="ghost" color="blue" />
                 </View>
               </View>
 
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Variants - Green
-                </Text>
-                <View className="flex-row flex-wrap gap-2">
+              <View style={s.gap3}>
+                <SectionLabel>Variants - Green</SectionLabel>
+                <View style={[s.row, s.wrap, s.gap2]}>
                   <SelectDemo variant="surface" color="green" />
                   <SelectDemo variant="soft" color="green" />
                   <SelectDemo variant="ghost" color="green" />
                 </View>
               </View>
 
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Variants - Red
-                </Text>
-                <View className="flex-row flex-wrap gap-2">
+              <View style={s.gap3}>
+                <SectionLabel>Variants - Red</SectionLabel>
+                <View style={[s.row, s.wrap, s.gap2]}>
                   <SelectDemo variant="surface" color="red" />
                   <SelectDemo variant="soft" color="red" />
                   <SelectDemo variant="ghost" color="red" />
                 </View>
               </View>
 
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Variants - Purple
-                </Text>
-                <View className="flex-row flex-wrap gap-2">
+              <View style={s.gap3}>
+                <SectionLabel>Variants - Purple</SectionLabel>
+                <View style={[s.row, s.wrap, s.gap2]}>
                   <SelectDemo variant="surface" color="purple" />
                   <SelectDemo variant="soft" color="purple" />
                   <SelectDemo variant="ghost" color="purple" />
                 </View>
               </View>
 
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Select Sizes
-                </Text>
-                <View className="flex-row flex-wrap items-center gap-2">
+              <View style={s.gap3}>
+                <SectionLabel>Select Sizes</SectionLabel>
+                <View style={[s.row, s.wrap, s.itemsCenter, s.gap2]}>
                   <SelectDemo size="1" />
                   <SelectDemo size="2" />
                   <SelectDemo size="3" />
@@ -1913,31 +1860,25 @@ export default function KitchenSinkScreen() {
                 </View>
               </View>
 
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Disabled State
-                </Text>
-                <View className="flex-row flex-wrap gap-2">
+              <View style={s.gap3}>
+                <SectionLabel>Disabled State</SectionLabel>
+                <View style={[s.row, s.wrap, s.gap2]}>
                   <SelectDemo variant="surface" color="blue" disabled />
                   <SelectDemo variant="soft" color="blue" disabled />
                   <SelectDemo variant="ghost" color="blue" disabled />
                 </View>
               </View>
 
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Many Options (Scrollable)
-                </Text>
-                <View className="flex-row flex-wrap gap-2">
+              <View style={s.gap3}>
+                <SectionLabel>Many Options (Scrollable)</SectionLabel>
+                <View style={[s.row, s.wrap, s.gap2]}>
                   <SelectManyOptionsDemo />
                 </View>
               </View>
 
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  With Groups, Labels & Separators
-                </Text>
-                <View className="flex-row flex-wrap gap-2">
+              <View style={s.gap3}>
+                <SectionLabel>With Groups, Labels &amp; Separators</SectionLabel>
+                <View style={[s.row, s.wrap, s.gap2]}>
                   <SelectGroupedDemo />
                 </View>
               </View>
@@ -1946,21 +1887,17 @@ export default function KitchenSinkScreen() {
 
           {/* Context Menu Section */}
           <ComponentSection title="Context Menu">
-            <View className="gap-6">
+            <View style={s.gap6}>
               {/* Default Demo */}
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Default
-                </Text>
+              <View style={s.gap3}>
+                <SectionLabel>Default</SectionLabel>
                 <ContextMenuDefaultDemo />
               </View>
 
               {/* Sizes */}
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Sizes
-                </Text>
-                <View className="gap-3">
+              <View style={s.gap3}>
+                <SectionLabel>Sizes</SectionLabel>
+                <View style={s.gap3}>
                   <ContextMenuSizeDemo size="1" label="Small" />
                   <ContextMenuSizeDemo size="2" label="Default" />
                   <ContextMenuSizeDemo size="3" label="Large" />
@@ -1968,10 +1905,8 @@ export default function KitchenSinkScreen() {
               </View>
 
               {/* Colors */}
-              <View className="gap-3">
-                <Text weight="semi-bold" className="text-gray-a10">
-                  Item Colors
-                </Text>
+              <View style={s.gap3}>
+                <SectionLabel>Item Colors</SectionLabel>
                 <ContextMenuColorDemo />
               </View>
             </View>
@@ -1984,7 +1919,7 @@ export default function KitchenSinkScreen() {
 
           {/* Tooltip Section */}
           <ComponentSection title="Tooltip">
-            <View className="flex-row gap-4">
+            <View style={[s.row, s.gap4]}>
               <Tooltip content="Add to library">
                 <Button variant="surface">
                   <Text>Hover me</Text>
@@ -2006,7 +1941,7 @@ export default function KitchenSinkScreen() {
           </ComponentSection>
 
           {/* Bottom padding for scroll */}
-          <View className="h-8" />
+          <View style={s.h8} />
         </View>
       </ScrollView>
     </>
@@ -2015,13 +1950,49 @@ export default function KitchenSinkScreen() {
 
 // Helper Components
 function ComponentSection({ title, children }: { title: string; children: React.ReactNode }) {
+  const { colors } = useThemeVars();
   return (
-    <View className="gap-4">
-      <View className="flex-row items-center gap-2">
-        <Icon as={ChevronRightIcon} className="text-gray-12" />
+    <View style={s.gap4}>
+      <View style={[s.row, s.itemsCenter, s.gap2]}>
+        <Icon as={ChevronRightIcon} color={colors.palettes.gray['12']} />
         <Heading size="3">{title}</Heading>
       </View>
       <Card>{children}</Card>
+    </View>
+  );
+}
+
+function SectionLabel({ children }: { children: string }) {
+  const { colors } = useThemeVars();
+  return (
+    <Text weight="semi-bold" style={{ color: colors.palettes.gray.a10 }}>
+      {children}
+    </Text>
+  );
+}
+
+function ContextMenuTriggerBox({
+  children,
+  height = 80,
+}: {
+  children: React.ReactNode;
+  height?: number;
+}) {
+  const { colors } = useThemeVars();
+  return (
+    <View
+      style={{
+        height,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 6,
+        borderWidth: 1,
+        borderStyle: 'dashed',
+        borderColor: colors.stroke,
+      }}>
+      <Text size="1" style={{ color: colors.palettes.gray.a10 }}>
+        {children}
+      </Text>
     </View>
   );
 }
@@ -2041,7 +2012,7 @@ function CheckboxItem({
 }) {
   const [checked, setChecked] = React.useState(defaultChecked);
   return (
-    <View className="flex-row items-center gap-2">
+    <View style={[s.row, s.itemsCenter, s.gap2]}>
       <Checkbox
         checked={checked}
         onCheckedChange={setChecked}
@@ -2069,14 +2040,14 @@ function RadioGroupDemo({
   const id = `radio-${size}-${color}`;
   return (
     <RadioGroup.Root value={value} onValueChange={setValue} size={size} color={color}>
-      <View className="gap-2">
-        <View className="flex-row items-center gap-2">
+      <View style={s.gap2}>
+        <View style={[s.row, s.itemsCenter, s.gap2]}>
           <RadioGroup.Item aria-labelledby={`${id}-1`} value="option1" />
           <Label nativeID={`${id}-1`} onPress={() => setValue('option1')}>
             Option 1
           </Label>
         </View>
-        <View className="flex-row items-center gap-2">
+        <View style={[s.row, s.itemsCenter, s.gap2]}>
           <RadioGroup.Item aria-labelledby={`${id}-2`} value="option2" />
           <Label nativeID={`${id}-2`} onPress={() => setValue('option2')}>
             Option 2
@@ -2103,7 +2074,7 @@ function SwitchItem({
   const [checked, setChecked] = React.useState(defaultChecked);
   const id = label?.replace(/\s+/g, '-').toLowerCase();
   return (
-    <View className="flex-row items-center gap-3">
+    <View style={[s.row, s.itemsCenter, s.gap3]}>
       <Switch
         checked={checked}
         onCheckedChange={setChecked}
@@ -2239,13 +2210,13 @@ function TabsDemo() {
   const [value2, setValue2] = React.useState('tab1');
 
   return (
-    <View className="gap-6">
+    <View style={s.gap6}>
       {/* Sizes */}
-      <View className="gap-2">
+      <View style={s.gap2}>
         <Text size="2" weight="medium">
           Sizes
         </Text>
-        <View className="gap-4">
+        <View style={s.gap4}>
           <Tabs.Root size="1" value={value2} onValueChange={setValue2}>
             <Tabs.List>
               <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>
@@ -2265,7 +2236,7 @@ function TabsDemo() {
       </View>
 
       {/* Full Example */}
-      <View className="gap-2">
+      <View style={s.gap2}>
         <Text size="2" weight="medium">
           Full Example
         </Text>
@@ -2278,45 +2249,45 @@ function TabsDemo() {
               <Text>Password</Text>
             </Tabs.Trigger>
           </Tabs.List>
-          <Tabs.Content value="account" className="p-4">
-            <View className="gap-6">
-              <View className="gap-1.5">
+          <Tabs.Content value="account" style={s.p4}>
+            <View style={s.gap6}>
+              <View style={s.gap1_5}>
                 <Heading size="3">Account</Heading>
                 <Text color="gray">
                   Make changes to your account here. Click save when you're done.
                 </Text>
               </View>
-              <View className="gap-4">
-                <View className="gap-2">
+              <View style={s.gap4}>
+                <View style={s.gap2}>
                   <Label nativeID="name">Name</Label>
                   <TextField.Root size="2">
                     <TextField.Input placeholder="Enter your name" aria-labelledby="name" />
                   </TextField.Root>
                 </View>
-                <View className="gap-2">
+                <View style={s.gap2}>
                   <Label nativeID="username">Username</Label>
                   <TextField.Root size="2">
                     <TextField.Input placeholder="Enter your username" aria-labelledby="username" />
                   </TextField.Root>
                 </View>
               </View>
-              <View className="flex-row items-center">
+              <View style={[s.row, s.itemsCenter]}>
                 <Button>
                   <Text>Save changes</Text>
                 </Button>
               </View>
             </View>
           </Tabs.Content>
-          <Tabs.Content value="password" className="p-4">
-            <View className="gap-6">
-              <View className="gap-1.5">
+          <Tabs.Content value="password" style={s.p4}>
+            <View style={s.gap6}>
+              <View style={s.gap1_5}>
                 <Heading size="3">Password</Heading>
                 <Text color="gray">
                   Change your password here. After saving, you'll be logged out.
                 </Text>
               </View>
-              <View className="gap-4">
-                <View className="gap-2">
+              <View style={s.gap4}>
+                <View style={s.gap2}>
                   <Label nativeID="current">Current password</Label>
                   <TextField.Root size="2">
                     <TextField.Input
@@ -2326,7 +2297,7 @@ function TabsDemo() {
                     />
                   </TextField.Root>
                 </View>
-                <View className="gap-2">
+                <View style={s.gap2}>
                   <Label nativeID="new">New password</Label>
                   <TextField.Root size="2">
                     <TextField.Input
@@ -2337,7 +2308,7 @@ function TabsDemo() {
                   </TextField.Root>
                 </View>
               </View>
-              <View className="flex-row items-center">
+              <View style={[s.row, s.itemsCenter]}>
                 <Button>
                   <Text>Save password</Text>
                 </Button>
@@ -2386,9 +2357,7 @@ function ContextMenuDefaultDemo() {
   return (
     <ContextMenu.Root>
       <ContextMenu.Trigger>
-        <View className="flex h-32 items-center justify-center rounded-md border border-dashed border-stroke">
-          <Text className="text-sm text-gray-a10">Right click / Long press here</Text>
-        </View>
+        <ContextMenuTriggerBox height={128}>Right click / Long press here</ContextMenuTriggerBox>
       </ContextMenu.Trigger>
       <ContextMenu.Content>
         <ContextMenu.Label>Actions</ContextMenu.Label>
@@ -2424,9 +2393,7 @@ function ContextMenuSizeDemo({ size, label }: { size: '1' | '2' | '3'; label: st
   return (
     <ContextMenu.Root size={size}>
       <ContextMenu.Trigger>
-        <View className="flex h-20 items-center justify-center rounded-md border border-dashed border-stroke">
-          <Text className="text-sm text-gray-a10">{label} - Right click / Long press</Text>
-        </View>
+        <ContextMenuTriggerBox>{label} - Right click / Long press</ContextMenuTriggerBox>
       </ContextMenu.Trigger>
       <ContextMenu.Content>
         <ContextMenu.Label>Actions</ContextMenu.Label>
@@ -2458,9 +2425,7 @@ function ContextMenuColorDemo() {
   return (
     <ContextMenu.Root>
       <ContextMenu.Trigger>
-        <View className="flex h-20 items-center justify-center rounded-md border border-dashed border-stroke">
-          <Text className="text-sm text-gray-a10">Right click / Long press here</Text>
-        </View>
+        <ContextMenuTriggerBox>Right click / Long press here</ContextMenuTriggerBox>
       </ContextMenu.Trigger>
       <ContextMenu.Content>
         <ContextMenu.Item color="blue">Edit (info)</ContextMenu.Item>
@@ -2596,9 +2561,9 @@ function DropdownMenuWithSubmenuDemo() {
 
 function HoverCardDemo() {
   return (
-    <View className="gap-6">
+    <View style={s.gap6}>
       {/* Default (translucent, size 2) */}
-      <View className="gap-2">
+      <View style={s.gap2}>
         <Text size="2" weight="medium" color="gray">
           Default (translucent)
         </Text>
@@ -2617,7 +2582,7 @@ function HoverCardDemo() {
                 </Text>
                 <Text>The React Framework – created and maintained by @vercel.</Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, paddingTop: 8 }}>
-                  <Icon as={CalendarIcon} className="size-3" />
+                  <Icon as={CalendarIcon} size={12} />
                   <Text size="2">Joined December 2021</Text>
                 </View>
               </View>
@@ -2627,7 +2592,7 @@ function HoverCardDemo() {
       </View>
 
       {/* Solid variant */}
-      <View className="gap-2">
+      <View style={s.gap2}>
         <Text size="2" weight="medium" color="gray">
           Solid variant
         </Text>
@@ -2652,11 +2617,11 @@ function HoverCardDemo() {
       </View>
 
       {/* Sizes */}
-      <View className="gap-2">
+      <View style={s.gap2}>
         <Text size="2" weight="medium" color="gray">
           Sizes
         </Text>
-        <View className="flex-row gap-4">
+        <View style={[s.row, s.gap4]}>
           <HoverCard.Root>
             <HoverCard.Trigger asChild>
               <Button variant="soft" size="1">
@@ -2696,7 +2661,7 @@ function HoverCardDemo() {
 }
 
 function ThemeToggle() {
-  const { colorScheme, toggleColorScheme } = useColorScheme();
+  const { colorScheme, toggleColorScheme } = useTheme();
   const THEME_ICONS = {
     light: SunIcon,
     dark: MoonStarIcon,
@@ -2708,8 +2673,8 @@ function ThemeToggle() {
       size="3"
       variant="ghost"
       color="gray"
-      className="rounded-full web:mx-4">
-      <Icon as={THEME_ICONS[colorScheme ?? 'light']} className="size-5" />
+      style={s.roundedFull}>
+      <Icon as={THEME_ICONS[colorScheme]} size={20} />
     </IconButton>
   );
 }

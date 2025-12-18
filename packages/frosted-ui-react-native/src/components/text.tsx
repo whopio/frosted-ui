@@ -32,12 +32,13 @@ function Text({ asChild = false, size, weight, color, role, style, ...props }: T
   const effectiveSize = size ?? textStyleContext?.size;
   const effectiveWeight = weight ?? textStyleContext?.weight;
 
-  // Only apply color style if explicitly set via prop or context.
-  // This allows className color overrides (e.g., NativeWind) to work.
-  const hasExplicitColor = color || textStyleContext?.color;
-  const resolvedColor = hasExplicitColor
-    ? ((color && colors.palettes[color]['11']) ?? textStyleContext?.color)
-    : undefined;
+  // Resolve text color:
+  // 1. If color prop is set, use that palette's shade 11
+  // 2. If context provides a color, use that
+  // 3. Otherwise, use default foreground color (gray-12)
+  const resolvedColor = color
+    ? colors.palettes[color]['11']
+    : (textStyleContext?.color ?? colors.palettes.gray['12']);
 
   const typo = effectiveSize ? typography[effectiveSize] : undefined;
   const fontWeightValue = effectiveWeight ? fontWeights[effectiveWeight] : undefined;
@@ -50,7 +51,7 @@ function Text({ asChild = false, size, weight, color, role, style, ...props }: T
       }
     : undefined;
 
-  const colorStyle = resolvedColor ? { color: resolvedColor } : undefined;
+  const colorStyle = { color: resolvedColor };
   const weightStyle = fontWeightValue ? { fontWeight: fontWeightValue } : undefined;
 
   return (

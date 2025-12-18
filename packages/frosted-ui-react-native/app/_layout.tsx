@@ -1,25 +1,33 @@
 import '../global.css';
 
 import { NAV_THEME } from '@/lib/theme';
-import { ThemeProvider } from '@react-navigation/native';
+import { ThemeProvider as FrostedThemeProvider, useTheme } from '@frosted-ui/react-native';
+import { ThemeProvider as NavigationThemeProvider } from '@react-navigation/native';
 import { PortalHost } from '@rn-primitives/portal';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { useColorScheme } from 'nativewind';
 
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
 } from 'expo-router';
 
-export default function RootLayout() {
-  const { colorScheme } = useColorScheme();
+function RootLayoutContent() {
+  const { colorScheme } = useTheme();
 
   return (
-    <ThemeProvider value={NAV_THEME[colorScheme ?? 'light']}>
+    <NavigationThemeProvider value={NAV_THEME[colorScheme]}>
       <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
       <Stack />
       <PortalHost />
-    </ThemeProvider>
+    </NavigationThemeProvider>
+  );
+}
+
+export default function RootLayout() {
+  return (
+    <FrostedThemeProvider>
+      <RootLayoutContent />
+    </FrostedThemeProvider>
   );
 }

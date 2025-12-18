@@ -1,17 +1,29 @@
-import { Button, Code, Icon, IconButton, Text } from '@frosted-ui/react-native';
+import {
+  Button,
+  Code,
+  Icon,
+  IconButton,
+  Text,
+  useTheme,
+  useThemeVars,
+} from '@frosted-ui/react-native';
 import { Link, Stack } from 'expo-router';
 import { MoonStarIcon, StarIcon, SunIcon } from 'lucide-react-native';
-import { useColorScheme } from 'nativewind';
 import * as React from 'react';
-import { Image, type ImageStyle, View } from 'react-native';
+import { Image, type ImageStyle, StyleSheet, View } from 'react-native';
+
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const LOGO_LIGHT = require('../assets/images/react-native-reusables-light.png');
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const LOGO_DARK = require('../assets/images/react-native-reusables-dark.png');
 
 const LOGO = {
-  light: require('../assets/images/react-native-reusables-light.png'),
-  dark: require('../assets/images/react-native-reusables-dark.png'),
+  light: LOGO_LIGHT,
+  dark: LOGO_DARK,
 };
 
 const SCREEN_OPTIONS = {
-  title: 'React Native Reusables',
+  title: 'Frosted UI x React Native',
   headerTransparent: true,
   headerRight: () => <ThemeToggle />,
 };
@@ -21,35 +33,54 @@ const IMAGE_STYLE: ImageStyle = {
   width: 76,
 };
 
+const s = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 32,
+    padding: 16,
+  },
+  textContainer: {
+    gap: 8,
+    padding: 16,
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: 8,
+  },
+  roundedFull: {
+    borderRadius: 9999,
+  },
+});
+
 export default function Screen() {
-  const { colorScheme } = useColorScheme();
+  const { colorScheme } = useTheme();
+  const { colors } = useThemeVars();
 
   return (
     <>
       <Stack.Screen options={SCREEN_OPTIONS} />
-      <View className="flex-1 items-center justify-center gap-8 p-4">
-        <Image source={LOGO[colorScheme ?? 'light']} style={IMAGE_STYLE} resizeMode="contain" />
-        <View className="gap-2 p-4">
-          <Text size="3" className="text-gray-a10">
+      <View style={s.container}>
+        <Image source={LOGO[colorScheme]} style={IMAGE_STYLE} resizeMode="contain" />
+        <View style={s.textContainer}>
+          <Text size="3" style={{ color: colors.palettes.gray.a10 }}>
             1. Edit{' '}
             <Code color="blue" size="3">
               app/index.tsx
             </Code>{' '}
             to get started.
           </Text>
-          <Text size="3" className="text-gray-a10">
+          <Text size="3" style={{ color: colors.palettes.gray.a10 }}>
             2. Save to see your changes instantly.
           </Text>
         </View>
-        <View className="flex-row flex-wrap justify-center gap-2">
+        <View style={s.buttonsContainer}>
           <Link href="/kitchen-sink" asChild>
             <Button size="3" variant="solid">
               <Text>View components</Text>
-            </Button>
-          </Link>
-          <Link href="/classname-demo" asChild>
-            <Button size="3" variant="soft" color="purple">
-              <Text>className Demo</Text>
             </Button>
           </Link>
           <Link href="https://reactnativereusables.com" asChild>
@@ -75,7 +106,7 @@ const THEME_ICONS = {
 };
 
 function ThemeToggle() {
-  const { colorScheme, toggleColorScheme } = useColorScheme();
+  const { colorScheme, toggleColorScheme } = useTheme();
 
   return (
     <IconButton
@@ -83,8 +114,8 @@ function ThemeToggle() {
       size="3"
       variant="ghost"
       color="gray"
-      className="rounded-full web:mx-4">
-      <Icon as={THEME_ICONS[colorScheme ?? 'light']} className="size-5" />
+      style={s.roundedFull}>
+      <Icon as={THEME_ICONS[colorScheme]} size={20} />
     </IconButton>
   );
 }

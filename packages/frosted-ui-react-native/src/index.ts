@@ -6,3 +6,8 @@ export * from './components';
 //------------------------------------------------------------------------------
 export * from './lib/types';
 export * from './lib/use-theme-vars';
+
+// THEME
+//------------------------------------------------------------------------------
+export { ThemeProvider, useTheme } from './lib/theme-context';
+export type { ColorScheme, ThemeContextValue, ThemeProviderProps } from './lib/theme-context';
