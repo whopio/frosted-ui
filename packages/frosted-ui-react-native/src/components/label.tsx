@@ -1,4 +1,4 @@
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as LabelPrimitive from '@rn-primitives/label';
 import { StyleSheet, type TextStyle, type ViewStyle } from 'react-native';
 
@@ -15,7 +15,7 @@ function Label({
   style,
   ...props
 }: LabelProps) {
-  const { colors, typography, fontWeights } = useThemeVars();
+  const { colors, typography, fontWeights } = useThemeTokens();
 
   const rootStyle: ViewStyle = {
     flexDirection: 'row',

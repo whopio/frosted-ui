@@ -1,11 +1,9 @@
 import type { AccentColor, Color } from '@/lib/types';
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as React from 'react';
 import { View, type ViewProps, type ViewStyle } from 'react-native';
 
-const progressSizes = ['1', '2', '3', '4', '5', '6'] as const;
-
-type ProgressSize = (typeof progressSizes)[number];
+type ProgressSize = '1' | '2' | '3' | '4' | '5' | '6';
 
 function resolveAccentFromColor(color?: Color): AccentColor {
   if (!color) return 'blue';
@@ -50,7 +48,7 @@ type ProgressProps = ViewProps & {
 };
 
 function Progress({ size = '6', color, value = 0, max = 100, style, ...props }: ProgressProps) {
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
 
   const accentColor = resolveAccentFromColor(color);
   const palette = colors.palettes[accentColor];

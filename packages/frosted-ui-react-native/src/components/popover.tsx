@@ -1,6 +1,6 @@
 import { NativeOnlyAnimatedView } from '@/components/native-only-animated-view';
 import { getPanelContentStyle, type PanelSize, type PanelVariant } from '@/lib/panel-styles';
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as PopoverPrimitive from '@rn-primitives/popover';
 import * as React from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
@@ -56,7 +56,7 @@ function PopoverContent({
   children,
   ...props
 }: PopoverContentProps) {
-  const { colors, isDark } = useThemeVars();
+  const { colors, isDark } = useThemeTokens();
 
   const contentStyle = getPanelContentStyle({
     size,

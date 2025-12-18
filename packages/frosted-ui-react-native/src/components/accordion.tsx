@@ -1,4 +1,4 @@
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as AccordionPrimitive from '@rn-primitives/accordion';
 import * as React from 'react';
 import { Platform, Pressable, View, type ViewStyle } from 'react-native';
@@ -49,7 +49,7 @@ type AccordionTriggerProps = AccordionPrimitive.TriggerProps & {
 
 function AccordionTrigger({ children, ...props }: AccordionTriggerProps) {
   const { isExpanded } = AccordionPrimitive.useItemContext();
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const gray = colors.palettes.gray;
 
   // Trigger styles matching web CSS

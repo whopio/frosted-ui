@@ -10,7 +10,7 @@ import {
   type TextInputVariant,
 } from '@/lib/text-input-styles';
 import type { Color } from '@/lib/types';
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as React from 'react';
 import {
   Platform,
@@ -103,7 +103,7 @@ function TextFieldRoot({
   children,
   ...props
 }: TextFieldRootProps) {
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const accentColor = resolveAccentFromColor(color);
   const [internalFocused, setInternalFocused] = React.useState(false);
   const focused = focusedProp !== undefined ? focusedProp : internalFocused;
@@ -251,7 +251,7 @@ interface TextFieldSlotProps extends ViewProps {
 
 function TextFieldSlot({ color, style, children, ...props }: TextFieldSlotProps) {
   const context = React.useContext(TextFieldContext);
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
 
   const accentColor = color ? resolveAccentFromColor(color) : undefined;
   const slotColor = accentColor ? colors.palettes[accentColor].a11 : colors.palettes.gray.a11;
@@ -302,7 +302,7 @@ const TextFieldInput = React.forwardRef<TextInput, TextFieldInputProps>(
     forwardedRef
   ) => {
     const context = React.useContext(TextFieldContext);
-    const { colors } = useThemeVars();
+    const { colors } = useThemeTokens();
 
     const size = sizeProp ?? context?.size ?? '2';
     const variant = variantProp ?? context?.variant ?? 'surface';

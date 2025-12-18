@@ -9,7 +9,7 @@ import {
   getDialogTitleSize,
   type DialogSize,
 } from '@/lib/dialog-styles';
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as AlertDialogPrimitive from '@rn-primitives/alert-dialog';
 import * as React from 'react';
 import { Platform, StyleSheet, useWindowDimensions, View, type ViewStyle } from 'react-native';
@@ -109,7 +109,7 @@ function AlertDialogContent({
   style,
   ...props
 }: AlertDialogContentProps) {
-  const { colors, isDark } = useThemeVars();
+  const { colors, isDark } = useThemeTokens();
   const { width: windowWidth } = useWindowDimensions();
 
   const contentStyle = getDialogContentStyle(size, colors, isDark, windowWidth, style);

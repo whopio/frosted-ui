@@ -11,7 +11,7 @@ import {
   type ButtonVariant,
 } from '@/lib/button-styles';
 import type { Color } from '@/lib/types';
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as SelectPrimitive from '@rn-primitives/select';
 import * as React from 'react';
 import {
@@ -181,7 +181,7 @@ type SelectValueProps = {
 function SelectValue({ placeholder, ...props }: SelectValueProps) {
   const { size, value } = React.useContext(SelectContext);
   const { variant, color, disabled } = React.useContext(SelectTriggerContext);
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
 
   // Get text size based on select size
   const textSize = size === '1' ? '1' : size === '2' ? '2' : size === '3' ? '3' : '4';
@@ -241,7 +241,7 @@ function SelectTrigger({
   ...props
 }: SelectTriggerProps) {
   const { size, open } = React.useContext(SelectContext);
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const [pressed, setPressed] = React.useState(false);
   const [hovered, setHovered] = React.useState(false);
   const [focused, setFocused] = React.useState(false);
@@ -411,7 +411,7 @@ function SelectContent({ portalHost, position = 'popper', ...props }: SelectCont
   // Get context values before portal (context is lost in portal on native)
   const selectContext = React.useContext(SelectContext);
   const { size, labelMap, value, open } = selectContext;
-  const { colors, isDark } = useThemeVars();
+  const { colors, isDark } = useThemeTokens();
   const { height: windowHeight } = useWindowDimensions();
   const safeAreaInsets = useSafeAreaInsets();
 
@@ -574,7 +574,7 @@ type SelectItemProps = Omit<SelectPrimitive.ItemProps, 'value' | 'children'> & {
 function SelectItem({ children, disabled, label, value, ...props }: SelectItemProps) {
   const { size, labelMap } = React.useContext(SelectContext);
   const { registerItemPosition } = React.useContext(SelectContentContext);
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const [pressed, setPressed] = React.useState(false);
   const [hovered, setHovered] = React.useState(false);
   const [focused, setFocused] = React.useState(false);
@@ -720,7 +720,7 @@ type SelectLabelProps = SelectPrimitive.LabelProps;
 
 function SelectLabel({ children, ...props }: SelectLabelProps) {
   const { size } = React.useContext(SelectContext);
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
 
   const itemHeight = size === '1' ? 24 : size === '2' ? 32 : size === '3' ? 40 : 48;
   const itemIndicatorWidth = itemHeight / 1.2;
@@ -760,7 +760,7 @@ type SelectSeparatorProps = SelectPrimitive.SeparatorProps;
 
 function SelectSeparator({ ...props }: SelectSeparatorProps) {
   const { size } = React.useContext(SelectContext);
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
 
   const contentPadding = size === '1' ? 4 : size === '2' ? 4 : size === '3' ? 4 : 4;
 

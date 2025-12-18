@@ -1,6 +1,6 @@
 import { NativeOnlyAnimatedView } from '@/components/native-only-animated-view';
 import { Text } from '@/components/text';
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as TooltipPrimitive from '@rn-primitives/tooltip';
 import * as React from 'react';
 import { Platform, StyleSheet, View, type ViewStyle } from 'react-native';
@@ -37,7 +37,7 @@ function Tooltip({
   portalHost,
   ...rootProps
 }: TooltipProps) {
-  const { invertedColors } = useThemeVars();
+  const { invertedColors } = useThemeTokens();
 
   // Use inverted theme colors - tooltip shows opposite of current theme
   const backgroundColor = invertedColors.background;

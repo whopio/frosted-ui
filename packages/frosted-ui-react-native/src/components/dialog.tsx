@@ -9,7 +9,7 @@ import {
   getDialogTitleSize,
   type DialogSize,
 } from '@/lib/dialog-styles';
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as DialogPrimitive from '@rn-primitives/dialog';
 import * as React from 'react';
 import {
@@ -114,7 +114,7 @@ interface DialogContentProps
 }
 
 function DialogContent({ size = '3', portalHost, children, style, ...props }: DialogContentProps) {
-  const { colors, isDark } = useThemeVars();
+  const { colors, isDark } = useThemeTokens();
   const { width: windowWidth } = useWindowDimensions();
 
   const contentStyle = getDialogContentStyle(size, colors, isDark, windowWidth, style);

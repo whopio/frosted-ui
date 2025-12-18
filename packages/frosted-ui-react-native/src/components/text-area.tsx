@@ -9,7 +9,7 @@ import {
   type TextInputVariant,
 } from '@/lib/text-input-styles';
 import type { Color } from '@/lib/types';
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as React from 'react';
 import {
   Platform,
@@ -98,7 +98,7 @@ function TextArea({
   editable,
   ...props
 }: TextAreaProps) {
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const accentColor = resolveAccentFromColor(color);
   const sizeStyle = getTextAreaSizeStyle(size);
   const disabled = editable === false;

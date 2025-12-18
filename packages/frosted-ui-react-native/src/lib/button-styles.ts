@@ -1,5 +1,5 @@
 import type { AccentColor, Color } from '@/lib/types';
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import type { ViewStyle } from 'react-native';
 import { Platform } from 'react-native';
 
@@ -57,9 +57,9 @@ export function getButtonSizeStyle(size: ButtonSize, isIconButton = false): View
 
 export function getButtonVariantStyle(
   variant: ButtonVariant,
-  colors: ReturnType<typeof useThemeVars>['colors'],
-  palette: ReturnType<typeof useThemeVars>['colors']['palettes'][AccentColor],
-  gray: ReturnType<typeof useThemeVars>['colors']['palettes']['gray'],
+  colors: ReturnType<typeof useThemeTokens>['colors'],
+  palette: ReturnType<typeof useThemeTokens>['colors']['palettes'][AccentColor],
+  gray: ReturnType<typeof useThemeTokens>['colors']['palettes']['gray'],
   disabled: boolean,
   pressed: boolean,
   hovered: boolean
@@ -130,7 +130,7 @@ export function getButtonShadowStyle(
 }
 
 export function getButtonFocusStyle(
-  palette: ReturnType<typeof useThemeVars>['colors']['palettes'][AccentColor],
+  palette: ReturnType<typeof useThemeTokens>['colors']['palettes'][AccentColor],
   focused: boolean,
   disabled: boolean
 ): ViewStyle | undefined {
@@ -158,8 +158,8 @@ export function getButtonPressedFilter(
 
 export function getButtonTextColor(
   variant: ButtonVariant,
-  palette: ReturnType<typeof useThemeVars>['colors']['palettes'][AccentColor],
-  gray: ReturnType<typeof useThemeVars>['colors']['palettes']['gray'],
+  palette: ReturnType<typeof useThemeTokens>['colors']['palettes'][AccentColor],
+  gray: ReturnType<typeof useThemeTokens>['colors']['palettes']['gray'],
   disabled: boolean
 ): string {
   if (disabled) {

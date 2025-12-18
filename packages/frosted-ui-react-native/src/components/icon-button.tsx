@@ -1,5 +1,4 @@
 import { TextStyleContext } from '@/components/text';
-import type { Color } from '@/lib/types';
 import {
   getButtonFocusStyle,
   getButtonPressedFilter,
@@ -11,10 +10,10 @@ import {
   type ButtonSize,
   type ButtonVariant,
 } from '@/lib/button-styles';
-import { useThemeVars } from '@/lib/use-theme-vars';
-import { cn } from '@/lib/utils';
+import type { Color } from '@/lib/types';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as React from 'react';
-import { Platform, Pressable, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Platform, Pressable, type StyleProp, type ViewStyle } from 'react-native';
 
 type IconButtonProps = Omit<React.ComponentProps<typeof Pressable>, 'style'> & {
   size?: ButtonSize;
@@ -24,7 +23,6 @@ type IconButtonProps = Omit<React.ComponentProps<typeof Pressable>, 'style'> & {
 };
 
 function IconButton({
-  className,
   variant = 'surface',
   size = '2',
   color,
@@ -39,7 +37,7 @@ function IconButton({
   onHoverOut,
   ...pressableProps
 }: IconButtonProps) {
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const [pressed, setPressed] = React.useState(false);
   const [hovered, setHovered] = React.useState(false);
   const [focused, setFocused] = React.useState(false);
@@ -146,28 +144,26 @@ function IconButton({
   );
 
   return (
-    <View className={cn(className)} style={style}>
-      <TextStyleContext.Provider
-        value={{
-          size: size as '1' | '2' | '3' | '4',
-          weight: 'medium',
-          color: textColor,
-        }}>
-        <Pressable
-          style={combinedStyle}
-          role="button"
-          disabled={disabled}
-          onPressIn={handlePressIn}
-          onPressOut={handlePressOut}
-          onHoverIn={handleHoverIn}
-          onHoverOut={handleHoverOut}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          {...pressableProps}>
-          {children}
-        </Pressable>
-      </TextStyleContext.Provider>
-    </View>
+    <TextStyleContext.Provider
+      value={{
+        size: size as '1' | '2' | '3' | '4',
+        weight: 'medium',
+        color: textColor,
+      }}>
+      <Pressable
+        style={[combinedStyle, style]}
+        role="button"
+        disabled={disabled}
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
+        onHoverIn={handleHoverIn}
+        onHoverOut={handleHoverOut}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        {...pressableProps}>
+        {children}
+      </Pressable>
+    </TextStyleContext.Provider>
   );
 }
 

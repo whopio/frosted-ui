@@ -1,64 +1,39 @@
 import { TextStyleContext } from '@/components/text';
-import { themeVars } from '@/lib/theme-vars';
-import { cn } from '@/lib/utils';
+import { themeTokens } from '@/lib/theme-tokens';
 import type { LucideIcon, LucideProps } from 'lucide-react-native';
-import { cssInterop } from 'nativewind';
 import * as React from 'react';
 
 type IconProps = LucideProps & {
   as: LucideIcon;
 };
 
-function IconImpl({ as: IconComponent, ...props }: IconProps) {
-  return <IconComponent {...props} />;
-}
-
-cssInterop(IconImpl, {
-  className: {
-    target: 'style',
-    nativeStyleToProp: {
-      height: 'size',
-      width: 'size',
-    },
-  },
-});
-
 /**
- * A wrapper component for Lucide icons with Nativewind `className` support via `cssInterop`.
+ * A wrapper component for Lucide icons.
  *
- * This component allows you to render any Lucide icon while applying utility classes
- * using `nativewind`. It avoids the need to wrap or configure each icon individually.
+ * This component allows you to render any Lucide icon with automatic color
+ * inheritance from TextStyleContext.
  *
  * @component
  * @example
  * ```tsx
  * import { ArrowRight } from 'lucide-react-native';
- * import { Icon } from '@/registry/components/ui/icon';
+ * import { Icon } from '@frosted-ui/react-native';
  *
- * <Icon as={ArrowRight} className="text-red-500" size={16} />
+ * <Icon as={ArrowRight} size={16} />
  * ```
  *
  * @param {LucideIcon} as - The Lucide icon component to render.
- * @param {string} className - Utility classes to style the icon using Nativewind.
  * @param {number} size - Icon size (defaults to 14).
  * @param {...LucideProps} ...props - Additional Lucide icon props passed to the "as" icon.
  */
-function Icon({ as: IconComponent, className, size = 14, color, ...props }: IconProps) {
+function Icon({ as: IconComponent, size = 14, color, ...props }: IconProps) {
   const textStyleContext = React.useContext(TextStyleContext);
 
   // Use color from context if available, otherwise default to gray-12
   const resolvedColor =
-    color ?? textStyleContext?.color ?? themeVars.colors.light.palettes.gray['12'];
+    color ?? textStyleContext?.color ?? themeTokens.colors.light.palettes.gray['12'];
 
-  return (
-    <IconImpl
-      as={IconComponent}
-      className={cn(className)}
-      size={size}
-      color={resolvedColor}
-      {...props}
-    />
-  );
+  return <IconComponent size={size} color={resolvedColor} {...props} />;
 }
 
 export { Icon };

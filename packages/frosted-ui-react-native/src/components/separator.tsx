@@ -1,5 +1,5 @@
 import type { AccentColor, Color } from '@/lib/types';
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as SeparatorPrimitive from '@rn-primitives/separator';
 import { type ViewStyle } from 'react-native';
 
@@ -41,7 +41,7 @@ function getSeparatorSize(size: SeparatorSize): number | '100%' {
   }
 }
 
-type SeparatorProps = Omit<SeparatorPrimitive.RootProps, 'className'> & {
+type SeparatorProps = SeparatorPrimitive.RootProps & {
   size?: SeparatorSize;
   color?: Color;
 };
@@ -54,7 +54,7 @@ function Separator({
   style,
   ...props
 }: SeparatorProps) {
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
 
   const accentColor = resolveAccentFromColor(color);
   const palette = colors.palettes[accentColor];
