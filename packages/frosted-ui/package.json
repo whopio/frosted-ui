@@ -126,7 +126,7 @@
     "@types/node": "^22.19.1",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
-    "@whop-sdk/turbo-module": "^0.0.5",
+    "@whop/turbo-module": "^0.1.0-canary.3",
     "autoprefixer": "^10.4.20",
     "color-convert": "^2.0.1",
     "emoji-datasource": "^15.1.2",

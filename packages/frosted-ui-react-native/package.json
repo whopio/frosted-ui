@@ -65,7 +65,7 @@
     "@babel/core": "^7.26.0",
     "@react-navigation/native": "^7.0.0",
     "@types/react": "~19.1.10",
-    "@whop-sdk/turbo-module": "^0.0.5",
+    "@whop/turbo-module": "^0.1.0-canary.3",
     "expo": "^54.0.26",
     "expo-linking": "~8.0.9",
     "expo-router": "~6.0.16",
