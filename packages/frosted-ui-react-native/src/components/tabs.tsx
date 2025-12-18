@@ -1,5 +1,6 @@
 import { Text, TextStyleContext } from '@/components/text';
 import { themeTokens } from '@/lib/theme-tokens';
+import type { Color } from '@/lib/types';
 import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as TabsPrimitive from '@rn-primitives/tabs';
 import * as React from 'react';
@@ -9,11 +10,13 @@ type TabsSize = '1' | '2';
 
 type TabsContextValue = {
   size: TabsSize;
+  color: Color | 'accent';
   value?: string;
 };
 
 const TabsContext = React.createContext<TabsContextValue>({
   size: '2',
+  color: 'accent',
   value: undefined,
 });
 
@@ -53,10 +56,14 @@ function getTriggerPadding(size: TabsSize): {
 
 type TabsRootProps = TabsPrimitive.RootProps & {
   size?: TabsSize;
+  color?: Color;
 };
 
-function TabsRoot({ size = '2', value, onValueChange, children, ...props }: TabsRootProps) {
-  const contextValue = React.useMemo(() => ({ size, value }), [size, value]);
+function TabsRoot({ size = '2', color, value, onValueChange, children, ...props }: TabsRootProps) {
+  const contextValue = React.useMemo(
+    (): TabsContextValue => ({ size, color: color ?? 'accent', value }),
+    [size, color, value]
+  );
 
   return (
     <TabsContext.Provider value={contextValue}>
@@ -98,11 +105,12 @@ type TabsTriggerInnerProps = {
 };
 
 function TabsTriggerInner({ value, hovered, children }: TabsTriggerInnerProps) {
-  const { size, value: activeValue } = React.useContext(TabsContext);
+  const { size, color, value: activeValue } = React.useContext(TabsContext);
   const { colors } = useThemeTokens();
 
   const gray = colors.palettes.gray;
-  const accent = colors.palettes.blue; // Default accent
+  // Use the color from context, falling back to accent palette
+  const palette = colors.palettes[color] ?? gray;
 
   const isActive = value === activeValue;
   const { paddingX, innerPaddingX, innerPaddingY } = getTriggerPadding(size);
@@ -136,7 +144,7 @@ function TabsTriggerInner({ value, hovered, children }: TabsTriggerInnerProps) {
     left: 0,
     right: 0,
     height: 2,
-    backgroundColor: accent['10'],
+    backgroundColor: palette['10'],
   };
 
   // Wrap string children in Text component

@@ -2233,6 +2233,46 @@ function TabsDemo() {
         </View>
       </View>
 
+      {/* Colors */}
+      <View style={s.gap2}>
+        <Text size="2" weight="medium">
+          Colors
+        </Text>
+        <View style={s.gap4}>
+          <Tabs.Root color="blue" value={value2} onValueChange={setValue2}>
+            <Tabs.List>
+              <Tabs.Trigger value="tab1">Blue</Tabs.Trigger>
+              <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>
+              <Tabs.Trigger value="tab3">Tab 3</Tabs.Trigger>
+            </Tabs.List>
+          </Tabs.Root>
+
+          <Tabs.Root color="purple" value={value2} onValueChange={setValue2}>
+            <Tabs.List>
+              <Tabs.Trigger value="tab1">Purple</Tabs.Trigger>
+              <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>
+              <Tabs.Trigger value="tab3">Tab 3</Tabs.Trigger>
+            </Tabs.List>
+          </Tabs.Root>
+
+          <Tabs.Root color="green" value={value2} onValueChange={setValue2}>
+            <Tabs.List>
+              <Tabs.Trigger value="tab1">Green</Tabs.Trigger>
+              <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>
+              <Tabs.Trigger value="tab3">Tab 3</Tabs.Trigger>
+            </Tabs.List>
+          </Tabs.Root>
+
+          <Tabs.Root color="orange" value={value2} onValueChange={setValue2}>
+            <Tabs.List>
+              <Tabs.Trigger value="tab1">Orange</Tabs.Trigger>
+              <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>
+              <Tabs.Trigger value="tab3">Tab 3</Tabs.Trigger>
+            </Tabs.List>
+          </Tabs.Root>
+        </View>
+      </View>
+
       {/* Full Example */}
       <View style={s.gap2}>
         <Text size="2" weight="medium">

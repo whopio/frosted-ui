@@ -102,7 +102,15 @@ function ThemeProvider({
       successColor,
       infoColor,
     }),
-    [colorScheme, toggleColorScheme, accentColor, dangerColor, warningColor, successColor, infoColor]
+    [
+      colorScheme,
+      toggleColorScheme,
+      accentColor,
+      dangerColor,
+      warningColor,
+      successColor,
+      infoColor,
+    ]
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
@@ -150,7 +158,14 @@ function useSemanticColors(): SemanticColorConfig {
   return context ?? defaultSemanticColors;
 }
 
-export { defaultSemanticColors, ThemeContext, ThemeProvider, useColorScheme, useSemanticColors, useTheme };
+export {
+  defaultSemanticColors,
+  ThemeContext,
+  ThemeProvider,
+  useColorScheme,
+  useSemanticColors,
+  useTheme,
+};
 export type {
   ColorScheme,
   DangerColor,

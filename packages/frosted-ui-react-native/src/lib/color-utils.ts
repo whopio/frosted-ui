@@ -1,6 +1,10 @@
 import { useMemo } from 'react';
+import {
+  defaultSemanticColors,
+  useSemanticColors,
+  type SemanticColorConfig,
+} from './theme-context';
 import type { AccentColor, Color, SemanticColor } from './types';
-import { defaultSemanticColors, useSemanticColors, type SemanticColorConfig } from './theme-context';
 
 /**
  * Resolves a Color (which can be an AccentColor or SemanticColor) to an AccentColor.
@@ -57,4 +61,3 @@ export function useResolveColor() {
     [semanticColors]
   );
 }
-
