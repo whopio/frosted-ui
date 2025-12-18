@@ -71,8 +71,9 @@ function CalloutRoot({
   ...props
 }: CalloutRootProps) {
   const { colors } = useThemeTokens();
-  // Callout defaults to gray instead of accent
-  const palette = colors.palettes[color ?? 'gray'];
+  const gray = colors.palettes.gray;
+  // Default to accent color, fallback to gray
+  const palette = colors.palettes[color ?? 'accent'] ?? gray;
 
   const baseStyle: ViewStyle = {
     flexDirection: 'row',
