@@ -214,9 +214,9 @@ importers:
       '@types/react-dom':
         specifier: 19.1.10
         version: 19.1.10(@types/react@19.1.10)
-      '@whop-sdk/turbo-module':
-        specifier: ^0.0.5
-        version: 0.0.5
+      '@whop/turbo-module':
+        specifier: ^0.1.0-canary.3
+        version: 0.1.0-canary.3
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.47)
@@ -286,9 +286,9 @@ importers:
       '@types/node':
         specifier: ^15.0.3
         version: 15.0.3
-      '@whop-sdk/turbo-module':
-        specifier: ^0.0.5
-        version: 0.0.5
+      '@whop/turbo-module':
+        specifier: ^0.1.0-canary.3
+        version: 0.1.0-canary.3
       rollup:
         specifier: ^2.48.0
         version: 2.48.0
@@ -423,9 +423,9 @@ importers:
       '@types/react':
         specifier: 19.1.10
         version: 19.1.10
-      '@whop-sdk/turbo-module':
-        specifier: ^0.0.5
-        version: 0.0.5
+      '@whop/turbo-module':
+        specifier: ^0.1.0-canary.3
+        version: 0.1.0-canary.3
       expo:
         specifier: ^54.0.26
         version: 54.0.27(@babel/core@7.28.5)(@expo/metro-runtime@6.1.2)(expo-router@6.0.17)(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
@@ -5146,8 +5146,8 @@ packages:
   '@vscode/sudo-prompt@9.3.1':
     resolution: {integrity: sha512-9ORTwwS74VaTn38tNbQhsA5U44zkJfcb0BdTSyyG6frP4e8KMtHuTXYmwefe5dpL8XB1aGSIVTaLjD3BbWb5iA==}
 
-  '@whop-sdk/turbo-module@0.0.5':
-    resolution: {integrity: sha512-sZkSdwQUnhWCTkG6KPv4BOlM/NRAFqIEMXkh+bQKxoDs/fuS+UXz7aRMlnSvcjG4jlpm8Uoa3ktOVBWBS1yG8w==}
+  '@whop/turbo-module@0.1.0-canary.3':
+    resolution: {integrity: sha512-zvTx+FpKgg+X8CBjh2bdGK+GOqOFKNboj3QEpLgMPaeEe1Vvk1t42g4qMClzKGiayMuV4rq/pyS2SEokYVhW7Q==}
     hasBin: true
 
   '@xmldom/xmldom@0.8.11':
@@ -14230,9 +14230,7 @@ snapshots:
       metro-runtime: 0.83.3
     transitivePeerDependencies:
       - '@babel/core'
-      - bufferutil
       - supports-color
-      - utf-8-validate
     optional: true
 
   '@react-native/normalize-colors@0.74.89': {}
@@ -15899,7 +15897,7 @@ snapshots:
   '@vscode/sudo-prompt@9.3.1':
     optional: true
 
-  '@whop-sdk/turbo-module@0.0.5':
+  '@whop/turbo-module@0.1.0-canary.3':
     dependencies:
       fs-extra: 11.2.0
 

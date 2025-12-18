@@ -5,6 +5,9 @@ on:
 
 name: Build, test, release
 
+permissions:
+  id-token: write
+
 concurrency:
   group: 'release'
   cancel-in-progress: false
@@ -19,7 +22,7 @@ jobs:
     steps:
       - name: Check package.json for version increase
         id: check
-        uses: whopio/turbo-module@v0.0.5
+        uses: whopio/turbo-module@v0.1.0-canary.3
         with:
           action: check
           token: ${{ github.token }}
@@ -31,31 +34,50 @@ jobs:
         with:
           version: 9.15.4
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 22.x
           check-latest: true
           cache: pnpm
-      - name: Install all packages
+
+      - name: Update npm for OIDC trusted publishing
+        run: npm install -g npm@latest
+        if: steps.check.outputs.can-publish == 'true'
+
+      - name: Install dependencies
         run: pnpm i
-      - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
-        if: steps.check.outputs.can-publish == 'true'
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # Removed since we are using OIDC for authentication now
+      # - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+      #   if: steps.check.outputs.can-publish == 'true'
+      #   env:
+      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Run turbo release flow
-        run: pnpm turbo release ${{ steps.check.outputs.filter }}
+        env:
+          NPM_CONFIG_PROVENANCE: 'true'
+          NPM_CONFIG_REGISTRY: https://registry.npmjs.org
+          NPM_CONFIG_ALWAYS_AUTH: 'false'
+          TURBO_FORCE: 'true'
+          TURBO_ENVIRONMENT_VARIABLES: ACTIONS_ID_TOKEN_REQUEST_URL,ACTIONS_ID_TOKEN_REQUEST_TOKEN,NPM_CONFIG_PROVENANCE,NPM_CONFIG_REGISTRY,NPM_CONFIG_ALWAYS_AUTH
+          NODE_AUTH_TOKEN: ''
+          ACTIONS_ID_TOKEN_REQUEST_URL: ${{ env.ACTIONS_ID_TOKEN_REQUEST_URL }}
+          ACTIONS_ID_TOKEN_REQUEST_TOKEN: ${{ env.ACTIONS_ID_TOKEN_REQUEST_TOKEN }}
+        run: pnpm turbo release ${{ steps.check.outputs.filter }} --env-mode=loose
         if: steps.check.outputs.can-publish == 'true'
+
       - name: Github Release
         id: release
-        uses: whopio/turbo-module@v0.0.5
+        uses: whopio/turbo-module@v0.1.0-canary.3
         with:
           action: release
           token: ${{ github.token }}
           version: ${{ steps.check.outputs.version }}
           initial-commit: 3d821dfeec0e67a8b33de2993ba292e58b315d06
         if: steps.check.outputs.can-publish == 'true'
+
       - name: Sync auto-release PRs
-        uses: whopio/turbo-module@v0.0.5
+        uses: whopio/turbo-module@v0.1.0-canary.3
         with:
           action: sync
           token: ${{ github.token }}
