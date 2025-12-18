@@ -86,7 +86,7 @@ const s = StyleSheet.create({
 });
 
 export default function KitchenSinkScreen() {
-  const { colors } = useThemeTokens();
+  const { colors, isDark } = useThemeTokens();
   const headerOptions = useHeaderOptions();
   return (
     <>
@@ -96,7 +96,7 @@ export default function KitchenSinkScreen() {
           ...headerOptions,
         }}
       />
-      <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
+      <ScrollView style={{ flex: 1, backgroundColor: isDark ? colors.surface : colors.background }}>
         <View style={[s.gap8, s.p4, s.pt24]}>
           {/* Typography Section */}
           <ComponentSection title="Typography">
@@ -1948,14 +1948,14 @@ export default function KitchenSinkScreen() {
 
 // Helper Components
 function ComponentSection({ title, children }: { title: string; children: React.ReactNode }) {
-  const { colors } = useThemeTokens();
+  const { colors, isDark } = useThemeTokens();
   return (
     <View style={s.gap4}>
       <View style={[s.row, s.itemsCenter, s.gap2]}>
         <Icon as={ChevronRightIcon} color={colors.palettes.gray['12']} />
         <Heading size="3">{title}</Heading>
       </View>
-      <Card>{children}</Card>
+      <Card style={isDark ? { backgroundColor: colors.background } : undefined}>{children}</Card>
     </View>
   );
 }
