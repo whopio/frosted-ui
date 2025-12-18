@@ -11,7 +11,7 @@ import {
   type ButtonVariant,
 } from '@/lib/button-styles';
 import type { Color } from '@/lib/types';
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as React from 'react';
 import { Platform, Pressable, type StyleProp, type ViewStyle } from 'react-native';
 
@@ -37,7 +37,7 @@ function Button({
   onHoverOut,
   ...pressableProps
 }: ButtonProps) {
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const [pressed, setPressed] = React.useState(false);
   const [hovered, setHovered] = React.useState(false);
   const [focused, setFocused] = React.useState(false);

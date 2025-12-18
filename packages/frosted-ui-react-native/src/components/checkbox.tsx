@@ -1,5 +1,5 @@
 import type { AccentColor, Color } from '@/lib/types';
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as CheckboxPrimitive from '@rn-primitives/checkbox';
 import { Check } from 'lucide-react-native';
 import * as React from 'react';
@@ -56,7 +56,7 @@ function Checkbox({
   onBlur,
   ...props
 }: CheckboxProps) {
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const [focused, setFocused] = React.useState(false);
   const accentColor = resolveAccentFromColor(color);
   const palette = colors.palettes[accentColor];

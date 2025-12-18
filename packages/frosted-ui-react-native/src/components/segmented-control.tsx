@@ -1,5 +1,5 @@
 import { Text, TextStyleContext } from '@/components/text';
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as TabsPrimitive from '@rn-primitives/tabs';
 import * as React from 'react';
 import { Platform, View, type ViewStyle } from 'react-native';
@@ -34,7 +34,7 @@ function SegmentedControlRoot({
 type SegmentedControlListProps = TabsPrimitive.ListProps;
 
 function SegmentedControlList({ children, style, ...props }: SegmentedControlListProps) {
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const gray = colors.palettes.gray;
 
   // Container style - matches CSS:
@@ -70,7 +70,7 @@ function SegmentedControlTriggerInner({
   children,
 }: SegmentedControlTriggerInnerProps) {
   const { value: activeValue } = React.useContext(SegmentedControlContext);
-  const { colors, isDark } = useThemeVars();
+  const { colors, isDark } = useThemeTokens();
 
   const gray = colors.palettes.gray;
 

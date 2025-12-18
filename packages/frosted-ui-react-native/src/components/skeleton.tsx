@@ -1,7 +1,7 @@
 import { getAvatarSize, type AvatarShape, type AvatarSize } from '@/components/avatar';
 import type { TextSize } from '@/components/text';
 import type { AccentColor, Color } from '@/lib/types';
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as React from 'react';
 import { Platform, View, type ViewProps, type ViewStyle } from 'react-native';
 import Animated, {
@@ -116,7 +116,7 @@ function SkeletonAvatar({
   style,
   ...props
 }: SkeletonAvatarProps) {
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const animatedStyle = usePulseAnimation();
 
   const accentColor = resolveAccentFromColor(color);
@@ -150,7 +150,7 @@ type SkeletonTextProps = ViewProps & {
 };
 
 function SkeletonText({ size = '3', color = 'gray', style, ...props }: SkeletonTextProps) {
-  const { colors, typography } = useThemeVars();
+  const { colors, typography } = useThemeTokens();
   const animatedStyle = usePulseAnimation();
 
   const accentColor = resolveAccentFromColor(color);
@@ -197,7 +197,7 @@ type SkeletonRectProps = ViewProps & {
 };
 
 function SkeletonRect({ color = 'gray', style, ...props }: SkeletonRectProps) {
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const animatedStyle = usePulseAnimation();
 
   const accentColor = resolveAccentFromColor(color);

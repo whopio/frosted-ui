@@ -1,12 +1,12 @@
-import { themeVars } from '@/lib/theme-vars';
+import { themeTokens } from '@/lib/theme-tokens';
 import type { AccentColor } from '@/lib/types';
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as Slot from '@rn-primitives/slot';
 import * as React from 'react';
 import { Text as RNText } from 'react-native';
 
-type TextSize = keyof typeof themeVars.typography;
-type TextWeight = keyof typeof themeVars.fontWeights;
+type TextSize = keyof typeof themeTokens.typography;
+type TextWeight = keyof typeof themeTokens.fontWeights;
 
 type TextProps = Omit<React.ComponentProps<typeof RNText>, 'size' | 'weight' | 'color'> & {
   asChild?: boolean;
@@ -25,7 +25,7 @@ type TextStyleContextValue = {
 const TextStyleContext = React.createContext<TextStyleContextValue | undefined>(undefined);
 
 function Text({ asChild = false, size, weight, color, role, style, ...props }: TextProps) {
-  const { colors, typography, fontWeights } = useThemeVars();
+  const { colors, typography, fontWeights } = useThemeTokens();
   const textStyleContext = React.useContext(TextStyleContext);
   const Component = asChild ? Slot.Text : RNText;
 

@@ -5,7 +5,7 @@ export * from './components';
 // UTILITIES
 //------------------------------------------------------------------------------
 export * from './lib/types';
-export * from './lib/use-theme-vars';
+export * from './lib/use-theme-tokens';
 
 // THEME
 //------------------------------------------------------------------------------

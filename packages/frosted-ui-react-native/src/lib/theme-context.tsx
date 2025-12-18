@@ -73,7 +73,7 @@ function useTheme(): ThemeContextValue {
 /**
  * Internal hook to get the current color scheme.
  * Checks ThemeContext first, falls back to system preference.
- * Used by useThemeVars.
+ * Used by useThemeTokens.
  */
 function useColorScheme(): ColorScheme {
   const context = React.useContext(ThemeContext);

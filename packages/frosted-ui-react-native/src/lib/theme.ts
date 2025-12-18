@@ -1,8 +1,8 @@
 import { DarkTheme, DefaultTheme, type Theme } from '@react-navigation/native';
-import { themeVars } from './theme-vars';
+import { themeTokens } from './theme-tokens';
 
-const light = themeVars.colors.light;
-const dark = themeVars.colors.dark;
+const light = themeTokens.colors.light;
+const dark = themeTokens.colors.dark;
 
 /**
  * Navigation theme using Frosted UI design system colors.

@@ -1,6 +1,6 @@
 import { Text, TextStyleContext } from '@/components/text';
-import { themeVars } from '@/lib/theme-vars';
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { themeTokens } from '@/lib/theme-tokens';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as TabsPrimitive from '@rn-primitives/tabs';
 import * as React from 'react';
 import { View, type ViewStyle } from 'react-native';
@@ -29,7 +29,7 @@ function getListHeight(size: TabsSize): number {
   }
 }
 
-function getTextSize(size: TabsSize): keyof typeof themeVars.typography {
+function getTextSize(size: TabsSize): keyof typeof themeTokens.typography {
   switch (size) {
     case '1':
       return '1';
@@ -71,7 +71,7 @@ type TabsListProps = TabsPrimitive.ListProps;
 
 function TabsList({ children, ...props }: TabsListProps) {
   const { size } = React.useContext(TabsContext);
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const gray = colors.palettes.gray;
 
   const height = getListHeight(size);
@@ -99,7 +99,7 @@ type TabsTriggerInnerProps = {
 
 function TabsTriggerInner({ value, hovered, children }: TabsTriggerInnerProps) {
   const { size, value: activeValue } = React.useContext(TabsContext);
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
 
   const gray = colors.palettes.gray;
   const accent = colors.palettes.blue; // Default accent

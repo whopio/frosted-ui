@@ -1,4 +1,4 @@
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as React from 'react';
 import { Platform, View, type ViewStyle } from 'react-native';
 import Animated, {
@@ -192,7 +192,7 @@ function SpinnerLeafWeb({ index, spinnerSize, color }: SpinnerLeafProps) {
 // ============================================================================
 
 function Spinner({ size = '2', loading = true, children, color, style }: SpinnerProps) {
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const spinnerSize = getSpinnerSize(size);
 
   // Use gray-12 as default color (matches text color in both light/dark modes)

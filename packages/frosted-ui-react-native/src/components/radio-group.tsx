@@ -1,5 +1,5 @@
 import type { AccentColor, Color } from '@/lib/types';
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as RadioGroupPrimitive from '@rn-primitives/radio-group';
 import * as React from 'react';
 import { Platform, View, type ViewStyle } from 'react-native';
@@ -72,7 +72,7 @@ type RadioGroupItemProps = Omit<RadioGroupPrimitive.ItemProps, 'children'>;
 
 function RadioGroupItem({ value, disabled, onFocus, onBlur, ...props }: RadioGroupItemProps) {
   const { size, color, value: groupValue } = React.useContext(RadioGroupContext);
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const [focused, setFocused] = React.useState(false);
 
   const palette = colors.palettes[color];

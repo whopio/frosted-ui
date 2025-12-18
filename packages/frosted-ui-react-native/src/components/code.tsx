@@ -1,12 +1,12 @@
-import { themeVars } from '@/lib/theme-vars';
+import { themeTokens } from '@/lib/theme-tokens';
 import type { AccentColor } from '@/lib/types';
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as React from 'react';
 import { Platform, Text as RNText, type TextStyle } from 'react-native';
 
 type CodeSize = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
 type CodeVariant = 'solid' | 'soft' | 'outline' | 'ghost';
-type CodeWeight = keyof typeof themeVars.fontWeights;
+type CodeWeight = keyof typeof themeTokens.fontWeights;
 
 type CodeProps = Omit<React.ComponentProps<typeof RNText>, 'style'> & {
   size?: CodeSize;
@@ -24,7 +24,7 @@ function Code({
   style,
   ...props
 }: CodeProps) {
-  const { colors, typography, fontWeights } = useThemeVars();
+  const { colors, typography, fontWeights } = useThemeTokens();
   const palette = colors.palettes[color] ?? colors.palettes.gray;
 
   // Typography from theme, with 0.95 font size adjustment like web

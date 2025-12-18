@@ -1,11 +1,11 @@
 import { Text } from '@/components/text';
-import { themeVars } from '@/lib/theme-vars';
+import { themeTokens } from '@/lib/theme-tokens';
 import type { AccentColor } from '@/lib/types';
 import type * as React from 'react';
 import { Platform } from 'react-native';
 
-type HeadingSize = keyof typeof themeVars.typography;
-type HeadingWeight = keyof typeof themeVars.fontWeights;
+type HeadingSize = keyof typeof themeTokens.typography;
+type HeadingWeight = keyof typeof themeTokens.fontWeights;
 
 type HeadingProps = Omit<React.ComponentProps<typeof Text>, 'variant' | 'color'> & {
   size?: HeadingSize;

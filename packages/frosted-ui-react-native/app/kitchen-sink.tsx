@@ -31,7 +31,7 @@ import {
   TextArea,
   TextField,
   Tooltip,
-  useThemeVars,
+  useThemeTokens,
 } from '@frosted-ui/react-native';
 import { Stack } from 'expo-router';
 import {
@@ -86,7 +86,7 @@ const s = StyleSheet.create({
 });
 
 export default function KitchenSinkScreen() {
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const headerOptions = useHeaderOptions();
   return (
     <>
@@ -1948,7 +1948,7 @@ export default function KitchenSinkScreen() {
 
 // Helper Components
 function ComponentSection({ title, children }: { title: string; children: React.ReactNode }) {
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   return (
     <View style={s.gap4}>
       <View style={[s.row, s.itemsCenter, s.gap2]}>
@@ -1961,7 +1961,7 @@ function ComponentSection({ title, children }: { title: string; children: React.
 }
 
 function SectionLabel({ children }: { children: string }) {
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   return (
     <Text weight="semi-bold" style={{ color: colors.palettes.gray.a10 }}>
       {children}
@@ -1976,7 +1976,7 @@ function ContextMenuTriggerBox({
   children: React.ReactNode;
   height?: number;
 }) {
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   return (
     <View
       style={{

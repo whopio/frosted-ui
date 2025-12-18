@@ -80,13 +80,13 @@ export default function App() {
 
 ### Accessing Theme Colors
 
-Use `useThemeVars` to access the design system colors in your components:
+Use `useThemeTokens` to access the design system colors in your components:
 
 ```tsx
-import { useThemeVars } from '@frosted-ui/react-native';
+import { useThemeTokens } from '@frosted-ui/react-native';
 
 function MyComponent() {
-  const { colors, isDark } = useThemeVars();
+  const { colors, isDark } = useThemeTokens();
   
   return (
     <View style={{ backgroundColor: colors.background }}>

@@ -1,5 +1,5 @@
 import type { AccentColor, Color } from '@/lib/types';
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import { Platform, type ViewStyle } from 'react-native';
 
 // ============================================================================
@@ -49,7 +49,7 @@ export function hexToRgba(hex: string, opacity: number): string {
  * Get background and border styles for surface variant
  */
 export function getSurfaceVariantStyle(
-  colors: ReturnType<typeof useThemeVars>['colors']
+  colors: ReturnType<typeof useThemeTokens>['colors']
 ): ViewStyle {
   return {
     backgroundColor: colors.surface,
@@ -73,7 +73,7 @@ export function getSurfaceVariantStyle(
  * Get background style for soft variant
  */
 export function getSoftVariantStyle(
-  colors: ReturnType<typeof useThemeVars>['colors'],
+  colors: ReturnType<typeof useThemeTokens>['colors'],
   accentColor: AccentColor
 ): ViewStyle {
   return {
@@ -86,7 +86,7 @@ export function getSoftVariantStyle(
  */
 export function getTextInputColors(
   variant: TextInputVariant,
-  colors: ReturnType<typeof useThemeVars>['colors'],
+  colors: ReturnType<typeof useThemeTokens>['colors'],
   accentColor: AccentColor,
   disabled?: boolean
 ): { textColor: string; placeholderColor: string } {
@@ -121,7 +121,7 @@ export function getTextInputColors(
  * Uses gray-a3 overlay (simulated with opacity/background)
  */
 export function getDisabledSurfaceStyle(
-  colors: ReturnType<typeof useThemeVars>['colors']
+  colors: ReturnType<typeof useThemeTokens>['colors']
 ): ViewStyle {
   return {
     backgroundColor: colors.palettes.gray.a3,
@@ -131,7 +131,9 @@ export function getDisabledSurfaceStyle(
 /**
  * Get disabled background style for soft variant
  */
-export function getDisabledSoftStyle(colors: ReturnType<typeof useThemeVars>['colors']): ViewStyle {
+export function getDisabledSoftStyle(
+  colors: ReturnType<typeof useThemeTokens>['colors']
+): ViewStyle {
   return {
     backgroundColor: colors.palettes.gray.a4,
   };

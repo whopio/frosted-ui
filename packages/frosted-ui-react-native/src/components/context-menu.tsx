@@ -1,7 +1,7 @@
 import { NativeOnlyAnimatedView } from '@/components/native-only-animated-view';
 import { Text, TextStyleContext, type TextSize } from '@/components/text';
 import type { Color } from '@/lib/types';
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as ContextMenuPrimitive from '@rn-primitives/context-menu';
 import * as React from 'react';
 import {
@@ -128,7 +128,7 @@ type ContextMenuContentProps = Omit<ContextMenuPrimitive.ContentProps, 'children
 
 function ContextMenuContent({ portalHost, children, ...props }: ContextMenuContentProps) {
   const { size, variant, color } = React.useContext(ContextMenuContext);
-  const { colors, isDark } = useThemeVars();
+  const { colors, isDark } = useThemeTokens();
   const { height: windowHeight } = useWindowDimensions();
   const safeAreaInsets = useSafeAreaInsets();
 
@@ -251,7 +251,7 @@ type ContextMenuItemProps = Omit<ContextMenuPrimitive.ItemProps, 'children'> & {
 
 function ContextMenuItem({ children, disabled, color, ...props }: ContextMenuItemProps) {
   const { size, hasIndicators } = React.useContext(ContextMenuContext);
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const [hovered, setHovered] = React.useState(false);
   const [pressed, setPressed] = React.useState(false);
 
@@ -347,7 +347,7 @@ type ContextMenuCheckboxItemProps = Omit<ContextMenuPrimitive.CheckboxItemProps,
 
 function ContextMenuCheckboxItem({ children, disabled, ...props }: ContextMenuCheckboxItemProps) {
   const { size } = React.useContext(ContextMenuContext);
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const [hovered, setHovered] = React.useState(false);
   const [pressed, setPressed] = React.useState(false);
 
@@ -432,7 +432,7 @@ type ContextMenuRadioItemProps = Omit<ContextMenuPrimitive.RadioItemProps, 'chil
 
 function ContextMenuRadioItem({ children, disabled, ...props }: ContextMenuRadioItemProps) {
   const { size } = React.useContext(ContextMenuContext);
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const [hovered, setHovered] = React.useState(false);
   const [pressed, setPressed] = React.useState(false);
 
@@ -505,7 +505,7 @@ type ContextMenuLabelProps = ContextMenuPrimitive.LabelProps;
 
 function ContextMenuLabel({ children, ...props }: ContextMenuLabelProps) {
   const { size, hasIndicators } = React.useContext(ContextMenuContext);
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
 
   const sizeStyles = getMenuSizeStyles(size);
 
@@ -548,7 +548,7 @@ type ContextMenuSeparatorProps = ContextMenuPrimitive.SeparatorProps;
 
 function ContextMenuSeparator(props: ContextMenuSeparatorProps) {
   const { size } = React.useContext(ContextMenuContext);
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
 
   const sizeStyles = getMenuSizeStyles(size);
 
@@ -595,7 +595,7 @@ type ContextMenuSubTriggerProps = Omit<ContextMenuPrimitive.SubTriggerProps, 'ch
 
 function ContextMenuSubTrigger({ children, disabled, ...props }: ContextMenuSubTriggerProps) {
   const { size, hasIndicators } = React.useContext(ContextMenuContext);
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const [hovered, setHovered] = React.useState(false);
   const [pressed, setPressed] = React.useState(false);
 
@@ -664,7 +664,7 @@ type ContextMenuSubContentProps = ContextMenuPrimitive.SubContentProps;
 
 function ContextMenuSubContent(props: ContextMenuSubContentProps) {
   const { size, variant } = React.useContext(ContextMenuContext);
-  const { colors, isDark } = useThemeVars();
+  const { colors, isDark } = useThemeTokens();
 
   const sizeStyles = getMenuSizeStyles(size);
   const backgroundColor = variant === 'solid' ? colors.panelSolid : colors.panelTranslucent;

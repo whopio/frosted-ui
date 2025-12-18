@@ -1,5 +1,5 @@
 import type { AccentColor, Color } from '@/lib/types';
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as SwitchPrimitive from '@rn-primitives/switch';
 import * as React from 'react';
 import { Platform, View, type ViewStyle } from 'react-native';
@@ -77,7 +77,7 @@ function Switch({
   onBlur,
   ...props
 }: SwitchProps) {
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const [focused, setFocused] = React.useState(false);
 
   const accentColor = resolveAccentFromColor(color);

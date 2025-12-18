@@ -1,6 +1,6 @@
 import { TextStyleContext } from '@/components/text';
 import type { AccentColor, Color } from '@/lib/types';
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as Slot from '@rn-primitives/slot';
 import * as React from 'react';
 import { View, type ViewStyle } from 'react-native';
@@ -32,7 +32,7 @@ function resolveAccentFromColor(color?: Color): AccentColor {
 }
 
 function Badge({ variant = 'soft', size = '1', color, style, asChild, ...props }: BadgeProps) {
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const Component = asChild ? Slot.View : View;
   const accentColor = resolveAccentFromColor(color);
   const palette = colors.palettes[accentColor];

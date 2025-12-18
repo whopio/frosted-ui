@@ -1,4 +1,4 @@
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import { View, type ViewProps, type ViewStyle } from 'react-native';
 
 type CardVariant = 'soft' | 'surface' | 'ghost';
@@ -9,7 +9,7 @@ type CardProps = ViewProps &
   };
 
 function Card({ variant = 'surface', style, ...props }: CardProps) {
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const gray = colors.palettes.gray;
 
   const baseStyle: ViewStyle = {

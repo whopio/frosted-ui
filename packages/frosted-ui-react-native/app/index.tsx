@@ -1,4 +1,4 @@
-import { Button, Code, Icon, Text, useTheme, useThemeVars } from '@frosted-ui/react-native';
+import { Button, Code, Icon, Text, useTheme, useThemeTokens } from '@frosted-ui/react-native';
 import { Link, Stack } from 'expo-router';
 import { StarIcon } from 'lucide-react-native';
 import * as React from 'react';
@@ -42,7 +42,7 @@ const s = StyleSheet.create({
 
 export default function Screen() {
   const { colorScheme } = useTheme();
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const headerOptions = useHeaderOptions();
 
   return (

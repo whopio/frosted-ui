@@ -1,7 +1,7 @@
 import { NativeOnlyAnimatedView } from '@/components/native-only-animated-view';
 import { Text, TextStyleContext, type TextSize } from '@/components/text';
 import type { Color } from '@/lib/types';
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as DropdownMenuPrimitive from '@rn-primitives/dropdown-menu';
 import * as React from 'react';
 import {
@@ -133,7 +133,7 @@ type DropdownMenuContentProps = Omit<DropdownMenuPrimitive.ContentProps, 'childr
 
 function DropdownMenuContent({ portalHost, children, ...props }: DropdownMenuContentProps) {
   const { size, variant, color } = React.useContext(DropdownMenuContext);
-  const { colors, isDark } = useThemeVars();
+  const { colors, isDark } = useThemeTokens();
   const { height: windowHeight } = useWindowDimensions();
   const safeAreaInsets = useSafeAreaInsets();
 
@@ -258,7 +258,7 @@ type DropdownMenuItemProps = Omit<DropdownMenuPrimitive.ItemProps, 'children'> &
 
 function DropdownMenuItem({ children, disabled, color, ...props }: DropdownMenuItemProps) {
   const { size, hasIndicators } = React.useContext(DropdownMenuContext);
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const [hovered, setHovered] = React.useState(false);
   const [pressed, setPressed] = React.useState(false);
 
@@ -354,7 +354,7 @@ type DropdownMenuCheckboxItemProps = Omit<DropdownMenuPrimitive.CheckboxItemProp
 
 function DropdownMenuCheckboxItem({ children, disabled, ...props }: DropdownMenuCheckboxItemProps) {
   const { size } = React.useContext(DropdownMenuContext);
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const [hovered, setHovered] = React.useState(false);
   const [pressed, setPressed] = React.useState(false);
 
@@ -439,7 +439,7 @@ type DropdownMenuRadioItemProps = Omit<DropdownMenuPrimitive.RadioItemProps, 'ch
 
 function DropdownMenuRadioItem({ children, disabled, ...props }: DropdownMenuRadioItemProps) {
   const { size } = React.useContext(DropdownMenuContext);
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const [hovered, setHovered] = React.useState(false);
   const [pressed, setPressed] = React.useState(false);
 
@@ -512,7 +512,7 @@ type DropdownMenuLabelProps = DropdownMenuPrimitive.LabelProps;
 
 function DropdownMenuLabel({ children, ...props }: DropdownMenuLabelProps) {
   const { size, hasIndicators } = React.useContext(DropdownMenuContext);
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
 
   const sizeStyles = getMenuSizeStyles(size);
 
@@ -555,7 +555,7 @@ type DropdownMenuSeparatorProps = DropdownMenuPrimitive.SeparatorProps;
 
 function DropdownMenuSeparator(props: DropdownMenuSeparatorProps) {
   const { size } = React.useContext(DropdownMenuContext);
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
 
   const sizeStyles = getMenuSizeStyles(size);
 
@@ -602,7 +602,7 @@ type DropdownMenuSubTriggerProps = Omit<DropdownMenuPrimitive.SubTriggerProps, '
 
 function DropdownMenuSubTrigger({ children, disabled, ...props }: DropdownMenuSubTriggerProps) {
   const { size, hasIndicators } = React.useContext(DropdownMenuContext);
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const [hovered, setHovered] = React.useState(false);
   const [pressed, setPressed] = React.useState(false);
 
@@ -671,7 +671,7 @@ type DropdownMenuSubContentProps = DropdownMenuPrimitive.SubContentProps;
 
 function DropdownMenuSubContent(props: DropdownMenuSubContentProps) {
   const { size, variant } = React.useContext(DropdownMenuContext);
-  const { colors, isDark } = useThemeVars();
+  const { colors, isDark } = useThemeTokens();
 
   const sizeStyles = getMenuSizeStyles(size);
   const backgroundColor = variant === 'solid' ? colors.panelSolid : colors.panelTranslucent;

@@ -199,7 +199,7 @@ export function blackAndWhitePalettes() {
   };
 }
 
-export const themeVars = {
+export const themeTokens = {
   typography,
   fontWeights,
   colors: {

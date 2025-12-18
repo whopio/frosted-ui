@@ -2,7 +2,7 @@ import { NAV_THEME } from '@/lib/theme';
 import {
   ThemeProvider as FrostedThemeProvider,
   useTheme,
-  useThemeVars,
+  useThemeTokens,
 } from '@frosted-ui/react-native';
 import { ThemeProvider as NavigationThemeProvider } from '@react-navigation/native';
 import { PortalHost } from '@rn-primitives/portal';
@@ -18,7 +18,7 @@ export {
 
 function RootLayoutContent() {
   const { colorScheme } = useTheme();
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
 
   useEffect(() => {
     SystemUI.setBackgroundColorAsync(colors.background);

@@ -1,6 +1,6 @@
 import { Text } from '@/components/text';
 import type { AccentColor, Color } from '@/lib/types';
-import { useThemeVars } from '@/lib/use-theme-vars';
+import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as React from 'react';
 import { Image, View, type ImageStyle, type TextStyle, type ViewStyle } from 'react-native';
 
@@ -83,7 +83,7 @@ type AvatarProps = {
 };
 
 function Avatar({ src, fallback, size = '3', shape = 'circle', color }: AvatarProps) {
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   const [imageStatus, setImageStatus] = React.useState<'loading' | 'loaded' | 'error'>('loading');
 
   const accentColor = resolveAccentFromColor(color);

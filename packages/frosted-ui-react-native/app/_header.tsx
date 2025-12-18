@@ -1,4 +1,4 @@
-import { Icon, IconButton, useTheme, useThemeVars } from '@frosted-ui/react-native';
+import { Icon, IconButton, useTheme, useThemeTokens } from '@frosted-ui/react-native';
 import { MoonStarIcon, SunIcon } from 'lucide-react-native';
 import { Platform, StyleSheet, View } from 'react-native';
 
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 });
 
 function HeaderBackground() {
-  const { colors } = useThemeVars();
+  const { colors } = useThemeTokens();
   return (
     <View
       style={[

@@ -1,5 +1,5 @@
 import { TextStyleContext } from '@/components/text';
-import { themeVars } from '@/lib/theme-vars';
+import { themeTokens } from '@/lib/theme-tokens';
 import type { LucideIcon, LucideProps } from 'lucide-react-native';
 import * as React from 'react';
 
@@ -31,7 +31,7 @@ function Icon({ as: IconComponent, size = 14, color, ...props }: IconProps) {
 
   // Use color from context if available, otherwise default to gray-12
   const resolvedColor =
-    color ?? textStyleContext?.color ?? themeVars.colors.light.palettes.gray['12'];
+    color ?? textStyleContext?.color ?? themeTokens.colors.light.palettes.gray['12'];
 
   return <IconComponent size={size} color={resolvedColor} {...props} />;
 }
