@@ -36,9 +36,10 @@ function Text({ asChild = false, size, weight, color, role, style, ...props }: T
   // 1. If color prop is set, use that palette's shade 11
   // 2. If context provides a color, use that
   // 3. Otherwise, use default foreground color (gray-12)
+  const gray = colors.palettes.gray;
   const resolvedColor = color
-    ? colors.palettes[color]['11']
-    : (textStyleContext?.color ?? colors.palettes.gray['12']);
+    ? (colors.palettes[color] ?? gray)['11']
+    : (textStyleContext?.color ?? gray['12']);
 
   const typo = effectiveSize ? typography[effectiveSize] : undefined;
   const fontWeightValue = effectiveWeight ? fontWeights[effectiveWeight] : undefined;

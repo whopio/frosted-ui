@@ -1,5 +1,5 @@
 import { TextStyleContext } from '@/components/text';
-import type { AccentColor, Color } from '@/lib/types';
+import type { Color } from '@/lib/types';
 import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as React from 'react';
 import { View, type ViewProps, type ViewStyle } from 'react-native';
@@ -9,29 +9,11 @@ type CalloutVariant = 'soft' | 'surface' | 'outline';
 
 type CalloutContextValue = {
   size: CalloutSize;
-  color: AccentColor;
 };
 
 const CalloutContext = React.createContext<CalloutContextValue>({
   size: '2',
-  color: 'gray',
 });
-
-function resolveAccentFromColor(color?: Color): AccentColor {
-  if (!color) return 'gray';
-  switch (color) {
-    case 'danger':
-      return 'red';
-    case 'warning':
-      return 'amber';
-    case 'success':
-      return 'green';
-    case 'info':
-      return 'blue';
-    default:
-      return color as AccentColor;
-  }
-}
 
 // Size to text size mapping (matching web version)
 function getTextSize(size: CalloutSize): '1' | '2' | '3' {
@@ -89,8 +71,9 @@ function CalloutRoot({
   ...props
 }: CalloutRootProps) {
   const { colors } = useThemeTokens();
-  const accentColor = resolveAccentFromColor(color);
-  const palette = colors.palettes[accentColor];
+  const gray = colors.palettes.gray;
+  // Default to accent color, fallback to gray
+  const palette = colors.palettes[color ?? 'accent'] ?? gray;
 
   const baseStyle: ViewStyle = {
     flexDirection: 'row',
@@ -127,7 +110,7 @@ function CalloutRoot({
     ...variantStyle,
   };
 
-  const contextValue = React.useMemo(() => ({ size, color: accentColor }), [size, accentColor]);
+  const contextValue = React.useMemo(() => ({ size }), [size]);
 
   // Text color for children
   const textColor = palette.a11 || palette['11'];

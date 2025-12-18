@@ -6,7 +6,6 @@ import {
   getButtonShadowStyle,
   getButtonSizeStyle,
   getButtonVariantStyle,
-  resolveAccentFromColor,
   type ButtonSize,
   type ButtonVariant,
 } from '@/lib/button-styles';
@@ -190,8 +189,7 @@ function SelectValue({ placeholder, ...props }: SelectValueProps) {
 
   // Get colors based on variant (matching web)
   const gray = colors.palettes.gray;
-  const accentColor = resolveAccentFromColor(color);
-  const palette = colors.palettes[accentColor] ?? gray;
+  const palette = colors.palettes[color ?? 'gray'];
 
   // Text colors per variant:
   // - surface: gray-12, placeholder: gray-a10, disabled: gray-a8
@@ -245,10 +243,9 @@ function SelectTrigger({
   const [pressed, setPressed] = React.useState(false);
   const [hovered, setHovered] = React.useState(false);
   const [focused, setFocused] = React.useState(false);
-  const accentColor = resolveAccentFromColor(color);
 
   const gray = colors.palettes.gray;
-  const palette = colors.palettes[accentColor] ?? gray;
+  const palette = colors.palettes[color ?? 'gray'];
 
   // When select is open, apply pressed styles (matching web [data-state='open'])
   const isPressed = pressed || open;

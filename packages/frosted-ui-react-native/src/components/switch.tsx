@@ -1,26 +1,10 @@
-import type { AccentColor, Color } from '@/lib/types';
+import type { Color } from '@/lib/types';
 import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as SwitchPrimitive from '@rn-primitives/switch';
 import * as React from 'react';
 import { Platform, View, type ViewStyle } from 'react-native';
 
 type SwitchSize = '1' | '2' | '3';
-
-function resolveAccentFromColor(color?: Color): AccentColor {
-  if (!color) return 'blue';
-  switch (color) {
-    case 'danger':
-      return 'red';
-    case 'warning':
-      return 'amber';
-    case 'success':
-      return 'green';
-    case 'info':
-      return 'blue';
-    default:
-      return color as AccentColor;
-  }
-}
 
 // Size styles from CSS:
 // Size 1: --switch-height: var(--space-4) = 16px
@@ -80,9 +64,10 @@ function Switch({
   const { colors } = useThemeTokens();
   const [focused, setFocused] = React.useState(false);
 
-  const accentColor = resolveAccentFromColor(color);
-  const palette = colors.palettes[accentColor];
   const gray = colors.palettes.gray;
+  // Semantic colors (accent, danger, etc.) are added by useThemeTokens
+  // Fallback to gray if palette key doesn't exist
+  const palette = colors.palettes[color ?? 'accent'] ?? gray;
 
   const { height, width, padding, thumbSize, translateX } = getSizeStyle(size);
 

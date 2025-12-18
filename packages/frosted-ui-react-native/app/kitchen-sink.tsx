@@ -92,7 +92,7 @@ export default function KitchenSinkScreen() {
     <>
       <Stack.Screen
         options={{
-          title: 'Component Kitchen Sink',
+          title: 'Components',
           ...headerOptions,
         }}
       />
@@ -202,18 +202,18 @@ export default function KitchenSinkScreen() {
           <ComponentSection title="Buttons">
             <View style={s.gap6}>
               <View style={s.gap3}>
-                <SectionLabel>Variants - Blue</SectionLabel>
+                <SectionLabel>Variants - Default (accent)</SectionLabel>
                 <View style={[s.row, s.wrap, s.gap2]}>
-                  <Button variant="solid" color="blue">
+                  <Button variant="solid">
                     <Text>Solid</Text>
                   </Button>
-                  <Button variant="soft" color="blue">
+                  <Button variant="soft">
                     <Text>Soft</Text>
                   </Button>
-                  <Button variant="surface" color="blue">
+                  <Button variant="surface">
                     <Text>Surface</Text>
                   </Button>
-                  <Button variant="ghost" color="blue">
+                  <Button variant="ghost">
                     <Text>Ghost</Text>
                   </Button>
                 </View>
@@ -347,18 +347,18 @@ export default function KitchenSinkScreen() {
           <ComponentSection title="IconButton">
             <View style={s.gap6}>
               <View style={s.gap3}>
-                <SectionLabel>Variants - Blue</SectionLabel>
+                <SectionLabel>Variants - Default (accent)</SectionLabel>
                 <View style={[s.row, s.wrap, s.gap2]}>
-                  <IconButton variant="solid" color="blue">
+                  <IconButton variant="solid">
                     <Icon as={SettingsIcon} size={16} />
                   </IconButton>
-                  <IconButton variant="soft" color="blue">
+                  <IconButton variant="soft">
                     <Icon as={SettingsIcon} size={16} />
                   </IconButton>
-                  <IconButton variant="surface" color="blue">
+                  <IconButton variant="surface">
                     <Icon as={SettingsIcon} size={16} />
                   </IconButton>
-                  <IconButton variant="ghost" color="blue">
+                  <IconButton variant="ghost">
                     <Icon as={SettingsIcon} size={16} />
                   </IconButton>
                 </View>
@@ -427,16 +427,16 @@ export default function KitchenSinkScreen() {
               <View style={s.gap3}>
                 <SectionLabel>Variants</SectionLabel>
                 <View style={[s.row, s.wrap, s.gap2]}>
-                  <Badge variant="solid" color="blue">
+                  <Badge variant="solid">
                     <Text>Solid</Text>
                   </Badge>
-                  <Badge variant="soft" color="blue">
+                  <Badge variant="soft">
                     <Text>Soft</Text>
                   </Badge>
-                  <Badge variant="surface" color="blue">
+                  <Badge variant="surface">
                     <Text>Surface</Text>
                   </Badge>
-                  <Badge variant="outline" color="blue">
+                  <Badge variant="outline">
                     <Text>Outline</Text>
                   </Badge>
                 </View>
@@ -577,7 +577,7 @@ export default function KitchenSinkScreen() {
               {/* Variants */}
               <View style={s.gap3}>
                 <SectionLabel>Variants</SectionLabel>
-                <Callout.Root variant="soft" color="blue">
+                <Callout.Root variant="soft">
                   <Callout.Icon>
                     <Icon as={InfoIcon} />
                   </Callout.Icon>
@@ -585,7 +585,7 @@ export default function KitchenSinkScreen() {
                     <Text>Soft variant callout with helpful information.</Text>
                   </Callout.Text>
                 </Callout.Root>
-                <Callout.Root variant="surface" color="blue">
+                <Callout.Root variant="surface">
                   <Callout.Icon>
                     <Icon as={InfoIcon} />
                   </Callout.Icon>
@@ -593,7 +593,7 @@ export default function KitchenSinkScreen() {
                     <Text>Surface variant callout with helpful information.</Text>
                   </Callout.Text>
                 </Callout.Root>
-                <Callout.Root variant="outline" color="blue">
+                <Callout.Root variant="outline">
                   <Callout.Icon>
                     <Icon as={InfoIcon} />
                   </Callout.Icon>
@@ -887,9 +887,9 @@ export default function KitchenSinkScreen() {
               <View style={s.gap3}>
                 <SectionLabel>Sizes</SectionLabel>
                 <View style={[s.row, s.gap6]}>
-                  <RadioGroupDemo size="1" color="blue" />
-                  <RadioGroupDemo size="2" color="blue" />
-                  <RadioGroupDemo size="3" color="blue" />
+                  <RadioGroupDemo size="1" />
+                  <RadioGroupDemo size="2" />
+                  <RadioGroupDemo size="3" />
                 </View>
               </View>
 
@@ -1538,7 +1538,7 @@ export default function KitchenSinkScreen() {
                         </Button>
                       </AlertDialog.Cancel>
                       <AlertDialog.Action>
-                        <Button variant="solid" color="red">
+                        <Button variant="solid" color="danger">
                           <Text>Revoke access</Text>
                         </Button>
                       </AlertDialog.Action>
@@ -1813,11 +1813,11 @@ export default function KitchenSinkScreen() {
           <ComponentSection title="Select">
             <View style={s.gap6}>
               <View style={s.gap3}>
-                <SectionLabel>Variants - Blue</SectionLabel>
+                <SectionLabel>Variants - Default</SectionLabel>
                 <View style={[s.row, s.wrap, s.gap2]}>
-                  <SelectDemo variant="surface" color="blue" />
-                  <SelectDemo variant="soft" color="blue" />
-                  <SelectDemo variant="ghost" color="blue" />
+                  <SelectDemo variant="surface" />
+                  <SelectDemo variant="soft" />
+                  <SelectDemo variant="ghost" />
                 </View>
               </View>
 
@@ -2233,6 +2233,46 @@ function TabsDemo() {
         </View>
       </View>
 
+      {/* Colors */}
+      <View style={s.gap2}>
+        <Text size="2" weight="medium">
+          Colors
+        </Text>
+        <View style={s.gap4}>
+          <Tabs.Root color="blue" value={value2} onValueChange={setValue2}>
+            <Tabs.List>
+              <Tabs.Trigger value="tab1">Blue</Tabs.Trigger>
+              <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>
+              <Tabs.Trigger value="tab3">Tab 3</Tabs.Trigger>
+            </Tabs.List>
+          </Tabs.Root>
+
+          <Tabs.Root color="purple" value={value2} onValueChange={setValue2}>
+            <Tabs.List>
+              <Tabs.Trigger value="tab1">Purple</Tabs.Trigger>
+              <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>
+              <Tabs.Trigger value="tab3">Tab 3</Tabs.Trigger>
+            </Tabs.List>
+          </Tabs.Root>
+
+          <Tabs.Root color="green" value={value2} onValueChange={setValue2}>
+            <Tabs.List>
+              <Tabs.Trigger value="tab1">Green</Tabs.Trigger>
+              <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>
+              <Tabs.Trigger value="tab3">Tab 3</Tabs.Trigger>
+            </Tabs.List>
+          </Tabs.Root>
+
+          <Tabs.Root color="orange" value={value2} onValueChange={setValue2}>
+            <Tabs.List>
+              <Tabs.Trigger value="tab1">Orange</Tabs.Trigger>
+              <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>
+              <Tabs.Trigger value="tab3">Tab 3</Tabs.Trigger>
+            </Tabs.List>
+          </Tabs.Root>
+        </View>
+      </View>
+
       {/* Full Example */}
       <View style={s.gap2}>
         <Text size="2" weight="medium">
@@ -2567,7 +2607,7 @@ function HoverCardDemo() {
         </Text>
         <HoverCard.Root>
           <HoverCard.Trigger asChild>
-            <Button variant="ghost" color="blue">
+            <Button variant="ghost">
               <Text>@nextjs</Text>
             </Button>
           </HoverCard.Trigger>
@@ -2596,7 +2636,7 @@ function HoverCardDemo() {
         </Text>
         <HoverCard.Root>
           <HoverCard.Trigger asChild>
-            <Button variant="ghost" color="violet">
+            <Button variant="ghost">
               <Text>@radix</Text>
             </Button>
           </HoverCard.Trigger>

@@ -1,4 +1,3 @@
-import type { AccentColor, Color } from '@/lib/types';
 import { useThemeTokens } from '@/lib/use-theme-tokens';
 import type { ViewStyle } from 'react-native';
 import { Platform } from 'react-native';
@@ -6,21 +5,8 @@ import { Platform } from 'react-native';
 export type ButtonSize = '1' | '2' | '3' | '4';
 export type ButtonVariant = 'solid' | 'soft' | 'surface' | 'ghost';
 
-export function resolveAccentFromColor(color?: Color): AccentColor {
-  if (!color) return 'blue';
-  switch (color) {
-    case 'danger':
-      return 'red';
-    case 'warning':
-      return 'amber';
-    case 'success':
-      return 'green';
-    case 'info':
-      return 'blue';
-    default:
-      return color as AccentColor;
-  }
-}
+// Palette type - the color shades returned from colors.palettes[key]
+type Palette = ReturnType<typeof useThemeTokens>['colors']['palettes']['gray'];
 
 export function getButtonSizeStyle(size: ButtonSize, isIconButton = false): ViewStyle {
   // Based on web CSS:
@@ -58,8 +44,8 @@ export function getButtonSizeStyle(size: ButtonSize, isIconButton = false): View
 export function getButtonVariantStyle(
   variant: ButtonVariant,
   colors: ReturnType<typeof useThemeTokens>['colors'],
-  palette: ReturnType<typeof useThemeTokens>['colors']['palettes'][AccentColor],
-  gray: ReturnType<typeof useThemeTokens>['colors']['palettes']['gray'],
+  palette: Palette,
+  gray: Palette,
   disabled: boolean,
   pressed: boolean,
   hovered: boolean
@@ -95,7 +81,7 @@ export function getButtonVariantStyle(
         // Default: panelSolid bg, gray-a5 border (stroke), outer shadow
         // Hover: same bg, gray-a7 border, outer shadow
         // Pressed: gray-a3 bg, gray-a6 border, no outer shadow
-        backgroundColor = pressed ? gray.a3 : colors.panelSolid;
+        backgroundColor = pressed ? gray['3'] : colors.panelSolid;
         borderColor = pressed ? gray.a6 : hovered ? gray.a7 : gray.a5;
         borderWidth = 1;
         break;
@@ -130,7 +116,7 @@ export function getButtonShadowStyle(
 }
 
 export function getButtonFocusStyle(
-  palette: ReturnType<typeof useThemeTokens>['colors']['palettes'][AccentColor],
+  palette: Palette,
   focused: boolean,
   disabled: boolean
 ): ViewStyle | undefined {
@@ -158,8 +144,8 @@ export function getButtonPressedFilter(
 
 export function getButtonTextColor(
   variant: ButtonVariant,
-  palette: ReturnType<typeof useThemeTokens>['colors']['palettes'][AccentColor],
-  gray: ReturnType<typeof useThemeTokens>['colors']['palettes']['gray'],
+  palette: Palette,
+  gray: Palette,
   disabled: boolean
 ): string {
   if (disabled) {

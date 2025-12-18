@@ -1,4 +1,4 @@
-import type { AccentColor, Color } from '@/lib/types';
+import type { Color } from '@/lib/types';
 import { useThemeTokens } from '@/lib/use-theme-tokens';
 import { Platform, type ViewStyle } from 'react-native';
 
@@ -9,25 +9,8 @@ import { Platform, type ViewStyle } from 'react-native';
 export type TextInputSize = '1' | '2' | '3' | '4';
 export type TextInputVariant = 'surface' | 'soft';
 
-// ============================================================================
-// Helpers
-// ============================================================================
-
-export function resolveAccentFromColor(color?: Color): AccentColor {
-  if (!color) return 'gray';
-  switch (color) {
-    case 'danger':
-      return 'red';
-    case 'warning':
-      return 'amber';
-    case 'success':
-      return 'green';
-    case 'info':
-      return 'blue';
-    default:
-      return color as AccentColor;
-  }
-}
+// Palette key type - any valid key in colors.palettes
+type PaletteKey = Color | 'accent' | 'gray';
 
 /**
  * Convert hex color to rgba with specified opacity
@@ -74,10 +57,10 @@ export function getSurfaceVariantStyle(
  */
 export function getSoftVariantStyle(
   colors: ReturnType<typeof useThemeTokens>['colors'],
-  accentColor: AccentColor
+  paletteKey: PaletteKey
 ): ViewStyle {
   return {
-    backgroundColor: colors.palettes[accentColor].a3,
+    backgroundColor: colors.palettes[paletteKey].a3,
   };
 }
 
@@ -87,11 +70,11 @@ export function getSoftVariantStyle(
 export function getTextInputColors(
   variant: TextInputVariant,
   colors: ReturnType<typeof useThemeTokens>['colors'],
-  accentColor: AccentColor,
+  paletteKey: PaletteKey,
   disabled?: boolean
 ): { textColor: string; placeholderColor: string } {
   const grayPalette = colors.palettes.gray;
-  const palette = colors.palettes[accentColor];
+  const palette = colors.palettes[paletteKey];
 
   // Disabled state: always use gray-a11 for text
   // Placeholder uses gray-a5 (lighter alpha shade approximating gray-a11 at 0.5 opacity)

@@ -1,4 +1,4 @@
-import type { AccentColor, Color } from '@/lib/types';
+import type { Color } from '@/lib/types';
 import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as CheckboxPrimitive from '@rn-primitives/checkbox';
 import { Check } from 'lucide-react-native';
@@ -6,22 +6,6 @@ import * as React from 'react';
 import { Platform, View, type ViewStyle } from 'react-native';
 
 type CheckboxSize = '1' | '2' | '3';
-
-function resolveAccentFromColor(color?: Color): AccentColor {
-  if (!color) return 'blue';
-  switch (color) {
-    case 'danger':
-      return 'red';
-    case 'warning':
-      return 'amber';
-    case 'success':
-      return 'green';
-    case 'info':
-      return 'blue';
-    default:
-      return color as AccentColor;
-  }
-}
 
 // Size styles from CSS:
 // Size 1: --checkbox-size: var(--space-4) = 16px, border-radius: var(--radius-2) = 4px
@@ -58,9 +42,10 @@ function Checkbox({
 }: CheckboxProps) {
   const { colors } = useThemeTokens();
   const [focused, setFocused] = React.useState(false);
-  const accentColor = resolveAccentFromColor(color);
-  const palette = colors.palettes[accentColor];
   const gray = colors.palettes.gray;
+  // Semantic colors (accent, danger, etc.) are added by useThemeTokens
+  // Fallback to gray if palette key doesn't exist
+  const palette = colors.palettes[color ?? 'accent'] ?? gray;
 
   const { boxSize, borderRadius, iconSize } = getSizeStyle(size);
 

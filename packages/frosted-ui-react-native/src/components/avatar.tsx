@@ -1,5 +1,5 @@
 import { Text } from '@/components/text';
-import type { AccentColor, Color } from '@/lib/types';
+import type { Color } from '@/lib/types';
 import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as React from 'react';
 import { Image, View, type ImageStyle, type TextStyle, type ViewStyle } from 'react-native';
@@ -9,22 +9,6 @@ const avatarShapes = ['circle', 'square'] as const;
 
 type AvatarSize = (typeof avatarSizes)[number];
 type AvatarShape = (typeof avatarShapes)[number];
-
-function resolveAccentFromColor(color?: Color): AccentColor {
-  if (!color) return 'gray';
-  switch (color) {
-    case 'danger':
-      return 'red';
-    case 'warning':
-      return 'amber';
-    case 'success':
-      return 'green';
-    case 'info':
-      return 'blue';
-    default:
-      return color as AccentColor;
-  }
-}
 
 // Size styles from CSS:
 // Size 0: 16px, Size 1: 24px, Size 2: 32px, Size 3: 40px (default)
@@ -86,8 +70,8 @@ function Avatar({ src, fallback, size = '3', shape = 'circle', color }: AvatarPr
   const { colors } = useThemeTokens();
   const [imageStatus, setImageStatus] = React.useState<'loading' | 'loaded' | 'error'>('loading');
 
-  const accentColor = resolveAccentFromColor(color);
-  const palette = colors.palettes[accentColor];
+  // Avatar defaults to gray instead of accent
+  const palette = colors.palettes[color ?? 'gray'];
   const gray = colors.palettes.gray;
 
   const avatarSize = getAvatarSize(size);

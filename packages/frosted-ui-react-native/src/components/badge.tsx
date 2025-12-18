@@ -1,5 +1,5 @@
 import { TextStyleContext } from '@/components/text';
-import type { AccentColor, Color } from '@/lib/types';
+import type { Color } from '@/lib/types';
 import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as Slot from '@rn-primitives/slot';
 import * as React from 'react';
@@ -15,27 +15,13 @@ type BadgeProps = React.ComponentProps<typeof View> & {
   color?: Color;
 };
 
-function resolveAccentFromColor(color?: Color): AccentColor {
-  if (!color) return 'blue';
-  switch (color) {
-    case 'danger':
-      return 'red';
-    case 'warning':
-      return 'amber';
-    case 'success':
-      return 'green';
-    case 'info':
-      return 'blue';
-    default:
-      return color as AccentColor;
-  }
-}
-
 function Badge({ variant = 'soft', size = '1', color, style, asChild, ...props }: BadgeProps) {
   const { colors } = useThemeTokens();
   const Component = asChild ? Slot.View : View;
-  const accentColor = resolveAccentFromColor(color);
-  const palette = colors.palettes[accentColor];
+  const gray = colors.palettes.gray;
+  // Semantic colors (accent, danger, etc.) are added by useThemeTokens
+  // Fallback to gray if palette key doesn't exist
+  const palette = colors.palettes[color ?? 'accent'] ?? gray;
 
   // Base layout (same on all platforms)
   const baseStyle: ViewStyle = {

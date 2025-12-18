@@ -4,7 +4,6 @@ import {
   getSoftVariantStyle,
   getSurfaceVariantStyle,
   getTextInputColors,
-  resolveAccentFromColor,
   type TextInputSize,
   type TextInputVariant,
 } from '@/lib/text-input-styles';
@@ -19,6 +18,9 @@ import {
   type TextStyle,
   type ViewStyle,
 } from 'react-native';
+
+// Palette key - Color with 'gray' as default (for text inputs)
+type PaletteKey = Color | 'gray';
 
 // ============================================================================
 // Types
@@ -93,13 +95,17 @@ interface TextAreaProps extends Omit<TextInputProps, 'style'> {
 function TextArea({
   size = '2',
   variant = 'surface',
-  color = 'gray',
+  color,
   style,
   editable,
   ...props
 }: TextAreaProps) {
   const { colors } = useThemeTokens();
-  const accentColor = resolveAccentFromColor(color);
+  const gray = colors.palettes.gray;
+  // For soft variant background/text, use gray as default
+  const paletteKey: PaletteKey = color ?? 'gray';
+  // For focus outline, use accent as default
+  const focusPalette = colors.palettes[color ?? 'accent'] ?? gray;
   const sizeStyle = getTextAreaSizeStyle(size);
   const disabled = editable === false;
   const [focused, setFocused] = React.useState(false);
@@ -108,7 +114,7 @@ function TextArea({
   let variantStyle =
     variant === 'surface'
       ? getSurfaceVariantStyle(colors)
-      : getSoftVariantStyle(colors, accentColor);
+      : getSoftVariantStyle(colors, paletteKey);
 
   // Apply disabled styles (surface keeps border, soft replaces background)
   if (disabled) {
@@ -124,11 +130,11 @@ function TextArea({
     }
   }
 
-  // Focus outline (web only)
+  // Focus outline (web only) - uses accent color by default
   const focusStyle: ViewStyle | undefined =
     focused && !disabled && Platform.OS === 'web'
       ? ({
-          outline: `2px solid ${colors.palettes[accentColor].a8}`,
+          outline: `2px solid ${focusPalette.a8}`,
           outlineOffset: -1,
         } as ViewStyle)
       : undefined;
@@ -137,7 +143,7 @@ function TextArea({
   const { textColor, placeholderColor } = getTextInputColors(
     variant,
     colors,
-    accentColor,
+    paletteKey,
     disabled
   );
 

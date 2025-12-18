@@ -1,4 +1,4 @@
-import type { AccentColor, Color } from '@/lib/types';
+import type { Color } from '@/lib/types';
 import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as SeparatorPrimitive from '@rn-primitives/separator';
 import { type ViewStyle } from 'react-native';
@@ -6,22 +6,6 @@ import { type ViewStyle } from 'react-native';
 const separatorSizes = ['1', '2', '3', '4'] as const;
 
 type SeparatorSize = (typeof separatorSizes)[number];
-
-function resolveAccentFromColor(color?: Color): AccentColor {
-  if (!color) return 'gray';
-  switch (color) {
-    case 'danger':
-      return 'red';
-    case 'warning':
-      return 'amber';
-    case 'success':
-      return 'green';
-    case 'info':
-      return 'blue';
-    default:
-      return color as AccentColor;
-  }
-}
 
 // Size mapping from CSS:
 // Size 1: var(--space-4) = 16px
@@ -56,8 +40,8 @@ function Separator({
 }: SeparatorProps) {
   const { colors } = useThemeTokens();
 
-  const accentColor = resolveAccentFromColor(color);
-  const palette = colors.palettes[accentColor];
+  const gray = colors.palettes.gray;
+  const palette = colors.palettes[color] ?? gray;
 
   const separatorSize = getSeparatorSize(size);
 
