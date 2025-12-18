@@ -25,3 +25,7 @@ export type {
 // NAVIGATION
 //------------------------------------------------------------------------------
 export { NAV_THEME, useNavTheme } from './lib/theme';
+
+// PORTAL
+//------------------------------------------------------------------------------
+export { PortalHost } from '@rn-primitives/portal';

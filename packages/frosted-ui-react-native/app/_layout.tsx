@@ -1,12 +1,12 @@
 import { useNavTheme } from '@/lib/theme';
 import {
   ThemeProvider as FrostedThemeProvider,
+  PortalHost,
   useTheme,
   useThemeTokens,
   type AccentColor,
 } from '@frosted-ui/react-native';
 import { ThemeProvider as NavigationThemeProvider } from '@react-navigation/native';
-import { PortalHost } from '@rn-primitives/portal';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as SystemUI from 'expo-system-ui';
