@@ -1,81 +1,83 @@
 import { DarkTheme, DefaultTheme, type Theme } from '@react-navigation/native';
- 
-export const THEME = {
-  light: {
-    background: 'hsl(0 0% 100%)',
-    foreground: 'hsl(0 0% 3.9%)',
-    card: 'hsl(0 0% 100%)',
-    cardForeground: 'hsl(0 0% 3.9%)',
-    popover: 'hsl(0 0% 100%)',
-    popoverForeground: 'hsl(0 0% 3.9%)',
-    primary: 'hsl(0 0% 9%)',
-    primaryForeground: 'hsl(0 0% 98%)',
-    secondary: 'hsl(0 0% 96.1%)',
-    secondaryForeground: 'hsl(0 0% 9%)',
-    muted: 'hsl(0 0% 96.1%)',
-    mutedForeground: 'hsl(0 0% 45.1%)',
-    accent: 'hsl(0 0% 96.1%)',
-    accentForeground: 'hsl(0 0% 9%)',
-    destructive: 'hsl(0 84.2% 60.2%)',
-    border: 'hsl(0 0% 89.8%)',
-    input: 'hsl(0 0% 89.8%)',
-    ring: 'hsl(0 0% 63%)',
-    radius: '0.625rem',
-    chart1: 'hsl(12 76% 61%)',
-    chart2: 'hsl(173 58% 39%)',
-    chart3: 'hsl(197 37% 24%)',
-    chart4: 'hsl(43 74% 66%)',
-    chart5: 'hsl(27 87% 67%)',
-  },
-  dark: {
-    background: 'hsl(0 0% 3.9%)',
-    foreground: 'hsl(0 0% 98%)',
-    card: 'hsl(0 0% 3.9%)',
-    cardForeground: 'hsl(0 0% 98%)',
-    popover: 'hsl(0 0% 3.9%)',
-    popoverForeground: 'hsl(0 0% 98%)',
-    primary: 'hsl(0 0% 98%)',
-    primaryForeground: 'hsl(0 0% 9%)',
-    secondary: 'hsl(0 0% 14.9%)',
-    secondaryForeground: 'hsl(0 0% 98%)',
-    muted: 'hsl(0 0% 14.9%)',
-    mutedForeground: 'hsl(0 0% 63.9%)',
-    accent: 'hsl(0 0% 14.9%)',
-    accentForeground: 'hsl(0 0% 98%)',
-    destructive: 'hsl(0 70.9% 59.4%)',
-    border: 'hsl(0 0% 14.9%)',
-    input: 'hsl(0 0% 14.9%)',
-    ring: 'hsl(300 0% 45%)',
-    radius: '0.625rem',
-    chart1: 'hsl(220 70% 50%)',
-    chart2: 'hsl(160 60% 45%)',
-    chart3: 'hsl(30 80% 55%)',
-    chart4: 'hsl(280 65% 60%)',
-    chart5: 'hsl(340 75% 55%)',
-  },
-};
- 
+import { themeVars } from './theme-vars';
+
+const light = themeVars.colors.light;
+const dark = themeVars.colors.dark;
+
+/**
+ * Navigation theme using Frosted UI design system colors.
+ *
+ * React Navigation uses these colors to style the navigation UI elements
+ * (headers, tab bars, drawers, etc.) throughout your app.
+ *
+ * @see https://reactnavigation.org/docs/themes
+ */
 export const NAV_THEME: Record<'light' | 'dark', Theme> = {
   light: {
     ...DefaultTheme,
     colors: {
-      background: THEME.light.background,
-      border: THEME.light.border,
-      card: THEME.light.card,
-      notification: THEME.light.destructive,
-      primary: THEME.light.primary,
-      text: THEME.light.foreground,
+      /**
+       * background - The main background color of screens.
+       * Used for: Screen backgrounds, the area behind content.
+       */
+      background: light.background,
+
+      /**
+       * border - Color for borders and dividers.
+       * Used for: Header bottom border, tab bar top border,
+       * separator lines between list items.
+       */
+      border: light.stroke,
+
+      /**
+       * card - Background color for card-like elements.
+       * Used for: Header background, tab bar background,
+       * drawer background, modal backgrounds.
+       */
+      card: light.panelSolid,
+
+      /**
+       * notification - Color for notification badges.
+       * Used for: Badge dots on tab bar icons (e.g., unread count),
+       * typically a red/attention-grabbing color.
+       */
+      notification: light.palettes.red['9'],
+
+      /**
+       * primary - The primary/accent color for interactive elements.
+       * Used for: Active tab icon tint, focused input borders,
+       * header button colors, link colors.
+       */
+      primary: light.palettes.blue['9'],
+
+      /**
+       * text - Default text color.
+       * Used for: Header title, tab bar labels, drawer item text,
+       * and any navigation-related text.
+       */
+      text: light.palettes.gray['12'],
     },
   },
   dark: {
     ...DarkTheme,
     colors: {
-      background: THEME.dark.background,
-      border: THEME.dark.border,
-      card: THEME.dark.card,
-      notification: THEME.dark.destructive,
-      primary: THEME.dark.primary,
-      text: THEME.dark.foreground,
+      /** background - Screen backgrounds in dark mode */
+      background: dark.background,
+
+      /** border - Borders/dividers in dark mode */
+      border: dark.stroke,
+
+      /** card - Header/tab bar backgrounds in dark mode */
+      card: dark.panelSolid,
+
+      /** notification - Badge color (stays red in both modes) */
+      notification: dark.palettes.red['9'],
+
+      /** primary - Active/accent color in dark mode */
+      primary: dark.palettes.blue['9'],
+
+      /** text - Text color in dark mode */
+      text: dark.palettes.gray['12'],
     },
   },
 };
