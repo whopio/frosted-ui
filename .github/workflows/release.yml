@@ -5,6 +5,9 @@ on:
 
 name: Build, test, release
 
+permissions:
+  id-token: write
+
 concurrency:
   group: 'release'
   cancel-in-progress: false
@@ -40,7 +43,7 @@ jobs:
       - name: Update npm for OIDC trusted publishing
         run: npm install -g npm@latest
         if: steps.check.outputs.can-publish == 'true'
-          
+
       - name: Install dependencies
         run: pnpm i
 
