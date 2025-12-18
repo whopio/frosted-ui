@@ -48,7 +48,7 @@ export const NAV_THEME: Record<'light' | 'dark', Theme> = {
        * Used for: Active tab icon tint, focused input borders,
        * header button colors, link colors.
        */
-      primary: light.palettes.blue['9'],
+      primary: light.palettes.blue['a11'],
 
       /**
        * text - Default text color.
@@ -74,7 +74,7 @@ export const NAV_THEME: Record<'light' | 'dark', Theme> = {
       notification: dark.palettes.red['9'],
 
       /** primary - Active/accent color in dark mode */
-      primary: dark.palettes.blue['9'],
+      primary: dark.palettes.blue['a11'],
 
       /** text - Text color in dark mode */
       text: dark.palettes.gray['12'],
