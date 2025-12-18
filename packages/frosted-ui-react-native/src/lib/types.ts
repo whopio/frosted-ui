@@ -33,11 +33,16 @@ export type AccentColor =
   | 'gray';
 
 /**
- * Semantic colors
+ * Semantic colors that map to accent colors based on ThemeProvider settings
  */
 export type SemanticColor = 'danger' | 'warning' | 'success' | 'info';
 
 /**
+ * Special color that uses the ThemeProvider's accentColor setting
+ */
+export type DynamicAccentColor = 'accent';
+
+/**
  * All available color values for component color props
  */
-export type Color = AccentColor | SemanticColor;
+export type Color = AccentColor | SemanticColor | DynamicAccentColor;
