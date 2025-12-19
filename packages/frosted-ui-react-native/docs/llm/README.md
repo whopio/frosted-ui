@@ -11,6 +11,7 @@ These guides provide structured, detailed information about Frosted UI conventio
 | Document | Description |
 |----------|-------------|
 | [COLOR_SYSTEM.md](./COLOR_SYSTEM.md) | Complete guide to the color system, palettes, shades, variants, and accessibility |
+| [TYPOGRAPHY.md](./TYPOGRAPHY.md) | Typography scale, font weights, Text/Heading components, and automatic text styling |
 
 ## Quick Import Reference
 
@@ -53,11 +54,13 @@ import {
 
 ## Key Principles
 
-1. **Use semantic colors** — `danger`, `warning`, `success`, `info` instead of explicit color names for status indicators
-2. **Default to accent** — Most components default to the app's accent color; only override when semantically meaningful
-3. **Respect variants** — `solid` for primary actions, `soft` for secondary, `surface`/`ghost` for tertiary
-4. **Theme-aware** — All colors automatically adapt to light/dark mode
-5. **Accessible** — Color combinations are designed to meet WCAG contrast requirements
+1. **Use Frosted UI's Text** — Always use `<Text>` from `@frosted-ui/react-native`, not React Native's default
+2. **Text auto-styles in components** — `<Text>` inside `Button`, `Badge`, `Callout` etc. automatically gets correct size and color
+3. **Use semantic colors** — `danger`, `warning`, `success`, `info` instead of explicit color names for status indicators
+4. **Default to accent** — Most components default to the app's accent color; only override when semantically meaningful
+5. **Respect variants** — `solid` for primary actions, `soft` for secondary, `surface`/`ghost` for tertiary
+6. **Theme-aware** — All colors automatically adapt to light/dark mode
+7. **Accessible** — Color combinations are designed to meet WCAG contrast requirements
 
 ## App Structure Template
 
