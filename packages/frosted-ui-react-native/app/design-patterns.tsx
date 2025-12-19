@@ -320,10 +320,10 @@ function SettingsListPattern() {
           </Select.Trigger>
           <Select.Content align="end">
             <Select.Item value="on" label="On">
-              <Text>On</Text>
+              On
             </Select.Item>
             <Select.Item value="off" label="Off">
-              <Text>Off</Text>
+              Off
             </Select.Item>
           </Select.Content>
         </Select.Root>

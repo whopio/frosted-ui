@@ -382,35 +382,31 @@ Dropdown selection.
     <Select.Value placeholder="Choose option..." />
   </Select.Trigger>
   <Select.Content>
-    <Select.Item value="option1">
-      <Text>Option 1</Text>
+    <Select.Item value="option1" label="Option 1">
+      Option 1
     </Select.Item>
-    <Select.Item value="option2">
-      <Text>Option 2</Text>
+    <Select.Item value="option2" label="Option 2">
+      Option 2
     </Select.Item>
     <Select.Separator />
     <Select.Group>
-      <Select.Label>
-        <Text>More Options</Text>
-      </Select.Label>
-      <Select.Item value="option3">
-        <Text>Option 3</Text>
+      <Select.Label>More Options</Select.Label>
+      <Select.Item value="option3" label="Option 3">
+        Option 3
       </Select.Item>
     </Select.Group>
   </Select.Content>
 </Select.Root>
 ```
 
-**Select.Root Props:**
-| Prop | Type | Default |
-|------|------|---------|
-| `value` | `{ value: string; label: string }` | — |
-| `onValueChange` | `(value) => void` | — |
+> **Note**: `Select.Item` children should be plain text, not wrapped in `<Text>`. The component handles text styling internally.
 
 **Select.Root Props:**
 | Prop | Type | Default |
 |------|------|---------|
 | `size` | `'1' \| '2' \| '3' \| '4'` | `'3'` |
+| `value` | `{ value: string; label: string }` | — |
+| `onValueChange` | `(value) => void` | — |
 
 **Select.Trigger Props:**
 | Prop | Type | Default |
@@ -422,6 +418,13 @@ Dropdown selection.
 | Prop | Type | Default |
 |------|------|---------|
 | `align` | `'start' \| 'center' \| 'end'` | `'start'` |
+
+**Select.Item Props:**
+| Prop | Type | Required |
+|------|------|----------|
+| `value` | `string` | Yes |
+| `label` | `string` | Yes |
+| `children` | `string` (plain text) | Yes |
 
 > **Tip**: Use `align="end"` when the trigger is on the right side of the screen, `align="start"` when on the left.
 
@@ -570,19 +573,17 @@ Menu triggered by button press.
     </Button>
   </DropdownMenu.Trigger>
   <DropdownMenu.Content align="end">
-    <DropdownMenu.Item onSelect={() => handleEdit()}>
-      <Text>Edit</Text>
-    </DropdownMenu.Item>
-    <DropdownMenu.Item onSelect={() => handleDuplicate()}>
-      <Text>Duplicate</Text>
-    </DropdownMenu.Item>
+    <DropdownMenu.Item onSelect={() => handleEdit()}>Edit</DropdownMenu.Item>
+    <DropdownMenu.Item onSelect={() => handleDuplicate()}>Duplicate</DropdownMenu.Item>
     <DropdownMenu.Separator />
     <DropdownMenu.Item onSelect={() => handleDelete()} color="danger">
-      <Text>Delete</Text>
+      Delete
     </DropdownMenu.Item>
   </DropdownMenu.Content>
 </DropdownMenu.Root>
 ```
+
+> **Note**: `DropdownMenu.Item` children should be plain text, not wrapped in `<Text>`. The component handles text styling internally.
 
 **DropdownMenu.Content Props:**
 | Prop | Type | Default |
@@ -605,12 +606,12 @@ Long-press menu (mobile) or right-click menu (web).
     </Card>
   </ContextMenu.Trigger>
   <ContextMenu.Content>
-    <ContextMenu.Item onSelect={() => handleAction()}>
-      <Text>Action</Text>
-    </ContextMenu.Item>
+    <ContextMenu.Item onSelect={() => handleAction()}>Action</ContextMenu.Item>
   </ContextMenu.Content>
 </ContextMenu.Root>
 ```
+
+> **Note**: `ContextMenu.Item` children should be plain text, not wrapped in `<Text>`. The component handles text styling internally.
 
 ---
 
