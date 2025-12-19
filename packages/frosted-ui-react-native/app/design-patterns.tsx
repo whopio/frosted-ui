@@ -73,7 +73,8 @@ import {
   Zap,
 } from 'lucide-react-native';
 import * as React from 'react';
-import { Pressable, ScrollView, useWindowDimensions, View } from 'react-native';
+import { Platform, Pressable, ScrollView, useWindowDimensions, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useHeaderOptions } from './_header';
 
 // ============================================================================
@@ -2463,6 +2464,11 @@ export default function DesignPatternsScreen() {
   const { colors } = useThemeTokens();
   const headerOptions = useHeaderOptions();
   const { horizontalPadding, isWide } = useResponsiveLayout();
+  const insets = useSafeAreaInsets();
+
+  // On iOS/Android, account for safe area + header (~44px)
+  // On web, use fixed padding since header is transparent overlay
+  const topPadding = Platform.OS === 'web' ? 96 : insets.top + 44 + 16;
 
   return (
     <>
@@ -2476,9 +2482,9 @@ export default function DesignPatternsScreen() {
         style={{ flex: 1, backgroundColor: colors.background }}
         contentContainerStyle={{
           paddingHorizontal: horizontalPadding,
-          paddingVertical: 16,
-          gap: 24,
+          paddingTop: topPadding,
           paddingBottom: 48,
+          gap: 24,
           maxWidth: isWide ? MAX_CONTENT_WIDTH + horizontalPadding * 2 : undefined,
           alignSelf: isWide ? 'center' : undefined,
           width: '100%',

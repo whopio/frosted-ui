@@ -51,7 +51,16 @@ import {
   WifiIcon,
 } from 'lucide-react-native';
 import * as React from 'react';
-import { Image, Linking, ScrollView, StyleSheet, useWindowDimensions, View } from 'react-native';
+import {
+  Image,
+  Linking,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+} from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useHeaderOptions } from './_header';
 
 // ============================================================================
@@ -108,6 +117,11 @@ export default function KitchenSinkScreen() {
   const { colors, isDark } = useThemeTokens();
   const headerOptions = useHeaderOptions();
   const { horizontalPadding, isWide } = useResponsiveLayout();
+  const insets = useSafeAreaInsets();
+
+  // On iOS/Android, account for safe area + header (~44px)
+  // On web, use fixed padding since header is transparent overlay
+  const topPadding = Platform.OS === 'web' ? 96 : insets.top + 44 + 16;
 
   return (
     <>
@@ -125,7 +139,7 @@ export default function KitchenSinkScreen() {
           alignSelf: isWide ? 'center' : undefined,
           width: '100%',
         }}>
-        <View style={[s.gap8, { paddingTop: 96, paddingBottom: 16 }]}>
+        <View style={[s.gap8, { paddingTop: topPadding, paddingBottom: 16 }]}>
           {/* Typography Section */}
           <ComponentSection title="Typography">
             <View style={s.gap4}>
