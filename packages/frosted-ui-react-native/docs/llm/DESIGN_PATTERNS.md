@@ -1201,15 +1201,9 @@ The Spinner component wraps content and automatically shows/hides based on the `
 ```tsx
 <Tabs.Root value={activeTab} onValueChange={setActiveTab}>
   <Tabs.List>
-    <Tabs.Trigger value="overview">
-      <Text>Overview</Text>
-    </Tabs.Trigger>
-    <Tabs.Trigger value="activity">
-      <Text>Activity</Text>
-    </Tabs.Trigger>
-    <Tabs.Trigger value="settings">
-      <Text>Settings</Text>
-    </Tabs.Trigger>
+    <Tabs.Trigger value="overview">Overview</Tabs.Trigger>
+    <Tabs.Trigger value="activity">Activity</Tabs.Trigger>
+    <Tabs.Trigger value="settings">Settings</Tabs.Trigger>
   </Tabs.List>
 
   <Tabs.Content value="overview">{/* Overview content */}</Tabs.Content>
@@ -1227,15 +1221,9 @@ const [view, setView] = React.useState('list');
 
 <SegmentedControl.Root value={view} onValueChange={setView}>
   <SegmentedControl.List>
-    <SegmentedControl.Trigger value="list">
-      <Text>List</Text>
-    </SegmentedControl.Trigger>
-    <SegmentedControl.Trigger value="grid">
-      <Text>Grid</Text>
-    </SegmentedControl.Trigger>
-    <SegmentedControl.Trigger value="table">
-      <Text>Table</Text>
-    </SegmentedControl.Trigger>
+    <SegmentedControl.Trigger value="list">List</SegmentedControl.Trigger>
+    <SegmentedControl.Trigger value="grid">Grid</SegmentedControl.Trigger>
+    <SegmentedControl.Trigger value="table">Table</SegmentedControl.Trigger>
   </SegmentedControl.List>
 </SegmentedControl.Root>;
 ```
