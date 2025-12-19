@@ -11,6 +11,7 @@ import {
   Icon,
   IconButton,
   Label,
+  List,
   Progress,
   RadioGroup,
   SegmentedControl,
@@ -29,7 +30,6 @@ import { Stack } from 'expo-router';
 import {
   AlertCircle,
   ArrowLeft,
-  Award,
   Bell,
   Check,
   CheckCircle,
@@ -189,36 +189,30 @@ function ListItemPattern() {
   ];
 
   return (
-    <Card style={{ padding: 0 }}>
+    <List.Root>
       {users.map((user, index) => (
         <React.Fragment key={user.id}>
-          {index > 0 && <Separator size="4" />}
-          <Pressable
-            style={({ pressed }) => ({
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: 12,
-              paddingHorizontal: 16,
-              paddingVertical: 14,
-              backgroundColor: pressed ? colors.palettes.gray.a3 : 'transparent',
-            })}>
-            <Avatar fallback={user.name} size="3" />
-            <View style={{ flex: 1, gap: 2 }}>
-              <Text size="2" weight="medium">
-                {user.name}
-              </Text>
-              <Text size="1" color="gray">
-                {user.email}
-              </Text>
-            </View>
-            <Badge color={user.status === 'Active' ? 'success' : 'warning'} size="1">
-              <Text>{user.status}</Text>
-            </Badge>
-            <Icon as={ChevronRight} size={16} color={colors.palettes.gray.a8} />
-          </Pressable>
+          {index > 0 && <List.Separator />}
+          <List.Item onPress={() => {}}>
+            <List.ItemSlot>
+              <Avatar fallback={user.name} size="3" />
+            </List.ItemSlot>
+            <List.ItemContent>
+              <List.ItemTitle>{user.name}</List.ItemTitle>
+              <List.ItemDescription>{user.email}</List.ItemDescription>
+            </List.ItemContent>
+            <List.ItemSlot>
+              <Badge color={user.status === 'Active' ? 'success' : 'warning'} size="1">
+                <Text>{user.status}</Text>
+              </Badge>
+            </List.ItemSlot>
+            <List.ItemSlot>
+              <Icon as={ChevronRight} size={16} color={colors.palettes.gray.a8} />
+            </List.ItemSlot>
+          </List.Item>
         </React.Fragment>
       ))}
-    </Card>
+    </List.Root>
   );
 }
 
@@ -229,17 +223,10 @@ function SettingsListPattern() {
   const [sound, setSound] = React.useState('on');
 
   return (
-    <Card style={{ padding: 0 }}>
+    <List.Root>
       {/* Switch setting */}
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          paddingHorizontal: 16,
-          paddingVertical: 14,
-        }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+      <List.Item>
+        <List.ItemSlot>
           <View
             style={{
               width: 36,
@@ -251,25 +238,20 @@ function SettingsListPattern() {
             }}>
             <Icon as={Bell} size={20} color={colors.palettes.blue.a11} />
           </View>
-          <Text weight="medium">Notifications</Text>
-        </View>
-        <Switch checked={notifications} onCheckedChange={setNotifications} />
-      </View>
+        </List.ItemSlot>
+        <List.ItemContent>
+          <List.ItemTitle>Notifications</List.ItemTitle>
+        </List.ItemContent>
+        <List.ItemSlot>
+          <Switch checked={notifications} onCheckedChange={setNotifications} />
+        </List.ItemSlot>
+      </List.Item>
 
-      <Separator size="4" />
+      <List.Separator />
 
       {/* Checkbox setting */}
-      <Pressable
-        style={({ pressed }) => ({
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          paddingHorizontal: 16,
-          paddingVertical: 14,
-          backgroundColor: pressed ? colors.palettes.gray.a3 : 'transparent',
-        })}
-        onPress={() => setDarkMode(!darkMode)}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+      <List.Item onPress={() => setDarkMode(!darkMode)}>
+        <List.ItemSlot>
           <View
             style={{
               width: 36,
@@ -281,23 +263,20 @@ function SettingsListPattern() {
             }}>
             <Icon as={Settings} size={20} color={colors.palettes.purple.a11} />
           </View>
-          <Text weight="medium">Dark Mode</Text>
-        </View>
-        <Checkbox checked={darkMode} onCheckedChange={setDarkMode} />
-      </Pressable>
+        </List.ItemSlot>
+        <List.ItemContent>
+          <List.ItemTitle>Dark Mode</List.ItemTitle>
+        </List.ItemContent>
+        <List.ItemSlot>
+          <Checkbox checked={darkMode} onCheckedChange={setDarkMode} />
+        </List.ItemSlot>
+      </List.Item>
 
-      <Separator size="4" />
+      <List.Separator />
 
       {/* Select setting */}
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          paddingHorizontal: 16,
-          paddingVertical: 14,
-        }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+      <List.Item>
+        <List.ItemSlot>
           <View
             style={{
               width: 36,
@@ -309,26 +288,30 @@ function SettingsListPattern() {
             }}>
             <Icon as={MessageCircle} size={20} color={colors.palettes.green.a11} />
           </View>
-          <Text weight="medium">Sound</Text>
-        </View>
-        <Select.Root
-          size="2"
-          value={sound ? { value: sound, label: sound === 'on' ? 'On' : 'Off' } : undefined}
-          onValueChange={(v) => setSound(v?.value ?? 'on')}>
-          <Select.Trigger variant="ghost">
-            <Select.Value placeholder="Select..." />
-          </Select.Trigger>
-          <Select.Content align="end">
-            <Select.Item value="on" label="On">
-              On
-            </Select.Item>
-            <Select.Item value="off" label="Off">
-              Off
-            </Select.Item>
-          </Select.Content>
-        </Select.Root>
-      </View>
-    </Card>
+        </List.ItemSlot>
+        <List.ItemContent>
+          <List.ItemTitle>Sound</List.ItemTitle>
+        </List.ItemContent>
+        <List.ItemSlot>
+          <Select.Root
+            size="2"
+            value={sound ? { value: sound, label: sound === 'on' ? 'On' : 'Off' } : undefined}
+            onValueChange={(v) => setSound(v?.value ?? 'on')}>
+            <Select.Trigger variant="ghost">
+              <Select.Value placeholder="Select..." />
+            </Select.Trigger>
+            <Select.Content align="end">
+              <Select.Item value="on" label="On">
+                On
+              </Select.Item>
+              <Select.Item value="off" label="Off">
+                Off
+              </Select.Item>
+            </Select.Content>
+          </Select.Root>
+        </List.ItemSlot>
+      </List.Item>
+    </List.Root>
   );
 }
 
@@ -448,7 +431,7 @@ function CardVariantsPattern() {
                 <Text>See All</Text>
               </Button>
             </View>
-            <Card variant="surface" style={{ padding: 0 }}>
+            <List.Root>
               {[
                 {
                   name: 'Alex Chen',
@@ -471,32 +454,23 @@ function CardVariantsPattern() {
                   time: '1h',
                   color: 'green' as const,
                 },
-              ].map((item, index, arr) => (
-                <View key={index}>
-                  <Pressable
-                    style={({ pressed }) => ({
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      gap: 12,
-                      paddingHorizontal: 16,
-                      paddingVertical: 14,
-                      backgroundColor: pressed ? colors.palettes.gray.a3 : 'transparent',
-                    })}>
-                    <Avatar
-                      fallback={item.name
-                        .split(' ')
-                        .map((n) => n[0])
-                        .join('')}
-                      size="3"
-                      color={item.color}
-                    />
-                    <View style={{ flex: 1, gap: 2 }}>
-                      <Text size="2" weight="medium" numberOfLines={1}>
-                        {item.name}
-                      </Text>
-                      <Text size="2" color="gray" numberOfLines={1}>
-                        {item.action}
-                      </Text>
+              ].map((item, index) => (
+                <React.Fragment key={index}>
+                  {index > 0 && <List.Separator />}
+                  <List.Item onPress={() => {}}>
+                    <List.ItemSlot>
+                      <Avatar
+                        fallback={item.name
+                          .split(' ')
+                          .map((n) => n[0])
+                          .join('')}
+                        size="3"
+                        color={item.color}
+                      />
+                    </List.ItemSlot>
+                    <List.ItemContent>
+                      <List.ItemTitle>{item.name}</List.ItemTitle>
+                      <List.ItemDescription>{item.action}</List.ItemDescription>
                       {item.detail && (
                         <Text
                           size="1"
@@ -506,15 +480,16 @@ function CardVariantsPattern() {
                           {item.detail}
                         </Text>
                       )}
-                    </View>
-                    <Text size="1" color="gray">
-                      {item.time}
-                    </Text>
-                  </Pressable>
-                  {index < arr.length - 1 && <Separator size="4" />}
-                </View>
+                    </List.ItemContent>
+                    <List.ItemSlot>
+                      <Text size="1" color="gray">
+                        {item.time}
+                      </Text>
+                    </List.ItemSlot>
+                  </List.Item>
+                </React.Fragment>
               ))}
-            </Card>
+            </List.Root>
           </View>
         </Card>
       </View>
@@ -1435,54 +1410,49 @@ function ShippingOptionsPattern() {
   ];
 
   return (
-    <Card style={{ padding: 0 }}>
-      <RadioGroup.Root value={selected} onValueChange={setSelected}>
+    <RadioGroup.Root value={selected} onValueChange={setSelected}>
+      <List.Root>
         {options.map((option, index) => (
           <React.Fragment key={option.id}>
-            {index > 0 && <Separator size="4" />}
-            <Pressable
-              onPress={() => setSelected(option.id)}
-              style={({ pressed }) => ({
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: 12,
-                paddingHorizontal: 16,
-                paddingVertical: 14,
-                backgroundColor: pressed ? colors.palettes.gray.a3 : 'transparent',
-              })}>
-              <RadioGroup.Item value={option.id} />
-              <View
-                style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: 10,
-                  backgroundColor:
-                    selected === option.id ? colors.palettes.accent.a3 : colors.palettes.gray.a3,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <Icon
-                  as={option.icon}
-                  size={20}
-                  color={
-                    selected === option.id ? colors.palettes.accent.a11 : colors.palettes.gray.a11
-                  }
-                />
-              </View>
-              <View style={{ flex: 1, gap: 2 }}>
-                <Text weight="medium">{option.name}</Text>
-                <Text size="1" color="gray">
-                  {option.time}
+            {index > 0 && <List.Separator />}
+            <List.Item onPress={() => setSelected(option.id)}>
+              <List.ItemSlot>
+                <RadioGroup.Item value={option.id} />
+              </List.ItemSlot>
+              <List.ItemSlot>
+                <View
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 10,
+                    backgroundColor:
+                      selected === option.id ? colors.palettes.accent.a3 : colors.palettes.gray.a3,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Icon
+                    as={option.icon}
+                    size={20}
+                    color={
+                      selected === option.id ? colors.palettes.accent.a11 : colors.palettes.gray.a11
+                    }
+                  />
+                </View>
+              </List.ItemSlot>
+              <List.ItemContent>
+                <List.ItemTitle>{option.name}</List.ItemTitle>
+                <List.ItemDescription>{option.time}</List.ItemDescription>
+              </List.ItemContent>
+              <List.ItemSlot>
+                <Text weight="medium" color={option.price === 'Free' ? 'success' : undefined}>
+                  {option.price}
                 </Text>
-              </View>
-              <Text weight="medium" color={option.price === 'Free' ? 'success' : undefined}>
-                {option.price}
-              </Text>
-            </Pressable>
+              </List.ItemSlot>
+            </List.Item>
           </React.Fragment>
         ))}
-      </RadioGroup.Root>
-    </Card>
+      </List.Root>
+    </RadioGroup.Root>
   );
 }
 
@@ -1491,77 +1461,66 @@ function PaymentMethodPattern() {
   const [selected, setSelected] = React.useState('visa');
 
   return (
-    <Card style={{ padding: 0 }}>
-      <RadioGroup.Root value={selected} onValueChange={setSelected}>
+    <RadioGroup.Root value={selected} onValueChange={setSelected}>
+      <List.Root>
         {[
           { id: 'visa', name: 'Visa', last4: '4242', expiry: '12/25' },
           { id: 'mastercard', name: 'Mastercard', last4: '8888', expiry: '03/26' },
         ].map((card, index) => (
           <React.Fragment key={card.id}>
-            {index > 0 && <Separator size="4" />}
-            <Pressable
-              onPress={() => setSelected(card.id)}
-              style={({ pressed }) => ({
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: 12,
-                paddingHorizontal: 16,
-                paddingVertical: 14,
-                backgroundColor: pressed ? colors.palettes.gray.a3 : 'transparent',
-              })}>
-              <RadioGroup.Item value={card.id} />
-              <View
-                style={{
-                  width: 48,
-                  height: 32,
-                  borderRadius: 6,
-                  backgroundColor: colors.palettes.gray.a3,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderWidth: 1,
-                  borderColor: colors.stroke,
-                }}>
-                <Icon as={CreditCard} size={20} color={colors.palettes.gray.a11} />
-              </View>
-              <View style={{ flex: 1, gap: 2 }}>
-                <Text weight="medium">
+            {index > 0 && <List.Separator />}
+            <List.Item onPress={() => setSelected(card.id)}>
+              <List.ItemSlot>
+                <RadioGroup.Item value={card.id} />
+              </List.ItemSlot>
+              <List.ItemSlot>
+                <View
+                  style={{
+                    width: 48,
+                    height: 32,
+                    borderRadius: 6,
+                    backgroundColor: colors.palettes.gray.a3,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderWidth: 1,
+                    borderColor: colors.stroke,
+                  }}>
+                  <Icon as={CreditCard} size={20} color={colors.palettes.gray.a11} />
+                </View>
+              </List.ItemSlot>
+              <List.ItemContent>
+                <List.ItemTitle>
                   {card.name} •••• {card.last4}
-                </Text>
-                <Text size="1" color="gray">
-                  Expires {card.expiry}
-                </Text>
-              </View>
-            </Pressable>
+                </List.ItemTitle>
+                <List.ItemDescription>Expires {card.expiry}</List.ItemDescription>
+              </List.ItemContent>
+            </List.Item>
           </React.Fragment>
         ))}
-        <Separator size="4" />
-        <Pressable
-          style={({ pressed }) => ({
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 12,
-            paddingHorizontal: 16,
-            paddingVertical: 14,
-            backgroundColor: pressed ? colors.palettes.gray.a3 : 'transparent',
-          })}>
-          <View
-            style={{
-              width: 24,
-              height: 24,
-              borderRadius: 12,
-              borderWidth: 2,
-              borderColor: colors.palettes.accent['9'],
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <Icon as={Plus} size={14} color={colors.palettes.accent.a11} />
-          </View>
-          <Text weight="medium" color="accent">
-            Add new card
-          </Text>
-        </Pressable>
-      </RadioGroup.Root>
-    </Card>
+        <List.Separator />
+        <List.Item onPress={() => {}}>
+          <List.ItemSlot>
+            <View
+              style={{
+                width: 24,
+                height: 24,
+                borderRadius: 12,
+                borderWidth: 2,
+                borderColor: colors.palettes.accent['9'],
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Icon as={Plus} size={14} color={colors.palettes.accent.a11} />
+            </View>
+          </List.ItemSlot>
+          <List.ItemContent>
+            <Text weight="medium" color="accent">
+              Add new card
+            </Text>
+          </List.ItemContent>
+        </List.Item>
+      </List.Root>
+    </RadioGroup.Root>
   );
 }
 
@@ -1890,49 +1849,40 @@ function LeaderboardPattern() {
     { rank: 4, name: 'You', points: 9540, avatar: 'ME', color: 'accent' as const, isUser: true },
   ];
 
-  const getMedal = (rank: number) => {
-    if (rank === 1) return { color: colors.palettes.amber['9'], icon: Trophy };
-    if (rank === 2) return { color: colors.palettes.gray['9'], icon: Award };
-    if (rank === 3) return { color: colors.palettes.orange['9'], icon: Award };
-    return null;
-  };
-
   return (
-    <Card style={{ padding: 0 }}>
+    <List.Root variant="soft">
       {entries.map((entry, index) => {
-        const medal = getMedal(entry.rank);
         return (
           <React.Fragment key={entry.rank}>
-            {index > 0 && <Separator size="4" />}
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: 12,
-                paddingHorizontal: 16,
-                paddingVertical: 14,
-                backgroundColor: entry.isUser ? colors.palettes.accent.a2 : 'transparent',
-              }}>
-              <Text
-                size="2"
-                weight="bold"
-                style={{ width: 24, textAlign: 'center' }}
-                color={entry.rank <= 3 ? undefined : 'gray'}>
-                {entry.rank}
-              </Text>
-              {medal && <Icon as={medal.icon} size={20} color={medal.color} />}
-              <Avatar fallback={entry.avatar} size="2" color={entry.color} />
-              <View style={{ flex: 1 }}>
+            {index > 0 && <List.Separator />}
+            <List.Item
+              style={entry.isUser ? { backgroundColor: colors.palettes.gray['a3'] } : undefined}>
+              <List.ItemSlot>
+                <Text
+                  size="2"
+                  weight="bold"
+                  style={{ width: 24, textAlign: 'center' }}
+                  color={entry.rank <= 3 ? undefined : 'gray'}>
+                  {entry.rank}
+                </Text>
+              </List.ItemSlot>
+
+              <List.ItemSlot>
+                <Avatar fallback={entry.avatar} size="2" color={entry.color} />
+              </List.ItemSlot>
+              <List.ItemContent>
                 <Text weight={entry.isUser ? 'bold' : 'medium'}>{entry.name}</Text>
-              </View>
-              <Text weight="medium" color="gray">
-                {entry.points.toLocaleString()} pts
-              </Text>
-            </View>
+              </List.ItemContent>
+              <List.ItemSlot>
+                <Text weight="medium" color={entry.color}>
+                  {entry.points.toLocaleString()} pts
+                </Text>
+              </List.ItemSlot>
+            </List.Item>
           </React.Fragment>
         );
       })}
-    </Card>
+    </List.Root>
   );
 }
 

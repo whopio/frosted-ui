@@ -23,7 +23,7 @@ function Card({ variant = 'surface', style, ...props }: CardProps) {
   switch (variant) {
     case 'soft':
       variantStyle = {
-        backgroundColor: gray.a3,
+        backgroundColor: gray.a2,
       };
       break;
     case 'surface':

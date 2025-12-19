@@ -28,6 +28,8 @@ These components internally render `<Text>`, so **do NOT wrap children in `<Text
 | Component                   | Children           |
 | --------------------------- | ------------------ |
 | `Link`                      | Plain string       |
+| `List.ItemTitle`            | Plain string       |
+| `List.ItemDescription`      | Plain string       |
 | `Select.Item`               | Plain string       |
 | `Select.Label`              | Plain string       |
 | `DropdownMenu.Item`         | Plain string       |
@@ -282,6 +284,149 @@ Container with optional border and shadow.
 | `surface` | Solid bg, border, shadow            | **Default** — Messages, profiles, elevated content |
 | `soft`    | Translucent tinted background       | Tips, promotions, feature highlights               |
 | `ghost`   | No background/border (padding only) | Section grouping, layout containers                |
+
+---
+
+### List
+
+Structured list container with items, slots, and separators. Renders a `Card` internally.
+
+```tsx
+<List.Root variant="surface">
+  <List.Item onPress={() => {}}>
+    <List.ItemSlot>
+      <Icon as={Bell} size={20} />
+    </List.ItemSlot>
+    <List.ItemContent>
+      <List.ItemTitle>Notifications</List.ItemTitle>
+      <List.ItemDescription>Manage alerts and sounds</List.ItemDescription>
+    </List.ItemContent>
+    <List.ItemSlot>
+      <Icon as={ChevronRight} size={16} />
+    </List.ItemSlot>
+  </List.Item>
+  <List.Separator />
+  <List.Item onPress={() => {}}>
+    <List.ItemSlot>
+      <Avatar fallback="JD" size="3" />
+    </List.ItemSlot>
+    <List.ItemContent>
+      <List.ItemTitle>John Doe</List.ItemTitle>
+      <List.ItemDescription>john@example.com</List.ItemDescription>
+    </List.ItemContent>
+    <List.ItemSlot>
+      <Badge color="success" size="1">
+        <Text>Active</Text>
+      </Badge>
+    </List.ItemSlot>
+  </List.Item>
+</List.Root>
+```
+
+#### List Components
+
+| Component              | Purpose                                        |
+| ---------------------- | ---------------------------------------------- |
+| `List.Root`            | Container (renders Card with `padding: 0`)     |
+| `List.Item`            | Pressable row with hover/press states          |
+| `List.ItemSlot`        | Left/right slot for icons, avatars, controls   |
+| `List.ItemContent`     | Flexible center area for title and description |
+| `List.ItemTitle`       | Primary text (medium weight, auto-styled)      |
+| `List.ItemDescription` | Secondary text (gray, auto-styled)             |
+| `List.Separator`       | Full-width divider between items               |
+
+#### List.Root Props
+
+| Prop      | Type                             | Default     | Description       |
+| --------- | -------------------------------- | ----------- | ----------------- |
+| `variant` | `'soft' \| 'surface' \| 'ghost'` | `'surface'` | Card visual style |
+
+#### List.Item Props
+
+| Prop       | Type         | Default | Description                        |
+| ---------- | ------------ | ------- | ---------------------------------- |
+| `onPress`  | `() => void` | —       | Makes item interactive (pressable) |
+| `disabled` | `boolean`    | `false` | Disables press handling            |
+| `style`    | `ViewStyle`  | —       | Custom styles                      |
+
+#### List.ItemTitle & List.ItemDescription
+
+These render styled `<Text>` directly — pass plain strings:
+
+```tsx
+// ✅ Correct
+<List.ItemTitle>Settings</List.ItemTitle>
+<List.ItemDescription>Manage your preferences</List.ItemDescription>
+
+// ❌ Wrong - don't wrap in Text
+<List.ItemTitle><Text>Settings</Text></List.ItemTitle>
+```
+
+#### Common List Patterns
+
+**Settings List:**
+
+```tsx
+<List.Root>
+  <List.Item>
+    <List.ItemSlot>
+      <View style={iconBoxStyle}>
+        <Icon as={Bell} size={20} color={colors.palettes.blue.a11} />
+      </View>
+    </List.ItemSlot>
+    <List.ItemContent>
+      <List.ItemTitle>Notifications</List.ItemTitle>
+    </List.ItemContent>
+    <List.ItemSlot>
+      <Switch checked={enabled} onCheckedChange={setEnabled} />
+    </List.ItemSlot>
+  </List.Item>
+</List.Root>
+```
+
+**Contact List with Avatars:**
+
+```tsx
+<List.Root>
+  <List.Item onPress={() => {}}>
+    <List.ItemSlot>
+      <Avatar fallback="AK" size="3" color="blue" />
+    </List.ItemSlot>
+    <List.ItemContent>
+      <List.ItemTitle>Alex Kim</List.ItemTitle>
+      <List.ItemDescription>alex@example.com</List.ItemDescription>
+    </List.ItemContent>
+    <List.ItemSlot>
+      <Badge color="success" size="1">
+        <Text>Online</Text>
+      </Badge>
+    </List.ItemSlot>
+  </List.Item>
+</List.Root>
+```
+
+**With RadioGroup (Shipping Options):**
+
+```tsx
+<RadioGroup.Root value={selected} onValueChange={setSelected}>
+  <List.Root>
+    <List.Item onPress={() => setSelected('standard')}>
+      <List.ItemSlot>
+        <RadioGroup.Item value="standard" />
+      </List.ItemSlot>
+      <List.ItemContent>
+        <List.ItemTitle>Standard Shipping</List.ItemTitle>
+        <List.ItemDescription>5-7 business days</List.ItemDescription>
+      </List.ItemContent>
+      <List.ItemSlot>
+        <Text weight="medium" color="success">
+          Free
+        </Text>
+      </List.ItemSlot>
+    </List.Item>
+  </List.Root>
+</RadioGroup.Root>
+```
 
 ---
 
