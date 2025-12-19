@@ -97,7 +97,7 @@ function useResponsiveLayout() {
 function useAdaptiveLayout() {
   const { width } = useWindowDimensions();
 
-  const getColumns = (minItemWidth: number, maxColumns: number = 4) => {
+  const getColumns = (minItemWidth: number, maxColumns = 4) => {
     const availableWidth = width - 32;
     const columns = Math.floor(availableWidth / minItemWidth);
     return Math.max(1, Math.min(columns, maxColumns));
