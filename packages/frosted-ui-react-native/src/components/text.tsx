@@ -24,12 +24,13 @@ type TextStyleContextValue = {
 
 const TextStyleContext = React.createContext<TextStyleContextValue | undefined>(undefined);
 
-function Text({ asChild = false, size = '3', weight, color, role, style, ...props }: TextProps) {
+function Text({ asChild = false, size, weight, color, role, style, ...props }: TextProps) {
   const { colors, typography, fontWeights } = useThemeTokens();
   const textStyleContext = React.useContext(TextStyleContext);
   const Component = asChild ? Slot.Text : RNText;
 
-  const effectiveSize = textStyleContext?.size ?? size;
+  // Priority: explicit prop > context > default
+  const effectiveSize = size ?? textStyleContext?.size ?? '3';
   const effectiveWeight = weight ?? textStyleContext?.weight;
 
   // Resolve text color:
