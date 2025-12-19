@@ -12,6 +12,7 @@ These guides provide structured, detailed information about Frosted UI conventio
 |----------|-------------|
 | [COLOR_SYSTEM.md](./COLOR_SYSTEM.md) | Complete guide to the color system, palettes, shades, variants, and accessibility |
 | [TYPOGRAPHY.md](./TYPOGRAPHY.md) | Typography scale, font weights, Text/Heading components, and automatic text styling |
+| [COMPONENTS.md](./COMPONENTS.md) | Full component reference with props, variants, and usage examples |
 
 ## Quick Import Reference
 
