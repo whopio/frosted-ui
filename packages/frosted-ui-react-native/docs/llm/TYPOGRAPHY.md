@@ -177,6 +177,47 @@ import { Code } from '@frosted-ui/react-native';
 
 ---
 
+### `<Link>` — Pressable Text Links
+
+For navigation links and clickable text. Uses accent color by default.
+
+```tsx
+import { Link, Text } from '@frosted-ui/react-native';
+
+// Basic link
+<Link onPress={() => navigation.navigate('Terms')}>Terms of Service</Link>
+
+// Inline within text
+<Text>
+  By signing up, you agree to our <Link onPress={() => {}}>Terms</Link> and{' '}
+  <Link onPress={() => {}}>Privacy Policy</Link>.
+</Text>
+
+// With color
+<Link color="blue" onPress={() => {}}>Documentation</Link>
+<Link color="danger" onPress={() => {}}>Delete account</Link>
+
+// Underline options
+<Link underline="always" onPress={() => {}}>Always underlined</Link>
+<Link underline="auto" onPress={() => {}}>Underlined on press</Link>
+
+// Sizes and weights
+<Link size="2" weight="medium" onPress={() => {}}>Medium link</Link>
+```
+
+| Prop        | Type                            | Default    | Description                 |
+| ----------- | ------------------------------- | ---------- | --------------------------- |
+| `size`      | `'0'` - `'9'`                   | `'3'`      | Text size                   |
+| `weight`    | Font weight                     | —          | Font weight                 |
+| `color`     | `Color`                         | `'accent'` | Link color (uses a11 shade) |
+| `underline` | `'auto' \| 'hover' \| 'always'` | `'auto'`   | Underline behavior          |
+
+> **Note**: `Link` renders text internally — do NOT wrap children in `<Text>`.
+
+> **Inheritance**: When nested inside `<Text>`, Link automatically inherits `size` and `weight` from the parent, so inline links match surrounding text.
+
+---
+
 ## Automatic Text Styling in Components
 
 **This is a key feature:** When you place `<Text>` inside certain Frosted UI components, the text automatically receives appropriate styling.

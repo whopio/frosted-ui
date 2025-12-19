@@ -56,8 +56,17 @@ function Text({ asChild = false, size, weight, color, role, style, ...props }: T
   const colorStyle = { color: resolvedColor };
   const weightStyle = fontWeightValue ? { fontWeight: fontWeightValue } : undefined;
 
+  // Provide context to children so nested components (like Link) can inherit styles
+  const childContext: TextStyleContextValue = {
+    size: effectiveSize,
+    weight: effectiveWeight,
+    color: resolvedColor,
+  };
+
   return (
-    <Component style={[typographyStyle, weightStyle, colorStyle, style]} role={role} {...props} />
+    <TextStyleContext.Provider value={childContext}>
+      <Component style={[typographyStyle, weightStyle, colorStyle, style]} role={role} {...props} />
+    </TextStyleContext.Provider>
   );
 }
 
