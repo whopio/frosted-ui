@@ -69,6 +69,11 @@ export default function Screen() {
               <Text>View components</Text>
             </Button>
           </Link>
+          <Link href="/design-patterns" asChild>
+            <Button size="3" variant="surface">
+              <Text>Design patterns</Text>
+            </Button>
+          </Link>
           <Link
             href="https://github.com/whopio/frosted-ui/tree/main/packages/frosted-ui-react-native"
             asChild>

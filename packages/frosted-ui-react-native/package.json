@@ -9,12 +9,15 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
-    }
+    },
+    "./llm-docs": "./docs/llm/README.md",
+    "./llm-docs/*": "./docs/llm/*"
   },
   "sideEffects": false,
   "license": "MIT",
   "files": [
-    "dist"
+    "dist",
+    "docs/llm"
   ],
   "peerDependencies": {
     "lucide-react-native": ">=0.300.0",

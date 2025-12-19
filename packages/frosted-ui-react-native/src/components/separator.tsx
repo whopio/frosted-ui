@@ -40,14 +40,13 @@ function Separator({
 }: SeparatorProps) {
   const { colors } = useThemeTokens();
 
-  const gray = colors.palettes.gray;
-  const palette = colors.palettes[color] ?? gray;
+  const separatorColor = color !== 'gray' ? colors.palettes[color].a6 : colors.stroke;
 
   const separatorSize = getSeparatorSize(size);
 
   // Base style - thickness is always 1px
   const baseStyle: ViewStyle = {
-    backgroundColor: palette.a6,
+    backgroundColor: separatorColor,
     flexShrink: 0,
   };
 

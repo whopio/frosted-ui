@@ -23,7 +23,7 @@ type ButtonProps = Omit<React.ComponentProps<typeof Pressable>, 'style'> & {
 
 function Button({
   variant = 'surface',
-  size = '2',
+  size = '3',
   color,
   style,
   disabled,

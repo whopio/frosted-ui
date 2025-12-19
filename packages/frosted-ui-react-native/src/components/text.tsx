@@ -1,5 +1,5 @@
 import { themeTokens } from '@/lib/theme-tokens';
-import type { AccentColor } from '@/lib/types';
+import type { Color } from '@/lib/types';
 import { useThemeTokens } from '@/lib/use-theme-tokens';
 import * as Slot from '@rn-primitives/slot';
 import * as React from 'react';
@@ -12,7 +12,7 @@ type TextProps = Omit<React.ComponentProps<typeof RNText>, 'size' | 'weight' | '
   asChild?: boolean;
   size?: TextSize;
   weight?: TextWeight;
-  color?: AccentColor;
+  color?: Color;
 };
 
 const TextClassContext = React.createContext<string | undefined>(undefined);
@@ -29,7 +29,8 @@ function Text({ asChild = false, size, weight, color, role, style, ...props }: T
   const textStyleContext = React.useContext(TextStyleContext);
   const Component = asChild ? Slot.Text : RNText;
 
-  const effectiveSize = size ?? textStyleContext?.size;
+  // Priority: explicit prop > context > default
+  const effectiveSize = size ?? textStyleContext?.size ?? '3';
   const effectiveWeight = weight ?? textStyleContext?.weight;
 
   // Resolve text color:
