@@ -1106,7 +1106,7 @@ function ResponsiveProductGridPattern() {
               flexBasis: columns === 1 ? '100%' : `${Math.floor(100 / columns) - 2}%`,
               maxWidth: columns === 1 ? '100%' : `${Math.floor(100 / columns) - 1}%`,
             }}>
-            <Card style={{ padding: 16, height: '100%' }}>
+            <Card style={{ padding: 16 }}>
               <View style={{ gap: 12 }}>
                 <View
                   style={{
