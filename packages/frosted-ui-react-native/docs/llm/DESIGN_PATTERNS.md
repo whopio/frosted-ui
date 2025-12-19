@@ -950,6 +950,69 @@ The Spinner component wraps content and automatically shows/hides based on the `
 </Tabs.Root>
 ```
 
+### Segmented Control
+
+For switching between mutually exclusive views:
+
+```tsx
+const [view, setView] = React.useState('list');
+
+<SegmentedControl.Root value={view} onValueChange={setView}>
+  <SegmentedControl.List>
+    <SegmentedControl.Trigger value="list">
+      <Text>List</Text>
+    </SegmentedControl.Trigger>
+    <SegmentedControl.Trigger value="grid">
+      <Text>Grid</Text>
+    </SegmentedControl.Trigger>
+    <SegmentedControl.Trigger value="table">
+      <Text>Table</Text>
+    </SegmentedControl.Trigger>
+  </SegmentedControl.List>
+</SegmentedControl.Root>;
+```
+
+### Radio Group
+
+For selecting one option from a list:
+
+```tsx
+const [selected, setSelected] = React.useState('option1');
+
+<RadioGroup.Root value={selected} onValueChange={setSelected}>
+  <View style={{ gap: 8 }}>
+    <Pressable
+      style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}
+      onPress={() => setSelected('option1')}>
+      <RadioGroup.Item value="option1" />
+      <Text>Option 1</Text>
+    </Pressable>
+    <Pressable
+      style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}
+      onPress={() => setSelected('option2')}>
+      <RadioGroup.Item value="option2" />
+      <Text>Option 2</Text>
+    </Pressable>
+  </View>
+</RadioGroup.Root>;
+```
+
+### Search Field
+
+```tsx
+<TextField.Root>
+  <TextField.Slot>
+    <Icon as={Search} size={16} />
+  </TextField.Slot>
+  <TextField.Input placeholder="Search..." />
+  <TextField.Slot>
+    <IconButton variant="ghost" size="1">
+      <Icon as={X} size={14} />
+    </IconButton>
+  </TextField.Slot>
+</TextField.Root>
+```
+
 ---
 
 ## Accessibility Checklist
@@ -1008,6 +1071,162 @@ When icons are standalone (not inside Frosted UI components):
 ### 5. Balance Whitespace
 
 If something feels cramped, add padding. If something feels disconnected, reduce gaps. Trust your visual instincts.
+
+---
+
+## Store & Marketing Patterns
+
+### Pricing Tier
+
+```tsx
+<Card>
+  <View style={{ gap: 16 }}>
+    <Badge color="accent" size="1" style={{ alignSelf: 'flex-start' }}>
+      <Text>MOST POPULAR</Text>
+    </Badge>
+
+    <View style={{ gap: 4 }}>
+      <Text size="3" weight="bold">
+        Pro Plan
+      </Text>
+      <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 4 }}>
+        <Text size="7" weight="bold">
+          $19
+        </Text>
+        <Text size="2" color="gray">
+          /month
+        </Text>
+      </View>
+    </View>
+
+    <Separator size="4" />
+
+    <View style={{ gap: 12 }}>
+      {['Unlimited projects', 'Advanced analytics', 'Priority support', 'Custom integrations'].map(
+        (feature) => (
+          <View key={feature} style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+            <View
+              style={{
+                width: 20,
+                height: 20,
+                borderRadius: 10,
+                backgroundColor: colors.palettes.success.a3,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Icon as={Check} size={12} color={colors.palettes.success['9']} />
+            </View>
+            <Text size="2">{feature}</Text>
+          </View>
+        )
+      )}
+    </View>
+
+    <Button variant="solid" size="4">
+      <Text>Get Started</Text>
+    </Button>
+  </View>
+</Card>
+```
+
+### Testimonial
+
+```tsx
+<Card>
+  <View style={{ gap: 16 }}>
+    <Icon as={Quote} size={32} color={colors.palettes.gray.a6} />
+
+    <Text size="3" style={{ fontStyle: 'italic' }}>
+      "This product has completely transformed how our team works. We've seen a 40% increase in
+      productivity and the support team is incredibly responsive."
+    </Text>
+
+    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+      {[1, 2, 3, 4, 5].map((star) => (
+        <Icon
+          key={star}
+          as={Star}
+          size={16}
+          color={colors.palettes.amber['9']}
+          fill={colors.palettes.amber['9']}
+        />
+      ))}
+    </View>
+
+    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+      <Avatar fallback="JD" size="3" color="blue" />
+      <View style={{ gap: 2 }}>
+        <Text weight="medium">Jennifer Davis</Text>
+        <Text size="1" color="gray">
+          CTO at TechCorp
+        </Text>
+      </View>
+    </View>
+  </View>
+</Card>
+```
+
+### Feature Showcase
+
+```tsx
+const features = [
+  { icon: Zap, title: 'Lightning Fast', description: 'Sub-100ms response times', color: 'amber' },
+  { icon: Users, title: 'Team Collaboration', description: 'Real-time sync', color: 'blue' },
+  { icon: Sparkles, title: 'AI Powered', description: 'Smart suggestions', color: 'purple' },
+];
+
+<View style={{ gap: 12 }}>
+  {features.map((feature) => (
+    <Card key={feature.title} variant="soft">
+      <View style={{ flexDirection: 'row', gap: 16 }}>
+        <View
+          style={{
+            width: 48,
+            height: 48,
+            borderRadius: 12,
+            backgroundColor: colors.palettes[feature.color].a3,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Icon as={feature.icon} size={24} color={colors.palettes[feature.color].a11} />
+        </View>
+        <View style={{ flex: 1, gap: 4 }}>
+          <Text weight="medium">{feature.title}</Text>
+          <Text size="2" color="gray">
+            {feature.description}
+          </Text>
+        </View>
+      </View>
+    </Card>
+  ))}
+</View>;
+```
+
+### App Stats
+
+```tsx
+const stats = [
+  { value: '10M+', label: 'Downloads', icon: Download },
+  { value: '4.8★', label: 'Rating', icon: Star },
+  { value: '#1', label: 'Top Charts', icon: Trophy },
+];
+
+<View style={{ flexDirection: 'row', gap: 12 }}>
+  {stats.map((stat) => (
+    <Card key={stat.label} style={{ flex: 1, alignItems: 'center' }}>
+      <View style={{ alignItems: 'center', gap: 8 }}>
+        <Icon as={stat.icon} size={24} color={colors.palettes.accent.a11} />
+        <Text size="4" weight="bold">
+          {stat.value}
+        </Text>
+        <Text size="1" color="gray">
+          {stat.label}
+        </Text>
+      </View>
+    </Card>
+  ))}
+</View>;
+```
 
 ---
 
@@ -1196,61 +1415,361 @@ Display multiple metrics in a clean horizontal layout:
 </View>
 ```
 
-### Order Status
+### Order Summary
 
 ```tsx
 <Card>
   <View style={{ gap: 16 }}>
-    {/* Header */}
-    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-      <View style={{ gap: 2 }}>
-        <Text size="1" color="gray">
-          Order #12345
-        </Text>
-        <Text size="3" weight="medium">
-          Out for Delivery
+    <Heading size="4">Order Summary</Heading>
+
+    <View style={{ gap: 12 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text color="gray">Subtotal (3 items)</Text>
+        <Text weight="medium">$239.97</Text>
+      </View>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text color="gray">Shipping</Text>
+        <Text weight="medium" color="success">
+          Free
         </Text>
       </View>
-      <Badge color="success" size="1">
-        <Icon as={Truck} size={12} />
-        <Text>On the way</Text>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text color="gray">Tax</Text>
+        <Text weight="medium">$19.20</Text>
+      </View>
+    </View>
+
+    <Separator size="4" />
+
+    {/* Discount Code */}
+    <View style={{ flexDirection: 'row', gap: 8 }}>
+      <View style={{ flex: 1 }}>
+        <TextField.Input placeholder="Discount code" />
+      </View>
+      <Button variant="surface">
+        <Text>Apply</Text>
+      </Button>
+    </View>
+
+    <Separator size="4" />
+
+    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+      <Text size="4" weight="bold">
+        Total
+      </Text>
+      <Text size="5" weight="bold">
+        $259.17
+      </Text>
+    </View>
+
+    <Button variant="solid" size="4">
+      <Text>Checkout</Text>
+    </Button>
+  </View>
+</Card>
+```
+
+### Shipping Options
+
+Use radio groups for selection lists like shipping methods:
+
+```tsx
+const [selected, setSelected] = React.useState('standard');
+
+const options = [
+  {
+    id: 'standard',
+    name: 'Standard Shipping',
+    price: 'Free',
+    time: '5-7 business days',
+    icon: Truck,
+  },
+  { id: 'express', name: 'Express Shipping', price: '$9.99', time: '2-3 business days', icon: Zap },
+  { id: 'overnight', name: 'Overnight', price: '$24.99', time: 'Next business day', icon: Clock },
+];
+
+<Card style={{ padding: 0 }}>
+  <RadioGroup.Root value={selected} onValueChange={setSelected}>
+    {options.map((option, index) => (
+      <React.Fragment key={option.id}>
+        {index > 0 && <Separator size="4" />}
+        <Pressable
+          onPress={() => setSelected(option.id)}
+          style={({ pressed }) => ({
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 12,
+            paddingHorizontal: 16,
+            paddingVertical: 14,
+            backgroundColor: pressed ? colors.palettes.gray.a3 : 'transparent',
+          })}>
+          <RadioGroup.Item value={option.id} />
+          <View
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: 10,
+              backgroundColor:
+                selected === option.id ? colors.palettes.accent.a3 : colors.palettes.gray.a3,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Icon
+              as={option.icon}
+              size={20}
+              color={selected === option.id ? colors.palettes.accent.a11 : colors.palettes.gray.a11}
+            />
+          </View>
+          <View style={{ flex: 1, gap: 2 }}>
+            <Text weight="medium">{option.name}</Text>
+            <Text size="1" color="gray">
+              {option.time}
+            </Text>
+          </View>
+          <Text weight="medium" color={option.price === 'Free' ? 'success' : undefined}>
+            {option.price}
+          </Text>
+        </Pressable>
+      </React.Fragment>
+    ))}
+  </RadioGroup.Root>
+</Card>;
+```
+
+### Payment Method
+
+```tsx
+const [selected, setSelected] = React.useState('visa');
+
+<Card style={{ padding: 0 }}>
+  <RadioGroup.Root value={selected} onValueChange={setSelected}>
+    {[
+      { id: 'visa', name: 'Visa', last4: '4242', expiry: '12/25' },
+      { id: 'mastercard', name: 'Mastercard', last4: '8888', expiry: '03/26' },
+    ].map((card, index) => (
+      <React.Fragment key={card.id}>
+        {index > 0 && <Separator size="4" />}
+        <Pressable
+          onPress={() => setSelected(card.id)}
+          style={({ pressed }) => ({
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 12,
+            paddingHorizontal: 16,
+            paddingVertical: 14,
+            backgroundColor: pressed ? colors.palettes.gray.a3 : 'transparent',
+          })}>
+          <RadioGroup.Item value={card.id} />
+          <View
+            style={{
+              width: 48,
+              height: 32,
+              borderRadius: 6,
+              backgroundColor: colors.palettes.gray.a3,
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderWidth: 1,
+              borderColor: colors.stroke,
+            }}>
+            <Icon as={CreditCard} size={20} color={colors.palettes.gray.a11} />
+          </View>
+          <View style={{ flex: 1, gap: 2 }}>
+            <Text weight="medium">
+              {card.name} •••• {card.last4}
+            </Text>
+            <Text size="1" color="gray">
+              Expires {card.expiry}
+            </Text>
+          </View>
+        </Pressable>
+      </React.Fragment>
+    ))}
+
+    <Separator size="4" />
+
+    {/* Add new card option */}
+    <Pressable
+      style={({ pressed }) => ({
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 12,
+        paddingHorizontal: 16,
+        paddingVertical: 14,
+        backgroundColor: pressed ? colors.palettes.gray.a3 : 'transparent',
+      })}>
+      <View
+        style={{
+          width: 24,
+          height: 24,
+          borderRadius: 12,
+          borderWidth: 2,
+          borderColor: colors.palettes.accent['9'],
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <Icon as={Plus} size={14} color={colors.palettes.accent.a11} />
+      </View>
+      <Text weight="medium" color="accent">
+        Add new card
+      </Text>
+    </Pressable>
+  </RadioGroup.Root>
+</Card>;
+```
+
+### Order Status (Timeline)
+
+```tsx
+const steps = [
+  { id: 'ordered', label: 'Ordered', date: 'Dec 15', completed: true },
+  { id: 'shipped', label: 'Shipped', date: 'Dec 16', completed: true },
+  { id: 'transit', label: 'In Transit', date: 'Dec 17', completed: true, active: true },
+  { id: 'delivered', label: 'Delivered', date: 'Dec 19', completed: false },
+];
+
+<Card>
+  <View style={{ gap: 16 }}>
+    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+      <Heading size="4">Order Status</Heading>
+      <Badge color="info" size="1">
+        <Text>In Transit</Text>
       </Badge>
     </View>
 
-    {/* Progress steps */}
-    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-      <View
-        style={{
-          width: 8,
-          height: 8,
-          borderRadius: 4,
-          backgroundColor: colors.palettes.success['9'],
-        }}
-      />
-      <View style={{ flex: 1, height: 2, backgroundColor: colors.palettes.success['9'] }} />
-      <View
-        style={{
-          width: 8,
-          height: 8,
-          borderRadius: 4,
-          backgroundColor: colors.palettes.success['9'],
-        }}
-      />
-      <View style={{ flex: 1, height: 2, backgroundColor: colors.palettes.success['9'] }} />
-      <View
-        style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: colors.palettes.gray.a6 }}
-      />
+    <View style={{ gap: 0 }}>
+      {steps.map((step, index) => (
+        <View key={step.id} style={{ flexDirection: 'row', gap: 12 }}>
+          {/* Timeline */}
+          <View style={{ alignItems: 'center', width: 24 }}>
+            <View
+              style={{
+                width: 24,
+                height: 24,
+                borderRadius: 12,
+                backgroundColor: step.completed
+                  ? colors.palettes.success['9']
+                  : colors.palettes.gray.a4,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              {step.completed && <Icon as={Check} size={14} color="white" />}
+            </View>
+            {index < steps.length - 1 && (
+              <View
+                style={{
+                  width: 2,
+                  height: 32,
+                  backgroundColor: step.completed
+                    ? colors.palettes.success['9']
+                    : colors.palettes.gray.a4,
+                }}
+              />
+            )}
+          </View>
+          {/* Content */}
+          <View style={{ flex: 1, paddingBottom: index < steps.length - 1 ? 16 : 0 }}>
+            <Text weight={step.active ? 'bold' : 'medium'}>{step.label}</Text>
+            <Text size="1" color="gray">
+              {step.date}
+            </Text>
+          </View>
+        </View>
+      ))}
+    </View>
+  </View>
+</Card>;
+```
+
+### Product Review
+
+```tsx
+<Card>
+  <View style={{ gap: 12 }}>
+    <View
+      style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+      <View style={{ flexDirection: 'row', gap: 12 }}>
+        <Avatar fallback="MJ" size="3" color="blue" />
+        <View style={{ gap: 2 }}>
+          <Text weight="medium">Michael Johnson</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+            {[1, 2, 3, 4, 5].map((star) => (
+              <Icon
+                key={star}
+                as={Star}
+                size={12}
+                color={star <= 5 ? colors.palettes.amber['9'] : colors.palettes.gray.a6}
+                fill={star <= 5 ? colors.palettes.amber['9'] : 'transparent'}
+              />
+            ))}
+          </View>
+        </View>
+      </View>
+      <Text size="1" color="gray">
+        2 days ago
+      </Text>
     </View>
 
-    {/* Delivery info */}
-    <View style={{ gap: 4 }}>
-      <Text size="2" color="gray">
-        Estimated delivery
+    <Text size="3" color="gray">
+      Absolutely love these headphones! The noise cancellation is incredible and the battery life
+      exceeds expectations. Highly recommend for anyone looking for premium audio quality.
+    </Text>
+
+    <Button variant="ghost" size="2" style={{ alignSelf: 'flex-start' }}>
+      <Icon as={ThumbsUp} size={14} />
+      <Text>Helpful (24)</Text>
+    </Button>
+  </View>
+</Card>
+```
+
+### Wishlist Item
+
+```tsx
+<Card style={{ padding: 0 }}>
+  <View style={{ flexDirection: 'row', padding: 16, gap: 12 }}>
+    <View
+      style={{
+        width: 80,
+        height: 80,
+        backgroundColor: colors.palettes.gray.a3,
+        borderRadius: 8,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+      <Icon as={ShoppingBag} size={32} color={colors.palettes.gray.a8} />
+    </View>
+    <View style={{ flex: 1, gap: 4 }}>
+      <Text size="2" weight="medium" numberOfLines={2}>
+        Premium Leather Wallet
       </Text>
-      <Text size="3" weight="medium">
-        Today, 3:00 PM - 5:00 PM
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+        {[1, 2, 3, 4, 5].map((star) => (
+          <Icon
+            key={star}
+            as={Star}
+            size={10}
+            color={star <= 4 ? colors.palettes.amber['9'] : colors.palettes.gray.a6}
+            fill={star <= 4 ? colors.palettes.amber['9'] : 'transparent'}
+          />
+        ))}
+        <Text size="0" color="gray">
+          (89)
+        </Text>
+      </View>
+      <Text size="3" weight="bold">
+        $49.99
       </Text>
     </View>
+  </View>
+  <Separator size="4" />
+  <View style={{ flexDirection: 'row', paddingHorizontal: 16, paddingVertical: 12, gap: 8 }}>
+    <Button variant="solid" size="2" style={{ flex: 1 }}>
+      <Icon as={ShoppingCart} size={14} />
+      <Text>Move to Cart</Text>
+    </Button>
+    <IconButton variant="surface" size="2" color="danger">
+      <Icon as={Trash2} size={16} />
+    </IconButton>
   </View>
 </Card>
 ```
@@ -1266,20 +1785,23 @@ Display multiple metrics in a clean horizontal layout:
   <View style={{ alignItems: 'center', gap: 12 }}>
     <Avatar fallback="AK" size="7" color="blue" />
     <View style={{ alignItems: 'center', gap: 4 }}>
-      <Text size="4" weight="bold">
+      <Text size="3" weight="bold">
         Alex Kim
       </Text>
       <Text size="2" color="gray">
-        Product Designer
+        Senior Designer
       </Text>
     </View>
-    <View style={{ flexDirection: 'row', gap: 8, marginTop: 4 }}>
-      <Button variant="solid" size="2">
-        <Text>Follow</Text>
-      </Button>
-      <Button variant="soft" color="gray" size="2">
-        <Text>Message</Text>
-      </Button>
+    <View style={{ flexDirection: 'row', gap: 8 }}>
+      <IconButton variant="soft" size="2" color="gray">
+        <Icon as={Twitter} size={16} />
+      </IconButton>
+      <IconButton variant="soft" size="2" color="gray">
+        <Icon as={Linkedin} size={16} />
+      </IconButton>
+      <IconButton variant="soft" size="2" color="gray">
+        <Icon as={Send} size={16} />
+      </IconButton>
     </View>
   </View>
 </Card>
@@ -1318,6 +1840,69 @@ Display multiple metrics in a clean horizontal layout:
 </View>
 ```
 
+### Social Post
+
+```tsx
+const [liked, setLiked] = React.useState(false);
+const [likes, setLikes] = React.useState(42);
+
+<Card style={{ padding: 0 }}>
+  {/* Header */}
+  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, padding: 16 }}>
+    <Avatar fallback="EW" size="3" color="purple" />
+    <View style={{ flex: 1, gap: 2 }}>
+      <Text weight="medium">Emma Wilson</Text>
+      <Text size="1" color="gray">
+        2 hours ago
+      </Text>
+    </View>
+    <IconButton variant="ghost" size="2">
+      <Icon as={MoreHorizontal} size={18} />
+    </IconButton>
+  </View>
+
+  {/* Content */}
+  <View style={{ paddingHorizontal: 16, paddingBottom: 12 }}>
+    <Text size="3">
+      Just finished my morning run! 🏃‍♀️ Nothing beats starting the day with some exercise.
+    </Text>
+  </View>
+
+  {/* Image placeholder */}
+  <View
+    style={{
+      height: 200,
+      backgroundColor: colors.palettes.gray.a3,
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}>
+    <Icon as={MapPin} size={48} color={colors.palettes.gray.a8} />
+  </View>
+
+  {/* Actions */}
+  <View style={{ flexDirection: 'row', padding: 12, gap: 16 }}>
+    <Button
+      variant="ghost"
+      size="2"
+      color={liked ? 'danger' : 'gray'}
+      onPress={() => {
+        setLiked(!liked);
+        setLikes(liked ? likes - 1 : likes + 1);
+      }}>
+      <Icon as={Heart} size={18} />
+      <Text>{likes}</Text>
+    </Button>
+    <Button variant="ghost" size="2" color="gray">
+      <Icon as={MessageCircle} size={18} />
+      <Text>12</Text>
+    </Button>
+    <Button variant="ghost" size="2" color="gray">
+      <Icon as={Share} size={18} />
+    </Button>
+  </View>
+</Card>;
+```
+
 ---
 
 ## Gamification Patterns
@@ -1325,53 +1910,310 @@ Display multiple metrics in a clean horizontal layout:
 ### Streak Counter
 
 ```tsx
-<Card
-  style={{
-    backgroundColor: colors.palettes.orange.a2,
-    borderWidth: 1,
-    borderColor: colors.palettes.orange.a4,
-  }}>
-  <View style={{ alignItems: 'center', gap: 8 }}>
-    <Icon as={Flame} size={32} color={colors.palettes.orange['9']} />
-    <Text size="6" weight="bold" style={{ color: colors.palettes.orange.a12 }}>
-      7 Day Streak!
-    </Text>
-    <Text size="2" style={{ color: colors.palettes.orange.a11 }}>
-      Keep it going! Come back tomorrow.
-    </Text>
+<Card>
+  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+    <View
+      style={{
+        width: 56,
+        height: 56,
+        borderRadius: 14,
+        backgroundColor: colors.palettes.orange.a3,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+      <Icon as={Flame} size={28} color={colors.palettes.orange['9']} />
+    </View>
+    <View style={{ flex: 1, gap: 4 }}>
+      <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 4 }}>
+        <Text size="6" weight="bold">
+          7
+        </Text>
+        <Text size="3" weight="medium">
+          Day Streak
+        </Text>
+      </View>
+      <Text size="2" color="gray">
+        Keep it up! You're on fire 🔥
+      </Text>
+    </View>
   </View>
 </Card>
 ```
 
-### Leaderboard Item
+### Leaderboard
 
 ```tsx
-<View
-  style={{
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-    paddingVertical: 12,
-  }}>
-  <Text size="3" weight="bold" style={{ width: 24 }}>
-    #1
-  </Text>
-  <Avatar fallback="JD" size="3" color="amber" />
-  <View style={{ flex: 1, gap: 2 }}>
-    <Text size="2" weight="medium">
-      Jane Doe
-    </Text>
-    <Text size="1" color="gray">
-      Level 42
-    </Text>
+const entries = [
+  { rank: 1, name: 'Sarah Chen', points: 12450, avatar: 'SC', color: 'pink' },
+  { rank: 2, name: 'Alex Kim', points: 11200, avatar: 'AK', color: 'blue' },
+  { rank: 3, name: 'Jordan Lee', points: 10890, avatar: 'JL', color: 'green' },
+  { rank: 4, name: 'You', points: 9540, avatar: 'ME', color: 'accent', isUser: true },
+];
+
+<Card style={{ padding: 0 }}>
+  {entries.map((entry, index) => (
+    <React.Fragment key={entry.rank}>
+      {index > 0 && <Separator size="4" />}
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 12,
+          paddingHorizontal: 16,
+          paddingVertical: 14,
+          backgroundColor: entry.isUser ? colors.palettes.accent.a2 : 'transparent',
+        }}>
+        <Text
+          size="2"
+          weight="bold"
+          style={{ width: 24, textAlign: 'center' }}
+          color={entry.rank <= 3 ? undefined : 'gray'}>
+          {entry.rank}
+        </Text>
+        {entry.rank <= 3 && (
+          <Icon
+            as={entry.rank === 1 ? Trophy : Award}
+            size={20}
+            color={getMedalColor(entry.rank)}
+          />
+        )}
+        <Avatar fallback={entry.avatar} size="2" color={entry.color} />
+        <View style={{ flex: 1 }}>
+          <Text weight={entry.isUser ? 'bold' : 'medium'}>{entry.name}</Text>
+        </View>
+        <Text weight="medium" color="gray">
+          {entry.points.toLocaleString()} pts
+        </Text>
+      </View>
+    </React.Fragment>
+  ))}
+</Card>;
+```
+
+### XP Progress
+
+```tsx
+<Card>
+  <View style={{ gap: 12 }}>
+    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+        <View
+          style={{
+            width: 32,
+            height: 32,
+            borderRadius: 8,
+            backgroundColor: colors.palettes.purple['9'],
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Text size="2" weight="bold" style={{ color: 'white' }}>
+            12
+          </Text>
+        </View>
+        <Text weight="medium">Level 12</Text>
+      </View>
+      <Badge color="purple" size="1">
+        <Icon as={Sparkles} size={10} />
+        <Text>250 XP to go</Text>
+      </Badge>
+    </View>
+    <Progress value={75} size="2" color="purple" />
+    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+      <Text size="1" color="gray">
+        750 / 1,000 XP
+      </Text>
+      <Text size="1" color="gray">
+        Next: Level 13
+      </Text>
+    </View>
   </View>
-  <View style={{ alignItems: 'flex-end' }}>
-    <Text size="2" weight="bold">
-      12,450
-    </Text>
-    <Text size="1" color="gray">
-      points
-    </Text>
+</Card>
+```
+
+### Daily Challenge
+
+```tsx
+<Card>
+  <View style={{ gap: 12 }}>
+    <View
+      style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+      <View style={{ flexDirection: 'row', gap: 12 }}>
+        <View
+          style={{
+            width: 48,
+            height: 48,
+            borderRadius: 12,
+            backgroundColor: colors.palettes.cyan.a3,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Icon as={Timer} size={24} color={colors.palettes.cyan.a11} />
+        </View>
+        <View style={{ gap: 2 }}>
+          <Text size="1" color="gray" weight="medium">
+            DAILY CHALLENGE
+          </Text>
+          <Text weight="medium">Complete 5 lessons</Text>
+        </View>
+      </View>
+      <Badge color="amber" size="1">
+        <Icon as={Gift} size={10} />
+        <Text>+50 XP</Text>
+      </Badge>
+    </View>
+    <Progress value={60} size="2" color="cyan" />
+    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+      <Text size="1" color="gray">
+        3 of 5 completed
+      </Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+        <Icon as={Clock} size={12} color={colors.palettes.gray.a11} />
+        <Text size="1" color="gray">
+          8h remaining
+        </Text>
+      </View>
+    </View>
   </View>
-</View>
+</Card>
+```
+
+---
+
+## Media Patterns
+
+### Now Playing (Music Player)
+
+```tsx
+const [isPlaying, setIsPlaying] = React.useState(true);
+
+<Card>
+  <View style={{ gap: 16 }}>
+    {/* Album Art + Info */}
+    <View style={{ flexDirection: 'row', gap: 16 }}>
+      <View
+        style={{
+          width: 80,
+          height: 80,
+          borderRadius: 8,
+          backgroundColor: colors.palettes.pink.a3,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <Icon as={Music} size={32} color={colors.palettes.pink.a11} />
+      </View>
+      <View style={{ flex: 1, justifyContent: 'center', gap: 4 }}>
+        <Text size="3" weight="bold" numberOfLines={1}>
+          Midnight Dreams
+        </Text>
+        <Text size="2" color="gray" numberOfLines={1}>
+          Aurora Synth
+        </Text>
+        <Text size="1" color="gray">
+          Neon Horizons • 2024
+        </Text>
+      </View>
+      <IconButton variant="ghost" size="2">
+        <Icon as={Heart} size={20} />
+      </IconButton>
+    </View>
+
+    {/* Progress */}
+    <View style={{ gap: 8 }}>
+      <Progress value={35} size="1" />
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text size="0" color="gray">
+          1:24
+        </Text>
+        <Text size="0" color="gray">
+          3:45
+        </Text>
+      </View>
+    </View>
+
+    {/* Controls */}
+    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 24 }}>
+      <IconButton variant="ghost" size="3">
+        <Icon as={SkipBack} size={24} />
+      </IconButton>
+      <IconButton variant="solid" size="4" onPress={() => setIsPlaying(!isPlaying)}>
+        <Icon as={isPlaying ? Pause : Play} size={24} />
+      </IconButton>
+      <IconButton variant="ghost" size="3">
+        <Icon as={SkipForward} size={24} />
+      </IconButton>
+    </View>
+  </View>
+</Card>;
+```
+
+### Poll Card
+
+```tsx
+const [voted, setVoted] = React.useState(null);
+
+const options = [
+  { id: 'react', label: 'React Native', votes: 156 },
+  { id: 'flutter', label: 'Flutter', votes: 89 },
+  { id: 'native', label: 'Native (Swift/Kotlin)', votes: 67 },
+];
+
+const totalVotes = options.reduce((sum, opt) => sum + opt.votes, 0);
+
+<Card>
+  <View style={{ gap: 16 }}>
+    <View style={{ gap: 8 }}>
+      <Text size="3" weight="medium">
+        What's your preferred mobile framework?
+      </Text>
+      <Text size="1" color="gray">
+        {totalVotes} votes • 2 days left
+      </Text>
+    </View>
+
+    <View style={{ gap: 8 }}>
+      {options.map((option) => {
+        const percentage = Math.round((option.votes / totalVotes) * 100);
+        const isSelected = voted === option.id;
+
+        return (
+          <Pressable
+            key={option.id}
+            onPress={() => !voted && setVoted(option.id)}
+            style={{
+              borderRadius: 8,
+              overflow: 'hidden',
+              borderWidth: 1,
+              borderColor: isSelected ? colors.palettes.accent['8'] : colors.stroke,
+            }}>
+            {/* Progress background */}
+            <View
+              style={{
+                position: 'absolute',
+                left: 0,
+                top: 0,
+                bottom: 0,
+                width: voted ? `${percentage}%` : '0%',
+                backgroundColor: isSelected ? colors.palettes.accent.a3 : colors.palettes.gray.a3,
+              }}
+            />
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: 12,
+              }}>
+              <Text weight={isSelected ? 'medium' : 'regular'}>{option.label}</Text>
+              {voted && (
+                <Text size="2" weight="medium">
+                  {percentage}%
+                </Text>
+              )}
+            </View>
+          </Pressable>
+        );
+      })}
+    </View>
+  </View>
+</Card>;
 ```
