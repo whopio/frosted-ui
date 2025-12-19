@@ -18,6 +18,7 @@ import {
   IconButton,
   Label,
   Link,
+  List,
   Popover,
   Progress,
   RadioGroup,
@@ -42,10 +43,12 @@ import {
   ChevronRightIcon,
   InfoIcon,
   MailIcon,
+  MoonIcon,
   MoreVertical,
   RocketIcon,
   SearchIcon,
   SettingsIcon,
+  WifiIcon,
 } from 'lucide-react-native';
 import * as React from 'react';
 import { Image, Linking, ScrollView, StyleSheet, useWindowDimensions, View } from 'react-native';
@@ -698,6 +701,107 @@ export default function KitchenSinkScreen() {
                     <Text color="gray">Card description goes here</Text>
                   </View>
                 </Card>
+              </View>
+            </View>
+          </ComponentSection>
+
+          {/* List Section */}
+          <ComponentSection title="List">
+            <View style={s.gap6}>
+              {/* Basic list */}
+              <View style={s.gap3}>
+                <SectionLabel>Settings List</SectionLabel>
+                <List.Root variant="ghost">
+                  <List.Item onPress={() => {}}>
+                    <List.ItemSlot>
+                      <Icon as={BellIcon} size={20} />
+                    </List.ItemSlot>
+                    <List.ItemContent>
+                      <List.ItemTitle>Notifications</List.ItemTitle>
+                      <List.ItemDescription>Manage alerts and sounds</List.ItemDescription>
+                    </List.ItemContent>
+                    <List.ItemSlot>
+                      <Icon as={ChevronRightIcon} size={16} />
+                    </List.ItemSlot>
+                  </List.Item>
+                  <List.Separator />
+                  <List.Item onPress={() => {}}>
+                    <List.ItemSlot>
+                      <Icon as={MoonIcon} size={20} />
+                    </List.ItemSlot>
+                    <List.ItemContent>
+                      <List.ItemTitle>Appearance</List.ItemTitle>
+                      <List.ItemDescription>Dark mode, themes</List.ItemDescription>
+                    </List.ItemContent>
+                    <List.ItemSlot>
+                      <Icon as={ChevronRightIcon} size={16} />
+                    </List.ItemSlot>
+                  </List.Item>
+                  <List.Separator />
+                  <List.Item onPress={() => {}}>
+                    <List.ItemSlot>
+                      <Icon as={WifiIcon} size={20} />
+                    </List.ItemSlot>
+                    <List.ItemContent>
+                      <List.ItemTitle>Network</List.ItemTitle>
+                    </List.ItemContent>
+                    <List.ItemSlot>
+                      <Icon as={ChevronRightIcon} size={16} />
+                    </List.ItemSlot>
+                  </List.Item>
+                </List.Root>
+              </View>
+
+              {/* With avatars */}
+              <View style={s.gap3}>
+                <SectionLabel>Contact List</SectionLabel>
+                <List.Root>
+                  <List.Item onPress={() => {}}>
+                    <List.ItemSlot>
+                      <Avatar fallback="AK" size="3" color="blue" />
+                    </List.ItemSlot>
+                    <List.ItemContent>
+                      <List.ItemTitle>Alex Kim</List.ItemTitle>
+                      <List.ItemDescription>alex@example.com</List.ItemDescription>
+                    </List.ItemContent>
+                    <List.ItemSlot>
+                      <Badge color="success" size="1">
+                        <Text>Online</Text>
+                      </Badge>
+                    </List.ItemSlot>
+                  </List.Item>
+                  <List.Separator />
+                  <List.Item onPress={() => {}}>
+                    <List.ItemSlot>
+                      <Avatar fallback="SJ" size="3" color="purple" />
+                    </List.ItemSlot>
+                    <List.ItemContent>
+                      <List.ItemTitle>Sarah Johnson</List.ItemTitle>
+                      <List.ItemDescription>sarah@example.com</List.ItemDescription>
+                    </List.ItemContent>
+                  </List.Item>
+                  <List.Separator />
+                  <List.Item onPress={() => {}}>
+                    <List.ItemSlot>
+                      <Avatar fallback="MR" size="3" color="orange" />
+                    </List.ItemSlot>
+                    <List.ItemContent>
+                      <List.ItemTitle>Mike Rodriguez</List.ItemTitle>
+                      <List.ItemDescription>mike@example.com</List.ItemDescription>
+                    </List.ItemContent>
+                    <List.ItemSlot>
+                      <Badge color="gray" size="1">
+                        <Text>Away</Text>
+                      </Badge>
+                    </List.ItemSlot>
+                  </List.Item>
+                </List.Root>
+              </View>
+
+              {/* With Switch */}
+              <View style={s.gap3}>
+                <SectionLabel>With Controls</SectionLabel>
+                <ListWithSwitchDemo />
               </View>
             </View>
           </ComponentSection>
@@ -2184,6 +2288,39 @@ function RadioGroupDemo({
         </View>
       </View>
     </RadioGroup.Root>
+  );
+}
+
+function ListWithSwitchDemo() {
+  const [pushEnabled, setPushEnabled] = React.useState(true);
+  const [emailEnabled, setEmailEnabled] = React.useState(false);
+
+  return (
+    <List.Root variant="soft">
+      <List.Item>
+        <List.ItemSlot>
+          <Icon as={BellIcon} size={20} />
+        </List.ItemSlot>
+        <List.ItemContent>
+          <List.ItemTitle>Push Notifications</List.ItemTitle>
+        </List.ItemContent>
+        <List.ItemSlot>
+          <Switch checked={pushEnabled} onCheckedChange={setPushEnabled} />
+        </List.ItemSlot>
+      </List.Item>
+      <List.Separator />
+      <List.Item>
+        <List.ItemSlot>
+          <Icon as={MailIcon} size={20} />
+        </List.ItemSlot>
+        <List.ItemContent>
+          <List.ItemTitle>Email Updates</List.ItemTitle>
+        </List.ItemContent>
+        <List.ItemSlot>
+          <Switch checked={emailEnabled} onCheckedChange={setEmailEnabled} />
+        </List.ItemSlot>
+      </List.Item>
+    </List.Root>
   );
 }
 

@@ -43,6 +43,7 @@ export * from './callout';
 export * from './card';
 export * from './icon';
 export * from './icon-button';
+export * from './list';
 export * from './segmented-control';
 export * from './separator';
 export * from './skeleton';
