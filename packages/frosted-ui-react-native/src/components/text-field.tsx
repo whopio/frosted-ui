@@ -44,6 +44,8 @@ interface TextFieldContextValue {
   onFocus?: () => void;
   onBlur?: () => void;
   inputRef?: React.RefObject<TextInput | null>;
+  hasSlotBefore?: boolean;
+  hasSlotAfter?: boolean;
 }
 
 const TextFieldContext = React.createContext<TextFieldContextValue | undefined>(undefined);
@@ -114,6 +116,39 @@ function TextFieldRoot({
   const [internalFocused, setInternalFocused] = React.useState(false);
   const focused = focusedProp !== undefined ? focusedProp : internalFocused;
   const inputRef = React.useRef<TextInput>(null);
+
+  // Determine if there are slots before/after the input
+  const childArray = React.Children.toArray(children);
+  let inputIndex = -1;
+  let hasSlotBefore = false;
+  let hasSlotAfter = false;
+
+  childArray.forEach((child, index) => {
+    if (React.isValidElement(child)) {
+      if (child.type === TextFieldInput) {
+        inputIndex = index;
+      }
+    }
+  });
+
+  if (inputIndex !== -1) {
+    // Check for slots before the input
+    for (let i = 0; i < inputIndex; i++) {
+      const child = childArray[i];
+      if (React.isValidElement(child) && child.type === TextFieldSlot) {
+        hasSlotBefore = true;
+        break;
+      }
+    }
+    // Check for slots after the input
+    for (let i = inputIndex + 1; i < childArray.length; i++) {
+      const child = childArray[i];
+      if (React.isValidElement(child) && child.type === TextFieldSlot) {
+        hasSlotAfter = true;
+        break;
+      }
+    }
+  }
 
   const sizeStyle = getSizeStyle(size);
 
@@ -233,6 +268,8 @@ function TextFieldRoot({
         inputRef,
         onFocus: () => setInternalFocused(true),
         onBlur: () => setInternalFocused(false),
+        hasSlotBefore,
+        hasSlotAfter,
       }}>
       <View
         style={[rootStyle, style]}
@@ -353,13 +390,20 @@ const TextFieldInput = React.forwardRef<TextInput, TextFieldInputProps>(
     // Account for border height: surface variant has 1px border top and bottom (2px total)
     const inputHeight = variant === 'surface' ? sizeStyle.height - 2 : sizeStyle.height;
 
+    // Determine padding based on adjacent slots
+    const hasSlotBefore = context?.hasSlotBefore ?? false;
+    const hasSlotAfter = context?.hasSlotAfter ?? false;
+    const paddingLeft = hasSlotBefore ? 0 : sizeStyle.paddingHorizontal;
+    const paddingRight = hasSlotAfter ? 0 : sizeStyle.paddingHorizontal;
+
     const inputStyle: TextStyle = {
       flex: 1,
       minWidth: 0, // Allow input to shrink below content width
       height: inputHeight,
       fontSize: sizeStyle.fontSize,
       color: textColor,
-      paddingHorizontal: sizeStyle.paddingHorizontal,
+      paddingLeft,
+      paddingRight,
       // Remove default styling
       ...(Platform.OS === 'web'
         ? ({
