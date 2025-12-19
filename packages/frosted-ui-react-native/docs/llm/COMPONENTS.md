@@ -17,6 +17,70 @@ Frosted UI has two component patterns:
 
 ---
 
+## Text Handling in Components
+
+Some components automatically wrap text, others require explicit `<Text>` components:
+
+### Components that auto-wrap text (pass plain strings):
+
+These components internally render `<Text>`, so **do NOT wrap children in `<Text>`**:
+
+| Component                   | Children           |
+| --------------------------- | ------------------ |
+| `Select.Item`               | Plain string       |
+| `Select.Label`              | Plain string       |
+| `DropdownMenu.Item`         | Plain string       |
+| `DropdownMenu.CheckboxItem` | Plain string       |
+| `DropdownMenu.RadioItem`    | Plain string       |
+| `DropdownMenu.SubTrigger`   | Plain string       |
+| `DropdownMenu.Label`        | Plain string       |
+| `ContextMenu.Item`          | Plain string       |
+| `ContextMenu.CheckboxItem`  | Plain string       |
+| `ContextMenu.RadioItem`     | Plain string       |
+| `ContextMenu.SubTrigger`    | Plain string       |
+| `ContextMenu.Label`         | Plain string       |
+| `Tabs.Trigger`              | String or `<Text>` |
+| `SegmentedControl.Trigger`  | String or `<Text>` |
+| `Accordion.Trigger`         | Plain string       |
+
+```tsx
+// ✅ Correct
+<Select.Item value="1" label="Option 1">Option 1</Select.Item>
+<DropdownMenu.Item>Edit</DropdownMenu.Item>
+
+// ❌ Wrong - double-wrapped text
+<Select.Item value="1" label="Option 1"><Text>Option 1</Text></Select.Item>
+<DropdownMenu.Item><Text>Edit</Text></DropdownMenu.Item>
+```
+
+### Components that style children via context:
+
+These use `TextStyleContext` to auto-style nested `<Text>` and `<Icon>`. **You must explicitly use `<Text>` for text content:**
+
+| Component      | Children                    |
+| -------------- | --------------------------- |
+| `Button`       | `<Text>`, `<Icon>`, or both |
+| `IconButton`   | `<Icon>` only (no text)     |
+| `Badge`        | `<Text>`, `<Icon>`, or both |
+| `Callout.Root` | `<Text>`, `<Icon>`, etc.    |
+
+```tsx
+// ✅ Correct - Text/Icon auto-styled by parent
+<Button variant="solid">
+  <Text>Submit</Text>
+</Button>
+
+<IconButton variant="soft">
+  <Icon as={Settings} />
+</IconButton>
+
+<Badge color="success">
+  <Text>Active</Text>
+</Badge>
+```
+
+---
+
 ## Simple Components
 
 ### Button
@@ -622,12 +686,8 @@ Tabbed content panels.
 ```tsx
 <Tabs.Root value={activeTab} onValueChange={setActiveTab}>
   <Tabs.List>
-    <Tabs.Trigger value="tab1">
-      <Text>Tab 1</Text>
-    </Tabs.Trigger>
-    <Tabs.Trigger value="tab2">
-      <Text>Tab 2</Text>
-    </Tabs.Trigger>
+    <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>
+    <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>
   </Tabs.List>
   <Tabs.Content value="tab1">
     <Text>Content for tab 1</Text>
@@ -637,6 +697,8 @@ Tabbed content panels.
   </Tabs.Content>
 </Tabs.Root>
 ```
+
+> **Note**: `Tabs.Trigger` auto-wraps string children in `<Text>`. You can pass plain strings or `<Text>` components.
 
 **Tabs.Root Props:**
 | Prop | Type | Default |
@@ -655,15 +717,13 @@ Segmented selection control.
 ```tsx
 <SegmentedControl.Root value={view} onValueChange={setView}>
   <SegmentedControl.List>
-    <SegmentedControl.Trigger value="list">
-      <Text>List</Text>
-    </SegmentedControl.Trigger>
-    <SegmentedControl.Trigger value="grid">
-      <Text>Grid</Text>
-    </SegmentedControl.Trigger>
+    <SegmentedControl.Trigger value="list">List</SegmentedControl.Trigger>
+    <SegmentedControl.Trigger value="grid">Grid</SegmentedControl.Trigger>
   </SegmentedControl.List>
 </SegmentedControl.Root>
 ```
+
+> **Note**: `SegmentedControl.Trigger` auto-wraps string children in `<Text>`. You can pass plain strings or `<Text>` components.
 
 ---
 
@@ -674,23 +734,21 @@ Collapsible content sections.
 ```tsx
 <Accordion.Root type="single" collapsible>
   <Accordion.Item value="item1">
-    <Accordion.Trigger>
-      <Text>Section 1</Text>
-    </Accordion.Trigger>
+    <Accordion.Trigger>Section 1</Accordion.Trigger>
     <Accordion.Content>
       <Text>Content for section 1</Text>
     </Accordion.Content>
   </Accordion.Item>
   <Accordion.Item value="item2">
-    <Accordion.Trigger>
-      <Text>Section 2</Text>
-    </Accordion.Trigger>
+    <Accordion.Trigger>Section 2</Accordion.Trigger>
     <Accordion.Content>
       <Text>Content for section 2</Text>
     </Accordion.Content>
   </Accordion.Item>
 </Accordion.Root>
 ```
+
+> **Note**: `Accordion.Trigger` internally wraps children in `<Text>`. Pass plain strings, not `<Text>` components.
 
 ---
 
