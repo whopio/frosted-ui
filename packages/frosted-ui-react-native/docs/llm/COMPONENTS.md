@@ -27,6 +27,7 @@ These components internally render `<Text>`, so **do NOT wrap children in `<Text
 
 | Component                   | Children           |
 | --------------------------- | ------------------ |
+| `Link`                      | Plain string       |
 | `Select.Item`               | Plain string       |
 | `Select.Label`              | Plain string       |
 | `DropdownMenu.Item`         | Plain string       |
@@ -45,10 +46,12 @@ These components internally render `<Text>`, so **do NOT wrap children in `<Text
 
 ```tsx
 // ✅ Correct
+<Link onPress={() => {}}>Click here</Link>
 <Select.Item value="1" label="Option 1">Option 1</Select.Item>
 <DropdownMenu.Item>Edit</DropdownMenu.Item>
 
 // ❌ Wrong - double-wrapped text
+<Link onPress={() => {}}><Text>Click here</Text></Link>
 <Select.Item value="1" label="Option 1"><Text>Option 1</Text></Select.Item>
 <DropdownMenu.Item><Text>Edit</Text></DropdownMenu.Item>
 ```
@@ -210,6 +213,33 @@ Small label for status or categories.
 | `variant` | `'solid' \| 'soft' \| 'surface' \| 'outline'` | `'soft'`   | Visual style |
 | `size`    | `'1' \| '2'`                                  | `'1'`      | Badge size   |
 | `color`   | `Color`                                       | `'accent'` | Color theme  |
+
+---
+
+### Link
+
+Pressable text link with accent color.
+
+```tsx
+<Link onPress={() => navigation.navigate('Terms')}>Terms of Service</Link>
+
+<Text>
+  Read our <Link onPress={() => {}}>Privacy Policy</Link>.
+</Text>
+```
+
+| Prop        | Type                            | Default    | Description                 |
+| ----------- | ------------------------------- | ---------- | --------------------------- |
+| `size`      | `'0'-'9'`                       | `'3'`      | Text size                   |
+| `weight`    | `'light' \| ... \| 'bold'`      | —          | Font weight                 |
+| `color`     | `Color`                         | `'accent'` | Link color (uses a11 shade) |
+| `underline` | `'auto' \| 'hover' \| 'always'` | `'auto'`   | Underline behavior          |
+| `onPress`   | `() => void`                    | —          | Press handler               |
+| `disabled`  | `boolean`                       | `false`    | Disabled state              |
+
+> **Note**: `underline="auto"` shows underline on press (mobile equivalent of hover). Use `underline="always"` for always-visible underlines.
+
+> **Inheritance**: When nested inside `<Text>`, Link inherits the parent's `size` and `weight`. This makes inline links match the surrounding text automatically.
 
 ---
 

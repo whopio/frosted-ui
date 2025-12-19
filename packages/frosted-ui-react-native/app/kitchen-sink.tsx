@@ -17,6 +17,7 @@ import {
   Icon,
   IconButton,
   Label,
+  Link,
   Popover,
   Progress,
   RadioGroup,
@@ -47,7 +48,7 @@ import {
   SettingsIcon,
 } from 'lucide-react-native';
 import * as React from 'react';
-import { Image, ScrollView, StyleSheet, useWindowDimensions, View } from 'react-native';
+import { Image, Linking, ScrollView, StyleSheet, useWindowDimensions, View } from 'react-native';
 import { useHeaderOptions } from './_header';
 
 // ============================================================================
@@ -218,6 +219,112 @@ export default function KitchenSinkScreen() {
                 <Text>
                   Run <Code>npm install</Code> to install dependencies.
                 </Text>
+              </View>
+            </View>
+          </ComponentSection>
+
+          {/* Link Section */}
+          <ComponentSection title="Link">
+            <View style={s.gap6}>
+              {/* Default */}
+              <View style={s.gap3}>
+                <SectionLabel>Default (accent color)</SectionLabel>
+                <Link onPress={() => {}}>Click this link</Link>
+              </View>
+
+              {/* Underline */}
+              <View style={s.gap3}>
+                <SectionLabel>Underline Options</SectionLabel>
+                <View style={s.gap2}>
+                  <Link underline="auto" onPress={() => {}}>
+                    Underline: auto (shows on press)
+                  </Link>
+                  <Link underline="always" onPress={() => {}}>
+                    Underline: always
+                  </Link>
+                  <Link underline="hover" onPress={() => {}}>
+                    Underline: hover (same as auto on mobile)
+                  </Link>
+                </View>
+              </View>
+
+              {/* Sizes */}
+              <View style={s.gap3}>
+                <SectionLabel>Sizes</SectionLabel>
+                <View style={s.gap2}>
+                  <Link size="1" onPress={() => {}}>
+                    Link size 1
+                  </Link>
+                  <Link size="2" onPress={() => {}}>
+                    Link size 2
+                  </Link>
+                  <Link size="3" onPress={() => {}}>
+                    Link size 3
+                  </Link>
+                  <Link size="4" onPress={() => {}}>
+                    Link size 4
+                  </Link>
+                  <Link size="5" onPress={() => {}}>
+                    Link size 5
+                  </Link>
+                </View>
+              </View>
+
+              {/* Colors */}
+              <View style={s.gap3}>
+                <SectionLabel>Colors</SectionLabel>
+                <View style={[s.row, s.wrap, s.gap3]}>
+                  <Link color="blue" onPress={() => {}}>
+                    Blue
+                  </Link>
+                  <Link color="green" onPress={() => {}}>
+                    Green
+                  </Link>
+                  <Link color="red" onPress={() => {}}>
+                    Red
+                  </Link>
+                  <Link color="purple" onPress={() => {}}>
+                    Purple
+                  </Link>
+                  <Link color="orange" onPress={() => {}}>
+                    Orange
+                  </Link>
+                </View>
+              </View>
+
+              {/* Weights */}
+              <View style={s.gap3}>
+                <SectionLabel>Weights</SectionLabel>
+                <View style={s.gap2}>
+                  <Link weight="regular" onPress={() => {}}>
+                    Regular weight
+                  </Link>
+                  <Link weight="medium" onPress={() => {}}>
+                    Medium weight
+                  </Link>
+                  <Link weight="bold" onPress={() => {}}>
+                    Bold weight
+                  </Link>
+                </View>
+              </View>
+
+              {/* Inline usage */}
+              <View style={s.gap3}>
+                <SectionLabel>Inline Usage</SectionLabel>
+                <Text size="5">
+                  Read our <Link onPress={() => {}}>Terms of Service</Link> and{' '}
+                  <Link onPress={() => {}}>Privacy Policy</Link>.
+                </Text>
+              </View>
+
+              {/* External link */}
+              <View style={s.gap3}>
+                <SectionLabel>External Link</SectionLabel>
+                <Link
+                  onPress={() => Linking.openURL('https://github.com/AuroPick/frosted-ui')}
+                  underline="always">
+                  View on GitHub
+                </Link>
               </View>
             </View>
           </ComponentSection>
