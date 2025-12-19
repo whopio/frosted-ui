@@ -61,7 +61,7 @@ import { ThemeProvider, useTheme } from '@frosted-ui/react-native';
 
 function MyComponent() {
   const { colorScheme, toggleColorScheme } = useTheme();
-  
+
   return (
     <Button onPress={toggleColorScheme}>
       <Text>Current theme: {colorScheme}</Text>
@@ -87,12 +87,10 @@ import { useThemeTokens } from '@frosted-ui/react-native';
 
 function MyComponent() {
   const { colors, isDark } = useThemeTokens();
-  
+
   return (
     <View style={{ backgroundColor: colors.background }}>
-      <Text style={{ color: colors.palettes.gray['12'] }}>
-        Hello World
-      </Text>
+      <Text style={{ color: colors.palettes.gray['12'] }}>Hello World</Text>
     </View>
   );
 }
@@ -141,6 +139,21 @@ This library includes a comprehensive set of UI components:
 ## Styling
 
 This library uses React Native's built-in styling system with a comprehensive design system. All components support light and dark mode out of the box, and include multiple color palettes (28+ accent colors) and variants.
+
+## AI/LLM Documentation
+
+This package includes comprehensive documentation designed for AI agents and LLMs to generate code using Frosted UI. When installed, the docs are available at:
+
+```
+node_modules/@frosted-ui/react-native/docs/llm/
+├── README.md           # Overview and quick reference
+├── COLOR_SYSTEM.md     # Color palettes, shades, variants, accessibility
+├── TYPOGRAPHY.md       # Typography scale, font weights, components
+├── COMPONENTS.md       # Full component API reference
+└── DESIGN_PATTERNS.md  # UX patterns, layout composition, visual design
+```
+
+AI agents should read these files to understand how to properly use the design system when generating React Native applications.
 
 ## License
 

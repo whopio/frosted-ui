@@ -23,7 +23,7 @@ type IconButtonProps = Omit<React.ComponentProps<typeof Pressable>, 'style'> & {
 
 function IconButton({
   variant = 'surface',
-  size = '2',
+  size = '3',
   color,
   style,
   disabled,
@@ -167,4 +167,3 @@ function IconButton({
 
 export { IconButton };
 export type { IconButtonProps };
-

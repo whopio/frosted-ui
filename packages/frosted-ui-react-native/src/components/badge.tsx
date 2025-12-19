@@ -38,11 +38,13 @@ function Badge({ variant = 'soft', size = '1', color, style, asChild, ...props }
           height: 20,
           paddingHorizontal: 8,
           borderRadius: 6,
+          gap: 4,
         }
       : {
           height: 28,
           paddingHorizontal: 12,
           borderRadius: 8,
+          gap: 6,
         };
 
   // Variant-specific background / border colors
