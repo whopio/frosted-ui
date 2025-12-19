@@ -63,6 +63,274 @@ Use these values for `gap`, `padding`, and `margin`:
 
 ---
 
+## Responsive Design
+
+Apps built with Frosted UI should be mobile-first but work well on web/desktop. Choose the right layout strategy based on app complexity.
+
+### When to Use Each Layout Strategy
+
+| App Type                            | Layout Strategy   | Example                         |
+| ----------------------------------- | ----------------- | ------------------------------- |
+| Landing pages, forms, settings      | **Centered**      | Max-width container, centered   |
+| E-commerce, marketplace, dashboards | **Adaptive Grid** | Single column → multi-column    |
+| Chat, feed, detail views            | **Centered**      | Content-focused, easy reading   |
+| File browsers, admin panels         | **Adaptive Grid** | Utilize full screen real estate |
+
+---
+
+### Strategy 1: Centered Layout (Simple Apps)
+
+Best for: landing pages, forms, articles, settings, detail views.
+
+```tsx
+import { useWindowDimensions } from 'react-native';
+
+const MAX_CONTENT_WIDTH = 600;
+const BREAKPOINT = 768;
+
+function useResponsiveLayout() {
+  const { width } = useWindowDimensions();
+  const isWide = width >= BREAKPOINT;
+  const horizontalPadding = isWide ? Math.max(24, (width - MAX_CONTENT_WIDTH) / 2) : 16;
+
+  return { isWide, horizontalPadding, screenWidth: width };
+}
+
+function SimpleScreen() {
+  const { colors } = useThemeTokens();
+  const { horizontalPadding, isWide } = useResponsiveLayout();
+
+  return (
+    <ScrollView
+      style={{ flex: 1, backgroundColor: colors.background }}
+      contentContainerStyle={{
+        paddingHorizontal: horizontalPadding,
+        paddingVertical: 16,
+        gap: 24,
+        maxWidth: isWide ? MAX_CONTENT_WIDTH + horizontalPadding * 2 : undefined,
+        alignSelf: isWide ? 'center' : undefined,
+        width: '100%',
+      }}>
+      {/* Content */}
+    </ScrollView>
+  );
+}
+```
+
+---
+
+### Strategy 2: Adaptive Grid (Complex Apps)
+
+Best for: e-commerce, marketplaces, dashboards, productivity apps, file browsers.
+
+```tsx
+import { useWindowDimensions } from 'react-native';
+
+// Breakpoints
+const TABLET = 768;
+const DESKTOP = 1024;
+const WIDE = 1280;
+
+function useAdaptiveLayout() {
+  const { width } = useWindowDimensions();
+
+  // Calculate columns based on screen width
+  const getColumns = (minItemWidth: number, maxColumns: number = 4) => {
+    const availableWidth = width - 32; // Account for padding
+    const columns = Math.floor(availableWidth / minItemWidth);
+    return Math.max(1, Math.min(columns, maxColumns));
+  };
+
+  return {
+    screenWidth: width,
+    isTablet: width >= TABLET,
+    isDesktop: width >= DESKTOP,
+    isWide: width >= WIDE,
+    getColumns,
+    padding: width >= TABLET ? 24 : 16,
+  };
+}
+```
+
+#### Product Grid Example
+
+```tsx
+function ProductGridScreen() {
+  const { colors } = useThemeTokens();
+  const { getColumns, padding, isDesktop } = useAdaptiveLayout();
+
+  // Min 200px per item for comfortable cards, max 3 columns
+  const columns = getColumns(200, 3);
+  const gap = 16;
+
+  const products = [...]; // Your product data
+
+  return (
+    <ScrollView
+      style={{ flex: 1, backgroundColor: colors.background }}
+      contentContainerStyle={{
+        padding,
+        gap: 24,
+        maxWidth: isDesktop ? 1200 : undefined,
+        alignSelf: isDesktop ? 'center' : undefined,
+        width: '100%',
+      }}>
+      {/* Header */}
+      <View style={{ gap: 4 }}>
+        <Heading size="5">Products</Heading>
+        <Text color="gray">{products.length} items</Text>
+      </View>
+
+      {/* Responsive Grid */}
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap }}>
+        {products.map((product) => (
+          <View
+            key={product.id}
+            style={{
+              flexGrow: 1,
+              flexBasis: columns === 1 ? '100%' : `${Math.floor(100 / columns) - 2}%`,
+              maxWidth: columns === 1 ? '100%' : `${Math.floor(100 / columns) - 1}%`,
+            }}>
+            <ProductCard product={product} />
+          </View>
+        ))}
+      </View>
+    </ScrollView>
+  );
+}
+```
+
+#### Simpler Grid with Fixed Breakpoints
+
+```tsx
+function SimpleGrid({ items, renderItem }) {
+  const { width } = useWindowDimensions();
+
+  // Simple breakpoint-based columns
+  const columns = width >= 1024 ? 3 : width >= 600 ? 2 : 1;
+  const gap = 16;
+
+  return (
+    <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap }}>
+      {items.map((item, index) => (
+        <View
+          key={item.id ?? index}
+          style={{
+            flexGrow: 1,
+            flexBasis: columns === 1 ? '100%' : `${Math.floor(100 / columns) - 2}%`,
+            maxWidth: columns === 1 ? '100%' : `${Math.floor(100 / columns) - 1}%`,
+          }}>
+          {renderItem(item)}
+        </View>
+      ))}
+    </View>
+  );
+}
+```
+
+---
+
+### Strategy 3: Hybrid Layout (Mixed Content)
+
+Best for: screens with both full-width and constrained sections.
+
+```tsx
+function HybridScreen() {
+  const { colors } = useThemeTokens();
+  const { isDesktop, padding, getColumns } = useAdaptiveLayout();
+
+  const maxContentWidth = 800;
+
+  return (
+    <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
+      {/* Full-width hero/banner */}
+      <View style={{ padding, backgroundColor: colors.palettes.accent.a2 }}>
+        <View
+          style={{
+            maxWidth: maxContentWidth,
+            alignSelf: 'center',
+            width: '100%',
+          }}>
+          <Heading size="6">Welcome Back</Heading>
+          <Text color="gray">Your dashboard overview</Text>
+        </View>
+      </View>
+
+      {/* Constrained content area */}
+      <View
+        style={{
+          padding,
+          gap: 24,
+          maxWidth: isDesktop ? 1200 : undefined,
+          alignSelf: 'center',
+          width: '100%',
+        }}>
+        {/* Stats Grid - adapts columns */}
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12 }}>
+          {stats.map((stat) => (
+            <View key={stat.label} style={{ flex: 1, minWidth: 150 }}>
+              <StatCard {...stat} />
+            </View>
+          ))}
+        </View>
+
+        {/* Two-column layout on desktop */}
+        <View
+          style={{
+            flexDirection: isDesktop ? 'row' : 'column',
+            gap: 16,
+          }}>
+          <View style={{ flex: isDesktop ? 2 : 1 }}>
+            <Card>
+              <Heading size="4">Recent Activity</Heading>
+              {/* Activity list */}
+            </Card>
+          </View>
+          <View style={{ flex: 1 }}>
+            <Card>
+              <Heading size="4">Quick Actions</Heading>
+              {/* Actions */}
+            </Card>
+          </View>
+        </View>
+      </View>
+    </ScrollView>
+  );
+}
+```
+
+---
+
+### Responsive Design Principles
+
+| Principle             | Mobile          | Tablet (768px+) | Desktop (1024px+) |
+| --------------------- | --------------- | --------------- | ----------------- |
+| **Grid columns**      | 1-2             | 2-3             | 3-4               |
+| **Content max-width** | Full            | Full or 800px   | 1200px            |
+| **Side padding**      | 16px            | 24px            | 24-48px           |
+| **Card arrangement**  | Stacked         | Side-by-side    | Multi-column      |
+| **Touch targets**     | 44px+ (size 3+) | Same            | Same              |
+| **Component sizes**   | Don't change    | Don't change    | Don't change      |
+
+### Do's and Don'ts
+
+**Do:**
+
+- Use `flexWrap: 'wrap'` for responsive grids
+- Set `minWidth` on grid items to control breakpoints
+- Use `flex: 1` for equal-width columns
+- Constrain max-width on very wide screens (1200-1400px)
+- Keep consistent gap/padding at each breakpoint
+
+**Don't:**
+
+- Change button sizes based on screen width
+- Use different font sizes for mobile vs desktop
+- Create completely different layouts (keep hierarchy similar)
+- Forget touch targets — desktop users may have touchscreens
+
+---
+
 ## Layout Patterns
 
 ### Screen Structure

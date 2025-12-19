@@ -47,8 +47,23 @@ import {
   SettingsIcon,
 } from 'lucide-react-native';
 import * as React from 'react';
-import { Image, ScrollView, StyleSheet, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, useWindowDimensions, View } from 'react-native';
 import { useHeaderOptions } from './_header';
+
+// ============================================================================
+// Responsive Layout
+// ============================================================================
+
+const MAX_CONTENT_WIDTH = 600;
+const BREAKPOINT = 768;
+
+function useResponsiveLayout() {
+  const { width } = useWindowDimensions();
+  const isWide = width >= BREAKPOINT;
+  const horizontalPadding = isWide ? Math.max(24, (width - MAX_CONTENT_WIDTH) / 2) : 16;
+
+  return { isWide, horizontalPadding };
+}
 
 const HEADING_SIZES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
 const TEXT_SIZES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
@@ -88,6 +103,8 @@ const s = StyleSheet.create({
 export default function KitchenSinkScreen() {
   const { colors, isDark } = useThemeTokens();
   const headerOptions = useHeaderOptions();
+  const { horizontalPadding, isWide } = useResponsiveLayout();
+
   return (
     <>
       <Stack.Screen
@@ -96,8 +113,15 @@ export default function KitchenSinkScreen() {
           ...headerOptions,
         }}
       />
-      <ScrollView style={{ flex: 1, backgroundColor: isDark ? colors.surface : colors.background }}>
-        <View style={[s.gap8, s.p4, s.pt24]}>
+      <ScrollView
+        style={{ flex: 1, backgroundColor: isDark ? colors.surface : colors.background }}
+        contentContainerStyle={{
+          paddingHorizontal: horizontalPadding,
+          maxWidth: isWide ? MAX_CONTENT_WIDTH + horizontalPadding * 2 : undefined,
+          alignSelf: isWide ? 'center' : undefined,
+          width: '100%',
+        }}>
+        <View style={[s.gap8, { paddingTop: 96, paddingBottom: 16 }]}>
           {/* Typography Section */}
           <ComponentSection title="Typography">
             <View style={s.gap4}>

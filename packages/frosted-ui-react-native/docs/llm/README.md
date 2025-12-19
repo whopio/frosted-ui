@@ -91,6 +91,13 @@ import {
 10. **Consistent spacing** — Use 4, 8, 12, 16, 24, 32px scale for gaps and padding
 11. **Accessible** — Color combinations are designed to meet WCAG contrast requirements
 
+### Responsive Design
+
+12. **Mobile-first** — Design for mobile, content adapts to larger screens
+13. **Choose layout strategy** — Simple apps: centered (600px max). Complex apps: adaptive grid
+14. **Don't resize components** — Keep button sizes, fonts, etc. consistent across breakpoints
+15. **Use flexWrap for grids** — Let items wrap naturally based on screen width
+
 ## App Structure Template
 
 ```tsx

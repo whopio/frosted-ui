@@ -73,8 +73,43 @@ import {
   Zap,
 } from 'lucide-react-native';
 import * as React from 'react';
-import { Pressable, ScrollView, View } from 'react-native';
+import { Pressable, ScrollView, useWindowDimensions, View } from 'react-native';
 import { useHeaderOptions } from './_header';
+
+// ============================================================================
+// Responsive Layout
+// ============================================================================
+
+const MAX_CONTENT_WIDTH = 600;
+const BREAKPOINT = 768;
+const TABLET = 768;
+const DESKTOP = 1024;
+
+function useResponsiveLayout() {
+  const { width } = useWindowDimensions();
+  const isWide = width >= BREAKPOINT;
+  const contentWidth = isWide ? MAX_CONTENT_WIDTH : width;
+  const horizontalPadding = isWide ? Math.max(24, (width - MAX_CONTENT_WIDTH) / 2) : 16;
+
+  return { isWide, contentWidth, horizontalPadding, screenWidth: width };
+}
+
+function useAdaptiveLayout() {
+  const { width } = useWindowDimensions();
+
+  const getColumns = (minItemWidth: number, maxColumns: number = 4) => {
+    const availableWidth = width - 32;
+    const columns = Math.floor(availableWidth / minItemWidth);
+    return Math.max(1, Math.min(columns, maxColumns));
+  };
+
+  return {
+    screenWidth: width,
+    isTablet: width >= TABLET,
+    isDesktop: width >= DESKTOP,
+    getColumns,
+  };
+}
 
 // ============================================================================
 // Section Component
@@ -1070,6 +1105,79 @@ function SearchFieldPattern() {
 // ============================================================================
 // E-commerce Patterns
 // ============================================================================
+
+function ResponsiveProductGridPattern() {
+  const { colors } = useThemeTokens();
+  const { getColumns } = useAdaptiveLayout();
+
+  // Min 200px per item, max 3 columns for comfortable spacing
+  const columns = getColumns(200, 3);
+  const gap = 16;
+
+  const products = [
+    { id: 1, name: 'Wireless Headphones', price: '$79', rating: 4.5 },
+    { id: 2, name: 'Smart Watch', price: '$199', rating: 4.8 },
+    { id: 3, name: 'Portable Speaker', price: '$59', rating: 4.2 },
+    { id: 4, name: 'Phone Case', price: '$29', rating: 4.7 },
+    { id: 5, name: 'USB-C Cable', price: '$15', rating: 4.4 },
+    { id: 6, name: 'Power Bank', price: '$49', rating: 4.6 },
+  ];
+
+  return (
+    <View style={{ gap: 16 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Text size="2" color="gray">
+          {products.length} products • {columns} column{columns > 1 ? 's' : ''}
+        </Text>
+        <Badge variant="soft" color="gray" size="1">
+          <Text>Resize to test</Text>
+        </Badge>
+      </View>
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap }}>
+        {products.map((product) => (
+          <View
+            key={product.id}
+            style={{
+              flexGrow: 1,
+              flexBasis: columns === 1 ? '100%' : `${Math.floor(100 / columns) - 2}%`,
+              maxWidth: columns === 1 ? '100%' : `${Math.floor(100 / columns) - 1}%`,
+            }}>
+            <Card style={{ padding: 16, height: '100%' }}>
+              <View style={{ gap: 12 }}>
+                <View
+                  style={{
+                    height: 100,
+                    backgroundColor: colors.palettes.gray.a3,
+                    borderRadius: 8,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Icon as={ShoppingBag} size={28} color={colors.palettes.gray.a8} />
+                </View>
+                <View style={{ gap: 4 }}>
+                  <Text size="2" weight="medium" numberOfLines={1}>
+                    {product.name}
+                  </Text>
+                  <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <Text size="3" weight="bold">
+                      {product.price}
+                    </Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                      <Icon as={Star} size={14} color={colors.palettes.amber['9']} />
+                      <Text size="2" color="gray">
+                        {product.rating}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </Card>
+          </View>
+        ))}
+      </View>
+    </View>
+  );
+}
 
 function ProductCardPattern() {
   const { colors } = useThemeTokens();
@@ -2416,6 +2524,7 @@ function AppStatsPattern() {
 export default function DesignPatternsScreen() {
   const { colors } = useThemeTokens();
   const headerOptions = useHeaderOptions();
+  const { horizontalPadding, isWide } = useResponsiveLayout();
 
   return (
     <>
@@ -2427,7 +2536,15 @@ export default function DesignPatternsScreen() {
       />
       <ScrollView
         style={{ flex: 1, backgroundColor: colors.background }}
-        contentContainerStyle={{ padding: 16, gap: 24, paddingBottom: 48 }}>
+        contentContainerStyle={{
+          paddingHorizontal: horizontalPadding,
+          paddingVertical: 16,
+          gap: 24,
+          paddingBottom: 48,
+          maxWidth: isWide ? MAX_CONTENT_WIDTH + horizontalPadding * 2 : undefined,
+          alignSelf: isWide ? 'center' : undefined,
+          width: '100%',
+        }}>
         {/* Header */}
         <View style={{ gap: 4 }}>
           <Heading size="6">Design Patterns</Heading>
@@ -2516,6 +2633,10 @@ export default function DesignPatternsScreen() {
           </Heading>
           <Separator size="4" />
         </View>
+
+        <Section title="Responsive Product Grid">
+          <ResponsiveProductGridPattern />
+        </Section>
 
         <Section title="Product Card">
           <ProductCardPattern />
