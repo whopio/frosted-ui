@@ -1,6 +1,6 @@
 import { Text } from '@/components/text';
 import { themeTokens } from '@/lib/theme-tokens';
-import type { AccentColor } from '@/lib/types';
+import type { Color } from '@/lib/types';
 import type * as React from 'react';
 import { Platform } from 'react-native';
 
@@ -10,7 +10,7 @@ type HeadingWeight = keyof typeof themeTokens.fontWeights;
 type HeadingProps = Omit<React.ComponentProps<typeof Text>, 'variant' | 'color'> & {
   size?: HeadingSize;
   weight?: HeadingWeight;
-  color?: AccentColor;
+  color?: Color;
 };
 
 function Heading({ size = '6', weight = 'bold', color, role: roleProp, ...props }: HeadingProps) {

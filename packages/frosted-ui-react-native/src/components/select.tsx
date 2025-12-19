@@ -118,7 +118,7 @@ type SelectRootProps = Omit<SelectPrimitive.RootProps, 'value' | 'onValueChange'
   onValueChange?: (value: { value: string; label: string } | undefined) => void;
 };
 
-function SelectRoot({ size = '2', value, onValueChange, children, ...props }: SelectRootProps) {
+function SelectRoot({ size = '3', value, onValueChange, children, ...props }: SelectRootProps) {
   const labelMapRef = React.useRef<Map<string, string>>(new Map());
   const [open, setOpen] = React.useState(false);
 
