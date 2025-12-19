@@ -96,7 +96,7 @@ interface TextFieldRootProps extends ViewProps {
 }
 
 function TextFieldRoot({
-  size = '2',
+  size = '3',
   variant = 'surface',
   color,
   disabled = false,
@@ -309,7 +309,7 @@ const TextFieldInput = React.forwardRef<TextInput, TextFieldInputProps>(
     const context = React.useContext(TextFieldContext);
     const { colors } = useThemeTokens();
 
-    const size = sizeProp ?? context?.size ?? '2';
+    const size = sizeProp ?? context?.size ?? '3';
     const variant = variantProp ?? context?.variant ?? 'surface';
     // Keep color undefined if not explicitly set, so TextFieldRoot uses accent for focus
     const color: PaletteKey | undefined = colorProp ?? context?.color;

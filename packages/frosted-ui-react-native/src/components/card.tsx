@@ -15,6 +15,7 @@ function Card({ variant = 'surface', style, ...props }: CardProps) {
   const baseStyle: ViewStyle = {
     padding: 16,
     borderRadius: 16,
+    overflow: 'hidden',
   };
 
   let variantStyle: ViewStyle = {};
@@ -22,7 +23,7 @@ function Card({ variant = 'surface', style, ...props }: CardProps) {
   switch (variant) {
     case 'soft':
       variantStyle = {
-        backgroundColor: gray.a3,
+        backgroundColor: gray.a2,
       };
       break;
     case 'surface':

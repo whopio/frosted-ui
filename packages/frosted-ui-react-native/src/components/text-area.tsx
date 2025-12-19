@@ -93,7 +93,7 @@ interface TextAreaProps extends Omit<TextInputProps, 'style'> {
 }
 
 function TextArea({
-  size = '2',
+  size = '3',
   variant = 'surface',
   color,
   style,
@@ -140,12 +140,7 @@ function TextArea({
       : undefined;
 
   // Text and placeholder colors
-  const { textColor, placeholderColor } = getTextInputColors(
-    variant,
-    colors,
-    paletteKey,
-    disabled
-  );
+  const { textColor, placeholderColor } = getTextInputColors(variant, colors, paletteKey, disabled);
 
   const rootStyle: ViewStyle = {
     flexDirection: 'column',

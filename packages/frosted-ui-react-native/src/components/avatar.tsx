@@ -140,6 +140,7 @@ function Avatar({ src, fallback, size = '3', shape = 'circle', color }: AvatarPr
 
   const textStyle: TextStyle = {
     fontSize,
+    lineHeight: fontSize * 1.1, // Must set lineHeight to match fontSize, otherwise Text's default lineHeight clips large text
     fontWeight: '500',
     color: palette.a11,
     textTransform: 'uppercase',

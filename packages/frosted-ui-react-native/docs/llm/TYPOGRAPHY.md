@@ -33,8 +33,8 @@ Frosted UI uses a 10-step typography scale (0-9). Each step defines `fontSize`, 
 | ---- | --------- | ----------- | ------------------------------------- |
 | `0`  | 10px      | 12px        | Tiny labels, captions                 |
 | `1`  | 12px      | 16px        | Small labels, helper text             |
-| `2`  | 14px      | 20px        | **Default body text**, descriptions   |
-| `3`  | 16px      | 24px        | Larger body text                      |
+| `2`  | 14px      | 20px        | Secondary text, descriptions          |
+| `3`  | 16px      | 24px        | **Default body text** (mobile-first)  |
 | `4`  | 18px      | 26px        | Small headings, emphasized text       |
 | `5`  | 20px      | 28px        | Section headings                      |
 | `6`  | 24px      | 30px        | **Default heading size**, page titles |
@@ -65,12 +65,12 @@ The primary component for all text content.
 ```tsx
 import { Text } from '@frosted-ui/react-native';
 
-// Default body text (size="2", weight="regular", color=gray-12)
+// Default body text (size="3", weight="regular", color=gray-12)
 <Text>Default body text</Text>
 
 // With size
 <Text size="1">Small helper text</Text>
-<Text size="3">Larger body text</Text>
+<Text size="2">Secondary text</Text>
 
 // With weight
 <Text weight="medium">Medium weight text</Text>
@@ -90,9 +90,9 @@ import { Text } from '@frosted-ui/react-native';
 
 | Prop     | Type                                                                | Default           | Description                               |
 | -------- | ------------------------------------------------------------------- | ----------------- | ----------------------------------------- |
-| `size`   | `'0'` - `'9'`                                                       | Inherited or none | Typography scale step                     |
+| `size`   | `'0'` - `'9'`                                                       | `'3'`             | Typography scale step                     |
 | `weight` | `'light'` \| `'regular'` \| `'medium'` \| `'semi-bold'` \| `'bold'` | Inherited or none | Font weight                               |
-| `color`  | `AccentColor`                                                       | `gray` (shade 12) | Text color (uses shade 11 of the palette) |
+| `color`  | `Color`                                                             | `gray` (shade 12) | Text color (uses shade 11 of the palette) |
 
 ---
 
@@ -125,7 +125,7 @@ import { Heading } from '@frosted-ui/react-native';
 | -------- | ------------------------------------------------------------------- | ----------------- | --------------------- |
 | `size`   | `'0'` - `'9'`                                                       | `'6'`             | Typography scale step |
 | `weight` | `'light'` \| `'regular'` \| `'medium'` \| `'semi-bold'` \| `'bold'` | `'bold'`          | Font weight           |
-| `color`  | `AccentColor`                                                       | `gray` (shade 12) | Text color            |
+| `color`  | `Color`                                                             | `gray` (shade 12) | Text color            |
 
 ---
 
@@ -444,8 +444,8 @@ import { Text } from 'react-native';
 // ❌ Ambiguous - what size is this?
 <Text>Some text</Text>
 
-// ✅ Explicit sizing when outside a context provider
-<Text size="2">Body text</Text>
+// ✅ Default size is mobile-friendly
+<Text>Body text</Text> // Defaults to size="3"
 ```
 
 ---
@@ -454,22 +454,22 @@ import { Text } from 'react-native';
 
 ### Text Sizes for Common Use Cases
 
-| Use Case                   | Size                    |
-| -------------------------- | ----------------------- |
-| Page title                 | `6` - `9` (Heading)     |
-| Section title              | `4` - `5` (Heading)     |
-| Card title                 | `3` - `4` (Heading)     |
-| Body text                  | `2`                     |
-| Secondary/description text | `2` with `color="gray"` |
-| Helper text                | `1` with `color="gray"` |
-| Small labels               | `1`                     |
-| Tiny captions              | `0`                     |
+| Use Case                   | Size                          |
+| -------------------------- | ----------------------------- |
+| Page title                 | `6` - `9` (Heading)           |
+| Section title              | `4` - `5` (Heading)           |
+| Card title                 | `3` - `4` (Heading)           |
+| Body text                  | `3` (default)                 |
+| Secondary/description text | `3` with `color="gray"`       |
+| Helper text                | `1` - `2` with `color="gray"` |
+| Small labels               | `1`                           |
+| Tiny captions              | `0`                           |
 
 ### Default Component Styling
 
-| Component | Default Size     | Default Weight   |
-| --------- | ---------------- | ---------------- |
-| `Text`    | None (inherited) | None (inherited) |
-| `Heading` | `6`              | `bold`           |
-| `Label`   | `2`              | `medium`         |
-| `Code`    | `2`              | None             |
+| Component | Default Size         | Default Weight   |
+| --------- | -------------------- | ---------------- |
+| `Text`    | `'3'` (mobile-first) | None (inherited) |
+| `Heading` | `6`                  | `bold`           |
+| `Label`   | `2`                  | `medium`         |
+| `Code`    | `2`                  | None             |

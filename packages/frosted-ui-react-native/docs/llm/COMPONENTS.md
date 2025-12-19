@@ -32,7 +32,7 @@ Interactive button with variants and sizes.
 | Prop       | Type                                        | Default     | Description    |
 | ---------- | ------------------------------------------- | ----------- | -------------- |
 | `variant`  | `'solid' \| 'soft' \| 'surface' \| 'ghost'` | `'surface'` | Visual style   |
-| `size`     | `'1' \| '2' \| '3' \| '4'`                  | `'2'`       | Button size    |
+| `size`     | `'1' \| '2' \| '3' \| '4'`                  | `'3'`       | Button size    |
 | `color`    | `Color`                                     | `'accent'`  | Color theme    |
 | `disabled` | `boolean`                                   | `false`     | Disabled state |
 
@@ -104,7 +104,7 @@ Square button for icons only. Same API as Button.
 ```tsx
 import { X } from 'lucide-react-native';
 
-<IconButton variant="ghost" size="2" onPress={handleClose}>
+<IconButton variant="ghost" onPress={handleClose}>
   <Icon as={X} />
 </IconButton>;
 ```
@@ -180,6 +180,14 @@ Container with optional border and shadow.
 | Prop      | Type                             | Default     | Description  |
 | --------- | -------------------------------- | ----------- | ------------ |
 | `variant` | `'soft' \| 'surface' \| 'ghost'` | `'surface'` | Visual style |
+
+#### Card Variants
+
+| Variant   | Visual Style                        | Use Case                                           |
+| --------- | ----------------------------------- | -------------------------------------------------- |
+| `surface` | Solid bg, border, shadow            | **Default** — Messages, profiles, elevated content |
+| `soft`    | Translucent tinted background       | Tips, promotions, feature highlights               |
+| `ghost`   | No background/border (padding only) | Section grouping, layout containers                |
 
 ---
 
@@ -323,7 +331,7 @@ Text input with optional slots for icons/buttons.
 {
   /* With slots */
 }
-<TextField.Root size="2" variant="surface">
+<TextField.Root variant="surface">
   <TextField.Slot>
     <Icon as={Search} size={16} />
   </TextField.Slot>
@@ -339,7 +347,7 @@ Text input with optional slots for icons/buttons.
 **TextField.Root Props:**
 | Prop | Type | Default |
 |------|------|---------|
-| `size` | `'1' \| '2' \| '3' \| '4'` | `'2'` |
+| `size` | `'1' \| '2' \| '3' \| '4'` | `'3'` |
 | `variant` | `'surface' \| 'soft'` | `'surface'` |
 | `color` | `Color` | — |
 | `disabled` | `boolean` | `false` |
@@ -353,12 +361,12 @@ Text input with optional slots for icons/buttons.
 Multi-line text input.
 
 ```tsx
-<TextArea placeholder="Write a message..." size="2" variant="surface" />
+<TextArea placeholder="Write a message..." />
 ```
 
 | Prop      | Type                       | Default     |
 | --------- | -------------------------- | ----------- |
-| `size`    | `'1' \| '2' \| '3' \| '4'` | `'2'`       |
+| `size`    | `'1' \| '2' \| '3' \| '4'` | `'3'`       |
 | `variant` | `'surface' \| 'soft'`      | `'surface'` |
 | `color`   | `Color`                    | —           |
 
@@ -399,12 +407,23 @@ Dropdown selection.
 | `value` | `{ value: string; label: string }` | — |
 | `onValueChange` | `(value) => void` | — |
 
+**Select.Root Props:**
+| Prop | Type | Default |
+|------|------|---------|
+| `size` | `'1' \| '2' \| '3' \| '4'` | `'3'` |
+
 **Select.Trigger Props:**
 | Prop | Type | Default |
 |------|------|---------|
-| `size` | `'1' \| '2' \| '3' \| '4'` | `'2'` |
 | `variant` | `'surface' \| 'soft' \| 'ghost'` | `'surface'` |
 | `color` | `Color` | — |
+
+**Select.Content Props:**
+| Prop | Type | Default |
+|------|------|---------|
+| `align` | `'start' \| 'center' \| 'end'` | `'start'` |
+
+> **Tip**: Use `align="end"` when the trigger is on the right side of the screen, `align="start"` when on the left.
 
 ---
 
@@ -522,13 +541,20 @@ Floating content panel.
       <Text>Open Popover</Text>
     </Button>
   </Popover.Trigger>
-  <Popover.Content>
+  <Popover.Content align="start">
     <View style={{ padding: 16 }}>
       <Text>Popover content</Text>
     </View>
   </Popover.Content>
 </Popover.Root>
 ```
+
+**Popover.Content Props:**
+| Prop | Type | Default |
+|------|------|---------|
+| `align` | `'start' \| 'center' \| 'end'` | `'center'` |
+
+> **Tip**: Use `align="end"` when trigger is on the right, `align="start"` when on the left.
 
 ---
 
@@ -543,7 +569,7 @@ Menu triggered by button press.
       <Text>Actions</Text>
     </Button>
   </DropdownMenu.Trigger>
-  <DropdownMenu.Content>
+  <DropdownMenu.Content align="end">
     <DropdownMenu.Item onSelect={() => handleEdit()}>
       <Text>Edit</Text>
     </DropdownMenu.Item>
@@ -557,6 +583,13 @@ Menu triggered by button press.
   </DropdownMenu.Content>
 </DropdownMenu.Root>
 ```
+
+**DropdownMenu.Content Props:**
+| Prop | Type | Default |
+|------|------|---------|
+| `align` | `'start' \| 'center' \| 'end'` | `'start'` |
+
+> **Tip**: Use `align="end"` when trigger is on the right, `align="start"` when on the left.
 
 ---
 
@@ -768,12 +801,12 @@ Use this table to choose the right size for your layout.
 
 All share the same height scale. IconButton is square (width = height).
 
-| Size  | Height | Use Case                                 |
-| ----- | ------ | ---------------------------------------- |
-| `'1'` | 24px   | Compact UI, inline actions, table rows   |
-| `'2'` | 32px   | **Default** — standard forms and actions |
-| `'3'` | 40px   | Prominent actions, touch-friendly        |
-| `'4'` | 48px   | Hero buttons, large touch targets        |
+| Size  | Height | Use Case                                           |
+| ----- | ------ | -------------------------------------------------- |
+| `'1'` | 24px   | Compact UI, inline actions, table rows             |
+| `'2'` | 32px   | Smaller forms, secondary areas                     |
+| `'3'` | 40px   | **Default** — mobile-first, touch-friendly         |
+| `'4'` | 48px   | Hero CTAs, buy buttons, prominent conversion flows |
 
 ### Badge
 

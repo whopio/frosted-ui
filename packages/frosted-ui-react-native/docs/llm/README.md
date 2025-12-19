@@ -13,6 +13,7 @@ These guides provide structured, detailed information about Frosted UI conventio
 | [COLOR_SYSTEM.md](./COLOR_SYSTEM.md) | Complete guide to the color system, palettes, shades, variants, and accessibility |
 | [TYPOGRAPHY.md](./TYPOGRAPHY.md) | Typography scale, font weights, Text/Heading components, and automatic text styling |
 | [COMPONENTS.md](./COMPONENTS.md) | Full component reference with props, variants, and usage examples |
+| [DESIGN_PATTERNS.md](./DESIGN_PATTERNS.md) | **For Design Engineers** — UX patterns, layout composition, visual design principles |
 
 ## Quick Import Reference
 
@@ -55,13 +56,22 @@ import {
 
 ## Key Principles
 
+### Component Usage
 1. **Use Frosted UI's Text** — Always use `<Text>` from `@frosted-ui/react-native`, not React Native's default
 2. **Text auto-styles in components** — `<Text>` inside `Button`, `Badge`, `Callout` etc. automatically gets correct size and color
 3. **Use semantic colors** — `danger`, `warning`, `success`, `info` instead of explicit color names for status indicators
 4. **Default to accent** — Most components default to the app's accent color; only override when semantically meaningful
-5. **Respect variants** — `solid` for primary actions, `soft` for secondary, `surface`/`ghost` for tertiary
-6. **Theme-aware** — All colors automatically adapt to light/dark mode
-7. **Accessible** — Color combinations are designed to meet WCAG contrast requirements
+
+### Button Hierarchy
+5. **Primary action** — `variant="solid"` (one per view)
+6. **Secondary action** — `variant="soft" color="gray"`
+7. **Toolbar/neutral** — `variant="surface"` (pairs with form inputs)
+8. **Tertiary/inline** — `variant="ghost"`
+
+### Visual Design
+9. **Theme-aware** — All colors automatically adapt to light/dark mode
+10. **Consistent spacing** — Use 4, 8, 12, 16, 24, 32px scale for gaps and padding
+11. **Accessible** — Color combinations are designed to meet WCAG contrast requirements
 
 ## App Structure Template
 
