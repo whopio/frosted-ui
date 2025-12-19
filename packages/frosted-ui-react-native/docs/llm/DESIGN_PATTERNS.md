@@ -1915,7 +1915,7 @@ const steps = [
                 style={{
                   width: 2,
                   height: 32,
-                  backgroundColor: step.completed
+                  backgroundColor: steps[index + 1].completed
                     ? colors.palettes.success['9']
                     : colors.palettes.gray.a4,
                 }}
