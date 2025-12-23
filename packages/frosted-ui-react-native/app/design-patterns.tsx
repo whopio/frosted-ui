@@ -2138,6 +2138,14 @@ function SocialPostPattern() {
 function NowPlayingPattern() {
   const { colors } = useThemeTokens();
   const [isPlaying, setIsPlaying] = React.useState(true);
+  const [position, setPosition] = React.useState(84); // seconds
+  const duration = 225; // 3:45 in seconds
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
 
   return (
     <Card>
@@ -2171,15 +2179,15 @@ function NowPlayingPattern() {
           </IconButton>
         </View>
 
-        {/* Progress */}
-        <View style={{ gap: 8 }}>
-          <Progress value={35} size="1" />
+        {/* Playback Position */}
+        <View style={{ gap: 4 }}>
+          <Slider value={position} onValueChange={setPosition} min={0} max={duration} size="1" />
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text size="0" color="gray">
-              1:24
+              {formatTime(position)}
             </Text>
             <Text size="0" color="gray">
-              3:45
+              {formatTime(duration)}
             </Text>
           </View>
         </View>

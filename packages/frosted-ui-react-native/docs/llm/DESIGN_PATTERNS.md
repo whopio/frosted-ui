@@ -500,6 +500,58 @@ Group related fields together:
 </List.Root>
 ```
 
+### Settings with Slider Controls
+
+For settings that require a value selection (volume, brightness, text size):
+
+```tsx
+const [brightness, setBrightness] = React.useState(75);
+const [volume, setVolume] = React.useState(80);
+
+<Card>
+  <View style={{ gap: 20 }}>
+    <Heading size="3">Display Settings</Heading>
+
+    {/* Brightness */}
+    <View style={{ gap: 8 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+          <Icon as={Sun} size={18} color={colors.palettes.amber.a11} />
+          <Text weight="medium">Brightness</Text>
+        </View>
+        <Text size="2" color="gray">
+          {brightness}%
+        </Text>
+      </View>
+      <Slider value={brightness} onValueChange={setBrightness} color="amber" />
+    </View>
+
+    <Separator size="4" />
+
+    {/* Volume */}
+    <View style={{ gap: 8 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+          <Icon as={Volume2} size={18} color={colors.palettes.blue.a11} />
+          <Text weight="medium">Volume</Text>
+        </View>
+        <Text size="2" color="gray">
+          {volume}%
+        </Text>
+      </View>
+      <Slider value={volume} onValueChange={setVolume} color="blue" />
+    </View>
+  </View>
+</Card>;
+```
+
+**Key patterns:**
+
+- Show current value as percentage or label on the right
+- Use colored icons that match the slider's `color` prop
+- Use `Separator` between slider groups
+- Label + value row above, slider below
+
 ### List with RadioGroup (Shipping Options)
 
 ```tsx
@@ -2332,6 +2384,14 @@ const entries = [
 
 ```tsx
 const [isPlaying, setIsPlaying] = React.useState(true);
+const [position, setPosition] = React.useState(84); // seconds
+const duration = 225; // 3:45 in seconds
+
+const formatTime = (seconds: number) => {
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${mins}:${secs.toString().padStart(2, '0')}`;
+};
 
 <Card>
   <View style={{ gap: 16 }}>
@@ -2364,15 +2424,15 @@ const [isPlaying, setIsPlaying] = React.useState(true);
       </IconButton>
     </View>
 
-    {/* Progress */}
-    <View style={{ gap: 8 }}>
-      <Progress value={35} size="1" />
+    {/* Playback Position - Interactive Slider */}
+    <View style={{ gap: 4 }}>
+      <Slider value={position} onValueChange={setPosition} min={0} max={duration} size="1" />
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <Text size="0" color="gray">
-          1:24
+          {formatTime(position)}
         </Text>
         <Text size="0" color="gray">
-          3:45
+          {formatTime(duration)}
         </Text>
       </View>
     </View>
@@ -2392,6 +2452,8 @@ const [isPlaying, setIsPlaying] = React.useState(true);
   </View>
 </Card>;
 ```
+
+> **Tip**: Use `Slider` for interactive playback control (user can seek). Use `Progress` for read-only progress display.
 
 ### Poll Card
 
