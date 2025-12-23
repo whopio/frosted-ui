@@ -1381,17 +1381,6 @@ export default function KitchenSinkScreen() {
                 </View>
               </View>
 
-              {/* High Contrast */}
-              <View style={s.gap2}>
-                <Text size="2" weight="medium">
-                  High Contrast
-                </Text>
-                <View style={s.gap3}>
-                  <SliderDemo defaultValue={50} />
-                  <SliderDemo defaultValue={50} highContrast />
-                </View>
-              </View>
-
               {/* States */}
               <View style={s.gap2}>
                 <Text size="2" weight="medium">
@@ -2433,13 +2422,11 @@ function SwitchItem({
 function SliderDemo({
   size,
   color,
-  highContrast,
   disabled,
   defaultValue = 50,
 }: {
   size?: '1' | '2' | '3';
   color?: 'blue' | 'green' | 'red' | 'purple' | 'gray';
-  highContrast?: boolean;
   disabled?: boolean;
   defaultValue?: number;
 }) {
@@ -2450,7 +2437,6 @@ function SliderDemo({
       onValueChange={setValue}
       size={size}
       color={color}
-      highContrast={highContrast}
       disabled={disabled}
     />
   );

@@ -48,8 +48,6 @@ type SliderProps = {
   size?: SliderSize;
   /** Accent color for the filled range */
   color?: Color;
-  /** Use high contrast colors for the range */
-  highContrast?: boolean;
   /** Current value - controlled mode */
   value?: number;
   /** Default value - uncontrolled mode */
@@ -71,7 +69,6 @@ type SliderProps = {
 function Slider({
   size = '2',
   color,
-  highContrast = false,
   value: controlledValue,
   defaultValue = 50,
   min = 0,
@@ -98,7 +95,7 @@ function Slider({
   const thumbVisibleSize = thumbSize + Math.floor(trackHeight * 0.5);
 
   // Range (filled track) color
-  const rangeColor = disabled ? gray.a5 : highContrast ? palette['12'] : palette['9'];
+  const rangeColor = disabled ? gray.a5 : palette['9'];
 
   // Calculate range width based on value
   const rangePercent = ((currentValue - min) / (max - min)) * 100;
