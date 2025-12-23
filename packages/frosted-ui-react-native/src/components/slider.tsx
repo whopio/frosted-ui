@@ -148,7 +148,7 @@ function Slider({
     ...style,
   };
 
-  // Thumb styles for web
+  // Thumb styles for web - matching frosted-ui's slider.css
   const webThumbStyle = {
     width: thumbVisibleSize,
     height: thumbVisibleSize,
@@ -158,6 +158,10 @@ function Slider({
       ? `0 0 0 1px ${gray['5']}`
       : `0 0 0 1px ${gray.a3}, 0 0 0 1px ${gray.a2}, 0 0 0 1px ${palette.a2}, 0 1px 2px ${gray.a4}, 0 1px 3px -0.5px ${gray.a3}`,
     cursor: disabled ? 'not-allowed' : 'grab',
+    // Push focus outline outside the thumb (outset) instead of on the border
+    outlineOffset: 2,
+    // Focus ring color matches the accent color (--color-focus-root: var(--accent-8))
+    outlineColor: palette['8'],
   };
 
   // Web implementation using rn-primitives for accessibility (keyboard, focus)
@@ -318,6 +322,9 @@ function NativeSlider({
   // Combine gestures - tap and pan work together
   const composedGesture = Gesture.Race(panGesture, tapGesture);
 
+  // Outer ring size (the outline effect from web's box-shadow)
+  const outerRingSize = thumbVisibleSize + 2;
+
   // Animated styles for range fill
   const animatedRangeStyle = useAnimatedStyle(() => {
     return {
@@ -327,26 +334,37 @@ function NativeSlider({
 
   // Animated styles for thumb position
   const animatedThumbStyle = useAnimatedStyle(() => {
-    const left = thumbPosition.value * trackWidth.value - thumbVisibleSize / 2;
+    const left = thumbPosition.value * trackWidth.value - outerRingSize / 2;
     return {
       transform: [{ translateX: left }],
     };
   });
 
-  // Thumb styles for native
-  const thumbBaseStyle: ViewStyle = {
+  // Outer ring style - creates the dark outline effect
+  const thumbOuterStyle: ViewStyle = {
+    width: outerRingSize,
+    height: outerRingSize,
+    borderRadius: outerRingSize / 2,
+    backgroundColor: disabled ? gray['5'] : gray.a5,
+    position: 'absolute',
+    top: (trackHeight - outerRingSize) / 2,
+    left: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    // Drop shadow
+    shadowColor: '#000',
+    shadowOpacity: disabled ? 0.08 : 0.15,
+    shadowOffset: { width: 0, height: 1 },
+    shadowRadius: 2,
+    elevation: disabled ? 1 : 2,
+  };
+
+  // Inner thumb style - the white center
+  const thumbInnerStyle: ViewStyle = {
     width: thumbVisibleSize,
     height: thumbVisibleSize,
     borderRadius: thumbVisibleSize / 2,
     backgroundColor: disabled ? gray['1'] : 'white',
-    position: 'absolute',
-    top: (trackHeight - thumbVisibleSize) / 2,
-    left: 0,
-    shadowColor: '#000',
-    shadowOpacity: disabled ? 0.1 : 0.15,
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 2,
-    elevation: disabled ? 1 : 2,
   };
 
   return (
@@ -356,7 +374,9 @@ function NativeSlider({
           <Animated.View
             style={[rangeStyle, animatedRangeStyle, { backgroundColor: rangeColor }]}
           />
-          <Animated.View style={[thumbBaseStyle, animatedThumbStyle]} />
+          <Animated.View style={[thumbOuterStyle, animatedThumbStyle]}>
+            <View style={thumbInnerStyle} />
+          </Animated.View>
         </View>
       </GestureDetector>
     </GestureHandlerRootView>
