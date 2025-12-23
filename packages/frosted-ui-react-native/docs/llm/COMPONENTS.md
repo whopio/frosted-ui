@@ -3,7 +3,7 @@
 > **Critical**: Always import components from `@frosted-ui/react-native`, never from React Native directly for UI elements.
 
 ```tsx
-import { Button, Text, Card, Dialog } from '@frosted-ui/react-native';
+import { Button, Text, Card, Dialog, Slider } from '@frosted-ui/react-native';
 ```
 
 ---
@@ -496,6 +496,65 @@ Progress bar indicator.
 | `max`   | `number`  | `100`      | Maximum value            |
 | `size`  | `'1'-'6'` | `'6'`      | Bar height (2px to 16px) |
 | `color` | `Color`   | `'accent'` | Fill color               |
+
+---
+
+### Slider
+
+Draggable slider for selecting a value from a range.
+
+```tsx
+const [volume, setVolume] = React.useState(50);
+
+<Slider value={volume} onValueChange={setVolume} min={0} max={100} />;
+```
+
+| Prop            | Type                      | Default    | Description                  |
+| --------------- | ------------------------- | ---------- | ---------------------------- |
+| `value`         | `number`                  | —          | Controlled value             |
+| `defaultValue`  | `number`                  | `50`       | Initial value (uncontrolled) |
+| `min`           | `number`                  | `0`        | Minimum value                |
+| `max`           | `number`                  | `100`      | Maximum value                |
+| `step`          | `number`                  | `1`        | Step increment               |
+| `onValueChange` | `(value: number) => void` | —          | Change handler               |
+| `size`          | `'1' \| '2' \| '3'`       | `'2'`      | Track and thumb size         |
+| `color`         | `Color`                   | `'accent'` | Range fill color             |
+| `disabled`      | `boolean`                 | `false`    | Disabled state               |
+
+#### Slider with Label Pattern
+
+```tsx
+function VolumeSlider() {
+  const [value, setValue] = React.useState(75);
+  return (
+    <View style={{ gap: 8 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text size="2">Volume</Text>
+        <Text size="2" color="gray">
+          {value}%
+        </Text>
+      </View>
+      <Slider value={value} onValueChange={setValue} />
+    </View>
+  );
+}
+```
+
+#### Custom Range Example
+
+```tsx
+{
+  /* Playback speed: 0.5x to 2.0x */
+}
+<Slider
+  value={playbackSpeed}
+  onValueChange={setPlaybackSpeed}
+  min={50}
+  max={200}
+  step={25}
+  color="purple"
+/>;
+```
 
 ---
 
@@ -1020,6 +1079,7 @@ Card shown on hover (web) or press (mobile).
 | Avatar                       | `'0'` - `'9'`              |
 | Checkbox, Switch, RadioGroup | `'1'`, `'2'`, `'3'`        |
 | TextField, TextArea, Select  | `'1'`, `'2'`, `'3'`, `'4'` |
+| Slider                       | `'1'`, `'2'`, `'3'`        |
 | Progress, Spinner            | `'1'` - `'6'`              |
 | Tabs                         | `'1'`, `'2'`               |
 | Callout                      | `'1'`, `'2'`, `'3'`        |
@@ -1079,6 +1139,14 @@ All share the same height scale. IconButton is square (width = height).
 | `'1'` | 28×16px          | Compact settings                  |
 | `'2'` | 42×24px          | **Default** — standard toggles    |
 | `'3'` | 56×32px          | Touch-friendly, prominent toggles |
+
+### Slider
+
+| Size  | Track Height | Thumb Size | Use Case                          |
+| ----- | ------------ | ---------- | --------------------------------- |
+| `'1'` | 6px          | ~14px      | Compact controls, dense UI        |
+| `'2'` | 8px          | ~16px      | **Default** — standard sliders    |
+| `'3'` | 10px         | ~18px      | Touch-friendly, prominent sliders |
 
 ### Spinner
 
