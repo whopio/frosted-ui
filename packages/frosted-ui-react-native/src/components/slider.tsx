@@ -352,13 +352,11 @@ function NativeSlider({
   return (
     <GestureHandlerRootView style={containerStyle}>
       <GestureDetector gesture={composedGesture}>
-        <View style={{ flex: 1, justifyContent: 'center' }}>
-          <View ref={trackRef} style={trackStyle} onLayout={handleTrackLayout}>
-            <Animated.View
-              style={[rangeStyle, animatedRangeStyle, { backgroundColor: rangeColor }]}
-            />
-            <Animated.View style={[thumbBaseStyle, animatedThumbStyle]} />
-          </View>
+        <View ref={trackRef} style={trackStyle} onLayout={handleTrackLayout}>
+          <Animated.View
+            style={[rangeStyle, animatedRangeStyle, { backgroundColor: rangeColor }]}
+          />
+          <Animated.View style={[thumbBaseStyle, animatedThumbStyle]} />
         </View>
       </GestureDetector>
     </GestureHandlerRootView>
