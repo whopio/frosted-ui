@@ -145,40 +145,23 @@ function Slider({
     ...style,
   };
 
-  // Thumb styles for web - matching frosted-ui's slider.css
-  const webThumbStyle = {
-    width: thumbVisibleSize,
-    height: thumbVisibleSize,
-    borderRadius: thumbVisibleSize / 2,
-    backgroundColor: disabled ? gray['1'] : 'white',
-    boxShadow: disabled
-      ? `0 0 0 1px ${gray['5']}`
-      : `0 0 0 1px ${gray.a3}, 0 0 0 1px ${gray.a2}, 0 0 0 1px ${palette.a2}, 0 1px 2px ${gray.a4}, 0 1px 3px -0.5px ${gray.a3}`,
-    cursor: disabled ? 'not-allowed' : 'grab',
-    // Push focus outline outside the thumb (outset) instead of on the border
-    outlineOffset: 2,
-    // Focus ring color matches the accent color (--color-focus-root: var(--accent-8))
-    outlineColor: palette['8'],
-  };
-
   // Web implementation using rn-primitives for accessibility (keyboard, focus)
   if (Platform.OS === 'web') {
     return (
-      <SliderPrimitive.Root
-        value={currentValue}
+      <WebSlider
+        currentValue={currentValue}
         min={min}
         max={max}
         step={step}
-        onValueChange={handlePrimitiveValueChange}
         disabled={disabled}
-        style={containerStyle}>
-        <SliderPrimitive.Track style={trackStyle}>
-          <SliderPrimitive.Range style={rangeStyle} />
-        </SliderPrimitive.Track>
-        <SliderPrimitive.Thumb style={webThumbStyle as ViewStyle}>
-          <View />
-        </SliderPrimitive.Thumb>
-      </SliderPrimitive.Root>
+        handlePrimitiveValueChange={handlePrimitiveValueChange}
+        containerStyle={containerStyle}
+        trackStyle={trackStyle}
+        rangeStyle={rangeStyle}
+        thumbVisibleSize={thumbVisibleSize}
+        gray={gray}
+        palette={palette}
+      />
     );
   }
 
@@ -201,6 +184,80 @@ function Slider({
         containerStyle,
       }}
     />
+  );
+}
+
+// Separate web component to track focus state with hooks
+function WebSlider({
+  currentValue,
+  min,
+  max,
+  step,
+  disabled,
+  handlePrimitiveValueChange,
+  containerStyle,
+  trackStyle,
+  rangeStyle,
+  thumbVisibleSize,
+  gray,
+  palette,
+}: {
+  currentValue: number;
+  min: number;
+  max: number;
+  step: number;
+  disabled: boolean;
+  handlePrimitiveValueChange: (value: number[]) => void;
+  containerStyle: ViewStyle;
+  trackStyle: ViewStyle;
+  rangeStyle: ViewStyle;
+  thumbVisibleSize: number;
+  gray: Record<string, string>;
+  palette: Record<string, string>;
+}) {
+  const [isFocused, setIsFocused] = React.useState(false);
+
+  // Base box-shadow (always visible)
+  const baseBoxShadow = disabled
+    ? `0 0 0 1px ${gray['5']}`
+    : `0 0 0 1px ${gray.a3}, 0 1px 2px ${gray.a4}, 0 1px 3px -0.5px ${gray.a3}`;
+
+  // Focus box-shadow adds the light accent buffer ring
+  const focusBoxShadow = `${baseBoxShadow}, 0 0 0 3px ${palette['3']}`;
+
+  const webThumbStyle = {
+    width: thumbVisibleSize,
+    height: thumbVisibleSize,
+    borderRadius: thumbVisibleSize / 2,
+    backgroundColor: disabled ? gray['1'] : 'white',
+    boxShadow: isFocused && !disabled ? focusBoxShadow : baseBoxShadow,
+    cursor: disabled ? 'not-allowed' : 'grab',
+    // Focus outline - only show when focused
+    outlineStyle: isFocused && !disabled ? 'solid' : 'none',
+    outlineWidth: 2,
+    outlineOffset: 3,
+    outlineColor: palette['8'],
+  };
+
+  return (
+    <SliderPrimitive.Root
+      value={currentValue}
+      min={min}
+      max={max}
+      step={step}
+      onValueChange={handlePrimitiveValueChange}
+      disabled={disabled}
+      style={containerStyle}>
+      <SliderPrimitive.Track style={trackStyle}>
+        <SliderPrimitive.Range style={rangeStyle} />
+      </SliderPrimitive.Track>
+      <SliderPrimitive.Thumb
+        style={webThumbStyle as ViewStyle}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}>
+        <View />
+      </SliderPrimitive.Thumb>
+    </SliderPrimitive.Root>
   );
 }
 
