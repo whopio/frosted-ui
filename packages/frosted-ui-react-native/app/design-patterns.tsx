@@ -19,6 +19,7 @@ import {
   Select,
   Separator,
   Skeleton,
+  Slider,
   Spinner,
   Switch,
   Tabs,
@@ -63,13 +64,16 @@ import {
   SkipForward,
   Sparkles,
   Star,
+  Sun,
   ThumbsUp,
   Timer,
   Trash2,
   Trophy,
   Truck,
   Twitter,
+  Type,
   Users,
+  Volume2,
   X,
   Zap,
 } from 'lucide-react-native';
@@ -1062,6 +1066,76 @@ function SearchFieldPattern() {
             </IconButton>
           </TextField.Slot>
         </TextField.Root>
+      </View>
+    </Card>
+  );
+}
+
+function VideoSettingsPattern() {
+  const { colors } = useThemeTokens();
+  const [brightness, setBrightness] = React.useState(75);
+  const [volume, setVolume] = React.useState(80);
+  const [playbackSpeed, setPlaybackSpeed] = React.useState(100);
+
+  return (
+    <Card>
+      <View style={{ gap: 20 }}>
+        <Heading size="3">Video Settings</Heading>
+
+        {/* Brightness */}
+        <View style={{ gap: 8 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+              <Icon as={Sun} size={18} color={colors.palettes.amber.a11} />
+              <Text weight="medium">Brightness</Text>
+            </View>
+            <Text size="2" color="gray">{brightness}%</Text>
+          </View>
+          <Slider
+            value={brightness}
+            onValueChange={setBrightness}
+            color="amber"
+          />
+        </View>
+
+        <Separator size="4" />
+
+        {/* Volume */}
+        <View style={{ gap: 8 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+              <Icon as={Volume2} size={18} color={colors.palettes.blue.a11} />
+              <Text weight="medium">Volume</Text>
+            </View>
+            <Text size="2" color="gray">{volume}%</Text>
+          </View>
+          <Slider
+            value={volume}
+            onValueChange={setVolume}
+            color="blue"
+          />
+        </View>
+
+        <Separator size="4" />
+
+        {/* Playback Speed */}
+        <View style={{ gap: 8 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+              <Icon as={Type} size={18} color={colors.palettes.purple.a11} />
+              <Text weight="medium">Playback Speed</Text>
+            </View>
+            <Text size="2" color="gray">{(playbackSpeed / 100).toFixed(1)}x</Text>
+          </View>
+          <Slider
+            value={playbackSpeed}
+            onValueChange={setPlaybackSpeed}
+            min={50}
+            max={200}
+            step={25}
+            color="purple"
+          />
+        </View>
       </View>
     </Card>
   );
@@ -2064,6 +2138,14 @@ function SocialPostPattern() {
 function NowPlayingPattern() {
   const { colors } = useThemeTokens();
   const [isPlaying, setIsPlaying] = React.useState(true);
+  const [position, setPosition] = React.useState(84); // seconds
+  const duration = 225; // 3:45 in seconds
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
 
   return (
     <Card>
@@ -2097,15 +2179,15 @@ function NowPlayingPattern() {
           </IconButton>
         </View>
 
-        {/* Progress */}
-        <View style={{ gap: 8 }}>
-          <Progress value={35} size="1" />
+        {/* Playback Position */}
+        <View style={{ gap: 4 }}>
+          <Slider value={position} onValueChange={setPosition} min={0} max={duration} size="1" />
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text size="0" color="gray">
-              1:24
+              {formatTime(position)}
             </Text>
             <Text size="0" color="gray">
-              3:45
+              {formatTime(duration)}
             </Text>
           </View>
         </View>
@@ -2569,6 +2651,10 @@ export default function DesignPatternsScreen() {
 
         <Section title="Radio Group">
           <RadioGroupPattern />
+        </Section>
+
+        <Section title="Slider Controls">
+          <VideoSettingsPattern />
         </Section>
 
         {/* E-commerce Section */}
