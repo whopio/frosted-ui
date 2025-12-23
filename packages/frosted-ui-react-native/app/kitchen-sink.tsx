@@ -27,6 +27,7 @@ import {
   Select,
   Separator,
   Skeleton,
+  Slider,
   Spinner,
   Switch,
   Tabs,
@@ -1352,6 +1353,55 @@ export default function KitchenSinkScreen() {
             </View>
           </ComponentSection>
 
+          {/* Slider Section */}
+          <ComponentSection title="Slider">
+            <View style={s.gap6}>
+              {/* Sizes */}
+              <View style={s.gap2}>
+                <Text size="2" weight="medium">
+                  Sizes
+                </Text>
+                <View style={s.gap3}>
+                  <SliderDemo size="1" defaultValue={25} />
+                  <SliderDemo size="2" defaultValue={50} />
+                  <SliderDemo size="3" defaultValue={75} />
+                </View>
+              </View>
+
+              {/* Colors */}
+              <View style={s.gap2}>
+                <Text size="2" weight="medium">
+                  Colors
+                </Text>
+                <View style={s.gap3}>
+                  <SliderDemo color="blue" defaultValue={20} />
+                  <SliderDemo color="green" defaultValue={40} />
+                  <SliderDemo color="red" defaultValue={60} />
+                  <SliderDemo color="purple" defaultValue={80} />
+                </View>
+              </View>
+
+              {/* States */}
+              <View style={s.gap2}>
+                <Text size="2" weight="medium">
+                  States
+                </Text>
+                <View style={s.gap3}>
+                  <SliderDemo defaultValue={50} />
+                  <SliderDemo defaultValue={50} disabled />
+                </View>
+              </View>
+
+              {/* With Label */}
+              <View style={s.gap2}>
+                <Text size="2" weight="medium">
+                  Interactive
+                </Text>
+                <SliderWithLabel />
+              </View>
+            </View>
+          </ComponentSection>
+
           {/* Avatar Section */}
           <ComponentSection title="Avatar">
             <View style={s.gap6}>
@@ -2365,6 +2415,44 @@ function SwitchItem({
         aria-labelledby={id}
       />
       {label && <Label nativeID={id}>{label}</Label>}
+    </View>
+  );
+}
+
+function SliderDemo({
+  size,
+  color,
+  disabled,
+  defaultValue = 50,
+}: {
+  size?: '1' | '2' | '3';
+  color?: 'blue' | 'green' | 'red' | 'purple' | 'gray';
+  disabled?: boolean;
+  defaultValue?: number;
+}) {
+  const [value, setValue] = React.useState(defaultValue);
+  return (
+    <Slider
+      value={value}
+      onValueChange={setValue}
+      size={size}
+      color={color}
+      disabled={disabled}
+    />
+  );
+}
+
+function SliderWithLabel() {
+  const [value, setValue] = React.useState(50);
+  return (
+    <View style={s.gap2}>
+      <View style={[s.row, s.itemsCenter, { justifyContent: 'space-between' }]}>
+        <Text size="2">Volume</Text>
+        <Text size="2" color="gray">
+          {value}%
+        </Text>
+      </View>
+      <Slider value={value} onValueChange={setValue} />
     </View>
   );
 }

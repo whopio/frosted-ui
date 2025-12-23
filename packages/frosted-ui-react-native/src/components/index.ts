@@ -19,6 +19,7 @@ export * from './label';
 export * from './progress';
 export * from './radio-group';
 export * from './select';
+export * from './slider';
 export * from './switch';
 export * from './text-area';
 export * from './text-field';
