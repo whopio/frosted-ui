@@ -9,6 +9,7 @@ import {
   Callout,
   Card,
   Checkbox,
+  CircularProgress,
   Code,
   ContextMenu,
   Dialog,
@@ -1348,6 +1349,58 @@ export default function KitchenSinkScreen() {
                   <Progress value={50} />
                   <Progress value={75} />
                   <Progress value={100} />
+                </View>
+              </View>
+            </View>
+          </ComponentSection>
+
+          {/* Circular Progress Section */}
+          <ComponentSection title="Circular Progress">
+            <View style={s.gap6}>
+              {/* Sizes */}
+              <View style={s.gap2}>
+                <Text size="2" weight="medium">
+                  Sizes
+                </Text>
+                <View style={[s.row, s.itemsCenter, s.gap3, { flexWrap: 'wrap' }]}>
+                  <CircularProgress size="1" value={60} />
+                  <CircularProgress size="2" value={60} />
+                  <CircularProgress size="3" value={60} />
+                  <CircularProgress size="4" value={60} />
+                  <CircularProgress size="5" value={60} />
+                  <CircularProgress size="6" value={60} />
+                  <CircularProgress size="7" value={50} />
+                  <CircularProgress size="8" value={95} />
+                  <CircularProgress size="9" value={100} />
+                </View>
+              </View>
+
+              {/* Colors */}
+              <View style={s.gap2}>
+                <Text size="2" weight="medium">
+                  Colors
+                </Text>
+                <View style={[s.row, s.itemsCenter, s.gap3, { flexWrap: 'wrap' }]}>
+                  <CircularProgress size="4" color="blue" value={60} />
+                  <CircularProgress size="4" color="green" value={60} />
+                  <CircularProgress size="4" color="red" value={60} />
+                  <CircularProgress size="4" color="purple" value={60} />
+                  <CircularProgress size="4" color="orange" value={60} />
+                  <CircularProgress size="4" color="gray" value={60} />
+                </View>
+              </View>
+
+              {/* Values */}
+              <View style={s.gap2}>
+                <Text size="2" weight="medium">
+                  Values
+                </Text>
+                <View style={[s.row, s.itemsCenter, s.gap3, { flexWrap: 'wrap' }]}>
+                  <CircularProgress size="5" value={0} />
+                  <CircularProgress size="5" value={25} />
+                  <CircularProgress size="5" value={50} />
+                  <CircularProgress size="5" value={75} />
+                  <CircularProgress size="5" value={100} />
                 </View>
               </View>
             </View>

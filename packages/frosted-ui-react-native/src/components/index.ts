@@ -15,6 +15,7 @@ export * from './code';
 // FORMS
 //------------------------------------------------------------------------------
 export * from './checkbox';
+export * from './circular-progress';
 export * from './label';
 export * from './progress';
 export * from './radio-group';

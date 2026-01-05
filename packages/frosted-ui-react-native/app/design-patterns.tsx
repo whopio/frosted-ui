@@ -7,6 +7,7 @@ import {
   Callout,
   Card,
   Checkbox,
+  CircularProgress,
   Dialog,
   Heading,
   Icon,
@@ -1915,6 +1916,80 @@ function StreakCounterPattern() {
   );
 }
 
+function SystemHealthPattern() {
+  const { colors } = useThemeTokens();
+
+  const metrics = [
+    { label: 'CPU', value: 42, color: 'cyan' as const },
+    { label: 'Memory', value: 68, color: 'violet' as const },
+    { label: 'Disk', value: 85, color: 'orange' as const },
+    { label: 'Network', value: 23, color: 'lime' as const },
+  ];
+
+  const getStatusColor = (value: number) => {
+    if (value >= 80) return 'danger';
+    if (value >= 60) return 'warning';
+    return 'success';
+  };
+
+  return (
+    <Card>
+      <View style={{ gap: 16 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Heading size="3">System Health</Heading>
+          <Badge color="success" size="1">
+            <View
+              style={{
+                width: 6,
+                height: 6,
+                borderRadius: 3,
+                backgroundColor: colors.palettes.success['9'],
+              }}
+            />
+            <Text>All Systems Normal</Text>
+          </Badge>
+        </View>
+
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          {metrics.map((metric) => (
+            <View key={metric.label} style={{ alignItems: 'center', gap: 8 }}>
+              <View style={{ position: 'relative', alignItems: 'center', justifyContent: 'center' }}>
+                <CircularProgress size="6" value={metric.value} color={metric.color} />
+                <View style={{ position: 'absolute' }}>
+                  <Text size="1" weight="bold">{metric.value}</Text>
+                </View>
+              </View>
+              <Text size="1" color="gray">{metric.label}</Text>
+            </View>
+          ))}
+        </View>
+
+        <Separator size="4" />
+
+        <View style={{ gap: 8 }}>
+          {metrics.map((metric) => (
+            <View key={metric.label} style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+              <View
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: 4,
+                  backgroundColor: colors.palettes[metric.color]['9'],
+                }}
+              />
+              <Text size="2" style={{ flex: 1 }}>{metric.label}</Text>
+              <Text size="2" weight="medium">{metric.value}%</Text>
+              <Badge variant="soft" color={getStatusColor(metric.value)} size="1">
+                <Text>{metric.value >= 80 ? 'High' : metric.value >= 60 ? 'Medium' : 'Low'}</Text>
+              </Badge>
+            </View>
+          ))}
+        </View>
+      </View>
+    </Card>
+  );
+}
+
 function LeaderboardPattern() {
   const { colors } = useThemeTokens();
 
@@ -2719,6 +2794,10 @@ export default function DesignPatternsScreen() {
 
         <Section title="Streak Counter">
           <StreakCounterPattern />
+        </Section>
+
+        <Section title="System Health">
+          <SystemHealthPattern />
         </Section>
 
         <Section title="Leaderboard">

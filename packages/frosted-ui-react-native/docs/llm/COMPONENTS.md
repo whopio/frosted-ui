@@ -3,7 +3,7 @@
 > **Critical**: Always import components from `@frosted-ui/react-native`, never from React Native directly for UI elements.
 
 ```tsx
-import { Button, Text, Card, Dialog, Slider } from '@frosted-ui/react-native';
+import { Button, Text, Card, Dialog, Slider, CircularProgress } from '@frosted-ui/react-native';
 ```
 
 ---
@@ -496,6 +496,69 @@ Progress bar indicator.
 | `max`   | `number`  | `100`      | Maximum value            |
 | `size`  | `'1'-'6'` | `'6'`      | Bar height (2px to 16px) |
 | `color` | `Color`   | `'accent'` | Fill color               |
+
+---
+
+### CircularProgress
+
+Circular progress indicator with SVG rendering.
+
+```tsx
+<CircularProgress value={75} max={100} size="5" color="accent" />
+```
+
+| Prop    | Type      | Default    | Description                  |
+| ------- | --------- | ---------- | ---------------------------- |
+| `value` | `number`  | `0`        | Current progress             |
+| `max`   | `number`  | `100`      | Maximum value                |
+| `size`  | `'1'-'9'` | `'3'`      | Ring size (16px to 72px)     |
+| `color` | `Color`   | `'accent'` | Progress indicator color     |
+
+#### Size Reference
+
+| Size  | Diameter | Stroke Width | Use Case                       |
+| ----- | -------- | ------------ | ------------------------------ |
+| `'1'` | 16px     | 3px          | Inline indicators              |
+| `'2'` | 20px     | 4px          | Compact UI                     |
+| `'3'` | 24px     | 5px          | **Default** — small indicators |
+| `'4'` | 32px     | 5px          | List items, stats              |
+| `'5'` | 40px     | 6px          | Card displays                  |
+| `'6'` | 48px     | 7px          | Prominent indicators           |
+| `'7'` | 56px     | 8px          | Dashboard widgets              |
+| `'8'` | 64px     | 9px          | Large displays                 |
+| `'9'` | 72px     | 10px         | Hero/featured metrics          |
+
+#### Common Patterns
+
+**With value inside:**
+
+```tsx
+<View style={{ position: 'relative', alignItems: 'center', justifyContent: 'center' }}>
+  <CircularProgress size="6" value={75} color="cyan" />
+  <View style={{ position: 'absolute' }}>
+    <Text size="2" weight="bold">75%</Text>
+  </View>
+</View>
+```
+
+**System health dashboard:**
+
+```tsx
+<View style={{ flexDirection: 'row', gap: 16 }}>
+  <View style={{ alignItems: 'center', gap: 4 }}>
+    <CircularProgress size="5" value={42} color="cyan" />
+    <Text size="1" color="gray">CPU</Text>
+  </View>
+  <View style={{ alignItems: 'center', gap: 4 }}>
+    <CircularProgress size="5" value={68} color="violet" />
+    <Text size="1" color="gray">Memory</Text>
+  </View>
+  <View style={{ alignItems: 'center', gap: 4 }}>
+    <CircularProgress size="5" value={85} color="orange" />
+    <Text size="1" color="gray">Disk</Text>
+  </View>
+</View>
+```
 
 ---
 
@@ -1081,6 +1144,7 @@ Card shown on hover (web) or press (mobile).
 | TextField, TextArea, Select  | `'1'`, `'2'`, `'3'`, `'4'` |
 | Slider                       | `'1'`, `'2'`, `'3'`        |
 | Progress, Spinner            | `'1'` - `'6'`              |
+| CircularProgress             | `'1'` - `'9'`              |
 | Tabs                         | `'1'`, `'2'`               |
 | Callout                      | `'1'`, `'2'`, `'3'`        |
 | Dialog                       | `'1'`, `'2'`, `'3'`, `'4'` |
@@ -1158,6 +1222,20 @@ All share the same height scale. IconButton is square (width = height).
 | `'4'` | 24×24px    | Card loading                  |
 | `'5'` | 32×32px    | Section loading               |
 | `'6'` | 40×40px    | Page loading                  |
+
+### CircularProgress
+
+| Size  | Diameter | Stroke | Use Case                       |
+| ----- | -------- | ------ | ------------------------------ |
+| `'1'` | 16px     | 3px    | Inline indicators              |
+| `'2'` | 20px     | 4px    | Compact UI                     |
+| `'3'` | 24px     | 5px    | **Default** — small indicators |
+| `'4'` | 32px     | 5px    | List items, stats              |
+| `'5'` | 40px     | 6px    | Card displays                  |
+| `'6'` | 48px     | 7px    | Prominent indicators           |
+| `'7'` | 56px     | 8px    | Dashboard widgets              |
+| `'8'` | 64px     | 9px    | Large displays                 |
+| `'9'` | 72px     | 10px   | Hero/featured metrics          |
 
 ---
 

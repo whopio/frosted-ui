@@ -2329,6 +2329,45 @@ const entries = [
 </Card>
 ```
 
+### System Health (CircularProgress)
+
+Use `CircularProgress` for dashboard-style metrics:
+
+```tsx
+<Card>
+  <View style={{ gap: 16 }}>
+    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+      <Heading size="3">System Health</Heading>
+      <Badge color="success" size="1">
+        <Text>All Systems Normal</Text>
+      </Badge>
+    </View>
+
+    {/* Circular progress indicators in a row */}
+    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+      {[
+        { label: 'CPU', value: 42, color: 'cyan' },
+        { label: 'Memory', value: 68, color: 'violet' },
+        { label: 'Disk', value: 85, color: 'orange' },
+        { label: 'Network', value: 23, color: 'lime' },
+      ].map((metric) => (
+        <View key={metric.label} style={{ alignItems: 'center', gap: 8 }}>
+          <View style={{ position: 'relative', alignItems: 'center', justifyContent: 'center' }}>
+            <CircularProgress size="6" value={metric.value} color={metric.color} />
+            <View style={{ position: 'absolute' }}>
+              <Text size="1" weight="bold">{metric.value}</Text>
+            </View>
+          </View>
+          <Text size="1" color="gray">{metric.label}</Text>
+        </View>
+      ))}
+    </View>
+  </View>
+</Card>
+```
+
+> **Tip**: Place text inside circular progress using absolute positioning. Use size `"5"` or larger when displaying values inside.
+
 ### Daily Challenge
 
 ```tsx
