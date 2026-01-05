@@ -80,20 +80,20 @@ function CircularProgress({
 
   // Round caps add visual length beyond the arc endpoints
   // Each cap extends by strokeWidth/2, total extension = strokeWidth
-  // We need to compensate so visual progress matches the actual value
   const capArcLength = strokeWidth / 2;
   const totalCapArc = strokeWidth;
 
   // Calculate the arc to draw (reduced to account for cap visual extension)
+  // Minimum arc ensures at least a dot (rounded cap) is visible when progress > 0
   const targetVisualArc = progress * circumference;
-  const actualArcToDraw = Math.max(0, targetVisualArc - totalCapArc);
+  const compensatedArc = targetVisualArc - totalCapArc;
+  const minArc = progress > 0 ? 0.1 : 0;
+  const actualArcToDraw = Math.max(minArc, compensatedArc);
 
   // Stroke dash offset (how much of the circumference to hide)
   const strokeDashoffset = circumference - actualArcToDraw;
 
   // Rotate to position start cap's outer edge at 12 o'clock
-  // Without adjustment, the arc starts at 12 o'clock but cap extends backwards
-  // Rotate forward by the angle of half a cap so the visual edge is at 12
   const capAngle = (capArcLength / circumference) * 360;
   const rotation = -90 + capAngle;
 

@@ -1397,9 +1397,11 @@ export default function KitchenSinkScreen() {
                 </Text>
                 <View style={[s.row, s.itemsCenter, s.gap3, { flexWrap: 'wrap' }]}>
                   <CircularProgress size="5" value={0} />
+                  <CircularProgress size="5" value={1} />
                   <CircularProgress size="5" value={25} />
                   <CircularProgress size="5" value={50} />
                   <CircularProgress size="5" value={75} />
+                  <CircularProgress size="5" value={99} />
                   <CircularProgress size="5" value={100} />
                 </View>
               </View>

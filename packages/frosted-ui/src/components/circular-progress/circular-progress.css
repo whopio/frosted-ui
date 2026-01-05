@@ -3,17 +3,18 @@
   display: block;
   width: var(--circular-progress-size);
   height: var(--circular-progress-size);
-  border-radius: 50%;
-  overflow: hidden;
-  --circular-progress-color: var(--accent-9);
 }
-.fui-CircularProgressRoot::before {
-  content: '';
-  inset: 0;
-  z-index: 1;
-  position: absolute;
-  border-radius: inherit;
-  border: var(--circular-progress-border-thickness) solid var(--accent-a3);
+
+.fui-CircularProgressSvg {
+  display: block;
+}
+
+.fui-CircularProgressTrack {
+  stroke: var(--accent-a3);
+}
+
+.fui-CircularProgressIndicator {
+  stroke: var(--accent-9);
 }
 
 /***************************************************************************************************
@@ -22,63 +23,38 @@
  *                                                                                                 *
  ***************************************************************************************************/
 
-/* TODO: adjust thickness */
-
 .fui-CircularProgressRoot {
   &:where(.fui-r-size-1) {
     --circular-progress-size: 16px;
-    --circular-progress-border-thickness: 3px;
   }
   &:where(.fui-r-size-2) {
     --circular-progress-size: 20px;
-    --circular-progress-border-thickness: 4px;
   }
   &:where(.fui-r-size-3) {
     --circular-progress-size: 24px;
-    --circular-progress-border-thickness: 5px;
   }
   &:where(.fui-r-size-4) {
     --circular-progress-size: 32px;
-    --circular-progress-border-thickness: 5px;
   }
   &:where(.fui-r-size-5) {
     --circular-progress-size: 40px;
-    --circular-progress-border-thickness: 6px;
   }
   &:where(.fui-r-size-6) {
     --circular-progress-size: 48px;
-    --circular-progress-border-thickness: 7px;
   }
   &:where(.fui-r-size-7) {
     --circular-progress-size: 56px;
-    --circular-progress-border-thickness: 8px;
   }
   &:where(.fui-r-size-8) {
     --circular-progress-size: 64px;
-    --circular-progress-border-thickness: 9px;
   }
   &:where(.fui-r-size-9) {
     --circular-progress-size: 72px;
-    --circular-progress-border-thickness: 10px;
   }
-}
-
-.fui-CircularProgressIndicator {
-  position: absolute;
-  inset: 0;
-  border: var(--circular-progress-border-thickness) solid var(--circular-progress-color);
-  border-radius: inherit;
-  --mask: conic-gradient(
-    black calc(1turn * var(--circular-progress-progress)),
-    /* 0.001turn to smoothen out the cut out part */ transparent
-      calc(1turn * var(--circular-progress-progress) + 0.001turn)
-  );
-  mask: var(--mask);
-  mask-image: var(--mask);
 }
 
 /* high-contrast */
 
-.fui-CircularProgressRoot:where(.fui-high-contrast) {
-  --circular-progress-color: var(--accent-12);
+.fui-CircularProgressRoot:where(.fui-high-contrast) .fui-CircularProgressIndicator {
+  stroke: var(--accent-12);
 }

@@ -57,10 +57,10 @@ export const Color: Story = {
   },
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 300 }}>
-      <CircularProgress {...args} color="indigo" />
-      <CircularProgress {...args} color="cyan" />
-      <CircularProgress {...args} color="orange" />
-      <CircularProgress {...args} color="crimson" />
+      <CircularProgress {...args} color="indigo" value={15} />
+      <CircularProgress {...args} color="cyan" value={50} />
+      <CircularProgress {...args} color="orange" value={95} />
+      <CircularProgress {...args} color="crimson" value={100} />
     </div>
   ),
 };
