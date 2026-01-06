@@ -1,4 +1,3 @@
-import { useNavTheme } from '@/lib/theme';
 import {
   ThemeProvider as FrostedThemeProvider,
   PortalHost,
@@ -6,7 +5,6 @@ import {
   useThemeTokens,
   type AccentColor,
 } from '@frosted-ui/react-native';
-import { ThemeProvider as NavigationThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as SystemUI from 'expo-system-ui';
@@ -22,18 +20,17 @@ export {
 function RootLayoutContent() {
   const { colorScheme } = useTheme();
   const { colors } = useThemeTokens();
-  const navTheme = useNavTheme();
 
   useEffect(() => {
     SystemUI.setBackgroundColorAsync(colors.background);
   }, [colors.background]);
 
   return (
-    <NavigationThemeProvider value={navTheme[colorScheme]}>
+    <>
       <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
       <Stack />
       <PortalHost />
-    </NavigationThemeProvider>
+    </>
   );
 }
 
