@@ -67,6 +67,7 @@
     "release": "turbo-module publish"
   },
   "dependencies": {
+    "@base-ui/react": "^1.0.0",
     "@frosted-ui/colors": "0.0.1-canary.61",
     "@internationalized/date": "^3.5.6",
     "@radix-ui/primitive": "^1.1.1",
