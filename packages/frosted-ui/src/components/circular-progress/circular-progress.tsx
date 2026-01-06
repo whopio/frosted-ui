@@ -1,14 +1,14 @@
 'use client';
 
+import { Meter } from '@base-ui/react/meter';
 import classNames from 'classnames';
-import { Progress as ProgressPrimitive } from 'radix-ui';
 import * as React from 'react';
 import { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 import { circularProgressPropDefs } from './circular-progress.props';
 
 type CircularProgressOwnProps = GetPropDefTypes<typeof circularProgressPropDefs>;
 interface CircularProgressProps
-  extends Omit<PropsWithoutColor<typeof ProgressPrimitive.Root>, 'children'>, CircularProgressOwnProps {}
+  extends Omit<PropsWithoutColor<typeof Meter.Root>, 'children'>, CircularProgressOwnProps {}
 
 // Size configuration matching CSS variables
 const sizeConfig: Record<string, { diameter: number; strokeWidth: number }> = {
@@ -62,7 +62,7 @@ const CircularProgress = (props: CircularProgressProps) => {
   const rotation = -90 + capAngle;
 
   return (
-    <ProgressPrimitive.Root
+    <Meter.Root
       data-accent-color={color}
       className={classNames(
         'fui-CircularProgressRoot',
@@ -75,27 +75,33 @@ const CircularProgress = (props: CircularProgressProps) => {
       value={value}
       max={max}
       {...progressProps}
-      asChild
-    >
-      <svg
-        className="fui-CircularProgressSvg"
-        width={diameter}
-        height={diameter}
-        viewBox={`0 0 ${diameter} ${diameter}`}
-      >
-        {/* Track (background circle) */}
-        <circle
-          className="fui-CircularProgressTrack"
-          cx={center}
-          cy={center}
-          r={radius}
-          strokeWidth={strokeWidth}
-          fill="none"
+      render={
+        <svg
+          className="fui-CircularProgressSvg"
+          width={diameter}
+          height={diameter}
+          viewBox={`0 0 ${diameter} ${diameter}`}
         />
+      }
+    >
+      {/* Track (background circle) */}
+      <Meter.Track
+        render={
+          <circle
+            className="fui-CircularProgressTrack"
+            cx={center}
+            cy={center}
+            r={radius}
+            strokeWidth={strokeWidth}
+            fill="none"
+          />
+        }
+      />
 
-        {/* Progress indicator */}
-        {progress > 0 && (
-          <ProgressPrimitive.Indicator asChild>
+      {/* Progress indicator */}
+      {progress > 0 && (
+        <Meter.Indicator
+          render={
             <circle
               className="fui-CircularProgressIndicator"
               cx={center}
@@ -108,10 +114,10 @@ const CircularProgress = (props: CircularProgressProps) => {
               strokeLinecap={progress >= 1 ? 'butt' : 'round'}
               transform={progress >= 1 ? undefined : `rotate(${rotation} ${center} ${center})`}
             />
-          </ProgressPrimitive.Indicator>
-        )}
-      </svg>
-    </ProgressPrimitive.Root>
+          }
+        />
+      )}
+    </Meter.Root>
   );
 };
 
