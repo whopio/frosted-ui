@@ -1,8 +1,8 @@
 'use client';
 
+import { Avatar as AvatarPrimitive } from '@base-ui/react/avatar';
 import classNames from 'classnames';
 import * as React from 'react';
-import * as AvatarPrimitive from '../../forked-primitives/avatar';
 import { avatarPropDefs } from './avatar.props';
 
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
@@ -14,7 +14,6 @@ interface AvatarProps extends PropsWithoutColor<typeof AvatarPrimitive.Image>, A
   fallback: NonNullable<AvatarOwnProps['fallback']>;
 }
 
-type ImageStatus = 'idle' | 'loading' | 'loaded' | 'error';
 const Avatar = (props: AvatarProps) => {
   const {
     className,
@@ -24,10 +23,9 @@ const Avatar = (props: AvatarProps) => {
     highContrast = avatarPropDefs.highContrast.default,
     fallback: fallbackProp,
     shape = avatarPropDefs.shape.default,
+    onLoadingStatusChange,
     ...imageProps
   } = props;
-  const [status, setStatus] = React.useState<ImageStatus>('idle');
-  const dataStatus: ImageStatus = imageProps.src ? status : 'idle';
 
   const fallback = React.useMemo(() => {
     if (typeof fallbackProp !== 'string') return fallbackProp;
@@ -42,7 +40,6 @@ const Avatar = (props: AvatarProps) => {
   return (
     <AvatarPrimitive.Root
       data-accent-color={color}
-      data-status={dataStatus}
       className={classNames(
         'fui-AvatarRoot',
         className,
@@ -52,28 +49,19 @@ const Avatar = (props: AvatarProps) => {
       )}
       style={style}
     >
-      {status === 'idle' || status === 'loading' ? <span className="fui-AvatarFallback" /> : null}
-
-      {status === 'error' ? (
-        <AvatarPrimitive.Fallback
-          className={classNames('fui-AvatarFallback', {
-            'fui-one-letter': typeof fallback === 'string' && fallback.length === 1,
-            'fui-two-letters': typeof fallback === 'string' && fallback.length === 2,
-          })}
-          delayMs={0}
-        >
-          {fallback}
-        </AvatarPrimitive.Fallback>
-      ) : null}
-
       <AvatarPrimitive.Image
         className="fui-AvatarImage"
+        onLoadingStatusChange={onLoadingStatusChange}
         {...imageProps}
-        onLoadingStatusChange={(status) => {
-          imageProps.onLoadingStatusChange?.(status);
-          setStatus(status);
-        }}
       />
+      <AvatarPrimitive.Fallback
+        className={classNames('fui-AvatarFallback', {
+          'fui-one-letter': typeof fallback === 'string' && fallback.length === 1,
+          'fui-two-letters': typeof fallback === 'string' && fallback.length === 2,
+        })}
+      >
+        {fallback}
+      </AvatarPrimitive.Fallback>
     </AvatarPrimitive.Root>
   );
 };

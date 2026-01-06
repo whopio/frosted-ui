@@ -1,13 +1,13 @@
 'use client';
 
+import { Meter } from '@base-ui/react/meter';
 import classNames from 'classnames';
-import { Progress as ProgressPrimitive } from 'radix-ui';
 import * as React from 'react';
 import { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 import { progressPropDefs } from './progress.props';
 
 type ProgressOwnProps = GetPropDefTypes<typeof progressPropDefs>;
-interface ProgressProps extends Omit<PropsWithoutColor<typeof ProgressPrimitive.Root>, 'children'>, ProgressOwnProps {}
+interface ProgressProps extends Omit<PropsWithoutColor<typeof Meter.Root>, 'children'>, ProgressOwnProps {}
 
 const Progress = (props: ProgressProps) => {
   const {
@@ -20,10 +20,10 @@ const Progress = (props: ProgressProps) => {
     ...progressProps
   } = props;
 
-  const progress = Math.max(0, Math.min((value || 0) / max, 100));
+  const progress = Math.max(0, Math.min((value || 0) / max, 1));
 
   return (
-    <ProgressPrimitive.Root
+    <Meter.Root
       data-accent-color={color}
       className={classNames(
         'fui-ProgressRoot',
@@ -37,8 +37,10 @@ const Progress = (props: ProgressProps) => {
       max={max}
       {...progressProps}
     >
-      <ProgressPrimitive.Indicator className="fui-ProgressIndicator" style={{ width: `${progress * 100}%` }} />
-    </ProgressPrimitive.Root>
+      <Meter.Track className="fui-ProgressTrack">
+        <Meter.Indicator className="fui-ProgressIndicator" style={{ width: `${progress * 100}%` }} />
+      </Meter.Track>
+    </Meter.Root>
   );
 };
 
