@@ -41,7 +41,6 @@
   },
   "dependencies": {
     "@frosted-ui/colors": "0.0.1-canary.61",
-    "@rn-primitives/slider": "^1.2.0",
     "@rn-primitives/accordion": "^1.2.0",
     "@rn-primitives/alert-dialog": "^1.2.0",
     "@rn-primitives/aspect-ratio": "^1.2.0",
@@ -60,6 +59,7 @@
     "@rn-primitives/radio-group": "^1.2.0",
     "@rn-primitives/select": "^1.2.0",
     "@rn-primitives/separator": "^1.2.0",
+    "@rn-primitives/slider": "^1.2.0",
     "@rn-primitives/slot": "^1.2.0",
     "@rn-primitives/switch": "^1.2.0",
     "@rn-primitives/tabs": "^1.2.0",
@@ -69,7 +69,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
-    "@react-navigation/native": "^7.0.0",
     "@types/react": "~19.1.10",
     "@whop/turbo-module": "^0.1.0-canary.3",
     "expo": "^54.0.26",
