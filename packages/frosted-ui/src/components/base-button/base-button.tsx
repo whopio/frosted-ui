@@ -10,9 +10,11 @@ import { Spinner } from '../spinner';
 import { VisuallyHidden } from '../visually-hidden';
 
 type BaseButtonOwnProps = GetPropDefTypes<typeof baseButtonPropDefs>;
-interface BaseButtonProps extends PropsWithoutColor<typeof Button>, BaseButtonOwnProps {
-  loading?: boolean;
-}
+type BaseButtonProps = PropsWithoutColor<typeof Button> &
+  Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color' | 'className' | 'disabled'> &
+  BaseButtonOwnProps & {
+    loading?: boolean;
+  };
 
 const BaseButton = (props: BaseButtonProps) => {
   const {
