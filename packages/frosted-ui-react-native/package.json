@@ -40,7 +40,7 @@
     "release": "turbo-module publish"
   },
   "dependencies": {
-    "@frosted-ui/colors": "workspace:*",
+    "@frosted-ui/colors": "0.0.1-canary.61",
     "@rn-primitives/slider": "^1.2.0",
     "@rn-primitives/accordion": "^1.2.0",
     "@rn-primitives/alert-dialog": "^1.2.0",

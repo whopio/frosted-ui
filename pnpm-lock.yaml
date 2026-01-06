@@ -342,8 +342,8 @@ importers:
   packages/frosted-ui-react-native:
     dependencies:
       '@frosted-ui/colors':
-        specifier: workspace:*
-        version: link:../frosted-ui-colors
+        specifier: 0.0.1-canary.61
+        version: 0.0.1-canary.61
       '@rn-primitives/accordion':
         specifier: ^1.2.0
         version: 1.2.0(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
