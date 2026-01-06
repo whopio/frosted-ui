@@ -1,16 +1,29 @@
 'use client';
 
+import { Accordion as AccordionPrimitive } from '@base-ui/react/accordion';
 import classNames from 'classnames';
-import { Accordion as AccordionPrimitive } from 'radix-ui';
 import * as React from 'react';
 import type { PropsWithoutColor } from '../../helpers';
 
-type AccordionRootProps = React.ComponentProps<typeof AccordionPrimitive.Root>;
+type BaseAccordionRootProps = React.ComponentProps<typeof AccordionPrimitive.Root>;
+interface AccordionRootProps extends Omit<BaseAccordionRootProps, 'multiple'> {
+  /** @deprecated Use `multiple` instead. Kept for backwards compatibility with radix-ui API. */
+  type?: 'single' | 'multiple';
+  multiple?: boolean;
+}
 
 const AccordionRoot = (props: AccordionRootProps) => {
-  const { className, ...accordionRootProps } = props;
+  const { className, type, multiple, ...accordionRootProps } = props;
+  // Support radix-ui's `type` prop for backwards compatibility
+  const isMultiple = multiple ?? type === 'multiple';
 
-  return <AccordionPrimitive.Root className={classNames('fui-AccordionRoot', className)} {...accordionRootProps} />;
+  return (
+    <AccordionPrimitive.Root
+      className={classNames('fui-AccordionRoot', className)}
+      multiple={isMultiple}
+      {...accordionRootProps}
+    />
+  );
 };
 AccordionRoot.displayName = 'Root';
 
@@ -27,37 +40,39 @@ type AccordionTriggerProps = React.ComponentProps<typeof AccordionPrimitive.Trig
 const AccordionTrigger = (props: AccordionTriggerProps) => {
   const { className, children, ...accordionTriggerProps } = props;
   return (
-    <AccordionPrimitive.Trigger
-      className={classNames('fui-AccordionTrigger', 'fui-reset', className)}
-      {...accordionTriggerProps}
-    >
-      <svg
-        width="20"
-        height="20"
-        viewBox="0 0 20 20"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="fui-AccordionTriggerIcon"
+    <AccordionPrimitive.Header className="fui-AccordionHeader">
+      <AccordionPrimitive.Trigger
+        className={classNames('fui-AccordionTrigger', 'fui-reset', className)}
+        {...accordionTriggerProps}
       >
-        <path
-          d="M6 12L9.64645 8.35355C9.84171 8.15829 10.1583 8.15829 10.3536 8.35355L14 12"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      </svg>
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="fui-AccordionTriggerIcon"
+        >
+          <path
+            d="M6 12L9.64645 8.35355C9.84171 8.15829 10.1583 8.15829 10.3536 8.35355L14 12"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
+        </svg>
 
-      {children}
-    </AccordionPrimitive.Trigger>
+        {children}
+      </AccordionPrimitive.Trigger>
+    </AccordionPrimitive.Header>
   );
 };
 AccordionTrigger.displayName = 'AccordionTrigger';
 
-type AccordionContentProps = React.ComponentProps<typeof AccordionPrimitive.Content>;
-const AccordionContent = ({ className, children, ...props }: AccordionContentProps) => (
-  <AccordionPrimitive.Content className="fui-AccordionContent" {...props}>
+type AccordionContentProps = React.ComponentProps<typeof AccordionPrimitive.Panel>;
+const AccordionContent = ({ className, children, keepMounted = true, ...props }: AccordionContentProps) => (
+  <AccordionPrimitive.Panel className="fui-AccordionContent" keepMounted={keepMounted} {...props}>
     <div className={classNames('fui-AccordionContentInner', className)}>{children}</div>
-  </AccordionPrimitive.Content>
+  </AccordionPrimitive.Panel>
 );
 AccordionContent.displayName = 'AccordionContent';
 

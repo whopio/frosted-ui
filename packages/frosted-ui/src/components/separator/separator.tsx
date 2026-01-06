@@ -1,7 +1,7 @@
 'use client';
 
+import { Separator as SeparatorPrimitive } from '@base-ui/react/separator';
 import classNames from 'classnames';
-import { Separator as SeparatorPrimitive } from 'radix-ui';
 import * as React from 'react';
 
 import { separatorPropDefs } from './separator.props';
@@ -9,7 +9,7 @@ import { separatorPropDefs } from './separator.props';
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 
 type SeparatorOwnProps = GetPropDefTypes<typeof separatorPropDefs>;
-interface SeparatorProps extends PropsWithoutColor<typeof SeparatorPrimitive.Root>, SeparatorOwnProps {}
+interface SeparatorProps extends PropsWithoutColor<typeof SeparatorPrimitive>, SeparatorOwnProps {}
 
 const Separator = (props: SeparatorProps) => {
   const {
@@ -19,7 +19,7 @@ const Separator = (props: SeparatorProps) => {
     ...separatorProps
   } = props;
   return (
-    <SeparatorPrimitive.Root
+    <SeparatorPrimitive
       data-accent-color={color}
       {...separatorProps}
       className={classNames('fui-Separator', className, `fui-r-size-${size}`)}

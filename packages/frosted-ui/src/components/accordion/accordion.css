@@ -25,33 +25,16 @@
   transform-origin: center;
   transform: rotate(180deg);
 }
-.fui-AccordionTrigger[data-state='open'] .fui-AccordionTriggerIcon {
+.fui-AccordionTrigger[data-panel-open] .fui-AccordionTriggerIcon {
   transform: rotate(0deg);
 }
 .fui-AccordionContent {
   overflow: hidden;
-}
-.fui-AccordionContent[data-state='open'] {
-  animation: fui-accordion-slide-down 300ms ease-out;
-}
-.fui-AccordionContent[data-state='closed'] {
-  animation: fui-accordion-slide-up 300ms ease-out;
-}
+  height: var(--accordion-panel-height);
+  transition: height 300ms ease-out;
 
-@keyframes fui-accordion-slide-down {
-  from {
-    height: 0;
-  }
-  to {
-    height: var(--radix-accordion-content-height);
-  }
-}
-
-@keyframes fui-accordion-slide-up {
-  from {
-    height: var(--radix-accordion-content-height);
-  }
-  to {
+  &[data-starting-style],
+  &[data-ending-style] {
     height: 0;
   }
 }

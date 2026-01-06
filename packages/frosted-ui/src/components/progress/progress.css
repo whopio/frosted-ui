@@ -8,6 +8,12 @@
 
   background-color: var(--gray-a4);
 }
+.fui-ProgressTrack {
+  display: block;
+  height: 100%;
+  width: 100%;
+  border-radius: inherit;
+}
 .fui-ProgressIndicator {
   height: 100%;
   width: 0%;

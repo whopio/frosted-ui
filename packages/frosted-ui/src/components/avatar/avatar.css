@@ -24,7 +24,7 @@
   &:where(.fui-shape-circle) {
     --radius-full: var(--radius-thumb);
   }
-  &:where([data-status='loaded']) {
+  &:where(:has(.fui-AvatarImage)) {
     outline: none;
     background: none;
   }
@@ -38,10 +38,8 @@
   /* Fix safari issue where animated avatars were blurred */
   transform: translateZ(0px);
 
-  &:where(.fui-AvatarRoot[data-status='loaded'] &) {
-    outline: 1px solid var(--gray-a5);
-    outline-offset: -1px;
-  }
+  outline: 1px solid var(--gray-a5);
+  outline-offset: -1px;
 }
 
 .fui-AvatarFallback {

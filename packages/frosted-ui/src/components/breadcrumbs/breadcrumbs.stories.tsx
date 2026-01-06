@@ -25,12 +25,8 @@ export const WithLinks: Story = {
   },
   render: (args) => (
     <Breadcrumbs.Root {...args}>
-      <Breadcrumbs.Item asChild>
-        <a href="#">Home</a>
-      </Breadcrumbs.Item>
-      <Breadcrumbs.Item asChild>
-        <a href="#">User Profiles</a>
-      </Breadcrumbs.Item>
+      <Breadcrumbs.Item render={<a href="#" />}>Home</Breadcrumbs.Item>
+      <Breadcrumbs.Item render={<a href="#user-profiles" />}>User Profiles</Breadcrumbs.Item>
       <Breadcrumbs.Item>Products</Breadcrumbs.Item>
     </Breadcrumbs.Root>
   ),
@@ -57,7 +53,7 @@ export const Truncated: Story = {
   },
   render: (args) => (
     <Breadcrumbs.Root {...args}>
-      <Breadcrumbs.Item asChild>
+      <Breadcrumbs.Item render={<a href="#" />}>
         <a href="#">Home</a>
       </Breadcrumbs.Item>
       <Breadcrumbs.Dropdown>
@@ -71,7 +67,7 @@ export const Truncated: Story = {
           <a href="#">Software</a>
         </Breadcrumbs.DropdownItem>
       </Breadcrumbs.Dropdown>
-      <Breadcrumbs.Item asChild>
+      <Breadcrumbs.Item render={<a href="#" />}>
         <a href="#">Bots</a>
       </Breadcrumbs.Item>
       <Breadcrumbs.Item>Sneaker Bot</Breadcrumbs.Item>
