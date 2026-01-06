@@ -236,3 +236,52 @@ export const Loading: Story = {
     </div>
   ),
 };
+
+export const RenderAsDifferentElement: Story = {
+  name: 'Render as Different Element',
+  args: {
+    size: buttonPropDefs.size.default,
+    variant: buttonPropDefs.variant.default,
+    color: buttonPropDefs.color.default,
+  },
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 550 }}>
+      <Text>
+        Use the <Code>render</Code> prop to render the button as a different element, such as an anchor tag for
+        navigation links or a span for non-interactive styling.
+      </Text>
+      <Text weight="bold">As a link:</Text>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+        <Button {...args} render={<a href="https://example.com" target="_blank" rel="noopener noreferrer" />}>
+          Visit Example
+        </Button>
+        <Button
+          {...args}
+          variant="soft"
+          render={<a href="https://example.com" target="_blank" rel="noopener noreferrer" />}
+        >
+          Soft Link
+        </Button>
+        <Button
+          {...args}
+          variant="ghost"
+          render={<a href="https://example.com" target="_blank" rel="noopener noreferrer" />}
+        >
+          Ghost Link
+        </Button>
+      </div>
+      <Text weight="bold">As a span:</Text>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+        <Button {...args} render={<span />}>
+          Span Button
+        </Button>
+        <Button {...args} variant="soft" render={<span />}>
+          Soft Span
+        </Button>
+        <Button {...args} variant="surface" render={<span />}>
+          Surface Span
+        </Button>
+      </div>
+    </div>
+  ),
+};
