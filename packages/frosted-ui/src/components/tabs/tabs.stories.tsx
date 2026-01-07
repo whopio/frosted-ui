@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Tabs, Text, tabsListPropDefs } from '..';
+import { Code, Tabs, Text, TextArea, TextField, tabsListPropDefs } from '..';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -35,20 +35,171 @@ export const Default: Story = {
           <Tabs.Trigger value="settings">Settings</Tabs.Trigger>
         </Tabs.List>
 
-        <div style={{ padding: '12px 16px 8px 16px' }}>
-          <Tabs.Content value="account">
-            <Text size="2">Make changes to your account.</Text>
-          </Tabs.Content>
+        <Tabs.Content value="account" style={{ padding: '12px 16px 8px 16px' }}>
+          <Text size="2">Make changes to your account.</Text>
+        </Tabs.Content>
 
-          <Tabs.Content value="documents">
-            <Text size="2">Access and update your documents.</Text>
-          </Tabs.Content>
+        <Tabs.Content value="documents" style={{ padding: '12px 16px 8px 16px' }}>
+          <Text size="2">Access and update your documents.</Text>
+        </Tabs.Content>
 
-          <Tabs.Content value="settings">
-            <Text size="2">Edit your profile or update contact information.</Text>
-          </Tabs.Content>
-        </div>
+        <Tabs.Content value="settings" style={{ padding: '12px 16px 8px 16px' }}>
+          <Text size="2">Edit your profile or update contact information.</Text>
+        </Tabs.Content>
       </Tabs.Root>
     </div>
   ),
+};
+
+export const ActivateOnFocus: Story = {
+  name: 'Activate on Focus',
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', maxWidth: 600 }}>
+      <Text>
+        The <Code>activateOnFocus</Code> prop controls whether tabs are activated immediately when focused via keyboard
+        navigation, or only when explicitly clicked/pressed. Try using <Code>Tab</Code> to focus the tabs, then{' '}
+        <Code>Arrow</Code> keys to navigate.
+      </Text>
+
+      <div>
+        <Text size="2" weight="medium" style={{ marginBottom: 'var(--space-2)', display: 'block' }}>
+          activateOnFocus={'{true}'}
+        </Text>
+        <Tabs.Root defaultValue="tab1">
+          <Tabs.List {...args} activateOnFocus>
+            <Tabs.Trigger value="tab1">Overview</Tabs.Trigger>
+            <Tabs.Trigger value="tab2">Analytics</Tabs.Trigger>
+            <Tabs.Trigger value="tab3">Reports</Tabs.Trigger>
+          </Tabs.List>
+          <div style={{ padding: '12px 16px 8px 16px' }}>
+            <Tabs.Content value="tab1">
+              <Text size="2">Overview content — Tab activates immediately on arrow key navigation.</Text>
+            </Tabs.Content>
+            <Tabs.Content value="tab2">
+              <Text size="2">Analytics content — Tab activates immediately on arrow key navigation.</Text>
+            </Tabs.Content>
+            <Tabs.Content value="tab3">
+              <Text size="2">Reports content — Tab activates immediately on arrow key navigation.</Text>
+            </Tabs.Content>
+          </div>
+        </Tabs.Root>
+      </div>
+
+      <div>
+        <Text size="2" weight="medium" style={{ marginBottom: 'var(--space-2)', display: 'block' }}>
+          activateOnFocus={'{false}'} (default)
+        </Text>
+        <Tabs.Root defaultValue="tab1">
+          <Tabs.List {...args} activateOnFocus={false}>
+            <Tabs.Trigger value="tab1">Overview</Tabs.Trigger>
+            <Tabs.Trigger value="tab2">Analytics</Tabs.Trigger>
+            <Tabs.Trigger value="tab3">Reports</Tabs.Trigger>
+          </Tabs.List>
+          <div style={{ padding: '12px 16px 8px 16px' }}>
+            <Tabs.Content value="tab1">
+              <Text size="2">Overview content — Must press Enter/Space to activate after focusing.</Text>
+            </Tabs.Content>
+            <Tabs.Content value="tab2">
+              <Text size="2">Analytics content — Must press Enter/Space to activate after focusing.</Text>
+            </Tabs.Content>
+            <Tabs.Content value="tab3">
+              <Text size="2">Reports content — Must press Enter/Space to activate after focusing.</Text>
+            </Tabs.Content>
+          </div>
+        </Tabs.Root>
+      </div>
+
+      <Text size="1" color="gray">
+        Use <Code>activateOnFocus={'{true}'}</Code> for a more fluid experience. The default (<Code>false</Code>)
+        follows WAI-ARIA best practices, requiring explicit activation which is better for accessibility.
+      </Text>
+    </div>
+  ),
+};
+
+export const KeepMounted: Story = {
+  name: 'Keep Mounted',
+  render: (args) => {
+    const [name, setName] = React.useState('');
+    const [email, setEmail] = React.useState('');
+    const [bio, setBio] = React.useState('');
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 500 }}>
+        <Text>
+          The <Code>keepMounted</Code> prop on <Code>Tabs.Content</Code> keeps tab panels in the DOM even when hidden.
+          This preserves component state like form inputs, scroll position, and avoids re-mounting expensive components.
+        </Text>
+
+        <Text size="2" weight="medium">
+          With keepMounted={'{true}'} — Form state is preserved
+        </Text>
+        <Tabs.Root defaultValue="profile">
+          <Tabs.List {...args}>
+            <Tabs.Trigger value="profile">Profile</Tabs.Trigger>
+            <Tabs.Trigger value="contact">Contact</Tabs.Trigger>
+            <Tabs.Trigger value="about">About</Tabs.Trigger>
+          </Tabs.List>
+          <div
+            style={{
+              padding: '16px',
+              background: 'var(--gray-2)',
+              borderRadius: '0 0 var(--radius-2) var(--radius-2)',
+            }}
+          >
+            <Tabs.Content value="profile" keepMounted>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+                <Text as="label" size="2">
+                  Name
+                </Text>
+                <TextField.Input
+                  size="3"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Enter your name"
+                />
+                <Text size="1" color="gray">
+                  Type something, switch tabs, then come back — your input is preserved!
+                </Text>
+              </div>
+            </Tabs.Content>
+            <Tabs.Content value="contact" keepMounted>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+                <Text as="label" size="2">
+                  Email
+                </Text>
+                <TextField.Input
+                  size="3"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                />
+              </div>
+            </Tabs.Content>
+            <Tabs.Content value="about" keepMounted>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+                <Text as="label" size="2">
+                  Bio
+                </Text>
+                <TextArea
+                  size="3"
+                  value={bio}
+                  onChange={(e) => setBio(e.target.value)}
+                  placeholder="Tell us about yourself"
+                  rows={3}
+                />
+              </div>
+            </Tabs.Content>
+          </div>
+        </Tabs.Root>
+
+        <Text size="1" color="gray">
+          Use <Code>keepMounted</Code> on <Code>Tabs.Content</Code> for multi-step forms, preserving video/audio
+          playback state, or panels with expensive initialization. Without it, panels unmount when hidden and lose their
+          state.
+        </Text>
+      </div>
+    );
+  },
 };

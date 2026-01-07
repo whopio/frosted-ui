@@ -1,14 +1,15 @@
 'use client';
 
+import { Tabs as TabsPrimitive } from '@base-ui/react/tabs';
 import classNames from 'classnames';
-import { Tabs as TabsPrimitive } from 'radix-ui';
 import * as React from 'react';
 
 import { tabsListPropDefs } from './tabs.props';
 
-import type { GetPropDefTypes } from '../../helpers';
+import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 
-interface TabsRootProps extends React.ComponentProps<typeof TabsPrimitive.Root> {}
+type TabsRootProps = Omit<PropsWithoutColor<typeof TabsPrimitive.Root>, 'className' | 'render' | 'orientation'> &
+  Omit<React.HTMLAttributes<HTMLDivElement>, 'defaultValue'>;
 
 const TabsRoot = (props: TabsRootProps) => {
   const { className, ...rootProps } = props;
@@ -17,7 +18,9 @@ const TabsRoot = (props: TabsRootProps) => {
 TabsRoot.displayName = 'TabsRoot';
 
 type TabsListOwnProps = GetPropDefTypes<typeof tabsListPropDefs>;
-interface TabsListProps extends React.ComponentProps<typeof TabsPrimitive.List>, TabsListOwnProps {}
+type TabsListProps = Omit<PropsWithoutColor<typeof TabsPrimitive.List>, 'className' | 'render'> &
+  React.HTMLAttributes<HTMLDivElement> &
+  TabsListOwnProps;
 
 const TabsList = (props: TabsListProps) => {
   const { className, size = tabsListPropDefs.size.default, ...listProps } = props;
@@ -30,26 +33,28 @@ const TabsList = (props: TabsListProps) => {
 };
 TabsList.displayName = 'TabsList';
 
-interface TabsTriggerProps extends React.ComponentProps<typeof TabsPrimitive.Trigger> {}
+type TabsTriggerProps = Omit<PropsWithoutColor<typeof TabsPrimitive.Tab>, 'className' | 'render'> &
+  React.HTMLAttributes<HTMLButtonElement>;
 
 const TabsTrigger = (props: TabsTriggerProps) => {
   const { className, children, ...triggerProps } = props;
   return (
-    <TabsPrimitive.Trigger
+    <TabsPrimitive.Tab
       {...triggerProps}
       className={classNames('fui-reset', 'fui-BaseTabsTrigger', 'fui-TabsTrigger', className)}
     >
       <span className="fui-BaseTabsTriggerInner fui-TabsTriggerInner">{children}</span>
       <span className="fui-BaseTabsTriggerInnerHidden fui-TabsTriggerInnerHidden">{children}</span>
-    </TabsPrimitive.Trigger>
+    </TabsPrimitive.Tab>
   );
 };
 TabsTrigger.displayName = 'TabsTrigger';
 
-interface TabsContentProps extends React.ComponentProps<typeof TabsPrimitive.Content> {}
+type TabsContentProps = Omit<PropsWithoutColor<typeof TabsPrimitive.Panel>, 'className' | 'render'> &
+  React.HTMLAttributes<HTMLDivElement>;
 
 const TabsContent = (props: TabsContentProps) => (
-  <TabsPrimitive.Content {...props} className={classNames('fui-TabsContent', props.className)} />
+  <TabsPrimitive.Panel {...props} className={classNames('fui-TabsContent', props.className)} />
 );
 TabsContent.displayName = 'TabsContent';
 

@@ -1,27 +1,17 @@
 'use client';
 
+import { NavigationMenu } from '@base-ui/react/navigation-menu';
 import classNames from 'classnames';
-import { NavigationMenu } from 'radix-ui';
 import * as React from 'react';
-import { GetPropDefTypes, getSubtree } from '../../helpers';
-import { segmentedControlNavLinkPropDefs } from './segmented-control-nav.props';
 
-interface SegmentedControlNavRootProps
-  extends Omit<
-    React.ComponentProps<typeof NavigationMenu.Root>,
-    'asChild' | 'orientation' | 'defauValue' | 'value' | 'onValueChange' | 'delayDuration' | 'skipDelayDuration'
-  > {}
+type SegmentedControlNavRootProps = Omit<React.ComponentProps<typeof NavigationMenu.Root>, 'className' | 'render'> &
+  React.ComponentProps<'nav'>;
 
 const SegmentedControlNavRoot = (props: SegmentedControlNavRootProps) => {
   const { children, className, ...rootProps } = props;
 
   return (
-    <NavigationMenu.Root
-      className="fui-SegmentedControlNavRoot"
-      {...rootProps}
-      asChild={false}
-      orientation="horizontal"
-    >
+    <NavigationMenu.Root className="fui-SegmentedControlNavRoot" {...rootProps}>
       <NavigationMenu.List className={classNames('fui-reset', 'fui-BaseSegmentedControlList', className)}>
         {children}
       </NavigationMenu.List>
@@ -30,26 +20,27 @@ const SegmentedControlNavRoot = (props: SegmentedControlNavRootProps) => {
 };
 SegmentedControlNavRoot.displayName = 'SegmentedControlNavRoot';
 
-type SegmentedControlNavLinkOwnProps = GetPropDefTypes<typeof segmentedControlNavLinkPropDefs>;
-interface SegmentedControlNavLinkProps
-  extends Omit<React.ComponentProps<typeof NavigationMenu.Link>, 'onSelect'>,
-    SegmentedControlNavLinkOwnProps {}
+interface SegmentedControlNavLinkOwnProps {
+  /** Render the link as a custom element */
+  render?: React.ReactElement;
+  /** Additional CSS class name */
+  className?: string;
+}
+type SegmentedControlNavLinkProps = Omit<React.ComponentProps<typeof NavigationMenu.Link>, 'className' | 'render'> &
+  Omit<React.ComponentProps<'a'>, 'className'> &
+  SegmentedControlNavLinkOwnProps;
 
 const SegmentedControlNavLink = (props: SegmentedControlNavLinkProps) => {
-  const { asChild, children, className, ...linkProps } = props;
+  const { render, children, className, ...linkProps } = props;
 
   return (
     <NavigationMenu.Item className="fui-SegmentedControlNavItem">
       <NavigationMenu.Link
         {...linkProps}
+        render={render}
         className={classNames('fui-reset', 'fui-BaseSegmentedControlTrigger', 'fui-SegmentedControlNavLink', className)}
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        onSelect={() => {}}
-        asChild={asChild}
       >
-        {getSubtree({ asChild, children }, (children) => (
-          <span className="fui-BaseSegmentedControlTriggerInner">{children}</span>
-        ))}
+        <span className="fui-BaseSegmentedControlTriggerInner">{children}</span>
       </NavigationMenu.Link>
     </NavigationMenu.Item>
   );

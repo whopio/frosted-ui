@@ -1,24 +1,21 @@
 'use client';
 
+import { NavigationMenu } from '@base-ui/react/navigation-menu';
 import classNames from 'classnames';
-import { NavigationMenu } from 'radix-ui';
 import * as React from 'react';
-import { GetPropDefTypes, getSubtree } from '../../helpers';
-import { tabsNavLinkPropDefs, tabsNavPropDefs } from './tabs-nav.props';
+import { GetPropDefTypes } from '../../helpers';
+import { tabsNavPropDefs } from './tabs-nav.props';
 
 type TabsNavOwnProps = GetPropDefTypes<typeof tabsNavPropDefs>;
-interface TabsNavRootProps
-  extends Omit<
-      React.ComponentProps<typeof NavigationMenu.Root>,
-      'asChild' | 'orientation' | 'defauValue' | 'value' | 'onValueChange' | 'delayDuration' | 'skipDelayDuration'
-    >,
-    TabsNavOwnProps {}
+type TabsNavRootProps = Omit<React.ComponentProps<typeof NavigationMenu.Root>, 'className' | 'render' | 'orientation'> &
+  React.ComponentProps<'nav'> &
+  TabsNavOwnProps;
 
 const TabsNavRoot = (props: TabsNavRootProps) => {
   const { children, className, size = tabsNavPropDefs.size.default, ...rootProps } = props;
 
   return (
-    <NavigationMenu.Root className="fui-TabsNavRoot" {...rootProps} asChild={false} orientation="horizontal">
+    <NavigationMenu.Root className="fui-TabsNavRoot" {...rootProps}>
       <NavigationMenu.List
         className={classNames('fui-reset', 'fui-BaseTabsList', 'fui-TabsNavList', className, `fui-r-size-${size}`)}
       >
@@ -29,29 +26,28 @@ const TabsNavRoot = (props: TabsNavRootProps) => {
 };
 TabsNavRoot.displayName = 'TabsNavRoot';
 
-type TabsNavLinkOwnProps = GetPropDefTypes<typeof tabsNavLinkPropDefs>;
-interface TabsNavLinkProps
-  extends Omit<React.ComponentProps<typeof NavigationMenu.Link>, 'onSelect'>,
-    TabsNavLinkOwnProps {}
+interface TabsNavLinkOwnProps {
+  /** Render the link as a custom element */
+  render?: React.ReactElement;
+  /** Additional CSS class name */
+  className?: string;
+}
+type TabsNavLinkProps = Omit<React.ComponentProps<typeof NavigationMenu.Link>, 'className' | 'render'> &
+  Omit<React.ComponentProps<'a'>, 'className'> &
+  TabsNavLinkOwnProps;
 
 const TabsNavLink = (props: TabsNavLinkProps) => {
-  const { asChild, children, className, ...linkProps } = props;
+  const { render, children, className, ...linkProps } = props;
 
   return (
     <NavigationMenu.Item className="fui-TabsNavItem">
       <NavigationMenu.Link
         {...linkProps}
+        render={render}
         className={classNames('fui-reset', 'fui-BaseTabsTrigger', 'fui-TabsNavLink', className)}
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        onSelect={() => {}}
-        asChild={asChild}
       >
-        {getSubtree({ asChild, children }, (children) => (
-          <>
-            <span className="fui-BaseTabsTriggerInner fui-TabsNavLinkInner">{children}</span>
-            <span className="fui-BaseTabsTriggerInnerHidden fui-TabsNavLinkInnerHidden">{children}</span>
-          </>
-        ))}
+        <span className="fui-BaseTabsTriggerInner fui-TabsNavLinkInner">{children}</span>
+        <span className="fui-BaseTabsTriggerInnerHidden fui-TabsNavLinkInnerHidden">{children}</span>
       </NavigationMenu.Link>
     </NavigationMenu.Item>
   );
