@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { TabsNav, tabsNavPropDefs } from '..';
+import { Code, TabsNav, tabsNavPropDefs, Text } from '..';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -33,6 +33,29 @@ export const Default: Story = {
         <TabsNav.Link href="#">Documents</TabsNav.Link>
         <TabsNav.Link href="#">Settings</TabsNav.Link>
       </TabsNav.Root>
+    </div>
+  ),
+};
+
+export const RenderProp: Story = {
+  name: 'Render Prop (Client-Side Routing)',
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 600 }}>
+      <Text>
+        Use the <Code>render</Code> prop to integrate with your framework&apos;s router for client-side navigation. This
+        is useful for frameworks like Next.js, React Router, or Remix.
+      </Text>
+      <TabsNav.Root {...args}>
+        <TabsNav.Link active render={<a href="/account" />}>
+          Account
+        </TabsNav.Link>
+        <TabsNav.Link render={<a href="/documents" />}>Documents</TabsNav.Link>
+        <TabsNav.Link render={<a href="/settings" />}>Settings</TabsNav.Link>
+      </TabsNav.Root>
+      <Text size="1" color="gray">
+        In a real app, replace <Code>{'<a />'}</Code> with your router&apos;s Link component, e.g.{' '}
+        <Code>{'<NextLink href="/account" />'}</Code> for Next.js.
+      </Text>
     </div>
   ),
 };
