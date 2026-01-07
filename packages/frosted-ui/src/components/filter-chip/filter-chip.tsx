@@ -1,7 +1,7 @@
 'use client';
 
+import { Checkbox as CheckboxPrimitive } from '@base-ui/react/checkbox';
 import classNames from 'classnames';
-import { Checkbox as CheckboxPrimitive } from 'radix-ui';
 import * as React from 'react';
 
 import { filterChipPropDefs } from './filter-chip.props';
@@ -9,9 +9,11 @@ import { filterChipPropDefs } from './filter-chip.props';
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 
 type FilterChipOwnProps = GetPropDefTypes<typeof filterChipPropDefs>;
-interface FilterChipProps extends PropsWithoutColor<typeof CheckboxPrimitive.Root>, FilterChipOwnProps {
-  children: React.ReactNode;
-}
+type FilterChipProps = Omit<PropsWithoutColor<typeof CheckboxPrimitive.Root>, 'className' | 'render' | 'nativeButton'> &
+  Omit<React.HTMLAttributes<HTMLButtonElement>, 'color'> &
+  FilterChipOwnProps & {
+    children: React.ReactNode;
+  };
 
 const FilterChip = (props: FilterChipProps) => {
   const {

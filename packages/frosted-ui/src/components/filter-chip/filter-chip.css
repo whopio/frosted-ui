@@ -56,7 +56,7 @@
   }
 }
 
-.fui-BaseChip:where([data-state='unchecked']) {
+.fui-BaseChip:where([data-unchecked]) {
   box-shadow: inset 0 0 0 1px var(--gray-a5);
   --base-chip-color: var(--gray-a12);
 
@@ -86,7 +86,7 @@
   /* stylelint-enable */
 }
 
-.fui-BaseChip:where([data-state='checked']) {
+.fui-BaseChip:where([data-checked]) {
   --base-chip-color: var(--accent-11);
   background-color: var(--accent-a3);
   box-shadow: inset 0 0 0 1px var(--accent-a6);
