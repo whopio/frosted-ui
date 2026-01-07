@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { FilterChip, filterChipPropDefs } from '..';
+import { Button, Code, FilterChip, filterChipPropDefs, Text } from '..';
 
 const ExampleIcon = ({ size }: { size: number }) => (
   <svg width={size} height={size} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -101,4 +101,144 @@ export const Color: Story = {
       </FilterChip>
     </div>
   ),
+};
+
+export const ReadOnly: Story = {
+  name: 'Read Only',
+  render: (args) => {
+    const activeFilters = {
+      inStock: true,
+      onSale: false,
+      freeShipping: true,
+    };
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 400 }}>
+        <Text>
+          The <Code>readOnly</Code> prop prevents users from toggling a filter chip while still showing its current
+          state. Unlike <Code>disabled</Code>, read-only chips remain focusable and their values are submitted with
+          forms.
+        </Text>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+          <Text size="2" weight="medium">
+            Applied Filters (from saved search)
+          </Text>
+          <div style={{ display: 'flex', gap: 'var(--space-2)', flexWrap: 'wrap' }}>
+            <FilterChip {...args} checked={activeFilters.inStock} readOnly>
+              In Stock
+            </FilterChip>
+            <FilterChip {...args} checked={activeFilters.onSale} readOnly>
+              On Sale
+            </FilterChip>
+            <FilterChip {...args} checked={activeFilters.freeShipping} readOnly>
+              Free Shipping
+            </FilterChip>
+          </div>
+        </div>
+      </div>
+    );
+  },
+};
+
+export const InputRef: Story = {
+  name: 'Input Ref',
+  render: (args) => {
+    const inputRef = React.useRef<HTMLInputElement>(null);
+    const [info, setInfo] = React.useState<string>('Click a button to inspect the input');
+
+    const focusInput = () => {
+      inputRef.current?.focus();
+      setInfo('Input focused programmatically');
+    };
+
+    const checkState = () => {
+      const input = inputRef.current;
+      if (input) {
+        const isChecked = input.checked;
+        const name = input.name;
+        setInfo(`Name: "${name}", Checked: ${isChecked}`);
+      }
+    };
+
+    const toggleChecked = () => {
+      const input = inputRef.current;
+      if (input) {
+        input.click();
+        setInfo(`Toggled via native click. New state: ${!input.checked}`);
+      }
+    };
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 400 }}>
+        <Text>
+          The <Code>inputRef</Code> prop provides direct access to the hidden native <Code>&lt;input&gt;</Code> element.
+          This is useful for programmatic focus, form validation, or integrating with third-party libraries.
+        </Text>
+        <FilterChip {...args} inputRef={inputRef} name="featured" defaultChecked>
+          <ExampleIcon size={16} />
+          Featured Items
+        </FilterChip>
+        <div style={{ display: 'flex', gap: 'var(--space-2)', flexWrap: 'wrap' }}>
+          <Button size="1" variant="soft" onClick={focusInput}>
+            Focus Input
+          </Button>
+          <Button size="1" variant="soft" onClick={checkState}>
+            Check State
+          </Button>
+          <Button size="1" variant="soft" onClick={toggleChecked}>
+            Toggle via Ref
+          </Button>
+        </div>
+        <Code style={{ padding: 'var(--space-2)', display: 'block' }}>{info}</Code>
+      </div>
+    );
+  },
+};
+
+export const FormValues: Story = {
+  name: 'Form with value & uncheckedValue',
+  render: (args) => {
+    const [formData, setFormData] = React.useState<Record<string, FormDataEntryValue>>({});
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.currentTarget).entries());
+      setFormData(data);
+    };
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 500 }}>
+        <Text>
+          Use <Code>value</Code> and <Code>uncheckedValue</Code> props to customize what gets submitted with the form.
+          By default, checked chips submit <Code>"on"</Code> and unchecked chips submit nothing.
+        </Text>
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+          <Text size="2" weight="medium">
+            Product Filters
+          </Text>
+          <div style={{ display: 'flex', gap: 'var(--space-2)', flexWrap: 'wrap' }}>
+            <FilterChip {...args} name="availability" defaultChecked value="in-stock" uncheckedValue="all">
+              In Stock
+            </FilterChip>
+            <FilterChip {...args} name="shipping" value="free" uncheckedValue="any">
+              Free Shipping
+            </FilterChip>
+            <FilterChip {...args} name="discount" defaultChecked value="on-sale" uncheckedValue="no-filter">
+              On Sale
+            </FilterChip>
+          </div>
+          <Button variant="solid" type="submit" style={{ alignSelf: 'flex-start', marginTop: 'var(--space-2)' }}>
+            Apply Filters
+          </Button>
+        </form>
+        <div>
+          <Text size="2" weight="medium">
+            Form Data:
+          </Text>
+          <Code style={{ display: 'block', marginTop: 'var(--space-2)', whiteSpace: 'pre', padding: 'var(--space-2)' }}>
+            {JSON.stringify(formData, null, 2)}
+          </Code>
+        </div>
+      </div>
+    );
+  },
 };
