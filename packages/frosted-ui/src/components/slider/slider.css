@@ -47,8 +47,19 @@
   }
 }
 
+.fui-SliderControl {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+
+  &:where([data-orientation='vertical']) {
+    flex-direction: column;
+    height: 100%;
+  }
+}
+
 .fui-SliderTrack {
-  overflow: hidden;
+  overflow: visible;
   position: relative;
   flex-grow: 1;
 
@@ -105,7 +116,8 @@
     cursor: var(--cursor-slider-thumb);
   }
 
-  &:where(:focus-visible)::after {
+  &:where(:focus-visible)::after,
+  &:has(:focus-visible)::after {
     box-shadow:
       var(--slider-thumb-box-shadow),
       0 0 0 3px var(--accent-3),

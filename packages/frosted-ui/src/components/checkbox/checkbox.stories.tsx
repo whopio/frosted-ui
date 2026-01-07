@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Checkbox, Code, Text, checkboxPropDefs } from '..';
+import { Button, Checkbox, Code, Text, checkboxPropDefs } from '..';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -39,10 +39,10 @@ export const Default: Story = {
       <Checkbox checked={false} disabled {...args}>
         Unchecked disabled
       </Checkbox>
-      <Checkbox checked={'indeterminate'} {...args}>
+      <Checkbox indeterminate {...args}>
         Indeterminate
       </Checkbox>
-      <Checkbox checked={'indeterminate'} disabled {...args}>
+      <Checkbox indeterminate disabled {...args}>
         Indeterminate disabled
       </Checkbox>
     </div>
@@ -156,4 +156,178 @@ export const Alignment: Story = {
       </div>
     </div>
   ),
+};
+
+export const FormValues: Story = {
+  name: 'Form with value & uncheckedValue',
+  render: (args) => {
+    const [formData, setFormData] = React.useState<Record<string, FormDataEntryValue>>({});
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.currentTarget).entries());
+      setFormData(data);
+    };
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 550 }}>
+        <Text>
+          Base UI's Checkbox provides <Code>value</Code> and <Code>uncheckedValue</Code> props for form submissions. By
+          default, a checked checkbox submits <Code>"on"</Code> and an unchecked checkbox submits nothing (standard HTML
+          behavior). These props let you customize both values.
+        </Text>
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+          <Text as="label" size="2">
+            <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
+              <Checkbox {...args} name="newsletter" defaultChecked value="subscribed" uncheckedValue="unsubscribed" />
+              Subscribe to newsletter
+            </div>
+          </Text>
+          <Text as="label" size="2">
+            <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
+              <Checkbox {...args} name="terms" value="accepted" uncheckedValue="declined" />
+              Accept terms and conditions
+            </div>
+          </Text>
+          <Text as="label" size="2">
+            <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
+              <Checkbox {...args} name="marketing" defaultChecked />
+              Marketing emails (no custom values)
+            </div>
+          </Text>
+          <Button variant="solid" type="submit" style={{ marginTop: 'var(--space-2)', alignSelf: 'flex-start' }}>
+            Submit Form
+          </Button>
+        </form>
+        <div>
+          <Text size="2" weight="medium">
+            Submitted Data:
+          </Text>
+          <Code style={{ display: 'block', marginTop: 'var(--space-2)', whiteSpace: 'pre' }}>
+            {JSON.stringify(formData, null, 2)}
+          </Code>
+        </div>
+      </div>
+    );
+  },
+};
+
+export const ReadOnly: Story = {
+  name: 'Read Only',
+  render: (args) => {
+    const [isPremium] = React.useState(true);
+    const [preferences] = React.useState({
+      emailDigest: true,
+      smsAlerts: false,
+      pushNotifications: true,
+    });
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 500 }}>
+        <Text>
+          The <Code>readOnly</Code> prop prevents users from changing a checkbox while still showing its current state.
+          Unlike <Code>disabled</Code>, read-only checkboxes remain focusable and their values are submitted with forms.
+          This is useful for displaying user preferences they cannot modify, or showing computed/derived states.
+        </Text>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+          <Text size="2" weight="medium">
+            Your Subscription Features (Premium Plan)
+          </Text>
+          <Text as="label" size="2">
+            <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
+              <Checkbox {...args} checked={isPremium} readOnly /> Unlimited storage
+            </div>
+          </Text>
+          <Text as="label" size="2">
+            <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
+              <Checkbox {...args} checked={isPremium} readOnly /> Priority support
+            </div>
+          </Text>
+          <Text as="label" size="2">
+            <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
+              <Checkbox {...args} checked={isPremium} readOnly /> Advanced analytics
+            </div>
+          </Text>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+          <Text size="2" weight="medium">
+            Notification Settings (set by admin)
+          </Text>
+          <Text as="label" size="2">
+            <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
+              <Checkbox {...args} checked={preferences.emailDigest} readOnly /> Daily email digest
+            </div>
+          </Text>
+          <Text as="label" size="2">
+            <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
+              <Checkbox {...args} checked={preferences.smsAlerts} readOnly /> SMS alerts
+            </div>
+          </Text>
+          <Text as="label" size="2">
+            <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
+              <Checkbox {...args} checked={preferences.pushNotifications} readOnly /> Push notifications
+            </div>
+          </Text>
+        </div>
+      </div>
+    );
+  },
+};
+
+export const InputRef: Story = {
+  name: 'Input Ref',
+  render: (args) => {
+    const inputRef = React.useRef<HTMLInputElement>(null);
+    const [info, setInfo] = React.useState<string>('Click a button to inspect the input');
+
+    const focusInput = () => {
+      inputRef.current?.focus();
+      setInfo('Input focused programmatically');
+    };
+
+    const checkValidity = () => {
+      const input = inputRef.current;
+      if (input) {
+        const isValid = input.validity.valid;
+        const isChecked = input.checked;
+        setInfo(`Checked: ${isChecked}, Valid: ${isValid}`);
+      }
+    };
+
+    const toggleChecked = () => {
+      const input = inputRef.current;
+      if (input) {
+        input.click();
+        setInfo(`Toggled via native click. New state: ${!input.checked}`);
+      }
+    };
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 500 }}>
+        <Text>
+          The <Code>inputRef</Code> prop provides direct access to the hidden native <Code>&lt;input&gt;</Code> element.
+          This is useful for programmatic focus management, form validation, or integrating with third-party libraries
+          that need direct DOM access.
+        </Text>
+        <form>
+          <Text as="label" size="2">
+            <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
+              <Checkbox {...args} inputRef={inputRef} name="agreement" required /> I agree to the terms (required)
+            </div>
+          </Text>
+        </form>
+        <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+          <Button variant="soft" size="1" onClick={focusInput}>
+            Focus Input
+          </Button>
+          <Button variant="soft" size="1" onClick={checkValidity}>
+            Check Validity
+          </Button>
+          <Button variant="soft" size="1" onClick={toggleChecked}>
+            Toggle via Ref
+          </Button>
+        </div>
+        <Code style={{ padding: 'var(--space-2)' }}>{info}</Code>
+      </div>
+    );
+  },
 };

@@ -524,7 +524,8 @@ const columns: ColumnDef<Payment>[] = [
     id: 'select',
     header: ({ table }) => (
       <Checkbox
-        checked={table.getIsAllRowsSelected() || (table.getIsSomeRowsSelected() && 'indeterminate')}
+        checked={table.getIsAllRowsSelected()}
+        indeterminate={table.getIsSomeRowsSelected() && !table.getIsAllRowsSelected()}
         onCheckedChange={(value) => table.toggleAllRowsSelected(!!value)}
         aria-label="Select all"
       />
