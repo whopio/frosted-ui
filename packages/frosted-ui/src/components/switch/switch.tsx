@@ -1,7 +1,7 @@
 'use client';
 
+import { Switch as SwitchPrimitive } from '@base-ui/react/switch';
 import classNames from 'classnames';
-import { Switch as SwitchPrimitive } from 'radix-ui';
 import * as React from 'react';
 
 import { switchPropDefs } from './switch.props';
@@ -9,7 +9,12 @@ import { switchPropDefs } from './switch.props';
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 
 type SwitchOwnProps = GetPropDefTypes<typeof switchPropDefs>;
-interface SwitchProps extends Omit<PropsWithoutColor<typeof SwitchPrimitive.Root>, 'children'>, SwitchOwnProps {}
+type SwitchProps = Omit<
+  PropsWithoutColor<typeof SwitchPrimitive.Root>,
+  'children' | 'className' | 'render' | 'nativeButton'
+> &
+  Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> &
+  SwitchOwnProps;
 
 const Switch = (props: SwitchProps) => {
   const {

@@ -1,7 +1,7 @@
 'use client';
 
+import { Checkbox as CheckboxPrimitive } from '@base-ui/react/checkbox';
 import classNames from 'classnames';
-import { Checkbox as CheckboxPrimitive } from 'radix-ui';
 import * as React from 'react';
 
 import { checkboxPropDefs } from './checkbox.props';
@@ -67,7 +67,9 @@ const CheckboxIndeterminateIcon = ({ color = 'currentColor', size, ...props }: I
 CheckboxIndeterminateIcon.displayName = 'CheckboxIndeterminateIcon';
 
 type CheckboxOwnProps = GetPropDefTypes<typeof checkboxPropDefs>;
-interface CheckboxProps extends PropsWithoutColor<typeof CheckboxPrimitive.Root>, CheckboxOwnProps {}
+type CheckboxProps = Omit<PropsWithoutColor<typeof CheckboxPrimitive.Root>, 'className' | 'render' | 'nativeButton'> &
+  Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> &
+  CheckboxOwnProps;
 
 const Checkbox = (props: CheckboxProps) => {
   const {
@@ -77,6 +79,7 @@ const Checkbox = (props: CheckboxProps) => {
     size = checkboxPropDefs.size.default,
     color = checkboxPropDefs.color.default,
     highContrast = checkboxPropDefs.highContrast.default,
+    indeterminate,
     ...checkboxProps
   } = props;
 
@@ -86,13 +89,15 @@ const Checkbox = (props: CheckboxProps) => {
     <Comp className={classNames('fui-CheckboxRoot', className, `fui-r-size-${size}`)} style={style}>
       <CheckboxPrimitive.Root
         data-accent-color={color}
+        data-indeterminate={indeterminate || undefined}
+        indeterminate={indeterminate}
         {...checkboxProps}
         className={classNames('fui-reset', 'fui-CheckboxButton', {
           'fui-high-contrast': highContrast,
         })}
       >
         <CheckboxPrimitive.Indicator className="fui-CheckboxIndicator">
-          {checkboxProps.checked === 'indeterminate' ? (
+          {indeterminate ? (
             <CheckboxIndeterminateIcon size={size} className="fui-CheckboxIndicatorIcon" />
           ) : (
             <CheckboxCheckmarkIcon size={size} className="fui-CheckboxIndicatorIcon" />
