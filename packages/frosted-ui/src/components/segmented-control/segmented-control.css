@@ -4,3 +4,7 @@
   position: relative;
   outline: 0;
 }
+
+.fui-SegmentedControlContent:where(:focus-visible) {
+  outline: 2px solid var(--color-focus-root);
+}

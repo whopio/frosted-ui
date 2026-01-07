@@ -72,8 +72,8 @@ importers:
         specifier: ^4.0.14
         version: 4.0.14
       typescript:
-        specifier: ^4.5.3
-        version: 4.9.5
+        specifier: ^5.6.3
+        version: 5.9.3
 
   packages/eslint-config-custom:
     dependencies:
@@ -14395,9 +14395,7 @@ snapshots:
       metro-runtime: 0.83.3
     transitivePeerDependencies:
       - '@babel/core'
-      - bufferutil
       - supports-color
-      - utf-8-validate
     optional: true
 
   '@react-native/normalize-colors@0.74.89': {}

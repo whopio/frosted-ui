@@ -1,10 +1,14 @@
 'use client';
 
+import { Tabs as TabsPrimitive } from '@base-ui/react/tabs';
 import classNames from 'classnames';
-import { Tabs as TabsPrimitive } from 'radix-ui';
 import * as React from 'react';
 
-interface SegmentedControlRootProps extends React.ComponentProps<typeof TabsPrimitive.Root> {}
+type SegmentedControlRootProps = Omit<
+  React.ComponentProps<typeof TabsPrimitive.Root>,
+  'className' | 'render' | 'orientation'
+> &
+  React.ComponentProps<'div'>;
 
 const SegmentedControlRoot = (props: SegmentedControlRootProps) => {
   const { className, ...rootProps } = props;
@@ -12,10 +16,8 @@ const SegmentedControlRoot = (props: SegmentedControlRootProps) => {
 };
 SegmentedControlRoot.displayName = 'SegmentedControlRoot';
 
-interface SegmentedControlListOwnProps extends React.ComponentProps<'div'> {}
-interface SegmentedControlListProps
-  extends React.ComponentProps<typeof TabsPrimitive.List>,
-    SegmentedControlListOwnProps {}
+type SegmentedControlListProps = Omit<React.ComponentProps<typeof TabsPrimitive.List>, 'className' | 'render'> &
+  React.ComponentProps<'div'>;
 
 const SegmentedControlList = (props: SegmentedControlListProps) => {
   const { className, ...listProps } = props;
@@ -23,25 +25,27 @@ const SegmentedControlList = (props: SegmentedControlListProps) => {
 };
 SegmentedControlList.displayName = 'SegmentedControlList';
 
-interface SegmentedControlTriggerProps extends React.ComponentProps<typeof TabsPrimitive.Trigger> {}
+type SegmentedControlTriggerProps = Omit<React.ComponentProps<typeof TabsPrimitive.Tab>, 'className' | 'render'> &
+  React.ComponentProps<'button'>;
 
 const SegmentedControlTrigger = (props: SegmentedControlTriggerProps) => {
   const { className, children, ...triggerProps } = props;
   return (
-    <TabsPrimitive.Trigger
+    <TabsPrimitive.Tab
       {...triggerProps}
       className={classNames('fui-reset', 'fui-BaseSegmentedControlTrigger', className)}
     >
       <span className="fui-BaseSegmentedControlTriggerInner">{children}</span>
-    </TabsPrimitive.Trigger>
+    </TabsPrimitive.Tab>
   );
 };
 SegmentedControlTrigger.displayName = 'SegmentedControlTrigger';
 
-interface SegmentedControlContentProps extends React.ComponentProps<typeof TabsPrimitive.Content> {}
+type SegmentedControlContentProps = Omit<React.ComponentProps<typeof TabsPrimitive.Panel>, 'className' | 'render'> &
+  React.ComponentProps<'div'>;
 
 const SegmentedControlContent = (props: SegmentedControlContentProps) => (
-  <TabsPrimitive.Content {...props} className={classNames('fui-SegmentedControlContent', props.className)} />
+  <TabsPrimitive.Panel {...props} className={classNames('fui-SegmentedControlContent', props.className)} />
 );
 SegmentedControlContent.displayName = 'SegmentedControlContent';
 

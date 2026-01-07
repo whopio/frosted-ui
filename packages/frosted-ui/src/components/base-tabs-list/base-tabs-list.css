@@ -28,17 +28,20 @@
 
 .fui-BaseTabsTriggerInner {
   position: absolute;
+}
 
-  :where(.fui-BaseTabsTrigger[data-state='inactive'], .fui-TabsNavLink:not([data-active])) & {
-    letter-spacing: var(--tabs-trigger-inactive-letter-spacing);
-    word-spacing: var(--tabs-trigger-inactive-word-spacing);
-  }
+.fui-BaseTabsTrigger:not([data-selected]):not([data-active]) .fui-BaseTabsTriggerInner,
+.fui-TabsNavLink:not([data-active]) .fui-BaseTabsTriggerInner {
+  letter-spacing: var(--tabs-trigger-inactive-letter-spacing);
+  word-spacing: var(--tabs-trigger-inactive-word-spacing);
+}
 
-  :where(.fui-BaseTabsTrigger[data-state='active'], .fui-TabsNavLink[data-active]) & {
-    font-weight: var(--font-weight-medium);
-    letter-spacing: var(--tabs-trigger-active-letter-spacing);
-    word-spacing: var(--tabs-trigger-active-word-spacing);
-  }
+.fui-BaseTabsTrigger[data-selected] .fui-BaseTabsTriggerInner,
+.fui-BaseTabsTrigger[data-active] .fui-BaseTabsTriggerInner,
+.fui-TabsNavLink[data-active] .fui-BaseTabsTriggerInner {
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tabs-trigger-active-letter-spacing);
+  word-spacing: var(--tabs-trigger-active-word-spacing);
 }
 
 .fui-BaseTabsTriggerInnerHidden {
@@ -46,11 +49,6 @@
   font-weight: var(--font-weight-medium);
   letter-spacing: var(--tabs-trigger-active-letter-spacing);
   word-spacing: var(--tabs-trigger-active-word-spacing);
-}
-
-.fui-BaseTabsContent {
-  position: relative;
-  outline: 0;
 }
 
 /***************************************************************************************************
@@ -117,14 +115,14 @@
       background-color: var(--accent-a3);
     }
   }
-  &:where([data-state='active'], [data-active]) {
+  &:where([data-selected], [data-active]) {
     color: var(--gray-12);
   }
   &:where(:focus-visible) :where(.fui-BaseTabsTriggerInner) {
     outline: 2px solid var(--color-focus-root);
     outline-offset: -2px;
   }
-  &:where([data-state='active'], [data-active])::before {
+  &:where([data-selected], [data-active])::before {
     box-sizing: border-box;
     content: '';
     height: 2px;
