@@ -1027,3 +1027,136 @@ export const OpenChangeCallbacks: Story = {
     );
   },
 };
+
+export const ActionsRef: Story = {
+  name: 'Actions Ref',
+  args: {
+    size: popoverContentPropDefs.size.default,
+    variant: popoverContentPropDefs.variant.default,
+  },
+  render: function Render(args) {
+    const actionsRef = React.useRef<{ unmount: () => void; close: () => void } | null>(null);
+    const [email, setEmail] = React.useState('');
+    const [isSubmitting, setIsSubmitting] = React.useState(false);
+    const [status, setStatus] = React.useState<'idle' | 'success'>('idle');
+
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+      setIsSubmitting(true);
+
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      setIsSubmitting(false);
+      setStatus('success');
+
+      // Close popover after showing success message
+      setTimeout(() => {
+        actionsRef.current?.close();
+        // Reset form after close
+        setTimeout(() => {
+          setEmail('');
+          setStatus('idle');
+        }, 200);
+      }, 1500);
+    };
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+        <Text size="2" color="gray">
+          The <Code>actionsRef</Code> prop provides imperative control over the popover. Use <Code>close()</Code> to
+          programmatically close the popover after a form submission or async action completes.
+        </Text>
+
+        <div style={{ display: 'flex', gap: 'var(--space-4)', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <Text size="1" weight="medium">
+              Newsletter Signup (auto-closes on success)
+            </Text>
+            <Popover.Root actionsRef={actionsRef}>
+              <Popover.Trigger>
+                <Button>Subscribe to Newsletter</Button>
+              </Popover.Trigger>
+              <Popover.Content {...args} style={{ width: 280 }}>
+                {status === 'success' ? (
+                  <div style={{ textAlign: 'center', padding: 'var(--space-2)' }}>
+                    <Text size="2" color="green" weight="medium">
+                      ✓ Successfully subscribed!
+                    </Text>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit}>
+                    <Heading size="3" style={{ marginBottom: 8 }}>
+                      Stay Updated
+                    </Heading>
+                    <Text size="2" color="gray" style={{ marginBottom: 12, display: 'block' }}>
+                      Get the latest news delivered to your inbox.
+                    </Text>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+                      <TextField.Input
+                        type="email"
+                        placeholder="Enter your email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                      />
+                      <Button type="submit" disabled={isSubmitting}>
+                        {isSubmitting ? 'Subscribing...' : 'Subscribe'}
+                      </Button>
+                    </div>
+                  </form>
+                )}
+              </Popover.Content>
+            </Popover.Root>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <Text size="1" weight="medium">
+              Quick Actions Menu
+            </Text>
+            <QuickActionsDemo args={args} />
+          </div>
+        </div>
+
+        <Text size="1" color="gray">
+          The popover closes automatically after successful form submission or when an action completes.
+        </Text>
+      </div>
+    );
+  },
+};
+
+function QuickActionsDemo({ args }: { args: Record<string, unknown> }) {
+  const actionsRef = React.useRef<{ unmount: () => void; close: () => void } | null>(null);
+  const [copied, setCopied] = React.useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText('https://example.com/share/abc123');
+    setCopied(true);
+    setTimeout(() => {
+      actionsRef.current?.close();
+      setTimeout(() => setCopied(false), 200);
+    }, 800);
+  };
+
+  return (
+    <Popover.Root actionsRef={actionsRef}>
+      <Popover.Trigger>
+        <Button variant="soft">Share</Button>
+      </Popover.Trigger>
+      <Popover.Content {...args} style={{ width: 200 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+          <Button variant="ghost" style={{ justifyContent: 'flex-start' }} onClick={handleCopy}>
+            {copied ? '✓ Copied!' : 'Copy Link'}
+          </Button>
+          <Button variant="ghost" style={{ justifyContent: 'flex-start' }} onClick={() => actionsRef.current?.close()}>
+            Share to Twitter
+          </Button>
+          <Button variant="ghost" style={{ justifyContent: 'flex-start' }} onClick={() => actionsRef.current?.close()}>
+            Share to LinkedIn
+          </Button>
+        </div>
+      </Popover.Content>
+    </Popover.Root>
+  );
+}
