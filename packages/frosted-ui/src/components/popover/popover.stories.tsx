@@ -457,3 +457,62 @@ export const ControlledWithMultipleTriggers: Story = {
     );
   },
 };
+
+export const AnchorProp: Story = {
+  name: 'Custom Anchor',
+  args: {
+    size: popoverContentPropDefs.size.default,
+    variant: popoverContentPropDefs.variant.default,
+  },
+  render: function Render(args) {
+    const [anchor, setAnchor] = React.useState<HTMLElement | null>(null);
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+        <Text size="2" color="gray">
+          Use the <Code>anchor</Code> prop to position the popover relative to a different element than the trigger.
+          This is useful for tooltips on specific parts of a component, or when you want visual separation between the
+          trigger and the anchored content.
+        </Text>
+
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-4)',
+            padding: 'var(--space-4)',
+            background: 'var(--gray-a3)',
+            borderRadius: 'var(--radius-3)',
+          }}
+        >
+          <Popover.Root>
+            <Popover.Trigger>
+              <Button>Edit Profile</Button>
+            </Popover.Trigger>
+            <Popover.Content {...args} anchor={anchor} side="top" alignment="start">
+              <Heading size="3" style={{ marginBottom: 8 }}>
+                Profile Picture
+              </Heading>
+              <Text size="2" color="gray">
+                Click to upload a new profile picture. Recommended size: 400×400px.
+              </Text>
+            </Popover.Content>
+          </Popover.Root>
+
+          <div
+            ref={setAnchor}
+            style={{
+              display: 'flex',
+            }}
+          >
+            <Avatar size="5" color="magenta" fallback="JD" />
+          </div>
+        </div>
+
+        <Text size="1" color="gray">
+          The button triggers the popover, but it anchors to the avatar element instead.
+        </Text>
+      </div>
+    );
+  },
+};
