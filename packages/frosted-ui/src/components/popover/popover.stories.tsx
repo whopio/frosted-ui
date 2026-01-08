@@ -16,6 +16,7 @@ import {
   Switch,
   Text,
   TextArea,
+  TextField,
   popoverContentPropDefs,
 } from '../../../src/components/';
 
@@ -848,6 +849,99 @@ export const CollisionAvoidanceDemo: Story = {
         <Text size="1" color="gray">
           The dashed box is set as the collision boundary. Try positioning your browser so the triggers are near the
           edge of the boundary.
+        </Text>
+      </div>
+    );
+  },
+};
+
+export const Modal: Story = {
+  name: 'Modal Behavior',
+  args: {
+    size: popoverContentPropDefs.size.default,
+    variant: popoverContentPropDefs.variant.default,
+  },
+  render: function Render(args) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+        <Text size="2" color="gray">
+          The <Code>modal</Code> prop on <Code>Popover.Root</Code> controls how the popover interacts with the rest of
+          the page. Open each popover and try interacting with the input below.
+        </Text>
+
+        <div style={{ display: 'flex', gap: 'var(--space-6)', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <Text size="1" weight="medium">
+              modal=false (default)
+            </Text>
+            <Text size="1" color="gray" style={{ maxWidth: 180 }}>
+              No restrictions. You can interact with elements outside the popover.
+            </Text>
+            <Popover.Root modal={false}>
+              <Popover.Trigger>
+                <Button size="1">Open</Button>
+              </Popover.Trigger>
+              <Popover.Content {...args}>
+                <Text size="2">Click outside or interact with other elements freely.</Text>
+              </Popover.Content>
+            </Popover.Root>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <Text size="1" weight="medium">
+              modal=true
+            </Text>
+            <Text size="1" color="gray" style={{ maxWidth: 180 }}>
+              Full modal: scroll locked, outside interactions disabled, focus trapped.
+            </Text>
+            <Popover.Root modal={true}>
+              <Popover.Trigger>
+                <Button size="1">Open</Button>
+              </Popover.Trigger>
+              <Popover.Content {...args}>
+                <Text size="2">Page scroll is locked. Click outside to close.</Text>
+              </Popover.Content>
+            </Popover.Root>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <Text size="1" weight="medium">
+              modal="trap-focus"
+            </Text>
+            <Text size="1" color="gray" style={{ maxWidth: 180 }}>
+              Focus trapped, but scroll allowed and outside clicks work.
+            </Text>
+            <Popover.Root modal="trap-focus">
+              <Popover.Trigger>
+                <Button size="1">Open</Button>
+              </Popover.Trigger>
+              <Popover.Content {...args}>
+                <Text size="2">Focus is trapped but you can scroll the page.</Text>
+              </Popover.Content>
+            </Popover.Root>
+          </div>
+        </div>
+
+        <div
+          style={{
+            marginTop: 'var(--space-4)',
+            padding: 'var(--space-4)',
+            background: 'var(--gray-a3)',
+            borderRadius: 'var(--radius-3)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'var(--space-2)',
+          }}
+        >
+          <Text size="1" weight="medium">
+            Test interaction area
+          </Text>
+          <TextField.Input placeholder="Try to focus this input while popover is open..." />
+        </div>
+
+        <div style={{ height: '100vh' }} />
+        <Text size="1" color="gray">
+          ↑ Extra space to test scroll locking with modal=true
         </Text>
       </div>
     );
