@@ -89,3 +89,71 @@ export const InputRef: Story = {
     );
   },
 };
+
+export const Controlled: Story = {
+  name: 'Controlled',
+  render: () => {
+    const [theme, setTheme] = React.useState('system');
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 400 }}>
+        <Text>
+          Use <Code>value</Code> and <Code>onValueChange</Code> for controlled state.
+        </Text>
+
+        <SegmentedControlRadioGroup.Root value={theme} onValueChange={setTheme}>
+          <SegmentedControlRadioGroup.Item value="system">
+            <Monitor20 />
+          </SegmentedControlRadioGroup.Item>
+          <SegmentedControlRadioGroup.Item value="light">
+            <Sun20 />
+          </SegmentedControlRadioGroup.Item>
+          <SegmentedControlRadioGroup.Item value="dark">
+            <Moon20 />
+          </SegmentedControlRadioGroup.Item>
+        </SegmentedControlRadioGroup.Root>
+
+        <Text size="2">
+          Selected: <Code>{theme}</Code>
+        </Text>
+      </div>
+    );
+  },
+};
+
+export const TypeSafeValues: Story = {
+  name: 'Type-Safe Values',
+  render: () => {
+    type Theme = 'system' | 'light' | 'dark';
+    const [theme, setTheme] = React.useState<Theme>('system');
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 400 }}>
+        <Text>
+          Pass a string union type to get autocomplete and catch typos at compile time. The generic defaults to{' '}
+          <Code>string</Code> if not specified.
+        </Text>
+
+        <SegmentedControlRadioGroup.Root<Theme> value={theme} onValueChange={setTheme}>
+          <SegmentedControlRadioGroup.Item value="system">
+            <Monitor20 />
+          </SegmentedControlRadioGroup.Item>
+          <SegmentedControlRadioGroup.Item value="light">
+            <Sun20 />
+          </SegmentedControlRadioGroup.Item>
+          <SegmentedControlRadioGroup.Item value="dark">
+            <Moon20 />
+          </SegmentedControlRadioGroup.Item>
+        </SegmentedControlRadioGroup.Root>
+
+        <Text size="2">
+          Selected: <Code>{theme}</Code>
+        </Text>
+
+        <Text size="1" color="gray">
+          Try changing a value to <Code>&quot;sytsem&quot;</Code> — TypeScript will catch the typo!
+        </Text>
+      </div>
+    );
+  },
+};
