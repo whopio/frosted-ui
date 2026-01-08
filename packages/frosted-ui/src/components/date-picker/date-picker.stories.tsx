@@ -65,7 +65,7 @@ export const Custom: Story = {
               <CalendarIcon /> {date.toString()}
             </Button>
           </Popover.Trigger>
-          <Popover.Content variant="translucent" align="center" style={{ width: 'unset' }}>
+          <Popover.Content variant="translucent" alignment="center" style={{ width: 'unset' }}>
             <Calendar
               minValue={parseDate('2020-01-03')}
               defaultValue={date}
