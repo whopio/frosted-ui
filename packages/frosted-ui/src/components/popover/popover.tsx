@@ -32,6 +32,7 @@ interface PopoverContentProps extends Omit<
   container?: React.ComponentProps<typeof PopoverPrimitive.Portal>['container'];
   keepMounted?: React.ComponentProps<typeof PopoverPrimitive.Portal>['keepMounted'];
   // Positioner props - we expose `alignment` which maps to Base UI's `align`
+  anchor?: React.ComponentProps<typeof PopoverPrimitive.Positioner>['anchor'];
   alignment?: React.ComponentProps<typeof PopoverPrimitive.Positioner>['align'];
   side?: React.ComponentProps<typeof PopoverPrimitive.Positioner>['side'];
   sideOffset?: React.ComponentProps<typeof PopoverPrimitive.Positioner>['sideOffset'];
@@ -49,6 +50,7 @@ const PopoverContent = (props: PopoverContentProps & PopoverContentOwnProps) => 
     size = popoverContentPropDefs.size.default,
     variant = popoverContentPropDefs.variant.default,
     // Positioner props
+    anchor,
     alignment = 'start',
     side,
     sideOffset = 8,
@@ -64,6 +66,7 @@ const PopoverContent = (props: PopoverContentProps & PopoverContentOwnProps) => 
     <PopoverPrimitive.Portal container={container} keepMounted={keepMounted}>
       <PopoverPrimitive.Positioner
         className="fui-PopoverPositioner"
+        anchor={anchor}
         align={alignment}
         side={side}
         sideOffset={sideOffset}
