@@ -27,12 +27,9 @@ const TabsNavRoot = (props: TabsNavRootProps) => {
 TabsNavRoot.displayName = 'TabsNavRoot';
 
 interface TabsNavLinkOwnProps {
-  /** Render the link as a custom element */
-  render?: React.ReactElement;
-  /** Additional CSS class name */
   className?: string;
 }
-type TabsNavLinkProps = Omit<React.ComponentProps<typeof NavigationMenu.Link>, 'className' | 'render'> &
+type TabsNavLinkProps = Omit<React.ComponentProps<typeof NavigationMenu.Link>, 'className'> &
   Omit<React.ComponentProps<'a'>, 'className'> &
   TabsNavLinkOwnProps;
 

@@ -26,13 +26,15 @@
   font-weight: var(--font-weight-medium);
   flex: 1;
   color: var(--gray-a9);
+  outline: none;
+  cursor: pointer;
 
   @media (hover: hover) {
     &:where(:hover) {
       color: var(--gray-a11);
     }
   }
-  &:where([data-selected], [data-active]) {
+  &:where([data-selected], [data-active], [data-checked]) {
     color: var(--gray-a12);
   }
   &:before {
@@ -42,11 +44,12 @@
     inset: 0;
     border-radius: inherit;
   }
-  &:where(:focus-visible)::before {
+  &:where(:focus-visible)::before,
+  &:has(:focus-visible)::before {
     outline: 2px solid var(--color-focus-root);
     outline-offset: 2px;
   }
-  &:where([data-selected], [data-active])::before {
+  &:where([data-selected], [data-active], [data-checked])::before {
     background: var(--color-segmented-control-thumb);
     background-image: linear-gradient(var(--white-a3), var(--white-a3));
     box-shadow:

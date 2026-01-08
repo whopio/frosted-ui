@@ -21,12 +21,10 @@ const SegmentedControlNavRoot = (props: SegmentedControlNavRootProps) => {
 SegmentedControlNavRoot.displayName = 'SegmentedControlNavRoot';
 
 interface SegmentedControlNavLinkOwnProps {
-  /** Render the link as a custom element */
-  render?: React.ReactElement;
   /** Additional CSS class name */
   className?: string;
 }
-type SegmentedControlNavLinkProps = Omit<React.ComponentProps<typeof NavigationMenu.Link>, 'className' | 'render'> &
+type SegmentedControlNavLinkProps = Omit<React.ComponentProps<typeof NavigationMenu.Link>, 'className'> &
   Omit<React.ComponentProps<'a'>, 'className'> &
   SegmentedControlNavLinkOwnProps;
 

@@ -46,11 +46,18 @@ export const RenderProp: Story = {
         is useful for frameworks like Next.js, React Router, or Remix.
       </Text>
       <TabsNav.Root {...args}>
-        <TabsNav.Link active render={<a href="/account" />}>
-          Account
-        </TabsNav.Link>
+        <TabsNav.Link render={<a href="/account" />}>Account</TabsNav.Link>
         <TabsNav.Link render={<a href="/documents" />}>Documents</TabsNav.Link>
-        <TabsNav.Link render={<a href="/settings" />}>Settings</TabsNav.Link>
+        <TabsNav.Link
+          active
+          render={({ children, ...props }) => (
+            <a href="/settings" {...props}>
+              {children}
+            </a>
+          )}
+        >
+          Settings
+        </TabsNav.Link>
       </TabsNav.Root>
       <Text size="1" color="gray">
         In a real app, replace <Code>{'<a />'}</Code> with your router&apos;s Link component, e.g.{' '}
