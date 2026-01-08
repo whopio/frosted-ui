@@ -38,6 +38,8 @@ interface PopoverContentProps extends Omit<
   sideOffset?: React.ComponentProps<typeof PopoverPrimitive.Positioner>['sideOffset'];
   alignmentOffset?: React.ComponentProps<typeof PopoverPrimitive.Positioner>['alignOffset'];
   collisionPadding?: React.ComponentProps<typeof PopoverPrimitive.Positioner>['collisionPadding'];
+  collisionBoundary?: React.ComponentProps<typeof PopoverPrimitive.Positioner>['collisionBoundary'];
+  collisionAvoidance?: React.ComponentProps<typeof PopoverPrimitive.Positioner>['collisionAvoidance'];
   arrowPadding?: React.ComponentProps<typeof PopoverPrimitive.Positioner>['arrowPadding'];
   sticky?: React.ComponentProps<typeof PopoverPrimitive.Positioner>['sticky'];
   disableAnchorTracking?: React.ComponentProps<typeof PopoverPrimitive.Positioner>['disableAnchorTracking'];
@@ -57,6 +59,8 @@ const PopoverContent = (props: PopoverContentProps & PopoverContentOwnProps) => 
     sideOffset = 8,
     alignmentOffset,
     collisionPadding = 10,
+    collisionBoundary,
+    collisionAvoidance,
     arrowPadding,
     sticky,
     disableAnchorTracking,
@@ -74,6 +78,8 @@ const PopoverContent = (props: PopoverContentProps & PopoverContentOwnProps) => 
         sideOffset={sideOffset}
         alignOffset={alignmentOffset}
         collisionPadding={collisionPadding}
+        collisionBoundary={collisionBoundary}
+        collisionAvoidance={collisionAvoidance}
         arrowPadding={arrowPadding}
         sticky={sticky}
         disableAnchorTracking={disableAnchorTracking}

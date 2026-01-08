@@ -673,3 +673,183 @@ export const Sticky: Story = {
     );
   },
 };
+
+export const CollisionBoundary: Story = {
+  name: 'Collision Boundary',
+  args: {
+    size: popoverContentPropDefs.size.default,
+    variant: popoverContentPropDefs.variant.default,
+  },
+  render: function Render(args) {
+    const [boundary, setBoundary] = React.useState<HTMLElement | null>(null);
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+        <Text size="2" color="gray">
+          The <Code>collisionBoundary</Code> prop defines the area within which the popover should stay. By default,
+          it&apos;s the viewport. You can set it to a specific element to constrain the popover within that container.
+        </Text>
+
+        <div style={{ display: 'flex', gap: 'var(--space-6)' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <Text size="1" weight="medium">
+              Default (viewport boundary)
+            </Text>
+            <div
+              style={{
+                width: 250,
+                height: 200,
+                border: '2px dashed var(--gray-6)',
+                borderRadius: 'var(--radius-2)',
+                padding: 'var(--space-3)',
+                display: 'flex',
+                alignItems: 'flex-end',
+                justifyContent: 'center',
+              }}
+            >
+              <Popover.Root>
+                <Popover.Trigger>
+                  <Button size="1">Open (prefers bottom)</Button>
+                </Popover.Trigger>
+                <Popover.Content {...args} side="bottom">
+                  <Text size="2">May extend outside the dashed box</Text>
+                </Popover.Content>
+              </Popover.Root>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <Text size="1" weight="medium">
+              Custom boundary (dashed box)
+            </Text>
+            <div
+              ref={setBoundary}
+              style={{
+                width: 250,
+                height: 200,
+                border: '2px dashed var(--accent-9)',
+                borderRadius: 'var(--radius-2)',
+                padding: 'var(--space-3)',
+                display: 'flex',
+                alignItems: 'flex-end',
+                justifyContent: 'center',
+              }}
+            >
+              <Popover.Root>
+                <Popover.Trigger>
+                  <Button size="1">Open (prefers bottom)</Button>
+                </Popover.Trigger>
+                <Popover.Content {...args} side="bottom" collisionBoundary={boundary ?? undefined}>
+                  <Text size="2">Stays within the dashed box</Text>
+                </Popover.Content>
+              </Popover.Root>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  },
+};
+
+export const CollisionAvoidanceDemo: Story = {
+  name: 'Collision Avoidance',
+  args: {
+    size: popoverContentPropDefs.size.default,
+    variant: popoverContentPropDefs.variant.default,
+  },
+  render: function Render(args) {
+    const [boundary, setBoundary] = React.useState<HTMLElement | null>(null);
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+        <Text size="2" color="gray">
+          The <Code>collisionAvoidance</Code> prop controls how the popover avoids collisions with the boundary. You can
+          configure behavior for both the <Code>side</Code> axis (flip or shift) and the <Code>align</Code> axis.
+        </Text>
+
+        <div
+          ref={setBoundary}
+          style={{
+            display: 'flex',
+            gap: 'var(--space-4)',
+            flexWrap: 'wrap',
+            border: '2px dashed var(--gray-6)',
+            borderRadius: 'var(--radius-2)',
+            padding: 'var(--space-4)',
+          }}
+        >
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <Text size="1" weight="medium">
+              side: "flip" (default)
+            </Text>
+            <Text size="1" color="gray" style={{ maxWidth: 150 }}>
+              Flips to opposite side when there&apos;s not enough space
+            </Text>
+            <Popover.Root>
+              <Popover.Trigger>
+                <Button size="1">Open</Button>
+              </Popover.Trigger>
+              <Popover.Content
+                {...args}
+                side="bottom"
+                collisionBoundary={boundary ?? undefined}
+                collisionAvoidance={{ side: 'flip', align: 'shift' }}
+              >
+                <Text size="2">Flips to top if no space below</Text>
+              </Popover.Content>
+            </Popover.Root>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <Text size="1" weight="medium">
+              side: "shift"
+            </Text>
+            <Text size="1" color="gray" style={{ maxWidth: 150 }}>
+              Shifts along the side instead of flipping
+            </Text>
+            <Popover.Root>
+              <Popover.Trigger>
+                <Button size="1">Open</Button>
+              </Popover.Trigger>
+              <Popover.Content
+                {...args}
+                side="bottom"
+                collisionBoundary={boundary ?? undefined}
+                collisionAvoidance={{ side: 'shift', align: 'shift' }}
+              >
+                <Text size="2">Shifts position, stays on same side</Text>
+              </Popover.Content>
+            </Popover.Root>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <Text size="1" weight="medium">
+              side: "none"
+            </Text>
+            <Text size="1" color="gray" style={{ maxWidth: 150 }}>
+              No collision avoidance on side axis
+            </Text>
+            <Popover.Root>
+              <Popover.Trigger>
+                <Button size="1">Open</Button>
+              </Popover.Trigger>
+              <Popover.Content
+                {...args}
+                side="bottom"
+                collisionBoundary={boundary ?? undefined}
+                collisionAvoidance={{ side: 'none', align: 'shift' }}
+              >
+                <Text size="2">Stays on preferred side regardless</Text>
+              </Popover.Content>
+            </Popover.Root>
+          </div>
+        </div>
+
+        <Text size="1" color="gray">
+          The dashed box is set as the collision boundary. Try positioning your browser so the triggers are near the
+          edge of the boundary.
+        </Text>
+      </div>
+    );
+  },
+};
