@@ -947,3 +947,83 @@ export const Modal: Story = {
     );
   },
 };
+
+export const OpenChangeCallbacks: Story = {
+  name: 'Open Change Callbacks',
+  args: {
+    size: popoverContentPropDefs.size.default,
+    variant: popoverContentPropDefs.variant.default,
+  },
+  render: function Render(args) {
+    const [logs, setLogs] = React.useState<string[]>([]);
+
+    const addLog = (message: string) => {
+      const time = new Date().toLocaleTimeString('en-US', {
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        fractionalSecondDigits: 3,
+      });
+      setLogs((prev) => [`[${time}] ${message}`, ...prev].slice(0, 10));
+    };
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+        <Text size="2" color="gray">
+          Compare <Code>onOpenChange</Code> (fires immediately) vs <Code>onOpenChangeComplete</Code> (fires after
+          animations complete). Open and close the popover to see the timing difference.
+        </Text>
+
+        <Popover.Root
+          onOpenChange={(open) => addLog(`onOpenChange: ${open ? 'opening' : 'closing'}`)}
+          onOpenChangeComplete={(open) => addLog(`onOpenChangeComplete: ${open ? 'opened' : 'closed'}`)}
+        >
+          <Popover.Trigger>
+            <Button>Toggle Popover</Button>
+          </Popover.Trigger>
+          <Popover.Content {...args}>
+            <Heading size="3" style={{ marginBottom: 8 }}>
+              Animated Popover
+            </Heading>
+            <Text size="2" color="gray">
+              Watch the event log to see callback timing.
+            </Text>
+          </Popover.Content>
+        </Popover.Root>
+
+        <div
+          style={{
+            padding: 'var(--space-3)',
+            background: 'var(--gray-a3)',
+            borderRadius: 'var(--radius-2)',
+            fontFamily: 'monospace',
+            fontSize: 'var(--font-size-1)',
+            minHeight: 200,
+          }}
+        >
+          <Text size="1" weight="medium" style={{ marginBottom: 8, display: 'block' }}>
+            Event Log:
+          </Text>
+          {logs.length === 0 ? (
+            <Text size="1" color="gray">
+              Open/close the popover to see events...
+            </Text>
+          ) : (
+            logs.map((log, i) => (
+              <div key={i} style={{ color: log.includes('Complete') ? 'var(--accent-11)' : 'var(--gray-11)' }}>
+                {log}
+              </div>
+            ))
+          )}
+        </div>
+
+        <Text size="1" color="gray">
+          <Code>onOpenChange</Code> fires instantly when state changes.
+          <br />
+          <Code>onOpenChangeComplete</Code> fires after the enter/exit animation finishes.
+        </Text>
+      </div>
+    );
+  },
+};
