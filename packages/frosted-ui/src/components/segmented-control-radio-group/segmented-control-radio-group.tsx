@@ -1,41 +1,40 @@
 'use client';
 
+import { Radio } from '@base-ui/react/radio';
+import { RadioGroup } from '@base-ui/react/radio-group';
 import classNames from 'classnames';
-import { RadioGroup as RadioGroupPrimitive } from 'radix-ui';
 import * as React from 'react';
 
-import { type PropsWithoutColor } from '../../helpers';
-
-interface SegmentedControlRadioGroupRootProps
-  extends Omit<PropsWithoutColor<typeof RadioGroupPrimitive.Root>, 'orientation' | 'loop' | 'required' | 'asChild'> {}
+type SegmentedControlRadioGroupRootProps = Omit<React.ComponentProps<typeof RadioGroup>, 'className' | 'render'> &
+  React.ComponentProps<'div'>;
 
 const SegmentedControlRadioGroupRoot = (props: SegmentedControlRadioGroupRootProps) => {
   const { className, children, ...rootProps } = props;
   return (
-    <RadioGroupPrimitive.Root
-      {...rootProps}
-      orientation="horizontal"
-      className={classNames('fui-RadioGroupRoot', className)}
-    >
+    <RadioGroup {...rootProps} className={classNames('fui-SegmentedControlRadioGroupRoot', className)}>
       <div className="fui-BaseSegmentedControlList">{children}</div>
-    </RadioGroupPrimitive.Root>
+    </RadioGroup>
   );
 };
 SegmentedControlRadioGroupRoot.displayName = 'SegmentedControlRadioGroupRoot';
 
-interface SegmentedControlRadioGroupItemProps extends React.ComponentProps<typeof RadioGroupPrimitive.Item> {}
+type SegmentedControlRadioGroupItemProps = Omit<
+  React.ComponentProps<typeof Radio.Root>,
+  'className' | 'render' | 'nativeButton'
+> &
+  React.ComponentProps<'span'>;
 
 const SegmentedControlRadioGroupItem = (props: SegmentedControlRadioGroupItemProps) => {
   const { children, className, style, ...itemProps } = props;
 
   return (
-    <RadioGroupPrimitive.Item
+    <Radio.Root
       {...itemProps}
       className={classNames('fui-reset', 'fui-BaseSegmentedControlTrigger', className)}
       style={style}
     >
       <span className="fui-BaseSegmentedControlTriggerInner">{children}</span>
-    </RadioGroupPrimitive.Item>
+    </Radio.Root>
   );
 };
 SegmentedControlRadioGroupItem.displayName = 'SegmentedControlRadioGroupItem';
