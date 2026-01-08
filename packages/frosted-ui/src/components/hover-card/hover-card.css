@@ -6,7 +6,20 @@
   --inset-padding: var(--hover-card-content-padding);
   padding: var(--hover-card-content-padding);
 
-  transform-origin: var(--radix-hover-card-content-transform-origin);
+  transform-origin: var(--transform-origin);
+
+  /* Animations */
+  transition: transform 150ms ease-out, opacity 150ms ease-out;
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  &[data-ending-style] {
+    transition-duration: 75ms;
+  }
 
   &:where(.fui-variant-translucent) {
     background-color: var(--color-panel-translucent);
