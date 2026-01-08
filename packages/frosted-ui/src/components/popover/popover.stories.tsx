@@ -516,3 +516,160 @@ export const AnchorProp: Story = {
     );
   },
 };
+
+export const DisableAnchorTracking: Story = {
+  name: 'Disable Anchor Tracking',
+  args: {
+    size: popoverContentPropDefs.size.default,
+    variant: popoverContentPropDefs.variant.default,
+  },
+  render: function Render(args) {
+    const [position, setPosition] = React.useState(0);
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+        <Text size="2" color="gray">
+          The <Code>disableAnchorTracking</Code> prop controls whether the popover repositions when the anchor element
+          moves due to layout changes (not scrolling). Open both popovers and click the button to move the anchors.
+        </Text>
+
+        <Button size="1" onClick={() => setPosition((p) => (p === 0 ? 50 : 0))}>
+          Move anchors
+        </Button>
+
+        <div style={{ display: 'flex', gap: 'var(--space-6)' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <Text size="1" weight="medium">
+              Default (tracking enabled)
+            </Text>
+            <Text size="1" color="gray" style={{ maxWidth: 180 }}>
+              Popover follows when anchor moves
+            </Text>
+            <div
+              style={{
+                width: 200,
+                height: 100,
+                border: '1px solid var(--gray-6)',
+                borderRadius: 'var(--radius-2)',
+                padding: 'var(--space-3)',
+                position: 'relative',
+              }}
+            >
+              <Popover.Root open>
+                <Popover.Trigger>
+                  <Button
+                    size="1"
+                    style={{
+                      transform: `translateX(${position}px)`,
+                      transition: 'transform 300ms ease',
+                    }}
+                  >
+                    Trigger
+                  </Button>
+                </Popover.Trigger>
+                <Popover.Content {...args} side="bottom">
+                  <Text size="2">Follows anchor movement</Text>
+                </Popover.Content>
+              </Popover.Root>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <Text size="1" weight="medium">
+              disableAnchorTracking=true
+            </Text>
+            <Text size="1" color="gray" style={{ maxWidth: 180 }}>
+              Popover stays in original position
+            </Text>
+            <div
+              style={{
+                width: 200,
+                height: 100,
+                border: '1px solid var(--gray-6)',
+                borderRadius: 'var(--radius-2)',
+                padding: 'var(--space-3)',
+                position: 'relative',
+              }}
+            >
+              <Popover.Root open>
+                <Popover.Trigger>
+                  <Button
+                    size="1"
+                    style={{
+                      transform: `translateX(${position}px)`,
+                      transition: 'transform 300ms ease',
+                    }}
+                  >
+                    Trigger
+                  </Button>
+                </Popover.Trigger>
+                <Popover.Content {...args} disableAnchorTracking side="bottom">
+                  <Text size="2">Stays in place</Text>
+                </Popover.Content>
+              </Popover.Root>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  },
+};
+
+export const Sticky: Story = {
+  name: 'Sticky',
+  args: {
+    size: popoverContentPropDefs.size.default,
+    variant: popoverContentPropDefs.variant.default,
+  },
+  render: function Render(args) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+        <Text size="2" color="gray">
+          The <Code>sticky</Code> prop controls whether the popover stays visible in the viewport when the anchor is
+          scrolled out of view. Open the popover then scroll this page to see the effect.
+        </Text>
+
+        <div style={{ display: 'flex', gap: 'var(--space-6)', marginTop: 'var(--space-4)' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <Text size="1" weight="medium">
+              sticky=false (default)
+            </Text>
+            <Text size="1" color="gray" style={{ maxWidth: 200 }}>
+              Popover hides when anchor leaves viewport
+            </Text>
+            <Popover.Root>
+              <Popover.Trigger>
+                <Button size="1">Open Popover</Button>
+              </Popover.Trigger>
+              <Popover.Content {...args} sticky={false} side="right">
+                <Text size="2">I hide when anchor leaves viewport</Text>
+              </Popover.Content>
+            </Popover.Root>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <Text size="1" weight="medium">
+              sticky=true
+            </Text>
+            <Text size="1" color="gray" style={{ maxWidth: 200 }}>
+              Popover stays visible at viewport edge
+            </Text>
+            <Popover.Root>
+              <Popover.Trigger>
+                <Button size="1">Open Popover</Button>
+              </Popover.Trigger>
+              <Popover.Content {...args} sticky={true} side="right">
+                <Text size="2">I stay visible at the viewport edge</Text>
+              </Popover.Content>
+            </Popover.Root>
+          </div>
+        </div>
+
+        <div style={{ height: '150vh' }} />
+        <Text size="1" color="gray">
+          ↑ Scroll back up to see the buttons
+        </Text>
+      </div>
+    );
+  },
+};
