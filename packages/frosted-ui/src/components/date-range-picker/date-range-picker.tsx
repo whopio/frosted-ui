@@ -86,7 +86,7 @@ export function DateRangePicker<T extends DateValue>(props: DateRangePickerProps
             <CalendarIcon size={size} />
           </IconButton>
         </Popover.Trigger>
-        <Popover.Content variant="translucent" align="center">
+        <Popover.Content variant="translucent" alignment="center">
           <RangeCalendar {...calendarProps} />
         </Popover.Content>
       </Popover.Root>

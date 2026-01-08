@@ -1,10 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { Bell16 } from '@frosted-ui/icons';
 import React from 'react';
 import {
   Avatar,
   Button,
   Checkbox,
+  Code,
   Heading,
   IconButton,
   Inset,
@@ -89,7 +91,7 @@ export const Variant: Story = {
               <AppearanceIcon />
             </IconButton>
           </Popover.Trigger>
-          <Popover.Content {...args} variant="translucent" align="center" style={{ width: 292 }}>
+          <Popover.Content {...args} variant="translucent" alignment="center" style={{ width: 292 }}>
             <Heading size="3" style={{ marginBottom: 12 }}>
               Theme
             </Heading>
@@ -123,7 +125,7 @@ export const Variant: Story = {
               <AppearanceIcon />
             </IconButton>
           </Popover.Trigger>
-          <Popover.Content {...args} variant="solid" align="center" style={{ width: 292 }}>
+          <Popover.Content {...args} variant="solid" alignment="center" style={{ width: 292 }}>
             <Heading size="3" style={{ marginBottom: 8 }}>
               Theme
             </Heading>
@@ -263,3 +265,195 @@ const AppearanceIcon = () => (
     </defs>
   </svg>
 );
+
+export const OpenOnHover: Story = {
+  name: 'Opening on Hover',
+  args: {
+    size: popoverContentPropDefs.size.default,
+    variant: popoverContentPropDefs.variant.default,
+  },
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
+      <Text size="2" color="gray">
+        Use <code>openOnHover</code> to open the popover on hover. Use <code>delay</code> to specify how long to wait
+        before opening.
+      </Text>
+      <div style={{ display: 'flex', gap: 'var(--space-4)' }}>
+        <Popover.Root>
+          <Popover.Trigger openOnHover>
+            <Button variant="soft">Hover me (default delay)</Button>
+          </Popover.Trigger>
+          <Popover.Content {...args} style={{ width: 280 }}>
+            <Heading size="3" style={{ marginBottom: 8 }}>
+              Quick Preview
+            </Heading>
+            <Text size="2" color="gray">
+              This popover opens on hover with the default 300ms delay.
+            </Text>
+          </Popover.Content>
+        </Popover.Root>
+
+        <Popover.Root>
+          <Popover.Trigger openOnHover delay={0}>
+            <Button variant="soft">Hover me (no delay)</Button>
+          </Popover.Trigger>
+          <Popover.Content {...args} style={{ width: 280 }}>
+            <Heading size="3" style={{ marginBottom: 8 }}>
+              Instant Preview
+            </Heading>
+            <Text size="2" color="gray">
+              This popover opens immediately on hover with no delay.
+            </Text>
+          </Popover.Content>
+        </Popover.Root>
+      </div>
+    </div>
+  ),
+};
+
+const detachedHandle = Popover.createHandle();
+
+export const DetachedTriggers: Story = {
+  name: 'Detached Triggers',
+  args: {
+    size: popoverContentPropDefs.size.default,
+    variant: popoverContentPropDefs.variant.default,
+  },
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
+      <Text size="2" color="gray">
+        Use <code>Popover.createHandle()</code> to control a popover from a trigger located outside the{' '}
+        <code>Popover.Root</code>.
+      </Text>
+
+      <Popover.Trigger handle={detachedHandle}>
+        <Button>Detached Trigger</Button>
+      </Popover.Trigger>
+
+      <Popover.Root handle={detachedHandle}>
+        <Popover.Content {...args} style={{ width: 280 }}>
+          <Heading size="3" style={{ marginBottom: 8 }}>
+            Detached Popover
+          </Heading>
+          <Text size="2" color="gray">
+            This popover is controlled by a trigger outside of its Root component.
+          </Text>
+          <Popover.Close>
+            <Button size="1" variant="soft" style={{ marginTop: 12 }}>
+              Close
+            </Button>
+          </Popover.Close>
+        </Popover.Content>
+      </Popover.Root>
+    </div>
+  ),
+};
+
+export const MultipleTriggers: Story = {
+  name: 'Multiple Triggers',
+  args: {
+    size: popoverContentPropDefs.size.default,
+    variant: popoverContentPropDefs.variant.default,
+  },
+  render: function Render(args) {
+    const handle = React.useMemo(() => Popover.createHandle<string>(), []);
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
+        <Text size="2" color="gray">
+          Multiple triggers can control the same popover using a shared handle. Each trigger can pass a different{' '}
+          <code>payload</code>.
+        </Text>
+        <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+          <Popover.Trigger handle={handle} payload="Button A">
+            <Button variant="soft">Button A</Button>
+          </Popover.Trigger>
+          <Popover.Trigger handle={handle} payload="Button B">
+            <Button variant="soft">Button B</Button>
+          </Popover.Trigger>
+          <Popover.Trigger handle={handle} payload="Button C">
+            <Button variant="soft">Button C</Button>
+          </Popover.Trigger>
+        </div>
+
+        <Popover.Root handle={handle}>
+          {(payload) => (
+            <Popover.Content {...args} style={{ width: 280 }}>
+              <Heading size="3" style={{ marginBottom: 8 }}>
+                Triggered by: {String(payload)}
+              </Heading>
+              <Text size="2" color="gray">
+                The popover content can access the payload from the trigger that opened it.
+              </Text>
+            </Popover.Content>
+          )}
+        </Popover.Root>
+      </div>
+    );
+  },
+};
+
+export const ControlledWithMultipleTriggers: Story = {
+  name: 'Controlled Mode with Multiple Triggers',
+  args: {
+    size: popoverContentPropDefs.size.default,
+    variant: popoverContentPropDefs.variant.default,
+  },
+  render: function Render(args) {
+    const handle = React.useMemo(() => Popover.createHandle(), []);
+    const [open, setOpen] = React.useState(false);
+    const [triggerId, setTriggerId] = React.useState<string | null>(null);
+
+    const handleOpenChange = (isOpen: boolean, eventDetails: { trigger?: { id?: string } }) => {
+      setOpen(isOpen);
+      setTriggerId(eventDetails.trigger?.id ?? null);
+    };
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
+        <Text size="2" color="gray">
+          Use <Code>open</Code>, <Code>onOpenChange</Code>, and <Code>triggerId</Code> for fully controlled mode with
+          multiple detached triggers.
+        </Text>
+
+        <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+          <Popover.Trigger handle={handle} id="trigger-1">
+            <IconButton variant="surface" color="gray">
+              <Bell16 />
+            </IconButton>
+          </Popover.Trigger>
+          <Popover.Trigger handle={handle} id="trigger-2">
+            <IconButton variant="surface" color="gray">
+              <Bell16 />
+            </IconButton>
+          </Popover.Trigger>
+          <Popover.Trigger handle={handle} id="trigger-3">
+            <IconButton variant="surface" color="gray">
+              <Bell16 />
+            </IconButton>
+          </Popover.Trigger>
+          <Button
+            variant="surface"
+            onClick={() => {
+              setTriggerId('trigger-2');
+              setOpen(true);
+            }}
+          >
+            Open programmatically
+          </Button>
+        </div>
+
+        <Popover.Root handle={handle} open={open} onOpenChange={handleOpenChange} triggerId={triggerId}>
+          <Popover.Content {...args} style={{ width: 280 }}>
+            <Heading size="3" style={{ marginBottom: 8 }}>
+              Notifications
+            </Heading>
+            <Text size="2" color="gray">
+              You are all caught up. Good job!
+            </Text>
+          </Popover.Content>
+        </Popover.Root>
+      </div>
+    );
+  },
+};

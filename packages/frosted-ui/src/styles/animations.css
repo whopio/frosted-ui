@@ -92,6 +92,7 @@
   .fui-PopperContent {
     animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 
+    /* Radix UI (legacy) */
     &:where([data-state='open']) {
       animation-duration: 300ms;
 
@@ -110,6 +111,41 @@
     }
 
     &:where([data-state='closed']) {
+      animation-duration: 150ms;
+
+      &:where([data-side='top']) {
+        animation-name: fui-slide-to-top, fui-fade-out;
+      }
+      &:where([data-side='bottom']) {
+        animation-name: fui-slide-to-bottom, fui-fade-out;
+      }
+      &:where([data-side='left']) {
+        animation-name: fui-slide-to-left, fui-fade-out;
+      }
+      &:where([data-side='right']) {
+        animation-name: fui-slide-to-right, fui-fade-out;
+      }
+    }
+
+    /* Base UI */
+    &:where([data-open]) {
+      animation-duration: 300ms;
+
+      &:where([data-side='top']) {
+        animation-name: fui-slide-from-top, fui-fade-in;
+      }
+      &:where([data-side='bottom']) {
+        animation-name: fui-slide-from-bottom, fui-fade-in;
+      }
+      &:where([data-side='left']) {
+        animation-name: fui-slide-from-left, fui-fade-in;
+      }
+      &:where([data-side='right']) {
+        animation-name: fui-slide-from-right, fui-fade-in;
+      }
+    }
+
+    &:where([data-ending-style]) {
       animation-duration: 150ms;
 
       &:where([data-side='top']) {
