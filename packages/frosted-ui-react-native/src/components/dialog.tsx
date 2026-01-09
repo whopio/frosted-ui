@@ -1,5 +1,6 @@
 import { Heading } from '@/components/heading';
 import { Text } from '@/components/text';
+import { DialogPrimitive } from '@/forked-primitives';
 import {
   getDialogBackdropStyle,
   getDialogContentStyle,
@@ -10,7 +11,6 @@ import {
   type DialogSize,
 } from '@/lib/dialog-styles';
 import { useThemeTokens } from '@/lib/use-theme-tokens';
-import * as DialogPrimitive from '@rn-primitives/dialog';
 import * as React from 'react';
 import {
   Platform,
@@ -42,28 +42,27 @@ const DialogContentContext = React.createContext<DialogContentContextValue>({
 const FullWindowOverlay = Platform.OS === 'ios' ? RNFullWindowOverlay : React.Fragment;
 
 // Root
-type DialogRootProps = React.ComponentProps<typeof DialogPrimitive.Root>;
+type DialogRootProps = DialogPrimitive.RootProps;
 const DialogRoot = (props: DialogRootProps) => <DialogPrimitive.Root {...props} />;
 DialogRoot.displayName = 'Dialog.Root';
 
 // Trigger
-type DialogTriggerProps = React.ComponentProps<typeof DialogPrimitive.Trigger>;
+type DialogTriggerProps = DialogPrimitive.TriggerProps;
 const DialogTrigger = (props: DialogTriggerProps) => <DialogPrimitive.Trigger {...props} asChild />;
 DialogTrigger.displayName = 'Dialog.Trigger';
 
 // Close
-type DialogCloseProps = React.ComponentProps<typeof DialogPrimitive.Close>;
+type DialogCloseProps = DialogPrimitive.CloseProps;
 const DialogClose = (props: DialogCloseProps) => <DialogPrimitive.Close {...props} asChild />;
 DialogClose.displayName = 'Dialog.Close';
 
-// Overlay
-function DialogOverlay({
-  children,
-  ...props
-}: Omit<DialogPrimitive.OverlayProps, 'asChild'> &
-  React.RefAttributes<DialogPrimitive.OverlayRef> & {
-    children?: React.ReactNode;
-  }) {
+// Overlay - receives primitiveContext to re-provide after FullWindowOverlay
+interface DialogOverlayProps extends Omit<DialogPrimitive.OverlayProps, 'asChild'> {
+  children?: React.ReactNode;
+  primitiveContext: DialogPrimitive.RootContext | null;
+}
+
+function DialogOverlay({ children, primitiveContext, ...props }: DialogOverlayProps) {
   const overlayStyle = getDialogOverlayStyle();
   const backdropStyle = getDialogBackdropStyle();
 
@@ -82,40 +81,60 @@ function DialogOverlay({
   // The Pressable receives onPress from the primitive to close the dialog when backdrop is tapped
   const nativeBackdropStyle = getDialogBackdropStyle();
 
-  return (
-    <FullWindowOverlay>
-      <DialogPrimitive.Overlay {...props} asChild>
-        <Pressable style={overlayStyle}>
-          {/* Animated backdrop */}
-          <Animated.View
-            entering={FadeIn.duration(200)}
-            exiting={FadeOut.duration(150)}
-            style={nativeBackdropStyle}
-            pointerEvents="none"
-          />
-          {/* Animated content */}
-          <Animated.View entering={FadeIn.duration(200)} exiting={FadeOut.duration(150)}>
-            {children}
-          </Animated.View>
-        </Pressable>
-      </DialogPrimitive.Overlay>
-    </FullWindowOverlay>
+  const overlayContent = (
+    <DialogPrimitive.Overlay {...props} asChild>
+      <Pressable style={overlayStyle}>
+        {/* Animated backdrop */}
+        <Animated.View
+          entering={FadeIn.duration(200)}
+          exiting={FadeOut.duration(150)}
+          style={nativeBackdropStyle as ViewStyle}
+          pointerEvents="none"
+        />
+        {/* Animated content */}
+        <Animated.View entering={FadeIn.duration(200)} exiting={FadeOut.duration(150)}>
+          {children}
+        </Animated.View>
+      </Pressable>
+    </DialogPrimitive.Overlay>
   );
+
+  // On native, re-provide context after FullWindowOverlay breaks it
+  // (we're already in native branch after the web check above)
+  if (primitiveContext && DialogPrimitive.DialogContext) {
+    return (
+      <FullWindowOverlay>
+        <DialogPrimitive.DialogContext.Provider value={primitiveContext}>
+          {overlayContent}
+        </DialogPrimitive.DialogContext.Provider>
+      </FullWindowOverlay>
+    );
+  }
+
+  return <FullWindowOverlay>{overlayContent}</FullWindowOverlay>;
 }
 DialogOverlay.displayName = 'Dialog.Overlay';
 
 // Content
-interface DialogContentProps
-  extends
-    Omit<DialogPrimitive.ContentProps, 'asChild'>,
-    React.RefAttributes<DialogPrimitive.ContentRef> {
+interface DialogContentProps extends Omit<DialogPrimitive.ContentProps, 'asChild'> {
   size?: DialogSize;
   portalHost?: string;
+}
+
+// Helper to safely get primitive context on native (not available on web)
+function useDialogRootContext() {
+  if (Platform.OS === 'web' || !DialogPrimitive.useRootContext) {
+    return null;
+  }
+  return DialogPrimitive.useRootContext();
 }
 
 function DialogContent({ size = '3', portalHost, children, style, ...props }: DialogContentProps) {
   const { colors, isDark } = useThemeTokens();
   const { width: windowWidth } = useWindowDimensions();
+
+  // Capture primitive context BEFORE the portal/FullWindowOverlay (native only)
+  const primitiveContext = useDialogRootContext();
 
   const contentStyle = getDialogContentStyle(size, colors, isDark, windowWidth, style);
 
@@ -133,7 +152,7 @@ function DialogContent({ size = '3', portalHost, children, style, ...props }: Di
 
   return (
     <DialogPrimitive.Portal hostName={portalHost}>
-      <DialogOverlay>
+      <DialogOverlay primitiveContext={primitiveContext}>
         <DialogPrimitive.Content style={finalStyle} {...props}>
           <DialogContentContext.Provider value={contextValue}>
             {children}
@@ -145,7 +164,7 @@ function DialogContent({ size = '3', portalHost, children, style, ...props }: Di
 }
 DialogContent.displayName = 'Dialog.Content';
 
-// Title
+// Title - uses DialogPrimitive.Title which now works because context is re-provided
 type DialogTitleProps = Omit<React.ComponentProps<typeof Heading>, 'as'>;
 
 function DialogTitle({ size: sizeProp, style, ...props }: DialogTitleProps) {
@@ -163,7 +182,7 @@ function DialogTitle({ size: sizeProp, style, ...props }: DialogTitleProps) {
 }
 DialogTitle.displayName = 'Dialog.Title';
 
-// Description
+// Description - uses DialogPrimitive.Description which now works because context is re-provided
 type DialogDescriptionProps = Omit<React.ComponentProps<typeof Text>, 'as'>;
 
 function DialogDescription({ size: sizeProp, style, ...props }: DialogDescriptionProps) {
@@ -234,5 +253,6 @@ export type {
   DialogRootProps,
   DialogSize,
   DialogTitleProps,
-  DialogTriggerProps,
+  DialogTriggerProps
 };
+

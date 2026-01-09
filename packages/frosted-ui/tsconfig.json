@@ -26,6 +26,8 @@
   "exclude": [
     "node_modules",
     "dist",
-    "scripts"
+    "scripts",
+    "**/*.stories.tsx",
+    "**/*.stories.ts"
   ]
 }
