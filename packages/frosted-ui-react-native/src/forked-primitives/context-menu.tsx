@@ -213,6 +213,7 @@ const Trigger = React.forwardRef<PressableRef, TriggerProps>(
       methods: {
         open: () => {
           onOpenChange(true);
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (augmentedRef.current as any)?.measure?.(
             (_x: number, _y: number, width: number, height: number, pageX: number, pageY: number) => {
               setPressPosition({ width, pageX, pageY, height });
@@ -237,6 +238,7 @@ const Trigger = React.forwardRef<PressableRef, TriggerProps>(
         });
       }
       if (relativeTo === 'trigger') {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (augmentedRef.current as any)?.measure?.(
           (_x: number, _y: number, width: number, height: number, pageX: number, pageY: number) => {
             setPressPosition({ width, pageX, pageY, height });

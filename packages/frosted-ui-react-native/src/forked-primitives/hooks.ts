@@ -58,10 +58,13 @@ function useUncontrolledState<T>({
   return uncontrolledState;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = () => {};
+
 export function useControllableState<T>({
   prop,
   defaultProp,
-  onChange = () => {},
+  onChange = noop,
 }: {
   prop?: T;
   defaultProp?: T;
@@ -118,7 +121,8 @@ export function useAugmentedRef<T = any>({
         ...methods,
       } as T;
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // deps is intentionally passed through from caller
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     deps
   );
 
