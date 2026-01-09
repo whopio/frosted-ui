@@ -65,7 +65,8 @@
     "@rn-primitives/tabs": "^1.2.0",
     "@rn-primitives/toggle": "^1.2.0",
     "@rn-primitives/toggle-group": "^1.2.0",
-    "@rn-primitives/tooltip": "^1.2.0"
+    "@rn-primitives/tooltip": "^1.2.0",
+    "@rn-primitives/types": "^1.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",

@@ -1,5 +1,6 @@
 import { NativeOnlyAnimatedView } from '@/components/native-only-animated-view';
 import { Text, TextStyleContext } from '@/components/text';
+import { SelectPrimitive } from '@/forked-primitives';
 import {
   getButtonFocusStyle,
   getButtonPressedFilter,
@@ -11,7 +12,6 @@ import {
 } from '@/lib/button-styles';
 import type { Color } from '@/lib/types';
 import { useThemeTokens } from '@/lib/use-theme-tokens';
-import * as SelectPrimitive from '@rn-primitives/select';
 import * as React from 'react';
 import {
   Platform,
@@ -404,11 +404,23 @@ type SelectContentProps = SelectPrimitive.ContentProps & {
   position?: 'popper' | 'item-aligned';
 };
 
+// Helper to safely get primitive context on native (not available on web)
+function useSelectRootContext() {
+  if (Platform.OS === 'web' || !SelectPrimitive.useRootContext) {
+    return null;
+  }
+  
+  return SelectPrimitive.useRootContext();
+}
+
 function SelectContent({ portalHost, position = 'popper', ...props }: SelectContentProps) {
   // Get context values before portal (context is lost in portal on native)
   const selectContext = React.useContext(SelectContext);
   const { size, labelMap, value, open } = selectContext;
   const { colors, isDark } = useThemeTokens();
+
+  // Capture primitive context BEFORE the portal/FullWindowOverlay (native only)
+  const primitiveContext = useSelectRootContext();
   const { height: windowHeight } = useWindowDimensions();
   const safeAreaInsets = useSafeAreaInsets();
 
@@ -474,85 +486,98 @@ function SelectContent({ portalHost, position = 'popper', ...props }: SelectCont
     [size, labelMap, value, open]
   );
 
+  // On native, re-provide context after FullWindowOverlay breaks it
+  const ContextProvider =
+    Platform.OS !== 'web' ? SelectPrimitive.SelectContext?.Provider : null;
+  const shouldProvideContext = ContextProvider && primitiveContext;
+
+  const content = (
+    <SelectPrimitive.Overlay style={Platform.select({ native: StyleSheet.absoluteFill })}>
+      {/* Re-provide our context inside portal since it's lost on native */}
+      <SelectContext.Provider value={contextValue}>
+        <SelectContentContext.Provider value={contentContextValue}>
+          <TextStyleContext.Provider value={{ size: '2', weight: 'regular', color: 'gray' }}>
+            <NativeOnlyAnimatedView entering={FadeIn} exiting={FadeOut}>
+              <SelectPrimitive.Content
+                position={position}
+                sideOffset={4}
+                insets={Platform.OS !== 'web' ? contentInsets : undefined}
+                style={{
+                  backgroundColor: colors.panelSolid,
+                  borderRadius,
+                  minWidth: 128,
+                  // Constrain max height on native to prevent overflow
+                  ...Platform.select({
+                    web: {
+                      // Shadow-5 from web: border + two shadow layers
+                      // Light: 0 0 0 1px gray-a5, 0 12px 60px black-a3, 0 12px 32px -16px gray-a5
+                      // Dark: 0 0 0 1px gray-a6, 0 12px 60px black-a5, 0 12px 32px -16px black-a7
+                      boxShadow: isDark
+                        ? `0 0 0 1px ${colors.palettes.gray.a6}, 0 12px 60px ${colors.palettes.black.a5}, 0 12px 32px -16px ${colors.palettes.black.a7}`
+                        : `0 0 0 1px ${colors.palettes.gray.a5}, 0 12px 60px ${colors.palettes.black.a3}, 0 12px 32px -16px ${colors.palettes.gray.a5}`,
+                      overflow: 'hidden',
+                    },
+                    default: {
+                      // Native approximation - can't do multiple shadows
+                      // Note: overflow: 'hidden' clips shadows on iOS, so we don't use it here
+                      maxHeight: nativeMaxHeight,
+                      borderWidth: 1,
+                      borderColor: isDark ? colors.palettes.gray.a6 : colors.palettes.gray.a5,
+                      shadowColor: '#000000',
+                      shadowOpacity: isDark ? 0.3 : 0.15,
+                      shadowOffset: { width: 0, height: 12 },
+                      shadowRadius: 30,
+                      elevation: 12,
+                    },
+                  }),
+                }}
+                {...props}>
+                <SelectPrimitive.Viewport
+                  style={{
+                    width: 'auto',
+                    borderRadius,
+                    // On web, Radix calculates available height dynamically via CSS variable
+                    ...Platform.select({
+                      web: {
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- CSS variable not in ViewStyle type
+                        maxHeight:
+                          'var(--radix-select-content-available-height)' as unknown as number,
+                        overflow: 'auto',
+                      },
+                      default: {
+                        overflow: 'hidden',
+                      },
+                    }),
+                  }}>
+                  {Platform.OS === 'web' ? (
+                    <View style={{ padding: contentPadding }}>{props.children}</View>
+                  ) : (
+                    <ScrollView
+                      ref={scrollViewRef}
+                      style={{ maxHeight: nativeMaxHeight - contentPadding * 2 - 2 }} // Account for padding and border
+                      contentContainerStyle={{ padding: contentPadding }}
+                      showsVerticalScrollIndicator
+                      bounces={false}>
+                      {props.children}
+                    </ScrollView>
+                  )}
+                </SelectPrimitive.Viewport>
+              </SelectPrimitive.Content>
+            </NativeOnlyAnimatedView>
+          </TextStyleContext.Provider>
+        </SelectContentContext.Provider>
+      </SelectContext.Provider>
+    </SelectPrimitive.Overlay>
+  );
+
   return (
     <SelectPrimitive.Portal hostName={portalHost}>
       <FullWindowOverlay>
-        <SelectPrimitive.Overlay style={Platform.select({ native: StyleSheet.absoluteFill })}>
-          {/* Re-provide context inside portal since it's lost on native */}
-          <SelectContext.Provider value={contextValue}>
-            <SelectContentContext.Provider value={contentContextValue}>
-              <TextStyleContext.Provider value={{ size: '2', weight: 'regular', color: 'gray' }}>
-                <NativeOnlyAnimatedView entering={FadeIn} exiting={FadeOut}>
-                  <SelectPrimitive.Content
-                    position={position}
-                    sideOffset={4}
-                    insets={Platform.OS !== 'web' ? contentInsets : undefined}
-                    style={{
-                      backgroundColor: colors.panelSolid,
-                      borderRadius,
-                      minWidth: 128,
-                      // Constrain max height on native to prevent overflow
-                      ...Platform.select({
-                        web: {
-                          // Shadow-5 from web: border + two shadow layers
-                          // Light: 0 0 0 1px gray-a5, 0 12px 60px black-a3, 0 12px 32px -16px gray-a5
-                          // Dark: 0 0 0 1px gray-a6, 0 12px 60px black-a5, 0 12px 32px -16px black-a7
-                          boxShadow: isDark
-                            ? `0 0 0 1px ${colors.palettes.gray.a6}, 0 12px 60px ${colors.palettes.black.a5}, 0 12px 32px -16px ${colors.palettes.black.a7}`
-                            : `0 0 0 1px ${colors.palettes.gray.a5}, 0 12px 60px ${colors.palettes.black.a3}, 0 12px 32px -16px ${colors.palettes.gray.a5}`,
-                          overflow: 'hidden',
-                        },
-                        default: {
-                          // Native approximation - can't do multiple shadows
-                          // Note: overflow: 'hidden' clips shadows on iOS, so we don't use it here
-                          maxHeight: nativeMaxHeight,
-                          borderWidth: 1,
-                          borderColor: isDark ? colors.palettes.gray.a6 : colors.palettes.gray.a5,
-                          shadowColor: '#000000',
-                          shadowOpacity: isDark ? 0.3 : 0.15,
-                          shadowOffset: { width: 0, height: 12 },
-                          shadowRadius: 30,
-                          elevation: 12,
-                        },
-                      }),
-                    }}
-                    {...props}>
-                    <SelectPrimitive.Viewport
-                      style={{
-                        width: 'auto',
-                        borderRadius,
-                        // On web, Radix calculates available height dynamically via CSS variable
-                        ...Platform.select({
-                          web: {
-                            // eslint-disable-next-line @typescript-eslint/no-explicit-any -- CSS variable not in ViewStyle type
-                            maxHeight:
-                              'var(--radix-select-content-available-height)' as unknown as number,
-                            overflow: 'auto',
-                          },
-                          default: {
-                            overflow: 'hidden',
-                          },
-                        }),
-                      }}>
-                      {Platform.OS === 'web' ? (
-                        <View style={{ padding: contentPadding }}>{props.children}</View>
-                      ) : (
-                        <ScrollView
-                          ref={scrollViewRef}
-                          style={{ maxHeight: nativeMaxHeight - contentPadding * 2 - 2 }} // Account for padding and border
-                          contentContainerStyle={{ padding: contentPadding }}
-                          showsVerticalScrollIndicator
-                          bounces={false}>
-                          {props.children}
-                        </ScrollView>
-                      )}
-                    </SelectPrimitive.Viewport>
-                  </SelectPrimitive.Content>
-                </NativeOnlyAnimatedView>
-              </TextStyleContext.Provider>
-            </SelectContentContext.Provider>
-          </SelectContext.Provider>
-        </SelectPrimitive.Overlay>
+        {shouldProvideContext ? (
+          <ContextProvider value={primitiveContext}>{content}</ContextProvider>
+        ) : (
+          content
+        )}
       </FullWindowOverlay>
     </SelectPrimitive.Portal>
   );
@@ -820,7 +845,7 @@ export {
   SelectRoot,
   SelectSeparator,
   SelectTrigger,
-  SelectValue,
+  SelectValue
 };
 export type {
   SelectContentProps,
@@ -831,5 +856,6 @@ export type {
   SelectSize,
   SelectTriggerProps,
   SelectTriggerVariant,
-  SelectValueProps,
+  SelectValueProps
 };
+
