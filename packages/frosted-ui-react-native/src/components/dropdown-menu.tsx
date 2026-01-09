@@ -131,14 +131,22 @@ type DropdownMenuContentProps = Omit<DropdownMenuPrimitive.ContentProps, 'childr
   children?: React.ReactNode;
 };
 
+// Helper to safely get primitive context on native (not available on web)
+function useDropdownMenuRootContext() {
+  if (Platform.OS === 'web' || !DropdownMenuPrimitive.useRootContext) {
+    return null;
+  }
+  return DropdownMenuPrimitive.useRootContext();
+}
+
 function DropdownMenuContent({ portalHost, children, ...props }: DropdownMenuContentProps) {
   const { size, variant, color } = React.useContext(DropdownMenuContext);
   const { colors, isDark } = useThemeTokens();
   const { height: windowHeight } = useWindowDimensions();
   const safeAreaInsets = useSafeAreaInsets();
 
-  // Capture primitive context BEFORE the portal/FullWindowOverlay
-  const primitiveContext = DropdownMenuPrimitive.useRootContext();
+  // Capture primitive context BEFORE the portal/FullWindowOverlay (native only)
+  const primitiveContext = useDropdownMenuRootContext();
 
   const sizeStyles = getMenuSizeStyles(size);
 
@@ -181,73 +189,82 @@ function DropdownMenuContent({ portalHost, children, ...props }: DropdownMenuCon
 
   const backgroundColor = variant === 'solid' ? colors.panelSolid : colors.panelTranslucent;
 
+  // On native, re-provide context after FullWindowOverlay breaks it
+  const ContextProvider = DropdownMenuPrimitive.DropdownMenuContext?.Provider;
+  const shouldProvideContext = Platform.OS !== 'web' && ContextProvider && primitiveContext;
+
+  const content = (
+    <DropdownMenuPrimitive.Overlay style={Platform.select({ native: StyleSheet.absoluteFill })}>
+      <DropdownMenuContext.Provider value={contextValue}>
+        <TextStyleContext.Provider value={{ size: '2', weight: 'regular', color: 'gray' }}>
+          <NativeOnlyAnimatedView entering={FadeIn} exiting={FadeOut}>
+            <DropdownMenuPrimitive.Content
+              align="start"
+              sideOffset={4}
+              insets={Platform.OS !== 'web' ? contentInsets : undefined}
+              style={{
+                backgroundColor,
+                borderRadius: sizeStyles.contentBorderRadius,
+                minWidth: 128,
+                ...Platform.select({
+                  web: {
+                    boxShadow: isDark
+                      ? `0 0 0 1px ${colors.palettes.gray.a6}, 0 12px 60px ${colors.palettes.black.a5}, 0 12px 32px -16px ${colors.palettes.black.a7}`
+                      : `0 0 0 1px ${colors.palettes.gray.a5}, 0 12px 60px ${colors.palettes.black.a3}, 0 12px 32px -16px ${colors.palettes.gray.a5}`,
+                    backdropFilter:
+                      variant === 'soft'
+                        ? 'saturate(1.8) blur(20px) contrast(1.05) brightness(1.05)'
+                        : undefined,
+                    overflow: 'hidden',
+                  },
+                  default: {
+                    maxHeight: nativeMaxHeight,
+                    borderWidth: 1,
+                    borderColor: isDark ? colors.palettes.gray.a6 : colors.palettes.gray.a5,
+                    shadowColor: '#000000',
+                    shadowOpacity: isDark ? 0.3 : 0.15,
+                    shadowOffset: { width: 0, height: 12 },
+                    shadowRadius: 30,
+                    elevation: 12,
+                  },
+                }),
+              }}
+              {...props}>
+              {Platform.OS === 'web' ? (
+                <View
+                  style={
+                    {
+                      padding: sizeStyles.contentPadding,
+                      maxHeight: 'var(--radix-dropdown-menu-content-available-height)',
+                      overflow: 'auto',
+                    } as unknown as ViewStyle
+                  }>
+                  {children}
+                </View>
+              ) : (
+                <ScrollView
+                  style={{ maxHeight: nativeMaxHeight - sizeStyles.contentPadding * 2 - 2 }}
+                  contentContainerStyle={{ padding: sizeStyles.contentPadding }}
+                  showsVerticalScrollIndicator
+                  bounces={false}>
+                  {children}
+                </ScrollView>
+              )}
+            </DropdownMenuPrimitive.Content>
+          </NativeOnlyAnimatedView>
+        </TextStyleContext.Provider>
+      </DropdownMenuContext.Provider>
+    </DropdownMenuPrimitive.Overlay>
+  );
+
   return (
     <DropdownMenuPrimitive.Portal hostName={portalHost}>
       <FullWindowOverlay>
-        {/* Re-provide DropdownMenuPrimitive context after FullWindowOverlay breaks context */}
-        <DropdownMenuPrimitive.DropdownMenuContext.Provider value={primitiveContext}>
-          <DropdownMenuPrimitive.Overlay style={Platform.select({ native: StyleSheet.absoluteFill })}>
-            <DropdownMenuContext.Provider value={contextValue}>
-            <TextStyleContext.Provider value={{ size: '2', weight: 'regular', color: 'gray' }}>
-              <NativeOnlyAnimatedView entering={FadeIn} exiting={FadeOut}>
-                <DropdownMenuPrimitive.Content
-                  align="start"
-                  sideOffset={4}
-                  insets={Platform.OS !== 'web' ? contentInsets : undefined}
-                  style={{
-                    backgroundColor,
-                    borderRadius: sizeStyles.contentBorderRadius,
-                    minWidth: 128,
-                    ...Platform.select({
-                      web: {
-                        boxShadow: isDark
-                          ? `0 0 0 1px ${colors.palettes.gray.a6}, 0 12px 60px ${colors.palettes.black.a5}, 0 12px 32px -16px ${colors.palettes.black.a7}`
-                          : `0 0 0 1px ${colors.palettes.gray.a5}, 0 12px 60px ${colors.palettes.black.a3}, 0 12px 32px -16px ${colors.palettes.gray.a5}`,
-                        backdropFilter:
-                          variant === 'soft'
-                            ? 'saturate(1.8) blur(20px) contrast(1.05) brightness(1.05)'
-                            : undefined,
-                        overflow: 'hidden',
-                      },
-                      default: {
-                        maxHeight: nativeMaxHeight,
-                        borderWidth: 1,
-                        borderColor: isDark ? colors.palettes.gray.a6 : colors.palettes.gray.a5,
-                        shadowColor: '#000000',
-                        shadowOpacity: isDark ? 0.3 : 0.15,
-                        shadowOffset: { width: 0, height: 12 },
-                        shadowRadius: 30,
-                        elevation: 12,
-                      },
-                    }),
-                  }}
-                  {...props}>
-                  {Platform.OS === 'web' ? (
-                    <View
-                      style={
-                        {
-                          padding: sizeStyles.contentPadding,
-                          maxHeight: 'var(--radix-dropdown-menu-content-available-height)',
-                          overflow: 'auto',
-                        } as unknown as ViewStyle
-                      }>
-                      {children}
-                    </View>
-                  ) : (
-                    <ScrollView
-                      style={{ maxHeight: nativeMaxHeight - sizeStyles.contentPadding * 2 - 2 }}
-                      contentContainerStyle={{ padding: sizeStyles.contentPadding }}
-                      showsVerticalScrollIndicator
-                      bounces={false}>
-                      {children}
-                    </ScrollView>
-                  )}
-                </DropdownMenuPrimitive.Content>
-              </NativeOnlyAnimatedView>
-            </TextStyleContext.Provider>
-          </DropdownMenuContext.Provider>
-        </DropdownMenuPrimitive.Overlay>
-        </DropdownMenuPrimitive.DropdownMenuContext.Provider>
+        {shouldProvideContext ? (
+          <ContextProvider value={primitiveContext}>{content}</ContextProvider>
+        ) : (
+          content
+        )}
       </FullWindowOverlay>
     </DropdownMenuPrimitive.Portal>
   );

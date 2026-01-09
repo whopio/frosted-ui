@@ -46,6 +46,16 @@ type PopoverContentProps = PopoverPrimitive.ContentProps & {
   portalHost?: string;
 };
 
+// Helper to safely get context on native (not available on web)
+function usePopoverRootContext() {
+  // On web, the forked primitive re-exports from @rn-primitives which doesn't have useRootContext
+  if (Platform.OS === 'web' || !PopoverPrimitive.useRootContext) {
+    return null;
+  }
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  return PopoverPrimitive.useRootContext();
+}
+
 function PopoverContent({
   size = '2',
   variant = 'translucent',
@@ -58,8 +68,8 @@ function PopoverContent({
 }: PopoverContentProps) {
   const { colors, isDark } = useThemeTokens();
 
-  // Capture primitive context BEFORE the portal/FullWindowOverlay
-  const primitiveContext = PopoverPrimitive.useRootContext();
+  // Capture primitive context BEFORE the portal/FullWindowOverlay (native only)
+  const primitiveContext = usePopoverRootContext();
 
   const contentStyle = getPanelContentStyle({
     size,
@@ -68,23 +78,33 @@ function PopoverContent({
     isDark,
   });
 
+  const content = (
+    <PopoverPrimitive.Overlay style={Platform.select({ native: StyleSheet.absoluteFill })}>
+      <NativeOnlyAnimatedView entering={FadeIn.duration(200)} exiting={FadeOut}>
+        <PopoverPrimitive.Content
+          align={align}
+          insets={{ top: 8, right: 8, bottom: 8, left: 8 }}
+          sideOffset={sideOffset}
+          {...props}>
+          <View style={[contentStyle, style]}>{children}</View>
+        </PopoverPrimitive.Content>
+      </NativeOnlyAnimatedView>
+    </PopoverPrimitive.Overlay>
+  );
+
+  // On native, re-provide context after FullWindowOverlay breaks it
+  // On web, just render content directly (Radix handles its own context)
+  const ContextProvider = PopoverPrimitive.PopoverContext?.Provider;
+  const shouldProvideContext = Platform.OS !== 'web' && ContextProvider && primitiveContext;
+
   return (
     <PopoverPrimitive.Portal hostName={portalHost}>
       <FullWindowOverlay>
-        {/* Re-provide PopoverContext after FullWindowOverlay breaks context */}
-        <PopoverPrimitive.PopoverContext.Provider value={primitiveContext}>
-          <PopoverPrimitive.Overlay style={Platform.select({ native: StyleSheet.absoluteFill })}>
-            <NativeOnlyAnimatedView entering={FadeIn.duration(200)} exiting={FadeOut}>
-              <PopoverPrimitive.Content
-                align={align}
-                insets={{ top: 8, right: 8, bottom: 8, left: 8 }}
-                sideOffset={sideOffset}
-                {...props}>
-                <View style={[contentStyle, style]}>{children}</View>
-              </PopoverPrimitive.Content>
-            </NativeOnlyAnimatedView>
-          </PopoverPrimitive.Overlay>
-        </PopoverPrimitive.PopoverContext.Provider>
+        {shouldProvideContext ? (
+          <ContextProvider value={primitiveContext}>{content}</ContextProvider>
+        ) : (
+          content
+        )}
       </FullWindowOverlay>
     </PopoverPrimitive.Portal>
   );

@@ -59,7 +59,7 @@ DialogClose.displayName = 'Dialog.Close';
 // Overlay - receives primitiveContext to re-provide after FullWindowOverlay
 interface DialogOverlayProps extends Omit<DialogPrimitive.OverlayProps, 'asChild'> {
   children?: React.ReactNode;
-  primitiveContext: DialogPrimitive.RootContext;
+  primitiveContext: DialogPrimitive.RootContext | null;
 }
 
 function DialogOverlay({ children, primitiveContext, ...props }: DialogOverlayProps) {
@@ -81,26 +81,35 @@ function DialogOverlay({ children, primitiveContext, ...props }: DialogOverlayPr
   // The Pressable receives onPress from the primitive to close the dialog when backdrop is tapped
   const nativeBackdropStyle = getDialogBackdropStyle();
 
+  // On native, re-provide context after FullWindowOverlay breaks it
+  const ContextProvider = DialogPrimitive.DialogContext?.Provider;
+  const shouldProvideContext = ContextProvider && primitiveContext;
+
+  const overlayContent = (
+    <DialogPrimitive.Overlay {...props} asChild>
+      <Pressable style={overlayStyle}>
+        {/* Animated backdrop */}
+        <Animated.View
+          entering={FadeIn.duration(200)}
+          exiting={FadeOut.duration(150)}
+          style={nativeBackdropStyle as ViewStyle}
+          pointerEvents="none"
+        />
+        {/* Animated content */}
+        <Animated.View entering={FadeIn.duration(200)} exiting={FadeOut.duration(150)}>
+          {children}
+        </Animated.View>
+      </Pressable>
+    </DialogPrimitive.Overlay>
+  );
+
   return (
     <FullWindowOverlay>
-      {/* Re-provide DialogContext after FullWindowOverlay breaks context */}
-      <DialogPrimitive.DialogContext.Provider value={primitiveContext}>
-        <DialogPrimitive.Overlay {...props} asChild>
-          <Pressable style={overlayStyle}>
-            {/* Animated backdrop */}
-            <Animated.View
-              entering={FadeIn.duration(200)}
-              exiting={FadeOut.duration(150)}
-              style={nativeBackdropStyle as ViewStyle}
-              pointerEvents="none"
-            />
-            {/* Animated content */}
-            <Animated.View entering={FadeIn.duration(200)} exiting={FadeOut.duration(150)}>
-              {children}
-            </Animated.View>
-          </Pressable>
-        </DialogPrimitive.Overlay>
-      </DialogPrimitive.DialogContext.Provider>
+      {shouldProvideContext ? (
+        <ContextProvider value={primitiveContext}>{overlayContent}</ContextProvider>
+      ) : (
+        overlayContent
+      )}
     </FullWindowOverlay>
   );
 }
@@ -112,12 +121,20 @@ interface DialogContentProps extends Omit<DialogPrimitive.ContentProps, 'asChild
   portalHost?: string;
 }
 
+// Helper to safely get primitive context on native (not available on web)
+function useDialogRootContext() {
+  if (Platform.OS === 'web' || !DialogPrimitive.useRootContext) {
+    return null;
+  }
+  return DialogPrimitive.useRootContext();
+}
+
 function DialogContent({ size = '3', portalHost, children, style, ...props }: DialogContentProps) {
   const { colors, isDark } = useThemeTokens();
   const { width: windowWidth } = useWindowDimensions();
 
-  // Capture primitive context BEFORE the portal/FullWindowOverlay
-  const primitiveContext = DialogPrimitive.useRootContext();
+  // Capture primitive context BEFORE the portal/FullWindowOverlay (native only)
+  const primitiveContext = useDialogRootContext();
 
   const contentStyle = getDialogContentStyle(size, colors, isDark, windowWidth, style);
 

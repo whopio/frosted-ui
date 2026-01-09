@@ -49,7 +49,7 @@ AlertDialogTrigger.displayName = 'AlertDialog.Trigger';
 // Overlay - receives primitiveContext to re-provide after FullWindowOverlay
 interface AlertDialogOverlayProps extends Omit<AlertDialogPrimitive.OverlayProps, 'asChild'> {
   children?: React.ReactNode;
-  primitiveContext: AlertDialogPrimitive.RootContext;
+  primitiveContext: AlertDialogPrimitive.RootContext | null;
 }
 
 function AlertDialogOverlay({ children, primitiveContext, ...props }: AlertDialogOverlayProps) {
@@ -70,26 +70,35 @@ function AlertDialogOverlay({ children, primitiveContext, ...props }: AlertDialo
   // Native: AlertDialog should NOT dismiss on backdrop tap, so we use View (not Pressable)
   const nativeBackdropStyle = getDialogBackdropStyle();
 
+  // On native, re-provide context after FullWindowOverlay breaks it
+  const ContextProvider = AlertDialogPrimitive.AlertDialogContext?.Provider;
+  const shouldProvideContext = ContextProvider && primitiveContext;
+
+  const overlayContent = (
+    <AlertDialogPrimitive.Overlay {...props} asChild>
+      <View style={overlayStyle}>
+        {/* Animated backdrop */}
+        <Animated.View
+          entering={FadeIn.duration(200)}
+          exiting={FadeOut.duration(150)}
+          style={nativeBackdropStyle as ViewStyle}
+          pointerEvents="none"
+        />
+        {/* Animated content */}
+        <Animated.View entering={FadeIn.duration(200)} exiting={FadeOut.duration(150)}>
+          {children}
+        </Animated.View>
+      </View>
+    </AlertDialogPrimitive.Overlay>
+  );
+
   return (
     <FullWindowOverlay>
-      {/* Re-provide AlertDialogContext after FullWindowOverlay breaks context */}
-      <AlertDialogPrimitive.AlertDialogContext.Provider value={primitiveContext}>
-        <AlertDialogPrimitive.Overlay {...props} asChild>
-          <View style={overlayStyle}>
-            {/* Animated backdrop */}
-            <Animated.View
-              entering={FadeIn.duration(200)}
-              exiting={FadeOut.duration(150)}
-              style={nativeBackdropStyle as ViewStyle}
-              pointerEvents="none"
-            />
-            {/* Animated content */}
-            <Animated.View entering={FadeIn.duration(200)} exiting={FadeOut.duration(150)}>
-              {children}
-            </Animated.View>
-          </View>
-        </AlertDialogPrimitive.Overlay>
-      </AlertDialogPrimitive.AlertDialogContext.Provider>
+      {shouldProvideContext ? (
+        <ContextProvider value={primitiveContext}>{overlayContent}</ContextProvider>
+      ) : (
+        overlayContent
+      )}
     </FullWindowOverlay>
   );
 }
@@ -99,6 +108,15 @@ AlertDialogOverlay.displayName = 'AlertDialog.Overlay';
 interface AlertDialogContentProps extends Omit<AlertDialogPrimitive.ContentProps, 'asChild'> {
   size?: DialogSize;
   portalHost?: string;
+}
+
+// Helper to safely get primitive context on native (not available on web)
+function useAlertDialogRootContext() {
+  if (Platform.OS === 'web' || !AlertDialogPrimitive.useRootContext) {
+    return null;
+  }
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  return AlertDialogPrimitive.useRootContext();
 }
 
 function AlertDialogContent({
@@ -111,8 +129,8 @@ function AlertDialogContent({
   const { colors, isDark } = useThemeTokens();
   const { width: windowWidth } = useWindowDimensions();
 
-  // Capture primitive context BEFORE the portal/FullWindowOverlay
-  const primitiveContext = AlertDialogPrimitive.useRootContext();
+  // Capture primitive context BEFORE the portal/FullWindowOverlay (native only)
+  const primitiveContext = useAlertDialogRootContext();
 
   const contentStyle = getDialogContentStyle(size, colors, isDark, windowWidth, style);
 
