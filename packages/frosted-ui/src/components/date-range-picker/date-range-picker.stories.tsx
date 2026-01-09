@@ -106,7 +106,7 @@ export const Custom: Story = {
                 : '--'}
             </Button>
           </Popover.Trigger>
-          <Popover.Content variant="translucent" align="center" style={{ minWidth: 'unset' }}>
+          <Popover.Content variant="translucent" alignment="center" style={{ minWidth: 'unset' }}>
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
               <div
                 style={{
