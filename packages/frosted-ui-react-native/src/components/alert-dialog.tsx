@@ -115,7 +115,7 @@ function useAlertDialogRootContext() {
   if (Platform.OS === 'web' || !AlertDialogPrimitive.useRootContext) {
     return null;
   }
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+
   return AlertDialogPrimitive.useRootContext();
 }
 
@@ -300,5 +300,6 @@ export type {
   AlertDialogDescriptionProps as DescriptionProps,
   AlertDialogRootProps as RootProps,
   AlertDialogTitleProps as TitleProps,
-  AlertDialogTriggerProps as TriggerProps,
+  AlertDialogTriggerProps as TriggerProps
 };
+

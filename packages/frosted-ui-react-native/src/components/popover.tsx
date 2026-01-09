@@ -52,7 +52,7 @@ function usePopoverRootContext() {
   if (Platform.OS === 'web' || !PopoverPrimitive.useRootContext) {
     return null;
   }
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+
   return PopoverPrimitive.useRootContext();
 }
 
@@ -129,3 +129,4 @@ const Popover: {
 
 export { Popover, PopoverClose, PopoverContent, PopoverRoot, PopoverTrigger };
 export type { PopoverContentProps, PopoverRootProps, PopoverSize, PopoverVariant };
+

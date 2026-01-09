@@ -131,7 +131,7 @@ function useContextMenuRootContext() {
   if (Platform.OS === 'web' || !ContextMenuPrimitive.useRootContext) {
     return null;
   }
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+
   return ContextMenuPrimitive.useRootContext();
 }
 
@@ -764,23 +764,24 @@ export {
   ContextMenuSub,
   ContextMenuSubContent,
   ContextMenuSubTrigger,
-  ContextMenuTrigger,
+  ContextMenuTrigger
 };
 
-export type {
-  ContextMenuCheckboxItemProps,
-  ContextMenuContentProps,
-  ContextMenuGroupProps,
-  ContextMenuItemProps,
-  ContextMenuLabelProps,
-  ContextMenuRadioGroupProps,
-  ContextMenuRadioItemProps,
-  ContextMenuRootProps,
-  ContextMenuSeparatorProps,
-  ContextMenuSize,
-  ContextMenuSubContentProps,
-  ContextMenuSubProps,
-  ContextMenuSubTriggerProps,
-  ContextMenuTriggerProps,
-  ContextMenuVariant,
-};
+  export type {
+    ContextMenuCheckboxItemProps,
+    ContextMenuContentProps,
+    ContextMenuGroupProps,
+    ContextMenuItemProps,
+    ContextMenuLabelProps,
+    ContextMenuRadioGroupProps,
+    ContextMenuRadioItemProps,
+    ContextMenuRootProps,
+    ContextMenuSeparatorProps,
+    ContextMenuSize,
+    ContextMenuSubContentProps,
+    ContextMenuSubProps,
+    ContextMenuSubTriggerProps,
+    ContextMenuTriggerProps,
+    ContextMenuVariant
+  };
+
