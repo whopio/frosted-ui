@@ -1,8 +1,8 @@
 import { NativeOnlyAnimatedView } from '@/components/native-only-animated-view';
 import { Text, TextStyleContext, type TextSize } from '@/components/text';
+import { DropdownMenuPrimitive } from '@/forked-primitives';
 import type { Color } from '@/lib/types';
 import { useThemeTokens } from '@/lib/use-theme-tokens';
-import * as DropdownMenuPrimitive from '@rn-primitives/dropdown-menu';
 import * as React from 'react';
 import {
   Platform,
@@ -137,6 +137,9 @@ function DropdownMenuContent({ portalHost, children, ...props }: DropdownMenuCon
   const { height: windowHeight } = useWindowDimensions();
   const safeAreaInsets = useSafeAreaInsets();
 
+  // Capture primitive context BEFORE the portal/FullWindowOverlay
+  const primitiveContext = DropdownMenuPrimitive.useRootContext();
+
   const sizeStyles = getMenuSizeStyles(size);
 
   // Calculate available height for native
@@ -181,8 +184,10 @@ function DropdownMenuContent({ portalHost, children, ...props }: DropdownMenuCon
   return (
     <DropdownMenuPrimitive.Portal hostName={portalHost}>
       <FullWindowOverlay>
-        <DropdownMenuPrimitive.Overlay style={Platform.select({ native: StyleSheet.absoluteFill })}>
-          <DropdownMenuContext.Provider value={contextValue}>
+        {/* Re-provide DropdownMenuPrimitive context after FullWindowOverlay breaks context */}
+        <DropdownMenuPrimitive.DropdownMenuContext.Provider value={primitiveContext}>
+          <DropdownMenuPrimitive.Overlay style={Platform.select({ native: StyleSheet.absoluteFill })}>
+            <DropdownMenuContext.Provider value={contextValue}>
             <TextStyleContext.Provider value={{ size: '2', weight: 'regular', color: 'gray' }}>
               <NativeOnlyAnimatedView entering={FadeIn} exiting={FadeOut}>
                 <DropdownMenuPrimitive.Content
@@ -242,6 +247,7 @@ function DropdownMenuContent({ portalHost, children, ...props }: DropdownMenuCon
             </TextStyleContext.Provider>
           </DropdownMenuContext.Provider>
         </DropdownMenuPrimitive.Overlay>
+        </DropdownMenuPrimitive.DropdownMenuContext.Provider>
       </FullWindowOverlay>
     </DropdownMenuPrimitive.Portal>
   );
@@ -746,23 +752,24 @@ export {
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 };
 
-export type {
-  DropdownMenuCheckboxItemProps,
-  DropdownMenuContentProps,
-  DropdownMenuGroupProps,
-  DropdownMenuItemProps,
-  DropdownMenuLabelProps,
-  DropdownMenuRadioGroupProps,
-  DropdownMenuRadioItemProps,
-  DropdownMenuRootProps,
-  DropdownMenuSeparatorProps,
-  DropdownMenuSize,
-  DropdownMenuSubContentProps,
-  DropdownMenuSubProps,
-  DropdownMenuSubTriggerProps,
-  DropdownMenuTriggerProps,
-  DropdownMenuVariant,
-};
+  export type {
+    DropdownMenuCheckboxItemProps,
+    DropdownMenuContentProps,
+    DropdownMenuGroupProps,
+    DropdownMenuItemProps,
+    DropdownMenuLabelProps,
+    DropdownMenuRadioGroupProps,
+    DropdownMenuRadioItemProps,
+    DropdownMenuRootProps,
+    DropdownMenuSeparatorProps,
+    DropdownMenuSize,
+    DropdownMenuSubContentProps,
+    DropdownMenuSubProps,
+    DropdownMenuSubTriggerProps,
+    DropdownMenuTriggerProps,
+    DropdownMenuVariant
+  };
+

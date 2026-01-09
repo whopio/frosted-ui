@@ -1,5 +1,6 @@
 import { Heading } from '@/components/heading';
 import { Text } from '@/components/text';
+import { AlertDialogPrimitive } from '@/forked-primitives';
 import {
   getDialogBackdropStyle,
   getDialogContentStyle,
@@ -10,7 +11,6 @@ import {
   type DialogSize,
 } from '@/lib/dialog-styles';
 import { useThemeTokens } from '@/lib/use-theme-tokens';
-import * as AlertDialogPrimitive from '@rn-primitives/alert-dialog';
 import * as React from 'react';
 import { Platform, StyleSheet, useWindowDimensions, View, type ViewStyle } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
@@ -35,25 +35,24 @@ const AlertDialogContentContext = React.createContext<AlertDialogContentContextV
 const FullWindowOverlay = Platform.OS === 'ios' ? RNFullWindowOverlay : React.Fragment;
 
 // Root
-type AlertDialogRootProps = React.ComponentProps<typeof AlertDialogPrimitive.Root>;
+type AlertDialogRootProps = AlertDialogPrimitive.RootProps;
 const AlertDialogRoot = (props: AlertDialogRootProps) => <AlertDialogPrimitive.Root {...props} />;
 AlertDialogRoot.displayName = 'AlertDialog.Root';
 
 // Trigger
-type AlertDialogTriggerProps = React.ComponentProps<typeof AlertDialogPrimitive.Trigger>;
+type AlertDialogTriggerProps = AlertDialogPrimitive.TriggerProps;
 const AlertDialogTrigger = (props: AlertDialogTriggerProps) => (
   <AlertDialogPrimitive.Trigger {...props} asChild />
 );
 AlertDialogTrigger.displayName = 'AlertDialog.Trigger';
 
-// Overlay
-function AlertDialogOverlay({
-  children,
-  ...props
-}: Omit<AlertDialogPrimitive.OverlayProps, 'asChild'> &
-  React.RefAttributes<AlertDialogPrimitive.OverlayRef> & {
-    children?: React.ReactNode;
-  }) {
+// Overlay - receives primitiveContext to re-provide after FullWindowOverlay
+interface AlertDialogOverlayProps extends Omit<AlertDialogPrimitive.OverlayProps, 'asChild'> {
+  children?: React.ReactNode;
+  primitiveContext: AlertDialogPrimitive.RootContext;
+}
+
+function AlertDialogOverlay({ children, primitiveContext, ...props }: AlertDialogOverlayProps) {
   const overlayStyle = getDialogOverlayStyle();
   const backdropStyle = getDialogBackdropStyle();
 
@@ -73,31 +72,31 @@ function AlertDialogOverlay({
 
   return (
     <FullWindowOverlay>
-      <AlertDialogPrimitive.Overlay {...props} asChild>
-        <View style={overlayStyle}>
-          {/* Animated backdrop */}
-          <Animated.View
-            entering={FadeIn.duration(200)}
-            exiting={FadeOut.duration(150)}
-            style={nativeBackdropStyle}
-            pointerEvents="none"
-          />
-          {/* Animated content */}
-          <Animated.View entering={FadeIn.duration(200)} exiting={FadeOut.duration(150)}>
-            {children}
-          </Animated.View>
-        </View>
-      </AlertDialogPrimitive.Overlay>
+      {/* Re-provide AlertDialogContext after FullWindowOverlay breaks context */}
+      <AlertDialogPrimitive.AlertDialogContext.Provider value={primitiveContext}>
+        <AlertDialogPrimitive.Overlay {...props} asChild>
+          <View style={overlayStyle}>
+            {/* Animated backdrop */}
+            <Animated.View
+              entering={FadeIn.duration(200)}
+              exiting={FadeOut.duration(150)}
+              style={nativeBackdropStyle as ViewStyle}
+              pointerEvents="none"
+            />
+            {/* Animated content */}
+            <Animated.View entering={FadeIn.duration(200)} exiting={FadeOut.duration(150)}>
+              {children}
+            </Animated.View>
+          </View>
+        </AlertDialogPrimitive.Overlay>
+      </AlertDialogPrimitive.AlertDialogContext.Provider>
     </FullWindowOverlay>
   );
 }
 AlertDialogOverlay.displayName = 'AlertDialog.Overlay';
 
 // Content
-interface AlertDialogContentProps
-  extends
-    Omit<AlertDialogPrimitive.ContentProps, 'asChild'>,
-    React.RefAttributes<AlertDialogPrimitive.ContentRef> {
+interface AlertDialogContentProps extends Omit<AlertDialogPrimitive.ContentProps, 'asChild'> {
   size?: DialogSize;
   portalHost?: string;
 }
@@ -111,6 +110,9 @@ function AlertDialogContent({
 }: AlertDialogContentProps) {
   const { colors, isDark } = useThemeTokens();
   const { width: windowWidth } = useWindowDimensions();
+
+  // Capture primitive context BEFORE the portal/FullWindowOverlay
+  const primitiveContext = AlertDialogPrimitive.useRootContext();
 
   const contentStyle = getDialogContentStyle(size, colors, isDark, windowWidth, style);
 
@@ -128,7 +130,7 @@ function AlertDialogContent({
 
   return (
     <AlertDialogPrimitive.Portal hostName={portalHost}>
-      <AlertDialogOverlay>
+      <AlertDialogOverlay primitiveContext={primitiveContext}>
         <AlertDialogPrimitive.Content style={finalStyle} {...props}>
           <AlertDialogContentContext.Provider value={contextValue}>
             {children}
@@ -164,7 +166,7 @@ function AlertDialogFooter({ style, ...props }: React.ComponentProps<typeof View
 }
 AlertDialogFooter.displayName = 'AlertDialog.Footer';
 
-// Title
+// Title - uses AlertDialogPrimitive.Title which now works because context is re-provided
 type AlertDialogTitleProps = Omit<React.ComponentProps<typeof Heading>, 'as'>;
 
 function AlertDialogTitle({ size: sizeProp, style, ...props }: AlertDialogTitleProps) {
@@ -182,7 +184,7 @@ function AlertDialogTitle({ size: sizeProp, style, ...props }: AlertDialogTitleP
 }
 AlertDialogTitle.displayName = 'AlertDialog.Title';
 
-// Description
+// Description - uses AlertDialogPrimitive.Description which now works because context is re-provided
 type AlertDialogDescriptionProps = Omit<React.ComponentProps<typeof Text>, 'as'>;
 
 function AlertDialogDescription({ size: sizeProp, style, ...props }: AlertDialogDescriptionProps) {
@@ -200,8 +202,8 @@ function AlertDialogDescription({ size: sizeProp, style, ...props }: AlertDialog
 }
 AlertDialogDescription.displayName = 'AlertDialog.Description';
 
-// Action
-type AlertDialogActionProps = React.ComponentProps<typeof AlertDialogPrimitive.Action>;
+// Action - uses AlertDialogPrimitive.Action which now works because context is re-provided
+type AlertDialogActionProps = AlertDialogPrimitive.ActionProps;
 
 function AlertDialogAction({ children, ...props }: AlertDialogActionProps) {
   return (
@@ -212,8 +214,8 @@ function AlertDialogAction({ children, ...props }: AlertDialogActionProps) {
 }
 AlertDialogAction.displayName = 'AlertDialog.Action';
 
-// Cancel
-type AlertDialogCancelProps = React.ComponentProps<typeof AlertDialogPrimitive.Cancel>;
+// Cancel - uses AlertDialogPrimitive.Cancel which now works because context is re-provided
+type AlertDialogCancelProps = AlertDialogPrimitive.CancelProps;
 
 function AlertDialogCancel({ children, ...props }: AlertDialogCancelProps) {
   return (

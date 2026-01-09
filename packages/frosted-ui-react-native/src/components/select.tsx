@@ -1,27 +1,27 @@
 import { NativeOnlyAnimatedView } from '@/components/native-only-animated-view';
 import { Text, TextStyleContext } from '@/components/text';
+import { SelectPrimitive } from '@/forked-primitives';
 import {
-  getButtonFocusStyle,
-  getButtonPressedFilter,
-  getButtonShadowStyle,
-  getButtonSizeStyle,
-  getButtonVariantStyle,
-  type ButtonSize,
-  type ButtonVariant,
+    getButtonFocusStyle,
+    getButtonPressedFilter,
+    getButtonShadowStyle,
+    getButtonSizeStyle,
+    getButtonVariantStyle,
+    type ButtonSize,
+    type ButtonVariant,
 } from '@/lib/button-styles';
 import type { Color } from '@/lib/types';
 import { useThemeTokens } from '@/lib/use-theme-tokens';
-import * as SelectPrimitive from '@rn-primitives/select';
 import * as React from 'react';
 import {
-  Platform,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  useWindowDimensions,
-  View,
-  type StyleProp,
-  type ViewStyle,
+    Platform,
+    Pressable,
+    ScrollView,
+    StyleSheet,
+    useWindowDimensions,
+    View,
+    type StyleProp,
+    type ViewStyle,
 } from 'react-native';
 import { FadeIn, FadeOut } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -409,6 +409,9 @@ function SelectContent({ portalHost, position = 'popper', ...props }: SelectCont
   const selectContext = React.useContext(SelectContext);
   const { size, labelMap, value, open } = selectContext;
   const { colors, isDark } = useThemeTokens();
+
+  // Capture primitive context BEFORE the portal/FullWindowOverlay
+  const primitiveContext = SelectPrimitive.useRootContext();
   const { height: windowHeight } = useWindowDimensions();
   const safeAreaInsets = useSafeAreaInsets();
 
@@ -477,9 +480,11 @@ function SelectContent({ portalHost, position = 'popper', ...props }: SelectCont
   return (
     <SelectPrimitive.Portal hostName={portalHost}>
       <FullWindowOverlay>
-        <SelectPrimitive.Overlay style={Platform.select({ native: StyleSheet.absoluteFill })}>
-          {/* Re-provide context inside portal since it's lost on native */}
-          <SelectContext.Provider value={contextValue}>
+        {/* Re-provide SelectPrimitive context after FullWindowOverlay breaks context */}
+        <SelectPrimitive.SelectContext.Provider value={primitiveContext}>
+          <SelectPrimitive.Overlay style={Platform.select({ native: StyleSheet.absoluteFill })}>
+            {/* Re-provide our context inside portal since it's lost on native */}
+            <SelectContext.Provider value={contextValue}>
             <SelectContentContext.Provider value={contentContextValue}>
               <TextStyleContext.Provider value={{ size: '2', weight: 'regular', color: 'gray' }}>
                 <NativeOnlyAnimatedView entering={FadeIn} exiting={FadeOut}>
@@ -550,9 +555,10 @@ function SelectContent({ portalHost, position = 'popper', ...props }: SelectCont
                   </SelectPrimitive.Content>
                 </NativeOnlyAnimatedView>
               </TextStyleContext.Provider>
-            </SelectContentContext.Provider>
-          </SelectContext.Provider>
-        </SelectPrimitive.Overlay>
+              </SelectContentContext.Provider>
+            </SelectContext.Provider>
+          </SelectPrimitive.Overlay>
+        </SelectPrimitive.SelectContext.Provider>
       </FullWindowOverlay>
     </SelectPrimitive.Portal>
   );
@@ -812,24 +818,24 @@ const Select: {
 };
 
 export {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectRoot,
-  SelectSeparator,
-  SelectTrigger,
-  SelectValue,
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectRoot,
+    SelectSeparator,
+    SelectTrigger,
+    SelectValue
 };
 export type {
-  SelectContentProps,
-  SelectItemProps,
-  SelectLabelProps,
-  SelectRootProps,
-  SelectSeparatorProps,
-  SelectSize,
-  SelectTriggerProps,
-  SelectTriggerVariant,
-  SelectValueProps,
+    SelectContentProps,
+    SelectItemProps,
+    SelectLabelProps,
+    SelectRootProps,
+    SelectSeparatorProps,
+    SelectSize,
+    SelectTriggerProps,
+    SelectTriggerVariant,
+    SelectValueProps
 };

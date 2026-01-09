@@ -1,8 +1,8 @@
 import { NativeOnlyAnimatedView } from '@/components/native-only-animated-view';
 import { Text, TextStyleContext, type TextSize } from '@/components/text';
+import { ContextMenuPrimitive } from '@/forked-primitives';
 import type { Color } from '@/lib/types';
 import { useThemeTokens } from '@/lib/use-theme-tokens';
-import * as ContextMenuPrimitive from '@rn-primitives/context-menu';
 import * as React from 'react';
 import {
   Platform,
@@ -129,6 +129,9 @@ type ContextMenuContentProps = Omit<ContextMenuPrimitive.ContentProps, 'children
 function ContextMenuContent({ portalHost, children, ...props }: ContextMenuContentProps) {
   const { size, variant, color } = React.useContext(ContextMenuContext);
   const { colors, isDark } = useThemeTokens();
+
+  // Capture primitive context BEFORE the portal/FullWindowOverlay
+  const primitiveContext = ContextMenuPrimitive.useRootContext();
   const { height: windowHeight } = useWindowDimensions();
   const safeAreaInsets = useSafeAreaInsets();
 
@@ -176,8 +179,10 @@ function ContextMenuContent({ portalHost, children, ...props }: ContextMenuConte
   return (
     <ContextMenuPrimitive.Portal hostName={portalHost}>
       <FullWindowOverlay>
-        <ContextMenuPrimitive.Overlay style={Platform.select({ native: StyleSheet.absoluteFill })}>
-          <ContextMenuContext.Provider value={contextValue}>
+        {/* Re-provide ContextMenuPrimitive context after FullWindowOverlay breaks context */}
+        <ContextMenuPrimitive.ContextMenuContext.Provider value={primitiveContext}>
+          <ContextMenuPrimitive.Overlay style={Platform.select({ native: StyleSheet.absoluteFill })}>
+            <ContextMenuContext.Provider value={contextValue}>
             <TextStyleContext.Provider value={{ size: '2', weight: 'regular', color: 'gray' }}>
               <NativeOnlyAnimatedView entering={FadeIn} exiting={FadeOut}>
                 <ContextMenuPrimitive.Content
@@ -232,9 +237,10 @@ function ContextMenuContent({ portalHost, children, ...props }: ContextMenuConte
                   )}
                 </ContextMenuPrimitive.Content>
               </NativeOnlyAnimatedView>
-            </TextStyleContext.Provider>
-          </ContextMenuContext.Provider>
-        </ContextMenuPrimitive.Overlay>
+              </TextStyleContext.Provider>
+            </ContextMenuContext.Provider>
+          </ContextMenuPrimitive.Overlay>
+        </ContextMenuPrimitive.ContextMenuContext.Provider>
       </FullWindowOverlay>
     </ContextMenuPrimitive.Portal>
   );

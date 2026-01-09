@@ -1,7 +1,7 @@
 import { NativeOnlyAnimatedView } from '@/components/native-only-animated-view';
+import { PopoverPrimitive } from '@/forked-primitives';
 import { getPanelContentStyle, type PanelSize, type PanelVariant } from '@/lib/panel-styles';
 import { useThemeTokens } from '@/lib/use-theme-tokens';
-import * as PopoverPrimitive from '@rn-primitives/popover';
 import * as React from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import { FadeIn, FadeOut } from 'react-native-reanimated';
@@ -20,19 +20,19 @@ type PopoverVariant = PanelVariant;
 
 type PopoverRootProps = PopoverPrimitive.RootProps;
 
-const PopoverRoot: typeof PopoverPrimitive.Root = PopoverPrimitive.Root;
+const PopoverRoot = PopoverPrimitive.Root;
 
 // ============================================================================
 // Popover.Trigger
 // ============================================================================
 
-const PopoverTrigger: typeof PopoverPrimitive.Trigger = PopoverPrimitive.Trigger;
+const PopoverTrigger = PopoverPrimitive.Trigger;
 
 // ============================================================================
 // Popover.Close
 // ============================================================================
 
-const PopoverClose: typeof PopoverPrimitive.Close = PopoverPrimitive.Close;
+const PopoverClose = PopoverPrimitive.Close;
 
 // ============================================================================
 // Popover.Content
@@ -58,6 +58,9 @@ function PopoverContent({
 }: PopoverContentProps) {
   const { colors, isDark } = useThemeTokens();
 
+  // Capture primitive context BEFORE the portal/FullWindowOverlay
+  const primitiveContext = PopoverPrimitive.useRootContext();
+
   const contentStyle = getPanelContentStyle({
     size,
     variant,
@@ -68,17 +71,20 @@ function PopoverContent({
   return (
     <PopoverPrimitive.Portal hostName={portalHost}>
       <FullWindowOverlay>
-        <PopoverPrimitive.Overlay style={Platform.select({ native: StyleSheet.absoluteFill })}>
-          <NativeOnlyAnimatedView entering={FadeIn.duration(200)} exiting={FadeOut}>
-            <PopoverPrimitive.Content
-              align={align}
-              insets={{ top: 8, right: 8, bottom: 8, left: 8 }}
-              sideOffset={sideOffset}
-              {...props}>
-              <View style={[contentStyle, style]}>{children}</View>
-            </PopoverPrimitive.Content>
-          </NativeOnlyAnimatedView>
-        </PopoverPrimitive.Overlay>
+        {/* Re-provide PopoverContext after FullWindowOverlay breaks context */}
+        <PopoverPrimitive.PopoverContext.Provider value={primitiveContext}>
+          <PopoverPrimitive.Overlay style={Platform.select({ native: StyleSheet.absoluteFill })}>
+            <NativeOnlyAnimatedView entering={FadeIn.duration(200)} exiting={FadeOut}>
+              <PopoverPrimitive.Content
+                align={align}
+                insets={{ top: 8, right: 8, bottom: 8, left: 8 }}
+                sideOffset={sideOffset}
+                {...props}>
+                <View style={[contentStyle, style]}>{children}</View>
+              </PopoverPrimitive.Content>
+            </NativeOnlyAnimatedView>
+          </PopoverPrimitive.Overlay>
+        </PopoverPrimitive.PopoverContext.Provider>
       </FullWindowOverlay>
     </PopoverPrimitive.Portal>
   );
