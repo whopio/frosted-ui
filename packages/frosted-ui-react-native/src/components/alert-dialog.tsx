@@ -70,10 +70,6 @@ function AlertDialogOverlay({ children, primitiveContext, ...props }: AlertDialo
   // Native: AlertDialog should NOT dismiss on backdrop tap, so we use View (not Pressable)
   const nativeBackdropStyle = getDialogBackdropStyle();
 
-  // On native, re-provide context after FullWindowOverlay breaks it
-  const ContextProvider = AlertDialogPrimitive.AlertDialogContext?.Provider;
-  const shouldProvideContext = ContextProvider && primitiveContext;
-
   const overlayContent = (
     <AlertDialogPrimitive.Overlay {...props} asChild>
       <View style={overlayStyle}>
@@ -92,15 +88,19 @@ function AlertDialogOverlay({ children, primitiveContext, ...props }: AlertDialo
     </AlertDialogPrimitive.Overlay>
   );
 
-  return (
-    <FullWindowOverlay>
-      {shouldProvideContext ? (
-        <ContextProvider value={primitiveContext}>{overlayContent}</ContextProvider>
-      ) : (
-        overlayContent
-      )}
-    </FullWindowOverlay>
-  );
+  // On native, re-provide context after FullWindowOverlay breaks it
+  // (we're already in native branch after the web check above)
+  if (primitiveContext && AlertDialogPrimitive.AlertDialogContext) {
+    return (
+      <FullWindowOverlay>
+        <AlertDialogPrimitive.AlertDialogContext.Provider value={primitiveContext}>
+          {overlayContent}
+        </AlertDialogPrimitive.AlertDialogContext.Provider>
+      </FullWindowOverlay>
+    );
+  }
+
+  return <FullWindowOverlay>{overlayContent}</FullWindowOverlay>;
 }
 AlertDialogOverlay.displayName = 'AlertDialog.Overlay';
 

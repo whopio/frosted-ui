@@ -487,8 +487,9 @@ function SelectContent({ portalHost, position = 'popper', ...props }: SelectCont
   );
 
   // On native, re-provide context after FullWindowOverlay breaks it
-  const ContextProvider = SelectPrimitive.SelectContext?.Provider;
-  const shouldProvideContext = Platform.OS !== 'web' && ContextProvider && primitiveContext;
+  const ContextProvider =
+    Platform.OS !== 'web' ? SelectPrimitive.SelectContext?.Provider : null;
+  const shouldProvideContext = ContextProvider && primitiveContext;
 
   const content = (
     <SelectPrimitive.Overlay style={Platform.select({ native: StyleSheet.absoluteFill })}>

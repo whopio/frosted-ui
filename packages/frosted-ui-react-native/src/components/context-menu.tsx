@@ -186,8 +186,9 @@ function ContextMenuContent({ portalHost, children, ...props }: ContextMenuConte
   const backgroundColor = variant === 'solid' ? colors.panelSolid : colors.panelTranslucent;
 
   // On native, re-provide context after FullWindowOverlay breaks it
-  const ContextProvider = ContextMenuPrimitive.ContextMenuContext?.Provider;
-  const shouldProvideContext = Platform.OS !== 'web' && ContextProvider && primitiveContext;
+  const ContextProvider =
+    Platform.OS !== 'web' ? ContextMenuPrimitive.ContextMenuContext?.Provider : null;
+  const shouldProvideContext = ContextProvider && primitiveContext;
 
   const content = (
     <ContextMenuPrimitive.Overlay style={Platform.select({ native: StyleSheet.absoluteFill })}>

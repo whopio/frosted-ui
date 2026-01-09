@@ -190,8 +190,9 @@ function DropdownMenuContent({ portalHost, children, ...props }: DropdownMenuCon
   const backgroundColor = variant === 'solid' ? colors.panelSolid : colors.panelTranslucent;
 
   // On native, re-provide context after FullWindowOverlay breaks it
-  const ContextProvider = DropdownMenuPrimitive.DropdownMenuContext?.Provider;
-  const shouldProvideContext = Platform.OS !== 'web' && ContextProvider && primitiveContext;
+  const ContextProvider =
+    Platform.OS !== 'web' ? DropdownMenuPrimitive.DropdownMenuContext?.Provider : null;
+  const shouldProvideContext = ContextProvider && primitiveContext;
 
   const content = (
     <DropdownMenuPrimitive.Overlay style={Platform.select({ native: StyleSheet.absoluteFill })}>

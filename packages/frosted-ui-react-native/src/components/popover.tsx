@@ -94,8 +94,9 @@ function PopoverContent({
 
   // On native, re-provide context after FullWindowOverlay breaks it
   // On web, just render content directly (Radix handles its own context)
-  const ContextProvider = PopoverPrimitive.PopoverContext?.Provider;
-  const shouldProvideContext = Platform.OS !== 'web' && ContextProvider && primitiveContext;
+  const ContextProvider =
+    Platform.OS !== 'web' ? PopoverPrimitive.PopoverContext?.Provider : null;
+  const shouldProvideContext = ContextProvider && primitiveContext;
 
   return (
     <PopoverPrimitive.Portal hostName={portalHost}>

@@ -81,10 +81,6 @@ function DialogOverlay({ children, primitiveContext, ...props }: DialogOverlayPr
   // The Pressable receives onPress from the primitive to close the dialog when backdrop is tapped
   const nativeBackdropStyle = getDialogBackdropStyle();
 
-  // On native, re-provide context after FullWindowOverlay breaks it
-  const ContextProvider = DialogPrimitive.DialogContext?.Provider;
-  const shouldProvideContext = ContextProvider && primitiveContext;
-
   const overlayContent = (
     <DialogPrimitive.Overlay {...props} asChild>
       <Pressable style={overlayStyle}>
@@ -103,15 +99,19 @@ function DialogOverlay({ children, primitiveContext, ...props }: DialogOverlayPr
     </DialogPrimitive.Overlay>
   );
 
-  return (
-    <FullWindowOverlay>
-      {shouldProvideContext ? (
-        <ContextProvider value={primitiveContext}>{overlayContent}</ContextProvider>
-      ) : (
-        overlayContent
-      )}
-    </FullWindowOverlay>
-  );
+  // On native, re-provide context after FullWindowOverlay breaks it
+  // (we're already in native branch after the web check above)
+  if (primitiveContext && DialogPrimitive.DialogContext) {
+    return (
+      <FullWindowOverlay>
+        <DialogPrimitive.DialogContext.Provider value={primitiveContext}>
+          {overlayContent}
+        </DialogPrimitive.DialogContext.Provider>
+      </FullWindowOverlay>
+    );
+  }
+
+  return <FullWindowOverlay>{overlayContent}</FullWindowOverlay>;
 }
 DialogOverlay.displayName = 'Dialog.Overlay';
 
