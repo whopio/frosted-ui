@@ -74,7 +74,7 @@ const HoverCardContent = (props: HoverCardContentProps) => {
     container,
     size = hoverCardContentPropDefs.size.default,
     variant = hoverCardContentPropDefs.variant.default,
-    alignment = 'start',
+    alignment = 'center',
     side,
     sideOffset = 8,
     alignmentOffset,

@@ -54,7 +54,7 @@ const PopoverContent = (props: PopoverContentProps & PopoverContentOwnProps) => 
     variant = popoverContentPropDefs.variant.default,
     // Positioner props
     anchor,
-    alignment = 'start',
+    alignment = 'center',
     side,
     sideOffset = 8,
     alignmentOffset,
