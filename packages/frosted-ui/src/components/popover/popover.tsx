@@ -13,10 +13,7 @@ interface PopoverRootProps extends PopoverRootOwnProps {}
 const PopoverRoot: React.FC<PopoverRootProps> = (props: PopoverRootProps) => <PopoverPrimitive.Root {...props} />;
 PopoverRoot.displayName = 'PopoverRoot';
 
-interface PopoverTriggerProps extends Omit<
-  React.ComponentProps<typeof PopoverPrimitive.Trigger>,
-  'className' | 'render'
-> {}
+interface PopoverTriggerProps extends Omit<React.ComponentProps<typeof PopoverPrimitive.Trigger>, 'render'> {}
 
 const PopoverTrigger = ({ children, ...props }: PopoverTriggerProps) => (
   <PopoverPrimitive.Trigger {...props} render={children as React.ReactElement} />
