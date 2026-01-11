@@ -15,7 +15,11 @@ interface HoverCardRootProps extends Omit<
 const HoverCardRoot: React.FC<HoverCardRootProps> = (props) => <PreviewCardPrimitive.Root {...props} />;
 HoverCardRoot.displayName = 'HoverCardRoot';
 
-interface HoverCardTriggerProps extends Omit<React.ComponentProps<typeof PreviewCardPrimitive.Trigger>, 'render'> {
+interface HoverCardTriggerProps extends Omit<
+  React.ComponentProps<typeof PreviewCardPrimitive.Trigger>,
+  'render' | 'className'
+> {
+  className?: string;
   children: React.ReactElement;
   /** How long to wait before the preview card opens. Specified in milliseconds. */
   delay?: number;
