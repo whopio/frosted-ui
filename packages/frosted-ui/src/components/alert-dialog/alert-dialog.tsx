@@ -1,7 +1,7 @@
 'use client';
 
+import { AlertDialog as AlertDialogPrimitive } from '@base-ui/react/alert-dialog';
 import classNames from 'classnames';
-import { AlertDialog as AlertDialogPrimitive } from 'radix-ui';
 import * as React from 'react';
 import { Theme } from '../../theme';
 import { Heading } from '../heading';
@@ -10,15 +10,26 @@ import { alertDialogContentPropDefs } from './alert-dialog.props';
 
 import type { ExtractPropsForTag, GetPropDefTypes } from '../../helpers';
 
-interface AlertDialogRootProps extends React.ComponentProps<typeof AlertDialogPrimitive.Root> {}
+// Root
+type AlertDialogRootOwnProps = Omit<React.ComponentProps<typeof AlertDialogPrimitive.Root>, 'className' | 'render'>;
+interface AlertDialogRootProps extends AlertDialogRootOwnProps {}
 const AlertDialogRoot: React.FC<AlertDialogRootProps> = (props) => <AlertDialogPrimitive.Root {...props} />;
 AlertDialogRoot.displayName = 'AlertDialogRoot';
 
-interface AlertDialogTriggerProps extends Omit<React.ComponentProps<typeof AlertDialogPrimitive.Trigger>, 'asChild'> {}
+// Trigger
+interface AlertDialogTriggerProps extends Omit<
+  React.ComponentProps<typeof AlertDialogPrimitive.Trigger>,
+  'render' | 'className'
+> {
+  className?: string;
+}
 
-const AlertDialogTrigger = (props: AlertDialogTriggerProps) => <AlertDialogPrimitive.Trigger {...props} asChild />;
+const AlertDialogTrigger = ({ children, ...props }: AlertDialogTriggerProps) => (
+  <AlertDialogPrimitive.Trigger {...props} render={children as React.ReactElement} />
+);
 AlertDialogTrigger.displayName = 'AlertDialogTrigger';
 
+// Content
 type AlertDialogContentOwnProps = GetPropDefTypes<typeof alertDialogContentPropDefs>;
 
 type AlertDialogContentContextValue = {
@@ -28,40 +39,46 @@ const AlertDialogContentContext = React.createContext<AlertDialogContentContextV
   size: alertDialogContentPropDefs.size.default,
 });
 
-interface AlertDialogContentProps
-  extends Omit<React.ComponentProps<typeof AlertDialogPrimitive.Content>, 'asChild'>,
-    AlertDialogContentOwnProps {
-  container?: React.ComponentProps<typeof AlertDialogPrimitive.Portal>['container'];
+type PopupProps = React.ComponentProps<typeof AlertDialogPrimitive.Popup>;
+type PortalProps = React.ComponentProps<typeof AlertDialogPrimitive.Portal>;
+
+interface AlertDialogContentProps extends Omit<PopupProps, 'className' | 'render'>, AlertDialogContentOwnProps {
+  className?: string;
+  container?: PortalProps['container'];
+  keepMounted?: PortalProps['keepMounted'];
 }
 
 const AlertDialogContent = (props: AlertDialogContentProps) => {
   const {
     className,
     children,
-    forceMount,
+    keepMounted,
     container,
     size = alertDialogContentPropDefs.size.default,
-    ...contentProps
+    ...popupProps
   } = props;
+
   return (
-    <AlertDialogPrimitive.Portal container={container} forceMount={forceMount}>
-      <Theme asChild>
-        <AlertDialogPrimitive.Overlay className="fui-DialogOverlay fui-AlertDialogOverlay">
-          <AlertDialogPrimitive.Content
-            {...contentProps}
+    <AlertDialogPrimitive.Portal container={container} keepMounted={keepMounted}>
+      <AlertDialogPrimitive.Backdrop className="fui-DialogBackdrop fui-AlertDialogBackdrop" />
+      <AlertDialogPrimitive.Viewport className="fui-DialogOverlay fui-AlertDialogOverlay">
+        <Theme asChild>
+          <AlertDialogPrimitive.Popup
+            {...popupProps}
             className={classNames('fui-DialogContent', 'fui-AlertDialogContent', className, `fui-r-size-${size}`)}
           >
             <AlertDialogContentContext.Provider value={React.useMemo(() => ({ size }), [size])}>
               {children}
             </AlertDialogContentContext.Provider>
-          </AlertDialogPrimitive.Content>
-        </AlertDialogPrimitive.Overlay>
-      </Theme>
+          </AlertDialogPrimitive.Popup>
+        </Theme>
+      </AlertDialogPrimitive.Viewport>
     </AlertDialogPrimitive.Portal>
   );
 };
 AlertDialogContent.displayName = 'AlertDialogContent';
 
+// Title
 type AlertDialogTitleProps = React.ComponentProps<typeof Heading>;
 
 const AlertDialogTitle = ({ size: sizeProp, className, ...props }: AlertDialogTitleProps) => {
@@ -80,13 +97,16 @@ const AlertDialogTitle = ({ size: sizeProp, className, ...props }: AlertDialogTi
   }
 
   return (
-    <AlertDialogPrimitive.Title asChild>
-      <Heading size={sizeProp || size} trim="start" className={classNames('fui-DialogTitle', className)} {...props} />
-    </AlertDialogPrimitive.Title>
+    <AlertDialogPrimitive.Title
+      render={
+        <Heading size={sizeProp || size} trim="start" className={classNames('fui-DialogTitle', className)} {...props} />
+      }
+    />
   );
 };
 AlertDialogTitle.displayName = 'AlertDialogTitle';
 
+// Description
 type AlertDialogDescriptionProps = ExtractPropsForTag<typeof Text, 'p'>;
 
 const AlertDialogDescription = ({ size: sizeProp, className, ...props }: AlertDialogDescriptionProps) => {
@@ -105,27 +125,47 @@ const AlertDialogDescription = ({ size: sizeProp, className, ...props }: AlertDi
   }
 
   return (
-    <AlertDialogPrimitive.Description asChild>
-      <Text as="p" size={sizeProp || size} className={classNames('fui-DialogDescription', className)} {...props} />
-    </AlertDialogPrimitive.Description>
+    <AlertDialogPrimitive.Description
+      render={
+        <Text as="p" size={sizeProp || size} className={classNames('fui-DialogDescription', className)} {...props} />
+      }
+    />
   );
 };
 AlertDialogDescription.displayName = 'AlertDialogDescription';
 
-interface AlertDialogActionProps extends Omit<React.ComponentProps<typeof AlertDialogPrimitive.Action>, 'asChild'> {}
+// Close (new Base UI component)
+interface AlertDialogCloseProps extends Omit<
+  React.ComponentProps<typeof AlertDialogPrimitive.Close>,
+  'render' | 'className'
+> {
+  className?: string;
+}
 
-const AlertDialogAction = (props: AlertDialogActionProps) => <AlertDialogPrimitive.Action {...props} asChild />;
+const AlertDialogClose = ({ children, ...props }: AlertDialogCloseProps) => (
+  <AlertDialogPrimitive.Close {...props} render={children as React.ReactElement} />
+);
+AlertDialogClose.displayName = 'AlertDialogClose';
+
+// Action (backwards compatibility alias for Close)
+interface AlertDialogActionProps extends AlertDialogCloseProps {}
+const AlertDialogAction = AlertDialogClose;
 AlertDialogAction.displayName = 'AlertDialogAction';
 
-interface AlertDialogCancelProps extends Omit<React.ComponentProps<typeof AlertDialogPrimitive.Cancel>, 'asChild'> {}
-
-const AlertDialogCancel = (props: AlertDialogCancelProps) => <AlertDialogPrimitive.Cancel {...props} asChild />;
+// Cancel (backwards compatibility alias for Close)
+interface AlertDialogCancelProps extends AlertDialogCloseProps {}
+const AlertDialogCancel = AlertDialogClose;
 AlertDialogCancel.displayName = 'AlertDialogCancel';
+
+// createHandle export
+const createHandle = AlertDialogPrimitive.createHandle;
 
 export {
   AlertDialogAction as Action,
   AlertDialogCancel as Cancel,
+  AlertDialogClose as Close,
   AlertDialogContent as Content,
+  createHandle,
   AlertDialogDescription as Description,
   AlertDialogRoot as Root,
   AlertDialogTitle as Title,
@@ -135,6 +175,7 @@ export {
 export type {
   AlertDialogActionProps as ActionProps,
   AlertDialogCancelProps as CancelProps,
+  AlertDialogCloseProps as CloseProps,
   AlertDialogContentProps as ContentProps,
   AlertDialogDescriptionProps as DescriptionProps,
   AlertDialogRootProps as RootProps,
