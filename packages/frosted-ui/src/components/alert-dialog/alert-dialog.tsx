@@ -10,23 +10,41 @@ import { alertDialogContentPropDefs } from './alert-dialog.props';
 
 import type { ExtractPropsForTag, GetPropDefTypes } from '../../helpers';
 
-// Root
-type AlertDialogRootOwnProps = Omit<React.ComponentProps<typeof AlertDialogPrimitive.Root>, 'className' | 'render'>;
-interface AlertDialogRootProps extends AlertDialogRootOwnProps {}
-const AlertDialogRoot: React.FC<AlertDialogRootProps> = (props) => <AlertDialogPrimitive.Root {...props} />;
+// Handle type - extracts the return type of createHandle with a generic
+type AlertDialogHandle<T = unknown> = ReturnType<typeof AlertDialogPrimitive.createHandle<T>>;
+
+// Root - generic to infer payload type from handle
+type AlertDialogRootOwnProps = Omit<
+  React.ComponentProps<typeof AlertDialogPrimitive.Root>,
+  'className' | 'render' | 'children' | 'handle'
+>;
+interface AlertDialogRootProps<T = unknown> extends AlertDialogRootOwnProps {
+  children?: React.ReactNode | ((props: { payload: T | undefined }) => React.ReactNode);
+  handle?: AlertDialogHandle<T>;
+}
+function AlertDialogRoot<T = unknown>(props: AlertDialogRootProps<T>) {
+  return <AlertDialogPrimitive.Root {...(props as React.ComponentProps<typeof AlertDialogPrimitive.Root>)} />;
+}
 AlertDialogRoot.displayName = 'AlertDialogRoot';
 
-// Trigger
-interface AlertDialogTriggerProps extends Omit<
+// Trigger - generic to infer payload type from handle
+interface AlertDialogTriggerProps<T = unknown> extends Omit<
   React.ComponentProps<typeof AlertDialogPrimitive.Trigger>,
-  'render' | 'className'
+  'render' | 'className' | 'handle' | 'payload'
 > {
   className?: string;
+  handle?: AlertDialogHandle<T>;
+  payload?: T;
 }
 
-const AlertDialogTrigger = ({ children, ...props }: AlertDialogTriggerProps) => (
-  <AlertDialogPrimitive.Trigger {...props} render={children as React.ReactElement} />
-);
+function AlertDialogTrigger<T = unknown>({ children, ...props }: AlertDialogTriggerProps<T>) {
+  return (
+    <AlertDialogPrimitive.Trigger
+      {...(props as React.ComponentProps<typeof AlertDialogPrimitive.Trigger>)}
+      render={children as React.ReactElement}
+    />
+  );
+}
 AlertDialogTrigger.displayName = 'AlertDialogTrigger';
 
 // Content
@@ -178,6 +196,7 @@ export type {
   AlertDialogCloseProps as CloseProps,
   AlertDialogContentProps as ContentProps,
   AlertDialogDescriptionProps as DescriptionProps,
+  AlertDialogHandle as Handle,
   AlertDialogRootProps as RootProps,
   AlertDialogTitleProps as TitleProps,
   AlertDialogTriggerProps as TriggerProps,

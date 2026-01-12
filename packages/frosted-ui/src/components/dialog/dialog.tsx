@@ -18,19 +18,37 @@ type RootProps = React.ComponentProps<typeof DialogPrimitive.Root>;
 type PortalProps = React.ComponentProps<typeof DialogPrimitive.Portal>;
 type PopupProps = React.ComponentProps<typeof DialogPrimitive.Popup>;
 
-// Root
-interface DialogRootProps extends Omit<RootProps, 'modal'> {}
-const DialogRoot = (props: DialogRootProps) => <DialogPrimitive.Root {...props} modal />;
+// Handle type - extracts the return type of createHandle with a generic
+type DialogHandle<T = unknown> = ReturnType<typeof DialogPrimitive.createHandle<T>>;
+
+// Root - generic to infer payload type from handle
+interface DialogRootProps<T = unknown> extends Omit<RootProps, 'modal' | 'children' | 'handle'> {
+  children?: React.ReactNode | ((props: { payload: T | undefined }) => React.ReactNode);
+  handle?: DialogHandle<T>;
+}
+function DialogRoot<T = unknown>(props: DialogRootProps<T>) {
+  return <DialogPrimitive.Root {...(props as RootProps)} modal />;
+}
 DialogRoot.displayName = 'DialogRoot';
 
-// Trigger
-interface DialogTriggerProps extends Omit<React.ComponentProps<typeof DialogPrimitive.Trigger>, 'render'> {
+// Trigger - generic to infer payload type from handle
+interface DialogTriggerProps<T = unknown> extends Omit<
+  React.ComponentProps<typeof DialogPrimitive.Trigger>,
+  'render' | 'handle' | 'payload'
+> {
   className?: string;
   children: React.ReactElement;
+  handle?: DialogHandle<T>;
+  payload?: T;
 }
-const DialogTrigger = ({ children, ...props }: DialogTriggerProps) => (
-  <DialogPrimitive.Trigger {...props} render={children as React.ReactElement} />
-);
+function DialogTrigger<T = unknown>({ children, ...props }: DialogTriggerProps<T>) {
+  return (
+    <DialogPrimitive.Trigger
+      {...(props as React.ComponentProps<typeof DialogPrimitive.Trigger>)}
+      render={children as React.ReactElement}
+    />
+  );
+}
 DialogTrigger.displayName = 'DialogTrigger';
 
 // Content
@@ -157,6 +175,7 @@ export type {
   DialogCloseProps as CloseProps,
   DialogContentProps as ContentProps,
   DialogDescriptionProps as DescriptionProps,
+  DialogHandle as Handle,
   DialogRootProps as RootProps,
   DialogTitleProps as TitleProps,
   DialogTriggerProps as TriggerProps,

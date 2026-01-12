@@ -319,16 +319,20 @@ export const DetachedTriggers: Story = {
 export const MultipleTriggers: Story = {
   name: 'Multiple Triggers with Payload',
   render: function Render(args) {
-    type PayloadType = { item: string; action: 'archive' | 'delete' | 'reset' };
-    const handle = React.useMemo(() => AlertDialog.createHandle<PayloadType>(), []);
+    const handle = React.useMemo(
+      () => AlertDialog.createHandle<{ item: string; action: 'archive' | 'delete' | 'reset' }>(),
+      [],
+    );
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
         <Text>
-          Multiple triggers can control the same dialog. Each trigger can pass a different <Code>payload</Code>.
+          Multiple triggers can control the same dialog. Each trigger can pass a different <Code>payload</Code>. The
+          payload type is inferred from the handle - TypeScript will catch type errors.
         </Text>
 
         <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+          {/* TypeScript will catch payload type errors because handle infers the type */}
           <AlertDialog.Trigger handle={handle} payload={{ item: 'Project A', action: 'archive' }}>
             <Button variant="soft" color="orange">
               Archive Project A
@@ -347,47 +351,44 @@ export const MultipleTriggers: Story = {
         </div>
 
         <AlertDialog.Root handle={handle}>
-          {({ payload }) => {
-            const typedPayload = payload as PayloadType | undefined;
-            return (
-              <AlertDialog.Content {...args} style={{ maxWidth: 450 }}>
-                <AlertDialog.Title>
-                  {typedPayload?.action === 'archive' && 'Archive item?'}
-                  {typedPayload?.action === 'delete' && 'Delete item?'}
-                  {typedPayload?.action === 'reset' && 'Reset all data?'}
-                </AlertDialog.Title>
-                <AlertDialog.Description>
-                  {typedPayload?.action === 'archive' &&
-                    `Are you sure you want to archive "${typedPayload?.item}"? You can restore it later.`}
-                  {typedPayload?.action === 'delete' &&
-                    `Are you sure you want to delete "${typedPayload?.item}"? This cannot be undone.`}
-                  {typedPayload?.action === 'reset' &&
-                    'This will permanently delete all your data. This action cannot be undone.'}
-                </AlertDialog.Description>
-                <div
-                  style={{
-                    display: 'flex',
-                    gap: 'var(--space-3)',
-                    marginTop: 'var(--space-4)',
-                    justifyContent: 'flex-end',
-                  }}
-                >
-                  <AlertDialog.Close>
-                    <Button variant="soft" color="gray">
-                      Cancel
-                    </Button>
-                  </AlertDialog.Close>
-                  <AlertDialog.Close>
-                    <Button variant="classic" color={typedPayload?.action === 'archive' ? 'orange' : 'red'}>
-                      {typedPayload?.action === 'archive' && 'Archive'}
-                      {typedPayload?.action === 'delete' && 'Delete'}
-                      {typedPayload?.action === 'reset' && 'Reset'}
-                    </Button>
-                  </AlertDialog.Close>
-                </div>
-              </AlertDialog.Content>
-            );
-          }}
+          {({ payload }) => (
+            <AlertDialog.Content {...args} style={{ maxWidth: 450 }}>
+              <AlertDialog.Title>
+                {payload?.action === 'archive' && 'Archive item?'}
+                {payload?.action === 'delete' && 'Delete item?'}
+                {payload?.action === 'reset' && 'Reset all data?'}
+              </AlertDialog.Title>
+              <AlertDialog.Description>
+                {payload?.action === 'archive' &&
+                  `Are you sure you want to archive "${payload?.item}"? You can restore it later.`}
+                {payload?.action === 'delete' &&
+                  `Are you sure you want to delete "${payload?.item}"? This cannot be undone.`}
+                {payload?.action === 'reset' &&
+                  'This will permanently delete all your data. This action cannot be undone.'}
+              </AlertDialog.Description>
+              <div
+                style={{
+                  display: 'flex',
+                  gap: 'var(--space-3)',
+                  marginTop: 'var(--space-4)',
+                  justifyContent: 'flex-end',
+                }}
+              >
+                <AlertDialog.Close>
+                  <Button variant="soft" color="gray">
+                    Cancel
+                  </Button>
+                </AlertDialog.Close>
+                <AlertDialog.Close>
+                  <Button variant="classic" color={payload?.action === 'archive' ? 'orange' : 'red'}>
+                    {payload?.action === 'archive' && 'Archive'}
+                    {payload?.action === 'delete' && 'Delete'}
+                    {payload?.action === 'reset' && 'Reset'}
+                  </Button>
+                </AlertDialog.Close>
+              </div>
+            </AlertDialog.Content>
+          )}
         </AlertDialog.Root>
       </div>
     );

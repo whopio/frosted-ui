@@ -299,16 +299,17 @@ export const DetachedTriggers: Story = {
 export const MultipleTriggers: Story = {
   name: 'Multiple Triggers with Payload',
   render: function Render(args) {
-    type PayloadType = { title: string; mode: 'create' | 'edit' | 'view' };
-    const handle = React.useMemo(() => Dialog.createHandle<PayloadType>(), []);
+    const handle = React.useMemo(() => Dialog.createHandle<{ title: string; mode: 'create' | 'edit' | 'view' }>(), []);
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
         <Text>
-          Multiple triggers can control the same dialog. Each trigger can pass a different <Code>payload</Code>.
+          Multiple triggers can control the same dialog. Each trigger can pass a different <Code>payload</Code>. The
+          payload type is inferred from the handle - TypeScript will catch type errors.
         </Text>
 
         <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+          {/* TypeScript will catch payload type errors because handle infers the type */}
           <Dialog.Trigger handle={handle} payload={{ title: 'New Project', mode: 'create' }}>
             <Button variant="classic">Create Project</Button>
           </Dialog.Trigger>
@@ -321,59 +322,56 @@ export const MultipleTriggers: Story = {
         </div>
 
         <Dialog.Root handle={handle}>
-          {({ payload }) => {
-            const typedPayload = payload as PayloadType | undefined;
-            return (
-              <Dialog.Content {...args} style={{ maxWidth: 450 }}>
-                <Dialog.Title>{typedPayload?.title || 'Project'}</Dialog.Title>
-                <Dialog.Description>
-                  {typedPayload?.mode === 'create' && 'Fill in the details to create a new project.'}
-                  {typedPayload?.mode === 'edit' && 'Modify the project details below.'}
-                  {typedPayload?.mode === 'view' && 'View the project details below.'}
-                </Dialog.Description>
+          {({ payload }) => (
+            <Dialog.Content {...args} style={{ maxWidth: 450 }}>
+              <Dialog.Title>{payload?.title || 'Project'}</Dialog.Title>
+              <Dialog.Description>
+                {payload?.mode === 'create' && 'Fill in the details to create a new project.'}
+                {payload?.mode === 'edit' && 'Modify the project details below.'}
+                {payload?.mode === 'view' && 'View the project details below.'}
+              </Dialog.Description>
 
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 'var(--space-3)',
-                    marginTop: 'var(--space-3)',
-                  }}
-                >
-                  <label>
-                    <Text as="div" size="2" style={{ marginBottom: 4 }} weight="bold">
-                      Project Name
-                    </Text>
-                    <TextField.Input
-                      defaultValue={typedPayload?.mode !== 'create' ? 'My Awesome Project' : ''}
-                      placeholder="Enter project name"
-                      readOnly={typedPayload?.mode === 'view'}
-                    />
-                  </label>
-                </div>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 'var(--space-3)',
+                  marginTop: 'var(--space-3)',
+                }}
+              >
+                <label>
+                  <Text as="div" size="2" style={{ marginBottom: 4 }} weight="bold">
+                    Project Name
+                  </Text>
+                  <TextField.Input
+                    defaultValue={payload?.mode !== 'create' ? 'My Awesome Project' : ''}
+                    placeholder="Enter project name"
+                    readOnly={payload?.mode === 'view'}
+                  />
+                </label>
+              </div>
 
-                <div
-                  style={{
-                    display: 'flex',
-                    gap: 'var(--space-3)',
-                    marginTop: 'var(--space-4)',
-                    justifyContent: 'flex-end',
-                  }}
-                >
+              <div
+                style={{
+                  display: 'flex',
+                  gap: 'var(--space-3)',
+                  marginTop: 'var(--space-4)',
+                  justifyContent: 'flex-end',
+                }}
+              >
+                <Dialog.Close>
+                  <Button variant="soft" color="gray">
+                    {payload?.mode === 'view' ? 'Close' : 'Cancel'}
+                  </Button>
+                </Dialog.Close>
+                {payload?.mode !== 'view' && (
                   <Dialog.Close>
-                    <Button variant="soft" color="gray">
-                      {typedPayload?.mode === 'view' ? 'Close' : 'Cancel'}
-                    </Button>
+                    <Button variant="classic">{payload?.mode === 'create' ? 'Create' : 'Save'}</Button>
                   </Dialog.Close>
-                  {typedPayload?.mode !== 'view' && (
-                    <Dialog.Close>
-                      <Button variant="classic">{typedPayload?.mode === 'create' ? 'Create' : 'Save'}</Button>
-                    </Dialog.Close>
-                  )}
-                </div>
-              </Dialog.Content>
-            );
-          }}
+                )}
+              </div>
+            </Dialog.Content>
+          )}
         </Dialog.Root>
       </div>
     );
