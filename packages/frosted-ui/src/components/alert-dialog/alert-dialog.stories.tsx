@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 
-import { AlertDialog, Button, Code, Heading, Inset, Table, Text, TextField, alertDialogContentPropDefs } from '..';
+import { AlertDialog, Button, Code, Inset, Table, Text, TextField, alertDialogContentPropDefs } from '..';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -253,7 +253,9 @@ export const UsingClose: Story = {
         <AlertDialog.Content style={{ maxWidth: 400 }} {...args}>
           <AlertDialog.Title>Delete item?</AlertDialog.Title>
           <AlertDialog.Description>This action cannot be undone.</AlertDialog.Description>
-          <div style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-4)', justifyContent: 'flex-end' }}>
+          <div
+            style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-4)', justifyContent: 'flex-end' }}
+          >
             <AlertDialog.Close>
               <Button variant="soft" color="gray">
                 Cancel
@@ -294,7 +296,9 @@ export const DetachedTriggers: Story = {
           <AlertDialog.Description>
             This dialog is controlled by a trigger outside of its Root component.
           </AlertDialog.Description>
-          <div style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-4)', justifyContent: 'flex-end' }}>
+          <div
+            style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-4)', justifyContent: 'flex-end' }}
+          >
             <AlertDialog.Close>
               <Button variant="soft" color="gray">
                 Cancel
@@ -315,7 +319,8 @@ export const DetachedTriggers: Story = {
 export const MultipleTriggers: Story = {
   name: 'Multiple Triggers with Payload',
   render: function Render(args) {
-    const handle = React.useMemo(() => AlertDialog.createHandle<{ item: string; action: string }>(), []);
+    type PayloadType = { item: string; action: 'archive' | 'delete' | 'reset' };
+    const handle = React.useMemo(() => AlertDialog.createHandle<PayloadType>(), []);
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
@@ -342,37 +347,47 @@ export const MultipleTriggers: Story = {
         </div>
 
         <AlertDialog.Root handle={handle}>
-          {({ payload }) => (
-            <AlertDialog.Content {...args} style={{ maxWidth: 450 }}>
-              <AlertDialog.Title>
-                {payload?.action === 'archive' && 'Archive item?'}
-                {payload?.action === 'delete' && 'Delete item?'}
-                {payload?.action === 'reset' && 'Reset all data?'}
-              </AlertDialog.Title>
-              <AlertDialog.Description>
-                {payload?.action === 'archive' && `Are you sure you want to archive "${payload?.item}"? You can restore it later.`}
-                {payload?.action === 'delete' && `Are you sure you want to delete "${payload?.item}"? This cannot be undone.`}
-                {payload?.action === 'reset' && 'This will permanently delete all your data. This action cannot be undone.'}
-              </AlertDialog.Description>
-              <div style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-4)', justifyContent: 'flex-end' }}>
-                <AlertDialog.Close>
-                  <Button variant="soft" color="gray">
-                    Cancel
-                  </Button>
-                </AlertDialog.Close>
-                <AlertDialog.Close>
-                  <Button
-                    variant="classic"
-                    color={payload?.action === 'archive' ? 'orange' : 'red'}
-                  >
-                    {payload?.action === 'archive' && 'Archive'}
-                    {payload?.action === 'delete' && 'Delete'}
-                    {payload?.action === 'reset' && 'Reset'}
-                  </Button>
-                </AlertDialog.Close>
-              </div>
-            </AlertDialog.Content>
-          )}
+          {({ payload }) => {
+            const typedPayload = payload as PayloadType | undefined;
+            return (
+              <AlertDialog.Content {...args} style={{ maxWidth: 450 }}>
+                <AlertDialog.Title>
+                  {typedPayload?.action === 'archive' && 'Archive item?'}
+                  {typedPayload?.action === 'delete' && 'Delete item?'}
+                  {typedPayload?.action === 'reset' && 'Reset all data?'}
+                </AlertDialog.Title>
+                <AlertDialog.Description>
+                  {typedPayload?.action === 'archive' &&
+                    `Are you sure you want to archive "${typedPayload?.item}"? You can restore it later.`}
+                  {typedPayload?.action === 'delete' &&
+                    `Are you sure you want to delete "${typedPayload?.item}"? This cannot be undone.`}
+                  {typedPayload?.action === 'reset' &&
+                    'This will permanently delete all your data. This action cannot be undone.'}
+                </AlertDialog.Description>
+                <div
+                  style={{
+                    display: 'flex',
+                    gap: 'var(--space-3)',
+                    marginTop: 'var(--space-4)',
+                    justifyContent: 'flex-end',
+                  }}
+                >
+                  <AlertDialog.Close>
+                    <Button variant="soft" color="gray">
+                      Cancel
+                    </Button>
+                  </AlertDialog.Close>
+                  <AlertDialog.Close>
+                    <Button variant="classic" color={typedPayload?.action === 'archive' ? 'orange' : 'red'}>
+                      {typedPayload?.action === 'archive' && 'Archive'}
+                      {typedPayload?.action === 'delete' && 'Delete'}
+                      {typedPayload?.action === 'reset' && 'Reset'}
+                    </Button>
+                  </AlertDialog.Close>
+                </div>
+              </AlertDialog.Content>
+            );
+          }}
         </AlertDialog.Root>
       </div>
     );
@@ -413,25 +428,26 @@ export const ControlledMode: Story = {
 
         <AlertDialog.Root open={open} onOpenChange={setOpen}>
           <AlertDialog.Content {...args} style={{ maxWidth: 400 }}>
-            <AlertDialog.Title>
-              {pendingAction === 'save' ? 'Save changes?' : 'Discard changes?'}
-            </AlertDialog.Title>
+            <AlertDialog.Title>{pendingAction === 'save' ? 'Save changes?' : 'Discard changes?'}</AlertDialog.Title>
             <AlertDialog.Description>
               {pendingAction === 'save'
                 ? 'Your changes will be saved permanently.'
                 : 'All unsaved changes will be lost.'}
             </AlertDialog.Description>
-            <div style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-4)', justifyContent: 'flex-end' }}>
+            <div
+              style={{
+                display: 'flex',
+                gap: 'var(--space-3)',
+                marginTop: 'var(--space-4)',
+                justifyContent: 'flex-end',
+              }}
+            >
               <AlertDialog.Close>
                 <Button variant="soft" color="gray">
                   Cancel
                 </Button>
               </AlertDialog.Close>
-              <Button
-                variant="classic"
-                color={pendingAction === 'save' ? 'green' : 'red'}
-                onClick={handleConfirm}
-              >
+              <Button variant="classic" color={pendingAction === 'save' ? 'green' : 'red'} onClick={handleConfirm}>
                 {pendingAction === 'save' ? 'Save' : 'Discard'}
               </Button>
             </div>
@@ -445,7 +461,7 @@ export const ControlledMode: Story = {
 export const ActionsRef: Story = {
   name: 'Actions Ref',
   render: function Render(args) {
-    const actionsRef = React.useRef<{ close: () => void } | null>(null);
+    const actionsRef = React.useRef<{ close: () => void; unmount: () => void }>(null!);
     const [isDeleting, setIsDeleting] = React.useState(false);
 
     const handleDelete = async () => {
@@ -474,7 +490,14 @@ export const ActionsRef: Story = {
             <AlertDialog.Description>
               This will permanently delete the item. The dialog will close automatically when the operation completes.
             </AlertDialog.Description>
-            <div style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-4)', justifyContent: 'flex-end' }}>
+            <div
+              style={{
+                display: 'flex',
+                gap: 'var(--space-3)',
+                marginTop: 'var(--space-4)',
+                justifyContent: 'flex-end',
+              }}
+            >
               <AlertDialog.Close>
                 <Button variant="soft" color="gray" disabled={isDeleting}>
                   Cancel
@@ -514,7 +537,14 @@ export const InitialFocus: Story = {
             <AlertDialog.Description>
               This will permanently delete your account and all associated data. This action cannot be undone.
             </AlertDialog.Description>
-            <div style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-4)', justifyContent: 'flex-end' }}>
+            <div
+              style={{
+                display: 'flex',
+                gap: 'var(--space-3)',
+                marginTop: 'var(--space-4)',
+                justifyContent: 'flex-end',
+              }}
+            >
               <AlertDialog.Close>
                 <Button ref={cancelRef} variant="soft" color="gray">
                   Cancel
@@ -556,7 +586,14 @@ export const FinalFocus: Story = {
               <AlertDialog.Description>
                 This will clear the text you entered. Focus will return to the input field after closing.
               </AlertDialog.Description>
-              <div style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-4)', justifyContent: 'flex-end' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  gap: 'var(--space-3)',
+                  marginTop: 'var(--space-4)',
+                  justifyContent: 'flex-end',
+                }}
+              >
                 <AlertDialog.Close>
                   <Button variant="soft" color="gray">
                     Cancel
@@ -612,7 +649,14 @@ export const OpenChangeComplete: Story = {
           <AlertDialog.Content {...args} style={{ maxWidth: 400 }}>
             <AlertDialog.Title>Confirm action</AlertDialog.Title>
             <AlertDialog.Description>Watch the event log to see callback timing.</AlertDialog.Description>
-            <div style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-4)', justifyContent: 'flex-end' }}>
+            <div
+              style={{
+                display: 'flex',
+                gap: 'var(--space-3)',
+                marginTop: 'var(--space-4)',
+                justifyContent: 'flex-end',
+              }}
+            >
               <AlertDialog.Close>
                 <Button variant="soft" color="gray">
                   Cancel

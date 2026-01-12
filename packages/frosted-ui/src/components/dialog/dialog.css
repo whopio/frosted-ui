@@ -1,11 +1,11 @@
-/* Base UI uses Backdrop for the blur/dim effect */
+/* Backdrop handles the blur/dim effect */
 .fui-DialogBackdrop {
   position: fixed;
   inset: 0;
   z-index: 0;
 }
 
-/* Overlay/Viewport handles centering */
+/* Viewport handles centering */
 .fui-DialogOverlay {
   display: flex;
   align-items: center;
@@ -20,14 +20,6 @@
   padding-bottom: var(--dialog-overlay-padding-bottom);
   padding-left: var(--space-4);
   padding-right: var(--space-4);
-
-  /* For Radix UI (legacy) - the overlay itself has the ::before for blur */
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-  }
 }
 
 .fui-DialogContent {
@@ -39,6 +31,7 @@
   box-shadow: var(--shadow-6);
   box-sizing: border-box;
   z-index: 1;
+  position: relative;
 
   --inset-padding: var(--dialog-content-padding);
   padding: var(--inset-padding);
@@ -127,15 +120,6 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  @keyframes fui-dialog-overlay-no-op {
-    from {
-      opacity: 1;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
   @keyframes fui-dialog-content-show {
     from {
       opacity: 0;
@@ -158,7 +142,6 @@
     }
   }
 
-  /* Base UI Backdrop */
   .fui-DialogBackdrop {
     backdrop-filter: blur(var(--overlay-blur)) brightness(var(--overlay-brightness));
 
@@ -170,33 +153,7 @@
     }
   }
 
-  /* Radix UI Overlay (legacy) - uses ::before for blur effect */
-  .fui-DialogOverlay {
-    &::before {
-      backdrop-filter: blur(var(--overlay-blur)) brightness(var(--overlay-brightness));
-    }
-
-    &:where([data-state='closed']) {
-      animation: fui-blur-out 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    &:where([data-state='open'])::before {
-      animation: fui-blur-in 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    &:where([data-state='closed'])::before {
-      animation: fui-blur-out 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-  }
-
   .fui-DialogContent {
-    /* Radix UI (legacy) */
-    &:where([data-state='open']) {
-      animation: fui-dialog-content-show 400ms cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    &:where([data-state='closed']) {
-      animation: fui-dialog-content-hide 150ms cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    /* Base UI */
     &:where([data-open]) {
       animation: fui-dialog-content-show 400ms cubic-bezier(0.16, 1, 0.3, 1);
     }
