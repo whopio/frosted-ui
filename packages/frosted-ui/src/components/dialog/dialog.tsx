@@ -1,6 +1,6 @@
 'use client';
 
-import { Dialog as DialogPrimitive } from '@base-ui/react/dialog';
+import { Dialog as DialogPrimitive, DialogRootActions } from '@base-ui/react/dialog';
 import classNames from 'classnames';
 import * as React from 'react';
 import { Theme } from '../../theme';
@@ -172,6 +172,7 @@ export {
 };
 
 export type {
+  DialogRootActions as Actions,
   DialogCloseProps as CloseProps,
   DialogContentProps as ContentProps,
   DialogDescriptionProps as DescriptionProps,

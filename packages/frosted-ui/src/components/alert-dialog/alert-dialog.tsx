@@ -1,6 +1,6 @@
 'use client';
 
-import { AlertDialog as AlertDialogPrimitive } from '@base-ui/react/alert-dialog';
+import { AlertDialog as AlertDialogPrimitive, AlertDialogRootActions } from '@base-ui/react/alert-dialog';
 import classNames from 'classnames';
 import * as React from 'react';
 import { Theme } from '../../theme';
@@ -192,6 +192,7 @@ export {
 
 export type {
   AlertDialogActionProps as ActionProps,
+  AlertDialogRootActions as Actions,
   AlertDialogCancelProps as CancelProps,
   AlertDialogCloseProps as CloseProps,
   AlertDialogContentProps as ContentProps,

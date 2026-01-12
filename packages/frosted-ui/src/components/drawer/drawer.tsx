@@ -1,6 +1,6 @@
 'use client';
 
-import { Dialog as DrawerPrimitive } from '@base-ui/react/dialog';
+import { DialogRootActions, Dialog as DrawerPrimitive } from '@base-ui/react/dialog';
 import classNames from 'classnames';
 import * as React from 'react';
 import { Theme } from '../../theme';
@@ -28,8 +28,10 @@ function DrawerRoot<T = unknown>(props: DrawerRootProps<T>) {
 DrawerRoot.displayName = 'DrawerRoot';
 
 // Trigger - generic to infer payload type from handle
-interface DrawerTriggerProps<T = unknown>
-  extends Omit<React.ComponentProps<typeof DrawerPrimitive.Trigger>, 'render' | 'handle' | 'payload'> {
+interface DrawerTriggerProps<T = unknown> extends Omit<
+  React.ComponentProps<typeof DrawerPrimitive.Trigger>,
+  'render' | 'handle' | 'payload'
+> {
   className?: string;
   children: React.ReactElement;
   handle?: DrawerHandle<T>;
@@ -136,6 +138,7 @@ export {
 };
 
 export type {
+  DialogRootActions as Actions,
   DrawerBodyProps as BodyProps,
   DrawerCloseProps as CloseProps,
   DrawerContentProps as ContentProps,

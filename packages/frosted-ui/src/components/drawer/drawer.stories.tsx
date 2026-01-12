@@ -795,3 +795,246 @@ export const KeepMounted: Story = {
     );
   },
 };
+
+export const NestedDrawers: Story = {
+  name: 'Nested Drawers',
+  render: function Render(args) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
+        <Text style={{ maxWidth: 500, textAlign: 'center' }}>
+          Drawers can be nested within one another. The parent drawer scales down and moves left when a child drawer
+          opens.
+        </Text>
+
+        <Drawer.Root>
+          <Drawer.Trigger>
+            <Button variant="classic">Open Parent Drawer</Button>
+          </Drawer.Trigger>
+          <Drawer.Content {...args}>
+            <Drawer.Header>
+              <Drawer.Title>Parent Drawer</Drawer.Title>
+              <Drawer.Close>
+                <IconButton size="1" color="gray" variant="ghost">
+                  <XMark16 />
+                </IconButton>
+              </Drawer.Close>
+            </Drawer.Header>
+            <Drawer.Body>
+              <Text as="p" size="2" style={{ marginBottom: 'var(--space-4)' }}>
+                This is the parent drawer. Click the button below to open a nested drawer. Notice how this drawer scales
+                down and moves to the left when the child opens.
+              </Text>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+                <label>
+                  <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                    Project Name
+                  </Text>
+                  <TextField.Input defaultValue="My Project" />
+                </label>
+                <label>
+                  <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                    Description
+                  </Text>
+                  <TextArea defaultValue="A description of the project..." style={{ minHeight: 80 }} />
+                </label>
+              </div>
+
+              <div
+                style={{
+                  display: 'flex',
+                  gap: 'var(--space-3)',
+                  marginTop: 'var(--space-4)',
+                  justifyContent: 'flex-end',
+                }}
+              >
+                <Drawer.Root>
+                  <Drawer.Trigger>
+                    <Button variant="soft">Open Settings</Button>
+                  </Drawer.Trigger>
+                  <Drawer.Content {...args} style={{ maxWidth: 340 }}>
+                    <Drawer.Header>
+                      <Drawer.Title>Settings</Drawer.Title>
+                      <Drawer.Close>
+                        <IconButton size="1" color="gray" variant="ghost">
+                          <XMark16 />
+                        </IconButton>
+                      </Drawer.Close>
+                    </Drawer.Header>
+                    <Drawer.Body>
+                      <Text as="p" size="2" style={{ marginBottom: 'var(--space-4)' }}>
+                        This is a nested drawer. You can continue nesting more drawers if needed.
+                      </Text>
+
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+                        <label style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+                          <Checkbox defaultChecked />
+                          <Text size="2">Enable notifications</Text>
+                        </label>
+                        <label style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+                          <Checkbox />
+                          <Text size="2">Auto-save drafts</Text>
+                        </label>
+                        <label style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+                          <Checkbox defaultChecked />
+                          <Text size="2">Show tooltips</Text>
+                        </label>
+                      </div>
+
+                      <div
+                        style={{
+                          display: 'flex',
+                          gap: 'var(--space-3)',
+                          marginTop: 'var(--space-4)',
+                          justifyContent: 'flex-end',
+                        }}
+                      >
+                        <Drawer.Close>
+                          <Button variant="soft" color="gray">
+                            Cancel
+                          </Button>
+                        </Drawer.Close>
+                        <Drawer.Close>
+                          <Button variant="classic">Save Settings</Button>
+                        </Drawer.Close>
+                      </div>
+                    </Drawer.Body>
+                  </Drawer.Content>
+                </Drawer.Root>
+                <Drawer.Close>
+                  <Button variant="classic">Done</Button>
+                </Drawer.Close>
+              </div>
+            </Drawer.Body>
+          </Drawer.Content>
+        </Drawer.Root>
+      </div>
+    );
+  },
+};
+
+export const DeeplyNestedDrawers: Story = {
+  name: 'Deeply Nested Drawers',
+  render: function Render(args) {
+    const level1Ref = React.useRef<Drawer.Actions>(null!);
+    const level2Ref = React.useRef<Drawer.Actions>(null!);
+    const level3Ref = React.useRef<Drawer.Actions>(null!);
+
+    const closeAll = () => {
+      // Close from innermost to outermost for smooth animation
+      level3Ref.current?.close();
+      level2Ref.current?.close();
+      level1Ref.current?.close();
+    };
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
+        <Text style={{ maxWidth: 500, textAlign: 'center' }}>
+          Drawers can be nested multiple levels deep. Each level scales and shifts the parent drawers. Use{' '}
+          <Code>actionsRef</Code> to close all drawers at once.
+        </Text>
+
+        <Drawer.Root actionsRef={level1Ref}>
+          <Drawer.Trigger>
+            <Button variant="classic">Open Level 1</Button>
+          </Drawer.Trigger>
+          <Drawer.Content {...args}>
+            <Drawer.Header>
+              <Drawer.Title>Level 1</Drawer.Title>
+              <Drawer.Close>
+                <IconButton size="1" color="gray" variant="ghost">
+                  <XMark16 />
+                </IconButton>
+              </Drawer.Close>
+            </Drawer.Header>
+            <Drawer.Body>
+              <Text as="p" size="2" style={{ marginBottom: 'var(--space-4)' }}>
+                First level drawer. Open another to see the stacking effect.
+              </Text>
+
+              <div
+                style={{
+                  display: 'flex',
+                  gap: 'var(--space-3)',
+                  justifyContent: 'flex-end',
+                }}
+              >
+                <Drawer.Root actionsRef={level2Ref}>
+                  <Drawer.Trigger>
+                    <Button variant="soft">Open Level 2</Button>
+                  </Drawer.Trigger>
+                  <Drawer.Content {...args} style={{ maxWidth: 350 }}>
+                    <Drawer.Header>
+                      <Drawer.Title>Level 2</Drawer.Title>
+                      <Drawer.Close>
+                        <IconButton size="1" color="gray" variant="ghost">
+                          <XMark16 />
+                        </IconButton>
+                      </Drawer.Close>
+                    </Drawer.Header>
+                    <Drawer.Body>
+                      <Text as="p" size="2" style={{ marginBottom: 'var(--space-4)' }}>
+                        Second level drawer. One more to go!
+                      </Text>
+
+                      <div
+                        style={{
+                          display: 'flex',
+                          gap: 'var(--space-3)',
+                          justifyContent: 'flex-end',
+                        }}
+                      >
+                        <Drawer.Root actionsRef={level3Ref}>
+                          <Drawer.Trigger>
+                            <Button variant="soft">Open Level 3</Button>
+                          </Drawer.Trigger>
+                          <Drawer.Content {...args} style={{ maxWidth: 320 }}>
+                            <Drawer.Header>
+                              <Drawer.Title>Level 3</Drawer.Title>
+                              <Drawer.Close>
+                                <IconButton size="1" color="gray" variant="ghost">
+                                  <XMark16 />
+                                </IconButton>
+                              </Drawer.Close>
+                            </Drawer.Header>
+                            <Drawer.Body>
+                              <Text as="p" size="2" style={{ marginBottom: 'var(--space-4)' }}>
+                                Third level - the deepest drawer. Notice how all parent drawers have scaled and shifted.
+                              </Text>
+
+                              <div
+                                style={{
+                                  display: 'flex',
+                                  gap: 'var(--space-3)',
+                                  justifyContent: 'flex-end',
+                                }}
+                              >
+                                <Button variant="classic" onClick={closeAll}>
+                                  Close All
+                                </Button>
+                              </div>
+                            </Drawer.Body>
+                          </Drawer.Content>
+                        </Drawer.Root>
+                        <Drawer.Close>
+                          <Button variant="soft" color="gray">
+                            Close
+                          </Button>
+                        </Drawer.Close>
+                      </div>
+                    </Drawer.Body>
+                  </Drawer.Content>
+                </Drawer.Root>
+                <Drawer.Close>
+                  <Button variant="soft" color="gray">
+                    Close
+                  </Button>
+                </Drawer.Close>
+              </div>
+            </Drawer.Body>
+          </Drawer.Content>
+        </Drawer.Root>
+      </div>
+    );
+  },
+};
