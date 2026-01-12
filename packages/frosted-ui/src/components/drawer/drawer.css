@@ -1,3 +1,5 @@
+/* .fui-DrawerBackdrop inherits all styles from .fui-DialogBackdrop */
+
 .fui-DrawerContent {
   z-index: 1;
   position: fixed;
@@ -15,6 +17,7 @@
 
   border-radius: 12px;
   box-shadow: 0px 0px 0px 1px var(--gray-a5);
+  outline: none;
   --drawer-content-padding: 16px;
 }
 
@@ -48,32 +51,27 @@
   border-top: 1px solid var(--color-stroke);
 }
 
+/***************************************************************************************************
+ *                                                                                                 *
+ * TRANSITIONS (using Base UI's data-starting-style / data-ending-style)                          *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
 @media (prefers-reduced-motion: no-preference) {
-  @keyframes fui-drawer-content-show {
-    from {
-      transform: translateX(100%);
-    }
-    to {
-      transform: translateX(0%);
-    }
-  }
-
-  @keyframes fui-drawer-content-hide {
-    from {
-      transform: translateX(0%);
-    }
-    to {
-      transform: translateX(100%);
-    }
-  }
-
   .fui-DrawerContent {
-    &:where([data-state='open']) {
-      animation: fui-drawer-content-show 400ms cubic-bezier(0.32, 0.72, 0, 1);
+    /* Default: hidden off-screen (for keepMounted initial state) */
+    transform: translateX(calc(100% + 8px));
+    transition: transform 400ms cubic-bezier(0.32, 0.72, 0, 1);
+
+    /* When open: slide in */
+    &[data-open] {
+      transform: translateX(0%);
     }
 
-    &:where([data-state='closed']) {
-      animation: fui-drawer-content-hide 400ms cubic-bezier(0.32, 0.72, 0, 1);
+    /* Starting/ending transitions */
+    &[data-starting-style],
+    &[data-ending-style] {
+      transform: translateX(calc(100% + 8px));
     }
   }
 }

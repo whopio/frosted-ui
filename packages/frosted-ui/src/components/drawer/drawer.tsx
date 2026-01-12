@@ -1,52 +1,95 @@
 'use client';
 
+import { Dialog as DrawerPrimitive } from '@base-ui/react/dialog';
 import classNames from 'classnames';
-import { Dialog as DrawerPrimitive } from 'radix-ui';
 import * as React from 'react';
 import { Theme } from '../../theme';
 import { Heading } from '../heading';
 
-interface DrawerRootProps extends Omit<React.ComponentProps<typeof DrawerPrimitive.Root>, 'modal'> {}
-const DrawerRoot: React.FC<DrawerRootProps> = (props) => <DrawerPrimitive.Root {...props} modal />;
+// Re-export createHandle for detached triggers
+const createHandle = DrawerPrimitive.createHandle;
+
+// Types from Base UI
+type RootProps = React.ComponentProps<typeof DrawerPrimitive.Root>;
+type PortalProps = React.ComponentProps<typeof DrawerPrimitive.Portal>;
+type PopupProps = React.ComponentProps<typeof DrawerPrimitive.Popup>;
+
+// Handle type - extracts the return type of createHandle with a generic
+type DrawerHandle<T = unknown> = ReturnType<typeof DrawerPrimitive.createHandle<T>>;
+
+// Root - generic to infer payload type from handle
+interface DrawerRootProps<T = unknown> extends Omit<RootProps, 'modal' | 'children' | 'handle'> {
+  children?: React.ReactNode | ((props: { payload: T | undefined }) => React.ReactNode);
+  handle?: DrawerHandle<T>;
+}
+function DrawerRoot<T = unknown>(props: DrawerRootProps<T>) {
+  return <DrawerPrimitive.Root {...(props as RootProps)} modal />;
+}
 DrawerRoot.displayName = 'DrawerRoot';
 
-interface DrawerTriggerProps extends Omit<React.ComponentProps<typeof DrawerPrimitive.Trigger>, 'asChild'> {}
-const DrawerTrigger = (props: DrawerTriggerProps) => <DrawerPrimitive.Trigger {...props} asChild />;
+// Trigger - generic to infer payload type from handle
+interface DrawerTriggerProps<T = unknown>
+  extends Omit<React.ComponentProps<typeof DrawerPrimitive.Trigger>, 'render' | 'handle' | 'payload'> {
+  className?: string;
+  children: React.ReactElement;
+  handle?: DrawerHandle<T>;
+  payload?: T;
+}
+function DrawerTrigger<T = unknown>({ children, ...props }: DrawerTriggerProps<T>) {
+  return (
+    <DrawerPrimitive.Trigger
+      {...(props as React.ComponentProps<typeof DrawerPrimitive.Trigger>)}
+      render={children as React.ReactElement}
+    />
+  );
+}
 DrawerTrigger.displayName = 'DrawerTrigger';
 
-interface DrawerContentProps extends Omit<React.ComponentProps<typeof DrawerPrimitive.Content>, 'asChild'> {
-  container?: React.ComponentProps<typeof DrawerPrimitive.Portal>['container'];
+// Content
+interface DrawerContentProps extends Omit<PopupProps, 'className' | 'render'> {
+  className?: string;
+  container?: PortalProps['container'];
+  keepMounted?: PortalProps['keepMounted'];
 }
+
 const DrawerContent = (props: DrawerContentProps) => {
-  const { className, forceMount, container, ...contentProps } = props;
+  const { className, children, keepMounted, container, ...popupProps } = props;
+
   return (
-    <DrawerPrimitive.Portal container={container} forceMount={forceMount}>
+    <DrawerPrimitive.Portal container={container} keepMounted={keepMounted}>
+      <DrawerPrimitive.Backdrop className="fui-DialogBackdrop fui-DrawerBackdrop" />
       <Theme asChild>
-        <DrawerPrimitive.Overlay className="fui-DialogOverlay">
-          <DrawerPrimitive.Content
-            {...contentProps}
-            aria-describedby={undefined}
-            className={classNames('fui-DrawerContent', className)}
-          />
-        </DrawerPrimitive.Overlay>
+        <DrawerPrimitive.Popup
+          {...popupProps}
+          aria-describedby={undefined}
+          className={classNames('fui-DrawerContent', className)}
+        >
+          {children}
+        </DrawerPrimitive.Popup>
       </Theme>
     </DrawerPrimitive.Portal>
   );
 };
 DrawerContent.displayName = 'DrawerContent';
 
+// Title
 type DrawerTitleProps = React.ComponentProps<typeof Heading>;
 const DrawerTitle = (props: DrawerTitleProps) => (
-  <DrawerPrimitive.Title asChild>
-    <Heading size="4" weight="semi-bold" {...props} />
-  </DrawerPrimitive.Title>
+  <DrawerPrimitive.Title render={<Heading size="4" weight="semi-bold" {...props} />} />
 );
 DrawerTitle.displayName = 'DrawerTitle';
 
-interface DrawerCloseProps extends Omit<React.ComponentProps<typeof DrawerPrimitive.Close>, 'asChild'> {}
-const DrawerClose = (props: DrawerCloseProps) => <DrawerPrimitive.Close {...props} asChild />;
+// Close
+interface DrawerCloseProps extends Omit<React.ComponentProps<typeof DrawerPrimitive.Close>, 'render'> {
+  className?: string;
+  children: React.ReactElement;
+}
+const DrawerClose = ({ children, ...props }: DrawerCloseProps) => (
+  <DrawerPrimitive.Close {...props} render={children as React.ReactElement} />
+);
 DrawerClose.displayName = 'DrawerClose';
 
+// Sticky Footer
 type DrawerStickyFooterProps = React.ComponentProps<'div'>;
 const DrawerStickyFooter = ({ children, className, ...props }: DrawerStickyFooterProps) => (
   <div className={classNames('fui-DrawerStickyFooter', className)} {...props}>
@@ -55,6 +98,7 @@ const DrawerStickyFooter = ({ children, className, ...props }: DrawerStickyFoote
 );
 DrawerStickyFooter.displayName = 'DrawerStickyFooter';
 
+// Header
 type DrawerHeaderProps = React.ComponentProps<'div'>;
 const DrawerHeader = ({ children, className, ...props }: DrawerHeaderProps) => (
   <div className={classNames('fui-DrawerHeader', className)} {...props}>
@@ -63,6 +107,7 @@ const DrawerHeader = ({ children, className, ...props }: DrawerHeaderProps) => (
 );
 DrawerHeader.displayName = 'DrawerHeader';
 
+// Body
 type DrawerBodyProps = React.ComponentProps<'div'>;
 const DrawerBody = ({ children, className, ...props }: DrawerBodyProps) => {
   const localRef = React.useRef<HTMLDivElement | null>(null);
@@ -82,6 +127,7 @@ export {
   DrawerBody as Body,
   DrawerClose as Close,
   DrawerContent as Content,
+  createHandle,
   DrawerHeader as Header,
   DrawerRoot as Root,
   DrawerStickyFooter as StickyFooter,
@@ -93,6 +139,7 @@ export type {
   DrawerBodyProps as BodyProps,
   DrawerCloseProps as CloseProps,
   DrawerContentProps as ContentProps,
+  DrawerHandle as Handle,
   DrawerHeaderProps as HeaderProps,
   DrawerRootProps as RootProps,
   DrawerStickyFooterProps as StickyFooterProps,
