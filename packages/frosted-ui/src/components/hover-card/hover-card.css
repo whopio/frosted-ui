@@ -1,21 +1,40 @@
 .fui-HoverCardContent {
   background-color: var(--color-panel-solid);
-  box-shadow: var(--shadow-4);
+  box-shadow: var(--shadow-5);
+  outline: 0;
   overflow: auto;
+  text-align: start;
 
   --inset-padding: var(--hover-card-content-padding);
   padding: var(--hover-card-content-padding);
 
-  transform-origin: var(--radix-hover-card-content-transform-origin);
+  transform-origin: var(--transform-origin);
+
+  /* Animations */
+  transition:
+    transform 150ms ease-out,
+    opacity 150ms ease-out;
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  &[data-ending-style] {
+    transition-duration: 75ms;
+  }
 
   &:where(.fui-variant-translucent) {
     background-color: var(--color-panel-translucent);
     -webkit-backdrop-filter: var(--backdrop-filter-panel);
     backdrop-filter: var(--backdrop-filter-panel);
-    outline: 0.5px solid var(--color-popover-outline);
   }
   &:where(.fui-variant-solid) {
     background-color: var(--color-panel-solid);
+  }
+  &:where(.fui-variant-translucent, .fui-variant-solid) {
+    outline: 0.5px solid var(--color-popover-outline);
   }
 }
 /* prettier-ignore */
