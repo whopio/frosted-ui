@@ -1313,3 +1313,174 @@ export const FinalFocus: Story = {
     );
   },
 };
+
+export const InitialFocus: Story = {
+  name: 'Initial Focus',
+  args: {
+    size: popoverContentPropDefs.size.default,
+    variant: popoverContentPropDefs.variant.default,
+  },
+  render: function Render(args) {
+    const deleteButtonRef = React.useRef<HTMLButtonElement>(null);
+    const searchInputRef = React.useRef<HTMLInputElement>(null);
+    const recentButtonRef = React.useRef<HTMLButtonElement>(null);
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+        <Text size="2" color="gray">
+          The <Code>initialFocus</Code> prop controls which element receives focus when the popover opens. By default,
+          focus moves to the first focusable element inside the popover.
+        </Text>
+
+        <div style={{ display: 'flex', gap: 'var(--space-6)', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <Text size="1" weight="medium">
+              Default behavior
+            </Text>
+            <Text size="1" color="gray" style={{ maxWidth: 180 }}>
+              First focusable element receives focus
+            </Text>
+            <Popover.Root>
+              <Popover.Trigger>
+                <Button size="1">Open</Button>
+              </Popover.Trigger>
+              <Popover.Content {...args} style={{ width: 260 }}>
+                <Heading size="3" style={{ marginBottom: 8 }}>
+                  Edit Item
+                </Heading>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+                  <TextField.Input placeholder="Item name" defaultValue="My Item" />
+                  <TextArea placeholder="Description" defaultValue="A short description..." />
+                  <div style={{ display: 'flex', gap: 'var(--space-2)', justifyContent: 'flex-end' }}>
+                    <Popover.Close>
+                      <Button size="1" variant="soft">
+                        Cancel
+                      </Button>
+                    </Popover.Close>
+                    <Button size="1">Save</Button>
+                  </div>
+                </div>
+              </Popover.Content>
+            </Popover.Root>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <Text size="1" weight="medium">
+              initialFocus=false
+            </Text>
+            <Text size="1" color="gray" style={{ maxWidth: 180 }}>
+              No element is focused on open
+            </Text>
+            <Popover.Root>
+              <Popover.Trigger>
+                <Button size="1">Open</Button>
+              </Popover.Trigger>
+              <Popover.Content {...args} initialFocus={false} style={{ width: 260 }}>
+                <Heading size="3" style={{ marginBottom: 8 }}>
+                  Information
+                </Heading>
+                <Text size="2" color="gray">
+                  This is a read-only info panel. No element receives focus when it opens, which can be useful for
+                  non-interactive popovers.
+                </Text>
+                <Popover.Close>
+                  <Button size="1" variant="soft" style={{ marginTop: 12 }}>
+                    Got it
+                  </Button>
+                </Popover.Close>
+              </Popover.Content>
+            </Popover.Root>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <Text size="1" weight="medium">
+              initialFocus={'{ref}'}
+            </Text>
+            <Text size="1" color="gray" style={{ maxWidth: 180 }}>
+              Focus a specific element (the Delete button)
+            </Text>
+            <Popover.Root>
+              <Popover.Trigger>
+                <Button size="1" color="red" variant="soft">
+                  Delete
+                </Button>
+              </Popover.Trigger>
+              <Popover.Content {...args} initialFocus={deleteButtonRef} style={{ width: 260 }}>
+                <Heading size="3" style={{ marginBottom: 8 }}>
+                  Confirm Deletion
+                </Heading>
+                <Text size="2" color="gray" style={{ marginBottom: 12, display: 'block' }}>
+                  Are you sure you want to delete this item? This action cannot be undone.
+                </Text>
+                <div style={{ display: 'flex', gap: 'var(--space-2)', justifyContent: 'flex-end' }}>
+                  <Popover.Close>
+                    <Button size="1" variant="soft">
+                      Cancel
+                    </Button>
+                  </Popover.Close>
+                  <Popover.Close>
+                    <Button ref={deleteButtonRef} size="1" color="red">
+                      Delete
+                    </Button>
+                  </Popover.Close>
+                </div>
+              </Popover.Content>
+            </Popover.Root>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <Text size="1" weight="medium">
+              initialFocus={'{function}'}
+            </Text>
+            <Text size="1" color="gray" style={{ maxWidth: 180 }}>
+              Dynamic focus based on open method
+            </Text>
+            <Popover.Root>
+              <Popover.Trigger>
+                <Button size="1">Search</Button>
+              </Popover.Trigger>
+              <Popover.Content
+                {...args}
+                initialFocus={(interactionType) => {
+                  // Focus search input when opened via keyboard
+                  if (interactionType === 'keyboard') {
+                    return searchInputRef.current;
+                  }
+                  // Focus button when opened via pointer/touch
+                  return recentButtonRef.current;
+                }}
+                style={{ width: 280 }}
+              >
+                <Heading size="3" style={{ marginBottom: 8 }}>
+                  Quick Search
+                </Heading>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+                  <TextField.Input ref={searchInputRef} placeholder="Search..." />
+                  <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+                    <Button ref={recentButtonRef} size="1" variant="soft" style={{ flex: 1 }}>
+                      Recent
+                    </Button>
+                    <Button size="1" variant="soft" style={{ flex: 1 }}>
+                      Favorites
+                    </Button>
+                  </div>
+                  <Text size="1" color="gray">
+                    Keyboard open → focuses input
+                    <br />
+                    Click open → focuses first button
+                  </Text>
+                </div>
+              </Popover.Content>
+            </Popover.Root>
+          </div>
+        </div>
+
+        <Text size="1" color="gray">
+          The <Code>initialFocus</Code> function receives the interaction type (<Code>keyboard</Code>,{' '}
+          <Code>pointer</Code>, <Code>touch</Code>) so you can customize initial focus based on how the popover was
+          opened.
+        </Text>
+      </div>
+    );
+  },
+};
