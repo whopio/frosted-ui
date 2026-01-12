@@ -830,3 +830,109 @@ export const Sticky: Story = {
     </div>
   ),
 };
+
+export const DisableAnchorTracking: Story = {
+  name: 'Disable Anchor Tracking',
+  args: {
+    size: '2',
+    variant: 'translucent',
+  },
+  render: function Render(args) {
+    const [position, setPosition] = React.useState(0);
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+        <Text>
+          The <Code>disableAnchorTracking</Code> prop controls whether the hover card repositions when the anchor
+          element moves due to layout changes (not scrolling). This is useful for performance optimization or when you
+          want the hover card to stay in its original position.
+        </Text>
+
+        <Button size="1" onClick={() => setPosition((p) => (p === 0 ? 80 : 0))}>
+          Move anchors
+        </Button>
+
+        <div style={{ display: 'flex', gap: 'var(--space-6)' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <Text size="1" weight="medium">
+              Default (tracking enabled)
+            </Text>
+            <Text size="1" color="gray" style={{ maxWidth: 180 }}>
+              Hover card follows when anchor moves
+            </Text>
+            <div
+              style={{
+                width: 220,
+                height: 100,
+                border: '1px solid var(--gray-6)',
+                borderRadius: 'var(--radius-2)',
+                padding: 'var(--space-3)',
+                position: 'relative',
+              }}
+            >
+              <HoverCard.Root open>
+                <HoverCard.Trigger>
+                  <Link
+                    href="#"
+                    style={{
+                      display: 'inline-block',
+                      transform: `translateX(${position}px)`,
+                      transition: 'transform 300ms ease',
+                    }}
+                  >
+                    Hover target
+                  </Link>
+                </HoverCard.Trigger>
+                <HoverCard.Content {...args} side="bottom">
+                  <Text size="2">Follows anchor movement</Text>
+                </HoverCard.Content>
+              </HoverCard.Root>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <Text size="1" weight="medium">
+              disableAnchorTracking=true
+            </Text>
+            <Text size="1" color="gray" style={{ maxWidth: 180 }}>
+              Hover card stays in original position
+            </Text>
+            <div
+              style={{
+                width: 220,
+                height: 100,
+                border: '1px solid var(--gray-6)',
+                borderRadius: 'var(--radius-2)',
+                padding: 'var(--space-3)',
+                position: 'relative',
+              }}
+            >
+              <HoverCard.Root open>
+                <HoverCard.Trigger>
+                  <Link
+                    href="#"
+                    style={{
+                      display: 'inline-block',
+                      transform: `translateX(${position}px)`,
+                      transition: 'transform 300ms ease',
+                    }}
+                  >
+                    Hover target
+                  </Link>
+                </HoverCard.Trigger>
+                <HoverCard.Content {...args} disableAnchorTracking side="bottom">
+                  <Text size="2">Stays in place</Text>
+                </HoverCard.Content>
+              </HoverCard.Root>
+            </div>
+          </div>
+        </div>
+
+        <Text size="1" color="gray">
+          Click the button above to move the anchor elements. The left hover card will follow, while the right one stays
+          fixed at its original position.
+        </Text>
+      </div>
+    );
+  },
+};

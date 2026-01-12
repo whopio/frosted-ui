@@ -58,6 +58,7 @@ interface HoverCardContentProps
       | 'arrowPadding'
       | 'sticky'
       | 'anchor'
+      | 'disableAnchorTracking'
     >,
     HoverCardContentOwnProps {
   className?: string;
@@ -85,6 +86,7 @@ const HoverCardContent = (props: HoverCardContentProps) => {
     arrowPadding,
     sticky,
     anchor,
+    disableAnchorTracking,
     children,
     ...contentProps
   } = props;
@@ -101,6 +103,7 @@ const HoverCardContent = (props: HoverCardContentProps) => {
         arrowPadding={arrowPadding}
         sticky={sticky}
         anchor={anchor}
+        disableAnchorTracking={disableAnchorTracking}
         className="fui-HoverCardPositioner"
       >
         <Theme asChild>
