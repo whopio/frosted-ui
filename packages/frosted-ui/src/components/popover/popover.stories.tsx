@@ -1160,3 +1160,156 @@ function QuickActionsDemo({ args }: { args: Record<string, unknown> }) {
     </Popover.Root>
   );
 }
+
+export const FinalFocus: Story = {
+  name: 'Final Focus',
+  args: {
+    size: popoverContentPropDefs.size.default,
+    variant: popoverContentPropDefs.variant.default,
+  },
+  render: function Render(args) {
+    const alternateRef = React.useRef<HTMLButtonElement>(null);
+    const inputRef = React.useRef<HTMLInputElement>(null);
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+        <Text size="2" color="gray">
+          The <Code>finalFocus</Code> prop controls where focus returns after the popover closes. By default, focus
+          returns to the trigger element.
+        </Text>
+
+        <div style={{ display: 'flex', gap: 'var(--space-6)', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <Text size="1" weight="medium">
+              Default behavior
+            </Text>
+            <Text size="1" color="gray" style={{ maxWidth: 180 }}>
+              Focus returns to the trigger after close
+            </Text>
+            <Popover.Root>
+              <Popover.Trigger>
+                <Button size="1">Open</Button>
+              </Popover.Trigger>
+              <Popover.Content {...args}>
+                <Text size="2">Close me and focus returns to the trigger button.</Text>
+                <Popover.Close>
+                  <Button size="1" variant="soft" style={{ marginTop: 12 }}>
+                    Close
+                  </Button>
+                </Popover.Close>
+              </Popover.Content>
+            </Popover.Root>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <Text size="1" weight="medium">
+              finalFocus=false
+            </Text>
+            <Text size="1" color="gray" style={{ maxWidth: 180 }}>
+              Focus is not moved after close
+            </Text>
+            <Popover.Root>
+              <Popover.Trigger>
+                <Button size="1">Open</Button>
+              </Popover.Trigger>
+              <Popover.Content {...args} finalFocus={false}>
+                <Text size="2">Close me and focus stays where it is (not moved).</Text>
+                <Popover.Close>
+                  <Button size="1" variant="soft" style={{ marginTop: 12 }}>
+                    Close
+                  </Button>
+                </Popover.Close>
+              </Popover.Content>
+            </Popover.Root>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <Text size="1" weight="medium">
+              finalFocus={'{ref}'}
+            </Text>
+            <Text size="1" color="gray" style={{ maxWidth: 180 }}>
+              Focus moves to a specific element
+            </Text>
+            <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
+              <Popover.Root>
+                <Popover.Trigger>
+                  <Button size="1">Open</Button>
+                </Popover.Trigger>
+                <Popover.Content {...args} finalFocus={alternateRef}>
+                  <Text size="2">Close me and focus moves to the &quot;Target&quot; button.</Text>
+                  <Popover.Close>
+                    <Button size="1" variant="soft" style={{ marginTop: 12 }}>
+                      Close
+                    </Button>
+                  </Popover.Close>
+                </Popover.Content>
+              </Popover.Root>
+              <Button ref={alternateRef} size="1" variant="solid">
+                Target
+              </Button>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <Text size="1" weight="medium">
+              finalFocus={'{function}'}
+            </Text>
+            <Text size="1" color="gray" style={{ maxWidth: 180 }}>
+              Dynamic focus based on close method
+            </Text>
+            <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
+              <Popover.Root>
+                <Popover.Trigger>
+                  <Button size="1">Open</Button>
+                </Popover.Trigger>
+                <Popover.Content
+                  {...args}
+                  finalFocus={(interactionType) => {
+                    // Focus input if closed by keyboard (Escape), otherwise default behavior
+                    if (interactionType === 'keyboard') {
+                      return inputRef.current;
+                    }
+                    return true; // Default: return to trigger
+                  }}
+                >
+                  <Text size="2">
+                    Press <Code>Escape</Code> → focuses the input.
+                    <br />
+                    Click outside → returns to trigger.
+                  </Text>
+                  <Popover.Close>
+                    <Button size="1" variant="soft" style={{ marginTop: 12 }}>
+                      Close
+                    </Button>
+                  </Popover.Close>
+                </Popover.Content>
+              </Popover.Root>
+            </div>
+          </div>
+        </div>
+
+        <div
+          style={{
+            marginTop: 'var(--space-4)',
+            padding: 'var(--space-4)',
+            background: 'var(--gray-a3)',
+            borderRadius: 'var(--radius-3)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'var(--space-2)',
+          }}
+        >
+          <Text size="1" weight="medium">
+            Focus target for dynamic example
+          </Text>
+          <TextField.Input ref={inputRef} placeholder="Focus lands here when pressing Escape..." />
+        </div>
+
+        <Text size="1" color="gray">
+          The <Code>finalFocus</Code> function receives the interaction type (<Code>keyboard</Code>,{' '}
+          <Code>pointer</Code>, <Code>touch</Code>) so you can customize behavior based on how the popover was closed.
+        </Text>
+      </div>
+    );
+  },
+};
