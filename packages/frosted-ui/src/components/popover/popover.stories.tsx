@@ -350,42 +350,71 @@ export const DetachedTriggers: Story = {
   ),
 };
 
-export const MultipleTriggers: Story = {
-  name: 'Multiple Triggers',
+export const MultipleTriggersWithPayload: Story = {
+  name: 'Multiple Triggers with Payload',
   args: {
     size: popoverContentPropDefs.size.default,
     variant: popoverContentPropDefs.variant.default,
   },
   render: function Render(args) {
-    const handle = React.useMemo(() => Popover.createHandle<string>(), []);
+    // The payload type is inferred from createHandle<T>() - no need to annotate elsewhere
+    const handle = React.useMemo(
+      () => Popover.createHandle<{ user: string; role: 'admin' | 'editor' | 'viewer' }>(),
+      [],
+    );
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
         <Text size="2" color="gray">
-          Multiple triggers can control the same popover using a shared handle. Each trigger can pass a different{' '}
-          <code>payload</code>.
+          Multiple triggers can control the same popover using a shared handle. Each trigger passes a typed{' '}
+          <code>payload</code> that is inferred from the handle.
         </Text>
         <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
-          <Popover.Trigger handle={handle} payload="Button A">
-            <Button variant="soft">Button A</Button>
+          <Popover.Trigger handle={handle} payload={{ user: 'Alice', role: 'admin' }}>
+            <Button variant="soft" color="red">
+              Alice (Admin)
+            </Button>
           </Popover.Trigger>
-          <Popover.Trigger handle={handle} payload="Button B">
-            <Button variant="soft">Button B</Button>
+          <Popover.Trigger handle={handle} payload={{ user: 'Bob', role: 'editor' }}>
+            <Button variant="soft" color="blue">
+              Bob (Editor)
+            </Button>
           </Popover.Trigger>
-          <Popover.Trigger handle={handle} payload="Button C">
-            <Button variant="soft">Button C</Button>
+          <Popover.Trigger handle={handle} payload={{ user: 'Carol', role: 'viewer' }}>
+            <Button variant="soft" color="gray">
+              Carol (Viewer)
+            </Button>
           </Popover.Trigger>
         </div>
 
         <Popover.Root handle={handle}>
-          {(payload) => (
-            <Popover.Content {...args} style={{ width: 280 }}>
-              <Heading size="3" style={{ marginBottom: 8 }}>
-                Triggered by: {String(payload)}
-              </Heading>
+          {({ payload }) => (
+            <Popover.Content {...args} style={{ width: 300 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', marginBottom: 12 }}>
+                <Avatar
+                  size="3"
+                  fallback={payload?.user?.charAt(0) ?? '?'}
+                  color={payload?.role === 'admin' ? 'red' : payload?.role === 'editor' ? 'blue' : 'gray'}
+                />
+                <div>
+                  <Heading size="3">{payload?.user ?? 'Unknown'}</Heading>
+                  <Text size="1" color="gray" style={{ textTransform: 'capitalize' }}>
+                    {payload?.role ?? 'No role'}
+                  </Text>
+                </div>
+              </div>
               <Text size="2" color="gray">
-                The popover content can access the payload from the trigger that opened it.
+                {payload?.role === 'admin'
+                  ? 'Full access to all settings and user management.'
+                  : payload?.role === 'editor'
+                    ? 'Can edit content but cannot manage users.'
+                    : 'Read-only access to view content.'}
               </Text>
+              <Popover.Close>
+                <Button size="1" variant="soft" style={{ marginTop: 12 }}>
+                  Close
+                </Button>
+              </Popover.Close>
             </Popover.Content>
           )}
         </Popover.Root>

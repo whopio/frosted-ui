@@ -8,21 +8,41 @@ import { popoverContentPropDefs } from './popover.props';
 
 import type { GetPropDefTypes } from '../../helpers';
 
-type PopoverRootOwnProps = Omit<React.ComponentProps<typeof PopoverPrimitive.Root>, 'className' | 'render'>;
-interface PopoverRootProps extends PopoverRootOwnProps {}
-const PopoverRoot: React.FC<PopoverRootProps> = (props: PopoverRootProps) => <PopoverPrimitive.Root {...props} />;
+// Handle type - extracts the return type of createHandle with a generic
+type PopoverHandle<T = unknown> = ReturnType<typeof PopoverPrimitive.createHandle<T>>;
+
+// Root - generic to infer payload type from handle
+type PopoverRootOwnProps = Omit<
+  React.ComponentProps<typeof PopoverPrimitive.Root>,
+  'className' | 'render' | 'children' | 'handle'
+>;
+interface PopoverRootProps<T = unknown> extends PopoverRootOwnProps {
+  children?: React.ReactNode | ((props: { payload: T | undefined }) => React.ReactNode);
+  handle?: PopoverHandle<T>;
+}
+function PopoverRoot<T = unknown>(props: PopoverRootProps<T>) {
+  return <PopoverPrimitive.Root {...(props as React.ComponentProps<typeof PopoverPrimitive.Root>)} />;
+}
 PopoverRoot.displayName = 'PopoverRoot';
 
-interface PopoverTriggerProps extends Omit<
+// Trigger - generic to infer payload type from handle
+interface PopoverTriggerProps<T = unknown> extends Omit<
   React.ComponentProps<typeof PopoverPrimitive.Trigger>,
-  'render' | 'className'
+  'render' | 'className' | 'handle' | 'payload'
 > {
   className?: string;
+  handle?: PopoverHandle<T>;
+  payload?: T;
 }
 
-const PopoverTrigger = ({ children, ...props }: PopoverTriggerProps) => (
-  <PopoverPrimitive.Trigger {...props} render={children as React.ReactElement} />
-);
+function PopoverTrigger<T = unknown>({ children, ...props }: PopoverTriggerProps<T>) {
+  return (
+    <PopoverPrimitive.Trigger
+      {...(props as React.ComponentProps<typeof PopoverPrimitive.Trigger>)}
+      render={children as React.ReactElement}
+    />
+  );
+}
 PopoverTrigger.displayName = 'PopoverTrigger';
 
 type PopoverContentOwnProps = GetPropDefTypes<typeof popoverContentPropDefs>;
@@ -117,6 +137,7 @@ export {
 export type {
   PopoverCloseProps as CloseProps,
   PopoverContentProps as ContentProps,
+  PopoverHandle as Handle,
   PopoverRootProps as RootProps,
   PopoverTriggerProps as TriggerProps,
 };
