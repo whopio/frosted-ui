@@ -1,22 +1,43 @@
 .fui-PopoverContent {
   box-shadow: var(--shadow-5);
-  min-width: var(--radix-popover-trigger-width);
+  min-width: var(--anchor-width);
   outline: 0;
   overflow: auto;
+  text-align: start;
 
   --inset-padding: var(--popover-content-padding);
   padding: var(--popover-content-padding);
 
-  transform-origin: var(--radix-popover-content-transform-origin);
+  transform-origin: var(--transform-origin);
 
   &:where(.fui-variant-translucent) {
     background-color: var(--color-panel-translucent);
     -webkit-backdrop-filter: var(--backdrop-filter-panel);
     backdrop-filter: var(--backdrop-filter-panel);
-    outline: 0.5px solid var(--color-popover-outline);
   }
   &:where(.fui-variant-solid) {
     background-color: var(--color-panel-solid);
+  }
+  &:where(.fui-variant-translucent, .fui-variant-solid) {
+    outline: 0.5px solid var(--color-popover-outline);
+  }
+
+  /* Animations */
+  @media (prefers-reduced-motion: no-preference) {
+    transition:
+      transform 150ms ease-out,
+      opacity 150ms ease-out;
+
+    &[data-starting-style] {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+
+    &[data-ending-style] {
+      opacity: 0;
+      transform: scale(0.95);
+      transition-duration: 75ms;
+    }
   }
 }
 /* prettier-ignore */
