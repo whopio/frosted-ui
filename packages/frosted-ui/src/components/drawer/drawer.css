@@ -29,7 +29,7 @@
 
   /* Dim on parent when nested drawer is open */
   &[data-nested-dialog-open] {
-    filter: brightness(0.85) blur(1px);
+    filter: brightness(0.85) blur(calc(var(--nested-dialogs) * 1px));
   }
 }
 
