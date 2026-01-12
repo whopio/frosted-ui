@@ -462,7 +462,8 @@ export const ControlledMode: Story = {
 export const ActionsRef: Story = {
   name: 'Actions Ref',
   render: function Render(args) {
-    const actionsRef = React.useRef<{ close: () => void; unmount: () => void }>(null!);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const actionsRef = React.useRef<Dialog.Actions>(null!);
     const [isSubmitting, setIsSubmitting] = React.useState(false);
 
     const handleSubmit = async () => {

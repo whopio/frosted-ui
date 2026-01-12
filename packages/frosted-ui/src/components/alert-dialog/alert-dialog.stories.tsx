@@ -462,7 +462,8 @@ export const ControlledMode: Story = {
 export const ActionsRef: Story = {
   name: 'Actions Ref',
   render: function Render(args) {
-    const actionsRef = React.useRef<{ close: () => void; unmount: () => void }>(null!);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const actionsRef = React.useRef<AlertDialog.Actions>(null!);
     const [isDeleting, setIsDeleting] = React.useState(false);
 
     const handleDelete = async () => {

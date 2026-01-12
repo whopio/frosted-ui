@@ -427,7 +427,8 @@ export const ControlledMode: Story = {
 export const ActionsRef: Story = {
   name: 'Actions Ref',
   render: function Render(args) {
-    const actionsRef = React.useRef<{ close: () => void; unmount: () => void }>(null!);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const actionsRef = React.useRef<Drawer.Actions>(null!);
     const [isSubmitting, setIsSubmitting] = React.useState(false);
 
     const handleSubmit = async () => {
@@ -916,9 +917,11 @@ export const NestedDrawers: Story = {
 export const DeeplyNestedDrawers: Story = {
   name: 'Deeply Nested Drawers',
   render: function Render(args) {
+    /* eslint-disable @typescript-eslint/no-non-null-assertion */
     const level1Ref = React.useRef<Drawer.Actions>(null!);
     const level2Ref = React.useRef<Drawer.Actions>(null!);
     const level3Ref = React.useRef<Drawer.Actions>(null!);
+    /* eslint-enable @typescript-eslint/no-non-null-assertion */
 
     const closeAll = () => {
       // Close from innermost to outermost for smooth animation
