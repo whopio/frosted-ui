@@ -3,6 +3,7 @@
   box-shadow: var(--shadow-5);
   outline: 0;
   overflow: auto;
+  text-align: start;
 
   --inset-padding: var(--hover-card-content-padding);
   padding: var(--hover-card-content-padding);

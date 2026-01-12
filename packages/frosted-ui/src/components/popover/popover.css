@@ -3,6 +3,7 @@
   min-width: var(--anchor-width);
   outline: 0;
   overflow: auto;
+  text-align: start;
 
   --inset-padding: var(--popover-content-padding);
   padding: var(--popover-content-padding);
