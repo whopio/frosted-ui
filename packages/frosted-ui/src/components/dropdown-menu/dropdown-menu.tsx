@@ -1,7 +1,7 @@
 'use client';
 
+import { Menu as MenuPrimitive } from '@base-ui/react/menu';
 import classNames from 'classnames';
-import { DropdownMenu as DropdownMenuPrimitive, Slot } from 'radix-ui';
 import * as React from 'react';
 import { ThickCheckIcon, ThickChevronRightIcon } from '../../icons';
 import { Theme, useThemeContext } from '../../theme';
@@ -12,16 +12,25 @@ import {
   dropdownMenuItemPropDefs,
 } from './dropdown-menu.props';
 
-import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
+import type { GetPropDefTypes } from '../../helpers';
 
-interface DropdownMenuRootProps extends React.ComponentProps<typeof DropdownMenuPrimitive.Root> {}
-const DropdownMenuRoot: React.FC<DropdownMenuRootProps> = (props) => <DropdownMenuPrimitive.Root {...props} />;
+// Re-export createHandle for detached triggers
+const createHandle = MenuPrimitive.createHandle;
+
+interface DropdownMenuRootProps extends Omit<React.ComponentProps<typeof MenuPrimitive.Root>, 'className' | 'render'> {}
+const DropdownMenuRoot: React.FC<DropdownMenuRootProps> = (props) => <MenuPrimitive.Root {...props} />;
 DropdownMenuRoot.displayName = 'DropdownMenuRoot';
 
-interface DropdownMenuTriggerProps
-  extends Omit<React.ComponentProps<typeof DropdownMenuPrimitive.Trigger>, 'asChild'> {}
+interface DropdownMenuTriggerProps extends Omit<
+  React.ComponentProps<typeof MenuPrimitive.Trigger>,
+  'render' | 'className'
+> {
+  className?: string;
+}
 
-const DropdownMenuTrigger = (props: DropdownMenuTriggerProps) => <DropdownMenuPrimitive.Trigger {...props} asChild />;
+const DropdownMenuTrigger = ({ children, ...props }: DropdownMenuTriggerProps) => (
+  <MenuPrimitive.Trigger {...props} render={children as React.ReactElement} />
+);
 DropdownMenuTrigger.displayName = 'DropdownMenuTrigger';
 
 type DropdownMenuContentOwnProps = GetPropDefTypes<typeof dropdownMenuContentPropDefs>;
@@ -29,9 +38,18 @@ type DropdownMenuContentContextValue = DropdownMenuContentOwnProps;
 const DropdownMenuContentContext = React.createContext<DropdownMenuContentContextValue>({});
 
 interface DropdownMenuContentProps
-  extends PropsWithoutColor<typeof DropdownMenuPrimitive.Content>,
+  extends
+    Omit<React.ComponentProps<typeof MenuPrimitive.Popup>, 'className' | 'render'>,
     DropdownMenuContentContextValue {
-  container?: React.ComponentProps<typeof DropdownMenuPrimitive.Portal>['container'];
+  className?: string;
+  container?: React.ComponentProps<typeof MenuPrimitive.Portal>['container'];
+  keepMounted?: React.ComponentProps<typeof MenuPrimitive.Portal>['keepMounted'];
+  // Positioner props
+  side?: React.ComponentProps<typeof MenuPrimitive.Positioner>['side'];
+  sideOffset?: React.ComponentProps<typeof MenuPrimitive.Positioner>['sideOffset'];
+  align?: React.ComponentProps<typeof MenuPrimitive.Positioner>['align'];
+  alignOffset?: React.ComponentProps<typeof MenuPrimitive.Positioner>['alignOffset'];
+  collisionPadding?: React.ComponentProps<typeof MenuPrimitive.Positioner>['collisionPadding'];
 }
 
 const DropdownMenuContent = (props: DropdownMenuContentProps) => {
@@ -43,48 +61,65 @@ const DropdownMenuContent = (props: DropdownMenuContentProps) => {
     color = dropdownMenuItemPropDefs.color.default,
     variant = dropdownMenuContentPropDefs.variant.default,
     container,
-    forceMount,
-    ...contentProps
+    keepMounted,
+    // Positioner props
+    side = 'bottom',
+    sideOffset = 4,
+    align = 'start',
+    alignOffset,
+    collisionPadding = 10,
+    ...popupProps
   } = props;
   const resolvedColor = color ?? themeContext.accentColor;
   return (
-    <DropdownMenuPrimitive.Portal container={container} forceMount={forceMount}>
-      <Theme asChild>
-        <DropdownMenuPrimitive.Content
-          data-accent-color={resolvedColor}
-          align="start"
-          sideOffset={4}
-          collisionPadding={10}
-          {...contentProps}
-          className={classNames(
-            'fui-PopperContent',
-            'fui-BaseMenuContent',
-            'fui-DropdownMenuContent',
-            `fui-variant-${variant}`,
-            className,
-            `fui-r-size-${size}`,
-          )}
-        >
-          <ScrollArea type="auto">
-            <div className={classNames('fui-BaseMenuViewport', 'fui-DropdownMenuViewport')}>
-              <DropdownMenuContentContext.Provider
-                value={React.useMemo(() => ({ size, color: resolvedColor, variant }), [size, resolvedColor, variant])}
-              >
-                {children}
-              </DropdownMenuContentContext.Provider>
-            </div>
-          </ScrollArea>
-        </DropdownMenuPrimitive.Content>
-      </Theme>
-    </DropdownMenuPrimitive.Portal>
+    <MenuPrimitive.Portal container={container} keepMounted={keepMounted}>
+      <MenuPrimitive.Positioner
+        className="fui-DropdownMenuPositioner"
+        side={side}
+        sideOffset={sideOffset}
+        align={align}
+        alignOffset={alignOffset}
+        collisionPadding={collisionPadding}
+      >
+        <Theme asChild>
+          <MenuPrimitive.Popup
+            data-accent-color={resolvedColor}
+            {...popupProps}
+            className={classNames(
+              'fui-PopperContent',
+              'fui-BaseMenuContent',
+              'fui-DropdownMenuContent',
+              `fui-variant-${variant}`,
+              className,
+              `fui-r-size-${size}`,
+            )}
+          >
+            <ScrollArea type="auto">
+              <div className={classNames('fui-BaseMenuViewport', 'fui-DropdownMenuViewport')}>
+                <DropdownMenuContentContext.Provider
+                  value={React.useMemo(() => ({ size, color: resolvedColor, variant }), [size, resolvedColor, variant])}
+                >
+                  {children}
+                </DropdownMenuContentContext.Provider>
+              </div>
+            </ScrollArea>
+          </MenuPrimitive.Popup>
+        </Theme>
+      </MenuPrimitive.Positioner>
+    </MenuPrimitive.Portal>
   );
 };
 DropdownMenuContent.displayName = 'DropdownMenuContent';
 
-interface DropdownMenuLabelProps extends React.ComponentProps<typeof DropdownMenuPrimitive.Label> {}
+interface DropdownMenuLabelProps extends Omit<
+  React.ComponentProps<typeof MenuPrimitive.GroupLabel>,
+  'className' | 'render'
+> {
+  className?: string;
+}
 
 const DropdownMenuLabel = (props: DropdownMenuLabelProps) => (
-  <DropdownMenuPrimitive.Label
+  <MenuPrimitive.GroupLabel
     {...props}
     className={classNames('fui-BaseMenuLabel', 'fui-DropdownMenuLabel', props.className)}
   />
@@ -93,50 +128,66 @@ DropdownMenuLabel.displayName = 'DropdownMenuLabel';
 
 type DropdownMenuItemOwnProps = GetPropDefTypes<typeof dropdownMenuItemPropDefs>;
 interface DropdownMenuItemProps
-  extends PropsWithoutColor<typeof DropdownMenuPrimitive.Item>,
-    DropdownMenuItemOwnProps {}
+  extends Omit<React.ComponentProps<typeof MenuPrimitive.Item>, 'className' | 'color'>, DropdownMenuItemOwnProps {
+  className?: string;
+}
 
 const DropdownMenuItem = (props: DropdownMenuItemProps) => {
   const { className, children, color = dropdownMenuItemPropDefs.color.default, shortcut, ...itemProps } = props;
   return (
-    <DropdownMenuPrimitive.Item
+    <MenuPrimitive.Item
       data-accent-color={color}
       {...itemProps}
       className={classNames('fui-reset', 'fui-BaseMenuItem', 'fui-DropdownMenuItem', className)}
     >
-      <Slot.Slottable>{children}</Slot.Slottable>
+      {children}
       {shortcut && <div className="fui-BaseMenuShortcut fui-DropdownMenuShortcut">{shortcut}</div>}
-    </DropdownMenuPrimitive.Item>
+    </MenuPrimitive.Item>
   );
 };
 DropdownMenuItem.displayName = 'DropdownMenuItem';
 
-interface DropdownMenuGroupProps extends React.ComponentProps<typeof DropdownMenuPrimitive.Group> {}
+interface DropdownMenuGroupProps extends Omit<
+  React.ComponentProps<typeof MenuPrimitive.Group>,
+  'className' | 'render'
+> {
+  className?: string;
+}
 
 const DropdownMenuGroup = (props: DropdownMenuGroupProps) => (
-  <DropdownMenuPrimitive.Group
+  <MenuPrimitive.Group
     {...props}
     className={classNames('fui-BaseMenuGroup', 'fui-DropdownMenuGroup', props.className)}
   />
 );
 DropdownMenuGroup.displayName = 'DropdownMenuGroup';
 
-interface DropdownMenuRadioGroupProps extends React.ComponentProps<typeof DropdownMenuPrimitive.RadioGroup> {}
+interface DropdownMenuRadioGroupProps extends Omit<
+  React.ComponentProps<typeof MenuPrimitive.RadioGroup>,
+  'className' | 'render'
+> {
+  className?: string;
+}
 
 const DropdownMenuRadioGroup = (props: DropdownMenuRadioGroupProps) => (
-  <DropdownMenuPrimitive.RadioGroup
+  <MenuPrimitive.RadioGroup
     {...props}
     className={classNames('fui-BaseMenuRadioGroup', 'fui-DropdownMenuRadioGroup', props.className)}
   />
 );
 DropdownMenuRadioGroup.displayName = 'DropdownMenuRadioGroup';
 
-interface DropdownMenuRadioItemProps extends React.ComponentProps<typeof DropdownMenuPrimitive.RadioItem> {}
+interface DropdownMenuRadioItemProps extends Omit<
+  React.ComponentProps<typeof MenuPrimitive.RadioItem>,
+  'className' | 'render'
+> {
+  className?: string;
+}
 
 const DropdownMenuRadioItem = (props: DropdownMenuRadioItemProps) => {
   const { children, className, ...itemProps } = props;
   return (
-    <DropdownMenuPrimitive.RadioItem
+    <MenuPrimitive.RadioItem
       {...itemProps}
       className={classNames(
         'fui-BaseMenuItem',
@@ -146,24 +197,27 @@ const DropdownMenuRadioItem = (props: DropdownMenuRadioItemProps) => {
         className,
       )}
     >
-      <Slot.Slottable>{children}</Slot.Slottable>
-      <DropdownMenuPrimitive.ItemIndicator className="fui-BaseMenuItemIndicator fui-DropdownMenuItemIndicator">
+      {children}
+      <MenuPrimitive.RadioItemIndicator className="fui-BaseMenuItemIndicator fui-DropdownMenuItemIndicator">
         <ThickCheckIcon className="fui-BaseMenuItemIndicatorIcon fui-DropdownMenuItemIndicatorIcon" />
-      </DropdownMenuPrimitive.ItemIndicator>
-    </DropdownMenuPrimitive.RadioItem>
+      </MenuPrimitive.RadioItemIndicator>
+    </MenuPrimitive.RadioItem>
   );
 };
 DropdownMenuRadioItem.displayName = 'DropdownMenuRadioItem';
 
 type DropdownMenuCheckboxItemOwnProps = GetPropDefTypes<typeof dropdownMenuCheckboxItemPropDefs>;
 interface DropdownMenuCheckboxItemProps
-  extends React.ComponentProps<typeof DropdownMenuPrimitive.CheckboxItem>,
-    DropdownMenuCheckboxItemOwnProps {}
+  extends
+    Omit<React.ComponentProps<typeof MenuPrimitive.CheckboxItem>, 'className' | 'render'>,
+    DropdownMenuCheckboxItemOwnProps {
+  className?: string;
+}
 
 const DropdownMenuCheckboxItem = (props: DropdownMenuCheckboxItemProps) => {
   const { children, className, shortcut, ...itemProps } = props;
   return (
-    <DropdownMenuPrimitive.CheckboxItem
+    <MenuPrimitive.CheckboxItem
       {...itemProps}
       className={classNames(
         'fui-BaseMenuItem',
@@ -173,26 +227,31 @@ const DropdownMenuCheckboxItem = (props: DropdownMenuCheckboxItemProps) => {
         className,
       )}
     >
-      <Slot.Slottable>{children}</Slot.Slottable>
-      <DropdownMenuPrimitive.ItemIndicator className="fui-BaseMenuItemIndicator fui-DropdownMenuItemIndicator">
+      {children}
+      <MenuPrimitive.CheckboxItemIndicator className="fui-BaseMenuItemIndicator fui-DropdownMenuItemIndicator">
         <ThickCheckIcon className="fui-BaseMenuItemIndicatorIcon fui-DropdownMenuItemIndicatorIcon" />
-      </DropdownMenuPrimitive.ItemIndicator>
+      </MenuPrimitive.CheckboxItemIndicator>
       {shortcut && <div className="fui-BaseMenuShortcut fui-DropdownMenuShortcut">{shortcut}</div>}
-    </DropdownMenuPrimitive.CheckboxItem>
+    </MenuPrimitive.CheckboxItem>
   );
 };
 DropdownMenuCheckboxItem.displayName = 'DropdownMenuCheckboxItem';
 
-interface DropdownMenuSubProps extends React.ComponentProps<typeof DropdownMenuPrimitive.Sub> {}
-const DropdownMenuSub: React.FC<DropdownMenuSubProps> = (props) => <DropdownMenuPrimitive.Sub {...props} />;
+interface DropdownMenuSubProps extends Omit<React.ComponentProps<typeof MenuPrimitive.SubmenuRoot>, 'className'> {}
+const DropdownMenuSub: React.FC<DropdownMenuSubProps> = (props) => <MenuPrimitive.SubmenuRoot {...props} />;
 DropdownMenuSub.displayName = 'DropdownMenuSub';
 
-interface DropdownMenuSubTriggerProps extends React.ComponentProps<typeof DropdownMenuPrimitive.SubTrigger> {}
+interface DropdownMenuSubTriggerProps extends Omit<
+  React.ComponentProps<typeof MenuPrimitive.SubmenuTrigger>,
+  'className' | 'render'
+> {
+  className?: string;
+}
 
 const DropdownMenuSubTrigger = (props: DropdownMenuSubTriggerProps) => {
   const { className, children, ...subTriggerProps } = props;
   return (
-    <DropdownMenuPrimitive.SubTrigger
+    <MenuPrimitive.SubmenuTrigger
       {...subTriggerProps}
       className={classNames(
         'fui-BaseMenuItem',
@@ -202,56 +261,83 @@ const DropdownMenuSubTrigger = (props: DropdownMenuSubTriggerProps) => {
         className,
       )}
     >
-      <Slot.Slottable>{children}</Slot.Slottable>
+      {children}
       <div className="fui-BaseMenuShortcut fui-DropdownMenuShortcut">
         <ThickChevronRightIcon className="fui-BaseMenuSubTriggerIcon fui-DropdownMenuSubTriggerIcon" />
       </div>
-    </DropdownMenuPrimitive.SubTrigger>
+    </MenuPrimitive.SubmenuTrigger>
   );
 };
 DropdownMenuSubTrigger.displayName = 'DropdownMenuSubTrigger';
 
-interface DropdownMenuSubContentProps extends React.ComponentProps<typeof DropdownMenuPrimitive.SubContent> {
-  container?: React.ComponentProps<typeof DropdownMenuPrimitive.Portal>['container'];
+interface DropdownMenuSubContentProps extends Omit<
+  React.ComponentProps<typeof MenuPrimitive.Popup>,
+  'className' | 'render'
+> {
+  className?: string;
+  container?: React.ComponentProps<typeof MenuPrimitive.Portal>['container'];
+  keepMounted?: React.ComponentProps<typeof MenuPrimitive.Portal>['keepMounted'];
+  // Positioner props
+  sideOffset?: React.ComponentProps<typeof MenuPrimitive.Positioner>['sideOffset'];
+  alignOffset?: React.ComponentProps<typeof MenuPrimitive.Positioner>['alignOffset'];
+  collisionPadding?: React.ComponentProps<typeof MenuPrimitive.Positioner>['collisionPadding'];
 }
 
 const DropdownMenuSubContent = (props: DropdownMenuSubContentProps) => {
-  const { className, children, container, forceMount, ...subContentProps } = props;
+  const {
+    className,
+    children,
+    container,
+    keepMounted,
+    sideOffset = 2,
+    alignOffset = -4,
+    collisionPadding = 10,
+    ...popupProps
+  } = props;
   const { size, color, variant } = React.useContext(DropdownMenuContentContext);
   return (
-    <DropdownMenuPrimitive.Portal container={container} forceMount={forceMount}>
-      <Theme asChild>
-        <DropdownMenuPrimitive.SubContent
-          data-accent-color={color}
-          alignOffset={-4}
-          sideOffset={2}
-          collisionPadding={10}
-          {...subContentProps}
-          className={classNames(
-            'fui-PopperContent',
-            'fui-BaseMenuContent',
-            'fui-BaseMenuSubContent',
-            'fui-DropdownMenuContent',
-            'fui-DropdownMenuSubContent',
-            `fui-variant-${variant}`,
-            className,
-            `fui-r-size-${size}`,
-          )}
-        >
-          <ScrollArea type="auto">
-            <div className={classNames('fui-BaseMenuViewport', 'fui-DropdownMenuViewport')}>{children}</div>
-          </ScrollArea>
-        </DropdownMenuPrimitive.SubContent>
-      </Theme>
-    </DropdownMenuPrimitive.Portal>
+    <MenuPrimitive.Portal container={container} keepMounted={keepMounted}>
+      <MenuPrimitive.Positioner
+        className="fui-DropdownMenuPositioner"
+        sideOffset={sideOffset}
+        alignOffset={alignOffset}
+        collisionPadding={collisionPadding}
+      >
+        <Theme asChild>
+          <MenuPrimitive.Popup
+            data-accent-color={color}
+            {...popupProps}
+            className={classNames(
+              'fui-PopperContent',
+              'fui-BaseMenuContent',
+              'fui-BaseMenuSubContent',
+              'fui-DropdownMenuContent',
+              'fui-DropdownMenuSubContent',
+              `fui-variant-${variant}`,
+              className,
+              `fui-r-size-${size}`,
+            )}
+          >
+            <ScrollArea type="auto">
+              <div className={classNames('fui-BaseMenuViewport', 'fui-DropdownMenuViewport')}>{children}</div>
+            </ScrollArea>
+          </MenuPrimitive.Popup>
+        </Theme>
+      </MenuPrimitive.Positioner>
+    </MenuPrimitive.Portal>
   );
 };
 DropdownMenuSubContent.displayName = 'DropdownMenuSubContent';
 
-interface DropdownMenuSeparatorProps extends React.ComponentProps<typeof DropdownMenuPrimitive.Separator> {}
+interface DropdownMenuSeparatorProps extends Omit<
+  React.ComponentProps<typeof MenuPrimitive.Separator>,
+  'className' | 'render'
+> {
+  className?: string;
+}
 
 const DropdownMenuSeparator = (props: DropdownMenuSeparatorProps) => (
-  <DropdownMenuPrimitive.Separator
+  <MenuPrimitive.Separator
     {...props}
     className={classNames('fui-BaseMenuSeparator', 'fui-DropdownMenuSeparator', props.className)}
   />
@@ -261,6 +347,7 @@ DropdownMenuSeparator.displayName = 'DropdownMenuSeparator';
 export {
   DropdownMenuCheckboxItem as CheckboxItem,
   DropdownMenuContent as Content,
+  createHandle,
   DropdownMenuGroup as Group,
   DropdownMenuItem as Item,
   DropdownMenuLabel as Label,

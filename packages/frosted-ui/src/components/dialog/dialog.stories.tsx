@@ -1190,12 +1190,130 @@ export const WithPopoverAndHoverCard: Story = {
 export const DialogFromDropdownMenu: Story = {
   name: 'Dialog from Dropdown Menu',
   render: function Render(args) {
+    const [editDialogOpen, setEditDialogOpen] = React.useState(false);
+    const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
+
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
         <Text style={{ maxWidth: 500, textAlign: 'center' }}>
-          A common pattern where a dropdown menu item opens a dialog. The dialog trigger wraps the menu item. Note the{' '}
-          <Code>onSelect=&#123;(e) =&gt; e.preventDefault()&#125;</Code> to prevent the menu from closing before the
-          dialog opens.
+          Open a dialog from a dropdown menu using controlled state. The dialog is controlled via <Code>open</Code> and{' '}
+          <Code>onOpenChange</Code> props, and opened imperatively via <Code>onClick</Code> on the menu item.
+        </Text>
+
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger>
+            <Button variant="soft">Options ▾</Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content>
+            <DropdownMenu.Item>View Details</DropdownMenu.Item>
+            <DropdownMenu.Item>Duplicate</DropdownMenu.Item>
+            <DropdownMenu.Separator />
+            <DropdownMenu.Item onClick={() => setEditDialogOpen(true)}>Edit Settings...</DropdownMenu.Item>
+            <DropdownMenu.Item color="red" onClick={() => setDeleteDialogOpen(true)}>
+              Delete...
+            </DropdownMenu.Item>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
+
+        {/* Edit Dialog - rendered outside the menu */}
+        <Dialog.Root open={editDialogOpen} onOpenChange={setEditDialogOpen}>
+          <Dialog.Content {...args} style={{ maxWidth: 450 }}>
+            <Dialog.Title>Edit Settings</Dialog.Title>
+            <Dialog.Description>Make changes to your settings here.</Dialog.Description>
+
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 'var(--space-3)',
+                marginTop: 'var(--space-3)',
+              }}
+            >
+              <label>
+                <Text as="div" size="2" style={{ marginBottom: 4 }} weight="bold">
+                  Name
+                </Text>
+                <TextField.Input defaultValue="My Project" placeholder="Enter name" />
+              </label>
+              <label>
+                <Text as="div" size="2" style={{ marginBottom: 4 }} weight="bold">
+                  Description
+                </Text>
+                <TextArea defaultValue="A sample project description" placeholder="Enter description" />
+              </label>
+            </div>
+
+            <div
+              style={{
+                display: 'flex',
+                gap: 'var(--space-3)',
+                marginTop: 'var(--space-4)',
+                justifyContent: 'flex-end',
+              }}
+            >
+              <Dialog.Close>
+                <Button variant="soft" color="gray">
+                  Cancel
+                </Button>
+              </Dialog.Close>
+              <Dialog.Close>
+                <Button variant="classic">Save Changes</Button>
+              </Dialog.Close>
+            </div>
+          </Dialog.Content>
+        </Dialog.Root>
+
+        {/* Delete Dialog - rendered outside the menu */}
+        <Dialog.Root open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+          <Dialog.Content {...args} style={{ maxWidth: 400 }}>
+            <Dialog.Title>Delete Item</Dialog.Title>
+            <Dialog.Description>
+              Are you sure you want to delete this item? This action cannot be undone.
+            </Dialog.Description>
+
+            <div
+              style={{
+                display: 'flex',
+                gap: 'var(--space-3)',
+                marginTop: 'var(--space-4)',
+                justifyContent: 'flex-end',
+              }}
+            >
+              <Dialog.Close>
+                <Button variant="soft" color="gray">
+                  Cancel
+                </Button>
+              </Dialog.Close>
+              <Dialog.Close>
+                <Button variant="classic" color="red">
+                  Delete
+                </Button>
+              </Dialog.Close>
+            </div>
+          </Dialog.Content>
+        </Dialog.Root>
+      </div>
+    );
+  },
+};
+
+export const DialogTriggerInDropdownMenu: Story = {
+  name: 'Dialog Trigger in Dropdown Menu',
+  render: function Render(args) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
+        <Text as="div" style={{ maxWidth: 540, textAlign: 'center' }}>
+          When wrapping a menu item with <Code>Dialog.Trigger</Code>:
+          <ul style={{ textAlign: 'left', marginTop: 'var(--space-2)' }}>
+            <li>
+              Add <Code>tabIndex=&#123;-1&#125;</Code> to prevent the trigger from stealing focus when the dropdown
+              opens (preserves roving focus).
+            </li>
+            <li>
+              Add <Code>closeOnClick=&#123;false&#125;</Code> to the menu item to prevent the menu from closing and
+              unmounting the dialog before it opens.
+            </li>
+          </ul>
         </Text>
 
         <DropdownMenu.Root>
@@ -1208,8 +1326,8 @@ export const DialogFromDropdownMenu: Story = {
             <DropdownMenu.Separator />
 
             <Dialog.Root>
-              <Dialog.Trigger>
-                <DropdownMenu.Item onSelect={(e) => e.preventDefault()}>Edit Settings...</DropdownMenu.Item>
+              <Dialog.Trigger tabIndex={-1}>
+                <DropdownMenu.Item closeOnClick={false}>Edit Settings...</DropdownMenu.Item>
               </Dialog.Trigger>
               <Dialog.Content {...args} style={{ maxWidth: 450 }}>
                 <Dialog.Title>Edit Settings</Dialog.Title>
@@ -1258,8 +1376,8 @@ export const DialogFromDropdownMenu: Story = {
             </Dialog.Root>
 
             <Dialog.Root>
-              <Dialog.Trigger>
-                <DropdownMenu.Item color="red" onSelect={(e) => e.preventDefault()}>
+              <Dialog.Trigger tabIndex={-1}>
+                <DropdownMenu.Item color="red" closeOnClick={false}>
                   Delete...
                 </DropdownMenu.Item>
               </Dialog.Trigger>
