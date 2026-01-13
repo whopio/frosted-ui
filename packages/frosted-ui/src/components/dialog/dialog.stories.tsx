@@ -8,6 +8,7 @@ import {
   Button,
   Checkbox,
   Code,
+  ContextMenu,
   Dialog,
   DropdownMenu,
   Heading,
@@ -47,7 +48,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: (args) => (
     <Dialog.Root>
-      <Dialog.Trigger>
+      <Dialog.Trigger nativeButton>
         <Button>Edit profile</Button>
       </Dialog.Trigger>
 
@@ -1120,6 +1121,49 @@ export const WithPopoverAndHoverCard: Story = {
                   </DropdownMenu.Content>
                 </DropdownMenu.Root>
               </div>
+
+              {/* Section with ContextMenu */}
+              <ContextMenu.Root>
+                <ContextMenu.Trigger>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: 'var(--space-3)',
+                      background: 'var(--gray-a3)',
+                      borderRadius: 'var(--radius-2)',
+                      cursor: 'context-menu',
+                    }}
+                  >
+                    <div>
+                      <Text as="div" weight="medium">
+                        Context Menu Area
+                      </Text>
+                      <Text as="div" size="2" color="gray">
+                        Right-click here to open context menu
+                      </Text>
+                    </div>
+                    <Badge color="gray">Right-click</Badge>
+                  </div>
+                </ContextMenu.Trigger>
+                <ContextMenu.Content>
+                  <ContextMenu.Item>Copy</ContextMenu.Item>
+                  <ContextMenu.Item>Cut</ContextMenu.Item>
+                  <ContextMenu.Item>Paste</ContextMenu.Item>
+                  <ContextMenu.Separator />
+                  <ContextMenu.Sub>
+                    <ContextMenu.SubTrigger>Share</ContextMenu.SubTrigger>
+                    <ContextMenu.SubContent>
+                      <ContextMenu.Item>Email</ContextMenu.Item>
+                      <ContextMenu.Item>Messages</ContextMenu.Item>
+                      <ContextMenu.Item>Slack</ContextMenu.Item>
+                    </ContextMenu.SubContent>
+                  </ContextMenu.Sub>
+                  <ContextMenu.Separator />
+                  <ContextMenu.Item color="red">Delete</ContextMenu.Item>
+                </ContextMenu.Content>
+              </ContextMenu.Root>
             </div>
 
             <div
@@ -1138,6 +1182,116 @@ export const WithPopoverAndHoverCard: Story = {
             </div>
           </Dialog.Content>
         </Dialog.Root>
+      </div>
+    );
+  },
+};
+
+export const DialogFromDropdownMenu: Story = {
+  name: 'Dialog from Dropdown Menu',
+  render: function Render(args) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
+        <Text style={{ maxWidth: 500, textAlign: 'center' }}>
+          A common pattern where a dropdown menu item opens a dialog. The dialog trigger wraps the menu item. Note the{' '}
+          <Code>onSelect=&#123;(e) =&gt; e.preventDefault()&#125;</Code> to prevent the menu from closing before the
+          dialog opens.
+        </Text>
+
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger>
+            <Button variant="soft">Options ▾</Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content>
+            <DropdownMenu.Item>View Details</DropdownMenu.Item>
+            <DropdownMenu.Item>Duplicate</DropdownMenu.Item>
+            <DropdownMenu.Separator />
+
+            <Dialog.Root>
+              <Dialog.Trigger>
+                <DropdownMenu.Item onSelect={(e) => e.preventDefault()}>Edit Settings...</DropdownMenu.Item>
+              </Dialog.Trigger>
+              <Dialog.Content {...args} style={{ maxWidth: 450 }}>
+                <Dialog.Title>Edit Settings</Dialog.Title>
+                <Dialog.Description>Make changes to your settings here.</Dialog.Description>
+
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 'var(--space-3)',
+                    marginTop: 'var(--space-3)',
+                  }}
+                >
+                  <label>
+                    <Text as="div" size="2" style={{ marginBottom: 4 }} weight="bold">
+                      Name
+                    </Text>
+                    <TextField.Input defaultValue="My Project" placeholder="Enter name" />
+                  </label>
+                  <label>
+                    <Text as="div" size="2" style={{ marginBottom: 4 }} weight="bold">
+                      Description
+                    </Text>
+                    <TextArea defaultValue="A sample project description" placeholder="Enter description" />
+                  </label>
+                </div>
+
+                <div
+                  style={{
+                    display: 'flex',
+                    gap: 'var(--space-3)',
+                    marginTop: 'var(--space-4)',
+                    justifyContent: 'flex-end',
+                  }}
+                >
+                  <Dialog.Close>
+                    <Button variant="soft" color="gray">
+                      Cancel
+                    </Button>
+                  </Dialog.Close>
+                  <Dialog.Close>
+                    <Button variant="classic">Save Changes</Button>
+                  </Dialog.Close>
+                </div>
+              </Dialog.Content>
+            </Dialog.Root>
+
+            <Dialog.Root>
+              <Dialog.Trigger>
+                <DropdownMenu.Item color="red" onSelect={(e) => e.preventDefault()}>
+                  Delete...
+                </DropdownMenu.Item>
+              </Dialog.Trigger>
+              <Dialog.Content {...args} style={{ maxWidth: 400 }}>
+                <Dialog.Title>Delete Item</Dialog.Title>
+                <Dialog.Description>
+                  Are you sure you want to delete this item? This action cannot be undone.
+                </Dialog.Description>
+
+                <div
+                  style={{
+                    display: 'flex',
+                    gap: 'var(--space-3)',
+                    marginTop: 'var(--space-4)',
+                    justifyContent: 'flex-end',
+                  }}
+                >
+                  <Dialog.Close>
+                    <Button variant="soft" color="gray">
+                      Cancel
+                    </Button>
+                  </Dialog.Close>
+                  <Dialog.Close>
+                    <Button variant="classic" color="red">
+                      Delete
+                    </Button>
+                  </Dialog.Close>
+                </div>
+              </Dialog.Content>
+            </Dialog.Root>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
       </div>
     );
   },
