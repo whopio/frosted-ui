@@ -3,12 +3,14 @@ import React from 'react';
 
 import { XMark16 } from '@frosted-ui/icons';
 import {
+  AlertDialog,
   Avatar,
   Badge,
   Button,
   Checkbox,
   Code,
   ContextMenu,
+  Dialog,
   Drawer,
   DropdownMenu,
   Heading,
@@ -1351,6 +1353,249 @@ export const WithPopoverAndHoverCard: Story = {
             </Drawer.Body>
           </Drawer.Content>
         </Drawer.Root>
+      </div>
+    );
+  },
+};
+
+export const WithDialog: Story = {
+  name: 'With Dialog Inside',
+  render: function Render(args) {
+    const [confirmDialogOpen, setConfirmDialogOpen] = React.useState(false);
+    const [formData, setFormData] = React.useState({ name: 'My Project', description: '' });
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
+        <Text style={{ maxWidth: 500, textAlign: 'center' }}>
+          Drawers can contain Dialogs for confirmations or additional forms. The Dialog appears above the Drawer with
+          proper focus management and layering.
+        </Text>
+
+        <Drawer.Root>
+          <Drawer.Trigger>
+            <Button variant="classic">Edit Project</Button>
+          </Drawer.Trigger>
+          <Drawer.Content {...args}>
+            <Drawer.Header>
+              <Drawer.Title>Edit Project</Drawer.Title>
+              <Drawer.Close>
+                <IconButton size="1" color="gray" variant="ghost">
+                  <XMark16 />
+                </IconButton>
+              </Drawer.Close>
+            </Drawer.Header>
+            <Drawer.Body>
+              <Text as="p" size="2" style={{ marginBottom: 'var(--space-4)' }}>
+                Make changes to your project settings. Click "Delete Project" to see a confirmation dialog.
+              </Text>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+                <label>
+                  <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                    Project Name
+                  </Text>
+                  <TextField.Input
+                    value={formData.name}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
+                    placeholder="Enter project name"
+                  />
+                </label>
+                <label>
+                  <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                    Description
+                  </Text>
+                  <TextArea
+                    value={formData.description}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, description: e.target.value }))}
+                    placeholder="Enter project description..."
+                    style={{ minHeight: 100 }}
+                  />
+                </label>
+              </div>
+
+              {/* Section with nested Dialog trigger */}
+              <div
+                style={{
+                  marginTop: 'var(--space-4)',
+                  padding: 'var(--space-3)',
+                  background: 'var(--red-a3)',
+                  borderRadius: 'var(--radius-2)',
+                }}
+              >
+                <Text as="div" weight="medium" color="red">
+                  Danger Zone
+                </Text>
+                <Text as="div" size="2" color="gray" style={{ marginBottom: 'var(--space-3)' }}>
+                  Irreversible actions for this project
+                </Text>
+
+                <Dialog.Root>
+                  <Dialog.Trigger>
+                    <Button variant="soft" color="red" size="2">
+                      Delete Project
+                    </Button>
+                  </Dialog.Trigger>
+                  <Dialog.Content style={{ maxWidth: 400 }}>
+                    <Dialog.Title>Delete Project</Dialog.Title>
+                    <Dialog.Description>
+                      Are you sure you want to delete "{formData.name}"? This action cannot be undone and all project
+                      data will be permanently removed.
+                    </Dialog.Description>
+
+                    <div
+                      style={{
+                        display: 'flex',
+                        gap: 'var(--space-3)',
+                        marginTop: 'var(--space-4)',
+                        justifyContent: 'flex-end',
+                      }}
+                    >
+                      <Dialog.Close>
+                        <Button variant="soft" color="gray">
+                          Cancel
+                        </Button>
+                      </Dialog.Close>
+                      <Dialog.Close>
+                        <Button variant="classic" color="red">
+                          Delete Project
+                        </Button>
+                      </Dialog.Close>
+                    </div>
+                  </Dialog.Content>
+                </Dialog.Root>
+              </div>
+
+              {/* Form dialog example */}
+              <div
+                style={{
+                  marginTop: 'var(--space-4)',
+                  padding: 'var(--space-3)',
+                  background: 'var(--gray-a3)',
+                  borderRadius: 'var(--radius-2)',
+                }}
+              >
+                <Text as="div" weight="medium">
+                  Team Members
+                </Text>
+                <Text as="div" size="2" color="gray" style={{ marginBottom: 'var(--space-3)' }}>
+                  Manage who has access to this project
+                </Text>
+
+                <Dialog.Root>
+                  <Dialog.Trigger>
+                    <Button variant="soft" size="2">
+                      Invite Member
+                    </Button>
+                  </Dialog.Trigger>
+                  <Dialog.Content style={{ maxWidth: 450 }}>
+                    <Dialog.Title>Invite Team Member</Dialog.Title>
+                    <Dialog.Description>Send an invitation to collaborate on this project.</Dialog.Description>
+
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 'var(--space-3)',
+                        marginTop: 'var(--space-3)',
+                      }}
+                    >
+                      <label>
+                        <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                          Email Address
+                        </Text>
+                        <TextField.Input placeholder="colleague@example.com" type="email" />
+                      </label>
+                      <label>
+                        <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                          Role
+                        </Text>
+                        <Select.Root defaultValue="member">
+                          <Select.Trigger style={{ width: '100%' }} />
+                          <Select.Content>
+                            <Select.Item value="admin">Admin</Select.Item>
+                            <Select.Item value="member">Member</Select.Item>
+                            <Select.Item value="viewer">Viewer</Select.Item>
+                          </Select.Content>
+                        </Select.Root>
+                      </label>
+                      <label>
+                        <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                          Message (optional)
+                        </Text>
+                        <TextArea placeholder="Add a personal message..." />
+                      </label>
+                    </div>
+
+                    <div
+                      style={{
+                        display: 'flex',
+                        gap: 'var(--space-3)',
+                        marginTop: 'var(--space-4)',
+                        justifyContent: 'flex-end',
+                      }}
+                    >
+                      <Dialog.Close>
+                        <Button variant="soft" color="gray">
+                          Cancel
+                        </Button>
+                      </Dialog.Close>
+                      <Dialog.Close>
+                        <Button variant="classic">Send Invitation</Button>
+                      </Dialog.Close>
+                    </div>
+                  </Dialog.Content>
+                </Dialog.Root>
+              </div>
+
+              <div
+                style={{
+                  display: 'flex',
+                  gap: 'var(--space-3)',
+                  marginTop: 'var(--space-5)',
+                  justifyContent: 'flex-end',
+                }}
+              >
+                <Drawer.Close>
+                  <Button variant="soft" color="gray">
+                    Cancel
+                  </Button>
+                </Drawer.Close>
+                <Drawer.Close>
+                  <Button variant="classic">Save Changes</Button>
+                </Drawer.Close>
+              </div>
+            </Drawer.Body>
+          </Drawer.Content>
+        </Drawer.Root>
+
+        {/* AlertDialog example - controlled from drawer */}
+        <AlertDialog.Root open={confirmDialogOpen} onOpenChange={setConfirmDialogOpen}>
+          <AlertDialog.Content style={{ maxWidth: 400 }}>
+            <AlertDialog.Title>Confirm Changes</AlertDialog.Title>
+            <AlertDialog.Description>
+              You have unsaved changes. Are you sure you want to close without saving?
+            </AlertDialog.Description>
+            <div
+              style={{
+                display: 'flex',
+                gap: 'var(--space-3)',
+                marginTop: 'var(--space-4)',
+                justifyContent: 'flex-end',
+              }}
+            >
+              <AlertDialog.Close>
+                <Button variant="soft" color="gray">
+                  Go Back
+                </Button>
+              </AlertDialog.Close>
+              <AlertDialog.Close>
+                <Button variant="classic" color="red">
+                  Discard Changes
+                </Button>
+              </AlertDialog.Close>
+            </div>
+          </AlertDialog.Content>
+        </AlertDialog.Root>
       </div>
     );
   },
