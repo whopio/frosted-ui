@@ -483,3 +483,85 @@ export const SideAndAlign: Story = {
     </div>
   ),
 };
+
+export const SideOffsetAndAlignOffset: Story = {
+  name: 'Side Offset and Align Offset',
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', alignItems: 'center' }}>
+      <Text as="div" style={{ maxWidth: 500, textAlign: 'center' }}>
+        Fine-tune menu positioning with <Code>sideOffset</Code> (distance from trigger) and <Code>alignOffset</Code>{' '}
+        (shift along the alignment axis).
+      </Text>
+
+      <div style={{ display: 'flex', gap: 'var(--space-4)', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger>
+            <Button variant="soft">Default (sideOffset: 4)</Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content {...args}>
+            <DropdownMenu.Item>Item 1</DropdownMenu.Item>
+            <DropdownMenu.Item>Item 2</DropdownMenu.Item>
+            <DropdownMenu.Item>Item 3</DropdownMenu.Item>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
+
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger>
+            <Button variant="soft">sideOffset: 16</Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content {...args} sideOffset={16}>
+            <DropdownMenu.Item>Item 1</DropdownMenu.Item>
+            <DropdownMenu.Item>Item 2</DropdownMenu.Item>
+            <DropdownMenu.Item>Item 3</DropdownMenu.Item>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
+
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger>
+            <Button variant="soft">sideOffset: 0</Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content {...args} sideOffset={0}>
+            <DropdownMenu.Item>Item 1</DropdownMenu.Item>
+            <DropdownMenu.Item>Item 2</DropdownMenu.Item>
+            <DropdownMenu.Item>Item 3</DropdownMenu.Item>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
+      </div>
+
+      <div style={{ display: 'flex', gap: 'var(--space-4)', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger>
+            <Button variant="soft">alignOffset: 0</Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content {...args} align="start" alignOffset={0}>
+            <DropdownMenu.Item>Item 1</DropdownMenu.Item>
+            <DropdownMenu.Item>Item 2</DropdownMenu.Item>
+            <DropdownMenu.Item>Item 3</DropdownMenu.Item>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
+
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger>
+            <Button variant="soft">alignOffset: 20</Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content {...args} align="start" alignOffset={20}>
+            <DropdownMenu.Item>Item 1</DropdownMenu.Item>
+            <DropdownMenu.Item>Item 2</DropdownMenu.Item>
+            <DropdownMenu.Item>Item 3</DropdownMenu.Item>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
+
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger>
+            <Button variant="soft">alignOffset: -20</Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content {...args} align="start" alignOffset={-20}>
+            <DropdownMenu.Item>Item 1</DropdownMenu.Item>
+            <DropdownMenu.Item>Item 2</DropdownMenu.Item>
+            <DropdownMenu.Item>Item 3</DropdownMenu.Item>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
+      </div>
+    </div>
+  ),
+};

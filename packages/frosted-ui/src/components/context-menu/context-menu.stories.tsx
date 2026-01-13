@@ -428,3 +428,114 @@ export const SideAndAlign: Story = {
     </div>
   ),
 };
+
+export const SideOffsetAndAlignOffset: Story = {
+  name: 'Side Offset and Align Offset',
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
+      <Text as="div" style={{ maxWidth: 500, textAlign: 'center' }}>
+        Fine-tune menu positioning with <Code>sideOffset</Code> (distance from click) and <Code>alignOffset</Code>{' '}
+        (shift along the alignment axis). Right-click each box.
+      </Text>
+
+      <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <ContextMenu.Root>
+          <ContextMenu.Trigger>
+            <div
+              style={{
+                background: 'var(--gray-a2)',
+                borderRadius: 'var(--radius-3)',
+                width: 140,
+                height: 80,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 'var(--font-size-1)',
+              }}
+            >
+              Default
+            </div>
+          </ContextMenu.Trigger>
+          <ContextMenu.Content {...args}>
+            <ContextMenu.Item>Item 1</ContextMenu.Item>
+            <ContextMenu.Item>Item 2</ContextMenu.Item>
+            <ContextMenu.Item>Item 3</ContextMenu.Item>
+          </ContextMenu.Content>
+        </ContextMenu.Root>
+
+        <ContextMenu.Root>
+          <ContextMenu.Trigger>
+            <div
+              style={{
+                background: 'var(--gray-a2)',
+                borderRadius: 'var(--radius-3)',
+                width: 140,
+                height: 80,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 'var(--font-size-1)',
+              }}
+            >
+              sideOffset: 20
+            </div>
+          </ContextMenu.Trigger>
+          <ContextMenu.Content {...args} sideOffset={20}>
+            <ContextMenu.Item>Item 1</ContextMenu.Item>
+            <ContextMenu.Item>Item 2</ContextMenu.Item>
+            <ContextMenu.Item>Item 3</ContextMenu.Item>
+          </ContextMenu.Content>
+        </ContextMenu.Root>
+
+        <ContextMenu.Root>
+          <ContextMenu.Trigger>
+            <div
+              style={{
+                background: 'var(--gray-a2)',
+                borderRadius: 'var(--radius-3)',
+                width: 140,
+                height: 80,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 'var(--font-size-1)',
+              }}
+            >
+              alignOffset: 30
+            </div>
+          </ContextMenu.Trigger>
+          <ContextMenu.Content {...args} alignOffset={30}>
+            <ContextMenu.Item>Item 1</ContextMenu.Item>
+            <ContextMenu.Item>Item 2</ContextMenu.Item>
+            <ContextMenu.Item>Item 3</ContextMenu.Item>
+          </ContextMenu.Content>
+        </ContextMenu.Root>
+
+        <ContextMenu.Root>
+          <ContextMenu.Trigger>
+            <div
+              style={{
+                background: 'var(--gray-a2)',
+                borderRadius: 'var(--radius-3)',
+                width: 140,
+                height: 80,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 'var(--font-size-1)',
+                textAlign: 'center',
+              }}
+            >
+              Both: 20, 20
+            </div>
+          </ContextMenu.Trigger>
+          <ContextMenu.Content {...args} sideOffset={20} alignOffset={20}>
+            <ContextMenu.Item>Item 1</ContextMenu.Item>
+            <ContextMenu.Item>Item 2</ContextMenu.Item>
+            <ContextMenu.Item>Item 3</ContextMenu.Item>
+          </ContextMenu.Content>
+        </ContextMenu.Root>
+      </div>
+    </div>
+  ),
+};
