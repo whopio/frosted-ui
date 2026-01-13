@@ -1,7 +1,6 @@
 /* .fui-DrawerBackdrop inherits all styles from .fui-DialogBackdrop */
 
 .fui-DrawerContent {
-  z-index: 1;
   position: fixed;
   top: 8px;
   right: 8px;
