@@ -402,3 +402,84 @@ export const ControlledWithMultipleTriggers: Story = {
     );
   },
 };
+
+export const SideAndAlign: Story = {
+  name: 'Side and Align',
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', alignItems: 'center' }}>
+      <Text as="div" style={{ maxWidth: 500, textAlign: 'center' }}>
+        Control where the menu appears relative to the trigger using <Code>side</Code> and <Code>align</Code> props.
+      </Text>
+
+      <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger>
+            <Button variant="soft">Bottom Start</Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content {...args} side="bottom" align="start">
+            <DropdownMenu.Item>Item 1</DropdownMenu.Item>
+            <DropdownMenu.Item>Item 2</DropdownMenu.Item>
+            <DropdownMenu.Item>Item 3</DropdownMenu.Item>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
+
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger>
+            <Button variant="soft">Bottom Center</Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content {...args} side="bottom" align="center">
+            <DropdownMenu.Item>Item 1</DropdownMenu.Item>
+            <DropdownMenu.Item>Item 2</DropdownMenu.Item>
+            <DropdownMenu.Item>Item 3</DropdownMenu.Item>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
+
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger>
+            <Button variant="soft">Bottom End</Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content {...args} side="bottom" align="end">
+            <DropdownMenu.Item>Item 1</DropdownMenu.Item>
+            <DropdownMenu.Item>Item 2</DropdownMenu.Item>
+            <DropdownMenu.Item>Item 3</DropdownMenu.Item>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
+      </div>
+
+      <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger>
+            <Button variant="soft">Top Start</Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content {...args} side="top" align="start">
+            <DropdownMenu.Item>Item 1</DropdownMenu.Item>
+            <DropdownMenu.Item>Item 2</DropdownMenu.Item>
+            <DropdownMenu.Item>Item 3</DropdownMenu.Item>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
+
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger>
+            <Button variant="soft">Right Start</Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content {...args} side="right" align="start">
+            <DropdownMenu.Item>Item 1</DropdownMenu.Item>
+            <DropdownMenu.Item>Item 2</DropdownMenu.Item>
+            <DropdownMenu.Item>Item 3</DropdownMenu.Item>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
+
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger>
+            <Button variant="soft">Left Start</Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content {...args} side="left" align="start">
+            <DropdownMenu.Item>Item 1</DropdownMenu.Item>
+            <DropdownMenu.Item>Item 2</DropdownMenu.Item>
+            <DropdownMenu.Item>Item 3</DropdownMenu.Item>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
+      </div>
+    </div>
+  ),
+};

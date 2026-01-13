@@ -318,3 +318,113 @@ export const DialogFromContextMenu: Story = {
     );
   },
 };
+
+export const SideAndAlign: Story = {
+  name: 'Side and Align',
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
+      <Text as="div" style={{ maxWidth: 500, textAlign: 'center' }}>
+        Control where the menu appears relative to the click position using <Code>side</Code> and <Code>align</Code>{' '}
+        props. Try right-clicking each box.
+      </Text>
+
+      <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <ContextMenu.Root>
+          <ContextMenu.Trigger>
+            <div
+              style={{
+                background: 'var(--gray-a2)',
+                borderRadius: 'var(--radius-3)',
+                width: 140,
+                height: 100,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 'var(--font-size-1)',
+              }}
+            >
+              Bottom Start
+            </div>
+          </ContextMenu.Trigger>
+          <ContextMenu.Content {...args} side="bottom" align="start">
+            <ContextMenu.Item>Item 1</ContextMenu.Item>
+            <ContextMenu.Item>Item 2</ContextMenu.Item>
+            <ContextMenu.Item>Item 3</ContextMenu.Item>
+          </ContextMenu.Content>
+        </ContextMenu.Root>
+
+        <ContextMenu.Root>
+          <ContextMenu.Trigger>
+            <div
+              style={{
+                background: 'var(--gray-a2)',
+                borderRadius: 'var(--radius-3)',
+                width: 140,
+                height: 100,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 'var(--font-size-1)',
+              }}
+            >
+              Right Start
+            </div>
+          </ContextMenu.Trigger>
+          <ContextMenu.Content {...args} side="right" align="start">
+            <ContextMenu.Item>Item 1</ContextMenu.Item>
+            <ContextMenu.Item>Item 2</ContextMenu.Item>
+            <ContextMenu.Item>Item 3</ContextMenu.Item>
+          </ContextMenu.Content>
+        </ContextMenu.Root>
+
+        <ContextMenu.Root>
+          <ContextMenu.Trigger>
+            <div
+              style={{
+                background: 'var(--gray-a2)',
+                borderRadius: 'var(--radius-3)',
+                width: 140,
+                height: 100,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 'var(--font-size-1)',
+              }}
+            >
+              Top End
+            </div>
+          </ContextMenu.Trigger>
+          <ContextMenu.Content {...args} side="top" align="end">
+            <ContextMenu.Item>Item 1</ContextMenu.Item>
+            <ContextMenu.Item>Item 2</ContextMenu.Item>
+            <ContextMenu.Item>Item 3</ContextMenu.Item>
+          </ContextMenu.Content>
+        </ContextMenu.Root>
+
+        <ContextMenu.Root>
+          <ContextMenu.Trigger>
+            <div
+              style={{
+                background: 'var(--gray-a2)',
+                borderRadius: 'var(--radius-3)',
+                width: 140,
+                height: 100,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 'var(--font-size-1)',
+              }}
+            >
+              Left Center
+            </div>
+          </ContextMenu.Trigger>
+          <ContextMenu.Content {...args} side="left" align="center">
+            <ContextMenu.Item>Item 1</ContextMenu.Item>
+            <ContextMenu.Item>Item 2</ContextMenu.Item>
+            <ContextMenu.Item>Item 3</ContextMenu.Item>
+          </ContextMenu.Content>
+        </ContextMenu.Root>
+      </div>
+    </div>
+  ),
+};

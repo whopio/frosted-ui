@@ -49,7 +49,9 @@ interface ContextMenuContentProps
   container?: React.ComponentProps<typeof ContextMenuPrimitive.Portal>['container'];
   keepMounted?: React.ComponentProps<typeof ContextMenuPrimitive.Portal>['keepMounted'];
   // Positioner props
+  side?: React.ComponentProps<typeof ContextMenuPrimitive.Positioner>['side'];
   sideOffset?: React.ComponentProps<typeof ContextMenuPrimitive.Positioner>['sideOffset'];
+  align?: React.ComponentProps<typeof ContextMenuPrimitive.Positioner>['align'];
   alignOffset?: React.ComponentProps<typeof ContextMenuPrimitive.Positioner>['alignOffset'];
   collisionPadding?: React.ComponentProps<typeof ContextMenuPrimitive.Positioner>['collisionPadding'];
 }
@@ -65,7 +67,9 @@ const ContextMenuContent = (props: ContextMenuContentProps) => {
     container,
     keepMounted,
     // Positioner props
+    side,
     sideOffset,
+    align,
     alignOffset,
     collisionPadding = 10,
     ...popupProps
@@ -75,7 +79,9 @@ const ContextMenuContent = (props: ContextMenuContentProps) => {
     <ContextMenuPrimitive.Portal container={container} keepMounted={keepMounted}>
       <ContextMenuPrimitive.Positioner
         className="fui-ContextMenuPositioner"
+        side={side}
         sideOffset={sideOffset}
+        align={align}
         alignOffset={alignOffset}
         collisionPadding={collisionPadding}
       >
