@@ -3,13 +3,20 @@ import React from 'react';
 
 import {
   AlertDialog,
+  Avatar,
   Badge,
   Button,
   Checkbox,
   Code,
   Dialog,
+  DropdownMenu,
+  Heading,
+  HoverCard,
   Inset,
+  Link,
+  Popover,
   ScrollArea,
+  Select,
   Table,
   Text,
   TextArea,
@@ -875,6 +882,260 @@ export const CloseConfirmation: Story = {
                 </div>
               </AlertDialog.Content>
             </AlertDialog.Root>
+          </Dialog.Content>
+        </Dialog.Root>
+      </div>
+    );
+  },
+};
+
+export const WithPopoverAndHoverCard: Story = {
+  name: 'With Popover and HoverCard',
+  render: function Render(args) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
+        <Text style={{ maxWidth: 500, textAlign: 'center' }}>
+          Dialogs can contain other floating elements like Popovers and HoverCards. Focus management and layering work
+          correctly.
+        </Text>
+
+        <Dialog.Root>
+          <Dialog.Trigger>
+            <Button variant="classic">Open Dialog</Button>
+          </Dialog.Trigger>
+          <Dialog.Content {...args}>
+            <Dialog.Title>User Settings</Dialog.Title>
+            <Dialog.Description>Configure your account settings and preferences.</Dialog.Description>
+
+            <div
+              style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', marginTop: 'var(--space-4)' }}
+            >
+              {/* Section with Popover */}
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: 'var(--space-3)',
+                  background: 'var(--gray-a3)',
+                  borderRadius: 'var(--radius-2)',
+                }}
+              >
+                <div>
+                  <Text as="div" weight="medium">
+                    Notification Preferences
+                  </Text>
+                  <Text as="div" size="2" color="gray">
+                    Choose how you want to be notified
+                  </Text>
+                </div>
+                <Popover.Root>
+                  <Popover.Trigger>
+                    <Button variant="soft" size="2">
+                      Configure
+                    </Button>
+                  </Popover.Trigger>
+                  <Popover.Content style={{ width: 280 }}>
+                    <Heading size="3" style={{ marginBottom: 'var(--space-3)' }}>
+                      Notifications
+                    </Heading>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+                      <label style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+                        <Checkbox defaultChecked />
+                        <Text size="2">Email notifications</Text>
+                      </label>
+                      <label style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+                        <Checkbox defaultChecked />
+                        <Text size="2">Push notifications</Text>
+                      </label>
+                      <label style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+                        <Checkbox />
+                        <Text size="2">SMS notifications</Text>
+                      </label>
+                      <label style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+                        <Checkbox defaultChecked />
+                        <Text size="2">Weekly digest</Text>
+                      </label>
+                    </div>
+                    <div
+                      style={{
+                        display: 'flex',
+                        gap: 'var(--space-2)',
+                        justifyContent: 'flex-end',
+                        marginTop: 'var(--space-4)',
+                      }}
+                    >
+                      <Popover.Close>
+                        <Button variant="soft" color="gray" size="1">
+                          Cancel
+                        </Button>
+                      </Popover.Close>
+                      <Popover.Close>
+                        <Button variant="solid" size="1">
+                          Save
+                        </Button>
+                      </Popover.Close>
+                    </div>
+                  </Popover.Content>
+                </Popover.Root>
+              </div>
+
+              {/* Section with HoverCard */}
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: 'var(--space-3)',
+                  background: 'var(--gray-a3)',
+                  borderRadius: 'var(--radius-2)',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+                  <Avatar fallback="A" size="2" />
+                  <div>
+                    <Text as="div" weight="medium">
+                      Account Owner
+                    </Text>
+                    <HoverCard.Root>
+                      <HoverCard.Trigger>
+                        <Link size="2" href="#">
+                          @alexjohnson
+                        </Link>
+                      </HoverCard.Trigger>
+                      <HoverCard.Content>
+                        <div style={{ display: 'flex', gap: 'var(--space-4)' }}>
+                          <Avatar size="3" fallback="A" />
+                          <div>
+                            <Heading size="3" as="h3">
+                              Alex Johnson
+                            </Heading>
+                            <Text as="p" size="2" color="gray">
+                              @alexjohnson
+                            </Text>
+                            <Text as="p" size="2" style={{ marginTop: 'var(--space-2)', maxWidth: 280 }}>
+                              Senior Developer at Acme Corp. Loves building great user experiences.
+                            </Text>
+                            <div style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-3)' }}>
+                              <Text size="2">
+                                <Text weight="bold">142</Text> <Text color="gray">following</Text>
+                              </Text>
+                              <Text size="2">
+                                <Text weight="bold">2,891</Text> <Text color="gray">followers</Text>
+                              </Text>
+                            </div>
+                          </div>
+                        </div>
+                      </HoverCard.Content>
+                    </HoverCard.Root>
+                  </div>
+                </div>
+                <Badge color="green">Active</Badge>
+              </div>
+
+              {/* Section with Select */}
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: 'var(--space-3)',
+                  background: 'var(--gray-a3)',
+                  borderRadius: 'var(--radius-2)',
+                }}
+              >
+                <div>
+                  <Text as="div" weight="medium">
+                    Language
+                  </Text>
+                  <Text as="div" size="2" color="gray">
+                    Choose your preferred language
+                  </Text>
+                </div>
+                <Select.Root defaultValue="en">
+                  <Select.Trigger style={{ minWidth: 150 }} />
+                  <Select.Content>
+                    <Select.Group>
+                      <Select.Label>Languages</Select.Label>
+                      <Select.Item value="en">English</Select.Item>
+                      <Select.Item value="es">Español</Select.Item>
+                      <Select.Item value="fr">Français</Select.Item>
+                      <Select.Item value="de">Deutsch</Select.Item>
+                      <Select.Item value="ja">日本語</Select.Item>
+                      <Select.Item value="zh">中文</Select.Item>
+                    </Select.Group>
+                  </Select.Content>
+                </Select.Root>
+              </div>
+
+              {/* Section with DropdownMenu */}
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: 'var(--space-3)',
+                  background: 'var(--gray-a3)',
+                  borderRadius: 'var(--radius-2)',
+                }}
+              >
+                <div>
+                  <Text as="div" weight="medium">
+                    Quick Actions
+                  </Text>
+                  <Text as="div" size="2" color="gray">
+                    Common account operations
+                  </Text>
+                </div>
+                <DropdownMenu.Root>
+                  <DropdownMenu.Trigger>
+                    <Button variant="soft" size="2">
+                      Actions ▾
+                    </Button>
+                  </DropdownMenu.Trigger>
+                  <DropdownMenu.Content>
+                    <DropdownMenu.Item>Export Data</DropdownMenu.Item>
+                    <DropdownMenu.Item>Download Backup</DropdownMenu.Item>
+                    <DropdownMenu.Separator />
+                    <DropdownMenu.Sub>
+                      <DropdownMenu.SubTrigger>Privacy Settings</DropdownMenu.SubTrigger>
+                      <DropdownMenu.SubContent>
+                        <DropdownMenu.CheckboxItem checked>Profile visible</DropdownMenu.CheckboxItem>
+                        <DropdownMenu.CheckboxItem>Show email</DropdownMenu.CheckboxItem>
+                        <DropdownMenu.CheckboxItem checked>Allow messages</DropdownMenu.CheckboxItem>
+                      </DropdownMenu.SubContent>
+                    </DropdownMenu.Sub>
+                    <DropdownMenu.Sub>
+                      <DropdownMenu.SubTrigger>Theme</DropdownMenu.SubTrigger>
+                      <DropdownMenu.SubContent>
+                        <DropdownMenu.RadioGroup value="system">
+                          <DropdownMenu.RadioItem value="light">Light</DropdownMenu.RadioItem>
+                          <DropdownMenu.RadioItem value="dark">Dark</DropdownMenu.RadioItem>
+                          <DropdownMenu.RadioItem value="system">System</DropdownMenu.RadioItem>
+                        </DropdownMenu.RadioGroup>
+                      </DropdownMenu.SubContent>
+                    </DropdownMenu.Sub>
+                    <DropdownMenu.Separator />
+                    <DropdownMenu.Item color="red">Sign Out</DropdownMenu.Item>
+                  </DropdownMenu.Content>
+                </DropdownMenu.Root>
+              </div>
+            </div>
+
+            <div
+              style={{
+                display: 'flex',
+                gap: 'var(--space-3)',
+                marginTop: 'var(--space-5)',
+                justifyContent: 'flex-end',
+              }}
+            >
+              <Dialog.Close>
+                <Button variant="soft" color="gray">
+                  Close
+                </Button>
+              </Dialog.Close>
+            </div>
           </Dialog.Content>
         </Dialog.Root>
       </div>

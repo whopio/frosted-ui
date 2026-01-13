@@ -2,7 +2,6 @@
 .fui-DialogBackdrop {
   position: fixed;
   inset: 0;
-  z-index: 0;
 }
 
 /* Viewport handles centering */
@@ -12,7 +11,6 @@
   justify-content: center;
   position: fixed;
   inset: 0;
-  z-index: 1;
 
   --dialog-overlay-padding-top: var(--space-4);
   --dialog-overlay-padding-bottom: max(var(--space-4), 4vh);
@@ -30,7 +28,7 @@
   background-color: var(--color-panel-solid);
   box-shadow: var(--shadow-6);
   box-sizing: border-box;
-  z-index: 1;
+
   position: relative;
 
   --inset-padding: var(--dialog-content-padding);
