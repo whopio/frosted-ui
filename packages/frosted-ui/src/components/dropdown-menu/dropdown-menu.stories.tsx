@@ -322,3 +322,83 @@ export const MultipleTriggers: Story = {
     );
   },
 };
+
+const itemGroups = {
+  library: [
+    { label: 'Add to library', onClick: () => console.log('Adding to library') },
+    { label: 'Add to favorites', onClick: () => console.log('Adding to favorites') },
+  ],
+  playback: [
+    { label: 'Play', onClick: () => console.log('Playing') },
+    { label: 'Add to queue', onClick: () => console.log('Adding to queue') },
+  ],
+  share: [
+    { label: 'Share', onClick: () => console.log('Sharing') },
+    { label: 'Copy link', onClick: () => console.log('Copying link') },
+  ],
+} as const;
+
+type MenuKey = keyof typeof itemGroups;
+
+export const ControlledWithMultipleTriggers: Story = {
+  name: 'Controlled Mode with Multiple Triggers',
+  render: function Render(args) {
+    const menuHandle = React.useMemo(() => DropdownMenu.createHandle<MenuKey>(), []);
+    const [open, setOpen] = React.useState(false);
+    const [activeTrigger, setActiveTrigger] = React.useState<string | null>(null);
+
+    const handleOpenChange: React.ComponentProps<typeof DropdownMenu.Root>['onOpenChange'] = (isOpen, eventDetails) => {
+      setOpen(isOpen);
+      if (isOpen && eventDetails?.trigger) {
+        setActiveTrigger(eventDetails.trigger.id ?? null);
+      }
+    };
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
+        <Text as="div" style={{ maxWidth: 600, textAlign: 'center' }}>
+          Control a menu's open state externally with the <Code>open</Code> and <Code>onOpenChange</Code> props. When
+          more than one trigger can open the menu, track the active trigger with <Code>triggerId</Code> on{' '}
+          <Code>&lt;DropdownMenu.Root&gt;</Code> and matching <Code>id</Code> props on each trigger.
+        </Text>
+
+        <div style={{ display: 'flex', gap: 'var(--space-2)', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <DropdownMenu.Trigger handle={menuHandle} id="menu-trigger-library" payload="library">
+            <Button variant="soft">Library</Button>
+          </DropdownMenu.Trigger>
+
+          <DropdownMenu.Trigger handle={menuHandle} id="menu-trigger-playback" payload="playback">
+            <Button variant="soft">Playback</Button>
+          </DropdownMenu.Trigger>
+
+          <DropdownMenu.Trigger handle={menuHandle} id="menu-trigger-share" payload="share">
+            <Button variant="soft">Share</Button>
+          </DropdownMenu.Trigger>
+
+          <Button
+            variant="surface"
+            onClick={() => {
+              setActiveTrigger('menu-trigger-playback');
+              setOpen(true);
+            }}
+          >
+            Open Playback (controlled)
+          </Button>
+        </div>
+
+        <DropdownMenu.Root handle={menuHandle} open={open} triggerId={activeTrigger} onOpenChange={handleOpenChange}>
+          {({ payload }) => (
+            <DropdownMenu.Content {...args}>
+              {payload &&
+                itemGroups[payload].map((item, index) => (
+                  <DropdownMenu.Item key={index} onClick={item.onClick}>
+                    {item.label}
+                  </DropdownMenu.Item>
+                ))}
+            </DropdownMenu.Content>
+          )}
+        </DropdownMenu.Root>
+      </div>
+    );
+  },
+};

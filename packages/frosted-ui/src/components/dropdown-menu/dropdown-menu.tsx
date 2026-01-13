@@ -17,20 +17,39 @@ import type { GetPropDefTypes } from '../../helpers';
 // Re-export createHandle for detached triggers
 const createHandle = MenuPrimitive.createHandle;
 
-interface DropdownMenuRootProps extends Omit<React.ComponentProps<typeof MenuPrimitive.Root>, 'className' | 'render'> {}
-const DropdownMenuRoot: React.FC<DropdownMenuRootProps> = (props) => <MenuPrimitive.Root {...props} />;
+// Types from Base UI
+type RootProps = React.ComponentProps<typeof MenuPrimitive.Root>;
+
+// Handle type - extracts the return type of createHandle with a generic
+type DropdownMenuHandle<T = unknown> = ReturnType<typeof MenuPrimitive.createHandle<T>>;
+
+// Root - generic to infer payload type from handle
+interface DropdownMenuRootProps<T = unknown> extends Omit<RootProps, 'className' | 'render' | 'children' | 'handle'> {
+  children?: React.ReactNode | ((props: { payload: T | undefined }) => React.ReactNode);
+  handle?: DropdownMenuHandle<T>;
+}
+function DropdownMenuRoot<T = unknown>(props: DropdownMenuRootProps<T>) {
+  return <MenuPrimitive.Root {...(props as RootProps)} />;
+}
 DropdownMenuRoot.displayName = 'DropdownMenuRoot';
 
-interface DropdownMenuTriggerProps extends Omit<
+// Trigger - generic to infer payload type from handle
+interface DropdownMenuTriggerProps<T = unknown> extends Omit<
   React.ComponentProps<typeof MenuPrimitive.Trigger>,
-  'render' | 'className'
+  'render' | 'className' | 'handle' | 'payload'
 > {
   className?: string;
+  handle?: DropdownMenuHandle<T>;
+  payload?: T;
 }
-
-const DropdownMenuTrigger = ({ children, ...props }: DropdownMenuTriggerProps) => (
-  <MenuPrimitive.Trigger {...props} render={children as React.ReactElement} />
-);
+function DropdownMenuTrigger<T = unknown>({ children, ...props }: DropdownMenuTriggerProps<T>) {
+  return (
+    <MenuPrimitive.Trigger
+      {...(props as React.ComponentProps<typeof MenuPrimitive.Trigger>)}
+      render={children as React.ReactElement}
+    />
+  );
+}
 DropdownMenuTrigger.displayName = 'DropdownMenuTrigger';
 
 type DropdownMenuContentOwnProps = GetPropDefTypes<typeof dropdownMenuContentPropDefs>;
@@ -365,6 +384,7 @@ export type {
   DropdownMenuCheckboxItemProps as CheckboxItemProps,
   DropdownMenuContentProps as ContentProps,
   DropdownMenuGroupProps as GroupProps,
+  DropdownMenuHandle as Handle,
   DropdownMenuItemProps as ItemProps,
   DropdownMenuLabelProps as LabelProps,
   DropdownMenuRadioGroupProps as RadioGroupProps,
