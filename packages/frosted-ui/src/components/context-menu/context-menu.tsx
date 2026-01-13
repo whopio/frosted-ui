@@ -189,7 +189,9 @@ const ContextMenuSubTrigger = (props: ContextMenuSubTriggerProps) => {
       )}
     >
       <Slot.Slottable>{children}</Slot.Slottable>
-      <ThickChevronRightIcon className="fui-BaseMenuSubTriggerIcon fui-ContextMenuSubTriggerIcon" />
+      <div className="fui-BaseMenuShortcut fui-ContextMenuShortcut">
+        <ThickChevronRightIcon className="fui-BaseMenuSubTriggerIcon fui-ContextMenuSubTriggerIcon" />
+      </div>
     </ContextMenuPrimitive.SubTrigger>
   );
 };
@@ -206,7 +208,8 @@ const ContextMenuSubContent = (props: ContextMenuSubContentProps) => {
       <Theme asChild>
         <ContextMenuPrimitive.SubContent
           data-accent-color={color}
-          alignOffset={-Number(size) * 4}
+          alignOffset={-4}
+          sideOffset={2}
           collisionPadding={10}
           {...contentProps}
           className={classNames(

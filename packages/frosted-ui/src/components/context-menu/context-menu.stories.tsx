@@ -8,7 +8,18 @@ const meta = {
   title: 'Controls/ContextMenu',
   component: ContextMenu.Content,
   args: {
+    size: contextMenuContentPropDefs.size.default,
     variant: contextMenuContentPropDefs.variant.default,
+  },
+  argTypes: {
+    size: {
+      control: 'select',
+      options: contextMenuContentPropDefs.size.values,
+    },
+    variant: {
+      control: 'select',
+      options: contextMenuContentPropDefs.variant.values,
+    },
   },
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
