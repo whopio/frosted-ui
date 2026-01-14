@@ -105,7 +105,6 @@ const DropdownMenuContent = (props: DropdownMenuContentProps) => {
             data-accent-color={resolvedColor}
             {...popupProps}
             className={classNames(
-              'fui-PopperContent',
               'fui-BaseMenuContent',
               'fui-DropdownMenuContent',
               `fui-variant-${variant}`,
@@ -327,7 +326,6 @@ const DropdownMenuSubContent = (props: DropdownMenuSubContentProps) => {
             data-accent-color={color}
             {...popupProps}
             className={classNames(
-              'fui-PopperContent',
               'fui-BaseMenuContent',
               'fui-BaseMenuSubContent',
               'fui-DropdownMenuContent',
