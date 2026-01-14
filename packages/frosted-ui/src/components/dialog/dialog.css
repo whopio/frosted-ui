@@ -1,3 +1,10 @@
+/* Backdrop handles the blur/dim effect */
+.fui-DialogBackdrop {
+  position: fixed;
+  inset: 0;
+}
+
+/* Viewport handles centering */
 .fui-DialogOverlay {
   display: flex;
   align-items: center;
@@ -11,12 +18,6 @@
   padding-bottom: var(--dialog-overlay-padding-bottom);
   padding-left: var(--space-4);
   padding-right: var(--space-4);
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-  }
 }
 
 .fui-DialogContent {
@@ -27,7 +28,8 @@
   background-color: var(--color-panel-solid);
   box-shadow: var(--shadow-6);
   box-sizing: border-box;
-  z-index: 1;
+
+  position: relative;
 
   --inset-padding: var(--dialog-content-padding);
   padding: var(--inset-padding);
@@ -39,6 +41,28 @@
     /* prettier-ignore */
     max-height: calc(100dvh - var(--dialog-overlay-padding-top) - var(--dialog-overlay-padding-bottom));
   }
+
+  /* 
+   * Nested dialog support
+   * Uses --nested-dialogs CSS variable from Base UI (0, 1, 2... based on depth)
+   */
+  --nested-dialogs: 0;
+  transform: scale(calc(1 - 0.05 * var(--nested-dialogs)));
+  translate: 0 calc(-1 * var(--nested-dialogs) * 0.5rem);
+
+  /* Dim on parent when nested dialog is open */
+  &[data-nested-dialog-open] {
+    filter: brightness(calc(1 - 0.1 * var(--nested-dialogs))) blur(calc(var(--nested-dialogs) * 1px));
+  }
+
+  /* &[data-nested-dialog-open]::after {
+    content: '';
+    inset: 0;
+    position: absolute;
+    border-radius: inherit;
+    background-color: rgb(0 0 0 / 0.03);
+    pointer-events: none;
+  } */
 }
 
 /***************************************************************************************************
@@ -82,94 +106,51 @@
   margin-bottom: var(--dialog-description-mb);
 }
 
-@property --overlay-blur {
-  syntax: '<length>';
-  inherits: false;
-  initial-value: 0px;
-}
-@property --overlay-brightness {
-  syntax: '<number>';
-  inherits: false;
-  initial-value: 0;
-}
-
-@keyframes fui-blur-in {
-  from {
-    --overlay-blur: 0px;
-    --overlay-brightness: 1;
-  }
-  to {
-    --overlay-blur: 3px;
-    --overlay-brightness: 0.7;
-  }
-}
-
-@keyframes fui-blur-out {
-  from {
-    --overlay-blur: 3px;
-    --overlay-brightness: 0.7;
-  }
-  to {
-    --overlay-blur: 0px;
-    --overlay-brightness: 1;
-  }
-}
+/***************************************************************************************************
+ *                                                                                                 *
+ * TRANSITIONS (using Base UI's data-starting-style / data-ending-style)                          *
+ *                                                                                                 *
+ ***************************************************************************************************/
 
 @media (prefers-reduced-motion: no-preference) {
-  @keyframes fui-dialog-overlay-no-op {
-    from {
-      opacity: 1;
-    }
-    to {
-      opacity: 1;
-    }
-  }
+  .fui-DialogBackdrop {
+    /* Default: hidden (for keepMounted initial state) */
+    backdrop-filter: blur(0px) brightness(1);
+    opacity: 0;
+    transition:
+      backdrop-filter 400ms cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 400ms cubic-bezier(0.16, 1, 0.3, 1);
 
-  @keyframes fui-dialog-content-show {
-    from {
+    /* When open: show blur effect */
+    &[data-open] {
+      backdrop-filter: blur(4px) brightness(0.7);
+      opacity: 1;
+    }
+
+    /* Starting/ending transitions */
+    &[data-starting-style],
+    &[data-ending-style] {
+      backdrop-filter: blur(0px) brightness(1);
       opacity: 0;
-      transform: translateY(5px) scale(0.97);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0px) scale(1);
-    }
-  }
-
-  @keyframes fui-dialog-content-hide {
-    from {
-      opacity: 1;
-      transform: translateY(0px) scale(1);
-    }
-    to {
-      opacity: 0;
-      transform: translateY(5px) scale(0.99);
-    }
-  }
-
-  .fui-DialogOverlay {
-    &::before {
-      backdrop-filter: blur(var(--overlay-blur)) brightness(var(--overlay-brightness));
-    }
-    /* Keep the overlay mounted until the children have animated */
-    &:where([data-state='closed']) {
-      animation: fui-blur-out 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    &:where([data-state='open'])::before {
-      animation: fui-blur-in 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    &:where([data-state='closed'])::before {
-      animation: fui-blur-out 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
   }
 
   .fui-DialogContent {
-    &:where([data-state='open']) {
-      animation: fui-dialog-content-show 400ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transition:
+      opacity 150ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 400ms cubic-bezier(0.32, 0.72, 0, 1),
+      translate 400ms cubic-bezier(0.32, 0.72, 0, 1),
+      filter 300ms cubic-bezier(0.32, 0.72, 0, 1);
+
+    &[data-starting-style] {
+      opacity: 0;
+      transform: scale(calc(0.97 - 0.05 * var(--nested-dialogs)));
+      translate: 0 calc(8px - var(--nested-dialogs) * 0.5rem);
     }
-    &:where([data-state='closed']) {
-      animation: fui-dialog-content-hide 150ms cubic-bezier(0.16, 1, 0.3, 1);
+
+    &[data-ending-style] {
+      opacity: 0;
     }
   }
 }
