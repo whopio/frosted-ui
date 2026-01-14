@@ -1322,12 +1322,14 @@ export const DialogTriggerInDropdownMenu: Story = {
           </DropdownMenu.Trigger>
           <DropdownMenu.Content>
             <DropdownMenu.Item>View Details</DropdownMenu.Item>
-            <DropdownMenu.Item>Duplicate</DropdownMenu.Item>
+            <DropdownMenu.Item disabled>Duplicate</DropdownMenu.Item>
             <DropdownMenu.Separator />
 
             <Dialog.Root>
-              <Dialog.Trigger tabIndex={-1}>
-                <DropdownMenu.Item closeOnClick={false}>Edit Settings...</DropdownMenu.Item>
+              <Dialog.Trigger tabIndex={-1} nativeButton={false}>
+                <DropdownMenu.Item disabled nativeButton closeOnClick={false}>
+                  Edit Settings...
+                </DropdownMenu.Item>
               </Dialog.Trigger>
               <Dialog.Content {...args} style={{ maxWidth: 450 }}>
                 <Dialog.Title>Edit Settings</Dialog.Title>
@@ -1376,7 +1378,7 @@ export const DialogTriggerInDropdownMenu: Story = {
             </Dialog.Root>
 
             <Dialog.Root>
-              <Dialog.Trigger tabIndex={-1}>
+              <Dialog.Trigger tabIndex={-1} nativeButton={false}>
                 <DropdownMenu.Item color="red" closeOnClick={false}>
                   Delete...
                 </DropdownMenu.Item>

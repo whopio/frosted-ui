@@ -38,7 +38,7 @@ export const Default: Story = {
           <DropdownMenu.Group>
             <DropdownMenu.GroupLabel>Swag</DropdownMenu.GroupLabel>
             <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
-            <DropdownMenu.Item shortcut="⌘ D" disabled>
+            <DropdownMenu.Item shortcut="⌘ D" disabled onClick={() => alert('Duplicate')}>
               Duplicate
             </DropdownMenu.Item>
           </DropdownMenu.Group>
