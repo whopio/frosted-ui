@@ -54,6 +54,24 @@ export const Default: Story = {
               <DropdownMenu.Item>Advanced options…</DropdownMenu.Item>
             </DropdownMenu.SubContent>
           </DropdownMenu.Sub>
+          <DropdownMenu.Sub>
+            <DropdownMenu.SubTrigger>Features</DropdownMenu.SubTrigger>
+            <DropdownMenu.SubContent>
+              <DropdownMenu.Item>Move to project…</DropdownMenu.Item>
+              <DropdownMenu.Item>Move to folder…</DropdownMenu.Item>
+              <DropdownMenu.Separator />
+              <DropdownMenu.Item>Advanced options…</DropdownMenu.Item>
+            </DropdownMenu.SubContent>
+          </DropdownMenu.Sub>
+          <DropdownMenu.Sub>
+            <DropdownMenu.SubTrigger>Options</DropdownMenu.SubTrigger>
+            <DropdownMenu.SubContent>
+              <DropdownMenu.Item>Move to project…</DropdownMenu.Item>
+              <DropdownMenu.Item>Move to folder…</DropdownMenu.Item>
+              <DropdownMenu.Separator />
+              <DropdownMenu.Item>Advanced options…</DropdownMenu.Item>
+            </DropdownMenu.SubContent>
+          </DropdownMenu.Sub>
 
           <DropdownMenu.Separator />
           <DropdownMenu.RadioGroup value={order} onValueChange={(value) => setOrder(value as Order)}>

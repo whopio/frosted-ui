@@ -90,7 +90,6 @@ const ContextMenuContent = (props: ContextMenuContentProps) => {
             data-accent-color={resolvedColor}
             {...popupProps}
             className={classNames(
-              'fui-PopperContent',
               'fui-BaseMenuContent',
               'fui-ContextMenuContent',
               `fui-variant-${variant}`,
@@ -316,7 +315,6 @@ const ContextMenuSubContent = (props: ContextMenuSubContentProps) => {
             data-accent-color={color}
             {...popupProps}
             className={classNames(
-              'fui-PopperContent',
               'fui-BaseMenuContent',
               'fui-BaseMenuSubContent',
               'fui-ContextMenuContent',
