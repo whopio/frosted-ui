@@ -53,23 +53,13 @@ export const Truncated: Story = {
   },
   render: (args) => (
     <Breadcrumbs.Root {...args}>
-      <Breadcrumbs.Item render={<a href="#" />}>
-        <a href="#">Home</a>
-      </Breadcrumbs.Item>
+      <Breadcrumbs.Item render={<a href="#">Home</a>} />
       <Breadcrumbs.Dropdown>
-        <Breadcrumbs.DropdownItem asChild>
-          <a href="#">Products</a>
-        </Breadcrumbs.DropdownItem>
-        <Breadcrumbs.DropdownItem asChild>
-          <a href="#">Categories</a>
-        </Breadcrumbs.DropdownItem>
-        <Breadcrumbs.DropdownItem asChild>
-          <a href="#">Software</a>
-        </Breadcrumbs.DropdownItem>
+        <Breadcrumbs.DropdownItem render={<a href="#">Products</a>} />
+        <Breadcrumbs.DropdownItem render={<a href="#">Categories</a>} />
+        <Breadcrumbs.DropdownItem render={<a href="#">Software</a>} />
       </Breadcrumbs.Dropdown>
-      <Breadcrumbs.Item render={<a href="#" />}>
-        <a href="#">Bots</a>
-      </Breadcrumbs.Item>
+      <Breadcrumbs.Item render={<a href="#">Bots</a>} />
       <Breadcrumbs.Item>Sneaker Bot</Breadcrumbs.Item>
     </Breadcrumbs.Root>
   ),

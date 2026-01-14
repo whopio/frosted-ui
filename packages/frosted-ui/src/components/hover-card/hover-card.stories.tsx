@@ -293,7 +293,7 @@ export const Positioning: Story = {
             <HoverCard.Trigger>
               <Link href="#">Top</Link>
             </HoverCard.Trigger>
-            <HoverCard.Content {...args} side="top" alignment="center">
+            <HoverCard.Content {...args} side="top" align="center">
               <Text size="2">Positioned on top, centered</Text>
             </HoverCard.Content>
           </HoverCard.Root>
@@ -306,7 +306,7 @@ export const Positioning: Story = {
             <HoverCard.Trigger>
               <Link href="#">Left</Link>
             </HoverCard.Trigger>
-            <HoverCard.Content {...args} side="left" alignment="center">
+            <HoverCard.Content {...args} side="left" align="center">
               <Text size="2">Positioned on left, centered</Text>
             </HoverCard.Content>
           </HoverCard.Root>
@@ -317,7 +317,7 @@ export const Positioning: Story = {
             <HoverCard.Trigger>
               <Link href="#">Right</Link>
             </HoverCard.Trigger>
-            <HoverCard.Content {...args} side="right" alignment="center">
+            <HoverCard.Content {...args} side="right" align="center">
               <Text size="2">Positioned on right, centered</Text>
             </HoverCard.Content>
           </HoverCard.Root>
@@ -330,7 +330,7 @@ export const Positioning: Story = {
             <HoverCard.Trigger>
               <Link href="#">Bottom</Link>
             </HoverCard.Trigger>
-            <HoverCard.Content {...args} side="bottom" alignment="center">
+            <HoverCard.Content {...args} side="bottom" align="center">
               <Text size="2">Positioned on bottom, centered</Text>
             </HoverCard.Content>
           </HoverCard.Root>
