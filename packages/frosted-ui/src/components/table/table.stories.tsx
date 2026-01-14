@@ -628,16 +628,18 @@ const columns: ColumnDef<Payment>[] = [
               <DropdownMenu.Item>View customer</DropdownMenu.Item>
               <DropdownMenu.Item>View payment details</DropdownMenu.Item>
               <DropdownMenu.Separator />
-              <DropdownMenu.Label>Actions</DropdownMenu.Label>
-              <DropdownMenu.Item onClick={() => navigator.clipboard.writeText(payment.id)}>
-                Copy payment ID
-              </DropdownMenu.Item>
-              <DropdownMenu.Item
-                color="danger"
-                // onClick={() => navigator.clipboard.writeText(payment.id)}
-              >
-                Refund
-              </DropdownMenu.Item>
+              <DropdownMenu.Group>
+                <DropdownMenu.GroupLabel>Actions</DropdownMenu.GroupLabel>
+                <DropdownMenu.Item onClick={() => navigator.clipboard.writeText(payment.id)}>
+                  Copy payment ID
+                </DropdownMenu.Item>
+                <DropdownMenu.Item
+                  color="danger"
+                  // onClick={() => navigator.clipboard.writeText(payment.id)}
+                >
+                  Refund
+                </DropdownMenu.Item>
+              </DropdownMenu.Group>
             </DropdownMenu.Content>
           </DropdownMenu.Root>
         </div>

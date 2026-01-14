@@ -155,11 +155,14 @@ export const NestedMenu: Story = {
         </ContextMenu.Sub>
 
         <ContextMenu.Separator />
-        <ContextMenu.Item>Play Next</ContextMenu.Item>
-        <ContextMenu.Item>Play Last</ContextMenu.Item>
-        <ContextMenu.Separator />
-        <ContextMenu.Item>Favorite</ContextMenu.Item>
-        <ContextMenu.Item>Share</ContextMenu.Item>
+        <ContextMenu.Group>
+          <ContextMenu.GroupLabel>Actions</ContextMenu.GroupLabel>
+          <ContextMenu.Item>Play Next</ContextMenu.Item>
+          <ContextMenu.Item>Play Last</ContextMenu.Item>
+          <ContextMenu.Separator />
+          <ContextMenu.Item>Favorite</ContextMenu.Item>
+          <ContextMenu.Item>Share</ContextMenu.Item>
+        </ContextMenu.Group>
       </ContextMenu.Content>
     </ContextMenu.Root>
   ),

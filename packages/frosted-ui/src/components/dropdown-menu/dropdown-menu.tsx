@@ -130,20 +130,20 @@ const DropdownMenuContent = (props: DropdownMenuContentProps) => {
 };
 DropdownMenuContent.displayName = 'DropdownMenuContent';
 
-interface DropdownMenuLabelProps extends Omit<
+interface DropdownMenuGroupLabelProps extends Omit<
   React.ComponentProps<typeof MenuPrimitive.GroupLabel>,
   'className' | 'render'
 > {
   className?: string;
 }
 
-const DropdownMenuLabel = (props: DropdownMenuLabelProps) => (
+const DropdownMenuGroupLabel = (props: DropdownMenuGroupLabelProps) => (
   <MenuPrimitive.GroupLabel
     {...props}
-    className={classNames('fui-BaseMenuLabel', 'fui-DropdownMenuLabel', props.className)}
+    className={classNames('fui-BaseMenuGroupLabel', 'fui-DropdownMenuGroupLabel', props.className)}
   />
 );
-DropdownMenuLabel.displayName = 'DropdownMenuLabel';
+DropdownMenuGroupLabel.displayName = 'DropdownMenuGroupLabel';
 
 type DropdownMenuItemOwnProps = GetPropDefTypes<typeof dropdownMenuItemPropDefs>;
 interface DropdownMenuItemProps
@@ -368,8 +368,8 @@ export {
   DropdownMenuContent as Content,
   createHandle,
   DropdownMenuGroup as Group,
+  DropdownMenuGroupLabel as GroupLabel,
   DropdownMenuItem as Item,
-  DropdownMenuLabel as Label,
   DropdownMenuRadioGroup as RadioGroup,
   DropdownMenuRadioItem as RadioItem,
   DropdownMenuRoot as Root,
@@ -383,10 +383,10 @@ export {
 export type {
   DropdownMenuCheckboxItemProps as CheckboxItemProps,
   DropdownMenuContentProps as ContentProps,
+  DropdownMenuGroupLabelProps as GroupLabelProps,
   DropdownMenuGroupProps as GroupProps,
   DropdownMenuHandle as Handle,
   DropdownMenuItemProps as ItemProps,
-  DropdownMenuLabelProps as LabelProps,
   DropdownMenuRadioGroupProps as RadioGroupProps,
   DropdownMenuRadioItemProps as RadioItemProps,
   DropdownMenuRootProps as RootProps,

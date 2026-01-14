@@ -73,7 +73,7 @@
   margin-right: calc(-1 * var(--base-menu-content-padding) + 1px);
 }
 
-.fui-BaseMenuLabel {
+.fui-BaseMenuGroupLabel {
   display: flex;
   align-items: center;
   height: var(--base-menu-item-height);
@@ -115,7 +115,7 @@
       border-radius: 4px;
     }
 
-    & :where(.fui-BaseMenuLabel) {
+    & :where(.fui-BaseMenuGroupLabel) {
       font-size: var(--font-size-0);
       line-height: var(--line-height-0);
       letter-spacing: var(--letter-spacing-0);
@@ -152,7 +152,7 @@
       border-radius: 6px;
     }
 
-    & :where(.fui-BaseMenuLabel) {
+    & :where(.fui-BaseMenuGroupLabel) {
       font-size: var(--font-size-1);
       line-height: var(--line-height-1);
       letter-spacing: var(--letter-spacing-1);
@@ -185,7 +185,7 @@
       border-radius: 8px;
     }
 
-    & :where(.fui-BaseMenuLabel) {
+    & :where(.fui-BaseMenuGroupLabel) {
       font-size: var(--font-size-2);
       line-height: var(--line-height-2);
       letter-spacing: var(--letter-spacing-2);

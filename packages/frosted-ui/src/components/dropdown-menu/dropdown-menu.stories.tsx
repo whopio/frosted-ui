@@ -36,7 +36,7 @@ export const Default: Story = {
         </DropdownMenu.Trigger>
         <DropdownMenu.Content {...args}>
           <DropdownMenu.Group>
-            <DropdownMenu.Label>Swag</DropdownMenu.Label>
+            <DropdownMenu.GroupLabel>Swag</DropdownMenu.GroupLabel>
             <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
             <DropdownMenu.Item shortcut="⌘ D" disabled>
               Duplicate

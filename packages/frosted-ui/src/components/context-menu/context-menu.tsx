@@ -116,19 +116,19 @@ const ContextMenuContent = (props: ContextMenuContentProps) => {
 ContextMenuContent.displayName = 'ContextMenuContent';
 
 // Label (must be inside Group in Base UI)
-interface ContextMenuLabelProps extends Omit<
+interface ContextMenuGroupLabelProps extends Omit<
   React.ComponentProps<typeof ContextMenuPrimitive.GroupLabel>,
   'className' | 'render'
 > {
   className?: string;
 }
-const ContextMenuLabel = (props: ContextMenuLabelProps) => (
+const ContextMenuGroupLabel = (props: ContextMenuGroupLabelProps) => (
   <ContextMenuPrimitive.GroupLabel
     {...props}
-    className={classNames('fui-BaseMenuLabel', 'fui-ContextMenuLabel', props.className)}
+    className={classNames('fui-BaseMenuGroupLabel', 'fui-ContextMenuGroupLabel', props.className)}
   />
 );
-ContextMenuLabel.displayName = 'ContextMenuLabel';
+ContextMenuGroupLabel.displayName = 'ContextMenuGroupLabel';
 
 // Item
 type ContextMenuItemOwnProps = GetPropDefTypes<typeof contextMenuItemPropDefs>;
@@ -356,8 +356,8 @@ export {
   ContextMenuCheckboxItem as CheckboxItem,
   ContextMenuContent as Content,
   ContextMenuGroup as Group,
+  ContextMenuGroupLabel as GroupLabel,
   ContextMenuItem as Item,
-  ContextMenuLabel as Label,
   ContextMenuRadioGroup as RadioGroup,
   ContextMenuRadioItem as RadioItem,
   ContextMenuRoot as Root,
@@ -371,9 +371,9 @@ export {
 export type {
   ContextMenuCheckboxItemProps as CheckboxItemProps,
   ContextMenuContentProps as ContentProps,
+  ContextMenuGroupLabelProps as GroupLabelProps,
   ContextMenuGroupProps as GroupProps,
   ContextMenuItemProps as ItemProps,
-  ContextMenuLabelProps as LabelProps,
   ContextMenuRadioGroupProps as RadioGroupProps,
   ContextMenuRadioItemProps as RadioItemProps,
   ContextMenuRootProps as RootProps,
