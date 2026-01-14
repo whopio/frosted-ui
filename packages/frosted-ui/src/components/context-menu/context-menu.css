@@ -1,6 +1,6 @@
 @import '../base-menu/base-menu.css';
 
 .fui-ContextMenuContent {
-  max-height: var(--radix-context-menu-content-available-height);
-  transform-origin: var(--radix-context-menu-content-transform-origin);
+  /* Base UI provides --available-height and --transform-origin on the Popup */
+  max-height: var(--available-height);
 }
