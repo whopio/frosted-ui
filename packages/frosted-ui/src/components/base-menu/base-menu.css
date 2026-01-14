@@ -235,7 +235,7 @@
     background-color: var(--color-panel-solid);
   }
 
-  & :where(.fui-BaseMenuSubTrigger[data-state='open']) {
+  & :where(.fui-BaseMenuSubTrigger[data-popup-open]) {
     background-color: var(--gray-a3);
   }
   & :where(.fui-BaseMenuItem[data-highlighted]) {
@@ -257,7 +257,7 @@
   color: var(--gray-a10);
 }
 .fui-BaseMenuItem:where([data-disabled], [data-highlighted]),
-.fui-BaseMenuSubTrigger:where([data-state='open']) {
+.fui-BaseMenuSubTrigger:where([data-popup-open]) {
   & :where(.fui-BaseMenuShortcut) {
     color: inherit;
   }
