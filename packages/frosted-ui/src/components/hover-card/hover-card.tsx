@@ -65,9 +65,9 @@ interface HoverCardContentProps
   container?: PortalProps['container'];
   keepMounted?: PortalProps['keepMounted'];
   /** The alignment of the content relative to the trigger. */
-  alignment?: PositionerProps['align'];
+  align?: PositionerProps['align'];
   /** The offset from the alignment edge in pixels. */
-  alignmentOffset?: PositionerProps['alignOffset'];
+  alignOffset?: PositionerProps['alignOffset'];
 }
 const HoverCardContent = (props: HoverCardContentProps) => {
   const {
@@ -76,10 +76,10 @@ const HoverCardContent = (props: HoverCardContentProps) => {
     container,
     size = hoverCardContentPropDefs.size.default,
     variant = hoverCardContentPropDefs.variant.default,
-    alignment = 'center',
+    align = 'center',
     side,
     sideOffset = 8,
-    alignmentOffset,
+    alignOffset,
     collisionPadding = 10,
     collisionBoundary,
     collisionAvoidance,
@@ -93,10 +93,10 @@ const HoverCardContent = (props: HoverCardContentProps) => {
   return (
     <PreviewCardPrimitive.Portal container={container} keepMounted={keepMounted}>
       <PreviewCardPrimitive.Positioner
-        align={alignment}
+        align={align}
         side={side}
         sideOffset={sideOffset}
-        alignOffset={alignmentOffset}
+        alignOffset={alignOffset}
         collisionPadding={collisionPadding}
         collisionBoundary={collisionBoundary}
         collisionAvoidance={collisionAvoidance}

@@ -92,7 +92,7 @@ export const Variant: Story = {
               <AppearanceIcon />
             </IconButton>
           </Popover.Trigger>
-          <Popover.Content {...args} variant="translucent" alignment="center" style={{ width: 292 }}>
+          <Popover.Content {...args} variant="translucent" align="center" style={{ width: 292 }}>
             <Heading size="3" style={{ marginBottom: 12 }}>
               Theme
             </Heading>
@@ -126,7 +126,7 @@ export const Variant: Story = {
               <AppearanceIcon />
             </IconButton>
           </Popover.Trigger>
-          <Popover.Content {...args} variant="solid" alignment="center" style={{ width: 292 }}>
+          <Popover.Content {...args} variant="solid" align="center" style={{ width: 292 }}>
             <Heading size="3" style={{ marginBottom: 8 }}>
               Theme
             </Heading>
@@ -519,7 +519,7 @@ export const AnchorProp: Story = {
             <Popover.Trigger>
               <Button>Edit Profile</Button>
             </Popover.Trigger>
-            <Popover.Content {...args} anchor={anchor} side="top" alignment="start">
+            <Popover.Content {...args} anchor={anchor} side="top" align="start">
               <Heading size="3" style={{ marginBottom: 8 }}>
                 Profile Picture
               </Heading>

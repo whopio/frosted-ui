@@ -53,12 +53,12 @@ interface PopoverContentProps extends Omit<
   className?: string;
   container?: React.ComponentProps<typeof PopoverPrimitive.Portal>['container'];
   keepMounted?: React.ComponentProps<typeof PopoverPrimitive.Portal>['keepMounted'];
-  // Positioner props - we expose `alignment` which maps to Base UI's `align`
+  // Positioner props
   anchor?: React.ComponentProps<typeof PopoverPrimitive.Positioner>['anchor'];
-  alignment?: React.ComponentProps<typeof PopoverPrimitive.Positioner>['align'];
+  align?: React.ComponentProps<typeof PopoverPrimitive.Positioner>['align'];
   side?: React.ComponentProps<typeof PopoverPrimitive.Positioner>['side'];
   sideOffset?: React.ComponentProps<typeof PopoverPrimitive.Positioner>['sideOffset'];
-  alignmentOffset?: React.ComponentProps<typeof PopoverPrimitive.Positioner>['alignOffset'];
+  alignOffset?: React.ComponentProps<typeof PopoverPrimitive.Positioner>['alignOffset'];
   collisionPadding?: React.ComponentProps<typeof PopoverPrimitive.Positioner>['collisionPadding'];
   collisionBoundary?: React.ComponentProps<typeof PopoverPrimitive.Positioner>['collisionBoundary'];
   collisionAvoidance?: React.ComponentProps<typeof PopoverPrimitive.Positioner>['collisionAvoidance'];
@@ -76,10 +76,10 @@ const PopoverContent = (props: PopoverContentProps & PopoverContentOwnProps) => 
     variant = popoverContentPropDefs.variant.default,
     // Positioner props
     anchor,
-    alignment = 'center',
+    align = 'center',
     side,
     sideOffset = 8,
-    alignmentOffset,
+    alignOffset,
     collisionPadding = 10,
     collisionBoundary,
     collisionAvoidance,
@@ -95,10 +95,10 @@ const PopoverContent = (props: PopoverContentProps & PopoverContentOwnProps) => 
       <PopoverPrimitive.Positioner
         className="fui-PopoverPositioner"
         anchor={anchor}
-        align={alignment}
+        align={align}
         side={side}
         sideOffset={sideOffset}
-        alignOffset={alignmentOffset}
+        alignOffset={alignOffset}
         collisionPadding={collisionPadding}
         collisionBoundary={collisionBoundary}
         collisionAvoidance={collisionAvoidance}
