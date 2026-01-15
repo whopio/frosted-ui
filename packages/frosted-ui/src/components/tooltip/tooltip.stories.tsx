@@ -266,3 +266,41 @@ export const SideOffset: Story = {
     </div>
   ),
 };
+
+export const TrackCursorAxis: Story = {
+  name: 'Track Cursor Axis',
+  args: {
+    content: 'Tooltip',
+  },
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
+      <Text as="div" style={{ maxWidth: 400, textAlign: 'center' }}>
+        Make the tooltip follow your cursor with <Code>trackCursorAxis</Code>. Move your mouse over the buttons to see
+        the effect.
+      </Text>
+
+      <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
+        <Tooltip content="I stay in place" trackCursorAxis="none" delay={0}>
+          <Button variant="soft" style={{ width: 140 }}>
+            none (default)
+          </Button>
+        </Tooltip>
+        <Tooltip content="Following X" trackCursorAxis="x" delay={0}>
+          <Button variant="soft" style={{ width: 140 }}>
+            x
+          </Button>
+        </Tooltip>
+        <Tooltip content="Following Y" trackCursorAxis="y" delay={0} side="right">
+          <Button variant="soft" style={{ width: 140 }}>
+            y
+          </Button>
+        </Tooltip>
+        <Tooltip content="Following cursor" trackCursorAxis="both" delay={0}>
+          <Button variant="soft" style={{ width: 140 }}>
+            both
+          </Button>
+        </Tooltip>
+      </div>
+    </div>
+  ),
+};

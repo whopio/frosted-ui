@@ -27,6 +27,11 @@ interface TooltipProps extends TooltipOwnProps {
    * @default false
    */
   disableHoverablePopup?: boolean;
+  /**
+   * Determines which axis the tooltip should track the cursor on.
+   * @default 'none'
+   */
+  trackCursorAxis?: 'none' | 'x' | 'y' | 'both';
   // Portal props
   container?: React.ComponentProps<typeof TooltipPrimitive.Portal>['container'];
   keepMounted?: boolean;
@@ -49,6 +54,7 @@ const TooltipImpl = (props: TooltipProps) => {
     delay = 400,
     closeDelay,
     disableHoverablePopup,
+    trackCursorAxis,
     content,
     container,
     keepMounted,
@@ -67,6 +73,7 @@ const TooltipImpl = (props: TooltipProps) => {
     defaultOpen,
     onOpenChange,
     disableHoverablePopup,
+    trackCursorAxis,
   };
 
   const triggerProps = {
