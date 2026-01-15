@@ -20,6 +20,10 @@ interface TooltipProps extends TooltipOwnProps {
   open?: boolean;
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
+  /**
+   * Event handler called after any animations complete when the tooltip is opened or closed.
+   */
+  onOpenChangeComplete?: (open: boolean) => void;
   delay?: number;
   closeDelay?: number;
   /**
@@ -51,6 +55,7 @@ const TooltipImpl = (props: TooltipProps) => {
     open,
     defaultOpen,
     onOpenChange,
+    onOpenChangeComplete,
     delay = 400,
     closeDelay,
     disableHoverablePopup,
@@ -72,6 +77,7 @@ const TooltipImpl = (props: TooltipProps) => {
     open,
     defaultOpen,
     onOpenChange,
+    onOpenChangeComplete,
     disableHoverablePopup,
     trackCursorAxis,
   };

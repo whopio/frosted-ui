@@ -304,3 +304,71 @@ export const TrackCursorAxis: Story = {
     </div>
   ),
 };
+
+export const OnOpenChangeComplete: Story = {
+  name: 'Open Change Complete Callback',
+  args: {
+    content: 'Tooltip',
+  },
+  render: function Render() {
+    const [events, setEvents] = React.useState<{ time: string; event: string }[]>([]);
+
+    const formatTime = () => {
+      const now = new Date();
+      return (
+        now.toLocaleTimeString('en-US', {
+          hour12: false,
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+        }) + `.${now.getMilliseconds().toString().padStart(3, '0')}`
+      );
+    };
+
+    const addEvent = (event: string) => {
+      setEvents((prev) => [...prev.slice(-5), { time: formatTime(), event }]);
+    };
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
+        <Text as="div" style={{ maxWidth: 450, textAlign: 'center' }}>
+          <Code>onOpenChange</Code> fires immediately when the tooltip starts opening/closing.{' '}
+          <Code>onOpenChangeComplete</Code> fires after animations finish.
+        </Text>
+
+        <Tooltip
+          content="Hover me!"
+          delay={0}
+          onOpenChange={(open) => addEvent(`onOpenChange: ${open}`)}
+          onOpenChangeComplete={(open) => addEvent(`onOpenChangeComplete: ${open}`)}
+        >
+          <Button variant="soft">Hover me</Button>
+        </Tooltip>
+
+        <div
+          style={{
+            fontFamily: 'monospace',
+            fontSize: 12,
+            padding: 'var(--space-3)',
+            background: 'var(--gray-a3)',
+            borderRadius: 'var(--radius-2)',
+            minHeight: 140,
+            width: 340,
+          }}
+        >
+          {events.length === 0 ? (
+            <Text color="gray" size="1">
+              Hover the button to see events...
+            </Text>
+          ) : (
+            events.map((entry, i) => (
+              <div key={i} style={{ opacity: 0.5 + (i / events.length) * 0.5, marginBottom: 2 }}>
+                <span style={{ color: 'var(--gray-11)' }}>{entry.time}</span> <span>{entry.event}</span>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+    );
+  },
+};
