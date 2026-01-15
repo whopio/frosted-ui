@@ -10,6 +10,11 @@ import { tooltipPropDefs } from './tooltip.props';
 import type { GetPropDefTypes } from '../../helpers';
 
 type TooltipOwnProps = GetPropDefTypes<typeof tooltipPropDefs>;
+type TooltipActions = React.ComponentProps<typeof TooltipPrimitive.Root>['actionsRef'] extends
+  | React.RefObject<infer T>
+  | undefined
+  ? T
+  : never;
 
 interface TooltipProps extends TooltipOwnProps {
   children: React.ReactElement;
@@ -36,6 +41,12 @@ interface TooltipProps extends TooltipOwnProps {
    * @default 'none'
    */
   trackCursorAxis?: 'none' | 'x' | 'y' | 'both';
+  /**
+   * A ref to imperative actions.
+   * - `close`: Closes the tooltip imperatively when called.
+   * - `unmount`: Unmounts the tooltip manually (useful with external animation libraries).
+   */
+  actionsRef?: React.RefObject<TooltipActions>;
   // Portal props
   container?: React.ComponentProps<typeof TooltipPrimitive.Portal>['container'];
   keepMounted?: boolean;
@@ -60,6 +71,7 @@ const TooltipImpl = (props: TooltipProps) => {
     closeDelay,
     disableHoverablePopup,
     trackCursorAxis,
+    actionsRef,
     content,
     container,
     keepMounted,
@@ -80,6 +92,7 @@ const TooltipImpl = (props: TooltipProps) => {
     onOpenChangeComplete,
     disableHoverablePopup,
     trackCursorAxis,
+    actionsRef,
   };
 
   const triggerProps = {
@@ -121,5 +134,5 @@ const Tooltip = Object.assign(TooltipImpl, {
   Provider: TooltipPrimitive.Provider,
 });
 
-export { Tooltip };
+export { Tooltip, type TooltipActions };
 export type { TooltipProps };

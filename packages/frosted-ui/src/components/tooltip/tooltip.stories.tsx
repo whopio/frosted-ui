@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Button, Code, IconButton, Text, Tooltip } from '..';
+import { Button, Code, IconButton, Kbd, Text, Tooltip, type TooltipActions } from '..';
 
 const ExampleIcon = ({ size }: { size: number }) => (
   <svg width={size} height={size} viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -368,6 +368,41 @@ export const OnOpenChangeComplete: Story = {
             ))
           )}
         </div>
+      </div>
+    );
+  },
+};
+
+export const ActionsRef: Story = {
+  name: 'Actions Ref',
+  args: {
+    content: 'Tooltip',
+  },
+  render: function Render() {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const actionsRef = React.useRef<TooltipActions>(null!);
+    const [isOpen, setIsOpen] = React.useState(true);
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
+        <Text as="div" style={{ maxWidth: 400, textAlign: 'center' }}>
+          Use <Code>actionsRef</Code> to imperatively control the tooltip. The <Code>close()</Code> method closes the
+          tooltip programmatically.
+        </Text>
+
+        <Tooltip
+          content="This tooltip can be closed programmatically"
+          actionsRef={actionsRef}
+          defaultOpen
+          delay={0}
+          onOpenChange={setIsOpen}
+        >
+          <Button variant="soft">Hover me</Button>
+        </Tooltip>
+
+        <Text size="2" color="gray">
+          Press <Kbd>Esc</Kbd> to close. Tooltip is {isOpen ? 'open' : 'closed'}.
+        </Text>
       </div>
     );
   },
