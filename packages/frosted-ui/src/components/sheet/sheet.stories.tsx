@@ -478,6 +478,53 @@ export const FinalFocus: Story = {
   },
 };
 
+export const PreventFocusOnClose: Story = {
+  name: 'Prevent Focus on Close',
+  render: function Render(args) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
+        <Text style={{ maxWidth: 500, textAlign: 'center' }}>
+          Use <Code>finalFocus=&#123;false&#125;</Code> to prevent focus from returning to the trigger when the sheet
+          closes. This is useful when you want to avoid scrolling back to the trigger element.
+        </Text>
+
+        <Sheet.Root autoFocus>
+          <Sheet.Trigger>
+            <Button variant="classic">Open Sheet</Button>
+          </Sheet.Trigger>
+          <Sheet.Content {...args} finalFocus={false}>
+            <Sheet.Header>
+              <Sheet.Title>No Focus Return</Sheet.Title>
+              <Sheet.Description>
+                When this sheet closes, focus will not return to the trigger button. The page will stay where it is.
+              </Sheet.Description>
+            </Sheet.Header>
+            <Sheet.Body>
+              <div
+                style={{
+                  display: 'flex',
+                  gap: 'var(--space-3)',
+                  marginTop: 'var(--space-4)',
+                  justifyContent: 'flex-end',
+                }}
+              >
+                <Sheet.Close>
+                  <Button variant="soft" color="gray">
+                    Cancel
+                  </Button>
+                </Sheet.Close>
+                <Sheet.Close>
+                  <Button variant="classic">Done</Button>
+                </Sheet.Close>
+              </div>
+            </Sheet.Body>
+          </Sheet.Content>
+        </Sheet.Root>
+      </div>
+    );
+  },
+};
+
 export const ControlledWithForm: Story = {
   name: 'Controlled with Form',
   render: function Render(args) {
