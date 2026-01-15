@@ -35,7 +35,8 @@ type SheetNestedRootProps = Omit<
 const SheetNestedRoot = ({ ...props }: SheetNestedRootProps) => <DrawerPrimitive.NestedRoot {...props} />;
 SheetNestedRoot.displayName = 'SheetNestedRoot';
 
-interface SheetTriggerProps extends Omit<React.ComponentProps<typeof DrawerPrimitive.Trigger>, 'render'> {
+interface SheetTriggerProps extends Omit<React.ComponentProps<typeof DrawerPrimitive.Trigger>, 'render' | 'className'> {
+  className?: string;
   children: React.ReactElement;
 }
 const SheetTrigger = ({ children, ...props }: SheetTriggerProps) => (
@@ -43,7 +44,8 @@ const SheetTrigger = ({ children, ...props }: SheetTriggerProps) => (
 );
 SheetTrigger.displayName = 'SheetTrigger';
 
-interface SheetCloseProps extends Omit<React.ComponentProps<typeof DrawerPrimitive.Close>, 'render'> {
+interface SheetCloseProps extends Omit<React.ComponentProps<typeof DrawerPrimitive.Close>, 'render' | 'className'> {
+  className?: string;
   children: React.ReactElement;
 }
 const SheetClose = ({ children, ...props }: SheetCloseProps) => <DrawerPrimitive.Close {...props} render={children} />;
@@ -58,7 +60,9 @@ const SheetOverlay = ({ className, ...props }: SheetOverlayProps) => (
 );
 SheetOverlay.displayName = 'SheetOverlay';
 
-interface SheetContentProps extends React.ComponentProps<typeof DrawerPrimitive.Content> {}
+interface SheetContentProps extends Omit<React.ComponentProps<typeof DrawerPrimitive.Content>, 'className' | 'render'> {
+  className?: string;
+}
 
 const SheetContent = ({ className, children, ...props }: SheetContentProps) => {
   // Stop keyboard events from propagating to parent floating UI components (e.g., DropdownMenu).
@@ -136,7 +140,7 @@ export {
   SheetTrigger as Trigger,
 };
 
-export {
+export type {
   SheetBodyProps as BodyProps,
   SheetCloseProps as CloseProps,
   SheetContentProps as ContentProps,
