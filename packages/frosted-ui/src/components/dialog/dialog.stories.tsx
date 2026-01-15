@@ -1306,12 +1306,12 @@ export const DialogTriggerInDropdownMenu: Story = {
           When wrapping a menu item with <Code>Dialog.Trigger</Code>:
           <ul style={{ textAlign: 'left', marginTop: 'var(--space-2)' }}>
             <li>
-              Add <Code>tabIndex=&#123;-1&#125;</Code> to prevent the trigger from stealing focus when the dropdown
-              opens (preserves roving focus).
+              Add <Code>keepMounted</Code> to <Code>DropdownMenu.Content</Code> so the Dialog.Root stays mounted when
+              the menu closes.
             </li>
             <li>
-              Add <Code>closeOnClick=&#123;false&#125;</Code> to the menu item to prevent the menu from closing and
-              unmounting the dialog before it opens.
+              Add <Code>tabIndex=&#123;-1&#125;</Code> to the trigger to prevent it from stealing focus when the
+              dropdown opens (preserves roving focus).
             </li>
           </ul>
         </Text>
@@ -1326,10 +1326,8 @@ export const DialogTriggerInDropdownMenu: Story = {
             <DropdownMenu.Separator />
 
             <Dialog.Root>
-              <Dialog.Trigger tabIndex={-1} nativeButton={false}>
-                <DropdownMenu.Item disabled nativeButton closeOnClick={false}>
-                  Edit Settings...
-                </DropdownMenu.Item>
+              <Dialog.Trigger tabIndex={-1}>
+                <DropdownMenu.Item closeOnClick={false}>Edit Settings...</DropdownMenu.Item>
               </Dialog.Trigger>
               <Dialog.Content {...args} style={{ maxWidth: 450 }}>
                 <Dialog.Title>Edit Settings</Dialog.Title>
@@ -1378,10 +1376,8 @@ export const DialogTriggerInDropdownMenu: Story = {
             </Dialog.Root>
 
             <Dialog.Root>
-              <Dialog.Trigger tabIndex={-1} nativeButton={false}>
-                <DropdownMenu.Item color="red" closeOnClick={false}>
-                  Delete...
-                </DropdownMenu.Item>
+              <Dialog.Trigger tabIndex={-1}>
+                <DropdownMenu.Item color="red">Delete...</DropdownMenu.Item>
               </Dialog.Trigger>
               <Dialog.Content {...args} style={{ maxWidth: 400 }}>
                 <Dialog.Title>Delete Item</Dialog.Title>

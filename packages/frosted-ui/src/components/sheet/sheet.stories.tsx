@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 
-import { Badge, Button, Checkbox, Inset, ScrollArea, Sheet, Table, Text, TextField } from '..';
+import { Badge, Button, Checkbox, Code, DropdownMenu, Inset, ScrollArea, Sheet, Table, Text, TextField } from '..';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -381,3 +381,111 @@ export const Controlled: Story = {
 //     );
 //   },
 // };
+
+export const SheetTriggerInDropdownMenu: Story = {
+  name: 'Sheet Trigger in Dropdown Menu',
+  render: function Render(args) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
+        <Text as="div" style={{ maxWidth: 540, textAlign: 'center' }}>
+          When wrapping a menu item with <Code>Sheet.Trigger</Code>, use <Code>closeOnClick=&#123;false&#125;</Code> to
+          prevent the menu from closing before the sheet opens.
+        </Text>
+
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger>
+            <Button variant="soft">Options ▾</Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content>
+            <DropdownMenu.Item>View Details</DropdownMenu.Item>
+            <DropdownMenu.Item disabled>Duplicate</DropdownMenu.Item>
+            <DropdownMenu.Separator />
+
+            <Sheet.Root>
+              <Sheet.Trigger tabIndex={-1}>
+                <DropdownMenu.Item closeOnClick={false}>Edit Settings...</DropdownMenu.Item>
+              </Sheet.Trigger>
+              <Sheet.Content {...args}>
+                <Sheet.Header>
+                  <Sheet.Title>Edit Settings</Sheet.Title>
+                  <Sheet.Description>Make changes to your settings here.</Sheet.Description>
+                </Sheet.Header>
+                <Sheet.Body>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+                    <label>
+                      <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                        Name
+                      </Text>
+                      <TextField.Input size="3" defaultValue="My Project" placeholder="Enter name" />
+                    </label>
+                    <label>
+                      <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                        Description
+                      </Text>
+                      <TextField.Input size="3" defaultValue="A sample project" placeholder="Enter description" />
+                    </label>
+                  </div>
+
+                  <div
+                    style={{
+                      display: 'flex',
+                      gap: 'var(--space-3)',
+                      marginTop: 'var(--space-4)',
+                      justifyContent: 'flex-end',
+                    }}
+                  >
+                    <Sheet.Close>
+                      <Button variant="soft" color="gray">
+                        Cancel
+                      </Button>
+                    </Sheet.Close>
+                    <Sheet.Close>
+                      <Button>Save Changes</Button>
+                    </Sheet.Close>
+                  </div>
+                </Sheet.Body>
+              </Sheet.Content>
+            </Sheet.Root>
+
+            <Sheet.Root>
+              <Sheet.Trigger>
+                <DropdownMenu.Item color="red" closeOnClick={false}>
+                  Delete...
+                </DropdownMenu.Item>
+              </Sheet.Trigger>
+              <Sheet.Content {...args}>
+                <Sheet.Header>
+                  <Sheet.Title>Delete Item</Sheet.Title>
+                  <Sheet.Description>
+                    Are you sure you want to delete this item? This action cannot be undone.
+                  </Sheet.Description>
+                </Sheet.Header>
+                <Sheet.Body>
+                  <div
+                    style={{
+                      display: 'flex',
+                      gap: 'var(--space-3)',
+                      marginTop: 'var(--space-4)',
+                      justifyContent: 'flex-end',
+                    }}
+                  >
+                    <Sheet.Close>
+                      <Button variant="soft" color="gray">
+                        Cancel
+                      </Button>
+                    </Sheet.Close>
+                    <Sheet.Close>
+                      <Button variant="classic" color="red">
+                        Delete
+                      </Button>
+                    </Sheet.Close>
+                  </div>
+                </Sheet.Body>
+              </Sheet.Content>
+            </Sheet.Root>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
+      </div>
+    );
+  },
+};

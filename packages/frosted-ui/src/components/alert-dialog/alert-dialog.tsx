@@ -76,10 +76,16 @@ const AlertDialogContent = (props: AlertDialogContentProps) => {
     ...popupProps
   } = props;
 
+  // Stop keyboard events from propagating to parent floating UI components (e.g., DropdownMenu).
+  // This prevents the menu's typeahead from capturing keystrokes when typing in alert dialog inputs.
+  const handleKeyDown = React.useCallback((event: React.KeyboardEvent) => {
+    event.stopPropagation();
+  }, []);
+
   return (
     <AlertDialogPrimitive.Portal container={container} keepMounted={keepMounted}>
       <AlertDialogPrimitive.Backdrop className="fui-DialogBackdrop fui-AlertDialogBackdrop" />
-      <AlertDialogPrimitive.Viewport className="fui-DialogOverlay fui-AlertDialogOverlay">
+      <AlertDialogPrimitive.Viewport className="fui-DialogOverlay fui-AlertDialogOverlay" onKeyDown={handleKeyDown}>
         <Theme asChild>
           <AlertDialogPrimitive.Popup
             {...popupProps}
