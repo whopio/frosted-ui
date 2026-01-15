@@ -75,10 +75,16 @@ const DialogContent = (props: DialogContentProps) => {
     ...popupProps
   } = props;
 
+  // Stop keyboard events from propagating to parent floating UI components (e.g., DropdownMenu).
+  // This prevents the menu's typeahead from capturing keystrokes when typing in dialog inputs.
+  const handleKeyDown = React.useCallback((event: React.KeyboardEvent) => {
+    event.stopPropagation();
+  }, []);
+
   return (
     <DialogPrimitive.Portal container={container} keepMounted={keepMounted}>
       <DialogPrimitive.Backdrop className="fui-DialogBackdrop" />
-      <DialogPrimitive.Viewport className="fui-DialogOverlay">
+      <DialogPrimitive.Viewport className="fui-DialogOverlay" onKeyDown={handleKeyDown}>
         <Theme asChild>
           <DialogPrimitive.Popup
             {...popupProps}

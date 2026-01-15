@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { Drawer as DrawerPrimitive } from 'vaul';
+import { Drawer as DrawerPrimitive } from 'vaul-base';
 
 import classNames from 'classnames';
 import { ExtractPropsForTag } from '../../helpers';
@@ -35,12 +35,18 @@ type SheetNestedRootProps = Omit<
 const SheetNestedRoot = ({ ...props }: SheetNestedRootProps) => <DrawerPrimitive.NestedRoot {...props} />;
 SheetNestedRoot.displayName = 'SheetNestedRoot';
 
-interface SheetTriggerProps extends Omit<React.ComponentProps<typeof DrawerPrimitive.Trigger>, 'asChild'> {}
-const SheetTrigger = (props: SheetTriggerProps) => <DrawerPrimitive.Trigger {...props} asChild />;
+interface SheetTriggerProps extends Omit<React.ComponentProps<typeof DrawerPrimitive.Trigger>, 'render'> {
+  children: React.ReactElement;
+}
+const SheetTrigger = ({ children, ...props }: SheetTriggerProps) => (
+  <DrawerPrimitive.Trigger {...props} render={children} />
+);
 SheetTrigger.displayName = 'SheetTrigger';
 
-interface SheetCloseProps extends Omit<React.ComponentProps<typeof DrawerPrimitive.Close>, 'asChild'> {}
-const SheetClose = (props: SheetCloseProps) => <DrawerPrimitive.Close {...props} asChild />;
+interface SheetCloseProps extends Omit<React.ComponentProps<typeof DrawerPrimitive.Close>, 'render'> {
+  children: React.ReactElement;
+}
+const SheetClose = ({ children, ...props }: SheetCloseProps) => <DrawerPrimitive.Close {...props} render={children} />;
 SheetClose.displayName = 'SheetClose';
 
 const SheetPortal = DrawerPrimitive.Portal as React.ComponentType<{ children?: React.ReactNode }>;
@@ -54,21 +60,33 @@ SheetOverlay.displayName = 'SheetOverlay';
 
 interface SheetContentProps extends React.ComponentProps<typeof DrawerPrimitive.Content> {}
 
-const SheetContent = ({ className, children, ...props }: SheetContentProps) => (
-  <SheetPortal>
-    <>
-      <Theme asChild>
-        <SheetOverlay />
-      </Theme>
-      <Theme asChild>
-        <DrawerPrimitive.Content className={classNames('fui-SheetContent', className)} {...props}>
-          <div className="fui-SheetContentHandle" />
-          {children}
-        </DrawerPrimitive.Content>
-      </Theme>
-    </>
-  </SheetPortal>
-);
+const SheetContent = ({ className, children, ...props }: SheetContentProps) => {
+  // Stop keyboard events from propagating to parent floating UI components (e.g., DropdownMenu).
+  // This prevents the menu's typeahead from capturing keystrokes when typing in sheet inputs.
+  const handleKeyDown = React.useCallback((event: React.KeyboardEvent) => {
+    event.stopPropagation();
+  }, []);
+
+  return (
+    <SheetPortal>
+      <>
+        <Theme asChild>
+          <SheetOverlay />
+        </Theme>
+        <Theme asChild>
+          <DrawerPrimitive.Content
+            className={classNames('fui-SheetContent', className)}
+            onKeyDownCapture={handleKeyDown}
+            {...props}
+          >
+            <div className="fui-SheetContentHandle" />
+            {children}
+          </DrawerPrimitive.Content>
+        </Theme>
+      </>
+    </SheetPortal>
+  );
+};
 SheetContent.displayName = 'SheetContent';
 
 type SheetHeaderProps = React.ComponentProps<'div'>;
@@ -95,22 +113,14 @@ SheetFooter.displayName = 'SheetFooter';
 type SheetTitleProps = React.ComponentProps<typeof Heading>;
 
 const SheetTitle = ({ size = '5', weight = 'bold', ...props }: SheetTitleProps) => {
-  return (
-    <DrawerPrimitive.Title asChild>
-      <Heading weight={weight} size={size} {...props} />
-    </DrawerPrimitive.Title>
-  );
+  return <DrawerPrimitive.Title render={<Heading weight={weight} size={size} {...props} />} />;
 };
 SheetTitle.displayName = 'SheetTitle';
 
 type SheetDescriptionProps = ExtractPropsForTag<typeof Text, 'p'>;
 
 const SheetDescription = ({ size = '3', weight = 'regular', ...props }: SheetDescriptionProps) => {
-  return (
-    <DrawerPrimitive.Description asChild>
-      <Text as="p" size={size} weight={weight} {...props} />
-    </DrawerPrimitive.Description>
-  );
+  return <DrawerPrimitive.Description render={<Text as="p" size={size} weight={weight} {...props} />} />;
 };
 SheetDescription.displayName = 'SheetDescription';
 
