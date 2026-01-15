@@ -57,18 +57,26 @@ interface DrawerContentProps extends Omit<PopupProps, 'className' | 'render'> {
 const DrawerContent = (props: DrawerContentProps) => {
   const { className, children, keepMounted, container, ...popupProps } = props;
 
+  // Stop keyboard events from propagating to parent floating UI components (e.g., DropdownMenu).
+  // This prevents the menu's typeahead from capturing keystrokes when typing in drawer inputs.
+  const handleKeyDown = React.useCallback((event: React.KeyboardEvent) => {
+    event.stopPropagation();
+  }, []);
+
   return (
     <DrawerPrimitive.Portal container={container} keepMounted={keepMounted}>
       <DrawerPrimitive.Backdrop className="fui-DialogBackdrop fui-DrawerBackdrop" />
-      <Theme asChild>
-        <DrawerPrimitive.Popup
-          {...popupProps}
-          aria-describedby={undefined}
-          className={classNames('fui-DrawerContent', className)}
-        >
-          {children}
-        </DrawerPrimitive.Popup>
-      </Theme>
+      <DrawerPrimitive.Viewport className="fui-DrawerOverlay" onKeyDown={handleKeyDown}>
+        <Theme asChild>
+          <DrawerPrimitive.Popup
+            {...popupProps}
+            aria-describedby={undefined}
+            className={classNames('fui-DrawerContent', className)}
+          >
+            {children}
+          </DrawerPrimitive.Popup>
+        </Theme>
+      </DrawerPrimitive.Viewport>
     </DrawerPrimitive.Portal>
   );
 };
