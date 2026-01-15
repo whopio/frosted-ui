@@ -402,7 +402,7 @@ export const SheetTriggerInDropdownMenu: Story = {
             <DropdownMenu.Separator />
 
             <Sheet.Root>
-              <Sheet.Trigger tabIndex={-1}>
+              <Sheet.Trigger nativeButton={false} tabIndex={-1}>
                 <DropdownMenu.Item closeOnClick={false}>Edit Settings...</DropdownMenu.Item>
               </Sheet.Trigger>
               <Sheet.Content {...args}>
@@ -448,8 +448,8 @@ export const SheetTriggerInDropdownMenu: Story = {
             </Sheet.Root>
 
             <Sheet.Root>
-              <Sheet.Trigger>
-                <DropdownMenu.Item color="red" closeOnClick={false}>
+              <Sheet.Trigger nativeButton={false}>
+                <DropdownMenu.Item tabIndex={-1} color="red" closeOnClick={false}>
                   Delete...
                 </DropdownMenu.Item>
               </Sheet.Trigger>
