@@ -1,34 +1,46 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Heading, ScrollArea, Text, scrollAreaPropDefs } from '..';
+import { Code, Heading, ScrollArea, Text, scrollAreaPropDefs } from '..';
 
-// More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
   title: 'Components/ScrollArea',
   component: ScrollArea,
   args: {
-    type: 'always' as 'auto' | 'always' | 'scroll' | 'hover' | undefined,
+    type: scrollAreaPropDefs.type.default,
+    size: scrollAreaPropDefs.size.default,
+    scrollbars: scrollAreaPropDefs.scrollbars.default,
+  },
+  argTypes: {
+    type: {
+      control: 'select',
+      options: scrollAreaPropDefs.type.values,
+      description: 'Controls scrollbar visibility behavior',
+    },
+    size: {
+      control: 'select',
+      options: scrollAreaPropDefs.size.values,
+    },
+    scrollbars: {
+      control: 'select',
+      options: scrollAreaPropDefs.scrollbars.values,
+    },
   },
   parameters: {
-    // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
     layout: 'centered',
   },
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
 } satisfies Meta<typeof ScrollArea>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Default: Story = {
   args: {
-    size: scrollAreaPropDefs.size.default,
     scrollbars: 'vertical',
   },
   render: (args) => (
-    <ScrollArea type="always" scrollbars="vertical" style={{ height: 180 }} {...args}>
+    <ScrollArea style={{ height: 180 }} {...args}>
       <div style={{ padding: '8px 8px 54px 8px' }}>
         <Heading size="4" style={{ marginBottom: 8 }} trim="start">
           Principles of the typographic craft
@@ -58,11 +70,83 @@ export const Default: Story = {
   ),
 };
 
+export const Type: Story = {
+  name: 'Type (Visibility Behavior)',
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', alignItems: 'center' }}>
+      <Text as="div" style={{ maxWidth: 500, textAlign: 'center' }}>
+        The <Code>type</Code> prop controls scrollbar visibility, similar to macOS scrollbar preferences.
+      </Text>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--space-4)' }}>
+        <div>
+          <Text size="2" weight="bold" as="div" style={{ marginBottom: 'var(--space-2)' }}>
+            type="hover" (default)
+          </Text>
+          <Text size="1" color="gray" as="div" style={{ marginBottom: 'var(--space-2)' }}>
+            Visible on hover or scroll
+          </Text>
+          <ScrollArea {...args} type="hover" scrollbars="vertical" style={{ height: 80, width: 200, background: 'var(--gray-a3)' }}>
+            <div style={{ padding: 'var(--space-2)' }}>
+              <Text size="2">
+                Hover over this area or scroll to see the scrollbar appear. It fades out when you stop interacting.
+              </Text>
+            </div>
+          </ScrollArea>
+        </div>
+
+        <div>
+          <Text size="2" weight="bold" as="div" style={{ marginBottom: 'var(--space-2)' }}>
+            type="scroll"
+          </Text>
+          <Text size="1" color="gray" as="div" style={{ marginBottom: 'var(--space-2)' }}>
+            Visible only while scrolling
+          </Text>
+          <ScrollArea {...args} type="scroll" scrollbars="vertical" style={{ height: 80, width: 200, background: 'var(--gray-a3)' }}>
+            <div style={{ padding: 'var(--space-2)' }}>
+              <Text size="2">
+                The scrollbar only appears while you are actively scrolling. Try scrolling with your mouse wheel or
+                trackpad.
+              </Text>
+            </div>
+          </ScrollArea>
+        </div>
+
+        <div>
+          <Text size="2" weight="bold" as="div" style={{ marginBottom: 'var(--space-2)' }}>
+            type="auto"
+          </Text>
+          <Text size="1" color="gray" as="div" style={{ marginBottom: 'var(--space-2)' }}>
+            Visible when content overflows
+          </Text>
+          <ScrollArea {...args} type="auto" scrollbars="vertical" style={{ height: 80, width: 200, background: 'var(--gray-a3)' }}>
+            <div style={{ padding: 'var(--space-2)' }}>
+              <Text size="2">
+                The scrollbar is always visible as long as the content overflows the container. No interaction needed.
+              </Text>
+            </div>
+          </ScrollArea>
+        </div>
+
+        <div>
+          <Text size="2" weight="bold" as="div" style={{ marginBottom: 'var(--space-2)' }}>
+            type="always"
+          </Text>
+          <Text size="1" color="gray" as="div" style={{ marginBottom: 'var(--space-2)' }}>
+            Always visible
+          </Text>
+          <ScrollArea {...args} type="always" scrollbars="vertical" style={{ height: 80, width: 200, background: 'var(--gray-a3)' }}>
+            <div style={{ padding: 'var(--space-2)' }}>
+              <Text size="2">The scrollbar is always visible, even if the content doesn't overflow.</Text>
+            </div>
+          </ScrollArea>
+        </div>
+      </div>
+    </div>
+  ),
+};
+
 export const Size: Story = {
-  args: {
-    size: scrollAreaPropDefs.size.default,
-    scrollbars: 'vertical',
-  },
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
       <ScrollArea {...args} size="1" type="always" scrollbars="horizontal" style={{ width: 300, height: 12 }}>
@@ -81,11 +165,6 @@ export const Size: Story = {
 };
 
 export const Scrollbars: Story = {
-  args: {
-    size: scrollAreaPropDefs.size.default,
-    type: 'always',
-    scrollbars: 'vertical',
-  },
   render: (args) => (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--space-2)' }}>
       <ScrollArea {...args} type="always" scrollbars="vertical" style={{ height: 150 }}>
@@ -128,5 +207,31 @@ export const Scrollbars: Story = {
         </div>
       </ScrollArea>
     </div>
+  ),
+};
+
+export const BothScrollbars: Story = {
+  name: 'Both Scrollbars',
+  render: (args) => (
+    <ScrollArea {...args} type="always" scrollbars="both" style={{ width: 300, height: 200 }}>
+      <div style={{ width: 600, padding: 'var(--space-3)' }}>
+        <Text as="div" size="2">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+            <p>
+              This scroll area has both horizontal and vertical scrollbars. The content is wider than the container
+              width, so you can scroll horizontally.
+            </p>
+            <p>
+              Vernacular architecture is building done outside any academic tradition, and without professional
+              guidance. It is not a particular architectural movement or style, but rather a broad category.
+            </p>
+            <p>
+              This type of architecture usually serves immediate, local needs, is constrained by the materials available
+              in its particular region and reflects local traditions and cultural practices.
+            </p>
+          </div>
+        </Text>
+      </div>
+    </ScrollArea>
   ),
 };

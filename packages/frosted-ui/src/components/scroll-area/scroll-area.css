@@ -52,6 +52,9 @@
 
 .fui-ScrollAreaThumb {
   position: relative;
+  /* Base UI provides these CSS variables */
+  width: var(--scroll-area-thumb-width);
+  height: var(--scroll-area-thumb-height);
 
   &::before {
     content: '';
@@ -96,16 +99,8 @@
 .fui-ScrollAreaScrollbar {
   background-color: var(--gray-a3);
   border-radius: var(--scrollarea-scrollbar-border-radius);
+  transition: opacity 150ms ease-out;
 
-  animation-duration: 150ms;
-  animation-timing-function: ease-out;
-
-  &:where([data-state='visible']) {
-    animation-name: fui-fade-in;
-  }
-  &:where([data-state='hidden']) {
-    animation-name: fui-fade-out;
-  }
   &:where([data-orientation='horizontal']) {
     margin-top: var(--scrollarea-scrollbar-horizontal-margin-top);
     margin-bottom: var(--scrollarea-scrollbar-horizontal-margin-bottom);
@@ -128,6 +123,57 @@
   @media (hover: hover) {
     &:where(:hover) {
       background-color: var(--gray-a9);
+    }
+  }
+}
+
+/***************************************************************************************************
+ *                                                                                                 *
+ * TYPE VARIANTS - Controls scrollbar visibility behavior                                          *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+.fui-ScrollAreaScrollbar {
+  /*
+   * "auto" - visible when content is overflowing
+   * Base UI adds data-has-overflow-x/y when content overflows
+   */
+  &:where([data-type='auto']) {
+    opacity: 0;
+
+    &:where([data-has-overflow-x]),
+    &:where([data-has-overflow-y]) {
+      opacity: 1;
+    }
+  }
+
+  /*
+   * "always" - always visible regardless of overflow
+   */
+  &:where([data-type='always']) {
+    opacity: 1;
+  }
+
+  /*
+   * "scroll" - visible only when actively scrolling
+   */
+  &:where([data-type='scroll']) {
+    opacity: 0;
+
+    &:where([data-scrolling]) {
+      opacity: 1;
+    }
+  }
+
+  /*
+   * "hover" (default) - visible when scrolling or hovering over the scroll area
+   */
+  &:where([data-type='hover']) {
+    opacity: 0;
+
+    &:where([data-hovering]),
+    &:where([data-scrolling]) {
+      opacity: 1;
     }
   }
 }
