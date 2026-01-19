@@ -36,7 +36,7 @@ const StackedHorizontalBarChart = (props: StackedHorizontalBarChartProps) => {
           <Tooltip
             content={label}
             key={i}
-            delayDuration={150}
+            delay={150}
             className="fui-StackedHorizontalBarChartTooltip"
             data-accent-color={dataPoint.color}
           >
@@ -57,3 +57,4 @@ StackedHorizontalBarChart.displayName = 'StackedHorizontalBarChart';
 
 export { StackedHorizontalBarChart };
 export type { StackedHorizontalBarChartProps };
+
