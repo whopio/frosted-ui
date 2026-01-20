@@ -1,7 +1,6 @@
 .fui-TooltipPositioner {
   outline: none;
   pointer-events: none;
-  z-index: 1000;
 }
 
 .fui-TooltipContent {
