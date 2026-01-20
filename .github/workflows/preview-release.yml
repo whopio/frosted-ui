@@ -1,0 +1,32 @@
+name: Publish Preview Release
+on: [push, pull_request]
+
+permissions: {}
+
+jobs:
+  preview:
+    name: Publish preview packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.4
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build packages
+        run: pnpm turbo build
+
+      - name: Publish preview release
+        run: pnpm dlx pkg-pr-new publish --pnpm --packageManager=pnpm './packages/frosted-ui' './packages/frosted-ui-colors' './packages/frosted-ui-icons' './packages/frosted-ui-react-native'
