@@ -1412,3 +1412,131 @@ export const DialogTriggerInDropdownMenu: Story = {
     );
   },
 };
+
+export const DialogDetatchedTriggerInDropdownMenuUsingHandle: Story = {
+  name: 'Dialog detached trigger in Dropdown Menu using handle',
+  render: function Render(args) {
+    const editSettingsHandle = Dialog.createHandle();
+    const deleteItemHandle = Dialog.createHandle();
+
+    return (
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 'var(--space-4)',
+          alignItems: 'center',
+        }}
+      >
+        <Text
+          as="div"
+          style={{
+            maxWidth: 540,
+
+            textAlign: 'center',
+          }}
+        >
+          Open dialogs directly from dropdown menu items using detached triggers with handles. Create a handle with{' '}
+          <Code>Dialog.createHandle()</Code>, wrap the menu item with <Code>Dialog.Trigger</Code> passing the handle,
+          then connect it to a <Code>Dialog.Root</Code> with the same handle. Add <Code>tabIndex=&#123;-1&#125;</Code>{' '}
+          to the trigger to preserve keyboard navigation in the menu.
+        </Text>
+
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger>
+            <Button variant="soft">Options ▾</Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content>
+            <DropdownMenu.Item>View Details</DropdownMenu.Item>
+            <DropdownMenu.Item disabled>Duplicate</DropdownMenu.Item>
+            <DropdownMenu.Separator />
+
+            <Dialog.Trigger handle={editSettingsHandle} tabIndex={-1} nativeButton={false}>
+              <DropdownMenu.Item>Edit Settings...</DropdownMenu.Item>
+            </Dialog.Trigger>
+
+            <Dialog.Trigger handle={deleteItemHandle} tabIndex={-1} nativeButton={false}>
+              <DropdownMenu.Item color="red">Delete...</DropdownMenu.Item>
+            </Dialog.Trigger>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
+
+        <Dialog.Root handle={editSettingsHandle}>
+          <Dialog.Content {...args} style={{ maxWidth: 450 }}>
+            <Dialog.Title>Edit Settings</Dialog.Title>
+            <Dialog.Description>Make changes to your settings here.</Dialog.Description>
+
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 'var(--space-3)',
+                marginTop: 'var(--space-3)',
+              }}
+            >
+              <label>
+                <Text as="div" size="2" style={{ marginBottom: 4 }} weight="bold">
+                  Name
+                </Text>
+                <TextField.Input defaultValue="My Project" placeholder="Enter name" />
+              </label>
+              <label>
+                <Text as="div" size="2" style={{ marginBottom: 4 }} weight="bold">
+                  Description
+                </Text>
+                <TextArea defaultValue="A sample project description" placeholder="Enter description" />
+              </label>
+            </div>
+
+            <div
+              style={{
+                display: 'flex',
+                gap: 'var(--space-3)',
+                marginTop: 'var(--space-4)',
+                justifyContent: 'flex-end',
+              }}
+            >
+              <Dialog.Close>
+                <Button variant="soft" color="gray">
+                  Cancel
+                </Button>
+              </Dialog.Close>
+              <Dialog.Close>
+                <Button variant="classic">Save Changes</Button>
+              </Dialog.Close>
+            </div>
+          </Dialog.Content>
+        </Dialog.Root>
+
+        <Dialog.Root handle={deleteItemHandle}>
+          <Dialog.Content {...args} style={{ maxWidth: 400 }}>
+            <Dialog.Title>Delete Item</Dialog.Title>
+            <Dialog.Description>
+              Are you sure you want to delete this item? This action cannot be undone.
+            </Dialog.Description>
+
+            <div
+              style={{
+                display: 'flex',
+                gap: 'var(--space-3)',
+                marginTop: 'var(--space-4)',
+                justifyContent: 'flex-end',
+              }}
+            >
+              <Dialog.Close>
+                <Button variant="soft" color="gray">
+                  Cancel
+                </Button>
+              </Dialog.Close>
+              <Dialog.Close>
+                <Button variant="classic" color="red">
+                  Delete
+                </Button>
+              </Dialog.Close>
+            </div>
+          </Dialog.Content>
+        </Dialog.Root>
+      </div>
+    );
+  },
+};

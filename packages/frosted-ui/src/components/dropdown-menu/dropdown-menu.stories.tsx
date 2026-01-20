@@ -583,3 +583,50 @@ export const SideOffsetAndAlignOffset: Story = {
     </div>
   ),
 };
+
+export const ManyAdjacentSubmenus: Story = {
+  name: 'Many Adjacent Submenus',
+  render: (args) => {
+    const handleItemClick = (event: React.MouseEvent<HTMLDivElement>) => {
+      console.log(`${event.currentTarget.textContent} clicked`);
+    };
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
+        <Text as="div" style={{ maxWidth: 500, textAlign: 'center' }}>
+          Stress test with many adjacent submenus. The menu contains 50 submenus, each with 12 nested submenus, each
+          containing 8 items.
+        </Text>
+
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger>
+            <Button variant="soft">Open Menu</Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content {...args} style={{ maxHeight: 400, overflowY: 'auto' }}>
+            {Array.from({ length: 50 }).map((_, submenuIndex) => (
+              <DropdownMenu.Sub key={submenuIndex}>
+                <DropdownMenu.SubTrigger>Submenu {submenuIndex + 1}</DropdownMenu.SubTrigger>
+                <DropdownMenu.SubContent>
+                  {Array.from({ length: 12 }).map((__, itemIndex) => (
+                    <DropdownMenu.Sub key={itemIndex}>
+                      <DropdownMenu.SubTrigger>
+                        Submenu {submenuIndex + 1} - Item {itemIndex + 1}
+                      </DropdownMenu.SubTrigger>
+                      <DropdownMenu.SubContent>
+                        {Array.from({ length: 8 }).map((___, nestedIndex) => (
+                          <DropdownMenu.Item key={nestedIndex} onClick={handleItemClick}>
+                            Nested {submenuIndex + 1}.{itemIndex + 1} - Item {nestedIndex + 1}
+                          </DropdownMenu.Item>
+                        ))}
+                      </DropdownMenu.SubContent>
+                    </DropdownMenu.Sub>
+                  ))}
+                </DropdownMenu.SubContent>
+              </DropdownMenu.Sub>
+            ))}
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
+      </div>
+    );
+  },
+};
