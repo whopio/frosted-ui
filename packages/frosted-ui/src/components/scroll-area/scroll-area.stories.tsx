@@ -40,7 +40,7 @@ export const Default: Story = {
     scrollbars: 'vertical',
   },
   render: (args) => (
-    <ScrollArea style={{ height: 180 }} {...args}>
+    <ScrollArea style={{ height: 180, maxWidth: 500 }} {...args}>
       <div style={{ padding: '8px 8px 54px 8px' }}>
         <Heading size="4" style={{ marginBottom: 8 }} trim="start">
           Principles of the typographic craft
@@ -135,7 +135,7 @@ export const Type: Story = {
           <Text size="1" color="gray" as="div" style={{ marginBottom: 'var(--space-2)' }}>
             Always visible
           </Text>
-          <ScrollArea {...args} type="always" scrollbars="vertical" style={{ height: 80, width: 200, background: 'var(--gray-a3)' }}>
+          <ScrollArea {...args} type="always" scrollbars="vertical" style={{ height: 280, width: 200, background: 'var(--gray-a3)' }}>
             <div style={{ padding: 'var(--space-2)' }}>
               <Text size="2">The scrollbar is always visible, even if the content doesn't overflow.</Text>
             </div>
@@ -166,7 +166,7 @@ export const Size: Story = {
 
 export const Scrollbars: Story = {
   render: (args) => (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--space-2)' }}>
+    <div style={{ display: 'grid', maxWidth: 500, gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--space-2)' }}>
       <ScrollArea {...args} type="always" scrollbars="vertical" style={{ height: 150 }}>
         <div
           style={{
