@@ -11,18 +11,21 @@ import type { GetPropDefTypes } from '../../helpers';
 type ScrollAreaOwnProps = GetPropDefTypes<typeof scrollAreaPropDefs>;
 
 interface ScrollAreaProps
-  extends Omit<React.ComponentPropsWithRef<typeof ScrollAreaPrimitive.Root>, 'className' | 'style'>,
+  extends
+    Omit<React.ComponentPropsWithRef<typeof ScrollAreaPrimitive.Root>, 'className' | 'style' | 'ref'>,
     ScrollAreaOwnProps {
   children?: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
+  ref?: React.Ref<HTMLDivElement>;
 }
 
-const ScrollArea = (props: ScrollAreaProps) => {
+function ScrollArea(props: ScrollAreaProps) {
   const {
     className,
     style,
     children,
+    ref,
     size = scrollAreaPropDefs.size.default,
     scrollbars = scrollAreaPropDefs.scrollbars.default,
     type = scrollAreaPropDefs.type.default,
@@ -30,12 +33,8 @@ const ScrollArea = (props: ScrollAreaProps) => {
   } = props;
 
   return (
-    <ScrollAreaPrimitive.Root
-      {...rootProps}
-      className={classNames('fui-ScrollAreaRoot', className)}
-      style={style}
-    >
-      <ScrollAreaPrimitive.Viewport className="fui-ScrollAreaViewport">
+    <ScrollAreaPrimitive.Root {...rootProps} className={classNames('fui-ScrollAreaRoot', className)} style={style}>
+      <ScrollAreaPrimitive.Viewport ref={ref} className="fui-ScrollAreaViewport">
         <ScrollAreaPrimitive.Content>{children}</ScrollAreaPrimitive.Content>
       </ScrollAreaPrimitive.Viewport>
       <div className="fui-ScrollAreaViewportFocusRing" />
@@ -63,9 +62,7 @@ const ScrollArea = (props: ScrollAreaProps) => {
       {scrollbars === 'both' && <ScrollAreaPrimitive.Corner className="fui-ScrollAreaCorner" />}
     </ScrollAreaPrimitive.Root>
   );
-};
-ScrollArea.displayName = 'ScrollArea';
+}
 
 export { ScrollArea };
 export type { ScrollAreaProps };
-
