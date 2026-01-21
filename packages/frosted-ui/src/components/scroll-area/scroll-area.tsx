@@ -20,6 +20,12 @@ interface ScrollAreaProps
   ref?: React.Ref<HTMLDivElement>;
 }
 
+const viewportOverflowStyle = {
+  both: 'scroll',
+  vertical: 'hidden scroll',
+  horizontal: 'scroll hidden',
+} as const;
+
 function ScrollArea(props: ScrollAreaProps) {
   const {
     className,
@@ -34,8 +40,14 @@ function ScrollArea(props: ScrollAreaProps) {
 
   return (
     <ScrollAreaPrimitive.Root {...rootProps} className={classNames('fui-ScrollAreaRoot', className)} style={style}>
-      <ScrollAreaPrimitive.Viewport ref={ref} className="fui-ScrollAreaViewport">
-        <ScrollAreaPrimitive.Content>{children}</ScrollAreaPrimitive.Content>
+      <ScrollAreaPrimitive.Viewport
+        ref={ref}
+        className="fui-ScrollAreaViewport"
+        style={{ overflow: viewportOverflowStyle[scrollbars] }}
+      >
+        <ScrollAreaPrimitive.Content style={scrollbars === 'vertical' ? { minWidth: 0, width: '100%' } : undefined}>
+          {children}
+        </ScrollAreaPrimitive.Content>
       </ScrollAreaPrimitive.Viewport>
       <div className="fui-ScrollAreaViewportFocusRing" />
 
