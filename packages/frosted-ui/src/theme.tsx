@@ -2,8 +2,9 @@
 
 import { DirectionProvider } from '@radix-ui/react-direction';
 
+import { Tooltip as TooltipPrimitive } from '@base-ui/react/tooltip';
 import classNames from 'classnames';
-import { Slot, Tooltip as TooltipPrimitive } from 'radix-ui';
+import { Slot } from 'radix-ui';
 import * as React from 'react';
 import { getMatchingGrayColor, themePropDefs } from './theme-options';
 
