@@ -49,7 +49,6 @@ function ScrollArea(props: ScrollAreaProps) {
           {children}
         </ScrollAreaPrimitive.Content>
       </ScrollAreaPrimitive.Viewport>
-      <div className="fui-ScrollAreaViewportFocusRing" />
 
       {scrollbars !== 'vertical' && (
         <ScrollAreaPrimitive.Scrollbar
