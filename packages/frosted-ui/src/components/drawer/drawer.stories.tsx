@@ -25,6 +25,7 @@ import {
   Text,
   TextArea,
   TextField,
+  Tooltip,
 } from '..';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -1294,6 +1295,7 @@ export const WithPopoverAndHoverCard: Story = {
 
                 {/* Section with ContextMenu */}
                 <ContextMenu.Root>
+                  <Tooltip content="Right-click here to open context menu">
                   <ContextMenu.Trigger>
                     <div
                       style={{
@@ -1317,6 +1319,7 @@ export const WithPopoverAndHoverCard: Story = {
                       <Badge color="gray">Right-click</Badge>
                     </div>
                   </ContextMenu.Trigger>
+                  </Tooltip>
                   <ContextMenu.Content>
                     <ContextMenu.Item>Copy</ContextMenu.Item>
                     <ContextMenu.Item>Cut</ContextMenu.Item>

@@ -1,7 +1,13 @@
+.fui-TooltipPositioner {
+  outline: none;
+  pointer-events: none;
+}
+
 .fui-TooltipContent {
   padding: var(--space-1) var(--space-2);
   background-color: var(--color-background);
-
+  pointer-events: auto;
+  max-width: 320px;
   border-radius: var(--radius-4);
 
   box-shadow:
@@ -9,26 +15,52 @@
     0 3px 12px -4px rgba(0, 0, 0, 0.05),
     0 2px 3px -2px rgba(0, 0, 61, 0.05);
 
-  transform-origin: var(--radix-tooltip-content-transform-origin);
+  transform-origin: var(--transform-origin);
 
-  animation-duration: 100ms;
-  animation-timing-function: ease-out;
+  /* Default state - hidden */
+  opacity: 0;
+  transform: scale(0.95);
+  transition:
+    opacity 100ms ease-out,
+    transform 100ms ease-out;
 
+  &[data-open] {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  &[data-starting-style] {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  /* Slide animations based on side */
   @media (prefers-reduced-motion: no-preference) {
-    &:where([data-state='delayed-open']) {
-      &:where([data-side='top']) {
-        animation-name: fui-slide-from-top, fui-fade-in;
-      }
-      &:where([data-side='bottom']) {
-        animation-name: fui-slide-from-bottom, fui-fade-in;
-      }
-      &:where([data-side='left']) {
-        animation-name: fui-slide-from-left, fui-fade-in;
-      }
-      &:where([data-side='right']) {
-        animation-name: fui-slide-from-right, fui-fade-in;
+    &[data-open]:where([data-side='top']) {
+      &[data-starting-style] {
+        transform: translateY(4px) scale(0.95);
       }
     }
+    &[data-open]:where([data-side='bottom']) {
+      &[data-starting-style] {
+        transform: translateY(-4px) scale(0.95);
+      }
+    }
+    &[data-open]:where([data-side='left']) {
+      &[data-starting-style] {
+        transform: translateX(4px) scale(0.95);
+      }
+    }
+    &[data-open]:where([data-side='right']) {
+      &[data-starting-style] {
+        transform: translateX(-4px) scale(0.95);
+      }
+    }
+  }
+
+  /* Instant open (when hovering between tooltips in a group) */
+  &[data-instant] {
+    transition-duration: 0ms;
   }
 }
 
