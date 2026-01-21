@@ -44,6 +44,14 @@ function ScrollArea(props: ScrollAreaProps) {
         ref={ref}
         className="fui-ScrollAreaViewport"
         style={{ overflow: viewportOverflowStyle[scrollbars] }}
+        // Base UI sets tabIndex={0} on the viewport, but we override it to restore default
+        // browser behavior. Modern browsers (Chrome 130+) automatically make scrollable
+        // containers focusable only when they have no focusable children. When focusable
+        // children exist, Tab navigates directly to them instead of the scroll container.
+        // Base UI's explicit tabIndex={0} forces the container into the tab order even
+        // when it has focusable children, which is not ideal UX.
+        // See: https://developer.chrome.com/blog/keyboard-focusable-scrollers
+        tabIndex={undefined}
       >
         <ScrollAreaPrimitive.Content style={scrollbars === 'vertical' ? { minWidth: 0, width: '100%' } : undefined}>
           {children}
