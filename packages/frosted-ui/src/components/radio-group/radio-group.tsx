@@ -63,5 +63,14 @@ const RadioGroupItem = (props: RadioGroupItemProps) => {
 };
 RadioGroupItem.displayName = 'RadioGroupItem';
 
+/** Re-export types from Base UI for typing onValueChange handlers */
+type ChangeEventDetails = RadioGroupPrimitive.ChangeEventDetails;
+type ChangeEventReason = RadioGroupPrimitive.ChangeEventReason;
+
 export { RadioGroupItem as Item, RadioGroupRoot as Root };
-export type { RadioGroupItemProps as ItemProps, RadioGroupRootProps as RootProps };
+export type {
+  ChangeEventDetails,
+  ChangeEventReason,
+  RadioGroupItemProps as ItemProps,
+  RadioGroupRootProps as RootProps,
+};

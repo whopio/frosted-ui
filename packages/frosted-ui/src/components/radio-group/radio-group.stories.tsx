@@ -361,14 +361,15 @@ export const OnValueChange: Story = {
   render: function Render(args) {
     const [selected, setSelected] = React.useState<ShippingMethod>('standard');
 
-    const handleChange: React.ComponentProps<typeof RadioGroup.Root>['onValueChange'] = (value) => {
+    const handleChange = (value: unknown) => {
       setSelected(value as ShippingMethod);
     };
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
         <Text as="div" size="2">
-          Type <Code>onValueChange</Code> with a union type for type-safe value handling.
+          Accept <Code>unknown</Code> and cast inside the handler. Use <Code>RadioGroup.ChangeEventDetails</Code> for
+          the second parameter if needed.
         </Text>
 
         <RadioGroup.Root {...args} value={selected} onValueChange={handleChange}>
@@ -408,7 +409,7 @@ export const OnValueChangeEvent: Story = {
       wasCanceled: boolean;
     } | null>(null);
 
-    const handleChange: React.ComponentProps<typeof RadioGroup.Root>['onValueChange'] = (value, eventDetails) => {
+    const handleChange = (value: unknown, eventDetails: RadioGroup.ChangeEventDetails) => {
       // Premium tier requires confirmation
       if (value === 'premium') {
         const confirmed = window.confirm('Premium tier costs $99/month. Continue?');
@@ -569,7 +570,7 @@ export const ObjectValues: Story = {
   render: function Render(args) {
     const [selected, setSelected] = React.useState<Product>(products[0]);
 
-    const handleChange: React.ComponentProps<typeof RadioGroup.Root>['onValueChange'] = (value) => {
+    const handleChange = (value: unknown) => {
       // Parse the JSON string back to object
       setSelected(JSON.parse(value as string) as Product);
     };
