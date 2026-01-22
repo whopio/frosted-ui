@@ -1,15 +1,21 @@
 'use client';
 
+import { Radio as RadioPrimitive } from '@base-ui/react/radio';
+import { RadioGroup as RadioGroupPrimitive } from '@base-ui/react/radio-group';
 import classNames from 'classnames';
-import { RadioGroup as RadioGroupPrimitive } from 'radix-ui';
 import * as React from 'react';
 
 import { radioGroupPropDefs } from './radio-group.props';
 
-import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
+import type { GetPropDefTypes } from '../../helpers';
 
 type RadioGroupOwnProps = GetPropDefTypes<typeof radioGroupPropDefs>;
-interface RadioGroupRootProps extends PropsWithoutColor<typeof RadioGroupPrimitive.Root>, RadioGroupOwnProps {}
+
+interface RadioGroupRootProps
+  extends Omit<React.ComponentProps<typeof RadioGroupPrimitive>, 'className' | 'style' | 'render'>, RadioGroupOwnProps {
+  className?: string;
+  style?: React.CSSProperties;
+}
 
 const RadioGroupRoot = (props: RadioGroupRootProps) => {
   const {
@@ -20,7 +26,7 @@ const RadioGroupRoot = (props: RadioGroupRootProps) => {
     ...rootProps
   } = props;
   return (
-    <RadioGroupPrimitive.Root
+    <RadioGroupPrimitive
       data-accent-color={color}
       {...rootProps}
       className={classNames('fui-RadioGroupRoot', className, `fui-r-size-${size}`, {
@@ -31,7 +37,15 @@ const RadioGroupRoot = (props: RadioGroupRootProps) => {
 };
 RadioGroupRoot.displayName = 'RadioGroupRoot';
 
-interface RadioGroupItemProps extends React.ComponentProps<typeof RadioGroupPrimitive.Item> {}
+interface RadioGroupItemProps extends Omit<
+  React.ComponentProps<typeof RadioPrimitive.Root>,
+  'children' | 'className' | 'style' | 'render'
+> {
+  /** Optional label content to display next to the radio button */
+  children?: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+}
 
 const RadioGroupItem = (props: RadioGroupItemProps) => {
   const { children, className, style, ...itemProps } = props;
@@ -40,14 +54,23 @@ const RadioGroupItem = (props: RadioGroupItemProps) => {
 
   return (
     <Comp className={classNames('fui-RadioGroupItem', className)} style={style}>
-      <RadioGroupPrimitive.Item {...itemProps} className={classNames('fui-reset', 'fui-RadioGroupButton')}>
-        <RadioGroupPrimitive.Indicator className="fui-RadioGroupIndicator" />
-      </RadioGroupPrimitive.Item>
+      <RadioPrimitive.Root {...itemProps} className={classNames('fui-reset', 'fui-RadioGroupButton')}>
+        <RadioPrimitive.Indicator className="fui-RadioGroupIndicator" />
+      </RadioPrimitive.Root>
       {children}
     </Comp>
   );
 };
 RadioGroupItem.displayName = 'RadioGroupItem';
 
+/** Re-export types from Base UI for typing onValueChange handlers */
+type ChangeEventDetails = RadioGroupPrimitive.ChangeEventDetails;
+type ChangeEventReason = RadioGroupPrimitive.ChangeEventReason;
+
 export { RadioGroupItem as Item, RadioGroupRoot as Root };
-export type { RadioGroupItemProps as ItemProps, RadioGroupRootProps as RootProps };
+export type {
+  ChangeEventDetails,
+  ChangeEventReason,
+  RadioGroupItemProps as ItemProps,
+  RadioGroupRootProps as RootProps,
+};
