@@ -144,9 +144,7 @@ const SelectContent = (props: SelectContentProps) => {
               { 'fui-high-contrast': highContrast },
             )}
           >
-            <SelectPrimitive.ScrollUpArrow className="fui-SelectScrollArrow fui-SelectScrollUpArrow" />
             <SelectPrimitive.List className="fui-SelectViewport">{children}</SelectPrimitive.List>
-            <SelectPrimitive.ScrollDownArrow className="fui-SelectScrollArrow fui-SelectScrollDownArrow" />
           </SelectPrimitive.Popup>
         </Theme>
       </SelectPrimitive.Positioner>

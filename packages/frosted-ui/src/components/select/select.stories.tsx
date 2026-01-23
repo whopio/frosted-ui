@@ -559,7 +559,7 @@ export const ManyItems: Story = {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
         <Text as="div" style={{ maxWidth: 500, textAlign: 'center' }}>
-          Select with many items shows scroll arrows when content overflows.
+          Select with many items scrolls when content overflows.
         </Text>
 
         <Select.Root defaultValue="Item 25">
