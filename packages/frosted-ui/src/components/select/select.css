@@ -51,6 +51,8 @@
   --scrollarea-scrollbar-horizontal-margin-left: var(--select-content-padding);
   --scrollarea-scrollbar-horizontal-margin-right: var(--select-content-padding);
 
+  /* Trigger width + space for checkmark indicator */
+  min-width: calc(var(--anchor-width) + var(--select-item-indicator-width));
   overflow: hidden;
   background-color: var(--color-panel-solid);
   pointer-events: auto;
