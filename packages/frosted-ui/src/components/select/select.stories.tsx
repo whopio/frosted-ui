@@ -25,22 +25,22 @@ export const Default: Story = {
     color: selectTriggerPropDefs.color.default,
   },
   render: (args) => (
-    <Select.Root defaultValue="apple" size="2">
+    <Select.Root defaultValue="Apple" size="2">
       <Select.Trigger {...args} />
       <Select.Content>
         <Select.Group>
           <Select.Label>Fruits</Select.Label>
-          <Select.Item value="orange">Orange</Select.Item>
-          <Select.Item value="apple">Apple</Select.Item>
-          <Select.Item value="grape" disabled>
+          <Select.Item value="Orange">Orange</Select.Item>
+          <Select.Item value="Apple">Apple</Select.Item>
+          <Select.Item value="Grape" disabled>
             Grape
           </Select.Item>
         </Select.Group>
         <Select.Separator />
         <Select.Group>
           <Select.Label>Vegetables</Select.Label>
-          <Select.Item value="carrot">Carrot</Select.Item>
-          <Select.Item value="potato">Potato</Select.Item>
+          <Select.Item value="Carrot">Carrot</Select.Item>
+          <Select.Item value="Potato">Potato</Select.Item>
         </Select.Group>
       </Select.Content>
     </Select.Root>
@@ -54,35 +54,35 @@ export const Size: Story = {
   },
   render: (args) => (
     <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center' }}>
-      <Select.Root size="1" defaultValue="apple">
+      <Select.Root size="1" defaultValue="Apple">
         <Select.Trigger {...args} />
         <Select.Content>
-          <Select.Item value="apple">Apple</Select.Item>
-          <Select.Item value="orange">Orange</Select.Item>
+          <Select.Item value="Apple">Apple</Select.Item>
+          <Select.Item value="Orange">Orange</Select.Item>
         </Select.Content>
       </Select.Root>
 
-      <Select.Root size="2" defaultValue="apple">
+      <Select.Root size="2" defaultValue="Apple">
         <Select.Trigger {...args} />
         <Select.Content>
-          <Select.Item value="apple">Apple</Select.Item>
-          <Select.Item value="orange">Orange</Select.Item>
+          <Select.Item value="Apple">Apple</Select.Item>
+          <Select.Item value="Orange">Orange</Select.Item>
         </Select.Content>
       </Select.Root>
 
-      <Select.Root size="3" defaultValue="apple">
+      <Select.Root size="3" defaultValue="Apple">
         <Select.Trigger {...args} />
         <Select.Content>
-          <Select.Item value="apple">Apple</Select.Item>
-          <Select.Item value="orange">Orange</Select.Item>
+          <Select.Item value="Apple">Apple</Select.Item>
+          <Select.Item value="Orange">Orange</Select.Item>
         </Select.Content>
       </Select.Root>
 
-      <Select.Root size="4" defaultValue="apple">
+      <Select.Root size="4" defaultValue="Apple">
         <Select.Trigger {...args} />
         <Select.Content>
-          <Select.Item value="apple">Apple</Select.Item>
-          <Select.Item value="orange">Orange</Select.Item>
+          <Select.Item value="Apple">Apple</Select.Item>
+          <Select.Item value="Orange">Orange</Select.Item>
         </Select.Content>
       </Select.Root>
     </div>
@@ -97,52 +97,52 @@ export const TriggerVariant: Story = {
   render: (args) => (
     <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center', flexDirection: 'column' }}>
       <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center' }}>
-        <Select.Root defaultValue="apple">
+        <Select.Root defaultValue="Apple">
           <Select.Trigger {...args} variant="surface" />
           <Select.Content>
-            <Select.Item value="apple">Apple</Select.Item>
-            <Select.Item value="orange">Orange</Select.Item>
+            <Select.Item value="Apple">Apple</Select.Item>
+            <Select.Item value="Orange">Orange</Select.Item>
           </Select.Content>
         </Select.Root>
 
-        <Select.Root defaultValue="apple">
+        <Select.Root defaultValue="Apple">
           <Select.Trigger {...args} variant="soft" />
           <Select.Content>
-            <Select.Item value="apple">Apple</Select.Item>
-            <Select.Item value="orange">Orange</Select.Item>
+            <Select.Item value="Apple">Apple</Select.Item>
+            <Select.Item value="Orange">Orange</Select.Item>
           </Select.Content>
         </Select.Root>
 
-        <Select.Root defaultValue="apple">
+        <Select.Root defaultValue="Apple">
           <Select.Trigger {...args} variant="ghost" />
           <Select.Content>
-            <Select.Item value="apple">Apple</Select.Item>
-            <Select.Item value="orange">Orange</Select.Item>
+            <Select.Item value="Apple">Apple</Select.Item>
+            <Select.Item value="Orange">Orange</Select.Item>
           </Select.Content>
         </Select.Root>
       </div>
       <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center' }}>
-        <Select.Root defaultValue="apple" disabled>
+        <Select.Root defaultValue="Apple" disabled>
           <Select.Trigger {...args} variant="surface" />
           <Select.Content>
-            <Select.Item value="apple">Apple</Select.Item>
-            <Select.Item value="orange">Orange</Select.Item>
+            <Select.Item value="Apple">Apple</Select.Item>
+            <Select.Item value="Orange">Orange</Select.Item>
           </Select.Content>
         </Select.Root>
 
-        <Select.Root defaultValue="apple" disabled>
+        <Select.Root defaultValue="Apple" disabled>
           <Select.Trigger {...args} variant="soft" />
           <Select.Content>
-            <Select.Item value="apple">Apple</Select.Item>
-            <Select.Item value="orange">Orange</Select.Item>
+            <Select.Item value="Apple">Apple</Select.Item>
+            <Select.Item value="Orange">Orange</Select.Item>
           </Select.Content>
         </Select.Root>
 
-        <Select.Root defaultValue="apple" disabled>
+        <Select.Root defaultValue="Apple" disabled>
           <Select.Trigger {...args} variant="ghost" />
           <Select.Content>
-            <Select.Item value="apple">Apple</Select.Item>
-            <Select.Item value="orange">Orange</Select.Item>
+            <Select.Item value="Apple">Apple</Select.Item>
+            <Select.Item value="Orange">Orange</Select.Item>
           </Select.Content>
         </Select.Root>
       </div>
@@ -157,35 +157,35 @@ export const Color: Story = {
   },
   render: (args) => (
     <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
-      <Select.Root defaultValue="apple">
+      <Select.Root defaultValue="Apple">
         <Select.Trigger {...args} color="indigo" />
         <Select.Content>
-          <Select.Item value="apple">Apple</Select.Item>
-          <Select.Item value="orange">Orange</Select.Item>
+          <Select.Item value="Apple">Apple</Select.Item>
+          <Select.Item value="Orange">Orange</Select.Item>
         </Select.Content>
       </Select.Root>
 
-      <Select.Root defaultValue="apple">
+      <Select.Root defaultValue="Apple">
         <Select.Trigger {...args} color="cyan" />
         <Select.Content>
-          <Select.Item value="apple">Apple</Select.Item>
-          <Select.Item value="orange">Orange</Select.Item>
+          <Select.Item value="Apple">Apple</Select.Item>
+          <Select.Item value="Orange">Orange</Select.Item>
         </Select.Content>
       </Select.Root>
 
-      <Select.Root defaultValue="apple">
+      <Select.Root defaultValue="Apple">
         <Select.Trigger {...args} color="orange" />
         <Select.Content>
-          <Select.Item value="apple">Apple</Select.Item>
-          <Select.Item value="orange">Orange</Select.Item>
+          <Select.Item value="Apple">Apple</Select.Item>
+          <Select.Item value="Orange">Orange</Select.Item>
         </Select.Content>
       </Select.Root>
 
-      <Select.Root defaultValue="apple">
+      <Select.Root defaultValue="Apple">
         <Select.Trigger {...args} color="crimson" />
         <Select.Content>
-          <Select.Item value="apple">Apple</Select.Item>
-          <Select.Item value="orange">Orange</Select.Item>
+          <Select.Item value="Apple">Apple</Select.Item>
+          <Select.Item value="Orange">Orange</Select.Item>
         </Select.Content>
       </Select.Root>
     </div>
@@ -203,17 +203,17 @@ export const Placeholder: Story = {
       <Select.Content>
         <Select.Group>
           <Select.Label>Fruits</Select.Label>
-          <Select.Item value="orange">Orange</Select.Item>
-          <Select.Item value="apple">Apple</Select.Item>
-          <Select.Item value="grape" disabled>
+          <Select.Item value="Orange">Orange</Select.Item>
+          <Select.Item value="Apple">Apple</Select.Item>
+          <Select.Item value="Grape" disabled>
             Grape
           </Select.Item>
         </Select.Group>
         <Select.Separator />
         <Select.Group>
           <Select.Label>Vegetables</Select.Label>
-          <Select.Item value="carrot">Carrot</Select.Item>
-          <Select.Item value="potato">Potato</Select.Item>
+          <Select.Item value="Carrot">Carrot</Select.Item>
+          <Select.Item value="Potato">Potato</Select.Item>
         </Select.Group>
       </Select.Content>
     </Select.Root>
@@ -228,19 +228,19 @@ export const HighContrast: Story = {
   },
   render: (args) => (
     <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
-      <Select.Root defaultValue="apple">
+      <Select.Root defaultValue="Apple">
         <Select.Trigger {...args} />
         <Select.Content>
-          <Select.Item value="apple">Apple</Select.Item>
-          <Select.Item value="orange">Orange</Select.Item>
+          <Select.Item value="Apple">Apple</Select.Item>
+          <Select.Item value="Orange">Orange</Select.Item>
         </Select.Content>
       </Select.Root>
 
-      <Select.Root defaultValue="apple">
+      <Select.Root defaultValue="Apple">
         <Select.Trigger {...args} />
         <Select.Content highContrast>
-          <Select.Item value="apple">Apple</Select.Item>
-          <Select.Item value="orange">Orange</Select.Item>
+          <Select.Item value="Apple">Apple</Select.Item>
+          <Select.Item value="Orange">Orange</Select.Item>
         </Select.Content>
       </Select.Root>
     </div>
@@ -270,21 +270,21 @@ export const FormattingTheValue: Story = {
     color: selectTriggerPropDefs.color.default,
   },
   render: (args) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', alignItems: 'center' }}>
-      <Text as="div" style={{ maxWidth: 600, textAlign: 'center' }}>
-        By default, <Code>Select.Value</Code> renders the raw value. Use <Code>items</Code> prop on Root for automatic
-        label lookup, or pass a custom render function to <Code>renderValue</Code> on Trigger for full control.
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
+      <Text as="div" style={{ maxWidth: 700 }}>
+        By default, <Code>Select.Value</Code> displays the raw <Code>value</Code>, not the label text. Here are
+        different ways to show a formatted label in the trigger.
       </Text>
 
-      <div style={{ display: 'flex', gap: 'var(--space-6)', flexWrap: 'wrap', justifyContent: 'center' }}>
+      <div style={{ display: 'flex', gap: 'var(--space-6)', flexWrap: 'wrap' }}>
         {/* Default: Raw value */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', alignItems: 'center' }}>
-          <Text size="1" color="gray">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+          <Text size="2" weight="bold">
             Default (raw value)
           </Text>
           <Select.Root defaultValue="roboto">
-            <Select.Trigger {...args} style={{ width: 150 }} />
-            <Select.Content>
+            <Select.Trigger {...args} style={{ width: 160 }} />
+            <Select.Content alignItemWithTrigger={false}>
               {fontItems.map((item) => (
                 <Select.Item key={item.value} value={item.value}>
                   {item.label}
@@ -292,16 +292,19 @@ export const FormattingTheValue: Story = {
               ))}
             </Select.Content>
           </Select.Root>
+          <Text size="1" color="gray" style={{ maxWidth: 180 }}>
+            Shows "roboto" instead of "Roboto". This is the default Base UI behavior.
+          </Text>
         </div>
 
         {/* With items prop for label lookup */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', alignItems: 'center' }}>
-          <Text size="1" color="gray">
-            With items prop
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+          <Text size="2" weight="bold">
+            Using <Code>items</Code> prop
           </Text>
           <Select.Root defaultValue="roboto" items={fontItems}>
-            <Select.Trigger {...args} style={{ width: 150 }} />
-            <Select.Content>
+            <Select.Trigger {...args} style={{ width: 160 }} />
+            <Select.Content alignItemWithTrigger={false}>
               {fontItems.map((item) => (
                 <Select.Item key={item.value} value={item.value}>
                   {item.label}
@@ -309,24 +312,51 @@ export const FormattingTheValue: Story = {
               ))}
             </Select.Content>
           </Select.Root>
+          <Text size="1" color="gray" style={{ maxWidth: 180 }}>
+            Pass <Code>{`{ value, label }`}</Code> objects to Root. Base UI automatically maps values to labels.
+          </Text>
+        </div>
+
+        {/* Using itemToStringLabel */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+          <Text size="2" weight="bold">
+            Using <Code>itemToStringLabel</Code>
+          </Text>
+          <Select.Root
+            defaultValue="roboto"
+            itemToStringLabel={(value) => {
+              const labels: Record<string, string> = { roboto: 'Roboto', inter: 'Inter', poppins: 'Poppins' };
+              return labels[value as string] ?? String(value);
+            }}
+          >
+            <Select.Trigger {...args} style={{ width: 160 }} />
+            <Select.Content alignItemWithTrigger={false}>
+              <Select.Item value="roboto">Roboto</Select.Item>
+              <Select.Item value="inter">Inter</Select.Item>
+              <Select.Item value="poppins">Poppins</Select.Item>
+            </Select.Content>
+          </Select.Root>
+          <Text size="1" color="gray" style={{ maxWidth: 180 }}>
+            Provide a function to transform any value into its display label.
+          </Text>
         </div>
 
         {/* Custom render function */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', alignItems: 'center' }}>
-          <Text size="1" color="gray">
-            Custom renderValue
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+          <Text size="2" weight="bold">
+            Using <Code>renderValue</Code>
           </Text>
           <Select.Root defaultValue="EUR">
             <Select.Trigger
               {...args}
-              style={{ width: 180 }}
-              renderValue={(value: string) => (
+              style={{ width: 200 }}
+              renderValue={(value) => (
                 <span>
-                  💰 {currencyItems[value as keyof typeof currencyItems]} ({value})
+                  💰 {currencyItems[value as keyof typeof currencyItems]} ({value as string})
                 </span>
               )}
             />
-            <Select.Content>
+            <Select.Content alignItemWithTrigger={false}>
               {Object.entries(currencyItems).map(([code, name]) => (
                 <Select.Item key={code} value={code}>
                   {name} ({code})
@@ -334,8 +364,35 @@ export const FormattingTheValue: Story = {
               ))}
             </Select.Content>
           </Select.Root>
+          <Text size="1" color="gray" style={{ maxWidth: 180 }}>
+            Full control via render function. Great for icons or complex formatting.
+          </Text>
+        </div>
+
+        {/* Value equals label */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+          <Text size="2" weight="bold">
+            Value = Label
+          </Text>
+          <Select.Root defaultValue="Roboto">
+            <Select.Trigger {...args} style={{ width: 160 }} />
+            <Select.Content alignItemWithTrigger={false}>
+              <Select.Item value="Roboto">Roboto</Select.Item>
+              <Select.Item value="Inter">Inter</Select.Item>
+              <Select.Item value="Poppins">Poppins</Select.Item>
+            </Select.Content>
+          </Select.Root>
+          <Text size="1" color="gray" style={{ maxWidth: 180 }}>
+            Simplest: use display text as value. Works for simple cases.
+          </Text>
         </div>
       </div>
+
+      <Text as="div" size="2" color="gray" style={{ maxWidth: 700, marginTop: 'var(--space-2)' }}>
+        <strong>Recommendation:</strong> Use <Code>items</Code> prop for data-driven selects, or{' '}
+        <Code>renderValue</Code> for custom formatting. Using value=label works for simple cases but can be problematic
+        if you need stable IDs for form submission.
+      </Text>
     </div>
   ),
 };
@@ -361,7 +418,7 @@ export const DropdownPositioning: Story = {
           <Select.Root defaultValue="banana">
             <Select.Trigger {...args} />
             <Select.Content>
-              <Select.Item value="apple">Apple</Select.Item>
+              <Select.Item value="Apple">Apple</Select.Item>
               <Select.Item value="banana">Banana</Select.Item>
               <Select.Item value="cherry">Cherry</Select.Item>
               <Select.Item value="date">Date</Select.Item>
@@ -377,7 +434,7 @@ export const DropdownPositioning: Story = {
           <Select.Root defaultValue="banana">
             <Select.Trigger {...args} />
             <Select.Content alignItemWithTrigger={false}>
-              <Select.Item value="apple">Apple</Select.Item>
+              <Select.Item value="Apple">Apple</Select.Item>
               <Select.Item value="banana">Banana</Select.Item>
               <Select.Item value="cherry">Cherry</Select.Item>
               <Select.Item value="date">Date</Select.Item>
@@ -404,58 +461,58 @@ export const SideAndAlign: Story = {
       </Text>
 
       <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap', justifyContent: 'center' }}>
-        <Select.Root defaultValue="apple">
+        <Select.Root defaultValue="Apple">
           <Select.Trigger {...args} placeholder="Bottom Start" />
           <Select.Content alignItemWithTrigger={false} side="bottom" align="start">
-            <Select.Item value="apple">Apple</Select.Item>
-            <Select.Item value="orange">Orange</Select.Item>
+            <Select.Item value="Apple">Apple</Select.Item>
+            <Select.Item value="Orange">Orange</Select.Item>
             <Select.Item value="banana">Banana</Select.Item>
           </Select.Content>
         </Select.Root>
 
-        <Select.Root defaultValue="apple">
+        <Select.Root defaultValue="Apple">
           <Select.Trigger {...args} placeholder="Bottom Center" />
           <Select.Content alignItemWithTrigger={false} side="bottom" align="center">
-            <Select.Item value="apple">Apple</Select.Item>
-            <Select.Item value="orange">Orange</Select.Item>
+            <Select.Item value="Apple">Apple</Select.Item>
+            <Select.Item value="Orange">Orange</Select.Item>
             <Select.Item value="banana">Banana</Select.Item>
           </Select.Content>
         </Select.Root>
 
-        <Select.Root defaultValue="apple">
+        <Select.Root defaultValue="Apple">
           <Select.Trigger {...args} placeholder="Bottom End" />
           <Select.Content alignItemWithTrigger={false} side="bottom" align="end">
-            <Select.Item value="apple">Apple</Select.Item>
-            <Select.Item value="orange">Orange</Select.Item>
+            <Select.Item value="Apple">Apple</Select.Item>
+            <Select.Item value="Orange">Orange</Select.Item>
             <Select.Item value="banana">Banana</Select.Item>
           </Select.Content>
         </Select.Root>
       </div>
 
       <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap', justifyContent: 'center' }}>
-        <Select.Root defaultValue="apple">
+        <Select.Root defaultValue="Apple">
           <Select.Trigger {...args} placeholder="Top Start" />
           <Select.Content alignItemWithTrigger={false} side="top" align="start">
-            <Select.Item value="apple">Apple</Select.Item>
-            <Select.Item value="orange">Orange</Select.Item>
+            <Select.Item value="Apple">Apple</Select.Item>
+            <Select.Item value="Orange">Orange</Select.Item>
             <Select.Item value="banana">Banana</Select.Item>
           </Select.Content>
         </Select.Root>
 
-        <Select.Root defaultValue="apple">
+        <Select.Root defaultValue="Apple">
           <Select.Trigger {...args} placeholder="Right Start" />
           <Select.Content alignItemWithTrigger={false} side="right" align="start">
-            <Select.Item value="apple">Apple</Select.Item>
-            <Select.Item value="orange">Orange</Select.Item>
+            <Select.Item value="Apple">Apple</Select.Item>
+            <Select.Item value="Orange">Orange</Select.Item>
             <Select.Item value="banana">Banana</Select.Item>
           </Select.Content>
         </Select.Root>
 
-        <Select.Root defaultValue="apple">
+        <Select.Root defaultValue="Apple">
           <Select.Trigger {...args} placeholder="Left Start" />
           <Select.Content alignItemWithTrigger={false} side="left" align="start">
-            <Select.Item value="apple">Apple</Select.Item>
-            <Select.Item value="orange">Orange</Select.Item>
+            <Select.Item value="Apple">Apple</Select.Item>
+            <Select.Item value="Orange">Orange</Select.Item>
             <Select.Item value="banana">Banana</Select.Item>
           </Select.Content>
         </Select.Root>
@@ -478,29 +535,29 @@ export const SideOffsetAndAlignOffset: Story = {
       </Text>
 
       <div style={{ display: 'flex', gap: 'var(--space-4)', flexWrap: 'wrap', justifyContent: 'center' }}>
-        <Select.Root defaultValue="apple">
+        <Select.Root defaultValue="Apple">
           <Select.Trigger {...args} placeholder="Default (4px)" />
           <Select.Content alignItemWithTrigger={false}>
-            <Select.Item value="apple">Apple</Select.Item>
-            <Select.Item value="orange">Orange</Select.Item>
+            <Select.Item value="Apple">Apple</Select.Item>
+            <Select.Item value="Orange">Orange</Select.Item>
             <Select.Item value="banana">Banana</Select.Item>
           </Select.Content>
         </Select.Root>
 
-        <Select.Root defaultValue="apple">
+        <Select.Root defaultValue="Apple">
           <Select.Trigger {...args} placeholder="sideOffset: 16" />
           <Select.Content alignItemWithTrigger={false} sideOffset={16}>
-            <Select.Item value="apple">Apple</Select.Item>
-            <Select.Item value="orange">Orange</Select.Item>
+            <Select.Item value="Apple">Apple</Select.Item>
+            <Select.Item value="Orange">Orange</Select.Item>
             <Select.Item value="banana">Banana</Select.Item>
           </Select.Content>
         </Select.Root>
 
-        <Select.Root defaultValue="apple">
+        <Select.Root defaultValue="Apple">
           <Select.Trigger {...args} placeholder="alignOffset: 20" />
           <Select.Content alignItemWithTrigger={false} alignOffset={20}>
-            <Select.Item value="apple">Apple</Select.Item>
-            <Select.Item value="orange">Orange</Select.Item>
+            <Select.Item value="Apple">Apple</Select.Item>
+            <Select.Item value="Orange">Orange</Select.Item>
             <Select.Item value="banana">Banana</Select.Item>
           </Select.Content>
         </Select.Root>
@@ -527,8 +584,8 @@ export const ControlledMode: Story = {
         <Select.Root value={value} onValueChange={(newValue) => setValue(newValue as string | null)}>
           <Select.Trigger {...args} placeholder="Pick a fruit" />
           <Select.Content>
-            <Select.Item value="apple">Apple</Select.Item>
-            <Select.Item value="orange">Orange</Select.Item>
+            <Select.Item value="Apple">Apple</Select.Item>
+            <Select.Item value="Orange">Orange</Select.Item>
             <Select.Item value="banana">Banana</Select.Item>
             <Select.Item value="cherry">Cherry</Select.Item>
           </Select.Content>
