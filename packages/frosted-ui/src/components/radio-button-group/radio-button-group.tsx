@@ -1,12 +1,13 @@
 'use client';
 
+import { Radio as RadioPrimitive } from '@base-ui/react/radio';
+import { RadioGroup as RadioButtonGroupPrimitive } from '@base-ui/react/radio-group';
 import classNames from 'classnames';
-import { RadioGroup as RadioButtonGroupPrimitive } from 'radix-ui';
 import * as React from 'react';
 
 import { radioButtonGroupPropDefs } from './radio-button-group.props';
 
-import { type GetPropDefTypes, type PropsWithoutColor } from '../../helpers';
+import { type GetPropDefTypes } from '../../helpers';
 import { useIsomorphicLayoutEffect } from '../../helpers/use-isomorphic-layout-effect';
 
 type RadioButtonGroupOwnProps = GetPropDefTypes<typeof radioButtonGroupPropDefs>;
@@ -15,8 +16,12 @@ type RadioButtonGroupContextValue = RadioButtonGroupOwnProps;
 const RadioButtonGroupContext = React.createContext<RadioButtonGroupContextValue>({});
 
 interface RadioButtonGroupRootProps
-  extends PropsWithoutColor<typeof RadioButtonGroupPrimitive.Root>,
-    RadioButtonGroupOwnProps {}
+  extends
+    Omit<React.ComponentProps<typeof RadioButtonGroupPrimitive>, 'className' | 'style' | 'render'>,
+    RadioButtonGroupOwnProps {
+  className?: string;
+  style?: React.CSSProperties;
+}
 
 const RadioButtonGroupRoot = (props: RadioButtonGroupRootProps) => {
   const {
@@ -27,7 +32,7 @@ const RadioButtonGroupRoot = (props: RadioButtonGroupRootProps) => {
     ...rootProps
   } = props;
   return (
-    <RadioButtonGroupPrimitive.Root
+    <RadioButtonGroupPrimitive
       data-accent-color={color}
       {...rootProps}
       className={classNames('fui-RadioButtonGroupRoot', className, { 'fui-high-contrast': highContrast })}
@@ -35,31 +40,35 @@ const RadioButtonGroupRoot = (props: RadioButtonGroupRootProps) => {
       <RadioButtonGroupContext.Provider value={React.useMemo(() => ({ color, highContrast }), [color, highContrast])}>
         {children}
       </RadioButtonGroupContext.Provider>
-    </RadioButtonGroupPrimitive.Root>
+    </RadioButtonGroupPrimitive>
   );
 };
 RadioButtonGroupRoot.displayName = 'RadioButtonGroupRoot';
 
-interface RadioButtonGroupItemProps extends React.ComponentProps<typeof RadioButtonGroupPrimitive.Item> {}
+interface RadioButtonGroupItemProps extends Omit<
+  React.ComponentProps<typeof RadioPrimitive.Root>,
+  'className' | 'style' | 'render'
+> {
+  className?: string;
+  style?: React.CSSProperties;
+}
 
 const RadioButtonGroupItem = (props: RadioButtonGroupItemProps) => {
   const { children, className, style, ...itemProps } = props;
 
   const updatedChildren = addOverlayToChildren(children);
   return (
-    <RadioButtonGroupPrimitive.Item
+    <RadioPrimitive.Root
       style={style}
       {...itemProps}
       className={classNames('fui-reset', 'fui-RadioButtonGroupButton', 'fui-RadioButtonGroupItem', className)}
-      asChild
-    >
-      {updatedChildren}
-    </RadioButtonGroupPrimitive.Item>
+      render={updatedChildren as React.ReactElement}
+    />
   );
 };
 RadioButtonGroupItem.displayName = 'RadioButtonGroupItem';
 
-interface RadioButtonGroupIconProps extends Omit<PropsWithoutColor<'div'>, 'children'> {}
+interface RadioButtonGroupIconProps extends Omit<React.ComponentProps<'div'>, 'children' | 'color'> {}
 
 const RadioButtonGroupIcon = (props: RadioButtonGroupIconProps) => {
   const { color, highContrast } = React.useContext(RadioButtonGroupContext);
@@ -117,8 +126,14 @@ const RadioButtonGroupOverlay = () => {
   return <div ref={ref} className="fui-RadioButtonGroupOverlay" aria-hidden />;
 };
 
+/** Re-export types from Base UI for typing onValueChange handlers */
+type ChangeEventDetails = RadioButtonGroupPrimitive.ChangeEventDetails;
+type ChangeEventReason = RadioButtonGroupPrimitive.ChangeEventReason;
+
 export { RadioButtonGroupIcon as Icon, RadioButtonGroupItem as Item, RadioButtonGroupRoot as Root };
 export type {
+  ChangeEventDetails,
+  ChangeEventReason,
   RadioButtonGroupIconProps as IconProps,
   RadioButtonGroupItemProps as ItemProps,
   RadioButtonGroupRootProps as RootProps,
