@@ -195,20 +195,16 @@ const SelectGroup = (props: SelectGroupProps) => (
 );
 SelectGroup.displayName = 'SelectGroup';
 
-interface SelectLabelProps extends Omit<
+interface SelectGroupLabelProps extends Omit<
   React.ComponentProps<typeof SelectPrimitive.GroupLabel>,
   'className' | 'render'
 > {
   className?: string;
 }
 
-const SelectLabel = (props: SelectLabelProps) => (
+const SelectGroupLabel = (props: SelectGroupLabelProps) => (
   <SelectPrimitive.GroupLabel {...props} className={classNames('fui-SelectLabel', props.className)} />
 );
-SelectLabel.displayName = 'SelectLabel';
-
-// Alias for backwards compatibility
-const SelectGroupLabel = SelectLabel;
 SelectGroupLabel.displayName = 'SelectGroupLabel';
 
 interface SelectSeparatorProps extends Omit<
@@ -228,7 +224,6 @@ export {
   SelectGroup as Group,
   SelectGroupLabel as GroupLabel,
   SelectItem as Item,
-  SelectLabel as Label,
   SelectRoot as Root,
   SelectSeparator as Separator,
   SelectTrigger as Trigger,
@@ -236,9 +231,9 @@ export {
 
 export type {
   SelectContentProps as ContentProps,
+  SelectGroupLabelProps as GroupLabelProps,
   SelectGroupProps as GroupProps,
   SelectItemProps as ItemProps,
-  SelectLabelProps as LabelProps,
   SelectRootProps as RootProps,
   SelectSeparatorProps as SeparatorProps,
   SelectTriggerProps as TriggerProps,

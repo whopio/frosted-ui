@@ -29,7 +29,7 @@ export const Default: Story = {
       <Select.Trigger {...args} />
       <Select.Content>
         <Select.Group>
-          <Select.Label>Fruits</Select.Label>
+          <Select.GroupLabel>Fruits</Select.GroupLabel>
           <Select.Item value="Orange">Orange</Select.Item>
           <Select.Item value="Apple">Apple</Select.Item>
           <Select.Item value="Grape" disabled>
@@ -38,7 +38,7 @@ export const Default: Story = {
         </Select.Group>
         <Select.Separator />
         <Select.Group>
-          <Select.Label>Vegetables</Select.Label>
+          <Select.GroupLabel>Vegetables</Select.GroupLabel>
           <Select.Item value="Carrot">Carrot</Select.Item>
           <Select.Item value="Potato">Potato</Select.Item>
         </Select.Group>
@@ -202,7 +202,7 @@ export const Placeholder: Story = {
       <Select.Trigger {...args} placeholder="Pick a fruit" />
       <Select.Content>
         <Select.Group>
-          <Select.Label>Fruits</Select.Label>
+          <Select.GroupLabel>Fruits</Select.GroupLabel>
           <Select.Item value="Orange">Orange</Select.Item>
           <Select.Item value="Apple">Apple</Select.Item>
           <Select.Item value="Grape" disabled>
@@ -211,7 +211,7 @@ export const Placeholder: Story = {
         </Select.Group>
         <Select.Separator />
         <Select.Group>
-          <Select.Label>Vegetables</Select.Label>
+          <Select.GroupLabel>Vegetables</Select.GroupLabel>
           <Select.Item value="Carrot">Carrot</Select.Item>
           <Select.Item value="Potato">Potato</Select.Item>
         </Select.Group>
