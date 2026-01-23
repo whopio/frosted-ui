@@ -481,6 +481,11 @@ export const OnValueChangeEvent: Story = {
 export const FormName: Story = {
   name: 'Form Name',
   render: function Render(args) {
+    const INITIAL_PLAN = 'monthly';
+    const INITIAL_PAYMENT = 'card';
+
+    const [plan, setPlan] = React.useState(INITIAL_PLAN);
+    const [payment, setPayment] = React.useState(INITIAL_PAYMENT);
     const [formData, setFormData] = React.useState<Record<string, string> | null>(null);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -493,17 +498,28 @@ export const FormName: Story = {
       setFormData(entries);
     };
 
+    const handleReset = () => {
+      setPlan(INITIAL_PLAN);
+      setPayment(INITIAL_PAYMENT);
+      setFormData(null);
+    };
+
     return (
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+      <form
+        onSubmit={handleSubmit}
+        onReset={handleReset}
+        style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}
+      >
         <Text as="div" size="2">
-          Use the <Code>name</Code> prop to include the RadioGroup value in form submissions.
+          Use the <Code>name</Code> prop to include the RadioGroup value in form submissions. Listen to the form's{' '}
+          <Code>onReset</Code> event to reset controlled state when using <Code>type="reset"</Code> buttons.
         </Text>
 
         <div>
           <Text as="div" size="2" weight="medium" style={{ marginBottom: 'var(--space-2)' }}>
             Subscription Plan
           </Text>
-          <RadioGroup.Root {...args} name="plan" defaultValue="monthly">
+          <RadioGroup.Root {...args} name="plan" value={plan} onValueChange={(v) => setPlan(v as string)}>
             <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'column' }}>
               <RadioGroup.Item value="monthly">Monthly — $9/mo</RadioGroup.Item>
               <RadioGroup.Item value="yearly">Yearly — $99/yr (save 8%)</RadioGroup.Item>
@@ -516,7 +532,7 @@ export const FormName: Story = {
           <Text as="div" size="2" weight="medium" style={{ marginBottom: 'var(--space-2)' }}>
             Payment Method
           </Text>
-          <RadioGroup.Root {...args} name="payment" defaultValue="card">
+          <RadioGroup.Root {...args} name="payment" value={payment} onValueChange={(v) => setPayment(v as string)}>
             <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'column' }}>
               <RadioGroup.Item value="card">Credit Card</RadioGroup.Item>
               <RadioGroup.Item value="paypal">PayPal</RadioGroup.Item>
@@ -529,7 +545,7 @@ export const FormName: Story = {
           <Button size="1" type="submit">
             Submit
           </Button>
-          <Button size="1" type="reset" variant="soft" onClick={() => setFormData(null)}>
+          <Button size="1" type="reset" variant="soft">
             Reset
           </Button>
         </div>
