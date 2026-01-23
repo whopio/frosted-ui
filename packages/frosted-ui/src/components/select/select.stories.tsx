@@ -557,21 +557,50 @@ export const ManyItems: Story = {
     const items = Array.from({ length: 50 }, (_, i) => `Item ${i + 1}`);
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
-        <Text as="div" style={{ maxWidth: 500, textAlign: 'center' }}>
-          Select with many items scrolls when content overflows.
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', alignItems: 'center' }}>
+        <Text as="div" style={{ maxWidth: 600, textAlign: 'center' }}>
+          Select with many items. Compare <Code>alignItemWithTrigger</Code> behavior.
         </Text>
 
-        <Select.Root defaultValue="Item 2">
-          <Select.Trigger {...args} />
-          <Select.Content>
-            {items.map((item) => (
-              <Select.Item key={item} value={item}>
-                {item}
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Root>
+        <div style={{ display: 'flex', gap: 'var(--space-6)', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', alignItems: 'center' }}>
+            <Text size="2" weight="medium">
+              alignItemWithTrigger={'{true}'} (default)
+            </Text>
+            <Select.Root defaultValue="Item 25">
+              <Select.Trigger {...args} />
+              <Select.Content>
+                {items.map((item) => (
+                  <Select.Item key={item} value={item}>
+                    {item}
+                  </Select.Item>
+                ))}
+              </Select.Content>
+            </Select.Root>
+            <Text size="1" color="gray" style={{ maxWidth: 200, textAlign: 'center' }}>
+              Selected item aligns with trigger. Popup expands as you scroll.
+            </Text>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', alignItems: 'center' }}>
+            <Text size="2" weight="medium">
+              alignItemWithTrigger={'{false}'}
+            </Text>
+            <Select.Root defaultValue="Item 25">
+              <Select.Trigger {...args} />
+              <Select.Content alignItemWithTrigger={false}>
+                {items.map((item) => (
+                  <Select.Item key={item} value={item}>
+                    {item}
+                  </Select.Item>
+                ))}
+              </Select.Content>
+            </Select.Root>
+            <Text size="1" color="gray" style={{ maxWidth: 200, textAlign: 'center' }}>
+              Standard dropdown positioning below trigger.
+            </Text>
+          </div>
+        </div>
       </div>
     );
   },
