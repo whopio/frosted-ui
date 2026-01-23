@@ -51,6 +51,7 @@
   --scrollarea-scrollbar-horizontal-margin-left: var(--select-content-padding);
   --scrollarea-scrollbar-horizontal-margin-right: var(--select-content-padding);
 
+  overflow: hidden;
   background-color: var(--color-panel-solid);
   pointer-events: auto;
   transform-origin: var(--transform-origin);
@@ -73,19 +74,26 @@
   }
 }
 
-.fui-SelectViewport {
-  box-sizing: border-box;
-  padding: var(--select-content-padding);
+/* ScrollArea integration for Select */
+.fui-SelectContent > .fui-ScrollAreaRoot {
+  height: 100%;
+}
 
+.fui-SelectContent .fui-ScrollAreaViewport {
   /* 
-   * In alignItemWithTrigger mode (data-side="none"), Base UI applies inline styles:
+   * In alignItemWithTrigger mode (data-side="none"), Base UI applies inline styles
+   * to SelectList (now ScrollAreaViewport):
    * position: relative; max-height: 100%; overflow-x: hidden; overflow-y: auto;
-   * In normal mode, the Positioner handles max-height via --available-height
+   * In normal mode, limit height to available space.
    */
   :where(.fui-SelectPositioner:not([data-side='none'])) & {
     max-height: var(--available-height);
-    overflow-y: auto;
   }
+}
+
+.fui-SelectViewport {
+  box-sizing: border-box;
+  padding: var(--select-content-padding);
 
   :where(.fui-SelectContent:has(.fui-ScrollAreaScrollbar[data-orientation='vertical'])) & {
     padding-right: var(--space-3);

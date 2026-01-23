@@ -1,5 +1,6 @@
 'use client';
 
+import { ScrollArea as ScrollAreaPrimitive } from '@base-ui/react/scroll-area';
 import { Select as SelectPrimitive } from '@base-ui/react/select';
 import classNames from 'classnames';
 import * as React from 'react';
@@ -144,7 +145,22 @@ const SelectContent = (props: SelectContentProps) => {
               { 'fui-high-contrast': highContrast },
             )}
           >
-            <SelectPrimitive.List className="fui-SelectViewport">{children}</SelectPrimitive.List>
+            <ScrollAreaPrimitive.Root className="fui-ScrollAreaRoot">
+              <SelectPrimitive.List
+                render={<ScrollAreaPrimitive.Viewport className="fui-ScrollAreaViewport" tabIndex={undefined} />}
+              >
+                <ScrollAreaPrimitive.Content>
+                  <div className="fui-SelectViewport">{children}</div>
+                </ScrollAreaPrimitive.Content>
+              </SelectPrimitive.List>
+              <ScrollAreaPrimitive.Scrollbar
+                orientation="vertical"
+                className="fui-ScrollAreaScrollbar fui-r-size-1"
+                data-type="auto"
+              >
+                <ScrollAreaPrimitive.Thumb className="fui-ScrollAreaThumb" />
+              </ScrollAreaPrimitive.Scrollbar>
+            </ScrollAreaPrimitive.Root>
           </SelectPrimitive.Popup>
         </Theme>
       </SelectPrimitive.Positioner>
