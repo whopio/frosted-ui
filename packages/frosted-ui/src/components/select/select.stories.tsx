@@ -718,6 +718,125 @@ export const MultipleSelection: Story = {
   },
 };
 
+export const Controlled: Story = {
+  name: 'Controlled',
+  args: {
+    variant: selectTriggerPropDefs.variant.default,
+    color: selectTriggerPropDefs.color.default,
+  },
+  render: (args) => {
+    const [singleValue, setSingleValue] = React.useState<string>('Apple');
+    const [multipleValue, setMultipleValue] = React.useState<string[]>(['javascript', 'typescript']);
+
+    const fruits = ['Apple', 'Orange', 'Banana', 'Grape', 'Mango'];
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
+        <Text as="div" style={{ maxWidth: 600 }}>
+          Use <Code>value</Code> and <Code>onValueChange</Code> props to control the Select. When <Code>multiple</Code>{' '}
+          is set, value types automatically become arrays. Use generics like <Code>{'Select.Root<string>'}</Code> or{' '}
+          <Code>{'Select.Root<string, true>'}</Code> for full type safety.
+        </Text>
+
+        <div style={{ display: 'flex', gap: 'var(--space-6)', flexWrap: 'wrap' }}>
+          {/* Single Selection - value is typed as string */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+            <Text size="2" weight="bold">
+              Single Selection
+            </Text>
+            <Select.Root<string>
+              value={singleValue}
+              onValueChange={(value) => {
+                // value is typed as string | null
+                if (value !== null) setSingleValue(value);
+              }}
+            >
+              <Select.Trigger {...args} style={{ width: 180 }} />
+              <Select.Content>
+                {fruits.map((fruit) => (
+                  <Select.Item key={fruit} value={fruit}>
+                    {fruit}
+                  </Select.Item>
+                ))}
+              </Select.Content>
+            </Select.Root>
+            <Code size="1">value: "{singleValue}"</Code>
+          </div>
+
+          {/* Multiple Selection - value is typed as string[] */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+            <Text size="2" weight="bold">
+              Multiple Selection
+            </Text>
+            <Select.Root<string, true>
+              multiple
+              value={multipleValue}
+              onValueChange={(value) => {
+                // value is typed as string[] when multiple={true}
+                setMultipleValue(value);
+              }}
+            >
+              <Select.Trigger
+                {...args}
+                style={{ width: 220 }}
+                renderValue={(value) => {
+                  const arr = value as string[];
+                  if (arr.length === 0) return 'Select languages...';
+                  if (arr.length === 1) return languages[arr[0] as Language];
+                  return `${languages[arr[0] as Language]} (+${arr.length - 1} more)`;
+                }}
+              />
+              <Select.Content alignItemWithTrigger={false}>
+                {(Object.keys(languages) as Language[]).map((key) => (
+                  <Select.Item key={key} value={key}>
+                    {languages[key]}
+                  </Select.Item>
+                ))}
+              </Select.Content>
+            </Select.Root>
+            <Code size="1">value: [{multipleValue.map((v) => `"${v}"`).join(', ')}]</Code>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+          <button
+            type="button"
+            onClick={() => {
+              setSingleValue('Mango');
+              setMultipleValue(['python', 'rust', 'go']);
+            }}
+            style={{
+              padding: '6px 12px',
+              borderRadius: 6,
+              border: '1px solid var(--gray-6)',
+              background: 'var(--gray-3)',
+              cursor: 'pointer',
+            }}
+          >
+            Set programmatically
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setSingleValue('Apple');
+              setMultipleValue(['javascript', 'typescript']);
+            }}
+            style={{
+              padding: '6px 12px',
+              borderRadius: 6,
+              border: '1px solid var(--gray-6)',
+              background: 'var(--gray-3)',
+              cursor: 'pointer',
+            }}
+          >
+            Reset
+          </button>
+        </div>
+      </div>
+    );
+  },
+};
+
 interface ShippingMethod {
   id: string;
   name: string;

@@ -16,17 +16,32 @@ type SelectRootOwnProps = GetPropDefTypes<typeof selectRootPropDefs>;
 type SelectContextValue = SelectRootOwnProps;
 const SelectContext = React.createContext<SelectContextValue>({});
 
-interface SelectRootProps
-  extends Omit<React.ComponentProps<typeof SelectPrimitive.Root>, 'className' | 'render'>, SelectContextValue {}
+// Re-export Base UI types for consumers
+type SelectRootChangeEventDetails = SelectPrimitive.Root.ChangeEventDetails;
+type SelectRootChangeEventReason = SelectPrimitive.Root.ChangeEventReason;
 
-const SelectRoot: React.FC<SelectRootProps> = (props) => {
+// Conditional value type based on multiple prop
+type SelectValue<Value, Multiple extends boolean | undefined> = Multiple extends true ? Value[] : Value;
+
+interface SelectRootPropsBase<Value, Multiple extends boolean | undefined = false>
+  extends Omit<SelectPrimitive.Root.Props<Value, Multiple>, 'className' | 'render'>, SelectContextValue {}
+
+// Overloaded types for better inference
+type SelectRootProps<Value = unknown, Multiple extends boolean | undefined = false> = SelectRootPropsBase<
+  Value,
+  Multiple
+>;
+
+function SelectRoot<Value = unknown, Multiple extends boolean | undefined = false>(
+  props: SelectRootProps<Value, Multiple>,
+) {
   const { children, size = selectRootPropDefs.size.default, ...rootProps } = props;
   return (
-    <SelectPrimitive.Root {...rootProps}>
+    <SelectPrimitive.Root {...(rootProps as SelectPrimitive.Root.Props<Value, Multiple>)}>
       <SelectContext.Provider value={React.useMemo(() => ({ size }), [size])}>{children}</SelectContext.Provider>
     </SelectPrimitive.Root>
   );
-};
+}
 SelectRoot.displayName = 'SelectRoot';
 
 type SelectTriggerOwnProps = GetPropDefTypes<typeof selectTriggerPropDefs>;
@@ -234,7 +249,10 @@ export type {
   SelectGroupLabelProps as GroupLabelProps,
   SelectGroupProps as GroupProps,
   SelectItemProps as ItemProps,
+  SelectRootChangeEventDetails as RootChangeEventDetails,
+  SelectRootChangeEventReason as RootChangeEventReason,
   SelectRootProps as RootProps,
+  SelectValue,
   SelectSeparatorProps as SeparatorProps,
   SelectTriggerProps as TriggerProps,
 };
