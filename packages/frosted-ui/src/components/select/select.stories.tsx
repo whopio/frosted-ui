@@ -7,7 +7,20 @@ import { Code, Select, selectTriggerPropDefs, Text } from '..';
 const meta = {
   title: 'Controls/Select',
   component: Select.Trigger,
-  args: {},
+  args: {
+    variant: selectTriggerPropDefs.variant.default,
+    color: selectTriggerPropDefs.color.default,
+  },
+  argTypes: {
+    variant: {
+      control: 'select',
+      options: selectTriggerPropDefs.variant.values,
+    },
+    color: {
+      control: 'select',
+      options: selectTriggerPropDefs.color.values,
+    },
+  },
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
     layout: 'centered',
