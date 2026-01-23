@@ -562,7 +562,7 @@ export const ManyItems: Story = {
           Select with many items scrolls when content overflows.
         </Text>
 
-        <Select.Root defaultValue="Item 25">
+        <Select.Root defaultValue="Item 2">
           <Select.Trigger {...args} />
           <Select.Content>
             {items.map((item) => (
