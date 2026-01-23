@@ -33,9 +33,15 @@
   pointer-events: none;
   z-index: 1000;
 
-  &:where([data-side]) {
+  /* Only apply max-height when NOT in alignItemWithTrigger mode (data-side != "none") */
+  &:where([data-side]:not([data-side='none'])) {
     min-width: var(--anchor-width);
     max-height: var(--available-height);
+  }
+
+  /* In alignItemWithTrigger mode, Base UI manages height dynamically */
+  &:where([data-side='none']) {
+    min-width: var(--anchor-width);
   }
 }
 
@@ -45,7 +51,6 @@
   --scrollarea-scrollbar-horizontal-margin-left: var(--select-content-padding);
   --scrollarea-scrollbar-horizontal-margin-right: var(--select-content-padding);
 
-  overflow: hidden;
   background-color: var(--color-panel-solid);
   pointer-events: auto;
   transform-origin: var(--transform-origin);
@@ -71,6 +76,16 @@
 .fui-SelectViewport {
   box-sizing: border-box;
   padding: var(--select-content-padding);
+
+  /* 
+   * In alignItemWithTrigger mode (data-side="none"), Base UI applies inline styles:
+   * position: relative; max-height: 100%; overflow-x: hidden; overflow-y: auto;
+   * In normal mode, the Positioner handles max-height via --available-height
+   */
+  :where(.fui-SelectPositioner:not([data-side='none'])) & {
+    max-height: var(--available-height);
+    overflow-y: auto;
+  }
 
   :where(.fui-SelectContent:has(.fui-ScrollAreaScrollbar[data-orientation='vertical'])) & {
     padding-right: var(--space-3);
