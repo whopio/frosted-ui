@@ -73,7 +73,7 @@ const SelectTrigger = (props: SelectTriggerProps) => {
 
   return (
     <SelectPrimitive.Trigger
-      data-accent-color={color}
+      data-accent-color={color || (variant === 'surface' ? 'gray' : color)}
       {...triggerProps}
       className={classNames(
         'fui-reset',
@@ -83,9 +83,8 @@ const SelectTrigger = (props: SelectTriggerProps) => {
         `fui-variant-${variant}`,
       )}
     >
-      <span className="fui-SelectTriggerInner">
-        <SelectPrimitive.Value>{valueChildren}</SelectPrimitive.Value>
-      </span>
+      <SelectPrimitive.Value className="fui-SelectTriggerValue">{valueChildren}</SelectPrimitive.Value>
+
       <SelectPrimitive.Icon>
         <svg className="fui-SelectIcon" xmlns="http://www.w3.org/2000/svg" viewBox="3.25 5.25 9.5 5.5" fill="none">
           <path

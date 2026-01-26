@@ -14,7 +14,7 @@
   }
 }
 
-.fui-SelectTriggerInner {
+.fui-SelectTriggerValue {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -337,7 +337,10 @@
 /* surface */
 
 .fui-SelectTrigger:where(.fui-variant-surface) {
-  color: var(--gray-12);
+  color: var(--accent-a11);
+  &:where([data-accent-color='gray']) {
+    color: var(--gray-12);
+  }
   background-color: var(--color-surface);
   box-shadow:
     inset 0 0 0 1px var(--gray-a5),
@@ -353,16 +356,14 @@
   &:where([data-popup-open]) {
     box-shadow: inset 0 0 0 1px var(--gray-a7);
   }
+  &:where([data-placeholder]) {
+    color: var(--accent-a10);
+  }
   &:where(:disabled) {
     cursor: var(--cursor-disabled);
     color: var(--gray-a8);
     background-color: var(--gray-a2);
     box-shadow: inset 0 0 0 1px var(--gray-a6);
-  }
-  &:where([data-placeholder]) {
-    & :where(.fui-SelectTriggerInner) {
-      color: var(--gray-a10);
-    }
   }
 }
 
@@ -446,7 +447,7 @@
     }
   }
   &:where([data-placeholder]) {
-    & :where(.fui-SelectTriggerInner) {
+    & :where(.fui-SelectTriggerValue) {
       color: var(--gray-a10);
     }
   }
@@ -456,13 +457,10 @@
 
 .fui-SelectTrigger:where(.fui-variant-soft),
 .fui-SelectTrigger:where(.fui-variant-ghost) {
-  color: var(--accent-12);
+  color: var(--accent-a11);
 
   &:where([data-placeholder]) {
-    & :where(.fui-SelectTriggerInner) {
-      color: var(--accent-12);
-      opacity: 0.6;
-    }
+    color: var(--accent-a8);
   }
 }
 

@@ -10,6 +10,7 @@ const meta = {
   args: {
     variant: selectTriggerPropDefs.variant.default,
     color: selectTriggerPropDefs.color.default,
+    disabled: false,
   },
   argTypes: {
     variant: {
@@ -19,6 +20,9 @@ const meta = {
     color: {
       control: 'select',
       options: selectTriggerPropDefs.color.values,
+    },
+    disabled: {
+      control: 'boolean',
     },
   },
   parameters: {
@@ -37,8 +41,8 @@ export const Default: Story = {
     variant: selectTriggerPropDefs.variant.default,
     color: selectTriggerPropDefs.color.default,
   },
-  render: (args) => (
-    <Select.Root defaultValue="Apple" size="2">
+  render: ({ disabled, ...args }) => (
+    <Select.Root defaultValue="Apple" size="2" disabled={disabled}>
       <Select.Trigger {...args} />
       <Select.Content>
         <Select.Group>
