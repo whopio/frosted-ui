@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
 import { Code, Select, selectTriggerPropDefs, Text } from '..';
+import { InfoCircledIcon } from '../../icons';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -368,8 +369,11 @@ export const FormattingTheValue: Story = {
               {...args}
               style={{ width: 200 }}
               renderValue={(value) => (
-                <span>
-                  💰 {currencyItems[value as keyof typeof currencyItems]} ({value as string})
+                <span style={{ display: 'flex', alignItems: 'center', gap: 6, minWidth: 0 }}>
+                  <InfoCircledIcon style={{ width: 14, height: 14, flexShrink: 0 }} />
+                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {currencyItems[value as keyof typeof currencyItems]} ({value as string})
+                  </span>
                 </span>
               )}
             />
