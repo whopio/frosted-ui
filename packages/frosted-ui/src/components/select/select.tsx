@@ -46,7 +46,9 @@ SelectRoot.displayName = 'SelectRoot';
 
 type SelectTriggerOwnProps = GetPropDefTypes<typeof selectTriggerPropDefs>;
 interface SelectTriggerProps
-  extends Omit<PropsWithoutColor<typeof SelectPrimitive.Trigger>, 'render' | 'className'>, SelectTriggerOwnProps {
+  extends
+    Omit<PropsWithoutColor<typeof SelectPrimitive.Trigger>, 'render' | 'className' | 'children'>,
+    SelectTriggerOwnProps {
   className?: string;
   placeholder?: React.ReactNode;
   /** Custom render function for the selected value. Useful for multiple selection. */
