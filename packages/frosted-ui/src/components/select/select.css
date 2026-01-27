@@ -22,9 +22,8 @@
 
 .fui-SelectIcon {
   flex-shrink: 0;
-
-  :where(.fui-SelectTrigger:not(.fui-variant-ghost)) & {
-    opacity: 0.9;
+  &:where(:not(.fui-SelectTrigger[data-disabled] &)) {
+    color: var(--accent-a12);
   }
 }
 
@@ -456,10 +455,10 @@
 
 .fui-SelectTrigger:where(.fui-variant-soft),
 .fui-SelectTrigger:where(.fui-variant-ghost) {
-  color: var(--accent-a11);
+  color: var(--accent-a12);
 
   &:where([data-placeholder]) {
-    color: var(--accent-a8);
+    color: var(--accent-a10);
   }
 }
 
