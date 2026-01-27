@@ -31,7 +31,6 @@
 .fui-SelectPositioner {
   outline: none;
   pointer-events: none;
-  z-index: 1000;
 
   /* Only apply max-height when NOT in alignItemWithTrigger mode (data-side != "none") */
   &:where([data-side]:not([data-side='none'])) {
