@@ -14,7 +14,7 @@
   }
 }
 
-.fui-SelectTriggerInner {
+.fui-SelectTriggerValue {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -22,9 +22,24 @@
 
 .fui-SelectIcon {
   flex-shrink: 0;
+  &:where(:not(.fui-SelectTrigger[data-disabled] &)) {
+    color: var(--accent-a12);
+  }
+}
 
-  :where(.fui-SelectTrigger:not(.fui-variant-ghost)) & {
-    opacity: 0.9;
+.fui-SelectPositioner {
+  outline: none;
+  pointer-events: none;
+
+  /* Only apply max-height when NOT in alignItemWithTrigger mode (data-side != "none") */
+  &:where([data-side]:not([data-side='none'])) {
+    min-width: var(--anchor-width);
+    max-height: var(--available-height);
+  }
+
+  /* In alignItemWithTrigger mode, Base UI manages height dynamically */
+  &:where([data-side='none']) {
+    min-width: var(--anchor-width);
   }
 }
 
@@ -34,17 +49,42 @@
   --scrollarea-scrollbar-horizontal-margin-left: var(--select-content-padding);
   --scrollarea-scrollbar-horizontal-margin-right: var(--select-content-padding);
 
+  /* Trigger width + space for checkmark indicator */
+  min-width: calc(var(--anchor-width) + var(--select-item-indicator-width));
   overflow: hidden;
   background-color: var(--color-panel-solid);
+  pointer-events: auto;
+  transform-origin: var(--transform-origin);
 
-  &:where([data-side]) {
-    min-width: var(--radix-select-trigger-width);
-    max-height: var(--radix-select-content-available-height);
-    transform-origin: var(--radix-select-content-transform-origin);
+  /* Animation */
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 150ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
   }
 
-  & :where(.fui-SelectItem[data-highlighted]) {
+  & :where(.fui-SelectItem[data-highlighted]:not([data-disabled])) {
     background-color: var(--gray-a4);
+  }
+}
+
+/* ScrollArea integration for Select */
+.fui-SelectContent > .fui-ScrollAreaRoot {
+  height: 100%;
+}
+
+.fui-SelectContent .fui-ScrollAreaViewport {
+  /* 
+   * In alignItemWithTrigger mode (data-side="none"), Base UI applies inline styles
+   * to SelectList (now ScrollAreaViewport):
+   * position: relative; max-height: 100%; overflow-x: hidden; overflow-y: auto;
+   * In normal mode, limit height to available space.
+   */
+  :where(.fui-SelectPositioner:not([data-side='none'])) & {
+    max-height: var(--available-height);
   }
 }
 
@@ -295,7 +335,10 @@
 /* surface */
 
 .fui-SelectTrigger:where(.fui-variant-surface) {
-  color: var(--gray-12);
+  color: var(--accent-a11);
+  &:where([data-accent-color='gray']) {
+    color: var(--gray-12);
+  }
   background-color: var(--color-surface);
   box-shadow:
     inset 0 0 0 1px var(--gray-a5),
@@ -308,19 +351,17 @@
         0px 1px 2px 0px rgba(0, 0, 0, 0.05);
     }
   }
-  &:where([data-state='open']) {
+  &:where([data-popup-open]) {
     box-shadow: inset 0 0 0 1px var(--gray-a7);
+  }
+  &:where([data-placeholder]) {
+    color: var(--accent-a10);
   }
   &:where(:disabled) {
     cursor: var(--cursor-disabled);
     color: var(--gray-a8);
     background-color: var(--gray-a2);
     box-shadow: inset 0 0 0 1px var(--gray-a6);
-  }
-  &:where([data-placeholder]) {
-    & :where(.fui-SelectTriggerInner) {
-      color: var(--gray-a10);
-    }
   }
 }
 
@@ -381,7 +422,7 @@
       }
     }
   }
-  &:where([data-state='open']) {
+  &:where([data-popup-open]) {
     box-shadow:
       inset 0 0 0 1px var(--gray-a3),
       var(--select-trigger-classic-box-shadow);
@@ -404,7 +445,7 @@
     }
   }
   &:where([data-placeholder]) {
-    & :where(.fui-SelectTriggerInner) {
+    & :where(.fui-SelectTriggerValue) {
       color: var(--gray-a10);
     }
   }
@@ -414,13 +455,10 @@
 
 .fui-SelectTrigger:where(.fui-variant-soft),
 .fui-SelectTrigger:where(.fui-variant-ghost) {
-  color: var(--accent-12);
+  color: var(--accent-a12);
 
   &:where([data-placeholder]) {
-    & :where(.fui-SelectTriggerInner) {
-      color: var(--accent-12);
-      opacity: 0.6;
-    }
+    color: var(--accent-a10);
   }
 }
 
@@ -432,7 +470,7 @@
       background-color: var(--accent-a4);
     }
   }
-  &:where([data-state='open']) {
+  &:where([data-popup-open]) {
     background-color: var(--accent-a4);
   }
   &:where(:focus-visible) {
@@ -452,7 +490,7 @@
       background-color: var(--accent-a3);
     }
   }
-  &:where([data-state='open']) {
+  &:where([data-popup-open]) {
     background-color: var(--accent-a3);
   }
   &:where(:disabled) {
@@ -486,6 +524,7 @@
 
 .fui-SelectItem:where([data-disabled]) {
   color: var(--gray-a8);
+  cursor: var(--cursor-disabled);
 }
 
 .fui-SelectSeparator {
