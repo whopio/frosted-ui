@@ -13,7 +13,13 @@ import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 
 type SelectRootOwnProps = GetPropDefTypes<typeof selectRootPropDefs>;
 
-type SelectContextValue = SelectRootOwnProps;
+// Internal context for passing values from Root to children
+interface SelectContextValue extends SelectRootOwnProps {
+  // Store items for label lookup in trigger - flexible type to handle both array and record formats
+  itemsForLabelLookup?: readonly { value: unknown; label?: React.ReactNode }[] | Record<string, React.ReactNode>;
+  // Store itemToStringLabel for label lookup when items is not provided
+  valueLabelFormatter?: (value: unknown) => string;
+}
 const SelectContext = React.createContext<SelectContextValue>({});
 
 // Re-export Base UI types for consumers
@@ -35,10 +41,21 @@ type SelectRootProps<Value = unknown, Multiple extends boolean | undefined = fal
 function SelectRoot<Value = unknown, Multiple extends boolean | undefined = false>(
   props: SelectRootProps<Value, Multiple>,
 ) {
-  const { children, size = selectRootPropDefs.size.default, ...rootProps } = props;
+  const { children, size = selectRootPropDefs.size.default, items, itemToStringLabel, ...rootProps } = props;
   return (
-    <SelectPrimitive.Root {...(rootProps as SelectPrimitive.Root.Props<Value, Multiple>)}>
-      <SelectContext.Provider value={React.useMemo(() => ({ size }), [size])}>{children}</SelectContext.Provider>
+    <SelectPrimitive.Root
+      items={items}
+      itemToStringLabel={itemToStringLabel}
+      {...(rootProps as SelectPrimitive.Root.Props<Value, Multiple>)}
+    >
+      <SelectContext.Provider
+        value={React.useMemo(
+          () => ({ size, itemsForLabelLookup: items, valueLabelFormatter: itemToStringLabel as ((value: unknown) => string) | undefined }),
+          [size, items, itemToStringLabel],
+        )}
+      >
+        {children}
+      </SelectContext.Provider>
     </SelectPrimitive.Root>
   );
 }
@@ -64,14 +81,43 @@ const SelectTrigger = (props: SelectTriggerProps) => {
     renderValue,
     ...triggerProps
   } = props;
-  const { size } = React.useContext(SelectContext);
+  const { size, itemsForLabelLookup, valueLabelFormatter } = React.useContext(SelectContext);
 
-  // Handle placeholder: Base UI's Select.Value uses children as a render function
+  // Handle placeholder and renderValue: Base UI's Select.Value uses children as a render function
+  // Per Base UI docs: placeholder is overridden by children if specified
   const valueChildren = React.useMemo(() => {
+    // renderValue takes full control (matches Base UI: "placeholder is overridden by children if specified")
     if (renderValue) return renderValue;
-    if (placeholder) return (value: unknown) => (value != null ? String(value) : placeholder);
+
+    // If placeholder is provided, create a render function that handles label lookup
+    if (placeholder) {
+      return (value: unknown) => {
+        // Use items for label lookup if available (checked BEFORE placeholder fallback)
+        // This matches Base UI behavior where a null item's label overrides placeholder
+        if (itemsForLabelLookup) {
+          // items can be an array of { value, label } or a Record<string, label>
+          if (Array.isArray(itemsForLabelLookup)) {
+            const item = itemsForLabelLookup.find((i) => i.value === value);
+            if (item?.label != null) return item.label;
+          } else if (value != null) {
+            // Record format: keys are values, values are labels (only for non-null keys)
+            const label = (itemsForLabelLookup as Record<string, React.ReactNode>)[value as string];
+            if (label != null) return label;
+          }
+        }
+
+        // Fallback to placeholder if no value or no matching item found
+        if (value == null) return placeholder;
+
+        // Use itemToStringLabel if provided (for custom value-to-label conversion)
+        if (valueLabelFormatter) return valueLabelFormatter(value);
+
+        return String(value);
+      };
+    }
+
     return undefined;
-  }, [renderValue, placeholder]);
+  }, [renderValue, placeholder, itemsForLabelLookup, valueLabelFormatter]);
 
   return (
     <SelectPrimitive.Trigger
