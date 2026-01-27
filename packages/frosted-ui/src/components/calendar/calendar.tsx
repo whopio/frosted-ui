@@ -183,7 +183,6 @@ function RangeCalendar({ className, ...props }: RangeCalendarProps) {
 }
 
 function MonthDropdown({ state }: { state: CalendarState | RangeCalendarState }) {
-  const months: Array<string> = [];
   const formatter = useDateFormatter({
     month: 'long',
     timeZone: state.timeZone,
@@ -194,12 +193,16 @@ function MonthDropdown({ state }: { state: CalendarState | RangeCalendarState })
   // systems, such as the Hebrew, the number of months may differ
   // between years.
   const numMonths = state.focusedDate.calendar.getMonthsInYear(state.focusedDate);
+  const monthItems: Array<{ value: string; label: string }> = [];
   for (let i = 1; i <= numMonths; i++) {
     const date = state.focusedDate.set({ month: i });
-    months.push(formatter.format(date.toDate(state.timeZone)));
+    monthItems.push({
+      value: i.toString(),
+      label: formatter.format(date.toDate(state.timeZone)),
+    });
   }
 
-  const onChange = (newValue: string) => {
+  const onChange = (newValue: unknown) => {
     const value = Number(newValue);
     const date = state.focusedDate.set({ month: value });
     state.setFocusedDate(date);
@@ -213,12 +216,13 @@ function MonthDropdown({ state }: { state: CalendarState | RangeCalendarState })
       value={state.focusedDate.month.toString()}
       disabled={state.isDisabled}
       size="1"
+      items={monthItems}
     >
       <Select.Trigger variant="surface" />
       <Select.Content>
-        {months.map((month, i) => (
-          <Select.Item key={i} value={(i + 1).toString()}>
-            {month}
+        {monthItems.map((month) => (
+          <Select.Item key={month.value} value={month.value}>
+            {month.label}
           </Select.Item>
         ))}
       </Select.Content>
@@ -226,13 +230,13 @@ function MonthDropdown({ state }: { state: CalendarState | RangeCalendarState })
   );
 }
 
-type YearItem = {
-  value: CalendarDate;
+type YearData = {
+  date: CalendarDate;
   formatted: string;
 };
 
 function YearDropdown({ state }: { state: CalendarState | RangeCalendarState }) {
-  const years: Array<YearItem> = [];
+  const yearsData: Array<YearData> = [];
   const formatter = useDateFormatter({
     year: 'numeric',
     timeZone: state.timeZone,
@@ -255,21 +259,27 @@ function YearDropdown({ state }: { state: CalendarState | RangeCalendarState }) 
   // Format years according to the calculated range
   for (let i = startYear; i <= endYear; i++) {
     const date = state.focusedDate.add({ years: i });
-    years.push({
-      value: date,
+    yearsData.push({
+      date,
       formatted: formatter.format(date.toDate(state.timeZone)),
     });
   }
 
-  const onChange = (newValue: string) => {
+  // Create items for Select with value-label mapping
+  const yearItems = yearsData.map((year, i) => ({
+    value: i.toString(),
+    label: year.formatted,
+  }));
+
+  const onChange = (newValue: unknown) => {
     const index = Number(newValue);
-    const date = years[index].value;
+    const date = yearsData[index].date;
     state.setFocusedDate(date);
     state.setFocused(false);
   };
 
   // Find the index of the current focused year
-  const currentYearIndex = years.findIndex((year) => year.value.year === state.focusedDate.year);
+  const currentYearIndex = yearsData.findIndex((year) => year.date.year === state.focusedDate.year);
 
   return (
     <Select.Root
@@ -278,12 +288,13 @@ function YearDropdown({ state }: { state: CalendarState | RangeCalendarState }) 
       onValueChange={onChange}
       disabled={state.isDisabled}
       size="1"
+      items={yearItems}
     >
       <Select.Trigger variant="surface" onClick={(e) => e.stopPropagation()} />
       <Select.Content>
-        {years.map((year, i) => (
-          <Select.Item key={i} value={i.toString()}>
-            {year.formatted}
+        {yearItems.map((year) => (
+          <Select.Item key={year.value} value={year.value}>
+            {year.label}
           </Select.Item>
         ))}
       </Select.Content>
