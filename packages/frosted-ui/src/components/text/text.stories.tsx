@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
 
-import { Checkbox, Code, Em, Kbd, Link, Text, textPropDefs } from '..';
+import { Checkbox, Code, Em, Kbd, Link, Text, TextField, textPropDefs } from '..';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -188,6 +188,43 @@ export const HighContrast: Story = {
       <Text {...args} highContrast color="crimson">
         The quick brown fox jumps over the lazy dog.
       </Text>
+    </div>
+  ),
+};
+
+export const AsFormLabel: Story = {
+  name: 'As Form Label',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 24, width: 300 }}>
+      {/* Using the render prop to render Text as a label element */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <Text size="2" weight="medium" render={<label htmlFor="email-input" />}>
+          Email address
+        </Text>
+        <TextField.Root>
+          <TextField.Input id="email-input" placeholder="Enter your email" />
+        </TextField.Root>
+      </div>
+
+      {/* Another example with required indicator */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <Text size="2" weight="medium" render={<label htmlFor="password-input" />}>
+          Password <Text color="red">*</Text>
+        </Text>
+        <TextField.Root>
+          <TextField.Input id="password-input" type="password" placeholder="Enter your password" />
+        </TextField.Root>
+      </div>
+
+      {/* Comparison: using as="label" for simple cases */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <Text size="2" weight="medium" as="label" htmlFor="username-input">
+          Username (using as prop)
+        </Text>
+        <TextField.Root>
+          <TextField.Input id="username-input" placeholder="Enter your username" />
+        </TextField.Root>
+      </div>
     </div>
   ),
 };
