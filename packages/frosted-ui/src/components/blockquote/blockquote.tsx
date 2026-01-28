@@ -11,8 +11,8 @@ interface BlockquoteProps extends PropsWithoutColor<'blockquote'>, BlockQuoteOwn
 const Blockquote = (props: BlockquoteProps) => {
   const { children, className, ...blockquoteProps } = props;
   return (
-    <Text asChild {...blockquoteProps} className={classNames('fui-Blockquote', className)}>
-      <blockquote>{children}</blockquote>
+    <Text render={<blockquote />} {...blockquoteProps} className={classNames('fui-Blockquote', className)}>
+      {children}
     </Text>
   );
 };

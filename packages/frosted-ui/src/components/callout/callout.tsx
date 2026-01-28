@@ -48,9 +48,14 @@ interface CalloutIconProps extends PropsWithoutColor<'div'> {}
 const CalloutIcon = (props: CalloutIconProps) => {
   const { color, size, highContrast } = React.useContext(CalloutContext);
   return (
-    <Text asChild color={color} size={getTextSize(size)} highContrast={highContrast}>
-      <div {...props} className={classNames('fui-CalloutIcon', props.className)} />
-    </Text>
+    <Text
+      render={<div />}
+      color={color}
+      size={getTextSize(size)}
+      highContrast={highContrast}
+      {...props}
+      className={classNames('fui-CalloutIcon', props.className)}
+    />
   );
 };
 CalloutIcon.displayName = 'CalloutIcon';

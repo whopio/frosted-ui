@@ -100,28 +100,27 @@ const DropdownMenuContent = (props: DropdownMenuContentProps) => {
         alignOffset={alignOffset}
         collisionPadding={collisionPadding}
       >
-        <Theme asChild>
-          <MenuPrimitive.Popup
-            data-accent-color={resolvedColor}
-            {...popupProps}
-            className={classNames(
-              'fui-BaseMenuContent',
-              'fui-DropdownMenuContent',
-              `fui-variant-${variant}`,
-              className,
-              `fui-r-size-${size}`,
-            )}
-          >
-            <ScrollArea type="auto">
-              <div className={classNames('fui-BaseMenuViewport', 'fui-DropdownMenuViewport')}>
-                <DropdownMenuContentContext.Provider
-                  value={React.useMemo(() => ({ size, color: resolvedColor, variant }), [size, resolvedColor, variant])}
-                >
-                  {children}
-                </DropdownMenuContentContext.Provider>
-              </div>
-            </ScrollArea>
-          </MenuPrimitive.Popup>
+        <Theme
+          render={<MenuPrimitive.Popup />}
+          data-accent-color={resolvedColor}
+          {...popupProps}
+          className={classNames(
+            'fui-BaseMenuContent',
+            'fui-DropdownMenuContent',
+            `fui-variant-${variant}`,
+            className,
+            `fui-r-size-${size}`,
+          )}
+        >
+          <ScrollArea type="auto">
+            <div className={classNames('fui-BaseMenuViewport', 'fui-DropdownMenuViewport')}>
+              <DropdownMenuContentContext.Provider
+                value={React.useMemo(() => ({ size, color: resolvedColor, variant }), [size, resolvedColor, variant])}
+              >
+                {children}
+              </DropdownMenuContentContext.Provider>
+            </div>
+          </ScrollArea>
         </Theme>
       </MenuPrimitive.Positioner>
     </MenuPrimitive.Portal>
@@ -321,24 +320,23 @@ const DropdownMenuSubContent = (props: DropdownMenuSubContentProps) => {
         alignOffset={alignOffset}
         collisionPadding={collisionPadding}
       >
-        <Theme asChild>
-          <MenuPrimitive.Popup
-            data-accent-color={color}
-            {...popupProps}
-            className={classNames(
-              'fui-BaseMenuContent',
-              'fui-BaseMenuSubContent',
-              'fui-DropdownMenuContent',
-              'fui-DropdownMenuSubContent',
-              `fui-variant-${variant}`,
-              className,
-              `fui-r-size-${size}`,
-            )}
-          >
-            <ScrollArea type="auto">
-              <div className={classNames('fui-BaseMenuViewport', 'fui-DropdownMenuViewport')}>{children}</div>
-            </ScrollArea>
-          </MenuPrimitive.Popup>
+        <Theme
+          render={<MenuPrimitive.Popup />}
+          data-accent-color={color}
+          {...popupProps}
+          className={classNames(
+            'fui-BaseMenuContent',
+            'fui-BaseMenuSubContent',
+            'fui-DropdownMenuContent',
+            'fui-DropdownMenuSubContent',
+            `fui-variant-${variant}`,
+            className,
+            `fui-r-size-${size}`,
+          )}
+        >
+          <ScrollArea type="auto">
+            <div className={classNames('fui-BaseMenuViewport', 'fui-DropdownMenuViewport')}>{children}</div>
+          </ScrollArea>
         </Theme>
       </MenuPrimitive.Positioner>
     </MenuPrimitive.Portal>

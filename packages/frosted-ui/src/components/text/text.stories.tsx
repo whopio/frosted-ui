@@ -164,11 +164,9 @@ export const FormControls: Story = {
   name: 'With form controls',
   render: () => (
     <div style={{ maxWidth: 300 }}>
-      <Text size="3" asChild>
-        <div style={{ display: 'flex', gap: 12 }}>
-          <Checkbox defaultChecked /> Composing Text with a form control like Checkbox, RadioGroup, or Switch
-          automatically centers the control with the first line of text, even when the text is multi-line.
-        </div>
+      <Text size="3" render={<div />} style={{ display: 'flex', gap: 12 }}>
+        <Checkbox defaultChecked /> Composing Text with a form control like Checkbox, RadioGroup, or Switch
+        automatically centers the control with the first line of text, even when the text is multi-line.
       </Text>
     </div>
   ),

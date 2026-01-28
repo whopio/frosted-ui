@@ -1,5 +1,5 @@
+import { mergeProps, useRender } from '@base-ui/react';
 import classNames from 'classnames';
-import { Slot } from 'radix-ui';
 import * as React from 'react';
 
 import { textPropDefs } from './text.props';
@@ -8,30 +8,30 @@ import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 
 type TextOwnProps = GetPropDefTypes<typeof textPropDefs>;
 
-type TextAsChildProps = {
-  asChild?: boolean;
+type TextRenderProps = {
+  render?: useRender.ComponentProps<'span'>['render'];
   as?: never;
 } & PropsWithoutColor<'span'>;
 type TextSpanProps = {
   as?: 'span';
-  asChild?: never;
+  render?: never;
 } & PropsWithoutColor<'span'>;
 type TextDivProps = {
   as: 'div';
-  asChild?: never;
+  render?: never;
 } & PropsWithoutColor<'div'>;
 type TextLabelProps = {
   as: 'label';
-  asChild?: never;
+  render?: never;
 } & PropsWithoutColor<'label'>;
-type TextPProps = { as: 'p'; asChild?: never } & PropsWithoutColor<'p'>;
-type TextProps = TextOwnProps & (TextAsChildProps | TextSpanProps | TextDivProps | TextLabelProps | TextPProps);
+type TextPProps = { as: 'p'; render?: never } & PropsWithoutColor<'p'>;
+type TextProps = TextOwnProps & (TextRenderProps | TextSpanProps | TextDivProps | TextLabelProps | TextPProps);
 
 const Text = (props: TextProps) => {
   const {
     children,
     className,
-    asChild = false,
+    render,
     as: Tag = 'span',
     size = textPropDefs.size.default,
     weight = textPropDefs.weight.default,
@@ -41,23 +41,27 @@ const Text = (props: TextProps) => {
     highContrast = textPropDefs.highContrast.default,
     ...textProps
   } = props;
-  return (
-    <Slot.Root
-      data-accent-color={color}
-      {...textProps}
-      className={classNames(
-        'fui-Text',
-        className,
-        size ? `fui-r-size-${size}` : undefined,
-        weight ? `fui-r-weight-${weight}` : undefined,
-        align ? `fui-r-ta-${align}` : undefined,
-        trim ? `fui-r-lt-${trim}` : undefined,
-        { 'fui-high-contrast': highContrast },
-      )}
-    >
-      {asChild ? children : <Tag>{children}</Tag>}
-    </Slot.Root>
-  );
+
+  return useRender({
+    render: render ?? <Tag />,
+    props: mergeProps(
+      textProps as React.ComponentProps<'span'>,
+      {
+        'data-accent-color': color,
+        className: classNames(
+          'fui-Text',
+          className,
+          size ? `fui-r-size-${size}` : undefined,
+          weight ? `fui-r-weight-${weight}` : undefined,
+          align ? `fui-r-ta-${align}` : undefined,
+          trim ? `fui-r-lt-${trim}` : undefined,
+          { 'fui-high-contrast': highContrast },
+        ),
+        children,
+      } as React.ComponentProps<'span'>,
+    ),
+    defaultTagName: 'span',
+  });
 };
 Text.displayName = 'Text';
 

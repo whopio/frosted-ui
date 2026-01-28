@@ -1,5 +1,5 @@
+import { mergeProps, useRender } from '@base-ui/react';
 import classNames from 'classnames';
-import { Slot } from 'radix-ui';
 import * as React from 'react';
 import { breadcrumbsPropDefs } from './breadcrumbs.props';
 
@@ -11,48 +11,56 @@ type BreadcrumbsRootChildrenTypes = React.ReactElement<BreadcrumbsItemProps | Br
 
 type BreadcrumbsRootOwnProps = GetPropDefTypes<typeof breadcrumbsPropDefs>;
 interface BreadcrumbsRootProps extends PropsWithoutColor<'nav'>, BreadcrumbsRootOwnProps {
-  asChild?: boolean;
+  render?: useRender.ComponentProps<'nav'>['render'];
 }
 
 const BreadcrumbsRoot = (props: BreadcrumbsRootProps) => {
-  const { className, children, asChild = false, color = breadcrumbsPropDefs.color.default, ...baseButtonProps } = props;
-  const Comp = asChild ? Slot.Root : 'nav';
+  const { className, children, render, color = breadcrumbsPropDefs.color.default, ...baseButtonProps } = props;
   const count = React.Children.count(children);
 
-  return (
-    <Comp data-accent-color={color} {...baseButtonProps} className={classNames('fui-BreadcrumbsRoot', className)}>
-      {React.Children.map(children as BreadcrumbsRootChildrenTypes, (child, index) => {
-        const isLastItem = index === count - 1;
+  const breadcrumbsChildren = React.Children.map(children as BreadcrumbsRootChildrenTypes, (child, index) => {
+    const isLastItem = index === count - 1;
 
-        const separator = <ChevronRightIcon className="fui-BreadcrumbsSeparator" />;
-        if (isLastItem && !child.props.onClick) {
-          return (
-            <>
-              {index > 0 ? separator : null}
-              <Text
-                as="div"
-                data-accent-color={color}
-                size={'1'}
-                children={child.props.children}
-                className={classNames('fui-reset', 'fui-BreadcrumbsLastItem', child.props.className)}
-              />
-            </>
-          );
-        } else {
-          const breadcrumbChild = React.cloneElement(child, {
-            color,
-            ...child.props,
-          });
-          return (
-            <>
-              {index > 0 ? separator : null}
-              {breadcrumbChild}
-            </>
-          );
-        }
-      })}
-    </Comp>
-  );
+    const separator = <ChevronRightIcon className="fui-BreadcrumbsSeparator" />;
+    if (isLastItem && !child.props.onClick) {
+      return (
+        <>
+          {index > 0 ? separator : null}
+          <Text
+            as="div"
+            data-accent-color={color}
+            size={'1'}
+            children={child.props.children}
+            className={classNames('fui-reset', 'fui-BreadcrumbsLastItem', child.props.className)}
+          />
+        </>
+      );
+    } else {
+      const breadcrumbChild = React.cloneElement(child, {
+        color,
+        ...child.props,
+      });
+      return (
+        <>
+          {index > 0 ? separator : null}
+          {breadcrumbChild}
+        </>
+      );
+    }
+  });
+
+  return useRender({
+    render: render ?? <nav />,
+    props: mergeProps(
+      baseButtonProps as React.ComponentProps<'nav'>,
+      {
+        'data-accent-color': color,
+        className: classNames('fui-BreadcrumbsRoot', className),
+        children: breadcrumbsChildren,
+      } as React.ComponentProps<'nav'>,
+    ),
+    defaultTagName: 'nav',
+  });
 };
 BreadcrumbsRoot.displayName = 'BreadcrumbsRoot';
 
@@ -64,8 +72,10 @@ const BreadcrumbsItem = (props: BreadcrumbsItemProps) => (
 
 BreadcrumbsItem.displayName = 'BreadcrumbsItem';
 
-interface BreadcrumbsDropdownProps
-  extends Omit<React.ComponentProps<typeof DropdownMenu.Content>, 'variant' | 'size'> {}
+interface BreadcrumbsDropdownProps extends Omit<
+  React.ComponentProps<typeof DropdownMenu.Content>,
+  'variant' | 'size'
+> {}
 
 const BreadcrumbsDropdown = ({ color, ...props }: BreadcrumbsDropdownProps) => (
   <DropdownMenu.Root>

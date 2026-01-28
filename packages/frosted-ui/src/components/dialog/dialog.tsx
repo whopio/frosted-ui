@@ -85,15 +85,14 @@ const DialogContent = (props: DialogContentProps) => {
     <DialogPrimitive.Portal container={container} keepMounted={keepMounted}>
       <DialogPrimitive.Backdrop className="fui-DialogBackdrop" />
       <DialogPrimitive.Viewport className="fui-DialogOverlay" onKeyDown={handleKeyDown}>
-        <Theme asChild>
-          <DialogPrimitive.Popup
-            {...popupProps}
-            className={classNames('fui-DialogContent', className, `fui-r-size-${size}`)}
-          >
-            <DialogContentContext.Provider value={React.useMemo(() => ({ size }), [size])}>
-              {children}
-            </DialogContentContext.Provider>
-          </DialogPrimitive.Popup>
+        <Theme
+          render={<DialogPrimitive.Popup />}
+          {...popupProps}
+          className={classNames('fui-DialogContent', className, `fui-r-size-${size}`)}
+        >
+          <DialogContentContext.Provider value={React.useMemo(() => ({ size }), [size])}>
+            {children}
+          </DialogContentContext.Provider>
         </Theme>
       </DialogPrimitive.Viewport>
     </DialogPrimitive.Portal>
