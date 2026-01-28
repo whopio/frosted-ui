@@ -421,7 +421,7 @@ const WidgetStackNext = (props: WidgetStackNextProps) => {
   const { nextDisabled, controls } = useWidgetStack();
 
   return useRender({
-    render: render ?? <button />,
+    render,
     props: mergeProps(
       rest as React.ComponentProps<'button'>,
       {
@@ -444,7 +444,7 @@ const WidgetStackPrev = (props: WidgetStackPrevProps) => {
   const { prevDisabled, controls } = useWidgetStack();
 
   return useRender({
-    render: render ?? <button />,
+    render,
     props: mergeProps(
       rest as React.ComponentProps<'button'>,
       {

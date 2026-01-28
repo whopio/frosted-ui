@@ -209,7 +209,7 @@ const ThemeImpl = (props: ThemeImplProps) => {
     !isRoot && (hasBackground === true || (hasBackground !== false && (isExplicitAppearance || isExplicitGrayColor)));
 
   const element = useRender({
-    render: render ?? <div />,
+    render,
     props: mergeProps(
       themeProps as React.ComponentProps<'div'>,
       {

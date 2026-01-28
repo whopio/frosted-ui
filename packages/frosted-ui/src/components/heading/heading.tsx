@@ -51,7 +51,7 @@ const Heading = (props: HeadingProps) => {
         children,
       } as React.ComponentProps<'h1'>,
     ),
-    defaultTagName: 'h1',
+    defaultTagName: 'h1', // Used for TypeScript inference
   });
 };
 Heading.displayName = 'Heading';

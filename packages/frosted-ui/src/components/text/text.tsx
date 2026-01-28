@@ -60,7 +60,7 @@ const Text = (props: TextProps) => {
         children,
       } as React.ComponentProps<'span'>,
     ),
-    defaultTagName: 'span',
+    defaultTagName: 'span', // Used for TypeScript inference
   });
 };
 Text.displayName = 'Text';

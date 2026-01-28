@@ -23,7 +23,7 @@ const Card = (props: CardProps) => {
   } = props;
 
   return useRender({
-    render: render ?? <div />,
+    render,
     props: mergeProps(
       cardProps as React.ComponentProps<'div'>,
       {

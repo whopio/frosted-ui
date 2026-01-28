@@ -50,7 +50,7 @@ const BreadcrumbsRoot = (props: BreadcrumbsRootProps) => {
   });
 
   return useRender({
-    render: render ?? <nav />,
+    render,
     props: mergeProps(
       baseButtonProps as React.ComponentProps<'nav'>,
       {
