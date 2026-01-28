@@ -487,10 +487,8 @@ export const WithControls: Story = {
   render: (args) => (
     <WidgetStack.Root orientation="horizontal" {...args}>
       <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--space-4)', alignItems: 'center' }}>
-        <WidgetStack.Prev>
-          <IconButton variant="soft" color="gray" style={{ borderRadius: '50%' }}>
-            {'<'}
-          </IconButton>
+        <WidgetStack.Prev render={<IconButton variant="soft" color="gray" style={{ borderRadius: '50%' }} />}>
+          {'<'}
         </WidgetStack.Prev>
 
         <WidgetStack.Stack
@@ -625,10 +623,8 @@ export const WithControls: Story = {
           </WidgetStack.Item>
           <WidgetStack.Item style={{ fontSize: 60 }}>🏝️🏴‍☠️⚜️</WidgetStack.Item>
         </WidgetStack.Stack>
-        <WidgetStack.Next>
-          <IconButton variant="soft" color="gray" style={{ borderRadius: '50%' }}>
-            {'>'}
-          </IconButton>
+        <WidgetStack.Next render={<IconButton variant="soft" color="gray" style={{ borderRadius: '50%' }} />}>
+          {'>'}
         </WidgetStack.Next>
       </div>
     </WidgetStack.Root>
@@ -639,10 +635,8 @@ export const AutoPlay: Story = {
   render: (args) => (
     <WidgetStack.Root orientation="horizontal" {...args} autoPlay={4000}>
       <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--space-4)', alignItems: 'center' }}>
-        <WidgetStack.Prev>
-          <IconButton variant="soft" color="gray" style={{ borderRadius: '50%' }}>
-            {'<'}
-          </IconButton>
+        <WidgetStack.Prev render={<IconButton variant="soft" color="gray" style={{ borderRadius: '50%' }} />}>
+          {'<'}
         </WidgetStack.Prev>
 
         <WidgetStack.Stack
@@ -777,10 +771,8 @@ export const AutoPlay: Story = {
           </WidgetStack.Item>
           <WidgetStack.Item style={{ fontSize: 60 }}>🏝️🏴‍☠️⚜️</WidgetStack.Item>
         </WidgetStack.Stack>
-        <WidgetStack.Next>
-          <IconButton variant="soft" color="gray" style={{ borderRadius: '50%' }}>
-            {'>'}
-          </IconButton>
+        <WidgetStack.Next render={<IconButton variant="soft" color="gray" style={{ borderRadius: '50%' }} />}>
+          {'>'}
         </WidgetStack.Next>
       </div>
     </WidgetStack.Root>

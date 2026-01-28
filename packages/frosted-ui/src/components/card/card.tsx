@@ -1,5 +1,5 @@
+import { mergeProps, useRender } from '@base-ui/react';
 import classNames from 'classnames';
-import { Slot } from 'radix-ui';
 import * as React from 'react';
 
 import { cardPropDefs } from './card.props';
@@ -7,36 +7,32 @@ import { cardPropDefs } from './card.props';
 import type { GetPropDefTypes } from '../../helpers';
 
 type CardOwnProps = GetPropDefTypes<typeof cardPropDefs>;
-interface CardProps extends React.ComponentProps<'div'>, CardOwnProps {
-  asChild?: boolean;
+interface CardProps extends Omit<React.ComponentProps<'div'>, 'children'>, CardOwnProps {
+  render?: useRender.ComponentProps<'div'>['render'];
+  children?: React.ReactNode;
 }
 
 const Card = (props: CardProps) => {
   const {
-    asChild,
+    render,
     children,
     className,
     size = cardPropDefs.size.default,
     variant = cardPropDefs.variant.default,
     ...cardProps
   } = props;
-  const Comp = asChild ? Slot.Root : 'div';
 
-  function getChild() {
-    const firstChild = React.Children.only(children) as React.ReactElement<{ children?: React.ReactNode }>;
-    return React.cloneElement(firstChild, {
-      children: <div className="fui-CardInner">{firstChild.props.children}</div>,
-    });
-  }
-
-  return (
-    <Comp
-      {...cardProps}
-      className={classNames('fui-reset', 'fui-Card', className, `fui-r-size-${size}`, `fui-variant-${variant}`)}
-    >
-      {asChild ? getChild() : <div className="fui-CardInner">{children}</div>}
-    </Comp>
-  );
+  return useRender({
+    render,
+    props: mergeProps(
+      cardProps as React.ComponentProps<'div'>,
+      {
+        className: classNames('fui-reset', 'fui-Card', className, `fui-r-size-${size}`, `fui-variant-${variant}`),
+        children: <div className="fui-CardInner">{children}</div>,
+      } as React.ComponentProps<'div'>,
+    ),
+    defaultTagName: 'div',
+  });
 };
 Card.displayName = 'Card';
 

@@ -114,13 +114,15 @@ const TooltipImpl = (props: TooltipProps) => {
       <TooltipPrimitive.Trigger render={children} {...triggerProps} />
       <TooltipPrimitive.Portal container={container} keepMounted={keepMounted}>
         <TooltipPrimitive.Positioner className="fui-TooltipPositioner" {...positionerProps}>
-          <ReversedTheme asChild>
-            <TooltipPrimitive.Popup {...tooltipProps} className={classNames('fui-TooltipContent', className)}>
-              <Text as="p" className="fui-TooltipText" size="2">
-                {content}
-              </Text>
-              <TooltipPrimitive.Arrow className="fui-TooltipArrow" />
-            </TooltipPrimitive.Popup>
+          <ReversedTheme
+            render={<TooltipPrimitive.Popup />}
+            {...tooltipProps}
+            className={classNames('fui-TooltipContent', className)}
+          >
+            <Text as="p" className="fui-TooltipText" size="2">
+              {content}
+            </Text>
+            <TooltipPrimitive.Arrow className="fui-TooltipArrow" />
           </ReversedTheme>
         </TooltipPrimitive.Positioner>
       </TooltipPrimitive.Portal>

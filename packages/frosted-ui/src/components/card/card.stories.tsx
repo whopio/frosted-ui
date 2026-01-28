@@ -168,15 +168,13 @@ export const AsAnotherElement: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
       <div>
         <Text>
-          Use the <Code>asChild</Code> prop to render the card as a link or a button. This prop adds styles for the
+          Use the <Code>render</Code> prop to render the card as a link or a button. This prop adds styles for the
           interactive states, like hover and focus.
         </Text>
       </div>
       <div>
-        <Card {...args} asChild style={{ maxWidth: 350 }}>
-          <a href="#">
-            <CardContentExample />
-          </a>
+        <Card {...args} render={<a href="#" />} style={{ maxWidth: 350 }}>
+          <CardContentExample />
         </Card>
       </div>
     </div>

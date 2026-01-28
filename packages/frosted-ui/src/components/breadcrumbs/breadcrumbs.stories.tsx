@@ -25,8 +25,12 @@ export const WithLinks: Story = {
   },
   render: (args) => (
     <Breadcrumbs.Root {...args}>
-      <Breadcrumbs.Item render={<a href="#" />}>Home</Breadcrumbs.Item>
-      <Breadcrumbs.Item render={<a href="#user-profiles" />}>User Profiles</Breadcrumbs.Item>
+      <Breadcrumbs.Item render={<a href="#" />} nativeButton={false}>
+        Home
+      </Breadcrumbs.Item>
+      <Breadcrumbs.Item render={<a href="#user-profiles" />} nativeButton={false}>
+        User Profiles
+      </Breadcrumbs.Item>
       <Breadcrumbs.Item>Products</Breadcrumbs.Item>
     </Breadcrumbs.Root>
   ),

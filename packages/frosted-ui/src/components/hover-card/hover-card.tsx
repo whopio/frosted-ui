@@ -106,13 +106,12 @@ const HoverCardContent = (props: HoverCardContentProps) => {
         disableAnchorTracking={disableAnchorTracking}
         className="fui-HoverCardPositioner"
       >
-        <Theme asChild>
-          <PreviewCardPrimitive.Popup
-            {...contentProps}
-            className={classNames('fui-HoverCardContent', `fui-variant-${variant}`, className, `fui-r-size-${size}`)}
-          >
-            {children}
-          </PreviewCardPrimitive.Popup>
+        <Theme
+          render={<PreviewCardPrimitive.Popup />}
+          {...contentProps}
+          className={classNames('fui-HoverCardContent', `fui-variant-${variant}`, className, `fui-r-size-${size}`)}
+        >
+          {children}
         </Theme>
       </PreviewCardPrimitive.Positioner>
     </PreviewCardPrimitive.Portal>

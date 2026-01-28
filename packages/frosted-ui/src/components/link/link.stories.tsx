@@ -99,3 +99,15 @@ export const HighContrast: Story = {
     </div>
   ),
 };
+
+export const AsButton: Story = {
+  name: 'As Button',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'start', gap: 16 }}>
+      {/* Link rendered as a button - useful for actions that look like links */}
+      <Link render={<button type="button" onClick={() => alert('Button clicked!')} />} size="2">
+        Click me (I&apos;m a button!)
+      </Link>
+    </div>
+  ),
+};

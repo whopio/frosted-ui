@@ -74,18 +74,15 @@ const SheetContent = ({ className, children, ...props }: SheetContentProps) => {
   return (
     <SheetPortal>
       <>
-        <Theme asChild>
-          <SheetOverlay />
-        </Theme>
-        <Theme asChild>
-          <DrawerPrimitive.Content
-            className={classNames('fui-SheetContent', className)}
-            onKeyDownCapture={handleKeyDown}
-            {...props}
-          >
-            <div className="fui-SheetContentHandle" />
-            {children}
-          </DrawerPrimitive.Content>
+        <Theme render={<SheetOverlay />} />
+        <Theme
+          render={<DrawerPrimitive.Content />}
+          className={classNames('fui-SheetContent', className)}
+          onKeyDownCapture={handleKeyDown}
+          {...props}
+        >
+          <div className="fui-SheetContentHandle" />
+          {children}
         </Theme>
       </>
     </SheetPortal>

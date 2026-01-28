@@ -1,0 +1,429 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Guides/7. Render Prop (Composition)" />
+
+# Render Prop (Composition)
+
+Several Frosted UI components support a `render` prop that allows you to customize the underlying element while preserving the component's functionality and styling. This is useful for integrating with routing libraries, using semantic HTML elements, or composing with other components.
+
+## What is the render prop?
+
+The `render` prop lets you replace the default HTML element that a component renders while keeping all of its behavior, styling, and props intact.
+
+For example, `<Text>` renders a `<span>` by default, but you might want it to render as a `<label>` for form accessibility, or as a Next.js `<Link>` for navigation.
+
+## Basic Usage
+
+### Using a React Element
+
+The simplest way to use the `render` prop is to pass a React element:
+
+```tsx
+import { Text } from 'frosted-ui';
+
+// Text renders as a <label> instead of <span>
+<Text render={<label htmlFor="email" />}>
+  Email address
+</Text>
+```
+
+The component will clone your element and merge its props onto it. Your element's attributes (like `htmlFor`) are preserved.
+
+### Using a Callback Function
+
+For more control, you can pass a function that receives the merged props:
+
+```tsx
+import { Text } from 'frosted-ui';
+
+<Text
+  render={(props) => (
+    <label {...props} htmlFor="email" />
+  )}
+>
+  Email address
+</Text>
+```
+
+This gives you explicit control over how props are spread and merged.
+
+## Components That Support render
+
+The following components support the `render` prop:
+
+| Component | Default Element | Common Use Cases |
+|-----------|-----------------|------------------|
+| `Text` | `<span>` | Labels, links, custom elements |
+| `Heading` | `<h1>` | Custom heading levels, links |
+| `Card` | `<div>` | Links, buttons, articles |
+| `Theme` | `<div>` | Custom wrapper elements |
+| `Breadcrumbs.Root` | `<nav>` | Custom navigation wrappers |
+| `WidgetStack.Next` | `<button>` | Custom button components |
+| `WidgetStack.Prev` | `<button>` | Custom button components |
+
+## Integration with Routing Libraries
+
+One of the most common use cases is integrating with routing libraries like Next.js, React Router, or TanStack Router.
+
+### Next.js App Router
+
+```tsx
+import Link from 'next/link';
+import { Text, Card, Heading } from 'frosted-ui';
+
+// Text as a Next.js Link
+<Text render={<Link href="/about" />}>
+  About us
+</Text>
+
+// Card as a clickable link
+<Card render={<Link href="/product/123" />}>
+  <Heading size="3">Product Name</Heading>
+  <Text>Click to view details</Text>
+</Card>
+```
+
+### React Router
+
+```tsx
+import { Link } from 'react-router-dom';
+import { Text } from 'frosted-ui';
+
+<Text render={<Link to="/dashboard" />}>
+  Go to Dashboard
+</Text>
+```
+
+### TanStack Router
+
+```tsx
+import { Link } from '@tanstack/react-router';
+import { Card } from 'frosted-ui';
+
+<Card render={<Link to="/users/$userId" params={{ userId: '123' }} />}>
+  User Profile Card
+</Card>
+```
+
+## How Props Are Merged
+
+Understanding how props are merged is crucial for avoiding unexpected behavior.
+
+### Priority Order (Lowest to Highest)
+
+When using the element form of `render`, props are merged in this order:
+
+```
+1. Props on the component          → LOWEST priority (can be overridden)
+2. Props on the render element     → HIGHEST priority (wins for conflicts)
+```
+
+The render element's props win because you're explicitly saying "render THIS element with THESE props".
+
+**Example:**
+
+```tsx
+<Link data-testid="link-id" href="/page-one" render={<a data-testid="anchor-id" href="/page-two" />}>
+  Click me
+</Link>
+
+// Result HTML:
+// <a data-testid="anchor-id" href="/page-two" class="fui-Text fui-Link ...">Click me</a>
+
+// The render element's props won:
+// - data-testid="anchor-id" (not "link-id")
+// - href="/page-two" (not "/page-one")
+// - className was CONCATENATED (both component and internal classes)
+```
+
+### Why Does This Happen?
+
+Internally, `useRender` merges props using Base UI's `mergeProps` utility, with the render element's props taking precedence. This design choice means: **the element you explicitly provide keeps its props**.
+
+This is useful when you want the render element to "own" certain props:
+
+```tsx
+// NextLink controls the href, Link just adds styling
+<Link render={<NextLink href="/dashboard" prefetch={false} />}>
+  Go to Dashboard
+</Link>
+```
+
+### Callback Form: You Control Everything
+
+With the callback form, YOU decide exactly how props are merged by where you place the spread:
+
+```tsx
+// Component props win (spread them LAST)
+<Link href="/one" render={(props) => <a href="/two" {...props} />}>
+  Click me
+</Link>
+// Result: href="/one" (because {...props} overwrites href="/two")
+
+// Render element props win (put them LAST)
+<Link href="/one" render={(props) => <a {...props} href="/two" />}>
+  Click me
+</Link>
+// Result: href="/two" (because href="/two" overwrites the spread)
+```
+
+Use the callback form when you need the component's props to take precedence.
+
+### Special Merge Behaviors
+
+Not all props follow the "render element wins" rule. Some are merged specially:
+
+| Prop Type | Behavior | Example Result |
+|-----------|----------|----------------|
+| `className` | **Concatenated** - all classes kept | `"fui-Text your-class element-class"` |
+| `style` | **Shallow merged** - render element's keys win | Combined styles, conflicts go to render element |
+| Event handlers (`onClick`, etc.) | **Both run** | Both handlers execute |
+| Everything else | **Render element wins** | `data-x="from-render-element"` |
+| `ref` | Only one ref is kept (component's ref) |
+
+## Using the as Prop (Alternative)
+
+Some components also support an `as` prop for simple element changes without needing `render`:
+
+```tsx
+import { Text, Heading } from 'frosted-ui';
+
+// Simple element change with `as`
+<Text as="label">Email</Text>
+<Text as="p">A paragraph of text</Text>
+<Text as="div">A div element</Text>
+
+<Heading as="h2">Section Title</Heading>
+<Heading as="h3">Subsection</Heading>
+```
+
+**When to use `as` vs `render`:**
+
+| Use `as` when... | Use `render` when... |
+|------------------|---------------------|
+| Changing to a basic HTML element | Integrating with external components |
+| No additional props needed | Need to pass props to the element |
+| Simple semantic changes | Complex composition scenarios |
+
+```tsx
+// ✅ Use `as` for simple cases
+<Text as="label">Simple label</Text>
+
+// ✅ Use `render` when you need props on the element
+<Text render={<label htmlFor="email" />}>Email with htmlFor</Text>
+```
+
+## Common Patterns
+
+### Form Labels with Text
+
+```tsx
+import { Text, TextField } from 'frosted-ui';
+
+<div>
+  <Text as="label" htmlFor="username" size="2" weight="medium">
+    Username
+  </Text>
+  <TextField.Root id="username" placeholder="Enter username" />
+</div>
+```
+
+### Clickable Cards
+
+```tsx
+import Link from 'next/link';
+import { Card, Heading, Text } from 'frosted-ui';
+
+function ProductCard({ product }) {
+  return (
+    <Card render={<Link href={`/products/${product.id}`} />}>
+      <Heading size="3">{product.name}</Heading>
+      <Text color="gray">{product.description}</Text>
+    </Card>
+  );
+}
+```
+
+### Custom Navigation Buttons
+
+```tsx
+import { WidgetStack, IconButton } from 'frosted-ui';
+import { ChevronLeftIcon, ChevronRightIcon } from 'frosted-ui/icons';
+
+<WidgetStack.Root>
+  <WidgetStack.Prev render={<IconButton variant="soft" />}>
+    <ChevronLeftIcon />
+  </WidgetStack.Prev>
+
+  <WidgetStack.Content>
+    {/* slides */}
+  </WidgetStack.Content>
+
+  <WidgetStack.Next render={<IconButton variant="soft" />}>
+    <ChevronRightIcon />
+  </WidgetStack.Next>
+</WidgetStack.Root>
+```
+
+### Nested Theme with Custom Element
+
+```tsx
+import { Theme } from 'frosted-ui';
+
+// Theme as a section element
+<Theme render={<section aria-label="Dark mode preview" />} appearance="dark">
+  <MyContent />
+</Theme>
+```
+
+## Pitfalls and How to Avoid Them
+
+### 1. Nested Buttons (Invalid HTML)
+
+**Problem:** Some components render a `<button>` by default. If you put another button-like component inside, you get invalid nested buttons.
+
+```tsx
+// ❌ BAD: Creates <button><button>...</button></button>
+<WidgetStack.Next>
+  <IconButton>
+    <ChevronRightIcon />
+  </IconButton>
+</WidgetStack.Next>
+```
+
+**Solution:** Use the `render` prop to make the IconButton the rendered element:
+
+```tsx
+// ✅ GOOD: IconButton IS the rendered element
+<WidgetStack.Next render={<IconButton variant="soft" />}>
+  <ChevronRightIcon />
+</WidgetStack.Next>
+```
+
+### 2. Forgetting to Spread Props in Callback
+
+**Problem:** When using the callback form, forgetting to spread props loses the component's functionality.
+
+```tsx
+// ❌ BAD: Lost all Text styling and props
+<Text render={(props) => <label>Email</label>}>
+  Email
+</Text>
+```
+
+**Solution:** Always spread the props:
+
+```tsx
+// ✅ GOOD: Props are spread onto the element
+<Text render={(props) => <label {...props}>Email</label>}>
+  Email
+</Text>
+```
+
+### 3. Conflicting Props Confusion
+
+**Problem:** Not understanding which props win when there are conflicts.
+
+```tsx
+// ⚠️ Example 1: className - which is applied?
+<Text className="my-class" render={<span className="other-class" />}>
+  Hello
+</Text>
+// Answer: BOTH! classNames are concatenated
+// Result: className="fui-Text my-class other-class"
+
+// ⚠️ Example 2: data attributes - which wins?
+<Text data-testid="text-id" render={<span data-testid="span-id" />}>
+  Hello
+</Text>
+// Answer: Render element wins!
+// Result: data-testid="span-id"
+```
+
+**Solution:** Remember the priority order:
+1. Props on component → can be overridden
+2. Props on render element → win for conflicts
+3. `className` is special → always concatenated
+4. Use callback form with `{...props}` spread LAST if you need component props to win
+
+### 4. Refs Don't Merge
+
+**Problem:** If you need a ref on the rendered element, only one ref will work.
+
+```tsx
+// ⚠️ Only one ref will be attached
+const myRef = useRef(null);
+<Text render={<span ref={myRef} />}>Hello</Text>
+```
+
+**Solution:** Use the callback form and handle refs manually if needed:
+
+```tsx
+const myRef = useRef(null);
+<Text
+  render={(props) => {
+    // Combine refs if needed using a callback ref or mergeRefs utility
+    return <span {...props} ref={myRef} />;
+  }}
+>
+  Hello
+</Text>
+```
+
+### 5. TypeScript: Missing Props
+
+**Problem:** TypeScript might not know about props from the render element.
+
+```tsx
+// TypeScript doesn't know about htmlFor
+<Text render={<label />} htmlFor="email">
+  Email
+</Text>
+```
+
+**Solution:** Use the callback form for proper typing:
+
+```tsx
+<Text render={(props) => <label {...props} htmlFor="email" />}>
+  Email
+</Text>
+```
+
+## Migration from asChild
+
+If you're migrating from an older version of Frosted UI that used `asChild`, here's how to update:
+
+```tsx
+// ❌ OLD: asChild pattern
+<Text asChild>
+  <label htmlFor="email">Email</label>
+</Text>
+
+// ✅ NEW: render prop pattern
+<Text render={<label htmlFor="email" />}>
+  Email
+</Text>
+```
+
+The key differences:
+- `asChild` made the child THE element and merged parent props down
+- `render` specifies what element to render and merges YOUR props onto it
+- Children are now passed as normal children, not as the render target
+
+### Quick Migration Guide
+
+| Old (asChild) | New (render) |
+|---------------|--------------|
+| `<Text asChild><label>Email</label></Text>` | `<Text render={<label />}>Email</Text>` |
+| `<Card asChild><a href="/">...</a></Card>` | `<Card render={<a href="/" />}>...</Card>` |
+| `<Heading asChild><h2>Title</h2></Heading>` | `<Heading as="h2">Title</Heading>` |
+
+## Summary
+
+- Use `render` to customize the underlying element while keeping component behavior
+- Element form (`render={<element />}`): Simple, but **render element's props win** for conflicts
+- Callback form (`render={(props) => ...}`): Full control - spread `{...props}` last if you want component props to win
+- Use `as` for simple HTML element changes when you don't need extra props
+- Always spread props in the callback form to preserve component styling
+- Watch out for nested buttons and ref merging
+- `className` is always concatenated, other conflicting props go to the render element

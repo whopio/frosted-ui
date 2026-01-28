@@ -1,3 +1,4 @@
+import { useRender } from '@base-ui/react';
 import classNames from 'classnames';
 import * as React from 'react';
 import { Text } from '../text';
@@ -7,18 +8,18 @@ import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 
 type LinkOwnProps = GetPropDefTypes<typeof linkPropDefs>;
 interface LinkProps extends PropsWithoutColor<'a'>, LinkOwnProps {
-  asChild?: boolean;
+  render?: useRender.ComponentProps<'a'>['render'];
 }
 
 const Link = (props: LinkProps) => {
-  const { children, className, asChild = false, underline = linkPropDefs.underline.default, ...linkProps } = props;
+  const { children, className, render, underline = linkPropDefs.underline.default, ...linkProps } = props;
   return (
     <Text
       {...linkProps}
-      asChild
+      render={render ?? <a />}
       className={classNames('fui-reset', 'fui-Link', className, `fui-underline-${underline}`)}
     >
-      {asChild ? children : <a>{children}</a>}
+      {children}
     </Text>
   );
 };

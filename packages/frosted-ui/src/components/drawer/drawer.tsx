@@ -67,14 +67,13 @@ const DrawerContent = (props: DrawerContentProps) => {
     <DrawerPrimitive.Portal container={container} keepMounted={keepMounted}>
       <DrawerPrimitive.Backdrop className="fui-DialogBackdrop fui-DrawerBackdrop" />
       <DrawerPrimitive.Viewport className="fui-DrawerOverlay" onKeyDown={handleKeyDown}>
-        <Theme asChild>
-          <DrawerPrimitive.Popup
-            {...popupProps}
-            aria-describedby={undefined}
-            className={classNames('fui-DrawerContent', className)}
-          >
-            {children}
-          </DrawerPrimitive.Popup>
+        <Theme
+          render={<DrawerPrimitive.Popup />}
+          {...popupProps}
+          aria-describedby={undefined}
+          className={classNames('fui-DrawerContent', className)}
+        >
+          {children}
         </Theme>
       </DrawerPrimitive.Viewport>
     </DrawerPrimitive.Portal>

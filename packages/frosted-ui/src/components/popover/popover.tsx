@@ -106,12 +106,11 @@ const PopoverContent = (props: PopoverContentProps & PopoverContentOwnProps) => 
         sticky={sticky}
         disableAnchorTracking={disableAnchorTracking}
       >
-        <Theme asChild>
-          <PopoverPrimitive.Popup
-            {...popupProps}
-            className={classNames('fui-PopoverContent', `fui-variant-${variant}`, className, `fui-r-size-${size}`)}
-          />
-        </Theme>
+        <Theme
+          render={<PopoverPrimitive.Popup />}
+          {...popupProps}
+          className={classNames('fui-PopoverContent', `fui-variant-${variant}`, className, `fui-r-size-${size}`)}
+        />
       </PopoverPrimitive.Positioner>
     </PopoverPrimitive.Portal>
   );

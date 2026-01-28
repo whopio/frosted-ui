@@ -86,15 +86,14 @@ const AlertDialogContent = (props: AlertDialogContentProps) => {
     <AlertDialogPrimitive.Portal container={container} keepMounted={keepMounted}>
       <AlertDialogPrimitive.Backdrop className="fui-DialogBackdrop fui-AlertDialogBackdrop" />
       <AlertDialogPrimitive.Viewport className="fui-DialogOverlay fui-AlertDialogOverlay" onKeyDown={handleKeyDown}>
-        <Theme asChild>
-          <AlertDialogPrimitive.Popup
-            {...popupProps}
-            className={classNames('fui-DialogContent', 'fui-AlertDialogContent', className, `fui-r-size-${size}`)}
-          >
-            <AlertDialogContentContext.Provider value={React.useMemo(() => ({ size }), [size])}>
-              {children}
-            </AlertDialogContentContext.Provider>
-          </AlertDialogPrimitive.Popup>
+        <Theme
+          render={<AlertDialogPrimitive.Popup />}
+          {...popupProps}
+          className={classNames('fui-DialogContent', 'fui-AlertDialogContent', className, `fui-r-size-${size}`)}
+        >
+          <AlertDialogContentContext.Provider value={React.useMemo(() => ({ size }), [size])}>
+            {children}
+          </AlertDialogContentContext.Provider>
         </Theme>
       </AlertDialogPrimitive.Viewport>
     </AlertDialogPrimitive.Portal>
