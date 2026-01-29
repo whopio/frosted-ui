@@ -51,7 +51,7 @@ const BaseButton = (props: BaseButtonProps) => {
       <span style={{ display: 'contents', visibility: 'hidden' }} aria-hidden>
         {children}
       </span>
-      <VisuallyHidden.Root>{children}</VisuallyHidden.Root>
+      <VisuallyHidden>{children}</VisuallyHidden>
 
       <span
         style={{
