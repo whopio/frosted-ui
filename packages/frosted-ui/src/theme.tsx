@@ -1,8 +1,6 @@
 'use client';
 
-import { DirectionProvider } from '@radix-ui/react-direction';
-
-import { mergeProps, useRender } from '@base-ui/react';
+import { DirectionProvider, mergeProps, useRender } from '@base-ui/react';
 import { Tooltip as TooltipPrimitive } from '@base-ui/react/tooltip';
 import classNames from 'classnames';
 import * as React from 'react';
@@ -44,7 +42,7 @@ const Theme = (props: ThemeProps) => {
   if (isRoot) {
     return (
       <TooltipPrimitive.Provider>
-        <DirectionProvider dir="ltr">
+        <DirectionProvider direction="ltr">
           <ThemeRoot {...props} />
         </DirectionProvider>
       </TooltipPrimitive.Provider>

@@ -1,11 +1,10 @@
 'use client';
 
-import { composeEventHandlers } from '@radix-ui/primitive';
 import classNames from 'classnames';
 import * as React from 'react';
 import { textFieldPropDefs, textFieldSlotPropDefs } from './text-field.props';
 
-import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
+import { composeEventHandlers, type GetPropDefTypes, type PropsWithoutColor } from '../../helpers';
 
 type TextFieldContextValue = GetPropDefTypes<typeof textFieldPropDefs>;
 const TextFieldContext = React.createContext<TextFieldContextValue | undefined>(undefined);

@@ -1,4 +1,5 @@
 export * from './breakpoints';
+export * from './compose-event-handlers';
 export * from './emoji-colors';
 export * from './extract-props-for-tag';
 export * from './get-initials';
@@ -7,4 +8,5 @@ export * from './has-own-property';
 export * from './nice-intersection';
 export * from './props';
 export * from './radix-colors';
+export * from './use-callback-ref';
 export * from './use-layout-effect';

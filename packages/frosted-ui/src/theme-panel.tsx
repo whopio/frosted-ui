@@ -1,7 +1,5 @@
 'use client';
 
-import { useCallbackRef } from '@radix-ui/react-use-callback-ref';
-
 import {
   Button,
   Heading,
@@ -19,6 +17,7 @@ import {
   // helpers
   themePropDefs,
   updateThemeAppearanceClass,
+  useCallbackRef,
   useThemeContext,
   warningColors,
 } from './index';
