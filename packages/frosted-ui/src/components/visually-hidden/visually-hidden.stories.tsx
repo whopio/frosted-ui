@@ -23,9 +23,7 @@ export const Default: Story = {
       <Text render={<p />} style={{ marginBottom: 16 }}>
         The text below is visually hidden but accessible to screen readers:
       </Text>
-      <VisuallyHidden>
-        This text is hidden visually but will be read by screen readers.
-      </VisuallyHidden>
+      <VisuallyHidden>This text is hidden visually but will be read by screen readers.</VisuallyHidden>
       <Text render={<p />} color="gray" size="2">
         (Inspect the DOM to see the hidden content)
       </Text>
@@ -76,8 +74,8 @@ export const SkipLink: Story = {
   render: () => (
     <div>
       <Text render={<p />} style={{ marginBottom: 16 }}>
-        Skip links help keyboard users bypass navigation. Focus the button below, then press Tab to
-        reveal the skip link:
+        Skip links help keyboard users bypass navigation. Focus the button below, then press Tab to reveal the skip
+        link:
       </Text>
       <Button style={{ marginBottom: 16 }}>Focus me first</Button>
 
@@ -153,9 +151,7 @@ export const WithRenderProp: Story = {
           <Text size="2" weight="medium">
             As label:
           </Text>
-          <VisuallyHidden render={<label htmlFor="hidden-label-input" />}>
-            Hidden label
-          </VisuallyHidden>
+          <VisuallyHidden render={<label htmlFor="hidden-label-input" />}>Hidden label</VisuallyHidden>
           <input
             id="hidden-label-input"
             placeholder="Has hidden label"

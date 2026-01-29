@@ -28,25 +28,23 @@ interface VisuallyHiddenProps extends React.ComponentPropsWithoutRef<'span'> {
   render?: useRender.ComponentProps<'span'>['render'];
 }
 
-const VisuallyHidden = React.forwardRef<HTMLSpanElement, VisuallyHiddenProps>(
-  (props, forwardedRef) => {
-    const { render, style, ...rest } = props;
+const VisuallyHidden = React.forwardRef<HTMLSpanElement, VisuallyHiddenProps>((props, forwardedRef) => {
+  const { render, style, ...rest } = props;
 
-    return useRender({
-      render,
-      props: {
-        ...rest,
-        ref: forwardedRef,
-        style: { ...VISUALLY_HIDDEN_STYLES, ...style },
-      },
-      defaultTagName: 'span',
-    });
-  }
-);
+  return useRender({
+    render,
+    props: {
+      ...rest,
+      ref: forwardedRef,
+      style: { ...VISUALLY_HIDDEN_STYLES, ...style },
+    },
+    defaultTagName: 'span',
+  });
+});
 
 VisuallyHidden.displayName = 'VisuallyHidden';
 
 /* -----------------------------------------------------------------------------------------------*/
 
-export { VisuallyHidden, VISUALLY_HIDDEN_STYLES };
+export { VISUALLY_HIDDEN_STYLES, VisuallyHidden };
 export type { VisuallyHiddenProps };
