@@ -50,7 +50,11 @@ function SelectRoot<Value = unknown, Multiple extends boolean | undefined = fals
     >
       <SelectContext.Provider
         value={React.useMemo(
-          () => ({ size, itemsForLabelLookup: items, valueLabelFormatter: itemToStringLabel as ((value: unknown) => string) | undefined }),
+          () => ({
+            size,
+            itemsForLabelLookup: items,
+            valueLabelFormatter: itemToStringLabel as ((value: unknown) => string) | undefined,
+          }),
           [size, items, itemToStringLabel],
         )}
       >
@@ -196,34 +200,33 @@ const SelectContent = (props: SelectContentProps) => {
         collisionPadding={collisionPadding}
         alignItemWithTrigger={alignItemWithTrigger}
       >
-        <Theme asChild>
-          <SelectPrimitive.Popup
-            {...popupProps}
-            className={classNames(
-              { 'fui-PopperContent': !alignItemWithTrigger },
-              'fui-SelectContent',
-              className,
-              `fui-r-size-${size}`,
-              { 'fui-high-contrast': highContrast },
-            )}
-          >
-            <ScrollAreaPrimitive.Root className="fui-ScrollAreaRoot">
-              <SelectPrimitive.List
-                render={<ScrollAreaPrimitive.Viewport className="fui-ScrollAreaViewport" tabIndex={undefined} />}
-              >
-                <ScrollAreaPrimitive.Content>
-                  <div className="fui-SelectViewport">{children}</div>
-                </ScrollAreaPrimitive.Content>
-              </SelectPrimitive.List>
-              <ScrollAreaPrimitive.Scrollbar
-                orientation="vertical"
-                className="fui-ScrollAreaScrollbar fui-r-size-1"
-                data-type="auto"
-              >
-                <ScrollAreaPrimitive.Thumb className="fui-ScrollAreaThumb" />
-              </ScrollAreaPrimitive.Scrollbar>
-            </ScrollAreaPrimitive.Root>
-          </SelectPrimitive.Popup>
+        <Theme
+          render={<SelectPrimitive.Popup />}
+          {...popupProps}
+          className={classNames(
+            { 'fui-PopperContent': !alignItemWithTrigger },
+            'fui-SelectContent',
+            className,
+            `fui-r-size-${size}`,
+            { 'fui-high-contrast': highContrast },
+          )}
+        >
+          <ScrollAreaPrimitive.Root className="fui-ScrollAreaRoot">
+            <SelectPrimitive.List
+              render={<ScrollAreaPrimitive.Viewport className="fui-ScrollAreaViewport" tabIndex={undefined} />}
+            >
+              <ScrollAreaPrimitive.Content>
+                <div className="fui-SelectViewport">{children}</div>
+              </ScrollAreaPrimitive.Content>
+            </SelectPrimitive.List>
+            <ScrollAreaPrimitive.Scrollbar
+              orientation="vertical"
+              className="fui-ScrollAreaScrollbar fui-r-size-1"
+              data-type="auto"
+            >
+              <ScrollAreaPrimitive.Thumb className="fui-ScrollAreaThumb" />
+            </ScrollAreaPrimitive.Scrollbar>
+          </ScrollAreaPrimitive.Root>
         </Theme>
       </SelectPrimitive.Positioner>
     </SelectPrimitive.Portal>

@@ -19,19 +19,17 @@ const DataListRoot = (props: DataListRootProps) => {
   } = props;
 
   return (
-    <Text asChild>
-      <dl
-        {...dataListProps}
-        className={classNames(
-          'fui-DataListRoot',
-          `fui-r-size-${size}`,
-          `fui-r-lt-${trim}`,
-          `fui-r-orientation-${orientation}`,
-
-          className,
-        )}
-      />
-    </Text>
+    <Text
+      render={<dl />}
+      {...dataListProps}
+      className={classNames(
+        'fui-DataListRoot',
+        `fui-r-size-${size}`,
+        `fui-r-lt-${trim}`,
+        `fui-r-orientation-${orientation}`,
+        className,
+      )}
+    />
   );
 };
 DataListRoot.displayName = 'DataList.Root';

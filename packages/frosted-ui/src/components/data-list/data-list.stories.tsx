@@ -2,16 +2,16 @@ import { Copy12 } from '@frosted-ui/icons';
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import {
-    Badge,
-    Code,
-    DataList,
-    Heading,
-    IconButton,
-    Link,
-    Separator,
-    Text,
-    Tooltip,
-    dataListRootPropDefs,
+  Badge,
+  Code,
+  DataList,
+  Heading,
+  IconButton,
+  Link,
+  Separator,
+  Text,
+  Tooltip,
+  dataListRootPropDefs,
 } from '../../../src/components/';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -38,7 +38,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: (args) => (
     <div>
-      <Text as="p" style={{ marginBottom: 32 }}>
+      <Text render={<p />} style={{ marginBottom: 32 }}>
         <Code>{'<DataList />'}</Code> component displays metadata as a list of key-value pairs.
       </Text>
       <DataList.Root {...args}>

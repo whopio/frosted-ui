@@ -8,7 +8,8 @@ import { Heading } from '../heading';
 import { Text } from '../text';
 import { dialogContentPropDefs } from './dialog.props';
 
-import type { ExtractPropsForTag, GetPropDefTypes } from '../../helpers';
+import type { GetPropDefTypes } from '../../helpers';
+import type { TextProps } from '../text';
 
 // Re-export createHandle for detached triggers
 const createHandle = DialogPrimitive.createHandle;
@@ -85,15 +86,14 @@ const DialogContent = (props: DialogContentProps) => {
     <DialogPrimitive.Portal container={container} keepMounted={keepMounted}>
       <DialogPrimitive.Backdrop className="fui-DialogBackdrop" />
       <DialogPrimitive.Viewport className="fui-DialogOverlay" onKeyDown={handleKeyDown}>
-        <Theme asChild>
-          <DialogPrimitive.Popup
-            {...popupProps}
-            className={classNames('fui-DialogContent', className, `fui-r-size-${size}`)}
-          >
-            <DialogContentContext.Provider value={React.useMemo(() => ({ size }), [size])}>
-              {children}
-            </DialogContentContext.Provider>
-          </DialogPrimitive.Popup>
+        <Theme
+          render={<DialogPrimitive.Popup />}
+          {...popupProps}
+          className={classNames('fui-DialogContent', className, `fui-r-size-${size}`)}
+        >
+          <DialogContentContext.Provider value={React.useMemo(() => ({ size }), [size])}>
+            {children}
+          </DialogContentContext.Provider>
         </Theme>
       </DialogPrimitive.Viewport>
     </DialogPrimitive.Portal>
@@ -130,7 +130,7 @@ const DialogTitle = ({ size: sizeProp, className, ...props }: DialogTitleProps) 
 DialogTitle.displayName = 'DialogTitle';
 
 // Description
-type DialogDescriptionProps = ExtractPropsForTag<typeof Text, 'p'>;
+type DialogDescriptionProps = TextProps;
 
 const DialogDescription = ({ size: sizeProp, className, ...props }: DialogDescriptionProps) => {
   const { size: contextSize } = React.useContext(DialogContentContext);
@@ -150,7 +150,12 @@ const DialogDescription = ({ size: sizeProp, className, ...props }: DialogDescri
   return (
     <DialogPrimitive.Description
       render={
-        <Text as="p" size={sizeProp || size} className={classNames('fui-DialogDescription', className)} {...props} />
+        <Text
+          render={<p />}
+          size={sizeProp || size}
+          className={classNames('fui-DialogDescription', className)}
+          {...props}
+        />
       }
     />
   );

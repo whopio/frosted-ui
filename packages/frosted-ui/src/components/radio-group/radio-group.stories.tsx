@@ -47,17 +47,17 @@ export const Composed: Story = {
   render: (args) => (
     <RadioGroup.Root defaultValue="1" {...args}>
       <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'column' }}>
-        <Text as="label" size="2">
+        <Text render={<label />} size="2">
           <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
             <RadioGroup.Item value="1" /> Default
           </div>
         </Text>
-        <Text as="label" size="2">
+        <Text render={<label />} size="2">
           <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
             <RadioGroup.Item value="2" /> Comfortable
           </div>
         </Text>
-        <Text as="label" size="2">
+        <Text render={<label />} size="2">
           <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
             <RadioGroup.Item value="3" /> Compact
           </div>
@@ -161,13 +161,13 @@ export const Alignment: Story = {
         Composing <Code>RadioGroup</Code> within <Code>Text</Code> automatically centers it with the first line of text.
       </Text>
       <RadioGroup.Root {...args} size="1" defaultValue="1">
-        <Text as="label" size="2">
+        <Text render={<label />} size="2">
           <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
             <RadioGroup.Item value="1" /> Default
           </div>
         </Text>
 
-        <Text as="label" size="2">
+        <Text render={<label />} size="2">
           <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
             <RadioGroup.Item value="2" /> Compact
           </div>
@@ -180,13 +180,13 @@ export const Alignment: Story = {
         defaultValue="1"
         style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}
       >
-        <Text as="label" size="3">
+        <Text render={<label />} size="3">
           <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
             <RadioGroup.Item value="1" /> Default
           </div>
         </Text>
 
-        <Text as="label" size="3">
+        <Text render={<label />} size="3">
           <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
             <RadioGroup.Item value="2" /> Compact
           </div>
@@ -199,13 +199,13 @@ export const Alignment: Story = {
         defaultValue="1"
         style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}
       >
-        <Text as="label" size="4">
+        <Text render={<label />} size="4">
           <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
             <RadioGroup.Item value="1" /> Default
           </div>
         </Text>
 
-        <Text as="label" size="4">
+        <Text render={<label />} size="4">
           <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
             <RadioGroup.Item value="2" /> Compact
           </div>
@@ -267,12 +267,12 @@ export const InputRefGroup: Story = {
 
     return (
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-        <Text as="div" size="2">
+        <Text render={<div />} size="2">
           Use <Code>inputRef</Code> for form validation. Try submitting without selecting an option.
         </Text>
 
         <div>
-          <Text as="div" size="2" weight="medium" style={{ marginBottom: 'var(--space-2)' }}>
+          <Text render={<div />} size="2" weight="medium" style={{ marginBottom: 'var(--space-2)' }}>
             Shipping Method
           </Text>
           <RadioGroup.Root {...args} name="shipping" required inputRef={inputRef} onValueChange={() => setError(null)}>
@@ -283,7 +283,7 @@ export const InputRefGroup: Story = {
             </div>
           </RadioGroup.Root>
           {error && (
-            <Text as="div" size="1" color="red" style={{ marginTop: 'var(--space-2)' }}>
+            <Text render={<div />} size="1" color="red" style={{ marginTop: 'var(--space-2)' }}>
               {error}
             </Text>
           )}
@@ -294,7 +294,7 @@ export const InputRefGroup: Story = {
             Submit
           </Button>
           {submitted && (
-            <Text as="span" size="2" color="green">
+            <Text render={<span />} size="2" color="green">
               ✓ {submitted}
             </Text>
           )}
@@ -322,7 +322,7 @@ export const InputRefItem: Story = {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-        <Text as="div" size="2">
+        <Text render={<div />} size="2">
           Use <Code>inputRef</Code> on individual items to read their native <Code>checked</Code> state.
         </Text>
 
@@ -367,7 +367,7 @@ export const OnValueChange: Story = {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-        <Text as="div" size="2">
+        <Text render={<div />} size="2">
           Accept <Code>unknown</Code> and cast inside the handler. Use <Code>RadioGroup.ChangeEventDetails</Code> for
           the second parameter if needed.
         </Text>
@@ -387,10 +387,10 @@ export const OnValueChange: Story = {
             borderRadius: 'var(--radius-2)',
           }}
         >
-          <Text as="div" size="2">
+          <Text render={<div />} size="2">
             Selected: <Code>{selected}</Code>
           </Text>
-          <Text as="div" size="2">
+          <Text render={<div />} size="2">
             Price: <strong>${shippingPrices[selected].toFixed(2)}</strong>
           </Text>
         </div>
@@ -434,7 +434,7 @@ export const OnValueChangeEvent: Story = {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-        <Text as="div" size="2">
+        <Text render={<div />} size="2">
           The <Code>eventDetails</Code> parameter provides <Code>cancel()</Code> to prevent changes and{' '}
           <Code>event</Code> for the native event. Try selecting Premium tier.
         </Text>
@@ -456,18 +456,18 @@ export const OnValueChangeEvent: Story = {
             fontSize: 'var(--font-size-1)',
           }}
         >
-          <Text as="div" size="2" style={{ marginBottom: 'var(--space-2)' }}>
+          <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-2)' }}>
             Current: <Code>{selected}</Code>
           </Text>
           {lastEvent && (
             <>
-              <Text as="div" size="1" color="gray">
+              <Text render={<div />} size="1" color="gray">
                 Last event: {lastEvent.type}
               </Text>
-              <Text as="div" size="1" color="gray">
+              <Text render={<div />} size="1" color="gray">
                 Attempted value: {lastEvent.value}
               </Text>
-              <Text as="div" size="1" color={lastEvent.wasCanceled ? 'red' : 'green'}>
+              <Text render={<div />} size="1" color={lastEvent.wasCanceled ? 'red' : 'green'}>
                 {lastEvent.wasCanceled ? '✗ Change was canceled' : '✓ Change was applied'}
               </Text>
             </>
@@ -510,13 +510,13 @@ export const FormName: Story = {
         onReset={handleReset}
         style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}
       >
-        <Text as="div" size="2">
+        <Text render={<div />} size="2">
           Use the <Code>name</Code> prop to include the RadioGroup value in form submissions. Listen to the form's{' '}
           <Code>onReset</Code> event to reset controlled state when using <Code>type="reset"</Code> buttons.
         </Text>
 
         <div>
-          <Text as="div" size="2" weight="medium" style={{ marginBottom: 'var(--space-2)' }}>
+          <Text render={<div />} size="2" weight="medium" style={{ marginBottom: 'var(--space-2)' }}>
             Subscription Plan
           </Text>
           <RadioGroup.Root {...args} name="plan" value={plan} onValueChange={(v) => setPlan(v as string)}>
@@ -529,7 +529,7 @@ export const FormName: Story = {
         </div>
 
         <div>
-          <Text as="div" size="2" weight="medium" style={{ marginBottom: 'var(--space-2)' }}>
+          <Text render={<div />} size="2" weight="medium" style={{ marginBottom: 'var(--space-2)' }}>
             Payment Method
           </Text>
           <RadioGroup.Root {...args} name="payment" value={payment} onValueChange={(v) => setPayment(v as string)}>
@@ -593,7 +593,7 @@ export const ObjectValues: Story = {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-        <Text as="div" size="2">
+        <Text render={<div />} size="2">
           For object values, serialize with <Code>JSON.stringify()</Code> and parse in <Code>onValueChange</Code>.
         </Text>
 
@@ -614,13 +614,13 @@ export const ObjectValues: Story = {
             borderRadius: 'var(--radius-2)',
           }}
         >
-          <Text as="div" size="2" weight="medium" style={{ marginBottom: 'var(--space-2)' }}>
+          <Text render={<div />} size="2" weight="medium" style={{ marginBottom: 'var(--space-2)' }}>
             Selected: {selected.name}
           </Text>
-          <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }}>
+          <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }}>
             Price: <strong>${selected.price}/mo</strong>
           </Text>
-          <Text as="div" size="2">
+          <Text render={<div />} size="2">
             Features:
           </Text>
           <ul style={{ margin: 0, paddingLeft: 'var(--space-4)' }}>

@@ -78,19 +78,19 @@ export const Alignment: Story = {
   name: 'Alignment with text',
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
-      <Text as="label" size="2">
+      <Text render={<label />} size="2">
         <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
           <Switch {...args} size="1" defaultChecked /> Sync settings
         </div>
       </Text>
 
-      <Text as="label" size="3">
+      <Text render={<label />} size="3">
         <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
           <Switch {...args} size="2" defaultChecked /> Sync settings
         </div>
       </Text>
 
-      <Text as="label" size="4">
+      <Text render={<label />} size="4">
         <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
           <Switch {...args} size="3" defaultChecked /> Sync settings
         </div>
@@ -119,25 +119,25 @@ export const UncheckedValue: Story = {
         </Text>
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
-          <Text as="label" size="2" weight="bold">
+          <Text render={<label />} size="2" weight="bold">
             Notification Preferences
           </Text>
 
-          <Text as="label" size="2">
+          <Text render={<label />} size="2">
             <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
               <Switch {...args} name="email_notifications" uncheckedValue="disabled" defaultChecked />
               Email notifications
             </div>
           </Text>
 
-          <Text as="label" size="2">
+          <Text render={<label />} size="2">
             <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
               <Switch {...args} name="sms_notifications" uncheckedValue="disabled" />
               SMS notifications
             </div>
           </Text>
 
-          <Text as="label" size="2">
+          <Text render={<label />} size="2">
             <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
               <Switch {...args} name="marketing" uncheckedValue="opt-out" />
               Marketing emails
@@ -196,12 +196,12 @@ export const ReadOnly: Story = {
           <Text size="2" weight="medium">
             Plan Features (Premium Plan)
           </Text>
-          <Text as="label" size="2">
+          <Text render={<label />} size="2">
             <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
               <Switch {...args} checked={isPremium} readOnly /> Advanced features enabled
             </div>
           </Text>
-          <Text as="label" size="2">
+          <Text render={<label />} size="2">
             <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
               <Switch {...args} checked={isPremium} readOnly /> Priority support
             </div>
@@ -211,17 +211,17 @@ export const ReadOnly: Story = {
           <Text size="2" weight="medium">
             Organization Settings (managed by admin)
           </Text>
-          <Text as="label" size="2">
+          <Text render={<label />} size="2">
             <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
               <Switch {...args} checked={settings.darkMode} readOnly /> Dark mode
             </div>
           </Text>
-          <Text as="label" size="2">
+          <Text render={<label />} size="2">
             <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
               <Switch {...args} checked={settings.autoBackup} readOnly /> Auto backup
             </div>
           </Text>
-          <Text as="label" size="2">
+          <Text render={<label />} size="2">
             <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
               <Switch {...args} checked={settings.analytics} readOnly /> Usage analytics
             </div>
@@ -267,7 +267,7 @@ export const InputRef: Story = {
           This is useful for programmatic focus management, form validation, or integrating with third-party libraries
           that need direct DOM access.
         </Text>
-        <Text as="label" size="2">
+        <Text render={<label />} size="2">
           <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
             <Switch {...args} inputRef={inputRef} name="notifications" defaultChecked /> Enable notifications
           </div>

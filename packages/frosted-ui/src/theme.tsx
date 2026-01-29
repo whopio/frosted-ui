@@ -2,9 +2,9 @@
 
 import { DirectionProvider } from '@radix-ui/react-direction';
 
+import { mergeProps, useRender } from '@base-ui/react';
 import { Tooltip as TooltipPrimitive } from '@base-ui/react/tooltip';
 import classNames from 'classnames';
-import { Slot } from 'radix-ui';
 import * as React from 'react';
 import { getMatchingGrayColor, themePropDefs } from './theme-options';
 
@@ -170,7 +170,7 @@ function SyncRootElementAppearance({ appearance }: { appearance: Exclude<ThemeOp
 
 interface ThemeImplProps extends ThemeImplPublicProps, ThemeImplPrivateProps {}
 interface ThemeImplPublicProps extends Omit<React.ComponentPropsWithoutRef<'div'>, 'dir'>, Partial<ThemeOptions> {
-  asChild?: boolean;
+  render?: useRender.ComponentProps<'div'>['render'];
   isRoot?: boolean;
   hasBackground?: boolean;
 }
@@ -178,9 +178,11 @@ interface ThemeImplPrivateProps extends Partial<ThemeChangeHandlers> {}
 const ThemeImpl = (props: ThemeImplProps) => {
   const context = React.useContext(ThemeContext);
   const {
-    asChild,
+    render,
     isRoot,
     hasBackground,
+    children,
+    className,
     //
     appearance = context?.appearance ?? themePropDefs.appearance.default,
     accentColor = context?.accentColor ?? themePropDefs.accentColor.default,
@@ -200,12 +202,50 @@ const ThemeImpl = (props: ThemeImplProps) => {
     //
     ...themeProps
   } = props;
-  const Comp = asChild ? Slot.Root : 'div';
   const resolvedGrayColor = grayColor === 'auto' ? getMatchingGrayColor(accentColor) : grayColor;
   const isExplicitAppearance = props.appearance !== undefined && props.appearance !== 'inherit';
   const isExplicitGrayColor = props.grayColor !== undefined;
   const shouldHaveBackground =
     !isRoot && (hasBackground === true || (hasBackground !== false && (isExplicitAppearance || isExplicitGrayColor)));
+
+  const element = useRender({
+    render,
+    props: mergeProps(
+      themeProps as React.ComponentProps<'div'>,
+      {
+        'data-is-root-theme': isRoot ? 'true' : 'false',
+        'data-accent-color': accentColor,
+        'data-danger-color': dangerColor,
+        'data-warning-color': warningColor,
+        'data-success-color': successColor,
+        'data-info-color': infoColor,
+        'data-gray-color': resolvedGrayColor,
+        // for nested `Theme` background
+        'data-has-background': shouldHaveBackground ? 'true' : 'false',
+        className: classNames(
+          'frosted-ui',
+          {
+            // Only apply theme class to nested `Theme` sections.
+            //
+            // If it's the root `Theme`, we either rely on
+            // - something else setting the theme class when root `appearance` is `inherit`
+            // - our script setting it when root `appearance` is explicit
+            light: !isRoot && appearance === 'light',
+            dark: !isRoot && appearance === 'dark',
+          },
+          className,
+        ),
+        children: (
+          <>
+            {isRoot && <WithThemeEvents />}
+            {children}
+          </>
+        ),
+      } as React.ComponentProps<'div'>,
+    ),
+    defaultTagName: 'div',
+  });
+
   return (
     <ThemeContext.Provider
       value={React.useMemo(
@@ -247,32 +287,7 @@ const ThemeImpl = (props: ThemeImplProps) => {
         ],
       )}
     >
-      {isRoot && <WithThemeEvents />}
-      <Comp
-        data-is-root-theme={isRoot ? 'true' : 'false'}
-        data-accent-color={accentColor}
-        data-danger-color={dangerColor}
-        data-warning-color={warningColor}
-        data-success-color={successColor}
-        data-info-color={infoColor}
-        data-gray-color={resolvedGrayColor}
-        // for nested `Theme` background
-        data-has-background={shouldHaveBackground ? 'true' : 'false'}
-        {...themeProps}
-        className={classNames(
-          'frosted-ui',
-          {
-            // Only apply theme class to nested `Theme` sections.
-            //
-            // If it's the root `Theme`, we either rely on
-            // - something else setting the theme class when root `appearance` is `inherit`
-            // - our script setting it when root `appearance` is explicit
-            light: !isRoot && appearance === 'light',
-            dark: !isRoot && appearance === 'dark',
-          },
-          themeProps.className,
-        )}
-      />
+      {element}
     </ThemeContext.Provider>
   );
 };

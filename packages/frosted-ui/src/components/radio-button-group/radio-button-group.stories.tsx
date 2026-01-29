@@ -148,10 +148,10 @@ export const WithCard: Story = {
             <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center' }}>
               <Avatar size="3" fallback="AB" color="lime" />
               <div>
-                <Text as="div" size="2" weight="bold">
+                <Text render={<div />} size="2" weight="bold">
                   Artur Bień
                 </Text>
-                <Text as="div" size="2" color="gray">
+                <Text render={<div />} size="2" color="gray">
                   UI engineer
                 </Text>
               </div>
@@ -163,10 +163,10 @@ export const WithCard: Story = {
             <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center' }}>
               <Avatar size="3" fallback="IM" color="sky" />
               <div>
-                <Text as="div" size="2" weight="bold">
+                <Text render={<div />} size="2" weight="bold">
                   Ilya Miskov
                 </Text>
-                <Text as="div" size="2" color="gray">
+                <Text render={<div />} size="2" color="gray">
                   Designer
                 </Text>
               </div>
@@ -178,10 +178,10 @@ export const WithCard: Story = {
             <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center' }}>
               <Avatar size="3" fallback="SS" color="orange" />
               <div>
-                <Text as="div" size="2" weight="bold">
+                <Text render={<div />} size="2" weight="bold">
                   Steven Schwartz
                 </Text>
-                <Text as="div" size="2" color="gray">
+                <Text render={<div />} size="2" color="gray">
                   CEO
                 </Text>
               </div>
@@ -310,7 +310,7 @@ export const OnValueChange: Story = {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-        <Text as="div" size="2">
+        <Text render={<div />} size="2">
           Accept <Code>unknown</Code> and cast inside the handler. Use <Code>RadioButtonGroup.ChangeEventDetails</Code>{' '}
           for the second parameter if needed.
         </Text>
@@ -357,10 +357,10 @@ export const OnValueChange: Story = {
             borderRadius: 'var(--radius-2)',
           }}
         >
-          <Text as="div" size="2">
+          <Text render={<div />} size="2">
             Selected: <Code>{selected}</Code>
           </Text>
-          <Text as="div" size="2">
+          <Text render={<div />} size="2">
             Price: <strong>${planPrices[selected]}/mo</strong>
           </Text>
         </div>
@@ -404,7 +404,7 @@ export const OnValueChangeEvent: Story = {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-        <Text as="div" size="2">
+        <Text render={<div />} size="2">
           The <Code>eventDetails</Code> parameter provides <Code>cancel()</Code> to prevent changes. Try selecting
           Premium.
         </Text>
@@ -436,18 +436,18 @@ export const OnValueChangeEvent: Story = {
             borderRadius: 'var(--radius-2)',
           }}
         >
-          <Text as="div" size="2" style={{ marginBottom: 'var(--space-2)' }}>
+          <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-2)' }}>
             Current: <Code>{selected}</Code>
           </Text>
           {lastEvent && (
             <>
-              <Text as="div" size="1" color="gray">
+              <Text render={<div />} size="1" color="gray">
                 Last event: {lastEvent.type}
               </Text>
-              <Text as="div" size="1" color="gray">
+              <Text render={<div />} size="1" color="gray">
                 Attempted value: {lastEvent.value}
               </Text>
-              <Text as="div" size="1" color={lastEvent.wasCanceled ? 'red' : 'green'}>
+              <Text render={<div />} size="1" color={lastEvent.wasCanceled ? 'red' : 'green'}>
                 {lastEvent.wasCanceled ? '✗ Change was canceled' : '✓ Change was applied'}
               </Text>
             </>
@@ -490,13 +490,13 @@ export const FormName: Story = {
         onReset={handleReset}
         style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}
       >
-        <Text as="div" size="2">
+        <Text render={<div />} size="2">
           Use the <Code>name</Code> prop to include the RadioButtonGroup value in form submissions. Listen to the form's{' '}
           <Code>onReset</Code> event to reset controlled state when using <Code>type="reset"</Code> buttons.
         </Text>
 
         <div>
-          <Text as="div" size="2" weight="medium" style={{ marginBottom: 'var(--space-2)' }}>
+          <Text render={<div />} size="2" weight="medium" style={{ marginBottom: 'var(--space-2)' }}>
             Subscription Plan
           </Text>
           <RadioButtonGroup.Root {...args} name="plan" value={plan} onValueChange={(v) => setPlan(v as string)}>
@@ -516,7 +516,7 @@ export const FormName: Story = {
         </div>
 
         <div>
-          <Text as="div" size="2" weight="medium" style={{ marginBottom: 'var(--space-2)' }}>
+          <Text render={<div />} size="2" weight="medium" style={{ marginBottom: 'var(--space-2)' }}>
             Payment Method
           </Text>
           <RadioButtonGroup.Root
@@ -591,12 +591,12 @@ export const InputRefGroup: Story = {
 
     return (
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-        <Text as="div" size="2">
+        <Text render={<div />} size="2">
           Use <Code>inputRef</Code> for form validation. Try submitting without selecting an option.
         </Text>
 
         <div>
-          <Text as="div" size="2" weight="medium" style={{ marginBottom: 'var(--space-2)' }}>
+          <Text render={<div />} size="2" weight="medium" style={{ marginBottom: 'var(--space-2)' }}>
             Select a Plan
           </Text>
           <RadioButtonGroup.Root
@@ -625,7 +625,7 @@ export const InputRefGroup: Story = {
             </div>
           </RadioButtonGroup.Root>
           {error && (
-            <Text as="div" size="1" color="red" style={{ marginTop: 'var(--space-2)' }}>
+            <Text render={<div />} size="1" color="red" style={{ marginTop: 'var(--space-2)' }}>
               {error}
             </Text>
           )}
@@ -636,7 +636,7 @@ export const InputRefGroup: Story = {
             Submit
           </Button>
           {submitted && (
-            <Text as="span" size="2" color="green">
+            <Text render={<span />} size="2" color="green">
               ✓ {submitted}
             </Text>
           )}

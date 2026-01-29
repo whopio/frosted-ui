@@ -122,7 +122,7 @@ export const Controlled: Story = {
             )}
           />
         </div>
-        <Text align="center" color="gray" size="2" as="div">
+        <Text align="center" color="gray" size="2" render={<div />}>
           {value === '' ? <>Enter your one-time password.</> : <>You entered: {value}</>}
         </Text>
       </div>

@@ -58,13 +58,13 @@ export const Default: Story = {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
           <label>
-            <Text as="div" size="2" style={{ marginBottom: 4 }} weight="bold">
+            <Text render={<div />} size="2" style={{ marginBottom: 4 }} weight="bold">
               Name
             </Text>
             <TextField.Input defaultValue="Freja Johnsen" placeholder="Enter your full name" />
           </label>
           <label>
-            <Text as="div" size="2" style={{ marginBottom: 4 }} weight="bold">
+            <Text render={<div />} size="2" style={{ marginBottom: 4 }} weight="bold">
               Email
             </Text>
             <TextField.Input defaultValue="freja@example.com" placeholder="Enter your email" />
@@ -348,7 +348,7 @@ export const MultipleTriggers: Story = {
                 }}
               >
                 <label>
-                  <Text as="div" size="2" style={{ marginBottom: 4 }} weight="bold">
+                  <Text render={<div />} size="2" style={{ marginBottom: 4 }} weight="bold">
                     Project Name
                   </Text>
                   <TextField.Input
@@ -422,7 +422,7 @@ export const ControlledMode: Story = {
               style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', marginTop: 'var(--space-3)' }}
             >
               <label>
-                <Text as="div" size="2" style={{ marginBottom: 4 }} weight="bold">
+                <Text render={<div />} size="2" style={{ marginBottom: 4 }} weight="bold">
                   Name
                 </Text>
                 <TextField.Input
@@ -432,7 +432,7 @@ export const ControlledMode: Story = {
                 />
               </label>
               <label>
-                <Text as="div" size="2" style={{ marginBottom: 4 }} weight="bold">
+                <Text render={<div />} size="2" style={{ marginBottom: 4 }} weight="bold">
                   Email
                 </Text>
                 <TextField.Input
@@ -503,7 +503,7 @@ export const ActionsRef: Story = {
               style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', marginTop: 'var(--space-3)' }}
             >
               <label>
-                <Text as="div" size="2" style={{ marginBottom: 4 }} weight="bold">
+                <Text render={<div />} size="2" style={{ marginBottom: 4 }} weight="bold">
                   Feedback
                 </Text>
                 <TextArea placeholder="Enter your feedback..." style={{ minHeight: 100 }} />
@@ -557,13 +557,13 @@ export const InitialFocus: Story = {
               style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', marginTop: 'var(--space-3)' }}
             >
               <label>
-                <Text as="div" size="2" style={{ marginBottom: 4 }} weight="bold">
+                <Text render={<div />} size="2" style={{ marginBottom: 4 }} weight="bold">
                   Name
                 </Text>
                 <TextField.Input ref={nameInputRef} placeholder="Enter item name" />
               </label>
               <label>
-                <Text as="div" size="2" style={{ marginBottom: 4 }} weight="bold">
+                <Text render={<div />} size="2" style={{ marginBottom: 4 }} weight="bold">
                   Description
                 </Text>
                 <TextField.Input placeholder="Enter description" />
@@ -923,10 +923,10 @@ export const WithPopoverAndHoverCard: Story = {
                 }}
               >
                 <div>
-                  <Text as="div" weight="medium">
+                  <Text render={<div />} weight="medium">
                     Notification Preferences
                   </Text>
-                  <Text as="div" size="2" color="gray">
+                  <Text render={<div />} size="2" color="gray">
                     Choose how you want to be notified
                   </Text>
                 </div>
@@ -995,7 +995,7 @@ export const WithPopoverAndHoverCard: Story = {
                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
                   <Avatar fallback="A" size="2" />
                   <div>
-                    <Text as="div" weight="medium">
+                    <Text render={<div />} weight="medium">
                       Account Owner
                     </Text>
                     <HoverCard.Root>
@@ -1008,13 +1008,13 @@ export const WithPopoverAndHoverCard: Story = {
                         <div style={{ display: 'flex', gap: 'var(--space-4)' }}>
                           <Avatar size="3" fallback="A" />
                           <div>
-                            <Heading size="3" as="h3">
+                            <Heading size="3" render={<h3 />}>
                               Alex Johnson
                             </Heading>
-                            <Text as="p" size="2" color="gray">
+                            <Text render={<p />} size="2" color="gray">
                               @alexjohnson
                             </Text>
-                            <Text as="p" size="2" style={{ marginTop: 'var(--space-2)', maxWidth: 280 }}>
+                            <Text render={<p />} size="2" style={{ marginTop: 'var(--space-2)', maxWidth: 280 }}>
                               Senior Developer at Acme Corp. Loves building great user experiences.
                             </Text>
                             <div style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-3)' }}>
@@ -1046,10 +1046,10 @@ export const WithPopoverAndHoverCard: Story = {
                 }}
               >
                 <div>
-                  <Text as="div" weight="medium">
+                  <Text render={<div />} weight="medium">
                     Language
                   </Text>
-                  <Text as="div" size="2" color="gray">
+                  <Text render={<div />} size="2" color="gray">
                     Choose your preferred language
                   </Text>
                 </div>
@@ -1057,7 +1057,7 @@ export const WithPopoverAndHoverCard: Story = {
                   <Select.Trigger style={{ minWidth: 150 }} />
                   <Select.Content>
                     <Select.Group>
-                      <Select.Label>Languages</Select.Label>
+                      <Select.GroupLabel>Languages</Select.GroupLabel>
                       <Select.Item value="en">English</Select.Item>
                       <Select.Item value="es">Español</Select.Item>
                       <Select.Item value="fr">Français</Select.Item>
@@ -1081,10 +1081,10 @@ export const WithPopoverAndHoverCard: Story = {
                 }}
               >
                 <div>
-                  <Text as="div" weight="medium">
+                  <Text render={<div />} weight="medium">
                     Quick Actions
                   </Text>
-                  <Text as="div" size="2" color="gray">
+                  <Text render={<div />} size="2" color="gray">
                     Common account operations
                   </Text>
                 </div>
@@ -1137,10 +1137,10 @@ export const WithPopoverAndHoverCard: Story = {
                     }}
                   >
                     <div>
-                      <Text as="div" weight="medium">
+                      <Text render={<div />} weight="medium">
                         Context Menu Area
                       </Text>
-                      <Text as="div" size="2" color="gray">
+                      <Text render={<div />} size="2" color="gray">
                         Right-click here to open context menu
                       </Text>
                     </div>
@@ -1230,13 +1230,13 @@ export const DialogFromDropdownMenu: Story = {
               }}
             >
               <label>
-                <Text as="div" size="2" style={{ marginBottom: 4 }} weight="bold">
+                <Text render={<div />} size="2" style={{ marginBottom: 4 }} weight="bold">
                   Name
                 </Text>
                 <TextField.Input defaultValue="My Project" placeholder="Enter name" />
               </label>
               <label>
-                <Text as="div" size="2" style={{ marginBottom: 4 }} weight="bold">
+                <Text render={<div />} size="2" style={{ marginBottom: 4 }} weight="bold">
                   Description
                 </Text>
                 <TextArea defaultValue="A sample project description" placeholder="Enter description" />
@@ -1302,7 +1302,7 @@ export const DialogTriggerInDropdownMenu: Story = {
   render: function Render(args) {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
-        <Text as="div" style={{ maxWidth: 540, textAlign: 'center' }}>
+        <Text render={<div />} style={{ maxWidth: 540, textAlign: 'center' }}>
           When wrapping a menu item with <Code>Dialog.Trigger</Code>:
           <ul style={{ textAlign: 'left', marginTop: 'var(--space-2)' }}>
             <li>
@@ -1342,13 +1342,13 @@ export const DialogTriggerInDropdownMenu: Story = {
                   }}
                 >
                   <label>
-                    <Text as="div" size="2" style={{ marginBottom: 4 }} weight="bold">
+                    <Text render={<div />} size="2" style={{ marginBottom: 4 }} weight="bold">
                       Name
                     </Text>
                     <TextField.Input defaultValue="My Project" placeholder="Enter name" />
                   </label>
                   <label>
-                    <Text as="div" size="2" style={{ marginBottom: 4 }} weight="bold">
+                    <Text render={<div />} size="2" style={{ marginBottom: 4 }} weight="bold">
                       Description
                     </Text>
                     <TextArea defaultValue="A sample project description" placeholder="Enter description" />
@@ -1429,7 +1429,7 @@ export const DialogDetatchedTriggerInDropdownMenuUsingHandle: Story = {
         }}
       >
         <Text
-          as="div"
+          render={<div />}
           style={{
             maxWidth: 540,
 
@@ -1475,13 +1475,13 @@ export const DialogDetatchedTriggerInDropdownMenuUsingHandle: Story = {
               }}
             >
               <label>
-                <Text as="div" size="2" style={{ marginBottom: 4 }} weight="bold">
+                <Text render={<div />} size="2" style={{ marginBottom: 4 }} weight="bold">
                   Name
                 </Text>
                 <TextField.Input defaultValue="My Project" placeholder="Enter name" />
               </label>
               <label>
-                <Text as="div" size="2" style={{ marginBottom: 4 }} weight="bold">
+                <Text render={<div />} size="2" style={{ marginBottom: 4 }} weight="bold">
                   Description
                 </Text>
                 <TextArea defaultValue="A sample project description" placeholder="Enter description" />

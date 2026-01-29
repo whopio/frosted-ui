@@ -7,10 +7,10 @@ const CardContentExample = () => (
   <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center' }}>
     <Avatar size="3" fallback="IM" color="indigo" />
     <div>
-      <Text as="div" size="2" weight="bold">
+      <Text render={<div />} size="2" weight="bold">
         Ilya Miskov
       </Text>
-      <Text as="div" size="2" color="gray">
+      <Text render={<div />} size="2" color="gray">
         I love how we have the freedom to explore skeuomorphism
       </Text>
     </div>
@@ -50,10 +50,10 @@ export const Size: Story = {
         <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center' }}>
           <Avatar size="3" fallback="T" color="indigo" />
           <div>
-            <Text as="div" size="2" weight="bold">
+            <Text render={<div />} size="2" weight="bold">
               Teodros Girmay
             </Text>
-            <Text as="div" size="2" color="gray">
+            <Text render={<div />} size="2" color="gray">
               Engineering
             </Text>
           </div>
@@ -64,10 +64,10 @@ export const Size: Story = {
         <div style={{ display: 'flex', gap: 'var(--space-4)', alignItems: 'center' }}>
           <Avatar size="4" fallback="T" color="indigo" />
           <div>
-            <Text as="div" weight="bold">
+            <Text render={<div />} weight="bold">
               Teodros Girmay
             </Text>
-            <Text as="div" color="gray">
+            <Text render={<div />} color="gray">
               Engineering
             </Text>
           </div>
@@ -78,10 +78,10 @@ export const Size: Story = {
         <div style={{ display: 'flex', gap: 'var(--space-4)', alignItems: 'center' }}>
           <Avatar size="5" fallback="T" color="indigo" />
           <div>
-            <Text as="div" size="4" weight="bold">
+            <Text render={<div />} size="4" weight="bold">
               Teodros Girmay
             </Text>
-            <Text as="div" size="4" color="gray">
+            <Text render={<div />} size="4" color="gray">
               Engineering
             </Text>
           </div>
@@ -92,10 +92,10 @@ export const Size: Story = {
         <div style={{ display: 'flex', gap: 'var(--space-4)', alignItems: 'center' }}>
           <Avatar size="5" fallback="T" color="indigo" />
           <div>
-            <Text as="div" size="4" weight="bold">
+            <Text render={<div />} size="4" weight="bold">
               Teodros Girmay
             </Text>
-            <Text as="div" size="4" color="gray">
+            <Text render={<div />} size="4" color="gray">
               Engineering
             </Text>
           </div>
@@ -106,10 +106,10 @@ export const Size: Story = {
         <div style={{ display: 'flex', gap: 'var(--space-4)', alignItems: 'center' }}>
           <Avatar size="5" fallback="T" color="indigo" />
           <div>
-            <Text as="div" size="4" weight="bold">
+            <Text render={<div />} size="4" weight="bold">
               Teodros Girmay
             </Text>
-            <Text as="div" size="4" color="gray">
+            <Text render={<div />} size="4" color="gray">
               Engineering
             </Text>
           </div>
@@ -155,7 +155,7 @@ export const InsetContent: Story = {
           }}
         />
       </Inset>
-      <Text as="p" size="3">
+      <Text render={<p />} size="3">
         Use <Code>{'<Inset />'}</Code> component to align content flush with the sides of the card.
       </Text>
     </Card>
@@ -168,15 +168,13 @@ export const AsAnotherElement: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
       <div>
         <Text>
-          Use the <Code>asChild</Code> prop to render the card as a link or a button. This prop adds styles for the
+          Use the <Code>render</Code> prop to render the card as a link or a button. This prop adds styles for the
           interactive states, like hover and focus.
         </Text>
       </div>
       <div>
-        <Card {...args} asChild style={{ maxWidth: 350 }}>
-          <a href="#">
-            <CardContentExample />
-          </a>
+        <Card {...args} render={<a href="#" />} style={{ maxWidth: 350 }}>
+          <CardContentExample />
         </Card>
       </div>
     </div>

@@ -112,7 +112,7 @@ export const Variant: Story = {
               </SegmentedControl.List>
             </SegmentedControl.Root>
             <Separator orientation="horizontal" size="4" style={{ marginTop: 12, marginBottom: 12 }} />
-            <Text as="label" size="2">
+            <Text render={<label />} size="2">
               <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
                 <Switch />
                 Auto switching
@@ -146,7 +146,7 @@ export const Variant: Story = {
               </SegmentedControl.List>
             </SegmentedControl.Root>
             <Separator orientation="horizontal" size="4" style={{ marginTop: 16, marginBottom: 16 }} />
-            <Text as="label" size="2">
+            <Text render={<label />} size="2">
               <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
                 <Switch />
                 Auto switching
@@ -183,7 +183,7 @@ export const InsetContent: Story = {
             <Heading size="2" style={{ marginBottom: 4 }}>
               Share this image
             </Heading>
-            <Text as="p" size="2" style={{ marginBottom: 16 }} color="gray">
+            <Text render={<p />} size="2" style={{ marginBottom: 16 }} color="gray">
               Minimalistic 3D rendering wallpaper.
             </Text>
 

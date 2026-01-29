@@ -63,19 +63,19 @@ export const Default: Story = {
           </Drawer.Close>
         </Drawer.Header>
         <Drawer.Body>
-          <Text as="p" size="2" style={{ marginBottom: 'var(--space-4)' }}>
+          <Text render={<p />} size="2" style={{ marginBottom: 'var(--space-4)' }}>
             Make changes to your profile here. Click save when you&apos;re done.
           </Text>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
             <label>
-              <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+              <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                 Name
               </Text>
               <TextField.Input defaultValue="Freja Johnsen" placeholder="Enter your full name" />
             </label>
             <label>
-              <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+              <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                 Email
               </Text>
               <TextField.Input defaultValue="freja@example.com" placeholder="Enter your email" />
@@ -124,7 +124,7 @@ export const InsetContent: Story = {
           </Drawer.Close>
         </Drawer.Header>
         <Drawer.Body>
-          <Text as="p">The following users have access to this project.</Text>
+          <Text render={<p />}>The following users have access to this project.</Text>
 
           <Inset side="x" style={{ marginTop: 'var(--space-5)', marginBottom: 'var(--space-5)' }}>
             <Table.Root variant="ghost">
@@ -226,7 +226,7 @@ export const DetachedTriggers: Story = {
             </Drawer.Close>
           </Drawer.Header>
           <Drawer.Body>
-            <Text as="p" size="2">
+            <Text render={<p />} size="2">
               This drawer is controlled by a trigger outside of its Root component. This is useful when you need to open
               a drawer from a completely different part of your app.
             </Text>
@@ -297,19 +297,19 @@ export const MultipleTriggers: Story = {
               <Drawer.Body>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
                   <label>
-                    <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                    <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                       User ID
                     </Text>
                     <TextField.Input value={payload?.userId || ''} readOnly />
                   </label>
                   <label>
-                    <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                    <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                       Name
                     </Text>
                     <TextField.Input defaultValue={payload?.userName || ''} readOnly={payload?.mode === 'view'} />
                   </label>
                   <label>
-                    <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                    <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                       Email
                     </Text>
                     <TextField.Input
@@ -383,13 +383,13 @@ export const ControlledMode: Story = {
               </Drawer.Close>
             </Drawer.Header>
             <Drawer.Body>
-              <Text as="p" size="2" style={{ marginBottom: 'var(--space-4)' }}>
+              <Text render={<p />} size="2" style={{ marginBottom: 'var(--space-4)' }}>
                 This drawer can be opened by both a trigger and a programmatic button.
               </Text>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
                 <label>
-                  <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                  <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                     Name
                   </Text>
                   <TextField.Input
@@ -399,7 +399,7 @@ export const ControlledMode: Story = {
                   />
                 </label>
                 <label>
-                  <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                  <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                     Email
                   </Text>
                   <TextField.Input
@@ -471,13 +471,13 @@ export const ActionsRef: Story = {
               </Drawer.Close>
             </Drawer.Header>
             <Drawer.Body>
-              <Text as="p" size="2" style={{ marginBottom: 'var(--space-4)' }}>
+              <Text render={<p />} size="2" style={{ marginBottom: 'var(--space-4)' }}>
                 The drawer will close automatically when the form submission completes.
               </Text>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
                 <label>
-                  <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                  <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                     Feedback
                   </Text>
                   <TextArea placeholder="Enter your feedback..." style={{ minHeight: 120 }} />
@@ -534,25 +534,25 @@ export const InitialFocus: Story = {
               </Drawer.Close>
             </Drawer.Header>
             <Drawer.Body>
-              <Text as="p" size="2" style={{ marginBottom: 'var(--space-4)' }}>
+              <Text render={<p />} size="2" style={{ marginBottom: 'var(--space-4)' }}>
                 Focus is automatically set to the Name input when the drawer opens.
               </Text>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
                 <label>
-                  <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                  <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                     Name
                   </Text>
                   <TextField.Input ref={nameInputRef} placeholder="Enter item name" />
                 </label>
                 <label>
-                  <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                  <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                     Description
                   </Text>
                   <TextField.Input placeholder="Enter description" />
                 </label>
                 <label>
-                  <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                  <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                     Price
                   </Text>
                   <TextField.Input placeholder="Enter price" type="number" />
@@ -610,7 +610,7 @@ export const FinalFocus: Story = {
                 </Drawer.Close>
               </Drawer.Header>
               <Drawer.Body>
-                <Text as="p" size="2">
+                <Text render={<p />} size="2">
                   When this drawer closes, focus will return to the "Focus Here" button instead of the trigger.
                 </Text>
                 <div
@@ -682,7 +682,7 @@ export const OpenChangeComplete: Story = {
               </Drawer.Close>
             </Drawer.Header>
             <Drawer.Body>
-              <Text as="p" size="2">
+              <Text render={<p />} size="2">
                 Watch the event log below to see callback timing. Notice how <Code>onOpenChangeComplete</Code> fires
                 after the slide animation completes.
               </Text>
@@ -764,13 +764,13 @@ export const KeepMounted: Story = {
               </Drawer.Close>
             </Drawer.Header>
             <Drawer.Body>
-              <Text as="p" size="2" style={{ marginBottom: 'var(--space-4)' }}>
+              <Text render={<p />} size="2" style={{ marginBottom: 'var(--space-4)' }}>
                 Type something below, close the drawer, then reopen it. The value will persist because the drawer stays
                 mounted in the DOM.
               </Text>
 
               <label>
-                <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                   Persistent Input
                 </Text>
                 <TextField.Input
@@ -832,20 +832,20 @@ export const NestedDrawers: Story = {
               </Drawer.Close>
             </Drawer.Header>
             <Drawer.Body>
-              <Text as="p" size="2" style={{ marginBottom: 'var(--space-4)' }}>
+              <Text render={<p />} size="2" style={{ marginBottom: 'var(--space-4)' }}>
                 This is the parent drawer. Click the button below to open a nested drawer. Notice how this drawer scales
                 down and moves to the left when the child opens.
               </Text>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
                 <label>
-                  <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                  <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                     Project Name
                   </Text>
                   <TextField.Input defaultValue="My Project" />
                 </label>
                 <label>
-                  <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                  <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                     Description
                   </Text>
                   <TextArea defaultValue="A description of the project..." style={{ minHeight: 80 }} />
@@ -874,7 +874,7 @@ export const NestedDrawers: Story = {
                       </Drawer.Close>
                     </Drawer.Header>
                     <Drawer.Body>
-                      <Text as="p" size="2" style={{ marginBottom: 'var(--space-4)' }}>
+                      <Text render={<p />} size="2" style={{ marginBottom: 'var(--space-4)' }}>
                         This is a nested drawer. You can continue nesting more drawers if needed.
                       </Text>
 
@@ -962,7 +962,7 @@ export const DeeplyNestedDrawers: Story = {
               </Drawer.Close>
             </Drawer.Header>
             <Drawer.Body>
-              <Text as="p" size="2" style={{ marginBottom: 'var(--space-4)' }}>
+              <Text render={<p />} size="2" style={{ marginBottom: 'var(--space-4)' }}>
                 First level drawer. Open another to see the stacking effect.
               </Text>
 
@@ -987,7 +987,7 @@ export const DeeplyNestedDrawers: Story = {
                       </Drawer.Close>
                     </Drawer.Header>
                     <Drawer.Body>
-                      <Text as="p" size="2" style={{ marginBottom: 'var(--space-4)' }}>
+                      <Text render={<p />} size="2" style={{ marginBottom: 'var(--space-4)' }}>
                         Second level drawer. One more to go!
                       </Text>
 
@@ -1012,7 +1012,7 @@ export const DeeplyNestedDrawers: Story = {
                               </Drawer.Close>
                             </Drawer.Header>
                             <Drawer.Body>
-                              <Text as="p" size="2" style={{ marginBottom: 'var(--space-4)' }}>
+                              <Text render={<p />} size="2" style={{ marginBottom: 'var(--space-4)' }}>
                                 Third level - the deepest drawer. Notice how all parent drawers have scaled and shifted.
                               </Text>
 
@@ -1077,7 +1077,7 @@ export const WithPopoverAndHoverCard: Story = {
               </Drawer.Close>
             </Drawer.Header>
             <Drawer.Body>
-              <Text as="p" size="2" style={{ marginBottom: 'var(--space-4)' }}>
+              <Text render={<p />} size="2" style={{ marginBottom: 'var(--space-4)' }}>
                 Configure your account settings and preferences.
               </Text>
 
@@ -1094,10 +1094,10 @@ export const WithPopoverAndHoverCard: Story = {
                   }}
                 >
                   <div>
-                    <Text as="div" weight="medium">
+                    <Text render={<div />} weight="medium">
                       Notification Preferences
                     </Text>
-                    <Text as="div" size="2" color="gray">
+                    <Text render={<div />} size="2" color="gray">
                       Choose how you want to be notified
                     </Text>
                   </div>
@@ -1166,7 +1166,7 @@ export const WithPopoverAndHoverCard: Story = {
                   <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
                     <Avatar fallback="A" size="2" />
                     <div>
-                      <Text as="div" weight="medium">
+                      <Text render={<div />} weight="medium">
                         Account Owner
                       </Text>
                       <HoverCard.Root>
@@ -1179,13 +1179,13 @@ export const WithPopoverAndHoverCard: Story = {
                           <div style={{ display: 'flex', gap: 'var(--space-4)' }}>
                             <Avatar size="3" fallback="A" />
                             <div>
-                              <Heading size="3" as="h3">
+                              <Heading size="3" render={<h3 />}>
                                 Alex Johnson
                               </Heading>
-                              <Text as="p" size="2" color="gray">
+                              <Text render={<p />} size="2" color="gray">
                                 @alexjohnson
                               </Text>
-                              <Text as="p" size="2" style={{ marginTop: 'var(--space-2)', maxWidth: 280 }}>
+                              <Text render={<p />} size="2" style={{ marginTop: 'var(--space-2)', maxWidth: 280 }}>
                                 Senior Developer at Acme Corp. Loves building great user experiences.
                               </Text>
                               <div style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-3)' }}>
@@ -1217,10 +1217,10 @@ export const WithPopoverAndHoverCard: Story = {
                   }}
                 >
                   <div>
-                    <Text as="div" weight="medium">
+                    <Text render={<div />} weight="medium">
                       Language
                     </Text>
-                    <Text as="div" size="2" color="gray">
+                    <Text render={<div />} size="2" color="gray">
                       Choose your preferred language
                     </Text>
                   </div>
@@ -1228,7 +1228,7 @@ export const WithPopoverAndHoverCard: Story = {
                     <Select.Trigger style={{ minWidth: 150 }} />
                     <Select.Content>
                       <Select.Group>
-                        <Select.Label>Languages</Select.Label>
+                        <Select.GroupLabel>Languages</Select.GroupLabel>
                         <Select.Item value="en">English</Select.Item>
                         <Select.Item value="es">Español</Select.Item>
                         <Select.Item value="fr">Français</Select.Item>
@@ -1252,10 +1252,10 @@ export const WithPopoverAndHoverCard: Story = {
                   }}
                 >
                   <div>
-                    <Text as="div" weight="medium">
+                    <Text render={<div />} weight="medium">
                       Quick Actions
                     </Text>
-                    <Text as="div" size="2" color="gray">
+                    <Text render={<div />} size="2" color="gray">
                       Common account operations
                     </Text>
                   </div>
@@ -1296,29 +1296,29 @@ export const WithPopoverAndHoverCard: Story = {
                 {/* Section with ContextMenu */}
                 <ContextMenu.Root>
                   <Tooltip content="Right-click here to open context menu">
-                  <ContextMenu.Trigger>
-                    <div
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        padding: 'var(--space-3)',
-                        background: 'var(--gray-a3)',
-                        borderRadius: 'var(--radius-2)',
-                        cursor: 'context-menu',
-                      }}
-                    >
-                      <div>
-                        <Text as="div" weight="medium">
-                          Context Menu Area
-                        </Text>
-                        <Text as="div" size="2" color="gray">
-                          Right-click here to open context menu
-                        </Text>
+                    <ContextMenu.Trigger>
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          padding: 'var(--space-3)',
+                          background: 'var(--gray-a3)',
+                          borderRadius: 'var(--radius-2)',
+                          cursor: 'context-menu',
+                        }}
+                      >
+                        <div>
+                          <Text render={<div />} weight="medium">
+                            Context Menu Area
+                          </Text>
+                          <Text render={<div />} size="2" color="gray">
+                            Right-click here to open context menu
+                          </Text>
+                        </div>
+                        <Badge color="gray">Right-click</Badge>
                       </div>
-                      <Badge color="gray">Right-click</Badge>
-                    </div>
-                  </ContextMenu.Trigger>
+                    </ContextMenu.Trigger>
                   </Tooltip>
                   <ContextMenu.Content>
                     <ContextMenu.Item>Copy</ContextMenu.Item>
@@ -1388,13 +1388,13 @@ export const WithDialog: Story = {
               </Drawer.Close>
             </Drawer.Header>
             <Drawer.Body>
-              <Text as="p" size="2" style={{ marginBottom: 'var(--space-4)' }}>
+              <Text render={<p />} size="2" style={{ marginBottom: 'var(--space-4)' }}>
                 Make changes to your project settings. Click "Delete Project" to see a confirmation dialog.
               </Text>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
                 <label>
-                  <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                  <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                     Project Name
                   </Text>
                   <TextField.Input
@@ -1404,7 +1404,7 @@ export const WithDialog: Story = {
                   />
                 </label>
                 <label>
-                  <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                  <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                     Description
                   </Text>
                   <TextArea
@@ -1425,10 +1425,10 @@ export const WithDialog: Story = {
                   borderRadius: 'var(--radius-2)',
                 }}
               >
-                <Text as="div" weight="medium" color="red">
+                <Text render={<div />} weight="medium" color="red">
                   Danger Zone
                 </Text>
-                <Text as="div" size="2" color="gray" style={{ marginBottom: 'var(--space-3)' }}>
+                <Text render={<div />} size="2" color="gray" style={{ marginBottom: 'var(--space-3)' }}>
                   Irreversible actions for this project
                 </Text>
 
@@ -1477,10 +1477,10 @@ export const WithDialog: Story = {
                   borderRadius: 'var(--radius-2)',
                 }}
               >
-                <Text as="div" weight="medium">
+                <Text render={<div />} weight="medium">
                   Team Members
                 </Text>
-                <Text as="div" size="2" color="gray" style={{ marginBottom: 'var(--space-3)' }}>
+                <Text render={<div />} size="2" color="gray" style={{ marginBottom: 'var(--space-3)' }}>
                   Manage who has access to this project
                 </Text>
 
@@ -1503,13 +1503,13 @@ export const WithDialog: Story = {
                       }}
                     >
                       <label>
-                        <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                        <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                           Email Address
                         </Text>
                         <TextField.Input placeholder="colleague@example.com" type="email" />
                       </label>
                       <label>
-                        <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                        <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                           Role
                         </Text>
                         <Select.Root defaultValue="member">
@@ -1522,7 +1522,7 @@ export const WithDialog: Story = {
                         </Select.Root>
                       </label>
                       <label>
-                        <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                        <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                           Message (optional)
                         </Text>
                         <TextArea placeholder="Add a personal message..." />
