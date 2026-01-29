@@ -3,10 +3,10 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
-import { Text, textPropDefs } from '../text';
+import { Text, textPropDefs, type TextProps } from '../text';
 import { calloutRootPropDefs } from './callout.props';
 
-import type { ExtractPropsForTag, GetPropDefTypes, PropsWithoutColor } from '../../helpers';
+import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 
 type CalloutRootOwnProps = GetPropDefTypes<typeof calloutRootPropDefs>;
 
@@ -48,20 +48,25 @@ interface CalloutIconProps extends PropsWithoutColor<'div'> {}
 const CalloutIcon = (props: CalloutIconProps) => {
   const { color, size, highContrast } = React.useContext(CalloutContext);
   return (
-    <Text asChild color={color} size={getTextSize(size)} highContrast={highContrast}>
-      <div {...props} className={classNames('fui-CalloutIcon', props.className)} />
-    </Text>
+    <Text
+      render={<div />}
+      color={color}
+      size={getTextSize(size)}
+      highContrast={highContrast}
+      {...props}
+      className={classNames('fui-CalloutIcon', props.className)}
+    />
   );
 };
 CalloutIcon.displayName = 'CalloutIcon';
 
-type CalloutTextProps = ExtractPropsForTag<typeof Text, 'p'>;
+type CalloutTextProps = TextProps;
 
 const CalloutText = (props: CalloutTextProps) => {
   const { color, size, highContrast } = React.useContext(CalloutContext);
   return (
     <Text
-      as="p"
+      render={<p />}
       size={getTextSize(size)}
       color={color}
       highContrast={highContrast}

@@ -1,9 +1,9 @@
 'use client';
 
+import { mergeProps, useRender } from '@base-ui/react';
 import classNames from 'classnames';
 import * as React from 'react';
 
-import { Slot } from 'radix-ui';
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 import { useIsomorphicLayoutEffect } from '../../helpers/use-isomorphic-layout-effect';
 import { widgetStackRootPropDefs } from './widget-stack.props';
@@ -132,7 +132,7 @@ const WidgetStackRoot: React.FC<WidgetStackRootProps> = ({
 WidgetStackRoot.displayName = 'WidgetStackRoot';
 
 interface WidgetStackStackProps extends PropsWithoutColor<'div'> {
-  asChild?: boolean;
+  render?: useRender.ComponentProps<'div'>['render'];
 }
 
 const WidgetStackStack = (props: WidgetStackStackProps) => {
@@ -402,10 +402,7 @@ const WidgetStackItem = (props: WidgetStackItemProps) => {
         role="group"
         aria-roledescription="slide"
         data-fully-visible={isFullyVisible ? 'true' : undefined}
-        // Disable focusing widget content when it's not fully visible
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        inert={isFullyVisible ? undefined : ''}
+        inert={!isFullyVisible}
       >
         <div className={classNames('fui-WidgetStackItemContent')}>{children}</div>
       </div>
@@ -415,38 +412,49 @@ const WidgetStackItem = (props: WidgetStackItemProps) => {
 
 WidgetStackItem.displayName = 'WidgetStackItem';
 
-interface WidgetStackNextProps extends Omit<React.ComponentProps<'button'>, 'asChild' | 'disabled' | 'onClick'> {}
+interface WidgetStackNextProps extends Omit<React.ComponentProps<'button'>, 'disabled' | 'onClick'> {
+  render?: useRender.ComponentProps<'button'>['render'];
+}
 
 const WidgetStackNext = (props: WidgetStackNextProps) => {
+  const { render, ...rest } = props;
   const { nextDisabled, controls } = useWidgetStack();
 
-  return (
-    <Slot.Root
-      {...props}
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore -- fix later
-      disabled={nextDisabled}
-      data-disabled={nextDisabled || undefined}
-      onClick={controls?.next}
-    />
-  );
+  return useRender({
+    render,
+    props: mergeProps(
+      rest as React.ComponentProps<'button'>,
+      {
+        disabled: nextDisabled,
+        'data-disabled': nextDisabled || undefined,
+        onClick: controls?.next,
+      } as React.ComponentProps<'button'>,
+    ),
+    defaultTagName: 'button',
+  });
 };
 WidgetStackNext.displayName = 'WidgetStackNext';
 
-interface WidgetStackPrevProps extends Omit<React.ComponentProps<'button'>, 'asChild' | 'disabled' | 'onClick'> {}
+interface WidgetStackPrevProps extends Omit<React.ComponentProps<'button'>, 'disabled' | 'onClick'> {
+  render?: useRender.ComponentProps<'button'>['render'];
+}
 
 const WidgetStackPrev = (props: WidgetStackPrevProps) => {
+  const { render, ...rest } = props;
   const { prevDisabled, controls } = useWidgetStack();
-  return (
-    <Slot.Root
-      {...props}
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore -- fix later
-      disabled={prevDisabled}
-      data-disabled={prevDisabled || undefined}
-      onClick={controls?.prev}
-    />
-  );
+
+  return useRender({
+    render,
+    props: mergeProps(
+      rest as React.ComponentProps<'button'>,
+      {
+        disabled: prevDisabled,
+        'data-disabled': prevDisabled || undefined,
+        onClick: controls?.prev,
+      } as React.ComponentProps<'button'>,
+    ),
+    defaultTagName: 'button',
+  });
 };
 WidgetStackPrev.displayName = 'WidgetStackPrev';
 

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
 
-import { Checkbox, Code, Em, Kbd, Link, Text, textPropDefs } from '..';
+import { Checkbox, Code, Em, Kbd, Link, Text, TextField, textPropDefs } from '..';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -164,11 +164,9 @@ export const FormControls: Story = {
   name: 'With form controls',
   render: () => (
     <div style={{ maxWidth: 300 }}>
-      <Text size="3" asChild>
-        <div style={{ display: 'flex', gap: 12 }}>
-          <Checkbox defaultChecked /> Composing Text with a form control like Checkbox, RadioGroup, or Switch
-          automatically centers the control with the first line of text, even when the text is multi-line.
-        </div>
+      <Text size="3" render={<div />} style={{ display: 'flex', gap: 12 }}>
+        <Checkbox defaultChecked /> Composing Text with a form control like Checkbox, RadioGroup, or Switch
+        automatically centers the control with the first line of text, even when the text is multi-line.
       </Text>
     </div>
   ),
@@ -190,6 +188,46 @@ export const HighContrast: Story = {
       <Text {...args} highContrast color="crimson">
         The quick brown fox jumps over the lazy dog.
       </Text>
+    </div>
+  ),
+};
+
+export const AsFormLabel: Story = {
+  name: 'As Form Label',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 24, width: 300 }}>
+      <Text size="2" weight="medium" render={<button type="button" />}>
+        as button
+      </Text>
+      {/* Using the render prop to render Text as a label element */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <Text size="2" weight="medium" render={<label htmlFor="email-input" />}>
+          Email address
+        </Text>
+        <TextField.Root>
+          <TextField.Input id="email-input" placeholder="Enter your email" />
+        </TextField.Root>
+      </div>
+
+      {/* Another example with required indicator */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <Text size="2" weight="medium" render={<label htmlFor="password-input" />}>
+          Password <Text color="red">*</Text>
+        </Text>
+        <TextField.Root>
+          <TextField.Input id="password-input" type="password" placeholder="Enter your password" />
+        </TextField.Root>
+      </div>
+
+      {/* Using render prop with htmlFor */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <Text size="2" weight="medium" render={<label htmlFor="username-input" />}>
+          Username
+        </Text>
+        <TextField.Root>
+          <TextField.Input id="username-input" placeholder="Enter your username" />
+        </TextField.Root>
+      </div>
     </div>
   ),
 };

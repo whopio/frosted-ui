@@ -31,60 +31,10 @@ export default function Dashboard() {
       <body>
         {/* TODO: NextThemeProvider creates some infinite loop and app crashes */}
         {/* <NextThemeProvider> */}
-        <Theme asChild appearance="dark" grayColor="gray" accentColor="blue">
-          <div id="root" className="w-full bg-gray-1">
-            <ThemePanel />
-            <header className="sticky top-0 backdrop-blur-lg z-10 backdrop-saturate-150">
-              <div className="absolute inset-0 bg-panel-translucent -z-[1]" style={{ filter: 'url(#myFilter' }} />
-              <div
-                style={{
-                  maxWidth: '1136px',
-                  width: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  flexShrink: 0,
-                  flexGrow: 1,
-                }}
-              >
-                <div>
-                  <div className="py-4 flex items-center">
-                    <WhopLogo className="w-[137px] h-auto" />
-                  </div>
-                </div>
-              </div>
-
-              <Separator color="gray" orientation="horizontal" size="4" />
-              <div
-                style={{
-                  maxWidth: '1136px',
-                  width: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  flexShrink: 0,
-                  flexGrow: 1,
-                }}
-              >
-                <div>
-                  <div className="flex items-center">
-                    <Tabs.Root defaultValue="1" className="-mb-[1px]">
-                      <Tabs.List size="2">
-                        <Tabs.Trigger value="Reselling">Reselling</Tabs.Trigger>
-                        <Tabs.Trigger value="Trading">Trading</Tabs.Trigger>
-                        <Tabs.Trigger value="Sports">Sports</Tabs.Trigger>
-                        <Tabs.Trigger value="picks">picks</Tabs.Trigger>
-                        <Tabs.Trigger value="E-commerce">E-commerce</Tabs.Trigger>
-                        <Tabs.Trigger value="Life">Life</Tabs.Trigger>
-                        <Tabs.Trigger value="hacks">hacks</Tabs.Trigger>
-                        <Tabs.Trigger value="Business">Business</Tabs.Trigger>
-                      </Tabs.List>
-                    </Tabs.Root>
-                  </div>
-                </div>
-              </div>
-              <Separator color="gray" orientation="horizontal" size="4" className="relative z-[1]" />
-            </header>
+        <Theme id="root" className="w-full bg-gray-1" appearance="dark" grayColor="gray" accentColor="blue">
+          <ThemePanel />
+          <header className="sticky top-0 backdrop-blur-lg z-10 backdrop-saturate-150">
+            <div className="absolute inset-0 bg-panel-translucent -z-[1]" style={{ filter: 'url(#myFilter' }} />
             <div
               style={{
                 maxWidth: '1136px',
@@ -96,121 +46,169 @@ export default function Dashboard() {
                 flexGrow: 1,
               }}
             >
-              <div className="pt-[120px] flex flex-nowrap">
-                <div className="w-full">
-                  <Heading size="9" trim="start">
-                    A marketplace for really cool internet products.
-                  </Heading>
-                  <Text as="p" color="gray" size="5" style={{ marginTop: 16 }}>
-                    Entrepreneurial communities and software to help you earn online.
-                  </Text>
-                  <Tooltip content="This is a tooltip">
-                    <Button variant="classic" size="4" style={{ marginTop: 16 }}>
-                      Get some money!
-                    </Button>
-                  </Tooltip>
+              <div>
+                <div className="py-4 flex items-center">
+                  <WhopLogo className="w-[137px] h-auto" />
                 </div>
-                <div className="w-[500px] shrink-0 pl-12">
-                  <div className="flex gap-2 items-center">
-                    <Heading size="5">Recent activity</Heading>
-                    <Text size="2" color="blue" trim="both">
-                      LIVE
-                    </Text>
-                  </div>
-                  {colorfulEmojis.map((emoji) => (
-                    <Badge key={emoji} color={getColorForEmoji(emoji) ?? 'gray'} size="2" variant="surface">
-                      {emoji} {getColorForEmoji(emoji)}
-                    </Badge>
-                  ))}
+              </div>
+            </div>
 
-                  <div
-                    className="flex flex-col gap-3 mt-4"
-                    style={{
-                      WebkitMaskImage: 'linear-gradient(175deg, black, transparent)',
-                    }}
-                  >
-                    <ActivityCard title="Goat Sports Club" />
-                    <ActivityCard title="Parlay Kings" />
-                    <ActivityCard title="SneakerBot 2.0" />
-                    <ActivityCard title="UI Design Course" />
-                  </div>
+            <Separator color="gray" orientation="horizontal" size="4" />
+            <div
+              style={{
+                maxWidth: '1136px',
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                flexShrink: 0,
+                flexGrow: 1,
+              }}
+            >
+              <div>
+                <div className="flex items-center">
+                  <Tabs.Root defaultValue="1" className="-mb-[1px]">
+                    <Tabs.List size="2">
+                      <Tabs.Trigger value="Reselling">Reselling</Tabs.Trigger>
+                      <Tabs.Trigger value="Trading">Trading</Tabs.Trigger>
+                      <Tabs.Trigger value="Sports">Sports</Tabs.Trigger>
+                      <Tabs.Trigger value="picks">picks</Tabs.Trigger>
+                      <Tabs.Trigger value="E-commerce">E-commerce</Tabs.Trigger>
+                      <Tabs.Trigger value="Life">Life</Tabs.Trigger>
+                      <Tabs.Trigger value="hacks">hacks</Tabs.Trigger>
+                      <Tabs.Trigger value="Business">Business</Tabs.Trigger>
+                    </Tabs.List>
+                  </Tabs.Root>
                 </div>
               </div>
             </div>
-            <div className="mt-12 bg-gray-3">
-              <div
-                style={{
-                  maxWidth: '1136px',
-                  width: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  flexShrink: 0,
-                  flexGrow: 1,
-                }}
-              >
-                <div className="flex justify-center gap-12 py-12">
-                  <div className="text-center">
-                    <Heading size="7">#172,264,047</Heading>
-                    <Text size="2" color="gray">
-                      Purchased on Whop
-                    </Text>
-                  </div>
-                  <div className="text-center">
-                    <Heading size="7" color="magenta">
-                      #172,264,047
-                    </Heading>
-                    <Text size="2" color="gray">
-                      Purchased on Whop
-                    </Text>
-                  </div>
-                  <div className="text-center">
-                    <Heading size="7" color="pink">
-                      #172,264,047
-                    </Heading>
-                    <Text size="2" color="gray">
-                      Purchased on Whop
-                    </Text>
-                  </div>
+            <Separator color="gray" orientation="horizontal" size="4" className="relative z-[1]" />
+          </header>
+          <div
+            style={{
+              maxWidth: '1136px',
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              flexShrink: 0,
+              flexGrow: 1,
+            }}
+          >
+            <div className="pt-[120px] flex flex-nowrap">
+              <div className="w-full">
+                <Heading size="9" trim="start">
+                  A marketplace for really cool internet products.
+                </Heading>
+                <Text render={<p />} color="gray" size="5" style={{ marginTop: 16 }}>
+                  Entrepreneurial communities and software to help you earn online.
+                </Text>
+                <Tooltip content="This is a tooltip">
+                  <Button variant="classic" size="4" style={{ marginTop: 16 }}>
+                    Get some money!
+                  </Button>
+                </Tooltip>
+              </div>
+              <div className="w-[500px] shrink-0 pl-12">
+                <div className="flex gap-2 items-center">
+                  <Heading size="5">Recent activity</Heading>
+                  <Text size="2" color="blue" trim="both">
+                    LIVE
+                  </Text>
+                </div>
+                {colorfulEmojis.map((emoji) => (
+                  <Badge key={emoji} color={getColorForEmoji(emoji) ?? 'gray'} size="2" variant="surface">
+                    {emoji} {getColorForEmoji(emoji)}
+                  </Badge>
+                ))}
+
+                <div
+                  className="flex flex-col gap-3 mt-4"
+                  style={{
+                    WebkitMaskImage: 'linear-gradient(175deg, black, transparent)',
+                  }}
+                >
+                  <ActivityCard title="Goat Sports Club" />
+                  <ActivityCard title="Parlay Kings" />
+                  <ActivityCard title="SneakerBot 2.0" />
+                  <ActivityCard title="UI Design Course" />
                 </div>
               </div>
             </div>
-            <div className="mt-10">
-              <div
-                style={{
-                  maxWidth: '1136px',
-                  width: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  flexShrink: 0,
-                  flexGrow: 1,
-                }}
-              >
-                <div className="flex items-center justify-between">
-                  <div>
-                    <Heading size="5">Trending Products</Heading>
-                    <Text size="3" color="gray">
-                      Products currently in high demand.
-                    </Text>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <IconButton variant="soft" color="gray" size="3">
-                      <ArrowLeftIcon width="20" height="20" />
-                    </IconButton>
-                    <IconButton variant="soft" color="gray" size="3">
-                      <ArrowRightIcon width="20" height="20" />
-                    </IconButton>
-                    <Button variant="surface" size="3">
-                      See all <ChevronRightIcon width="16" height="16" />
-                    </Button>
-                  </div>
+          </div>
+          <div className="mt-12 bg-gray-3">
+            <div
+              style={{
+                maxWidth: '1136px',
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                flexShrink: 0,
+                flexGrow: 1,
+              }}
+            >
+              <div className="flex justify-center gap-12 py-12">
+                <div className="text-center">
+                  <Heading size="7">#172,264,047</Heading>
+                  <Text size="2" color="gray">
+                    Purchased on Whop
+                  </Text>
                 </div>
-                <div className="flex gap-4 py-8">
-                  <GalleryCard title="Parlay Kings" />
-                  <GalleryCard title="Parlay Kings" />
-                  <GalleryCard title="Parlay Kings" />
+                <div className="text-center">
+                  <Heading size="7" color="magenta">
+                    #172,264,047
+                  </Heading>
+                  <Text size="2" color="gray">
+                    Purchased on Whop
+                  </Text>
                 </div>
+                <div className="text-center">
+                  <Heading size="7" color="pink">
+                    #172,264,047
+                  </Heading>
+                  <Text size="2" color="gray">
+                    Purchased on Whop
+                  </Text>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="mt-10">
+            <div
+              style={{
+                maxWidth: '1136px',
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                flexShrink: 0,
+                flexGrow: 1,
+              }}
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <Heading size="5">Trending Products</Heading>
+                  <Text size="3" color="gray">
+                    Products currently in high demand.
+                  </Text>
+                </div>
+                <div className="flex items-center gap-2">
+                  <IconButton variant="soft" color="gray" size="3">
+                    <ArrowLeftIcon width="20" height="20" />
+                  </IconButton>
+                  <IconButton variant="soft" color="gray" size="3">
+                    <ArrowRightIcon width="20" height="20" />
+                  </IconButton>
+                  <Button variant="surface" size="3">
+                    See all <ChevronRightIcon width="16" height="16" />
+                  </Button>
+                </div>
+              </div>
+              <div className="flex gap-4 py-8">
+                <GalleryCard title="Parlay Kings" />
+                <GalleryCard title="Parlay Kings" />
+                <GalleryCard title="Parlay Kings" />
               </div>
             </div>
           </div>

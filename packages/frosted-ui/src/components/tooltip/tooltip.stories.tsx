@@ -68,7 +68,7 @@ export const WithProvider: Story = {
   },
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
-      <Text as="div" style={{ maxWidth: 400, textAlign: 'center' }}>
+      <Text render={<div />} style={{ maxWidth: 400, textAlign: 'center' }}>
         Wrap tooltips in <Code>Tooltip.Provider</Code> for shared delay behavior. After hovering one tooltip, subsequent
         tooltips in the group open instantly.
       </Text>
@@ -105,7 +105,7 @@ export const Positioning: Story = {
   },
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
-      <Text as="div" style={{ maxWidth: 400, textAlign: 'center' }}>
+      <Text render={<div />} style={{ maxWidth: 400, textAlign: 'center' }}>
         Use <Code>side</Code> and <Code>align</Code> props to control tooltip positioning.
       </Text>
 
@@ -165,7 +165,7 @@ export const CustomDelay: Story = {
   },
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
-      <Text as="div" style={{ maxWidth: 400, textAlign: 'center' }}>
+      <Text render={<div />} style={{ maxWidth: 400, textAlign: 'center' }}>
         Customize open and close delays with <Code>delay</Code> and <Code>closeDelay</Code> props.
       </Text>
 
@@ -194,7 +194,7 @@ export const DisableHoverablePopup: Story = {
   },
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
-      <Text as="div" style={{ maxWidth: 400, textAlign: 'center' }}>
+      <Text render={<div />} style={{ maxWidth: 400, textAlign: 'center' }}>
         By default, tooltips stay open when the cursor moves to the tooltip content. Set{' '}
         <Code>disableHoverablePopup=true</Code> to disable this behavior.
       </Text>
@@ -221,7 +221,7 @@ export const ControlledMode: Story = {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
-        <Text as="div" style={{ maxWidth: 400, textAlign: 'center' }}>
+        <Text render={<div />} style={{ maxWidth: 400, textAlign: 'center' }}>
           Control tooltip visibility programmatically with <Code>open</Code> and <Code>onOpenChange</Code> props.
         </Text>
 
@@ -248,7 +248,7 @@ export const SideOffset: Story = {
   },
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
-      <Text as="div" style={{ maxWidth: 400, textAlign: 'center' }}>
+      <Text render={<div />} style={{ maxWidth: 400, textAlign: 'center' }}>
         Adjust the distance from the trigger with <Code>sideOffset</Code>.
       </Text>
 
@@ -274,7 +274,7 @@ export const TrackCursorAxis: Story = {
   },
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
-      <Text as="div" style={{ maxWidth: 400, textAlign: 'center' }}>
+      <Text render={<div />} style={{ maxWidth: 400, textAlign: 'center' }}>
         Make the tooltip follow your cursor with <Code>trackCursorAxis</Code>. Move your mouse over the buttons to see
         the effect.
       </Text>
@@ -331,7 +331,7 @@ export const OnOpenChangeComplete: Story = {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
-        <Text as="div" style={{ maxWidth: 450, textAlign: 'center' }}>
+        <Text render={<div />} style={{ maxWidth: 450, textAlign: 'center' }}>
           <Code>onOpenChange</Code> fires immediately when the tooltip starts opening/closing.{' '}
           <Code>onOpenChangeComplete</Code> fires after animations finish.
         </Text>
@@ -385,7 +385,7 @@ export const ActionsRef: Story = {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
-        <Text as="div" style={{ maxWidth: 400, textAlign: 'center' }}>
+        <Text render={<div />} style={{ maxWidth: 400, textAlign: 'center' }}>
           Use <Code>actionsRef</Code> to imperatively control the tooltip. The <Code>close()</Code> method closes the
           tooltip programmatically.
         </Text>

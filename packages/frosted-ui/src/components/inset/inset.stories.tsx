@@ -40,7 +40,7 @@ export const Default: Story = {
           }}
         />
       </Inset>
-      <Text as="p" size="3" style={{ marginTop: 12 }}>
+      <Text render={<p />} size="3" style={{ marginTop: 12 }}>
         <Code>Inset</Code> component applies a negative margin to allow content to bleed into the surrounding container.
       </Text>
     </Card>

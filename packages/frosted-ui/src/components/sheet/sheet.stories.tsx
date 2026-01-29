@@ -52,13 +52,13 @@ export const Default: Story = {
         <Sheet.Body>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
             <label>
-              <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+              <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                 Name
               </Text>
               <TextField.Input size="3" defaultValue="Freja Johnsen" placeholder="Enter your full name" />
             </label>
             <label>
-              <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+              <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                 Email
               </Text>
               <TextField.Input size="3" defaultValue="freja@example.com" placeholder="Enter your email" />
@@ -254,7 +254,7 @@ export const ScrollableContent: Story = {
               borderBottom: '1px solid var(--gray-a4)',
             }}
           >
-            <Text as="p" size="2" style={{ marginBottom: 'var(--space-4)' }}>
+            <Text render={<p />} size="2" style={{ marginBottom: 'var(--space-4)' }}>
               Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
               your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
               Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
@@ -276,7 +276,7 @@ export const ScrollableContent: Story = {
               Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
               your profile. Make changes
             </Text>
-            <Text as="p" size="2" style={{ marginBottom: 'var(--space-4)' }}>
+            <Text render={<p />} size="2" style={{ marginBottom: 'var(--space-4)' }}>
               Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
               your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
               Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
@@ -298,7 +298,7 @@ export const ScrollableContent: Story = {
               Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
               your profile. Make changes
             </Text>
-            <Text as="p" size="2" style={{ marginBottom: 'var(--space-4)' }}>
+            <Text render={<p />} size="2" style={{ marginBottom: 'var(--space-4)' }}>
               Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
               your profile. Make changes to your profile. Make changes to your profile. Make changes to your profile.
               Make changes to your profile. Make changes to your profile. Make changes to your profile. Make changes to
@@ -386,13 +386,13 @@ export const InitialFocus: Story = {
             <Sheet.Body>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
                 <label>
-                  <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                  <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                     Name
                   </Text>
                   <TextField.Input size="3" placeholder="Enter item name" />
                 </label>
                 <label>
-                  <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                  <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                     Description
                   </Text>
                   <TextField.Input ref={descriptionInputRef} size="3" placeholder="Enter description" />
@@ -561,7 +561,7 @@ export const ControlledWithForm: Story = {
             <Sheet.Body>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
                 <label>
-                  <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                  <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                     Name
                   </Text>
                   <TextField.Input
@@ -572,7 +572,7 @@ export const ControlledWithForm: Story = {
                   />
                 </label>
                 <label>
-                  <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                  <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                     Email
                   </Text>
                   <TextField.Input
@@ -831,13 +831,13 @@ export const SheetFromDropdownMenu: Story = {
             <Sheet.Body>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
                 <label>
-                  <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                  <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                     Name
                   </Text>
                   <TextField.Input size="3" defaultValue="My Project" placeholder="Enter name" />
                 </label>
                 <label>
-                  <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                  <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                     Description
                   </Text>
                   <TextArea defaultValue="A sample project description" placeholder="Enter description" />
@@ -941,7 +941,7 @@ export const SheetTriggerInDropdownMenu: Story = {
   render: function Render(args) {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
-        <Text as="div" style={{ maxWidth: 540, textAlign: 'center' }}>
+        <Text render={<div />} style={{ maxWidth: 540, textAlign: 'center' }}>
           When wrapping a menu item with <Code>Sheet.Trigger</Code>, use <Code>closeOnClick=&#123;false&#125;</Code> to
           prevent the menu from closing before the sheet opens.
         </Text>
@@ -967,13 +967,13 @@ export const SheetTriggerInDropdownMenu: Story = {
                 <Sheet.Body>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
                     <label>
-                      <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                      <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                         Name
                       </Text>
                       <TextField.Input size="3" defaultValue="My Project" placeholder="Enter name" />
                     </label>
                     <label>
-                      <Text as="div" size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
+                      <Text render={<div />} size="2" style={{ marginBottom: 'var(--space-1)' }} weight="bold">
                         Description
                       </Text>
                       <TextField.Input size="3" defaultValue="A sample project" placeholder="Enter description" />
