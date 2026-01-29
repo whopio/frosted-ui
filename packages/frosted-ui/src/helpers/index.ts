@@ -7,3 +7,4 @@ export * from './has-own-property';
 export * from './nice-intersection';
 export * from './props';
 export * from './radix-colors';
+export * from './use-layout-effect';
