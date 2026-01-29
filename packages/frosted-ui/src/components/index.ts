@@ -84,6 +84,5 @@ export * from './widget-stack';
 // UTILITIES
 //------------------------------------------------------------------------------
 export * from './portal';
-export * from './slot';
 export * from './visually-hidden';
 
