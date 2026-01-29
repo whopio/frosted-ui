@@ -51,14 +51,14 @@ export const Default: Story = {
           <div style={{ display: 'flex', gap: 'var(--space-4)' }}>
             <Avatar size="3" fallback="FUI" />
             <div>
-              <Heading size="3" as="h3">
+              <Heading size="3" render={<h3 />}>
                 Frosted UI
               </Heading>
-              <Text as="div" size="2" color="gray">
+              <Text render={<div />} size="2" color="gray">
                 frosted-ui
               </Text>
 
-              <Text as="div" size="2" style={{ maxWidth: 300, marginTop: 'var(--space-3)' }}>
+              <Text render={<div />} size="2" style={{ maxWidth: 300, marginTop: 'var(--space-3)' }}>
                 React components library built on top of Base UI primitives.
               </Text>
             </div>
@@ -81,7 +81,7 @@ export const Size: Story = {
           <Link href="#">Size one</Link>
         </HoverCard.Trigger>
         <HoverCard.Content {...args} size="1">
-          <Text as="div" size="1" style={{ maxWidth: 325 }}>
+          <Text render={<div />} size="1" style={{ maxWidth: 325 }}>
             <Strong>Typography</Strong> is the art and technique of arranging type to make written language legible,
             readable and appealing when displayed.
           </Text>
@@ -93,7 +93,7 @@ export const Size: Story = {
           <Link href="#">Size two</Link>
         </HoverCard.Trigger>
         <HoverCard.Content {...args} size="2">
-          <Text as="div" size="2" style={{ maxWidth: 350 }}>
+          <Text render={<div />} size="2" style={{ maxWidth: 350 }}>
             <Strong>Typography</Strong> is the art and technique of arranging type to make written language legible,
             readable and appealing when displayed.
           </Text>
@@ -105,7 +105,7 @@ export const Size: Story = {
           <Link href="#">Size three</Link>
         </HoverCard.Trigger>
         <HoverCard.Content {...args} size="3">
-          <Text as="div" size="3" style={{ maxWidth: 400 }}>
+          <Text render={<div />} size="3" style={{ maxWidth: 400 }}>
             <Strong>Typography</Strong> is the art and technique of arranging type to make written language legible,
             readable and appealing when displayed.
           </Text>
@@ -145,7 +145,7 @@ export const InsetContent: Story = {
               />
             </Inset>
 
-            <Text size="2" style={{ maxWidth: 250 }} as="p">
+            <Text size="2" style={{ maxWidth: 250 }} render={<p />}>
               <Strong>Typography</Strong> is the art and technique of arranging type to make written language legible,
               readable and appealing when displayed. The arrangement of type involves selecting typefaces, point sizes,
               line lengths, line-spacing (leading), and letter-spacing (tracking)…
@@ -372,13 +372,13 @@ export const ProfileCard: Story = {
                 shape="square"
               />
               <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
-                <Heading size="3" as="h3">
+                <Heading size="3" render={<h3 />}>
                   Whop
                 </Heading>
-                <Text as="div" size="2" color="gray">
+                <Text render={<div />} size="2" color="gray">
                   @whopio
                 </Text>
-                <Text as="div" size="2" style={{ marginTop: 'var(--space-2)', maxWidth: 280 }}>
+                <Text render={<div />} size="2" style={{ marginTop: 'var(--space-2)', maxWidth: 280 }}>
                   Build, sell, and engage with software products. We make it easy for creators to launch and grow their
                   digital businesses.
                 </Text>
@@ -435,13 +435,13 @@ export const LinkPreview: Story = {
               />
             </Inset>
             <div style={{ maxWidth: 300 }}>
-              <Text size="2" weight="medium" as="div">
+              <Text size="2" weight="medium" render={<div />}>
                 Typography - Wikipedia
               </Text>
-              <Text size="1" color="gray" as="div" style={{ marginTop: 'var(--space-1)' }}>
+              <Text size="1" color="gray" render={<div />} style={{ marginTop: 'var(--space-1)' }}>
                 en.wikipedia.org
               </Text>
-              <Text size="2" as="div" style={{ marginTop: 'var(--space-2)' }}>
+              <Text size="2" render={<div />} style={{ marginTop: 'var(--space-2)' }}>
                 Typography is the art and science of arranging type to make written language clear, visually appealing,
                 and effective in communication.
               </Text>
@@ -551,13 +551,13 @@ export const Anchor: Story = {
             <HoverCard.Content {...args} anchor={avatarRef}>
               <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
                 <div>
-                  <Text size="2" weight="medium" as="div">
+                  <Text size="2" weight="medium" render={<div />}>
                     John Doe
                   </Text>
-                  <Text size="2" color="gray" as="div">
+                  <Text size="2" color="gray" render={<div />}>
                     Software Engineer
                   </Text>
-                  <Text size="2" as="div" style={{ marginTop: 'var(--space-2)', maxWidth: 200 }}>
+                  <Text size="2" render={<div />} style={{ marginTop: 'var(--space-2)', maxWidth: 200 }}>
                     Building great user experiences with React and TypeScript.
                   </Text>
                 </div>
@@ -604,10 +604,10 @@ export const WithButton: Story = {
           <HoverCard.Content {...args}>
             <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
               <div>
-                <Text size="2" weight="medium" as="div">
+                <Text size="2" weight="medium" render={<div />}>
                   Alice Brown
                 </Text>
-                <Text size="2" color="gray" as="div">
+                <Text size="2" color="gray" render={<div />}>
                   Product Designer
                 </Text>
               </div>

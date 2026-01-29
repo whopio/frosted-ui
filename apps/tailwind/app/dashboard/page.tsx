@@ -219,236 +219,238 @@ export default function Dashboard() {
     <html lang="en" suppressHydrationWarning className={'frosted-ui ' + interVariable.variable}>
       <body>
         {/* <NextThemeProvider> */}
-        <Theme asChild appearance="dark" grayColor="gray" accentColor="blue">
-          <div id="root" className="w-full h-[100vh] bg-gray-1 flex flex-no-wrap p-2">
-            <ThemePanel />
-            <aside className="h-full w-[300px] py-2 px-4">
-              <div className="flex flex-col justify-between h-full">
-                <div>
-                  <div className="flex px-4 py-2">
-                    <Popover.Root>
-                      <Popover.Trigger>
-                        <Card variant="ghost" style={{ flex: 1 }} asChild>
-                          <button className="fui-reset">
-                            <div className="flex items-center justify-between gap-3">
-                              <div className="flex items-center gap-3">
-                                <Avatar fallback="PB" />
-                                <Text>Parlay Banditz</Text>
-                              </div>
-                              <ChevronDownIcon />
-                            </div>
-                          </button>
-                        </Card>
-                      </Popover.Trigger>
-                      <Popover.Content size="3" style={{ width: 300 }}>
-                        <div className="flex gap-3">
-                          <Avatar
-                            size="3"
-                            src="https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?&w=64&h=64&dpr=2&q=70&crop=focalpoint&fp-x=0.67&fp-y=0.5&fp-z=1.4&fit=crop"
-                            fallback="A"
-                          />
-                          <div style={{ flexGrow: 1 }}>
-                            <TextArea size="2" placeholder="Write a comment…" style={{ height: 80 }} />
+        <Theme
+          id="root"
+          className="w-full h-[100vh] bg-gray-1 flex flex-no-wrap p-2"
+          appearance="dark"
+          grayColor="gray"
+          accentColor="blue"
+        >
+          <ThemePanel />
+          <aside className="h-full w-[300px] py-2 px-4">
+            <div className="flex flex-col justify-between h-full">
+              <div>
+                <div className="flex px-4 py-2">
+                  <Popover.Root>
+                    <Popover.Trigger>
+                      <Card variant="ghost" style={{ flex: 1 }} render={<button />}>
+                        <div className="flex items-center justify-between gap-3">
+                          <div className="flex items-center gap-3">
+                            <Avatar fallback="PB" />
+                            <Text>Parlay Banditz</Text>
+                          </div>
+                          <ChevronDownIcon />
+                        </div>
+                      </Card>
+                    </Popover.Trigger>
+                    <Popover.Content size="3" style={{ width: 300 }}>
+                      <div className="flex gap-3">
+                        <Avatar
+                          size="3"
+                          src="https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?&w=64&h=64&dpr=2&q=70&crop=focalpoint&fp-x=0.67&fp-y=0.5&fp-z=1.4&fit=crop"
+                          fallback="A"
+                        />
+                        <div style={{ flexGrow: 1 }}>
+                          <TextArea size="2" placeholder="Write a comment…" style={{ height: 80 }} />
 
-                            <div className="flex justify-between items-center gap-3 mt-3">
-                              <div className="flex items-center gap-2">
-                                <label>
-                                  <Checkbox size="2" />
-                                  <Text size="2">Send to group</Text>
-                                </label>
-                              </div>
-
-                              <Popover.Close>
-                                <Button autoFocus size="2">
-                                  Comment
-                                </Button>
-                              </Popover.Close>
+                          <div className="flex justify-between items-center gap-3 mt-3">
+                            <div className="flex items-center gap-2">
+                              <label>
+                                <Checkbox size="2" />
+                                <Text size="2">Send to group</Text>
+                              </label>
                             </div>
+
+                            <Popover.Close>
+                              <Button autoFocus size="2">
+                                Comment
+                              </Button>
+                            </Popover.Close>
                           </div>
                         </div>
-                      </Popover.Content>
-                    </Popover.Root>
-                  </div>
-                  <div className="flex flex-col gap-1 pt-6">
-                    <SidebarButton>
-                      <HomeIcon width="24" height="24" />
-                      Home
-                    </SidebarButton>
-                    <SidebarButton>
-                      <AccessibilityIcon width="24" height="24" />
-                      Products
-                    </SidebarButton>
-                    <SidebarButton>
-                      <MixerVerticalIcon width="24" height="24" />
-                      Product pages
-                    </SidebarButton>
-                    <SidebarButton>
-                      <EnvelopeOpenIcon width="24" height="24" />
-                      Apps
-                    </SidebarButton>
-                    <SidebarButton>
-                      <CookieIcon width="24" height="24" />
-                      Links
-                    </SidebarButton>
-                    <SidebarButton>
-                      <MobileIcon width="24" height="24" />
-                      Customers
-                    </SidebarButton>
-                    <SidebarButton>
-                      <ReloadIcon width="24" height="24" />
-                      Stats
-                    </SidebarButton>
-                    <SidebarButton>
-                      <RocketIcon width="24" height="24" />
-                      Affiliates
-                    </SidebarButton>
-                    <SidebarButton>
-                      <ClockIcon width="24" height="24" />
-                      Payments
-                    </SidebarButton>
-                    <SidebarButton>
-                      <CodeIcon width="24" height="24" />
-                      Feedback
-                    </SidebarButton>
-                    <SidebarButton>
-                      <CameraIcon width="24" height="24" />
-                      Resolution center
-                    </SidebarButton>
-                  </div>
-                </div>
-                <div className="flex items-center justify-between p-2">
-                  <div className="flex items-center gap-3">
-                    <Avatar fallback="IM" />
-                    <Text>Ilya Miskov</Text>
-                  </div>
-                  <DropdownMenu.Root>
-                    <DropdownMenu.Trigger>
-                      <IconButton variant="surface" size="3">
-                        <GearIcon width="20" height="20" color="var(--gray-10)" />
-                      </IconButton>
-                    </DropdownMenu.Trigger>
-                    <DropdownMenu.Content align="end" size="2">
-                      <DropdownMenu.Item>Sign up</DropdownMenu.Item>
-                      <DropdownMenu.Item>Log in</DropdownMenu.Item>
-
-                      <DropdownMenu.Separator />
-
-                      <DropdownMenu.Item>Air Cover</DropdownMenu.Item>
-                      <DropdownMenu.Item>Cancellations</DropdownMenu.Item>
-                      <DropdownMenu.Sub>
-                        <DropdownMenu.SubTrigger>Hosting</DropdownMenu.SubTrigger>
-
-                        <DropdownMenu.SubContent>
-                          <DropdownMenu.Item>Resources</DropdownMenu.Item>
-                          <DropdownMenu.Item>Community forum</DropdownMenu.Item>
-                          <DropdownMenu.Item>Hosting guide</DropdownMenu.Item>
-                          <DropdownMenu.Separator />
-                          <DropdownMenu.Item>Your home</DropdownMenu.Item>
-                        </DropdownMenu.SubContent>
-                      </DropdownMenu.Sub>
-
-                      <DropdownMenu.Separator />
-
-                      <DropdownMenu.Item>Help Centre</DropdownMenu.Item>
-                    </DropdownMenu.Content>
-                  </DropdownMenu.Root>
-                </div>
-              </div>
-            </aside>
-            <main className="h-full flex-1 rounded-5 border border-solid border-gray-a4 dark:bg-[rgba(255,255,255,0.01)]">
-              <div className="px-[54px] pr-12">
-                <div className="flex flex-row items-center justify-between py-4">
-                  <div>
-                    <Breadcrumbs.Root>
-                      <Breadcrumbs.Item>PRODUCTS</Breadcrumbs.Item>
-                      <Breadcrumbs.Item>PICK A CATEGORY</Breadcrumbs.Item>
-                    </Breadcrumbs.Root>
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-4">
-                      <TextField.Root>
-                        <TextField.Input placeholder="Search" type="search" size="3" />
-                      </TextField.Root>
-                      <Separator orientation="vertical" />
-                      <div className="flex items-center gap-4">
-                        <IconButton variant="ghost" color="gray" size="3">
-                          <CookieIcon width="20" height="20" />
-                        </IconButton>
-                        <IconButton variant="ghost" color="gray" size="3">
-                          <EnvelopeOpenIcon width="20" height="20" />
-                        </IconButton>
-                        <IconButton variant="ghost" color="gray" size="3">
-                          <MixerVerticalIcon width="20" height="20" />
-                        </IconButton>
                       </div>
-                    </div>
-                  </div>
+                    </Popover.Content>
+                  </Popover.Root>
                 </div>
-                <div className="flex flex-row items-center justify-between pb-7">
-                  <div>
-                    <div className="flex flex-col gap-2">
-                      <Heading
-                        size="8"
-                        style={{
-                          fontFeatureSettings: `'liga' 1, 'calt' 1`,
-                        }}
-                      >
-                        {"Choose what you're selling ->"}
-                      </Heading>
-                      <Text color="gray">Choose what you're selling</Text>
-                    </div>
-                  </div>
-                  <div>
-                    <Card variant="surface">
-                      <Inset>
-                        <div className="px-3 py-2">
-                          <Breadcrumbs.Root>
-                            <Breadcrumbs.Item>Pick category</Breadcrumbs.Item>
-                            <Breadcrumbs.Item>Add an app</Breadcrumbs.Item>
-                            <Breadcrumbs.Item>Add price</Breadcrumbs.Item>
-                          </Breadcrumbs.Root>
-                        </div>
-                      </Inset>
-                    </Card>
-                  </div>
-                </div>
-                <Separator size="4" />
-                <div className="flex flex-col gap-9">
-                  <div className="flex flex-col gap-5">
-                    <div className="flex flex-col gap-2">
-                      <Heading size="4">Recommended for you</Heading>
-                      <Text size="2" color="gray">
-                        Our most popular picks
-                      </Text>
-                    </div>
-                    <div className="flex gap-4">
-                      <DashboardCard />
-                      <div className="flex-1" />
-                      <div className="flex-1" />
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-5">
-                    <div className="flex flex-col gap-2">
-                      <Heading size="4">All categories</Heading>
-                      <Text size="2" color="gray">
-                        Our most popular picks
-                      </Text>
-                    </div>
-                    <div className="flex gap-4">
-                      <DashboardCard />
-                      <DashboardCard />
-                      <DashboardCard />
-                    </div>
-                  </div>
-                </div>
-                <div className="flex mt-8">
-                  <Button variant="soft" color="gray" className="w-full" size="4">
-                    Load more
-                  </Button>
+                <div className="flex flex-col gap-1 pt-6">
+                  <SidebarButton>
+                    <HomeIcon width="24" height="24" />
+                    Home
+                  </SidebarButton>
+                  <SidebarButton>
+                    <AccessibilityIcon width="24" height="24" />
+                    Products
+                  </SidebarButton>
+                  <SidebarButton>
+                    <MixerVerticalIcon width="24" height="24" />
+                    Product pages
+                  </SidebarButton>
+                  <SidebarButton>
+                    <EnvelopeOpenIcon width="24" height="24" />
+                    Apps
+                  </SidebarButton>
+                  <SidebarButton>
+                    <CookieIcon width="24" height="24" />
+                    Links
+                  </SidebarButton>
+                  <SidebarButton>
+                    <MobileIcon width="24" height="24" />
+                    Customers
+                  </SidebarButton>
+                  <SidebarButton>
+                    <ReloadIcon width="24" height="24" />
+                    Stats
+                  </SidebarButton>
+                  <SidebarButton>
+                    <RocketIcon width="24" height="24" />
+                    Affiliates
+                  </SidebarButton>
+                  <SidebarButton>
+                    <ClockIcon width="24" height="24" />
+                    Payments
+                  </SidebarButton>
+                  <SidebarButton>
+                    <CodeIcon width="24" height="24" />
+                    Feedback
+                  </SidebarButton>
+                  <SidebarButton>
+                    <CameraIcon width="24" height="24" />
+                    Resolution center
+                  </SidebarButton>
                 </div>
               </div>
-            </main>
-          </div>
+              <div className="flex items-center justify-between p-2">
+                <div className="flex items-center gap-3">
+                  <Avatar fallback="IM" />
+                  <Text>Ilya Miskov</Text>
+                </div>
+                <DropdownMenu.Root>
+                  <DropdownMenu.Trigger>
+                    <IconButton variant="surface" size="3">
+                      <GearIcon width="20" height="20" color="var(--gray-10)" />
+                    </IconButton>
+                  </DropdownMenu.Trigger>
+                  <DropdownMenu.Content align="end" size="2">
+                    <DropdownMenu.Item>Sign up</DropdownMenu.Item>
+                    <DropdownMenu.Item>Log in</DropdownMenu.Item>
+
+                    <DropdownMenu.Separator />
+
+                    <DropdownMenu.Item>Air Cover</DropdownMenu.Item>
+                    <DropdownMenu.Item>Cancellations</DropdownMenu.Item>
+                    <DropdownMenu.Sub>
+                      <DropdownMenu.SubTrigger>Hosting</DropdownMenu.SubTrigger>
+
+                      <DropdownMenu.SubContent>
+                        <DropdownMenu.Item>Resources</DropdownMenu.Item>
+                        <DropdownMenu.Item>Community forum</DropdownMenu.Item>
+                        <DropdownMenu.Item>Hosting guide</DropdownMenu.Item>
+                        <DropdownMenu.Separator />
+                        <DropdownMenu.Item>Your home</DropdownMenu.Item>
+                      </DropdownMenu.SubContent>
+                    </DropdownMenu.Sub>
+
+                    <DropdownMenu.Separator />
+
+                    <DropdownMenu.Item>Help Centre</DropdownMenu.Item>
+                  </DropdownMenu.Content>
+                </DropdownMenu.Root>
+              </div>
+            </div>
+          </aside>
+          <main className="h-full flex-1 rounded-5 border border-solid border-gray-a4 dark:bg-[rgba(255,255,255,0.01)]">
+            <div className="px-[54px] pr-12">
+              <div className="flex flex-row items-center justify-between py-4">
+                <div>
+                  <Breadcrumbs.Root>
+                    <Breadcrumbs.Item>PRODUCTS</Breadcrumbs.Item>
+                    <Breadcrumbs.Item>PICK A CATEGORY</Breadcrumbs.Item>
+                  </Breadcrumbs.Root>
+                </div>
+                <div>
+                  <div className="flex items-center gap-4">
+                    <TextField.Root>
+                      <TextField.Input placeholder="Search" type="search" size="3" />
+                    </TextField.Root>
+                    <Separator orientation="vertical" />
+                    <div className="flex items-center gap-4">
+                      <IconButton variant="ghost" color="gray" size="3">
+                        <CookieIcon width="20" height="20" />
+                      </IconButton>
+                      <IconButton variant="ghost" color="gray" size="3">
+                        <EnvelopeOpenIcon width="20" height="20" />
+                      </IconButton>
+                      <IconButton variant="ghost" color="gray" size="3">
+                        <MixerVerticalIcon width="20" height="20" />
+                      </IconButton>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-row items-center justify-between pb-7">
+                <div>
+                  <div className="flex flex-col gap-2">
+                    <Heading
+                      size="8"
+                      style={{
+                        fontFeatureSettings: `'liga' 1, 'calt' 1`,
+                      }}
+                    >
+                      {"Choose what you're selling ->"}
+                    </Heading>
+                    <Text color="gray">Choose what you're selling</Text>
+                  </div>
+                </div>
+                <div>
+                  <Card variant="surface">
+                    <Inset>
+                      <div className="px-3 py-2">
+                        <Breadcrumbs.Root>
+                          <Breadcrumbs.Item>Pick category</Breadcrumbs.Item>
+                          <Breadcrumbs.Item>Add an app</Breadcrumbs.Item>
+                          <Breadcrumbs.Item>Add price</Breadcrumbs.Item>
+                        </Breadcrumbs.Root>
+                      </div>
+                    </Inset>
+                  </Card>
+                </div>
+              </div>
+              <Separator size="4" />
+              <div className="flex flex-col gap-9">
+                <div className="flex flex-col gap-5">
+                  <div className="flex flex-col gap-2">
+                    <Heading size="4">Recommended for you</Heading>
+                    <Text size="2" color="gray">
+                      Our most popular picks
+                    </Text>
+                  </div>
+                  <div className="flex gap-4">
+                    <DashboardCard />
+                    <div className="flex-1" />
+                    <div className="flex-1" />
+                  </div>
+                </div>
+                <div className="flex flex-col gap-5">
+                  <div className="flex flex-col gap-2">
+                    <Heading size="4">All categories</Heading>
+                    <Text size="2" color="gray">
+                      Our most popular picks
+                    </Text>
+                  </div>
+                  <div className="flex gap-4">
+                    <DashboardCard />
+                    <DashboardCard />
+                    <DashboardCard />
+                  </div>
+                </div>
+              </div>
+              <div className="flex mt-8">
+                <Button variant="soft" color="gray" className="w-full" size="4">
+                  Load more
+                </Button>
+              </div>
+            </div>
+          </main>
         </Theme>
         {/* </NextThemeProvider> */}
       </body>

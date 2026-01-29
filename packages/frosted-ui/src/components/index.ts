@@ -1,6 +1,5 @@
 // LAYOUT
 //------------------------------------------------------------------------------
-export * from './aspect-ratio';
 export * from './inset';
 
 // TYPOGRAPHY
@@ -84,7 +83,6 @@ export * from './widget-stack';
 
 // UTILITIES
 //------------------------------------------------------------------------------
-export * from './accessible-icon';
 export * from './portal';
 export * from './slot';
 export * from './visually-hidden';

@@ -183,7 +183,7 @@ export const KeepMounted: Story = {
           >
             <SegmentedControl.Content value="profile" keepMounted>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
-                <Text as="label" size="2">
+                <Text render={<label />} size="2">
                   Username
                 </Text>
                 <TextField.Input
@@ -199,7 +199,7 @@ export const KeepMounted: Story = {
             </SegmentedControl.Content>
             <SegmentedControl.Content value="contact" keepMounted>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
-                <Text as="label" size="2">
+                <Text render={<label />} size="2">
                   Email
                 </Text>
                 <TextField.Input
@@ -213,7 +213,7 @@ export const KeepMounted: Story = {
             </SegmentedControl.Content>
             <SegmentedControl.Content value="about" keepMounted>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
-                <Text as="label" size="2">
+                <Text render={<label />} size="2">
                   Bio
                 </Text>
                 <TextArea

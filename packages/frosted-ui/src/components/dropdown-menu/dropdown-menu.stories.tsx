@@ -248,13 +248,13 @@ export const DetachedTriggers: Story = {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
-        <Text as="div" style={{ maxWidth: 540, textAlign: 'center' }}>
+        <Text render={<div />} style={{ maxWidth: 540, textAlign: 'center' }}>
           A menu can be opened by a trigger that lives either inside or outside the{' '}
           <Code>&lt;DropdownMenu.Root&gt;</Code>. When the trigger and menu content need to live in different parts of
           the tree, create a handle with <Code>DropdownMenu.createHandle()</Code> and pass it to both the trigger and
           the root.
         </Text>
-        <Text as="div" size="2" color="gray" style={{ maxWidth: 540, textAlign: 'center' }}>
+        <Text render={<div />} size="2" color="gray" style={{ maxWidth: 540, textAlign: 'center' }}>
           Note: Only top-level menus can have detached triggers. Submenus must have their triggers defined within the
           SubmenuRoot part.
         </Text>
@@ -286,13 +286,13 @@ export const MultipleTriggers: Story = {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
-        <Text as="div" style={{ maxWidth: 540, textAlign: 'center' }}>
+        <Text render={<div />} style={{ maxWidth: 540, textAlign: 'center' }}>
           One menu can be opened by several triggers. You can either render multiple{' '}
           <Code>&lt;DropdownMenu.Trigger&gt;</Code> components inside the same <Code>&lt;DropdownMenu.Root&gt;</Code>,
           or attach several detached triggers to the same handle.
         </Text>
 
-        <Text as="div" size="2" weight="bold" style={{ marginTop: 'var(--space-2)' }}>
+        <Text render={<div />} size="2" weight="bold" style={{ marginTop: 'var(--space-2)' }}>
           Multiple triggers inside Root:
         </Text>
         <DropdownMenu.Root>
@@ -314,7 +314,7 @@ export const MultipleTriggers: Story = {
           </DropdownMenu.Content>
         </DropdownMenu.Root>
 
-        <Text as="div" size="2" weight="bold" style={{ marginTop: 'var(--space-4)' }}>
+        <Text render={<div />} size="2" weight="bold" style={{ marginTop: 'var(--space-4)' }}>
           Detached triggers with shared handle:
         </Text>
         <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
@@ -374,7 +374,7 @@ export const ControlledWithMultipleTriggers: Story = {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
-        <Text as="div" style={{ maxWidth: 600, textAlign: 'center' }}>
+        <Text render={<div />} style={{ maxWidth: 600, textAlign: 'center' }}>
           Control a menu's open state externally with the <Code>open</Code> and <Code>onOpenChange</Code> props. When
           more than one trigger can open the menu, track the active trigger with <Code>triggerId</Code> on{' '}
           <Code>&lt;DropdownMenu.Root&gt;</Code> and matching <Code>id</Code> props on each trigger.
@@ -425,7 +425,7 @@ export const SideAndAlign: Story = {
   name: 'Side and Align',
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', alignItems: 'center' }}>
-      <Text as="div" style={{ maxWidth: 500, textAlign: 'center' }}>
+      <Text render={<div />} style={{ maxWidth: 500, textAlign: 'center' }}>
         Control where the menu appears relative to the trigger using <Code>side</Code> and <Code>align</Code> props.
       </Text>
 
@@ -506,7 +506,7 @@ export const SideOffsetAndAlignOffset: Story = {
   name: 'Side Offset and Align Offset',
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', alignItems: 'center' }}>
-      <Text as="div" style={{ maxWidth: 500, textAlign: 'center' }}>
+      <Text render={<div />} style={{ maxWidth: 500, textAlign: 'center' }}>
         Fine-tune menu positioning with <Code>sideOffset</Code> (distance from trigger) and <Code>alignOffset</Code>{' '}
         (shift along the alignment axis).
       </Text>
@@ -593,7 +593,7 @@ export const ManyAdjacentSubmenus: Story = {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
-        <Text as="div" style={{ maxWidth: 500, textAlign: 'center' }}>
+        <Text render={<div />} style={{ maxWidth: 500, textAlign: 'center' }}>
           Stress test with many adjacent submenus. The menu contains 50 submenus, each with 12 nested submenus, each
           containing 8 items.
         </Text>
