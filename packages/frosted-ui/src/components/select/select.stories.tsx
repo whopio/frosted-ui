@@ -289,7 +289,7 @@ export const FormattingTheValue: Story = {
   },
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
-      <Text as="div" style={{ maxWidth: 700 }}>
+      <Text render={<div />} style={{ maxWidth: 700 }}>
         By default, <Code>Select.Value</Code> displays the raw <Code>value</Code>, not the label text. Here are
         different ways to show a formatted label in the trigger.
       </Text>
@@ -409,7 +409,7 @@ export const FormattingTheValue: Story = {
         </div>
       </div>
 
-      <Text as="div" size="2" color="gray" style={{ maxWidth: 700, marginTop: 'var(--space-2)' }}>
+      <Text render={<div />} size="2" color="gray" style={{ maxWidth: 700, marginTop: 'var(--space-2)' }}>
         <strong>Recommendation:</strong> Use <Code>items</Code> prop for data-driven selects, or{' '}
         <Code>renderValue</Code> for custom formatting. Using value=label works for simple cases but can be problematic
         if you need stable IDs for form submission.
@@ -426,7 +426,7 @@ export const DropdownPositioning: Story = {
   },
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
-      <Text as="div" style={{ maxWidth: 500, textAlign: 'center' }}>
+      <Text render={<div />} style={{ maxWidth: 500, textAlign: 'center' }}>
         By default, Base UI Select aligns the selected item with the trigger (native select behavior). Set{' '}
         <Code>alignItemWithTrigger=&#123;false&#125;</Code> for standard dropdown positioning.
       </Text>
@@ -476,7 +476,7 @@ export const SideAndAlign: Story = {
   },
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', alignItems: 'center' }}>
-      <Text as="div" style={{ maxWidth: 500, textAlign: 'center' }}>
+      <Text render={<div />} style={{ maxWidth: 500, textAlign: 'center' }}>
         Control where the popup appears using <Code>side</Code> and <Code>align</Code> props. These only take effect
         when <Code>alignItemWithTrigger=&#123;false&#125;</Code>.
       </Text>
@@ -550,7 +550,7 @@ export const SideOffsetAndAlignOffset: Story = {
   },
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', alignItems: 'center' }}>
-      <Text as="div" style={{ maxWidth: 500, textAlign: 'center' }}>
+      <Text render={<div />} style={{ maxWidth: 500, textAlign: 'center' }}>
         Fine-tune positioning with <Code>sideOffset</Code> (distance from trigger) and <Code>alignOffset</Code> (shift
         along the alignment axis). Requires <Code>alignItemWithTrigger=&#123;false&#125;</Code>.
       </Text>
@@ -598,7 +598,7 @@ export const ControlledMode: Story = {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
-        <Text as="div" style={{ maxWidth: 500, textAlign: 'center' }}>
+        <Text render={<div />} style={{ maxWidth: 500, textAlign: 'center' }}>
           Control the select's value externally with <Code>value</Code> and <Code>onValueChange</Code> props.
         </Text>
 
@@ -636,7 +636,7 @@ export const ManyItems: Story = {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', alignItems: 'center' }}>
-        <Text as="div" style={{ maxWidth: 600, textAlign: 'center' }}>
+        <Text render={<div />} style={{ maxWidth: 600, textAlign: 'center' }}>
           Select with many items. Compare <Code>alignItemWithTrigger</Code> behavior.
         </Text>
 
@@ -719,7 +719,7 @@ export const MultipleSelection: Story = {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
-        <Text as="div" style={{ maxWidth: 500, textAlign: 'center' }}>
+        <Text render={<div />} style={{ maxWidth: 500, textAlign: 'center' }}>
           Add the <Code>multiple</Code> prop to <Code>Select.Root</Code> to allow multiple selections. Use the{' '}
           <Code>renderValue</Code> prop on the Trigger to customize how the selection is displayed.
         </Text>
@@ -753,7 +753,7 @@ export const Controlled: Story = {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
-        <Text as="div" style={{ maxWidth: 600 }}>
+        <Text render={<div />} style={{ maxWidth: 600 }}>
           Use <Code>value</Code> and <Code>onValueChange</Code> props to control the Select. When <Code>multiple</Code>{' '}
           is set, value types automatically become arrays. Use generics like <Code>{'Select.Root<string>'}</Code> or{' '}
           <Code>{'Select.Root<string, true>'}</Code> for full type safety.
@@ -904,7 +904,7 @@ export const ObjectValues: Story = {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
-        <Text as="div" style={{ maxWidth: 500, textAlign: 'center' }}>
+        <Text render={<div />} style={{ maxWidth: 500, textAlign: 'center' }}>
           Select items can use objects as values instead of primitives. Use <Code>itemToStringValue</Code> to convert
           objects to strings for comparison, and <Code>renderValue</Code> to display the full object. Note:{' '}
           <Code>alignItemWithTrigger=&#123;false&#125;</Code> is recommended for variable-height items.

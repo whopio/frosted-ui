@@ -27,7 +27,7 @@ const BreadcrumbsRoot = (props: BreadcrumbsRootProps) => {
         <>
           {index > 0 ? separator : null}
           <Text
-            as="div"
+            render={<div />}
             data-accent-color={color}
             size={'1'}
             children={child.props.children}

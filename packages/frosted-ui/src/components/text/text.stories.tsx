@@ -196,6 +196,9 @@ export const AsFormLabel: Story = {
   name: 'As Form Label',
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 24, width: 300 }}>
+      <Text size="2" weight="medium" render={<button type="button" />}>
+        as button
+      </Text>
       {/* Using the render prop to render Text as a label element */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
         <Text size="2" weight="medium" render={<label htmlFor="email-input" />}>
@@ -216,10 +219,10 @@ export const AsFormLabel: Story = {
         </TextField.Root>
       </div>
 
-      {/* Comparison: using as="label" for simple cases */}
+      {/* Using render prop with htmlFor */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-        <Text size="2" weight="medium" as="label" htmlFor="username-input">
-          Username (using as prop)
+        <Text size="2" weight="medium" render={<label htmlFor="username-input" />}>
+          Username
         </Text>
         <TextField.Root>
           <TextField.Input id="username-input" placeholder="Enter your username" />

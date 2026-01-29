@@ -31,7 +31,7 @@ export const Default: Story = {
           <Card size="2" style={{ maxWidth: 400 }} variant="classic">
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
               <div style={{ display: 'grid', gap: 4 }}>
-                <Text as="div" weight="bold" size="2" style={{ marginBottom: 4 }}>
+                <Text render={<div />} weight="bold" size="2" style={{ marginBottom: 4 }}>
                   Feedback
                 </Text>
                 <TextArea placeholder="Write your feedback…" />

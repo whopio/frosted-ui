@@ -119,7 +119,7 @@ const TooltipImpl = (props: TooltipProps) => {
             {...tooltipProps}
             className={classNames('fui-TooltipContent', className)}
           >
-            <Text as="p" className="fui-TooltipText" size="2">
+            <Text render={<p />} className="fui-TooltipText" size="2">
               {content}
             </Text>
             <TooltipPrimitive.Arrow className="fui-TooltipArrow" />

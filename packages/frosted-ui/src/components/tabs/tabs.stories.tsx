@@ -149,7 +149,7 @@ export const KeepMounted: Story = {
           >
             <Tabs.Content value="profile" keepMounted>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
-                <Text as="label" size="2">
+                <Text render={<label />} size="2">
                   Name
                 </Text>
                 <TextField.Input
@@ -165,7 +165,7 @@ export const KeepMounted: Story = {
             </Tabs.Content>
             <Tabs.Content value="contact" keepMounted>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
-                <Text as="label" size="2">
+                <Text render={<label />} size="2">
                   Email
                 </Text>
                 <TextField.Input
@@ -179,7 +179,7 @@ export const KeepMounted: Story = {
             </Tabs.Content>
             <Tabs.Content value="about" keepMounted>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
-                <Text as="label" size="2">
+                <Text render={<label />} size="2">
                   Bio
                 </Text>
                 <TextArea

@@ -208,7 +208,7 @@ export const DialogFromContextMenu: Story = {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
-        <Text as="div" style={{ maxWidth: 500, textAlign: 'center' }}>
+        <Text render={<div />} style={{ maxWidth: 500, textAlign: 'center' }}>
           Open a dialog from a context menu using controlled state. The dialog is controlled via <Code>open</Code> and{' '}
           <Code>onOpenChange</Code> props, and opened imperatively via <Code>onClick</Code> on the menu item.
         </Text>
@@ -255,13 +255,13 @@ export const DialogFromContextMenu: Story = {
               }}
             >
               <label>
-                <Text as="div" size="2" style={{ marginBottom: 4 }} weight="bold">
+                <Text render={<div />} size="2" style={{ marginBottom: 4 }} weight="bold">
                   Name
                 </Text>
                 <TextField.Input defaultValue="My Item" placeholder="Enter name" />
               </label>
               <label>
-                <Text as="div" size="2" style={{ marginBottom: 4 }} weight="bold">
+                <Text render={<div />} size="2" style={{ marginBottom: 4 }} weight="bold">
                   Description
                 </Text>
                 <TextArea defaultValue="A sample item description" placeholder="Enter description" />
@@ -326,7 +326,7 @@ export const SideAndAlign: Story = {
   name: 'Side and Align',
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
-      <Text as="div" style={{ maxWidth: 500, textAlign: 'center' }}>
+      <Text render={<div />} style={{ maxWidth: 500, textAlign: 'center' }}>
         Control where the menu appears relative to the click position using <Code>side</Code> and <Code>align</Code>{' '}
         props. Try right-clicking each box.
       </Text>
@@ -436,7 +436,7 @@ export const SideOffsetAndAlignOffset: Story = {
   name: 'Side Offset and Align Offset',
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
-      <Text as="div" style={{ maxWidth: 500, textAlign: 'center' }}>
+      <Text render={<div />} style={{ maxWidth: 500, textAlign: 'center' }}>
         Fine-tune menu positioning with <Code>sideOffset</Code> (distance from click) and <Code>alignOffset</Code>{' '}
         (shift along the alignment axis). Right-click each box.
       </Text>

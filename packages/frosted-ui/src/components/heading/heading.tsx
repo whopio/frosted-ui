@@ -8,22 +8,15 @@ import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 
 type HeadingOwnProps = GetPropDefTypes<typeof headingPropDefs>;
 
-type HeadingRenderProps = {
+interface HeadingProps extends HeadingOwnProps, PropsWithoutColor<'h1'> {
   render?: useRender.ComponentProps<'h1'>['render'];
-  as?: never;
-} & PropsWithoutColor<'h1'>;
-type HeadingAsProps = {
-  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-  render?: never;
-} & PropsWithoutColor<'h1'>;
-type HeadingProps = HeadingOwnProps & (HeadingRenderProps | HeadingAsProps);
+}
 
 const Heading = (props: HeadingProps) => {
   const {
     children,
     className,
     render,
-    as: Tag = 'h1',
     size = headingPropDefs.size.default,
     weight = headingPropDefs.weight.default,
     align = headingPropDefs.align.default,
@@ -34,7 +27,7 @@ const Heading = (props: HeadingProps) => {
   } = props;
 
   return useRender({
-    render: render ?? <Tag />,
+    render,
     props: mergeProps(
       headingProps as React.ComponentProps<'h1'>,
       {
@@ -51,7 +44,7 @@ const Heading = (props: HeadingProps) => {
         children,
       } as React.ComponentProps<'h1'>,
     ),
-    defaultTagName: 'h1', // Used for TypeScript inference
+    defaultTagName: 'h1',
   });
 };
 Heading.displayName = 'Heading';

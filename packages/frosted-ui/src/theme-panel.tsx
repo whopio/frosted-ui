@@ -208,7 +208,7 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
           <Heading
             size="5"
             trim="both"
-            as="h3"
+            render={<h3 />}
             style={{
               marginBottom: 24,
             }}
@@ -218,7 +218,7 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
 
           <Text
             id="accent-color-title"
-            as="p"
+            render={<p />}
             size="2"
             weight="medium"
             style={{
@@ -259,7 +259,7 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
           </div>
 
           <Text
-            as="p"
+            render={<p />}
             id="gray-color-title"
             size="2"
             weight="medium"
@@ -320,7 +320,7 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
 
           <Text
             id="info-color-title"
-            as="p"
+            render={<p />}
             size="2"
             weight="medium"
             style={{
@@ -358,7 +358,7 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
 
           <Text
             id="success-color-title"
-            as="p"
+            render={<p />}
             size="2"
             weight="medium"
             style={{
@@ -396,7 +396,7 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
 
           <Text
             id="warning-color-title"
-            as="p"
+            render={<p />}
             size="2"
             weight="medium"
             style={{
@@ -434,7 +434,7 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
 
           <Text
             id="danger-color-title"
-            as="p"
+            render={<p />}
             size="2"
             weight="medium"
             style={{
@@ -471,7 +471,7 @@ const ThemePanelImpl = React.forwardRef<ThemePanelImplElement, ThemePanelImplPro
           </div>
           <Text
             id="appearance-title"
-            as="p"
+            render={<p />}
             size="2"
             weight="medium"
             style={{

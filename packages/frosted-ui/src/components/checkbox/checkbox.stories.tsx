@@ -57,19 +57,19 @@ export const Composed: Story = {
   },
   render: (args) => (
     <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'column' }}>
-      <Text as="label" size="2">
+      <Text render={<label />} size="2">
         <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
           <Checkbox defaultChecked {...args} />
           Default
         </div>
       </Text>
-      <Text as="label" size="2">
+      <Text render={<label />} size="2">
         <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
           <Checkbox defaultChecked={true} disabled {...args} />
           Disabled checked
         </div>
       </Text>
-      <Text as="label" size="2">
+      <Text render={<label />} size="2">
         <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
           <Checkbox defaultChecked={false} disabled {...args} />
           Disabled unchecked
@@ -129,26 +129,26 @@ export const Alignment: Story = {
       <Text style={{ marginBottom: 12 }}>
         Composing <Code>Checkbox</Code> within <Code>Text</Code> automatically centers it with the first line of text.
       </Text>
-      <Text as="label" size="3">
+      <Text render={<label />} size="3">
         <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
           <Checkbox {...args} size="1" defaultChecked /> Agree to Terms and Conditions
         </div>
       </Text>
 
-      <Text as="label" size="4">
+      <Text render={<label />} size="4">
         <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
           <Checkbox {...args} size="2" defaultChecked /> Agree to Terms and Conditions
         </div>
       </Text>
 
-      <Text as="label" size="5">
+      <Text render={<label />} size="5">
         <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
           <Checkbox {...args} size="3" defaultChecked /> Agree to Terms and Conditions
         </div>
       </Text>
 
       <div style={{ maxWidth: 300 }}>
-        <Text as="label" size="4">
+        <Text render={<label />} size="4">
           <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
             <Checkbox defaultChecked /> It is automatically well-aligned with multi-line text too.
           </div>
@@ -176,19 +176,19 @@ export const FormValues: Story = {
           behavior). These props let you customize both values.
         </Text>
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
-          <Text as="label" size="2">
+          <Text render={<label />} size="2">
             <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
               <Checkbox {...args} name="newsletter" defaultChecked value="subscribed" uncheckedValue="unsubscribed" />
               Subscribe to newsletter
             </div>
           </Text>
-          <Text as="label" size="2">
+          <Text render={<label />} size="2">
             <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
               <Checkbox {...args} name="terms" value="accepted" uncheckedValue="declined" />
               Accept terms and conditions
             </div>
           </Text>
-          <Text as="label" size="2">
+          <Text render={<label />} size="2">
             <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
               <Checkbox {...args} name="marketing" defaultChecked />
               Marketing emails (no custom values)
@@ -232,17 +232,17 @@ export const ReadOnly: Story = {
           <Text size="2" weight="medium">
             Your Subscription Features (Premium Plan)
           </Text>
-          <Text as="label" size="2">
+          <Text render={<label />} size="2">
             <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
               <Checkbox {...args} checked={isPremium} readOnly /> Unlimited storage
             </div>
           </Text>
-          <Text as="label" size="2">
+          <Text render={<label />} size="2">
             <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
               <Checkbox {...args} checked={isPremium} readOnly /> Priority support
             </div>
           </Text>
-          <Text as="label" size="2">
+          <Text render={<label />} size="2">
             <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
               <Checkbox {...args} checked={isPremium} readOnly /> Advanced analytics
             </div>
@@ -252,17 +252,17 @@ export const ReadOnly: Story = {
           <Text size="2" weight="medium">
             Notification Settings (set by admin)
           </Text>
-          <Text as="label" size="2">
+          <Text render={<label />} size="2">
             <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
               <Checkbox {...args} checked={preferences.emailDigest} readOnly /> Daily email digest
             </div>
           </Text>
-          <Text as="label" size="2">
+          <Text render={<label />} size="2">
             <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
               <Checkbox {...args} checked={preferences.smsAlerts} readOnly /> SMS alerts
             </div>
           </Text>
-          <Text as="label" size="2">
+          <Text render={<label />} size="2">
             <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
               <Checkbox {...args} checked={preferences.pushNotifications} readOnly /> Push notifications
             </div>
@@ -309,7 +309,7 @@ export const InputRef: Story = {
           that need direct DOM access.
         </Text>
         <form>
-          <Text as="label" size="2">
+          <Text render={<label />} size="2">
             <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
               <Checkbox {...args} inputRef={inputRef} name="agreement" required /> I agree to the terms (required)
             </div>

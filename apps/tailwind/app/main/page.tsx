@@ -100,7 +100,7 @@ export default function Dashboard() {
                 <Heading size="9" trim="start">
                   A marketplace for really cool internet products.
                 </Heading>
-                <Text as="p" color="gray" size="5" style={{ marginTop: 16 }}>
+                <Text render={<p />} color="gray" size="5" style={{ marginTop: 16 }}>
                   Entrepreneurial communities and software to help you earn online.
                 </Text>
                 <Tooltip content="This is a tooltip">

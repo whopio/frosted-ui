@@ -8,7 +8,8 @@ import { Heading } from '../heading';
 import { Text } from '../text';
 import { dialogContentPropDefs } from './dialog.props';
 
-import type { ExtractPropsForTag, GetPropDefTypes } from '../../helpers';
+import type { GetPropDefTypes } from '../../helpers';
+import type { TextProps } from '../text';
 
 // Re-export createHandle for detached triggers
 const createHandle = DialogPrimitive.createHandle;
@@ -129,7 +130,7 @@ const DialogTitle = ({ size: sizeProp, className, ...props }: DialogTitleProps) 
 DialogTitle.displayName = 'DialogTitle';
 
 // Description
-type DialogDescriptionProps = ExtractPropsForTag<typeof Text, 'p'>;
+type DialogDescriptionProps = TextProps;
 
 const DialogDescription = ({ size: sizeProp, className, ...props }: DialogDescriptionProps) => {
   const { size: contextSize } = React.useContext(DialogContentContext);
@@ -149,7 +150,12 @@ const DialogDescription = ({ size: sizeProp, className, ...props }: DialogDescri
   return (
     <DialogPrimitive.Description
       render={
-        <Text as="p" size={sizeProp || size} className={classNames('fui-DialogDescription', className)} {...props} />
+        <Text
+          render={<p />}
+          size={sizeProp || size}
+          className={classNames('fui-DialogDescription', className)}
+          {...props}
+        />
       }
     />
   );

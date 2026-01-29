@@ -4,10 +4,9 @@ import * as React from 'react';
 import { Drawer as DrawerPrimitive } from 'vaul-base';
 
 import classNames from 'classnames';
-import { ExtractPropsForTag } from '../../helpers';
 import { Theme } from '../../theme';
 import { Heading } from '../heading';
-import { Text } from '../text';
+import { Text, type TextProps } from '../text';
 
 type SheetRootProps = Omit<
   React.ComponentProps<typeof DrawerPrimitive.Root>,
@@ -118,10 +117,10 @@ const SheetTitle = ({ size = '5', weight = 'bold', ...props }: SheetTitleProps) 
 };
 SheetTitle.displayName = 'SheetTitle';
 
-type SheetDescriptionProps = ExtractPropsForTag<typeof Text, 'p'>;
+type SheetDescriptionProps = TextProps;
 
 const SheetDescription = ({ size = '3', weight = 'regular', ...props }: SheetDescriptionProps) => {
-  return <DrawerPrimitive.Description render={<Text as="p" size={size} weight={weight} {...props} />} />;
+  return <DrawerPrimitive.Description render={<Text render={<p />} size={size} weight={weight} {...props} />} />;
 };
 SheetDescription.displayName = 'SheetDescription';
 

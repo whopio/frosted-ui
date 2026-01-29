@@ -8,31 +8,15 @@ import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 
 type TextOwnProps = GetPropDefTypes<typeof textPropDefs>;
 
-type TextRenderProps = {
+interface TextProps extends TextOwnProps, PropsWithoutColor<'span'> {
   render?: useRender.ComponentProps<'span'>['render'];
-  as?: never;
-} & PropsWithoutColor<'span'>;
-type TextSpanProps = {
-  as?: 'span';
-  render?: never;
-} & PropsWithoutColor<'span'>;
-type TextDivProps = {
-  as: 'div';
-  render?: never;
-} & PropsWithoutColor<'div'>;
-type TextLabelProps = {
-  as: 'label';
-  render?: never;
-} & PropsWithoutColor<'label'>;
-type TextPProps = { as: 'p'; render?: never } & PropsWithoutColor<'p'>;
-type TextProps = TextOwnProps & (TextRenderProps | TextSpanProps | TextDivProps | TextLabelProps | TextPProps);
+}
 
 const Text = (props: TextProps) => {
   const {
     children,
     className,
     render,
-    as: Tag = 'span',
     size = textPropDefs.size.default,
     weight = textPropDefs.weight.default,
     align = textPropDefs.align.default,
@@ -43,7 +27,7 @@ const Text = (props: TextProps) => {
   } = props;
 
   return useRender({
-    render: render ?? <Tag />,
+    render,
     props: mergeProps(
       textProps as React.ComponentProps<'span'>,
       {
@@ -60,7 +44,7 @@ const Text = (props: TextProps) => {
         children,
       } as React.ComponentProps<'span'>,
     ),
-    defaultTagName: 'span', // Used for TypeScript inference
+    defaultTagName: 'span',
   });
 };
 Text.displayName = 'Text';

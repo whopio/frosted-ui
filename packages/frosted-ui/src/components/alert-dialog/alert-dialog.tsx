@@ -8,7 +8,8 @@ import { Heading } from '../heading';
 import { Text } from '../text';
 import { alertDialogContentPropDefs } from './alert-dialog.props';
 
-import type { ExtractPropsForTag, GetPropDefTypes } from '../../helpers';
+import type { GetPropDefTypes } from '../../helpers';
+import type { TextProps } from '../text';
 
 // Handle type - extracts the return type of createHandle with a generic
 type AlertDialogHandle<T = unknown> = ReturnType<typeof AlertDialogPrimitive.createHandle<T>>;
@@ -130,7 +131,7 @@ const AlertDialogTitle = ({ size: sizeProp, className, ...props }: AlertDialogTi
 AlertDialogTitle.displayName = 'AlertDialogTitle';
 
 // Description
-type AlertDialogDescriptionProps = ExtractPropsForTag<typeof Text, 'p'>;
+type AlertDialogDescriptionProps = TextProps;
 
 const AlertDialogDescription = ({ size: sizeProp, className, ...props }: AlertDialogDescriptionProps) => {
   const { size: contextSize } = React.useContext(AlertDialogContentContext);
@@ -150,7 +151,12 @@ const AlertDialogDescription = ({ size: sizeProp, className, ...props }: AlertDi
   return (
     <AlertDialogPrimitive.Description
       render={
-        <Text as="p" size={sizeProp || size} className={classNames('fui-DialogDescription', className)} {...props} />
+        <Text
+          render={<p />}
+          size={sizeProp || size}
+          className={classNames('fui-DialogDescription', className)}
+          {...props}
+        />
       }
     />
   );
