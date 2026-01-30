@@ -10,6 +10,7 @@ const meta = {
     size: numberFieldPropDefs.size.default,
     variant: numberFieldPropDefs.variant.default,
     color: numberFieldPropDefs.color.default,
+    buttonLayout: numberFieldPropDefs.buttonLayout.default,
   },
   argTypes: {
     size: {
@@ -23,6 +24,10 @@ const meta = {
     color: {
       control: 'select',
       options: numberFieldPropDefs.color.values,
+    },
+    buttonLayout: {
+      control: 'select',
+      options: numberFieldPropDefs.buttonLayout.values,
     },
     disabled: {
       control: 'boolean',
@@ -110,6 +115,69 @@ export const Variant: Story = {
   ),
 };
 
+export const ButtonLayout: Story = {
+  name: 'Button Layout',
+  render: (args) => (
+    <div style={{ display: 'flex', gap: 'var(--space-6)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+        <Text size="2" weight="medium">
+          Split (default)
+        </Text>
+        <Text size="1" color="gray">
+          Buttons on either side
+        </Text>
+        <NumberField.Root {...args} buttonLayout="split" defaultValue={50}>
+          <NumberField.Group>
+            <NumberField.Input />
+          </NumberField.Group>
+        </NumberField.Root>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+        <Text size="2" weight="medium">
+          Stacked
+        </Text>
+        <Text size="1" color="gray">
+          Buttons stacked on right
+        </Text>
+        <NumberField.Root {...args} buttonLayout="stacked" defaultValue={50}>
+          <NumberField.Group>
+            <NumberField.Input />
+          </NumberField.Group>
+        </NumberField.Root>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+        <Text size="2" weight="medium">
+          Trailing
+        </Text>
+        <Text size="1" color="gray">
+          Buttons in row on right
+        </Text>
+        <NumberField.Root {...args} buttonLayout="trailing" defaultValue={50}>
+          <NumberField.Group>
+            <NumberField.Input />
+          </NumberField.Group>
+        </NumberField.Root>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+        <Text size="2" weight="medium">
+          None
+        </Text>
+        <Text size="1" color="gray">
+          No buttons
+        </Text>
+        <NumberField.Root {...args} buttonLayout="none" defaultValue={50}>
+          <NumberField.Group>
+            <NumberField.Input />
+          </NumberField.Group>
+        </NumberField.Root>
+      </div>
+    </div>
+  ),
+};
+
 export const Color: Story = {
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
@@ -126,19 +194,6 @@ export const Color: Story = {
       </NumberField.Root>
 
       <NumberField.Root {...args} color="red" defaultValue={100}>
-        <NumberField.Group>
-          <NumberField.Input />
-        </NumberField.Group>
-      </NumberField.Root>
-    </div>
-  ),
-};
-
-export const WithoutButtons: Story = {
-  name: 'Without Buttons',
-  render: (args) => (
-    <div style={{ width: 160 }}>
-      <NumberField.Root {...args} showButtons={false} defaultValue={50}>
         <NumberField.Group>
           <NumberField.Input />
         </NumberField.Group>

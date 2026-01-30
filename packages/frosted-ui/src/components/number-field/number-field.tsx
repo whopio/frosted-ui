@@ -3,15 +3,14 @@
 import { NumberField as NumberFieldPrimitive } from '@base-ui/react/number-field';
 import classNames from 'classnames';
 import * as React from 'react';
+import { IconButton } from '../icon-button';
 import { numberFieldPropDefs } from './number-field.props';
 
 import type { GetPropDefTypes } from '../../helpers';
 
 type NumberFieldOwnProps = GetPropDefTypes<typeof numberFieldPropDefs>;
 
-interface NumberFieldContextValue extends NumberFieldOwnProps {
-  hasButtons?: boolean;
-}
+type NumberFieldContextValue = NumberFieldOwnProps;
 const NumberFieldContext = React.createContext<NumberFieldContextValue | undefined>(undefined);
 
 // Re-export Base UI types for consumers
@@ -21,8 +20,6 @@ type NumberFieldRootCommitEventDetails = NumberFieldPrimitive.Root.CommitEventDe
 interface NumberFieldRootProps
   extends Omit<React.ComponentProps<typeof NumberFieldPrimitive.Root>, 'className' | 'render'>, NumberFieldOwnProps {
   className?: string;
-  /** Whether to show increment/decrement buttons. Default: true */
-  showButtons?: boolean;
 }
 
 const NumberFieldRoot = (props: NumberFieldRootProps) => {
@@ -32,17 +29,14 @@ const NumberFieldRoot = (props: NumberFieldRootProps) => {
     size = numberFieldPropDefs.size.default,
     variant = numberFieldPropDefs.variant.default,
     color = numberFieldPropDefs.color.default,
-    showButtons = true,
+    buttonLayout = numberFieldPropDefs.buttonLayout.default,
     ...rootProps
   } = props;
 
   return (
     <NumberFieldPrimitive.Root {...rootProps} className={classNames('fui-NumberFieldRoot', className)}>
       <NumberFieldContext.Provider
-        value={React.useMemo(
-          () => ({ size, variant, color, hasButtons: showButtons }),
-          [size, variant, color, showButtons],
-        )}
+        value={React.useMemo(() => ({ size, variant, color, buttonLayout }), [size, variant, color, buttonLayout])}
       >
         {children}
       </NumberFieldContext.Provider>
@@ -61,12 +55,31 @@ interface NumberFieldGroupProps extends Omit<
 const NumberFieldGroup = (props: NumberFieldGroupProps) => {
   const { className, children, ...groupProps } = props;
   const context = React.useContext(NumberFieldContext);
+  const layout = context?.buttonLayout ?? 'split';
+  const hasButtons = layout !== 'none';
 
   return (
-    <NumberFieldPrimitive.Group {...groupProps} className={classNames('fui-NumberFieldGroup', className)}>
-      {context?.hasButtons && <NumberFieldDecrement />}
+    <NumberFieldPrimitive.Group
+      {...groupProps}
+      data-button-layout={layout}
+      className={classNames('fui-NumberFieldGroup', className)}
+    >
+      {hasButtons && layout === 'split' && <NumberFieldDecrement />}
       {children}
-      {context?.hasButtons && <NumberFieldIncrement />}
+      {hasButtons &&
+        (layout === 'stacked' ? (
+          <div className="fui-NumberFieldButtonGroup">
+            <NumberFieldIncrement />
+            <NumberFieldDecrement />
+          </div>
+        ) : layout === 'trailing' ? (
+          <div className="fui-NumberFieldButtonGroup">
+            <NumberFieldDecrement />
+            <NumberFieldIncrement />
+          </div>
+        ) : (
+          <NumberFieldIncrement />
+        ))}
     </NumberFieldPrimitive.Group>
   );
 };
@@ -121,17 +134,15 @@ const NumberFieldDecrement = (props: NumberFieldDecrementProps) => {
   const context = React.useContext(NumberFieldContext);
 
   return (
-    <NumberFieldPrimitive.Decrement
-      {...decrementProps}
-      className={classNames(
-        'fui-NumberFieldButton',
-        'fui-NumberFieldDecrement',
-        className,
-        `fui-r-size-${context?.size}`,
-      )}
+    <IconButton
+      render={<NumberFieldPrimitive.Decrement {...decrementProps} />}
+      size={context?.size}
+      variant={context?.variant}
+      color={context?.color}
+      className={classNames('fui-NumberFieldButton', 'fui-NumberFieldDecrement', className)}
     >
       {children ?? <MinusIcon />}
-    </NumberFieldPrimitive.Decrement>
+    </IconButton>
   );
 };
 NumberFieldDecrement.displayName = 'NumberFieldDecrement';
@@ -148,17 +159,16 @@ const NumberFieldIncrement = (props: NumberFieldIncrementProps) => {
   const context = React.useContext(NumberFieldContext);
 
   return (
-    <NumberFieldPrimitive.Increment
-      {...incrementProps}
-      className={classNames(
-        'fui-NumberFieldButton',
-        'fui-NumberFieldIncrement',
-        className,
-        `fui-r-size-${context?.size}`,
-      )}
+    <IconButton
+      render={<NumberFieldPrimitive.Increment {...incrementProps} />}
+      nativeButton={false}
+      size={context?.size}
+      variant={context?.variant}
+      color={context?.color}
+      className={classNames('fui-NumberFieldButton', 'fui-NumberFieldIncrement', className)}
     >
       {children ?? <PlusIcon />}
-    </NumberFieldPrimitive.Increment>
+    </IconButton>
   );
 };
 NumberFieldIncrement.displayName = 'NumberFieldIncrement';
