@@ -1,0 +1,264 @@
+.fui-NumberFieldRoot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.fui-NumberFieldGroup {
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 0;
+}
+
+/* Input styling - extends TextField styles */
+.fui-NumberFieldInput {
+  /* Remove spinner buttons in WebKit/Blink */
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Remove spinner buttons in Firefox */
+  -moz-appearance: textfield;
+  appearance: textfield;
+
+  /* Center text when buttons are present */
+  text-align: center;
+
+  /* Remove text-indent since we have buttons on sides */
+  text-indent: 0 !important;
+
+  /* Adjust border radius for middle position */
+  border-radius: 0 !important;
+}
+
+/* Increment/Decrement Buttons */
+.fui-NumberFieldButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  user-select: none;
+  border: none;
+  background-color: var(--gray-a3);
+  color: var(--gray-11);
+  transition:
+    background-color 120ms,
+    color 120ms;
+
+  &:hover:not(:disabled) {
+    background-color: var(--gray-a4);
+    color: var(--gray-12);
+  }
+
+  &:active:not(:disabled) {
+    background-color: var(--gray-a5);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-focus-root);
+    outline-offset: -1px;
+    z-index: 1;
+  }
+}
+
+.fui-NumberFieldDecrement {
+  order: -1;
+}
+
+.fui-NumberFieldIncrement {
+  order: 1;
+}
+
+/* Size variants for buttons */
+.fui-NumberFieldButton {
+  &:where(.fui-r-size-1) {
+    width: var(--space-5);
+    height: var(--space-5);
+
+    & svg {
+      width: 8px;
+      height: 8px;
+    }
+  }
+
+  &:where(.fui-r-size-2) {
+    width: var(--space-6);
+    height: var(--space-6);
+
+    & svg {
+      width: 10px;
+      height: 10px;
+    }
+  }
+
+  &:where(.fui-r-size-3) {
+    width: var(--space-7);
+    height: var(--space-7);
+
+    & svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  &:where(.fui-r-size-4) {
+    width: var(--space-8);
+    height: var(--space-8);
+
+    & svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
+
+/* Border radius for buttons based on size */
+.fui-NumberFieldDecrement {
+  &:where(.fui-r-size-1) {
+    border-radius: max(6px, var(--radius-full)) 0 0 max(6px, var(--radius-full));
+  }
+  &:where(.fui-r-size-2) {
+    border-radius: max(8px, var(--radius-full)) 0 0 max(8px, var(--radius-full));
+  }
+  &:where(.fui-r-size-3) {
+    border-radius: max(10px, var(--radius-full)) 0 0 max(10px, var(--radius-full));
+  }
+  &:where(.fui-r-size-4) {
+    border-radius: max(14px, var(--radius-full)) 0 0 max(14px, var(--radius-full));
+  }
+}
+
+.fui-NumberFieldIncrement {
+  &:where(.fui-r-size-1) {
+    border-radius: 0 max(6px, var(--radius-full)) max(6px, var(--radius-full)) 0;
+  }
+  &:where(.fui-r-size-2) {
+    border-radius: 0 max(8px, var(--radius-full)) max(8px, var(--radius-full)) 0;
+  }
+  &:where(.fui-r-size-3) {
+    border-radius: 0 max(10px, var(--radius-full)) max(10px, var(--radius-full)) 0;
+  }
+  &:where(.fui-r-size-4) {
+    border-radius: 0 max(14px, var(--radius-full)) max(14px, var(--radius-full)) 0;
+  }
+}
+
+/* TextFieldChrome positioning when in NumberFieldGroup */
+.fui-NumberFieldGroup > .fui-TextFieldChrome {
+  /* Chrome should only cover the input, not the buttons */
+  left: var(--space-5);
+  right: var(--space-5);
+  border-radius: 0;
+}
+
+.fui-NumberFieldGroup:has(.fui-r-size-1) > .fui-TextFieldChrome {
+  left: var(--space-5);
+  right: var(--space-5);
+}
+
+.fui-NumberFieldGroup:has(.fui-r-size-2) > .fui-TextFieldChrome {
+  left: var(--space-6);
+  right: var(--space-6);
+}
+
+.fui-NumberFieldGroup:has(.fui-r-size-3) > .fui-TextFieldChrome {
+  left: var(--space-7);
+  right: var(--space-7);
+}
+
+.fui-NumberFieldGroup:has(.fui-r-size-4) > .fui-TextFieldChrome {
+  left: var(--space-8);
+  right: var(--space-8);
+}
+
+/* When no buttons, restore full border radius */
+.fui-NumberFieldGroup:not(:has(.fui-NumberFieldButton)) {
+  & > .fui-NumberFieldInput {
+    text-align: left;
+
+    &:where(.fui-r-size-1) {
+      text-indent: calc(var(--space-1) * 1.5 - var(--text-field-border-width)) !important;
+      border-radius: max(6px, var(--radius-full)) !important;
+    }
+    &:where(.fui-r-size-2) {
+      text-indent: calc(var(--space-2) - var(--text-field-border-width)) !important;
+      border-radius: max(8px, var(--radius-full)) !important;
+    }
+    &:where(.fui-r-size-3) {
+      text-indent: calc(var(--space-3) - var(--text-field-border-width)) !important;
+      border-radius: max(10px, var(--radius-full)) !important;
+    }
+    &:where(.fui-r-size-4) {
+      text-indent: calc(var(--space-3) - var(--text-field-border-width)) !important;
+      border-radius: max(14px, var(--radius-full)) !important;
+    }
+  }
+
+  & > .fui-TextFieldChrome {
+    left: 0;
+    right: 0;
+
+    &:where(.fui-r-size-1) {
+      border-radius: max(6px, var(--radius-full));
+    }
+    &:where(.fui-r-size-2) {
+      border-radius: max(8px, var(--radius-full));
+    }
+    &:where(.fui-r-size-3) {
+      border-radius: max(10px, var(--radius-full));
+    }
+    &:where(.fui-r-size-4) {
+      border-radius: max(14px, var(--radius-full));
+    }
+  }
+}
+
+/* Scrub Area */
+.fui-NumberFieldScrubArea {
+  cursor: ew-resize;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.fui-NumberFieldScrubAreaCursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1000;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+
+  & svg {
+    display: block;
+  }
+}
+
+/* Disabled state */
+.fui-NumberFieldRoot[data-disabled] {
+  & .fui-NumberFieldButton {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  & .fui-NumberFieldInput {
+    cursor: text;
+    color: var(--gray-a11);
+    -webkit-text-fill-color: var(--gray-a11);
+  }
+}
+
+/* Read-only state */
+.fui-NumberFieldRoot[data-readonly] {
+  & .fui-NumberFieldButton {
+    cursor: not-allowed;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
