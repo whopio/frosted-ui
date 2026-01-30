@@ -21,6 +21,7 @@ interface TooltipProps extends TooltipOwnProps {
   // TODO: See if we can automate making prop defs with `required: true` non nullable
   content: NonNullable<TooltipOwnProps['content']>;
   className?: string;
+  style?: React.CSSProperties;
   // Root props
   open?: boolean;
   defaultOpen?: boolean;
