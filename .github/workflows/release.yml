@@ -74,13 +74,6 @@ jobs:
         run: pnpm turbo release ${{ steps.check.outputs.filter }} --env-mode=loose
         if: steps.check.outputs.can-publish == 'true'
 
-      - name: Sync auto-release PRs
-        uses: whopio/turbo-module@v0.1.0-canary.3
-        with:
-          action: sync
-          token: ${{ github.token }}
-          initial-commit: 3d821dfeec0e67a8b33de2993ba292e58b315d06
-
       - name: Github Release
         id: release
         uses: whopio/turbo-module@v0.1.0-canary.3
@@ -90,3 +83,11 @@ jobs:
           version: ${{ steps.check.outputs.version }}
           initial-commit: 3d821dfeec0e67a8b33de2993ba292e58b315d06
         if: steps.check.outputs.can-publish == 'true'
+
+      - name: Sync auto-release PRs
+        uses: whopio/turbo-module@v0.1.0-canary.3
+        with:
+          action: sync
+          token: ${{ github.token }}
+          published: ${{ steps.release.outputs.published }}
+          initial-commit: 3d821dfeec0e67a8b33de2993ba292e58b315d06
