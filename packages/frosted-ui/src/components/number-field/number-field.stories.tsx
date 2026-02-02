@@ -418,8 +418,14 @@ export const Formatting: Story = {
           <Text size="1" color="gray">
             Value 0.75 displays as 75%. Use <Code size="1">step={'{0.01}'}</Code> for 1% increments.
           </Text>
-          <NumberField.Root {...args} defaultValue={0.75} format={{ style: 'percent' }} step={0.01}>
-            <NumberField.Input style={{ width: 120 }} />
+          <NumberField.Root
+            {...args}
+            defaultValue={0.75}
+            format={{ style: 'percent' }}
+            step={0.01}
+            style={{ width: 120 }}
+          >
+            <NumberField.Input />
           </NumberField.Root>
         </div>
 
@@ -479,8 +485,14 @@ export const Formatting: Story = {
           <Text size="1" color="gray">
             Large numbers displayed as "1.2M" or "5K".
           </Text>
-          <NumberField.Root {...args} defaultValue={1234567} format={{ notation: 'compact' }} step={1000}>
-            <NumberField.Input style={{ width: 120 }} />
+          <NumberField.Root
+            {...args}
+            defaultValue={1234567}
+            format={{ notation: 'compact' }}
+            step={1000}
+            style={{ width: 120 }}
+          >
+            <NumberField.Input />
           </NumberField.Root>
         </div>
       </div>
