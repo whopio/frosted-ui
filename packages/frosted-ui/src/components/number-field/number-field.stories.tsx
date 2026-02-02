@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Button, Code, NumberField, Text, numberFieldPropDefs } from '..';
+import { Button, Code, NumberField, Text, TextField, numberFieldPropDefs } from '..';
 
 const meta = {
   title: 'Controls/NumberField',
@@ -131,6 +131,13 @@ export const ButtonLayout: Story = {
             <NumberField.Input />
           </NumberField.Group>
         </NumberField.Root>
+        <TextField.Input
+          size={args.size}
+          variant={args.variant}
+          color={args.color}
+          disabled={args.disabled}
+          placeholder="TextField"
+        />
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
@@ -145,6 +152,13 @@ export const ButtonLayout: Story = {
             <NumberField.Input />
           </NumberField.Group>
         </NumberField.Root>
+        <TextField.Input
+          size={args.size}
+          variant={args.variant}
+          color={args.color}
+          disabled={args.disabled}
+          placeholder="TextField"
+        />
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
@@ -159,6 +173,13 @@ export const ButtonLayout: Story = {
             <NumberField.Input />
           </NumberField.Group>
         </NumberField.Root>
+        <TextField.Input
+          size={args.size}
+          variant={args.variant}
+          color={args.color}
+          disabled={args.disabled}
+          placeholder="TextField"
+        />
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
@@ -173,6 +194,13 @@ export const ButtonLayout: Story = {
             <NumberField.Input />
           </NumberField.Group>
         </NumberField.Root>
+        <TextField.Input
+          size={args.size}
+          variant={args.variant}
+          color={args.color}
+          disabled={args.disabled}
+          placeholder="TextField"
+        />
       </div>
     </div>
   ),
@@ -317,6 +345,50 @@ export const ReadOnly: Story = {
           <NumberField.Input />
         </NumberField.Group>
       </NumberField.Root>
+    </div>
+  ),
+};
+
+export const DisabledVsReadOnly: Story = {
+  name: 'Disabled vs ReadOnly (Accessibility)',
+  render: (args) => (
+    <div style={{ display: 'flex', gap: 'var(--space-6)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', maxWidth: 280 }}>
+        <Text size="2" weight="bold">
+          Disabled
+        </Text>
+        <Text size="1" color="gray">
+          Use when the field is completely unavailable. The input <strong>cannot be focused</strong> via keyboard (Tab
+          skips it). Screen readers announce it as disabled. Value is <strong>not submitted</strong> with the form.
+        </Text>
+        <NumberField.Root {...args} defaultValue={100} disabled>
+          <NumberField.Group>
+            <NumberField.Input />
+          </NumberField.Group>
+        </NumberField.Root>
+        <Text size="1" color="gray">
+          <em>Try pressing Tab — the input will be skipped.</em>
+        </Text>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', maxWidth: 280 }}>
+        <Text size="2" weight="bold">
+          ReadOnly
+        </Text>
+        <Text size="1" color="gray">
+          Use when you want to display a value that cannot be changed, but should remain{' '}
+          <strong>focusable and selectable</strong>. Users can Tab to it, copy the value, and screen readers can
+          announce it. Value <strong>is submitted</strong> with the form.
+        </Text>
+        <NumberField.Root {...args} defaultValue={100} readOnly>
+          <NumberField.Group>
+            <NumberField.Input />
+          </NumberField.Group>
+        </NumberField.Root>
+        <Text size="1" color="gray">
+          <em>Try pressing Tab — the input can be focused.</em>
+        </Text>
+      </div>
     </div>
   ),
 };

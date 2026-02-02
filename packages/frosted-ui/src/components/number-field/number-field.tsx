@@ -134,15 +134,30 @@ const NumberFieldDecrement = (props: NumberFieldDecrementProps) => {
   const context = React.useContext(NumberFieldContext);
 
   return (
-    <IconButton
-      render={<NumberFieldPrimitive.Decrement {...decrementProps} />}
-      size={context?.size}
-      variant={context?.variant}
-      color={context?.color}
-      className={classNames('fui-NumberFieldButton', 'fui-NumberFieldDecrement', className)}
-    >
-      {children ?? <MinusIcon />}
-    </IconButton>
+    <NumberFieldPrimitive.Decrement
+      {...decrementProps}
+      render={(primitiveProps) => {
+        const {
+          className: primitiveClassName,
+          disabled,
+          tabIndex,
+          ...restProps
+        } = primitiveProps as typeof primitiveProps & { disabled?: boolean; tabIndex?: number };
+        return (
+          <IconButton
+            {...restProps}
+            disabled={disabled}
+            tabIndex={tabIndex}
+            size={context?.size}
+            variant={context?.variant}
+            color={context?.color}
+            className={classNames('fui-NumberFieldButton', 'fui-NumberFieldDecrement', className, primitiveClassName)}
+          >
+            {children ?? <MinusIcon />}
+          </IconButton>
+        );
+      }}
+    />
   );
 };
 NumberFieldDecrement.displayName = 'NumberFieldDecrement';
@@ -159,16 +174,30 @@ const NumberFieldIncrement = (props: NumberFieldIncrementProps) => {
   const context = React.useContext(NumberFieldContext);
 
   return (
-    <IconButton
-      render={<NumberFieldPrimitive.Increment {...incrementProps} />}
-      nativeButton={false}
-      size={context?.size}
-      variant={context?.variant}
-      color={context?.color}
-      className={classNames('fui-NumberFieldButton', 'fui-NumberFieldIncrement', className)}
-    >
-      {children ?? <PlusIcon />}
-    </IconButton>
+    <NumberFieldPrimitive.Increment
+      {...incrementProps}
+      render={(primitiveProps) => {
+        const {
+          className: primitiveClassName,
+          disabled,
+          tabIndex,
+          ...restProps
+        } = primitiveProps as typeof primitiveProps & { disabled?: boolean; tabIndex?: number };
+        return (
+          <IconButton
+            {...restProps}
+            disabled={disabled}
+            tabIndex={tabIndex}
+            size={context?.size}
+            variant={context?.variant}
+            color={context?.color}
+            className={classNames('fui-NumberFieldButton', 'fui-NumberFieldIncrement', className, primitiveClassName)}
+          >
+            {children ?? <PlusIcon />}
+          </IconButton>
+        );
+      }}
+    />
   );
 };
 NumberFieldIncrement.displayName = 'NumberFieldIncrement';
