@@ -197,41 +197,6 @@ const NumberFieldIncrement = (props: NumberFieldIncrementProps) => {
 };
 NumberFieldIncrement.displayName = 'NumberFieldIncrement';
 
-interface NumberFieldScrubAreaProps extends Omit<
-  React.ComponentProps<typeof NumberFieldPrimitive.ScrubArea>,
-  'className' | 'render'
-> {
-  className?: string;
-}
-
-const NumberFieldScrubArea = (props: NumberFieldScrubAreaProps) => {
-  const { className, ...scrubAreaProps } = props;
-  return (
-    <NumberFieldPrimitive.ScrubArea {...scrubAreaProps} className={classNames('fui-NumberFieldScrubArea', className)} />
-  );
-};
-NumberFieldScrubArea.displayName = 'NumberFieldScrubArea';
-
-interface NumberFieldScrubAreaCursorProps extends Omit<
-  React.ComponentProps<typeof NumberFieldPrimitive.ScrubAreaCursor>,
-  'className' | 'render'
-> {
-  className?: string;
-}
-
-const NumberFieldScrubAreaCursor = (props: NumberFieldScrubAreaCursorProps) => {
-  const { className, children, ...cursorProps } = props;
-  return (
-    <NumberFieldPrimitive.ScrubAreaCursor
-      {...cursorProps}
-      className={classNames('fui-NumberFieldScrubAreaCursor', className)}
-    >
-      {children ?? <ScrubCursorIcon />}
-    </NumberFieldPrimitive.ScrubAreaCursor>
-  );
-};
-NumberFieldScrubAreaCursor.displayName = 'NumberFieldScrubAreaCursor';
-
 // Default icons
 function MinusIcon() {
   return (
@@ -269,30 +234,12 @@ function PlusIcon() {
   );
 }
 
-function ScrubCursorIcon() {
-  return (
-    <svg
-      width="26"
-      height="14"
-      viewBox="0 0 24 14"
-      fill="currentColor"
-      stroke="white"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <path d="M19.5 5.5L6.49737 5.51844V2L1 6.9999L6.5 12L6.49737 8.5L19.5 8.5V12L25 6.9999L19.5 2V5.5Z" />
-    </svg>
-  );
-}
-
 export {
   NumberFieldDecrement as Decrement,
   NumberFieldGroup as Group,
   NumberFieldIncrement as Increment,
   NumberFieldInput as Input,
   NumberFieldRoot as Root,
-  NumberFieldScrubArea as ScrubArea,
-  NumberFieldScrubAreaCursor as ScrubAreaCursor,
 };
 
 export type {
@@ -303,6 +250,4 @@ export type {
   NumberFieldRootChangeEventDetails as RootChangeEventDetails,
   NumberFieldRootCommitEventDetails as RootCommitEventDetails,
   NumberFieldRootProps as RootProps,
-  NumberFieldScrubAreaCursorProps as ScrubAreaCursorProps,
-  NumberFieldScrubAreaProps as ScrubAreaProps,
 };
