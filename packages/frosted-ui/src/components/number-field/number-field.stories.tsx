@@ -247,22 +247,83 @@ export const MinMax: Story = {
 };
 
 export const Step: Story = {
+  name: 'Step Configuration',
   render: (args) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-      <div>
-        <Text render={<div />} size="2" color="gray" style={{ marginBottom: 'var(--space-2)' }}>
-          Step: 5
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)', maxWidth: 400 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+        <Text size="2" weight="bold">
+          step
+        </Text>
+        <Text size="1" color="gray">
+          Base increment amount. Use buttons or arrow keys (↑↓).
         </Text>
         <NumberField.Root {...args} defaultValue={0} step={5}>
           <NumberField.Group>
-            <NumberField.Input />
+            <NumberField.Input placeholder="step={5}" />
           </NumberField.Group>
         </NumberField.Root>
       </div>
 
-      <div>
-        <Text render={<div />} size="2" color="gray" style={{ marginBottom: 'var(--space-2)' }}>
-          Step: 0.01 (for currency)
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+        <Text size="2" weight="bold">
+          smallStep + largeStep
+        </Text>
+        <Text size="1" color="gray">
+          Hold <Code size="1">Alt/Option</Code> for small steps, <Code size="1">Shift</Code> for large steps.
+        </Text>
+        <NumberField.Root {...args} defaultValue={50} step={1} smallStep={0.1} largeStep={10}>
+          <NumberField.Group>
+            <NumberField.Input placeholder="step=1, smallStep=0.1, largeStep=10" />
+          </NumberField.Group>
+        </NumberField.Root>
+        <Text size="1" color="gray">
+          <em>Normal: ±1 · Alt/Option: ±0.1 · Shift: ±10</em>
+        </Text>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+        <Text size="2" weight="bold">
+          snapOnStep
+        </Text>
+        <Text size="1" color="gray">
+          Controls snapping behavior when using buttons or arrow keys. Type "7", then press ↑ to see the difference.
+        </Text>
+        <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
+          <div style={{ flex: 1 }}>
+            <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+              snapOnStep={'{false}'} (default)
+            </Text>
+            <NumberField.Root {...args} defaultValue={7} step={5} snapOnStep={false}>
+              <NumberField.Group>
+                <NumberField.Input />
+              </NumberField.Group>
+            </NumberField.Root>
+            <Text size="1" color="gray">
+              <em>7 → ↑ → 12 (adds step)</em>
+            </Text>
+          </div>
+          <div style={{ flex: 1 }}>
+            <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+              snapOnStep={'{true}'}
+            </Text>
+            <NumberField.Root {...args} defaultValue={7} step={5} snapOnStep>
+              <NumberField.Group>
+                <NumberField.Input />
+              </NumberField.Group>
+            </NumberField.Root>
+            <Text size="1" color="gray">
+              <em>7 → ↑ → 10 (snaps to step)</em>
+            </Text>
+          </div>
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+        <Text size="2" weight="bold">
+          Decimal precision (step=0.01)
+        </Text>
+        <Text size="1" color="gray">
+          Use small step values for currency or precise decimal inputs.
         </Text>
         <NumberField.Root {...args} defaultValue={9.99} step={0.01}>
           <NumberField.Group>
@@ -559,22 +620,6 @@ export const WithScrubArea: Story = {
           </label>
           <NumberField.ScrubAreaCursor />
         </NumberField.ScrubArea>
-        <NumberField.Group>
-          <NumberField.Input />
-        </NumberField.Group>
-      </NumberField.Root>
-    </div>
-  ),
-};
-
-export const LargeAndSmallSteps: Story = {
-  name: 'Large and Small Steps',
-  render: (args) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', alignItems: 'flex-start' }}>
-      <Text size="2" color="gray">
-        Hold <Code size="1">Shift</Code> for large steps (10), <Code size="1">Alt/Option</Code> for small steps (0.1)
-      </Text>
-      <NumberField.Root {...args} defaultValue={50} step={1} largeStep={10} smallStep={0.1}>
         <NumberField.Group>
           <NumberField.Input />
         </NumberField.Group>
