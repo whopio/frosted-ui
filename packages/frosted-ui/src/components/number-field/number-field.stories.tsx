@@ -679,6 +679,83 @@ export const AllowWheelScrub: Story = {
   ),
 };
 
+export const InputRef: Story = {
+  name: 'Input Ref',
+  render: (args) => {
+    const visibleInputRef = React.useRef<HTMLInputElement>(null);
+    const hiddenInputRef = React.useRef<HTMLInputElement>(null);
+
+    const focusInput = () => {
+      visibleInputRef.current?.focus();
+    };
+
+    const selectAll = () => {
+      if (visibleInputRef.current) {
+        visibleInputRef.current.focus();
+        visibleInputRef.current.select();
+      }
+    };
+
+    const logHiddenValue = () => {
+      alert(`Hidden input value: ${hiddenInputRef.current?.value}`);
+    };
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 450 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+          <Text size="2" weight="bold">
+            Two ways to access the input
+          </Text>
+          <Text size="1" color="gray">
+            <strong>NumberField.Input ref</strong> — Access the visible input for focus, selection, etc.
+          </Text>
+          <Text size="1" color="gray">
+            <strong>NumberField.Root inputRef</strong> — Access the hidden form input (for form libraries).
+          </Text>
+        </div>
+
+        <NumberField.Root {...args} defaultValue={1234.56} inputRef={hiddenInputRef}>
+          <NumberField.Group>
+            <NumberField.Input ref={visibleInputRef} />
+          </NumberField.Group>
+        </NumberField.Root>
+
+        <div style={{ display: 'flex', gap: 'var(--space-2)', flexWrap: 'wrap' }}>
+          <Button size="1" variant="soft" onClick={focusInput}>
+            Focus visible input
+          </Button>
+          <Button size="1" variant="soft" onClick={selectAll}>
+            Select all text
+          </Button>
+          <Button size="1" variant="soft" onClick={logHiddenValue}>
+            Read hidden input
+          </Button>
+        </div>
+
+        <div
+          style={{
+            padding: 'var(--space-3)',
+            background: 'var(--color-panel)',
+            borderRadius: 'var(--radius-2)',
+          }}
+        >
+          <Text size="2" weight="medium" style={{ marginBottom: 'var(--space-2)', display: 'block' }}>
+            When to use each:
+          </Text>
+          <Text size="1" color="gray" render={<ul style={{ margin: 0, paddingLeft: 'var(--space-4)' }} />}>
+            <li>
+              <strong>Visible input ref:</strong> Focus on modal open, select all for editing, custom keyboard shortcuts
+            </li>
+            <li>
+              <strong>Hidden input ref:</strong> Form library integration, accessing the raw numeric value
+            </li>
+          </Text>
+        </div>
+      </div>
+    );
+  },
+};
+
 export const FormSubmission: Story = {
   name: 'Form Submission',
   render: (args) => {
