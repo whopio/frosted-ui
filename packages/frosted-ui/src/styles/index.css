@@ -68,6 +68,7 @@
 @import '../components/table/table.css';
 @import '../components/text-area/text-area.css';
 @import '../components/text-field/text-field.css';
+@import '../components/number-field/number-field.css';
 @import '../components/otp-field/otp-field.css';
 @import '../components/date-field/date-field.css';
 @import '../components/tooltip/tooltip.css';
