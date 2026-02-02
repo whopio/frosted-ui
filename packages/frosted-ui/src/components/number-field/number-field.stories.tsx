@@ -423,6 +423,126 @@ export const Controlled: Story = {
   },
 };
 
+export const OnValueChangeVsCommitted: Story = {
+  name: 'onValueChange vs onValueCommitted',
+  render: (args) => {
+    const [changeLog, setChangeLog] = React.useState<string[]>([]);
+    const [commitLog, setCommitLog] = React.useState<string[]>([]);
+
+    const addChangeLog = (value: number | null) => {
+      const timestamp = new Date().toLocaleTimeString('en-US', {
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        fractionalSecondDigits: 3,
+      });
+      setChangeLog((prev) => [`${timestamp}: ${value ?? 'null'}`, ...prev].slice(0, 8));
+    };
+
+    const addCommitLog = (value: number | null) => {
+      const timestamp = new Date().toLocaleTimeString('en-US', {
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        fractionalSecondDigits: 3,
+      });
+      setCommitLog((prev) => [`${timestamp}: ${value ?? 'null'}`, ...prev].slice(0, 8));
+    };
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 560 }}>
+        <NumberField.Root
+          {...args}
+          defaultValue={50}
+          onValueChange={(value) => addChangeLog(value)}
+          onValueCommitted={(value) => addCommitLog(value)}
+        >
+          <NumberField.Group>
+            <NumberField.Input />
+          </NumberField.Group>
+        </NumberField.Root>
+
+        <Text size="1" color="gray">
+          Try typing, using arrow keys (↑↓), clicking buttons, or blurring the input to see when each callback fires.
+        </Text>
+
+        <div style={{ display: 'flex', gap: 'var(--space-4)' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', flex: 1 }}>
+            <Text size="2" weight="bold" color="blue">
+              onValueChange
+            </Text>
+            <Text size="1" color="gray">
+              Fires on <strong>every</strong> value change. Use for real-time updates like live previews.
+            </Text>
+            <div
+              style={{
+                fontFamily: 'monospace',
+                fontSize: 11,
+                padding: 'var(--space-2)',
+                background: 'var(--color-panel)',
+                borderRadius: 'var(--radius-2)',
+                minHeight: 140,
+              }}
+            >
+              {changeLog.length === 0 ? (
+                <span style={{ color: 'var(--gray-9)' }}>No events yet...</span>
+              ) : (
+                changeLog.map((log, i) => (
+                  <div key={i} style={{ opacity: 1 - i * 0.1 }}>
+                    {log}
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', flex: 1 }}>
+            <Text size="2" weight="bold" color="green">
+              onValueCommitted
+            </Text>
+            <Text size="1" color="gray">
+              Fires on <strong>blur</strong>, arrow keys (↑↓), or button clicks. Use for API calls.
+            </Text>
+            <div
+              style={{
+                fontFamily: 'monospace',
+                fontSize: 11,
+                padding: 'var(--space-2)',
+                background: 'var(--color-panel)',
+                borderRadius: 'var(--radius-2)',
+                minHeight: 140,
+              }}
+            >
+              {commitLog.length === 0 ? (
+                <span style={{ color: 'var(--gray-9)' }}>No events yet...</span>
+              ) : (
+                commitLog.map((log, i) => (
+                  <div key={i} style={{ opacity: 1 - i * 0.1 }}>
+                    {log}
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+        </div>
+
+        <Button
+          size="1"
+          variant="soft"
+          onClick={() => {
+            setChangeLog([]);
+            setCommitLog([]);
+          }}
+        >
+          Clear logs
+        </Button>
+      </div>
+    );
+  },
+};
+
 export const WithScrubArea: Story = {
   name: 'With Scrub Area',
   render: (args) => (
