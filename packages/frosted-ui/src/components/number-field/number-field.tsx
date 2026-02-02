@@ -6,7 +6,7 @@ import * as React from 'react';
 import { IconButton } from '../icon-button';
 import { numberFieldPropDefs, numberFieldSlotPropDefs } from './number-field.props';
 
-import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
+import { composeEventHandlers, type GetPropDefTypes, type PropsWithoutColor } from '../../helpers';
 
 type NumberFieldOwnProps = GetPropDefTypes<typeof numberFieldPropDefs>;
 
@@ -35,15 +35,41 @@ const NumberFieldRoot = (props: NumberFieldRootProps) => {
 
   const hasButtons = buttonLayout !== 'none';
 
+  const handlePointerDown = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    const target = event.target as HTMLElement;
+    if (target.closest('input, button, a')) return;
+
+    const input = event.currentTarget.querySelector('.fui-NumberFieldInput') as HTMLInputElement | null;
+    if (!input) return;
+
+    const position = input.compareDocumentPosition(target);
+    const targetIsBeforeInput = (position & Node.DOCUMENT_POSITION_PRECEDING) !== 0;
+    const cursorPosition = targetIsBeforeInput ? 0 : input.value.length;
+
+    requestAnimationFrame(() => {
+      const selectableTypes = ['text', 'search', 'url', 'tel', 'password'];
+      if (selectableTypes.includes(input.type)) {
+        input.setSelectionRange(cursorPosition, cursorPosition);
+      }
+      input.focus();
+    });
+  }, []);
+
   return (
     <NumberFieldPrimitive.Root
       {...rootProps}
-      role="group"
-      className={classNames(
-        'fui-NumberFieldRoot',
-        `fui-r-size-${size}`,
-        `fui-button-layout-${buttonLayout}`,
-        className,
+      render={(primitiveProps) => (
+        <div
+          {...primitiveProps}
+          role="group"
+          className={classNames(
+            'fui-NumberFieldRoot',
+            `fui-r-size-${size}`,
+            `fui-button-layout-${buttonLayout}`,
+            className,
+          )}
+          onPointerDown={composeEventHandlers(primitiveProps.onPointerDown, handlePointerDown)}
+        />
       )}
     >
       <NumberFieldContext.Provider
