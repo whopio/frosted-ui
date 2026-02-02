@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { DollarSign16, Percentage16 } from '@frosted-ui/icons';
 import React from 'react';
 import { Button, Code, NumberField, Text, TextField, numberFieldPropDefs } from '..';
 
@@ -207,7 +208,7 @@ export const WithSlot: Story = {
           <NumberField.Root {...args} defaultValue={99.99} step={0.01} format={{ minimumFractionDigits: 2 }}>
             <NumberField.Group>
               <NumberField.Slot>
-                <DollarIcon />
+                <DollarSign16 />
               </NumberField.Slot>
               <NumberField.Input />
             </NumberField.Group>
@@ -221,11 +222,7 @@ export const WithSlot: Story = {
           <NumberField.Root {...args} defaultValue={75}>
             <NumberField.Group>
               <NumberField.Input />
-              <NumberField.Slot>
-                <Text size="1" color="gray">
-                  kg
-                </Text>
-              </NumberField.Slot>
+              <NumberField.Slot>kg</NumberField.Slot>
             </NumberField.Group>
           </NumberField.Root>
         </div>
@@ -237,14 +234,10 @@ export const WithSlot: Story = {
           <NumberField.Root {...args} defaultValue={50} min={0} max={100}>
             <NumberField.Group>
               <NumberField.Slot>
-                <PercentIcon />
+                <Percentage16 />
               </NumberField.Slot>
               <NumberField.Input />
-              <NumberField.Slot>
-                <Text size="1" color="gray">
-                  off
-                </Text>
-              </NumberField.Slot>
+              <NumberField.Slot>off</NumberField.Slot>
             </NumberField.Group>
           </NumberField.Root>
         </div>
@@ -255,11 +248,7 @@ export const WithSlot: Story = {
           </Text>
           <NumberField.Root {...args} defaultValue={5} buttonLayout="split">
             <NumberField.Group>
-              <NumberField.Slot>
-                <Text size="1" color="gray">
-                  Qty
-                </Text>
-              </NumberField.Slot>
+              <NumberField.Slot>Qty</NumberField.Slot>
               <NumberField.Input />
             </NumberField.Group>
           </NumberField.Root>
@@ -272,7 +261,7 @@ export const WithSlot: Story = {
           <NumberField.Root {...args} defaultValue={100} color="green">
             <NumberField.Group>
               <NumberField.Slot color="green">
-                <DollarIcon />
+                <DollarSign16 />
               </NumberField.Slot>
               <NumberField.Input />
             </NumberField.Group>
@@ -284,32 +273,6 @@ export const WithSlot: Story = {
 };
 
 // Simple icons for slot demos
-function DollarIcon() {
-  return (
-    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M7.5 1.5V2.5M7.5 12.5V13.5M4 5C4 3.89543 5.11929 3 6.5 3H8C9.38071 3 10.5 3.89543 10.5 5C10.5 6.10457 9.38071 7 8 7H7C5.61929 7 4.5 7.89543 4.5 9C4.5 10.1046 5.61929 11 7 11H8.5C9.88071 11 11 10.1046 11 9"
-        stroke="currentColor"
-        strokeWidth="1.2"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function PercentIcon() {
-  return (
-    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M4 4.5C4 4.22386 4.22386 4 4.5 4C4.77614 4 5 4.22386 5 4.5C5 4.77614 4.77614 5 4.5 5C4.22386 5 4 4.77614 4 4.5ZM10 10.5C10 10.2239 10.2239 10 10.5 10C10.7761 10 11 10.2239 11 10.5C11 10.7761 10.7761 11 10.5 11C10.2239 11 10 10.7761 10 10.5ZM11 4L4 11"
-        stroke="currentColor"
-        strokeWidth="1.2"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
 export const Color: Story = {
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>

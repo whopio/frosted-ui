@@ -62,7 +62,7 @@ const NumberFieldGroup = (props: NumberFieldGroupProps) => {
     <NumberFieldPrimitive.Group
       {...groupProps}
       data-button-layout={layout}
-      className={classNames('fui-NumberFieldGroup', className)}
+      className={classNames('fui-NumberFieldGroup', `fui-r-size-${context?.size}`, className)}
     >
       {hasButtons && layout === 'split' && <NumberFieldDecrement />}
       {children}
