@@ -36,26 +36,30 @@ const NumberFieldRoot = (props: NumberFieldRootProps) => {
   const hasButtons = buttonLayout !== 'none';
 
   return (
-    <NumberFieldPrimitive.Root {...rootProps} className={classNames('fui-NumberFieldRoot', className)}>
+    <NumberFieldPrimitive.Root
+      {...rootProps}
+      role="group"
+      className={classNames(
+        'fui-NumberFieldRoot',
+        `fui-r-size-${size}`,
+        `fui-button-layout-${buttonLayout}`,
+        className,
+      )}
+    >
       <NumberFieldContext.Provider
         value={React.useMemo(() => ({ size, variant, color, buttonLayout }), [size, variant, color, buttonLayout])}
       >
-        <NumberFieldPrimitive.Group
-          data-button-layout={buttonLayout}
-          className={classNames('fui-NumberFieldGroup', `fui-r-size-${size}`)}
-        >
-          {hasButtons && buttonLayout === 'split' && <NumberFieldDecrement />}
-          {children}
-          {hasButtons &&
-            (buttonLayout === 'trailing' ? (
-              <div className="fui-NumberFieldButtonGroup">
-                <NumberFieldDecrement />
-                <NumberFieldIncrement />
-              </div>
-            ) : (
+        {hasButtons && buttonLayout === 'split' && <NumberFieldDecrement />}
+        {children}
+        {hasButtons &&
+          (buttonLayout === 'trailing' ? (
+            <div className="fui-NumberFieldButtonGroup">
+              <NumberFieldDecrement />
               <NumberFieldIncrement />
-            ))}
-        </NumberFieldPrimitive.Group>
+            </div>
+          ) : (
+            <NumberFieldIncrement />
+          ))}
       </NumberFieldContext.Provider>
     </NumberFieldPrimitive.Root>
   );

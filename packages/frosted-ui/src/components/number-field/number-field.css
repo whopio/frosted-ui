@@ -1,31 +1,25 @@
 .fui-NumberFieldRoot {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-}
-
-.fui-NumberFieldGroup {
-  display: flex;
   align-items: center;
   position: relative;
   z-index: 0;
   isolation: isolate;
 }
 
-/* Font size on Group so Slots inherit it */
-.fui-NumberFieldGroup:where(.fui-r-size-1) {
+/* Font size on Root so Slots inherit it */
+.fui-NumberFieldRoot:where(.fui-r-size-1) {
   font-size: var(--font-size-1);
   letter-spacing: var(--letter-spacing-1);
 }
-.fui-NumberFieldGroup:where(.fui-r-size-2) {
+.fui-NumberFieldRoot:where(.fui-r-size-2) {
   font-size: var(--font-size-2);
   letter-spacing: var(--letter-spacing-2);
 }
-.fui-NumberFieldGroup:where(.fui-r-size-3) {
+.fui-NumberFieldRoot:where(.fui-r-size-3) {
   font-size: var(--font-size-3);
   letter-spacing: var(--letter-spacing-3);
 }
-.fui-NumberFieldGroup:where(.fui-r-size-4) {
+.fui-NumberFieldRoot:where(.fui-r-size-4) {
   font-size: var(--font-size-4);
   letter-spacing: var(--letter-spacing-4);
 }
@@ -144,7 +138,7 @@
  * SPLIT LAYOUT - Buttons on either side of input: [-] [input] [+]
  ***************************************************************************************************/
 
-.fui-NumberFieldGroup[data-button-layout='split'] {
+.fui-NumberFieldRoot.fui-button-layout-split {
   & > .fui-NumberFieldInput {
     text-align: center;
     text-indent: 0;
@@ -227,7 +221,7 @@
   margin-left: -1px; /* Collapse border with input chrome */
 }
 
-.fui-NumberFieldGroup[data-button-layout='trailing'] {
+.fui-NumberFieldRoot.fui-button-layout-trailing {
   & > .fui-NumberFieldInput {
     text-align: left;
 
@@ -309,7 +303,7 @@
  * NO BUTTONS - Restore full styling when buttonLayout="none"
  ***************************************************************************************************/
 
-.fui-NumberFieldGroup:not(:has(.fui-NumberFieldButton)) {
+.fui-NumberFieldRoot:not(:has(.fui-NumberFieldButton)) {
   & > .fui-NumberFieldInput {
     text-align: left;
 
@@ -356,7 +350,7 @@
  ***************************************************************************************************/
 
 /* When Input follows a Slot (leading slot), remove text-indent since Slot provides padding */
-.fui-NumberFieldGroup > .fui-NumberFieldSlot + .fui-NumberFieldInput {
+.fui-NumberFieldRoot > .fui-NumberFieldSlot + .fui-NumberFieldInput {
   text-indent: 0;
 }
 
