@@ -228,6 +228,16 @@ export const WithSlot: Story = {
 
         <div>
           <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+            Without buttons
+          </Text>
+          <NumberField.Root {...args} defaultValue={42} buttonLayout="none">
+            <NumberField.Slot>#</NumberField.Slot>
+            <NumberField.Input />
+          </NumberField.Root>
+        </div>
+
+        <div>
+          <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
             Colored slot
           </Text>
           <NumberField.Root {...args} defaultValue={100} color="green">
