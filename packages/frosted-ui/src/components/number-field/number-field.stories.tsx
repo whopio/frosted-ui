@@ -336,39 +336,154 @@ export const Step: Story = {
 };
 
 export const Formatting: Story = {
+  name: 'format (Intl.NumberFormatOptions)',
   render: (args) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-      <div>
-        <Text render={<div />} size="2" color="gray" style={{ marginBottom: 'var(--space-2)' }}>
-          Currency (USD)
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)', maxWidth: 500 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+        <Text size="2" weight="bold">
+          format
         </Text>
-        <NumberField.Root {...args} defaultValue={1234.56} format={{ style: 'currency', currency: 'USD' }}>
-          <NumberField.Group>
-            <NumberField.Input />
-          </NumberField.Group>
-        </NumberField.Root>
+        <Text size="1" color="gray">
+          Uses{' '}
+          <Code size="1">
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat"
+              target="_blank"
+              rel="noopener"
+              style={{ color: 'inherit' }}
+            >
+              Intl.NumberFormatOptions
+            </a>
+          </Code>{' '}
+          to format the displayed value. The actual numeric value remains unchanged.
+        </Text>
       </div>
 
-      <div>
-        <Text render={<div />} size="2" color="gray" style={{ marginBottom: 'var(--space-2)' }}>
-          Percentage
-        </Text>
-        <NumberField.Root {...args} defaultValue={0.75} format={{ style: 'percent' }} step={0.01}>
-          <NumberField.Group>
-            <NumberField.Input />
-          </NumberField.Group>
-        </NumberField.Root>
-      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
+          <Text size="1" weight="medium">
+            Currency
+          </Text>
+          <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
+            <NumberField.Root
+              {...args}
+              defaultValue={1234.56}
+              step={0.01}
+              format={{ style: 'currency', currency: 'USD' }}
+            >
+              <NumberField.Group>
+                <NumberField.Input placeholder="USD" />
+              </NumberField.Group>
+            </NumberField.Root>
+            <NumberField.Root
+              {...args}
+              defaultValue={1234.56}
+              step={0.01}
+              format={{ style: 'currency', currency: 'EUR' }}
+            >
+              <NumberField.Group>
+                <NumberField.Input placeholder="EUR" />
+              </NumberField.Group>
+            </NumberField.Root>
+            <NumberField.Root
+              {...args}
+              defaultValue={1234.56}
+              step={0.01}
+              format={{ style: 'currency', currency: 'JPY' }}
+            >
+              <NumberField.Group>
+                <NumberField.Input placeholder="JPY" />
+              </NumberField.Group>
+            </NumberField.Root>
+          </div>
+        </div>
 
-      <div>
-        <Text render={<div />} size="2" color="gray" style={{ marginBottom: 'var(--space-2)' }}>
-          Unit (kilograms)
-        </Text>
-        <NumberField.Root {...args} defaultValue={75} format={{ style: 'unit', unit: 'kilogram' }}>
-          <NumberField.Group>
-            <NumberField.Input />
-          </NumberField.Group>
-        </NumberField.Root>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
+          <Text size="1" weight="medium">
+            Percentage
+          </Text>
+          <Text size="1" color="gray">
+            Value 0.75 displays as 75%. Use <Code size="1">step={'{0.01}'}</Code> for 1% increments.
+          </Text>
+          <NumberField.Root {...args} defaultValue={0.75} format={{ style: 'percent' }} step={0.01}>
+            <NumberField.Group>
+              <NumberField.Input style={{ width: 120 }} />
+            </NumberField.Group>
+          </NumberField.Root>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
+          <Text size="1" weight="medium">
+            Units
+          </Text>
+          <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
+            <NumberField.Root {...args} defaultValue={75} format={{ style: 'unit', unit: 'kilogram' }}>
+              <NumberField.Group>
+                <NumberField.Input />
+              </NumberField.Group>
+            </NumberField.Root>
+            <NumberField.Root {...args} defaultValue={100} format={{ style: 'unit', unit: 'kilometer-per-hour' }}>
+              <NumberField.Group>
+                <NumberField.Input />
+              </NumberField.Group>
+            </NumberField.Root>
+            <NumberField.Root {...args} defaultValue={24} format={{ style: 'unit', unit: 'celsius' }}>
+              <NumberField.Group>
+                <NumberField.Input />
+              </NumberField.Group>
+            </NumberField.Root>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
+          <Text size="1" weight="medium">
+            Decimal precision
+          </Text>
+          <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
+            <div>
+              <Text size="1" color="gray" style={{ display: 'block', marginBottom: 'var(--space-1)' }}>
+                2 decimals
+              </Text>
+              <NumberField.Root
+                {...args}
+                defaultValue={3.14159}
+                format={{ minimumFractionDigits: 2, maximumFractionDigits: 2 }}
+              >
+                <NumberField.Group>
+                  <NumberField.Input style={{ width: 100 }} />
+                </NumberField.Group>
+              </NumberField.Root>
+            </div>
+            <div>
+              <Text size="1" color="gray" style={{ display: 'block', marginBottom: 'var(--space-1)' }}>
+                No decimals
+              </Text>
+              <NumberField.Root
+                {...args}
+                defaultValue={1234}
+                format={{ minimumFractionDigits: 0, maximumFractionDigits: 0 }}
+              >
+                <NumberField.Group>
+                  <NumberField.Input style={{ width: 100 }} />
+                </NumberField.Group>
+              </NumberField.Root>
+            </div>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
+          <Text size="1" weight="medium">
+            Compact notation
+          </Text>
+          <Text size="1" color="gray">
+            Large numbers displayed as "1.2M" or "5K".
+          </Text>
+          <NumberField.Root {...args} defaultValue={1234567} format={{ notation: 'compact' }} step={1000}>
+            <NumberField.Group>
+              <NumberField.Input style={{ width: 120 }} />
+            </NumberField.Group>
+          </NumberField.Root>
+        </div>
       </div>
     </div>
   ),
