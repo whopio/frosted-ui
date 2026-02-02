@@ -55,7 +55,7 @@ interface NumberFieldGroupProps extends Omit<
 const NumberFieldGroup = (props: NumberFieldGroupProps) => {
   const { className, children, ...groupProps } = props;
   const context = React.useContext(NumberFieldContext);
-  const layout = context?.buttonLayout ?? 'split';
+  const layout = context?.buttonLayout ?? 'trailing';
   const hasButtons = layout !== 'none';
 
   return (
@@ -67,12 +67,7 @@ const NumberFieldGroup = (props: NumberFieldGroupProps) => {
       {hasButtons && layout === 'split' && <NumberFieldDecrement />}
       {children}
       {hasButtons &&
-        (layout === 'stacked' ? (
-          <div className="fui-NumberFieldButtonGroup">
-            <NumberFieldIncrement />
-            <NumberFieldDecrement />
-          </div>
-        ) : layout === 'trailing' ? (
+        (layout === 'trailing' ? (
           <div className="fui-NumberFieldButtonGroup">
             <NumberFieldDecrement />
             <NumberFieldIncrement />

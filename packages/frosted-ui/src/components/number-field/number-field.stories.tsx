@@ -121,54 +121,33 @@ export const ButtonLayout: Story = {
     <div style={{ display: 'flex', gap: 'var(--space-6)' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
         <Text size="2" weight="medium">
-          Split (default)
-        </Text>
-        <Text size="1" color="gray">
-          Buttons on either side
-        </Text>
-        <NumberField.Root {...args} buttonLayout="split" defaultValue={50}>
-          <NumberField.Group>
-            <NumberField.Input />
-          </NumberField.Group>
-        </NumberField.Root>
-        <TextField.Input
-          size={args.size}
-          variant={args.variant}
-          color={args.color}
-          disabled={args.disabled}
-          placeholder="TextField"
-        />
-      </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
-        <Text size="2" weight="medium">
-          Stacked
-        </Text>
-        <Text size="1" color="gray">
-          Buttons stacked on right
-        </Text>
-        <NumberField.Root {...args} buttonLayout="stacked" defaultValue={50}>
-          <NumberField.Group>
-            <NumberField.Input />
-          </NumberField.Group>
-        </NumberField.Root>
-        <TextField.Input
-          size={args.size}
-          variant={args.variant}
-          color={args.color}
-          disabled={args.disabled}
-          placeholder="TextField"
-        />
-      </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
-        <Text size="2" weight="medium">
-          Trailing
+          Trailing (default)
         </Text>
         <Text size="1" color="gray">
           Buttons in row on right
         </Text>
         <NumberField.Root {...args} buttonLayout="trailing" defaultValue={50}>
+          <NumberField.Group>
+            <NumberField.Input />
+          </NumberField.Group>
+        </NumberField.Root>
+        <TextField.Input
+          size={args.size}
+          variant={args.variant}
+          color={args.color}
+          disabled={args.disabled}
+          placeholder="TextField"
+        />
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+        <Text size="2" weight="medium">
+          Split
+        </Text>
+        <Text size="1" color="gray">
+          Buttons on either side
+        </Text>
+        <NumberField.Root {...args} buttonLayout="split" defaultValue={50}>
           <NumberField.Group>
             <NumberField.Input />
           </NumberField.Group>

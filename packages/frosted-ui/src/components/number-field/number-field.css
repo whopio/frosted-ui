@@ -154,155 +154,14 @@
 }
 
 /***************************************************************************************************
- * STACKED LAYOUT - Buttons stacked on right side: [input] [+]
- *                                                         [-]
+ * TRAILING LAYOUT - Buttons in a row on right side: [input] [-] [+]
  ***************************************************************************************************/
 
 .fui-NumberFieldButtonGroup {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin-left: -1px; /* Collapse border with input chrome */
 }
-
-.fui-NumberFieldGroup[data-button-layout='stacked'] {
-  & > .fui-NumberFieldInput {
-    text-align: left;
-
-    &:where(.fui-r-size-1) {
-      text-indent: calc(var(--space-1) * 1.5 - var(--text-field-border-width)) !important;
-      border-radius: max(6px, var(--radius-full)) 0 0 max(6px, var(--radius-full)) !important;
-    }
-    &:where(.fui-r-size-2) {
-      text-indent: calc(var(--space-2) - var(--text-field-border-width)) !important;
-      border-radius: max(8px, var(--radius-full)) 0 0 max(8px, var(--radius-full)) !important;
-    }
-    &:where(.fui-r-size-3) {
-      text-indent: calc(var(--space-3) - var(--text-field-border-width)) !important;
-      border-radius: max(10px, var(--radius-full)) 0 0 max(10px, var(--radius-full)) !important;
-    }
-    &:where(.fui-r-size-4) {
-      text-indent: calc(var(--space-3) - var(--text-field-border-width)) !important;
-      border-radius: max(14px, var(--radius-full)) 0 0 max(14px, var(--radius-full)) !important;
-    }
-  }
-
-  /* Button group styling */
-  & .fui-NumberFieldButtonGroup {
-    & .fui-NumberFieldButton {
-      border-radius: 0;
-    }
-
-    /* Increment (top button) */
-    & .fui-NumberFieldIncrement {
-      &:where(.fui-r-size-1) {
-        border-top-right-radius: max(6px, var(--radius-full));
-      }
-      &:where(.fui-r-size-2) {
-        border-top-right-radius: max(8px, var(--radius-full));
-      }
-      &:where(.fui-r-size-3) {
-        border-top-right-radius: max(10px, var(--radius-full));
-      }
-      &:where(.fui-r-size-4) {
-        border-top-right-radius: max(14px, var(--radius-full));
-      }
-    }
-
-    /* Decrement (bottom button) - collapse border with top button */
-    & .fui-NumberFieldDecrement {
-      margin-top: -1px;
-
-      &:where(.fui-r-size-1) {
-        border-bottom-right-radius: max(6px, var(--radius-full));
-      }
-      &:where(.fui-r-size-2) {
-        border-bottom-right-radius: max(8px, var(--radius-full));
-      }
-      &:where(.fui-r-size-3) {
-        border-bottom-right-radius: max(10px, var(--radius-full));
-      }
-      &:where(.fui-r-size-4) {
-        border-bottom-right-radius: max(14px, var(--radius-full));
-      }
-    }
-  }
-
-  /* Stacked button sizes - half height + 0.5px to compensate for -1px border collapse */
-  & .fui-NumberFieldButton {
-    &:where(.fui-r-size-1) {
-      height: calc(var(--space-5) / 2 + 0.5px) !important;
-      width: calc(var(--space-5) * 0.75) !important;
-      padding: 0;
-
-      & svg {
-        width: 6px;
-        height: 6px;
-      }
-    }
-
-    &:where(.fui-r-size-2) {
-      height: calc(var(--space-6) / 2 + 0.5px) !important;
-      width: calc(var(--space-6) * 0.75) !important;
-      padding: 0;
-
-      & svg {
-        width: 8px;
-        height: 8px;
-      }
-    }
-
-    &:where(.fui-r-size-3) {
-      height: calc(var(--space-7) / 2 + 0.5px) !important;
-      width: calc(var(--space-7) * 0.75) !important;
-      padding: 0;
-
-      & svg {
-        width: 10px;
-        height: 10px;
-      }
-    }
-
-    &:where(.fui-r-size-4) {
-      height: calc(var(--space-8) / 2 + 0.5px) !important;
-      width: calc(var(--space-8) * 0.85) !important;
-      padding: 0;
-
-      & svg {
-        width: 12px;
-        height: 12px;
-      }
-    }
-  }
-
-  /* TextFieldChrome positioning - account for button group margin-left: -1px */
-  & > .fui-TextFieldChrome {
-    left: 0;
-  }
-
-  &:has(.fui-r-size-1) > .fui-TextFieldChrome {
-    right: calc(var(--space-5) * 0.75 - 1px);
-    border-radius: max(6px, var(--radius-full)) 0 0 max(6px, var(--radius-full));
-  }
-
-  &:has(.fui-r-size-2) > .fui-TextFieldChrome {
-    right: calc(var(--space-6) * 0.75 - 1px);
-    border-radius: max(8px, var(--radius-full)) 0 0 max(8px, var(--radius-full));
-  }
-
-  &:has(.fui-r-size-3) > .fui-TextFieldChrome {
-    right: calc(var(--space-7) * 0.75 - 1px);
-    border-radius: max(10px, var(--radius-full)) 0 0 max(10px, var(--radius-full));
-  }
-
-  &:has(.fui-r-size-4) > .fui-TextFieldChrome {
-    right: calc(var(--space-8) * 0.85 - 1px);
-    border-radius: max(14px, var(--radius-full)) 0 0 max(14px, var(--radius-full));
-  }
-}
-
-/***************************************************************************************************
- * TRAILING LAYOUT - Buttons in a row on right side: [input] [-] [+]
- ***************************************************************************************************/
 
 .fui-NumberFieldGroup[data-button-layout='trailing'] {
   & > .fui-NumberFieldInput {
@@ -326,10 +185,8 @@
     }
   }
 
-  /* Button group in row */
+  /* Button group styling */
   & .fui-NumberFieldButtonGroup {
-    flex-direction: row;
-
     & .fui-NumberFieldButton {
       border-radius: 0;
     }
