@@ -36,7 +36,10 @@ const TextFieldRoot = (props: TextFieldRootProps) => {
         const cursorPosition = targetIsBeforeInput ? 0 : input.value.length;
 
         requestAnimationFrame(() => {
-          input.setSelectionRange(cursorPosition, cursorPosition);
+          const selectableTypes = ['text', 'search', 'url', 'tel', 'password'];
+          if (selectableTypes.includes(input.type)) {
+            input.setSelectionRange(cursorPosition, cursorPosition);
+          }
           input.focus();
         });
       })}
