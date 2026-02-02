@@ -77,14 +77,60 @@
 }
 
 /***************************************************************************************************
+ * SLOT - Icon/button container inside the input area
+ ***************************************************************************************************/
+
+.fui-NumberFieldSlot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 5;
+  color: var(--gray-a11);
+
+  &:where([data-accent-color]) {
+    color: var(--accent-a11);
+  }
+
+  &:where(:empty) {
+    display: none;
+  }
+
+  /* Size variants */
+  &:where(.fui-r-size-1) {
+    gap: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  &:where(.fui-r-size-2) {
+    gap: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  &:where(.fui-r-size-3) {
+    gap: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  &:where(.fui-r-size-4) {
+    gap: 12px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+
+/***************************************************************************************************
  * SPLIT LAYOUT - Buttons on either side of input: [-] [input] [+]
  ***************************************************************************************************/
 
 .fui-NumberFieldGroup[data-button-layout='split'] {
   & > .fui-NumberFieldInput {
     text-align: center;
-    text-indent: 0 !important;
-    border-radius: 0 !important;
+    text-indent: 0;
+    border-radius: 0;
   }
 
   & > .fui-NumberFieldDecrement {
@@ -168,20 +214,20 @@
     text-align: left;
 
     &:where(.fui-r-size-1) {
-      text-indent: calc(var(--space-1) * 1.5 - var(--text-field-border-width)) !important;
-      border-radius: max(6px, var(--radius-full)) 0 0 max(6px, var(--radius-full)) !important;
+      text-indent: calc(var(--space-1) * 1.5 - var(--text-field-border-width));
+      border-radius: max(6px, var(--radius-full)) 0 0 max(6px, var(--radius-full));
     }
     &:where(.fui-r-size-2) {
-      text-indent: calc(var(--space-2) - var(--text-field-border-width)) !important;
-      border-radius: max(8px, var(--radius-full)) 0 0 max(8px, var(--radius-full)) !important;
+      text-indent: calc(var(--space-2) - var(--text-field-border-width));
+      border-radius: max(8px, var(--radius-full)) 0 0 max(8px, var(--radius-full));
     }
     &:where(.fui-r-size-3) {
-      text-indent: calc(var(--space-3) - var(--text-field-border-width)) !important;
-      border-radius: max(10px, var(--radius-full)) 0 0 max(10px, var(--radius-full)) !important;
+      text-indent: calc(var(--space-3) - var(--text-field-border-width));
+      border-radius: max(10px, var(--radius-full)) 0 0 max(10px, var(--radius-full));
     }
     &:where(.fui-r-size-4) {
-      text-indent: calc(var(--space-3) - var(--text-field-border-width)) !important;
-      border-radius: max(14px, var(--radius-full)) 0 0 max(14px, var(--radius-full)) !important;
+      text-indent: calc(var(--space-3) - var(--text-field-border-width));
+      border-radius: max(14px, var(--radius-full)) 0 0 max(14px, var(--radius-full));
     }
   }
 
@@ -250,20 +296,20 @@
     text-align: left;
 
     &:where(.fui-r-size-1) {
-      text-indent: calc(var(--space-1) * 1.5 - var(--text-field-border-width)) !important;
-      border-radius: max(6px, var(--radius-full)) !important;
+      text-indent: calc(var(--space-1) * 1.5 - var(--text-field-border-width));
+      border-radius: max(6px, var(--radius-full));
     }
     &:where(.fui-r-size-2) {
-      text-indent: calc(var(--space-2) - var(--text-field-border-width)) !important;
-      border-radius: max(8px, var(--radius-full)) !important;
+      text-indent: calc(var(--space-2) - var(--text-field-border-width));
+      border-radius: max(8px, var(--radius-full));
     }
     &:where(.fui-r-size-3) {
-      text-indent: calc(var(--space-3) - var(--text-field-border-width)) !important;
-      border-radius: max(10px, var(--radius-full)) !important;
+      text-indent: calc(var(--space-3) - var(--text-field-border-width));
+      border-radius: max(10px, var(--radius-full));
     }
     &:where(.fui-r-size-4) {
-      text-indent: calc(var(--space-3) - var(--text-field-border-width)) !important;
-      border-radius: max(14px, var(--radius-full)) !important;
+      text-indent: calc(var(--space-3) - var(--text-field-border-width));
+      border-radius: max(14px, var(--radius-full));
     }
   }
 
@@ -284,6 +330,16 @@
       border-radius: max(14px, var(--radius-full));
     }
   }
+}
+
+/***************************************************************************************************
+ * SLOT + INPUT INTERACTION
+ * Must come after layout rules to override their text-indent
+ ***************************************************************************************************/
+
+/* When Input follows a Slot (leading slot), remove text-indent since Slot provides padding */
+.fui-NumberFieldGroup > .fui-NumberFieldSlot + .fui-NumberFieldInput {
+  text-indent: 0;
 }
 
 /***************************************************************************************************

@@ -4,9 +4,9 @@ import { NumberField as NumberFieldPrimitive } from '@base-ui/react/number-field
 import classNames from 'classnames';
 import * as React from 'react';
 import { IconButton } from '../icon-button';
-import { numberFieldPropDefs } from './number-field.props';
+import { numberFieldPropDefs, numberFieldSlotPropDefs } from './number-field.props';
 
-import type { GetPropDefTypes } from '../../helpers';
+import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 
 type NumberFieldOwnProps = GetPropDefTypes<typeof numberFieldPropDefs>;
 
@@ -79,6 +79,24 @@ const NumberFieldGroup = (props: NumberFieldGroupProps) => {
   );
 };
 NumberFieldGroup.displayName = 'NumberFieldGroup';
+
+type NumberFieldSlotElement = React.ElementRef<'div'>;
+type NumberFieldSlotOwnProps = GetPropDefTypes<typeof numberFieldSlotPropDefs>;
+interface NumberFieldSlotProps extends PropsWithoutColor<'div'>, NumberFieldSlotOwnProps {}
+
+const NumberFieldSlot = React.forwardRef<NumberFieldSlotElement, NumberFieldSlotProps>((props, forwardedRef) => {
+  const { className, color = numberFieldSlotPropDefs.color.default, ...slotProps } = props;
+  const context = React.useContext(NumberFieldContext);
+  return (
+    <div
+      data-accent-color={color}
+      {...slotProps}
+      ref={forwardedRef}
+      className={classNames('fui-NumberFieldSlot', className, `fui-r-size-${context?.size}`)}
+    />
+  );
+});
+NumberFieldSlot.displayName = 'NumberFieldSlot';
 
 interface NumberFieldInputProps
   extends
@@ -240,6 +258,7 @@ export {
   NumberFieldIncrement as Increment,
   NumberFieldInput as Input,
   NumberFieldRoot as Root,
+  NumberFieldSlot as Slot,
 };
 
 export type {
@@ -250,4 +269,5 @@ export type {
   NumberFieldRootChangeEventDetails as RootChangeEventDetails,
   NumberFieldRootCommitEventDetails as RootCommitEventDetails,
   NumberFieldRootProps as RootProps,
+  NumberFieldSlotProps as SlotProps,
 };

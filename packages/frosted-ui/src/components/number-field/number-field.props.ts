@@ -16,4 +16,10 @@ const numberFieldPropDefs = {
   buttonLayout: PropDef<(typeof buttonLayouts)[number]>;
 };
 
-export { numberFieldPropDefs };
+const numberFieldSlotPropDefs = {
+  color: colorProp,
+} satisfies {
+  color: typeof colorProp;
+};
+
+export { numberFieldPropDefs, numberFieldSlotPropDefs };
