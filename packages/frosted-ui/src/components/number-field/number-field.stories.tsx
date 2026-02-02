@@ -50,9 +50,7 @@ export const Default: Story = {
   render: (args) => (
     <div style={{ width: 160 }}>
       <NumberField.Root {...args} defaultValue={50}>
-        <NumberField.Group>
-          <NumberField.Input />
-        </NumberField.Group>
+        <NumberField.Input />
       </NumberField.Root>
     </div>
   ),
@@ -62,27 +60,19 @@ export const Size: Story = {
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', alignItems: 'flex-start' }}>
       <NumberField.Root {...args} size="1" defaultValue={10}>
-        <NumberField.Group>
-          <NumberField.Input />
-        </NumberField.Group>
+        <NumberField.Input />
       </NumberField.Root>
 
       <NumberField.Root {...args} size="2" defaultValue={20}>
-        <NumberField.Group>
-          <NumberField.Input />
-        </NumberField.Group>
+        <NumberField.Input />
       </NumberField.Root>
 
       <NumberField.Root {...args} size="3" defaultValue={30}>
-        <NumberField.Group>
-          <NumberField.Input />
-        </NumberField.Group>
+        <NumberField.Input />
       </NumberField.Root>
 
       <NumberField.Root {...args} size="4" defaultValue={40}>
-        <NumberField.Group>
-          <NumberField.Input />
-        </NumberField.Group>
+        <NumberField.Input />
       </NumberField.Root>
     </div>
   ),
@@ -96,9 +86,7 @@ export const Variant: Story = {
           Surface
         </Text>
         <NumberField.Root {...args} variant="surface" defaultValue={100}>
-          <NumberField.Group>
-            <NumberField.Input />
-          </NumberField.Group>
+          <NumberField.Input />
         </NumberField.Root>
       </div>
 
@@ -107,9 +95,7 @@ export const Variant: Story = {
           Soft
         </Text>
         <NumberField.Root {...args} variant="soft" defaultValue={100}>
-          <NumberField.Group>
-            <NumberField.Input />
-          </NumberField.Group>
+          <NumberField.Input />
         </NumberField.Root>
       </div>
     </div>
@@ -128,9 +114,7 @@ export const ButtonLayout: Story = {
           Buttons in row on right
         </Text>
         <NumberField.Root {...args} buttonLayout="trailing" defaultValue={50}>
-          <NumberField.Group>
-            <NumberField.Input />
-          </NumberField.Group>
+          <NumberField.Input />
         </NumberField.Root>
         <TextField.Input
           size={args.size}
@@ -149,9 +133,7 @@ export const ButtonLayout: Story = {
           Buttons on either side
         </Text>
         <NumberField.Root {...args} buttonLayout="split" defaultValue={50}>
-          <NumberField.Group>
-            <NumberField.Input />
-          </NumberField.Group>
+          <NumberField.Input />
         </NumberField.Root>
         <TextField.Input
           size={args.size}
@@ -170,9 +152,7 @@ export const ButtonLayout: Story = {
           No buttons
         </Text>
         <NumberField.Root {...args} buttonLayout="none" defaultValue={50}>
-          <NumberField.Group>
-            <NumberField.Input />
-          </NumberField.Group>
+          <NumberField.Input />
         </NumberField.Root>
         <TextField.Input
           size={args.size}
@@ -206,12 +186,10 @@ export const WithSlot: Story = {
             Leading slot (currency)
           </Text>
           <NumberField.Root {...args} defaultValue={99.99} step={0.01} format={{ minimumFractionDigits: 2 }}>
-            <NumberField.Group>
-              <NumberField.Slot>
-                <DollarSign16 />
-              </NumberField.Slot>
-              <NumberField.Input />
-            </NumberField.Group>
+            <NumberField.Slot>
+              <DollarSign16 />
+            </NumberField.Slot>
+            <NumberField.Input />
           </NumberField.Root>
         </div>
 
@@ -220,10 +198,8 @@ export const WithSlot: Story = {
             Trailing slot (unit)
           </Text>
           <NumberField.Root {...args} defaultValue={75}>
-            <NumberField.Group>
-              <NumberField.Input />
-              <NumberField.Slot>kg</NumberField.Slot>
-            </NumberField.Group>
+            <NumberField.Input />
+            <NumberField.Slot>kg</NumberField.Slot>
           </NumberField.Root>
         </div>
 
@@ -232,13 +208,11 @@ export const WithSlot: Story = {
             Both slots
           </Text>
           <NumberField.Root {...args} defaultValue={50} min={0} max={100}>
-            <NumberField.Group>
-              <NumberField.Slot>
-                <Percentage16 />
-              </NumberField.Slot>
-              <NumberField.Input />
-              <NumberField.Slot>off</NumberField.Slot>
-            </NumberField.Group>
+            <NumberField.Slot>
+              <Percentage16 />
+            </NumberField.Slot>
+            <NumberField.Input />
+            <NumberField.Slot>off</NumberField.Slot>
           </NumberField.Root>
         </div>
 
@@ -247,10 +221,8 @@ export const WithSlot: Story = {
             With split button layout
           </Text>
           <NumberField.Root {...args} defaultValue={5} buttonLayout="split">
-            <NumberField.Group>
-              <NumberField.Slot>Qty</NumberField.Slot>
-              <NumberField.Input />
-            </NumberField.Group>
+            <NumberField.Slot>Qty</NumberField.Slot>
+            <NumberField.Input />
           </NumberField.Root>
         </div>
 
@@ -259,12 +231,10 @@ export const WithSlot: Story = {
             Colored slot
           </Text>
           <NumberField.Root {...args} defaultValue={100} color="green">
-            <NumberField.Group>
-              <NumberField.Slot color="green">
-                <DollarSign16 />
-              </NumberField.Slot>
-              <NumberField.Input />
-            </NumberField.Group>
+            <NumberField.Slot color="green">
+              <DollarSign16 />
+            </NumberField.Slot>
+            <NumberField.Input />
           </NumberField.Root>
         </div>
       </div>
@@ -277,21 +247,15 @@ export const Color: Story = {
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
       <NumberField.Root {...args} color="indigo" defaultValue={100}>
-        <NumberField.Group>
-          <NumberField.Input />
-        </NumberField.Group>
+        <NumberField.Input />
       </NumberField.Root>
 
       <NumberField.Root {...args} color="green" defaultValue={100}>
-        <NumberField.Group>
-          <NumberField.Input />
-        </NumberField.Group>
+        <NumberField.Input />
       </NumberField.Root>
 
       <NumberField.Root {...args} color="red" defaultValue={100}>
-        <NumberField.Group>
-          <NumberField.Input />
-        </NumberField.Group>
+        <NumberField.Input />
       </NumberField.Root>
     </div>
   ),
@@ -305,9 +269,7 @@ export const MinMax: Story = {
         Value constrained between 0 and 100
       </Text>
       <NumberField.Root {...args} defaultValue={50} min={0} max={100}>
-        <NumberField.Group>
-          <NumberField.Input />
-        </NumberField.Group>
+        <NumberField.Input />
       </NumberField.Root>
     </div>
   ),
@@ -325,9 +287,7 @@ export const Step: Story = {
           Base increment amount. Use buttons or arrow keys (↑↓).
         </Text>
         <NumberField.Root {...args} defaultValue={0} step={5}>
-          <NumberField.Group>
-            <NumberField.Input placeholder="step={5}" />
-          </NumberField.Group>
+          <NumberField.Input placeholder="step={5}" />
         </NumberField.Root>
       </div>
 
@@ -339,9 +299,7 @@ export const Step: Story = {
           Hold <Code size="1">Alt/Option</Code> for small steps, <Code size="1">Shift</Code> for large steps.
         </Text>
         <NumberField.Root {...args} defaultValue={50} step={1} smallStep={0.1} largeStep={10}>
-          <NumberField.Group>
-            <NumberField.Input placeholder="step=1, smallStep=0.1, largeStep=10" />
-          </NumberField.Group>
+          <NumberField.Input placeholder="step=1, smallStep=0.1, largeStep=10" />
         </NumberField.Root>
         <Text size="1" color="gray">
           <em>Normal: ±1 · Alt/Option: ±0.1 · Shift: ±10</em>
@@ -361,9 +319,7 @@ export const Step: Story = {
               snapOnStep={'{false}'} (default)
             </Text>
             <NumberField.Root {...args} defaultValue={7} step={5} snapOnStep={false}>
-              <NumberField.Group>
-                <NumberField.Input />
-              </NumberField.Group>
+              <NumberField.Input />
             </NumberField.Root>
             <Text size="1" color="gray">
               <em>7 → ↑ → 12 (adds step)</em>
@@ -374,9 +330,7 @@ export const Step: Story = {
               snapOnStep={'{true}'}
             </Text>
             <NumberField.Root {...args} defaultValue={7} step={5} snapOnStep>
-              <NumberField.Group>
-                <NumberField.Input />
-              </NumberField.Group>
+              <NumberField.Input />
             </NumberField.Root>
             <Text size="1" color="gray">
               <em>7 → ↑ → 10 (snaps to step)</em>
@@ -393,9 +347,7 @@ export const Step: Story = {
           Use small step values for currency or precise decimal inputs.
         </Text>
         <NumberField.Root {...args} defaultValue={9.99} step={0.01}>
-          <NumberField.Group>
-            <NumberField.Input />
-          </NumberField.Group>
+          <NumberField.Input />
         </NumberField.Root>
       </div>
     </div>
@@ -438,9 +390,7 @@ export const Formatting: Story = {
               step={0.01}
               format={{ style: 'currency', currency: 'USD' }}
             >
-              <NumberField.Group>
-                <NumberField.Input placeholder="USD" />
-              </NumberField.Group>
+              <NumberField.Input placeholder="USD" />
             </NumberField.Root>
             <NumberField.Root
               {...args}
@@ -448,9 +398,7 @@ export const Formatting: Story = {
               step={0.01}
               format={{ style: 'currency', currency: 'EUR' }}
             >
-              <NumberField.Group>
-                <NumberField.Input placeholder="EUR" />
-              </NumberField.Group>
+              <NumberField.Input placeholder="EUR" />
             </NumberField.Root>
             <NumberField.Root
               {...args}
@@ -458,9 +406,7 @@ export const Formatting: Story = {
               step={0.01}
               format={{ style: 'currency', currency: 'JPY' }}
             >
-              <NumberField.Group>
-                <NumberField.Input placeholder="JPY" />
-              </NumberField.Group>
+              <NumberField.Input placeholder="JPY" />
             </NumberField.Root>
           </div>
         </div>
@@ -473,9 +419,7 @@ export const Formatting: Story = {
             Value 0.75 displays as 75%. Use <Code size="1">step={'{0.01}'}</Code> for 1% increments.
           </Text>
           <NumberField.Root {...args} defaultValue={0.75} format={{ style: 'percent' }} step={0.01}>
-            <NumberField.Group>
-              <NumberField.Input style={{ width: 120 }} />
-            </NumberField.Group>
+            <NumberField.Input style={{ width: 120 }} />
           </NumberField.Root>
         </div>
 
@@ -485,19 +429,13 @@ export const Formatting: Story = {
           </Text>
           <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
             <NumberField.Root {...args} defaultValue={75} format={{ style: 'unit', unit: 'kilogram' }}>
-              <NumberField.Group>
-                <NumberField.Input />
-              </NumberField.Group>
+              <NumberField.Input />
             </NumberField.Root>
             <NumberField.Root {...args} defaultValue={100} format={{ style: 'unit', unit: 'kilometer-per-hour' }}>
-              <NumberField.Group>
-                <NumberField.Input />
-              </NumberField.Group>
+              <NumberField.Input />
             </NumberField.Root>
             <NumberField.Root {...args} defaultValue={24} format={{ style: 'unit', unit: 'celsius' }}>
-              <NumberField.Group>
-                <NumberField.Input />
-              </NumberField.Group>
+              <NumberField.Input />
             </NumberField.Root>
           </div>
         </div>
@@ -516,9 +454,7 @@ export const Formatting: Story = {
                 defaultValue={3.14159}
                 format={{ minimumFractionDigits: 2, maximumFractionDigits: 2 }}
               >
-                <NumberField.Group>
-                  <NumberField.Input style={{ width: 100 }} />
-                </NumberField.Group>
+                <NumberField.Input style={{ width: 100 }} />
               </NumberField.Root>
             </div>
             <div>
@@ -530,9 +466,7 @@ export const Formatting: Story = {
                 defaultValue={1234}
                 format={{ minimumFractionDigits: 0, maximumFractionDigits: 0 }}
               >
-                <NumberField.Group>
-                  <NumberField.Input style={{ width: 100 }} />
-                </NumberField.Group>
+                <NumberField.Input style={{ width: 100 }} />
               </NumberField.Root>
             </div>
           </div>
@@ -546,9 +480,7 @@ export const Formatting: Story = {
             Large numbers displayed as "1.2M" or "5K".
           </Text>
           <NumberField.Root {...args} defaultValue={1234567} format={{ notation: 'compact' }} step={1000}>
-            <NumberField.Group>
-              <NumberField.Input style={{ width: 120 }} />
-            </NumberField.Group>
+            <NumberField.Input style={{ width: 120 }} />
           </NumberField.Root>
         </div>
       </div>
@@ -560,15 +492,11 @@ export const Disabled: Story = {
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
       <NumberField.Root {...args} variant="surface" defaultValue={100} disabled>
-        <NumberField.Group>
-          <NumberField.Input />
-        </NumberField.Group>
+        <NumberField.Input />
       </NumberField.Root>
 
       <NumberField.Root {...args} variant="soft" defaultValue={100} disabled>
-        <NumberField.Group>
-          <NumberField.Input />
-        </NumberField.Group>
+        <NumberField.Input />
       </NumberField.Root>
     </div>
   ),
@@ -578,15 +506,11 @@ export const ReadOnly: Story = {
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
       <NumberField.Root {...args} variant="surface" defaultValue={100} readOnly>
-        <NumberField.Group>
-          <NumberField.Input />
-        </NumberField.Group>
+        <NumberField.Input />
       </NumberField.Root>
 
       <NumberField.Root {...args} variant="soft" defaultValue={100} readOnly>
-        <NumberField.Group>
-          <NumberField.Input />
-        </NumberField.Group>
+        <NumberField.Input />
       </NumberField.Root>
     </div>
   ),
@@ -605,9 +529,7 @@ export const DisabledVsReadOnly: Story = {
           skips it). Screen readers announce it as disabled. Value is <strong>not submitted</strong> with the form.
         </Text>
         <NumberField.Root {...args} defaultValue={100} disabled>
-          <NumberField.Group>
-            <NumberField.Input />
-          </NumberField.Group>
+          <NumberField.Input />
         </NumberField.Root>
         <Text size="1" color="gray">
           <em>Try pressing Tab — the input will be skipped.</em>
@@ -624,9 +546,7 @@ export const DisabledVsReadOnly: Story = {
           announce it. Value <strong>is submitted</strong> with the form.
         </Text>
         <NumberField.Root {...args} defaultValue={100} readOnly>
-          <NumberField.Group>
-            <NumberField.Input />
-          </NumberField.Group>
+          <NumberField.Input />
         </NumberField.Root>
         <Text size="1" color="gray">
           <em>Try pressing Tab — the input can be focused.</em>
@@ -643,9 +563,7 @@ export const Controlled: Story = {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', alignItems: 'flex-start' }}>
         <NumberField.Root {...args} value={value} onValueChange={(v) => setValue(v)}>
-          <NumberField.Group>
-            <NumberField.Input />
-          </NumberField.Group>
+          <NumberField.Input />
         </NumberField.Root>
 
         <Code size="2">value: {value === null ? 'null' : value}</Code>
@@ -702,9 +620,7 @@ export const OnValueChangeVsCommitted: Story = {
           onValueChange={(value) => addChangeLog(value)}
           onValueCommitted={(value) => addCommitLog(value)}
         >
-          <NumberField.Group>
-            <NumberField.Input />
-          </NumberField.Group>
+          <NumberField.Input />
         </NumberField.Root>
 
         <Text size="1" color="gray">
@@ -822,9 +738,7 @@ export const InputRef: Story = {
         </div>
 
         <NumberField.Root {...args} defaultValue={1234.56} inputRef={hiddenInputRef}>
-          <NumberField.Group>
-            <NumberField.Input ref={visibleInputRef} />
-          </NumberField.Group>
+          <NumberField.Input ref={visibleInputRef} />
         </NumberField.Root>
 
         <div style={{ display: 'flex', gap: 'var(--space-2)', flexWrap: 'wrap' }}>
@@ -884,9 +798,7 @@ export const FormSubmission: Story = {
             Quantity
           </Text>
           <NumberField.Root {...args} id="quantity" name="quantity" defaultValue={1} min={1} max={99}>
-            <NumberField.Group>
-              <NumberField.Input />
-            </NumberField.Group>
+            <NumberField.Input />
           </NumberField.Root>
         </div>
 
@@ -902,9 +814,7 @@ export const FormSubmission: Story = {
             step={0.01}
             format={{ style: 'currency', currency: 'USD' }}
           >
-            <NumberField.Group>
-              <NumberField.Input />
-            </NumberField.Group>
+            <NumberField.Input />
           </NumberField.Root>
         </div>
 

@@ -33,52 +33,34 @@ const NumberFieldRoot = (props: NumberFieldRootProps) => {
     ...rootProps
   } = props;
 
+  const hasButtons = buttonLayout !== 'none';
+
   return (
     <NumberFieldPrimitive.Root {...rootProps} className={classNames('fui-NumberFieldRoot', className)}>
       <NumberFieldContext.Provider
         value={React.useMemo(() => ({ size, variant, color, buttonLayout }), [size, variant, color, buttonLayout])}
       >
-        {children}
+        <NumberFieldPrimitive.Group
+          data-button-layout={buttonLayout}
+          className={classNames('fui-NumberFieldGroup', `fui-r-size-${size}`)}
+        >
+          {hasButtons && buttonLayout === 'split' && <NumberFieldDecrement />}
+          {children}
+          {hasButtons &&
+            (buttonLayout === 'trailing' ? (
+              <div className="fui-NumberFieldButtonGroup">
+                <NumberFieldDecrement />
+                <NumberFieldIncrement />
+              </div>
+            ) : (
+              <NumberFieldIncrement />
+            ))}
+        </NumberFieldPrimitive.Group>
       </NumberFieldContext.Provider>
     </NumberFieldPrimitive.Root>
   );
 };
 NumberFieldRoot.displayName = 'NumberFieldRoot';
-
-interface NumberFieldGroupProps extends Omit<
-  React.ComponentProps<typeof NumberFieldPrimitive.Group>,
-  'className' | 'render'
-> {
-  className?: string;
-}
-
-const NumberFieldGroup = (props: NumberFieldGroupProps) => {
-  const { className, children, ...groupProps } = props;
-  const context = React.useContext(NumberFieldContext);
-  const layout = context?.buttonLayout ?? 'trailing';
-  const hasButtons = layout !== 'none';
-
-  return (
-    <NumberFieldPrimitive.Group
-      {...groupProps}
-      data-button-layout={layout}
-      className={classNames('fui-NumberFieldGroup', `fui-r-size-${context?.size}`, className)}
-    >
-      {hasButtons && layout === 'split' && <NumberFieldDecrement />}
-      {children}
-      {hasButtons &&
-        (layout === 'trailing' ? (
-          <div className="fui-NumberFieldButtonGroup">
-            <NumberFieldDecrement />
-            <NumberFieldIncrement />
-          </div>
-        ) : (
-          <NumberFieldIncrement />
-        ))}
-    </NumberFieldPrimitive.Group>
-  );
-};
-NumberFieldGroup.displayName = 'NumberFieldGroup';
 
 type NumberFieldSlotElement = React.ElementRef<'div'>;
 type NumberFieldSlotOwnProps = GetPropDefTypes<typeof numberFieldSlotPropDefs>;
@@ -254,7 +236,6 @@ function PlusIcon() {
 
 export {
   NumberFieldDecrement as Decrement,
-  NumberFieldGroup as Group,
   NumberFieldIncrement as Increment,
   NumberFieldInput as Input,
   NumberFieldRoot as Root,
@@ -263,7 +244,6 @@ export {
 
 export type {
   NumberFieldDecrementProps as DecrementProps,
-  NumberFieldGroupProps as GroupProps,
   NumberFieldIncrementProps as IncrementProps,
   NumberFieldInputProps as InputProps,
   NumberFieldRootChangeEventDetails as RootChangeEventDetails,
