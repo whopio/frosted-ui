@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import * as Icons from '@frosted-ui/icons';
-import { MagnifyingGlass20 } from '@frosted-ui/icons';
+import { MagnifyingGlass20, XCircleFilled16 } from '@frosted-ui/icons';
 import { default as React, useDeferredValue, useMemo, useState } from 'react';
-import { ScrollArea, Select, Text, TextField } from '../../../src';
+import { IconButton, ScrollArea, Select, Text, TextField } from '../../../src';
 import { Tooltip } from '../../../src/components/tooltip';
 
 // Helper type for icon components with category
@@ -342,7 +342,25 @@ const IconBrowserComponent = () => {
                 placeholder={`Search icons (try "arrow up", "filled")...`}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Escape') {
+                    setSearchQuery('');
+                  }
+                }}
               />
+              {searchQuery && (
+                <TextField.Slot>
+                  <IconButton
+                    size="2"
+                    variant="ghost"
+                    color="gray"
+                    style={{ borderRadius: '50%' }}
+                    onClick={() => setSearchQuery('')}
+                  >
+                    <XCircleFilled16 />
+                  </IconButton>
+                </TextField.Slot>
+              )}
             </TextField.Root>
           </div>
           <Select.Root value={selectedSize} onValueChange={(value) => setSelectedSize(value as IconSize)} size="3">
