@@ -182,7 +182,7 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Default: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'row', width: 400, flexWrap: 'wrap', padding: 24 }}>
+    <div style={{ display: 'flex', flexDirection: 'row', width: 400, flexWrap: 'wrap', padding: 24, margin: '0 auto' }}>
       {Object.entries(Icons).map(([name, Icon]) => (
         <div key={name} style={{ width: '20%', padding: 8 }}>
           <Tooltip disableHoverablePopup content={name} delay={0} closeDelay={0}>
@@ -277,6 +277,7 @@ const IconBrowserComponent = () => {
               }}
             >
               <span>All</span>
+              <span style={{ color: 'var(--gray-10)', fontSize: 13 }}>{totalIconCount}</span>
             </button>
 
             {/* Categories header */}
@@ -314,7 +315,9 @@ const IconBrowserComponent = () => {
                 }}
               >
                 <span>{category}</span>
-                <span style={{ color: 'var(--gray-10)', fontSize: 13 }}>{groupedIcons[category]?.length || 0}</span>
+                <span style={{ color: 'var(--gray-10)', fontSize: 13 }}>
+                  {countUniqueIcons(groupedIcons[category] || [])}
+                </span>
               </button>
             ))}
           </div>
