@@ -489,9 +489,6 @@ importers:
       '@types/fs-extra':
         specifier: ^5.0.5
         version: 5.0.5
-      '@types/ink':
-        specifier: ^0.5.1
-        version: 0.5.1
       '@types/lodash':
         specifier: ^4.14.123
         version: 4.14.199
@@ -4248,9 +4245,6 @@ packages:
   '@types/hammerjs@2.0.46':
     resolution: {integrity: sha512-ynRvcq6wvqexJ9brDMS4BnBLzmr0e14d6ZJTEShTBWKymQiHwlAyGu0ZPEFI2Fh1U53F7tN9ufClWM5KvqkKOw==}
 
-  '@types/ink@0.5.1':
-    resolution: {integrity: sha512-B2LoPN8Jedf1e7IVVhCztdooZ21NZWoFzunXXJostqxZ5Qdr/V2UbwlFUooKJ+Z0gfSYX5NWeA6GGi3S88p3ig==}
-
   '@types/inquirer@6.5.0':
     resolution: {integrity: sha512-rjaYQ9b9y/VFGOpqBEXRavc3jh0a+e6evAbI31tMda8VlPaSy0AZJfXsvmIe3wklc7W6C3zCSfleuMXR7NOyXw==}
 
@@ -4319,9 +4313,6 @@ packages:
 
   '@types/prettier@1.19.1':
     resolution: {integrity: sha512-5qOlnZscTn4xxM5MeGXAMOsIOIKIbh9e85zJWfBRVPlRMEVawzoPhINYbRGkBZCI8LxvBe7tJCdWiarA99OZfQ==}
-
-  '@types/prop-types@15.7.5':
-    resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
 
   '@types/q@1.5.8':
     resolution: {integrity: sha512-hroOstUScF6zhIi+5+x0dzqrHA1EJi+Irri6b1fxolMTqqHIV/Cg77EtnQcZqZCu8hR3mX2BzIxN4/GzI68Kfw==}
@@ -14264,11 +14255,6 @@ snapshots:
 
   '@types/hammerjs@2.0.46': {}
 
-  '@types/ink@0.5.1':
-    dependencies:
-      '@types/node': 17.0.45
-      '@types/prop-types': 15.7.5
-
   '@types/inquirer@6.5.0':
     dependencies:
       '@types/through': 0.0.30
@@ -14330,8 +14316,6 @@ snapshots:
   '@types/normalize-package-data@2.4.4': {}
 
   '@types/prettier@1.19.1': {}
-
-  '@types/prop-types@15.7.5': {}
 
   '@types/q@1.5.8': {}
 

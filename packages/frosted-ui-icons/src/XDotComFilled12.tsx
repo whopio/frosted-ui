@@ -1,0 +1,23 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const XDotComFilled12 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M8.70165 1.75H10.1426L6.9945 5.3505L10.698 10.25H7.7982L5.527 7.2785L2.92819 10.25H1.48635L4.85355 6.39885L1.30078 1.75H4.2742L6.3272 4.46607L8.70165 1.75Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+export default XDotComFilled12;

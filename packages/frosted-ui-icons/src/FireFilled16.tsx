@@ -1,0 +1,27 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const FireFilled16 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M14.5 9.36301C14.5 12.5329 11.25 15.25 8 15.25C4.75 15.25 1.5 12.5329 1.5 9.36301C1.5 8.06614 1.99544 6.85481 2.31623 6.20643C2.38431 6.06882 2.58508 6.12265 2.60135 6.27531C2.79598 8.10153 4.29473 8.58347 4.75 8.03366C5.24877 7.43131 4.50191 6.49003 4.75 4.5067C4.99457 2.55153 6.63476 0.432141 10.2557 0.789785C10.3671 0.800784 10.4244 0.929349 10.3638 1.02346C8.12693 4.50026 9.93243 6.43926 10.9315 7.93013C10.9671 7.98328 11.0406 7.9902 11.0811 7.94071C11.3621 7.59763 12.2577 6.31589 11.8976 4.27919C11.8718 4.1332 12.046 4.03062 12.1505 4.13575C13.5742 5.56756 14.5 7.59022 14.5 9.36301Z"
+        fill={color}
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export default FireFilled16;

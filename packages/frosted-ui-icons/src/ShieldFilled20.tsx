@@ -1,0 +1,23 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const ShieldFilled20 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M9.25 0.250732C9.78536 0.0574952 10.372 0.0592096 10.9062 0.255615L17.416 2.65112C18.3673 3.0011 18.9998 3.90702 19 4.92065V10.9998L18.9941 11.2498C18.875 13.8111 16.9442 15.8499 15.1025 17.2429C13.1616 18.7109 11.0895 19.6367 10.5166 19.8796C10.234 19.9995 9.92521 20.0005 9.6416 19.8826C9.06298 19.6418 6.95319 18.7179 4.97559 17.2507C3.04083 15.8152 1 13.687 1 10.9998V4.92847C1.00013 3.90945 1.6392 2.99918 2.59766 2.65308L9.25 0.250732Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+export default ShieldFilled20;

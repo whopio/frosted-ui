@@ -1,0 +1,30 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const MessageBlankFilled20 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <g clipPath="url(#clip0_6949_102)">
+        <path
+          d="M10 0C15.5225 0.000258803 19.9998 4.47751 20 10L19.9873 10.5146C19.7193 15.798 15.3499 19.9998 10 20C9.01536 20 8.06294 19.8563 7.16309 19.5898C6.04867 19.2597 5.02101 19.0871 4.09668 19.3545C3.55517 19.5113 3.04079 19.6747 2.57617 19.832C1.82828 20.0853 1.10141 19.8075 0.645508 19.3516C0.189608 18.8956 -0.0881382 18.1688 0.165039 17.4209C0.32286 16.9549 0.486638 16.4385 0.643555 15.8945C0.909808 14.9709 0.737104 13.945 0.408203 12.832C0.175931 12.046 0.0378131 11.2197 0.00683594 10.3672L0 10C0.00023092 4.47744 4.47751 0.000213963 10 0Z"
+          fill={color}
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_6949_102">
+          <path fill={color} d="M0 0H20V20H0z" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+};
+
+export default MessageBlankFilled20;

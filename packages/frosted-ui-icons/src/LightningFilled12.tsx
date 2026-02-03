@@ -1,0 +1,23 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const LightningFilled12 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M8.11914 0C8.86168 4.08489e-05 9.34939 0.776226 9.02734 1.44531L7.78906 4.01758H9.53906C10.4003 4.01781 10.8647 5.02815 10.3037 5.68164L5.19043 11.6357C4.52524 12.4099 3.26218 11.8181 3.43164 10.8115L3.99023 7.5H2.45312C1.77063 7.49986 1.28544 6.83568 1.49316 6.18555L3.20801 0.820312L3.24023 0.730469C3.42074 0.291529 3.85024 0.000199433 4.33105 0H8.11914Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+export default LightningFilled12;

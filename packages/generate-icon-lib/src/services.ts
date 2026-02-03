@@ -236,44 +236,62 @@ export function getIconsPage(document: IFigmaDocument): IFigmaCanvas | null {
 
 export function getIcons(iconsCanvas: IFigmaCanvas): IIcons {
   let swag: IIcons = {};
-  iconsCanvas.children.forEach((iconSetNode) => {
-    if ((iconSetNode.type === 'FRAME' || iconSetNode.type === 'GROUP') && iconSetNode.name === 'Icons/Default') {
-      iconSetNode.children.forEach((iconNode) => {
-        // Our individual icons frames may be Figma "Components" 🤙
-        if (iconNode.type === 'COMPONENT_SET') {
-          // 'Break Link' => 'break-link'
-          // 'GitHub Logo' => 'github-logo'
-          iconNode.children.forEach((iconVariant) => {
-            render({ fileKey: iconVariant.name + ' 🔥🔥🔥' });
 
-            const size = iconVariant.name.replace(/size=/i, '');
-            if (size === iconVariant.name) {
-              throw new CodedError(
-                ERRORS.UNEXPECTED,
-                `An unexpected icon variant name was encountered: ${iconVariant.name} for ${iconNode.name}`,
-              );
-            }
-            const iconNameAndSize = `${iconNode.name} ${size}`;
-            const svgName = _.kebabCase(iconNameAndSize);
-
-            // We insert whitespace between lower and uppercase letters
-            // to make sure that lodash preserves existing camel-casing.
-            // 'Break Link' => 'BreakLink'
-            // 'GitHub Logo' => 'GitHubLogo'
-            const jsxName = _.upperFirst(_.camelCase(iconNameAndSize.replace(/([0-9a-z])([0-9A-Z])/g, '$1 $2')));
-
-            swag[iconVariant.id] = {
-              jsxName,
-              svgName,
-              id: iconVariant.id,
-              size: size,
-              type: labelling.typeFromFrameNodeName(iconVariant.name),
-            };
-          });
-        }
+  // Recursively find all frames named "Icons"
+  function findIconsFrames(node: any): any[] {
+    const results: any[] = [];
+    if ((node.type === 'FRAME' || node.type === 'GROUP') && node.name === 'Icons') {
+      results.push(node);
+    }
+    if (node.children) {
+      node.children.forEach((child: any) => {
+        results.push(...findIconsFrames(child));
       });
     }
+    return results;
+  }
+
+  const iconsFrames = findIconsFrames(iconsCanvas);
+
+  // Get all COMPONENT_SET children from "Icons" frames
+  iconsFrames.forEach((iconsFrame) => {
+    if (!iconsFrame.children) return;
+
+    iconsFrame.children.forEach((iconNode) => {
+      if (iconNode.type !== 'COMPONENT_SET') return;
+
+      // 'Break Link' => 'break-link'
+      // 'GitHub Logo' => 'github-logo'
+      iconNode.children.forEach((iconVariant) => {
+        render({ fileKey: iconVariant.name + ' 🔥🔥🔥' });
+
+        const size = iconVariant.name.replace(/size=/i, '');
+        if (size === iconVariant.name) {
+          throw new CodedError(
+            ERRORS.UNEXPECTED,
+            `An unexpected icon variant name was encountered: ${iconVariant.name} for ${iconNode.name}`,
+          );
+        }
+        const iconNameAndSize = `${iconNode.name} ${size}`;
+        const svgName = _.kebabCase(iconNameAndSize);
+
+        // We insert whitespace between lower and uppercase letters
+        // to make sure that lodash preserves existing camel-casing.
+        // 'Break Link' => 'BreakLink'
+        // 'GitHub Logo' => 'GitHubLogo'
+        const jsxName = _.upperFirst(_.camelCase(iconNameAndSize.replace(/([0-9a-z])([0-9A-Z])/g, '$1 $2')));
+
+        swag[iconVariant.id] = {
+          jsxName,
+          svgName,
+          id: iconVariant.id,
+          size: size,
+          type: labelling.typeFromFrameNodeName(iconVariant.name),
+        };
+      });
+    });
   });
+
   return swag;
 }
 

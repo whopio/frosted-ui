@@ -1,0 +1,23 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const ExclamationTriangleFilled12 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M4.2793 1.63275C5.01339 0.256321 6.98653 0.256403 7.7207 1.63275L11.7207 9.13275C12.413 10.4316 11.4719 11.9999 10 11.9999H2C0.528173 11.9998 -0.412985 10.4315 0.279297 9.13275L4.2793 1.63275ZM6 8.24994C5.58587 8.25 5.25004 8.5858 5.25 8.99994C5.25 9.41411 5.58584 9.74988 6 9.74994C6.41421 9.74994 6.75 9.41415 6.75 8.99994C6.74996 8.58576 6.41419 8.24994 6 8.24994ZM6 4.24994C5.58595 4.25011 5.25003 4.58586 5.25 4.99994V6.74994C5.25 7.16405 5.58593 7.49977 6 7.49994C6.41421 7.49994 6.75 7.16415 6.75 6.74994V4.99994C6.74997 4.58575 6.41419 4.24994 6 4.24994Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+export default ExclamationTriangleFilled12;

@@ -1,0 +1,23 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const HomeFilled20 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M10 1C10.7375 1 11.4523 1.25436 12.0244 1.71973L18.1289 6.68457C18.6798 7.13269 19 7.80548 19 8.51562V17.4502C18.9999 18.3061 18.3061 18.9999 17.4502 19H14.0498C13.1939 18.9999 12.5001 18.3061 12.5 17.4502V14.5C12.5 13.1193 11.3807 12 10 12C8.6193 12 7.50001 13.1193 7.5 14.5V17.4502C7.4999 18.3061 6.80609 18.9999 5.9502 19H2.5498C1.69391 18.9999 1.0001 18.3061 1 17.4502V8.51562C1.00005 7.80548 1.32018 7.13269 1.87109 6.68457L7.97559 1.71973C8.54774 1.25436 9.26249 1 10 1Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+export default HomeFilled20;

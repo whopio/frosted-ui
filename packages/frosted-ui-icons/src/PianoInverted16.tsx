@@ -1,0 +1,23 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const PianoInverted16 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M9 7.5C9 8.23976 9.4029 8.8835 10 9.22949V16H6V9.22949C6.5971 8.8835 7 8.23976 7 7.5V0H9V7.5ZM3 7.5C3 8.43162 3.6378 9.21129 4.5 9.43359V15.9453C1.95588 15.5813 0 13.3948 0 10.75V5.25C9.62836e-09 3.15565 1.22622 1.34745 3 0.504883V7.5ZM13 0.504883C14.7738 1.34745 16 3.15565 16 5.25V10.75C16 13.3948 14.0441 15.5813 11.5 15.9453V9.43359C12.3622 9.21129 13 8.43162 13 7.5V0.504883Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+export default PianoInverted16;

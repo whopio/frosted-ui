@@ -1,0 +1,30 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const MenuClose32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M19.25 25.25C19.6642 25.25 20 25.5858 20 26C20 26.4142 19.6642 26.75 19.25 26.75H1.75C1.33579 26.75 1 26.4142 1 26C1 25.5858 1.33579 25.25 1.75 25.25H19.25ZM19.25 15.25C19.6642 15.25 20 15.5858 20 16C20 16.4142 19.6642 16.75 19.25 16.75H1.75C1.33579 16.75 1 16.4142 1 16C1 15.5858 1.33579 15.25 1.75 15.25H19.25ZM19.25 5.25C19.6642 5.25 20 5.58579 20 6C20 6.41421 19.6642 6.75 19.25 6.75H1.75C1.33579 6.75 1 6.41421 1 6C1 5.58579 1.33579 5.25 1.75 5.25H19.25Z"
+        fill={color}
+      />
+      <path
+        d="M30.25 9L23.25 16L30.25 23"
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export default MenuClose32;

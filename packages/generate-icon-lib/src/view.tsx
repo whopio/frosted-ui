@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Box, Color, Instance as InkInstance, Static, Text, render as inkRender } from 'ink';
 import InkSpinner from 'ink-spinner';
 import React from 'react';
