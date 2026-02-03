@@ -228,38 +228,40 @@ const NumberFieldIncrement = (props: NumberFieldIncrementProps) => {
 NumberFieldIncrement.displayName = 'NumberFieldIncrement';
 
 // Default icons
-function MinusIcon() {
+function MinusIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
-      width="10"
-      height="10"
-      viewBox="0 0 10 10"
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
       fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
       xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
+      data-fui-icon="true"
+      {...props}
     >
-      <path d="M2 5H8" />
+      <path
+        d="M10.25 5.25C10.6642 5.25 11 5.58579 11 6C11 6.41421 10.6642 6.75 10.25 6.75H1.75C1.33579 6.75 1 6.41421 1 6C1 5.58579 1.33579 5.25 1.75 5.25H10.25Z"
+        fill="currentColor"
+      />
     </svg>
   );
 }
 
-function PlusIcon() {
+function PlusIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
-      width="10"
-      height="10"
-      viewBox="0 0 10 10"
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
       fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
       xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
+      data-fui-icon="true"
+      {...props}
     >
-      <path d="M2 5H8M5 2V8" />
+      <path
+        d="M6 1C6.41421 1 6.75 1.33579 6.75 1.75V5.25H10.25C10.6642 5.25 11 5.58579 11 6C11 6.41421 10.6642 6.75 10.25 6.75H6.75V10.25C6.75 10.6642 6.41421 11 6 11C5.58579 11 5.25 10.6642 5.25 10.25V6.75H1.75C1.33579 6.75 1 6.41421 1 6C1 5.58579 1.33579 5.25 1.75 5.25H5.25V1.75C5.25 1.33579 5.58579 1 6 1Z"
+        fill="currentColor"
+      />
     </svg>
   );
 }
