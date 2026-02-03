@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import * as Icons from '@frosted-ui/icons';
-import React from 'react';
-import { Tabs, Text } from '../../../src';
+import { MagnifyingGlass20 } from '@frosted-ui/icons';
+import { default as React, useMemo, useState } from 'react';
+import { ScrollArea, Select, Text, TextField } from '../../../src';
 import { Tooltip } from '../../../src/components/tooltip';
 
 // Helper type for icon components with category
@@ -10,18 +11,56 @@ type IconComponent = React.FC<{ style?: React.CSSProperties }> & {
   category?: string;
 };
 
-// Group icons by category
-function groupIconsByCategory(): Record<string, Array<[string, IconComponent]>> {
-  const grouped: Record<string, Array<[string, IconComponent]>> = {};
+// Available icon sizes
+const ICON_SIZES = ['12', '16', '20', '24', '32'] as const;
+type IconSize = (typeof ICON_SIZES)[number];
+
+// Parsed icon info
+interface ParsedIcon {
+  fullName: string;
+  baseName: string;
+  size: IconSize;
+  component: IconComponent;
+  category: string;
+}
+
+// Parse icon name to extract base name and size
+function parseIconName(name: string): { baseName: string; size: IconSize } | null {
+  const match = name.match(/^(.+?)(12|16|20|24|32)$/);
+  if (!match) return null;
+  return { baseName: match[1], size: match[2] as IconSize };
+}
+
+// Get all parsed icons
+function getAllParsedIcons(): ParsedIcon[] {
+  const icons: ParsedIcon[] = [];
 
   Object.entries(Icons).forEach(([name, Icon]) => {
-    const icon = Icon as IconComponent;
-    const category = icon.category || 'Uncategorized';
+    const parsed = parseIconName(name);
+    if (!parsed) return;
 
-    if (!grouped[category]) {
-      grouped[category] = [];
+    const icon = Icon as IconComponent;
+    icons.push({
+      fullName: name,
+      baseName: parsed.baseName,
+      size: parsed.size,
+      component: icon,
+      category: icon.category || 'Uncategorized',
+    });
+  });
+
+  return icons;
+}
+
+// Group icons by category, counting unique base names
+function groupIconsByCategory(icons: ParsedIcon[]): Record<string, ParsedIcon[]> {
+  const grouped: Record<string, ParsedIcon[]> = {};
+
+  icons.forEach((icon) => {
+    if (!grouped[icon.category]) {
+      grouped[icon.category] = [];
     }
-    grouped[category].push([name, icon]);
+    grouped[icon.category].push(icon);
   });
 
   // Sort categories alphabetically, but keep "Uncategorized" at the end
@@ -31,12 +70,18 @@ function groupIconsByCategory(): Record<string, Array<[string, IconComponent]>> 
     return a.localeCompare(b);
   });
 
-  const sortedGrouped: Record<string, Array<[string, IconComponent]>> = {};
+  const sortedGrouped: Record<string, ParsedIcon[]> = {};
   sortedCategories.forEach((cat) => {
     sortedGrouped[cat] = grouped[cat];
   });
 
   return sortedGrouped;
+}
+
+// Count unique base names in a list of icons
+function countUniqueIcons(icons: ParsedIcon[]): number {
+  const uniqueNames = new Set(icons.map((i) => i.baseName));
+  return uniqueNames.size;
 }
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -46,7 +91,7 @@ const meta = {
   component: Icons.SparkleRectangle20,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
-    layout: 'centered',
+    layout: 'fullscreen',
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
@@ -58,10 +103,10 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Default: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'row', width: 400, flexWrap: 'wrap' }}>
+    <div style={{ display: 'flex', flexDirection: 'row', width: 400, flexWrap: 'wrap', padding: 24 }}>
       {Object.entries(Icons).map(([name, Icon]) => (
-        <div style={{ width: '20%', padding: 8 }}>
-          <Tooltip key={name} content={name} delay={0}>
+        <div key={name} style={{ width: '20%', padding: 8 }}>
+          <Tooltip disableHoverablePopup content={name} delay={0} closeDelay={0}>
             {/* @ts-ignore */}
             <Icon
               style={{
@@ -75,52 +120,203 @@ export const Default: Story = {
   ),
 };
 
-export const ByCategory: Story = {
-  name: 'By Category',
-  render: () => {
-    const groupedIcons = groupIconsByCategory();
-    const categories = Object.keys(groupedIcons);
+const IconBrowserComponent = () => {
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedSize, setSelectedSize] = useState<IconSize>('20');
+  const [searchQuery, setSearchQuery] = useState('');
 
-    return (
-      <div style={{ width: 800 }}>
-        <Tabs.Root defaultValue={categories[0]}>
-          <Tabs.List style={{ flexWrap: 'wrap', height: 'auto', gap: 4, paddingBottom: 8 }}>
+  const allParsedIcons = useMemo(() => getAllParsedIcons(), []);
+
+  // Filter by selected size first
+  const iconsForSize = useMemo(() => {
+    return allParsedIcons.filter((icon) => icon.size === selectedSize);
+  }, [allParsedIcons, selectedSize]);
+
+  const groupedIcons = useMemo(() => groupIconsByCategory(iconsForSize), [iconsForSize]);
+  const categories = Object.keys(groupedIcons);
+  const totalIconCount = countUniqueIcons(iconsForSize);
+
+  // Filter icons based on search and category
+  const displayedIcons = useMemo(() => {
+    let icons = selectedCategory ? groupedIcons[selectedCategory] || [] : iconsForSize;
+
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      icons = icons.filter((icon) => icon.baseName.toLowerCase().includes(query));
+    }
+
+    return icons;
+  }, [selectedCategory, searchQuery, groupedIcons, iconsForSize]);
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        height: '100vh',
+        background: 'var(--color-background)',
+      }}
+    >
+      {/* Sidebar */}
+      <div
+        style={{
+          width: 260,
+          borderRight: '1px solid var(--gray-a5)',
+          display: 'flex',
+          flexDirection: 'column',
+          flexShrink: 0,
+        }}
+      >
+        <ScrollArea style={{ flex: 1 }}>
+          <div style={{ padding: '16px 0' }}>
+            {/* All category */}
+            <button
+              onClick={() => setSelectedCategory(null)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                width: '100%',
+                padding: '8px 20px',
+                background: selectedCategory === null ? 'var(--gray-a3)' : 'transparent',
+                border: 'none',
+                cursor: 'pointer',
+                textAlign: 'left',
+                color: selectedCategory === null ? 'var(--accent-11)' : 'var(--gray-12)',
+                fontWeight: selectedCategory === null ? 600 : 400,
+                fontSize: 14,
+              }}
+            >
+              <span>All</span>
+            </button>
+
+            {/* Categories header */}
+            <div
+              style={{
+                padding: '16px 20px 8px',
+                fontSize: 11,
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+                color: 'var(--gray-11)',
+              }}
+            >
+              Categories
+            </div>
+
+            {/* Category list */}
             {categories.map((category) => (
-              <Tabs.Trigger key={category} value={category}>
-                {category} ({groupedIcons[category].length})
-              </Tabs.Trigger>
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  width: '100%',
+                  padding: '8px 20px',
+                  background: selectedCategory === category ? 'var(--gray-a3)' : 'transparent',
+                  border: 'none',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  color: selectedCategory === category ? 'var(--accent-11)' : 'var(--gray-12)',
+                  fontWeight: selectedCategory === category ? 600 : 400,
+                  fontSize: 14,
+                }}
+              >
+                <span>{category}</span>
+                <span style={{ color: 'var(--gray-10)', fontSize: 13 }}>{groupedIcons[category]?.length || 0}</span>
+              </button>
             ))}
-          </Tabs.List>
+          </div>
+        </ScrollArea>
+      </div>
 
-          {categories.map((category) => (
-            <Tabs.Content key={category} value={category} style={{ paddingTop: 16 }}>
-              <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 4 }}>
-                {groupedIcons[category].map(([name, Icon]) => (
-                  <Tooltip key={name} content={name} delay={0}>
+      {/* Main content */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+        {/* Search header */}
+        <div
+          style={{
+            padding: '24px 32px',
+            borderBottom: '1px solid var(--gray-a5)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 16,
+          }}
+        >
+          <div style={{ flex: 1, maxWidth: 480 }}>
+            <TextField.Root size="3">
+              <TextField.Slot>
+                <MagnifyingGlass20 />
+              </TextField.Slot>
+              <TextField.Input
+                placeholder={`Search...`}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </TextField.Root>
+          </div>
+          <Select.Root value={selectedSize} onValueChange={(value) => setSelectedSize(value as IconSize)} size="3">
+            <Select.Trigger style={{ width: 100 }} />
+            <Select.Content alignItemWithTrigger={false}>
+              {ICON_SIZES.map((size) => (
+                <Select.Item key={size} value={size}>
+                  {size}px
+                </Select.Item>
+              ))}
+            </Select.Content>
+          </Select.Root>
+        </div>
+
+        {/* Icons grid */}
+        <ScrollArea style={{ flex: 1 }}>
+          <div style={{ padding: '24px 32px' }}>
+            {displayedIcons.length === 0 ? (
+              <Text color="gray">No icons found</Text>
+            ) : (
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fill, minmax(64px, 1fr))',
+                  gap: 8,
+                }}
+              >
+                {displayedIcons.map((icon) => (
+                  <Tooltip disableHoverablePopup key={icon.fullName} content={icon.fullName} delay={0} closeDelay={0}>
                     <div
                       style={{
-                        width: 48,
-                        height: 48,
+                        aspectRatio: '1',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         borderRadius: 'var(--radius-2)',
+                        border: '1px solid var(--gray-a5)',
                         background: 'var(--gray-a2)',
+                        cursor: 'pointer',
+                        transition: 'all 0.15s ease',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = 'var(--gray-a8)';
+                        e.currentTarget.style.background = 'var(--gray-a3)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = 'var(--gray-a5)';
+                        e.currentTarget.style.background = 'var(--gray-a2)';
                       }}
                     >
-                      {/* @ts-ignore */}
-                      <Icon style={{ color: 'var(--gray-a11)' }} />
+                      <icon.component style={{ color: 'var(--gray-12)' }} />
                     </div>
                   </Tooltip>
                 ))}
               </div>
-              <Text size="1" color="gray" style={{ marginTop: 12, display: 'block' }}>
-                {groupedIcons[category].length} icons in this category
-              </Text>
-            </Tabs.Content>
-          ))}
-        </Tabs.Root>
+            )}
+          </div>
+        </ScrollArea>
       </div>
-    );
-  },
+    </div>
+  );
+};
+
+export const IconBrowser: Story = {
+  name: 'Icon Browser',
+  render: () => <IconBrowserComponent />,
 };
