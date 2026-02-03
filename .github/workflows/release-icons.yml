@@ -11,6 +11,9 @@ jobs:
   release-icons:
     name: Publish to npm and release on github
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - uses: actions/checkout@v3
         with:
@@ -20,16 +23,18 @@ jobs:
         with:
           version: 9.15.4
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 22.x
           check-latest: true
           cache: pnpm
+      - name: Update npm for OIDC trusted publishing
+        run: npm install -g npm@latest
+      - name: Clear npm auth to force OIDC
+        run: |
+          npm config delete //registry.npmjs.org/:_authToken || true
       - name: Install all packages
         run: pnpm i
-      - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Generate icon source
         run: pnpm generate-src
         working-directory: ./packages/frosted-ui-icons
@@ -39,5 +44,8 @@ jobs:
         run: pnpm build
         working-directory: ./packages/frosted-ui-icons
       - name: Publish to npm
-        run: pnpm publish --no-git-checks
+        run: npm publish --provenance --access public
         working-directory: ./packages/frosted-ui-icons
+        env:
+          NPM_CONFIG_PROVENANCE: 'true'
+          NPM_CONFIG_REGISTRY: https://registry.npmjs.org
