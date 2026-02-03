@@ -27,4 +27,6 @@ export const Inbox12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Inbox12.category = 'Interface General';
+
 export default Inbox12;

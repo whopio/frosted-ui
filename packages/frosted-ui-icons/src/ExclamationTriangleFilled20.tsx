@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const ExclamationTriangleFilled20 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="21"
+      height="20"
+      viewBox="0 0 21 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M7.77051 1.73819C8.74058 -0.017182 11.2632 -0.0169983 12.2334 1.73819L19.6826 15.2167C20.6216 16.9162 19.3919 18.9999 17.4502 18.9999H2.55371C0.612301 18.9996 -0.617529 16.9161 0.321289 15.2167L7.77051 1.73819ZM10.002 13.4999C9.44992 13.5002 9.00201 13.9478 9.00195 14.4999C9.00195 15.052 9.44989 15.4996 10.002 15.4999C10.5542 15.4999 11.002 15.0522 11.002 14.4999C11.0019 13.9477 10.5542 13.4999 10.002 13.4999ZM10.002 6.49991C9.58799 6.50017 9.25201 6.8359 9.25195 7.24991V11.2499C9.25195 11.664 9.58796 11.9996 10.002 11.9999C10.4162 11.9999 10.752 11.6641 10.752 11.2499V7.24991C10.7519 6.83574 10.4161 6.49991 10.002 6.49991Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+ExclamationTriangleFilled20.category = 'Interface General';
+
+export default ExclamationTriangleFilled20;

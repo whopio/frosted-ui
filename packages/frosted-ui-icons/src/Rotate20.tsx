@@ -20,4 +20,6 @@ export const Rotate20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Rotate20.category = 'Arrows';
+
 export default Rotate20;

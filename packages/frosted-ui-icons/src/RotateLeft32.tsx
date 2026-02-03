@@ -20,4 +20,6 @@ export const RotateLeft32 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+RotateLeft32.category = 'Arrows';
+
 export default RotateLeft32;

@@ -20,4 +20,6 @@ export const Youtube12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Youtube12.category = 'Social & Brands';
+
 export default Youtube12;

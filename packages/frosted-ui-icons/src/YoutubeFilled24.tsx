@@ -22,4 +22,6 @@ export const YoutubeFilled24 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+YoutubeFilled24.category = 'Social & Brands';
+
 export default YoutubeFilled24;

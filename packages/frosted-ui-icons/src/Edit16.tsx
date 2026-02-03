@@ -20,4 +20,6 @@ export const Edit16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Edit16.category = 'Interface General';
+
 export default Edit16;

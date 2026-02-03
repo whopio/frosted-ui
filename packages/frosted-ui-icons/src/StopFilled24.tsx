@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const StopFilled24 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M16.2503 0.000488261C20.5301 0.000752142 24 3.4703 24 7.75017V16.2498C23.9997 20.5295 20.53 23.9992 16.2503 23.9995H7.75066C3.47079 23.9995 0.000263944 20.5296 0 16.2498V7.75017C0 3.47014 3.47063 0.000488298 7.75066 0.000488261H16.2503Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+StopFilled24.category = 'Interface General';
+
+export default StopFilled24;

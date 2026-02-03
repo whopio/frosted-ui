@@ -20,4 +20,6 @@ export const Split12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Split12.category = 'Arrows';
+
 export default Split12;

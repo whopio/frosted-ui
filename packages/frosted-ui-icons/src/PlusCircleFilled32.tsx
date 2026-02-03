@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const PlusCircleFilled32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M16 1C24.2843 1 31 7.71573 31 16C31 24.2843 24.2843 31 16 31C7.71573 31 1 24.2843 1 16C1 7.71573 7.71573 1 16 1ZM16 8.25C15.5858 8.25 15.25 8.58579 15.25 9V15.25H9C8.58579 15.25 8.25 15.5858 8.25 16C8.25003 16.4142 8.5858 16.75 9 16.75H15.25V23C15.25 23.4142 15.5858 23.75 16 23.75C16.4142 23.75 16.75 23.4142 16.75 23V16.75H23C23.4142 16.75 23.75 16.4142 23.75 16C23.75 15.5858 23.4142 15.25 23 15.25H16.75V9C16.75 8.58579 16.4142 8.25 16 8.25Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+PlusCircleFilled32.category = 'Interface General';
+
+export default PlusCircleFilled32;

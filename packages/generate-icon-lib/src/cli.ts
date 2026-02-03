@@ -82,14 +82,24 @@ async function main() {
   render({
     spinners: [{ text: 'Rendering on the Figma platform...' }],
   });
-  const half = Math.ceil(iconIds.length / 2);
 
-  const firstHalf = iconIds.slice(0, half);
-  const secondHalf = iconIds.slice(half);
-  const iconSvgUrls1 = await renderIdsToSvgs(firstHalf, figmaConfig);
-  const iconSvgUrls2 = await renderIdsToSvgs(secondHalf, figmaConfig);
+  // Batch icon IDs into chunks to avoid 413 (Request Entity Too Large) errors
+  const BATCH_SIZE = 100;
+  const batches: string[][] = [];
+  for (let i = 0; i < iconIds.length; i += BATCH_SIZE) {
+    batches.push(iconIds.slice(i, i + BATCH_SIZE));
+  }
 
-  const all = { ...iconSvgUrls1, ...iconSvgUrls2 } as IIconsSvgUrls;
+  let all: IIconsSvgUrls = {};
+  for (let i = 0; i < batches.length; i++) {
+    const batch = batches[i];
+    const batchUrls = await renderIdsToSvgs(batch, figmaConfig);
+    all = { ...all, ...batchUrls };
+    // Add delay between batches to avoid rate limiting (except after last batch)
+    if (i < batches.length - 1) {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    }
+  }
   /* 4. Pull down all rendered SVGs to update our local working package */
   render({
     spinners: [

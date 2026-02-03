@@ -20,4 +20,6 @@ export const Sad12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Sad12.category = 'Emoji & Faces';
+
 export default Sad12;

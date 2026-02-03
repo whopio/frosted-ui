@@ -20,4 +20,6 @@ export const Cube16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Cube16.category = 'Objects';
+
 export default Cube16;

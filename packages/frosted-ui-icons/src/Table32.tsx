@@ -20,4 +20,6 @@ export const Table32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Table32.category = 'Interface General';
+
 export default Table32;

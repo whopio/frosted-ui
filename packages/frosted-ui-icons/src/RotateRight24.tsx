@@ -20,4 +20,6 @@ export const RotateRight24 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
+RotateRight24.category = 'Arrows';
+
 export default RotateRight24;

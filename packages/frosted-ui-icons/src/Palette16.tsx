@@ -20,4 +20,6 @@ export const Palette16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Palette16.category = 'Objects';
+
 export default Palette16;

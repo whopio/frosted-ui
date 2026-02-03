@@ -20,4 +20,6 @@ export const Shop32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Shop32.category = 'Buildings';
+
 export default Shop32;

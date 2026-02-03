@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const CreditCardAddFilled16 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M13 10C13.4142 10 13.75 10.3358 13.75 10.75V12.25H15.25C15.6642 12.25 16 12.5858 16 13C16 13.4142 15.6642 13.75 15.25 13.75H13.75V15.25C13.75 15.6642 13.4142 16 13 16C12.5858 16 12.25 15.6642 12.25 15.25V13.75H10.75C10.3358 13.75 10 13.4142 10 13C10 12.5858 10.3358 12.25 10.75 12.25H12.25V10.75C12.25 10.3358 12.5858 10 13 10ZM16 11.1465C15.7683 11.0526 15.5154 11 15.25 11H15V10.75C15 9.64543 14.1046 8.75 13 8.75C11.8954 8.75 11 9.64543 11 10.75V11H10.75C9.64543 11 8.75 11.8954 8.75 13C8.75001 13.5983 9.01429 14.1335 9.43066 14.5H3.25C1.45507 14.5 4.83192e-08 13.0449 0 11.25V7H16V11.1465ZM12.75 1.5C14.5449 1.5 16 2.95507 16 4.75V5.5H0V4.75C4.832e-08 2.95507 1.45507 1.5 3.25 1.5H12.75Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+CreditCardAddFilled16.category = 'Money & Finance';
+
+export default CreditCardAddFilled16;

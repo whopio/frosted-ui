@@ -20,4 +20,6 @@ export const K32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+K32.category = 'Text Formatting';
+
 export default K32;

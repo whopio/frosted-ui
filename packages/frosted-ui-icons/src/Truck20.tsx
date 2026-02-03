@@ -20,4 +20,6 @@ export const Truck20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Truck20.category = 'Objects';
+
 export default Truck20;

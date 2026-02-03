@@ -13,11 +13,16 @@ export const PlayFilled12 = ({ color = 'currentColor', ...props }: IconProps) =>
       {...props}
     >
       <path
-        d="M4.62197 1.18379C3.7071 0.59181 2.5 1.24851 2.5 2.3382V9.66191C2.5 10.7516 3.7071 11.4083 4.62197 10.8163L10.2812 7.15446C11.1185 6.61261 11.1186 5.38746 10.2812 4.84565L4.62197 1.18379Z"
+        d="M2.25 9.97742V2.02245C2.25 1.06801 3.31026 0.495546 4.10827 1.01911L10.1707 4.9966C10.893 5.4705 10.893 6.52938 10.1707 7.00327L4.10827 10.9808C3.31026 11.5043 2.25 10.9319 2.25 9.97742Z"
         fill={color}
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
     </svg>
   );
 };
+
+PlayFilled12.category = 'Sound & Music';
 
 export default PlayFilled12;

@@ -27,4 +27,6 @@ export const Sparkle24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Sparkle24.category = 'Interface General';
+
 export default Sparkle24;

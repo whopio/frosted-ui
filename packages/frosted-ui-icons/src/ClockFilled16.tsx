@@ -20,4 +20,6 @@ export const ClockFilled16 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
+ClockFilled16.category = 'Interface General';
+
 export default ClockFilled16;

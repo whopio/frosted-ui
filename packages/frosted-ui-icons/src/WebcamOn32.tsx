@@ -20,4 +20,6 @@ export const WebcamOn32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+WebcamOn32.category = 'Interface General';
+
 export default WebcamOn32;

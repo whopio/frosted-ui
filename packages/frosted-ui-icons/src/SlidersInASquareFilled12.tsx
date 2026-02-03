@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const SlidersInASquareFilled12 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M7.75 0C10.0972 5.36889e-09 12 1.90279 12 4.25V7.75C12 10.0972 10.0972 12 7.75 12H4.25C1.90279 12 0 10.0972 0 7.75V4.25C0 1.90279 1.90279 0 4.25 0H7.75ZM4.75 5.75C4.33579 5.75 4 6.08579 4 6.5V7H3.75C3.33579 7 3 7.33579 3 7.75C3 8.16421 3.33579 8.5 3.75 8.5H4V9C4 9.41421 4.33579 9.75 4.75 9.75C5.16421 9.75 5.5 9.41421 5.5 9V8.5H8.25C8.66421 8.5 9 8.16421 9 7.75C9 7.33579 8.66421 7 8.25 7H5.5V6.5C5.5 6.08579 5.16421 5.75 4.75 5.75ZM7.25 2.25C6.83579 2.25 6.5 2.58579 6.5 3V3.5H3.75C3.33579 3.5 3 3.83579 3 4.25C3 4.66421 3.33579 5 3.75 5H6.5V5.5C6.5 5.91421 6.83579 6.25 7.25 6.25C7.66421 6.25 8 5.91421 8 5.5V5H8.25C8.66421 5 9 4.66421 9 4.25C9 3.83579 8.66421 3.5 8.25 3.5H8V3C8 2.58579 7.66421 2.25 7.25 2.25Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+SlidersInASquareFilled12.category = 'Interface General';
+
+export default SlidersInASquareFilled12;

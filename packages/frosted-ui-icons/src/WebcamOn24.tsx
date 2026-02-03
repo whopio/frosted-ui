@@ -20,4 +20,6 @@ export const WebcamOn24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+WebcamOn24.category = 'Interface General';
+
 export default WebcamOn24;

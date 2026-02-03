@@ -20,4 +20,6 @@ export const List32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+List32.category = 'Text Formatting';
+
 export default List32;

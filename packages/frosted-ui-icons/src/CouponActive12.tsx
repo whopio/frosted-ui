@@ -20,4 +20,6 @@ export const CouponActive12 = ({ color = 'currentColor', ...props }: IconProps) 
   );
 };
 
+CouponActive12.category = 'Interface General';
+
 export default CouponActive12;

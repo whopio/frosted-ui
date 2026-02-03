@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const LightsOffFilled12 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M7 10.5C7.41421 10.5 7.75 10.8358 7.75 11.25C7.75 11.6642 7.41421 12 7 12H5C4.58579 12 4.25 11.6642 4.25 11.25C4.25 10.8358 4.58579 10.5 5 10.5H7ZM6 2.25C7.20352 2.25 8.16126 2.709 8.81055 3.43945C9.44749 4.15608 9.75 5.09025 9.75 6C9.75 7.4145 8.78265 8.16612 8.23242 8.48047C8.12789 9.19836 7.51153 9.75 6.76465 9.75H5.23535C4.48842 9.75 3.87107 9.19843 3.7666 8.48047C3.21624 8.16587 2.25 7.41387 2.25 6C2.25 5.09025 2.55251 4.15608 3.18945 3.43945C3.83874 2.709 4.79648 2.25 6 2.25Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+LightsOffFilled12.category = 'Objects';
+
+export default LightsOffFilled12;

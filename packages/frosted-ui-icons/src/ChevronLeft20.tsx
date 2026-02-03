@@ -20,4 +20,6 @@ export const ChevronLeft20 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
+ChevronLeft20.category = 'Arrows';
+
 export default ChevronLeft20;

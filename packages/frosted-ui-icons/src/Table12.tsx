@@ -27,4 +27,6 @@ export const Table12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Table12.category = 'Interface General';
+
 export default Table12;

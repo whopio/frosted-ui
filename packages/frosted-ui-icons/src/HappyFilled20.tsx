@@ -27,4 +27,6 @@ export const HappyFilled20 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
+HappyFilled20.category = 'Emoji & Faces';
+
 export default HappyFilled20;

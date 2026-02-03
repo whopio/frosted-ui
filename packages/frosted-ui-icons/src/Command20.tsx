@@ -20,4 +20,6 @@ export const Command20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Command20.category = 'Interface General';
+
 export default Command20;

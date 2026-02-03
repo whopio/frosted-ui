@@ -20,4 +20,6 @@ export const Receipt12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Receipt12.category = 'Objects';
+
 export default Receipt12;

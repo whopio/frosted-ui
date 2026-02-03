@@ -27,4 +27,6 @@ export const SealExclamationFilled20 = ({ color = 'currentColor', ...props }: Ic
   );
 };
 
+SealExclamationFilled20.category = 'Interface General';
+
 export default SealExclamationFilled20;

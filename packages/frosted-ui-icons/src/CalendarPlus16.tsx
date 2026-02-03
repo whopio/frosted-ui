@@ -20,4 +20,6 @@ export const CalendarPlus16 = ({ color = 'currentColor', ...props }: IconProps) 
   );
 };
 
+CalendarPlus16.category = 'Interface General';
+
 export default CalendarPlus16;

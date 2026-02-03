@@ -1,0 +1,32 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const PaperAirplaneUp20 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <g clipPath="url(#clip0_6317_179)">
+        <path
+          d="M7.5376 1.81494C8.54649 -0.228192 11.4602 -0.22804 12.4692 1.81494L19.0347 15.1099C20.3321 17.738 17.6512 20.5585 14.9604 19.396L10.4292 17.439C10.1574 17.3217 9.84936 17.3216 9.57764 17.439L5.04639 19.396C2.35582 20.5581 -0.325076 17.7379 0.972168 15.1099L7.5376 1.81494ZM11.1245 2.479C10.6658 1.55051 9.34089 1.55035 8.88232 2.479L2.31787 15.7739C1.63824 17.1505 3.04233 18.6276 4.45166 18.019L8.98291 16.062C9.07135 16.0238 9.16222 15.9922 9.25342 15.9644V11.6118C9.25342 11.1976 9.58926 10.8619 10.0034 10.8618C10.4176 10.8618 10.7534 11.1976 10.7534 11.6118V15.9634C10.8448 15.9912 10.9353 16.0237 11.0239 16.062L15.5552 18.019C16.9647 18.628 18.3688 17.1506 17.689 15.7739L11.1245 2.479Z"
+          fill={color}
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_6317_179">
+          <path fill={color} d="M0 0H20V20H0z" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+};
+
+PaperAirplaneUp20.category = 'Communication';
+
+export default PaperAirplaneUp20;

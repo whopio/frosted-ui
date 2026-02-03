@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const MessageBlankFilled32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M15.9995 1.00024C24.2837 1.00024 30.9993 7.71611 30.9995 16.0002L30.9946 16.387C30.7893 24.4923 24.1544 31.0002 15.9995 31.0002C14.5982 31.0002 13.2405 30.8073 11.9526 30.4465C10.1174 29.9325 8.33994 29.6283 6.71045 30.1155C5.90083 30.3575 5.13445 30.6061 4.43799 30.844C3.43425 31.1865 2.44516 30.8183 1.81299 30.1858C1.18106 29.5533 0.813192 28.5642 1.15576 27.5608C1.39355 26.8645 1.64167 26.0981 1.8833 25.2883C2.36956 23.6585 2.0656 21.8815 1.55225 20.0461C1.23714 18.9195 1.05011 17.7393 1.0083 16.5237L0.999512 16.0002C0.999679 7.71628 7.71559 1.00052 15.9995 1.00024Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+MessageBlankFilled32.category = 'Communication';
+
+export default MessageBlankFilled32;

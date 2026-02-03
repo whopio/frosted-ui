@@ -20,4 +20,6 @@ export const Messages16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Messages16.category = 'Communication';
+
 export default Messages16;

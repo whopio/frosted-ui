@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const WalletFilled24 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M13.75 1.5C16.0972 1.5 18 3.40279 18 5.75V6H19.75C22.0972 6 24 7.90279 24 10.25V18.25C24 20.5972 22.0972 22.5 19.75 22.5H4.25C1.90289 22.4999 0 20.5971 0 18.25V4.5C0 2.84315 1.34315 1.5 3 1.5H13.75ZM17.5 12.75C16.6716 12.75 16 13.4216 16 14.25C16 15.0784 16.6716 15.75 17.5 15.75C18.3284 15.75 19 15.0784 19 14.25C19 13.4216 18.3284 12.75 17.5 12.75ZM3 3C2.17157 3 1.5 3.67157 1.5 4.5C1.5 5.32843 2.17157 6 3 6H16.5V5.75C16.5 4.23122 15.2688 3 13.75 3H3Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+WalletFilled24.category = 'Money & Finance';
+
+export default WalletFilled24;

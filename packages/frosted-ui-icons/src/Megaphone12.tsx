@@ -20,4 +20,6 @@ export const Megaphone12 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+Megaphone12.category = 'Objects';
+
 export default Megaphone12;

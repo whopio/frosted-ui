@@ -20,4 +20,6 @@ export const LilstNumber32 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
+LilstNumber32.category = 'Text Formatting';
+
 export default LilstNumber32;

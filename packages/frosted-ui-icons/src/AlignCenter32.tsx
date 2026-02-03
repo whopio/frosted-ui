@@ -20,4 +20,6 @@ export const AlignCenter32 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
+AlignCenter32.category = 'Text Formatting';
+
 export default AlignCenter32;

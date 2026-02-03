@@ -20,4 +20,6 @@ export const Coinbase32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Coinbase32.category = 'Interface General';
+
 export default Coinbase32;

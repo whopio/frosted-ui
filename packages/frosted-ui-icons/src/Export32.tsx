@@ -20,4 +20,6 @@ export const Export32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Export32.category = 'Arrows';
+
 export default Export32;

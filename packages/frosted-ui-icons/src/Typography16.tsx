@@ -20,4 +20,6 @@ export const Typography16 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+Typography16.category = 'Text Formatting';
+
 export default Typography16;

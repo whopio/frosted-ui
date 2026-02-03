@@ -20,4 +20,6 @@ export const Home16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Home16.category = 'Buildings';
+
 export default Home16;

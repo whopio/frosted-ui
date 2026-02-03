@@ -20,4 +20,6 @@ export const Clipboard24 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+Clipboard24.category = 'Interface General';
+
 export default Clipboard24;

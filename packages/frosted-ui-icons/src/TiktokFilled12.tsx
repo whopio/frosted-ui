@@ -20,4 +20,6 @@ export const TiktokFilled12 = ({ color = 'currentColor', ...props }: IconProps) 
   );
 };
 
+TiktokFilled12.category = 'Social & Brands';
+
 export default TiktokFilled12;

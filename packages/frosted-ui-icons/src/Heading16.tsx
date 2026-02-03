@@ -20,4 +20,6 @@ export const Heading16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Heading16.category = 'Text Formatting';
+
 export default Heading16;

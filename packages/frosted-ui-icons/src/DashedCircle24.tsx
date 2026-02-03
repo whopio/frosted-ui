@@ -20,4 +20,6 @@ export const DashedCircle24 = ({ color = 'currentColor', ...props }: IconProps) 
   );
 };
 
+DashedCircle24.category = 'Interface General';
+
 export default DashedCircle24;

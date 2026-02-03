@@ -27,4 +27,6 @@ export const Cube20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Cube20.category = 'Objects';
+
 export default Cube20;
