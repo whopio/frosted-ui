@@ -20,4 +20,6 @@ export const TradingView12 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
+TradingView12.category = 'Social & Brands';
+
 export default TradingView12;

@@ -20,4 +20,6 @@ export const Italic24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Italic24.category = 'Text Formatting';
+
 export default Italic24;

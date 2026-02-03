@@ -27,4 +27,6 @@ export const ArrowDownAngleLeft12 = ({ color = 'currentColor', ...props }: IconP
   );
 };
 
+ArrowDownAngleLeft12.category = 'Arrows';
+
 export default ArrowDownAngleLeft12;

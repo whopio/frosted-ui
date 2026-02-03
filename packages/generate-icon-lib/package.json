@@ -12,7 +12,6 @@
     "@types/ejs": "^2.6.3",
     "@types/execa": "^0.9.0",
     "@types/fs-extra": "^5.0.5",
-    "@types/ink": "^0.5.1",
     "@types/lodash": "^4.14.123",
     "@types/node": "^11.13.5",
     "@types/node-fetch": "^2.3.2",

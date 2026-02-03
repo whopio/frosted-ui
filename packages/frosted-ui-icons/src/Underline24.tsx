@@ -20,4 +20,6 @@ export const Underline24 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+Underline24.category = 'Text Formatting';
+
 export default Underline24;

@@ -20,4 +20,6 @@ export const Plus32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Plus32.category = 'Interface General';
+
 export default Plus32;

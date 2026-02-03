@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const TagFilled32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M26.251 1C28.8741 1.00023 31.0009 3.12686 31.001 5.75V14.2344C31.0009 16.0245 30.2892 17.741 29.0234 19.0068L18.7744 29.2568C16.7241 31.307 13.3998 31.3061 11.3496 29.2559L2.74414 20.6514C0.694167 18.6012 0.694177 15.2768 2.74414 13.2266L12.9941 2.97656C14.2599 1.71102 15.9767 1.00011 17.7666 1H26.251ZM21.9707 6.27832C19.8997 6.27832 18.2208 7.95736 18.2207 10.0283C18.2207 12.0994 19.8996 13.7783 21.9707 13.7783C24.0417 13.7782 25.7207 12.0993 25.7207 10.0283C25.7206 7.95744 24.0416 6.27844 21.9707 6.27832Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+TagFilled32.category = 'Interface General';
+
+export default TagFilled32;

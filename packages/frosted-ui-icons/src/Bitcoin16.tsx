@@ -27,4 +27,6 @@ export const Bitcoin16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Bitcoin16.category = 'Money & Finance';
+
 export default Bitcoin16;

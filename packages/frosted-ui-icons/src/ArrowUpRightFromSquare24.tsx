@@ -20,4 +20,6 @@ export const ArrowUpRightFromSquare24 = ({ color = 'currentColor', ...props }: I
   );
 };
 
+ArrowUpRightFromSquare24.category = 'Arrows';
+
 export default ArrowUpRightFromSquare24;

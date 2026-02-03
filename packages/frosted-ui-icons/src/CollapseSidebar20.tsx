@@ -13,11 +13,15 @@ export const CollapseSidebar20 = ({ color = 'currentColor', ...props }: IconProp
       {...props}
     >
       <path
-        d="M14.5 2C16.9853 2 19 4.01472 19 6.5V13.5C19 15.9853 16.9853 18 14.5 18H5.5C3.01472 18 1 15.9853 1 13.5V6.5C1 4.01472 3.01472 2 5.5 2H14.5ZM5.5 3.5C3.84315 3.5 2.5 4.84315 2.5 6.5V13.5C2.5 15.1569 3.84315 16.5 5.5 16.5H7V3.5H5.5ZM8.5 16.5H14.5C16.1569 16.5 17.5 15.1569 17.5 13.5V6.5C17.5 4.84315 16.1569 3.5 14.5 3.5H8.5V16.5Z"
-        fill={color}
+        d="M7.75 2.25H4.5C2.42893 2.25 0.75 3.92893 0.75 6V14C0.75 16.0711 2.42893 17.75 4.5 17.75H7.75M7.75 2.25H15.5C17.5711 2.25 19.25 3.92893 19.25 6V14C19.25 16.0711 17.5711 17.75 15.5 17.75H7.75M7.75 2.25V17.75"
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
     </svg>
   );
 };
+
+CollapseSidebar20.category = 'Interface General';
 
 export default CollapseSidebar20;

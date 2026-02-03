@@ -20,4 +20,6 @@ export const Flag12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Flag12.category = 'Objects';
+
 export default Flag12;

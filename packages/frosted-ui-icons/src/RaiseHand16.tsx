@@ -20,4 +20,6 @@ export const RaiseHand16 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+RaiseHand16.category = 'Interface General';
+
 export default RaiseHand16;

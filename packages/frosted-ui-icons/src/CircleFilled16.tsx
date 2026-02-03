@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const CircleFilled16 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M8 0C12.4183 1.12749e-07 16 3.58172 16 8C16 12.4183 12.4183 16 8 16C3.58172 16 0 12.4183 0 8C1.77176e-07 3.58172 3.58172 0 8 0Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+CircleFilled16.category = 'Interface General';
+
+export default CircleFilled16;

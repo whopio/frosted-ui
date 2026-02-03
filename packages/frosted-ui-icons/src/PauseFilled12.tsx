@@ -20,4 +20,6 @@ export const PauseFilled12 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
+PauseFilled12.category = 'Sound & Music';
+
 export default PauseFilled12;

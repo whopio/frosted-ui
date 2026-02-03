@@ -20,4 +20,6 @@ export const Tiktok16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Tiktok16.category = 'Social & Brands';
+
 export default Tiktok16;

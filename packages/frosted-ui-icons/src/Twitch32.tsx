@@ -20,4 +20,6 @@ export const Twitch32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Twitch32.category = 'Social & Brands';
+
 export default Twitch32;

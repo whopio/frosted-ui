@@ -20,4 +20,6 @@ export const Logout32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Logout32.category = 'Interface General';
+
 export default Logout32;

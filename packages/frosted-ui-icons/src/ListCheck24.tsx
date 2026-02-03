@@ -20,4 +20,6 @@ export const ListCheck24 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+ListCheck24.category = 'Text Formatting';
+
 export default ListCheck24;

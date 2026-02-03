@@ -20,4 +20,6 @@ export const DragHandleVertical32 = ({ color = 'currentColor', ...props }: IconP
   );
 };
 
+DragHandleVertical32.category = 'Interface General';
+
 export default DragHandleVertical32;

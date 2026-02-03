@@ -20,4 +20,6 @@ export const ArrowUpRightFromSquareFlush32 = ({ color = 'currentColor', ...props
   );
 };
 
+ArrowUpRightFromSquareFlush32.category = 'Arrows';
+
 export default ArrowUpRightFromSquareFlush32;

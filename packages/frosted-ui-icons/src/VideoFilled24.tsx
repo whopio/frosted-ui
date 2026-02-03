@@ -20,4 +20,6 @@ export const VideoFilled24 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
+VideoFilled24.category = 'Objects';
+
 export default VideoFilled24;

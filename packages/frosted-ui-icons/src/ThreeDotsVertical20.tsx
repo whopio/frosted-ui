@@ -20,4 +20,6 @@ export const ThreeDotsVertical20 = ({ color = 'currentColor', ...props }: IconPr
   );
 };
 
+ThreeDotsVertical20.category = 'Interface General';
+
 export default ThreeDotsVertical20;

@@ -20,4 +20,6 @@ export const BarChart20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+BarChart20.category = 'Interface General';
+
 export default BarChart20;

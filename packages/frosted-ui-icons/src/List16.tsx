@@ -20,4 +20,6 @@ export const List16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+List16.category = 'Text Formatting';
+
 export default List16;

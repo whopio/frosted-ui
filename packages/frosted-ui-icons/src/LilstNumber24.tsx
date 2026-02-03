@@ -20,4 +20,6 @@ export const LilstNumber24 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
+LilstNumber24.category = 'Text Formatting';
+
 export default LilstNumber24;

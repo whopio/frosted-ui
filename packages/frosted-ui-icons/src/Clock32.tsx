@@ -20,4 +20,6 @@ export const Clock32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Clock32.category = 'Interface General';
+
 export default Clock32;

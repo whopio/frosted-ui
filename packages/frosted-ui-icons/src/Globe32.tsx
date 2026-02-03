@@ -20,4 +20,6 @@ export const Globe32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Globe32.category = 'Location';
+
 export default Globe32;

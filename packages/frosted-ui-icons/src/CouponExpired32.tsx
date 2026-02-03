@@ -20,4 +20,6 @@ export const CouponExpired32 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+CouponExpired32.category = 'Interface General';
+
 export default CouponExpired32;

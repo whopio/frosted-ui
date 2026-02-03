@@ -20,4 +20,6 @@ export const GifFilled24 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+GifFilled24.category = 'Interface General';
+
 export default GifFilled24;

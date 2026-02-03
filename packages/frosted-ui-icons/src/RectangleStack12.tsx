@@ -20,4 +20,6 @@ export const RectangleStack12 = ({ color = 'currentColor', ...props }: IconProps
   );
 };
 
+RectangleStack12.category = 'Interface General';
+
 export default RectangleStack12;

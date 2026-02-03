@@ -20,4 +20,6 @@ export const Codeblock12 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+Codeblock12.category = 'Text Formatting';
+
 export default Codeblock12;

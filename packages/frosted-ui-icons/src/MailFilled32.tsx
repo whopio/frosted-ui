@@ -20,4 +20,6 @@ export const MailFilled32 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+MailFilled32.category = 'Communication';
+
 export default MailFilled32;

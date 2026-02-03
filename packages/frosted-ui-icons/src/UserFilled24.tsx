@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const UserFilled24 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M12 14C16.4765 14 20.3128 16.7302 21.5693 20.5576C21.8772 21.4956 21.6084 22.3865 21.0391 23.0156C20.4822 23.6308 19.642 24 18.75 24H5.25C4.35798 24 3.51784 23.6308 2.96094 23.0156C2.39156 22.3865 2.12278 21.4956 2.43066 20.5576C3.6872 16.7302 7.52354 14 12 14ZM12 0C15.4518 0 18.25 2.79822 18.25 6.25C18.25 9.70178 15.4518 12.5 12 12.5C8.54822 12.5 5.75 9.70178 5.75 6.25C5.75 2.79822 8.54822 0 12 0Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+UserFilled24.category = 'People';
+
+export default UserFilled24;

@@ -20,4 +20,6 @@ export const ArrowLeft12 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+ArrowLeft12.category = 'Arrows';
+
 export default ArrowLeft12;

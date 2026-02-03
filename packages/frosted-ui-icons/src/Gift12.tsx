@@ -20,4 +20,6 @@ export const Gift12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Gift12.category = 'Objects';
+
 export default Gift12;

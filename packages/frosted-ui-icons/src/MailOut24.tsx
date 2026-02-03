@@ -20,4 +20,6 @@ export const MailOut24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+MailOut24.category = 'Communication';
+
 export default MailOut24;

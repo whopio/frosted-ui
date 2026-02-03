@@ -20,4 +20,6 @@ export const Stats16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Stats16.category = 'Interface General';
+
 export default Stats16;

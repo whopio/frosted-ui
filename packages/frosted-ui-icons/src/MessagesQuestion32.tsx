@@ -20,4 +20,6 @@ export const MessagesQuestion32 = ({ color = 'currentColor', ...props }: IconPro
   );
 };
 
+MessagesQuestion32.category = 'Communication';
+
 export default MessagesQuestion32;

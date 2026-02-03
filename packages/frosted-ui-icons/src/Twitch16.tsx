@@ -20,4 +20,6 @@ export const Twitch16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Twitch16.category = 'Social & Brands';
+
 export default Twitch16;

@@ -20,4 +20,6 @@ export const Download24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Download24.category = 'Arrows';
+
 export default Download24;

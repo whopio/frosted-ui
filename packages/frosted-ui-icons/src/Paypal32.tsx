@@ -20,4 +20,6 @@ export const Paypal32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Paypal32.category = 'Social & Brands';
+
 export default Paypal32;

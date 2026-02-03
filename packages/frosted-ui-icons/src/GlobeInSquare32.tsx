@@ -20,4 +20,6 @@ export const GlobeInSquare32 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+GlobeInSquare32.category = 'Interface General';
+
 export default GlobeInSquare32;

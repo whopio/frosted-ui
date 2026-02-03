@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const TriangleFilled24 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M9.20508 2.66968C10.4339 0.495971 13.566 0.49607 14.7949 2.66968L23.5781 18.2107C24.7873 20.3504 23.2419 22.9995 20.7842 22.9998H3.21582C0.758205 22.9994 -0.787259 20.3504 0.421875 18.2107L9.20508 2.66968Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+TriangleFilled24.category = 'Interface General';
+
+export default TriangleFilled24;

@@ -22,4 +22,6 @@ export const MagnifyingGlass20 = ({ color = 'currentColor', ...props }: IconProp
   );
 };
 
+MagnifyingGlass20.category = 'Interface General';
+
 export default MagnifyingGlass20;

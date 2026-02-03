@@ -184,48 +184,79 @@ export async function getFigmaDocument(config: IFigmaConfig): Promise<IFigmaDocu
   return data.document;
 }
 
-export async function renderIdsToSvgs(ids: string[], config: IFigmaConfig): Promise<IIconsSvgUrls> {
-  const resp = await fetch(`${config.baseUrl}/v1/images/${config.fileKey}?ids=${ids}&format=svg`, {
-    headers: config.headers,
-  });
+async function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
-  // We can't be sure the response, when an error, will have a body that can be streamed to JSON.
-  let data: IFigmaFileImageResponse = {
-    err: null,
-    images: {},
-  };
-  if (resp.headers.get('content-type').includes('application/json')) {
-    data = (await resp.json()) as IFigmaFileImageResponse;
-  }
-  const error = typeof data.err === 'object' ? JSON.stringify(data.err, null, 2) : data.err;
+export async function renderIdsToSvgs(
+  ids: string[],
+  config: IFigmaConfig,
+  maxRetries = 5,
+  initialDelayMs = 2000,
+): Promise<IIconsSvgUrls> {
+  let lastError: Error | null = null;
 
-  if (!resp.ok) {
-    switch (resp.status) {
-      case 400:
-        throw new CodedError(ERRORS.FIGMA_API, `Unexpected error encountered from Figma API\n${error}`);
-      case 404:
-        throw new CodedError(
-          ERRORS.FIGMA_API,
-          "One or more of the icons couldn't be found in Figma. Check to see if they still exist, and try again.",
-        );
-      case 500:
-        throw new CodedError(ERRORS.FIGMA_API, 'Figma could not render the icons. ಠ_ಠ');
-      default:
-        throw new CodedError(
-          ERRORS.UNEXPECTED,
-          `An error occured while rendering icons to SVG.\n${resp.status}\n${error}`,
-        );
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    if (attempt > 0) {
+      // Exponential backoff: 2s, 4s, 8s, 16s, 32s
+      const backoffDelay = initialDelayMs * Math.pow(2, attempt - 1);
+      console.log(
+        chalk.yellow(`Rate limited. Retrying in ${backoffDelay / 1000}s... (attempt ${attempt}/${maxRetries})`),
+      );
+      await delay(backoffDelay);
     }
+
+    const resp = await fetch(`${config.baseUrl}/v1/images/${config.fileKey}?ids=${ids}&format=svg`, {
+      headers: config.headers,
+    });
+
+    // We can't be sure the response, when an error, will have a body that can be streamed to JSON.
+    let data: IFigmaFileImageResponse = {
+      err: null,
+      images: {},
+    };
+    if (resp.headers.get('content-type').includes('application/json')) {
+      data = (await resp.json()) as IFigmaFileImageResponse;
+    }
+    const error = typeof data.err === 'object' ? JSON.stringify(data.err, null, 2) : data.err;
+
+    if (!resp.ok) {
+      // Handle rate limiting with retry
+      if (resp.status === 429) {
+        lastError = new CodedError(ERRORS.FIGMA_API, `Rate limit exceeded\n${error}`);
+        continue; // Retry
+      }
+
+      switch (resp.status) {
+        case 400:
+          throw new CodedError(ERRORS.FIGMA_API, `Unexpected error encountered from Figma API\n${error}`);
+        case 404:
+          throw new CodedError(
+            ERRORS.FIGMA_API,
+            "One or more of the icons couldn't be found in Figma. Check to see if they still exist, and try again.",
+          );
+        case 500:
+          throw new CodedError(ERRORS.FIGMA_API, 'Figma could not render the icons. ಠ_ಠ');
+        default:
+          throw new CodedError(
+            ERRORS.UNEXPECTED,
+            `An error occured while rendering icons to SVG.\n${resp.status}\n${error}`,
+          );
+      }
+    }
+
+    if (!data.images || !Object.keys(data.images).length) {
+      throw new CodedError(
+        ERRORS.UNEXPECTED,
+        `An error occured after rendering icons in Figma. Render response:\n${JSON.stringify(data, null, 2)}`,
+      );
+    }
+
+    return data.images;
   }
 
-  if (!data.images || !Object.keys(data.images).length) {
-    throw new CodedError(
-      ERRORS.UNEXPECTED,
-      `An error occured after rendering icons in Figma. Render response:\n${JSON.stringify(data, null, 2)}`,
-    );
-  }
-
-  return data.images;
+  // If we've exhausted all retries
+  throw lastError || new CodedError(ERRORS.FIGMA_API, 'Rate limit exceeded after maximum retries');
 }
 
 export function getIconsPage(document: IFigmaDocument): IFigmaCanvas | null {
@@ -236,44 +267,63 @@ export function getIconsPage(document: IFigmaDocument): IFigmaCanvas | null {
 
 export function getIcons(iconsCanvas: IFigmaCanvas): IIcons {
   let swag: IIcons = {};
-  iconsCanvas.children.forEach((iconSetNode) => {
-    if ((iconSetNode.type === 'FRAME' || iconSetNode.type === 'GROUP') && iconSetNode.name === 'Icons/Default') {
-      iconSetNode.children.forEach((iconNode) => {
-        // Our individual icons frames may be Figma "Components" 🤙
-        if (iconNode.type === 'COMPONENT_SET') {
-          // 'Break Link' => 'break-link'
-          // 'GitHub Logo' => 'github-logo'
-          iconNode.children.forEach((iconVariant) => {
-            render({ fileKey: iconVariant.name + ' 🔥🔥🔥' });
 
-            const size = iconVariant.name.replace(/size=/i, '');
-            if (size === iconVariant.name) {
-              throw new CodedError(
-                ERRORS.UNEXPECTED,
-                `An unexpected icon variant name was encountered: ${iconVariant.name} for ${iconNode.name}`,
-              );
-            }
-            const iconNameAndSize = `${iconNode.name} ${size}`;
-            const svgName = _.kebabCase(iconNameAndSize);
-
-            // We insert whitespace between lower and uppercase letters
-            // to make sure that lodash preserves existing camel-casing.
-            // 'Break Link' => 'BreakLink'
-            // 'GitHub Logo' => 'GitHubLogo'
-            const jsxName = _.upperFirst(_.camelCase(iconNameAndSize.replace(/([0-9a-z])([0-9A-Z])/g, '$1 $2')));
-
-            swag[iconVariant.id] = {
-              jsxName,
-              svgName,
-              id: iconVariant.id,
-              size: size,
-              type: labelling.typeFromFrameNodeName(iconVariant.name),
-            };
-          });
-        }
+  // Recursively find all frames named "Icons" along with their parent (category) name
+  function findIconsFramesWithCategory(node: any, parentName: string = ''): Array<{ frame: any; category: string }> {
+    const results: Array<{ frame: any; category: string }> = [];
+    if ((node.type === 'FRAME' || node.type === 'GROUP') && node.name === 'Icons') {
+      results.push({ frame: node, category: parentName });
+    }
+    if (node.children) {
+      node.children.forEach((child: any) => {
+        results.push(...findIconsFramesWithCategory(child, node.name));
       });
     }
+    return results;
+  }
+
+  const iconsFramesWithCategory = findIconsFramesWithCategory(iconsCanvas);
+
+  // Get all COMPONENT_SET children from "Icons" frames
+  iconsFramesWithCategory.forEach(({ frame: iconsFrame, category }) => {
+    if (!iconsFrame.children) return;
+
+    iconsFrame.children.forEach((iconNode) => {
+      if (iconNode.type !== 'COMPONENT_SET') return;
+
+      // 'Break Link' => 'break-link'
+      // 'GitHub Logo' => 'github-logo'
+      iconNode.children.forEach((iconVariant) => {
+        render({ fileKey: iconVariant.name + ' 🔥🔥🔥' });
+
+        const size = iconVariant.name.replace(/size=/i, '');
+        if (size === iconVariant.name) {
+          throw new CodedError(
+            ERRORS.UNEXPECTED,
+            `An unexpected icon variant name was encountered: ${iconVariant.name} for ${iconNode.name}`,
+          );
+        }
+        const iconNameAndSize = `${iconNode.name} ${size}`;
+        const svgName = _.kebabCase(iconNameAndSize);
+
+        // We insert whitespace between lower and uppercase letters
+        // to make sure that lodash preserves existing camel-casing.
+        // 'Break Link' => 'BreakLink'
+        // 'GitHub Logo' => 'GitHubLogo'
+        const jsxName = _.upperFirst(_.camelCase(iconNameAndSize.replace(/([0-9a-z])([0-9A-Z])/g, '$1 $2')));
+
+        swag[iconVariant.id] = {
+          jsxName,
+          svgName,
+          id: iconVariant.id,
+          size: size,
+          type: labelling.typeFromFrameNodeName(iconVariant.name),
+          category,
+        };
+      });
+    });
   });
+
   return swag;
 }
 
@@ -342,6 +392,7 @@ export async function generateReactComponents(icons: IIcons) {
         types: [],
         svgName: icons[iconId].svgName,
         jsxName: icons[iconId].jsxName,
+        category: icons[iconId].category,
       };
       icon.ids = _.uniq(icon.ids.concat(icons[iconId].id));
       icon.sizes = _.uniq(icon.sizes.concat(labelling.stripSizePrefix(icons[iconId].size)));
@@ -376,6 +427,7 @@ export async function generateReactComponents(icons: IIcons) {
         jsxName: icon.jsxName,
         size,
         type,
+        category: icon.category,
       });
       return filePathToSVGinJSXSync(filePath);
     },

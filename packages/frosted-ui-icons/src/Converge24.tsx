@@ -20,4 +20,6 @@ export const Converge24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Converge24.category = 'Arrows';
+
 export default Converge24;

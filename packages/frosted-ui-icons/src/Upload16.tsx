@@ -20,4 +20,6 @@ export const Upload16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Upload16.category = 'Arrows';
+
 export default Upload16;

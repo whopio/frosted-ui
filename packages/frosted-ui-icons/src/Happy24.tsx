@@ -27,4 +27,6 @@ export const Happy24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Happy24.category = 'Emoji & Faces';
+
 export default Happy24;

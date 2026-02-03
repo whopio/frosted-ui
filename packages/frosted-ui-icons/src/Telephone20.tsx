@@ -20,4 +20,6 @@ export const Telephone20 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+Telephone20.category = 'Communication';
+
 export default Telephone20;
