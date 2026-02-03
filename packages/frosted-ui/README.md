@@ -48,10 +48,10 @@ export default function () {
 ## Guides
 
 - [Setup steps](https://storybook.whop.dev/?path=/docs/guides-1-getting-started--docs)
+- [Tailwind plugin](https://storybook.whop.dev/?path=/docs/guides-5-tailwind-plugin--docs)
 - [Typography](https://storybook.whop.dev/?path=/docs/guides-2-typography--docs)
 - [Color system](https://storybook.whop.dev/?path=/docs/guides-3-color--docs)
 - [Breakpoints](https://storybook.whop.dev/?path=/docs/guides-4-breakpoints--docs)
-- [Tailwind plugin](https://storybook.whop.dev/?path=/docs/guides-5-tailwind-plugin--docs)
 
 ## Acknowledgments
 
