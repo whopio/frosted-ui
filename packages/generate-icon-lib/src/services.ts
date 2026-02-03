@@ -175,12 +175,35 @@ export async function getFigmaDocument(config: IFigmaConfig): Promise<IFigmaDocu
     headers: config.headers,
   });
   const data = (await resp.json()) as IFigmaFileResponse;
+
+  // Handle various error cases
   if (data.status === 403 && data.err === 'Invalid token') {
     throw new CodedError(
       ERRORS.FIGMA_API,
       'An invalid token was used. Follow the Auth Guide (https://git.io/Je87i), and try again.',
     );
   }
+
+  if (data.status === 429) {
+    throw new CodedError(ERRORS.FIGMA_API, 'Rate limit exceeded. Please wait a few minutes and try again.');
+  }
+
+  if (data.status === 404) {
+    throw new CodedError(ERRORS.FIGMA_API, `Figma file not found. Check that the file key "${config.fileKey}" is correct.`);
+  }
+
+  if (!resp.ok || data.err) {
+    const errorMsg = data.err || `HTTP ${resp.status}`;
+    throw new CodedError(ERRORS.FIGMA_API, `Figma API error: ${errorMsg}`);
+  }
+
+  if (!data.document) {
+    throw new CodedError(
+      ERRORS.FIGMA_API,
+      'Figma API returned an empty document. Check your access token and file permissions.',
+    );
+  }
+
   return data.document;
 }
 
