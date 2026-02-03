@@ -20,4 +20,6 @@ export const Code32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Code32.category = 'Text Formatting';
+
 export default Code32;

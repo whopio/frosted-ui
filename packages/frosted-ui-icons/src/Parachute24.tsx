@@ -20,4 +20,6 @@ export const Parachute24 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+Parachute24.category = 'Objects';
+
 export default Parachute24;

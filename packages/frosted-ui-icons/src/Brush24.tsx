@@ -20,4 +20,6 @@ export const Brush24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Brush24.category = 'Objects';
+
 export default Brush24;

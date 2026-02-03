@@ -20,4 +20,6 @@ export const Controls32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Controls32.category = 'Interface General';
+
 export default Controls32;

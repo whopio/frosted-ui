@@ -23,4 +23,6 @@ export const Fire32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Fire32.category = 'Interface General';
+
 export default Fire32;

@@ -20,4 +20,6 @@ export const Monitor16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Monitor16.category = 'Objects';
+
 export default Monitor16;

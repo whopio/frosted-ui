@@ -20,4 +20,6 @@ export const Eye32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Eye32.category = 'Interface General';
+
 export default Eye32;

@@ -27,4 +27,6 @@ export const DocumentFilled16 = ({ color = 'currentColor', ...props }: IconProps
   );
 };
 
+DocumentFilled16.category = 'Interface General';
+
 export default DocumentFilled16;

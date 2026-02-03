@@ -27,4 +27,6 @@ export const MessageBlank24 = ({ color = 'currentColor', ...props }: IconProps) 
   );
 };
 
+MessageBlank24.category = 'Communication';
+
 export default MessageBlank24;

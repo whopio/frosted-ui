@@ -20,4 +20,6 @@ export const Linkedin16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Linkedin16.category = 'Social & Brands';
+
 export default Linkedin16;

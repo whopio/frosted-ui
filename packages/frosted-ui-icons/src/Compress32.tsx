@@ -20,4 +20,6 @@ export const Compress32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Compress32.category = 'Arrows';
+
 export default Compress32;

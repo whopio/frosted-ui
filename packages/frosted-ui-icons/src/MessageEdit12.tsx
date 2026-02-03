@@ -27,4 +27,6 @@ export const MessageEdit12 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
+MessageEdit12.category = 'Communication';
+
 export default MessageEdit12;

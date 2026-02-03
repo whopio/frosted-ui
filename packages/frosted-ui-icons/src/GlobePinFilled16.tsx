@@ -20,4 +20,6 @@ export const GlobePinFilled16 = ({ color = 'currentColor', ...props }: IconProps
   );
 };
 
+GlobePinFilled16.category = 'Location';
+
 export default GlobePinFilled16;

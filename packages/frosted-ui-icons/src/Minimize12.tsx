@@ -20,4 +20,6 @@ export const Minimize12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Minimize12.category = 'Arrows';
+
 export default Minimize12;

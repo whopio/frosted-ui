@@ -27,4 +27,6 @@ export const SparkleFilled12 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+SparkleFilled12.category = 'Interface General';
+
 export default SparkleFilled12;

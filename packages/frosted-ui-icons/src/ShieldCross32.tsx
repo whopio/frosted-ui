@@ -20,4 +20,6 @@ export const ShieldCross32 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
+ShieldCross32.category = 'Security';
+
 export default ShieldCross32;

@@ -22,4 +22,6 @@ export const Leaf16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Leaf16.category = 'Nature & Weather';
+
 export default Leaf16;

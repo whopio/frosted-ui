@@ -20,4 +20,6 @@ export const CollapseSidebarInverted24 = ({ color = 'currentColor', ...props }: 
   );
 };
 
+CollapseSidebarInverted24.category = 'Interface General';
+
 export default CollapseSidebarInverted24;

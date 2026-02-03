@@ -27,4 +27,6 @@ export const VolumeOff24 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+VolumeOff24.category = 'Sound & Music';
+
 export default VolumeOff24;

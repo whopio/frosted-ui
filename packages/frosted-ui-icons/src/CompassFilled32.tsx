@@ -20,4 +20,6 @@ export const CompassFilled32 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+CompassFilled32.category = 'Interface General';
+
 export default CompassFilled32;

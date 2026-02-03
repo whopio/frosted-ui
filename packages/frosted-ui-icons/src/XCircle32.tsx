@@ -20,4 +20,6 @@ export const XCircle32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+XCircle32.category = 'Interface General';
+
 export default XCircle32;

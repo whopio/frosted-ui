@@ -20,4 +20,6 @@ export const ShieldHalf24 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+ShieldHalf24.category = 'Security';
+
 export default ShieldHalf24;

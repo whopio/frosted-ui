@@ -20,4 +20,6 @@ export const Telegram32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Telegram32.category = 'Social & Brands';
+
 export default Telegram32;

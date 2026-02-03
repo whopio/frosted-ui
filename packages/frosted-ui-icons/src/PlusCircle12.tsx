@@ -27,4 +27,6 @@ export const PlusCircle12 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+PlusCircle12.category = 'Interface General';
+
 export default PlusCircle12;

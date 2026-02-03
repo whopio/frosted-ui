@@ -20,4 +20,6 @@ export const Menu20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Menu20.category = 'Interface General';
+
 export default Menu20;

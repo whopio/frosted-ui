@@ -20,4 +20,6 @@ export const SwordFilled16 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
+SwordFilled16.category = 'Objects';
+
 export default SwordFilled16;

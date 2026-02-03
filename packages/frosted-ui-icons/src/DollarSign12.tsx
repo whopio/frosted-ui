@@ -20,4 +20,6 @@ export const DollarSign12 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+DollarSign12.category = 'Money & Finance';
+
 export default DollarSign12;

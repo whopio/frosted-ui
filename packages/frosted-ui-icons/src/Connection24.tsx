@@ -22,4 +22,6 @@ export const Connection24 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+Connection24.category = 'Interface General';
+
 export default Connection24;

@@ -34,6 +34,7 @@ export interface IIcon {
   type: string;
   jsxName: string;
   svgName: string;
+  category: string;
 }
 
 export interface IIcons {
@@ -46,6 +47,7 @@ export interface ITemplateIcon {
   types: string[];
   jsxName: string;
   svgName: string;
+  category: string;
 }
 
 export interface IIconsSvgUrls {

@@ -23,4 +23,6 @@ export const PlayFilled32 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+PlayFilled32.category = 'Sound & Music';
+
 export default PlayFilled32;

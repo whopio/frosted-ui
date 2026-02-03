@@ -20,4 +20,6 @@ export const UserCheckmark16 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+UserCheckmark16.category = 'People';
+
 export default UserCheckmark16;

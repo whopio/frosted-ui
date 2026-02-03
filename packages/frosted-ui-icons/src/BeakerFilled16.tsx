@@ -27,4 +27,6 @@ export const BeakerFilled16 = ({ color = 'currentColor', ...props }: IconProps) 
   );
 };
 
+BeakerFilled16.category = 'Objects';
+
 export default BeakerFilled16;

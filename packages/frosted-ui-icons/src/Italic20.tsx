@@ -20,4 +20,6 @@ export const Italic20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Italic20.category = 'Text Formatting';
+
 export default Italic20;

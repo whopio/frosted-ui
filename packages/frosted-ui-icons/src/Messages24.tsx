@@ -20,4 +20,6 @@ export const Messages24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Messages24.category = 'Communication';
+
 export default Messages24;

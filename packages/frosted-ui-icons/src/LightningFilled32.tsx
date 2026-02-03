@@ -20,4 +20,6 @@ export const LightningFilled32 = ({ color = 'currentColor', ...props }: IconProp
   );
 };
 
+LightningFilled32.category = 'Nature & Weather';
+
 export default LightningFilled32;

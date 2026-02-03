@@ -20,4 +20,6 @@ export const XDotCom20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+XDotCom20.category = 'Social & Brands';
+
 export default XDotCom20;

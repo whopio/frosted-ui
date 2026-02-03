@@ -20,4 +20,6 @@ export const UserFilled20 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+UserFilled20.category = 'People';
+
 export default UserFilled20;

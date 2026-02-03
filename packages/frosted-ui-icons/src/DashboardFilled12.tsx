@@ -20,4 +20,6 @@ export const DashboardFilled12 = ({ color = 'currentColor', ...props }: IconProp
   );
 };
 
+DashboardFilled12.category = 'Interface General';
+
 export default DashboardFilled12;

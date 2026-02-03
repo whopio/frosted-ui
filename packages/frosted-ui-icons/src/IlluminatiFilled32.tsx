@@ -20,4 +20,6 @@ export const IlluminatiFilled32 = ({ color = 'currentColor', ...props }: IconPro
   );
 };
 
+IlluminatiFilled32.category = 'Interface General';
+
 export default IlluminatiFilled32;

@@ -20,4 +20,6 @@ export const QuestionCircleFilled32 = ({ color = 'currentColor', ...props }: Ico
   );
 };
 
+QuestionCircleFilled32.category = 'Interface General';
+
 export default QuestionCircleFilled32;

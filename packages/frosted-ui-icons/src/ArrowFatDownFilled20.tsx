@@ -20,4 +20,6 @@ export const ArrowFatDownFilled20 = ({ color = 'currentColor', ...props }: IconP
   );
 };
 
+ArrowFatDownFilled20.category = 'Arrows';
+
 export default ArrowFatDownFilled20;

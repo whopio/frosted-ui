@@ -20,4 +20,6 @@ export const PlayCircleFilled32 = ({ color = 'currentColor', ...props }: IconPro
   );
 };
 
+PlayCircleFilled32.category = 'Sound & Music';
+
 export default PlayCircleFilled32;

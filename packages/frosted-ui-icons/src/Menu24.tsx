@@ -20,4 +20,6 @@ export const Menu24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Menu24.category = 'Interface General';
+
 export default Menu24;

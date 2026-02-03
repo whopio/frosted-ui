@@ -20,4 +20,6 @@ export const TwitterFilled20 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+TwitterFilled20.category = 'Social & Brands';
+
 export default TwitterFilled20;

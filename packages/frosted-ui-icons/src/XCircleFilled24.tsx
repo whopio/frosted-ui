@@ -27,4 +27,6 @@ export const XCircleFilled24 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+XCircleFilled24.category = 'Interface General';
+
 export default XCircleFilled24;

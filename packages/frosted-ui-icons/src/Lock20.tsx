@@ -20,4 +20,6 @@ export const Lock20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Lock20.category = 'Security';
+
 export default Lock20;

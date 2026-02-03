@@ -27,4 +27,6 @@ export const MessageFilled20 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+MessageFilled20.category = 'Communication';
+
 export default MessageFilled20;

@@ -20,4 +20,6 @@ export const Bank32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Bank32.category = 'Buildings';
+
 export default Bank32;

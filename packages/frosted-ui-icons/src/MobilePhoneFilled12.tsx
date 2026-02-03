@@ -20,4 +20,6 @@ export const MobilePhoneFilled12 = ({ color = 'currentColor', ...props }: IconPr
   );
 };
 
+MobilePhoneFilled12.category = 'Objects';
+
 export default MobilePhoneFilled12;

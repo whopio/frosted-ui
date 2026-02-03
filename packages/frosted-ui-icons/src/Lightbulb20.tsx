@@ -20,4 +20,6 @@ export const Lightbulb20 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+Lightbulb20.category = 'Objects';
+
 export default Lightbulb20;

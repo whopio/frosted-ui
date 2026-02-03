@@ -20,4 +20,6 @@ export const SwordFilled24 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
+SwordFilled24.category = 'Objects';
+
 export default SwordFilled24;

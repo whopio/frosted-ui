@@ -24,4 +24,6 @@ export const MoonFilled32 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+MoonFilled32.category = 'Nature & Weather';
+
 export default MoonFilled32;

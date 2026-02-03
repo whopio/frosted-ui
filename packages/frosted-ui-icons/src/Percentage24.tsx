@@ -27,4 +27,6 @@ export const Percentage24 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+Percentage24.category = 'Money & Finance';
+
 export default Percentage24;

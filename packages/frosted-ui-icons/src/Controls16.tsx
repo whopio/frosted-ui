@@ -27,4 +27,6 @@ export const Controls16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Controls16.category = 'Interface General';
+
 export default Controls16;

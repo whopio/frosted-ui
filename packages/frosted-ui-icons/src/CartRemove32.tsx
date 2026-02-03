@@ -20,4 +20,6 @@ export const CartRemove32 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+CartRemove32.category = 'Objects';
+
 export default CartRemove32;

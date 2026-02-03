@@ -20,4 +20,6 @@ export const DollarBillFilled12 = ({ color = 'currentColor', ...props }: IconPro
   );
 };
 
+DollarBillFilled12.category = 'Money & Finance';
+
 export default DollarBillFilled12;

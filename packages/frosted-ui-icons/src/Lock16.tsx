@@ -20,4 +20,6 @@ export const Lock16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Lock16.category = 'Security';
+
 export default Lock16;

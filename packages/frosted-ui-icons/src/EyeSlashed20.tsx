@@ -20,4 +20,6 @@ export const EyeSlashed20 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+EyeSlashed20.category = 'Interface General';
+
 export default EyeSlashed20;

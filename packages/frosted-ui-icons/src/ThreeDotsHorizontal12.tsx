@@ -20,4 +20,6 @@ export const ThreeDotsHorizontal12 = ({ color = 'currentColor', ...props }: Icon
   );
 };
 
+ThreeDotsHorizontal12.category = 'Interface General';
+
 export default ThreeDotsHorizontal12;

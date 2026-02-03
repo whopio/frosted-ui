@@ -20,4 +20,6 @@ export const InfoCircleFilled12 = ({ color = 'currentColor', ...props }: IconPro
   );
 };
 
+InfoCircleFilled12.category = 'Interface General';
+
 export default InfoCircleFilled12;

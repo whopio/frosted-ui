@@ -27,4 +27,6 @@ export const MicrophoneOffFilled12 = ({ color = 'currentColor', ...props }: Icon
   );
 };
 
+MicrophoneOffFilled12.category = 'Sound & Music';
+
 export default MicrophoneOffFilled12;

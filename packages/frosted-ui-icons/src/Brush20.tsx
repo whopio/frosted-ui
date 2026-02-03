@@ -22,4 +22,6 @@ export const Brush20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Brush20.category = 'Objects';
+
 export default Brush20;

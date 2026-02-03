@@ -20,4 +20,6 @@ export const Illuminati24 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+Illuminati24.category = 'Interface General';
+
 export default Illuminati24;

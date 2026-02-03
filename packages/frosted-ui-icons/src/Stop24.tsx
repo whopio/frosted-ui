@@ -20,4 +20,6 @@ export const Stop24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Stop24.category = 'Interface General';
+
 export default Stop24;

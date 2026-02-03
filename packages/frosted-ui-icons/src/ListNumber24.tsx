@@ -20,4 +20,6 @@ export const ListNumber24 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+ListNumber24.category = 'Text Formatting';
+
 export default ListNumber24;

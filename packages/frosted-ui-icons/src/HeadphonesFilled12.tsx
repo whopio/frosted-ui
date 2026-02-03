@@ -27,4 +27,6 @@ export const HeadphonesFilled12 = ({ color = 'currentColor', ...props }: IconPro
   );
 };
 
+HeadphonesFilled12.category = 'Sound & Music';
+
 export default HeadphonesFilled12;

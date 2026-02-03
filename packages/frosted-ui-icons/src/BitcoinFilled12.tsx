@@ -27,4 +27,6 @@ export const BitcoinFilled12 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+BitcoinFilled12.category = 'Money & Finance';
+
 export default BitcoinFilled12;

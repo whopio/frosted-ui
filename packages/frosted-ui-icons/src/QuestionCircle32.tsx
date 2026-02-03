@@ -20,4 +20,6 @@ export const QuestionCircle32 = ({ color = 'currentColor', ...props }: IconProps
   );
 };
 
+QuestionCircle32.category = 'Interface General';
+
 export default QuestionCircle32;

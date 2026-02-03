@@ -27,4 +27,6 @@ export const SealCheckmark20 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+SealCheckmark20.category = 'Checkmarks';
+
 export default SealCheckmark20;

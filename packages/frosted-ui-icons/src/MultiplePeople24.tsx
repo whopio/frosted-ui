@@ -20,4 +20,6 @@ export const MultiplePeople24 = ({ color = 'currentColor', ...props }: IconProps
   );
 };
 
+MultiplePeople24.category = 'People';
+
 export default MultiplePeople24;

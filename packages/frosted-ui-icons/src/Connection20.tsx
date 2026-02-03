@@ -20,4 +20,6 @@ export const Connection20 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+Connection20.category = 'Interface General';
+
 export default Connection20;

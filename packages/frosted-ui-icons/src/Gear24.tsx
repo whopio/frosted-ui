@@ -20,4 +20,6 @@ export const Gear24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Gear24.category = 'Interface General';
+
 export default Gear24;

@@ -20,4 +20,6 @@ export const SlidersInASquareFilled24 = ({ color = 'currentColor', ...props }: I
   );
 };
 
+SlidersInASquareFilled24.category = 'Interface General';
+
 export default SlidersInASquareFilled24;

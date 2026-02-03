@@ -20,4 +20,6 @@ export const CircleFilled32 = ({ color = 'currentColor', ...props }: IconProps) 
   );
 };
 
+CircleFilled32.category = 'Interface General';
+
 export default CircleFilled32;

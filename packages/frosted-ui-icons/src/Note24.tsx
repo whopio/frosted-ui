@@ -20,4 +20,6 @@ export const Note24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Note24.category = 'Interface General';
+
 export default Note24;

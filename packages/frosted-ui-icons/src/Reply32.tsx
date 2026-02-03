@@ -20,4 +20,6 @@ export const Reply32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Reply32.category = 'Arrows';
+
 export default Reply32;

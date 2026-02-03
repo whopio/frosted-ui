@@ -20,4 +20,6 @@ export const VolumeLowFilled12 = ({ color = 'currentColor', ...props }: IconProp
   );
 };
 
+VolumeLowFilled12.category = 'Sound & Music';
+
 export default VolumeLowFilled12;

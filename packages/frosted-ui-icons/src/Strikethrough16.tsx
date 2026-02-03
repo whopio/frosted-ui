@@ -20,4 +20,6 @@ export const Strikethrough16 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+Strikethrough16.category = 'Text Formatting';
+
 export default Strikethrough16;

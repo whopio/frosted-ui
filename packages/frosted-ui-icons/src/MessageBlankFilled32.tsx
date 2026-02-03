@@ -20,4 +20,6 @@ export const MessageBlankFilled32 = ({ color = 'currentColor', ...props }: IconP
   );
 };
 
+MessageBlankFilled32.category = 'Communication';
+
 export default MessageBlankFilled32;

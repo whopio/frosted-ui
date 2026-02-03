@@ -20,4 +20,6 @@ export const ExclamationCircleFilled32 = ({ color = 'currentColor', ...props }: 
   );
 };
 
+ExclamationCircleFilled32.category = 'Interface General';
+
 export default ExclamationCircleFilled32;

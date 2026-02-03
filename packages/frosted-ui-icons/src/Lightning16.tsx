@@ -20,4 +20,6 @@ export const Lightning16 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+Lightning16.category = 'Nature & Weather';
+
 export default Lightning16;

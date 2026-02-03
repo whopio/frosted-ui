@@ -27,4 +27,6 @@ export const Bell12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Bell12.category = 'Interface General';
+
 export default Bell12;

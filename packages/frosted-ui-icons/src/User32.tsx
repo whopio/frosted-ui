@@ -20,4 +20,6 @@ export const User32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+User32.category = 'People';
+
 export default User32;

@@ -27,4 +27,6 @@ export const RoundedArrowAngleRight20 = ({ color = 'currentColor', ...props }: I
   );
 };
 
+RoundedArrowAngleRight20.category = 'Arrows';
+
 export default RoundedArrowAngleRight20;

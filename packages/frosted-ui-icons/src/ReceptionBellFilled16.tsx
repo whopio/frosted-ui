@@ -27,4 +27,6 @@ export const ReceptionBellFilled16 = ({ color = 'currentColor', ...props }: Icon
   );
 };
 
+ReceptionBellFilled16.category = 'Objects';
+
 export default ReceptionBellFilled16;

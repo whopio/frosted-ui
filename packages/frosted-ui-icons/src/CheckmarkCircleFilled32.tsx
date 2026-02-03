@@ -20,4 +20,6 @@ export const CheckmarkCircleFilled32 = ({ color = 'currentColor', ...props }: Ic
   );
 };
 
+CheckmarkCircleFilled32.category = 'Checkmarks';
+
 export default CheckmarkCircleFilled32;

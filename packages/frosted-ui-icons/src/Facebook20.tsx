@@ -20,4 +20,6 @@ export const Facebook20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Facebook20.category = 'Social & Brands';
+
 export default Facebook20;

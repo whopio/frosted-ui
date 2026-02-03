@@ -20,4 +20,6 @@ export const PlusRectangleFilled16 = ({ color = 'currentColor', ...props }: Icon
   );
 };
 
+PlusRectangleFilled16.category = 'Interface General';
+
 export default PlusRectangleFilled16;

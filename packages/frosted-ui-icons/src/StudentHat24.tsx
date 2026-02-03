@@ -27,4 +27,6 @@ export const StudentHat24 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+StudentHat24.category = 'Objects';
+
 export default StudentHat24;

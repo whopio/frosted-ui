@@ -20,4 +20,6 @@ export const Language32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Language32.category = 'Interface General';
+
 export default Language32;

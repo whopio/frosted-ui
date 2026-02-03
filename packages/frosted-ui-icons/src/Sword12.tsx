@@ -20,4 +20,6 @@ export const Sword12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Sword12.category = 'Objects';
+
 export default Sword12;

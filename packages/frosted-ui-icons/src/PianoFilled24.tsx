@@ -20,4 +20,6 @@ export const PianoFilled24 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
+PianoFilled24.category = 'Sound & Music';
+
 export default PianoFilled24;

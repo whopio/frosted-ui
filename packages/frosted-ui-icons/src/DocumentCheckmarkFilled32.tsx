@@ -20,4 +20,6 @@ export const DocumentCheckmarkFilled32 = ({ color = 'currentColor', ...props }: 
   );
 };
 
+DocumentCheckmarkFilled32.category = 'Interface General';
+
 export default DocumentCheckmarkFilled32;

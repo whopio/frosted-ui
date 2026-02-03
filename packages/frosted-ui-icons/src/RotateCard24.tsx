@@ -20,4 +20,6 @@ export const RotateCard24 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+RotateCard24.category = 'Interface General';
+
 export default RotateCard24;

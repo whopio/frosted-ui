@@ -20,4 +20,6 @@ export const EditProfile16 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
+EditProfile16.category = 'People';
+
 export default EditProfile16;

@@ -20,4 +20,6 @@ export const Expand12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Expand12.category = 'Arrows';
+
 export default Expand12;

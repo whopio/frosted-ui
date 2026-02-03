@@ -20,4 +20,6 @@ export const Subtract32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Subtract32.category = 'Interface General';
+
 export default Subtract32;

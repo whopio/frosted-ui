@@ -20,4 +20,6 @@ export const Dashboard20 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+Dashboard20.category = 'Interface General';
+
 export default Dashboard20;

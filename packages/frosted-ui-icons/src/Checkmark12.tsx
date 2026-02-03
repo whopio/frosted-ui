@@ -20,4 +20,6 @@ export const Checkmark12 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+Checkmark12.category = 'Checkmarks';
+
 export default Checkmark12;

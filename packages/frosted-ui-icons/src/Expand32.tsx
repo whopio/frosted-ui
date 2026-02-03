@@ -20,4 +20,6 @@ export const Expand32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Expand32.category = 'Arrows';
+
 export default Expand32;

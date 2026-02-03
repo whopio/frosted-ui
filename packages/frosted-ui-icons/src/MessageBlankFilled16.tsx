@@ -27,4 +27,6 @@ export const MessageBlankFilled16 = ({ color = 'currentColor', ...props }: IconP
   );
 };
 
+MessageBlankFilled16.category = 'Communication';
+
 export default MessageBlankFilled16;

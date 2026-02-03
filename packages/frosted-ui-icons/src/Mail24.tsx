@@ -20,4 +20,6 @@ export const Mail24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Mail24.category = 'Communication';
+
 export default Mail24;

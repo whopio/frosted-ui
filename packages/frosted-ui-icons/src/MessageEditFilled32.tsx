@@ -20,4 +20,6 @@ export const MessageEditFilled32 = ({ color = 'currentColor', ...props }: IconPr
   );
 };
 
+MessageEditFilled32.category = 'Communication';
+
 export default MessageEditFilled32;

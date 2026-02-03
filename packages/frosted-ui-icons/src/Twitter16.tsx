@@ -20,4 +20,6 @@ export const Twitter16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Twitter16.category = 'Social & Brands';
+
 export default Twitter16;

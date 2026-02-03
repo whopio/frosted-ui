@@ -20,4 +20,6 @@ export const Gamepad24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Gamepad24.category = 'Objects';
+
 export default Gamepad24;

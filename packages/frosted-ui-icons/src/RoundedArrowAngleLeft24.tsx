@@ -27,4 +27,6 @@ export const RoundedArrowAngleLeft24 = ({ color = 'currentColor', ...props }: Ic
   );
 };
 
+RoundedArrowAngleLeft24.category = 'Arrows';
+
 export default RoundedArrowAngleLeft24;

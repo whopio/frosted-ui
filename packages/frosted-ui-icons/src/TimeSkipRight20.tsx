@@ -20,4 +20,6 @@ export const TimeSkipRight20 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+TimeSkipRight20.category = 'Arrows';
+
 export default TimeSkipRight20;

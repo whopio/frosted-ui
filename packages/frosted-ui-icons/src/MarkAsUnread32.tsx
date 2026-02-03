@@ -20,4 +20,6 @@ export const MarkAsUnread32 = ({ color = 'currentColor', ...props }: IconProps) 
   );
 };
 
+MarkAsUnread32.category = 'Interface General';
+
 export default MarkAsUnread32;

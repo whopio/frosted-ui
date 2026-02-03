@@ -20,4 +20,6 @@ export const VolumePlusFilled32 = ({ color = 'currentColor', ...props }: IconPro
   );
 };
 
+VolumePlusFilled32.category = 'Sound & Music';
+
 export default VolumePlusFilled32;

@@ -20,4 +20,6 @@ export const PeoplePlus32 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+PeoplePlus32.category = 'People';
+
 export default PeoplePlus32;

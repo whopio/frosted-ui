@@ -20,4 +20,6 @@ export const HappyPlusFilled32 = ({ color = 'currentColor', ...props }: IconProp
   );
 };
 
+HappyPlusFilled32.category = 'Emoji & Faces';
+
 export default HappyPlusFilled32;

@@ -26,4 +26,6 @@ export const MedalCheckmark12 = ({ color = 'currentColor', ...props }: IconProps
   );
 };
 
+MedalCheckmark12.category = 'Objects';
+
 export default MedalCheckmark12;

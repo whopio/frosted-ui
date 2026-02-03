@@ -20,4 +20,6 @@ export const CheckmarkCircle24 = ({ color = 'currentColor', ...props }: IconProp
   );
 };
 
+CheckmarkCircle24.category = 'Checkmarks';
+
 export default CheckmarkCircle24;

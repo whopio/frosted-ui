@@ -20,4 +20,6 @@ export const StopFilled24 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+StopFilled24.category = 'Interface General';
+
 export default StopFilled24;

@@ -20,4 +20,6 @@ export const Bolt32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Bolt32.category = 'Nature & Weather';
+
 export default Bolt32;

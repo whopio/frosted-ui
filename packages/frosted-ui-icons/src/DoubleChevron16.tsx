@@ -20,4 +20,6 @@ export const DoubleChevron16 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+DoubleChevron16.category = 'Arrows';
+
 export default DoubleChevron16;

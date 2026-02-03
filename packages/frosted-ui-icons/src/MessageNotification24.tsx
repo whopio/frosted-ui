@@ -27,4 +27,6 @@ export const MessageNotification24 = ({ color = 'currentColor', ...props }: Icon
   );
 };
 
+MessageNotification24.category = 'Communication';
+
 export default MessageNotification24;

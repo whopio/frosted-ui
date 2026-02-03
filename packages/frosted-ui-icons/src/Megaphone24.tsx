@@ -20,4 +20,6 @@ export const Megaphone24 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+Megaphone24.category = 'Objects';
+
 export default Megaphone24;

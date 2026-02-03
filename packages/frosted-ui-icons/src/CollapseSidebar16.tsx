@@ -22,4 +22,6 @@ export const CollapseSidebar16 = ({ color = 'currentColor', ...props }: IconProp
   );
 };
 
+CollapseSidebar16.category = 'Interface General';
+
 export default CollapseSidebar16;

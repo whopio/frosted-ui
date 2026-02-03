@@ -20,4 +20,6 @@ export const MoneyReceiptFilled12 = ({ color = 'currentColor', ...props }: IconP
   );
 };
 
+MoneyReceiptFilled12.category = 'Money & Finance';
+
 export default MoneyReceiptFilled12;

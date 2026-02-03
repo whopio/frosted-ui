@@ -22,4 +22,6 @@ export const Leaf24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Leaf24.category = 'Nature & Weather';
+
 export default Leaf24;

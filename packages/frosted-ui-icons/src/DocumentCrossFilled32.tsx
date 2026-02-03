@@ -20,4 +20,6 @@ export const DocumentCrossFilled32 = ({ color = 'currentColor', ...props }: Icon
   );
 };
 
+DocumentCrossFilled32.category = 'Interface General';
+
 export default DocumentCrossFilled32;

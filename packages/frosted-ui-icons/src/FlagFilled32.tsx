@@ -20,4 +20,6 @@ export const FlagFilled32 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+FlagFilled32.category = 'Objects';
+
 export default FlagFilled32;

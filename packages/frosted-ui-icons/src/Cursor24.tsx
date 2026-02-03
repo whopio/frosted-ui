@@ -20,4 +20,6 @@ export const Cursor24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Cursor24.category = 'Arrows';
+
 export default Cursor24;

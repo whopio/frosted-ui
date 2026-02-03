@@ -20,4 +20,6 @@ export const LocationPin32 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
+LocationPin32.category = 'Location';
+
 export default LocationPin32;

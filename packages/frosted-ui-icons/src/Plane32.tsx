@@ -20,4 +20,6 @@ export const Plane32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Plane32.category = 'Interface General';
+
 export default Plane32;

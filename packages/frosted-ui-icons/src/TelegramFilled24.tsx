@@ -20,4 +20,6 @@ export const TelegramFilled24 = ({ color = 'currentColor', ...props }: IconProps
   );
 };
 
+TelegramFilled24.category = 'Social & Brands';
+
 export default TelegramFilled24;

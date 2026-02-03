@@ -20,4 +20,6 @@ export const GlobeAmericasFilled16 = ({ color = 'currentColor', ...props }: Icon
   );
 };
 
+GlobeAmericasFilled16.category = 'Location';
+
 export default GlobeAmericasFilled16;

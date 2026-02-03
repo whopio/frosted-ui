@@ -20,4 +20,6 @@ export const ShieldCheckmark32 = ({ color = 'currentColor', ...props }: IconProp
   );
 };
 
+ShieldCheckmark32.category = 'Security';
+
 export default ShieldCheckmark32;

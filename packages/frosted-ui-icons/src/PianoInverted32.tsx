@@ -20,4 +20,6 @@ export const PianoInverted32 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+PianoInverted32.category = 'Sound & Music';
+
 export default PianoInverted32;

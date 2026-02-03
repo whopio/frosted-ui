@@ -20,4 +20,6 @@ export const ArrowUp16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+ArrowUp16.category = 'Arrows';
+
 export default ArrowUp16;

@@ -27,4 +27,6 @@ export const Percentage16 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+Percentage16.category = 'Money & Finance';
+
 export default Percentage16;

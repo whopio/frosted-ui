@@ -27,4 +27,6 @@ export const ProfileCircleFilled12 = ({ color = 'currentColor', ...props }: Icon
   );
 };
 
+ProfileCircleFilled12.category = 'People';
+
 export default ProfileCircleFilled12;

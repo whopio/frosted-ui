@@ -20,4 +20,6 @@ export const LockOpen20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+LockOpen20.category = 'Security';
+
 export default LockOpen20;

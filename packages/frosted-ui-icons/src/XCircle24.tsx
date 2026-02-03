@@ -27,4 +27,6 @@ export const XCircle24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+XCircle24.category = 'Interface General';
+
 export default XCircle24;

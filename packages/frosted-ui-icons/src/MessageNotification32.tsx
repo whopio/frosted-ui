@@ -20,4 +20,6 @@ export const MessageNotification32 = ({ color = 'currentColor', ...props }: Icon
   );
 };
 
+MessageNotification32.category = 'Communication';
+
 export default MessageNotification32;

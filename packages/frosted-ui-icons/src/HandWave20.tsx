@@ -20,4 +20,6 @@ export const HandWave20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+HandWave20.category = 'Interface General';
+
 export default HandWave20;

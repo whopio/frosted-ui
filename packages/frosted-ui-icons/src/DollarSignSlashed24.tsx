@@ -20,4 +20,6 @@ export const DollarSignSlashed24 = ({ color = 'currentColor', ...props }: IconPr
   );
 };
 
+DollarSignSlashed24.category = 'Money & Finance';
+
 export default DollarSignSlashed24;

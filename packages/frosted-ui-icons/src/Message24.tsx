@@ -27,4 +27,6 @@ export const Message24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Message24.category = 'Communication';
+
 export default Message24;

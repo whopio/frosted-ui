@@ -20,4 +20,6 @@ export const Wallet12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Wallet12.category = 'Money & Finance';
+
 export default Wallet12;

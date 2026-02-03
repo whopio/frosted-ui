@@ -20,4 +20,6 @@ export const SunFilled32 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+SunFilled32.category = 'Nature & Weather';
+
 export default SunFilled32;

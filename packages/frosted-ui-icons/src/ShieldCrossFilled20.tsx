@@ -20,4 +20,6 @@ export const ShieldCrossFilled20 = ({ color = 'currentColor', ...props }: IconPr
   );
 };
 
+ShieldCrossFilled20.category = 'Security';
+
 export default ShieldCrossFilled20;

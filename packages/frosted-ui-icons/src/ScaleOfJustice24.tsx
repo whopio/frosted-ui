@@ -27,4 +27,6 @@ export const ScaleOfJustice24 = ({ color = 'currentColor', ...props }: IconProps
   );
 };
 
+ScaleOfJustice24.category = 'Objects';
+
 export default ScaleOfJustice24;

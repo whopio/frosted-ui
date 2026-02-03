@@ -20,4 +20,6 @@ export const PageRedirect16 = ({ color = 'currentColor', ...props }: IconProps) 
   );
 };
 
+PageRedirect16.category = 'Interface General';
+
 export default PageRedirect16;

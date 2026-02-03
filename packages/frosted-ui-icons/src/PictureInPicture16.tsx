@@ -20,4 +20,6 @@ export const PictureInPicture16 = ({ color = 'currentColor', ...props }: IconPro
   );
 };
 
+PictureInPicture16.category = 'Interface General';
+
 export default PictureInPicture16;

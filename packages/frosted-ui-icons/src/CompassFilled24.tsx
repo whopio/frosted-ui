@@ -27,4 +27,6 @@ export const CompassFilled24 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+CompassFilled24.category = 'Interface General';
+
 export default CompassFilled24;

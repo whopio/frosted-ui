@@ -27,4 +27,6 @@ export const Ticket32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Ticket32.category = 'Objects';
+
 export default Ticket32;

@@ -22,4 +22,6 @@ export const Trophy32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Trophy32.category = 'Objects';
+
 export default Trophy32;

@@ -20,4 +20,6 @@ export const Book32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Book32.category = 'Communication';
+
 export default Book32;

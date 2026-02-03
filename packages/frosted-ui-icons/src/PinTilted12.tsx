@@ -20,4 +20,6 @@ export const PinTilted12 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+PinTilted12.category = 'Interface General';
+
 export default PinTilted12;

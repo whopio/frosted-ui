@@ -20,4 +20,6 @@ export const VolumeMinusFilled16 = ({ color = 'currentColor', ...props }: IconPr
   );
 };
 
+VolumeMinusFilled16.category = 'Sound & Music';
+
 export default VolumeMinusFilled16;

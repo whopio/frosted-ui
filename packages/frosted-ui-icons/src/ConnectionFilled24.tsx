@@ -20,4 +20,6 @@ export const ConnectionFilled24 = ({ color = 'currentColor', ...props }: IconPro
   );
 };
 
+ConnectionFilled24.category = 'Interface General';
+
 export default ConnectionFilled24;

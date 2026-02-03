@@ -20,4 +20,6 @@ export const Discord16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Discord16.category = 'Social & Brands';
+
 export default Discord16;

@@ -20,4 +20,6 @@ export const Speaker32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Speaker32.category = 'Sound & Music';
+
 export default Speaker32;

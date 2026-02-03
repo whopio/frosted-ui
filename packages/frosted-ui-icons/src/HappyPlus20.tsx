@@ -20,4 +20,6 @@ export const HappyPlus20 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+HappyPlus20.category = 'Emoji & Faces';
+
 export default HappyPlus20;

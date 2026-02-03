@@ -20,4 +20,6 @@ export const Pin20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Pin20.category = 'Interface General';
+
 export default Pin20;

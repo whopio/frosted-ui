@@ -20,4 +20,6 @@ export const LightsOnFilled12 = ({ color = 'currentColor', ...props }: IconProps
   );
 };
 
+LightsOnFilled12.category = 'Objects';
+
 export default LightsOnFilled12;

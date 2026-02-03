@@ -27,4 +27,6 @@ export const ControlsVertical12 = ({ color = 'currentColor', ...props }: IconPro
   );
 };
 
+ControlsVertical12.category = 'Interface General';
+
 export default ControlsVertical12;

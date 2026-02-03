@@ -20,4 +20,6 @@ export const BankFilled12 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+BankFilled12.category = 'Buildings';
+
 export default BankFilled12;

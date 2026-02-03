@@ -20,4 +20,6 @@ export const DocumentDownload20 = ({ color = 'currentColor', ...props }: IconPro
   );
 };
 
+DocumentDownload20.category = 'Interface General';
+
 export default DocumentDownload20;

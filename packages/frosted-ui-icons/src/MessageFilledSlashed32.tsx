@@ -20,4 +20,6 @@ export const MessageFilledSlashed32 = ({ color = 'currentColor', ...props }: Ico
   );
 };
 
+MessageFilledSlashed32.category = 'Communication';
+
 export default MessageFilledSlashed32;

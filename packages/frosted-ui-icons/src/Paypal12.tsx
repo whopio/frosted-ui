@@ -27,4 +27,6 @@ export const Paypal12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Paypal12.category = 'Social & Brands';
+
 export default Paypal12;

@@ -20,4 +20,6 @@ export const DocumentDollar20 = ({ color = 'currentColor', ...props }: IconProps
   );
 };
 
+DocumentDollar20.category = 'Interface General';
+
 export default DocumentDollar20;

@@ -20,4 +20,6 @@ export const Apps20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Apps20.category = 'Interface General';
+
 export default Apps20;

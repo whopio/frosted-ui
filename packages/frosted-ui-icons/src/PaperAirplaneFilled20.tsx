@@ -20,4 +20,6 @@ export const PaperAirplaneFilled20 = ({ color = 'currentColor', ...props }: Icon
   );
 };
 
+PaperAirplaneFilled20.category = 'Communication';
+
 export default PaperAirplaneFilled20;

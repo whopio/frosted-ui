@@ -20,4 +20,6 @@ export const Photo24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Photo24.category = 'Interface General';
+
 export default Photo24;

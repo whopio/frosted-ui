@@ -20,4 +20,6 @@ export const ReceptionBell32 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+ReceptionBell32.category = 'Objects';
+
 export default ReceptionBell32;

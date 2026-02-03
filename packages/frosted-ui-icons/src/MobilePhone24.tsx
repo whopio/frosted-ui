@@ -20,4 +20,6 @@ export const MobilePhone24 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
+MobilePhone24.category = 'Objects';
+
 export default MobilePhone24;

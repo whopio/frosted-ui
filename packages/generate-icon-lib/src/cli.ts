@@ -91,9 +91,14 @@ async function main() {
   }
 
   let all: IIconsSvgUrls = {};
-  for (const batch of batches) {
+  for (let i = 0; i < batches.length; i++) {
+    const batch = batches[i];
     const batchUrls = await renderIdsToSvgs(batch, figmaConfig);
     all = { ...all, ...batchUrls };
+    // Add delay between batches to avoid rate limiting (except after last batch)
+    if (i < batches.length - 1) {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    }
   }
   /* 4. Pull down all rendered SVGs to update our local working package */
   render({

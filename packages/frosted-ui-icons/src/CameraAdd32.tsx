@@ -20,4 +20,6 @@ export const CameraAdd32 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+CameraAdd32.category = 'Interface General';
+
 export default CameraAdd32;

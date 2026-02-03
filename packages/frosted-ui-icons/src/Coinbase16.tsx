@@ -27,4 +27,6 @@ export const Coinbase16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Coinbase16.category = 'Interface General';
+
 export default Coinbase16;

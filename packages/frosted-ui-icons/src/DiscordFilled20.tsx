@@ -20,4 +20,6 @@ export const DiscordFilled20 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+DiscordFilled20.category = 'Social & Brands';
+
 export default DiscordFilled20;

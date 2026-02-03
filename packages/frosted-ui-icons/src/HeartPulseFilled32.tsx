@@ -20,4 +20,6 @@ export const HeartPulseFilled32 = ({ color = 'currentColor', ...props }: IconPro
   );
 };
 
+HeartPulseFilled32.category = 'Interface General';
+
 export default HeartPulseFilled32;

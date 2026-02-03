@@ -27,4 +27,6 @@ export const Globe24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Globe24.category = 'Location';
+
 export default Globe24;

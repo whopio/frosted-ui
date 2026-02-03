@@ -20,4 +20,6 @@ export const MoneyBagDollarSignFilled12 = ({ color = 'currentColor', ...props }:
   );
 };
 
+MoneyBagDollarSignFilled12.category = 'Money & Finance';
+
 export default MoneyBagDollarSignFilled12;

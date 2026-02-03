@@ -20,4 +20,6 @@ export const FacebookFilled32 = ({ color = 'currentColor', ...props }: IconProps
   );
 };
 
+FacebookFilled32.category = 'Social & Brands';
+
 export default FacebookFilled32;

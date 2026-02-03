@@ -27,4 +27,6 @@ export const CoinbaseFillted24 = ({ color = 'currentColor', ...props }: IconProp
   );
 };
 
+CoinbaseFillted24.category = 'Interface General';
+
 export default CoinbaseFillted24;

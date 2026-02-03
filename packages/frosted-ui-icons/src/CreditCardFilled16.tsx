@@ -20,4 +20,6 @@ export const CreditCardFilled16 = ({ color = 'currentColor', ...props }: IconPro
   );
 };
 
+CreditCardFilled16.category = 'Money & Finance';
+
 export default CreditCardFilled16;

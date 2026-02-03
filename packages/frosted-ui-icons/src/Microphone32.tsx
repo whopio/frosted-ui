@@ -20,4 +20,6 @@ export const Microphone32 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+Microphone32.category = 'Sound & Music';
+
 export default Microphone32;

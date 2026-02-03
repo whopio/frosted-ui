@@ -24,4 +24,6 @@ export const FireFilled12 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+FireFilled12.category = 'Interface General';
+
 export default FireFilled12;

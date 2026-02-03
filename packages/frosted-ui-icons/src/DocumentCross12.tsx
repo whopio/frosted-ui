@@ -20,4 +20,6 @@ export const DocumentCross12 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+DocumentCross12.category = 'Interface General';
+
 export default DocumentCross12;

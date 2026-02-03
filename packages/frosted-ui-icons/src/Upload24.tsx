@@ -20,4 +20,6 @@ export const Upload24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Upload24.category = 'Arrows';
+
 export default Upload24;

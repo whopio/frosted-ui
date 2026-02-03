@@ -20,4 +20,6 @@ export const LightsOff20 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+LightsOff20.category = 'Objects';
+
 export default LightsOff20;

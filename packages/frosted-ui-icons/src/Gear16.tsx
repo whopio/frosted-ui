@@ -20,4 +20,6 @@ export const Gear16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Gear16.category = 'Interface General';
+
 export default Gear16;

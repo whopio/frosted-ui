@@ -20,4 +20,6 @@ export const ThumbDown24 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+ThumbDown24.category = 'Interface General';
+
 export default ThumbDown24;

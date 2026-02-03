@@ -20,4 +20,6 @@ export const DiscordFilled32 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+DiscordFilled32.category = 'Social & Brands';
+
 export default DiscordFilled32;

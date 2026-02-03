@@ -20,4 +20,6 @@ export const BannerPhoto24 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
+BannerPhoto24.category = 'Interface General';
+
 export default BannerPhoto24;

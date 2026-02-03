@@ -20,4 +20,6 @@ export const Dice24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Dice24.category = 'Objects';
+
 export default Dice24;

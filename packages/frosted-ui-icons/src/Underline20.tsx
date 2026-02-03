@@ -20,4 +20,6 @@ export const Underline20 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+Underline20.category = 'Text Formatting';
+
 export default Underline20;

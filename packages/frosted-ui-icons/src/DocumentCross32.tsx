@@ -20,4 +20,6 @@ export const DocumentCross32 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+DocumentCross32.category = 'Interface General';
+
 export default DocumentCross32;

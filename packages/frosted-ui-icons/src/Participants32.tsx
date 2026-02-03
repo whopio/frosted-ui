@@ -20,4 +20,6 @@ export const Participants32 = ({ color = 'currentColor', ...props }: IconProps) 
   );
 };
 
+Participants32.category = 'People';
+
 export default Participants32;

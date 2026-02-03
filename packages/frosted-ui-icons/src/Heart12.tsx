@@ -20,4 +20,6 @@ export const Heart12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Heart12.category = 'Interface General';
+
 export default Heart12;

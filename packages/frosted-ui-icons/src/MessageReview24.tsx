@@ -27,4 +27,6 @@ export const MessageReview24 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+MessageReview24.category = 'Communication';
+
 export default MessageReview24;

@@ -20,4 +20,6 @@ export const GlobeEurope12 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
+GlobeEurope12.category = 'Location';
+
 export default GlobeEurope12;

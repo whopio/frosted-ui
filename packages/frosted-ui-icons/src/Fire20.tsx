@@ -23,4 +23,6 @@ export const Fire20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Fire20.category = 'Interface General';
+
 export default Fire20;

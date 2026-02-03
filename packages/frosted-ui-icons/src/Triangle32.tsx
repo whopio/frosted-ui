@@ -22,4 +22,6 @@ export const Triangle32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Triangle32.category = 'Interface General';
+
 export default Triangle32;

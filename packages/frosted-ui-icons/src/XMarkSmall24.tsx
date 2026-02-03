@@ -20,4 +20,6 @@ export const XMarkSmall24 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+XMarkSmall24.category = 'Interface General';
+
 export default XMarkSmall24;

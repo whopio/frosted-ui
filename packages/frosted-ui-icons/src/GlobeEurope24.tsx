@@ -20,4 +20,6 @@ export const GlobeEurope24 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
+GlobeEurope24.category = 'Location';
+
 export default GlobeEurope24;

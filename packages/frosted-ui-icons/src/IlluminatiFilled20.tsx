@@ -25,4 +25,6 @@ export const IlluminatiFilled20 = ({ color = 'currentColor', ...props }: IconPro
   );
 };
 
+IlluminatiFilled20.category = 'Interface General';
+
 export default IlluminatiFilled20;

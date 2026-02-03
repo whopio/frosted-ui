@@ -20,4 +20,6 @@ export const TagFilled20 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+TagFilled20.category = 'Interface General';
+
 export default TagFilled20;

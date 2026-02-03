@@ -20,4 +20,6 @@ export const Instagram24 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+Instagram24.category = 'Social & Brands';
+
 export default Instagram24;

@@ -20,4 +20,6 @@ export const QuoteRight12 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+QuoteRight12.category = 'Interface General';
+
 export default QuoteRight12;

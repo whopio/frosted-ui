@@ -27,4 +27,6 @@ export const MenuClose20 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+MenuClose20.category = 'Interface General';
+
 export default MenuClose20;

@@ -20,4 +20,6 @@ export const ListBullet20 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+ListBullet20.category = 'Text Formatting';
+
 export default ListBullet20;

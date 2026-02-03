@@ -20,4 +20,6 @@ export const RotateCard16 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+RotateCard16.category = 'Interface General';
+
 export default RotateCard16;

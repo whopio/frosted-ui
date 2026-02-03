@@ -20,4 +20,6 @@ export const ShoppingBagFilled32 = ({ color = 'currentColor', ...props }: IconPr
   );
 };
 
+ShoppingBagFilled32.category = 'Money & Finance';
+
 export default ShoppingBagFilled32;

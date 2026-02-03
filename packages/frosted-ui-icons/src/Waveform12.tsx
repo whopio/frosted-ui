@@ -20,4 +20,6 @@ export const Waveform12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Waveform12.category = 'Sound & Music';
+
 export default Waveform12;

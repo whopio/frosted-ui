@@ -20,4 +20,6 @@ export const Gif32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Gif32.category = 'Interface General';
+
 export default Gif32;

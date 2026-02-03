@@ -20,4 +20,6 @@ export const Controls24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Controls24.category = 'Interface General';
+
 export default Controls24;

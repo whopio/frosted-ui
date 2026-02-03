@@ -20,4 +20,6 @@ export const LinkAdd12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+LinkAdd12.category = 'Interface General';
+
 export default LinkAdd12;

@@ -20,4 +20,6 @@ export const Telephone24 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+Telephone24.category = 'Communication';
+
 export default Telephone24;

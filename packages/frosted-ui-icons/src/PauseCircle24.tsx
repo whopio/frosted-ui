@@ -20,4 +20,6 @@ export const PauseCircle24 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
+PauseCircle24.category = 'Sound & Music';
+
 export default PauseCircle24;

@@ -27,4 +27,6 @@ export const MessageFilledNotification12 = ({ color = 'currentColor', ...props }
   );
 };
 
+MessageFilledNotification12.category = 'Communication';
+
 export default MessageFilledNotification12;

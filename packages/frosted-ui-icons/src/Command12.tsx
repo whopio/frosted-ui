@@ -27,4 +27,6 @@ export const Command12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Command12.category = 'Interface General';
+
 export default Command12;

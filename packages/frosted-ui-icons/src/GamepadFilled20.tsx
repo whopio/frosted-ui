@@ -20,4 +20,6 @@ export const GamepadFilled20 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+GamepadFilled20.category = 'Objects';
+
 export default GamepadFilled20;

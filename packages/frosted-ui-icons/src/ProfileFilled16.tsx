@@ -20,4 +20,6 @@ export const ProfileFilled16 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+ProfileFilled16.category = 'People';
+
 export default ProfileFilled16;

@@ -20,4 +20,6 @@ export const MedalCheckmark16 = ({ color = 'currentColor', ...props }: IconProps
   );
 };
 
+MedalCheckmark16.category = 'Objects';
+
 export default MedalCheckmark16;

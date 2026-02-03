@@ -27,4 +27,6 @@ export const VolumeOffFilled20 = ({ color = 'currentColor', ...props }: IconProp
   );
 };
 
+VolumeOffFilled20.category = 'Sound & Music';
+
 export default VolumeOffFilled20;

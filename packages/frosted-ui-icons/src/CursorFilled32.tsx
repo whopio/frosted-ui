@@ -20,4 +20,6 @@ export const CursorFilled32 = ({ color = 'currentColor', ...props }: IconProps) 
   );
 };
 
+CursorFilled32.category = 'Arrows';
+
 export default CursorFilled32;

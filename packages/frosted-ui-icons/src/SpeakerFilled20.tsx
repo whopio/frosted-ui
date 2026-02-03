@@ -20,4 +20,6 @@ export const SpeakerFilled20 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+SpeakerFilled20.category = 'Sound & Music';
+
 export default SpeakerFilled20;

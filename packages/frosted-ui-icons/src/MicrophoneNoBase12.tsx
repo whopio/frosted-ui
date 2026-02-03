@@ -27,4 +27,6 @@ export const MicrophoneNoBase12 = ({ color = 'currentColor', ...props }: IconPro
   );
 };
 
+MicrophoneNoBase12.category = 'Sound & Music';
+
 export default MicrophoneNoBase12;

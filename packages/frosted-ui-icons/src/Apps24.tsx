@@ -20,4 +20,6 @@ export const Apps24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Apps24.category = 'Interface General';
+
 export default Apps24;

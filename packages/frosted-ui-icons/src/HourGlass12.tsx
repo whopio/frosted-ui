@@ -20,4 +20,6 @@ export const HourGlass12 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+HourGlass12.category = 'Objects';
+
 export default HourGlass12;

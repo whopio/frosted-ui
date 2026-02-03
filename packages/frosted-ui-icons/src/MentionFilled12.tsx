@@ -20,4 +20,6 @@ export const MentionFilled12 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+MentionFilled12.category = 'Interface General';
+
 export default MentionFilled12;

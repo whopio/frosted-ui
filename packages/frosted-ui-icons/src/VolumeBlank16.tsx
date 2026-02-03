@@ -20,4 +20,6 @@ export const VolumeBlank16 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
+VolumeBlank16.category = 'Sound & Music';
+
 export default VolumeBlank16;

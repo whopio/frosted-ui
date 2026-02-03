@@ -20,4 +20,6 @@ export const Shield32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Shield32.category = 'Security';
+
 export default Shield32;

@@ -20,4 +20,6 @@ export const WhopLogo20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+WhopLogo20.category = 'Social & Brands';
+
 export default WhopLogo20;

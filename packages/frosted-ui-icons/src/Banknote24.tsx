@@ -20,4 +20,6 @@ export const Banknote24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Banknote24.category = 'Money & Finance';
+
 export default Banknote24;

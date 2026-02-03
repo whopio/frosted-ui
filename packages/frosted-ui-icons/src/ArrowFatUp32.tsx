@@ -20,4 +20,6 @@ export const ArrowFatUp32 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+ArrowFatUp32.category = 'Arrows';
+
 export default ArrowFatUp32;

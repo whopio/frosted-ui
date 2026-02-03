@@ -20,4 +20,6 @@ export const FolderAdd32 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+FolderAdd32.category = 'Interface General';
+
 export default FolderAdd32;

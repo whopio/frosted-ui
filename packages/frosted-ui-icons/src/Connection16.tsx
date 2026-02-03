@@ -22,4 +22,6 @@ export const Connection16 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+Connection16.category = 'Interface General';
+
 export default Connection16;

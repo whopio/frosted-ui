@@ -20,4 +20,6 @@ export const InfoSquareFilled16 = ({ color = 'currentColor', ...props }: IconPro
   );
 };
 
+InfoSquareFilled16.category = 'Interface General';
+
 export default InfoSquareFilled16;

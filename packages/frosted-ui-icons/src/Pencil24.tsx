@@ -20,4 +20,6 @@ export const Pencil24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Pencil24.category = 'Objects';
+
 export default Pencil24;

@@ -20,4 +20,6 @@ export const Heart24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Heart24.category = 'Interface General';
+
 export default Heart24;

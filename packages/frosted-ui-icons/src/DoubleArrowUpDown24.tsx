@@ -20,4 +20,6 @@ export const DoubleArrowUpDown24 = ({ color = 'currentColor', ...props }: IconPr
   );
 };
 
+DoubleArrowUpDown24.category = 'Arrows';
+
 export default DoubleArrowUpDown24;

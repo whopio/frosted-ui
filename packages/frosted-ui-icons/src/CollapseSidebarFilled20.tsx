@@ -20,4 +20,6 @@ export const CollapseSidebarFilled20 = ({ color = 'currentColor', ...props }: Ic
   );
 };
 
+CollapseSidebarFilled20.category = 'Interface General';
+
 export default CollapseSidebarFilled20;

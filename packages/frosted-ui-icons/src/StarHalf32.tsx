@@ -22,4 +22,6 @@ export const StarHalf32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+StarHalf32.category = 'Interface General';
+
 export default StarHalf32;

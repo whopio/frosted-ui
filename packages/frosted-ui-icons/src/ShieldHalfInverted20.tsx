@@ -20,4 +20,6 @@ export const ShieldHalfInverted20 = ({ color = 'currentColor', ...props }: IconP
   );
 };
 
+ShieldHalfInverted20.category = 'Security';
+
 export default ShieldHalfInverted20;

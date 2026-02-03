@@ -27,4 +27,6 @@ export const Sun16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Sun16.category = 'Nature & Weather';
+
 export default Sun16;

@@ -20,4 +20,6 @@ export const Code16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Code16.category = 'Text Formatting';
+
 export default Code16;

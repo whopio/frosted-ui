@@ -20,4 +20,6 @@ export const FacebookFilled24 = ({ color = 'currentColor', ...props }: IconProps
   );
 };
 
+FacebookFilled24.category = 'Social & Brands';
+
 export default FacebookFilled24;

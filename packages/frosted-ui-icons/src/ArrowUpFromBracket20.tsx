@@ -27,4 +27,6 @@ export const ArrowUpFromBracket20 = ({ color = 'currentColor', ...props }: IconP
   );
 };
 
+ArrowUpFromBracket20.category = 'Arrows';
+
 export default ArrowUpFromBracket20;

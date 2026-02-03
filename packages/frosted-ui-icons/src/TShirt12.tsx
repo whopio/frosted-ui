@@ -27,4 +27,6 @@ export const TShirt12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+TShirt12.category = 'Objects';
+
 export default TShirt12;

@@ -20,4 +20,6 @@ export const AlignLeft12 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+AlignLeft12.category = 'Text Formatting';
+
 export default AlignLeft12;

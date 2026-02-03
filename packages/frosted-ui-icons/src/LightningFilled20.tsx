@@ -20,4 +20,6 @@ export const LightningFilled20 = ({ color = 'currentColor', ...props }: IconProp
   );
 };
 
+LightningFilled20.category = 'Nature & Weather';
+
 export default LightningFilled20;

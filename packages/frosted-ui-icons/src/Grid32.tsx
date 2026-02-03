@@ -20,4 +20,6 @@ export const Grid32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Grid32.category = 'Interface General';
+
 export default Grid32;

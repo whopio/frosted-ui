@@ -20,4 +20,6 @@ export const Gift24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Gift24.category = 'Objects';
+
 export default Gift24;

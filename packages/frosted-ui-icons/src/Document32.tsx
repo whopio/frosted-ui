@@ -20,4 +20,6 @@ export const Document32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Document32.category = 'Interface General';
+
 export default Document32;

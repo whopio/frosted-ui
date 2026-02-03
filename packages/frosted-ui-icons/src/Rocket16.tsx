@@ -20,4 +20,6 @@ export const Rocket16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Rocket16.category = 'Interface General';
+
 export default Rocket16;

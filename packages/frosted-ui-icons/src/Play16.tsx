@@ -22,4 +22,6 @@ export const Play16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Play16.category = 'Sound & Music';
+
 export default Play16;

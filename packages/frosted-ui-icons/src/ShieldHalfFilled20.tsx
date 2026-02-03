@@ -20,4 +20,6 @@ export const ShieldHalfFilled20 = ({ color = 'currentColor', ...props }: IconPro
   );
 };
 
+ShieldHalfFilled20.category = 'Security';
+
 export default ShieldHalfFilled20;

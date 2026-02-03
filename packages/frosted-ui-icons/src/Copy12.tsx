@@ -20,4 +20,6 @@ export const Copy12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Copy12.category = 'Interface General';
+
 export default Copy12;

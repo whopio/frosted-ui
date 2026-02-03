@@ -20,4 +20,6 @@ export const ClosedCaptions12 = ({ color = 'currentColor', ...props }: IconProps
   );
 };
 
+ClosedCaptions12.category = 'Interface General';
+
 export default ClosedCaptions12;

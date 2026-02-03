@@ -20,4 +20,6 @@ export const Bold24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Bold24.category = 'Text Formatting';
+
 export default Bold24;

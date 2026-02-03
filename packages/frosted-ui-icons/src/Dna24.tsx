@@ -22,4 +22,6 @@ export const Dna24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Dna24.category = 'Interface General';
+
 export default Dna24;

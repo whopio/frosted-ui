@@ -27,4 +27,6 @@ export const SadFilled24 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+SadFilled24.category = 'Emoji & Faces';
+
 export default SadFilled24;

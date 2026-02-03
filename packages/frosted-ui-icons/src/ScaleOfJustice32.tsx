@@ -20,4 +20,6 @@ export const ScaleOfJustice32 = ({ color = 'currentColor', ...props }: IconProps
   );
 };
 
+ScaleOfJustice32.category = 'Objects';
+
 export default ScaleOfJustice32;

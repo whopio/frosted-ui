@@ -20,4 +20,6 @@ export const ShieldCheckmarkFilled24 = ({ color = 'currentColor', ...props }: Ic
   );
 };
 
+ShieldCheckmarkFilled24.category = 'Security';
+
 export default ShieldCheckmarkFilled24;

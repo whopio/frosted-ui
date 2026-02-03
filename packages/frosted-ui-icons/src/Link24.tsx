@@ -20,4 +20,6 @@ export const Link24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Link24.category = 'Interface General';
+
 export default Link24;

@@ -20,4 +20,6 @@ export const Reply24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Reply24.category = 'Arrows';
+
 export default Reply24;

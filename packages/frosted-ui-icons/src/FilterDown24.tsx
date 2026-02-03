@@ -20,4 +20,6 @@ export const FilterDown24 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+FilterDown24.category = 'Text Formatting';
+
 export default FilterDown24;

@@ -20,4 +20,6 @@ export const CreditCardBlank32 = ({ color = 'currentColor', ...props }: IconProp
   );
 };
 
+CreditCardBlank32.category = 'Money & Finance';
+
 export default CreditCardBlank32;

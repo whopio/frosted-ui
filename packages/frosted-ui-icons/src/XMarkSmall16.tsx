@@ -20,4 +20,6 @@ export const XMarkSmall16 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+XMarkSmall16.category = 'Interface General';
+
 export default XMarkSmall16;

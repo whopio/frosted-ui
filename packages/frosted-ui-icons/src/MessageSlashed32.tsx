@@ -20,4 +20,6 @@ export const MessageSlashed32 = ({ color = 'currentColor', ...props }: IconProps
   );
 };
 
+MessageSlashed32.category = 'Communication';
+
 export default MessageSlashed32;

@@ -27,4 +27,6 @@ export const SunFilled16 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+SunFilled16.category = 'Nature & Weather';
+
 export default SunFilled16;

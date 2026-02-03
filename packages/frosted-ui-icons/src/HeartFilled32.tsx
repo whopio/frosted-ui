@@ -20,4 +20,6 @@ export const HeartFilled32 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
+HeartFilled32.category = 'Interface General';
+
 export default HeartFilled32;

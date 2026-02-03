@@ -20,4 +20,6 @@ export const ReplyFilled32 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
+ReplyFilled32.category = 'Arrows';
+
 export default ReplyFilled32;

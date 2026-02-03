@@ -20,4 +20,6 @@ export const Sad32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Sad32.category = 'Emoji & Faces';
+
 export default Sad32;

@@ -20,4 +20,6 @@ export const MicrophoneNoBaseFilled16 = ({ color = 'currentColor', ...props }: I
   );
 };
 
+MicrophoneNoBaseFilled16.category = 'Sound & Music';
+
 export default MicrophoneNoBaseFilled16;

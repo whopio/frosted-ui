@@ -20,4 +20,6 @@ export const LinkRemove24 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+LinkRemove24.category = 'Interface General';
+
 export default LinkRemove24;

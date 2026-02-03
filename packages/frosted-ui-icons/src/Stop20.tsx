@@ -20,4 +20,6 @@ export const Stop20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Stop20.category = 'Interface General';
+
 export default Stop20;

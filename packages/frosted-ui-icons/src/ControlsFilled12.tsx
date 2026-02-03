@@ -27,4 +27,6 @@ export const ControlsFilled12 = ({ color = 'currentColor', ...props }: IconProps
   );
 };
 
+ControlsFilled12.category = 'Interface General';
+
 export default ControlsFilled12;

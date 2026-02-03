@@ -27,4 +27,6 @@ export const PlusRectangle24 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+PlusRectangle24.category = 'Interface General';
+
 export default PlusRectangle24;

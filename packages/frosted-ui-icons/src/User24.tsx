@@ -20,4 +20,6 @@ export const User24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+User24.category = 'People';
+
 export default User24;

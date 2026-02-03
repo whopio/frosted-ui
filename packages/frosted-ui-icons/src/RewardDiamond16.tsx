@@ -20,4 +20,6 @@ export const RewardDiamond16 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+RewardDiamond16.category = 'Interface General';
+
 export default RewardDiamond16;

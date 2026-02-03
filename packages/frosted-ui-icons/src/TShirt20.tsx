@@ -20,4 +20,6 @@ export const TShirt20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+TShirt20.category = 'Objects';
+
 export default TShirt20;

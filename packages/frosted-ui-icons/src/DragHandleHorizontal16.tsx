@@ -20,4 +20,6 @@ export const DragHandleHorizontal16 = ({ color = 'currentColor', ...props }: Ico
   );
 };
 
+DragHandleHorizontal16.category = 'Interface General';
+
 export default DragHandleHorizontal16;

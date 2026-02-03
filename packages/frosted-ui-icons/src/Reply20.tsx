@@ -20,4 +20,6 @@ export const Reply20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Reply20.category = 'Arrows';
+
 export default Reply20;

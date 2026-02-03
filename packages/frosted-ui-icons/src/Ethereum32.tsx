@@ -20,4 +20,6 @@ export const Ethereum32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Ethereum32.category = 'Interface General';
+
 export default Ethereum32;

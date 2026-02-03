@@ -20,4 +20,6 @@ export const AddUserFilled32 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+AddUserFilled32.category = 'People';
+
 export default AddUserFilled32;

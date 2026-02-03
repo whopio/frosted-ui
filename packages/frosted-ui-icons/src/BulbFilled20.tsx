@@ -20,4 +20,6 @@ export const BulbFilled20 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+BulbFilled20.category = 'Objects';
+
 export default BulbFilled20;

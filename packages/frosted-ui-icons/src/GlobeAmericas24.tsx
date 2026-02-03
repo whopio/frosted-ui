@@ -20,4 +20,6 @@ export const GlobeAmericas24 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+GlobeAmericas24.category = 'Location';
+
 export default GlobeAmericas24;

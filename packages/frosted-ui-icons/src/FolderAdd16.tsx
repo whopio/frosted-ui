@@ -20,4 +20,6 @@ export const FolderAdd16 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+FolderAdd16.category = 'Interface General';
+
 export default FolderAdd16;

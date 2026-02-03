@@ -27,4 +27,6 @@ export const Headphones20 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+Headphones20.category = 'Sound & Music';
+
 export default Headphones20;

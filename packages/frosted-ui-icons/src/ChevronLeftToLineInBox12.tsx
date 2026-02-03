@@ -20,4 +20,6 @@ export const ChevronLeftToLineInBox12 = ({ color = 'currentColor', ...props }: I
   );
 };
 
+ChevronLeftToLineInBox12.category = 'Interface General';
+
 export default ChevronLeftToLineInBox12;

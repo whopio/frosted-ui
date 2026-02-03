@@ -20,4 +20,6 @@ export const Bulb32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Bulb32.category = 'Objects';
+
 export default Bulb32;

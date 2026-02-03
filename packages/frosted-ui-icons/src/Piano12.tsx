@@ -20,4 +20,6 @@ export const Piano12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Piano12.category = 'Sound & Music';
+
 export default Piano12;

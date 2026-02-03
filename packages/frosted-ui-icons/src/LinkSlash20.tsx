@@ -20,4 +20,6 @@ export const LinkSlash20 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
+LinkSlash20.category = 'Interface General';
+
 export default LinkSlash20;

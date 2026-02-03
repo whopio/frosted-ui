@@ -27,4 +27,6 @@ export const MessageSlashed16 = ({ color = 'currentColor', ...props }: IconProps
   );
 };
 
+MessageSlashed16.category = 'Communication';
+
 export default MessageSlashed16;

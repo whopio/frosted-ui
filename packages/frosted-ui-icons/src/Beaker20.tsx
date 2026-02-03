@@ -20,4 +20,6 @@ export const Beaker20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Beaker20.category = 'Objects';
+
 export default Beaker20;

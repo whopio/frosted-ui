@@ -20,4 +20,6 @@ export const LockFilled32 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+LockFilled32.category = 'Security';
+
 export default LockFilled32;

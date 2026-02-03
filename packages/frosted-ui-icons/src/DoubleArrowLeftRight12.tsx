@@ -20,4 +20,6 @@ export const DoubleArrowLeftRight12 = ({ color = 'currentColor', ...props }: Ico
   );
 };
 
+DoubleArrowLeftRight12.category = 'Arrows';
+
 export default DoubleArrowLeftRight12;

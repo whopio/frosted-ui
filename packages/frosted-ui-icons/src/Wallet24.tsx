@@ -20,4 +20,6 @@ export const Wallet24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Wallet24.category = 'Money & Finance';
+
 export default Wallet24;

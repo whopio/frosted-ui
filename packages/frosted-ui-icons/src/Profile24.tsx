@@ -20,4 +20,6 @@ export const Profile24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Profile24.category = 'People';
+
 export default Profile24;

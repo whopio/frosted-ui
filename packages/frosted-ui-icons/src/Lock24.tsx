@@ -20,4 +20,6 @@ export const Lock24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Lock24.category = 'Security';
+
 export default Lock24;

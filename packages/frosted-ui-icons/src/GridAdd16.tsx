@@ -20,4 +20,6 @@ export const GridAdd16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+GridAdd16.category = 'Interface General';
+
 export default GridAdd16;

@@ -20,4 +20,6 @@ export const Shield12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Shield12.category = 'Security';
+
 export default Shield12;

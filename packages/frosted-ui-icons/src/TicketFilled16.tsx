@@ -27,4 +27,6 @@ export const TicketFilled16 = ({ color = 'currentColor', ...props }: IconProps) 
   );
 };
 
+TicketFilled16.category = 'Objects';
+
 export default TicketFilled16;

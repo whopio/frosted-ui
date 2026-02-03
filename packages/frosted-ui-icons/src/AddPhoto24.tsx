@@ -27,4 +27,6 @@ export const AddPhoto24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+AddPhoto24.category = 'Interface General';
+
 export default AddPhoto24;

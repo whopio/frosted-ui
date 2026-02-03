@@ -20,4 +20,6 @@ export const Coins16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Coins16.category = 'Money & Finance';
+
 export default Coins16;

@@ -20,4 +20,6 @@ export const ShieldFilled24 = ({ color = 'currentColor', ...props }: IconProps) 
   );
 };
 
+ShieldFilled24.category = 'Security';
+
 export default ShieldFilled24;

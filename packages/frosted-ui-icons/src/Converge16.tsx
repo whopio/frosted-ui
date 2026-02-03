@@ -20,4 +20,6 @@ export const Converge16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Converge16.category = 'Arrows';
+
 export default Converge16;

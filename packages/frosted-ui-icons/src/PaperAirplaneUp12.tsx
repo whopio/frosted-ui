@@ -29,4 +29,6 @@ export const PaperAirplaneUp12 = ({ color = 'currentColor', ...props }: IconProp
   );
 };
 
+PaperAirplaneUp12.category = 'Communication';
+
 export default PaperAirplaneUp12;

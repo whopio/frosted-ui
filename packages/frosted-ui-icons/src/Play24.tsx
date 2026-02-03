@@ -22,4 +22,6 @@ export const Play24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Play24.category = 'Sound & Music';
+
 export default Play24;

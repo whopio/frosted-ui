@@ -20,4 +20,6 @@ export const InstagramFilled16 = ({ color = 'currentColor', ...props }: IconProp
   );
 };
 
+InstagramFilled16.category = 'Social & Brands';
+
 export default InstagramFilled16;

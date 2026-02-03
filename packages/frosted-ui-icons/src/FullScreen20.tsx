@@ -20,4 +20,6 @@ export const FullScreen20 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+FullScreen20.category = 'Interface General';
+
 export default FullScreen20;

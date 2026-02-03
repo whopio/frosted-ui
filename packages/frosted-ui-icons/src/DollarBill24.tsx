@@ -20,4 +20,6 @@ export const DollarBill24 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+DollarBill24.category = 'Money & Finance';
+
 export default DollarBill24;

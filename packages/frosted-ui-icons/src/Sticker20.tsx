@@ -27,4 +27,6 @@ export const Sticker20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Sticker20.category = 'Objects';
+
 export default Sticker20;

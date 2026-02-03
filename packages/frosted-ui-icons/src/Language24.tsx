@@ -20,4 +20,6 @@ export const Language24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Language24.category = 'Interface General';
+
 export default Language24;

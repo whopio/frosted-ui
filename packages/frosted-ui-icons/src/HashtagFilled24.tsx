@@ -20,4 +20,6 @@ export const HashtagFilled24 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
+HashtagFilled24.category = 'Interface General';
+
 export default HashtagFilled24;

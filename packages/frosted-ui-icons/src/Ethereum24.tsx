@@ -20,4 +20,6 @@ export const Ethereum24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
+Ethereum24.category = 'Interface General';
+
 export default Ethereum24;

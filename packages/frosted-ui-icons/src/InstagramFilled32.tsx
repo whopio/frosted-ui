@@ -20,4 +20,6 @@ export const InstagramFilled32 = ({ color = 'currentColor', ...props }: IconProp
   );
 };
 
+InstagramFilled32.category = 'Social & Brands';
+
 export default InstagramFilled32;

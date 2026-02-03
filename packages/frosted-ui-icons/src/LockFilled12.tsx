@@ -20,4 +20,6 @@ export const LockFilled12 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
+LockFilled12.category = 'Security';
+
 export default LockFilled12;

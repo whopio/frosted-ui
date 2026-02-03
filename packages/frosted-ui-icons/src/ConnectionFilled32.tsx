@@ -20,4 +20,6 @@ export const ConnectionFilled32 = ({ color = 'currentColor', ...props }: IconPro
   );
 };
 
+ConnectionFilled32.category = 'Interface General';
+
 export default ConnectionFilled32;
