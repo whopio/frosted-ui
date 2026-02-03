@@ -286,6 +286,9 @@ importers:
       '@types/react':
         specifier: 19.1.10
         version: 19.1.10
+      '@whop/turbo-module':
+        specifier: ^0.1.0-canary.3
+        version: 0.1.0-canary.3
       generate-icon-lib:
         specifier: workspace:*
         version: link:../generate-icon-lib
