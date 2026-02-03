@@ -1,7 +1,7 @@
 {
   "name": "@frosted-ui/icons",
   "private": false,
-  "version": "0.0.1-canary.24",
+  "version": "0.0.1-canary.23",
   "license": "MIT",
   "description": "Frosted UI React Icons",
   "main": "./dist/cjs/index.js",
@@ -53,7 +53,8 @@
     "build:js": "pnpm build:js:cjs && pnpm build:js:esm",
     "build:js:cjs": "tsc --project tsconfig-cjs.json",
     "build:js:esm": "tsc --project tsconfig-esm.json",
-    "prepublishOnly": "pnpm run build"
+    "prepublishOnly": "pnpm run build",
+    "release": "turbo-module publish"
   },
   "peerDependencies": {
     "@types/react": "*",
