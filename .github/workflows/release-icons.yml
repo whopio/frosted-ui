@@ -33,6 +33,7 @@ jobs:
       - name: Clear npm auth to force OIDC
         run: |
           npm config delete //registry.npmjs.org/:_authToken || true
+          npm config delete @whop:registry || true
       - name: Install all packages
         run: pnpm i
       - name: Generate icon source
@@ -49,3 +50,6 @@ jobs:
         env:
           NPM_CONFIG_PROVENANCE: 'true'
           NPM_CONFIG_REGISTRY: https://registry.npmjs.org
+          NPM_CONFIG_ALWAYS_AUTH: 'false'
+          ACTIONS_ID_TOKEN_REQUEST_URL: ${{ env.ACTIONS_ID_TOKEN_REQUEST_URL }}
+          ACTIONS_ID_TOKEN_REQUEST_TOKEN: ${{ env.ACTIONS_ID_TOKEN_REQUEST_TOKEN }}
