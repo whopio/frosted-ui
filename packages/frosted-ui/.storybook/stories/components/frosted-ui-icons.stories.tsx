@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import * as Icons from '@frosted-ui/icons';
 import { MagnifyingGlass20 } from '@frosted-ui/icons';
-import { default as React, useMemo, useState } from 'react';
+import { default as React, useDeferredValue, useMemo, useState } from 'react';
 import { ScrollArea, Select, Text, TextField } from '../../../src';
 import { Tooltip } from '../../../src/components/tooltip';
 
@@ -84,6 +84,85 @@ function countUniqueIcons(icons: ParsedIcon[]): number {
   return uniqueNames.size;
 }
 
+// Split camelCase/PascalCase into words
+// "ArrowUpRight" -> ["arrow", "up", "right"]
+// "GitHubLogo" -> ["git", "hub", "logo"]
+// "XCircleFilled" -> ["x", "circle", "filled"]
+function splitCamelCase(str: string): string[] {
+  return str
+    .replace(/([a-z])([A-Z])/g, '$1 $2') // Insert space before uppercase letters
+    .replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2') // Handle consecutive uppercase (e.g., "GitHub" -> "Git Hub")
+    .toLowerCase()
+    .split(/\s+/)
+    .filter(Boolean);
+}
+
+// Smart search function
+// Matches if ALL query terms are found in either:
+// - The icon's base name (split into words)
+// - The icon's category
+// - Common variants like "filled", "outline"
+function matchesSearch(icon: ParsedIcon, query: string): boolean {
+  if (!query.trim()) return true;
+
+  const queryTerms = query.toLowerCase().split(/\s+/).filter(Boolean);
+  const nameWords = splitCamelCase(icon.baseName);
+  const categoryWords = icon.category
+    .toLowerCase()
+    .split(/[\s&]+/)
+    .filter(Boolean);
+
+  // Combine all searchable words
+  const allSearchableWords = [...nameWords, ...categoryWords];
+  const searchableText = allSearchableWords.join(' ');
+
+  // Each query term must match at least one word (partial match allowed)
+  return queryTerms.every((term) => {
+    // Check if term matches any word as a prefix or substring
+    return allSearchableWords.some((word) => word.includes(term)) || searchableText.includes(term);
+  });
+}
+
+// Calculate search relevance score (higher = better match)
+function getSearchScore(icon: ParsedIcon, query: string): number {
+  if (!query.trim()) return 0;
+
+  const queryTerms = query.toLowerCase().split(/\s+/).filter(Boolean);
+  const nameWords = splitCamelCase(icon.baseName);
+  const baseName = icon.baseName.toLowerCase();
+
+  let score = 0;
+
+  for (const term of queryTerms) {
+    // Exact match on full base name (highest priority)
+    if (baseName === term) {
+      score += 100;
+    }
+    // Base name starts with term
+    else if (baseName.startsWith(term)) {
+      score += 50;
+    }
+    // Exact word match in name
+    else if (nameWords.includes(term)) {
+      score += 30;
+    }
+    // Word starts with term
+    else if (nameWords.some((w) => w.startsWith(term))) {
+      score += 20;
+    }
+    // Partial match in name
+    else if (nameWords.some((w) => w.includes(term))) {
+      score += 10;
+    }
+    // Category match
+    else if (icon.category.toLowerCase().includes(term)) {
+      score += 5;
+    }
+  }
+
+  return score;
+}
+
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
   title: 'Utilities/Icons',
@@ -125,6 +204,12 @@ const IconBrowserComponent = () => {
   const [selectedSize, setSelectedSize] = useState<IconSize>('20');
   const [searchQuery, setSearchQuery] = useState('');
 
+  // Use deferred value for expensive filtering operations
+  // This keeps the input responsive while filtering happens in the background
+  const deferredSearchQuery = useDeferredValue(searchQuery);
+  const deferredCategory = useDeferredValue(selectedCategory);
+  const isStale = deferredSearchQuery !== searchQuery || deferredCategory !== selectedCategory;
+
   const allParsedIcons = useMemo(() => getAllParsedIcons(), []);
 
   // Filter by selected size first
@@ -136,17 +221,22 @@ const IconBrowserComponent = () => {
   const categories = Object.keys(groupedIcons);
   const totalIconCount = countUniqueIcons(iconsForSize);
 
-  // Filter icons based on search and category
+  // Filter icons based on search and category (using deferred values for responsiveness)
   const displayedIcons = useMemo(() => {
-    let icons = selectedCategory ? groupedIcons[selectedCategory] || [] : iconsForSize;
+    let icons = deferredCategory ? groupedIcons[deferredCategory] || [] : iconsForSize;
 
-    if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase();
-      icons = icons.filter((icon) => icon.baseName.toLowerCase().includes(query));
+    if (deferredSearchQuery.trim()) {
+      // Filter using smart search
+      icons = icons.filter((icon) => matchesSearch(icon, deferredSearchQuery));
+
+      // Sort by relevance score (best matches first)
+      icons = [...icons].sort((a, b) => {
+        return getSearchScore(b, deferredSearchQuery) - getSearchScore(a, deferredSearchQuery);
+      });
     }
 
     return icons;
-  }, [selectedCategory, searchQuery, groupedIcons, iconsForSize]);
+  }, [deferredCategory, deferredSearchQuery, groupedIcons, iconsForSize]);
 
   return (
     <div
@@ -249,7 +339,7 @@ const IconBrowserComponent = () => {
                 <MagnifyingGlass20 />
               </TextField.Slot>
               <TextField.Input
-                placeholder={`Search...`}
+                placeholder={`Search icons (try "arrow up", "filled")...`}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -269,7 +359,13 @@ const IconBrowserComponent = () => {
 
         {/* Icons grid */}
         <ScrollArea style={{ flex: 1 }}>
-          <div style={{ padding: '24px 32px' }}>
+          <div
+            style={{
+              padding: '24px 32px',
+              opacity: isStale ? 0.6 : 1,
+              transition: 'opacity 0.1s ease',
+            }}
+          >
             {displayedIcons.length === 0 ? (
               <Text color="gray">No icons found</Text>
             ) : (
