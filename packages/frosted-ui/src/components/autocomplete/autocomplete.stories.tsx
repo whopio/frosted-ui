@@ -145,10 +145,11 @@ export const Sizes: Story = {
 };
 
 // ============================================================================
-// Variants
+// Field Variants
 // ============================================================================
 
-export const Variants: Story = {
+export const FieldVariants: Story = {
+  name: 'Field Variants',
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 300 }}>
       <div>
