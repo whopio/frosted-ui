@@ -732,196 +732,279 @@ export const ManyItems: Story = {
 // Grid Layout (Emoji Picker)
 // ============================================================================
 
-interface Emoji {
+interface EmojiItem {
   emoji: string;
-  label: string;
+  value: string;
+  name: string;
 }
 
-const emojis: Emoji[] = [
-  { emoji: '😀', label: 'grinning face' },
-  { emoji: '😃', label: 'grinning face with big eyes' },
-  { emoji: '😄', label: 'grinning face with smiling eyes' },
-  { emoji: '😁', label: 'beaming face with smiling eyes' },
-  { emoji: '😆', label: 'grinning squinting face' },
-  { emoji: '😅', label: 'grinning face with sweat' },
-  { emoji: '🤣', label: 'rolling on the floor laughing' },
-  { emoji: '😂', label: 'face with tears of joy' },
-  { emoji: '🙂', label: 'slightly smiling face' },
-  { emoji: '🙃', label: 'upside-down face' },
-  { emoji: '😉', label: 'winking face' },
-  { emoji: '😊', label: 'smiling face with smiling eyes' },
-  { emoji: '😇', label: 'smiling face with halo' },
-  { emoji: '🥰', label: 'smiling face with hearts' },
-  { emoji: '😍', label: 'smiling face with heart-eyes' },
-  { emoji: '🤩', label: 'star-struck' },
-  { emoji: '😘', label: 'face blowing a kiss' },
-  { emoji: '😗', label: 'kissing face' },
-  { emoji: '😚', label: 'kissing face with closed eyes' },
-  { emoji: '😙', label: 'kissing face with smiling eyes' },
-  { emoji: '🥲', label: 'smiling face with tear' },
-  { emoji: '😋', label: 'face savoring food' },
-  { emoji: '😛', label: 'face with tongue' },
-  { emoji: '😜', label: 'winking face with tongue' },
-  { emoji: '🤪', label: 'zany face' },
-  { emoji: '😝', label: 'squinting face with tongue' },
-  { emoji: '🤑', label: 'money-mouth face' },
-  { emoji: '🤗', label: 'smiling face with open hands' },
-  { emoji: '🤭', label: 'face with hand over mouth' },
-  { emoji: '🤫', label: 'shushing face' },
-  { emoji: '🤔', label: 'thinking face' },
-  { emoji: '🤐', label: 'zipper-mouth face' },
-  { emoji: '🤨', label: 'face with raised eyebrow' },
-  { emoji: '😐', label: 'neutral face' },
-  { emoji: '😑', label: 'expressionless face' },
-  { emoji: '😶', label: 'face without mouth' },
-  { emoji: '😏', label: 'smirking face' },
-  { emoji: '😒', label: 'unamused face' },
-  { emoji: '🙄', label: 'face with rolling eyes' },
-  { emoji: '😬', label: 'grimacing face' },
-  { emoji: '🤥', label: 'lying face' },
-  { emoji: '😌', label: 'relieved face' },
-  { emoji: '😔', label: 'pensive face' },
-  { emoji: '😪', label: 'sleepy face' },
-  { emoji: '🤤', label: 'drooling face' },
-  { emoji: '😴', label: 'sleeping face' },
-  { emoji: '😷', label: 'face with medical mask' },
-  { emoji: '🤒', label: 'face with thermometer' },
-  { emoji: '🤕', label: 'face with head-bandage' },
-  { emoji: '🤢', label: 'nauseated face' },
-  { emoji: '🤮', label: 'face vomiting' },
-  { emoji: '🤧', label: 'sneezing face' },
-  { emoji: '🥵', label: 'hot face' },
-  { emoji: '🥶', label: 'cold face' },
-  { emoji: '🥴', label: 'woozy face' },
-  { emoji: '😵', label: 'face with crossed-out eyes' },
-  { emoji: '🤯', label: 'exploding head' },
-  { emoji: '🤠', label: 'cowboy hat face' },
-  { emoji: '🥳', label: 'partying face' },
-  { emoji: '🥸', label: 'disguised face' },
-  { emoji: '😎', label: 'smiling face with sunglasses' },
-  { emoji: '🤓', label: 'nerd face' },
-  { emoji: '🧐', label: 'face with monocle' },
-  { emoji: '❤️', label: 'red heart' },
-  { emoji: '🧡', label: 'orange heart' },
-  { emoji: '💛', label: 'yellow heart' },
-  { emoji: '💚', label: 'green heart' },
-  { emoji: '💙', label: 'blue heart' },
-  { emoji: '💜', label: 'purple heart' },
-  { emoji: '🖤', label: 'black heart' },
-  { emoji: '🤍', label: 'white heart' },
-  { emoji: '💔', label: 'broken heart' },
-  { emoji: '💕', label: 'two hearts' },
-  { emoji: '💞', label: 'revolving hearts' },
-  { emoji: '💓', label: 'beating heart' },
-  { emoji: '💗', label: 'growing heart' },
-  { emoji: '💖', label: 'sparkling heart' },
-  { emoji: '💘', label: 'heart with arrow' },
-  { emoji: '💝', label: 'heart with ribbon' },
-  { emoji: '👍', label: 'thumbs up' },
-  { emoji: '👎', label: 'thumbs down' },
-  { emoji: '👏', label: 'clapping hands' },
-  { emoji: '🙌', label: 'raising hands' },
-  { emoji: '👐', label: 'open hands' },
-  { emoji: '🤲', label: 'palms up together' },
-  { emoji: '🤝', label: 'handshake' },
-  { emoji: '🙏', label: 'folded hands' },
-  { emoji: '✍️', label: 'writing hand' },
-  { emoji: '💪', label: 'flexed biceps' },
-  { emoji: '🦾', label: 'mechanical arm' },
-  { emoji: '🔥', label: 'fire' },
-  { emoji: '⭐', label: 'star' },
-  { emoji: '🌟', label: 'glowing star' },
-  { emoji: '✨', label: 'sparkles' },
-  { emoji: '💫', label: 'dizzy' },
-  { emoji: '🎉', label: 'party popper' },
-  { emoji: '🎊', label: 'confetti ball' },
+interface EmojiGroup {
+  value: string;
+  label: string;
+  items: EmojiItem[];
+}
+
+const emojiCategories = [
+  {
+    label: 'Smileys & Emotion',
+    emojis: [
+      { emoji: '😀', name: 'grinning face' },
+      { emoji: '😃', name: 'grinning face with big eyes' },
+      { emoji: '😄', name: 'grinning face with smiling eyes' },
+      { emoji: '😁', name: 'beaming face with smiling eyes' },
+      { emoji: '😆', name: 'grinning squinting face' },
+      { emoji: '😅', name: 'grinning face with sweat' },
+      { emoji: '🤣', name: 'rolling on the floor laughing' },
+      { emoji: '😂', name: 'face with tears of joy' },
+      { emoji: '🙂', name: 'slightly smiling face' },
+      { emoji: '😊', name: 'smiling face with smiling eyes' },
+      { emoji: '😇', name: 'smiling face with halo' },
+      { emoji: '🥰', name: 'smiling face with hearts' },
+      { emoji: '😍', name: 'smiling face with heart-eyes' },
+      { emoji: '🤩', name: 'star-struck' },
+      { emoji: '😘', name: 'face blowing a kiss' },
+    ],
+  },
+  {
+    label: 'Animals & Nature',
+    emojis: [
+      { emoji: '🐶', name: 'dog face' },
+      { emoji: '🐱', name: 'cat face' },
+      { emoji: '🐭', name: 'mouse face' },
+      { emoji: '🐹', name: 'hamster' },
+      { emoji: '🐰', name: 'rabbit face' },
+      { emoji: '🦊', name: 'fox' },
+      { emoji: '🐻', name: 'bear' },
+      { emoji: '🐼', name: 'panda' },
+      { emoji: '🐨', name: 'koala' },
+      { emoji: '🐯', name: 'tiger face' },
+    ],
+  },
+  {
+    label: 'Food & Drink',
+    emojis: [
+      { emoji: '🍎', name: 'red apple' },
+      { emoji: '🍊', name: 'tangerine' },
+      { emoji: '🍋', name: 'lemon' },
+      { emoji: '🍌', name: 'banana' },
+      { emoji: '🍉', name: 'watermelon' },
+      { emoji: '🍇', name: 'grapes' },
+      { emoji: '🍓', name: 'strawberry' },
+      { emoji: '🍒', name: 'cherries' },
+      { emoji: '🍑', name: 'peach' },
+      { emoji: '🥭', name: 'mango' },
+    ],
+  },
 ];
 
-const gridItemStyles: React.CSSProperties = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: 36,
-  height: 36,
-  fontSize: 22,
-  borderRadius: 'var(--radius-2)',
-  cursor: 'pointer',
-  transition: 'background-color 100ms',
-};
+const emojiGroups: EmojiGroup[] = emojiCategories.map((category) => ({
+  value: category.label,
+  label: category.label,
+  items: category.emojis.map((emoji) => ({
+    ...emoji,
+    value: emoji.name.toLowerCase(),
+  })),
+}));
 
-const gridListStyles: React.CSSProperties = {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(8, 1fr)',
-  gap: 2,
-  padding: 'var(--space-2)',
-};
+const COLUMNS = 5;
 
-const emojiTriggerStyles: React.CSSProperties = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: 40,
-  height: 40,
-  fontSize: 20,
-  borderRadius: 'var(--radius-2)',
-  border: '1px solid var(--gray-a6)',
-  backgroundColor: 'var(--color-surface)',
-  cursor: 'pointer',
-  transition: 'background-color 100ms, border-color 100ms',
-};
-
-const emojiSearchInputStyles: React.CSSProperties = {
-  width: '100%',
-  padding: 'var(--space-2) var(--space-3)',
-  fontSize: 'var(--font-size-2)',
-  border: 'none',
-  borderBottom: '1px solid var(--gray-a5)',
-  backgroundColor: 'transparent',
-  outline: 'none',
-  color: 'inherit',
-};
+function chunkArray<T>(array: T[], size: number): T[][] {
+  const result: T[][] = [];
+  for (let i = 0; i < array.length; i += size) {
+    result.push(array.slice(i, i + size));
+  }
+  return result;
+}
 
 export const GridLayout: Story = {
   name: 'Grid Layout',
   render: () => {
-    const [selectedEmoji, setSelectedEmoji] = React.useState<string>('😀');
+    const [pickerOpen, setPickerOpen] = React.useState(false);
+    const [textValue, setTextValue] = React.useState('');
+    const [searchValue, setSearchValue] = React.useState('');
+    const textInputRef = React.useRef<HTMLInputElement | null>(null);
+
+    function handleInsertEmoji(emoji: string) {
+      if (!textInputRef.current) return;
+
+      const start = textInputRef.current.selectionStart ?? textInputRef.current.value.length;
+      const end = textInputRef.current.selectionEnd ?? textInputRef.current.value.length;
+
+      setTextValue((prev) => prev.slice(0, start) + emoji + prev.slice(end));
+      setPickerOpen(false);
+
+      const input = textInputRef.current;
+      requestAnimationFrame(() => {
+        input.focus();
+        const caretPos = start + emoji.length;
+        input.setSelectionRange(caretPos, caretPos);
+      });
+    }
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
-        <Text size="2" weight="bold">
-          Emoji Picker
-        </Text>
-        <Text size="1" color="gray">
-          Click the button to open the emoji picker with search inside the popup.
-        </Text>
-        <Autocomplete.Root
-          items={emojis}
-          itemToStringValue={(item) => (item as Emoji).label}
-          onValueChange={(value) => {
-            const emoji = value as unknown as Emoji | null;
-            if (emoji) {
-              setSelectedEmoji(emoji.emoji);
-            }
-          }}
-        >
-          <Autocomplete.Trigger style={emojiTriggerStyles}>{selectedEmoji}</Autocomplete.Trigger>
-          <Autocomplete.Content align="start" style={{ width: 340 }}>
-            <Autocomplete.Input placeholder="Search emojis..." style={emojiSearchInputStyles} />
-            <Autocomplete.Empty style={{ padding: 'var(--space-4)', textAlign: 'center', color: 'var(--gray-a10)' }}>
-              No emojis found.
-            </Autocomplete.Empty>
-            <Autocomplete.List style={gridListStyles}>
-              {(item) => {
-                const emoji = item as Emoji;
-                return (
-                  <Autocomplete.Item key={emoji.label} value={emoji} style={gridItemStyles} title={emoji.label}>
-                    {emoji.emoji}
-                  </Autocomplete.Item>
-                );
+      <div style={{ width: 256 }}>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <input
+            ref={textInputRef}
+            type="text"
+            placeholder="iMessage"
+            value={textValue}
+            onChange={(e) => setTextValue(e.target.value)}
+            style={{
+              flex: 1,
+              height: 40,
+              padding: '0 14px',
+              fontSize: 'var(--font-size-2)',
+              border: '1px solid var(--gray-a6)',
+              borderRadius: 6,
+              backgroundColor: 'var(--color-surface)',
+              outline: 'none',
+              color: 'inherit',
+              boxSizing: 'border-box',
+            }}
+          />
+
+          <Autocomplete.Root
+            grid
+            items={emojiGroups}
+            open={pickerOpen}
+            onOpenChange={setPickerOpen}
+            onOpenChangeComplete={() => setSearchValue('')}
+            value={searchValue}
+            onValueChange={(value, details) => {
+              if (details.reason !== 'item-press') {
+                setSearchValue(value as string);
+              }
+            }}
+          >
+            <Autocomplete.Trigger
+              aria-label="Choose emoji"
+              style={{
+                width: 40,
+                height: 40,
+                border: '1px solid var(--gray-a6)',
+                borderRadius: 6,
+                backgroundColor: 'var(--color-surface)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 20,
+                cursor: 'pointer',
+                flexShrink: 0,
+                boxSizing: 'border-box',
               }}
-            </Autocomplete.List>
-          </Autocomplete.Content>
-        </Autocomplete.Root>
+            >
+              😀
+            </Autocomplete.Trigger>
+            <Autocomplete.Content
+              align="end"
+              sideOffset={4}
+              style={{
+                width: 256,
+                maxHeight: 328,
+                padding: 0,
+              }}
+            >
+              <div
+                style={{
+                  padding: 4,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Autocomplete.Input
+                  placeholder="Search emojis…"
+                  style={{
+                    width: '100%',
+                    height: 40,
+                    padding: '0 14px',
+                    border: '1px solid var(--gray-a5)',
+                    borderRadius: 6,
+                    fontSize: 'var(--font-size-2)',
+                    backgroundColor: 'var(--color-surface)',
+                    outline: 'none',
+                    color: 'inherit',
+                    boxSizing: 'border-box',
+                  }}
+                />
+              </div>
+              <Autocomplete.Empty
+                style={{
+                  padding: '8px 16px 16px',
+                  fontSize: 'var(--font-size-2)',
+                  color: 'var(--gray-a10)',
+                }}
+              >
+                No emojis found
+              </Autocomplete.Empty>
+              <Autocomplete.List
+                style={
+                  {
+                    '--cols': COLUMNS,
+                    maxHeight: 272,
+                    overflow: 'auto',
+                  } as React.CSSProperties
+                }
+              >
+                {(group) => {
+                  const g = group as EmojiGroup;
+                  return (
+                    <Autocomplete.Group key={g.value} items={g.items}>
+                      <Autocomplete.GroupLabel
+                        style={{
+                          padding: '8px 16px 4px',
+                          fontSize: 12,
+                          fontWeight: 600,
+                          color: 'var(--gray-a10)',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.025em',
+                          backgroundColor: 'var(--color-panel)',
+                          borderBottom: '1px solid var(--gray-a4)',
+                          position: 'sticky',
+                          top: 0,
+                          zIndex: 1,
+                        }}
+                      >
+                        {g.label}
+                      </Autocomplete.GroupLabel>
+                      <div style={{ padding: 4 }}>
+                        {chunkArray(g.items, COLUMNS).map((row, rowIdx) => (
+                          <Autocomplete.Row
+                            key={rowIdx}
+                            style={{
+                              display: 'grid',
+                              gridTemplateColumns: `repeat(var(--cols, ${COLUMNS}), 1fr)`,
+                            }}
+                          >
+                            {row.map((item) => (
+                              <Autocomplete.Item
+                                key={item.emoji}
+                                value={item}
+                                onClick={() => handleInsertEmoji(item.emoji)}
+                                style={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  height: 40,
+                                  fontSize: 24,
+                                  borderRadius: 6,
+                                  cursor: 'pointer',
+                                }}
+                              >
+                                {item.emoji}
+                              </Autocomplete.Item>
+                            ))}
+                          </Autocomplete.Row>
+                        ))}
+                      </div>
+                    </Autocomplete.Group>
+                  );
+                }}
+              </Autocomplete.List>
+            </Autocomplete.Content>
+          </Autocomplete.Root>
+        </div>
       </div>
     );
   },

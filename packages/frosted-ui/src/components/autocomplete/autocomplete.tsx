@@ -305,6 +305,29 @@ const AutocompleteSeparator = (props: AutocompleteSeparatorProps) => {
 AutocompleteSeparator.displayName = 'AutocompleteSeparator';
 
 // ============================================================================
+// Row (for grid layouts)
+// ============================================================================
+
+interface AutocompleteRowProps extends Omit<
+  React.ComponentProps<typeof AutocompletePrimitive.Row>,
+  'className' | 'render'
+> {
+  className?: string;
+}
+
+const AutocompleteRow = React.forwardRef<HTMLDivElement, AutocompleteRowProps>((props, forwardedRef) => {
+  const { className, ...rowProps } = props;
+  return (
+    <AutocompletePrimitive.Row
+      {...rowProps}
+      ref={forwardedRef}
+      className={classNames('fui-AutocompleteRow', className)}
+    />
+  );
+});
+AutocompleteRow.displayName = 'AutocompleteRow';
+
+// ============================================================================
 // Empty
 // ============================================================================
 
@@ -353,6 +376,7 @@ export {
   AutocompleteItem as Item,
   AutocompleteList as List,
   AutocompleteRoot as Root,
+  AutocompleteRow as Row,
   AutocompleteSeparator as Separator,
   AutocompleteStatus as Status,
   AutocompleteTrigger as Trigger,
@@ -369,6 +393,7 @@ export type {
   AutocompleteItemProps as ItemProps,
   AutocompleteListProps as ListProps,
   AutocompleteRootProps as RootProps,
+  AutocompleteRowProps as RowProps,
   AutocompleteSeparatorProps as SeparatorProps,
   AutocompleteStatusProps as StatusProps,
   AutocompleteTriggerProps as TriggerProps,
