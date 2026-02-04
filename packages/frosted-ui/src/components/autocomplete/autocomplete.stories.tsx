@@ -866,27 +866,16 @@ export const GridLayout: Story = {
     }
 
     return (
-      <div style={{ width: 256 }}>
+      <div style={{ width: 300 }}>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-          <input
-            ref={textInputRef}
-            type="text"
-            placeholder="iMessage"
-            value={textValue}
-            onChange={(e) => setTextValue(e.target.value)}
-            style={{
-              flex: 1,
-              height: 40,
-              padding: '0 14px',
-              fontSize: 'var(--font-size-2)',
-              border: '1px solid var(--gray-a6)',
-              borderRadius: 6,
-              backgroundColor: 'var(--color-surface)',
-              outline: 'none',
-              color: 'inherit',
-              boxSizing: 'border-box',
-            }}
-          />
+          <TextField.Root size="3" style={{ flex: 1 }}>
+            <TextField.Input
+              ref={textInputRef}
+              placeholder="iMessage"
+              value={textValue}
+              onChange={(e) => setTextValue(e.target.value)}
+            />
+          </TextField.Root>
 
           <Autocomplete.Root
             grid
@@ -904,18 +893,9 @@ export const GridLayout: Story = {
             <Autocomplete.Trigger
               aria-label="Choose emoji"
               style={{
-                width: 40,
-                height: 40,
-                border: '1px solid var(--gray-a6)',
-                borderRadius: 6,
-                backgroundColor: 'var(--color-surface)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: 20,
-                cursor: 'pointer',
-                flexShrink: 0,
-                boxSizing: 'border-box',
+                width: 32,
+                height: 32,
+                fontSize: 18,
               }}
             >
               😀
@@ -924,34 +904,14 @@ export const GridLayout: Story = {
               align="end"
               sideOffset={4}
               style={{
-                width: 256,
                 maxHeight: 328,
                 padding: 0,
               }}
             >
-              <div
-                style={{
-                  padding: 4,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <Autocomplete.Input
-                  placeholder="Search emojis…"
-                  style={{
-                    width: '100%',
-                    height: 40,
-                    padding: '0 14px',
-                    border: '1px solid var(--gray-a5)',
-                    borderRadius: 6,
-                    fontSize: 'var(--font-size-2)',
-                    backgroundColor: 'var(--color-surface)',
-                    outline: 'none',
-                    color: 'inherit',
-                    boxSizing: 'border-box',
-                  }}
-                />
+              <div style={{ padding: 8, borderBottom: '1px solid var(--color-stroke)' }}>
+                <TextField.Root size="3" variant="soft" color="gray">
+                  <Autocomplete.Input render={<TextField.Input placeholder="Search emojis…" />} />
+                </TextField.Root>
               </div>
               <Autocomplete.Empty
                 style={{
@@ -981,48 +941,47 @@ export const GridLayout: Story = {
                       <Autocomplete.Group key={g.value} items={g.items}>
                         <Autocomplete.GroupLabel
                           style={{
-                            padding: '8px 16px 4px',
+                            padding: 8,
                             fontSize: 12,
                             fontWeight: 600,
                             color: 'var(--gray-a10)',
                             textTransform: 'uppercase',
                             letterSpacing: '0.025em',
                             backgroundColor: 'var(--color-panel)',
-                            borderBottom: '1px solid var(--gray-a4)',
                           }}
                         >
                           {g.label}
                         </Autocomplete.GroupLabel>
-                        <div style={{ padding: 4 }}>
-                          {chunkArray(g.items, COLUMNS).map((row, rowIdx) => (
-                            <Autocomplete.Row
-                              key={rowIdx}
-                              style={{
-                                display: 'grid',
-                                gridTemplateColumns: `repeat(var(--cols, ${COLUMNS}), 1fr)`,
-                              }}
-                            >
-                              {row.map((item) => (
-                                <Autocomplete.Item
-                                  key={item.emoji}
-                                  value={item}
-                                  onClick={() => handleInsertEmoji(item.emoji)}
-                                  style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    height: 40,
-                                    fontSize: 24,
-                                    borderRadius: 6,
-                                    cursor: 'pointer',
-                                  }}
-                                >
-                                  {item.emoji}
-                                </Autocomplete.Item>
-                              ))}
-                            </Autocomplete.Row>
-                          ))}
-                        </div>
+
+                        {chunkArray(g.items, COLUMNS).map((row, rowIdx) => (
+                          <Autocomplete.Row
+                            key={rowIdx}
+                            style={{
+                              display: 'grid',
+                              gridTemplateColumns: `repeat(var(--cols, ${COLUMNS}), 1fr)`,
+                            }}
+                          >
+                            {row.map((item) => (
+                              <Autocomplete.Item
+                                key={item.emoji}
+                                value={item}
+                                onClick={() => handleInsertEmoji(item.emoji)}
+                                style={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  height: 40,
+                                  width: 40,
+                                  fontSize: 24,
+                                  borderRadius: 6,
+                                  cursor: 'pointer',
+                                }}
+                              >
+                                {item.emoji}
+                              </Autocomplete.Item>
+                            ))}
+                          </Autocomplete.Row>
+                        ))}
                       </Autocomplete.Group>
                     );
                   }}
