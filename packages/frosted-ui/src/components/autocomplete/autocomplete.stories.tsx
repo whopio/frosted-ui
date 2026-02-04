@@ -1151,3 +1151,171 @@ export const AsyncSearch: Story = {
     );
   },
 };
+
+// ============================================================================
+// Inline Autocomplete
+// ============================================================================
+
+const programmingLanguages = [
+  'Assembly',
+  'Bash',
+  'C',
+  'C#',
+  'C++',
+  'Clojure',
+  'COBOL',
+  'CoffeeScript',
+  'Crystal',
+  'CSS',
+  'Dart',
+  'Elixir',
+  'Elm',
+  'Erlang',
+  'F#',
+  'Fortran',
+  'Go',
+  'GraphQL',
+  'Groovy',
+  'Haskell',
+  'HTML',
+  'Java',
+  'JavaScript',
+  'Julia',
+  'Kotlin',
+  'Lisp',
+  'Lua',
+  'MATLAB',
+  'Nim',
+  'Objective-C',
+  'OCaml',
+  'Pascal',
+  'Perl',
+  'PHP',
+  'PowerShell',
+  'Prolog',
+  'Python',
+  'R',
+  'Ruby',
+  'Rust',
+  'Scala',
+  'Scheme',
+  'Shell',
+  'SQL',
+  'Swift',
+  'TypeScript',
+  'VBA',
+  'Zig',
+];
+
+export const InlineAutocomplete: Story = {
+  name: 'Inline Autocomplete',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', maxWidth: 400 }}>
+      <div>
+        <Text size="2" weight="bold" style={{ marginBottom: 'var(--space-2)', display: 'block' }}>
+          Inline Autocomplete
+        </Text>
+        <Text size="2" color="gray" style={{ marginBottom: 'var(--space-3)', display: 'block' }}>
+          Autofill the input with the highlighted item while navigating with arrow keys using the{' '}
+          <Code size="2">mode</Code> prop. Accepts <Code size="2">aria-autocomplete</Code> values{' '}
+          <Code size="2">list</Code>, <Code size="2">both</Code>, <Code size="2">inline</Code>, or{' '}
+          <Code size="2">none</Code>.
+        </Text>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+        <div>
+          <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+            <Code size="1">mode="list"</Code> (default) — Shows matching suggestions in a list
+          </Text>
+          <Autocomplete.Root items={programmingLanguages} mode="list">
+            <TextField.Root>
+              <Autocomplete.Input render={<TextField.Input placeholder="Search languages..." />} />
+            </TextField.Root>
+            <Autocomplete.Content>
+              <ScrollArea type="auto">
+                <Autocomplete.Empty>No languages found.</Autocomplete.Empty>
+                <Autocomplete.List>
+                  {(lang) => (
+                    <Autocomplete.Item key={lang as string} value={lang}>
+                      {lang as string}
+                    </Autocomplete.Item>
+                  )}
+                </Autocomplete.List>
+              </ScrollArea>
+            </Autocomplete.Content>
+          </Autocomplete.Root>
+        </div>
+
+        <div>
+          <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+            <Code size="1">mode="inline"</Code> — Autofills the input as you navigate with arrow keys
+          </Text>
+          <Autocomplete.Root items={programmingLanguages} mode="inline">
+            <TextField.Root>
+              <Autocomplete.Input render={<TextField.Input placeholder="Search languages..." />} />
+            </TextField.Root>
+            <Autocomplete.Content>
+              <ScrollArea type="auto">
+                <Autocomplete.Empty>No languages found.</Autocomplete.Empty>
+                <Autocomplete.List>
+                  {(lang) => (
+                    <Autocomplete.Item key={lang as string} value={lang}>
+                      {lang as string}
+                    </Autocomplete.Item>
+                  )}
+                </Autocomplete.List>
+              </ScrollArea>
+            </Autocomplete.Content>
+          </Autocomplete.Root>
+        </div>
+
+        <div>
+          <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+            <Code size="1">mode="both"</Code> — Combines list filtering with inline completion
+          </Text>
+          <Autocomplete.Root items={programmingLanguages} mode="both">
+            <TextField.Root>
+              <Autocomplete.Input render={<TextField.Input placeholder="Search languages..." />} />
+            </TextField.Root>
+            <Autocomplete.Content>
+              <ScrollArea type="auto">
+                <Autocomplete.Empty>No languages found.</Autocomplete.Empty>
+                <Autocomplete.List>
+                  {(lang) => (
+                    <Autocomplete.Item key={lang as string} value={lang}>
+                      {lang as string}
+                    </Autocomplete.Item>
+                  )}
+                </Autocomplete.List>
+              </ScrollArea>
+            </Autocomplete.Content>
+          </Autocomplete.Root>
+        </div>
+
+        <div>
+          <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+            <Code size="1">mode="none"</Code> — No automatic filtering, useful for custom filtering logic
+          </Text>
+          <Autocomplete.Root items={programmingLanguages} mode="none">
+            <TextField.Root>
+              <Autocomplete.Input render={<TextField.Input placeholder="Search languages..." />} />
+            </TextField.Root>
+            <Autocomplete.Content>
+              <ScrollArea type="auto">
+                <Autocomplete.Empty>No languages found.</Autocomplete.Empty>
+                <Autocomplete.List>
+                  {(lang) => (
+                    <Autocomplete.Item key={lang as string} value={lang}>
+                      {lang as string}
+                    </Autocomplete.Item>
+                  )}
+                </Autocomplete.List>
+              </ScrollArea>
+            </Autocomplete.Content>
+          </Autocomplete.Root>
+        </div>
+      </div>
+    </div>
+  ),
+};
