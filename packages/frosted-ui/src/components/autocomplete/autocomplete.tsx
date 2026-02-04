@@ -53,21 +53,14 @@ AutocompleteInput.displayName = 'AutocompleteInput';
 
 interface AutocompleteTriggerProps extends Omit<
   React.ComponentProps<typeof AutocompletePrimitive.Trigger>,
-  'className' | 'render'
+  'render' | 'className'
 > {
   className?: string;
 }
 
-const AutocompleteTrigger = React.forwardRef<HTMLButtonElement, AutocompleteTriggerProps>((props, forwardedRef) => {
-  const { className, ...triggerProps } = props;
-  return (
-    <AutocompletePrimitive.Trigger
-      {...triggerProps}
-      ref={forwardedRef}
-      className={classNames('fui-AutocompleteTrigger', className)}
-    />
-  );
-});
+function AutocompleteTrigger({ children, ...props }: AutocompleteTriggerProps) {
+  return <AutocompletePrimitive.Trigger {...props} render={children as React.ReactElement} />;
+}
 AutocompleteTrigger.displayName = 'AutocompleteTrigger';
 
 // ============================================================================

@@ -1,29 +1,4 @@
 /* ============================================================================
- * Autocomplete Trigger
- * ============================================================================ */
-
-.fui-AutocompleteTrigger {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  border: none;
-  background: transparent;
-  color: var(--gray-a10);
-  cursor: pointer;
-  flex-shrink: 0;
-
-  &:hover {
-    color: var(--gray-a12);
-  }
-
-  &[data-disabled] {
-    color: var(--gray-a6);
-    cursor: not-allowed;
-  }
-}
-
-/* ============================================================================
  * Autocomplete Icon
  * ============================================================================ */
 

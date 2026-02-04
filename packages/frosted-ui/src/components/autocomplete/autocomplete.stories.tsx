@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
-import { Code, ScrollArea, Text, TextField } from '../index';
+import { Code, IconButton, ScrollArea, Text, TextField } from '../index';
 import * as Autocomplete from './autocomplete';
 
 const meta: Meta<typeof Autocomplete.Root> = {
@@ -890,15 +890,10 @@ export const GridLayout: Story = {
               }
             }}
           >
-            <Autocomplete.Trigger
-              aria-label="Choose emoji"
-              style={{
-                width: 32,
-                height: 32,
-                fontSize: 18,
-              }}
-            >
-              😀
+            <Autocomplete.Trigger>
+              <IconButton size="3" variant="surface">
+                😀
+              </IconButton>
             </Autocomplete.Trigger>
             <Autocomplete.Content
               align="end"
@@ -915,8 +910,6 @@ export const GridLayout: Story = {
               </div>
               <Autocomplete.Empty
                 style={{
-                  padding: '8px 16px 16px',
-                  fontSize: 'var(--font-size-2)',
                   color: 'var(--gray-a10)',
                 }}
               >
