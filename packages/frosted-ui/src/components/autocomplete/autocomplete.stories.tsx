@@ -962,70 +962,72 @@ export const GridLayout: Story = {
               >
                 No emojis found
               </Autocomplete.Empty>
-              <Autocomplete.List
-                style={
-                  {
-                    '--cols': COLUMNS,
-                    maxHeight: 272,
-                    overflow: 'auto',
-                  } as React.CSSProperties
-                }
-              >
-                {(group) => {
-                  const g = group as EmojiGroup;
-                  return (
-                    <Autocomplete.Group key={g.value} items={g.items}>
-                      <Autocomplete.GroupLabel
-                        style={{
-                          padding: '8px 16px 4px',
-                          fontSize: 12,
-                          fontWeight: 600,
-                          color: 'var(--gray-a10)',
-                          textTransform: 'uppercase',
-                          letterSpacing: '0.025em',
-                          backgroundColor: 'var(--color-panel)',
-                          borderBottom: '1px solid var(--gray-a4)',
-                          position: 'sticky',
-                          top: 0,
-                          zIndex: 1,
-                        }}
-                      >
-                        {g.label}
-                      </Autocomplete.GroupLabel>
-                      <div style={{ padding: 4 }}>
-                        {chunkArray(g.items, COLUMNS).map((row, rowIdx) => (
-                          <Autocomplete.Row
-                            key={rowIdx}
-                            style={{
-                              display: 'grid',
-                              gridTemplateColumns: `repeat(var(--cols, ${COLUMNS}), 1fr)`,
-                            }}
-                          >
-                            {row.map((item) => (
-                              <Autocomplete.Item
-                                key={item.emoji}
-                                value={item}
-                                onClick={() => handleInsertEmoji(item.emoji)}
-                                style={{
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  height: 40,
-                                  fontSize: 24,
-                                  borderRadius: 6,
-                                  cursor: 'pointer',
-                                }}
-                              >
-                                {item.emoji}
-                              </Autocomplete.Item>
-                            ))}
-                          </Autocomplete.Row>
-                        ))}
-                      </div>
-                    </Autocomplete.Group>
-                  );
+              <ScrollArea
+                type="auto"
+                style={{
+                  maxHeight: 272,
                 }}
-              </Autocomplete.List>
+              >
+                <Autocomplete.List
+                  style={
+                    {
+                      '--cols': COLUMNS,
+                    } as React.CSSProperties
+                  }
+                >
+                  {(group) => {
+                    const g = group as EmojiGroup;
+                    return (
+                      <Autocomplete.Group key={g.value} items={g.items}>
+                        <Autocomplete.GroupLabel
+                          style={{
+                            padding: '8px 16px 4px',
+                            fontSize: 12,
+                            fontWeight: 600,
+                            color: 'var(--gray-a10)',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.025em',
+                            backgroundColor: 'var(--color-panel)',
+                            borderBottom: '1px solid var(--gray-a4)',
+                          }}
+                        >
+                          {g.label}
+                        </Autocomplete.GroupLabel>
+                        <div style={{ padding: 4 }}>
+                          {chunkArray(g.items, COLUMNS).map((row, rowIdx) => (
+                            <Autocomplete.Row
+                              key={rowIdx}
+                              style={{
+                                display: 'grid',
+                                gridTemplateColumns: `repeat(var(--cols, ${COLUMNS}), 1fr)`,
+                              }}
+                            >
+                              {row.map((item) => (
+                                <Autocomplete.Item
+                                  key={item.emoji}
+                                  value={item}
+                                  onClick={() => handleInsertEmoji(item.emoji)}
+                                  style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    height: 40,
+                                    fontSize: 24,
+                                    borderRadius: 6,
+                                    cursor: 'pointer',
+                                  }}
+                                >
+                                  {item.emoji}
+                                </Autocomplete.Item>
+                              ))}
+                            </Autocomplete.Row>
+                          ))}
+                        </div>
+                      </Autocomplete.Group>
+                    );
+                  }}
+                </Autocomplete.List>
+              </ScrollArea>
             </Autocomplete.Content>
           </Autocomplete.Root>
         </div>
