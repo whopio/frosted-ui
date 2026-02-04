@@ -4,7 +4,7 @@ import { Code, Text, TextField } from '../index';
 import * as Autocomplete from './autocomplete';
 
 const meta: Meta<typeof Autocomplete.Root> = {
-  title: 'Forms/Autocomplete',
+  title: 'Controls/Autocomplete',
   component: Autocomplete.Root,
 };
 
