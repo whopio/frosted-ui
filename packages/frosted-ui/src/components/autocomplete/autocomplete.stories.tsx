@@ -1375,3 +1375,138 @@ export const InlineAutocomplete: Story = {
     </div>
   ),
 };
+
+// ============================================================================
+// Fuzzy Matching
+// ============================================================================
+
+// Simple fuzzy matching function that returns a score
+function fuzzyMatch(text: string, query: string): { match: boolean; score: number } {
+  if (!query) return { match: true, score: 0 };
+
+  const textLower = text.toLowerCase();
+  const queryLower = query.toLowerCase();
+
+  // Check for exact substring match first (highest priority)
+  if (textLower.includes(queryLower)) {
+    return { match: true, score: 1000 - textLower.indexOf(queryLower) };
+  }
+
+  // Fuzzy matching: check if all query characters appear in order
+  let queryIndex = 0;
+  let score = 0;
+  let lastMatchIndex = -1;
+
+  for (let i = 0; i < textLower.length && queryIndex < queryLower.length; i++) {
+    if (textLower[i] === queryLower[queryIndex]) {
+      // Bonus for consecutive matches
+      if (lastMatchIndex === i - 1) {
+        score += 10;
+      }
+      // Bonus for matching at word boundaries
+      if (i === 0 || text[i - 1] === ' ' || text[i - 1] === '-' || text[i - 1] === '_') {
+        score += 5;
+      }
+      score += 1;
+      lastMatchIndex = i;
+      queryIndex++;
+    }
+  }
+
+  // All query characters must be found
+  if (queryIndex === queryLower.length) {
+    return { match: true, score };
+  }
+
+  return { match: false, score: 0 };
+}
+
+const fileNames = [
+  'package.json',
+  'tsconfig.json',
+  'README.md',
+  'index.ts',
+  'App.tsx',
+  'main.ts',
+  'vite.config.ts',
+  'eslint.config.js',
+  'prettier.config.js',
+  'tailwind.config.ts',
+  'postcss.config.js',
+  'components/Button.tsx',
+  'components/Input.tsx',
+  'components/Modal.tsx',
+  'components/Dropdown.tsx',
+  'components/Tooltip.tsx',
+  'hooks/useDebounce.ts',
+  'hooks/useLocalStorage.ts',
+  'hooks/useMediaQuery.ts',
+  'utils/formatDate.ts',
+  'utils/parseJSON.ts',
+  'utils/cn.ts',
+  'styles/globals.css',
+  'styles/variables.css',
+  'types/index.d.ts',
+  'api/auth.ts',
+  'api/users.ts',
+  'api/posts.ts',
+];
+
+export const FuzzyMatching: Story = {
+  name: 'Fuzzy Matching',
+  render: () => {
+    const [query, setQuery] = React.useState('');
+
+    // Filter and sort items based on fuzzy match score
+    const filteredFiles = React.useMemo(() => {
+      if (!query) return fileNames;
+
+      return fileNames
+        .map((file) => ({ file, ...fuzzyMatch(file, query) }))
+        .filter((item) => item.match)
+        .sort((a, b) => b.score - a.score)
+        .map((item) => item.file);
+    }, [query]);
+
+    return (
+      <div style={{ maxWidth: 400 }}>
+        <Text size="2" weight="bold" style={{ marginBottom: 'var(--space-2)', display: 'block' }}>
+          Fuzzy Matching
+        </Text>
+        <Text size="2" color="gray" style={{ marginBottom: 'var(--space-3)', display: 'block' }}>
+          Implement custom fuzzy matching to find items even when the query doesn&apos;t exactly match. Try typing{' '}
+          <Code size="2">btn</Code> to find <Code size="2">Button.tsx</Code>, or <Code size="2">pcfg</Code> to find
+          config files.
+        </Text>
+        <Text size="1" color="gray" style={{ marginBottom: 'var(--space-3)', display: 'block' }}>
+          Use <Code size="1">mode="none"</Code> to disable built-in filtering and implement your own matching logic with
+          controlled <Code size="1">items</Code>.
+        </Text>
+        <Autocomplete.Root
+          items={filteredFiles}
+          mode="none"
+          value={query}
+          onValueChange={(value) => setQuery(value as string)}
+        >
+          <TextField.Root>
+            <Autocomplete.Input render={<TextField.Input placeholder="Search files..." />} />
+          </TextField.Root>
+          <Autocomplete.Content>
+            <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+              <Autocomplete.Empty>No files found.</Autocomplete.Empty>
+              <Autocomplete.List>
+                {(file) => (
+                  <Autocomplete.Item key={file as string} value={file}>
+                    <span style={{ fontFamily: 'var(--code-font-family)', fontSize: 'var(--font-size-1)' }}>
+                      {file as string}
+                    </span>
+                  </Autocomplete.Item>
+                )}
+              </Autocomplete.List>
+            </ScrollArea>
+          </Autocomplete.Content>
+        </Autocomplete.Root>
+      </div>
+    );
+  },
+};
