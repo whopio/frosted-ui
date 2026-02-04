@@ -3,10 +3,10 @@
 import { Autocomplete as AutocompletePrimitive } from '@base-ui/react/autocomplete';
 import classNames from 'classnames';
 import * as React from 'react';
-import { composeEventHandlers, type GetPropDefTypes, type PropsWithoutColor } from '../../helpers';
+import { type GetPropDefTypes } from '../../helpers';
 import { Theme, useThemeContext } from '../../theme';
 import { ScrollArea } from '../scroll-area';
-import { autocompleteInputPropDefs, autocompleteItemPropDefs, autocompletePopupPropDefs } from './autocomplete.props';
+import { autocompleteContentPropDefs, autocompleteItemPropDefs } from './autocomplete.props';
 
 // Re-export useFilter hook from Base UI
 const { useFilter } = AutocompletePrimitive;
@@ -16,206 +16,37 @@ export { useFilter };
 // Types
 // ============================================================================
 
-type AutocompleteFieldOwnProps = GetPropDefTypes<typeof autocompleteInputPropDefs>;
-type AutocompletePopupOwnProps = GetPropDefTypes<typeof autocompletePopupPropDefs>;
+type AutocompleteContentOwnProps = GetPropDefTypes<typeof autocompleteContentPropDefs>;
 type AutocompleteItemOwnProps = GetPropDefTypes<typeof autocompleteItemPropDefs>;
 
 // ============================================================================
 // Context
 // ============================================================================
 
-// Context for sharing anchor ref between FieldRoot and Popup (at Root level)
-type AutocompleteAnchorContextValue = {
-  anchorRef: React.RefObject<HTMLDivElement | null>;
-  setAnchorElement: (element: HTMLDivElement | null) => void;
-};
-const AutocompleteAnchorContext = React.createContext<AutocompleteAnchorContextValue | undefined>(undefined);
-
-// Context for sharing field props (inside FieldRoot)
-type AutocompleteFieldContextValue = AutocompleteFieldOwnProps;
-const AutocompleteFieldContext = React.createContext<AutocompleteFieldContextValue | undefined>(undefined);
-
-type AutocompletePopupContextValue = AutocompletePopupOwnProps;
-const AutocompletePopupContext = React.createContext<AutocompletePopupContextValue>({});
+type AutocompleteContentContextValue = AutocompleteContentOwnProps;
+const AutocompleteContentContext = React.createContext<AutocompleteContentContextValue>({});
 
 // ============================================================================
-// Root (Base UI Autocomplete Root - handles filtering/state)
+// Root
 // ============================================================================
 
 interface AutocompleteRootProps extends React.ComponentProps<typeof AutocompletePrimitive.Root> {}
 
 function AutocompleteRoot(props: AutocompleteRootProps) {
-  const { children, ...rootProps } = props;
-  const anchorRef = React.useRef<HTMLDivElement | null>(null);
-
-  const setAnchorElement = React.useCallback((element: HTMLDivElement | null) => {
-    anchorRef.current = element;
-  }, []);
-
-  const anchorContextValue = React.useMemo(() => ({ anchorRef, setAnchorElement }), [setAnchorElement]);
-
-  return (
-    <AutocompletePrimitive.Root {...rootProps}>
-      <AutocompleteAnchorContext.Provider value={anchorContextValue}>{children}</AutocompleteAnchorContext.Provider>
-    </AutocompletePrimitive.Root>
-  );
+  return <AutocompletePrimitive.Root {...props} />;
 }
 AutocompleteRoot.displayName = 'AutocompleteRoot';
 
 // ============================================================================
-// FieldRoot (TextField-like wrapper for visual styling)
+// Input
 // ============================================================================
 
-interface AutocompleteFieldRootProps extends PropsWithoutColor<'div'>, AutocompleteFieldOwnProps {}
+interface AutocompleteInputProps extends React.ComponentProps<typeof AutocompletePrimitive.Input> {}
 
-const AutocompleteFieldRoot = React.forwardRef<HTMLDivElement, AutocompleteFieldRootProps>((props, forwardedRef) => {
-  const {
-    children,
-    className,
-    size = autocompleteInputPropDefs.size.default,
-    variant = autocompleteInputPropDefs.variant.default,
-    color = autocompleteInputPropDefs.color.default,
-    ...rootProps
-  } = props;
-
-  const anchorContext = React.useContext(AutocompleteAnchorContext);
-
-  const handlePointerDown = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
-    const target = event.target as HTMLElement;
-    if (target.closest('input, button, a')) return;
-
-    const input = event.currentTarget.querySelector('.fui-AutocompleteFieldInput') as HTMLInputElement | null;
-    if (!input) return;
-
-    const position = input.compareDocumentPosition(target);
-    const targetIsBeforeInput = (position & Node.DOCUMENT_POSITION_PRECEDING) !== 0;
-    const cursorPosition = targetIsBeforeInput ? 0 : input.value.length;
-
-    requestAnimationFrame(() => {
-      const selectableTypes = ['text', 'search', 'url', 'tel', 'password'];
-      if (selectableTypes.includes(input.type)) {
-        input.setSelectionRange(cursorPosition, cursorPosition);
-      }
-      input.focus();
-    });
-  }, []);
-
-  // Use callback ref to handle forwarded ref and register with anchor context
-  const setRef = React.useCallback(
-    (node: HTMLDivElement | null) => {
-      // Register with anchor context
-      anchorContext?.setAnchorElement(node);
-
-      // Forward the ref
-      if (typeof forwardedRef === 'function') {
-        forwardedRef(node);
-      } else if (forwardedRef) {
-        (forwardedRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
-      }
-    },
-    [forwardedRef, anchorContext],
-  );
-
-  return (
-    <div
-      {...rootProps}
-      ref={setRef}
-      className={classNames('fui-AutocompleteFieldRoot', 'fui-TextFieldRoot', `fui-r-size-${size}`, className)}
-      onPointerDown={composeEventHandlers(rootProps.onPointerDown, handlePointerDown)}
-    >
-      <AutocompleteFieldContext.Provider
-        value={React.useMemo(() => ({ size, variant, color }), [size, variant, color])}
-      >
-        {children}
-      </AutocompleteFieldContext.Provider>
-    </div>
-  );
+const AutocompleteInput = React.forwardRef<HTMLInputElement, AutocompleteInputProps>((props, forwardedRef) => {
+  return <AutocompletePrimitive.Input {...props} ref={forwardedRef} />;
 });
-AutocompleteFieldRoot.displayName = 'AutocompleteFieldRoot';
-
-// ============================================================================
-// FieldInput (the actual input with TextField styling)
-// ============================================================================
-
-interface AutocompleteFieldInputProps
-  extends
-    Omit<React.ComponentProps<typeof AutocompletePrimitive.Input>, 'className' | 'render' | 'size'>,
-    AutocompleteFieldOwnProps {
-  className?: string;
-}
-
-const AutocompleteFieldInput = React.forwardRef<HTMLInputElement, AutocompleteFieldInputProps>(
-  (props, forwardedRef) => {
-    const context = React.useContext(AutocompleteFieldContext);
-    const hasFieldRoot = context !== undefined;
-    const {
-      className,
-      size = context?.size ?? autocompleteInputPropDefs.size.default,
-      variant = context?.variant ?? autocompleteInputPropDefs.variant.default,
-      color = context?.color ?? autocompleteInputPropDefs.color.default,
-      ...inputProps
-    } = props;
-
-    const input = (
-      <>
-        <AutocompletePrimitive.Input
-          data-accent-color={color}
-          spellCheck="false"
-          {...inputProps}
-          ref={forwardedRef}
-          className={classNames(
-            'fui-AutocompleteFieldInput',
-            'fui-TextFieldInput',
-            className,
-            `fui-r-size-${size}`,
-            `fui-variant-${variant}`,
-          )}
-        />
-        <div data-accent-color={color} className="fui-TextFieldChrome" />
-      </>
-    );
-
-    // If there's no FieldRoot, wrap the input in one automatically
-    return hasFieldRoot ? (
-      input
-    ) : (
-      <AutocompleteFieldRoot size={size} variant={variant} color={color}>
-        {input}
-      </AutocompleteFieldRoot>
-    );
-  },
-);
-AutocompleteFieldInput.displayName = 'AutocompleteFieldInput';
-
-// ============================================================================
-// FieldSlot (for icons/buttons - same pattern as TextField.Slot)
-// ============================================================================
-
-type AutocompleteFieldSlotElement = React.ElementRef<'div'>;
-interface AutocompleteFieldSlotProps extends PropsWithoutColor<'div'> {
-  color?: GetPropDefTypes<typeof autocompleteItemPropDefs>['color'];
-}
-
-const AutocompleteFieldSlot = React.forwardRef<AutocompleteFieldSlotElement, AutocompleteFieldSlotProps>(
-  (props, forwardedRef) => {
-    const { className, color, ...slotProps } = props;
-    const context = React.useContext(AutocompleteFieldContext);
-    return (
-      <div
-        data-accent-color={color}
-        {...slotProps}
-        ref={forwardedRef}
-        className={classNames(
-          'fui-AutocompleteFieldSlot',
-          'fui-TextFieldSlot',
-          className,
-          `fui-r-size-${context?.size}`,
-        )}
-      />
-    );
-  },
-);
-AutocompleteFieldSlot.displayName = 'AutocompleteFieldSlot';
+AutocompleteInput.displayName = 'AutocompleteInput';
 
 // ============================================================================
 // Trigger
@@ -293,7 +124,7 @@ AutocompleteClear.displayName = 'AutocompleteClear';
 interface AutocompleteContentProps
   extends
     Omit<React.ComponentProps<typeof AutocompletePrimitive.Popup>, 'className' | 'render'>,
-    AutocompletePopupOwnProps {
+    AutocompleteContentOwnProps {
   className?: string;
   container?: React.ComponentProps<typeof AutocompletePrimitive.Portal>['container'];
   keepMounted?: React.ComponentProps<typeof AutocompletePrimitive.Portal>['keepMounted'];
@@ -308,13 +139,12 @@ interface AutocompleteContentProps
 
 const AutocompleteContent = (props: AutocompleteContentProps) => {
   const themeContext = useThemeContext();
-  const anchorContext = React.useContext(AutocompleteAnchorContext);
   const {
     className,
     children,
-    size = autocompletePopupPropDefs.size.default,
+    size = autocompleteContentPropDefs.size.default,
     color,
-    variant = autocompletePopupPropDefs.variant.default,
+    variant = autocompleteContentPropDefs.variant.default,
     container,
     keepMounted,
     // Positioner props
@@ -328,14 +158,11 @@ const AutocompleteContent = (props: AutocompleteContentProps) => {
   } = props;
   const resolvedColor = color ?? themeContext.accentColor;
 
-  // Use FieldRoot as anchor by default if available
-  const resolvedAnchor = anchor ?? anchorContext?.anchorRef;
-
   return (
     <AutocompletePrimitive.Portal container={container} keepMounted={keepMounted}>
       <AutocompletePrimitive.Positioner
         className="fui-AutocompletePositioner"
-        anchor={resolvedAnchor}
+        anchor={anchor}
         side={side}
         sideOffset={sideOffset}
         align={align}
@@ -356,11 +183,11 @@ const AutocompleteContent = (props: AutocompleteContentProps) => {
         >
           <ScrollArea type="auto">
             <div className={classNames('fui-AutocompleteViewport', 'fui-BaseMenuViewport')}>
-              <AutocompletePopupContext.Provider
+              <AutocompleteContentContext.Provider
                 value={React.useMemo(() => ({ size, color: resolvedColor, variant }), [size, resolvedColor, variant])}
               >
                 {children}
-              </AutocompletePopupContext.Provider>
+              </AutocompleteContentContext.Provider>
             </div>
           </ScrollArea>
         </Theme>
@@ -519,12 +346,10 @@ export {
   AutocompleteClear as Clear,
   AutocompleteContent as Content,
   AutocompleteEmpty as Empty,
-  AutocompleteFieldInput as FieldInput,
-  AutocompleteFieldRoot as FieldRoot,
-  AutocompleteFieldSlot as FieldSlot,
   AutocompleteGroup as Group,
   AutocompleteGroupLabel as GroupLabel,
   AutocompleteIcon as Icon,
+  AutocompleteInput as Input,
   AutocompleteItem as Item,
   AutocompleteList as List,
   AutocompleteRoot as Root,
@@ -537,12 +362,10 @@ export type {
   AutocompleteClearProps as ClearProps,
   AutocompleteContentProps as ContentProps,
   AutocompleteEmptyProps as EmptyProps,
-  AutocompleteFieldInputProps as FieldInputProps,
-  AutocompleteFieldRootProps as FieldRootProps,
-  AutocompleteFieldSlotProps as FieldSlotProps,
   AutocompleteGroupLabelProps as GroupLabelProps,
   AutocompleteGroupProps as GroupProps,
   AutocompleteIconProps as IconProps,
+  AutocompleteInputProps as InputProps,
   AutocompleteItemProps as ItemProps,
   AutocompleteListProps as ListProps,
   AutocompleteRootProps as RootProps,

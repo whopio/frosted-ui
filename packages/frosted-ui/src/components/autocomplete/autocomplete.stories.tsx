@@ -1,34 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
-import { Code, Text } from '../index';
+import { Code, Text, TextField } from '../index';
 import * as Autocomplete from './autocomplete';
 
-const meta: Meta<typeof Autocomplete.FieldRoot> = {
+const meta: Meta<typeof Autocomplete.Root> = {
   title: 'Forms/Autocomplete',
-  component: Autocomplete.FieldRoot,
-  args: {
-    size: '2',
-    variant: 'surface',
-    color: 'gray',
-  },
-  argTypes: {
-    size: {
-      control: 'select',
-      options: ['1', '2', '3', '4'],
-    },
-    variant: {
-      control: 'select',
-      options: ['surface', 'soft'],
-    },
-    color: {
-      control: 'select',
-      options: ['gray', 'blue', 'green', 'red', 'orange', 'purple', 'pink'],
-    },
-  },
+  component: Autocomplete.Root,
 };
 
 export default meta;
-type Story = StoryObj<typeof Autocomplete.FieldRoot>;
+type Story = StoryObj<typeof Autocomplete.Root>;
 
 // Sample data
 interface Tag {
@@ -94,11 +75,11 @@ const countries = [
 // ============================================================================
 
 export const Default: Story = {
-  render: (args) => (
+  render: () => (
     <Autocomplete.Root items={tags} itemToStringValue={(item) => (item as Tag).value}>
-      <Autocomplete.FieldRoot {...args}>
-        <Autocomplete.FieldInput placeholder="Search tags..." />
-      </Autocomplete.FieldRoot>
+      <TextField.Root>
+        <Autocomplete.Input render={<TextField.Input placeholder="Search tags..." />} />
+      </TextField.Root>
       <Autocomplete.Content>
         <Autocomplete.Empty>No tags found.</Autocomplete.Empty>
         <Autocomplete.List>
@@ -125,9 +106,9 @@ export const Sizes: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 300 }}>
       {(['1', '2', '3', '4'] as const).map((size) => (
         <Autocomplete.Root key={size} items={countries}>
-          <Autocomplete.FieldRoot size={size}>
-            <Autocomplete.FieldInput placeholder={`Size ${size}`} />
-          </Autocomplete.FieldRoot>
+          <TextField.Root size={size}>
+            <Autocomplete.Input render={<TextField.Input placeholder={`Size ${size}`} />} />
+          </TextField.Root>
           <Autocomplete.Content size={size === '4' ? '3' : (size as '1' | '2' | '3')}>
             <Autocomplete.Empty>No results found.</Autocomplete.Empty>
             <Autocomplete.List>
@@ -157,9 +138,9 @@ export const FieldVariants: Story = {
           Surface (default)
         </Text>
         <Autocomplete.Root items={countries}>
-          <Autocomplete.FieldRoot variant="surface">
-            <Autocomplete.FieldInput placeholder="Search countries..." />
-          </Autocomplete.FieldRoot>
+          <TextField.Root variant="surface">
+            <Autocomplete.Input render={<TextField.Input placeholder="Search countries..." />} />
+          </TextField.Root>
           <Autocomplete.Content>
             <Autocomplete.Empty>No results found.</Autocomplete.Empty>
             <Autocomplete.List>
@@ -178,9 +159,9 @@ export const FieldVariants: Story = {
           Soft
         </Text>
         <Autocomplete.Root items={countries}>
-          <Autocomplete.FieldRoot variant="soft">
-            <Autocomplete.FieldInput placeholder="Search countries..." />
-          </Autocomplete.FieldRoot>
+          <TextField.Root variant="soft">
+            <Autocomplete.Input render={<TextField.Input placeholder="Search countries..." />} />
+          </TextField.Root>
           <Autocomplete.Content>
             <Autocomplete.Empty>No results found.</Autocomplete.Empty>
             <Autocomplete.List>
@@ -209,9 +190,9 @@ export const FieldColors: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 300 }}>
       {fieldColors.map((color) => (
         <Autocomplete.Root key={color} items={countries}>
-          <Autocomplete.FieldRoot variant="soft" color={color}>
-            <Autocomplete.FieldInput placeholder={`Color: ${color}`} />
-          </Autocomplete.FieldRoot>
+          <TextField.Root variant="soft" color={color}>
+            <Autocomplete.Input render={<TextField.Input placeholder={`Color: ${color}`} />} />
+          </TextField.Root>
           <Autocomplete.Content>
             <Autocomplete.Empty>No results found.</Autocomplete.Empty>
             <Autocomplete.List>
@@ -261,12 +242,12 @@ export const WithSlot: Story = {
           Leading slot (search icon)
         </Text>
         <Autocomplete.Root items={countries}>
-          <Autocomplete.FieldRoot>
-            <Autocomplete.FieldSlot>
+          <TextField.Root>
+            <TextField.Slot>
               <SearchIcon />
-            </Autocomplete.FieldSlot>
-            <Autocomplete.FieldInput placeholder="Search countries..." />
-          </Autocomplete.FieldRoot>
+            </TextField.Slot>
+            <Autocomplete.Input render={<TextField.Input placeholder="Search countries..." />} />
+          </TextField.Root>
           <Autocomplete.Content>
             <Autocomplete.Empty>No results found.</Autocomplete.Empty>
             <Autocomplete.List>
@@ -308,9 +289,9 @@ export const Grouped: Story = {
         Search produce
       </Text>
       <Autocomplete.Root items={allProduce}>
-        <Autocomplete.FieldRoot>
-          <Autocomplete.FieldInput placeholder="Search fruits & vegetables..." />
-        </Autocomplete.FieldRoot>
+        <TextField.Root>
+          <Autocomplete.Input render={<TextField.Input placeholder="Search fruits & vegetables..." />} />
+        </TextField.Root>
         <Autocomplete.Content>
           <Autocomplete.Empty>No produce found.</Autocomplete.Empty>
           <Autocomplete.List>
@@ -341,9 +322,9 @@ export const EmptyState: Story = {
         Type something that doesn&apos;t match any items to see the empty state.
       </Text>
       <Autocomplete.Root items={tags} itemToStringValue={(item) => (item as Tag).value}>
-        <Autocomplete.FieldRoot>
-          <Autocomplete.FieldInput placeholder="Try typing 'xyz'..." />
-        </Autocomplete.FieldRoot>
+        <TextField.Root>
+          <Autocomplete.Input render={<TextField.Input placeholder="Try typing 'xyz'..." />} />
+        </TextField.Root>
         <Autocomplete.Content>
           <Autocomplete.Empty>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-2)' }}>
@@ -395,17 +376,17 @@ export const WithClearButton: Story = {
         Use <Code size="1">Autocomplete.Clear</Code> to add a button that clears the input value.
       </Text>
       <Autocomplete.Root items={countries}>
-        <Autocomplete.FieldRoot>
-          <Autocomplete.FieldSlot>
+        <TextField.Root>
+          <TextField.Slot>
             <SearchIcon />
-          </Autocomplete.FieldSlot>
-          <Autocomplete.FieldInput placeholder="Search countries..." />
-          <Autocomplete.FieldSlot>
+          </TextField.Slot>
+          <Autocomplete.Input render={<TextField.Input placeholder="Search countries..." />} />
+          <TextField.Slot>
             <Autocomplete.Clear>
               <ClearIcon />
             </Autocomplete.Clear>
-          </Autocomplete.FieldSlot>
-        </Autocomplete.FieldRoot>
+          </TextField.Slot>
+        </TextField.Root>
         <Autocomplete.Content>
           <Autocomplete.Empty>No results found.</Autocomplete.Empty>
           <Autocomplete.List>
@@ -445,9 +426,9 @@ export const Controlled: Story = {
           value={value}
           onValueChange={(newValue) => setValue(newValue as string | undefined)}
         >
-          <Autocomplete.FieldRoot>
-            <Autocomplete.FieldInput placeholder="Search countries..." />
-          </Autocomplete.FieldRoot>
+          <TextField.Root>
+            <Autocomplete.Input render={<TextField.Input placeholder="Search countries..." />} />
+          </TextField.Root>
           <Autocomplete.Content>
             <Autocomplete.Empty>No results found.</Autocomplete.Empty>
             <Autocomplete.List>
@@ -500,9 +481,9 @@ export const ColoredItems: Story = {
         Items can have individual accent colors.
       </Text>
       <Autocomplete.Root items={coloredTags} itemToStringValue={(item) => (item as (typeof coloredTags)[number]).value}>
-        <Autocomplete.FieldRoot>
-          <Autocomplete.FieldInput placeholder="Search tags..." />
-        </Autocomplete.FieldRoot>
+        <TextField.Root>
+          <Autocomplete.Input render={<TextField.Input placeholder="Search tags..." />} />
+        </TextField.Root>
         <Autocomplete.Content>
           <Autocomplete.Empty>No tags found.</Autocomplete.Empty>
           <Autocomplete.List>
@@ -729,9 +710,9 @@ export const ManyItems: Story = {
         {manyCountries.length} countries with scroll
       </Text>
       <Autocomplete.Root items={manyCountries}>
-        <Autocomplete.FieldRoot>
-          <Autocomplete.FieldInput placeholder="Search countries..." />
-        </Autocomplete.FieldRoot>
+        <TextField.Root>
+          <Autocomplete.Input render={<TextField.Input placeholder="Search countries..." />} />
+        </TextField.Root>
         <Autocomplete.Content>
           <Autocomplete.Empty>No countries found.</Autocomplete.Empty>
           <Autocomplete.List>
@@ -745,4 +726,203 @@ export const ManyItems: Story = {
       </Autocomplete.Root>
     </div>
   ),
+};
+
+// ============================================================================
+// Grid Layout (Emoji Picker)
+// ============================================================================
+
+interface Emoji {
+  emoji: string;
+  label: string;
+}
+
+const emojis: Emoji[] = [
+  { emoji: '😀', label: 'grinning face' },
+  { emoji: '😃', label: 'grinning face with big eyes' },
+  { emoji: '😄', label: 'grinning face with smiling eyes' },
+  { emoji: '😁', label: 'beaming face with smiling eyes' },
+  { emoji: '😆', label: 'grinning squinting face' },
+  { emoji: '😅', label: 'grinning face with sweat' },
+  { emoji: '🤣', label: 'rolling on the floor laughing' },
+  { emoji: '😂', label: 'face with tears of joy' },
+  { emoji: '🙂', label: 'slightly smiling face' },
+  { emoji: '🙃', label: 'upside-down face' },
+  { emoji: '😉', label: 'winking face' },
+  { emoji: '😊', label: 'smiling face with smiling eyes' },
+  { emoji: '😇', label: 'smiling face with halo' },
+  { emoji: '🥰', label: 'smiling face with hearts' },
+  { emoji: '😍', label: 'smiling face with heart-eyes' },
+  { emoji: '🤩', label: 'star-struck' },
+  { emoji: '😘', label: 'face blowing a kiss' },
+  { emoji: '😗', label: 'kissing face' },
+  { emoji: '😚', label: 'kissing face with closed eyes' },
+  { emoji: '😙', label: 'kissing face with smiling eyes' },
+  { emoji: '🥲', label: 'smiling face with tear' },
+  { emoji: '😋', label: 'face savoring food' },
+  { emoji: '😛', label: 'face with tongue' },
+  { emoji: '😜', label: 'winking face with tongue' },
+  { emoji: '🤪', label: 'zany face' },
+  { emoji: '😝', label: 'squinting face with tongue' },
+  { emoji: '🤑', label: 'money-mouth face' },
+  { emoji: '🤗', label: 'smiling face with open hands' },
+  { emoji: '🤭', label: 'face with hand over mouth' },
+  { emoji: '🤫', label: 'shushing face' },
+  { emoji: '🤔', label: 'thinking face' },
+  { emoji: '🤐', label: 'zipper-mouth face' },
+  { emoji: '🤨', label: 'face with raised eyebrow' },
+  { emoji: '😐', label: 'neutral face' },
+  { emoji: '😑', label: 'expressionless face' },
+  { emoji: '😶', label: 'face without mouth' },
+  { emoji: '😏', label: 'smirking face' },
+  { emoji: '😒', label: 'unamused face' },
+  { emoji: '🙄', label: 'face with rolling eyes' },
+  { emoji: '😬', label: 'grimacing face' },
+  { emoji: '🤥', label: 'lying face' },
+  { emoji: '😌', label: 'relieved face' },
+  { emoji: '😔', label: 'pensive face' },
+  { emoji: '😪', label: 'sleepy face' },
+  { emoji: '🤤', label: 'drooling face' },
+  { emoji: '😴', label: 'sleeping face' },
+  { emoji: '😷', label: 'face with medical mask' },
+  { emoji: '🤒', label: 'face with thermometer' },
+  { emoji: '🤕', label: 'face with head-bandage' },
+  { emoji: '🤢', label: 'nauseated face' },
+  { emoji: '🤮', label: 'face vomiting' },
+  { emoji: '🤧', label: 'sneezing face' },
+  { emoji: '🥵', label: 'hot face' },
+  { emoji: '🥶', label: 'cold face' },
+  { emoji: '🥴', label: 'woozy face' },
+  { emoji: '😵', label: 'face with crossed-out eyes' },
+  { emoji: '🤯', label: 'exploding head' },
+  { emoji: '🤠', label: 'cowboy hat face' },
+  { emoji: '🥳', label: 'partying face' },
+  { emoji: '🥸', label: 'disguised face' },
+  { emoji: '😎', label: 'smiling face with sunglasses' },
+  { emoji: '🤓', label: 'nerd face' },
+  { emoji: '🧐', label: 'face with monocle' },
+  { emoji: '❤️', label: 'red heart' },
+  { emoji: '🧡', label: 'orange heart' },
+  { emoji: '💛', label: 'yellow heart' },
+  { emoji: '💚', label: 'green heart' },
+  { emoji: '💙', label: 'blue heart' },
+  { emoji: '💜', label: 'purple heart' },
+  { emoji: '🖤', label: 'black heart' },
+  { emoji: '🤍', label: 'white heart' },
+  { emoji: '💔', label: 'broken heart' },
+  { emoji: '💕', label: 'two hearts' },
+  { emoji: '💞', label: 'revolving hearts' },
+  { emoji: '💓', label: 'beating heart' },
+  { emoji: '💗', label: 'growing heart' },
+  { emoji: '💖', label: 'sparkling heart' },
+  { emoji: '💘', label: 'heart with arrow' },
+  { emoji: '💝', label: 'heart with ribbon' },
+  { emoji: '👍', label: 'thumbs up' },
+  { emoji: '👎', label: 'thumbs down' },
+  { emoji: '👏', label: 'clapping hands' },
+  { emoji: '🙌', label: 'raising hands' },
+  { emoji: '👐', label: 'open hands' },
+  { emoji: '🤲', label: 'palms up together' },
+  { emoji: '🤝', label: 'handshake' },
+  { emoji: '🙏', label: 'folded hands' },
+  { emoji: '✍️', label: 'writing hand' },
+  { emoji: '💪', label: 'flexed biceps' },
+  { emoji: '🦾', label: 'mechanical arm' },
+  { emoji: '🔥', label: 'fire' },
+  { emoji: '⭐', label: 'star' },
+  { emoji: '🌟', label: 'glowing star' },
+  { emoji: '✨', label: 'sparkles' },
+  { emoji: '💫', label: 'dizzy' },
+  { emoji: '🎉', label: 'party popper' },
+  { emoji: '🎊', label: 'confetti ball' },
+];
+
+const gridItemStyles: React.CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: 36,
+  height: 36,
+  fontSize: 22,
+  borderRadius: 'var(--radius-2)',
+  cursor: 'pointer',
+  transition: 'background-color 100ms',
+};
+
+const gridListStyles: React.CSSProperties = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(8, 1fr)',
+  gap: 2,
+  padding: 'var(--space-2)',
+};
+
+const emojiTriggerStyles: React.CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: 40,
+  height: 40,
+  fontSize: 20,
+  borderRadius: 'var(--radius-2)',
+  border: '1px solid var(--gray-a6)',
+  backgroundColor: 'var(--color-surface)',
+  cursor: 'pointer',
+  transition: 'background-color 100ms, border-color 100ms',
+};
+
+const emojiSearchInputStyles: React.CSSProperties = {
+  width: '100%',
+  padding: 'var(--space-2) var(--space-3)',
+  fontSize: 'var(--font-size-2)',
+  border: 'none',
+  borderBottom: '1px solid var(--gray-a5)',
+  backgroundColor: 'transparent',
+  outline: 'none',
+  color: 'inherit',
+};
+
+export const GridLayout: Story = {
+  name: 'Grid Layout',
+  render: () => {
+    const [selectedEmoji, setSelectedEmoji] = React.useState<string>('😀');
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+        <Text size="2" weight="bold">
+          Emoji Picker
+        </Text>
+        <Text size="1" color="gray">
+          Click the button to open the emoji picker with search inside the popup.
+        </Text>
+        <Autocomplete.Root
+          items={emojis}
+          itemToStringValue={(item) => (item as Emoji).label}
+          onValueChange={(value) => {
+            const emoji = value as unknown as Emoji | null;
+            if (emoji) {
+              setSelectedEmoji(emoji.emoji);
+            }
+          }}
+        >
+          <Autocomplete.Trigger style={emojiTriggerStyles}>{selectedEmoji}</Autocomplete.Trigger>
+          <Autocomplete.Content align="start" style={{ width: 340 }}>
+            <Autocomplete.Input placeholder="Search emojis..." style={emojiSearchInputStyles} />
+            <Autocomplete.Empty style={{ padding: 'var(--space-4)', textAlign: 'center', color: 'var(--gray-a10)' }}>
+              No emojis found.
+            </Autocomplete.Empty>
+            <Autocomplete.List style={gridListStyles}>
+              {(item) => {
+                const emoji = item as Emoji;
+                return (
+                  <Autocomplete.Item key={emoji.label} value={emoji} style={gridItemStyles} title={emoji.label}>
+                    {emoji.emoji}
+                  </Autocomplete.Item>
+                );
+              }}
+            </Autocomplete.List>
+          </Autocomplete.Content>
+        </Autocomplete.Root>
+      </div>
+    );
+  },
 };

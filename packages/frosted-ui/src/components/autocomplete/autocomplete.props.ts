@@ -1,31 +1,17 @@
 import type { PropDef } from '../../helpers';
 import { colorProp } from '../../helpers';
 
-// Input props (same as TextField)
-const inputSizes = ['1', '2', '3', '4'] as const;
-const inputVariants = ['surface', 'soft'] as const;
+// Content props (same as BaseMenu)
+const contentSizes = ['1', '2', '3'] as const;
+const contentVariants = ['solid', 'translucent'] as const;
 
-// Popup props (same as BaseMenu)
-const popupSizes = ['1', '2', '3'] as const;
-const popupVariants = ['solid', 'translucent'] as const;
-
-const autocompleteInputPropDefs = {
-  size: { type: 'enum', values: inputSizes, default: '2' },
-  variant: { type: 'enum', values: inputVariants, default: 'surface' },
-  color: { ...colorProp, default: 'gray' },
-} satisfies {
-  size: PropDef<(typeof inputSizes)[number]>;
-  variant: PropDef<(typeof inputVariants)[number]>;
-  color: typeof colorProp;
-};
-
-const autocompletePopupPropDefs = {
-  size: { type: 'enum', values: popupSizes, default: '2' },
-  variant: { type: 'enum', values: popupVariants, default: 'translucent' },
+const autocompleteContentPropDefs = {
+  size: { type: 'enum', values: contentSizes, default: '2' },
+  variant: { type: 'enum', values: contentVariants, default: 'translucent' },
   color: colorProp,
 } satisfies {
-  size: PropDef<(typeof popupSizes)[number]>;
-  variant: PropDef<(typeof popupVariants)[number]>;
+  size: PropDef<(typeof contentSizes)[number]>;
+  variant: PropDef<(typeof contentVariants)[number]>;
   color: typeof colorProp;
 };
 
@@ -35,4 +21,4 @@ const autocompleteItemPropDefs = {
   color: typeof colorProp;
 };
 
-export { autocompleteInputPropDefs, autocompleteItemPropDefs, autocompletePopupPropDefs };
+export { autocompleteContentPropDefs, autocompleteItemPropDefs };

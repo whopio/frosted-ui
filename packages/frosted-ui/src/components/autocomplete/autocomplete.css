@@ -1,59 +1,5 @@
 /* ============================================================================
- * Autocomplete FieldRoot, FieldInput, FieldSlot
- * Uses TextField styles via class reuse (fui-TextFieldRoot, fui-TextFieldInput, fui-TextFieldSlot)
- * ============================================================================ */
-
-/* Explicit styles to ensure they don't get overridden */
-.fui-AutocompleteFieldRoot {
-  display: flex;
-  box-sizing: border-box;
-  position: relative;
-  z-index: 1; /* Ensure root is above any backdrop */
-  cursor: text;
-}
-
-/* Ensure Input maintains styling when popup is open */
-.fui-AutocompleteFieldInput {
-  display: block;
-  box-sizing: border-box;
-  width: 100%;
-  appearance: none;
-  -webkit-tap-highlight-color: transparent;
-  outline: none;
-  font-family: inherit;
-  font-size: inherit;
-  letter-spacing: inherit;
-  background-color: transparent;
-  position: relative;
-  z-index: 1;
-}
-
-/* Ensure the TextFieldChrome (border/background) is visible when popup is open.
-   We only set position/layout styles here - variant-specific colors come from text-field.css
-   via the sibling selector (.fui-TextFieldInput.fui-variant-* + .fui-TextFieldChrome) */
-.fui-AutocompleteFieldRoot .fui-TextFieldChrome {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-/* Size-specific border-radius */
-:where(.fui-AutocompleteFieldRoot.fui-r-size-1) .fui-TextFieldChrome {
-  border-radius: max(6px, var(--radius-full));
-}
-:where(.fui-AutocompleteFieldRoot.fui-r-size-2) .fui-TextFieldChrome {
-  border-radius: max(8px, var(--radius-full));
-}
-:where(.fui-AutocompleteFieldRoot.fui-r-size-3) .fui-TextFieldChrome {
-  border-radius: max(10px, var(--radius-full));
-}
-:where(.fui-AutocompleteFieldRoot.fui-r-size-4) .fui-TextFieldChrome {
-  border-radius: max(14px, var(--radius-full));
-}
-
-/* ============================================================================
- * Autocomplete Trigger (chevron button)
+ * Autocomplete Trigger
  * ============================================================================ */
 
 .fui-AutocompleteTrigger {
@@ -94,24 +40,6 @@
   }
 }
 
-/* Size variants for Icon */
-:where(.fui-AutocompleteFieldRoot.fui-r-size-1) .fui-AutocompleteIcon {
-  width: 12px;
-  height: 12px;
-}
-:where(.fui-AutocompleteFieldRoot.fui-r-size-2) .fui-AutocompleteIcon {
-  width: 14px;
-  height: 14px;
-}
-:where(.fui-AutocompleteFieldRoot.fui-r-size-3) .fui-AutocompleteIcon {
-  width: 16px;
-  height: 16px;
-}
-:where(.fui-AutocompleteFieldRoot.fui-r-size-4) .fui-AutocompleteIcon {
-  width: 18px;
-  height: 18px;
-}
-
 /* ============================================================================
  * Autocomplete Clear
  * ============================================================================ */
@@ -144,24 +72,6 @@
   }
 }
 
-/* Size variants for Clear */
-:where(.fui-AutocompleteFieldRoot.fui-r-size-1) .fui-AutocompleteClear {
-  width: 16px;
-  height: 16px;
-}
-:where(.fui-AutocompleteFieldRoot.fui-r-size-2) .fui-AutocompleteClear {
-  width: 18px;
-  height: 18px;
-}
-:where(.fui-AutocompleteFieldRoot.fui-r-size-3) .fui-AutocompleteClear {
-  width: 20px;
-  height: 20px;
-}
-:where(.fui-AutocompleteFieldRoot.fui-r-size-4) .fui-AutocompleteClear {
-  width: 22px;
-  height: 22px;
-}
-
 /* ============================================================================
  * Autocomplete Positioner
  * ============================================================================ */
@@ -177,7 +87,7 @@
 }
 
 /* ============================================================================
- * Autocomplete Popup
+ * Autocomplete Content
  * Uses BaseMenu styles via class reuse
  * ============================================================================ */
 
@@ -185,11 +95,6 @@
   /* Inherits from fui-BaseMenuContent */
   max-height: var(--available-height);
 }
-
-/* ============================================================================
- * Autocomplete Viewport
- * Uses BaseMenu styles via class reuse (fui-BaseMenuViewport)
- * ============================================================================ */
 
 /* ============================================================================
  * Autocomplete List
