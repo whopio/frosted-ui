@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
-import { Code, IconButton, ScrollArea, Text, TextField } from '../index';
+import { Code, IconButton, ScrollArea, Spinner, Text, TextField } from '../index';
 import * as Autocomplete from './autocomplete';
 
 const meta: Meta<typeof Autocomplete.Root> = {
@@ -983,6 +983,170 @@ export const GridLayout: Story = {
             </Autocomplete.Content>
           </Autocomplete.Root>
         </div>
+      </div>
+    );
+  },
+};
+
+// ============================================================================
+// Async Search
+// ============================================================================
+
+interface Movie {
+  id: number;
+  title: string;
+  year: number;
+}
+
+// Simulated movie database
+const movieDatabase: Movie[] = [
+  { id: 1, title: 'The Shawshank Redemption', year: 1994 },
+  { id: 2, title: 'The Godfather', year: 1972 },
+  { id: 3, title: 'The Dark Knight', year: 2008 },
+  { id: 4, title: 'The Godfather Part II', year: 1974 },
+  { id: 5, title: '12 Angry Men', year: 1957 },
+  { id: 6, title: "Schindler's List", year: 1993 },
+  { id: 7, title: 'The Lord of the Rings: The Return of the King', year: 2003 },
+  { id: 8, title: 'Pulp Fiction', year: 1994 },
+  { id: 9, title: 'The Lord of the Rings: The Fellowship of the Ring', year: 2001 },
+  { id: 10, title: 'Forrest Gump', year: 1994 },
+  { id: 11, title: 'Inception', year: 2010 },
+  { id: 12, title: 'The Lord of the Rings: The Two Towers', year: 2002 },
+  { id: 13, title: 'Fight Club', year: 1999 },
+  { id: 14, title: 'The Matrix', year: 1999 },
+  { id: 15, title: 'Goodfellas', year: 1990 },
+  { id: 16, title: 'Star Wars: Episode V', year: 1980 },
+  { id: 17, title: "One Flew Over the Cuckoo's Nest", year: 1975 },
+  { id: 18, title: 'Interstellar', year: 2014 },
+  { id: 19, title: 'City of God', year: 2002 },
+  { id: 20, title: 'Spirited Away', year: 2001 },
+  { id: 21, title: 'Saving Private Ryan', year: 1998 },
+  { id: 22, title: 'The Green Mile', year: 1999 },
+  { id: 23, title: 'Parasite', year: 2019 },
+  { id: 24, title: 'Léon: The Professional', year: 1994 },
+  { id: 25, title: 'The Silence of the Lambs', year: 1991 },
+  { id: 26, title: 'Gladiator', year: 2000 },
+  { id: 27, title: 'The Departed', year: 2006 },
+  { id: 28, title: 'The Prestige', year: 2006 },
+  { id: 29, title: 'Whiplash', year: 2014 },
+  { id: 30, title: 'The Intouchables', year: 2011 },
+];
+
+// Simulated async search function
+async function searchMovies(query: string): Promise<Movie[]> {
+  // Simulate network delay
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
+  if (!query.trim()) {
+    return [];
+  }
+
+  const lowerQuery = query.toLowerCase();
+  return movieDatabase.filter(
+    (movie) => movie.title.toLowerCase().includes(lowerQuery) || movie.year.toString().includes(query),
+  );
+}
+
+function useDebounce<T>(value: T, delay: number): T {
+  const [debouncedValue, setDebouncedValue] = React.useState(value);
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => setDebouncedValue(value), delay);
+    return () => clearTimeout(timer);
+  }, [value, delay]);
+
+  return debouncedValue;
+}
+
+export const AsyncSearch: Story = {
+  name: 'Async Search',
+  render: () => {
+    const [inputValue, setInputValue] = React.useState('');
+    const [movies, setMovies] = React.useState<Movie[]>([]);
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [hasSearched, setHasSearched] = React.useState(false);
+
+    const debouncedQuery = useDebounce(inputValue, 300);
+
+    React.useEffect(() => {
+      if (!debouncedQuery.trim()) {
+        setMovies([]);
+        setHasSearched(false);
+        return;
+      }
+
+      let cancelled = false;
+      setIsLoading(true);
+
+      searchMovies(debouncedQuery).then((results) => {
+        if (!cancelled) {
+          setMovies(results);
+          setIsLoading(false);
+          setHasSearched(true);
+        }
+      });
+
+      return () => {
+        cancelled = true;
+      };
+    }, [debouncedQuery]);
+
+    return (
+      <div style={{ maxWidth: 400 }}>
+        <Text size="2" weight="bold" style={{ marginBottom: 'var(--space-2)', display: 'block' }}>
+          Async Search
+        </Text>
+        <Text size="1" color="gray" style={{ marginBottom: 'var(--space-3)', display: 'block' }}>
+          Searches are performed asynchronously with a debounced input. Try searching for movies by name or year.
+        </Text>
+        <Autocomplete.Root
+          items={movies}
+          itemToStringValue={(item) => (item as Movie).title}
+          value={inputValue}
+          onValueChange={(value) => setInputValue(value as string)}
+        >
+          <TextField.Root>
+            <Autocomplete.Input render={<TextField.Input placeholder="Search movies by name or year..." />} />
+          </TextField.Root>
+          <Autocomplete.Content>
+            <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+              {isLoading ? (
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: 'var(--space-4)',
+                    gap: 'var(--space-2)',
+                  }}
+                >
+                  <Spinner size="2" />
+                  <Text size="2" color="gray">
+                    Searching...
+                  </Text>
+                </div>
+              ) : hasSearched && movies.length === 0 ? (
+                <Autocomplete.Empty>No movies found.</Autocomplete.Empty>
+              ) : (
+                <Autocomplete.List>
+                  {(movie) => {
+                    const m = movie as Movie;
+                    return (
+                      <Autocomplete.Item key={m.id} value={m}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                          <span>{m.title}</span>
+                          <Text size="1" color="gray">
+                            {m.year}
+                          </Text>
+                        </div>
+                      </Autocomplete.Item>
+                    );
+                  }}
+                </Autocomplete.List>
+              )}
+            </ScrollArea>
+          </Autocomplete.Content>
+        </Autocomplete.Root>
       </div>
     );
   },
