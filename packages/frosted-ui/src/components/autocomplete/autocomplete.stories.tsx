@@ -1694,3 +1694,99 @@ export const LimitResults: Story = {
     );
   },
 };
+
+// ============================================================================
+// Auto Highlight
+// ============================================================================
+
+const browsers = [
+  'Google Chrome',
+  'Mozilla Firefox',
+  'Microsoft Edge',
+  'Apple Safari',
+  'Opera',
+  'Brave',
+  'Vivaldi',
+  'Arc',
+  'Chromium',
+  'Tor Browser',
+  'DuckDuckGo',
+  'Samsung Internet',
+  'UC Browser',
+  'Maxthon',
+  'Pale Moon',
+  'Waterfox',
+  'Midori',
+  'Lynx',
+  'Konqueror',
+  'Epiphany',
+];
+
+export const AutoHighlight: Story = {
+  name: 'Auto Highlight',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', maxWidth: 350 }}>
+      <div>
+        <Text size="2" weight="bold" style={{ marginBottom: 'var(--space-2)', display: 'block' }}>
+          Auto Highlight
+        </Text>
+        <Text size="2" color="gray" style={{ marginBottom: 'var(--space-3)', display: 'block' }}>
+          Automatically highlight the first matching item when the popup opens or when the filtered results change using
+          the <Code size="2">autoHighlight</Code> prop.
+        </Text>
+        <Text size="1" color="gray" style={{ marginBottom: 'var(--space-3)', display: 'block' }}>
+          This allows users to quickly select the top result by pressing <Code size="1">Enter</Code> without needing to
+          navigate with arrow keys first.
+        </Text>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+        <div>
+          <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+            <Code size="1">autoHighlight={'{false}'}</Code> (default) — No item is highlighted initially
+          </Text>
+          <Autocomplete.Root items={browsers} autoHighlight={false}>
+            <TextField.Root>
+              <Autocomplete.Input render={<TextField.Input placeholder="Search browsers..." />} />
+            </TextField.Root>
+            <Autocomplete.Content>
+              <ScrollArea type="auto">
+                <Autocomplete.Empty>No browsers found.</Autocomplete.Empty>
+                <Autocomplete.List>
+                  {(browser) => (
+                    <Autocomplete.Item key={browser as string} value={browser}>
+                      {browser as string}
+                    </Autocomplete.Item>
+                  )}
+                </Autocomplete.List>
+              </ScrollArea>
+            </Autocomplete.Content>
+          </Autocomplete.Root>
+        </div>
+
+        <div>
+          <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+            <Code size="1">autoHighlight={'{true}'}</Code> — First item is automatically highlighted
+          </Text>
+          <Autocomplete.Root items={browsers} autoHighlight>
+            <TextField.Root>
+              <Autocomplete.Input render={<TextField.Input placeholder="Search browsers..." />} />
+            </TextField.Root>
+            <Autocomplete.Content>
+              <ScrollArea type="auto">
+                <Autocomplete.Empty>No browsers found.</Autocomplete.Empty>
+                <Autocomplete.List>
+                  {(browser) => (
+                    <Autocomplete.Item key={browser as string} value={browser}>
+                      {browser as string}
+                    </Autocomplete.Item>
+                  )}
+                </Autocomplete.List>
+              </ScrollArea>
+            </Autocomplete.Content>
+          </Autocomplete.Root>
+        </div>
+      </div>
+    </div>
+  ),
+};
