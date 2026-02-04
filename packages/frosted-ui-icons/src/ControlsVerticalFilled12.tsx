@@ -1,0 +1,32 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const ControlsVerticalFilled12 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <g clipPath="url(#clip0_6701_1033)">
+        <path
+          d="M5 4C5 5.11933 4.26416 6.06613 3.25 6.38477V11.25C3.25 11.6642 2.91421 12 2.5 12C2.0858 12 1.75 11.6642 1.75 11.25V6.38477C0.735839 6.06613 0 5.11933 0 4C0 2.88067 0.735839 1.93387 1.75 1.61523V0.75C1.75 0.335796 2.0858 1.48175e-05 2.5 0C2.91421 0 3.25 0.335787 3.25 0.75V1.61523C4.26416 1.93387 5 2.88067 5 4ZM12 8C12 9.11933 11.2642 10.0661 10.25 10.3848V11.25C10.25 11.6642 9.91421 12 9.5 12C9.0858 12 8.75 11.6642 8.75 11.25V10.3848C7.73584 10.0661 7 9.11933 7 8C7 6.88067 7.73584 5.93387 8.75 5.61523V0.75C8.75 0.335796 9.0858 1.48175e-05 9.5 0C9.91421 0 10.25 0.335786 10.25 0.75V5.61523C11.2642 5.93387 12 6.88067 12 8Z"
+          fill={color}
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_6701_1033">
+          <path fill={color} d="M0 0H12V12H0z" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+};
+
+ControlsVerticalFilled12.category = 'Interface General';
+
+export default ControlsVerticalFilled12;

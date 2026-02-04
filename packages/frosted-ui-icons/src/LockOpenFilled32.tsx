@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const LockOpenFilled32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M16 1C20.0268 1 23.4662 3.50593 24.8486 7.04297C25.0334 7.51583 24.6649 7.99997 24.1572 8C23.8245 8 23.533 7.78456 23.4072 7.47656C22.2147 4.55735 19.3482 2.5 16 2.5C11.5817 2.5 8 6.08172 8 10.5V13.5H24C27.0376 13.5 29.5 15.9624 29.5 19V25.5C29.5 28.5376 27.0376 31 24 31H8C4.96243 31 2.5 28.5376 2.5 25.5V19C2.5 16.4825 4.19163 14.361 6.5 13.708V10.5C6.5 5.25329 10.7533 1 16 1Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+LockOpenFilled32.category = 'Security';
+
+export default LockOpenFilled32;
