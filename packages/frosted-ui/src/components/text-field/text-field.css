@@ -115,7 +115,7 @@
       border-radius: max(6px, var(--radius-full));
     }
 
-    & + :where(.fui-TextFieldChrome) {
+    & ~ :where(.fui-TextFieldChrome) {
       border-radius: max(6px, var(--radius-full));
     }
   }
@@ -133,7 +133,7 @@
       border-radius: max(8px, var(--radius-full));
     }
 
-    & + :where(.fui-TextFieldChrome) {
+    & ~ :where(.fui-TextFieldChrome) {
       border-radius: max(8px, var(--radius-full));
     }
   }
@@ -151,7 +151,7 @@
       border-radius: max(10px, var(--radius-full));
     }
 
-    & + :where(.fui-TextFieldChrome) {
+    & ~ :where(.fui-TextFieldChrome) {
       border-radius: max(10px, var(--radius-full));
     }
   }
@@ -169,7 +169,7 @@
       border-radius: max(14px, var(--radius-full));
     }
 
-    & + :where(.fui-TextFieldChrome) {
+    & ~ :where(.fui-TextFieldChrome) {
       border-radius: max(14px, var(--radius-full));
     }
   }
@@ -193,7 +193,7 @@
   --text-field-border-width: 1px;
   color: var(--gray-12);
 
-  & + :where(.fui-TextFieldChrome) {
+  & ~ :where(.fui-TextFieldChrome) {
     background-color: var(--color-surface);
     box-shadow:
       inset 0 0 0 1px var(--gray-a5),
@@ -212,7 +212,7 @@
     background-clip: text;
     -webkit-text-fill-color: var(--gray-12);
 
-    & + :where(.fui-TextFieldChrome) {
+    & ~ :where(.fui-TextFieldChrome) {
       background-color: var(--accent-a3);
       box-shadow:
         inset 0 0 0 1px var(--gray-a7),
@@ -220,7 +220,7 @@
     }
   }
   &:where(:disabled, :read-only) {
-    & + :where(.fui-TextFieldChrome) {
+    & ~ :where(.fui-TextFieldChrome) {
       /* Blend with grey */
       background-image: linear-gradient(var(--gray-a3), var(--gray-a3));
     }
@@ -232,7 +232,7 @@
   --text-field-border-width: 0px;
   color: var(--accent-12);
 
-  & + :where(.fui-TextFieldChrome) {
+  & ~ :where(.fui-TextFieldChrome) {
     background-color: var(--accent-a3);
   }
   &::placeholder {
@@ -244,18 +244,18 @@
     background-clip: text;
     -webkit-text-fill-color: var(--accent-12);
 
-    & + :where(.fui-TextFieldChrome) {
+    & ~ :where(.fui-TextFieldChrome) {
       background-color: var(--accent-a4);
     }
   }
   &:where(:focus) {
-    & + :where(.fui-TextFieldChrome) {
+    & ~ :where(.fui-TextFieldChrome) {
       /* Use gray outline when component color is gray */
       outline-color: var(--accent-8);
     }
   }
   &:where(:disabled, :read-only) {
-    & + :where(.fui-TextFieldChrome) {
+    & ~ :where(.fui-TextFieldChrome) {
       background-color: var(--gray-a4);
     }
   }
