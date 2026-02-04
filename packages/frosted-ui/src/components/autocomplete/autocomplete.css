@@ -181,7 +181,7 @@
  * Uses BaseMenu styles via class reuse
  * ============================================================================ */
 
-.fui-AutocompletePopup {
+.fui-AutocompleteContent {
   /* Inherits from fui-BaseMenuContent */
   max-height: var(--available-height);
 }
@@ -241,7 +241,7 @@
  * ============================================================================ */
 
 @media (prefers-reduced-motion: no-preference) {
-  .fui-AutocompletePopup {
+  .fui-AutocompleteContent {
     transform-origin: var(--transform-origin);
 
     &[data-starting-style] {

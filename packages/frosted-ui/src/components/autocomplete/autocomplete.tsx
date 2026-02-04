@@ -287,10 +287,10 @@ const AutocompleteClear = React.forwardRef<HTMLButtonElement, AutocompleteClearP
 AutocompleteClear.displayName = 'AutocompleteClear';
 
 // ============================================================================
-// Popup
+// Content
 // ============================================================================
 
-interface AutocompletePopupProps
+interface AutocompleteContentProps
   extends
     Omit<React.ComponentProps<typeof AutocompletePrimitive.Popup>, 'className' | 'render'>,
     AutocompletePopupOwnProps {
@@ -306,7 +306,7 @@ interface AutocompletePopupProps
   collisionPadding?: React.ComponentProps<typeof AutocompletePrimitive.Positioner>['collisionPadding'];
 }
 
-const AutocompletePopup = (props: AutocompletePopupProps) => {
+const AutocompleteContent = (props: AutocompleteContentProps) => {
   const themeContext = useThemeContext();
   const anchorContext = React.useContext(AutocompleteAnchorContext);
   const {
@@ -324,7 +324,7 @@ const AutocompletePopup = (props: AutocompletePopupProps) => {
     align = 'start',
     alignOffset,
     collisionPadding = 10,
-    ...popupProps
+    ...contentProps
   } = props;
   const resolvedColor = color ?? themeContext.accentColor;
 
@@ -345,9 +345,9 @@ const AutocompletePopup = (props: AutocompletePopupProps) => {
         <Theme
           render={<AutocompletePrimitive.Popup />}
           data-accent-color={resolvedColor}
-          {...popupProps}
+          {...contentProps}
           className={classNames(
-            'fui-AutocompletePopup',
+            'fui-AutocompleteContent',
             'fui-BaseMenuContent',
             `fui-variant-${variant}`,
             className,
@@ -368,7 +368,7 @@ const AutocompletePopup = (props: AutocompletePopupProps) => {
     </AutocompletePrimitive.Portal>
   );
 };
-AutocompletePopup.displayName = 'AutocompletePopup';
+AutocompleteContent.displayName = 'AutocompleteContent';
 
 // ============================================================================
 // List
@@ -517,6 +517,7 @@ AutocompleteStatus.displayName = 'AutocompleteStatus';
 
 export {
   AutocompleteClear as Clear,
+  AutocompleteContent as Content,
   AutocompleteEmpty as Empty,
   AutocompleteFieldInput as FieldInput,
   AutocompleteFieldRoot as FieldRoot,
@@ -526,7 +527,6 @@ export {
   AutocompleteIcon as Icon,
   AutocompleteItem as Item,
   AutocompleteList as List,
-  AutocompletePopup as Popup,
   AutocompleteRoot as Root,
   AutocompleteSeparator as Separator,
   AutocompleteStatus as Status,
@@ -535,6 +535,7 @@ export {
 
 export type {
   AutocompleteClearProps as ClearProps,
+  AutocompleteContentProps as ContentProps,
   AutocompleteEmptyProps as EmptyProps,
   AutocompleteFieldInputProps as FieldInputProps,
   AutocompleteFieldRootProps as FieldRootProps,
@@ -544,7 +545,6 @@ export type {
   AutocompleteIconProps as IconProps,
   AutocompleteItemProps as ItemProps,
   AutocompleteListProps as ListProps,
-  AutocompletePopupProps as PopupProps,
   AutocompleteRootProps as RootProps,
   AutocompleteSeparatorProps as SeparatorProps,
   AutocompleteStatusProps as StatusProps,

@@ -99,7 +99,7 @@ export const Default: Story = {
       <Autocomplete.FieldRoot {...args}>
         <Autocomplete.FieldInput placeholder="Search tags..." />
       </Autocomplete.FieldRoot>
-      <Autocomplete.Popup>
+      <Autocomplete.Content>
         <Autocomplete.Empty>No tags found.</Autocomplete.Empty>
         <Autocomplete.List>
           {(tag) => {
@@ -111,7 +111,7 @@ export const Default: Story = {
             );
           }}
         </Autocomplete.List>
-      </Autocomplete.Popup>
+      </Autocomplete.Content>
     </Autocomplete.Root>
   ),
 };
@@ -128,7 +128,7 @@ export const Sizes: Story = {
           <Autocomplete.FieldRoot size={size}>
             <Autocomplete.FieldInput placeholder={`Size ${size}`} />
           </Autocomplete.FieldRoot>
-          <Autocomplete.Popup size={size === '4' ? '3' : (size as '1' | '2' | '3')}>
+          <Autocomplete.Content size={size === '4' ? '3' : (size as '1' | '2' | '3')}>
             <Autocomplete.Empty>No results found.</Autocomplete.Empty>
             <Autocomplete.List>
               {(country) => (
@@ -137,7 +137,7 @@ export const Sizes: Story = {
                 </Autocomplete.Item>
               )}
             </Autocomplete.List>
-          </Autocomplete.Popup>
+          </Autocomplete.Content>
         </Autocomplete.Root>
       ))}
     </div>
@@ -160,7 +160,7 @@ export const FieldVariants: Story = {
           <Autocomplete.FieldRoot variant="surface">
             <Autocomplete.FieldInput placeholder="Search countries..." />
           </Autocomplete.FieldRoot>
-          <Autocomplete.Popup>
+          <Autocomplete.Content>
             <Autocomplete.Empty>No results found.</Autocomplete.Empty>
             <Autocomplete.List>
               {(country) => (
@@ -169,7 +169,7 @@ export const FieldVariants: Story = {
                 </Autocomplete.Item>
               )}
             </Autocomplete.List>
-          </Autocomplete.Popup>
+          </Autocomplete.Content>
         </Autocomplete.Root>
       </div>
 
@@ -181,7 +181,7 @@ export const FieldVariants: Story = {
           <Autocomplete.FieldRoot variant="soft">
             <Autocomplete.FieldInput placeholder="Search countries..." />
           </Autocomplete.FieldRoot>
-          <Autocomplete.Popup>
+          <Autocomplete.Content>
             <Autocomplete.Empty>No results found.</Autocomplete.Empty>
             <Autocomplete.List>
               {(country) => (
@@ -190,7 +190,7 @@ export const FieldVariants: Story = {
                 </Autocomplete.Item>
               )}
             </Autocomplete.List>
-          </Autocomplete.Popup>
+          </Autocomplete.Content>
         </Autocomplete.Root>
       </div>
     </div>
@@ -212,7 +212,7 @@ export const FieldColors: Story = {
           <Autocomplete.FieldRoot variant="soft" color={color}>
             <Autocomplete.FieldInput placeholder={`Color: ${color}`} />
           </Autocomplete.FieldRoot>
-          <Autocomplete.Popup>
+          <Autocomplete.Content>
             <Autocomplete.Empty>No results found.</Autocomplete.Empty>
             <Autocomplete.List>
               {(country) => (
@@ -221,7 +221,7 @@ export const FieldColors: Story = {
                 </Autocomplete.Item>
               )}
             </Autocomplete.List>
-          </Autocomplete.Popup>
+          </Autocomplete.Content>
         </Autocomplete.Root>
       ))}
     </div>
@@ -267,7 +267,7 @@ export const WithSlot: Story = {
             </Autocomplete.FieldSlot>
             <Autocomplete.FieldInput placeholder="Search countries..." />
           </Autocomplete.FieldRoot>
-          <Autocomplete.Popup>
+          <Autocomplete.Content>
             <Autocomplete.Empty>No results found.</Autocomplete.Empty>
             <Autocomplete.List>
               {(country) => (
@@ -276,7 +276,7 @@ export const WithSlot: Story = {
                 </Autocomplete.Item>
               )}
             </Autocomplete.List>
-          </Autocomplete.Popup>
+          </Autocomplete.Content>
         </Autocomplete.Root>
       </div>
     </div>
@@ -311,7 +311,7 @@ export const Grouped: Story = {
         <Autocomplete.FieldRoot>
           <Autocomplete.FieldInput placeholder="Search fruits & vegetables..." />
         </Autocomplete.FieldRoot>
-        <Autocomplete.Popup>
+        <Autocomplete.Content>
           <Autocomplete.Empty>No produce found.</Autocomplete.Empty>
           <Autocomplete.List>
             {(item) => (
@@ -320,7 +320,7 @@ export const Grouped: Story = {
               </Autocomplete.Item>
             )}
           </Autocomplete.List>
-        </Autocomplete.Popup>
+        </Autocomplete.Content>
       </Autocomplete.Root>
     </div>
   ),
@@ -344,7 +344,7 @@ export const EmptyState: Story = {
         <Autocomplete.FieldRoot>
           <Autocomplete.FieldInput placeholder="Try typing 'xyz'..." />
         </Autocomplete.FieldRoot>
-        <Autocomplete.Popup>
+        <Autocomplete.Content>
           <Autocomplete.Empty>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-2)' }}>
               <span>🔍</span>
@@ -361,7 +361,7 @@ export const EmptyState: Story = {
               );
             }}
           </Autocomplete.List>
-        </Autocomplete.Popup>
+        </Autocomplete.Content>
       </Autocomplete.Root>
     </div>
   ),
@@ -406,7 +406,7 @@ export const WithClearButton: Story = {
             </Autocomplete.Clear>
           </Autocomplete.FieldSlot>
         </Autocomplete.FieldRoot>
-        <Autocomplete.Popup>
+        <Autocomplete.Content>
           <Autocomplete.Empty>No results found.</Autocomplete.Empty>
           <Autocomplete.List>
             {(country) => (
@@ -415,7 +415,7 @@ export const WithClearButton: Story = {
               </Autocomplete.Item>
             )}
           </Autocomplete.List>
-        </Autocomplete.Popup>
+        </Autocomplete.Content>
       </Autocomplete.Root>
     </div>
   ),
@@ -448,7 +448,7 @@ export const Controlled: Story = {
           <Autocomplete.FieldRoot>
             <Autocomplete.FieldInput placeholder="Search countries..." />
           </Autocomplete.FieldRoot>
-          <Autocomplete.Popup>
+          <Autocomplete.Content>
             <Autocomplete.Empty>No results found.</Autocomplete.Empty>
             <Autocomplete.List>
               {(country) => (
@@ -457,7 +457,7 @@ export const Controlled: Story = {
                 </Autocomplete.Item>
               )}
             </Autocomplete.List>
-          </Autocomplete.Popup>
+          </Autocomplete.Content>
         </Autocomplete.Root>
 
         <div
@@ -503,7 +503,7 @@ export const ColoredItems: Story = {
         <Autocomplete.FieldRoot>
           <Autocomplete.FieldInput placeholder="Search tags..." />
         </Autocomplete.FieldRoot>
-        <Autocomplete.Popup>
+        <Autocomplete.Content>
           <Autocomplete.Empty>No tags found.</Autocomplete.Empty>
           <Autocomplete.List>
             {(tag) => {
@@ -515,7 +515,7 @@ export const ColoredItems: Story = {
               );
             }}
           </Autocomplete.List>
-        </Autocomplete.Popup>
+        </Autocomplete.Content>
       </Autocomplete.Root>
     </div>
   ),
@@ -732,7 +732,7 @@ export const ManyItems: Story = {
         <Autocomplete.FieldRoot>
           <Autocomplete.FieldInput placeholder="Search countries..." />
         </Autocomplete.FieldRoot>
-        <Autocomplete.Popup>
+        <Autocomplete.Content>
           <Autocomplete.Empty>No countries found.</Autocomplete.Empty>
           <Autocomplete.List>
             {(country) => (
@@ -741,7 +741,7 @@ export const ManyItems: Story = {
               </Autocomplete.Item>
             )}
           </Autocomplete.List>
-        </Autocomplete.Popup>
+        </Autocomplete.Content>
       </Autocomplete.Root>
     </div>
   ),
