@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import * as React from 'react';
 import { type GetPropDefTypes } from '../../helpers';
 import { Theme, useThemeContext } from '../../theme';
-import { ScrollArea } from '../scroll-area';
 import { autocompleteContentPropDefs, autocompleteItemPropDefs } from './autocomplete.props';
 
 // Re-export useFilter hook from Base UI
@@ -181,15 +180,11 @@ const AutocompleteContent = (props: AutocompleteContentProps) => {
             `fui-r-size-${size}`,
           )}
         >
-          <ScrollArea type="auto">
-            <div className={classNames('fui-AutocompleteViewport', 'fui-BaseMenuViewport')}>
-              <AutocompleteContentContext.Provider
-                value={React.useMemo(() => ({ size, color: resolvedColor, variant }), [size, resolvedColor, variant])}
-              >
-                {children}
-              </AutocompleteContentContext.Provider>
-            </div>
-          </ScrollArea>
+          <AutocompleteContentContext.Provider
+            value={React.useMemo(() => ({ size, color: resolvedColor, variant }), [size, resolvedColor, variant])}
+          >
+            {children}
+          </AutocompleteContentContext.Provider>
         </Theme>
       </AutocompletePrimitive.Positioner>
     </AutocompletePrimitive.Portal>

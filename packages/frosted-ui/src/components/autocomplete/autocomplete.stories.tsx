@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
-import { Code, Text, TextField } from '../index';
+import { Code, ScrollArea, Text, TextField } from '../index';
 import * as Autocomplete from './autocomplete';
 
 const meta: Meta<typeof Autocomplete.Root> = {
@@ -81,17 +81,19 @@ export const Default: Story = {
         <Autocomplete.Input render={<TextField.Input placeholder="Search tags..." />} />
       </TextField.Root>
       <Autocomplete.Content>
-        <Autocomplete.Empty>No tags found.</Autocomplete.Empty>
-        <Autocomplete.List>
-          {(tag) => {
-            const item = tag as Tag;
-            return (
-              <Autocomplete.Item key={item.id} value={item}>
-                {item.value}
-              </Autocomplete.Item>
-            );
-          }}
-        </Autocomplete.List>
+        <ScrollArea type="auto">
+          <Autocomplete.Empty>No tags found.</Autocomplete.Empty>
+          <Autocomplete.List>
+            {(tag) => {
+              const item = tag as Tag;
+              return (
+                <Autocomplete.Item key={item.id} value={item}>
+                  {item.value}
+                </Autocomplete.Item>
+              );
+            }}
+          </Autocomplete.List>
+        </ScrollArea>
       </Autocomplete.Content>
     </Autocomplete.Root>
   ),
@@ -110,14 +112,16 @@ export const Sizes: Story = {
             <Autocomplete.Input render={<TextField.Input placeholder={`Size ${size}`} />} />
           </TextField.Root>
           <Autocomplete.Content size={size === '4' ? '3' : (size as '1' | '2' | '3')}>
-            <Autocomplete.Empty>No results found.</Autocomplete.Empty>
-            <Autocomplete.List>
-              {(country) => (
-                <Autocomplete.Item key={country as string} value={country}>
-                  {country as string}
-                </Autocomplete.Item>
-              )}
-            </Autocomplete.List>
+            <ScrollArea type="auto">
+              <Autocomplete.Empty>No results found.</Autocomplete.Empty>
+              <Autocomplete.List>
+                {(country) => (
+                  <Autocomplete.Item key={country as string} value={country}>
+                    {country as string}
+                  </Autocomplete.Item>
+                )}
+              </Autocomplete.List>
+            </ScrollArea>
           </Autocomplete.Content>
         </Autocomplete.Root>
       ))}
@@ -142,14 +146,16 @@ export const FieldVariants: Story = {
             <Autocomplete.Input render={<TextField.Input placeholder="Search countries..." />} />
           </TextField.Root>
           <Autocomplete.Content>
-            <Autocomplete.Empty>No results found.</Autocomplete.Empty>
-            <Autocomplete.List>
-              {(country) => (
-                <Autocomplete.Item key={country as string} value={country}>
-                  {country as string}
-                </Autocomplete.Item>
-              )}
-            </Autocomplete.List>
+            <ScrollArea type="auto">
+              <Autocomplete.Empty>No results found.</Autocomplete.Empty>
+              <Autocomplete.List>
+                {(country) => (
+                  <Autocomplete.Item key={country as string} value={country}>
+                    {country as string}
+                  </Autocomplete.Item>
+                )}
+              </Autocomplete.List>
+            </ScrollArea>
           </Autocomplete.Content>
         </Autocomplete.Root>
       </div>
@@ -163,14 +169,16 @@ export const FieldVariants: Story = {
             <Autocomplete.Input render={<TextField.Input placeholder="Search countries..." />} />
           </TextField.Root>
           <Autocomplete.Content>
-            <Autocomplete.Empty>No results found.</Autocomplete.Empty>
-            <Autocomplete.List>
-              {(country) => (
-                <Autocomplete.Item key={country as string} value={country}>
-                  {country as string}
-                </Autocomplete.Item>
-              )}
-            </Autocomplete.List>
+            <ScrollArea type="auto">
+              <Autocomplete.Empty>No results found.</Autocomplete.Empty>
+              <Autocomplete.List>
+                {(country) => (
+                  <Autocomplete.Item key={country as string} value={country}>
+                    {country as string}
+                  </Autocomplete.Item>
+                )}
+              </Autocomplete.List>
+            </ScrollArea>
           </Autocomplete.Content>
         </Autocomplete.Root>
       </div>
@@ -194,14 +202,16 @@ export const FieldColors: Story = {
             <Autocomplete.Input render={<TextField.Input placeholder={`Color: ${color}`} />} />
           </TextField.Root>
           <Autocomplete.Content>
-            <Autocomplete.Empty>No results found.</Autocomplete.Empty>
-            <Autocomplete.List>
-              {(country) => (
-                <Autocomplete.Item key={country as string} value={country}>
-                  {country as string}
-                </Autocomplete.Item>
-              )}
-            </Autocomplete.List>
+            <ScrollArea type="auto">
+              <Autocomplete.Empty>No results found.</Autocomplete.Empty>
+              <Autocomplete.List>
+                {(country) => (
+                  <Autocomplete.Item key={country as string} value={country}>
+                    {country as string}
+                  </Autocomplete.Item>
+                )}
+              </Autocomplete.List>
+            </ScrollArea>
           </Autocomplete.Content>
         </Autocomplete.Root>
       ))}
@@ -249,14 +259,16 @@ export const WithSlot: Story = {
             <Autocomplete.Input render={<TextField.Input placeholder="Search countries..." />} />
           </TextField.Root>
           <Autocomplete.Content>
-            <Autocomplete.Empty>No results found.</Autocomplete.Empty>
-            <Autocomplete.List>
-              {(country) => (
-                <Autocomplete.Item key={country as string} value={country}>
-                  {country as string}
-                </Autocomplete.Item>
-              )}
-            </Autocomplete.List>
+            <ScrollArea type="auto">
+              <Autocomplete.Empty>No results found.</Autocomplete.Empty>
+              <Autocomplete.List>
+                {(country) => (
+                  <Autocomplete.Item key={country as string} value={country}>
+                    {country as string}
+                  </Autocomplete.Item>
+                )}
+              </Autocomplete.List>
+            </ScrollArea>
           </Autocomplete.Content>
         </Autocomplete.Root>
       </div>
@@ -293,14 +305,16 @@ export const Grouped: Story = {
           <Autocomplete.Input render={<TextField.Input placeholder="Search fruits & vegetables..." />} />
         </TextField.Root>
         <Autocomplete.Content>
-          <Autocomplete.Empty>No produce found.</Autocomplete.Empty>
-          <Autocomplete.List>
-            {(item) => (
-              <Autocomplete.Item key={item as string} value={item}>
-                {item as string}
-              </Autocomplete.Item>
-            )}
-          </Autocomplete.List>
+          <ScrollArea type="auto">
+            <Autocomplete.Empty>No produce found.</Autocomplete.Empty>
+            <Autocomplete.List>
+              {(item) => (
+                <Autocomplete.Item key={item as string} value={item}>
+                  {item as string}
+                </Autocomplete.Item>
+              )}
+            </Autocomplete.List>
+          </ScrollArea>
         </Autocomplete.Content>
       </Autocomplete.Root>
     </div>
@@ -326,22 +340,24 @@ export const EmptyState: Story = {
           <Autocomplete.Input render={<TextField.Input placeholder="Try typing 'xyz'..." />} />
         </TextField.Root>
         <Autocomplete.Content>
-          <Autocomplete.Empty>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-2)' }}>
-              <span>🔍</span>
-              <span>No matching tags found</span>
-            </div>
-          </Autocomplete.Empty>
-          <Autocomplete.List>
-            {(tag) => {
-              const t = tag as Tag;
-              return (
-                <Autocomplete.Item key={t.id} value={t}>
-                  {t.value}
-                </Autocomplete.Item>
-              );
-            }}
-          </Autocomplete.List>
+          <ScrollArea type="auto">
+            <Autocomplete.Empty>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-2)' }}>
+                <span>🔍</span>
+                <span>No matching tags found</span>
+              </div>
+            </Autocomplete.Empty>
+            <Autocomplete.List>
+              {(tag) => {
+                const t = tag as Tag;
+                return (
+                  <Autocomplete.Item key={t.id} value={t}>
+                    {t.value}
+                  </Autocomplete.Item>
+                );
+              }}
+            </Autocomplete.List>
+          </ScrollArea>
         </Autocomplete.Content>
       </Autocomplete.Root>
     </div>
@@ -388,14 +404,16 @@ export const WithClearButton: Story = {
           </TextField.Slot>
         </TextField.Root>
         <Autocomplete.Content>
-          <Autocomplete.Empty>No results found.</Autocomplete.Empty>
-          <Autocomplete.List>
-            {(country) => (
-              <Autocomplete.Item key={country as string} value={country}>
-                {country as string}
-              </Autocomplete.Item>
-            )}
-          </Autocomplete.List>
+          <ScrollArea type="auto">
+            <Autocomplete.Empty>No results found.</Autocomplete.Empty>
+            <Autocomplete.List>
+              {(country) => (
+                <Autocomplete.Item key={country as string} value={country}>
+                  {country as string}
+                </Autocomplete.Item>
+              )}
+            </Autocomplete.List>
+          </ScrollArea>
         </Autocomplete.Content>
       </Autocomplete.Root>
     </div>
@@ -430,14 +448,16 @@ export const Controlled: Story = {
             <Autocomplete.Input render={<TextField.Input placeholder="Search countries..." />} />
           </TextField.Root>
           <Autocomplete.Content>
-            <Autocomplete.Empty>No results found.</Autocomplete.Empty>
-            <Autocomplete.List>
-              {(country) => (
-                <Autocomplete.Item key={country as string} value={country}>
-                  {country as string}
-                </Autocomplete.Item>
-              )}
-            </Autocomplete.List>
+            <ScrollArea type="auto">
+              <Autocomplete.Empty>No results found.</Autocomplete.Empty>
+              <Autocomplete.List>
+                {(country) => (
+                  <Autocomplete.Item key={country as string} value={country}>
+                    {country as string}
+                  </Autocomplete.Item>
+                )}
+              </Autocomplete.List>
+            </ScrollArea>
           </Autocomplete.Content>
         </Autocomplete.Root>
 
@@ -485,17 +505,19 @@ export const ColoredItems: Story = {
           <Autocomplete.Input render={<TextField.Input placeholder="Search tags..." />} />
         </TextField.Root>
         <Autocomplete.Content>
-          <Autocomplete.Empty>No tags found.</Autocomplete.Empty>
-          <Autocomplete.List>
-            {(tag) => {
-              const t = tag as (typeof coloredTags)[number];
-              return (
-                <Autocomplete.Item key={t.id} value={t} color={t.color}>
-                  {t.value}
-                </Autocomplete.Item>
-              );
-            }}
-          </Autocomplete.List>
+          <ScrollArea type="auto">
+            <Autocomplete.Empty>No tags found.</Autocomplete.Empty>
+            <Autocomplete.List>
+              {(tag) => {
+                const t = tag as (typeof coloredTags)[number];
+                return (
+                  <Autocomplete.Item key={t.id} value={t} color={t.color}>
+                    {t.value}
+                  </Autocomplete.Item>
+                );
+              }}
+            </Autocomplete.List>
+          </ScrollArea>
         </Autocomplete.Content>
       </Autocomplete.Root>
     </div>
@@ -713,15 +735,17 @@ export const ManyItems: Story = {
         <TextField.Root>
           <Autocomplete.Input render={<TextField.Input placeholder="Search countries..." />} />
         </TextField.Root>
-        <Autocomplete.Content>
-          <Autocomplete.Empty>No countries found.</Autocomplete.Empty>
-          <Autocomplete.List>
-            {(country) => (
-              <Autocomplete.Item key={country as string} value={country}>
-                {country as string}
-              </Autocomplete.Item>
-            )}
-          </Autocomplete.List>
+        <Autocomplete.Content style={{ maxHeight: 300 }}>
+          <ScrollArea type="auto">
+            <Autocomplete.Empty>No countries found.</Autocomplete.Empty>
+            <Autocomplete.List>
+              {(country) => (
+                <Autocomplete.Item key={country as string} value={country}>
+                  {country as string}
+                </Autocomplete.Item>
+              )}
+            </Autocomplete.List>
+          </ScrollArea>
         </Autocomplete.Content>
       </Autocomplete.Root>
     </div>

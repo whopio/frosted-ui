@@ -103,6 +103,10 @@
 .fui-AutocompleteList {
   display: flex;
   flex-direction: column;
+  padding: 4px;
+  &:where(:empty) {
+    display: none;
+  }
 }
 
 /* ============================================================================
@@ -123,6 +127,9 @@
   font-size: var(--font-size-2);
   line-height: var(--line-height-2);
   text-align: center;
+  &:where(:empty) {
+    display: none;
+  }
 }
 
 /* ============================================================================
