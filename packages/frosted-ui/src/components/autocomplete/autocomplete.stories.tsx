@@ -198,6 +198,37 @@ export const FieldVariants: Story = {
 };
 
 // ============================================================================
+// Field Colors
+// ============================================================================
+
+const fieldColors = ['gray', 'blue', 'green', 'red', 'orange', 'purple', 'pink'] as const;
+
+export const FieldColors: Story = {
+  name: 'Field Colors',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 300 }}>
+      {fieldColors.map((color) => (
+        <Autocomplete.Root key={color} items={countries}>
+          <Autocomplete.FieldRoot variant="soft" color={color}>
+            <Autocomplete.FieldInput placeholder={`Color: ${color}`} />
+          </Autocomplete.FieldRoot>
+          <Autocomplete.Popup>
+            <Autocomplete.Empty>No results found.</Autocomplete.Empty>
+            <Autocomplete.List>
+              {(country) => (
+                <Autocomplete.Item key={country as string} value={country}>
+                  {country as string}
+                </Autocomplete.Item>
+              )}
+            </Autocomplete.List>
+          </Autocomplete.Popup>
+        </Autocomplete.Root>
+      ))}
+    </div>
+  ),
+};
+
+// ============================================================================
 // With Slot
 // ============================================================================
 
