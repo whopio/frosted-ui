@@ -280,39 +280,95 @@ export const WithSlot: Story = {
 // Grouped
 // ============================================================================
 
-const produceGroups = [
+interface ProduceGroup {
+  label: string;
+  items: string[];
+}
+
+const produceGroups: ProduceGroup[] = [
   {
-    category: 'Fruits',
-    items: ['Apple', 'Banana', 'Blueberry', 'Cherry', 'Grape', 'Mango', 'Orange', 'Peach', 'Strawberry'],
+    label: 'Fruits',
+    items: [
+      'Apple',
+      'Apricot',
+      'Banana',
+      'Blueberry',
+      'Cherry',
+      'Grape',
+      'Kiwi',
+      'Lemon',
+      'Mango',
+      'Orange',
+      'Peach',
+      'Pear',
+      'Pineapple',
+      'Raspberry',
+      'Strawberry',
+      'Watermelon',
+    ],
   },
   {
-    category: 'Vegetables',
-    items: ['Carrot', 'Broccoli', 'Spinach', 'Tomato', 'Cucumber', 'Pepper', 'Onion', 'Potato'],
+    label: 'Vegetables',
+    items: [
+      'Asparagus',
+      'Broccoli',
+      'Cabbage',
+      'Carrot',
+      'Celery',
+      'Corn',
+      'Cucumber',
+      'Eggplant',
+      'Lettuce',
+      'Onion',
+      'Pepper',
+      'Potato',
+      'Spinach',
+      'Tomato',
+      'Zucchini',
+    ],
+  },
+  {
+    label: 'Herbs',
+    items: ['Basil', 'Chives', 'Cilantro', 'Dill', 'Mint', 'Oregano', 'Parsley', 'Rosemary', 'Sage', 'Thyme'],
   },
 ];
 
-// Flatten produce items for the autocomplete
-const allProduce = produceGroups.flatMap((g) => g.items);
-
 export const Grouped: Story = {
   render: () => (
-    <div style={{ maxWidth: 300 }}>
-      <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
-        Search produce
+    <div style={{ maxWidth: 350 }}>
+      <Text size="2" weight="bold" style={{ marginBottom: 'var(--space-2)', display: 'block' }}>
+        Grouped
       </Text>
-      <Autocomplete.Root items={allProduce}>
+      <Text size="2" color="gray" style={{ marginBottom: 'var(--space-3)', display: 'block' }}>
+        Organize related options with <Code size="2">Autocomplete.Group</Code> and{' '}
+        <Code size="2">Autocomplete.GroupLabel</Code> to add section headings inside the popup.
+      </Text>
+      <Text size="1" color="gray" style={{ marginBottom: 'var(--space-3)', display: 'block' }}>
+        Groups are represented by an array of objects with an <Code size="1">items</Code> property, which itself is an
+        array of individual items for each group. An extra property, such as <Code size="1">label</Code>, can be
+        provided for the heading text when rendering the group label.
+      </Text>
+      <Autocomplete.Root items={produceGroups}>
         <TextField.Root>
-          <Autocomplete.Input render={<TextField.Input placeholder="Search fruits & vegetables..." />} />
+          <Autocomplete.Input render={<TextField.Input placeholder="Search produce..." />} />
         </TextField.Root>
         <Autocomplete.Content>
-          <ScrollArea type="auto">
+          <ScrollArea type="auto" style={{ maxHeight: 300 }}>
             <Autocomplete.Empty>No produce found.</Autocomplete.Empty>
             <Autocomplete.List>
-              {(item) => (
-                <Autocomplete.Item key={item as string} value={item}>
-                  {item as string}
-                </Autocomplete.Item>
-              )}
+              {(group) => {
+                const g = group as ProduceGroup;
+                return (
+                  <Autocomplete.Group key={g.label} items={g.items}>
+                    <Autocomplete.GroupLabel>{g.label}</Autocomplete.GroupLabel>
+                    {g.items.map((item) => (
+                      <Autocomplete.Item key={item} value={item}>
+                        {item}
+                      </Autocomplete.Item>
+                    ))}
+                  </Autocomplete.Group>
+                );
+              }}
             </Autocomplete.List>
           </ScrollArea>
         </Autocomplete.Content>
