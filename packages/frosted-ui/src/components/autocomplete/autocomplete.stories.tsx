@@ -1510,3 +1510,187 @@ export const FuzzyMatching: Story = {
     );
   },
 };
+
+// ============================================================================
+// Limit Results
+// ============================================================================
+
+// Large list of city names for demonstration
+const allCities = [
+  'New York',
+  'Los Angeles',
+  'Chicago',
+  'Houston',
+  'Phoenix',
+  'Philadelphia',
+  'San Antonio',
+  'San Diego',
+  'Dallas',
+  'San Jose',
+  'Austin',
+  'Jacksonville',
+  'Fort Worth',
+  'Columbus',
+  'Charlotte',
+  'San Francisco',
+  'Indianapolis',
+  'Seattle',
+  'Denver',
+  'Washington',
+  'Boston',
+  'El Paso',
+  'Nashville',
+  'Detroit',
+  'Oklahoma City',
+  'Portland',
+  'Las Vegas',
+  'Memphis',
+  'Louisville',
+  'Baltimore',
+  'Milwaukee',
+  'Albuquerque',
+  'Tucson',
+  'Fresno',
+  'Sacramento',
+  'Mesa',
+  'Kansas City',
+  'Atlanta',
+  'Long Beach',
+  'Colorado Springs',
+  'Raleigh',
+  'Miami',
+  'Virginia Beach',
+  'Omaha',
+  'Oakland',
+  'Minneapolis',
+  'Tulsa',
+  'Arlington',
+  'New Orleans',
+  'Wichita',
+  'Cleveland',
+  'Tampa',
+  'Bakersfield',
+  'Aurora',
+  'Anaheim',
+  'Honolulu',
+  'Santa Ana',
+  'Riverside',
+  'Corpus Christi',
+  'Lexington',
+  'Stockton',
+  'Henderson',
+  'Saint Paul',
+  'St. Louis',
+  'Cincinnati',
+  'Pittsburgh',
+  'Greensboro',
+  'Anchorage',
+  'Plano',
+  'Lincoln',
+  'Orlando',
+  'Irvine',
+  'Newark',
+  'Toledo',
+  'Durham',
+  'Chula Vista',
+  'Fort Wayne',
+  'Jersey City',
+  'St. Petersburg',
+  'Laredo',
+  'Madison',
+  'Chandler',
+  'Buffalo',
+  'Lubbock',
+  'Scottsdale',
+  'Reno',
+  'Glendale',
+  'Gilbert',
+  'Winston-Salem',
+  'North Las Vegas',
+  'Norfolk',
+  'Chesapeake',
+  'Garland',
+  'Irving',
+  'Hialeah',
+  'Fremont',
+  'Boise',
+  'Richmond',
+  'Baton Rouge',
+];
+
+const MAX_RESULTS = 8;
+
+export const LimitResults: Story = {
+  name: 'Limit Results',
+  render: () => {
+    const [query, setQuery] = React.useState('');
+    const { contains } = Autocomplete.useFilter();
+
+    // Filter items and limit to MAX_RESULTS
+    const limitedCities = React.useMemo(() => {
+      if (!query) {
+        return allCities.slice(0, MAX_RESULTS);
+      }
+
+      const filtered = allCities.filter((city) => contains(city, query));
+      return filtered.slice(0, MAX_RESULTS);
+    }, [query, contains]);
+
+    const totalMatches = React.useMemo(() => {
+      if (!query) return allCities.length;
+      return allCities.filter((city) => contains(city, query)).length;
+    }, [query, contains]);
+
+    const hasMore = totalMatches > MAX_RESULTS;
+
+    return (
+      <div style={{ maxWidth: 350 }}>
+        <Text size="2" weight="bold" style={{ marginBottom: 'var(--space-2)', display: 'block' }}>
+          Limit Results
+        </Text>
+        <Text size="2" color="gray" style={{ marginBottom: 'var(--space-3)', display: 'block' }}>
+          Improve performance with large datasets by limiting the number of displayed results. Use{' '}
+          <Code size="2">mode="none"</Code> and slice the filtered items array.
+        </Text>
+        <Text size="1" color="gray" style={{ marginBottom: 'var(--space-3)', display: 'block' }}>
+          This example limits results to {MAX_RESULTS} items from a list of {allCities.length} US cities.
+        </Text>
+        <Autocomplete.Root
+          items={limitedCities}
+          mode="none"
+          value={query}
+          onValueChange={(value) => setQuery(value as string)}
+        >
+          <TextField.Root>
+            <Autocomplete.Input render={<TextField.Input placeholder="Search cities..." />} />
+          </TextField.Root>
+          <Autocomplete.Content>
+            <ScrollArea type="auto">
+              <Autocomplete.Empty>No cities found.</Autocomplete.Empty>
+              <Autocomplete.List>
+                {(city) => (
+                  <Autocomplete.Item key={city as string} value={city}>
+                    {city as string}
+                  </Autocomplete.Item>
+                )}
+              </Autocomplete.List>
+              {hasMore && (
+                <Text
+                  size="1"
+                  color="gray"
+                  style={{
+                    padding: 'var(--space-2) var(--space-3)',
+                    borderTop: '1px solid var(--gray-a4)',
+                    display: 'block',
+                  }}
+                >
+                  Showing {MAX_RESULTS} of {totalMatches} results
+                </Text>
+              )}
+            </ScrollArea>
+          </Autocomplete.Content>
+        </Autocomplete.Root>
+      </div>
+    );
+  },
+};
