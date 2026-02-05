@@ -22,7 +22,6 @@
 @import '../components/date-picker/date-picker.css';
 @import '../components/date-range-picker/date-range-picker.css';
 @import '../components/accordion/accordion.css';
-@import '../components/autocomplete/autocomplete.css';
 @import '../components/avatar/avatar.css';
 @import '../components/avatar-group/avatar-group.css';
 @import '../components/avatar-stack/avatar-stack.css';
@@ -74,6 +73,11 @@
 @import '../components/date-field/date-field.css';
 @import '../components/tooltip/tooltip.css';
 @import '../components/widget-stack/widget-stack.css';
+/*
+Needs to come after dropdown-menu and context-menu and any other files that import base-menu.css,
+because Autocomplete overrides base-menu content transitions.
+ */
+@import '../components/autocomplete/autocomplete.css';
 
 @import './utilities/font-weight.css';
 @import './utilities/leading-trim.css';

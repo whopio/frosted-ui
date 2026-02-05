@@ -76,26 +76,64 @@ const countries = [
 
 export const Default: Story = {
   render: () => (
-    <Autocomplete.Root items={tags} itemToStringValue={(item) => (item as Tag).value}>
-      <TextField.Root>
-        <Autocomplete.Input render={<TextField.Input placeholder="Search tags..." />} />
-      </TextField.Root>
-      <Autocomplete.Content>
-        <ScrollArea type="auto">
-          <Autocomplete.Empty>No tags found.</Autocomplete.Empty>
-          <Autocomplete.List>
-            {(tag) => {
-              const item = tag as Tag;
-              return (
-                <Autocomplete.Item key={item.id} value={item}>
-                  {item.value}
-                </Autocomplete.Item>
-              );
-            }}
-          </Autocomplete.List>
-        </ScrollArea>
-      </Autocomplete.Content>
-    </Autocomplete.Root>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', maxWidth: 500 }}>
+      <div style={{ maxWidth: 300 }}>
+        <Autocomplete.Root items={tags} itemToStringValue={(item) => (item as Tag).value}>
+          <TextField.Root>
+            <Autocomplete.Input render={<TextField.Input placeholder="Search tags..." />} />
+          </TextField.Root>
+          <Autocomplete.Content>
+            <ScrollArea type="auto">
+              <Autocomplete.Empty>No tags found.</Autocomplete.Empty>
+              <Autocomplete.List>
+                {(tag) => {
+                  const item = tag as Tag;
+                  return (
+                    <Autocomplete.Item key={item.id} value={item}>
+                      {item.value}
+                    </Autocomplete.Item>
+                  );
+                }}
+              </Autocomplete.List>
+            </ScrollArea>
+          </Autocomplete.Content>
+        </Autocomplete.Root>
+      </div>
+
+      <div
+        style={{
+          padding: 'var(--space-4)',
+          backgroundColor: 'var(--gray-a2)',
+          borderRadius: 'var(--radius-3)',
+          borderLeft: '3px solid var(--accent-9)',
+        }}
+      >
+        <Text size="2" weight="bold" style={{ marginBottom: 'var(--space-3)', display: 'block' }}>
+          Usage Guidelines
+        </Text>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+          <div>
+            <Text size="2" weight="medium" style={{ display: 'block', marginBottom: 'var(--space-1)' }}>
+              Avoid when selection state is needed
+            </Text>
+            <Text size="2" color="gray">
+              Use Combobox instead of Autocomplete if the selection should be remembered and the input value cannot be
+              custom. Unlike Combobox, Autocomplete&apos;s input can contain free-form text, as its suggestions only
+              optionally autocomplete the text.
+            </Text>
+          </div>
+          <div>
+            <Text size="2" weight="medium" style={{ display: 'block', marginBottom: 'var(--space-1)' }}>
+              Can be used for filterable command pickers
+            </Text>
+            <Text size="2" color="gray">
+              The input can be used as a filter for command items that perform an action when clicked when rendered
+              inside the popup.
+            </Text>
+          </div>
+        </div>
+      </div>
+    </div>
   ),
 };
 
@@ -971,6 +1009,7 @@ export const GridLayout: Story = {
               sideOffset={4}
               style={{
                 maxHeight: 328,
+                width: 208,
                 padding: 0,
               }}
             >
@@ -989,7 +1028,7 @@ export const GridLayout: Story = {
               <ScrollArea
                 type="auto"
                 style={{
-                  maxHeight: 272,
+                  height: 272,
                 }}
               >
                 <Autocomplete.List

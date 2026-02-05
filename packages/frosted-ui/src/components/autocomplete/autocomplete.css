@@ -98,23 +98,14 @@
 
 /* ============================================================================
  * Transitions
+ * Override base-menu transitions - autocomplete should appear/disappear instantly
  * ============================================================================ */
 
-@media (prefers-reduced-motion: no-preference) {
-  .fui-AutocompleteContent {
-    transform-origin: var(--transform-origin);
-
-    &[data-starting-style] {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-
-    &[data-ending-style] {
-      opacity: 0;
-      transform: scale(0.95);
-      transition:
-        transform 150ms,
-        opacity 150ms;
-    }
+.fui-AutocompleteContent {
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
