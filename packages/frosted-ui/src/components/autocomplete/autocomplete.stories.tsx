@@ -467,7 +467,9 @@ export const WithClearButton: Story = {
             <Autocomplete.Input render={<TextField.Input placeholder="Search countries..." />} />
             <TextField.Slot>
               <Autocomplete.Clear>
-                <ClearIcon />
+                <IconButton variant="ghost" color="gray" size="1">
+                  <ClearIcon />
+                </IconButton>
               </Autocomplete.Clear>
             </TextField.Slot>
           </TextField.Root>

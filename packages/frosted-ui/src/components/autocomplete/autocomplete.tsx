@@ -92,21 +92,14 @@ AutocompleteIcon.displayName = 'AutocompleteIcon';
 
 interface AutocompleteClearProps extends Omit<
   React.ComponentProps<typeof AutocompletePrimitive.Clear>,
-  'className' | 'render'
+  'render' | 'className'
 > {
   className?: string;
 }
 
-const AutocompleteClear = React.forwardRef<HTMLButtonElement, AutocompleteClearProps>((props, forwardedRef) => {
-  const { className, ...clearProps } = props;
-  return (
-    <AutocompletePrimitive.Clear
-      {...clearProps}
-      ref={forwardedRef}
-      className={classNames('fui-AutocompleteClear', className)}
-    />
-  );
-});
+function AutocompleteClear({ children, ...props }: AutocompleteClearProps) {
+  return <AutocompletePrimitive.Clear {...props} render={children as React.ReactElement} />;
+}
 AutocompleteClear.displayName = 'AutocompleteClear';
 
 // ============================================================================

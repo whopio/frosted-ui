@@ -17,35 +17,8 @@
 
 /* ============================================================================
  * Autocomplete Clear
+ * Uses render prop pattern - styling provided by consumer element
  * ============================================================================ */
-
-.fui-AutocompleteClear {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  border: none;
-  background: transparent;
-  color: var(--gray-a10);
-  cursor: pointer;
-  flex-shrink: 0;
-  border-radius: var(--radius-1);
-  transition: color 100ms ease;
-
-  &:hover {
-    color: var(--gray-a12);
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--focus-8);
-    outline-offset: -1px;
-  }
-
-  &[data-disabled] {
-    color: var(--gray-a6);
-    cursor: not-allowed;
-  }
-}
 
 /* ============================================================================
  * Autocomplete Positioner
