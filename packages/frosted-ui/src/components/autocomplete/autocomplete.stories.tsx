@@ -924,7 +924,6 @@ export const GridLayout: Story = {
     const [textValue, setTextValue] = React.useState('');
     const [searchValue, setSearchValue] = React.useState('');
     const textInputRef = React.useRef<HTMLInputElement | null>(null);
-    const autocompleteInputRef = React.useRef<HTMLInputElement | null>(null);
 
     function handleInsertEmoji(emoji: string) {
       if (!textInputRef.current) return;
@@ -995,25 +994,15 @@ export const GridLayout: Story = {
                   <TextField.Slot>
                     <MagnifyingGlass16 />
                   </TextField.Slot>
-                  <Autocomplete.Input
-                    ref={autocompleteInputRef}
-                    render={<TextField.Input placeholder="Search emojis…" />}
-                  />
-                  {searchValue ? (
-                    <TextField.Slot style={{ padding: 4 }}>
-                      <IconButton
-                        onClick={() => {
-                          setSearchValue('');
-                          autocompleteInputRef.current?.focus();
-                        }}
-                        variant="ghost"
-                        color="gray"
-                        style={{ borderRadius: '50%' }}
-                      >
+                  <Autocomplete.Input render={<TextField.Input placeholder="Search emojis…" />} />
+
+                  <TextField.Slot style={{ padding: 4 }}>
+                    <Autocomplete.Clear>
+                      <IconButton variant="ghost" color="gray" style={{ borderRadius: '50%' }}>
                         <XCircleFilled16 />
                       </IconButton>
-                    </TextField.Slot>
-                  ) : null}
+                    </Autocomplete.Clear>
+                  </TextField.Slot>
                 </TextField.Root>
               </div>
               <Autocomplete.Empty
