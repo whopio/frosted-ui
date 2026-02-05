@@ -2284,3 +2284,75 @@ export const Modal: Story = {
     </div>
   ),
 };
+
+// ============================================================================
+// Open on Input Click
+// ============================================================================
+
+export const OpenOnInputClick: Story = {
+  name: 'openOnInputClick',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', maxWidth: 350 }}>
+      <div>
+        <Text size="2" weight="bold" style={{ marginBottom: 'var(--space-2)', display: 'block' }}>
+          openOnInputClick
+        </Text>
+        <Text size="2" color="gray" style={{ marginBottom: 'var(--space-3)', display: 'block' }}>
+          Whether the popup opens when clicking the input.
+        </Text>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+        <div>
+          <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+            <Code size="1">openOnInputClick={'{true}'}</Code> (default) — Popup opens on input click
+          </Text>
+          <Autocomplete.Root items={countries} openOnInputClick>
+            <TextField.Root>
+              <Autocomplete.Input render={<TextField.Input placeholder="Click to open..." />} />
+            </TextField.Root>
+            <Autocomplete.Content>
+              <ScrollArea type="auto">
+                <Autocomplete.Empty>No countries found.</Autocomplete.Empty>
+                <Autocomplete.List>
+                  {(country) => (
+                    <Autocomplete.Item key={country as string} value={country}>
+                      {country as string}
+                    </Autocomplete.Item>
+                  )}
+                </Autocomplete.List>
+              </ScrollArea>
+            </Autocomplete.Content>
+          </Autocomplete.Root>
+        </div>
+
+        <div>
+          <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+            <Code size="1">openOnInputClick={'{false}'}</Code> — Popup only opens when typing
+          </Text>
+          <Autocomplete.Root items={countries} openOnInputClick={false}>
+            <TextField.Root>
+              <Autocomplete.Input render={<TextField.Input placeholder="Type to open..." />} />
+            </TextField.Root>
+            <Autocomplete.Content>
+              <ScrollArea type="auto">
+                <Autocomplete.Empty>No countries found.</Autocomplete.Empty>
+                <Autocomplete.List>
+                  {(country) => (
+                    <Autocomplete.Item key={country as string} value={country}>
+                      {country as string}
+                    </Autocomplete.Item>
+                  )}
+                </Autocomplete.List>
+              </ScrollArea>
+            </Autocomplete.Content>
+          </Autocomplete.Root>
+        </div>
+
+        <Text size="1" color="gray" style={{ fontStyle: 'italic' }}>
+          Click on each input to see the difference. When disabled, the popup only opens when you start typing.
+        </Text>
+      </div>
+    </div>
+  ),
+};
