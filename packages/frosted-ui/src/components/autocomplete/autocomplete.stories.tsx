@@ -448,41 +448,45 @@ function ClearIcon() {
 
 export const WithClearButton: Story = {
   name: 'With Clear Button',
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', maxWidth: 300 }}>
-      <Text size="2" weight="bold">
-        With Clear Button
-      </Text>
-      <Text size="1" color="gray">
-        Use <Code size="1">Autocomplete.Clear</Code> to add a button that clears the input value.
-      </Text>
-      <Autocomplete.Root items={countries}>
-        <TextField.Root>
-          <TextField.Slot>
-            <SearchIcon />
-          </TextField.Slot>
-          <Autocomplete.Input render={<TextField.Input placeholder="Search countries..." />} />
-          <TextField.Slot>
-            <Autocomplete.Clear>
-              <ClearIcon />
-            </Autocomplete.Clear>
-          </TextField.Slot>
-        </TextField.Root>
-        <Autocomplete.Content>
-          <ScrollArea type="auto">
-            <Autocomplete.Empty>No results found.</Autocomplete.Empty>
-            <Autocomplete.List>
-              {(country) => (
-                <Autocomplete.Item key={country as string} value={country}>
-                  {country as string}
-                </Autocomplete.Item>
-              )}
-            </Autocomplete.List>
-          </ScrollArea>
-        </Autocomplete.Content>
-      </Autocomplete.Root>
-    </div>
-  ),
+  render: () => {
+    const textFieldRef = React.useRef<HTMLDivElement>(null);
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', maxWidth: 300 }}>
+        <Text size="2" weight="bold">
+          With Clear Button
+        </Text>
+        <Text size="1" color="gray">
+          Use <Code size="1">Autocomplete.Clear</Code> to add a button that clears the input value.
+        </Text>
+        <Autocomplete.Root items={countries}>
+          <TextField.Root ref={textFieldRef}>
+            <TextField.Slot>
+              <SearchIcon />
+            </TextField.Slot>
+            <Autocomplete.Input render={<TextField.Input placeholder="Search countries..." />} />
+            <TextField.Slot>
+              <Autocomplete.Clear>
+                <ClearIcon />
+              </Autocomplete.Clear>
+            </TextField.Slot>
+          </TextField.Root>
+          <Autocomplete.Content anchor={textFieldRef}>
+            <ScrollArea type="auto">
+              <Autocomplete.Empty>No results found.</Autocomplete.Empty>
+              <Autocomplete.List>
+                {(country) => (
+                  <Autocomplete.Item key={country as string} value={country}>
+                    {country as string}
+                  </Autocomplete.Item>
+                )}
+              </Autocomplete.List>
+            </ScrollArea>
+          </Autocomplete.Content>
+        </Autocomplete.Root>
+      </div>
+    );
+  },
 };
 
 // ============================================================================
