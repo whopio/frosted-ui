@@ -2465,3 +2465,75 @@ export const SubmitOnItemClick: Story = {
     );
   },
 };
+
+// ============================================================================
+// Disabled
+// ============================================================================
+
+export const Disabled: Story = {
+  name: 'disabled',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', maxWidth: 350 }}>
+      <div>
+        <Text size="2" weight="bold" style={{ marginBottom: 'var(--space-2)', display: 'block' }}>
+          disabled
+        </Text>
+        <Text size="2" color="gray" style={{ marginBottom: 'var(--space-3)', display: 'block' }}>
+          Whether the component should ignore user interaction.
+        </Text>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+        <div>
+          <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+            <Code size="1">disabled={'{false}'}</Code> (default) — Component is interactive
+          </Text>
+          <Autocomplete.Root items={countries} disabled={false}>
+            <TextField.Root>
+              <Autocomplete.Input render={<TextField.Input placeholder="Interactive autocomplete..." />} />
+            </TextField.Root>
+            <Autocomplete.Content>
+              <ScrollArea type="auto">
+                <Autocomplete.Empty>No countries found.</Autocomplete.Empty>
+                <Autocomplete.List>
+                  {(country) => (
+                    <Autocomplete.Item key={country as string} value={country}>
+                      {country as string}
+                    </Autocomplete.Item>
+                  )}
+                </Autocomplete.List>
+              </ScrollArea>
+            </Autocomplete.Content>
+          </Autocomplete.Root>
+        </div>
+
+        <div>
+          <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+            <Code size="1">disabled={'{true}'}</Code> — Component ignores user interaction
+          </Text>
+          <Autocomplete.Root items={countries} disabled>
+            <TextField.Root>
+              <Autocomplete.Input render={<TextField.Input placeholder="Disabled autocomplete..." />} />
+            </TextField.Root>
+            <Autocomplete.Content>
+              <ScrollArea type="auto">
+                <Autocomplete.Empty>No countries found.</Autocomplete.Empty>
+                <Autocomplete.List>
+                  {(country) => (
+                    <Autocomplete.Item key={country as string} value={country}>
+                      {country as string}
+                    </Autocomplete.Item>
+                  )}
+                </Autocomplete.List>
+              </ScrollArea>
+            </Autocomplete.Content>
+          </Autocomplete.Root>
+        </div>
+
+        <Text size="1" color="gray" style={{ fontStyle: 'italic' }}>
+          Try clicking or typing in each input. The disabled autocomplete will not respond to any interaction.
+        </Text>
+      </div>
+    </div>
+  ),
+};
