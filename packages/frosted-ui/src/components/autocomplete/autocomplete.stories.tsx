@@ -2356,3 +2356,112 @@ export const OpenOnInputClick: Story = {
     </div>
   ),
 };
+
+// ============================================================================
+// Submit on Item Click
+// ============================================================================
+
+export const SubmitOnItemClick: Story = {
+  name: 'submitOnItemClick',
+  render: () => {
+    const [submittedValue, setSubmittedValue] = React.useState<string | null>(null);
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const formData = new FormData(e.currentTarget);
+      const search = formData.get('search') as string;
+      setSubmittedValue(search);
+    };
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', maxWidth: 350 }}>
+        <div>
+          <Text size="2" weight="bold" style={{ marginBottom: 'var(--space-2)', display: 'block' }}>
+            submitOnItemClick
+          </Text>
+          <Text size="2" color="gray" style={{ marginBottom: 'var(--space-3)', display: 'block' }}>
+            Whether clicking an item should submit the autocomplete&apos;s owning form. By default, clicking an item via
+            a pointer or Enter key does not submit the owning form. Useful when the autocomplete is used as a
+            single-field form search input.
+          </Text>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+          <div>
+            <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+              <Code size="1">submitOnItemClick={'{false}'}</Code> (default) — Selecting an item does not submit the form
+            </Text>
+            <form onSubmit={handleSubmit}>
+              <Autocomplete.Root items={countries} submitOnItemClick={false}>
+                <TextField.Root>
+                  <Autocomplete.Input
+                    name="search"
+                    render={<TextField.Input placeholder="Select an item (won't submit)..." />}
+                  />
+                </TextField.Root>
+                <Autocomplete.Content>
+                  <ScrollArea type="auto">
+                    <Autocomplete.Empty>No countries found.</Autocomplete.Empty>
+                    <Autocomplete.List>
+                      {(country) => (
+                        <Autocomplete.Item key={country as string} value={country}>
+                          {country as string}
+                        </Autocomplete.Item>
+                      )}
+                    </Autocomplete.List>
+                  </ScrollArea>
+                </Autocomplete.Content>
+              </Autocomplete.Root>
+            </form>
+          </div>
+
+          <div>
+            <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+              <Code size="1">submitOnItemClick={'{true}'}</Code> — Selecting an item submits the form
+            </Text>
+            <form onSubmit={handleSubmit}>
+              <Autocomplete.Root items={countries} submitOnItemClick>
+                <TextField.Root>
+                  <Autocomplete.Input
+                    name="search"
+                    render={<TextField.Input placeholder="Select an item (will submit)..." />}
+                  />
+                </TextField.Root>
+                <Autocomplete.Content>
+                  <ScrollArea type="auto">
+                    <Autocomplete.Empty>No countries found.</Autocomplete.Empty>
+                    <Autocomplete.List>
+                      {(country) => (
+                        <Autocomplete.Item key={country as string} value={country}>
+                          {country as string}
+                        </Autocomplete.Item>
+                      )}
+                    </Autocomplete.List>
+                  </ScrollArea>
+                </Autocomplete.Content>
+              </Autocomplete.Root>
+            </form>
+          </div>
+
+          {submittedValue !== null && (
+            <div
+              style={{
+                padding: 'var(--space-3)',
+                backgroundColor: 'var(--green-a3)',
+                borderRadius: 'var(--radius-2)',
+              }}
+            >
+              <Text size="2" color="green">
+                Form submitted with value: <Code size="2">{submittedValue || '(empty)'}</Code>
+              </Text>
+            </div>
+          )}
+
+          <Text size="1" color="gray" style={{ fontStyle: 'italic' }}>
+            Select an item from each autocomplete. The second one will trigger the form submission indicator above.
+          </Text>
+        </div>
+      </div>
+    );
+  },
+};
