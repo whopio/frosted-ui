@@ -2082,3 +2082,75 @@ export const CustomFilter: Story = {
     );
   },
 };
+
+// ============================================================================
+// Modal
+// ============================================================================
+
+export const Modal: Story = {
+  name: 'Modal',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', maxWidth: 350 }}>
+      <div>
+        <Text size="2" weight="bold" style={{ marginBottom: 'var(--space-2)', display: 'block' }}>
+          Modal
+        </Text>
+        <Text size="2" color="gray" style={{ marginBottom: 'var(--space-3)', display: 'block' }}>
+          The <Code size="2">modal</Code> prop determines if the popup enters a modal state when open.
+        </Text>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+        <div>
+          <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+            <Code size="1">modal={'{false}'}</Code> (default) — Allows interaction with the rest of the document
+          </Text>
+          <Autocomplete.Root items={countries} modal={false}>
+            <TextField.Root>
+              <Autocomplete.Input render={<TextField.Input placeholder="Non-modal autocomplete..." />} />
+            </TextField.Root>
+            <Autocomplete.Content>
+              <ScrollArea type="auto">
+                <Autocomplete.Empty>No countries found.</Autocomplete.Empty>
+                <Autocomplete.List>
+                  {(country) => (
+                    <Autocomplete.Item key={country as string} value={country}>
+                      {country as string}
+                    </Autocomplete.Item>
+                  )}
+                </Autocomplete.List>
+              </ScrollArea>
+            </Autocomplete.Content>
+          </Autocomplete.Root>
+        </div>
+
+        <div>
+          <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+            <Code size="1">modal={'{true}'}</Code> — Locks page scroll and disables outside interactions
+          </Text>
+          <Autocomplete.Root items={countries} modal>
+            <TextField.Root>
+              <Autocomplete.Input render={<TextField.Input placeholder="Modal autocomplete..." />} />
+            </TextField.Root>
+            <Autocomplete.Content>
+              <ScrollArea type="auto">
+                <Autocomplete.Empty>No countries found.</Autocomplete.Empty>
+                <Autocomplete.List>
+                  {(country) => (
+                    <Autocomplete.Item key={country as string} value={country}>
+                      {country as string}
+                    </Autocomplete.Item>
+                  )}
+                </Autocomplete.List>
+              </ScrollArea>
+            </Autocomplete.Content>
+          </Autocomplete.Root>
+        </div>
+
+        <Text size="1" color="gray" style={{ fontStyle: 'italic' }}>
+          Try scrolling the page or clicking outside while each popup is open to see the difference.
+        </Text>
+      </div>
+    </div>
+  ),
+};
