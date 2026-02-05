@@ -1933,3 +1933,152 @@ export const Highlight: Story = {
     </div>
   ),
 };
+
+// ============================================================================
+// Custom Filter
+// ============================================================================
+
+const fruits = [
+  'Apple',
+  'Apricot',
+  'Banana',
+  'Blackberry',
+  'Blueberry',
+  'Cherry',
+  'Coconut',
+  'Cranberry',
+  'Date',
+  'Dragonfruit',
+  'Fig',
+  'Grape',
+  'Guava',
+  'Kiwi',
+  'Lemon',
+  'Lime',
+  'Mango',
+  'Melon',
+  'Nectarine',
+  'Orange',
+  'Papaya',
+  'Peach',
+  'Pear',
+  'Pineapple',
+  'Plum',
+  'Pomegranate',
+  'Raspberry',
+  'Strawberry',
+  'Tangerine',
+  'Watermelon',
+];
+
+export const CustomFilter: Story = {
+  name: 'Custom Filter',
+  render: () => {
+    // Example 1: Using filter prop
+    const startsWithFilter = (itemValue: unknown, query: string) => {
+      const item = itemValue as string;
+      return item.toLowerCase().startsWith(query.toLowerCase());
+    };
+
+    // Example 2: Using filteredItems prop with useFilter
+    const [query, setQuery] = React.useState('');
+    const { contains } = Autocomplete.useFilter();
+
+    const filteredFruits = React.useMemo(() => {
+      if (!query) return fruits;
+      return fruits.filter((fruit) => contains(fruit, query));
+    }, [query, contains]);
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', maxWidth: 350 }}>
+        <div>
+          <Text size="2" weight="bold" style={{ marginBottom: 'var(--space-2)', display: 'block' }}>
+            Custom Filter
+          </Text>
+          <Text size="2" color="gray" style={{ marginBottom: 'var(--space-3)', display: 'block' }}>
+            Control filtering behavior using the <Code size="2">filter</Code> prop for custom matching logic, or the{' '}
+            <Code size="2">filteredItems</Code> prop for full external control.
+          </Text>
+        </div>
+
+        {/* filter prop */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+          <div>
+            <Text size="2" weight="medium" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+              filter
+            </Text>
+            <Text size="1" color="gray" style={{ display: 'block' }}>
+              Custom filter function used to match items against the input query. Receives the item value, query string,
+              and optional <Code size="1">itemToString</Code> function.
+            </Text>
+          </div>
+          <div>
+            <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+              Starts-with filter (only matches items starting with the query)
+            </Text>
+            <Autocomplete.Root items={fruits} filter={startsWithFilter}>
+              <TextField.Root>
+                <Autocomplete.Input render={<TextField.Input placeholder="Try typing 'ap' or 'ba'..." />} />
+              </TextField.Root>
+              <Autocomplete.Content>
+                <ScrollArea type="auto">
+                  <Autocomplete.Empty>No fruits found.</Autocomplete.Empty>
+                  <Autocomplete.List>
+                    {(fruit) => (
+                      <Autocomplete.Item key={fruit as string} value={fruit}>
+                        {fruit as string}
+                      </Autocomplete.Item>
+                    )}
+                  </Autocomplete.List>
+                </ScrollArea>
+              </Autocomplete.Content>
+            </Autocomplete.Root>
+          </div>
+        </div>
+
+        {/* filteredItems prop */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+          <div>
+            <Text size="2" weight="medium" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+              filteredItems
+            </Text>
+            <Text size="1" color="gray" style={{ display: 'block' }}>
+              Pre-filtered items to display in the list. When provided, the list uses these items instead of filtering
+              internally. Use with <Code size="1">useFilter()</Code> hook for full control over filtering logic.
+            </Text>
+          </div>
+          <div>
+            <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+              External filtering with <Code size="1">filteredItems</Code> and <Code size="1">useFilter()</Code>
+            </Text>
+            <Autocomplete.Root
+              items={fruits}
+              filteredItems={filteredFruits}
+              value={query}
+              onValueChange={(value) => setQuery(value as string)}
+            >
+              <TextField.Root>
+                <Autocomplete.Input render={<TextField.Input placeholder="Search fruits..." />} />
+              </TextField.Root>
+              <Autocomplete.Content>
+                <ScrollArea type="auto">
+                  <Autocomplete.Empty>No fruits found.</Autocomplete.Empty>
+                  <Autocomplete.List>
+                    {(fruit) => (
+                      <Autocomplete.Item key={fruit as string} value={fruit}>
+                        {fruit as string}
+                      </Autocomplete.Item>
+                    )}
+                  </Autocomplete.List>
+                </ScrollArea>
+              </Autocomplete.Content>
+            </Autocomplete.Root>
+            <Text size="1" color="gray" style={{ marginTop: 'var(--space-2)', display: 'block', fontStyle: 'italic' }}>
+              Showing {filteredFruits.length} of {fruits.length} fruits
+            </Text>
+          </div>
+        </div>
+      </div>
+    );
+  },
+};
