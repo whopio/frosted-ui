@@ -20,6 +20,7 @@ type AutocompleteItemOwnProps = GetPropDefTypes<typeof autocompleteItemPropDefs>
 
 // Re-export Base UI types for consumers
 type AutocompleteRootHighlightEventDetails = AutocompletePrimitive.Root.HighlightEventDetails;
+type AutocompleteRootActions = AutocompletePrimitive.Root.Actions;
 
 // ============================================================================
 // Context
@@ -367,6 +368,7 @@ export {
 };
 
 export type {
+  AutocompleteRootActions as Actions,
   AutocompleteClearProps as ClearProps,
   AutocompleteContentProps as ContentProps,
   AutocompleteEmptyProps as EmptyProps,

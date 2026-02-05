@@ -2654,3 +2654,102 @@ export const InputRef: Story = {
     );
   },
 };
+
+// ============================================================================
+// Actions Ref
+// ============================================================================
+
+export const ActionsRef: Story = {
+  name: 'actionsRef',
+  render: () => {
+    const actionsRef = React.useRef<Autocomplete.Actions>(null!);
+    const [selectedCountry, setSelectedCountry] = React.useState<string | null>(null);
+    const [isOpen, setIsOpen] = React.useState(false);
+
+    const handleSelect = (value: unknown) => {
+      setSelectedCountry(value as string);
+      // Programmatically close after selection with a delay
+      setTimeout(() => {
+        actionsRef.current?.unmount();
+      }, 1000);
+    };
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 400 }}>
+        <div>
+          <Text size="2" weight="bold" style={{ marginBottom: 'var(--space-2)', display: 'block' }}>
+            actionsRef
+          </Text>
+          <Text size="2" color="gray" style={{ marginBottom: 'var(--space-3)', display: 'block' }}>
+            A ref to imperative actions. Use <Code size="2">Autocomplete.Actions</Code> to type the ref.
+          </Text>
+        </div>
+
+        <div
+          style={{
+            padding: 'var(--space-3)',
+            backgroundColor: 'var(--gray-a3)',
+            borderRadius: 'var(--radius-2)',
+          }}
+        >
+          <Text size="1" weight="medium" style={{ marginBottom: 'var(--space-2)', display: 'block' }}>
+            Available Actions:
+          </Text>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <Text size="1" color="gray">
+              <Code size="1">unmount()</Code> — Manually unmount the autocomplete popup. Useful when the autocomplete's
+              animation is controlled by an external library, allowing you to wait for the exit animation to complete
+              before unmounting.
+            </Text>
+          </div>
+        </div>
+
+        <Autocomplete.Root
+          items={countries}
+          actionsRef={actionsRef}
+          open={isOpen}
+          onOpenChange={setIsOpen}
+          onValueChange={handleSelect}
+        >
+          <TextField.Root>
+            <Autocomplete.Input render={<TextField.Input placeholder="Select a country..." />} />
+          </TextField.Root>
+          <Autocomplete.Content>
+            <ScrollArea type="auto">
+              <Autocomplete.Empty>No countries found.</Autocomplete.Empty>
+              <Autocomplete.List>
+                {(country) => (
+                  <Autocomplete.Item key={country as string} value={country}>
+                    {country as string}
+                  </Autocomplete.Item>
+                )}
+              </Autocomplete.List>
+            </ScrollArea>
+          </Autocomplete.Content>
+        </Autocomplete.Root>
+
+        {selectedCountry && (
+          <div
+            style={{
+              padding: 'var(--space-3)',
+              backgroundColor: 'var(--green-a3)',
+              borderRadius: 'var(--radius-2)',
+            }}
+          >
+            <Text size="2" color="green">
+              Selected: <Code size="2">{selectedCountry}</Code>
+            </Text>
+            <Text size="1" color="gray" style={{ display: 'block', marginTop: 'var(--space-1)' }}>
+              The popup will unmount after 1 second via actionsRef.unmount()
+            </Text>
+          </div>
+        )}
+
+        <Text size="1" color="gray" style={{ fontStyle: 'italic' }}>
+          Select a country to see the actionsRef in action. The popup will be programmatically unmounted after a 1
+          second delay.
+        </Text>
+      </div>
+    );
+  },
+};
