@@ -1,3 +1,4 @@
+import { MagnifyingGlass16, XCircleFilled16 } from '@frosted-ui/icons';
 import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
 import { Code, IconButton, ScrollArea, Spinner, Text, TextField } from '../index';
@@ -956,6 +957,7 @@ export const GridLayout: Story = {
     const [textValue, setTextValue] = React.useState('');
     const [searchValue, setSearchValue] = React.useState('');
     const textInputRef = React.useRef<HTMLInputElement | null>(null);
+    const autocompleteInputRef = React.useRef<HTMLInputElement | null>(null);
 
     function handleInsertEmoji(emoji: string) {
       if (!textInputRef.current) return;
@@ -990,7 +992,15 @@ export const GridLayout: Story = {
             grid
             items={emojiGroups}
             open={pickerOpen}
-            onOpenChange={setPickerOpen}
+            onOpenChange={(nextOpen, eventDetails) => {
+              // Clear search on ESC instead of closing popup if there's a search value
+              if (!nextOpen && eventDetails.reason === 'escape-key' && searchValue) {
+                eventDetails.cancel();
+                setSearchValue('');
+                return;
+              }
+              setPickerOpen(nextOpen);
+            }}
             onOpenChangeComplete={() => setSearchValue('')}
             value={searchValue}
             onValueChange={(value, details) => {
@@ -1015,7 +1025,28 @@ export const GridLayout: Story = {
             >
               <div style={{ padding: 8, borderBottom: '1px solid var(--color-stroke)' }}>
                 <TextField.Root size="3" variant="soft" color="gray">
-                  <Autocomplete.Input render={<TextField.Input placeholder="Search emojis…" />} />
+                  <TextField.Slot>
+                    <MagnifyingGlass16 />
+                  </TextField.Slot>
+                  <Autocomplete.Input
+                    ref={autocompleteInputRef}
+                    render={<TextField.Input placeholder="Search emojis…" />}
+                  />
+                  {searchValue ? (
+                    <TextField.Slot style={{ padding: 4 }}>
+                      <IconButton
+                        onClick={() => {
+                          setSearchValue('');
+                          autocompleteInputRef.current?.focus();
+                        }}
+                        variant="ghost"
+                        color="gray"
+                        style={{ borderRadius: '50%' }}
+                      >
+                        <XCircleFilled16 />
+                      </IconButton>
+                    </TextField.Slot>
+                  ) : null}
                 </TextField.Root>
               </div>
               <Autocomplete.Empty
