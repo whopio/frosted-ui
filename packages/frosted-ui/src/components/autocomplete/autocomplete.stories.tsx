@@ -1741,69 +1741,193 @@ const browsers = [
   'Epiphany',
 ];
 
-export const AutoHighlight: Story = {
-  name: 'Auto Highlight',
+export const Highlight: Story = {
+  name: 'Highlight',
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', maxWidth: 350 }}>
       <div>
         <Text size="2" weight="bold" style={{ marginBottom: 'var(--space-2)', display: 'block' }}>
-          Auto Highlight
+          Highlight
         </Text>
         <Text size="2" color="gray" style={{ marginBottom: 'var(--space-3)', display: 'block' }}>
-          Automatically highlight the first matching item when the popup opens or when the filtered results change using
-          the <Code size="2">autoHighlight</Code> prop.
-        </Text>
-        <Text size="1" color="gray" style={{ marginBottom: 'var(--space-3)', display: 'block' }}>
-          This allows users to quickly select the top result by pressing <Code size="1">Enter</Code> without needing to
-          navigate with arrow keys first.
+          Control how items are highlighted using <Code size="2">autoHighlight</Code>,{' '}
+          <Code size="2">keepHighlight</Code>, and <Code size="2">highlightItemOnHover</Code> props.
         </Text>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+      {/* autoHighlight */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
         <div>
-          <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
-            <Code size="1">autoHighlight={'{false}'}</Code> (default) — No item is highlighted initially
+          <Text size="2" weight="medium" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+            autoHighlight
           </Text>
-          <Autocomplete.Root items={browsers} autoHighlight={false}>
-            <TextField.Root>
-              <Autocomplete.Input render={<TextField.Input placeholder="Search browsers..." />} />
-            </TextField.Root>
-            <Autocomplete.Content>
-              <ScrollArea type="auto">
-                <Autocomplete.Empty>No browsers found.</Autocomplete.Empty>
-                <Autocomplete.List>
-                  {(browser) => (
-                    <Autocomplete.Item key={browser as string} value={browser}>
-                      {browser as string}
-                    </Autocomplete.Item>
-                  )}
-                </Autocomplete.List>
-              </ScrollArea>
-            </Autocomplete.Content>
-          </Autocomplete.Root>
+          <Text size="1" color="gray" style={{ display: 'block' }}>
+            Automatically highlight the first matching item when the popup opens or when the filtered results change.
+            Allows users to quickly select the top result by pressing <Code size="1">Enter</Code>.
+          </Text>
         </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+          <div>
+            <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+              <Code size="1">autoHighlight={'{false}'}</Code> (default)
+            </Text>
+            <Autocomplete.Root items={browsers} autoHighlight={false}>
+              <TextField.Root>
+                <Autocomplete.Input render={<TextField.Input placeholder="No auto highlight..." />} />
+              </TextField.Root>
+              <Autocomplete.Content>
+                <ScrollArea type="auto">
+                  <Autocomplete.Empty>No browsers found.</Autocomplete.Empty>
+                  <Autocomplete.List>
+                    {(browser) => (
+                      <Autocomplete.Item key={browser as string} value={browser}>
+                        {browser as string}
+                      </Autocomplete.Item>
+                    )}
+                  </Autocomplete.List>
+                </ScrollArea>
+              </Autocomplete.Content>
+            </Autocomplete.Root>
+          </div>
+          <div>
+            <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+              <Code size="1">autoHighlight={'{true}'}</Code>
+            </Text>
+            <Autocomplete.Root items={browsers} autoHighlight>
+              <TextField.Root>
+                <Autocomplete.Input render={<TextField.Input placeholder="First item auto-highlighted..." />} />
+              </TextField.Root>
+              <Autocomplete.Content>
+                <ScrollArea type="auto">
+                  <Autocomplete.Empty>No browsers found.</Autocomplete.Empty>
+                  <Autocomplete.List>
+                    {(browser) => (
+                      <Autocomplete.Item key={browser as string} value={browser}>
+                        {browser as string}
+                      </Autocomplete.Item>
+                    )}
+                  </Autocomplete.List>
+                </ScrollArea>
+              </Autocomplete.Content>
+            </Autocomplete.Root>
+          </div>
+        </div>
+      </div>
 
+      {/* keepHighlight */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
         <div>
-          <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
-            <Code size="1">autoHighlight={'{true}'}</Code> — First item is automatically highlighted
+          <Text size="2" weight="medium" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+            keepHighlight
           </Text>
-          <Autocomplete.Root items={browsers} autoHighlight>
-            <TextField.Root>
-              <Autocomplete.Input render={<TextField.Input placeholder="Search browsers..." />} />
-            </TextField.Root>
-            <Autocomplete.Content>
-              <ScrollArea type="auto">
-                <Autocomplete.Empty>No browsers found.</Autocomplete.Empty>
-                <Autocomplete.List>
-                  {(browser) => (
-                    <Autocomplete.Item key={browser as string} value={browser}>
-                      {browser as string}
-                    </Autocomplete.Item>
-                  )}
-                </Autocomplete.List>
-              </ScrollArea>
-            </Autocomplete.Content>
-          </Autocomplete.Root>
+          <Text size="1" color="gray" style={{ display: 'block' }}>
+            Whether the highlighted item should be preserved when the pointer leaves the list.
+          </Text>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+          <div>
+            <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+              <Code size="1">keepHighlight={'{false}'}</Code> (default) — Highlight clears on pointer leave
+            </Text>
+            <Autocomplete.Root items={browsers} keepHighlight={false}>
+              <TextField.Root>
+                <Autocomplete.Input render={<TextField.Input placeholder="Hover then move away..." />} />
+              </TextField.Root>
+              <Autocomplete.Content>
+                <ScrollArea type="auto">
+                  <Autocomplete.Empty>No browsers found.</Autocomplete.Empty>
+                  <Autocomplete.List>
+                    {(browser) => (
+                      <Autocomplete.Item key={browser as string} value={browser}>
+                        {browser as string}
+                      </Autocomplete.Item>
+                    )}
+                  </Autocomplete.List>
+                </ScrollArea>
+              </Autocomplete.Content>
+            </Autocomplete.Root>
+          </div>
+          <div>
+            <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+              <Code size="1">keepHighlight={'{true}'}</Code> — Highlight preserved on pointer leave
+            </Text>
+            <Autocomplete.Root items={browsers} keepHighlight>
+              <TextField.Root>
+                <Autocomplete.Input render={<TextField.Input placeholder="Hover then move away..." />} />
+              </TextField.Root>
+              <Autocomplete.Content>
+                <ScrollArea type="auto">
+                  <Autocomplete.Empty>No browsers found.</Autocomplete.Empty>
+                  <Autocomplete.List>
+                    {(browser) => (
+                      <Autocomplete.Item key={browser as string} value={browser}>
+                        {browser as string}
+                      </Autocomplete.Item>
+                    )}
+                  </Autocomplete.List>
+                </ScrollArea>
+              </Autocomplete.Content>
+            </Autocomplete.Root>
+          </div>
+        </div>
+      </div>
+
+      {/* highlightItemOnHover */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+        <div>
+          <Text size="2" weight="medium" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+            highlightItemOnHover
+          </Text>
+          <Text size="1" color="gray" style={{ display: 'block' }}>
+            Whether moving the pointer over items should highlight them. Disabling this allows CSS{' '}
+            <Code size="1">:hover</Code> to be differentiated from the <Code size="1">[data-highlighted]</Code> state.
+          </Text>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+          <div>
+            <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+              <Code size="1">highlightItemOnHover={'{true}'}</Code> (default) — Pointer highlights items
+            </Text>
+            <Autocomplete.Root items={browsers} highlightItemOnHover>
+              <TextField.Root>
+                <Autocomplete.Input render={<TextField.Input placeholder="Hover over items..." />} />
+              </TextField.Root>
+              <Autocomplete.Content>
+                <ScrollArea type="auto">
+                  <Autocomplete.Empty>No browsers found.</Autocomplete.Empty>
+                  <Autocomplete.List>
+                    {(browser) => (
+                      <Autocomplete.Item key={browser as string} value={browser}>
+                        {browser as string}
+                      </Autocomplete.Item>
+                    )}
+                  </Autocomplete.List>
+                </ScrollArea>
+              </Autocomplete.Content>
+            </Autocomplete.Root>
+          </div>
+          <div>
+            <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+              <Code size="1">highlightItemOnHover={'{false}'}</Code> — Keyboard only highlight
+            </Text>
+            <Autocomplete.Root items={browsers} highlightItemOnHover={false}>
+              <TextField.Root>
+                <Autocomplete.Input render={<TextField.Input placeholder="Use arrow keys to navigate..." />} />
+              </TextField.Root>
+              <Autocomplete.Content>
+                <ScrollArea type="auto">
+                  <Autocomplete.Empty>No browsers found.</Autocomplete.Empty>
+                  <Autocomplete.List>
+                    {(browser) => (
+                      <Autocomplete.Item key={browser as string} value={browser}>
+                        {browser as string}
+                      </Autocomplete.Item>
+                    )}
+                  </Autocomplete.List>
+                </ScrollArea>
+              </Autocomplete.Content>
+            </Autocomplete.Root>
+          </div>
         </div>
       </div>
     </div>
