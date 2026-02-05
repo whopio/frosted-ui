@@ -1,7 +1,21 @@
-import { MagnifyingGlass16, XCircleFilled16 } from '@frosted-ui/icons';
+import {
+  Bell16,
+  Copy16,
+  Document16,
+  Download16,
+  Gear16,
+  Home16,
+  MagnifyingGlass16,
+  Moon16,
+  Plus16,
+  QuestionCircle16,
+  Trash16,
+  User16,
+  XCircleFilled16,
+} from '@frosted-ui/icons';
 import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
-import { Code, IconButton, ScrollArea, Spinner, Text, TextField } from '../index';
+import { Code, IconButton, Kbd, ScrollArea, Spinner, Text, TextField } from '../index';
 import * as Autocomplete from './autocomplete';
 
 const meta: Meta<typeof Autocomplete.Root> = {
@@ -1079,6 +1093,360 @@ export const GridLayout: Story = {
               </ScrollArea>
             </Autocomplete.Content>
           </Autocomplete.Root>
+        </div>
+      </div>
+    );
+  },
+};
+
+// ============================================================================
+// Command Picker
+// ============================================================================
+
+interface Command {
+  id: string;
+  label: string;
+  icon: React.ReactNode;
+  shortcut?: string;
+  action: () => void;
+}
+
+interface CommandGroup {
+  label: string;
+  items: Command[];
+}
+
+export const CommandPicker: Story = {
+  name: 'Command Picker',
+  render: () => {
+    const [open, setOpen] = React.useState(false);
+    const [searchValue, setSearchValue] = React.useState('');
+    const [toast, setToast] = React.useState<{ message: string; visible: boolean }>({ message: '', visible: false });
+
+    const showToast = (message: string) => {
+      setToast({ message, visible: true });
+      setTimeout(() => setToast((prev) => ({ ...prev, visible: false })), 2000);
+    };
+
+    const handleAction = (action: () => void) => {
+      action();
+      setOpen(false);
+      setSearchValue('');
+    };
+
+    const commandGroups: CommandGroup[] = React.useMemo(
+      () => [
+        {
+          label: 'Navigation',
+          items: [
+            {
+              id: 'home',
+              label: 'Go to Home',
+              icon: <Home16 />,
+              shortcut: '⌘H',
+              action: () => showToast('Navigating to Home...'),
+            },
+            {
+              id: 'files',
+              label: 'Go to Files',
+              icon: <Document16 />,
+              shortcut: '⌘F',
+              action: () => showToast('Navigating to Files...'),
+            },
+            {
+              id: 'settings',
+              label: 'Go to Settings',
+              icon: <Gear16 />,
+              shortcut: '⌘,',
+              action: () => showToast('Opening Settings...'),
+            },
+            {
+              id: 'profile',
+              label: 'Go to Profile',
+              icon: <User16 />,
+              shortcut: '⌘P',
+              action: () => showToast('Opening Profile...'),
+            },
+          ],
+        },
+        {
+          label: 'Actions',
+          items: [
+            {
+              id: 'new',
+              label: 'Create New Document',
+              icon: <Plus16 />,
+              shortcut: '⌘N',
+              action: () => showToast('Creating new document...'),
+            },
+            {
+              id: 'copy',
+              label: 'Copy to Clipboard',
+              icon: <Copy16 />,
+              shortcut: '⌘C',
+              action: () => showToast('Copied to clipboard!'),
+            },
+            {
+              id: 'download',
+              label: 'Download File',
+              icon: <Download16 />,
+              shortcut: '⌘D',
+              action: () => showToast('Downloading file...'),
+            },
+            {
+              id: 'delete',
+              label: 'Delete Item',
+              icon: <Trash16 />,
+              shortcut: '⌘⌫',
+              action: () => showToast('Item deleted'),
+            },
+          ],
+        },
+        {
+          label: 'Preferences',
+          items: [
+            {
+              id: 'theme',
+              label: 'Toggle Dark Mode',
+              icon: <Moon16 />,
+              shortcut: '⌘T',
+              action: () => showToast('Theme toggled!'),
+            },
+            {
+              id: 'notifications',
+              label: 'Notification Settings',
+              icon: <Bell16 />,
+              action: () => showToast('Opening notifications...'),
+            },
+            {
+              id: 'help',
+              label: 'Help & Documentation',
+              icon: <QuestionCircle16 />,
+              shortcut: '⌘?',
+              action: () => showToast('Opening help center...'),
+            },
+          ],
+        },
+      ],
+      [],
+    );
+
+    // Handle keyboard shortcut to open
+    React.useEffect(() => {
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+          e.preventDefault();
+          setOpen(true);
+        }
+      };
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
+
+    const textFieldRootRef = React.useRef<HTMLDivElement>(null);
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 500 }}>
+        <div>
+          <Text size="2" weight="bold" style={{ marginBottom: 'var(--space-2)', display: 'block' }}>
+            Command Picker
+          </Text>
+          <Text size="2" color="gray" style={{ marginBottom: 'var(--space-3)', display: 'block' }}>
+            A filterable command palette that performs actions when items are clicked. The input inside the popup
+            filters the available commands. Press <Code size="2">⌘K</Code> or click the button to open.
+          </Text>
+        </div>
+
+        <Autocomplete.Root
+          openOnInputClick
+          items={commandGroups}
+          itemToStringValue={(item) => (item as Command).label}
+          open={open}
+          onOpenChange={(nextOpen, eventDetails) => {
+            if (!nextOpen && eventDetails.reason === 'escape-key' && searchValue) {
+              eventDetails.cancel();
+              setSearchValue('');
+              return;
+            }
+            setOpen(nextOpen);
+            if (!nextOpen) {
+              setSearchValue('');
+            }
+          }}
+          value={searchValue}
+          onValueChange={(value, details) => {
+            if (details.reason !== 'item-press') {
+              setSearchValue(value as string);
+            }
+          }}
+        >
+          <TextField.Root
+            style={{
+              width: 400,
+            }}
+            size="3"
+            variant="soft"
+            color="gray"
+            ref={textFieldRootRef}
+          >
+            <TextField.Slot>
+              <MagnifyingGlass16 />
+            </TextField.Slot>
+            <Autocomplete.Input render={<TextField.Input placeholder="Type a command or search..." />} />
+            {searchValue && (
+              <TextField.Slot style={{ paddingRight: 4 }}>
+                <Autocomplete.Clear>
+                  <IconButton variant="ghost" color="gray" size="2" style={{ borderRadius: '50%' }}>
+                    <XCircleFilled16 />
+                  </IconButton>
+                </Autocomplete.Clear>
+              </TextField.Slot>
+            )}
+          </TextField.Root>
+          <Autocomplete.Content
+            sideOffset={4}
+            size="3"
+            style={{
+              maxHeight: 360,
+              padding: 0,
+              overflow: 'hidden',
+            }}
+            anchor={textFieldRootRef}
+          >
+            <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+              <Autocomplete.Empty
+                style={{
+                  padding: 24,
+                  textAlign: 'center',
+                  color: 'var(--gray-a10)',
+                }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 10,
+                  }}
+                >
+                  <div style={{ marginBottom: 'var(--space-2)' }}>No commands found</div>
+                  <Text size="1" color="gray">
+                    Try searching for something else
+                  </Text>
+                </div>
+              </Autocomplete.Empty>
+              <Autocomplete.List style={{ padding: 8 }}>
+                {(group) => {
+                  const g = group as CommandGroup;
+                  return (
+                    <Autocomplete.Group key={g.label} items={g.items}>
+                      <Autocomplete.GroupLabel
+                        style={{
+                          padding: 'var(--space-2) var(--space-3)',
+                          fontSize: 'var(--font-size-1)',
+                          fontWeight: 500,
+                          color: 'var(--gray-a10)',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.05em',
+                        }}
+                      >
+                        {g.label}
+                      </Autocomplete.GroupLabel>
+                      {g.items.map((command) => (
+                        <Autocomplete.Item
+                          key={command.id}
+                          value={command}
+                          onClick={() => handleAction(command.action)}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            padding: 'var(--space-2) var(--space-3)',
+                            borderRadius: 'var(--radius-2)',
+                            cursor: 'pointer',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: 'var(--space-3)',
+                            }}
+                          >
+                            <span
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: 28,
+                                height: 28,
+                                borderRadius: 'var(--radius-2)',
+                                background: 'var(--gray-a3)',
+                                color: 'var(--gray-a11)',
+                              }}
+                            >
+                              {command.icon}
+                            </span>
+                            {command.label}
+                          </span>
+                          {command.shortcut && <Kbd size="1">{command.shortcut}</Kbd>}
+                        </Autocomplete.Item>
+                      ))}
+                    </Autocomplete.Group>
+                  );
+                }}
+              </Autocomplete.List>
+            </ScrollArea>
+            <div
+              style={{
+                padding: 'var(--space-2) var(--space-3)',
+                borderTop: '1px solid var(--gray-a4)',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                fontSize: 'var(--font-size-1)',
+                color: 'var(--gray-a10)',
+              }}
+            >
+              <span style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                  <Kbd size="1">↑</Kbd>
+                  <Kbd size="1">↓</Kbd>
+                  <span>to navigate</span>
+                </span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                  <Kbd size="1">↵</Kbd>
+                  <span>to select</span>
+                </span>
+              </span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                <Kbd size="1">esc</Kbd>
+                <span>to close</span>
+              </span>
+            </div>
+          </Autocomplete.Content>
+        </Autocomplete.Root>
+
+        {/* Toast notification */}
+        <div
+          style={{
+            position: 'fixed',
+            bottom: 24,
+            left: '50%',
+            transform: `translateX(-50%) translateY(${toast.visible ? 0 : 100}px)`,
+            padding: 'var(--space-3) var(--space-4)',
+            background: 'var(--gray-12)',
+            color: 'var(--gray-1)',
+            borderRadius: 'var(--radius-3)',
+            fontSize: 'var(--font-size-2)',
+            fontWeight: 500,
+            boxShadow: 'var(--shadow-4)',
+            opacity: toast.visible ? 1 : 0,
+            transition: 'transform 200ms ease, opacity 200ms ease',
+            pointerEvents: 'none',
+            zIndex: 1000,
+          }}
+        >
+          {toast.message}
         </div>
       </div>
     );
