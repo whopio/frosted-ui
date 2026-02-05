@@ -2537,3 +2537,120 @@ export const Disabled: Story = {
     </div>
   ),
 };
+
+// ============================================================================
+// Input Ref
+// ============================================================================
+
+export const InputRef: Story = {
+  name: 'inputRef',
+  render: () => {
+    const inputRef = React.useRef<HTMLInputElement>(null);
+    const [inputInfo, setInputInfo] = React.useState<string | null>(null);
+
+    const handleShowInputInfo = () => {
+      if (inputRef.current) {
+        setInputInfo(
+          JSON.stringify(
+            {
+              tagName: inputRef.current.tagName,
+              type: inputRef.current.type,
+              value: inputRef.current.value,
+              name: inputRef.current.name || '(none)',
+              id: inputRef.current.id || '(none)',
+            },
+            null,
+            2,
+          ),
+        );
+      }
+    };
+
+    const handleFocusInput = () => {
+      inputRef.current?.focus();
+    };
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 350 }}>
+        <div>
+          <Text size="2" weight="bold" style={{ marginBottom: 'var(--space-2)', display: 'block' }}>
+            inputRef
+          </Text>
+          <Text size="2" color="gray" style={{ marginBottom: 'var(--space-3)', display: 'block' }}>
+            A ref to the hidden input element. Useful for programmatic access to the input, such as focusing or reading
+            form data.
+          </Text>
+        </div>
+
+        <Autocomplete.Root items={countries} inputRef={inputRef}>
+          <TextField.Root>
+            <Autocomplete.Input name="country" render={<TextField.Input placeholder="Search countries..." />} />
+          </TextField.Root>
+          <Autocomplete.Content>
+            <ScrollArea type="auto">
+              <Autocomplete.Empty>No countries found.</Autocomplete.Empty>
+              <Autocomplete.List>
+                {(country) => (
+                  <Autocomplete.Item key={country as string} value={country}>
+                    {country as string}
+                  </Autocomplete.Item>
+                )}
+              </Autocomplete.List>
+            </ScrollArea>
+          </Autocomplete.Content>
+        </Autocomplete.Root>
+
+        <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+          <button
+            type="button"
+            onClick={handleFocusInput}
+            style={{
+              padding: 'var(--space-2) var(--space-3)',
+              borderRadius: 'var(--radius-2)',
+              border: '1px solid var(--gray-a6)',
+              background: 'var(--gray-a3)',
+              cursor: 'pointer',
+              fontSize: 'var(--font-size-1)',
+            }}
+          >
+            Focus Input
+          </button>
+          <button
+            type="button"
+            onClick={handleShowInputInfo}
+            style={{
+              padding: 'var(--space-2) var(--space-3)',
+              borderRadius: 'var(--radius-2)',
+              border: '1px solid var(--gray-a6)',
+              background: 'var(--gray-a3)',
+              cursor: 'pointer',
+              fontSize: 'var(--font-size-1)',
+            }}
+          >
+            Show Input Info
+          </button>
+        </div>
+
+        {inputInfo && (
+          <div
+            style={{
+              padding: 'var(--space-3)',
+              backgroundColor: 'var(--gray-a3)',
+              borderRadius: 'var(--radius-2)',
+              fontFamily: 'var(--code-font-family)',
+              fontSize: 'var(--font-size-1)',
+              whiteSpace: 'pre',
+            }}
+          >
+            {inputInfo}
+          </div>
+        )}
+
+        <Text size="1" color="gray" style={{ fontStyle: 'italic' }}>
+          Use the buttons above to interact with the input via the ref. Type something first, then click &quot;Show
+          Input Info&quot; to see the current input state.
+        </Text>
+      </div>
+    );
+  },
+};
