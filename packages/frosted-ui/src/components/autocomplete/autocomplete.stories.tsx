@@ -245,20 +245,29 @@ function SearchIcon() {
 
 export const WithSlot: Story = {
   name: 'With Slot',
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 300 }}>
-      <div>
-        <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
-          Leading slot (search icon)
-        </Text>
+  render: () => {
+    const textFieldRef = React.useRef<HTMLDivElement>(null);
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 300 }}>
+        <div>
+          <Text size="2" weight="bold" style={{ marginBottom: 'var(--space-2)', display: 'block' }}>
+            With Slot
+          </Text>
+          <Text size="1" color="gray" style={{ marginBottom: 'var(--space-3)', display: 'block' }}>
+            Use <Code size="1">TextField.Slot</Code> for leading or trailing icons. When using slots, pass the{' '}
+            <Code size="1">anchor</Code> prop to <Code size="1">Autocomplete.Content</Code> to position the popup
+            against the entire <Code size="1">TextField.Root</Code> rather than just the input.
+          </Text>
+        </div>
         <Autocomplete.Root items={countries}>
-          <TextField.Root>
+          <TextField.Root ref={textFieldRef}>
             <TextField.Slot>
               <SearchIcon />
             </TextField.Slot>
             <Autocomplete.Input render={<TextField.Input placeholder="Search countries..." />} />
           </TextField.Root>
-          <Autocomplete.Content>
+          <Autocomplete.Content anchor={textFieldRef}>
             <ScrollArea type="auto">
               <Autocomplete.Empty>No results found.</Autocomplete.Empty>
               <Autocomplete.List>
@@ -272,8 +281,8 @@ export const WithSlot: Story = {
           </Autocomplete.Content>
         </Autocomplete.Root>
       </div>
-    </div>
-  ),
+    );
+  },
 };
 
 // ============================================================================
