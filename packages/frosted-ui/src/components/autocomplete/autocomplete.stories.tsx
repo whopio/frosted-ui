@@ -1935,6 +1935,136 @@ export const Highlight: Story = {
 };
 
 // ============================================================================
+// onItemHighlighted Callback
+// ============================================================================
+
+export const OnItemHighlighted: Story = {
+  name: 'onItemHighlighted',
+  render: () => {
+    const [highlightLog, setHighlightLog] = React.useState<
+      { value: string | undefined; reason: string; timestamp: string }[]
+    >([]);
+
+    const handleItemHighlighted = (highlightedValue: unknown, eventDetails: Autocomplete.RootHighlightEventDetails) => {
+      const timestamp = new Date().toLocaleTimeString('en-US', {
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        fractionalSecondDigits: 3,
+      });
+
+      setHighlightLog((prev) =>
+        [
+          {
+            value: highlightedValue as string | undefined,
+            reason: eventDetails.reason,
+            timestamp,
+          },
+          ...prev,
+        ].slice(0, 10),
+      );
+    };
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 400 }}>
+        <div>
+          <Text size="2" weight="bold" style={{ marginBottom: 'var(--space-2)', display: 'block' }}>
+            onItemHighlighted
+          </Text>
+          <Text size="2" color="gray" style={{ marginBottom: 'var(--space-3)', display: 'block' }}>
+            Callback fired when an item is highlighted or unhighlighted. Receives the highlighted item value (or{' '}
+            <Code size="2">undefined</Code> if no item is highlighted) and event details with a{' '}
+            <Code size="2">reason</Code> property describing why the highlight changed. Use{' '}
+            <Code size="2">Autocomplete.RootHighlightEventDetails</Code> to type the event details.
+          </Text>
+        </div>
+
+        <div
+          style={{
+            padding: 'var(--space-3)',
+            backgroundColor: 'var(--gray-a3)',
+            borderRadius: 'var(--radius-2)',
+          }}
+        >
+          <Text size="1" weight="medium" style={{ marginBottom: 'var(--space-2)', display: 'block' }}>
+            Highlight Reasons:
+          </Text>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <Text size="1" color="gray">
+              <Code size="1">&apos;keyboard&apos;</Code> — The highlight changed due to keyboard navigation (arrow
+              keys).
+            </Text>
+            <Text size="1" color="gray">
+              <Code size="1">&apos;pointer&apos;</Code> — The highlight changed due to pointer hovering.
+            </Text>
+            <Text size="1" color="gray">
+              <Code size="1">&apos;none&apos;</Code> — The highlight changed programmatically.
+            </Text>
+          </div>
+        </div>
+
+        <Autocomplete.Root items={browsers} onItemHighlighted={handleItemHighlighted}>
+          <TextField.Root>
+            <Autocomplete.Input render={<TextField.Input placeholder="Try keyboard and mouse navigation..." />} />
+          </TextField.Root>
+          <Autocomplete.Content>
+            <ScrollArea type="auto">
+              <Autocomplete.Empty>No browsers found.</Autocomplete.Empty>
+              <Autocomplete.List>
+                {(browser) => (
+                  <Autocomplete.Item key={browser as string} value={browser}>
+                    {browser as string}
+                  </Autocomplete.Item>
+                )}
+              </Autocomplete.List>
+            </ScrollArea>
+          </Autocomplete.Content>
+        </Autocomplete.Root>
+
+        <div>
+          <Text size="1" weight="medium" style={{ marginBottom: 'var(--space-2)', display: 'block' }}>
+            Event Log (last 10):
+          </Text>
+          <div
+            style={{
+              fontFamily: 'var(--code-font-family)',
+              fontSize: 'var(--font-size-1)',
+              backgroundColor: 'var(--gray-a2)',
+              borderRadius: 'var(--radius-2)',
+              padding: 'var(--space-2)',
+              maxHeight: 200,
+              overflow: 'auto',
+            }}
+          >
+            {highlightLog.length === 0 ? (
+              <Text size="1" color="gray">
+                Interact with the autocomplete to see events...
+              </Text>
+            ) : (
+              highlightLog.map((log, i) => (
+                <div key={i} style={{ padding: 'var(--space-1) 0', borderBottom: '1px solid var(--gray-a4)' }}>
+                  <Text size="1" color="gray">
+                    {log.timestamp}
+                  </Text>{' '}
+                  <Code
+                    size="1"
+                    color={log.reason === 'keyboard' ? 'blue' : log.reason === 'pointer' ? 'green' : 'gray'}
+                  >
+                    {log.reason}
+                  </Code>{' '}
+                  <Text size="1">{log.value ?? '(none)'}</Text>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  },
+};
+
+// ============================================================================
 // Custom Filter
 // ============================================================================
 

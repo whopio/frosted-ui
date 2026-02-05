@@ -18,6 +18,9 @@ export { useFilter };
 type AutocompleteContentOwnProps = GetPropDefTypes<typeof autocompleteContentPropDefs>;
 type AutocompleteItemOwnProps = GetPropDefTypes<typeof autocompleteItemPropDefs>;
 
+// Re-export Base UI types for consumers
+type AutocompleteRootHighlightEventDetails = AutocompletePrimitive.Root.HighlightEventDetails;
+
 // ============================================================================
 // Context
 // ============================================================================
@@ -373,6 +376,7 @@ export type {
   AutocompleteInputProps as InputProps,
   AutocompleteItemProps as ItemProps,
   AutocompleteListProps as ListProps,
+  AutocompleteRootHighlightEventDetails as RootHighlightEventDetails,
   AutocompleteRootProps as RootProps,
   AutocompleteRowProps as RowProps,
   AutocompleteSeparatorProps as SeparatorProps,
