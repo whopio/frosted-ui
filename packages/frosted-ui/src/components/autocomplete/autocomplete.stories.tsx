@@ -1119,10 +1119,14 @@ export const AsyncSearch: Story = {
   render: () => {
     const [inputValue, setInputValue] = React.useState('');
     const [movies, setMovies] = React.useState<Movie[]>([]);
-    const [isLoading, setIsLoading] = React.useState(false);
+    const [isFetching, setIsFetching] = React.useState(false);
     const [hasSearched, setHasSearched] = React.useState(false);
 
     const debouncedQuery = useDebounce(inputValue, 300);
+
+    // Show loading state when input has value but debounce hasn't caught up yet,
+    // or when we're actively fetching
+    const isLoading = isFetching || (inputValue.trim() !== '' && inputValue !== debouncedQuery);
 
     React.useEffect(() => {
       if (!debouncedQuery.trim()) {
@@ -1132,12 +1136,12 @@ export const AsyncSearch: Story = {
       }
 
       let cancelled = false;
-      setIsLoading(true);
+      setIsFetching(true);
 
       searchMovies(debouncedQuery).then((results) => {
         if (!cancelled) {
           setMovies(results);
-          setIsLoading(false);
+          setIsFetching(false);
           setHasSearched(true);
         }
       });
