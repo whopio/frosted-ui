@@ -1264,9 +1264,9 @@ export const CommandPicker: Story = {
           open={open}
           onOpenChange={(nextOpen, eventDetails) => {
             if (!nextOpen && eventDetails.reason === 'escape-key' && searchValue) {
-              eventDetails.cancel();
-              setSearchValue('');
-              return;
+              eventDetails.cancel(); // Prevent the popup from closing
+              setSearchValue(''); // Clear the search input instead
+              return; // Exit early, don't update open state
             }
             setOpen(nextOpen);
             if (!nextOpen) {
