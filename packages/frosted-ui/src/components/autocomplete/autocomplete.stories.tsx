@@ -17,7 +17,7 @@ import {
 import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
 import { getColorForEmoji } from '../../helpers/emoji-colors';
-import { Code, IconButton, Kbd, ScrollArea, Spinner, Text, TextField } from '../index';
+import { Button, Code, IconButton, Kbd, ScrollArea, Spinner, Text, TextField } from '../index';
 import * as Autocomplete from './autocomplete';
 
 const meta: Meta<typeof Autocomplete.Root> = {
@@ -2925,34 +2925,12 @@ export const InputRef: Story = {
         </Autocomplete.Root>
 
         <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
-          <button
-            type="button"
-            onClick={handleFocusInput}
-            style={{
-              padding: 'var(--space-2) var(--space-3)',
-              borderRadius: 'var(--radius-2)',
-              border: '1px solid var(--gray-a6)',
-              background: 'var(--gray-a3)',
-              cursor: 'pointer',
-              fontSize: 'var(--font-size-1)',
-            }}
-          >
+          <Button variant="surface" type="button" onClick={handleFocusInput}>
             Focus Input
-          </button>
-          <button
-            type="button"
-            onClick={handleShowInputInfo}
-            style={{
-              padding: 'var(--space-2) var(--space-3)',
-              borderRadius: 'var(--radius-2)',
-              border: '1px solid var(--gray-a6)',
-              background: 'var(--gray-a3)',
-              cursor: 'pointer',
-              fontSize: 'var(--font-size-1)',
-            }}
-          >
+          </Button>
+          <Button variant="surface" type="button" onClick={handleShowInputInfo}>
             Show Input Info
-          </button>
+          </Button>
         </div>
 
         {inputInfo && (
