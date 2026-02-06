@@ -3,7 +3,7 @@
 <p align="center">Design system used by <a href="https://whop.com/">Whop</a></p>
 
 <h3 align="center">
-  <a href="https://frosted-ui-storybook.vercel.app/">Storybook</a> -
+  <a href="https://storybook.whop.dev/">Storybook</a> -
   <a href="https://www.figma.com/design/JoDwTV19wxmaK3iv5NLa0Z">Figma UI kit</a> -
   <a href="https://github.com/whopio/frosted-ui/tree/main/packages/frosted-ui">Source code</a>
 </h3>
