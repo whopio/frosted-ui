@@ -5,6 +5,7 @@ import * as React from 'react';
 import {
   Autocomplete,
   Button,
+  Callout,
   Checkbox,
   Field,
   NumberField,
@@ -39,29 +40,13 @@ export const Default: Story = {
     return (
       <div style={{ width: 320 }}>
         <Field.Root name="username">
-          <Field.Label>
-            <Text size="2" weight="medium">
-              Username
-            </Text>
-          </Field.Label>
+          <Field.Label>Username</Field.Label>
           <TextField.Root>
             <Field.Control render={<TextField.Input />} placeholder="Enter your username" required minLength={3} />
           </TextField.Root>
-          <Field.Description>
-            <Text size="1" color="gray">
-              Must be at least 3 characters
-            </Text>
-          </Field.Description>
-          <Field.Error match="valueMissing">
-            <Text size="1" color="danger">
-              Username is required
-            </Text>
-          </Field.Error>
-          <Field.Error match="tooShort">
-            <Text size="1" color="danger">
-              Username must be at least 3 characters
-            </Text>
-          </Field.Error>
+          <Field.Description>Must be at least 3 characters</Field.Description>
+          <Field.Error match="valueMissing">Username is required</Field.Error>
+          <Field.Error match="tooShort">Username must be at least 3 characters</Field.Error>
         </Field.Root>
       </div>
     );
@@ -78,50 +63,22 @@ export const WithTextField: Story = {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', width: 320 }}>
         <Field.Root name="email">
-          <Field.Label>
-            <Text size="2" weight="medium">
-              Email
-            </Text>
-          </Field.Label>
+          <Field.Label>Email</Field.Label>
           <TextField.Root>
             <Field.Control render={<TextField.Input />} type="email" placeholder="you@example.com" required />
           </TextField.Root>
-          <Field.Error match="valueMissing">
-            <Text size="1" color="danger">
-              Email is required
-            </Text>
-          </Field.Error>
-          <Field.Error match="typeMismatch">
-            <Text size="1" color="danger">
-              Please enter a valid email address
-            </Text>
-          </Field.Error>
+          <Field.Error match="valueMissing">Email is required</Field.Error>
+          <Field.Error match="typeMismatch">Please enter a valid email address</Field.Error>
         </Field.Root>
 
         <Field.Root name="password">
-          <Field.Label>
-            <Text size="2" weight="medium">
-              Password
-            </Text>
-          </Field.Label>
+          <Field.Label>Password</Field.Label>
           <TextField.Root>
             <Field.Control render={<TextField.Input />} type="password" placeholder="••••••••" required minLength={8} />
           </TextField.Root>
-          <Field.Description>
-            <Text size="1" color="gray">
-              Must be at least 8 characters
-            </Text>
-          </Field.Description>
-          <Field.Error match="valueMissing">
-            <Text size="1" color="danger">
-              Password is required
-            </Text>
-          </Field.Error>
-          <Field.Error match="tooShort">
-            <Text size="1" color="danger">
-              Password must be at least 8 characters
-            </Text>
-          </Field.Error>
+          <Field.Description>Must be at least 8 characters</Field.Description>
+          <Field.Error match="valueMissing">Password is required</Field.Error>
+          <Field.Error match="tooShort">Password must be at least 8 characters</Field.Error>
         </Field.Root>
       </div>
     );
@@ -149,11 +106,7 @@ export const WithSelect: Story = {
     return (
       <div style={{ width: 320 }}>
         <Field.Root name="country">
-          <Field.Label>
-            <Text size="2" weight="medium">
-              Country
-            </Text>
-          </Field.Label>
+          <Field.Label>Country</Field.Label>
           <Select.Root items={countries} required defaultValue="">
             <Select.Trigger placeholder="Select a country" style={{ width: '100%' }} />
             <Select.Content>
@@ -166,16 +119,8 @@ export const WithSelect: Story = {
               </ScrollArea>
             </Select.Content>
           </Select.Root>
-          <Field.Description>
-            <Text size="1" color="gray">
-              Choose your country of residence
-            </Text>
-          </Field.Description>
-          <Field.Error match="valueMissing">
-            <Text size="1" color="danger">
-              Please select a country
-            </Text>
-          </Field.Error>
+          <Field.Description>Choose your country of residence</Field.Description>
+          <Field.Error match="valueMissing">Please select a country</Field.Error>
         </Field.Root>
       </div>
     );
@@ -207,19 +152,11 @@ export const WithAutocomplete: Story = {
       <div style={{ width: 400 }}>
         <Field.Root name="containerImage">
           <Autocomplete.Root items={containerImages} mode="both" itemToStringValue={(item) => (item as Image).url}>
-            <Field.Label>
-              <Text size="2" weight="medium">
-                Container image
-              </Text>
-            </Field.Label>
+            <Field.Label>Container image</Field.Label>
             <TextField.Root>
               <Autocomplete.Input render={<TextField.Input placeholder="e.g. docker.io/library/node:latest" />} />
             </TextField.Root>
-            <Field.Description>
-              <Text size="1" color="gray">
-                Enter a registry URL with optional tags
-              </Text>
-            </Field.Description>
+            <Field.Description>Enter a registry URL with optional tags</Field.Description>
             <Autocomplete.Content>
               <ScrollArea type="auto" style={{ maxHeight: 200 }}>
                 <Autocomplete.List>
@@ -253,19 +190,11 @@ export const WithNumberField: Story = {
     return (
       <div style={{ width: 320 }}>
         <Field.Root name="quantity">
-          <Field.Label>
-            <Text size="2" weight="medium">
-              Number of instances
-            </Text>
-          </Field.Label>
+          <Field.Label>Number of instances</Field.Label>
           <NumberField.Root defaultValue={1} min={1} max={64}>
             <NumberField.Input />
           </NumberField.Root>
-          <Field.Description>
-            <Text size="1" color="gray">
-              Choose between 1 and 64 instances
-            </Text>
-          </Field.Description>
+          <Field.Description>Choose between 1 and 64 instances</Field.Description>
         </Field.Root>
       </div>
     );
@@ -282,69 +211,27 @@ export const WithSwitch: Story = {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 320 }}>
         <Field.Root name="notifications">
-          <Field.Label>
-            <Text
-              size="2"
-              weight="medium"
-              render={
-                <label
-                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer' }}
-                />
-              }
-            >
-              Enable notifications
-              <Switch name="notifications" defaultChecked />
-            </Text>
+          <Field.Label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            Enable notifications
+            <Switch name="notifications" defaultChecked />
           </Field.Label>
-          <Field.Description>
-            <Text size="1" color="gray">
-              Receive updates about your account
-            </Text>
-          </Field.Description>
+          <Field.Description>Receive updates about your account</Field.Description>
         </Field.Root>
 
         <Field.Root name="marketing">
-          <Field.Label>
-            <Text
-              size="2"
-              weight="medium"
-              render={
-                <label
-                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer' }}
-                />
-              }
-            >
-              Marketing emails
-              <Switch name="marketing" />
-            </Text>
+          <Field.Label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            Marketing emails
+            <Switch name="marketing" />
           </Field.Label>
-          <Field.Description>
-            <Text size="1" color="gray">
-              Receive promotional content and offers
-            </Text>
-          </Field.Description>
+          <Field.Description>Receive promotional content and offers</Field.Description>
         </Field.Root>
 
         <Field.Root name="analytics">
-          <Field.Label>
-            <Text
-              size="2"
-              weight="medium"
-              render={
-                <label
-                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer' }}
-                />
-              }
-            >
-              Usage analytics
-              <Switch name="analytics" defaultChecked />
-            </Text>
+          <Field.Label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            Usage analytics
+            <Switch name="analytics" defaultChecked />
           </Field.Label>
-          <Field.Description>
-            <Text size="1" color="gray">
-              Help improve the product with anonymous usage data
-            </Text>
-          </Field.Description>
+          <Field.Description>Help improve the product with anonymous usage data</Field.Description>
         </Field.Root>
       </div>
     );
@@ -361,11 +248,7 @@ export const WithRadioGroup: Story = {
     return (
       <div style={{ width: 320 }}>
         <Field.Root name="storageType">
-          <Field.Label>
-            <Text size="2" weight="medium">
-              Storage type
-            </Text>
-          </Field.Label>
+          <Field.Label>Storage type</Field.Label>
           <RadioGroup.Root
             defaultValue="ssd"
             style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', marginTop: 'var(--space-2)' }}
@@ -380,11 +263,7 @@ export const WithRadioGroup: Story = {
               <RadioGroup.Item value="nvme">NVMe (Premium)</RadioGroup.Item>
             </Field.Item>
           </RadioGroup.Root>
-          <Field.Description>
-            <Text size="1" color="gray">
-              Select the storage type for your server
-            </Text>
-          </Field.Description>
+          <Field.Description>Select the storage type for your server</Field.Description>
         </Field.Root>
       </div>
     );
@@ -401,17 +280,13 @@ export const WithCheckbox: Story = {
     return (
       <div style={{ width: 320 }}>
         <Field.Root name="terms">
-          <Field.Label>
-            <Text size="2" weight="medium">
-              Terms and Conditions
-            </Text>
-          </Field.Label>
+          <Field.Label>Terms and Conditions</Field.Label>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', marginTop: 'var(--space-2)' }}>
             <Field.Item>
               <Checkbox name="terms" required>
                 <Text size="2">
                   I agree to the{' '}
-                  <Text color="blue" style={{ textDecoration: 'underline', cursor: 'pointer' }}>
+                  <Text color="blue" style={{ textDecoration: 'underline' }}>
                     Terms of Service
                   </Text>
                 </Text>
@@ -421,7 +296,7 @@ export const WithCheckbox: Story = {
               <Checkbox name="privacy" required>
                 <Text size="2">
                   I have read the{' '}
-                  <Text color="blue" style={{ textDecoration: 'underline', cursor: 'pointer' }}>
+                  <Text color="blue" style={{ textDecoration: 'underline' }}>
                     Privacy Policy
                   </Text>
                 </Text>
@@ -452,11 +327,7 @@ export const WithSlider: Story = {
       <div style={{ width: 320 }}>
         <Field.Root name="volume">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Field.Label>
-              <Text size="2" weight="medium">
-                CPU allocation
-              </Text>
-            </Field.Label>
+            <Field.Label>CPU allocation</Field.Label>
             <Text size="2" color="gray">
               {value[0]}%
             </Text>
@@ -464,11 +335,7 @@ export const WithSlider: Story = {
           <div style={{ marginTop: 'var(--space-2)' }}>
             <Slider value={value} onValueChange={(v) => setValue(v as number[])} min={0} max={100} step={5} />
           </div>
-          <Field.Description>
-            <Text size="1" color="gray">
-              Allocate CPU resources for your application
-            </Text>
-          </Field.Description>
+          <Field.Description>Allocate CPU resources for your application</Field.Description>
         </Field.Root>
       </div>
     );
@@ -557,18 +424,15 @@ export const CustomValidation: Story = {
     const showError = username.length > 0 && (!allRulesPass || isAvailable === false);
 
     const RuleItem = ({ passed, children }: { passed: boolean; children: React.ReactNode }) => (
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 'var(--space-2)',
-          color: passed ? 'var(--green-11)' : 'var(--gray-10)',
-          transition: 'color 0.15s ease',
-        }}
+      <Text
+        render={<div />}
+        size="1"
+        color={passed ? 'success' : 'gray'}
+        style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}
       >
         {passed ? <Checkmark12 /> : <XMarkSmall12 />}
-        <Text size="1">{children}</Text>
-      </div>
+        {children}
+      </Text>
     );
 
     return (
@@ -583,14 +447,10 @@ export const CustomValidation: Story = {
         </div>
 
         <Field.Root name="username">
-          <Field.Label>
-            <Text size="2" weight="medium">
-              Username
-            </Text>
-          </Field.Label>
+          <Field.Label>Username</Field.Label>
 
           <div style={{ position: 'relative' }}>
-            <TextField.Root color={showError ? 'danger' : isValid ? 'green' : undefined}>
+            <TextField.Root color={showError ? 'danger' : isValid ? 'success' : undefined}>
               <TextField.Slot style={{ paddingLeft: 'var(--space-3)' }}>
                 <Text size="2" color="gray">
                   yoursite.com/
@@ -605,14 +465,14 @@ export const CustomValidation: Story = {
               <TextField.Slot style={{ paddingRight: 'var(--space-3)' }}>
                 {isChecking && <Spinner size="1" />}
                 {!isChecking && isValid && (
-                  <div style={{ color: 'var(--green-11)' }}>
+                  <Text color="success">
                     <Checkmark12 />
-                  </div>
+                  </Text>
                 )}
                 {!isChecking && showError && (
-                  <div style={{ color: 'var(--danger-11)' }}>
+                  <Text color="danger">
                     <XMarkSmall12 />
-                  </div>
+                  </Text>
                 )}
               </TextField.Slot>
             </TextField.Root>
@@ -635,44 +495,20 @@ export const CustomValidation: Story = {
 
           {/* Availability Status */}
           {allRulesPass && username.length >= 3 && (
-            <div
-              style={{
-                marginTop: 'var(--space-3)',
-                padding: 'var(--space-2) var(--space-3)',
-                borderRadius: 'var(--radius-2)',
-                background: isChecking ? 'var(--gray-a3)' : isAvailable ? 'var(--green-a3)' : 'var(--danger-a3)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 'var(--space-2)',
-              }}
+            <Callout.Root
+              size="1"
+              color={isChecking ? 'gray' : isAvailable ? 'success' : 'danger'}
+              style={{ marginTop: 'var(--space-3)' }}
             >
-              {isChecking ? (
-                <>
-                  <Spinner size="1" />
-                  <Text size="1" color="gray">
-                    Checking availability...
-                  </Text>
-                </>
-              ) : isAvailable ? (
-                <>
-                  <div style={{ color: 'var(--green-11)' }}>
-                    <Checkmark12 />
-                  </div>
-                  <Text size="1" color="green">
-                    Username is available!
-                  </Text>
-                </>
-              ) : (
-                <>
-                  <div style={{ color: 'var(--danger-11)' }}>
-                    <XMarkSmall12 />
-                  </div>
-                  <Text size="1" color="danger">
-                    Username is already taken
-                  </Text>
-                </>
-              )}
-            </div>
+              <Callout.Icon>{isChecking ? <Spinner size="1" /> : isAvailable ? <Checkmark12 /> : <XMarkSmall12 />}</Callout.Icon>
+              <Callout.Text>
+                {isChecking
+                  ? 'Checking availability...'
+                  : isAvailable
+                    ? 'Username is available!'
+                    : 'Username is already taken'}
+              </Callout.Text>
+            </Callout.Root>
           )}
 
           {/* Suggestions when taken */}
@@ -683,8 +519,10 @@ export const CustomValidation: Story = {
               </Text>
               <div style={{ display: 'flex', gap: 'var(--space-2)', marginTop: 'var(--space-1)', flexWrap: 'wrap' }}>
                 {[`${username}_dev`, `${username}123`, `the_${username}`].map((suggestion) => (
-                  <button
+                  <Button
                     key={suggestion}
+                    variant="soft"
+                    size="1"
                     onClick={() => {
                       setUsername(suggestion);
                       setValidationState({
@@ -695,18 +533,9 @@ export const CustomValidation: Story = {
                         noConsecutiveUnderscores: usernameRules.noConsecutiveUnderscores(suggestion),
                       });
                     }}
-                    style={{
-                      padding: 'var(--space-1) var(--space-2)',
-                      background: 'var(--gray-a4)',
-                      border: 'none',
-                      borderRadius: 'var(--radius-2)',
-                      cursor: 'pointer',
-                      fontSize: 'var(--font-size-1)',
-                      fontFamily: 'monospace',
-                    }}
                   >
                     @{suggestion}
-                  </button>
+                  </Button>
                 ))}
               </div>
             </div>
@@ -746,48 +575,24 @@ export const FormExample: Story = {
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
           <Field.Root name="fullName">
-            <Field.Label>
-              <Text size="2" weight="medium">
-                Full name
-              </Text>
-            </Field.Label>
+            <Field.Label>Full name</Field.Label>
             <TextField.Root>
               <Field.Control render={<TextField.Input />} placeholder="John Doe" required />
             </TextField.Root>
-            <Field.Error match="valueMissing">
-              <Text size="1" color="danger">
-                Full name is required
-              </Text>
-            </Field.Error>
+            <Field.Error match="valueMissing">Full name is required</Field.Error>
           </Field.Root>
 
           <Field.Root name="email">
-            <Field.Label>
-              <Text size="2" weight="medium">
-                Email
-              </Text>
-            </Field.Label>
+            <Field.Label>Email</Field.Label>
             <TextField.Root>
               <Field.Control render={<TextField.Input />} type="email" placeholder="you@example.com" required />
             </TextField.Root>
-            <Field.Error match="valueMissing">
-              <Text size="1" color="danger">
-                Email is required
-              </Text>
-            </Field.Error>
-            <Field.Error match="typeMismatch">
-              <Text size="1" color="danger">
-                Please enter a valid email
-              </Text>
-            </Field.Error>
+            <Field.Error match="valueMissing">Email is required</Field.Error>
+            <Field.Error match="typeMismatch">Please enter a valid email</Field.Error>
           </Field.Root>
 
           <Field.Root name="plan">
-            <Field.Label>
-              <Text size="2" weight="medium">
-                Plan
-              </Text>
-            </Field.Label>
+            <Field.Label>Plan</Field.Label>
             <Select.Root
               items={[
                 { value: 'free', label: 'Free' },
@@ -806,49 +611,26 @@ export const FormExample: Story = {
           </Field.Root>
 
           <Field.Root name="teamSize">
-            <Field.Label>
-              <Text size="2" weight="medium">
-                Team size
-              </Text>
-            </Field.Label>
+            <Field.Label>Team size</Field.Label>
             <NumberField.Root defaultValue={1} min={1} max={100} name="teamSize">
               <NumberField.Input />
             </NumberField.Root>
-            <Field.Description>
-              <Text size="1" color="gray">
-                Number of team members (1-100)
-              </Text>
-            </Field.Description>
+            <Field.Description>Number of team members (1-100)</Field.Description>
           </Field.Root>
 
           <Field.Root name="notifications">
-            <Field.Label>
-              <Text
-                size="2"
-                weight="medium"
-                render={
-                  <label
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      cursor: 'pointer',
-                    }}
-                  />
-                }
-              >
-                Email notifications
-                <Switch name="notifications" defaultChecked />
-              </Text>
+            <Field.Label
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer' }}
+            >
+              Email notifications
+              <Switch name="notifications" defaultChecked />
             </Field.Label>
           </Field.Root>
 
           <Field.Root name="terms">
-            <Field.Item>
-              <Checkbox name="terms" required>
-                <Text size="2">I agree to the Terms of Service</Text>
-              </Checkbox>
-            </Field.Item>
+            <Field.Label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
+              <Checkbox name="terms" required />I agree to the Terms of Service
+            </Field.Label>
           </Field.Root>
 
           <Button type="submit" variant="solid" style={{ marginTop: 'var(--space-2)' }}>
@@ -857,28 +639,26 @@ export const FormExample: Story = {
         </form>
 
         {formData && (
-          <div
-            style={{
-              padding: 'var(--space-3)',
-              background: 'var(--green-a3)',
-              borderRadius: 'var(--radius-2)',
-            }}
-          >
-            <Text size="2" weight="medium" color="green">
+          <Callout.Root color="success">
+            <Callout.Icon>
+              <Checkmark12 />
+            </Callout.Icon>
+            <Callout.Text>
               Form submitted successfully!
-            </Text>
-            <pre
-              style={{
-                marginTop: 'var(--space-2)',
-                fontSize: 'var(--font-size-1)',
-                fontFamily: 'monospace',
-                whiteSpace: 'pre-wrap',
-                wordBreak: 'break-all',
-              }}
-            >
-              {JSON.stringify(formData, null, 2)}
-            </pre>
-          </div>
+              <pre
+                style={{
+                  marginTop: 'var(--space-2)',
+                  fontSize: 'var(--font-size-1)',
+                  fontFamily: 'monospace',
+                  whiteSpace: 'pre-wrap',
+                  wordBreak: 'break-all',
+                  fontWeight: 'normal',
+                }}
+              >
+                {JSON.stringify(formData, null, 2)}
+              </pre>
+            </Callout.Text>
+          </Callout.Root>
         )}
       </div>
     );
@@ -895,11 +675,7 @@ export const ValidityRenderProp: Story = {
     return (
       <div style={{ width: 320 }}>
         <Field.Root name="password" validationMode="onChange">
-          <Field.Label>
-            <Text size="2" weight="medium">
-              Password
-            </Text>
-          </Field.Label>
+          <Field.Label>Password</Field.Label>
           <TextField.Root>
             <Field.Control
               render={<TextField.Input />}
@@ -920,15 +696,15 @@ export const ValidityRenderProp: Story = {
                   fontSize: 'var(--font-size-1)',
                 }}
               >
-                <li style={{ color: state.validity.valueMissing ? 'var(--danger-11)' : 'var(--green-11)' }}>
+                <Text render={<li />} color={state.validity.valueMissing ? 'danger' : 'success'}>
                   {state.validity.valueMissing ? '✗' : '✓'} Required
-                </li>
-                <li style={{ color: state.validity.tooShort ? 'var(--danger-11)' : 'var(--green-11)' }}>
+                </Text>
+                <Text render={<li />} color={state.validity.tooShort ? 'danger' : 'success'}>
                   {state.validity.tooShort ? '✗' : '✓'} At least 8 characters
-                </li>
-                <li style={{ color: state.validity.patternMismatch ? 'var(--danger-11)' : 'var(--green-11)' }}>
+                </Text>
+                <Text render={<li />} color={state.validity.patternMismatch ? 'danger' : 'success'}>
                   {state.validity.patternMismatch ? '✗' : '✓'} Contains uppercase, lowercase, and number
-                </li>
+                </Text>
               </ul>
             )}
           </Field.Validity>
@@ -948,27 +724,15 @@ export const DisabledState: Story = {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', width: 320 }}>
         <Field.Root name="readonlyField" disabled>
-          <Field.Label>
-            <Text size="2" weight="medium">
-              Account ID (read-only)
-            </Text>
-          </Field.Label>
+          <Field.Label>Account ID (read-only)</Field.Label>
           <TextField.Root>
             <Field.Control render={<TextField.Input />} defaultValue="ACC-123456" />
           </TextField.Root>
-          <Field.Description>
-            <Text size="1" color="gray">
-              This field cannot be modified
-            </Text>
-          </Field.Description>
+          <Field.Description>This field cannot be modified</Field.Description>
         </Field.Root>
 
         <Field.Root name="lockedPlan" disabled>
-          <Field.Label>
-            <Text size="2" weight="medium">
-              Current Plan
-            </Text>
-          </Field.Label>
+          <Field.Label>Current Plan</Field.Label>
           <Select.Root defaultValue="enterprise" disabled>
             <Select.Trigger style={{ width: '100%' }} />
             <Select.Content>
@@ -977,11 +741,7 @@ export const DisabledState: Story = {
               <Select.Item value="enterprise">Enterprise</Select.Item>
             </Select.Content>
           </Select.Root>
-          <Field.Description>
-            <Text size="1" color="gray">
-              Contact support to change your plan
-            </Text>
-          </Field.Description>
+          <Field.Description>Contact support to change your plan</Field.Description>
         </Field.Root>
       </div>
     );

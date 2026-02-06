@@ -2,6 +2,7 @@
 
 import { Field as FieldPrimitive } from '@base-ui/react/field';
 import * as React from 'react';
+import { Text, type TextProps } from '../text/text';
 
 // ============================================================================
 // Types
@@ -54,11 +55,14 @@ FieldRoot.displayName = 'FieldRoot';
 // Label
 // ============================================================================
 
-interface FieldLabelProps extends React.ComponentProps<typeof FieldPrimitive.Label> {}
+interface FieldLabelProps
+  extends
+    Omit<React.ComponentProps<typeof FieldPrimitive.Label>, 'color'>,
+    Pick<TextProps, 'size' | 'weight' | 'align' | 'trim' | 'color' | 'highContrast'> {}
 
 /**
  * An accessible label that is automatically associated with the field control.
- * Renders a `<label>` element.
+ * Renders a `<label>` element styled with `<Text>`.
  *
  * The label is automatically connected to the control via `htmlFor`/`id` attributes,
  * providing proper accessibility without manual wiring.
@@ -71,6 +75,9 @@ interface FieldLabelProps extends React.ComponentProps<typeof FieldPrimitive.Lab
  * </Field.Root>
  * ```
  *
+ * @param size - Text size ('1' - '9'). Defaults to '2'.
+ * @param weight - Font weight ('light', 'regular', 'medium', 'bold').
+ * @param color - Text color.
  * @param nativeLabel - Whether the component renders a native `<label>` element when replacing via `render` prop.
  *   Set to `false` if the rendered element is not a label (e.g. `<div>`). This avoids inheriting label behaviors
  *   on button controls like `<Select.Trigger>`, including `:hover` states and click propagation. Defaults to `true`.
@@ -78,7 +85,22 @@ interface FieldLabelProps extends React.ComponentProps<typeof FieldPrimitive.Lab
  * @see https://base-ui.com/react/components/field#label
  */
 const FieldLabel = React.forwardRef<HTMLLabelElement, FieldLabelProps>((props, forwardedRef) => {
-  return <FieldPrimitive.Label {...props} ref={forwardedRef} />;
+  const { size = '2', weight = 'medium', align, trim, color, highContrast, render, ...labelProps } = props;
+
+  // If user provides custom render, use it directly; otherwise use Text
+  const defaultRender = (
+    <Text
+      render={<label />}
+      size={size}
+      weight={weight}
+      align={align}
+      trim={trim}
+      color={color}
+      highContrast={highContrast}
+    />
+  );
+
+  return <FieldPrimitive.Label {...labelProps} ref={forwardedRef} render={render ?? defaultRender} />;
 });
 FieldLabel.displayName = 'FieldLabel';
 
@@ -118,10 +140,14 @@ FieldControl.displayName = 'FieldControl';
 // Description
 // ============================================================================
 
-interface FieldDescriptionProps extends React.ComponentProps<typeof FieldPrimitive.Description> {}
+interface FieldDescriptionProps
+  extends
+    Omit<React.ComponentProps<typeof FieldPrimitive.Description>, 'color'>,
+    Pick<TextProps, 'size' | 'weight' | 'align' | 'trim' | 'color' | 'highContrast'> {}
 
 /**
- * A paragraph with additional information about the field. Renders a `<p>` element.
+ * A paragraph with additional information about the field.
+ * Renders a `<p>` element styled with `<Text>`.
  *
  * The description is automatically associated with the control via `aria-describedby`,
  * making it accessible to screen readers.
@@ -135,10 +161,29 @@ interface FieldDescriptionProps extends React.ComponentProps<typeof FieldPrimiti
  * </Field.Root>
  * ```
  *
+ * @param size - Text size ('1' - '9'). Defaults to '1'.
+ * @param weight - Font weight ('light', 'regular', 'medium', 'bold').
+ * @param color - Text color. Defaults to 'gray'.
+ *
  * @see https://base-ui.com/react/components/field#description
  */
 const FieldDescription = React.forwardRef<HTMLParagraphElement, FieldDescriptionProps>((props, forwardedRef) => {
-  return <FieldPrimitive.Description {...props} ref={forwardedRef} />;
+  const { size = '1', weight, align, trim, color = 'gray', highContrast, render, ...descriptionProps } = props;
+
+  // If user provides custom render, use it directly; otherwise use Text
+  const defaultRender = (
+    <Text
+      render={<p />}
+      size={size}
+      weight={weight}
+      align={align}
+      trim={trim}
+      color={color}
+      highContrast={highContrast}
+    />
+  );
+
+  return <FieldPrimitive.Description {...descriptionProps} ref={forwardedRef} render={render ?? defaultRender} />;
 });
 FieldDescription.displayName = 'FieldDescription';
 
@@ -187,11 +232,14 @@ FieldItem.displayName = 'FieldItem';
 // Error
 // ============================================================================
 
-interface FieldErrorProps extends React.ComponentProps<typeof FieldPrimitive.Error> {}
+interface FieldErrorProps
+  extends
+    Omit<React.ComponentProps<typeof FieldPrimitive.Error>, 'color'>,
+    Pick<TextProps, 'size' | 'weight' | 'align' | 'trim' | 'color' | 'highContrast'> {}
 
 /**
  * An error message displayed if the field control fails validation.
- * Renders a `<div>` element.
+ * Renders a `<div>` element styled with `<Text>`.
  *
  * The error message is automatically associated with the control via `aria-errormessage`
  * when the field is invalid, making it accessible to screen readers.
@@ -206,6 +254,9 @@ interface FieldErrorProps extends React.ComponentProps<typeof FieldPrimitive.Err
  * </Field.Root>
  * ```
  *
+ * @param size - Text size ('1' - '9'). Defaults to '1'.
+ * @param weight - Font weight ('light', 'regular', 'medium', 'bold').
+ * @param color - Text color. Defaults to 'danger'.
  * @param match - Determines whether to show the error message according to the field's `ValidityState`.
  *   Can be one of the validity state keys:
  *   - `'valueMissing'` - The field is required but empty
@@ -224,7 +275,22 @@ interface FieldErrorProps extends React.ComponentProps<typeof FieldPrimitive.Err
  * @see https://base-ui.com/react/components/field#error
  */
 const FieldError = React.forwardRef<HTMLDivElement, FieldErrorProps>((props, forwardedRef) => {
-  return <FieldPrimitive.Error {...props} ref={forwardedRef} />;
+  const { size = '1', weight, align, trim, color = 'danger', highContrast, render, ...errorProps } = props;
+
+  // If user provides custom render, use it directly; otherwise use Text
+  const defaultRender = (
+    <Text
+      render={<div />}
+      size={size}
+      weight={weight}
+      align={align}
+      trim={trim}
+      color={color}
+      highContrast={highContrast}
+    />
+  );
+
+  return <FieldPrimitive.Error {...errorProps} ref={forwardedRef} render={render ?? defaultRender} />;
 });
 FieldError.displayName = 'FieldError';
 
