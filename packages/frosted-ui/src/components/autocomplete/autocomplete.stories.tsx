@@ -2964,6 +2964,7 @@ export const InputRef: Story = {
 export const ActionsRef: Story = {
   name: 'actionsRef',
   render: () => {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const actionsRef = React.useRef<Autocomplete.Actions>(null!);
     const [selectedCountry, setSelectedCountry] = React.useState<string | null>(null);
     const [isOpen, setIsOpen] = React.useState(false);
