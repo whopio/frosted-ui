@@ -242,7 +242,7 @@
     background-color: var(--gray-a4);
 
     &:where([data-accent-color]) {
-      background-color: var(--accent-a5);
+      background-color: var(--accent-a4);
       color: var(--accent-12);
     }
   }
