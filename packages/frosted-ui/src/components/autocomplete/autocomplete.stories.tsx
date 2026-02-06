@@ -3055,3 +3055,124 @@ export const ActionsRef: Story = {
     );
   },
 };
+
+// ============================================================================
+// Form Usage with Custom ID
+// ============================================================================
+
+export const FormWithCustomId: Story = {
+  name: 'Form with Custom ID',
+  render: () => {
+    const [formData, setFormData] = React.useState<{ country: string } | null>(null);
+
+    const countries = [
+      { id: 'us', label: 'United States' },
+      { id: 'ca', label: 'Canada' },
+      { id: 'uk', label: 'United Kingdom' },
+      { id: 'de', label: 'Germany' },
+      { id: 'fr', label: 'France' },
+      { id: 'jp', label: 'Japan' },
+      { id: 'au', label: 'Australia' },
+    ];
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const data = new FormData(e.currentTarget);
+      setFormData({ country: data.get('country') as string });
+    };
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 400 }}>
+        <div>
+          <Text size="2" weight="bold" style={{ marginBottom: 'var(--space-2)', display: 'block' }}>
+            Form with Custom ID
+          </Text>
+          <Text size="1" color="gray" style={{ marginBottom: 'var(--space-3)', display: 'block' }}>
+            Demonstrates how to use the Autocomplete in a form with a custom <Code size="1">id</Code> on the input and a{' '}
+            <Code size="1">name</Code> attribute for form submission.
+          </Text>
+        </div>
+
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
+            <label htmlFor="country-input">
+              <Text size="2" weight="medium">
+                Country
+              </Text>
+            </label>
+            <Autocomplete.Root
+              name="country"
+              items={countries}
+              itemToStringValue={(item) => (item as (typeof countries)[0]).label}
+            >
+              <TextField.Root>
+                <Autocomplete.Input id="country-input" render={<TextField.Input placeholder="Select a country..." />} />
+              </TextField.Root>
+              <Autocomplete.Content>
+                <ScrollArea type="auto" style={{ maxHeight: 200 }}>
+                  <Autocomplete.List>
+                    {(country: (typeof countries)[0]) => (
+                      <Autocomplete.Item key={country.id} value={country}>
+                        {country.label}
+                      </Autocomplete.Item>
+                    )}
+                  </Autocomplete.List>
+                </ScrollArea>
+              </Autocomplete.Content>
+            </Autocomplete.Root>
+            <Text size="1" color="gray">
+              The input has <Code size="1">id="country-input"</Code> and the root has{' '}
+              <Code size="1">name="country"</Code>
+            </Text>
+          </div>
+
+          <Button type="submit" variant="solid">
+            Submit
+          </Button>
+        </form>
+
+        {formData && (
+          <div
+            style={{
+              padding: 'var(--space-3)',
+              background: 'var(--green-a3)',
+              borderRadius: 'var(--radius-2)',
+            }}
+          >
+            <Text size="2" weight="medium" color="green">
+              Form submitted!
+            </Text>
+            <Text size="1" color="gray" style={{ display: 'block', marginTop: 'var(--space-1)' }}>
+              Country: <Code size="1">{formData.country || '(empty)'}</Code>
+            </Text>
+          </div>
+        )}
+
+        <div
+          style={{
+            padding: 'var(--space-3)',
+            background: 'var(--gray-a3)',
+            borderRadius: 'var(--radius-2)',
+          }}
+        >
+          <Text size="2" weight="medium" style={{ marginBottom: 'var(--space-2)', display: 'block' }}>
+            Key props for form usage:
+          </Text>
+          <ul style={{ margin: 0, paddingLeft: 'var(--space-4)', fontSize: 'var(--font-size-1)' }}>
+            <li>
+              <Code size="1">id</Code> on <Code size="1">Autocomplete.Input</Code> - Sets the input's id for label
+              association
+            </li>
+            <li>
+              <Code size="1">name</Code> on <Code size="1">Autocomplete.Root</Code> - Identifies the field in form
+              submission
+            </li>
+            <li>
+              <Code size="1">itemToStringValue</Code> - Converts item to string for form value
+            </li>
+          </ul>
+        </div>
+      </div>
+    );
+  },
+};
