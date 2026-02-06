@@ -18,6 +18,7 @@ export * from './strong';
 // FORMS
 //------------------------------------------------------------------------------
 export * from './autocomplete';
+export * from './field';
 export * from './calendar';
 export * from './checkbox';
 export * from './circular-progress';
