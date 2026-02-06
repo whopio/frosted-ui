@@ -2328,24 +2328,6 @@ export const OnItemHighlighted: Story = {
           </div>
         </div>
 
-        <Autocomplete.Root items={browsers} onItemHighlighted={handleItemHighlighted}>
-          <TextField.Root>
-            <Autocomplete.Input render={<TextField.Input placeholder="Try keyboard and mouse navigation..." />} />
-          </TextField.Root>
-          <Autocomplete.Content>
-            <ScrollArea type="auto">
-              <Autocomplete.Empty>No browsers found.</Autocomplete.Empty>
-              <Autocomplete.List>
-                {(browser) => (
-                  <Autocomplete.Item key={browser as string} value={browser}>
-                    {browser as string}
-                  </Autocomplete.Item>
-                )}
-              </Autocomplete.List>
-            </ScrollArea>
-          </Autocomplete.Content>
-        </Autocomplete.Root>
-
         <div>
           <Text size="1" weight="medium" style={{ marginBottom: 'var(--space-2)', display: 'block' }}>
             Event Log (last 10):
@@ -2357,7 +2339,7 @@ export const OnItemHighlighted: Story = {
               backgroundColor: 'var(--gray-a2)',
               borderRadius: 'var(--radius-2)',
               padding: 'var(--space-2)',
-              maxHeight: 200,
+              height: 200,
               overflow: 'auto',
             }}
           >
@@ -2383,6 +2365,24 @@ export const OnItemHighlighted: Story = {
             )}
           </div>
         </div>
+
+        <Autocomplete.Root items={browsers} onItemHighlighted={handleItemHighlighted}>
+          <TextField.Root>
+            <Autocomplete.Input render={<TextField.Input placeholder="Try keyboard and mouse navigation..." />} />
+          </TextField.Root>
+          <Autocomplete.Content>
+            <ScrollArea type="auto">
+              <Autocomplete.Empty>No browsers found.</Autocomplete.Empty>
+              <Autocomplete.List>
+                {(browser) => (
+                  <Autocomplete.Item key={browser as string} value={browser}>
+                    {browser as string}
+                  </Autocomplete.Item>
+                )}
+              </Autocomplete.List>
+            </ScrollArea>
+          </Autocomplete.Content>
+        </Autocomplete.Root>
       </div>
     );
   },
