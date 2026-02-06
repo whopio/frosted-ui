@@ -1491,6 +1491,7 @@ export const AsyncSearch: Story = {
           Searches are performed asynchronously with a debounced input. Try searching for movies by name or year.
         </Text>
         <Autocomplete.Root
+          mode="none"
           items={movies}
           itemToStringValue={(item) => (item as Movie).title}
           value={inputValue}
@@ -1524,7 +1525,14 @@ export const AsyncSearch: Story = {
                     const m = movie as Movie;
                     return (
                       <Autocomplete.Item key={m.id} value={m}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                        <div
+                          style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            width: '100%',
+                          }}
+                        >
                           <span>{m.title}</span>
                           <Text size="1" color="gray">
                             {m.year}
