@@ -16,6 +16,7 @@ import {
 } from '@frosted-ui/icons';
 import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
+import { getColorForEmoji } from '../../helpers/emoji-colors';
 import { Code, IconButton, Kbd, ScrollArea, Spinner, Text, TextField } from '../index';
 import * as Autocomplete from './autocomplete';
 
@@ -980,6 +981,7 @@ export const GridLayout: Story = {
                               <Autocomplete.Item
                                 key={item.emoji}
                                 value={item}
+                                color={getColorForEmoji(item.emoji)}
                                 onClick={() => handleInsertEmoji(item.emoji)}
                                 style={{
                                   display: 'flex',
