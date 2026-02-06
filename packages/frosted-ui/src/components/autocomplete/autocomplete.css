@@ -1,0 +1,111 @@
+/* ============================================================================
+ * Autocomplete Icon
+ * ============================================================================ */
+
+.fui-AutocompleteIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--gray-a10);
+  transition: transform 150ms ease;
+
+  &[data-popup-open] {
+    transform: rotate(180deg);
+  }
+}
+
+/* ============================================================================
+ * Autocomplete Clear
+ * Uses render prop pattern - styling provided by consumer element
+ * ============================================================================ */
+
+/* ============================================================================
+ * Autocomplete Positioner
+ * ============================================================================ */
+
+.fui-AutocompletePositioner {
+  z-index: 100;
+  pointer-events: none;
+  min-width: var(--anchor-width);
+
+  &[data-open] {
+    pointer-events: auto;
+  }
+}
+
+/* ============================================================================
+ * Autocomplete Content
+ * Uses BaseMenu styles via class reuse
+ * ============================================================================ */
+
+.fui-AutocompleteContent {
+  /* Inherits from fui-BaseMenuContent */
+  max-height: var(--available-height);
+}
+
+/* ============================================================================
+ * Autocomplete List
+ * ============================================================================ */
+
+.fui-AutocompleteList {
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+  &:where(:empty) {
+    display: none;
+  }
+}
+
+/* ============================================================================
+ * Autocomplete Item, Group, GroupLabel, Separator
+ * Uses BaseMenu styles via class reuse (fui-BaseMenuItem, fui-BaseMenuGroup, fui-BaseMenuGroupLabel, fui-BaseMenuSeparator)
+ * ============================================================================ */
+
+/* ============================================================================
+ * Autocomplete Empty
+ * ============================================================================ */
+
+.fui-AutocompleteEmpty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  color: var(--gray-a10);
+  font-size: var(--font-size-2);
+  line-height: var(--line-height-2);
+  text-align: center;
+  &:where(:empty) {
+    display: none;
+  }
+}
+
+/* ============================================================================
+ * Autocomplete Status (screen reader only)
+ * ============================================================================ */
+
+.fui-AutocompleteStatus {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ============================================================================
+ * Transitions
+ * Override base-menu transitions - autocomplete should appear/disappear instantly
+ * ============================================================================ */
+
+.fui-AutocompleteContent {
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
