@@ -9,6 +9,7 @@ import {
   Moon16,
   Plus16,
   QuestionCircle16,
+  Sad32,
   Trash16,
   User16,
   XCircleFilled16,
@@ -1316,7 +1317,7 @@ export const CommandPicker: Story = {
             <ScrollArea type="auto" style={{ maxHeight: 300 }}>
               <Autocomplete.Empty
                 style={{
-                  padding: 24,
+                  padding: 32,
                   textAlign: 'center',
                   color: 'var(--gray-a10)',
                 }}
@@ -1325,12 +1326,19 @@ export const CommandPicker: Story = {
                   style={{
                     display: 'flex',
                     flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                     gap: 10,
                   }}
                 >
-                  <div style={{ marginBottom: 'var(--space-2)' }}>No commands found</div>
-                  <Text size="1" color="gray">
-                    Try searching for something else
+                  <Sad32
+                    style={{
+                      color: 'var(--gray-a10)',
+                    }}
+                  />
+
+                  <Text size="2" color="gray">
+                    Try searching for something else.
                   </Text>
                 </div>
               </Autocomplete.Empty>
@@ -1360,8 +1368,8 @@ export const CommandPicker: Story = {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'space-between',
-                            padding: 'var(--space-2) var(--space-3)',
-                            borderRadius: 'var(--radius-2)',
+                            padding: '6px 12px 6px 6px',
+                            borderRadius: 'var(--radius-3)',
                             cursor: 'pointer',
                           }}
                         >
@@ -1396,33 +1404,35 @@ export const CommandPicker: Story = {
                 }}
               </Autocomplete.List>
             </ScrollArea>
-            <div
+            <Text
+              render={<footer />}
+              size="1"
               style={{
                 padding: 'var(--space-2) var(--space-3)',
                 borderTop: '1px solid var(--gray-a4)',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                fontSize: 'var(--font-size-1)',
+
                 color: 'var(--gray-a10)',
               }}
             >
               <span style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
-                <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                   <Kbd size="1">↑</Kbd>
                   <Kbd size="1">↓</Kbd>
                   <span>to navigate</span>
                 </span>
-                <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                   <Kbd size="1">↵</Kbd>
                   <span>to select</span>
                 </span>
               </span>
-              <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                 <Kbd size="1">esc</Kbd>
                 <span>to close</span>
               </span>
-            </div>
+            </Text>
           </Autocomplete.Content>
         </Autocomplete.Root>
 
