@@ -1,6 +1,7 @@
 'use client';
 
 import { Field as FieldPrimitive } from '@base-ui/react/field';
+import classNames from 'classnames';
 import * as React from 'react';
 import { Text, type TextProps } from '../text/text';
 
@@ -47,7 +48,8 @@ interface FieldRootProps extends React.ComponentProps<typeof FieldPrimitive.Root
  * @see https://base-ui.com/react/components/field#root
  */
 function FieldRoot(props: FieldRootProps) {
-  return <FieldPrimitive.Root {...props} />;
+  const { className, ...rootProps } = props;
+  return <FieldPrimitive.Root {...rootProps} className={classNames('fui-FieldRoot', className)} />;
 }
 FieldRoot.displayName = 'FieldRoot';
 
@@ -85,7 +87,7 @@ interface FieldLabelProps
  * @see https://base-ui.com/react/components/field#label
  */
 const FieldLabel = React.forwardRef<HTMLLabelElement, FieldLabelProps>((props, forwardedRef) => {
-  const { size = '2', weight = 'medium', align, trim, color, highContrast, render, ...labelProps } = props;
+  const { className, size = '2', weight = 'medium', align, trim, color, highContrast, render, ...labelProps } = props;
 
   // If user provides custom render, use it directly; otherwise use Text
   const defaultRender = (
@@ -100,7 +102,14 @@ const FieldLabel = React.forwardRef<HTMLLabelElement, FieldLabelProps>((props, f
     />
   );
 
-  return <FieldPrimitive.Label {...labelProps} ref={forwardedRef} render={render ?? defaultRender} />;
+  return (
+    <FieldPrimitive.Label
+      {...labelProps}
+      ref={forwardedRef}
+      className={classNames('fui-FieldLabel', className)}
+      render={render ?? defaultRender}
+    />
+  );
 });
 FieldLabel.displayName = 'FieldLabel';
 
@@ -132,7 +141,14 @@ interface FieldControlProps extends React.ComponentProps<typeof FieldPrimitive.C
  * @see https://base-ui.com/react/components/field#control
  */
 const FieldControl = React.forwardRef<HTMLInputElement, FieldControlProps>((props, forwardedRef) => {
-  return <FieldPrimitive.Control {...props} ref={forwardedRef} />;
+  const { className, ...controlProps } = props;
+  return (
+    <FieldPrimitive.Control
+      {...controlProps}
+      ref={forwardedRef}
+      className={classNames('fui-FieldControl', className)}
+    />
+  );
 });
 FieldControl.displayName = 'FieldControl';
 
@@ -168,7 +184,17 @@ interface FieldDescriptionProps
  * @see https://base-ui.com/react/components/field#description
  */
 const FieldDescription = React.forwardRef<HTMLParagraphElement, FieldDescriptionProps>((props, forwardedRef) => {
-  const { size = '1', weight, align, trim, color = 'gray', highContrast, render, ...descriptionProps } = props;
+  const {
+    className,
+    size = '1',
+    weight,
+    align,
+    trim,
+    color = 'gray',
+    highContrast,
+    render,
+    ...descriptionProps
+  } = props;
 
   // If user provides custom render, use it directly; otherwise use Text
   const defaultRender = (
@@ -183,7 +209,14 @@ const FieldDescription = React.forwardRef<HTMLParagraphElement, FieldDescription
     />
   );
 
-  return <FieldPrimitive.Description {...descriptionProps} ref={forwardedRef} render={render ?? defaultRender} />;
+  return (
+    <FieldPrimitive.Description
+      {...descriptionProps}
+      ref={forwardedRef}
+      className={classNames('fui-FieldDescription', className)}
+      render={render ?? defaultRender}
+    />
+  );
 });
 FieldDescription.displayName = 'FieldDescription';
 
@@ -275,7 +308,7 @@ interface FieldErrorProps
  * @see https://base-ui.com/react/components/field#error
  */
 const FieldError = React.forwardRef<HTMLDivElement, FieldErrorProps>((props, forwardedRef) => {
-  const { size = '1', weight, align, trim, color = 'danger', highContrast, render, ...errorProps } = props;
+  const { className, size = '1', weight, align, trim, color = 'danger', highContrast, render, ...errorProps } = props;
 
   // If user provides custom render, use it directly; otherwise use Text
   const defaultRender = (
@@ -290,7 +323,14 @@ const FieldError = React.forwardRef<HTMLDivElement, FieldErrorProps>((props, for
     />
   );
 
-  return <FieldPrimitive.Error {...errorProps} ref={forwardedRef} render={render ?? defaultRender} />;
+  return (
+    <FieldPrimitive.Error
+      {...errorProps}
+      ref={forwardedRef}
+      className={classNames('fui-FieldError', className)}
+      render={render ?? defaultRender}
+    />
+  );
 });
 FieldError.displayName = 'FieldError';
 
