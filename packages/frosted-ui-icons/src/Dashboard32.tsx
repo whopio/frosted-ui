@@ -20,6 +20,6 @@ export const Dashboard32 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
-Dashboard32.category = 'Interface General';
+Dashboard32.category = 'Stats & Charts';
 
 export default Dashboard32;

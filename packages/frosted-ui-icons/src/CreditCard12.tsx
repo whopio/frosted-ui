@@ -20,6 +20,6 @@ export const CreditCard12 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
-CreditCard12.category = 'Money & Finance';
+CreditCard12.category = 'Money & Shopping';
 
 export default CreditCard12;

@@ -20,6 +20,6 @@ export const CurledReceipt12 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
-CurledReceipt12.category = 'Money & Finance';
+CurledReceipt12.category = 'Money & Shopping';
 
 export default CurledReceipt12;

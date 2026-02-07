@@ -13,13 +13,13 @@ export const CollapseSidebarInvertedFilled20 = ({ color = 'currentColor', ...pro
       {...props}
     >
       <path
-        d="M15.5 1.5C17.9853 1.5 20 3.51472 20 6V14C20 16.4853 17.9853 18.5 15.5 18.5H4.5C2.01472 18.5 6.44256e-08 16.4853 0 14V6C6.44266e-08 3.51472 2.01472 1.5 4.5 1.5H15.5ZM4.5 3.5C3.11929 3.5 2 4.61929 2 6V14C2 15.3807 3.11929 16.5 4.5 16.5H6.5C7.32843 16.5 8 15.8284 8 15V5C8 4.17157 7.32843 3.5 6.5 3.5H4.5Z"
+        d="M15.5 1.5C17.9853 1.5 20 3.51472 20 6V14C20 16.4853 17.9853 18.5 15.5 18.5H4.5C2.01472 18.5 0 16.4853 0 14V6C0 3.51472 2.01472 1.5 4.5 1.5H15.5ZM4.5 3.5C3.11929 3.5 2 4.61929 2 6V14C2 15.3807 3.11929 16.5 4.5 16.5H6.5C7.32843 16.5 8 15.8284 8 15V5C8 4.17157 7.32843 3.5 6.5 3.5H4.5Z"
         fill={color}
       />
     </svg>
   );
 };
 
-CollapseSidebarInvertedFilled20.category = 'Interface General';
+CollapseSidebarInvertedFilled20.category = 'Layout';
 
 export default CollapseSidebarInvertedFilled20;

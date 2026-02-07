@@ -20,6 +20,6 @@ export const CreditCardBlankFilled12 = ({ color = 'currentColor', ...props }: Ic
   );
 };
 
-CreditCardBlankFilled12.category = 'Money & Finance';
+CreditCardBlankFilled12.category = 'Money & Shopping';
 
 export default CreditCardBlankFilled12;
