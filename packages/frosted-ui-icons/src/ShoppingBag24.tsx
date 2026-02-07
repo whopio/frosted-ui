@@ -27,6 +27,6 @@ export const ShoppingBag24 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
-ShoppingBag24.category = 'Money & Finance';
+ShoppingBag24.category = 'Money & Shopping';
 
 export default ShoppingBag24;

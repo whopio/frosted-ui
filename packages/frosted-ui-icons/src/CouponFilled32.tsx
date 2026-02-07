@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const CouponFilled32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M10.2832 1C11.1375 1 11.7749 1.60073 12.0293 2.2666C12.6405 3.86605 14.1885 5 16 5C17.8115 5 19.3595 3.86605 19.9707 2.2666C20.2251 1.60073 20.8625 1 21.7168 1H24.75C26.8211 1 28.5 2.67893 28.5 4.75V27.25C28.5 29.3211 26.8211 31 24.75 31H21.7168C20.8625 31 20.2251 30.3993 19.9707 29.7334C19.3595 28.134 17.8115 27 16 27C14.1885 27 12.6405 28.134 12.0293 29.7334C11.7749 30.3993 11.1375 31 10.2832 31H7.25C5.17893 31 3.5 29.3211 3.5 27.25V4.75C3.5 2.67893 5.17893 1 7.25 1H10.2832Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+CouponFilled32.category = 'Money & Shopping';
+
+export default CouponFilled32;

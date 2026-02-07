@@ -20,6 +20,6 @@ export const Refund24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Refund24.category = 'Money & Finance';
+Refund24.category = 'Money & Shopping';
 
 export default Refund24;

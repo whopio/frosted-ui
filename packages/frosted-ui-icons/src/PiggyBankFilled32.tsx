@@ -20,6 +20,6 @@ export const PiggyBankFilled32 = ({ color = 'currentColor', ...props }: IconProp
   );
 };
 
-PiggyBankFilled32.category = 'Money & Finance';
+PiggyBankFilled32.category = 'Money & Shopping';
 
 export default PiggyBankFilled32;

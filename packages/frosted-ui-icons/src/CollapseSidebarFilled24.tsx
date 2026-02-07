@@ -13,13 +13,13 @@ export const CollapseSidebarFilled24 = ({ color = 'currentColor', ...props }: Ic
       {...props}
     >
       <path
-        d="M18.75 1.5C21.6495 1.5 24 3.85051 24 6.75V17.25C24 20.1495 21.6495 22.5 18.75 22.5H5.25C2.35051 22.5 2.59871e-07 20.1495 0 17.25V6.75C0 3.85051 2.35051 1.5 5.25 1.5H18.75ZM5.25 3C3.17893 3 1.5 4.67893 1.5 6.75V17.25C1.5 19.3211 3.17893 21 5.25 21H8V3H5.25Z"
+        d="M18.75 1.5C21.6495 1.5 24 3.85051 24 6.75V17.25C24 20.1495 21.6495 22.5 18.75 22.5H5.25C2.35051 22.5 5.15405e-07 20.1495 0 17.25V6.75C0 3.85051 2.35051 1.5 5.25 1.5H18.75ZM5.25 3C3.17893 3 1.5 4.67893 1.5 6.75V17.25C1.5 19.3211 3.17893 21 5.25 21H8V3H5.25Z"
         fill={color}
       />
     </svg>
   );
 };
 
-CollapseSidebarFilled24.category = 'Interface General';
+CollapseSidebarFilled24.category = 'Layout';
 
 export default CollapseSidebarFilled24;

@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const CheckmarkFilled20 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M15.3887 5.91406C15.8502 5.4385 16.6104 5.42712 17.0859 5.88867C17.5614 6.35025 17.5729 7.11038 17.1113 7.58594L8.86133 16.0859C8.63752 16.3165 8.33012 16.4478 8.00879 16.4502C7.7276 16.4523 7.45597 16.3552 7.24023 16.1787L7.15137 16.0986L3.15137 12.0986C2.68274 11.63 2.68274 10.87 3.15137 10.4014C3.62 9.93274 4.38 9.93274 4.84863 10.4014L7.98633 13.54L15.3887 5.91406Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+CheckmarkFilled20.category = 'Checkmarks';
+
+export default CheckmarkFilled20;
