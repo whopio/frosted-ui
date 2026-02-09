@@ -1,0 +1,35 @@
+/* Root - flex column with gap between children */
+.fui-FieldRoot {
+  display: flex;
+  flex-direction: column;
+  gap: 4px; /* tight gap between label/input/description/error */
+  width: 100%;
+}
+
+/* Label - cursor and disabled state */
+.fui-FieldLabel {
+  cursor: default;
+  user-select: none;
+}
+
+.fui-FieldRoot[data-disabled] .fui-FieldLabel {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Description - slight top margin to separate from input */
+.fui-FieldDescription {
+  margin-top: 4px;
+}
+
+/* Error - slight top margin */
+.fui-FieldError {
+  margin-top: 4px;
+}
+
+/* Item - for checkbox/radio groups */
+.fui-FieldItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}

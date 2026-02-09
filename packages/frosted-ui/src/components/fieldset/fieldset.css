@@ -1,0 +1,17 @@
+/* Root - reset native fieldset styles, flex column with gap */
+.fui-FieldsetRoot {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* gap between fields */
+
+  /* Reset native fieldset styles */
+  border: none;
+  margin: 0;
+  padding: 0;
+  min-width: 0; /* Prevent fieldset from expanding beyond container */
+}
+
+/* Legend - margin bottom to separate from content */
+.fui-FieldsetLegend {
+  margin-bottom: 4px; /* Small additional margin since gap handles most spacing */
+}

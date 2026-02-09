@@ -70,7 +70,7 @@ export const WithFieldset: Story = {
           related controls.
         </Text>
 
-        <Fieldset.Root style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+        <Fieldset.Root>
           <Fieldset.Legend>Billing Details</Fieldset.Legend>
 
           <Field.Root name="company">
@@ -89,7 +89,7 @@ export const WithFieldset: Story = {
           </Field.Root>
         </Fieldset.Root>
 
-        <Fieldset.Root style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+        <Fieldset.Root>
           <Fieldset.Legend>Shipping Address</Fieldset.Legend>
 
           <Field.Root name="street">
@@ -663,7 +663,7 @@ export const FormExample: Story = {
         </Text>
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
-          <Fieldset.Root style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+          <Fieldset.Root>
             <Fieldset.Legend>Account Information</Fieldset.Legend>
 
             <Field.Root name="fullName">
@@ -684,7 +684,7 @@ export const FormExample: Story = {
             </Field.Root>
           </Fieldset.Root>
 
-          <Fieldset.Root style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+          <Fieldset.Root>
             <Fieldset.Legend>Plan Details</Fieldset.Legend>
 
             <Field.Root name="plan">
@@ -715,7 +715,7 @@ export const FormExample: Story = {
             </Field.Root>
           </Fieldset.Root>
 
-          <Fieldset.Root style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+          <Fieldset.Root>
             <Fieldset.Legend>Preferences</Fieldset.Legend>
 
             <Field.Root name="notifications">
