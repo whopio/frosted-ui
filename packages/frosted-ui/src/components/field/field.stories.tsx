@@ -7,7 +7,9 @@ import {
   Button,
   Callout,
   Checkbox,
+  Code,
   Field,
+  Fieldset,
   NumberField,
   RadioGroup,
   ScrollArea,
@@ -48,6 +50,91 @@ export const Default: Story = {
           <Field.Error match="valueMissing">Username is required</Field.Error>
           <Field.Error match="tooShort">Username must be at least 3 characters</Field.Error>
         </Field.Root>
+      </div>
+    );
+  },
+};
+
+// ============================================================================
+// With Fieldset
+// ============================================================================
+
+export const WithFieldset: Story = {
+  name: 'With Fieldset',
+  render: () => {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)', width: 360 }}>
+        <Text size="2">
+          The Fieldset component groups related fields together using a native <Code>{'<fieldset>'}</Code> element. This
+          provides semantic structure to forms and improves accessibility by associating a legend with a group of
+          related controls.
+        </Text>
+
+        <Fieldset.Root style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+          <Fieldset.Legend>Billing Details</Fieldset.Legend>
+
+          <Field.Root name="company">
+            <Field.Label>Company</Field.Label>
+            <TextField.Root>
+              <Field.Control render={<TextField.Input />} placeholder="Acme Inc." />
+            </TextField.Root>
+          </Field.Root>
+
+          <Field.Root name="taxId">
+            <Field.Label>Tax ID</Field.Label>
+            <TextField.Root>
+              <Field.Control render={<TextField.Input />} placeholder="XX-XXXXXXX" />
+            </TextField.Root>
+            <Field.Description>Your company's tax identification number</Field.Description>
+          </Field.Root>
+        </Fieldset.Root>
+
+        <Fieldset.Root style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+          <Fieldset.Legend>Shipping Address</Fieldset.Legend>
+
+          <Field.Root name="street">
+            <Field.Label>Street address</Field.Label>
+            <TextField.Root>
+              <Field.Control render={<TextField.Input />} placeholder="123 Main St" required />
+            </TextField.Root>
+            <Field.Error match="valueMissing">Street address is required</Field.Error>
+          </Field.Root>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-3)' }}>
+            <Field.Root name="city">
+              <Field.Label>City</Field.Label>
+              <TextField.Root>
+                <Field.Control render={<TextField.Input />} placeholder="San Francisco" required />
+              </TextField.Root>
+            </Field.Root>
+
+            <Field.Root name="zipCode">
+              <Field.Label>ZIP code</Field.Label>
+              <TextField.Root>
+                <Field.Control render={<TextField.Input />} placeholder="94102" required />
+              </TextField.Root>
+            </Field.Root>
+          </div>
+
+          <Field.Root name="country">
+            <Field.Label>Country</Field.Label>
+            <Select.Root
+              items={[
+                { value: 'us', label: 'United States' },
+                { value: 'ca', label: 'Canada' },
+                { value: 'uk', label: 'United Kingdom' },
+              ]}
+              defaultValue="us"
+            >
+              <Select.Trigger style={{ width: '100%' }} />
+              <Select.Content>
+                <Select.Item value="us">United States</Select.Item>
+                <Select.Item value="ca">Canada</Select.Item>
+                <Select.Item value="uk">United Kingdom</Select.Item>
+              </Select.Content>
+            </Select.Root>
+          </Field.Root>
+        </Fieldset.Root>
       </div>
     );
   },
@@ -500,7 +587,9 @@ export const CustomValidation: Story = {
               color={isChecking ? 'gray' : isAvailable ? 'success' : 'danger'}
               style={{ marginTop: 'var(--space-3)' }}
             >
-              <Callout.Icon>{isChecking ? <Spinner size="1" /> : isAvailable ? <Checkmark12 /> : <XMarkSmall12 />}</Callout.Icon>
+              <Callout.Icon>
+                {isChecking ? <Spinner size="1" /> : isAvailable ? <Checkmark12 /> : <XMarkSmall12 />}
+              </Callout.Icon>
               <Callout.Text>
                 {isChecking
                   ? 'Checking availability...'
@@ -573,67 +662,79 @@ export const FormExample: Story = {
           Create Account
         </Text>
 
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-          <Field.Root name="fullName">
-            <Field.Label>Full name</Field.Label>
-            <TextField.Root>
-              <Field.Control render={<TextField.Input />} placeholder="John Doe" required />
-            </TextField.Root>
-            <Field.Error match="valueMissing">Full name is required</Field.Error>
-          </Field.Root>
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
+          <Fieldset.Root style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+            <Fieldset.Legend>Account Information</Fieldset.Legend>
 
-          <Field.Root name="email">
-            <Field.Label>Email</Field.Label>
-            <TextField.Root>
-              <Field.Control render={<TextField.Input />} type="email" placeholder="you@example.com" required />
-            </TextField.Root>
-            <Field.Error match="valueMissing">Email is required</Field.Error>
-            <Field.Error match="typeMismatch">Please enter a valid email</Field.Error>
-          </Field.Root>
+            <Field.Root name="fullName">
+              <Field.Label>Full name</Field.Label>
+              <TextField.Root>
+                <Field.Control render={<TextField.Input />} placeholder="John Doe" required />
+              </TextField.Root>
+              <Field.Error match="valueMissing">Full name is required</Field.Error>
+            </Field.Root>
 
-          <Field.Root name="plan">
-            <Field.Label>Plan</Field.Label>
-            <Select.Root
-              items={[
-                { value: 'free', label: 'Free' },
-                { value: 'pro', label: 'Pro - $9/mo' },
-                { value: 'enterprise', label: 'Enterprise - $29/mo' },
-              ]}
-              defaultValue="free"
-            >
-              <Select.Trigger style={{ width: '100%' }} />
-              <Select.Content>
-                <Select.Item value="free">Free</Select.Item>
-                <Select.Item value="pro">Pro - $9/mo</Select.Item>
-                <Select.Item value="enterprise">Enterprise - $29/mo</Select.Item>
-              </Select.Content>
-            </Select.Root>
-          </Field.Root>
+            <Field.Root name="email">
+              <Field.Label>Email</Field.Label>
+              <TextField.Root>
+                <Field.Control render={<TextField.Input />} type="email" placeholder="you@example.com" required />
+              </TextField.Root>
+              <Field.Error match="valueMissing">Email is required</Field.Error>
+              <Field.Error match="typeMismatch">Please enter a valid email</Field.Error>
+            </Field.Root>
+          </Fieldset.Root>
 
-          <Field.Root name="teamSize">
-            <Field.Label>Team size</Field.Label>
-            <NumberField.Root defaultValue={1} min={1} max={100} name="teamSize">
-              <NumberField.Input />
-            </NumberField.Root>
-            <Field.Description>Number of team members (1-100)</Field.Description>
-          </Field.Root>
+          <Fieldset.Root style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+            <Fieldset.Legend>Plan Details</Fieldset.Legend>
 
-          <Field.Root name="notifications">
-            <Field.Label
-              style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer' }}
-            >
-              Email notifications
-              <Switch name="notifications" defaultChecked />
-            </Field.Label>
-          </Field.Root>
+            <Field.Root name="plan">
+              <Field.Label>Plan</Field.Label>
+              <Select.Root
+                items={[
+                  { value: 'free', label: 'Free' },
+                  { value: 'pro', label: 'Pro - $9/mo' },
+                  { value: 'enterprise', label: 'Enterprise - $29/mo' },
+                ]}
+                defaultValue="free"
+              >
+                <Select.Trigger style={{ width: '100%' }} />
+                <Select.Content>
+                  <Select.Item value="free">Free</Select.Item>
+                  <Select.Item value="pro">Pro - $9/mo</Select.Item>
+                  <Select.Item value="enterprise">Enterprise - $29/mo</Select.Item>
+                </Select.Content>
+              </Select.Root>
+            </Field.Root>
 
-          <Field.Root name="terms">
-            <Field.Label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
-              <Checkbox name="terms" required />I agree to the Terms of Service
-            </Field.Label>
-          </Field.Root>
+            <Field.Root name="teamSize">
+              <Field.Label>Team size</Field.Label>
+              <NumberField.Root defaultValue={1} min={1} max={100} name="teamSize">
+                <NumberField.Input />
+              </NumberField.Root>
+              <Field.Description>Number of team members (1-100)</Field.Description>
+            </Field.Root>
+          </Fieldset.Root>
 
-          <Button type="submit" variant="solid" style={{ marginTop: 'var(--space-2)' }}>
+          <Fieldset.Root style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+            <Fieldset.Legend>Preferences</Fieldset.Legend>
+
+            <Field.Root name="notifications">
+              <Field.Label
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer' }}
+              >
+                Email notifications
+                <Switch name="notifications" defaultChecked />
+              </Field.Label>
+            </Field.Root>
+
+            <Field.Root name="terms">
+              <Field.Label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
+                <Checkbox name="terms" required />I agree to the Terms of Service
+              </Field.Label>
+            </Field.Root>
+          </Fieldset.Root>
+
+          <Button type="submit" variant="solid">
             Create Account
           </Button>
         </form>
