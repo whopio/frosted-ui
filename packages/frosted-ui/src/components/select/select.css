@@ -340,13 +340,14 @@
   &:where([data-accent-color='gray']) {
     color: var(--gray-12);
   }
+
   background-color: var(--color-surface);
   box-shadow:
     inset 0 0 0 1px var(--gray-a5),
     0px 1px 2px 0px rgba(0, 0, 0, 0.05);
 
   @media (hover: hover) {
-    &:where(:hover) {
+    &:where(:not(:disabled):hover) {
       box-shadow:
         inset 0 0 0 1px var(--gray-a7),
         0px 1px 2px 0px rgba(0, 0, 0, 0.05);
@@ -361,8 +362,8 @@
   &:where(:disabled) {
     cursor: var(--cursor-disabled);
     color: var(--gray-a8);
-    background-color: var(--gray-a2);
-    box-shadow: inset 0 0 0 1px var(--gray-a6);
+
+    background-image: linear-gradient(var(--gray-a3), var(--gray-a3));
   }
 }
 
