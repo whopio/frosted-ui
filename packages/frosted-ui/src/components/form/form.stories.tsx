@@ -35,72 +35,116 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // ============================================================================
-// Submit with a Server Function
+// 1. Getting Started
 // ============================================================================
 
-async function submitUsername(_previousState: { serverErrors?: Form.Errors }, formData: FormData) {
-  // Mimic a server response
-  await new Promise((resolve) => {
-    setTimeout(resolve, 1000);
-  });
-
-  try {
-    const username = formData.get('username') as string | null;
-
-    if (username === 'admin') {
-      return { success: false, serverErrors: { username: "'admin' is reserved for system use" } };
-    }
-
-    // 50% chance the username is taken
-    const success = Math.random() > 0.5;
-
-    if (!success) {
-      return {
-        serverErrors: { username: `${username} is unavailable` },
-      };
-    }
-  } catch {
-    return { serverErrors: { username: 'A server error has occurred' } };
-  }
-
-  return {};
-}
-
-export const SubmitWithServerFunction: Story = {
-  name: 'Submit with a Server Function',
-  render: function ServerFunctionStory() {
-    const [state, formAction, loading] = React.useActionState<{ serverErrors?: Form.Errors }, FormData>(
-      submitUsername,
-      {},
-    );
+export const GettingStarted: Story = {
+  name: 'Getting Started',
+  render: function GettingStartedStory() {
+    const [loading, setLoading] = React.useState(false);
+    const [submitted, setSubmitted] = React.useState(false);
 
     return (
       <div style={{ width: 320 }}>
         <Heading size="3" style={{ marginBottom: 8 }}>
-          Submit with a Server Function
+          Getting Started
         </Heading>
-        <Text size="2" style={{ marginBottom: 16, display: 'block' }}>
-          Forms using <Code>useActionState</Code> can be submitted with a{' '}
-          <Link
-            href="https://react.dev/reference/react-dom/components/form#handle-form-submission-with-a-server-function"
-            target="_blank"
-            underline="always"
-          >
-            Server Function
-          </Link>{' '}
-          instead of <Code>onSubmit</Code>.
+        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
+          A minimal form using <Code>{'<Form.Root>'}</Code>, <Code>{'<Field.Root>'}</Code>, and{' '}
+          <Code>{'<TextField>'}</Code>. Add validation with HTML attributes like <Code>required</Code> and display
+          errors with <Code>{'<Field.Error>'}</Code>.
         </Text>
-        <Form.Root errors={state.serverErrors} action={formAction}>
+
+        <Form.Root
+          onSubmit={async (e) => {
+            e.preventDefault();
+            setLoading(true);
+            await new Promise((resolve) => setTimeout(resolve, 500));
+            setSubmitted(true);
+            setLoading(false);
+          }}
+        >
+          <Field.Root name="email">
+            <Field.Label>Email</Field.Label>
+            <TextField.Root>
+              <TextField.Input type="email" required placeholder="you@example.com" />
+            </TextField.Root>
+            <Field.Error match="valueMissing">Email is required</Field.Error>
+            <Field.Error match="typeMismatch">Please enter a valid email</Field.Error>
+          </Field.Root>
+
+          <Field.Root name="message">
+            <Field.Label>Message</Field.Label>
+            <TextField.Root>
+              <TextField.Input required placeholder="Your message" />
+            </TextField.Root>
+            <Field.Description>We'll get back to you within 24 hours</Field.Description>
+            <Field.Error match="valueMissing">Message is required</Field.Error>
+          </Field.Root>
+
+          <Button type="submit" loading={loading}>
+            Send Message
+          </Button>
+        </Form.Root>
+
+        {submitted && (
+          <Callout.Root color="success" size="1" style={{ marginTop: 16 }}>
+            <Callout.Text>Message sent successfully!</Callout.Text>
+          </Callout.Root>
+        )}
+      </div>
+    );
+  },
+};
+
+// ============================================================================
+// 2. Constraint Validation
+// ============================================================================
+
+export const ConstraintValidation: Story = {
+  name: 'Constraint Validation',
+  render: function ConstraintValidationStory() {
+    return (
+      <div style={{ width: 320 }}>
+        <Heading size="3" style={{ marginBottom: 8 }}>
+          Constraint Validation
+        </Heading>
+        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
+          Form components support native HTML validation attributes for many validation rules: <Code>required</Code>,{' '}
+          <Code>minLength</Code>, <Code>maxLength</Code>, <Code>pattern</Code>, and <Code>step</Code>.
+        </Text>
+
+        <Form.Root>
           <Field.Root name="username">
             <Field.Label>Username</Field.Label>
             <TextField.Root>
-              <TextField.Input required defaultValue="admin" placeholder="e.g. alice132" />
+              <TextField.Input required minLength={3} maxLength={20} placeholder="3-20 characters" />
             </TextField.Root>
-            <Field.Error />
+            <Field.Error match="valueMissing">Username is required</Field.Error>
+            <Field.Error match="tooShort">Username must be at least 3 characters</Field.Error>
+            <Field.Error match="tooLong">Username must be at most 20 characters</Field.Error>
           </Field.Root>
-          <Button type="submit" loading={loading}>
-            Submit
-          </Button>
+
+          <Field.Root name="email">
+            <Field.Label>Email</Field.Label>
+            <TextField.Root>
+              <TextField.Input type="email" required placeholder="user@example.com" />
+            </TextField.Root>
+            <Field.Error match="valueMissing">Email is required</Field.Error>
+            <Field.Error match="typeMismatch">Please enter a valid email address</Field.Error>
+          </Field.Root>
+
+          <Field.Root name="website">
+            <Field.Label>Website</Field.Label>
+            <TextField.Root>
+              <TextField.Input type="url" required pattern="https?://.*" placeholder="https://example.com" />
+            </TextField.Root>
+            <Field.Error match="valueMissing">Website URL is required</Field.Error>
+            <Field.Error match="typeMismatch">Please enter a valid URL</Field.Error>
+            <Field.Error match="patternMismatch">URL must start with http:// or https://</Field.Error>
+          </Field.Root>
+
+          <Button type="submit">Submit</Button>
         </Form.Root>
       </div>
     );
@@ -108,7 +152,144 @@ export const SubmitWithServerFunction: Story = {
 };
 
 // ============================================================================
-// Submit form values as a JavaScript object
+// 3. Displaying Errors
+// ============================================================================
+
+export const DisplayingErrors: Story = {
+  name: 'Displaying Errors',
+  render: function DisplayingErrorsStory() {
+    return (
+      <div style={{ width: 360 }}>
+        <Heading size="3" style={{ marginBottom: 8 }}>
+          Displaying Errors
+        </Heading>
+        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
+          Use <Code>{'<Field.Error>'}</Code> without children to automatically display the browser's native error
+          message. Use the <Code>match</Code> prop to customize messages based on the validity state.
+        </Text>
+
+        <Form.Root>
+          <Field.Root name="autoMessage">
+            <Field.Label>Auto Message (native)</Field.Label>
+            <TextField.Root>
+              <TextField.Input type="email" required placeholder="Leave empty and submit" />
+            </TextField.Root>
+            <Field.Description>
+              Uses <Code>{'<Field.Error />'}</Code> without children
+            </Field.Description>
+            <Field.Error />
+          </Field.Root>
+
+          <Separator size="4" />
+
+          <Field.Root name="customMessages">
+            <Field.Label>Custom Messages</Field.Label>
+            <TextField.Root>
+              <TextField.Input required minLength={5} placeholder="Type less than 5 chars" />
+            </TextField.Root>
+            <Field.Description>
+              Uses <Code>match</Code> prop for specific validity states
+            </Field.Description>
+            <Field.Error match="valueMissing">This field cannot be empty</Field.Error>
+            <Field.Error match="tooShort">Please enter at least 5 characters</Field.Error>
+          </Field.Root>
+
+          <Separator size="4" />
+
+          <Field.Root name="alwaysShow">
+            <Field.Label>Always Show Error</Field.Label>
+            <TextField.Root>
+              <TextField.Input required placeholder="Required field" />
+            </TextField.Root>
+            <Field.Description>
+              Uses <Code>{'match={true}'}</Code> to always show when invalid
+            </Field.Description>
+            <Field.Error match={true}>This field is invalid</Field.Error>
+          </Field.Root>
+
+          <Button type="submit">Submit</Button>
+        </Form.Root>
+      </div>
+    );
+  },
+};
+
+// ============================================================================
+// 4. Form Reset
+// ============================================================================
+
+export const FormReset: Story = {
+  name: 'Form Reset',
+  render: function FormResetStory() {
+    const formRef = React.useRef<HTMLFormElement>(null);
+    const [result, setResult] = React.useState<Record<string, unknown> | null>(null);
+    const [loading, setLoading] = React.useState(false);
+
+    const handleReset = () => {
+      formRef.current?.reset();
+      setResult(null);
+    };
+
+    return (
+      <div style={{ width: 320 }}>
+        <Heading size="3" style={{ marginBottom: 8 }}>
+          Form Reset
+        </Heading>
+        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
+          Use a ref to access the native form element and call <Code>reset()</Code> to clear all fields. The native
+          reset restores inputs to their <Code>defaultValue</Code> (empty if not set).
+        </Text>
+
+        <Form.Root
+          ref={formRef}
+          onFormSubmit={async (formValues) => {
+            setLoading(true);
+            await new Promise((resolve) => setTimeout(resolve, 500));
+            setResult(formValues);
+            setLoading(false);
+          }}
+        >
+          <Field.Root name="firstName">
+            <Field.Label>First Name</Field.Label>
+            <TextField.Root>
+              <TextField.Input placeholder="Enter first name" />
+            </TextField.Root>
+          </Field.Root>
+
+          <Field.Root name="lastName">
+            <Field.Label>Last Name</Field.Label>
+            <TextField.Root>
+              <TextField.Input placeholder="Enter last name" />
+            </TextField.Root>
+          </Field.Root>
+
+          <Field.Root name="email">
+            <Field.Label>Email</Field.Label>
+            <TextField.Root>
+              <TextField.Input type="email" placeholder="Enter email" />
+            </TextField.Root>
+          </Field.Root>
+
+          <div style={{ display: 'flex', gap: 8 }}>
+            <Button type="submit" loading={loading} style={{ flex: 1 }} variant="solid">
+              Submit
+            </Button>
+            <Button type="button" variant="surface" onClick={handleReset}>
+              Reset
+            </Button>
+          </div>
+        </Form.Root>
+
+        {result && (
+          <pre style={{ marginTop: 16, fontSize: 12, color: 'var(--gray-11)' }}>{JSON.stringify(result, null, 2)}</pre>
+        )}
+      </div>
+    );
+  },
+};
+
+// ============================================================================
+// 5. Submit form values as a JavaScript object
 // ============================================================================
 
 export const SubmitAsJavaScriptObject: Story = {
@@ -161,86 +342,7 @@ export const SubmitAsJavaScriptObject: Story = {
 };
 
 // ============================================================================
-// Using with Zod
-// ============================================================================
-
-const schema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  age: z.coerce.number({ message: 'Age must be a number' }).positive('Age must be a positive number'),
-});
-
-async function submitZodForm(formValues: Form.Values) {
-  const result = schema.safeParse(formValues);
-
-  if (!result.success) {
-    return {
-      errors: result.error.flatten().fieldErrors,
-    };
-  }
-
-  return {
-    errors: {},
-  };
-}
-
-export const UsingWithZod: Story = {
-  name: 'Using with Zod',
-  render: function ZodStory() {
-    const [errors, setErrors] = React.useState<Form.Errors>({});
-    const [loading, setLoading] = React.useState(false);
-    const [result, setResult] = React.useState<Record<string, unknown> | null>(null);
-
-    return (
-      <div style={{ width: 320 }}>
-        <Heading size="3" style={{ marginBottom: 8 }}>
-          Using with Zod
-        </Heading>
-        <Text size="2" style={{ marginBottom: 16, display: 'block' }}>
-          When parsing the schema using <Code>schema.safeParse()</Code>, the{' '}
-          <Code>result.error.flatten().fieldErrors</Code> data can be used to map the errors to each field's{' '}
-          <Code>name</Code>.
-        </Text>
-        <Form.Root
-          errors={errors}
-          onFormSubmit={async (formValues) => {
-            setLoading(true);
-            setResult(null);
-            const response = await submitZodForm(formValues);
-            setErrors(response.errors);
-            if (Object.keys(response.errors).length === 0) {
-              setResult(formValues);
-            }
-            setLoading(false);
-          }}
-        >
-          <Field.Root name="name">
-            <Field.Label>Name</Field.Label>
-            <TextField.Root>
-              <TextField.Input placeholder="Enter name" />
-            </TextField.Root>
-            <Field.Error />
-          </Field.Root>
-          <Field.Root name="age">
-            <Field.Label>Age</Field.Label>
-            <TextField.Root>
-              <TextField.Input placeholder="Enter age" />
-            </TextField.Root>
-            <Field.Error />
-          </Field.Root>
-          <Button type="submit" loading={loading}>
-            Submit
-          </Button>
-        </Form.Root>
-        {result && (
-          <pre style={{ marginTop: 16, fontSize: 12, color: 'var(--gray-11)' }}>{JSON.stringify(result, null, 2)}</pre>
-        )}
-      </div>
-    );
-  },
-};
-
-// ============================================================================
-// Server-side Validation
+// 6. Server-side Validation
 // ============================================================================
 
 async function submitToServer(formData: { promoCode: string }): Promise<{ success: boolean; errors: Form.Errors }> {
@@ -325,432 +427,541 @@ export const ServerSideValidation: Story = {
 };
 
 // ============================================================================
-// Constraint Validation
+// 7. Conditional Fields
 // ============================================================================
 
-export const ConstraintValidation: Story = {
-  name: 'Constraint Validation',
-  render: function ConstraintValidationStory() {
-    return (
-      <div style={{ width: 320 }}>
-        <Heading size="3" style={{ marginBottom: 8 }}>
-          Constraint Validation
-        </Heading>
-        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
-          Form components support native HTML validation attributes for many validation rules: <Code>required</Code>,{' '}
-          <Code>minLength</Code>, <Code>maxLength</Code>, <Code>pattern</Code>, and <Code>step</Code>.
-        </Text>
-
-        <Form.Root>
-          <Field.Root name="username">
-            <Field.Label>Username</Field.Label>
-            <TextField.Root>
-              <TextField.Input required minLength={3} maxLength={20} placeholder="3-20 characters" />
-            </TextField.Root>
-            <Field.Error match="valueMissing">Username is required</Field.Error>
-            <Field.Error match="tooShort">Username must be at least 3 characters</Field.Error>
-            <Field.Error match="tooLong">Username must be at most 20 characters</Field.Error>
-          </Field.Root>
-
-          <Field.Root name="email">
-            <Field.Label>Email</Field.Label>
-            <TextField.Root>
-              <TextField.Input type="email" required placeholder="user@example.com" />
-            </TextField.Root>
-            <Field.Error match="valueMissing">Email is required</Field.Error>
-            <Field.Error match="typeMismatch">Please enter a valid email address</Field.Error>
-          </Field.Root>
-
-          <Field.Root name="website">
-            <Field.Label>Website</Field.Label>
-            <TextField.Root>
-              <TextField.Input type="url" required pattern="https?://.*" placeholder="https://example.com" />
-            </TextField.Root>
-            <Field.Error match="valueMissing">Website URL is required</Field.Error>
-            <Field.Error match="typeMismatch">Please enter a valid URL</Field.Error>
-            <Field.Error match="patternMismatch">URL must start with http:// or https://</Field.Error>
-          </Field.Root>
-
-          <Button type="submit">Submit</Button>
-        </Form.Root>
-      </div>
-    );
-  },
-};
-
-// ============================================================================
-// Displaying Errors
-// ============================================================================
-
-export const DisplayingErrors: Story = {
-  name: 'Displaying Errors',
-  render: function DisplayingErrorsStory() {
-    return (
-      <div style={{ width: 360 }}>
-        <Heading size="3" style={{ marginBottom: 8 }}>
-          Displaying Errors
-        </Heading>
-        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
-          Use <Code>{'<Field.Error>'}</Code> without children to automatically display the browser's native error
-          message. Use the <Code>match</Code> prop to customize messages based on the validity state.
-        </Text>
-
-        <Form.Root>
-          <Field.Root name="autoMessage">
-            <Field.Label>Auto Message (native)</Field.Label>
-            <TextField.Root>
-              <TextField.Input type="email" required placeholder="Leave empty and submit" />
-            </TextField.Root>
-            <Field.Description>
-              Uses <Code>{'<Field.Error />'}</Code> without children
-            </Field.Description>
-            <Field.Error />
-          </Field.Root>
-
-          <Separator size="4" />
-
-          <Field.Root name="customMessages">
-            <Field.Label>Custom Messages</Field.Label>
-            <TextField.Root>
-              <TextField.Input required minLength={5} placeholder="Type less than 5 chars" />
-            </TextField.Root>
-            <Field.Description>
-              Uses <Code>match</Code> prop for specific validity states
-            </Field.Description>
-            <Field.Error match="valueMissing">This field cannot be empty</Field.Error>
-            <Field.Error match="tooShort">Please enter at least 5 characters</Field.Error>
-          </Field.Root>
-
-          <Separator size="4" />
-
-          <Field.Root name="alwaysShow">
-            <Field.Label>Always Show Error</Field.Label>
-            <TextField.Root>
-              <TextField.Input required placeholder="Required field" />
-            </TextField.Root>
-            <Field.Description>
-              Uses <Code>{'match={true}'}</Code> to always show when invalid
-            </Field.Description>
-            <Field.Error match={true}>This field is invalid</Field.Error>
-          </Field.Root>
-
-          <Button type="submit">Submit</Button>
-        </Form.Root>
-      </div>
-    );
-  },
-};
-
-// ============================================================================
-// React Hook Form Integration
-// ============================================================================
-
-type ReactHookFormData = {
-  firstName: string;
-  lastName: string;
-  email: string;
-};
-
-export const ReactHookFormIntegration: Story = {
-  name: 'React Hook Form Integration',
-  render: function ReactHookFormStory() {
-    const {
-      control,
-      handleSubmit,
-      formState: { errors, isSubmitting },
-    } = useReactHookForm<ReactHookFormData>({
-      defaultValues: {
-        firstName: '',
-        lastName: '',
-        email: '',
-      },
-    });
-
-    const [result, setResult] = React.useState<ReactHookFormData | null>(null);
-
-    const onSubmit = async (data: ReactHookFormData) => {
-      // Mimic an API call
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      setResult(data);
-    };
-
-    return (
-      <div style={{ width: 320 }}>
-        <Heading size="3" style={{ marginBottom: 8 }}>
-          React Hook Form Integration
-        </Heading>
-        <Text size="2" color="gray" style={{ marginBottom: 12, display: 'block' }}>
-          You can integrate Field components with{' '}
-          <Link href="https://react-hook-form.com" target="_blank" underline="always">
-            React Hook Form
-          </Link>{' '}
-          using the <Code>Controller</Code> component.
-        </Text>
-        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
-          The <Code>Controller</Code> wraps your input and provides <Code>field</Code> props (like <Code>onChange</Code>
-          , <Code>onBlur</Code>, <Code>value</Code>) that connect it to the form state.
-        </Text>
-
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          style={{ display: 'flex', flexDirection: 'column', gap: 16, width: '100%' }}
-        >
-          <Controller
-            name="firstName"
-            control={control}
-            rules={{ required: 'First name is required' }}
-            render={({ field }) => (
-              <Field.Root name={field.name} invalid={!!errors.firstName}>
-                <Field.Label>First Name</Field.Label>
-                <TextField.Root>
-                  <TextField.Input placeholder="Enter first name" {...field} />
-                </TextField.Root>
-                {errors.firstName && <Field.Error match={true}>{errors.firstName.message}</Field.Error>}
-              </Field.Root>
-            )}
-          />
-
-          <Controller
-            name="lastName"
-            control={control}
-            rules={{ required: 'Last name is required' }}
-            render={({ field }) => (
-              <Field.Root name={field.name} invalid={!!errors.lastName}>
-                <Field.Label>Last Name</Field.Label>
-                <TextField.Root>
-                  <TextField.Input placeholder="Enter last name" {...field} />
-                </TextField.Root>
-                {errors.lastName && <Field.Error match={true}>{errors.lastName.message}</Field.Error>}
-              </Field.Root>
-            )}
-          />
-
-          <Controller
-            name="email"
-            control={control}
-            rules={{
-              required: 'Email is required',
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: 'Invalid email address',
-              },
-            }}
-            render={({ field }) => (
-              <Field.Root name={field.name} invalid={!!errors.email}>
-                <Field.Label>Email</Field.Label>
-                <TextField.Root>
-                  <TextField.Input type="email" placeholder="user@example.com" {...field} />
-                </TextField.Root>
-                {errors.email && <Field.Error match={true}>{errors.email.message}</Field.Error>}
-              </Field.Root>
-            )}
-          />
-
-          <Button type="submit" loading={isSubmitting}>
-            Submit
-          </Button>
-        </form>
-
-        {result && (
-          <pre style={{ marginTop: 16, fontSize: 12, color: 'var(--gray-11)' }}>{JSON.stringify(result, null, 2)}</pre>
-        )}
-      </div>
-    );
-  },
-};
-
-// ============================================================================
-// TanStack Form Integration
-// ============================================================================
-
-type TanStackFormData = {
-  username: string;
-  bio: string;
-};
-
-export const TanStackFormIntegration: Story = {
-  name: 'TanStack Form Integration',
-  render: function TanStackFormStory() {
-    const [result, setResult] = React.useState<TanStackFormData | null>(null);
-
-    const form = useTanStackForm({
-      defaultValues: {
-        username: '',
-        bio: '',
-      } as TanStackFormData,
-      onSubmit: async ({ value }) => {
-        // Mimic an API call
-        await new Promise((resolve) => setTimeout(resolve, 500));
-        setResult(value);
-      },
-    });
-
-    return (
-      <div style={{ width: 320 }}>
-        <Heading size="3" style={{ marginBottom: 8 }}>
-          TanStack Form Integration
-        </Heading>
-        <Text size="2" color="gray" style={{ marginBottom: 12, display: 'block' }}>
-          You can integrate Field components with{' '}
-          <Link href="https://tanstack.com/form" target="_blank" underline="always">
-            TanStack Form
-          </Link>{' '}
-          using the <Code>form.Field</Code> component.
-        </Text>
-        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
-          TanStack Form provides fine-grained reactivity and supports async validation out of the box. Use{' '}
-          <Code>field.state.meta</Code> to access validation errors.
-        </Text>
-
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            form.handleSubmit();
-          }}
-          style={{ display: 'flex', flexDirection: 'column', gap: 16, width: '100%' }}
-        >
-          <form.Field
-            name="username"
-            validators={{
-              onChange: ({ value }) => {
-                if (!value) return 'Username is required';
-                if (value.length < 3) return 'Username must be at least 3 characters';
-                return undefined;
-              },
-            }}
-          >
-            {(field) => (
-              <Field.Root name={field.name} invalid={field.state.meta.errors.length > 0}>
-                <Field.Label>Username</Field.Label>
-                <TextField.Root>
-                  <TextField.Input
-                    placeholder="Enter username"
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    onBlur={field.handleBlur}
-                  />
-                </TextField.Root>
-                {field.state.meta.errors.length > 0 && (
-                  <Field.Error match={true}>{field.state.meta.errors[0]}</Field.Error>
-                )}
-              </Field.Root>
-            )}
-          </form.Field>
-
-          <form.Field
-            name="bio"
-            validators={{
-              onChange: ({ value }) => {
-                if (value && value.length > 100) return 'Bio must be 100 characters or less';
-                return undefined;
-              },
-            }}
-          >
-            {(field) => (
-              <Field.Root name={field.name} invalid={field.state.meta.errors.length > 0}>
-                <Field.Label>Bio</Field.Label>
-                <TextField.Root>
-                  <TextField.Input
-                    placeholder="Tell us about yourself (optional)"
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    onBlur={field.handleBlur}
-                  />
-                </TextField.Root>
-                <Field.Description>Max 100 characters</Field.Description>
-                {field.state.meta.errors.length > 0 && (
-                  <Field.Error match={true}>{field.state.meta.errors[0]}</Field.Error>
-                )}
-              </Field.Root>
-            )}
-          </form.Field>
-
-          <form.Subscribe selector={(state) => state.isSubmitting}>
-            {(isSubmitting) => (
-              <Button type="submit" loading={isSubmitting}>
-                Submit
-              </Button>
-            )}
-          </form.Subscribe>
-        </form>
-
-        {result && (
-          <pre style={{ marginTop: 16, fontSize: 12, color: 'var(--gray-11)' }}>{JSON.stringify(result, null, 2)}</pre>
-        )}
-      </div>
-    );
-  },
-};
-
-// ============================================================================
-// Form Reset
-// ============================================================================
-
-export const FormReset: Story = {
-  name: 'Form Reset',
-  render: function FormResetStory() {
-    const formRef = React.useRef<HTMLFormElement>(null);
-    const [result, setResult] = React.useState<Record<string, unknown> | null>(null);
+export const ConditionalFields: Story = {
+  name: 'Conditional Fields',
+  render: function ConditionalFieldsStory() {
+    const [accountType, setAccountType] = React.useState('personal');
+    const [contactMethod, setContactMethod] = React.useState('email');
     const [loading, setLoading] = React.useState(false);
-
-    const handleReset = () => {
-      formRef.current?.reset();
-      setResult(null);
-    };
+    const [result, setResult] = React.useState<Record<string, unknown> | null>(null);
 
     return (
       <div style={{ width: 320 }}>
         <Heading size="3" style={{ marginBottom: 8 }}>
-          Form Reset
+          Conditional Fields
         </Heading>
         <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
-          Use a ref to access the native form element and call <Code>reset()</Code> to clear all fields. The native
-          reset restores inputs to their <Code>defaultValue</Code> (empty if not set).
+          Show or hide fields based on user selections. Use controlled state to track selections and conditionally
+          render fields.
         </Text>
 
         <Form.Root
-          ref={formRef}
           onFormSubmit={async (formValues) => {
             setLoading(true);
             await new Promise((resolve) => setTimeout(resolve, 500));
-            setResult(formValues);
+            setResult({ ...formValues, accountType, contactMethod });
             setLoading(false);
           }}
         >
-          <Field.Root name="firstName">
-            <Field.Label>First Name</Field.Label>
+          {/* Account Type Selection */}
+          <Field.Root name="accountType">
+            <Field.Label>Account Type</Field.Label>
+            <Select.Root value={accountType} onValueChange={(value) => value && setAccountType(value)}>
+              <Select.Trigger placeholder="Select account type" />
+              <Select.Content>
+                <Select.Item value="personal">Personal</Select.Item>
+                <Select.Item value="business">Business</Select.Item>
+              </Select.Content>
+            </Select.Root>
+          </Field.Root>
+
+          {/* Conditional Business Fields */}
+          {accountType === 'business' && (
+            <>
+              <Field.Root name="companyName">
+                <Field.Label>Company Name</Field.Label>
+                <TextField.Root>
+                  <TextField.Input required placeholder="Acme Inc." />
+                </TextField.Root>
+                <Field.Error match="valueMissing">Company name is required for business accounts</Field.Error>
+              </Field.Root>
+
+              <Field.Root name="taxId">
+                <Field.Label>Tax ID</Field.Label>
+                <TextField.Root>
+                  <TextField.Input placeholder="XX-XXXXXXX" />
+                </TextField.Root>
+                <Field.Description>Optional for billing purposes</Field.Description>
+              </Field.Root>
+            </>
+          )}
+
+          <Separator size="4" />
+
+          {/* Contact Method Selection */}
+          <Field.Root name="contactMethod">
+            <Field.Label>Preferred Contact Method</Field.Label>
+            <Select.Root value={contactMethod} onValueChange={(value) => value && setContactMethod(value)}>
+              <Select.Trigger placeholder="Select contact method" />
+              <Select.Content>
+                <Select.Item value="email">Email</Select.Item>
+                <Select.Item value="phone">Phone</Select.Item>
+                <Select.Item value="mail">Physical Mail</Select.Item>
+              </Select.Content>
+            </Select.Root>
+          </Field.Root>
+
+          {/* Conditional Contact Fields */}
+          {contactMethod === 'email' && (
+            <Field.Root name="email">
+              <Field.Label>Email Address</Field.Label>
+              <TextField.Root>
+                <TextField.Input type="email" required placeholder="you@example.com" />
+              </TextField.Root>
+              <Field.Error match="valueMissing">Email is required</Field.Error>
+              <Field.Error match="typeMismatch">Please enter a valid email</Field.Error>
+            </Field.Root>
+          )}
+
+          {contactMethod === 'phone' && (
+            <Field.Root name="phone">
+              <Field.Label>Phone Number</Field.Label>
+              <TextField.Root>
+                <TextField.Input type="tel" required placeholder="+1 (555) 000-0000" />
+              </TextField.Root>
+              <Field.Error match="valueMissing">Phone number is required</Field.Error>
+            </Field.Root>
+          )}
+
+          {contactMethod === 'mail' && (
+            <>
+              <Field.Root name="address">
+                <Field.Label>Street Address</Field.Label>
+                <TextField.Root>
+                  <TextField.Input required placeholder="123 Main St" />
+                </TextField.Root>
+                <Field.Error match="valueMissing">Address is required</Field.Error>
+              </Field.Root>
+
+              <div style={{ display: 'flex', gap: 8 }}>
+                <Field.Root name="city" style={{ flex: 1 }}>
+                  <Field.Label>City</Field.Label>
+                  <TextField.Root>
+                    <TextField.Input required placeholder="City" />
+                  </TextField.Root>
+                </Field.Root>
+
+                <Field.Root name="zip" style={{ width: 100 }}>
+                  <Field.Label>ZIP</Field.Label>
+                  <TextField.Root>
+                    <TextField.Input required placeholder="12345" />
+                  </TextField.Root>
+                </Field.Root>
+              </div>
+            </>
+          )}
+
+          <Button type="submit" loading={loading} style={{ marginTop: 8 }}>
+            Submit
+          </Button>
+        </Form.Root>
+
+        {result && (
+          <pre style={{ marginTop: 16, fontSize: 12, color: 'var(--gray-11)' }}>{JSON.stringify(result, null, 2)}</pre>
+        )}
+      </div>
+    );
+  },
+};
+
+// ============================================================================
+// 8. Dynamic Form Fields
+// ============================================================================
+
+type TeamMember = {
+  id: string;
+  name: string;
+  email: string;
+};
+
+export const DynamicFormFields: Story = {
+  name: 'Dynamic Form Fields',
+  render: function DynamicFieldsStory() {
+    const [members, setMembers] = React.useState<TeamMember[]>([{ id: '1', name: '', email: '' }]);
+    const [loading, setLoading] = React.useState(false);
+    const [result, setResult] = React.useState<TeamMember[] | null>(null);
+
+    const addMember = () => {
+      setMembers((prev) => [...prev, { id: crypto.randomUUID(), name: '', email: '' }]);
+    };
+
+    const removeMember = (id: string) => {
+      setMembers((prev) => prev.filter((m) => m.id !== id));
+    };
+
+    const updateMember = (id: string, field: 'name' | 'email', value: string) => {
+      setMembers((prev) => prev.map((m) => (m.id === id ? { ...m, [field]: value } : m)));
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+      setLoading(true);
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      setResult(members);
+      setLoading(false);
+    };
+
+    return (
+      <div style={{ width: 400 }}>
+        <Heading size="3" style={{ marginBottom: 8 }}>
+          Dynamic Form Fields
+        </Heading>
+        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
+          Add and remove form fields dynamically. Store field data in an array and render fields using{' '}
+          <Code>map()</Code>. Use unique IDs as keys for proper React reconciliation.
+        </Text>
+
+        <Form.Root onSubmit={handleSubmit}>
+          {members.map((member, index) => (
+            <Card key={member.id}>
+              <Fieldset.Root
+                style={{
+                  borderRadius: 8,
+                }}
+              >
+                <div style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
+                  <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16 }}>
+                      <Fieldset.Legend variant="label">Member {index + 1}</Fieldset.Legend>
+                      {members.length > 1 && (
+                        <Button
+                          size="1"
+                          type="button"
+                          variant="soft"
+                          color="gray"
+                          onClick={() => removeMember(member.id)}
+                        >
+                          Remove
+                        </Button>
+                      )}
+                    </div>
+                    <Field.Root name={`member-${member.id}-name`}>
+                      <TextField.Root size="2">
+                        <TextField.Input
+                          placeholder="Name"
+                          value={member.name}
+                          onChange={(e) => updateMember(member.id, 'name', e.target.value)}
+                          required
+                        />
+                      </TextField.Root>
+                      <Field.Error match="valueMissing">Name is required</Field.Error>
+                    </Field.Root>
+                    <Field.Root name={`member-${member.id}-email`}>
+                      <TextField.Root size="2">
+                        <TextField.Input
+                          type="email"
+                          placeholder="Email"
+                          value={member.email}
+                          onChange={(e) => updateMember(member.id, 'email', e.target.value)}
+                          required
+                        />
+                      </TextField.Root>
+                      <Field.Error match="valueMissing">Email is required</Field.Error>
+                      <Field.Error match="typeMismatch">Please enter a valid email</Field.Error>
+                    </Field.Root>
+                  </div>
+                </div>
+              </Fieldset.Root>
+            </Card>
+          ))}
+
+          <Button type="button" variant="surface" onClick={addMember} style={{ marginBottom: 16 }}>
+            <Plus16 /> Add Team Member
+          </Button>
+
+          <Button type="submit" variant="solid" loading={loading} style={{ width: '100%' }}>
+            Submit Team
+          </Button>
+        </Form.Root>
+
+        {result && (
+          <pre style={{ marginTop: 16, fontSize: 12, color: 'var(--gray-11)' }}>{JSON.stringify(result, null, 2)}</pre>
+        )}
+      </div>
+    );
+  },
+};
+
+// ============================================================================
+// 9. Dirty State Warning
+// ============================================================================
+
+export const DirtyStateWarning: Story = {
+  name: 'Dirty State Warning',
+  render: function DirtyStateWarningStory() {
+    const [formData, setFormData] = React.useState({
+      title: '',
+      content: '',
+    });
+    const [savedData, setSavedData] = React.useState({
+      title: '',
+      content: '',
+    });
+    const [showWarning, setShowWarning] = React.useState(false);
+    const [loading, setLoading] = React.useState(false);
+    const [pendingAction, setPendingAction] = React.useState<(() => void) | null>(null);
+    const [hasSaved, setHasSaved] = React.useState(false);
+
+    const isDirty = formData.title !== savedData.title || formData.content !== savedData.content;
+
+    const handleSave = async () => {
+      setLoading(true);
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      setSavedData(formData);
+      setHasSaved(true);
+      setLoading(false);
+    };
+
+    const handleDiscard = () => {
+      setFormData(savedData);
+    };
+
+    const handleNavigateAway = (action: () => void) => {
+      if (isDirty) {
+        setPendingAction(() => action);
+        setShowWarning(true);
+      } else {
+        action();
+      }
+    };
+
+    const confirmDiscard = () => {
+      setFormData(savedData);
+      setShowWarning(false);
+      if (pendingAction) {
+        pendingAction();
+        setPendingAction(null);
+      }
+    };
+
+    return (
+      <div style={{ width: 360 }}>
+        <Heading size="3" style={{ marginBottom: 8 }}>
+          Dirty State Warning
+        </Heading>
+        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
+          Track form changes to warn users before they lose unsaved work. Compare current values against saved values to
+          determine the <Code>dirty</Code> state.
+        </Text>
+
+        {/* Status indicator - only show after first edit or save */}
+        {(isDirty || hasSaved) && (
+          <Callout.Root color={isDirty ? 'warning' : 'success'} size="1" style={{ marginBottom: 16 }}>
+            <Callout.Icon>
+              <div
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  backgroundColor: 'currentColor',
+                }}
+              />
+            </Callout.Icon>
+            <Callout.Text>{isDirty ? 'Unsaved changes' : 'All changes saved'}</Callout.Text>
+          </Callout.Root>
+        )}
+
+        <Form.Root
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSave();
+          }}
+        >
+          <Field.Root name="title">
+            <Field.Label>Title</Field.Label>
             <TextField.Root>
-              <TextField.Input placeholder="Enter first name" />
+              <TextField.Input
+                placeholder="Enter title"
+                value={formData.title}
+                onChange={(e) => setFormData((prev) => ({ ...prev, title: e.target.value }))}
+              />
             </TextField.Root>
           </Field.Root>
 
-          <Field.Root name="lastName">
-            <Field.Label>Last Name</Field.Label>
+          <Field.Root name="content">
+            <Field.Label>Content</Field.Label>
             <TextField.Root>
-              <TextField.Input placeholder="Enter last name" />
-            </TextField.Root>
-          </Field.Root>
-
-          <Field.Root name="email">
-            <Field.Label>Email</Field.Label>
-            <TextField.Root>
-              <TextField.Input type="email" placeholder="Enter email" />
+              <TextField.Input
+                placeholder="Enter content"
+                value={formData.content}
+                onChange={(e) => setFormData((prev) => ({ ...prev, content: e.target.value }))}
+              />
             </TextField.Root>
           </Field.Root>
 
           <div style={{ display: 'flex', gap: 8 }}>
-            <Button type="submit" loading={loading} style={{ flex: 1 }} variant="solid">
-              Submit
+            <Button type="submit" loading={loading} disabled={!isDirty} style={{ flex: 1 }} variant="solid">
+              Save Changes
             </Button>
-            <Button type="button" variant="surface" onClick={handleReset}>
-              Reset
+            <Button type="button" variant="soft" disabled={!isDirty} onClick={handleDiscard} color="danger">
+              Discard
             </Button>
           </div>
         </Form.Root>
 
-        {result && (
-          <pre style={{ marginTop: 16, fontSize: 12, color: 'var(--gray-11)' }}>{JSON.stringify(result, null, 2)}</pre>
+        <Separator size="4" style={{ marginTop: 24, marginBottom: 16 }} />
+
+        {/* Simulated navigation */}
+        <Text size="2" color="gray" style={{ marginBottom: 12, display: 'block' }}>
+          Try navigating away with unsaved changes:
+        </Text>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <Button variant="soft" size="1" onClick={() => handleNavigateAway(() => alert('Navigated to Dashboard'))}>
+            Dashboard
+          </Button>
+          <Button variant="soft" size="1" onClick={() => handleNavigateAway(() => alert('Navigated to Settings'))}>
+            Settings
+          </Button>
+        </div>
+
+        {/* Warning Dialog */}
+        <AlertDialog.Root open={showWarning} onOpenChange={setShowWarning}>
+          <AlertDialog.Content style={{ maxWidth: 400 }}>
+            <AlertDialog.Title>Unsaved Changes</AlertDialog.Title>
+            <AlertDialog.Description>
+              You have unsaved changes. Are you sure you want to leave? Your changes will be lost.
+            </AlertDialog.Description>
+            <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end', marginTop: 16 }}>
+              <AlertDialog.Cancel>
+                <Button variant="soft" color="gray">
+                  Stay
+                </Button>
+              </AlertDialog.Cancel>
+              <AlertDialog.Action>
+                <Button variant="solid" color="danger" onClick={confirmDiscard}>
+                  Discard Changes
+                </Button>
+              </AlertDialog.Action>
+            </div>
+          </AlertDialog.Content>
+        </AlertDialog.Root>
+      </div>
+    );
+  },
+};
+
+// ============================================================================
+// 10. Auto-save Form
+// ============================================================================
+
+export const AutoSaveForm: Story = {
+  name: 'Auto-save Form',
+  render: function AutoSaveStory() {
+    const [formData, setFormData] = React.useState({
+      title: '',
+      description: '',
+    });
+    const [saveStatus, setSaveStatus] = React.useState<'idle' | 'saving' | 'saved'>('idle');
+    const [lastSaved, setLastSaved] = React.useState<Date | null>(null);
+    const saveTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    const autoSave = React.useCallback(async () => {
+      setSaveStatus('saving');
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 800));
+      setSaveStatus('saved');
+      setLastSaved(new Date());
+
+      // Reset status after 2 seconds
+      setTimeout(() => setSaveStatus('idle'), 2000);
+    }, []);
+
+    const handleChange = (field: 'title' | 'description', value: string) => {
+      const newData = { ...formData, [field]: value };
+      setFormData(newData);
+
+      // Clear existing timeout
+      if (saveTimeoutRef.current) {
+        clearTimeout(saveTimeoutRef.current);
+      }
+
+      // Set new timeout for auto-save (debounce 1 second)
+      saveTimeoutRef.current = setTimeout(() => {
+        if (newData.title || newData.description) {
+          autoSave();
+        }
+      }, 1000);
+    };
+
+    // Cleanup on unmount
+    React.useEffect(() => {
+      return () => {
+        if (saveTimeoutRef.current) {
+          clearTimeout(saveTimeoutRef.current);
+        }
+      };
+    }, []);
+
+    return (
+      <div style={{ width: 360 }}>
+        <Heading size="3" style={{ marginBottom: 8 }}>
+          Auto-save Form
+        </Heading>
+        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
+          Automatically save form data after the user stops typing. Use <Code>setTimeout</Code> to debounce saves and
+          prevent excessive API calls.
+        </Text>
+
+        {/* Save status indicator */}
+        <Callout.Root
+          color={saveStatus === 'saving' ? 'info' : saveStatus === 'saved' ? 'success' : 'gray'}
+          size="1"
+          style={{ marginBottom: 16 }}
+        >
+          <Callout.Icon>
+            {saveStatus === 'saving' ? (
+              <Spinner />
+            ) : (
+              <div
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  backgroundColor: 'currentColor',
+                }}
+              />
+            )}
+          </Callout.Icon>
+          <Callout.Text>
+            {saveStatus === 'saving' && 'Saving...'}
+            {saveStatus === 'saved' && 'All changes saved'}
+            {saveStatus === 'idle' &&
+              (lastSaved ? `Last saved ${lastSaved.toLocaleTimeString()}` : 'Start typing to auto-save')}
+          </Callout.Text>
+        </Callout.Root>
+
+        <Form.Root>
+          <Field.Root name="title">
+            <Field.Label>Title</Field.Label>
+            <TextField.Root>
+              <TextField.Input
+                placeholder="Enter a title"
+                value={formData.title}
+                onChange={(e) => handleChange('title', e.target.value)}
+              />
+            </TextField.Root>
+          </Field.Root>
+
+          <Field.Root name="description">
+            <Field.Label>Description</Field.Label>
+            <TextField.Root>
+              <TextField.Input
+                placeholder="Enter a description"
+                value={formData.description}
+                onChange={(e) => handleChange('description', e.target.value)}
+              />
+            </TextField.Root>
+            <Field.Description>Changes are saved automatically after you stop typing</Field.Description>
+          </Field.Root>
+        </Form.Root>
+
+        {(formData.title || formData.description) && (
+          <pre style={{ marginTop: 16, fontSize: 12, color: 'var(--gray-11)' }}>
+            {JSON.stringify(formData, null, 2)}
+          </pre>
         )}
       </div>
     );
@@ -758,7 +969,7 @@ export const FormReset: Story = {
 };
 
 // ============================================================================
-// Multi-step Wizard Form
+// 11. Multi-step Wizard Form
 // ============================================================================
 
 const WIZARD_STEPS = ['Account', 'Profile', 'Review'];
@@ -1007,413 +1218,266 @@ export const MultiStepWizardForm: Story = {
 };
 
 // ============================================================================
-// Dirty State Warning
+// 12. Using with Zod
 // ============================================================================
 
-export const DirtyStateWarning: Story = {
-  name: 'Dirty State Warning',
-  render: function DirtyStateWarningStory() {
-    const [formData, setFormData] = React.useState({
-      title: '',
-      content: '',
-    });
-    const [savedData, setSavedData] = React.useState({
-      title: '',
-      content: '',
-    });
-    const [showWarning, setShowWarning] = React.useState(false);
-    const [loading, setLoading] = React.useState(false);
-    const [pendingAction, setPendingAction] = React.useState<(() => void) | null>(null);
-    const [hasSaved, setHasSaved] = React.useState(false);
+const schema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  age: z.coerce.number({ message: 'Age must be a number' }).positive('Age must be a positive number'),
+});
 
-    const isDirty = formData.title !== savedData.title || formData.content !== savedData.content;
+async function submitZodForm(formValues: Form.Values) {
+  const result = schema.safeParse(formValues);
 
-    const handleSave = async () => {
-      setLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      setSavedData(formData);
-      setHasSaved(true);
-      setLoading(false);
+  if (!result.success) {
+    return {
+      errors: result.error.flatten().fieldErrors,
     };
+  }
 
-    const handleDiscard = () => {
-      setFormData(savedData);
-    };
+  return {
+    errors: {},
+  };
+}
 
-    const handleNavigateAway = (action: () => void) => {
-      if (isDirty) {
-        setPendingAction(() => action);
-        setShowWarning(true);
-      } else {
-        action();
-      }
-    };
-
-    const confirmDiscard = () => {
-      setFormData(savedData);
-      setShowWarning(false);
-      if (pendingAction) {
-        pendingAction();
-        setPendingAction(null);
-      }
-    };
-
-    return (
-      <div style={{ width: 360 }}>
-        <Heading size="3" style={{ marginBottom: 8 }}>
-          Dirty State Warning
-        </Heading>
-        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
-          Track form changes to warn users before they lose unsaved work. Compare current values against saved values to
-          determine the <Code>dirty</Code> state.
-        </Text>
-
-        {/* Status indicator - only show after first edit or save */}
-        {(isDirty || hasSaved) && (
-          <Callout.Root color={isDirty ? 'warning' : 'success'} size="1" style={{ marginBottom: 16 }}>
-            <Callout.Icon>
-              <div
-                style={{
-                  width: 8,
-                  height: 8,
-                  borderRadius: '50%',
-                  backgroundColor: 'currentColor',
-                }}
-              />
-            </Callout.Icon>
-            <Callout.Text>{isDirty ? 'Unsaved changes' : 'All changes saved'}</Callout.Text>
-          </Callout.Root>
-        )}
-
-        <Form.Root
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSave();
-          }}
-        >
-          <Field.Root name="title">
-            <Field.Label>Title</Field.Label>
-            <TextField.Root>
-              <TextField.Input
-                placeholder="Enter title"
-                value={formData.title}
-                onChange={(e) => setFormData((prev) => ({ ...prev, title: e.target.value }))}
-              />
-            </TextField.Root>
-          </Field.Root>
-
-          <Field.Root name="content">
-            <Field.Label>Content</Field.Label>
-            <TextField.Root>
-              <TextField.Input
-                placeholder="Enter content"
-                value={formData.content}
-                onChange={(e) => setFormData((prev) => ({ ...prev, content: e.target.value }))}
-              />
-            </TextField.Root>
-          </Field.Root>
-
-          <div style={{ display: 'flex', gap: 8 }}>
-            <Button type="submit" loading={loading} disabled={!isDirty} style={{ flex: 1 }} variant="solid">
-              Save Changes
-            </Button>
-            <Button type="button" variant="soft" disabled={!isDirty} onClick={handleDiscard} color="danger">
-              Discard
-            </Button>
-          </div>
-        </Form.Root>
-
-        <Separator size="4" style={{ marginTop: 24, marginBottom: 16 }} />
-
-        {/* Simulated navigation */}
-        <Text size="2" color="gray" style={{ marginBottom: 12, display: 'block' }}>
-          Try navigating away with unsaved changes:
-        </Text>
-        <div style={{ display: 'flex', gap: 8 }}>
-          <Button variant="soft" size="1" onClick={() => handleNavigateAway(() => alert('Navigated to Dashboard'))}>
-            Dashboard
-          </Button>
-          <Button variant="soft" size="1" onClick={() => handleNavigateAway(() => alert('Navigated to Settings'))}>
-            Settings
-          </Button>
-        </div>
-
-        {/* Warning Dialog */}
-        <AlertDialog.Root open={showWarning} onOpenChange={setShowWarning}>
-          <AlertDialog.Content style={{ maxWidth: 400 }}>
-            <AlertDialog.Title>Unsaved Changes</AlertDialog.Title>
-            <AlertDialog.Description>
-              You have unsaved changes. Are you sure you want to leave? Your changes will be lost.
-            </AlertDialog.Description>
-            <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end', marginTop: 16 }}>
-              <AlertDialog.Cancel>
-                <Button variant="soft" color="gray">
-                  Stay
-                </Button>
-              </AlertDialog.Cancel>
-              <AlertDialog.Action>
-                <Button variant="solid" color="danger" onClick={confirmDiscard}>
-                  Discard Changes
-                </Button>
-              </AlertDialog.Action>
-            </div>
-          </AlertDialog.Content>
-        </AlertDialog.Root>
-      </div>
-    );
-  },
-};
-
-// ============================================================================
-// Dynamic Form Fields
-// ============================================================================
-
-type TeamMember = {
-  id: string;
-  name: string;
-  email: string;
-};
-
-export const DynamicFormFields: Story = {
-  name: 'Dynamic Form Fields',
-  render: function DynamicFieldsStory() {
-    const [members, setMembers] = React.useState<TeamMember[]>([{ id: '1', name: '', email: '' }]);
-    const [loading, setLoading] = React.useState(false);
-    const [result, setResult] = React.useState<TeamMember[] | null>(null);
-
-    const addMember = () => {
-      setMembers((prev) => [...prev, { id: crypto.randomUUID(), name: '', email: '' }]);
-    };
-
-    const removeMember = (id: string) => {
-      setMembers((prev) => prev.filter((m) => m.id !== id));
-    };
-
-    const updateMember = (id: string, field: 'name' | 'email', value: string) => {
-      setMembers((prev) => prev.map((m) => (m.id === id ? { ...m, [field]: value } : m)));
-    };
-
-    const handleSubmit = async (e: React.FormEvent) => {
-      e.preventDefault();
-      setLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      setResult(members);
-      setLoading(false);
-    };
-
-    return (
-      <div style={{ width: 400 }}>
-        <Heading size="3" style={{ marginBottom: 8 }}>
-          Dynamic Form Fields
-        </Heading>
-        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
-          Add and remove form fields dynamically. Store field data in an array and render fields using{' '}
-          <Code>map()</Code>. Use unique IDs as keys for proper React reconciliation.
-        </Text>
-
-        <Form.Root onSubmit={handleSubmit}>
-          {members.map((member, index) => (
-            <Card key={member.id}>
-              <Fieldset.Root
-                style={{
-                  borderRadius: 8,
-                }}
-              >
-                <div style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
-                  <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16 }}>
-                      <Fieldset.Legend variant="label">Member {index + 1}</Fieldset.Legend>
-                      {members.length > 1 && (
-                        <Button
-                          size="1"
-                          type="button"
-                          variant="soft"
-                          color="gray"
-                          onClick={() => removeMember(member.id)}
-                        >
-                          Remove
-                        </Button>
-                      )}
-                    </div>
-                    <Field.Root name={`member-${member.id}-name`}>
-                      <TextField.Root size="2">
-                        <TextField.Input
-                          placeholder="Name"
-                          value={member.name}
-                          onChange={(e) => updateMember(member.id, 'name', e.target.value)}
-                          required
-                        />
-                      </TextField.Root>
-                      <Field.Error match="valueMissing">Name is required</Field.Error>
-                    </Field.Root>
-                    <Field.Root name={`member-${member.id}-email`}>
-                      <TextField.Root size="2">
-                        <TextField.Input
-                          type="email"
-                          placeholder="Email"
-                          value={member.email}
-                          onChange={(e) => updateMember(member.id, 'email', e.target.value)}
-                          required
-                        />
-                      </TextField.Root>
-                      <Field.Error match="valueMissing">Email is required</Field.Error>
-                      <Field.Error match="typeMismatch">Please enter a valid email</Field.Error>
-                    </Field.Root>
-                  </div>
-                </div>
-              </Fieldset.Root>
-            </Card>
-          ))}
-
-          <Button type="button" variant="surface" onClick={addMember} style={{ marginBottom: 16 }}>
-            <Plus16 /> Add Team Member
-          </Button>
-
-          <Button type="submit" variant="solid" loading={loading} style={{ width: '100%' }}>
-            Submit Team
-          </Button>
-        </Form.Root>
-
-        {result && (
-          <pre style={{ marginTop: 16, fontSize: 12, color: 'var(--gray-11)' }}>{JSON.stringify(result, null, 2)}</pre>
-        )}
-      </div>
-    );
-  },
-};
-
-// ============================================================================
-// Conditional Fields
-// ============================================================================
-
-export const ConditionalFields: Story = {
-  name: 'Conditional Fields',
-  render: function ConditionalFieldsStory() {
-    const [accountType, setAccountType] = React.useState('personal');
-    const [contactMethod, setContactMethod] = React.useState('email');
+export const UsingWithZod: Story = {
+  name: 'Using with Zod',
+  render: function ZodStory() {
+    const [errors, setErrors] = React.useState<Form.Errors>({});
     const [loading, setLoading] = React.useState(false);
     const [result, setResult] = React.useState<Record<string, unknown> | null>(null);
 
     return (
       <div style={{ width: 320 }}>
         <Heading size="3" style={{ marginBottom: 8 }}>
-          Conditional Fields
+          Using with Zod
         </Heading>
-        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
-          Show or hide fields based on user selections. Use controlled state to track selections and conditionally
-          render fields.
+        <Text size="2" style={{ marginBottom: 16, display: 'block' }}>
+          When parsing the schema using <Code>schema.safeParse()</Code>, the{' '}
+          <Code>result.error.flatten().fieldErrors</Code> data can be used to map the errors to each field's{' '}
+          <Code>name</Code>.
         </Text>
-
         <Form.Root
+          errors={errors}
           onFormSubmit={async (formValues) => {
             setLoading(true);
-            await new Promise((resolve) => setTimeout(resolve, 500));
-            setResult({ ...formValues, accountType, contactMethod });
+            setResult(null);
+            const response = await submitZodForm(formValues);
+            setErrors(response.errors);
+            if (Object.keys(response.errors).length === 0) {
+              setResult(formValues);
+            }
             setLoading(false);
           }}
         >
-          {/* Account Type Selection */}
-          <Field.Root name="accountType">
-            <Field.Label>Account Type</Field.Label>
-            <Select.Root value={accountType} onValueChange={(value) => value && setAccountType(value)}>
-              <Select.Trigger placeholder="Select account type" />
-              <Select.Content>
-                <Select.Item value="personal">Personal</Select.Item>
-                <Select.Item value="business">Business</Select.Item>
-              </Select.Content>
-            </Select.Root>
+          <Field.Root name="name">
+            <Field.Label>Name</Field.Label>
+            <TextField.Root>
+              <TextField.Input placeholder="Enter name" />
+            </TextField.Root>
+            <Field.Error />
           </Field.Root>
-
-          {/* Conditional Business Fields */}
-          {accountType === 'business' && (
-            <>
-              <Field.Root name="companyName">
-                <Field.Label>Company Name</Field.Label>
-                <TextField.Root>
-                  <TextField.Input required placeholder="Acme Inc." />
-                </TextField.Root>
-                <Field.Error match="valueMissing">Company name is required for business accounts</Field.Error>
-              </Field.Root>
-
-              <Field.Root name="taxId">
-                <Field.Label>Tax ID</Field.Label>
-                <TextField.Root>
-                  <TextField.Input placeholder="XX-XXXXXXX" />
-                </TextField.Root>
-                <Field.Description>Optional for billing purposes</Field.Description>
-              </Field.Root>
-            </>
-          )}
-
-          <Separator size="4" />
-
-          {/* Contact Method Selection */}
-          <Field.Root name="contactMethod">
-            <Field.Label>Preferred Contact Method</Field.Label>
-            <Select.Root value={contactMethod} onValueChange={(value) => value && setContactMethod(value)}>
-              <Select.Trigger placeholder="Select contact method" />
-              <Select.Content>
-                <Select.Item value="email">Email</Select.Item>
-                <Select.Item value="phone">Phone</Select.Item>
-                <Select.Item value="mail">Physical Mail</Select.Item>
-              </Select.Content>
-            </Select.Root>
+          <Field.Root name="age">
+            <Field.Label>Age</Field.Label>
+            <TextField.Root>
+              <TextField.Input placeholder="Enter age" />
+            </TextField.Root>
+            <Field.Error />
           </Field.Root>
-
-          {/* Conditional Contact Fields */}
-          {contactMethod === 'email' && (
-            <Field.Root name="email">
-              <Field.Label>Email Address</Field.Label>
-              <TextField.Root>
-                <TextField.Input type="email" required placeholder="you@example.com" />
-              </TextField.Root>
-              <Field.Error match="valueMissing">Email is required</Field.Error>
-              <Field.Error match="typeMismatch">Please enter a valid email</Field.Error>
-            </Field.Root>
-          )}
-
-          {contactMethod === 'phone' && (
-            <Field.Root name="phone">
-              <Field.Label>Phone Number</Field.Label>
-              <TextField.Root>
-                <TextField.Input type="tel" required placeholder="+1 (555) 000-0000" />
-              </TextField.Root>
-              <Field.Error match="valueMissing">Phone number is required</Field.Error>
-            </Field.Root>
-          )}
-
-          {contactMethod === 'mail' && (
-            <>
-              <Field.Root name="address">
-                <Field.Label>Street Address</Field.Label>
-                <TextField.Root>
-                  <TextField.Input required placeholder="123 Main St" />
-                </TextField.Root>
-                <Field.Error match="valueMissing">Address is required</Field.Error>
-              </Field.Root>
-
-              <div style={{ display: 'flex', gap: 8 }}>
-                <Field.Root name="city" style={{ flex: 1 }}>
-                  <Field.Label>City</Field.Label>
-                  <TextField.Root>
-                    <TextField.Input required placeholder="City" />
-                  </TextField.Root>
-                </Field.Root>
-
-                <Field.Root name="zip" style={{ width: 100 }}>
-                  <Field.Label>ZIP</Field.Label>
-                  <TextField.Root>
-                    <TextField.Input required placeholder="12345" />
-                  </TextField.Root>
-                </Field.Root>
-              </div>
-            </>
-          )}
-
-          <Button type="submit" loading={loading} style={{ marginTop: 8 }}>
+          <Button type="submit" loading={loading}>
             Submit
           </Button>
         </Form.Root>
+        {result && (
+          <pre style={{ marginTop: 16, fontSize: 12, color: 'var(--gray-11)' }}>{JSON.stringify(result, null, 2)}</pre>
+        )}
+      </div>
+    );
+  },
+};
+
+// ============================================================================
+// 13. Submit with a Server Function
+// ============================================================================
+
+async function submitUsername(_previousState: { serverErrors?: Form.Errors }, formData: FormData) {
+  // Mimic a server response
+  await new Promise((resolve) => {
+    setTimeout(resolve, 1000);
+  });
+
+  try {
+    const username = formData.get('username') as string | null;
+
+    if (username === 'admin') {
+      return { success: false, serverErrors: { username: "'admin' is reserved for system use" } };
+    }
+
+    // 50% chance the username is taken
+    const success = Math.random() > 0.5;
+
+    if (!success) {
+      return {
+        serverErrors: { username: `${username} is unavailable` },
+      };
+    }
+  } catch {
+    return { serverErrors: { username: 'A server error has occurred' } };
+  }
+
+  return {};
+}
+
+export const SubmitWithServerFunction: Story = {
+  name: 'Submit with a Server Function',
+  render: function ServerFunctionStory() {
+    const [state, formAction, loading] = React.useActionState<{ serverErrors?: Form.Errors }, FormData>(
+      submitUsername,
+      {},
+    );
+
+    return (
+      <div style={{ width: 320 }}>
+        <Heading size="3" style={{ marginBottom: 8 }}>
+          Submit with a Server Function
+        </Heading>
+        <Text size="2" style={{ marginBottom: 16, display: 'block' }}>
+          Forms using <Code>useActionState</Code> can be submitted with a{' '}
+          <Link
+            href="https://react.dev/reference/react-dom/components/form#handle-form-submission-with-a-server-function"
+            target="_blank"
+            underline="always"
+          >
+            Server Function
+          </Link>{' '}
+          instead of <Code>onSubmit</Code>.
+        </Text>
+        <Form.Root errors={state.serverErrors} action={formAction}>
+          <Field.Root name="username">
+            <Field.Label>Username</Field.Label>
+            <TextField.Root>
+              <TextField.Input required defaultValue="admin" placeholder="e.g. alice132" />
+            </TextField.Root>
+            <Field.Error />
+          </Field.Root>
+          <Button type="submit" loading={loading}>
+            Submit
+          </Button>
+        </Form.Root>
+      </div>
+    );
+  },
+};
+
+// ============================================================================
+// 14. React Hook Form Integration
+// ============================================================================
+
+type ReactHookFormData = {
+  firstName: string;
+  lastName: string;
+  email: string;
+};
+
+export const ReactHookFormIntegration: Story = {
+  name: 'React Hook Form Integration',
+  render: function ReactHookFormStory() {
+    const {
+      control,
+      handleSubmit,
+      formState: { errors, isSubmitting },
+    } = useReactHookForm<ReactHookFormData>({
+      defaultValues: {
+        firstName: '',
+        lastName: '',
+        email: '',
+      },
+    });
+
+    const [result, setResult] = React.useState<ReactHookFormData | null>(null);
+
+    const onSubmit = async (data: ReactHookFormData) => {
+      // Mimic an API call
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      setResult(data);
+    };
+
+    return (
+      <div style={{ width: 320 }}>
+        <Heading size="3" style={{ marginBottom: 8 }}>
+          React Hook Form Integration
+        </Heading>
+        <Text size="2" color="gray" style={{ marginBottom: 12, display: 'block' }}>
+          You can integrate Field components with{' '}
+          <Link href="https://react-hook-form.com" target="_blank" underline="always">
+            React Hook Form
+          </Link>{' '}
+          using the <Code>Controller</Code> component.
+        </Text>
+        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
+          The <Code>Controller</Code> wraps your input and provides <Code>field</Code> props (like <Code>onChange</Code>
+          , <Code>onBlur</Code>, <Code>value</Code>) that connect it to the form state.
+        </Text>
+
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          style={{ display: 'flex', flexDirection: 'column', gap: 16, width: '100%' }}
+        >
+          <Controller
+            name="firstName"
+            control={control}
+            rules={{ required: 'First name is required' }}
+            render={({ field }) => (
+              <Field.Root name={field.name} invalid={!!errors.firstName}>
+                <Field.Label>First Name</Field.Label>
+                <TextField.Root>
+                  <TextField.Input placeholder="Enter first name" {...field} />
+                </TextField.Root>
+                {errors.firstName && <Field.Error match={true}>{errors.firstName.message}</Field.Error>}
+              </Field.Root>
+            )}
+          />
+
+          <Controller
+            name="lastName"
+            control={control}
+            rules={{ required: 'Last name is required' }}
+            render={({ field }) => (
+              <Field.Root name={field.name} invalid={!!errors.lastName}>
+                <Field.Label>Last Name</Field.Label>
+                <TextField.Root>
+                  <TextField.Input placeholder="Enter last name" {...field} />
+                </TextField.Root>
+                {errors.lastName && <Field.Error match={true}>{errors.lastName.message}</Field.Error>}
+              </Field.Root>
+            )}
+          />
+
+          <Controller
+            name="email"
+            control={control}
+            rules={{
+              required: 'Email is required',
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: 'Invalid email address',
+              },
+            }}
+            render={({ field }) => (
+              <Field.Root name={field.name} invalid={!!errors.email}>
+                <Field.Label>Email</Field.Label>
+                <TextField.Root>
+                  <TextField.Input type="email" placeholder="user@example.com" {...field} />
+                </TextField.Root>
+                {errors.email && <Field.Error match={true}>{errors.email.message}</Field.Error>}
+              </Field.Root>
+            )}
+          />
+
+          <Button type="submit" loading={isSubmitting}>
+            Submit
+          </Button>
+        </form>
 
         {result && (
           <pre style={{ marginTop: 16, fontSize: 12, color: 'var(--gray-11)' }}>{JSON.stringify(result, null, 2)}</pre>
@@ -1424,131 +1488,123 @@ export const ConditionalFields: Story = {
 };
 
 // ============================================================================
-// Auto-save Form
+// 15. TanStack Form Integration
 // ============================================================================
 
-export const AutoSaveForm: Story = {
-  name: 'Auto-save Form',
-  render: function AutoSaveStory() {
-    const [formData, setFormData] = React.useState({
-      title: '',
-      description: '',
+type TanStackFormData = {
+  username: string;
+  bio: string;
+};
+
+export const TanStackFormIntegration: Story = {
+  name: 'TanStack Form Integration',
+  render: function TanStackFormStory() {
+    const [result, setResult] = React.useState<TanStackFormData | null>(null);
+
+    const form = useTanStackForm({
+      defaultValues: {
+        username: '',
+        bio: '',
+      } as TanStackFormData,
+      onSubmit: async ({ value }) => {
+        // Mimic an API call
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        setResult(value);
+      },
     });
-    const [saveStatus, setSaveStatus] = React.useState<'idle' | 'saving' | 'saved'>('idle');
-    const [lastSaved, setLastSaved] = React.useState<Date | null>(null);
-    const saveTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
-
-    const autoSave = React.useCallback(async () => {
-      setSaveStatus('saving');
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 800));
-      setSaveStatus('saved');
-      setLastSaved(new Date());
-
-      // Reset status after 2 seconds
-      setTimeout(() => setSaveStatus('idle'), 2000);
-    }, []);
-
-    const handleChange = (field: 'title' | 'description', value: string) => {
-      const newData = { ...formData, [field]: value };
-      setFormData(newData);
-
-      // Clear existing timeout
-      if (saveTimeoutRef.current) {
-        clearTimeout(saveTimeoutRef.current);
-      }
-
-      // Set new timeout for auto-save (debounce 1 second)
-      saveTimeoutRef.current = setTimeout(() => {
-        if (newData.title || newData.description) {
-          autoSave();
-        }
-      }, 1000);
-    };
-
-    // Cleanup on unmount
-    React.useEffect(() => {
-      return () => {
-        if (saveTimeoutRef.current) {
-          clearTimeout(saveTimeoutRef.current);
-        }
-      };
-    }, []);
 
     return (
-      <div style={{ width: 360 }}>
+      <div style={{ width: 320 }}>
         <Heading size="3" style={{ marginBottom: 8 }}>
-          Auto-save Form
+          TanStack Form Integration
         </Heading>
+        <Text size="2" color="gray" style={{ marginBottom: 12, display: 'block' }}>
+          You can integrate Field components with{' '}
+          <Link href="https://tanstack.com/form" target="_blank" underline="always">
+            TanStack Form
+          </Link>{' '}
+          using the <Code>form.Field</Code> component.
+        </Text>
         <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
-          Automatically save form data after the user stops typing. Use <Code>setTimeout</Code> to debounce saves and
-          prevent excessive API calls.
+          TanStack Form provides fine-grained reactivity and supports async validation out of the box. Use{' '}
+          <Code>field.state.meta</Code> to access validation errors.
         </Text>
 
-        {/* Save status indicator */}
-        <Callout.Root
-          color={saveStatus === 'saving' ? 'info' : saveStatus === 'saved' ? 'success' : 'gray'}
-          size="1"
-          style={{ marginBottom: 16 }}
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            form.handleSubmit();
+          }}
+          style={{ display: 'flex', flexDirection: 'column', gap: 16, width: '100%' }}
         >
-          <Callout.Icon>
-            {saveStatus === 'saving' ? (
-              <Spinner />
-            ) : (
-              <div
-                style={{
-                  width: 8,
-                  height: 8,
-                  borderRadius: '50%',
-                  backgroundColor: 'currentColor',
-                }}
-              />
+          <form.Field
+            name="username"
+            validators={{
+              onChange: ({ value }) => {
+                if (!value) return 'Username is required';
+                if (value.length < 3) return 'Username must be at least 3 characters';
+                return undefined;
+              },
+            }}
+          >
+            {(field) => (
+              <Field.Root name={field.name} invalid={field.state.meta.errors.length > 0}>
+                <Field.Label>Username</Field.Label>
+                <TextField.Root>
+                  <TextField.Input
+                    placeholder="Enter username"
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    onBlur={field.handleBlur}
+                  />
+                </TextField.Root>
+                {field.state.meta.errors.length > 0 && (
+                  <Field.Error match={true}>{field.state.meta.errors[0]}</Field.Error>
+                )}
+              </Field.Root>
             )}
-          </Callout.Icon>
-          <Callout.Text>
-            {saveStatus === 'saving' && 'Saving...'}
-            {saveStatus === 'saved' && 'All changes saved'}
-            {saveStatus === 'idle' &&
-              (lastSaved ? `Last saved ${lastSaved.toLocaleTimeString()}` : 'Start typing to auto-save')}
-          </Callout.Text>
-        </Callout.Root>
+          </form.Field>
 
-        <style>{`
-          @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-          }
-        `}</style>
+          <form.Field
+            name="bio"
+            validators={{
+              onChange: ({ value }) => {
+                if (value && value.length > 100) return 'Bio must be 100 characters or less';
+                return undefined;
+              },
+            }}
+          >
+            {(field) => (
+              <Field.Root name={field.name} invalid={field.state.meta.errors.length > 0}>
+                <Field.Label>Bio</Field.Label>
+                <TextField.Root>
+                  <TextField.Input
+                    placeholder="Tell us about yourself (optional)"
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    onBlur={field.handleBlur}
+                  />
+                </TextField.Root>
+                <Field.Description>Max 100 characters</Field.Description>
+                {field.state.meta.errors.length > 0 && (
+                  <Field.Error match={true}>{field.state.meta.errors[0]}</Field.Error>
+                )}
+              </Field.Root>
+            )}
+          </form.Field>
 
-        <Form.Root>
-          <Field.Root name="title">
-            <Field.Label>Title</Field.Label>
-            <TextField.Root>
-              <TextField.Input
-                placeholder="Enter a title"
-                value={formData.title}
-                onChange={(e) => handleChange('title', e.target.value)}
-              />
-            </TextField.Root>
-          </Field.Root>
+          <form.Subscribe selector={(state) => state.isSubmitting}>
+            {(isSubmitting) => (
+              <Button type="submit" loading={isSubmitting}>
+                Submit
+              </Button>
+            )}
+          </form.Subscribe>
+        </form>
 
-          <Field.Root name="description">
-            <Field.Label>Description</Field.Label>
-            <TextField.Root>
-              <TextField.Input
-                placeholder="Enter a description"
-                value={formData.description}
-                onChange={(e) => handleChange('description', e.target.value)}
-              />
-            </TextField.Root>
-            <Field.Description>Changes are saved automatically after you stop typing</Field.Description>
-          </Field.Root>
-        </Form.Root>
-
-        {(formData.title || formData.description) && (
-          <pre style={{ marginTop: 16, fontSize: 12, color: 'var(--gray-11)' }}>
-            {JSON.stringify(formData, null, 2)}
-          </pre>
+        {result && (
+          <pre style={{ marginTop: 16, fontSize: 12, color: 'var(--gray-11)' }}>{JSON.stringify(result, null, 2)}</pre>
         )}
       </div>
     );
