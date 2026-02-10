@@ -31,11 +31,9 @@
 .fui-FieldsetLegend {
   /* Remove default browser padding */
   padding: 0;
+  margin-bottom: 8px;
 
   &:where([data-disabled]) {
     color: var(--gray-a8);
-  }
-  &:where([data-variant='legend']) {
-    margin-bottom: 8px;
   }
 }

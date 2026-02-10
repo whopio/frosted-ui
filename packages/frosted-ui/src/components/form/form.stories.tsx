@@ -739,48 +739,40 @@ export const DynamicFormFields: Story = {
                   borderRadius: 8,
                 }}
               >
-                <div style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
-                  <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16 }}>
-                      <Fieldset.Legend variant="label">Member {index + 1}</Fieldset.Legend>
-                      {members.length > 1 && (
-                        <Button
-                          size="1"
-                          type="button"
-                          variant="soft"
-                          color="gray"
-                          onClick={() => removeMember(member.id)}
-                        >
-                          Remove
-                        </Button>
-                      )}
-                    </div>
-                    <Field.Root name={`member-${member.id}-name`}>
-                      <TextField.Root size="2">
-                        <TextField.Input
-                          placeholder="Name"
-                          value={member.name}
-                          onChange={(e) => updateMember(member.id, 'name', e.target.value)}
-                          required
-                        />
-                      </TextField.Root>
-                      <Field.Error match="valueMissing">Name is required</Field.Error>
-                    </Field.Root>
-                    <Field.Root name={`member-${member.id}-email`}>
-                      <TextField.Root size="2">
-                        <TextField.Input
-                          type="email"
-                          placeholder="Email"
-                          value={member.email}
-                          onChange={(e) => updateMember(member.id, 'email', e.target.value)}
-                          required
-                        />
-                      </TextField.Root>
-                      <Field.Error match="valueMissing">Email is required</Field.Error>
-                      <Field.Error match="typeMismatch">Please enter a valid email</Field.Error>
-                    </Field.Root>
-                  </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16 }}>
+                  <Fieldset.Legend variant="label" style={{ margin: 0 }}>
+                    Member {index + 1}
+                  </Fieldset.Legend>
+                  {members.length > 1 && (
+                    <Button size="1" type="button" variant="soft" color="gray" onClick={() => removeMember(member.id)}>
+                      Remove
+                    </Button>
+                  )}
                 </div>
+                <Field.Root name={`member-${member.id}-name`}>
+                  <TextField.Root size="2">
+                    <TextField.Input
+                      placeholder="Name"
+                      value={member.name}
+                      onChange={(e) => updateMember(member.id, 'name', e.target.value)}
+                      required
+                    />
+                  </TextField.Root>
+                  <Field.Error match="valueMissing">Name is required</Field.Error>
+                </Field.Root>
+                <Field.Root name={`member-${member.id}-email`}>
+                  <TextField.Root size="2">
+                    <TextField.Input
+                      type="email"
+                      placeholder="Email"
+                      value={member.email}
+                      onChange={(e) => updateMember(member.id, 'email', e.target.value)}
+                      required
+                    />
+                  </TextField.Root>
+                  <Field.Error match="valueMissing">Email is required</Field.Error>
+                  <Field.Error match="typeMismatch">Please enter a valid email</Field.Error>
+                </Field.Root>
               </Fieldset.Root>
             </Card>
           ))}
