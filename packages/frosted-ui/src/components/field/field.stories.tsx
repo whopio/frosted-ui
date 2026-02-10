@@ -160,6 +160,8 @@ export const FieldsetDisabled: Story = {
   name: 'Fieldset Disabled',
   render: function FieldsetDisabledStory() {
     const [sameAsShipping, setSameAsShipping] = React.useState(false);
+    const [loading, setLoading] = React.useState(false);
+    const [submitted, setSubmitted] = React.useState<Record<string, unknown> | null>(null);
     const [shippingAddress, setShippingAddress] = React.useState({
       street: '',
       city: '',
@@ -176,6 +178,17 @@ export const FieldsetDisabled: Story = {
     // When "same as shipping" is checked, sync billing with shipping
     const displayedBilling = sameAsShipping ? shippingAddress : billingAddress;
 
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+      setLoading(true);
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      setSubmitted({
+        shipping: shippingAddress,
+        billing: sameAsShipping ? shippingAddress : billingAddress,
+      });
+      setLoading(false);
+    };
+
     return (
       <div style={{ width: 400 }}>
         <Heading size="3" style={{ marginBottom: 8 }}>
@@ -186,7 +199,7 @@ export const FieldsetDisabled: Story = {
           once. This is useful for conditional sections like billing addresses that can be skipped.
         </Text>
 
-        <Form.Root>
+        <Form.Root onSubmit={handleSubmit}>
           {/* Shipping Address */}
           <Fieldset.Root>
             <Fieldset.Legend>Shipping Address</Fieldset.Legend>
@@ -335,10 +348,21 @@ export const FieldsetDisabled: Story = {
             </Field.Root>
           </Fieldset.Root>
 
-          <Button type="submit" style={{ width: '100%', marginTop: 20 }} variant="solid">
+          <Button type="submit" loading={loading} style={{ width: '100%', marginTop: 20 }} variant="solid">
             Continue to Payment
           </Button>
         </Form.Root>
+
+        {submitted && (
+          <Callout.Root color="success" size="1" style={{ marginTop: 16 }}>
+            <Callout.Text>
+              Order submitted!
+              <pre style={{ marginTop: 8, fontSize: 11, whiteSpace: 'pre-wrap' }}>
+                {JSON.stringify(submitted, null, 2)}
+              </pre>
+            </Callout.Text>
+          </Callout.Root>
+        )}
       </div>
     );
   },
