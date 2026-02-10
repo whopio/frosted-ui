@@ -216,6 +216,138 @@ export const WithSelect: Story = {
 };
 
 // ============================================================================
+// With Slider (Range Validation)
+// ============================================================================
+
+export const WithSliderRangeValidation: Story = {
+  name: 'With Slider (Range Validation)',
+  render: function WithSliderRangeValidationStory() {
+    const [priceRange, setPriceRange] = React.useState([200, 500]);
+    const [error, setError] = React.useState<string | null>(null);
+    const minRange = 100; // Minimum $100 difference required
+
+    const validateRange = (values: number[]) => {
+      const [min, max] = values;
+      if (max - min < minRange) {
+        return `Price range must be at least $${minRange}`;
+      }
+      return null;
+    };
+
+    const handleValueChange = (value: number | readonly number[]) => {
+      const newValues = Array.isArray(value) ? [...value] : [value];
+      setPriceRange(newValues);
+      setError(validateRange(newValues));
+    };
+
+    return (
+      <div style={{ width: 320 }}>
+        <Heading size="3" style={{ marginBottom: 8 }}>
+          Slider with Validation
+        </Heading>
+        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
+          Range sliders can be validated using controlled state. Check the range difference, bounds, or any custom
+          criteria and display errors using <Code>{'<Field.Error>'}</Code> with <Code>{'match={true}'}</Code>.
+        </Text>
+
+        <Field.Root name="priceRange" invalid={!!error}>
+          <Field.Label>Price Range</Field.Label>
+          <div style={{ padding: '8px 0 16px' }}>
+            <Slider
+              value={priceRange}
+              onValueChange={handleValueChange}
+              min={0}
+              max={1000}
+              step={50}
+            />
+          </div>
+          <Field.Description>
+            ${priceRange[0]} – ${priceRange[1]} (${priceRange[1] - priceRange[0]} range)
+          </Field.Description>
+          {error && <Field.Error match={true}>{error}</Field.Error>}
+        </Field.Root>
+
+        <Text size="1" color="gray" style={{ marginTop: 16, display: 'block' }}>
+          Try narrowing the range below ${minRange} to see the validation error.
+        </Text>
+      </div>
+    );
+  },
+};
+
+// ============================================================================
+// With Slider (Budget Allocation)
+// ============================================================================
+
+export const WithSliderBudget: Story = {
+  name: 'With Slider (Budget)',
+  render: function WithSliderBudgetStory() {
+    const [budget, setBudget] = React.useState(5000);
+    const [submitted, setSubmitted] = React.useState(false);
+    const minBudget = 1000;
+    const maxBudget = 50000;
+
+    const getError = () => {
+      if (budget < minBudget) return `Minimum budget is $${minBudget.toLocaleString()}`;
+      if (budget > maxBudget) return `Maximum budget is $${maxBudget.toLocaleString()}`;
+      return null;
+    };
+
+    const error = getError();
+
+    const handleSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
+      if (!error) {
+        setSubmitted(true);
+      }
+    };
+
+    return (
+      <div style={{ width: 320 }}>
+        <Heading size="3" style={{ marginBottom: 8 }}>
+          Budget Allocation
+        </Heading>
+        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
+          Single-value sliders can also be validated. This example enforces minimum and maximum budget constraints.
+        </Text>
+
+        <form onSubmit={handleSubmit}>
+          <Field.Root name="budget" invalid={!!error}>
+            <Field.Label>Monthly Budget</Field.Label>
+            <div style={{ padding: '8px 0 4px' }}>
+              <Slider
+                value={[budget]}
+                onValueChange={(v) => {
+                  setBudget(Array.isArray(v) ? v[0] : (v as number));
+                  setSubmitted(false);
+                }}
+                min={0}
+                max={60000}
+                step={500}
+              />
+            </div>
+            <Field.Description>
+              ${budget.toLocaleString()} / month
+            </Field.Description>
+            {error && <Field.Error match={true}>{error}</Field.Error>}
+          </Field.Root>
+
+          <Button type="submit" disabled={!!error} style={{ marginTop: 16, width: '100%' }}>
+            Set Budget
+          </Button>
+        </form>
+
+        {submitted && (
+          <Callout.Root color="success" size="1" style={{ marginTop: 16 }}>
+            <Callout.Text>Budget set to ${budget.toLocaleString()}/month</Callout.Text>
+          </Callout.Root>
+        )}
+      </div>
+    );
+  },
+};
+
+// ============================================================================
 // With Autocomplete
 // ============================================================================
 
