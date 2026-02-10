@@ -78,7 +78,7 @@ export const SubmitWithServerFunction: Story = {
             </TextField.Root>
             <Field.Error />
           </Field.Root>
-          <Button type="submit" disabled={loading}>
+          <Button type="submit" loading={loading}>
             Submit
           </Button>
         </Form.Root>
@@ -95,6 +95,7 @@ export const SubmitAsJavaScriptObject: Story = {
   name: 'Submit form values as a JavaScript object',
   render: function SubmitAsObjectStory() {
     const [result, setResult] = React.useState<Record<string, unknown> | null>(null);
+    const [loading, setLoading] = React.useState(false);
 
     return (
       <div style={{ width: 320 }}>
@@ -108,9 +109,11 @@ export const SubmitAsJavaScriptObject: Story = {
         </Text>
         <Form.Root
           onFormSubmit={async (formValues) => {
+            setLoading(true);
             // Mimic an API call
             await new Promise((resolve) => setTimeout(resolve, 500));
             setResult(formValues);
+            setLoading(false);
           }}
         >
           <Field.Root name="name">
@@ -125,7 +128,9 @@ export const SubmitAsJavaScriptObject: Story = {
               <TextField.Input placeholder="Enter age" />
             </TextField.Root>
           </Field.Root>
-          <Button type="submit">Submit</Button>
+          <Button type="submit" loading={loading}>
+            Submit
+          </Button>
         </Form.Root>
         {result && (
           <pre style={{ marginTop: 16, fontSize: 12, color: 'var(--gray-11)' }}>{JSON.stringify(result, null, 2)}</pre>
@@ -162,6 +167,8 @@ export const UsingWithZod: Story = {
   name: 'Using with Zod',
   render: function ZodStory() {
     const [errors, setErrors] = React.useState<Form.Errors>({});
+    const [loading, setLoading] = React.useState(false);
+    const [result, setResult] = React.useState<Record<string, unknown> | null>(null);
 
     return (
       <div style={{ width: 320 }}>
@@ -176,8 +183,14 @@ export const UsingWithZod: Story = {
         <Form.Root
           errors={errors}
           onFormSubmit={async (formValues) => {
+            setLoading(true);
+            setResult(null);
             const response = await submitZodForm(formValues);
             setErrors(response.errors);
+            if (Object.keys(response.errors).length === 0) {
+              setResult(formValues);
+            }
+            setLoading(false);
           }}
         >
           <Field.Root name="name">
@@ -194,8 +207,13 @@ export const UsingWithZod: Story = {
             </TextField.Root>
             <Field.Error />
           </Field.Root>
-          <Button type="submit">Submit</Button>
+          <Button type="submit" loading={loading}>
+            Submit
+          </Button>
         </Form.Root>
+        {result && (
+          <pre style={{ marginTop: 16, fontSize: 12, color: 'var(--gray-11)' }}>{JSON.stringify(result, null, 2)}</pre>
+        )}
       </div>
     );
   },
