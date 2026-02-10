@@ -45,7 +45,7 @@ export const Default: Story = {
         <Field.Root name="username">
           <Field.Label>Username</Field.Label>
           <TextField.Root>
-            <Field.Control render={<TextField.Input />} placeholder="Enter your username" required minLength={3} />
+            <TextField.Input placeholder="Enter your username" required minLength={3} />
           </TextField.Root>
           <Field.Description>Must be at least 3 characters</Field.Description>
           <Field.Error match="valueMissing">Username is required</Field.Error>
@@ -77,14 +77,14 @@ export const WithFieldset: Story = {
           <Field.Root name="company">
             <Field.Label>Company</Field.Label>
             <TextField.Root>
-              <Field.Control render={<TextField.Input />} placeholder="Acme Inc." />
+              <TextField.Input placeholder="Acme Inc." />
             </TextField.Root>
           </Field.Root>
 
           <Field.Root name="taxId">
             <Field.Label>Tax ID</Field.Label>
             <TextField.Root>
-              <Field.Control render={<TextField.Input />} placeholder="XX-XXXXXXX" />
+              <TextField.Input placeholder="XX-XXXXXXX" />
             </TextField.Root>
             <Field.Description>Your company's tax identification number</Field.Description>
           </Field.Root>
@@ -96,7 +96,7 @@ export const WithFieldset: Story = {
           <Field.Root name="street">
             <Field.Label>Street address</Field.Label>
             <TextField.Root>
-              <Field.Control render={<TextField.Input />} placeholder="123 Main St" required />
+              <TextField.Input placeholder="123 Main St" required />
             </TextField.Root>
             <Field.Error match="valueMissing">Street address is required</Field.Error>
           </Field.Root>
@@ -105,14 +105,14 @@ export const WithFieldset: Story = {
             <Field.Root name="city">
               <Field.Label>City</Field.Label>
               <TextField.Root>
-                <Field.Control render={<TextField.Input />} placeholder="San Francisco" required />
+                <TextField.Input placeholder="San Francisco" required />
               </TextField.Root>
             </Field.Root>
 
             <Field.Root name="zipCode">
               <Field.Label>ZIP code</Field.Label>
               <TextField.Root>
-                <Field.Control render={<TextField.Input />} placeholder="94102" required />
+                <TextField.Input placeholder="94102" required />
               </TextField.Root>
             </Field.Root>
           </div>
@@ -153,7 +153,7 @@ export const WithTextField: Story = {
         <Field.Root name="email">
           <Field.Label>Email</Field.Label>
           <TextField.Root>
-            <Field.Control render={<TextField.Input />} type="email" placeholder="you@example.com" required />
+            <TextField.Input type="email" placeholder="you@example.com" required />
           </TextField.Root>
           <Field.Error match="valueMissing">Email is required</Field.Error>
           <Field.Error match="typeMismatch">Please enter a valid email address</Field.Error>
@@ -162,7 +162,7 @@ export const WithTextField: Story = {
         <Field.Root name="password">
           <Field.Label>Password</Field.Label>
           <TextField.Root>
-            <Field.Control render={<TextField.Input />} type="password" placeholder="••••••••" required minLength={8} />
+            <TextField.Input type="password" placeholder="••••••••" required minLength={8} />
           </TextField.Root>
           <Field.Description>Must be at least 8 characters</Field.Description>
           <Field.Error match="valueMissing">Password is required</Field.Error>
@@ -243,11 +243,11 @@ export const WithAutocomplete: Story = {
               <Autocomplete.Input render={<TextField.Input placeholder="e.g. docker.io/library/node:latest" />} />
             </TextField.Root>
             <Field.Description>Enter a registry URL with optional tags</Field.Description>
-            <Autocomplete.Content>
+            <Autocomplete.Content size="3">
               <ScrollArea type="auto" style={{ maxHeight: 200 }}>
                 <Autocomplete.List>
                   {(image: Image) => (
-                    <Autocomplete.Item key={image.url} value={image}>
+                    <Autocomplete.Item key={image.url} value={image} style={{ height: 'auto', padding: '8px 12px' }}>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                         <Text size="2">{image.name}</Text>
                         <Text size="1" color="gray" style={{ fontFamily: 'monospace' }}>
@@ -667,7 +667,7 @@ export const FormExample: Story = {
             <Field.Root name="fullName">
               <Field.Label>Full name</Field.Label>
               <TextField.Root>
-                <Field.Control render={<TextField.Input />} placeholder="John Doe" required />
+                <TextField.Input placeholder="John Doe" required />
               </TextField.Root>
               <Field.Error match="valueMissing">Full name is required</Field.Error>
             </Field.Root>
@@ -675,7 +675,7 @@ export const FormExample: Story = {
             <Field.Root name="email">
               <Field.Label>Email</Field.Label>
               <TextField.Root>
-                <Field.Control render={<TextField.Input />} type="email" placeholder="you@example.com" required />
+                <TextField.Input type="email" placeholder="you@example.com" required />
               </TextField.Root>
               <Field.Error match="valueMissing">Email is required</Field.Error>
               <Field.Error match="typeMismatch">Please enter a valid email</Field.Error>
@@ -774,8 +774,7 @@ export const ValidityRenderProp: Story = {
         <Field.Root name="password" validationMode="onChange">
           <Field.Label>Password</Field.Label>
           <TextField.Root>
-            <Field.Control
-              render={<TextField.Input />}
+            <TextField.Input
               type="password"
               placeholder="Enter a strong password"
               required
@@ -823,7 +822,7 @@ export const DisabledState: Story = {
         <Field.Root name="readonlyField">
           <Field.Label>Account ID (read-only)</Field.Label>
           <TextField.Root>
-            <Field.Control render={<TextField.Input />} defaultValue="ACC-123456" readOnly />
+            <TextField.Input defaultValue="ACC-123456" readOnly />
           </TextField.Root>
           <Field.Description>This field cannot be modified</Field.Description>
         </Field.Root>
