@@ -3,7 +3,20 @@ import { useForm as useTanStackForm } from '@tanstack/react-form';
 import * as React from 'react';
 import { Controller, useForm as useReactHookForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Button, Code, Field, Form, Heading, Link, Separator, Text, TextField } from '../index';
+import {
+  AlertDialog,
+  Button,
+  Callout,
+  Code,
+  Field,
+  Form,
+  Heading,
+  Link,
+  Progress,
+  Separator,
+  Text,
+  TextField,
+} from '../index';
 
 const meta = {
   title: 'Forms/Form',
@@ -660,6 +673,487 @@ export const TanStackFormIntegration: Story = {
         {result && (
           <pre style={{ marginTop: 16, fontSize: 12, color: 'var(--gray-11)' }}>{JSON.stringify(result, null, 2)}</pre>
         )}
+      </div>
+    );
+  },
+};
+
+// ============================================================================
+// Form Reset
+// ============================================================================
+
+export const FormReset: Story = {
+  name: 'Form Reset',
+  render: function FormResetStory() {
+    const formRef = React.useRef<HTMLFormElement>(null);
+    const [result, setResult] = React.useState<Record<string, unknown> | null>(null);
+    const [loading, setLoading] = React.useState(false);
+
+    const handleReset = () => {
+      formRef.current?.reset();
+      setResult(null);
+    };
+
+    return (
+      <div style={{ width: 320 }}>
+        <Heading size="3" style={{ marginBottom: 8 }}>
+          Form Reset
+        </Heading>
+        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
+          Use a ref to access the native form element and call <Code>reset()</Code> to clear all fields back to their
+          default values. You can also use <Code>type="reset"</Code> on a button for automatic reset behavior.
+        </Text>
+
+        <Form.Root
+          ref={formRef}
+          onFormSubmit={async (formValues) => {
+            setLoading(true);
+            await new Promise((resolve) => setTimeout(resolve, 500));
+            setResult(formValues);
+            setLoading(false);
+          }}
+        >
+          <Field.Root name="firstName">
+            <Field.Label>First Name</Field.Label>
+            <TextField.Root>
+              <TextField.Input placeholder="Enter first name" defaultValue="John" />
+            </TextField.Root>
+          </Field.Root>
+
+          <Field.Root name="lastName">
+            <Field.Label>Last Name</Field.Label>
+            <TextField.Root>
+              <TextField.Input placeholder="Enter last name" defaultValue="Doe" />
+            </TextField.Root>
+          </Field.Root>
+
+          <Field.Root name="email">
+            <Field.Label>Email</Field.Label>
+            <TextField.Root>
+              <TextField.Input type="email" placeholder="Enter email" defaultValue="john@example.com" />
+            </TextField.Root>
+          </Field.Root>
+
+          <div style={{ display: 'flex', gap: 8 }}>
+            <Button type="submit" loading={loading} style={{ flex: 1 }} variant="solid">
+              Submit
+            </Button>
+            <Button type="button" variant="surface" onClick={handleReset}>
+              Reset
+            </Button>
+          </div>
+        </Form.Root>
+
+        {result && (
+          <pre style={{ marginTop: 16, fontSize: 12, color: 'var(--gray-11)' }}>{JSON.stringify(result, null, 2)}</pre>
+        )}
+      </div>
+    );
+  },
+};
+
+// ============================================================================
+// Multi-step Wizard Form
+// ============================================================================
+
+const WIZARD_STEPS = ['Account', 'Profile', 'Review'];
+
+export const MultiStepWizardForm: Story = {
+  name: 'Multi-step Wizard Form',
+  render: function WizardFormStory() {
+    const [currentStep, setCurrentStep] = React.useState(0);
+    const [formData, setFormData] = React.useState({
+      // Step 1: Account
+      email: '',
+      password: '',
+      // Step 2: Profile
+      fullName: '',
+      username: '',
+      // Step 3: Review (no new fields)
+    });
+    const [loading, setLoading] = React.useState(false);
+    const [submitted, setSubmitted] = React.useState(false);
+
+    const progress = ((currentStep + 1) / WIZARD_STEPS.length) * 100;
+
+    const handleNext = () => {
+      if (currentStep < WIZARD_STEPS.length - 1) {
+        setCurrentStep(currentStep + 1);
+      }
+    };
+
+    const handleBack = () => {
+      if (currentStep > 0) {
+        setCurrentStep(currentStep - 1);
+      }
+    };
+
+    const handleSubmit = async () => {
+      setLoading(true);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      setSubmitted(true);
+      setLoading(false);
+    };
+
+    const updateField = (field: string, value: string) => {
+      setFormData((prev) => ({ ...prev, [field]: value }));
+    };
+
+    if (submitted) {
+      return (
+        <div style={{ width: 360, textAlign: 'center' }}>
+          <Heading size="3" style={{ marginBottom: 8 }}>
+            Success!
+          </Heading>
+          <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
+            Your account has been created successfully.
+          </Text>
+          <pre style={{ fontSize: 12, color: 'var(--gray-11)', textAlign: 'left' }}>
+            {JSON.stringify(formData, null, 2)}
+          </pre>
+          <Button
+            style={{ marginTop: 16 }}
+            onClick={() => {
+              setSubmitted(false);
+              setCurrentStep(0);
+              setFormData({ email: '', password: '', fullName: '', username: '' });
+            }}
+          >
+            Start Over
+          </Button>
+        </div>
+      );
+    }
+
+    return (
+      <div style={{ width: 360 }}>
+        <Heading size="3" style={{ marginBottom: 8 }}>
+          Multi-step Wizard Form
+        </Heading>
+        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
+          Break complex forms into multiple steps. Use <Code>{'<Progress>'}</Code> to show completion status and manage
+          form state across steps.
+        </Text>
+
+        {/* Progress indicator */}
+        <div style={{ marginBottom: 24 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+            <Text size="2" weight="medium">
+              Step {currentStep + 1} of {WIZARD_STEPS.length}: {WIZARD_STEPS[currentStep]}
+            </Text>
+            <Text size="2" color="gray">
+              {Math.round(progress)}%
+            </Text>
+          </div>
+          <Progress value={progress} max={100} />
+        </div>
+
+        <Form.Root
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (currentStep === WIZARD_STEPS.length - 1) {
+              handleSubmit();
+            } else {
+              handleNext();
+            }
+          }}
+        >
+          {/* Step 1: Account */}
+          {currentStep === 0 && (
+            <>
+              <Field.Root name="email">
+                <Field.Label>Email</Field.Label>
+                <TextField.Root>
+                  <TextField.Input
+                    type="email"
+                    required
+                    placeholder="you@example.com"
+                    value={formData.email}
+                    onChange={(e) => updateField('email', e.target.value)}
+                  />
+                </TextField.Root>
+                <Field.Error match="valueMissing">Email is required</Field.Error>
+                <Field.Error match="typeMismatch">Please enter a valid email</Field.Error>
+              </Field.Root>
+
+              <Field.Root name="password">
+                <Field.Label>Password</Field.Label>
+                <TextField.Root>
+                  <TextField.Input
+                    type="password"
+                    required
+                    minLength={8}
+                    placeholder="At least 8 characters"
+                    value={formData.password}
+                    onChange={(e) => updateField('password', e.target.value)}
+                  />
+                </TextField.Root>
+                <Field.Error match="valueMissing">Password is required</Field.Error>
+                <Field.Error match="tooShort">Password must be at least 8 characters</Field.Error>
+              </Field.Root>
+            </>
+          )}
+
+          {/* Step 2: Profile */}
+          {currentStep === 1 && (
+            <>
+              <Field.Root name="fullName">
+                <Field.Label>Full Name</Field.Label>
+                <TextField.Root>
+                  <TextField.Input
+                    required
+                    placeholder="John Doe"
+                    value={formData.fullName}
+                    onChange={(e) => updateField('fullName', e.target.value)}
+                  />
+                </TextField.Root>
+                <Field.Error match="valueMissing">Full name is required</Field.Error>
+              </Field.Root>
+
+              <Field.Root name="username">
+                <Field.Label>Username</Field.Label>
+                <TextField.Root>
+                  <TextField.Input
+                    required
+                    minLength={3}
+                    placeholder="johndoe"
+                    value={formData.username}
+                    onChange={(e) => updateField('username', e.target.value)}
+                  />
+                </TextField.Root>
+                <Field.Error match="valueMissing">Username is required</Field.Error>
+                <Field.Error match="tooShort">Username must be at least 3 characters</Field.Error>
+              </Field.Root>
+            </>
+          )}
+
+          {/* Step 3: Review */}
+          {currentStep === 2 && (
+            <div
+              style={{
+                padding: 16,
+                borderRadius: 8,
+                backgroundColor: 'var(--gray-a3)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 12,
+              }}
+            >
+              <Heading size="2">Review Your Information</Heading>
+
+              <div>
+                <Text size="2" color="gray">
+                  Email
+                </Text>
+                <Text size="2" weight="medium" style={{ display: 'block' }}>
+                  {formData.email}
+                </Text>
+              </div>
+
+              <div>
+                <Text size="2" color="gray">
+                  Password
+                </Text>
+                <Text size="2" weight="medium" style={{ display: 'block' }}>
+                  {'•'.repeat(formData.password.length)}
+                </Text>
+              </div>
+
+              <div>
+                <Text size="2" color="gray">
+                  Full Name
+                </Text>
+                <Text size="2" weight="medium" style={{ display: 'block' }}>
+                  {formData.fullName}
+                </Text>
+              </div>
+
+              <div>
+                <Text size="2" color="gray">
+                  Username
+                </Text>
+                <Text size="2" weight="medium" style={{ display: 'block' }}>
+                  @{formData.username}
+                </Text>
+              </div>
+            </div>
+          )}
+
+          {/* Navigation buttons */}
+          <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
+            {currentStep > 0 && (
+              <Button type="button" variant="soft" onClick={handleBack} color="gray">
+                Back
+              </Button>
+            )}
+            <Button
+              type="submit"
+              loading={loading}
+              style={{ flex: 1 }}
+              variant={currentStep === WIZARD_STEPS.length - 1 ? 'solid' : 'soft'}
+            >
+              {currentStep === WIZARD_STEPS.length - 1 ? 'Create Account' : 'Continue'}
+            </Button>
+          </div>
+        </Form.Root>
+      </div>
+    );
+  },
+};
+
+// ============================================================================
+// Dirty State Warning
+// ============================================================================
+
+export const DirtyStateWarning: Story = {
+  name: 'Dirty State Warning',
+  render: function DirtyStateWarningStory() {
+    const [formData, setFormData] = React.useState({
+      title: '',
+      content: '',
+    });
+    const [savedData, setSavedData] = React.useState({
+      title: '',
+      content: '',
+    });
+    const [showWarning, setShowWarning] = React.useState(false);
+    const [loading, setLoading] = React.useState(false);
+    const [pendingAction, setPendingAction] = React.useState<(() => void) | null>(null);
+    const [hasSaved, setHasSaved] = React.useState(false);
+
+    const isDirty = formData.title !== savedData.title || formData.content !== savedData.content;
+
+    const handleSave = async () => {
+      setLoading(true);
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      setSavedData(formData);
+      setHasSaved(true);
+      setLoading(false);
+    };
+
+    const handleDiscard = () => {
+      setFormData(savedData);
+    };
+
+    const handleNavigateAway = (action: () => void) => {
+      if (isDirty) {
+        setPendingAction(() => action);
+        setShowWarning(true);
+      } else {
+        action();
+      }
+    };
+
+    const confirmDiscard = () => {
+      setFormData(savedData);
+      setShowWarning(false);
+      if (pendingAction) {
+        pendingAction();
+        setPendingAction(null);
+      }
+    };
+
+    return (
+      <div style={{ width: 360 }}>
+        <Heading size="3" style={{ marginBottom: 8 }}>
+          Dirty State Warning
+        </Heading>
+        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
+          Track form changes to warn users before they lose unsaved work. Compare current values against saved values to
+          determine the <Code>dirty</Code> state.
+        </Text>
+
+        {/* Status indicator - only show after first edit or save */}
+        {(isDirty || hasSaved) && (
+          <Callout.Root color={isDirty ? 'warning' : 'success'} size="1" style={{ marginBottom: 16 }}>
+            <Callout.Icon>
+              <div
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  backgroundColor: 'currentColor',
+                }}
+              />
+            </Callout.Icon>
+            <Callout.Text>{isDirty ? 'Unsaved changes' : 'All changes saved'}</Callout.Text>
+          </Callout.Root>
+        )}
+
+        <Form.Root
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSave();
+          }}
+        >
+          <Field.Root name="title">
+            <Field.Label>Title</Field.Label>
+            <TextField.Root>
+              <TextField.Input
+                placeholder="Enter title"
+                value={formData.title}
+                onChange={(e) => setFormData((prev) => ({ ...prev, title: e.target.value }))}
+              />
+            </TextField.Root>
+          </Field.Root>
+
+          <Field.Root name="content">
+            <Field.Label>Content</Field.Label>
+            <TextField.Root>
+              <TextField.Input
+                placeholder="Enter content"
+                value={formData.content}
+                onChange={(e) => setFormData((prev) => ({ ...prev, content: e.target.value }))}
+              />
+            </TextField.Root>
+          </Field.Root>
+
+          <div style={{ display: 'flex', gap: 8 }}>
+            <Button type="submit" loading={loading} disabled={!isDirty} style={{ flex: 1 }} variant="solid">
+              Save Changes
+            </Button>
+            <Button type="button" variant="soft" disabled={!isDirty} onClick={handleDiscard} color="danger">
+              Discard
+            </Button>
+          </div>
+        </Form.Root>
+
+        <Separator size="4" style={{ marginTop: 24, marginBottom: 16 }} />
+
+        {/* Simulated navigation */}
+        <Text size="2" color="gray" style={{ marginBottom: 12, display: 'block' }}>
+          Try navigating away with unsaved changes:
+        </Text>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <Button variant="soft" size="1" onClick={() => handleNavigateAway(() => alert('Navigated to Dashboard'))}>
+            Dashboard
+          </Button>
+          <Button variant="soft" size="1" onClick={() => handleNavigateAway(() => alert('Navigated to Settings'))}>
+            Settings
+          </Button>
+        </div>
+
+        {/* Warning Dialog */}
+        <AlertDialog.Root open={showWarning} onOpenChange={setShowWarning}>
+          <AlertDialog.Content style={{ maxWidth: 400 }}>
+            <AlertDialog.Title>Unsaved Changes</AlertDialog.Title>
+            <AlertDialog.Description>
+              You have unsaved changes. Are you sure you want to leave? Your changes will be lost.
+            </AlertDialog.Description>
+            <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end', marginTop: 16 }}>
+              <AlertDialog.Cancel>
+                <Button variant="soft" color="gray">
+                  Stay
+                </Button>
+              </AlertDialog.Cancel>
+              <AlertDialog.Action>
+                <Button variant="solid" color="danger" onClick={confirmDiscard}>
+                  Discard Changes
+                </Button>
+              </AlertDialog.Action>
+            </div>
+          </AlertDialog.Content>
+        </AlertDialog.Root>
       </div>
     );
   },
