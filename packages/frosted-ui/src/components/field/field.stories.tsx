@@ -764,6 +764,82 @@ export const FormExample: Story = {
 };
 
 // ============================================================================
+// Field Custom Validation
+// ============================================================================
+
+// Simulated username check
+async function checkUsername(username: string): Promise<boolean> {
+  await new Promise((resolve) => setTimeout(resolve, 500));
+  const taken = ['admin', 'root', 'system', 'moderator', 'support'];
+  return !taken.includes(username.toLowerCase());
+}
+
+export const FieldCustomValidation: Story = {
+  name: 'Field Custom Validation',
+  render: () => {
+    return (
+      <div style={{ width: 320 }}>
+        <Heading size="3" style={{ marginBottom: 8 }}>
+          Custom Validation
+        </Heading>
+        <Text size="2" style={{ marginBottom: 12, display: 'block' }}>
+          You can add custom validation logic by passing a synchronous or asynchronous validation function to the{' '}
+          <Code>validate</Code> prop, which runs after native validations have passed.
+        </Text>
+        <Text size="2" style={{ marginBottom: 12, display: 'block' }}>
+          Use the <Code>validationMode</Code> prop to configure when validation is performed:
+        </Text>
+        <ul style={{ margin: 0, marginBottom: 12, paddingLeft: 20 }}>
+          <Text size="2" render={<li />} style={{ marginBottom: 4 }}>
+            1. <Code>onSubmit</Code> (default) validates all fields when the containing <Code>{'<Form>'}</Code> is
+            submitted, afterwards invalid fields revalidate when their value changes.
+          </Text>
+          <Text size="2" render={<li />} style={{ marginBottom: 4 }}>
+            2. <Code>onBlur</Code> validates the field when focus moves away.
+          </Text>
+          <Text size="2" render={<li />}>
+            3. <Code>onChange</Code> validates the field when the value changes.
+          </Text>
+        </ul>
+        <Text size="2" style={{ marginBottom: 16, display: 'block' }}>
+          <Code>validationDebounceTime</Code> can be used to debounce the function in use cases such as asynchronous
+          requests or text fields that validate <Code>onChange</Code>.
+        </Text>
+
+        <Field.Root
+          name="username"
+          validationMode="onChange"
+          validationDebounceTime={300}
+          validate={async (value) => {
+            const username = value as string;
+            if (!username || username.length < 3) {
+              return null; // Let native validation handle this
+            }
+            if (username === 'admin') {
+              return 'Reserved for system use.';
+            }
+            const isAvailable = await checkUsername(username);
+            if (!isAvailable) {
+              return `${username} is unavailable.`;
+            }
+            return null;
+          }}
+        >
+          <Field.Label>Username</Field.Label>
+          <TextField.Root>
+            <TextField.Input required minLength={3} placeholder="Enter username" />
+          </TextField.Root>
+          <Field.Description>Try "admin", "root", or "system" to see validation errors</Field.Description>
+          <Field.Error match="valueMissing">Username is required</Field.Error>
+          <Field.Error match="tooShort">Username must be at least 3 characters</Field.Error>
+          <Field.Error match="customError" />
+        </Field.Root>
+      </div>
+    );
+  },
+};
+
+// ============================================================================
 // Validity
 // ============================================================================
 
@@ -775,7 +851,7 @@ export const Validity: Story = {
         <Heading size="3" style={{ marginBottom: 8 }}>
           Validity
         </Heading>
-        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
+        <Text size="2" style={{ marginBottom: 16, display: 'block' }}>
           Used to display a custom message based on the field's validity. Requires children to be a function that
           accepts field validity state as an argument.
         </Text>
