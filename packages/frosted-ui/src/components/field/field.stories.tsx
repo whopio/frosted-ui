@@ -295,25 +295,25 @@ export const WithSwitch: Story = {
   name: 'With Switch',
   render: () => {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 320 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', width: 320 }}>
         <Field.Root name="notifications">
-          <Field.Label style={{ justifyContent: 'space-between' }}>
+          <Field.Label size="3" style={{ display: 'flex', justifyContent: 'space-between' }}>
             Enable notifications
-            <Switch name="notifications" defaultChecked />
+            <Switch name="notifications" />
           </Field.Label>
           <Field.Description>Receive updates about your account</Field.Description>
         </Field.Root>
 
         <Field.Root name="marketing">
-          <Field.Label style={{ justifyContent: 'space-between' }}>
+          <Field.Label size="3" style={{ display: 'flex', justifyContent: 'space-between' }}>
             Marketing emails
-            <Switch name="marketing" />
+            <Switch name="marketing" defaultChecked />
           </Field.Label>
           <Field.Description>Receive promotional content and offers</Field.Description>
         </Field.Root>
 
         <Field.Root name="analytics">
-          <Field.Label style={{ justifyContent: 'space-between' }}>
+          <Field.Label size="3" style={{ display: 'flex', justifyContent: 'space-between' }}>
             Usage analytics
             <Switch name="analytics" defaultChecked />
           </Field.Label>
