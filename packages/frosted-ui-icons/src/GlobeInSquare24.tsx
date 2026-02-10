@@ -20,6 +20,6 @@ export const GlobeInSquare24 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
-GlobeInSquare24.category = 'Interface General';
+GlobeInSquare24.category = 'Location';
 
 export default GlobeInSquare24;

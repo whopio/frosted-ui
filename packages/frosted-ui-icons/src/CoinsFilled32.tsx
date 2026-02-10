@@ -20,6 +20,6 @@ export const CoinsFilled32 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
-CoinsFilled32.category = 'Money & Finance';
+CoinsFilled32.category = 'Money & Shopping';
 
 export default CoinsFilled32;

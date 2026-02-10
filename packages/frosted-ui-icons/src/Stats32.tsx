@@ -20,6 +20,6 @@ export const Stats32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Stats32.category = 'Interface General';
+Stats32.category = 'Stats & Charts';
 
 export default Stats32;

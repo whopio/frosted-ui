@@ -20,6 +20,6 @@ export const CollapseSidebarFilled32 = ({ color = 'currentColor', ...props }: Ic
   );
 };
 
-CollapseSidebarFilled32.category = 'Interface General';
+CollapseSidebarFilled32.category = 'Layout';
 
 export default CollapseSidebarFilled32;
