@@ -10,6 +10,7 @@ import {
   Code,
   Field,
   Fieldset,
+  Heading,
   NumberField,
   RadioGroup,
   ScrollArea,
@@ -763,14 +764,22 @@ export const FormExample: Story = {
 };
 
 // ============================================================================
-// Validity Render Prop
+// Validity
 // ============================================================================
 
-export const ValidityRenderProp: Story = {
-  name: 'Validity Render Prop',
+export const Validity: Story = {
+  name: 'Validity',
   render: () => {
     return (
       <div style={{ width: 320 }}>
+        <Heading size="3" style={{ marginBottom: 8 }}>
+          Validity
+        </Heading>
+        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
+          Used to display a custom message based on the field's validity. Requires children to be a function that
+          accepts field validity state as an argument.
+        </Text>
+
         <Field.Root name="password" validationMode="onChange">
           <Field.Label>Password</Field.Label>
           <TextField.Root>
@@ -783,26 +792,38 @@ export const ValidityRenderProp: Story = {
             />
           </TextField.Root>
           <Field.Validity>
-            {(state) => (
-              <ul
-                style={{
-                  margin: 0,
-                  marginTop: 'var(--space-2)',
-                  paddingLeft: 'var(--space-4)',
-                  fontSize: 'var(--font-size-1)',
-                }}
-              >
-                <Text render={<li />} color={state.validity.valueMissing ? 'danger' : 'success'}>
-                  {state.validity.valueMissing ? '✗' : '✓'} Required
-                </Text>
-                <Text render={<li />} color={state.validity.tooShort ? 'danger' : 'success'}>
-                  {state.validity.tooShort ? '✗' : '✓'} At least 8 characters
-                </Text>
-                <Text render={<li />} color={state.validity.patternMismatch ? 'danger' : 'success'}>
-                  {state.validity.patternMismatch ? '✗' : '✓'} Contains uppercase, lowercase, and number
-                </Text>
-              </ul>
-            )}
+            {(state) => {
+              const value = (state.value as string) || '';
+              const hasMinLength = value.length >= 8;
+              const hasUppercase = /[A-Z]/.test(value);
+              const hasLowercase = /[a-z]/.test(value);
+              const hasNumber = /\d/.test(value);
+
+              return (
+                <ul
+                  style={{
+                    margin: 0,
+                    marginTop: 8,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 4,
+                  }}
+                >
+                  <Text size="2" render={<li />} color={hasMinLength ? 'success' : 'danger'}>
+                    {hasMinLength ? '✓' : '✗'} At least 8 characters
+                  </Text>
+                  <Text size="2" render={<li />} color={hasUppercase ? 'success' : 'danger'}>
+                    {hasUppercase ? '✓' : '✗'} One uppercase letter
+                  </Text>
+                  <Text size="2" render={<li />} color={hasLowercase ? 'success' : 'danger'}>
+                    {hasLowercase ? '✓' : '✗'} One lowercase letter
+                  </Text>
+                  <Text size="2" render={<li />} color={hasNumber ? 'success' : 'danger'}>
+                    {hasNumber ? '✓' : '✗'} One number
+                  </Text>
+                </ul>
+              );
+            }}
           </Field.Validity>
         </Field.Root>
       </div>
