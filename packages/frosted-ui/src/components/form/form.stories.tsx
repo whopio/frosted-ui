@@ -9,6 +9,7 @@ import {
   Button,
   Callout,
   Card,
+  Checkbox,
   Code,
   Field,
   Fieldset,
@@ -19,6 +20,7 @@ import {
   Select,
   Separator,
   Spinner,
+  Switch,
   Text,
   TextField,
 } from '../index';
@@ -152,7 +154,90 @@ export const ConstraintValidation: Story = {
 };
 
 // ============================================================================
-// 3. Displaying Errors
+// 3. Required Controls (Select, Checkbox, Switch)
+// ============================================================================
+
+export const RequiredControls: Story = {
+  name: 'Required Controls',
+  render: function RequiredControlsStory() {
+    const [loading, setLoading] = React.useState(false);
+    const [submitted, setSubmitted] = React.useState(false);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+      setLoading(true);
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      setSubmitted(true);
+      setLoading(false);
+    };
+
+    return (
+      <div style={{ width: 320 }}>
+        <Heading size="3" style={{ marginBottom: 8 }}>
+          Required Controls
+        </Heading>
+        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
+          Non-text controls like <Code>{'<Select>'}</Code>, <Code>{'<Checkbox>'}</Code>, and{' '}
+          <Code>{'<Switch>'}</Code> support the <Code>required</Code> and <Code>name</Code> props for native form
+          validation. Use <Code>{'match="valueMissing"'}</Code> to show validation errors.
+        </Text>
+
+        <Form.Root onSubmit={handleSubmit}>
+          {/* Required Select */}
+          <Field.Root name="country">
+            <Field.Label>Country</Field.Label>
+            <Select.Root name="country" required>
+              <Select.Trigger placeholder="Select a country" />
+              <Select.Content>
+                <Select.Item value="us">United States</Select.Item>
+                <Select.Item value="uk">United Kingdom</Select.Item>
+                <Select.Item value="ca">Canada</Select.Item>
+                <Select.Item value="au">Australia</Select.Item>
+              </Select.Content>
+            </Select.Root>
+            <Field.Error match="valueMissing">Please select a country</Field.Error>
+          </Field.Root>
+
+          {/* Required Checkbox */}
+          <Field.Root name="terms">
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+              <Checkbox name="terms" required />
+              <Field.Label weight="regular" style={{ cursor: 'pointer' }}>
+                I accept the terms and conditions
+              </Field.Label>
+            </div>
+            <Field.Error match="valueMissing">You must accept the terms and conditions</Field.Error>
+          </Field.Root>
+
+          {/* Required Switch */}
+          <Field.Root name="notifications">
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16 }}>
+              <div>
+                <Field.Label style={{ marginBottom: 0 }}>Enable Notifications</Field.Label>
+                <Field.Description>Required for account updates</Field.Description>
+              </div>
+              <Switch name="notifications" required />
+            </div>
+            <Field.Error match="valueMissing">Notifications must be enabled to continue</Field.Error>
+          </Field.Root>
+
+          <Button type="submit" loading={loading}>
+            Submit
+          </Button>
+        </Form.Root>
+
+        {submitted && (
+          <Callout.Root color="success" size="1" style={{ marginTop: 16 }}>
+            <Callout.Text>Form submitted successfully!</Callout.Text>
+          </Callout.Root>
+        )}
+      </div>
+    );
+  },
+};
+
+// ============================================================================
+// 4. Displaying Errors
 // ============================================================================
 
 export const DisplayingErrors: Story = {
@@ -215,7 +300,7 @@ export const DisplayingErrors: Story = {
 };
 
 // ============================================================================
-// 4. Form Reset
+// 5. Form Reset
 // ============================================================================
 
 export const FormReset: Story = {
@@ -289,7 +374,7 @@ export const FormReset: Story = {
 };
 
 // ============================================================================
-// 5. Submit form values as a JavaScript object
+// 6. Submit form values as a JavaScript object
 // ============================================================================
 
 export const SubmitAsJavaScriptObject: Story = {
@@ -342,7 +427,7 @@ export const SubmitAsJavaScriptObject: Story = {
 };
 
 // ============================================================================
-// 6. Server-side Validation
+// 7. Server-side Validation
 // ============================================================================
 
 async function submitToServer(formData: { promoCode: string }): Promise<{ success: boolean; errors: Form.Errors }> {
@@ -427,7 +512,7 @@ export const ServerSideValidation: Story = {
 };
 
 // ============================================================================
-// 7. Conditional Fields
+// 8. Conditional Fields
 // ============================================================================
 
 export const ConditionalFields: Story = {
@@ -686,7 +771,7 @@ export const DynamicFormFields: Story = {
 };
 
 // ============================================================================
-// 9. Dirty State Warning
+// 10. Dirty State Warning
 // ============================================================================
 
 export const DirtyStateWarning: Story = {
@@ -969,7 +1054,7 @@ export const AutoSaveForm: Story = {
 };
 
 // ============================================================================
-// 11. Multi-step Wizard Form
+// 12. Multi-step Wizard Form
 // ============================================================================
 
 const WIZARD_STEPS = ['Account', 'Profile', 'Review'];
@@ -1297,7 +1382,7 @@ export const UsingWithZod: Story = {
 };
 
 // ============================================================================
-// 13. Submit with a Server Function
+// 14. Submit with a Server Function
 // ============================================================================
 
 async function submitUsername(_previousState: { serverErrors?: Form.Errors }, formData: FormData) {
@@ -1370,7 +1455,7 @@ export const SubmitWithServerFunction: Story = {
 };
 
 // ============================================================================
-// 14. React Hook Form Integration
+// 15. React Hook Form Integration
 // ============================================================================
 
 type ReactHookFormData = {
@@ -1488,7 +1573,7 @@ export const ReactHookFormIntegration: Story = {
 };
 
 // ============================================================================
-// 15. TanStack Form Integration
+// 16. TanStack Form Integration
 // ============================================================================
 
 type TanStackFormData = {
