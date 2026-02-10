@@ -20,14 +20,7 @@ type FieldControlChangeEventDetails = FieldPrimitive.Control.ChangeEventDetails;
 // Root
 // ============================================================================
 
-interface FieldRootProps extends React.ComponentProps<typeof FieldPrimitive.Root> {
-  /**
-   * The layout orientation of the field.
-   * - `'vertical'` (default): Label above control, stacked layout
-   * - `'horizontal'`: Label and control side by side
-   */
-  orientation?: 'vertical' | 'horizontal';
-}
+interface FieldRootProps extends React.ComponentProps<typeof FieldPrimitive.Root> {}
 
 /**
  * Groups all parts of the field. Renders a `<div>` element.
@@ -51,19 +44,12 @@ interface FieldRootProps extends React.ComponentProps<typeof FieldPrimitive.Root
  * @param validationMode - Determines when the field should be validated: `'onSubmit'` (default), `'onBlur'`, or `'onChange'`.
  * @param validationDebounceTime - How long to wait between `validate` callbacks if `validationMode="onChange"`. Specified in milliseconds.
  * @param actionsRef - A ref to imperative actions. Contains `validate` function to manually trigger validation.
- * @param orientation - The layout orientation: `'vertical'` (default) or `'horizontal'`.
  *
  * @see https://base-ui.com/react/components/field#root
  */
 function FieldRoot(props: FieldRootProps) {
-  const { className, orientation = 'vertical', ...rootProps } = props;
-  return (
-    <FieldPrimitive.Root
-      {...rootProps}
-      data-orientation={orientation}
-      className={classNames('fui-FieldRoot', className)}
-    />
-  );
+  const { className, ...rootProps } = props;
+  return <FieldPrimitive.Root {...rootProps} className={classNames('fui-FieldRoot', className)} />;
 }
 FieldRoot.displayName = 'FieldRoot';
 

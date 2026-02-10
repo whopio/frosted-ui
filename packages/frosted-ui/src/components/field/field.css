@@ -1,27 +1,12 @@
 /* ============================================================================
- * Root - flex layout with gap between children
+ * Root - flex column layout with gap between children
  * ============================================================================ */
 
 .fui-FieldRoot {
   display: flex;
+  flex-direction: column;
   gap: 4px; /* tight gap between label/input/description/error */
   width: 100%;
-}
-
-/* Vertical orientation (default) */
-.fui-FieldRoot[data-orientation='vertical'] {
-  flex-direction: column;
-}
-
-/* Horizontal orientation - label and control side by side */
-.fui-FieldRoot[data-orientation='horizontal'] {
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
-}
-
-.fui-FieldRoot[data-orientation='horizontal'] > .fui-FieldLabel {
-  flex: 0 0 auto;
 }
 
 /* ============================================================================
