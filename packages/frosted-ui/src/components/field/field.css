@@ -32,7 +32,6 @@
 
 .fui-FieldLabel {
   cursor: default;
-  user-select: none;
 }
 
 .fui-FieldLabel[data-disabled] {

@@ -10,7 +10,9 @@ import {
   Code,
   Field,
   Fieldset,
+  Form,
   Heading,
+  Link,
   NumberField,
   RadioGroup,
   ScrollArea,
@@ -253,13 +255,7 @@ export const WithSliderRangeValidation: Story = {
         <Field.Root name="priceRange" invalid={!!error}>
           <Field.Label>Price Range</Field.Label>
           <div style={{ padding: '8px 0 16px' }}>
-            <Slider
-              value={priceRange}
-              onValueChange={handleValueChange}
-              min={0}
-              max={1000}
-              step={50}
-            />
+            <Slider value={priceRange} onValueChange={handleValueChange} min={0} max={1000} step={50} />
           </div>
           <Field.Description>
             ${priceRange[0]} – ${priceRange[1]} (${priceRange[1] - priceRange[0]} range)
@@ -326,9 +322,7 @@ export const WithSliderBudget: Story = {
                 step={500}
               />
             </div>
-            <Field.Description>
-              ${budget.toLocaleString()} / month
-            </Field.Description>
+            <Field.Description>${budget.toLocaleString()} / month</Field.Description>
             {error && <Field.Error match={true}>{error}</Field.Error>}
           </Field.Root>
 
@@ -1078,6 +1072,258 @@ export const DisabledState: Story = {
           </Select.Root>
           <Field.Description>Contact support to change your plan</Field.Description>
         </Field.Root>
+      </div>
+    );
+  },
+};
+
+// ============================================================================
+// All Validity States
+// ============================================================================
+
+export const AllValidityStates: Story = {
+  name: 'All Validity States',
+  render: function AllValidityStatesStory() {
+    return (
+      <div style={{ width: 480 }}>
+        <Heading size="3" style={{ marginBottom: 8 }}>
+          ValidityState Reference
+        </Heading>
+        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
+          The{' '}
+          <Link href="https://developer.mozilla.org/en-US/docs/Web/API/ValidityState" target="_blank">
+            ValidityState
+          </Link>{' '}
+          interface represents the validity states that an element can be in. Use the <Code>match</Code> prop on{' '}
+          <Code>{'<Field.Error>'}</Code> to display errors for specific validity states.
+        </Text>
+
+        <Form.Root>
+          {/* valueMissing */}
+          <Fieldset.Root>
+            <Fieldset.Legend>
+              <Code>valueMissing</Code>
+            </Fieldset.Legend>
+            <Text size="1" color="gray" style={{ marginBottom: 8, display: 'block' }}>
+              Returns <Code>true</Code> if the element has a <Code>required</Code> attribute, but no value.
+            </Text>
+            <Field.Root name="valueMissing">
+              <Field.Label>Required Field</Field.Label>
+              <TextField.Root>
+                <TextField.Input required placeholder="This field is required" />
+              </TextField.Root>
+              <Field.Error match="valueMissing">This field is required</Field.Error>
+            </Field.Root>
+          </Fieldset.Root>
+
+          <Separator size="4" />
+
+          {/* typeMismatch */}
+          <Fieldset.Root>
+            <Fieldset.Legend>
+              <Code>typeMismatch</Code>
+            </Fieldset.Legend>
+            <Text size="1" color="gray" style={{ marginBottom: 8, display: 'block' }}>
+              Returns <Code>true</Code> if the value is not in the required syntax (when <Code>type</Code> is{' '}
+              <Code>email</Code> or <Code>url</Code>).
+            </Text>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+              <Field.Root name="typeMismatchEmail">
+                <Field.Label>Email</Field.Label>
+                <TextField.Root>
+                  <TextField.Input type="email" placeholder="user@example.com" defaultValue="not-an-email" />
+                </TextField.Root>
+                <Field.Error match="typeMismatch">Please enter a valid email address</Field.Error>
+              </Field.Root>
+              <Field.Root name="typeMismatchUrl">
+                <Field.Label>URL</Field.Label>
+                <TextField.Root>
+                  <TextField.Input type="url" placeholder="https://example.com" defaultValue="not-a-url" />
+                </TextField.Root>
+                <Field.Error match="typeMismatch">Please enter a valid URL</Field.Error>
+              </Field.Root>
+            </div>
+          </Fieldset.Root>
+
+          <Separator size="4" />
+
+          {/* tooShort */}
+          <Fieldset.Root>
+            <Fieldset.Legend>
+              <Code>tooShort</Code>
+            </Fieldset.Legend>
+            <Text size="1" color="gray" style={{ marginBottom: 8, display: 'block' }}>
+              Returns <Code>true</Code> if the value fails to meet the specified <Code>minLength</Code>. Type 1-2
+              characters and submit to see the error.
+            </Text>
+            <Field.Root name="tooShort">
+              <Field.Label>Username (min 3 characters)</Field.Label>
+              <TextField.Root>
+                <TextField.Input minLength={3} required placeholder="Enter username" />
+              </TextField.Root>
+              <Field.Error match="tooShort">Username must be at least 3 characters</Field.Error>
+              <Field.Error match="valueMissing">Username is required</Field.Error>
+            </Field.Root>
+          </Fieldset.Root>
+
+          <Separator size="4" />
+
+          {/* tooLong */}
+          <Fieldset.Root>
+            <Fieldset.Legend>
+              <Code>tooLong</Code>
+            </Fieldset.Legend>
+            <Text size="1" color="gray" style={{ marginBottom: 8, display: 'block' }}>
+              Returns <Code>true</Code> if the value exceeds the specified <Code>maxLength</Code>. Note: Browsers
+              typically prevent typing beyond <Code>maxLength</Code>, so this state is rarely triggered in practice.
+            </Text>
+            <Field.Root name="tooLong">
+              <Field.Label>Comment (max 20 characters)</Field.Label>
+              <TextField.Root>
+                <TextField.Input maxLength={20} placeholder="Type here..." />
+              </TextField.Root>
+              <Field.Description>
+                Browsers prevent typing beyond maxLength, so this error rarely appears
+              </Field.Description>
+              <Field.Error match="tooLong">Comment must not exceed 20 characters</Field.Error>
+            </Field.Root>
+          </Fieldset.Root>
+
+          <Separator size="4" />
+
+          {/* patternMismatch */}
+          <Fieldset.Root>
+            <Fieldset.Legend>
+              <Code>patternMismatch</Code>
+            </Fieldset.Legend>
+            <Text size="1" color="gray" style={{ marginBottom: 8, display: 'block' }}>
+              Returns <Code>true</Code> if the value does not match the specified <Code>pattern</Code> regex.
+            </Text>
+            <Field.Root name="patternMismatch">
+              <Field.Label>Phone Number</Field.Label>
+              <TextField.Root>
+                <TextField.Input
+                  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                  placeholder="123-456-7890"
+                  defaultValue="invalid"
+                />
+              </TextField.Root>
+              <Field.Description>Format: 123-456-7890</Field.Description>
+              <Field.Error match="patternMismatch">Please use the format: 123-456-7890</Field.Error>
+            </Field.Root>
+          </Fieldset.Root>
+
+          <Separator size="4" />
+
+          {/* rangeUnderflow / rangeOverflow */}
+          <Fieldset.Root>
+            <Fieldset.Legend>
+              <Code>rangeUnderflow</Code> / <Code>rangeOverflow</Code>
+            </Fieldset.Legend>
+            <Text size="1" color="gray" style={{ marginBottom: 8, display: 'block' }}>
+              <Code>rangeUnderflow</Code>: Returns <Code>true</Code> if the value is less than the <Code>min</Code>{' '}
+              attribute.
+              <br />
+              <Code>rangeOverflow</Code>: Returns <Code>true</Code> if the value is greater than the <Code>max</Code>{' '}
+              attribute.
+            </Text>
+            <Field.Root name="rangeValidation">
+              <Field.Label>Quantity (1-100)</Field.Label>
+              <NumberField.Root min={1} max={100} defaultValue={150}>
+                <NumberField.Input placeholder="Enter quantity" />
+              </NumberField.Root>
+              <Field.Error match="rangeUnderflow">Quantity must be at least 1</Field.Error>
+              <Field.Error match="rangeOverflow">Quantity must not exceed 100</Field.Error>
+            </Field.Root>
+          </Fieldset.Root>
+
+          <Separator size="4" />
+
+          {/* stepMismatch */}
+          <Fieldset.Root>
+            <Fieldset.Legend>
+              <Code>stepMismatch</Code>
+            </Fieldset.Legend>
+            <Text size="1" color="gray" style={{ marginBottom: 8, display: 'block' }}>
+              Returns <Code>true</Code> if the value does not fit the rules determined by the <Code>step</Code>{' '}
+              attribute (not evenly divisible by the step value).
+            </Text>
+            <Field.Root name="stepMismatch">
+              <Field.Label>Price (increments of $0.50)</Field.Label>
+              <NumberField.Root step={0.5} min={0} defaultValue={1.25}>
+                <NumberField.Input placeholder="0.00" />
+              </NumberField.Root>
+              <Field.Error match="stepMismatch">Price must be in increments of $0.50</Field.Error>
+            </Field.Root>
+          </Fieldset.Root>
+
+          <Separator size="4" />
+
+          {/* badInput */}
+          <Fieldset.Root>
+            <Fieldset.Legend>
+              <Code>badInput</Code>
+            </Fieldset.Legend>
+            <Text size="1" color="gray" style={{ marginBottom: 8, display: 'block' }}>
+              Returns <Code>true</Code> if the user has provided input that the browser is unable to convert. This
+              commonly occurs with date, time, or number inputs when partial or malformed values are entered.
+            </Text>
+            <Field.Root name="badInput">
+              <Field.Label>Event Date</Field.Label>
+              <TextField.Root>
+                <TextField.Input type="date" />
+              </TextField.Root>
+              <Field.Description>
+                Enter an incomplete date (e.g., clear part of the date) to trigger badInput
+              </Field.Description>
+              <Field.Error match="badInput">Please enter a valid date</Field.Error>
+            </Field.Root>
+          </Fieldset.Root>
+
+          <Separator size="4" />
+
+          {/* customError - using Field's validate prop */}
+          <Fieldset.Root>
+            <Fieldset.Legend>
+              <Code>customError</Code>
+            </Fieldset.Legend>
+            <Text size="1" color="gray" style={{ marginBottom: 8, display: 'block' }}>
+              Returns <Code>true</Code> when the element's custom validity message has been set to a non-empty string.
+              Use the <Code>validate</Code> prop on <Code>{'<Field.Root>'}</Code> to set custom validation.
+            </Text>
+            <Field.Root
+              name="customError"
+              validate={(value) => {
+                const str = value as string;
+                if (str && str.toLowerCase().includes('password')) {
+                  return 'Value cannot contain the word "password"';
+                }
+                return null;
+              }}
+            >
+              <Field.Label>Security Question Answer</Field.Label>
+              <TextField.Root>
+                <TextField.Input placeholder="Enter your answer" />
+              </TextField.Root>
+              <Field.Description>Try typing "password" to trigger custom validation</Field.Description>
+              <Field.Error />
+            </Field.Root>
+          </Fieldset.Root>
+
+          <Separator size="4" />
+
+          {/* Submit to test all */}
+          <Callout.Root color="info" size="1">
+            <Callout.Text>
+              Submit the form to see validation errors. Each field demonstrates a different <Code>ValidityState</Code>{' '}
+              property.
+            </Callout.Text>
+          </Callout.Root>
+
+          <Button type="submit" style={{ width: '100%' }}>
+            Validate All Fields
+          </Button>
+        </Form.Root>
       </div>
     );
   },
