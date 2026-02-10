@@ -11,9 +11,12 @@ import {
   Field,
   Form,
   Heading,
+  IconButton,
   Link,
   Progress,
+  Select,
   Separator,
+  Spinner,
   Text,
   TextField,
 } from '../index';
@@ -1154,6 +1157,403 @@ export const DirtyStateWarning: Story = {
             </div>
           </AlertDialog.Content>
         </AlertDialog.Root>
+      </div>
+    );
+  },
+};
+
+// ============================================================================
+// Dynamic Form Fields
+// ============================================================================
+
+type TeamMember = {
+  id: string;
+  name: string;
+  email: string;
+};
+
+export const DynamicFormFields: Story = {
+  name: 'Dynamic Form Fields',
+  render: function DynamicFieldsStory() {
+    const [members, setMembers] = React.useState<TeamMember[]>([{ id: '1', name: '', email: '' }]);
+    const [loading, setLoading] = React.useState(false);
+    const [result, setResult] = React.useState<TeamMember[] | null>(null);
+
+    const addMember = () => {
+      setMembers((prev) => [...prev, { id: crypto.randomUUID(), name: '', email: '' }]);
+    };
+
+    const removeMember = (id: string) => {
+      setMembers((prev) => prev.filter((m) => m.id !== id));
+    };
+
+    const updateMember = (id: string, field: 'name' | 'email', value: string) => {
+      setMembers((prev) => prev.map((m) => (m.id === id ? { ...m, [field]: value } : m)));
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+      setLoading(true);
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      setResult(members);
+      setLoading(false);
+    };
+
+    return (
+      <div style={{ width: 400 }}>
+        <Heading size="3" style={{ marginBottom: 8 }}>
+          Dynamic Form Fields
+        </Heading>
+        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
+          Add and remove form fields dynamically. Store field data in an array and render fields using{' '}
+          <Code>map()</Code>. Use unique IDs as keys for proper React reconciliation.
+        </Text>
+
+        <Form.Root onSubmit={handleSubmit}>
+          {members.map((member, index) => (
+            <div
+              key={member.id}
+              style={{
+                display: 'flex',
+                gap: 8,
+                alignItems: 'flex-start',
+                padding: 12,
+                borderRadius: 8,
+                backgroundColor: 'var(--gray-a2)',
+                marginBottom: 8,
+              }}
+            >
+              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <Text size="1" weight="medium" color="gray">
+                  Team Member {index + 1}
+                </Text>
+                <Field.Root name={`member-${member.id}-name`}>
+                  <TextField.Root size="1">
+                    <TextField.Input
+                      placeholder="Name"
+                      value={member.name}
+                      onChange={(e) => updateMember(member.id, 'name', e.target.value)}
+                      required
+                    />
+                  </TextField.Root>
+                </Field.Root>
+                <Field.Root name={`member-${member.id}-email`}>
+                  <TextField.Root size="1">
+                    <TextField.Input
+                      type="email"
+                      placeholder="Email"
+                      value={member.email}
+                      onChange={(e) => updateMember(member.id, 'email', e.target.value)}
+                      required
+                    />
+                  </TextField.Root>
+                </Field.Root>
+              </div>
+              {members.length > 1 && (
+                <IconButton
+                  type="button"
+                  variant="soft"
+                  color="gray"
+                  size="1"
+                  onClick={() => removeMember(member.id)}
+                  style={{ marginTop: 20 }}
+                >
+                  <svg width="14" height="14" viewBox="0 0 15 15" fill="none">
+                    <path
+                      d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </IconButton>
+              )}
+            </div>
+          ))}
+
+          <Button type="button" variant="soft" size="1" onClick={addMember} style={{ marginBottom: 16 }}>
+            + Add Team Member
+          </Button>
+
+          <Button type="submit" loading={loading} style={{ width: '100%' }}>
+            Submit Team
+          </Button>
+        </Form.Root>
+
+        {result && (
+          <pre style={{ marginTop: 16, fontSize: 12, color: 'var(--gray-11)' }}>{JSON.stringify(result, null, 2)}</pre>
+        )}
+      </div>
+    );
+  },
+};
+
+// ============================================================================
+// Conditional Fields
+// ============================================================================
+
+export const ConditionalFields: Story = {
+  name: 'Conditional Fields',
+  render: function ConditionalFieldsStory() {
+    const [accountType, setAccountType] = React.useState('personal');
+    const [contactMethod, setContactMethod] = React.useState('email');
+    const [loading, setLoading] = React.useState(false);
+    const [result, setResult] = React.useState<Record<string, unknown> | null>(null);
+
+    return (
+      <div style={{ width: 320 }}>
+        <Heading size="3" style={{ marginBottom: 8 }}>
+          Conditional Fields
+        </Heading>
+        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
+          Show or hide fields based on user selections. Use controlled state to track selections and conditionally
+          render fields.
+        </Text>
+
+        <Form.Root
+          onFormSubmit={async (formValues) => {
+            setLoading(true);
+            await new Promise((resolve) => setTimeout(resolve, 500));
+            setResult({ ...formValues, accountType, contactMethod });
+            setLoading(false);
+          }}
+        >
+          {/* Account Type Selection */}
+          <Field.Root name="accountType">
+            <Field.Label>Account Type</Field.Label>
+            <Select.Root value={accountType} onValueChange={(value) => value && setAccountType(value)}>
+              <Select.Trigger placeholder="Select account type" />
+              <Select.Content>
+                <Select.Item value="personal">Personal</Select.Item>
+                <Select.Item value="business">Business</Select.Item>
+              </Select.Content>
+            </Select.Root>
+          </Field.Root>
+
+          {/* Conditional Business Fields */}
+          {accountType === 'business' && (
+            <>
+              <Field.Root name="companyName">
+                <Field.Label>Company Name</Field.Label>
+                <TextField.Root>
+                  <TextField.Input required placeholder="Acme Inc." />
+                </TextField.Root>
+                <Field.Error match="valueMissing">Company name is required for business accounts</Field.Error>
+              </Field.Root>
+
+              <Field.Root name="taxId">
+                <Field.Label>Tax ID</Field.Label>
+                <TextField.Root>
+                  <TextField.Input placeholder="XX-XXXXXXX" />
+                </TextField.Root>
+                <Field.Description>Optional for billing purposes</Field.Description>
+              </Field.Root>
+            </>
+          )}
+
+          <Separator size="4" />
+
+          {/* Contact Method Selection */}
+          <Field.Root name="contactMethod">
+            <Field.Label>Preferred Contact Method</Field.Label>
+            <Select.Root value={contactMethod} onValueChange={(value) => value && setContactMethod(value)}>
+              <Select.Trigger placeholder="Select contact method" />
+              <Select.Content>
+                <Select.Item value="email">Email</Select.Item>
+                <Select.Item value="phone">Phone</Select.Item>
+                <Select.Item value="mail">Physical Mail</Select.Item>
+              </Select.Content>
+            </Select.Root>
+          </Field.Root>
+
+          {/* Conditional Contact Fields */}
+          {contactMethod === 'email' && (
+            <Field.Root name="email">
+              <Field.Label>Email Address</Field.Label>
+              <TextField.Root>
+                <TextField.Input type="email" required placeholder="you@example.com" />
+              </TextField.Root>
+              <Field.Error match="valueMissing">Email is required</Field.Error>
+              <Field.Error match="typeMismatch">Please enter a valid email</Field.Error>
+            </Field.Root>
+          )}
+
+          {contactMethod === 'phone' && (
+            <Field.Root name="phone">
+              <Field.Label>Phone Number</Field.Label>
+              <TextField.Root>
+                <TextField.Input type="tel" required placeholder="+1 (555) 000-0000" />
+              </TextField.Root>
+              <Field.Error match="valueMissing">Phone number is required</Field.Error>
+            </Field.Root>
+          )}
+
+          {contactMethod === 'mail' && (
+            <>
+              <Field.Root name="address">
+                <Field.Label>Street Address</Field.Label>
+                <TextField.Root>
+                  <TextField.Input required placeholder="123 Main St" />
+                </TextField.Root>
+                <Field.Error match="valueMissing">Address is required</Field.Error>
+              </Field.Root>
+
+              <div style={{ display: 'flex', gap: 8 }}>
+                <Field.Root name="city" style={{ flex: 1 }}>
+                  <Field.Label>City</Field.Label>
+                  <TextField.Root>
+                    <TextField.Input required placeholder="City" />
+                  </TextField.Root>
+                </Field.Root>
+
+                <Field.Root name="zip" style={{ width: 100 }}>
+                  <Field.Label>ZIP</Field.Label>
+                  <TextField.Root>
+                    <TextField.Input required placeholder="12345" />
+                  </TextField.Root>
+                </Field.Root>
+              </div>
+            </>
+          )}
+
+          <Button type="submit" loading={loading} style={{ marginTop: 8 }}>
+            Submit
+          </Button>
+        </Form.Root>
+
+        {result && (
+          <pre style={{ marginTop: 16, fontSize: 12, color: 'var(--gray-11)' }}>{JSON.stringify(result, null, 2)}</pre>
+        )}
+      </div>
+    );
+  },
+};
+
+// ============================================================================
+// Auto-save Form
+// ============================================================================
+
+export const AutoSaveForm: Story = {
+  name: 'Auto-save Form',
+  render: function AutoSaveStory() {
+    const [formData, setFormData] = React.useState({
+      title: '',
+      description: '',
+    });
+    const [saveStatus, setSaveStatus] = React.useState<'idle' | 'saving' | 'saved'>('idle');
+    const [lastSaved, setLastSaved] = React.useState<Date | null>(null);
+    const saveTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    const autoSave = React.useCallback(async () => {
+      setSaveStatus('saving');
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 800));
+      setSaveStatus('saved');
+      setLastSaved(new Date());
+
+      // Reset status after 2 seconds
+      setTimeout(() => setSaveStatus('idle'), 2000);
+    }, []);
+
+    const handleChange = (field: 'title' | 'description', value: string) => {
+      const newData = { ...formData, [field]: value };
+      setFormData(newData);
+
+      // Clear existing timeout
+      if (saveTimeoutRef.current) {
+        clearTimeout(saveTimeoutRef.current);
+      }
+
+      // Set new timeout for auto-save (debounce 1 second)
+      saveTimeoutRef.current = setTimeout(() => {
+        if (newData.title || newData.description) {
+          autoSave();
+        }
+      }, 1000);
+    };
+
+    // Cleanup on unmount
+    React.useEffect(() => {
+      return () => {
+        if (saveTimeoutRef.current) {
+          clearTimeout(saveTimeoutRef.current);
+        }
+      };
+    }, []);
+
+    return (
+      <div style={{ width: 360 }}>
+        <Heading size="3" style={{ marginBottom: 8 }}>
+          Auto-save Form
+        </Heading>
+        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
+          Automatically save form data after the user stops typing. Use <Code>setTimeout</Code> to debounce saves and
+          prevent excessive API calls.
+        </Text>
+
+        {/* Save status indicator */}
+        <Callout.Root
+          color={saveStatus === 'saving' ? 'info' : saveStatus === 'saved' ? 'success' : 'gray'}
+          size="1"
+          style={{ marginBottom: 16 }}
+        >
+          <Callout.Icon>
+            {saveStatus === 'saving' ? (
+              <Spinner />
+            ) : (
+              <div
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  backgroundColor: 'currentColor',
+                }}
+              />
+            )}
+          </Callout.Icon>
+          <Callout.Text>
+            {saveStatus === 'saving' && 'Saving...'}
+            {saveStatus === 'saved' && 'All changes saved'}
+            {saveStatus === 'idle' &&
+              (lastSaved ? `Last saved ${lastSaved.toLocaleTimeString()}` : 'Start typing to auto-save')}
+          </Callout.Text>
+        </Callout.Root>
+
+        <style>{`
+          @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+          }
+        `}</style>
+
+        <Form.Root>
+          <Field.Root name="title">
+            <Field.Label>Title</Field.Label>
+            <TextField.Root>
+              <TextField.Input
+                placeholder="Enter a title"
+                value={formData.title}
+                onChange={(e) => handleChange('title', e.target.value)}
+              />
+            </TextField.Root>
+          </Field.Root>
+
+          <Field.Root name="description">
+            <Field.Label>Description</Field.Label>
+            <TextField.Root>
+              <TextField.Input
+                placeholder="Enter a description"
+                value={formData.description}
+                onChange={(e) => handleChange('description', e.target.value)}
+              />
+            </TextField.Root>
+            <Field.Description>Changes are saved automatically after you stop typing</Field.Description>
+          </Field.Root>
+        </Form.Root>
+
+        {(formData.title || formData.description) && (
+          <pre style={{ marginTop: 16, fontSize: 12, color: 'var(--gray-11)' }}>
+            {JSON.stringify(formData, null, 2)}
+          </pre>
+        )}
       </div>
     );
   },
