@@ -661,7 +661,7 @@ export const FormExample: Story = {
         </Text>
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
-          <Fieldset.Root disabled>
+          <Fieldset.Root>
             <Fieldset.Legend>Account Information</Fieldset.Legend>
 
             <Field.Root name="fullName">
@@ -682,7 +682,7 @@ export const FormExample: Story = {
             </Field.Root>
           </Fieldset.Root>
 
-          <Fieldset.Root disabled>
+          <Fieldset.Root>
             <Fieldset.Legend>Plan Details</Fieldset.Legend>
 
             <Field.Root name="plan">
@@ -713,7 +713,7 @@ export const FormExample: Story = {
             </Field.Root>
           </Fieldset.Root>
 
-          <Fieldset.Root disabled>
+          <Fieldset.Root>
             <Fieldset.Legend>Preferences</Fieldset.Legend>
 
             <Field.Root name="notifications">
@@ -820,15 +820,15 @@ export const DisabledState: Story = {
   render: () => {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', width: 320 }}>
-        <Field.Root name="readonlyField" disabled>
+        <Field.Root name="readonlyField">
           <Field.Label>Account ID (read-only)</Field.Label>
           <TextField.Root>
-            <Field.Control render={<TextField.Input />} defaultValue="ACC-123456" />
+            <Field.Control render={<TextField.Input />} defaultValue="ACC-123456" readOnly />
           </TextField.Root>
           <Field.Description>This field cannot be modified</Field.Description>
         </Field.Root>
 
-        <Field.Root name="lockedPlan" disabled>
+        <Field.Root name="lockedPlan">
           <Field.Label>Current Plan</Field.Label>
           <Select.Root defaultValue="enterprise" disabled>
             <Select.Trigger style={{ width: '100%' }} />
