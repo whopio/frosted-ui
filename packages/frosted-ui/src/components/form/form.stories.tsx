@@ -157,6 +157,13 @@ export const ConstraintValidation: Story = {
 // 3. Required Controls (Select, Checkbox, Switch)
 // ============================================================================
 
+const countryItems = [
+  { value: 'us', label: 'United States' },
+  { value: 'uk', label: 'United Kingdom' },
+  { value: 'ca', label: 'Canada' },
+  { value: 'au', label: 'Australia' },
+];
+
 export const RequiredControls: Story = {
   name: 'Required Controls',
   render: function RequiredControlsStory() {
@@ -177,22 +184,23 @@ export const RequiredControls: Story = {
           Required Controls
         </Heading>
         <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
-          Non-text controls like <Code>{'<Select>'}</Code>, <Code>{'<Checkbox>'}</Code>, and{' '}
-          <Code>{'<Switch>'}</Code> support the <Code>required</Code> and <Code>name</Code> props for native form
-          validation. Use <Code>{'match="valueMissing"'}</Code> to show validation errors.
+          Non-text controls like <Code>{'<Select>'}</Code>, <Code>{'<Checkbox>'}</Code>, and <Code>{'<Switch>'}</Code>{' '}
+          support the <Code>required</Code> and <Code>name</Code> props for native form validation. Use{' '}
+          <Code>{'match="valueMissing"'}</Code> to show validation errors.
         </Text>
 
         <Form.Root onSubmit={handleSubmit}>
           {/* Required Select */}
           <Field.Root name="country">
             <Field.Label>Country</Field.Label>
-            <Select.Root name="country" required>
+            <Select.Root name="country" required items={countryItems}>
               <Select.Trigger placeholder="Select a country" />
               <Select.Content>
-                <Select.Item value="us">United States</Select.Item>
-                <Select.Item value="uk">United Kingdom</Select.Item>
-                <Select.Item value="ca">Canada</Select.Item>
-                <Select.Item value="au">Australia</Select.Item>
+                {countryItems.map((item) => (
+                  <Select.Item key={item.value} value={item.value}>
+                    {item.label}
+                  </Select.Item>
+                ))}
               </Select.Content>
             </Select.Root>
             <Field.Error match="valueMissing">Please select a country</Field.Error>
@@ -515,6 +523,17 @@ export const ServerSideValidation: Story = {
 // 8. Conditional Fields
 // ============================================================================
 
+const accountTypeItems = [
+  { value: 'personal', label: 'Personal' },
+  { value: 'business', label: 'Business' },
+];
+
+const contactMethodItems = [
+  { value: 'email', label: 'Email' },
+  { value: 'phone', label: 'Phone' },
+  { value: 'mail', label: 'Physical Mail' },
+];
+
 export const ConditionalFields: Story = {
   name: 'Conditional Fields',
   render: function ConditionalFieldsStory() {
@@ -544,11 +563,18 @@ export const ConditionalFields: Story = {
           {/* Account Type Selection */}
           <Field.Root name="accountType">
             <Field.Label>Account Type</Field.Label>
-            <Select.Root value={accountType} onValueChange={(value) => value && setAccountType(value)}>
+            <Select.Root
+              value={accountType}
+              onValueChange={(value) => value && setAccountType(value)}
+              items={accountTypeItems}
+            >
               <Select.Trigger placeholder="Select account type" />
               <Select.Content>
-                <Select.Item value="personal">Personal</Select.Item>
-                <Select.Item value="business">Business</Select.Item>
+                {accountTypeItems.map((item) => (
+                  <Select.Item key={item.value} value={item.value}>
+                    {item.label}
+                  </Select.Item>
+                ))}
               </Select.Content>
             </Select.Root>
           </Field.Root>
@@ -579,12 +605,18 @@ export const ConditionalFields: Story = {
           {/* Contact Method Selection */}
           <Field.Root name="contactMethod">
             <Field.Label>Preferred Contact Method</Field.Label>
-            <Select.Root value={contactMethod} onValueChange={(value) => value && setContactMethod(value)}>
+            <Select.Root
+              value={contactMethod}
+              onValueChange={(value) => value && setContactMethod(value)}
+              items={contactMethodItems}
+            >
               <Select.Trigger placeholder="Select contact method" />
               <Select.Content>
-                <Select.Item value="email">Email</Select.Item>
-                <Select.Item value="phone">Phone</Select.Item>
-                <Select.Item value="mail">Physical Mail</Select.Item>
+                {contactMethodItems.map((item) => (
+                  <Select.Item key={item.value} value={item.value}>
+                    {item.label}
+                  </Select.Item>
+                ))}
               </Select.Content>
             </Select.Root>
           </Field.Root>

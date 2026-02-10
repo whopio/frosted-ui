@@ -61,6 +61,12 @@ export const Default: Story = {
 // With Fieldset
 // ============================================================================
 
+const fieldsetCountryItems = [
+  { value: 'us', label: 'United States' },
+  { value: 'ca', label: 'Canada' },
+  { value: 'uk', label: 'United Kingdom' },
+];
+
 export const WithFieldset: Story = {
   name: 'With Fieldset',
   render: () => {
@@ -120,19 +126,14 @@ export const WithFieldset: Story = {
 
           <Field.Root name="country">
             <Field.Label>Country</Field.Label>
-            <Select.Root
-              items={[
-                { value: 'us', label: 'United States' },
-                { value: 'ca', label: 'Canada' },
-                { value: 'uk', label: 'United Kingdom' },
-              ]}
-              defaultValue="us"
-            >
+            <Select.Root items={fieldsetCountryItems} defaultValue="us">
               <Select.Trigger style={{ width: '100%' }} />
               <Select.Content>
-                <Select.Item value="us">United States</Select.Item>
-                <Select.Item value="ca">Canada</Select.Item>
-                <Select.Item value="uk">United Kingdom</Select.Item>
+                {fieldsetCountryItems.map((item) => (
+                  <Select.Item key={item.value} value={item.value}>
+                    {item.label}
+                  </Select.Item>
+                ))}
               </Select.Content>
             </Select.Root>
           </Field.Root>
@@ -643,6 +644,12 @@ export const CustomValidation: Story = {
 // Form Example
 // ============================================================================
 
+const planItems = [
+  { value: 'free', label: 'Free' },
+  { value: 'pro', label: 'Pro - $9/mo' },
+  { value: 'enterprise', label: 'Enterprise - $29/mo' },
+];
+
 export const FormExample: Story = {
   name: 'Complete Form Example',
   render: () => {
@@ -688,19 +695,14 @@ export const FormExample: Story = {
 
             <Field.Root name="plan">
               <Field.Label>Plan</Field.Label>
-              <Select.Root
-                items={[
-                  { value: 'free', label: 'Free' },
-                  { value: 'pro', label: 'Pro - $9/mo' },
-                  { value: 'enterprise', label: 'Enterprise - $29/mo' },
-                ]}
-                defaultValue="free"
-              >
+              <Select.Root items={planItems} defaultValue="free">
                 <Select.Trigger style={{ width: '100%' }} />
                 <Select.Content>
-                  <Select.Item value="free">Free</Select.Item>
-                  <Select.Item value="pro">Pro - $9/mo</Select.Item>
-                  <Select.Item value="enterprise">Enterprise - $29/mo</Select.Item>
+                  {planItems.map((item) => (
+                    <Select.Item key={item.value} value={item.value}>
+                      {item.label}
+                    </Select.Item>
+                  ))}
                 </Select.Content>
               </Select.Root>
             </Field.Root>
@@ -911,6 +913,12 @@ export const Validity: Story = {
 // Disabled State
 // ============================================================================
 
+const disabledPlanItems = [
+  { value: 'free', label: 'Free' },
+  { value: 'pro', label: 'Pro' },
+  { value: 'enterprise', label: 'Enterprise' },
+];
+
 export const DisabledState: Story = {
   name: 'Disabled State',
   render: () => {
@@ -926,12 +934,14 @@ export const DisabledState: Story = {
 
         <Field.Root name="lockedPlan">
           <Field.Label>Current Plan</Field.Label>
-          <Select.Root defaultValue="enterprise" disabled>
+          <Select.Root defaultValue="enterprise" disabled items={disabledPlanItems}>
             <Select.Trigger style={{ width: '100%' }} />
             <Select.Content>
-              <Select.Item value="free">Free</Select.Item>
-              <Select.Item value="pro">Pro</Select.Item>
-              <Select.Item value="enterprise">Enterprise</Select.Item>
+              {disabledPlanItems.map((item) => (
+                <Select.Item key={item.value} value={item.value}>
+                  {item.label}
+                </Select.Item>
+              ))}
             </Select.Content>
           </Select.Root>
           <Field.Description>Contact support to change your plan</Field.Description>
