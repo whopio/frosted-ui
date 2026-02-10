@@ -285,7 +285,7 @@ export const FieldsetDisabled: Story = {
                   required={!sameAsShipping}
                 />
               </TextField.Root>
-              <Field.Error match="valueMissing">Street address is required</Field.Error>
+              {!sameAsShipping && <Field.Error match="valueMissing">Street address is required</Field.Error>}
             </Field.Root>
 
             <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 12 }}>
@@ -299,7 +299,7 @@ export const FieldsetDisabled: Story = {
                     required={!sameAsShipping}
                   />
                 </TextField.Root>
-                <Field.Error match="valueMissing">Required</Field.Error>
+                {!sameAsShipping && <Field.Error match="valueMissing">Required</Field.Error>}
               </Field.Root>
 
               <Field.Root name="billingZip">
@@ -312,7 +312,7 @@ export const FieldsetDisabled: Story = {
                     required={!sameAsShipping}
                   />
                 </TextField.Root>
-                <Field.Error match="valueMissing">Required</Field.Error>
+                {!sameAsShipping && <Field.Error match="valueMissing">Required</Field.Error>}
               </Field.Root>
             </div>
 
