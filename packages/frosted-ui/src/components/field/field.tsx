@@ -20,7 +20,14 @@ type FieldControlChangeEventDetails = FieldPrimitive.Control.ChangeEventDetails;
 // Root
 // ============================================================================
 
-interface FieldRootProps extends React.ComponentProps<typeof FieldPrimitive.Root> {}
+interface FieldRootProps extends React.ComponentProps<typeof FieldPrimitive.Root> {
+  /**
+   * The layout orientation of the field.
+   * - `'vertical'` (default): Label above control, stacked layout
+   * - `'horizontal'`: Label and control side by side
+   */
+  orientation?: 'vertical' | 'horizontal';
+}
 
 /**
  * Groups all parts of the field. Renders a `<div>` element.
@@ -44,12 +51,19 @@ interface FieldRootProps extends React.ComponentProps<typeof FieldPrimitive.Root
  * @param validationMode - Determines when the field should be validated: `'onSubmit'` (default), `'onBlur'`, or `'onChange'`.
  * @param validationDebounceTime - How long to wait between `validate` callbacks if `validationMode="onChange"`. Specified in milliseconds.
  * @param actionsRef - A ref to imperative actions. Contains `validate` function to manually trigger validation.
+ * @param orientation - The layout orientation: `'vertical'` (default) or `'horizontal'`.
  *
  * @see https://base-ui.com/react/components/field#root
  */
 function FieldRoot(props: FieldRootProps) {
-  const { className, ...rootProps } = props;
-  return <FieldPrimitive.Root {...rootProps} className={classNames('fui-FieldRoot', className)} />;
+  const { className, orientation = 'vertical', ...rootProps } = props;
+  return (
+    <FieldPrimitive.Root
+      {...rootProps}
+      data-orientation={orientation}
+      className={classNames('fui-FieldRoot', className)}
+    />
+  );
 }
 FieldRoot.displayName = 'FieldRoot';
 
@@ -186,7 +200,7 @@ interface FieldDescriptionProps
 const FieldDescription = React.forwardRef<HTMLParagraphElement, FieldDescriptionProps>((props, forwardedRef) => {
   const {
     className,
-    size = '1',
+    size = '2',
     weight,
     align,
     trim,
@@ -257,7 +271,8 @@ interface FieldItemProps extends React.ComponentProps<typeof FieldPrimitive.Item
  * @see https://base-ui.com/react/components/field#item
  */
 function FieldItem(props: FieldItemProps) {
-  return <FieldPrimitive.Item {...props} />;
+  const { className, ...itemProps } = props;
+  return <FieldPrimitive.Item {...itemProps} className={classNames('fui-FieldItem', className)} />;
 }
 FieldItem.displayName = 'FieldItem';
 
@@ -308,7 +323,7 @@ interface FieldErrorProps
  * @see https://base-ui.com/react/components/field#error
  */
 const FieldError = React.forwardRef<HTMLDivElement, FieldErrorProps>((props, forwardedRef) => {
-  const { className, size = '1', weight, align, trim, color = 'danger', highContrast, render, ...errorProps } = props;
+  const { className, size = '2', weight, align, trim, color = 'danger', highContrast, render, ...errorProps } = props;
 
   // If user provides custom render, use it directly; otherwise use Text
   const defaultRender = (

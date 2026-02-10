@@ -14,6 +14,7 @@ import {
   RadioGroup,
   ScrollArea,
   Select,
+  Separator,
   Slider,
   Spinner,
   Switch,
@@ -88,7 +89,7 @@ export const WithFieldset: Story = {
             <Field.Description>Your company's tax identification number</Field.Description>
           </Field.Root>
         </Fieldset.Root>
-
+        <Separator size="4" />
         <Fieldset.Root>
           <Fieldset.Legend>Shipping Address</Fieldset.Legend>
 
@@ -197,13 +198,11 @@ export const WithSelect: Story = {
           <Select.Root items={countries} required defaultValue="">
             <Select.Trigger placeholder="Select a country" style={{ width: '100%' }} />
             <Select.Content>
-              <ScrollArea type="auto" style={{ maxHeight: 200 }}>
-                {countries.map((country) => (
-                  <Select.Item key={country.value} value={country.value} disabled={country.value === ''}>
-                    {country.label}
-                  </Select.Item>
-                ))}
-              </ScrollArea>
+              {countries.map((country) => (
+                <Select.Item key={country.value} value={country.value} disabled={country.value === ''}>
+                  {country.label}
+                </Select.Item>
+              ))}
             </Select.Content>
           </Select.Root>
           <Field.Description>Choose your country of residence</Field.Description>
@@ -298,7 +297,7 @@ export const WithSwitch: Story = {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 320 }}>
         <Field.Root name="notifications">
-          <Field.Label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Field.Label style={{ justifyContent: 'space-between' }}>
             Enable notifications
             <Switch name="notifications" defaultChecked />
           </Field.Label>
@@ -306,7 +305,7 @@ export const WithSwitch: Story = {
         </Field.Root>
 
         <Field.Root name="marketing">
-          <Field.Label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Field.Label style={{ justifyContent: 'space-between' }}>
             Marketing emails
             <Switch name="marketing" />
           </Field.Label>
@@ -314,7 +313,7 @@ export const WithSwitch: Story = {
         </Field.Root>
 
         <Field.Root name="analytics">
-          <Field.Label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Field.Label style={{ justifyContent: 'space-between' }}>
             Usage analytics
             <Switch name="analytics" defaultChecked />
           </Field.Label>
@@ -335,22 +334,30 @@ export const WithRadioGroup: Story = {
     return (
       <div style={{ width: 320 }}>
         <Field.Root name="storageType">
-          <Field.Label>Storage type</Field.Label>
-          <RadioGroup.Root
-            defaultValue="ssd"
-            style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', marginTop: 'var(--space-2)' }}
-          >
-            <Field.Item>
-              <RadioGroup.Item value="ssd">SSD (Recommended)</RadioGroup.Item>
-            </Field.Item>
-            <Field.Item>
-              <RadioGroup.Item value="hdd">HDD</RadioGroup.Item>
-            </Field.Item>
-            <Field.Item>
-              <RadioGroup.Item value="nvme">NVMe (Premium)</RadioGroup.Item>
-            </Field.Item>
-          </RadioGroup.Root>
-          <Field.Description>Select the storage type for your server</Field.Description>
+          <Fieldset.Root>
+            <Fieldset.Legend variant="label">Storage type</Fieldset.Legend>
+            <Field.Description>Select the storage type for your server</Field.Description>
+            <RadioGroup.Root defaultValue="ssd">
+              <Field.Item>
+                <Field.Label weight="regular">
+                  <RadioGroup.Item value="ssd" />
+                  SSD (Recommended)
+                </Field.Label>
+              </Field.Item>
+              <Field.Item>
+                <Field.Label weight="regular">
+                  <RadioGroup.Item value="hdd" />
+                  HDD
+                </Field.Label>
+              </Field.Item>
+              <Field.Item>
+                <Field.Label weight="regular">
+                  <RadioGroup.Item value="nvme" />
+                  NVMe (Premium)
+                </Field.Label>
+              </Field.Item>
+            </RadioGroup.Root>
+          </Fieldset.Root>
         </Field.Root>
       </div>
     );
@@ -366,35 +373,26 @@ export const WithCheckbox: Story = {
   render: () => {
     return (
       <div style={{ width: 320 }}>
-        <Field.Root name="terms">
-          <Field.Label>Terms and Conditions</Field.Label>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', marginTop: 'var(--space-2)' }}>
+        <Field.Root name="agreements">
+          <Fieldset.Root>
+            <Fieldset.Legend variant="label">Terms and Conditions</Fieldset.Legend>
             <Field.Item>
-              <Checkbox name="terms" required>
-                <Text size="2">
-                  I agree to the{' '}
-                  <Text color="blue" style={{ textDecoration: 'underline' }}>
-                    Terms of Service
-                  </Text>
-                </Text>
-              </Checkbox>
+              <Field.Label weight="regular">
+                <Checkbox size="2" value="terms" />I agree to the Terms of Service
+              </Field.Label>
             </Field.Item>
             <Field.Item>
-              <Checkbox name="privacy" required>
-                <Text size="2">
-                  I have read the{' '}
-                  <Text color="blue" style={{ textDecoration: 'underline' }}>
-                    Privacy Policy
-                  </Text>
-                </Text>
-              </Checkbox>
+              <Field.Label weight="regular">
+                <Checkbox size="2" value="privacy" />I have read the Privacy Policy
+              </Field.Label>
             </Field.Item>
             <Field.Item>
-              <Checkbox name="updates">
-                <Text size="2">Send me product updates (optional)</Text>
-              </Checkbox>
+              <Field.Label weight="regular">
+                <Checkbox size="2" value="updates" />
+                Send me product updates (optional)
+              </Field.Label>
             </Field.Item>
-          </div>
+          </Fieldset.Root>
         </Field.Root>
       </div>
     );
@@ -408,20 +406,20 @@ export const WithCheckbox: Story = {
 export const WithSlider: Story = {
   name: 'With Slider',
   render: () => {
-    const [value, setValue] = React.useState([50]);
+    const [value, setValue] = React.useState(50);
 
     return (
       <div style={{ width: 320 }}>
         <Field.Root name="volume">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Field.Label>CPU allocation</Field.Label>
+          <Field.Label style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            CPU allocation
             <Text size="2" color="gray">
-              {value[0]}%
+              {value}%
             </Text>
-          </div>
-          <div style={{ marginTop: 'var(--space-2)' }}>
-            <Slider value={value} onValueChange={(v) => setValue(v as number[])} min={0} max={100} step={5} />
-          </div>
+          </Field.Label>
+
+          <Slider value={value} onValueChange={(v) => setValue(v as number)} min={0} max={100} step={5} />
+
           <Field.Description>Allocate CPU resources for your application</Field.Description>
         </Field.Root>
       </div>
@@ -663,7 +661,7 @@ export const FormExample: Story = {
         </Text>
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
-          <Fieldset.Root>
+          <Fieldset.Root disabled>
             <Fieldset.Legend>Account Information</Fieldset.Legend>
 
             <Field.Root name="fullName">
@@ -684,7 +682,7 @@ export const FormExample: Story = {
             </Field.Root>
           </Fieldset.Root>
 
-          <Fieldset.Root>
+          <Fieldset.Root disabled>
             <Fieldset.Legend>Plan Details</Fieldset.Legend>
 
             <Field.Root name="plan">
@@ -715,20 +713,18 @@ export const FormExample: Story = {
             </Field.Root>
           </Fieldset.Root>
 
-          <Fieldset.Root>
+          <Fieldset.Root disabled>
             <Fieldset.Legend>Preferences</Fieldset.Legend>
 
             <Field.Root name="notifications">
-              <Field.Label
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer' }}
-              >
+              <Field.Label style={{ justifyContent: 'space-between' }}>
                 Email notifications
                 <Switch name="notifications" defaultChecked />
               </Field.Label>
             </Field.Root>
 
             <Field.Root name="terms">
-              <Field.Label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
+              <Field.Label weight="regular">
                 <Checkbox name="terms" required />I agree to the Terms of Service
               </Field.Label>
             </Field.Root>

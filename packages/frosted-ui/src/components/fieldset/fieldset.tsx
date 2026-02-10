@@ -47,7 +47,14 @@ FieldsetRoot.displayName = 'FieldsetRoot';
 interface FieldsetLegendProps
   extends
     Omit<React.ComponentProps<typeof FieldsetPrimitive.Legend>, 'color'>,
-    Pick<TextProps, 'size' | 'weight' | 'align' | 'trim' | 'color' | 'highContrast'> {}
+    Pick<TextProps, 'size' | 'weight' | 'align' | 'trim' | 'color' | 'highContrast'> {
+  /**
+   * The visual variant of the legend.
+   * - `'legend'` (default): Larger text (size='3', weight='bold') for section headings
+   * - `'label'`: Smaller text (size='2', weight='medium') similar to field labels
+   */
+  variant?: 'legend' | 'label';
+}
 
 /**
  * An accessible legend for the fieldset. Renders a `<div>` element styled with `<Text>`.
@@ -66,21 +73,37 @@ interface FieldsetLegendProps
  * </Fieldset.Root>
  * ```
  *
- * @param size - Text size ('1' - '9'). Defaults to '3'.
- * @param weight - Font weight ('light', 'regular', 'medium', 'bold'). Defaults to 'bold'.
+ * @param variant - Visual variant: `'legend'` (default) or `'label'`.
+ * @param size - Text size ('1' - '9'). Defaults based on variant.
+ * @param weight - Font weight ('light', 'regular', 'medium', 'bold'). Defaults based on variant.
  * @param color - Text color.
  *
  * @see https://base-ui.com/react/components/fieldset#legend
  */
 const FieldsetLegend = React.forwardRef<HTMLDivElement, FieldsetLegendProps>((props, forwardedRef) => {
-  const { className, size = '3', weight = 'bold', align, trim, color, highContrast, render, ...legendProps } = props;
+  const {
+    className,
+    variant = 'legend',
+    size,
+    weight,
+    align,
+    trim,
+    color,
+    highContrast,
+    render,
+    ...legendProps
+  } = props;
+
+  // Determine defaults based on variant
+  const resolvedSize = size ?? (variant === 'label' ? '2' : '3');
+  const resolvedWeight = weight ?? (variant === 'label' ? 'medium' : 'bold');
 
   // If user provides custom render, use it directly; otherwise use Text
   const defaultRender = (
     <Text
-      render={<div />}
-      size={size}
-      weight={weight}
+      render={<legend />}
+      size={resolvedSize}
+      weight={resolvedWeight}
       align={align}
       trim={trim}
       color={color}
@@ -92,6 +115,7 @@ const FieldsetLegend = React.forwardRef<HTMLDivElement, FieldsetLegendProps>((pr
     <FieldsetPrimitive.Legend
       {...legendProps}
       ref={forwardedRef}
+      data-variant={variant}
       className={classNames('fui-FieldsetLegend', className)}
       render={render ?? defaultRender}
     />

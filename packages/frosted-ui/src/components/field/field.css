@@ -1,33 +1,111 @@
-/* Root - flex column with gap between children */
+/* ============================================================================
+ * Root - flex layout with gap between children
+ * ============================================================================ */
+
 .fui-FieldRoot {
   display: flex;
-  flex-direction: column;
   gap: 4px; /* tight gap between label/input/description/error */
   width: 100%;
 }
 
-/* Label - cursor and disabled state */
+/* Vertical orientation (default) */
+.fui-FieldRoot[data-orientation='vertical'] {
+  flex-direction: column;
+}
+
+/* Horizontal orientation - label and control side by side */
+.fui-FieldRoot[data-orientation='horizontal'] {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.fui-FieldRoot[data-orientation='horizontal'] > .fui-FieldLabel {
+  flex: 0 0 auto;
+}
+
+/* ============================================================================
+ * Label - cursor and disabled state
+ * ============================================================================ */
+
+/* Label wrapping checkbox/radio/switch - make it flex and clickable */
+.fui-FieldLabel:has(> .fui-CheckboxRoot),
+.fui-FieldLabel:has(> .fui-RadioGroupItem),
+.fui-FieldLabel:has(> .fui-SwitchRoot) {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+/* Control inside wrapped label inherits cursor */
+.fui-FieldLabel:has(> .fui-CheckboxRoot) > .fui-CheckboxRoot,
+.fui-FieldLabel:has(> .fui-RadioGroupItem) > .fui-RadioGroupItem,
+.fui-FieldLabel:has(> .fui-SwitchRoot) > .fui-SwitchRoot {
+  cursor: inherit;
+}
+
 .fui-FieldLabel {
   cursor: default;
   user-select: none;
 }
 
-.fui-FieldRoot[data-disabled] .fui-FieldLabel {
-  opacity: 0.5;
+.fui-FieldLabel[data-disabled] {
   cursor: not-allowed;
 }
+.fui-FieldLabel[data-disabled],
+.fui-FieldDescription[data-disabled] {
+  color: var(--gray-a8);
+}
 
-/* Description - slight top margin to separate from input */
-.fui-FieldDescription {
+/* ============================================================================
+ * Control groups - smart spacing after label
+ * ============================================================================ */
+
+/* Extra spacing when control group follows label */
+.fui-FieldLabel + .fui-RadioGroupRoot,
+.fui-FieldLabel + .fui-CheckboxRoot,
+.fui-FieldLabel + .fui-SliderRoot,
+.fui-FieldLabel + :has(> .fui-FieldItem) {
   margin-top: 4px;
 }
 
-/* Error - slight top margin */
-.fui-FieldError {
+/* ============================================================================
+ * Description - smart spacing based on siblings
+ * ============================================================================ */
+
+/* Extra spacing when description follows an input control */
+.fui-TextFieldRoot + .fui-FieldDescription,
+.fui-FieldControl + .fui-FieldDescription,
+.fui-SliderRoot + .fui-FieldDescription {
   margin-top: 4px;
 }
 
-/* Item - for checkbox/radio groups */
+/* Extra spacing when control follows description (description between label and control) */
+.fui-FieldDescription + .fui-TextFieldRoot,
+.fui-FieldDescription + .fui-FieldControl,
+.fui-FieldDescription + .fui-SliderRoot {
+  margin-top: 4px;
+}
+
+/* Tighter spacing when description follows legend (fieldset context) */
+.fui-FieldsetLegend + .fui-FieldDescription {
+  margin-top: -4px;
+}
+
+/* ============================================================================
+ * Error - smart spacing based on siblings
+ * ============================================================================ */
+
+/* Error after description needs less spacing (gap handles most of it) */
+.fui-FieldDescription + .fui-FieldError {
+  margin-top: 2px;
+}
+
+/* ============================================================================
+ * Item - for checkbox/radio groups
+ * ============================================================================ */
+
 .fui-FieldItem {
   display: flex;
   align-items: flex-start;
