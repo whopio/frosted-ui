@@ -215,6 +215,7 @@ export const FieldsetDisabled: Story = {
                     required
                   />
                 </TextField.Root>
+                <Field.Error match="valueMissing">Required</Field.Error>
               </Field.Root>
 
               <Field.Root name="shippingZip">
@@ -227,6 +228,7 @@ export const FieldsetDisabled: Story = {
                     required
                   />
                 </TextField.Root>
+                <Field.Error match="valueMissing">Required</Field.Error>
               </Field.Root>
             </div>
 
@@ -297,6 +299,7 @@ export const FieldsetDisabled: Story = {
                     required={!sameAsShipping}
                   />
                 </TextField.Root>
+                <Field.Error match="valueMissing">Required</Field.Error>
               </Field.Root>
 
               <Field.Root name="billingZip">
@@ -309,6 +312,7 @@ export const FieldsetDisabled: Story = {
                     required={!sameAsShipping}
                   />
                 </TextField.Root>
+                <Field.Error match="valueMissing">Required</Field.Error>
               </Field.Root>
             </div>
 
