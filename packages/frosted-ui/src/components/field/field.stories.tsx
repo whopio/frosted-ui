@@ -110,7 +110,7 @@ export const WithFieldset: Story = {
             <Field.Error match="valueMissing">Street address is required</Field.Error>
           </Field.Root>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-3)' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             <Field.Root name="city">
               <Field.Label>City</Field.Label>
               <TextField.Root>
@@ -140,6 +140,201 @@ export const WithFieldset: Story = {
             </Select.Root>
           </Field.Root>
         </Fieldset.Root>
+      </div>
+    );
+  },
+};
+
+// ============================================================================
+// Fieldset Disabled
+// ============================================================================
+
+const addressCountryItems = [
+  { value: 'us', label: 'United States' },
+  { value: 'ca', label: 'Canada' },
+  { value: 'uk', label: 'United Kingdom' },
+  { value: 'de', label: 'Germany' },
+];
+
+export const FieldsetDisabled: Story = {
+  name: 'Fieldset Disabled',
+  render: function FieldsetDisabledStory() {
+    const [sameAsShipping, setSameAsShipping] = React.useState(false);
+    const [shippingAddress, setShippingAddress] = React.useState({
+      street: '',
+      city: '',
+      zip: '',
+      country: 'us',
+    });
+    const [billingAddress, setBillingAddress] = React.useState({
+      street: '',
+      city: '',
+      zip: '',
+      country: 'us',
+    });
+
+    // When "same as shipping" is checked, sync billing with shipping
+    const displayedBilling = sameAsShipping ? shippingAddress : billingAddress;
+
+    return (
+      <div style={{ width: 400 }}>
+        <Heading size="3" style={{ marginBottom: 8 }}>
+          Fieldset Disabled
+        </Heading>
+        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
+          Use <Code>{'disabled'}</Code> on <Code>{'<Fieldset.Root>'}</Code> to disable an entire group of fields at
+          once. This is useful for conditional sections like billing addresses that can be skipped.
+        </Text>
+
+        <Form.Root>
+          {/* Shipping Address */}
+          <Fieldset.Root>
+            <Fieldset.Legend>Shipping Address</Fieldset.Legend>
+
+            <Field.Root name="shippingStreet">
+              <Field.Label>Street address</Field.Label>
+              <TextField.Root>
+                <TextField.Input
+                  placeholder="123 Main St"
+                  value={shippingAddress.street}
+                  onChange={(e) => setShippingAddress((prev) => ({ ...prev, street: e.target.value }))}
+                  required
+                />
+              </TextField.Root>
+              <Field.Error match="valueMissing">Street address is required</Field.Error>
+            </Field.Root>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 12 }}>
+              <Field.Root name="shippingCity">
+                <Field.Label>City</Field.Label>
+                <TextField.Root>
+                  <TextField.Input
+                    placeholder="San Francisco"
+                    value={shippingAddress.city}
+                    onChange={(e) => setShippingAddress((prev) => ({ ...prev, city: e.target.value }))}
+                    required
+                  />
+                </TextField.Root>
+              </Field.Root>
+
+              <Field.Root name="shippingZip">
+                <Field.Label>ZIP</Field.Label>
+                <TextField.Root>
+                  <TextField.Input
+                    placeholder="94102"
+                    value={shippingAddress.zip}
+                    onChange={(e) => setShippingAddress((prev) => ({ ...prev, zip: e.target.value }))}
+                    required
+                  />
+                </TextField.Root>
+              </Field.Root>
+            </div>
+
+            <Field.Root name="shippingCountry">
+              <Field.Label>Country</Field.Label>
+              <Select.Root
+                items={addressCountryItems}
+                value={shippingAddress.country}
+                onValueChange={(value) => value && setShippingAddress((prev) => ({ ...prev, country: value }))}
+              >
+                <Select.Trigger style={{ width: '100%' }} />
+                <Select.Content>
+                  {addressCountryItems.map((item) => (
+                    <Select.Item key={item.value} value={item.value}>
+                      {item.label}
+                    </Select.Item>
+                  ))}
+                </Select.Content>
+              </Select.Root>
+            </Field.Root>
+          </Fieldset.Root>
+
+          {/* Same as Shipping checkbox */}
+          <Field.Root name="sameAsShipping" style={{ margin: 'var(--space-4) 0' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <Checkbox
+                name="sameAsShipping"
+                checked={sameAsShipping}
+                onCheckedChange={(checked) => setSameAsShipping(checked === true)}
+              />
+              <Field.Label weight="regular" style={{ margin: 0, cursor: 'pointer' }}>
+                Billing address same as shipping
+              </Field.Label>
+            </div>
+          </Field.Root>
+
+          {/* Billing Address - disabled when same as shipping */}
+          <Fieldset.Root disabled={sameAsShipping}>
+            <Fieldset.Legend>Billing Address</Fieldset.Legend>
+
+            {sameAsShipping && (
+              <Callout.Root color="info" size="1" style={{ marginBottom: 12 }}>
+                <Callout.Text>Using shipping address for billing</Callout.Text>
+              </Callout.Root>
+            )}
+
+            <Field.Root name="billingStreet">
+              <Field.Label>Street address</Field.Label>
+              <TextField.Root>
+                <TextField.Input
+                  placeholder="123 Main St"
+                  value={displayedBilling.street}
+                  onChange={(e) => setBillingAddress((prev) => ({ ...prev, street: e.target.value }))}
+                  required={!sameAsShipping}
+                />
+              </TextField.Root>
+              <Field.Error match="valueMissing">Street address is required</Field.Error>
+            </Field.Root>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 12 }}>
+              <Field.Root name="billingCity">
+                <Field.Label>City</Field.Label>
+                <TextField.Root>
+                  <TextField.Input
+                    placeholder="San Francisco"
+                    value={displayedBilling.city}
+                    onChange={(e) => setBillingAddress((prev) => ({ ...prev, city: e.target.value }))}
+                    required={!sameAsShipping}
+                  />
+                </TextField.Root>
+              </Field.Root>
+
+              <Field.Root name="billingZip">
+                <Field.Label>ZIP</Field.Label>
+                <TextField.Root>
+                  <TextField.Input
+                    placeholder="94102"
+                    value={displayedBilling.zip}
+                    onChange={(e) => setBillingAddress((prev) => ({ ...prev, zip: e.target.value }))}
+                    required={!sameAsShipping}
+                  />
+                </TextField.Root>
+              </Field.Root>
+            </div>
+
+            <Field.Root name="billingCountry">
+              <Field.Label>Country</Field.Label>
+              <Select.Root
+                items={addressCountryItems}
+                value={displayedBilling.country}
+                onValueChange={(value) => value && setBillingAddress((prev) => ({ ...prev, country: value }))}
+              >
+                <Select.Trigger style={{ width: '100%' }} />
+                <Select.Content>
+                  {addressCountryItems.map((item) => (
+                    <Select.Item key={item.value} value={item.value}>
+                      {item.label}
+                    </Select.Item>
+                  ))}
+                </Select.Content>
+              </Select.Root>
+            </Field.Root>
+          </Fieldset.Root>
+
+          <Button type="submit" style={{ width: '100%', marginTop: 20 }} variant="solid">
+            Continue to Payment
+          </Button>
+        </Form.Root>
       </div>
     );
   },
@@ -664,7 +859,7 @@ export const CustomValidation: Story = {
 
           <div style={{ position: 'relative' }}>
             <TextField.Root color={showError ? 'danger' : isValid ? 'success' : undefined}>
-              <TextField.Slot style={{ paddingLeft: 'var(--space-3)' }}>
+              <TextField.Slot style={{ paddingLeft: 12 }}>
                 <Text size="2" color="gray">
                   yoursite.com/
                 </Text>
@@ -675,7 +870,7 @@ export const CustomValidation: Story = {
                 placeholder="your_username"
                 style={{ paddingLeft: 0 }}
               />
-              <TextField.Slot style={{ paddingRight: 'var(--space-3)' }}>
+              <TextField.Slot style={{ paddingRight: 12 }}>
                 {isChecking && <Spinner size="1" />}
                 {!isChecking && isValid && (
                   <Text color="success">
@@ -694,7 +889,7 @@ export const CustomValidation: Story = {
           {/* Validation Rules */}
           <div
             style={{
-              marginTop: 'var(--space-3)',
+              marginTop: 12,
               display: 'flex',
               flexDirection: 'column',
               gap: 'var(--space-1)',
@@ -711,7 +906,7 @@ export const CustomValidation: Story = {
             <Callout.Root
               size="1"
               color={isChecking ? 'gray' : isAvailable ? 'success' : 'danger'}
-              style={{ marginTop: 'var(--space-3)' }}
+              style={{ marginTop: 12 }}
             >
               <Callout.Icon>
                 {isChecking ? <Spinner size="1" /> : isAvailable ? <Checkmark12 /> : <XMarkSmall12 />}
@@ -1127,7 +1322,7 @@ export const AllValidityStates: Story = {
               Returns <Code>true</Code> if the value is not in the required syntax (when <Code>type</Code> is{' '}
               <Code>email</Code> or <Code>url</Code>).
             </Text>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               <Field.Root name="typeMismatchEmail">
                 <Field.Label>Email</Field.Label>
                 <TextField.Root>
