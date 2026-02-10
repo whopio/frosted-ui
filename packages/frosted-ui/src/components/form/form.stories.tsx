@@ -1,3 +1,4 @@
+import { Plus16 } from '@frosted-ui/icons';
 import type { Meta, StoryObj } from '@storybook/react';
 import { useForm as useTanStackForm } from '@tanstack/react-form';
 import * as React from 'react';
@@ -7,11 +8,12 @@ import {
   AlertDialog,
   Button,
   Callout,
+  Card,
   Code,
   Field,
+  Fieldset,
   Form,
   Heading,
-  IconButton,
   Link,
   Progress,
   Select,
@@ -1211,69 +1213,63 @@ export const DynamicFormFields: Story = {
 
         <Form.Root onSubmit={handleSubmit}>
           {members.map((member, index) => (
-            <div
-              key={member.id}
-              style={{
-                display: 'flex',
-                gap: 8,
-                alignItems: 'flex-start',
-                padding: 12,
-                borderRadius: 8,
-                backgroundColor: 'var(--gray-a2)',
-                marginBottom: 8,
-              }}
-            >
-              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8 }}>
-                <Text size="1" weight="medium" color="gray">
-                  Team Member {index + 1}
-                </Text>
-                <Field.Root name={`member-${member.id}-name`}>
-                  <TextField.Root size="1">
-                    <TextField.Input
-                      placeholder="Name"
-                      value={member.name}
-                      onChange={(e) => updateMember(member.id, 'name', e.target.value)}
-                      required
-                    />
-                  </TextField.Root>
-                </Field.Root>
-                <Field.Root name={`member-${member.id}-email`}>
-                  <TextField.Root size="1">
-                    <TextField.Input
-                      type="email"
-                      placeholder="Email"
-                      value={member.email}
-                      onChange={(e) => updateMember(member.id, 'email', e.target.value)}
-                      required
-                    />
-                  </TextField.Root>
-                </Field.Root>
-              </div>
-              {members.length > 1 && (
-                <IconButton
-                  type="button"
-                  variant="soft"
-                  color="gray"
-                  size="1"
-                  onClick={() => removeMember(member.id)}
-                  style={{ marginTop: 20 }}
-                >
-                  <svg width="14" height="14" viewBox="0 0 15 15" fill="none">
-                    <path
-                      d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                </IconButton>
-              )}
-            </div>
+            <Card key={member.id}>
+              <Fieldset.Root
+                style={{
+                  borderRadius: 8,
+                }}
+              >
+                <div style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
+                  <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16 }}>
+                      <Fieldset.Legend variant="label">Member {index + 1}</Fieldset.Legend>
+                      {members.length > 1 && (
+                        <Button
+                          size="1"
+                          type="button"
+                          variant="soft"
+                          color="gray"
+                          onClick={() => removeMember(member.id)}
+                        >
+                          Remove
+                        </Button>
+                      )}
+                    </div>
+                    <Field.Root name={`member-${member.id}-name`}>
+                      <TextField.Root size="2">
+                        <TextField.Input
+                          placeholder="Name"
+                          value={member.name}
+                          onChange={(e) => updateMember(member.id, 'name', e.target.value)}
+                          required
+                        />
+                      </TextField.Root>
+                      <Field.Error match="valueMissing">Name is required</Field.Error>
+                    </Field.Root>
+                    <Field.Root name={`member-${member.id}-email`}>
+                      <TextField.Root size="2">
+                        <TextField.Input
+                          type="email"
+                          placeholder="Email"
+                          value={member.email}
+                          onChange={(e) => updateMember(member.id, 'email', e.target.value)}
+                          required
+                        />
+                      </TextField.Root>
+                      <Field.Error match="valueMissing">Email is required</Field.Error>
+                      <Field.Error match="typeMismatch">Please enter a valid email</Field.Error>
+                    </Field.Root>
+                  </div>
+                </div>
+              </Fieldset.Root>
+            </Card>
           ))}
 
-          <Button type="button" variant="soft" size="1" onClick={addMember} style={{ marginBottom: 16 }}>
-            + Add Team Member
+          <Button type="button" variant="surface" onClick={addMember} style={{ marginBottom: 16 }}>
+            <Plus16 /> Add Team Member
           </Button>
 
-          <Button type="submit" loading={loading} style={{ width: '100%' }}>
+          <Button type="submit" variant="solid" loading={loading} style={{ width: '100%' }}>
             Submit Team
           </Button>
         </Form.Root>
