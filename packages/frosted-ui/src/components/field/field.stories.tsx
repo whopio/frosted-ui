@@ -48,7 +48,7 @@ export const Default: Story = {
         <Field.Root name="username">
           <Field.Label>Username</Field.Label>
           <TextField.Root>
-            <TextField.Input placeholder="Enter your username" required minLength={3} />
+            <TextField.Input placeholder="johndoe" required minLength={3} />
           </TextField.Root>
           <Field.Description>Must be at least 3 characters</Field.Description>
           <Field.Error match="valueMissing">Username is required</Field.Error>
@@ -361,7 +361,7 @@ export const WithTextField: Story = {
         <Field.Root name="password">
           <Field.Label>Password</Field.Label>
           <TextField.Root>
-            <TextField.Input type="password" placeholder="••••••••" required minLength={8} />
+            <TextField.Input type="password" placeholder="min. 8 characters" required minLength={8} />
           </TextField.Root>
           <Field.Description>Must be at least 8 characters</Field.Description>
           <Field.Error match="valueMissing">Password is required</Field.Error>
@@ -1150,7 +1150,7 @@ export const FieldCustomValidation: Story = {
         >
           <Field.Label>Username</Field.Label>
           <TextField.Root>
-            <TextField.Input required minLength={3} placeholder="Enter username" />
+            <TextField.Input required minLength={3} placeholder="alice" />
           </TextField.Root>
           <Field.Description>Try "admin", "root", or "system" to see validation errors</Field.Description>
           <Field.Error match="valueMissing">Username is required</Field.Error>
@@ -1184,7 +1184,7 @@ export const Validity: Story = {
           <TextField.Root>
             <TextField.Input
               type="password"
-              placeholder="Enter a strong password"
+              placeholder="Aa1..."
               required
               minLength={8}
               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
@@ -1354,7 +1354,7 @@ export const AllValidityStates: Story = {
             <Field.Root name="tooShort">
               <Field.Label>Username (min 3 characters)</Field.Label>
               <TextField.Root>
-                <TextField.Input minLength={3} required placeholder="Enter username" />
+                <TextField.Input minLength={3} required placeholder="alice" />
               </TextField.Root>
               <Field.Error match="tooShort">Username must be at least 3 characters</Field.Error>
               <Field.Error match="valueMissing">Username is required</Field.Error>
@@ -1375,7 +1375,7 @@ export const AllValidityStates: Story = {
             <Field.Root name="tooLong">
               <Field.Label>Comment (max 20 characters)</Field.Label>
               <TextField.Root>
-                <TextField.Input maxLength={20} placeholder="Type here..." />
+                <TextField.Input maxLength={20} placeholder="Short comment" />
               </TextField.Root>
               <Field.Description>
                 Browsers prevent typing beyond maxLength, so this error rarely appears
@@ -1425,7 +1425,7 @@ export const AllValidityStates: Story = {
             <Field.Root name="rangeValidation">
               <Field.Label>Quantity (1-100)</Field.Label>
               <NumberField.Root min={1} max={100} defaultValue={150}>
-                <NumberField.Input placeholder="Enter quantity" />
+                <NumberField.Input placeholder="50" />
               </NumberField.Root>
               <Field.Error match="rangeUnderflow">Quantity must be at least 1</Field.Error>
               <Field.Error match="rangeOverflow">Quantity must not exceed 100</Field.Error>
@@ -1498,7 +1498,7 @@ export const AllValidityStates: Story = {
             >
               <Field.Label>Security Question Answer</Field.Label>
               <TextField.Root>
-                <TextField.Input placeholder="Enter your answer" />
+                <TextField.Input placeholder="e.g. my first pet's name" />
               </TextField.Root>
               <Field.Description>Try typing "password" to trigger custom validation</Field.Description>
               <Field.Error />

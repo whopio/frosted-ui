@@ -78,7 +78,7 @@ export const GettingStarted: Story = {
           <Field.Root name="message">
             <Field.Label>Message</Field.Label>
             <TextField.Root>
-              <TextField.Input required placeholder="Your message" />
+              <TextField.Input required placeholder="How can we help?" />
             </TextField.Root>
             <Field.Description>We'll get back to you within 24 hours</Field.Description>
             <Field.Error match="valueMissing">Message is required</Field.Error>
@@ -265,7 +265,7 @@ export const DisplayingErrors: Story = {
           <Field.Root name="autoMessage">
             <Field.Label>Auto Message (native)</Field.Label>
             <TextField.Root>
-              <TextField.Input type="email" required placeholder="Leave empty and submit" />
+              <TextField.Input type="email" required placeholder="you@example.com" />
             </TextField.Root>
             <Field.Description>
               Uses <Code>{'<Field.Error />'}</Code> without children
@@ -278,7 +278,7 @@ export const DisplayingErrors: Story = {
           <Field.Root name="customMessages">
             <Field.Label>Custom Messages</Field.Label>
             <TextField.Root>
-              <TextField.Input required minLength={5} placeholder="Type less than 5 chars" />
+              <TextField.Input required minLength={5} placeholder="hello" />
             </TextField.Root>
             <Field.Description>
               Uses <Code>match</Code> prop for specific validity states
@@ -292,7 +292,7 @@ export const DisplayingErrors: Story = {
           <Field.Root name="alwaysShow">
             <Field.Label>Always Show Error</Field.Label>
             <TextField.Root>
-              <TextField.Input required placeholder="Required field" />
+              <TextField.Input required placeholder="abc123" />
             </TextField.Root>
             <Field.Description>
               Uses <Code>{'match={true}'}</Code> to always show when invalid
@@ -345,21 +345,21 @@ export const FormReset: Story = {
           <Field.Root name="firstName">
             <Field.Label>First Name</Field.Label>
             <TextField.Root>
-              <TextField.Input placeholder="Enter first name" />
+              <TextField.Input placeholder="Jane" />
             </TextField.Root>
           </Field.Root>
 
           <Field.Root name="lastName">
             <Field.Label>Last Name</Field.Label>
             <TextField.Root>
-              <TextField.Input placeholder="Enter last name" />
+              <TextField.Input placeholder="Smith" />
             </TextField.Root>
           </Field.Root>
 
           <Field.Root name="email">
             <Field.Label>Email</Field.Label>
             <TextField.Root>
-              <TextField.Input type="email" placeholder="Enter email" />
+              <TextField.Input type="email" placeholder="jane@example.com" />
             </TextField.Root>
           </Field.Root>
 
@@ -413,13 +413,13 @@ export const SubmitAsJavaScriptObject: Story = {
           <Field.Root name="name">
             <Field.Label>Name</Field.Label>
             <TextField.Root>
-              <TextField.Input placeholder="Enter name" />
+              <TextField.Input placeholder="Jane Smith" />
             </TextField.Root>
           </Field.Root>
           <Field.Root name="age">
             <Field.Label>Age</Field.Label>
             <TextField.Root>
-              <TextField.Input placeholder="Enter age" />
+              <TextField.Input placeholder="25" />
             </TextField.Root>
           </Field.Root>
           <Button type="submit" loading={loading}>
@@ -500,7 +500,7 @@ export const ServerSideValidation: Story = {
           <Field.Root name="promoCode">
             <Field.Label>Promo Code</Field.Label>
             <TextField.Root>
-              <TextField.Input required placeholder="Enter promo code" />
+              <TextField.Input required placeholder="SAVE20" />
             </TextField.Root>
             <Field.Description>Try "EXPIRED" or "INVALID" to see server errors</Field.Description>
             <Field.Error />
@@ -657,7 +657,7 @@ export const ConditionalFields: Story = {
                 <Field.Root name="city" style={{ flex: 1 }}>
                   <Field.Label>City</Field.Label>
                   <TextField.Root>
-                    <TextField.Input required placeholder="City" />
+                    <TextField.Input required placeholder="San Francisco" />
                   </TextField.Root>
                 </Field.Root>
 
@@ -891,7 +891,7 @@ export const DirtyStateWarning: Story = {
             <Field.Label>Title</Field.Label>
             <TextField.Root>
               <TextField.Input
-                placeholder="Enter title"
+                placeholder="My document"
                 value={formData.title}
                 onChange={(e) => setFormData((prev) => ({ ...prev, title: e.target.value }))}
               />
@@ -902,7 +902,7 @@ export const DirtyStateWarning: Story = {
             <Field.Label>Content</Field.Label>
             <TextField.Root>
               <TextField.Input
-                placeholder="Enter content"
+                placeholder="Start writing..."
                 value={formData.content}
                 onChange={(e) => setFormData((prev) => ({ ...prev, content: e.target.value }))}
               />
@@ -1055,7 +1055,7 @@ export const AutoSaveForm: Story = {
             <Field.Label>Title</Field.Label>
             <TextField.Root>
               <TextField.Input
-                placeholder="Enter a title"
+                placeholder="Project name"
                 value={formData.title}
                 onChange={(e) => handleChange('title', e.target.value)}
               />
@@ -1066,7 +1066,7 @@ export const AutoSaveForm: Story = {
             <Field.Label>Description</Field.Label>
             <TextField.Root>
               <TextField.Input
-                placeholder="Enter a description"
+                placeholder="What is this project about?"
                 value={formData.description}
                 onChange={(e) => handleChange('description', e.target.value)}
               />
@@ -1390,14 +1390,14 @@ export const UsingWithZod: Story = {
           <Field.Root name="name">
             <Field.Label>Name</Field.Label>
             <TextField.Root>
-              <TextField.Input placeholder="Enter name" />
+              <TextField.Input placeholder="Jane Smith" />
             </TextField.Root>
             <Field.Error />
           </Field.Root>
           <Field.Root name="age">
             <Field.Label>Age</Field.Label>
             <TextField.Root>
-              <TextField.Input placeholder="Enter age" />
+              <TextField.Input placeholder="25" />
             </TextField.Root>
             <Field.Error />
           </Field.Root>
@@ -1563,7 +1563,7 @@ export const ReactHookFormIntegration: Story = {
               <Field.Root name={field.name} invalid={!!errors.lastName}>
                 <Field.Label>Last Name</Field.Label>
                 <TextField.Root>
-                  <TextField.Input placeholder="Enter last name" {...field} />
+                  <TextField.Input placeholder="Smith" {...field} />
                 </TextField.Root>
                 {errors.lastName && <Field.Error match={true}>{errors.lastName.message}</Field.Error>}
               </Field.Root>
@@ -1670,7 +1670,7 @@ export const TanStackFormIntegration: Story = {
                 <Field.Label>Username</Field.Label>
                 <TextField.Root>
                   <TextField.Input
-                    placeholder="Enter username"
+                    placeholder="johndoe"
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}
                     onBlur={field.handleBlur}
@@ -1697,7 +1697,7 @@ export const TanStackFormIntegration: Story = {
                 <Field.Label>Bio</Field.Label>
                 <TextField.Root>
                   <TextField.Input
-                    placeholder="Tell us about yourself (optional)"
+                    placeholder="Developer from NYC"
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}
                     onBlur={field.handleBlur}
