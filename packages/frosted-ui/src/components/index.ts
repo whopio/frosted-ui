@@ -26,6 +26,7 @@ export * from './date-picker';
 export * from './date-range-picker';
 export * from './field';
 export * from './fieldset';
+export * from './form';
 export * from './filter-chip';
 export * from './number-field';
 export * from './progress';

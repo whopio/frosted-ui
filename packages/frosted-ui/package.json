@@ -105,6 +105,7 @@
   },
   "devDependencies": {
     "@frosted-ui/icons": "workspace:*",
+    "zod": "^3.24.2",
     "@napi-rs/canvas": "^0.1.60",
     "@storybook/addon-essentials": "^8.5.3",
     "@storybook/addon-interactions": "^8.5.3",
