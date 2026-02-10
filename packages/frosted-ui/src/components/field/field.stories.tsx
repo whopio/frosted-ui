@@ -47,10 +47,10 @@ export const Default: Story = {
       <div style={{ width: 320 }}>
         <Field.Root name="username">
           <Field.Label>Username</Field.Label>
+          <Field.Description>Must be at least 3 characters</Field.Description>
           <TextField.Root>
             <TextField.Input placeholder="johndoe" required minLength={3} />
           </TextField.Root>
-          <Field.Description>Must be at least 3 characters</Field.Description>
           <Field.Error match="valueMissing">Username is required</Field.Error>
           <Field.Error match="tooShort">Username must be at least 3 characters</Field.Error>
         </Field.Root>
@@ -388,10 +388,10 @@ export const WithTextField: Story = {
 
         <Field.Root name="password">
           <Field.Label>Password</Field.Label>
+          <Field.Description>Must be at least 8 characters</Field.Description>
           <TextField.Root>
             <TextField.Input type="password" placeholder="min. 8 characters" required minLength={8} />
           </TextField.Root>
-          <Field.Description>Must be at least 8 characters</Field.Description>
           <Field.Error match="valueMissing">Password is required</Field.Error>
           <Field.Error match="tooShort">Password must be at least 8 characters</Field.Error>
         </Field.Root>
@@ -422,6 +422,7 @@ export const WithSelect: Story = {
       <div style={{ width: 320 }}>
         <Field.Root name="country">
           <Field.Label>Country</Field.Label>
+          <Field.Description>Choose your country of residence</Field.Description>
           <Select.Root items={countries} required defaultValue="">
             <Select.Trigger placeholder="Select a country" style={{ width: '100%' }} />
             <Select.Content>
@@ -432,7 +433,6 @@ export const WithSelect: Story = {
               ))}
             </Select.Content>
           </Select.Root>
-          <Field.Description>Choose your country of residence</Field.Description>
           <Field.Error match="valueMissing">Please select a country</Field.Error>
         </Field.Root>
       </div>
@@ -590,10 +590,10 @@ export const WithAutocomplete: Story = {
         <Field.Root name="containerImage">
           <Autocomplete.Root items={containerImages} mode="both" itemToStringValue={(item) => (item as Image).url}>
             <Field.Label>Container image</Field.Label>
+            <Field.Description>Enter a registry URL with optional tags</Field.Description>
             <TextField.Root>
               <Autocomplete.Input render={<TextField.Input placeholder="e.g. docker.io/library/node:latest" />} />
             </TextField.Root>
-            <Field.Description>Enter a registry URL with optional tags</Field.Description>
             <Autocomplete.Content size="3">
               <ScrollArea type="auto" style={{ maxHeight: 200 }}>
                 <Autocomplete.List>
@@ -628,10 +628,10 @@ export const WithNumberField: Story = {
       <div style={{ width: 320 }}>
         <Field.Root name="quantity">
           <Field.Label>Number of instances</Field.Label>
+          <Field.Description>Choose between 1 and 64 instances</Field.Description>
           <NumberField.Root defaultValue={1} min={1} max={64}>
             <NumberField.Input />
           </NumberField.Root>
-          <Field.Description>Choose between 1 and 64 instances</Field.Description>
         </Field.Root>
       </div>
     );
@@ -768,10 +768,9 @@ export const WithSlider: Story = {
               {value}%
             </Text>
           </Field.Label>
+          <Field.Description>Allocate CPU resources for your application</Field.Description>
 
           <Slider value={value} onValueChange={(v) => setValue(v as number)} min={0} max={100} step={5} />
-
-          <Field.Description>Allocate CPU resources for your application</Field.Description>
         </Field.Root>
       </div>
     );
@@ -1058,10 +1057,10 @@ export const FormExample: Story = {
 
             <Field.Root name="teamSize">
               <Field.Label>Team size</Field.Label>
+              <Field.Description>Number of team members (1-100)</Field.Description>
               <NumberField.Root defaultValue={1} min={1} max={100} name="teamSize">
                 <NumberField.Input />
               </NumberField.Root>
-              <Field.Description>Number of team members (1-100)</Field.Description>
             </Field.Root>
           </Fieldset.Root>
 
@@ -1424,6 +1423,7 @@ export const AllValidityStates: Story = {
             </Text>
             <Field.Root name="patternMismatch">
               <Field.Label>Phone Number</Field.Label>
+              <Field.Description>Format: 123-456-7890</Field.Description>
               <TextField.Root>
                 <TextField.Input
                   pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
@@ -1431,7 +1431,6 @@ export const AllValidityStates: Story = {
                   defaultValue="invalid"
                 />
               </TextField.Root>
-              <Field.Description>Format: 123-456-7890</Field.Description>
               <Field.Error match="patternMismatch">Please use the format: 123-456-7890</Field.Error>
             </Field.Root>
           </Fieldset.Root>
