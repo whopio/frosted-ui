@@ -20,6 +20,6 @@ export const Payout16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Payout16.category = 'Money & Finance';
+Payout16.category = 'Money & Shopping';
 
 export default Payout16;

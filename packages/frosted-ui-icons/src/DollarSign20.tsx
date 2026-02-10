@@ -20,6 +20,6 @@ export const DollarSign20 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
-DollarSign20.category = 'Money & Finance';
+DollarSign20.category = 'Money & Shopping';
 
 export default DollarSign20;

@@ -27,6 +27,6 @@ export const Bitcoin24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Bitcoin24.category = 'Money & Finance';
+Bitcoin24.category = 'Money & Shopping';
 
 export default Bitcoin24;

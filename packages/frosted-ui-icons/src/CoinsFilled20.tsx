@@ -20,6 +20,6 @@ export const CoinsFilled20 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
-CoinsFilled20.category = 'Money & Finance';
+CoinsFilled20.category = 'Money & Shopping';
 
 export default CoinsFilled20;

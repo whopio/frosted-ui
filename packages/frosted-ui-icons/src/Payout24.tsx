@@ -20,6 +20,6 @@ export const Payout24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Payout24.category = 'Money & Finance';
+Payout24.category = 'Money & Shopping';
 
 export default Payout24;

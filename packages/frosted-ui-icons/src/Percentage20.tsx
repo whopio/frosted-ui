@@ -27,6 +27,6 @@ export const Percentage20 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
-Percentage20.category = 'Money & Finance';
+Percentage20.category = 'Money & Shopping';
 
 export default Percentage20;

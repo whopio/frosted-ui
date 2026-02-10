@@ -20,6 +20,6 @@ export const DollarCircleFilled16 = ({ color = 'currentColor', ...props }: IconP
   );
 };
 
-DollarCircleFilled16.category = 'Money & Finance';
+DollarCircleFilled16.category = 'Money & Shopping';
 
 export default DollarCircleFilled16;

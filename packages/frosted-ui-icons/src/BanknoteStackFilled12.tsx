@@ -20,6 +20,6 @@ export const BanknoteStackFilled12 = ({ color = 'currentColor', ...props }: Icon
   );
 };
 
-BanknoteStackFilled12.category = 'Money & Finance';
+BanknoteStackFilled12.category = 'Money & Shopping';
 
 export default BanknoteStackFilled12;
