@@ -700,8 +700,8 @@ export const FormReset: Story = {
           Form Reset
         </Heading>
         <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
-          Use a ref to access the native form element and call <Code>reset()</Code> to clear all fields back to their
-          default values. You can also use <Code>type="reset"</Code> on a button for automatic reset behavior.
+          Use a ref to access the native form element and call <Code>reset()</Code> to clear all fields. The native
+          reset restores inputs to their <Code>defaultValue</Code> (empty if not set).
         </Text>
 
         <Form.Root
@@ -716,21 +716,21 @@ export const FormReset: Story = {
           <Field.Root name="firstName">
             <Field.Label>First Name</Field.Label>
             <TextField.Root>
-              <TextField.Input placeholder="Enter first name" defaultValue="John" />
+              <TextField.Input placeholder="Enter first name" />
             </TextField.Root>
           </Field.Root>
 
           <Field.Root name="lastName">
             <Field.Label>Last Name</Field.Label>
             <TextField.Root>
-              <TextField.Input placeholder="Enter last name" defaultValue="Doe" />
+              <TextField.Input placeholder="Enter last name" />
             </TextField.Root>
           </Field.Root>
 
           <Field.Root name="email">
             <Field.Label>Email</Field.Label>
             <TextField.Root>
-              <TextField.Input type="email" placeholder="Enter email" defaultValue="john@example.com" />
+              <TextField.Input type="email" placeholder="Enter email" />
             </TextField.Root>
           </Field.Root>
 
