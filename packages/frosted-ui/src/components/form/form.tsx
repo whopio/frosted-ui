@@ -18,10 +18,10 @@ type FormSubmitEventDetails = FormPrimitive.SubmitEventDetails;
 type FormValidationMode = FormPrimitive.ValidationMode;
 
 // ============================================================================
-// Root
+// Form
 // ============================================================================
 
-interface FormRootProps extends React.ComponentProps<typeof FormPrimitive> {}
+interface FormProps extends React.ComponentProps<typeof FormPrimitive> {}
 
 /**
  * A native form element with consolidated error handling.
@@ -29,7 +29,7 @@ interface FormRootProps extends React.ComponentProps<typeof FormPrimitive> {}
  *
  * @example
  * ```tsx
- * <Form.Root
+ * <Form
  *   errors={errors}
  *   onSubmit={async (event) => {
  *     event.preventDefault();
@@ -43,7 +43,7 @@ interface FormRootProps extends React.ComponentProps<typeof FormPrimitive> {}
  *     <Field.Error />
  *   </Field.Root>
  *   <Button type="submit">Submit</Button>
- * </Form.Root>
+ * </Form>
  * ```
  *
  * @param errors - Validation errors returned externally, typically after submission by a server
@@ -63,24 +63,22 @@ interface FormRootProps extends React.ComponentProps<typeof FormPrimitive> {}
  *
  * @see https://base-ui.com/react/components/form
  */
-function FormRoot(props: FormRootProps) {
+const Form = React.forwardRef<HTMLFormElement, FormProps>((props, forwardedRef) => {
   const { className, ...formProps } = props;
-  return <FormPrimitive {...formProps} className={classNames('fui-FormRoot', className)} />;
-}
-FormRoot.displayName = 'FormRoot';
+  return <FormPrimitive {...formProps} ref={forwardedRef} className={classNames('fui-FormRoot', className)} />;
+});
+Form.displayName = 'Form';
 
 // ============================================================================
 // Exports
 // ============================================================================
 
 export {
-  // Components
-  FormRoot as Root,
-  // Types
-  type FormRootProps as RootProps,
-  type FormState as State,
-  type FormValues as Values,
-  type FormErrors as Errors,
-  type FormSubmitEventDetails as SubmitEventDetails,
-  type FormValidationMode as ValidationMode,
+  Form,
+  type FormErrors,
+  type FormProps,
+  type FormState,
+  type FormSubmitEventDetails,
+  type FormValidationMode,
+  type FormValues,
 };

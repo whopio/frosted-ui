@@ -14,6 +14,8 @@ import {
   Field,
   Fieldset,
   Form,
+  FormErrors,
+  FormValues,
   Heading,
   Link,
   Progress,
@@ -52,12 +54,12 @@ export const GettingStarted: Story = {
           Getting Started
         </Heading>
         <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
-          A minimal form using <Code>{'<Form.Root>'}</Code>, <Code>{'<Field.Root>'}</Code>, and{' '}
-          <Code>{'<TextField>'}</Code>. Add validation with HTML attributes like <Code>required</Code> and display
-          errors with <Code>{'<Field.Error>'}</Code>.
+          A minimal form using <Code>{'<Form>'}</Code>, <Code>{'<Field.Root>'}</Code>, and <Code>{'<TextField>'}</Code>.
+          Add validation with HTML attributes like <Code>required</Code> and display errors with{' '}
+          <Code>{'<Field.Error>'}</Code>.
         </Text>
 
-        <Form.Root
+        <Form
           onSubmit={async (e) => {
             e.preventDefault();
             setLoading(true);
@@ -87,7 +89,7 @@ export const GettingStarted: Story = {
           <Button type="submit" loading={loading} size="3" variant="solid">
             Send Message
           </Button>
-        </Form.Root>
+        </Form>
 
         {submitted && (
           <Callout.Root color="success" size="1" style={{ marginTop: 16 }}>
@@ -116,7 +118,7 @@ export const ConstraintValidation: Story = {
           <Code>minLength</Code>, <Code>maxLength</Code>, <Code>pattern</Code>, and <Code>step</Code>.
         </Text>
 
-        <Form.Root>
+        <Form>
           <Field.Root name="username">
             <Field.Label>Username</Field.Label>
             <TextField.Root>
@@ -147,7 +149,7 @@ export const ConstraintValidation: Story = {
           </Field.Root>
 
           <Button type="submit">Submit</Button>
-        </Form.Root>
+        </Form>
       </div>
     );
   },
@@ -189,7 +191,7 @@ export const RequiredControls: Story = {
           <Code>{'match="valueMissing"'}</Code> to show validation errors.
         </Text>
 
-        <Form.Root onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           {/* Required Select */}
           <Field.Root name="country">
             <Field.Label>Country</Field.Label>
@@ -232,7 +234,7 @@ export const RequiredControls: Story = {
           <Button type="submit" loading={loading}>
             Submit
           </Button>
-        </Form.Root>
+        </Form>
 
         {submitted && (
           <Callout.Root color="success" size="1" style={{ marginTop: 16 }}>
@@ -261,7 +263,7 @@ export const DisplayingErrors: Story = {
           message. Use the <Code>match</Code> prop to customize messages based on the validity state.
         </Text>
 
-        <Form.Root>
+        <Form>
           <Field.Root name="autoMessage">
             <Field.Label>Auto Message (native)</Field.Label>
             <TextField.Root>
@@ -301,7 +303,7 @@ export const DisplayingErrors: Story = {
           </Field.Root>
 
           <Button type="submit">Submit</Button>
-        </Form.Root>
+        </Form>
       </div>
     );
   },
@@ -333,7 +335,7 @@ export const FormReset: Story = {
           reset restores inputs to their <Code>defaultValue</Code> (empty if not set).
         </Text>
 
-        <Form.Root
+        <Form
           ref={formRef}
           onFormSubmit={async (formValues) => {
             setLoading(true);
@@ -371,7 +373,7 @@ export const FormReset: Story = {
               Reset
             </Button>
           </div>
-        </Form.Root>
+        </Form>
 
         {result && (
           <pre style={{ marginTop: 16, fontSize: 12, color: 'var(--gray-11)' }}>{JSON.stringify(result, null, 2)}</pre>
@@ -401,7 +403,7 @@ export const SubmitAsJavaScriptObject: Story = {
           JavaScript object. This is useful when you need to transform the values before submission, or integrate with
           3rd party APIs.
         </Text>
-        <Form.Root
+        <Form
           onFormSubmit={async (formValues) => {
             setLoading(true);
             // Mimic an API call
@@ -425,7 +427,7 @@ export const SubmitAsJavaScriptObject: Story = {
           <Button type="submit" loading={loading}>
             Submit
           </Button>
-        </Form.Root>
+        </Form>
         {result && (
           <pre style={{ marginTop: 16, fontSize: 12, color: 'var(--gray-11)' }}>{JSON.stringify(result, null, 2)}</pre>
         )}
@@ -438,7 +440,7 @@ export const SubmitAsJavaScriptObject: Story = {
 // 7. Server-side Validation
 // ============================================================================
 
-async function submitToServer(formData: { promoCode: string }): Promise<{ success: boolean; errors: Form.Errors }> {
+async function submitToServer(formData: { promoCode: string }): Promise<{ success: boolean; errors: FormErrors }> {
   // Mimic a server response
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
@@ -467,7 +469,7 @@ async function submitToServer(formData: { promoCode: string }): Promise<{ succes
 export const ServerSideValidation: Story = {
   name: 'Server-side Validation',
   render: function ServerSideValidationStory() {
-    const [errors, setErrors] = React.useState<Form.Errors>({});
+    const [errors, setErrors] = React.useState<FormErrors>({});
     const [loading, setLoading] = React.useState(false);
     const [result, setResult] = React.useState<string | null>(null);
 
@@ -480,7 +482,7 @@ export const ServerSideValidation: Story = {
           You can pass errors returned by server-side validation to the <Code>errors</Code> prop, which will be merged
           into the client-side field state for display. Once a field's value changes, the error will be cleared.
         </Text>
-        <Form.Root
+        <Form
           errors={errors}
           onSubmit={async (event) => {
             event.preventDefault();
@@ -508,7 +510,7 @@ export const ServerSideValidation: Story = {
           <Button type="submit" loading={loading}>
             Apply Code
           </Button>
-        </Form.Root>
+        </Form>
         {result && (
           <Text size="2" color="success" style={{ marginTop: 16, display: 'block' }}>
             {result}
@@ -552,7 +554,7 @@ export const ConditionalFields: Story = {
           render fields.
         </Text>
 
-        <Form.Root
+        <Form
           onFormSubmit={async (formValues) => {
             setLoading(true);
             await new Promise((resolve) => setTimeout(resolve, 500));
@@ -674,7 +676,7 @@ export const ConditionalFields: Story = {
           <Button type="submit" loading={loading} style={{ marginTop: 8 }}>
             Submit
           </Button>
-        </Form.Root>
+        </Form>
 
         {result && (
           <pre style={{ marginTop: 16, fontSize: 12, color: 'var(--gray-11)' }}>{JSON.stringify(result, null, 2)}</pre>
@@ -731,7 +733,7 @@ export const DynamicFormFields: Story = {
           <Code>map()</Code>. Use unique IDs as keys for proper React reconciliation.
         </Text>
 
-        <Form.Root onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           {members.map((member, index) => (
             <Card key={member.id}>
               <Fieldset.Root
@@ -784,7 +786,7 @@ export const DynamicFormFields: Story = {
           <Button type="submit" variant="solid" loading={loading} style={{ width: '100%' }}>
             Submit Team
           </Button>
-        </Form.Root>
+        </Form>
 
         {result && (
           <pre style={{ marginTop: 16, fontSize: 12, color: 'var(--gray-11)' }}>{JSON.stringify(result, null, 2)}</pre>
@@ -873,7 +875,7 @@ export const DirtyStateWarning: Story = {
           </Callout.Root>
         )}
 
-        <Form.Root
+        <Form
           onSubmit={(e) => {
             e.preventDefault();
             handleSave();
@@ -909,7 +911,7 @@ export const DirtyStateWarning: Story = {
               Discard
             </Button>
           </div>
-        </Form.Root>
+        </Form>
 
         <Separator size="4" style={{ marginTop: 24, marginBottom: 16 }} />
 
@@ -1042,7 +1044,7 @@ export const AutoSaveForm: Story = {
           </Callout.Text>
         </Callout.Root>
 
-        <Form.Root>
+        <Form>
           <Field.Root name="title">
             <Field.Label>Title</Field.Label>
             <TextField.Root>
@@ -1065,7 +1067,7 @@ export const AutoSaveForm: Story = {
             </TextField.Root>
             <Field.Description>Changes are saved automatically after you stop typing</Field.Description>
           </Field.Root>
-        </Form.Root>
+        </Form>
 
         {(formData.title || formData.description) && (
           <pre style={{ marginTop: 16, fontSize: 12, color: 'var(--gray-11)' }}>
@@ -1173,7 +1175,7 @@ export const MultiStepWizardForm: Story = {
           <Progress value={progress} max={100} />
         </div>
 
-        <Form.Root
+        <Form
           onSubmit={(e) => {
             e.preventDefault();
             if (currentStep === WIZARD_STEPS.length - 1) {
@@ -1320,7 +1322,7 @@ export const MultiStepWizardForm: Story = {
               {currentStep === WIZARD_STEPS.length - 1 ? 'Create Account' : 'Continue'}
             </Button>
           </div>
-        </Form.Root>
+        </Form>
       </div>
     );
   },
@@ -1335,7 +1337,7 @@ const schema = z.object({
   age: z.coerce.number({ message: 'Age must be a number' }).positive('Age must be a positive number'),
 });
 
-async function submitZodForm(formValues: Form.Values) {
+async function submitZodForm(formValues: FormValues) {
   const result = schema.safeParse(formValues);
 
   if (!result.success) {
@@ -1352,7 +1354,7 @@ async function submitZodForm(formValues: Form.Values) {
 export const UsingWithZod: Story = {
   name: 'Using with Zod',
   render: function ZodStory() {
-    const [errors, setErrors] = React.useState<Form.Errors>({});
+    const [errors, setErrors] = React.useState<FormErrors>({});
     const [loading, setLoading] = React.useState(false);
     const [result, setResult] = React.useState<Record<string, unknown> | null>(null);
 
@@ -1366,7 +1368,7 @@ export const UsingWithZod: Story = {
           <Code>result.error.flatten().fieldErrors</Code> data can be used to map the errors to each field's{' '}
           <Code>name</Code>.
         </Text>
-        <Form.Root
+        <Form
           errors={errors}
           onFormSubmit={async (formValues) => {
             setLoading(true);
@@ -1396,7 +1398,7 @@ export const UsingWithZod: Story = {
           <Button type="submit" loading={loading}>
             Submit
           </Button>
-        </Form.Root>
+        </Form>
         {result && (
           <pre style={{ marginTop: 16, fontSize: 12, color: 'var(--gray-11)' }}>{JSON.stringify(result, null, 2)}</pre>
         )}
@@ -1409,7 +1411,7 @@ export const UsingWithZod: Story = {
 // 14. Submit with a Server Function
 // ============================================================================
 
-async function submitUsername(_previousState: { serverErrors?: Form.Errors }, formData: FormData) {
+async function submitUsername(_previousState: { serverErrors?: FormErrors }, formData: FormData) {
   // Mimic a server response
   await new Promise((resolve) => {
     setTimeout(resolve, 1000);
@@ -1440,7 +1442,7 @@ async function submitUsername(_previousState: { serverErrors?: Form.Errors }, fo
 export const SubmitWithServerFunction: Story = {
   name: 'Submit with a Server Function',
   render: function ServerFunctionStory() {
-    const [state, formAction, loading] = React.useActionState<{ serverErrors?: Form.Errors }, FormData>(
+    const [state, formAction, loading] = React.useActionState<{ serverErrors?: FormErrors }, FormData>(
       submitUsername,
       {},
     );
@@ -1461,7 +1463,7 @@ export const SubmitWithServerFunction: Story = {
           </Link>{' '}
           instead of <Code>onSubmit</Code>.
         </Text>
-        <Form.Root errors={state.serverErrors} action={formAction}>
+        <Form errors={state.serverErrors} action={formAction}>
           <Field.Root name="username">
             <Field.Label>Username</Field.Label>
             <TextField.Root>
@@ -1472,7 +1474,7 @@ export const SubmitWithServerFunction: Story = {
           <Button type="submit" loading={loading}>
             Submit
           </Button>
-        </Form.Root>
+        </Form>
       </div>
     );
   },

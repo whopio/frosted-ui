@@ -199,7 +199,7 @@ export const FieldsetDisabled: Story = {
           once. This is useful for conditional sections like billing addresses that can be skipped.
         </Text>
 
-        <Form.Root onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           {/* Shipping Address */}
           <Fieldset.Root>
             <Fieldset.Legend>Shipping Address</Fieldset.Legend>
@@ -347,7 +347,7 @@ export const FieldsetDisabled: Story = {
           <Button type="submit" loading={loading} style={{ width: '100%', marginTop: 20 }} variant="solid">
             Continue to Payment
           </Button>
-        </Form.Root>
+        </Form>
 
         {submitted && (
           <Callout.Root color="success" size="1" style={{ marginTop: 16 }}>
@@ -526,7 +526,7 @@ export const WithSliderBudget: Story = {
           Single-value sliders can also be validated. This example enforces minimum and maximum budget constraints.
         </Text>
 
-        <Form.Root onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           <Field.Root name="budget" invalid={!!error}>
             <Field.Label>Monthly Budget</Field.Label>
             <div style={{ padding: '8px 0 4px' }}>
@@ -548,7 +548,7 @@ export const WithSliderBudget: Story = {
           <Button type="submit" disabled={!!error} style={{ marginTop: 16, width: '100%' }}>
             Set Budget
           </Button>
-        </Form.Root>
+        </Form>
 
         {submitted && (
           <Callout.Root color="success" size="1" style={{ marginTop: 16 }}>
@@ -1012,7 +1012,7 @@ export const FormExample: Story = {
           Create Account
         </Text>
 
-        <Form.Root onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
+        <Form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
           <Fieldset.Root>
             <Fieldset.Legend>Account Information</Fieldset.Legend>
 
@@ -1080,7 +1080,7 @@ export const FormExample: Story = {
           <Button type="submit" variant="solid">
             Create Account
           </Button>
-        </Form.Root>
+        </Form>
 
         {formData && (
           <Callout.Root color="success">
@@ -1316,7 +1316,7 @@ export const AllValidityStates: Story = {
           <Code>{'<Field.Error>'}</Code> to display errors for specific validity states.
         </Text>
 
-        <Form.Root>
+        <Form>
           {/* valueMissing */}
           <Fieldset.Root>
             <Fieldset.Legend>
@@ -1541,7 +1541,7 @@ export const AllValidityStates: Story = {
           <Button type="submit" style={{ width: '100%' }}>
             Validate All Fields
           </Button>
-        </Form.Root>
+        </Form>
       </div>
     );
   },
