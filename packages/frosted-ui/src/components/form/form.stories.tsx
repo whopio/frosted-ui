@@ -68,7 +68,7 @@ export const GettingStarted: Story = {
         >
           <Field.Root name="email">
             <Field.Label>Email</Field.Label>
-            <TextField.Root>
+            <TextField.Root size="3" variant="soft" color="gray">
               <TextField.Input type="email" required placeholder="you@example.com" />
             </TextField.Root>
             <Field.Error match="valueMissing">Email is required</Field.Error>
@@ -77,14 +77,14 @@ export const GettingStarted: Story = {
 
           <Field.Root name="message">
             <Field.Label>Message</Field.Label>
-            <TextField.Root>
+            <TextField.Root size="3" variant="soft" color="gray">
               <TextField.Input required placeholder="How can we help?" />
             </TextField.Root>
             <Field.Description>We'll get back to you within 24 hours</Field.Description>
             <Field.Error match="valueMissing">Message is required</Field.Error>
           </Field.Root>
 
-          <Button type="submit" loading={loading}>
+          <Button type="submit" loading={loading} size="3" variant="solid">
             Send Message
           </Button>
         </Form.Root>

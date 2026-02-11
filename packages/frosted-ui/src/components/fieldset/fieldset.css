@@ -3,6 +3,7 @@
  * ============================================================================ */
 
 .fui-FieldsetRoot {
+  all: unset;
   display: flex;
   flex-direction: column;
   gap: 16px; /* gap between fields */
@@ -31,9 +32,13 @@
 .fui-FieldsetLegend {
   /* Remove default browser padding */
   padding: 0;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
+  cursor: default;
 
   &:where([data-disabled]) {
     color: var(--gray-a8);
+  }
+  &:where([data-variant='label']) {
+    margin-bottom: 8px;
   }
 }

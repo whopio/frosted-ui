@@ -265,7 +265,7 @@ export const FieldsetDisabled: Story = {
           </Fieldset.Root>
 
           {/* Same as Shipping checkbox */}
-          <Field.Root name="sameAsShipping" style={{ margin: 'var(--space-4) 0' }}>
+          <Field.Root name="sameAsShipping">
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <Checkbox
                 name="sameAsShipping"
@@ -278,15 +278,11 @@ export const FieldsetDisabled: Story = {
             </div>
           </Field.Root>
 
+          <Separator size="4" />
+
           {/* Billing Address - disabled when same as shipping */}
           <Fieldset.Root disabled={sameAsShipping}>
             <Fieldset.Legend>Billing Address</Fieldset.Legend>
-
-            {sameAsShipping && (
-              <Callout.Root color="info" size="1" style={{ marginBottom: 12 }}>
-                <Callout.Text>Using shipping address for billing</Callout.Text>
-              </Callout.Root>
-            )}
 
             <Field.Root name="billingStreet">
               <Field.Label>Street address</Field.Label>
@@ -530,7 +526,7 @@ export const WithSliderBudget: Story = {
           Single-value sliders can also be validated. This example enforces minimum and maximum budget constraints.
         </Text>
 
-        <form onSubmit={handleSubmit}>
+        <Form.Root onSubmit={handleSubmit}>
           <Field.Root name="budget" invalid={!!error}>
             <Field.Label>Monthly Budget</Field.Label>
             <div style={{ padding: '8px 0 4px' }}>
@@ -552,7 +548,7 @@ export const WithSliderBudget: Story = {
           <Button type="submit" disabled={!!error} style={{ marginTop: 16, width: '100%' }}>
             Set Budget
           </Button>
-        </form>
+        </Form.Root>
 
         {submitted && (
           <Callout.Root color="success" size="1" style={{ marginTop: 16 }}>
@@ -1016,13 +1012,13 @@ export const FormExample: Story = {
           Create Account
         </Text>
 
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
+        <Form.Root onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
           <Fieldset.Root>
             <Fieldset.Legend>Account Information</Fieldset.Legend>
 
             <Field.Root name="fullName">
               <Field.Label>Full name</Field.Label>
-              <TextField.Root>
+              <TextField.Root size="3">
                 <TextField.Input placeholder="John Doe" required />
               </TextField.Root>
               <Field.Error match="valueMissing">Full name is required</Field.Error>
@@ -1030,7 +1026,7 @@ export const FormExample: Story = {
 
             <Field.Root name="email">
               <Field.Label>Email</Field.Label>
-              <TextField.Root>
+              <TextField.Root size="3">
                 <TextField.Input type="email" placeholder="you@example.com" required />
               </TextField.Root>
               <Field.Error match="valueMissing">Email is required</Field.Error>
@@ -1043,7 +1039,7 @@ export const FormExample: Story = {
 
             <Field.Root name="plan">
               <Field.Label>Plan</Field.Label>
-              <Select.Root items={planItems} defaultValue="free">
+              <Select.Root items={planItems} defaultValue="free" size="3">
                 <Select.Trigger style={{ width: '100%' }} />
                 <Select.Content>
                   {planItems.map((item) => (
@@ -1058,7 +1054,7 @@ export const FormExample: Story = {
             <Field.Root name="teamSize">
               <Field.Label>Team size</Field.Label>
               <Field.Description>Number of team members (1-100)</Field.Description>
-              <NumberField.Root defaultValue={1} min={1} max={100} name="teamSize">
+              <NumberField.Root defaultValue={1} min={1} max={100} name="teamSize" size="3">
                 <NumberField.Input />
               </NumberField.Root>
             </Field.Root>
@@ -1084,7 +1080,7 @@ export const FormExample: Story = {
           <Button type="submit" variant="solid">
             Create Account
           </Button>
-        </form>
+        </Form.Root>
 
         {formData && (
           <Callout.Root color="success">
@@ -1274,16 +1270,16 @@ export const DisabledState: Story = {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', width: 320 }}>
         <Field.Root name="readonlyField">
           <Field.Label>Account ID (read-only)</Field.Label>
-          <TextField.Root>
-            <TextField.Input defaultValue="ACC-123456" readOnly />
+          <TextField.Root size="3" variant="soft" color="gray">
+            <TextField.Input defaultValue="ACC-123456" disabled />
           </TextField.Root>
           <Field.Description>This field cannot be modified</Field.Description>
         </Field.Root>
 
         <Field.Root name="lockedPlan">
           <Field.Label>Current Plan</Field.Label>
-          <Select.Root defaultValue="enterprise" disabled items={disabledPlanItems}>
-            <Select.Trigger style={{ width: '100%' }} />
+          <Select.Root defaultValue="enterprise" disabled items={disabledPlanItems} size="3">
+            <Select.Trigger style={{ width: '100%' }} variant="soft" color="gray" />
             <Select.Content>
               {disabledPlanItems.map((item) => (
                 <Select.Item key={item.value} value={item.value}>
