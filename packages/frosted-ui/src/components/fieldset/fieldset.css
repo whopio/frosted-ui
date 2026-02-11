@@ -1,0 +1,44 @@
+/* ============================================================================
+ * Root - reset native fieldset styles, flex column with gap
+ * ============================================================================ */
+
+.fui-FieldsetRoot {
+  all: unset;
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* gap between fields */
+
+  /* Reset native fieldset styles */
+  border: none;
+  margin: 0;
+  padding: 0;
+  min-width: 0; /* Prevent fieldset from expanding beyond container */
+
+  &:where([data-disabled]) {
+    color: var(--gray-a8);
+  }
+}
+
+/* Smaller gap when fieldset contains checkbox or radio groups (denser layout) */
+.fui-FieldsetRoot:has(.fui-CheckboxRoot),
+.fui-FieldsetRoot:has(.fui-RadioGroupRoot) {
+  gap: 12px;
+}
+
+/* ============================================================================
+ * Legend - inherits Text styling from component
+ * ============================================================================ */
+
+.fui-FieldsetLegend {
+  /* Remove default browser padding */
+  padding: 0;
+  margin-bottom: 16px;
+  cursor: default;
+
+  &:where([data-disabled]) {
+    color: var(--gray-a8);
+  }
+  &:where([data-variant='label']) {
+    margin-bottom: 8px;
+  }
+}

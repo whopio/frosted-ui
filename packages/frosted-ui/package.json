@@ -105,6 +105,9 @@
   },
   "devDependencies": {
     "@frosted-ui/icons": "workspace:*",
+    "@tanstack/react-form": "^0.43.0",
+    "react-hook-form": "^7.54.2",
+    "zod": "^3.24.2",
     "@napi-rs/canvas": "^0.1.60",
     "@storybook/addon-essentials": "^8.5.3",
     "@storybook/addon-interactions": "^8.5.3",

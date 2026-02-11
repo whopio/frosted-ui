@@ -24,7 +24,11 @@ export * from './circular-progress';
 export * from './date-field';
 export * from './date-picker';
 export * from './date-range-picker';
+export * from './field';
+export * from './fieldset';
+export * from './form';
 export * from './filter-chip';
+export * from './number-field';
 export * from './progress';
 export * from './radio-button-group';
 export * from './radio-group';
@@ -34,7 +38,6 @@ export * from './slider';
 export * from './switch';
 export * from './text-area';
 export * from './text-field';
-export * from './number-field';
 
 export * from './otp-field';
 

@@ -29,11 +29,9 @@ export const Default: Story = {
   },
   render: (args) => (
     <RadioGroup.Root defaultValue="1" {...args}>
-      <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'column' }}>
-        <RadioGroup.Item value="1">Default</RadioGroup.Item>
-        <RadioGroup.Item value="2">Comfortable</RadioGroup.Item>
-        <RadioGroup.Item value="3">Compact</RadioGroup.Item>
-      </div>
+      <RadioGroup.Item value="1">Default</RadioGroup.Item>
+      <RadioGroup.Item value="2">Comfortable</RadioGroup.Item>
+      <RadioGroup.Item value="3">Compact</RadioGroup.Item>
     </RadioGroup.Root>
   ),
 };
@@ -46,23 +44,21 @@ export const Composed: Story = {
   },
   render: (args) => (
     <RadioGroup.Root defaultValue="1" {...args}>
-      <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'column' }}>
-        <Text render={<label />} size="2">
-          <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
-            <RadioGroup.Item value="1" /> Default
-          </div>
-        </Text>
-        <Text render={<label />} size="2">
-          <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
-            <RadioGroup.Item value="2" /> Comfortable
-          </div>
-        </Text>
-        <Text render={<label />} size="2">
-          <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
-            <RadioGroup.Item value="3" /> Compact
-          </div>
-        </Text>
-      </div>
+      <Text render={<label />} size="2">
+        <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+          <RadioGroup.Item value="1" /> Default
+        </div>
+      </Text>
+      <Text render={<label />} size="2">
+        <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+          <RadioGroup.Item value="2" /> Comfortable
+        </div>
+      </Text>
+      <Text render={<label />} size="2">
+        <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+          <RadioGroup.Item value="3" /> Compact
+        </div>
+      </Text>
     </RadioGroup.Root>
   ),
 };
@@ -174,12 +170,7 @@ export const Alignment: Story = {
         </Text>
       </RadioGroup.Root>
 
-      <RadioGroup.Root
-        {...args}
-        size="2"
-        defaultValue="1"
-        style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}
-      >
+      <RadioGroup.Root {...args} size="2" defaultValue="1">
         <Text render={<label />} size="3">
           <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
             <RadioGroup.Item value="1" /> Default
@@ -193,12 +184,7 @@ export const Alignment: Story = {
         </Text>
       </RadioGroup.Root>
 
-      <RadioGroup.Root
-        {...args}
-        size="3"
-        defaultValue="1"
-        style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}
-      >
+      <RadioGroup.Root {...args} size="3" defaultValue="1">
         <Text render={<label />} size="4">
           <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
             <RadioGroup.Item value="1" /> Default
@@ -219,11 +205,9 @@ export const Disabled: Story = {
   name: 'Disabled (Group)',
   render: (args) => (
     <RadioGroup.Root {...args} defaultValue="1" disabled>
-      <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'column' }}>
-        <RadioGroup.Item value="1">Default</RadioGroup.Item>
-        <RadioGroup.Item value="2">Comfortable</RadioGroup.Item>
-        <RadioGroup.Item value="3">Compact</RadioGroup.Item>
-      </div>
+      <RadioGroup.Item value="1">Default</RadioGroup.Item>
+      <RadioGroup.Item value="2">Comfortable</RadioGroup.Item>
+      <RadioGroup.Item value="3">Compact</RadioGroup.Item>
     </RadioGroup.Root>
   ),
 };
@@ -232,13 +216,11 @@ export const DisabledItem: Story = {
   name: 'Disabled (Single Item)',
   render: (args) => (
     <RadioGroup.Root {...args} defaultValue="1">
-      <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'column' }}>
-        <RadioGroup.Item value="1">Default</RadioGroup.Item>
-        <RadioGroup.Item value="2" disabled>
-          Comfortable (disabled)
-        </RadioGroup.Item>
-        <RadioGroup.Item value="3">Compact</RadioGroup.Item>
-      </div>
+      <RadioGroup.Item value="1">Default</RadioGroup.Item>
+      <RadioGroup.Item value="2" disabled>
+        Comfortable (disabled)
+      </RadioGroup.Item>
+      <RadioGroup.Item value="3">Compact</RadioGroup.Item>
     </RadioGroup.Root>
   ),
 };
@@ -276,11 +258,9 @@ export const InputRefGroup: Story = {
             Shipping Method
           </Text>
           <RadioGroup.Root {...args} name="shipping" required inputRef={inputRef} onValueChange={() => setError(null)}>
-            <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'column' }}>
-              <RadioGroup.Item value="standard">Standard (5-7 days)</RadioGroup.Item>
-              <RadioGroup.Item value="express">Express (2-3 days)</RadioGroup.Item>
-              <RadioGroup.Item value="overnight">Overnight</RadioGroup.Item>
-            </div>
+            <RadioGroup.Item value="standard">Standard (5-7 days)</RadioGroup.Item>
+            <RadioGroup.Item value="express">Express (2-3 days)</RadioGroup.Item>
+            <RadioGroup.Item value="overnight">Overnight</RadioGroup.Item>
           </RadioGroup.Root>
           {error && (
             <Text render={<div />} size="1" color="red" style={{ marginTop: 'var(--space-2)' }}>
@@ -327,17 +307,15 @@ export const InputRefItem: Story = {
         </Text>
 
         <RadioGroup.Root {...args} defaultValue="standard" onValueChange={() => forceUpdate()}>
-          <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'column' }}>
-            <RadioGroup.Item value="standard" inputRef={standardRef}>
-              Standard (5-7 days)
-            </RadioGroup.Item>
-            <RadioGroup.Item value="express" inputRef={expressRef}>
-              Express (2-3 days)
-            </RadioGroup.Item>
-            <RadioGroup.Item value="overnight" inputRef={overnightRef}>
-              Overnight
-            </RadioGroup.Item>
-          </div>
+          <RadioGroup.Item value="standard" inputRef={standardRef}>
+            Standard (5-7 days)
+          </RadioGroup.Item>
+          <RadioGroup.Item value="express" inputRef={expressRef}>
+            Express (2-3 days)
+          </RadioGroup.Item>
+          <RadioGroup.Item value="overnight" inputRef={overnightRef}>
+            Overnight
+          </RadioGroup.Item>
         </RadioGroup.Root>
 
         <Code style={{ padding: 'var(--space-2)', background: 'var(--gray-3)', borderRadius: 'var(--radius-2)' }}>
@@ -373,11 +351,9 @@ export const OnValueChange: Story = {
         </Text>
 
         <RadioGroup.Root {...args} value={selected} onValueChange={handleChange}>
-          <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'column' }}>
-            <RadioGroup.Item value="standard">Standard (5-7 days) — $5.99</RadioGroup.Item>
-            <RadioGroup.Item value="express">Express (2-3 days) — $12.99</RadioGroup.Item>
-            <RadioGroup.Item value="overnight">Overnight — $24.99</RadioGroup.Item>
-          </div>
+          <RadioGroup.Item value="standard">Standard (5-7 days) — $5.99</RadioGroup.Item>
+          <RadioGroup.Item value="express">Express (2-3 days) — $12.99</RadioGroup.Item>
+          <RadioGroup.Item value="overnight">Overnight — $24.99</RadioGroup.Item>
         </RadioGroup.Root>
 
         <div
@@ -440,11 +416,9 @@ export const OnValueChangeEvent: Story = {
         </Text>
 
         <RadioGroup.Root {...args} value={selected} onValueChange={handleChange}>
-          <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'column' }}>
-            <RadioGroup.Item value="free">Free — $0/month</RadioGroup.Item>
-            <RadioGroup.Item value="pro">Pro — $19/month</RadioGroup.Item>
-            <RadioGroup.Item value="premium">Premium — $99/month (requires confirmation)</RadioGroup.Item>
-          </div>
+          <RadioGroup.Item value="free">Free — $0/month</RadioGroup.Item>
+          <RadioGroup.Item value="pro">Pro — $19/month</RadioGroup.Item>
+          <RadioGroup.Item value="premium">Premium — $99/month (requires confirmation)</RadioGroup.Item>
         </RadioGroup.Root>
 
         <div
@@ -520,11 +494,9 @@ export const FormName: Story = {
             Subscription Plan
           </Text>
           <RadioGroup.Root {...args} name="plan" value={plan} onValueChange={(v) => setPlan(v as string)}>
-            <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'column' }}>
-              <RadioGroup.Item value="monthly">Monthly — $9/mo</RadioGroup.Item>
-              <RadioGroup.Item value="yearly">Yearly — $99/yr (save 8%)</RadioGroup.Item>
-              <RadioGroup.Item value="lifetime">Lifetime — $299 one-time</RadioGroup.Item>
-            </div>
+            <RadioGroup.Item value="monthly">Monthly — $9/mo</RadioGroup.Item>
+            <RadioGroup.Item value="yearly">Yearly — $99/yr (save 8%)</RadioGroup.Item>
+            <RadioGroup.Item value="lifetime">Lifetime — $299 one-time</RadioGroup.Item>
           </RadioGroup.Root>
         </div>
 
@@ -533,11 +505,9 @@ export const FormName: Story = {
             Payment Method
           </Text>
           <RadioGroup.Root {...args} name="payment" value={payment} onValueChange={(v) => setPayment(v as string)}>
-            <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'column' }}>
-              <RadioGroup.Item value="card">Credit Card</RadioGroup.Item>
-              <RadioGroup.Item value="paypal">PayPal</RadioGroup.Item>
-              <RadioGroup.Item value="crypto">Cryptocurrency</RadioGroup.Item>
-            </div>
+            <RadioGroup.Item value="card">Credit Card</RadioGroup.Item>
+            <RadioGroup.Item value="paypal">PayPal</RadioGroup.Item>
+            <RadioGroup.Item value="crypto">Cryptocurrency</RadioGroup.Item>
           </RadioGroup.Root>
         </div>
 
@@ -598,13 +568,11 @@ export const ObjectValues: Story = {
         </Text>
 
         <RadioGroup.Root {...args} value={JSON.stringify(selected)} onValueChange={handleChange}>
-          <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'column' }}>
-            {products.map((product) => (
-              <RadioGroup.Item key={product.id} value={JSON.stringify(product)}>
-                {product.name} — ${product.price}/mo
-              </RadioGroup.Item>
-            ))}
-          </div>
+          {products.map((product) => (
+            <RadioGroup.Item key={product.id} value={JSON.stringify(product)}>
+              {product.name} — ${product.price}/mo
+            </RadioGroup.Item>
+          ))}
         </RadioGroup.Root>
 
         <div

@@ -32,6 +32,13 @@
     margin: 0;
   }
 
+  @media (hover: hover) {
+    &:where(.fui-variant-surface:not(:disabled)) ~ :where(.fui-NumberFieldRoot:hover .fui-TextFieldChrome) {
+      box-shadow:
+        inset 0 0 0 1px var(--gray-a7),
+        0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+    }
+  }
   /* Remove spinner buttons in Firefox */
   -moz-appearance: textfield;
   appearance: textfield;

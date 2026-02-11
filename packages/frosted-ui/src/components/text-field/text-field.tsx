@@ -1,5 +1,6 @@
 'use client';
 
+import { Input } from '@base-ui/react/input';
 import classNames from 'classnames';
 import * as React from 'react';
 import { textFieldPropDefs, textFieldSlotPropDefs } from './text-field.props';
@@ -69,7 +70,10 @@ TextFieldSlot.displayName = 'TextFieldSlot';
 
 type TextFieldInputElement = React.ElementRef<'input'>;
 type TextFieldInputOwnProps = GetPropDefTypes<typeof textFieldPropDefs>;
-interface TextFieldInputProps extends Omit<PropsWithoutColor<'input'>, 'size'>, TextFieldInputOwnProps {}
+interface TextFieldInputProps
+  extends Omit<PropsWithoutColor<typeof Input>, 'size' | 'className'>, TextFieldInputOwnProps {
+  className?: string;
+}
 const TextFieldInput = React.forwardRef<TextFieldInputElement, TextFieldInputProps>((props, forwardedRef) => {
   const context = React.useContext(TextFieldContext);
   const hasRoot = context !== undefined;
@@ -82,7 +86,7 @@ const TextFieldInput = React.forwardRef<TextFieldInputElement, TextFieldInputPro
   } = props;
   const input = (
     <>
-      <input
+      <Input
         data-accent-color={color}
         spellCheck="false"
         {...inputProps}

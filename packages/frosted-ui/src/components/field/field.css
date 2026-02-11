@@ -1,0 +1,49 @@
+/* ============================================================================
+ * Root - flex column layout with gap between children
+ * ============================================================================ */
+
+.fui-FieldRoot {
+  display: flex;
+  flex-direction: column;
+  gap: 4px; /* tight gap between label/input/description/error */
+  width: 100%;
+}
+
+/* Label wrapping checkbox/radio/switch - make it flex and clickable */
+.fui-FieldLabel:has(> .fui-CheckboxRoot),
+.fui-FieldLabel:has(> .fui-RadioGroupItem),
+.fui-FieldLabel:has(> .fui-SwitchRoot) {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.fui-FieldLabel[data-disabled] {
+  cursor: not-allowed;
+}
+
+.fui-FieldLabel[data-disabled],
+.fui-FieldDescription[data-disabled] {
+  color: var(--gray-a8);
+}
+
+/* ============================================================================
+ * Description - smart spacing based on siblings
+ * ============================================================================ */
+
+/* Any element after description gets spacing, except error messages */
+.fui-FieldDescription + *:not(.fui-FieldError) {
+  margin-top: 8px;
+}
+
+/* Legend with label variant followed by description needs bottom margin */
+.fui-FieldsetLegend[data-variant='label']:has(+ .fui-FieldDescription) {
+  margin-bottom: 4px;
+}
+
+.fui-FieldItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
