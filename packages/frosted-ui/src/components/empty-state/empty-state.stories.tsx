@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Bell16, Document16, FolderAdd16, Message16, Plus16, Sad16, Sad32 } from '@frosted-ui/icons';
+import { Bell16, Document16, FolderAdd16, Message16, Plus16, Sad16 } from '@frosted-ui/icons';
 import React from 'react';
 import { Avatar, AvatarStack, Button, EmptyState, Link } from '..';
 
@@ -60,7 +60,7 @@ export const SearchResults: Story = {
   ),
 };
 
-export const MinimalWithoutMedia: Story = {
+export const Minimal: Story = {
   render: () => (
     <EmptyState.Root style={{ maxWidth: 400 }}>
       <EmptyState.Header>
@@ -68,34 +68,6 @@ export const MinimalWithoutMedia: Story = {
         <EmptyState.Description>This section will be populated once you add some items.</EmptyState.Description>
       </EmptyState.Header>
     </EmptyState.Root>
-  ),
-};
-
-export const CustomSizes: Story = {
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
-      <EmptyState.Root style={{ maxWidth: 400 }}>
-        <EmptyState.Header>
-          <EmptyState.Media>
-            <Sad32 />
-          </EmptyState.Media>
-          <EmptyState.Title size="3" weight="bold">
-            Large title
-          </EmptyState.Title>
-          <EmptyState.Description size="2">With a slightly larger description text size.</EmptyState.Description>
-        </EmptyState.Header>
-      </EmptyState.Root>
-
-      <EmptyState.Root style={{ maxWidth: 400 }}>
-        <EmptyState.Header>
-          <EmptyState.Media>
-            <Bell16 />
-          </EmptyState.Media>
-          <EmptyState.Title size="1">Smaller title</EmptyState.Title>
-          <EmptyState.Description size="1">With a compact description.</EmptyState.Description>
-        </EmptyState.Header>
-      </EmptyState.Root>
-    </div>
   ),
 };
 
