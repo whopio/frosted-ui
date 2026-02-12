@@ -3,16 +3,15 @@ import type { Meta, StoryObj } from '@storybook/react';
 import {
   Bell24,
   Document24,
+  DocumentLines24,
   FolderAdd24,
   Gear24,
   MagnifyingGlass24,
   Message16,
   PeoplePlus24,
   Plus16,
-  Rocket24,
   Sad24,
   Upload16,
-  Upload24,
   XCircleFilled24,
 } from '@frosted-ui/icons';
 import React from 'react';
@@ -46,7 +45,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: () => (
-    <EmptyState.Root style={{ maxWidth: 400 }}>
+    <EmptyState.Root>
       <EmptyState.Header>
         <EmptyState.Media variant="icon">
           <FolderAdd24 />
@@ -74,7 +73,7 @@ export const Default: Story = {
 
 export const SearchResults: Story = {
   render: () => (
-    <EmptyState.Root style={{ maxWidth: 400 }}>
+    <EmptyState.Root>
       <EmptyState.Header>
         <EmptyState.Media>
           <Sad24 />
@@ -90,7 +89,7 @@ export const SearchResults: Story = {
 
 export const Minimal: Story = {
   render: () => (
-    <EmptyState.Root style={{ maxWidth: 400 }}>
+    <EmptyState.Root>
       <EmptyState.Header>
         <EmptyState.Title>Nothing here yet</EmptyState.Title>
         <EmptyState.Description>This section will be populated once you add some items.</EmptyState.Description>
@@ -204,7 +203,7 @@ export const Emojis: Story = {
               <EmptyState.Header>
                 <EmptyState.Media variant="icon" color={color}>
                   <Text
-                    size="4"
+                    size="8"
                     style={{
                       // solid color to avoid emoji transparency
                       color: 'black',
@@ -292,7 +291,7 @@ export const ShinyEmojis: Story = {
 
 export const WithAvatar: Story = {
   render: () => (
-    <EmptyState.Root style={{ maxWidth: 400 }}>
+    <EmptyState.Root>
       <EmptyState.Header>
         <EmptyState.Media>
           <Avatar
@@ -319,7 +318,7 @@ export const WithAvatar: Story = {
 
 export const WithAvatarStack: Story = {
   render: () => (
-    <EmptyState.Root style={{ maxWidth: 400 }}>
+    <EmptyState.Root>
       <EmptyState.Header>
         <EmptyState.Media>
           <AvatarStack.Root size="5">
@@ -386,7 +385,7 @@ export const WithTextField: Story = {
 
 export const WithTextFieldAndButton: Story = {
   render: () => (
-    <EmptyState.Root style={{ maxWidth: 400 }}>
+    <EmptyState.Root>
       <EmptyState.Header>
         <EmptyState.Media variant="icon" color="green">
           <PeoplePlus24 />
@@ -410,7 +409,7 @@ export const WithTextFieldAndButton: Story = {
 
 export const WithCheckbox: Story = {
   render: () => (
-    <EmptyState.Root style={{ maxWidth: 400 }}>
+    <EmptyState.Root>
       <EmptyState.Header>
         <EmptyState.Media variant="icon" color="blue">
           <Bell24 />
@@ -441,18 +440,22 @@ export const WithCheckbox: Story = {
 
 export const FileDropHint: Story = {
   render: () => (
-    <EmptyState.Root style={{ maxWidth: 400 }}>
+    <EmptyState.Root
+      style={{
+        border: '2px dashed var(--color-stroke)',
+      }}
+    >
       <EmptyState.Header>
-        <EmptyState.Media variant="icon" color="orange">
-          <Upload24 />
+        <EmptyState.Media variant="icon" color={undefined}>
+          <DocumentLines24 />
         </EmptyState.Media>
-        <EmptyState.Title>Upload files</EmptyState.Title>
-        <EmptyState.Description>Drag and drop files here, or click to browse.</EmptyState.Description>
+        <EmptyState.Title>Cloud Storage empty</EmptyState.Title>
+        <EmptyState.Description>Upload files to your cloud storage to access them anywhere.</EmptyState.Description>
       </EmptyState.Header>
       <EmptyState.Content>
         <Button variant="surface">
           <Upload16 />
-          Browse files
+          Upload files
         </Button>
         <Text size="1" color="gray">
           Supports PDF, PNG, JPG up to 10MB
@@ -472,7 +475,7 @@ export const ErrorWithRetry: Story = {
     };
 
     return (
-      <EmptyState.Root style={{ maxWidth: 400 }}>
+      <EmptyState.Root>
         <EmptyState.Header>
           <EmptyState.Media variant="icon" color="danger">
             <XCircleFilled24 />
@@ -486,7 +489,7 @@ export const ErrorWithRetry: Story = {
           <Button variant="solid" color="danger" onClick={handleRetry} loading={loading}>
             Try again
           </Button>
-          <Link href="#" size="1">
+          <Link href="#" size="2" underline="always">
             View status page
           </Link>
         </EmptyState.Content>
@@ -497,7 +500,7 @@ export const ErrorWithRetry: Story = {
 
 export const Achievement: Story = {
   render: () => (
-    <EmptyState.Root style={{ maxWidth: 400 }}>
+    <EmptyState.Root>
       <EmptyState.Header>
         <EmptyState.Media>
           <Text size="8">🏆</Text>
@@ -521,7 +524,7 @@ export const Achievement: Story = {
 
 export const WithKeyboardShortcut: Story = {
   render: () => (
-    <EmptyState.Root style={{ maxWidth: 400 }}>
+    <EmptyState.Root>
       <EmptyState.Header>
         <EmptyState.Media variant="icon" color="gray">
           <MagnifyingGlass24 />
@@ -547,76 +550,9 @@ export const WithKeyboardShortcut: Story = {
   ),
 };
 
-export const Countdown: Story = {
-  render: () => {
-    const [launchDate] = React.useState(() => {
-      const date = new Date();
-      date.setDate(date.getDate() + 7);
-      return date;
-    });
-
-    const [timeLeft, setTimeLeft] = React.useState({ days: 7, hours: 0, minutes: 0, seconds: 0 });
-
-    React.useEffect(() => {
-      const timer = setInterval(() => {
-        const now = new Date().getTime();
-        const distance = launchDate.getTime() - now;
-
-        setTimeLeft({
-          days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-          minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
-          seconds: Math.floor((distance % (1000 * 60)) / 1000),
-        });
-      }, 1000);
-
-      return () => clearInterval(timer);
-    }, [launchDate]);
-
-    return (
-      <EmptyState.Root style={{ maxWidth: 400 }}>
-        <EmptyState.Header>
-          <EmptyState.Media variant="icon" color="iris">
-            <Rocket24 />
-          </EmptyState.Media>
-          <EmptyState.Title>New feature launching soon</EmptyState.Title>
-          <EmptyState.Description>
-            We're working on something exciting. Be the first to know when it's ready.
-          </EmptyState.Description>
-        </EmptyState.Header>
-        <EmptyState.Content>
-          <div style={{ display: 'flex', gap: 'var(--space-3)', justifyContent: 'center' }}>
-            {[
-              { value: timeLeft.days, label: 'days' },
-              { value: timeLeft.hours, label: 'hrs' },
-              { value: timeLeft.minutes, label: 'min' },
-              { value: timeLeft.seconds, label: 'sec' },
-            ].map(({ value, label }) => (
-              <div key={label} style={{ textAlign: 'center' }}>
-                <Text size="6" weight="bold" style={{ fontVariantNumeric: 'tabular-nums' }}>
-                  {String(value).padStart(2, '0')}
-                </Text>
-                <Text size="1" color="gray">
-                  {label}
-                </Text>
-              </div>
-            ))}
-          </div>
-          <TextField.Root style={{ width: '100%' }}>
-            <TextField.Input type="email" placeholder="Enter email for updates" />
-          </TextField.Root>
-          <Button variant="solid" color="iris" style={{ width: '100%' }}>
-            Notify me
-          </Button>
-        </EmptyState.Content>
-      </EmptyState.Root>
-    );
-  },
-};
-
 export const WithOTPField: Story = {
   render: () => (
-    <EmptyState.Root style={{ maxWidth: 400 }}>
+    <EmptyState.Root>
       <EmptyState.Header>
         <EmptyState.Media variant="icon" color="green">
           <Gear24 />

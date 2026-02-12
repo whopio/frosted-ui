@@ -104,7 +104,7 @@ interface EmptyStateMediaProps extends Omit<React.ComponentProps<'div'>, 'color'
  * @param color - Accent color for the icon variant.
  */
 const EmptyStateMedia = React.forwardRef<HTMLDivElement, EmptyStateMediaProps>((props, forwardedRef) => {
-  const { className, variant = 'default', color, ...mediaProps } = props;
+  const { className, variant = 'default', color = 'gray', ...mediaProps } = props;
   return (
     <div
       ref={forwardedRef}
