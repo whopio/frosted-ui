@@ -1,15 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import {
-  Bell16,
-  Document16,
-  Download16,
-  FolderAdd16,
-  MagnifyingGlass16,
-  Message16,
-  Plus16,
-  Sad32,
-} from '@frosted-ui/icons';
+import { Bell16, Document16, FolderAdd16, Message16, Plus16, Sad16, Sad32 } from '@frosted-ui/icons';
 import React from 'react';
 import { Avatar, AvatarStack, Button, EmptyState, Link } from '..';
 
@@ -46,26 +37,9 @@ export const Default: Story = {
         <Button variant="surface">Clear search</Button>
         <Button variant="solid">Create project</Button>
       </EmptyState.Content>
-    </EmptyState.Root>
-  ),
-};
-
-export const WithIconVariant: Story = {
-  render: () => (
-    <EmptyState.Root style={{ maxWidth: 400 }}>
-      <EmptyState.Header>
-        <EmptyState.Media variant="icon" color="blue">
-          <Document16 />
-        </EmptyState.Media>
-        <EmptyState.Title>No files uploaded</EmptyState.Title>
-        <EmptyState.Description>Upload your first file to get started.</EmptyState.Description>
-      </EmptyState.Header>
-      <EmptyState.Content>
-        <Button>
-          <Download16 />
-          Upload file
-        </Button>
-      </EmptyState.Content>
+      <Link underline="always" href="#" size="2">
+        Learn more
+      </Link>
     </EmptyState.Root>
   ),
 };
@@ -75,27 +49,11 @@ export const SearchResults: Story = {
     <EmptyState.Root style={{ maxWidth: 400 }}>
       <EmptyState.Header>
         <EmptyState.Media>
-          <MagnifyingGlass16 />
+          <Sad16 />
         </EmptyState.Media>
         <EmptyState.Title>No results found</EmptyState.Title>
         <EmptyState.Description>
           We couldn't find anything matching your search. Try using different keywords.
-        </EmptyState.Description>
-      </EmptyState.Header>
-    </EmptyState.Root>
-  ),
-};
-
-export const WithLink: Story = {
-  render: () => (
-    <EmptyState.Root style={{ maxWidth: 400 }}>
-      <EmptyState.Header>
-        <EmptyState.Media>
-          <Bell16 />
-        </EmptyState.Media>
-        <EmptyState.Title>No notifications</EmptyState.Title>
-        <EmptyState.Description>
-          You're all caught up! Check your <Link href="#">notification settings</Link> to customize what you receive.
         </EmptyState.Description>
       </EmptyState.Header>
     </EmptyState.Root>
@@ -141,19 +99,69 @@ export const CustomSizes: Story = {
   ),
 };
 
-export const IconColors: Story = {
+export const Colors: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-4)' }}>
-      {(['gray', 'blue', 'green', 'orange', 'red', 'purple'] as const).map((color) => (
-        <EmptyState.Root key={color} style={{ maxWidth: 200 }}>
-          <EmptyState.Header>
-            <EmptyState.Media variant="icon" color={color}>
-              <Document16 />
-            </EmptyState.Media>
-            <EmptyState.Title>{color}</EmptyState.Title>
-          </EmptyState.Header>
-        </EmptyState.Root>
-      ))}
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--space-4)' }}>
+      <EmptyState.Root>
+        <EmptyState.Header>
+          <EmptyState.Media variant="icon" color="blue">
+            <Document16 />
+          </EmptyState.Media>
+          <EmptyState.Title>No documents</EmptyState.Title>
+          <EmptyState.Description>Create your first document to get started.</EmptyState.Description>
+        </EmptyState.Header>
+        <EmptyState.Content>
+          <Button variant="surface" color="blue">
+            <Plus16 />
+            New document
+          </Button>
+        </EmptyState.Content>
+      </EmptyState.Root>
+
+      <EmptyState.Root>
+        <EmptyState.Header>
+          <EmptyState.Media variant="icon" color="green">
+            <Plus16 />
+          </EmptyState.Media>
+          <EmptyState.Title>No deployments</EmptyState.Title>
+          <EmptyState.Description>Deploy your first app to see it here.</EmptyState.Description>
+        </EmptyState.Header>
+        <EmptyState.Content>
+          <Button variant="soft" color="green">
+            Deploy now
+          </Button>
+        </EmptyState.Content>
+      </EmptyState.Root>
+
+      <EmptyState.Root>
+        <EmptyState.Header>
+          <EmptyState.Media variant="icon" color="lemon">
+            <Bell16 />
+          </EmptyState.Media>
+          <EmptyState.Title>No notifications</EmptyState.Title>
+          <EmptyState.Description>Configure alerts to stay informed.</EmptyState.Description>
+        </EmptyState.Header>
+        <EmptyState.Content>
+          <Button variant="solid" color="lemon">
+            Set up alerts
+          </Button>
+        </EmptyState.Content>
+      </EmptyState.Root>
+
+      <EmptyState.Root>
+        <EmptyState.Header>
+          <EmptyState.Media variant="icon" color="danger">
+            <Sad16 />
+          </EmptyState.Media>
+          <EmptyState.Title>Too many errors</EmptyState.Title>
+          <EmptyState.Description>Your application has critical issues that need attention.</EmptyState.Description>
+        </EmptyState.Header>
+        <EmptyState.Content>
+          <Button variant="solid" color="danger">
+            View errors
+          </Button>
+        </EmptyState.Content>
+      </EmptyState.Root>
     </div>
   ),
 };

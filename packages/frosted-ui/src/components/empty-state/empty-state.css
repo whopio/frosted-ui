@@ -7,11 +7,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 24px;
+  gap: 16px;
   width: 100%;
   min-width: 0;
   flex: 1;
-  padding: 32px;
+  padding: 24px;
   text-align: center;
   text-wrap: balance;
   border-radius: 16px;
