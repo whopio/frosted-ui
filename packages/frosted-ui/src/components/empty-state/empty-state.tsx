@@ -135,7 +135,7 @@ type EmptyStateTitleProps = TextProps;
  * @param color - Text color.
  */
 const EmptyStateTitle = (props: EmptyStateTitleProps) => {
-  const { className, size = '2', weight = 'medium', ...titleProps } = props;
+  const { className, size = '4', weight = 'semi-bold', ...titleProps } = props;
   return (
     <Text
       render={<div />}

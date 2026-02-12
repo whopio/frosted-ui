@@ -1,17 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import {
-  Bell16,
-  Document16,
-  FolderAdd16,
-  Gear16,
-  MagnifyingGlass16,
+  Bell24,
+  Document24,
+  FolderAdd24,
+  Gear24,
+  MagnifyingGlass24,
   Message16,
+  PeoplePlus24,
   Plus16,
-  Rocket16,
-  Sad16,
+  Rocket24,
+  Sad24,
   Upload16,
-  XCircleFilled16,
+  Upload24,
+  XCircleFilled24,
 } from '@frosted-ui/icons';
 import React from 'react';
 import {
@@ -47,7 +49,7 @@ export const Default: Story = {
     <EmptyState.Root style={{ maxWidth: 400 }}>
       <EmptyState.Header>
         <EmptyState.Media variant="icon">
-          <FolderAdd16 />
+          <FolderAdd24 />
         </EmptyState.Media>
         <EmptyState.Title>No projects found</EmptyState.Title>
         <EmptyState.Description>
@@ -75,7 +77,7 @@ export const SearchResults: Story = {
     <EmptyState.Root style={{ maxWidth: 400 }}>
       <EmptyState.Header>
         <EmptyState.Media>
-          <Sad16 />
+          <Sad24 />
         </EmptyState.Media>
         <EmptyState.Title>No results found</EmptyState.Title>
         <EmptyState.Description>
@@ -103,7 +105,7 @@ export const Colors: Story = {
       <EmptyState.Root>
         <EmptyState.Header>
           <EmptyState.Media variant="icon" color="blue">
-            <Document16 />
+            <Document24 />
           </EmptyState.Media>
           <EmptyState.Title>No documents</EmptyState.Title>
           <EmptyState.Description>Create your first document to get started.</EmptyState.Description>
@@ -134,7 +136,7 @@ export const Colors: Story = {
       <EmptyState.Root>
         <EmptyState.Header>
           <EmptyState.Media variant="icon" color="lemon">
-            <Bell16 />
+            <Bell24 />
           </EmptyState.Media>
           <EmptyState.Title>No notifications</EmptyState.Title>
           <EmptyState.Description>Configure alerts to stay informed.</EmptyState.Description>
@@ -149,7 +151,7 @@ export const Colors: Story = {
       <EmptyState.Root>
         <EmptyState.Header>
           <EmptyState.Media variant="icon" color="danger">
-            <Sad16 />
+            <Sad24 />
           </EmptyState.Media>
           <EmptyState.Title>Too many errors</EmptyState.Title>
           <EmptyState.Description>Your application has critical issues that need attention.</EmptyState.Description>
@@ -294,7 +296,7 @@ export const WithAvatar: Story = {
       <EmptyState.Header>
         <EmptyState.Media>
           <Avatar
-            size="6"
+            size="5"
             fallback="Luna Rose"
             color="pink"
             src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=256&h=256&q=70&crop=faces&fit=crop"
@@ -320,7 +322,7 @@ export const WithAvatarStack: Story = {
     <EmptyState.Root style={{ maxWidth: 400 }}>
       <EmptyState.Header>
         <EmptyState.Media>
-          <AvatarStack.Root size="4">
+          <AvatarStack.Root size="5">
             <AvatarStack.Avatar
               fallback="Cameron Zoub"
               color="blue"
@@ -349,7 +351,7 @@ export const WithTextField: Story = {
       <EmptyState.Root>
         <EmptyState.Header>
           <EmptyState.Media variant="icon" color="purple">
-            <Gear16 />
+            <Gear24 />
           </EmptyState.Media>
           <EmptyState.Title>Enter invite code</EmptyState.Title>
           <EmptyState.Description>Have an invite code? Enter it below to join.</EmptyState.Description>
@@ -367,7 +369,7 @@ export const WithTextField: Story = {
       <EmptyState.Root>
         <EmptyState.Header>
           <EmptyState.Media variant="icon" color="blue">
-            <MagnifyingGlass16 />
+            <MagnifyingGlass24 />
           </EmptyState.Media>
           <EmptyState.Title>No results found</EmptyState.Title>
           <EmptyState.Description>Try searching with different keywords.</EmptyState.Description>
@@ -387,7 +389,7 @@ export const WithTextFieldAndButton: Story = {
     <EmptyState.Root style={{ maxWidth: 400 }}>
       <EmptyState.Header>
         <EmptyState.Media variant="icon" color="green">
-          <Plus16 />
+          <PeoplePlus24 />
         </EmptyState.Media>
         <EmptyState.Title>Invite teammates</EmptyState.Title>
         <EmptyState.Description>Enter an email address to send an invitation.</EmptyState.Description>
@@ -411,7 +413,7 @@ export const WithCheckbox: Story = {
     <EmptyState.Root style={{ maxWidth: 400 }}>
       <EmptyState.Header>
         <EmptyState.Media variant="icon" color="blue">
-          <Bell16 />
+          <Bell24 />
         </EmptyState.Media>
         <EmptyState.Title>Welcome to the app!</EmptyState.Title>
         <EmptyState.Description>
@@ -423,7 +425,9 @@ export const WithCheckbox: Story = {
           Start tour
         </Button>
         <Field.Root>
-          <Field.Label style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', cursor: 'pointer' }}>
+          <Field.Label
+            style={{ display: 'flex', margin: 'auto', alignItems: 'center', gap: 'var(--space-2)', cursor: 'pointer' }}
+          >
             <Checkbox size="1" />
             <Text size="1" color="gray">
               Don't show this again
@@ -440,7 +444,7 @@ export const FileDropHint: Story = {
     <EmptyState.Root style={{ maxWidth: 400 }}>
       <EmptyState.Header>
         <EmptyState.Media variant="icon" color="orange">
-          <Upload16 />
+          <Upload24 />
         </EmptyState.Media>
         <EmptyState.Title>Upload files</EmptyState.Title>
         <EmptyState.Description>Drag and drop files here, or click to browse.</EmptyState.Description>
@@ -471,7 +475,7 @@ export const ErrorWithRetry: Story = {
       <EmptyState.Root style={{ maxWidth: 400 }}>
         <EmptyState.Header>
           <EmptyState.Media variant="icon" color="danger">
-            <XCircleFilled16 />
+            <XCircleFilled24 />
           </EmptyState.Media>
           <EmptyState.Title>Connection failed</EmptyState.Title>
           <EmptyState.Description>
@@ -520,7 +524,7 @@ export const WithKeyboardShortcut: Story = {
     <EmptyState.Root style={{ maxWidth: 400 }}>
       <EmptyState.Header>
         <EmptyState.Media variant="icon" color="gray">
-          <MagnifyingGlass16 />
+          <MagnifyingGlass24 />
         </EmptyState.Media>
         <EmptyState.Title>Quick search</EmptyState.Title>
         <EmptyState.Description>
@@ -573,7 +577,7 @@ export const Countdown: Story = {
       <EmptyState.Root style={{ maxWidth: 400 }}>
         <EmptyState.Header>
           <EmptyState.Media variant="icon" color="iris">
-            <Rocket16 />
+            <Rocket24 />
           </EmptyState.Media>
           <EmptyState.Title>New feature launching soon</EmptyState.Title>
           <EmptyState.Description>
@@ -615,7 +619,7 @@ export const WithOTPField: Story = {
     <EmptyState.Root style={{ maxWidth: 400 }}>
       <EmptyState.Header>
         <EmptyState.Media variant="icon" color="green">
-          <Gear16 />
+          <Gear24 />
         </EmptyState.Media>
         <EmptyState.Title>Verify your device</EmptyState.Title>
         <EmptyState.Description>Enter the 6-digit code sent to your phone ending in ••••42.</EmptyState.Description>
@@ -639,12 +643,9 @@ export const WithOTPField: Story = {
             </>
           )}
         />
-        <Button variant="solid" color="green" style={{ width: '100%' }}>
-          Verify
-        </Button>
-        <Link href="#" size="1">
+        <Button variant="ghost" size="2" color="green" style={{ textDecoration: 'underline' }}>
           Resend code
-        </Link>
+        </Button>
       </EmptyState.Content>
     </EmptyState.Root>
   ),

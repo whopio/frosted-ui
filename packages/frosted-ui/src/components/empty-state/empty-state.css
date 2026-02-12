@@ -7,7 +7,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: 20px;
   width: 100%;
   min-width: 0;
   flex: 1;
@@ -25,7 +25,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
   max-width: 24rem; /* 384px, similar to max-w-sm */
 }
 
@@ -38,7 +37,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
 }
 
 .fui-EmptyStateMedia svg {
@@ -53,23 +52,19 @@
 
 /* Icon variant - accent background with rounded corners */
 .fui-EmptyStateMedia:where(.fui-variant-icon) {
-  width: 32px;
-  height: 32px;
+  width: 64px;
+  height: 64px;
   background: var(--accent-a3);
   color: var(--accent-a11);
-  border-radius: 12px;
-}
-
-.fui-EmptyStateMedia:where(.fui-variant-icon) svg:not([class*='size-']) {
-  width: 1rem; /* 16px, size-4 */
-  height: 1rem;
+  border-radius: 20px;
 }
 
 /* ============================================================================
- * Title - heading text
+ * Title / Description spacing
  * ============================================================================ */
 
-.fui-EmptyStateTitle {
+.fui-EmptyStateDescription:where(.fui-EmptyStateTitle + .fui-EmptyStateDescription) {
+  margin-top: 10px;
 }
 
 /* ============================================================================
@@ -81,7 +76,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
   width: 100%;
   min-width: 0;
   max-width: 24rem; /* 384px, similar to max-w-sm */
