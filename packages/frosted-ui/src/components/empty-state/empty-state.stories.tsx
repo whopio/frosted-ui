@@ -1,8 +1,33 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Bell16, Document16, FolderAdd16, Gear16, MagnifyingGlass16, Message16, Plus16, Rocket16, Sad16, Upload16, XCircleFilled16 } from '@frosted-ui/icons';
+import {
+  Bell16,
+  Document16,
+  FolderAdd16,
+  Gear16,
+  MagnifyingGlass16,
+  Message16,
+  Plus16,
+  Rocket16,
+  Sad16,
+  Upload16,
+  XCircleFilled16,
+} from '@frosted-ui/icons';
 import React from 'react';
-import { Avatar, AvatarStack, Button, Checkbox, EmptyState, Field, Kbd, Link, OTPField, Shine, Text, TextField } from '..';
+import {
+  Avatar,
+  AvatarStack,
+  Button,
+  Checkbox,
+  EmptyState,
+  Field,
+  Kbd,
+  Link,
+  OTPField,
+  Shine,
+  Text,
+  TextField,
+} from '..';
 import { getColorForEmoji } from '../../helpers/emoji-colors';
 
 const meta = {
