@@ -6,6 +6,8 @@ import {
   DocumentLines24,
   FolderAdd24,
   Gear24,
+  HandWave24,
+  MagnifyingGlass16,
   MagnifyingGlass24,
   Message16,
   PeoplePlus24,
@@ -412,7 +414,7 @@ export const WithCheckbox: Story = {
     <EmptyState.Root>
       <EmptyState.Header>
         <EmptyState.Media variant="icon" color="blue">
-          <Bell24 />
+          <HandWave24 />
         </EmptyState.Media>
         <EmptyState.Title>Welcome to the app!</EmptyState.Title>
         <EmptyState.Description>
@@ -582,6 +584,32 @@ export const WithOTPField: Story = {
         <Button variant="ghost" size="2" color="green" style={{ textDecoration: 'underline' }}>
           Resend code
         </Button>
+      </EmptyState.Content>
+    </EmptyState.Root>
+  ),
+};
+
+export const NotFound404: Story = {
+  render: () => (
+    <EmptyState.Root style={{ maxWidth: 480 }}>
+      <EmptyState.Header>
+        <EmptyState.Title size="5" weight="bold">
+          404 - Not Found
+        </EmptyState.Title>
+        <EmptyState.Description size="3">
+          The page you're looking for doesn't exist. Try searching for what you need below.
+        </EmptyState.Description>
+      </EmptyState.Header>
+      <EmptyState.Content>
+        <TextField.Root size="3" style={{ width: '100%' }}>
+          <TextField.Slot>
+            <MagnifyingGlass16 />
+          </TextField.Slot>
+          <TextField.Input placeholder="Try searching for pages..." />
+        </TextField.Root>
+        <Link href="#" size="2" underline="always">
+          Contact support
+        </Link>
       </EmptyState.Content>
     </EmptyState.Root>
   ),
