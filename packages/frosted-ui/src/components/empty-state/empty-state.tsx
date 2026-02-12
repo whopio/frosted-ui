@@ -120,10 +120,7 @@ EmptyStateMedia.displayName = 'EmptyStateMedia';
 // Title
 // ============================================================================
 
-interface EmptyStateTitleProps
-  extends
-    Omit<React.ComponentProps<'div'>, 'color'>,
-    Pick<TextProps, 'size' | 'weight' | 'align' | 'trim' | 'color' | 'highContrast'> {}
+type EmptyStateTitleProps = TextProps;
 
 /**
  * The title of an empty state. Renders a `<div>` element styled with `<Text>`.
@@ -137,32 +134,25 @@ interface EmptyStateTitleProps
  * @param weight - Font weight. Defaults to 'medium'.
  * @param color - Text color.
  */
-const EmptyStateTitle = React.forwardRef<HTMLDivElement, EmptyStateTitleProps>((props, forwardedRef) => {
-  const { className, size = '2', weight = 'medium', align, trim, color, highContrast, ...titleProps } = props;
+const EmptyStateTitle = (props: EmptyStateTitleProps) => {
+  const { className, size = '2', weight = 'medium', ...titleProps } = props;
   return (
     <Text
-      render={<div ref={forwardedRef} />}
+      render={<div />}
       size={size}
       weight={weight}
-      align={align}
-      trim={trim}
-      color={color}
-      highContrast={highContrast}
       {...titleProps}
       className={classNames('fui-EmptyStateTitle', className)}
     />
   );
-});
+};
 EmptyStateTitle.displayName = 'EmptyStateTitle';
 
 // ============================================================================
 // Description
 // ============================================================================
 
-interface EmptyStateDescriptionProps
-  extends
-    Omit<React.ComponentProps<'p'>, 'color'>,
-    Pick<TextProps, 'size' | 'weight' | 'align' | 'trim' | 'color' | 'highContrast'> {}
+type EmptyStateDescriptionProps = TextProps;
 
 /**
  * The description text of an empty state. Renders a `<p>` element styled with `<Text>`.
@@ -178,24 +168,18 @@ interface EmptyStateDescriptionProps
  * @param weight - Font weight.
  * @param color - Text color. Defaults to 'gray'.
  */
-const EmptyStateDescription = React.forwardRef<HTMLParagraphElement, EmptyStateDescriptionProps>(
-  (props, forwardedRef) => {
-    const { className, size = '2', weight, align, trim, color = 'gray', highContrast, ...descriptionProps } = props;
-    return (
-      <Text
-        render={<p ref={forwardedRef} />}
-        size={size}
-        weight={weight}
-        align={align}
-        trim={trim}
-        color={color}
-        highContrast={highContrast}
-        {...descriptionProps}
-        className={classNames('fui-EmptyStateDescription', className)}
-      />
-    );
-  },
-);
+const EmptyStateDescription = (props: EmptyStateDescriptionProps) => {
+  const { className, size = '2', color = 'gray', ...descriptionProps } = props;
+  return (
+    <Text
+      render={<p />}
+      size={size}
+      color={color}
+      {...descriptionProps}
+      className={classNames('fui-EmptyStateDescription', className)}
+    />
+  );
+};
 EmptyStateDescription.displayName = 'EmptyStateDescription';
 
 // ============================================================================

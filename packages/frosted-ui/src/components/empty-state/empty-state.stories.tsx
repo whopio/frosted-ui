@@ -1,6 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Bell16, Document16, Download16, MagnifyingGlass16, Message16, Plus16, Sad32 } from '@frosted-ui/icons';
+import {
+  Bell16,
+  Document16,
+  Download16,
+  FolderAdd16,
+  MagnifyingGlass16,
+  Message16,
+  Plus16,
+  Sad32,
+} from '@frosted-ui/icons';
 import React from 'react';
 import { Avatar, AvatarStack, Button, EmptyState, Link } from '..';
 
@@ -20,14 +29,22 @@ export const Default: Story = {
   render: () => (
     <EmptyState.Root style={{ maxWidth: 400 }}>
       <EmptyState.Header>
-        <EmptyState.Media>
-          <Bell16 />
+        <EmptyState.Media variant="icon">
+          <FolderAdd16 />
         </EmptyState.Media>
-        <EmptyState.Title>No notifications</EmptyState.Title>
-        <EmptyState.Description>You don't have any notifications in your inbox yet.</EmptyState.Description>
+        <EmptyState.Title>No projects found</EmptyState.Title>
+        <EmptyState.Description>
+          Projects help you organize your work. Get started by creating a new project or importing an existing one.
+        </EmptyState.Description>
       </EmptyState.Header>
-      <EmptyState.Content>
-        <Button>Configure notifications</Button>
+      <EmptyState.Content
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+        }}
+      >
+        <Button variant="surface">Clear search</Button>
+        <Button variant="solid">Create project</Button>
       </EmptyState.Content>
     </EmptyState.Root>
   ),
@@ -65,26 +82,6 @@ export const SearchResults: Story = {
           We couldn't find anything matching your search. Try using different keywords.
         </EmptyState.Description>
       </EmptyState.Header>
-    </EmptyState.Root>
-  ),
-};
-
-export const WithMultipleActions: Story = {
-  render: () => (
-    <EmptyState.Root style={{ maxWidth: 400 }}>
-      <EmptyState.Header>
-        <EmptyState.Media variant="icon">
-          <Plus16 />
-        </EmptyState.Media>
-        <EmptyState.Title>Create your first project</EmptyState.Title>
-        <EmptyState.Description>
-          Projects help you organize your work. Get started by creating a new project or importing an existing one.
-        </EmptyState.Description>
-      </EmptyState.Header>
-      <EmptyState.Content>
-        <Button>Create project</Button>
-        <Button variant="ghost">Import from GitHub</Button>
-      </EmptyState.Content>
     </EmptyState.Root>
   ),
 };
