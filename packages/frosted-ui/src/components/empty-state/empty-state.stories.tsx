@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Bell16, Document16, Download16, MagnifyingGlass16, Plus16, Sad32 } from '@frosted-ui/icons';
+import { Bell16, Document16, Download16, MagnifyingGlass16, Message16, Plus16, Sad32 } from '@frosted-ui/icons';
 import React from 'react';
-import { EmptyState, Button, Link } from '..';
+import { Avatar, AvatarStack, Button, EmptyState, Link } from '..';
 
 const meta = {
   title: 'Components/EmptyState',
@@ -24,9 +24,7 @@ export const Default: Story = {
           <Bell16 />
         </EmptyState.Media>
         <EmptyState.Title>No notifications</EmptyState.Title>
-        <EmptyState.Description>
-          You don't have any notifications in your inbox yet.
-        </EmptyState.Description>
+        <EmptyState.Description>You don't have any notifications in your inbox yet.</EmptyState.Description>
       </EmptyState.Header>
       <EmptyState.Content>
         <Button>Configure notifications</Button>
@@ -43,9 +41,7 @@ export const WithIconVariant: Story = {
           <Document16 />
         </EmptyState.Media>
         <EmptyState.Title>No files uploaded</EmptyState.Title>
-        <EmptyState.Description>
-          Upload your first file to get started.
-        </EmptyState.Description>
+        <EmptyState.Description>Upload your first file to get started.</EmptyState.Description>
       </EmptyState.Header>
       <EmptyState.Content>
         <Button>
@@ -114,9 +110,7 @@ export const MinimalWithoutMedia: Story = {
     <EmptyState.Root style={{ maxWidth: 400 }}>
       <EmptyState.Header>
         <EmptyState.Title>Nothing here yet</EmptyState.Title>
-        <EmptyState.Description>
-          This section will be populated once you add some items.
-        </EmptyState.Description>
+        <EmptyState.Description>This section will be populated once you add some items.</EmptyState.Description>
       </EmptyState.Header>
     </EmptyState.Root>
   ),
@@ -133,9 +127,7 @@ export const CustomSizes: Story = {
           <EmptyState.Title size="3" weight="bold">
             Large title
           </EmptyState.Title>
-          <EmptyState.Description size="2">
-            With a slightly larger description text size.
-          </EmptyState.Description>
+          <EmptyState.Description size="2">With a slightly larger description text size.</EmptyState.Description>
         </EmptyState.Header>
       </EmptyState.Root>
 
@@ -144,12 +136,8 @@ export const CustomSizes: Story = {
           <EmptyState.Media>
             <Bell16 />
           </EmptyState.Media>
-          <EmptyState.Title size="1">
-            Smaller title
-          </EmptyState.Title>
-          <EmptyState.Description size="1">
-            With a compact description.
-          </EmptyState.Description>
+          <EmptyState.Title size="1">Smaller title</EmptyState.Title>
+          <EmptyState.Description size="1">With a compact description.</EmptyState.Description>
         </EmptyState.Header>
       </EmptyState.Root>
     </div>
@@ -170,5 +158,60 @@ export const IconColors: Story = {
         </EmptyState.Root>
       ))}
     </div>
+  ),
+};
+
+export const WithAvatar: Story = {
+  render: () => (
+    <EmptyState.Root style={{ maxWidth: 400 }}>
+      <EmptyState.Header>
+        <EmptyState.Media>
+          <Avatar
+            size="6"
+            fallback="Luna Rose"
+            color="pink"
+            src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=256&h=256&q=70&crop=faces&fit=crop"
+          />
+        </EmptyState.Media>
+        <EmptyState.Title>User Offline</EmptyState.Title>
+        <EmptyState.Description>
+          This user is currently offline. You can leave a message to notify them or try again later.
+        </EmptyState.Description>
+      </EmptyState.Header>
+      <EmptyState.Content>
+        <Button>
+          <Message16 />
+          Leave Message
+        </Button>
+      </EmptyState.Content>
+    </EmptyState.Root>
+  ),
+};
+
+export const WithAvatarStack: Story = {
+  render: () => (
+    <EmptyState.Root style={{ maxWidth: 400 }}>
+      <EmptyState.Header>
+        <EmptyState.Media>
+          <AvatarStack.Root size="4">
+            <AvatarStack.Avatar
+              fallback="Cameron Zoub"
+              color="blue"
+              src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
+            />
+            <AvatarStack.Avatar fallback="Luna Rose" color="pink" />
+            <AvatarStack.Avatar fallback="Ethan Livers" color="green" />
+          </AvatarStack.Root>
+        </EmptyState.Media>
+        <EmptyState.Title>No Team Members</EmptyState.Title>
+        <EmptyState.Description>Invite your team to collaborate on this project.</EmptyState.Description>
+      </EmptyState.Header>
+      <EmptyState.Content>
+        <Button variant="solid">
+          <Plus16 />
+          Invite Members
+        </Button>
+      </EmptyState.Content>
+    </EmptyState.Root>
   ),
 };
