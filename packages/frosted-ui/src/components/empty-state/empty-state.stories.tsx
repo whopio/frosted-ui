@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { Bell16, Document16, FolderAdd16, Message16, Plus16, Sad16 } from '@frosted-ui/icons';
 import React from 'react';
-import { Avatar, AvatarStack, Button, EmptyState, Link, Text } from '..';
+import { Avatar, AvatarStack, Button, EmptyState, Link, Shine, Text } from '..';
 import { getColorForEmoji } from '../../helpers/emoji-colors';
 
 const meta = {
@@ -189,6 +189,67 @@ export const Emojis: Story = {
                 <EmptyState.Title>{title}</EmptyState.Title>
                 <EmptyState.Description>{description}</EmptyState.Description>
               </EmptyState.Header>
+              <EmptyState.Content>
+                <Button variant="solid" color={color}>
+                  {action}
+                </Button>
+              </EmptyState.Content>
+            </EmptyState.Root>
+          );
+        })}
+      </div>
+    );
+  },
+};
+
+export const ShinyEmojis: Story = {
+  render: () => {
+    const emojis = [
+      {
+        emoji: '💕',
+        title: 'No favorites',
+        description: 'Save items you love for quick access.',
+        action: 'Browse items',
+      },
+      {
+        emoji: '🎉',
+        title: 'No celebrations',
+        description: 'Complete milestones to earn achievements.',
+        action: 'View goals',
+      },
+      {
+        emoji: '💩',
+        title: 'No bugs found',
+        description: 'Your code is squeaky clean. Nice work!',
+        action: 'Run tests',
+      },
+      {
+        emoji: '🌱',
+        title: 'No projects',
+        description: 'Plant the seed for your next big idea.',
+        action: 'Start project',
+      },
+    ];
+
+    return (
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--space-4)' }}>
+        {emojis.map(({ emoji, title, description, action }) => {
+          const color = getColorForEmoji(emoji) ?? 'gray';
+          return (
+            <EmptyState.Root key={emoji}>
+              <Shine
+                style={{
+                  fontSize: 64,
+                  lineHeight: 1,
+                }}
+              >
+                {emoji}
+              </Shine>
+              <EmptyState.Header>
+                <EmptyState.Title>{title}</EmptyState.Title>
+                <EmptyState.Description>{description}</EmptyState.Description>
+              </EmptyState.Header>
+
               <EmptyState.Content>
                 <Button variant="solid" color={color}>
                   {action}
