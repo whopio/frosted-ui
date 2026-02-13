@@ -66,6 +66,7 @@ export * from './breadcrumbs';
 export * from './button';
 export * from './callout';
 export * from './card';
+export * from './empty-state';
 
 export * from './icon-button';
 export * from './link';

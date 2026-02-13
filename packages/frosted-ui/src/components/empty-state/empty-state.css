@@ -1,0 +1,81 @@
+/* ============================================================================
+ * Root - centered flex container
+ * ============================================================================ */
+
+.fui-EmptyStateRoot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  min-width: 0;
+  flex: 1;
+  padding: 24px;
+  text-align: center;
+  text-wrap: balance;
+  border-radius: 16px;
+  --max-content-width: 400px;
+}
+
+/* ============================================================================
+ * Header - title and description container
+ * ============================================================================ */
+
+.fui-EmptyStateHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: var(--max-content-width);
+}
+
+/* ============================================================================
+ * Media - icon/image container
+ * ============================================================================ */
+
+.fui-EmptyStateMedia {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-bottom: 16px;
+
+  /* Soft variant - accent background with rounded corners */
+  &:where(.fui-variant-soft) {
+    width: 64px;
+    height: 64px;
+    background: var(--accent-a3);
+    color: var(--accent-11);
+    border-radius: 20px;
+    /* In case where emoji or text like initials is inserted instead of an icon */
+    font-size: 32px;
+  }
+
+  &:where([data-accent-color='gray']) {
+    color: var(--accent-12);
+  }
+}
+
+/* ============================================================================
+ * Title / Description spacing
+ * ============================================================================ */
+
+.fui-EmptyStateDescription:where(.fui-EmptyStateTitle + .fui-EmptyStateDescription) {
+  margin-top: 10px;
+}
+
+/* ============================================================================
+ * Actions - actions container
+ * ============================================================================ */
+
+.fui-EmptyStateActions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+  max-width: var(--max-content-width);
+  text-wrap: balance;
+}

@@ -39,6 +39,7 @@
 @import '../components/data-list/data-list.css';
 @import '../components/dropdown-menu/dropdown-menu.css';
 @import '../components/em/em.css';
+@import '../components/empty-state/empty-state.css';
 @import '../components/filter-chip/filter-chip.css';
 @import '../components/hover-card/hover-card.css';
 @import '../components/icon-button/icon-button.css';
