@@ -338,45 +338,6 @@ export const WithAvatarStack: Story = {
   ),
 };
 
-export const WithTextField: Story = {
-  render: () => (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--space-4)' }}>
-      <EmptyState.Root>
-        <EmptyState.Header>
-          <EmptyState.Media variant="soft" color="purple">
-            <Gear24 />
-          </EmptyState.Media>
-          <EmptyState.Title>Enter invite code</EmptyState.Title>
-          <EmptyState.Description>Have an invite code? Enter it below to join.</EmptyState.Description>
-        </EmptyState.Header>
-        <EmptyState.Actions>
-          <TextField.Root style={{ width: '100%' }}>
-            <TextField.Input placeholder="XXXX-XXXX-XXXX" style={{ textAlign: 'center' }} />
-          </TextField.Root>
-          <Button variant="solid" color="purple" style={{ width: '100%' }}>
-            Join
-          </Button>
-        </EmptyState.Actions>
-      </EmptyState.Root>
-
-      <EmptyState.Root>
-        <EmptyState.Header>
-          <EmptyState.Media variant="soft" color="blue">
-            <MagnifyingGlass24 />
-          </EmptyState.Media>
-          <EmptyState.Title>No results found</EmptyState.Title>
-          <EmptyState.Description>Try searching with different keywords.</EmptyState.Description>
-        </EmptyState.Header>
-        <EmptyState.Actions>
-          <TextField.Root style={{ width: '100%' }}>
-            <TextField.Input placeholder="Search again..." />
-          </TextField.Root>
-        </EmptyState.Actions>
-      </EmptyState.Root>
-    </div>
-  ),
-};
-
 export const WithTextFieldAndButton: Story = {
   render: () => (
     <EmptyState.Root>
