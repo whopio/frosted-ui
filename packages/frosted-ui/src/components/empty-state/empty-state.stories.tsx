@@ -600,9 +600,9 @@ export const NotFound404: Story = {
           </TextField.Slot>
           <TextField.Input placeholder="Try searching for pages..." />
         </TextField.Root>
-        <Link href="#" size="2" underline="always">
+        <Button size="2" variant="ghost" color="gray" style={{ textDecoration: 'underline' }}>
           Contact support
-        </Link>
+        </Button>
       </EmptyState.Actions>
     </EmptyState.Root>
   ),
