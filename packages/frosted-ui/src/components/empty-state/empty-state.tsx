@@ -78,10 +78,10 @@ EmptyStateHeader.displayName = 'EmptyStateHeader';
 interface EmptyStateMediaProps extends Omit<React.ComponentProps<'div'>, 'color'> {
   /**
    * The visual variant of the media container.
-   * - `'ghost'` - Transparent background
+   * - `'ghost'` - Transparent background (use for avatars, emojis)
    * - `'soft'` - Subtle accent background with rounded corners
    *
-   * @default 'ghost'
+   * @default 'soft'
    */
   variant?: EmptyStateMediaVariant;
   /**
@@ -100,11 +100,11 @@ interface EmptyStateMediaProps extends Omit<React.ComponentProps<'div'>, 'color'
  * </EmptyState.Media>
  * ```
  *
- * @param variant - Visual variant ('ghost' or 'soft'). Defaults to 'ghost'.
+ * @param variant - Visual variant ('ghost' or 'soft'). Defaults to 'soft'.
  * @param color - Accent color for the icon variant.
  */
 const EmptyStateMedia = React.forwardRef<HTMLDivElement, EmptyStateMediaProps>((props, forwardedRef) => {
-  const { className, variant = 'ghost', color = 'gray', ...mediaProps } = props;
+  const { className, variant = 'soft', color = 'gray', ...mediaProps } = props;
   return (
     <div
       ref={forwardedRef}

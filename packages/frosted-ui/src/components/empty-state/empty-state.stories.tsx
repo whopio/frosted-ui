@@ -52,7 +52,7 @@ export const Default: Story = {
   render: () => (
     <EmptyState.Root>
       <EmptyState.Header>
-        <EmptyState.Media variant="soft">
+        <EmptyState.Media>
           <FolderAdd24 />
         </EmptyState.Media>
         <EmptyState.Title>No projects found</EmptyState.Title>
@@ -108,7 +108,7 @@ export const Colors: Story = {
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
       <EmptyState.Root>
         <EmptyState.Header>
-          <EmptyState.Media variant="soft" color="blue">
+          <EmptyState.Media color="blue">
             <Document24 />
           </EmptyState.Media>
           <EmptyState.Title>No documents</EmptyState.Title>
@@ -124,7 +124,7 @@ export const Colors: Story = {
 
       <EmptyState.Root>
         <EmptyState.Header>
-          <EmptyState.Media variant="soft" color="green">
+          <EmptyState.Media color="green">
             <Plus16 />
           </EmptyState.Media>
           <EmptyState.Title>No deployments</EmptyState.Title>
@@ -139,7 +139,7 @@ export const Colors: Story = {
 
       <EmptyState.Root>
         <EmptyState.Header>
-          <EmptyState.Media variant="soft" color="lemon">
+          <EmptyState.Media color="lemon">
             <Bell24 />
           </EmptyState.Media>
           <EmptyState.Title>No notifications</EmptyState.Title>
@@ -154,7 +154,7 @@ export const Colors: Story = {
 
       <EmptyState.Root>
         <EmptyState.Header>
-          <EmptyState.Media variant="soft" color="danger">
+          <EmptyState.Media color="danger">
             <Sad24 />
           </EmptyState.Media>
           <EmptyState.Title>Too many errors</EmptyState.Title>
@@ -206,9 +206,7 @@ export const Emojis: Story = {
           return (
             <EmptyState.Root key={emoji}>
               <EmptyState.Header>
-                <EmptyState.Media variant="soft" color={color}>
-                  {emoji}
-                </EmptyState.Media>
+                <EmptyState.Media color={color}>{emoji}</EmptyState.Media>
                 <EmptyState.Title>{title}</EmptyState.Title>
                 <EmptyState.Description>{description}</EmptyState.Description>
               </EmptyState.Header>
@@ -317,7 +315,7 @@ export const WithAvatarStack: Story = {
   render: () => (
     <EmptyState.Root>
       <EmptyState.Header>
-        <EmptyState.Media>
+        <EmptyState.Media variant="ghost">
           <AvatarStack.Root size="5">
             <AvatarStack.Avatar
               fallback="Cameron Zoub"
@@ -345,7 +343,7 @@ export const WithTextFieldAndButton: Story = {
   render: () => (
     <EmptyState.Root>
       <EmptyState.Header>
-        <EmptyState.Media variant="soft" color="green">
+        <EmptyState.Media color="green">
           <PeoplePlus24 />
         </EmptyState.Media>
         <EmptyState.Title>Invite teammates</EmptyState.Title>
@@ -369,7 +367,7 @@ export const WithCheckbox: Story = {
   render: () => (
     <EmptyState.Root>
       <EmptyState.Header>
-        <EmptyState.Media variant="soft" color="blue">
+        <EmptyState.Media color="blue">
           <HandWave24 />
         </EmptyState.Media>
         <EmptyState.Title>Welcome to the app!</EmptyState.Title>
@@ -402,7 +400,7 @@ export const FileDropHint: Story = {
       }}
     >
       <EmptyState.Header>
-        <EmptyState.Media variant="soft" color={undefined}>
+        <EmptyState.Media>
           <DocumentLines24 />
         </EmptyState.Media>
         <EmptyState.Title>Cloud Storage empty</EmptyState.Title>
@@ -433,7 +431,7 @@ export const ErrorWithRetry: Story = {
     return (
       <EmptyState.Root>
         <EmptyState.Header>
-          <EmptyState.Media variant="soft" color="danger">
+          <EmptyState.Media color="danger">
             <XCircleFilled24 />
           </EmptyState.Media>
           <EmptyState.Title>Connection failed</EmptyState.Title>
@@ -458,7 +456,7 @@ export const Achievement: Story = {
   render: () => (
     <EmptyState.Root>
       <EmptyState.Header>
-        <EmptyState.Media>
+        <EmptyState.Media variant="ghost">
           <Text size="8">🏆</Text>
         </EmptyState.Media>
         <EmptyState.Title>Achievement Unlocked!</EmptyState.Title>
@@ -482,7 +480,7 @@ export const WithKeyboardShortcut: Story = {
   render: () => (
     <EmptyState.Root>
       <EmptyState.Header>
-        <EmptyState.Media variant="soft" color="gray">
+        <EmptyState.Media color="gray">
           <MagnifyingGlass24 />
         </EmptyState.Media>
         <EmptyState.Title>Quick search</EmptyState.Title>
@@ -510,7 +508,7 @@ export const WithOTPField: Story = {
   render: () => (
     <EmptyState.Root>
       <EmptyState.Header>
-        <EmptyState.Media variant="soft" color="green">
+        <EmptyState.Media color="green">
           <Gear24 />
         </EmptyState.Media>
         <EmptyState.Title>Verify your device</EmptyState.Title>
@@ -574,7 +572,7 @@ export const AIAssistant: Story = {
   render: () => (
     <EmptyState.Root style={{ maxWidth: 420 }}>
       <EmptyState.Header>
-        <EmptyState.Media variant="soft">
+        <EmptyState.Media>
           <SparkleFilled24 />
         </EmptyState.Media>
         <EmptyState.Title>Start a conversation</EmptyState.Title>
@@ -624,7 +622,7 @@ export const UpgradeToPro: Story = {
       }}
     >
       <EmptyState.Header>
-        <EmptyState.Media variant="soft" color="amber">
+        <EmptyState.Media color="amber">
           <LightningFilled24 />
         </EmptyState.Media>
         <EmptyState.Title>Unlock Pro features</EmptyState.Title>
