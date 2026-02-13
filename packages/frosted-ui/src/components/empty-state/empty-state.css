@@ -63,10 +63,10 @@
 }
 
 /* ============================================================================
- * Content - actions container
+ * Actions - actions container
  * ============================================================================ */
 
-.fui-EmptyStateContent {
+.fui-EmptyStateActions {
   display: flex;
   flex-direction: column;
   align-items: center;

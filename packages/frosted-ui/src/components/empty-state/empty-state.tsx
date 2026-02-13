@@ -183,36 +183,36 @@ const EmptyStateDescription = (props: EmptyStateDescriptionProps) => {
 EmptyStateDescription.displayName = 'EmptyStateDescription';
 
 // ============================================================================
-// Content
+// Actions
 // ============================================================================
 
-interface EmptyStateContentProps extends React.ComponentProps<'div'> {}
+interface EmptyStateActionsProps extends React.ComponentProps<'div'> {}
 
 /**
- * A container for actions or additional content in an empty state. Renders a `<div>` element.
+ * A container for actions in an empty state. Renders a `<div>` element.
  *
  * Typically used for buttons or other interactive elements.
  *
  * @example
  * ```tsx
- * <EmptyState.Content>
+ * <EmptyState.Actions>
  *   <Button>Create item</Button>
  *   <Button variant="ghost">Learn more</Button>
- * </EmptyState.Content>
+ * </EmptyState.Actions>
  * ```
  */
-const EmptyStateContent = React.forwardRef<HTMLDivElement, EmptyStateContentProps>((props, forwardedRef) => {
-  const { className, ...contentProps } = props;
-  return <div ref={forwardedRef} {...contentProps} className={classNames('fui-EmptyStateContent', className)} />;
+const EmptyStateActions = React.forwardRef<HTMLDivElement, EmptyStateActionsProps>((props, forwardedRef) => {
+  const { className, ...actionsProps } = props;
+  return <div ref={forwardedRef} {...actionsProps} className={classNames('fui-EmptyStateActions', className)} />;
 });
-EmptyStateContent.displayName = 'EmptyStateContent';
+EmptyStateActions.displayName = 'EmptyStateActions';
 
 // ============================================================================
 // Exports
 // ============================================================================
 
 export {
-  EmptyStateContent as Content,
+  EmptyStateActions as Actions,
   EmptyStateDescription as Description,
   EmptyStateHeader as Header,
   EmptyStateMedia as Media,
@@ -221,7 +221,7 @@ export {
 };
 
 export type {
-  EmptyStateContentProps as ContentProps,
+  EmptyStateActionsProps as ActionsProps,
   EmptyStateDescriptionProps as DescriptionProps,
   EmptyStateHeaderProps as HeaderProps,
   EmptyStateMediaColor as MediaColor,

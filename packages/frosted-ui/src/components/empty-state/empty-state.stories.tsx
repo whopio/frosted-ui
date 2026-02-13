@@ -57,7 +57,7 @@ export const Default: Story = {
           Projects help you organize your work. Get started by creating a new project or importing an existing one.
         </EmptyState.Description>
       </EmptyState.Header>
-      <EmptyState.Content
+      <EmptyState.Actions
         style={{
           display: 'flex',
           flexDirection: 'row',
@@ -65,7 +65,7 @@ export const Default: Story = {
       >
         <Button variant="surface">Clear search</Button>
         <Button variant="solid">Create project</Button>
-      </EmptyState.Content>
+      </EmptyState.Actions>
       <Link underline="always" href="#" size="2">
         Learn more
       </Link>
@@ -111,12 +111,12 @@ export const Colors: Story = {
           <EmptyState.Title>No documents</EmptyState.Title>
           <EmptyState.Description>Create your first document to get started.</EmptyState.Description>
         </EmptyState.Header>
-        <EmptyState.Content>
+        <EmptyState.Actions>
           <Button variant="surface" color="blue">
             <Plus16 />
             New document
           </Button>
-        </EmptyState.Content>
+        </EmptyState.Actions>
       </EmptyState.Root>
 
       <EmptyState.Root>
@@ -127,11 +127,11 @@ export const Colors: Story = {
           <EmptyState.Title>No deployments</EmptyState.Title>
           <EmptyState.Description>Deploy your first app to see it here.</EmptyState.Description>
         </EmptyState.Header>
-        <EmptyState.Content>
+        <EmptyState.Actions>
           <Button variant="soft" color="green">
             Deploy now
           </Button>
-        </EmptyState.Content>
+        </EmptyState.Actions>
       </EmptyState.Root>
 
       <EmptyState.Root>
@@ -142,11 +142,11 @@ export const Colors: Story = {
           <EmptyState.Title>No notifications</EmptyState.Title>
           <EmptyState.Description>Configure alerts to stay informed.</EmptyState.Description>
         </EmptyState.Header>
-        <EmptyState.Content>
+        <EmptyState.Actions>
           <Button variant="solid" color="lemon">
             Set up alerts
           </Button>
-        </EmptyState.Content>
+        </EmptyState.Actions>
       </EmptyState.Root>
 
       <EmptyState.Root>
@@ -157,11 +157,11 @@ export const Colors: Story = {
           <EmptyState.Title>Too many errors</EmptyState.Title>
           <EmptyState.Description>Your application has critical issues that need attention.</EmptyState.Description>
         </EmptyState.Header>
-        <EmptyState.Content>
+        <EmptyState.Actions>
           <Button variant="solid" color="danger">
             View errors
           </Button>
-        </EmptyState.Content>
+        </EmptyState.Actions>
       </EmptyState.Root>
     </div>
   ),
@@ -217,11 +217,11 @@ export const Emojis: Story = {
                 <EmptyState.Title>{title}</EmptyState.Title>
                 <EmptyState.Description>{description}</EmptyState.Description>
               </EmptyState.Header>
-              <EmptyState.Content>
+              <EmptyState.Actions>
                 <Button variant="solid" color={color}>
                   {action}
                 </Button>
-              </EmptyState.Content>
+              </EmptyState.Actions>
             </EmptyState.Root>
           );
         })}
@@ -278,11 +278,11 @@ export const ShinyEmojis: Story = {
                 <EmptyState.Description>{description}</EmptyState.Description>
               </EmptyState.Header>
 
-              <EmptyState.Content>
+              <EmptyState.Actions>
                 <Button variant="solid" color={color}>
                   {action}
                 </Button>
-              </EmptyState.Content>
+              </EmptyState.Actions>
             </EmptyState.Root>
           );
         })}
@@ -308,12 +308,12 @@ export const WithAvatar: Story = {
           This user is currently offline. You can leave a message to notify them or try again later.
         </EmptyState.Description>
       </EmptyState.Header>
-      <EmptyState.Content>
+      <EmptyState.Actions>
         <Button>
           <Message16 />
           Leave Message
         </Button>
-      </EmptyState.Content>
+      </EmptyState.Actions>
     </EmptyState.Root>
   ),
 };
@@ -336,12 +336,12 @@ export const WithAvatarStack: Story = {
         <EmptyState.Title>No Team Members</EmptyState.Title>
         <EmptyState.Description>Invite your team to collaborate on this project.</EmptyState.Description>
       </EmptyState.Header>
-      <EmptyState.Content>
+      <EmptyState.Actions>
         <Button variant="solid">
           <Plus16 />
           Invite Members
         </Button>
-      </EmptyState.Content>
+      </EmptyState.Actions>
     </EmptyState.Root>
   ),
 };
@@ -357,14 +357,14 @@ export const WithTextField: Story = {
           <EmptyState.Title>Enter invite code</EmptyState.Title>
           <EmptyState.Description>Have an invite code? Enter it below to join.</EmptyState.Description>
         </EmptyState.Header>
-        <EmptyState.Content>
+        <EmptyState.Actions>
           <TextField.Root style={{ width: '100%' }}>
             <TextField.Input placeholder="XXXX-XXXX-XXXX" style={{ textAlign: 'center' }} />
           </TextField.Root>
           <Button variant="solid" color="purple" style={{ width: '100%' }}>
             Join
           </Button>
-        </EmptyState.Content>
+        </EmptyState.Actions>
       </EmptyState.Root>
 
       <EmptyState.Root>
@@ -375,11 +375,11 @@ export const WithTextField: Story = {
           <EmptyState.Title>No results found</EmptyState.Title>
           <EmptyState.Description>Try searching with different keywords.</EmptyState.Description>
         </EmptyState.Header>
-        <EmptyState.Content>
+        <EmptyState.Actions>
           <TextField.Root style={{ width: '100%' }}>
             <TextField.Input placeholder="Search again..." />
           </TextField.Root>
-        </EmptyState.Content>
+        </EmptyState.Actions>
       </EmptyState.Root>
     </div>
   ),
@@ -395,7 +395,7 @@ export const WithTextFieldAndButton: Story = {
         <EmptyState.Title>Invite teammates</EmptyState.Title>
         <EmptyState.Description>Enter an email address to send an invitation.</EmptyState.Description>
       </EmptyState.Header>
-      <EmptyState.Content>
+      <EmptyState.Actions>
         <div style={{ display: 'flex', gap: 'var(--space-2)', width: '100%' }}>
           <TextField.Root style={{ flex: 1 }}>
             <TextField.Input type="email" placeholder="colleague@company.com" />
@@ -404,7 +404,7 @@ export const WithTextFieldAndButton: Story = {
             Invite
           </Button>
         </div>
-      </EmptyState.Content>
+      </EmptyState.Actions>
     </EmptyState.Root>
   ),
 };
@@ -421,7 +421,7 @@ export const WithCheckbox: Story = {
           We've prepared a quick tour to help you get started with the main features.
         </EmptyState.Description>
       </EmptyState.Header>
-      <EmptyState.Content>
+      <EmptyState.Actions>
         <Button variant="solid" color="blue">
           Start tour
         </Button>
@@ -435,7 +435,7 @@ export const WithCheckbox: Story = {
             </Text>
           </Field.Label>
         </Field.Root>
-      </EmptyState.Content>
+      </EmptyState.Actions>
     </EmptyState.Root>
   ),
 };
@@ -454,7 +454,7 @@ export const FileDropHint: Story = {
         <EmptyState.Title>Cloud Storage empty</EmptyState.Title>
         <EmptyState.Description>Upload files to your cloud storage to access them anywhere.</EmptyState.Description>
       </EmptyState.Header>
-      <EmptyState.Content>
+      <EmptyState.Actions>
         <Button variant="surface">
           <Upload16 />
           Upload files
@@ -462,7 +462,7 @@ export const FileDropHint: Story = {
         <Text size="1" color="gray">
           Supports PDF, PNG, JPG up to 10MB
         </Text>
-      </EmptyState.Content>
+      </EmptyState.Actions>
     </EmptyState.Root>
   ),
 };
@@ -487,14 +487,14 @@ export const ErrorWithRetry: Story = {
             We couldn't connect to the server. Please check your internet connection and try again.
           </EmptyState.Description>
         </EmptyState.Header>
-        <EmptyState.Content>
+        <EmptyState.Actions>
           <Button variant="solid" color="danger" onClick={handleRetry} loading={loading}>
             Try again
           </Button>
           <Link href="#" size="2" underline="always">
             View status page
           </Link>
-        </EmptyState.Content>
+        </EmptyState.Actions>
       </EmptyState.Root>
     );
   },
@@ -512,14 +512,14 @@ export const Achievement: Story = {
           You've completed your first project. Keep going to unlock more achievements and rewards.
         </EmptyState.Description>
       </EmptyState.Header>
-      <EmptyState.Content>
+      <EmptyState.Actions>
         <Button variant="solid" color="amber">
           View all achievements
         </Button>
         <Text size="1" color="gray">
           3 of 12 achievements unlocked
         </Text>
-      </EmptyState.Content>
+      </EmptyState.Actions>
     </EmptyState.Root>
   ),
 };
@@ -536,7 +536,7 @@ export const WithKeyboardShortcut: Story = {
           Find anything in your workspace instantly using the command palette.
         </EmptyState.Description>
       </EmptyState.Header>
-      <EmptyState.Content>
+      <EmptyState.Actions>
         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
           <Text size="2" color="gray">
             Press
@@ -547,7 +547,7 @@ export const WithKeyboardShortcut: Story = {
             to search
           </Text>
         </div>
-      </EmptyState.Content>
+      </EmptyState.Actions>
     </EmptyState.Root>
   ),
 };
@@ -562,7 +562,7 @@ export const WithOTPField: Story = {
         <EmptyState.Title>Verify your device</EmptyState.Title>
         <EmptyState.Description>Enter the 6-digit code sent to your phone ending in ••••42.</EmptyState.Description>
       </EmptyState.Header>
-      <EmptyState.Content>
+      <EmptyState.Actions>
         <OTPField.Root
           color="green"
           maxLength={6}
@@ -585,7 +585,7 @@ export const WithOTPField: Story = {
         <Button variant="ghost" size="2" color="green" style={{ textDecoration: 'underline' }}>
           Resend code
         </Button>
-      </EmptyState.Content>
+      </EmptyState.Actions>
     </EmptyState.Root>
   ),
 };
@@ -601,7 +601,7 @@ export const NotFound404: Story = {
           The page you're looking for doesn't exist. Try searching for what you need below.
         </EmptyState.Description>
       </EmptyState.Header>
-      <EmptyState.Content>
+      <EmptyState.Actions>
         <TextField.Root size="3" style={{ width: '100%' }}>
           <TextField.Slot>
             <MagnifyingGlass16 />
@@ -611,7 +611,7 @@ export const NotFound404: Story = {
         <Link href="#" size="2" underline="always">
           Contact support
         </Link>
-      </EmptyState.Content>
+      </EmptyState.Actions>
     </EmptyState.Root>
   ),
 };
