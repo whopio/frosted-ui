@@ -40,8 +40,8 @@
   flex-shrink: 0;
   margin-bottom: 16px;
 
-  /* Icon variant - accent background with rounded corners */
-  &:where(.fui-variant-icon) {
+  /* Soft variant - accent background with rounded corners */
+  &:where(.fui-variant-soft) {
     width: 64px;
     height: 64px;
     background: var(--accent-a3);

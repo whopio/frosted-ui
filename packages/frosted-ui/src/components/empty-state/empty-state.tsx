@@ -10,7 +10,7 @@ import { Text, type TextProps } from '../text/text';
 // Types
 // ============================================================================
 
-type EmptyStateMediaVariant = 'default' | 'icon';
+type EmptyStateMediaVariant = 'ghost' | 'soft';
 type EmptyStateMediaColor = GetPropDefTypes<{ color: typeof colorProp }>['color'];
 
 // ============================================================================
@@ -78,10 +78,10 @@ EmptyStateHeader.displayName = 'EmptyStateHeader';
 interface EmptyStateMediaProps extends Omit<React.ComponentProps<'div'>, 'color'> {
   /**
    * The visual variant of the media container.
-   * - `'default'` - Transparent background
-   * - `'icon'` - Accent background with rounded corners
+   * - `'ghost'` - Transparent background
+   * - `'soft'` - Subtle accent background with rounded corners
    *
-   * @default 'default'
+   * @default 'ghost'
    */
   variant?: EmptyStateMediaVariant;
   /**
@@ -100,11 +100,11 @@ interface EmptyStateMediaProps extends Omit<React.ComponentProps<'div'>, 'color'
  * </EmptyState.Media>
  * ```
  *
- * @param variant - Visual variant ('default' or 'icon'). Defaults to 'default'.
+ * @param variant - Visual variant ('ghost' or 'soft'). Defaults to 'ghost'.
  * @param color - Accent color for the icon variant.
  */
 const EmptyStateMedia = React.forwardRef<HTMLDivElement, EmptyStateMediaProps>((props, forwardedRef) => {
-  const { className, variant = 'default', color = 'gray', ...mediaProps } = props;
+  const { className, variant = 'ghost', color = 'gray', ...mediaProps } = props;
   return (
     <div
       ref={forwardedRef}
