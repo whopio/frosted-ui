@@ -3,22 +3,33 @@
 import classNames from 'classnames';
 import { OTPInput, SlotProps } from 'input-otp';
 import * as React from 'react';
+import { otpFieldPropDefs } from './otp-field.props';
 
-// TODO: margin props, color, variant and size support
+import { type GetPropDefTypes, type PropsWithoutColor } from '../../helpers';
 
-type OTPFieldRootProps = React.ComponentProps<typeof OTPInput>;
+// TODO: margin props, variant and size support
 
-const OTPFieldRoot = ({ className, ...props }: OTPFieldRootProps) => (
-  <OTPInput containerClassName={classNames('fui-OTPFieldRoot', className)} {...props} />
+type OTPFieldContextValue = GetPropDefTypes<typeof otpFieldPropDefs>;
+const OTPFieldContext = React.createContext<OTPFieldContextValue | undefined>(undefined);
+
+type OTPFieldRootOwnProps = React.ComponentProps<typeof OTPInput>;
+type OTPFieldRootProps = OTPFieldRootOwnProps & OTPFieldContextValue;
+
+const OTPFieldRoot = ({ containerClassName, color = otpFieldPropDefs.color.default, ...props }: OTPFieldRootProps) => (
+  <OTPFieldContext.Provider value={{ color }}>
+    <OTPInput containerClassName={classNames('fui-OTPFieldRoot', containerClassName)} {...props} />
+  </OTPFieldContext.Provider>
 );
 
 OTPFieldRoot.displayName = 'OTPFieldRoot';
 
-type OTPFieldGroupProps = React.ComponentProps<'div'>;
+type OTPFieldGroupProps = PropsWithoutColor<'div'> & Partial<OTPFieldContextValue>;
 
-const OTPFieldGroup = ({ className, ...props }: OTPFieldGroupProps) => (
-  <div data-accent-color className={classNames('fui-OTPFieldGroup', className)} {...props} />
-);
+const OTPFieldGroup = ({ className, color, ...props }: OTPFieldGroupProps) => {
+  const context = React.useContext(OTPFieldContext);
+  const resolvedColor = color ?? context?.color ?? otpFieldPropDefs.color.default;
+  return <div data-accent-color={resolvedColor} className={classNames('fui-OTPFieldGroup', className)} {...props} />;
+};
 OTPFieldGroup.displayName = 'OTPFieldGroup';
 
 type OTPFieldSlotProps = SlotProps & React.ComponentProps<'div'>;
@@ -41,3 +52,9 @@ const OTPFieldSeparator = ({ ...props }: OTPFieldSeparatorProps) => (
 OTPFieldSeparator.displayName = 'OTPFieldSeparator';
 
 export { OTPFieldGroup as Group, OTPFieldRoot as Root, OTPFieldSeparator as Separator, OTPFieldSlot as Slot };
+export type {
+  OTPFieldGroupProps as GroupProps,
+  OTPFieldRootProps as RootProps,
+  OTPFieldSeparatorProps as SeparatorProps,
+  OTPFieldSlotProps as SlotProps,
+};

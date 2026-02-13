@@ -564,6 +564,7 @@ export const WithOTPField: Story = {
       </EmptyState.Header>
       <EmptyState.Content>
         <OTPField.Root
+          color="green"
           maxLength={6}
           render={({ slots }) => (
             <>
