@@ -45,8 +45,10 @@
     width: 64px;
     height: 64px;
     background: var(--accent-a3);
-    color: var(--accent-a11);
+    color: var(--accent-11);
     border-radius: 20px;
+    /* In case where emoji or text like initials is inserted instead of an icon */
+    font-size: 32px;
   }
 
   &:where([data-accent-color='gray']) {

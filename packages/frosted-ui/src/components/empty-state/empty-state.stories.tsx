@@ -204,15 +204,7 @@ export const Emojis: Story = {
             <EmptyState.Root key={emoji}>
               <EmptyState.Header>
                 <EmptyState.Media variant="soft" color={color}>
-                  <Text
-                    size="8"
-                    style={{
-                      // solid color to avoid emoji transparency
-                      color: 'black',
-                    }}
-                  >
-                    {emoji}
-                  </Text>
+                  {emoji}
                 </EmptyState.Media>
                 <EmptyState.Title>{title}</EmptyState.Title>
                 <EmptyState.Description>{description}</EmptyState.Description>
