@@ -2,17 +2,20 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import {
   Bell24,
+  CheckmarkCircleFilled16,
   Document24,
   DocumentLines24,
   FolderAdd24,
   Gear24,
   HandWave24,
+  LightningFilled24,
   MagnifyingGlass16,
   MagnifyingGlass24,
   Message16,
   PeoplePlus24,
   Plus16,
   Sad24,
+  SparkleFilled24,
   Upload16,
   XCircleFilled24,
 } from '@frosted-ui/icons';
@@ -563,6 +566,98 @@ export const NotFound404: Story = {
         </TextField.Root>
         <Button size="2" variant="ghost" color="gray" style={{ textDecoration: 'underline' }}>
           Contact support
+        </Button>
+      </EmptyState.Actions>
+    </EmptyState.Root>
+  ),
+};
+
+export const AIAssistant: Story = {
+  render: () => (
+    <EmptyState.Root style={{ maxWidth: 420 }}>
+      <EmptyState.Header>
+        <EmptyState.Media variant="soft">
+          <SparkleFilled24 />
+        </EmptyState.Media>
+        <EmptyState.Title>Start a conversation</EmptyState.Title>
+        <EmptyState.Description>
+          Ask me anything — I can help you write, brainstorm, analyze data, or answer questions.
+        </EmptyState.Description>
+      </EmptyState.Header>
+      <EmptyState.Actions>
+        <div style={{ display: 'flex', gap: 'var(--space-2)', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <Button size="1" variant="surface" color="gray" style={{ cursor: 'pointer' }}>
+            ✍️ Help me write
+          </Button>
+          <Button size="1" variant="surface" color="gray" style={{ cursor: 'pointer' }}>
+            💡 Brainstorm ideas
+          </Button>
+          <Button size="1" variant="surface" color="gray" style={{ cursor: 'pointer' }}>
+            📊 Analyze data
+          </Button>
+          <Button size="1" variant="surface" color="gray" style={{ cursor: 'pointer' }}>
+            🔍 Research topic
+          </Button>
+          <Button size="1" variant="surface" color="gray" style={{ cursor: 'pointer' }}>
+            💬 Answer questions
+          </Button>
+        </div>
+        <Text size="1" color="gray">
+          Press{' '}
+          <Kbd size="1" style={{ marginInline: 2 }}>
+            /
+          </Kbd>{' '}
+          to see all commands
+        </Text>
+      </EmptyState.Actions>
+    </EmptyState.Root>
+  ),
+};
+
+export const UpgradeToPro: Story = {
+  render: () => (
+    <EmptyState.Root
+      style={{
+        maxWidth: 420,
+        borderRadius: 24,
+        border: '1px solid var(--color-stroke)',
+        background: 'var(--color-panel-solid)',
+        paddingTop: 48,
+      }}
+    >
+      <EmptyState.Header>
+        <EmptyState.Media variant="soft" color="amber">
+          <LightningFilled24 />
+        </EmptyState.Media>
+        <EmptyState.Title>Unlock Pro features</EmptyState.Title>
+        <EmptyState.Description>
+          You've hit the free plan limit. Upgrade to continue and access premium features.
+        </EmptyState.Description>
+      </EmptyState.Header>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 'var(--space-2)',
+          width: '100%',
+          padding: 'var(--space-3)',
+          background: 'var(--gray-a2)',
+          borderRadius: 'var(--radius-3)',
+        }}
+      >
+        {['Unlimited projects', 'Priority support', 'Advanced analytics', 'Custom integrations'].map((feature) => (
+          <div key={feature} style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+            <CheckmarkCircleFilled16 style={{ color: 'var(--green-a11)' }} />
+            <Text size="2">{feature}</Text>
+          </div>
+        ))}
+      </div>
+      <EmptyState.Actions style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'row', width: '100%' }}>
+        <Button size="3" variant="surface" color="gray" style={{ flex: 1 }}>
+          Maybe later
+        </Button>
+        <Button size="3" variant="solid" color="amber" style={{ flex: 1 }}>
+          Upgrade — $9/mo
         </Button>
       </EmptyState.Actions>
     </EmptyState.Root>
