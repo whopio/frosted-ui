@@ -105,7 +105,7 @@ export const Minimal: Story = {
 
 export const Colors: Story = {
   render: () => (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--space-4)' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
       <EmptyState.Root>
         <EmptyState.Header>
           <EmptyState.Media variant="soft" color="blue">
@@ -200,7 +200,7 @@ export const Emojis: Story = {
     ];
 
     return (
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--space-4)' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
         {emojis.map(({ emoji, title, description, action }) => {
           const color = getColorForEmoji(emoji) ?? 'gray';
           return (
@@ -255,7 +255,7 @@ export const ShinyEmojis: Story = {
     ];
 
     return (
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--space-4)' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
         {emojis.map(({ emoji, title, description, action }) => {
           const color = getColorForEmoji(emoji) ?? 'gray';
           return (
@@ -352,7 +352,7 @@ export const WithTextFieldAndButton: Story = {
         <EmptyState.Description>Enter an email address to send an invitation.</EmptyState.Description>
       </EmptyState.Header>
       <EmptyState.Actions>
-        <div style={{ display: 'flex', gap: 'var(--space-2)', width: '100%' }}>
+        <div style={{ display: 'flex', gap: 8, width: '100%' }}>
           <TextField.Root style={{ flex: 1 }}>
             <TextField.Input type="email" placeholder="colleague@company.com" />
           </TextField.Root>
@@ -382,9 +382,7 @@ export const WithCheckbox: Story = {
           Start tour
         </Button>
         <Field.Root>
-          <Field.Label
-            style={{ display: 'flex', margin: 'auto', alignItems: 'center', gap: 'var(--space-2)', cursor: 'pointer' }}
-          >
+          <Field.Label style={{ display: 'flex', margin: 'auto', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
             <Checkbox size="1" />
             <Text size="1" color="gray">
               Don't show this again
@@ -493,7 +491,7 @@ export const WithKeyboardShortcut: Story = {
         </EmptyState.Description>
       </EmptyState.Header>
       <EmptyState.Actions>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <Text size="2" color="gray">
             Press
           </Text>
@@ -585,7 +583,7 @@ export const AIAssistant: Story = {
         </EmptyState.Description>
       </EmptyState.Header>
       <EmptyState.Actions>
-        <div style={{ display: 'flex', gap: 'var(--space-2)', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
           <Button size="1" variant="surface" color="gray" style={{ cursor: 'pointer' }}>
             ✍️ Help me write
           </Button>
@@ -638,21 +636,21 @@ export const UpgradeToPro: Story = {
         style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: 'var(--space-2)',
+          gap: 8,
           width: '100%',
-          padding: 'var(--space-3)',
+          padding: 12,
           background: 'var(--gray-a2)',
           borderRadius: 'var(--radius-3)',
         }}
       >
         {['Unlimited projects', 'Priority support', 'Advanced analytics', 'Custom integrations'].map((feature) => (
-          <div key={feature} style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+          <div key={feature} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <CheckmarkCircleFilled16 style={{ color: 'var(--green-a11)' }} />
             <Text size="2">{feature}</Text>
           </div>
         ))}
       </div>
-      <EmptyState.Actions style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'row', width: '100%' }}>
+      <EmptyState.Actions style={{ display: 'flex', gap: 8, flexDirection: 'row', width: '100%' }}>
         <Button size="3" variant="surface" color="gray" style={{ flex: 1 }}>
           Maybe later
         </Button>
