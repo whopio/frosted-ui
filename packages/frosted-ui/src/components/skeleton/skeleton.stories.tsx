@@ -1,7 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Avatar, Card, Skeleton, Text, skeletonAvatarPropDefs, skeletonRectPropDefs, skeletonTextPropDefs } from '..';
+import {
+  Avatar,
+  Button,
+  Card,
+  Skeleton,
+  Text,
+  skeletonAvatarPropDefs,
+  skeletonRectPropDefs,
+  skeletonTextPropDefs,
+} from '..';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -221,6 +230,131 @@ export const RectHighContrast: Story = {
       </div>
     </div>
   ),
+};
+
+const SYNC_DEMO_VARIANTS: Array<{ label: string; render: (args: React.ComponentProps<typeof Skeleton.Avatar>) => React.ReactNode }> = [
+  {
+    label: 'Card (avatar + text + thumb)',
+    render: (args) => (
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+        <Skeleton.Avatar {...args} size="4" />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
+          <Skeleton.Text {...args} size="2" style={{ width: 180 }} />
+          <Skeleton.Text {...args} size="1" style={{ width: 120 }} />
+        </div>
+        <Skeleton.Rect {...args} style={{ width: 64, height: 64 }} />
+      </div>
+    ),
+  },
+  {
+    label: 'Banner',
+    render: (args) => (
+      <Skeleton.Rect {...args} style={{ width: '100%', height: 80, maxWidth: 420, borderRadius: 'var(--radius-2)' }} />
+    ),
+  },
+  {
+    label: 'List item',
+    render: (args) => (
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+        <Skeleton.Avatar {...args} size="1" shape="square" />
+        <Skeleton.Text {...args} size="1" style={{ width: 220, flex: 1 }} />
+      </div>
+    ),
+  },
+  {
+    label: 'Profile header',
+    render: (args) => (
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
+        <Skeleton.Avatar {...args} size="7" />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+          <Skeleton.Text {...args} size="5" style={{ width: 140 }} />
+          <Skeleton.Text {...args} size="2" style={{ width: 200 }} />
+          <Skeleton.Text {...args} size="2" style={{ width: 160 }} />
+        </div>
+      </div>
+    ),
+  },
+  {
+    label: 'Image grid',
+    render: (args) => (
+      <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+        <Skeleton.Rect {...args} style={{ width: 72, height: 72, borderRadius: 'var(--radius-2)' }} />
+        <Skeleton.Rect {...args} style={{ width: 72, height: 72, borderRadius: 'var(--radius-2)' }} />
+        <Skeleton.Rect {...args} style={{ width: 72, height: 72, borderRadius: 'var(--radius-2)' }} />
+      </div>
+    ),
+  },
+  {
+    label: 'Article block',
+    render: (args) => (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+        <Skeleton.Text {...args} size="4" style={{ width: '80%', maxWidth: 320 }} />
+        <Skeleton.Text {...args} size="2" style={{ width: '100%', maxWidth: 380 }} />
+        <Skeleton.Text {...args} size="2" style={{ width: '90%', maxWidth: 360 }} />
+        <Skeleton.Rect {...args} style={{ width: '100%', height: 120, maxWidth: 420, borderRadius: 'var(--radius-2)', marginTop: 'var(--space-1)' }} />
+      </div>
+    ),
+  },
+  {
+    label: 'Inline chips',
+    render: (args) => (
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-2)' }}>
+        <Skeleton.Rect {...args} style={{ width: 56, height: 24, borderRadius: 'var(--radius-5)' }} />
+        <Skeleton.Rect {...args} style={{ width: 72, height: 24, borderRadius: 'var(--radius-5)' }} />
+        <Skeleton.Rect {...args} style={{ width: 48, height: 24, borderRadius: 'var(--radius-5)' }} />
+        <Skeleton.Rect {...args} style={{ width: 64, height: 24, borderRadius: 'var(--radius-5)' }} />
+      </div>
+    ),
+  },
+  {
+    label: 'Table row',
+    render: (args) => (
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
+        <Skeleton.Avatar {...args} size="2" />
+        <Skeleton.Text {...args} size="2" style={{ width: 100 }} />
+        <Skeleton.Text {...args} size="1" style={{ width: 80 }} />
+        <Skeleton.Text {...args} size="1" style={{ width: 60 }} />
+      </div>
+    ),
+  },
+];
+
+/**
+ * All skeleton instances use a negative `animation-delay` so they stay in sync with a global phase,
+ * regardless of when they mounted. Watch the pulse—all shapes should dim and brighten together.
+ * Use "Add row" to mount new skeletons; they join the same phase immediately.
+ */
+export const SyncedAnimation: Story = {
+  name: 'Synced animation',
+  args: {
+    color: skeletonTextPropDefs.color.default,
+    highContrast: skeletonTextPropDefs.highContrast.default,
+  },
+  render: (args) => {
+    const [rows, setRows] = React.useState(3);
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'flex-start', maxWidth: 480 }}>
+        <p style={{ margin: 0, fontSize: 'var(--font-size-2)', color: 'var(--gray-11)' }}>
+          All skeletons pulse in sync. Click &quot;Add row&quot; to see more layouts—new ones join the same phase.
+        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+          {Array.from({ length: rows }, (_, i) => {
+            const variant = SYNC_DEMO_VARIANTS[i % SYNC_DEMO_VARIANTS.length];
+            return (
+              <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
+                <span style={{ fontSize: 'var(--font-size-1)', color: 'var(--gray-9)' }}>{variant.label}</span>
+                {variant.render(args)}
+              </div>
+            );
+          })}
+        </div>
+        <Button type="button" onClick={() => setRows((n) => n + 1)}>
+          Add row
+        </Button>
+      </div>
+    );
+  },
 };
 
 export const Composed: Story = {

@@ -169,6 +169,7 @@
   .fui-SkeletonAvatar,
   .fui-SkeletonText::after,
   .fui-SkeletonRect {
-    animation: fui-skeleton-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation: fui-skeleton-pulse 2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    animation-delay: var(--fui-skeleton-animation-delay, 0);
   }
 }
