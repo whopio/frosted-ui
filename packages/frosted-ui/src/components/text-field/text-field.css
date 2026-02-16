@@ -223,6 +223,7 @@
 
   &:where(:has(.fui-TextFieldInput:autofill), :has(.fui-TextFieldInput[data-com-onepassword-filled])) {
     background-color: var(--accent-a4);
+    box-shadow: inset 0 0 0 1px var(--accent-a7);
   }
 
   &:where(:has(.fui-TextFieldInput:focus)) {
@@ -284,6 +285,9 @@
 .fui-TextFieldRoot:where(:has(.fui-TextFieldInput:disabled), :has(.fui-TextFieldInput:read-only)) {
   cursor: text;
 }
-.fui-TextFieldRoot:where(:has(.fui-TextFieldInput:disabled:placeholder-shown), :has(.fui-TextFieldInput:read-only:placeholder-shown)) {
+.fui-TextFieldRoot:where(
+  :has(.fui-TextFieldInput:disabled:placeholder-shown),
+  :has(.fui-TextFieldInput:read-only:placeholder-shown)
+) {
   cursor: default;
 }
