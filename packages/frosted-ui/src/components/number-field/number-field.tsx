@@ -65,6 +65,7 @@ const NumberFieldRoot = (props: NumberFieldRootProps) => {
           role="group"
           className={classNames(
             'fui-NumberFieldRoot',
+            'fui-TextFieldRoot',
             `fui-r-size-${size}`,
             `fui-variant-${variant}`,
             `fui-button-layout-${buttonLayout}`,

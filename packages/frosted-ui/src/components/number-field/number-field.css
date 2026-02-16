@@ -1,84 +1,7 @@
 .fui-NumberFieldRoot {
-  display: flex;
+  /* NumberField-specific: center buttons vertically */
   align-items: center;
-  position: relative;
   isolation: isolate;
-
-  /* Focus state */
-  &:where(:has(.fui-NumberFieldInput:focus)) {
-    outline: 2px solid var(--color-focus-root);
-    outline-offset: -1px;
-  }
-}
-
-/* Font size on Root so Slots inherit it */
-.fui-NumberFieldRoot:where(.fui-r-size-1) {
-  font-size: var(--font-size-1);
-  letter-spacing: var(--letter-spacing-1);
-  border-radius: max(6px, var(--radius-full));
-}
-.fui-NumberFieldRoot:where(.fui-r-size-2) {
-  font-size: var(--font-size-2);
-  letter-spacing: var(--letter-spacing-2);
-  border-radius: max(8px, var(--radius-full));
-}
-.fui-NumberFieldRoot:where(.fui-r-size-3) {
-  font-size: var(--font-size-3);
-  letter-spacing: var(--letter-spacing-3);
-  border-radius: max(10px, var(--radius-full));
-}
-.fui-NumberFieldRoot:where(.fui-r-size-4) {
-  font-size: var(--font-size-4);
-  letter-spacing: var(--letter-spacing-4);
-  border-radius: max(14px, var(--radius-full));
-}
-
-/***************************************************************************************************
- * VARIANT STYLES - Background and border
- ***************************************************************************************************/
-
-.fui-NumberFieldRoot:where(.fui-variant-surface) {
-  --text-field-border-width: 1px;
-  background-color: var(--color-surface);
-  box-shadow:
-    inset 0 0 0 1px var(--gray-a5),
-    0px 1px 2px 0px rgba(0, 0, 0, 0.05);
-
-  @media (hover: hover) {
-    &:where(:hover:has(.fui-NumberFieldInput:not(:disabled))) {
-      box-shadow:
-        inset 0 0 0 1px var(--gray-a7),
-        0px 1px 2px 0px rgba(0, 0, 0, 0.05);
-    }
-  }
-
-  &:where(:has(.fui-NumberFieldInput:autofill), :has(.fui-NumberFieldInput[data-com-onepassword-filled])) {
-    background-color: var(--accent-a3);
-    box-shadow:
-      inset 0 0 0 1px var(--gray-a7),
-      inset 0 0 0 1px var(--accent-a4);
-  }
-
-  &:where(:has(.fui-NumberFieldInput:disabled), :has(.fui-NumberFieldInput:read-only)) {
-    background-image: linear-gradient(var(--gray-a3), var(--gray-a3));
-  }
-}
-
-.fui-NumberFieldRoot:where(.fui-variant-soft) {
-  --text-field-border-width: 0px;
-  background-color: var(--accent-a3);
-
-  &:where(:has(.fui-NumberFieldInput:autofill), :has(.fui-NumberFieldInput[data-com-onepassword-filled])) {
-    background-color: var(--accent-a4);
-  }
-
-  &:where(:has(.fui-NumberFieldInput:focus)) {
-    outline-color: var(--accent-8);
-  }
-
-  &:where(:has(.fui-NumberFieldInput:disabled), :has(.fui-NumberFieldInput:read-only)) {
-    background-color: var(--gray-a4);
-  }
 }
 
 /* Input styling - extends TextField styles */
@@ -139,6 +62,44 @@
     height: var(--space-8);
     border-radius: max(14px, var(--radius-full));
   }
+}
+
+/* Soft variant button styling */
+:where(.fui-NumberFieldRoot.fui-variant-soft) .fui-NumberFieldButton {
+  background: transparent;
+  box-shadow: -1px 0 0 0 var(--accent-a5);
+
+  @media (hover: hover) {
+    &:where(:hover:not(:disabled):not([data-readonly])) {
+      background: var(--accent-a3);
+    }
+    &:where(:active:not(:disabled):not([data-readonly])) {
+      background: var(--accent-a4);
+    }
+  }
+
+  &:where(:disabled) {
+    box-shadow: -1px 0 0 0 var(--gray-a5);
+  }
+}
+
+/* Soft variant read-only: use gray dividers */
+:where(.fui-NumberFieldRoot.fui-variant-soft:has(.fui-NumberFieldInput:read-only)) .fui-NumberFieldButton {
+  box-shadow: -1px 0 0 0 var(--gray-a5);
+}
+
+/* Soft variant split layout: decrement needs right border, increment needs left border */
+:where(.fui-NumberFieldRoot.fui-variant-soft.fui-button-layout-split) .fui-NumberFieldDecrement {
+  box-shadow: 1px 0 0 0 var(--accent-a5);
+
+  &:where(:disabled) {
+    box-shadow: 1px 0 0 0 var(--gray-a5);
+  }
+}
+
+:where(.fui-NumberFieldRoot.fui-variant-soft.fui-button-layout-split:has(.fui-NumberFieldInput:read-only))
+  .fui-NumberFieldDecrement {
+  box-shadow: 1px 0 0 0 var(--gray-a5);
 }
 
 /***************************************************************************************************
@@ -308,6 +269,15 @@
       }
     }
   }
+
+  /* Soft variant doesn't need negative margins */
+  &:where(.fui-variant-soft) .fui-NumberFieldButtonGroup {
+    margin-left: 0;
+
+    & .fui-NumberFieldIncrement {
+      margin-left: 0;
+    }
+  }
 }
 
 /***************************************************************************************************
@@ -357,8 +327,4 @@
     color: var(--gray-a11);
     -webkit-text-fill-color: var(--gray-a11);
   }
-}
-
-.fui-NumberFieldRoot:where(:has(.fui-NumberFieldInput:disabled:focus), :has(.fui-NumberFieldInput:read-only:focus)) {
-  outline: 2px solid var(--gray-8);
 }
