@@ -288,7 +288,7 @@ export const WithAvatar: Story = {
   render: () => (
     <EmptyState.Root>
       <EmptyState.Header>
-        <EmptyState.Media>
+        <EmptyState.Media variant="ghost">
           <Avatar
             size="5"
             fallback="Luna Rose"
