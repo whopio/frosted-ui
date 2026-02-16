@@ -23,8 +23,9 @@ const TextFieldRoot = (props: TextFieldRootProps) => {
   } = props;
   return (
     <div
+      data-accent-color={color}
       {...rootProps}
-      className={classNames('fui-TextFieldRoot', `fui-r-size-${size}`, className)}
+      className={classNames('fui-TextFieldRoot', `fui-r-size-${size}`, `fui-variant-${variant}`, className)}
       onPointerDown={composeEventHandlers(rootProps.onPointerDown, (event) => {
         const target = event.target as HTMLElement;
         if (target.closest('input, button, a')) return;
@@ -85,16 +86,13 @@ const TextFieldInput = React.forwardRef<TextFieldInputElement, TextFieldInputPro
     ...inputProps
   } = props;
   const input = (
-    <>
-      <Input
-        data-accent-color={color}
-        spellCheck="false"
-        {...inputProps}
-        ref={forwardedRef}
-        className={classNames('fui-TextFieldInput', className, `fui-r-size-${size}`, `fui-variant-${variant}`)}
-      />
-      <div data-accent-color={color} className="fui-TextFieldChrome" />
-    </>
+    <Input
+      data-accent-color={color}
+      spellCheck="false"
+      {...inputProps}
+      ref={forwardedRef}
+      className={classNames('fui-TextFieldInput', className, `fui-r-size-${size}`, `fui-variant-${variant}`)}
+    />
   );
 
   return hasRoot ? (

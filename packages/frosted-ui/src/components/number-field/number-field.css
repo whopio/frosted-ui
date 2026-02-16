@@ -3,24 +3,82 @@
   align-items: center;
   position: relative;
   isolation: isolate;
+
+  /* Focus state */
+  &:where(:has(.fui-NumberFieldInput:focus)) {
+    outline: 2px solid var(--color-focus-root);
+    outline-offset: -1px;
+  }
 }
 
 /* Font size on Root so Slots inherit it */
 .fui-NumberFieldRoot:where(.fui-r-size-1) {
   font-size: var(--font-size-1);
   letter-spacing: var(--letter-spacing-1);
+  border-radius: max(6px, var(--radius-full));
 }
 .fui-NumberFieldRoot:where(.fui-r-size-2) {
   font-size: var(--font-size-2);
   letter-spacing: var(--letter-spacing-2);
+  border-radius: max(8px, var(--radius-full));
 }
 .fui-NumberFieldRoot:where(.fui-r-size-3) {
   font-size: var(--font-size-3);
   letter-spacing: var(--letter-spacing-3);
+  border-radius: max(10px, var(--radius-full));
 }
 .fui-NumberFieldRoot:where(.fui-r-size-4) {
   font-size: var(--font-size-4);
   letter-spacing: var(--letter-spacing-4);
+  border-radius: max(14px, var(--radius-full));
+}
+
+/***************************************************************************************************
+ * VARIANT STYLES - Background and border
+ ***************************************************************************************************/
+
+.fui-NumberFieldRoot:where(.fui-variant-surface) {
+  --text-field-border-width: 1px;
+  background-color: var(--color-surface);
+  box-shadow:
+    inset 0 0 0 1px var(--gray-a5),
+    0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+
+  @media (hover: hover) {
+    &:where(:hover:has(.fui-NumberFieldInput:not(:disabled))) {
+      box-shadow:
+        inset 0 0 0 1px var(--gray-a7),
+        0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  &:where(:has(.fui-NumberFieldInput:autofill), :has(.fui-NumberFieldInput[data-com-onepassword-filled])) {
+    background-color: var(--accent-a3);
+    box-shadow:
+      inset 0 0 0 1px var(--gray-a7),
+      inset 0 0 0 1px var(--accent-a4);
+  }
+
+  &:where(:has(.fui-NumberFieldInput:disabled), :has(.fui-NumberFieldInput:read-only)) {
+    background-image: linear-gradient(var(--gray-a3), var(--gray-a3));
+  }
+}
+
+.fui-NumberFieldRoot:where(.fui-variant-soft) {
+  --text-field-border-width: 0px;
+  background-color: var(--accent-a3);
+
+  &:where(:has(.fui-NumberFieldInput:autofill), :has(.fui-NumberFieldInput[data-com-onepassword-filled])) {
+    background-color: var(--accent-a4);
+  }
+
+  &:where(:has(.fui-NumberFieldInput:focus)) {
+    outline-color: var(--accent-8);
+  }
+
+  &:where(:has(.fui-NumberFieldInput:disabled), :has(.fui-NumberFieldInput:read-only)) {
+    background-color: var(--gray-a4);
+  }
 }
 
 /* Input styling - extends TextField styles */
@@ -32,24 +90,13 @@
     margin: 0;
   }
 
-  @media (hover: hover) {
-    &:where(.fui-variant-surface:not(:disabled)) ~ :where(.fui-NumberFieldRoot:hover .fui-TextFieldChrome) {
-      box-shadow:
-        inset 0 0 0 1px var(--gray-a7),
-        0px 1px 2px 0px rgba(0, 0, 0, 0.05);
-    }
-  }
   /* Remove spinner buttons in Firefox */
   -moz-appearance: textfield;
   appearance: textfield;
 
-  /* Ensure input border shows above adjacent buttons when focused */
+  /* Ensure input shows above background when focused */
   &:focus {
-    z-index: 4; /* Above chrome */
-
-    & + .fui-TextFieldChrome {
-      z-index: 3; /* Above buttons (z-index: 1-2) but below input */
-    }
+    z-index: 4;
   }
 }
 
@@ -57,7 +104,7 @@
 .fui-NumberFieldButton {
   flex-shrink: 0;
   position: relative;
-  z-index: 1; /* Above TextFieldChrome (z-index: 0) so button backgrounds cover chrome borders */
+  z-index: 1; /* Above root background so button backgrounds are visible */
 
   /* Hovered/focused button should appear above other buttons for border visibility */
   &:hover {
@@ -161,6 +208,9 @@
 
   /* Decrement border radius (left side) */
   & > .fui-NumberFieldDecrement {
+    position: relative;
+    /* Make sure the focus outline stays on top of the button group */
+    z-index: -1;
     &:where(.fui-r-size-1) {
       border-radius: max(6px, var(--radius-full)) 0 0 max(6px, var(--radius-full));
     }
@@ -177,6 +227,9 @@
 
   /* Increment border radius (right side) */
   & > .fui-NumberFieldIncrement {
+    position: relative;
+    /* Make sure the focus outline stays on top of the button group */
+    z-index: -1;
     &:where(.fui-r-size-1) {
       border-radius: 0 max(6px, var(--radius-full)) max(6px, var(--radius-full)) 0;
     }
@@ -190,31 +243,6 @@
       border-radius: 0 max(14px, var(--radius-full)) max(14px, var(--radius-full)) 0;
     }
   }
-
-  /* TextFieldChrome positioning - overlap 1px into buttons to hide input borders */
-  & > .fui-TextFieldChrome {
-    border-radius: 0;
-  }
-
-  &:has(.fui-r-size-1) > .fui-TextFieldChrome {
-    left: calc(var(--space-5) - 1px);
-    right: calc(var(--space-5) - 1px);
-  }
-
-  &:has(.fui-r-size-2) > .fui-TextFieldChrome {
-    left: calc(var(--space-6) - 1px);
-    right: calc(var(--space-6) - 1px);
-  }
-
-  &:has(.fui-r-size-3) > .fui-TextFieldChrome {
-    left: calc(var(--space-7) - 1px);
-    right: calc(var(--space-7) - 1px);
-  }
-
-  &:has(.fui-r-size-4) > .fui-TextFieldChrome {
-    left: calc(var(--space-8) - 1px);
-    right: calc(var(--space-8) - 1px);
-  }
 }
 
 /***************************************************************************************************
@@ -222,9 +250,12 @@
  ***************************************************************************************************/
 
 .fui-NumberFieldButtonGroup {
+  position: relative;
+  /* Make sure the focus outline stays on top of the button group */
+  z-index: -1;
   display: flex;
   flex-direction: row;
-  margin-left: -1px; /* Collapse border with input chrome */
+  margin-left: -1px; /* Collapse border with input */
 }
 
 .fui-NumberFieldRoot.fui-button-layout-trailing {
@@ -277,32 +308,6 @@
       }
     }
   }
-
-  /* TextFieldChrome positioning - account for button group margin-left: -1px and increment margin-left: -1px */
-  & > .fui-TextFieldChrome {
-    left: 0;
-    border-radius: 0;
-  }
-
-  &:has(.fui-r-size-1) > .fui-TextFieldChrome {
-    right: calc(var(--space-5) * 2 - 2px);
-    border-radius: max(6px, var(--radius-full)) 0 0 max(6px, var(--radius-full));
-  }
-
-  &:has(.fui-r-size-2) > .fui-TextFieldChrome {
-    right: calc(var(--space-6) * 2 - 2px);
-    border-radius: max(8px, var(--radius-full)) 0 0 max(8px, var(--radius-full));
-  }
-
-  &:has(.fui-r-size-3) > .fui-TextFieldChrome {
-    right: calc(var(--space-7) * 2 - 2px);
-    border-radius: max(10px, var(--radius-full)) 0 0 max(10px, var(--radius-full));
-  }
-
-  &:has(.fui-r-size-4) > .fui-TextFieldChrome {
-    right: calc(var(--space-8) * 2 - 2px);
-    border-radius: max(14px, var(--radius-full)) 0 0 max(14px, var(--radius-full));
-  }
 }
 
 /***************************************************************************************************
@@ -330,24 +335,6 @@
       border-radius: max(14px, var(--radius-full));
     }
   }
-
-  & > .fui-TextFieldChrome {
-    left: 0;
-    right: 0;
-
-    &:where(.fui-r-size-1) {
-      border-radius: max(6px, var(--radius-full));
-    }
-    &:where(.fui-r-size-2) {
-      border-radius: max(8px, var(--radius-full));
-    }
-    &:where(.fui-r-size-3) {
-      border-radius: max(10px, var(--radius-full));
-    }
-    &:where(.fui-r-size-4) {
-      border-radius: max(14px, var(--radius-full));
-    }
-  }
 }
 
 /***************************************************************************************************
@@ -370,4 +357,8 @@
     color: var(--gray-a11);
     -webkit-text-fill-color: var(--gray-a11);
   }
+}
+
+.fui-NumberFieldRoot:where(:has(.fui-NumberFieldInput:disabled:focus), :has(.fui-NumberFieldInput:read-only:focus)) {
+  outline: 2px solid var(--gray-8);
 }

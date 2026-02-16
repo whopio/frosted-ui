@@ -60,11 +60,13 @@ const NumberFieldRoot = (props: NumberFieldRootProps) => {
       {...rootProps}
       render={(primitiveProps) => (
         <div
+          data-accent-color={color}
           {...primitiveProps}
           role="group"
           className={classNames(
             'fui-NumberFieldRoot',
             `fui-r-size-${size}`,
+            `fui-variant-${variant}`,
             `fui-button-layout-${buttonLayout}`,
             className,
           )}
@@ -128,21 +130,18 @@ const NumberFieldInput = React.forwardRef<HTMLInputElement, NumberFieldInputProp
   } = props;
 
   return (
-    <>
-      <NumberFieldPrimitive.Input
-        data-accent-color={color}
-        {...inputProps}
-        ref={forwardedRef}
-        className={classNames(
-          'fui-NumberFieldInput',
-          'fui-TextFieldInput',
-          className,
-          `fui-r-size-${size}`,
-          `fui-variant-${variant}`,
-        )}
-      />
-      <div data-accent-color={color} className="fui-TextFieldChrome" />
-    </>
+    <NumberFieldPrimitive.Input
+      data-accent-color={color}
+      {...inputProps}
+      ref={forwardedRef}
+      className={classNames(
+        'fui-NumberFieldInput',
+        'fui-TextFieldInput',
+        className,
+        `fui-r-size-${size}`,
+        `fui-variant-${variant}`,
+      )}
+    />
   );
 });
 NumberFieldInput.displayName = 'NumberFieldInput';
