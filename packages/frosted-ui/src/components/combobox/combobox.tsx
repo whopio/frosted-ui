@@ -1,7 +1,6 @@
 'use client';
 
 import { Combobox as ComboboxPrimitive } from '@base-ui/react/combobox';
-import { ScrollArea as ScrollAreaPrimitive } from '@base-ui/react/scroll-area';
 import classNames from 'classnames';
 import * as React from 'react';
 
@@ -298,20 +297,7 @@ const ComboboxContent = (props: ComboboxContentProps) => {
               [size, resolvedColor, variant, highContrast],
             )}
           >
-            <ScrollAreaPrimitive.Root className="fui-ScrollAreaRoot">
-              <ScrollAreaPrimitive.Viewport className="fui-ScrollAreaViewport" tabIndex={undefined}>
-                <ScrollAreaPrimitive.Content>
-                  <div className="fui-ComboboxViewport">{children}</div>
-                </ScrollAreaPrimitive.Content>
-              </ScrollAreaPrimitive.Viewport>
-              <ScrollAreaPrimitive.Scrollbar
-                orientation="vertical"
-                className="fui-ScrollAreaScrollbar fui-r-size-1"
-                data-type="auto"
-              >
-                <ScrollAreaPrimitive.Thumb className="fui-ScrollAreaThumb" />
-              </ScrollAreaPrimitive.Scrollbar>
-            </ScrollAreaPrimitive.Root>
+            {children}
           </ComboboxContentContext.Provider>
         </Theme>
       </ComboboxPrimitive.Positioner>
@@ -321,7 +307,7 @@ const ComboboxContent = (props: ComboboxContentProps) => {
 ComboboxContent.displayName = 'ComboboxContent';
 
 // ============================================================================
-// List (standalone when used without Content's default ScrollArea - e.g. custom content)
+// List
 // ============================================================================
 
 interface ComboboxListProps extends Omit<React.ComponentProps<typeof ComboboxPrimitive.List>, 'className' | 'render'> {

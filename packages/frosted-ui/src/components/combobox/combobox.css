@@ -103,10 +103,6 @@
 
 .fui-ComboboxContent {
   --combobox-content-padding: var(--space-1);
-  --scrollarea-scrollbar-vertical-margin-top: var(--combobox-content-padding);
-  --scrollarea-scrollbar-vertical-margin-bottom: var(--combobox-content-padding);
-  --scrollarea-scrollbar-horizontal-margin-left: var(--combobox-content-padding);
-  --scrollarea-scrollbar-horizontal-margin-right: var(--combobox-content-padding);
 
   min-width: var(--anchor-width);
   max-height: var(--available-height);
@@ -125,19 +121,6 @@
   }
 }
 
-/* ScrollArea integration for Combobox */
-.fui-ComboboxContent > .fui-ScrollAreaRoot {
-  height: 100%;
-}
-
-.fui-ComboboxContent .fui-ScrollAreaViewport {
-  max-height: var(--available-height);
-}
-
-.fui-ComboboxViewport {
-  box-sizing: border-box;
-}
-
 /* ============================================================================
  * Combobox List
  * Padding on list (match Autocomplete), not on viewport
@@ -147,10 +130,6 @@
   display: flex;
   flex-direction: column;
   padding: var(--combobox-content-padding);
-
-  :where(.fui-ComboboxContent:has(.fui-ScrollAreaScrollbar[data-orientation='vertical'])) & {
-    padding-right: var(--space-3);
-  }
 
   &:where(:empty) {
     display: none;

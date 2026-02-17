@@ -1,7 +1,7 @@
 import { XCircleFilled16 } from '@frosted-ui/icons';
 import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
-import { IconButton, TextField } from '../index';
+import { IconButton, ScrollArea, Text, TextField } from '../index';
 import * as Combobox from './combobox';
 
 const meta: Meta<typeof Combobox.Root> = {
@@ -29,6 +29,202 @@ const fruits = [
   'Watermelon',
 ];
 
+const manyCountries = [
+  'Afghanistan',
+  'Albania',
+  'Algeria',
+  'Andorra',
+  'Angola',
+  'Antigua and Barbuda',
+  'Argentina',
+  'Armenia',
+  'Australia',
+  'Austria',
+  'Azerbaijan',
+  'Bahamas',
+  'Bahrain',
+  'Bangladesh',
+  'Barbados',
+  'Belarus',
+  'Belgium',
+  'Belize',
+  'Benin',
+  'Bhutan',
+  'Bolivia',
+  'Bosnia and Herzegovina',
+  'Botswana',
+  'Brazil',
+  'Brunei',
+  'Bulgaria',
+  'Burkina Faso',
+  'Burundi',
+  'Cambodia',
+  'Cameroon',
+  'Canada',
+  'Cape Verde',
+  'Central African Republic',
+  'Chad',
+  'Chile',
+  'China',
+  'Colombia',
+  'Comoros',
+  'Costa Rica',
+  'Croatia',
+  'Cuba',
+  'Cyprus',
+  'Czech Republic',
+  'Denmark',
+  'Djibouti',
+  'Dominica',
+  'Dominican Republic',
+  'East Timor',
+  'Ecuador',
+  'Egypt',
+  'El Salvador',
+  'Equatorial Guinea',
+  'Eritrea',
+  'Estonia',
+  'Ethiopia',
+  'Fiji',
+  'Finland',
+  'France',
+  'Gabon',
+  'Gambia',
+  'Georgia',
+  'Germany',
+  'Ghana',
+  'Greece',
+  'Grenada',
+  'Guatemala',
+  'Guinea',
+  'Guinea-Bissau',
+  'Guyana',
+  'Haiti',
+  'Honduras',
+  'Hungary',
+  'Iceland',
+  'India',
+  'Indonesia',
+  'Iran',
+  'Iraq',
+  'Ireland',
+  'Israel',
+  'Italy',
+  'Ivory Coast',
+  'Jamaica',
+  'Japan',
+  'Jordan',
+  'Kazakhstan',
+  'Kenya',
+  'Kiribati',
+  'Kuwait',
+  'Kyrgyzstan',
+  'Laos',
+  'Latvia',
+  'Lebanon',
+  'Lesotho',
+  'Liberia',
+  'Libya',
+  'Liechtenstein',
+  'Lithuania',
+  'Luxembourg',
+  'Macedonia',
+  'Madagascar',
+  'Malawi',
+  'Malaysia',
+  'Maldives',
+  'Mali',
+  'Malta',
+  'Marshall Islands',
+  'Mauritania',
+  'Mauritius',
+  'Mexico',
+  'Micronesia',
+  'Moldova',
+  'Monaco',
+  'Mongolia',
+  'Montenegro',
+  'Morocco',
+  'Mozambique',
+  'Myanmar',
+  'Namibia',
+  'Nauru',
+  'Nepal',
+  'Netherlands',
+  'New Zealand',
+  'Nicaragua',
+  'Niger',
+  'Nigeria',
+  'North Korea',
+  'Norway',
+  'Oman',
+  'Pakistan',
+  'Palau',
+  'Panama',
+  'Papua New Guinea',
+  'Paraguay',
+  'Peru',
+  'Philippines',
+  'Poland',
+  'Portugal',
+  'Qatar',
+  'Romania',
+  'Russia',
+  'Rwanda',
+  'Saint Kitts and Nevis',
+  'Saint Lucia',
+  'Saint Vincent',
+  'Samoa',
+  'San Marino',
+  'Sao Tome and Principe',
+  'Saudi Arabia',
+  'Senegal',
+  'Serbia',
+  'Seychelles',
+  'Sierra Leone',
+  'Singapore',
+  'Slovakia',
+  'Slovenia',
+  'Solomon Islands',
+  'Somalia',
+  'South Africa',
+  'South Korea',
+  'South Sudan',
+  'Spain',
+  'Sri Lanka',
+  'Sudan',
+  'Suriname',
+  'Swaziland',
+  'Sweden',
+  'Switzerland',
+  'Syria',
+  'Taiwan',
+  'Tajikistan',
+  'Tanzania',
+  'Thailand',
+  'Togo',
+  'Tonga',
+  'Trinidad and Tobago',
+  'Tunisia',
+  'Turkey',
+  'Turkmenistan',
+  'Tuvalu',
+  'Uganda',
+  'Ukraine',
+  'United Arab Emirates',
+  'United Kingdom',
+  'United States',
+  'Uruguay',
+  'Uzbekistan',
+  'Vanuatu',
+  'Vatican City',
+  'Venezuela',
+  'Vietnam',
+  'Yemen',
+  'Zambia',
+  'Zimbabwe',
+];
+
 // ============================================================================
 // Default (single)
 // ============================================================================
@@ -48,14 +244,16 @@ export const Default: Story = {
           </TextField.Slot>
         </TextField.Root>
         <Combobox.Content>
-          <Combobox.Empty>No fruits found.</Combobox.Empty>
-          <Combobox.List>
-            {(item) => (
-              <Combobox.Item key={item} value={item}>
-                {item}
-              </Combobox.Item>
-            )}
-          </Combobox.List>
+          <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+            <Combobox.Empty>No fruits found.</Combobox.Empty>
+            <Combobox.List>
+              {(item) => (
+                <Combobox.Item key={item} value={item}>
+                  {item}
+                </Combobox.Item>
+              )}
+            </Combobox.List>
+          </ScrollArea>
         </Combobox.Content>
       </Combobox.Root>
     </div>
@@ -86,14 +284,16 @@ export const Multiple: Story = {
             </Combobox.Chips>
           </TextField.Root>
           <Combobox.Content>
-            <Combobox.Empty>No fruits found.</Combobox.Empty>
-            <Combobox.List>
-              {(item) => (
-                <Combobox.Item key={item} value={item}>
-                  {item}
-                </Combobox.Item>
-              )}
-            </Combobox.List>
+            <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+              <Combobox.Empty>No fruits found.</Combobox.Empty>
+              <Combobox.List>
+                {(item) => (
+                  <Combobox.Item key={item} value={item}>
+                    {item}
+                  </Combobox.Item>
+                )}
+              </Combobox.List>
+            </ScrollArea>
           </Combobox.Content>
         </Combobox.Root>
       </div>
@@ -123,27 +323,29 @@ export const Grouped: Story = {
           <Combobox.Input render={<TextField.Input placeholder="Select produce" />} />
         </TextField.Root>
         <Combobox.Content>
-          <Combobox.Empty>No results.</Combobox.Empty>
-          <Combobox.List>
-            {(group, index) => {
-              const g = group as ProduceGroup;
-              return (
-                <React.Fragment key={g.label}>
-                  {index > 0 && <Combobox.Separator />}
-                  <Combobox.Group items={g.items}>
-                    <Combobox.GroupLabel>{g.label}</Combobox.GroupLabel>
-                    <Combobox.Collection>
-                      {(item) => (
-                        <Combobox.Item key={item as string} value={item}>
-                          {item as string}
-                        </Combobox.Item>
-                      )}
-                    </Combobox.Collection>
-                  </Combobox.Group>
-                </React.Fragment>
-              );
-            }}
-          </Combobox.List>
+          <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+            <Combobox.Empty>No results.</Combobox.Empty>
+            <Combobox.List>
+              {(group, index) => {
+                const g = group as ProduceGroup;
+                return (
+                  <React.Fragment key={g.label}>
+                    {index > 0 && <Combobox.Separator />}
+                    <Combobox.Group items={g.items}>
+                      <Combobox.GroupLabel>{g.label}</Combobox.GroupLabel>
+                      <Combobox.Collection>
+                        {(item) => (
+                          <Combobox.Item key={item as string} value={item}>
+                            {item as string}
+                          </Combobox.Item>
+                        )}
+                      </Combobox.Collection>
+                    </Combobox.Group>
+                  </React.Fragment>
+                );
+              }}
+            </Combobox.List>
+          </ScrollArea>
         </Combobox.Content>
       </Combobox.Root>
     </div>
@@ -180,17 +382,19 @@ export const CustomItems: Story = {
           <Combobox.Input render={<TextField.Input placeholder="Select framework" />} />
         </TextField.Root>
         <Combobox.Content>
-          <Combobox.Empty>No frameworks found.</Combobox.Empty>
-          <Combobox.List>
-            {(item) => {
-              const f = item as Framework;
-              return (
-                <Combobox.Item key={f.value} value={f}>
-                  {f.label}
-                </Combobox.Item>
-              );
-            }}
-          </Combobox.List>
+          <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+            <Combobox.Empty>No frameworks found.</Combobox.Empty>
+            <Combobox.List>
+              {(item) => {
+                const f = item as Framework;
+                return (
+                  <Combobox.Item key={f.value} value={f}>
+                    {f.label}
+                  </Combobox.Item>
+                );
+              }}
+            </Combobox.List>
+          </ScrollArea>
         </Combobox.Content>
       </Combobox.Root>
     </div>
@@ -216,14 +420,16 @@ export const ClearButton: Story = {
           </TextField.Slot>
         </TextField.Root>
         <Combobox.Content>
-          <Combobox.Empty>No fruits found.</Combobox.Empty>
-          <Combobox.List>
-            {(item) => (
-              <Combobox.Item key={item} value={item}>
-                {item}
-              </Combobox.Item>
-            )}
-          </Combobox.List>
+          <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+            <Combobox.Empty>No fruits found.</Combobox.Empty>
+            <Combobox.List>
+              {(item) => (
+                <Combobox.Item key={item} value={item}>
+                  {item}
+                </Combobox.Item>
+              )}
+            </Combobox.List>
+          </ScrollArea>
         </Combobox.Content>
       </Combobox.Root>
     </div>
@@ -245,14 +451,16 @@ export const InputInsidePopup: Story = {
               <Combobox.Input render={<TextField.Input placeholder="Search..." />} />
             </TextField.Root>
           </div>
-          <Combobox.Empty>No results.</Combobox.Empty>
-          <Combobox.List>
-            {(item) => (
-              <Combobox.Item key={item} value={item}>
-                {item}
-              </Combobox.Item>
-            )}
-          </Combobox.List>
+          <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+            <Combobox.Empty>No results.</Combobox.Empty>
+            <Combobox.List>
+              {(item) => (
+                <Combobox.Item key={item} value={item}>
+                  {item}
+                </Combobox.Item>
+              )}
+            </Combobox.List>
+          </ScrollArea>
         </Combobox.Content>
       </Combobox.Root>
     </div>
@@ -271,14 +479,48 @@ export const Disabled: Story = {
           <Combobox.Input render={<TextField.Input placeholder="Choose a fruit..." disabled />} />
         </TextField.Root>
         <Combobox.Content>
-          <Combobox.Empty>No fruits found.</Combobox.Empty>
-          <Combobox.List>
-            {(item) => (
-              <Combobox.Item key={item} value={item}>
-                {item}
-              </Combobox.Item>
-            )}
-          </Combobox.List>
+          <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+            <Combobox.Empty>No fruits found.</Combobox.Empty>
+            <Combobox.List>
+              {(item) => (
+                <Combobox.Item key={item} value={item}>
+                  {item}
+                </Combobox.Item>
+              )}
+            </Combobox.List>
+          </ScrollArea>
+        </Combobox.Content>
+      </Combobox.Root>
+    </div>
+  ),
+};
+
+// ============================================================================
+// Many items (with scroll)
+// ============================================================================
+
+export const ManyItems: Story = {
+  name: 'Many Items',
+  render: () => (
+    <div style={{ maxWidth: 300 }}>
+      <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+        {manyCountries.length} countries with scroll
+      </Text>
+      <Combobox.Root items={manyCountries} size="2">
+        <TextField.Root>
+          <Combobox.Input render={<TextField.Input placeholder="Search countries..." />} />
+        </TextField.Root>
+        <Combobox.Content>
+          <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+            <Combobox.Empty>No countries found.</Combobox.Empty>
+            <Combobox.List>
+              {(country) => (
+                <Combobox.Item key={country} value={country}>
+                  {country}
+                </Combobox.Item>
+              )}
+            </Combobox.List>
+          </ScrollArea>
         </Combobox.Content>
       </Combobox.Root>
     </div>
@@ -297,14 +539,16 @@ export const EmptyState: Story = {
           <Combobox.Input render={<TextField.Input placeholder="Type to filter (e.g. xyz)" />} />
         </TextField.Root>
         <Combobox.Content>
-          <Combobox.Empty>No fruits found. Try a different search.</Combobox.Empty>
-          <Combobox.List>
-            {(item) => (
-              <Combobox.Item key={item} value={item}>
-                {item}
-              </Combobox.Item>
-            )}
-          </Combobox.List>
+          <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+            <Combobox.Empty>No fruits found. Try a different search.</Combobox.Empty>
+            <Combobox.List>
+              {(item) => (
+                <Combobox.Item key={item} value={item}>
+                  {item}
+                </Combobox.Item>
+              )}
+            </Combobox.List>
+          </ScrollArea>
         </Combobox.Content>
       </Combobox.Root>
     </div>
@@ -337,14 +581,16 @@ export const TriggerOnly: Story = {
         >
           <Combobox.Trigger placeholder="Choose a fruit" />
           <Combobox.Content>
-            <Combobox.Empty>No fruits found.</Combobox.Empty>
-            <Combobox.List>
-              {(item) => (
-                <Combobox.Item key={item} value={item}>
-                  {item}
-                </Combobox.Item>
-              )}
-            </Combobox.List>
+            <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+              <Combobox.Empty>No fruits found.</Combobox.Empty>
+              <Combobox.List>
+                {(item) => (
+                  <Combobox.Item key={item} value={item}>
+                    {item}
+                  </Combobox.Item>
+                )}
+              </Combobox.List>
+            </ScrollArea>
           </Combobox.Content>
         </Combobox.Root>
       </div>
