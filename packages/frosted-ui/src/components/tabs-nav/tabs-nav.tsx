@@ -44,7 +44,6 @@ const TabsNavLink = (props: TabsNavLinkProps) => {
         className={classNames('fui-reset', 'fui-BaseTabsTrigger', 'fui-TabsNavLink', className)}
       >
         <span className="fui-BaseTabsTriggerInner fui-TabsNavLinkInner">{children}</span>
-        <span className="fui-BaseTabsTriggerInnerHidden fui-TabsNavLinkInnerHidden">{children}</span>
       </NavigationMenu.Link>
     </NavigationMenu.Item>
   );

@@ -44,7 +44,6 @@ const TabsTrigger = (props: TabsTriggerProps) => {
       className={classNames('fui-reset', 'fui-BaseTabsTrigger', 'fui-TabsTrigger', className)}
     >
       <span className="fui-BaseTabsTriggerInner fui-TabsTriggerInner">{children}</span>
-      <span className="fui-BaseTabsTriggerInnerHidden fui-TabsTriggerInnerHidden">{children}</span>
     </TabsPrimitive.Tab>
   );
 };
