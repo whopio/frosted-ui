@@ -10,10 +10,9 @@ import {
   comboboxContentPropDefs,
   comboboxItemPropDefs,
   comboboxRootPropDefs,
-  comboboxTriggerPropDefs,
 } from './combobox.props';
 
-import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
+import type { GetPropDefTypes } from '../../helpers';
 
 // Re-export useFilter from Base UI (useFilteredItems may be added in a later Base UI version)
 const { useFilter } = ComboboxPrimitive;
@@ -24,7 +23,6 @@ export { useFilter };
 // ============================================================================
 
 type ComboboxRootOwnProps = GetPropDefTypes<typeof comboboxRootPropDefs>;
-type ComboboxTriggerOwnProps = GetPropDefTypes<typeof comboboxTriggerPropDefs>;
 type ComboboxContentOwnProps = GetPropDefTypes<typeof comboboxContentPropDefs>;
 type ComboboxItemOwnProps = GetPropDefTypes<typeof comboboxItemPropDefs>;
 
@@ -39,10 +37,7 @@ type ComboboxValue<Value, Multiple extends boolean | undefined> = Multiple exten
 // Context
 // ============================================================================
 
-interface ComboboxContextValue extends ComboboxRootOwnProps {
-  itemsForLabelLookup?: readonly { value: unknown; label?: React.ReactNode }[] | Record<string, React.ReactNode>;
-  valueLabelFormatter?: (value: unknown) => string;
-}
+interface ComboboxContextValue extends ComboboxRootOwnProps {}
 const ComboboxContext = React.createContext<ComboboxContextValue>({});
 
 type ComboboxContentContextValue = ComboboxContentOwnProps;
@@ -71,16 +66,7 @@ function ComboboxRoot<Value = unknown, Multiple extends boolean | undefined = fa
       itemToStringLabel={itemToStringLabel}
       {...(rootProps as ComboboxPrimitive.Root.Props<Value, Multiple>)}
     >
-      <ComboboxContext.Provider
-        value={React.useMemo(
-          () => ({
-            size,
-            itemsForLabelLookup: items,
-            valueLabelFormatter: itemToStringLabel as ((value: unknown) => string) | undefined,
-          }),
-          [size, items, itemToStringLabel],
-        )}
-      >
+      <ComboboxContext.Provider value={React.useMemo(() => ({ size }), [size])}>
         {children}
       </ComboboxContext.Provider>
     </ComboboxPrimitive.Root>
@@ -102,78 +88,16 @@ const ComboboxInput = React.forwardRef<HTMLInputElement, ComboboxInputProps>((pr
 ComboboxInput.displayName = 'ComboboxInput';
 
 // ============================================================================
-// Trigger
+// Trigger (render prop – use Button or any element, e.g. render={<Button><Combobox.Value /></Button>})
 // ============================================================================
 
-interface ComboboxTriggerProps
-  extends Omit<PropsWithoutColor<typeof ComboboxPrimitive.Trigger>, 'render' | 'className' | 'children'>,
-    ComboboxTriggerOwnProps {
-  className?: string;
-  placeholder?: React.ReactNode;
-  /** Custom render function for the selected value. */
-  renderValue?: React.ComponentProps<typeof ComboboxPrimitive.Value>['children'];
+interface ComboboxTriggerProps extends Omit<React.ComponentProps<typeof ComboboxPrimitive.Trigger>, 'className'> {
+  render: React.ReactElement;
 }
 
 const ComboboxTrigger = (props: ComboboxTriggerProps) => {
-  const {
-    className,
-    variant = comboboxTriggerPropDefs.variant.default,
-    color = comboboxTriggerPropDefs.color.default,
-    placeholder,
-    renderValue,
-    ...triggerProps
-  } = props;
-  const { size, itemsForLabelLookup, valueLabelFormatter } = React.useContext(ComboboxContext);
-
-  const valueChildren = React.useMemo(() => {
-    if (renderValue) return renderValue;
-    if (placeholder) {
-      return (value: unknown) => {
-        if (itemsForLabelLookup) {
-          if (Array.isArray(itemsForLabelLookup)) {
-            const item = itemsForLabelLookup.find((i) => i.value === value);
-            if (item?.label != null) return item.label;
-          } else if (value != null) {
-            const label = (itemsForLabelLookup as Record<string, React.ReactNode>)[value as string];
-            if (label != null) return label;
-          }
-        }
-        if (value == null) return placeholder;
-        if (valueLabelFormatter) return valueLabelFormatter(value);
-        return String(value);
-      };
-    }
-    return undefined;
-  }, [renderValue, placeholder, itemsForLabelLookup, valueLabelFormatter]);
-
-  return (
-    <ComboboxPrimitive.Trigger
-      data-accent-color={color || (variant === 'surface' ? 'gray' : color)}
-      {...triggerProps}
-      className={classNames(
-        'fui-reset',
-        'fui-ComboboxTrigger',
-        className,
-        `fui-r-size-${size}`,
-        `fui-variant-${variant}`,
-      )}
-    >
-      <span className="fui-ComboboxTriggerValue">
-        <ComboboxPrimitive.Value>{valueChildren}</ComboboxPrimitive.Value>
-      </span>
-      <ComboboxPrimitive.Icon>
-        <svg className="fui-ComboboxIcon" xmlns="http://www.w3.org/2000/svg" viewBox="3.25 5.25 9.5 5.5" fill="none">
-          <path
-            d="M4 6L8 10L12 6"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </ComboboxPrimitive.Icon>
-    </ComboboxPrimitive.Trigger>
-  );
+  const { render, ...triggerProps } = props;
+  return <ComboboxPrimitive.Trigger render={render} {...triggerProps} />;
 };
 ComboboxTrigger.displayName = 'ComboboxTrigger';
 

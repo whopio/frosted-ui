@@ -1,7 +1,7 @@
-import { XCircleFilled16 } from '@frosted-ui/icons';
+import { ChevronDown16, XCircleFilled16 } from '@frosted-ui/icons';
 import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
-import { IconButton, ScrollArea, Text, TextField } from '../index';
+import { Button, IconButton, ScrollArea, Text, TextField } from '../index';
 import * as Combobox from './combobox';
 
 const meta: Meta<typeof Combobox.Root> = {
@@ -444,7 +444,14 @@ export const InputInsidePopup: Story = {
   render: () => (
     <div style={{ maxWidth: 300 }}>
       <Combobox.Root items={fruits} size="2">
-        <Combobox.Trigger placeholder="Select country" variant="soft" color="gray" />
+        <Combobox.Trigger
+          render={
+            <Button variant="soft" color="gray">
+              <Combobox.Value>{(value) => (value != null ? String(value) : 'Select country')}</Combobox.Value>
+              <ChevronDown16 />
+            </Button>
+          }
+        />
         <Combobox.Content>
           <div style={{ padding: 8, borderBottom: '1px solid var(--gray-a5)' }}>
             <TextField.Root>
@@ -579,7 +586,14 @@ export const TriggerOnly: Story = {
           inputValue={inputValue}
           onInputValueChange={(value) => setInputValue(value)}
         >
-          <Combobox.Trigger placeholder="Choose a fruit" />
+          <Combobox.Trigger
+            render={
+              <Button variant="surface">
+                <Combobox.Value>{(value) => (value != null ? String(value) : 'Choose a fruit')}</Combobox.Value>
+                <ChevronDown16 />
+              </Button>
+            }
+          />
           <Combobox.Content>
             <ScrollArea type="auto" style={{ maxHeight: 300 }}>
               <Combobox.Empty>No fruits found.</Combobox.Empty>

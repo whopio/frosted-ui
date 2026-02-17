@@ -13,16 +13,6 @@ const comboboxRootPropDefs = {
   size: PropDef<(typeof sizes)[number]>;
 };
 
-const triggerVariants = ['classic', 'surface', 'soft', 'ghost'] as const;
-
-const comboboxTriggerPropDefs = {
-  variant: { type: 'enum', values: triggerVariants, default: 'surface' },
-  color: colorProp,
-} satisfies {
-  variant: PropDef<(typeof triggerVariants)[number]>;
-  color: typeof colorProp;
-};
-
 const comboboxContentPropDefs = {
   size: { type: 'enum', values: contentSizes, default: '2' },
   variant: { type: 'enum', values: contentVariants, default: 'translucent' },
@@ -45,5 +35,4 @@ export {
   comboboxContentPropDefs,
   comboboxItemPropDefs,
   comboboxRootPropDefs,
-  comboboxTriggerPropDefs,
 };
