@@ -9,6 +9,17 @@ const meta = {
   component: Tabs.List,
   args: {
     size: tabsListPropDefs.size.default,
+    color: tabsListPropDefs.color.default,
+  },
+  argTypes: {
+    size: {
+      control: 'select',
+      options: tabsListPropDefs.size.values,
+    },
+    color: {
+      control: 'select',
+      options: tabsListPropDefs.color.values,
+    },
   },
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
@@ -45,6 +56,59 @@ export const Default: Story = {
 
         <Tabs.Content value="settings" style={{ padding: '12px 16px 8px 16px' }}>
           <Text size="2">Edit your profile or update contact information.</Text>
+        </Tabs.Content>
+      </Tabs.Root>
+    </div>
+  ),
+};
+
+export const Color: Story = {
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', width: 600 }}>
+      <Tabs.Root defaultValue="account">
+        <Tabs.List {...args} color="indigo">
+          <Tabs.Trigger value="account">Account</Tabs.Trigger>
+          <Tabs.Trigger value="documents">Documents</Tabs.Trigger>
+          <Tabs.Trigger value="settings">Settings</Tabs.Trigger>
+        </Tabs.List>
+        <Tabs.Content value="account" style={{ padding: '12px 16px 8px 16px' }}>
+          <Text size="2">Indigo accent.</Text>
+        </Tabs.Content>
+        <Tabs.Content value="documents" style={{ padding: '12px 16px 8px 16px' }}>
+          <Text size="2">Documents.</Text>
+        </Tabs.Content>
+        <Tabs.Content value="settings" style={{ padding: '12px 16px 8px 16px' }}>
+          <Text size="2">Settings.</Text>
+        </Tabs.Content>
+      </Tabs.Root>
+
+      <Tabs.Root defaultValue="tab1">
+        <Tabs.List {...args} color="cyan">
+          <Tabs.Trigger value="tab1">Overview</Tabs.Trigger>
+          <Tabs.Trigger value="tab2">Analytics</Tabs.Trigger>
+          <Tabs.Trigger value="tab3">Reports</Tabs.Trigger>
+        </Tabs.List>
+        <Tabs.Content value="tab1" style={{ padding: '12px 16px 8px 16px' }}>
+          <Text size="2">Cyan accent.</Text>
+        </Tabs.Content>
+        <Tabs.Content value="tab2" style={{ padding: '12px 16px 8px 16px' }}>
+          <Text size="2">Analytics.</Text>
+        </Tabs.Content>
+        <Tabs.Content value="tab3" style={{ padding: '12px 16px 8px 16px' }}>
+          <Text size="2">Reports.</Text>
+        </Tabs.Content>
+      </Tabs.Root>
+
+      <Tabs.Root defaultValue="one">
+        <Tabs.List {...args} color="crimson">
+          <Tabs.Trigger value="one">One</Tabs.Trigger>
+          <Tabs.Trigger value="two">Two</Tabs.Trigger>
+        </Tabs.List>
+        <Tabs.Content value="one" style={{ padding: '12px 16px 8px 16px' }}>
+          <Text size="2">Crimson accent.</Text>
+        </Tabs.Content>
+        <Tabs.Content value="two" style={{ padding: '12px 16px 8px 16px' }}>
+          <Text size="2">Two.</Text>
         </Tabs.Content>
       </Tabs.Root>
     </div>

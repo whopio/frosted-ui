@@ -12,11 +12,12 @@ type TabsNavRootProps = Omit<React.ComponentProps<typeof NavigationMenu.Root>, '
   TabsNavOwnProps;
 
 const TabsNavRoot = (props: TabsNavRootProps) => {
-  const { children, className, size = tabsNavPropDefs.size.default, ...rootProps } = props;
+  const { children, className, size = tabsNavPropDefs.size.default, color = tabsNavPropDefs.color.default, ...rootProps } = props;
 
   return (
     <NavigationMenu.Root className="fui-TabsNavRoot" {...rootProps}>
       <NavigationMenu.List
+        data-accent-color={color}
         className={classNames('fui-reset', 'fui-BaseTabsList', 'fui-TabsNavList', className, `fui-r-size-${size}`)}
       >
         {children}

@@ -9,6 +9,17 @@ const meta = {
   component: TabsNav.Root,
   args: {
     size: tabsNavPropDefs.size.default,
+    color: tabsNavPropDefs.color.default,
+  },
+  argTypes: {
+    size: {
+      control: 'select',
+      options: tabsNavPropDefs.size.values,
+    },
+    color: {
+      control: 'select',
+      options: tabsNavPropDefs.color.values,
+    },
   },
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
@@ -32,6 +43,35 @@ export const Default: Story = {
         </TabsNav.Link>
         <TabsNav.Link href="#">Documents</TabsNav.Link>
         <TabsNav.Link href="#">Settings</TabsNav.Link>
+      </TabsNav.Root>
+    </div>
+  ),
+};
+
+export const Color: Story = {
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', width: 600 }}>
+      <TabsNav.Root {...args} color="indigo">
+        <TabsNav.Link active={true} href="#">
+          Account
+        </TabsNav.Link>
+        <TabsNav.Link href="#">Documents</TabsNav.Link>
+        <TabsNav.Link href="#">Settings</TabsNav.Link>
+      </TabsNav.Root>
+
+      <TabsNav.Root {...args} color="cyan">
+        <TabsNav.Link href="#">Overview</TabsNav.Link>
+        <TabsNav.Link active href="#">
+          Analytics
+        </TabsNav.Link>
+        <TabsNav.Link href="#">Reports</TabsNav.Link>
+      </TabsNav.Root>
+
+      <TabsNav.Root {...args} color="crimson">
+        <TabsNav.Link active href="#">
+          One
+        </TabsNav.Link>
+        <TabsNav.Link href="#">Two</TabsNav.Link>
       </TabsNav.Root>
     </div>
   ),
