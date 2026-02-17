@@ -136,21 +136,21 @@
 
 .fui-ComboboxViewport {
   box-sizing: border-box;
-  padding: var(--combobox-content-padding);
-
-  :where(.fui-ComboboxContent:has(.fui-ScrollAreaScrollbar[data-orientation='vertical'])) & {
-    padding-right: var(--space-3);
-  }
 }
 
 /* ============================================================================
  * Combobox List
- * Inner padding comes from viewport only (match Select / DropdownMenu)
+ * Padding on list (match Autocomplete), not on viewport
  * ============================================================================ */
 
 .fui-ComboboxList {
   display: flex;
   flex-direction: column;
+  padding: var(--combobox-content-padding);
+
+  :where(.fui-ComboboxContent:has(.fui-ScrollAreaScrollbar[data-orientation='vertical'])) & {
+    padding-right: var(--space-3);
+  }
 
   &:where(:empty) {
     display: none;

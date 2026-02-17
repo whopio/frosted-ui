@@ -72,27 +72,19 @@ export const Multiple: Story = {
     return (
       <div style={{ maxWidth: 400 }}>
         <Combobox.Root items={fruits} multiple value={value} onValueChange={(v) => setValue(v as string[])} size="2">
-          <Combobox.Chips
-            className="fui-ComboboxChips"
-            style={{ minHeight: 36, padding: '6px 10px', border: '1px solid var(--gray-a6)', borderRadius: 8 }}
-          >
-            <Combobox.Value>
-              {value.map((item) => (
-                <Combobox.Chip key={item}>
-                  {item}
-                  <Combobox.ChipRemove aria-label={`Remove ${item}`} />
-                </Combobox.Chip>
-              ))}
-            </Combobox.Value>
-            <Combobox.Input
-              render={
-                <input
-                  placeholder="Add fruit..."
-                  style={{ border: 'none', background: 'transparent', flex: 1, minWidth: 80, outline: 'none' }}
-                />
-              }
-            />
-          </Combobox.Chips>
+          <TextField.Root>
+            <Combobox.Chips className="fui-ComboboxChips">
+              <Combobox.Value>
+                {value.map((item) => (
+                  <Combobox.Chip key={item}>
+                    {item}
+                    <Combobox.ChipRemove aria-label={`Remove ${item}`} />
+                  </Combobox.Chip>
+                ))}
+              </Combobox.Value>
+              <Combobox.Input render={<TextField.Input placeholder="Add fruit..." />} />
+            </Combobox.Chips>
+          </TextField.Root>
           <Combobox.Content>
             <Combobox.Empty>No fruits found.</Combobox.Empty>
             <Combobox.List>
@@ -248,21 +240,10 @@ export const InputInsidePopup: Story = {
       <Combobox.Root items={fruits} size="2">
         <Combobox.Trigger placeholder="Select country" />
         <Combobox.Content>
-          <div style={{ padding: 'var(--space-2)', borderBottom: '1px solid var(--gray-a5)' }}>
-            <Combobox.Input
-              render={
-                <input
-                  placeholder="Search..."
-                  style={{
-                    width: '100%',
-                    padding: 'var(--space-2)',
-                    border: '1px solid var(--gray-a6)',
-                    borderRadius: 'var(--radius-2)',
-                    outline: 'none',
-                  }}
-                />
-              }
-            />
+          <div style={{ padding: 8, borderBottom: '1px solid var(--gray-a5)' }}>
+            <TextField.Root>
+              <Combobox.Input render={<TextField.Input placeholder="Search..." />} />
+            </TextField.Root>
           </div>
           <Combobox.Empty>No results.</Combobox.Empty>
           <Combobox.List>
