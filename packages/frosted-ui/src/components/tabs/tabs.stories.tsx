@@ -66,6 +66,46 @@ export const Default: Story = {
   ),
 };
 
+export const Size: Story = {
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', width: 600 }}>
+      <Tabs.Root defaultValue="account">
+        <Tabs.List {...args} size="1">
+          <Tabs.Trigger value="account">Account</Tabs.Trigger>
+          <Tabs.Trigger value="documents">Documents</Tabs.Trigger>
+          <Tabs.Trigger value="settings">Settings</Tabs.Trigger>
+        </Tabs.List>
+        <Tabs.Content value="account" style={{ padding: '12px 16px 8px 16px' }}>
+          <Text size="2">Size 1.</Text>
+        </Tabs.Content>
+        <Tabs.Content value="documents" style={{ padding: '12px 16px 8px 16px' }}>
+          <Text size="2">Documents.</Text>
+        </Tabs.Content>
+        <Tabs.Content value="settings" style={{ padding: '12px 16px 8px 16px' }}>
+          <Text size="2">Settings.</Text>
+        </Tabs.Content>
+      </Tabs.Root>
+
+      <Tabs.Root defaultValue="tab1">
+        <Tabs.List {...args} size="2">
+          <Tabs.Trigger value="tab1">Overview</Tabs.Trigger>
+          <Tabs.Trigger value="tab2">Analytics</Tabs.Trigger>
+          <Tabs.Trigger value="tab3">Reports</Tabs.Trigger>
+        </Tabs.List>
+        <Tabs.Content value="tab1" style={{ padding: '12px 16px 8px 16px' }}>
+          <Text size="2">Size 2.</Text>
+        </Tabs.Content>
+        <Tabs.Content value="tab2" style={{ padding: '12px 16px 8px 16px' }}>
+          <Text size="2">Analytics.</Text>
+        </Tabs.Content>
+        <Tabs.Content value="tab3" style={{ padding: '12px 16px 8px 16px' }}>
+          <Text size="2">Reports.</Text>
+        </Tabs.Content>
+      </Tabs.Root>
+    </div>
+  ),
+};
+
 export const Color: Story = {
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', width: 600 }}>

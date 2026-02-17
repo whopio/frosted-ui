@@ -52,6 +52,28 @@ export const Default: Story = {
   ),
 };
 
+export const Size: Story = {
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', width: 600 }}>
+      <TabsNav.Root {...args} size="1">
+        <TabsNav.Link active href="#">
+          Account
+        </TabsNav.Link>
+        <TabsNav.Link href="#">Documents</TabsNav.Link>
+        <TabsNav.Link href="#">Settings</TabsNav.Link>
+      </TabsNav.Root>
+
+      <TabsNav.Root {...args} size="2">
+        <TabsNav.Link href="#">Overview</TabsNav.Link>
+        <TabsNav.Link active href="#">
+          Analytics
+        </TabsNav.Link>
+        <TabsNav.Link href="#">Reports</TabsNav.Link>
+      </TabsNav.Root>
+    </div>
+  ),
+};
+
 export const Color: Story = {
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', width: 600 }}>
