@@ -140,19 +140,22 @@ export const Grouped: Story = {
         <Combobox.Content>
           <Combobox.Empty>No results.</Combobox.Empty>
           <Combobox.List>
-            {(group) => {
+            {(group, index) => {
               const g = group as ProduceGroup;
               return (
-                <Combobox.Group key={g.label} items={g.items}>
-                  <Combobox.GroupLabel>{g.label}</Combobox.GroupLabel>
-                  <Combobox.Collection>
-                    {(item) => (
-                      <Combobox.Item key={item as string} value={item}>
-                        {item as string}
-                      </Combobox.Item>
-                    )}
-                  </Combobox.Collection>
-                </Combobox.Group>
+                <React.Fragment key={g.label}>
+                  {index > 0 && <Combobox.Separator />}
+                  <Combobox.Group items={g.items}>
+                    <Combobox.GroupLabel>{g.label}</Combobox.GroupLabel>
+                    <Combobox.Collection>
+                      {(item) => (
+                        <Combobox.Item key={item as string} value={item}>
+                          {item as string}
+                        </Combobox.Item>
+                      )}
+                    </Combobox.Collection>
+                  </Combobox.Group>
+                </React.Fragment>
               );
             }}
           </Combobox.List>
