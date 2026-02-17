@@ -25,7 +25,6 @@
  * ============================================================================ */
 
 .fui-AutocompletePositioner {
-  z-index: 100;
   pointer-events: none;
   min-width: var(--anchor-width);
 

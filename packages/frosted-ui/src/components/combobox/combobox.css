@@ -1,0 +1,523 @@
+/* ============================================================================
+ * Combobox Trigger
+ * ============================================================================ */
+
+.fui-ComboboxTrigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  user-select: none;
+  vertical-align: top;
+  line-height: var(--height);
+
+  &:where(:focus-visible) {
+    outline: 2px solid var(--color-focus-root);
+    outline-offset: -1px;
+  }
+}
+
+.fui-ComboboxTriggerValue {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.fui-ComboboxIcon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 150ms ease;
+
+  &:where(:not(.fui-ComboboxTrigger[data-disabled] &)) {
+    color: var(--accent-a12);
+  }
+
+  .fui-ComboboxTrigger[data-popup-open] & {
+    transform: rotate(180deg);
+  }
+}
+
+/* ============================================================================
+ * Combobox Value (standalone, e.g. in Chips)
+ * ============================================================================ */
+
+.fui-ComboboxValue {
+  display: inline-block;
+}
+
+/* ============================================================================
+ * Combobox Clear
+ * ============================================================================ */
+
+.fui-ComboboxClear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  color: var(--gray-a10);
+  border: none;
+  background: none;
+  padding: var(--space-1);
+
+  @media (hover: hover) {
+    &:where(:hover:not([data-disabled])) {
+      color: var(--gray-12);
+    }
+  }
+
+  &:where([data-disabled]) {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}
+
+/* ============================================================================
+ * Combobox Positioner
+ * ============================================================================ */
+
+.fui-ComboboxPositioner {
+  outline: none;
+  pointer-events: none;
+  min-width: var(--anchor-width);
+
+  &[data-open] {
+    pointer-events: auto;
+  }
+
+  &:where([data-side]:not([data-side='none'])) {
+    max-height: var(--available-height);
+  }
+}
+
+/* ============================================================================
+ * Combobox Content
+ * Uses BaseMenu styles via class reuse
+ * ============================================================================ */
+
+.fui-ComboboxContent {
+  --combobox-content-padding: var(--space-1);
+  --scrollarea-scrollbar-vertical-margin-top: var(--combobox-content-padding);
+  --scrollarea-scrollbar-vertical-margin-bottom: var(--combobox-content-padding);
+  --scrollarea-scrollbar-horizontal-margin-left: var(--combobox-content-padding);
+  --scrollarea-scrollbar-horizontal-margin-right: var(--combobox-content-padding);
+
+  min-width: var(--anchor-width);
+  max-height: var(--available-height);
+  overflow: hidden;
+  pointer-events: auto;
+  transform-origin: var(--transform-origin);
+
+  /* Animation */
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 150ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+  }
+}
+
+/* ScrollArea integration for Combobox */
+.fui-ComboboxContent > .fui-ScrollAreaRoot {
+  height: 100%;
+}
+
+.fui-ComboboxContent .fui-ScrollAreaViewport {
+  max-height: var(--available-height);
+}
+
+.fui-ComboboxViewport {
+  box-sizing: border-box;
+  padding: var(--combobox-content-padding);
+
+  :where(.fui-ComboboxContent:has(.fui-ScrollAreaScrollbar[data-orientation='vertical'])) & {
+    padding-right: var(--space-3);
+  }
+}
+
+/* ============================================================================
+ * Combobox List
+ * Inner padding comes from viewport only (match Select / DropdownMenu)
+ * ============================================================================ */
+
+.fui-ComboboxList {
+  display: flex;
+  flex-direction: column;
+
+  &:where(:empty) {
+    display: none;
+  }
+}
+
+/* ============================================================================
+ * Combobox Item, ItemIndicator
+ * Match Select: same indicator width and padding; indicator only visible when selected
+ * ============================================================================ */
+
+.fui-ComboboxItem {
+  display: flex;
+  align-items: center;
+  height: var(--combobox-item-height);
+  padding-left: var(--combobox-item-indicator-width);
+  padding-right: var(--combobox-item-indicator-width);
+  position: relative;
+  box-sizing: border-box;
+  outline: none;
+  cursor: var(--cursor-menu-item);
+  scroll-margin: var(--combobox-content-padding) 0;
+  user-select: none;
+}
+
+.fui-ComboboxItem:where([data-disabled]) {
+  pointer-events: none;
+}
+
+.fui-ComboboxItemIndicator {
+  position: absolute;
+  left: 0;
+  width: var(--combobox-item-indicator-width);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* Only show checkmark when item is selected */
+  visibility: hidden;
+}
+
+.fui-ComboboxItem[data-selected] .fui-ComboboxItemIndicator {
+  visibility: visible;
+}
+
+.fui-ComboboxItemIndicatorIcon {
+  flex-shrink: 0;
+}
+
+.fui-ComboboxContent :where(.fui-ComboboxItem[data-highlighted]:not([data-disabled])) {
+  background-color: var(--gray-a4);
+}
+
+/* ============================================================================
+ * Combobox Content sizes (match Select)
+ * ============================================================================ */
+
+.fui-ComboboxContent:where(.fui-r-size-1) {
+  --combobox-item-height: var(--space-5);
+  --combobox-item-indicator-width: calc(var(--space-5) / 1.2);
+  border-radius: 8px;
+}
+
+.fui-ComboboxContent:where(.fui-r-size-1) .fui-ComboboxItem {
+  font-size: var(--font-size-1);
+  line-height: var(--line-height-1);
+  letter-spacing: var(--letter-spacing-1);
+  border-radius: 4px;
+}
+
+.fui-ComboboxContent:where(.fui-r-size-1) .fui-ComboboxItemIndicatorIcon {
+  width: 8px;
+  height: 8px;
+}
+
+.fui-ComboboxContent:where(.fui-r-size-2) {
+  --combobox-item-height: var(--space-6);
+  --combobox-item-indicator-width: calc(var(--space-6) / 1.2);
+  border-radius: 10px;
+}
+
+.fui-ComboboxContent:where(.fui-r-size-2) .fui-ComboboxItem {
+  font-size: var(--font-size-2);
+  line-height: var(--line-height-2);
+  letter-spacing: var(--letter-spacing-2);
+  border-radius: 6px;
+}
+
+.fui-ComboboxContent:where(.fui-r-size-2) .fui-ComboboxItemIndicatorIcon {
+  width: 10px;
+  height: 10px;
+}
+
+.fui-ComboboxContent:where(.fui-r-size-3) {
+  --combobox-item-height: var(--space-7);
+  --combobox-item-indicator-width: calc(var(--space-7) / 1.2);
+  border-radius: 12px;
+}
+
+.fui-ComboboxContent:where(.fui-r-size-3) .fui-ComboboxItem {
+  font-size: var(--font-size-3);
+  line-height: var(--line-height-3);
+  letter-spacing: var(--letter-spacing-3);
+  border-radius: 8px;
+}
+
+.fui-ComboboxContent:where(.fui-r-size-3) .fui-ComboboxItemIndicatorIcon {
+  width: 12px;
+  height: 12px;
+}
+
+/* ============================================================================
+ * Combobox Empty
+ * ============================================================================ */
+
+.fui-ComboboxEmpty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  color: var(--gray-a10);
+  font-size: var(--font-size-2);
+  line-height: var(--line-height-2);
+  text-align: center;
+
+  &:where(:empty) {
+    display: none;
+  }
+}
+
+/* ============================================================================
+ * Combobox Group, GroupLabel, Separator
+ * GroupLabel uses same left offset as items (match Select)
+ * ============================================================================ */
+
+.fui-ComboboxGroupLabel {
+  height: var(--combobox-item-height);
+  padding-left: var(--combobox-item-indicator-width);
+  padding-right: var(--combobox-item-indicator-width);
+}
+
+.fui-ComboboxItem + .fui-ComboboxGroupLabel {
+  margin-top: var(--space-2);
+}
+
+/* ============================================================================
+ * Combobox Chips
+ * ============================================================================ */
+
+.fui-ComboboxChips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+  flex: 1;
+  min-width: 0;
+}
+
+.fui-ComboboxChip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-1) 2px var(--space-2);
+  font-size: inherit;
+  line-height: inherit;
+  border-radius: var(--radius-1);
+  background-color: var(--gray-a4);
+  color: var(--gray-12);
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.fui-ComboboxChipRemove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  margin-left: 2px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--gray-a11);
+  border-radius: 2px;
+
+  @media (hover: hover) {
+    &:where(:hover:not([data-disabled])) {
+      color: var(--gray-12);
+      background-color: var(--gray-a4);
+    }
+  }
+}
+
+/* ============================================================================
+ * Trigger sizes (reuse Select trigger size tokens where applicable)
+ * ============================================================================ */
+
+.fui-ComboboxTrigger {
+  color: var(--gray-12);
+  height: var(--combobox-trigger-height);
+}
+
+.fui-ComboboxTrigger {
+  &:where(.fui-r-size-1) {
+    --combobox-trigger-height: var(--space-5);
+    gap: var(--space-1);
+    font-size: var(--font-size-1);
+    line-height: var(--line-height-1);
+    letter-spacing: var(--letter-spacing-1);
+    border-radius: 6px;
+    padding-left: var(--space-2);
+    padding-right: var(--space-2);
+
+    & :where(.fui-ComboboxIcon) {
+      width: 8px;
+      height: 8px;
+    }
+  }
+  &:where(.fui-r-size-2) {
+    --combobox-trigger-height: var(--space-6);
+    gap: calc(var(--space-1) * 1.5);
+    font-size: var(--font-size-2);
+    line-height: var(--line-height-2);
+    letter-spacing: var(--letter-spacing-2);
+    border-radius: 8px;
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+
+    & :where(.fui-ComboboxIcon) {
+      width: 10px;
+      height: 10px;
+      margin-bottom: -1px;
+    }
+  }
+  &:where(.fui-r-size-3) {
+    --combobox-trigger-height: var(--space-7);
+    gap: var(--space-2);
+    font-size: var(--font-size-3);
+    line-height: var(--line-height-3);
+    letter-spacing: var(--letter-spacing-3);
+    border-radius: 10px;
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+
+    & :where(.fui-ComboboxIcon) {
+      width: 12px;
+      height: 12px;
+    }
+  }
+  &:where(.fui-r-size-4) {
+    --combobox-trigger-height: var(--space-8);
+    gap: var(--space-2);
+    font-size: var(--font-size-4);
+    line-height: var(--line-height-4);
+    letter-spacing: var(--letter-spacing-4);
+    border-radius: 12px;
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+
+    & :where(.fui-ComboboxIcon) {
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
+
+/* ============================================================================
+ * Trigger variants (reuse Select trigger variants)
+ * ============================================================================ */
+
+.fui-ComboboxTrigger:where(.fui-variant-surface) {
+  color: var(--accent-a11);
+
+  &:where([data-accent-color='gray']) {
+    color: var(--gray-12);
+  }
+
+  background-color: var(--color-surface);
+  box-shadow:
+    inset 0 0 0 1px var(--gray-a5),
+    0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+
+  @media (hover: hover) {
+    &:where(:not(:disabled):hover) {
+      box-shadow:
+        inset 0 0 0 1px var(--gray-a7),
+        0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+    }
+  }
+  &:where([data-popup-open]) {
+    box-shadow: inset 0 0 0 1px var(--gray-a7);
+  }
+  &:where([data-placeholder]) {
+    color: var(--accent-a10);
+  }
+  &:where(:disabled) {
+    cursor: var(--cursor-disabled);
+    color: var(--gray-a8);
+    background-image: linear-gradient(var(--gray-a3), var(--gray-a3));
+  }
+}
+
+.fui-ComboboxTrigger:where(.fui-variant-soft) {
+  color: var(--accent-a11);
+  background-color: var(--accent-a3);
+
+  &:where([data-accent-color='gray']) {
+    color: var(--gray-12);
+    background-color: var(--gray-a3);
+  }
+
+  @media (hover: hover) {
+    &:where(:not(:disabled):hover) {
+      background-color: var(--accent-a4);
+    }
+    &:where([data-accent-color='gray']:not(:disabled):hover) {
+      background-color: var(--gray-a4);
+    }
+  }
+  &:where([data-placeholder]) {
+    color: var(--accent-a10);
+  }
+  &:where(:disabled) {
+    cursor: var(--cursor-disabled);
+    color: var(--gray-a8);
+    background-color: var(--gray-a2);
+  }
+}
+
+.fui-ComboboxTrigger:where(.fui-variant-ghost) {
+  color: var(--accent-a11);
+
+  &:where([data-accent-color='gray']) {
+    color: var(--gray-12);
+  }
+
+  @media (hover: hover) {
+    &:where(:not(:disabled):hover) {
+      background-color: var(--accent-a3);
+    }
+    &:where([data-accent-color='gray']:not(:disabled):hover) {
+      background-color: var(--gray-a3);
+    }
+  }
+  &:where([data-placeholder]) {
+    color: var(--accent-a10);
+  }
+  &:where(:disabled) {
+    cursor: var(--cursor-disabled);
+    color: var(--gray-a8);
+  }
+}
+
+.fui-ComboboxTrigger:where(.fui-variant-classic) {
+  color: var(--gray-12);
+  background-image: linear-gradient(var(--gray-2), var(--gray-1));
+  box-shadow: var(--select-trigger-classic-box-shadow);
+  position: relative;
+
+  @media (hover: hover) {
+    &:where(:not(:disabled):hover) {
+      background-image: linear-gradient(var(--gray-3), var(--gray-2));
+    }
+  }
+  &:where([data-placeholder]) {
+    color: var(--gray-a11);
+  }
+  &:where(:disabled) {
+    cursor: var(--cursor-disabled);
+    color: var(--gray-a8);
+    background-image: linear-gradient(var(--gray-a2), var(--gray-a2));
+  }
+}
