@@ -57,11 +57,6 @@
  *                                                                                                 *
  ***************************************************************************************************/
 
-.fui-BaseTabsTrigger {
-  padding-left: var(--tabs-trigger-padding-x);
-  padding-right: var(--tabs-trigger-padding-x);
-}
-
 .fui-BaseTabsTriggerInner,
 .fui-BaseTabsTriggerInnerHidden {
   padding: var(--tabs-trigger-inner-padding-y) var(--tabs-trigger-inner-padding-x);
@@ -74,7 +69,6 @@
     font-size: var(--font-size-1);
     line-height: var(--line-height-1);
     letter-spacing: var(--letter-spacing-1);
-    --tabs-trigger-padding-x: var(--space-1);
     --tabs-trigger-inner-padding-x: calc(1.5 * var(--space-1));
     --tabs-trigger-inner-padding-y: var(--space-1);
     --tabs-trigger-inner-border-radius: var(--radius-2);
@@ -84,7 +78,6 @@
     font-size: var(--font-size-2);
     line-height: var(--line-height-2);
     letter-spacing: var(--letter-spacing-2);
-    --tabs-trigger-padding-x: var(--space-1);
     --tabs-trigger-inner-padding-x: calc(1.25 * var(--space-2));
     --tabs-trigger-inner-padding-y: var(--space-1);
     --tabs-trigger-inner-border-radius: var(--radius-3);
@@ -102,7 +95,7 @@
 }
 
 .fui-BaseTabsTrigger {
-  color: var(--gray-a11);
+  color: var(--gray-a10);
 
   @media (hover: hover) {
     &:where(:hover) {
@@ -110,9 +103,6 @@
     }
     &:where(:hover) :where(.fui-BaseTabsTriggerInner) {
       background-color: var(--gray-a3);
-    }
-    &:where(:focus-visible:hover) :where(.fui-BaseTabsTriggerInner) {
-      background-color: var(--accent-a3);
     }
   }
   &:where([data-selected], [data-active]) {
