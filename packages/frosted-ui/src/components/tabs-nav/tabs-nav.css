@@ -1,5 +1,13 @@
 @import '../base-tabs-list/base-tabs-list.css';
 
+/* List (ul) uses display:contents so the nav is the single layout container; both Root and List are required by Base UI. */
+.fui-TabsNavListContents {
+  display: contents;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 .fui-TabsNavItem {
   display: flex;
 }

@@ -21,14 +21,23 @@ const TabsNavRoot = (props: TabsNavRootProps) => {
     ...rootProps
   } = props;
 
+  // Base UI requires both Root (context + <nav>) and List (<ul> + CompositeRoot). We apply tab-list
+  // styling to Root and use display:contents on List so the nav is the single layout container.
   return (
-    <NavigationMenu.Root className="fui-TabsNavRoot" {...rootProps}>
-      <NavigationMenu.List
-        data-accent-color={color}
-        className={classNames('fui-reset', 'fui-BaseTabsList', 'fui-TabsNavList', className, `fui-r-size-${size}`, {
-          'fui-high-contrast': highContrast,
-        })}
-      >
+    <NavigationMenu.Root
+      data-accent-color={color}
+      className={classNames(
+        'fui-TabsNavRoot',
+        'fui-reset',
+        'fui-BaseTabsList',
+        'fui-TabsNavList',
+        className,
+        `fui-r-size-${size}`,
+        { 'fui-high-contrast': highContrast },
+      )}
+      {...rootProps}
+    >
+      <NavigationMenu.List className="fui-reset fui-TabsNavListContents">
         {children}
       </NavigationMenu.List>
     </NavigationMenu.Root>
