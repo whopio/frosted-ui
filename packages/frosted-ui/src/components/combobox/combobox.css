@@ -51,6 +51,8 @@
 
 /* ============================================================================
  * Combobox Clear
+ * Uses render prop pattern - styling provided by consumer element.
+ * Apply .fui-ComboboxClear to the rendered element for default clear button styles.
  * ============================================================================ */
 
 .fui-ComboboxClear {

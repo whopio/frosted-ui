@@ -1,7 +1,8 @@
+import { XCircleFilled16 } from '@frosted-ui/icons';
 import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
+import { IconButton, TextField } from '../index';
 import * as Combobox from './combobox';
-import { TextField } from '../index';
 
 const meta: Meta<typeof Combobox.Root> = {
   title: 'Controls/Combobox',
@@ -40,19 +41,9 @@ export const Default: Story = {
           <Combobox.Input render={<TextField.Input placeholder="Choose a fruit..." />} />
           <TextField.Slot>
             <Combobox.Clear aria-label="Clear selection">
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M18 6L6 18" />
-                <path d="M6 6l12 12" />
-              </svg>
+              <IconButton variant="ghost" color="gray" size="1">
+                <XCircleFilled16 />
+              </IconButton>
             </Combobox.Clear>
           </TextField.Slot>
         </TextField.Root>
@@ -80,14 +71,11 @@ export const Multiple: Story = {
     const [value, setValue] = React.useState<string[]>(['Apple', 'Orange']);
     return (
       <div style={{ maxWidth: 400 }}>
-        <Combobox.Root
-          items={fruits}
-          multiple
-          value={value}
-          onValueChange={(v) => setValue(v as string[])}
-          size="2"
-        >
-          <Combobox.Chips className="fui-ComboboxChips" style={{ minHeight: 36, padding: '6px 10px', border: '1px solid var(--gray-a6)', borderRadius: 8 }}>
+        <Combobox.Root items={fruits} multiple value={value} onValueChange={(v) => setValue(v as string[])} size="2">
+          <Combobox.Chips
+            className="fui-ComboboxChips"
+            style={{ minHeight: 36, padding: '6px 10px', border: '1px solid var(--gray-a6)', borderRadius: 8 }}
+          >
             <Combobox.Value>
               {value.map((item) => (
                 <Combobox.Chip key={item}>
@@ -97,7 +85,12 @@ export const Multiple: Story = {
               ))}
             </Combobox.Value>
             <Combobox.Input
-              render={<input placeholder="Add fruit..." style={{ border: 'none', background: 'transparent', flex: 1, minWidth: 80, outline: 'none' }} />}
+              render={
+                <input
+                  placeholder="Add fruit..."
+                  style={{ border: 'none', background: 'transparent', flex: 1, minWidth: 80, outline: 'none' }}
+                />
+              }
             />
           </Combobox.Chips>
           <Combobox.Content>
@@ -223,8 +216,10 @@ export const ClearButton: Story = {
         <TextField.Root>
           <Combobox.Input render={<TextField.Input placeholder="Choose a fruit..." />} />
           <TextField.Slot>
-            <Combobox.Clear aria-label="Clear" keepMounted>
-              <span aria-hidden style={{ fontSize: 14 }}>×</span>
+            <Combobox.Clear aria-label="Clear">
+              <IconButton variant="ghost" color="gray" size="1">
+                <XCircleFilled16 />
+              </IconButton>
             </Combobox.Clear>
           </TextField.Slot>
         </TextField.Root>

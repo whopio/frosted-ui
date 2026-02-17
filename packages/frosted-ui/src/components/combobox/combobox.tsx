@@ -220,16 +220,12 @@ ComboboxIcon.displayName = 'ComboboxIcon';
 // Clear
 // ============================================================================
 
-interface ComboboxClearProps extends Omit<React.ComponentProps<typeof ComboboxPrimitive.Clear>, 'className' | 'render'> {
+interface ComboboxClearProps extends Omit<React.ComponentProps<typeof ComboboxPrimitive.Clear>, 'render' | 'className'> {
   className?: string;
 }
 
-function ComboboxClear({ children, className, ...props }: ComboboxClearProps) {
-  return (
-    <ComboboxPrimitive.Clear {...props} className={classNames('fui-ComboboxClear', className)}>
-      {children}
-    </ComboboxPrimitive.Clear>
-  );
+function ComboboxClear({ children, ...props }: ComboboxClearProps) {
+  return <ComboboxPrimitive.Clear {...props} render={children as React.ReactElement} />;
 }
 ComboboxClear.displayName = 'ComboboxClear';
 
