@@ -10,6 +10,7 @@ const meta = {
   args: {
     size: tabsNavPropDefs.size.default,
     color: tabsNavPropDefs.color.default,
+    highContrast: tabsNavPropDefs.highContrast.default,
   },
   argTypes: {
     size: {
@@ -19,6 +20,9 @@ const meta = {
     color: {
       control: 'select',
       options: tabsNavPropDefs.color.values,
+    },
+    highContrast: {
+      control: 'boolean',
     },
   },
   parameters: {
@@ -72,6 +76,29 @@ export const Color: Story = {
           One
         </TabsNav.Link>
         <TabsNav.Link href="#">Two</TabsNav.Link>
+      </TabsNav.Root>
+    </div>
+  ),
+};
+
+export const HighContrast: Story = {
+  name: 'High Contrast',
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', width: 600 }}>
+      <TabsNav.Root {...args} highContrast={false}>
+        <TabsNav.Link active href="#">
+          Account
+        </TabsNav.Link>
+        <TabsNav.Link href="#">Documents</TabsNav.Link>
+        <TabsNav.Link href="#">Settings</TabsNav.Link>
+      </TabsNav.Root>
+
+      <TabsNav.Root {...args} highContrast>
+        <TabsNav.Link href="#">Overview</TabsNav.Link>
+        <TabsNav.Link active href="#">
+          Analytics
+        </TabsNav.Link>
+        <TabsNav.Link href="#">Reports</TabsNav.Link>
       </TabsNav.Root>
     </div>
   ),

@@ -23,12 +23,20 @@ type TabsListProps = Omit<PropsWithoutColor<typeof TabsPrimitive.List>, 'classNa
   TabsListOwnProps;
 
 const TabsList = (props: TabsListProps) => {
-  const { className, size = tabsListPropDefs.size.default, color = tabsListPropDefs.color.default, ...listProps } = props;
+  const {
+    className,
+    size = tabsListPropDefs.size.default,
+    color = tabsListPropDefs.color.default,
+    highContrast = tabsListPropDefs.highContrast.default,
+    ...listProps
+  } = props;
   return (
     <TabsPrimitive.List
       {...listProps}
       data-accent-color={color}
-      className={classNames('fui-BaseTabsList', 'fui-TabsList', className, `fui-r-size-${size}`)}
+      className={classNames('fui-BaseTabsList', 'fui-TabsList', className, `fui-r-size-${size}`, {
+        'fui-high-contrast': highContrast,
+      })}
     />
   );
 };
