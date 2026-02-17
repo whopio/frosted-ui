@@ -444,7 +444,7 @@ export const InputInsidePopup: Story = {
   render: () => (
     <div style={{ maxWidth: 300 }}>
       <Combobox.Root items={fruits} size="2">
-        <Combobox.Trigger placeholder="Select country" />
+        <Combobox.Trigger placeholder="Select country" variant="soft" color="gray" />
         <Combobox.Content>
           <div style={{ padding: 8, borderBottom: '1px solid var(--gray-a5)' }}>
             <TextField.Root>
