@@ -482,6 +482,9 @@ export const InputInsidePopup: Story = {
         <Combobox.Content>
           <div style={{ padding: 8, borderBottom: '1px solid var(--gray-a5)' }}>
             <Combobox.InputRoot>
+              <Combobox.InputSlot>
+                <MagnifyingGlass16 />
+              </Combobox.InputSlot>
               <Combobox.Input placeholder="Search..." />
             </Combobox.InputRoot>
           </div>
