@@ -304,7 +304,7 @@
 .fui-ComboboxEmpty {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   padding: var(--space-4);
   color: var(--gray-a10);
   font-size: var(--font-size-2);

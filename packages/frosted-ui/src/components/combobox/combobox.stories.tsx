@@ -361,13 +361,12 @@ export const Grouped: Story = {
           <ScrollArea type="auto" style={{ maxHeight: 300 }}>
             <Combobox.Empty>No results.</Combobox.Empty>
             <Combobox.List>
-              {(group, index) => {
-                const g = group as ProduceGroup;
+              {(group: ProduceGroup, index) => {
                 return (
-                  <React.Fragment key={g.label}>
+                  <React.Fragment key={group.label}>
                     {index > 0 && <Combobox.Separator />}
-                    <Combobox.Group items={g.items}>
-                      <Combobox.GroupLabel>{g.label}</Combobox.GroupLabel>
+                    <Combobox.Group items={group.items}>
+                      <Combobox.GroupLabel>{group.label}</Combobox.GroupLabel>
                       <Combobox.Collection>
                         {(item) => (
                           <Combobox.Item key={item as string} value={item}>
@@ -686,6 +685,7 @@ export const AsyncSearchSingle: Story = {
     const [results, setResults] = React.useState<User[]>([]);
     const [selected, setSelected] = React.useState<User | null>(null);
     const [loading, setLoading] = React.useState(false);
+    const [inputValue, setInputValue] = React.useState('');
 
     const items = React.useMemo(() => {
       if (selected && !results.some((r) => r.login === selected.login)) {
@@ -695,6 +695,7 @@ export const AsyncSearchSingle: Story = {
     }, [results, selected]);
 
     const handleInputValueChange = React.useCallback((query: string) => {
+      setInputValue(query);
       setLoading(true);
       fakeSearchUsers(query).then((res) => {
         setResults(res);
@@ -717,37 +718,37 @@ export const AsyncSearchSingle: Story = {
             isItemEqualToValue={(a, b) => (a as User).login === (b as User).login}
           >
             <Combobox.InputRoot showClear>
-              <Combobox.InputSlot>
-                {loading ? <Spinner size="2" /> : <MagnifyingGlass16 />}
-              </Combobox.InputSlot>
+              <Combobox.InputSlot>{loading ? <Spinner size="2" /> : <MagnifyingGlass16 />}</Combobox.InputSlot>
               <Combobox.Input placeholder="Search users..." />
             </Combobox.InputRoot>
             <Combobox.Content>
-            <ScrollArea type="auto" style={{ maxHeight: 300 }}>
-              <Combobox.Empty>No users found.</Combobox.Empty>
-              <Combobox.List>
-                {(item) => {
-                  const user = item as User;
-                  return (
-                    <Combobox.Item
-                      key={user.login}
-                      value={user}
-                      style={{ height: 'auto', paddingTop: 8, paddingBottom: 8 }}
-                    >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                        <Avatar fallback={user.name} size="2" />
-                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                          <Text size="2">{user.name}</Text>
-                          <Text size="1" color="gray">
-                            @{user.login}
-                          </Text>
+              <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+                <Combobox.Empty>
+                  {loading ? 'Searching...' : inputValue ? 'No users found.' : 'Start typing to search users...'}
+                </Combobox.Empty>
+                <Combobox.List>
+                  {(item) => {
+                    const user = item as User;
+                    return (
+                      <Combobox.Item
+                        key={user.login}
+                        value={user}
+                        style={{ height: 'auto', paddingTop: 8, paddingBottom: 8 }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                          <Avatar fallback={user.name} size="2" />
+                          <div style={{ display: 'flex', flexDirection: 'column' }}>
+                            <Text size="2">{user.name}</Text>
+                            <Text size="1" color="gray">
+                              @{user.login}
+                            </Text>
+                          </div>
                         </div>
-                      </div>
-                    </Combobox.Item>
-                  );
-                }}
-              </Combobox.List>
-            </ScrollArea>
+                      </Combobox.Item>
+                    );
+                  }}
+                </Combobox.List>
+              </ScrollArea>
             </Combobox.Content>
           </Combobox.Root>
         </Field.Root>
@@ -765,6 +766,8 @@ export const AsyncSearchMultiple: Story = {
   render: function AsyncSearchMultipleStory() {
     const [results, setResults] = React.useState<User[]>([]);
     const [selected, setSelected] = React.useState<User[]>([]);
+    const [inputValue, setInputValue] = React.useState('');
+    const [loading, setLoading] = React.useState(false);
 
     const items = React.useMemo(() => {
       const resultLogins = new Set(results.map((r) => r.login));
@@ -773,8 +776,11 @@ export const AsyncSearchMultiple: Story = {
     }, [results, selected]);
 
     const handleInputValueChange = React.useCallback((query: string) => {
+      setInputValue(query);
+      setLoading(true);
       fakeSearchUsers(query).then((res) => {
         setResults(res);
+        setLoading(false);
       });
     }, []);
 
@@ -794,43 +800,45 @@ export const AsyncSearchMultiple: Story = {
             isItemEqualToValue={(a, b) => (a as User).login === (b as User).login}
           >
             <Combobox.Chips>
-            <Combobox.Value>
-              {(values: User[]) => (
-                <React.Fragment>
-                  {values.map((user) => (
-                    <Combobox.Chip key={user.login}>{user.name}</Combobox.Chip>
-                  ))}
-                  <Combobox.ChipsInput placeholder={values.length > 0 ? '' : 'Search users...'} />
-                </React.Fragment>
-              )}
-            </Combobox.Value>
-          </Combobox.Chips>
-          <Combobox.Content>
-            <ScrollArea type="auto" style={{ maxHeight: 300 }}>
-              <Combobox.Empty>No users found.</Combobox.Empty>
-              <Combobox.List>
-                {(item) => {
-                  const user = item as User;
-                  return (
-                    <Combobox.Item
-                      key={user.login}
-                      value={user}
-                      style={{ height: 'auto', paddingTop: 8, paddingBottom: 8 }}
-                    >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                        <Avatar fallback={user.name} size="2" />
-                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                          <Text size="2">{user.name}</Text>
-                          <Text size="1" color="gray">
-                            @{user.login}
-                          </Text>
+              <Combobox.Value>
+                {(values: User[]) => (
+                  <React.Fragment>
+                    {values.map((user) => (
+                      <Combobox.Chip key={user.login}>{user.name}</Combobox.Chip>
+                    ))}
+                    <Combobox.ChipsInput placeholder={values.length > 0 ? '' : 'Search users...'} />
+                  </React.Fragment>
+                )}
+              </Combobox.Value>
+            </Combobox.Chips>
+            <Combobox.Content>
+              <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+                <Combobox.Empty>
+                  {loading ? 'Searching...' : inputValue ? 'No users found.' : 'Start typing to search users...'}
+                </Combobox.Empty>
+                <Combobox.List>
+                  {(item) => {
+                    const user = item as User;
+                    return (
+                      <Combobox.Item
+                        key={user.login}
+                        value={user}
+                        style={{ height: 'auto', paddingTop: 8, paddingBottom: 8 }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                          <Avatar fallback={user.name} size="2" />
+                          <div style={{ display: 'flex', flexDirection: 'column' }}>
+                            <Text size="2">{user.name}</Text>
+                            <Text size="1" color="gray">
+                              @{user.login}
+                            </Text>
+                          </div>
                         </div>
-                      </div>
-                    </Combobox.Item>
-                  );
-                }}
-              </Combobox.List>
-            </ScrollArea>
+                      </Combobox.Item>
+                    );
+                  }}
+                </Combobox.List>
+              </ScrollArea>
             </Combobox.Content>
           </Combobox.Root>
         </Field.Root>
