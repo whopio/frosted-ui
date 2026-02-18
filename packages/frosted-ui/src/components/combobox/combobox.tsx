@@ -35,11 +35,13 @@ type ComboboxValue<Value, Multiple extends boolean | undefined> = Multiple exten
 // Context
 // ============================================================================
 
-interface ComboboxContextValue extends ComboboxRootOwnProps {}
+interface ComboboxContextValue extends ComboboxRootOwnProps {
+  inputAnchorRef?: React.RefObject<HTMLDivElement | null>;
+}
 const ComboboxContext = React.createContext<ComboboxContextValue>({});
 
 type ComboboxContentContextValue = ComboboxContentOwnProps;
-const ComboboxContentContext = React.createContext<ComboboxContentContextValue>({});
+const ComboboxContentContext = React.createContext<ComboboxContentContextValue | null>(null);
 
 // ============================================================================
 // Root
@@ -57,13 +59,16 @@ function ComboboxRoot<Value = unknown, Multiple extends boolean | undefined = fa
   props: ComboboxRootProps<Value, Multiple>,
 ) {
   const { children, size = comboboxRootPropDefs.size.default, items, itemToStringLabel, ...rootProps } = props;
+  const inputAnchorRef = React.useRef<HTMLDivElement | null>(null);
   return (
     <ComboboxPrimitive.Root
       items={items}
       itemToStringLabel={itemToStringLabel}
       {...(rootProps as ComboboxPrimitive.Root.Props<Value, Multiple>)}
     >
-      <ComboboxContext.Provider value={React.useMemo(() => ({ size }), [size])}>{children}</ComboboxContext.Provider>
+      <ComboboxContext.Provider value={React.useMemo(() => ({ size, inputAnchorRef }), [size])}>
+        {children}
+      </ComboboxContext.Provider>
     </ComboboxPrimitive.Root>
   );
 }
@@ -82,6 +87,8 @@ interface ComboboxInputProps extends Omit<TextFieldRootProps, 'children'> {
 
 const ComboboxInput = React.forwardRef<HTMLDivElement, ComboboxInputProps>((props, forwardedRef) => {
   const context = React.useContext(ComboboxContext);
+  const contentContext = React.useContext(ComboboxContentContext);
+  const isInsideContent = contentContext !== null;
   const {
     className,
     placeholder,
@@ -92,9 +99,18 @@ const ComboboxInput = React.forwardRef<HTMLDivElement, ComboboxInputProps>((prop
     ...textFieldRootProps
   } = props;
 
+  const mergedRef = React.useCallback(
+    (node: HTMLDivElement | null) => {
+      if (!isInsideContent && context.inputAnchorRef) context.inputAnchorRef.current = node;
+      if (typeof forwardedRef === 'function') forwardedRef(node);
+      else if (forwardedRef) forwardedRef.current = node;
+    },
+    [isInsideContent, context.inputAnchorRef, forwardedRef],
+  );
+
   return (
     <TextFieldRoot
-      ref={forwardedRef}
+      ref={mergedRef}
       size={size}
       {...textFieldRootProps}
       className={classNames('fui-ComboboxInput', className)}
@@ -252,7 +268,7 @@ const ComboboxContent = (props: ComboboxContentProps) => {
     highContrast = comboboxContentPropDefs.highContrast.default,
     container,
     keepMounted,
-    anchor,
+    anchor = rootContext.inputAnchorRef,
     side = 'bottom',
     sideOffset = 4,
     align = 'start',
@@ -460,7 +476,7 @@ const ComboboxSeparator = (props: ComboboxSeparatorProps) => {
 ComboboxSeparator.displayName = 'ComboboxSeparator';
 
 // ============================================================================
-// Chips (renders TextField.Root internally; use ref for anchor, e.g. useComboboxAnchor())
+// Chips (renders TextField.Root internally, auto-registers as anchor)
 // Accepts the same props as TextField.Root: size, variant, color, className, etc.
 // ============================================================================
 
@@ -469,6 +485,16 @@ interface ComboboxChipsProps extends TextFieldRootProps {}
 const ComboboxChips = React.forwardRef<HTMLDivElement, ComboboxChipsProps>((props, forwardedRef) => {
   const context = React.useContext(ComboboxContext);
   const { className, size = context.size, variant, color, children, ...rest } = props;
+
+  const mergedRef = React.useCallback(
+    (node: HTMLDivElement | null) => {
+      if (context.inputAnchorRef) context.inputAnchorRef.current = node;
+      if (typeof forwardedRef === 'function') forwardedRef(node);
+      else if (forwardedRef) forwardedRef.current = node;
+    },
+    [context.inputAnchorRef, forwardedRef],
+  );
+
   const textFieldRootProps: TextFieldRootProps = {
     className: classNames('fui-ComboboxChips', className),
     size,
@@ -478,7 +504,7 @@ const ComboboxChips = React.forwardRef<HTMLDivElement, ComboboxChipsProps>((prop
   };
   return (
     <ComboboxPrimitive.Chips
-      ref={forwardedRef}
+      ref={mergedRef}
       render={<TextFieldRoot {...textFieldRootProps}>{children}</TextFieldRoot>}
     />
   );

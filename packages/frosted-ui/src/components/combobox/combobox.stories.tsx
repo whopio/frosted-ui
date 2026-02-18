@@ -229,12 +229,10 @@ const manyCountries = [
 // Default (single)
 // ============================================================================
 
-const DefaultDemo = ({ size, variant }: { size: '1' | '2' | '3' | '4'; variant: 'surface' | 'soft' }) => {
-  const anchor = Combobox.useComboboxAnchor();
-  return (
-    <Combobox.Root items={fruits} defaultValue="Apple" size={size}>
-      <Combobox.Input ref={anchor} placeholder="Choose a fruit..." showClear variant={variant} />
-      <Combobox.Content anchor={anchor}>
+const DefaultDemo = ({ size, variant }: { size: '1' | '2' | '3' | '4'; variant: 'surface' | 'soft' }) => (
+  <Combobox.Root items={fruits} defaultValue="Apple" size={size}>
+    <Combobox.Input placeholder="Choose a fruit..." showClear variant={variant} />
+    <Combobox.Content>
         <ScrollArea type="auto" style={{ maxHeight: 300 }}>
           <Combobox.Empty>No fruits found.</Combobox.Empty>
           <Combobox.List>
@@ -246,9 +244,8 @@ const DefaultDemo = ({ size, variant }: { size: '1' | '2' | '3' | '4'; variant: 
           </Combobox.List>
         </ScrollArea>
       </Combobox.Content>
-    </Combobox.Root>
-  );
-};
+  </Combobox.Root>
+);
 
 export const Default: Story = {
   render: () => (
@@ -281,23 +278,21 @@ export const Default: Story = {
 // Multiple (chips)
 // ============================================================================
 
-const MultipleDemo = ({ size, variant }: { size: '1' | '2' | '3' | '4'; variant: 'surface' | 'soft' }) => {
-  const anchor = Combobox.useComboboxAnchor();
-  return (
-    <Combobox.Root items={fruits} multiple defaultValue={['Apple', 'Orange']} size={size}>
-      <Combobox.Chips ref={anchor} variant={variant}>
-        <Combobox.Value>
-          {(values: string[]) => (
-            <React.Fragment>
-              {values.map((value) => (
-                <Combobox.Chip key={value}>{value}</Combobox.Chip>
-              ))}
-              <Combobox.ChipsInput placeholder="Add fruit..." />
-            </React.Fragment>
-          )}
-        </Combobox.Value>
-      </Combobox.Chips>
-      <Combobox.Content anchor={anchor}>
+const MultipleDemo = ({ size, variant }: { size: '1' | '2' | '3' | '4'; variant: 'surface' | 'soft' }) => (
+  <Combobox.Root items={fruits} multiple defaultValue={['Apple', 'Orange']} size={size}>
+    <Combobox.Chips variant={variant}>
+      <Combobox.Value>
+        {(values: string[]) => (
+          <React.Fragment>
+            {values.map((value) => (
+              <Combobox.Chip key={value}>{value}</Combobox.Chip>
+            ))}
+            <Combobox.ChipsInput placeholder="Add fruit..." />
+          </React.Fragment>
+        )}
+      </Combobox.Value>
+    </Combobox.Chips>
+    <Combobox.Content>
         <ScrollArea type="auto" style={{ maxHeight: 300 }}>
           <Combobox.Empty>No fruits found.</Combobox.Empty>
           <Combobox.List>
@@ -309,9 +304,8 @@ const MultipleDemo = ({ size, variant }: { size: '1' | '2' | '3' | '4'; variant:
           </Combobox.List>
         </ScrollArea>
       </Combobox.Content>
-    </Combobox.Root>
-  );
-};
+  </Combobox.Root>
+);
 
 export const Multiple: Story = {
   render: () => (
@@ -355,13 +349,11 @@ const produceGroups: ProduceGroup[] = [
 ];
 
 export const Grouped: Story = {
-  render: () => {
-    const anchor = Combobox.useComboboxAnchor();
-    return (
-      <div style={{ maxWidth: 300 }}>
-        <Combobox.Root items={produceGroups} size="2">
-          <Combobox.Input ref={anchor} placeholder="Select produce" />
-          <Combobox.Content anchor={anchor}>
+  render: () => (
+    <div style={{ maxWidth: 300 }}>
+      <Combobox.Root items={produceGroups} size="2">
+        <Combobox.Input placeholder="Select produce" />
+        <Combobox.Content>
             <ScrollArea type="auto" style={{ maxHeight: 300 }}>
               <Combobox.Empty>No results.</Combobox.Empty>
               <Combobox.List>
@@ -386,10 +378,9 @@ export const Grouped: Story = {
               </Combobox.List>
             </ScrollArea>
           </Combobox.Content>
-        </Combobox.Root>
-      </div>
-    );
-  },
+      </Combobox.Root>
+    </div>
+  ),
 };
 
 // ============================================================================
@@ -410,18 +401,16 @@ const frameworks: Framework[] = [
 ];
 
 export const CustomItems: Story = {
-  render: () => {
-    const anchor = Combobox.useComboboxAnchor();
-    return (
-      <div style={{ maxWidth: 300 }}>
-        <Combobox.Root
-          items={frameworks}
-          itemToStringLabel={(f) => (f as Framework).label}
-          itemToStringValue={(f) => (f as Framework).value}
-          size="2"
-        >
-          <Combobox.Input ref={anchor} placeholder="Select framework" />
-          <Combobox.Content anchor={anchor}>
+  render: () => (
+    <div style={{ maxWidth: 300 }}>
+      <Combobox.Root
+        items={frameworks}
+        itemToStringLabel={(f) => (f as Framework).label}
+        itemToStringValue={(f) => (f as Framework).value}
+        size="2"
+      >
+        <Combobox.Input placeholder="Select framework" />
+        <Combobox.Content>
             <ScrollArea type="auto" style={{ maxHeight: 300 }}>
               <Combobox.Empty>No frameworks found.</Combobox.Empty>
               <Combobox.List>
@@ -436,10 +425,9 @@ export const CustomItems: Story = {
               </Combobox.List>
             </ScrollArea>
           </Combobox.Content>
-        </Combobox.Root>
-      </div>
-    );
-  },
+      </Combobox.Root>
+    </div>
+  ),
 };
 
 // ============================================================================
@@ -447,13 +435,11 @@ export const CustomItems: Story = {
 // ============================================================================
 
 export const ClearButton: Story = {
-  render: () => {
-    const anchor = Combobox.useComboboxAnchor();
-    return (
-      <div style={{ maxWidth: 300 }}>
-        <Combobox.Root items={fruits} defaultValue="Mango" size="2">
-          <Combobox.Input ref={anchor} placeholder="Choose a fruit..." showClear />
-          <Combobox.Content anchor={anchor}>
+  render: () => (
+    <div style={{ maxWidth: 300 }}>
+      <Combobox.Root items={fruits} defaultValue="Mango" size="2">
+        <Combobox.Input placeholder="Choose a fruit..." showClear />
+        <Combobox.Content>
             <ScrollArea type="auto" style={{ maxHeight: 300 }}>
               <Combobox.Empty>No fruits found.</Combobox.Empty>
               <Combobox.List>
@@ -465,10 +451,9 @@ export const ClearButton: Story = {
               </Combobox.List>
             </ScrollArea>
           </Combobox.Content>
-        </Combobox.Root>
-      </div>
-    );
-  },
+      </Combobox.Root>
+    </div>
+  ),
 };
 
 // ============================================================================
@@ -512,13 +497,11 @@ export const InputInsidePopup: Story = {
 // ============================================================================
 
 export const Disabled: Story = {
-  render: () => {
-    const anchor = Combobox.useComboboxAnchor();
-    return (
-      <div style={{ maxWidth: 300 }}>
-        <Combobox.Root items={fruits} defaultValue="Apple" disabled size="2">
-          <Combobox.Input ref={anchor} placeholder="Choose a fruit..." disabled />
-          <Combobox.Content anchor={anchor}>
+  render: () => (
+    <div style={{ maxWidth: 300 }}>
+      <Combobox.Root items={fruits} defaultValue="Apple" disabled size="2">
+        <Combobox.Input placeholder="Choose a fruit..." disabled />
+        <Combobox.Content>
             <ScrollArea type="auto" style={{ maxHeight: 300 }}>
               <Combobox.Empty>No fruits found.</Combobox.Empty>
               <Combobox.List>
@@ -530,10 +513,9 @@ export const Disabled: Story = {
               </Combobox.List>
             </ScrollArea>
           </Combobox.Content>
-        </Combobox.Root>
-      </div>
-    );
-  },
+      </Combobox.Root>
+    </div>
+  ),
 };
 
 // ============================================================================
@@ -542,16 +524,14 @@ export const Disabled: Story = {
 
 export const ManyItems: Story = {
   name: 'Many Items',
-  render: () => {
-    const anchor = Combobox.useComboboxAnchor();
-    return (
-      <div style={{ maxWidth: 300 }}>
-        <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
-          {manyCountries.length} countries with scroll
-        </Text>
-        <Combobox.Root items={manyCountries} size="2">
-          <Combobox.Input ref={anchor} placeholder="Search countries..." />
-          <Combobox.Content anchor={anchor}>
+  render: () => (
+    <div style={{ maxWidth: 300 }}>
+      <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+        {manyCountries.length} countries with scroll
+      </Text>
+      <Combobox.Root items={manyCountries} size="2">
+        <Combobox.Input placeholder="Search countries..." />
+        <Combobox.Content>
             <ScrollArea type="auto" style={{ maxHeight: 300 }}>
               <Combobox.Empty>No countries found.</Combobox.Empty>
               <Combobox.List>
@@ -563,10 +543,9 @@ export const ManyItems: Story = {
               </Combobox.List>
             </ScrollArea>
           </Combobox.Content>
-        </Combobox.Root>
-      </div>
-    );
-  },
+      </Combobox.Root>
+    </div>
+  ),
 };
 
 // ============================================================================
@@ -574,13 +553,11 @@ export const ManyItems: Story = {
 // ============================================================================
 
 export const EmptyState: Story = {
-  render: () => {
-    const anchor = Combobox.useComboboxAnchor();
-    return (
-      <div style={{ maxWidth: 300 }}>
-        <Combobox.Root items={fruits} size="2">
-          <Combobox.Input ref={anchor} placeholder="Type to filter (e.g. xyz)" />
-          <Combobox.Content anchor={anchor}>
+  render: () => (
+    <div style={{ maxWidth: 300 }}>
+      <Combobox.Root items={fruits} size="2">
+        <Combobox.Input placeholder="Type to filter (e.g. xyz)" />
+        <Combobox.Content>
             <ScrollArea type="auto" style={{ maxHeight: 300 }}>
               <Combobox.Empty>No fruits found. Try a different search.</Combobox.Empty>
               <Combobox.List>
@@ -592,10 +569,9 @@ export const EmptyState: Story = {
               </Combobox.List>
             </ScrollArea>
           </Combobox.Content>
-        </Combobox.Root>
-      </div>
-    );
-  },
+      </Combobox.Root>
+    </div>
+  ),
 };
 
 // ============================================================================
