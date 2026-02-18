@@ -70,7 +70,7 @@
 }
 
 /* Match Select trigger right-padding for the trailing slot */
-.fui-ComboboxInput > .fui-TextFieldSlot:last-child {
+.fui-ComboboxInputRoot > .fui-TextFieldSlot:last-child {
   :where(.fui-r-size-1) & {
     padding-right: var(--space-2);
   }

@@ -663,7 +663,9 @@ export const WithCombobox: Story = {
                 setSubmitted(null);
               }}
             >
-              <Combobox.Input placeholder="Search timezones..." showClear />
+              <Combobox.InputRoot showClear>
+                <Combobox.Input placeholder="Search timezones..." />
+              </Combobox.InputRoot>
               <Combobox.Content>
                 <ScrollArea type="auto" style={{ maxHeight: 200 }}>
                   <Combobox.Empty>No timezones found.</Combobox.Empty>

@@ -75,25 +75,24 @@ function ComboboxRoot<Value = unknown, Multiple extends boolean | undefined = fa
 ComboboxRoot.displayName = 'ComboboxRoot';
 
 // ============================================================================
-// Input (renders TextField.Root + TextField.Input + optional trigger/clear)
+// InputRoot (renders TextField.Root + optional trigger/clear trailing slot)
 // ============================================================================
 
-interface ComboboxInputProps extends Omit<TextFieldRootProps, 'children'> {
-  placeholder?: string;
-  disabled?: boolean;
+const ComboboxInputRootContext = React.createContext<boolean>(false);
+
+interface ComboboxInputRootProps extends TextFieldRootProps {
   showTrigger?: boolean;
   showClear?: boolean;
 }
 
-const ComboboxInput = React.forwardRef<HTMLDivElement, ComboboxInputProps>((props, forwardedRef) => {
+const ComboboxInputRoot = React.forwardRef<HTMLDivElement, ComboboxInputRootProps>((props, forwardedRef) => {
   const context = React.useContext(ComboboxContext);
   const contentContext = React.useContext(ComboboxContentContext);
   const isInsideContent = contentContext !== null;
   const {
     className,
-    placeholder,
-    disabled,
-    showTrigger = true,
+    children,
+    showTrigger = !isInsideContent,
     showClear = false,
     size = context.size,
     ...textFieldRootProps
@@ -113,12 +112,11 @@ const ComboboxInput = React.forwardRef<HTMLDivElement, ComboboxInputProps>((prop
       ref={mergedRef}
       size={size}
       {...textFieldRootProps}
-      className={classNames('fui-ComboboxInput', className)}
+      className={classNames('fui-ComboboxInputRoot', className)}
     >
-      <ComboboxPrimitive.Input
-        disabled={disabled}
-        render={<TextFieldInput placeholder={placeholder} />}
-      />
+      <ComboboxInputRootContext.Provider value={true}>
+        {children}
+      </ComboboxInputRootContext.Provider>
       {(showTrigger || showClear) && (
         <TextFieldSlot>
           {showClear && (
@@ -149,9 +147,43 @@ const ComboboxInput = React.forwardRef<HTMLDivElement, ComboboxInputProps>((prop
     </TextFieldRoot>
   );
 });
+ComboboxInputRoot.displayName = 'ComboboxInputRoot';
+
+// ============================================================================
+// InputSlot (re-export of TextFieldSlot for custom slots)
+// ============================================================================
+
+const ComboboxInputSlot = TextFieldSlot;
+
+// ============================================================================
+// Input (renders ComboboxPrimitive.Input via TextFieldInput; auto-wraps in InputRoot)
+// ============================================================================
+
+interface ComboboxInputProps extends Omit<React.ComponentProps<typeof ComboboxPrimitive.Input>, 'className' | 'render'> {
+  className?: string;
+  placeholder?: string;
+}
+
+const ComboboxInput = React.forwardRef<HTMLInputElement, ComboboxInputProps>((props, forwardedRef) => {
+  const hasRoot = React.useContext(ComboboxInputRootContext);
+  const { className, ...rest } = props;
+
+  const input = (
+    <ComboboxPrimitive.Input
+      {...rest}
+      ref={forwardedRef}
+      render={<TextFieldInput className={classNames('fui-ComboboxInput', className)} />}
+    />
+  );
+
+  return hasRoot ? input : <ComboboxInputRoot>{input}</ComboboxInputRoot>;
+});
 ComboboxInput.displayName = 'ComboboxInput';
 
+// ============================================================================
 // ChipsInput – renders TextField.Input internally for use inside Chips
+// ============================================================================
+
 interface ComboboxChipsInputProps extends Omit<React.ComponentProps<typeof ComboboxPrimitive.Input>, 'className'> {
   className?: string;
 }
@@ -571,6 +603,8 @@ export {
   ComboboxGroupLabel as GroupLabel,
   ComboboxIcon as Icon,
   ComboboxInput as Input,
+  ComboboxInputRoot as InputRoot,
+  ComboboxInputSlot as InputSlot,
   ComboboxItem as Item,
   ComboboxItemIndicator as ItemIndicator,
   ComboboxList as List,
@@ -594,6 +628,7 @@ export type {
   ComboboxGroupProps as GroupProps,
   ComboboxIconProps as IconProps,
   ComboboxInputProps as InputProps,
+  ComboboxInputRootProps as InputRootProps,
   ComboboxItemIndicatorProps as ItemIndicatorProps,
   ComboboxItemProps as ItemProps,
   ComboboxListProps as ListProps,
