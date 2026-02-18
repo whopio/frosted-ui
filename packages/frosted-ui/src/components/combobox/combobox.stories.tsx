@@ -264,11 +264,11 @@ export const Default: Story = {
 // Multiple (chips)
 // ============================================================================
 
-const MultipleDemo = ({ size }: { size: '1' | '2' | '3' | '4' }) => {
+const MultipleDemo = ({ size, variant }: { size: '1' | '2' | '3' | '4'; variant: 'surface' | 'soft' }) => {
   const anchor = Combobox.useComboboxAnchor();
   return (
     <Combobox.Root items={fruits} multiple defaultValue={['Apple', 'Orange']} size={size}>
-      <Combobox.Chips ref={anchor} size={size}>
+      <Combobox.Chips ref={anchor} size={size} variant={variant}>
         <Combobox.Value>
           {(values: string[]) => (
             <React.Fragment>
@@ -301,15 +301,27 @@ const MultipleDemo = ({ size }: { size: '1' | '2' | '3' | '4' }) => {
 
 export const Multiple: Story = {
   render: () => (
-    <div style={{ maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 16 }}>
-      {(['1', '2', '3', '4'] as const).map((size) => (
-        <div key={size}>
-          <Text size="1" color="gray" style={{ marginBottom: 4, display: 'block' }}>
-            Size {size}
-          </Text>
-          <MultipleDemo size={size} />
-        </div>
-      ))}
+    <div style={{ display: 'flex', gap: 64 }}>
+      <div style={{ maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 16 }}>
+        {(['1', '2', '3', '4'] as const).map((size) => (
+          <div key={size}>
+            <Text size="1" color="gray" style={{ marginBottom: 4, display: 'block' }}>
+              Size {size}
+            </Text>
+            <MultipleDemo size={size} variant="surface" />
+          </div>
+        ))}
+      </div>
+      <div style={{ maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 16 }}>
+        {(['1', '2', '3', '4'] as const).map((size) => (
+          <div key={size}>
+            <Text size="1" color="gray" style={{ marginBottom: 4, display: 'block' }}>
+              Size {size}
+            </Text>
+            <MultipleDemo size={size} variant="soft" />
+          </div>
+        ))}
+      </div>
     </div>
   ),
 };
