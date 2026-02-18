@@ -10,6 +10,8 @@
     outline: 2px solid var(--color-focus-root);
     outline-offset: -1px;
   }
+
+  border-radius: var(--text-field-border-radius);
 }
 
 .fui-TextFieldInput {
@@ -57,25 +59,25 @@
 .fui-TextFieldRoot:where(.fui-r-size-1) {
   font-size: var(--font-size-1);
   letter-spacing: var(--letter-spacing-1);
-  border-radius: max(6px, var(--radius-full));
+  --text-field-border-radius: max(6px, var(--radius-full));
   --text-field-input-height: var(--space-5);
 }
 .fui-TextFieldRoot:where(.fui-r-size-2) {
   font-size: var(--font-size-2);
   letter-spacing: var(--letter-spacing-2);
-  border-radius: max(8px, var(--radius-full));
+  --text-field-border-radius: max(8px, var(--radius-full));
   --text-field-input-height: var(--space-6);
 }
 .fui-TextFieldRoot:where(.fui-r-size-3) {
   font-size: var(--font-size-3);
   letter-spacing: var(--letter-spacing-3);
-  border-radius: max(10px, var(--radius-full));
+  --text-field-border-radius: max(10px, var(--radius-full));
   --text-field-input-height: var(--space-7);
 }
 .fui-TextFieldRoot:where(.fui-r-size-4) {
   font-size: var(--font-size-4);
   letter-spacing: var(--letter-spacing-4);
-  border-radius: max(14px, var(--radius-full));
+  --text-field-border-radius: max(14px, var(--radius-full));
   --text-field-input-height: var(--space-8);
 }
 

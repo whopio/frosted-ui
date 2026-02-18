@@ -248,20 +248,20 @@
  * Combobox Chips
  * ============================================================================ */
 
-/* .fui-ComboboxChips {
+.fui-ComboboxChips {
   &:where(.fui-r-size-1) {
-    padding: 2px;
+    --padding: 4px;
   }
   &:where(.fui-r-size-2) {
-    padding: 4px;
+    --padding: 4px;
   }
   &:where(.fui-r-size-3) {
-    padding: 6px;
+    --padding: 6px;
   }
   &:where(.fui-r-size-4) {
-    padding: 8px;
+    --padding: 8px;
   }
-} */
+}
 
 .fui-ComboboxChips .fui-ComboboxValue {
   display: flex;
@@ -271,7 +271,7 @@
   flex: 1;
   min-width: 0;
   min-height: var(--text-field-input-height);
-  --padding: 4px;
+
   padding: var(--padding);
   gap: var(--padding);
   --item-height: calc(var(--text-field-input-height) - 2 * var(--padding));
@@ -286,11 +286,6 @@
   outline: none;
 }
 
-.fui-ComboboxChipRoot {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 .fui-ComboboxChip {
   display: inline-flex;
   align-items: center;
@@ -304,6 +299,7 @@
   max-width: 100%;
   box-sizing: border-box;
   height: var(--item-height);
+  border-radius: calc(var(--text-field-border-radius) - var(--padding));
 }
 
 .fui-ComboboxChipRemove {

@@ -444,11 +444,7 @@ interface ComboboxChipProps extends Omit<React.ComponentProps<typeof ComboboxPri
 
 const ComboboxChip = (props: ComboboxChipProps) => {
   const { className, ...chipProps } = props;
-  return (
-    <div className="fui-ComboboxChipRoot">
-      <ComboboxPrimitive.Chip {...chipProps} className={classNames('fui-ComboboxChip', className)} />
-    </div>
-  );
+  return <ComboboxPrimitive.Chip {...chipProps} className={classNames('fui-ComboboxChip', className)} />;
 };
 ComboboxChip.displayName = 'ComboboxChip';
 

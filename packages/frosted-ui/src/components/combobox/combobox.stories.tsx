@@ -264,43 +264,54 @@ export const Default: Story = {
 // Multiple (chips)
 // ============================================================================
 
+const MultipleDemo = ({ size }: { size: '1' | '2' | '3' | '4' }) => {
+  const anchor = Combobox.useComboboxAnchor();
+  return (
+    <Combobox.Root items={fruits} multiple defaultValue={['Apple', 'Orange']} size={size}>
+      <Combobox.Chips ref={anchor} size={size}>
+        <Combobox.Value>
+          {(values: string[]) => (
+            <React.Fragment>
+              {values.map((value) => (
+                <Combobox.Chip key={value}>
+                  {value}
+                  <Combobox.ChipRemove aria-label={`Remove ${value}`} />
+                </Combobox.Chip>
+              ))}
+              <Combobox.ChipsInput placeholder="Add fruit..." />
+            </React.Fragment>
+          )}
+        </Combobox.Value>
+      </Combobox.Chips>
+      <Combobox.Content anchor={anchor} size={size === '4' ? '3' : size}>
+        <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+          <Combobox.Empty>No fruits found.</Combobox.Empty>
+          <Combobox.List>
+            {(item) => (
+              <Combobox.Item key={item} value={item}>
+                {item}
+              </Combobox.Item>
+            )}
+          </Combobox.List>
+        </ScrollArea>
+      </Combobox.Content>
+    </Combobox.Root>
+  );
+};
+
 export const Multiple: Story = {
-  render: () => {
-    const anchor = Combobox.useComboboxAnchor();
-    return (
-      <div style={{ maxWidth: 400 }}>
-        <Combobox.Root items={fruits} multiple defaultValue={['Apple', 'Orange']} size="2">
-          <Combobox.Chips ref={anchor} variant="soft">
-            <Combobox.Value>
-              {(values: string[]) => (
-                <React.Fragment>
-                  {values.map((value) => (
-                    <Combobox.Chip key={value}>
-                      {value}
-                      <Combobox.ChipRemove aria-label={`Remove ${value}`} />
-                    </Combobox.Chip>
-                  ))}
-                  <Combobox.ChipsInput placeholder="Add fruit..." />
-                </React.Fragment>
-              )}
-            </Combobox.Value>
-          </Combobox.Chips>
-          <Combobox.Content anchor={anchor}>
-            <ScrollArea type="auto" style={{ maxHeight: 300 }}>
-              <Combobox.Empty>No fruits found.</Combobox.Empty>
-              <Combobox.List>
-                {(item) => (
-                  <Combobox.Item key={item} value={item}>
-                    {item}
-                  </Combobox.Item>
-                )}
-              </Combobox.List>
-            </ScrollArea>
-          </Combobox.Content>
-        </Combobox.Root>
-      </div>
-    );
-  },
+  render: () => (
+    <div style={{ maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      {(['1', '2', '3', '4'] as const).map((size) => (
+        <div key={size}>
+          <Text size="1" color="gray" style={{ marginBottom: 4, display: 'block' }}>
+            Size {size}
+          </Text>
+          <MultipleDemo size={size} />
+        </div>
+      ))}
+    </div>
+  ),
 };
 
 // ============================================================================
