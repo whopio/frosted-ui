@@ -1,7 +1,7 @@
 import { ChevronDown16, MagnifyingGlass16 } from '@frosted-ui/icons';
 import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
-import { Avatar, Button, ScrollArea, Spinner, Text } from '../index';
+import { Avatar, Button, Field, ScrollArea, Spinner, Text } from '../index';
 import * as Combobox from './combobox';
 
 const meta: Meta<typeof Combobox.Root> = {
@@ -704,26 +704,25 @@ export const AsyncSearchSingle: Story = {
 
     return (
       <div style={{ maxWidth: 300 }}>
-        <Text size="2" weight="medium" style={{ marginBottom: 4, display: 'block' }}>
-          Assign reviewer
-        </Text>
-        <Combobox.Root
-          items={items}
-          filter={null}
-          size="3"
-          value={selected}
-          onValueChange={setSelected}
-          onInputValueChange={handleInputValueChange}
-          itemToStringLabel={(u) => (u as User).name}
-          isItemEqualToValue={(a, b) => (a as User).login === (b as User).login}
-        >
-          <Combobox.InputRoot showClear>
-            <Combobox.InputSlot>
-              {loading ? <Spinner size="2" /> : <MagnifyingGlass16 />}
-            </Combobox.InputSlot>
-            <Combobox.Input placeholder="Search users..." />
-          </Combobox.InputRoot>
-          <Combobox.Content>
+        <Field.Root>
+          <Field.Label>Assign reviewer</Field.Label>
+          <Combobox.Root
+            items={items}
+            filter={null}
+            size="3"
+            value={selected}
+            onValueChange={setSelected}
+            onInputValueChange={handleInputValueChange}
+            itemToStringLabel={(u) => (u as User).name}
+            isItemEqualToValue={(a, b) => (a as User).login === (b as User).login}
+          >
+            <Combobox.InputRoot showClear>
+              <Combobox.InputSlot>
+                {loading ? <Spinner size="2" /> : <MagnifyingGlass16 />}
+              </Combobox.InputSlot>
+              <Combobox.Input placeholder="Search users..." />
+            </Combobox.InputRoot>
+            <Combobox.Content>
             <ScrollArea type="auto" style={{ maxHeight: 300 }}>
               <Combobox.Empty>No users found.</Combobox.Empty>
               <Combobox.List>
@@ -749,15 +748,16 @@ export const AsyncSearchSingle: Story = {
                 }}
               </Combobox.List>
             </ScrollArea>
-          </Combobox.Content>
-        </Combobox.Root>
+            </Combobox.Content>
+          </Combobox.Root>
+        </Field.Root>
       </div>
     );
   },
 };
 
 // ============================================================================
-// Async Search (multiple)
+// Async search (multiple)
 // ============================================================================
 
 export const AsyncSearchMultiple: Story = {
@@ -780,21 +780,20 @@ export const AsyncSearchMultiple: Story = {
 
     return (
       <div style={{ maxWidth: 400 }}>
-        <Text size="2" weight="medium" style={{ marginBottom: 4, display: 'block' }}>
-          Assign reviewers
-        </Text>
-        <Combobox.Root
-          items={items}
-          filter={null}
-          multiple
-          size="3"
-          value={selected}
-          onValueChange={setSelected}
-          onInputValueChange={handleInputValueChange}
-          itemToStringLabel={(u) => (u as User).name}
-          isItemEqualToValue={(a, b) => (a as User).login === (b as User).login}
-        >
-          <Combobox.Chips>
+        <Field.Root>
+          <Field.Label>Assign reviewers</Field.Label>
+          <Combobox.Root
+            items={items}
+            filter={null}
+            multiple
+            size="3"
+            value={selected}
+            onValueChange={setSelected}
+            onInputValueChange={handleInputValueChange}
+            itemToStringLabel={(u) => (u as User).name}
+            isItemEqualToValue={(a, b) => (a as User).login === (b as User).login}
+          >
+            <Combobox.Chips>
             <Combobox.Value>
               {(values: User[]) => (
                 <React.Fragment>
@@ -832,8 +831,9 @@ export const AsyncSearchMultiple: Story = {
                 }}
               </Combobox.List>
             </ScrollArea>
-          </Combobox.Content>
-        </Combobox.Root>
+            </Combobox.Content>
+          </Combobox.Root>
+        </Field.Root>
       </div>
     );
   },
