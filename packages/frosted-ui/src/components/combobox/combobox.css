@@ -95,6 +95,7 @@
   display: flex;
   flex-direction: column;
   padding: var(--combobox-content-padding);
+  outline: none;
 
   :where(.fui-ComboboxContent:has(.fui-ScrollAreaScrollbar[data-orientation='vertical'])) & {
     padding-right: var(--space-3);
@@ -290,4 +291,3 @@
     }
   }
 }
-
