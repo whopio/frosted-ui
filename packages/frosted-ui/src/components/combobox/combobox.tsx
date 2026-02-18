@@ -7,7 +7,7 @@ import * as React from 'react';
 import { ThickCheckIcon, XIcon } from '../../icons';
 import { Theme, useThemeContext } from '../../theme';
 import type { RootProps as TextFieldRootProps } from '../text-field/text-field';
-import { Input as TextFieldInput, Root as TextFieldRoot } from '../text-field/text-field';
+import { Input as TextFieldInput, Root as TextFieldRoot, Slot as TextFieldSlot } from '../text-field/text-field';
 import { comboboxContentPropDefs, comboboxItemPropDefs, comboboxRootPropDefs } from './combobox.props';
 
 import type { GetPropDefTypes } from '../../helpers';
@@ -70,20 +70,74 @@ function ComboboxRoot<Value = unknown, Multiple extends boolean | undefined = fa
 ComboboxRoot.displayName = 'ComboboxRoot';
 
 // ============================================================================
-// Input
+// Input (renders TextField.Root + TextField.Input + optional trigger/clear)
 // ============================================================================
 
-interface ComboboxInputProps extends Omit<React.ComponentProps<typeof ComboboxPrimitive.Input>, 'className'> {
-  className?: string;
+interface ComboboxInputProps extends Omit<TextFieldRootProps, 'children'> {
+  placeholder?: string;
+  disabled?: boolean;
+  showTrigger?: boolean;
+  showClear?: boolean;
 }
 
-const ComboboxInput = React.forwardRef<HTMLInputElement, ComboboxInputProps>((props, forwardedRef) => {
-  return <ComboboxPrimitive.Input {...props} ref={forwardedRef} />;
+const ComboboxInput = React.forwardRef<HTMLDivElement, ComboboxInputProps>((props, forwardedRef) => {
+  const {
+    className,
+    placeholder,
+    disabled,
+    showTrigger = true,
+    showClear = false,
+    ...textFieldRootProps
+  } = props;
+
+  return (
+    <TextFieldRoot
+      ref={forwardedRef}
+      {...textFieldRootProps}
+      className={classNames('fui-ComboboxInput', className)}
+    >
+      <ComboboxPrimitive.Input
+        disabled={disabled}
+        render={<TextFieldInput placeholder={placeholder} />}
+      />
+      {(showTrigger || showClear) && (
+        <TextFieldSlot>
+          {showClear && (
+            <ComboboxPrimitive.Clear className="fui-ComboboxClearButton" aria-label="Clear">
+              <XIcon />
+            </ComboboxPrimitive.Clear>
+          )}
+          {showTrigger && (
+            <ComboboxPrimitive.Trigger className="fui-ComboboxTriggerButton">
+              <svg
+                className="fui-ComboboxTriggerIcon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="3.25 5.25 9.5 5.5"
+                fill="none"
+              >
+                <path
+                  d="M4 6L8 10L12 6"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </ComboboxPrimitive.Trigger>
+          )}
+        </TextFieldSlot>
+      )}
+    </TextFieldRoot>
+  );
 });
 ComboboxInput.displayName = 'ComboboxInput';
 
 // ChipsInput – renders TextField.Input internally for use inside Chips
-const ComboboxChipsInput = React.forwardRef<HTMLInputElement, ComboboxInputProps>((props, forwardedRef) => {
+interface ComboboxChipsInputProps extends Omit<React.ComponentProps<typeof ComboboxPrimitive.Input>, 'className'> {
+  className?: string;
+}
+
+const ComboboxChipsInput = React.forwardRef<HTMLInputElement, ComboboxChipsInputProps>((props, forwardedRef) => {
   const { className, ...rest } = props;
   return (
     <ComboboxPrimitive.Input
@@ -483,7 +537,7 @@ export {
 
 export type {
   ComboboxChipProps as ChipProps,
-  ComboboxInputProps as ChipsInputProps,
+  ComboboxChipsInputProps as ChipsInputProps,
   ComboboxChipsProps as ChipsProps,
   ComboboxClearProps as ClearProps,
   ComboboxCollectionProps as CollectionProps,

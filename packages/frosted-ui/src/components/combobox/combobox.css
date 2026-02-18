@@ -15,9 +15,78 @@
 }
 
 /* ============================================================================
- * Combobox Clear
- * Uses render prop pattern - styling provided by consumer element.
- * Apply .fui-ComboboxClear to the rendered element for default clear button styles.
+ * Combobox Input – trigger & clear buttons inside TextField.Slot
+ * ============================================================================ */
+
+.fui-ComboboxTriggerButton,
+.fui-ComboboxClearButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--gray-a10);
+  border-radius: var(--radius-1);
+
+  @media (hover: hover) {
+    &:where(:hover:not([data-disabled])) {
+      color: var(--gray-12);
+    }
+  }
+
+  &:where([data-disabled]) {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}
+
+.fui-ComboboxTriggerButton {
+  &[data-popup-open] {
+    color: var(--gray-12);
+  }
+}
+
+.fui-ComboboxTriggerIcon {
+  :where(.fui-r-size-1) & {
+    width: 8px;
+    height: 8px;
+  }
+  :where(.fui-r-size-2) & {
+    width: 10px;
+    height: 10px;
+  }
+  :where(.fui-r-size-3) & {
+    width: 12px;
+    height: 12px;
+  }
+  :where(.fui-r-size-4) & {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/* Match Select trigger right-padding for the trailing slot */
+.fui-ComboboxInput > .fui-TextFieldSlot:last-child {
+  :where(.fui-r-size-1) & {
+    padding-right: var(--space-2);
+  }
+  :where(.fui-r-size-2) & {
+    padding-right: var(--space-3);
+  }
+  :where(.fui-r-size-3) & {
+    padding-right: var(--space-4);
+  }
+  :where(.fui-r-size-4) & {
+    padding-right: var(--space-4);
+  }
+}
+
+/* ============================================================================
+ * Combobox Clear (standalone – uses render prop pattern)
  * ============================================================================ */
 
 .fui-ComboboxClear {
@@ -208,6 +277,24 @@
 .fui-ComboboxContent:where(.fui-r-size-3) .fui-ComboboxItemIndicatorIcon {
   width: 12px;
   height: 12px;
+}
+
+.fui-ComboboxContent:where(.fui-r-size-4) {
+  --combobox-item-height: var(--space-8);
+  --combobox-item-indicator-width: calc(var(--space-8) / 1.2);
+  border-radius: 14px;
+}
+
+.fui-ComboboxContent:where(.fui-r-size-4) .fui-ComboboxItem {
+  font-size: var(--font-size-4);
+  line-height: var(--line-height-4);
+  letter-spacing: var(--letter-spacing-4);
+  border-radius: 10px;
+}
+
+.fui-ComboboxContent:where(.fui-r-size-4) .fui-ComboboxItemIndicatorIcon {
+  width: 14px;
+  height: 14px;
 }
 
 /* ============================================================================
