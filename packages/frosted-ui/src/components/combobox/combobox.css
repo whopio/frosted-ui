@@ -294,12 +294,16 @@
   font-size: inherit;
   line-height: inherit;
   border-radius: var(--radius-1);
-  background-color: var(--gray-a3);
-  color: var(--gray-a12);
+  background-color: var(--accent-a3);
+  color: var(--accent-a12);
   max-width: 100%;
   box-sizing: border-box;
   height: var(--item-height);
   border-radius: calc(var(--text-field-border-radius) - var(--padding));
+
+  &:focus-visible {
+    outline: 2px solid var(--color-focus-root);
+  }
 }
 
 .fui-ComboboxChipRemove {
