@@ -266,24 +266,26 @@ export const Default: Story = {
 
 export const Multiple: Story = {
   render: () => {
-    const [value, setValue] = React.useState<string[]>(['Apple', 'Orange']);
+    const anchor = Combobox.useComboboxAnchor();
     return (
       <div style={{ maxWidth: 400 }}>
-        <Combobox.Root items={fruits} multiple value={value} onValueChange={(v) => setValue(v as string[])} size="2">
-          <TextField.Root>
-            <Combobox.Chips className="fui-ComboboxChips">
-              <Combobox.Value>
-                {value.map((item) => (
-                  <Combobox.Chip key={item}>
-                    {item}
-                    <Combobox.ChipRemove aria-label={`Remove ${item}`} />
-                  </Combobox.Chip>
-                ))}
-              </Combobox.Value>
-              <Combobox.Input render={<TextField.Input placeholder="Add fruit..." />} />
-            </Combobox.Chips>
-          </TextField.Root>
-          <Combobox.Content>
+        <Combobox.Root items={fruits} multiple defaultValue={['Apple', 'Orange']} size="2">
+          <Combobox.Chips ref={anchor} variant="soft">
+            <Combobox.Value>
+              {(values: string[]) => (
+                <React.Fragment>
+                  {values.map((value) => (
+                    <Combobox.Chip key={value}>
+                      {value}
+                      <Combobox.ChipRemove aria-label={`Remove ${value}`} />
+                    </Combobox.Chip>
+                  ))}
+                  <Combobox.ChipsInput placeholder="Add fruit..." />
+                </React.Fragment>
+              )}
+            </Combobox.Value>
+          </Combobox.Chips>
+          <Combobox.Content anchor={anchor}>
             <ScrollArea type="auto" style={{ maxHeight: 300 }}>
               <Combobox.Empty>No fruits found.</Combobox.Empty>
               <Combobox.List>

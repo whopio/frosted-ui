@@ -6,6 +6,8 @@ import * as React from 'react';
 
 import { ThickCheckIcon } from '../../icons';
 import { Theme, useThemeContext } from '../../theme';
+import { Input as TextFieldInput, Root as TextFieldRoot } from '../text-field/text-field';
+import type { RootProps as TextFieldRootProps } from '../text-field/text-field';
 import {
   comboboxContentPropDefs,
   comboboxItemPropDefs,
@@ -86,6 +88,19 @@ const ComboboxInput = React.forwardRef<HTMLInputElement, ComboboxInputProps>((pr
   return <ComboboxPrimitive.Input {...props} ref={forwardedRef} />;
 });
 ComboboxInput.displayName = 'ComboboxInput';
+
+// ChipsInput – renders TextField.Input internally for use inside Chips
+const ComboboxChipsInput = React.forwardRef<HTMLInputElement, ComboboxInputProps>((props, forwardedRef) => {
+  const { className, ...rest } = props;
+  return (
+    <ComboboxPrimitive.Input
+      {...rest}
+      ref={forwardedRef}
+      render={<TextFieldInput className={classNames('fui-ComboboxChipsInput', className)} />}
+    />
+  );
+});
+ComboboxChipsInput.displayName = 'ComboboxChipsInput';
 
 // ============================================================================
 // Trigger (render prop – use Button or any element, e.g. render={<Button><Combobox.Value /></Button>})
@@ -378,18 +393,37 @@ const ComboboxSeparator = (props: ComboboxSeparatorProps) => {
 ComboboxSeparator.displayName = 'ComboboxSeparator';
 
 // ============================================================================
-// Chips
+// Chips (renders TextField.Root internally; use ref for anchor, e.g. useComboboxAnchor())
+// Accepts the same props as TextField.Root: size, variant, color, className, etc.
 // ============================================================================
 
-interface ComboboxChipsProps extends Omit<React.ComponentProps<typeof ComboboxPrimitive.Chips>, 'className' | 'render'> {
-  className?: string;
-}
+interface ComboboxChipsProps extends TextFieldRootProps {}
 
-const ComboboxChips = (props: ComboboxChipsProps) => {
-  const { className, ...chipsProps } = props;
-  return <ComboboxPrimitive.Chips {...chipsProps} className={classNames('fui-ComboboxChips', className)} />;
-};
+const ComboboxChips = React.forwardRef<HTMLDivElement, ComboboxChipsProps>((props, forwardedRef) => {
+  const { className, size, variant, color, children, ...rest } = props;
+  const textFieldRootProps: TextFieldRootProps = {
+    className: classNames('fui-ComboboxChips', className),
+    size,
+    variant,
+    color,
+    ...rest,
+  };
+  return (
+    <ComboboxPrimitive.Chips
+      ref={forwardedRef}
+      render={<TextFieldRoot {...textFieldRootProps}>{children}</TextFieldRoot>}
+    />
+  );
+});
 ComboboxChips.displayName = 'ComboboxChips';
+
+// ============================================================================
+// useComboboxAnchor – ref to attach to Chips and pass to Content anchor for positioning
+// ============================================================================
+
+function useComboboxAnchor() {
+  return React.useRef<HTMLDivElement | null>(null);
+}
 
 // ============================================================================
 // Chip
@@ -430,6 +464,7 @@ export {
   ComboboxChip as Chip,
   ComboboxChipRemove as ChipRemove,
   ComboboxChips as Chips,
+  ComboboxChipsInput as ChipsInput,
   ComboboxClear as Clear,
   ComboboxCollection as Collection,
   ComboboxContent as Content,
@@ -445,12 +480,14 @@ export {
   ComboboxSeparator as Separator,
   ComboboxTrigger as Trigger,
   ComboboxValue as Value,
+  useComboboxAnchor,
 };
 
 export type {
   ComboboxChipProps as ChipProps,
   ComboboxChipRemoveProps as ChipRemoveProps,
   ComboboxChipsProps as ChipsProps,
+  ComboboxInputProps as ChipsInputProps,
   ComboboxClearProps as ClearProps,
   ComboboxCollectionProps as CollectionProps,
   ComboboxContentProps as ContentProps,

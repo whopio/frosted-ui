@@ -249,12 +249,33 @@
  * ============================================================================ */
 
 .fui-ComboboxChips {
+  &:where(.fui-r-size-1) {
+    padding: 2px;
+  }
+  &:where(.fui-r-size-2) {
+    padding: 4px;
+  }
+  &:where(.fui-r-size-3) {
+    padding: 6px;
+  }
+  &:where(.fui-r-size-4) {
+    padding: 8px;
+  }
+}
+
+.fui-ComboboxChips .fui-ComboboxValue {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-1);
+  gap: var(--space-2);
   flex: 1;
   min-width: 0;
+}
+
+.fui-ComboboxChipsInput {
+  flex: 1;
+  min-width: 64px;
+  outline: none;
 }
 
 .fui-ComboboxChip {
@@ -265,8 +286,8 @@
   font-size: inherit;
   line-height: inherit;
   border-radius: var(--radius-1);
-  background-color: var(--gray-a4);
-  color: var(--gray-12);
+  background-color: var(--gray-a3);
+  color: var(--gray-a12);
   max-width: 100%;
   box-sizing: border-box;
 }
