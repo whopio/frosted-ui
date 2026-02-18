@@ -6,13 +6,9 @@ import * as React from 'react';
 
 import { ThickCheckIcon } from '../../icons';
 import { Theme, useThemeContext } from '../../theme';
-import { Input as TextFieldInput, Root as TextFieldRoot } from '../text-field/text-field';
 import type { RootProps as TextFieldRootProps } from '../text-field/text-field';
-import {
-  comboboxContentPropDefs,
-  comboboxItemPropDefs,
-  comboboxRootPropDefs,
-} from './combobox.props';
+import { Input as TextFieldInput, Root as TextFieldRoot } from '../text-field/text-field';
+import { comboboxContentPropDefs, comboboxItemPropDefs, comboboxRootPropDefs } from './combobox.props';
 
 import type { GetPropDefTypes } from '../../helpers';
 
@@ -50,8 +46,7 @@ const ComboboxContentContext = React.createContext<ComboboxContentContextValue>(
 // ============================================================================
 
 interface ComboboxRootPropsBase<Value, Multiple extends boolean | undefined = false>
-  extends Omit<ComboboxPrimitive.Root.Props<Value, Multiple>, 'className' | 'render'>,
-    ComboboxContextValue {}
+  extends Omit<ComboboxPrimitive.Root.Props<Value, Multiple>, 'className' | 'render'>, ComboboxContextValue {}
 
 type ComboboxRootProps<Value = unknown, Multiple extends boolean | undefined = false> = ComboboxRootPropsBase<
   Value,
@@ -68,9 +63,7 @@ function ComboboxRoot<Value = unknown, Multiple extends boolean | undefined = fa
       itemToStringLabel={itemToStringLabel}
       {...(rootProps as ComboboxPrimitive.Root.Props<Value, Multiple>)}
     >
-      <ComboboxContext.Provider value={React.useMemo(() => ({ size }), [size])}>
-        {children}
-      </ComboboxContext.Provider>
+      <ComboboxContext.Provider value={React.useMemo(() => ({ size }), [size])}>{children}</ComboboxContext.Provider>
     </ComboboxPrimitive.Root>
   );
 }
@@ -120,7 +113,10 @@ ComboboxTrigger.displayName = 'ComboboxTrigger';
 // Value
 // ============================================================================
 
-interface ComboboxValueProps extends Omit<React.ComponentProps<typeof ComboboxPrimitive.Value>, 'className' | 'render'> {
+interface ComboboxValueProps extends Omit<
+  React.ComponentProps<typeof ComboboxPrimitive.Value>,
+  'className' | 'render'
+> {
   className?: string;
 }
 
@@ -158,7 +154,10 @@ ComboboxIcon.displayName = 'ComboboxIcon';
 // Clear
 // ============================================================================
 
-interface ComboboxClearProps extends Omit<React.ComponentProps<typeof ComboboxPrimitive.Clear>, 'render' | 'className'> {
+interface ComboboxClearProps extends Omit<
+  React.ComponentProps<typeof ComboboxPrimitive.Clear>,
+  'render' | 'className'
+> {
   className?: string;
 }
 
@@ -172,8 +171,7 @@ ComboboxClear.displayName = 'ComboboxClear';
 // ============================================================================
 
 interface ComboboxContentProps
-  extends Omit<React.ComponentProps<typeof ComboboxPrimitive.Popup>, 'className' | 'render'>,
-    ComboboxContentOwnProps {
+  extends Omit<React.ComponentProps<typeof ComboboxPrimitive.Popup>, 'className' | 'render'>, ComboboxContentOwnProps {
   className?: string;
   container?: React.ComponentProps<typeof ComboboxPrimitive.Portal>['container'];
   keepMounted?: React.ComponentProps<typeof ComboboxPrimitive.Portal>['keepMounted'];
@@ -264,8 +262,7 @@ ComboboxList.displayName = 'ComboboxList';
 // ============================================================================
 
 interface ComboboxItemProps
-  extends Omit<React.ComponentProps<typeof ComboboxPrimitive.Item>, 'className' | 'render'>,
-    ComboboxItemOwnProps {
+  extends Omit<React.ComponentProps<typeof ComboboxPrimitive.Item>, 'className' | 'render'>, ComboboxItemOwnProps {
   className?: string;
 }
 
@@ -291,18 +288,17 @@ ComboboxItem.displayName = 'ComboboxItem';
 // ItemIndicator
 // ============================================================================
 
-interface ComboboxItemIndicatorProps
-  extends Omit<React.ComponentProps<typeof ComboboxPrimitive.ItemIndicator>, 'className' | 'render'> {
+interface ComboboxItemIndicatorProps extends Omit<
+  React.ComponentProps<typeof ComboboxPrimitive.ItemIndicator>,
+  'className' | 'render'
+> {
   className?: string;
 }
 
 const ComboboxItemIndicator = (props: ComboboxItemIndicatorProps) => {
   const { className, children, ...indicatorProps } = props;
   return (
-    <ComboboxPrimitive.ItemIndicator
-      {...indicatorProps}
-      className={classNames('fui-ComboboxItemIndicator', className)}
-    >
+    <ComboboxPrimitive.ItemIndicator {...indicatorProps} className={classNames('fui-ComboboxItemIndicator', className)}>
       {children ?? <ThickCheckIcon className="fui-ComboboxItemIndicatorIcon" />}
     </ComboboxPrimitive.ItemIndicator>
   );
@@ -313,7 +309,10 @@ ComboboxItemIndicator.displayName = 'ComboboxItemIndicator';
 // Empty
 // ============================================================================
 
-interface ComboboxEmptyProps extends Omit<React.ComponentProps<typeof ComboboxPrimitive.Empty>, 'className' | 'render'> {
+interface ComboboxEmptyProps extends Omit<
+  React.ComponentProps<typeof ComboboxPrimitive.Empty>,
+  'className' | 'render'
+> {
   className?: string;
 }
 
@@ -327,14 +326,20 @@ ComboboxEmpty.displayName = 'ComboboxEmpty';
 // Group
 // ============================================================================
 
-interface ComboboxGroupProps extends Omit<React.ComponentProps<typeof ComboboxPrimitive.Group>, 'className' | 'render'> {
+interface ComboboxGroupProps extends Omit<
+  React.ComponentProps<typeof ComboboxPrimitive.Group>,
+  'className' | 'render'
+> {
   className?: string;
 }
 
 const ComboboxGroup = (props: ComboboxGroupProps) => {
   const { className, ...groupProps } = props;
   return (
-    <ComboboxPrimitive.Group {...groupProps} className={classNames('fui-ComboboxGroup', 'fui-BaseMenuGroup', className)} />
+    <ComboboxPrimitive.Group
+      {...groupProps}
+      className={classNames('fui-ComboboxGroup', 'fui-BaseMenuGroup', className)}
+    />
   );
 };
 ComboboxGroup.displayName = 'ComboboxGroup';
@@ -343,8 +348,10 @@ ComboboxGroup.displayName = 'ComboboxGroup';
 // GroupLabel
 // ============================================================================
 
-interface ComboboxGroupLabelProps
-  extends Omit<React.ComponentProps<typeof ComboboxPrimitive.GroupLabel>, 'className' | 'render'> {
+interface ComboboxGroupLabelProps extends Omit<
+  React.ComponentProps<typeof ComboboxPrimitive.GroupLabel>,
+  'className' | 'render'
+> {
   className?: string;
 }
 
@@ -376,8 +383,10 @@ ComboboxCollection.displayName = 'ComboboxCollection';
 // Separator
 // ============================================================================
 
-interface ComboboxSeparatorProps
-  extends Omit<React.ComponentProps<typeof ComboboxPrimitive.Separator>, 'className' | 'render'> {
+interface ComboboxSeparatorProps extends Omit<
+  React.ComponentProps<typeof ComboboxPrimitive.Separator>,
+  'className' | 'render'
+> {
   className?: string;
 }
 
@@ -435,7 +444,11 @@ interface ComboboxChipProps extends Omit<React.ComponentProps<typeof ComboboxPri
 
 const ComboboxChip = (props: ComboboxChipProps) => {
   const { className, ...chipProps } = props;
-  return <ComboboxPrimitive.Chip {...chipProps} className={classNames('fui-ComboboxChip', className)} />;
+  return (
+    <div className="fui-ComboboxChipRoot">
+      <ComboboxPrimitive.Chip {...chipProps} className={classNames('fui-ComboboxChip', className)} />
+    </div>
+  );
 };
 ComboboxChip.displayName = 'ComboboxChip';
 
@@ -443,16 +456,16 @@ ComboboxChip.displayName = 'ComboboxChip';
 // ChipRemove
 // ============================================================================
 
-interface ComboboxChipRemoveProps
-  extends Omit<React.ComponentProps<typeof ComboboxPrimitive.ChipRemove>, 'className' | 'render'> {
+interface ComboboxChipRemoveProps extends Omit<
+  React.ComponentProps<typeof ComboboxPrimitive.ChipRemove>,
+  'className' | 'render'
+> {
   className?: string;
 }
 
 const ComboboxChipRemove = (props: ComboboxChipRemoveProps) => {
   const { className, ...removeProps } = props;
-  return (
-    <ComboboxPrimitive.ChipRemove {...removeProps} className={classNames('fui-ComboboxChipRemove', className)} />
-  );
+  return <ComboboxPrimitive.ChipRemove {...removeProps} className={classNames('fui-ComboboxChipRemove', className)} />;
 };
 ComboboxChipRemove.displayName = 'ComboboxChipRemove';
 
@@ -479,17 +492,18 @@ export {
   ComboboxRoot as Root,
   ComboboxSeparator as Separator,
   ComboboxTrigger as Trigger,
-  ComboboxValue as Value,
   useComboboxAnchor,
+  ComboboxValue as Value,
 };
 
 export type {
   ComboboxChipProps as ChipProps,
   ComboboxChipRemoveProps as ChipRemoveProps,
-  ComboboxChipsProps as ChipsProps,
   ComboboxInputProps as ChipsInputProps,
+  ComboboxChipsProps as ChipsProps,
   ComboboxClearProps as ClearProps,
   ComboboxCollectionProps as CollectionProps,
+  ComboboxValue as ComboboxValueType,
   ComboboxContentProps as ContentProps,
   ComboboxEmptyProps as EmptyProps,
   ComboboxGroupLabelProps as GroupLabelProps,
@@ -505,6 +519,5 @@ export type {
   ComboboxRootProps as RootProps,
   ComboboxSeparatorProps as SeparatorProps,
   ComboboxTriggerProps as TriggerProps,
-  ComboboxValue as ComboboxValueType,
   ComboboxValueProps as ValueProps,
 };
