@@ -233,8 +233,8 @@ const DefaultDemo = ({ size, variant }: { size: '1' | '2' | '3' | '4'; variant: 
   const anchor = Combobox.useComboboxAnchor();
   return (
     <Combobox.Root items={fruits} defaultValue="Apple" size={size}>
-      <Combobox.Input ref={anchor} placeholder="Choose a fruit..." showClear variant={variant} size={size} />
-      <Combobox.Content anchor={anchor} size={size}>
+      <Combobox.Input ref={anchor} placeholder="Choose a fruit..." showClear variant={variant} />
+      <Combobox.Content anchor={anchor}>
         <ScrollArea type="auto" style={{ maxHeight: 300 }}>
           <Combobox.Empty>No fruits found.</Combobox.Empty>
           <Combobox.List>
@@ -285,7 +285,7 @@ const MultipleDemo = ({ size, variant }: { size: '1' | '2' | '3' | '4'; variant:
   const anchor = Combobox.useComboboxAnchor();
   return (
     <Combobox.Root items={fruits} multiple defaultValue={['Apple', 'Orange']} size={size}>
-      <Combobox.Chips ref={anchor} size={size} variant={variant}>
+      <Combobox.Chips ref={anchor} variant={variant}>
         <Combobox.Value>
           {(values: string[]) => (
             <React.Fragment>
@@ -297,7 +297,7 @@ const MultipleDemo = ({ size, variant }: { size: '1' | '2' | '3' | '4'; variant:
           )}
         </Combobox.Value>
       </Combobox.Chips>
-      <Combobox.Content anchor={anchor} size={size}>
+      <Combobox.Content anchor={anchor}>
         <ScrollArea type="auto" style={{ maxHeight: 300 }}>
           <Combobox.Empty>No fruits found.</Combobox.Empty>
           <Combobox.List>

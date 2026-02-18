@@ -81,18 +81,21 @@ interface ComboboxInputProps extends Omit<TextFieldRootProps, 'children'> {
 }
 
 const ComboboxInput = React.forwardRef<HTMLDivElement, ComboboxInputProps>((props, forwardedRef) => {
+  const context = React.useContext(ComboboxContext);
   const {
     className,
     placeholder,
     disabled,
     showTrigger = true,
     showClear = false,
+    size = context.size,
     ...textFieldRootProps
   } = props;
 
   return (
     <TextFieldRoot
       ref={forwardedRef}
+      size={size}
       {...textFieldRootProps}
       className={classNames('fui-ComboboxInput', className)}
     >
@@ -238,11 +241,12 @@ interface ComboboxContentProps
 }
 
 const ComboboxContent = (props: ComboboxContentProps) => {
+  const rootContext = React.useContext(ComboboxContext);
   const themeContext = useThemeContext();
   const {
     className,
     children,
-    size = comboboxContentPropDefs.size.default,
+    size = rootContext.size ?? comboboxContentPropDefs.size.default,
     color,
     variant = comboboxContentPropDefs.variant.default,
     highContrast = comboboxContentPropDefs.highContrast.default,
@@ -463,7 +467,8 @@ ComboboxSeparator.displayName = 'ComboboxSeparator';
 interface ComboboxChipsProps extends TextFieldRootProps {}
 
 const ComboboxChips = React.forwardRef<HTMLDivElement, ComboboxChipsProps>((props, forwardedRef) => {
-  const { className, size, variant, color, children, ...rest } = props;
+  const context = React.useContext(ComboboxContext);
+  const { className, size = context.size, variant, color, children, ...rest } = props;
   const textFieldRootProps: TextFieldRootProps = {
     className: classNames('fui-ComboboxChips', className),
     size,
