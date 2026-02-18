@@ -296,13 +296,12 @@
   padding-left: var(--chip-left-padding);
   font-size: inherit;
   line-height: inherit;
-  border-radius: var(--radius-1);
   background-color: var(--accent-a3);
   color: var(--accent-a12);
   max-width: 100%;
   box-sizing: border-box;
   height: var(--item-height);
-  border-radius: calc(var(--text-field-border-radius) - var(--padding));
+  border-radius: calc(var(--text-field-border-radius) - var(--padding) + 1px);
 
   &:focus-visible {
     outline: 2px solid var(--color-focus-root);
