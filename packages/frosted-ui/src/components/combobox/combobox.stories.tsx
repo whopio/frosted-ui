@@ -233,17 +233,17 @@ const DefaultDemo = ({ size, variant }: { size: '1' | '2' | '3' | '4'; variant: 
   <Combobox.Root items={fruits} defaultValue="Apple" size={size}>
     <Combobox.Input placeholder="Choose a fruit..." showClear variant={variant} />
     <Combobox.Content>
-        <ScrollArea type="auto" style={{ maxHeight: 300 }}>
-          <Combobox.Empty>No fruits found.</Combobox.Empty>
-          <Combobox.List>
-            {(item) => (
-              <Combobox.Item key={item} value={item}>
-                {item}
-              </Combobox.Item>
-            )}
-          </Combobox.List>
-        </ScrollArea>
-      </Combobox.Content>
+      <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+        <Combobox.Empty>No fruits found.</Combobox.Empty>
+        <Combobox.List>
+          {(item) => (
+            <Combobox.Item key={item} value={item}>
+              {item}
+            </Combobox.Item>
+          )}
+        </Combobox.List>
+      </ScrollArea>
+    </Combobox.Content>
   </Combobox.Root>
 );
 
@@ -293,17 +293,17 @@ const MultipleDemo = ({ size, variant }: { size: '1' | '2' | '3' | '4'; variant:
       </Combobox.Value>
     </Combobox.Chips>
     <Combobox.Content>
-        <ScrollArea type="auto" style={{ maxHeight: 300 }}>
-          <Combobox.Empty>No fruits found.</Combobox.Empty>
-          <Combobox.List>
-            {(item) => (
-              <Combobox.Item key={item} value={item}>
-                {item}
-              </Combobox.Item>
-            )}
-          </Combobox.List>
-        </ScrollArea>
-      </Combobox.Content>
+      <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+        <Combobox.Empty>No fruits found.</Combobox.Empty>
+        <Combobox.List>
+          {(item) => (
+            <Combobox.Item key={item} value={item}>
+              {item}
+            </Combobox.Item>
+          )}
+        </Combobox.List>
+      </ScrollArea>
+    </Combobox.Content>
   </Combobox.Root>
 );
 
@@ -354,30 +354,30 @@ export const Grouped: Story = {
       <Combobox.Root items={produceGroups} size="2">
         <Combobox.Input placeholder="Select produce" />
         <Combobox.Content>
-            <ScrollArea type="auto" style={{ maxHeight: 300 }}>
-              <Combobox.Empty>No results.</Combobox.Empty>
-              <Combobox.List>
-                {(group, index) => {
-                  const g = group as ProduceGroup;
-                  return (
-                    <React.Fragment key={g.label}>
-                      {index > 0 && <Combobox.Separator />}
-                      <Combobox.Group items={g.items}>
-                        <Combobox.GroupLabel>{g.label}</Combobox.GroupLabel>
-                        <Combobox.Collection>
-                          {(item) => (
-                            <Combobox.Item key={item as string} value={item}>
-                              {item as string}
-                            </Combobox.Item>
-                          )}
-                        </Combobox.Collection>
-                      </Combobox.Group>
-                    </React.Fragment>
-                  );
-                }}
-              </Combobox.List>
-            </ScrollArea>
-          </Combobox.Content>
+          <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+            <Combobox.Empty>No results.</Combobox.Empty>
+            <Combobox.List>
+              {(group, index) => {
+                const g = group as ProduceGroup;
+                return (
+                  <React.Fragment key={g.label}>
+                    {index > 0 && <Combobox.Separator />}
+                    <Combobox.Group items={g.items}>
+                      <Combobox.GroupLabel>{g.label}</Combobox.GroupLabel>
+                      <Combobox.Collection>
+                        {(item) => (
+                          <Combobox.Item key={item as string} value={item}>
+                            {item as string}
+                          </Combobox.Item>
+                        )}
+                      </Combobox.Collection>
+                    </Combobox.Group>
+                  </React.Fragment>
+                );
+              }}
+            </Combobox.List>
+          </ScrollArea>
+        </Combobox.Content>
       </Combobox.Root>
     </div>
   ),
@@ -411,20 +411,20 @@ export const CustomItems: Story = {
       >
         <Combobox.Input placeholder="Select framework" />
         <Combobox.Content>
-            <ScrollArea type="auto" style={{ maxHeight: 300 }}>
-              <Combobox.Empty>No frameworks found.</Combobox.Empty>
-              <Combobox.List>
-                {(item) => {
-                  const f = item as Framework;
-                  return (
-                    <Combobox.Item key={f.value} value={f}>
-                      {f.label}
-                    </Combobox.Item>
-                  );
-                }}
-              </Combobox.List>
-            </ScrollArea>
-          </Combobox.Content>
+          <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+            <Combobox.Empty>No frameworks found.</Combobox.Empty>
+            <Combobox.List>
+              {(item) => {
+                const f = item as Framework;
+                return (
+                  <Combobox.Item key={f.value} value={f}>
+                    {f.label}
+                  </Combobox.Item>
+                );
+              }}
+            </Combobox.List>
+          </ScrollArea>
+        </Combobox.Content>
       </Combobox.Root>
     </div>
   ),
@@ -440,17 +440,17 @@ export const ClearButton: Story = {
       <Combobox.Root items={fruits} defaultValue="Mango" size="2">
         <Combobox.Input placeholder="Choose a fruit..." showClear />
         <Combobox.Content>
-            <ScrollArea type="auto" style={{ maxHeight: 300 }}>
-              <Combobox.Empty>No fruits found.</Combobox.Empty>
-              <Combobox.List>
-                {(item) => (
-                  <Combobox.Item key={item} value={item}>
-                    {item}
-                  </Combobox.Item>
-                )}
-              </Combobox.List>
-            </ScrollArea>
-          </Combobox.Content>
+          <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+            <Combobox.Empty>No fruits found.</Combobox.Empty>
+            <Combobox.List>
+              {(item) => (
+                <Combobox.Item key={item} value={item}>
+                  {item}
+                </Combobox.Item>
+              )}
+            </Combobox.List>
+          </ScrollArea>
+        </Combobox.Content>
       </Combobox.Root>
     </div>
   ),
@@ -502,17 +502,17 @@ export const Disabled: Story = {
       <Combobox.Root items={fruits} defaultValue="Apple" disabled size="2">
         <Combobox.Input placeholder="Choose a fruit..." disabled />
         <Combobox.Content>
-            <ScrollArea type="auto" style={{ maxHeight: 300 }}>
-              <Combobox.Empty>No fruits found.</Combobox.Empty>
-              <Combobox.List>
-                {(item) => (
-                  <Combobox.Item key={item} value={item}>
-                    {item}
-                  </Combobox.Item>
-                )}
-              </Combobox.List>
-            </ScrollArea>
-          </Combobox.Content>
+          <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+            <Combobox.Empty>No fruits found.</Combobox.Empty>
+            <Combobox.List>
+              {(item) => (
+                <Combobox.Item key={item} value={item}>
+                  {item}
+                </Combobox.Item>
+              )}
+            </Combobox.List>
+          </ScrollArea>
+        </Combobox.Content>
       </Combobox.Root>
     </div>
   ),
@@ -532,17 +532,17 @@ export const ManyItems: Story = {
       <Combobox.Root items={manyCountries} size="2">
         <Combobox.Input placeholder="Search countries..." />
         <Combobox.Content>
-            <ScrollArea type="auto" style={{ maxHeight: 300 }}>
-              <Combobox.Empty>No countries found.</Combobox.Empty>
-              <Combobox.List>
-                {(country) => (
-                  <Combobox.Item key={country} value={country}>
-                    {country}
-                  </Combobox.Item>
-                )}
-              </Combobox.List>
-            </ScrollArea>
-          </Combobox.Content>
+          <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+            <Combobox.Empty>No countries found.</Combobox.Empty>
+            <Combobox.List>
+              {(country) => (
+                <Combobox.Item key={country} value={country}>
+                  {country}
+                </Combobox.Item>
+              )}
+            </Combobox.List>
+          </ScrollArea>
+        </Combobox.Content>
       </Combobox.Root>
     </div>
   ),
@@ -558,17 +558,17 @@ export const EmptyState: Story = {
       <Combobox.Root items={fruits} size="2">
         <Combobox.Input placeholder="Type to filter (e.g. xyz)" />
         <Combobox.Content>
-            <ScrollArea type="auto" style={{ maxHeight: 300 }}>
-              <Combobox.Empty>No fruits found. Try a different search.</Combobox.Empty>
-              <Combobox.List>
-                {(item) => (
-                  <Combobox.Item key={item} value={item}>
-                    {item}
-                  </Combobox.Item>
-                )}
-              </Combobox.List>
-            </ScrollArea>
-          </Combobox.Content>
+          <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+            <Combobox.Empty>No fruits found. Try a different search.</Combobox.Empty>
+            <Combobox.List>
+              {(item) => (
+                <Combobox.Item key={item} value={item}>
+                  {item}
+                </Combobox.Item>
+              )}
+            </Combobox.List>
+          </ScrollArea>
+        </Combobox.Content>
       </Combobox.Root>
     </div>
   ),
@@ -615,6 +615,201 @@ export const TriggerOnly: Story = {
                     {item}
                   </Combobox.Item>
                 )}
+              </Combobox.List>
+            </ScrollArea>
+          </Combobox.Content>
+        </Combobox.Root>
+      </div>
+    );
+  },
+};
+
+// ============================================================================
+// Async Search (single)
+// ============================================================================
+
+interface User {
+  login: string;
+  name: string;
+}
+
+const allUsers: User[] = [
+  { login: 'alice', name: 'Alice Johnson' },
+  { login: 'bob', name: 'Bob Smith' },
+  { login: 'carol', name: 'Carol Williams' },
+  { login: 'dan', name: 'Dan Brown' },
+  { login: 'eve', name: 'Eve Davis' },
+  { login: 'frank', name: 'Frank Miller' },
+  { login: 'grace', name: 'Grace Wilson' },
+  { login: 'heidi', name: 'Heidi Moore' },
+  { login: 'ivan', name: 'Ivan Taylor' },
+  { login: 'judy', name: 'Judy Anderson' },
+  { login: 'karl', name: 'Karl Thomas' },
+  { login: 'linda', name: 'Linda Jackson' },
+  { login: 'mallory', name: 'Mallory White' },
+  { login: 'nancy', name: 'Nancy Harris' },
+  { login: 'oscar', name: 'Oscar Martin' },
+];
+
+function fakeSearchUsers(query: string): Promise<User[]> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      if (!query) {
+        resolve([]);
+        return;
+      }
+      const q = query.toLowerCase();
+      resolve(allUsers.filter((u) => u.login.includes(q) || u.name.toLowerCase().includes(q)));
+    }, 300);
+  });
+}
+
+export const AsyncSearchSingle: Story = {
+  name: 'Async Search (Single)',
+  render: function AsyncSearchSingleStory() {
+    const [results, setResults] = React.useState<User[]>([]);
+    const [selected, setSelected] = React.useState<User | null>(null);
+    const [loading, setLoading] = React.useState(false);
+
+    const items = React.useMemo(() => {
+      if (selected && !results.some((r) => r.login === selected.login)) {
+        return [selected, ...results];
+      }
+      return results;
+    }, [results, selected]);
+
+    const handleInputValueChange = React.useCallback((query: string) => {
+      setLoading(true);
+      fakeSearchUsers(query).then((res) => {
+        setResults(res);
+        setLoading(false);
+      });
+    }, []);
+
+    return (
+      <div style={{ maxWidth: 300 }}>
+        <Text size="2" weight="medium" style={{ marginBottom: 4, display: 'block' }}>
+          Assign reviewer
+        </Text>
+        <Combobox.Root
+          items={items}
+          filter={null}
+          size="3"
+          value={selected}
+          onValueChange={setSelected}
+          onInputValueChange={handleInputValueChange}
+          itemToStringLabel={(u) => (u as User).name}
+          isItemEqualToValue={(a, b) => (a as User).login === (b as User).login}
+        >
+          <Combobox.Input placeholder="Search users..." showClear />
+          <Combobox.Content>
+            <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+              {loading ? (
+                <Text size="2" color="gray" style={{ padding: '8px 12px', display: 'block' }}>
+                  Searching…
+                </Text>
+              ) : (
+                <Combobox.Empty>No users found.</Combobox.Empty>
+              )}
+              <Combobox.List>
+                {(item) => {
+                  const user = item as User;
+                  return (
+                    <Combobox.Item key={user.login} value={user}>
+                      <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <Text size="2">{user.name}</Text>
+                        <Text size="1" color="gray">
+                          @{user.login}
+                        </Text>
+                      </div>
+                    </Combobox.Item>
+                  );
+                }}
+              </Combobox.List>
+            </ScrollArea>
+          </Combobox.Content>
+        </Combobox.Root>
+      </div>
+    );
+  },
+};
+
+// ============================================================================
+// Async Search (multiple)
+// ============================================================================
+
+export const AsyncSearchMultiple: Story = {
+  name: 'Async Search (Multiple)',
+  render: function AsyncSearchMultipleStory() {
+    const [results, setResults] = React.useState<User[]>([]);
+    const [selected, setSelected] = React.useState<User[]>([]);
+    const [loading, setLoading] = React.useState(false);
+
+    const items = React.useMemo(() => {
+      const resultLogins = new Set(results.map((r) => r.login));
+      const missingSelected = selected.filter((s) => !resultLogins.has(s.login));
+      return [...missingSelected, ...results];
+    }, [results, selected]);
+
+    const handleInputValueChange = React.useCallback((query: string) => {
+      setLoading(true);
+      fakeSearchUsers(query).then((res) => {
+        setResults(res);
+        setLoading(false);
+      });
+    }, []);
+
+    return (
+      <div style={{ maxWidth: 400 }}>
+        <Text size="2" weight="medium" style={{ marginBottom: 4, display: 'block' }}>
+          Assign reviewers
+        </Text>
+        <Combobox.Root
+          items={items}
+          filter={null}
+          multiple
+          size="3"
+          value={selected}
+          onValueChange={setSelected}
+          onInputValueChange={handleInputValueChange}
+          itemToStringLabel={(u) => (u as User).name}
+          isItemEqualToValue={(a, b) => (a as User).login === (b as User).login}
+        >
+          <Combobox.Chips>
+            <Combobox.Value>
+              {(values: User[]) => (
+                <React.Fragment>
+                  {values.map((user) => (
+                    <Combobox.Chip key={user.login}>{user.name}</Combobox.Chip>
+                  ))}
+                  <Combobox.ChipsInput placeholder="Search users..." />
+                </React.Fragment>
+              )}
+            </Combobox.Value>
+          </Combobox.Chips>
+          <Combobox.Content>
+            <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+              {loading ? (
+                <Text size="2" color="gray" style={{ padding: '8px 12px', display: 'block' }}>
+                  Searching…
+                </Text>
+              ) : (
+                <Combobox.Empty>No users found.</Combobox.Empty>
+              )}
+              <Combobox.List>
+                {(item) => {
+                  const user = item as User;
+                  return (
+                    <Combobox.Item key={user.login} value={user}>
+                      <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <Text size="2">{user.name}</Text>
+                        <Text size="1" color="gray">
+                          @{user.login}
+                        </Text>
+                      </div>
+                    </Combobox.Item>
+                  );
+                }}
               </Combobox.List>
             </ScrollArea>
           </Combobox.Content>
