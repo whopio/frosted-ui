@@ -8,6 +8,7 @@ import {
   Callout,
   Checkbox,
   Code,
+  Combobox,
   Field,
   Fieldset,
   Form,
@@ -553,6 +554,193 @@ export const WithSliderBudget: Story = {
         {submitted && (
           <Callout.Root color="success" size="1" style={{ marginTop: 16 }}>
             <Callout.Text>Budget set to ${budget.toLocaleString()}/month</Callout.Text>
+          </Callout.Root>
+        )}
+      </div>
+    );
+  },
+};
+
+// ============================================================================
+// With Combobox
+// ============================================================================
+
+const timezones = [
+  'America/New_York',
+  'America/Chicago',
+  'America/Denver',
+  'America/Los_Angeles',
+  'America/Anchorage',
+  'Pacific/Honolulu',
+  'Europe/London',
+  'Europe/Berlin',
+  'Europe/Paris',
+  'Europe/Moscow',
+  'Asia/Tokyo',
+  'Asia/Shanghai',
+  'Asia/Kolkata',
+  'Asia/Dubai',
+  'Australia/Sydney',
+  'Pacific/Auckland',
+];
+
+const skills = [
+  'TypeScript',
+  'JavaScript',
+  'React',
+  'Next.js',
+  'Node.js',
+  'Python',
+  'Go',
+  'Rust',
+  'PostgreSQL',
+  'Redis',
+  'Docker',
+  'Kubernetes',
+  'AWS',
+  'GraphQL',
+  'Tailwind CSS',
+];
+
+export const WithCombobox: Story = {
+  name: 'With Combobox',
+  render: function WithComboboxStory() {
+    const [loading, setLoading] = React.useState(false);
+    const [submitted, setSubmitted] = React.useState<{
+      name: string;
+      timezone: string;
+      skills: string[];
+    } | null>(null);
+
+    const [name, setName] = React.useState('');
+    const [timezone, setTimezone] = React.useState<string | null>(null);
+    const [selectedSkills, setSelectedSkills] = React.useState<string[]>([]);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+      if (!timezone) return;
+      setLoading(true);
+      await new Promise((resolve) => setTimeout(resolve, 600));
+      setSubmitted({ name, timezone, skills: selectedSkills });
+      setLoading(false);
+    };
+
+    return (
+      <div style={{ width: 400 }}>
+        <Heading size="3" style={{ marginBottom: 4 }}>
+          Developer Profile
+        </Heading>
+        <Text size="2" color="gray" style={{ marginBottom: 16, display: 'block' }}>
+          Single-select and multi-select comboboxes integrated with Field validation.
+        </Text>
+
+        <Form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
+          <Field.Root name="displayName">
+            <Field.Label>Display name</Field.Label>
+            <TextField.Root size="2">
+              <TextField.Input
+                placeholder="Jane Doe"
+                required
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                  setSubmitted(null);
+                }}
+              />
+            </TextField.Root>
+            <Field.Error match="valueMissing">Display name is required</Field.Error>
+          </Field.Root>
+
+          <Field.Root name="timezone">
+            <Field.Label>Timezone</Field.Label>
+            <Field.Description>Used for scheduling and notifications</Field.Description>
+            <Combobox.Root
+              items={timezones}
+              size="2"
+              value={timezone}
+              onValueChange={(tz) => {
+                setTimezone(tz);
+                setSubmitted(null);
+              }}
+            >
+              <Combobox.Input placeholder="Search timezones..." showClear />
+              <Combobox.Content>
+                <ScrollArea type="auto" style={{ maxHeight: 200 }}>
+                  <Combobox.Empty>No timezones found.</Combobox.Empty>
+                  <Combobox.List>
+                    {(item) => (
+                      <Combobox.Item key={item} value={item}>
+                        {item}
+                      </Combobox.Item>
+                    )}
+                  </Combobox.List>
+                </ScrollArea>
+              </Combobox.Content>
+            </Combobox.Root>
+          </Field.Root>
+
+          <Field.Root name="skills">
+            <Field.Label>Skills</Field.Label>
+            <Field.Description>Select technologies you're proficient in</Field.Description>
+            <Combobox.Root
+              items={skills}
+              multiple
+              size="2"
+              value={selectedSkills}
+              onValueChange={(v) => {
+                setSelectedSkills(v);
+                setSubmitted(null);
+              }}
+            >
+              <Combobox.Chips>
+                <Combobox.Value>
+                  {(values: string[]) => (
+                    <React.Fragment>
+                      {values.map((value) => (
+                        <Combobox.Chip key={value}>{value}</Combobox.Chip>
+                      ))}
+                      <Combobox.ChipsInput placeholder="Add skills..." />
+                    </React.Fragment>
+                  )}
+                </Combobox.Value>
+              </Combobox.Chips>
+              <Combobox.Content>
+                <ScrollArea type="auto" style={{ maxHeight: 200 }}>
+                  <Combobox.Empty>No skills found.</Combobox.Empty>
+                  <Combobox.List>
+                    {(item) => (
+                      <Combobox.Item key={item} value={item}>
+                        {item}
+                      </Combobox.Item>
+                    )}
+                  </Combobox.List>
+                </ScrollArea>
+              </Combobox.Content>
+            </Combobox.Root>
+          </Field.Root>
+
+          <Button type="submit" loading={loading} style={{ width: '100%' }} variant="solid">
+            Save Profile
+          </Button>
+        </Form>
+
+        {submitted && (
+          <Callout.Root color="success" size="1" style={{ marginTop: 16 }}>
+            <Callout.Text>
+              Profile saved!
+              <pre
+                style={{
+                  marginTop: 'var(--space-2)',
+                  fontSize: 'var(--font-size-1)',
+                  fontFamily: 'monospace',
+                  whiteSpace: 'pre-wrap',
+                  wordBreak: 'break-all',
+                  fontWeight: 'normal',
+                }}
+              >
+                {JSON.stringify(submitted, null, 2)}
+              </pre>
+            </Callout.Text>
           </Callout.Root>
         )}
       </div>
