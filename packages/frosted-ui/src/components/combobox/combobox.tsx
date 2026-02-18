@@ -4,7 +4,7 @@ import { Combobox as ComboboxPrimitive } from '@base-ui/react/combobox';
 import classNames from 'classnames';
 import * as React from 'react';
 
-import { ThickCheckIcon } from '../../icons';
+import { ThickCheckIcon, XIcon } from '../../icons';
 import { Theme, useThemeContext } from '../../theme';
 import type { RootProps as TextFieldRootProps } from '../text-field/text-field';
 import { Input as TextFieldInput, Root as TextFieldRoot } from '../text-field/text-field';
@@ -435,7 +435,7 @@ function useComboboxAnchor() {
 }
 
 // ============================================================================
-// Chip
+// Chip (includes remove button with XIcon baked in)
 // ============================================================================
 
 interface ComboboxChipProps extends Omit<React.ComponentProps<typeof ComboboxPrimitive.Chip>, 'className' | 'render'> {
@@ -443,27 +443,17 @@ interface ComboboxChipProps extends Omit<React.ComponentProps<typeof ComboboxPri
 }
 
 const ComboboxChip = (props: ComboboxChipProps) => {
-  const { className, ...chipProps } = props;
-  return <ComboboxPrimitive.Chip {...chipProps} className={classNames('fui-ComboboxChip', className)} />;
+  const { className, children, ...chipProps } = props;
+  return (
+    <ComboboxPrimitive.Chip {...chipProps} className={classNames('fui-ComboboxChip', className)}>
+      {children}
+      <ComboboxPrimitive.ChipRemove className="fui-ComboboxChipRemove">
+        <XIcon />
+      </ComboboxPrimitive.ChipRemove>
+    </ComboboxPrimitive.Chip>
+  );
 };
 ComboboxChip.displayName = 'ComboboxChip';
-
-// ============================================================================
-// ChipRemove
-// ============================================================================
-
-interface ComboboxChipRemoveProps extends Omit<
-  React.ComponentProps<typeof ComboboxPrimitive.ChipRemove>,
-  'className' | 'render'
-> {
-  className?: string;
-}
-
-const ComboboxChipRemove = (props: ComboboxChipRemoveProps) => {
-  const { className, ...removeProps } = props;
-  return <ComboboxPrimitive.ChipRemove {...removeProps} className={classNames('fui-ComboboxChipRemove', className)} />;
-};
-ComboboxChipRemove.displayName = 'ComboboxChipRemove';
 
 // ============================================================================
 // Exports
@@ -471,7 +461,6 @@ ComboboxChipRemove.displayName = 'ComboboxChipRemove';
 
 export {
   ComboboxChip as Chip,
-  ComboboxChipRemove as ChipRemove,
   ComboboxChips as Chips,
   ComboboxChipsInput as ChipsInput,
   ComboboxClear as Clear,
@@ -494,7 +483,6 @@ export {
 
 export type {
   ComboboxChipProps as ChipProps,
-  ComboboxChipRemoveProps as ChipRemoveProps,
   ComboboxInputProps as ChipsInputProps,
   ComboboxChipsProps as ChipsProps,
   ComboboxClearProps as ClearProps,

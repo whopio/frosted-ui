@@ -251,15 +251,19 @@
 .fui-ComboboxChips {
   &:where(.fui-r-size-1) {
     --padding: 4px;
+    --chip-left-padding: 4px;
   }
   &:where(.fui-r-size-2) {
     --padding: 4px;
+    --chip-left-padding: 6px;
   }
   &:where(.fui-r-size-3) {
     --padding: 6px;
+    --chip-left-padding: 8px;
   }
   &:where(.fui-r-size-4) {
     --padding: 8px;
+    --chip-left-padding: 10px;
   }
 }
 
@@ -289,8 +293,7 @@
 .fui-ComboboxChip {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-1);
-  padding: 0px 8px;
+  padding-left: var(--chip-left-padding);
   font-size: inherit;
   line-height: inherit;
   border-radius: var(--radius-1);
@@ -310,19 +313,26 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   padding: 0;
   margin: 0;
-  margin-left: 2px;
   border: none;
   background: none;
   cursor: pointer;
-  color: var(--gray-a11);
-  border-radius: 2px;
+  color: var(--accent-a10);
+  aspect-ratio: 1;
+  height: 100%;
+  container-type: size;
+
+  & svg {
+    --icon-size: max(calc(100cqw / 2), 12px);
+    width: var(--icon-size);
+    height: var(--icon-size);
+  }
 
   @media (hover: hover) {
     &:where(:hover:not([data-disabled])) {
-      color: var(--gray-12);
-      background-color: var(--gray-a4);
+      color: var(--accent-12);
     }
   }
 }

@@ -273,10 +273,7 @@ const MultipleDemo = ({ size, variant }: { size: '1' | '2' | '3' | '4'; variant:
           {(values: string[]) => (
             <React.Fragment>
               {values.map((value) => (
-                <Combobox.Chip key={value}>
-                  {value}
-                  <Combobox.ChipRemove aria-label={`Remove ${value}`} />
-                </Combobox.Chip>
+                <Combobox.Chip key={value}>{value}</Combobox.Chip>
               ))}
               <Combobox.ChipsInput placeholder="Add fruit..." />
             </React.Fragment>
