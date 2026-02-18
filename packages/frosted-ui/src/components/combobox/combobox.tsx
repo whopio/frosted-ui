@@ -504,12 +504,21 @@ interface ComboboxChipProps extends Omit<React.ComponentProps<typeof ComboboxPri
 }
 
 const ComboboxChip = (props: ComboboxChipProps) => {
-  const { className, children, color, variant = comboboxChipPropDefs.variant.default, ...chipProps } = props;
+  const {
+    className,
+    children,
+    color,
+    variant = comboboxChipPropDefs.variant.default,
+    highContrast = comboboxChipPropDefs.highContrast.default,
+    ...chipProps
+  } = props;
   return (
     <ComboboxPrimitive.Chip
       data-accent-color={color}
       {...chipProps}
-      className={classNames('fui-ComboboxChip', `fui-variant-${variant}`, className)}
+      className={classNames('fui-ComboboxChip', `fui-variant-${variant}`, className, {
+        'fui-high-contrast': highContrast,
+      })}
     >
       {children}
       <ComboboxPrimitive.ChipRemove className="fui-ComboboxChipRemove">

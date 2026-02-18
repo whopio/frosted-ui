@@ -397,12 +397,28 @@
   background-color: var(--accent-9);
   color: var(--accent-9-contrast);
   --chip-remove-icon-hover-color: var(--accent-9-contrast);
+
+  &:where(.fui-high-contrast) {
+    background-color: var(--accent-12);
+    color: var(--accent-1);
+    --chip-remove-icon-hover-color: var(--accent-1);
+  }
 }
 
 .fui-ComboboxChip:where(.fui-variant-soft) {
   background-color: var(--accent-a3);
-  color: var(--accent-a11);
+  color: var(--accent-a12);
   --chip-remove-icon-hover-color: var(--accent-a12);
+  &:where([data-accent-color]) {
+    color: var(--accent-a11);
+  }
+  &:where([data-accent-color='gray']) {
+    color: var(--accent-a12);
+  }
+
+  &:where(.fui-high-contrast) {
+    color: var(--accent-12);
+  }
 }
 
 .fui-ComboboxChipRemove {
