@@ -1,7 +1,7 @@
 import { ChevronDown16 } from '@frosted-ui/icons';
 import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
-import { Button, ScrollArea, Text } from '../index';
+import { Avatar, Button, ScrollArea, Text } from '../index';
 import * as Combobox from './combobox';
 
 const meta: Meta<typeof Combobox.Root> = {
@@ -287,7 +287,7 @@ const MultipleDemo = ({ size, variant }: { size: '1' | '2' | '3' | '4'; variant:
             {values.map((value) => (
               <Combobox.Chip key={value}>{value}</Combobox.Chip>
             ))}
-            <Combobox.ChipsInput placeholder="Add fruit..." />
+            <Combobox.ChipsInput placeholder={values.length > 0 ? '' : 'Add fruit...'} />
           </React.Fragment>
         )}
       </Combobox.Value>
@@ -715,12 +715,19 @@ export const AsyncSearchSingle: Story = {
                 {(item) => {
                   const user = item as User;
                   return (
-                    <Combobox.Item key={user.login} value={user}>
-                      <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        <Text size="2">{user.name}</Text>
-                        <Text size="1" color="gray">
-                          @{user.login}
-                        </Text>
+                    <Combobox.Item
+                      key={user.login}
+                      value={user}
+                      style={{ height: 'auto', paddingTop: 8, paddingBottom: 8 }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <Avatar fallback={user.name} size="2" />
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                          <Text size="2">{user.name}</Text>
+                          <Text size="1" color="gray">
+                            @{user.login}
+                          </Text>
+                        </div>
                       </div>
                     </Combobox.Item>
                   );
@@ -782,7 +789,7 @@ export const AsyncSearchMultiple: Story = {
                   {values.map((user) => (
                     <Combobox.Chip key={user.login}>{user.name}</Combobox.Chip>
                   ))}
-                  <Combobox.ChipsInput placeholder="Search users..." />
+                  <Combobox.ChipsInput placeholder={values.length > 0 ? '' : 'Search users...'} />
                 </React.Fragment>
               )}
             </Combobox.Value>
@@ -800,12 +807,19 @@ export const AsyncSearchMultiple: Story = {
                 {(item) => {
                   const user = item as User;
                   return (
-                    <Combobox.Item key={user.login} value={user}>
-                      <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        <Text size="2">{user.name}</Text>
-                        <Text size="1" color="gray">
-                          @{user.login}
-                        </Text>
+                    <Combobox.Item
+                      key={user.login}
+                      value={user}
+                      style={{ height: 'auto', paddingTop: 8, paddingBottom: 8 }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <Avatar fallback={user.name} size="2" />
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                          <Text size="2">{user.name}</Text>
+                          <Text size="1" color="gray">
+                            @{user.login}
+                          </Text>
+                        </div>
                       </div>
                     </Combobox.Item>
                   );

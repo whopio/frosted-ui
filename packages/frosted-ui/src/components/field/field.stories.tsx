@@ -699,7 +699,7 @@ export const WithCombobox: Story = {
                       {values.map((value) => (
                         <Combobox.Chip key={value}>{value}</Combobox.Chip>
                       ))}
-                      <Combobox.ChipsInput placeholder="Add skills..." />
+                      <Combobox.ChipsInput placeholder={values.length > 0 ? '' : 'Add skills...'} />
                     </React.Fragment>
                   )}
                 </Combobox.Value>
