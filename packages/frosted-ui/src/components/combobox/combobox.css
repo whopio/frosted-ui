@@ -383,8 +383,6 @@
   padding-left: var(--chip-left-padding);
   font-size: inherit;
   line-height: inherit;
-  background-color: var(--accent-a3);
-  color: var(--accent-a12);
   max-width: 100%;
   box-sizing: border-box;
   height: var(--item-height);
@@ -393,6 +391,18 @@
   &:focus-visible {
     outline: 2px solid var(--color-focus-root);
   }
+}
+
+.fui-ComboboxChip:where(.fui-variant-solid) {
+  background-color: var(--accent-9);
+  color: var(--accent-9-contrast);
+  --chip-remove-icon-hover-color: var(--accent-9-contrast);
+}
+
+.fui-ComboboxChip:where(.fui-variant-soft) {
+  background-color: var(--accent-a3);
+  color: var(--accent-a11);
+  --chip-remove-icon-hover-color: var(--accent-a12);
 }
 
 .fui-ComboboxChipRemove {
@@ -405,20 +415,20 @@
   border: none;
   background: none;
   cursor: pointer;
-  color: var(--accent-a10);
+  color: currentColor;
   aspect-ratio: 1;
   height: 100%;
   container-type: size;
 
   & svg {
-    --icon-size: max(calc(100cqw / 2), 12px);
-    width: var(--icon-size);
-    height: var(--icon-size);
+    --chip-remove-icon-size: max(calc(100cqw / 2), 12px);
+    width: var(--chip-remove-icon-size);
+    height: var(--chip-remove-icon-size);
   }
 
   @media (hover: hover) {
     &:where(:hover:not([data-disabled])) {
-      color: var(--accent-12);
+      color: var(--chip-remove-icon-hover-color, var(--accent-12));
     }
   }
 }

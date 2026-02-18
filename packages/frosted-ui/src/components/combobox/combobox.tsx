@@ -8,7 +8,7 @@ import { ThickCheckIcon, XIcon } from '../../icons';
 import { Theme, useThemeContext } from '../../theme';
 import type { RootProps as TextFieldRootProps } from '../text-field/text-field';
 import { Input as TextFieldInput, Root as TextFieldRoot, Slot as TextFieldSlot } from '../text-field/text-field';
-import { comboboxContentPropDefs, comboboxItemPropDefs, comboboxRootPropDefs } from './combobox.props';
+import { comboboxChipPropDefs, comboboxContentPropDefs, comboboxItemPropDefs, comboboxRootPropDefs } from './combobox.props';
 
 import type { GetPropDefTypes } from '../../helpers';
 
@@ -497,14 +497,20 @@ function useComboboxAnchor() {
 // Chip (includes remove button with XIcon baked in)
 // ============================================================================
 
-interface ComboboxChipProps extends Omit<React.ComponentProps<typeof ComboboxPrimitive.Chip>, 'className' | 'render'> {
+type ComboboxChipOwnProps = GetPropDefTypes<typeof comboboxChipPropDefs>;
+
+interface ComboboxChipProps extends Omit<React.ComponentProps<typeof ComboboxPrimitive.Chip>, 'className' | 'render'>, ComboboxChipOwnProps {
   className?: string;
 }
 
 const ComboboxChip = (props: ComboboxChipProps) => {
-  const { className, children, ...chipProps } = props;
+  const { className, children, color, variant = comboboxChipPropDefs.variant.default, ...chipProps } = props;
   return (
-    <ComboboxPrimitive.Chip {...chipProps} className={classNames('fui-ComboboxChip', className)}>
+    <ComboboxPrimitive.Chip
+      data-accent-color={color}
+      {...chipProps}
+      className={classNames('fui-ComboboxChip', `fui-variant-${variant}`, className)}
+    >
       {children}
       <ComboboxPrimitive.ChipRemove className="fui-ComboboxChipRemove">
         <XIcon />

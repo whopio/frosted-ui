@@ -31,7 +31,18 @@ const comboboxItemPropDefs = {
   color: typeof colorProp;
 };
 
+const chipVariants = ['solid', 'soft'] as const;
+
+const comboboxChipPropDefs = {
+  variant: { type: 'enum', values: chipVariants, default: 'soft' },
+  color: colorProp,
+} satisfies {
+  variant: PropDef<(typeof chipVariants)[number]>;
+  color: typeof colorProp;
+};
+
 export {
+  comboboxChipPropDefs,
   comboboxContentPropDefs,
   comboboxItemPropDefs,
   comboboxRootPropDefs,
