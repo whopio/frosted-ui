@@ -252,7 +252,7 @@ const DefaultDemo = ({ size, variant }: { size: '1' | '2' | '3' | '4'; variant: 
 export const Default: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 64 }}>
-      <div style={{ maxWidth: 300, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ width: 300, display: 'flex', flexDirection: 'column', gap: 16 }}>
         {(['1', '2', '3', '4'] as const).map((size) => (
           <div key={size}>
             <Text size="1" color="gray" style={{ marginBottom: 4, display: 'block' }}>
@@ -262,7 +262,7 @@ export const Default: Story = {
           </div>
         ))}
       </div>
-      <div style={{ maxWidth: 300, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ width: 300, display: 'flex', flexDirection: 'column', gap: 16 }}>
         {(['1', '2', '3', '4'] as const).map((size) => (
           <div key={size}>
             <Text size="1" color="gray" style={{ marginBottom: 4, display: 'block' }}>
@@ -322,7 +322,7 @@ export const Multiple: Story = {
           </div>
         ))}
       </div>
-      <div style={{ maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ width: 400, display: 'flex', flexDirection: 'column', gap: 16 }}>
         {(['1', '2', '3', '4'] as const).map((size) => (
           <div key={size}>
             <Text size="1" color="gray" style={{ marginBottom: 4, display: 'block' }}>
@@ -352,7 +352,7 @@ const produceGroups: ProduceGroup[] = [
 
 export const Grouped: Story = {
   render: () => (
-    <div style={{ maxWidth: 300 }}>
+    <div style={{ width: 300 }}>
       <Combobox.Root items={produceGroups} size="2">
         <Combobox.InputRoot>
           <Combobox.Input placeholder="Select produce" />
@@ -405,7 +405,7 @@ const frameworks: Framework[] = [
 
 export const CustomItems: Story = {
   render: () => (
-    <div style={{ maxWidth: 300 }}>
+    <div style={{ width: 300 }}>
       <Combobox.Root
         items={frameworks}
         itemToStringLabel={(f) => (f as Framework).label}
@@ -441,7 +441,7 @@ export const CustomItems: Story = {
 
 export const ClearButton: Story = {
   render: () => (
-    <div style={{ maxWidth: 300 }}>
+    <div style={{ width: 300 }}>
       <Combobox.Root items={fruits} defaultValue="Mango" size="2">
         <Combobox.InputRoot showClear>
           <Combobox.Input placeholder="Choose a fruit..." />
@@ -469,7 +469,7 @@ export const ClearButton: Story = {
 
 export const InputInsidePopup: Story = {
   render: () => (
-    <div style={{ maxWidth: 300 }}>
+    <div style={{ width: 300 }}>
       <Combobox.Root items={fruits} size="2">
         <Combobox.Trigger
           render={
@@ -605,7 +605,7 @@ export const DisabledAndReadOnly: Story = {
 export const AutoHighlight: Story = {
   name: 'Auto Highlight',
   render: () => (
-    <div style={{ maxWidth: 300 }}>
+    <div style={{ width: 300 }}>
       <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
         First matching item is highlighted as you type.
       </Text>
@@ -690,7 +690,7 @@ export const FormValidation: Story = {
 export const ManyItems: Story = {
   name: 'Many Items',
   render: () => (
-    <div style={{ maxWidth: 300 }}>
+    <div style={{ width: 300 }}>
       <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
         {manyCountries.length} countries with scroll
       </Text>
@@ -721,7 +721,7 @@ export const ManyItems: Story = {
 
 export const EmptyState: Story = {
   render: () => (
-    <div style={{ maxWidth: 300 }}>
+    <div style={{ width: 300 }}>
       <Combobox.Root items={fruits} size="2">
         <Combobox.InputRoot>
           <Combobox.Input placeholder="Type to filter (e.g. xyz)" />
@@ -754,7 +754,7 @@ export const TriggerOnly: Story = {
     const [open, setOpen] = React.useState(false);
     const [inputValue, setInputValue] = React.useState('');
     return (
-      <div style={{ maxWidth: 300 }}>
+      <div style={{ width: 300 }}>
         <Combobox.Root
           items={fruits}
           defaultValue="Orange"
@@ -1171,7 +1171,7 @@ export const CreatableDemo: Story = {
         </Field.Root>
 
         <Dialog.Root open={dialogOpen} onOpenChange={setDialogOpen}>
-          <Dialog.Content size="2" style={{ maxWidth: 360 }} finalFocus={comboboxInputRef}>
+          <Dialog.Content size="2" style={{ width: 360 }} finalFocus={comboboxInputRef}>
             <Dialog.Title>Create new label</Dialog.Title>
             <Dialog.Description>Add a new label to select.</Dialog.Description>
             <form
