@@ -1,7 +1,7 @@
 import { ChevronDown16, MagnifyingGlass16 } from '@frosted-ui/icons';
 import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
-import { Avatar, Button, Field, ScrollArea, Spinner, Text } from '../index';
+import { Avatar, Button, Dialog, Field, ScrollArea, Spinner, Text, TextField } from '../index';
 import * as Combobox from './combobox';
 
 const meta: Meta<typeof Combobox.Root> = {
@@ -845,6 +845,192 @@ export const AsyncSearchMultiple: Story = {
             </Combobox.Content>
           </Combobox.Root>
         </Field.Root>
+      </div>
+    );
+  },
+};
+
+// ============================================================================
+// Creatable
+// Injects a "Create" item into the list when no exact match exists.
+// Selecting it opens a Dialog to confirm creation.
+// ============================================================================
+
+interface LabelItem {
+  id: string;
+  value: string;
+  creatable?: string;
+}
+
+const initialLabels: LabelItem[] = [
+  { id: 'bug', value: 'bug' },
+  { id: 'docs', value: 'documentation' },
+  { id: 'enhancement', value: 'enhancement' },
+  { id: 'help-wanted', value: 'help wanted' },
+  { id: 'good-first-issue', value: 'good first issue' },
+];
+
+export const CreatableDemo: Story = {
+  name: 'Creatable',
+  render: function CreatableStory() {
+    const [labels, setLabels] = React.useState<LabelItem[]>(initialLabels);
+    const [selected, setSelected] = React.useState<LabelItem[]>([]);
+    const [query, setQuery] = React.useState('');
+    const [dialogOpen, setDialogOpen] = React.useState(false);
+    const pendingQueryRef = React.useRef('');
+    const createInputRef = React.useRef<HTMLInputElement | null>(null);
+    const comboboxInputRef = React.useRef<HTMLInputElement | null>(null);
+    const highlightedItemRef = React.useRef<LabelItem | undefined>(undefined);
+
+    const trimmed = query.trim();
+    const lowered = trimmed.toLocaleLowerCase();
+    const exactExists = labels.some((l) => l.value.trim().toLocaleLowerCase() === lowered);
+    const items: LabelItem[] =
+      trimmed && !exactExists
+        ? [...labels, { creatable: trimmed, id: `create:${lowered}`, value: `Create "${trimmed}"` }]
+        : labels;
+
+    function handleCreate() {
+      const input = createInputRef.current || comboboxInputRef.current;
+      const value = input ? input.value.trim() : '';
+      if (!value) return;
+
+      const normalized = value.toLocaleLowerCase();
+      const existing = labels.find((l) => l.value.trim().toLocaleLowerCase() === normalized);
+
+      if (existing) {
+        setSelected((prev) => (prev.some((i) => i.id === existing.id) ? prev : [...prev, existing]));
+      } else {
+        const baseId = normalized.replace(/\s+/g, '-');
+        const existingIds = new Set(labels.map((l) => l.id));
+        let uniqueId = baseId;
+        let counter = 2;
+        while (existingIds.has(uniqueId)) {
+          uniqueId = `${baseId}-${counter++}`;
+        }
+        const newItem: LabelItem = { id: uniqueId, value };
+        setLabels((prev) => [...prev, newItem]);
+        setSelected((prev) => [...prev, newItem]);
+      }
+
+      setDialogOpen(false);
+      setQuery('');
+    }
+
+    return (
+      <div style={{ width: 300 }}>
+        <Field.Root>
+          <Field.Label>Labels</Field.Label>
+          <Combobox.Root
+            items={items}
+            multiple
+            size="3"
+            value={selected}
+            inputValue={query}
+            onInputValueChange={setQuery}
+            onItemHighlighted={(item) => {
+              highlightedItemRef.current = item as LabelItem | undefined;
+            }}
+            onValueChange={(next) => {
+              const nextTyped = next as LabelItem[];
+              const creatableItem = nextTyped.find((item) => item.creatable && !selected.some((s) => s.id === item.id));
+              if (creatableItem?.creatable) {
+                pendingQueryRef.current = creatableItem.creatable;
+                setDialogOpen(true);
+                return;
+              }
+              setSelected(nextTyped.filter((i) => !i.creatable));
+              setQuery('');
+            }}
+            itemToStringLabel={(item) => (item as LabelItem).value}
+            isItemEqualToValue={(a, b) => (a as LabelItem).id === (b as LabelItem).id}
+          >
+            <Combobox.Chips>
+              <Combobox.Value>
+                {(values: LabelItem[]) => (
+                  <React.Fragment>
+                    {values.map((label) => (
+                      <Combobox.Chip key={label.id} variant="solid" color="orange">
+                        {label.value}
+                      </Combobox.Chip>
+                    ))}
+                    <Combobox.ChipsInput
+                      ref={comboboxInputRef}
+                      placeholder={values.length > 0 ? '' : 'e.g. bug'}
+                      onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                        if (e.key !== 'Enter' || highlightedItemRef.current) return;
+                        const currentTrimmed = query.trim();
+                        if (!currentTrimmed) return;
+                        const norm = currentTrimmed.toLocaleLowerCase();
+                        const existing = labels.find((l) => l.value.trim().toLocaleLowerCase() === norm);
+                        if (existing) {
+                          setSelected((prev) => (prev.some((i) => i.id === existing.id) ? prev : [...prev, existing]));
+                          setQuery('');
+                          return;
+                        }
+                        pendingQueryRef.current = currentTrimmed;
+                        setDialogOpen(true);
+                      }}
+                    />
+                  </React.Fragment>
+                )}
+              </Combobox.Value>
+            </Combobox.Chips>
+            <Combobox.Content>
+              <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+                <Combobox.Empty>No labels found.</Combobox.Empty>
+                <Combobox.List>
+                  {(item) => {
+                    const label = item as LabelItem;
+                    return label.creatable ? (
+                      <Combobox.Item key={label.id} value={label}>
+                        <Text weight="medium">Create &ldquo;{label.creatable}&rdquo;</Text>
+                      </Combobox.Item>
+                    ) : (
+                      <Combobox.Item key={label.id} value={label}>
+                        {label.value}
+                      </Combobox.Item>
+                    );
+                  }}
+                </Combobox.List>
+              </ScrollArea>
+            </Combobox.Content>
+          </Combobox.Root>
+        </Field.Root>
+
+        <Dialog.Root open={dialogOpen} onOpenChange={setDialogOpen}>
+          <Dialog.Content size="2" style={{ maxWidth: 360 }} finalFocus={comboboxInputRef}>
+            <Dialog.Title>Create new label</Dialog.Title>
+            <Dialog.Description>Add a new label to select.</Dialog.Description>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleCreate();
+              }}
+            >
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 16 }}>
+                <TextField.Root>
+                  <TextField.Input
+                    ref={createInputRef}
+                    placeholder="Label name"
+                    defaultValue={pendingQueryRef.current}
+                    autoFocus
+                  />
+                </TextField.Root>
+                <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
+                  <Dialog.Close>
+                    <Button variant="soft" color="gray">
+                      Cancel
+                    </Button>
+                  </Dialog.Close>
+                  <Button type="submit" variant="solid">
+                    Create
+                  </Button>
+                </div>
+              </div>
+            </form>
+          </Dialog.Content>
+        </Dialog.Root>
       </div>
     );
   },
