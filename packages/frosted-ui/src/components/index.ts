@@ -20,6 +20,7 @@ export * from './strong';
 export * from './autocomplete';
 export * from './calendar';
 export * from './checkbox';
+export * from './combobox';
 export * from './circular-progress';
 export * from './date-field';
 export * from './date-picker';

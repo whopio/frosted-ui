@@ -244,6 +244,11 @@
   &:where(:active:not([data-state='open'])) {
     background-color: var(--accent-a5);
   }
+
+  &:where([data-accent-color='gray']) {
+    --base-button-color: var(--accent-12);
+  }
+
   &:where([data-disabled]),
   &:where([data-readonly]) {
     cursor: var(--cursor-disabled);
