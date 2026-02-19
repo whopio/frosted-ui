@@ -44,6 +44,10 @@
   }
 }
 
+.fui-ComboboxClearButton:disabled {
+  display: none;
+}
+
 .fui-ComboboxTriggerButton {
   &[data-popup-open] {
     color: var(--gray-12);
@@ -304,11 +308,11 @@
 .fui-ComboboxEmpty {
   display: flex;
   align-items: center;
+
   height: var(--combobox-item-height);
   padding-left: var(--combobox-item-indicator-width);
   padding-right: var(--combobox-item-indicator-width);
   color: var(--gray-a10);
-  text-align: center;
 
   /* To account for the list padding */
   margin: 4px;

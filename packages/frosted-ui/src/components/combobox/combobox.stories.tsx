@@ -512,7 +512,7 @@ export const Disabled: Story = {
   render: () => (
     <div style={{ maxWidth: 300 }}>
       <Combobox.Root items={fruits} defaultValue="Apple" disabled size="2">
-        <Combobox.InputRoot>
+        <Combobox.InputRoot showClear showTrigger>
           <Combobox.Input placeholder="Choose a fruit..." disabled />
         </Combobox.InputRoot>
         <Combobox.Content>
