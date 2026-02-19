@@ -707,7 +707,7 @@ export const AsyncSearchSingle: Story = {
     }, []);
 
     return (
-      <div style={{ maxWidth: 300 }}>
+      <div style={{ width: 300 }}>
         <Field.Root>
           <Field.Label>Assign reviewer</Field.Label>
           <Combobox.Root
@@ -741,7 +741,9 @@ export const AsyncSearchSingle: Story = {
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                           <Avatar fallback={user.name} size="2" />
                           <div style={{ display: 'flex', flexDirection: 'column' }}>
-                            <Text size="2">{user.name}</Text>
+                            <Text size="2" weight="medium">
+                              {user.name}
+                            </Text>
                             <Text size="1" color="gray">
                               @{user.login}
                             </Text>
@@ -788,7 +790,7 @@ export const AsyncSearchMultiple: Story = {
     }, []);
 
     return (
-      <div style={{ maxWidth: 400 }}>
+      <div style={{ width: 400 }}>
         <Field.Root>
           <Field.Label>Assign reviewers</Field.Label>
           <Combobox.Root
@@ -831,7 +833,9 @@ export const AsyncSearchMultiple: Story = {
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                           <Avatar fallback={user.name} size="2" />
                           <div style={{ display: 'flex', flexDirection: 'column' }}>
-                            <Text size="2">{user.name}</Text>
+                            <Text size="2" weight="medium">
+                              {user.name}
+                            </Text>
                             <Text size="1" color="gray">
                               @{user.login}
                             </Text>
