@@ -404,6 +404,9 @@
   color: var(--accent-9-contrast);
   --chip-remove-icon-color: var(--accent-9-contrast);
   --chip-remove-icon-hover-color: var(--accent-9-contrast);
+  &:focus-visible {
+    outline-offset: 2px;
+  }
 
   &:where(.fui-high-contrast) {
     background-color: var(--accent-12);
