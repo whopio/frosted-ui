@@ -417,14 +417,17 @@
 }
 
 .fui-ComboboxChip:where(.fui-variant-soft) {
-  background-color: var(--accent-a3);
+  background-color: var(--accent-a4);
   color: var(--accent-a12);
   --chip-remove-icon-color: var(--accent-a11);
   --chip-remove-icon-hover-color: var(--accent-a12);
   &:where([data-accent-color]) {
+    background-color: var(--accent-a3);
+
     color: var(--accent-a11);
   }
   &:where([data-accent-color='gray']) {
+    background-color: var(--accent-a4);
     color: var(--accent-a12);
   }
 
