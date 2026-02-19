@@ -649,24 +649,25 @@ export const TriggerOnly: Story = {
 interface User {
   login: string;
   name: string;
+  avatar: string;
 }
 
 const allUsers: User[] = [
-  { login: 'alice', name: 'Alice Johnson' },
-  { login: 'bob', name: 'Bob Smith' },
-  { login: 'carol', name: 'Carol Williams' },
-  { login: 'dan', name: 'Dan Brown' },
-  { login: 'eve', name: 'Eve Davis' },
-  { login: 'frank', name: 'Frank Miller' },
-  { login: 'grace', name: 'Grace Wilson' },
-  { login: 'heidi', name: 'Heidi Moore' },
-  { login: 'ivan', name: 'Ivan Taylor' },
-  { login: 'judy', name: 'Judy Anderson' },
-  { login: 'karl', name: 'Karl Thomas' },
-  { login: 'linda', name: 'Linda Jackson' },
-  { login: 'mallory', name: 'Mallory White' },
-  { login: 'nancy', name: 'Nancy Harris' },
-  { login: 'oscar', name: 'Oscar Martin' },
+  { login: 'alice', name: 'Alice Johnson', avatar: 'https://i.pravatar.cc/150?u=alice' },
+  { login: 'bob', name: 'Bob Smith', avatar: 'https://i.pravatar.cc/150?u=bob' },
+  { login: 'carol', name: 'Carol Williams', avatar: 'https://i.pravatar.cc/150?u=carol' },
+  { login: 'dan', name: 'Dan Brown', avatar: 'https://i.pravatar.cc/150?u=dan' },
+  { login: 'eve', name: 'Eve Davis', avatar: 'https://i.pravatar.cc/150?u=eve' },
+  { login: 'frank', name: 'Frank Miller', avatar: 'https://i.pravatar.cc/150?u=frank' },
+  { login: 'grace', name: 'Grace Wilson', avatar: 'https://i.pravatar.cc/150?u=grace' },
+  { login: 'heidi', name: 'Heidi Moore', avatar: 'https://i.pravatar.cc/150?u=heidi' },
+  { login: 'ivan', name: 'Ivan Taylor', avatar: 'https://i.pravatar.cc/150?u=ivan' },
+  { login: 'judy', name: 'Judy Anderson', avatar: 'https://i.pravatar.cc/150?u=judy' },
+  { login: 'karl', name: 'Karl Thomas', avatar: 'https://i.pravatar.cc/150?u=karl' },
+  { login: 'linda', name: 'Linda Jackson', avatar: 'https://i.pravatar.cc/150?u=linda' },
+  { login: 'mallory', name: 'Mallory White', avatar: 'https://i.pravatar.cc/150?u=mallory' },
+  { login: 'nancy', name: 'Nancy Harris', avatar: 'https://i.pravatar.cc/150?u=nancy' },
+  { login: 'oscar', name: 'Oscar Martin', avatar: 'https://i.pravatar.cc/150?u=oscar' },
 ];
 
 function fakeSearchUsers(query: string): Promise<User[]> {
@@ -739,7 +740,7 @@ export const AsyncSearchSingle: Story = {
                         style={{ height: 'auto', paddingTop: 8, paddingBottom: 8 }}
                       >
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                          <Avatar fallback={user.name} size="2" />
+                          <Avatar src={user.avatar} fallback={user.name} size="2" />
                           <div style={{ display: 'flex', flexDirection: 'column' }}>
                             <Text size="2" weight="medium">
                               {user.name}
@@ -809,7 +810,12 @@ export const AsyncSearchMultiple: Story = {
                 {(values: User[]) => (
                   <React.Fragment>
                     {values.map((user) => (
-                      <Combobox.Chip key={user.login}>{user.name}</Combobox.Chip>
+                      <Combobox.Chip key={user.login}>
+                        <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                          <Avatar src={user.avatar} fallback={user.name} size="0" />
+                          <Text weight="medium">{user.name}</Text>
+                        </span>
+                      </Combobox.Chip>
                     ))}
                     <Combobox.ChipsInput placeholder={values.length > 0 ? '' : 'Search users...'} />
                   </React.Fragment>
@@ -831,7 +837,7 @@ export const AsyncSearchMultiple: Story = {
                         style={{ height: 'auto', paddingTop: 8, paddingBottom: 8 }}
                       >
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                          <Avatar fallback={user.name} size="2" />
+                          <Avatar src={user.avatar} fallback={user.name} size="2" />
                           <div style={{ display: 'flex', flexDirection: 'column' }}>
                             <Text size="2" weight="medium">
                               {user.name}
