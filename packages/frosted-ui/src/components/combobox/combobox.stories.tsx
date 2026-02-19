@@ -474,7 +474,7 @@ export const InputInsidePopup: Story = {
         <Combobox.Trigger
           render={
             <Button variant="soft" color="gray">
-              <Combobox.Value>{(value) => (value != null ? String(value) : 'Select country')}</Combobox.Value>
+              <Combobox.Value>{(value) => (value != null ? String(value) : 'Select fruit')}</Combobox.Value>
               <ChevronDown16 />
             </Button>
           }
