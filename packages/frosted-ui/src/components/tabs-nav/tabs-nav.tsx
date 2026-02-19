@@ -12,13 +12,32 @@ type TabsNavRootProps = Omit<React.ComponentProps<typeof NavigationMenu.Root>, '
   TabsNavOwnProps;
 
 const TabsNavRoot = (props: TabsNavRootProps) => {
-  const { children, className, size = tabsNavPropDefs.size.default, ...rootProps } = props;
+  const {
+    children,
+    className,
+    size = tabsNavPropDefs.size.default,
+    color = tabsNavPropDefs.color.default,
+    highContrast = tabsNavPropDefs.highContrast.default,
+    ...rootProps
+  } = props;
 
+  // Base UI requires both Root (context + <nav>) and List (<ul> + CompositeRoot). We apply tab-list
+  // styling to Root and use display:contents on List so the nav is the single layout container.
   return (
-    <NavigationMenu.Root className="fui-TabsNavRoot" {...rootProps}>
-      <NavigationMenu.List
-        className={classNames('fui-reset', 'fui-BaseTabsList', 'fui-TabsNavList', className, `fui-r-size-${size}`)}
-      >
+    <NavigationMenu.Root
+      data-accent-color={color}
+      className={classNames(
+        'fui-TabsNavRoot',
+        'fui-reset',
+        'fui-BaseTabsList',
+        'fui-TabsNavList',
+        className,
+        `fui-r-size-${size}`,
+        { 'fui-high-contrast': highContrast },
+      )}
+      {...rootProps}
+    >
+      <NavigationMenu.List className="fui-reset fui-TabsNavListContents">
         {children}
       </NavigationMenu.List>
     </NavigationMenu.Root>
@@ -44,7 +63,6 @@ const TabsNavLink = (props: TabsNavLinkProps) => {
         className={classNames('fui-reset', 'fui-BaseTabsTrigger', 'fui-TabsNavLink', className)}
       >
         <span className="fui-BaseTabsTriggerInner fui-TabsNavLinkInner">{children}</span>
-        <span className="fui-BaseTabsTriggerInnerHidden fui-TabsNavLinkInnerHidden">{children}</span>
       </NavigationMenu.Link>
     </NavigationMenu.Item>
   );

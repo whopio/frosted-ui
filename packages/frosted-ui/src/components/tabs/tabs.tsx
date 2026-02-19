@@ -23,11 +23,20 @@ type TabsListProps = Omit<PropsWithoutColor<typeof TabsPrimitive.List>, 'classNa
   TabsListOwnProps;
 
 const TabsList = (props: TabsListProps) => {
-  const { className, size = tabsListPropDefs.size.default, ...listProps } = props;
+  const {
+    className,
+    size = tabsListPropDefs.size.default,
+    color = tabsListPropDefs.color.default,
+    highContrast = tabsListPropDefs.highContrast.default,
+    ...listProps
+  } = props;
   return (
     <TabsPrimitive.List
       {...listProps}
-      className={classNames('fui-BaseTabsList', 'fui-TabsList', className, `fui-r-size-${size}`)}
+      data-accent-color={color}
+      className={classNames('fui-BaseTabsList', 'fui-TabsList', className, `fui-r-size-${size}`, {
+        'fui-high-contrast': highContrast,
+      })}
     />
   );
 };
@@ -44,7 +53,6 @@ const TabsTrigger = (props: TabsTriggerProps) => {
       className={classNames('fui-reset', 'fui-BaseTabsTrigger', 'fui-TabsTrigger', className)}
     >
       <span className="fui-BaseTabsTriggerInner fui-TabsTriggerInner">{children}</span>
-      <span className="fui-BaseTabsTriggerInnerHidden fui-TabsTriggerInnerHidden">{children}</span>
     </TabsPrimitive.Tab>
   );
 };
