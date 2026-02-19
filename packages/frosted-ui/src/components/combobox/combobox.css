@@ -304,12 +304,14 @@
 .fui-ComboboxEmpty {
   display: flex;
   align-items: center;
-  justify-content: start;
-  padding: var(--space-4);
+  height: var(--combobox-item-height);
+  padding-left: var(--combobox-item-indicator-width);
+  padding-right: var(--combobox-item-indicator-width);
   color: var(--gray-a10);
-  font-size: var(--font-size-2);
-  line-height: var(--line-height-2);
   text-align: center;
+
+  /* To account for the list padding */
+  margin: 4px;
 
   &:where(:empty) {
     display: none;
