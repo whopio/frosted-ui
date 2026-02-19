@@ -71,38 +71,42 @@
   }
 }
 
-.fui-ComboboxTriggerIcon {
-  :where(.fui-r-size-1) & {
-    width: 8px;
-    height: 8px;
+.fui-ComboboxInputRoot {
+  &:where(.fui-r-size-1) {
+    & :where(.fui-ComboboxTriggerIcon) {
+      width: 8px;
+      height: 8px;
+    }
+    & > .fui-TextFieldSlot:last-child {
+      padding-right: var(--space-2);
+    }
   }
-  :where(.fui-r-size-2) & {
-    width: 10px;
-    height: 10px;
+  &:where(.fui-r-size-2) {
+    & :where(.fui-ComboboxTriggerIcon) {
+      width: 10px;
+      height: 10px;
+    }
+    & > .fui-TextFieldSlot:last-child {
+      padding-right: var(--space-3);
+    }
   }
-  :where(.fui-r-size-3) & {
-    width: 12px;
-    height: 12px;
+  &:where(.fui-r-size-3) {
+    & :where(.fui-ComboboxTriggerIcon) {
+      width: 12px;
+      height: 12px;
+    }
+    & > .fui-TextFieldSlot:last-child {
+      padding-right: var(--space-4);
+    }
   }
-  :where(.fui-r-size-4) & {
-    width: 14px;
-    height: 14px;
-  }
-}
-
-/* Match Select trigger right-padding for the trailing slot */
-.fui-ComboboxInputRoot > .fui-TextFieldSlot:last-child {
-  :where(.fui-r-size-1) & {
-    padding-right: var(--space-2);
-  }
-  :where(.fui-r-size-2) & {
-    padding-right: var(--space-3);
-  }
-  :where(.fui-r-size-3) & {
-    padding-right: var(--space-4);
-  }
-  :where(.fui-r-size-4) & {
-    padding-right: var(--space-4);
+  &:where(.fui-r-size-4) {
+    & :where(.fui-ComboboxTriggerIcon) {
+      width: 14px;
+      height: 14px;
+    }
+    & > .fui-TextFieldSlot:last-child {
+      padding-right: var(--space-4);
+    }
   }
 }
 
@@ -174,6 +178,83 @@
   &[data-ending-style] {
     opacity: 0;
   }
+
+  & :where(.fui-ComboboxItem[data-highlighted]:not([data-disabled])) {
+    background-color: var(--gray-a4);
+  }
+
+  &:where(.fui-r-size-1) {
+    --combobox-item-height: var(--space-5);
+    --combobox-item-indicator-width: calc(var(--space-5) / 1.2);
+    border-radius: 8px;
+
+    & :where(.fui-ComboboxItem, .fui-ComboboxEmpty) {
+      font-size: var(--font-size-1);
+      line-height: var(--line-height-1);
+      letter-spacing: var(--letter-spacing-1);
+    }
+    & :where(.fui-ComboboxItem) {
+      border-radius: 4px;
+    }
+    & :where(.fui-ComboboxItemIndicatorIcon) {
+      width: 8px;
+      height: 8px;
+    }
+  }
+  &:where(.fui-r-size-2) {
+    --combobox-item-height: var(--space-6);
+    --combobox-item-indicator-width: calc(var(--space-6) / 1.2);
+    border-radius: 10px;
+
+    & :where(.fui-ComboboxItem, .fui-ComboboxEmpty) {
+      font-size: var(--font-size-2);
+      line-height: var(--line-height-2);
+      letter-spacing: var(--letter-spacing-2);
+    }
+    & :where(.fui-ComboboxItem) {
+      border-radius: 6px;
+    }
+    & :where(.fui-ComboboxItemIndicatorIcon) {
+      width: 10px;
+      height: 10px;
+    }
+  }
+  &:where(.fui-r-size-3) {
+    --combobox-item-height: var(--space-7);
+    --combobox-item-indicator-width: calc(var(--space-7) / 1.2);
+    border-radius: 12px;
+
+    & :where(.fui-ComboboxItem, .fui-ComboboxEmpty) {
+      font-size: var(--font-size-3);
+      line-height: var(--line-height-3);
+      letter-spacing: var(--letter-spacing-3);
+    }
+    & :where(.fui-ComboboxItem) {
+      border-radius: 8px;
+    }
+    & :where(.fui-ComboboxItemIndicatorIcon) {
+      width: 12px;
+      height: 12px;
+    }
+  }
+  &:where(.fui-r-size-4) {
+    --combobox-item-height: var(--space-8);
+    --combobox-item-indicator-width: calc(var(--space-8) / 1.2);
+    border-radius: 14px;
+
+    & :where(.fui-ComboboxItem, .fui-ComboboxEmpty) {
+      font-size: var(--font-size-4);
+      line-height: var(--line-height-4);
+      letter-spacing: var(--letter-spacing-4);
+    }
+    & :where(.fui-ComboboxItem) {
+      border-radius: 10px;
+    }
+    & :where(.fui-ComboboxItemIndicatorIcon) {
+      width: 14px;
+      height: 14px;
+    }
+  }
 }
 
 /* ============================================================================
@@ -236,86 +317,6 @@
 
 .fui-ComboboxItemIndicatorIcon {
   flex-shrink: 0;
-}
-
-.fui-ComboboxContent :where(.fui-ComboboxItem[data-highlighted]:not([data-disabled])) {
-  background-color: var(--gray-a4);
-}
-
-/* ============================================================================
- * Combobox Content sizes (match Select)
- * ============================================================================ */
-
-.fui-ComboboxContent:where(.fui-r-size-1) {
-  --combobox-item-height: var(--space-5);
-  --combobox-item-indicator-width: calc(var(--space-5) / 1.2);
-  border-radius: 8px;
-}
-
-.fui-ComboboxContent:where(.fui-r-size-1) .fui-ComboboxItem {
-  font-size: var(--font-size-1);
-  line-height: var(--line-height-1);
-  letter-spacing: var(--letter-spacing-1);
-  border-radius: 4px;
-}
-
-.fui-ComboboxContent:where(.fui-r-size-1) .fui-ComboboxItemIndicatorIcon {
-  width: 8px;
-  height: 8px;
-}
-
-.fui-ComboboxContent:where(.fui-r-size-2) {
-  --combobox-item-height: var(--space-6);
-  --combobox-item-indicator-width: calc(var(--space-6) / 1.2);
-  border-radius: 10px;
-}
-
-.fui-ComboboxContent:where(.fui-r-size-2) .fui-ComboboxItem {
-  font-size: var(--font-size-2);
-  line-height: var(--line-height-2);
-  letter-spacing: var(--letter-spacing-2);
-  border-radius: 6px;
-}
-
-.fui-ComboboxContent:where(.fui-r-size-2) .fui-ComboboxItemIndicatorIcon {
-  width: 10px;
-  height: 10px;
-}
-
-.fui-ComboboxContent:where(.fui-r-size-3) {
-  --combobox-item-height: var(--space-7);
-  --combobox-item-indicator-width: calc(var(--space-7) / 1.2);
-  border-radius: 12px;
-}
-
-.fui-ComboboxContent:where(.fui-r-size-3) .fui-ComboboxItem {
-  font-size: var(--font-size-3);
-  line-height: var(--line-height-3);
-  letter-spacing: var(--letter-spacing-3);
-  border-radius: 8px;
-}
-
-.fui-ComboboxContent:where(.fui-r-size-3) .fui-ComboboxItemIndicatorIcon {
-  width: 12px;
-  height: 12px;
-}
-
-.fui-ComboboxContent:where(.fui-r-size-4) {
-  --combobox-item-height: var(--space-8);
-  --combobox-item-indicator-width: calc(var(--space-8) / 1.2);
-  border-radius: 14px;
-}
-
-.fui-ComboboxContent:where(.fui-r-size-4) .fui-ComboboxItem {
-  font-size: var(--font-size-4);
-  line-height: var(--line-height-4);
-  letter-spacing: var(--letter-spacing-4);
-  border-radius: 10px;
-}
-
-.fui-ComboboxContent:where(.fui-r-size-4) .fui-ComboboxItemIndicatorIcon {
-  width: 14px;
-  height: 14px;
 }
 
 /* ============================================================================
@@ -395,8 +396,6 @@
   height: var(--item-height);
   /* Align text visually with the chip that will be created on select */
   text-indent: var(--chip-left-padding);
-}
-.fui-ComboboxChipsInput {
   flex: 1;
   min-width: 96px;
   outline: none;
