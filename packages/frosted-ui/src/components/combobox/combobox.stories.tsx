@@ -700,6 +700,7 @@ export const AsyncSearchSingle: Story = {
 
     const handleInputValueChange = React.useCallback((query: string) => {
       setInputValue(query);
+      setResults([]);
       setLoading(true);
       fakeSearchUsers(query).then((res) => {
         setResults(res);
@@ -776,13 +777,15 @@ export const AsyncSearchMultiple: Story = {
     const [loading, setLoading] = React.useState(false);
 
     const items = React.useMemo(() => {
+      if (loading) return [];
       const resultLogins = new Set(results.map((r) => r.login));
       const missingSelected = selected.filter((s) => !resultLogins.has(s.login));
       return [...missingSelected, ...results];
-    }, [results, selected]);
+    }, [results, selected, loading]);
 
     const handleInputValueChange = React.useCallback((query: string) => {
       setInputValue(query);
+      setResults([]);
       setLoading(true);
       fakeSearchUsers(query).then((res) => {
         setResults(res);
@@ -810,9 +813,9 @@ export const AsyncSearchMultiple: Story = {
                 {(values: User[]) => (
                   <React.Fragment>
                     {values.map((user) => (
-                      <Combobox.Chip key={user.login}>
+                      <Combobox.Chip key={user.login} style={{ borderRadius: 999, paddingLeft: 4 }}>
                         <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                          <Avatar src={user.avatar} fallback={user.name} size="0" />
+                          <Avatar src={user.avatar} fallback={user.name} size="0" style={{ height: 20, width: 20 }} />
                           <Text weight="medium">{user.name}</Text>
                         </span>
                       </Combobox.Chip>
@@ -825,7 +828,15 @@ export const AsyncSearchMultiple: Story = {
             <Combobox.Content>
               <ScrollArea type="auto" style={{ maxHeight: 300 }}>
                 <Combobox.Empty>
-                  {loading ? 'Searching...' : inputValue ? 'No users found.' : 'Start typing to search users...'}
+                  {loading ? (
+                    <>
+                      <Spinner size="2" style={{ marginRight: 6 }} /> Searching...
+                    </>
+                  ) : inputValue ? (
+                    'No users found.'
+                  ) : (
+                    'Start typing to search users...'
+                  )}
                 </Combobox.Empty>
                 <Combobox.List>
                   {(item) => {
