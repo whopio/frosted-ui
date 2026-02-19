@@ -393,6 +393,8 @@
 
 .fui-ComboboxChipsInput {
   height: var(--item-height);
+  /* Align text visually with the chip that will be created on select */
+  text-indent: var(--chip-left-padding);
 }
 .fui-ComboboxChipsInput {
   flex: 1;

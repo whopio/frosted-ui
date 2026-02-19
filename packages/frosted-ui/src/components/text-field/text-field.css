@@ -106,6 +106,7 @@
 
 .fui-TextFieldInput {
   height: var(--text-field-input-height);
+
   &:where(.fui-r-size-1) {
     /* Tweak text alignment */
     padding-top: 0.5px;
@@ -114,9 +115,6 @@
     &:where(:first-child) {
       /* Clip text to the visible border radius */
       border-radius: max(6px, var(--radius-full));
-    }
-    &:where(:first-child),
-    &:where(.fui-ComboboxValue > &) {
       /* Equivalent to padding-left, but doesn't cut off long values when cursor is at the end. */
       text-indent: calc(var(--space-1) * 1.5 - var(--text-field-border-width));
     }
@@ -129,10 +127,7 @@
     &:where(:first-child) {
       /* Clip text to the visible border radius */
       border-radius: max(8px, var(--radius-full));
-    }
-    &:where(:first-child),
-    &:where(.fui-ComboboxValue > &) {
-      /* Equivalent to padding-left, but doesn't cut off long values when cursor is at the end */
+      /* Equivalent to padding-left, but doesn't cut off long values when ;cursor is at the end */
       text-indent: calc(var(--space-2) - var(--text-field-border-width));
     }
   }
@@ -144,9 +139,6 @@
     &:where(:first-child) {
       /* Clip text to the visible border radius */
       border-radius: max(10px, var(--radius-full));
-    }
-    &:where(:first-child),
-    &:where(.fui-ComboboxValue > &) {
       /* Equivalent to padding-left, but doesn't cut off long values when cursor is at the end */
       text-indent: calc(var(--space-3) - var(--text-field-border-width));
     }
@@ -159,9 +151,6 @@
     &:where(:first-child) {
       /* Clip text to the visible border radius */
       border-radius: max(14px, var(--radius-full));
-    }
-    &:where(:first-child),
-    &:where(.fui-ComboboxValue > &) {
       /* Equivalent to padding-left, but doesn't cut off long values when cursor is at the end */
       text-indent: calc(var(--space-3) - var(--text-field-border-width));
     }

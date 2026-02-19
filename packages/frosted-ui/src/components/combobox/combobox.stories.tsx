@@ -312,7 +312,7 @@ const MultipleDemo = ({ size, variant }: { size: '1' | '2' | '3' | '4'; variant:
 export const Multiple: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 64 }}>
-      <div style={{ maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ width: 400, display: 'flex', flexDirection: 'column', gap: 16 }}>
         {(['1', '2', '3', '4'] as const).map((size) => (
           <div key={size}>
             <Text size="1" color="gray" style={{ marginBottom: 4, display: 'block' }}>
