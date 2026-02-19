@@ -1,4 +1,20 @@
 /* ============================================================================
+ * Status (visually hidden live region for screen readers)
+ * ============================================================================ */
+
+.fui-ComboboxStatus {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ============================================================================
  * Combobox Value (used inside Trigger render, e.g. <Button><Combobox.Value /></Button>)
  * ============================================================================ */
 
@@ -44,7 +60,8 @@
   }
 }
 
-.fui-ComboboxClearButton:disabled {
+.fui-ComboboxClearButton:disabled,
+.fui-ComboboxClearButton[aria-readonly] {
   display: none;
 }
 
@@ -387,6 +404,11 @@
   display: inline-flex;
   align-items: center;
   padding-left: var(--chip-left-padding);
+  &:where([aria-disabled]),
+  &:where([aria-readonly]),
+  &:where(:not(:has(> .fui-ComboboxChipRemove))) {
+    padding-right: var(--chip-left-padding);
+  }
   font-size: inherit;
   line-height: inherit;
   max-width: 100%;
@@ -451,10 +473,8 @@
   height: 100%;
   container-type: size;
 
-  & svg {
-    --chip-remove-icon-size: max(calc(100cqw / 2), 12px);
-    width: var(--chip-remove-icon-size);
-    height: var(--chip-remove-icon-size);
+  &:where(:is([aria-disabled] > &), :is([aria-readonly] > &)) {
+    display: none;
   }
 
   @media (hover: hover) {
@@ -462,4 +482,10 @@
       color: var(--chip-remove-icon-hover-color, var(--accent-12));
     }
   }
+}
+
+.fui-ComboboxChipRemoveIcon {
+  --chip-remove-icon-size: max(calc(100cqw / 2), 12px);
+  width: var(--chip-remove-icon-size);
+  height: var(--chip-remove-icon-size);
 }

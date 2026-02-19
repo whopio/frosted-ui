@@ -1,7 +1,7 @@
 import { ChevronDown16, MagnifyingGlass16 } from '@frosted-ui/icons';
 import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
-import { Avatar, Button, Dialog, Field, ScrollArea, Spinner, Text, TextField } from '../index';
+import { Avatar, Button, Callout, Dialog, Field, Form, ScrollArea, Spinner, Text, TextField } from '../index';
 import * as Combobox from './combobox';
 
 const meta: Meta<typeof Combobox.Root> = {
@@ -505,15 +505,113 @@ export const InputInsidePopup: Story = {
 };
 
 // ============================================================================
-// Disabled
+// Disabled & Read Only
 // ============================================================================
 
-export const Disabled: Story = {
+function DisabledReadOnlyList() {
+  return (
+    <Combobox.Content>
+      <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+        <Combobox.Empty>No fruits found.</Combobox.Empty>
+        <Combobox.List>
+          {(item) => (
+            <Combobox.Item key={item} value={item}>
+              {item}
+            </Combobox.Item>
+          )}
+        </Combobox.List>
+      </ScrollArea>
+    </Combobox.Content>
+  );
+}
+
+export const DisabledAndReadOnly: Story = {
+  name: 'Disabled & Read Only',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 24, width: 340 }}>
+      <div>
+        <Text size="2" weight="medium" style={{ marginBottom: 4, display: 'block' }}>
+          Disabled (single)
+        </Text>
+        <Combobox.Root items={fruits} defaultValue="Apple" disabled size="2">
+          <Combobox.InputRoot showClear showTrigger>
+            <Combobox.Input placeholder="Choose a fruit..." />
+          </Combobox.InputRoot>
+          <DisabledReadOnlyList />
+        </Combobox.Root>
+      </div>
+
+      <div>
+        <Text size="2" weight="medium" style={{ marginBottom: 4, display: 'block' }}>
+          Disabled (multiple)
+        </Text>
+        <Combobox.Root items={fruits} defaultValue={['Apple', 'Mango']} multiple disabled size="2">
+          <Combobox.Chips>
+            <Combobox.Value>
+              {(values: string[]) => (
+                <React.Fragment>
+                  {values.map((v) => (
+                    <Combobox.Chip key={v}>{v}</Combobox.Chip>
+                  ))}
+                  <Combobox.ChipsInput placeholder={values.length > 0 ? '' : 'Choose fruits...'} />
+                </React.Fragment>
+              )}
+            </Combobox.Value>
+          </Combobox.Chips>
+          <DisabledReadOnlyList />
+        </Combobox.Root>
+      </div>
+
+      <div>
+        <Text size="2" weight="medium" style={{ marginBottom: 4, display: 'block' }}>
+          Read Only (single)
+        </Text>
+        <Combobox.Root items={fruits} defaultValue="Mango" readOnly size="2">
+          <Combobox.InputRoot showClear showTrigger>
+            <Combobox.Input placeholder="Choose a fruit..." />
+          </Combobox.InputRoot>
+          <DisabledReadOnlyList />
+        </Combobox.Root>
+      </div>
+
+      <div>
+        <Text size="2" weight="medium" style={{ marginBottom: 4, display: 'block' }}>
+          Read Only (multiple)
+        </Text>
+        <Combobox.Root items={fruits} defaultValue={['Grape', 'Strawberry']} multiple readOnly size="2">
+          <Combobox.Chips>
+            <Combobox.Value>
+              {(values: string[]) => (
+                <React.Fragment>
+                  {values.map((v) => (
+                    <Combobox.Chip key={v}>{v}</Combobox.Chip>
+                  ))}
+                  <Combobox.ChipsInput placeholder={values.length > 0 ? '' : 'Choose fruits...'} />
+                </React.Fragment>
+              )}
+            </Combobox.Value>
+          </Combobox.Chips>
+          <DisabledReadOnlyList />
+        </Combobox.Root>
+      </div>
+    </div>
+  ),
+};
+
+// ============================================================================
+// Auto Highlight
+// ============================================================================
+
+export const AutoHighlight: Story = {
+  name: 'Auto Highlight',
   render: () => (
     <div style={{ maxWidth: 300 }}>
-      <Combobox.Root items={fruits} defaultValue="Apple" disabled size="2">
-        <Combobox.InputRoot showClear showTrigger>
-          <Combobox.Input placeholder="Choose a fruit..." disabled />
+      <Text size="1" color="gray" style={{ marginBottom: 'var(--space-1)', display: 'block' }}>
+        First matching item is highlighted as you type.
+      </Text>
+      <Combobox.Root items={fruits} autoHighlight size="2">
+        <Combobox.InputRoot>
+          <Combobox.Input placeholder="Start typing..." />
         </Combobox.InputRoot>
         <Combobox.Content>
           <ScrollArea type="auto" style={{ maxHeight: 300 }}>
@@ -530,6 +628,59 @@ export const Disabled: Story = {
       </Combobox.Root>
     </div>
   ),
+};
+
+// ============================================================================
+// Form Validation
+// ============================================================================
+
+export const FormValidation: Story = {
+  name: 'Form Validation',
+  render: function InvalidStory() {
+    const [submitted, setSubmitted] = React.useState<Record<string, string> | null>(null);
+    const handleSubmit = React.useCallback((e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const data = new FormData(e.currentTarget);
+      setSubmitted(Object.fromEntries(data.entries()) as Record<string, string>);
+    }, []);
+    return (
+      <div style={{ width: 300 }}>
+        <Form onSubmit={handleSubmit}>
+          <Field.Root>
+            <Field.Label>Fruit</Field.Label>
+            <Combobox.Root items={fruits} name="fruit" required size="2">
+              <Combobox.InputRoot>
+                <Combobox.Input placeholder="Choose a fruit..." />
+              </Combobox.InputRoot>
+              <Combobox.Content>
+                <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+                  <Combobox.Empty>No fruits found.</Combobox.Empty>
+                  <Combobox.List>
+                    {(item) => (
+                      <Combobox.Item key={item} value={item}>
+                        {item}
+                      </Combobox.Item>
+                    )}
+                  </Combobox.List>
+                </ScrollArea>
+              </Combobox.Content>
+            </Combobox.Root>
+            <Field.Error match="valueMissing">Please select a fruit.</Field.Error>
+          </Field.Root>
+          <Button type="submit" variant="solid">
+            Submit
+          </Button>
+        </Form>
+        {submitted && (
+          <Callout.Root size="1" style={{ marginTop: 12 }}>
+            <Callout.Text>
+              Submitted: <strong>{JSON.stringify(submitted)}</strong>
+            </Callout.Text>
+          </Callout.Root>
+        )}
+      </div>
+    );
+  },
 };
 
 // ============================================================================

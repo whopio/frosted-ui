@@ -8,7 +8,12 @@ import { ThickCheckIcon, XIcon } from '../../icons';
 import { Theme, useThemeContext } from '../../theme';
 import type { RootProps as TextFieldRootProps } from '../text-field/text-field';
 import { Input as TextFieldInput, Root as TextFieldRoot, Slot as TextFieldSlot } from '../text-field/text-field';
-import { comboboxChipPropDefs, comboboxContentPropDefs, comboboxItemPropDefs, comboboxRootPropDefs } from './combobox.props';
+import {
+  comboboxChipPropDefs,
+  comboboxContentPropDefs,
+  comboboxItemPropDefs,
+  comboboxRootPropDefs,
+} from './combobox.props';
 
 import type { GetPropDefTypes } from '../../helpers';
 
@@ -55,6 +60,13 @@ type ComboboxRootProps<Value = unknown, Multiple extends boolean | undefined = f
   Multiple
 >;
 
+/**
+ * Groups all parts of the combobox. Provides `size` context to child components
+ * (`Input`, `Chips`, `Content`) so they inherit sizing automatically.
+ *
+ * All Base UI Combobox Root props are forwarded, including `name`, `required`,
+ * `readOnly`, `disabled`, `autoHighlight`, `openOnInputClick`, `filter`, etc.
+ */
 function ComboboxRoot<Value = unknown, Multiple extends boolean | undefined = false>(
   props: ComboboxRootProps<Value, Multiple>,
 ) {
@@ -81,10 +93,20 @@ ComboboxRoot.displayName = 'ComboboxRoot';
 const ComboboxInputRootContext = React.createContext<boolean>(false);
 
 interface ComboboxInputRootProps extends TextFieldRootProps {
+  /**
+   * Whether to render the dropdown trigger icon. Defaults to `true` when outside
+   * `Content`, and `false` when rendered inside `Content` (e.g., input-inside-popup pattern).
+   */
   showTrigger?: boolean;
+  /** Whether to render a clear button in the trailing slot. @default false */
   showClear?: boolean;
 }
 
+/**
+ * Renders a `TextField.Root` with optional trigger/clear trailing slot.
+ * Auto-registers as the popup anchor when rendered outside `Content`.
+ * Inherits `size` from `Combobox.Root` context (overridable via prop).
+ */
 const ComboboxInputRoot = React.forwardRef<HTMLDivElement, ComboboxInputRootProps>((props, forwardedRef) => {
   const context = React.useContext(ComboboxContext);
   const contentContext = React.useContext(ComboboxContentContext);
@@ -114,9 +136,7 @@ const ComboboxInputRoot = React.forwardRef<HTMLDivElement, ComboboxInputRootProp
       {...textFieldRootProps}
       className={classNames('fui-ComboboxInputRoot', className)}
     >
-      <ComboboxInputRootContext.Provider value={true}>
-        {children}
-      </ComboboxInputRootContext.Provider>
+      <ComboboxInputRootContext.Provider value={true}>{children}</ComboboxInputRootContext.Provider>
       {(showTrigger || showClear) && (
         <TextFieldSlot>
           {showClear && (
@@ -159,11 +179,18 @@ const ComboboxInputSlot = TextFieldSlot;
 // Input (renders ComboboxPrimitive.Input via TextFieldInput; auto-wraps in InputRoot)
 // ============================================================================
 
-interface ComboboxInputProps extends Omit<React.ComponentProps<typeof ComboboxPrimitive.Input>, 'className' | 'render'> {
+interface ComboboxInputProps extends Omit<
+  React.ComponentProps<typeof ComboboxPrimitive.Input>,
+  'className' | 'render'
+> {
   className?: string;
   placeholder?: string;
 }
 
+/**
+ * The text input for the combobox. If not already wrapped in `Combobox.InputRoot`,
+ * it automatically wraps itself in one (with default `showTrigger` and `showClear` behavior).
+ */
 const ComboboxInput = React.forwardRef<HTMLInputElement, ComboboxInputProps>((props, forwardedRef) => {
   const hasRoot = React.useContext(ComboboxInputRootContext);
   const { className, ...rest } = props;
@@ -288,6 +315,11 @@ interface ComboboxContentProps
   collisionPadding?: React.ComponentProps<typeof ComboboxPrimitive.Positioner>['collisionPadding'];
 }
 
+/**
+ * The popup content container. Encapsulates `Portal`, `Positioner`, and `Popup` internally.
+ * Inherits `size` from `Combobox.Root` context (overridable via prop).
+ * Anchors to the `InputRoot` or `Chips` element automatically unless an explicit `anchor` is provided.
+ */
 const ComboboxContent = (props: ComboboxContentProps) => {
   const rootContext = React.useContext(ComboboxContext);
   const themeContext = useThemeContext();
@@ -508,12 +540,44 @@ const ComboboxSeparator = (props: ComboboxSeparatorProps) => {
 ComboboxSeparator.displayName = 'ComboboxSeparator';
 
 // ============================================================================
+// Status (announces list status changes to screen readers)
+// ============================================================================
+
+interface ComboboxStatusProps extends Omit<
+  React.ComponentProps<typeof ComboboxPrimitive.Status>,
+  'className' | 'render'
+> {
+  className?: string;
+}
+
+/**
+ * Visually hidden live region that announces list status changes to screen readers
+ * (e.g., "3 results available"). Place inside `Combobox.Root` for accessibility.
+ */
+const ComboboxStatus = React.forwardRef<HTMLDivElement, ComboboxStatusProps>((props, forwardedRef) => {
+  const { className, ...statusProps } = props;
+  return (
+    <ComboboxPrimitive.Status
+      {...statusProps}
+      ref={forwardedRef}
+      className={classNames('fui-ComboboxStatus', className)}
+    />
+  );
+});
+ComboboxStatus.displayName = 'ComboboxStatus';
+
+// ============================================================================
 // Chips (renders TextField.Root internally, auto-registers as anchor)
-// Accepts the same props as TextField.Root: size, variant, color, className, etc.
 // ============================================================================
 
 interface ComboboxChipsProps extends TextFieldRootProps {}
 
+/**
+ * Container for multi-select chips. Renders a `TextField.Root` internally
+ * and auto-registers as the popup anchor for `Content` positioning.
+ * Inherits `size` from `Combobox.Root` context (overridable via prop).
+ * Accepts all `TextField.Root` props (`size`, `variant`, `color`, etc.).
+ */
 const ComboboxChips = React.forwardRef<HTMLDivElement, ComboboxChipsProps>((props, forwardedRef) => {
   const context = React.useContext(ComboboxContext);
   const { className, size = context.size, variant, color, children, ...rest } = props;
@@ -557,8 +621,11 @@ function useComboboxAnchor() {
 
 type ComboboxChipOwnProps = GetPropDefTypes<typeof comboboxChipPropDefs>;
 
-interface ComboboxChipProps extends Omit<React.ComponentProps<typeof ComboboxPrimitive.Chip>, 'className' | 'render'>, ComboboxChipOwnProps {
+interface ComboboxChipProps
+  extends Omit<React.ComponentProps<typeof ComboboxPrimitive.Chip>, 'className' | 'render'>, ComboboxChipOwnProps {
   className?: string;
+  /** When false, the built-in remove button is not rendered. @default true */
+  showRemove?: boolean;
 }
 
 const ComboboxChip = (props: ComboboxChipProps) => {
@@ -568,6 +635,7 @@ const ComboboxChip = (props: ComboboxChipProps) => {
     color,
     variant = comboboxChipPropDefs.variant.default,
     highContrast = comboboxChipPropDefs.highContrast.default,
+    showRemove = true,
     ...chipProps
   } = props;
   return (
@@ -579,9 +647,11 @@ const ComboboxChip = (props: ComboboxChipProps) => {
       })}
     >
       {children}
-      <ComboboxPrimitive.ChipRemove className="fui-ComboboxChipRemove">
-        <XIcon />
-      </ComboboxPrimitive.ChipRemove>
+      {showRemove && (
+        <ComboboxPrimitive.ChipRemove className="fui-ComboboxChipRemove">
+          <XIcon className="fui-ComboboxChipRemoveIcon" />
+        </ComboboxPrimitive.ChipRemove>
+      )}
     </ComboboxPrimitive.Chip>
   );
 };
@@ -610,6 +680,7 @@ export {
   ComboboxList as List,
   ComboboxRoot as Root,
   ComboboxSeparator as Separator,
+  ComboboxStatus as Status,
   ComboboxTrigger as Trigger,
   useComboboxAnchor,
   ComboboxValue as Value,
@@ -637,6 +708,7 @@ export type {
   ComboboxRootHighlightEventDetails as RootHighlightEventDetails,
   ComboboxRootProps as RootProps,
   ComboboxSeparatorProps as SeparatorProps,
+  ComboboxStatusProps as StatusProps,
   ComboboxTriggerProps as TriggerProps,
   ComboboxValueProps as ValueProps,
 };
