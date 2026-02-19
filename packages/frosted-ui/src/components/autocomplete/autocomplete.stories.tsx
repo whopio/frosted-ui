@@ -9,7 +9,7 @@ import {
   Moon16,
   Plus16,
   QuestionCircle16,
-  Sad32,
+  Sad24,
   Trash16,
   User16,
   XCircleFilled16,
@@ -17,7 +17,7 @@ import {
 import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
 import { getColorForEmoji } from '../../helpers/emoji-colors';
-import { Button, Code, IconButton, Kbd, ScrollArea, Spinner, Text, TextField } from '../index';
+import { Button, Code, EmptyState, IconButton, Kbd, ScrollArea, Spinner, Text, TextField } from '../index';
 import * as Autocomplete from './autocomplete';
 
 const meta: Meta<typeof Autocomplete.Root> = {
@@ -335,7 +335,7 @@ export const Grouped: Story = {
 // Empty State
 // ============================================================================
 
-export const EmptyState: Story = {
+export const WithEmptyState: Story = {
   name: 'Empty State',
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', maxWidth: 300 }}>
@@ -1227,32 +1227,20 @@ export const CommandPicker: Story = {
             anchor={textFieldRootRef}
           >
             <ScrollArea type="auto" style={{ maxHeight: 300 }}>
-              <Autocomplete.Empty
-                style={{
-                  padding: 32,
-                  textAlign: 'center',
-                  color: 'var(--gray-a10)',
-                }}
-              >
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: 10,
-                  }}
-                >
-                  <Sad32
-                    style={{
-                      color: 'var(--gray-a10)',
-                    }}
-                  />
-
-                  <Text size="2" color="gray">
-                    Try searching for something else.
-                  </Text>
-                </div>
+              <Autocomplete.Empty>
+                <EmptyState.Root>
+                  <EmptyState.Header>
+                    <EmptyState.Media>
+                      <Sad24 />
+                    </EmptyState.Media>
+                    <EmptyState.Title size="2" style={{ color: 'var(--gray-12)' }}>
+                      No matching commands found
+                    </EmptyState.Title>
+                    <EmptyState.Description size="1" style={{ marginTop: 4 }}>
+                      Try searching for something else.
+                    </EmptyState.Description>
+                  </EmptyState.Header>
+                </EmptyState.Root>
               </Autocomplete.Empty>
               <Autocomplete.List style={{ padding: 8 }}>
                 {(group) => {

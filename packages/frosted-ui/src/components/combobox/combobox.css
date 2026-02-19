@@ -1,0 +1,492 @@
+/* ============================================================================
+ * Status (visually hidden live region for screen readers)
+ * ============================================================================ */
+
+.fui-ComboboxStatus {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ============================================================================
+ * Combobox Value (used inside Trigger render, e.g. <Button><Combobox.Value /></Button>)
+ * ============================================================================ */
+
+.fui-ComboboxValue {
+  display: inline-block;
+}
+
+/* Optional icon when used inside custom trigger */
+.fui-ComboboxIcon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ============================================================================
+ * Combobox Input – trigger & clear buttons inside TextField.Slot
+ * ============================================================================ */
+
+.fui-ComboboxTriggerButton,
+.fui-ComboboxClearButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--gray-a10);
+  border-radius: var(--radius-1);
+
+  @media (hover: hover) {
+    &:where(:hover:not([data-disabled])) {
+      color: var(--gray-12);
+    }
+  }
+
+  &:where([data-disabled]) {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}
+
+.fui-ComboboxClearButton:disabled,
+.fui-ComboboxClearButton[aria-readonly] {
+  display: none;
+}
+
+.fui-ComboboxTriggerButton {
+  &[data-popup-open] {
+    color: var(--gray-12);
+  }
+}
+
+.fui-ComboboxInputRoot {
+  &:where(.fui-r-size-1) {
+    & :where(.fui-ComboboxTriggerIcon) {
+      width: 8px;
+      height: 8px;
+    }
+    & > .fui-TextFieldSlot:last-child {
+      padding-right: var(--space-2);
+    }
+  }
+  &:where(.fui-r-size-2) {
+    & :where(.fui-ComboboxTriggerIcon) {
+      width: 10px;
+      height: 10px;
+    }
+    & > .fui-TextFieldSlot:last-child {
+      padding-right: var(--space-3);
+    }
+  }
+  &:where(.fui-r-size-3) {
+    & :where(.fui-ComboboxTriggerIcon) {
+      width: 12px;
+      height: 12px;
+    }
+    & > .fui-TextFieldSlot:last-child {
+      padding-right: var(--space-4);
+    }
+  }
+  &:where(.fui-r-size-4) {
+    & :where(.fui-ComboboxTriggerIcon) {
+      width: 14px;
+      height: 14px;
+    }
+    & > .fui-TextFieldSlot:last-child {
+      padding-right: var(--space-4);
+    }
+  }
+}
+
+/* ============================================================================
+ * Combobox Clear (standalone – uses render prop pattern)
+ * ============================================================================ */
+
+.fui-ComboboxClear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  color: var(--gray-a10);
+  border: none;
+  background: none;
+  padding: var(--space-1);
+
+  @media (hover: hover) {
+    &:where(:hover:not([data-disabled])) {
+      color: var(--gray-12);
+    }
+  }
+
+  &:where([data-disabled]) {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}
+
+/* ============================================================================
+ * Combobox Positioner
+ * ============================================================================ */
+
+.fui-ComboboxPositioner {
+  outline: none;
+  pointer-events: none;
+  min-width: var(--anchor-width);
+
+  &[data-open] {
+    pointer-events: auto;
+  }
+
+  &:where([data-side]:not([data-side='none'])) {
+    max-height: var(--available-height);
+  }
+}
+
+/* ============================================================================
+ * Combobox Content
+ * Uses BaseMenu styles via class reuse
+ * ============================================================================ */
+
+.fui-ComboboxContent {
+  --combobox-content-padding: var(--space-1);
+
+  min-width: var(--anchor-width);
+  max-height: var(--available-height);
+  overflow: hidden;
+  pointer-events: auto;
+  transform-origin: var(--transform-origin);
+
+  /* Animation */
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 150ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+  }
+
+  & :where(.fui-ComboboxItem[data-highlighted]:not([data-disabled])) {
+    background-color: var(--gray-a4);
+  }
+
+  &:where(.fui-r-size-1) {
+    --combobox-item-height: var(--space-5);
+    --combobox-item-indicator-width: calc(var(--space-5) / 1.2);
+    border-radius: 8px;
+
+    & :where(.fui-ComboboxItem, .fui-ComboboxEmpty) {
+      font-size: var(--font-size-1);
+      line-height: var(--line-height-1);
+      letter-spacing: var(--letter-spacing-1);
+    }
+    & :where(.fui-ComboboxItem) {
+      border-radius: 4px;
+    }
+    & :where(.fui-ComboboxItemIndicatorIcon) {
+      width: 8px;
+      height: 8px;
+    }
+  }
+  &:where(.fui-r-size-2) {
+    --combobox-item-height: var(--space-6);
+    --combobox-item-indicator-width: calc(var(--space-6) / 1.2);
+    border-radius: 10px;
+
+    & :where(.fui-ComboboxItem, .fui-ComboboxEmpty) {
+      font-size: var(--font-size-2);
+      line-height: var(--line-height-2);
+      letter-spacing: var(--letter-spacing-2);
+    }
+    & :where(.fui-ComboboxItem) {
+      border-radius: 6px;
+    }
+    & :where(.fui-ComboboxItemIndicatorIcon) {
+      width: 10px;
+      height: 10px;
+    }
+  }
+  &:where(.fui-r-size-3) {
+    --combobox-item-height: var(--space-7);
+    --combobox-item-indicator-width: calc(var(--space-7) / 1.2);
+    border-radius: 12px;
+
+    & :where(.fui-ComboboxItem, .fui-ComboboxEmpty) {
+      font-size: var(--font-size-3);
+      line-height: var(--line-height-3);
+      letter-spacing: var(--letter-spacing-3);
+    }
+    & :where(.fui-ComboboxItem) {
+      border-radius: 8px;
+    }
+    & :where(.fui-ComboboxItemIndicatorIcon) {
+      width: 12px;
+      height: 12px;
+    }
+  }
+  &:where(.fui-r-size-4) {
+    --combobox-item-height: var(--space-8);
+    --combobox-item-indicator-width: calc(var(--space-8) / 1.2);
+    border-radius: 14px;
+
+    & :where(.fui-ComboboxItem, .fui-ComboboxEmpty) {
+      font-size: var(--font-size-4);
+      line-height: var(--line-height-4);
+      letter-spacing: var(--letter-spacing-4);
+    }
+    & :where(.fui-ComboboxItem) {
+      border-radius: 10px;
+    }
+    & :where(.fui-ComboboxItemIndicatorIcon) {
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
+
+/* ============================================================================
+ * Combobox List
+ * Padding on list (match Autocomplete), not on viewport
+ * ============================================================================ */
+
+.fui-ComboboxList {
+  display: flex;
+  flex-direction: column;
+  padding: var(--combobox-content-padding);
+  outline: none;
+
+  :where(.fui-ComboboxContent:has(.fui-ScrollAreaScrollbar[data-orientation='vertical'])) & {
+    padding-right: var(--space-3);
+  }
+
+  &:where(:empty) {
+    display: none;
+  }
+}
+
+/* ============================================================================
+ * Combobox Item, ItemIndicator
+ * Match Select: same indicator width and padding; indicator only visible when selected
+ * ============================================================================ */
+
+.fui-ComboboxItem {
+  display: flex;
+  align-items: center;
+  height: var(--combobox-item-height);
+  padding-left: var(--combobox-item-indicator-width);
+  padding-right: var(--combobox-item-indicator-width);
+  position: relative;
+  box-sizing: border-box;
+  outline: none;
+  cursor: var(--cursor-menu-item);
+  scroll-margin: var(--combobox-content-padding) 0;
+  user-select: none;
+}
+
+.fui-ComboboxItem:where([data-disabled]) {
+  pointer-events: none;
+}
+
+.fui-ComboboxItemIndicator {
+  position: absolute;
+  left: 0;
+  width: var(--combobox-item-indicator-width);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* Only show checkmark when item is selected */
+  visibility: hidden;
+}
+
+.fui-ComboboxItem[data-selected] .fui-ComboboxItemIndicator {
+  visibility: visible;
+}
+
+.fui-ComboboxItemIndicatorIcon {
+  flex-shrink: 0;
+}
+
+/* ============================================================================
+ * Combobox Empty
+ * ============================================================================ */
+
+.fui-ComboboxEmpty {
+  display: flex;
+  align-items: center;
+
+  height: var(--combobox-item-height);
+  padding-left: var(--combobox-item-indicator-width);
+  padding-right: var(--combobox-item-indicator-width);
+  color: var(--gray-a10);
+
+  /* To account for the list padding */
+  margin: 4px;
+
+  &:where(:empty) {
+    display: none;
+  }
+}
+
+/* ============================================================================
+ * Combobox Group, GroupLabel, Separator
+ * GroupLabel uses same left offset as items (match Select)
+ * ============================================================================ */
+
+.fui-ComboboxGroupLabel {
+  height: var(--combobox-item-height);
+  padding-left: var(--combobox-item-indicator-width);
+  padding-right: var(--combobox-item-indicator-width);
+}
+
+.fui-ComboboxItem + .fui-ComboboxGroupLabel {
+  margin-top: var(--space-2);
+}
+
+/* ============================================================================
+ * Combobox Chips
+ * ============================================================================ */
+
+.fui-ComboboxChips {
+  &:where(.fui-r-size-1) {
+    --padding: 4px;
+    --chip-left-padding: 4px;
+  }
+  &:where(.fui-r-size-2) {
+    --padding: 4px;
+    --chip-left-padding: 6px;
+  }
+  &:where(.fui-r-size-3) {
+    --padding: 6px;
+    --chip-left-padding: 8px;
+  }
+  &:where(.fui-r-size-4) {
+    --padding: 8px;
+    --chip-left-padding: 10px;
+  }
+}
+
+.fui-ComboboxChips .fui-ComboboxValue {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  flex: 1;
+  min-width: 0;
+  min-height: var(--text-field-input-height);
+
+  padding: var(--padding);
+  gap: var(--padding);
+  --item-height: calc(var(--text-field-input-height) - 2 * var(--padding));
+}
+
+.fui-ComboboxChipsInput {
+  height: var(--item-height);
+  /* Align text visually with the chip that will be created on select */
+  text-indent: var(--chip-left-padding);
+  flex: 1;
+  min-width: 96px;
+  outline: none;
+}
+
+.fui-ComboboxChip {
+  display: inline-flex;
+  align-items: center;
+  padding-left: var(--chip-left-padding);
+  &:where([aria-disabled]),
+  &:where([aria-readonly]),
+  &:where(:not(:has(> .fui-ComboboxChipRemove))) {
+    padding-right: var(--chip-left-padding);
+  }
+  font-size: inherit;
+  line-height: inherit;
+  max-width: 100%;
+  box-sizing: border-box;
+  height: var(--item-height);
+  border-radius: calc(var(--text-field-border-radius) - var(--padding) + 1px);
+
+  &:focus-visible {
+    outline: 2px solid var(--color-focus-root);
+  }
+}
+
+.fui-ComboboxChip:where(.fui-variant-solid) {
+  background-color: var(--accent-9);
+  color: var(--accent-9-contrast);
+  --chip-remove-icon-color: var(--accent-9-contrast);
+  --chip-remove-icon-hover-color: var(--accent-9-contrast);
+  &:focus-visible {
+    outline-offset: 2px;
+  }
+
+  &:where(.fui-high-contrast) {
+    background-color: var(--accent-12);
+    color: var(--accent-1);
+    --chip-remove-icon-color: var(--accent-1);
+    --chip-remove-icon-hover-color: var(--accent-1);
+  }
+}
+
+.fui-ComboboxChip:where(.fui-variant-soft) {
+  background-color: var(--accent-a4);
+  color: var(--accent-a12);
+  --chip-remove-icon-color: var(--accent-a11);
+  --chip-remove-icon-hover-color: var(--accent-a12);
+  &:where([data-accent-color]) {
+    background-color: var(--accent-a3);
+
+    color: var(--accent-a11);
+  }
+  &:where([data-accent-color='gray']) {
+    background-color: var(--accent-a4);
+    color: var(--accent-a12);
+  }
+
+  &:where(.fui-high-contrast) {
+    color: var(--accent-12);
+  }
+}
+
+.fui-ComboboxChipRemove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--chip-remove-icon-color, currentColor);
+  aspect-ratio: 1;
+  height: 100%;
+  container-type: size;
+
+  &:where(:is([aria-disabled] > &), :is([aria-readonly] > &)) {
+    display: none;
+  }
+
+  @media (hover: hover) {
+    &:where(:hover:not([data-disabled])) {
+      color: var(--chip-remove-icon-hover-color, var(--accent-12));
+    }
+  }
+}
+
+.fui-ComboboxChipRemoveIcon {
+  --chip-remove-icon-size: max(calc(100cqw / 2), 12px);
+  width: var(--chip-remove-icon-size);
+  height: var(--chip-remove-icon-size);
+}
