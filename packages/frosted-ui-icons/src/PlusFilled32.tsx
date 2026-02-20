@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const PlusFilled32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M16 2.34961C16.7732 2.34961 17.4004 2.9768 17.4004 3.75V14.5996H28.25C29.0232 14.5996 29.6504 15.2268 29.6504 16C29.6504 16.7732 29.0232 17.4004 28.25 17.4004H17.4004V28.25C17.4004 29.0232 16.7732 29.6504 16 29.6504C15.2268 29.6504 14.5996 29.0232 14.5996 28.25V17.4004H3.75C2.9768 17.4004 2.34961 16.7732 2.34961 16C2.34961 15.2268 2.9768 14.5996 3.75 14.5996H14.5996V3.75C14.5996 2.9768 15.2268 2.34961 16 2.34961Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+PlusFilled32.category = 'Interface General';
+
+export default PlusFilled32;

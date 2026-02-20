@@ -1,0 +1,31 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const BarGraph16 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M.75 9.63095C.75 8.86827 1.36827 8.25 2.13095 8.25H5.58333V15.25H2.13095C1.36827 15.25.75 14.6317.75 13.869L.75 9.63095zM10.416 4.75H13.8684C14.6311 4.75 15.2493 5.36827 15.2493 6.13095V13.869C15.2493 14.6317 14.6311 15.25 13.8684 15.25H10.416L10.416 4.75z"
+        stroke={color}
+        strokeWidth="1.5"
+      />
+      <path
+        d="M5.58398 2.13095C5.58398 1.36827 6.20226 0.75 6.96494 0.75H9.03636C9.79904 0.75 10.4173 1.36827 10.4173 2.13095V15.25H5.58398L5.58398 2.13095Z"
+        stroke={color}
+        strokeWidth="1.5"
+      />
+    </svg>
+  );
+};
+
+BarGraph16.category = 'Stats & Charts';
+
+export default BarGraph16;
