@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Button, Toast, toast } from '..';
+import { Button, toast } from '..';
 
 const meta = {
   title: 'Components/Toast',
@@ -9,13 +9,6 @@ const meta = {
     layout: 'centered',
   },
   tags: ['autodocs'],
-  decorators: [
-    (Story) => (
-      <Toast.Provider>
-        <Story />
-      </Toast.Provider>
-    ),
-  ],
 } satisfies Meta;
 
 export default meta;

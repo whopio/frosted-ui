@@ -1,13 +1,12 @@
 import type { Decorator, Preview } from '@storybook/react';
 import React from 'react';
+import { Toast } from '../src/components/toast';
 import { Theme } from '../src/theme';
 import '../styles.css';
 
 export const withTheme: Decorator = (Story, context) => {
   // Get values from story parameter first, else fallback to globals
-  const theme = (context.parameters.theme || context.globals.theme) as
-    | 'light'
-    | 'dark';
+  const theme = (context.parameters.theme || context.globals.theme) as 'light' | 'dark';
 
   const isDarkTheme = theme === 'dark';
   React.useEffect(() => {
@@ -30,7 +29,9 @@ export const withTheme: Decorator = (Story, context) => {
 `}
       </style>
       <Theme accentColor="blue" grayColor={'gray'}>
-        <Story />
+        <Toast.Provider>
+          <Story />
+        </Toast.Provider>
         {/* <ThemePanel /> */}
       </Theme>
     </>
