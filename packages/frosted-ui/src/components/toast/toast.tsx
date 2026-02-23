@@ -113,11 +113,16 @@ function PositionToastList({ position, swipeDirection, onToast }: PositionToastL
 
   React.useEffect(() => {
     if (!onToast) return;
+    const currentIds = new Set<string>();
     for (const t of toasts) {
+      currentIds.add(t.id);
       if (!reportedRef.current.has(t.id)) {
         reportedRef.current.add(t.id);
         onToast({ id: t.id, type: t.type, title: t.title, description: t.description });
       }
+    }
+    for (const id of reportedRef.current) {
+      if (!currentIds.has(id)) reportedRef.current.delete(id);
     }
   }, [toasts, onToast]);
 

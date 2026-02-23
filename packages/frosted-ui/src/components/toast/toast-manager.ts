@@ -70,7 +70,7 @@ function addOrUpdate(title: React.ReactNode, type: ToastType, options?: ToastOpt
     manager.update(options.id, {
       title,
       type,
-      ...(type !== 'loading' ? { timeout: options?.duration ?? 5000 } : {}),
+      ...(type !== 'loading' && options?.duration !== undefined ? { timeout: options.duration } : {}),
       ...mapOptions({ ...options, id: undefined }),
     });
     return options.id;
