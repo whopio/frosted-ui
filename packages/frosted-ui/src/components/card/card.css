@@ -13,17 +13,9 @@
     display: block;
   }
 
-  &::after {
-    inset: 0;
-    position: absolute;
-    pointer-events: none;
-    border-radius: inherit;
-    content: '';
-  }
-
-  &:where(:focus-visible)::after {
+  &:where(:focus-visible) {
     outline: 2px solid var(--color-focus-root);
-    outline-offset: -1px;
+    outline-offset: 0px;
   }
   padding: var(--card-padding);
   overflow: hidden;
@@ -37,23 +29,23 @@
 
 .fui-Card {
   &:where(.fui-r-size-1) {
-    --card-padding: var(--space-3);
+    --card-padding: 12px;
     --card-border-radius: 12px;
   }
   &:where(.fui-r-size-2) {
-    --card-padding: var(--space-4);
+    --card-padding: 16px;
     --card-border-radius: 16px;
   }
   &:where(.fui-r-size-3) {
-    --card-padding: var(--space-5);
+    --card-padding: 24px;
     --card-border-radius: 16px;
   }
   &:where(.fui-r-size-4) {
-    --card-padding: var(--space-6);
+    --card-padding: 32px;
     --card-border-radius: 20px;
   }
   &:where(.fui-r-size-5) {
-    --card-padding: var(--space-7);
+    --card-padding: 40px;
     --card-border-radius: 24px;
   }
 }
@@ -67,8 +59,7 @@
 /* surface */
 
 .fui-Card:where(.fui-variant-surface) {
-  --card-border-width: 1px;
-  background: var(--card-background);
+  background: var(--color-panel-solid);
 
   box-shadow:
     inset 0 0 0 1px var(--gray-a5),
@@ -87,83 +78,11 @@
         background-color: var(--gray-a3);
       }
     }
-  }
-}
-
-/* prettier-ignore */
-:where(.frosted-ui) {
-  /*
-   * Make sure that hovered shadows length matches the shadows length at rest for clean transitions:
-   * https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow#interpolation
-   */
-  --card-classic-hover-box-shadow:
-    0 0 0 1px var(--gray-a5),
-    0 1px 1px 1px var(--black-a2),
-    0 2px 1px -1px var(--gray-a3),
-    0 2px 3px -2px var(--black-a1),
-    0 3px 12px -4px var(--gray-a3),
-    0 4px 16px -8px var(--black-a1);
-  --card-background: var(--color-panel-solid);
-}
-/* prettier-ignore */
-.dark,
-.dark-theme,
-.dark :where(.frosted-ui:not(.light, .light-theme)),
-.dark-theme :where(.frosted-ui:not(.light, .light-theme)) {
-  --card-classic-hover-box-shadow:
-    0 0 0 1px var(--gray-a7),
-    0 0 1px 1px var(--gray-a7),
-    0 0 1px -1px var(--gray-a4),
-    0 0 3px -2px var(--gray-a3),
-    0 0 12px -2px var(--gray-a3),
-    0 0 16px -8px var(--gray-a9);
-  --card-background: var(--color-panel-solid);
-}
-
-@supports (color: color-mix(in oklab, white, black)) {
-  .dark,
-  .dark-theme,
-  .dark :where(.frosted-ui:not(.light, .light-theme)),
-  .dark-theme :where(.frosted-ui:not(.light, .light-theme)) {
-    --card-classic-hover-box-shadow:
-      0 0 0 1px color-mix(in oklab, var(--gray-a7), var(--gray-8)), 0 0 1px 1px var(--gray-a7),
-      0 0 1px -1px var(--gray-a4), 0 0 3px -2px var(--gray-a3), 0 0 12px -2px var(--gray-a3),
-      0 0 16px -8px var(--gray-a9);
-  }
-}
-
-.fui-Card:where(.fui-variant-classic) {
-  --card-border-width: 1px;
-  background: var(--card-background);
-
-  &::after {
-    border-radius: var(--card-after-border-radius);
-    /* A transparent shadow to transition smoothly to `:active` */
-    box-shadow:
-      0 0 0 1px var(--color-transparent),
-      var(--shadow-2);
-    transition: box-shadow 120ms;
-  }
-
-  &:where(button, [href], [type='button']) {
-    @media (hover: hover) {
-      &:where(:hover) {
-        &::after {
-          transition-duration: 40ms;
-          box-shadow: var(--card-classic-hover-box-shadow);
-        }
-      }
-    }
-    &:where(:active:not([data-state='open'])) {
-      &::after {
-        transition-duration: 40ms;
-        box-shadow:
-          0 0 0 1px var(--gray-a5),
-          var(--shadow-2);
-      }
-      &:where(:focus-visible) {
-        background-color: var(--gray-a3);
-      }
+    &:where([data-pressed]),
+    &:where([data-state='open']),
+    &:where(:active) {
+      background-color: var(--gray-3);
+      box-shadow: inset 0 0 0 1px var(--gray-a6);
     }
   }
 }
@@ -171,16 +90,43 @@
 /* ghost */
 
 .fui-Card:where(.fui-variant-ghost) {
-  --card-border-width: 0px;
-
   &:where(button, [href], [type='button']) {
     @media (hover: hover) {
       &:where(:hover) {
         background-color: var(--gray-a3);
       }
     }
+
+    &:where([data-pressed]),
+    &:where([data-state='open']),
+    &:where(:active) {
+      background-color: var(--gray-a3);
+    }
     &:where(:active:not([data-state='open'])) {
       background-color: var(--gray-a4);
+    }
+  }
+}
+
+/* soft */
+
+.fui-Card:where(.fui-variant-soft) {
+  background-color: var(--gray-a3);
+
+  &:where(button, [href], [type='button']) {
+    @media (hover: hover) {
+      &:where(:hover) {
+        background-color: var(--gray-a4);
+      }
+    }
+
+    &:where([data-pressed]),
+    &:where([data-state='open']),
+    &:where(:active) {
+      background-color: var(--gray-a4);
+    }
+    &:where(:active:not([data-state='open'])) {
+      background-color: var(--gray-a5);
     }
   }
 }

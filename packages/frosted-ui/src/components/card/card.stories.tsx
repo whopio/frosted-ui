@@ -125,7 +125,7 @@ export const Variant: Story = {
   },
   render: ({ children, ...args }) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
-      <Card {...args} variant="classic">
+      <Card {...args} variant="soft">
         {children}
       </Card>
       <Card {...args} variant="ghost">
