@@ -204,6 +204,57 @@ export const CustomPosition: Story = {
   ),
 };
 
+export const Deduplication: Story = {
+  name: 'Deduplication',
+  render: () => {
+    let errorCount = 0;
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+        <div style={{ fontSize: 'var(--font-size-2)', lineHeight: 'var(--line-height-2)', color: 'var(--gray-11)', maxWidth: 480 }}>
+          <p style={{ margin: '0 0 var(--space-2)' }}>
+            Passing an explicit <code style={{ color: 'var(--gray-12)', fontSize: 'var(--font-size-1)', background: 'var(--gray-a3)', padding: '1px 4px', borderRadius: 'var(--radius-1)' }}>id</code> prevents
+            duplicate toasts. If a toast with that ID already exists, it updates in place instead of creating a new one.
+          </p>
+          <p style={{ margin: 0 }}>
+            This is useful for recurring events like network errors or polling failures where
+            you want one persistent toast rather than a growing stack.
+          </p>
+        </div>
+        <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
+          <Button
+            onClick={() => {
+              toast.error('Network disconnected', {
+                id: 'network-status',
+                description: 'Check your internet connection and try again.',
+              });
+            }}
+          >
+            Show network error (deduplicated)
+          </Button>
+          <Button
+            onClick={() => {
+              toast.success('Network restored', { id: 'network-status' });
+            }}
+          >
+            Resolve to success (same ID)
+          </Button>
+          <Button
+            onClick={() => {
+              errorCount += 1;
+              toast.error(`Error #${errorCount}`, {
+                description: 'No ID passed — each click adds a new toast.',
+              });
+            }}
+          >
+            Without ID (duplicates)
+          </Button>
+        </div>
+      </div>
+    );
+  },
+};
+
 export const AllVariants: Story = {
   name: 'All Variants',
   render: () => (

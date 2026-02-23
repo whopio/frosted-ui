@@ -80,6 +80,7 @@ function addOrUpdate(title: React.ReactNode, type: ToastType, options?: ToastOpt
   const manager = getManager(pos);
   const userOnRemove = options?.onRemove;
   const id = manager.add({
+    ...(options?.id ? { id: options.id } : {}),
     title,
     type,
     ...mapOptions(options),
