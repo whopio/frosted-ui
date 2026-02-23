@@ -25,6 +25,16 @@ const meta = {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
     layout: 'centered',
   },
+  argTypes: {
+    size: {
+      control: 'select',
+      options: cardPropDefs.size.values,
+    },
+    variant: {
+      control: 'select',
+      options: cardPropDefs.variant.values,
+    },
+  },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
 } satisfies Meta<typeof Card>;
