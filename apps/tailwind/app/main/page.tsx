@@ -248,7 +248,7 @@ const ActivityCard = ({ title }: { title: string }) => {
 
 const GalleryCard = ({ title }: { title: string }) => {
   return (
-    <Card variant="classic" size="2" className="w-[400px]">
+    <Card variant="surface" size="2" className="w-[400px]">
       <Inset side="top" pb="current">
         <img src="https://picsum.photos/seed/picsum/200/300" className="w-full h-[160px]" />
       </Inset>
