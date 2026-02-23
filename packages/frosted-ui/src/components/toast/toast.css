@@ -29,10 +29,7 @@
   --scale: calc(max(0, 1 - (var(--toast-index) * 0.05)));
   --shrink: calc(1 - var(--scale));
   --height: var(--toast-frontmost-height, var(--toast-height));
-  --offset-y: calc(
-    var(--toast-offset-y) * -1 + (var(--toast-index) * var(--gap) * -1) +
-      var(--toast-swipe-movement-y)
-  );
+  --offset-y: calc(var(--toast-offset-y) * -1 + (var(--toast-index) * var(--gap) * -1) + var(--toast-swipe-movement-y));
 
   position: absolute;
   right: 0;
@@ -43,9 +40,9 @@
   box-sizing: border-box;
 
   background-color: var(--color-panel-solid);
-  border: 1px solid var(--gray-a6);
+  /* border: 1px solid var(--color-stroke); */
   border-radius: var(--radius-4);
-  box-shadow: var(--shadow-3);
+  box-shadow: var(--shadow-4);
   padding: var(--space-3) var(--space-4);
   background-clip: padding-box;
 
@@ -56,10 +53,7 @@
 
   transform: translateX(var(--toast-swipe-movement-x))
     translateY(
-      calc(
-        var(--toast-swipe-movement-y) - (var(--toast-index) * var(--peek)) -
-          (var(--shrink) * var(--height))
-      )
+      calc(var(--toast-swipe-movement-y) - (var(--toast-index) * var(--peek)) - (var(--shrink) * var(--height)))
     )
     scale(var(--scale));
 
@@ -292,7 +286,9 @@
   background: transparent;
   color: var(--gray-a11);
   cursor: pointer;
-  transition: background-color 0.15s, color 0.15s;
+  transition:
+    background-color 0.15s,
+    color 0.15s;
 
   @media (hover: hover) {
     &:hover {

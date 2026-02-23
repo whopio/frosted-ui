@@ -3,6 +3,7 @@
 import { Toast as ToastPrimitive } from '@base-ui/react/toast';
 import classNames from 'classnames';
 import * as React from 'react';
+import { Theme } from '../../theme';
 import { Spinner } from '../spinner';
 import { toastManager } from './toast-manager';
 import type { SwipeDirection } from './toast.props';
@@ -51,8 +52,9 @@ const ToastProvider = (props: ToastProviderProps) => {
   return (
     <ToastPrimitive.Provider toastManager={toastManager} timeout={timeout} limit={limit}>
       {children}
+
       <ToastPrimitive.Portal>
-        <ToastPrimitive.Viewport className="fui-ToastViewport">
+        <ToastPrimitive.Viewport className="fui-ToastViewport" render={<Theme />}>
           <ToastList swipeDirection={swipeDirection} onToast={onToast} />
         </ToastPrimitive.Viewport>
       </ToastPrimitive.Portal>
@@ -89,9 +91,7 @@ function ToastList({ swipeDirection, onToast }: ToastListProps) {
           <ToastPrimitive.Description className="fui-ToastDescription" />
         </div>
         {t.actionProps && (
-          <ToastPrimitive.Action className="fui-ToastAction">
-            {t.actionProps.children}
-          </ToastPrimitive.Action>
+          <ToastPrimitive.Action className="fui-ToastAction">{t.actionProps.children}</ToastPrimitive.Action>
         )}
         <ToastPrimitive.Close className="fui-ToastClose" aria-label="Close">
           <CloseIcon />
@@ -145,7 +145,13 @@ function SuccessIcon() {
         stroke="currentColor"
         strokeWidth="1.25"
       />
-      <path d="M5.5 8L7.2 9.9L10.5 6.1" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M5.5 8L7.2 9.9L10.5 6.1"
+        stroke="currentColor"
+        strokeWidth="1.25"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
