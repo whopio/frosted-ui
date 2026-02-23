@@ -144,7 +144,7 @@ export const WithCard: Story = {
     <RadioButtonGroup.Root defaultValue="1" {...args}>
       <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'row' }}>
         <RadioButtonGroup.Item value="1">
-          <Card size="2" variant="classic">
+          <Card size="2" variant="surface">
             <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center' }}>
               <Avatar size="3" fallback="AB" color="lime" />
               <div>
@@ -159,7 +159,7 @@ export const WithCard: Story = {
           </Card>
         </RadioButtonGroup.Item>
         <RadioButtonGroup.Item value="2">
-          <Card size="2" variant="classic">
+          <Card size="2" variant="surface">
             <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center' }}>
               <Avatar size="3" fallback="IM" color="sky" />
               <div>
@@ -174,7 +174,7 @@ export const WithCard: Story = {
           </Card>
         </RadioButtonGroup.Item>
         <RadioButtonGroup.Item value="3">
-          <Card size="2" variant="classic">
+          <Card size="2" variant="surface">
             <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center' }}>
               <Avatar size="3" fallback="SS" color="orange" />
               <div>
@@ -203,7 +203,7 @@ export const Color: Story = {
               <RadioButtonGroup.Item value={value} key={value}>
                 <Card
                   size="3"
-                  variant="classic"
+                  variant="surface"
                   style={
                     {
                       width: 100,
@@ -247,17 +247,17 @@ export const Disabled: Story = {
     <RadioButtonGroup.Root {...args} defaultValue="1" disabled>
       <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'row' }}>
         <RadioButtonGroup.Item value="1">
-          <Card size="2" variant="classic">
+          <Card size="2" variant="surface">
             <Text>Option 1</Text>
           </Card>
         </RadioButtonGroup.Item>
         <RadioButtonGroup.Item value="2">
-          <Card size="2" variant="classic">
+          <Card size="2" variant="surface">
             <Text>Option 2</Text>
           </Card>
         </RadioButtonGroup.Item>
         <RadioButtonGroup.Item value="3">
-          <Card size="2" variant="classic">
+          <Card size="2" variant="surface">
             <Text>Option 3</Text>
           </Card>
         </RadioButtonGroup.Item>
@@ -272,17 +272,17 @@ export const DisabledItem: Story = {
     <RadioButtonGroup.Root {...args} defaultValue="1">
       <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'row' }}>
         <RadioButtonGroup.Item value="1">
-          <Card size="2" variant="classic">
+          <Card size="2" variant="surface">
             <Text>Option 1</Text>
           </Card>
         </RadioButtonGroup.Item>
         <RadioButtonGroup.Item value="2" disabled>
-          <Card size="2" variant="classic">
+          <Card size="2" variant="surface">
             <Text color="gray">Option 2 (disabled)</Text>
           </Card>
         </RadioButtonGroup.Item>
         <RadioButtonGroup.Item value="3">
-          <Card size="2" variant="classic">
+          <Card size="2" variant="surface">
             <Text>Option 3</Text>
           </Card>
         </RadioButtonGroup.Item>
@@ -318,7 +318,7 @@ export const OnValueChange: Story = {
         <RadioButtonGroup.Root {...args} value={selected} onValueChange={handleChange}>
           <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'row' }}>
             <RadioButtonGroup.Item value="starter">
-              <Card size="2" variant="classic" style={{ width: 140 }}>
+              <Card size="2" variant="surface" style={{ width: 140 }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
                   <Text weight="bold">Starter</Text>
                   <Text size="1" color="gray">
@@ -328,7 +328,7 @@ export const OnValueChange: Story = {
               </Card>
             </RadioButtonGroup.Item>
             <RadioButtonGroup.Item value="pro">
-              <Card size="2" variant="classic" style={{ width: 140 }}>
+              <Card size="2" variant="surface" style={{ width: 140 }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
                   <Text weight="bold">Pro</Text>
                   <Text size="1" color="gray">
@@ -338,7 +338,7 @@ export const OnValueChange: Story = {
               </Card>
             </RadioButtonGroup.Item>
             <RadioButtonGroup.Item value="enterprise">
-              <Card size="2" variant="classic" style={{ width: 140 }}>
+              <Card size="2" variant="surface" style={{ width: 140 }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
                   <Text weight="bold">Enterprise</Text>
                   <Text size="1" color="gray">
@@ -412,17 +412,17 @@ export const OnValueChangeEvent: Story = {
         <RadioButtonGroup.Root {...args} value={selected} onValueChange={handleChange}>
           <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'row' }}>
             <RadioButtonGroup.Item value="free">
-              <Card size="2" variant="classic" style={{ width: 120 }}>
+              <Card size="2" variant="surface" style={{ width: 120 }}>
                 <Text weight="bold">Free</Text>
               </Card>
             </RadioButtonGroup.Item>
             <RadioButtonGroup.Item value="pro">
-              <Card size="2" variant="classic" style={{ width: 120 }}>
+              <Card size="2" variant="surface" style={{ width: 120 }}>
                 <Text weight="bold">Pro</Text>
               </Card>
             </RadioButtonGroup.Item>
             <RadioButtonGroup.Item value="premium">
-              <Card size="2" variant="classic" style={{ width: 120 }}>
+              <Card size="2" variant="surface" style={{ width: 120 }}>
                 <Text weight="bold">Premium ⚠️</Text>
               </Card>
             </RadioButtonGroup.Item>
@@ -502,12 +502,12 @@ export const FormName: Story = {
           <RadioButtonGroup.Root {...args} name="plan" value={plan} onValueChange={(v) => setPlan(v as string)}>
             <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'row' }}>
               <RadioButtonGroup.Item value="monthly">
-                <Card size="2" variant="classic">
+                <Card size="2" variant="surface">
                   <Text>Monthly</Text>
                 </Card>
               </RadioButtonGroup.Item>
               <RadioButtonGroup.Item value="yearly">
-                <Card size="2" variant="classic">
+                <Card size="2" variant="surface">
                   <Text>Yearly</Text>
                 </Card>
               </RadioButtonGroup.Item>
@@ -527,12 +527,12 @@ export const FormName: Story = {
           >
             <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'row' }}>
               <RadioButtonGroup.Item value="card">
-                <Card size="2" variant="classic">
+                <Card size="2" variant="surface">
                   <Text>Card</Text>
                 </Card>
               </RadioButtonGroup.Item>
               <RadioButtonGroup.Item value="paypal">
-                <Card size="2" variant="classic">
+                <Card size="2" variant="surface">
                   <Text>PayPal</Text>
                 </Card>
               </RadioButtonGroup.Item>
@@ -608,17 +608,17 @@ export const InputRefGroup: Story = {
           >
             <div style={{ display: 'flex', gap: 'var(--space-2)', flexDirection: 'row' }}>
               <RadioButtonGroup.Item value="basic">
-                <Card size="2" variant="classic">
+                <Card size="2" variant="surface">
                   <Text>Basic</Text>
                 </Card>
               </RadioButtonGroup.Item>
               <RadioButtonGroup.Item value="pro">
-                <Card size="2" variant="classic">
+                <Card size="2" variant="surface">
                   <Text>Pro</Text>
                 </Card>
               </RadioButtonGroup.Item>
               <RadioButtonGroup.Item value="enterprise">
-                <Card size="2" variant="classic">
+                <Card size="2" variant="surface">
                   <Text>Enterprise</Text>
                 </Card>
               </RadioButtonGroup.Item>

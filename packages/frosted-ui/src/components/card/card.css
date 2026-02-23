@@ -3,57 +3,21 @@
 /* Make sure these tags are wrapped in `:where()` for 0 specificity. */
 
 .fui-Card {
-  border-radius: var(--card-border-radius);
   position: relative;
-
+  border-radius: var(--card-border-radius);
+  padding: var(--card-padding);
+  overflow: hidden;
   /* Don't inherit text alignment */
   text-align: initial;
-
-  /* Blend inset shadow with container background */
-  --card-after-border-radius: calc(var(--card-border-radius) - var(--card-border-width));
-  border: var(--card-border-width) solid transparent;
-  background-clip: padding-box;
 
   &:where(button, a) {
     display: block;
   }
 
-  &::after {
-    inset: 0;
-    position: absolute;
-    pointer-events: none;
-    border-radius: inherit;
-    content: '';
-  }
-
-  &:where(:focus-visible)::after {
+  &:where(:focus-visible) {
     outline: 2px solid var(--color-focus-root);
-    outline-offset: -1px;
+    outline-offset: 0px;
   }
-}
-
-.fui-CardInner {
-  --inset-border-width: var(--card-border-width);
-  --inset-border-radius: var(--card-border-radius);
-  position: relative;
-  box-sizing: border-box;
-  border-radius: inherit;
-  overflow: hidden;
-  padding: var(--card-padding);
-
-  /*
-   * Some layout acrobatics with `var(--card-border-width)` because we want:
-   * 1. <Card> with fixed height to clip overflowing content.
-   * 2. <Inset> that clips to card’s border-box or padding-box depending on the `clip` value.
-   *
-   * To have both (1) and (2), we clip the content at the outer edge of `.fui-Card` border.
-   * To achieve that, `.fui-CardInner` size is increased by the border width amount and put
-   * back in place using a matching negative margin; inset padding needs a compensation too.
-   */
-  --inset-padding: calc(var(--card-padding) - var(--card-border-width));
-  width: calc(100% + var(--card-border-width) * 2);
-  height: calc(100% + var(--card-border-width) * 2);
-  margin: calc(-1 * var(--card-border-width));
 }
 
 /***************************************************************************************************
@@ -63,52 +27,24 @@
  ***************************************************************************************************/
 
 .fui-Card {
-  &:where(.fui-variant-ghost) {
-    /* We reset the defined margin variables to avoid inheriting them from a higher component */
-    /* If a margin IS defined on the component itself, the utility class will win and reset it */
-    --margin-top: 0px;
-    --margin-right: 0px;
-    --margin-bottom: 0px;
-    --margin-left: 0px;
-
-    /* Define the overrides to incorporate the negative margins */
-    --margin-top-override: calc(var(--margin-top) - var(--card-padding));
-    --margin-right-override: calc(var(--margin-right) - var(--card-padding));
-    --margin-bottom-override: calc(var(--margin-bottom) - var(--card-padding));
-    --margin-left-override: calc(var(--margin-left) - var(--card-padding));
-
-    /* Reset the overrides on direct children */
-    :where(&) > * {
-      --margin-top-override: initial;
-      --margin-right-override: initial;
-      --margin-bottom-override: initial;
-      --margin-left-override: initial;
-    }
-
-    margin: var(--margin-top-override) var(--margin-right-override) var(--margin-bottom-override)
-      var(--margin-left-override);
-  }
-}
-
-.fui-Card {
   &:where(.fui-r-size-1) {
-    --card-padding: var(--space-3);
+    --card-padding: 12px;
     --card-border-radius: 12px;
   }
   &:where(.fui-r-size-2) {
-    --card-padding: var(--space-4);
+    --card-padding: 16px;
     --card-border-radius: 16px;
   }
   &:where(.fui-r-size-3) {
-    --card-padding: var(--space-5);
+    --card-padding: 24px;
     --card-border-radius: 16px;
   }
   &:where(.fui-r-size-4) {
-    --card-padding: var(--space-6);
+    --card-padding: 32px;
     --card-border-radius: 20px;
   }
   &:where(.fui-r-size-5) {
-    --card-padding: var(--space-7);
+    --card-padding: 40px;
     --card-border-radius: 24px;
   }
 }
@@ -119,115 +55,72 @@
  *                                                                                                 *
  ***************************************************************************************************/
 
+.fui-Card:where(.fui-variant-surface, .fui-variant-outline)::after {
+  content: '';
+  position: absolute;
+  border-radius: inherit;
+  inset: 0;
+  pointer-events: none;
+}
+
 /* surface */
 
 .fui-Card:where(.fui-variant-surface) {
-  --card-border-width: 1px;
-  background: var(--card-background);
+  background: var(--color-panel-solid);
+
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
 
   &::after {
-    border-radius: var(--card-after-border-radius);
-    box-shadow: 0 0 0 1px var(--gray-a6);
-    /* When possible, use only a half-transparent gray for nicer border blending with inset images in dark mode */
-    box-shadow: 0 0 0 1px color-mix(in oklab, var(--gray-a6), var(--gray-6) 25%);
+    box-shadow: inset 0 0 0 1px var(--gray-a5);
   }
 
   &:where(button, [href], [type='button']) {
     @media (hover: hover) {
       &:where(:hover)::after {
-        box-shadow: 0 0 0 1px var(--gray-a8);
-        box-shadow: 0 0 0 1px color-mix(in oklab, var(--gray-a8), var(--gray-8) 25%);
+        box-shadow: inset 0 0 0 1px var(--gray-a7);
       }
     }
     &:where(:active:not([data-state='open'])) {
-      &::after {
-        box-shadow:
-          0 0 0 1px var(--gray-a8),
-          0 0 0 1px var(--gray-a6);
-        box-shadow:
-          0 0 0 1px color-mix(in oklab, var(--gray-a8), var(--gray-8) 25%),
-          0 0 0 1px var(--gray-a6);
-      }
       &:where(:focus-visible) {
         background-color: var(--gray-a3);
       }
     }
+    &:where([data-pressed]),
+    &:where([data-state='open']),
+    &:where(:active) {
+      box-shadow: none;
+      background-color: var(--gray-3);
+
+      &::after {
+        box-shadow: inset 0 0 0 1px var(--gray-a6);
+      }
+    }
   }
 }
 
-/* prettier-ignore */
-:where(.frosted-ui) {
-  /*
-   * Make sure that hovered shadows length matches the shadows length at rest for clean transitions:
-   * https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow#interpolation
-   */
-  --card-classic-hover-box-shadow:
-    0 0 0 1px var(--gray-a5),
-    0 1px 1px 1px var(--black-a2),
-    0 2px 1px -1px var(--gray-a3),
-    0 2px 3px -2px var(--black-a1),
-    0 3px 12px -4px var(--gray-a3),
-    0 4px 16px -8px var(--black-a1);
-  --card-background: var(--color-panel-solid);
-}
-/* prettier-ignore */
-.dark,
-.dark-theme,
-.dark :where(.frosted-ui:not(.light, .light-theme)),
-.dark-theme :where(.frosted-ui:not(.light, .light-theme)) {
-  --card-classic-hover-box-shadow:
-    0 0 0 1px var(--gray-a7),
-    0 0 1px 1px var(--gray-a7),
-    0 0 1px -1px var(--gray-a4),
-    0 0 3px -2px var(--gray-a3),
-    0 0 12px -2px var(--gray-a3),
-    0 0 16px -8px var(--gray-a9);
-  --card-background: var(--color-panel-solid);
-}
-
-@supports (color: color-mix(in oklab, white, black)) {
-  .dark,
-  .dark-theme,
-  .dark :where(.frosted-ui:not(.light, .light-theme)),
-  .dark-theme :where(.frosted-ui:not(.light, .light-theme)) {
-    --card-classic-hover-box-shadow:
-      0 0 0 1px color-mix(in oklab, var(--gray-a7), var(--gray-8)), 0 0 1px 1px var(--gray-a7),
-      0 0 1px -1px var(--gray-a4), 0 0 3px -2px var(--gray-a3), 0 0 12px -2px var(--gray-a3),
-      0 0 16px -8px var(--gray-a9);
-  }
-}
-
-.fui-Card:where(.fui-variant-classic) {
-  --card-border-width: 1px;
-  background: var(--card-background);
-
+.fui-Card:where(.fui-variant-outline) {
   &::after {
-    border-radius: var(--card-after-border-radius);
-    /* A transparent shadow to transition smoothly to `:active` */
-    box-shadow:
-      0 0 0 1px var(--color-transparent),
-      var(--shadow-2);
-    transition: box-shadow 120ms;
+    box-shadow: inset 0 0 0 1px var(--color-stroke);
   }
 
   &:where(button, [href], [type='button']) {
     @media (hover: hover) {
-      &:where(:hover) {
-        &::after {
-          transition-duration: 40ms;
-          box-shadow: var(--card-classic-hover-box-shadow);
-        }
+      &:where(:hover)::after {
+        box-shadow: inset 0 0 0 1px var(--gray-a7);
       }
     }
     &:where(:active:not([data-state='open'])) {
-      &::after {
-        transition-duration: 40ms;
-        box-shadow:
-          0 0 0 1px var(--gray-a5),
-          var(--shadow-2);
-      }
       &:where(:focus-visible) {
         background-color: var(--gray-a3);
+      }
+    }
+    &:where([data-pressed]),
+    &:where([data-state='open']),
+    &:where(:active) {
+      background-color: var(--gray-3);
+
+      &::after {
+        box-shadow: inset 0 0 0 1px var(--gray-a6);
       }
     }
   }
@@ -236,16 +129,43 @@
 /* ghost */
 
 .fui-Card:where(.fui-variant-ghost) {
-  --card-border-width: 0px;
-
   &:where(button, [href], [type='button']) {
     @media (hover: hover) {
       &:where(:hover) {
         background-color: var(--gray-a3);
       }
     }
+
+    &:where([data-pressed]),
+    &:where([data-state='open']),
+    &:where(:active) {
+      background-color: var(--gray-a3);
+    }
     &:where(:active:not([data-state='open'])) {
       background-color: var(--gray-a4);
+    }
+  }
+}
+
+/* soft */
+
+.fui-Card:where(.fui-variant-soft) {
+  background-color: var(--gray-a3);
+
+  &:where(button, [href], [type='button']) {
+    @media (hover: hover) {
+      &:where(:hover) {
+        background-color: var(--gray-a4);
+      }
+    }
+
+    &:where([data-pressed]),
+    &:where([data-state='open']),
+    &:where(:active) {
+      background-color: var(--gray-a4);
+    }
+    &:where(:active:not([data-state='open'])) {
+      background-color: var(--gray-a5);
     }
   }
 }

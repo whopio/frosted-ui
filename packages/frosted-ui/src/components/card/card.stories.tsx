@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Avatar, Card, Code, Inset, Text, cardPropDefs } from '..';
+import { Avatar, Card, Code, Text, cardPropDefs } from '..';
 
 const CardContentExample = () => (
   <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center' }}>
@@ -24,6 +24,16 @@ const meta = {
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
     layout: 'centered',
+  },
+  argTypes: {
+    size: {
+      control: 'select',
+      options: cardPropDefs.size.values,
+    },
+    variant: {
+      control: 'select',
+      options: cardPropDefs.variant.values,
+    },
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
@@ -125,13 +135,16 @@ export const Variant: Story = {
   },
   render: ({ children, ...args }) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
-      <Card {...args} variant="classic">
+      <Card {...args} variant="surface">
+        {children}
+      </Card>
+      <Card {...args} variant="outline">
+        {children}
+      </Card>
+      <Card {...args} variant="soft">
         {children}
       </Card>
       <Card {...args} variant="ghost">
-        {children}
-      </Card>
-      <Card {...args} variant="surface">
         {children}
       </Card>
     </div>
@@ -141,23 +154,24 @@ export const Variant: Story = {
 export const InsetContent: Story = {
   name: 'Inset Content',
   render: (args) => (
-    <Card size="2" style={{ maxWidth: 240 }} {...args}>
-      <Inset clip="padding-box" side="top" pb="current">
-        <img
-          src="https://images.unsplash.com/photo-1617050318658-a9a3175e34cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
-          alt="Bold typography"
-          style={{
-            display: 'block',
-            objectFit: 'cover',
-            width: '100%',
-            height: 140,
-            backgroundColor: 'var(--gray-5)',
-          }}
-        />
-      </Inset>
-      <Text render={<p />} size="3">
-        Use <Code>{'<Inset />'}</Code> component to align content flush with the sides of the card.
-      </Text>
+    <Card size="2" style={{ maxWidth: 240, padding: 0 }} {...args}>
+      <img
+        src="https://images.unsplash.com/photo-1617050318658-a9a3175e34cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+        alt="Bold typography"
+        style={{
+          display: 'block',
+          objectFit: 'cover',
+          width: '100%',
+          height: 140,
+          backgroundColor: 'var(--gray-5)',
+        }}
+      />
+
+      <div style={{ padding: 'var( --card-padding)' }}>
+        <Text render={<p />} size="3">
+          This is a really nice image description.
+        </Text>
+      </div>
     </Card>
   ),
 };
