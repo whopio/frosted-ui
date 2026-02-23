@@ -58,13 +58,7 @@ const ToastProvider = (props: ToastProviderProps) => {
     <>
       {children}
       {toastPositions.map((pos) => (
-        <PositionProvider
-          key={pos}
-          position={pos}
-          timeout={timeout}
-          limit={limit}
-          onToast={onToast}
-        />
+        <PositionProvider key={pos} position={pos} timeout={timeout} limit={limit} onToast={onToast} />
       ))}
     </>
   );
@@ -93,7 +87,11 @@ function PositionProvider({ position, timeout, limit, onToast }: PositionProvide
   return (
     <ToastPrimitive.Provider toastManager={manager} timeout={timeout} limit={limit}>
       <ToastPrimitive.Portal>
-        <ToastPrimitive.Viewport className="fui-ToastViewport" data-position={position} render={<Theme />}>
+        <ToastPrimitive.Viewport
+          className="fui-ToastViewport"
+          data-position={position}
+          render={<Theme hasBackground={false} />}
+        >
           <PositionToastList position={position} swipeDirection={swipeDirection} onToast={onToast} />
         </ToastPrimitive.Viewport>
       </ToastPrimitive.Portal>
