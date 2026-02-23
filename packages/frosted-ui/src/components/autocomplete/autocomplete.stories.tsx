@@ -17,7 +17,7 @@ import {
 import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
 import { getColorForEmoji } from '../../helpers/emoji-colors';
-import { Button, Code, EmptyState, IconButton, Kbd, ScrollArea, Spinner, Text, TextField } from '../index';
+import { Button, Code, EmptyState, IconButton, Kbd, ScrollArea, Spinner, Text, TextField, toast } from '../index';
 import * as Autocomplete from './autocomplete';
 
 const meta: Meta<typeof Autocomplete.Root> = {
@@ -1034,12 +1034,6 @@ export const CommandPicker: Story = {
   render: () => {
     const [open, setOpen] = React.useState(false);
     const [searchValue, setSearchValue] = React.useState('');
-    const [toast, setToast] = React.useState<{ message: string; visible: boolean }>({ message: '', visible: false });
-
-    const showToast = (message: string) => {
-      setToast({ message, visible: true });
-      setTimeout(() => setToast((prev) => ({ ...prev, visible: false })), 2000);
-    };
 
     const handleAction = (action: () => void) => {
       action();
@@ -1057,28 +1051,28 @@ export const CommandPicker: Story = {
               label: 'Go to Home',
               icon: <Home16 />,
               shortcut: '⌘H',
-              action: () => showToast('Navigating to Home...'),
+              action: () => toast('Navigating to Home...'),
             },
             {
               id: 'files',
               label: 'Go to Files',
               icon: <Document16 />,
               shortcut: '⌘F',
-              action: () => showToast('Navigating to Files...'),
+              action: () => toast('Navigating to Files...'),
             },
             {
               id: 'settings',
               label: 'Go to Settings',
               icon: <Gear16 />,
               shortcut: '⌘,',
-              action: () => showToast('Opening Settings...'),
+              action: () => toast('Opening Settings...'),
             },
             {
               id: 'profile',
               label: 'Go to Profile',
               icon: <User16 />,
               shortcut: '⌘P',
-              action: () => showToast('Opening Profile...'),
+              action: () => toast('Opening Profile...'),
             },
           ],
         },
@@ -1090,28 +1084,28 @@ export const CommandPicker: Story = {
               label: 'Create New Document',
               icon: <Plus16 />,
               shortcut: '⌘N',
-              action: () => showToast('Creating new document...'),
+              action: () => toast('Creating new document...'),
             },
             {
               id: 'copy',
               label: 'Copy to Clipboard',
               icon: <Copy16 />,
               shortcut: '⌘C',
-              action: () => showToast('Copied to clipboard!'),
+              action: () => toast('Copied to clipboard!'),
             },
             {
               id: 'download',
               label: 'Download File',
               icon: <Download16 />,
               shortcut: '⌘D',
-              action: () => showToast('Downloading file...'),
+              action: () => toast('Downloading file...'),
             },
             {
               id: 'delete',
               label: 'Delete Item',
               icon: <Trash16 />,
               shortcut: '⌘⌫',
-              action: () => showToast('Item deleted'),
+              action: () => toast('Item deleted'),
             },
           ],
         },
@@ -1123,20 +1117,20 @@ export const CommandPicker: Story = {
               label: 'Toggle Dark Mode',
               icon: <Moon16 />,
               shortcut: '⌘T',
-              action: () => showToast('Theme toggled!'),
+              action: () => toast('Theme toggled!'),
             },
             {
               id: 'notifications',
               label: 'Notification Settings',
               icon: <Bell16 />,
-              action: () => showToast('Opening notifications...'),
+              action: () => toast('Opening notifications...'),
             },
             {
               id: 'help',
               label: 'Help & Documentation',
               icon: <QuestionCircle16 />,
               shortcut: '⌘?',
-              action: () => showToast('Opening help center...'),
+              action: () => toast('Opening help center...'),
             },
           ],
         },
@@ -1335,29 +1329,6 @@ export const CommandPicker: Story = {
             </Text>
           </Autocomplete.Content>
         </Autocomplete.Root>
-
-        {/* Toast notification */}
-        <div
-          style={{
-            position: 'fixed',
-            bottom: 24,
-            left: '50%',
-            transform: `translateX(-50%) translateY(${toast.visible ? 0 : 100}px)`,
-            padding: 'var(--space-3) var(--space-4)',
-            background: 'var(--gray-12)',
-            color: 'var(--gray-1)',
-            borderRadius: 'var(--radius-3)',
-            fontSize: 'var(--font-size-2)',
-            fontWeight: 500,
-            boxShadow: 'var(--shadow-4)',
-            opacity: toast.visible ? 1 : 0,
-            transition: 'transform 200ms ease, opacity 200ms ease',
-            pointerEvents: 'none',
-            zIndex: 1000,
-          }}
-        >
-          {toast.message}
-        </div>
       </div>
     );
   },
