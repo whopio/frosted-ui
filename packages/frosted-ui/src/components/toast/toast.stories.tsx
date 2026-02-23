@@ -255,6 +255,25 @@ export const Deduplication: Story = {
   },
 };
 
+export const DismissAll: Story = {
+  name: 'Dismiss All',
+  render: () => {
+    function spawnToasts() {
+      toast.success('File uploaded');
+      toast.error('Payment failed');
+      toast.info('New comment on your post');
+      toast.loading('Syncing data...');
+    }
+
+    return (
+      <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
+        <Button onClick={spawnToasts}>Add 4 toasts</Button>
+        <Button onClick={() => toast.dismissAll()}>Dismiss all</Button>
+      </div>
+    );
+  },
+};
+
 export const AllVariants: Story = {
   name: 'All Variants',
   render: () => (

@@ -142,6 +142,13 @@ function dismiss(id: string) {
   }
 }
 
+function dismissAll() {
+  for (const [id, pos] of toastOwnership) {
+    getManager(pos).close(id);
+  }
+  toastOwnership.clear();
+}
+
 function update(
   id: string,
   updates: { title?: React.ReactNode; type?: string; description?: React.ReactNode; duration?: number },
@@ -159,7 +166,7 @@ const toast = Object.assign(
   (titleOrJsx: React.ReactNode, options?: ToastOptions) => {
     return addOrUpdate(titleOrJsx, 'default', options);
   },
-  { success, error, loading, info, promise, dismiss, update },
+  { success, error, loading, info, promise, dismiss, dismissAll, update },
 );
 
 export { getManager, managers, setDefaultPosition, toast };
