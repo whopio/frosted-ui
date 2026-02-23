@@ -87,6 +87,29 @@
   }
 }
 
+.fui-Card:where(.fui-variant-outline) {
+  box-shadow: inset 0 0 0 1px var(--color-stroke);
+
+  &:where(button, [href], [type='button']) {
+    @media (hover: hover) {
+      &:where(:hover) {
+        box-shadow: inset 0 0 0 1px var(--gray-a7);
+      }
+    }
+    &:where(:active:not([data-state='open'])) {
+      &:where(:focus-visible) {
+        background-color: var(--gray-a3);
+      }
+    }
+    &:where([data-pressed]),
+    &:where([data-state='open']),
+    &:where(:active) {
+      background-color: var(--gray-3);
+      box-shadow: inset 0 0 0 1px var(--gray-a6);
+    }
+  }
+}
+
 /* ghost */
 
 .fui-Card:where(.fui-variant-ghost) {
