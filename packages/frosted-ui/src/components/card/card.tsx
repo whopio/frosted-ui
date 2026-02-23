@@ -28,7 +28,7 @@ const Card = (props: CardProps) => {
       cardProps as React.ComponentProps<'div'>,
       {
         className: classNames('fui-reset', 'fui-Card', className, `fui-r-size-${size}`, `fui-variant-${variant}`),
-        children: <div className="fui-CardInner">{children}</div>,
+        children,
       } as React.ComponentProps<'div'>,
     ),
     defaultTagName: 'div',
