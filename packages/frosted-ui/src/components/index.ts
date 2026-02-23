@@ -54,6 +54,7 @@ export * from './hover-card';
 export * from './popover';
 export * from './sheet';
 export * from './stacked-horizontal-bar-chart';
+export * from './toast';
 export * from './tooltip';
 
 // COMPONENTS
