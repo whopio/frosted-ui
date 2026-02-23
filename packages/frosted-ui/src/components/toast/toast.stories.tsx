@@ -170,6 +170,30 @@ export const CustomDuration: Story = {
   ),
 };
 
+const VARYING_DESCRIPTIONS = [
+  'This is a short one.',
+  'Permission saved.',
+  'Your changes have been saved successfully. You can continue editing or close this page.',
+  'The file you uploaded exceeds the maximum allowed size of 10MB. Please compress the file or choose a smaller one and try again.',
+  'Done!',
+  'We encountered an unexpected error while processing your request. Our team has been notified and is looking into the issue. Please try again in a few minutes.',
+];
+
+export const VaryingHeights: Story = {
+  name: 'Varying Heights',
+  render: () => {
+    let count = 0;
+
+    function createToast() {
+      count += 1;
+      const description = VARYING_DESCRIPTIONS[Math.floor(Math.random() * VARYING_DESCRIPTIONS.length)];
+      toast.success(`Toast ${count} created`, { description });
+    }
+
+    return <Button onClick={createToast}>Create varying height toast</Button>;
+  },
+};
+
 export const AllVariants: Story = {
   name: 'All Variants',
   render: () => (
