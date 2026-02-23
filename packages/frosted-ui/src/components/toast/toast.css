@@ -75,10 +75,7 @@
   --scale: calc(max(0, 1 - (var(--toast-index) * 0.05)));
   --shrink: calc(1 - var(--scale));
   --height: var(--toast-frontmost-height, var(--toast-height));
-  --offset-y: calc(
-    var(--toast-offset-y) * -1 + (var(--toast-index) * var(--gap) * -1) +
-      var(--toast-swipe-movement-y)
-  );
+  --offset-y: calc(var(--toast-offset-y) * -1 + (var(--toast-index) * var(--gap) * -1) + var(--toast-swipe-movement-y));
 
   position: absolute;
   right: 0;
@@ -102,10 +99,7 @@
 
   transform: translateX(var(--toast-swipe-movement-x))
     translateY(
-      calc(
-        var(--toast-swipe-movement-y) - (var(--toast-index) * var(--peek)) -
-          (var(--shrink) * var(--height))
-      )
+      calc(var(--toast-swipe-movement-y) - (var(--toast-index) * var(--peek)) - (var(--shrink) * var(--height)))
     )
     scale(var(--scale));
 
@@ -121,6 +115,10 @@
     left: 0;
     width: 100%;
     height: calc(var(--gap) + 1px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-focus-root);
   }
 
   &[data-expanded] {
@@ -181,15 +179,8 @@
  *                                                                                                 *
  ***************************************************************************************************/
 
-.fui-ToastRoot:where(
-    [data-position='top-right'],
-    [data-position='top-left'],
-    [data-position='top-center']
-  ) {
-  --offset-y: calc(
-    var(--toast-offset-y) + (var(--toast-index) * var(--gap)) +
-      var(--toast-swipe-movement-y)
-  );
+.fui-ToastRoot:where([data-position='top-right'], [data-position='top-left'], [data-position='top-center']) {
+  --offset-y: calc(var(--toast-offset-y) + (var(--toast-index) * var(--gap)) + var(--toast-swipe-movement-y));
 
   bottom: auto;
   top: 0;
@@ -197,10 +188,7 @@
 
   transform: translateX(var(--toast-swipe-movement-x))
     translateY(
-      calc(
-        var(--toast-swipe-movement-y) + (var(--toast-index) * var(--peek)) +
-          (var(--shrink) * var(--height))
-      )
+      calc(var(--toast-swipe-movement-y) + (var(--toast-index) * var(--peek)) + (var(--shrink) * var(--height)))
     )
     scale(var(--scale));
 
