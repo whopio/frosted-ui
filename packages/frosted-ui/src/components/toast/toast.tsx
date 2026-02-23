@@ -5,9 +5,9 @@ import classNames from 'classnames';
 import * as React from 'react';
 import { Theme } from '../../theme';
 import { Spinner } from '../spinner';
-import { toastManager } from './toast-manager';
-import type { SwipeDirection } from './toast.props';
-import { toastProviderPropDefs } from './toast.props';
+import { managers, setDefaultPosition } from './toast-manager';
+import type { SwipeDirection, ToastPosition } from './toast.props';
+import { toastPositions, toastProviderPropDefs } from './toast.props';
 
 interface ToastData {
   id: string;
@@ -24,15 +24,16 @@ interface ToastProviderProps {
    */
   timeout?: number;
   /**
-   * Maximum number of toasts visible at once.
+   * Maximum number of toasts visible at once per position.
    * @default 3
    */
   limit?: number;
   /**
-   * Direction(s) in which toasts can be swiped to dismiss.
-   * @default ['down', 'right']
+   * Default position of toasts on screen. Individual toasts can override
+   * this via `toast('msg', { position: 'top-center' })`.
+   * @default 'bottom-right'
    */
-  swipeDirection?: SwipeDirection | SwipeDirection[];
+  position?: ToastPosition;
   /**
    * Callback fired when a toast is added. Useful for telemetry (e.g. Sentry reporting).
    * Receives toast data including id, type, title, and description.
@@ -45,30 +46,68 @@ const ToastProvider = (props: ToastProviderProps) => {
     children,
     timeout = toastProviderPropDefs.timeout.default,
     limit = toastProviderPropDefs.limit.default,
-    swipeDirection = ['down', 'right'] as SwipeDirection[],
+    position = toastProviderPropDefs.position.default,
     onToast,
   } = props;
 
-  return (
-    <ToastPrimitive.Provider toastManager={toastManager} timeout={timeout} limit={limit}>
-      {children}
+  React.useEffect(() => {
+    setDefaultPosition(position);
+  }, [position]);
 
-      <ToastPrimitive.Portal>
-        <ToastPrimitive.Viewport className="fui-ToastViewport" render={<Theme />}>
-          <ToastList swipeDirection={swipeDirection} onToast={onToast} />
-        </ToastPrimitive.Viewport>
-      </ToastPrimitive.Portal>
-    </ToastPrimitive.Provider>
+  return (
+    <>
+      {children}
+      {toastPositions.map((pos) => (
+        <PositionProvider
+          key={pos}
+          position={pos}
+          timeout={timeout}
+          limit={limit}
+          onToast={onToast}
+        />
+      ))}
+    </>
   );
 };
 ToastProvider.displayName = 'Toast.Provider';
 
-interface ToastListProps {
+const swipeDirectionsByPosition: Record<ToastPosition, SwipeDirection[]> = {
+  'bottom-right': ['down', 'right'],
+  'bottom-left': ['down', 'left'],
+  'bottom-center': ['down'],
+  'top-right': ['up', 'right'],
+  'top-left': ['up', 'left'],
+  'top-center': ['up'],
+};
+
+interface PositionProviderProps {
+  position: ToastPosition;
+  timeout: number;
+  limit: number;
+  onToast?: (toast: ToastData) => void;
+}
+
+function PositionProvider({ position, timeout, limit, onToast }: PositionProviderProps) {
+  const manager = managers.get(position) as ReturnType<typeof managers.get> & object;
+  const swipeDirection = swipeDirectionsByPosition[position];
+  return (
+    <ToastPrimitive.Provider toastManager={manager} timeout={timeout} limit={limit}>
+      <ToastPrimitive.Portal>
+        <ToastPrimitive.Viewport className="fui-ToastViewport" data-position={position} render={<Theme />}>
+          <PositionToastList position={position} swipeDirection={swipeDirection} onToast={onToast} />
+        </ToastPrimitive.Viewport>
+      </ToastPrimitive.Portal>
+    </ToastPrimitive.Provider>
+  );
+}
+
+interface PositionToastListProps {
+  position: ToastPosition;
   swipeDirection: SwipeDirection | SwipeDirection[];
   onToast?: (toast: ToastData) => void;
 }
 
-function ToastList({ swipeDirection, onToast }: ToastListProps) {
+function PositionToastList({ position, swipeDirection, onToast }: PositionToastListProps) {
   const { toasts } = ToastPrimitive.useToastManager();
   const reportedRef = React.useRef<Set<string>>(new Set());
 
@@ -83,7 +122,13 @@ function ToastList({ swipeDirection, onToast }: ToastListProps) {
   }, [toasts, onToast]);
 
   return toasts.map((t) => (
-    <ToastPrimitive.Root key={t.id} toast={t} className="fui-ToastRoot" swipeDirection={swipeDirection}>
+    <ToastPrimitive.Root
+      key={t.id}
+      toast={t}
+      className="fui-ToastRoot"
+      data-position={position}
+      swipeDirection={swipeDirection}
+    >
       <ToastPrimitive.Content className="fui-ToastContent">
         <ToastIcon type={t.type} />
         <div className="fui-ToastBody">

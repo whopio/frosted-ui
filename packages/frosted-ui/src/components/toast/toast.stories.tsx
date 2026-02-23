@@ -101,8 +101,7 @@ export const PromiseError: Story = {
           toast.promise(simulateAsyncError(), {
             loading: 'Submitting...',
             success: 'Submitted successfully',
-            error: (err: unknown) =>
-              `Failed: ${err instanceof globalThis.Error ? err.message : 'Unknown error'}`,
+            error: (err: unknown) => `Failed: ${err instanceof globalThis.Error ? err.message : 'Unknown error'}`,
           })
         }
       >
@@ -192,6 +191,24 @@ export const VaryingHeights: Story = {
 
     return <Button onClick={createToast}>Create varying height toast</Button>;
   },
+};
+
+export const CustomPosition: Story = {
+  name: 'Custom Position (per-toast)',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', alignItems: 'center' }}>
+      <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
+        <Button onClick={() => toast.success('Top left', { position: 'top-left' })}>Top Left</Button>
+        <Button onClick={() => toast.info('Top center', { position: 'top-center' })}>Top Center</Button>
+        <Button onClick={() => toast.error('Top right', { position: 'top-right' })}>Top Right</Button>
+      </div>
+      <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
+        <Button onClick={() => toast.success('Bottom left', { position: 'bottom-left' })}>Bottom Left</Button>
+        <Button onClick={() => toast('Bottom center', { position: 'bottom-center' })}>Bottom Center</Button>
+        <Button onClick={() => toast.error('Bottom right', { position: 'bottom-right' })}>Bottom Right</Button>
+      </div>
+    </div>
+  ),
 };
 
 export const AllVariants: Story = {
