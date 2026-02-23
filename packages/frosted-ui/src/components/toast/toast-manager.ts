@@ -17,7 +17,12 @@ const toastOwnership = new Map<string, ToastPosition>();
 // The provider sets this on mount so imperative calls use the right default
 let _defaultPosition: ToastPosition = 'bottom-right';
 
-type ToastType = 'success' | 'error' | 'loading' | 'info' | 'default';
+type ToastType = 'success' | 'error' | 'loading' | 'info' | 'default' | 'custom';
+
+interface CustomToastRenderProps {
+  close: () => void;
+  id: string;
+}
 
 interface ToastOptions {
   id?: string;
@@ -162,12 +167,22 @@ function update(
   });
 }
 
+type CustomToastRenderFn = (props: CustomToastRenderProps) => React.ReactNode;
+
+function custom(render: CustomToastRenderFn, options?: Omit<ToastOptions, 'description' | 'actionProps'>) {
+  return addOrUpdate('', 'custom', {
+    duration: 5000,
+    ...options,
+    data: { ...options?.data, render },
+  });
+}
+
 const toast = Object.assign(
   (titleOrJsx: React.ReactNode, options?: ToastOptions) => {
     return addOrUpdate(titleOrJsx, 'default', options);
   },
-  { success, error, loading, info, promise, dismiss, dismissAll, update },
+  { success, error, loading, info, promise, dismiss, dismissAll, update, custom },
 );
 
 export { getManager, managers, setDefaultPosition, toast };
-export type { ToastOptions, ToastPromiseOptions, ToastType };
+export type { CustomToastRenderFn, CustomToastRenderProps, ToastOptions, ToastPromiseOptions, ToastType };

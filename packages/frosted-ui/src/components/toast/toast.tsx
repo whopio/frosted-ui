@@ -5,7 +5,8 @@ import classNames from 'classnames';
 import * as React from 'react';
 import { Theme } from '../../theme';
 import { Spinner } from '../spinner';
-import { managers, setDefaultPosition } from './toast-manager';
+import type { CustomToastRenderFn } from './toast-manager';
+import { managers, setDefaultPosition, toast } from './toast-manager';
 import type { SwipeDirection, ToastPosition } from './toast.props';
 import { toastPositions, toastProviderPropDefs } from './toast.props';
 
@@ -124,29 +125,40 @@ function PositionToastList({ position, swipeDirection, onToast }: PositionToastL
     }
   }, [toasts, onToast]);
 
-  return toasts.map((t) => (
-    <ToastPrimitive.Root
-      key={t.id}
-      toast={t}
-      className="fui-ToastRoot"
-      data-position={position}
-      swipeDirection={swipeDirection}
-    >
-      <ToastPrimitive.Content className="fui-ToastContent">
-        <ToastIcon type={t.type} />
-        <div className="fui-ToastBody">
-          <ToastPrimitive.Title className="fui-ToastTitle" />
-          <ToastPrimitive.Description className="fui-ToastDescription" />
-        </div>
-        {t.actionProps && (
-          <ToastPrimitive.Action className="fui-ToastAction">{t.actionProps.children}</ToastPrimitive.Action>
+  return toasts.map((t) => {
+    const customRender = t.data?.render as CustomToastRenderFn | undefined;
+    const isCustom = t.type === 'custom' && typeof customRender === 'function';
+
+    return (
+      <ToastPrimitive.Root
+        key={t.id}
+        toast={t}
+        className="fui-ToastRoot"
+        data-position={position}
+        swipeDirection={swipeDirection}
+      >
+        {isCustom ? (
+          <ToastPrimitive.Content className={classNames('fui-ToastContent', 'fui-ToastContent-custom')}>
+            {customRender({ close: () => toast.dismiss(t.id), id: t.id })}
+          </ToastPrimitive.Content>
+        ) : (
+          <ToastPrimitive.Content className="fui-ToastContent">
+            <ToastIcon type={t.type} />
+            <div className="fui-ToastBody">
+              <ToastPrimitive.Title className="fui-ToastTitle" />
+              <ToastPrimitive.Description className="fui-ToastDescription" />
+            </div>
+            {t.actionProps && (
+              <ToastPrimitive.Action className="fui-ToastAction">{t.actionProps.children}</ToastPrimitive.Action>
+            )}
+            <ToastPrimitive.Close className="fui-ToastClose" aria-label="Close">
+              <CloseIcon />
+            </ToastPrimitive.Close>
+          </ToastPrimitive.Content>
         )}
-        <ToastPrimitive.Close className="fui-ToastClose" aria-label="Close">
-          <CloseIcon />
-        </ToastPrimitive.Close>
-      </ToastPrimitive.Content>
-    </ToastPrimitive.Root>
-  ));
+      </ToastPrimitive.Root>
+    );
+  });
 }
 
 function ToastIcon({ type }: { type?: string }) {

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Button, toast } from '..';
+import { Avatar, Button, Code, Heading, Text, toast } from '..';
 
 const meta = {
   title: 'Components/Toast',
@@ -211,15 +211,12 @@ export const Deduplication: Story = {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-        <div style={{ fontSize: 'var(--font-size-2)', lineHeight: 'var(--line-height-2)', color: 'var(--gray-11)', maxWidth: 480 }}>
-          <p style={{ margin: '0 0 var(--space-2)' }}>
-            Passing an explicit <code style={{ color: 'var(--gray-12)', fontSize: 'var(--font-size-1)', background: 'var(--gray-a3)', padding: '1px 4px', borderRadius: 'var(--radius-1)' }}>id</code> prevents
-            duplicate toasts. If a toast with that ID already exists, it updates in place instead of creating a new one.
-          </p>
-          <p style={{ margin: 0 }}>
-            This is useful for recurring events like network errors or polling failures where
-            you want one persistent toast rather than a growing stack.
-          </p>
+        <div style={{ maxWidth: 480 }}>
+          <Text size="2" color="gray">
+            Passing an explicit <Code size="1">id</Code> prevents duplicate toasts. If a toast with that ID already
+            exists, it updates in place instead of creating a new one. This is useful for recurring events like network
+            errors or polling failures where you want one persistent toast rather than a growing stack.
+          </Text>
         </div>
         <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
           <Button
@@ -272,6 +269,106 @@ export const DismissAll: Story = {
       </div>
     );
   },
+};
+
+export const CustomContent: Story = {
+  name: 'Custom Content',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+      <div style={{ maxWidth: 480 }}>
+        <Text size="2" color="gray">
+          <Code size="1">toast.custom()</Code> accepts a render callback for fully custom toast content. The callback
+          receives <Code size="1">{'{ close, id }'}</Code> so the custom content can dismiss itself. The standard toast
+          chrome (animations, swipe-to-dismiss, stacking) is preserved.
+        </Text>
+      </div>
+      <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
+        <Button
+          onClick={() =>
+            toast.custom(
+              ({ close }) => (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+                  <Avatar
+                    size="3"
+                    fallback="Alex Kim"
+                    color="blue"
+                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=128&h=128&q=70&crop=faces&fit=crop"
+                  />
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <Heading size="2" weight="medium">
+                      Incoming call
+                    </Heading>
+                    <Text size="1" color="gray">
+                      Alex Kim
+                    </Text>
+                  </div>
+                  <div style={{ display: 'flex', gap: 'var(--space-2)', flexShrink: 0 }}>
+                    <Button size="1" variant="ghost" color="danger" onClick={close}>
+                      Decline
+                    </Button>
+                    <Button
+                      size="1"
+                      color="success"
+                      variant="soft"
+                      onClick={() => {
+                        close();
+                        toast.success('Call accepted');
+                      }}
+                    >
+                      Accept
+                    </Button>
+                  </div>
+                </div>
+              ),
+              { duration: 30000, position: 'top-center' },
+            )
+          }
+        >
+          Incoming call notification
+        </Button>
+        <Button
+          onClick={() =>
+            toast.custom(
+              ({ close }) => (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <Heading size="2" weight="medium">
+                      Update available
+                    </Heading>
+                    <Button size="1" variant="ghost" color="gray" onClick={close}>
+                      &times;
+                    </Button>
+                  </div>
+                  <Text size="1" color="gray">
+                    Version 2.4.0 is ready. Restart to apply the update.
+                  </Text>
+                  <div style={{ display: 'flex', gap: 'var(--space-2)', marginTop: 'var(--space-1)' }}>
+                    <Button size="1" variant="soft" color="gray" onClick={close} style={{ flex: 1 }}>
+                      Later
+                    </Button>
+                    <Button
+                      size="1"
+                      onClick={() => {
+                        close();
+                        toast.loading('Restarting...');
+                      }}
+                      variant="solid"
+                      style={{ flex: 1 }}
+                    >
+                      Restart now
+                    </Button>
+                  </div>
+                </div>
+              ),
+              { duration: 0 },
+            )
+          }
+        >
+          App update prompt
+        </Button>
+      </div>
+    </div>
+  ),
 };
 
 export const AllVariants: Story = {

@@ -236,6 +236,11 @@
   }
 }
 
+.fui-ToastContent-custom {
+  display: block;
+  gap: 0;
+}
+
 /***************************************************************************************************
  *                                                                                                 *
  * BODY (title + description wrapper)                                                              *
