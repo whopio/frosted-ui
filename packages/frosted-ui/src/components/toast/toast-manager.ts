@@ -14,6 +14,12 @@ for (const pos of toastPositions) {
 // Tracks which manager owns a given toast ID (for update/dismiss by id)
 const toastOwnership = new Map<string, ToastPosition>();
 
+function clearOwnershipForPosition(position: ToastPosition) {
+  for (const [id, pos] of toastOwnership) {
+    if (pos === position) toastOwnership.delete(id);
+  }
+}
+
 // The provider sets this on mount so imperative calls use the right default
 let _defaultPosition: ToastPosition = 'bottom-right';
 
@@ -198,5 +204,5 @@ const toast = Object.assign(
   { success, error, loading, info, promise, dismiss, dismissAll, update, custom },
 );
 
-export { getManager, managers, setDefaultPosition, subscribeBump, toast };
+export { clearOwnershipForPosition, getManager, managers, setDefaultPosition, subscribeBump, toast };
 export type { CustomToastRenderFn, CustomToastRenderProps, ToastOptions, ToastPromiseOptions, ToastType };

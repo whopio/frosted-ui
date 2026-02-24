@@ -6,7 +6,7 @@ import * as React from 'react';
 import { Theme } from '../../theme';
 import { Spinner } from '../spinner';
 import type { CustomToastRenderFn } from './toast-manager';
-import { managers, setDefaultPosition, subscribeBump, toast } from './toast-manager';
+import { clearOwnershipForPosition, managers, setDefaultPosition, subscribeBump, toast } from './toast-manager';
 import type { SwipeDirection, ToastPosition } from './toast.props';
 import { toastPositions, toastProviderPropDefs } from './toast.props';
 
@@ -176,8 +176,31 @@ function animateBump(id: string, type: string) {
 function PositionToastList({ position, swipeDirection, onToast }: PositionToastListProps) {
   const { toasts } = ToastPrimitive.useToastManager();
   const reportedRef = React.useRef<Set<string>>(new Set());
+  const prevTypesRef = React.useRef<Map<string, string>>(new Map());
 
-  React.useEffect(() => subscribeBump(animateBump), []);
+  React.useEffect(() => {
+    const unsubscribe = subscribeBump(animateBump);
+    return () => {
+      unsubscribe();
+      clearOwnershipForPosition(position);
+    };
+  }, [position]);
+
+  // Detect type changes (e.g. loading → success via toast.promise) and trigger bump
+  React.useEffect(() => {
+    const prev = prevTypesRef.current;
+    for (const t of toasts) {
+      const oldType = prev.get(t.id);
+      if (oldType !== undefined && oldType !== t.type && t.type) {
+        animateBump(t.id, t.type);
+      }
+    }
+    const next = new Map<string, string>();
+    for (const t of toasts) {
+      if (t.type) next.set(t.id, t.type);
+    }
+    prevTypesRef.current = next;
+  }, [toasts]);
 
   React.useEffect(() => {
     if (!onToast) return;
