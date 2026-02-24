@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
 import { Avatar, Button, Code, Heading, Text, toast } from '..';
+import { Theme } from '../../theme';
 
 const meta = {
   title: 'Components/Toast',
@@ -278,47 +279,55 @@ export const CustomContent: Story = {
       <div style={{ maxWidth: 480 }}>
         <Text size="2" color="gray">
           <Code size="1">toast.custom()</Code> accepts a render callback for fully custom toast content. The callback
-          receives <Code size="1">{'{ close, id }'}</Code> so the custom content can dismiss itself. The standard toast
-          chrome (animations, swipe-to-dismiss, stacking) is preserved.
+          receives <Code size="1">{'{ close, id, Toast }'}</Code>. Wrap your content in the <Code size="1">Toast</Code>{' '}
+          component to get the standard chrome (animations, swipe-to-dismiss, stacking). Pass{' '}
+          <Code size="1">className</Code> or <Code size="1">style</Code> to restyle the root.
         </Text>
       </div>
       <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
         <Button
           onClick={() =>
             toast.custom(
-              ({ close }) => (
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
-                  <Avatar
-                    size="3"
-                    fallback="Alex Kim"
-                    color="blue"
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=128&h=128&q=70&crop=faces&fit=crop"
-                  />
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <Heading size="2" weight="medium">
-                      Incoming call
-                    </Heading>
-                    <Text size="1" color="gray">
-                      Alex Kim
-                    </Text>
-                  </div>
-                  <div style={{ display: 'flex', gap: 'var(--space-2)', flexShrink: 0 }}>
-                    <Button size="1" variant="ghost" color="danger" onClick={close}>
-                      Decline
-                    </Button>
-                    <Button
-                      size="1"
-                      color="success"
-                      variant="soft"
-                      onClick={() => {
-                        close();
-                        toast.success('Call accepted');
-                      }}
-                    >
-                      Accept
-                    </Button>
-                  </div>
-                </div>
+              ({ close, Toast }) => (
+                <Theme
+                  appearance="dark"
+                  render={
+                    <Toast style={{ background: 'var(--color-background)' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+                        <Avatar
+                          size="3"
+                          fallback="Alex Kim"
+                          color="blue"
+                          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=128&h=128&q=70&crop=faces&fit=crop"
+                        />
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <Heading size="2" weight="medium">
+                            Incoming call
+                          </Heading>
+                          <Text size="1" color="gray">
+                            Alex Kim
+                          </Text>
+                        </div>
+                        <div style={{ display: 'flex', gap: 'var(--space-2)', flexShrink: 0 }}>
+                          <Button size="1" variant="ghost" color="danger" onClick={close}>
+                            Decline
+                          </Button>
+                          <Button
+                            size="1"
+                            color="success"
+                            variant="soft"
+                            onClick={() => {
+                              close();
+                              toast.success('Call accepted');
+                            }}
+                          >
+                            Accept
+                          </Button>
+                        </div>
+                      </div>
+                    </Toast>
+                  }
+                />
               ),
               { duration: 30000, position: 'top-center' },
             )
@@ -329,42 +338,65 @@ export const CustomContent: Story = {
         <Button
           onClick={() =>
             toast.custom(
-              ({ close }) => (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <Heading size="2" weight="medium">
-                      Update available
-                    </Heading>
-                    <Button size="1" variant="ghost" color="gray" onClick={close}>
-                      &times;
-                    </Button>
+              ({ close, Toast }) => (
+                <Toast>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <Heading size="2" weight="medium">
+                        Update available
+                      </Heading>
+                      <Button size="1" variant="ghost" color="gray" onClick={close}>
+                        &times;
+                      </Button>
+                    </div>
+                    <Text size="1" color="gray">
+                      Version 2.4.0 is ready. Restart to apply the update.
+                    </Text>
+                    <div style={{ display: 'flex', gap: 'var(--space-2)', marginTop: 'var(--space-1)' }}>
+                      <Button size="1" variant="soft" color="gray" onClick={close} style={{ flex: 1 }}>
+                        Later
+                      </Button>
+                      <Button
+                        size="1"
+                        onClick={() => {
+                          close();
+                          toast.loading('Restarting...');
+                        }}
+                        variant="solid"
+                        style={{ flex: 1 }}
+                      >
+                        Restart now
+                      </Button>
+                    </div>
                   </div>
-                  <Text size="1" color="gray">
-                    Version 2.4.0 is ready. Restart to apply the update.
-                  </Text>
-                  <div style={{ display: 'flex', gap: 'var(--space-2)', marginTop: 'var(--space-1)' }}>
-                    <Button size="1" variant="soft" color="gray" onClick={close} style={{ flex: 1 }}>
-                      Later
-                    </Button>
-                    <Button
-                      size="1"
-                      onClick={() => {
-                        close();
-                        toast.loading('Restarting...');
-                      }}
-                      variant="solid"
-                      style={{ flex: 1 }}
-                    >
-                      Restart now
-                    </Button>
-                  </div>
-                </div>
+                </Toast>
               ),
               { duration: 0 },
             )
           }
         >
           App update prompt
+        </Button>
+        <Button
+          onClick={() =>
+            toast.custom(
+              ({ close, Toast }) => (
+                <Toast style={{ background: 'var(--success-3)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+                    <Text size="2" weight="medium" style={{ flex: 1 }}>
+                      Deployment successful
+                    </Text>
+                    <Button size="1" variant="solid" color="success" onClick={close}>
+                      View logs
+                    </Button>
+                  </div>
+                </Toast>
+              ),
+              { duration: 8000 },
+            )
+          }
+        >
+          Custom styled toast
         </Button>
       </div>
     </div>

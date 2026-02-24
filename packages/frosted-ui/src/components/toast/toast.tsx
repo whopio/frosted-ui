@@ -64,7 +64,7 @@ const ToastProvider = (props: ToastProviderProps) => {
     </>
   );
 };
-ToastProvider.displayName = 'Toast.Provider';
+ToastProvider.displayName = 'ToastProvider';
 
 const swipeDirectionsByPosition: Record<ToastPosition, SwipeDirection[]> = {
   'bottom-right': ['down', 'right'],
@@ -100,6 +100,35 @@ function PositionProvider({ position, timeout, limit, onToast }: PositionProvide
   );
 }
 
+// Context carries per-toast bindings so the CustomToastSlot component reference
+// stays stable across renders (avoids remounting).
+const CustomToastCtx = React.createContext<{
+  toast: Parameters<typeof ToastPrimitive.Root>[0]['toast'];
+  position: ToastPosition;
+  swipeDirection: SwipeDirection | SwipeDirection[];
+} | null>(null);
+
+const CustomToastSlot: React.FC<
+  { className?: string; style?: React.CSSProperties; children: React.ReactNode } & Record<string, unknown>
+> = ({ className, style, children, ...rest }) => {
+  const ctx = React.useContext(CustomToastCtx);
+  if (!ctx) return null;
+  return (
+    <ToastPrimitive.Root
+      toast={ctx.toast}
+      className={classNames('fui-ToastRoot', className)}
+      data-position={ctx.position}
+      swipeDirection={ctx.swipeDirection}
+      style={style}
+      {...rest}
+    >
+      <ToastPrimitive.Content className={classNames('fui-ToastContent', 'fui-ToastContent-custom')}>
+        {children}
+      </ToastPrimitive.Content>
+    </ToastPrimitive.Root>
+  );
+};
+
 interface PositionToastListProps {
   position: ToastPosition;
   swipeDirection: SwipeDirection | SwipeDirection[];
@@ -129,6 +158,14 @@ function PositionToastList({ position, swipeDirection, onToast }: PositionToastL
     const customRender = t.data?.render as CustomToastRenderFn | undefined;
     const isCustom = t.type === 'custom' && typeof customRender === 'function';
 
+    if (isCustom) {
+      return (
+        <CustomToastCtx.Provider key={t.id} value={{ toast: t, position, swipeDirection }}>
+          {customRender({ close: () => toast.dismiss(t.id), id: t.id, Toast: CustomToastSlot })}
+        </CustomToastCtx.Provider>
+      );
+    }
+
     return (
       <ToastPrimitive.Root
         key={t.id}
@@ -137,25 +174,19 @@ function PositionToastList({ position, swipeDirection, onToast }: PositionToastL
         data-position={position}
         swipeDirection={swipeDirection}
       >
-        {isCustom ? (
-          <ToastPrimitive.Content className={classNames('fui-ToastContent', 'fui-ToastContent-custom')}>
-            {customRender({ close: () => toast.dismiss(t.id), id: t.id })}
-          </ToastPrimitive.Content>
-        ) : (
-          <ToastPrimitive.Content className="fui-ToastContent">
-            <ToastIcon type={t.type} />
-            <div className="fui-ToastBody">
-              <ToastPrimitive.Title className="fui-ToastTitle" />
-              <ToastPrimitive.Description className="fui-ToastDescription" />
-            </div>
-            {t.actionProps && (
-              <ToastPrimitive.Action className="fui-ToastAction">{t.actionProps.children}</ToastPrimitive.Action>
-            )}
-            <ToastPrimitive.Close className="fui-ToastClose" aria-label="Close">
-              <CloseIcon />
-            </ToastPrimitive.Close>
-          </ToastPrimitive.Content>
-        )}
+        <ToastPrimitive.Content className="fui-ToastContent">
+          <ToastIcon type={t.type} />
+          <div className="fui-ToastBody">
+            <ToastPrimitive.Title className="fui-ToastTitle" />
+            <ToastPrimitive.Description className="fui-ToastDescription" />
+          </div>
+          {t.actionProps && (
+            <ToastPrimitive.Action className="fui-ToastAction">{t.actionProps.children}</ToastPrimitive.Action>
+          )}
+          <ToastPrimitive.Close className="fui-ToastClose" aria-label="Close">
+            <CloseIcon />
+          </ToastPrimitive.Close>
+        </ToastPrimitive.Content>
       </ToastPrimitive.Root>
     );
   });
@@ -261,5 +292,5 @@ function CloseIcon() {
   );
 }
 
-export { ToastProvider as Provider };
-export type { ToastProviderProps as ProviderProps };
+export { ToastProvider };
+export type { ToastProviderProps };

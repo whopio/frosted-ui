@@ -22,6 +22,9 @@ type ToastType = 'success' | 'error' | 'loading' | 'info' | 'default' | 'custom'
 interface CustomToastRenderProps {
   close: () => void;
   id: string;
+  Toast: React.FC<
+    { className?: string; style?: React.CSSProperties; children: React.ReactNode } & Record<string, unknown>
+  >;
 }
 
 interface ToastOptions {
