@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { Telephone20 } from '@frosted-ui/icons';
 import React from 'react';
-import { Avatar, Button, Code, Heading, Text, toast } from '..';
+import { Avatar, Button, Code, Heading, IconButton, Text, toast } from '..';
 import { Theme } from '../../theme';
 
 const meta = {
@@ -292,7 +293,7 @@ export const CustomContent: Story = {
                 <Theme
                   appearance="dark"
                   render={
-                    <Toast style={{ background: 'var(--color-background)' }}>
+                    <Toast style={{ background: 'black', borderRadius: 999 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
                         <Avatar
                           size="3"
@@ -309,20 +310,29 @@ export const CustomContent: Story = {
                           </Text>
                         </div>
                         <div style={{ display: 'flex', gap: 'var(--space-2)', flexShrink: 0 }}>
-                          <Button size="1" variant="ghost" color="danger" onClick={close}>
-                            Decline
-                          </Button>
-                          <Button
-                            size="1"
+                          <IconButton
+                            aria-label="Decline call"
+                            size="3"
+                            style={{ borderRadius: 999 }}
+                            variant="solid"
+                            color="danger"
+                            onClick={close}
+                          >
+                            <Telephone20 style={{ transform: 'rotate(90deg)', transformOrigin: 'center' }} />
+                          </IconButton>
+                          <IconButton
+                            aria-label="Accept call"
+                            size="3"
+                            style={{ borderRadius: 999 }}
                             color="success"
-                            variant="soft"
+                            variant="solid"
                             onClick={() => {
                               close();
                               toast.success('Call accepted');
                             }}
                           >
-                            Accept
-                          </Button>
+                            <Telephone20 />
+                          </IconButton>
                         </div>
                       </div>
                     </Toast>
