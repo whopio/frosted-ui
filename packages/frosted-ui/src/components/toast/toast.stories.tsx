@@ -216,8 +216,9 @@ export const Deduplication: Story = {
         <div style={{ maxWidth: 480 }}>
           <Text size="2" color="gray">
             Passing an explicit <Code size="1">id</Code> prevents duplicate toasts. If a toast with that ID already
-            exists, it updates in place instead of creating a new one. This is useful for recurring events like network
-            errors or polling failures where you want one persistent toast rather than a growing stack.
+            exists, it updates in place instead of creating a new one and plays a subtle bounce animation so the user
+            notices the update. This is useful for recurring events like network errors or polling failures where you
+            want one persistent toast rather than a growing stack.
           </Text>
         </div>
         <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap' }}>

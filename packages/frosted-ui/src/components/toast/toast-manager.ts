@@ -70,6 +70,16 @@ function mapOptions(options?: ToastOptions) {
   };
 }
 
+type BumpListener = (id: string, type: ToastType) => void;
+const bumpListeners = new Set<BumpListener>();
+
+function subscribeBump(listener: BumpListener) {
+  bumpListeners.add(listener);
+  return () => {
+    bumpListeners.delete(listener);
+  };
+}
+
 function addOrUpdate(title: React.ReactNode, type: ToastType, options?: ToastOptions) {
   // Update an existing toast on its original manager
   if (options?.id && toastOwnership.has(options.id)) {
@@ -81,6 +91,7 @@ function addOrUpdate(title: React.ReactNode, type: ToastType, options?: ToastOpt
       ...(type !== 'loading' && options?.duration !== undefined ? { timeout: options.duration } : {}),
       ...mapOptions({ ...options, id: undefined }),
     });
+    for (const listener of bumpListeners) listener(options.id, type);
     return options.id;
   }
 
@@ -187,5 +198,5 @@ const toast = Object.assign(
   { success, error, loading, info, promise, dismiss, dismissAll, update, custom },
 );
 
-export { getManager, managers, setDefaultPosition, toast };
+export { getManager, managers, setDefaultPosition, subscribeBump, toast };
 export type { CustomToastRenderFn, CustomToastRenderProps, ToastOptions, ToastPromiseOptions, ToastType };

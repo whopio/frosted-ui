@@ -6,7 +6,7 @@ import * as React from 'react';
 import { Theme } from '../../theme';
 import { Spinner } from '../spinner';
 import type { CustomToastRenderFn } from './toast-manager';
-import { managers, setDefaultPosition, toast } from './toast-manager';
+import { managers, setDefaultPosition, subscribeBump, toast } from './toast-manager';
 import type { SwipeDirection, ToastPosition } from './toast.props';
 import { toastPositions, toastProviderPropDefs } from './toast.props';
 
@@ -117,6 +117,7 @@ const CustomToastSlot: React.FC<
     <ToastPrimitive.Root
       toast={ctx.toast}
       className={classNames('fui-ToastRoot', className)}
+      data-toast-id={ctx.toast.id}
       data-position={ctx.position}
       swipeDirection={ctx.swipeDirection}
       style={style}
@@ -135,9 +136,48 @@ interface PositionToastListProps {
   onToast?: (toast: ToastData) => void;
 }
 
+function animateBump(id: string, type: string) {
+  requestAnimationFrame(() => {
+    const el = document.querySelector(`[data-toast-id="${CSS.escape(id)}"]`) as HTMLElement | null;
+    if (!el || typeof el.animate !== 'function') return;
+    const index = getComputedStyle(el).getPropertyValue('--toast-index').trim();
+    if (index !== '' && index !== '0') return;
+
+    if (type === 'error') {
+      // Damped spring shake — modeled after Apple's "wrong password" oscillation
+      el.animate(
+        [
+          { transform: 'translateX(0)', offset: 0 },
+          { transform: 'translateX(-7px)', offset: 0.12 },
+          { transform: 'translateX(6px)', offset: 0.24 },
+          { transform: 'translateX(-4.5px)', offset: 0.38 },
+          { transform: 'translateX(3px)', offset: 0.52 },
+          { transform: 'translateX(-1.5px)', offset: 0.68 },
+          { transform: 'translateX(0.5px)', offset: 0.84 },
+          { transform: 'translateX(0)', offset: 1 },
+        ],
+        { duration: 500, easing: 'linear' },
+      );
+    } else {
+      el.animate(
+        [
+          { transform: 'scale(1)', offset: 0 },
+          { transform: 'scale(1.035)', offset: 0.22 },
+          { transform: 'scale(0.99)', offset: 0.56 },
+          { transform: 'scale(1.004)', offset: 0.78 },
+          { transform: 'scale(1)', offset: 1 },
+        ],
+        { duration: 500, easing: 'linear' },
+      );
+    }
+  });
+}
+
 function PositionToastList({ position, swipeDirection, onToast }: PositionToastListProps) {
   const { toasts } = ToastPrimitive.useToastManager();
   const reportedRef = React.useRef<Set<string>>(new Set());
+
+  React.useEffect(() => subscribeBump(animateBump), []);
 
   React.useEffect(() => {
     if (!onToast) return;
@@ -171,6 +211,7 @@ function PositionToastList({ position, swipeDirection, onToast }: PositionToastL
         key={t.id}
         toast={t}
         className="fui-ToastRoot"
+        data-toast-id={t.id}
         data-position={position}
         swipeDirection={swipeDirection}
       >
