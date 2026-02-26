@@ -27,6 +27,7 @@ const ScrollGalleryViewport = React.forwardRef<
     setCanScrollNext,
     viewportRef,
     getItemElements,
+    itemsVersion,
   } = useScrollGalleryContext();
 
   const internalRef = React.useRef<HTMLDivElement | null>(null);
@@ -43,6 +44,34 @@ const ScrollGalleryViewport = React.forwardRef<
     },
     [forwardedRef, viewportRef],
   );
+
+  const updateBoundaries = React.useCallback(() => {
+    const viewport = internalRef.current;
+    if (!viewport) return;
+
+    const items = getItemElements();
+    if (items.length === 0) {
+      setCanScrollPrev(false);
+      setCanScrollNext(false);
+      return;
+    }
+
+    const isHorizontal = orientation === 'horizontal';
+    const viewportRect = viewport.getBoundingClientRect();
+
+    const firstItem = items[0];
+    const lastItem = items[items.length - 1];
+    const firstRect = firstItem.getBoundingClientRect();
+    const lastRect = lastItem.getBoundingClientRect();
+
+    if (isHorizontal) {
+      setCanScrollPrev(firstRect.left < viewportRect.left - 1);
+      setCanScrollNext(lastRect.right > viewportRect.right + 1);
+    } else {
+      setCanScrollPrev(firstRect.top < viewportRect.top - 1);
+      setCanScrollNext(lastRect.bottom > viewportRect.bottom + 1);
+    }
+  }, [getItemElements, orientation, setCanScrollPrev, setCanScrollNext]);
 
   const computeActiveIndex = React.useCallback(() => {
     const viewport = internalRef.current;
@@ -72,59 +101,45 @@ const ScrollGalleryViewport = React.forwardRef<
     setActiveIndex(closestIndex, 'scroll');
   }, [getItemElements, orientation, setActiveIndex]);
 
+  // Scroll listener: update boundaries on every scroll frame, compute active index on scroll end
   React.useEffect(() => {
     const viewport = internalRef.current;
     if (!viewport) return;
+
+    const handleScroll = () => {
+      updateBoundaries();
+    };
 
     const supportsScrollEnd = 'onscrollend' in window;
 
     if (supportsScrollEnd) {
       const handleScrollEnd = () => computeActiveIndex();
+      viewport.addEventListener('scroll', handleScroll, { passive: true });
       viewport.addEventListener('scrollend', handleScrollEnd);
-      return () => viewport.removeEventListener('scrollend', handleScrollEnd);
+      return () => {
+        viewport.removeEventListener('scroll', handleScroll);
+        viewport.removeEventListener('scrollend', handleScrollEnd);
+      };
     }
 
+    // Fallback: debounced scroll for active index
     let timeout: ReturnType<typeof setTimeout>;
-    const handleScroll = () => {
+    const handleScrollWithDebounce = () => {
+      updateBoundaries();
       clearTimeout(timeout);
       timeout = setTimeout(computeActiveIndex, 100);
     };
-    viewport.addEventListener('scroll', handleScroll, { passive: true });
+    viewport.addEventListener('scroll', handleScrollWithDebounce, { passive: true });
     return () => {
-      viewport.removeEventListener('scroll', handleScroll);
+      viewport.removeEventListener('scroll', handleScrollWithDebounce);
       clearTimeout(timeout);
     };
-  }, [computeActiveIndex]);
+  }, [computeActiveIndex, updateBoundaries]);
 
-  // IntersectionObserver for boundary detection and in-view tracking
+  // IntersectionObserver for in-view tracking only
   React.useEffect(() => {
     const viewport = internalRef.current;
     if (!viewport) return;
-
-    const updateBoundaries = () => {
-      const items = getItemElements();
-      if (items.length === 0) {
-        setCanScrollPrev(false);
-        setCanScrollNext(false);
-        return;
-      }
-
-      const isHorizontal = orientation === 'horizontal';
-      const viewportRect = viewport.getBoundingClientRect();
-
-      const firstItem = items[0];
-      const lastItem = items[items.length - 1];
-      const firstRect = firstItem.getBoundingClientRect();
-      const lastRect = lastItem.getBoundingClientRect();
-
-      if (isHorizontal) {
-        setCanScrollPrev(firstRect.left < viewportRect.left - 1);
-        setCanScrollNext(lastRect.right > viewportRect.right + 1);
-      } else {
-        setCanScrollPrev(firstRect.top < viewportRect.top - 1);
-        setCanScrollNext(lastRect.bottom > viewportRect.bottom + 1);
-      }
-    };
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -136,11 +151,10 @@ const ScrollGalleryViewport = React.forwardRef<
             target.removeAttribute('data-in-view');
           }
         }
-        updateBoundaries();
       },
       {
         root: viewport,
-        threshold: [0, 0.5, 0.95],
+        threshold: [0, 0.5],
       },
     );
 
@@ -149,10 +163,13 @@ const ScrollGalleryViewport = React.forwardRef<
       observer.observe(item);
     }
 
-    updateBoundaries();
-
     return () => observer.disconnect();
-  }, [getItemElements, orientation, setCanScrollPrev, setCanScrollNext]);
+  }, [getItemElements, itemsVersion]);
+
+  // Compute initial boundaries once items are registered
+  React.useEffect(() => {
+    updateBoundaries();
+  }, [updateBoundaries, itemsVersion]);
 
   const state = React.useMemo<ScrollGalleryViewportState>(
     () => ({ activeIndex, orientation }),

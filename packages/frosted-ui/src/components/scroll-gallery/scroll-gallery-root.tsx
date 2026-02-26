@@ -75,6 +75,7 @@ const ScrollGalleryRoot = React.forwardRef<
   const [canScrollNext, setCanScrollNext] = React.useState(true);
   const viewportRef = React.useRef<HTMLElement | null>(null);
   const itemElementsRef = React.useRef<Set<HTMLElement>>(new Set());
+  const [itemsVersion, setItemsVersion] = React.useState(0);
 
   const getItemElements = React.useCallback((): HTMLElement[] => {
     const elements = Array.from(itemElementsRef.current);
@@ -86,8 +87,10 @@ const ScrollGalleryRoot = React.forwardRef<
 
   const registerItem = React.useCallback((element: HTMLElement) => {
     itemElementsRef.current.add(element);
+    setItemsVersion((v) => v + 1);
     return () => {
       itemElementsRef.current.delete(element);
+      setItemsVersion((v) => v + 1);
     };
   }, []);
 
@@ -106,6 +109,7 @@ const ScrollGalleryRoot = React.forwardRef<
       viewportRef,
       getItemElements,
       itemCount,
+      itemsVersion,
     }),
     [
       activeIndex,
@@ -116,6 +120,7 @@ const ScrollGalleryRoot = React.forwardRef<
       registerItem,
       getItemElements,
       itemCount,
+      itemsVersion,
     ],
   );
 

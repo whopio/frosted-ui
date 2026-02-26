@@ -16,6 +16,8 @@ interface ScrollGalleryContextValue {
   viewportRef: React.RefObject<HTMLElement | null>;
   getItemElements: () => HTMLElement[];
   itemCount: number;
+  /** Increments when items register/unregister, used to re-trigger observer setup */
+  itemsVersion: number;
 }
 
 const ScrollGalleryContext = React.createContext<ScrollGalleryContextValue | undefined>(undefined);
