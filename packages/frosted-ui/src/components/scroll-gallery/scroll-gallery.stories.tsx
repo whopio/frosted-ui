@@ -207,16 +207,46 @@ function DynamicItemsDemo() {
         <div
           style={{
             display: 'flex',
-            gap: 'var(--space-2)',
+            justifyContent: 'space-between',
+            alignItems: 'center',
             marginTop: 'var(--space-3)',
           }}
         >
-          <ScrollGallery.Previous aria-label="Previous" render={<IconButton variant="soft" size="2" color="gray" />}>
-            <ChevronLeft16 />
-          </ScrollGallery.Previous>
-          <ScrollGallery.Next aria-label="Next" render={<IconButton variant="soft" size="2" color="gray" />}>
-            <ChevronRight16 />
-          </ScrollGallery.Next>
+          <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+            <ScrollGallery.Previous aria-label="Previous" render={<IconButton variant="soft" size="2" color="gray" />}>
+              <ChevronLeft16 />
+            </ScrollGallery.Previous>
+            <ScrollGallery.Next aria-label="Next" render={<IconButton variant="soft" size="2" color="gray" />}>
+              <ChevronRight16 />
+            </ScrollGallery.Next>
+          </div>
+
+          <ScrollGallery.ScrollMarkerGroup
+            aria-label="Choose item"
+            style={{ display: 'flex', gap: 'var(--space-1)' }}
+          >
+            {items.map((_, i) => (
+              <ScrollGallery.ScrollMarker
+                key={i}
+                index={i}
+                render={(props, state) => (
+                  <button
+                    {...props}
+                    style={{
+                      width: 8,
+                      height: 8,
+                      borderRadius: '50%',
+                      border: '1.5px solid var(--gray-8)',
+                      background: state.active ? 'var(--gray-12)' : 'transparent',
+                      padding: 0,
+                      cursor: 'pointer',
+                      transition: 'background 150ms',
+                    }}
+                  />
+                )}
+              />
+            ))}
+          </ScrollGallery.ScrollMarkerGroup>
         </div>
       </ScrollGallery.Root>
     </div>
