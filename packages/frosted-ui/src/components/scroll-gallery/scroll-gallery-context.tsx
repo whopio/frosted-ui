@@ -18,6 +18,10 @@ interface ScrollGalleryContextValue {
   itemCount: number;
   /** Increments when items register/unregister, used to re-trigger observer setup */
   itemsVersion: number;
+  /** CSS spec "current scroll target": index set by marker click, persists until user scrolls */
+  scrollTargetRef: React.MutableRefObject<number | null>;
+  /** True while a programmatic smooth scroll (from marker or button) is animating */
+  scrollingRef: React.MutableRefObject<boolean>;
 }
 
 const ScrollGalleryContext = React.createContext<ScrollGalleryContextValue | undefined>(undefined);

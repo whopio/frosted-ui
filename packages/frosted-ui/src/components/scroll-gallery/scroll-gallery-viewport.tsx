@@ -30,6 +30,8 @@ const ScrollGalleryViewport = React.forwardRef<
     viewportRef,
     getItemElements,
     itemsVersion,
+    scrollTargetRef,
+    scrollingRef,
   } = useScrollGalleryContext();
 
   const internalRef = React.useRef<HTMLDivElement | null>(null);
@@ -130,24 +132,58 @@ const ScrollGalleryViewport = React.forwardRef<
     setActiveIndex(activeIdx, 'scroll');
   }, [getItemElements, orientation, setActiveIndex]);
 
+  const SETTLE_DELAY = 150;
+
   React.useEffect(() => {
     const viewport = internalRef.current;
     if (!viewport) return;
 
-    let timeout: ReturnType<typeof setTimeout>;
+    let settleTimeout: ReturnType<typeof setTimeout>;
 
     const handleScroll = () => {
       updateBoundaries();
-      clearTimeout(timeout);
-      timeout = setTimeout(computeActiveIndex, 100);
+
+      clearTimeout(settleTimeout);
+
+      if (scrollingRef.current) {
+        settleTimeout = setTimeout(() => {
+          scrollingRef.current = false;
+          if (scrollTargetRef.current === null) {
+            computeActiveIndex();
+          }
+        }, SETTLE_DELAY);
+        return;
+      }
+
+      if (scrollTargetRef.current !== null) {
+        scrollTargetRef.current = null;
+      }
+
+      computeActiveIndex();
+    };
+
+    // Physical input events indicate the user has taken over scrolling,
+    // cancelling any in-progress programmatic smooth scroll.
+    const handleUserInput = () => {
+      if (scrollingRef.current || scrollTargetRef.current !== null) {
+        scrollingRef.current = false;
+        scrollTargetRef.current = null;
+        clearTimeout(settleTimeout);
+      }
     };
 
     viewport.addEventListener('scroll', handleScroll, { passive: true });
+    viewport.addEventListener('wheel', handleUserInput, { passive: true });
+    viewport.addEventListener('touchstart', handleUserInput, { passive: true });
+    viewport.addEventListener('pointerdown', handleUserInput);
     return () => {
       viewport.removeEventListener('scroll', handleScroll);
-      clearTimeout(timeout);
+      viewport.removeEventListener('wheel', handleUserInput);
+      viewport.removeEventListener('touchstart', handleUserInput);
+      viewport.removeEventListener('pointerdown', handleUserInput);
+      clearTimeout(settleTimeout);
     };
-  }, [computeActiveIndex, updateBoundaries]);
+  }, [computeActiveIndex, updateBoundaries, scrollTargetRef, scrollingRef]);
 
   // Compute initial boundaries and recompute when items or layout change
   React.useEffect(() => {

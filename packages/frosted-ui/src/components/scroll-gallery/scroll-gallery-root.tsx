@@ -76,6 +76,8 @@ const ScrollGalleryRoot = React.forwardRef<
   const viewportRef = React.useRef<HTMLElement | null>(null);
   const itemElementsRef = React.useRef<Set<HTMLElement>>(new Set());
   const [itemsVersion, setItemsVersion] = React.useState(0);
+  const scrollTargetRef = React.useRef<number | null>(null);
+  const scrollingRef = React.useRef(false);
 
   const getItemElements = React.useCallback((): HTMLElement[] => {
     const elements = Array.from(itemElementsRef.current);
@@ -110,6 +112,8 @@ const ScrollGalleryRoot = React.forwardRef<
       getItemElements,
       itemCount,
       itemsVersion,
+      scrollTargetRef,
+      scrollingRef,
     }),
     [
       activeIndex,

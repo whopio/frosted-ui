@@ -409,14 +409,13 @@ describe('ScrollGallery', () => {
       });
     });
 
-    it('clicking the last marker keeps it active after scroll settles even when item is not at viewport start', () => {
+    it('active marker stays locked during smooth scroll animation from marker click', () => {
       vi.useFakeTimers();
 
       render(<Gallery withMarkers itemCount={8} />);
       const viewport = screen.getByTestId('viewport');
       viewport.scrollBy = vi.fn();
 
-      // 8 items × 200px = 1600px content, 400px viewport → scrollRange = 1200
       mockViewportScroll(viewport, { scrollLeft: 0, scrollWidth: 1600, clientWidth: 400 });
 
       const viewportRect = { left: 0, top: 0, right: 400, bottom: 300, width: 400, height: 300, x: 0, y: 0, toJSON: () => ({}) };
@@ -430,39 +429,33 @@ describe('ScrollGallery', () => {
       fireEvent.click(screen.getByTestId('marker-7'));
       expect(screen.getByTestId('marker-7')).toHaveAttribute('aria-selected', 'true');
 
-      // After smooth scroll completes, viewport is at scrollLeft = 1200 (max scroll)
-      mockViewportScroll(viewport, { scrollLeft: 1200, scrollWidth: 1600, clientWidth: 400 });
-
-      // Items at their post-scroll visual positions (content pos - scrollLeft)
+      // Simulate intermediate scroll position during animation
+      mockViewportScroll(viewport, { scrollLeft: 600, scrollWidth: 1600, clientWidth: 400 });
       for (let i = 0; i < 8; i++) {
         const item = screen.getByTestId(`item-${i}`);
-        const visualLeft = i * 200 - 1200;
+        const visualLeft = i * 200 - 600;
         vi.spyOn(item, 'getBoundingClientRect').mockReturnValue(
           { left: visualLeft, top: 0, right: visualLeft + 200, bottom: 100, width: 200, height: 100, x: visualLeft, y: 0, toJSON: () => ({}) },
         );
       }
 
-      // Debounced scroll fires computeActiveIndex
       act(() => {
         fireEvent.scroll(viewport);
-        vi.advanceTimersByTime(100);
       });
 
-      // The redistribution algorithm places item 7's position at scrollRange (1200),
-      // which is <= scrollPos (1200), so item 7 stays active
+      // Marker 7 stays active despite intermediate scroll position
       expect(screen.getByTestId('marker-7')).toHaveAttribute('aria-selected', 'true');
 
       vi.useRealTimers();
     });
 
-    it('manual scroll after marker click does recompute active index', () => {
+    it('clicking the last marker keeps it active after scroll settles', () => {
       vi.useFakeTimers();
 
       render(<Gallery withMarkers itemCount={8} />);
       const viewport = screen.getByTestId('viewport');
       viewport.scrollBy = vi.fn();
 
-      // 8 items × 200px = 1600px content, 400px viewport → scrollRange = 1200
       mockViewportScroll(viewport, { scrollLeft: 0, scrollWidth: 1600, clientWidth: 400 });
 
       const viewportRect = { left: 0, top: 0, right: 400, bottom: 300, width: 400, height: 300, x: 0, y: 0, toJSON: () => ({}) };
@@ -473,10 +466,10 @@ describe('ScrollGallery', () => {
         { left: 1400, top: 0, right: 1600, bottom: 100, width: 200, height: 100, x: 1400, y: 0, toJSON: () => ({}) },
       );
 
-      // Click last marker
       fireEvent.click(screen.getByTestId('marker-7'));
+      expect(screen.getByTestId('marker-7')).toHaveAttribute('aria-selected', 'true');
 
-      // Scroll settles at the end (scrollLeft = 1200)
+      // Final scroll position (max scroll)
       mockViewportScroll(viewport, { scrollLeft: 1200, scrollWidth: 1600, clientWidth: 400 });
 
       for (let i = 0; i < 8; i++) {
@@ -487,16 +480,49 @@ describe('ScrollGallery', () => {
         );
       }
 
+      // Scroll events fire during animation, then settle
       act(() => {
         fireEvent.scroll(viewport);
-        vi.advanceTimersByTime(100);
+        vi.advanceTimersByTime(150);
+      });
+
+      // scrollTarget is still set, so marker 7 stays active
+      expect(screen.getByTestId('marker-7')).toHaveAttribute('aria-selected', 'true');
+
+      vi.useRealTimers();
+    });
+
+    it('manual scroll after marker click clears scroll target and recomputes', () => {
+      vi.useFakeTimers();
+
+      render(<Gallery withMarkers itemCount={8} />);
+      const viewport = screen.getByTestId('viewport');
+      viewport.scrollBy = vi.fn();
+
+      mockViewportScroll(viewport, { scrollLeft: 0, scrollWidth: 1600, clientWidth: 400 });
+
+      const viewportRect = { left: 0, top: 0, right: 400, bottom: 300, width: 400, height: 300, x: 0, y: 0, toJSON: () => ({}) };
+      vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue(viewportRect);
+
+      const lastItem = screen.getByTestId('item-7');
+      vi.spyOn(lastItem, 'getBoundingClientRect').mockReturnValue(
+        { left: 1400, top: 0, right: 1600, bottom: 100, width: 200, height: 100, x: 1400, y: 0, toJSON: () => ({}) },
+      );
+
+      // Click last marker — locks scrollTarget=7
+      fireEvent.click(screen.getByTestId('marker-7'));
+
+      // Smooth scroll animation fires events and settles
+      mockViewportScroll(viewport, { scrollLeft: 1200, scrollWidth: 1600, clientWidth: 400 });
+      act(() => {
+        fireEvent.scroll(viewport);
+        vi.advanceTimersByTime(150);
       });
 
       expect(screen.getByTestId('marker-7')).toHaveAttribute('aria-selected', 'true');
 
-      // User scrolls manually to bring item 2 to the start (scrollLeft = 400)
+      // User scrolls manually — first event clears scrollTarget and recomputes
       mockViewportScroll(viewport, { scrollLeft: 400, scrollWidth: 1600, clientWidth: 400 });
-
       for (let i = 0; i < 8; i++) {
         const item = screen.getByTestId(`item-${i}`);
         const visualLeft = i * 200 - 400;
@@ -507,10 +533,142 @@ describe('ScrollGallery', () => {
 
       act(() => {
         fireEvent.scroll(viewport);
-        vi.advanceTimersByTime(100);
       });
 
       expect(screen.getByTestId('marker-2')).toHaveAttribute('aria-selected', 'true');
+
+      vi.useRealTimers();
+    });
+
+    it('user scroll updates active marker immediately without debounce', () => {
+      render(<Gallery withMarkers itemCount={8} />);
+      const viewport = screen.getByTestId('viewport');
+
+      mockViewportScroll(viewport, { scrollLeft: 400, scrollWidth: 1600, clientWidth: 400 });
+
+      const viewportRect = { left: 0, top: 0, right: 400, bottom: 300, width: 400, height: 300, x: 0, y: 0, toJSON: () => ({}) };
+      vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue(viewportRect);
+
+      for (let i = 0; i < 8; i++) {
+        const item = screen.getByTestId(`item-${i}`);
+        const visualLeft = i * 200 - 400;
+        vi.spyOn(item, 'getBoundingClientRect').mockReturnValue(
+          { left: visualLeft, top: 0, right: visualLeft + 200, bottom: 100, width: 200, height: 100, x: visualLeft, y: 0, toJSON: () => ({}) },
+        );
+      }
+
+      // No marker click beforehand, pure user scroll — should update immediately
+      act(() => {
+        fireEvent.scroll(viewport);
+      });
+
+      expect(screen.getByTestId('marker-2')).toHaveAttribute('aria-selected', 'true');
+    });
+
+    it('scroll button animation suppresses active marker updates until settle', () => {
+      vi.useFakeTimers();
+
+      render(<Gallery withMarkers itemCount={8} />);
+      const viewport = screen.getByTestId('viewport');
+
+      mockViewportScroll(viewport, { scrollLeft: 0, scrollWidth: 1600, clientWidth: 400 });
+
+      const viewportRect = { left: 0, top: 0, right: 400, bottom: 300, width: 400, height: 300, x: 0, y: 0, toJSON: () => ({}) };
+      vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue(viewportRect);
+
+      // Mock item positions at initial scroll position
+      for (let i = 0; i < 8; i++) {
+        const item = screen.getByTestId(`item-${i}`);
+        const visualLeft = i * 200;
+        vi.spyOn(item, 'getBoundingClientRect').mockReturnValue(
+          { left: visualLeft, top: 0, right: visualLeft + 200, bottom: 100, width: 200, height: 100, x: visualLeft, y: 0, toJSON: () => ({}) },
+        );
+      }
+
+      const scrollBySpy = vi.fn();
+      viewport.scrollBy = scrollBySpy;
+
+      // Click next button (sets scrollingRef=true, canScrollNext defaults true)
+      fireEvent.click(screen.getByTestId('next'));
+
+      // Intermediate scroll position during animation
+      mockViewportScroll(viewport, { scrollLeft: 170, scrollWidth: 1600, clientWidth: 400 });
+      for (let i = 0; i < 8; i++) {
+        const item = screen.getByTestId(`item-${i}`);
+        const visualLeft = i * 200 - 170;
+        vi.spyOn(item, 'getBoundingClientRect').mockReturnValue(
+          { left: visualLeft, top: 0, right: visualLeft + 200, bottom: 100, width: 200, height: 100, x: visualLeft, y: 0, toJSON: () => ({}) },
+        );
+      }
+
+      act(() => {
+        fireEvent.scroll(viewport);
+      });
+
+      // Active marker is still 0 during animation (suppressed)
+      expect(screen.getByTestId('marker-0')).toHaveAttribute('aria-selected', 'true');
+
+      // Final position after button scroll
+      mockViewportScroll(viewport, { scrollLeft: 340, scrollWidth: 1600, clientWidth: 400 });
+      for (let i = 0; i < 8; i++) {
+        const item = screen.getByTestId(`item-${i}`);
+        const visualLeft = i * 200 - 340;
+        vi.spyOn(item, 'getBoundingClientRect').mockReturnValue(
+          { left: visualLeft, top: 0, right: visualLeft + 200, bottom: 100, width: 200, height: 100, x: visualLeft, y: 0, toJSON: () => ({}) },
+        );
+      }
+
+      act(() => {
+        fireEvent.scroll(viewport);
+        vi.advanceTimersByTime(150);
+      });
+
+      // After settle, active marker updates to correct position
+      expect(screen.getByTestId('marker-1')).toHaveAttribute('aria-selected', 'true');
+
+      vi.useRealTimers();
+    });
+
+    it('user input during marker scroll animation cancels the lock', () => {
+      vi.useFakeTimers();
+
+      render(<Gallery withMarkers itemCount={8} />);
+      const viewport = screen.getByTestId('viewport');
+      viewport.scrollBy = vi.fn();
+
+      mockViewportScroll(viewport, { scrollLeft: 0, scrollWidth: 1600, clientWidth: 400 });
+
+      const viewportRect = { left: 0, top: 0, right: 400, bottom: 300, width: 400, height: 300, x: 0, y: 0, toJSON: () => ({}) };
+      vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue(viewportRect);
+
+      const lastItem = screen.getByTestId('item-7');
+      vi.spyOn(lastItem, 'getBoundingClientRect').mockReturnValue(
+        { left: 1400, top: 0, right: 1600, bottom: 100, width: 200, height: 100, x: 1400, y: 0, toJSON: () => ({}) },
+      );
+
+      // Click last marker — scrollTarget=7, scrolling=true
+      fireEvent.click(screen.getByTestId('marker-7'));
+      expect(screen.getByTestId('marker-7')).toHaveAttribute('aria-selected', 'true');
+
+      // User physically swipes (wheel event) during the animation
+      fireEvent.wheel(viewport);
+
+      // Now scroll position is back at the start (user swiped left)
+      mockViewportScroll(viewport, { scrollLeft: 0, scrollWidth: 1600, clientWidth: 400 });
+      for (let i = 0; i < 8; i++) {
+        const item = screen.getByTestId(`item-${i}`);
+        const visualLeft = i * 200;
+        vi.spyOn(item, 'getBoundingClientRect').mockReturnValue(
+          { left: visualLeft, top: 0, right: visualLeft + 200, bottom: 100, width: 200, height: 100, x: visualLeft, y: 0, toJSON: () => ({}) },
+        );
+      }
+
+      // Scroll events from user's swipe — should compute immediately since lock was cancelled
+      act(() => {
+        fireEvent.scroll(viewport);
+      });
+
+      expect(screen.getByTestId('marker-0')).toHaveAttribute('aria-selected', 'true');
 
       vi.useRealTimers();
     });

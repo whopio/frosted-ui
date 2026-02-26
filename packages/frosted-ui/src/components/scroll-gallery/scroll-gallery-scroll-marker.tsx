@@ -24,7 +24,7 @@ const ScrollGalleryScrollMarker = React.forwardRef<
 >(function ScrollGalleryScrollMarker(props, forwardedRef) {
   const { render, index, ...elementProps } = props;
 
-  const { activeIndex, setActiveIndex, orientation, viewportRef, getItemElements } =
+  const { activeIndex, setActiveIndex, orientation, viewportRef, getItemElements, scrollTargetRef, scrollingRef } =
     useScrollGalleryContext();
 
   const isActive = index === activeIndex;
@@ -45,13 +45,16 @@ const ScrollGalleryScrollMarker = React.forwardRef<
       ? targetRect.left - viewportRect.left
       : targetRect.top - viewportRect.top;
 
+    scrollTargetRef.current = index;
+    scrollingRef.current = true;
+
     viewport.scrollBy({
       [isHorizontal ? 'left' : 'top']: distance,
       behavior: 'smooth',
     });
 
     setActiveIndex(index, 'indicator');
-  }, [getItemElements, index, orientation, setActiveIndex, viewportRef]);
+  }, [getItemElements, index, orientation, scrollTargetRef, scrollingRef, setActiveIndex, viewportRef]);
 
   const state = React.useMemo<ScrollGalleryScrollMarkerState>(
     () => ({ active: isActive, index }),

@@ -20,7 +20,7 @@ const ScrollGalleryNext = React.forwardRef<
 >(function ScrollGalleryNext(props, forwardedRef) {
   const { render, ...elementProps } = props;
 
-  const { canScrollNext, orientation, viewportRef } =
+  const { canScrollNext, orientation, viewportRef, scrollingRef } =
     useScrollGalleryContext();
 
   const disabled = !canScrollNext;
@@ -32,11 +32,13 @@ const ScrollGalleryNext = React.forwardRef<
     const isHorizontal = orientation === 'horizontal';
     const pageSize = isHorizontal ? viewport.clientWidth : viewport.clientHeight;
 
+    scrollingRef.current = true;
+
     viewport.scrollBy({
       [isHorizontal ? 'left' : 'top']: pageSize * PAGE_SCROLL_FACTOR,
       behavior: 'smooth',
     });
-  }, [disabled, orientation, viewportRef]);
+  }, [disabled, orientation, scrollingRef, viewportRef]);
 
   const state = React.useMemo<ScrollGalleryNextState>(
     () => ({ disabled }),
