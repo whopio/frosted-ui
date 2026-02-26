@@ -48,7 +48,6 @@ const ScrollGalleryItem = React.forwardRef<
     return getItemElements().indexOf(element);
   }, [getItemElements, activeIndex]);
 
-  const itemCount = getItemElements().length;
   const isActive = index === activeIndex;
 
   const state = React.useMemo<ScrollGalleryItemState>(
@@ -64,7 +63,6 @@ const ScrollGalleryItem = React.forwardRef<
       {
         role: 'group',
         'aria-roledescription': 'slide',
-        'aria-label': index >= 0 ? `${index + 1} of ${itemCount}` : undefined,
         ...(isActive ? { 'data-active': '' } : undefined),
       } as React.ComponentPropsWithRef<'div'>,
       elementProps as React.ComponentPropsWithRef<'div'>,

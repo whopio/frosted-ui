@@ -67,7 +67,6 @@ const ScrollGalleryPrevious = React.forwardRef<
       {
         type: 'button',
         disabled,
-        'aria-label': 'Previous',
         onClick: handleClick,
         ...(disabled ? { 'data-disabled': '' } : undefined),
       } as React.ComponentPropsWithRef<'button'>,

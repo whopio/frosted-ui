@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { ChevronLeft16, ChevronRight16 } from '@frosted-ui/icons';
-import React from 'react';
-import { Avatar, Badge, Card, IconButton, ScrollGallery, Text } from '..';
+import React, { useRef, useState } from 'react';
+import { Avatar, Badge, Button, Card, IconButton, ScrollGallery, Text } from '..';
 
 const people = [
   { name: 'Olivia Chen', role: 'Design Lead', color: 'crimson' as const, initials: 'OC' },
@@ -111,4 +111,112 @@ export const Default: Story = {
       </ScrollGallery.Root>
     </div>
   ),
+};
+
+const colors = ['crimson', 'indigo', 'cyan', 'orange', 'plum', 'teal', 'violet', 'jade'] as const;
+
+function makeItem(id: number) {
+  const color = colors[id % colors.length];
+  return { id, name: `Item ${id}`, color, initials: `${id}` };
+}
+
+function DynamicItemsDemo() {
+  const nextId = useRef(2);
+  const [items, setItems] = useState(() => [makeItem(0), makeItem(1)]);
+
+  const prepend = () => {
+    const id = nextId.current++;
+    setItems((prev) => [makeItem(id), ...prev]);
+  };
+
+  const append = () => {
+    const id = nextId.current++;
+    setItems((prev) => [...prev, makeItem(id)]);
+  };
+
+  const removeFirst = () => setItems((prev) => prev.slice(1));
+  const removeLast = () => setItems((prev) => prev.slice(0, -1));
+
+  return (
+    <div style={{ maxWidth: 720 }}>
+      <div style={{ display: 'flex', gap: 'var(--space-2)', marginBottom: 'var(--space-3)' }}>
+        <Button size="1" variant="soft" onClick={prepend}>
+          Prepend
+        </Button>
+        <Button size="1" variant="soft" color="red" onClick={removeFirst} disabled={items.length === 0}>
+          Remove first
+        </Button>
+        <Button size="1" variant="soft" color="red" onClick={removeLast} disabled={items.length === 0}>
+          Remove last
+        </Button>
+        <Button size="1" variant="soft" onClick={append}>
+          Append
+        </Button>
+      </div>
+
+      <Text render={<div />} size="1" color="gray" style={{ marginBottom: 'var(--space-2)' }}>
+        {items.length} item{items.length !== 1 && 's'}
+      </Text>
+
+      <ScrollGallery.Root defaultValue={0}>
+        <ScrollGallery.Viewport
+          aria-label="Dynamic items"
+          style={{
+            display: 'flex',
+            gap: 'var(--space-3)',
+            overflowX: 'auto',
+            scrollSnapType: 'x mandatory',
+            scrollbarWidth: 'none',
+          }}
+        >
+          {items.map((item) => (
+            <ScrollGallery.Item key={item.id} style={{ scrollSnapAlign: 'start', flexShrink: 0 }}>
+              <Card size="2" style={{ width: 220 }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: 'var(--space-3)',
+                    padding: 'var(--space-2) 0',
+                  }}
+                >
+                  <Avatar size="5" fallback={item.initials} color={item.color} />
+                  <div style={{ textAlign: 'center' }}>
+                    <Text render={<div />} size="2" weight="bold">
+                      {item.name}
+                    </Text>
+                    <div style={{ marginTop: 'var(--space-1)' }}>
+                      <Badge size="1" variant="soft" color={item.color}>
+                        {item.color}
+                      </Badge>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </ScrollGallery.Item>
+          ))}
+        </ScrollGallery.Viewport>
+
+        <div
+          style={{
+            display: 'flex',
+            gap: 'var(--space-2)',
+            marginTop: 'var(--space-3)',
+          }}
+        >
+          <ScrollGallery.Previous render={<IconButton variant="soft" size="2" color="gray" />}>
+            <ChevronLeft16 />
+          </ScrollGallery.Previous>
+          <ScrollGallery.Next render={<IconButton variant="soft" size="2" color="gray" />}>
+            <ChevronRight16 />
+          </ScrollGallery.Next>
+        </div>
+      </ScrollGallery.Root>
+    </div>
+  );
+}
+
+export const DynamicItems: Story = {
+  render: () => <DynamicItemsDemo />,
 };

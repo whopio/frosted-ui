@@ -67,7 +67,6 @@ const ScrollGalleryIndicator = React.forwardRef<
         type: 'button',
         role: 'tab',
         'aria-selected': isActive,
-        'aria-label': `Go to slide ${index + 1}`,
         tabIndex: isActive ? 0 : -1,
         onClick: handleClick,
         ...(isActive ? { 'data-active': '' } : undefined),
