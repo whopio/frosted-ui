@@ -95,15 +95,21 @@ export const Default: Story = {
               <ScrollGallery.ScrollMarker
                 key={i}
                 index={i}
-                style={{
-                  width: 8,
-                  height: 8,
-                  borderRadius: '50%',
-                  border: '1.5px solid var(--gray-8)',
-                  background: 'transparent',
-                  padding: 0,
-                  cursor: 'pointer',
-                }}
+                render={(props, state) => (
+                  <button
+                    {...props}
+                    style={{
+                      width: 8,
+                      height: 8,
+                      borderRadius: '50%',
+                      border: '1.5px solid var(--gray-8)',
+                      background: state.active ? 'var(--gray-12)' : 'transparent',
+                      padding: 0,
+                      cursor: 'pointer',
+                      transition: 'background 150ms',
+                    }}
+                  />
+                )}
               />
             ))}
           </ScrollGallery.ScrollMarkerGroup>
@@ -288,15 +294,21 @@ export const WithoutScrollSnap: Story = {
               <ScrollGallery.ScrollMarker
                 key={i}
                 index={i}
-                style={{
-                  width: 8,
-                  height: 8,
-                  borderRadius: '50%',
-                  border: '1.5px solid var(--gray-8)',
-                  background: 'transparent',
-                  padding: 0,
-                  cursor: 'pointer',
-                }}
+                render={(props, state) => (
+                  <button
+                    {...props}
+                    style={{
+                      width: 8,
+                      height: 8,
+                      borderRadius: '50%',
+                      border: '1.5px solid var(--gray-8)',
+                      background: state.active ? 'var(--gray-12)' : 'transparent',
+                      padding: 0,
+                      cursor: 'pointer',
+                      transition: 'background 150ms',
+                    }}
+                  />
+                )}
               />
             ))}
           </ScrollGallery.ScrollMarkerGroup>
