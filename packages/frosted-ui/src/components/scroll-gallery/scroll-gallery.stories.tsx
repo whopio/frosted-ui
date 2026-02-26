@@ -220,3 +220,88 @@ function DynamicItemsDemo() {
 export const DynamicItems: Story = {
   render: () => <DynamicItemsDemo />,
 };
+
+export const WithoutScrollSnap: Story = {
+  render: () => (
+    <div style={{ maxWidth: 720 }}>
+      <ScrollGallery.Root defaultValue={0}>
+        <ScrollGallery.Viewport
+          aria-label="Team members"
+          style={{
+            display: 'flex',
+            gap: 'var(--space-3)',
+            overflowX: 'auto',
+            scrollbarWidth: 'none',
+          }}
+        >
+          {people.map((person) => (
+            <ScrollGallery.Item key={person.name} style={{ flexShrink: 0 }}>
+              <Card size="2" style={{ width: 220 }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: 'var(--space-3)',
+                    padding: 'var(--space-2) 0',
+                  }}
+                >
+                  <Avatar size="5" fallback={person.initials} color={person.color} />
+                  <div style={{ textAlign: 'center' }}>
+                    <Text render={<div />} size="2" weight="bold">
+                      {person.name}
+                    </Text>
+                    <div style={{ marginTop: 'var(--space-1)' }}>
+                      <Badge size="1" variant="soft" color={person.color}>
+                        {person.role}
+                      </Badge>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </ScrollGallery.Item>
+          ))}
+        </ScrollGallery.Viewport>
+
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginTop: 'var(--space-3)',
+          }}
+        >
+          <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+            <ScrollGallery.Previous aria-label="Previous" render={<IconButton variant="soft" size="2" color="gray" />}>
+              <ChevronLeft16 />
+            </ScrollGallery.Previous>
+            <ScrollGallery.Next aria-label="Next" render={<IconButton variant="soft" size="2" color="gray" />}>
+              <ChevronRight16 />
+            </ScrollGallery.Next>
+          </div>
+
+          <ScrollGallery.IndicatorGroup
+            aria-label="Choose team member"
+            style={{ display: 'flex', gap: 'var(--space-1)' }}
+          >
+            {people.map((_, i) => (
+              <ScrollGallery.Indicator
+                key={i}
+                index={i}
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  border: '1.5px solid var(--gray-8)',
+                  background: 'transparent',
+                  padding: 0,
+                  cursor: 'pointer',
+                }}
+              />
+            ))}
+          </ScrollGallery.IndicatorGroup>
+        </div>
+      </ScrollGallery.Root>
+    </div>
+  ),
+};
