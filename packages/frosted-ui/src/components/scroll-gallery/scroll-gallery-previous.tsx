@@ -1,0 +1,83 @@
+'use client';
+
+import { mergeProps, useRender } from '@base-ui/react';
+import * as React from 'react';
+
+import { useScrollGalleryContext } from './scroll-gallery-context';
+
+interface ScrollGalleryPreviousState extends Record<string, unknown> {
+  disabled: boolean;
+}
+
+interface ScrollGalleryPreviousProps
+  extends useRender.ComponentProps<'button', ScrollGalleryPreviousState> {}
+
+const ScrollGalleryPrevious = React.forwardRef<
+  HTMLButtonElement,
+  ScrollGalleryPreviousProps
+>(function ScrollGalleryPrevious(props, forwardedRef) {
+  const { render, ...elementProps } = props;
+
+  const {
+    activeIndex,
+    setActiveIndex,
+    canScrollPrev,
+    orientation,
+    viewportRef,
+    getItemElements,
+  } = useScrollGalleryContext();
+
+  const disabled = !canScrollPrev;
+
+  const handleClick = React.useCallback(() => {
+    const viewport = viewportRef.current;
+    if (!viewport || disabled) return;
+
+    const items = getItemElements();
+    const targetIndex = Math.max(0, activeIndex - 1);
+    const target = items[targetIndex];
+    if (!target) return;
+
+    const isHorizontal = orientation === 'horizontal';
+    const targetRect = target.getBoundingClientRect();
+    const viewportRect = viewport.getBoundingClientRect();
+
+    const distance = isHorizontal
+      ? targetRect.left - viewportRect.left
+      : targetRect.top - viewportRect.top;
+
+    viewport.scrollBy({
+      [isHorizontal ? 'left' : 'top']: distance,
+      behavior: 'smooth',
+    });
+
+    setActiveIndex(targetIndex, 'previous');
+  }, [activeIndex, disabled, getItemElements, orientation, setActiveIndex, viewportRef]);
+
+  const state = React.useMemo<ScrollGalleryPreviousState>(
+    () => ({ disabled }),
+    [disabled],
+  );
+
+  return useRender({
+    render,
+    ref: forwardedRef,
+    state,
+    props: mergeProps<'button'>(
+      {
+        type: 'button',
+        disabled,
+        'aria-label': 'Previous',
+        onClick: handleClick,
+        ...(disabled ? { 'data-disabled': '' } : undefined),
+      } as React.ComponentPropsWithRef<'button'>,
+      elementProps as React.ComponentPropsWithRef<'button'>,
+    ),
+    defaultTagName: 'button',
+  });
+});
+
+ScrollGalleryPrevious.displayName = 'ScrollGalleryPrevious';
+
+export { ScrollGalleryPrevious };
+export type { ScrollGalleryPreviousProps, ScrollGalleryPreviousState };
