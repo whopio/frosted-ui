@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { Telephone20 } from '@frosted-ui/icons';
 import React from 'react';
-import { Avatar, Button, Code, Heading, IconButton, Text, toast } from '..';
+import { Avatar, Button, CircularProgress, Code, Heading, IconButton, Text, toast } from '..';
 import { Theme } from '../../theme';
 
 const meta = {
@@ -134,6 +134,62 @@ export const LoadingReplaceError: Story = {
 
     return <Button onClick={handleClick}>Loading → error</Button>;
   },
+};
+
+function FileUploadToast({ id }: { id: string }) {
+  const [progress, setProgress] = React.useState(0);
+
+  React.useEffect(() => {
+    let timeout: ReturnType<typeof setTimeout>;
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        const next = Math.min(prev + Math.floor(Math.random() * 15) + 5, 100);
+        if (next >= 100) {
+          clearInterval(interval);
+          timeout = setTimeout(() => toast.success('design-system-v2.fig uploaded', { id }), 400);
+        }
+        return next;
+      });
+    }, 300);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeout);
+    };
+  }, [id]);
+
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+      <CircularProgress size="2" value={progress} max={100} color="green" />
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <Text size="2" weight="medium">
+          Uploading design-system-v2.fig
+        </Text>
+        <Text size="1" color="gray">
+          {progress}% — {progress < 100 ? 'Uploading…' : 'Finishing up…'}
+        </Text>
+      </div>
+    </div>
+  );
+}
+
+export const FileUploadProgress: Story = {
+  name: 'File Upload with Progress',
+  render: () => (
+    <Button
+      onClick={() =>
+        toast.custom(
+          ({ Toast }) => (
+            <Toast>
+              <FileUploadToast id="file-upload" />
+            </Toast>
+          ),
+          { id: 'file-upload', duration: 0 },
+        )
+      }
+    >
+      Upload file
+    </Button>
+  ),
 };
 
 export const WithAction: Story = {

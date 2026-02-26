@@ -174,9 +174,10 @@ function animateBump(id: string, type: string) {
 }
 
 function PositionToastList({ position, swipeDirection, onToast }: PositionToastListProps) {
-  const { toasts } = ToastPrimitive.useToastManager();
+  const { toasts, close } = ToastPrimitive.useToastManager();
   const reportedRef = React.useRef<Set<string>>(new Set());
   const prevTypesRef = React.useRef<Map<string, string>>(new Map());
+  const dismissingRef = React.useRef<Set<string>>(new Set());
 
   React.useEffect(() => {
     const unsubscribe = subscribeBump(animateBump);
@@ -185,6 +186,25 @@ function PositionToastList({ position, swipeDirection, onToast }: PositionToastL
       clearOwnershipForPosition(position);
     };
   }, [position]);
+
+  // Guard against Base UI's recalculateHeight resetting transitionStatus on
+  // toasts that are mid-dismiss. Re-close them in a layout effect so the
+  // browser never paints the incorrectly-visible frame.
+  React.useLayoutEffect(() => {
+    const currentIds = new Set<string>();
+    for (const t of toasts) {
+      currentIds.add(t.id);
+      const status = (t as unknown as Record<string, unknown>).transitionStatus;
+      if (status === 'ending') {
+        dismissingRef.current.add(t.id);
+      } else if (dismissingRef.current.has(t.id)) {
+        close(t.id);
+      }
+    }
+    for (const id of dismissingRef.current) {
+      if (!currentIds.has(id)) dismissingRef.current.delete(id);
+    }
+  }, [toasts, close]);
 
   // Detect type changes (e.g. loading → success via toast.promise) and trigger bump
   React.useEffect(() => {
