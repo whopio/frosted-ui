@@ -576,7 +576,6 @@ describe('ScrollGallery', () => {
       const viewportRect = { left: 0, top: 0, right: 400, bottom: 300, width: 400, height: 300, x: 0, y: 0, toJSON: () => ({}) };
       vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue(viewportRect);
 
-      // Mock item positions at initial scroll position
       for (let i = 0; i < 8; i++) {
         const item = screen.getByTestId(`item-${i}`);
         const visualLeft = i * 200;
@@ -585,10 +584,18 @@ describe('ScrollGallery', () => {
         );
       }
 
+      // Fire initial scroll to update boundaries so the button is enabled
+      act(() => {
+        fireEvent.scroll(viewport);
+      });
+
+      expect(screen.getByTestId('next')).not.toBeDisabled();
+      expect(screen.getByTestId('marker-0')).toHaveAttribute('aria-selected', 'true');
+
       const scrollBySpy = vi.fn();
       viewport.scrollBy = scrollBySpy;
 
-      // Click next button (sets scrollingRef=true, canScrollNext defaults true)
+      // Click next button (sets scrollingRef=true)
       fireEvent.click(screen.getByTestId('next'));
 
       // Intermediate scroll position during animation
@@ -608,7 +615,7 @@ describe('ScrollGallery', () => {
       // Active marker is still 0 during animation (suppressed)
       expect(screen.getByTestId('marker-0')).toHaveAttribute('aria-selected', 'true');
 
-      // Final position after button scroll
+      // Final position after button scroll (340 = 85% of 400)
       mockViewportScroll(viewport, { scrollLeft: 340, scrollWidth: 1600, clientWidth: 400 });
       for (let i = 0; i < 8; i++) {
         const item = screen.getByTestId(`item-${i}`);
@@ -623,10 +630,40 @@ describe('ScrollGallery', () => {
         vi.advanceTimersByTime(150);
       });
 
-      // After settle, active marker updates to correct position
-      expect(screen.getByTestId('marker-1')).toHaveAttribute('aria-selected', 'true');
+      // At scrollPos=340, item 2 (pos=400, dist=60) is nearest
+      expect(screen.getByTestId('marker-2')).toHaveAttribute('aria-selected', 'true');
 
       vi.useRealTimers();
+    });
+
+    it('active marker transitions at the midpoint between two items (nearest snap target)', () => {
+      render(<Gallery withMarkers itemCount={8} />);
+      const viewport = screen.getByTestId('viewport');
+
+      const viewportRect = { left: 0, top: 0, right: 400, bottom: 300, width: 400, height: 300, x: 0, y: 0, toJSON: () => ({}) };
+      vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue(viewportRect);
+
+      // Items at 200px intervals, midpoint between item 1 (200) and item 2 (400) is at 300
+      const setupItemsAtScroll = (scrollLeft: number) => {
+        mockViewportScroll(viewport, { scrollLeft, scrollWidth: 1600, clientWidth: 400 });
+        for (let i = 0; i < 8; i++) {
+          const item = screen.getByTestId(`item-${i}`);
+          const visualLeft = i * 200 - scrollLeft;
+          vi.spyOn(item, 'getBoundingClientRect').mockReturnValue(
+            { left: visualLeft, top: 0, right: visualLeft + 200, bottom: 100, width: 200, height: 100, x: visualLeft, y: 0, toJSON: () => ({}) },
+          );
+        }
+      };
+
+      // Just before midpoint — item 1 is nearest (distance 99 vs 101)
+      setupItemsAtScroll(299);
+      act(() => { fireEvent.scroll(viewport); });
+      expect(screen.getByTestId('marker-1')).toHaveAttribute('aria-selected', 'true');
+
+      // Just after midpoint — item 2 is nearest (distance 99 vs 101)
+      setupItemsAtScroll(301);
+      act(() => { fireEvent.scroll(viewport); });
+      expect(screen.getByTestId('marker-2')).toHaveAttribute('aria-selected', 'true');
     });
 
     it('user input during marker scroll animation cancels the lock', () => {

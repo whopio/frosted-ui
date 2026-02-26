@@ -121,10 +121,13 @@ const ScrollGalleryViewport = React.forwardRef<
       }
     }
 
-    // Step 3: active = last item whose redistributed position <= scrollPos
+    // Step 3: active = item whose redistributed position is nearest to scrollPos
     let activeIdx = 0;
+    let minDistance = Infinity;
     for (let i = 0; i < positions.length; i++) {
-      if (positions[i] <= scrollPos + SCROLL_TOLERANCE) {
+      const distance = Math.abs(positions[i] - scrollPos);
+      if (distance < minDistance) {
+        minDistance = distance;
         activeIdx = i;
       }
     }
