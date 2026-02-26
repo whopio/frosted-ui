@@ -28,7 +28,7 @@ const ScrollGalleryPrevious = React.forwardRef<
 >(function ScrollGalleryPrevious(props, forwardedRef) {
   const { render, ...elementProps } = props;
 
-  const { canScrollPrev, orientation, viewportRef, scrollTargetRef, scrollingRef } =
+  const { canScrollPrev, orientation, viewportRef, scrollTargetRef } =
     useScrollGalleryContext();
 
   const disabled = !canScrollPrev;
@@ -41,23 +41,20 @@ const ScrollGalleryPrevious = React.forwardRef<
     const pageSize = isHorizontal ? viewport.clientWidth : viewport.clientHeight;
 
     // Clear any lingering "current scroll target" from a prior marker click.
-    // Without this, the settle timeout would see scrollTargetRef !== null and
-    // skip computeActiveIndex entirely, leaving markers permanently stuck.
+    // Without this, the first scroll event would see scrollTargetRef !== null
+    // and suppress computeActiveIndex, leaving markers stuck on the old target.
     scrollTargetRef.current = null;
 
-    // Signal to the viewport's scroll handler that a programmatic smooth
-    // scroll is starting. This suppresses active-index recomputation
-    // during the animation to prevent marker flickering.
-    // Button scrolls don't set scrollTargetRef — they don't know their
-    // landing item ahead of time, so the viewport will compute the active
-    // index after the scroll settles.
-    scrollingRef.current = true;
-
+    // Unlike marker clicks, button scrolls do NOT set scrollingRef. Buttons
+    // don't have a specific target — they scroll by a page and "discover"
+    // where they land. Letting computeActiveIndex run on every scroll event
+    // gives real-time marker transitions during the animation, matching the
+    // trackpad scroll experience.
     viewport.scrollBy({
       [isHorizontal ? 'left' : 'top']: -pageSize * PAGE_SCROLL_FACTOR,
       behavior: 'smooth',
     });
-  }, [disabled, orientation, scrollTargetRef, scrollingRef, viewportRef]);
+  }, [disabled, orientation, scrollTargetRef, viewportRef]);
 
   const state = React.useMemo<ScrollGalleryPreviousState>(
     () => ({ disabled }),

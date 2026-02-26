@@ -565,9 +565,7 @@ describe('ScrollGallery', () => {
       expect(screen.getByTestId('marker-2')).toHaveAttribute('aria-selected', 'true');
     });
 
-    it('scroll button animation suppresses active marker updates until settle', () => {
-      vi.useFakeTimers();
-
+    it('scroll button updates markers in real time during animation (like trackpad)', () => {
       render(<Gallery withMarkers itemCount={8} />);
       const viewport = screen.getByTestId('viewport');
 
@@ -592,13 +590,13 @@ describe('ScrollGallery', () => {
       expect(screen.getByTestId('next')).not.toBeDisabled();
       expect(screen.getByTestId('marker-0')).toHaveAttribute('aria-selected', 'true');
 
-      const scrollBySpy = vi.fn();
-      viewport.scrollBy = scrollBySpy;
+      viewport.scrollBy = vi.fn();
 
-      // Click next button (sets scrollingRef=true)
+      // Click next button — does NOT set scrollingRef (unlike marker clicks)
       fireEvent.click(screen.getByTestId('next'));
 
-      // Intermediate scroll position during animation
+      // Intermediate scroll position during animation: scrollLeft=170
+      // Nearest item: item 1 (pos=200, dist=30) beats item 0 (pos=0, dist=170)
       mockViewportScroll(viewport, { scrollLeft: 170, scrollWidth: 1600, clientWidth: 400 });
       for (let i = 0; i < 8; i++) {
         const item = screen.getByTestId(`item-${i}`);
@@ -612,10 +610,11 @@ describe('ScrollGallery', () => {
         fireEvent.scroll(viewport);
       });
 
-      // Active marker is still 0 during animation (suppressed)
-      expect(screen.getByTestId('marker-0')).toHaveAttribute('aria-selected', 'true');
+      // Marker updates in real time — not suppressed like marker clicks
+      expect(screen.getByTestId('marker-1')).toHaveAttribute('aria-selected', 'true');
 
-      // Final position after button scroll (340 = 85% of 400)
+      // Final position: scrollLeft=340 (85% of 400)
+      // Nearest item: item 2 (pos=400, dist=60) beats item 1 (pos=200, dist=140)
       mockViewportScroll(viewport, { scrollLeft: 340, scrollWidth: 1600, clientWidth: 400 });
       for (let i = 0; i < 8; i++) {
         const item = screen.getByTestId(`item-${i}`);
@@ -627,13 +626,9 @@ describe('ScrollGallery', () => {
 
       act(() => {
         fireEvent.scroll(viewport);
-        vi.advanceTimersByTime(150);
       });
 
-      // At scrollPos=340, item 2 (pos=400, dist=60) is nearest
       expect(screen.getByTestId('marker-2')).toHaveAttribute('aria-selected', 'true');
-
-      vi.useRealTimers();
     });
 
     it('active marker transitions at the midpoint between two items (nearest snap target)', () => {
