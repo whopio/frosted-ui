@@ -300,19 +300,25 @@ export const WithoutScrollSnap: Story = {
   ),
 };
 
-function ControlledDemo() {
-  const [value, setValue] = useState(0);
+function ImperativeScrollToDemo() {
+  const galleryRef = useRef<ScrollGallery.ScrollGalleryRootRef>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [log, setLog] = useState<{ index: number; source: string }[]>([]);
 
   return (
     <div style={{ maxWidth: 720 }}>
       <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center', marginBottom: 'var(--space-3)' }}>
         <Text size="2">
-          Active: <Code size="2">{value}</Code>
+          Active: <Code size="2">{activeIndex}</Code>
         </Text>
         <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
           {people.map((_, i) => (
-            <Button key={i} size="1" variant={value === i ? 'solid' : 'soft'} onClick={() => setValue(i)}>
+            <Button
+              key={i}
+              size="1"
+              variant={activeIndex === i ? 'solid' : 'soft'}
+              onClick={() => galleryRef.current?.scrollTo(i)}
+            >
               {i}
             </Button>
           ))}
@@ -320,9 +326,9 @@ function ControlledDemo() {
       </div>
 
       <ScrollGallery.Root
-        value={value}
+        ref={galleryRef}
         onValueChange={(newValue, { source }) => {
-          setValue(newValue);
+          setActiveIndex(newValue);
           setLog((prev) => [{ index: newValue, source }, ...prev].slice(0, 10));
         }}
       >
@@ -383,15 +389,12 @@ function ControlledDemo() {
           }}
         >
           {log.length === 0 ? (
-            <Text size="1" color="gray">Scroll, click markers, or click buttons to see events…</Text>
+            <Text size="1" color="gray">Scroll, click markers, or use the buttons above to see events…</Text>
           ) : (
             log.map((entry, i) => (
               <div key={i}>
                 index: <Code size="1">{entry.index}</Code>{' '}
-                source: <Code size="1" color={
-                  entry.source === 'scroll' ? 'gray' :
-                  entry.source === 'indicator' ? 'indigo' : 'cyan'
-                }>{entry.source}</Code>
+                source: <Code size="1" color={entry.source === 'scroll' ? 'gray' : 'indigo'}>{entry.source}</Code>
               </div>
             ))
           )}
@@ -401,8 +404,8 @@ function ControlledDemo() {
   );
 }
 
-export const Controlled: Story = {
-  render: () => <ControlledDemo />,
+export const ImperativeScrollTo: Story = {
+  render: () => <ImperativeScrollToDemo />,
 };
 
 export const Vertical: Story = {

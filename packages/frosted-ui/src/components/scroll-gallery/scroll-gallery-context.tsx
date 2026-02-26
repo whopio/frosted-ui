@@ -7,7 +7,7 @@ import * as React from 'react';
  * in the `onValueChange` callback so they can respond differently to
  * programmatic vs user-driven changes.
  */
-type ChangeSource = 'scroll' | 'indicator' | 'previous' | 'next';
+type ChangeSource = 'scroll' | 'indicator';
 
 interface ScrollGalleryContextValue {
   activeIndex: number;

@@ -17,16 +17,14 @@ interface ScrollGalleryRootState extends Record<string, unknown> {
 interface ScrollGalleryRootProps
   extends useRender.ComponentProps<'div', ScrollGalleryRootState> {
   /**
-   * The controlled active item index.
-   */
-  value?: number;
-  /**
-   * The default active item index (uncontrolled).
+   * The initial active item index.
    * @default 0
    */
   defaultValue?: number;
   /**
-   * Callback fired when the active item changes.
+   * Callback fired when the active item changes (from scrolling or
+   * marker clicks). Receives the new index and a `source` field
+   * indicating what triggered the change.
    */
   onValueChange?: (
     value: number,
@@ -39,26 +37,31 @@ interface ScrollGalleryRootProps
   orientation?: 'horizontal' | 'vertical';
 }
 
+/**
+ * Imperative handle exposed via `ref` on ScrollGallery.Root.
+ *
+ * Provides `scrollTo(index)` for programmatic navigation without needing
+ * a controlled value prop — the DOM scroll position is the source of truth,
+ * and this method simply scrolls to bring the target item into view.
+ */
+interface ScrollGalleryRootRef {
+  scrollTo: (index: number, behavior?: ScrollBehavior) => void;
+}
+
 const ScrollGalleryRoot = React.forwardRef<
-  HTMLDivElement,
+  ScrollGalleryRootRef,
   ScrollGalleryRootProps
 >(function ScrollGalleryRoot(props, forwardedRef) {
   const {
     render,
-    value: valueProp,
     defaultValue = 0,
     onValueChange,
     orientation = 'horizontal',
     ...elementProps
   } = props;
 
-  // Controlled/uncontrolled pattern (same as Base UI): if `value` is
-  // provided the consumer owns the state; otherwise we manage it internally.
-  const isControlled = valueProp !== undefined;
-  const [uncontrolledValue, setUncontrolledValue] = React.useState(defaultValue);
-  const activeIndex = isControlled ? valueProp : uncontrolledValue;
+  const [activeIndex, setActiveIndexState] = React.useState(defaultValue);
 
-  // Stash callback in a ref to avoid re-creating setActiveIndex on every render.
   const onValueChangeRef = React.useRef(onValueChange);
   React.useEffect(() => {
     onValueChangeRef.current = onValueChange;
@@ -66,12 +69,10 @@ const ScrollGalleryRoot = React.forwardRef<
 
   const setActiveIndex = React.useCallback(
     (index: number, source: ChangeSource) => {
-      if (!isControlled) {
-        setUncontrolledValue(index);
-      }
+      setActiveIndexState(index);
       onValueChangeRef.current?.(index, { source });
     },
-    [isControlled],
+    [],
   );
 
   const [canScrollPrev, setCanScrollPrev] = React.useState(false);
@@ -114,6 +115,49 @@ const ScrollGalleryRoot = React.forwardRef<
 
   const itemCount = itemElementsRef.current.size;
 
+  /**
+   * Imperative scrollTo: scrolls the viewport to bring the item at the
+   * given index into view. Behaves like a marker click — immediately
+   * sets the active index and locks it through the smooth scroll.
+   *
+   * This is the recommended way to programmatically navigate. Unlike a
+   * controlled `value` prop, it doesn't create a feedback loop — the DOM
+   * scroll position remains the single source of truth.
+   */
+  const scrollTo = React.useCallback(
+    (index: number, behavior: ScrollBehavior = 'smooth') => {
+      const viewport = viewportRef.current;
+      if (!viewport) return;
+
+      const items = getItemElements();
+      const target = items[index];
+      if (!target) return;
+
+      const isHorizontal = orientation === 'horizontal';
+      const targetRect = target.getBoundingClientRect();
+      const viewportRect = viewport.getBoundingClientRect();
+
+      const distance = isHorizontal
+        ? targetRect.left - viewportRect.left
+        : targetRect.top - viewportRect.top;
+
+      scrollTargetRef.current = index;
+      scrollingRef.current = true;
+
+      viewport.scrollBy({
+        [isHorizontal ? 'left' : 'top']: distance,
+        behavior,
+      });
+
+      setActiveIndex(index, 'indicator');
+    },
+    [getItemElements, orientation, setActiveIndex],
+  );
+
+  React.useImperativeHandle(forwardedRef, () => ({ scrollTo }), [scrollTo]);
+
+  const internalDivRef = React.useRef<HTMLDivElement | null>(null);
+
   const contextValue = React.useMemo<ScrollGalleryContextValue>(
     () => ({
       activeIndex,
@@ -153,7 +197,7 @@ const ScrollGalleryRoot = React.forwardRef<
     <ScrollGalleryContext.Provider value={contextValue}>
       {useRender({
         render,
-        ref: forwardedRef,
+        ref: internalDivRef,
         state,
         props: mergeProps<'div'>(
           { 'data-orientation': orientation } as React.ComponentPropsWithRef<'div'>,
@@ -168,4 +212,4 @@ const ScrollGalleryRoot = React.forwardRef<
 ScrollGalleryRoot.displayName = 'ScrollGalleryRoot';
 
 export { ScrollGalleryRoot };
-export type { ScrollGalleryRootProps, ScrollGalleryRootState };
+export type { ScrollGalleryRootProps, ScrollGalleryRootState, ScrollGalleryRootRef };

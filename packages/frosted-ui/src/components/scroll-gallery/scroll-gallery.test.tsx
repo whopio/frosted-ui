@@ -5,7 +5,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { ScrollGalleryItem } from './scroll-gallery-item';
 import { ScrollGalleryNext } from './scroll-gallery-next';
 import { ScrollGalleryPrevious } from './scroll-gallery-previous';
-import { ScrollGalleryRoot } from './scroll-gallery-root';
+import { ScrollGalleryRoot, type ScrollGalleryRootRef } from './scroll-gallery-root';
 import { ScrollGalleryScrollMarker } from './scroll-gallery-scroll-marker';
 import { ScrollGalleryScrollMarkerGroup } from './scroll-gallery-scroll-marker-group';
 import { ScrollGalleryViewport } from './scroll-gallery-viewport';
@@ -767,6 +767,144 @@ describe('ScrollGallery', () => {
       expect(screen.getByTestId('marker-7')).toHaveAttribute('aria-selected', 'true');
 
       vi.useRealTimers();
+    });
+  });
+
+  describe('imperative scrollTo', () => {
+    function GalleryWithRef({
+      refObj,
+      itemCount = 8,
+    }: {
+      refObj: React.RefObject<ScrollGalleryRootRef | null>;
+      itemCount?: number;
+    }) {
+      return (
+        <ScrollGalleryRoot ref={refObj}>
+          <ScrollGalleryViewport data-testid="viewport" style={{ overflow: 'auto' }}>
+            {Array.from({ length: itemCount }, (_, i) => (
+              <ScrollGalleryItem key={i} data-testid={`item-${i}`}>
+                Item {i}
+              </ScrollGalleryItem>
+            ))}
+          </ScrollGalleryViewport>
+          <ScrollGalleryScrollMarkerGroup data-testid="marker-group">
+            {Array.from({ length: itemCount }, (_, i) => (
+              <ScrollGalleryScrollMarker key={i} index={i} data-testid={`marker-${i}`} />
+            ))}
+          </ScrollGalleryScrollMarkerGroup>
+        </ScrollGalleryRoot>
+      );
+    }
+
+    it('scrollTo scrolls the viewport and sets the active marker immediately', () => {
+      const ref = React.createRef<ScrollGalleryRootRef>();
+      render(<GalleryWithRef refObj={ref} />);
+      const viewport = screen.getByTestId('viewport');
+
+      viewport.scrollBy = vi.fn();
+
+      const viewportRect = { left: 0, top: 0, right: 400, bottom: 300, width: 400, height: 300, x: 0, y: 0, toJSON: () => ({}) };
+      vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue(viewportRect);
+
+      for (let i = 0; i < 8; i++) {
+        const item = screen.getByTestId(`item-${i}`);
+        vi.spyOn(item, 'getBoundingClientRect').mockReturnValue(
+          { left: i * 200, top: 0, right: i * 200 + 200, bottom: 100, width: 200, height: 100, x: i * 200, y: 0, toJSON: () => ({}) },
+        );
+      }
+
+      act(() => {
+        ref.current!.scrollTo(3);
+      });
+
+      expect(viewport.scrollBy).toHaveBeenCalledWith({
+        left: 600,
+        behavior: 'smooth',
+      });
+      expect(screen.getByTestId('marker-3')).toHaveAttribute('aria-selected', 'true');
+    });
+
+    it('scrollTo with behavior "instant" passes it through', () => {
+      const ref = React.createRef<ScrollGalleryRootRef>();
+      render(<GalleryWithRef refObj={ref} />);
+      const viewport = screen.getByTestId('viewport');
+
+      viewport.scrollBy = vi.fn();
+
+      const viewportRect = { left: 0, top: 0, right: 400, bottom: 300, width: 400, height: 300, x: 0, y: 0, toJSON: () => ({}) };
+      vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue(viewportRect);
+
+      for (let i = 0; i < 8; i++) {
+        const item = screen.getByTestId(`item-${i}`);
+        vi.spyOn(item, 'getBoundingClientRect').mockReturnValue(
+          { left: i * 200, top: 0, right: i * 200 + 200, bottom: 100, width: 200, height: 100, x: i * 200, y: 0, toJSON: () => ({}) },
+        );
+      }
+
+      act(() => {
+        ref.current!.scrollTo(5, 'instant');
+      });
+
+      expect(viewport.scrollBy).toHaveBeenCalledWith({
+        left: 1000,
+        behavior: 'instant',
+      });
+      expect(screen.getByTestId('marker-5')).toHaveAttribute('aria-selected', 'true');
+    });
+
+    it('scrollTo fires onValueChange with source "indicator"', () => {
+      const onValueChange = vi.fn();
+      const ref = React.createRef<ScrollGalleryRootRef>();
+
+      function GalleryWithCallback() {
+        return (
+          <ScrollGalleryRoot ref={ref} onValueChange={onValueChange}>
+            <ScrollGalleryViewport data-testid="viewport" style={{ overflow: 'auto' }}>
+              {Array.from({ length: 5 }, (_, i) => (
+                <ScrollGalleryItem key={i} data-testid={`item-${i}`}>
+                  Item {i}
+                </ScrollGalleryItem>
+              ))}
+            </ScrollGalleryViewport>
+          </ScrollGalleryRoot>
+        );
+      }
+
+      render(<GalleryWithCallback />);
+      const viewport = screen.getByTestId('viewport');
+
+      viewport.scrollBy = vi.fn();
+
+      const viewportRect = { left: 0, top: 0, right: 400, bottom: 300, width: 400, height: 300, x: 0, y: 0, toJSON: () => ({}) };
+      vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue(viewportRect);
+
+      for (let i = 0; i < 5; i++) {
+        const item = screen.getByTestId(`item-${i}`);
+        vi.spyOn(item, 'getBoundingClientRect').mockReturnValue(
+          { left: i * 200, top: 0, right: i * 200 + 200, bottom: 100, width: 200, height: 100, x: i * 200, y: 0, toJSON: () => ({}) },
+        );
+      }
+
+      act(() => {
+        ref.current!.scrollTo(2);
+      });
+
+      expect(onValueChange).toHaveBeenCalledWith(2, { source: 'indicator' });
+    });
+
+    it('scrollTo does nothing for an out-of-range index', () => {
+      const ref = React.createRef<ScrollGalleryRootRef>();
+      render(<GalleryWithRef refObj={ref} itemCount={3} />);
+      const viewport = screen.getByTestId('viewport');
+
+      viewport.scrollBy = vi.fn();
+
+      act(() => {
+        ref.current!.scrollTo(10);
+      });
+
+      expect(viewport.scrollBy).not.toHaveBeenCalled();
+      expect(screen.getByTestId('marker-0')).toHaveAttribute('aria-selected', 'true');
     });
   });
 });
