@@ -709,5 +709,69 @@ describe('ScrollGallery', () => {
 
       vi.useRealTimers();
     });
+
+    it('scroll button after marker click clears scroll target and recomputes', () => {
+      vi.useFakeTimers();
+
+      render(<Gallery withMarkers itemCount={8} />);
+      const viewport = screen.getByTestId('viewport');
+      viewport.scrollBy = vi.fn();
+
+      // Initial state: enable the next button
+      mockViewportScroll(viewport, { scrollLeft: 0, scrollWidth: 1600, clientWidth: 400 });
+      act(() => {
+        fireEvent.scroll(viewport);
+      });
+
+      const viewportRect = { left: 0, top: 0, right: 400, bottom: 300, width: 400, height: 300, x: 0, y: 0, toJSON: () => ({}) };
+      vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue(viewportRect);
+
+      // Set up item rects for marker click
+      for (let i = 0; i < 8; i++) {
+        const item = screen.getByTestId(`item-${i}`);
+        vi.spyOn(item, 'getBoundingClientRect').mockReturnValue(
+          { left: i * 200, top: 0, right: i * 200 + 200, bottom: 100, width: 200, height: 100, x: i * 200, y: 0, toJSON: () => ({}) },
+        );
+      }
+
+      // Click marker 5 — locks scrollTarget=5, sets scrollingRef=true
+      fireEvent.click(screen.getByTestId('marker-5'));
+      expect(screen.getByTestId('marker-5')).toHaveAttribute('aria-selected', 'true');
+
+      // Let the marker scroll settle
+      mockViewportScroll(viewport, { scrollLeft: 1000, scrollWidth: 1600, clientWidth: 400 });
+      act(() => {
+        fireEvent.scroll(viewport);
+        vi.advanceTimersByTime(150);
+      });
+
+      // Marker 5 is still active (scrollTarget lock)
+      expect(screen.getByTestId('marker-5')).toHaveAttribute('aria-selected', 'true');
+
+      // Now click the next button — should clear scrollTarget
+      fireEvent.click(screen.getByTestId('next'));
+
+      // Simulate the button's scroll animation landing at scrollLeft=1200
+      mockViewportScroll(viewport, { scrollLeft: 1200, scrollWidth: 1600, clientWidth: 400 });
+      for (let i = 0; i < 8; i++) {
+        const item = screen.getByTestId(`item-${i}`);
+        const visualLeft = i * 200 - 1200;
+        vi.spyOn(item, 'getBoundingClientRect').mockReturnValue(
+          { left: visualLeft, top: 0, right: visualLeft + 200, bottom: 100, width: 200, height: 100, x: visualLeft, y: 0, toJSON: () => ({}) },
+        );
+      }
+
+      act(() => {
+        fireEvent.scroll(viewport);
+        vi.advanceTimersByTime(150);
+      });
+
+      // Active marker should have updated — no longer stuck on marker 5.
+      // At scrollLeft=1200 (max scroll), redistribution maps item 7 to pos 1200,
+      // making it the nearest — so marker 7 is active.
+      expect(screen.getByTestId('marker-7')).toHaveAttribute('aria-selected', 'true');
+
+      vi.useRealTimers();
+    });
   });
 });

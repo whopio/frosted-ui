@@ -28,7 +28,7 @@ const ScrollGalleryPrevious = React.forwardRef<
 >(function ScrollGalleryPrevious(props, forwardedRef) {
   const { render, ...elementProps } = props;
 
-  const { canScrollPrev, orientation, viewportRef, scrollingRef } =
+  const { canScrollPrev, orientation, viewportRef, scrollTargetRef, scrollingRef } =
     useScrollGalleryContext();
 
   const disabled = !canScrollPrev;
@@ -40,19 +40,24 @@ const ScrollGalleryPrevious = React.forwardRef<
     const isHorizontal = orientation === 'horizontal';
     const pageSize = isHorizontal ? viewport.clientWidth : viewport.clientHeight;
 
+    // Clear any lingering "current scroll target" from a prior marker click.
+    // Without this, the settle timeout would see scrollTargetRef !== null and
+    // skip computeActiveIndex entirely, leaving markers permanently stuck.
+    scrollTargetRef.current = null;
+
     // Signal to the viewport's scroll handler that a programmatic smooth
     // scroll is starting. This suppresses active-index recomputation
     // during the animation to prevent marker flickering.
-    // Note: we intentionally do NOT set scrollTargetRef here — button
-    // scrolls don't know their landing item ahead of time, so the viewport
-    // will compute the active index after the scroll settles.
+    // Button scrolls don't set scrollTargetRef — they don't know their
+    // landing item ahead of time, so the viewport will compute the active
+    // index after the scroll settles.
     scrollingRef.current = true;
 
     viewport.scrollBy({
       [isHorizontal ? 'left' : 'top']: -pageSize * PAGE_SCROLL_FACTOR,
       behavior: 'smooth',
     });
-  }, [disabled, orientation, scrollingRef, viewportRef]);
+  }, [disabled, orientation, scrollTargetRef, scrollingRef, viewportRef]);
 
   const state = React.useMemo<ScrollGalleryPreviousState>(
     () => ({ disabled }),

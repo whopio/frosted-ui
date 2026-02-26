@@ -28,7 +28,7 @@ const ScrollGalleryNext = React.forwardRef<
 >(function ScrollGalleryNext(props, forwardedRef) {
   const { render, ...elementProps } = props;
 
-  const { canScrollNext, orientation, viewportRef, scrollingRef } =
+  const { canScrollNext, orientation, viewportRef, scrollTargetRef, scrollingRef } =
     useScrollGalleryContext();
 
   const disabled = !canScrollNext;
@@ -40,15 +40,16 @@ const ScrollGalleryNext = React.forwardRef<
     const isHorizontal = orientation === 'horizontal';
     const pageSize = isHorizontal ? viewport.clientWidth : viewport.clientHeight;
 
-    // Signal to the viewport's scroll handler that a programmatic smooth
-    // scroll is starting — see Previous button for detailed explanation.
+    // Clear any lingering "current scroll target" from a prior marker click —
+    // see Previous button for detailed explanation.
+    scrollTargetRef.current = null;
     scrollingRef.current = true;
 
     viewport.scrollBy({
       [isHorizontal ? 'left' : 'top']: pageSize * PAGE_SCROLL_FACTOR,
       behavior: 'smooth',
     });
-  }, [disabled, orientation, scrollingRef, viewportRef]);
+  }, [disabled, orientation, scrollTargetRef, scrollingRef, viewportRef]);
 
   const state = React.useMemo<ScrollGalleryNextState>(
     () => ({ disabled }),
