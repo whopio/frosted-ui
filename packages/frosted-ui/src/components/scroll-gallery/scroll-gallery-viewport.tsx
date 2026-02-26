@@ -5,7 +5,7 @@ import * as React from 'react';
 
 import { useScrollGalleryContext } from './scroll-gallery-context';
 
-const BOUNDARY_THRESHOLD = 0.95;
+const SCROLL_TOLERANCE = 1;
 
 interface ScrollGalleryViewportState extends Record<string, unknown> {
   activeIndex: number;
@@ -47,6 +47,19 @@ const ScrollGalleryViewport = React.forwardRef<
     [forwardedRef, viewportRef],
   );
 
+  const updateBoundaries = React.useCallback(() => {
+    const viewport = internalRef.current;
+    if (!viewport) return;
+
+    const isHorizontal = orientation === 'horizontal';
+    const scrollPos = isHorizontal ? viewport.scrollLeft : viewport.scrollTop;
+    const scrollSize = isHorizontal ? viewport.scrollWidth : viewport.scrollHeight;
+    const clientSize = isHorizontal ? viewport.clientWidth : viewport.clientHeight;
+
+    setCanScrollPrev(scrollPos > SCROLL_TOLERANCE);
+    setCanScrollNext(scrollPos + clientSize < scrollSize - SCROLL_TOLERANCE);
+  }, [orientation, setCanScrollPrev, setCanScrollNext]);
+
   const computeActiveIndex = React.useCallback(() => {
     const viewport = internalRef.current;
     if (!viewport) return;
@@ -75,32 +88,41 @@ const ScrollGalleryViewport = React.forwardRef<
     setActiveIndex(closestIndex, 'scroll');
   }, [getItemElements, orientation, setActiveIndex]);
 
-  // Active index detection on scroll end
+  // Scroll event handling: boundaries update in real-time, active index on settle
   React.useEffect(() => {
     const viewport = internalRef.current;
     if (!viewport) return;
 
     const supportsScrollEnd = 'onscrollend' in window;
 
+    const handleScroll = () => updateBoundaries();
+
+    const handleScrollEnd = () => computeActiveIndex();
+
+    viewport.addEventListener('scroll', handleScroll, { passive: true });
+
     if (supportsScrollEnd) {
-      const handleScrollEnd = () => computeActiveIndex();
       viewport.addEventListener('scrollend', handleScrollEnd);
-      return () => viewport.removeEventListener('scrollend', handleScrollEnd);
+      return () => {
+        viewport.removeEventListener('scroll', handleScroll);
+        viewport.removeEventListener('scrollend', handleScrollEnd);
+      };
     }
 
     let timeout: ReturnType<typeof setTimeout>;
-    const handleScroll = () => {
+    const handleScrollFallback = () => {
       clearTimeout(timeout);
       timeout = setTimeout(computeActiveIndex, 100);
     };
-    viewport.addEventListener('scroll', handleScroll, { passive: true });
+    viewport.addEventListener('scroll', handleScrollFallback, { passive: true });
     return () => {
       viewport.removeEventListener('scroll', handleScroll);
+      viewport.removeEventListener('scroll', handleScrollFallback);
       clearTimeout(timeout);
     };
-  }, [computeActiveIndex]);
+  }, [computeActiveIndex, updateBoundaries]);
 
-  // IntersectionObserver for in-view tracking and boundary detection
+  // Compute initial boundaries and recompute when items or layout change
   React.useEffect(() => {
     const viewport = internalRef.current;
     if (!viewport) return;
@@ -112,32 +134,21 @@ const ScrollGalleryViewport = React.forwardRef<
       return;
     }
 
-    const firstItem = items[0];
-    const lastItem = items[items.length - 1];
+    updateBoundaries();
 
-    // Boundary observer: watches first/last items at a high threshold
-    const boundaryObserver = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          const isFullyVisible = entry.intersectionRatio >= BOUNDARY_THRESHOLD;
-          if (entry.target === firstItem) {
-            setCanScrollPrev(!isFullyVisible);
-          }
-          if (entry.target === lastItem) {
-            setCanScrollNext(!isFullyVisible);
-          }
-        }
-      },
-      {
-        root: viewport,
-        threshold: [0, BOUNDARY_THRESHOLD],
-      },
-    );
+    const resizeObserver = new ResizeObserver(updateBoundaries);
+    resizeObserver.observe(viewport);
+    return () => resizeObserver.disconnect();
+  }, [getItemElements, setCanScrollPrev, setCanScrollNext, itemsVersion, updateBoundaries]);
 
-    boundaryObserver.observe(firstItem);
-    boundaryObserver.observe(lastItem);
+  // IntersectionObserver for in-view tracking
+  React.useEffect(() => {
+    const viewport = internalRef.current;
+    if (!viewport) return;
 
-    // In-view observer: tracks which items are visible
+    const items = getItemElements();
+    if (items.length === 0) return;
+
     const inViewObserver = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -159,11 +170,8 @@ const ScrollGalleryViewport = React.forwardRef<
       inViewObserver.observe(item);
     }
 
-    return () => {
-      boundaryObserver.disconnect();
-      inViewObserver.disconnect();
-    };
-  }, [getItemElements, setCanScrollPrev, setCanScrollNext, itemsVersion]);
+    return () => inViewObserver.disconnect();
+  }, [getItemElements, itemsVersion]);
 
   const state = React.useMemo<ScrollGalleryViewportState>(
     () => ({ activeIndex, orientation }),
