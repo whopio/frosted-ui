@@ -87,12 +87,12 @@ export const Default: Story = {
             </ScrollGallery.Next>
           </div>
 
-          <ScrollGallery.IndicatorGroup
+          <ScrollGallery.ScrollMarkerGroup
             aria-label="Choose team member"
             style={{ display: 'flex', gap: 'var(--space-1)' }}
           >
             {people.map((_, i) => (
-              <ScrollGallery.Indicator
+              <ScrollGallery.ScrollMarker
                 key={i}
                 index={i}
                 style={{
@@ -106,7 +106,7 @@ export const Default: Story = {
                 }}
               />
             ))}
-          </ScrollGallery.IndicatorGroup>
+          </ScrollGallery.ScrollMarkerGroup>
         </div>
       </ScrollGallery.Root>
     </div>
@@ -280,12 +280,12 @@ export const WithoutScrollSnap: Story = {
             </ScrollGallery.Next>
           </div>
 
-          <ScrollGallery.IndicatorGroup
+          <ScrollGallery.ScrollMarkerGroup
             aria-label="Choose team member"
             style={{ display: 'flex', gap: 'var(--space-1)' }}
           >
             {people.map((_, i) => (
-              <ScrollGallery.Indicator
+              <ScrollGallery.ScrollMarker
                 key={i}
                 index={i}
                 style={{
@@ -299,7 +299,7 @@ export const WithoutScrollSnap: Story = {
                 }}
               />
             ))}
-          </ScrollGallery.IndicatorGroup>
+          </ScrollGallery.ScrollMarkerGroup>
         </div>
       </ScrollGallery.Root>
     </div>

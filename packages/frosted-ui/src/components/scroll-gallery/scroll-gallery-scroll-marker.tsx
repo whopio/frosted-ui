@@ -5,23 +5,23 @@ import * as React from 'react';
 
 import { useScrollGalleryContext } from './scroll-gallery-context';
 
-interface ScrollGalleryIndicatorState extends Record<string, unknown> {
+interface ScrollGalleryScrollMarkerState extends Record<string, unknown> {
   active: boolean;
   index: number;
 }
 
-interface ScrollGalleryIndicatorProps
-  extends useRender.ComponentProps<'button', ScrollGalleryIndicatorState> {
+interface ScrollGalleryScrollMarkerProps
+  extends useRender.ComponentProps<'button', ScrollGalleryScrollMarkerState> {
   /**
-   * The index of the item this indicator controls.
+   * The index of the item this scroll marker controls.
    */
   index: number;
 }
 
-const ScrollGalleryIndicator = React.forwardRef<
+const ScrollGalleryScrollMarker = React.forwardRef<
   HTMLButtonElement,
-  ScrollGalleryIndicatorProps
->(function ScrollGalleryIndicator(props, forwardedRef) {
+  ScrollGalleryScrollMarkerProps
+>(function ScrollGalleryScrollMarker(props, forwardedRef) {
   const { render, index, ...elementProps } = props;
 
   const { activeIndex, setActiveIndex, orientation, viewportRef, getItemElements } =
@@ -53,7 +53,7 @@ const ScrollGalleryIndicator = React.forwardRef<
     setActiveIndex(index, 'indicator');
   }, [getItemElements, index, orientation, setActiveIndex, viewportRef]);
 
-  const state = React.useMemo<ScrollGalleryIndicatorState>(
+  const state = React.useMemo<ScrollGalleryScrollMarkerState>(
     () => ({ active: isActive, index }),
     [isActive, index],
   );
@@ -77,7 +77,7 @@ const ScrollGalleryIndicator = React.forwardRef<
   });
 });
 
-ScrollGalleryIndicator.displayName = 'ScrollGalleryIndicator';
+ScrollGalleryScrollMarker.displayName = 'ScrollGalleryScrollMarker';
 
-export { ScrollGalleryIndicator };
-export type { ScrollGalleryIndicatorProps, ScrollGalleryIndicatorState };
+export { ScrollGalleryScrollMarker };
+export type { ScrollGalleryScrollMarkerProps, ScrollGalleryScrollMarkerState };

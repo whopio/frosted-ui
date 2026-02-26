@@ -5,30 +5,30 @@ import * as React from 'react';
 
 import { useScrollGalleryContext } from './scroll-gallery-context';
 
-interface ScrollGalleryIndicatorGroupState extends Record<string, unknown> {
+interface ScrollGalleryScrollMarkerGroupState extends Record<string, unknown> {
   orientation: 'horizontal' | 'vertical';
 }
 
-interface ScrollGalleryIndicatorGroupProps
-  extends useRender.ComponentProps<'div', ScrollGalleryIndicatorGroupState> {}
+interface ScrollGalleryScrollMarkerGroupProps
+  extends useRender.ComponentProps<'div', ScrollGalleryScrollMarkerGroupState> {}
 
-const ScrollGalleryIndicatorGroup = React.forwardRef<
+const ScrollGalleryScrollMarkerGroup = React.forwardRef<
   HTMLDivElement,
-  ScrollGalleryIndicatorGroupProps
->(function ScrollGalleryIndicatorGroup(props, forwardedRef) {
+  ScrollGalleryScrollMarkerGroupProps
+>(function ScrollGalleryScrollMarkerGroup(props, forwardedRef) {
   const { render, ...elementProps } = props;
   const { orientation } = useScrollGalleryContext();
 
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
       const group = event.currentTarget;
-      const indicators = Array.from(
+      const markers = Array.from(
         group.querySelectorAll<HTMLElement>('[role="tab"]'),
       );
 
-      if (indicators.length === 0) return;
+      if (markers.length === 0) return;
 
-      const currentIndex = indicators.findIndex(
+      const currentIndex = markers.findIndex(
         (el) => el === document.activeElement,
       );
       if (currentIndex === -1) return;
@@ -38,29 +38,29 @@ const ScrollGalleryIndicatorGroup = React.forwardRef<
 
       switch (event.key) {
         case isHorizontal ? 'ArrowRight' : 'ArrowDown':
-          nextIndex = (currentIndex + 1) % indicators.length;
+          nextIndex = (currentIndex + 1) % markers.length;
           break;
         case isHorizontal ? 'ArrowLeft' : 'ArrowUp':
           nextIndex =
-            (currentIndex - 1 + indicators.length) % indicators.length;
+            (currentIndex - 1 + markers.length) % markers.length;
           break;
         case 'Home':
           nextIndex = 0;
           break;
         case 'End':
-          nextIndex = indicators.length - 1;
+          nextIndex = markers.length - 1;
           break;
         default:
           return;
       }
 
       event.preventDefault();
-      indicators[nextIndex].focus();
+      markers[nextIndex].focus();
     },
     [orientation],
   );
 
-  const state = React.useMemo<ScrollGalleryIndicatorGroupState>(
+  const state = React.useMemo<ScrollGalleryScrollMarkerGroupState>(
     () => ({ orientation }),
     [orientation],
   );
@@ -81,10 +81,10 @@ const ScrollGalleryIndicatorGroup = React.forwardRef<
   });
 });
 
-ScrollGalleryIndicatorGroup.displayName = 'ScrollGalleryIndicatorGroup';
+ScrollGalleryScrollMarkerGroup.displayName = 'ScrollGalleryScrollMarkerGroup';
 
-export { ScrollGalleryIndicatorGroup };
+export { ScrollGalleryScrollMarkerGroup };
 export type {
-  ScrollGalleryIndicatorGroupProps,
-  ScrollGalleryIndicatorGroupState,
+  ScrollGalleryScrollMarkerGroupProps,
+  ScrollGalleryScrollMarkerGroupState,
 };
