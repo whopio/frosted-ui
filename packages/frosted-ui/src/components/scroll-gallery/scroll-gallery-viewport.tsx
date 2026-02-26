@@ -68,56 +68,83 @@ const ScrollGalleryViewport = React.forwardRef<
     if (items.length === 0) return;
 
     const isHorizontal = orientation === 'horizontal';
+    const scrollPos = isHorizontal ? viewport.scrollLeft : viewport.scrollTop;
+    const scrollSize = isHorizontal ? viewport.scrollWidth : viewport.scrollHeight;
+    const clientSize = isHorizontal ? viewport.clientWidth : viewport.clientHeight;
+    const scrollRange = scrollSize - clientSize;
+
+    if (scrollRange <= 0) {
+      setActiveIndex(0, 'scroll');
+      return;
+    }
+
     const viewportRect = viewport.getBoundingClientRect();
     const viewportStart = isHorizontal ? viewportRect.left : viewportRect.top;
 
-    let closestIndex = 0;
-    let closestDistance = Infinity;
-
-    for (let i = 0; i < items.length; i++) {
-      const rect = items[i].getBoundingClientRect();
+    // Step 1: compute each item's target scroll position
+    // (the scrollLeft/scrollTop that would place the item's start at the viewport start)
+    const positions = items.map((item) => {
+      const rect = item.getBoundingClientRect();
       const itemStart = isHorizontal ? rect.left : rect.top;
-      const distance = Math.abs(itemStart - viewportStart);
+      return itemStart - viewportStart + scrollPos;
+    });
 
-      if (distance < closestDistance) {
-        closestDistance = distance;
-        closestIndex = i;
+    // Step 2: redistribute unreachable positions (CSS Overflow Level 5 spec)
+    const distributeRange = Math.min(clientSize / 8, scrollRange / 2);
+
+    const beforeIndices = positions
+      .map((pos, i) => ({ pos, i }))
+      .filter(({ pos }) => pos < distributeRange);
+    if (beforeIndices.length > 1) {
+      const minPos = Math.min(...beforeIndices.map((t) => t.pos));
+      const denom = distributeRange - minPos;
+      if (denom > 0) {
+        for (const t of beforeIndices) {
+          positions[t.i] = ((t.pos - minPos) / denom) * distributeRange;
+        }
       }
     }
 
-    setActiveIndex(closestIndex, 'scroll');
+    const endThreshold = scrollRange - distributeRange;
+    const afterIndices = positions
+      .map((pos, i) => ({ pos, i }))
+      .filter(({ pos }) => pos > endThreshold);
+    if (afterIndices.length > 1) {
+      const maxPos = Math.max(...afterIndices.map((t) => t.pos));
+      const denom = maxPos - endThreshold;
+      if (denom > 0) {
+        for (const t of afterIndices) {
+          positions[t.i] = ((t.pos - endThreshold) / denom) * distributeRange + endThreshold;
+        }
+      }
+    }
+
+    // Step 3: active = last item whose redistributed position <= scrollPos
+    let activeIdx = 0;
+    for (let i = 0; i < positions.length; i++) {
+      if (positions[i] <= scrollPos + SCROLL_TOLERANCE) {
+        activeIdx = i;
+      }
+    }
+
+    setActiveIndex(activeIdx, 'scroll');
   }, [getItemElements, orientation, setActiveIndex]);
 
-  // Scroll event handling: boundaries update in real-time, active index on settle
   React.useEffect(() => {
     const viewport = internalRef.current;
     if (!viewport) return;
 
-    const supportsScrollEnd = 'onscrollend' in window;
-
-    const handleScroll = () => updateBoundaries();
-
-    const handleScrollEnd = () => computeActiveIndex();
-
-    viewport.addEventListener('scroll', handleScroll, { passive: true });
-
-    if (supportsScrollEnd) {
-      viewport.addEventListener('scrollend', handleScrollEnd);
-      return () => {
-        viewport.removeEventListener('scroll', handleScroll);
-        viewport.removeEventListener('scrollend', handleScrollEnd);
-      };
-    }
-
     let timeout: ReturnType<typeof setTimeout>;
-    const handleScrollFallback = () => {
+
+    const handleScroll = () => {
+      updateBoundaries();
       clearTimeout(timeout);
       timeout = setTimeout(computeActiveIndex, 100);
     };
-    viewport.addEventListener('scroll', handleScrollFallback, { passive: true });
+
+    viewport.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
       viewport.removeEventListener('scroll', handleScroll);
-      viewport.removeEventListener('scroll', handleScrollFallback);
       clearTimeout(timeout);
     };
   }, [computeActiveIndex, updateBoundaries]);

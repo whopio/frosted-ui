@@ -408,5 +408,111 @@ describe('ScrollGallery', () => {
         behavior: 'smooth',
       });
     });
+
+    it('clicking the last marker keeps it active after scroll settles even when item is not at viewport start', () => {
+      vi.useFakeTimers();
+
+      render(<Gallery withMarkers itemCount={8} />);
+      const viewport = screen.getByTestId('viewport');
+      viewport.scrollBy = vi.fn();
+
+      // 8 items × 200px = 1600px content, 400px viewport → scrollRange = 1200
+      mockViewportScroll(viewport, { scrollLeft: 0, scrollWidth: 1600, clientWidth: 400 });
+
+      const viewportRect = { left: 0, top: 0, right: 400, bottom: 300, width: 400, height: 300, x: 0, y: 0, toJSON: () => ({}) };
+      vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue(viewportRect);
+
+      const lastItem = screen.getByTestId('item-7');
+      vi.spyOn(lastItem, 'getBoundingClientRect').mockReturnValue(
+        { left: 1400, top: 0, right: 1600, bottom: 100, width: 200, height: 100, x: 1400, y: 0, toJSON: () => ({}) },
+      );
+
+      fireEvent.click(screen.getByTestId('marker-7'));
+      expect(screen.getByTestId('marker-7')).toHaveAttribute('aria-selected', 'true');
+
+      // After smooth scroll completes, viewport is at scrollLeft = 1200 (max scroll)
+      mockViewportScroll(viewport, { scrollLeft: 1200, scrollWidth: 1600, clientWidth: 400 });
+
+      // Items at their post-scroll visual positions (content pos - scrollLeft)
+      for (let i = 0; i < 8; i++) {
+        const item = screen.getByTestId(`item-${i}`);
+        const visualLeft = i * 200 - 1200;
+        vi.spyOn(item, 'getBoundingClientRect').mockReturnValue(
+          { left: visualLeft, top: 0, right: visualLeft + 200, bottom: 100, width: 200, height: 100, x: visualLeft, y: 0, toJSON: () => ({}) },
+        );
+      }
+
+      // Debounced scroll fires computeActiveIndex
+      act(() => {
+        fireEvent.scroll(viewport);
+        vi.advanceTimersByTime(100);
+      });
+
+      // The redistribution algorithm places item 7's position at scrollRange (1200),
+      // which is <= scrollPos (1200), so item 7 stays active
+      expect(screen.getByTestId('marker-7')).toHaveAttribute('aria-selected', 'true');
+
+      vi.useRealTimers();
+    });
+
+    it('manual scroll after marker click does recompute active index', () => {
+      vi.useFakeTimers();
+
+      render(<Gallery withMarkers itemCount={8} />);
+      const viewport = screen.getByTestId('viewport');
+      viewport.scrollBy = vi.fn();
+
+      // 8 items × 200px = 1600px content, 400px viewport → scrollRange = 1200
+      mockViewportScroll(viewport, { scrollLeft: 0, scrollWidth: 1600, clientWidth: 400 });
+
+      const viewportRect = { left: 0, top: 0, right: 400, bottom: 300, width: 400, height: 300, x: 0, y: 0, toJSON: () => ({}) };
+      vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue(viewportRect);
+
+      const lastItem = screen.getByTestId('item-7');
+      vi.spyOn(lastItem, 'getBoundingClientRect').mockReturnValue(
+        { left: 1400, top: 0, right: 1600, bottom: 100, width: 200, height: 100, x: 1400, y: 0, toJSON: () => ({}) },
+      );
+
+      // Click last marker
+      fireEvent.click(screen.getByTestId('marker-7'));
+
+      // Scroll settles at the end (scrollLeft = 1200)
+      mockViewportScroll(viewport, { scrollLeft: 1200, scrollWidth: 1600, clientWidth: 400 });
+
+      for (let i = 0; i < 8; i++) {
+        const item = screen.getByTestId(`item-${i}`);
+        const visualLeft = i * 200 - 1200;
+        vi.spyOn(item, 'getBoundingClientRect').mockReturnValue(
+          { left: visualLeft, top: 0, right: visualLeft + 200, bottom: 100, width: 200, height: 100, x: visualLeft, y: 0, toJSON: () => ({}) },
+        );
+      }
+
+      act(() => {
+        fireEvent.scroll(viewport);
+        vi.advanceTimersByTime(100);
+      });
+
+      expect(screen.getByTestId('marker-7')).toHaveAttribute('aria-selected', 'true');
+
+      // User scrolls manually to bring item 2 to the start (scrollLeft = 400)
+      mockViewportScroll(viewport, { scrollLeft: 400, scrollWidth: 1600, clientWidth: 400 });
+
+      for (let i = 0; i < 8; i++) {
+        const item = screen.getByTestId(`item-${i}`);
+        const visualLeft = i * 200 - 400;
+        vi.spyOn(item, 'getBoundingClientRect').mockReturnValue(
+          { left: visualLeft, top: 0, right: visualLeft + 200, bottom: 100, width: 200, height: 100, x: visualLeft, y: 0, toJSON: () => ({}) },
+        );
+      }
+
+      act(() => {
+        fireEvent.scroll(viewport);
+        vi.advanceTimersByTime(100);
+      });
+
+      expect(screen.getByTestId('marker-2')).toHaveAttribute('aria-selected', 'true');
+
+      vi.useRealTimers();
+    });
   });
 });
