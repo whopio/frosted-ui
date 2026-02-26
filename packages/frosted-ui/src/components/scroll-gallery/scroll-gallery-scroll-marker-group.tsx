@@ -12,6 +12,19 @@ interface ScrollGalleryScrollMarkerGroupState extends Record<string, unknown> {
 interface ScrollGalleryScrollMarkerGroupProps
   extends useRender.ComponentProps<'div', ScrollGalleryScrollMarkerGroupState> {}
 
+/**
+ * Container for ScrollMarker buttons, named after the CSS `::scroll-marker-group`
+ * pseudo-element from CSS Overflow Level 5 §2.
+ *
+ * Renders with role="tablist" — each child ScrollMarker has role="tab".
+ * This pairing follows the WAI-ARIA tablist pattern for accessibility.
+ *
+ * We deliberately omit aria-roledescription="carousel" because this component
+ * is not a carousel — it's a generic scrollable container with navigation.
+ * The CSS Overflow 5 spec does not prescribe any special ARIA role for
+ * scroll marker groups either; we chose tablist as the closest semantic
+ * match for a set of mutually-exclusive navigation indicators.
+ */
 const ScrollGalleryScrollMarkerGroup = React.forwardRef<
   HTMLDivElement,
   ScrollGalleryScrollMarkerGroupProps
@@ -19,6 +32,17 @@ const ScrollGalleryScrollMarkerGroup = React.forwardRef<
   const { render, ...elementProps } = props;
   const { orientation } = useScrollGalleryContext();
 
+  /**
+   * Keyboard navigation follows the WAI-ARIA Tabs pattern:
+   *   - Arrow keys move focus between markers one at a time (roving tabindex)
+   *   - Home/End jump to first/last marker
+   *   - Orientation-aware: horizontal uses Left/Right, vertical uses Up/Down
+   *
+   * Note: arrow keys on the *viewport* use native browser scroll (not handled
+   * here). This separation matches the CSS spec: scroll buttons scroll by
+   * "one page", arrow keys on the content area scroll natively, and markers
+   * navigate one-by-one.
+   */
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
       const group = event.currentTarget;

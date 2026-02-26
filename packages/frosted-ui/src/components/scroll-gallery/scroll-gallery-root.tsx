@@ -52,10 +52,13 @@ const ScrollGalleryRoot = React.forwardRef<
     ...elementProps
   } = props;
 
+  // Controlled/uncontrolled pattern (same as Base UI): if `value` is
+  // provided the consumer owns the state; otherwise we manage it internally.
   const isControlled = valueProp !== undefined;
   const [uncontrolledValue, setUncontrolledValue] = React.useState(defaultValue);
   const activeIndex = isControlled ? valueProp : uncontrolledValue;
 
+  // Stash callback in a ref to avoid re-creating setActiveIndex on every render.
   const onValueChangeRef = React.useRef(onValueChange);
   React.useEffect(() => {
     onValueChangeRef.current = onValueChange;
@@ -76,9 +79,16 @@ const ScrollGalleryRoot = React.forwardRef<
   const viewportRef = React.useRef<HTMLElement | null>(null);
   const itemElementsRef = React.useRef<Set<HTMLElement>>(new Set());
   const [itemsVersion, setItemsVersion] = React.useState(0);
+
+  // CSS Overflow 5 §2.1 "current scroll target" — see context.tsx for details.
   const scrollTargetRef = React.useRef<number | null>(null);
   const scrollingRef = React.useRef(false);
 
+  /**
+   * Returns registered item elements sorted in DOM order. Uses
+   * compareDocumentPosition so the order is always correct regardless
+   * of React render order or dynamic additions/removals.
+   */
   const getItemElements = React.useCallback((): HTMLElement[] => {
     const elements = Array.from(itemElementsRef.current);
     elements.sort((a, b) =>
@@ -87,6 +97,12 @@ const ScrollGalleryRoot = React.forwardRef<
     return elements;
   }, []);
 
+  /**
+   * Items self-register on mount and unregister on unmount, bumping
+   * `itemsVersion` each time. The viewport watches `itemsVersion` to
+   * re-setup its IntersectionObserver and boundary detection, ensuring
+   * dynamic item changes are always reflected.
+   */
   const registerItem = React.useCallback((element: HTMLElement) => {
     itemElementsRef.current.add(element);
     setItemsVersion((v) => v + 1);

@@ -5,6 +5,14 @@ import * as React from 'react';
 
 import { useScrollGalleryContext } from './scroll-gallery-context';
 
+/**
+ * CSS Overflow 5 §3.2 specifies that scroll buttons scroll by "one page"
+ * in their direction, "similar to pressing PgUp/PgDn keys. (Usually, this
+ * will be about 85% of the scrollport size.)"
+ *
+ * We use 0.85 to match the spec recommendation and leave visual overlap
+ * so the user retains context of where they were before the scroll.
+ */
 const PAGE_SCROLL_FACTOR = 0.85;
 
 interface ScrollGalleryPreviousState extends Record<string, unknown> {
@@ -32,6 +40,12 @@ const ScrollGalleryPrevious = React.forwardRef<
     const isHorizontal = orientation === 'horizontal';
     const pageSize = isHorizontal ? viewport.clientWidth : viewport.clientHeight;
 
+    // Signal to the viewport's scroll handler that a programmatic smooth
+    // scroll is starting. This suppresses active-index recomputation
+    // during the animation to prevent marker flickering.
+    // Note: we intentionally do NOT set scrollTargetRef here — button
+    // scrolls don't know their landing item ahead of time, so the viewport
+    // will compute the active index after the scroll settles.
     scrollingRef.current = true;
 
     viewport.scrollBy({

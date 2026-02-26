@@ -29,6 +29,23 @@ const ScrollGalleryScrollMarker = React.forwardRef<
 
   const isActive = index === activeIndex;
 
+  /**
+   * Scroll marker click handler — mirrors native `::scroll-marker` behavior
+   * from CSS Overflow 5 §2.
+   *
+   * Per the spec, clicking a scroll marker:
+   * 1. Sets the scroll container's "current scroll target" to the linked
+   *    element, making that marker immediately active.
+   * 2. Initiates a smooth scroll to bring the target element into view
+   *    (aligned to the scrollport start edge, matching `block: "start",
+   *    inline: "start"` as specified).
+   *
+   * We compute the distance between the target item and the viewport start,
+   * then use scrollBy with `behavior: 'smooth'` for the animation. Both
+   * scrollTargetRef and scrollingRef are set so the viewport's scroll
+   * handler knows to suppress active-index recomputation during the
+   * animation and keep the marker locked on the clicked target.
+   */
   const handleClick = React.useCallback(() => {
     const viewport = viewportRef.current;
     if (!viewport) return;
@@ -45,6 +62,8 @@ const ScrollGalleryScrollMarker = React.forwardRef<
       ? targetRect.left - viewportRect.left
       : targetRect.top - viewportRect.top;
 
+    // Set "current scroll target" (CSS Overflow 5 §2.1) — this locks
+    // the active marker to this index through the entire smooth scroll.
     scrollTargetRef.current = index;
     scrollingRef.current = true;
 
@@ -53,6 +72,8 @@ const ScrollGalleryScrollMarker = React.forwardRef<
       behavior: 'smooth',
     });
 
+    // Immediately reflect the active state — the user expects instant
+    // visual feedback when clicking a marker.
     setActiveIndex(index, 'indicator');
   }, [getItemElements, index, orientation, scrollTargetRef, scrollingRef, setActiveIndex, viewportRef]);
 
@@ -61,6 +82,14 @@ const ScrollGalleryScrollMarker = React.forwardRef<
     [isActive, index],
   );
 
+  // ARIA: role="tab" + aria-selected follows the WAI-ARIA tablist pattern.
+  // The marker group uses role="tablist", and each marker is a "tab".
+  // Only the active marker has tabIndex=0 (roving tabindex pattern);
+  // inactive markers have tabIndex=-1 so arrow keys move between them.
+  //
+  // We intentionally do NOT set aria-label or aria-roledescription here —
+  // this is a headless primitive and we can't assume the consumer's language.
+  // Consumers should provide their own aria-label via props.
   return useRender({
     render,
     ref: forwardedRef,
