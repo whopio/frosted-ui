@@ -176,8 +176,6 @@ const ScrollGalleryViewport = React.forwardRef<
     state,
     props: mergeProps<'div'>(
       {
-        'aria-roledescription': 'carousel',
-        'aria-live': 'polite',
         'data-orientation': orientation,
       } as React.ComponentPropsWithRef<'div'>,
       elementProps as React.ComponentPropsWithRef<'div'>,

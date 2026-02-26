@@ -5,6 +5,8 @@ import * as React from 'react';
 
 import { useScrollGalleryContext } from './scroll-gallery-context';
 
+const PAGE_SCROLL_FACTOR = 0.85;
+
 interface ScrollGalleryPreviousState extends Record<string, unknown> {
   disabled: boolean;
 }
@@ -18,14 +20,8 @@ const ScrollGalleryPrevious = React.forwardRef<
 >(function ScrollGalleryPrevious(props, forwardedRef) {
   const { render, ...elementProps } = props;
 
-  const {
-    activeIndex,
-    setActiveIndex,
-    canScrollPrev,
-    orientation,
-    viewportRef,
-    getItemElements,
-  } = useScrollGalleryContext();
+  const { canScrollPrev, orientation, viewportRef } =
+    useScrollGalleryContext();
 
   const disabled = !canScrollPrev;
 
@@ -33,26 +29,14 @@ const ScrollGalleryPrevious = React.forwardRef<
     const viewport = viewportRef.current;
     if (!viewport || disabled) return;
 
-    const items = getItemElements();
-    const targetIndex = Math.max(0, activeIndex - 1);
-    const target = items[targetIndex];
-    if (!target) return;
-
     const isHorizontal = orientation === 'horizontal';
-    const targetRect = target.getBoundingClientRect();
-    const viewportRect = viewport.getBoundingClientRect();
-
-    const distance = isHorizontal
-      ? targetRect.left - viewportRect.left
-      : targetRect.top - viewportRect.top;
+    const pageSize = isHorizontal ? viewport.clientWidth : viewport.clientHeight;
 
     viewport.scrollBy({
-      [isHorizontal ? 'left' : 'top']: distance,
+      [isHorizontal ? 'left' : 'top']: -pageSize * PAGE_SCROLL_FACTOR,
       behavior: 'smooth',
     });
-
-    setActiveIndex(targetIndex, 'previous');
-  }, [activeIndex, disabled, getItemElements, orientation, setActiveIndex, viewportRef]);
+  }, [disabled, orientation, viewportRef]);
 
   const state = React.useMemo<ScrollGalleryPreviousState>(
     () => ({ disabled }),

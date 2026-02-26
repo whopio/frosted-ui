@@ -79,10 +79,10 @@ export const Default: Story = {
           }}
         >
           <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
-            <ScrollGallery.Previous render={<IconButton variant="soft" size="2" color="gray" />}>
+            <ScrollGallery.Previous aria-label="Previous" render={<IconButton variant="soft" size="2" color="gray" />}>
               <ChevronLeft16 />
             </ScrollGallery.Previous>
-            <ScrollGallery.Next render={<IconButton variant="soft" size="2" color="gray" />}>
+            <ScrollGallery.Next aria-label="Next" render={<IconButton variant="soft" size="2" color="gray" />}>
               <ChevronRight16 />
             </ScrollGallery.Next>
           </div>
@@ -205,10 +205,10 @@ function DynamicItemsDemo() {
             marginTop: 'var(--space-3)',
           }}
         >
-          <ScrollGallery.Previous render={<IconButton variant="soft" size="2" color="gray" />}>
+          <ScrollGallery.Previous aria-label="Previous" render={<IconButton variant="soft" size="2" color="gray" />}>
             <ChevronLeft16 />
           </ScrollGallery.Previous>
-          <ScrollGallery.Next render={<IconButton variant="soft" size="2" color="gray" />}>
+          <ScrollGallery.Next aria-label="Next" render={<IconButton variant="soft" size="2" color="gray" />}>
             <ChevronRight16 />
           </ScrollGallery.Next>
         </div>
