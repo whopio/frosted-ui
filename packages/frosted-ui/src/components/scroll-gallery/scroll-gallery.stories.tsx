@@ -802,7 +802,7 @@ function ProductGalleryDemo() {
                 }}
               >
                 {productImages.map((img) => (
-                  <ScrollGallery.Item key={img.id} style={{ scrollSnapAlign: 'start', flexShrink: 0, width: '100%' }}>
+                  <ScrollGallery.Item key={img.id} style={{ scrollSnapAlign: 'center', flexShrink: 0, width: '100%' }}>
                     <img
                       src={img.src}
                       alt={img.alt}
