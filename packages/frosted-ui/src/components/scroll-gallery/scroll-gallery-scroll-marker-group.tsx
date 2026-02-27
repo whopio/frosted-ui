@@ -120,6 +120,7 @@ const ScrollGalleryScrollMarkerGroup = React.forwardRef<
     stateAttributesMapping: markerGroupStateAttributesMapping,
     props: mergeProps<'div'>(
       {
+        className: 'fui-ScrollGalleryScrollMarkerGroup',
         role: 'tablist',
         'aria-orientation': orientation,
         'data-orientation': orientation,

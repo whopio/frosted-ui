@@ -146,6 +146,7 @@ const ScrollGalleryPrevious = React.forwardRef<
     state,
     props: mergeProps<'button'>(
       {
+        className: 'fui-ScrollGalleryPrevious',
         type: 'button',
         disabled,
         onClick: handleClick,

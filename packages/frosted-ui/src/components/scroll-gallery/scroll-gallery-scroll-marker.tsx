@@ -96,6 +96,7 @@ const ScrollGalleryScrollMarker = React.forwardRef<
     state,
     props: mergeProps<'button'>(
       {
+        className: 'fui-ScrollGalleryScrollMarker',
         type: 'button',
         role: 'tab',
         'aria-selected': isActive,

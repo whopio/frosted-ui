@@ -387,6 +387,7 @@ const ScrollGalleryViewport = React.forwardRef<
     stateAttributesMapping: viewportStateAttributesMapping,
     props: mergeProps<'div'>(
       {
+        className: 'fui-ScrollGalleryViewport',
         'data-orientation': orientation,
       } as React.ComponentPropsWithRef<'div'>,
       elementProps as React.ComponentPropsWithRef<'div'>,

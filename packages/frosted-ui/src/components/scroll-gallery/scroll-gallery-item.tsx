@@ -73,6 +73,7 @@ const ScrollGalleryItem = React.forwardRef<
     state,
     props: mergeProps<'div'>(
       {
+        className: 'fui-ScrollGalleryItem',
         'data-index': index,
         ...(isActive ? { 'data-active': '' } : undefined),
       } as React.ComponentPropsWithRef<'div'>,
