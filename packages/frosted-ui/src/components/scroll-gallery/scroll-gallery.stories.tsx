@@ -769,9 +769,6 @@ const productImages = [
 ];
 
 function ProductGalleryDemo() {
-  const mainRef = useRef<ScrollGallery.ScrollGalleryRootRef>(null);
-  const [activeImage, setActiveImage] = useState(0);
-
   return (
     <div style={{ maxWidth: 900 }}>
       <Breadcrumbs.Root style={{ marginBottom: 'var(--space-4)' }}>
@@ -790,7 +787,7 @@ function ProductGalleryDemo() {
       <div style={{ display: 'flex', gap: 'var(--space-6)', alignItems: 'flex-start' }}>
         {/* Left: Image gallery */}
         <div style={{ flex: '0 0 480px' }}>
-          <ScrollGallery.Root ref={mainRef} onValueChange={(i) => setActiveImage(i)}>
+          <ScrollGallery.Root>
             {/* Main image with overlay nav buttons */}
             <div style={{ position: 'relative' }}>
               <ScrollGallery.Viewport
@@ -817,6 +814,7 @@ function ProductGalleryDemo() {
 
               <ScrollGallery.Previous
                 step={1}
+                tabIndex={-1}
                 aria-label="Previous image"
                 render={
                   <IconButton
@@ -840,6 +838,7 @@ function ProductGalleryDemo() {
 
               <ScrollGallery.Next
                 step={1}
+                tabIndex={-1}
                 aria-label="Next image"
                 render={
                   <IconButton
@@ -862,9 +861,10 @@ function ProductGalleryDemo() {
               </ScrollGallery.Next>
             </div>
 
-            {/* Markers as dashes */}
+            {/* Dash markers — purely visual, not focusable (thumbnails handle keyboard nav) */}
             <ScrollGallery.ScrollMarkerGroup
-              aria-label="Choose product image"
+              aria-hidden="true"
+              tabIndex={-1}
               style={{
                 display: 'flex',
                 justifyContent: 'center',
@@ -879,6 +879,7 @@ function ProductGalleryDemo() {
                   render={(props, state) => (
                     <button
                       {...props}
+                      tabIndex={-1}
                       style={{
                         width: 24,
                         height: 3,
@@ -894,38 +895,48 @@ function ProductGalleryDemo() {
                 />
               ))}
             </ScrollGallery.ScrollMarkerGroup>
-          </ScrollGallery.Root>
 
-          {/* Thumbnail strip */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', marginTop: 'var(--space-3)' }}>
-            <div style={{ display: 'flex', gap: 'var(--space-2)', overflow: 'auto', scrollbarWidth: 'none' }}>
+            {/* Thumbnail markers */}
+            <ScrollGallery.ScrollMarkerGroup
+              aria-label="Product thumbnails"
+              style={{
+                display: 'flex',
+                gap: 'var(--space-2)',
+                marginTop: 'var(--space-3)',
+              }}
+            >
               {productImages.map((img, i) => (
-                <button
+                <ScrollGallery.ScrollMarker
                   key={img.id}
-                  onClick={() => mainRef.current?.scrollTo(i)}
-                  style={{
-                    flexShrink: 0,
-                    width: 80,
-                    height: 80,
-                    borderRadius: 'var(--radius-2)',
-                    overflow: 'hidden',
-                    border: activeImage === i ? '2px solid var(--gray-12)' : '2px solid transparent',
-                    padding: 0,
-                    cursor: 'pointer',
-                    opacity: activeImage === i ? 1 : 0.6,
-                    transition: 'opacity 150ms, border-color 150ms',
-                    background: 'none',
-                  }}
-                >
-                  <img
-                    src={img.thumb}
-                    alt={img.alt}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                  />
-                </button>
+                  index={i}
+                  render={(props, state) => (
+                    <button
+                      {...props}
+                      style={{
+                        flexShrink: 0,
+                        width: 80,
+                        height: 80,
+                        borderRadius: 'var(--radius-2)',
+                        overflow: 'hidden',
+                        border: state.active ? '2px solid var(--gray-12)' : '2px solid transparent',
+                        padding: 0,
+                        cursor: 'pointer',
+                        opacity: state.active ? 1 : 0.6,
+                        transition: 'opacity 150ms, border-color 150ms',
+                        background: 'none',
+                      }}
+                    >
+                      <img
+                        src={img.thumb}
+                        alt={img.alt}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                      />
+                    </button>
+                  )}
+                />
               ))}
-            </div>
-          </div>
+            </ScrollGallery.ScrollMarkerGroup>
+          </ScrollGallery.Root>
         </div>
 
         {/* Right: Product info */}
