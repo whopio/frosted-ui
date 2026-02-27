@@ -91,5 +91,69 @@ function getScrollBehavior(preferred: ScrollBehavior = 'smooth'): ScrollBehavior
     : preferred;
 }
 
-export { ScrollGalleryContext, useScrollGalleryContext, getScrollBehavior };
+/**
+ * Reads the resolved `scroll-snap-align` from an element and returns the
+ * relevant axis value ('start', 'center', or 'end'). Falls back to 'start'
+ * when no snap alignment is set ('none') or on SSR.
+ *
+ * CSS syntax: `scroll-snap-align: [block] [inline]`. One value → both axes.
+ */
+function getSnapAlignment(
+  item: HTMLElement,
+  orientation: 'horizontal' | 'vertical',
+): 'start' | 'center' | 'end' {
+  try {
+    const raw = getComputedStyle(item).scrollSnapAlign;
+    const parts = raw.split(' ');
+    const align =
+      orientation === 'horizontal'
+        ? parts.length > 1 ? parts[1] : parts[0]
+        : parts[0];
+    if (align === 'center') return 'center';
+    if (align === 'end') return 'end';
+  } catch {
+    // SSR or getComputedStyle unavailable
+  }
+  return 'start';
+}
+
+/**
+ * Computes the scroll distance to bring a target item to its snap position
+ * within the viewport. Reads `scroll-snap-align` from the target to use the
+ * matching reference point (start edge, center, or end edge) for both the
+ * item and viewport. This ensures the browser's scroll snapping lands on
+ * the intended item rather than a neighbor.
+ */
+function getScrollDistance(
+  target: HTMLElement,
+  viewport: HTMLElement,
+  orientation: 'horizontal' | 'vertical',
+): number {
+  const isHorizontal = orientation === 'horizontal';
+  const snapAlign = getSnapAlignment(target, orientation);
+  const targetRect = target.getBoundingClientRect();
+  const viewportRect = viewport.getBoundingClientRect();
+
+  let targetRef: number;
+  let viewportRef: number;
+
+  if (snapAlign === 'center') {
+    targetRef = isHorizontal
+      ? targetRect.left + targetRect.width / 2
+      : targetRect.top + targetRect.height / 2;
+    viewportRef = isHorizontal
+      ? viewportRect.left + viewportRect.width / 2
+      : viewportRect.top + viewportRect.height / 2;
+  } else if (snapAlign === 'end') {
+    targetRef = isHorizontal ? targetRect.right : targetRect.bottom;
+    viewportRef = isHorizontal ? viewportRect.right : viewportRect.bottom;
+  } else {
+    targetRef = isHorizontal ? targetRect.left : targetRect.top;
+    viewportRef = isHorizontal ? viewportRect.left : viewportRect.top;
+  }
+
+  return targetRef - viewportRef;
+}
+
+export { ScrollGalleryContext, useScrollGalleryContext, getScrollBehavior, getScrollDistance, getSnapAlignment };
 export type { ScrollGalleryContextValue, ChangeSource };

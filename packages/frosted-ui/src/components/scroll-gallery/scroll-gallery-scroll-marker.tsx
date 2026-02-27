@@ -3,7 +3,7 @@
 import { mergeProps, useRender } from '@base-ui/react';
 import * as React from 'react';
 
-import { getScrollBehavior, useScrollGalleryContext } from './scroll-gallery-context';
+import { getScrollBehavior, getScrollDistance, useScrollGalleryContext } from './scroll-gallery-context';
 
 interface ScrollGalleryScrollMarkerState extends Record<string, unknown> {
   active: boolean;
@@ -60,12 +60,7 @@ const ScrollGalleryScrollMarker = React.forwardRef<
     if (!target) return;
 
     const isHorizontal = orientation === 'horizontal';
-    const targetRect = target.getBoundingClientRect();
-    const viewportRect = viewport.getBoundingClientRect();
-
-    const distance = isHorizontal
-      ? targetRect.left - viewportRect.left
-      : targetRect.top - viewportRect.top;
+    const distance = getScrollDistance(target, viewport, orientation);
 
     // Set "current scroll target" (CSS Overflow 5 §2.1) — this locks
     // the active marker to this index through the entire smooth scroll.

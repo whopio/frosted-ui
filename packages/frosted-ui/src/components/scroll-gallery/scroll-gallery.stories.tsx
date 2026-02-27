@@ -1257,3 +1257,57 @@ export const ResizableViewport: Story = {
     </div>
   ),
 };
+
+export const SnapToCenter: Story = {
+  render: () => (
+    <div style={{ maxWidth: 720 }}>
+      <ScrollGallery.Root defaultValue={3}>
+        <ScrollGallery.Viewport
+          aria-label="Team members"
+          style={{
+            display: 'flex',
+            gap: 'var(--space-3)',
+            overflowX: 'auto',
+            scrollSnapType: 'x mandatory',
+            scrollbarWidth: 'none',
+          }}
+        >
+          {people.map((person) => (
+            <ScrollGallery.Item key={person.name} style={{ scrollSnapAlign: 'center', flexShrink: 0 }}>
+              <PersonCard person={person} />
+            </ScrollGallery.Item>
+          ))}
+        </ScrollGallery.Viewport>
+
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginTop: 'var(--space-3)',
+          }}
+        >
+          <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+            <ScrollGallery.Previous
+              step={1}
+              aria-label="Previous"
+              render={<IconButton variant="soft" size="2" color="gray" />}
+            >
+              <ChevronLeft16 />
+            </ScrollGallery.Previous>
+            <ScrollGallery.Next step={1} aria-label="Next" render={<IconButton variant="soft" size="2" color="gray" />}>
+              <ChevronRight16 />
+            </ScrollGallery.Next>
+          </div>
+
+          <ScrollGallery.ScrollMarkerGroup
+            aria-label="Choose team member"
+            style={{ display: 'flex', gap: 'var(--space-1)' }}
+          >
+            <MarkerDots count={people.length} />
+          </ScrollGallery.ScrollMarkerGroup>
+        </div>
+      </ScrollGallery.Root>
+    </div>
+  ),
+};

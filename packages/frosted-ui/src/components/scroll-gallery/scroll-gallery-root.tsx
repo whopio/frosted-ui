@@ -5,6 +5,7 @@ import * as React from 'react';
 import {
   ScrollGalleryContext,
   getScrollBehavior,
+  getScrollDistance,
   type ChangeSource,
   type ScrollGalleryContextValue,
 } from './scroll-gallery-context';
@@ -151,12 +152,7 @@ const ScrollGalleryRoot = React.forwardRef<
       if (!target) return;
 
       const isHorizontal = orientation === 'horizontal';
-      const targetRect = target.getBoundingClientRect();
-      const viewportRect = viewport.getBoundingClientRect();
-
-      const distance = isHorizontal
-        ? targetRect.left - viewportRect.left
-        : targetRect.top - viewportRect.top;
+      const distance = getScrollDistance(target, viewport, orientation);
 
       scrollTargetRef.current = index;
       scrollingRef.current = true;

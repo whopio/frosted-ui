@@ -3,7 +3,7 @@
 import { mergeProps, useRender } from '@base-ui/react';
 import * as React from 'react';
 
-import { useScrollGalleryContext } from './scroll-gallery-context';
+import { getSnapAlignment, useScrollGalleryContext } from './scroll-gallery-context';
 
 /**
  * Tolerance in pixels for scroll boundary comparisons. Accounts for
@@ -66,6 +66,10 @@ const ScrollGalleryViewport = React.forwardRef<
 
   const internalRef = React.useRef<HTMLDivElement | null>(null);
 
+  // Cache the resolved scroll-snap-align so we don't call getComputedStyle
+  // on every scroll event. Updated when items change (itemsVersion).
+  const snapAlignRef = React.useRef<'start' | 'center' | 'end'>('start');
+
   const mergedRefCallback = React.useCallback(
     (node: HTMLDivElement | null) => {
       internalRef.current = node;
@@ -113,10 +117,13 @@ const ScrollGalleryViewport = React.forwardRef<
    *
    * The algorithm works in scroll-position space (not visual pixel space):
    *
-   * Step 1 — For each item, compute the scroll position that would align its
-   *   start edge with the viewport's start edge. This is the item's "target
-   *   scroll position" — the scrollLeft (or scrollTop) the container would
-   *   have when scrolled precisely to that item.
+   * Step 1 — For each item, compute the scroll position that would perfectly
+   *   snap it according to its `scroll-snap-align` CSS value. We read the
+   *   resolved snap alignment from the first item and use the matching
+   *   reference point (start edge, center, or end edge) for both item and
+   *   viewport. This ensures the algorithm works correctly regardless of
+   *   whether the consumer uses `scroll-snap-align: start`, `center`, or
+   *   `end` (or no snapping at all, which defaults to start alignment).
    *
    * Step 2 — Redistribute unreachable positions. When multiple items share
    *   the same scroll position (e.g., the last few items in a list whose
@@ -153,13 +160,36 @@ const ScrollGalleryViewport = React.forwardRef<
     }
 
     const viewportRect = viewport.getBoundingClientRect();
-    const viewportStart = isHorizontal ? viewportRect.left : viewportRect.top;
 
-    // Step 1: target scroll position per item
+    // Step 1: compute each item's target scroll position based on the
+    // cached scroll-snap-align of the items. This ensures the position
+    // maps to the scrollPos the browser would set when that item is snapped.
+    const snapAlign = snapAlignRef.current;
+
+    let viewportRef: number;
+    if (snapAlign === 'center') {
+      viewportRef = isHorizontal
+        ? viewportRect.left + viewportRect.width / 2
+        : viewportRect.top + viewportRect.height / 2;
+    } else if (snapAlign === 'end') {
+      viewportRef = isHorizontal ? viewportRect.right : viewportRect.bottom;
+    } else {
+      viewportRef = isHorizontal ? viewportRect.left : viewportRect.top;
+    }
+
     const positions = items.map((item) => {
       const rect = item.getBoundingClientRect();
-      const itemStart = isHorizontal ? rect.left : rect.top;
-      return itemStart - viewportStart + scrollPos;
+      let itemRef: number;
+      if (snapAlign === 'center') {
+        itemRef = isHorizontal
+          ? rect.left + rect.width / 2
+          : rect.top + rect.height / 2;
+      } else if (snapAlign === 'end') {
+        itemRef = isHorizontal ? rect.right : rect.bottom;
+      } else {
+        itemRef = isHorizontal ? rect.left : rect.top;
+      }
+      return itemRef - viewportRef + scrollPos;
     });
 
     // Step 2: redistribute unreachable positions (CSS Overflow 5 spec)
@@ -335,11 +365,18 @@ const ScrollGalleryViewport = React.forwardRef<
     }
 
     updateBoundaries();
+    snapAlignRef.current = getSnapAlignment(items[0], orientation);
 
-    const resizeObserver = new ResizeObserver(updateBoundaries);
+    const resizeObserver = new ResizeObserver(() => {
+      updateBoundaries();
+      // Re-read snap alignment on resize — a media query may have changed it.
+      if (items.length > 0) {
+        snapAlignRef.current = getSnapAlignment(items[0], orientation);
+      }
+    });
     resizeObserver.observe(viewport);
     return () => resizeObserver.disconnect();
-  }, [getItemElements, setCanScrollPrev, setCanScrollNext, itemsVersion, updateBoundaries]);
+  }, [getItemElements, setCanScrollPrev, setCanScrollNext, itemsVersion, updateBoundaries, orientation]);
 
   /**
    * IntersectionObserver for `data-in-view` tracking on individual items.

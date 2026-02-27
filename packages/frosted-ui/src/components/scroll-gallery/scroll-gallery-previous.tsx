@@ -3,7 +3,7 @@
 import { mergeProps, useRender } from '@base-ui/react';
 import * as React from 'react';
 
-import { getScrollBehavior, useScrollGalleryContext } from './scroll-gallery-context';
+import { getScrollBehavior, getScrollDistance, getSnapAlignment, useScrollGalleryContext } from './scroll-gallery-context';
 
 /**
  * CSS Overflow 5 §3.2 specifies that scroll buttons scroll by "one page"
@@ -65,11 +65,7 @@ const ScrollGalleryPrevious = React.forwardRef<
       const target = items[lastIndex];
       if (!target) return;
 
-      const targetRect = target.getBoundingClientRect();
-      const viewportRect = viewport.getBoundingClientRect();
-      const distance = isHorizontal
-        ? targetRect.left - viewportRect.left
-        : targetRect.top - viewportRect.top;
+      const distance = getScrollDistance(target, viewport, orientation);
 
       scrollTargetRef.current = lastIndex;
       scrollingRef.current = true;
@@ -93,19 +89,36 @@ const ScrollGalleryPrevious = React.forwardRef<
     scrollingRef.current = false;
 
     if (step != null) {
-      // Step mode: find the item physically closest to the viewport start
-      // and scroll to the one N positions before it. We use visual position
-      // (getBoundingClientRect) rather than activeIndex because the
-      // redistribution algorithm can inflate activeIndex at scroll boundaries,
-      // targeting items that can't actually be brought to the viewport start.
+      // Step mode: find the currently snapped item (anchor) and scroll to
+      // the one N positions before it. The anchor is the item whose snap
+      // reference point is closest to the viewport's matching reference.
+      const snapAlign = items.length > 0 ? getSnapAlignment(items[0], orientation) : 'start';
       const viewportRect = viewport.getBoundingClientRect();
-      const viewportStart = isHorizontal ? viewportRect.left : viewportRect.top;
+
+      let viewportRef: number;
+      if (snapAlign === 'center') {
+        viewportRef = isHorizontal
+          ? viewportRect.left + viewportRect.width / 2
+          : viewportRect.top + viewportRect.height / 2;
+      } else if (snapAlign === 'end') {
+        viewportRef = isHorizontal ? viewportRect.right : viewportRect.bottom;
+      } else {
+        viewportRef = isHorizontal ? viewportRect.left : viewportRect.top;
+      }
 
       let anchorIndex = 0;
       let minDist = Infinity;
       for (let i = 0; i < items.length; i++) {
         const rect = items[i].getBoundingClientRect();
-        const dist = Math.abs((isHorizontal ? rect.left : rect.top) - viewportStart);
+        let itemRef: number;
+        if (snapAlign === 'center') {
+          itemRef = isHorizontal ? rect.left + rect.width / 2 : rect.top + rect.height / 2;
+        } else if (snapAlign === 'end') {
+          itemRef = isHorizontal ? rect.right : rect.bottom;
+        } else {
+          itemRef = isHorizontal ? rect.left : rect.top;
+        }
+        const dist = Math.abs(itemRef - viewportRef);
         if (dist < minDist) {
           minDist = dist;
           anchorIndex = i;
@@ -116,10 +129,7 @@ const ScrollGalleryPrevious = React.forwardRef<
       const target = items[targetIndex];
       if (!target) return;
 
-      const targetRect = target.getBoundingClientRect();
-      const distance = isHorizontal
-        ? targetRect.left - viewportRect.left
-        : targetRect.top - viewportRect.top;
+      const distance = getScrollDistance(target, viewport, orientation);
 
       viewport.scrollBy({
         [isHorizontal ? 'left' : 'top']: distance,

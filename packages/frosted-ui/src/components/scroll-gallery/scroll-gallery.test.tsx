@@ -597,11 +597,10 @@ describe('ScrollGallery', () => {
       // Items at absolute positions: 0, 210, 420, 630, 840, 1050, 1260, 1470
       // maxScroll = 1680 - 400 = 1280
       // Visual positions at scrollLeft=1280:
-      //   item 5: 1050 - 1280 = -230
       //   item 6: 1260 - 1280 = -20  (closest to 0)
       //   item 7: 1470 - 1280 = 190
       // Anchor = item 6, target = max(0, 6-1) = 5
-      // Item 5 visual left = -230, so scrollBy({ left: -230 })
+      // Item 5 visual left = 1050 - 1280 = -230
       mockViewportScroll(viewport, { scrollLeft: 1280, scrollWidth: 1680, clientWidth: 400 });
       mockItemRects(8, 1280);
 
@@ -656,7 +655,7 @@ describe('ScrollGallery', () => {
   });
 
   describe('scroll marker click behavior', () => {
-    it('clicking a marker calls scrollBy to bring target item to viewport start', () => {
+    it('clicking a marker calls scrollBy to bring target item to its snap position', () => {
       render(<Gallery withMarkers />);
       const viewport = screen.getByTestId('viewport');
       const scrollBySpy = vi.fn();
@@ -671,6 +670,7 @@ describe('ScrollGallery', () => {
 
       fireEvent.click(screen.getByTestId('marker-3'));
 
+      // No scroll-snap-align on items → defaults to start: item left (600) - viewport left (0)
       expect(scrollBySpy).toHaveBeenCalledWith({
         left: 600,
         behavior: 'smooth',
@@ -1049,6 +1049,188 @@ describe('ScrollGallery', () => {
     });
   });
 
+  describe('scroll-snap-align awareness', () => {
+    // Helper: mock getComputedStyle to return a specific scrollSnapAlign for item elements.
+    function mockSnapAlign(align: string) {
+      const original = window.getComputedStyle;
+      vi.spyOn(window, 'getComputedStyle').mockImplementation((el: Element) => {
+        const style = original(el);
+        if ((el as HTMLElement).dataset.testid?.startsWith('item-')) {
+          return { ...style, scrollSnapAlign: align } as CSSStyleDeclaration;
+        }
+        return style;
+      });
+    }
+
+    function mockItemRectsForSnap(
+      itemCount: number,
+      scrollLeft: number,
+      itemWidth = 200,
+      gap = 10,
+    ) {
+      const viewport = screen.getByTestId('viewport');
+      const viewportRect = {
+        left: 0, top: 0, right: 400, bottom: 300,
+        width: 400, height: 300, x: 0, y: 0, toJSON: () => ({}),
+      };
+      vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue(viewportRect);
+
+      for (let i = 0; i < itemCount; i++) {
+        const absLeft = i * (itemWidth + gap);
+        const visualLeft = absLeft - scrollLeft;
+        const item = screen.getByTestId(`item-${i}`);
+        vi.spyOn(item, 'getBoundingClientRect').mockReturnValue({
+          left: visualLeft, top: 0, right: visualLeft + itemWidth, bottom: 100,
+          width: itemWidth, height: 100, x: visualLeft, y: 0, toJSON: () => ({}),
+        });
+      }
+    }
+
+    it('marker click uses start-to-start when scroll-snap-align is "start"', () => {
+      render(<Gallery withMarkers itemCount={5} />);
+      mockSnapAlign('start');
+
+      const viewport = screen.getByTestId('viewport');
+      const scrollBySpy = vi.fn();
+      viewport.scrollBy = scrollBySpy;
+
+      const viewportRect = {
+        left: 0, top: 0, right: 400, bottom: 300,
+        width: 400, height: 300, x: 0, y: 0, toJSON: () => ({}),
+      };
+      vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue(viewportRect);
+      vi.spyOn(screen.getByTestId('item-2'), 'getBoundingClientRect').mockReturnValue({
+        left: 420, top: 0, right: 620, bottom: 100,
+        width: 200, height: 100, x: 420, y: 0, toJSON: () => ({}),
+      });
+
+      fireEvent.click(screen.getByTestId('marker-2'));
+
+      // start: item left (420) - viewport left (0) = 420
+      expect(scrollBySpy).toHaveBeenCalledWith({
+        left: 420,
+        behavior: 'smooth',
+      });
+    });
+
+    it('marker click uses center-to-center when scroll-snap-align is "center"', () => {
+      render(<Gallery withMarkers itemCount={5} />);
+      mockSnapAlign('center');
+
+      const viewport = screen.getByTestId('viewport');
+      const scrollBySpy = vi.fn();
+      viewport.scrollBy = scrollBySpy;
+
+      const viewportRect = {
+        left: 0, top: 0, right: 400, bottom: 300,
+        width: 400, height: 300, x: 0, y: 0, toJSON: () => ({}),
+      };
+      vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue(viewportRect);
+      vi.spyOn(screen.getByTestId('item-2'), 'getBoundingClientRect').mockReturnValue({
+        left: 420, top: 0, right: 620, bottom: 100,
+        width: 200, height: 100, x: 420, y: 0, toJSON: () => ({}),
+      });
+
+      fireEvent.click(screen.getByTestId('marker-2'));
+
+      // center: item center (520) - viewport center (200) = 320
+      expect(scrollBySpy).toHaveBeenCalledWith({
+        left: 320,
+        behavior: 'smooth',
+      });
+    });
+
+    it('computeActiveIndex picks correct item for scroll-snap-align: start', () => {
+      vi.useFakeTimers();
+      render(<Gallery withMarkers itemCount={5} />);
+      mockSnapAlign('start');
+
+      const viewport = screen.getByTestId('viewport');
+      viewport.scrollBy = vi.fn();
+
+      // scrollLeft=210: item 1 start at viewport start → item 1 active
+      mockViewportScroll(viewport, { scrollLeft: 210, scrollWidth: 1050, clientWidth: 400 });
+      mockItemRectsForSnap(5, 210);
+
+      act(() => { fireEvent.scroll(viewport); });
+
+      expect(screen.getByTestId('marker-1')).toHaveAttribute('aria-selected', 'true');
+      vi.useRealTimers();
+    });
+
+    it('computeActiveIndex picks correct item for scroll-snap-align: center', () => {
+      vi.useFakeTimers();
+      render(<Gallery withMarkers itemCount={5} />);
+      mockSnapAlign('center');
+
+      const viewport = screen.getByTestId('viewport');
+      viewport.scrollBy = vi.fn();
+
+      // For center snap, when item 2 is centered:
+      // item 2 center = 2*210 + 100 = 520. viewport center = 200.
+      // scrollLeft where item 2 center = viewport center: 520 - 200 = 320
+      mockViewportScroll(viewport, { scrollLeft: 320, scrollWidth: 1050, clientWidth: 400 });
+      mockItemRectsForSnap(5, 320);
+
+      act(() => { fireEvent.scroll(viewport); });
+
+      expect(screen.getByTestId('marker-2')).toHaveAttribute('aria-selected', 'true');
+      vi.useRealTimers();
+    });
+
+    it('step button uses correct alignment for scroll-snap-align: center', () => {
+      render(<Gallery withMarkers itemCount={5} step={1} />);
+      mockSnapAlign('center');
+
+      const viewport = screen.getByTestId('viewport');
+      const scrollBySpy = vi.fn();
+      viewport.scrollBy = scrollBySpy;
+
+      // Item 1 is centered: scrollLeft=110, item 1 center at viewport center
+      mockViewportScroll(viewport, { scrollLeft: 110, scrollWidth: 1050, clientWidth: 400 });
+      mockItemRectsForSnap(5, 110);
+
+      act(() => { fireEvent.scroll(viewport); });
+
+      fireEvent.click(screen.getByTestId('next'));
+
+      // Anchor = item 1 (center=100, closest to viewport center=200)
+      // Target = item 2, center = 2*210+100 - 110 = 410, viewport center = 200
+      // Distance = 410 - 200 = 210
+      expect(scrollBySpy).toHaveBeenCalledWith({
+        left: 210,
+        behavior: 'smooth',
+      });
+    });
+
+    it('marker click uses end-to-end when scroll-snap-align is "end"', () => {
+      render(<Gallery withMarkers itemCount={5} />);
+      mockSnapAlign('end');
+
+      const viewport = screen.getByTestId('viewport');
+      const scrollBySpy = vi.fn();
+      viewport.scrollBy = scrollBySpy;
+
+      const viewportRect = {
+        left: 0, top: 0, right: 400, bottom: 300,
+        width: 400, height: 300, x: 0, y: 0, toJSON: () => ({}),
+      };
+      vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue(viewportRect);
+      vi.spyOn(screen.getByTestId('item-2'), 'getBoundingClientRect').mockReturnValue({
+        left: 420, top: 0, right: 620, bottom: 100,
+        width: 200, height: 100, x: 420, y: 0, toJSON: () => ({}),
+      });
+
+      fireEvent.click(screen.getByTestId('marker-2'));
+
+      // end: item right (620) - viewport right (400) = 220
+      expect(scrollBySpy).toHaveBeenCalledWith({
+        left: 220,
+        behavior: 'smooth',
+      });
+    });
+  });
+
   describe('imperative scrollTo', () => {
     function GalleryWithRef({
       refObj,
@@ -1096,6 +1278,7 @@ describe('ScrollGallery', () => {
         ref.current!.scrollTo(3);
       });
 
+      // No snap-align → start: item 3 left (600) - viewport left (0)
       expect(viewport.scrollBy).toHaveBeenCalledWith({
         left: 600,
         behavior: 'smooth',
@@ -1124,6 +1307,7 @@ describe('ScrollGallery', () => {
         ref.current!.scrollTo(5, 'instant');
       });
 
+      // No snap-align → start: item 5 left (1000) - viewport left (0)
       expect(viewport.scrollBy).toHaveBeenCalledWith({
         left: 1000,
         behavior: 'instant',
