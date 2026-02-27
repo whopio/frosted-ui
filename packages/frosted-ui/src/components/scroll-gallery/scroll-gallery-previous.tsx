@@ -85,11 +85,12 @@ const ScrollGalleryPrevious = React.forwardRef<
 
     if (disabled) return;
 
-    // Clear any lingering "current scroll target" from a prior marker click.
-    // Neither page nor step mode sets scrollingRef — both allow
-    // computeActiveIndex to run on every scroll event, giving real-time
-    // marker transitions during the animation (matching trackpad behavior).
+    // Clear any lingering programmatic scroll state from a prior marker
+    // click. Both refs must be cleared so that scroll events go through
+    // Case 4 (real-time computeActiveIndex), giving smooth marker
+    // transitions during the button's scroll animation.
     scrollTargetRef.current = null;
+    scrollingRef.current = false;
 
     if (step != null) {
       // Step mode: find the item physically closest to the viewport start

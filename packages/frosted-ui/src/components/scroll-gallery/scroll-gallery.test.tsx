@@ -789,7 +789,10 @@ describe('ScrollGallery', () => {
 
       expect(screen.getByTestId('marker-7')).toHaveAttribute('aria-selected', 'true');
 
-      // User scrolls manually — first event clears scrollTarget and recomputes
+      // User scrolls manually — wheel event clears scrollingRef, then
+      // the scroll event enters Case 4 and recomputes the active index.
+      // In a real browser, user-initiated scrolling always fires a wheel
+      // (or touch/pointer) event before the scroll events.
       mockViewportScroll(viewport, { scrollLeft: 400, scrollWidth: 1600, clientWidth: 400 });
       for (let i = 0; i < 8; i++) {
         const item = screen.getByTestId(`item-${i}`);
@@ -800,6 +803,7 @@ describe('ScrollGallery', () => {
       }
 
       act(() => {
+        fireEvent.wheel(viewport);
         fireEvent.scroll(viewport);
       });
 

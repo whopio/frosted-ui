@@ -13,6 +13,11 @@ interface ScrollGalleryItemState extends Record<string, unknown> {
 interface ScrollGalleryItemProps
   extends useRender.ComponentProps<'div', ScrollGalleryItemState> {}
 
+const itemStateAttributesMapping = {
+  active: (value: unknown) => (value ? { 'data-active': '' } : null),
+  index: (value: unknown) => ({ 'data-index': String(value) }),
+};
+
 /**
  * Individual gallery item. Self-registers with the Root context on mount.
  *
@@ -71,11 +76,10 @@ const ScrollGalleryItem = React.forwardRef<
     render,
     ref: mergedRefCallback,
     state,
+    stateAttributesMapping: itemStateAttributesMapping,
     props: mergeProps<'div'>(
       {
         className: 'fui-ScrollGalleryItem',
-        'data-index': index,
-        ...(isActive ? { 'data-active': '' } : undefined),
       } as React.ComponentPropsWithRef<'div'>,
       elementProps as React.ComponentPropsWithRef<'div'>,
     ),

@@ -255,18 +255,23 @@ const ScrollGalleryViewport = React.forwardRef<
 
       clearTimeout(settleTimeout);
 
-      // Case 2: programmatic animation in progress
+      // Case 2: programmatic animation in progress (marker click or loop-wrap).
+      // Suppress computeActiveIndex to keep the marker locked on the target
+      // that was already set via setActiveIndex in the click handler.
+      //
+      // We intentionally do NOT clear scrollingRef here. It stays true until
+      // the user explicitly interacts (wheel/touch/pointer via handleUserInput)
+      // or a new button/marker click clears it. This prevents a race condition
+      // where a late scroll event sneaks in right after the settle timeout
+      // fires, entering Case 4 and running computeActiveIndex with a scroll
+      // position that doesn't perfectly match the target — causing a visible
+      // flicker: target → wrong → target.
+      //
+      // scrollTargetRef is cleared on settle since its only purpose is to
+      // identify the target during animation; it's not needed afterward.
       if (scrollingRef.current) {
         settleTimeout = setTimeout(() => {
-          scrollingRef.current = false;
-          // Always clear the scroll target and recompute on settle. The lock
-          // is only needed during the animation to prevent marker flickering.
-          // After settle, the actual scroll position is the source of truth.
-          // This is critical for step-based button scrolls: the browser may
-          // clamp the scroll at a boundary, so the target index might not
-          // match the actual resting position.
           scrollTargetRef.current = null;
-          computeActiveIndex();
         }, SETTLE_DELAY);
         return;
       }

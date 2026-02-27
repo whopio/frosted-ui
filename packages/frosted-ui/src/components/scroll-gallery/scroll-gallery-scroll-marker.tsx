@@ -10,6 +10,11 @@ interface ScrollGalleryScrollMarkerState extends Record<string, unknown> {
   index: number;
 }
 
+const markerStateAttributesMapping = {
+  active: (value: unknown) => (value ? { 'data-active': '' } : null),
+  index: (value: unknown) => ({ 'data-index': String(value) }),
+};
+
 interface ScrollGalleryScrollMarkerProps
   extends useRender.ComponentProps<'button', ScrollGalleryScrollMarkerState> {
   /**
@@ -94,6 +99,7 @@ const ScrollGalleryScrollMarker = React.forwardRef<
     render,
     ref: forwardedRef,
     state,
+    stateAttributesMapping: markerStateAttributesMapping,
     props: mergeProps<'button'>(
       {
         className: 'fui-ScrollGalleryScrollMarker',
@@ -101,9 +107,7 @@ const ScrollGalleryScrollMarker = React.forwardRef<
         role: 'tab',
         'aria-selected': isActive,
         tabIndex: isActive ? 0 : -1,
-        'data-index': index,
         onClick: handleClick,
-        ...(isActive ? { 'data-active': '' } : undefined),
       } as React.ComponentPropsWithRef<'button'>,
       elementProps as React.ComponentPropsWithRef<'button'>,
     ),
