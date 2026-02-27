@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { ChevronDown16, ChevronLeft16, ChevronRight16, ChevronUp16 } from '@frosted-ui/icons';
 import React, { useRef, useState } from 'react';
-import { Avatar, Badge, Button, Card, Code, IconButton, ScrollGallery, Text } from '..';
+import { Avatar, Badge, Button, Card, Code, Heading, IconButton, ScrollGallery, Strong, Text } from '..';
 
 const people = [
   { name: 'Olivia Chen', role: 'Design Lead', color: 'crimson' as const, initials: 'OC' },
@@ -18,6 +18,7 @@ const people = [
 const meta = {
   title: 'Components/ScrollGallery',
   component: ScrollGallery.Root,
+  args: {},
   parameters: {
     layout: 'padded',
   },
@@ -25,7 +26,7 @@ const meta = {
 } satisfies Meta<typeof ScrollGallery.Root>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj;
 
 function MarkerDots({ count }: { count: number }) {
   return (
@@ -464,6 +465,111 @@ export const Vertical: Story = {
       </ScrollGallery.Root>
     </div>
   ),
+};
+
+function DefaultValueDemo() {
+  const [activeIndex, setActiveIndex] = useState(3);
+  const [log, setLog] = useState<{ index: number; source: string }[]>([]);
+
+  return (
+    <div style={{ maxWidth: 720 }}>
+      <div style={{ marginBottom: 'var(--space-4)' }}>
+        <Heading size="3" style={{ marginBottom: 'var(--space-2)' }}>
+          Default Value
+        </Heading>
+        <Text render={<p />} size="2" color="gray" style={{ maxWidth: 560, lineHeight: 1.6 }}>
+          Use <Code size="2">defaultValue</Code> to initialize the gallery at a specific item.
+          Here, the gallery starts at item <Strong>3</Strong> (James Wright) — the viewport
+          scrolls there instantly on mount, and the corresponding marker is active. Pair with{' '}
+          <Code size="2">onValueChange</Code> to track the active index as the user scrolls.
+        </Text>
+      </div>
+
+      <Text render={<div />} size="1" color="gray" style={{ marginBottom: 'var(--space-2)' }}>
+        Active: <Code size="1">{activeIndex}</Code>
+      </Text>
+
+      <ScrollGallery.Root
+        defaultValue={3}
+        onValueChange={(newValue, { source }) => {
+          setActiveIndex(newValue);
+          setLog((prev) => [{ index: newValue, source }, ...prev].slice(0, 10));
+        }}
+      >
+        <ScrollGallery.Viewport
+          aria-label="Team members"
+          style={{
+            display: 'flex',
+            gap: 'var(--space-3)',
+            overflowX: 'auto',
+            scrollSnapType: 'x mandatory',
+            scrollbarWidth: 'none',
+          }}
+        >
+          {people.map((person) => (
+            <ScrollGallery.Item key={person.name} style={{ scrollSnapAlign: 'start', flexShrink: 0 }}>
+              <PersonCard person={person} />
+            </ScrollGallery.Item>
+          ))}
+        </ScrollGallery.Viewport>
+
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginTop: 'var(--space-3)',
+          }}
+        >
+          <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+            <ScrollGallery.Previous aria-label="Previous" render={<IconButton variant="soft" size="2" color="gray" />}>
+              <ChevronLeft16 />
+            </ScrollGallery.Previous>
+            <ScrollGallery.Next aria-label="Next" render={<IconButton variant="soft" size="2" color="gray" />}>
+              <ChevronRight16 />
+            </ScrollGallery.Next>
+          </div>
+
+          <ScrollGallery.ScrollMarkerGroup
+            aria-label="Choose team member"
+            style={{ display: 'flex', gap: 'var(--space-1)' }}
+          >
+            <MarkerDots count={people.length} />
+          </ScrollGallery.ScrollMarkerGroup>
+        </div>
+      </ScrollGallery.Root>
+
+      <div style={{ marginTop: 'var(--space-4)' }}>
+        <Text render={<div />} size="2" weight="bold" style={{ marginBottom: 'var(--space-2)' }}>
+          onValueChange log
+        </Text>
+        <div
+          style={{
+            fontFamily: 'var(--code-font-family)',
+            fontSize: 'var(--font-size-1)',
+            lineHeight: 'var(--line-height-2)',
+            color: 'var(--gray-11)',
+            minHeight: 120,
+          }}
+        >
+          {log.length === 0 ? (
+            <Text size="1" color="gray">Scroll or click markers to see events…</Text>
+          ) : (
+            log.map((entry, i) => (
+              <div key={i}>
+                index: <Code size="1">{entry.index}</Code>{' '}
+                source: <Code size="1" color={entry.source === 'scroll' ? 'gray' : 'indigo'}>{entry.source}</Code>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export const DefaultValue: Story = {
+  render: () => <DefaultValueDemo />,
 };
 
 export const ActiveItemHighlight: Story = {

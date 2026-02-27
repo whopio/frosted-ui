@@ -47,7 +47,7 @@ const ScrollGalleryItem = React.forwardRef<
     [forwardedRef],
   );
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     const element = internalRef.current;
     if (!element) return;
     return registerItem(element);

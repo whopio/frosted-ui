@@ -1,6 +1,5 @@
 'use client';
 
-import { mergeProps, useRender } from '@base-ui/react';
 import * as React from 'react';
 
 import {
@@ -9,13 +8,8 @@ import {
   type ScrollGalleryContextValue,
 } from './scroll-gallery-context';
 
-interface ScrollGalleryRootState extends Record<string, unknown> {
-  activeIndex: number;
-  orientation: 'horizontal' | 'vertical';
-}
-
-interface ScrollGalleryRootProps
-  extends useRender.ComponentProps<'div', ScrollGalleryRootState> {
+interface ScrollGalleryRootProps {
+  children?: React.ReactNode;
   /**
    * The initial active item index.
    * @default 0
@@ -48,21 +42,15 @@ interface ScrollGalleryRootRef {
   scrollTo: (index: number, behavior?: ScrollBehavior) => void;
 }
 
-const rootStateAttributesMapping = {
-  activeIndex: (value: unknown) => ({ 'data-active-index': String(value) }),
-  orientation: () => null,
-};
-
 const ScrollGalleryRoot = React.forwardRef<
   ScrollGalleryRootRef,
   ScrollGalleryRootProps
 >(function ScrollGalleryRoot(props, forwardedRef) {
   const {
-    render,
+    children,
     defaultValue = 0,
     onValueChange,
     orientation = 'horizontal',
-    ...elementProps
   } = props;
 
   const [activeIndex, setActiveIndexState] = React.useState(defaultValue);
@@ -161,7 +149,18 @@ const ScrollGalleryRoot = React.forwardRef<
 
   React.useImperativeHandle(forwardedRef, () => ({ scrollTo }), [scrollTo]);
 
-  const internalDivRef = React.useRef<HTMLDivElement | null>(null);
+  // Scroll to the initial item on mount when defaultValue is non-zero.
+  // Uses useLayoutEffect so the scroll happens before the browser paints,
+  // avoiding a single-frame flash at scroll position 0. This works because
+  // items register in useLayoutEffect too — children's layout effects fire
+  // before the parent's, so items are available by the time this runs.
+  const defaultValueRef = React.useRef(defaultValue);
+  React.useLayoutEffect(() => {
+    if (defaultValueRef.current !== 0) {
+      scrollTo(defaultValueRef.current, 'instant');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const contextValue = React.useMemo<ScrollGalleryContextValue>(
     () => ({
@@ -193,24 +192,9 @@ const ScrollGalleryRoot = React.forwardRef<
     ],
   );
 
-  const state = React.useMemo<ScrollGalleryRootState>(
-    () => ({ activeIndex, orientation }),
-    [activeIndex, orientation],
-  );
-
   return (
     <ScrollGalleryContext.Provider value={contextValue}>
-      {useRender({
-        render,
-        ref: internalDivRef,
-        state,
-        stateAttributesMapping: rootStateAttributesMapping,
-        props: mergeProps<'div'>(
-          { 'data-orientation': orientation } as React.ComponentPropsWithRef<'div'>,
-          elementProps as React.ComponentPropsWithRef<'div'>,
-        ),
-        defaultTagName: 'div',
-      })}
+      {children}
     </ScrollGalleryContext.Provider>
   );
 });
@@ -218,4 +202,4 @@ const ScrollGalleryRoot = React.forwardRef<
 ScrollGalleryRoot.displayName = 'ScrollGalleryRoot';
 
 export { ScrollGalleryRoot };
-export type { ScrollGalleryRootProps, ScrollGalleryRootState, ScrollGalleryRootRef };
+export type { ScrollGalleryRootProps, ScrollGalleryRootRef };

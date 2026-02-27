@@ -29,7 +29,7 @@
  *   (CSS Overflow 5 §2.1). User input (wheel/touch/pointer) cancels the lock.
  *
  * Sub-components:
- *   Root           — Context provider, uncontrolled active index, imperative scrollTo
+ *   Root           — Context-only provider (no DOM element), active index state, imperative scrollTo
  *   Viewport       — Scrollable container, scroll event orchestration
  *   Item           — Individual gallery item, self-registering
  *   Previous/Next  — Scroll buttons (page-based, auto-disable at boundaries)
@@ -44,7 +44,7 @@ export { ScrollGalleryNext as Next } from './scroll-gallery-next';
 export { ScrollGalleryScrollMarkerGroup as ScrollMarkerGroup } from './scroll-gallery-scroll-marker-group';
 export { ScrollGalleryScrollMarker as ScrollMarker } from './scroll-gallery-scroll-marker';
 
-export type { ScrollGalleryRootProps, ScrollGalleryRootState, ScrollGalleryRootRef } from './scroll-gallery-root';
+export type { ScrollGalleryRootProps, ScrollGalleryRootRef } from './scroll-gallery-root';
 export type { ScrollGalleryViewportProps, ScrollGalleryViewportState } from './scroll-gallery-viewport';
 export type { ScrollGalleryItemProps, ScrollGalleryItemState } from './scroll-gallery-item';
 export type { ScrollGalleryPreviousProps, ScrollGalleryPreviousState } from './scroll-gallery-previous';
