@@ -1193,3 +1193,67 @@ export const ActiveItemHighlight: Story = {
     </div>
   ),
 };
+
+export const ResizableViewport: Story = {
+  render: () => (
+    <div
+      style={{
+        width: 720,
+        minWidth: 200,
+        maxWidth: '100%',
+        resize: 'horizontal',
+        overflow: 'hidden',
+        border: '1px dashed var(--gray-6)',
+        borderRadius: 'var(--radius-3)',
+        padding: 'var(--space-4)',
+      }}
+    >
+      <Text size="1" color="gray" render={<div />} style={{ marginBottom: 'var(--space-3)' }}>
+        Drag the bottom-right corner to resize
+      </Text>
+      <ScrollGallery.Root>
+        <ScrollGallery.Viewport
+          aria-label="Team members"
+          style={{
+            display: 'flex',
+            gap: 'var(--space-3)',
+            overflowX: 'auto',
+            scrollSnapType: 'x mandatory',
+            scrollbarWidth: 'none',
+          }}
+        >
+          {people.map((person) => (
+            <ScrollGallery.Item key={person.name} style={{ scrollSnapAlign: 'start', flexShrink: 0 }}>
+              <PersonCard person={person} />
+            </ScrollGallery.Item>
+          ))}
+        </ScrollGallery.Viewport>
+
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginTop: 'var(--space-3)',
+          }}
+        >
+          <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+            <ScrollGallery.Previous aria-label="Previous" render={<IconButton variant="soft" size="2" color="gray" />}>
+              <ChevronLeft16 />
+            </ScrollGallery.Previous>
+            <ScrollGallery.Next aria-label="Next" render={<IconButton variant="soft" size="2" color="gray" />}>
+              <ChevronRight16 />
+            </ScrollGallery.Next>
+          </div>
+
+          <ScrollGallery.ScrollMarkerGroup
+            aria-label="Choose team member"
+            style={{ display: 'flex', gap: 'var(--space-1)' }}
+          >
+            <MarkerDots count={people.length} />
+          </ScrollGallery.ScrollMarkerGroup>
+        </div>
+      </ScrollGallery.Root>
+    </div>
+  ),
+};
