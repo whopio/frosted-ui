@@ -37,7 +37,7 @@ const ScrollGalleryScrollMarkerGroup = React.forwardRef<
   ScrollGalleryScrollMarkerGroupProps
 >(function ScrollGalleryScrollMarkerGroup(props, forwardedRef) {
   const { render, ...elementProps } = props;
-  const { orientation } = useScrollGalleryContext();
+  const { loop, orientation } = useScrollGalleryContext();
 
   const [focusWithin, setFocusWithin] = React.useState(false);
 
@@ -75,11 +75,18 @@ const ScrollGalleryScrollMarkerGroup = React.forwardRef<
 
       switch (event.key) {
         case isHorizontal ? 'ArrowRight' : 'ArrowDown':
-          nextIndex = (currentIndex + 1) % markers.length;
+          if (loop) {
+            nextIndex = (currentIndex + 1) % markers.length;
+          } else {
+            nextIndex = Math.min(currentIndex + 1, markers.length - 1);
+          }
           break;
         case isHorizontal ? 'ArrowLeft' : 'ArrowUp':
-          nextIndex =
-            (currentIndex - 1 + markers.length) % markers.length;
+          if (loop) {
+            nextIndex = (currentIndex - 1 + markers.length) % markers.length;
+          } else {
+            nextIndex = Math.max(currentIndex - 1, 0);
+          }
           break;
         case 'Home':
           nextIndex = 0;
@@ -91,11 +98,14 @@ const ScrollGalleryScrollMarkerGroup = React.forwardRef<
           return;
       }
 
+      // If clamped to the same index, nothing to do.
+      if (nextIndex === currentIndex) return;
+
       event.preventDefault();
       markers[nextIndex].focus();
       markers[nextIndex].click();
     },
-    [orientation],
+    [loop, orientation],
   );
 
   const state = React.useMemo<ScrollGalleryScrollMarkerGroupState>(

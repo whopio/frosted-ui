@@ -39,18 +39,50 @@ const ScrollGalleryNext = React.forwardRef<
   const {
     canScrollNext,
     getItemElements,
+    loop,
     orientation,
+    scrollingRef,
     scrollTargetRef,
+    setActiveIndex,
     viewportRef,
   } = useScrollGalleryContext();
 
-  const disabled = !canScrollNext;
+  // When loop is enabled, the button never disables — it wraps to the start.
+  const disabled = loop ? false : !canScrollNext;
 
   const handleClick = React.useCallback(() => {
     const viewport = viewportRef.current;
-    if (!viewport || disabled) return;
+    if (!viewport) return;
 
     const isHorizontal = orientation === 'horizontal';
+    const items = getItemElements();
+
+    // When looping and already at the end, wrap to the first item.
+    // This behaves like a marker click: lock the target and suppress
+    // intermediate active-index updates during the smooth scroll.
+    if (loop && !canScrollNext) {
+      const target = items[0];
+      if (!target) return;
+
+      const targetRect = target.getBoundingClientRect();
+      const viewportRect = viewport.getBoundingClientRect();
+      const distance = isHorizontal
+        ? targetRect.left - viewportRect.left
+        : targetRect.top - viewportRect.top;
+
+      scrollTargetRef.current = 0;
+      scrollingRef.current = true;
+
+      viewport.scrollBy({
+        [isHorizontal ? 'left' : 'top']: distance,
+        behavior: 'smooth',
+      });
+
+      setActiveIndex(0, 'indicator');
+      return;
+    }
+
+    if (disabled) return;
 
     // Clear any lingering "current scroll target" from a prior marker click.
     // Neither page nor step mode sets scrollingRef — both allow
@@ -64,7 +96,6 @@ const ScrollGalleryNext = React.forwardRef<
       // (getBoundingClientRect) rather than activeIndex because the
       // redistribution algorithm can inflate activeIndex at scroll boundaries,
       // targeting items that can't actually be brought to the viewport start.
-      const items = getItemElements();
       const viewportRect = viewport.getBoundingClientRect();
       const viewportStart = isHorizontal ? viewportRect.left : viewportRect.top;
 
@@ -101,7 +132,7 @@ const ScrollGalleryNext = React.forwardRef<
         behavior: 'smooth',
       });
     }
-  }, [disabled, getItemElements, orientation, scrollTargetRef, step, viewportRef]);
+  }, [canScrollNext, disabled, getItemElements, loop, orientation, scrollingRef, scrollTargetRef, setActiveIndex, step, viewportRef]);
 
   const state = React.useMemo<ScrollGalleryNextState>(
     () => ({ disabled }),

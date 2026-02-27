@@ -787,7 +787,7 @@ function ProductGalleryDemo() {
       <div style={{ display: 'flex', gap: 'var(--space-6)', alignItems: 'flex-start' }}>
         {/* Left: Image gallery */}
         <div style={{ flex: '0 0 480px' }}>
-          <ScrollGallery.Root>
+          <ScrollGallery.Root loop>
             {/* Main image with overlay nav buttons */}
             <div style={{ position: 'relative' }}>
               <ScrollGallery.Viewport
@@ -1000,6 +1000,134 @@ function ProductGalleryDemo() {
 
 export const ProductGallery: Story = {
   render: () => <ProductGalleryDemo />,
+};
+
+export const Loop: Story = {
+  render: () => (
+    <div style={{ maxWidth: 720 }}>
+      <div style={{ marginBottom: 'var(--space-4)' }}>
+        <Heading size="3" weight="bold" style={{ marginBottom: 'var(--space-1)' }}>
+          Loop
+        </Heading>
+        <Text render={<p />} size="2" color="gray">
+          With <Code size="2">loop</Code> enabled, the Previous and Next buttons never disable. Clicking Next at the end
+          wraps to the first item, and Previous at the start wraps to the last. Arrow keys on markers also wrap.
+        </Text>
+      </div>
+
+      <ScrollGallery.Root loop>
+        <ScrollGallery.Viewport
+          aria-label="Team members"
+          style={{
+            display: 'flex',
+            gap: 'var(--space-3)',
+            overflowX: 'auto',
+            scrollSnapType: 'x mandatory',
+            scrollbarWidth: 'none',
+          }}
+        >
+          {people.map((person) => (
+            <ScrollGallery.Item key={person.name} style={{ scrollSnapAlign: 'start', flexShrink: 0 }}>
+              <PersonCard person={person} />
+            </ScrollGallery.Item>
+          ))}
+        </ScrollGallery.Viewport>
+
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginTop: 'var(--space-3)',
+          }}
+        >
+          <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+            <ScrollGallery.Previous aria-label="Previous" render={<IconButton variant="soft" size="2" color="gray" />}>
+              <ChevronLeft16 />
+            </ScrollGallery.Previous>
+            <ScrollGallery.Next aria-label="Next" render={<IconButton variant="soft" size="2" color="gray" />}>
+              <ChevronRight16 />
+            </ScrollGallery.Next>
+          </div>
+
+          <ScrollGallery.ScrollMarkerGroup
+            aria-label="Choose team member"
+            style={{ display: 'flex', gap: 'var(--space-1)' }}
+          >
+            <MarkerDots count={people.length} />
+          </ScrollGallery.ScrollMarkerGroup>
+        </div>
+      </ScrollGallery.Root>
+    </div>
+  ),
+};
+
+export const LoopStepByItem: Story = {
+  render: () => (
+    <div style={{ maxWidth: 720 }}>
+      <div style={{ marginBottom: 'var(--space-4)' }}>
+        <Heading size="3" weight="bold" style={{ marginBottom: 'var(--space-1)' }}>
+          Loop + Step by Item
+        </Heading>
+        <Text render={<p />} size="2" color="gray">
+          Combining <Code size="2">loop</Code> with <Code size="2">step={'{1}'}</Code> on the buttons. Each click
+          advances one item, and wraps at the boundaries.
+        </Text>
+      </div>
+
+      <ScrollGallery.Root loop>
+        <ScrollGallery.Viewport
+          aria-label="Team members"
+          style={{
+            display: 'flex',
+            gap: 'var(--space-3)',
+            overflowX: 'auto',
+            scrollSnapType: 'x mandatory',
+            scrollbarWidth: 'none',
+          }}
+        >
+          {people.map((person) => (
+            <ScrollGallery.Item key={person.name} style={{ scrollSnapAlign: 'start', flexShrink: 0 }}>
+              <PersonCard person={person} />
+            </ScrollGallery.Item>
+          ))}
+        </ScrollGallery.Viewport>
+
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginTop: 'var(--space-3)',
+          }}
+        >
+          <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+            <ScrollGallery.Previous
+              step={1}
+              aria-label="Previous item"
+              render={<IconButton variant="soft" size="2" color="gray" />}
+            >
+              <ChevronLeft16 />
+            </ScrollGallery.Previous>
+            <ScrollGallery.Next
+              step={1}
+              aria-label="Next item"
+              render={<IconButton variant="soft" size="2" color="gray" />}
+            >
+              <ChevronRight16 />
+            </ScrollGallery.Next>
+          </div>
+
+          <ScrollGallery.ScrollMarkerGroup
+            aria-label="Choose team member"
+            style={{ display: 'flex', gap: 'var(--space-1)' }}
+          >
+            <MarkerDots count={people.length} />
+          </ScrollGallery.ScrollMarkerGroup>
+        </div>
+      </ScrollGallery.Root>
+    </div>
+  ),
 };
 
 export const ActiveItemHighlight: Story = {

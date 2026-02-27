@@ -15,6 +15,13 @@ interface ScrollGalleryContextValue {
   orientation: 'horizontal' | 'vertical';
 
   /**
+   * When true, navigation wraps around at boundaries:
+   * - Previous/Next buttons don't disable and jump to the other end
+   * - Marker group arrow keys wrap instead of clamping
+   */
+  loop: boolean;
+
+  /**
    * Mirrors the native CSS `::scroll-button()` `:disabled` pseudo-class
    * (CSS Overflow 5 §3.2): a scroll button is disabled when its scroll
    * container can't be scrolled further in that direction.

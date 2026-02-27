@@ -39,18 +39,51 @@ const ScrollGalleryPrevious = React.forwardRef<
   const {
     canScrollPrev,
     getItemElements,
+    loop,
     orientation,
+    scrollingRef,
     scrollTargetRef,
+    setActiveIndex,
     viewportRef,
   } = useScrollGalleryContext();
 
-  const disabled = !canScrollPrev;
+  // When loop is enabled, the button never disables — it wraps to the end.
+  const disabled = loop ? false : !canScrollPrev;
 
   const handleClick = React.useCallback(() => {
     const viewport = viewportRef.current;
-    if (!viewport || disabled) return;
+    if (!viewport) return;
 
     const isHorizontal = orientation === 'horizontal';
+    const items = getItemElements();
+
+    // When looping and already at the start, wrap to the last item.
+    // This behaves like a marker click: lock the target and suppress
+    // intermediate active-index updates during the smooth scroll.
+    if (loop && !canScrollPrev) {
+      const lastIndex = items.length - 1;
+      const target = items[lastIndex];
+      if (!target) return;
+
+      const targetRect = target.getBoundingClientRect();
+      const viewportRect = viewport.getBoundingClientRect();
+      const distance = isHorizontal
+        ? targetRect.left - viewportRect.left
+        : targetRect.top - viewportRect.top;
+
+      scrollTargetRef.current = lastIndex;
+      scrollingRef.current = true;
+
+      viewport.scrollBy({
+        [isHorizontal ? 'left' : 'top']: distance,
+        behavior: 'smooth',
+      });
+
+      setActiveIndex(lastIndex, 'indicator');
+      return;
+    }
+
+    if (disabled) return;
 
     // Clear any lingering "current scroll target" from a prior marker click.
     // Neither page nor step mode sets scrollingRef — both allow
@@ -64,7 +97,6 @@ const ScrollGalleryPrevious = React.forwardRef<
       // (getBoundingClientRect) rather than activeIndex because the
       // redistribution algorithm can inflate activeIndex at scroll boundaries,
       // targeting items that can't actually be brought to the viewport start.
-      const items = getItemElements();
       const viewportRect = viewport.getBoundingClientRect();
       const viewportStart = isHorizontal ? viewportRect.left : viewportRect.top;
 
@@ -101,7 +133,7 @@ const ScrollGalleryPrevious = React.forwardRef<
         behavior: 'smooth',
       });
     }
-  }, [disabled, getItemElements, orientation, scrollTargetRef, step, viewportRef]);
+  }, [canScrollPrev, disabled, getItemElements, loop, orientation, scrollingRef, scrollTargetRef, setActiveIndex, step, viewportRef]);
 
   const state = React.useMemo<ScrollGalleryPreviousState>(
     () => ({ disabled }),

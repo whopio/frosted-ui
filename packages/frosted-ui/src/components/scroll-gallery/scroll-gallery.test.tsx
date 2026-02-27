@@ -64,18 +64,20 @@ function mockViewportScroll(
 function Gallery({
   itemCount = 5,
   defaultValue = 0,
+  loop = false,
   orientation = 'horizontal',
   withMarkers = false,
   step,
 }: {
   itemCount?: number;
   defaultValue?: number;
+  loop?: boolean;
   orientation?: 'horizontal' | 'vertical';
   withMarkers?: boolean;
   step?: number;
 } = {}) {
   return (
-    <ScrollGalleryRoot defaultValue={defaultValue} orientation={orientation}>
+    <ScrollGalleryRoot defaultValue={defaultValue} loop={loop} orientation={orientation}>
       <ScrollGalleryViewport data-testid="viewport" style={{ overflow: 'auto' }}>
         {Array.from({ length: itemCount }, (_, i) => (
           <ScrollGalleryItem key={i} data-testid={`item-${i}`}>
@@ -186,8 +188,26 @@ describe('ScrollGallery', () => {
       expect(document.activeElement).toBe(screen.getByTestId('marker-1'));
     });
 
-    it('ArrowRight wraps from last to first', () => {
+    it('ArrowRight clamps at last marker (loop=false)', () => {
       render(<Gallery withMarkers />);
+      screen.getByTestId('viewport').scrollBy = vi.fn();
+      screen.getByTestId('marker-4').focus();
+
+      fireEvent.keyDown(screen.getByTestId('marker-group'), { key: 'ArrowRight' });
+      expect(document.activeElement).toBe(screen.getByTestId('marker-4'));
+    });
+
+    it('ArrowLeft clamps at first marker (loop=false)', () => {
+      render(<Gallery withMarkers />);
+      screen.getByTestId('viewport').scrollBy = vi.fn();
+      screen.getByTestId('marker-0').focus();
+
+      fireEvent.keyDown(screen.getByTestId('marker-group'), { key: 'ArrowLeft' });
+      expect(document.activeElement).toBe(screen.getByTestId('marker-0'));
+    });
+
+    it('ArrowRight wraps from last to first (loop=true)', () => {
+      render(<Gallery withMarkers loop />);
       screen.getByTestId('viewport').scrollBy = vi.fn();
       screen.getByTestId('marker-4').focus();
 
@@ -195,8 +215,8 @@ describe('ScrollGallery', () => {
       expect(document.activeElement).toBe(screen.getByTestId('marker-0'));
     });
 
-    it('ArrowLeft wraps from first to last', () => {
-      render(<Gallery withMarkers />);
+    it('ArrowLeft wraps from first to last (loop=true)', () => {
+      render(<Gallery withMarkers loop />);
       screen.getByTestId('viewport').scrollBy = vi.fn();
       screen.getByTestId('marker-0').focus();
 
@@ -1258,6 +1278,198 @@ describe('ScrollGallery', () => {
       });
 
       expect(group).not.toHaveAttribute('data-focus-within');
+    });
+  });
+
+  describe('loop', () => {
+    it('Previous button is not disabled at scroll start when loop=true', () => {
+      render(<Gallery loop />);
+      const viewport = screen.getByTestId('viewport');
+      mockViewportScroll(viewport, { scrollLeft: 0, scrollWidth: 1000, clientWidth: 400 });
+
+      act(() => {
+        fireEvent.scroll(viewport);
+      });
+
+      expect(screen.getByTestId('prev')).not.toBeDisabled();
+    });
+
+    it('Next button is not disabled at scroll end when loop=true', () => {
+      render(<Gallery loop />);
+      const viewport = screen.getByTestId('viewport');
+      mockViewportScroll(viewport, { scrollLeft: 600, scrollWidth: 1000, clientWidth: 400 });
+
+      act(() => {
+        fireEvent.scroll(viewport);
+      });
+
+      expect(screen.getByTestId('next')).not.toBeDisabled();
+    });
+
+    it('Next button scrolls to first item when at the end with loop=true', () => {
+      render(<Gallery loop withMarkers />);
+      const viewport = screen.getByTestId('viewport');
+      viewport.scrollBy = vi.fn();
+      mockViewportScroll(viewport, { scrollLeft: 600, scrollWidth: 1000, clientWidth: 400 });
+
+      const items = screen.getAllByText(/^Item \d+$/);
+      items.forEach((item, i) => {
+        vi.spyOn(item.closest('[data-testid]')!, 'getBoundingClientRect').mockReturnValue({
+          left: i * 200 - 600,
+          top: 0,
+          right: (i + 1) * 200 - 600,
+          bottom: 100,
+          width: 200,
+          height: 100,
+          x: i * 200 - 600,
+          y: 0,
+          toJSON: () => ({}),
+        });
+      });
+
+      act(() => {
+        fireEvent.scroll(viewport);
+      });
+
+      fireEvent.click(screen.getByTestId('next'));
+
+      expect(viewport.scrollBy).toHaveBeenCalledWith(
+        expect.objectContaining({ behavior: 'smooth' }),
+      );
+    });
+
+    it('Previous button scrolls to last item when at the start with loop=true', () => {
+      render(<Gallery loop withMarkers />);
+      const viewport = screen.getByTestId('viewport');
+      viewport.scrollBy = vi.fn();
+      mockViewportScroll(viewport, { scrollLeft: 0, scrollWidth: 1000, clientWidth: 400 });
+
+      const items = screen.getAllByText(/^Item \d+$/);
+      items.forEach((item, i) => {
+        vi.spyOn(item.closest('[data-testid]')!, 'getBoundingClientRect').mockReturnValue({
+          left: i * 200,
+          top: 0,
+          right: (i + 1) * 200,
+          bottom: 100,
+          width: 200,
+          height: 100,
+          x: i * 200,
+          y: 0,
+          toJSON: () => ({}),
+        });
+      });
+
+      act(() => {
+        fireEvent.scroll(viewport);
+      });
+
+      fireEvent.click(screen.getByTestId('prev'));
+
+      expect(viewport.scrollBy).toHaveBeenCalledWith(
+        expect.objectContaining({ behavior: 'smooth' }),
+      );
+    });
+
+    it('Next loop click immediately sets active index to 0', () => {
+      render(<Gallery loop withMarkers />);
+      const viewport = screen.getByTestId('viewport');
+      viewport.scrollBy = vi.fn();
+      mockViewportScroll(viewport, { scrollLeft: 600, scrollWidth: 1000, clientWidth: 400 });
+
+      const items = screen.getAllByText(/^Item \d+$/);
+      items.forEach((item, i) => {
+        vi.spyOn(item.closest('[data-testid]')!, 'getBoundingClientRect').mockReturnValue({
+          left: i * 200 - 600,
+          top: 0,
+          right: (i + 1) * 200 - 600,
+          bottom: 100,
+          width: 200,
+          height: 100,
+          x: i * 200 - 600,
+          y: 0,
+          toJSON: () => ({}),
+        });
+      });
+
+      act(() => {
+        fireEvent.scroll(viewport);
+      });
+
+      fireEvent.click(screen.getByTestId('next'));
+
+      expect(screen.getByTestId('marker-0')).toHaveAttribute('aria-selected', 'true');
+    });
+
+    it('Previous loop click immediately sets active index to last item', () => {
+      render(<Gallery loop withMarkers />);
+      const viewport = screen.getByTestId('viewport');
+      viewport.scrollBy = vi.fn();
+      mockViewportScroll(viewport, { scrollLeft: 0, scrollWidth: 1000, clientWidth: 400 });
+
+      const items = screen.getAllByText(/^Item \d+$/);
+      items.forEach((item, i) => {
+        vi.spyOn(item.closest('[data-testid]')!, 'getBoundingClientRect').mockReturnValue({
+          left: i * 200,
+          top: 0,
+          right: (i + 1) * 200,
+          bottom: 100,
+          width: 200,
+          height: 100,
+          x: i * 200,
+          y: 0,
+          toJSON: () => ({}),
+        });
+      });
+
+      act(() => {
+        fireEvent.scroll(viewport);
+      });
+
+      fireEvent.click(screen.getByTestId('prev'));
+
+      expect(screen.getByTestId('marker-4')).toHaveAttribute('aria-selected', 'true');
+    });
+
+    it('buttons still disable normally when loop=false (default)', () => {
+      render(<Gallery />);
+      const viewport = screen.getByTestId('viewport');
+      mockViewportScroll(viewport, { scrollLeft: 0, scrollWidth: 1000, clientWidth: 400 });
+
+      act(() => {
+        fireEvent.scroll(viewport);
+      });
+
+      expect(screen.getByTestId('prev')).toBeDisabled();
+      expect(screen.getByTestId('next')).not.toBeDisabled();
+
+      mockViewportScroll(viewport, { scrollLeft: 600, scrollWidth: 1000, clientWidth: 400 });
+
+      act(() => {
+        fireEvent.scroll(viewport);
+      });
+
+      expect(screen.getByTestId('prev')).not.toBeDisabled();
+      expect(screen.getByTestId('next')).toBeDisabled();
+    });
+
+    it('normal scroll (not at boundary) works normally with loop=true', () => {
+      render(<Gallery loop />);
+      const viewport = screen.getByTestId('viewport');
+      viewport.scrollBy = vi.fn();
+      mockViewportScroll(viewport, { scrollLeft: 200, scrollWidth: 1000, clientWidth: 400 });
+
+      act(() => {
+        fireEvent.scroll(viewport);
+      });
+
+      fireEvent.click(screen.getByTestId('next'));
+
+      expect(viewport.scrollBy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          left: 400 * 0.85,
+          behavior: 'smooth',
+        }),
+      );
     });
   });
 });

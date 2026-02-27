@@ -16,6 +16,13 @@ interface ScrollGalleryRootProps {
    */
   defaultValue?: number;
   /**
+   * When true, navigation wraps around at boundaries:
+   * - Previous/Next buttons don't disable and jump to the other end
+   * - Marker group arrow keys wrap instead of clamping
+   * @default false
+   */
+  loop?: boolean;
+  /**
    * Callback fired when the active item changes (from scrolling or
    * marker clicks). Receives the new index and a `source` field
    * indicating what triggered the change.
@@ -49,6 +56,7 @@ const ScrollGalleryRoot = React.forwardRef<
   const {
     children,
     defaultValue = 0,
+    loop = false,
     onValueChange,
     orientation = 'horizontal',
   } = props;
@@ -167,6 +175,7 @@ const ScrollGalleryRoot = React.forwardRef<
       activeIndex,
       setActiveIndex,
       orientation,
+      loop,
       canScrollPrev,
       canScrollNext,
       setCanScrollPrev,
@@ -183,6 +192,7 @@ const ScrollGalleryRoot = React.forwardRef<
       activeIndex,
       setActiveIndex,
       orientation,
+      loop,
       canScrollPrev,
       canScrollNext,
       registerItem,
