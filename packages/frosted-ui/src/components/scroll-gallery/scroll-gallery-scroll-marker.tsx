@@ -100,6 +100,7 @@ const ScrollGalleryScrollMarker = React.forwardRef<
         role: 'tab',
         'aria-selected': isActive,
         tabIndex: isActive ? 0 : -1,
+        'data-index': index,
         onClick: handleClick,
         ...(isActive ? { 'data-active': '' } : undefined),
       } as React.ComponentPropsWithRef<'button'>,

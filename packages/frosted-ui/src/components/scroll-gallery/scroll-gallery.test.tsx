@@ -943,4 +943,120 @@ describe('ScrollGallery', () => {
       expect(screen.getByTestId('marker-0')).toHaveAttribute('aria-selected', 'true');
     });
   });
+
+  describe('data attributes', () => {
+    it('ScrollMarker renders data-index', () => {
+      render(<Gallery withMarkers itemCount={3} />);
+      expect(screen.getByTestId('marker-0')).toHaveAttribute('data-index', '0');
+      expect(screen.getByTestId('marker-1')).toHaveAttribute('data-index', '1');
+      expect(screen.getByTestId('marker-2')).toHaveAttribute('data-index', '2');
+    });
+
+    it('ScrollGalleryItem renders data-index', () => {
+      render(<Gallery itemCount={3} />);
+      expect(screen.getByTestId('item-0')).toHaveAttribute('data-index');
+      expect(screen.getByTestId('item-1')).toHaveAttribute('data-index');
+      expect(screen.getByTestId('item-2')).toHaveAttribute('data-index');
+    });
+
+    it('Viewport renders data-can-scroll-next when content overflows', () => {
+      render(<Gallery />);
+      const viewport = screen.getByTestId('viewport');
+      mockViewportScroll(viewport, { scrollLeft: 0, scrollWidth: 1000, clientWidth: 400 });
+
+      act(() => {
+        fireEvent.scroll(viewport);
+      });
+
+      expect(viewport).toHaveAttribute('data-can-scroll-next');
+      expect(viewport).not.toHaveAttribute('data-can-scroll-prev');
+    });
+
+    it('Viewport renders data-can-scroll-prev after scrolling forward', () => {
+      render(<Gallery />);
+      const viewport = screen.getByTestId('viewport');
+      mockViewportScroll(viewport, { scrollLeft: 200, scrollWidth: 1000, clientWidth: 400 });
+
+      act(() => {
+        fireEvent.scroll(viewport);
+      });
+
+      expect(viewport).toHaveAttribute('data-can-scroll-prev');
+      expect(viewport).toHaveAttribute('data-can-scroll-next');
+    });
+
+    it('Viewport removes both scroll attributes at ends', () => {
+      render(<Gallery itemCount={1} />);
+      const viewport = screen.getByTestId('viewport');
+      mockViewportScroll(viewport, { scrollLeft: 0, scrollWidth: 400, clientWidth: 400 });
+
+      act(() => {
+        fireEvent.scroll(viewport);
+      });
+
+      expect(viewport).not.toHaveAttribute('data-can-scroll-prev');
+      expect(viewport).not.toHaveAttribute('data-can-scroll-next');
+    });
+
+    it('Viewport renders data-scrolling during scroll and removes it after settle', () => {
+      vi.useFakeTimers();
+
+      render(<Gallery />);
+      const viewport = screen.getByTestId('viewport');
+      mockViewportScroll(viewport, { scrollLeft: 100, scrollWidth: 1000, clientWidth: 400 });
+
+      act(() => {
+        fireEvent.scroll(viewport);
+      });
+
+      expect(viewport).toHaveAttribute('data-scrolling');
+
+      act(() => {
+        vi.advanceTimersByTime(150);
+      });
+
+      expect(viewport).not.toHaveAttribute('data-scrolling');
+
+      vi.useRealTimers();
+    });
+
+    it('ScrollMarkerGroup renders data-focus-within when a child marker is focused', () => {
+      render(<Gallery withMarkers />);
+      const group = screen.getByTestId('marker-group');
+      const marker = screen.getByTestId('marker-0');
+
+      expect(group).not.toHaveAttribute('data-focus-within');
+
+      act(() => {
+        marker.focus();
+        fireEvent.focus(group);
+      });
+
+      expect(group).toHaveAttribute('data-focus-within');
+    });
+
+    it('ScrollMarkerGroup removes data-focus-within when focus leaves', () => {
+      render(
+        <div>
+          <Gallery withMarkers />
+          <button data-testid="outside">Outside</button>
+        </div>,
+      );
+      const group = screen.getByTestId('marker-group');
+      const marker = screen.getByTestId('marker-0');
+      const outside = screen.getByTestId('outside');
+
+      act(() => {
+        marker.focus();
+      });
+
+      expect(group).toHaveAttribute('data-focus-within');
+
+      act(() => {
+        outside.focus();
+      });
+
+      expect(group).not.toHaveAttribute('data-focus-within');
+    });
+  });
 });

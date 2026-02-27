@@ -72,6 +72,7 @@ const ScrollGalleryItem = React.forwardRef<
     state,
     props: mergeProps<'div'>(
       {
+        'data-index': index,
         ...(isActive ? { 'data-active': '' } : undefined),
       } as React.ComponentPropsWithRef<'div'>,
       elementProps as React.ComponentPropsWithRef<'div'>,

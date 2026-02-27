@@ -15,10 +15,24 @@ const SCROLL_TOLERANCE = 1;
 interface ScrollGalleryViewportState extends Record<string, unknown> {
   activeIndex: number;
   orientation: 'horizontal' | 'vertical';
+  canScrollPrev: boolean;
+  canScrollNext: boolean;
+  scrolling: boolean;
 }
 
 interface ScrollGalleryViewportProps
   extends useRender.ComponentProps<'div', ScrollGalleryViewportState> {}
+
+const viewportStateAttributesMapping = {
+  activeIndex: () => null,
+  orientation: () => null,
+  canScrollPrev: (value: unknown) =>
+    value ? { 'data-can-scroll-prev': '' } : null,
+  canScrollNext: (value: unknown) =>
+    value ? { 'data-can-scroll-next': '' } : null,
+  scrolling: (value: unknown) =>
+    value ? { 'data-scrolling': '' } : null,
+};
 
 const ScrollGalleryViewport = React.forwardRef<
   HTMLDivElement,
@@ -30,6 +44,8 @@ const ScrollGalleryViewport = React.forwardRef<
     activeIndex,
     setActiveIndex,
     orientation,
+    canScrollPrev,
+    canScrollNext,
     setCanScrollPrev,
     setCanScrollNext,
     viewportRef,
@@ -38,6 +54,8 @@ const ScrollGalleryViewport = React.forwardRef<
     scrollTargetRef,
     scrollingRef,
   } = useScrollGalleryContext();
+
+  const [isScrolling, setIsScrolling] = React.useState(false);
 
   const internalRef = React.useRef<HTMLDivElement | null>(null);
 
@@ -227,9 +245,13 @@ const ScrollGalleryViewport = React.forwardRef<
     if (!viewport) return;
 
     let settleTimeout: ReturnType<typeof setTimeout>;
+    let scrollIdleTimeout: ReturnType<typeof setTimeout>;
 
     const handleScroll = () => {
       updateBoundaries();
+      setIsScrolling(true);
+      clearTimeout(scrollIdleTimeout);
+      scrollIdleTimeout = setTimeout(() => setIsScrolling(false), SETTLE_DELAY);
 
       clearTimeout(settleTimeout);
 
@@ -287,6 +309,7 @@ const ScrollGalleryViewport = React.forwardRef<
       viewport.removeEventListener('touchstart', handleUserInput);
       viewport.removeEventListener('pointerdown', handleUserInput);
       clearTimeout(settleTimeout);
+      clearTimeout(scrollIdleTimeout);
     };
   }, [computeActiveIndex, updateBoundaries, scrollTargetRef, scrollingRef]);
 
@@ -351,14 +374,15 @@ const ScrollGalleryViewport = React.forwardRef<
   }, [getItemElements, itemsVersion]);
 
   const state = React.useMemo<ScrollGalleryViewportState>(
-    () => ({ activeIndex, orientation }),
-    [activeIndex, orientation],
+    () => ({ activeIndex, orientation, canScrollPrev, canScrollNext, scrolling: isScrolling }),
+    [activeIndex, orientation, canScrollPrev, canScrollNext, isScrolling],
   );
 
   return useRender({
     render,
     ref: mergedRefCallback,
     state,
+    stateAttributesMapping: viewportStateAttributesMapping,
     props: mergeProps<'div'>(
       {
         'data-orientation': orientation,

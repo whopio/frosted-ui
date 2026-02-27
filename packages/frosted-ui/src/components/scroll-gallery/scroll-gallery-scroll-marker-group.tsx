@@ -7,10 +7,17 @@ import { useScrollGalleryContext } from './scroll-gallery-context';
 
 interface ScrollGalleryScrollMarkerGroupState extends Record<string, unknown> {
   orientation: 'horizontal' | 'vertical';
+  focusWithin: boolean;
 }
 
 interface ScrollGalleryScrollMarkerGroupProps
   extends useRender.ComponentProps<'div', ScrollGalleryScrollMarkerGroupState> {}
+
+const markerGroupStateAttributesMapping = {
+  orientation: () => null,
+  focusWithin: (value: unknown) =>
+    value ? { 'data-focus-within': '' } : null,
+};
 
 /**
  * Container for ScrollMarker buttons, named after the CSS `::scroll-marker-group`
@@ -31,6 +38,8 @@ const ScrollGalleryScrollMarkerGroup = React.forwardRef<
 >(function ScrollGalleryScrollMarkerGroup(props, forwardedRef) {
   const { render, ...elementProps } = props;
   const { orientation } = useScrollGalleryContext();
+
+  const [focusWithin, setFocusWithin] = React.useState(false);
 
   /**
    * Keyboard navigation uses automatic activation (WAI-ARIA Tabs pattern):
@@ -90,19 +99,26 @@ const ScrollGalleryScrollMarkerGroup = React.forwardRef<
   );
 
   const state = React.useMemo<ScrollGalleryScrollMarkerGroupState>(
-    () => ({ orientation }),
-    [orientation],
+    () => ({ orientation, focusWithin }),
+    [orientation, focusWithin],
   );
 
   return useRender({
     render,
     ref: forwardedRef,
     state,
+    stateAttributesMapping: markerGroupStateAttributesMapping,
     props: mergeProps<'div'>(
       {
         role: 'tablist',
         'data-orientation': orientation,
         onKeyDown: handleKeyDown,
+        onFocus: () => setFocusWithin(true),
+        onBlur: (e: React.FocusEvent<HTMLDivElement>) => {
+          if (!e.currentTarget.contains(e.relatedTarget)) {
+            setFocusWithin(false);
+          }
+        },
       } as React.ComponentPropsWithRef<'div'>,
       elementProps as React.ComponentPropsWithRef<'div'>,
     ),
