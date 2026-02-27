@@ -48,6 +48,11 @@ interface ScrollGalleryRootRef {
   scrollTo: (index: number, behavior?: ScrollBehavior) => void;
 }
 
+const rootStateAttributesMapping = {
+  activeIndex: (value: unknown) => ({ 'data-active-index': String(value) }),
+  orientation: () => null,
+};
+
 const ScrollGalleryRoot = React.forwardRef<
   ScrollGalleryRootRef,
   ScrollGalleryRootProps
@@ -199,6 +204,7 @@ const ScrollGalleryRoot = React.forwardRef<
         render,
         ref: internalDivRef,
         state,
+        stateAttributesMapping: rootStateAttributesMapping,
         props: mergeProps<'div'>(
           { 'data-orientation': orientation } as React.ComponentPropsWithRef<'div'>,
           elementProps as React.ComponentPropsWithRef<'div'>,

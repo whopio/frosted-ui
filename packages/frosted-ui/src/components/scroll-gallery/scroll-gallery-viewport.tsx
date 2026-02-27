@@ -24,7 +24,7 @@ interface ScrollGalleryViewportProps
   extends useRender.ComponentProps<'div', ScrollGalleryViewportState> {}
 
 const viewportStateAttributesMapping = {
-  activeIndex: () => null,
+  activeIndex: (value: unknown) => ({ 'data-active-index': String(value) }),
   orientation: () => null,
   canScrollPrev: (value: unknown) =>
     value ? { 'data-can-scroll-prev': '' } : null,
