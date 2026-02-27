@@ -2,7 +2,22 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { ChevronDown16, ChevronLeft16, ChevronRight16, ChevronUp16 } from '@frosted-ui/icons';
 import React, { useRef, useState } from 'react';
-import { Avatar, Badge, Button, Card, Code, Heading, IconButton, ScrollGallery, Strong, Text } from '..';
+import {
+  Avatar,
+  Badge,
+  Breadcrumbs,
+  Button,
+  Card,
+  Code,
+  Heading,
+  IconButton,
+  Link,
+  NumberField,
+  ScrollGallery,
+  Separator,
+  Strong,
+  Text,
+} from '..';
 
 const people = [
   { name: 'Olivia Chen', role: 'Design Lead', color: 'crimson' as const, initials: 'OC' },
@@ -236,10 +251,7 @@ function DynamicItemsDemo() {
             </ScrollGallery.Next>
           </div>
 
-          <ScrollGallery.ScrollMarkerGroup
-            aria-label="Choose item"
-            style={{ display: 'flex', gap: 'var(--space-1)' }}
-          >
+          <ScrollGallery.ScrollMarkerGroup aria-label="Choose item" style={{ display: 'flex', gap: 'var(--space-1)' }}>
             <MarkerDots count={items.length} />
           </ScrollGallery.ScrollMarkerGroup>
         </div>
@@ -390,12 +402,16 @@ function ImperativeScrollToDemo() {
           }}
         >
           {log.length === 0 ? (
-            <Text size="1" color="gray">Scroll, click markers, or use the buttons above to see events…</Text>
+            <Text size="1" color="gray">
+              Scroll, click markers, or use the buttons above to see events…
+            </Text>
           ) : (
             log.map((entry, i) => (
               <div key={i}>
-                index: <Code size="1">{entry.index}</Code>{' '}
-                source: <Code size="1" color={entry.source === 'scroll' ? 'gray' : 'indigo'}>{entry.source}</Code>
+                index: <Code size="1">{entry.index}</Code> source:{' '}
+                <Code size="1" color={entry.source === 'scroll' ? 'gray' : 'indigo'}>
+                  {entry.source}
+                </Code>
               </div>
             ))
           )}
@@ -478,10 +494,10 @@ function DefaultValueDemo() {
           Default Value
         </Heading>
         <Text render={<p />} size="2" color="gray" style={{ maxWidth: 560, lineHeight: 1.6 }}>
-          Use <Code size="2">defaultValue</Code> to initialize the gallery at a specific item.
-          Here, the gallery starts at item <Strong>3</Strong> (James Wright) — the viewport
-          scrolls there instantly on mount, and the corresponding marker is active. Pair with{' '}
-          <Code size="2">onValueChange</Code> to track the active index as the user scrolls.
+          Use <Code size="2">defaultValue</Code> to initialize the gallery at a specific item. Here, the gallery starts
+          at item <Strong>3</Strong> (James Wright) — the viewport scrolls there instantly on mount, and the
+          corresponding marker is active. Pair with <Code size="2">onValueChange</Code> to track the active index as the
+          user scrolls.
         </Text>
       </div>
 
@@ -553,12 +569,16 @@ function DefaultValueDemo() {
           }}
         >
           {log.length === 0 ? (
-            <Text size="1" color="gray">Scroll or click markers to see events…</Text>
+            <Text size="1" color="gray">
+              Scroll or click markers to see events…
+            </Text>
           ) : (
             log.map((entry, i) => (
               <div key={i}>
-                index: <Code size="1">{entry.index}</Code>{' '}
-                source: <Code size="1" color={entry.source === 'scroll' ? 'gray' : 'indigo'}>{entry.source}</Code>
+                index: <Code size="1">{entry.index}</Code> source:{' '}
+                <Code size="1" color={entry.source === 'scroll' ? 'gray' : 'indigo'}>
+                  {entry.source}
+                </Code>
               </div>
             ))
           )}
@@ -580,9 +600,9 @@ export const StepByItem: Story = {
           Step Navigation
         </Heading>
         <Text render={<p />} size="2" color="gray" style={{ maxWidth: 560, lineHeight: 1.6 }}>
-          Pass <Code size="2">step=&#123;1&#125;</Code> to the Previous and Next buttons to scroll
-          by one item at a time instead of by page. You can also use{' '}
-          <Code size="2">step=&#123;2&#125;</Code> or any number to skip multiple items.
+          Pass <Code size="2">step=&#123;1&#125;</Code> to the Previous and Next buttons to scroll by one item at a time
+          instead of by page. You can also use <Code size="2">step=&#123;2&#125;</Code> or any number to skip multiple
+          items.
         </Text>
       </div>
 
@@ -649,9 +669,9 @@ export const StepByItemNoSnap: Story = {
           Step Navigation (No Snap)
         </Heading>
         <Text render={<p />} size="2" color="gray" style={{ maxWidth: 560, lineHeight: 1.6 }}>
-          Step buttons work without scroll snapping too. The viewport scrolls to align the
-          target item with the viewport start, but without <Code size="2">scroll-snap-type</Code> the
-          scroll position won't snap after a manual trackpad swipe.
+          Step buttons work without scroll snapping too. The viewport scrolls to align the target item with the viewport
+          start, but without <Code size="2">scroll-snap-type</Code> the scroll position won't snap after a manual
+          trackpad swipe.
         </Text>
       </div>
 
@@ -707,6 +727,268 @@ export const StepByItemNoSnap: Story = {
       </ScrollGallery.Root>
     </div>
   ),
+};
+
+const productImages = [
+  {
+    id: 1,
+    src: 'https://picsum.photos/seed/shoe1/600/600',
+    thumb: 'https://picsum.photos/seed/shoe1/120/120',
+    alt: 'Product front view',
+  },
+  {
+    id: 2,
+    src: 'https://picsum.photos/seed/shoe2/600/600',
+    thumb: 'https://picsum.photos/seed/shoe2/120/120',
+    alt: 'Product side view',
+  },
+  {
+    id: 3,
+    src: 'https://picsum.photos/seed/shoe3/600/600',
+    thumb: 'https://picsum.photos/seed/shoe3/120/120',
+    alt: 'Product back view',
+  },
+  {
+    id: 4,
+    src: 'https://picsum.photos/seed/shoe4/600/600',
+    thumb: 'https://picsum.photos/seed/shoe4/120/120',
+    alt: 'Product detail',
+  },
+  {
+    id: 5,
+    src: 'https://picsum.photos/seed/shoe5/600/600',
+    thumb: 'https://picsum.photos/seed/shoe5/120/120',
+    alt: 'Product on model',
+  },
+  {
+    id: 6,
+    src: 'https://picsum.photos/seed/shoe6/600/600',
+    thumb: 'https://picsum.photos/seed/shoe6/120/120',
+    alt: 'Product packaging',
+  },
+];
+
+function ProductGalleryDemo() {
+  const mainRef = useRef<ScrollGallery.ScrollGalleryRootRef>(null);
+  const [activeImage, setActiveImage] = useState(0);
+
+  return (
+    <div style={{ maxWidth: 900 }}>
+      <Breadcrumbs.Root style={{ marginBottom: 'var(--space-4)' }}>
+        <Breadcrumbs.Item render={<a href="#" />} nativeButton={false}>
+          Home
+        </Breadcrumbs.Item>
+        <Breadcrumbs.Item render={<a href="#" />} nativeButton={false}>
+          Clothing
+        </Breadcrumbs.Item>
+        <Breadcrumbs.Item render={<a href="#" />} nativeButton={false}>
+          Hoodies
+        </Breadcrumbs.Item>
+        <Breadcrumbs.Item>Hoodie with Logo</Breadcrumbs.Item>
+      </Breadcrumbs.Root>
+
+      <div style={{ display: 'flex', gap: 'var(--space-6)', alignItems: 'flex-start' }}>
+        {/* Left: Image gallery */}
+        <div style={{ flex: '0 0 480px' }}>
+          <ScrollGallery.Root ref={mainRef} onValueChange={(i) => setActiveImage(i)}>
+            {/* Main image with overlay nav buttons */}
+            <div style={{ position: 'relative' }}>
+              <ScrollGallery.Viewport
+                aria-label="Product images"
+                style={{
+                  display: 'flex',
+                  overflowX: 'auto',
+                  scrollSnapType: 'x mandatory',
+                  scrollbarWidth: 'none',
+                  borderRadius: 'var(--radius-3)',
+                  background: 'var(--gray-3)',
+                }}
+              >
+                {productImages.map((img) => (
+                  <ScrollGallery.Item key={img.id} style={{ scrollSnapAlign: 'start', flexShrink: 0, width: '100%' }}>
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      style={{ width: '100%', height: 480, objectFit: 'cover', display: 'block' }}
+                    />
+                  </ScrollGallery.Item>
+                ))}
+              </ScrollGallery.Viewport>
+
+              <ScrollGallery.Previous
+                step={1}
+                aria-label="Previous image"
+                render={
+                  <IconButton
+                    variant="surface"
+                    size="3"
+                    color="gray"
+                    highContrast
+                    style={{
+                      position: 'absolute',
+                      left: 'var(--space-3)',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      borderRadius: 'var(--radius-full)',
+                      boxShadow: 'var(--shadow-2)',
+                    }}
+                  />
+                }
+              >
+                <ChevronLeft16 />
+              </ScrollGallery.Previous>
+
+              <ScrollGallery.Next
+                step={1}
+                aria-label="Next image"
+                render={
+                  <IconButton
+                    variant="surface"
+                    size="3"
+                    color="gray"
+                    highContrast
+                    style={{
+                      position: 'absolute',
+                      right: 'var(--space-3)',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      borderRadius: 'var(--radius-full)',
+                      boxShadow: 'var(--shadow-2)',
+                    }}
+                  />
+                }
+              >
+                <ChevronRight16 />
+              </ScrollGallery.Next>
+            </div>
+
+            {/* Markers as dashes */}
+            <ScrollGallery.ScrollMarkerGroup
+              aria-label="Choose product image"
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                gap: 'var(--space-2)',
+                marginTop: 'var(--space-3)',
+              }}
+            >
+              {productImages.map((_, i) => (
+                <ScrollGallery.ScrollMarker
+                  key={i}
+                  index={i}
+                  render={(props, state) => (
+                    <button
+                      {...props}
+                      style={{
+                        width: 24,
+                        height: 3,
+                        borderRadius: 2,
+                        border: 'none',
+                        background: state.active ? 'var(--gray-12)' : 'var(--gray-6)',
+                        padding: 0,
+                        cursor: 'pointer',
+                        transition: 'background 150ms',
+                      }}
+                    />
+                  )}
+                />
+              ))}
+            </ScrollGallery.ScrollMarkerGroup>
+          </ScrollGallery.Root>
+
+          {/* Thumbnail strip */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', marginTop: 'var(--space-3)' }}>
+            <div style={{ display: 'flex', gap: 'var(--space-2)', overflow: 'auto', scrollbarWidth: 'none' }}>
+              {productImages.map((img, i) => (
+                <button
+                  key={img.id}
+                  onClick={() => mainRef.current?.scrollTo(i)}
+                  style={{
+                    flexShrink: 0,
+                    width: 80,
+                    height: 80,
+                    borderRadius: 'var(--radius-2)',
+                    overflow: 'hidden',
+                    border: activeImage === i ? '2px solid var(--gray-12)' : '2px solid transparent',
+                    padding: 0,
+                    cursor: 'pointer',
+                    opacity: activeImage === i ? 1 : 0.6,
+                    transition: 'opacity 150ms, border-color 150ms',
+                    background: 'none',
+                  }}
+                >
+                  <img
+                    src={img.thumb}
+                    alt={img.alt}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  />
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Right: Product info */}
+        <div style={{ flex: 1, paddingTop: 'var(--space-2)' }}>
+          <Heading size="6" weight="bold" style={{ marginBottom: 'var(--space-2)' }}>
+            Hoodie with Logo
+          </Heading>
+
+          <Text size="6" weight="bold" style={{ display: 'block', marginBottom: 'var(--space-4)' }}>
+            $45.00
+          </Text>
+
+          <Text render={<p />} size="2" color="gray" style={{ marginBottom: 'var(--space-5)', lineHeight: 1.6 }}>
+            This is a simple product. A comfortable hoodie featuring an embroidered logo on the chest. Made from premium
+            cotton blend for all-day comfort.
+          </Text>
+
+          <div
+            style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'flex-end', marginBottom: 'var(--space-5)' }}
+          >
+            <div>
+              <Text
+                render={<label htmlFor="qty" />}
+                size="1"
+                color="gray"
+                weight="medium"
+                style={{ display: 'block', marginBottom: 'var(--space-1)' }}
+              >
+                Quantity
+              </Text>
+              <NumberField.Root id="qty" defaultValue={1} min={1} max={99} size="3">
+                <NumberField.Input style={{ width: 80 }} />
+              </NumberField.Root>
+            </div>
+            <Button size="3" variant="solid">
+              Add to cart
+            </Button>
+          </div>
+
+          <Separator size="4" style={{ marginBottom: 'var(--space-4)' }} />
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
+            <Text size="2" color="gray">
+              SKU:{' '}
+              <Text size="2" color="gray" weight="medium">
+                woo-hoodie-with-logo
+              </Text>
+            </Text>
+            <Text size="2" color="gray">
+              Category:{' '}
+              <Link href="#" size="2">
+                Hoodies
+              </Link>
+            </Text>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export const ProductGallery: Story = {
+  render: () => <ProductGalleryDemo />,
 };
 
 export const ActiveItemHighlight: Story = {
