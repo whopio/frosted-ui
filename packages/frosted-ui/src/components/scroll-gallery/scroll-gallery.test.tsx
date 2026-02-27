@@ -66,11 +66,13 @@ function Gallery({
   defaultValue = 0,
   orientation = 'horizontal',
   withMarkers = false,
+  step,
 }: {
   itemCount?: number;
   defaultValue?: number;
   orientation?: 'horizontal' | 'vertical';
   withMarkers?: boolean;
+  step?: number;
 } = {}) {
   return (
     <ScrollGalleryRoot defaultValue={defaultValue} orientation={orientation}>
@@ -81,8 +83,8 @@ function Gallery({
           </ScrollGalleryItem>
         ))}
       </ScrollGalleryViewport>
-      <ScrollGalleryPrevious data-testid="prev">Previous</ScrollGalleryPrevious>
-      <ScrollGalleryNext data-testid="next">Next</ScrollGalleryNext>
+      <ScrollGalleryPrevious data-testid="prev" step={step}>Previous</ScrollGalleryPrevious>
+      <ScrollGalleryNext data-testid="next" step={step}>Next</ScrollGalleryNext>
       {withMarkers && (
         <ScrollGalleryScrollMarkerGroup data-testid="marker-group">
           {Array.from({ length: itemCount }, (_, i) => (
@@ -426,6 +428,192 @@ describe('ScrollGallery', () => {
 
       expect(screen.getByTestId('prev')).toBeDisabled();
       expect(screen.getByTestId('next')).toBeDisabled();
+    });
+  });
+
+  describe('step button navigation', () => {
+    function mockItemRects(itemCount: number, scrollLeft: number, itemWidth = 200, gap = 10) {
+      const viewport = screen.getByTestId('viewport');
+      const viewportRect = { left: 0, top: 0, right: 400, bottom: 300, width: 400, height: 300, x: 0, y: 0, toJSON: () => ({}) };
+      vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue(viewportRect);
+
+      for (let i = 0; i < itemCount; i++) {
+        const absLeft = i * (itemWidth + gap);
+        const visualLeft = absLeft - scrollLeft;
+        const item = screen.getByTestId(`item-${i}`);
+        vi.spyOn(item, 'getBoundingClientRect').mockReturnValue(
+          { left: visualLeft, top: 0, right: visualLeft + itemWidth, bottom: 100, width: itemWidth, height: 100, x: visualLeft, y: 0, toJSON: () => ({}) },
+        );
+      }
+    }
+
+    it('Next step={1} scrolls to the next item position', () => {
+      render(<Gallery itemCount={8} step={1} />);
+      const viewport = screen.getByTestId('viewport');
+      const scrollBySpy = vi.fn();
+      viewport.scrollBy = scrollBySpy;
+
+      mockViewportScroll(viewport, { scrollLeft: 0, scrollWidth: 1680, clientWidth: 400 });
+      mockItemRects(8, 0);
+
+      act(() => { fireEvent.scroll(viewport); });
+
+      fireEvent.click(screen.getByTestId('next'));
+
+      expect(scrollBySpy).toHaveBeenCalledWith({
+        left: 210,
+        behavior: 'smooth',
+      });
+    });
+
+    it('Previous step={1} scrolls to the previous item position', () => {
+      render(<Gallery itemCount={8} step={1} />);
+      const viewport = screen.getByTestId('viewport');
+      const scrollBySpy = vi.fn();
+      viewport.scrollBy = scrollBySpy;
+
+      mockViewportScroll(viewport, { scrollLeft: 210, scrollWidth: 1680, clientWidth: 400 });
+      mockItemRects(8, 210);
+
+      act(() => { fireEvent.scroll(viewport); });
+
+      fireEvent.click(screen.getByTestId('prev'));
+
+      expect(scrollBySpy).toHaveBeenCalledWith({
+        left: -210,
+        behavior: 'smooth',
+      });
+    });
+
+    it('Next step={2} skips two items ahead', () => {
+      render(<Gallery itemCount={8} step={2} />);
+      const viewport = screen.getByTestId('viewport');
+      const scrollBySpy = vi.fn();
+      viewport.scrollBy = scrollBySpy;
+
+      mockViewportScroll(viewport, { scrollLeft: 0, scrollWidth: 1680, clientWidth: 400 });
+      mockItemRects(8, 0);
+
+      act(() => { fireEvent.scroll(viewport); });
+
+      fireEvent.click(screen.getByTestId('next'));
+
+      expect(scrollBySpy).toHaveBeenCalledWith({
+        left: 420,
+        behavior: 'smooth',
+      });
+    });
+
+    it('Next step={1} from mid-scroll targets the next item', () => {
+      render(<Gallery itemCount={8} step={1} />);
+      const viewport = screen.getByTestId('viewport');
+      const scrollBySpy = vi.fn();
+      viewport.scrollBy = scrollBySpy;
+
+      // At scrollLeft=630, item 3 is at visual left 0 (anchor), Next targets item 4
+      mockViewportScroll(viewport, { scrollLeft: 630, scrollWidth: 1680, clientWidth: 400 });
+      mockItemRects(8, 630);
+
+      act(() => { fireEvent.scroll(viewport); });
+
+      fireEvent.click(screen.getByTestId('next'));
+
+      // Item 4 visual left = 4*210 - 630 = 210
+      expect(scrollBySpy).toHaveBeenCalledWith({
+        left: 210,
+        behavior: 'smooth',
+      });
+    });
+
+    it('Previous step={1} from mid-scroll targets the previous item', () => {
+      render(<Gallery itemCount={8} step={1} />);
+      const viewport = screen.getByTestId('viewport');
+      const scrollBySpy = vi.fn();
+      viewport.scrollBy = scrollBySpy;
+
+      // At scrollLeft=630, item 3 is at visual left 0 (anchor), Previous targets item 2
+      mockViewportScroll(viewport, { scrollLeft: 630, scrollWidth: 1680, clientWidth: 400 });
+      mockItemRects(8, 630);
+
+      act(() => { fireEvent.scroll(viewport); });
+
+      fireEvent.click(screen.getByTestId('prev'));
+
+      // Item 2 visual left = 2*210 - 630 = -210
+      expect(scrollBySpy).toHaveBeenCalledWith({
+        left: -210,
+        behavior: 'smooth',
+      });
+    });
+
+    it('Previous step={1} scrolls backward from maxScroll (anchor-based, not activeIndex)', () => {
+      vi.useFakeTimers();
+
+      render(<Gallery itemCount={8} withMarkers step={1} />);
+      const viewport = screen.getByTestId('viewport');
+      const scrollBySpy = vi.fn();
+      viewport.scrollBy = scrollBySpy;
+
+      // At maxScroll: the anchor item is the one nearest the viewport start,
+      // NOT the redistributed activeIndex (which would be 7).
+      // Items at absolute positions: 0, 210, 420, 630, 840, 1050, 1260, 1470
+      // maxScroll = 1680 - 400 = 1280
+      // Visual positions at scrollLeft=1280:
+      //   item 5: 1050 - 1280 = -230
+      //   item 6: 1260 - 1280 = -20  (closest to 0)
+      //   item 7: 1470 - 1280 = 190
+      // Anchor = item 6, target = max(0, 6-1) = 5
+      // Item 5 visual left = -230, so scrollBy({ left: -230 })
+      mockViewportScroll(viewport, { scrollLeft: 1280, scrollWidth: 1680, clientWidth: 400 });
+      mockItemRects(8, 1280);
+
+      act(() => {
+        fireEvent.scroll(viewport);
+        vi.advanceTimersByTime(150);
+      });
+
+      scrollBySpy.mockClear();
+      fireEvent.click(screen.getByTestId('prev'));
+
+      expect(scrollBySpy).toHaveBeenCalledWith({
+        left: -230,
+        behavior: 'smooth',
+      });
+
+      vi.useRealTimers();
+    });
+
+    it('step buttons allow real-time marker updates during scroll (no scrollingRef lock)', () => {
+      vi.useFakeTimers();
+
+      render(<Gallery itemCount={8} withMarkers step={1} />);
+      const viewport = screen.getByTestId('viewport');
+      viewport.scrollBy = vi.fn();
+
+      mockViewportScroll(viewport, { scrollLeft: 0, scrollWidth: 1680, clientWidth: 400 });
+      mockItemRects(8, 0);
+      act(() => { fireEvent.scroll(viewport); });
+
+      // Click next — should NOT lock scrollingRef
+      fireEvent.click(screen.getByTestId('next'));
+
+      // Simulate mid-animation scroll at item 1 position
+      mockViewportScroll(viewport, { scrollLeft: 105, scrollWidth: 1680, clientWidth: 400 });
+      mockItemRects(8, 105);
+      act(() => { fireEvent.scroll(viewport); });
+
+      // Marker should update in real-time (not locked)
+      // At scrollLeft=105, nearest item is item 0 (dist=105) or item 1 (dist=105)
+      // — tied, so item 0 wins (first in loop). Advance a bit past midpoint:
+      mockViewportScroll(viewport, { scrollLeft: 120, scrollWidth: 1680, clientWidth: 400 });
+      mockItemRects(8, 120);
+      act(() => { fireEvent.scroll(viewport); });
+
+      // At scrollLeft=120, item 1 at pos 210 has dist=90, item 0 at pos 0 has dist=120
+      // → item 1 is nearest → marker 1 should be active
+      expect(screen.getByTestId('marker-1')).toHaveAttribute('aria-selected', 'true');
+
+      vi.useRealTimers();
     });
   });
 
@@ -777,15 +965,22 @@ describe('ScrollGallery', () => {
 
       // Let the marker scroll settle
       mockViewportScroll(viewport, { scrollLeft: 1000, scrollWidth: 1600, clientWidth: 400 });
+      for (let i = 0; i < 8; i++) {
+        const item = screen.getByTestId(`item-${i}`);
+        const visualLeft = i * 200 - 1000;
+        vi.spyOn(item, 'getBoundingClientRect').mockReturnValue(
+          { left: visualLeft, top: 0, right: visualLeft + 200, bottom: 100, width: 200, height: 100, x: visualLeft, y: 0, toJSON: () => ({}) },
+        );
+      }
       act(() => {
         fireEvent.scroll(viewport);
         vi.advanceTimersByTime(150);
       });
 
-      // Marker 5 is still active (scrollTarget lock)
+      // Marker 5 is still active (computeActiveIndex at scrollLeft=1000 → item 5)
       expect(screen.getByTestId('marker-5')).toHaveAttribute('aria-selected', 'true');
 
-      // Now click the next button — should clear scrollTarget
+      // Now click the next button — should scroll further
       fireEvent.click(screen.getByTestId('next'));
 
       // Simulate the button's scroll animation landing at scrollLeft=1200

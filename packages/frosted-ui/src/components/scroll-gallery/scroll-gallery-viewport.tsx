@@ -259,12 +259,14 @@ const ScrollGalleryViewport = React.forwardRef<
       if (scrollingRef.current) {
         settleTimeout = setTimeout(() => {
           scrollingRef.current = false;
-          // For button scrolls (scrollTargetRef is null), we need to compute
-          // the active index since the button doesn't know where it will land.
-          // For marker scrolls, the target is already set — no recomputation needed.
-          if (scrollTargetRef.current === null) {
-            computeActiveIndex();
-          }
+          // Always clear the scroll target and recompute on settle. The lock
+          // is only needed during the animation to prevent marker flickering.
+          // After settle, the actual scroll position is the source of truth.
+          // This is critical for step-based button scrolls: the browser may
+          // clamp the scroll at a boundary, so the target index might not
+          // match the actual resting position.
+          scrollTargetRef.current = null;
+          computeActiveIndex();
         }, SETTLE_DELAY);
         return;
       }

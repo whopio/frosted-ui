@@ -20,16 +20,29 @@ interface ScrollGalleryPreviousState extends Record<string, unknown> {
 }
 
 interface ScrollGalleryPreviousProps
-  extends useRender.ComponentProps<'button', ScrollGalleryPreviousState> {}
+  extends useRender.ComponentProps<'button', ScrollGalleryPreviousState> {
+  /**
+   * How many items to scroll by. When set to a number, the button scrolls
+   * to bring the item N positions before the current active item into view.
+   * When omitted, scrolls by ~85% of the viewport ("one page") per the
+   * CSS Overflow 5 §3.2 spec.
+   */
+  step?: number;
+}
 
 const ScrollGalleryPrevious = React.forwardRef<
   HTMLButtonElement,
   ScrollGalleryPreviousProps
 >(function ScrollGalleryPrevious(props, forwardedRef) {
-  const { render, ...elementProps } = props;
+  const { render, step, ...elementProps } = props;
 
-  const { canScrollPrev, orientation, viewportRef, scrollTargetRef } =
-    useScrollGalleryContext();
+  const {
+    canScrollPrev,
+    getItemElements,
+    orientation,
+    scrollTargetRef,
+    viewportRef,
+  } = useScrollGalleryContext();
 
   const disabled = !canScrollPrev;
 
@@ -38,23 +51,57 @@ const ScrollGalleryPrevious = React.forwardRef<
     if (!viewport || disabled) return;
 
     const isHorizontal = orientation === 'horizontal';
-    const pageSize = isHorizontal ? viewport.clientWidth : viewport.clientHeight;
 
     // Clear any lingering "current scroll target" from a prior marker click.
-    // Without this, the first scroll event would see scrollTargetRef !== null
-    // and suppress computeActiveIndex, leaving markers stuck on the old target.
+    // Neither page nor step mode sets scrollingRef — both allow
+    // computeActiveIndex to run on every scroll event, giving real-time
+    // marker transitions during the animation (matching trackpad behavior).
     scrollTargetRef.current = null;
 
-    // Unlike marker clicks, button scrolls do NOT set scrollingRef. Buttons
-    // don't have a specific target — they scroll by a page and "discover"
-    // where they land. Letting computeActiveIndex run on every scroll event
-    // gives real-time marker transitions during the animation, matching the
-    // trackpad scroll experience.
-    viewport.scrollBy({
-      [isHorizontal ? 'left' : 'top']: -pageSize * PAGE_SCROLL_FACTOR,
-      behavior: 'smooth',
-    });
-  }, [disabled, orientation, scrollTargetRef, viewportRef]);
+    if (step != null) {
+      // Step mode: find the item physically closest to the viewport start
+      // and scroll to the one N positions before it. We use visual position
+      // (getBoundingClientRect) rather than activeIndex because the
+      // redistribution algorithm can inflate activeIndex at scroll boundaries,
+      // targeting items that can't actually be brought to the viewport start.
+      const items = getItemElements();
+      const viewportRect = viewport.getBoundingClientRect();
+      const viewportStart = isHorizontal ? viewportRect.left : viewportRect.top;
+
+      let anchorIndex = 0;
+      let minDist = Infinity;
+      for (let i = 0; i < items.length; i++) {
+        const rect = items[i].getBoundingClientRect();
+        const dist = Math.abs((isHorizontal ? rect.left : rect.top) - viewportStart);
+        if (dist < minDist) {
+          minDist = dist;
+          anchorIndex = i;
+        }
+      }
+
+      const targetIndex = Math.max(0, anchorIndex - step);
+      const target = items[targetIndex];
+      if (!target) return;
+
+      const targetRect = target.getBoundingClientRect();
+      const distance = isHorizontal
+        ? targetRect.left - viewportRect.left
+        : targetRect.top - viewportRect.top;
+
+      viewport.scrollBy({
+        [isHorizontal ? 'left' : 'top']: distance,
+        behavior: 'smooth',
+      });
+    } else {
+      // Page mode (default): scroll by ~85% of the viewport.
+      const pageSize = isHorizontal ? viewport.clientWidth : viewport.clientHeight;
+
+      viewport.scrollBy({
+        [isHorizontal ? 'left' : 'top']: -pageSize * PAGE_SCROLL_FACTOR,
+        behavior: 'smooth',
+      });
+    }
+  }, [disabled, getItemElements, orientation, scrollTargetRef, step, viewportRef]);
 
   const state = React.useMemo<ScrollGalleryPreviousState>(
     () => ({ disabled }),

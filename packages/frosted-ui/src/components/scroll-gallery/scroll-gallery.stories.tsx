@@ -572,6 +572,143 @@ export const DefaultValue: Story = {
   render: () => <DefaultValueDemo />,
 };
 
+export const StepByItem: Story = {
+  render: () => (
+    <div style={{ maxWidth: 720 }}>
+      <div style={{ marginBottom: 'var(--space-4)' }}>
+        <Heading size="3" style={{ marginBottom: 'var(--space-2)' }}>
+          Step Navigation
+        </Heading>
+        <Text render={<p />} size="2" color="gray" style={{ maxWidth: 560, lineHeight: 1.6 }}>
+          Pass <Code size="2">step=&#123;1&#125;</Code> to the Previous and Next buttons to scroll
+          by one item at a time instead of by page. You can also use{' '}
+          <Code size="2">step=&#123;2&#125;</Code> or any number to skip multiple items.
+        </Text>
+      </div>
+
+      <ScrollGallery.Root>
+        <ScrollGallery.Viewport
+          aria-label="Team members"
+          style={{
+            display: 'flex',
+            gap: 'var(--space-3)',
+            overflowX: 'auto',
+            scrollSnapType: 'x mandatory',
+            scrollbarWidth: 'none',
+          }}
+        >
+          {people.map((person) => (
+            <ScrollGallery.Item key={person.name} style={{ scrollSnapAlign: 'start', flexShrink: 0 }}>
+              <PersonCard person={person} />
+            </ScrollGallery.Item>
+          ))}
+        </ScrollGallery.Viewport>
+
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginTop: 'var(--space-3)',
+          }}
+        >
+          <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+            <ScrollGallery.Previous
+              step={1}
+              aria-label="Previous item"
+              render={<IconButton variant="soft" size="2" color="gray" />}
+            >
+              <ChevronLeft16 />
+            </ScrollGallery.Previous>
+            <ScrollGallery.Next
+              step={1}
+              aria-label="Next item"
+              render={<IconButton variant="soft" size="2" color="gray" />}
+            >
+              <ChevronRight16 />
+            </ScrollGallery.Next>
+          </div>
+
+          <ScrollGallery.ScrollMarkerGroup
+            aria-label="Choose team member"
+            style={{ display: 'flex', gap: 'var(--space-1)' }}
+          >
+            <MarkerDots count={people.length} />
+          </ScrollGallery.ScrollMarkerGroup>
+        </div>
+      </ScrollGallery.Root>
+    </div>
+  ),
+};
+
+export const StepByItemNoSnap: Story = {
+  render: () => (
+    <div style={{ maxWidth: 720 }}>
+      <div style={{ marginBottom: 'var(--space-4)' }}>
+        <Heading size="3" style={{ marginBottom: 'var(--space-2)' }}>
+          Step Navigation (No Snap)
+        </Heading>
+        <Text render={<p />} size="2" color="gray" style={{ maxWidth: 560, lineHeight: 1.6 }}>
+          Step buttons work without scroll snapping too. The viewport scrolls to align the
+          target item with the viewport start, but without <Code size="2">scroll-snap-type</Code> the
+          scroll position won't snap after a manual trackpad swipe.
+        </Text>
+      </div>
+
+      <ScrollGallery.Root>
+        <ScrollGallery.Viewport
+          aria-label="Team members (step, no snap)"
+          style={{
+            display: 'flex',
+            gap: 'var(--space-3)',
+            overflowX: 'auto',
+            scrollbarWidth: 'none',
+          }}
+        >
+          {people.map((person) => (
+            <ScrollGallery.Item key={person.name} style={{ flexShrink: 0 }}>
+              <PersonCard person={person} />
+            </ScrollGallery.Item>
+          ))}
+        </ScrollGallery.Viewport>
+
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginTop: 'var(--space-3)',
+          }}
+        >
+          <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+            <ScrollGallery.Previous
+              step={1}
+              aria-label="Previous item"
+              render={<IconButton variant="soft" size="2" color="gray" />}
+            >
+              <ChevronLeft16 />
+            </ScrollGallery.Previous>
+            <ScrollGallery.Next
+              step={1}
+              aria-label="Next item"
+              render={<IconButton variant="soft" size="2" color="gray" />}
+            >
+              <ChevronRight16 />
+            </ScrollGallery.Next>
+          </div>
+
+          <ScrollGallery.ScrollMarkerGroup
+            aria-label="Choose team member"
+            style={{ display: 'flex', gap: 'var(--space-1)' }}
+          >
+            <MarkerDots count={people.length} />
+          </ScrollGallery.ScrollMarkerGroup>
+        </div>
+      </ScrollGallery.Root>
+    </div>
+  ),
+};
+
 export const ActiveItemHighlight: Story = {
   render: () => (
     <div style={{ maxWidth: 720 }}>
