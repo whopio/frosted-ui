@@ -33,10 +33,14 @@ const ScrollGalleryScrollMarkerGroup = React.forwardRef<
   const { orientation } = useScrollGalleryContext();
 
   /**
-   * Keyboard navigation follows the WAI-ARIA Tabs pattern:
-   *   - Arrow keys move focus between markers one at a time (roving tabindex)
-   *   - Home/End jump to first/last marker
+   * Keyboard navigation uses automatic activation (WAI-ARIA Tabs pattern):
+   *   - Arrow keys move focus AND activate the marker (scroll to its item)
+   *   - Home/End jump to first/last marker and activate
    *   - Orientation-aware: horizontal uses Left/Right, vertical uses Up/Down
+   *
+   * Automatic activation matches native CSS `::scroll-marker` behavior —
+   * navigating between markers with arrow keys immediately scrolls to the
+   * corresponding item, without requiring an additional Enter/Space press.
    *
    * Note: arrow keys on the *viewport* use native browser scroll (not handled
    * here). This separation matches the CSS spec: scroll buttons scroll by
@@ -80,6 +84,7 @@ const ScrollGalleryScrollMarkerGroup = React.forwardRef<
 
       event.preventDefault();
       markers[nextIndex].focus();
+      markers[nextIndex].click();
     },
     [orientation],
   );

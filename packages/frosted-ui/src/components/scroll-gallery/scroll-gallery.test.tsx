@@ -162,8 +162,8 @@ describe('ScrollGallery', () => {
   describe('ScrollMarkerGroup keyboard navigation (horizontal)', () => {
     it('ArrowRight moves focus to next marker', () => {
       render(<Gallery withMarkers />);
-      const marker0 = screen.getByTestId('marker-0');
-      marker0.focus();
+      screen.getByTestId('viewport').scrollBy = vi.fn();
+      screen.getByTestId('marker-0').focus();
 
       fireEvent.keyDown(screen.getByTestId('marker-group'), { key: 'ArrowRight' });
       expect(document.activeElement).toBe(screen.getByTestId('marker-1'));
@@ -171,8 +171,8 @@ describe('ScrollGallery', () => {
 
     it('ArrowLeft moves focus to previous marker', () => {
       render(<Gallery withMarkers />);
-      const marker2 = screen.getByTestId('marker-2');
-      marker2.focus();
+      screen.getByTestId('viewport').scrollBy = vi.fn();
+      screen.getByTestId('marker-2').focus();
 
       fireEvent.keyDown(screen.getByTestId('marker-group'), { key: 'ArrowLeft' });
       expect(document.activeElement).toBe(screen.getByTestId('marker-1'));
@@ -180,6 +180,7 @@ describe('ScrollGallery', () => {
 
     it('ArrowRight wraps from last to first', () => {
       render(<Gallery withMarkers />);
+      screen.getByTestId('viewport').scrollBy = vi.fn();
       screen.getByTestId('marker-4').focus();
 
       fireEvent.keyDown(screen.getByTestId('marker-group'), { key: 'ArrowRight' });
@@ -188,6 +189,7 @@ describe('ScrollGallery', () => {
 
     it('ArrowLeft wraps from first to last', () => {
       render(<Gallery withMarkers />);
+      screen.getByTestId('viewport').scrollBy = vi.fn();
       screen.getByTestId('marker-0').focus();
 
       fireEvent.keyDown(screen.getByTestId('marker-group'), { key: 'ArrowLeft' });
@@ -196,6 +198,7 @@ describe('ScrollGallery', () => {
 
     it('Home moves focus to first marker', () => {
       render(<Gallery withMarkers />);
+      screen.getByTestId('viewport').scrollBy = vi.fn();
       screen.getByTestId('marker-3').focus();
 
       fireEvent.keyDown(screen.getByTestId('marker-group'), { key: 'Home' });
@@ -204,6 +207,7 @@ describe('ScrollGallery', () => {
 
     it('End moves focus to last marker', () => {
       render(<Gallery withMarkers />);
+      screen.getByTestId('viewport').scrollBy = vi.fn();
       screen.getByTestId('marker-0').focus();
 
       fireEvent.keyDown(screen.getByTestId('marker-group'), { key: 'End' });
@@ -218,11 +222,42 @@ describe('ScrollGallery', () => {
       fireEvent.keyDown(screen.getByTestId('marker-group'), { key: 'Tab' });
       expect(document.activeElement).toBe(marker1);
     });
+
+    it('arrow key activates the marker (automatic activation)', () => {
+      render(<Gallery withMarkers itemCount={8} />);
+      const viewport = screen.getByTestId('viewport');
+      viewport.scrollBy = vi.fn();
+
+      screen.getByTestId('marker-0').focus();
+      expect(screen.getByTestId('marker-0')).toHaveAttribute('aria-selected', 'true');
+
+      fireEvent.keyDown(screen.getByTestId('marker-group'), { key: 'ArrowRight' });
+
+      expect(document.activeElement).toBe(screen.getByTestId('marker-1'));
+      expect(screen.getByTestId('marker-1')).toHaveAttribute('aria-selected', 'true');
+      expect(viewport.scrollBy).toHaveBeenCalled();
+    });
+
+    it('Home key activates the first marker', () => {
+      render(<Gallery withMarkers itemCount={8} />);
+      const viewport = screen.getByTestId('viewport');
+      viewport.scrollBy = vi.fn();
+
+      screen.getByTestId('marker-3').focus();
+      fireEvent.click(screen.getByTestId('marker-3'));
+      expect(screen.getByTestId('marker-3')).toHaveAttribute('aria-selected', 'true');
+
+      fireEvent.keyDown(screen.getByTestId('marker-group'), { key: 'Home' });
+
+      expect(document.activeElement).toBe(screen.getByTestId('marker-0'));
+      expect(screen.getByTestId('marker-0')).toHaveAttribute('aria-selected', 'true');
+    });
   });
 
   describe('ScrollMarkerGroup keyboard navigation (vertical)', () => {
     it('ArrowDown moves focus to next marker', () => {
       render(<Gallery withMarkers orientation="vertical" />);
+      screen.getByTestId('viewport').scrollBy = vi.fn();
       screen.getByTestId('marker-0').focus();
 
       fireEvent.keyDown(screen.getByTestId('marker-group'), { key: 'ArrowDown' });
@@ -231,6 +266,7 @@ describe('ScrollGallery', () => {
 
     it('ArrowUp moves focus to previous marker', () => {
       render(<Gallery withMarkers orientation="vertical" />);
+      screen.getByTestId('viewport').scrollBy = vi.fn();
       screen.getByTestId('marker-2').focus();
 
       fireEvent.keyDown(screen.getByTestId('marker-group'), { key: 'ArrowUp' });
