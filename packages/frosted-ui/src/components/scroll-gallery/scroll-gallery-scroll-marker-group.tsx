@@ -60,7 +60,7 @@ const ScrollGalleryScrollMarkerGroup = React.forwardRef<
     (event: React.KeyboardEvent<HTMLDivElement>) => {
       const group = event.currentTarget;
       const markers = Array.from(
-        group.querySelectorAll<HTMLElement>('[role="tab"]'),
+        group.querySelectorAll<HTMLElement>('[role="tab"][data-index]'),
       );
 
       if (markers.length === 0) return;
@@ -121,6 +121,7 @@ const ScrollGalleryScrollMarkerGroup = React.forwardRef<
     props: mergeProps<'div'>(
       {
         role: 'tablist',
+        'aria-orientation': orientation,
         'data-orientation': orientation,
         onKeyDown: handleKeyDown,
         onFocus: () => setFocusWithin(true),

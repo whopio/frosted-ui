@@ -54,3 +54,4 @@ export type {
   ScrollGalleryScrollMarkerGroupState,
 } from './scroll-gallery-scroll-marker-group';
 export type { ScrollGalleryScrollMarkerProps, ScrollGalleryScrollMarkerState } from './scroll-gallery-scroll-marker';
+export type { ChangeSource } from './scroll-gallery-context';

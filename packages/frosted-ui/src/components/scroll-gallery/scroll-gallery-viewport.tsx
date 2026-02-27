@@ -12,6 +12,13 @@ import { useScrollGalleryContext } from './scroll-gallery-context';
  */
 const SCROLL_TOLERANCE = 1;
 
+/**
+ * How long to wait after the last `scroll` event fires before considering
+ * a programmatic smooth scroll "settled". We don't use `scrollend` because
+ * browser support is still patchy; instead we use a scroll-event debounce.
+ */
+const SETTLE_DELAY = 150;
+
 interface ScrollGalleryViewportState extends Record<string, unknown> {
   activeIndex: number;
   orientation: 'horizontal' | 'vertical';
@@ -204,13 +211,6 @@ const ScrollGalleryViewport = React.forwardRef<
   }, [getItemElements, orientation, setActiveIndex]);
 
   /**
-   * How long to wait after the last `scroll` event fires before considering
-   * a programmatic smooth scroll "settled". We don't use `scrollend` because
-   * browser support is still patchy; instead we use a scroll-event debounce.
-   */
-  const SETTLE_DELAY = 150;
-
-  /**
    * Main scroll-event orchestrator.
    *
    * This effect coordinates two ref-based flags set by the scroll buttons
@@ -364,7 +364,7 @@ const ScrollGalleryViewport = React.forwardRef<
       },
       {
         root: viewport,
-        threshold: [0, 0.5],
+        threshold: 0,
       },
     );
 

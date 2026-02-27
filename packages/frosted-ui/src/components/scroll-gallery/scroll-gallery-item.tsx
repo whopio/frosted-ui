@@ -30,7 +30,7 @@ const ScrollGalleryItem = React.forwardRef<
 >(function ScrollGalleryItem(props, forwardedRef) {
   const { render, ...elementProps } = props;
 
-  const { activeIndex, registerItem, getItemElements } =
+  const { activeIndex, registerItem, getItemElements, itemsVersion } =
     useScrollGalleryContext();
 
   const internalRef = React.useRef<HTMLDivElement | null>(null);
@@ -57,7 +57,8 @@ const ScrollGalleryItem = React.forwardRef<
     const element = internalRef.current;
     if (!element) return -1;
     return getItemElements().indexOf(element);
-  }, [getItemElements, activeIndex]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- itemsVersion invalidates when items are added/removed
+  }, [getItemElements, itemsVersion]);
 
   const isActive = index === activeIndex;
 

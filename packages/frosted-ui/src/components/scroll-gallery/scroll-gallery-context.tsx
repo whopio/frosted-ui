@@ -51,7 +51,7 @@ interface ScrollGalleryContextValue {
    * We store the item index rather than the DOM element since that's what
    * our active index state uses.
    */
-  scrollTargetRef: React.MutableRefObject<number | null>;
+  scrollTargetRef: React.RefObject<number | null>;
 
   /**
    * True while a programmatic smooth scroll (from a marker click or scroll
@@ -61,7 +61,7 @@ interface ScrollGalleryContextValue {
    *
    * Cleared after scroll events stop firing (settle detection via debounce).
    */
-  scrollingRef: React.MutableRefObject<boolean>;
+  scrollingRef: React.RefObject<boolean>;
 }
 
 const ScrollGalleryContext = React.createContext<ScrollGalleryContextValue | undefined>(undefined);

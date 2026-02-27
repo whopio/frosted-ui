@@ -86,17 +86,31 @@ const ScrollGalleryRoot = React.forwardRef<
   const scrollTargetRef = React.useRef<number | null>(null);
   const scrollingRef = React.useRef(false);
 
+  // Cached sorted item list, invalidated when itemsVersion changes.
+  const sortedItemsRef = React.useRef<HTMLElement[]>([]);
+  const sortedItemsVersionRef = React.useRef(-1);
+  const itemsVersionRef = React.useRef(itemsVersion);
+  itemsVersionRef.current = itemsVersion;
+
   /**
    * Returns registered item elements sorted in DOM order. Uses
    * compareDocumentPosition so the order is always correct regardless
    * of React render order or dynamic additions/removals.
+   *
+   * The result is cached and only re-sorted when itemsVersion changes
+   * (i.e., items are added or removed), avoiding repeated O(N log N)
+   * sorts on every scroll event.
    */
   const getItemElements = React.useCallback((): HTMLElement[] => {
-    const elements = Array.from(itemElementsRef.current);
-    elements.sort((a, b) =>
-      a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1,
-    );
-    return elements;
+    if (sortedItemsVersionRef.current !== itemsVersionRef.current) {
+      const elements = Array.from(itemElementsRef.current);
+      elements.sort((a, b) =>
+        a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1,
+      );
+      sortedItemsRef.current = elements;
+      sortedItemsVersionRef.current = itemsVersionRef.current;
+    }
+    return sortedItemsRef.current;
   }, []);
 
   /**
