@@ -4,6 +4,7 @@ import { ChevronDown16, ChevronLeft16, ChevronRight16, ChevronUp16 } from '@fros
 import React, { useRef, useState } from 'react';
 import {
   Avatar,
+  AvatarGroup,
   Badge,
   Breadcrumbs,
   Button,
@@ -1307,6 +1308,527 @@ export const SnapToCenter: Story = {
             <MarkerDots count={people.length} />
           </ScrollGallery.ScrollMarkerGroup>
         </div>
+      </ScrollGallery.Root>
+    </div>
+  ),
+};
+
+// ---------------------------------------------------------------------------
+// Real-world demo: Testimonials
+// ---------------------------------------------------------------------------
+
+const testimonials = [
+  {
+    quote: 'This design system has completely transformed how we build products. The component quality is unmatched.',
+    author: 'Sarah Chen',
+    title: 'VP of Engineering, Acme Corp',
+    initials: 'SC',
+    color: 'crimson' as const,
+    rating: 5,
+  },
+  {
+    quote:
+      'We cut our development time in half after adopting this library. The APIs are intuitive and the components are rock solid.',
+    author: 'David Park',
+    title: 'Lead Developer, Nexus Labs',
+    initials: 'DP',
+    color: 'indigo' as const,
+    rating: 5,
+  },
+  {
+    quote:
+      'The attention to accessibility out of the box saved our team weeks of work. Truly best-in-class primitives.',
+    author: 'Maria Gonzalez',
+    title: 'Head of Product, Orbit.io',
+    initials: 'MG',
+    color: 'teal' as const,
+    rating: 5,
+  },
+  {
+    quote:
+      "Finally a component library that doesn't fight you on styling. Headless where it matters, polished where you need it.",
+    author: 'James Liu',
+    title: 'Senior Engineer, CloudBase',
+    initials: 'JL',
+    color: 'orange' as const,
+    rating: 4,
+  },
+  {
+    quote:
+      'We migrated from three different UI libraries to just this one. Our bundle size dropped by 40% and DX went through the roof.',
+    author: 'Amara Osei',
+    title: 'CTO, Paystack',
+    initials: 'AO',
+    color: 'plum' as const,
+    rating: 5,
+  },
+];
+
+export const Testimonials: Story = {
+  render: () => (
+    <div style={{ maxWidth: 800 }}>
+      <div style={{ textAlign: 'center', marginBottom: 'var(--space-5)' }}>
+        <Heading size="5" weight="bold">
+          What people are saying
+        </Heading>
+        <Text render={<p />} size="2" color="gray" style={{ marginTop: 'var(--space-2)' }}>
+          Trusted by teams at companies of all sizes.
+        </Text>
+      </div>
+
+      <ScrollGallery.Root>
+        <ScrollGallery.Viewport
+          aria-label="Customer testimonials"
+          style={{
+            display: 'flex',
+            gap: 'var(--space-4)',
+            overflowX: 'auto',
+            scrollSnapType: 'x mandatory',
+            scrollbarWidth: 'none',
+            paddingInline: 'calc(50% - 170px)',
+            maskImage: 'linear-gradient(to right, transparent, black 170px, black calc(100% - 170px), transparent)',
+            paddingBlock: 'var(--space-1)',
+          }}
+        >
+          {testimonials.map((t) => (
+            <ScrollGallery.Item key={t.author} style={{ scrollSnapAlign: 'center', flexShrink: 0, width: 340 }}>
+              <Card size="3" style={{ height: '100%' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', height: '100%' }}>
+                  <div style={{ display: 'flex', gap: 2 }}>
+                    {Array.from({ length: 5 }, (_, i) => (
+                      <span key={i} style={{ color: i < t.rating ? 'var(--amber-9)' : 'var(--gray-5)', fontSize: 14 }}>
+                        ★
+                      </span>
+                    ))}
+                  </div>
+                  <Text size="2" style={{ flex: 1, lineHeight: 1.6 }}>
+                    &ldquo;{t.quote}&rdquo;
+                  </Text>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', marginTop: 'auto' }}>
+                    <Avatar size="3" fallback={t.initials} color={t.color} />
+                    <div>
+                      <Text render={<div />} size="2" weight="bold">
+                        {t.author}
+                      </Text>
+                      <Text render={<div />} size="1" color="gray">
+                        {t.title}
+                      </Text>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </ScrollGallery.Item>
+          ))}
+        </ScrollGallery.Viewport>
+
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: 'var(--space-4)',
+            marginTop: 'var(--space-4)',
+          }}
+        >
+          <ScrollGallery.Previous
+            step={1}
+            aria-label="Previous testimonial"
+            render={<IconButton variant="surface" size="2" color="gray" />}
+          >
+            <ChevronLeft16 />
+          </ScrollGallery.Previous>
+
+          <ScrollGallery.ScrollMarkerGroup
+            aria-label="Testimonial pages"
+            style={{ display: 'flex', gap: 'var(--space-1)' }}
+          >
+            <MarkerDots count={testimonials.length} />
+          </ScrollGallery.ScrollMarkerGroup>
+
+          <ScrollGallery.Next
+            step={1}
+            aria-label="Next testimonial"
+            render={<IconButton variant="surface" size="2" color="gray" />}
+          >
+            <ChevronRight16 />
+          </ScrollGallery.Next>
+        </div>
+      </ScrollGallery.Root>
+    </div>
+  ),
+};
+
+// ---------------------------------------------------------------------------
+// Real-world demo: Feature Tour / Onboarding
+// ---------------------------------------------------------------------------
+
+const onboardingSteps = [
+  {
+    step: 1,
+    title: 'Create your workspace',
+    description: 'Set up a shared workspace for your team. Invite collaborators and organize projects into folders.',
+    color: 'indigo' as const,
+    icon: '🏗️',
+  },
+  {
+    step: 2,
+    title: 'Connect your tools',
+    description: 'Integrate with GitHub, Figma, Linear, Slack and 50+ other tools your team already uses.',
+    color: 'cyan' as const,
+    icon: '🔗',
+  },
+  {
+    step: 3,
+    title: 'Design your components',
+    description:
+      'Build reusable components with our visual editor. Changes sync across all your projects in real time.',
+    color: 'violet' as const,
+    icon: '🎨',
+  },
+  {
+    step: 4,
+    title: 'Ship to production',
+    description: 'Deploy with one click. We handle hosting, CDN, versioning and rollbacks automatically.',
+    color: 'jade' as const,
+    icon: '🚀',
+  },
+];
+
+function FeatureTourDemo() {
+  const [activeStep, setActiveStep] = useState(0);
+
+  return (
+    <div style={{ maxWidth: 560 }}>
+      <ScrollGallery.Root onValueChange={(index) => setActiveStep(index)}>
+        <ScrollGallery.Viewport
+          aria-label="Getting started steps"
+          style={{
+            display: 'flex',
+            gap: 'var(--space-4)',
+            overflowX: 'auto',
+            scrollSnapType: 'x mandatory',
+            scrollbarWidth: 'none',
+            paddingInline: 'calc(50% - 220px)',
+          }}
+        >
+          {onboardingSteps.map((s) => (
+            <ScrollGallery.Item key={s.step} style={{ scrollSnapAlign: 'center', flexShrink: 0, width: 440 }}>
+              <Card size="3" style={{ height: '100%' }}>
+                <div style={{ padding: 'var(--space-4) 0', textAlign: 'center' }}>
+                  <div style={{ fontSize: 48, marginBottom: 'var(--space-4)' }}>{s.icon}</div>
+                  <Badge size="2" variant="soft" color={s.color} style={{ marginBottom: 'var(--space-3)' }}>
+                    Step {s.step} of {onboardingSteps.length}
+                  </Badge>
+                  <Heading size="4" weight="bold" render={<div />} style={{ marginBottom: 'var(--space-2)' }}>
+                    {s.title}
+                  </Heading>
+                  <Text
+                    render={<p />}
+                    size="2"
+                    color="gray"
+                    style={{ maxWidth: 360, margin: '0 auto', lineHeight: 1.6 }}
+                  >
+                    {s.description}
+                  </Text>
+                </div>
+              </Card>
+            </ScrollGallery.Item>
+          ))}
+        </ScrollGallery.Viewport>
+
+        {/* Progress bar */}
+        <div
+          style={{
+            height: 3,
+            background: 'var(--gray-4)',
+            borderRadius: 2,
+            marginBottom: 'var(--space-4)',
+            overflow: 'hidden',
+          }}
+        >
+          <div
+            style={{
+              height: '100%',
+              width: `${((activeStep + 1) / onboardingSteps.length) * 100}%`,
+              background: `var(--${onboardingSteps[activeStep].color}-9)`,
+              borderRadius: 2,
+              transition: 'width 300ms ease, background 300ms ease',
+            }}
+          />
+        </div>
+
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <ScrollGallery.Previous
+            step={1}
+            render={(props, state) => (
+              <Button {...props} variant="soft" color="gray" disabled={state.disabled}>
+                <ChevronLeft16 /> Back
+              </Button>
+            )}
+          />
+
+          <ScrollGallery.ScrollMarkerGroup aria-label="Go to step" style={{ display: 'flex', gap: 'var(--space-2)' }}>
+            {onboardingSteps.map((s, i) => (
+              <ScrollGallery.ScrollMarker
+                key={s.step}
+                index={i}
+                render={(props, state) => (
+                  <button
+                    {...props}
+                    style={{
+                      width: 28,
+                      height: 28,
+                      borderRadius: 'var(--radius-full)',
+                      border: 'none',
+                      fontSize: 12,
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      transition: 'all 150ms',
+                      background: state.active ? `var(--${onboardingSteps[i].color}-9)` : 'var(--gray-4)',
+                      color: state.active ? 'white' : 'var(--gray-11)',
+                    }}
+                  >
+                    {s.step}
+                  </button>
+                )}
+              />
+            ))}
+          </ScrollGallery.ScrollMarkerGroup>
+
+          <ScrollGallery.Next
+            step={1}
+            render={(props, state) => (
+              <Button
+                {...props}
+                variant={activeStep === onboardingSteps.length - 1 ? 'solid' : 'soft'}
+                color={activeStep === onboardingSteps.length - 1 ? 'jade' : 'gray'}
+                disabled={state.disabled}
+              >
+                {activeStep === onboardingSteps.length - 1 ? 'Get started' : 'Next'} <ChevronRight16 />
+              </Button>
+            )}
+          />
+        </div>
+      </ScrollGallery.Root>
+    </div>
+  );
+}
+
+export const FeatureTour: Story = {
+  render: () => <FeatureTourDemo />,
+};
+
+// ---------------------------------------------------------------------------
+// Real-world demo: Timeline
+// ---------------------------------------------------------------------------
+
+const timelineEvents = [
+  {
+    date: 'Jan 2024',
+    title: 'Company Founded',
+    description: 'Started with a team of 3 in a small office in San Francisco.',
+    people: ['SC', 'DP', 'MG'],
+    color: 'indigo' as const,
+  },
+  {
+    date: 'Apr 2024',
+    title: 'Seed Round',
+    description: 'Raised $4M seed round led by Sequoia Capital.',
+    people: ['SC', 'DP'],
+    color: 'jade' as const,
+  },
+  {
+    date: 'Jul 2024',
+    title: 'First 100 Customers',
+    description: 'Reached product-market fit with 100 paying customers in 6 months.',
+    people: ['SC', 'JL', 'AO'],
+    color: 'amber' as const,
+  },
+  {
+    date: 'Oct 2024',
+    title: 'Team of 20',
+    description: 'Scaled the engineering and design teams across 3 timezones.',
+    people: ['SC', 'DP', 'MG', 'JL'],
+    color: 'violet' as const,
+  },
+  {
+    date: 'Jan 2025',
+    title: 'Series A',
+    description: 'Raised $18M Series A to expand into enterprise market.',
+    people: ['SC', 'DP', 'AO'],
+    color: 'crimson' as const,
+  },
+  {
+    date: 'Jun 2025',
+    title: 'Enterprise Launch',
+    description: 'Launched enterprise tier with SSO, audit logs, and dedicated support.',
+    people: ['SC', 'MG', 'JL', 'AO'],
+    color: 'cyan' as const,
+  },
+  {
+    date: 'Dec 2025',
+    title: '10,000 Teams',
+    description: 'Reached 10,000 active teams on the platform worldwide.',
+    people: ['SC', 'DP', 'MG', 'JL', 'AO'],
+    color: 'orange' as const,
+  },
+];
+
+export const Timeline: Story = {
+  render: () => (
+    <div style={{ maxWidth: 800 }}>
+      <div style={{ marginBottom: 'var(--space-5)' }}>
+        <Heading size="5" weight="bold">
+          Our journey
+        </Heading>
+        <Text render={<p />} size="2" color="gray" style={{ marginTop: 'var(--space-1)' }}>
+          Key milestones that shaped who we are today.
+        </Text>
+      </div>
+
+      <ScrollGallery.Root>
+        <div style={{ position: 'relative' }}>
+          <ScrollGallery.Previous
+            aria-label="Earlier milestones"
+            render={(props, state) => (
+              <IconButton
+                {...props}
+                variant="surface"
+                size="2"
+                color="gray"
+                highContrast
+                disabled={state.disabled}
+                style={{
+                  position: 'absolute',
+                  left: 0,
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  zIndex: 1,
+                  boxShadow: 'var(--shadow-3)',
+                }}
+              />
+            )}
+          >
+            <ChevronLeft16 />
+          </ScrollGallery.Previous>
+
+          <ScrollGallery.Viewport
+            aria-label="Company timeline"
+            style={{
+              display: 'flex',
+              gap: 'var(--space-4)',
+              overflowX: 'auto',
+              scrollSnapType: 'x mandatory',
+              scrollbarWidth: 'none',
+              padding: '0 var(--space-8)',
+            }}
+          >
+            {timelineEvents.map((event) => (
+              <ScrollGallery.Item key={event.date} style={{ scrollSnapAlign: 'start', flexShrink: 0, width: 260 }}>
+                <Card size="2" style={{ height: '100%' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <Badge size="1" variant="surface" color={event.color}>
+                        {event.date}
+                      </Badge>
+                      <div
+                        style={{
+                          width: 10,
+                          height: 10,
+                          borderRadius: 'var(--radius-full)',
+                          background: `var(--${event.color}-9)`,
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <Text render={<div />} size="2" weight="bold" style={{ marginBottom: 'var(--space-1)' }}>
+                        {event.title}
+                      </Text>
+                      <Text render={<div />} size="2" color="gray" style={{ lineHeight: 1.5 }}>
+                        {event.description}
+                      </Text>
+                    </div>
+                    <AvatarGroup.Root size="1">
+                      {event.people.map((initials) => (
+                        <AvatarGroup.Avatar
+                          key={initials}
+                          fallback={initials}
+                          color={
+                            initials === 'SC'
+                              ? 'crimson'
+                              : initials === 'DP'
+                                ? 'indigo'
+                                : initials === 'MG'
+                                  ? 'teal'
+                                  : initials === 'JL'
+                                    ? 'orange'
+                                    : 'plum'
+                          }
+                        />
+                      ))}
+                    </AvatarGroup.Root>
+                  </div>
+                </Card>
+              </ScrollGallery.Item>
+            ))}
+          </ScrollGallery.Viewport>
+
+          <ScrollGallery.Next
+            aria-label="Later milestones"
+            render={(props, state) => (
+              <IconButton
+                {...props}
+                variant="surface"
+                size="2"
+                color="gray"
+                highContrast
+                disabled={state.disabled}
+                style={{
+                  position: 'absolute',
+                  right: 0,
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  zIndex: 1,
+                  boxShadow: 'var(--shadow-3)',
+                }}
+              />
+            )}
+          >
+            <ChevronRight16 />
+          </ScrollGallery.Next>
+        </div>
+
+        <ScrollGallery.ScrollMarkerGroup
+          aria-label="Jump to milestone"
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: 'var(--space-1)',
+            marginTop: 'var(--space-4)',
+          }}
+        >
+          {timelineEvents.map((event, i) => (
+            <ScrollGallery.ScrollMarker
+              key={event.date}
+              index={i}
+              render={(props, state) => (
+                <button
+                  {...props}
+                  style={{
+                    height: 6,
+                    width: state.active ? 24 : 6,
+                    borderRadius: 3,
+                    border: 'none',
+                    padding: 0,
+                    cursor: 'pointer',
+                    background: state.active ? `var(--${event.color}-9)` : 'var(--gray-6)',
+                    transition: 'all 200ms ease',
+                  }}
+                />
+              )}
+            />
+          ))}
+        </ScrollGallery.ScrollMarkerGroup>
       </ScrollGallery.Root>
     </div>
   ),
