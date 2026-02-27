@@ -3,7 +3,7 @@
 import { mergeProps, useRender } from '@base-ui/react';
 import * as React from 'react';
 
-import { useScrollGalleryContext } from './scroll-gallery-context';
+import { getScrollBehavior, useScrollGalleryContext } from './scroll-gallery-context';
 
 interface ScrollGalleryScrollMarkerState extends Record<string, unknown> {
   active: boolean;
@@ -69,7 +69,7 @@ const ScrollGalleryScrollMarker = React.forwardRef<
 
     viewport.scrollBy({
       [isHorizontal ? 'left' : 'top']: distance,
-      behavior: 'smooth',
+      behavior: getScrollBehavior(),
     });
 
     // Immediately reflect the active state — the user expects instant

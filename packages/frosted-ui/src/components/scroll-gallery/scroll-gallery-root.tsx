@@ -4,6 +4,7 @@ import * as React from 'react';
 
 import {
   ScrollGalleryContext,
+  getScrollBehavior,
   type ChangeSource,
   type ScrollGalleryContextValue,
 } from './scroll-gallery-context';
@@ -140,7 +141,8 @@ const ScrollGalleryRoot = React.forwardRef<
    * scroll position remains the single source of truth.
    */
   const scrollTo = React.useCallback(
-    (index: number, behavior: ScrollBehavior = 'smooth') => {
+    (index: number, behavior?: ScrollBehavior) => {
+      behavior = behavior ?? getScrollBehavior();
       const viewport = viewportRef.current;
       if (!viewport) return;
 

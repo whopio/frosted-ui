@@ -76,5 +76,20 @@ function useScrollGalleryContext(): ScrollGalleryContextValue {
   return context;
 }
 
-export { ScrollGalleryContext, useScrollGalleryContext };
+/**
+ * Resolves the scroll behavior to use for programmatic scrolls.
+ * Returns 'instant' when the user prefers reduced motion, otherwise
+ * returns the requested behavior. This complements the CSS
+ * `scroll-behavior: auto` rule in scroll-gallery.css — the CSS property
+ * only affects CSS-triggered scrolls, while our `scrollTo`/`scrollBy`
+ * calls pass an explicit `behavior` option that overrides it.
+ */
+function getScrollBehavior(preferred: ScrollBehavior = 'smooth'): ScrollBehavior {
+  if (typeof window === 'undefined') return preferred;
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ? 'instant'
+    : preferred;
+}
+
+export { ScrollGalleryContext, useScrollGalleryContext, getScrollBehavior };
 export type { ScrollGalleryContextValue, ChangeSource };

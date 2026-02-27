@@ -3,7 +3,7 @@
 import { mergeProps, useRender } from '@base-ui/react';
 import * as React from 'react';
 
-import { useScrollGalleryContext } from './scroll-gallery-context';
+import { getScrollBehavior, useScrollGalleryContext } from './scroll-gallery-context';
 
 /**
  * CSS Overflow 5 §3.2 specifies that scroll buttons scroll by "one page"
@@ -75,7 +75,7 @@ const ScrollGalleryNext = React.forwardRef<
 
       viewport.scrollBy({
         [isHorizontal ? 'left' : 'top']: distance,
-        behavior: 'smooth',
+        behavior: getScrollBehavior(),
       });
 
       setActiveIndex(0, 'indicator');
@@ -121,7 +121,7 @@ const ScrollGalleryNext = React.forwardRef<
 
       viewport.scrollBy({
         [isHorizontal ? 'left' : 'top']: distance,
-        behavior: 'smooth',
+        behavior: getScrollBehavior(),
       });
     } else {
       // Page mode (default): scroll by ~85% of the viewport.
@@ -129,7 +129,7 @@ const ScrollGalleryNext = React.forwardRef<
 
       viewport.scrollBy({
         [isHorizontal ? 'left' : 'top']: pageSize * PAGE_SCROLL_FACTOR,
-        behavior: 'smooth',
+        behavior: getScrollBehavior(),
       });
     }
   }, [canScrollNext, disabled, getItemElements, loop, orientation, scrollingRef, scrollTargetRef, setActiveIndex, step, viewportRef]);

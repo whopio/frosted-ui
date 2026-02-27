@@ -23,6 +23,24 @@ beforeEach(() => {
     HTMLElement.prototype.scrollBy = vi.fn();
   }
 
+  // jsdom doesn't implement matchMedia — mock it so getScrollBehavior() works.
+  if (!window.matchMedia) {
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      configurable: true,
+      value: vi.fn().mockImplementation((query: string) => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      })),
+    });
+  }
+
   vi.stubGlobal(
     'IntersectionObserver',
     class MockIntersectionObserver {
