@@ -94,6 +94,7 @@ export const Default: Story = {
             display: 'flex',
             gap: 'var(--space-3)',
             overflowX: 'auto',
+            overscrollBehaviorX: 'contain',
             scrollSnapType: 'x mandatory',
             scrollbarWidth: 'none',
           }}
@@ -186,6 +187,7 @@ function DynamicItemsDemo() {
             display: 'flex',
             gap: 'var(--space-3)',
             overflowX: 'auto',
+            overscrollBehaviorX: 'contain',
             scrollSnapType: 'x mandatory',
             scrollbarWidth: 'none',
           }}
@@ -259,6 +261,7 @@ export const WithoutScrollSnap: Story = {
             display: 'flex',
             gap: 'var(--space-3)',
             overflowX: 'auto',
+            overscrollBehaviorX: 'contain',
             scrollbarWidth: 'none',
           }}
         >
@@ -336,6 +339,7 @@ function ImperativeScrollToDemo() {
             display: 'flex',
             gap: 'var(--space-3)',
             overflowX: 'auto',
+            overscrollBehaviorX: 'contain',
             scrollSnapType: 'x mandatory',
             scrollbarWidth: 'none',
           }}
@@ -503,6 +507,7 @@ function DefaultValueDemo() {
             display: 'flex',
             gap: 'var(--space-3)',
             overflowX: 'auto',
+            overscrollBehaviorX: 'contain',
             scrollSnapType: 'x mandatory',
             scrollbarWidth: 'none',
           }}
@@ -598,6 +603,7 @@ export const StepByItem: Story = {
             display: 'flex',
             gap: 'var(--space-3)',
             overflowX: 'auto',
+            overscrollBehaviorX: 'contain',
             scrollSnapType: 'x mandatory',
             scrollbarWidth: 'none',
           }}
@@ -667,6 +673,7 @@ export const StepByItemNoSnap: Story = {
             display: 'flex',
             gap: 'var(--space-3)',
             overflowX: 'auto',
+            overscrollBehaviorX: 'contain',
             scrollbarWidth: 'none',
           }}
         >
@@ -767,6 +774,7 @@ function ProductGalleryDemo() {
                 style={{
                   display: 'flex',
                   overflowX: 'auto',
+                  overscrollBehaviorX: 'contain',
                   scrollSnapType: 'x mandatory',
                   scrollbarWidth: 'none',
                   borderRadius: 'var(--radius-3)',
@@ -939,6 +947,7 @@ export const Loop: Story = {
             display: 'flex',
             gap: 'var(--space-3)',
             overflowX: 'auto',
+            overscrollBehaviorX: 'contain',
             scrollSnapType: 'x mandatory',
             scrollbarWidth: 'none',
           }}
@@ -999,6 +1008,7 @@ export const LoopStepByItem: Story = {
             display: 'flex',
             gap: 'var(--space-3)',
             overflowX: 'auto',
+            overscrollBehaviorX: 'contain',
             scrollSnapType: 'x mandatory',
             scrollbarWidth: 'none',
           }}
@@ -1057,6 +1067,7 @@ export const ActiveItemHighlight: Story = {
             display: 'flex',
             gap: 'var(--space-3)',
             overflowX: 'auto',
+            overscrollBehaviorX: 'contain',
             scrollSnapType: 'x mandatory',
             scrollbarWidth: 'none',
           }}
@@ -1135,6 +1146,7 @@ export const ResizableViewport: Story = {
             display: 'flex',
             gap: 'var(--space-3)',
             overflowX: 'auto',
+            overscrollBehaviorX: 'contain',
             scrollSnapType: 'x mandatory',
             scrollbarWidth: 'none',
           }}
@@ -1185,6 +1197,7 @@ export const SnapToCenter: Story = {
             display: 'flex',
             gap: 'var(--space-3)',
             overflowX: 'auto',
+            overscrollBehaviorX: 'contain',
             scrollSnapType: 'x mandatory',
             scrollbarWidth: 'none',
           }}
@@ -1299,6 +1312,7 @@ export const Testimonials: Story = {
             display: 'flex',
             gap: 'var(--space-4)',
             overflowX: 'auto',
+            overscrollBehaviorX: 'contain',
             scrollSnapType: 'x mandatory',
             scrollbarWidth: 'none',
             paddingInline: 'calc(50% - 170px)',
@@ -1422,6 +1436,7 @@ function FeatureTourDemo() {
             display: 'flex',
             gap: 'var(--space-4)',
             overflowX: 'auto',
+            overscrollBehaviorX: 'contain',
             scrollSnapType: 'x mandatory',
             scrollbarWidth: 'none',
             paddingInline: 'calc(50% - 220px)',
@@ -1634,6 +1649,7 @@ export const Timeline: Story = {
               display: 'flex',
               gap: 'var(--space-4)',
               overflowX: 'auto',
+              overscrollBehaviorX: 'contain',
               scrollSnapType: 'x mandatory',
               scrollbarWidth: 'none',
               padding: '0 var(--space-8)',
