@@ -2,23 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { ChevronDown16, ChevronLeft16, ChevronRight16, ChevronUp16 } from '@frosted-ui/icons';
 import React, { useRef, useState } from 'react';
-import {
-  Avatar,
-  AvatarGroup,
-  Badge,
-  Breadcrumbs,
-  Button,
-  Card,
-  Code,
-  Heading,
-  IconButton,
-  Link,
-  NumberField,
-  ScrollGallery,
-  Separator,
-  Strong,
-  Text,
-} from '..';
+import { Avatar, AvatarGroup, Badge, Button, Card, Code, Heading, IconButton, ScrollGallery, Strong, Text } from '..';
 
 const people = [
   { name: 'Olivia Chen', role: 'Design Lead', color: 'crimson' as const, initials: 'OC' },
@@ -772,19 +756,6 @@ const productImages = [
 function ProductGalleryDemo() {
   return (
     <div style={{ maxWidth: 900 }}>
-      <Breadcrumbs.Root style={{ marginBottom: 'var(--space-4)' }}>
-        <Breadcrumbs.Item render={<a href="#" />} nativeButton={false}>
-          Home
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Item render={<a href="#" />} nativeButton={false}>
-          Clothing
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Item render={<a href="#" />} nativeButton={false}>
-          Hoodies
-        </Breadcrumbs.Item>
-        <Breadcrumbs.Item>Hoodie with Logo</Breadcrumbs.Item>
-      </Breadcrumbs.Root>
-
       <div style={{ display: 'flex', gap: 'var(--space-6)', alignItems: 'flex-start' }}>
         {/* Left: Image gallery */}
         <div style={{ flex: '0 0 480px' }}>
@@ -817,22 +788,22 @@ function ProductGalleryDemo() {
                 step={1}
                 tabIndex={-1}
                 aria-label="Previous image"
-                render={
-                  <IconButton
-                    variant="surface"
-                    size="3"
-                    color="gray"
-                    highContrast
-                    style={{
-                      position: 'absolute',
-                      left: 'var(--space-3)',
-                      top: '50%',
-                      transform: 'translateY(-50%)',
-                      borderRadius: 'var(--radius-full)',
-                      boxShadow: 'var(--shadow-2)',
-                    }}
-                  />
-                }
+                style={{
+                  color: 'white',
+                  background: 'rgba(255,255,255,0.2)',
+                  backdropFilter: 'blur(8px) invert(0.3) brightness(0.9) saturate(180%)',
+                  boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10), 0 1.5px 8px 0 rgba(0,0,0,0.13)',
+                  width: 32,
+                  height: 32,
+                  borderRadius: '50%',
+                  position: 'absolute',
+                  left: 'var(--space-3)',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
               >
                 <ChevronLeft16 />
               </ScrollGallery.Previous>
@@ -841,22 +812,22 @@ function ProductGalleryDemo() {
                 step={1}
                 tabIndex={-1}
                 aria-label="Next image"
-                render={
-                  <IconButton
-                    variant="surface"
-                    size="3"
-                    color="gray"
-                    highContrast
-                    style={{
-                      position: 'absolute',
-                      right: 'var(--space-3)',
-                      top: '50%',
-                      transform: 'translateY(-50%)',
-                      borderRadius: 'var(--radius-full)',
-                      boxShadow: 'var(--shadow-2)',
-                    }}
-                  />
-                }
+                style={{
+                  color: 'white',
+                  background: 'rgba(255,255,255,0.2)',
+                  backdropFilter: 'blur(8px) invert(0.3) brightness(0.9) saturate(180%)',
+                  boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10), 0 1.5px 8px 0 rgba(0,0,0,0.13)',
+                  width: 32,
+                  height: 32,
+                  borderRadius: '50%',
+                  position: 'absolute',
+                  right: 'var(--space-3)',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
               >
                 <ChevronRight16 />
               </ScrollGallery.Next>
@@ -938,61 +909,6 @@ function ProductGalleryDemo() {
               ))}
             </ScrollGallery.ScrollMarkerGroup>
           </ScrollGallery.Root>
-        </div>
-
-        {/* Right: Product info */}
-        <div style={{ flex: 1, paddingTop: 'var(--space-2)' }}>
-          <Heading size="6" weight="bold" style={{ marginBottom: 'var(--space-2)' }}>
-            Hoodie with Logo
-          </Heading>
-
-          <Text size="6" weight="bold" style={{ display: 'block', marginBottom: 'var(--space-4)' }}>
-            $45.00
-          </Text>
-
-          <Text render={<p />} size="2" color="gray" style={{ marginBottom: 'var(--space-5)', lineHeight: 1.6 }}>
-            This is a simple product. A comfortable hoodie featuring an embroidered logo on the chest. Made from premium
-            cotton blend for all-day comfort.
-          </Text>
-
-          <div
-            style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'flex-end', marginBottom: 'var(--space-5)' }}
-          >
-            <div>
-              <Text
-                render={<label htmlFor="qty" />}
-                size="1"
-                color="gray"
-                weight="medium"
-                style={{ display: 'block', marginBottom: 'var(--space-1)' }}
-              >
-                Quantity
-              </Text>
-              <NumberField.Root id="qty" defaultValue={1} min={1} max={99} size="3">
-                <NumberField.Input style={{ width: 80 }} />
-              </NumberField.Root>
-            </div>
-            <Button size="3" variant="solid">
-              Add to cart
-            </Button>
-          </div>
-
-          <Separator size="4" style={{ marginBottom: 'var(--space-4)' }} />
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
-            <Text size="2" color="gray">
-              SKU:{' '}
-              <Text size="2" color="gray" weight="medium">
-                woo-hoodie-with-logo
-              </Text>
-            </Text>
-            <Text size="2" color="gray">
-              Category:{' '}
-              <Link href="#" size="2">
-                Hoodies
-              </Link>
-            </Text>
-          </div>
         </div>
       </div>
     </div>
