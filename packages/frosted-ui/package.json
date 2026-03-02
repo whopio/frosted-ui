@@ -56,6 +56,8 @@
     "dev:js:cjs": "tsc --project tsconfig-cjs.json --watch",
     "dev:js:esm": "tsc --project tsconfig-esm.json --watch",
     "dev:css": "postcss src/styles/index.css -o styles.css --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "lint": "pnpm lint:js && pnpm lint:css",
     "lint:js": "eslint \"src/**/*.ts*\"",
     "lint:css": "stylelint \"src/**/*.css\"",
@@ -105,9 +107,6 @@
   },
   "devDependencies": {
     "@frosted-ui/icons": "workspace:*",
-    "@tanstack/react-form": "^0.43.0",
-    "react-hook-form": "^7.54.2",
-    "zod": "^3.24.2",
     "@napi-rs/canvas": "^0.1.60",
     "@storybook/addon-essentials": "^8.5.3",
     "@storybook/addon-interactions": "^8.5.3",
@@ -118,7 +117,11 @@
     "@storybook/react": "^8.5.3",
     "@storybook/react-vite": "^8.5.3",
     "@storybook/test": "^8.5.3",
+    "@tanstack/react-form": "^0.43.0",
     "@tanstack/react-table": "^8.20.5",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/color-convert": "^2.0.3",
     "@types/node": "^22.19.1",
     "@types/react": "^19.0.0",
@@ -130,6 +133,7 @@
     "eslint": "^8.57.1",
     "eslint-config-custom": "workspace:*",
     "eslint-plugin-react-hooks": "^4.6.2",
+    "jsdom": "^28.1.0",
     "node-vibrant": "^3.2.1-alpha.1",
     "postcss": "^8.4.47",
     "postcss-cli": "^10.1.0",
@@ -140,10 +144,13 @@
     "postcss-nesting": "^12.1.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hook-form": "^7.54.2",
     "storybook": "^8.5.3",
     "stylelint": "^15.11.0",
     "tsx": "^4.19.2",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "vitest": "^4.0.18",
+    "zod": "^3.24.2"
   },
   "publishConfig": {
     "access": "public"

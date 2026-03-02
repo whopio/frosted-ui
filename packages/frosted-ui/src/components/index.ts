@@ -86,6 +86,7 @@ export * from './spinner';
 export * from './table';
 export * from './tabs';
 export * from './tabs-nav';
+export * from './scroll-gallery';
 export * from './widget-stack';
 
 // UTILITIES
