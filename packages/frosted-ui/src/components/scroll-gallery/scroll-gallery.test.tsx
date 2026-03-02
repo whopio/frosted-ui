@@ -1445,8 +1445,11 @@ describe('ScrollGallery', () => {
         );
       }
 
+      const handle = ref.current;
+      expect(handle).not.toBeNull();
+
       act(() => {
-        ref.current!.scrollTo(3);
+        handle?.scrollTo(3);
       });
 
       // No snap-align → start: item 3 left (600) - viewport left (0)
@@ -1474,8 +1477,11 @@ describe('ScrollGallery', () => {
         );
       }
 
+      const handle = ref.current;
+      expect(handle).not.toBeNull();
+
       act(() => {
-        ref.current!.scrollTo(5, 'instant');
+        handle?.scrollTo(5, 'instant');
       });
 
       // No snap-align → start: item 5 left (1000) - viewport left (0)
@@ -1519,8 +1525,11 @@ describe('ScrollGallery', () => {
         );
       }
 
+      const handle = ref.current;
+      expect(handle).not.toBeNull();
+
       act(() => {
-        ref.current!.scrollTo(2);
+        handle?.scrollTo(2);
       });
 
       expect(onValueChange).toHaveBeenCalledWith(2, { source: 'indicator' });
@@ -1533,8 +1542,11 @@ describe('ScrollGallery', () => {
 
       viewport.scrollBy = vi.fn();
 
+      const handle = ref.current;
+      expect(handle).not.toBeNull();
+
       act(() => {
-        ref.current!.scrollTo(10);
+        handle?.scrollTo(10);
       });
 
       expect(viewport.scrollBy).not.toHaveBeenCalled();
@@ -1691,7 +1703,8 @@ describe('ScrollGallery', () => {
 
       const items = screen.getAllByText(/^Item \d+$/);
       items.forEach((item, i) => {
-        vi.spyOn(item.closest('[data-testid]')!, 'getBoundingClientRect').mockReturnValue({
+        const el = item.closest('[data-testid]') as HTMLElement;
+        vi.spyOn(el, 'getBoundingClientRect').mockReturnValue({
           left: i * 200 - 600,
           top: 0,
           right: (i + 1) * 200 - 600,
@@ -1723,7 +1736,8 @@ describe('ScrollGallery', () => {
 
       const items = screen.getAllByText(/^Item \d+$/);
       items.forEach((item, i) => {
-        vi.spyOn(item.closest('[data-testid]')!, 'getBoundingClientRect').mockReturnValue({
+        const el = item.closest('[data-testid]') as HTMLElement;
+        vi.spyOn(el, 'getBoundingClientRect').mockReturnValue({
           left: i * 200,
           top: 0,
           right: (i + 1) * 200,
@@ -1755,7 +1769,8 @@ describe('ScrollGallery', () => {
 
       const items = screen.getAllByText(/^Item \d+$/);
       items.forEach((item, i) => {
-        vi.spyOn(item.closest('[data-testid]')!, 'getBoundingClientRect').mockReturnValue({
+        const el = item.closest('[data-testid]') as HTMLElement;
+        vi.spyOn(el, 'getBoundingClientRect').mockReturnValue({
           left: i * 200 - 600,
           top: 0,
           right: (i + 1) * 200 - 600,
@@ -1785,7 +1800,8 @@ describe('ScrollGallery', () => {
 
       const items = screen.getAllByText(/^Item \d+$/);
       items.forEach((item, i) => {
-        vi.spyOn(item.closest('[data-testid]')!, 'getBoundingClientRect').mockReturnValue({
+        const el = item.closest('[data-testid]') as HTMLElement;
+        vi.spyOn(el, 'getBoundingClientRect').mockReturnValue({
           left: i * 200,
           top: 0,
           right: (i + 1) * 200,
