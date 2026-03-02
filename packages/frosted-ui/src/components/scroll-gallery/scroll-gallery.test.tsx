@@ -329,6 +329,177 @@ describe('ScrollGallery', () => {
     });
   });
 
+  describe('Viewport keyboard navigation (horizontal)', () => {
+    it('ArrowRight scrolls to next item and sets active index', () => {
+      render(<Gallery withMarkers />);
+      const viewport = screen.getByTestId('viewport');
+      mockViewportScroll(viewport, { scrollLeft: 0, scrollWidth: 1000, clientWidth: 400 });
+      viewport.scrollBy = vi.fn();
+
+      fireEvent.keyDown(viewport, { key: 'ArrowRight' });
+
+      expect(viewport.scrollBy).toHaveBeenCalledTimes(1);
+    });
+
+    it('ArrowLeft scrolls to previous item', () => {
+      render(<Gallery withMarkers defaultValue={2} />);
+      const viewport = screen.getByTestId('viewport');
+      mockViewportScroll(viewport, { scrollLeft: 400, scrollWidth: 1000, clientWidth: 400 });
+      viewport.scrollBy = vi.fn();
+
+      fireEvent.keyDown(viewport, { key: 'ArrowLeft' });
+
+      expect(viewport.scrollBy).toHaveBeenCalledTimes(1);
+    });
+
+    it('ArrowRight clamps at last item (loop=false)', () => {
+      render(<Gallery withMarkers defaultValue={4} />);
+      const viewport = screen.getByTestId('viewport');
+      viewport.scrollBy = vi.fn();
+
+      fireEvent.keyDown(viewport, { key: 'ArrowRight' });
+
+      expect(viewport.scrollBy).not.toHaveBeenCalled();
+    });
+
+    it('ArrowLeft clamps at first item (loop=false)', () => {
+      render(<Gallery withMarkers />);
+      const viewport = screen.getByTestId('viewport');
+      viewport.scrollBy = vi.fn();
+
+      fireEvent.keyDown(viewport, { key: 'ArrowLeft' });
+
+      expect(viewport.scrollBy).not.toHaveBeenCalled();
+    });
+
+    it('ArrowRight wraps from last to first (loop=true)', () => {
+      render(<Gallery withMarkers loop defaultValue={4} />);
+      const viewport = screen.getByTestId('viewport');
+      viewport.scrollBy = vi.fn();
+
+      fireEvent.keyDown(viewport, { key: 'ArrowRight' });
+
+      expect(viewport.scrollBy).toHaveBeenCalledTimes(1);
+    });
+
+    it('ArrowLeft wraps from first to last (loop=true)', () => {
+      render(<Gallery withMarkers loop />);
+      const viewport = screen.getByTestId('viewport');
+      viewport.scrollBy = vi.fn();
+
+      fireEvent.keyDown(viewport, { key: 'ArrowLeft' });
+
+      expect(viewport.scrollBy).toHaveBeenCalledTimes(1);
+    });
+
+    it('Home scrolls to first item', () => {
+      render(<Gallery withMarkers defaultValue={3} />);
+      const viewport = screen.getByTestId('viewport');
+      viewport.scrollBy = vi.fn();
+
+      fireEvent.keyDown(viewport, { key: 'Home' });
+
+      expect(viewport.scrollBy).toHaveBeenCalledTimes(1);
+    });
+
+    it('End scrolls to last item', () => {
+      render(<Gallery withMarkers />);
+      const viewport = screen.getByTestId('viewport');
+      viewport.scrollBy = vi.fn();
+
+      fireEvent.keyDown(viewport, { key: 'End' });
+
+      expect(viewport.scrollBy).toHaveBeenCalledTimes(1);
+    });
+
+    it('PageDown performs page scroll (85% of viewport)', () => {
+      render(<Gallery />);
+      const viewport = screen.getByTestId('viewport');
+      mockViewportScroll(viewport, { scrollLeft: 0, scrollWidth: 1000, clientWidth: 400 });
+      viewport.scrollBy = vi.fn();
+
+      fireEvent.keyDown(viewport, { key: 'PageDown' });
+
+      expect(viewport.scrollBy).toHaveBeenCalledWith(
+        expect.objectContaining({ left: 400 * 0.85 }),
+      );
+    });
+
+    it('PageUp performs reverse page scroll', () => {
+      render(<Gallery />);
+      const viewport = screen.getByTestId('viewport');
+      mockViewportScroll(viewport, { scrollLeft: 400, scrollWidth: 1000, clientWidth: 400 });
+      viewport.scrollBy = vi.fn();
+
+      fireEvent.keyDown(viewport, { key: 'PageUp' });
+
+      expect(viewport.scrollBy).toHaveBeenCalledWith(
+        expect.objectContaining({ left: -400 * 0.85 }),
+      );
+    });
+
+    it('prevents default on handled keys', () => {
+      render(<Gallery />);
+      const viewport = screen.getByTestId('viewport');
+      mockViewportScroll(viewport, { scrollLeft: 0, scrollWidth: 1000, clientWidth: 400 });
+
+      const event = new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true, cancelable: true });
+      const spy = vi.spyOn(event, 'preventDefault');
+      viewport.dispatchEvent(event);
+
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('does not prevent default on unhandled keys', () => {
+      render(<Gallery />);
+      const viewport = screen.getByTestId('viewport');
+
+      const event = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true });
+      const spy = vi.spyOn(event, 'preventDefault');
+      viewport.dispatchEvent(event);
+
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('viewport does not force tabIndex (consumer opt-in)', () => {
+      render(<Gallery />);
+      const viewport = screen.getByTestId('viewport');
+      expect(viewport.hasAttribute('tabindex')).toBe(false);
+    });
+  });
+
+  describe('Viewport keyboard navigation (vertical)', () => {
+    it('ArrowDown scrolls to next item', () => {
+      render(<Gallery withMarkers orientation="vertical" />);
+      const viewport = screen.getByTestId('viewport');
+      viewport.scrollBy = vi.fn();
+
+      fireEvent.keyDown(viewport, { key: 'ArrowDown' });
+
+      expect(viewport.scrollBy).toHaveBeenCalledTimes(1);
+    });
+
+    it('ArrowUp scrolls to previous item', () => {
+      render(<Gallery withMarkers orientation="vertical" defaultValue={2} />);
+      const viewport = screen.getByTestId('viewport');
+      viewport.scrollBy = vi.fn();
+
+      fireEvent.keyDown(viewport, { key: 'ArrowUp' });
+
+      expect(viewport.scrollBy).toHaveBeenCalledTimes(1);
+    });
+
+    it('ArrowRight does nothing in vertical orientation', () => {
+      render(<Gallery withMarkers orientation="vertical" />);
+      const viewport = screen.getByTestId('viewport');
+      viewport.scrollBy = vi.fn();
+
+      fireEvent.keyDown(viewport, { key: 'ArrowRight' });
+
+      expect(viewport.scrollBy).not.toHaveBeenCalled();
+    });
+  });
+
   describe('scroll button navigation', () => {
     it('Previous button is disabled at scroll start', () => {
       render(<Gallery />);

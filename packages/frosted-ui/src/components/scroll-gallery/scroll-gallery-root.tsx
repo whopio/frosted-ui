@@ -133,15 +133,16 @@ const ScrollGalleryRoot = React.forwardRef<
   const itemCount = itemElementsRef.current.size;
 
   /**
-   * Imperative scrollTo: scrolls the viewport to bring the item at the
-   * given index into view. Behaves like a marker click — immediately
-   * sets the active index and locks it through the smooth scroll.
+   * Shared "locked scroll to item" primitive. Scrolls the viewport to
+   * bring the item at the given index into view while locking the active
+   * marker to that index through the smooth scroll animation.
    *
-   * This is the recommended way to programmatically navigate. Unlike a
-   * controlled `value` prop, it doesn't create a feedback loop — the DOM
-   * scroll position remains the single source of truth.
+   * Used by: marker clicks, viewport arrow/Home/End keys, scroll button
+   * loop-wrap, and the public imperative `scrollTo` API. Centralised here
+   * to eliminate duplication of the scrollTargetRef + scrollingRef +
+   * scrollBy + setActiveIndex pattern.
    */
-  const scrollTo = React.useCallback(
+  const scrollToItem = React.useCallback(
     (index: number, behavior?: ScrollBehavior) => {
       behavior = behavior ?? getScrollBehavior();
       const viewport = viewportRef.current;
@@ -167,7 +168,7 @@ const ScrollGalleryRoot = React.forwardRef<
     [getItemElements, orientation, setActiveIndex],
   );
 
-  React.useImperativeHandle(forwardedRef, () => ({ scrollTo }), [scrollTo]);
+  React.useImperativeHandle(forwardedRef, () => ({ scrollTo: scrollToItem }), [scrollToItem]);
 
   // Scroll to the initial item on mount when defaultValue is non-zero.
   // Uses useLayoutEffect so the scroll happens before the browser paints,
@@ -177,7 +178,7 @@ const ScrollGalleryRoot = React.forwardRef<
   const defaultValueRef = React.useRef(defaultValue);
   React.useLayoutEffect(() => {
     if (defaultValueRef.current !== 0) {
-      scrollTo(defaultValueRef.current, 'instant');
+      scrollToItem(defaultValueRef.current, 'instant');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -199,6 +200,7 @@ const ScrollGalleryRoot = React.forwardRef<
       itemsVersion,
       scrollTargetRef,
       scrollingRef,
+      scrollToItem,
     }),
     [
       activeIndex,
@@ -210,6 +212,7 @@ const ScrollGalleryRoot = React.forwardRef<
       registerItem,
       getItemElements,
       itemCount,
+      scrollToItem,
       itemsVersion,
     ],
   );

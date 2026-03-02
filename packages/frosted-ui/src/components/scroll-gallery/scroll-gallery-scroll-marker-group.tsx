@@ -51,10 +51,9 @@ const ScrollGalleryScrollMarkerGroup = React.forwardRef<
    * navigating between markers with arrow keys immediately scrolls to the
    * corresponding item, without requiring an additional Enter/Space press.
    *
-   * Note: arrow keys on the *viewport* use native browser scroll (not handled
-   * here). This separation matches the CSS spec: scroll buttons scroll by
-   * "one page", arrow keys on the content area scroll natively, and markers
-   * navigate one-by-one.
+   * Arrow keys on the viewport mirror this same step-by-one behavior for
+   * consistency (handled in ScrollGalleryViewport). The viewport additionally
+   * supports Page Up/Down for page-based scrolling (~85% of scrollport).
    */
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {

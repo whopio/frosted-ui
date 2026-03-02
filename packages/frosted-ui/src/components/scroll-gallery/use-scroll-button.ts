@@ -3,21 +3,12 @@
 import * as React from 'react';
 
 import {
+  PAGE_SCROLL_FACTOR,
   getScrollBehavior,
   getScrollDistance,
   getSnapAlignment,
   useScrollGalleryContext,
 } from './scroll-gallery-context';
-
-/**
- * CSS Overflow 5 §3.2 specifies that scroll buttons scroll by "one page"
- * in their direction, "similar to pressing PgUp/PgDn keys. (Usually, this
- * will be about 85% of the scrollport size.)"
- *
- * We use 0.85 to match the spec recommendation and leave visual overlap
- * so the user retains context of where they were before the scroll.
- */
-const PAGE_SCROLL_FACTOR = 0.85;
 
 interface UseScrollButtonOptions {
   direction: 'previous' | 'next';
@@ -38,7 +29,7 @@ function useScrollButton({ direction, step }: UseScrollButtonOptions): UseScroll
     orientation,
     scrollingRef,
     scrollTargetRef,
-    setActiveIndex,
+    scrollToItem,
     viewportRef,
   } = useScrollGalleryContext();
 
@@ -55,24 +46,11 @@ function useScrollButton({ direction, step }: UseScrollButtonOptions): UseScroll
     const items = getItemElements();
 
     // When looping and already at the boundary, wrap to the other end.
-    // Behaves like a marker click: lock the target and suppress
-    // intermediate active-index updates during the smooth scroll.
+    // Delegates to scrollToItem which handles target-locking and
+    // immediate active-index update (same behavior as a marker click).
     if (loop && !canScroll) {
       const wrapIndex = isPrev ? items.length - 1 : 0;
-      const target = items[wrapIndex];
-      if (!target) return;
-
-      const distance = getScrollDistance(target, viewport, orientation);
-
-      scrollTargetRef.current = wrapIndex;
-      scrollingRef.current = true;
-
-      viewport.scrollBy({
-        [isHorizontal ? 'left' : 'top']: distance,
-        behavior: getScrollBehavior(),
-      });
-
-      setActiveIndex(wrapIndex, 'indicator');
+      scrollToItem(wrapIndex);
       return;
     }
 
@@ -143,10 +121,10 @@ function useScrollButton({ direction, step }: UseScrollButtonOptions): UseScroll
         behavior: getScrollBehavior(),
       });
     }
-  }, [canScroll, disabled, getItemElements, isPrev, loop, orientation, scrollingRef, scrollTargetRef, setActiveIndex, sign, step, viewportRef]);
+  }, [canScroll, disabled, getItemElements, isPrev, loop, orientation, scrollingRef, scrollTargetRef, scrollToItem, sign, step, viewportRef]);
 
   return { disabled, handleClick };
 }
 
-export { useScrollButton, PAGE_SCROLL_FACTOR };
+export { useScrollButton };
 export type { UseScrollButtonOptions, UseScrollButtonReturn };

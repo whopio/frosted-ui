@@ -62,6 +62,15 @@ interface ScrollGalleryContextValue {
    * Cleared after scroll events stop firing (settle detection via debounce).
    */
   scrollingRef: React.RefObject<boolean>;
+
+  /**
+   * Scroll the viewport to bring the item at the given index into view,
+   * locking the active marker to that index through the smooth scroll
+   * animation. This is the shared "locked scroll to item" primitive used
+   * by markers, viewport arrow keys, scroll button loop-wrap, and the
+   * public imperative `scrollTo` API.
+   */
+  scrollToItem: (index: number, behavior?: ScrollBehavior) => void;
 }
 
 const ScrollGalleryContext = React.createContext<ScrollGalleryContextValue | undefined>(undefined);
@@ -155,5 +164,12 @@ function getScrollDistance(
   return targetRef - viewportRef;
 }
 
-export { ScrollGalleryContext, useScrollGalleryContext, getScrollBehavior, getScrollDistance, getSnapAlignment };
+/**
+ * CSS Overflow 5 §3.2: scroll buttons scroll by "one page" in their
+ * direction — "similar to pressing PgUp/PgDn keys. (Usually, this will
+ * be about 85% of the scrollport size.)"
+ */
+const PAGE_SCROLL_FACTOR = 0.85;
+
+export { ScrollGalleryContext, useScrollGalleryContext, getScrollBehavior, getScrollDistance, getSnapAlignment, PAGE_SCROLL_FACTOR };
 export type { ScrollGalleryContextValue, ChangeSource };

@@ -3,7 +3,7 @@
 import { mergeProps, useRender } from '@base-ui/react';
 import * as React from 'react';
 
-import { getSnapAlignment, useScrollGalleryContext } from './scroll-gallery-context';
+import { PAGE_SCROLL_FACTOR, getScrollBehavior, getSnapAlignment, useScrollGalleryContext } from './scroll-gallery-context';
 
 /**
  * Tolerance in pixels for scroll boundary comparisons. Accounts for
@@ -51,6 +51,7 @@ const ScrollGalleryViewport = React.forwardRef<
     activeIndex,
     setActiveIndex,
     orientation,
+    loop,
     canScrollPrev,
     canScrollNext,
     setCanScrollPrev,
@@ -60,6 +61,7 @@ const ScrollGalleryViewport = React.forwardRef<
     itemsVersion,
     scrollTargetRef,
     scrollingRef,
+    scrollToItem,
   } = useScrollGalleryContext();
 
   const [isScrolling, setIsScrolling] = React.useState(false);
@@ -417,6 +419,82 @@ const ScrollGalleryViewport = React.forwardRef<
     return () => inViewObserver.disconnect();
   }, [getItemElements, itemsVersion]);
 
+  /**
+   * Keyboard navigation on the viewport itself (WAI-ARIA Tabs pattern adapted
+   * for scroll containers):
+   *
+   * - Arrow keys: step by one item, with loop wrap if enabled. Matches the
+   *   marker group arrow behavior for consistency.
+   * - Home / End: jump to first / last item.
+   * - Page Up / Page Down: scroll by ~85% of the viewport ("one page"),
+   *   matching the CSS Overflow 5 §3.2 scroll-button spec. These use
+   *   real-time marker updates (no scrollTargetRef lock).
+   *
+   * All handled keys call preventDefault to suppress native scroll.
+   */
+  const handleKeyDown = React.useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      const viewport = internalRef.current;
+      if (!viewport) return;
+
+      const isHorizontal = orientation === 'horizontal';
+      const count = getItemElements().length;
+      if (count === 0) return;
+
+      let targetIndex: number | null = null;
+      let pageDirection: number | null = null;
+
+      switch (event.key) {
+        case isHorizontal ? 'ArrowRight' : 'ArrowDown': {
+          if (loop) {
+            targetIndex = (activeIndex + 1) % count;
+          } else {
+            targetIndex = Math.min(activeIndex + 1, count - 1);
+          }
+          break;
+        }
+        case isHorizontal ? 'ArrowLeft' : 'ArrowUp': {
+          if (loop) {
+            targetIndex = (activeIndex - 1 + count) % count;
+          } else {
+            targetIndex = Math.max(activeIndex - 1, 0);
+          }
+          break;
+        }
+        case 'Home':
+          targetIndex = 0;
+          break;
+        case 'End':
+          targetIndex = count - 1;
+          break;
+        case 'PageUp':
+          pageDirection = -1;
+          break;
+        case 'PageDown':
+          pageDirection = 1;
+          break;
+        default:
+          return;
+      }
+
+      event.preventDefault();
+
+      if (targetIndex !== null && targetIndex !== activeIndex) {
+        scrollToItem(targetIndex);
+      } else if (pageDirection !== null) {
+        scrollTargetRef.current = null;
+        scrollingRef.current = false;
+
+        const pageSize = isHorizontal ? viewport.clientWidth : viewport.clientHeight;
+        viewport.scrollBy({
+          [isHorizontal ? 'left' : 'top']: pageDirection * pageSize * PAGE_SCROLL_FACTOR,
+          behavior: getScrollBehavior(),
+        });
+      }
+    },
+    [activeIndex, getItemElements, loop, orientation, scrollTargetRef, scrollingRef, scrollToItem],
+  );
+
   const state = React.useMemo<ScrollGalleryViewportState>(
     () => ({ activeIndex, orientation, canScrollPrev, canScrollNext, scrolling: isScrolling }),
     [activeIndex, orientation, canScrollPrev, canScrollNext, isScrolling],
@@ -431,6 +509,7 @@ const ScrollGalleryViewport = React.forwardRef<
       {
         className: 'fui-ScrollGalleryViewport',
         'data-orientation': orientation,
+        onKeyDown: handleKeyDown,
       } as React.ComponentPropsWithRef<'div'>,
       elementProps as React.ComponentPropsWithRef<'div'>,
     ),

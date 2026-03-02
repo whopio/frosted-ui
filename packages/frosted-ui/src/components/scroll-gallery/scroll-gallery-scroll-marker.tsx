@@ -3,7 +3,7 @@
 import { mergeProps, useRender } from '@base-ui/react';
 import * as React from 'react';
 
-import { getScrollBehavior, getScrollDistance, useScrollGalleryContext } from './scroll-gallery-context';
+import { useScrollGalleryContext } from './scroll-gallery-context';
 
 interface ScrollGalleryScrollMarkerState extends Record<string, unknown> {
   active: boolean;
@@ -29,8 +29,7 @@ const ScrollGalleryScrollMarker = React.forwardRef<
 >(function ScrollGalleryScrollMarker(props, forwardedRef) {
   const { render, index, ...elementProps } = props;
 
-  const { activeIndex, setActiveIndex, orientation, viewportRef, getItemElements, scrollTargetRef, scrollingRef } =
-    useScrollGalleryContext();
+  const { activeIndex, scrollToItem } = useScrollGalleryContext();
 
   const isActive = index === activeIndex;
 
@@ -41,41 +40,14 @@ const ScrollGalleryScrollMarker = React.forwardRef<
    * Per the spec, clicking a scroll marker:
    * 1. Sets the scroll container's "current scroll target" to the linked
    *    element, making that marker immediately active.
-   * 2. Initiates a smooth scroll to bring the target element into view
-   *    (aligned to the scrollport start edge, matching `block: "start",
-   *    inline: "start"` as specified).
+   * 2. Initiates a smooth scroll to bring the target element into view.
    *
-   * We compute the distance between the target item and the viewport start,
-   * then use scrollBy with `behavior: 'smooth'` for the animation. Both
-   * scrollTargetRef and scrollingRef are set so the viewport's scroll
-   * handler knows to suppress active-index recomputation during the
-   * animation and keep the marker locked on the clicked target.
+   * Delegates to the shared `scrollToItem` which handles target-locking,
+   * scroll animation, and immediate active-index update.
    */
   const handleClick = React.useCallback(() => {
-    const viewport = viewportRef.current;
-    if (!viewport) return;
-
-    const items = getItemElements();
-    const target = items[index];
-    if (!target) return;
-
-    const isHorizontal = orientation === 'horizontal';
-    const distance = getScrollDistance(target, viewport, orientation);
-
-    // Set "current scroll target" (CSS Overflow 5 §2.1) — this locks
-    // the active marker to this index through the entire smooth scroll.
-    scrollTargetRef.current = index;
-    scrollingRef.current = true;
-
-    viewport.scrollBy({
-      [isHorizontal ? 'left' : 'top']: distance,
-      behavior: getScrollBehavior(),
-    });
-
-    // Immediately reflect the active state — the user expects instant
-    // visual feedback when clicking a marker.
-    setActiveIndex(index, 'indicator');
-  }, [getItemElements, index, orientation, scrollTargetRef, scrollingRef, setActiveIndex, viewportRef]);
+    scrollToItem(index);
+  }, [index, scrollToItem]);
 
   const state = React.useMemo<ScrollGalleryScrollMarkerState>(
     () => ({ active: isActive, index }),
