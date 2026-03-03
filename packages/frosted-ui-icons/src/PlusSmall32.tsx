@@ -1,0 +1,27 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const PlusSmall32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M16 6.25C16.4142 6.25 16.75 6.58579 16.75 7V15.25H25C25.4142 15.25 25.75 15.5858 25.75 16C25.75 16.4142 25.4142 16.75 25 16.75H16.75V25C16.75 25.4142 16.4142 25.75 16 25.75C15.5858 25.75 15.25 25.4142 15.25 25V16.75H7C6.58579 16.75 6.25 16.4142 6.25 16C6.25 15.5858 6.58579 15.25 7 15.25H15.25V7C15.25 6.58579 15.5858 6.25 16 6.25Z"
+        fill={color}
+        fillRule="evenodd"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+};
+
+PlusSmall32.category = 'Interface General';
+
+export default PlusSmall32;
