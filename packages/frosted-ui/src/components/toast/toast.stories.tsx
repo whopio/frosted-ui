@@ -136,53 +136,49 @@ export const LoadingReplaceError: Story = {
   },
 };
 
-function FileUploadToast({ id }: { id: string }) {
-  const [progress, setProgress] = React.useState(0);
-
-  React.useEffect(() => {
-    let timeout: ReturnType<typeof setTimeout>;
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        const next = Math.min(prev + Math.floor(Math.random() * 15) + 5, 100);
-        if (next >= 100) {
-          clearInterval(interval);
-          timeout = setTimeout(() => toast.success('design-system-v2.fig uploaded', { id }), 400);
-        }
-        return next;
-      });
-    }, 300);
-    return () => {
-      clearInterval(interval);
-      clearTimeout(timeout);
-    };
-  }, [id]);
-
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
-      <CircularProgress size="2" value={progress} max={100} color="green" />
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <Text size="2" weight="medium">
-          Uploading design-system-v2.fig
-        </Text>
-        <Text size="1" color="gray">
-          {progress}% — {progress < 100 ? 'Uploading…' : 'Finishing up…'}
-        </Text>
-      </div>
-    </div>
-  );
-}
-
 export const FileUploadProgress: Story = {
   name: 'File Upload with Progress',
   render: () => (
     <Button
       onClick={() =>
         toast.custom(
-          ({ Toast }) => (
-            <Toast>
-              <FileUploadToast id="file-upload" />
-            </Toast>
-          ),
+          ({ Toast, id }) => {
+            const [progress, setProgress] = React.useState(0);
+
+            React.useEffect(() => {
+              let timeout: ReturnType<typeof setTimeout>;
+              const interval = setInterval(() => {
+                setProgress((prev) => {
+                  const next = Math.min(prev + Math.floor(Math.random() * 15) + 5, 100);
+                  if (next >= 100) {
+                    clearInterval(interval);
+                    timeout = setTimeout(() => toast.success('design-system-v2.fig uploaded', { id }), 400);
+                  }
+                  return next;
+                });
+              }, 300);
+              return () => {
+                clearInterval(interval);
+                clearTimeout(timeout);
+              };
+            }, [id]);
+
+            return (
+              <Toast.Root>
+                <Toast.Content>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+                    <CircularProgress size="3" value={progress} max={100} color="green" />
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <Toast.Title>Uploading design-system-v2.fig</Toast.Title>
+                      <Toast.Description>
+                        {progress}% — {progress < 100 ? 'Uploading…' : 'Finishing up…'}
+                      </Toast.Description>
+                    </div>
+                  </div>
+                </Toast.Content>
+              </Toast.Root>
+            );
+          },
           { id: 'file-upload', duration: 0 },
         )
       }
@@ -337,9 +333,13 @@ export const CustomContent: Story = {
       <div style={{ maxWidth: 480 }}>
         <Text size="2" color="gray">
           <Code size="1">toast.custom()</Code> accepts a render callback for fully custom toast content. The callback
-          receives <Code size="1">{'{ close, id, Toast }'}</Code>. Wrap your content in the <Code size="1">Toast</Code>{' '}
-          component to get the standard chrome (animations, swipe-to-dismiss, stacking). Pass{' '}
-          <Code size="1">className</Code> or <Code size="1">style</Code> to restyle the root.
+          receives <Code size="1">{'{ close, id, Toast }'}</Code> where <Code size="1">Toast</Code> provides{' '}
+          <Code size="1">Root</Code>, <Code size="1">Content</Code>, <Code size="1">Title</Code>, and{' '}
+          <Code size="1">Description</Code> sub-components. Compose them as{' '}
+          <Code size="1">{'<Toast.Root><Toast.Content>…</Toast.Content></Toast.Root>'}</Code> to get the standard chrome
+          (animations, swipe-to-dismiss, stacking). Use <Code size="1">Toast.Title</Code> and{' '}
+          <Code size="1">Toast.Description</Code> for consistent typography. Pass <Code size="1">className</Code> or{' '}
+          <Code size="1">style</Code> to any component to restyle it.
         </Text>
       </div>
       <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
@@ -347,54 +347,51 @@ export const CustomContent: Story = {
           onClick={() =>
             toast.custom(
               ({ close, Toast }) => (
-                <Theme
-                  appearance="dark"
-                  render={
-                    <Toast style={{ background: 'black', borderRadius: 999 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
-                        <Avatar
-                          size="3"
-                          fallback="Alex Kim"
-                          color="blue"
-                          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=128&h=128&q=70&crop=faces&fit=crop"
-                        />
-                        <div style={{ flex: 1, minWidth: 0 }}>
-                          <Heading size="2" weight="medium">
-                            Incoming call
-                          </Heading>
-                          <Text size="1" color="gray">
-                            Alex Kim
-                          </Text>
-                        </div>
-                        <div style={{ display: 'flex', gap: 'var(--space-2)', flexShrink: 0 }}>
-                          <IconButton
-                            aria-label="Decline call"
-                            size="3"
-                            style={{ borderRadius: 999 }}
-                            variant="solid"
-                            color="danger"
-                            onClick={close}
-                          >
-                            <Telephone20 style={{ transform: 'rotate(90deg)', transformOrigin: 'center' }} />
-                          </IconButton>
-                          <IconButton
-                            aria-label="Accept call"
-                            size="3"
-                            style={{ borderRadius: 999 }}
-                            color="success"
-                            variant="solid"
-                            onClick={() => {
-                              close();
-                              toast.success('Call accepted');
-                            }}
-                          >
-                            <Telephone20 />
-                          </IconButton>
-                        </div>
+                <Theme appearance="dark" render={<Toast.Root style={{ background: 'black', borderRadius: 999 }} />}>
+                  <Toast.Content>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+                      <Avatar
+                        size="3"
+                        fallback="Alex Kim"
+                        color="blue"
+                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=128&h=128&q=70&crop=faces&fit=crop"
+                      />
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <Heading size="2" weight="medium">
+                          Incoming call
+                        </Heading>
+                        <Text size="1" color="gray">
+                          Alex Kim
+                        </Text>
                       </div>
-                    </Toast>
-                  }
-                />
+                      <div style={{ display: 'flex', gap: 'var(--space-2)', flexShrink: 0 }}>
+                        <IconButton
+                          aria-label="Decline call"
+                          size="3"
+                          style={{ borderRadius: 999 }}
+                          variant="solid"
+                          color="danger"
+                          onClick={close}
+                        >
+                          <Telephone20 style={{ transform: 'rotate(90deg)', transformOrigin: 'center' }} />
+                        </IconButton>
+                        <IconButton
+                          aria-label="Accept call"
+                          size="3"
+                          style={{ borderRadius: 999 }}
+                          color="success"
+                          variant="solid"
+                          onClick={() => {
+                            close();
+                            toast.success('Call accepted');
+                          }}
+                        >
+                          <Telephone20 />
+                        </IconButton>
+                      </div>
+                    </div>
+                  </Toast.Content>
+                </Theme>
               ),
               { duration: 30000, position: 'top-center' },
             )
@@ -406,37 +403,35 @@ export const CustomContent: Story = {
           onClick={() =>
             toast.custom(
               ({ close, Toast }) => (
-                <Toast>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                      <Heading size="2" weight="medium">
-                        Update available
-                      </Heading>
-                      <Button size="1" variant="ghost" color="gray" onClick={close}>
-                        &times;
-                      </Button>
+                <Toast.Root>
+                  <Toast.Content>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <Toast.Title>Update available</Toast.Title>
+                        <Button size="1" variant="ghost" color="gray" onClick={close}>
+                          &times;
+                        </Button>
+                      </div>
+                      <Toast.Description>Version 2.4.0 is ready. Restart to apply the update.</Toast.Description>
+                      <div style={{ display: 'flex', gap: 'var(--space-2)', marginTop: 'var(--space-1)' }}>
+                        <Button size="1" variant="soft" color="gray" onClick={close} style={{ flex: 1 }}>
+                          Later
+                        </Button>
+                        <Button
+                          size="1"
+                          onClick={() => {
+                            close();
+                            toast.loading('Restarting...');
+                          }}
+                          variant="solid"
+                          style={{ flex: 1 }}
+                        >
+                          Restart now
+                        </Button>
+                      </div>
                     </div>
-                    <Text size="1" color="gray">
-                      Version 2.4.0 is ready. Restart to apply the update.
-                    </Text>
-                    <div style={{ display: 'flex', gap: 'var(--space-2)', marginTop: 'var(--space-1)' }}>
-                      <Button size="1" variant="soft" color="gray" onClick={close} style={{ flex: 1 }}>
-                        Later
-                      </Button>
-                      <Button
-                        size="1"
-                        onClick={() => {
-                          close();
-                          toast.loading('Restarting...');
-                        }}
-                        variant="solid"
-                        style={{ flex: 1 }}
-                      >
-                        Restart now
-                      </Button>
-                    </div>
-                  </div>
-                </Toast>
+                  </Toast.Content>
+                </Toast.Root>
               ),
               { duration: 0 },
             )
@@ -448,16 +443,18 @@ export const CustomContent: Story = {
           onClick={() =>
             toast.custom(
               ({ close, Toast }) => (
-                <Toast style={{ background: 'var(--success-3)' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
-                    <Text size="2" weight="medium" style={{ flex: 1 }}>
-                      Deployment successful
-                    </Text>
-                    <Button size="1" variant="solid" color="success" onClick={close}>
-                      View logs
-                    </Button>
-                  </div>
-                </Toast>
+                <Toast.Root style={{ background: 'var(--success-3)' }}>
+                  <Toast.Content>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+                      <Text size="2" weight="medium" style={{ flex: 1 }}>
+                        Deployment successful
+                      </Text>
+                      <Button size="1" variant="solid" color="success" onClick={close}>
+                        View logs
+                      </Button>
+                    </div>
+                  </Toast.Content>
+                </Toast.Root>
               ),
               { duration: 8000 },
             )

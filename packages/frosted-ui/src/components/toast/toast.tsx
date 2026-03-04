@@ -108,8 +108,8 @@ const CustomToastCtx = React.createContext<{
   swipeDirection: SwipeDirection | SwipeDirection[];
 } | null>(null);
 
-const CustomToastSlot: React.FC<
-  { className?: string; style?: React.CSSProperties; children: React.ReactNode } & Record<string, unknown>
+const CustomToastRoot: React.FC<
+  { className?: string; style?: React.CSSProperties; children?: React.ReactNode } & Record<string, unknown>
 > = ({ className, style, children, ...rest }) => {
   const ctx = React.useContext(CustomToastCtx);
   if (!ctx) return null;
@@ -123,12 +123,34 @@ const CustomToastSlot: React.FC<
       style={style}
       {...rest}
     >
-      <ToastPrimitive.Content className={classNames('fui-ToastContent', 'fui-ToastContent-custom')}>
-        {children}
-      </ToastPrimitive.Content>
+      {children}
     </ToastPrimitive.Root>
   );
 };
+
+const CustomToastContent: React.FC<
+  { className?: string; style?: React.CSSProperties; children: React.ReactNode } & Record<string, unknown>
+> = ({ className, style, children, ...rest }) => {
+  return (
+    <ToastPrimitive.Content
+      className={classNames('fui-ToastContent', 'fui-ToastContent-custom', className)}
+      style={style}
+      {...rest}
+    >
+      {children}
+    </ToastPrimitive.Content>
+  );
+};
+
+const CustomToastTitle: React.FC<
+  { className?: string; style?: React.CSSProperties; children: React.ReactNode } & Record<string, unknown>
+> = ({ className, ...rest }) => <ToastPrimitive.Title className={classNames('fui-ToastTitle', className)} {...rest} />;
+
+const CustomToastDescription: React.FC<
+  { className?: string; style?: React.CSSProperties; children: React.ReactNode } & Record<string, unknown>
+> = ({ className, ...rest }) => (
+  <ToastPrimitive.Description className={classNames('fui-ToastDescription', className)} {...rest} />
+);
 
 interface PositionToastListProps {
   position: ToastPosition;
@@ -242,9 +264,19 @@ function PositionToastList({ position, swipeDirection, onToast }: PositionToastL
     const isCustom = t.type === 'custom' && typeof customRender === 'function';
 
     if (isCustom) {
+      const Render = customRender;
       return (
         <CustomToastCtx.Provider key={t.id} value={{ toast: t, position, swipeDirection }}>
-          {customRender({ close: () => toast.dismiss(t.id), id: t.id, Toast: CustomToastSlot })}
+          <Render
+            close={() => toast.dismiss(t.id)}
+            id={t.id}
+            Toast={{
+              Root: CustomToastRoot,
+              Content: CustomToastContent,
+              Title: CustomToastTitle,
+              Description: CustomToastDescription,
+            }}
+          />
         </CustomToastCtx.Provider>
       );
     }

@@ -28,9 +28,20 @@ type ToastType = 'success' | 'error' | 'loading' | 'info' | 'default' | 'custom'
 interface CustomToastRenderProps {
   close: () => void;
   id: string;
-  Toast: React.FC<
-    { className?: string; style?: React.CSSProperties; children: React.ReactNode } & Record<string, unknown>
-  >;
+  Toast: {
+    Root: React.FC<
+      { className?: string; style?: React.CSSProperties; children?: React.ReactNode } & Record<string, unknown>
+    >;
+    Content: React.FC<
+      { className?: string; style?: React.CSSProperties; children: React.ReactNode } & Record<string, unknown>
+    >;
+    Title: React.FC<
+      { className?: string; style?: React.CSSProperties; children: React.ReactNode } & Record<string, unknown>
+    >;
+    Description: React.FC<
+      { className?: string; style?: React.CSSProperties; children: React.ReactNode } & Record<string, unknown>
+    >;
+  };
 }
 
 interface ToastOptions {
@@ -86,6 +97,19 @@ function subscribeBump(listener: BumpListener) {
   };
 }
 
+// Base UI's manager.update() doesn't restart the auto-dismiss timer, so we
+// schedule our own fallback timeout when an update changes the duration from
+// infinite (0) to a finite value (e.g. custom upload toast → success).
+const scheduledDismissals = new Map<string, ReturnType<typeof setTimeout>>();
+
+function clearScheduledDismissal(id: string) {
+  const existing = scheduledDismissals.get(id);
+  if (existing !== undefined) {
+    clearTimeout(existing);
+    scheduledDismissals.delete(id);
+  }
+}
+
 function addOrUpdate(title: React.ReactNode, type: ToastType, options?: ToastOptions) {
   // Update an existing toast on its original manager
   if (options?.id && toastOwnership.has(options.id)) {
@@ -97,6 +121,20 @@ function addOrUpdate(title: React.ReactNode, type: ToastType, options?: ToastOpt
       ...(type !== 'loading' && options?.duration !== undefined ? { timeout: options.duration } : {}),
       ...mapOptions({ ...options, id: undefined }),
     });
+
+    clearScheduledDismissal(options.id);
+    const resolvedDuration = options?.duration ?? 0;
+    if (type !== 'loading' && resolvedDuration > 0) {
+      const toastId = options.id;
+      scheduledDismissals.set(
+        toastId,
+        setTimeout(() => {
+          scheduledDismissals.delete(toastId);
+          dismiss(toastId);
+        }, resolvedDuration),
+      );
+    }
+
     for (const listener of bumpListeners) listener(options.id, type);
     return options.id;
   }
@@ -161,6 +199,7 @@ function promise<T>(promiseValue: Promise<T>, options: ToastPromiseOptions<T>) {
 }
 
 function dismiss(id: string) {
+  clearScheduledDismissal(id);
   const pos = toastOwnership.get(id);
   if (pos) {
     getManager(pos).close(id);
@@ -169,6 +208,7 @@ function dismiss(id: string) {
 
 function dismissAll() {
   for (const [id, pos] of toastOwnership) {
+    clearScheduledDismissal(id);
     getManager(pos).close(id);
   }
   toastOwnership.clear();
