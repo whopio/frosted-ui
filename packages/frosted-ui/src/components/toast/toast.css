@@ -86,7 +86,7 @@
   width: 100%;
   box-sizing: border-box;
 
-  --border-radius: var(--radius-4);
+  --border-radius: 12px;
 
   background-color: var(--color-panel-solid);
   border-radius: var(--border-radius);
@@ -109,6 +109,14 @@
     transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
     opacity 0.5s,
     height 0.15s;
+
+  /* To prevent items from closing when hovering over rounded corners */
+  &:before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
 
   &::after {
     content: '';
