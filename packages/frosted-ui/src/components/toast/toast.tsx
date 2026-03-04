@@ -17,6 +17,32 @@ interface ToastData {
   description?: React.ReactNode;
 }
 
+// Base UI's ToastRoot swipe handler skips `button,a,input,textarea,[role="button"],[data-swipe-ignore]`
+// but NOT ARIA widget roles rendered on non-semantic elements (e.g. <span role="switch">).
+// Stopping propagation from Content prevents the Root's handler from calling setPointerCapture,
+// which would steal pointerup and suppress the click event on these controls.
+const EXTRA_INTERACTIVE_SELECTOR = [
+  '[role="switch"]',
+  '[role="checkbox"]',
+  '[role="radio"]',
+  '[role="slider"]',
+  '[role="combobox"]',
+  '[role="spinbutton"]',
+  '[role="menuitem"]',
+  '[role="option"]',
+  '[role="tab"]',
+  'select',
+  '[contenteditable]',
+  'label',
+].join(',');
+
+function guardInteractivePointerDown(event: React.PointerEvent) {
+  const target = event.target as HTMLElement;
+  if (target.closest?.(EXTRA_INTERACTIVE_SELECTOR)) {
+    event.stopPropagation();
+  }
+}
+
 interface ToastProviderProps {
   children: React.ReactNode;
   /**
@@ -135,6 +161,7 @@ const CustomToastContent: React.FC<
     <ToastPrimitive.Content
       className={classNames('fui-ToastContent', 'fui-ToastContent-custom', className)}
       style={style}
+      onPointerDown={guardInteractivePointerDown}
       {...rest}
     >
       {children}
@@ -290,7 +317,7 @@ function PositionToastList({ position, swipeDirection, onToast }: PositionToastL
         data-position={position}
         swipeDirection={swipeDirection}
       >
-        <ToastPrimitive.Content className="fui-ToastContent">
+        <ToastPrimitive.Content className="fui-ToastContent" onPointerDown={guardInteractivePointerDown}>
           <ToastIcon type={t.type} />
           <div className="fui-ToastBody">
             <ToastPrimitive.Title className="fui-ToastTitle" />
