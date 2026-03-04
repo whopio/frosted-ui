@@ -77,12 +77,18 @@ function resolvePosition(options?: ToastOptions): ToastPosition {
   return options?.position ?? _defaultPosition;
 }
 
+function normalizeDuration(duration: number | undefined): number | undefined {
+  if (duration === undefined) return undefined;
+  return duration === Infinity ? 0 : duration;
+}
+
 function mapOptions(options?: ToastOptions) {
   if (!options) return {};
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { duration, id, position, ...rest } = options;
+  const normalized = normalizeDuration(duration);
   return {
-    ...(duration !== undefined ? { timeout: duration } : {}),
+    ...(normalized !== undefined ? { timeout: normalized } : {}),
     ...rest,
   };
 }
@@ -115,15 +121,16 @@ function addOrUpdate(title: React.ReactNode, type: ToastType, options?: ToastOpt
   if (options?.id && toastOwnership.has(options.id)) {
     const originalPos = toastOwnership.get(options.id) as ToastPosition;
     const manager = getManager(originalPos);
+    const normalizedDuration = normalizeDuration(options?.duration);
     manager.update(options.id, {
       title,
       type,
-      ...(type !== 'loading' && options?.duration !== undefined ? { timeout: options.duration } : {}),
+      ...(type !== 'loading' && normalizedDuration !== undefined ? { timeout: normalizedDuration } : {}),
       ...mapOptions({ ...options, id: undefined }),
     });
 
     clearScheduledDismissal(options.id);
-    const resolvedDuration = options?.duration ?? 0;
+    const resolvedDuration = normalizedDuration ?? 0;
     if (type !== 'loading' && resolvedDuration > 0) {
       const toastId = options.id;
       scheduledDismissals.set(
@@ -165,7 +172,7 @@ function error(title: React.ReactNode, options?: ToastOptions) {
 }
 
 function loading(title: React.ReactNode, options?: ToastOptions) {
-  return addOrUpdate(title, 'loading', { duration: 0, ...options });
+  return addOrUpdate(title, 'loading', { duration: Infinity, ...options });
 }
 
 function info(title: React.ReactNode, options?: ToastOptions) {

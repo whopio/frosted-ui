@@ -179,7 +179,7 @@ export const FileUploadProgress: Story = {
               </Toast.Root>
             );
           },
-          { id: 'file-upload', duration: 0 },
+          { id: 'file-upload', duration: Infinity },
         )
       }
     >
@@ -393,7 +393,7 @@ export const CustomContent: Story = {
                   </Toast.Content>
                 </Theme>
               ),
-              { duration: 30000, position: 'top-center' },
+              { duration: Infinity, position: 'top-center', id: 'incoming-call' },
             )
           }
         >
@@ -433,7 +433,7 @@ export const CustomContent: Story = {
                   </Toast.Content>
                 </Toast.Root>
               ),
-              { duration: 0 },
+              { duration: Infinity },
             )
           }
         >
