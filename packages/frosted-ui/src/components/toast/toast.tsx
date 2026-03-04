@@ -4,6 +4,7 @@ import { Toast as ToastPrimitive } from '@base-ui/react/toast';
 import classNames from 'classnames';
 import * as React from 'react';
 import { Theme } from '../../theme';
+import { IconButton } from '../icon-button';
 import { Spinner } from '../spinner';
 import type { CustomToastRenderFn } from './toast-manager';
 import { clearOwnershipForPosition, managers, setDefaultPosition, subscribeBump, toast } from './toast-manager';
@@ -326,10 +327,14 @@ function PositionToastList({ position, swipeDirection, onToast }: PositionToastL
           {t.actionProps && (
             <ToastPrimitive.Action className="fui-ToastAction">{t.actionProps.children}</ToastPrimitive.Action>
           )}
-          <ToastPrimitive.Close className="fui-ToastClose" aria-label="Close">
-            <CloseIcon />
-          </ToastPrimitive.Close>
         </ToastPrimitive.Content>
+        <ToastPrimitive.Close
+          className="fui-ToastClose"
+          aria-label="Close"
+          render={<IconButton size="1" variant="surface" />}
+        >
+          <CloseIcon />
+        </ToastPrimitive.Close>
       </ToastPrimitive.Root>
     );
   });

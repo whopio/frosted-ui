@@ -369,36 +369,16 @@
  ***************************************************************************************************/
 
 .fui-ToastClose {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  margin-top: 1px;
-  padding: 0;
-  border: none;
-  border-radius: var(--radius-2);
-  background: transparent;
-  color: var(--gray-a11);
-  cursor: pointer;
-  transition:
-    background-color 0.15s,
-    color 0.15s;
+  border-radius: 50%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translate(50%, -50%);
+  visibility: hidden;
 
   @media (hover: hover) {
-    &:hover {
-      background-color: var(--gray-a3);
-      color: var(--gray-12);
+    &:where(.fui-ToastRoot[data-expanded]:not([data-ending-style]):hover &) {
+      visibility: visible;
     }
-  }
-
-  &:active {
-    background-color: var(--gray-a4);
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--accent-8);
-    outline-offset: -1px;
   }
 }
