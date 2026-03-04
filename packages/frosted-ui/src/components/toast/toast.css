@@ -375,10 +375,12 @@
   top: 0;
   transform: translate(50%, -50%);
   visibility: hidden;
+  color: var(--gray-a10);
 
   @media (hover: hover) {
     &:where(.fui-ToastRoot[data-expanded]:not([data-ending-style]):hover &) {
       visibility: visible;
+      color: var(--gray-12);
     }
   }
 }
