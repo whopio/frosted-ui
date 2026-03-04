@@ -86,8 +86,10 @@
   width: 100%;
   box-sizing: border-box;
 
+  --border-radius: var(--radius-4);
+
   background-color: var(--color-panel-solid);
-  border-radius: var(--radius-4);
+  border-radius: var(--border-radius);
   box-shadow: var(--shadow-4);
   padding: var(--space-3) var(--space-4);
   background-clip: padding-box;
@@ -371,8 +373,12 @@
 .fui-ToastClose {
   border-radius: 50%;
   position: absolute;
-  right: 0;
-  top: 0;
+  /* Place the button's center on the rounded corner arc at 45°.
+   * The arc center is --border-radius inward from the corner on both axes.
+   * At 45° the point on the arc is r × (1 − √2/2) ≈ r × 0.2929 from each edge.
+   * translate(50%, -50%) makes right/top control the button's center directly. */
+  right: calc(var(--border-radius) * 0.2929);
+  top: calc(var(--border-radius) * 0.2929);
   transform: translate(50%, -50%);
   visibility: hidden;
   color: var(--gray-a10);
