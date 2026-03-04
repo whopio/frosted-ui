@@ -70,8 +70,8 @@
  ***************************************************************************************************/
 
 .fui-ToastRoot {
-  --gap: 0.5rem;
-  --peek: 0.5rem;
+  --gap: 10px;
+  --peek: 10px;
   --scale: calc(max(0, 1 - (var(--toast-index) * 0.05)));
   --shrink: calc(1 - var(--scale));
   --height: var(--toast-frontmost-height, var(--toast-height));
@@ -86,13 +86,13 @@
   width: 100%;
   box-sizing: border-box;
 
-  --border-radius: 12px;
+  --border-radius: 16px;
 
   background-color: var(--color-panel-solid);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-4);
-  padding: var(--space-3) var(--space-4);
-  background-clip: padding-box;
+  /* 15px instead of 16px to account for the outset shadow border */
+  padding: 15px;
 
   transform-origin: bottom center;
   cursor: default;
@@ -231,7 +231,7 @@
 .fui-ToastContent {
   display: flex;
   align-items: flex-start;
-  gap: var(--space-3);
+  gap: 10px;
   overflow: hidden;
   transition: opacity 0.25s;
 
@@ -262,7 +262,7 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-1);
+  gap: 6px;
 }
 
 /***************************************************************************************************
@@ -311,9 +311,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-  margin-top: 1px;
+  height: var(--line-height-2);
 }
 
 .fui-ToastIcon-success {
