@@ -1,0 +1,370 @@
+/***************************************************************************************************
+ *                                                                                                 *
+ * VIEWPORT                                                                                        *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+.fui-ToastViewport {
+  position: fixed;
+  z-index: 9999;
+  width: 340px;
+  max-width: calc(100vw - 3rem);
+  margin: 0 auto;
+  outline: none;
+
+  /* default: bottom-right */
+  bottom: 1.5rem;
+  right: 1.5rem;
+  left: auto;
+  top: auto;
+
+  &[data-position='bottom-right'] {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    left: auto;
+    top: auto;
+  }
+
+  &[data-position='bottom-left'] {
+    bottom: 1.5rem;
+    left: 1.5rem;
+    right: auto;
+    top: auto;
+  }
+
+  &[data-position='bottom-center'] {
+    bottom: 1.5rem;
+    left: 50%;
+    right: auto;
+    top: auto;
+    transform: translateX(-50%);
+  }
+
+  &[data-position='top-right'] {
+    top: 1.5rem;
+    right: 1.5rem;
+    left: auto;
+    bottom: auto;
+  }
+
+  &[data-position='top-left'] {
+    top: 1.5rem;
+    left: 1.5rem;
+    right: auto;
+    bottom: auto;
+  }
+
+  &[data-position='top-center'] {
+    top: 1.5rem;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    transform: translateX(-50%);
+  }
+}
+
+/***************************************************************************************************
+ *                                                                                                 *
+ * TOAST ROOT                                                                                      *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+.fui-ToastRoot {
+  --gap: 10px;
+  --peek: 10px;
+  --scale: calc(max(0, 1 - (var(--toast-index) * 0.05)));
+  --shrink: calc(1 - var(--scale));
+  --height: var(--toast-frontmost-height, var(--toast-height));
+  --offset-y: calc(var(--toast-offset-y) * -1 + (var(--toast-index) * var(--gap) * -1) + var(--toast-swipe-movement-y));
+
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: auto;
+  top: auto;
+  z-index: calc(1000 - var(--toast-index));
+  width: 100%;
+  box-sizing: border-box;
+
+  --border-radius: 16px;
+
+  background-color: var(--color-panel-solid);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-4);
+  /* 15px instead of 16px to account for the outset shadow border */
+  padding: 15px;
+
+  transform-origin: bottom center;
+  cursor: default;
+  user-select: none;
+  height: var(--height);
+
+  transform: translateX(var(--toast-swipe-movement-x))
+    translateY(
+      calc(var(--toast-swipe-movement-y) - (var(--toast-index) * var(--peek)) - (var(--shrink) * var(--height)))
+    )
+    scale(var(--scale));
+
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.5s,
+    height 0.15s;
+
+  /* To prevent items from closing when hovering over rounded corners */
+  &:before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: calc(var(--gap) + 1px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-focus-root);
+  }
+
+  &[data-expanded] {
+    transform: translateX(var(--toast-swipe-movement-x)) translateY(var(--offset-y));
+    height: var(--toast-height);
+  }
+
+  &[data-starting-style] {
+    transform: translateY(150%);
+  }
+
+  &[data-ending-style] {
+    opacity: 0;
+  }
+
+  &[data-ending-style]:not([data-limited]):not([data-swipe-direction]) {
+    transform: translateY(150%);
+  }
+
+  &[data-limited] {
+    opacity: 0;
+  }
+
+  /* swipe direction exit animations */
+  &[data-ending-style][data-swipe-direction='down'] {
+    transform: translateY(calc(var(--toast-swipe-movement-y) + 150%));
+  }
+  &[data-expanded][data-ending-style][data-swipe-direction='down'] {
+    transform: translateY(calc(var(--toast-swipe-movement-y) + 150%));
+  }
+
+  &[data-ending-style][data-swipe-direction='up'] {
+    transform: translateY(calc(var(--toast-swipe-movement-y) - 150%));
+  }
+  &[data-expanded][data-ending-style][data-swipe-direction='up'] {
+    transform: translateY(calc(var(--toast-swipe-movement-y) - 150%));
+  }
+
+  &[data-ending-style][data-swipe-direction='left'] {
+    transform: translateX(calc(var(--toast-swipe-movement-x) - 150%)) translateY(var(--offset-y));
+  }
+  &[data-expanded][data-ending-style][data-swipe-direction='left'] {
+    transform: translateX(calc(var(--toast-swipe-movement-x) - 150%)) translateY(var(--offset-y));
+  }
+
+  &[data-ending-style][data-swipe-direction='right'] {
+    transform: translateX(calc(var(--toast-swipe-movement-x) + 150%)) translateY(var(--offset-y));
+  }
+  &[data-expanded][data-ending-style][data-swipe-direction='right'] {
+    transform: translateX(calc(var(--toast-swipe-movement-x) + 150%)) translateY(var(--offset-y));
+  }
+}
+
+/***************************************************************************************************
+ *                                                                                                 *
+ * TOP POSITIONS                                                                                   *
+ * Toasts anchor to top and stack downward, slide-in flips to come from above.                     *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+.fui-ToastRoot:where([data-position='top-right'], [data-position='top-left'], [data-position='top-center']) {
+  --offset-y: calc(var(--toast-offset-y) + (var(--toast-index) * var(--gap)) + var(--toast-swipe-movement-y));
+
+  bottom: auto;
+  top: 0;
+  transform-origin: top center;
+
+  transform: translateX(var(--toast-swipe-movement-x))
+    translateY(
+      calc(var(--toast-swipe-movement-y) + (var(--toast-index) * var(--peek)) + (var(--shrink) * var(--height)))
+    )
+    scale(var(--scale));
+
+  &::after {
+    top: auto;
+    bottom: 100%;
+    height: calc(var(--gap) + 1px);
+  }
+
+  &[data-expanded] {
+    transform: translateX(var(--toast-swipe-movement-x)) translateY(var(--offset-y));
+    height: var(--toast-height);
+  }
+
+  &[data-starting-style] {
+    transform: translateY(-150%);
+  }
+
+  &[data-ending-style]:not([data-limited]):not([data-swipe-direction]) {
+    transform: translateY(-150%);
+  }
+}
+
+/***************************************************************************************************
+ *                                                                                                 *
+ * CONTENT                                                                                         *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+.fui-ToastContent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  transition: opacity 0.25s;
+
+  &[data-behind] {
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  &[data-expanded] {
+    pointer-events: auto;
+    opacity: 1;
+  }
+}
+
+.fui-ToastContent-custom {
+  display: block;
+  gap: 0;
+}
+
+/***************************************************************************************************
+ *                                                                                                 *
+ * BODY (title + description wrapper)                                                              *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+.fui-ToastBody {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/***************************************************************************************************
+ *                                                                                                 *
+ * TITLE                                                                                           *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+.fui-ToastTitle {
+  font-size: var(--font-size-2);
+  line-height: var(--line-height-2);
+  font-weight: 500;
+  color: var(--gray-12);
+  margin: 0;
+}
+
+.fui-ToastTitle:empty {
+  display: none;
+}
+
+/***************************************************************************************************
+ *                                                                                                 *
+ * DESCRIPTION                                                                                     *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+.fui-ToastDescription {
+  font-size: var(--font-size-2);
+  line-height: var(--line-height-2);
+  color: var(--gray-11);
+  margin: 0;
+}
+
+.fui-ToastDescription:empty {
+  display: none;
+}
+
+/***************************************************************************************************
+ *                                                                                                 *
+ * ICON                                                                                            *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+.fui-ToastIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  height: var(--line-height-2);
+}
+
+.fui-ToastIcon-success {
+  color: var(--success-11);
+}
+
+.fui-ToastIcon-error {
+  color: var(--danger-11);
+}
+
+.fui-ToastIcon-warning {
+  color: var(--warning-11);
+}
+
+.fui-ToastIcon-info {
+  color: var(--info-11);
+}
+
+.fui-ToastIcon-loading {
+  color: var(--gray-11);
+}
+
+/***************************************************************************************************
+ *                                                                                                 *
+ * ACTION                                                                                          *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+.fui-ToastAction {
+}
+
+/***************************************************************************************************
+ *                                                                                                 *
+ * CLOSE                                                                                           *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+.fui-ToastClose {
+  border-radius: 50%;
+  position: absolute;
+  /* Place the button's center on the rounded corner arc at 45°.
+   * The arc center is --border-radius inward from the corner on both axes.
+   * At 45° the point on the arc is r × (1 − √2/2) ≈ r × 0.2929 from each edge.
+   * translate(50%, -50%) makes right/top control the button's center directly. */
+  right: calc(var(--border-radius) * 0.2929);
+  top: calc(var(--border-radius) * 0.2929);
+  transform: translate(50%, -50%);
+  visibility: hidden;
+  color: var(--gray-a10);
+
+  @media (hover: hover) {
+    &:where(.fui-ToastRoot[data-expanded]:not([data-ending-style], [data-swiping]):hover &) {
+      visibility: visible;
+      color: var(--gray-12);
+    }
+  }
+}
