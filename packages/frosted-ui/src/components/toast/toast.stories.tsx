@@ -33,6 +33,12 @@ export const Info: Story = {
   ),
 };
 
+export const Warning: Story = {
+  render: () => (
+    <Button onClick={() => toast.warning('Your session will expire in 5 minutes')}>Show warning toast</Button>
+  ),
+};
+
 export const Loading: Story = {
   render: () => <Button onClick={() => toast.loading('Connecting to server...')}>Show loading toast</Button>,
 };
@@ -479,6 +485,7 @@ export const AllVariants: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
       <Button onClick={() => toast.success('Permission saved')}>Success</Button>
       <Button onClick={() => toast.error('Failed to upload image')}>Error</Button>
+      <Button onClick={() => toast.warning('Session expires in 5 minutes')}>Warning</Button>
       <Button onClick={() => toast.info('Camera access denied')}>Info</Button>
       <Button onClick={() => toast.loading('Updating...')}>Loading</Button>
       <Button onClick={() => toast('Notification received')}>Default</Button>

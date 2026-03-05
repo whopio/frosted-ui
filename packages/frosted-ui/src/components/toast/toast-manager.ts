@@ -27,7 +27,7 @@ function clearOwnershipForPosition(position: ToastPosition) {
 // The provider sets this on mount so imperative calls use the right default
 let _defaultPosition: ToastPosition = 'bottom-right';
 
-type ToastType = 'success' | 'error' | 'loading' | 'info' | 'default' | 'custom';
+type ToastType = 'success' | 'error' | 'warning' | 'loading' | 'info' | 'default' | 'custom';
 
 interface CustomToastRenderProps {
   close: () => void;
@@ -274,6 +274,10 @@ function loading(title: React.ReactNode, options?: ToastOptions) {
   return addOrUpdate(title, 'loading', { duration: Infinity, ...options });
 }
 
+function warning(title: React.ReactNode, options?: ToastOptions) {
+  return addOrUpdate(title, 'warning', { duration: 5000, ...options });
+}
+
 function info(title: React.ReactNode, options?: ToastOptions) {
   return addOrUpdate(title, 'info', { duration: 5000, ...options });
 }
@@ -349,7 +353,7 @@ const toast = Object.assign(
   (titleOrJsx: React.ReactNode, options?: ToastOptions) => {
     return addOrUpdate(titleOrJsx, 'default', options);
   },
-  { success, error, loading, info, promise, dismiss, dismissAll, update, custom },
+  { success, error, warning, loading, info, promise, dismiss, dismissAll, update, custom },
 );
 
 export {

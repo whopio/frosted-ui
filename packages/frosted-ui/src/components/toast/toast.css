@@ -321,6 +321,10 @@
   color: var(--danger-11);
 }
 
+.fui-ToastIcon-warning {
+  color: var(--warning-11);
+}
+
 .fui-ToastIcon-info {
   color: var(--info-11);
 }
