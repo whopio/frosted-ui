@@ -390,7 +390,7 @@
   color: var(--gray-a10);
 
   @media (hover: hover) {
-    &:where(.fui-ToastRoot[data-expanded]:not([data-ending-style]):hover &) {
+    &:where(.fui-ToastRoot[data-expanded]:not([data-ending-style], [data-swiping]):hover &) {
       visibility: visible;
       color: var(--gray-12);
     }
