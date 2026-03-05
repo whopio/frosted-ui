@@ -121,14 +121,8 @@ function PositionProvider({ position, timeout, limit, onToast }: PositionProvide
   const swipeDirection = swipeDirectionsByPosition[position];
   const viewportRef = React.useRef<HTMLDivElement>(null);
 
-  const handleMouseEnter = React.useCallback(
-    () => setPositionInteracting(position, 'hover', true),
-    [position],
-  );
-  const handleMouseLeave = React.useCallback(
-    () => setPositionInteracting(position, 'hover', false),
-    [position],
-  );
+  const handleMouseEnter = React.useCallback(() => setPositionInteracting(position, 'hover', true), [position]);
+  const handleMouseLeave = React.useCallback(() => setPositionInteracting(position, 'hover', false), [position]);
   const handleFocus = React.useCallback(() => {
     const active = document.activeElement;
     try {
@@ -421,21 +415,8 @@ function SuccessIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
-        d="M8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1Z"
+        d="M8 0C12.4183 0 16 3.58172 16 8C16 12.4183 12.4183 16 8 16C3.58172 16 0 12.4183 0 8C2.57711e-07 3.58172 3.58172 0 8 0ZM8 1.5C4.41015 1.5 1.5 4.41015 1.5 8C1.5 11.5899 4.41015 14.5 8 14.5C11.5899 14.5 14.5 11.5899 14.5 8C14.5 4.41015 11.5899 1.5 8 1.5ZM10.7197 5.46973C11.0126 5.17683 11.4874 5.17683 11.7803 5.46973C12.0732 5.76262 12.0732 6.23738 11.7803 6.53027L7.28027 11.0303C6.98738 11.3232 6.51262 11.3232 6.21973 11.0303L4.21973 9.03027C3.92683 8.73738 3.92683 8.26262 4.21973 7.96973C4.51262 7.67683 4.98738 7.67683 5.28027 7.96973L6.75 9.43945L10.7197 5.46973Z"
         fill="currentColor"
-        opacity="0.15"
-      />
-      <path
-        d="M8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1Z"
-        stroke="currentColor"
-        strokeWidth="1.25"
-      />
-      <path
-        d="M5.5 8L7.2 9.9L10.5 6.1"
-        stroke="currentColor"
-        strokeWidth="1.25"
-        strokeLinecap="round"
-        strokeLinejoin="round"
       />
     </svg>
   );
@@ -445,16 +426,9 @@ function ErrorIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
-        d="M8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1Z"
+        d="M8 0C12.4183 0 16 3.58172 16 8C16 12.4183 12.4183 16 8 16C3.58172 16 0 12.4183 0 8C0 3.58172 3.58172 0 8 0ZM8 1.5C4.41015 1.5 1.5 4.41015 1.5 8C1.5 11.5899 4.41015 14.5 8 14.5C11.5899 14.5 14.5 11.5899 14.5 8C14.5 4.41015 11.5899 1.5 8 1.5ZM9.76758 5.17188C10.0604 4.87906 10.5352 4.87922 10.8281 5.17188C11.121 5.46477 11.121 5.93953 10.8281 6.23242L9.06055 8L10.8281 9.76758C11.121 10.0605 11.121 10.5352 10.8281 10.8281C10.5352 11.121 10.0605 11.121 9.76758 10.8281L8 9.06055L6.23242 10.8281C5.93953 11.121 5.46477 11.121 5.17188 10.8281C4.87922 10.5352 4.87906 10.0604 5.17188 9.76758L6.93945 8L5.17188 6.23242C4.879 5.93954 4.87902 5.46477 5.17188 5.17188C5.46477 4.87898 5.93953 4.87898 6.23242 5.17188L8 6.93945L9.76758 5.17188Z"
         fill="currentColor"
-        opacity="0.15"
       />
-      <path
-        d="M8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1Z"
-        stroke="currentColor"
-        strokeWidth="1.25"
-      />
-      <path d="M6 6L10 10M10 6L6 10" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
     </svg>
   );
 }
@@ -463,17 +437,9 @@ function InfoIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
-        d="M8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1Z"
+        d="M8 0C12.4183 0 16 3.58172 16 8C16 12.4183 12.4183 16 8 16C3.58172 16 0 12.4183 0 8C0 3.58172 3.58172 0 8 0ZM8 1.5C4.41015 1.5 1.5 4.41015 1.5 8C1.5 11.5899 4.41015 14.5 8 14.5C11.5899 14.5 14.5 11.5899 14.5 8C14.5 4.41015 11.5899 1.5 8 1.5ZM8.25 7C8.66421 7 9 7.33579 9 7.75V10.5H9.75C10.1642 10.5 10.5 10.8358 10.5 11.25C10.4999 11.6642 10.1642 12 9.75 12H6.25C5.83583 12 5.50007 11.6642 5.5 11.25C5.5 10.8358 5.83579 10.5 6.25 10.5H7.5V8.5H6.25C5.83579 8.5 5.5 8.16421 5.5 7.75C5.5 7.33579 5.83579 7 6.25 7H8.25ZM8 4.00391C8.55224 4.00391 8.99993 4.45168 9 5.00391C9 5.55619 8.55229 6.00391 8 6.00391C7.44772 6.00391 7 5.55619 7 5.00391C7.00007 4.45168 7.44776 4.00391 8 4.00391Z"
         fill="currentColor"
-        opacity="0.15"
       />
-      <path
-        d="M8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1Z"
-        stroke="currentColor"
-        strokeWidth="1.25"
-      />
-      <path d="M8 7V11" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-      <circle cx="8" cy="5" r="0.75" fill="currentColor" />
     </svg>
   );
 }
