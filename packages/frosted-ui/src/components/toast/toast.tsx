@@ -9,23 +9,18 @@ import { Button } from '../button';
 import { IconButton } from '../icon-button';
 import { Spinner } from '../spinner';
 import type { CustomToastRenderFn } from './toast-manager';
+import type { ToastEventData } from './toast-manager';
 import {
   clearOwnershipForPosition,
   managers,
   setDefaultPosition,
+  setOnToast,
   setPositionInteracting,
   subscribeBump,
   toast,
 } from './toast-manager';
 import type { SwipeDirection, ToastPosition } from './toast.props';
 import { toastPositions, toastProviderPropDefs } from './toast.props';
-
-interface ToastData {
-  id: string;
-  type?: string;
-  title?: React.ReactNode;
-  description?: React.ReactNode;
-}
 
 // Base UI's ToastRoot swipe handler skips `button,a,input,textarea,[role="button"],[data-swipe-ignore]`
 // but NOT ARIA widget roles rendered on non-semantic elements (e.g. <span role="switch">).
@@ -53,8 +48,7 @@ function guardInteractivePointerDown(event: React.PointerEvent) {
   }
 }
 
-interface ToastProviderProps {
-  children: React.ReactNode;
+interface ToasterProps {
   /**
    * Default auto-dismiss duration in milliseconds.
    * @default 5000
@@ -72,15 +66,14 @@ interface ToastProviderProps {
    */
   position?: ToastPosition;
   /**
-   * Callback fired when a toast is added. Useful for telemetry (e.g. Sentry reporting).
-   * Receives toast data including id, type, title, and description.
+   * Callback fired when a new toast is created. Useful for telemetry
+   * (e.g. reporting error toasts to Sentry).
    */
-  onToast?: (toast: ToastData) => void;
+  onToast?: (toast: ToastEventData) => void;
 }
 
-const ToastProvider = (props: ToastProviderProps) => {
+const Toaster = (props: ToasterProps) => {
   const {
-    children,
     timeout = toastProviderPropDefs.timeout.default,
     limit = toastProviderPropDefs.limit.default,
     position = toastProviderPropDefs.position.default,
@@ -91,16 +84,20 @@ const ToastProvider = (props: ToastProviderProps) => {
     setDefaultPosition(position);
   }, [position]);
 
+  React.useEffect(() => {
+    setOnToast(onToast);
+    return () => setOnToast(undefined);
+  }, [onToast]);
+
   return (
     <>
-      {children}
       {toastPositions.map((pos) => (
-        <PositionProvider key={pos} position={pos} timeout={timeout} limit={limit} onToast={onToast} />
+        <PositionProvider key={pos} position={pos} timeout={timeout} limit={limit} />
       ))}
     </>
   );
 };
-ToastProvider.displayName = 'ToastProvider';
+Toaster.displayName = 'Toaster';
 
 const swipeDirectionsByPosition: Record<ToastPosition, SwipeDirection[]> = {
   'bottom-right': ['down', 'right'],
@@ -115,10 +112,9 @@ interface PositionProviderProps {
   position: ToastPosition;
   timeout: number;
   limit: number;
-  onToast?: (toast: ToastData) => void;
 }
 
-function PositionProvider({ position, timeout, limit, onToast }: PositionProviderProps) {
+function PositionProvider({ position, timeout, limit }: PositionProviderProps) {
   const manager = managers.get(position) as ReturnType<typeof managers.get> & object;
   const swipeDirection = swipeDirectionsByPosition[position];
   const viewportRef = React.useRef<HTMLDivElement>(null);
@@ -162,7 +158,7 @@ function PositionProvider({ position, timeout, limit, onToast }: PositionProvide
           onFocus={handleFocus}
           onBlur={handleBlur}
         >
-          <PositionToastList position={position} swipeDirection={swipeDirection} onToast={onToast} />
+          <PositionToastList position={position} swipeDirection={swipeDirection} />
         </ToastPrimitive.Viewport>
       </ToastPrimitive.Portal>
     </ToastPrimitive.Provider>
@@ -225,7 +221,6 @@ const CustomToastDescription: React.FC<
 interface PositionToastListProps {
   position: ToastPosition;
   swipeDirection: SwipeDirection | SwipeDirection[];
-  onToast?: (toast: ToastData) => void;
 }
 
 function animateBump(id: string, type: string) {
@@ -265,9 +260,8 @@ function animateBump(id: string, type: string) {
   });
 }
 
-function PositionToastList({ position, swipeDirection, onToast }: PositionToastListProps) {
+function PositionToastList({ position, swipeDirection }: PositionToastListProps) {
   const { toasts, close } = ToastPrimitive.useToastManager();
-  const reportedRef = React.useRef<Set<string>>(new Set());
   const prevTypesRef = React.useRef<Map<string, string>>(new Map());
   const dismissingRef = React.useRef<Set<string>>(new Set());
 
@@ -313,21 +307,6 @@ function PositionToastList({ position, swipeDirection, onToast }: PositionToastL
     }
     prevTypesRef.current = next;
   }, [toasts]);
-
-  React.useEffect(() => {
-    if (!onToast) return;
-    const currentIds = new Set<string>();
-    for (const t of toasts) {
-      currentIds.add(t.id);
-      if (!reportedRef.current.has(t.id)) {
-        reportedRef.current.add(t.id);
-        onToast({ id: t.id, type: t.type, title: t.title, description: t.description });
-      }
-    }
-    for (const id of reportedRef.current) {
-      if (!currentIds.has(id)) reportedRef.current.delete(id);
-    }
-  }, [toasts, onToast]);
 
   return toasts.map((t) => {
     const customRender = t.data?.render as CustomToastRenderFn | undefined;
@@ -456,5 +435,5 @@ function CloseIcon() {
   );
 }
 
-export { ToastProvider };
-export type { ToastProviderProps };
+export { Toaster };
+export type { ToasterProps };

@@ -71,6 +71,15 @@ function setDefaultPosition(pos: ToastPosition) {
   _defaultPosition = pos;
 }
 
+type ToastEventData = { id: string; type: ToastType; title: React.ReactNode; description?: React.ReactNode };
+type ToastListener = (toast: ToastEventData) => void;
+
+let _onToast: ToastListener | undefined;
+
+function setOnToast(cb: ToastListener | undefined) {
+  _onToast = cb;
+}
+
 function getManager(position: ToastPosition) {
   // All managers are pre-created in the loop above
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -249,6 +258,7 @@ function addOrUpdate(title: React.ReactNode, type: ToastType, options?: ToastOpt
     },
   });
   toastOwnership.set(id, pos);
+  _onToast?.({ id, type, title, description: options?.description });
   return id;
 }
 
@@ -347,8 +357,9 @@ export {
   getManager,
   managers,
   setDefaultPosition,
+  setOnToast,
   setPositionInteracting,
   subscribeBump,
   toast,
 };
-export type { CustomToastRenderFn, CustomToastRenderProps, ToastOptions, ToastPromiseOptions, ToastType };
+export type { CustomToastRenderFn, CustomToastRenderProps, ToastEventData, ToastOptions, ToastPromiseOptions, ToastType };

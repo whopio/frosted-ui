@@ -1,6 +1,6 @@
 import type { Decorator, Preview } from '@storybook/react';
 import React from 'react';
-import { ToastProvider } from '../src/components/toast';
+import { Toaster } from '../src/components/toast';
 import { Theme } from '../src/theme';
 import '../styles.css';
 
@@ -29,9 +29,8 @@ export const withTheme: Decorator = (Story, context) => {
 `}
       </style>
       <Theme accentColor="blue" grayColor={'gray'}>
-        <ToastProvider>
-          <Story />
-        </ToastProvider>
+        <Story />
+        <Toaster />
         {/* <ThemePanel /> */}
       </Theme>
     </>
