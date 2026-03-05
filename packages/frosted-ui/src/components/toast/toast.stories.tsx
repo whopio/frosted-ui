@@ -68,14 +68,11 @@ export const PromisePattern: Story = {
     <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
       <Button
         onClick={() =>
-          toast.promise(
-            new Promise<string>((resolve) => setTimeout(() => resolve('Done!'), 2000)),
-            {
-              loading: 'Saving changes...',
-              success: 'Changes saved successfully',
-              error: 'Failed to save changes',
-            },
-          )
+          toast.promise(new Promise<string>((resolve) => setTimeout(() => resolve('Done!'), 2000)), {
+            loading: 'Saving changes...',
+            success: 'Changes saved successfully',
+            error: 'Failed to save changes',
+          })
         }
       >
         With Promise
@@ -387,7 +384,10 @@ export const CustomContent: Story = {
           onClick={() =>
             toast.custom(
               ({ close, Toast }) => (
-                <Theme appearance="dark" render={<Toast.Root style={{ background: 'black', borderRadius: 999 }} />}>
+                <Theme
+                  appearance="dark"
+                  render={<Toast.Root showDismissButton={false} style={{ background: 'black', borderRadius: 999 }} />}
+                >
                   <Toast.Content>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
                       <Avatar
@@ -446,12 +446,8 @@ export const CustomContent: Story = {
                 <Toast.Root>
                   <Toast.Content>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <Toast.Title>Update available</Toast.Title>
-                        <Button size="1" variant="ghost" color="gray" onClick={close}>
-                          &times;
-                        </Button>
-                      </div>
+                      <Toast.Title>Update available</Toast.Title>
+
                       <Toast.Description>Version 2.4.0 is ready. Restart to apply the update.</Toast.Description>
                       <div style={{ display: 'flex', gap: 'var(--space-2)', marginTop: 'var(--space-1)' }}>
                         <Button size="1" variant="soft" color="gray" onClick={close} style={{ flex: 1 }}>

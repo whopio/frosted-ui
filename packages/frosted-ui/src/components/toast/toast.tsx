@@ -8,8 +8,7 @@ import { Theme } from '../../theme';
 import { Button } from '../button';
 import { IconButton } from '../icon-button';
 import { Spinner } from '../spinner';
-import type { CustomToastRenderFn } from './toast-manager';
-import type { ToastEventData } from './toast-manager';
+import type { CustomToastRenderFn, ToastEventData } from './toast-manager';
 import {
   clearOwnershipForPosition,
   managers,
@@ -174,8 +173,13 @@ const CustomToastCtx = React.createContext<{
 } | null>(null);
 
 const CustomToastRoot: React.FC<
-  { className?: string; style?: React.CSSProperties; children?: React.ReactNode } & Record<string, unknown>
-> = ({ className, style, children, ...rest }) => {
+  {
+    className?: string;
+    style?: React.CSSProperties;
+    children?: React.ReactNode;
+    showDismissButtton?: boolean;
+  } & Record<string, unknown>
+> = ({ className, style, children, showDismissButton = true, ...rest }) => {
   const ctx = React.useContext(CustomToastCtx);
   if (!ctx) return null;
   return (
@@ -189,6 +193,7 @@ const CustomToastRoot: React.FC<
       {...rest}
     >
       {children}
+      {showDismissButton ? <ToastCloseButton /> : null}
     </ToastPrimitive.Root>
   );
 };
@@ -351,16 +356,22 @@ function PositionToastList({ position, swipeDirection }: PositionToastListProps)
             )}
           </div>
         </ToastPrimitive.Content>
-        <ToastPrimitive.Close
-          className="fui-ToastClose"
-          aria-label="Close"
-          render={<IconButton size="1" variant="surface" />}
-        >
-          <CloseIcon />
-        </ToastPrimitive.Close>
+        <ToastCloseButton />
       </ToastPrimitive.Root>
     );
   });
+}
+
+function ToastCloseButton() {
+  return (
+    <ToastPrimitive.Close
+      className="fui-ToastClose"
+      aria-label="Close"
+      render={<IconButton size="1" variant="surface" />}
+    >
+      <CloseIcon />
+    </ToastPrimitive.Close>
+  );
 }
 
 function ToastIcon({ type }: { type?: string }) {
