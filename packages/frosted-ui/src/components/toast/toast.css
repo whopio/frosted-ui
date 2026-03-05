@@ -232,7 +232,6 @@
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  overflow: hidden;
   transition: opacity 0.25s;
 
   &[data-behind] {
@@ -337,37 +336,6 @@
  ***************************************************************************************************/
 
 .fui-ToastAction {
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: var(--space-6);
-  padding: 0 var(--space-3);
-  border-radius: var(--radius-2);
-  font-size: var(--font-size-1);
-  font-weight: 500;
-  line-height: 1;
-  cursor: pointer;
-  user-select: none;
-  border: 1px solid var(--gray-a6);
-  background-color: transparent;
-  color: var(--gray-12);
-  transition: background-color 0.15s;
-
-  @media (hover: hover) {
-    &:hover {
-      background-color: var(--gray-a3);
-    }
-  }
-
-  &:active {
-    background-color: var(--gray-a4);
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--accent-8);
-    outline-offset: -1px;
-  }
 }
 
 /***************************************************************************************************

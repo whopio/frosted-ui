@@ -3,7 +3,9 @@
 import { Toast as ToastPrimitive } from '@base-ui/react/toast';
 import classNames from 'classnames';
 import * as React from 'react';
+
 import { Theme } from '../../theme';
+import { Button } from '../button';
 import { IconButton } from '../icon-button';
 import { Spinner } from '../spinner';
 import type { CustomToastRenderFn } from './toast-manager';
@@ -363,10 +365,12 @@ function PositionToastList({ position, swipeDirection, onToast }: PositionToastL
           <div className="fui-ToastBody">
             <ToastPrimitive.Title className="fui-ToastTitle" />
             <ToastPrimitive.Description className="fui-ToastDescription" />
+            {t.actionProps && (
+              <ToastPrimitive.Action className="fui-ToastAction" render={<Button size="2" variant="solid" />}>
+                {t.actionProps.children}
+              </ToastPrimitive.Action>
+            )}
           </div>
-          {t.actionProps && (
-            <ToastPrimitive.Action className="fui-ToastAction">{t.actionProps.children}</ToastPrimitive.Action>
-          )}
         </ToastPrimitive.Content>
         <ToastPrimitive.Close
           className="fui-ToastClose"

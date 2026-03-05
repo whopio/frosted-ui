@@ -195,14 +195,17 @@ export const WithAction: Story = {
   name: 'With Action',
   render: () => (
     <Button
-      onClick={() =>
-        toast.success('Message archived', {
+      onClick={() => {
+        const id = toast.success('Message archived', {
           actionProps: {
             children: 'Undo',
-            onClick: () => toast.info('Undo successful'),
+            onClick: () => {
+              toast.dismiss(id);
+              toast.info('Undo successful');
+            },
           },
-        })
-      }
+        });
+      }}
     >
       Show toast with action
     </Button>
