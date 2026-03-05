@@ -7,7 +7,14 @@ import { Theme } from '../../theme';
 import { IconButton } from '../icon-button';
 import { Spinner } from '../spinner';
 import type { CustomToastRenderFn } from './toast-manager';
-import { clearOwnershipForPosition, managers, setDefaultPosition, subscribeBump, toast } from './toast-manager';
+import {
+  clearOwnershipForPosition,
+  managers,
+  setDefaultPosition,
+  setPositionInteracting,
+  subscribeBump,
+  toast,
+} from './toast-manager';
 import type { SwipeDirection, ToastPosition } from './toast.props';
 import { toastPositions, toastProviderPropDefs } from './toast.props';
 
@@ -112,13 +119,52 @@ interface PositionProviderProps {
 function PositionProvider({ position, timeout, limit, onToast }: PositionProviderProps) {
   const manager = managers.get(position) as ReturnType<typeof managers.get> & object;
   const swipeDirection = swipeDirectionsByPosition[position];
+  const viewportRef = React.useRef<HTMLDivElement>(null);
+
+  const handleMouseEnter = React.useCallback(
+    () => setPositionInteracting(position, 'hover', true),
+    [position],
+  );
+  const handleMouseLeave = React.useCallback(
+    () => setPositionInteracting(position, 'hover', false),
+    [position],
+  );
+  const handleFocus = React.useCallback(() => {
+    const active = document.activeElement;
+    try {
+      if (active?.matches(':focus-visible')) {
+        setPositionInteracting(position, 'focus', true);
+      }
+    } catch {
+      setPositionInteracting(position, 'focus', true);
+    }
+  }, [position]);
+  const handleBlur = React.useCallback(() => {
+    // Defer the check until after focus has fully settled. When Tabbing out,
+    // focus briefly passes through Base UI's inner FocusGuard (inside the
+    // viewport) before jumping to the element outside. The synchronous
+    // relatedTarget check would see the FocusGuard and think focus is still
+    // inside. requestAnimationFrame lets all intermediate focus moves complete
+    // so we can check the final document.activeElement.
+    requestAnimationFrame(() => {
+      if (viewportRef.current && !viewportRef.current.contains(document.activeElement)) {
+        setPositionInteracting(position, 'focus', false);
+      }
+    });
+  }, [position]);
+
   return (
     <ToastPrimitive.Provider toastManager={manager} timeout={timeout} limit={limit}>
       <ToastPrimitive.Portal>
         <ToastPrimitive.Viewport
+          ref={viewportRef}
           className="fui-ToastViewport"
           data-position={position}
           render={<Theme hasBackground={false} />}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
         >
           <PositionToastList position={position} swipeDirection={swipeDirection} onToast={onToast} />
         </ToastPrimitive.Viewport>

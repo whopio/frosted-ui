@@ -16,8 +16,12 @@ const toastOwnership = new Map<string, ToastPosition>();
 
 function clearOwnershipForPosition(position: ToastPosition) {
   for (const [id, pos] of toastOwnership) {
-    if (pos === position) toastOwnership.delete(id);
+    if (pos === position) {
+      toastOwnership.delete(id);
+      clearScheduledDismissal(id);
+    }
   }
+  positionInteraction.delete(position);
 }
 
 // The provider sets this on mount so imperative calls use the right default
@@ -103,16 +107,107 @@ function subscribeBump(listener: BumpListener) {
   };
 }
 
+// ---------------------------------------------------------------------------
+// Interaction-aware scheduled dismissals
+// ---------------------------------------------------------------------------
 // Base UI's manager.update() doesn't restart the auto-dismiss timer, so we
 // schedule our own fallback timeout when an update changes the duration from
-// infinite (0) to a finite value (e.g. custom upload toast → success).
-const scheduledDismissals = new Map<string, ReturnType<typeof setTimeout>>();
+// infinite (0) to a finite value (e.g. loading toast → success).
+//
+// This timer system pauses/resumes in sync with viewport interaction state
+// (hover + keyboard focus) so toasts don't vanish while the user is
+// interacting — matching Base UI's own `expanded = hovering || focused`.
+
+interface ScheduledDismissal {
+  timerId: ReturnType<typeof setTimeout> | null;
+  remaining: number;
+  startedAt: number;
+}
+
+const scheduledDismissals = new Map<string, ScheduledDismissal>();
+
+interface PositionInteraction {
+  hover: boolean;
+  focus: boolean;
+}
+
+const positionInteraction = new Map<ToastPosition, PositionInteraction>();
+
+function isPositionPaused(position: ToastPosition) {
+  const state = positionInteraction.get(position);
+  return state ? state.hover || state.focus : false;
+}
 
 function clearScheduledDismissal(id: string) {
   const existing = scheduledDismissals.get(id);
-  if (existing !== undefined) {
-    clearTimeout(existing);
+  if (existing) {
+    if (existing.timerId !== null) clearTimeout(existing.timerId);
     scheduledDismissals.delete(id);
+  }
+}
+
+function startDismissalTimer(id: string, remaining: number) {
+  return setTimeout(() => {
+    scheduledDismissals.delete(id);
+    dismiss(id);
+  }, remaining);
+}
+
+function scheduleDismissal(id: string, duration: number) {
+  clearScheduledDismissal(id);
+
+  const pos = toastOwnership.get(id);
+  if (pos && isPositionPaused(pos)) {
+    scheduledDismissals.set(id, { timerId: null, remaining: duration, startedAt: 0 });
+    return;
+  }
+
+  scheduledDismissals.set(id, {
+    timerId: startDismissalTimer(id, duration),
+    remaining: duration,
+    startedAt: Date.now(),
+  });
+}
+
+function pauseDismissalsForPosition(position: ToastPosition) {
+  const now = Date.now();
+  for (const [id, d] of scheduledDismissals) {
+    if (toastOwnership.get(id) !== position || d.timerId === null) continue;
+    clearTimeout(d.timerId);
+    d.remaining = Math.max(0, d.remaining - (now - d.startedAt));
+    d.timerId = null;
+    d.startedAt = 0;
+  }
+}
+
+function resumeDismissalsForPosition(position: ToastPosition) {
+  for (const [id, d] of scheduledDismissals) {
+    if (toastOwnership.get(id) !== position || d.timerId !== null) continue;
+    if (d.remaining <= 0) {
+      scheduledDismissals.delete(id);
+      dismiss(id);
+      continue;
+    }
+    d.startedAt = Date.now();
+    d.timerId = startDismissalTimer(id, d.remaining);
+  }
+}
+
+function setPositionInteracting(position: ToastPosition, signal: 'hover' | 'focus', active: boolean) {
+  let state = positionInteraction.get(position);
+  if (!state) {
+    state = { hover: false, focus: false };
+    positionInteraction.set(position, state);
+  }
+
+  const wasPaused = state.hover || state.focus;
+  state[signal] = active;
+  const isPaused = state.hover || state.focus;
+
+  if (!wasPaused && isPaused) {
+    pauseDismissalsForPosition(position);
+  } else if (wasPaused && !isPaused) {
+    resumeDismissalsForPosition(position);
   }
 }
 
@@ -132,14 +227,7 @@ function addOrUpdate(title: React.ReactNode, type: ToastType, options?: ToastOpt
     clearScheduledDismissal(options.id);
     const resolvedDuration = normalizedDuration ?? 0;
     if (type !== 'loading' && resolvedDuration > 0) {
-      const toastId = options.id;
-      scheduledDismissals.set(
-        toastId,
-        setTimeout(() => {
-          scheduledDismissals.delete(toastId);
-          dismiss(toastId);
-        }, resolvedDuration),
-      );
+      scheduleDismissal(options.id, resolvedDuration);
     }
 
     for (const listener of bumpListeners) listener(options.id, type);
@@ -156,6 +244,7 @@ function addOrUpdate(title: React.ReactNode, type: ToastType, options?: ToastOpt
     ...mapOptions(options),
     onRemove: () => {
       toastOwnership.delete(id);
+      clearScheduledDismissal(id);
       userOnRemove?.();
     },
   });
@@ -181,28 +270,30 @@ function info(title: React.ReactNode, options?: ToastOptions) {
 
 function promise<T>(promiseValue: Promise<T>, options: ToastPromiseOptions<T>) {
   const pos = options.position ?? _defaultPosition;
-  const manager = getManager(pos);
+  const loadingTitle = typeof options.loading === 'function' ? options.loading() : options.loading;
+  const id = loading(loadingTitle as React.ReactNode, { position: pos });
 
-  const result = manager.promise(promiseValue, {
-    loading: {
-      title: typeof options.loading === 'function' ? options.loading() : options.loading,
-      type: 'loading',
+  // Route through our own addOrUpdate so the success/error phase uses our
+  // interaction-aware scheduledDismissals instead of Base UI's internal
+  // timer system (which has a FocusGuard-related resume bug).
+  const handled = promiseValue.then(
+    (data) => {
+      const title = typeof options.success === 'function' ? options.success(data) : options.success;
+      success(title as React.ReactNode, { id, position: pos });
+      return data;
     },
-    success: (data: T) => ({
-      title: typeof options.success === 'function' ? options.success(data) : options.success,
-      type: 'success',
-    }),
-    error: (err: unknown) => ({
-      title: typeof options.error === 'function' ? options.error(err) : options.error,
-      type: 'error',
-    }),
-  });
+    (err) => {
+      const title = typeof options.error === 'function' ? options.error(err) : options.error;
+      error(title as React.ReactNode, { id, position: pos });
+      return Promise.reject(err);
+    },
+  );
 
   if (options.finally) {
-    result.finally(options.finally);
+    handled.finally(options.finally);
   }
 
-  return result;
+  return handled;
 }
 
 function dismiss(id: string) {
@@ -251,5 +342,13 @@ const toast = Object.assign(
   { success, error, loading, info, promise, dismiss, dismissAll, update, custom },
 );
 
-export { clearOwnershipForPosition, getManager, managers, setDefaultPosition, subscribeBump, toast };
+export {
+  clearOwnershipForPosition,
+  getManager,
+  managers,
+  setDefaultPosition,
+  setPositionInteracting,
+  subscribeBump,
+  toast,
+};
 export type { CustomToastRenderFn, CustomToastRenderProps, ToastOptions, ToastPromiseOptions, ToastType };

@@ -113,7 +113,10 @@ export const LoadingReplace: Story = {
       const id = toast.loading('Connecting to Telegram channel...');
 
       setTimeout(() => {
-        toast.success('Telegram channel connected successfully', { id });
+        toast.success('Telegram channel connected successfully', {
+          id,
+          description: 'You can now start sending messages to the channel.',
+        });
       }, 2500);
     }
 
