@@ -448,7 +448,7 @@ export const CustomContent: Story = {
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
                       <Toast.Title>Update available</Toast.Title>
 
-                      <Toast.Description>Version 2.4.0 is ready. Restart to apply the update.</Toast.Description>
+                      <Toast.Description>Version 2.4.1 is ready. Restart to apply the update.</Toast.Description>
                       <div style={{ display: 'flex', gap: 'var(--space-2)', marginTop: 'var(--space-1)' }}>
                         <Button size="1" variant="soft" color="gray" onClick={close} style={{ flex: 1 }}>
                           Later
