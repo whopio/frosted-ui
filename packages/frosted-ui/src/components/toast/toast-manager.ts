@@ -282,10 +282,12 @@ function info(title: React.ReactNode, options?: ToastOptions) {
   return addOrUpdate(title, 'info', { duration: 5000, ...options });
 }
 
-function promise<T>(promiseValue: Promise<T>, options: ToastPromiseOptions<T>) {
+function promise<T>(promiseOrFn: Promise<T> | (() => Promise<T>), options: ToastPromiseOptions<T>) {
   const pos = options.position ?? _defaultPosition;
   const loadingTitle = typeof options.loading === 'function' ? options.loading() : options.loading;
   const id = loading(loadingTitle as React.ReactNode, { position: pos });
+
+  const promiseValue = typeof promiseOrFn === 'function' ? promiseOrFn() : promiseOrFn;
 
   // Route through our own addOrUpdate so the success/error phase uses our
   // interaction-aware scheduledDismissals instead of Base UI's internal

@@ -64,52 +64,80 @@ export const WithDescription: Story = {
 
 export const PromisePattern: Story = {
   name: 'Promise Pattern',
-  render: () => {
-    function simulateAsync() {
-      return new Promise<string>((resolve) => {
-        setTimeout(() => resolve('Done!'), 2000);
-      });
-    }
-
-    return (
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
       <Button
         onClick={() =>
-          toast.promise(simulateAsync(), {
-            loading: 'Saving changes...',
-            success: 'Changes saved successfully',
-            error: 'Failed to save changes',
-          })
+          toast.promise(
+            new Promise<string>((resolve) => setTimeout(() => resolve('Done!'), 2000)),
+            {
+              loading: 'Saving changes...',
+              success: 'Changes saved successfully',
+              error: 'Failed to save changes',
+            },
+          )
         }
       >
-        Run promise toast
+        With Promise
       </Button>
-    );
-  },
+      <Button
+        onClick={() =>
+          toast.promise(
+            async () => {
+              await new Promise((r) => setTimeout(r, 2000));
+              return 'Done!';
+            },
+            {
+              loading: 'Saving changes...',
+              success: 'Changes saved successfully',
+              error: 'Failed to save changes',
+            },
+          )
+        }
+      >
+        With async function
+      </Button>
+    </div>
+  ),
 };
 
 export const PromiseError: Story = {
   name: 'Promise Error',
-  render: () => {
-    function simulateAsyncError() {
-      return new Promise<string>((_resolve, reject) => {
-        setTimeout(() => reject(new Error('Network timeout')), 2000);
-      });
-    }
-
-    return (
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
       <Button
         onClick={() =>
-          toast.promise(simulateAsyncError(), {
-            loading: 'Submitting...',
-            success: 'Submitted successfully',
-            error: (err: unknown) => `Failed: ${err instanceof globalThis.Error ? err.message : 'Unknown error'}`,
-          })
+          toast.promise(
+            new Promise<string>((_resolve, reject) => setTimeout(() => reject(new Error('Network timeout')), 2000)),
+            {
+              loading: 'Submitting...',
+              success: 'Submitted successfully',
+              error: (err: unknown) => `Failed: ${err instanceof globalThis.Error ? err.message : 'Unknown error'}`,
+            },
+          )
         }
       >
-        Run failing promise toast
+        Failing promise
       </Button>
-    );
-  },
+      <Button
+        onClick={() =>
+          toast.promise(
+            async () => {
+              await new Promise((r) => setTimeout(r, 2000));
+              throw new Error('Server error');
+            },
+            {
+              loading: 'Submitting...',
+              success: 'Submitted successfully',
+              error: (err: unknown) => `Failed: ${err instanceof globalThis.Error ? err.message : 'Unknown error'}`,
+            },
+          )
+        }
+      >
+        Failing async function
+      </Button>
+    </div>
+  ),
 };
 
 export const LoadingReplace: Story = {
