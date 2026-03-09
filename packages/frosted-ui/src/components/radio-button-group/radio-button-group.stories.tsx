@@ -645,3 +645,48 @@ export const InputRefGroup: Story = {
     );
   },
 };
+
+export const TypeSafeValues: Story = {
+  name: 'Type-Safe Values',
+  render: () => {
+    type Plan = 'basic' | 'pro' | 'enterprise';
+    const [plan, setPlan] = React.useState<Plan>('basic');
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+        <Text render={<div />} size="2">
+          The component is generic — pass a string union type to get autocomplete on <Code>value</Code> props and
+          type-check <Code>onValueChange</Code>.
+        </Text>
+
+        <RadioButtonGroup.Root<Plan> value={plan} onValueChange={setPlan}>
+          <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+            <RadioButtonGroup.Item value="basic">
+              <Card size="2" variant="surface">
+                <Text>Basic</Text>
+              </Card>
+            </RadioButtonGroup.Item>
+            <RadioButtonGroup.Item value="pro">
+              <Card size="2" variant="surface">
+                <Text>Pro</Text>
+              </Card>
+            </RadioButtonGroup.Item>
+            <RadioButtonGroup.Item value="enterprise">
+              <Card size="2" variant="surface">
+                <Text>Enterprise</Text>
+              </Card>
+            </RadioButtonGroup.Item>
+          </div>
+        </RadioButtonGroup.Root>
+
+        <Text size="2">
+          Selected: <Code>{plan}</Code>
+        </Text>
+
+        <Text size="1" color="gray">
+          Try changing a value to <Code>&quot;premum&quot;</Code> — TypeScript will catch the typo!
+        </Text>
+      </div>
+    );
+  },
+};

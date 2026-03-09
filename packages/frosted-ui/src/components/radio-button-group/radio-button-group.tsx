@@ -15,15 +15,13 @@ type RadioButtonGroupOwnProps = GetPropDefTypes<typeof radioButtonGroupPropDefs>
 type RadioButtonGroupContextValue = RadioButtonGroupOwnProps;
 const RadioButtonGroupContext = React.createContext<RadioButtonGroupContextValue>({});
 
-interface RadioButtonGroupRootProps
-  extends
-    Omit<React.ComponentProps<typeof RadioButtonGroupPrimitive>, 'className' | 'style' | 'render'>,
-    RadioButtonGroupOwnProps {
+interface RadioButtonGroupRootProps<Value = unknown>
+  extends Omit<RadioButtonGroupPrimitive.Props<Value>, 'className' | 'style' | 'render'>, RadioButtonGroupOwnProps {
   className?: string;
   style?: React.CSSProperties;
 }
 
-const RadioButtonGroupRoot = (props: RadioButtonGroupRootProps) => {
+function RadioButtonGroupRoot<Value = unknown>(props: RadioButtonGroupRootProps<Value>) {
   const {
     className,
     color = radioButtonGroupPropDefs.color.default,
@@ -34,7 +32,7 @@ const RadioButtonGroupRoot = (props: RadioButtonGroupRootProps) => {
   return (
     <RadioButtonGroupPrimitive
       data-accent-color={color}
-      {...rootProps}
+      {...(rootProps as RadioButtonGroupPrimitive.Props<Value>)}
       className={classNames('fui-RadioButtonGroupRoot', className, { 'fui-high-contrast': highContrast })}
     >
       <RadioButtonGroupContext.Provider value={React.useMemo(() => ({ color, highContrast }), [color, highContrast])}>
@@ -42,7 +40,7 @@ const RadioButtonGroupRoot = (props: RadioButtonGroupRootProps) => {
       </RadioButtonGroupContext.Provider>
     </RadioButtonGroupPrimitive>
   );
-};
+}
 RadioButtonGroupRoot.displayName = 'RadioButtonGroupRoot';
 
 interface RadioButtonGroupItemProps extends Omit<

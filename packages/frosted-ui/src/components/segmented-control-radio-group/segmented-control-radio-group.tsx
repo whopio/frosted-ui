@@ -5,24 +5,24 @@ import { RadioGroup } from '@base-ui/react/radio-group';
 import classNames from 'classnames';
 import * as React from 'react';
 
-type SegmentedControlRadioGroupRootProps<T extends string = string> = Omit<
-  React.ComponentProps<typeof RadioGroup>,
+type SegmentedControlRadioGroupRootProps<Value = unknown> = Omit<
+  RadioGroup.Props<Value>,
   'className' | 'render' | 'value' | 'defaultValue' | 'onValueChange'
 > &
   React.ComponentProps<'div'> & {
     /** The controlled value of the selected radio item */
-    value?: T;
+    value?: Value;
     /** The default value of the selected radio item (uncontrolled) */
-    defaultValue?: T;
+    defaultValue?: Value;
     /** Callback fired when the value changes */
-    onValueChange?: (value: T, eventDetails: RadioGroup.ChangeEventDetails) => void;
+    onValueChange?: (value: Value, eventDetails: RadioGroup.ChangeEventDetails) => void;
   };
 
-function SegmentedControlRadioGroupRoot<T extends string = string>(props: SegmentedControlRadioGroupRootProps<T>) {
+function SegmentedControlRadioGroupRoot<Value = unknown>(props: SegmentedControlRadioGroupRootProps<Value>) {
   const { className, children, ...rootProps } = props;
   return (
     <RadioGroup
-      {...(rootProps as React.ComponentProps<typeof RadioGroup>)}
+      {...(rootProps as RadioGroup.Props<Value>)}
       className={classNames('fui-SegmentedControlRadioGroupRoot', className)}
     >
       <div className="fui-BaseSegmentedControlList">{children}</div>
@@ -31,16 +31,16 @@ function SegmentedControlRadioGroupRoot<T extends string = string>(props: Segmen
 }
 SegmentedControlRadioGroupRoot.displayName = 'SegmentedControlRadioGroupRoot';
 
-type SegmentedControlRadioGroupItemProps<T extends string = string> = Omit<
+type SegmentedControlRadioGroupItemProps<Value = unknown> = Omit<
   React.ComponentProps<typeof Radio.Root>,
   'className' | 'render' | 'nativeButton' | 'value'
 > &
   React.ComponentProps<'span'> & {
-    /** The unique string value of this radio item */
-    value: T;
+    /** The unique value of this radio item */
+    value: Value;
   };
 
-function SegmentedControlRadioGroupItem<T extends string = string>(props: SegmentedControlRadioGroupItemProps<T>) {
+function SegmentedControlRadioGroupItem<Value = unknown>(props: SegmentedControlRadioGroupItemProps<Value>) {
   const { children, className, style, ...itemProps } = props;
 
   return (

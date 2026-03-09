@@ -130,8 +130,8 @@ export const TypeSafeValues: Story = {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 400 }}>
         <Text>
-          Pass a string union type to get autocomplete and catch typos at compile time. The generic defaults to{' '}
-          <Code>string</Code> if not specified.
+          Pass a string union type to get autocomplete and catch typos at compile time. Without an explicit type
+          parameter, the value type is inferred from props like <Code>value</Code> and <Code>onValueChange</Code>.
         </Text>
 
         <SegmentedControlRadioGroup.Root<Theme> value={theme} onValueChange={setTheme}>
