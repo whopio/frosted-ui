@@ -11,13 +11,13 @@ import type { GetPropDefTypes } from '../../helpers';
 
 type RadioGroupOwnProps = GetPropDefTypes<typeof radioGroupPropDefs>;
 
-interface RadioGroupRootProps
-  extends Omit<React.ComponentProps<typeof RadioGroupPrimitive>, 'className' | 'style' | 'render'>, RadioGroupOwnProps {
+interface RadioGroupRootProps<Value = unknown>
+  extends Omit<RadioGroupPrimitive.Props<Value>, 'className' | 'style' | 'render'>, RadioGroupOwnProps {
   className?: string;
   style?: React.CSSProperties;
 }
 
-const RadioGroupRoot = (props: RadioGroupRootProps) => {
+function RadioGroupRoot<Value = unknown>(props: RadioGroupRootProps<Value>) {
   const {
     className,
     size = radioGroupPropDefs.size.default,
@@ -28,13 +28,13 @@ const RadioGroupRoot = (props: RadioGroupRootProps) => {
   return (
     <RadioGroupPrimitive
       data-accent-color={color}
-      {...rootProps}
+      {...(rootProps as RadioGroupPrimitive.Props<Value>)}
       className={classNames('fui-RadioGroupRoot', className, `fui-r-size-${size}`, {
         'fui-high-contrast': highContrast,
       })}
     />
   );
-};
+}
 RadioGroupRoot.displayName = 'RadioGroupRoot';
 
 interface RadioGroupItemProps extends Omit<

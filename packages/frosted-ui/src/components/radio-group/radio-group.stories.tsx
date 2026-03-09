@@ -553,12 +553,11 @@ const products: Product[] = [
 
 export const ObjectValues: Story = {
   name: 'Object Values',
-  render: function Render(args) {
+  render: function Render() {
     const [selected, setSelected] = React.useState<Product>(products[0]);
 
-    const handleChange = (value: unknown) => {
-      // Parse the JSON string back to object
-      setSelected(JSON.parse(value as string) as Product);
+    const handleChange = (value: string) => {
+      setSelected(JSON.parse(value) as Product);
     };
 
     return (
@@ -567,7 +566,7 @@ export const ObjectValues: Story = {
           For object values, serialize with <Code>JSON.stringify()</Code> and parse in <Code>onValueChange</Code>.
         </Text>
 
-        <RadioGroup.Root {...args} value={JSON.stringify(selected)} onValueChange={handleChange}>
+        <RadioGroup.Root value={JSON.stringify(selected)} onValueChange={handleChange}>
           {products.map((product) => (
             <RadioGroup.Item key={product.id} value={JSON.stringify(product)}>
               {product.name} — ${product.price}/mo
@@ -612,6 +611,37 @@ export const ObjectValues: Story = {
         >
           {JSON.stringify(selected, null, 2)}
         </Code>
+      </div>
+    );
+  },
+};
+
+export const TypeSafeValues: Story = {
+  name: 'Type-Safe Values',
+  render: () => {
+    type ShippingMethod = 'standard' | 'express' | 'overnight';
+    const [method, setMethod] = React.useState<ShippingMethod>('standard');
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+        <Text render={<div />} size="2">
+          The component is generic — pass a string union type to get autocomplete on <Code>value</Code> props and
+          type-check <Code>onValueChange</Code>.
+        </Text>
+
+        <RadioGroup.Root<ShippingMethod> value={method} onValueChange={setMethod}>
+          <RadioGroup.Item value="standard">Standard (5-7 days)</RadioGroup.Item>
+          <RadioGroup.Item value="express">Express (2-3 days)</RadioGroup.Item>
+          <RadioGroup.Item value="overnight">Overnight</RadioGroup.Item>
+        </RadioGroup.Root>
+
+        <Text size="2">
+          Selected: <Code>{method}</Code>
+        </Text>
+
+        <Text size="1" color="gray">
+          Try changing a value to <Code>&quot;standarrd&quot;</Code> — TypeScript will catch the typo!
+        </Text>
       </div>
     );
   },
