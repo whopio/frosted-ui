@@ -1023,6 +1023,75 @@ export const AsyncSearchMultiple: Story = {
 };
 
 // ============================================================================
+// Loop Focus
+// ============================================================================
+
+export const LoopFocus: Story = {
+  name: 'Loop Focus',
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--space-6)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', maxWidth: 260 }}>
+        <Text size="2" weight="bold">
+          Default (looping)
+        </Text>
+        <Text size="1" color="gray">
+          Arrow keys wrap around by default — past the last item loops back to the first, and vice versa.
+        </Text>
+        <Combobox.Root items={fruits} size="2">
+          <Combobox.InputRoot>
+            <Combobox.Input placeholder="Choose a fruit..." />
+          </Combobox.InputRoot>
+          <Combobox.Content>
+            <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+              <Combobox.Empty>No fruits found.</Combobox.Empty>
+              <Combobox.List>
+                {(item) => (
+                  <Combobox.Item key={item} value={item}>
+                    {item}
+                  </Combobox.Item>
+                )}
+              </Combobox.List>
+            </ScrollArea>
+          </Combobox.Content>
+        </Combobox.Root>
+        <Text size="1" color="gray">
+          <em>Watermelon → ↓ → Apple (loops to top)</em>
+        </Text>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', maxWidth: 260 }}>
+        <Text size="2" weight="bold">
+          loopFocus={'{false}'}
+        </Text>
+        <Text size="1" color="gray">
+          Arrow keys stop at the first and last item. Press ↓ on the last item — nothing happens.
+        </Text>
+        <Combobox.Root items={fruits} size="2" loopFocus={false}>
+          <Combobox.InputRoot>
+            <Combobox.Input placeholder="Choose a fruit..." />
+          </Combobox.InputRoot>
+          <Combobox.Content>
+            <ScrollArea type="auto" style={{ maxHeight: 300 }}>
+              <Combobox.Empty>No fruits found.</Combobox.Empty>
+              <Combobox.List>
+                {(item) => (
+                  <Combobox.Item key={item} value={item}>
+                    {item}
+                  </Combobox.Item>
+                )}
+              </Combobox.List>
+            </ScrollArea>
+          </Combobox.Content>
+        </Combobox.Root>
+        <Text size="1" color="gray">
+          <em>Watermelon → ↓ → stays on Watermelon</em>
+        </Text>
+      </div>
+    </div>
+  ),
+};
+
+// ============================================================================
 // Creatable
 // Injects a "Create" item into the list when no exact match exists.
 // Selecting it opens a Dialog to confirm creation.
