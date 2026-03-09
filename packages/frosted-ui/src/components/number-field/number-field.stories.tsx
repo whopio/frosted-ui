@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { DollarSign16, Percentage16 } from '@frosted-ui/icons';
 import React from 'react';
-import { Button, Code, NumberField, Text, TextField, numberFieldPropDefs } from '..';
+import { Button, Code, Field, Form, NumberField, Text, TextField, numberFieldPropDefs } from '..';
 
 const meta = {
   title: 'Controls/NumberField',
@@ -281,6 +281,62 @@ export const MinMax: Story = {
       <NumberField.Root {...args} defaultValue={50} min={0} max={100}>
         <NumberField.Input />
       </NumberField.Root>
+    </div>
+  ),
+};
+
+export const AllowOutOfRange: Story = {
+  name: 'Allow Out of Range',
+  render: (args) => (
+    <div style={{ display: 'flex', gap: 'var(--space-6)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', maxWidth: 260 }}>
+        <Text size="2" weight="bold">
+          Default (clamped)
+        </Text>
+        <Text size="1" color="gray">
+          Typing a value outside the range and blurring <strong>silently clamps</strong> it. Try typing "10" and
+          pressing Tab.
+        </Text>
+        <Form>
+          <Field.Root name="age-clamped" validationMode="onBlur">
+            <Field.Label>Applicant age</Field.Label>
+            <Field.Description>Must be 18–65</Field.Description>
+            <NumberField.Root {...args} defaultValue={25} min={18} max={65}>
+              <NumberField.Input />
+            </NumberField.Root>
+            <Field.Error match="rangeUnderflow">Must be at least 18</Field.Error>
+            <Field.Error match="rangeOverflow">Must be 65 or under</Field.Error>
+          </Field.Root>
+        </Form>
+        <Text size="1" color="gray">
+          <em>10 → blur → 18 (clamped, errors never fire)</em>
+        </Text>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', maxWidth: 260 }}>
+        <Text size="2" weight="bold">
+          allowOutOfRange
+        </Text>
+        <Text size="1" color="gray">
+          The typed value is <strong>preserved on blur</strong>, letting native{' '}
+          <Code size="1">rangeUnderflow</Code> / <Code size="1">rangeOverflow</Code> validation fire. Buttons and
+          arrow keys still clamp.
+        </Text>
+        <Form>
+          <Field.Root name="age-unclamped" validationMode="onBlur">
+            <Field.Label>Applicant age</Field.Label>
+            <Field.Description>Must be 18–65</Field.Description>
+            <NumberField.Root {...args} defaultValue={25} min={18} max={65} allowOutOfRange>
+              <NumberField.Input />
+            </NumberField.Root>
+            <Field.Error match="rangeUnderflow">Must be at least 18</Field.Error>
+            <Field.Error match="rangeOverflow">Must be 65 or under</Field.Error>
+          </Field.Root>
+        </Form>
+        <Text size="1" color="gray">
+          <em>Type "10" and blur — Field.Error appears.</em>
+        </Text>
+      </div>
     </div>
   ),
 };

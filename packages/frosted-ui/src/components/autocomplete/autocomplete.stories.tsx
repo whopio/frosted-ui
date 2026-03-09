@@ -3020,6 +3020,77 @@ export const ActionsRef: Story = {
 // Form Usage with Custom ID
 // ============================================================================
 
+// ============================================================================
+// Loop Focus
+// ============================================================================
+
+export const LoopFocus: Story = {
+  name: 'Loop Focus',
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--space-6)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', maxWidth: 260 }}>
+        <Text size="2" weight="bold">
+          Default (looping)
+        </Text>
+        <Text size="1" color="gray">
+          Arrow keys wrap around by default — past the last item loops back to the first, and vice versa.
+        </Text>
+        <Autocomplete.Root items={countries}>
+          <TextField.Root>
+            <Autocomplete.Input render={<TextField.Input placeholder="Search countries..." />} />
+          </TextField.Root>
+          <Autocomplete.Content>
+            <ScrollArea type="auto" style={{ maxHeight: 200 }}>
+              <Autocomplete.List>
+                {(country: string) => (
+                  <Autocomplete.Item key={country} value={country}>
+                    {country}
+                  </Autocomplete.Item>
+                )}
+              </Autocomplete.List>
+            </ScrollArea>
+          </Autocomplete.Content>
+        </Autocomplete.Root>
+        <Text size="1" color="gray">
+          <em>Vietnam → ↓ → Argentina (loops to top)</em>
+        </Text>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', maxWidth: 260 }}>
+        <Text size="2" weight="bold">
+          loopFocus={'{false}'}
+        </Text>
+        <Text size="1" color="gray">
+          Arrow keys stop at the first and last item. Press ↓ on the last item — nothing happens.
+        </Text>
+        <Autocomplete.Root items={countries} loopFocus={false}>
+          <TextField.Root>
+            <Autocomplete.Input render={<TextField.Input placeholder="Search countries..." />} />
+          </TextField.Root>
+          <Autocomplete.Content>
+            <ScrollArea type="auto" style={{ maxHeight: 200 }}>
+              <Autocomplete.List>
+                {(country: string) => (
+                  <Autocomplete.Item key={country} value={country}>
+                    {country}
+                  </Autocomplete.Item>
+                )}
+              </Autocomplete.List>
+            </ScrollArea>
+          </Autocomplete.Content>
+        </Autocomplete.Root>
+        <Text size="1" color="gray">
+          <em>Vietnam → ↓ → stays on Vietnam</em>
+        </Text>
+      </div>
+    </div>
+  ),
+};
+
+// ============================================================================
+// Form with Custom ID
+// ============================================================================
+
 export const FormWithCustomId: Story = {
   name: 'Form with Custom ID',
   render: () => {
