@@ -284,23 +284,32 @@ function info(title: React.ReactNode, options?: ToastOptions) {
 
 function promise<T>(promiseOrFn: Promise<T> | (() => Promise<T>), options: ToastPromiseOptions<T>) {
   const pos = options.position ?? _defaultPosition;
-  const loadingTitle = typeof options.loading === 'function' ? options.loading() : options.loading;
-  const id = loading(loadingTitle as React.ReactNode, { position: pos });
+
+  let id: string | undefined;
+  if (options.loading !== undefined) {
+    const loadingTitle = typeof options.loading === 'function' ? options.loading() : options.loading;
+    id = loading(loadingTitle as React.ReactNode, { position: pos });
+  }
 
   const promiseValue = typeof promiseOrFn === 'function' ? promiseOrFn() : promiseOrFn;
 
-  // Route through our own addOrUpdate so the success/error phase uses our
-  // interaction-aware scheduledDismissals instead of Base UI's internal
-  // timer system (which has a FocusGuard-related resume bug).
   const handled = promiseValue.then(
     (data) => {
       const title = typeof options.success === 'function' ? options.success(data) : options.success;
-      success(title as React.ReactNode, { id, position: pos });
+      if (title !== undefined) {
+        success(title as React.ReactNode, { ...(id ? { id } : {}), position: pos });
+      } else if (id) {
+        dismiss(id);
+      }
       return data;
     },
     (err) => {
       const title = typeof options.error === 'function' ? options.error(err) : options.error;
-      error(title as React.ReactNode, { id, position: pos });
+      if (title !== undefined) {
+        error(title as React.ReactNode, { ...(id ? { id } : {}), position: pos });
+      } else if (id) {
+        dismiss(id);
+      }
       return Promise.reject(err);
     },
   );
