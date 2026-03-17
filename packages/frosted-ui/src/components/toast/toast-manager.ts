@@ -288,7 +288,9 @@ function promise<T>(promiseOrFn: Promise<T> | (() => Promise<T>), options: Toast
   let id: string | undefined;
   if (options.loading !== undefined) {
     const loadingTitle = typeof options.loading === 'function' ? options.loading() : options.loading;
-    id = loading(loadingTitle as React.ReactNode, { position: pos });
+    if (loadingTitle !== undefined) {
+      id = loading(loadingTitle as React.ReactNode, { position: pos });
+    }
   }
 
   const promiseValue = typeof promiseOrFn === 'function' ? promiseOrFn() : promiseOrFn;

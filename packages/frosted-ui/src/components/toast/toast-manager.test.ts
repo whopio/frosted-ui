@@ -1,3 +1,4 @@
+import type * as React from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 let mockManagerAdd: ReturnType<typeof vi.fn>;
@@ -110,6 +111,25 @@ describe('toast.promise', () => {
       expect(successCalls).toHaveLength(1);
       expect(successCalls[0][0]).toMatchObject({ title: 'Done!', type: 'success' });
     });
+
+    it('creates an error toast directly when loading is undefined and promise rejects', async () => {
+      await expect(
+        toast.promise(Promise.reject(new Error('boom')), {
+          error: 'Failed',
+        }),
+      ).rejects.toThrow('boom');
+
+      const loadingCalls = mockManagerAdd.mock.calls.filter(
+        (args) => args[0].type === 'loading',
+      );
+      expect(loadingCalls).toHaveLength(0);
+
+      const errorCalls = mockManagerAdd.mock.calls.filter(
+        (args) => args[0].type === 'error',
+      );
+      expect(errorCalls).toHaveLength(1);
+      expect(errorCalls[0][0]).toMatchObject({ title: 'Failed', type: 'error' });
+    });
   });
 
   describe('with success undefined', () => {
@@ -158,9 +178,26 @@ describe('toast.promise', () => {
       expect(mockManagerAdd).not.toHaveBeenCalled();
       expect(mockManagerUpdate).not.toHaveBeenCalled();
     });
+
+    it('returns the resolved value even when no toasts are shown', async () => {
+      const result = await toast.promise(Promise.resolve('data'), {});
+      expect(result).toBe('data');
+    });
   });
 
   describe('with function options', () => {
+    it('does not create a loading toast when loading function returns undefined', async () => {
+      await toast.promise(Promise.resolve('data'), {
+        loading: () => undefined as unknown as React.ReactNode,
+        success: 'Done!',
+      });
+
+      const loadingCalls = mockManagerAdd.mock.calls.filter(
+        (args) => args[0].type === 'loading',
+      );
+      expect(loadingCalls).toHaveLength(0);
+    });
+
     it('evaluates the success function and skips toast when it returns undefined', async () => {
       await toast.promise(Promise.resolve('data'), {
         loading: 'Loading...',
