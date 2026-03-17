@@ -55,8 +55,8 @@ const Avatar = (props: AvatarProps) => {
     width: 'var(--avatar-size)',
     height: 'var(--avatar-size)',
     aspectRatio: '1 / 1',
-    ...style,
-  } as React.CSSProperties;
+    ...(typeof style === 'object' && style !== null ? style : {}),
+  };
 
   return (
     <AvatarPrimitive.Root
