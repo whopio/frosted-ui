@@ -1,4 +1,5 @@
 .fui-AvatarRoot {
+  container-type: inline-size;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -67,10 +68,11 @@
   line-height: 1.4;
   letter-spacing: 0.05em;
   &:where(.fui-one-letter) {
-    font-size: calc(var(--avatar-size) * 0.45);
+    font-size: 45cqw;
   }
   &:where(.fui-two-letters) {
-    font-size: calc(var(--avatar-size) * 0.4);
+    /* prettier-ignore */
+    font-size: 40cqw;
   }
 }
 
