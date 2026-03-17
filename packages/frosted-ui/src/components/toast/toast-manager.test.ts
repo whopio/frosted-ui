@@ -94,7 +94,7 @@ describe('toast.promise', () => {
       });
 
       const loadingCalls = mockManagerAdd.mock.calls.filter(
-        ([opts]: [Record<string, unknown>]) => opts.type === 'loading',
+        (args) => args[0].type === 'loading',
       );
       expect(loadingCalls).toHaveLength(0);
     });
@@ -105,7 +105,7 @@ describe('toast.promise', () => {
       });
 
       const successCalls = mockManagerAdd.mock.calls.filter(
-        ([opts]: [Record<string, unknown>]) => opts.type === 'success',
+        (args) => args[0].type === 'success',
       );
       expect(successCalls).toHaveLength(1);
       expect(successCalls[0][0]).toMatchObject({ title: 'Done!', type: 'success' });
@@ -119,7 +119,7 @@ describe('toast.promise', () => {
       });
 
       const successUpdateCalls = mockManagerUpdate.mock.calls.filter(
-        ([, opts]: [string, Record<string, unknown>]) => opts.type === 'success',
+        (args) => args[1].type === 'success',
       );
       expect(successUpdateCalls).toHaveLength(0);
 
@@ -136,7 +136,7 @@ describe('toast.promise', () => {
       ).rejects.toThrow('boom');
 
       const errorUpdateCalls = mockManagerUpdate.mock.calls.filter(
-        ([, opts]: [string, Record<string, unknown>]) => opts.type === 'error',
+        (args) => args[1].type === 'error',
       );
       expect(errorUpdateCalls).toHaveLength(0);
 
@@ -168,7 +168,7 @@ describe('toast.promise', () => {
       });
 
       const successUpdateCalls = mockManagerUpdate.mock.calls.filter(
-        ([, opts]: [string, Record<string, unknown>]) => opts.type === 'success',
+        (args) => args[1].type === 'success',
       );
       expect(successUpdateCalls).toHaveLength(0);
       expect(mockManagerClose).toHaveBeenCalled();
@@ -183,7 +183,7 @@ describe('toast.promise', () => {
       ).rejects.toThrow('boom');
 
       const errorUpdateCalls = mockManagerUpdate.mock.calls.filter(
-        ([, opts]: [string, Record<string, unknown>]) => opts.type === 'error',
+        (args) => args[1].type === 'error',
       );
       expect(errorUpdateCalls).toHaveLength(0);
       expect(mockManagerClose).toHaveBeenCalled();
