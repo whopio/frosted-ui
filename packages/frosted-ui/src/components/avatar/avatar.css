@@ -1,10 +1,10 @@
 .fui-AvatarRoot {
-  container-type: inline-size;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   vertical-align: middle;
   user-select: none;
+  aspect-ratio: 1 / 1;
   width: var(--avatar-size);
   height: var(--avatar-size);
   flex-shrink: 0;
@@ -67,32 +67,33 @@
   line-height: 1.4;
   letter-spacing: 0.05em;
   &:where(.fui-one-letter) {
-    font-size: 45cqw;
+    font-size: calc(var(--avatar-size) * 0.45);
   }
   &:where(.fui-two-letters) {
-    /* prettier-ignore */
-    font-size: 40cqw;
+    font-size: calc(var(--avatar-size) * 0.4);
   }
 }
 
 .fui-AvatarRoot {
+  --avatar-size: var(--space-7, 40px);
+
   &:where(.fui-r-size-0) {
-    --avatar-size: var(--space-4);
+    --avatar-size: var(--space-4, 16px);
   }
   &:where(.fui-r-size-1) {
-    --avatar-size: var(--space-5);
+    --avatar-size: var(--space-5, 24px);
   }
   &:where(.fui-r-size-2) {
-    --avatar-size: var(--space-6);
+    --avatar-size: var(--space-6, 32px);
   }
   &:where(.fui-r-size-3) {
-    --avatar-size: var(--space-7);
+    --avatar-size: var(--space-7, 40px);
   }
   &:where(.fui-r-size-4) {
-    --avatar-size: var(--space-8);
+    --avatar-size: var(--space-8, 48px);
   }
   &:where(.fui-r-size-5) {
-    --avatar-size: var(--space-9);
+    --avatar-size: var(--space-9, 64px);
   }
   &:where(.fui-r-size-6) {
     --avatar-size: 80px;
