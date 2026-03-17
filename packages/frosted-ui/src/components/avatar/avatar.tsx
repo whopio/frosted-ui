@@ -14,6 +14,19 @@ interface AvatarProps extends PropsWithoutColor<typeof AvatarPrimitive.Image>, A
   fallback: NonNullable<AvatarOwnProps['fallback']>;
 }
 
+const AVATAR_SIZE_MAP: Record<(typeof avatarPropDefs.size.values)[number], string> = {
+  '0': 'var(--space-4, 16px)',
+  '1': 'var(--space-5, 24px)',
+  '2': 'var(--space-6, 32px)',
+  '3': 'var(--space-7, 40px)',
+  '4': 'var(--space-8, 48px)',
+  '5': 'var(--space-9, 64px)',
+  '6': '80px',
+  '7': '96px',
+  '8': '128px',
+  '9': '160px',
+};
+
 const Avatar = (props: AvatarProps) => {
   const {
     className,
@@ -37,6 +50,14 @@ const Avatar = (props: AvatarProps) => {
     }
   }, [fallbackProp]);
 
+  const rootStyle = {
+    '--avatar-size': AVATAR_SIZE_MAP[size],
+    width: 'var(--avatar-size)',
+    height: 'var(--avatar-size)',
+    aspectRatio: '1 / 1',
+    ...style,
+  } as React.CSSProperties;
+
   return (
     <AvatarPrimitive.Root
       data-accent-color={color}
@@ -47,7 +68,7 @@ const Avatar = (props: AvatarProps) => {
         { 'fui-high-contrast': highContrast },
         `fui-shape-${shape}`,
       )}
-      style={style}
+      style={rootStyle}
     >
       <AvatarPrimitive.Image
         className="fui-AvatarImage"
