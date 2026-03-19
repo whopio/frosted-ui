@@ -27,6 +27,6 @@ export const BlankNotePlusFilled32 = ({ color = 'currentColor', ...props }: Icon
   );
 };
 
-BlankNotePlusFilled32.category = 'Interface General';
+BlankNotePlusFilled32.category = 'Product Icons';
 
 export default BlankNotePlusFilled32;

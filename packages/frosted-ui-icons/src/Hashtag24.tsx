@@ -20,6 +20,6 @@ export const Hashtag24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Hashtag24.category = 'Interface General';
+Hashtag24.category = 'Product Icons';
 
 export default Hashtag24;

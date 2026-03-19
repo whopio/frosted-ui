@@ -20,6 +20,6 @@ export const Clock24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Clock24.category = 'Interface General';
+Clock24.category = 'Product Icons';
 
 export default Clock24;

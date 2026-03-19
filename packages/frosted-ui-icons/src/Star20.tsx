@@ -20,6 +20,6 @@ export const Star20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Star20.category = 'Interface General';
+Star20.category = 'Product Icons';
 
 export default Star20;

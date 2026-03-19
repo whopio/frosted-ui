@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const MagnifyingGlassBoldFilled20 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M8.49707 0.74707C12.7771 0.74707 16.2468 4.21705 16.2471 8.49707C16.2471 10.0949 15.7633 11.5799 14.9346 12.8135L18.8115 16.6904C19.397 17.2762 19.3972 18.2258 18.8115 18.8115C18.2258 19.3972 17.2762 19.397 16.6904 18.8115L12.8135 14.9346C11.5799 15.7633 10.0949 16.2471 8.49707 16.2471C4.21705 16.2468 0.74707 12.7771 0.74707 8.49707C0.747293 4.21719 4.21719 0.747293 8.49707 0.74707ZM8.49707 3.74707C5.87404 3.74729 3.74729 5.87404 3.74707 8.49707C3.74707 11.1203 5.87391 13.2468 8.49707 13.2471C11.1204 13.2471 13.2471 11.1204 13.2471 8.49707C13.2468 5.87391 11.1203 3.74707 8.49707 3.74707Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+MagnifyingGlassBoldFilled20.category = 'Product Icons';
+
+export default MagnifyingGlassBoldFilled20;

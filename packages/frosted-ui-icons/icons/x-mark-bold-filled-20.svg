@@ -1,0 +1,9 @@
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="true">
+  <path
+    d="M2.5 2.5L10.0001 9.99999M17.5 17.5L10.0001 9.99999M10.0001 9.99999L2.5 17.5M10.0001 9.99999L17.5 2.5"
+    stroke="currentColor"
+    stroke-width="3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>

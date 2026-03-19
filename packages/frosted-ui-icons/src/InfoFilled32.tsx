@@ -20,6 +20,6 @@ export const InfoFilled32 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
-InfoFilled32.category = 'Interface General';
+InfoFilled32.category = 'Product Icons';
 
 export default InfoFilled32;

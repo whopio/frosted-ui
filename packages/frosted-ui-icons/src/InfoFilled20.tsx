@@ -20,6 +20,6 @@ export const InfoFilled20 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
-InfoFilled20.category = 'Interface General';
+InfoFilled20.category = 'Product Icons';
 
 export default InfoFilled20;

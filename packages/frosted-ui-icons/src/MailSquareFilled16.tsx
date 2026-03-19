@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const MailSquareFilled16 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M7.13672 8.84863C7.68682 9.08977 8.31316 9.0897 8.86328 8.84863L15 6.15723V10.75C15 13.0972 13.0972 15 10.75 15H5.25C2.90279 15 1 13.0972 1 10.75V6.15625L7.13672 8.84863ZM10.75 1C12.8573 1 14.6049 2.53389 14.9404 4.5459L8.26172 7.47461C8.09541 7.54753 7.90558 7.54748 7.73926 7.47461L1.05859 4.5459C1.39411 2.53381 3.14268 1 5.25 1H10.75Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+MailSquareFilled16.category = 'Communication';
+
+export default MailSquareFilled16;

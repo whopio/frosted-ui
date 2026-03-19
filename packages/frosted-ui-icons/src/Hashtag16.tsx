@@ -20,6 +20,6 @@ export const Hashtag16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Hashtag16.category = 'Interface General';
+Hashtag16.category = 'Product Icons';
 
 export default Hashtag16;

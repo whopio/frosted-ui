@@ -1,0 +1,27 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const BellBoldFilled32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M16.005 1C20.4333 1.00009 23.129 3.31544 24.7071 6.03125C26.2538 8.69322 26.7515 11.7606 26.9161 13.4961C26.9906 14.2818 27.2238 15.0033 27.6329 15.5879L28.3126 16.5596C29.7583 18.6253 29.7583 21.3747 28.3126 23.4404C27.1898 25.0442 25.3543 26 23.3966 26H21.4425C21.0627 28.9262 18.8281 30.9998 16.005 31C13.1842 30.9996 10.9401 28.9279 10.5587 26H8.6036C6.646 25.9998 4.81021 25.0442 3.68759 23.4404C2.24217 21.3748 2.24215 18.6251 3.68759 16.5596L4.36825 15.5869C4.77711 15.0028 5.01004 14.2821 5.08505 13.4971C5.25073 11.762 5.7505 8.69359 7.29891 6.03125C8.87866 3.31533 11.5764 1.00026 16.005 1Z"
+        fill={color}
+        fillRule="evenodd"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+};
+
+BellBoldFilled32.category = 'Product Icons';
+
+export default BellBoldFilled32;

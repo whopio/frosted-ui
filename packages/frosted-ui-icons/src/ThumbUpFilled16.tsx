@@ -22,6 +22,6 @@ export const ThumbUpFilled16 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
-ThumbUpFilled16.category = 'Interface General';
+ThumbUpFilled16.category = 'Product Icons';
 
 export default ThumbUpFilled16;

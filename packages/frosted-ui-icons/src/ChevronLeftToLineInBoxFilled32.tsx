@@ -20,6 +20,6 @@ export const ChevronLeftToLineInBoxFilled32 = ({ color = 'currentColor', ...prop
   );
 };
 
-ChevronLeftToLineInBoxFilled32.category = 'Interface General';
+ChevronLeftToLineInBoxFilled32.category = 'Product Icons';
 
 export default ChevronLeftToLineInBoxFilled32;

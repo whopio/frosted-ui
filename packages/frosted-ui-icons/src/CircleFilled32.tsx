@@ -12,14 +12,11 @@ export const CircleFilled32 = ({ color = 'currentColor', ...props }: IconProps) 
       data-fui-icon="true"
       {...props}
     >
-      <path
-        d="M16 1.00024C24.2842 1.00038 31 7.71605 31 16.0002C30.9999 24.2843 24.2841 31.0001 16 31.0002C7.71581 31.0002 1.00013 24.2844 1 16.0002C1 7.71597 7.71573 1.00024 16 1.00024Z"
-        fill={color}
-      />
+      <circle cx="16" cy="16" r="14.25" fill={color} stroke={color} strokeWidth="1.5" />
     </svg>
   );
 };
 
-CircleFilled32.category = 'Interface General';
+CircleFilled32.category = 'Product Icons';
 
 export default CircleFilled32;

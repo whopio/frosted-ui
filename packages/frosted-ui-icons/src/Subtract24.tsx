@@ -13,13 +13,13 @@ export const Subtract24 = ({ color = 'currentColor', ...props }: IconProps) => {
       {...props}
     >
       <path
-        d="M23.25 11.25C23.6642 11.25 24 11.5858 24 12C24 12.4142 23.6642 12.75 23.25 12.75H0.75C0.335787 12.75 6.4997e-07 12.4142 0 12C1.0832e-06 11.5858 0.335787 11.25 0.75 11.25H23.25Z"
+        d="M22.25 11.25C22.6641 11.2502 23 11.5859 23 12C23 12.4141 22.6641 12.7498 22.25 12.75H1.75C1.33593 12.7498 1 12.4141 1 12C1 11.5859 1.33593 11.2502 1.75 11.25H22.25Z"
         fill={color}
       />
     </svg>
   );
 };
 
-Subtract24.category = 'Interface General';
+Subtract24.category = 'Product Icons';
 
 export default Subtract24;

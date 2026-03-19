@@ -13,15 +13,16 @@ export const Triangle12 = ({ color = 'currentColor', ...props }: IconProps) => {
       {...props}
     >
       <path
-        d="M7.05882 1.98529L11.0588 9.48529C11.4851 10.2846 10.9059 11.25 10 11.25H2C1.0941 11.25 0.514868 10.2846 0.941176 9.48529L4.94118 1.98529C5.39294 1.13824 6.60706 1.13824 7.05882 1.98529Z"
+        d="M0.925726 9.4911L4.93805 1.86769C5.38794 1.0129 6.61194 1.0129 7.06183 1.86769L11.0742 9.4911C11.4947 10.2902 10.9153 11.25 10.0123 11.25H1.98762C1.08461 11.25 0.505155 10.2902 0.925726 9.4911Z"
         stroke={color}
         strokeWidth="1.5"
         strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
 };
 
-Triangle12.category = 'Interface General';
+Triangle12.category = 'Product Icons';
 
 export default Triangle12;

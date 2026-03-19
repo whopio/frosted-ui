@@ -20,6 +20,6 @@ export const TrashFilled12 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
-TrashFilled12.category = 'Interface General';
+TrashFilled12.category = 'Product Icons';
 
 export default TrashFilled12;

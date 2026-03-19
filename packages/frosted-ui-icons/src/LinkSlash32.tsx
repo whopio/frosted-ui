@@ -20,6 +20,6 @@ export const LinkSlash32 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
-LinkSlash32.category = 'Interface General';
+LinkSlash32.category = 'Product Icons';
 
 export default LinkSlash32;

@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const HeartBoldFilled24 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M17.5 1.82129C21.0531 1.82129 23.9996 4.62965 24 8.56348C24 12.8398 21.6165 16.1326 19.1084 18.4141C16.5951 20.7002 13.8394 22.0822 12.8135 22.5547C12.2927 22.7945 11.7073 22.7945 11.1865 22.5547C10.1606 22.0822 7.40494 20.7002 4.8916 18.4141C2.38351 16.1326 0 12.8398 0 8.56348C0.000385443 4.62965 2.94686 1.82129 6.5 1.82129C8.86219 1.82129 10.4853 2.92334 11.4922 3.99902C11.683 4.20292 11.8506 4.40854 12 4.60449C12.1494 4.40854 12.317 4.20292 12.5078 3.99902C13.5147 2.92334 15.1378 1.82129 17.5 1.82129Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+HeartBoldFilled24.category = 'Product Icons';
+
+export default HeartBoldFilled24;

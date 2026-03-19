@@ -1,0 +1,27 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const DownloadBold32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M30 29C30.5523 29 31 29.4477 31 30C31 30.5523 30.5523 31 30 31H2C1.44772 31 1 30.5523 1 30C1 29.4477 1.44772 29 2 29H30ZM16 1C16.5523 1 17 1.44772 17 2V22.5859L25.293 14.293C25.6835 13.9024 26.3165 13.9024 26.707 14.293C27.0976 14.6835 27.0976 15.3165 26.707 15.707L16.707 25.707C16.3165 26.0976 15.6835 26.0976 15.293 25.707L5.29297 15.707C4.90244 15.3165 4.90244 14.6835 5.29297 14.293C5.68349 13.9024 6.31651 13.9024 6.70703 14.293L15 22.5859V2C15 1.44772 15.4477 1 16 1Z"
+        fill={color}
+        fillRule="evenodd"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+};
+
+DownloadBold32.category = 'Arrows';
+
+export default DownloadBold32;

@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const MailSquare24 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M16.5 1C20.0899 1 23 3.91015 23 7.5V16.5C23 20.0899 20.0899 23 16.5 23H7.5C3.91015 23 1 20.0899 1 16.5V7.5C1 3.91015 3.91015 1 7.5 1H16.5ZM2.5 16.5C2.5 19.2614 4.73858 21.5 7.5 21.5H16.5C19.2614 21.5 21.5 19.2614 21.5 16.5V9.27539L13.1895 12.9365C12.4317 13.2704 11.5683 13.2704 10.8105 12.9365L2.5 9.27441V16.5ZM7.5 2.5C4.73858 2.5 2.5 4.73858 2.5 7.5V7.63672C2.5083 7.64003 2.51715 7.64285 2.52539 7.64648L11.415 11.5645C11.7875 11.7285 12.2125 11.7285 12.585 11.5645L21.4756 7.64648C21.4836 7.64294 21.4919 7.63996 21.5 7.63672V7.5C21.5 4.73858 19.2614 2.5 16.5 2.5H7.5Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+MailSquare24.category = 'Communication';
+
+export default MailSquare24;

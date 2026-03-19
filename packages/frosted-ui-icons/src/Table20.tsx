@@ -20,6 +20,6 @@ export const Table20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Table20.category = 'Interface General';
+Table20.category = 'Product Icons';
 
 export default Table20;

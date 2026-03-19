@@ -20,6 +20,6 @@ export const MarkAsRead16 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
-MarkAsRead16.category = 'Interface General';
+MarkAsRead16.category = 'Product Icons';
 
 export default MarkAsRead16;

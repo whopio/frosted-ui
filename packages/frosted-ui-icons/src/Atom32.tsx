@@ -20,6 +20,6 @@ export const Atom32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Atom32.category = 'Interface General';
+Atom32.category = 'Product Icons';
 
 export default Atom32;

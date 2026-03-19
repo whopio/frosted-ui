@@ -1,0 +1,27 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const ArrowUpFromBracketBold24 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M23 12C23.5523 12 24 12.4477 24 13V16C24 20.4183 20.4183 24 16 24H7.99999C3.58172 24 1.93129e-07 20.4183 0 16V13C5.1489e-07 12.4477 0.447715 12 0.999999 12C1.55228 12 2 12.4477 2 13V16C2 19.3137 4.68629 22 7.99999 22H16C19.3137 22 22 19.3137 22 16V13C22 12.4477 22.4477 12 23 12ZM11.0107 0.335973C11.5999 -0.144173 12.4685 -0.109513 13.0176 0.439488L19.664 7.08596C20.0545 7.47649 20.0545 8.10953 19.664 8.50002C19.2735 8.89044 18.6405 8.89044 18.25 8.50002L12.957 3.20706V14.668C12.957 15.2203 12.5093 15.668 11.957 15.668C11.4048 15.6679 10.957 15.2202 10.957 14.668V3.20706L5.70702 8.45706C5.3165 8.84758 4.68349 8.84758 4.29296 8.45706C3.90244 8.06653 3.90244 7.43352 4.29296 7.043L10.8965 0.439488L11.0107 0.335973Z"
+        fill={color}
+        fillRule="evenodd"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+};
+
+ArrowUpFromBracketBold24.category = 'Arrows';
+
+export default ArrowUpFromBracketBold24;

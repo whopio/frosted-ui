@@ -1,0 +1,27 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const DoubleChevronLeftSmallFilled24 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M12.4095 7.87714C12.8961 7.38801 12.8944 6.59659 12.4056 6.10957C11.9165 5.62267 11.1251 5.6247 10.638 6.11347L6.01007 10.76C5.32996 11.4428 5.32997 12.5478 6.01007 13.2307L10.638 17.8771C11.1251 18.3661 11.9165 18.368 12.4056 17.8811C12.8943 17.3939 12.8963 16.6025 12.4095 16.1135L8.30792 11.9953L12.4095 7.87714ZM18.136 7.87714C18.623 7.38799 18.6212 6.59668 18.1321 6.10957C17.643 5.62279 16.8516 5.62447 16.3646 6.11347L11.7366 10.76C11.0566 11.4427 11.0568 12.5478 11.7366 13.2307L16.3646 17.8771C16.8517 18.3662 17.643 18.368 18.1321 17.8811C18.6212 17.3939 18.623 16.6026 18.136 16.1135L14.0345 11.9953L18.136 7.87714Z"
+        fill={color}
+        fillRule="evenodd"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+};
+
+DoubleChevronLeftSmallFilled24.category = 'Arrows';
+
+export default DoubleChevronLeftSmallFilled24;

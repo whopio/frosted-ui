@@ -4,22 +4,26 @@ import { IconProps } from './types';
 export const TriangleFilled20 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
-      width="21"
+      width="20"
       height="20"
-      viewBox="0 0 21 20"
+      viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       data-fui-icon="true"
       {...props}
     >
       <path
-        d="M7.77051 1.73828C8.74058 -0.0170905 11.2632 -0.0169067 12.2334 1.73828L19.6826 15.2168C20.6216 16.9163 19.3919 19 17.4502 19H2.55371C0.612301 18.9997 -0.617529 16.9162 0.321289 15.2168L7.77051 1.73828Z"
+        d="M1.97835 15.0415L8.3735 3.16869C9.06896 1.87754 10.9225 1.88163 11.6122 3.17584L17.9399 15.0487C18.5921 16.2724 17.7053 17.7499 16.3186 17.7499H3.5958C2.20556 17.7499 1.31908 16.2655 1.97835 15.0415Z"
         fill={color}
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
 };
 
-TriangleFilled20.category = 'Interface General';
+TriangleFilled20.category = 'Product Icons';
 
 export default TriangleFilled20;

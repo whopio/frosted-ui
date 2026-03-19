@@ -20,6 +20,6 @@ export const ShareScreen16 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
-ShareScreen16.category = 'Interface General';
+ShareScreen16.category = 'Product Icons';
 
 export default ShareScreen16;

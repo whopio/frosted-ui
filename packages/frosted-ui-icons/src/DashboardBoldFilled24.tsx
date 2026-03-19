@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const DashboardBoldFilled24 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M16.25 1C19.9779 1 23 4.02208 23 7.75V16.25C23 19.9779 19.9779 23 16.25 23H7.75C4.02208 23 1 19.9779 1 16.25V7.75C1 4.02208 4.02208 1 7.75 1H16.25ZM18.332 8.66895C17.7583 8.07163 16.8084 8.05238 16.2109 8.62598L12.9541 11.7529L11.4473 10.3057C10.6895 9.57829 9.49213 9.57823 8.73438 10.3057L5.71094 13.209C5.11353 13.7827 5.0945 14.7325 5.66797 15.3301C6.24178 15.9276 7.19154 15.9469 7.78906 15.373L10.0898 13.1621L11.5977 14.6104C12.3554 15.338 13.5527 15.3378 14.3105 14.6104L18.2891 10.79C18.8864 10.2162 18.9058 9.26642 18.332 8.66895Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+DashboardBoldFilled24.category = 'Stats & Charts';
+
+export default DashboardBoldFilled24;

@@ -20,6 +20,6 @@ export const StorefrontItem20 = ({ color = 'currentColor', ...props }: IconProps
   );
 };
 
-StorefrontItem20.category = 'Interface General';
+StorefrontItem20.category = 'Product Icons';
 
 export default StorefrontItem20;

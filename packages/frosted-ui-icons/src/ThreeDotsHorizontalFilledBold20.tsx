@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const ThreeDotsHorizontalFilledBold20 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M3.75 7.5C5.13057 7.50016 6.25 8.61939 6.25 10C6.25 11.3806 5.13057 12.4998 3.75 12.5C2.36929 12.5 1.25 11.3807 1.25 10C1.25 8.61929 2.36929 7.5 3.75 7.5ZM10 7.5C11.3806 7.50016 12.5 8.61939 12.5 10C12.5 11.3806 11.3806 12.4998 10 12.5C8.61929 12.5 7.5 11.3807 7.5 10C7.5 8.61929 8.61929 7.5 10 7.5ZM16.25 7.5C17.6306 7.50016 18.75 8.61939 18.75 10C18.75 11.3806 17.6306 12.4998 16.25 12.5C14.8693 12.5 13.75 11.3807 13.75 10C13.75 8.61929 14.8693 7.5 16.25 7.5Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+ThreeDotsHorizontalFilledBold20.category = 'Product Icons';
+
+export default ThreeDotsHorizontalFilledBold20;

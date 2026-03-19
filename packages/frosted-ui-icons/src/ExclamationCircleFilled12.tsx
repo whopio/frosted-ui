@@ -20,6 +20,6 @@ export const ExclamationCircleFilled12 = ({ color = 'currentColor', ...props }: 
   );
 };
 
-ExclamationCircleFilled12.category = 'Interface General';
+ExclamationCircleFilled12.category = 'Product Icons';
 
 export default ExclamationCircleFilled12;

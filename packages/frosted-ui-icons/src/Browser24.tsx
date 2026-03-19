@@ -26,6 +26,6 @@ export const Browser24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Browser24.category = 'Interface General';
+Browser24.category = 'Product Icons';
 
 export default Browser24;

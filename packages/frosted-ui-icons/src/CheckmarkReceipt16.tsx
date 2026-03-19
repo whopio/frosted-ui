@@ -1,0 +1,32 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const CheckmarkReceipt16 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="16"
+      height="17"
+      viewBox="0 0 16 17"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M12.5 0C13.8805 0.00019725 15 1.11941 15 2.5V14.7646C15 15.679 14.0503 16.2837 13.2217 15.8975L10.9229 14.8232L8.58887 15.8594C8.21402 16.0257 7.78582 16.025 7.41113 15.8584L5.08789 14.8232L2.77734 15.8994C1.94878 16.2848 1 15.6795 1 14.7656V2.5C1 1.11929 2.11929 0 3.5 0H12.5ZM3.5 1.5C2.94772 1.5 2.5 1.94772 2.5 2.5V14.373L4.55664 13.416C4.88427 13.2636 5.26264 13.2603 5.59277 13.4072L8 14.4785L10.418 13.4072L10.5439 13.3584C10.7992 13.2769 11.0745 13.2797 11.3281 13.3662L11.4531 13.417L13.5 14.3721V2.5C13.5 1.94784 13.0521 1.5002 12.5 1.5H3.5Z"
+        fill={color}
+      />
+      <path
+        d="M4.75 11.25L11.25 11.25M10.25 4.75L7.125 7.875 5.75 6.5"
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+CheckmarkReceipt16.category = 'Money & Shopping';
+
+export default CheckmarkReceipt16;

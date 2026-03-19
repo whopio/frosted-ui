@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const CouponBoldFilled16 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M5.3916 0C5.9522 0 6.39239 0.301236 6.65332 0.666016L6.75391 0.825195L6.86035 0.993164C7.13188 1.36486 7.54891 1.58789 8 1.58789L8.19043 1.57422C8.62906 1.51203 9.01736 1.23758 9.24512 0.825195L9.3457 0.666016C9.60665 0.301199 10.0469 0 10.6074 0H11.5C12.8807 0 14 1.11929 14 2.5V13.5C14 14.8807 12.8807 16 11.5 16H10.5576C9.93823 16 9.46538 15.6303 9.2207 15.2188C8.98863 14.8286 8.61005 14.5711 8.18457 14.5127L8 14.5C7.50047 14.5 7.04357 14.7729 6.77832 15.2188C6.53365 15.6302 6.0608 16 5.44141 16H4.5C3.11929 16 2 14.8807 2 13.5V2.5C2 1.11929 3.11929 5.96046e-08 4.5 0H5.3916Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+CouponBoldFilled16.category = 'Money & Shopping';
+
+export default CouponBoldFilled16;

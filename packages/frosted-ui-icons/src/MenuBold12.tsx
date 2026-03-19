@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const MenuBold12 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M11 9C11.5523 9 12 9.44771 12 10C12 10.5523 11.5523 11 11 11H1C0.447715 11 0 10.5523 0 10C0 9.44771 0.447715 9 1 9H11ZM11 5C11.5523 5 12 5.44772 12 6C12 6.55228 11.5523 7 11 7H1C0.447715 7 0 6.55228 0 6C0 5.44772 0.447715 5 1 5H11ZM11 1C11.5523 1 12 1.44772 12 2C12 2.55228 11.5523 3 11 3H1C0.447715 3 0 2.55228 0 2C0 1.44772 0.447715 1 1 1H11Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+MenuBold12.category = 'Product Icons';
+
+export default MenuBold12;

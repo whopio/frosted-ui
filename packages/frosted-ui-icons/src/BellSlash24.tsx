@@ -20,6 +20,6 @@ export const BellSlash24 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
-BellSlash24.category = 'Interface General';
+BellSlash24.category = 'Product Icons';
 
 export default BellSlash24;

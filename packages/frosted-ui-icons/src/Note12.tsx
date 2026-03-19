@@ -20,6 +20,6 @@ export const Note12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Note12.category = 'Interface General';
+Note12.category = 'Product Icons';
 
 export default Note12;

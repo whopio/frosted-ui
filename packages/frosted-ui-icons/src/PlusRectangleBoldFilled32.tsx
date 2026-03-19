@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const PlusRectangleBoldFilled32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M21.5 1C26.7467 1 31 5.2533 31 10.5V21.5C31 26.7467 26.7467 31 21.5 31H10.5C5.25329 31 1 26.7467 1 21.5V10.5C1 5.25329 5.2533 1 10.5 1H21.5ZM16 8C15.4477 8 15 8.44772 15 9V15H9C8.44772 15 8 15.4477 8 16C8.00003 16.5523 8.44773 17 9 17H15V23C15 23.5523 15.4477 24 16 24C16.5523 24 17 23.5523 17 23V17H23C23.5523 17 24 16.5523 24 16C24 15.4477 23.5523 15 23 15H17V9C17 8.44772 16.5523 8 16 8Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+PlusRectangleBoldFilled32.category = 'Product Icons';
+
+export default PlusRectangleBoldFilled32;

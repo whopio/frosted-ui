@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const CreditCardBlankBold20 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M15 2C17.7614 2 20 4.23858 20 7V13C20 15.7614 17.7614 18 15 18H5C2.23858 18 0 15.7614 0 13V7C0 4.23858 2.23858 2 5 2H15ZM2 9V13C2 14.6569 3.34315 16 5 16H15C16.6569 16 18 14.6569 18 13V9H2ZM5 4C3.34315 4 2 5.34315 2 7H18C18 5.34315 16.6569 4 15 4H5Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+CreditCardBlankBold20.category = 'Money & Shopping';
+
+export default CreditCardBlankBold20;

@@ -20,6 +20,6 @@ export const DragHandleHorizontal24 = ({ color = 'currentColor', ...props }: Ico
   );
 };
 
-DragHandleHorizontal24.category = 'Interface General';
+DragHandleHorizontal24.category = 'Product Icons';
 
 export default DragHandleHorizontal24;
