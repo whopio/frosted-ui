@@ -85,6 +85,7 @@ jobs:
         if: steps.check.outputs.can-publish == 'true'
 
       - name: Sync auto-release PRs
+        if: always()
         uses: whopio/turbo-module@v0.1.0-canary.3
         with:
           action: sync
