@@ -1,8 +1,7 @@
 .fui-AvatarRoot {
   container-type: inline-size;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-grid;
+  place-items: center;
   vertical-align: middle;
   user-select: none;
   width: var(--avatar-size);
@@ -31,6 +30,7 @@
 }
 
 .fui-AvatarImage {
+  grid-area: 1 / 1;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -43,6 +43,7 @@
 }
 
 .fui-AvatarFallback {
+  grid-area: 1 / 1;
   z-index: 0;
   width: 100%;
   height: 100%;
