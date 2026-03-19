@@ -13,13 +13,16 @@ export const Plus32 = ({ color = 'currentColor', ...props }: IconProps) => {
       {...props}
     >
       <path
-        d="M16 3C16.4142 3 16.75 3.33579 16.75 3.75V15.25H28.25C28.6642 15.25 29 15.5858 29 16C29 16.4142 28.6642 16.75 28.25 16.75H16.75V28.25C16.75 28.6642 16.4142 29 16 29C15.5858 29 15.25 28.6642 15.25 28.25V16.75H3.75C3.33579 16.75 3 16.4142 3 16C3 15.5858 3.33579 15.25 3.75 15.25H15.25V3.75C15.25 3.33579 15.5858 3 16 3Z"
-        fill={color}
+        d="M16 1.75V16M16 30.25V16M16 16H1.75M16 16H30.25"
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
 };
 
-Plus32.category = 'Interface General';
+Plus32.category = 'Product Icons';
 
 export default Plus32;

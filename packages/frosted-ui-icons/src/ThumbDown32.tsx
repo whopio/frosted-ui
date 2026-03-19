@@ -20,6 +20,6 @@ export const ThumbDown32 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
-ThumbDown32.category = 'Interface General';
+ThumbDown32.category = 'Product Icons';
 
 export default ThumbDown32;

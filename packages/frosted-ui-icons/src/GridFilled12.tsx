@@ -20,6 +20,6 @@ export const GridFilled12 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
-GridFilled12.category = 'Interface General';
+GridFilled12.category = 'Product Icons';
 
 export default GridFilled12;

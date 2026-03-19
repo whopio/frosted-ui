@@ -1,0 +1,27 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const DoubleChevronRight12 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M5.57123 2.27825C5.27857 1.98539 5.27853 1.51055 5.57123 1.21771C5.86406 0.924875 6.33887 0.924997 6.63178 1.21771L10.705 5.29095C11.0955 5.68147 11.0955 6.31449 10.705 6.70501L6.63178 10.7783C6.33888 11.071 5.86408 11.0711 5.57123 10.7783C5.27856 10.4854 5.27853 10.0106 5.57123 9.71771L9.29096 5.99798L5.57123 2.27825ZM1.22162 2.27825C0.928732 1.98536 0.928737 1.5106 1.22162 1.21771C1.51452 0.92487 1.9893 0.924833 2.28217 1.21771L6.35541 5.29095C6.74589 5.68145 6.74586 6.31449 6.35541 6.70501L2.28217 10.7783C1.98928 11.0711 1.51452 11.0711 1.22162 10.7783C0.92873 10.4854 0.92873 10.0106 1.22162 9.71771L4.94135 5.99798L1.22162 2.27825Z"
+        fill={color}
+        fillRule="evenodd"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+};
+
+DoubleChevronRight12.category = 'Arrows';
+
+export default DoubleChevronRight12;

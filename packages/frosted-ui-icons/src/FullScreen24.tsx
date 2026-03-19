@@ -20,6 +20,6 @@ export const FullScreen24 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
-FullScreen24.category = 'Interface General';
+FullScreen24.category = 'Product Icons';
 
 export default FullScreen24;

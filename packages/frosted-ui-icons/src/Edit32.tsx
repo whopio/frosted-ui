@@ -20,6 +20,6 @@ export const Edit32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Edit32.category = 'Interface General';
+Edit32.category = 'Product Icons';
 
 export default Edit32;

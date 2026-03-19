@@ -20,6 +20,6 @@ export const HeartFilled12 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
-HeartFilled12.category = 'Interface General';
+HeartFilled12.category = 'Product Icons';
 
 export default HeartFilled12;

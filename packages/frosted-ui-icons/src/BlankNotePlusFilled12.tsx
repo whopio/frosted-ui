@@ -17,7 +17,7 @@ export const BlankNotePlusFilled12 = ({ color = 'currentColor', ...props }: Icon
         fill={color}
       />
       <path
-        d="M9.74921 8.24957V9.7494M9.74921 11.2493V9.7494M9.74921 9.7494H8.24933M9.74921 9.7494H11.2491"
+        d="M9.74921 8.24951V9.74934M9.74921 11.2493V9.74934M9.74921 9.74934H8.24933M9.74921 9.74934H11.2491"
         stroke={color}
         strokeWidth="1.5"
         strokeLinecap="round"
@@ -27,6 +27,6 @@ export const BlankNotePlusFilled12 = ({ color = 'currentColor', ...props }: Icon
   );
 };
 
-BlankNotePlusFilled12.category = 'Interface General';
+BlankNotePlusFilled12.category = 'Product Icons';
 
 export default BlankNotePlusFilled12;

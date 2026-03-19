@@ -20,6 +20,6 @@ export const DocumentPlusFilled16 = ({ color = 'currentColor', ...props }: IconP
   );
 };
 
-DocumentPlusFilled16.category = 'Interface General';
+DocumentPlusFilled16.category = 'Product Icons';
 
 export default DocumentPlusFilled16;

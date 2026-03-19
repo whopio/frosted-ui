@@ -20,6 +20,6 @@ export const BannerPhoto20 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
-BannerPhoto20.category = 'Interface General';
+BannerPhoto20.category = 'Product Icons';
 
 export default BannerPhoto20;

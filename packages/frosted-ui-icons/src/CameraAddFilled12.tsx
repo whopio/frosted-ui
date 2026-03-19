@@ -20,6 +20,6 @@ export const CameraAddFilled12 = ({ color = 'currentColor', ...props }: IconProp
   );
 };
 
-CameraAddFilled12.category = 'Interface General';
+CameraAddFilled12.category = 'Product Icons';
 
 export default CameraAddFilled12;

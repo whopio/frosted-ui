@@ -17,7 +17,7 @@ export const NotePlus12 = ({ color = 'currentColor', ...props }: IconProps) => {
         fill={color}
       />
       <path
-        d="M9.74921 8.24957V9.7494M9.74921 11.2493V9.7494M9.74921 9.7494H8.24933M9.74921 9.7494H11.2491"
+        d="M9.74921 8.24951V9.74934M9.74921 11.2493V9.74934M9.74921 9.74934H8.24933M9.74921 9.74934H11.2491"
         stroke={color}
         strokeWidth="1.5"
         strokeLinecap="round"
@@ -27,6 +27,6 @@ export const NotePlus12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-NotePlus12.category = 'Interface General';
+NotePlus12.category = 'Product Icons';
 
 export default NotePlus12;

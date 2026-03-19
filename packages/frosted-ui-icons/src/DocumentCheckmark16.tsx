@@ -20,6 +20,6 @@ export const DocumentCheckmark16 = ({ color = 'currentColor', ...props }: IconPr
   );
 };
 
-DocumentCheckmark16.category = 'Interface General';
+DocumentCheckmark16.category = 'Product Icons';
 
 export default DocumentCheckmark16;

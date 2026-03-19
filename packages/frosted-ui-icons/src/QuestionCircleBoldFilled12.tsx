@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const QuestionCircleBoldFilled12 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M6 0C9.31371 0 12 2.68629 12 6C12 9.31371 9.31371 12 6 12C2.68629 12 0 9.31371 0 6C0 2.68629 2.68629 0 6 0ZM6 7.75C5.44772 7.75 5 8.19771 5 8.75C5 9.30229 5.44772 9.75 6 9.75C6.55228 9.75 7 9.30229 7 8.75C7 8.19771 6.55228 7.75 6 7.75ZM6 2.25C4.32677 2.25 3.25 3.55036 3.25 4.9834V5.11523C3.25004 5.66748 3.69774 6.11523 4.25 6.11523C4.80226 6.11523 5.24996 5.66748 5.25 5.11523V4.9834C5.25 4.56443 5.51972 4.25 6 4.25C6.48043 4.25007 6.75 4.56475 6.75 4.9834C6.74996 5.32341 6.4599 5.663 6 5.66309C5.44772 5.66309 5 6.1108 5 6.66309C5.00012 7.21527 5.44779 7.66309 6 7.66309C7.49599 7.663 8.74996 6.49524 8.75 4.9834C8.75 3.55014 7.67287 2.25009 6 2.25Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+QuestionCircleBoldFilled12.category = 'Product Icons';
+
+export default QuestionCircleBoldFilled12;

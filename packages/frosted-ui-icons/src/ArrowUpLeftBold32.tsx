@@ -1,0 +1,28 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const ArrowUpLeftBold32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M4 4L4.00001 23.5M4 4L23.5 4M4 4L28 28"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+ArrowUpLeftBold32.category = 'Arrows';
+
+export default ArrowUpLeftBold32;

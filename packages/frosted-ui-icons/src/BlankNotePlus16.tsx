@@ -27,6 +27,6 @@ export const BlankNotePlus16 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
-BlankNotePlus16.category = 'Interface General';
+BlankNotePlus16.category = 'Product Icons';
 
 export default BlankNotePlus16;

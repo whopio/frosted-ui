@@ -20,6 +20,6 @@ export const DocumentLines20 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
-DocumentLines20.category = 'Interface General';
+DocumentLines20.category = 'Product Icons';
 
 export default DocumentLines20;

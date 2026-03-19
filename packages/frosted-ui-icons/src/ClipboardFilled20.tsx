@@ -24,6 +24,6 @@ export const ClipboardFilled20 = ({ color = 'currentColor', ...props }: IconProp
   );
 };
 
-ClipboardFilled20.category = 'Interface General';
+ClipboardFilled20.category = 'Product Icons';
 
 export default ClipboardFilled20;

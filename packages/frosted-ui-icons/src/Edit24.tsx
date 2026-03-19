@@ -20,6 +20,6 @@ export const Edit24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Edit24.category = 'Interface General';
+Edit24.category = 'Product Icons';
 
 export default Edit24;

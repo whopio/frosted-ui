@@ -20,6 +20,6 @@ export const BanFilled20 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
-BanFilled20.category = 'Interface General';
+BanFilled20.category = 'Product Icons';
 
 export default BanFilled20;

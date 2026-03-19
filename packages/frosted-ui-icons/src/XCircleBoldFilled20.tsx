@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const XCircleBoldFilled20 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M10 1C14.9706 1 19 5.02944 19 10C19 14.9706 14.9706 19 10 19C5.02944 19 1 14.9706 1 10C1 5.02944 5.02944 1 10 1ZM13.3301 6.6123C12.7443 6.02675 11.7937 6.0266 11.208 6.6123L9.94238 7.87891L8.7334 6.66992C8.14767 6.08446 7.19803 6.08446 6.6123 6.66992C6.02652 7.25571 6.02652 8.20621 6.6123 8.79199L7.82031 10L6.6123 11.208C6.0266 11.7937 6.02675 12.7443 6.6123 13.3301C7.19803 13.9156 8.14766 13.9156 8.7334 13.3301L9.94238 12.1211L11.208 13.3877C11.7938 13.9735 12.7443 13.9735 13.3301 13.3877C13.9155 12.802 13.9155 11.8523 13.3301 11.2666L12.0635 10L13.3301 8.7334C13.9156 8.14766 13.9156 7.19803 13.3301 6.6123Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+XCircleBoldFilled20.category = 'Product Icons';
+
+export default XCircleBoldFilled20;

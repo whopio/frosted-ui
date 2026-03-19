@@ -20,6 +20,6 @@ export const PhotoFilled12 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
-PhotoFilled12.category = 'Interface General';
+PhotoFilled12.category = 'Product Icons';
 
 export default PhotoFilled12;

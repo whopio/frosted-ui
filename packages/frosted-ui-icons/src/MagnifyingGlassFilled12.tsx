@@ -13,15 +13,13 @@ export const MagnifyingGlassFilled12 = ({ color = 'currentColor', ...props }: Ic
       {...props}
     >
       <path
-        d="M11 11L8.15469 8.15469M9.31251 5.15625C9.31251 7.45169 7.45169 9.31251 5.15625 9.31251C2.86082 9.31251 1 7.45169 1 5.15625C1 2.86082 2.86082 1 5.15625 1C7.45169 1 9.31251 2.86082 9.31251 5.15625Z"
-        stroke={color}
-        strokeWidth="2"
-        strokeLinecap="round"
+        d="M5 0C7.76142 0 10 2.23858 10 5C10 5.92718 9.74643 6.79471 9.30664 7.53906L11.6338 9.86621C12.1219 10.3544 12.1219 11.1456 11.6338 11.6338C11.1456 12.1219 10.3544 12.1219 9.86621 11.6338L7.53906 9.30664C6.79471 9.74643 5.92718 10 5 10C2.23858 10 0 7.76142 0 5C0 2.23858 2.23858 0 5 0ZM5 2.5C3.61929 2.5 2.5 3.61929 2.5 5C2.5 6.38071 3.61929 7.5 5 7.5C6.38071 7.5 7.5 6.38071 7.5 5C7.5 3.61929 6.38071 2.5 5 2.5Z"
+        fill={color}
       />
     </svg>
   );
 };
 
-MagnifyingGlassFilled12.category = 'Interface General';
+MagnifyingGlassFilled12.category = 'Product Icons';
 
 export default MagnifyingGlassFilled12;

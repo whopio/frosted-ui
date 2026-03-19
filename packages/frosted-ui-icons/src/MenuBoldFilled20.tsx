@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const MenuBoldFilled20 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M18.25 15C19.0784 15 19.75 15.6716 19.75 16.5C19.75 17.3284 19.0784 18 18.25 18H1.75C0.921573 18 0.25 17.3284 0.25 16.5C0.25 15.6716 0.921573 15 1.75 15H18.25ZM18.25 8.5C19.0784 8.5 19.75 9.17157 19.75 10C19.75 10.8284 19.0784 11.5 18.25 11.5H1.75C0.921573 11.5 0.25 10.8284 0.25 10C0.25 9.17157 0.921573 8.5 1.75 8.5H18.25ZM18.25 2C19.0784 2 19.75 2.67157 19.75 3.5C19.75 4.32843 19.0784 5 18.25 5H1.75C0.921573 5 0.25 4.32843 0.25 3.5C0.25 2.67157 0.921573 2 1.75 2H18.25Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+MenuBoldFilled20.category = 'Product Icons';
+
+export default MenuBoldFilled20;

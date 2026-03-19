@@ -20,6 +20,6 @@ export const DocumentDownloadFilled32 = ({ color = 'currentColor', ...props }: I
   );
 };
 
-DocumentDownloadFilled32.category = 'Interface General';
+DocumentDownloadFilled32.category = 'Product Icons';
 
 export default DocumentDownloadFilled32;

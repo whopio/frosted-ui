@@ -1,0 +1,27 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const UserBoldFilled32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M16.0003 18C19.5747 18 22.5026 18.8524 24.7816 20.5664C27.06 22.28 28.5905 24.7805 29.5081 27.8936C29.9895 29.527 28.6935 31 27.1214 31H4.87923C3.30709 31 2.01109 29.527 2.49251 27.8936C3.41018 24.7805 4.94067 22.28 7.21908 20.5664C9.49807 18.8524 12.4259 18 16.0003 18ZM16.0003 1C20.1425 1 23.5003 4.35786 23.5003 8.5C23.5003 12.6421 20.1425 16 16.0003 16C11.8582 16 8.50033 12.6421 8.50033 8.5C8.50033 4.35788 11.8582 1.00003 16.0003 1Z"
+        fill={color}
+        fillRule="evenodd"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+};
+
+UserBoldFilled32.category = 'People';
+
+export default UserBoldFilled32;

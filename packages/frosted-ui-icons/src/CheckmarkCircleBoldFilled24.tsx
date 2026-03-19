@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const CheckmarkCircleBoldFilled24 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12C1 5.92487 5.92487 1 12 1ZM17.8105 7.93945C17.2248 7.35367 16.2752 7.35367 15.6895 7.93945L10.1201 13.5088L8.31055 11.6992C7.72478 11.1135 6.77523 11.1135 6.18945 11.6992C5.60367 12.285 5.60372 13.2345 6.18945 13.8203L9.05957 16.6904C9.34087 16.9717 9.7223 17.1299 10.1201 17.1299C10.5179 17.1299 10.8994 16.9717 11.1807 16.6904L17.8105 10.0605C18.3963 9.47476 18.3963 8.52524 17.8105 7.93945Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+CheckmarkCircleBoldFilled24.category = 'Checkmarks';
+
+export default CheckmarkCircleBoldFilled24;

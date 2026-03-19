@@ -27,6 +27,6 @@ export const MenuClose32 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
-MenuClose32.category = 'Interface General';
+MenuClose32.category = 'Product Icons';
 
 export default MenuClose32;

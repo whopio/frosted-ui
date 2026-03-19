@@ -20,6 +20,6 @@ export const Atom24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Atom24.category = 'Interface General';
+Atom24.category = 'Product Icons';
 
 export default Atom24;

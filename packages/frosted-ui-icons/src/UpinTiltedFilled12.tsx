@@ -20,6 +20,6 @@ export const UpinTiltedFilled12 = ({ color = 'currentColor', ...props }: IconPro
   );
 };
 
-UpinTiltedFilled12.category = 'Interface General';
+UpinTiltedFilled12.category = 'Product Icons';
 
 export default UpinTiltedFilled12;

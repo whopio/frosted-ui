@@ -20,6 +20,6 @@ export const InfoOutline16 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
-InfoOutline16.category = 'Interface General';
+InfoOutline16.category = 'Product Icons';
 
 export default InfoOutline16;

@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const GridBoldFilled20 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M5.75 11C7.54493 11 9 12.4551 9 14.25V16.75C9 18.5449 7.54493 20 5.75 20H3.25C1.45507 20 0 18.5449 0 16.75V14.25C1.28853e-07 12.4551 1.45507 11 3.25 11H5.75ZM16.75 11C18.5449 11 20 12.4551 20 14.25V16.75C20 18.5449 18.5449 20 16.75 20H14.25C12.4551 20 11 18.5449 11 16.75V14.25C11 12.4551 12.4551 11 14.25 11H16.75ZM5.75 0C7.54493 2.57706e-07 9 1.45507 9 3.25V5.75C9 7.54493 7.54493 9 5.75 9H3.25C1.45507 9 0 7.54493 0 5.75V3.25C1.28853e-07 1.45507 1.45507 0 3.25 0H5.75ZM16.75 0C18.5449 2.57706e-07 20 1.45507 20 3.25V5.75C20 7.54493 18.5449 9 16.75 9H14.25C12.4551 9 11 7.54493 11 5.75V3.25C11 1.45507 12.4551 0 14.25 0H16.75Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+GridBoldFilled20.category = 'Product Icons';
+
+export default GridBoldFilled20;

@@ -1,0 +1,26 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const CrownBold20 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M3 15V17C3 17.5523 3.44772 18 4 18H16C16.5523 18 17 17.5523 17 17V15M3 15H17M3 15L1.5472 5.55679C1.39311 4.55523 2.65506 3.98608 3.30379 4.76455L5.02115 6.82538C5.48282 7.37938 6.36129 7.27742 6.6838 6.63241L9.10557 1.78885C9.4741 1.05181 10.5259 1.05181 10.8944 1.78885L13.3162 6.63241C13.6387 7.27742 14.5172 7.37938 14.9789 6.82538L16.6962 4.76455C17.3449 3.98607 18.6069 4.55523 18.4528 5.55679L17 15"
+        stroke={color}
+        strokeWidth="2"
+      />
+    </svg>
+  );
+};
+
+CrownBold20.category = 'Objects';
+
+export default CrownBold20;

@@ -1,0 +1,27 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const DoubleChevronDown20 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M17.7199 8.66714C18.0127 8.37448 18.4876 8.37452 18.7804 8.66714C19.0732 8.95988 19.0739 9.43477 18.7814 9.72769L10.8693 17.6398C10.3892 18.1197 9.61106 18.1198 9.13103 17.6398L1.2199 9.72769C0.927031 9.43479 0.927019 8.96002 1.2199 8.66714C1.51281 8.37445 1.98763 8.37432 2.28045 8.66714L10.0002 16.3869L17.7199 8.66714ZM1.2199 2.22183C1.51281 1.92934 1.98768 1.92912 2.28045 2.22183L10.0002 9.94155L17.7199 2.22183C18.0127 1.92937 18.4876 1.92932 18.7804 2.22183C19.0732 2.5145 19.0737 2.98942 18.7814 3.28237L10.8693 11.1945C10.3892 11.6744 9.61105 11.6746 9.13103 11.1945L1.2199 3.28237C0.927083 2.98947 0.927037 2.51469 1.2199 2.22183Z"
+        fill={color}
+        fillRule="evenodd"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+};
+
+DoubleChevronDown20.category = 'Arrows';
+
+export default DoubleChevronDown20;

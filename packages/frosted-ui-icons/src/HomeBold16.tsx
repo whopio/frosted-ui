@@ -1,0 +1,26 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const HomeBold16 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M2 7.54738C2 6.87999 2.28011 6.24323 2.77208 5.79226L6.0404 2.7963C7.14913 1.77997 8.85087 1.77996 9.9596 2.7963L13.2279 5.79226C13.7199 6.24323 14 6.87999 14 7.54738V12.2143C14 13.2005 13.2005 14 12.2143 14H11.1905C10.533 14 10 13.467 10 12.8095V10C10 8.89545 9.10457 8.00002 8 8.00002C6.89543 8.00002 6 8.89545 6 10V12.8095C6 13.467 5.46701 14 4.80952 14H3.78571C2.79949 14 2 13.2005 2 12.2143V7.54738Z"
+        stroke={color}
+        strokeWidth="2"
+      />
+    </svg>
+  );
+};
+
+HomeBold16.category = 'Buildings';
+
+export default HomeBold16;

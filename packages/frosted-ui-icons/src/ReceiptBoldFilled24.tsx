@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const ReceiptBoldFilled24 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="25"
+      viewBox="0 0 24 25"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M19.25 0C21.3209 0.000197257 23 1.67905 23 3.75V22.6465C23 23.6402 21.9624 24.2935 21.0664 23.8643L16.832 21.832L12.6328 23.8672C12.2333 24.0608 11.7666 24.06 11.3672 23.8662L7.17676 21.832L2.93262 23.8652C2.03662 24.2939 1 23.6408 1 22.6475V3.75C1 1.67893 2.67893 0 4.75 0H19.25ZM6.5 10C5.67157 10 5 10.6716 5 11.5C5 12.3284 5.67157 13 6.5 13H11.5C12.3284 13 13 12.3284 13 11.5C13 10.6716 12.3284 10 11.5 10H6.5ZM6.5 5C5.67157 5 5 5.67157 5 6.5C5 7.32843 5.67157 8 6.5 8H17.5C18.3284 8 19 7.32843 19 6.5C19 5.67157 18.3284 5 17.5 5H6.5Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+ReceiptBoldFilled24.category = 'Money & Shopping';
+
+export default ReceiptBoldFilled24;

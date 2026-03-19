@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const SubtractBold32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M30.25 15C30.8023 15 31.25 15.4477 31.25 16C31.25 16.5523 30.8023 17 30.25 17H1.75C1.19772 17 0.750001 16.5523 0.75 16C0.750001 15.4477 1.19772 15 1.75 15H30.25Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+SubtractBold32.category = 'Product Icons';
+
+export default SubtractBold32;

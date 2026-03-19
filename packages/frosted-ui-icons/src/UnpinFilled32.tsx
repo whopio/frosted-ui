@@ -20,6 +20,6 @@ export const UnpinFilled32 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
-UnpinFilled32.category = 'Interface General';
+UnpinFilled32.category = 'Product Icons';
 
 export default UnpinFilled32;

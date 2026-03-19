@@ -20,6 +20,6 @@ export const MarkAsRead12 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
-MarkAsRead12.category = 'Interface General';
+MarkAsRead12.category = 'Product Icons';
 
 export default MarkAsRead12;

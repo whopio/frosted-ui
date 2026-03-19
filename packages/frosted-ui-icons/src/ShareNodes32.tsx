@@ -22,6 +22,6 @@ export const ShareNodes32 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
-ShareNodes32.category = 'Interface General';
+ShareNodes32.category = 'Product Icons';
 
 export default ShareNodes32;

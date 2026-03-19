@@ -20,6 +20,6 @@ export const CalendarX32 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
-CalendarX32.category = 'Interface General';
+CalendarX32.category = 'Product Icons';
 
 export default CalendarX32;

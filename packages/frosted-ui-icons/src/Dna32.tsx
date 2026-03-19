@@ -22,6 +22,6 @@ export const Dna32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Dna32.category = 'Interface General';
+Dna32.category = 'Product Icons';
 
 export default Dna32;

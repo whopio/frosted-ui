@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const WebcamOnBoldFilled12 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M5.75 1.5C7.01069 1.5 8.10263 2.21837 8.6416 3.26758L9.59961 2.5498L9.69434 2.48438C10.6761 1.85318 12 2.55275 12 3.75V8.25C12 9.48607 10.5885 10.1918 9.59961 9.4502L8.6416 8.73145C8.10277 9.78107 7.011 10.5 5.75 10.5H3.25C1.45507 10.5 0 9.04493 0 7.25V4.75C1.28853e-07 2.95507 1.45507 1.5 3.25 1.5H5.75Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+WebcamOnBoldFilled12.category = 'Product Icons';
+
+export default WebcamOnBoldFilled12;

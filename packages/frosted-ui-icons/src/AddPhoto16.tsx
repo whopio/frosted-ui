@@ -27,6 +27,6 @@ export const AddPhoto16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-AddPhoto16.category = 'Interface General';
+AddPhoto16.category = 'Product Icons';
 
 export default AddPhoto16;

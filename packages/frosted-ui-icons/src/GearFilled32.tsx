@@ -20,6 +20,6 @@ export const GearFilled32 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
-GearFilled32.category = 'Interface General';
+GearFilled32.category = 'Product Icons';
 
 export default GearFilled32;

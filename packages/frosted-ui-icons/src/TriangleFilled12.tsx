@@ -13,13 +13,17 @@ export const TriangleFilled12 = ({ color = 'currentColor', ...props }: IconProps
       {...props}
     >
       <path
-        d="M4.2793 1.63257C5.01354 0.256404 6.98664 0.2562 7.7207 1.63257L11.7207 9.13257C12.4129 10.4313 11.4717 11.9994 10 11.9998H2C0.528058 11.9998 -0.413042 10.4314 0.279297 9.13257L4.2793 1.63257Z"
+        d="M0.925726 9.4911L4.93805 1.86769C5.38794 1.0129 6.61194 1.0129 7.06183 1.86769L11.0742 9.4911C11.4947 10.2902 10.9153 11.25 10.0123 11.25H1.98762C1.08461 11.25 0.505155 10.2902 0.925726 9.4911Z"
         fill={color}
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
 };
 
-TriangleFilled12.category = 'Interface General';
+TriangleFilled12.category = 'Product Icons';
 
 export default TriangleFilled12;

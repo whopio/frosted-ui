@@ -13,13 +13,16 @@ export const Plus24 = ({ color = 'currentColor', ...props }: IconProps) => {
       {...props}
     >
       <path
-        d="M12 2C12.4142 2 12.75 2.33579 12.75 2.75V11.25H21.25C21.6642 11.25 22 11.5858 22 12C22 12.4142 21.6642 12.75 21.25 12.75H12.75V21.25C12.75 21.6642 12.4142 22 12 22C11.5858 22 11.25 21.6642 11.25 21.25V12.75H2.75C2.33579 12.75 2 12.4142 2 12C2 11.5858 2.33579 11.25 2.75 11.25H11.25V2.75C11.25 2.33579 11.5858 2 12 2Z"
-        fill={color}
+        d="M12 1.75V12M12 22.25V12M12 12H1.75M12 12H22.25"
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
 };
 
-Plus24.category = 'Interface General';
+Plus24.category = 'Product Icons';
 
 export default Plus24;

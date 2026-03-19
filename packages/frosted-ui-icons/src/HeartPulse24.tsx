@@ -20,6 +20,6 @@ export const HeartPulse24 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
-HeartPulse24.category = 'Interface General';
+HeartPulse24.category = 'Product Icons';
 
 export default HeartPulse24;

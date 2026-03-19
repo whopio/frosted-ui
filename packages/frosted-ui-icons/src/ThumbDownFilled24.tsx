@@ -22,6 +22,6 @@ export const ThumbDownFilled24 = ({ color = 'currentColor', ...props }: IconProp
   );
 };
 
-ThumbDownFilled24.category = 'Interface General';
+ThumbDownFilled24.category = 'Product Icons';
 
 export default ThumbDownFilled24;

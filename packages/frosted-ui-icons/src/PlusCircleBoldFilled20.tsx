@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const PlusCircleBoldFilled20 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M10 1C14.9706 1 19 5.02944 19 10C19 14.9706 14.9706 19 10 19C5.02944 19 1 14.9706 1 10C1 5.02944 5.02944 1 10 1ZM9.95898 5.25C9.13056 5.25 8.45898 5.92157 8.45898 6.75V8.45898H6.75C5.92168 8.45898 5.25018 9.13071 5.25 9.95898C5.25 10.7874 5.92157 11.459 6.75 11.459H8.45898V13.25C8.45898 14.0784 9.13056 14.75 9.95898 14.75C10.7874 14.75 11.459 14.0784 11.459 13.25V11.459H13.25C14.0784 11.459 14.75 10.7874 14.75 9.95898C14.7498 9.13071 14.0783 8.45898 13.25 8.45898H11.459V6.75C11.459 5.9216 10.7874 5.25004 9.95898 5.25Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+PlusCircleBoldFilled20.category = 'Product Icons';
+
+export default PlusCircleBoldFilled20;

@@ -20,6 +20,6 @@ export const ExclamationCircle20 = ({ color = 'currentColor', ...props }: IconPr
   );
 };
 
-ExclamationCircle20.category = 'Interface General';
+ExclamationCircle20.category = 'Product Icons';
 
 export default ExclamationCircle20;

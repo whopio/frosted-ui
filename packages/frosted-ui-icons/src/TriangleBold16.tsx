@@ -1,0 +1,28 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const TriangleBold16 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M2.19062 11.7889L6.67929 3.45274C7.24565 2.40094 8.75435 2.40094 9.32071 3.45274L13.8094 11.7889C14.3475 12.7882 13.6237 14 12.4887 14H3.51133C2.37631 14 1.65251 12.7882 2.19062 11.7889Z"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+TriangleBold16.category = 'Product Icons';
+
+export default TriangleBold16;

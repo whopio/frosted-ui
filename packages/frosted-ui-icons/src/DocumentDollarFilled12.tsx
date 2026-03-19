@@ -20,6 +20,6 @@ export const DocumentDollarFilled12 = ({ color = 'currentColor', ...props }: Ico
   );
 };
 
-DocumentDollarFilled12.category = 'Interface General';
+DocumentDollarFilled12.category = 'Product Icons';
 
 export default DocumentDollarFilled12;

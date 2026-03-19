@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const MailBoldFilled32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M31 21.5C31 25.6421 27.6421 29 23.5 29H8.5C4.35786 29 1 25.6421 1 21.5V11.4102L14.0693 17.6182C15.2911 18.1985 16.7089 18.1985 17.9307 17.6182L31 11.4102V21.5ZM23.5 3C26.8718 3 29.7238 5.22516 30.668 8.28711C30.5626 8.31114 30.4582 8.34719 30.3564 8.39551L16.6436 14.9082C16.2363 15.1016 15.7637 15.1016 15.3564 14.9082L1.64355 8.39551C1.54153 8.34704 1.43678 8.31114 1.33105 8.28711C2.27516 5.22502 5.12805 3 8.5 3H23.5Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+MailBoldFilled32.category = 'Communication';
+
+export default MailBoldFilled32;
