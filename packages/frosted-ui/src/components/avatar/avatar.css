@@ -1,7 +1,6 @@
 .fui-AvatarRoot {
   container-type: inline-size;
   display: inline-grid;
-  grid-template: 1fr / 1fr;
   place-items: center;
   vertical-align: middle;
   user-select: none;
@@ -35,6 +34,7 @@
   aspect-ratio: 1;
   width: 100%;
   height: 100%;
+
   object-fit: cover;
   border-radius: inherit;
   /* Fix safari issue where animated avatars were blurred */
@@ -50,6 +50,7 @@
   z-index: 0;
   width: 100%;
   height: 100%;
+
   overflow: hidden;
   display: flex;
   align-items: center;
