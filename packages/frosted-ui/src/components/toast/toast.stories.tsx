@@ -137,6 +137,99 @@ export const PromiseError: Story = {
   ),
 };
 
+export const PromiseConditional: Story = {
+  name: 'Promise — Conditional Toasts',
+  render: () => {
+    const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+        <div style={{ maxWidth: 480 }}>
+          <Text size="2" color="gray">
+            <Code size="1">toast.promise</Code> conditionally skips toast creation when an option is{' '}
+            <Code size="1">undefined</Code>. If <Code size="1">loading</Code> is undefined, no loading spinner appears.
+            If <Code size="1">success</Code> or <Code size="1">error</Code> is undefined, the loading toast (if any) is
+            dismissed silently. This matches sonner&apos;s behavior.
+          </Text>
+        </div>
+        <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
+          <Button
+            onClick={() =>
+              toast.promise(delay(2000).then(() => 'done'), {
+                loading: 'Saving...',
+                success: 'Saved!',
+                error: 'Failed to save',
+              })
+            }
+          >
+            All options defined
+          </Button>
+
+          <Button
+            onClick={() =>
+              toast.promise(delay(2000).then(() => 'done'), {
+                loading: 'Working...',
+                success: undefined,
+              })
+            }
+          >
+            No success toast
+          </Button>
+
+          <Button
+            onClick={() =>
+              toast.promise(
+                delay(2000).then(() => {
+                  throw new Error('oops');
+                }),
+                {
+                  loading: 'Submitting...',
+                  error: undefined,
+                },
+              )
+            }
+          >
+            No error toast
+          </Button>
+
+          <Button
+            onClick={() =>
+              toast.promise(delay(1500).then(() => 'done'), {
+                success: 'Background task complete!',
+              })
+            }
+          >
+            No loading, only success
+          </Button>
+
+          <Button
+            onClick={() =>
+              toast.promise(
+                delay(1500).then(() => {
+                  throw new Error('fail');
+                }),
+                {
+                  error: 'Background task failed',
+                },
+              )
+            }
+          >
+            No loading, only error
+          </Button>
+
+          <Button
+            onClick={() =>
+              toast.promise(delay(1000).then(() => 'silent'), {})
+            }
+          >
+            All undefined (silent)
+          </Button>
+        </div>
+      </div>
+    );
+  },
+};
+
 export const LoadingReplace: Story = {
   name: 'Loading → Replace',
   render: () => {
