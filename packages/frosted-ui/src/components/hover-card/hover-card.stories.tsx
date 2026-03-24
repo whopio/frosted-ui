@@ -15,6 +15,7 @@ import {
   hoverCardContentPropDefs,
 } from '..';
 
+
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
   title: 'Components/HoverCard',
@@ -932,6 +933,109 @@ export const DisableAnchorTracking: Story = {
           Click the button above to move the anchor elements. The left hover card will follow, while the right one stays
           fixed at its original position.
         </Text>
+      </div>
+    );
+  },
+};
+
+interface UserPayload {
+  name: string;
+  username: string;
+  avatar: string;
+  bio: string;
+  repos: number;
+  followers: number;
+}
+
+const users: Record<string, UserPayload> = {
+  whop: {
+    name: 'Whop',
+    username: '@whopio',
+    avatar: 'https://avatars.githubusercontent.com/u/91078276?s=200&v=4',
+    bio: 'Build, sell, and engage with software products.',
+    repos: 127,
+    followers: 1200,
+  },
+  vercel: {
+    name: 'Vercel',
+    username: '@vercel',
+    avatar: 'https://avatars.githubusercontent.com/u/14985020?s=200&v=4',
+    bio: 'Develop. Preview. Ship. Creators of Next.js.',
+    repos: 154,
+    followers: 8500,
+  },
+  baseui: {
+    name: 'Base UI',
+    username: '@base-ui-components',
+    avatar: 'https://avatars.githubusercontent.com/u/195592562?s=200&v=4',
+    bio: 'Unstyled UI components for building accessible web apps and design systems.',
+    repos: 1,
+    followers: 430,
+  },
+};
+
+export const MultipleTriggers: Story = {
+  name: 'Multiple Triggers',
+  args: {
+    size: '2',
+    variant: 'translucent',
+  },
+  render: function MultipleTriggersDemo(args) {
+    const handle = React.useMemo(() => HoverCard.createHandle<UserPayload>(), []);
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: 500 }}>
+        <Text>
+          A single hover card can be opened by multiple triggers using <Code>HoverCard.createHandle()</Code>. Each
+          trigger can pass a unique <Code>payload</Code> to render different content in the same card.
+        </Text>
+
+        <Text>
+          Check out{' '}
+          <HoverCard.Trigger handle={handle} payload={users.whop}>
+            <Link href="https://github.com/whopio">Whop</Link>
+          </HoverCard.Trigger>
+          ,{' '}
+          <HoverCard.Trigger handle={handle} payload={users.vercel}>
+            <Link href="https://github.com/vercel">Vercel</Link>
+          </HoverCard.Trigger>
+          , or{' '}
+          <HoverCard.Trigger handle={handle} payload={users.baseui}>
+            <Link href="https://github.com/base-ui-components">Base UI</Link>
+          </HoverCard.Trigger>{' '}
+          on GitHub.
+        </Text>
+
+        <HoverCard.Root handle={handle}>
+          {({ payload }) => (
+            <HoverCard.Content {...args}>
+              {payload !== undefined && (
+                <div style={{ display: 'flex', gap: 'var(--space-4)' }}>
+                  <Avatar size="4" src={payload.avatar} fallback={payload.name[0]} shape="square" />
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
+                    <Heading size="3" render={<h3 />}>
+                      {payload.name}
+                    </Heading>
+                    <Text render={<div />} size="2" color="gray">
+                      {payload.username}
+                    </Text>
+                    <Text render={<div />} size="2" style={{ marginTop: 'var(--space-2)', maxWidth: 280 }}>
+                      {payload.bio}
+                    </Text>
+                    <div style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-2)' }}>
+                      <Text size="2" color="gray">
+                        <Strong>{payload.repos}</Strong> repos
+                      </Text>
+                      <Text size="2" color="gray">
+                        <Strong>{payload.followers.toLocaleString()}</Strong> followers
+                      </Text>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </HoverCard.Content>
+          )}
+        </HoverCard.Root>
       </div>
     );
   },
