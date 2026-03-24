@@ -8,25 +8,36 @@ import { hoverCardContentPropDefs } from './hover-card.props';
 
 import type { GetPropDefTypes } from '../../helpers';
 
-interface HoverCardRootProps extends Omit<
+const createHandle = PreviewCardPrimitive.createHandle;
+
+type HoverCardHandle<T = unknown> = ReturnType<typeof PreviewCardPrimitive.createHandle<T>>;
+
+interface HoverCardRootProps<T = unknown> extends Omit<
   React.ComponentProps<typeof PreviewCardPrimitive.Root>,
-  'className' | 'render'
-> {}
-const HoverCardRoot: React.FC<HoverCardRootProps> = (props) => <PreviewCardPrimitive.Root {...props} />;
+  'className' | 'render' | 'children' | 'handle'
+> {
+  children?: React.ReactNode | ((props: { payload: T | undefined }) => React.ReactNode);
+  handle?: HoverCardHandle<T>;
+}
+function HoverCardRoot<T = unknown>(props: HoverCardRootProps<T>) {
+  return <PreviewCardPrimitive.Root {...(props as React.ComponentProps<typeof PreviewCardPrimitive.Root>)} />;
+}
 HoverCardRoot.displayName = 'HoverCardRoot';
 
-interface HoverCardTriggerProps extends Omit<
+interface HoverCardTriggerProps<T = unknown> extends Omit<
   React.ComponentProps<typeof PreviewCardPrimitive.Trigger>,
-  'render' | 'className'
+  'render' | 'className' | 'handle' | 'payload'
 > {
   className?: string;
   children: React.ReactElement;
+  handle?: HoverCardHandle<T>;
+  payload?: T;
   /** How long to wait before the preview card opens. Specified in milliseconds. */
   delay?: number;
   /** How long to wait before closing the preview card. Specified in milliseconds. */
   closeDelay?: number;
 }
-const HoverCardTrigger = (props: HoverCardTriggerProps) => {
+function HoverCardTrigger<T = unknown>(props: HoverCardTriggerProps<T>) {
   const { children, delay = 200, closeDelay = 150, ...rest } = props;
   return (
     <PreviewCardPrimitive.Trigger
@@ -34,10 +45,10 @@ const HoverCardTrigger = (props: HoverCardTriggerProps) => {
       delay={delay}
       closeDelay={closeDelay}
       render={children}
-      {...rest}
+      {...(rest as React.ComponentProps<typeof PreviewCardPrimitive.Trigger>)}
     />
   );
-};
+}
 HoverCardTrigger.displayName = 'HoverCardTrigger';
 
 type PositionerProps = React.ComponentProps<typeof PreviewCardPrimitive.Positioner>;
@@ -119,9 +130,11 @@ const HoverCardContent = (props: HoverCardContentProps) => {
 };
 HoverCardContent.displayName = 'HoverCardContent';
 
-export { HoverCardContent as Content, HoverCardRoot as Root, HoverCardTrigger as Trigger };
+export { HoverCardContent as Content, createHandle, HoverCardRoot as Root, HoverCardTrigger as Trigger };
 export type {
   HoverCardContentProps as ContentProps,
+  HoverCardHandle as Handle,
   HoverCardRootProps as RootProps,
-  HoverCardTriggerProps as TriggerProps,
+  HoverCardTriggerProps as TriggerProps
 };
+
