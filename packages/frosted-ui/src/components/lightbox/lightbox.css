@@ -1,3 +1,13 @@
+/* Active trigger fades out behind the semi-transparent backdrop so it
+   doesn't show through while the lightbox is open. */
+.fui-LightboxTrigger {
+  transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fui-LightboxTrigger[data-open][data-active] {
+  opacity: 0;
+}
+
 /* Dialog reset — remove browser defaults */
 dialog.fui-LightboxContent {
   border: none;

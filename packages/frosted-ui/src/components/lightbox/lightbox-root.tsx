@@ -122,8 +122,6 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
     const openingTriggerIndexRef = React.useRef(0);
     const activeIndexRef = React.useRef(activeIndex);
     activeIndexRef.current = activeIndex;
-    // Tracks the trigger element hidden during VT open so we can restore it on close
-    const hiddenTriggerRef = React.useRef<HTMLElement | null>(null);
 
     const setOpen = React.useCallback(
       (nextOpen: boolean) => {
@@ -153,14 +151,6 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
             const transition = (document as any).startViewTransition(() => {
               if (triggerTarget) {
                 triggerTarget.style.viewTransitionName = '';
-              }
-              // Hide trigger in the new-state snapshot so it doesn't show
-              // through behind the dialog (which is in the top layer and
-              // therefore outside the root VT capture). It stays hidden
-              // for the lifetime of the dialog and is restored on close.
-              if (triggerEl) {
-                triggerEl.style.visibility = 'hidden';
-                hiddenTriggerRef.current = triggerEl;
               }
               flushSync(() => {
                 setMounted(true);
@@ -220,12 +210,6 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
                 onOpenChangeRef.current?.(false);
                 setMounted(false);
               });
-              // Restore the trigger hidden during open so the morph
-              // target is visible in the new-state snapshot.
-              if (hiddenTriggerRef.current) {
-                hiddenTriggerRef.current.style.visibility = '';
-                hiddenTriggerRef.current = null;
-              }
               if (triggerTarget) {
                 triggerTarget.style.viewTransitionName = VIEW_TRANSITION_NAME;
               }
@@ -249,10 +233,6 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
             }
             onOpenChangeRef.current?.(true);
           } else {
-            if (hiddenTriggerRef.current) {
-              hiddenTriggerRef.current.style.visibility = '';
-              hiddenTriggerRef.current = null;
-            }
             if (!isControlledOpen) {
               setUncontrolledOpen(false);
             }

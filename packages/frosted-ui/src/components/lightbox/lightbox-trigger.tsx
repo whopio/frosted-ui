@@ -7,6 +7,7 @@ import { useLightboxContext } from './lightbox-context';
 
 interface LightboxTriggerState extends Record<string, unknown> {
   open: boolean;
+  active: boolean;
 }
 
 interface LightboxTriggerProps extends useRender.ComponentProps<'button', LightboxTriggerState> {
@@ -16,6 +17,7 @@ interface LightboxTriggerProps extends useRender.ComponentProps<'button', Lightb
 
 const triggerStateAttributesMapping = {
   open: (value: unknown) => (value ? { 'data-open': '' } : null),
+  active: (value: unknown) => (value ? { 'data-active': '' } : null),
 };
 
 /**
@@ -28,7 +30,7 @@ const triggerStateAttributesMapping = {
 const LightboxTrigger = React.forwardRef<HTMLButtonElement, LightboxTriggerProps>(
   function LightboxTrigger(props, forwardedRef) {
     const { render, index, ...elementProps } = props;
-    const { open, setOpen, setActiveIndex, triggerElementsRef, openingTriggerIndexRef } = useLightboxContext();
+    const { open, activeIndex, setOpen, setActiveIndex, triggerElementsRef, openingTriggerIndexRef } = useLightboxContext();
 
     const internalRef = React.useRef<HTMLButtonElement | null>(null);
 
@@ -56,7 +58,8 @@ const LightboxTrigger = React.forwardRef<HTMLButtonElement, LightboxTriggerProps
       setOpen(true);
     }, [index, setActiveIndex, setOpen, openingTriggerIndexRef]);
 
-    const state = React.useMemo<LightboxTriggerState>(() => ({ open }), [open]);
+    const active = open && activeIndex === index;
+    const state = React.useMemo<LightboxTriggerState>(() => ({ open, active }), [open, active]);
 
     return useRender({
       render,
