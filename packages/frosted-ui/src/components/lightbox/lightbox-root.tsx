@@ -1,8 +1,16 @@
 'use client';
 
 import * as React from 'react';
+import { flushSync } from 'react-dom';
 
-import { LightboxContext, type LightboxContextValue, type NavigationSource } from './lightbox-context';
+import {
+  LightboxContext,
+  VIEW_TRANSITION_NAME,
+  findMorphTarget,
+  supportsViewTransitions,
+  type LightboxContextValue,
+  type NavigationSource,
+} from './lightbox-context';
 
 interface LightboxRootProps {
   children?: React.ReactNode;
@@ -20,6 +28,15 @@ interface LightboxRootProps {
   onValueChange?: (value: number, metadata: { source: NavigationSource }) => void;
   /** Wrap navigation at boundaries. @default false */
   loop?: boolean;
+  /**
+   * Enable view transition morph animation between trigger and lightbox item.
+   * When clicking a trigger, the element smoothly morphs into the fullscreen
+   * lightbox item. On close, it morphs back. Requires browser support for
+   * the View Transitions API. Falls back to normal fade when unsupported
+   * or when prefers-reduced-motion is set.
+   * @default false
+   */
+  viewTransition?: boolean;
 }
 
 interface LightboxRootRef {
@@ -39,6 +56,7 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
       value: valueProp,
       onValueChange,
       loop = false,
+      viewTransition = false,
     } = props;
 
     // Open state — controlled or uncontrolled
@@ -50,16 +68,6 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
     React.useEffect(() => {
       onOpenChangeRef.current = onOpenChange;
     }, [onOpenChange]);
-
-    const setOpen = React.useCallback(
-      (nextOpen: boolean) => {
-        if (!isControlledOpen) {
-          setUncontrolledOpen(nextOpen);
-        }
-        onOpenChangeRef.current?.(nextOpen);
-      },
-      [isControlledOpen],
-    );
 
     // Active index — controlled or uncontrolled
     const isControlledValue = valueProp !== undefined;
@@ -102,12 +110,133 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
       };
     }, []);
 
+    // Portal mount state — stays true during exit animations so elements
+    // remain in the DOM for CSS transitions (non-VT) or are removed
+    // immediately inside flushSync (VT close).
+    const [mounted, setMounted] = React.useState(defaultOpen);
+    const exitTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    // View transition refs
+    const triggerElementsRef = React.useRef<Map<number, HTMLElement>>(new Map());
+    const activeItemElementRef = React.useRef<HTMLElement | null>(null);
+    const openingTriggerIndexRef = React.useRef(0);
+    const activeIndexRef = React.useRef(activeIndex);
+    activeIndexRef.current = activeIndex;
+
+    const setOpen = React.useCallback(
+      (nextOpen: boolean) => {
+        if (exitTimerRef.current) {
+          clearTimeout(exitTimerRef.current);
+          exitTimerRef.current = null;
+        }
+
+        const useVT = viewTransition && supportsViewTransitions();
+
+        if (useVT) {
+          document.documentElement.setAttribute('data-lightbox-view-transition', '');
+
+          if (nextOpen) {
+            // --- OPEN with view transition ---
+            const triggerIdx = openingTriggerIndexRef.current;
+            const triggerEl = triggerElementsRef.current.get(triggerIdx);
+            const triggerTarget = triggerEl ? findMorphTarget(triggerEl) : null;
+
+            if (triggerTarget) {
+              triggerTarget.style.viewTransitionName = VIEW_TRANSITION_NAME;
+            }
+
+            const transition = (document as any).startViewTransition(() => {
+              if (triggerTarget) {
+                triggerTarget.style.viewTransitionName = '';
+              }
+              flushSync(() => {
+                setMounted(true);
+                if (!isControlledOpen) {
+                  setUncontrolledOpen(true);
+                }
+                onOpenChangeRef.current?.(true);
+              });
+              const itemEl = activeItemElementRef.current;
+              const itemTarget = itemEl ? findMorphTarget(itemEl) : null;
+              if (itemTarget) {
+                itemTarget.style.viewTransitionName = VIEW_TRANSITION_NAME;
+              }
+              if (itemEl) {
+                itemEl.setAttribute('data-skip-fade', '');
+              }
+            });
+
+            transition.finished.then(() => {
+              const itemEl = activeItemElementRef.current;
+              const itemTarget = itemEl ? findMorphTarget(itemEl) : null;
+              if (itemTarget) {
+                itemTarget.style.viewTransitionName = '';
+              }
+              document.documentElement.removeAttribute('data-lightbox-view-transition');
+            });
+          } else {
+            // --- CLOSE with view transition ---
+            const itemEl = activeItemElementRef.current;
+            const itemTarget = itemEl ? findMorphTarget(itemEl) : null;
+            const triggerIdx = activeIndexRef.current;
+            const triggerEl = triggerElementsRef.current.get(triggerIdx);
+
+            if (itemTarget) {
+              itemTarget.style.viewTransitionName = VIEW_TRANSITION_NAME;
+            }
+
+            const transition = (document as any).startViewTransition(() => {
+              if (itemTarget) {
+                itemTarget.style.viewTransitionName = '';
+              }
+              flushSync(() => {
+                if (!isControlledOpen) {
+                  setUncontrolledOpen(false);
+                }
+                onOpenChangeRef.current?.(false);
+                setMounted(false);
+              });
+              const triggerTarget = triggerEl ? findMorphTarget(triggerEl) : null;
+              if (triggerTarget) {
+                triggerTarget.style.viewTransitionName = VIEW_TRANSITION_NAME;
+              }
+            });
+
+            transition.finished.then(() => {
+              const triggerTarget = triggerEl ? findMorphTarget(triggerEl) : null;
+              if (triggerTarget) {
+                triggerTarget.style.viewTransitionName = '';
+              }
+              document.documentElement.removeAttribute('data-lightbox-view-transition');
+            });
+          }
+        } else {
+          // --- No view transition ---
+          if (nextOpen) {
+            setMounted(true);
+            if (!isControlledOpen) {
+              setUncontrolledOpen(true);
+            }
+            onOpenChangeRef.current?.(true);
+          } else {
+            if (!isControlledOpen) {
+              setUncontrolledOpen(false);
+            }
+            onOpenChangeRef.current?.(false);
+            exitTimerRef.current = setTimeout(() => setMounted(false), 350);
+          }
+        }
+      },
+      [isControlledOpen, viewTransition],
+    );
+
     // Imperative handle
     React.useImperativeHandle(
       forwardedRef,
       () => ({
         open: (index?: number) => {
           if (index !== undefined) {
+            openingTriggerIndexRef.current = index;
             setActiveIndex(index, 'trigger');
           }
           setOpen(true);
@@ -122,6 +251,7 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
       () => ({
         open,
         setOpen,
+        mounted,
         activeIndex,
         setActiveIndex,
         itemCount,
@@ -129,8 +259,12 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
         loop,
         captions,
         registerCaption,
+        viewTransition,
+        triggerElementsRef,
+        activeItemElementRef,
+        openingTriggerIndexRef,
       }),
-      [open, setOpen, activeIndex, setActiveIndex, itemCount, setItemCount, loop, captions, registerCaption],
+      [open, setOpen, mounted, activeIndex, setActiveIndex, itemCount, setItemCount, loop, captions, registerCaption, viewTransition],
     );
 
     return <LightboxContext.Provider value={contextValue}>{children}</LightboxContext.Provider>;

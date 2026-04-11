@@ -1,97 +1,158 @@
 'use client';
 
-import { Dialog as DialogPrimitive } from '@base-ui/react/dialog';
 import classNames from 'classnames';
 import * as React from 'react';
+import { createPortal } from 'react-dom';
 
 import { useLightboxContext } from './lightbox-context';
 
-type PortalProps = React.ComponentProps<typeof DialogPrimitive.Portal>;
-
-interface LightboxContentProps extends Omit<React.ComponentProps<typeof DialogPrimitive.Popup>, 'className' | 'render'> {
+interface LightboxContentProps extends React.ComponentPropsWithRef<'div'> {
   className?: string;
   children?: React.ReactNode;
-  container?: PortalProps['container'];
-  keepMounted?: PortalProps['keepMounted'];
+  /** Portal container element. Defaults to document.body. */
+  container?: Element | null;
 }
 
-/**
- * The lightbox overlay content. Renders inside a portal with a backdrop
- * and focus trap. Handles arrow-key navigation between items at the
- * dialog level.
- *
- * Internally uses Base UI Dialog primitives for modal semantics:
- * Portal -> Backdrop -> Viewport -> Popup.
- */
-const LightboxContent = (props: LightboxContentProps) => {
-  const { className, children, keepMounted, container, ...popupProps } = props;
+const LightboxContent = React.forwardRef<HTMLDivElement, LightboxContentProps>(
+  function LightboxContent(props, forwardedRef) {
+    const { className, children, container, ...rest } = props;
 
-  const { open, setOpen, activeIndex, setActiveIndex, itemCount, loop } = useLightboxContext();
+    const { open, mounted, setOpen, activeIndex, setActiveIndex, itemCount, loop } = useLightboxContext();
 
-  const handleKeyDown = React.useCallback(
-    (event: React.KeyboardEvent) => {
-      event.stopPropagation();
+    const contentRef = React.useRef<HTMLDivElement | null>(null);
+    const previousFocusRef = React.useRef<Element | null>(null);
+    const portalRef = React.useRef<HTMLDivElement | null>(null);
 
-      if (itemCount === 0) return;
-
-      let nextIndex: number | null = null;
-
-      switch (event.key) {
-        case 'ArrowRight':
-        case 'ArrowDown': {
-          if (loop) {
-            nextIndex = (activeIndex + 1) % itemCount;
-          } else {
-            nextIndex = Math.min(activeIndex + 1, itemCount - 1);
-          }
-          break;
+    const mergedContentRef = React.useCallback(
+      (node: HTMLDivElement | null) => {
+        contentRef.current = node;
+        if (typeof forwardedRef === 'function') {
+          forwardedRef(node);
+        } else if (forwardedRef) {
+          forwardedRef.current = node;
         }
-        case 'ArrowLeft':
-        case 'ArrowUp': {
-          if (loop) {
-            nextIndex = (activeIndex - 1 + itemCount) % itemCount;
-          } else {
-            nextIndex = Math.max(activeIndex - 1, 0);
-          }
-          break;
-        }
-        case 'Home':
-          nextIndex = 0;
-          break;
-        case 'End':
-          nextIndex = itemCount - 1;
-          break;
-        default:
+      },
+      [forwardedRef],
+    );
+
+    // --- Scroll lock ---
+    React.useEffect(() => {
+      if (!mounted) return;
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = prev;
+      };
+    }, [mounted]);
+
+    // --- Focus management ---
+    React.useEffect(() => {
+      if (open && contentRef.current) {
+        previousFocusRef.current = document.activeElement;
+        contentRef.current.focus({ preventScroll: true });
+      } else if (!open && previousFocusRef.current) {
+        (previousFocusRef.current as HTMLElement)?.focus?.({ preventScroll: true });
+        previousFocusRef.current = null;
+      }
+    }, [open]);
+
+    // --- Focus trap via `inert` ---
+    React.useEffect(() => {
+      if (!open) return;
+      const portal = portalRef.current;
+      if (!portal) return;
+
+      const siblings = Array.from(document.body.children).filter((el) => el !== portal);
+      siblings.forEach((el) => el.setAttribute('inert', ''));
+      return () => siblings.forEach((el) => el.removeAttribute('inert'));
+    }, [open]);
+
+    // --- Keyboard handling ---
+    const handleKeyDown = React.useCallback(
+      (event: React.KeyboardEvent) => {
+        if (event.key === 'Escape') {
+          event.stopPropagation();
+          setOpen(false);
           return;
-      }
+        }
 
-      if (nextIndex !== null && nextIndex !== activeIndex) {
-        event.preventDefault();
-        setActiveIndex(nextIndex, 'keyboard');
-      }
-    },
-    [activeIndex, itemCount, loop, setActiveIndex],
-  );
+        if (itemCount === 0) return;
 
-  return (
-    <DialogPrimitive.Root open={open} onOpenChange={setOpen} modal>
-      <DialogPrimitive.Portal container={container} keepMounted={keepMounted}>
-        <DialogPrimitive.Backdrop className={classNames('fui-LightboxBackdrop')} />
-        <DialogPrimitive.Viewport className="fui-LightboxOverlay" onKeyDown={handleKeyDown}>
-          <DialogPrimitive.Popup
-            {...popupProps}
+        let nextIndex: number | null = null;
+
+        switch (event.key) {
+          case 'ArrowRight':
+          case 'ArrowDown':
+            nextIndex = loop ? (activeIndex + 1) % itemCount : Math.min(activeIndex + 1, itemCount - 1);
+            break;
+          case 'ArrowLeft':
+          case 'ArrowUp':
+            nextIndex = loop ? (activeIndex - 1 + itemCount) % itemCount : Math.max(activeIndex - 1, 0);
+            break;
+          case 'Home':
+            nextIndex = 0;
+            break;
+          case 'End':
+            nextIndex = itemCount - 1;
+            break;
+          default:
+            return;
+        }
+
+        if (nextIndex !== null && nextIndex !== activeIndex) {
+          event.preventDefault();
+          setActiveIndex(nextIndex, 'keyboard');
+        }
+      },
+      [activeIndex, itemCount, loop, setActiveIndex, setOpen],
+    );
+
+    const handleBackdropClick = React.useCallback(
+      (event: React.MouseEvent) => {
+        if (event.target === event.currentTarget) {
+          setOpen(false);
+        }
+      },
+      [setOpen],
+    );
+
+    if (!mounted) return null;
+
+    const portalTarget = container ?? (typeof document !== 'undefined' ? document.body : null);
+    if (!portalTarget) return null;
+
+    return createPortal(
+      <div ref={portalRef} data-lightbox-portal="">
+        <div
+          className="fui-LightboxBackdrop"
+          data-open={open || undefined}
+          aria-hidden="true"
+        />
+        <div
+          className="fui-LightboxOverlay"
+          data-open={open || undefined}
+          onClick={handleBackdropClick}
+          onKeyDown={handleKeyDown}
+        >
+          <div
+            ref={mergedContentRef}
+            {...rest}
             className={classNames('fui-LightboxContent', className)}
+            role="dialog"
+            aria-modal="true"
+            tabIndex={-1}
+            data-open={open || undefined}
           >
             {children}
-          </DialogPrimitive.Popup>
-        </DialogPrimitive.Viewport>
-      </DialogPrimitive.Portal>
-    </DialogPrimitive.Root>
-  );
-};
+          </div>
+        </div>
+      </div>,
+      portalTarget,
+    );
+  },
+);
 
 LightboxContent.displayName = 'LightboxContent';
 
 export { LightboxContent };
 export type { LightboxContentProps };
-

@@ -1,3 +1,9 @@
+/* Portal wrapper for z-stacking */
+[data-lightbox-portal] {
+  position: relative;
+  z-index: 999;
+}
+
 /* Backdrop covers entire screen with a dark overlay */
 .fui-LightboxBackdrop {
   position: fixed;
@@ -61,11 +67,16 @@
 
 /***************************************************************************************************
  *                                                                                                 *
- * TRANSITIONS (using Base UI's data-starting-style / data-ending-style / data-open)               *
+ * ENTER / EXIT TRANSITIONS                                                                       *
+ * Uses CSS transitions + @starting-style for enter.                                              *
+ * @starting-style tells the browser the "from" values on first render,                           *
+ * then the transition animates to the computed values. No animations,                            *
+ * no fill-mode snapping, no flicker.                                                             *
  *                                                                                                 *
  ***************************************************************************************************/
 
 @media (prefers-reduced-motion: no-preference) {
+  /* --- Backdrop --- */
   .fui-LightboxBackdrop {
     backdrop-filter: blur(0px) brightness(1);
     background: rgba(0, 0, 0, 0);
@@ -74,36 +85,37 @@
       backdrop-filter 300ms cubic-bezier(0.16, 1, 0.3, 1),
       background 300ms cubic-bezier(0.16, 1, 0.3, 1),
       opacity 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
 
-    &[data-open] {
-      backdrop-filter: blur(4px) brightness(0.5);
-      background: rgba(0, 0, 0, 0.75);
-      opacity: 1;
-    }
+  .fui-LightboxBackdrop[data-open] {
+    backdrop-filter: blur(4px) brightness(0.5);
+    background: rgba(0, 0, 0, 0.75);
+    opacity: 1;
 
-    &[data-starting-style],
-    &[data-ending-style] {
+    @starting-style {
       backdrop-filter: blur(0px) brightness(1);
       background: rgba(0, 0, 0, 0);
       opacity: 0;
     }
   }
 
+  /* --- Content --- */
   .fui-LightboxContent {
-    opacity: 1;
+    opacity: 0;
     transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
 
-    &[data-starting-style] {
-      opacity: 0;
-    }
+  .fui-LightboxContent[data-open] {
+    opacity: 1;
 
-    &[data-ending-style] {
+    @starting-style {
       opacity: 0;
     }
   }
 
-  .fui-LightboxItem[data-active] {
-    animation: fui-lightbox-fade-in 200ms ease-out;
+  /* --- Item navigation fade --- */
+  .fui-LightboxItem[data-active]:not([data-skip-fade]) {
+    animation: fui-lightbox-fade-in 200ms ease-out both;
   }
 }
 
@@ -114,4 +126,44 @@
   to {
     opacity: 1;
   }
+}
+
+/***************************************************************************************************
+ *                                                                                                 *
+ * VIEW TRANSITIONS                                                                                *
+ * Morph animation between trigger thumbnail and fullscreen lightbox item.                         *
+ * Uses the View Transitions API (document.startViewTransition).                                   *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+/* Root cross-fade: the backdrop fades in/out naturally as part of the
+   root snapshot. Only the morph image has its own named VT group.
+   Match the backdrop's transition duration so the cross-fade feels cohesive. */
+:root[data-lightbox-view-transition]::view-transition-old(root),
+:root[data-lightbox-view-transition]::view-transition-new(root) {
+  animation-duration: 300ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --- Morph group (trigger <-> item) --- */
+::view-transition-group(fui-lightbox-morph) {
+  animation-duration: 350ms;
+  animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+  overflow: hidden;
+  border-radius: var(--radius-2);
+  z-index: 2;
+}
+
+::view-transition-old(fui-lightbox-morph),
+::view-transition-new(fui-lightbox-morph) {
+  animation: none;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+/* Suppress the item fade-in animation during a view transition —
+   the morph already handles the entrance. */
+:root[data-lightbox-view-transition] .fui-LightboxItem[data-active] {
+  animation: none !important;
 }

@@ -32,12 +32,15 @@ const itemStateAttributesMapping = {
  * An individual lightbox item. Only renders when within the preload
  * window (active index +/- preload distance). Supports both static
  * children and render-prop children for lazy loading.
+ *
+ * When the item is active, registers its DOM element in context
+ * so view transitions can morph to/from it.
  */
 const LightboxItem = React.forwardRef<HTMLDivElement, LightboxItemProps>(
   function LightboxItem(props, forwardedRef) {
     const { render, index, caption, children, ...elementProps } = props;
 
-    const { registerCaption, setItemCount } = useLightboxContext();
+    const { registerCaption, setItemCount, activeItemElementRef } = useLightboxContext();
     const groupContext = useLightboxItemGroupContext();
 
     const activeIndex = groupContext.activeIndex;
@@ -45,6 +48,29 @@ const LightboxItem = React.forwardRef<HTMLDivElement, LightboxItemProps>(
     const isActive = index === activeIndex;
     const distance = Math.abs(index - activeIndex);
     const isVisible = distance <= preload;
+
+    const internalRef = React.useRef<HTMLDivElement | null>(null);
+
+    const mergedRefCallback = React.useCallback(
+      (node: HTMLDivElement | null) => {
+        internalRef.current = node;
+        if (typeof forwardedRef === 'function') {
+          forwardedRef(node);
+        } else if (forwardedRef) {
+          forwardedRef.current = node;
+        }
+      },
+      [forwardedRef],
+    );
+
+    // Register active item element for view transitions.
+    // useLayoutEffect ensures the ref is set synchronously after
+    // commit, which is critical for flushSync in the view transition flow.
+    React.useLayoutEffect(() => {
+      if (isActive && internalRef.current) {
+        activeItemElementRef.current = internalRef.current;
+      }
+    }, [isActive, activeItemElementRef]);
 
     React.useEffect(() => {
       setItemCount((prev: number) => Math.max(prev, index + 1));
@@ -66,7 +92,7 @@ const LightboxItem = React.forwardRef<HTMLDivElement, LightboxItemProps>(
     // useRender is a hook — must always be called regardless of visibility
     const rendered = useRender({
       render,
-      ref: forwardedRef,
+      ref: mergedRefCallback,
       state,
       stateAttributesMapping: itemStateAttributesMapping,
       props: mergeProps<'div'>(

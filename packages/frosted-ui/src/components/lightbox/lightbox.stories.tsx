@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React, { useRef, useState } from 'react';
-import { Badge, Button, IconButton, Lightbox, Text } from '..';
+import { Badge, Button, Lightbox, Text } from '..';
 
 const images = [
   {
@@ -48,6 +48,59 @@ const images = [
   },
 ];
 
+const triggerStyle: React.CSSProperties = {
+  padding: 0,
+  border: '2px solid transparent',
+  borderRadius: 'var(--radius-2)',
+  overflow: 'hidden',
+  cursor: 'pointer',
+  width: 120,
+  background: 'none',
+};
+
+const closeStyle: React.CSSProperties = {
+  width: 36,
+  height: 36,
+  borderRadius: '50%',
+  border: 'none',
+  background: 'rgba(255,255,255,0.15)',
+  color: 'white',
+  fontSize: 20,
+  cursor: 'pointer',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  backdropFilter: 'blur(8px)',
+};
+
+const navStyle: React.CSSProperties = {
+  width: 36,
+  height: 36,
+  borderRadius: '50%',
+  border: 'none',
+  background: 'rgba(255,255,255,0.15)',
+  color: 'white',
+  fontSize: 18,
+  cursor: 'pointer',
+  backdropFilter: 'blur(8px)',
+};
+
+const counterStyle: React.CSSProperties = {
+  fontFamily: 'var(--code-font-family)',
+  fontSize: 'var(--font-size-2)',
+  color: 'rgba(255,255,255,0.7)',
+  minWidth: 60,
+  textAlign: 'center',
+};
+
+const captionStyle: React.CSSProperties = {
+  color: 'rgba(255,255,255,0.8)',
+  fontSize: 'var(--font-size-2)',
+  textAlign: 'center',
+  paddingBottom: 'var(--space-4)',
+  minHeight: 24,
+};
+
 const meta = {
   title: 'Components/Lightbox',
   component: Lightbox.Root,
@@ -62,59 +115,22 @@ type Story = StoryObj;
 
 export const Default: Story = {
   render: () => (
-    <Lightbox.Root>
+    <Lightbox.Root viewTransition>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--space-3)', maxWidth: 600 }}>
         {images.map((img, i) => (
-          <Lightbox.Trigger key={img.id} index={i}>
-            <button
-              style={{
-                padding: 0,
-                border: '2px solid transparent',
-                borderRadius: 'var(--radius-2)',
-                overflow: 'hidden',
-                cursor: 'pointer',
-                background: 'none',
-              }}
-            >
-              <img
-                src={img.thumb}
-                alt={img.alt}
-                style={{ width: '100%', height: 120, objectFit: 'cover', display: 'block' }}
-              />
-            </button>
+          <Lightbox.Trigger key={img.id} index={i} style={triggerStyle}>
+            <img
+              src={img.thumb}
+              alt={img.alt}
+              style={{  height: 120, width: 120, objectFit: 'cover', display: 'block' }}
+            />
           </Lightbox.Trigger>
         ))}
       </div>
 
       <Lightbox.Content aria-label="Photo gallery">
-        <div
-          style={{
-            position: 'absolute',
-            top: 'var(--space-4)',
-            right: 'var(--space-4)',
-            zIndex: 1,
-          }}
-        >
-          <Lightbox.Close>
-            <button
-              style={{
-                width: 36,
-                height: 36,
-                borderRadius: '50%',
-                border: 'none',
-                background: 'rgba(255,255,255,0.15)',
-                color: 'white',
-                fontSize: 20,
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backdropFilter: 'blur(8px)',
-              }}
-            >
-              ✕
-            </button>
-          </Lightbox.Close>
+        <div style={{ position: 'absolute', top: 'var(--space-4)', right: 'var(--space-4)', zIndex: 1 }}>
+          <Lightbox.Close style={closeStyle}>✕</Lightbox.Close>
         </div>
 
         <Lightbox.ItemGroup>
@@ -123,82 +139,19 @@ export const Default: Story = {
               <img
                 src={img.src}
                 alt={img.alt}
-                style={{
-                  maxWidth: '90vw',
-                  maxHeight: '75vh',
-                  objectFit: 'contain',
-                  borderRadius: 'var(--radius-2)',
-                }}
+                style={{ maxWidth: '90vw', maxHeight: '75vh', objectFit: 'contain', borderRadius: 'var(--radius-2)' }}
               />
             </Lightbox.Item>
           ))}
         </Lightbox.ItemGroup>
 
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 'var(--space-4)',
-            padding: 'var(--space-3)',
-            color: 'white',
-          }}
-        >
-          <Lightbox.Previous>
-            <button
-              style={{
-                width: 36,
-                height: 36,
-                borderRadius: '50%',
-                border: 'none',
-                background: 'rgba(255,255,255,0.15)',
-                color: 'white',
-                fontSize: 18,
-                cursor: 'pointer',
-                backdropFilter: 'blur(8px)',
-              }}
-            >
-              ←
-            </button>
-          </Lightbox.Previous>
-
-          <Lightbox.Counter
-            style={{
-              fontFamily: 'var(--code-font-family)',
-              fontSize: 'var(--font-size-2)',
-              color: 'rgba(255,255,255,0.7)',
-              minWidth: 60,
-              textAlign: 'center',
-            }}
-          />
-
-          <Lightbox.Next>
-            <button
-              style={{
-                width: 36,
-                height: 36,
-                borderRadius: '50%',
-                border: 'none',
-                background: 'rgba(255,255,255,0.15)',
-                color: 'white',
-                fontSize: 18,
-                cursor: 'pointer',
-                backdropFilter: 'blur(8px)',
-              }}
-            >
-              →
-            </button>
-          </Lightbox.Next>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)', padding: 'var(--space-3)', color: 'white' }}>
+          <Lightbox.Previous style={navStyle}>←</Lightbox.Previous>
+          <Lightbox.Counter style={counterStyle} />
+          <Lightbox.Next style={navStyle}>→</Lightbox.Next>
         </div>
 
-        <Lightbox.Caption
-          style={{
-            color: 'rgba(255,255,255,0.8)',
-            fontSize: 'var(--font-size-2)',
-            textAlign: 'center',
-            paddingBottom: 'var(--space-4)',
-            minHeight: 24,
-          }}
-        />
+        <Lightbox.Caption style={captionStyle} />
       </Lightbox.Content>
     </Lightbox.Root>
   ),
@@ -206,63 +159,22 @@ export const Default: Story = {
 
 export const WithThumbnails: Story = {
   render: () => (
-    <Lightbox.Root loop>
-      <Button variant="soft" onClick={() => {}}>
-        The lightbox is controlled externally in this demo
-      </Button>
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--space-3)', maxWidth: 600, marginTop: 'var(--space-3)' }}>
+    <Lightbox.Root loop viewTransition>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--space-3)', maxWidth: 600 }}>
         {images.map((img, i) => (
-          <Lightbox.Trigger key={img.id} index={i}>
-            <button
-              style={{
-                padding: 0,
-                border: '2px solid transparent',
-                borderRadius: 'var(--radius-2)',
-                overflow: 'hidden',
-                cursor: 'pointer',
-                background: 'none',
-              }}
-            >
-              <img
-                src={img.thumb}
-                alt={img.alt}
-                style={{ width: '100%', height: 120, objectFit: 'cover', display: 'block' }}
-              />
-            </button>
+          <Lightbox.Trigger key={img.id} index={i} style={triggerStyle}>
+            <img
+              src={img.thumb}
+              alt={img.alt}
+              style={{ width: '100%', height: 120, objectFit: 'cover', display: 'block' }}
+            />
           </Lightbox.Trigger>
         ))}
       </div>
 
       <Lightbox.Content aria-label="Photo gallery with thumbnails">
-        <div
-          style={{
-            position: 'absolute',
-            top: 'var(--space-4)',
-            right: 'var(--space-4)',
-            zIndex: 1,
-          }}
-        >
-          <Lightbox.Close>
-            <button
-              style={{
-                width: 36,
-                height: 36,
-                borderRadius: '50%',
-                border: 'none',
-                background: 'rgba(255,255,255,0.15)',
-                color: 'white',
-                fontSize: 20,
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backdropFilter: 'blur(8px)',
-              }}
-            >
-              ✕
-            </button>
-          </Lightbox.Close>
+        <div style={{ position: 'absolute', top: 'var(--space-4)', right: 'var(--space-4)', zIndex: 1 }}>
+          <Lightbox.Close style={closeStyle}>✕</Lightbox.Close>
         </div>
 
         <Lightbox.ItemGroup preload={2}>
@@ -271,87 +183,31 @@ export const WithThumbnails: Story = {
               <img
                 src={img.src}
                 alt={img.alt}
-                style={{
-                  maxWidth: '90vw',
-                  maxHeight: '65vh',
-                  objectFit: 'contain',
-                  borderRadius: 'var(--radius-2)',
-                }}
+                style={{ maxWidth: '90vw', maxHeight: '65vh', objectFit: 'contain', borderRadius: 'var(--radius-2)' }}
               />
             </Lightbox.Item>
           ))}
         </Lightbox.ItemGroup>
 
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 'var(--space-4)',
-            padding: 'var(--space-3)',
-            color: 'white',
-          }}
-        >
-          <Lightbox.Previous>
-            <button
-              style={{
-                width: 36,
-                height: 36,
-                borderRadius: '50%',
-                border: 'none',
-                background: 'rgba(255,255,255,0.15)',
-                color: 'white',
-                fontSize: 18,
-                cursor: 'pointer',
-                backdropFilter: 'blur(8px)',
-              }}
-            >
-              ←
-            </button>
-          </Lightbox.Previous>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)', padding: 'var(--space-3)', color: 'white' }}>
+          <Lightbox.Previous style={navStyle}>←</Lightbox.Previous>
 
           <Lightbox.Counter>
             {({ current, total }) => (
-              <span style={{ fontFamily: 'var(--code-font-family)', fontSize: 'var(--font-size-2)', color: 'rgba(255,255,255,0.7)' }}>
+              <span style={counterStyle}>
                 Image {current} of {total}
               </span>
             )}
           </Lightbox.Counter>
 
-          <Lightbox.Next>
-            <button
-              style={{
-                width: 36,
-                height: 36,
-                borderRadius: '50%',
-                border: 'none',
-                background: 'rgba(255,255,255,0.15)',
-                color: 'white',
-                fontSize: 18,
-                cursor: 'pointer',
-                backdropFilter: 'blur(8px)',
-              }}
-            >
-              →
-            </button>
-          </Lightbox.Next>
+          <Lightbox.Next style={navStyle}>→</Lightbox.Next>
         </div>
 
-        <Lightbox.Caption
-          style={{
-            color: 'rgba(255,255,255,0.8)',
-            fontSize: 'var(--font-size-2)',
-            textAlign: 'center',
-            minHeight: 24,
-          }}
-        />
+        <Lightbox.Caption style={{ ...captionStyle, paddingBottom: 0 }} />
 
         <Lightbox.ThumbnailGroup
           aria-label="Photo thumbnails"
-          style={{
-            display: 'flex',
-            gap: 'var(--space-2)',
-            padding: 'var(--space-3)',
-          }}
+          style={{ display: 'flex', gap: 'var(--space-2)', padding: 'var(--space-3)' }}
         >
           {images.map((img, i) => (
             <Lightbox.Thumbnail
@@ -404,45 +260,30 @@ export const Controlled: Story = {
           </Text>
         </div>
 
-        <Lightbox.Root open={open} onOpenChange={setOpen} value={value} onValueChange={(v) => setValue(v)}>
+        <Lightbox.Root open={open} onOpenChange={setOpen} value={value} onValueChange={(v) => setValue(v)} viewTransition>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--space-3)', maxWidth: 600 }}>
             {images.map((img, i) => (
-              <Lightbox.Trigger key={img.id} index={i}>
-                <button
-                  style={{
-                    padding: 0,
-                    border: value === i ? '2px solid var(--accent-9)' : '2px solid transparent',
-                    borderRadius: 'var(--radius-2)',
-                    overflow: 'hidden',
-                    cursor: 'pointer',
-                    background: 'none',
-                    transition: 'border-color 150ms',
-                  }}
-                >
-                  <img
-                    src={img.thumb}
-                    alt={img.alt}
-                    style={{ width: '100%', height: 120, objectFit: 'cover', display: 'block' }}
-                  />
-                </button>
+              <Lightbox.Trigger
+                key={img.id}
+                index={i}
+                style={{
+                  ...triggerStyle,
+                  borderColor: value === i ? 'var(--accent-9)' : 'transparent',
+                  transition: 'border-color 150ms',
+                }}
+              >
+                <img
+                  src={img.thumb}
+                  alt={img.alt}
+                  style={{ width: '100%', height: 120, objectFit: 'cover', display: 'block' }}
+                />
               </Lightbox.Trigger>
             ))}
           </div>
 
           <Lightbox.Content aria-label="Controlled photo gallery">
             <div style={{ position: 'absolute', top: 'var(--space-4)', right: 'var(--space-4)', zIndex: 1 }}>
-              <Lightbox.Close>
-                <button
-                  style={{
-                    width: 36, height: 36, borderRadius: '50%', border: 'none',
-                    background: 'rgba(255,255,255,0.15)', color: 'white', fontSize: 20,
-                    cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    backdropFilter: 'blur(8px)',
-                  }}
-                >
-                  ✕
-                </button>
-              </Lightbox.Close>
+              <Lightbox.Close style={closeStyle}>✕</Lightbox.Close>
             </div>
 
             <Lightbox.ItemGroup>
@@ -458,16 +299,12 @@ export const Controlled: Story = {
             </Lightbox.ItemGroup>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)', padding: 'var(--space-3)', color: 'white' }}>
-              <Lightbox.Previous>
-                <button style={{ width: 36, height: 36, borderRadius: '50%', border: 'none', background: 'rgba(255,255,255,0.15)', color: 'white', fontSize: 18, cursor: 'pointer' }}>←</button>
-              </Lightbox.Previous>
-              <Lightbox.Counter style={{ fontFamily: 'var(--code-font-family)', fontSize: 'var(--font-size-2)', color: 'rgba(255,255,255,0.7)', minWidth: 60, textAlign: 'center' }} />
-              <Lightbox.Next>
-                <button style={{ width: 36, height: 36, borderRadius: '50%', border: 'none', background: 'rgba(255,255,255,0.15)', color: 'white', fontSize: 18, cursor: 'pointer' }}>→</button>
-              </Lightbox.Next>
+              <Lightbox.Previous style={navStyle}>←</Lightbox.Previous>
+              <Lightbox.Counter style={counterStyle} />
+              <Lightbox.Next style={navStyle}>→</Lightbox.Next>
             </div>
 
-            <Lightbox.Caption style={{ color: 'rgba(255,255,255,0.8)', fontSize: 'var(--font-size-2)', textAlign: 'center', paddingBottom: 'var(--space-4)', minHeight: 24 }} />
+            <Lightbox.Caption style={captionStyle} />
           </Lightbox.Content>
         </Lightbox.Root>
       </div>
@@ -492,18 +329,7 @@ export const ImperativeAPI: Story = {
         <Lightbox.Root ref={lightboxRef} loop>
           <Lightbox.Content aria-label="Imperative lightbox">
             <div style={{ position: 'absolute', top: 'var(--space-4)', right: 'var(--space-4)', zIndex: 1 }}>
-              <Lightbox.Close>
-                <button
-                  style={{
-                    width: 36, height: 36, borderRadius: '50%', border: 'none',
-                    background: 'rgba(255,255,255,0.15)', color: 'white', fontSize: 20,
-                    cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    backdropFilter: 'blur(8px)',
-                  }}
-                >
-                  ✕
-                </button>
-              </Lightbox.Close>
+              <Lightbox.Close style={closeStyle}>✕</Lightbox.Close>
             </div>
 
             <Lightbox.ItemGroup>
@@ -519,16 +345,12 @@ export const ImperativeAPI: Story = {
             </Lightbox.ItemGroup>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)', padding: 'var(--space-3)', color: 'white' }}>
-              <Lightbox.Previous>
-                <button style={{ width: 36, height: 36, borderRadius: '50%', border: 'none', background: 'rgba(255,255,255,0.15)', color: 'white', fontSize: 18, cursor: 'pointer' }}>←</button>
-              </Lightbox.Previous>
-              <Lightbox.Counter style={{ fontFamily: 'var(--code-font-family)', fontSize: 'var(--font-size-2)', color: 'rgba(255,255,255,0.7)', minWidth: 60, textAlign: 'center' }} />
-              <Lightbox.Next>
-                <button style={{ width: 36, height: 36, borderRadius: '50%', border: 'none', background: 'rgba(255,255,255,0.15)', color: 'white', fontSize: 18, cursor: 'pointer' }}>→</button>
-              </Lightbox.Next>
+              <Lightbox.Previous style={navStyle}>←</Lightbox.Previous>
+              <Lightbox.Counter style={counterStyle} />
+              <Lightbox.Next style={navStyle}>→</Lightbox.Next>
             </div>
 
-            <Lightbox.Caption style={{ color: 'rgba(255,255,255,0.8)', fontSize: 'var(--font-size-2)', textAlign: 'center', paddingBottom: 'var(--space-4)', minHeight: 24 }} />
+            <Lightbox.Caption style={captionStyle} />
           </Lightbox.Content>
         </Lightbox.Root>
       </div>
@@ -541,37 +363,15 @@ export const LazyLoading: Story = {
     <Lightbox.Root>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--space-3)', maxWidth: 600 }}>
         {images.map((img, i) => (
-          <Lightbox.Trigger key={img.id} index={i}>
-            <button
-              style={{
-                padding: 0,
-                border: '2px solid transparent',
-                borderRadius: 'var(--radius-2)',
-                overflow: 'hidden',
-                cursor: 'pointer',
-                background: 'none',
-              }}
-            >
-              <img src={img.thumb} alt={img.alt} style={{ width: '100%', height: 120, objectFit: 'cover', display: 'block' }} />
-            </button>
+          <Lightbox.Trigger key={img.id} index={i} style={triggerStyle}>
+            <img src={img.thumb} alt={img.alt} style={{ width: '100%', height: 120, objectFit: 'cover', display: 'block' }} />
           </Lightbox.Trigger>
         ))}
       </div>
 
       <Lightbox.Content aria-label="Lazy-loaded gallery">
         <div style={{ position: 'absolute', top: 'var(--space-4)', right: 'var(--space-4)', zIndex: 1 }}>
-          <Lightbox.Close>
-            <button
-              style={{
-                width: 36, height: 36, borderRadius: '50%', border: 'none',
-                background: 'rgba(255,255,255,0.15)', color: 'white', fontSize: 20,
-                cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                backdropFilter: 'blur(8px)',
-              }}
-            >
-              ✕
-            </button>
-          </Lightbox.Close>
+          <Lightbox.Close style={closeStyle}>✕</Lightbox.Close>
         </div>
 
         <Lightbox.ItemGroup preload={0}>
@@ -593,16 +393,12 @@ export const LazyLoading: Story = {
         </Lightbox.ItemGroup>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)', padding: 'var(--space-3)', color: 'white' }}>
-          <Lightbox.Previous>
-            <button style={{ width: 36, height: 36, borderRadius: '50%', border: 'none', background: 'rgba(255,255,255,0.15)', color: 'white', fontSize: 18, cursor: 'pointer' }}>←</button>
-          </Lightbox.Previous>
-          <Lightbox.Counter style={{ fontFamily: 'var(--code-font-family)', fontSize: 'var(--font-size-2)', color: 'rgba(255,255,255,0.7)', minWidth: 60, textAlign: 'center' }} />
-          <Lightbox.Next>
-            <button style={{ width: 36, height: 36, borderRadius: '50%', border: 'none', background: 'rgba(255,255,255,0.15)', color: 'white', fontSize: 18, cursor: 'pointer' }}>→</button>
-          </Lightbox.Next>
+          <Lightbox.Previous style={navStyle}>←</Lightbox.Previous>
+          <Lightbox.Counter style={counterStyle} />
+          <Lightbox.Next style={navStyle}>→</Lightbox.Next>
         </div>
 
-        <Lightbox.Caption style={{ color: 'rgba(255,255,255,0.8)', fontSize: 'var(--font-size-2)', textAlign: 'center', paddingBottom: 'var(--space-4)', minHeight: 24 }} />
+        <Lightbox.Caption style={captionStyle} />
       </Lightbox.Content>
     </Lightbox.Root>
   ),

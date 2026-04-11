@@ -21,22 +21,46 @@ const triggerStateAttributesMapping = {
 /**
  * A trigger that opens the Lightbox at a specific item index.
  * Multiple triggers can exist — each opens the lightbox at its `index`.
+ *
+ * When `viewTransition` is enabled on Root, the trigger element is
+ * used as the morph source for the view transition animation.
  */
 const LightboxTrigger = React.forwardRef<HTMLButtonElement, LightboxTriggerProps>(
   function LightboxTrigger(props, forwardedRef) {
     const { render, index, ...elementProps } = props;
-    const { open, setOpen, setActiveIndex } = useLightboxContext();
+    const { open, setOpen, setActiveIndex, triggerElementsRef, openingTriggerIndexRef } = useLightboxContext();
+
+    const internalRef = React.useRef<HTMLButtonElement | null>(null);
+
+    const mergedRefCallback = React.useCallback(
+      (node: HTMLButtonElement | null) => {
+        internalRef.current = node;
+        // Register in the trigger elements map for view transitions
+        if (node) {
+          triggerElementsRef.current.set(index, node);
+        } else {
+          triggerElementsRef.current.delete(index);
+        }
+        if (typeof forwardedRef === 'function') {
+          forwardedRef(node);
+        } else if (forwardedRef) {
+          forwardedRef.current = node;
+        }
+      },
+      [forwardedRef, index, triggerElementsRef],
+    );
 
     const handleClick = React.useCallback(() => {
+      openingTriggerIndexRef.current = index;
       setActiveIndex(index, 'trigger');
       setOpen(true);
-    }, [index, setActiveIndex, setOpen]);
+    }, [index, setActiveIndex, setOpen, openingTriggerIndexRef]);
 
     const state = React.useMemo<LightboxTriggerState>(() => ({ open }), [open]);
 
     return useRender({
       render,
-      ref: forwardedRef,
+      ref: mergedRefCallback,
       state,
       stateAttributesMapping: triggerStateAttributesMapping,
       props: mergeProps<'button'>(
