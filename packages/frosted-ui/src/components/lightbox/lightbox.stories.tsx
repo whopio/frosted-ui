@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { ChevronLeft16, ChevronRight16, XMark16 } from '@frosted-ui/icons';
+import { ArrowUpFromBracket16, ChevronLeft16, ChevronRight16, Heart16, MessageBlank16, XMark16 } from '@frosted-ui/icons';
 import React, { useRef, useState } from 'react';
-import { Badge, Button, Heading, IconButton, Lightbox, ScrollGallery, Separator, Text } from '..';
+import { Avatar, Badge, Button, Heading, IconButton, Lightbox, ScrollGallery, Separator, Text } from '..';
 
 const images = [
   {
@@ -637,5 +637,247 @@ export const WithinArticle: Story = {
         <CaptionText />
       </Lightbox.Content>
     </Lightbox.Root>
+  ),
+};
+
+/* =============================================================================
+ * SOCIAL FEED
+ * Each post is its own Lightbox.Root with 1-4 image attachments in different
+ * grid layouts. Tests multiple independent lightbox instances on one page,
+ * varied trigger geometries, and scroll position recovery.
+ * ========================================================================== */
+
+interface FeedPost {
+  id: string;
+  user: { name: string; handle: string; avatar: string; initials: string };
+  text: string;
+  time: string;
+  images: { src: string; thumb: string; alt: string }[];
+  stats: { replies: number; likes: number; shares: number };
+}
+
+const feedPosts: FeedPost[] = [
+  {
+    id: 'post-1',
+    user: { name: 'Elena Vasquez', handle: '@elenavsq', avatar: 'https://i.pravatar.cc/150?u=elena', initials: 'EV' },
+    text: 'Spent the weekend exploring the old quarter. Every alley has a story — and apparently, a very photogenic cat.',
+    time: '2h',
+    images: [
+      { src: 'https://picsum.photos/seed/feed1a/1200/800', thumb: 'https://picsum.photos/seed/feed1a/600/400', alt: 'Narrow alley with hanging laundry' },
+    ],
+    stats: { replies: 12, likes: 284, shares: 31 },
+  },
+  {
+    id: 'post-2',
+    user: { name: 'Marcus Chen', handle: '@marcusc', avatar: 'https://i.pravatar.cc/150?u=marcus', initials: 'MC' },
+    text: 'New studio setup is finally complete. Natural light in the morning, controlled lighting at night. Couldn\'t be happier with how these turned out.',
+    time: '5h',
+    images: [
+      { src: 'https://picsum.photos/seed/feed2a/1200/800', thumb: 'https://picsum.photos/seed/feed2a/600/400', alt: 'Bright studio with large windows' },
+      { src: 'https://picsum.photos/seed/feed2b/1200/800', thumb: 'https://picsum.photos/seed/feed2b/600/400', alt: 'Studio setup with ring light at night' },
+    ],
+    stats: { replies: 45, likes: 1203, shares: 89 },
+  },
+  {
+    id: 'post-3',
+    user: { name: 'Aisha Patel', handle: '@aishapatel', avatar: 'https://i.pravatar.cc/150?u=aisha', initials: 'AP' },
+    text: 'Food market finds from this morning. Everything was so fresh the vendors were still arranging displays when I arrived. Got there at 6am and it was worth every lost minute of sleep.',
+    time: '8h',
+    images: [
+      { src: 'https://picsum.photos/seed/feed3a/1200/900', thumb: 'https://picsum.photos/seed/feed3a/600/450', alt: 'Colourful spice stall' },
+      { src: 'https://picsum.photos/seed/feed3b/1200/900', thumb: 'https://picsum.photos/seed/feed3b/600/450', alt: 'Fresh fruit arranged in pyramids' },
+      { src: 'https://picsum.photos/seed/feed3c/900/1200', thumb: 'https://picsum.photos/seed/feed3c/450/600', alt: 'Baker pulling bread from a clay oven' },
+    ],
+    stats: { replies: 28, likes: 892, shares: 67 },
+  },
+  {
+    id: 'post-4',
+    user: { name: 'James Okafor', handle: '@jamesokafor', avatar: 'https://i.pravatar.cc/150?u=james', initials: 'JO' },
+    text: 'Architecture walk through the brutalist district. Say what you will about the aesthetic — the geometry is unreal in the right light.',
+    time: '12h',
+    images: [
+      { src: 'https://picsum.photos/seed/feed4a/1200/800', thumb: 'https://picsum.photos/seed/feed4a/600/400', alt: 'Concrete building with geometric shadows' },
+      { src: 'https://picsum.photos/seed/feed4b/800/1200', thumb: 'https://picsum.photos/seed/feed4b/400/600', alt: 'Spiral staircase viewed from below' },
+      { src: 'https://picsum.photos/seed/feed4c/1200/800', thumb: 'https://picsum.photos/seed/feed4c/600/400', alt: 'Repeating balcony pattern on a tower block' },
+      { src: 'https://picsum.photos/seed/feed4d/800/1200', thumb: 'https://picsum.photos/seed/feed4d/400/600', alt: 'Sunlight cutting through a concrete overhang' },
+    ],
+    stats: { replies: 63, likes: 2147, shares: 312 },
+  },
+  {
+    id: 'post-5',
+    user: { name: 'Sofia Lindgren', handle: '@sofialind', avatar: 'https://i.pravatar.cc/150?u=sofia', initials: 'SL' },
+    text: 'First snowfall of the season, and naturally I had my camera. The way the light hits fresh powder at golden hour is something else entirely.',
+    time: '1d',
+    images: [
+      { src: 'https://picsum.photos/seed/feed5a/1200/800', thumb: 'https://picsum.photos/seed/feed5a/600/400', alt: 'Snow-covered pine forest at sunset' },
+      { src: 'https://picsum.photos/seed/feed5b/1200/800', thumb: 'https://picsum.photos/seed/feed5b/600/400', alt: 'Footprints in fresh snow leading to a cabin' },
+    ],
+    stats: { replies: 34, likes: 1567, shares: 201 },
+  },
+];
+
+function formatCount(n: number): string {
+  if (n >= 1000) return `${(n / 1000).toFixed(1).replace(/\.0$/, '')}K`;
+  return String(n);
+}
+
+const feedTriggerBase: React.CSSProperties = {
+  padding: 0,
+  border: 'none',
+  cursor: 'pointer',
+  background: 'none',
+  display: 'block',
+  overflow: 'hidden',
+};
+
+function ImageGrid({ imgs }: { imgs: FeedPost['images'] }) {
+  const count = imgs.length;
+  const radius = 12;
+
+  if (count === 1) {
+    return (
+      <Lightbox.Trigger index={0} style={{ ...feedTriggerBase, borderRadius: radius, width: '100%' }}>
+        <img src={imgs[0].thumb} alt={imgs[0].alt} style={{ width: '100%', aspectRatio: '3/2', objectFit: 'cover', display: 'block' }} />
+      </Lightbox.Trigger>
+    );
+  }
+
+  if (count === 2) {
+    return (
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2, borderRadius: radius, overflow: 'hidden' }}>
+        {imgs.map((img, i) => (
+          <Lightbox.Trigger key={i} index={i} style={feedTriggerBase}>
+            <img src={img.thumb} alt={img.alt} style={{ width: '100%', aspectRatio: '4/5', objectFit: 'cover', display: 'block' }} />
+          </Lightbox.Trigger>
+        ))}
+      </div>
+    );
+  }
+
+  if (count === 3) {
+    return (
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gap: 2, borderRadius: radius, overflow: 'hidden', aspectRatio: '3/2' }}>
+        <Lightbox.Trigger index={0} style={{ ...feedTriggerBase, gridRow: '1 / -1' }}>
+          <img src={imgs[0].thumb} alt={imgs[0].alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+        </Lightbox.Trigger>
+        <Lightbox.Trigger index={1} style={feedTriggerBase}>
+          <img src={imgs[1].thumb} alt={imgs[1].alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+        </Lightbox.Trigger>
+        <Lightbox.Trigger index={2} style={feedTriggerBase}>
+          <img src={imgs[2].thumb} alt={imgs[2].alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+        </Lightbox.Trigger>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gap: 2, borderRadius: radius, overflow: 'hidden', aspectRatio: '3/2' }}>
+      {imgs.slice(0, 4).map((img, i) => (
+        <Lightbox.Trigger key={i} index={i} style={feedTriggerBase}>
+          <img src={img.thumb} alt={img.alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+        </Lightbox.Trigger>
+      ))}
+    </div>
+  );
+}
+
+function ActionBar({ stats }: { stats: FeedPost['stats'] }) {
+  return (
+    <div style={{ display: 'flex', gap: 'var(--space-1)', marginTop: 'var(--space-3)' }}>
+      {[
+        { icon: <MessageBlank16 />, count: stats.replies, color: undefined },
+        { icon: <Heart16 />, count: stats.likes, color: undefined },
+        { icon: <ArrowUpFromBracket16 />, count: stats.shares, color: undefined },
+      ].map((action, i) => (
+        <button
+          key={i}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-1)',
+            padding: 'var(--space-1) var(--space-2)',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            borderRadius: 'var(--radius-2)',
+            color: 'var(--gray-a11)',
+            fontSize: 'var(--font-size-1)',
+            lineHeight: 1,
+            transition: 'background 120ms ease',
+          }}
+          onMouseOver={(e) => { e.currentTarget.style.background = 'var(--gray-a3)'; }}
+          onMouseOut={(e) => { e.currentTarget.style.background = 'none'; }}
+        >
+          {action.icon}
+          <span>{formatCount(action.count)}</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function FeedPostCard({ post }: { post: FeedPost }) {
+  return (
+    <Lightbox.Root viewTransition>
+      <article style={{ display: 'flex', gap: 'var(--space-3)', padding: 'var(--space-4) 0' }}>
+        <div style={{ flexShrink: 0, paddingTop: 2 }}>
+          <Avatar
+            size="3"
+            src={post.user.avatar}
+            fallback={post.user.initials}
+            shape="circle"
+          />
+        </div>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--space-2)', flexWrap: 'wrap' }}>
+            <Text size="2" weight="bold">{post.user.name}</Text>
+            <Text size="2" color="gray">{post.user.handle}</Text>
+            <Text size="1" color="gray">·</Text>
+            <Text size="1" color="gray">{post.time}</Text>
+          </div>
+
+          <Text render={<p />} size="2" style={{ margin: 'var(--space-1) 0 var(--space-3)', lineHeight: 1.5 }}>
+            {post.text}
+          </Text>
+
+          <ImageGrid imgs={post.images} />
+          <ActionBar stats={post.stats} />
+        </div>
+      </article>
+
+      <Lightbox.Content aria-label={`Photos by ${post.user.name}`}>
+        <CloseButton />
+
+        <Lightbox.ItemGroup>
+          {post.images.map((img, i) => (
+            <Lightbox.Item key={i} index={i}>
+              <FullImage src={img.src} alt={img.alt} />
+            </Lightbox.Item>
+          ))}
+        </Lightbox.ItemGroup>
+
+        <NavControls />
+      </Lightbox.Content>
+    </Lightbox.Root>
+  );
+}
+
+export const SocialFeed: Story = {
+  name: 'Social Feed',
+  render: () => (
+    <div style={{ maxWidth: 560, margin: '0 auto' }}>
+      <div style={{ padding: 'var(--space-4) 0 var(--space-2)', borderBottom: '1px solid var(--gray-a4)' }}>
+        <Heading size="5">Home</Heading>
+      </div>
+
+      {feedPosts.map((post, i) => (
+        <React.Fragment key={post.id}>
+          <FeedPostCard post={post} />
+          {i < feedPosts.length - 1 && (
+            <Separator size="4" />
+          )}
+        </React.Fragment>
+      ))}
+    </div>
   ),
 };
