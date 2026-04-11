@@ -881,3 +881,218 @@ export const SocialFeed: Story = {
     </div>
   ),
 };
+
+/* =============================================================================
+ * DESIGN FILE INSPECTOR
+ * Dense masonry grid of 30+ design screens. Opening the lightbox enters a
+ * presentation mode with scroll gallery. Tests: many items, varied trigger
+ * sizes, scroll gallery sync, and morphing back to small thumbnails.
+ * ========================================================================== */
+
+const screenCategories = ['Dashboard', 'Settings', 'Profile', 'Onboarding', 'Checkout', 'Analytics'] as const;
+
+const designScreens = Array.from({ length: 32 }, (_, i) => {
+  const isPortrait = i % 5 === 1 || i % 5 === 3;
+  const w = isPortrait ? 800 : 1400;
+  const h = isPortrait ? 1200 : 900;
+  const category = screenCategories[i % screenCategories.length];
+  const variant = Math.floor(i / screenCategories.length) + 1;
+  return {
+    id: `screen-${i}`,
+    src: `https://picsum.photos/seed/design${i}/${w}/${h}`,
+    thumb: `https://picsum.photos/seed/design${i}/${Math.round(w / 3)}/${Math.round(h / 3)}`,
+    alt: `${category} — variant ${variant}`,
+    caption: `${category} v${variant} — ${isPortrait ? 'Mobile' : 'Desktop'}`,
+    category,
+    isPortrait,
+  };
+});
+
+function MasonryGrid({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      style={{
+        columns: '220px',
+        columnGap: 'var(--space-3)',
+        maxWidth: 1100,
+        margin: '0 auto',
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function ScreenCard({ screen, index }: { screen: typeof designScreens[number]; index: number }) {
+  return (
+    <div style={{ breakInside: 'avoid', marginBottom: 'var(--space-3)' }}>
+      <Lightbox.Trigger
+        index={index}
+        style={{
+          ...triggerStyle,
+          display: 'block',
+          width: '100%',
+          borderRadius: 8,
+          overflow: 'hidden',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.08), 0 0 0 1px var(--gray-a3)',
+          transition: 'box-shadow 150ms ease, transform 150ms ease',
+        }}
+        onMouseOver={(e) => {
+          e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.12), 0 0 0 1px var(--gray-a4)';
+          e.currentTarget.style.transform = 'translateY(-1px)';
+        }}
+        onMouseOut={(e) => {
+          e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.08), 0 0 0 1px var(--gray-a3)';
+          e.currentTarget.style.transform = 'translateY(0)';
+        }}
+      >
+        <img
+          src={screen.thumb}
+          alt={screen.alt}
+          style={{ width: '100%', display: 'block', borderRadius: 8 }}
+          loading="lazy"
+        />
+      </Lightbox.Trigger>
+      <div style={{ padding: 'var(--space-2) var(--space-1)', display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+        <Text size="1" weight="medium" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+          {screen.alt}
+        </Text>
+        <Badge size="1" variant="soft" color="gray" style={{ flexShrink: 0, marginLeft: 'var(--space-2)' }}>
+          {screen.isPortrait ? 'Mobile' : 'Desktop'}
+        </Badge>
+      </div>
+    </div>
+  );
+}
+
+export const DesignFileInspector: Story = {
+  name: 'Design File Inspector',
+  render: () => {
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    return (
+      <Lightbox.Root viewTransition value={activeIndex} onValueChange={(v) => setActiveIndex(v)} loop>
+        <div style={{ padding: 'var(--space-4) 0' }}>
+          <div style={{ maxWidth: 1100, margin: '0 auto var(--space-5)', display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', flexWrap: 'wrap', gap: 'var(--space-3)' }}>
+            <div>
+              <Heading size="6">Design System — App Screens</Heading>
+              <Text size="2" color="gray" style={{ display: 'block', marginTop: 'var(--space-1)' }}>
+                {designScreens.length} screens across {screenCategories.length} categories
+              </Text>
+            </div>
+            <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+              {screenCategories.map((cat) => (
+                <Badge key={cat} size="1" variant="surface" color="gray">{cat}</Badge>
+              ))}
+            </div>
+          </div>
+
+          <MasonryGrid>
+            {designScreens.map((screen, i) => (
+              <ScreenCard key={screen.id} screen={screen} index={i} />
+            ))}
+          </MasonryGrid>
+        </div>
+
+        <Lightbox.Content aria-label="Design screen inspector">
+          <CloseButton />
+
+          <div style={{ position: 'absolute', top: 'var(--space-4)', left: 'var(--space-4)', zIndex: 1 }}>
+            <Lightbox.Counter>
+              {({ current, total }) => (
+                <Text size="2" style={{ color: 'rgba(255,255,255,0.7)', fontVariantNumeric: 'tabular-nums' }}>
+                  {current} / {total}
+                </Text>
+              )}
+            </Lightbox.Counter>
+          </div>
+
+          <ScrollGallery.Root defaultValue={activeIndex} onValueChange={(v) => setActiveIndex(v)}>
+            <Lightbox.ItemGroup
+              render={<ScrollGallery.Viewport aria-label="Design screens" />}
+              preload={designScreens.length}
+              style={{
+                overflowX: 'auto',
+                overscrollBehaviorX: 'contain',
+                scrollSnapType: 'x mandatory',
+                scrollbarWidth: 'none',
+              }}
+            >
+              {designScreens.map((screen, i) => (
+                <Lightbox.Item
+                  key={screen.id}
+                  index={i}
+                  caption={screen.caption}
+                  render={<ScrollGallery.Item />}
+                  style={{
+                    position: 'relative',
+                    inset: 'auto',
+                    visibility: 'visible',
+                    animation: 'none',
+                    scrollSnapAlign: 'center',
+                    flexShrink: 0,
+                    width: screen.isPortrait ? '40vw' : '85vw',
+                    maxWidth: screen.isPortrait ? 400 : 900,
+                  }}
+                >
+                  <img
+                    src={screen.src}
+                    alt={screen.alt}
+                    style={{ maxWidth: '100%', maxHeight: '75vh', objectFit: 'contain', borderRadius: 8 }}
+                  />
+                </Lightbox.Item>
+              ))}
+            </Lightbox.ItemGroup>
+
+            <CaptionText />
+
+            <ScrollGallery.ScrollMarkerGroup
+              aria-label="Screen thumbnails"
+              style={{
+                display: 'flex',
+                gap: 'var(--space-2)',
+                padding: '0 var(--space-3) var(--space-3)',
+                justifyContent: 'center',
+                overflowX: 'auto',
+                scrollbarWidth: 'none',
+                maxWidth: '100vw',
+              }}
+            >
+              {designScreens.map((screen, i) => (
+                <ScrollGallery.ScrollMarker
+                  key={screen.id}
+                  index={i}
+                  render={(props, state) => (
+                    <button
+                      {...props}
+                      style={{
+                        width: screen.isPortrait ? 32 : 48,
+                        height: screen.isPortrait ? 48 : 32,
+                        borderRadius: 4,
+                        overflow: 'hidden',
+                        border: state.active ? '2px solid white' : '2px solid transparent',
+                        padding: 0,
+                        cursor: 'pointer',
+                        opacity: state.active ? 1 : 0.4,
+                        transition: 'opacity 150ms, border-color 150ms',
+                        background: 'none',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <img
+                        src={screen.thumb}
+                        alt={screen.alt}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        loading="lazy"
+                      />
+                    </button>
+                  )}
+                />
+              ))}
+            </ScrollGallery.ScrollMarkerGroup>
+          </ScrollGallery.Root>
+        </Lightbox.Content>
+      </Lightbox.Root>
+    );
+  },
+};
