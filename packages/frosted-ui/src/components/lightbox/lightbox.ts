@@ -24,7 +24,7 @@
  * Sub-components:
  *   Root            — State provider (open, activeIndex, controlled/uncontrolled)
  *   Trigger         — Opens lightbox at a specific item index
- *   Content         — Portal + Backdrop + focus trap + keyboard navigation
+ *   Content         — Native <dialog> modal + keyboard navigation
  *   Close           — Closes the lightbox
  *   ItemGroup       — Container for items, manages swap rendering + preload
  *   Item            — Individual media item with lazy-load support

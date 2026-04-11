@@ -4,29 +4,26 @@ import classNames from 'classnames';
 import * as React from 'react';
 
 import { Theme } from '../../theme';
-import { Portal } from '../portal/portal';
 import { useLightboxContext } from './lightbox-context';
 
-interface LightboxContentProps extends React.ComponentPropsWithRef<'div'> {
+const useLayoutEffect = typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect;
+
+interface LightboxContentProps extends React.ComponentPropsWithRef<'dialog'> {
   className?: string;
   children?: React.ReactNode;
-  /** Portal container element. Defaults to document.body. */
-  container?: Element | null;
 }
 
-const LightboxContent = React.forwardRef<HTMLDivElement, LightboxContentProps>(
+const LightboxContent = React.forwardRef<HTMLDialogElement, LightboxContentProps>(
   function LightboxContent(props, forwardedRef) {
-    const { className, children, container, ...rest } = props;
+    const { className, children, ...rest } = props;
 
     const { open, mounted, setOpen, activeIndex, setActiveIndex, itemCount, loop } = useLightboxContext();
 
-    const contentRef = React.useRef<HTMLDivElement | null>(null);
-    const previousFocusRef = React.useRef<Element | null>(null);
-    const portalRef = React.useRef<HTMLDivElement | null>(null);
+    const dialogRef = React.useRef<HTMLDialogElement | null>(null);
 
-    const mergedContentRef = React.useCallback(
-      (node: HTMLDivElement | null) => {
-        contentRef.current = node;
+    const mergedRef = React.useCallback(
+      (node: HTMLDialogElement | null) => {
+        dialogRef.current = node;
         if (typeof forwardedRef === 'function') {
           forwardedRef(node);
         } else if (forwardedRef) {
@@ -36,47 +33,32 @@ const LightboxContent = React.forwardRef<HTMLDivElement, LightboxContentProps>(
       [forwardedRef],
     );
 
-    // --- Scroll lock ---
-    React.useEffect(() => {
-      if (!mounted) return;
-      const prev = document.body.style.overflow;
-      document.body.style.overflow = 'hidden';
-      return () => {
-        document.body.style.overflow = prev;
-      };
+    // Show/close the native dialog in sync with mounted state.
+    // useLayoutEffect so .showModal() runs before paint (no flash).
+    useLayoutEffect(() => {
+      const el = dialogRef.current;
+      if (!el) return;
+      if (mounted && !el.open) {
+        el.showModal();
+      } else if (!mounted && el.open) {
+        el.close();
+      }
     }, [mounted]);
 
-    // --- Focus management ---
-    React.useEffect(() => {
-      if (open && contentRef.current) {
-        previousFocusRef.current = document.activeElement;
-        contentRef.current.focus({ preventScroll: true });
-      } else if (!open && previousFocusRef.current) {
-        (previousFocusRef.current as HTMLElement)?.focus?.({ preventScroll: true });
-        previousFocusRef.current = null;
-      }
-    }, [open]);
+    // Native cancel event fires on ESC regardless of focus state.
+    // Prevent default (which would close the dialog directly) and
+    // route through our state management for proper exit animations.
+    const handleCancel = React.useCallback(
+      (event: React.SyntheticEvent) => {
+        event.preventDefault();
+        setOpen(false);
+      },
+      [setOpen],
+    );
 
-    // --- Focus trap via `inert` ---
-    React.useEffect(() => {
-      if (!open) return;
-      const portal = portalRef.current;
-      if (!portal) return;
-
-      const siblings = Array.from(document.body.children).filter((el) => el !== portal);
-      siblings.forEach((el) => el.setAttribute('inert', ''));
-      return () => siblings.forEach((el) => el.removeAttribute('inert'));
-    }, [open]);
-
-    // --- Keyboard handling ---
+    // Arrow keys, Home, End for gallery navigation
     const handleKeyDown = React.useCallback(
       (event: React.KeyboardEvent) => {
-        if (event.key === 'Escape') {
-          event.stopPropagation();
-          setOpen(false);
-          return;
-        }
-
         if (itemCount === 0) return;
 
         let nextIndex: number | null = null;
@@ -105,10 +87,12 @@ const LightboxContent = React.forwardRef<HTMLDivElement, LightboxContentProps>(
           setActiveIndex(nextIndex, 'keyboard');
         }
       },
-      [activeIndex, itemCount, loop, setActiveIndex, setOpen],
+      [activeIndex, itemCount, loop, setActiveIndex],
     );
 
-    const handleBackdropClick = React.useCallback(
+    // Click on the dialog itself (not children) closes the lightbox.
+    // The dialog is fullscreen so this catches clicks on the "backdrop area".
+    const handleClick = React.useCallback(
       (event: React.MouseEvent) => {
         if (event.target === event.currentTarget) {
           setOpen(false);
@@ -120,32 +104,20 @@ const LightboxContent = React.forwardRef<HTMLDivElement, LightboxContentProps>(
     if (!mounted) return null;
 
     return (
-      <Portal ref={portalRef} container={container} data-lightbox-portal="">
-        <div
-          className="fui-LightboxBackdrop"
-          data-open={open || undefined}
-          aria-hidden="true"
-        />
-        <div
-          className="fui-LightboxOverlay"
-          data-open={open || undefined}
-          onClick={handleBackdropClick}
-          onKeyDown={handleKeyDown}
-        >
-          <Theme
-            render={<div ref={mergedContentRef} />}
-            appearance='dark'
-            {...rest}
-            className={classNames('fui-LightboxContent', className)}
-            role="dialog"
-            aria-modal="true"
-            tabIndex={-1}
-            data-open={open || undefined}
-          >
-            {children}
-          </Theme>
-        </div>
-      </Portal>
+      <dialog
+        ref={mergedRef}
+        className={classNames('fui-LightboxContent', className)}
+        data-open={open || undefined}
+        onCancel={handleCancel}
+        onKeyDown={handleKeyDown}
+        onClick={handleClick}
+        tabIndex={-1}
+        {...rest}
+      >
+        <Theme appearance="dark" style={{ display: 'contents' }}>
+          {children}
+        </Theme>
+      </dialog>
     );
   },
 );
@@ -154,4 +126,3 @@ LightboxContent.displayName = 'LightboxContent';
 
 export { LightboxContent };
 export type { LightboxContentProps };
-
