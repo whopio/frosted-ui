@@ -177,6 +177,26 @@ dialog.fui-LightboxContent {
   to { opacity: 1; }
 }
 
+/* During a VT the dialog + ::backdrop sit in the top layer above the
+   VT pseudo-elements. Suppress their CSS transitions so they jump
+   straight to the final state — the VT root cross-fade handles the
+   visual fade. This prevents @starting-style from re-triggering when
+   the VT layer is torn down and the real DOM becomes visible again. */
+:root[data-lightbox-view-transition] .fui-LightboxContent,
+:root[data-lightbox-view-transition] .fui-LightboxContent::backdrop {
+  transition: none !important;
+}
+
+:root[data-lightbox-view-transition] .fui-LightboxContent[data-open] {
+  opacity: 1;
+}
+
+:root[data-lightbox-view-transition] .fui-LightboxContent[data-open]::backdrop {
+  backdrop-filter: blur(4px) brightness(0.5);
+  background: rgba(0, 0, 0, 0.75);
+  opacity: 1;
+}
+
 /* Suppress the item fade-in animation during a view transition —
    the morph already handles the entrance. */
 :root[data-lightbox-view-transition] .fui-LightboxItem[data-active] {
