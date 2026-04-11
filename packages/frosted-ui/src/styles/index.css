@@ -46,6 +46,7 @@
 @import '../components/inset/inset.css';
 @import '../components/kbd/kbd.css';
 @import '../components/link/link.css';
+@import '../components/lightbox/lightbox.css';
 @import '../components/popover/popover.css';
 @import '../components/progress/progress.css';
 @import '../components/circular-progress/circular-progress.css';
