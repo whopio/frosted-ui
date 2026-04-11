@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { ChevronLeft16, ChevronRight16, XMark16 } from '@frosted-ui/icons';
 import React, { useRef, useState } from 'react';
-import { Badge, Button, Heading, IconButton, Lightbox, Text } from '..';
+import { Badge, Button, Heading, IconButton, Lightbox, ScrollGallery, Text } from '..';
 
 const images = [
   {
@@ -337,4 +337,93 @@ export const LazyLoading: Story = {
       </Lightbox.Content>
     </Lightbox.Root>
   ),
+};
+
+export const WithScrollGallery: Story = {
+  render: () => {
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    return (
+      <Lightbox.Root loop viewTransition value={activeIndex} onValueChange={(v) => setActiveIndex(v)}>
+        <TriggerGrid>
+          {images.map((img, i) => (
+            <Lightbox.Trigger key={img.id} index={i} style={triggerStyle}>
+              <ThumbnailImage src={img.thumb} alt={img.alt} />
+            </Lightbox.Trigger>
+          ))}
+        </TriggerGrid>
+
+        <Lightbox.Content aria-label="Photo gallery with scroll gallery">
+          <CloseButton />
+
+          <ScrollGallery.Root defaultValue={activeIndex} onValueChange={(v) => setActiveIndex(v)}>
+            <Lightbox.ItemGroup
+              render={<ScrollGallery.Viewport aria-label="Full-size images" />}
+              preload={images.length}
+              style={{
+                overflowX: 'auto',
+                overscrollBehaviorX: 'contain',
+                scrollSnapType: 'x mandatory',
+                scrollbarWidth: 'none',
+              }}
+            >
+              {images.map((img, i) => (
+                <Lightbox.Item
+                  key={img.id}
+                  index={i}
+                  caption={img.caption}
+                  render={<ScrollGallery.Item />}
+                style={{
+                  position: 'relative',
+                  inset: 'auto',
+                  visibility: 'visible',
+                  animation: 'none',
+                  scrollSnapAlign: 'center',
+                  flexShrink: 0,
+                  width: '90vw',
+                  maxWidth: 900,
+                }}
+                >
+                  <FullImage src={img.src} alt={img.alt} />
+                </Lightbox.Item>
+              ))}
+            </Lightbox.ItemGroup>
+
+            <CaptionText />
+
+            <ScrollGallery.ScrollMarkerGroup
+              aria-label="Photo thumbnails"
+              style={{ display: 'flex', gap: 'var(--space-2)', padding: '0 var(--space-3) var(--space-3)', justifyContent: 'center' }}
+            >
+              {images.map((img, i) => (
+                <ScrollGallery.ScrollMarker
+                  key={img.id}
+                  index={i}
+                  render={(props, state) => (
+                    <button
+                      {...props}
+                      style={{
+                        width: 56,
+                        height: 56,
+                        borderRadius: 'var(--radius-2)',
+                        overflow: 'hidden',
+                        border: state.active ? '2px solid white' : '2px solid transparent',
+                        padding: 0,
+                        cursor: 'pointer',
+                        opacity: state.active ? 1 : 0.5,
+                        transition: 'opacity 150ms, border-color 150ms',
+                        background: 'none',
+                      }}
+                    >
+                      <img src={img.thumb} alt={img.alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                    </button>
+                  )}
+                />
+              ))}
+            </ScrollGallery.ScrollMarkerGroup>
+          </ScrollGallery.Root>
+        </Lightbox.Content>
+      </Lightbox.Root>
+    );
+  },
 };
