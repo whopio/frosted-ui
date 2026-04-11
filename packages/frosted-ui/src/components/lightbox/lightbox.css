@@ -146,11 +146,17 @@
 }
 
 /* --- Morph group (trigger <-> item) --- */
+@keyframes fui-morph-border-radius {
+  from { border-radius: var(--fui-morph-border-radius-from, 0px); }
+  to { border-radius: var(--fui-morph-border-radius-to, 0px); }
+}
+
 ::view-transition-group(fui-lightbox-morph) {
+  animation-name: -ua-view-transition-group-anim-fui-lightbox-morph, fui-morph-border-radius;
   animation-duration: 350ms;
   animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+  animation-fill-mode: both;
   overflow: hidden;
-  border-radius: var(--radius-2);
   z-index: 2;
 }
 

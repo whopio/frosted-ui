@@ -133,7 +133,8 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
         const useVT = viewTransition && supportsViewTransitions();
 
         if (useVT) {
-          document.documentElement.setAttribute('data-lightbox-view-transition', '');
+          const docEl = document.documentElement;
+          docEl.setAttribute('data-lightbox-view-transition', '');
 
           if (nextOpen) {
             // --- OPEN with view transition ---
@@ -143,6 +144,8 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
 
             if (triggerTarget) {
               triggerTarget.style.viewTransitionName = VIEW_TRANSITION_NAME;
+              const fromRadius = getComputedStyle(triggerTarget).borderRadius;
+              docEl.style.setProperty('--fui-morph-border-radius-from', fromRadius);
             }
 
             const transition = (document as any).startViewTransition(() => {
@@ -160,6 +163,8 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
               const itemTarget = itemEl ? findMorphTarget(itemEl) : null;
               if (itemTarget) {
                 itemTarget.style.viewTransitionName = VIEW_TRANSITION_NAME;
+                const toRadius = getComputedStyle(itemTarget).borderRadius;
+                docEl.style.setProperty('--fui-morph-border-radius-to', toRadius);
               }
               if (itemEl) {
                 itemEl.setAttribute('data-skip-fade', '');
@@ -172,7 +177,9 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
               if (itemTarget) {
                 itemTarget.style.viewTransitionName = '';
               }
-              document.documentElement.removeAttribute('data-lightbox-view-transition');
+              docEl.removeAttribute('data-lightbox-view-transition');
+              docEl.style.removeProperty('--fui-morph-border-radius-from');
+              docEl.style.removeProperty('--fui-morph-border-radius-to');
             });
           } else {
             // --- CLOSE with view transition ---
@@ -180,9 +187,16 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
             const itemTarget = itemEl ? findMorphTarget(itemEl) : null;
             const triggerIdx = activeIndexRef.current;
             const triggerEl = triggerElementsRef.current.get(triggerIdx);
+            const triggerTarget = triggerEl ? findMorphTarget(triggerEl) : null;
 
             if (itemTarget) {
               itemTarget.style.viewTransitionName = VIEW_TRANSITION_NAME;
+              const fromRadius = getComputedStyle(itemTarget).borderRadius;
+              docEl.style.setProperty('--fui-morph-border-radius-from', fromRadius);
+            }
+            if (triggerTarget) {
+              const toRadius = getComputedStyle(triggerTarget).borderRadius;
+              docEl.style.setProperty('--fui-morph-border-radius-to', toRadius);
             }
 
             const transition = (document as any).startViewTransition(() => {
@@ -196,18 +210,18 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
                 onOpenChangeRef.current?.(false);
                 setMounted(false);
               });
-              const triggerTarget = triggerEl ? findMorphTarget(triggerEl) : null;
               if (triggerTarget) {
                 triggerTarget.style.viewTransitionName = VIEW_TRANSITION_NAME;
               }
             });
 
             transition.finished.then(() => {
-              const triggerTarget = triggerEl ? findMorphTarget(triggerEl) : null;
               if (triggerTarget) {
                 triggerTarget.style.viewTransitionName = '';
               }
-              document.documentElement.removeAttribute('data-lightbox-view-transition');
+              docEl.removeAttribute('data-lightbox-view-transition');
+              docEl.style.removeProperty('--fui-morph-border-radius-from');
+              docEl.style.removeProperty('--fui-morph-border-radius-to');
             });
           }
         } else {

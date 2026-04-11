@@ -51,9 +51,7 @@ const images = [
 
 const triggerStyle: React.CSSProperties = {
   padding: 0,
-  border: '2px solid transparent',
-  borderRadius: 'var(--radius-2)',
-  overflow: 'hidden',
+  border: 'none',
   cursor: 'pointer',
   background: 'none',
 };
@@ -116,11 +114,11 @@ const TriggerGrid = ({ children }: { children: React.ReactNode }) => (
 );
 
 const ThumbnailImage = ({ src, alt }: { src: string; alt: string }) => (
-  <img src={src} alt={alt} style={{ width: '100%', height: 120, objectFit: 'cover', display: 'block' }} />
+  <img src={src} alt={alt} style={{ width: '100%', height: 120, objectFit: 'cover',  borderRadius: 32, display: 'block' }} />
 );
 
 const FullImage = ({ src, alt }: { src: string; alt: string }) => (
-  <img src={src} alt={alt} style={{ maxWidth: '90vw', maxHeight: '75vh', objectFit: 'contain', borderRadius: 'var(--radius-2)' }} />
+  <img src={src} alt={alt} style={{ maxWidth: '90vw', maxHeight: '75vh', objectFit: 'contain', borderRadius: 8 }} />
 );
 
 export const Default: Story = {
@@ -236,7 +234,8 @@ export const Controlled: Story = {
                 index={i}
                 style={{
                   ...triggerStyle,
-                  borderColor: value === i ? 'var(--accent-9)' : 'transparent',
+                  border: value === i ? '2px solid var(--accent-9)' : '2px solid transparent',
+                  borderRadius: 34,
                   transition: 'border-color 150ms',
                 }}
               >
