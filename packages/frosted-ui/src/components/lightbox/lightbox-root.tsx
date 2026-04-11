@@ -247,7 +247,7 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
                 setMounted(false);
               });
               if (scrollTriggerIntoView) {
-                scrollTriggerEl(triggerEl, scrollTriggerIntoView.behavior);
+                scrollTriggerEl(triggerEl, 'instant');
               }
               if (triggerTarget) {
                 triggerTarget.style.viewTransitionName = VIEW_TRANSITION_NAME;
@@ -274,7 +274,7 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
           } else {
             if (scrollTriggerIntoView) {
               const triggerEl = triggerElementsRef.current.get(activeIndexRef.current);
-              scrollTriggerEl(triggerEl, scrollTriggerIntoView.behavior);
+              scrollTriggerEl(triggerEl, 'instant');
             }
             if (!isControlledOpen) {
               setUncontrolledOpen(false);

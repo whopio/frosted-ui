@@ -499,7 +499,7 @@ const ArticleImage = ({ index, image, float }: { index: number; image: typeof ar
 export const WithinArticle: Story = {
   name: 'Within Article',
   render: () => (
-    <Lightbox.Root viewTransition scrollTriggerIntoView={{ type: 'onChange', behavior: 'instant' }}>
+    <Lightbox.Root viewTransition scrollTriggerIntoView={{ type: 'onChange', behavior: 'smooth' }}>
       <article style={{ maxWidth: 680, margin: '0 auto', lineHeight: 1.7 }}>
         <Heading size="7" style={{ marginBottom: 'var(--space-2)' }}>
           Lofoten: Where the Mountains Meet the Sea
