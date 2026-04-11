@@ -2,8 +2,9 @@
 
 import classNames from 'classnames';
 import * as React from 'react';
-import { createPortal } from 'react-dom';
 
+import { Theme } from '../../theme';
+import { Portal } from '../portal/portal';
 import { useLightboxContext } from './lightbox-context';
 
 interface LightboxContentProps extends React.ComponentPropsWithRef<'div'> {
@@ -118,11 +119,8 @@ const LightboxContent = React.forwardRef<HTMLDivElement, LightboxContentProps>(
 
     if (!mounted) return null;
 
-    const portalTarget = container ?? (typeof document !== 'undefined' ? document.body : null);
-    if (!portalTarget) return null;
-
-    return createPortal(
-      <div ref={portalRef} data-lightbox-portal="">
+    return (
+      <Portal ref={portalRef} container={container} data-lightbox-portal="">
         <div
           className="fui-LightboxBackdrop"
           data-open={open || undefined}
@@ -134,8 +132,9 @@ const LightboxContent = React.forwardRef<HTMLDivElement, LightboxContentProps>(
           onClick={handleBackdropClick}
           onKeyDown={handleKeyDown}
         >
-          <div
-            ref={mergedContentRef}
+          <Theme
+            render={<div ref={mergedContentRef} />}
+            appearance='dark'
             {...rest}
             className={classNames('fui-LightboxContent', className)}
             role="dialog"
@@ -144,10 +143,9 @@ const LightboxContent = React.forwardRef<HTMLDivElement, LightboxContentProps>(
             data-open={open || undefined}
           >
             {children}
-          </div>
+          </Theme>
         </div>
-      </div>,
-      portalTarget,
+      </Portal>
     );
   },
 );
@@ -156,3 +154,4 @@ LightboxContent.displayName = 'LightboxContent';
 
 export { LightboxContent };
 export type { LightboxContentProps };
+

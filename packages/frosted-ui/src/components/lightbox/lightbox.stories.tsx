@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { ChevronLeft16, ChevronRight16, XMark16 } from '@frosted-ui/icons';
 import React, { useRef, useState } from 'react';
-import { Badge, Button, Lightbox, Text } from '..';
+import { Badge, Button, Heading, IconButton, Lightbox, Text } from '..';
 
 const images = [
   {
@@ -54,51 +55,7 @@ const triggerStyle: React.CSSProperties = {
   borderRadius: 'var(--radius-2)',
   overflow: 'hidden',
   cursor: 'pointer',
-  width: 120,
   background: 'none',
-};
-
-const closeStyle: React.CSSProperties = {
-  width: 36,
-  height: 36,
-  borderRadius: '50%',
-  border: 'none',
-  background: 'rgba(255,255,255,0.15)',
-  color: 'white',
-  fontSize: 20,
-  cursor: 'pointer',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  backdropFilter: 'blur(8px)',
-};
-
-const navStyle: React.CSSProperties = {
-  width: 36,
-  height: 36,
-  borderRadius: '50%',
-  border: 'none',
-  background: 'rgba(255,255,255,0.15)',
-  color: 'white',
-  fontSize: 18,
-  cursor: 'pointer',
-  backdropFilter: 'blur(8px)',
-};
-
-const counterStyle: React.CSSProperties = {
-  fontFamily: 'var(--code-font-family)',
-  fontSize: 'var(--font-size-2)',
-  color: 'rgba(255,255,255,0.7)',
-  minWidth: 60,
-  textAlign: 'center',
-};
-
-const captionStyle: React.CSSProperties = {
-  color: 'rgba(255,255,255,0.8)',
-  fontSize: 'var(--font-size-2)',
-  textAlign: 'center',
-  paddingBottom: 'var(--space-4)',
-  minHeight: 24,
 };
 
 const meta = {
@@ -113,45 +70,83 @@ const meta = {
 export default meta;
 type Story = StoryObj;
 
+const CloseButton = () => (
+  <div style={{ position: 'absolute', top: 'var(--space-4)', right: 'var(--space-4)', zIndex: 1 }}>
+    <Lightbox.Close render={<IconButton size="2" variant="ghost" color="gray" highContrast style={{ color: 'white' }} />}>
+      <XMark16 />
+    </Lightbox.Close>
+  </div>
+);
+
+const NavControls = () => (
+  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', padding: 'var(--space-3)' }}>
+    <Lightbox.Previous render={<IconButton size="2" variant="ghost" color="gray" highContrast style={{ color: 'white' }} />}>
+      <ChevronLeft16 />
+    </Lightbox.Previous>
+
+    <Lightbox.Counter>
+      {({ current, total }) => (
+        <Text size="2" style={{ color: 'rgba(255,255,255,0.7)', minWidth: 60, textAlign: 'center', fontVariantNumeric: 'tabular-nums' }}>
+          {current} / {total}
+        </Text>
+      )}
+    </Lightbox.Counter>
+
+    <Lightbox.Next render={<IconButton size="2" variant="ghost" color="gray" highContrast style={{ color: 'white' }} />}>
+      <ChevronRight16 />
+    </Lightbox.Next>
+  </div>
+);
+
+const CaptionText = () => (
+  <Lightbox.Caption
+    render={
+      <Text
+        size="2"
+        style={{ color: 'rgba(255,255,255,0.8)', textAlign: 'center', paddingBottom: 'var(--space-4)', minHeight: 24, display: 'block' }}
+      />
+    }
+  />
+);
+
+const TriggerGrid = ({ children }: { children: React.ReactNode }) => (
+  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--space-3)', maxWidth: 420 }}>
+    {children}
+  </div>
+);
+
+const ThumbnailImage = ({ src, alt }: { src: string; alt: string }) => (
+  <img src={src} alt={alt} style={{ width: '100%', height: 120, objectFit: 'cover', display: 'block' }} />
+);
+
+const FullImage = ({ src, alt }: { src: string; alt: string }) => (
+  <img src={src} alt={alt} style={{ maxWidth: '90vw', maxHeight: '75vh', objectFit: 'contain', borderRadius: 'var(--radius-2)' }} />
+);
+
 export const Default: Story = {
   render: () => (
     <Lightbox.Root viewTransition>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--space-3)', maxWidth: 600 }}>
+      <TriggerGrid>
         {images.map((img, i) => (
           <Lightbox.Trigger key={img.id} index={i} style={triggerStyle}>
-            <img
-              src={img.thumb}
-              alt={img.alt}
-              style={{  height: 120, width: 120, objectFit: 'cover', display: 'block' }}
-            />
+            <ThumbnailImage src={img.thumb} alt={img.alt} />
           </Lightbox.Trigger>
         ))}
-      </div>
+      </TriggerGrid>
 
       <Lightbox.Content aria-label="Photo gallery">
-        <div style={{ position: 'absolute', top: 'var(--space-4)', right: 'var(--space-4)', zIndex: 1 }}>
-          <Lightbox.Close style={closeStyle}>✕</Lightbox.Close>
-        </div>
+        <CloseButton />
 
         <Lightbox.ItemGroup>
           {images.map((img, i) => (
             <Lightbox.Item key={img.id} index={i} caption={img.caption}>
-              <img
-                src={img.src}
-                alt={img.alt}
-                style={{ maxWidth: '90vw', maxHeight: '75vh', objectFit: 'contain', borderRadius: 'var(--radius-2)' }}
-              />
+              <FullImage src={img.src} alt={img.alt} />
             </Lightbox.Item>
           ))}
         </Lightbox.ItemGroup>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)', padding: 'var(--space-3)', color: 'white' }}>
-          <Lightbox.Previous style={navStyle}>←</Lightbox.Previous>
-          <Lightbox.Counter style={counterStyle} />
-          <Lightbox.Next style={navStyle}>→</Lightbox.Next>
-        </div>
-
-        <Lightbox.Caption style={captionStyle} />
+        <NavControls />
+        <CaptionText />
       </Lightbox.Content>
     </Lightbox.Root>
   ),
@@ -160,54 +155,31 @@ export const Default: Story = {
 export const WithThumbnails: Story = {
   render: () => (
     <Lightbox.Root loop viewTransition>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--space-3)', maxWidth: 600 }}>
+      <TriggerGrid>
         {images.map((img, i) => (
           <Lightbox.Trigger key={img.id} index={i} style={triggerStyle}>
-            <img
-              src={img.thumb}
-              alt={img.alt}
-              style={{ width: '100%', height: 120, objectFit: 'cover', display: 'block' }}
-            />
+            <ThumbnailImage src={img.thumb} alt={img.alt} />
           </Lightbox.Trigger>
         ))}
-      </div>
+      </TriggerGrid>
 
       <Lightbox.Content aria-label="Photo gallery with thumbnails">
-        <div style={{ position: 'absolute', top: 'var(--space-4)', right: 'var(--space-4)', zIndex: 1 }}>
-          <Lightbox.Close style={closeStyle}>✕</Lightbox.Close>
-        </div>
+        <CloseButton />
 
         <Lightbox.ItemGroup preload={2}>
           {images.map((img, i) => (
             <Lightbox.Item key={img.id} index={i} caption={img.caption}>
-              <img
-                src={img.src}
-                alt={img.alt}
-                style={{ maxWidth: '90vw', maxHeight: '65vh', objectFit: 'contain', borderRadius: 'var(--radius-2)' }}
-              />
+              <FullImage src={img.src} alt={img.alt} />
             </Lightbox.Item>
           ))}
         </Lightbox.ItemGroup>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)', padding: 'var(--space-3)', color: 'white' }}>
-          <Lightbox.Previous style={navStyle}>←</Lightbox.Previous>
-
-          <Lightbox.Counter>
-            {({ current, total }) => (
-              <span style={counterStyle}>
-                Image {current} of {total}
-              </span>
-            )}
-          </Lightbox.Counter>
-
-          <Lightbox.Next style={navStyle}>→</Lightbox.Next>
-        </div>
-
-        <Lightbox.Caption style={{ ...captionStyle, paddingBottom: 0 }} />
+        <NavControls />
+        <CaptionText />
 
         <Lightbox.ThumbnailGroup
           aria-label="Photo thumbnails"
-          style={{ display: 'flex', gap: 'var(--space-2)', padding: 'var(--space-3)' }}
+          style={{ display: 'flex', gap: 'var(--space-2)', padding: 'var(--space-3)', paddingTop: 0 }}
         >
           {images.map((img, i) => (
             <Lightbox.Thumbnail
@@ -217,8 +189,8 @@ export const WithThumbnails: Story = {
                 <button
                   {...props}
                   style={{
-                    width: 64,
-                    height: 64,
+                    width: 56,
+                    height: 56,
                     borderRadius: 'var(--radius-2)',
                     overflow: 'hidden',
                     border: state.active ? '2px solid white' : '2px solid transparent',
@@ -229,11 +201,7 @@ export const WithThumbnails: Story = {
                     background: 'none',
                   }}
                 >
-                  <img
-                    src={img.thumb}
-                    alt={img.alt}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                  />
+                  <img src={img.thumb} alt={img.alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                 </button>
               )}
             />
@@ -251,7 +219,7 @@ export const Controlled: Story = {
 
     return (
       <div>
-        <div style={{ display: 'flex', gap: 'var(--space-2)', marginBottom: 'var(--space-3)', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: 'var(--space-3)', marginBottom: 'var(--space-4)', alignItems: 'center' }}>
           <Text size="2">
             Active: <Badge size="1">{value}</Badge>
           </Text>
@@ -261,7 +229,7 @@ export const Controlled: Story = {
         </div>
 
         <Lightbox.Root open={open} onOpenChange={setOpen} value={value} onValueChange={(v) => setValue(v)} viewTransition>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--space-3)', maxWidth: 600 }}>
+          <TriggerGrid>
             {images.map((img, i) => (
               <Lightbox.Trigger
                 key={img.id}
@@ -272,39 +240,24 @@ export const Controlled: Story = {
                   transition: 'border-color 150ms',
                 }}
               >
-                <img
-                  src={img.thumb}
-                  alt={img.alt}
-                  style={{ width: '100%', height: 120, objectFit: 'cover', display: 'block' }}
-                />
+                <ThumbnailImage src={img.thumb} alt={img.alt} />
               </Lightbox.Trigger>
             ))}
-          </div>
+          </TriggerGrid>
 
           <Lightbox.Content aria-label="Controlled photo gallery">
-            <div style={{ position: 'absolute', top: 'var(--space-4)', right: 'var(--space-4)', zIndex: 1 }}>
-              <Lightbox.Close style={closeStyle}>✕</Lightbox.Close>
-            </div>
+            <CloseButton />
 
             <Lightbox.ItemGroup>
               {images.map((img, i) => (
                 <Lightbox.Item key={img.id} index={i} caption={img.caption}>
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    style={{ maxWidth: '90vw', maxHeight: '75vh', objectFit: 'contain', borderRadius: 'var(--radius-2)' }}
-                  />
+                  <FullImage src={img.src} alt={img.alt} />
                 </Lightbox.Item>
               ))}
             </Lightbox.ItemGroup>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)', padding: 'var(--space-3)', color: 'white' }}>
-              <Lightbox.Previous style={navStyle}>←</Lightbox.Previous>
-              <Lightbox.Counter style={counterStyle} />
-              <Lightbox.Next style={navStyle}>→</Lightbox.Next>
-            </div>
-
-            <Lightbox.Caption style={captionStyle} />
+            <NavControls />
+            <CaptionText />
           </Lightbox.Content>
         </Lightbox.Root>
       </div>
@@ -318,39 +271,30 @@ export const ImperativeAPI: Story = {
 
     return (
       <div>
-        <div style={{ display: 'flex', gap: 'var(--space-2)', marginBottom: 'var(--space-3)' }}>
+        <Heading size="3" style={{ marginBottom: 'var(--space-3)' }}>Open by index</Heading>
+
+        <div style={{ display: 'flex', gap: 'var(--space-2)', marginBottom: 'var(--space-3)', flexWrap: 'wrap' }}>
           {images.map((_, i) => (
             <Button key={i} size="1" variant="soft" onClick={() => lightboxRef.current?.open(i)}>
-              Open #{i + 1}
+              Photo {i + 1}
             </Button>
           ))}
         </div>
 
         <Lightbox.Root ref={lightboxRef} loop>
           <Lightbox.Content aria-label="Imperative lightbox">
-            <div style={{ position: 'absolute', top: 'var(--space-4)', right: 'var(--space-4)', zIndex: 1 }}>
-              <Lightbox.Close style={closeStyle}>✕</Lightbox.Close>
-            </div>
+            <CloseButton />
 
             <Lightbox.ItemGroup>
               {images.map((img, i) => (
                 <Lightbox.Item key={img.id} index={i} caption={img.caption}>
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    style={{ maxWidth: '90vw', maxHeight: '75vh', objectFit: 'contain', borderRadius: 'var(--radius-2)' }}
-                  />
+                  <FullImage src={img.src} alt={img.alt} />
                 </Lightbox.Item>
               ))}
             </Lightbox.ItemGroup>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)', padding: 'var(--space-3)', color: 'white' }}>
-              <Lightbox.Previous style={navStyle}>←</Lightbox.Previous>
-              <Lightbox.Counter style={counterStyle} />
-              <Lightbox.Next style={navStyle}>→</Lightbox.Next>
-            </div>
-
-            <Lightbox.Caption style={captionStyle} />
+            <NavControls />
+            <CaptionText />
           </Lightbox.Content>
         </Lightbox.Root>
       </div>
@@ -361,44 +305,35 @@ export const ImperativeAPI: Story = {
 export const LazyLoading: Story = {
   render: () => (
     <Lightbox.Root>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--space-3)', maxWidth: 600 }}>
+      <TriggerGrid>
         {images.map((img, i) => (
           <Lightbox.Trigger key={img.id} index={i} style={triggerStyle}>
-            <img src={img.thumb} alt={img.alt} style={{ width: '100%', height: 120, objectFit: 'cover', display: 'block' }} />
+            <ThumbnailImage src={img.thumb} alt={img.alt} />
           </Lightbox.Trigger>
         ))}
-      </div>
+      </TriggerGrid>
 
       <Lightbox.Content aria-label="Lazy-loaded gallery">
-        <div style={{ position: 'absolute', top: 'var(--space-4)', right: 'var(--space-4)', zIndex: 1 }}>
-          <Lightbox.Close style={closeStyle}>✕</Lightbox.Close>
-        </div>
+        <CloseButton />
 
         <Lightbox.ItemGroup preload={0}>
           {images.map((img, i) => (
             <Lightbox.Item key={img.id} index={i} caption={`Lazy: ${img.caption}`}>
               {({ active }) =>
                 active ? (
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    style={{ maxWidth: '90vw', maxHeight: '75vh', objectFit: 'contain', borderRadius: 'var(--radius-2)' }}
-                  />
+                  <FullImage src={img.src} alt={img.alt} />
                 ) : (
-                  <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 'var(--font-size-2)' }}>Loading...</div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 200, height: 150 }}>
+                    <Text size="2" style={{ color: 'rgba(255,255,255,0.5)' }}>Loading…</Text>
+                  </div>
                 )
               }
             </Lightbox.Item>
           ))}
         </Lightbox.ItemGroup>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)', padding: 'var(--space-3)', color: 'white' }}>
-          <Lightbox.Previous style={navStyle}>←</Lightbox.Previous>
-          <Lightbox.Counter style={counterStyle} />
-          <Lightbox.Next style={navStyle}>→</Lightbox.Next>
-        </div>
-
-        <Lightbox.Caption style={captionStyle} />
+        <NavControls />
+        <CaptionText />
       </Lightbox.Content>
     </Lightbox.Root>
   ),
