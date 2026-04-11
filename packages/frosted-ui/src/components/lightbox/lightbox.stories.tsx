@@ -801,34 +801,16 @@ function ImageGrid({ imgs }: { imgs: FeedPost['images'] }) {
 
 function ActionBar({ stats }: { stats: FeedPost['stats'] }) {
   return (
-    <div style={{ display: 'flex', gap: 'var(--space-1)', marginTop: 'var(--space-3)' }}>
+    <div style={{ display: 'flex', gap: 'var(--space-1)', marginTop: 'var(--space-3)', marginLeft: 'calc(-1 * var(--space-2))' }}>
       {[
-        { icon: <MessageBlank16 />, count: stats.replies, color: undefined },
-        { icon: <Heart16 />, count: stats.likes, color: undefined },
-        { icon: <ArrowUpFromBracket16 />, count: stats.shares, color: undefined },
+        { icon: <MessageBlank16 />, count: stats.replies },
+        { icon: <Heart16 />, count: stats.likes },
+        { icon: <ArrowUpFromBracket16 />, count: stats.shares },
       ].map((action, i) => (
-        <button
-          key={i}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 'var(--space-1)',
-            padding: 'var(--space-1) var(--space-2)',
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            borderRadius: 'var(--radius-2)',
-            color: 'var(--gray-a11)',
-            fontSize: 'var(--font-size-1)',
-            lineHeight: 1,
-            transition: 'background 120ms ease',
-          }}
-          onMouseOver={(e) => { e.currentTarget.style.background = 'var(--gray-a3)'; }}
-          onMouseOut={(e) => { e.currentTarget.style.background = 'none'; }}
-        >
+        <Button key={i} size="2" variant="ghost" color="gray" >
           {action.icon}
-          <span>{formatCount(action.count)}</span>
-        </button>
+          {formatCount(action.count)}
+        </Button>
       ))}
     </div>
   );
