@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { ArrowUpFromBracket16, ChevronLeft16, ChevronRight16, Heart16, MessageBlank16, XMark16 } from '@frosted-ui/icons';
 import React, { useRef, useState } from 'react';
-import { Avatar, Badge, Button, Heading, IconButton, Lightbox, ScrollGallery, Separator, Text } from '..';
+import { Avatar, Badge, Button, Heading, IconButton, Lightbox, Link, ScrollGallery, Separator, Text } from '..';
 
 const images = [
   {
@@ -964,6 +964,330 @@ function ScreenCard({ screen, index }: { screen: typeof designScreens[number]; i
     </div>
   );
 }
+
+/* =============================================================================
+ * REAL ESTATE LISTING
+ * Airbnb/Zillow-style property page with hero image grid, listing details,
+ * agent card, and amenities. Lightbox opens a scroll gallery of all photos.
+ * Tests: mixed trigger geometries in a single layout, scroll gallery sync,
+ * scrollTriggerIntoView on a long page, and real-world property listing UX.
+ * ========================================================================== */
+
+const propertyPhotos = [
+  { id: 'prop-hero', src: 'https://picsum.photos/seed/prop-hero/1400/900', thumb: 'https://picsum.photos/seed/prop-hero/800/500', alt: 'Living room with floor-to-ceiling windows', label: 'Living Room' },
+  { id: 'prop-kitchen', src: 'https://picsum.photos/seed/prop-kitchen/1400/900', thumb: 'https://picsum.photos/seed/prop-kitchen/600/400', alt: 'Modern kitchen with marble island', label: 'Kitchen' },
+  { id: 'prop-bedroom', src: 'https://picsum.photos/seed/prop-bed/1400/900', thumb: 'https://picsum.photos/seed/prop-bed/600/400', alt: 'Primary bedroom with en-suite balcony', label: 'Primary Bedroom' },
+  { id: 'prop-bath', src: 'https://picsum.photos/seed/prop-bath/1400/900', thumb: 'https://picsum.photos/seed/prop-bath/600/400', alt: 'Spa-style bathroom with freestanding tub', label: 'Bathroom' },
+  { id: 'prop-terrace', src: 'https://picsum.photos/seed/prop-terrace/1400/900', thumb: 'https://picsum.photos/seed/prop-terrace/600/400', alt: 'Rooftop terrace with city views', label: 'Terrace' },
+  { id: 'prop-dining', src: 'https://picsum.photos/seed/prop-dining/1400/900', thumb: 'https://picsum.photos/seed/prop-dining/600/400', alt: 'Dining area with designer lighting', label: 'Dining' },
+  { id: 'prop-office', src: 'https://picsum.photos/seed/prop-office/1400/900', thumb: 'https://picsum.photos/seed/prop-office/600/400', alt: 'Home office with built-in shelving', label: 'Office' },
+  { id: 'prop-pool', src: 'https://picsum.photos/seed/prop-pool/1400/900', thumb: 'https://picsum.photos/seed/prop-pool/600/400', alt: 'Infinity pool overlooking the valley', label: 'Pool' },
+  { id: 'prop-garden', src: 'https://picsum.photos/seed/prop-garden/1400/900', thumb: 'https://picsum.photos/seed/prop-garden/600/400', alt: 'Landscaped garden with mature olive trees', label: 'Garden' },
+  { id: 'prop-exterior', src: 'https://picsum.photos/seed/prop-ext/1400/900', thumb: 'https://picsum.photos/seed/prop-ext/600/400', alt: 'Front elevation at dusk with warm lighting', label: 'Exterior' },
+];
+
+const amenities = [
+  'Central Air Conditioning', 'Heated Floors', 'Smart Home System', 'Wine Cellar',
+  'EV Charger', 'Security System', 'Elevator Access', 'Guest Suite',
+  'Outdoor Kitchen', 'Fire Pit', 'Sauna', 'Fiber Internet',
+];
+
+function heroCornerRadius(index: number, r: number): string {
+  // 5-cell grid: index 0 = full left column, 1 = top-middle, 2 = top-right, 3 = bottom-middle, 4 = bottom-right
+  const map: Record<number, string> = {
+    0: `${r}px 0 0 ${r}px`,
+    1: '0',
+    2: `0 ${r}px 0 0`,
+    3: '0',
+    4: `0 0 ${r}px 0`,
+  };
+  return map[index] ?? '0';
+}
+
+function HeroGrid() {
+  const heroR = 12;
+  return (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '2fr 1fr 1fr',
+        gridTemplateRows: '1fr 1fr',
+        gap: 4,
+        aspectRatio: '2.2 / 1',
+      }}
+    >
+      <Lightbox.Trigger index={0} style={{ ...triggerStyle, gridRow: '1 / -1', display: 'block' }}>
+        <img src={propertyPhotos[0].thumb} alt={propertyPhotos[0].alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', borderRadius: heroCornerRadius(0, heroR) }} />
+      </Lightbox.Trigger>
+      {propertyPhotos.slice(1, 5).map((photo, i) => (
+        <Lightbox.Trigger key={photo.id} index={i + 1} style={{ ...triggerStyle, display: 'block' }}>
+          <img src={photo.thumb} alt={photo.alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', borderRadius: heroCornerRadius(i + 1, heroR) }} />
+        </Lightbox.Trigger>
+      ))}
+    </div>
+  );
+}
+
+function StatItem({ value, label }: { value: string; label: string }) {
+  return (
+    <div style={{ textAlign: 'center' }}>
+      <Text size="6" weight="bold" style={{ display: 'block', lineHeight: 1 }}>{value}</Text>
+      <Text size="2" color="gray" style={{ display: 'block', marginTop: 'var(--space-1)' }}>{label}</Text>
+    </div>
+  );
+}
+
+function RemainingPhotosGrid() {
+  return (
+    <div>
+      <Heading size="4" style={{ marginBottom: 'var(--space-4)' }}>All Photos</Heading>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: 'var(--space-3)',
+        }}
+      >
+        {propertyPhotos.slice(5).map((photo, i) => (
+          <Lightbox.Trigger
+            key={photo.id}
+            index={i + 5}
+            style={{ ...triggerStyle, display: 'block' }}
+          >
+            <div style={{ position: 'relative' }}>
+              <img
+                src={photo.thumb}
+                alt={photo.alt}
+                style={{ width: '100%', aspectRatio: '3/2', objectFit: 'cover', display: 'block', borderRadius: 8 }}
+              />
+              <div style={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                padding: 'var(--space-4) var(--space-3) var(--space-2)',
+                background: 'linear-gradient(transparent, rgba(0,0,0,0.6))',
+                borderRadius: '0 0 8px 8px',
+              }}>
+                <Text size="1" weight="medium" style={{ color: 'white' }}>{photo.label}</Text>
+              </div>
+            </div>
+          </Lightbox.Trigger>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export const RealEstateListing: Story = {
+  name: 'Real Estate Listing',
+  render: () => {
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    return (
+      <Lightbox.Root
+        viewTransition
+        loop
+        value={activeIndex}
+        onValueChange={(v) => setActiveIndex(v)}
+        scrollTriggerIntoView={{ type: 'onClose', behavior: 'instant' }}
+      >
+        <div style={{ maxWidth: 960, margin: '0 auto', padding: 'var(--space-4) 0 var(--space-8)' }}>
+          <HeroGrid />
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginTop: 'var(--space-5)', gap: 'var(--space-6)', flexWrap: 'wrap' }}>
+            <div style={{ flex: 1, minWidth: 320 }}>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--space-2)', marginBottom: 'var(--space-1)' }}>
+                <Badge size="1" variant="soft" color="green">Active</Badge>
+                <Text size="1" color="gray">Listed 3 days ago</Text>
+              </div>
+
+              <Heading size="7" style={{ marginBottom: 'var(--space-1)' }}>
+                The Olive Grove Residence
+              </Heading>
+              <Text size="3" color="gray" style={{ display: 'block', marginBottom: 'var(--space-4)' }}>
+                742 Hillcrest Drive, Montecito, CA 93108
+              </Text>
+
+              <div style={{ display: 'flex', gap: 'var(--space-6)', padding: 'var(--space-4) 0', borderTop: '1px solid var(--gray-a4)', borderBottom: '1px solid var(--gray-a4)' }}>
+                <StatItem value="5" label="Bedrooms" />
+                <StatItem value="4.5" label="Bathrooms" />
+                <StatItem value="4,850" label="Sq Ft" />
+                <StatItem value="0.8" label="Acres" />
+              </div>
+            </div>
+
+            <div style={{
+              flexShrink: 0,
+              width: 280,
+              padding: 'var(--space-4)',
+              borderRadius: 12,
+              border: '1px solid var(--gray-a4)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 'var(--space-3)',
+            }}>
+              <Text size="7" weight="bold" style={{ display: 'block', lineHeight: 1 }}>$4,250,000</Text>
+              <Text size="2" color="gray" style={{ display: 'block' }}>
+                Est. $18,420/mo with 20% down
+              </Text>
+              <Separator size="4" />
+              <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+                <Avatar size="3" src="https://i.pravatar.cc/150?u=agent-claire" fallback="CR" shape="circle" />
+                <div>
+                  <Text size="2" weight="bold" style={{ display: 'block' }}>Claire Rousseau</Text>
+                  <Text size="1" color="gray">Montecito Luxury Realty</Text>
+                </div>
+              </div>
+              <Button size="2" variant="solid">Contact Agent</Button>
+              <Button size="2" variant="surface">Schedule Tour</Button>
+            </div>
+          </div>
+
+          <div style={{ marginTop: 'var(--space-6)' }}>
+            <Heading size="4" style={{ marginBottom: 'var(--space-3)' }}>About This Property</Heading>
+            <Text render={<p />} size="3" style={{ lineHeight: 1.7, marginBottom: 'var(--space-3)' }}>
+              Perched on a sun-drenched hillside with unobstructed ocean and mountain views,
+              The Olive Grove Residence is a masterful blend of contemporary architecture and
+              Mediterranean warmth. Designed by acclaimed architect Rafael Mendes, the home
+              flows seamlessly between indoor and outdoor living through walls of retractable
+              glass that frame the Santa Ynez Mountains to the north and the Pacific to the south.
+            </Text>
+            <Text render={<p />} size="3" style={{ lineHeight: 1.7, marginBottom: 'var(--space-3)' }}>
+              The open-plan living and dining area features 12-foot ceilings, white oak floors,
+              and a sculptural fireplace that anchors the space. The chef's kitchen is outfitted
+              with Gaggenau appliances, a waterfall marble island, and a butler's pantry with
+              wine refrigeration. Five bedroom suites are spread across two levels, with the
+              primary occupying the entire upper wing — complete with a private terrace, dual
+              walk-in closets, and a spa bathroom with soaking tub overlooking the garden.
+            </Text>
+          </div>
+
+          <div style={{ marginTop: 'var(--space-6)' }}>
+            <Heading size="4" style={{ marginBottom: 'var(--space-3)' }}>Features &amp; Amenities</Heading>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--space-2) var(--space-4)' }}>
+              {amenities.map((a) => (
+                <Text key={a} size="2" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent-9)', flexShrink: 0 }} />
+                  {a}
+                </Text>
+              ))}
+            </div>
+          </div>
+
+          <Separator size="4" style={{ margin: 'var(--space-6) 0' }} />
+
+          <RemainingPhotosGrid />
+
+          <div style={{ marginTop: 'var(--space-6)', textAlign: 'center' }}>
+            <Text size="2" color="gray">
+              {propertyPhotos.length} photos · Listing courtesy of Montecito Luxury Realty ·{' '}
+              <Link href="#" size="2">Report this listing</Link>
+            </Text>
+          </div>
+        </div>
+
+        <Lightbox.Content aria-label="Property photos">
+          <CloseButton />
+
+          <div style={{ position: 'absolute', top: 'var(--space-4)', left: 'var(--space-4)', zIndex: 1 }}>
+            <Lightbox.Counter>
+              {({ current, total }) => (
+                <Text size="2" style={{ color: 'rgba(255,255,255,0.7)', fontVariantNumeric: 'tabular-nums' }}>
+                  {current} / {total}
+                </Text>
+              )}
+            </Lightbox.Counter>
+          </div>
+
+          <ScrollGallery.Root defaultValue={activeIndex} onValueChange={(v) => setActiveIndex(v)}>
+            <Lightbox.ItemGroup
+              render={<ScrollGallery.Viewport aria-label="Property photos" />}
+              preload={propertyPhotos.length}
+              style={{
+                overflowX: 'auto',
+                overscrollBehaviorX: 'contain',
+                scrollSnapType: 'x mandatory',
+                scrollbarWidth: 'none',
+              }}
+            >
+              {propertyPhotos.map((photo, i) => (
+                <Lightbox.Item
+                  key={photo.id}
+                  index={i}
+                  caption={`${photo.label} — The Olive Grove Residence`}
+                  render={<ScrollGallery.Item />}
+                  style={{
+                    position: 'relative',
+                    inset: 'auto',
+                    visibility: 'visible',
+                    animation: 'none',
+                    scrollSnapAlign: 'center',
+                    flexShrink: 0,
+                    width: '85vw',
+                    maxWidth: 900,
+                  }}
+                >
+                  <img
+                    src={photo.src}
+                    alt={photo.alt}
+                    style={{ maxWidth: '100%', maxHeight: '75vh', objectFit: 'contain', borderRadius: 8 }}
+                  />
+                </Lightbox.Item>
+              ))}
+            </Lightbox.ItemGroup>
+
+            <CaptionText />
+
+            <ScrollGallery.ScrollMarkerGroup
+              aria-label="Property photo thumbnails"
+              style={{
+                display: 'flex',
+                gap: 'var(--space-2)',
+                padding: '0 var(--space-3) var(--space-3)',
+                justifyContent: 'center',
+                overflowX: 'auto',
+                scrollbarWidth: 'none',
+                maxWidth: '100vw',
+              }}
+            >
+              {propertyPhotos.map((photo, i) => (
+                <ScrollGallery.ScrollMarker
+                  key={photo.id}
+                  index={i}
+                  render={(props, state) => (
+                    <button
+                      {...props}
+                      style={{
+                        width: 56,
+                        height: 38,
+                        borderRadius: 4,
+                        overflow: 'hidden',
+                        border: state.active ? '2px solid white' : '2px solid transparent',
+                        padding: 0,
+                        cursor: 'pointer',
+                        opacity: state.active ? 1 : 0.4,
+                        transition: 'opacity 150ms, border-color 150ms',
+                        background: 'none',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <img
+                        src={photo.thumb}
+                        alt={photo.alt}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                      />
+                    </button>
+                  )}
+                />
+              ))}
+            </ScrollGallery.ScrollMarkerGroup>
+          </ScrollGallery.Root>
+        </Lightbox.Content>
+      </Lightbox.Root>
+    );
+  },
+};
 
 export const DesignFileInspector: Story = {
   name: 'Design File Inspector',
