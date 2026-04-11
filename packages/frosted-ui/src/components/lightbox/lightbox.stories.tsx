@@ -730,24 +730,42 @@ const feedTriggerBase: React.CSSProperties = {
   overflow: 'hidden',
 };
 
+function cornerRadius(index: number, count: number, r: number): string {
+  // Maps each cell position to the outer corners it occupies in the grid.
+  // Inner edges get 0 radius; outer corners get the full radius.
+  if (count === 2) {
+    return index === 0 ? `${r}px 0 0 ${r}px` : `0 ${r}px ${r}px 0`;
+  }
+  if (count === 3) {
+    if (index === 0) return `${r}px 0 0 ${r}px`;
+    if (index === 1) return `0 ${r}px 0 0`;
+    return `0 0 ${r}px 0`;
+  }
+  if (count === 4) {
+    const corners = [`${r}px 0 0 0`, `0 ${r}px 0 0`, `0 0 0 ${r}px`, `0 0 ${r}px 0`];
+    return corners[index];
+  }
+  return `${r}px`;
+}
+
 function ImageGrid({ imgs }: { imgs: FeedPost['images'] }) {
   const count = imgs.length;
-  const radius = 12;
+  const r = 12;
 
   if (count === 1) {
     return (
-      <Lightbox.Trigger index={0} style={{ ...feedTriggerBase, borderRadius: radius, width: '100%' }}>
-        <img src={imgs[0].thumb} alt={imgs[0].alt} style={{ width: '100%', aspectRatio: '3/2', objectFit: 'cover', display: 'block' }} />
+      <Lightbox.Trigger index={0} style={{ ...feedTriggerBase, width: '100%' }}>
+        <img src={imgs[0].thumb} alt={imgs[0].alt} style={{ width: '100%', aspectRatio: '3/2', objectFit: 'cover', display: 'block', borderRadius: r }} />
       </Lightbox.Trigger>
     );
   }
 
   if (count === 2) {
     return (
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2, borderRadius: radius, overflow: 'hidden' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
         {imgs.map((img, i) => (
           <Lightbox.Trigger key={i} index={i} style={feedTriggerBase}>
-            <img src={img.thumb} alt={img.alt} style={{ width: '100%', aspectRatio: '4/5', objectFit: 'cover', display: 'block' }} />
+            <img src={img.thumb} alt={img.alt} style={{ width: '100%', aspectRatio: '4/5', objectFit: 'cover', display: 'block', borderRadius: cornerRadius(i, 2, r) }} />
           </Lightbox.Trigger>
         ))}
       </div>
@@ -756,25 +774,25 @@ function ImageGrid({ imgs }: { imgs: FeedPost['images'] }) {
 
   if (count === 3) {
     return (
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gap: 2, borderRadius: radius, overflow: 'hidden', aspectRatio: '3/2' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gap: 2, aspectRatio: '3/2' }}>
         <Lightbox.Trigger index={0} style={{ ...feedTriggerBase, gridRow: '1 / -1' }}>
-          <img src={imgs[0].thumb} alt={imgs[0].alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+          <img src={imgs[0].thumb} alt={imgs[0].alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', borderRadius: cornerRadius(0, 3, r) }} />
         </Lightbox.Trigger>
         <Lightbox.Trigger index={1} style={feedTriggerBase}>
-          <img src={imgs[1].thumb} alt={imgs[1].alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+          <img src={imgs[1].thumb} alt={imgs[1].alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', borderRadius: cornerRadius(1, 3, r) }} />
         </Lightbox.Trigger>
         <Lightbox.Trigger index={2} style={feedTriggerBase}>
-          <img src={imgs[2].thumb} alt={imgs[2].alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+          <img src={imgs[2].thumb} alt={imgs[2].alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', borderRadius: cornerRadius(2, 3, r) }} />
         </Lightbox.Trigger>
       </div>
     );
   }
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gap: 2, borderRadius: radius, overflow: 'hidden', aspectRatio: '3/2' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gap: 2, aspectRatio: '3/2' }}>
       {imgs.slice(0, 4).map((img, i) => (
         <Lightbox.Trigger key={i} index={i} style={feedTriggerBase}>
-          <img src={img.thumb} alt={img.alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+          <img src={img.thumb} alt={img.alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', borderRadius: cornerRadius(i, 4, r) }} />
         </Lightbox.Trigger>
       ))}
     </div>
