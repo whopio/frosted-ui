@@ -499,7 +499,7 @@ const ArticleImage = ({ index, image, float }: { index: number; image: typeof ar
 export const WithinArticle: Story = {
   name: 'Within Article',
   render: () => (
-    <Lightbox.Root viewTransition>
+    <Lightbox.Root viewTransition scrollTriggerIntoView={{ type: 'onChange', behavior: 'instant' }}>
       <article style={{ maxWidth: 680, margin: '0 auto', lineHeight: 1.7 }}>
         <Heading size="7" style={{ marginBottom: 'var(--space-2)' }}>
           Lofoten: Where the Mountains Meet the Sea
@@ -971,7 +971,7 @@ export const DesignFileInspector: Story = {
     const [activeIndex, setActiveIndex] = useState(0);
 
     return (
-      <Lightbox.Root viewTransition value={activeIndex} onValueChange={(v) => setActiveIndex(v)} loop>
+      <Lightbox.Root viewTransition value={activeIndex} onValueChange={(v) => setActiveIndex(v)} loop scrollTriggerIntoView={{ type: 'onClose', behavior: 'instant' }}>
         <div style={{ padding: 'var(--space-4) 0' }}>
           <div style={{ maxWidth: 1100, margin: '0 auto var(--space-5)', display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', flexWrap: 'wrap', gap: 'var(--space-3)' }}>
             <div>

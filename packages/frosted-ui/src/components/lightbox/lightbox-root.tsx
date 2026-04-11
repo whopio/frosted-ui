@@ -37,12 +37,39 @@ interface LightboxRootProps {
    * @default false
    */
   viewTransition?: boolean;
+  /**
+   * Scroll the active trigger element into the viewport so close
+   * animations land on-screen instead of animating off-viewport.
+   *
+   * - `null` (default) — no automatic scrolling
+   * - `{ type: "onClose" }` — scroll to the active trigger just before closing
+   * - `{ type: "onChange" }` — scroll to the active trigger whenever the active
+   *   index changes while the lightbox is open (preemptive; trigger
+   *   is always in view by the time the user closes)
+   *
+   * `behavior` controls the scroll animation: `"smooth"` (default) or `"instant"`.
+   *
+   * @default null
+   */
+  scrollTriggerIntoView?: null | {
+    type: 'onChange' | 'onClose';
+    behavior?: 'smooth' | 'instant';
+  };
 }
 
 interface LightboxRootRef {
   open: (index?: number) => void;
   close: () => void;
   goTo: (index: number) => void;
+}
+
+function scrollTriggerEl(el: HTMLElement | undefined, behavior: ScrollBehavior = 'smooth') {
+  if (!el) return;
+  const rect = el.getBoundingClientRect();
+  const fullyVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
+  if (!fullyVisible) {
+    el.scrollIntoView({ block: 'center', behavior });
+  }
 }
 
 const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
@@ -57,6 +84,7 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
       onValueChange,
       loop = false,
       viewTransition = false,
+      scrollTriggerIntoView = null,
     } = props;
 
     // Open state — controlled or uncontrolled
@@ -88,6 +116,14 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
       },
       [isControlledValue],
     );
+
+    // Scroll the active trigger into view when activeIndex changes while open
+    React.useEffect(() => {
+      if (scrollTriggerIntoView?.type === 'onChange' && open) {
+        const el = triggerElementsRef.current.get(activeIndex);
+        scrollTriggerEl(el, scrollTriggerIntoView.behavior);
+      }
+    }, [scrollTriggerIntoView, open, activeIndex]);
 
     // Item count — set by ItemGroup
     const [itemCount, setItemCount] = React.useState(0);
@@ -210,6 +246,9 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
                 onOpenChangeRef.current?.(false);
                 setMounted(false);
               });
+              if (scrollTriggerIntoView) {
+                scrollTriggerEl(triggerEl, scrollTriggerIntoView.behavior);
+              }
               if (triggerTarget) {
                 triggerTarget.style.viewTransitionName = VIEW_TRANSITION_NAME;
               }
@@ -233,6 +272,10 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
             }
             onOpenChangeRef.current?.(true);
           } else {
+            if (scrollTriggerIntoView) {
+              const triggerEl = triggerElementsRef.current.get(activeIndexRef.current);
+              scrollTriggerEl(triggerEl, scrollTriggerIntoView.behavior);
+            }
             if (!isControlledOpen) {
               setUncontrolledOpen(false);
             }
@@ -241,7 +284,7 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
           }
         }
       },
-      [isControlledOpen, viewTransition],
+      [isControlledOpen, viewTransition, scrollTriggerIntoView],
     );
 
     // Imperative handle
@@ -289,3 +332,4 @@ LightboxRoot.displayName = 'LightboxRoot';
 
 export { LightboxRoot };
 export type { LightboxRootProps, LightboxRootRef };
+
