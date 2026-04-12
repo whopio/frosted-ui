@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { ArrowUpFromBracket16, ChevronLeft16, ChevronRight16, Heart16, MessageBlank16, PlayFilled20, XMark16 } from '@frosted-ui/icons';
+import { ArrowUpFromBracket16, ChevronLeft16, ChevronRight16, GlobePin16, Heart16, Mail16, MessageBlank16, PlayFilled20, XMark16 } from '@frosted-ui/icons';
 import React, { useRef, useState } from 'react';
 import { Avatar, Badge, Button, Heading, IconButton, Lightbox, Link, ScrollGallery, Separator, Text } from '..';
 
@@ -1826,6 +1826,321 @@ export const FilmTrailers: Story = {
             <div style={{ padding: 'var(--space-3) var(--space-5)', textAlign: 'center' }}>
               <Lightbox.Caption render={<Text size="2" color="gray" />} />
             </div>
+
+            <div style={{ paddingBottom: 'var(--space-4)' }}>
+              <Lightbox.Counter render={<Text size="1" color="gray" />} />
+            </div>
+          </Lightbox.Content>
+        </Lightbox.Root>
+      </div>
+    );
+  },
+};
+
+/* =============================================================================
+ * TEAM DIRECTORY
+ * Circular avatars morph into profile cards. Tests: non-rectangular triggers,
+ * mixed content (photo + text + stats) in lightbox items, circle-to-rect morph.
+ * ========================================================================== */
+
+const teamMembers = [
+  {
+    id: 'sarah',
+    name: 'Sarah Chen',
+    role: 'Engineering Lead',
+    location: 'San Francisco, CA',
+    email: 'sarah@acme.dev',
+    avatar: 'https://i.pravatar.cc/400?img=1',
+    cover: 'https://picsum.photos/seed/team-sarah/1200/500',
+    bio: 'Building distributed systems for the past decade. Previously at Stripe and Google. Passionate about developer tools and open source.',
+    stats: { commits: '2,847', reviews: '1,203', projects: '14' },
+    tags: ['Systems', 'Rust', 'Go'],
+  },
+  {
+    id: 'marcus',
+    name: 'Marcus Johnson',
+    role: 'Senior Designer',
+    location: 'Brooklyn, NY',
+    email: 'marcus@acme.dev',
+    avatar: 'https://i.pravatar.cc/400?img=3',
+    cover: 'https://picsum.photos/seed/team-marcus/1200/500',
+    bio: 'Design systems thinker with a love for motion and micro-interactions. Former lead designer at Figma. Believes every pixel tells a story.',
+    stats: { commits: '982', reviews: '567', projects: '8' },
+    tags: ['Design Systems', 'Motion', 'Figma'],
+  },
+  {
+    id: 'priya',
+    name: 'Priya Patel',
+    role: 'Product Manager',
+    location: 'London, UK',
+    email: 'priya@acme.dev',
+    avatar: 'https://i.pravatar.cc/400?img=5',
+    cover: 'https://picsum.photos/seed/team-priya/1200/500',
+    bio: 'Bridging the gap between users and code. 8 years in product across fintech and dev tools. Data-informed, user-obsessed.',
+    stats: { commits: '341', reviews: '892', projects: '11' },
+    tags: ['Product', 'Analytics', 'Strategy'],
+  },
+  {
+    id: 'alex',
+    name: 'Alex Rivera',
+    role: 'Frontend Engineer',
+    location: 'Austin, TX',
+    email: 'alex@acme.dev',
+    avatar: 'https://i.pravatar.cc/400?img=8',
+    cover: 'https://picsum.photos/seed/team-alex/1200/500',
+    bio: 'React nerd and accessibility advocate. Contributor to Radix UI and MDN. Believes the web should work for everyone.',
+    stats: { commits: '3,102', reviews: '1,456', projects: '9' },
+    tags: ['React', 'A11y', 'TypeScript'],
+  },
+  {
+    id: 'yuki',
+    name: 'Yuki Tanaka',
+    role: 'Infrastructure',
+    location: 'Tokyo, Japan',
+    email: 'yuki@acme.dev',
+    avatar: 'https://i.pravatar.cc/400?img=9',
+    cover: 'https://picsum.photos/seed/team-yuki/1200/500',
+    bio: 'Keeping the lights on and the deploys fast. Kubernetes whisperer. Automates everything, including the coffee machine.',
+    stats: { commits: '1,678', reviews: '723', projects: '6' },
+    tags: ['Kubernetes', 'Terraform', 'SRE'],
+  },
+  {
+    id: 'elena',
+    name: 'Elena Volkov',
+    role: 'Staff Engineer',
+    location: 'Berlin, Germany',
+    email: 'elena@acme.dev',
+    avatar: 'https://i.pravatar.cc/400?img=10',
+    cover: 'https://picsum.photos/seed/team-elena/1200/500',
+    bio: 'Compiler nerd turned web performance expert. Runs the perf guild and mentors junior engineers. Speaks at conferences about Core Web Vitals.',
+    stats: { commits: '2,214', reviews: '1,890', projects: '12' },
+    tags: ['Performance', 'WebAssembly', 'Mentorship'],
+  },
+  {
+    id: 'omar',
+    name: 'Omar Hassan',
+    role: 'Backend Engineer',
+    location: 'Toronto, Canada',
+    email: 'omar@acme.dev',
+    avatar: 'https://i.pravatar.cc/400?img=11',
+    cover: 'https://picsum.photos/seed/team-omar/1200/500',
+    bio: 'API architect who dreams in GraphQL schemas. Previously built real-time systems at Shopify. Dog dad and amateur chef.',
+    stats: { commits: '1,956', reviews: '1,102', projects: '7' },
+    tags: ['GraphQL', 'Node.js', 'PostgreSQL'],
+  },
+  {
+    id: 'mei',
+    name: 'Mei Lin',
+    role: 'Data Engineer',
+    location: 'Singapore',
+    email: 'mei@acme.dev',
+    avatar: 'https://i.pravatar.cc/400?img=16',
+    cover: 'https://picsum.photos/seed/team-mei/1200/500',
+    bio: 'Turning messy data into clean pipelines. Spark and Flink expert. Organizes the local PyData meetup and loves teaching workshops.',
+    stats: { commits: '1,423', reviews: '645', projects: '5' },
+    tags: ['Python', 'Spark', 'Data'],
+  },
+];
+
+function ProfileCard({ member }: { member: (typeof teamMembers)[number] }) {
+  return (
+    <div
+      data-lightbox-morph
+      style={{
+        background: 'var(--color-surface)',
+        borderRadius: 16,
+        overflow: 'hidden',
+        maxWidth: 420,
+        width: '90vw',
+        boxShadow: '0 8px 40px rgba(0,0,0,0.4)',
+      }}
+    >
+      <div style={{ position: 'relative', height: 140, overflow: 'hidden' }}>
+        <img
+          src={member.cover}
+          alt=""
+          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+        />
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(to top, var(--color-surface) 0%, transparent 60%)',
+        }} />
+      </div>
+
+      <div style={{
+        marginTop: -48,
+        padding: '0 var(--space-5) var(--space-5)',
+        position: 'relative',
+      }}>
+        <img
+          src={member.avatar}
+          alt={member.name}
+          style={{
+            width: 80,
+            height: 80,
+            borderRadius: 16,
+            objectFit: 'cover',
+            border: '3px solid var(--color-surface)',
+            display: 'block',
+          }}
+        />
+
+        <div style={{ marginTop: 'var(--space-3)' }}>
+          <Heading size="4">{member.name}</Heading>
+          <Text size="2" color="gray" style={{ display: 'block', marginTop: 2 }}>
+            {member.role}
+          </Text>
+        </div>
+
+        <Text size="2" style={{ display: 'block', marginTop: 'var(--space-3)', lineHeight: 1.6 }}>
+          {member.bio}
+        </Text>
+
+        <div style={{ display: 'flex', gap: 'var(--space-2)', marginTop: 'var(--space-3)', flexWrap: 'wrap' }}>
+          {member.tags.map((tag) => (
+            <Badge key={tag} size="1" variant="surface" color="gray">{tag}</Badge>
+          ))}
+        </div>
+
+        <Separator size="4" style={{ marginTop: 'var(--space-4)', marginBottom: 'var(--space-4)' }} />
+
+        <div style={{ display: 'flex', justifyContent: 'space-around', textAlign: 'center' }}>
+          {Object.entries(member.stats).map(([label, value]) => (
+            <div key={label}>
+              <Text size="4" weight="bold" style={{ display: 'block' }}>{value}</Text>
+              <Text size="1" color="gray" style={{ textTransform: 'capitalize' }}>{label}</Text>
+            </div>
+          ))}
+        </div>
+
+        <Separator size="4" style={{ marginTop: 'var(--space-4)', marginBottom: 'var(--space-4)' }} />
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+            <GlobePin16 style={{ color: 'var(--gray-a10)' }} />
+            <Text size="2" color="gray">{member.location}</Text>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+            <Mail16 style={{ color: 'var(--gray-a10)' }} />
+            <Text size="2" color="gray">{member.email}</Text>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export const TeamDirectory: Story = {
+  name: 'Team Directory',
+  render: () => {
+    return (
+      <div style={{ maxWidth: 640, margin: '0 auto' }}>
+        <div style={{ padding: 'var(--space-5) 0 var(--space-4)' }}>
+          <Text size="1" weight="medium" color="gray" style={{ textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+            About Us
+          </Text>
+          <Heading size="6" style={{ marginTop: 4 }}>
+            Meet the Team
+          </Heading>
+          <Text size="2" color="gray" style={{ marginTop: 8, display: 'block', maxWidth: 440 }}>
+            The people behind Acme Dev Tools. Click anyone to learn more about them.
+          </Text>
+        </div>
+
+        <Lightbox.Root viewTransition>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gap: 12,
+            padding: 'var(--space-4) 0',
+          }}>
+            {teamMembers.map((member, i) => (
+              <Lightbox.Trigger
+                key={member.id}
+                index={i}
+                style={{
+                  border: '1px solid var(--gray-a4)',
+                  background: 'var(--color-surface)',
+                  borderRadius: 16,
+                  padding: 14,
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  textAlign: 'left',
+                  transition: 'background 150ms ease, border-color 150ms ease',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--gray-a6)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--gray-a4)'; }}
+              >
+                <div data-lightbox-morph style={{
+                  width: 56,
+                  height: 56,
+                  borderRadius: 14,
+                  overflow: 'hidden',
+                  flexShrink: 0,
+                  background: 'var(--gray-a3)',
+                }}>
+                  <img
+                    src={member.avatar}
+                    alt={member.name}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  />
+                </div>
+                <div style={{ minWidth: 0 }}>
+                  <Text size="2" weight="medium" style={{ display: 'block', lineHeight: 1.3 }}>
+                    {member.name}
+                  </Text>
+                  <Text size="1" color="gray">{member.role}</Text>
+                </div>
+              </Lightbox.Trigger>
+            ))}
+          </div>
+
+          <Lightbox.Content>
+            <div style={{
+              position: 'absolute',
+              top: 'var(--space-4)',
+              right: 'var(--space-4)',
+              zIndex: 10,
+            }}>
+              <Lightbox.Close render={<IconButton variant="ghost" color="gray" size="3" aria-label="Close" />}>
+                <XMark16 />
+              </Lightbox.Close>
+            </div>
+
+            <div style={{
+              position: 'absolute',
+              left: 'var(--space-4)',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              zIndex: 10,
+            }}>
+              <Lightbox.Previous render={<IconButton variant="ghost" color="gray" size="3" aria-label="Previous" />}>
+                <ChevronLeft16 />
+              </Lightbox.Previous>
+            </div>
+
+            <div style={{
+              position: 'absolute',
+              right: 'var(--space-4)',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              zIndex: 10,
+            }}>
+              <Lightbox.Next render={<IconButton variant="ghost" color="gray" size="3" aria-label="Next" />}>
+                <ChevronRight16 />
+              </Lightbox.Next>
+            </div>
+
+            <Lightbox.ItemGroup>
+              {teamMembers.map((member, i) => (
+                <Lightbox.Item key={member.id} index={i}>
+                  <ProfileCard member={member} />
+                </Lightbox.Item>
+              ))}
+            </Lightbox.ItemGroup>
 
             <div style={{ paddingBottom: 'var(--space-4)' }}>
               <Lightbox.Counter render={<Text size="1" color="gray" />} />
