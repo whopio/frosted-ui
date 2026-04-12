@@ -154,21 +154,19 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
     // remain in the DOM for CSS transitions (non-VT) or are removed
     // immediately inside flushSync (VT close).
     const [mounted, setMounted] = React.useState(defaultOpen);
-    const exitTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+    const closeGenRef = React.useRef(0);
 
     // View transition refs
     const triggerElementsRef = React.useRef<Map<number, HTMLElement>>(new Map());
     const activeItemElementRef = React.useRef<HTMLElement | null>(null);
     const openingTriggerIndexRef = React.useRef(0);
+    const dialogElementRef = React.useRef<HTMLElement | null>(null);
     const activeIndexRef = React.useRef(activeIndex);
     activeIndexRef.current = activeIndex;
 
     const setOpen = React.useCallback(
       (nextOpen: boolean) => {
-        if (exitTimerRef.current) {
-          clearTimeout(exitTimerRef.current);
-          exitTimerRef.current = null;
-        }
+        closeGenRef.current += 1;
 
         const useVT = viewTransition && supportsViewTransitions();
 
@@ -284,7 +282,15 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
               setUncontrolledOpen(false);
             }
             onOpenChangeRef.current?.(false);
-            exitTimerRef.current = setTimeout(() => setMounted(false), 350);
+            const el = dialogElementRef.current;
+            const gen = closeGenRef.current;
+            if (el) {
+              Promise.allSettled(el.getAnimations().map((a) => a.finished)).then(() => {
+                if (closeGenRef.current === gen) setMounted(false);
+              });
+            } else {
+              setMounted(false);
+            }
           }
         }
       },
@@ -324,6 +330,7 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
         triggerElementsRef,
         activeItemElementRef,
         openingTriggerIndexRef,
+        dialogElementRef,
       }),
       [open, setOpen, mounted, activeIndex, setActiveIndex, itemCount, setItemCount, loop, captions, registerCaption, viewTransition],
     );

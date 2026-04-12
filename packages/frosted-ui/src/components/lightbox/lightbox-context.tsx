@@ -22,6 +22,7 @@ interface LightboxContextValue {
   triggerElementsRef: React.RefObject<Map<number, HTMLElement>>;
   activeItemElementRef: React.MutableRefObject<HTMLElement | null>;
   openingTriggerIndexRef: React.MutableRefObject<number>;
+  dialogElementRef: React.MutableRefObject<HTMLElement | null>;
 }
 
 const LightboxContext = React.createContext<LightboxContextValue | undefined>(undefined);

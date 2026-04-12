@@ -17,20 +17,21 @@ const LightboxContent = React.forwardRef<HTMLDialogElement, LightboxContentProps
   function LightboxContent(props, forwardedRef) {
     const { className, children, ...rest } = props;
 
-    const { open, mounted, setOpen, activeIndex, setActiveIndex, itemCount, loop } = useLightboxContext();
+    const { open, mounted, setOpen, activeIndex, setActiveIndex, itemCount, loop, dialogElementRef } = useLightboxContext();
 
     const dialogRef = React.useRef<HTMLDialogElement | null>(null);
 
     const mergedRef = React.useCallback(
       (node: HTMLDialogElement | null) => {
         dialogRef.current = node;
+        dialogElementRef.current = node;
         if (typeof forwardedRef === 'function') {
           forwardedRef(node);
         } else if (forwardedRef) {
           forwardedRef.current = node;
         }
       },
-      [forwardedRef],
+      [forwardedRef, dialogElementRef],
     );
 
     // Show/close the native dialog in sync with mounted state.
