@@ -379,8 +379,12 @@ export const WithScrollGallery: Story = {
                   animation: 'none',
                   scrollSnapAlign: 'center',
                   flexShrink: 0,
-                  width: '90vw',
-                  maxWidth: 900,
+                  width: '100vw',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '0 var(--space-5)',
+                  boxSizing: 'border-box',
                 }}
                 >
                   <FullImage src={img.src} alt={img.alt} />
