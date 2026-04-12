@@ -2166,3 +2166,100 @@ export const TeamDirectory: Story = {
     );
   },
 };
+
+/* =============================================================================
+ * LIFECYCLE CALLBACKS
+ * Demonstrates onOpenChange vs onOpenChangeComplete timing.
+ * ========================================================================== */
+
+interface LogEntry {
+  id: number;
+  label: string;
+  time: number;
+  type: 'change' | 'complete';
+}
+
+export const LifecycleCallbacks: Story = {
+  name: 'Lifecycle Callbacks',
+  render: () => {
+    const [logs, setLogs] = useState<LogEntry[]>([]);
+    const startRef = useRef(0);
+    const idRef = useRef(0);
+
+    const addLog = (label: string, type: LogEntry['type']) => {
+      const time = Math.round(performance.now() - startRef.current);
+      setLogs((prev) => [...prev, { id: ++idRef.current, label, time, type }]);
+    };
+
+    return (
+      <div style={{ display: 'flex', gap: 'var(--space-6)', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+        <Lightbox.Root
+          viewTransition
+          onOpenChange={(open) => {
+            if (open) startRef.current = performance.now();
+            addLog(open ? 'onOpenChange(true)' : 'onOpenChange(false)', 'change');
+          }}
+          onOpenChangeComplete={(open) => {
+            addLog(open ? 'onOpenChangeComplete(true)' : 'onOpenChangeComplete(false)', 'complete');
+          }}
+        >
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+            <Heading size="4">Click an image</Heading>
+            <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+              {images.slice(0, 3).map((img, i) => (
+                <Lightbox.Trigger key={img.id} index={i} style={triggerStyle}>
+                  <img
+                    src={img.thumb}
+                    alt={img.alt}
+                    style={{ width: 120, height: 80, objectFit: 'cover', borderRadius: 8, display: 'block' }}
+                  />
+                </Lightbox.Trigger>
+              ))}
+            </div>
+            <Button variant="soft" color="gray" size="1" style={{ alignSelf: 'flex-start' }} onClick={() => setLogs([])}>
+              Clear log
+            </Button>
+          </div>
+
+          <Lightbox.Content aria-label="Lifecycle demo">
+            <CloseButton />
+            <Lightbox.ItemGroup>
+              {images.slice(0, 3).map((img, i) => (
+                <Lightbox.Item key={img.id} index={i}>
+                  <img src={img.src} alt={img.alt} style={{ maxWidth: '90vw', maxHeight: '80vh', objectFit: 'contain' }} />
+                </Lightbox.Item>
+              ))}
+            </Lightbox.ItemGroup>
+            <NavControls />
+          </Lightbox.Content>
+        </Lightbox.Root>
+
+        <div style={{
+          minWidth: 320,
+          background: 'var(--color-panel)',
+          border: '1px solid var(--gray-a5)',
+          borderRadius: 8,
+          padding: 'var(--space-3)',
+          fontFamily: 'var(--code-font-family)',
+          fontSize: 'var(--font-size-1)',
+          lineHeight: 'var(--line-height-3)',
+          maxHeight: 300,
+          overflowY: 'auto',
+        }}>
+          <Text size="2" weight="medium" style={{ display: 'block', marginBottom: 'var(--space-2)' }}>Event log</Text>
+          {logs.length === 0 && <Text size="1" color="gray">No events yet. Open and close the lightbox.</Text>}
+          {logs.map((log) => (
+            <div key={log.id} style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'baseline' }}>
+              <Text size="1" color="gray" style={{ minWidth: 48, textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>
+                +{log.time}ms
+              </Text>
+              <Text size="1" style={{ color: log.type === 'change' ? 'var(--blue-11)' : 'var(--green-11)' }}>
+                {log.label}
+              </Text>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  },
+};

@@ -22,8 +22,14 @@ interface LightboxRootProps {
   defaultOpen?: boolean;
   /** Controlled open state. */
   open?: boolean;
-  /** Callback when open state changes. */
+  /** Callback when open state changes (fires immediately, before animations). */
   onOpenChange?: (open: boolean) => void;
+  /**
+   * Callback when the open/close transition finishes. Receives the
+   * final open state — `true` after the open animation completes,
+   * `false` after the close animation completes.
+   */
+  onOpenChangeComplete?: (open: boolean) => void;
   /** Uncontrolled initial active index. @default 0 */
   defaultValue?: number;
   /** Controlled active index. */
@@ -83,6 +89,7 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
       defaultOpen = false,
       open: openProp,
       onOpenChange,
+      onOpenChangeComplete,
       defaultValue = 0,
       value: valueProp,
       onValueChange,
@@ -100,6 +107,11 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
     React.useEffect(() => {
       onOpenChangeRef.current = onOpenChange;
     }, [onOpenChange]);
+
+    const onOpenChangeCompleteRef = React.useRef(onOpenChangeComplete);
+    React.useEffect(() => {
+      onOpenChangeCompleteRef.current = onOpenChangeComplete;
+    }, [onOpenChangeComplete]);
 
     // Active index — controlled or uncontrolled
     const isControlledValue = valueProp !== undefined;
@@ -231,6 +243,7 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
               docEl.removeAttribute('data-lightbox-view-transition');
               docEl.style.removeProperty('--fui-morph-border-radius-from');
               docEl.style.removeProperty('--fui-morph-border-radius-to');
+              onOpenChangeCompleteRef.current?.(true);
             });
           } else {
             // --- CLOSE with view transition ---
@@ -278,6 +291,7 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
               docEl.style.removeProperty('--fui-morph-border-radius-to');
               if (closeGenRef.current === gen) {
                 triggerEl?.focus({ preventScroll: true });
+                onOpenChangeCompleteRef.current?.(false);
               }
             });
           }
@@ -289,6 +303,20 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
               setUncontrolledOpen(true);
             }
             onOpenChangeRef.current?.(true);
+            const gen = closeGenRef.current;
+            requestAnimationFrame(() => {
+              if (closeGenRef.current !== gen) return;
+              const el = dialogElementRef.current;
+              if (el) {
+                Promise.allSettled(el.getAnimations().map((a) => a.finished)).then(() => {
+                  if (closeGenRef.current === gen) {
+                    onOpenChangeCompleteRef.current?.(true);
+                  }
+                });
+              } else {
+                onOpenChangeCompleteRef.current?.(true);
+              }
+            });
           } else {
             if (scrollTriggerIntoView) {
               const triggerEl = triggerElementsRef.current.get(activeIndexRef.current);
@@ -306,11 +334,13 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
                 if (closeGenRef.current === gen) {
                   setMounted(false);
                   requestAnimationFrame(() => focusTarget?.focus({ preventScroll: true }));
+                  onOpenChangeCompleteRef.current?.(false);
                 }
               });
             } else {
               setMounted(false);
               requestAnimationFrame(() => focusTarget?.focus({ preventScroll: true }));
+              onOpenChangeCompleteRef.current?.(false);
             }
           }
         }
