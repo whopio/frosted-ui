@@ -1479,89 +1479,104 @@ export const DesignFileInspector: Story = {
             </Lightbox.Counter>
           </div>
 
-          <ScrollGallery.Root defaultValue={activeIndex} onValueChange={(v) => setActiveIndex(v)}>
-            <Lightbox.ItemGroup
-              render={<ScrollGallery.Viewport aria-label="Design screens" />}
-              preload={designScreens.length}
-              style={{
-                overflowX: 'auto',
-                overscrollBehaviorX: 'contain',
-                scrollSnapType: 'x mandatory',
-                scrollbarWidth: 'none',
-              }}
-            >
-              {designScreens.map((screen, i) => (
-                <Lightbox.Item
-                  key={screen.id}
-                  index={i}
-                  caption={screen.caption}
-                  render={<ScrollGallery.Item />}
-                  style={{
-                    position: 'relative',
-                    inset: 'auto',
-                    visibility: 'visible',
-                    animation: 'none',
-                    scrollSnapAlign: 'center',
-                    flexShrink: 0,
-                    width: screen.isPortrait ? '40vw' : '85vw',
-                    maxWidth: screen.isPortrait ? 400 : 900,
-                  }}
-                >
-                  <img
-                    src={screen.src}
-                    alt={screen.alt}
-                    style={{ maxWidth: '100%', maxHeight: '75vh', objectFit: 'contain', borderRadius: 8 }}
+          <ScrollGallery.Root defaultValue={activeIndex} onValueChange={(v) => setActiveIndex(v)} orientation="vertical">
+            <div style={{ display: 'flex', flex: 1, minHeight: 0, width: '100%' }}>
+              {/* Main vertical scroll area */}
+              <Lightbox.ItemGroup
+                render={<ScrollGallery.Viewport aria-label="Design screens" />}
+                preload={designScreens.length}
+                style={{
+                  flex: 1,
+                  overflowY: 'auto',
+                  overscrollBehaviorY: 'contain',
+                  scrollSnapType: 'y mandatory',
+                  scrollbarWidth: 'none',
+                  display: 'flex',
+                  flexDirection: 'column',
+                }}
+              >
+                {designScreens.map((screen, i) => (
+                  <Lightbox.Item
+                    key={screen.id}
+                    index={i}
+                    caption={screen.caption}
+                    render={<ScrollGallery.Item />}
+                    style={{
+                      position: 'relative',
+                      inset: 'auto',
+                      visibility: 'visible',
+                      animation: 'none',
+                      scrollSnapAlign: 'center',
+                      flexShrink: 0,
+                      height: '100%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      padding: 'var(--space-4)',
+                      boxSizing: 'border-box',
+                    }}
+                  >
+                    <img
+                      src={screen.src}
+                      alt={screen.alt}
+                      style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', borderRadius: 8 }}
+                    />
+                  </Lightbox.Item>
+                ))}
+              </Lightbox.ItemGroup>
+
+              {/* Right sidebar: vertical thumbnails */}
+              <ScrollGallery.ScrollMarkerGroup
+                aria-label="Screen thumbnails"
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 6,
+                  padding: 'var(--space-3)',
+                  overflowY: 'auto',
+                  scrollbarWidth: 'none',
+                  width: 64,
+                  flexShrink: 0,
+                  alignItems: 'center',
+                }}
+              >
+                {designScreens.map((screen, i) => (
+                  <ScrollGallery.ScrollMarker
+                    key={screen.id}
+                    index={i}
+                    render={(props, state) => (
+                      <button
+                        {...props}
+                        style={{
+                          width: screen.isPortrait ? 32 : 48,
+                          height: screen.isPortrait ? 48 : 32,
+                          borderRadius: 4,
+                          overflow: 'hidden',
+                          border: state.active ? '2px solid white' : '2px solid transparent',
+                          padding: 0,
+                          cursor: 'pointer',
+                          opacity: state.active ? 1 : 0.4,
+                          transition: 'opacity 150ms, border-color 150ms',
+                          background: 'none',
+                          flexShrink: 0,
+                        }}
+                      >
+                        <img
+                          src={screen.thumb}
+                          alt={screen.alt}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                          loading="lazy"
+                        />
+                      </button>
+                    )}
                   />
-                </Lightbox.Item>
-              ))}
-            </Lightbox.ItemGroup>
+                ))}
+              </ScrollGallery.ScrollMarkerGroup>
+            </div>
 
-            <CaptionText />
-
-            <ScrollGallery.ScrollMarkerGroup
-              aria-label="Screen thumbnails"
-              style={{
-                display: 'flex',
-                gap: 'var(--space-2)',
-                padding: '0 var(--space-3) var(--space-3)',
-                justifyContent: 'center',
-                overflowX: 'auto',
-                scrollbarWidth: 'none',
-                maxWidth: '100vw',
-              }}
-            >
-              {designScreens.map((screen, i) => (
-                <ScrollGallery.ScrollMarker
-                  key={screen.id}
-                  index={i}
-                  render={(props, state) => (
-                    <button
-                      {...props}
-                      style={{
-                        width: screen.isPortrait ? 32 : 48,
-                        height: screen.isPortrait ? 48 : 32,
-                        borderRadius: 4,
-                        overflow: 'hidden',
-                        border: state.active ? '2px solid white' : '2px solid transparent',
-                        padding: 0,
-                        cursor: 'pointer',
-                        opacity: state.active ? 1 : 0.4,
-                        transition: 'opacity 150ms, border-color 150ms',
-                        background: 'none',
-                        flexShrink: 0,
-                      }}
-                    >
-                      <img
-                        src={screen.thumb}
-                        alt={screen.alt}
-                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                        loading="lazy"
-                      />
-                    </button>
-                  )}
-                />
-              ))}
-            </ScrollGallery.ScrollMarkerGroup>
+            <div style={{ padding: 'var(--space-2) var(--space-5)', textAlign: 'center' }}>
+              <Lightbox.Caption render={<Text size="2" color="gray" />} />
+            </div>
           </ScrollGallery.Root>
         </Lightbox.Content>
       </Lightbox.Root>
