@@ -79,22 +79,19 @@ dialog.fui-LightboxContent {
 @media (prefers-reduced-motion: no-preference) {
   /* --- Backdrop (native ::backdrop pseudo-element) --- */
   .fui-LightboxContent::backdrop {
-    backdrop-filter: blur(0px) brightness(1);
+    backdrop-filter: blur(0px);
     background: rgba(0, 0, 0, 0);
     opacity: 0;
-    transition:
-      backdrop-filter 300ms cubic-bezier(0.16, 1, 0.3, 1),
-      background 300ms cubic-bezier(0.16, 1, 0.3, 1),
-      opacity 300ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 300ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .fui-LightboxContent[data-open]::backdrop {
-    backdrop-filter: blur(4px) brightness(0.5);
+    backdrop-filter: blur(4px);
     background: rgba(0, 0, 0, 0.75);
     opacity: 1;
 
     @starting-style {
-      backdrop-filter: blur(0px) brightness(1);
+      backdrop-filter: blur(0px);
       background: rgba(0, 0, 0, 0);
       opacity: 0;
     }
@@ -148,8 +145,12 @@ dialog.fui-LightboxContent {
 
 /* --- Morph group (trigger <-> item) --- */
 @keyframes fui-morph-border-radius {
-  from { border-radius: var(--fui-morph-border-radius-from, 0px); }
-  to { border-radius: var(--fui-morph-border-radius-to, 0px); }
+  from {
+    border-radius: var(--fui-morph-border-radius-from, 0px);
+  }
+  to {
+    border-radius: var(--fui-morph-border-radius-to, 0px);
+  }
 }
 
 ::view-transition-group(fui-lightbox-morph) {
@@ -178,13 +179,21 @@ dialog.fui-LightboxContent {
 }
 
 @keyframes fui-morph-fade-out {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 @keyframes fui-morph-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* During a VT the dialog + ::backdrop sit in the top layer above the
@@ -202,7 +211,7 @@ dialog.fui-LightboxContent {
 }
 
 :root[data-lightbox-view-transition] .fui-LightboxContent[data-open]::backdrop {
-  backdrop-filter: blur(4px) brightness(0.5);
+  backdrop-filter: blur(4px);
   background: rgba(0, 0, 0, 0.75);
   opacity: 1;
 }
