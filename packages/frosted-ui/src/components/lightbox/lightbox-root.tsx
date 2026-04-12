@@ -263,6 +263,7 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
               docEl.removeAttribute('data-lightbox-view-transition');
               docEl.style.removeProperty('--fui-morph-border-radius-from');
               docEl.style.removeProperty('--fui-morph-border-radius-to');
+              triggerEl?.focus({ preventScroll: true });
             });
           }
         } else {
@@ -284,12 +285,17 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
             onOpenChangeRef.current?.(false);
             const el = dialogElementRef.current;
             const gen = closeGenRef.current;
+            const focusTarget = triggerElementsRef.current.get(activeIndexRef.current);
             if (el) {
               Promise.allSettled(el.getAnimations().map((a) => a.finished)).then(() => {
-                if (closeGenRef.current === gen) setMounted(false);
+                if (closeGenRef.current === gen) {
+                  setMounted(false);
+                  requestAnimationFrame(() => focusTarget?.focus({ preventScroll: true }));
+                }
               });
             } else {
               setMounted(false);
+              requestAnimationFrame(() => focusTarget?.focus({ preventScroll: true }));
             }
           }
         }
