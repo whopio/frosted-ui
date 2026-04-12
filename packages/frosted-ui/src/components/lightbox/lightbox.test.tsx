@@ -85,6 +85,7 @@ function TestLightbox({
   value,
   loop = false,
   preload = 1,
+  viewTransition = false,
   withThumbnails = false,
   withCaptions = false,
   onOpenChange,
@@ -99,6 +100,7 @@ function TestLightbox({
   value?: number;
   loop?: boolean;
   preload?: number;
+  viewTransition?: boolean;
   withThumbnails?: boolean;
   withCaptions?: boolean;
   onOpenChange?: (open: boolean) => void;
@@ -113,6 +115,7 @@ function TestLightbox({
       defaultValue={defaultValue}
       value={value}
       loop={loop}
+      viewTransition={viewTransition}
       onOpenChange={onOpenChange}
       onOpenChangeComplete={onOpenChangeComplete}
       onValueChange={onValueChange}
@@ -877,6 +880,186 @@ describe('Lightbox', () => {
 
       await flushMicrotasks();
       expect(screen.queryByTestId('content')).toBeNull();
+    });
+  });
+
+  // ---------------------------------------------------------------------------
+  // 12. View Transitions
+  // ---------------------------------------------------------------------------
+
+  describe('view transitions', () => {
+    function mockViewTransitionAPI() {
+      let resolveFinished: () => void;
+      const finishedPromise = new Promise<void>((r) => {
+        resolveFinished = r;
+      });
+
+      const startViewTransition = vi.fn((callback: () => void) => {
+        callback();
+        return { finished: finishedPromise };
+      });
+
+      Object.defineProperty(document, 'startViewTransition', {
+        value: startViewTransition,
+        writable: true,
+        configurable: true,
+      });
+
+      return { startViewTransition, resolveFinished: () => resolveFinished() };
+    }
+
+    function cleanupViewTransitionAPI() {
+      delete (document as unknown as Record<string, unknown>).startViewTransition;
+      document.documentElement.removeAttribute('data-lightbox-view-transition');
+      document.documentElement.style.removeProperty('--fui-morph-border-radius-from');
+      document.documentElement.style.removeProperty('--fui-morph-border-radius-to');
+    }
+
+    afterEach(() => {
+      cleanupViewTransitionAPI();
+    });
+
+    it('falls back gracefully when viewTransition=true but API is absent', () => {
+      render(<TestLightbox viewTransition />);
+      fireEvent.click(screen.getByTestId('trigger-0'));
+      expect(screen.getByTestId('content')).toBeInTheDocument();
+    });
+
+    it('calls document.startViewTransition on open', () => {
+      const { startViewTransition } = mockViewTransitionAPI();
+      render(<TestLightbox viewTransition />);
+      fireEvent.click(screen.getByTestId('trigger-0'));
+      expect(startViewTransition).toHaveBeenCalledOnce();
+    });
+
+    it('sets data-lightbox-view-transition on <html> during open', () => {
+      mockViewTransitionAPI();
+      render(<TestLightbox viewTransition />);
+      fireEvent.click(screen.getByTestId('trigger-0'));
+      expect(document.documentElement).toHaveAttribute('data-lightbox-view-transition');
+    });
+
+    it('removes data-lightbox-view-transition after open transition finishes', async () => {
+      const { resolveFinished } = mockViewTransitionAPI();
+      render(<TestLightbox viewTransition />);
+      fireEvent.click(screen.getByTestId('trigger-0'));
+      expect(document.documentElement).toHaveAttribute('data-lightbox-view-transition');
+
+      await act(async () => resolveFinished());
+      expect(document.documentElement).not.toHaveAttribute('data-lightbox-view-transition');
+    });
+
+    it('cleans up CSS custom properties after open transition finishes', async () => {
+      const { resolveFinished } = mockViewTransitionAPI();
+      render(<TestLightbox viewTransition />);
+      fireEvent.click(screen.getByTestId('trigger-0'));
+
+      await act(async () => resolveFinished());
+      const docStyle = document.documentElement.style;
+      expect(docStyle.getPropertyValue('--fui-morph-border-radius-from')).toBe('');
+      expect(docStyle.getPropertyValue('--fui-morph-border-radius-to')).toBe('');
+    });
+
+    it('fires onOpenChangeComplete(true) after VT open finishes', async () => {
+      const { resolveFinished } = mockViewTransitionAPI();
+      const completeSpy = vi.fn();
+      render(<TestLightbox viewTransition onOpenChangeComplete={completeSpy} />);
+      fireEvent.click(screen.getByTestId('trigger-0'));
+      expect(completeSpy).not.toHaveBeenCalled();
+
+      await act(async () => resolveFinished());
+      expect(completeSpy).toHaveBeenCalledWith(true);
+    });
+
+    it('calls startViewTransition on close', async () => {
+      const { startViewTransition, resolveFinished } = mockViewTransitionAPI();
+      render(<TestLightbox viewTransition defaultOpen />);
+      startViewTransition.mockClear();
+
+      fireEvent.click(screen.getByTestId('close'));
+      expect(startViewTransition).toHaveBeenCalledOnce();
+
+      await act(async () => resolveFinished());
+    });
+
+    it('removes data-lightbox-view-transition after close transition finishes', async () => {
+      let resolveOpen: () => void;
+      let resolveClose: () => void;
+
+      const startViewTransition = vi.fn((callback: () => void) => {
+        callback();
+        if (startViewTransition.mock.calls.length === 1) {
+          return { finished: new Promise<void>((r) => { resolveOpen = r; }) };
+        }
+        return { finished: new Promise<void>((r) => { resolveClose = r; }) };
+      });
+
+      Object.defineProperty(document, 'startViewTransition', {
+        value: startViewTransition,
+        writable: true,
+        configurable: true,
+      });
+
+      render(<TestLightbox viewTransition />);
+      fireEvent.click(screen.getByTestId('trigger-0'));
+      await act(async () => resolveOpen!());
+
+      fireEvent.click(screen.getByTestId('close'));
+      expect(document.documentElement).toHaveAttribute('data-lightbox-view-transition');
+
+      await act(async () => resolveClose!());
+      expect(document.documentElement).not.toHaveAttribute('data-lightbox-view-transition');
+    });
+
+    it('fires onOpenChangeComplete(false) after VT close finishes', async () => {
+      let resolveOpen: () => void;
+      let resolveClose: () => void;
+
+      const startViewTransition = vi.fn((callback: () => void) => {
+        callback();
+        if (startViewTransition.mock.calls.length === 1) {
+          return { finished: new Promise<void>((r) => { resolveOpen = r; }) };
+        }
+        return { finished: new Promise<void>((r) => { resolveClose = r; }) };
+      });
+
+      Object.defineProperty(document, 'startViewTransition', {
+        value: startViewTransition,
+        writable: true,
+        configurable: true,
+      });
+
+      const completeSpy = vi.fn();
+      render(<TestLightbox viewTransition onOpenChangeComplete={completeSpy} />);
+      fireEvent.click(screen.getByTestId('trigger-0'));
+      await act(async () => resolveOpen!());
+      completeSpy.mockClear();
+
+      fireEvent.click(screen.getByTestId('close'));
+      expect(completeSpy).not.toHaveBeenCalled();
+
+      await act(async () => resolveClose!());
+      expect(completeSpy).toHaveBeenCalledWith(false);
+    });
+
+    it('does not use VT when prefers-reduced-motion is set', () => {
+      mockViewTransitionAPI();
+      vi.spyOn(window, 'matchMedia').mockImplementation((query: string) => ({
+        matches: query === '(prefers-reduced-motion: reduce)',
+        media: query,
+        onchange: null,
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      }));
+
+      const { startViewTransition } = { startViewTransition: document.startViewTransition as ReturnType<typeof vi.fn> };
+      render(<TestLightbox viewTransition />);
+      fireEvent.click(screen.getByTestId('trigger-0'));
+      expect(startViewTransition).not.toHaveBeenCalled();
+      expect(screen.getByTestId('content')).toBeInTheDocument();
     });
   });
 });
