@@ -239,3 +239,24 @@ dialog.fui-LightboxContent {
 :root[data-lightbox-view-transition] .fui-LightboxItem[data-active] {
   animation: none !important;
 }
+
+/***************************************************************************************************
+ *                                                                                                 *
+ * ZOOM                                                                                            *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+/* stylelint-disable selector-max-type -- img inside zoom needs type selector for drag prevention */
+[data-zoom] img {
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+/* stylelint-enable selector-max-type */
+
+[data-zoom] {
+  cursor: grab;
+}
+
+[data-zoom][data-dragging] {
+  cursor: grabbing;
+}

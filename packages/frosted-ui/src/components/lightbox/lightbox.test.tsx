@@ -19,6 +19,9 @@ import { LightboxRoot, type LightboxRootRef } from './lightbox-root';
 import { LightboxThumbnail } from './lightbox-thumbnail';
 import { LightboxThumbnailGroup } from './lightbox-thumbnail-group';
 import { LightboxTrigger } from './lightbox-trigger';
+import { LightboxZoom, type LightboxZoomRef } from './lightbox-zoom';
+import { LightboxZoomIn } from './lightbox-zoom-in';
+import { LightboxZoomOut } from './lightbox-zoom-out';
 
 // ---------------------------------------------------------------------------
 // Mocks — jsdom lacks <dialog> methods, matchMedia, getAnimations
@@ -1060,6 +1063,221 @@ describe('Lightbox', () => {
       fireEvent.click(screen.getByTestId('trigger-0'));
       expect(startViewTransition).not.toHaveBeenCalled();
       expect(screen.getByTestId('content')).toBeInTheDocument();
+    });
+  });
+
+  // ---------------------------------------------------------------------------
+  // 13. Zoom
+  // ---------------------------------------------------------------------------
+
+  describe('zoom', () => {
+    function ZoomLightbox({ maxZoom = 4, onZoomChange }: { maxZoom?: number; onZoomChange?: (z: number) => void } = {}) {
+      return (
+        <LightboxRoot defaultOpen>
+          <LightboxContent data-testid="content" aria-label="Zoom test">
+            <LightboxItemGroup>
+              <LightboxItem index={0} data-testid="item-0">
+                <LightboxZoom maxZoom={maxZoom} onZoomChange={onZoomChange}>
+                  <img src="test.jpg" alt="test" data-testid="zoom-img" />
+                  <LightboxZoomIn data-testid="zoom-in">+</LightboxZoomIn>
+                  <LightboxZoomOut data-testid="zoom-out">-</LightboxZoomOut>
+                </LightboxZoom>
+              </LightboxItem>
+              <LightboxItem index={1} data-testid="item-1">
+                <LightboxZoom maxZoom={maxZoom}>
+                  <img src="test2.jpg" alt="test2" />
+                </LightboxZoom>
+              </LightboxItem>
+            </LightboxItemGroup>
+            <LightboxNext data-testid="next">Next</LightboxNext>
+            <LightboxPrevious data-testid="prev">Previous</LightboxPrevious>
+          </LightboxContent>
+        </LightboxRoot>
+      );
+    }
+
+    function getZoomRef() {
+      const ref = React.createRef<LightboxZoomRef>();
+      function ZoomWithRef() {
+        return (
+          <LightboxRoot defaultOpen>
+            <LightboxContent aria-label="Zoom ref test">
+              <LightboxItemGroup>
+                <LightboxItem index={0}>
+                  <LightboxZoom ref={ref} maxZoom={4}>
+                    <img src="test.jpg" alt="test" data-testid="zoom-img" />
+                  </LightboxZoom>
+                </LightboxItem>
+              </LightboxItemGroup>
+            </LightboxContent>
+          </LightboxRoot>
+        );
+      }
+      return { ref, Component: ZoomWithRef };
+    }
+
+    it('renders zoom container with children', () => {
+      render(<ZoomLightbox />);
+      expect(screen.getByTestId('zoom-img')).toBeInTheDocument();
+    });
+
+    it('ZoomIn and ZoomOut buttons render', () => {
+      render(<ZoomLightbox />);
+      expect(screen.getByTestId('zoom-in')).toBeInTheDocument();
+      expect(screen.getByTestId('zoom-out')).toBeInTheDocument();
+    });
+
+    it('ZoomOut is disabled at minZoom', () => {
+      render(<ZoomLightbox />);
+      expect(screen.getByTestId('zoom-out')).toBeDisabled();
+    });
+
+    it('ZoomIn is not disabled at minZoom', () => {
+      render(<ZoomLightbox />);
+      expect(screen.getByTestId('zoom-in')).not.toBeDisabled();
+    });
+
+    it('imperative ref.zoomIn increases zoom', () => {
+      const { ref, Component } = getZoomRef();
+      render(<Component />);
+      expect(ref.current!.zoom).toBe(1);
+      act(() => ref.current!.zoomIn());
+      expect(ref.current!.zoom).toBeGreaterThan(1);
+    });
+
+    it('imperative ref.zoomOut decreases zoom', () => {
+      const { ref, Component } = getZoomRef();
+      render(<Component />);
+      act(() => ref.current!.zoomIn());
+      const zoomedIn = ref.current!.zoom;
+      act(() => ref.current!.zoomOut());
+      expect(ref.current!.zoom).toBeLessThan(zoomedIn);
+    });
+
+    it('imperative ref.zoomTo sets exact zoom', () => {
+      const { ref, Component } = getZoomRef();
+      render(<Component />);
+      act(() => ref.current!.zoomTo(2.5));
+      expect(ref.current!.zoom).toBe(2.5);
+    });
+
+    it('zoom is clamped to maxZoom', () => {
+      const { ref, Component } = getZoomRef();
+      render(<Component />);
+      act(() => ref.current!.zoomTo(100));
+      expect(ref.current!.zoom).toBe(4);
+    });
+
+    it('zoom is clamped to minZoom', () => {
+      const { ref, Component } = getZoomRef();
+      render(<Component />);
+      act(() => ref.current!.zoomTo(0.1));
+      expect(ref.current!.zoom).toBe(1);
+    });
+
+    it('imperative ref.reset resets to minZoom', () => {
+      const { ref, Component } = getZoomRef();
+      render(<Component />);
+      act(() => ref.current!.zoomTo(3));
+      expect(ref.current!.zoom).toBe(3);
+      act(() => ref.current!.reset());
+      expect(ref.current!.zoom).toBe(1);
+    });
+
+    it('onZoomChange fires when zoom changes', () => {
+      const spy = vi.fn();
+      const ref = React.createRef<LightboxZoomRef>();
+      render(
+        <LightboxRoot defaultOpen>
+          <LightboxContent aria-label="Zoom callback test">
+            <LightboxItemGroup>
+              <LightboxItem index={0}>
+                <LightboxZoom ref={ref} maxZoom={4} onZoomChange={spy}>
+                  <img src="test.jpg" alt="test" />
+                </LightboxZoom>
+              </LightboxItem>
+            </LightboxItemGroup>
+          </LightboxContent>
+        </LightboxRoot>,
+      );
+      act(() => ref.current!.zoomIn());
+      expect(spy).toHaveBeenCalledWith(expect.any(Number));
+    });
+
+    it('zoom resets when active slide changes', () => {
+      const ref = React.createRef<LightboxZoomRef>();
+      render(
+        <LightboxRoot defaultOpen>
+          <LightboxContent aria-label="Zoom reset test" data-testid="content">
+            <LightboxItemGroup>
+              <LightboxItem index={0}>
+                <LightboxZoom ref={ref} maxZoom={4}>
+                  <img src="test.jpg" alt="test" />
+                </LightboxZoom>
+              </LightboxItem>
+              <LightboxItem index={1}>
+                <LightboxZoom maxZoom={4}>
+                  <img src="test2.jpg" alt="test2" />
+                </LightboxZoom>
+              </LightboxItem>
+            </LightboxItemGroup>
+            <LightboxNext data-testid="next">Next</LightboxNext>
+          </LightboxContent>
+        </LightboxRoot>,
+      );
+      act(() => ref.current!.zoomTo(3));
+      expect(ref.current!.zoom).toBe(3);
+      fireEvent.click(screen.getByTestId('next'));
+      expect(ref.current!.zoom).toBe(1);
+    });
+
+    it('ZoomIn button outside Zoom context renders disabled', () => {
+      render(
+        <LightboxRoot defaultOpen>
+          <LightboxContent aria-label="No zoom">
+            <LightboxZoomIn data-testid="orphan-zoom-in">+</LightboxZoomIn>
+          </LightboxContent>
+        </LightboxRoot>,
+      );
+      expect(screen.getByTestId('orphan-zoom-in')).toBeDisabled();
+    });
+
+    it('ZoomOut button outside Zoom context renders disabled', () => {
+      render(
+        <LightboxRoot defaultOpen>
+          <LightboxContent aria-label="No zoom">
+            <LightboxZoomOut data-testid="orphan-zoom-out">-</LightboxZoomOut>
+          </LightboxContent>
+        </LightboxRoot>,
+      );
+      expect(screen.getByTestId('orphan-zoom-out')).toBeDisabled();
+    });
+
+    it('data-zoom attribute is set when zoomed in', () => {
+      const { ref, Component } = getZoomRef();
+      render(<Component />);
+      const container = screen.getByTestId('zoom-img').closest('[data-zoom]');
+      expect(container).toBeNull();
+      act(() => ref.current!.zoomTo(2));
+      const zoomedContainer = screen.getByTestId('zoom-img').parentElement!.parentElement!;
+      expect(zoomedContainer).toHaveAttribute('data-zoom');
+    });
+
+    it('maxZoom defaults when not specified', () => {
+      render(
+        <LightboxRoot defaultOpen>
+          <LightboxContent aria-label="Default maxZoom">
+            <LightboxItemGroup>
+              <LightboxItem index={0}>
+                <LightboxZoom>
+                  <div>No image</div>
+                </LightboxZoom>
+              </LightboxItem>
+            </LightboxItemGroup>
+          </LightboxContent>
+        </LightboxRoot>,
+      );
+      expect(screen.getByText('No image')).toBeInTheDocument();
     });
   });
 });

@@ -5,6 +5,7 @@ import * as React from 'react';
 
 import { Theme } from '../../theme';
 import { useLightboxContext } from './lightbox-context';
+import { useOptionalZoomContext } from './lightbox-zoom-context';
 
 const useLayoutEffect = typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect;
 
@@ -18,6 +19,7 @@ const LightboxContent = React.forwardRef<HTMLDialogElement, LightboxContentProps
     const { className, children, ...rest } = props;
 
     const { open, mounted, setOpen, activeIndex, setActiveIndex, itemCount, loop, dialogElementRef } = useLightboxContext();
+    const zoomContext = useOptionalZoomContext();
 
     const dialogRef = React.useRef<HTMLDialogElement | null>(null);
 
@@ -62,6 +64,10 @@ const LightboxContent = React.forwardRef<HTMLDialogElement, LightboxContentProps
       (event: React.KeyboardEvent) => {
         if (itemCount === 0) return;
 
+        // When zoomed in, arrow keys pan the image — don't navigate slides
+        const isArrow = event.key.startsWith('Arrow');
+        if (isArrow && zoomContext && zoomContext.zoom > 1) return;
+
         let nextIndex: number | null = null;
 
         switch (event.key) {
@@ -88,7 +94,7 @@ const LightboxContent = React.forwardRef<HTMLDialogElement, LightboxContentProps
           setActiveIndex(nextIndex, 'keyboard');
         }
       },
-      [activeIndex, itemCount, loop, setActiveIndex],
+      [activeIndex, itemCount, loop, setActiveIndex, zoomContext],
     );
 
     // Click on the dialog itself (not children) closes the lightbox.

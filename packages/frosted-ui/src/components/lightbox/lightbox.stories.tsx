@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ArrowUpFromBracket16, ChevronLeft16, ChevronRight16, GlobePin16, Heart16, Mail16, MessageBlank16, PlayFilled20, XMark16 } from '@frosted-ui/icons';
 import React, { useRef, useState } from 'react';
 import { Avatar, Badge, Button, Heading, IconButton, Lightbox, Link, ScrollGallery, Separator, Text } from '..';
+import type { LightboxZoomRef } from './lightbox-zoom';
 
 const images = [
   {
@@ -2260,6 +2261,104 @@ export const LifecycleCallbacks: Story = {
           ))}
         </div>
       </div>
+    );
+  },
+};
+
+// ---------------------------------------------------------------------------
+// Zoom
+// ---------------------------------------------------------------------------
+
+const zoomImages = [
+  {
+    src: 'https://picsum.photos/seed/zoom1/4000/2667',
+    thumb: 'https://picsum.photos/seed/zoom1/400/267',
+    alt: 'High-resolution landscape for zoom demo',
+    caption: 'Pinch, scroll, double-click, or Cmd+/- to zoom',
+  },
+  {
+    src: 'https://picsum.photos/seed/zoom2/4000/2667',
+    thumb: 'https://picsum.photos/seed/zoom2/400/267',
+    alt: 'High-resolution architecture for zoom demo',
+    caption: 'Pan by dragging when zoomed in',
+  },
+  {
+    src: 'https://picsum.photos/seed/zoom3/4000/2667',
+    thumb: 'https://picsum.photos/seed/zoom3/400/267',
+    alt: 'High-resolution nature for zoom demo',
+    caption: 'Double-click to zoom in, double-click again to reset',
+  },
+];
+
+export const WithZoom: Story = {
+  name: 'With Zoom',
+  render: () => {
+    const zoomRef = useRef<LightboxZoomRef>(null);
+
+    return (
+      <Lightbox.Root viewTransition>
+        <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
+          {zoomImages.map((img, i) => (
+            <Lightbox.Trigger key={img.src} index={i}>
+              <img
+                src={img.thumb}
+                alt={img.alt}
+                style={{ width: 200, height: 133, objectFit: 'cover', borderRadius: 8 }}
+              />
+            </Lightbox.Trigger>
+          ))}
+        </div>
+
+        <Lightbox.Content aria-label="Zoom demo" style={{ padding: 'var(--space-4)' }}>
+          <Lightbox.ItemGroup>
+            {zoomImages.map((img, i) => (
+              <Lightbox.Item key={img.src} index={i} caption={img.caption}>
+                <Lightbox.Zoom
+                  ref={i === 0 ? zoomRef : undefined}
+                  maxZoom={6}
+                  overlay={
+                    <div style={{ position: 'absolute', top: 'var(--space-3)', right: 'var(--space-3)', zIndex: 10, display: 'flex', gap: 'var(--space-2)', pointerEvents: 'auto' }}>
+                      <Lightbox.ZoomOut>
+                        <IconButton variant="ghost" color="gray" size="2">
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
+                        </IconButton>
+                      </Lightbox.ZoomOut>
+                      <Lightbox.ZoomIn>
+                        <IconButton variant="ghost" color="gray" size="2">
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 4v8M4 8h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
+                        </IconButton>
+                      </Lightbox.ZoomIn>
+                      <Lightbox.Close>
+                        <IconButton variant="ghost" color="gray" size="2">
+                          <XMark16 />
+                        </IconButton>
+                      </Lightbox.Close>
+                    </div>
+                  }
+                >
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
+                  />
+                </Lightbox.Zoom>
+              </Lightbox.Item>
+            ))}
+          </Lightbox.ItemGroup>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', padding: 'var(--space-3)' }}>
+            <Lightbox.Previous>
+              <IconButton variant="ghost" color="gray" size="2"><ChevronLeft16 /></IconButton>
+            </Lightbox.Previous>
+            <Lightbox.Counter />
+            <Lightbox.Next>
+              <IconButton variant="ghost" color="gray" size="2"><ChevronRight16 /></IconButton>
+            </Lightbox.Next>
+          </div>
+
+          <Lightbox.Caption />
+        </Lightbox.Content>
+      </Lightbox.Root>
     );
   },
 };

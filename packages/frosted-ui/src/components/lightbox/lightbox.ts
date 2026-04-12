@@ -33,6 +33,9 @@
  *   Caption         — Per-item caption from Item's caption prop
  *   ThumbnailGroup  — Tablist container for thumbnails
  *   Thumbnail       — Tab button navigating to a specific item
+ *   Zoom            — Zoom/pan wrapper for item content (pinch, scroll, keyboard)
+ *   ZoomIn          — Button to zoom in (consumes ZoomContext)
+ *   ZoomOut         — Button to zoom out (consumes ZoomContext)
  */
 export { LightboxRoot as Root } from './lightbox-root';
 export { LightboxTrigger as Trigger } from './lightbox-trigger';
@@ -46,6 +49,9 @@ export { LightboxCounter as Counter } from './lightbox-counter';
 export { LightboxCaption as Caption } from './lightbox-caption';
 export { LightboxThumbnailGroup as ThumbnailGroup } from './lightbox-thumbnail-group';
 export { LightboxThumbnail as Thumbnail } from './lightbox-thumbnail';
+export { LightboxZoom as Zoom } from './lightbox-zoom';
+export { LightboxZoomIn as ZoomIn } from './lightbox-zoom-in';
+export { LightboxZoomOut as ZoomOut } from './lightbox-zoom-out';
 
 export type { LightboxRootProps, LightboxRootRef } from './lightbox-root';
 export type { LightboxTriggerProps, LightboxTriggerState } from './lightbox-trigger';
@@ -60,3 +66,6 @@ export type { LightboxCaptionProps, LightboxCaptionState } from './lightbox-capt
 export type { LightboxThumbnailGroupProps, LightboxThumbnailGroupState } from './lightbox-thumbnail-group';
 export type { LightboxThumbnailProps, LightboxThumbnailState } from './lightbox-thumbnail';
 export type { NavigationSource } from './lightbox-context';
+export type { LightboxZoomProps, LightboxZoomState, LightboxZoomRef } from './lightbox-zoom';
+export type { LightboxZoomInProps, LightboxZoomInState } from './lightbox-zoom-in';
+export type { LightboxZoomOutProps, LightboxZoomOutState } from './lightbox-zoom-out';
