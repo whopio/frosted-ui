@@ -1289,6 +1289,150 @@ export const RealEstateListing: Story = {
   },
 };
 
+/* =============================================================================
+ * COLOR PALETTE
+ * Flat color swatches with no images visible — clicking a swatch morphs the
+ * solid rectangle into a full photograph dominated by that hue. Demonstrates
+ * non-image triggers morphing into images via view transitions.
+ * ========================================================================== */
+
+const colorPalette = [
+  { id: 'cerulean', name: 'Cerulean', hex: '#2a7ab5', family: 'Blue', src: 'https://picsum.photos/seed/color-cerulean/1400/900', alt: 'Clear blue sky over a calm ocean' },
+  { id: 'ochre', name: 'Ochre', hex: '#c58b2c', family: 'Yellow', src: 'https://picsum.photos/seed/color-ochre/1400/900', alt: 'Golden wheat field at sunset' },
+  { id: 'vermillion', name: 'Vermillion', hex: '#c93c20', family: 'Red', src: 'https://picsum.photos/seed/color-vermillion/1400/900', alt: 'Red autumn leaves on dark branches' },
+  { id: 'sage', name: 'Sage', hex: '#7a9a6d', family: 'Green', src: 'https://picsum.photos/seed/color-sage/1400/900', alt: 'Morning mist in a dense forest' },
+  { id: 'slate', name: 'Slate', hex: '#5e6b7a', family: 'Gray', src: 'https://picsum.photos/seed/color-slate/1400/900', alt: 'Wet stone wall in the rain' },
+  { id: 'plum', name: 'Plum', hex: '#7b3f72', family: 'Purple', src: 'https://picsum.photos/seed/color-plum/1400/900', alt: 'Lavender field stretching to the horizon' },
+  { id: 'coral', name: 'Coral', hex: '#e07555', family: 'Orange', src: 'https://picsum.photos/seed/color-coral/1400/900', alt: 'Desert canyon glowing at golden hour' },
+  { id: 'midnight', name: 'Midnight', hex: '#1e2a3a', family: 'Navy', src: 'https://picsum.photos/seed/color-midnight/1400/900', alt: 'Starry night sky over silhouetted mountains' },
+  { id: 'blush', name: 'Blush', hex: '#d4918b', family: 'Pink', src: 'https://picsum.photos/seed/color-blush/1400/900', alt: 'Cherry blossoms against a soft pink sky' },
+  { id: 'sienna', name: 'Sienna', hex: '#8b5e3c', family: 'Brown', src: 'https://picsum.photos/seed/color-sienna/1400/900', alt: 'Rustic wooden dock on a still lake' },
+  { id: 'teal', name: 'Teal', hex: '#2a8a8a', family: 'Teal', src: 'https://picsum.photos/seed/color-teal/1400/900', alt: 'Tropical lagoon with turquoise water' },
+  { id: 'ivory', name: 'Ivory', hex: '#d6cdb7', family: 'Cream', src: 'https://picsum.photos/seed/color-ivory/1400/900', alt: 'Soft morning light on white sand dunes' },
+];
+
+function SwatchCard({ color, index }: { color: typeof colorPalette[number]; index: number }) {
+  return (
+    <Lightbox.Trigger
+      index={index}
+      style={{
+        ...triggerStyle,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 0,
+        width: '100%',
+      }}
+    >
+      <div
+        data-lightbox-morph
+        style={{
+          background: color.hex,
+          aspectRatio: '3 / 2',
+          borderRadius: 12,
+          width: '100%',
+        }}
+      />
+      <div style={{ padding: 'var(--space-2) var(--space-1)' }}>
+        <Text size="2" weight="medium" style={{ display: 'block' }}>{color.name}</Text>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Text size="1" color="gray">{color.family}</Text>
+          <Text size="1" color="gray" style={{ fontFamily: 'var(--code-font-family)' }}>{color.hex}</Text>
+        </div>
+      </div>
+    </Lightbox.Trigger>
+  );
+}
+
+export const ColorPalette: Story = {
+  name: 'Color Palette',
+  render: () => (
+    <Lightbox.Root viewTransition loop>
+      <div style={{ maxWidth: 780, margin: '0 auto', padding: 'var(--space-4) 0' }}>
+        <div style={{ marginBottom: 'var(--space-5)' }}>
+          <Heading size="6" style={{ marginBottom: 'var(--space-1)' }}>Chromatic</Heading>
+          <Text size="3" color="gray" style={{ display: 'block' }}>
+            A curated palette of colors found in nature. Click any swatch to reveal its photograph.
+          </Text>
+        </div>
+
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            gap: 'var(--space-4)',
+          }}
+        >
+          {colorPalette.map((color, i) => (
+            <SwatchCard key={color.id} color={color} index={i} />
+          ))}
+        </div>
+      </div>
+
+      <Lightbox.Content aria-label="Color photographs">
+        <CloseButton />
+
+        <Lightbox.ItemGroup>
+          {colorPalette.map((color, i) => (
+            <Lightbox.Item key={color.id} index={i} caption={`${color.name} — ${color.alt}`}>
+              <img
+                src={color.src}
+                alt={color.alt}
+                style={{
+                  maxWidth: '90vw',
+                  maxHeight: '75vh',
+                  objectFit: 'contain',
+                  borderRadius: 8,
+                }}
+              />
+            </Lightbox.Item>
+          ))}
+        </Lightbox.ItemGroup>
+
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 'var(--space-4)',
+          padding: 'var(--space-3)',
+        }}>
+          <Lightbox.Previous render={<IconButton size="2" variant="ghost" color="gray" highContrast style={{ color: 'white' }} />}>
+            <ChevronLeft16 />
+          </Lightbox.Previous>
+
+          <Lightbox.Counter>
+            {({ current, total }) => {
+              const color = colorPalette[current - 1];
+              return (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', minWidth: 180, justifyContent: 'center' }}>
+                  <div style={{
+                    width: 16,
+                    height: 16,
+                    borderRadius: '50%',
+                    background: color?.hex,
+                    border: '2px solid rgba(255,255,255,0.3)',
+                    flexShrink: 0,
+                  }} />
+                  <Text size="2" weight="medium" style={{ color: 'white' }}>
+                    {color?.name}
+                  </Text>
+                  <Text size="2" style={{ color: 'rgba(255,255,255,0.5)', fontVariantNumeric: 'tabular-nums' }}>
+                    {current} / {total}
+                  </Text>
+                </div>
+              );
+            }}
+          </Lightbox.Counter>
+
+          <Lightbox.Next render={<IconButton size="2" variant="ghost" color="gray" highContrast style={{ color: 'white' }} />}>
+            <ChevronRight16 />
+          </Lightbox.Next>
+        </div>
+
+        <CaptionText />
+      </Lightbox.Content>
+    </Lightbox.Root>
+  ),
+};
+
 export const DesignFileInspector: Story = {
   name: 'Design File Inspector',
   render: () => {
