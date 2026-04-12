@@ -40,13 +40,16 @@ const LightboxItem = React.forwardRef<HTMLDivElement, LightboxItemProps>(
   function LightboxItem(props, forwardedRef) {
     const { render, index, caption, children, ...elementProps } = props;
 
-    const { registerCaption, setItemCount, activeItemElementRef } = useLightboxContext();
+    const { registerCaption, registerItem, activeItemElementRef } = useLightboxContext();
     const groupContext = useLightboxItemGroupContext();
 
     const activeIndex = groupContext.activeIndex;
     const preload = groupContext.preload;
     const isActive = index === activeIndex;
-    const distance = Math.abs(index - activeIndex);
+    const linearDist = Math.abs(index - activeIndex);
+    const distance = groupContext.loop && groupContext.itemCount > 0
+      ? Math.min(linearDist, groupContext.itemCount - linearDist)
+      : linearDist;
     const isVisible = distance <= preload;
 
     const internalRef = React.useRef<HTMLDivElement | null>(null);
@@ -73,8 +76,8 @@ const LightboxItem = React.forwardRef<HTMLDivElement, LightboxItemProps>(
     }, [isActive, activeItemElementRef]);
 
     React.useEffect(() => {
-      setItemCount((prev: number) => Math.max(prev, index + 1));
-    }, [index, setItemCount]);
+      return registerItem(index);
+    }, [index, registerItem]);
 
     React.useEffect(() => {
       if (caption !== undefined) {

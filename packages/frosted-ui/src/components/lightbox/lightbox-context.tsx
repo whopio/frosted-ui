@@ -12,7 +12,7 @@ interface LightboxContextValue {
   activeIndex: number;
   setActiveIndex: (index: number, source: NavigationSource) => void;
   itemCount: number;
-  setItemCount: React.Dispatch<React.SetStateAction<number>>;
+  registerItem: (index: number) => () => void;
   loop: boolean;
   captions: Map<number, React.ReactNode>;
   registerCaption: (index: number, caption: React.ReactNode) => () => void;

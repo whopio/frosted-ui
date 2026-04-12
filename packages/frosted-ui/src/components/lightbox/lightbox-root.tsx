@@ -129,8 +129,18 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
       }
     }, [scrollTriggerIntoView, open, activeIndex]);
 
-    // Item count — set by ItemGroup
+    // Item registry — tracks mounted items so count can grow and shrink
+    const registeredItemsRef = React.useRef(new Set<number>());
     const [itemCount, setItemCount] = React.useState(0);
+
+    const registerItem = React.useCallback((index: number) => {
+      registeredItemsRef.current.add(index);
+      setItemCount(registeredItemsRef.current.size);
+      return () => {
+        registeredItemsRef.current.delete(index);
+        setItemCount(registeredItemsRef.current.size);
+      };
+    }, []);
 
     // Caption registry
     const [captions, setCaptions] = React.useState<Map<number, React.ReactNode>>(new Map());
@@ -174,6 +184,8 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
           const docEl = document.documentElement;
           docEl.setAttribute('data-lightbox-view-transition', '');
 
+          const gen = closeGenRef.current;
+
           if (nextOpen) {
             // --- OPEN with view transition ---
             const triggerIdx = openingTriggerIndexRef.current;
@@ -209,7 +221,8 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
               }
             });
 
-            transition.finished.then(() => {
+            transition.finished.finally(() => {
+              if (closeGenRef.current !== gen) return;
               const itemEl = activeItemElementRef.current;
               const itemTarget = itemEl ? findMorphTarget(itemEl) : null;
               if (itemTarget) {
@@ -256,14 +269,16 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
               }
             });
 
-            transition.finished.then(() => {
+            transition.finished.finally(() => {
               if (triggerTarget) {
                 triggerTarget.style.viewTransitionName = '';
               }
               docEl.removeAttribute('data-lightbox-view-transition');
               docEl.style.removeProperty('--fui-morph-border-radius-from');
               docEl.style.removeProperty('--fui-morph-border-radius-to');
-              triggerEl?.focus({ preventScroll: true });
+              if (closeGenRef.current === gen) {
+                triggerEl?.focus({ preventScroll: true });
+              }
             });
           }
         } else {
@@ -328,7 +343,7 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
         activeIndex,
         setActiveIndex,
         itemCount,
-        setItemCount,
+        registerItem,
         loop,
         captions,
         registerCaption,
@@ -338,7 +353,7 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
         openingTriggerIndexRef,
         dialogElementRef,
       }),
-      [open, setOpen, mounted, activeIndex, setActiveIndex, itemCount, setItemCount, loop, captions, registerCaption, viewTransition],
+      [open, setOpen, mounted, activeIndex, setActiveIndex, itemCount, registerItem, loop, captions, registerCaption, viewTransition],
     );
 
     return <LightboxContext.Provider value={contextValue}>{children}</LightboxContext.Provider>;

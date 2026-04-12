@@ -33,12 +33,16 @@ interface LightboxItemGroupContextValue {
   activeIndex: number;
   preload: number;
   direction: 'forward' | 'backward';
+  loop: boolean;
+  itemCount: number;
 }
 
 const LightboxItemGroupContext = React.createContext<LightboxItemGroupContextValue>({
   activeIndex: 0,
   preload: 1,
   direction: 'forward',
+  loop: false,
+  itemCount: 0,
 });
 
 function useLightboxItemGroupContext(): LightboxItemGroupContextValue {
@@ -48,7 +52,7 @@ function useLightboxItemGroupContext(): LightboxItemGroupContextValue {
 const LightboxItemGroup = React.forwardRef<HTMLDivElement, LightboxItemGroupProps>(
   function LightboxItemGroup(props, forwardedRef) {
     const { render, preload = 1, ...elementProps } = props;
-    const { activeIndex } = useLightboxContext();
+    const { activeIndex, loop, itemCount } = useLightboxContext();
 
     const prevIndexRef = React.useRef(activeIndex);
     const [direction, setDirection] = React.useState<'forward' | 'backward'>('forward');
@@ -66,8 +70,8 @@ const LightboxItemGroup = React.forwardRef<HTMLDivElement, LightboxItemGroupProp
     );
 
     const groupContext = React.useMemo<LightboxItemGroupContextValue>(
-      () => ({ activeIndex, preload, direction }),
-      [activeIndex, preload, direction],
+      () => ({ activeIndex, preload, direction, loop, itemCount }),
+      [activeIndex, preload, direction, loop, itemCount],
     );
 
     return (
