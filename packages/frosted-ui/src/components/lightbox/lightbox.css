@@ -65,6 +65,17 @@ dialog.fui-LightboxContent {
   justify-content: center;
 }
 
+/* Caption — single line, truncated to prevent layout shift */
+.fui-LightboxCaption {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  min-width: 0;
+  padding-inline: var(--space-5);
+  box-sizing: border-box;
+}
+
 .fui-LightboxItem[aria-hidden='true'] {
   visibility: hidden;
 }
