@@ -8,6 +8,13 @@
   opacity: 0;
 }
 
+/* Prevent background scrolling while the lightbox is open.
+   overscroll-behavior has no effect on <dialog> (not a scroll port),
+   so we lock the document instead. */
+html:has(dialog.fui-LightboxContent[open]) {
+  overflow: hidden;
+}
+
 /* Dialog reset — remove browser defaults */
 dialog.fui-LightboxContent {
   border: none;
