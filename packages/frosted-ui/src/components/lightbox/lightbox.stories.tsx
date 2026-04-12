@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { ArrowUpFromBracket16, ChevronLeft16, ChevronRight16, Heart16, MessageBlank16, XMark16 } from '@frosted-ui/icons';
+import { ArrowUpFromBracket16, ChevronLeft16, ChevronRight16, Heart16, MessageBlank16, PlayFilled20, XMark16 } from '@frosted-ui/icons';
 import React, { useRef, useState } from 'react';
 import { Avatar, Badge, Button, Heading, IconButton, Lightbox, Link, ScrollGallery, Separator, Text } from '..';
 
@@ -1561,6 +1561,274 @@ export const DesignFileInspector: Story = {
           </ScrollGallery.Root>
         </Lightbox.Content>
       </Lightbox.Root>
+    );
+  },
+};
+
+/* =============================================================================
+ * FILM TRAILERS
+ * Movie poster grid where each poster morphs into a fullscreen video player.
+ * Tests: video elements in lightbox items, auto-play on active, poster-to-video
+ * morph, and pause on navigate.
+ * ========================================================================== */
+
+const films = [
+  {
+    id: 'bbb',
+    title: 'Big Buck Bunny',
+    year: 2008,
+    genre: 'Animation',
+    duration: '9 min',
+    poster: 'https://picsum.photos/seed/film-bbb/400/600',
+    video: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    synopsis: 'A giant rabbit deals with three bullying rodents in this landmark open-source animated short.',
+  },
+  {
+    id: 'ed',
+    title: 'Elephant Dream',
+    year: 2006,
+    genre: 'Sci-Fi',
+    duration: '11 min',
+    poster: 'https://picsum.photos/seed/film-ed/400/600',
+    video: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+    synopsis: 'Two characters explore a strange mechanical world, questioning reality and their relationship.',
+  },
+  {
+    id: 'sintel',
+    title: 'Sintel',
+    year: 2010,
+    genre: 'Fantasy',
+    duration: '15 min',
+    poster: 'https://picsum.photos/seed/film-sin/400/600',
+    video: 'https://storage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
+    synopsis: 'A lone warrior searches for a baby dragon she befriended, facing dangerous adversaries along the way.',
+  },
+  {
+    id: 'tos',
+    title: 'Tears of Steel',
+    year: 2012,
+    genre: 'Sci-Fi',
+    duration: '12 min',
+    poster: 'https://picsum.photos/seed/film-tos/400/600',
+    video: 'https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
+    synopsis: 'In a dystopian future, a group of warriors and scientists attempt to reverse an apocalyptic event.',
+  },
+  {
+    id: 'subaru',
+    title: 'On Street & Dirt',
+    year: 2020,
+    genre: 'Documentary',
+    duration: '1 min',
+    poster: 'https://picsum.photos/seed/film-sub/400/600',
+    video: 'https://storage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4',
+    synopsis: 'A short film showcasing the versatility of driving through diverse landscapes and terrain.',
+  },
+  {
+    id: 'fbj',
+    title: 'For Bigger Joyrides',
+    year: 2014,
+    genre: 'Action',
+    duration: '1 min',
+    poster: 'https://picsum.photos/seed/film-fbj/400/600',
+    video: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
+    synopsis: 'A high-octane teaser that puts you behind the wheel for an adrenaline-pumping ride.',
+  },
+];
+
+function FilmCard({ film, index }: { film: (typeof films)[number]; index: number }) {
+  return (
+    <Lightbox.Trigger
+      index={index}
+      style={{ display: 'block', textDecoration: 'none', border: 'none', background: 'none', padding: 0, cursor: 'pointer', textAlign: 'left' }}
+    >
+      <div style={{ position: 'relative', borderRadius: 12, overflow: 'hidden' }}>
+        <img
+          data-lightbox-morph
+          src={film.poster}
+          alt={film.title}
+          style={{
+            display: 'block',
+            width: '100%',
+            aspectRatio: '2 / 3',
+            objectFit: 'cover',
+            borderRadius: 12,
+          }}
+          loading="lazy"
+        />
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'rgba(0,0,0,0.25)',
+            opacity: 0,
+            transition: 'opacity 200ms ease',
+            borderRadius: 12,
+          }}
+          className="film-card-overlay"
+        >
+          <div style={{
+            width: 48,
+            height: 48,
+            borderRadius: '50%',
+            background: 'rgba(255,255,255,0.95)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#000',
+          }}>
+            <PlayFilled20 />
+          </div>
+        </div>
+      </div>
+      <div style={{ padding: '10px 2px 0' }}>
+        <Text size="2" weight="medium" style={{ display: 'block', lineHeight: 1.3 }}>
+          {film.title}
+        </Text>
+        <Text size="1" color="gray">
+          {film.year} · {film.genre}
+        </Text>
+      </div>
+    </Lightbox.Trigger>
+  );
+}
+
+function LightboxVideo({ src, poster, active }: { src: string; poster: string; active: boolean }) {
+  const videoRef = React.useRef<HTMLVideoElement>(null);
+
+  React.useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    if (active) {
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      el.play().catch(() => {});
+    } else {
+      el.pause();
+      el.currentTime = 0;
+    }
+  }, [active]);
+
+  return (
+    <video
+      ref={videoRef}
+      data-lightbox-morph
+      src={src}
+      poster={poster}
+      controls
+      playsInline
+      preload="metadata"
+      style={{
+        width: '100%',
+        maxHeight: '80vh',
+        borderRadius: 8,
+        background: '#000',
+        objectFit: 'contain',
+      }}
+    />
+  );
+}
+
+export const FilmTrailers: Story = {
+  name: 'Film Trailers',
+  render: () => {
+    return (
+      <div style={{ maxWidth: 720, margin: '0 auto' }}>
+        <div style={{ padding: 'var(--space-5) 0 var(--space-4)' }}>
+          <Text size="1" weight="medium" color="gray" style={{ textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+            Now Streaming
+          </Text>
+          <Heading size="6" style={{ marginTop: 4 }}>
+            Short Film Festival
+          </Heading>
+          <Text size="2" color="gray" style={{ marginTop: 8, display: 'block', maxWidth: 480 }}>
+            A curated collection of award-winning open-source short films. Click any poster to watch the trailer.
+          </Text>
+        </div>
+
+        <style>{`
+          .film-card-overlay { opacity: 0 !important; }
+          button:hover .film-card-overlay { opacity: 1 !important; }
+        `}</style>
+
+        <Lightbox.Root viewTransition>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(3, 1fr)',
+              gap: 20,
+            }}
+          >
+            {films.map((film, i) => (
+              <FilmCard key={film.id} film={film} index={i} />
+            ))}
+          </div>
+
+          <Lightbox.Content>
+            <div style={{
+              position: 'absolute',
+              top: 'var(--space-4)',
+              right: 'var(--space-4)',
+              zIndex: 10,
+            }}>
+              <Lightbox.Close render={<IconButton variant="ghost" color="gray" size="3" aria-label="Close" />}>
+                <XMark16 />
+              </Lightbox.Close>
+            </div>
+
+            <div style={{
+              position: 'absolute',
+              left: 'var(--space-4)',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              zIndex: 10,
+            }}>
+              <Lightbox.Previous render={<IconButton variant="ghost" color="gray" size="3" aria-label="Previous" />}>
+                <ChevronLeft16 />
+              </Lightbox.Previous>
+            </div>
+
+            <div style={{
+              position: 'absolute',
+              right: 'var(--space-4)',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              zIndex: 10,
+            }}>
+              <Lightbox.Next render={<IconButton variant="ghost" color="gray" size="3" aria-label="Next" />}>
+                <ChevronRight16 />
+              </Lightbox.Next>
+            </div>
+
+            <Lightbox.ItemGroup style={{ padding: '0 64px' }}>
+              {films.map((film, i) => (
+                <Lightbox.Item
+                  key={film.id}
+                  index={i}
+                  caption={
+                    <span>
+                      <strong>{film.title}</strong> ({film.year}) — {film.synopsis}
+                    </span>
+                  }
+                >
+                  {({ active }) => (
+                    <LightboxVideo src={film.video} poster={film.poster} active={active} />
+                  )}
+                </Lightbox.Item>
+              ))}
+            </Lightbox.ItemGroup>
+
+            <div style={{ padding: 'var(--space-3) var(--space-5)', textAlign: 'center' }}>
+              <Lightbox.Caption render={<Text size="2" color="gray" />} />
+            </div>
+
+            <div style={{ paddingBottom: 'var(--space-4)' }}>
+              <Lightbox.Counter render={<Text size="1" color="gray" />} />
+            </div>
+          </Lightbox.Content>
+        </Lightbox.Root>
+      </div>
     );
   },
 };
