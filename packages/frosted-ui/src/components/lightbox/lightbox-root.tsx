@@ -12,6 +12,10 @@ import {
   type NavigationSource,
 } from './lightbox-context';
 
+function startViewTransition(callback: () => void): { finished: Promise<void> } {
+  return (document as Document & { startViewTransition: (cb: () => void) => { finished: Promise<void> } }).startViewTransition(callback);
+}
+
 interface LightboxRootProps {
   children?: React.ReactNode;
   /** Uncontrolled initial open state. @default false */
@@ -184,7 +188,7 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
               docEl.style.setProperty('--fui-morph-border-radius-from', fromRadius);
             }
 
-            const transition = (document as any).startViewTransition(() => {
+            const transition = startViewTransition(() => {
               if (triggerTarget) {
                 triggerTarget.style.viewTransitionName = '';
               }
@@ -235,7 +239,7 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
               docEl.style.setProperty('--fui-morph-border-radius-to', toRadius);
             }
 
-            const transition = (document as any).startViewTransition(() => {
+            const transition = startViewTransition(() => {
               if (itemTarget) {
                 itemTarget.style.viewTransitionName = '';
               }
