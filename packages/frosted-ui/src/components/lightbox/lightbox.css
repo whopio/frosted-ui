@@ -15,7 +15,6 @@
 .fui-LightboxBackdrop {
   position: fixed;
   inset: 0;
-  z-index: 2147483646;
   pointer-events: auto;
 }
 
@@ -23,7 +22,6 @@
 .fui-LightboxContent {
   position: fixed;
   inset: 0;
-  z-index: 2147483647;
   display: flex;
   flex-direction: column;
   align-items: center;
