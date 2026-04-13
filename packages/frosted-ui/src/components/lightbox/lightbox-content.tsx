@@ -2,6 +2,7 @@
 
 import classNames from 'classnames';
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 import { Theme } from '../../theme';
 import { useLightboxContext } from './lightbox-context';
@@ -12,13 +13,16 @@ const useLayoutEffect = typeof window !== 'undefined' ? React.useLayoutEffect : 
 interface LightboxContentProps extends React.ComponentPropsWithRef<'dialog'> {
   className?: string;
   children?: React.ReactNode;
+  /** Container element for the portal. Defaults to `document.body`. */
+  container?: Element | DocumentFragment | null;
 }
 
 const LightboxContent = React.forwardRef<HTMLDialogElement, LightboxContentProps>(
   function LightboxContent(props, forwardedRef) {
-    const { className, children, ...rest } = props;
+    const { className, children, container, ...rest } = props;
 
-    const { open, mounted, setOpen, activeIndex, setActiveIndex, itemCount, loop, dialogElementRef } = useLightboxContext();
+    const { open, mounted, setOpen, activeIndex, setActiveIndex, itemCount, loop, dialogElementRef } =
+      useLightboxContext();
     const zoomContext = useOptionalZoomContext();
 
     const dialogRef = React.useRef<HTMLDialogElement | null>(null);
@@ -110,22 +114,30 @@ const LightboxContent = React.forwardRef<HTMLDialogElement, LightboxContentProps
 
     if (!mounted) return null;
 
-    return (
-      <dialog
-        ref={mergedRef}
-        className={classNames('fui-LightboxContent', className)}
-        data-open={open || undefined}
-        onCancel={handleCancel}
-        onKeyDown={handleKeyDown}
-        onClick={handleClick}
-        tabIndex={-1}
-        {...rest}
-      >
-        <Theme appearance="dark" style={{ display: 'contents' }}>
-          {children}
-        </Theme>
-      </dialog>
+    const portalTarget = container ?? (typeof document !== 'undefined' ? document.body : null);
+
+    const dialog = (
+      <Theme
+        appearance="dark"
+        hasBackground={false}
+        render={
+          <dialog
+            ref={mergedRef}
+            className={classNames('fui-LightboxContent', className)}
+            data-open={open || undefined}
+            onCancel={handleCancel}
+            onKeyDown={handleKeyDown}
+            onClick={handleClick}
+            tabIndex={-1}
+            {...rest}
+          >
+            {children}
+          </dialog>
+        }
+      />
     );
+
+    return portalTarget ? ReactDOM.createPortal(dialog, portalTarget) : dialog;
   },
 );
 
@@ -133,3 +145,4 @@ LightboxContent.displayName = 'LightboxContent';
 
 export { LightboxContent };
 export type { LightboxContentProps };
+
