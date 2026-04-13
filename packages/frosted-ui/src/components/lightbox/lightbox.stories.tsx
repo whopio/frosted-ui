@@ -719,6 +719,22 @@ const feedPosts: FeedPost[] = [
     ],
     stats: { replies: 34, likes: 1567, shares: 201 },
   },
+  {
+    id: 'post-6',
+    user: { name: 'Tomás Rivera', handle: '@tomasrivera', avatar: 'https://i.pravatar.cc/150?u=tomas', initials: 'TR' },
+    text: 'Week-long road trip through the coast is done. Seven stops, seven completely different landscapes. This country never stops surprising me.',
+    time: '2d',
+    images: [
+      { src: 'https://picsum.photos/seed/feed6a/1200/800', thumb: 'https://picsum.photos/seed/feed6a/600/400', alt: 'Dramatic cliffside road at sunset' },
+      { src: 'https://picsum.photos/seed/feed6b/1200/900', thumb: 'https://picsum.photos/seed/feed6b/600/450', alt: 'Turquoise cove with fishing boats' },
+      { src: 'https://picsum.photos/seed/feed6c/1200/800', thumb: 'https://picsum.photos/seed/feed6c/600/400', alt: 'Terraced vineyards in morning mist' },
+      { src: 'https://picsum.photos/seed/feed6d/900/1200', thumb: 'https://picsum.photos/seed/feed6d/450/600', alt: 'Old lighthouse on a rocky headland' },
+      { src: 'https://picsum.photos/seed/feed6e/1200/800', thumb: 'https://picsum.photos/seed/feed6e/600/400', alt: 'Wild horses grazing on a dune' },
+      { src: 'https://picsum.photos/seed/feed6f/1200/900', thumb: 'https://picsum.photos/seed/feed6f/600/450', alt: 'Street musicians in a coastal town square' },
+      { src: 'https://picsum.photos/seed/feed6g/1200/800', thumb: 'https://picsum.photos/seed/feed6g/600/400', alt: 'Milky Way over a deserted beach' },
+    ],
+    stats: { replies: 97, likes: 3842, shares: 514 },
+  },
 ];
 
 function formatCount(n: number): string {
@@ -793,11 +809,29 @@ function ImageGrid({ imgs }: { imgs: FeedPost['images'] }) {
     );
   }
 
+  const extra = count - 4;
+
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gap: 2, aspectRatio: '3/2' }}>
       {imgs.slice(0, 4).map((img, i) => (
         <Lightbox.Trigger key={i} index={i} style={feedTriggerBase}>
-          <img src={img.thumb} alt={img.alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', borderRadius: cornerRadius(i, 4, r) }} />
+          <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+            <img src={img.thumb} alt={img.alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', borderRadius: cornerRadius(i, 4, r) }} />
+            {i === 3 && extra > 0 && (
+              <div style={{
+                position: 'absolute',
+                inset: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: 'rgba(0, 0, 0, 0.5)',
+                borderRadius: cornerRadius(3, 4, r),
+                pointerEvents: 'none',
+              }}>
+                <Text size="6" weight="bold" style={{ color: '#fff' }}>+{extra}</Text>
+              </div>
+            )}
+          </div>
         </Lightbox.Trigger>
       ))}
     </div>
