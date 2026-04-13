@@ -855,9 +855,9 @@ function ActionBar({ stats }: { stats: FeedPost['stats'] }) {
   );
 }
 
-function FeedPostCard({ post }: { post: FeedPost }) {
+function FeedPostCard({ post, morphTo }: { post: FeedPost; morphTo?: 'active' | 'origin' | 'closest' }) {
   return (
-    <Lightbox.Root viewTransition>
+    <Lightbox.Root viewTransition morphTo={morphTo}>
       <article style={{ display: 'flex', gap: 'var(--space-3)', padding: 'var(--space-4) 0' }}>
         <div style={{ flexShrink: 0, paddingTop: 2 }}>
           <Avatar
@@ -911,7 +911,7 @@ export const SocialFeed: Story = {
 
       {feedPosts.map((post, i) => (
         <React.Fragment key={post.id}>
-          <FeedPostCard post={post} />
+          <FeedPostCard post={post} morphTo={post.images.length > 4 ? 'closest' : undefined} />
           {i < feedPosts.length - 1 && (
             <Separator size="4" />
           )}
@@ -2389,4 +2389,249 @@ export const WithZoom: Story = {
       </Lightbox.Root>
     );
   },
+};
+
+// ---------------------------------------------------------------------------
+// morphTo Setting — Showcase of all three close-morph strategies
+// ---------------------------------------------------------------------------
+
+const morphDemoImages = [
+  { src: 'https://picsum.photos/seed/morph1/1200/800', thumb: 'https://picsum.photos/seed/morph1/300/200', alt: 'Alpine meadow' },
+  { src: 'https://picsum.photos/seed/morph2/1200/800', thumb: 'https://picsum.photos/seed/morph2/300/200', alt: 'Rocky coastline' },
+  { src: 'https://picsum.photos/seed/morph3/1200/800', thumb: 'https://picsum.photos/seed/morph3/300/200', alt: 'Autumn vineyard' },
+  { src: 'https://picsum.photos/seed/morph4/1200/800', thumb: 'https://picsum.photos/seed/morph4/300/200', alt: 'Desert canyon' },
+  { src: 'https://picsum.photos/seed/morph5/1200/800', thumb: 'https://picsum.photos/seed/morph5/300/200', alt: 'Northern lake' },
+];
+
+function MorphToDemo({
+  morphTo,
+  triggerCount = morphDemoImages.length,
+}: {
+  morphTo: 'active' | 'origin' | 'closest';
+  triggerCount?: number;
+}) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  return (
+    <Lightbox.Root
+      viewTransition
+      morphTo={morphTo}
+      value={activeIndex}
+      onValueChange={(v) => setActiveIndex(v)}
+    >
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: `repeat(${triggerCount}, 1fr)`,
+        gap: 8,
+      }}>
+        {morphDemoImages.slice(0, triggerCount).map((img, i) => (
+          <Lightbox.Trigger key={i} index={i} style={{ padding: 0, border: 'none', cursor: 'pointer', background: 'none' }}>
+            <img
+              src={img.thumb}
+              alt={img.alt}
+              style={{ width: '100%', aspectRatio: '3/2', objectFit: 'cover', display: 'block', borderRadius: 8 }}
+            />
+          </Lightbox.Trigger>
+        ))}
+      </div>
+
+      <Lightbox.Content aria-label={`morphTo="${morphTo}" demo`}>
+        <CloseButton />
+        <Lightbox.ItemGroup>
+          {morphDemoImages.map((img, i) => (
+            <Lightbox.Item key={i} index={i} caption={img.alt}>
+              <img
+                src={img.src}
+                alt={img.alt}
+                style={{ maxWidth: '90vw', maxHeight: '80vh', objectFit: 'contain', borderRadius: 8 }}
+              />
+            </Lightbox.Item>
+          ))}
+        </Lightbox.ItemGroup>
+        <NavControls />
+      </Lightbox.Content>
+    </Lightbox.Root>
+  );
+}
+
+export const MorphToSetting: Story = {
+  name: 'morphTo Setting',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-8)', maxWidth: 720, margin: '0 auto' }}>
+
+      <div>
+        <Heading size="4" style={{ marginBottom: 'var(--space-2)' }}>
+          morphTo=&quot;active&quot;
+        </Heading>
+        <Text size="2" color="gray" render={<p />} style={{ marginBottom: 'var(--space-4)', lineHeight: 1.6 }}>
+          Default behavior. On close the lightbox morphs back to the trigger that matches the current active index. All five images have triggers, so every item has a target. Navigate to any image and close — the morph always lands on the matching trigger.
+        </Text>
+        <MorphToDemo morphTo="active" />
+      </div>
+
+      <Separator size="4" />
+
+      <div>
+        <Heading size="4" style={{ marginBottom: 'var(--space-2)' }}>
+          morphTo=&quot;origin&quot;
+        </Heading>
+        <Text size="2" color="gray" render={<p />} style={{ marginBottom: 'var(--space-4)', lineHeight: 1.6 }}>
+          Always morph back to the trigger that originally opened the lightbox, regardless of which item is active when closing. Useful when there is only one trigger (e.g. a message attachment stack) — no matter how far you navigate, the close animation always returns to the opening trigger.
+        </Text>
+        <MorphToDemo morphTo="origin" triggerCount={1} />
+      </div>
+
+      <Separator size="4" />
+
+      <div>
+        <Heading size="4" style={{ marginBottom: 'var(--space-2)' }}>
+          morphTo=&quot;closest&quot;
+        </Heading>
+        <Text size="2" color="gray" render={<p />} style={{ marginBottom: 'var(--space-4)', lineHeight: 1.6 }}>
+          Morph to the trigger at the active index if it exists; otherwise fall back to the nearest registered trigger. Below, only the first 3 of 5 images have visible triggers. Navigate to image 4 or 5 and close — the morph falls back to trigger 3 (the closest). Great for grids with a &quot;+N more&quot; overlay.
+        </Text>
+        <MorphToDemo morphTo="closest" triggerCount={3} />
+      </div>
+    </div>
+  ),
+};
+
+// ---------------------------------------------------------------------------
+// Text Message with Image Stack
+// ---------------------------------------------------------------------------
+
+const messageImages = [
+  {
+    src: 'https://picsum.photos/seed/msg1/1200/1600',
+    thumb: 'https://picsum.photos/seed/msg1/400/533',
+    alt: 'Screenshot of a changelog notification',
+  },
+  {
+    src: 'https://picsum.photos/seed/msg2/1200/1600',
+    thumb: 'https://picsum.photos/seed/msg2/400/533',
+    alt: 'Screenshot of a code review discussion',
+  },
+  {
+    src: 'https://picsum.photos/seed/msg3/1200/1600',
+    thumb: 'https://picsum.photos/seed/msg3/400/533',
+    alt: 'Screenshot of a pull request overview',
+  },
+];
+
+const stackRotations = [-6, 2, 0];
+const stackOffsets = [
+  { x: -12, y: 8 },
+  { x: 10, y: -4 },
+  { x: 0, y: 0 },
+];
+
+export const TextMessage: Story = {
+  name: 'Text Message',
+  render: () => (
+    <div style={{
+      minHeight: '80vh',
+      display: 'flex',
+      alignItems: 'flex-end',
+      justifyContent: 'flex-end',
+      padding: 'var(--space-6)',
+      background: 'var(--gray-2)',
+    }}>
+      <Lightbox.Root viewTransition morphTo="origin">
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 'var(--space-3)', maxWidth: 300 }}>
+          {/* Timestamp */}
+          <Text size="1" color="gray" style={{ textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            Today at 11:11 AM
+          </Text>
+
+          {/* Chat bubble */}
+          <div style={{
+            background: 'var(--accent-9)',
+            color: 'white',
+            padding: 'var(--space-2) var(--space-4)',
+            borderRadius: 20,
+            borderBottomRightRadius: 4,
+          }}>
+            <Text size="3" weight="medium" style={{ color: 'inherit' }}>some imgs</Text>
+          </div>
+
+          {/* Image stack — only the front image is a trigger */}
+          <div style={{ position: 'relative', width: 220, height: 300 }}>
+            {/* Background cards (not triggers — stay visible when lightbox opens) */}
+            {messageImages.slice(1).map((img, i) => (
+              <img
+                key={img.src}
+                src={img.thumb}
+                alt={img.alt}
+                style={{
+                  position: 'absolute',
+                  width: 200,
+                  height: 280,
+                  objectFit: 'cover',
+                  borderRadius: 16,
+                  display: 'block',
+                  left: '50%',
+                  top: '50%',
+                  transform: `translate(-50%, -50%) translate(${stackOffsets[i + 1].x}px, ${stackOffsets[i + 1].y}px) rotate(${stackRotations[i + 1]}deg)`,
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+                  zIndex: messageImages.length - (i + 1),
+                }}
+              />
+            ))}
+            {/* Front card — the trigger that morphs into the lightbox */}
+            <Lightbox.Trigger index={0} style={{
+              ...triggerStyle,
+              position: 'absolute',
+              width: 200,
+              height: 280,
+              left: '50%',
+              top: '50%',
+              transform: `translate(-50%, -50%) translate(${stackOffsets[0].x}px, ${stackOffsets[0].y}px) rotate(${stackRotations[0]}deg)`,
+              zIndex: messageImages.length,
+            }}>
+              <img
+                src={messageImages[0].thumb}
+                alt={messageImages[0].alt}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  borderRadius: 16,
+                  display: 'block',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+                }}
+              />
+            </Lightbox.Trigger>
+          </div>
+
+          {/* Attachment count */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ opacity: 0.4 }}>
+              <rect x="1" y="3" width="6" height="5" rx="1" stroke="currentColor" strokeWidth="1.2" />
+              <rect x="5" y="1" width="6" height="5" rx="1" stroke="currentColor" strokeWidth="1.2" fill="var(--gray-2)" />
+              <rect x="9" y="3" width="6" height="5" rx="1" stroke="currentColor" strokeWidth="1.2" fill="var(--gray-2)" />
+              <rect x="3" y="8" width="10" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.2" fill="var(--gray-2)" />
+            </svg>
+            <Text size="1" color="gray">{messageImages.length} attachments</Text>
+          </div>
+        </div>
+
+        <Lightbox.Content aria-label="Message attachments">
+          <CloseButton />
+
+          <Lightbox.ItemGroup>
+            {messageImages.map((img, i) => (
+              <Lightbox.Item key={img.src} index={i}>
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  style={{ maxWidth: '90vw', maxHeight: '80vh', objectFit: 'contain', borderRadius: 8 }}
+                />
+              </Lightbox.Item>
+            ))}
+          </Lightbox.ItemGroup>
+
+          <NavControls />
+        </Lightbox.Content>
+      </Lightbox.Root>
+    </div>
+  ),
 };

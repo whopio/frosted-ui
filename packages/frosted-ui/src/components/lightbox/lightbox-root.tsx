@@ -65,6 +65,19 @@ interface LightboxRootProps {
     type: 'onChange' | 'onClose';
     behavior?: 'smooth' | 'instant';
   };
+  /**
+   * Controls which trigger receives the View Transition morph on close.
+   *
+   * - `'active'` (default) — morph to the trigger matching the current
+   *   active index. No morph if no trigger exists for that index.
+   * - `'origin'` — always morph back to the trigger that originally
+   *   opened the lightbox, regardless of which item is active.
+   * - `'closest'` — morph to the trigger at the active index if it
+   *   exists, otherwise fall back to the nearest registered trigger.
+   *
+   * @default 'active'
+   */
+  morphTo?: 'active' | 'origin' | 'closest';
 }
 
 interface LightboxRootRef {
@@ -82,6 +95,26 @@ function scrollTriggerEl(el: HTMLElement | undefined, behavior: ScrollBehavior =
   }
 }
 
+function resolveTriggerIndex(
+  activeIndex: number,
+  morphTo: 'active' | 'origin' | 'closest',
+  openingIndex: number,
+  triggerElements: Map<number, HTMLElement>,
+): number {
+  if (morphTo === 'origin') return openingIndex;
+  if (morphTo === 'active' || triggerElements.has(activeIndex)) return activeIndex;
+  let best = -1;
+  let bestDist = Infinity;
+  for (const idx of triggerElements.keys()) {
+    const dist = Math.abs(idx - activeIndex);
+    if (dist < bestDist) {
+      bestDist = dist;
+      best = idx;
+    }
+  }
+  return best >= 0 ? best : activeIndex;
+}
+
 const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
   function LightboxRoot(props, forwardedRef) {
     const {
@@ -96,6 +129,7 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
       loop = false,
       viewTransition = false,
       scrollTriggerIntoView = null,
+      morphTo = 'active',
     } = props;
 
     // Open state — controlled or uncontrolled
@@ -249,7 +283,12 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
             // --- CLOSE with view transition ---
             const itemEl = activeItemElementRef.current;
             const itemTarget = itemEl ? findMorphTarget(itemEl) : null;
-            const triggerIdx = activeIndexRef.current;
+            const triggerIdx = resolveTriggerIndex(
+              activeIndexRef.current,
+              morphTo,
+              openingTriggerIndexRef.current,
+              triggerElementsRef.current,
+            );
             const triggerEl = triggerElementsRef.current.get(triggerIdx);
             const triggerTarget = triggerEl ? findMorphTarget(triggerEl) : null;
 
@@ -318,8 +357,14 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
               }
             });
           } else {
+            const closeTriggerIdx = resolveTriggerIndex(
+              activeIndexRef.current,
+              morphTo,
+              openingTriggerIndexRef.current,
+              triggerElementsRef.current,
+            );
             if (scrollTriggerIntoView) {
-              const triggerEl = triggerElementsRef.current.get(activeIndexRef.current);
+              const triggerEl = triggerElementsRef.current.get(closeTriggerIdx);
               scrollTriggerEl(triggerEl, 'instant');
             }
             if (!isControlledOpen) {
@@ -328,7 +373,7 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
             onOpenChangeRef.current?.(false);
             const el = dialogElementRef.current;
             const gen = closeGenRef.current;
-            const focusTarget = triggerElementsRef.current.get(activeIndexRef.current);
+            const focusTarget = triggerElementsRef.current.get(closeTriggerIdx);
             if (el) {
               Promise.allSettled(el.getAnimations().map((a) => a.finished)).then(() => {
                 if (closeGenRef.current === gen) {
@@ -345,7 +390,7 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
           }
         }
       },
-      [isControlledOpen, viewTransition, scrollTriggerIntoView],
+      [isControlledOpen, viewTransition, scrollTriggerIntoView, morphTo],
     );
 
     // Imperative handle
