@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { ArrowUpFromBracket16, ChevronLeft16, ChevronRight16, GlobePin16, Heart16, Mail16, MessageBlank16, PlayFilled20, XMark16 } from '@frosted-ui/icons';
 import React, { useRef, useState } from 'react';
-import { Avatar, Badge, Button, Heading, IconButton, Lightbox, Link, ScrollGallery, Separator, Text } from '..';
+import { Avatar, Badge, Button, Heading, IconButton, Lightbox, Link, ScrollGallery, Separator, Text, Tooltip } from '..';
 import type { LightboxZoomRef } from './lightbox-zoom';
 
 const images = [
@@ -71,17 +71,21 @@ type Story = StoryObj;
 
 const CloseButton = () => (
   <div style={{ position: 'absolute', top: 'var(--space-4)', right: 'var(--space-4)', zIndex: 1 }}>
-    <Lightbox.Close render={<IconButton size="2" variant="ghost" color="gray" highContrast style={{ color: 'white' }} />}>
-      <XMark16 />
-    </Lightbox.Close>
+    <Tooltip content="Close">
+      <Lightbox.Close render={<IconButton size="2" variant="ghost" color="gray" highContrast style={{ color: 'white' }} />}>
+        <XMark16 />
+      </Lightbox.Close>
+    </Tooltip>
   </div>
 );
 
 const NavControls = () => (
   <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', padding: 'var(--space-3)' }}>
-    <Lightbox.Previous render={<IconButton size="2" variant="ghost" color="gray" highContrast style={{ color: 'white' }} />}>
-      <ChevronLeft16 />
-    </Lightbox.Previous>
+    <Tooltip content="Previous">
+      <Lightbox.Previous render={<IconButton size="2" variant="ghost" color="gray" highContrast style={{ color: 'white' }} />}>
+        <ChevronLeft16 />
+      </Lightbox.Previous>
+    </Tooltip>
 
     <Lightbox.Counter>
       {({ current, total }) => (
@@ -91,9 +95,11 @@ const NavControls = () => (
       )}
     </Lightbox.Counter>
 
-    <Lightbox.Next render={<IconButton size="2" variant="ghost" color="gray" highContrast style={{ color: 'white' }} />}>
-      <ChevronRight16 />
-    </Lightbox.Next>
+    <Tooltip content="Next">
+      <Lightbox.Next render={<IconButton size="2" variant="ghost" color="gray" highContrast style={{ color: 'white' }} />}>
+        <ChevronRight16 />
+      </Lightbox.Next>
+    </Tooltip>
   </div>
 );
 
@@ -1436,9 +1442,11 @@ export const ColorPalette: Story = {
           gap: 'var(--space-4)',
           padding: 'var(--space-3)',
         }}>
-          <Lightbox.Previous render={<IconButton size="2" variant="ghost" color="gray" highContrast style={{ color: 'white' }} />}>
-            <ChevronLeft16 />
-          </Lightbox.Previous>
+          <Tooltip content="Previous">
+            <Lightbox.Previous render={<IconButton size="2" variant="ghost" color="gray" highContrast style={{ color: 'white' }} />}>
+              <ChevronLeft16 />
+            </Lightbox.Previous>
+          </Tooltip>
 
           <Lightbox.Counter>
             {({ current, total }) => {
@@ -1464,9 +1472,11 @@ export const ColorPalette: Story = {
             }}
           </Lightbox.Counter>
 
-          <Lightbox.Next render={<IconButton size="2" variant="ghost" color="gray" highContrast style={{ color: 'white' }} />}>
-            <ChevronRight16 />
-          </Lightbox.Next>
+          <Tooltip content="Next">
+            <Lightbox.Next render={<IconButton size="2" variant="ghost" color="gray" highContrast style={{ color: 'white' }} />}>
+              <ChevronRight16 />
+            </Lightbox.Next>
+          </Tooltip>
         </div>
 
         <CaptionText />
@@ -1829,9 +1839,11 @@ export const FilmTrailers: Story = {
               right: 'var(--space-4)',
               zIndex: 10,
             }}>
-              <Lightbox.Close render={<IconButton variant="ghost" color="gray" size="3" aria-label="Close" />}>
-                <XMark16 />
-              </Lightbox.Close>
+              <Tooltip content="Close">
+                <Lightbox.Close render={<IconButton variant="ghost" color="gray" size="3" aria-label="Close" />}>
+                  <XMark16 />
+                </Lightbox.Close>
+              </Tooltip>
             </div>
 
             <div style={{
@@ -1841,9 +1853,11 @@ export const FilmTrailers: Story = {
               transform: 'translateY(-50%)',
               zIndex: 10,
             }}>
-              <Lightbox.Previous render={<IconButton variant="ghost" color="gray" size="3" aria-label="Previous" />}>
-                <ChevronLeft16 />
-              </Lightbox.Previous>
+              <Tooltip content="Previous">
+                <Lightbox.Previous render={<IconButton variant="ghost" color="gray" size="3" aria-label="Previous" />}>
+                  <ChevronLeft16 />
+                </Lightbox.Previous>
+              </Tooltip>
             </div>
 
             <div style={{
@@ -1853,9 +1867,11 @@ export const FilmTrailers: Story = {
               transform: 'translateY(-50%)',
               zIndex: 10,
             }}>
-              <Lightbox.Next render={<IconButton variant="ghost" color="gray" size="3" aria-label="Next" />}>
-                <ChevronRight16 />
-              </Lightbox.Next>
+              <Tooltip content="Next">
+                <Lightbox.Next render={<IconButton variant="ghost" color="gray" size="3" aria-label="Next" />}>
+                  <ChevronRight16 />
+                </Lightbox.Next>
+              </Tooltip>
             </div>
 
             <Lightbox.ItemGroup style={{ padding: '0 64px' }}>
@@ -2158,9 +2174,11 @@ export const TeamDirectory: Story = {
               right: 'var(--space-4)',
               zIndex: 10,
             }}>
-              <Lightbox.Close render={<IconButton variant="ghost" color="gray" size="3" aria-label="Close" />}>
-                <XMark16 />
-              </Lightbox.Close>
+              <Tooltip content="Close">
+                <Lightbox.Close render={<IconButton variant="ghost" color="gray" size="3" aria-label="Close" />}>
+                  <XMark16 />
+                </Lightbox.Close>
+              </Tooltip>
             </div>
 
             <div style={{
@@ -2170,9 +2188,11 @@ export const TeamDirectory: Story = {
               transform: 'translateY(-50%)',
               zIndex: 10,
             }}>
-              <Lightbox.Previous render={<IconButton variant="ghost" color="gray" size="3" aria-label="Previous" />}>
-                <ChevronLeft16 />
-              </Lightbox.Previous>
+              <Tooltip content="Previous">
+                <Lightbox.Previous render={<IconButton variant="ghost" color="gray" size="3" aria-label="Previous" />}>
+                  <ChevronLeft16 />
+                </Lightbox.Previous>
+              </Tooltip>
             </div>
 
             <div style={{
@@ -2182,9 +2202,11 @@ export const TeamDirectory: Story = {
               transform: 'translateY(-50%)',
               zIndex: 10,
             }}>
-              <Lightbox.Next render={<IconButton variant="ghost" color="gray" size="3" aria-label="Next" />}>
-                <ChevronRight16 />
-              </Lightbox.Next>
+              <Tooltip content="Next">
+                <Lightbox.Next render={<IconButton variant="ghost" color="gray" size="3" aria-label="Next" />}>
+                  <ChevronRight16 />
+                </Lightbox.Next>
+              </Tooltip>
             </div>
 
             <Lightbox.ItemGroup>
@@ -2355,15 +2377,21 @@ export const WithZoom: Story = {
                   maxZoom={6}
                   overlay={
                     <div style={{ position: 'absolute', top: 'var(--space-3)', right: 'var(--space-3)', zIndex: 10, display: 'flex', gap: 'var(--space-2)', pointerEvents: 'auto' }}>
-                      <Lightbox.ZoomOut render={<IconButton variant="ghost" color="gray" size="2" />}>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
-                      </Lightbox.ZoomOut>
-                      <Lightbox.ZoomIn render={<IconButton variant="ghost" color="gray" size="2" />}>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 4v8M4 8h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
-                      </Lightbox.ZoomIn>
-                      <Lightbox.Close render={<IconButton variant="ghost" color="gray" size="2" />}>
-                        <XMark16 />
-                      </Lightbox.Close>
+                      <Tooltip content="Zoom out">
+                        <Lightbox.ZoomOut render={<IconButton variant="ghost" color="gray" size="2" />}>
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
+                        </Lightbox.ZoomOut>
+                      </Tooltip>
+                      <Tooltip content="Zoom in">
+                        <Lightbox.ZoomIn render={<IconButton variant="ghost" color="gray" size="2" />}>
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 4v8M4 8h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
+                        </Lightbox.ZoomIn>
+                      </Tooltip>
+                      <Tooltip content="Close">
+                        <Lightbox.Close render={<IconButton variant="ghost" color="gray" size="2" />}>
+                          <XMark16 />
+                        </Lightbox.Close>
+                      </Tooltip>
                     </div>
                   }
                 >
@@ -2378,13 +2406,17 @@ export const WithZoom: Story = {
           </Lightbox.ItemGroup>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', padding: 'var(--space-3)' }}>
-            <Lightbox.Previous render={<IconButton variant="ghost" color="gray" size="2" />}>
-              <ChevronLeft16 />
-            </Lightbox.Previous>
+            <Tooltip content="Previous">
+              <Lightbox.Previous render={<IconButton variant="ghost" color="gray" size="2" />}>
+                <ChevronLeft16 />
+              </Lightbox.Previous>
+            </Tooltip>
             <Lightbox.Counter />
-            <Lightbox.Next render={<IconButton variant="ghost" color="gray" size="2" />}>
-              <ChevronRight16 />
-            </Lightbox.Next>
+            <Tooltip content="Next">
+              <Lightbox.Next render={<IconButton variant="ghost" color="gray" size="2" />}>
+                <ChevronRight16 />
+              </Lightbox.Next>
+            </Tooltip>
           </div>
 
           <Lightbox.Caption />
