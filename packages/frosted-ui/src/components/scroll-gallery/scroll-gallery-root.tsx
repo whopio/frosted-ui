@@ -81,8 +81,11 @@ const ScrollGalleryRoot = React.forwardRef<
     onValueChangeRef.current = onValueChange;
   }, [onValueChange]);
 
+  const lastChangeSourceRef = React.useRef<ChangeSource | null>(null);
+
   const setActiveIndex = React.useCallback(
     (index: number, source: ChangeSource) => {
+      lastChangeSourceRef.current = source;
       if (!isControlled) {
         setInternalIndex(index);
       }
@@ -193,11 +196,19 @@ const ScrollGalleryRoot = React.forwardRef<
   }, []);
 
   // In controlled mode, scroll the viewport when the external value changes.
+  // Skip programmatic scrolling when the change originated from the user
+  // scrolling the viewport — otherwise we'd interrupt the native scroll
+  // momentum and cause choppy behaviour.
   const prevValueRef = React.useRef(valueProp);
   React.useEffect(() => {
     if (!isControlled) return;
     if (prevValueRef.current === valueProp) return;
     prevValueRef.current = valueProp;
+    if (lastChangeSourceRef.current === 'scroll') {
+      lastChangeSourceRef.current = null;
+      return;
+    }
+    lastChangeSourceRef.current = null;
     scrollToItem(valueProp, getScrollBehavior());
   }, [isControlled, valueProp, scrollToItem]);
 
