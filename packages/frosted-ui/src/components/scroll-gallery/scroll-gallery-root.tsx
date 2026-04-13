@@ -81,8 +81,11 @@ const ScrollGalleryRoot = React.forwardRef<
     onValueChangeRef.current = onValueChange;
   }, [onValueChange]);
 
+  const lastScrollValueRef = React.useRef<number | null>(null);
+
   const setActiveIndex = React.useCallback(
     (index: number, source: ChangeSource) => {
+      lastScrollValueRef.current = source === 'scroll' ? index : null;
       if (!isControlled) {
         setInternalIndex(index);
       }
@@ -193,11 +196,19 @@ const ScrollGalleryRoot = React.forwardRef<
   }, []);
 
   // In controlled mode, scroll the viewport when the external value changes.
+  // Skip programmatic scrolling only when the new value is the exact one
+  // reported by a native scroll — otherwise we'd interrupt scroll momentum.
+  // If the value is different (e.g. from an external button), always scroll.
   const prevValueRef = React.useRef(valueProp);
   React.useEffect(() => {
     if (!isControlled) return;
     if (prevValueRef.current === valueProp) return;
     prevValueRef.current = valueProp;
+    if (lastScrollValueRef.current === valueProp) {
+      lastScrollValueRef.current = null;
+      return;
+    }
+    lastScrollValueRef.current = null;
     scrollToItem(valueProp, getScrollBehavior());
   }, [isControlled, valueProp, scrollToItem]);
 

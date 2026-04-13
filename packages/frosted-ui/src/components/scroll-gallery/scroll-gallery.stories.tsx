@@ -1177,6 +1177,107 @@ export const SnapToCenter: Story = {
 };
 
 // ---------------------------------------------------------------------------
+// Controlled Mode (value prop)
+// ---------------------------------------------------------------------------
+
+function ControlledValueDemo() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  return (
+    <div style={{ maxWidth: 720 }}>
+      <div style={{ marginBottom: 'var(--space-4)' }}>
+        <Heading size="3" style={{ marginBottom: 'var(--space-2)' }}>
+          Controlled Mode
+        </Heading>
+        <Text render={<p />} size="2" color="gray" style={{ maxWidth: 560, lineHeight: 1.6 }}>
+          Pass the <Code size="2">value</Code> prop to fully control which item is active. External state changes
+          automatically scroll the viewport to the corresponding item. Use <Code size="2">onValueChange</Code> to keep
+          your state in sync when the user scrolls natively. Unlike <Code size="2">defaultValue</Code>, the gallery never
+          updates its own index — your state is the single source of truth.
+        </Text>
+      </div>
+
+      <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center', marginBottom: 'var(--space-3)' }}>
+        <Text size="2">
+          External state: <Code size="2">{activeIndex}</Code>
+        </Text>
+        <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+          {people.map((person, i) => (
+            <Button
+              key={i}
+              size="1"
+              variant={activeIndex === i ? 'solid' : 'soft'}
+              color={person.color}
+              onClick={() => setActiveIndex(i)}
+            >
+              {i}
+            </Button>
+          ))}
+        </div>
+      </div>
+
+      <ScrollGallery.Root
+        value={activeIndex}
+        onValueChange={(v) => setActiveIndex(v)}
+      >
+        <ScrollGallery.Viewport
+          aria-label="Team members"
+          style={{
+            display: 'flex',
+            gap: 'var(--space-3)',
+            overflowX: 'auto',
+            overscrollBehaviorX: 'contain',
+            scrollSnapType: 'x mandatory',
+            scrollbarWidth: 'none',
+          }}
+        >
+          {people.map((person) => (
+            <ScrollGallery.Item key={person.name} style={{ scrollSnapAlign: 'start', flexShrink: 0 }}>
+              <PersonCard person={person} />
+            </ScrollGallery.Item>
+          ))}
+        </ScrollGallery.Viewport>
+
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginTop: 'var(--space-3)',
+          }}
+        >
+          <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+            <ScrollGallery.Previous aria-label="Previous" render={<IconButton variant="soft" size="2" color="gray" />}>
+              <ChevronLeft16 />
+            </ScrollGallery.Previous>
+            <ScrollGallery.Next aria-label="Next" render={<IconButton variant="soft" size="2" color="gray" />}>
+              <ChevronRight16 />
+            </ScrollGallery.Next>
+          </div>
+
+          <ScrollGallery.ScrollMarkerGroup
+            aria-label="Choose team member"
+            style={{ display: 'flex', gap: 'var(--space-1)' }}
+          >
+            <MarkerDots count={people.length} />
+          </ScrollGallery.ScrollMarkerGroup>
+        </div>
+      </ScrollGallery.Root>
+
+      <Text render={<p />} size="1" color="gray" style={{ marginTop: 'var(--space-3)', lineHeight: 1.6 }}>
+        Click the numbered buttons above to change the value externally — the gallery scrolls to match. Scroll the
+        gallery manually and the buttons update in sync. Both directions stay smooth with no feedback-loop jank.
+      </Text>
+    </div>
+  );
+}
+
+export const ControlledValue: Story = {
+  name: 'Controlled (value)',
+  render: () => <ControlledValueDemo />,
+};
+
+// ---------------------------------------------------------------------------
 // Real-world demo: Testimonials
 // ---------------------------------------------------------------------------
 
