@@ -356,7 +356,7 @@ export const WithScrollGallery: Story = {
         <Lightbox.Content aria-label="Photo gallery with scroll gallery">
           <CloseButton />
 
-          <ScrollGallery.Root defaultValue={activeIndex} onValueChange={(v) => setActiveIndex(v)}>
+          <ScrollGallery.Root value={activeIndex} onValueChange={(v) => setActiveIndex(v)}>
             <Lightbox.ItemGroup
               render={<ScrollGallery.Viewport aria-label="Full-size images" />}
               preload={images.length}
@@ -1239,7 +1239,7 @@ export const RealEstateListing: Story = {
             </Lightbox.Counter>
           </div>
 
-          <ScrollGallery.Root defaultValue={activeIndex} onValueChange={(v) => setActiveIndex(v)}>
+          <ScrollGallery.Root value={activeIndex} onValueChange={(v) => setActiveIndex(v)}>
             <Lightbox.ItemGroup
               render={<ScrollGallery.Viewport aria-label="Property photos" />}
               preload={propertyPhotos.length}
@@ -1514,7 +1514,7 @@ export const DesignFileInspector: Story = {
             </Lightbox.Counter>
           </div>
 
-          <ScrollGallery.Root defaultValue={activeIndex} onValueChange={(v) => setActiveIndex(v)} orientation="vertical">
+          <ScrollGallery.Root value={activeIndex} onValueChange={(v) => setActiveIndex(v)} orientation="vertical">
             <div style={{ display: 'flex', flex: 1, minHeight: 0, width: '100%' }}>
               {/* Main vertical scroll area */}
               <Lightbox.ItemGroup
