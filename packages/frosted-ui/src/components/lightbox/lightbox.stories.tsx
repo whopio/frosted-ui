@@ -815,7 +815,7 @@ function ImageGrid({ imgs }: { imgs: FeedPost['images'] }) {
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gap: 2, aspectRatio: '3/2' }}>
       {imgs.slice(0, 4).map((img, i) => (
         <Lightbox.Trigger key={i} index={i} style={feedTriggerBase}>
-          <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+          <div {...(i === 3 && extra > 0 ? { 'data-lightbox-morph': '' } : {})} style={{ position: 'relative', width: '100%', height: '100%' }}>
             <img src={img.thumb} alt={img.alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', borderRadius: cornerRadius(i, 4, r) }} />
             {i === 3 && extra > 0 && (
               <div style={{
