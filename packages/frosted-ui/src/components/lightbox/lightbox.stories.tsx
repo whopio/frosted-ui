@@ -1244,6 +1244,9 @@ export const RealEstateListing: Story = {
               render={<ScrollGallery.Viewport aria-label="Property photos" />}
               preload={propertyPhotos.length}
               style={{
+                display: 'flex',
+                gap: 'var(--space-4)',
+                paddingInline: 'max(7.5vw, calc(50vw - 450px))',
                 overflowX: 'auto',
                 overscrollBehaviorX: 'contain',
                 scrollSnapType: 'x mandatory',
