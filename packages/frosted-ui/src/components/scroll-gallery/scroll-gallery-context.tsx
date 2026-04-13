@@ -134,11 +134,41 @@ function getSnapAlignment(
 }
 
 /**
- * Computes the scroll distance to bring a target item to its snap position
- * within the viewport. Reads `scroll-snap-align` from the target to use the
- * matching reference point (start edge, center, or end edge) for both the
- * item and viewport. This ensures the browser's scroll snapping lands on
- * the intended item rather than a neighbor.
+ * Computes the **absolute** scroll position to snap a target item within
+ * its scroll container. Uses `offsetLeft`/`offsetTop` (relative to the
+ * offset parent) instead of `getBoundingClientRect` — the latter returns
+ * unreliable values on mobile Safari during initial layout inside
+ * `<dialog>` elements (before the top-layer promotion has fully settled).
+ *
+ * Use this for initial/mount scrolling where `scrollTo` with an absolute
+ * position is appropriate. For runtime scrolling (marker clicks, keyboard
+ * navigation) where layout is stable, use `getScrollDistance` + `scrollBy`.
+ */
+function getAbsoluteScrollPosition(
+  target: HTMLElement,
+  viewport: HTMLElement,
+  orientation: 'horizontal' | 'vertical',
+): number {
+  const isHorizontal = orientation === 'horizontal';
+  const snapAlign = getSnapAlignment(target, orientation);
+  const itemOffset = isHorizontal ? target.offsetLeft : target.offsetTop;
+  const itemSize = isHorizontal ? target.offsetWidth : target.offsetHeight;
+  const viewportSize = isHorizontal ? viewport.clientWidth : viewport.clientHeight;
+
+  if (snapAlign === 'center') {
+    return itemOffset - (viewportSize - itemSize) / 2;
+  }
+  if (snapAlign === 'end') {
+    return itemOffset - viewportSize + itemSize;
+  }
+  return itemOffset;
+}
+
+/**
+ * Computes the scroll **distance** (delta) to bring a target item to its
+ * snap position within the viewport. Uses `getBoundingClientRect` for
+ * visual-position-based calculation — accurate for runtime scrolling
+ * when layout is fully established.
  */
 function getScrollDistance(
   target: HTMLElement,
@@ -178,6 +208,5 @@ function getScrollDistance(
  */
 const PAGE_SCROLL_FACTOR = 0.85;
 
-export { getScrollBehavior, getScrollDistance, getSnapAlignment, PAGE_SCROLL_FACTOR, ScrollGalleryContext, useScrollGalleryContext };
+export { getAbsoluteScrollPosition, getScrollBehavior, getScrollDistance, getSnapAlignment, PAGE_SCROLL_FACTOR, ScrollGalleryContext, useScrollGalleryContext };
 export type { ChangeSource, ScrollGalleryContextValue };
-

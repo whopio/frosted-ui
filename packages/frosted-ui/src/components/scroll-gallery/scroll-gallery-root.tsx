@@ -4,6 +4,7 @@ import * as React from 'react';
 
 import {
   ScrollGalleryContext,
+  getAbsoluteScrollPosition,
   getScrollBehavior,
   getScrollDistance,
   type ChangeSource,
@@ -195,10 +196,28 @@ const ScrollGalleryRoot = React.forwardRef<
   React.useImperativeHandle(forwardedRef, () => ({ scrollTo: scrollToItem }), [scrollToItem]);
 
   // Scroll to the initial item on mount when defaultValue/value is non-zero.
+  // Uses getAbsoluteScrollPosition (offsetLeft-based) + scrollTo instead of
+  // getScrollDistance (getBoundingClientRect-based) + scrollBy. Mobile Safari
+  // returns incorrect getBoundingClientRect values during initial layout
+  // inside <dialog> elements, causing scrollBy to land on the wrong snap point.
   const initialValueRef = React.useRef(isControlled ? valueProp : defaultValue);
   React.useLayoutEffect(() => {
-    if (initialValueRef.current !== 0) {
-      scrollToItem(initialValueRef.current, 'instant');
+    const idx = initialValueRef.current;
+    if (idx !== 0) {
+      const viewport = viewportRef.current;
+      const items = getItemElements();
+      const target = items[idx];
+      if (viewport && target) {
+        const isHoriz = orientation === 'horizontal';
+        const pos = getAbsoluteScrollPosition(target, viewport, orientation);
+        viewport.scrollTo({
+          [isHoriz ? 'left' : 'top']: Math.max(0, pos),
+          behavior: 'instant',
+        });
+        scrollTargetRef.current = idx;
+        scrollingRef.current = true;
+        setActiveIndex(idx, 'indicator');
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
