@@ -10,6 +10,35 @@ import { useOptionalZoomContext } from './lightbox-zoom-context';
 
 const useLayoutEffect = typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect;
 
+const TABBABLE_SELECTOR = [
+  'a[href]',
+  'area[href]',
+  'input:not([disabled]):not([type="hidden"])',
+  'select:not([disabled])',
+  'textarea:not([disabled])',
+  'button:not([disabled])',
+  '[tabindex]:not([tabindex="-1"])',
+].join(',');
+
+function getTabbableElements(container: HTMLElement): HTMLElement[] {
+  return Array.from(container.querySelectorAll<HTMLElement>(TABBABLE_SELECTOR)).filter(
+    (el) => !el.hasAttribute('data-focus-guard'),
+  );
+}
+
+const focusGuardStyle: React.CSSProperties = {
+  position: 'fixed',
+  overflow: 'hidden',
+  width: 1,
+  height: 1,
+  top: 0,
+  left: 0,
+  padding: 0,
+  border: 0,
+  clip: 'rect(0, 0, 0, 0)',
+  whiteSpace: 'nowrap',
+};
+
 interface LightboxContentProps extends React.ComponentPropsWithRef<'div'> {
   className?: string;
   children?: React.ReactNode;
@@ -121,6 +150,25 @@ const LightboxContent = React.forwardRef<HTMLDivElement, LightboxContentProps>(
       [setOpen],
     );
 
+    // Focus guard handlers — redirect Tab past the edges back into the content.
+    // Before-guard: user Shift+Tabbed past the first element → focus the last.
+    // After-guard: user Tabbed past the last element → focus the first.
+    const handleBeforeGuardFocus = React.useCallback(() => {
+      const el = contentRef.current;
+      if (!el) return;
+      const tabbables = getTabbableElements(el);
+      const target = tabbables[tabbables.length - 1] ?? el;
+      target.focus();
+    }, []);
+
+    const handleAfterGuardFocus = React.useCallback(() => {
+      const el = contentRef.current;
+      if (!el) return;
+      const tabbables = getTabbableElements(el);
+      const target = tabbables[0] ?? el;
+      target.focus();
+    }, []);
+
     if (!mounted) return null;
 
     const portalTarget = container ?? (typeof document !== 'undefined' ? document.body : null);
@@ -132,6 +180,13 @@ const LightboxContent = React.forwardRef<HTMLDivElement, LightboxContentProps>(
           data-open={open || undefined}
           aria-hidden="true"
           onClick={handleClick}
+        />
+        <span
+          tabIndex={0}
+          aria-hidden="true"
+          data-focus-guard=""
+          style={focusGuardStyle}
+          onFocus={handleBeforeGuardFocus}
         />
         <div
           ref={mergedRef}
@@ -146,6 +201,13 @@ const LightboxContent = React.forwardRef<HTMLDivElement, LightboxContentProps>(
         >
           {children}
         </div>
+        <span
+          tabIndex={0}
+          aria-hidden="true"
+          data-focus-guard=""
+          style={focusGuardStyle}
+          onFocus={handleAfterGuardFocus}
+        />
       </Theme>
     );
 
