@@ -24,30 +24,10 @@ import { LightboxZoomIn } from './lightbox-zoom-in';
 import { LightboxZoomOut } from './lightbox-zoom-out';
 
 // ---------------------------------------------------------------------------
-// Mocks — jsdom lacks <dialog> methods, matchMedia, getAnimations
+// Mocks — jsdom lacks matchMedia, getAnimations
 // ---------------------------------------------------------------------------
 
 beforeEach(() => {
-  if (!HTMLDialogElement.prototype.showModal) {
-    HTMLDialogElement.prototype.showModal = vi.fn(function (this: HTMLDialogElement) {
-      this.setAttribute('open', '');
-    });
-  } else {
-    vi.spyOn(HTMLDialogElement.prototype, 'showModal').mockImplementation(function (this: HTMLDialogElement) {
-      this.setAttribute('open', '');
-    });
-  }
-
-  if (!HTMLDialogElement.prototype.close) {
-    HTMLDialogElement.prototype.close = vi.fn(function (this: HTMLDialogElement) {
-      this.removeAttribute('open');
-    });
-  } else {
-    vi.spyOn(HTMLDialogElement.prototype, 'close').mockImplementation(function (this: HTMLDialogElement) {
-      this.removeAttribute('open');
-    });
-  }
-
   if (!window.matchMedia) {
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
@@ -184,21 +164,17 @@ describe('Lightbox', () => {
       expect(trigger).toHaveAttribute('type', 'button');
     });
 
-    it('renders Content as a <dialog> element when open', () => {
+    it('renders Content as a div with role="dialog" when open', () => {
       render(<TestLightbox defaultOpen />);
       const dialog = screen.getByTestId('content');
-      expect(dialog.tagName).toBe('DIALOG');
+      expect(dialog.tagName).toBe('DIV');
+      expect(dialog).toHaveAttribute('role', 'dialog');
+      expect(dialog).toHaveAttribute('aria-modal', 'true');
     });
 
-    it('calls showModal() when opening', () => {
+    it('content is removed from DOM when closing', async () => {
       render(<TestLightbox defaultOpen />);
-      expect(HTMLDialogElement.prototype.showModal).toHaveBeenCalled();
-    });
-
-    it('dialog loses open attribute when closing', async () => {
-      render(<TestLightbox defaultOpen />);
-      const dialog = screen.getByTestId('content');
-      expect(dialog).toHaveAttribute('open');
+      expect(screen.getByTestId('content')).toBeInTheDocument();
       fireEvent.click(screen.getByTestId('close'));
       await flushMicrotasks();
       expect(screen.queryByTestId('content')).toBeNull();
@@ -297,19 +273,17 @@ describe('Lightbox', () => {
       expect(screen.queryByTestId('content')).toBeNull();
     });
 
-    it('ESC key closes the lightbox via onCancel', async () => {
+    it('ESC key closes the lightbox', async () => {
       render(<TestLightbox defaultOpen />);
-      const dialog = screen.getByTestId('content');
-      const event = new Event('cancel', { bubbles: false, cancelable: true });
-      dialog.dispatchEvent(event);
+      fireEvent.keyDown(document, { key: 'Escape' });
       await flushMicrotasks();
       expect(screen.queryByTestId('content')).toBeNull();
     });
 
-    it('clicking dialog backdrop closes the lightbox', async () => {
+    it('clicking content backdrop area closes the lightbox', async () => {
       render(<TestLightbox defaultOpen />);
-      const dialog = screen.getByTestId('content');
-      fireEvent.click(dialog);
+      const content = screen.getByTestId('content');
+      fireEvent.click(content);
       await flushMicrotasks();
       expect(screen.queryByTestId('content')).toBeNull();
     });
@@ -335,7 +309,7 @@ describe('Lightbox', () => {
       expect(screen.getByTestId('content')).toBeInTheDocument();
     });
 
-    it('dialog is removed from DOM after close', async () => {
+    it('content is removed from DOM after close', async () => {
       render(<TestLightbox defaultOpen />);
       fireEvent.click(screen.getByTestId('close'));
       await flushMicrotasks();

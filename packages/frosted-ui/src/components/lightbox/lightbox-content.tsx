@@ -10,14 +10,14 @@ import { useOptionalZoomContext } from './lightbox-zoom-context';
 
 const useLayoutEffect = typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect;
 
-interface LightboxContentProps extends React.ComponentPropsWithRef<'dialog'> {
+interface LightboxContentProps extends React.ComponentPropsWithRef<'div'> {
   className?: string;
   children?: React.ReactNode;
   /** Container element for the portal. Defaults to `document.body`. */
   container?: Element | DocumentFragment | null;
 }
 
-const LightboxContent = React.forwardRef<HTMLDialogElement, LightboxContentProps>(
+const LightboxContent = React.forwardRef<HTMLDivElement, LightboxContentProps>(
   function LightboxContent(props, forwardedRef) {
     const { className, children, container, ...rest } = props;
 
@@ -25,11 +25,11 @@ const LightboxContent = React.forwardRef<HTMLDialogElement, LightboxContentProps
       useLightboxContext();
     const zoomContext = useOptionalZoomContext();
 
-    const dialogRef = React.useRef<HTMLDialogElement | null>(null);
+    const contentRef = React.useRef<HTMLDivElement | null>(null);
 
     const mergedRef = React.useCallback(
-      (node: HTMLDialogElement | null) => {
-        dialogRef.current = node;
+      (node: HTMLDivElement | null) => {
+        contentRef.current = node;
         dialogElementRef.current = node;
         if (typeof forwardedRef === 'function') {
           forwardedRef(node);
@@ -40,28 +40,37 @@ const LightboxContent = React.forwardRef<HTMLDialogElement, LightboxContentProps
       [forwardedRef, dialogElementRef],
     );
 
-    // Show/close the native dialog in sync with mounted state.
-    // useLayoutEffect so .showModal() runs before paint (no flash).
+    // Focus the content element on mount so keyboard events work immediately.
     useLayoutEffect(() => {
-      const el = dialogRef.current;
-      if (!el) return;
-      if (mounted && !el.open) {
-        el.showModal();
-      } else if (!mounted && el.open) {
-        el.close();
+      if (mounted) {
+        contentRef.current?.focus();
       }
     }, [mounted]);
 
-    // Native cancel event fires on ESC regardless of focus state.
-    // Prevent default (which would close the dialog directly) and
-    // route through our state management for proper exit animations.
-    const handleCancel = React.useCallback(
-      (event: React.SyntheticEvent) => {
-        event.preventDefault();
-        setOpen(false);
-      },
-      [setOpen],
-    );
+    // Lock document scroll while the lightbox is open.
+    React.useEffect(() => {
+      if (!mounted) return;
+      const html = document.documentElement;
+      const originalOverflow = html.style.overflow;
+      html.style.overflow = 'hidden';
+      return () => {
+        html.style.overflow = originalOverflow;
+      };
+    }, [mounted]);
+
+    // Close on Escape key. Listens on the document so it works regardless
+    // of focus state, matching native <dialog> cancel behavior.
+    React.useEffect(() => {
+      if (!mounted) return;
+      const handleEsc = (event: KeyboardEvent) => {
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          setOpen(false);
+        }
+      };
+      document.addEventListener('keydown', handleEsc);
+      return () => document.removeEventListener('keydown', handleEsc);
+    }, [mounted, setOpen]);
 
     // Arrow keys, Home, End for gallery navigation
     const handleKeyDown = React.useCallback(
@@ -101,8 +110,8 @@ const LightboxContent = React.forwardRef<HTMLDialogElement, LightboxContentProps
       [activeIndex, itemCount, loop, setActiveIndex, zoomContext],
     );
 
-    // Click on the dialog itself (not children) closes the lightbox.
-    // The dialog is fullscreen so this catches clicks on the "backdrop area".
+    // Click on the backdrop or the content container itself (not children)
+    // closes the lightbox, matching native <dialog> backdrop click behavior.
     const handleClick = React.useCallback(
       (event: React.MouseEvent) => {
         if (event.target === event.currentTarget) {
@@ -116,28 +125,31 @@ const LightboxContent = React.forwardRef<HTMLDialogElement, LightboxContentProps
 
     const portalTarget = container ?? (typeof document !== 'undefined' ? document.body : null);
 
-    const dialog = (
-      <Theme
-        appearance="dark"
-        hasBackground={false}
-        render={
-          <dialog
-            ref={mergedRef}
-            className={classNames('fui-LightboxContent', className)}
-            data-open={open || undefined}
-            onCancel={handleCancel}
-            onKeyDown={handleKeyDown}
-            onClick={handleClick}
-            tabIndex={-1}
-            {...rest}
-          >
-            {children}
-          </dialog>
-        }
-      />
+    const content = (
+      <Theme appearance="dark" hasBackground={false}>
+        <div
+          className="fui-LightboxBackdrop"
+          data-open={open || undefined}
+          aria-hidden="true"
+          onClick={handleClick}
+        />
+        <div
+          ref={mergedRef}
+          role="dialog"
+          aria-modal="true"
+          className={classNames('fui-LightboxContent', className)}
+          data-open={open || undefined}
+          onKeyDown={handleKeyDown}
+          onClick={handleClick}
+          tabIndex={-1}
+          {...rest}
+        >
+          {children}
+        </div>
+      </Theme>
     );
 
-    return portalTarget ? ReactDOM.createPortal(dialog, portalTarget) : dialog;
+    return portalTarget ? ReactDOM.createPortal(content, portalTarget) : content;
   },
 );
 

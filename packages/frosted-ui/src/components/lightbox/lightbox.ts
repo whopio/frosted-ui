@@ -1,7 +1,7 @@
 /**
  * Lightbox — a headless, unstyled compound component for modal media viewing.
  *
- * Combines Dialog semantics (modal overlay, focus trap, Escape to close,
+ * Combines modal dialog semantics (overlay, scroll lock, Escape to close,
  * backdrop) with gallery navigation (prev/next, thumbnails, counter).
  *
  * Key design decisions:
@@ -24,7 +24,7 @@
  * Sub-components:
  *   Root            — State provider (open, activeIndex, controlled/uncontrolled)
  *   Trigger         — Opens lightbox at a specific item index
- *   Content         — Native <dialog> modal + keyboard navigation
+ *   Content         — Modal overlay (div-based) + keyboard navigation
  *   Close           — Closes the lightbox
  *   ItemGroup       — Container for items, manages swap rendering + preload
  *   Item            — Individual media item with lazy-load support

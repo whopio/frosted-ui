@@ -10,27 +10,20 @@
   opacity: 0;
 }
 
-/* Prevent background scrolling while the lightbox is open.
-   overscroll-behavior has no effect on <dialog> (not a scroll port),
-   so we lock the document instead. */
-html:has(.fui-LightboxContent[open]) {
-  overflow: hidden;
+/* Backdrop — explicit element replacing the native ::backdrop pseudo-element.
+   Positioned behind the content via z-index layering. */
+.fui-LightboxBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483646;
+  pointer-events: auto;
 }
 
-/* Dialog reset — remove browser defaults */
-.fui-LightboxContent {
-  border: none;
-  padding: 0;
-  max-width: none;
-  max-height: none;
-  background: transparent;
-  color: inherit;
-}
-
-/* The dialog acts as the fullscreen overlay + content container */
+/* The content container acts as the fullscreen overlay */
 .fui-LightboxContent {
   position: fixed;
   inset: 0;
+  z-index: 2147483647;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,6 +33,7 @@ html:has(.fui-LightboxContent[open]) {
   max-height: 100vh;
   overflow: hidden;
   outline: none;
+  background: transparent;
   overscroll-behavior: contain;
 
   @supports (max-height: 100dvh) {
@@ -97,15 +91,15 @@ html:has(.fui-LightboxContent[open]) {
  ***************************************************************************************************/
 
 @media (prefers-reduced-motion: no-preference) {
-  /* --- Backdrop (native ::backdrop pseudo-element) --- */
-  .fui-LightboxContent::backdrop {
+  /* --- Backdrop --- */
+  .fui-LightboxBackdrop {
     backdrop-filter: blur(0px);
     background: rgba(0, 0, 0, 0);
     opacity: 0;
     transition: opacity 400ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .fui-LightboxContent[data-open]::backdrop {
+  .fui-LightboxBackdrop[data-open] {
     backdrop-filter: blur(4px);
     background: rgba(0, 0, 0, 0.75);
     opacity: 1;
@@ -216,13 +210,13 @@ html:has(.fui-LightboxContent[open]) {
   }
 }
 
-/* During a VT the dialog + ::backdrop sit in the top layer above the
-   VT pseudo-elements. Suppress their CSS transitions so they jump
-   straight to the final state — the VT root cross-fade handles the
-   visual fade. This prevents @starting-style from re-triggering when
-   the VT layer is torn down and the real DOM becomes visible again. */
+/* During a VT the content + backdrop sit above the VT pseudo-elements.
+   Suppress their CSS transitions so they jump straight to the final
+   state — the VT root cross-fade handles the visual fade. This prevents
+   @starting-style from re-triggering when the VT layer is torn down
+   and the real DOM becomes visible again. */
 :root[data-lightbox-view-transition] .fui-LightboxContent,
-:root[data-lightbox-view-transition] .fui-LightboxContent::backdrop {
+:root[data-lightbox-view-transition] .fui-LightboxBackdrop {
   transition: none !important;
 }
 
@@ -230,7 +224,7 @@ html:has(.fui-LightboxContent[open]) {
   opacity: 1;
 }
 
-:root[data-lightbox-view-transition] .fui-LightboxContent[data-open]::backdrop {
+:root[data-lightbox-view-transition] .fui-LightboxBackdrop[data-open] {
   backdrop-filter: blur(4px);
   background: rgba(0, 0, 0, 0.75);
   opacity: 1;
