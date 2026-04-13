@@ -2318,20 +2318,14 @@ export const WithZoom: Story = {
                   maxZoom={6}
                   overlay={
                     <div style={{ position: 'absolute', top: 'var(--space-3)', right: 'var(--space-3)', zIndex: 10, display: 'flex', gap: 'var(--space-2)', pointerEvents: 'auto' }}>
-                      <Lightbox.ZoomOut>
-                        <IconButton variant="ghost" color="gray" size="2">
-                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
-                        </IconButton>
+                      <Lightbox.ZoomOut render={<IconButton variant="ghost" color="gray" size="2" />}>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
                       </Lightbox.ZoomOut>
-                      <Lightbox.ZoomIn>
-                        <IconButton variant="ghost" color="gray" size="2">
-                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 4v8M4 8h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
-                        </IconButton>
+                      <Lightbox.ZoomIn render={<IconButton variant="ghost" color="gray" size="2" />}>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 4v8M4 8h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
                       </Lightbox.ZoomIn>
-                      <Lightbox.Close>
-                        <IconButton variant="ghost" color="gray" size="2">
-                          <XMark16 />
-                        </IconButton>
+                      <Lightbox.Close render={<IconButton variant="ghost" color="gray" size="2" />}>
+                        <XMark16 />
                       </Lightbox.Close>
                     </div>
                   }
@@ -2347,12 +2341,12 @@ export const WithZoom: Story = {
           </Lightbox.ItemGroup>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', padding: 'var(--space-3)' }}>
-            <Lightbox.Previous>
-              <IconButton variant="ghost" color="gray" size="2"><ChevronLeft16 /></IconButton>
+            <Lightbox.Previous render={<IconButton variant="ghost" color="gray" size="2" />}>
+              <ChevronLeft16 />
             </Lightbox.Previous>
             <Lightbox.Counter />
-            <Lightbox.Next>
-              <IconButton variant="ghost" color="gray" size="2"><ChevronRight16 /></IconButton>
+            <Lightbox.Next render={<IconButton variant="ghost" color="gray" size="2" />}>
+              <ChevronRight16 />
             </Lightbox.Next>
           </div>
 

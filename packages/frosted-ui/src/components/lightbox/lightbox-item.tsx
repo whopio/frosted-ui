@@ -103,7 +103,7 @@ const LightboxItem = React.forwardRef<HTMLDivElement, LightboxItemProps>(
           className: 'fui-LightboxItem',
           role: 'tabpanel',
           'aria-hidden': !isActive,
-          inert: !isActive ? ('' as unknown as boolean) : undefined,
+          inert: !isActive ? true : undefined,
         } as React.ComponentPropsWithRef<'div'>,
         elementProps as React.ComponentPropsWithRef<'div'>,
         { children: resolvedChildren } as React.ComponentPropsWithRef<'div'>,
