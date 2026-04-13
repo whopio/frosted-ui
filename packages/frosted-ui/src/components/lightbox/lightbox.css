@@ -1,10 +1,12 @@
-/* Active trigger fades out behind the semi-transparent backdrop so it
-   doesn't show through while the lightbox is open. */
+/* The morph-target trigger fades out behind the semi-transparent backdrop
+   so it doesn't show through while the lightbox is open. When morphTo is
+   "origin" the opening trigger stays hidden regardless of active index;
+   when "closest" the nearest registered trigger hides. */
 .fui-LightboxTrigger {
   transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.fui-LightboxTrigger[data-open][data-active] {
+.fui-LightboxTrigger[data-open][data-morph-target] {
   opacity: 0;
 }
 

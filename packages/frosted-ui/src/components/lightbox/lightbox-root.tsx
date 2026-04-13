@@ -423,12 +423,13 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
         captions,
         registerCaption,
         viewTransition,
+        morphTo,
         triggerElementsRef,
         activeItemElementRef,
         openingTriggerIndexRef,
         dialogElementRef,
       }),
-      [open, setOpen, mounted, activeIndex, setActiveIndex, itemCount, registerItem, loop, captions, registerCaption, viewTransition],
+      [open, setOpen, mounted, activeIndex, setActiveIndex, itemCount, registerItem, loop, captions, registerCaption, viewTransition, morphTo],
     );
 
     return <LightboxContext.Provider value={contextValue}>{children}</LightboxContext.Provider>;

@@ -19,6 +19,7 @@ interface LightboxContextValue {
 
   // View transition support
   viewTransition: boolean;
+  morphTo: 'active' | 'origin' | 'closest';
   triggerElementsRef: React.RefObject<Map<number, HTMLElement>>;
   activeItemElementRef: React.MutableRefObject<HTMLElement | null>;
   openingTriggerIndexRef: React.MutableRefObject<number>;

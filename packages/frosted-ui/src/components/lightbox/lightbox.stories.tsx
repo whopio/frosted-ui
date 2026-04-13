@@ -2517,11 +2517,11 @@ const messageImages = [
   },
 ];
 
-const stackRotations = [-6, 2, 0];
+const stackRotations = [0, 2, -6];
 const stackOffsets = [
-  { x: -12, y: 8 },
-  { x: 10, y: -4 },
   { x: 0, y: 0 },
+  { x: 10, y: -4 },
+  { x: -12, y: 8 },
 ];
 
 export const TextMessage: Story = {
@@ -2553,54 +2553,31 @@ export const TextMessage: Story = {
             <Text size="3" weight="medium" style={{ color: 'inherit' }}>some imgs</Text>
           </div>
 
-          {/* Image stack — only the front image is a trigger */}
-          <div style={{ position: 'relative', width: 220, height: 300 }}>
-            {/* Background cards (not triggers — stay visible when lightbox opens) */}
-            {messageImages.slice(1).map((img, i) => (
-              <img
-                key={img.src}
-                src={img.thumb}
-                alt={img.alt}
-                style={{
-                  position: 'absolute',
-                  width: 200,
-                  height: 280,
-                  objectFit: 'cover',
-                  borderRadius: 16,
-                  display: 'block',
-                  left: '50%',
-                  top: '50%',
-                  transform: `translate(-50%, -50%) translate(${stackOffsets[i + 1].x}px, ${stackOffsets[i + 1].y}px) rotate(${stackRotations[i + 1]}deg)`,
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
-                  zIndex: messageImages.length - (i + 1),
-                }}
-              />
-            ))}
-            {/* Front card — the trigger that morphs into the lightbox */}
-            <Lightbox.Trigger index={0} style={{
-              ...triggerStyle,
-              position: 'absolute',
-              width: 200,
-              height: 280,
-              left: '50%',
-              top: '50%',
-              transform: `translate(-50%, -50%) translate(${stackOffsets[0].x}px, ${stackOffsets[0].y}px) rotate(${stackRotations[0]}deg)`,
-              zIndex: messageImages.length,
-            }}>
-              <img
-                src={messageImages[0].thumb}
-                alt={messageImages[0].alt}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  borderRadius: 16,
-                  display: 'block',
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
-                }}
-              />
-            </Lightbox.Trigger>
-          </div>
+          {/* Single trigger wrapping the entire stack — morphs to/from origin */}
+          <Lightbox.Trigger index={0} style={{ ...triggerStyle, position: 'relative', width: 260, height: 320 }}>
+            <div data-lightbox-morph style={{ position: 'absolute', inset: -20 }}>
+              {messageImages.map((img, i) => (
+                <img
+                  key={img.src}
+                  src={img.thumb}
+                  alt={img.alt}
+                  style={{
+                    position: 'absolute',
+                    width: 200,
+                    height: 280,
+                    objectFit: 'cover',
+                    borderRadius: 16,
+                    display: 'block',
+                    left: '50%',
+                    top: '50%',
+                    transform: `translate(-50%, -50%) translate(${stackOffsets[i].x}px, ${stackOffsets[i].y}px) rotate(${stackRotations[i]}deg)`,
+                    zIndex: messageImages.length - i,
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+                  }}
+                />
+              ))}
+            </div>
+          </Lightbox.Trigger>
 
           {/* Attachment count */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>

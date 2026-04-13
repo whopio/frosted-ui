@@ -8,6 +8,7 @@ import { useLightboxContext } from './lightbox-context';
 interface LightboxTriggerState extends Record<string, unknown> {
   open: boolean;
   active: boolean;
+  morphTarget: boolean;
 }
 
 interface LightboxTriggerProps extends useRender.ComponentProps<'button', LightboxTriggerState> {
@@ -18,6 +19,7 @@ interface LightboxTriggerProps extends useRender.ComponentProps<'button', Lightb
 const triggerStateAttributesMapping = {
   open: (value: unknown) => (value ? { 'data-open': '' } : null),
   active: (value: unknown) => (value ? { 'data-active': '' } : null),
+  morphTarget: (value: unknown) => (value ? { 'data-morph-target': '' } : null),
 };
 
 /**
@@ -30,7 +32,7 @@ const triggerStateAttributesMapping = {
 const LightboxTrigger = React.forwardRef<HTMLButtonElement, LightboxTriggerProps>(
   function LightboxTrigger(props, forwardedRef) {
     const { render, index, ...elementProps } = props;
-    const { open, activeIndex, setOpen, setActiveIndex, triggerElementsRef, openingTriggerIndexRef } = useLightboxContext();
+    const { open, activeIndex, setOpen, setActiveIndex, triggerElementsRef, openingTriggerIndexRef, morphTo } = useLightboxContext();
 
     const internalRef = React.useRef<HTMLButtonElement | null>(null);
 
@@ -59,7 +61,24 @@ const LightboxTrigger = React.forwardRef<HTMLButtonElement, LightboxTriggerProps
     }, [index, setActiveIndex, setOpen, openingTriggerIndexRef]);
 
     const active = open && activeIndex === index;
-    const state = React.useMemo<LightboxTriggerState>(() => ({ open, active }), [open, active]);
+
+    const morphTarget = React.useMemo(() => {
+      if (!open) return false;
+      if (morphTo === 'origin') return index === openingTriggerIndexRef.current;
+      if (morphTo === 'closest') {
+        if (triggerElementsRef.current.has(activeIndex)) return activeIndex === index;
+        let best = -1;
+        let bestDist = Infinity;
+        for (const idx of triggerElementsRef.current.keys()) {
+          const dist = Math.abs(idx - activeIndex);
+          if (dist < bestDist) { bestDist = dist; best = idx; }
+        }
+        return index === best;
+      }
+      return active;
+    }, [open, morphTo, activeIndex, index, active, openingTriggerIndexRef, triggerElementsRef]);
+
+    const state = React.useMemo<LightboxTriggerState>(() => ({ open, active, morphTarget }), [open, active, morphTarget]);
 
     return useRender({
       render,
