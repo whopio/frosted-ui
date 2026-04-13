@@ -2021,6 +2021,42 @@ describe('ScrollGallery', () => {
       expect(screen.getByTestId('marker-3')).toHaveAttribute('aria-selected', 'true');
     });
 
+    it('scrolls when external value differs from the scroll-reported value', () => {
+      let externalValue = 0;
+      const onValueChange = vi.fn((v: number) => {
+        externalValue = v;
+      });
+
+      const { rerender } = render(<ControlledGallery value={externalValue} onValueChange={onValueChange} />);
+      const viewport = screen.getByTestId('viewport');
+      const scrollBySpy = vi.fn();
+      viewport.scrollBy = scrollBySpy;
+
+      // User scrolls to item 4
+      mockViewportScroll(viewport, { scrollLeft: 800, scrollWidth: 1000, clientWidth: 400 });
+      const viewportRect = { left: 0, top: 0, right: 400, bottom: 300, width: 400, height: 300, x: 0, y: 0, toJSON: () => ({}) };
+      vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue(viewportRect);
+      for (let i = 0; i < 5; i++) {
+        const item = screen.getByTestId(`item-${i}`);
+        vi.spyOn(item, 'getBoundingClientRect').mockReturnValue(
+          { left: i * 200 - 800, top: 0, right: i * 200 - 800 + 200, bottom: 100, width: 200, height: 100, x: i * 200 - 800, y: 0, toJSON: () => ({}) },
+        );
+      }
+
+      act(() => {
+        fireEvent.scroll(viewport);
+      });
+
+      // Scroll reported value=4, parent echoes it
+      rerender(<ControlledGallery value={externalValue} onValueChange={onValueChange} />);
+      scrollBySpy.mockClear();
+
+      // Now external button sets value to 1 (different from scroll-reported 4)
+      rerender(<ControlledGallery value={1} onValueChange={onValueChange} />);
+
+      expect(scrollBySpy).toHaveBeenCalled();
+    });
+
     it('does not update internal state in controlled mode (only fires onValueChange)', () => {
       const onValueChange = vi.fn();
       render(<ControlledGallery value={0} onValueChange={onValueChange} />);
