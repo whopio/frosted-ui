@@ -1015,14 +1015,14 @@ function ScreenCard({ screen, index }: { screen: typeof designScreens[number]; i
 const propertyPhotos = [
   { id: 'prop-hero', src: 'https://picsum.photos/seed/prop-hero/1400/900', thumb: 'https://picsum.photos/seed/prop-hero/800/500', alt: 'Living room with floor-to-ceiling windows', label: 'Living Room' },
   { id: 'prop-kitchen', src: 'https://picsum.photos/seed/prop-kitchen/1400/900', thumb: 'https://picsum.photos/seed/prop-kitchen/600/400', alt: 'Modern kitchen with marble island', label: 'Kitchen' },
-  { id: 'prop-bedroom', src: 'https://picsum.photos/seed/prop-bed/1400/900', thumb: 'https://picsum.photos/seed/prop-bed/600/400', alt: 'Primary bedroom with en-suite balcony', label: 'Primary Bedroom' },
-  { id: 'prop-bath', src: 'https://picsum.photos/seed/prop-bath/1400/900', thumb: 'https://picsum.photos/seed/prop-bath/600/400', alt: 'Spa-style bathroom with freestanding tub', label: 'Bathroom' },
+  { id: 'prop-bedroom', src: 'https://picsum.photos/seed/prop-bed/900/1400', thumb: 'https://picsum.photos/seed/prop-bed/400/600', alt: 'Primary bedroom with en-suite balcony', label: 'Primary Bedroom' },
+  { id: 'prop-bath', src: 'https://picsum.photos/seed/prop-bath/900/1400', thumb: 'https://picsum.photos/seed/prop-bath/400/600', alt: 'Spa-style bathroom with freestanding tub', label: 'Bathroom' },
   { id: 'prop-terrace', src: 'https://picsum.photos/seed/prop-terrace/1400/900', thumb: 'https://picsum.photos/seed/prop-terrace/600/400', alt: 'Rooftop terrace with city views', label: 'Terrace' },
   { id: 'prop-dining', src: 'https://picsum.photos/seed/prop-dining/1400/900', thumb: 'https://picsum.photos/seed/prop-dining/600/400', alt: 'Dining area with designer lighting', label: 'Dining' },
-  { id: 'prop-office', src: 'https://picsum.photos/seed/prop-office/1400/900', thumb: 'https://picsum.photos/seed/prop-office/600/400', alt: 'Home office with built-in shelving', label: 'Office' },
+  { id: 'prop-office', src: 'https://picsum.photos/seed/prop-office/900/1200', thumb: 'https://picsum.photos/seed/prop-office/400/530', alt: 'Home office with built-in shelving', label: 'Office' },
   { id: 'prop-pool', src: 'https://picsum.photos/seed/prop-pool/1400/900', thumb: 'https://picsum.photos/seed/prop-pool/600/400', alt: 'Infinity pool overlooking the valley', label: 'Pool' },
   { id: 'prop-garden', src: 'https://picsum.photos/seed/prop-garden/1400/900', thumb: 'https://picsum.photos/seed/prop-garden/600/400', alt: 'Landscaped garden with mature olive trees', label: 'Garden' },
-  { id: 'prop-exterior', src: 'https://picsum.photos/seed/prop-ext/1400/900', thumb: 'https://picsum.photos/seed/prop-ext/600/400', alt: 'Front elevation at dusk with warm lighting', label: 'Exterior' },
+  { id: 'prop-exterior', src: 'https://picsum.photos/seed/prop-ext/900/1400', thumb: 'https://picsum.photos/seed/prop-ext/400/600', alt: 'Front elevation at dusk with warm lighting', label: 'Exterior' },
 ];
 
 const amenities = [
@@ -1055,12 +1055,12 @@ function HeroGrid() {
         aspectRatio: '2.2 / 1',
       }}
     >
-      <Lightbox.Trigger index={0} style={{ ...triggerStyle, gridRow: '1 / -1', display: 'block' }}>
-        <img src={propertyPhotos[0].thumb} alt={propertyPhotos[0].alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', borderRadius: heroCornerRadius(0, heroR) }} />
+      <Lightbox.Trigger index={0} style={{ ...triggerStyle, gridRow: '1 / -1', display: 'block', overflow: 'hidden', borderRadius: heroCornerRadius(0, heroR) }}>
+        <img src={propertyPhotos[0].thumb} alt={propertyPhotos[0].alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
       </Lightbox.Trigger>
       {propertyPhotos.slice(1, 5).map((photo, i) => (
-        <Lightbox.Trigger key={photo.id} index={i + 1} style={{ ...triggerStyle, display: 'block' }}>
-          <img src={photo.thumb} alt={photo.alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', borderRadius: heroCornerRadius(i + 1, heroR) }} />
+        <Lightbox.Trigger key={photo.id} index={i + 1} style={{ ...triggerStyle, display: 'block', overflow: 'hidden', borderRadius: heroCornerRadius(i + 1, heroR) }}>
+          <img src={photo.thumb} alt={photo.alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
         </Lightbox.Trigger>
       ))}
     </div>
