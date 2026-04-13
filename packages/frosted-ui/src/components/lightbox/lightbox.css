@@ -102,7 +102,7 @@ html:has(.fui-LightboxContent[open]) {
     backdrop-filter: blur(0px);
     background: rgba(0, 0, 0, 0);
     opacity: 0;
-    transition: opacity 300ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 400ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .fui-LightboxContent[data-open]::backdrop {
@@ -120,7 +120,7 @@ html:has(.fui-LightboxContent[open]) {
   /* --- Content --- */
   .fui-LightboxContent {
     opacity: 0;
-    transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 300ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .fui-LightboxContent[data-open] {
@@ -133,7 +133,7 @@ html:has(.fui-LightboxContent[open]) {
 
   /* --- Item navigation fade --- */
   .fui-LightboxItem[data-active]:not([data-skip-fade]) {
-    animation: fui-lightbox-fade-in 200ms ease-out both;
+    animation: fui-lightbox-fade-in 250ms ease-out both;
   }
 }
 
@@ -159,7 +159,7 @@ html:has(.fui-LightboxContent[open]) {
    Match the backdrop's transition duration so the cross-fade feels cohesive. */
 :root[data-lightbox-view-transition]::view-transition-old(root),
 :root[data-lightbox-view-transition]::view-transition-new(root) {
-  animation-duration: 300ms;
+  animation-duration: 400ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -175,7 +175,7 @@ html:has(.fui-LightboxContent[open]) {
 
 ::view-transition-group(fui-lightbox-morph) {
   animation-name: -ua-view-transition-group-anim-fui-lightbox-morph, fui-morph-border-radius;
-  animation-duration: 350ms;
+  animation-duration: 450ms;
   animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
   animation-fill-mode: both;
   overflow: hidden;
@@ -191,11 +191,11 @@ html:has(.fui-LightboxContent[open]) {
 }
 
 ::view-transition-old(fui-lightbox-morph) {
-  animation: fui-morph-fade-out 350ms cubic-bezier(0.32, 0.72, 0, 1) both;
+  animation: fui-morph-fade-out 450ms cubic-bezier(0.32, 0.72, 0, 1) both;
 }
 
 ::view-transition-new(fui-lightbox-morph) {
-  animation: fui-morph-fade-in 350ms cubic-bezier(0.32, 0.72, 0, 1) both;
+  animation: fui-morph-fade-in 450ms cubic-bezier(0.32, 0.72, 0, 1) both;
 }
 
 @keyframes fui-morph-fade-out {
