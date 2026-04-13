@@ -13,10 +13,17 @@ import {
 interface ScrollGalleryRootProps {
   children?: React.ReactNode;
   /**
-   * The initial active item index.
+   * The initial active item index (uncontrolled mode).
    * @default 0
    */
   defaultValue?: number;
+  /**
+   * The active item index (controlled mode). When provided, the component
+   * is fully controlled — external changes scroll the viewport to the
+   * corresponding item. Use together with `onValueChange` to keep state
+   * in sync with user-driven scroll.
+   */
+  value?: number;
   /**
    * When true, navigation wraps around at boundaries:
    * - Previous/Next buttons don't disable and jump to the other end
@@ -43,9 +50,10 @@ interface ScrollGalleryRootProps {
 /**
  * Imperative handle exposed via `ref` on ScrollGallery.Root.
  *
- * Provides `scrollTo(index)` for programmatic navigation without needing
- * a controlled value prop — the DOM scroll position is the source of truth,
- * and this method simply scrolls to bring the target item into view.
+ * Provides `scrollTo(index)` for programmatic navigation. In uncontrolled
+ * mode this is the primary way to navigate programmatically. In controlled
+ * mode (`value` prop), simply update the value — the component scrolls
+ * automatically.
  */
 interface ScrollGalleryRootRef {
   scrollTo: (index: number, behavior?: ScrollBehavior) => void;
@@ -58,12 +66,15 @@ const ScrollGalleryRoot = React.forwardRef<
   const {
     children,
     defaultValue = 0,
+    value: valueProp,
     loop = false,
     onValueChange,
     orientation = 'horizontal',
   } = props;
 
-  const [activeIndex, setActiveIndexState] = React.useState(defaultValue);
+  const isControlled = valueProp !== undefined;
+  const [internalIndex, setInternalIndex] = React.useState(defaultValue);
+  const activeIndex = isControlled ? valueProp : internalIndex;
 
   const onValueChangeRef = React.useRef(onValueChange);
   React.useEffect(() => {
@@ -72,10 +83,12 @@ const ScrollGalleryRoot = React.forwardRef<
 
   const setActiveIndex = React.useCallback(
     (index: number, source: ChangeSource) => {
-      setActiveIndexState(index);
+      if (!isControlled) {
+        setInternalIndex(index);
+      }
       onValueChangeRef.current?.(index, { source });
     },
-    [],
+    [isControlled],
   );
 
   const [canScrollPrev, setCanScrollPrev] = React.useState(false);
@@ -170,18 +183,23 @@ const ScrollGalleryRoot = React.forwardRef<
 
   React.useImperativeHandle(forwardedRef, () => ({ scrollTo: scrollToItem }), [scrollToItem]);
 
-  // Scroll to the initial item on mount when defaultValue is non-zero.
-  // Uses useLayoutEffect so the scroll happens before the browser paints,
-  // avoiding a single-frame flash at scroll position 0. This works because
-  // items register in useLayoutEffect too — children's layout effects fire
-  // before the parent's, so items are available by the time this runs.
-  const defaultValueRef = React.useRef(defaultValue);
+  // Scroll to the initial item on mount when defaultValue/value is non-zero.
+  const initialValueRef = React.useRef(isControlled ? valueProp : defaultValue);
   React.useLayoutEffect(() => {
-    if (defaultValueRef.current !== 0) {
-      scrollToItem(defaultValueRef.current, 'instant');
+    if (initialValueRef.current !== 0) {
+      scrollToItem(initialValueRef.current, 'instant');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // In controlled mode, scroll the viewport when the external value changes.
+  const prevValueRef = React.useRef(valueProp);
+  React.useEffect(() => {
+    if (!isControlled) return;
+    if (prevValueRef.current === valueProp) return;
+    prevValueRef.current = valueProp;
+    scrollToItem(valueProp, getScrollBehavior());
+  }, [isControlled, valueProp, scrollToItem]);
 
   const contextValue = React.useMemo<ScrollGalleryContextValue>(
     () => ({
