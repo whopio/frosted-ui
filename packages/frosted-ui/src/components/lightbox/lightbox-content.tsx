@@ -7,6 +7,7 @@ import * as ReactDOM from 'react-dom';
 import { Theme } from '../../theme';
 import { useLightboxContext } from './lightbox-context';
 import { useOptionalZoomContext } from './lightbox-zoom-context';
+import { usePullToDismiss } from './use-pull-to-dismiss';
 
 const useLayoutEffect = typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect;
 
@@ -44,17 +45,20 @@ interface LightboxContentProps extends React.ComponentPropsWithRef<'div'> {
   children?: React.ReactNode;
   /** Container element for the portal. Defaults to `document.body`. */
   container?: Element | DocumentFragment | null;
+  /** Enable pull-to-close gesture on touch devices. @default true */
+  pullToClose?: boolean;
 }
 
 const LightboxContent = React.forwardRef<HTMLDivElement, LightboxContentProps>(
   function LightboxContent(props, forwardedRef) {
-    const { className, children, container, ...rest } = props;
+    const { className, children, container, pullToClose = true, ...rest } = props;
 
     const { open, mounted, setOpen, activeIndex, setActiveIndex, itemCount, loop, dialogElementRef } =
       useLightboxContext();
     const zoomContext = useOptionalZoomContext();
 
     const contentRef = React.useRef<HTMLDivElement | null>(null);
+    const backdropRef = React.useRef<HTMLDivElement | null>(null);
 
     const mergedRef = React.useCallback(
       (node: HTMLDivElement | null) => {
@@ -111,6 +115,24 @@ const LightboxContent = React.forwardRef<HTMLDivElement, LightboxContentProps>(
         el.removeEventListener('wheel', preventWheelZoom);
       };
     }, [mounted]);
+
+    // Pull-to-dismiss: drag the image vertically to close the lightbox.
+    // ZoomContext is provided by LightboxZoom (a descendant), so we can't
+    // read it via useContext here. Instead check the data-zoomed attribute
+    // that LightboxZoom sets imperatively on the content element.
+    const getZoom = React.useCallback(
+      () => (contentRef.current?.hasAttribute('data-zoomed') ? 2 : 1),
+      [],
+    );
+    const stableSetOpen = React.useCallback(() => setOpen(false), [setOpen]);
+
+    usePullToDismiss({
+      contentRef,
+      backdropRef,
+      getZoom,
+      onClose: stableSetOpen,
+      disabled: !pullToClose || !mounted,
+    });
 
     // Close on Escape key. Listens on the document so it works regardless
     // of focus state, matching native <dialog> cancel behavior.
@@ -201,6 +223,7 @@ const LightboxContent = React.forwardRef<HTMLDivElement, LightboxContentProps>(
     const content = (
       <Theme appearance="dark" hasBackground={false}>
         <div
+          ref={backdropRef}
           className="fui-LightboxBackdrop"
           data-open={open || undefined}
           aria-hidden="true"

@@ -1553,4 +1553,235 @@ describe('Lightbox', () => {
       });
     });
   });
+
+  // ---------------------------------------------------------------------------
+  // 15. Pull-to-dismiss
+  // ---------------------------------------------------------------------------
+
+  describe('pull-to-dismiss', () => {
+    // Polyfill PointerEvent for jsdom
+    const origPointerEvent = globalThis.PointerEvent;
+    beforeEach(() => {
+      if (!globalThis.PointerEvent) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (globalThis as Record<string, unknown>).PointerEvent = class PointerEvent extends MouseEvent {
+          pointerId: number;
+          pointerType: string;
+          constructor(type: string, init: PointerEventInit & { pointerId?: number; pointerType?: string } = {}) {
+            super(type, init);
+            this.pointerId = init.pointerId ?? 0;
+            this.pointerType = init.pointerType ?? 'mouse';
+          }
+        };
+      }
+      if (!Element.prototype.setPointerCapture) {
+        Element.prototype.setPointerCapture = vi.fn();
+      }
+      if (!Element.prototype.releasePointerCapture) {
+        Element.prototype.releasePointerCapture = vi.fn();
+      }
+      if (!Element.prototype.animate) {
+        Element.prototype.animate = vi.fn(() => ({
+          finished: Promise.resolve(),
+          cancel: vi.fn(),
+          play: vi.fn(),
+          pause: vi.fn(),
+          onfinish: null,
+        })) as unknown as typeof Element.prototype.animate;
+      }
+    });
+    afterEach(() => {
+      if (origPointerEvent) {
+        (globalThis as Record<string, unknown>).PointerEvent = origPointerEvent;
+      }
+    });
+
+    function dispatchPointer(el: Element, type: string, init: Partial<PointerEventInit> & { pointerId?: number; clientX?: number; clientY?: number; timeStamp?: number } = {}) {
+      const event = new PointerEvent(type, {
+        bubbles: true,
+        cancelable: true,
+        pointerId: 1,
+        pointerType: 'touch',
+        ...init,
+      });
+      if (init.timeStamp !== undefined) {
+        Object.defineProperty(event, 'timeStamp', { value: init.timeStamp });
+      }
+      el.dispatchEvent(event);
+    }
+
+    function PullDismissLightbox({ pullToClose, withZoom, zoomRef }: { pullToClose?: boolean; withZoom?: boolean; zoomRef?: React.RefObject<LightboxZoomRef | null> } = {}) {
+      return (
+        <LightboxRoot defaultOpen>
+          <LightboxContent data-testid="content" aria-label="Pull dismiss test" pullToClose={pullToClose}>
+            <LightboxItemGroup>
+              <LightboxItem index={0}>
+                {withZoom ? (
+                  <LightboxZoom ref={zoomRef} maxZoom={4}>
+                    <img src="test.jpg" alt="test" />
+                  </LightboxZoom>
+                ) : (
+                  <img src="test.jpg" alt="test" />
+                )}
+              </LightboxItem>
+            </LightboxItemGroup>
+          </LightboxContent>
+        </LightboxRoot>
+      );
+    }
+
+    it('sets data-pulling attribute during vertical drag', () => {
+      render(<PullDismissLightbox />);
+      const content = screen.getByTestId('content');
+      const img = screen.getByAltText('test');
+
+      act(() => {
+        dispatchPointer(img, 'pointerdown', { clientX: 200, clientY: 200 });
+        dispatchPointer(content, 'pointermove', { clientX: 200, clientY: 225 });
+      });
+
+      expect(content).toHaveAttribute('data-pulling');
+    });
+
+    it('does not set data-pulling for horizontal drag', () => {
+      render(<PullDismissLightbox />);
+      const content = screen.getByTestId('content');
+      const img = screen.getByAltText('test');
+
+      act(() => {
+        dispatchPointer(img, 'pointerdown', { clientX: 200, clientY: 200 });
+        dispatchPointer(content, 'pointermove', { clientX: 225, clientY: 200 });
+      });
+
+      expect(content).not.toHaveAttribute('data-pulling');
+    });
+
+    it('closes the lightbox when dragged past dismiss threshold', async () => {
+      render(<PullDismissLightbox />);
+      const content = screen.getByTestId('content');
+      const img = screen.getByAltText('test');
+
+      act(() => {
+        dispatchPointer(img, 'pointerdown', { clientX: 200, clientY: 200 });
+        dispatchPointer(content, 'pointermove', { clientX: 200, clientY: 370 });
+        dispatchPointer(content, 'pointerup', { clientX: 200, clientY: 370 });
+      });
+      await flushMicrotasks();
+
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    });
+
+    it('snaps back when released below dismiss threshold', () => {
+      render(<PullDismissLightbox />);
+      const content = screen.getByTestId('content');
+      const img = screen.getByAltText('test');
+
+      act(() => {
+        dispatchPointer(img, 'pointerdown', { clientX: 200, clientY: 200 });
+        dispatchPointer(content, 'pointermove', { clientX: 200, clientY: 260 });
+        dispatchPointer(content, 'pointerup', { clientX: 200, clientY: 260 });
+      });
+
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
+    });
+
+    it('closes on fast flick even below distance threshold', async () => {
+      render(<PullDismissLightbox />);
+      const content = screen.getByTestId('content');
+      const img = screen.getByAltText('test');
+
+      act(() => {
+        dispatchPointer(img, 'pointerdown', { clientX: 200, clientY: 200, timeStamp: 0 });
+        dispatchPointer(content, 'pointermove', { clientX: 200, clientY: 230, timeStamp: 10 });
+        dispatchPointer(content, 'pointermove', { clientX: 200, clientY: 280, timeStamp: 40 });
+        dispatchPointer(content, 'pointerup', { clientX: 200, clientY: 280, timeStamp: 40 });
+      });
+      await flushMicrotasks();
+
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    });
+
+    it('does not activate when zoomed in', () => {
+      const ref = React.createRef<LightboxZoomRef>();
+      render(<PullDismissLightbox withZoom zoomRef={ref} />);
+      const content = screen.getByTestId('content');
+      const img = screen.getByAltText('test');
+
+      act(() => ref.current!.zoomTo(2));
+      expect(content).toHaveAttribute('data-zoomed');
+
+      act(() => {
+        dispatchPointer(img, 'pointerdown', { clientX: 200, clientY: 200 });
+        dispatchPointer(content, 'pointermove', { clientX: 200, clientY: 370 });
+      });
+
+      expect(content).not.toHaveAttribute('data-pulling');
+    });
+
+    it('is disabled when pullToClose is false', () => {
+      render(<PullDismissLightbox pullToClose={false} />);
+      const content = screen.getByTestId('content');
+      const img = screen.getByAltText('test');
+
+      act(() => {
+        dispatchPointer(img, 'pointerdown', { clientX: 200, clientY: 200 });
+        dispatchPointer(content, 'pointermove', { clientX: 200, clientY: 370 });
+        dispatchPointer(content, 'pointerup', { clientX: 200, clientY: 370 });
+      });
+
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
+    });
+
+    it('applies transform to the active item during drag', () => {
+      render(<PullDismissLightbox />);
+      const content = screen.getByTestId('content');
+      const img = screen.getByAltText('test');
+      const item = img.closest('.fui-LightboxItem') as HTMLElement;
+
+      act(() => {
+        dispatchPointer(img, 'pointerdown', { clientX: 200, clientY: 200 });
+        dispatchPointer(content, 'pointermove', { clientX: 200, clientY: 250 });
+      });
+
+      expect(item.style.transform).toContain('translateY(50px)');
+      expect(item.style.transform).toContain('scale(');
+      expect(content.style.transform).toBe('');
+    });
+
+    it('does not activate for mouse pointer', () => {
+      render(<PullDismissLightbox />);
+      const content = screen.getByTestId('content');
+
+      act(() => {
+        dispatchPointer(content, 'pointerdown', { clientX: 200, clientY: 200, pointerType: 'mouse' });
+        dispatchPointer(content, 'pointermove', { clientX: 200, clientY: 370, pointerType: 'mouse' });
+      });
+
+      expect(content).not.toHaveAttribute('data-pulling');
+    });
+
+    it('does not activate when touch starts on controls outside an item', () => {
+      render(
+        <LightboxRoot defaultOpen>
+          <LightboxContent data-testid="content" aria-label="Controls test">
+            <LightboxItemGroup>
+              <LightboxItem index={0}>
+                <img src="test.jpg" alt="test" />
+              </LightboxItem>
+            </LightboxItemGroup>
+            <button data-testid="close-btn">Close</button>
+          </LightboxContent>
+        </LightboxRoot>,
+      );
+      const content = screen.getByTestId('content');
+      const closeBtn = screen.getByTestId('close-btn');
+
+      act(() => {
+        dispatchPointer(closeBtn, 'pointerdown', { clientX: 200, clientY: 200 });
+        dispatchPointer(content, 'pointermove', { clientX: 200, clientY: 370 });
+      });
+
+      expect(content).not.toHaveAttribute('data-pulling');
+    });
+  });
 });

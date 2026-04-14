@@ -235,6 +235,27 @@
 
 /***************************************************************************************************
  *                                                                                                 *
+ * PULL-TO-DISMISS                                                                                 *
+ * During a vertical drag the content follows the finger and the backdrop                          *
+ * fades. Suppress the normal exit transition so setOpen(false) closes                             *
+ * instantly without fighting the pull animation.                                                  *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+.fui-LightboxContent[data-pulling] {
+  transition: none !important;
+}
+
+.fui-LightboxContent[data-pulling] .fui-LightboxItem {
+  will-change: transform;
+}
+
+.fui-LightboxBackdrop[data-pulling] {
+  transition: none !important;
+}
+
+/***************************************************************************************************
+ *                                                                                                 *
  * ZOOM                                                                                            *
  *                                                                                                 *
  ***************************************************************************************************/
