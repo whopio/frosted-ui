@@ -87,19 +87,29 @@ const LightboxContent = React.forwardRef<HTMLDivElement, LightboxContentProps>(
       };
     }, [mounted]);
 
-    // Prevent native pinch-zoom (e.g. iOS Safari tab-minimize gesture) even
-    // when the browser already committed to a pan from a single-finger scroll.
+    // Prevent native pinch-zoom on touch (e.g. iOS Safari tab-minimize gesture)
+    // and on macOS trackpad (ctrlKey + wheel). Both require { passive: false }
+    // so preventDefault() is honoured.
     React.useEffect(() => {
       if (!mounted) return;
       const el = contentRef.current;
       if (!el) return;
-      const preventPinch = (event: TouchEvent) => {
+      const preventTouchPinch = (event: TouchEvent) => {
         if (event.touches.length > 1) {
           event.preventDefault();
         }
       };
-      el.addEventListener('touchmove', preventPinch, { passive: false });
-      return () => el.removeEventListener('touchmove', preventPinch);
+      const preventWheelZoom = (event: WheelEvent) => {
+        if (event.ctrlKey) {
+          event.preventDefault();
+        }
+      };
+      el.addEventListener('touchmove', preventTouchPinch, { passive: false });
+      el.addEventListener('wheel', preventWheelZoom, { passive: false });
+      return () => {
+        el.removeEventListener('touchmove', preventTouchPinch);
+        el.removeEventListener('wheel', preventWheelZoom);
+      };
     }, [mounted]);
 
     // Close on Escape key. Listens on the document so it works regardless
