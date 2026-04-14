@@ -479,7 +479,7 @@ const LightboxZoom = React.forwardRef<LightboxZoomRef, LightboxZoomProps>(
             position: 'relative',
             width: '100%',
             height: '100%',
-            touchAction: 'none',
+            touchAction: zoom > minZoom ? 'none' : 'pan-x pan-y',
             cursor: dragging ? 'grabbing' : zoom > 1 ? 'grab' : undefined,
             userSelect: 'none',
           }}
