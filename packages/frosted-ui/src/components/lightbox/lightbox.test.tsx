@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { render, screen, fireEvent, act, cleanup } from '@testing-library/react';
 import * as React from 'react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
@@ -1238,6 +1238,87 @@ describe('Lightbox', () => {
       act(() => ref.current!.zoomTo(2));
       const zoomedContainer = screen.getByTestId('zoom-img').parentElement!.parentElement!;
       expect(zoomedContainer).toHaveAttribute('data-zoom');
+    });
+
+    it('data-zoomed attribute is set on Content when zoomed in', () => {
+      render(<ZoomLightbox />);
+      const content = screen.getByTestId('content');
+      expect(content).not.toHaveAttribute('data-zoomed');
+
+      const ref = React.createRef<LightboxZoomRef>();
+      cleanup();
+      render(
+        <LightboxRoot defaultOpen>
+          <LightboxContent data-testid="content" aria-label="Zoom zoomed test">
+            <LightboxItemGroup>
+              <LightboxItem index={0}>
+                <LightboxZoom ref={ref} maxZoom={4}>
+                  <img src="test.jpg" alt="test" />
+                </LightboxZoom>
+              </LightboxItem>
+            </LightboxItemGroup>
+          </LightboxContent>
+        </LightboxRoot>,
+      );
+      const contentEl = screen.getByTestId('content');
+      expect(contentEl).not.toHaveAttribute('data-zoomed');
+
+      act(() => ref.current!.zoomTo(2));
+      expect(contentEl).toHaveAttribute('data-zoomed');
+    });
+
+    it('data-zoomed attribute is removed when zoom resets to 1x', () => {
+      const ref = React.createRef<LightboxZoomRef>();
+      render(
+        <LightboxRoot defaultOpen>
+          <LightboxContent data-testid="content" aria-label="Zoom reset attr test">
+            <LightboxItemGroup>
+              <LightboxItem index={0}>
+                <LightboxZoom ref={ref} maxZoom={4}>
+                  <img src="test.jpg" alt="test" />
+                </LightboxZoom>
+              </LightboxItem>
+            </LightboxItemGroup>
+          </LightboxContent>
+        </LightboxRoot>,
+      );
+      const contentEl = screen.getByTestId('content');
+
+      act(() => ref.current!.zoomTo(3));
+      expect(contentEl).toHaveAttribute('data-zoomed');
+
+      act(() => ref.current!.reset());
+      expect(contentEl).not.toHaveAttribute('data-zoomed');
+    });
+
+    it('data-zoomed attribute is removed when slide changes', () => {
+      const ref = React.createRef<LightboxZoomRef>();
+      render(
+        <LightboxRoot defaultOpen>
+          <LightboxContent data-testid="content" aria-label="Zoom slide change test">
+            <LightboxItemGroup>
+              <LightboxItem index={0}>
+                <LightboxZoom ref={ref} maxZoom={4}>
+                  <img src="test.jpg" alt="test" />
+                </LightboxZoom>
+              </LightboxItem>
+              <LightboxItem index={1}>
+                <LightboxZoom maxZoom={4}>
+                  <img src="test2.jpg" alt="test2" />
+                </LightboxZoom>
+              </LightboxItem>
+            </LightboxItemGroup>
+            <LightboxNext data-testid="next">Next</LightboxNext>
+          </LightboxContent>
+        </LightboxRoot>,
+      );
+      const contentEl = screen.getByTestId('content');
+
+      act(() => ref.current!.zoomTo(2));
+      expect(contentEl).toHaveAttribute('data-zoomed');
+
+      fireEvent.click(screen.getByTestId('next'));
+      expect(contentEl).not.toHaveAttribute('data-zoomed');
     });
 
     it('maxZoom defaults when not specified', () => {
