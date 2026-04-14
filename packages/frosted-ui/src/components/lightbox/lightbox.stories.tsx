@@ -2359,6 +2359,15 @@ export const WithZoom: Story = {
         </div>
 
         <Lightbox.Content aria-label="Zoom demo">
+          <style>{`
+            .zoom-controls {
+              transition: opacity 200ms ease;
+            }
+            [data-zoomed] .zoom-controls {
+              opacity: 0;
+              pointer-events: none;
+            }
+          `}</style>
           <Lightbox.ItemGroup>
             {zoomImages.map((img, i) => (
               <Lightbox.Item key={img.src} index={i} caption={img.caption}>
@@ -2366,7 +2375,7 @@ export const WithZoom: Story = {
                   ref={i === 0 ? zoomRef : undefined}
                   maxZoom={6}
                   overlay={
-                    <div style={{ position: 'absolute', top: 'var(--space-3)', right: 'var(--space-3)', zIndex: 10, display: 'flex', gap: 'var(--space-2)', pointerEvents: 'auto' }}>
+                    <div className="zoom-controls" style={{ position: 'absolute', top: 'var(--space-3)', right: 'var(--space-3)', zIndex: 10, display: 'flex', gap: 'var(--space-2)', pointerEvents: 'auto' }}>
                       <Tooltip content="Zoom out">
                         <Lightbox.ZoomOut render={<IconButton variant="ghost" color="gray" size="2" />}>
                           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
@@ -2395,7 +2404,7 @@ export const WithZoom: Story = {
             ))}
           </Lightbox.ItemGroup>
 
-          <div style={{
+          <div className="zoom-controls" style={{
             position: 'absolute',
             bottom: 0,
             left: 0,

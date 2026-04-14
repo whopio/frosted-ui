@@ -117,7 +117,7 @@ const LightboxZoom = React.forwardRef<LightboxZoomRef, LightboxZoomProps>(
       wrapperClassName,
     } = props;
 
-    const { activeIndex } = useLightboxContext();
+    const { activeIndex, dialogElementRef } = useLightboxContext();
 
     // ----- State -----
     const [zoom, setZoom] = React.useState(minZoom);
@@ -187,6 +187,17 @@ const LightboxZoom = React.forwardRef<LightboxZoomRef, LightboxZoomProps>(
     React.useEffect(() => {
       onZoomChangeRef.current?.(zoom);
     }, [zoom]);
+
+    // ----- Sync data-zoomed attribute on Content element -----
+    React.useEffect(() => {
+      const el = dialogElementRef.current;
+      if (!el) return;
+      if (zoom > minZoom) {
+        el.setAttribute('data-zoomed', '');
+      } else {
+        el.removeAttribute('data-zoomed');
+      }
+    }, [zoom, minZoom, dialogElementRef]);
 
     // ----- Offset clamping -----
     const clampOffsets = React.useCallback(
