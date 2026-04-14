@@ -169,8 +169,9 @@ function usePullToDismiss({
         !target?.closest('[data-lightbox-morph], .fui-LightboxItem img, .fui-LightboxItem video')
       ) return;
 
-      // Don't activate if zoomed
+      // Don't activate if zoomed or if zoom gestures are in progress
       if (getZoom() > 1) return;
+      if (el.hasAttribute('data-zooming')) return;
 
       // Resolve the drag target: the active item element
       const activeItem = target?.closest('.fui-LightboxItem') as HTMLElement | null;
@@ -193,8 +194,8 @@ function usePullToDismiss({
 
     const handlePointerMove = (event: PointerEvent) => {
       if (event.pointerId !== pointerIdRef.current) return;
-      // Abort if zoom changed mid-gesture
-      if (getZoom() > 1) {
+      // Abort if zoom changed or zoom gesture started mid-pull
+      if (getZoom() > 1 || el.hasAttribute('data-zooming')) {
         if (isPullingRef.current) {
           isPullingRef.current = false;
           snapBack();

@@ -1783,5 +1783,50 @@ describe('Lightbox', () => {
 
       expect(content).not.toHaveAttribute('data-pulling');
     });
+
+    it('does not activate when data-zooming is set on content', () => {
+      render(<PullDismissLightbox />);
+      const content = screen.getByTestId('content');
+      const img = screen.getByAltText('test');
+
+      // Simulate zoom gesture in progress
+      content.setAttribute('data-zooming', '');
+
+      act(() => {
+        dispatchPointer(img, 'pointerdown', { clientX: 200, clientY: 200 });
+        dispatchPointer(content, 'pointermove', { clientX: 200, clientY: 250 });
+      });
+
+      expect(content).not.toHaveAttribute('data-pulling');
+      const item = img.closest('.fui-LightboxItem') as HTMLElement;
+      expect(item.style.transform).toBe('');
+
+      content.removeAttribute('data-zooming');
+    });
+
+    it('aborts pull gesture if data-zooming appears mid-drag', () => {
+      render(<PullDismissLightbox />);
+      const content = screen.getByTestId('content');
+      const img = screen.getByAltText('test');
+
+      act(() => {
+        dispatchPointer(img, 'pointerdown', { clientX: 200, clientY: 200 });
+        dispatchPointer(content, 'pointermove', { clientX: 200, clientY: 250 });
+      });
+
+      expect(content).toHaveAttribute('data-pulling');
+
+      // Simulate zoom gesture starting (e.g. second finger added)
+      content.setAttribute('data-zooming', '');
+
+      act(() => {
+        dispatchPointer(content, 'pointermove', { clientX: 200, clientY: 270 });
+      });
+
+      // Pull should have aborted — snap-back triggers animate()
+      expect(Element.prototype.animate).toHaveBeenCalled();
+
+      content.removeAttribute('data-zooming');
+    });
   });
 });

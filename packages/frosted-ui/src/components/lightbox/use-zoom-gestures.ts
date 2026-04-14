@@ -58,14 +58,17 @@ function useZoomGestures(
   config: ZoomGestureConfig,
   actions: ZoomGestureActions,
   disabled: boolean,
+  contentElementRef?: React.RefObject<HTMLElement | null>,
 ) {
   const activePointers = React.useRef<PointerEvent[]>([]);
   const lastPointerDown = React.useRef(0);
+  const lastMoveTime = React.useRef(0);
   const hadPinch = React.useRef(false);
   const pinchState = React.useRef<{
     initialDistance: number;
     initialZoom: number;
   } | undefined>(undefined);
+  const zoomingTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Stable refs so event listeners always see latest values
   const configRef = React.useRef(config);
@@ -104,6 +107,27 @@ function useZoomGestures(
     [clearPointer],
   );
 
+  const setZooming = React.useCallback(
+    (active: boolean) => {
+      const el = contentElementRef?.current;
+      if (!el) return;
+      if (active) {
+        if (zoomingTimerRef.current) {
+          clearTimeout(zoomingTimerRef.current);
+          zoomingTimerRef.current = null;
+        }
+        el.setAttribute('data-zooming', '');
+      } else {
+        // Delay removal to cover the snap-back animation period
+        zoomingTimerRef.current = setTimeout(() => {
+          el.removeAttribute('data-zooming');
+          zoomingTimerRef.current = null;
+        }, 250);
+      }
+    },
+    [contentElementRef],
+  );
+
   const handlePointerDown = React.useCallback(
     (event: PointerEvent) => {
       const pointers = activePointers.current;
@@ -118,9 +142,30 @@ function useZoomGestures(
         return;
       }
 
+      // Don't activate if pull-to-dismiss is in progress or snapping back.
+      // Also clear all tracking state — pull-to-dismiss captures the pointer
+      // via setPointerCapture, so we never receive pointerup for it and
+      // would otherwise accumulate stale entries in activePointers.
+      if (contentElementRef?.current?.hasAttribute('data-pulling')) {
+        pointers.length = 0;
+        lastPointerDown.current = 0;
+        pinchState.current = undefined;
+        hadPinch.current = false;
+        return;
+      }
+
+      // Stale pointer cleanup: if pointers are recorded but no pointermove
+      // arrived recently, they were likely captured by pull-to-dismiss.
+      if (pointers.length > 0 && event.timeStamp - lastMoveTime.current > 300) {
+        pointers.length = 0;
+        pinchState.current = undefined;
+        hadPinch.current = false;
+      }
+
       if (zoom > 1) {
         event.stopPropagation();
         actionsRef.current.setDragging(true);
+        setZooming(true);
       }
 
       // Double-click / double-tap: toggle between zoomed and 1x
@@ -133,6 +178,7 @@ function useZoomGestures(
           ? minZoom
           : Math.min(zoomStep, maxZoom);
 
+        setZooming(true);
         changeZoom(targetZoom, false, ...translateCoordinates(event));
         return;
       }
@@ -141,6 +187,7 @@ function useZoomGestures(
       replacePointer(event);
 
       if (pointers.length === 2) {
+        setZooming(true);
         const dist = pointerDistance(pointers[0], pointers[1]);
         pinchState.current = {
           initialDistance: Math.max(dist, 1),
@@ -149,11 +196,12 @@ function useZoomGestures(
         hadPinch.current = true;
       }
     },
-    [wrapperRef, translateCoordinates, replacePointer],
+    [wrapperRef, contentElementRef, translateCoordinates, replacePointer, setZooming],
   );
 
   const handlePointerMove = React.useCallback(
     (event: PointerEvent) => {
+      lastMoveTime.current = event.timeStamp;
       const pointers = activePointers.current;
       const { getZoom, changeZoom, changeOffsets } = actionsRef.current;
       const zoom = getZoom();
@@ -209,9 +257,11 @@ function useZoomGestures(
         if (event.pointerType === 'touch') {
           actionsRef.current.snapOffsetsToBounds();
         }
+        // Clear zooming flag (delayed to cover snap-back animation)
+        setZooming(false);
       }
     },
-    [clearPointer],
+    [clearPointer, setZooming],
   );
 
   // -------------------------------------------------------------------
@@ -325,8 +375,13 @@ function useZoomGestures(
       lastPointerDown.current = 0;
       hadPinch.current = false;
       pinchState.current = undefined;
+      if (zoomingTimerRef.current) {
+        clearTimeout(zoomingTimerRef.current);
+        zoomingTimerRef.current = null;
+      }
+      contentElementRef?.current?.removeAttribute('data-zooming');
     };
-  }, [disabled]);
+  }, [disabled, contentElementRef]);
 }
 
 export { useZoomGestures };

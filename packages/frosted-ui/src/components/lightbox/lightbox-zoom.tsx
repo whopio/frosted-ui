@@ -417,7 +417,7 @@ const LightboxZoom = React.forwardRef<LightboxZoomRef, LightboxZoomProps>(
       [zoomInAction, zoomOutAction, changeZoomAction, changeOffsetsAction, snapToBoundsAction, snapOffsetsToBoundsAction],
     );
 
-    useZoomGestures(containerRef, wrapperRef, gestureConfig, gestureActions, false);
+    useZoomGestures(containerRef, wrapperRef, gestureConfig, gestureActions, false, dialogElementRef);
 
     // ----- Imperative ref -----
     React.useImperativeHandle(
