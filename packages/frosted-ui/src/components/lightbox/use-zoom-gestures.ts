@@ -477,7 +477,7 @@ function useZoomGestures(
       if (typeof scale !== 'number') return;
       const target = initialZoom * scale;
       const [cx, cy] = translateCoordinates(e as unknown as { clientX: number; clientY: number });
-      actionsRef.current.changeZoom(target, true, cx, cy);
+      actionsRef.current.changeZoom(target, true, cx, cy, true);
     };
 
     const onGestureEnd = (e: Event) => {
