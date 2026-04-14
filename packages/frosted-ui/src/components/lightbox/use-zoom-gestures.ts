@@ -41,9 +41,10 @@ interface ZoomGestureActions {
   getZoom: () => number;
   zoomIn: () => void;
   zoomOut: () => void;
-  changeZoom: (target: number, rapid: boolean, dx?: number, dy?: number) => void;
+  changeZoom: (target: number, rapid: boolean, dx?: number, dy?: number, overscroll?: boolean) => void;
   changeOffsets: (dx: number, dy: number) => void;
   setDragging: (dragging: boolean) => void;
+  snapToBounds: () => void;
 }
 
 // ---------------------------------------------------------------------------
@@ -59,6 +60,7 @@ function useZoomGestures(
 ) {
   const activePointers = React.useRef<PointerEvent[]>([]);
   const lastPointerDown = React.useRef(0);
+  const hadPinch = React.useRef(false);
   const pinchState = React.useRef<{
     initialDistance: number;
     initialZoom: number;
@@ -120,20 +122,15 @@ function useZoomGestures(
         actionsRef.current.setDragging(true);
       }
 
-      // Double-click / double-tap detection
+      // Double-click / double-tap: toggle between zoomed and 1x
       const now = event.timeStamp;
       if (pointers.length === 0 && now - lastPointerDown.current < doubleClickDelay) {
         lastPointerDown.current = 0;
 
         const { minZoom, maxZoom } = configRef.current;
-        const targetZoom =
-          zoom >= 1
-            ? zoom < maxZoom
-              ? zoom * Math.max(maxZoom ** (1 / doubleClickMaxStops), zoomStep)
-              : 1
-            : zoom < minZoom
-              ? zoom / Math.max(minZoom ** (-1 / doubleClickMaxStops), zoomStep)
-              : 1;
+        const targetZoom = zoom > minZoom
+          ? minZoom
+          : Math.min(zoomStep, maxZoom);
 
         changeZoom(targetZoom, false, ...translateCoordinates(event));
         return;
@@ -148,6 +145,7 @@ function useZoomGestures(
           initialDistance: Math.max(dist, 1),
           initialZoom: zoom,
         };
+        hadPinch.current = true;
       }
     },
     [wrapperRef, translateCoordinates, replacePointer],
@@ -161,7 +159,7 @@ function useZoomGestures(
 
       const existing = pointers.find((p) => p.pointerId === event.pointerId);
 
-      // Pinch zoom (2 pointers)
+      // Pinch zoom (2 pointers) — overscroll allows elastic bounce past bounds
       if (pointers.length === 2 && pinchState.current) {
         event.stopPropagation();
         replacePointer(event);
@@ -173,7 +171,7 @@ function useZoomGestures(
           .map((p) => translateCoordinates(p))
           .reduce<[number, number]>((acc, c) => [acc[0] + c[0] / 2, acc[1] + c[1] / 2], [0, 0]);
 
-        changeZoom(targetZoom, true, cx, cy);
+        changeZoom(targetZoom, true, cx, cy, true);
         return;
       }
 
@@ -201,6 +199,10 @@ function useZoomGestures(
       clearPointer(event.pointerId);
       if (activePointers.current.length === 0) {
         actionsRef.current.setDragging(false);
+        if (hadPinch.current) {
+          hadPinch.current = false;
+          actionsRef.current.snapToBounds();
+        }
       }
     },
     [clearPointer],
@@ -315,6 +317,7 @@ function useZoomGestures(
     return () => {
       ptrs.length = 0;
       lastPointerDown.current = 0;
+      hadPinch.current = false;
       pinchState.current = undefined;
     };
   }, [disabled]);

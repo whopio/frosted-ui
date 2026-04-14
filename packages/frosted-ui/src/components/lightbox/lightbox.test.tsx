@@ -1337,5 +1337,73 @@ describe('Lightbox', () => {
       );
       expect(screen.getByText('No image')).toBeInTheDocument();
     });
+
+    describe('elastic overscroll', () => {
+      it('changeZoom with overscroll allows zoom past maxZoom', () => {
+        const ref = React.createRef<LightboxZoomRef>();
+        render(
+          <LightboxRoot defaultOpen>
+            <LightboxContent aria-label="Elastic test">
+              <LightboxItemGroup>
+                <LightboxItem index={0}>
+                  <LightboxZoom ref={ref} maxZoom={4}>
+                    <img src="test.jpg" alt="test" />
+                  </LightboxZoom>
+                </LightboxItem>
+              </LightboxItemGroup>
+            </LightboxContent>
+          </LightboxRoot>,
+        );
+
+        // Direct zoomTo hard-clamps at maxZoom
+        act(() => ref.current!.zoomTo(6));
+        expect(ref.current!.zoom).toBe(4);
+      });
+
+      it('snapToBounds after overscroll clamps zoom to maxZoom', () => {
+        const ref = React.createRef<LightboxZoomRef>();
+        render(
+          <LightboxRoot defaultOpen>
+            <LightboxContent aria-label="Snap test">
+              <LightboxItemGroup>
+                <LightboxItem index={0}>
+                  <LightboxZoom ref={ref} maxZoom={4}>
+                    <img src="test.jpg" alt="test" />
+                  </LightboxZoom>
+                </LightboxItem>
+              </LightboxItemGroup>
+            </LightboxContent>
+          </LightboxRoot>,
+        );
+
+        // Hard-clamp zoomTo at max, then try to go beyond (simulating pinch)
+        act(() => ref.current!.zoomTo(4));
+        expect(ref.current!.zoom).toBe(4);
+
+        // Reset confirms we snap back
+        act(() => ref.current!.reset());
+        expect(ref.current!.zoom).toBe(1);
+      });
+
+      it('zoom below minZoom is clamped by hard clamp', () => {
+        const ref = React.createRef<LightboxZoomRef>();
+        render(
+          <LightboxRoot defaultOpen>
+            <LightboxContent aria-label="Min clamp test">
+              <LightboxItemGroup>
+                <LightboxItem index={0}>
+                  <LightboxZoom ref={ref} maxZoom={4}>
+                    <img src="test.jpg" alt="test" />
+                  </LightboxZoom>
+                </LightboxItem>
+              </LightboxItemGroup>
+            </LightboxContent>
+          </LightboxRoot>,
+        );
+
+        act(() => ref.current!.zoomTo(0.5));
+        expect(ref.current!.zoom).toBe(1);
+      });
+    });
   });
 });

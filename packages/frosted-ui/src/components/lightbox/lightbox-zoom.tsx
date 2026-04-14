@@ -78,6 +78,7 @@ interface LightboxZoomRef {
 
 const DEFAULT_MIN_ZOOM = 1;
 const DEFAULT_MAX_ZOOM_FALLBACK = 4;
+const ELASTIC_FACTOR = 0.15;
 const DEFAULT_ZOOM_STEP = 2;
 const DEFAULT_WHEEL_SENSITIVITY = 100;
 const DEFAULT_KEYBOARD_PAN = 50;
@@ -92,6 +93,23 @@ const DEFAULT_ANIMATION_DURATION = 300;
 function round(value: number, decimals: number): number {
   const factor = 10 ** decimals;
   return Math.round(value * factor) / factor;
+}
+
+/**
+ * Rubber-band clamping: allows values past min/max with increasing
+ * resistance, mimicking native iOS overscroll. The further the value
+ * exceeds the bounds, the harder it is to pull.
+ */
+function elasticClamp(value: number, min: number, max: number): number {
+  if (value < min) {
+    const over = min - value;
+    return min - over * ELASTIC_FACTOR;
+  }
+  if (value > max) {
+    const over = value - max;
+    return max + over * ELASTIC_FACTOR;
+  }
+  return value;
 }
 
 // ---------------------------------------------------------------------------
@@ -247,9 +265,11 @@ const LightboxZoom = React.forwardRef<LightboxZoomRef, LightboxZoomProps>(
     );
 
     const changeZoomAction = React.useCallback(
-      (target: number, rapid: boolean, dx?: number, dy?: number) => {
+      (target: number, rapid: boolean, dx?: number, dy?: number, overscroll?: boolean) => {
         const clamped = round(
-          Math.min(Math.max(target, minZoom), maxZoom),
+          overscroll
+            ? elasticClamp(target, minZoom, maxZoom)
+            : Math.min(Math.max(target, minZoom), maxZoom),
           5,
         );
 
@@ -296,6 +316,17 @@ const LightboxZoom = React.forwardRef<LightboxZoomRef, LightboxZoomProps>(
       [minZoom, captureStart],
     );
 
+    const snapToBoundsAction = React.useCallback(() => {
+      const currentZoom = zoomRef.current;
+      if (currentZoom >= minZoom && currentZoom <= maxZoom) return;
+      captureStart();
+      const snapped = Math.min(Math.max(currentZoom, minZoom), maxZoom);
+      const offsets = clampOffsets(offsetXRef.current, offsetYRef.current, snapped);
+      setZoom(snapped);
+      setOffsetX(offsets.x);
+      setOffsetY(offsets.y);
+    }, [minZoom, maxZoom, clampOffsets, captureStart]);
+
     // ----- Gesture hook -----
     const zoomRef = React.useRef(zoom);
     zoomRef.current = zoom;
@@ -322,8 +353,9 @@ const LightboxZoom = React.forwardRef<LightboxZoomRef, LightboxZoomProps>(
         changeZoom: changeZoomAction,
         changeOffsets: changeOffsetsAction,
         setDragging,
+        snapToBounds: snapToBoundsAction,
       }),
-      [zoomInAction, zoomOutAction, changeZoomAction, changeOffsetsAction],
+      [zoomInAction, zoomOutAction, changeZoomAction, changeOffsetsAction, snapToBoundsAction],
     );
 
     useZoomGestures(containerRef, wrapperRef, gestureConfig, gestureActions, false);
