@@ -16,6 +16,7 @@
   position: fixed;
   inset: 0;
   pointer-events: auto;
+  will-change: opacity;
 }
 
 /* The content container acts as the fullscreen overlay */
@@ -33,6 +34,8 @@
   outline: none;
   background: transparent;
   overscroll-behavior: contain;
+  will-change: opacity;
+  contain: layout style;
 
   @supports (max-height: 100dvh) {
     max-height: 100dvh;
@@ -89,22 +92,20 @@
  ***************************************************************************************************/
 
 @media (prefers-reduced-motion: no-preference) {
-  /* --- Backdrop --- */
+  /* --- Backdrop ---
+     Static backdrop-filter — the blur is always present but revealed
+     by the opacity fade-in, avoiding per-frame GPU blur resampling. */
   .fui-LightboxBackdrop {
-    backdrop-filter: blur(0px);
-    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(4px);
+    background: rgba(0, 0, 0, 0.75);
     opacity: 0;
     transition: opacity 400ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .fui-LightboxBackdrop[data-open] {
-    backdrop-filter: blur(4px);
-    background: rgba(0, 0, 0, 0.75);
     opacity: 1;
 
     @starting-style {
-      backdrop-filter: blur(0px);
-      background: rgba(0, 0, 0, 0);
       opacity: 0;
     }
   }
@@ -222,8 +223,6 @@
 }
 
 :root[data-lightbox-view-transition] .fui-LightboxBackdrop[data-open] {
-  backdrop-filter: blur(4px);
-  background: rgba(0, 0, 0, 0.75);
   opacity: 1;
 }
 

@@ -888,8 +888,11 @@ describe('Lightbox', () => {
     function cleanupViewTransitionAPI() {
       delete (document as unknown as Record<string, unknown>).startViewTransition;
       document.documentElement.removeAttribute('data-lightbox-view-transition');
+      document.documentElement.removeAttribute('data-lightbox-no-crossfade');
       document.documentElement.style.removeProperty('--fui-morph-border-radius-from');
       document.documentElement.style.removeProperty('--fui-morph-border-radius-to');
+      document.documentElement.style.removeProperty('--fui-morph-old-opacity');
+      document.documentElement.style.removeProperty('--fui-morph-new-opacity');
     }
 
     afterEach(() => {

@@ -188,21 +188,15 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
       };
     }, []);
 
-    // Caption registry
-    const [captions, setCaptions] = React.useState<Map<number, React.ReactNode>>(new Map());
+    // Caption registry — ref-based to avoid creating new Map objects and
+    // triggering re-renders on every item mount. LightboxCaption reads
+    // from the ref; it re-renders when activeIndex changes via context.
+    const captionsRef = React.useRef(new Map<number, React.ReactNode>());
 
     const registerCaption = React.useCallback((index: number, caption: React.ReactNode) => {
-      setCaptions((prev) => {
-        const next = new Map(prev);
-        next.set(index, caption);
-        return next;
-      });
+      captionsRef.current.set(index, caption);
       return () => {
-        setCaptions((prev) => {
-          const next = new Map(prev);
-          next.delete(index);
-          return next;
-        });
+        captionsRef.current.delete(index);
       };
     }, []);
 
@@ -233,21 +227,25 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
 
           if (nextOpen) {
             // --- OPEN with view transition ---
-            docEl.setAttribute('data-lightbox-view-transition', 'opening');
             const triggerIdx = openingTriggerIndexRef.current;
             const triggerEl = triggerElementsRef.current.get(triggerIdx);
             const triggerTarget = triggerEl ? findMorphTarget(triggerEl) : null;
             const useCrossfade = triggerEl?.dataset.crossfade === 'true';
 
+            // Batch all reads before any writes to avoid forced reflow
+            const fromRadius = triggerTarget ? getComputedStyle(triggerTarget).borderRadius : null;
+
+            // Writes
+            docEl.setAttribute('data-lightbox-view-transition', 'opening');
             if (!useCrossfade) {
               docEl.setAttribute('data-lightbox-no-crossfade', '');
               docEl.style.setProperty('--fui-morph-old-opacity', '0');
               docEl.style.setProperty('--fui-morph-new-opacity', '1');
             }
-
             if (triggerTarget) {
               triggerTarget.style.viewTransitionName = VIEW_TRANSITION_NAME;
-              const fromRadius = getComputedStyle(triggerTarget).borderRadius;
+            }
+            if (fromRadius) {
               docEl.style.setProperty('--fui-morph-border-radius-from', fromRadius);
             }
 
@@ -264,9 +262,12 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
               });
               const itemEl = activeItemElementRef.current;
               const itemTarget = itemEl ? findMorphTarget(itemEl) : null;
+              // Read before write to avoid forced reflow
+              const toRadius = itemTarget ? getComputedStyle(itemTarget).borderRadius : null;
               if (itemTarget) {
                 itemTarget.style.viewTransitionName = VIEW_TRANSITION_NAME;
-                const toRadius = getComputedStyle(itemTarget).borderRadius;
+              }
+              if (toRadius) {
                 docEl.style.setProperty('--fui-morph-border-radius-to', toRadius);
               }
               if (itemEl) {
@@ -291,7 +292,6 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
             });
           } else {
             // --- CLOSE with view transition ---
-            docEl.setAttribute('data-lightbox-view-transition', 'closing');
             const itemEl = activeItemElementRef.current;
             const itemTarget = itemEl ? findMorphTarget(itemEl) : null;
             const triggerIdx = resolveTriggerIndex(
@@ -304,19 +304,24 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
             const triggerTarget = triggerEl ? findMorphTarget(triggerEl) : null;
             const useCrossfade = triggerEl?.dataset.crossfade === 'true';
 
+            // Batch all reads before any writes to avoid forced reflow
+            const fromRadius = itemTarget ? getComputedStyle(itemTarget).borderRadius : null;
+            const toRadius = triggerTarget ? getComputedStyle(triggerTarget).borderRadius : null;
+
+            // Writes
+            docEl.setAttribute('data-lightbox-view-transition', 'closing');
             if (!useCrossfade) {
               docEl.setAttribute('data-lightbox-no-crossfade', '');
               docEl.style.setProperty('--fui-morph-old-opacity', '1');
               docEl.style.setProperty('--fui-morph-new-opacity', '0');
             }
-
             if (itemTarget) {
               itemTarget.style.viewTransitionName = VIEW_TRANSITION_NAME;
-              const fromRadius = getComputedStyle(itemTarget).borderRadius;
+            }
+            if (fromRadius) {
               docEl.style.setProperty('--fui-morph-border-radius-from', fromRadius);
             }
-            if (triggerTarget) {
-              const toRadius = getComputedStyle(triggerTarget).borderRadius;
+            if (toRadius) {
               docEl.style.setProperty('--fui-morph-border-radius-to', toRadius);
             }
 
@@ -441,7 +446,7 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
         itemCount,
         registerItem,
         loop,
-        captions,
+        captionsRef,
         registerCaption,
         viewTransition,
         morphTo,
@@ -450,7 +455,7 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
         openingTriggerIndexRef,
         dialogElementRef,
       }),
-      [open, setOpen, mounted, activeIndex, setActiveIndex, itemCount, registerItem, loop, captions, registerCaption, viewTransition, morphTo],
+      [open, setOpen, mounted, activeIndex, setActiveIndex, itemCount, registerItem, loop, registerCaption, viewTransition, morphTo],
     );
 
     return <LightboxContext.Provider value={contextValue}>{children}</LightboxContext.Provider>;

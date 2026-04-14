@@ -14,7 +14,7 @@ interface LightboxContextValue {
   itemCount: number;
   registerItem: (index: number) => () => void;
   loop: boolean;
-  captions: Map<number, React.ReactNode>;
+  captionsRef: React.RefObject<Map<number, React.ReactNode>>;
   registerCaption: (index: number, caption: React.ReactNode) => () => void;
 
   // View transition support

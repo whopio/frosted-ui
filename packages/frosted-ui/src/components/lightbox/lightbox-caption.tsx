@@ -28,9 +28,9 @@ const captionStateAttributesMapping = {
 const LightboxCaption = React.forwardRef<HTMLDivElement, LightboxCaptionProps>(
   function LightboxCaption(props, forwardedRef) {
     const { render, ...elementProps } = props;
-    const { activeIndex, captions } = useLightboxContext();
+    const { activeIndex, captionsRef } = useLightboxContext();
 
-    const caption = captions.get(activeIndex);
+    const caption = captionsRef.current.get(activeIndex);
     const hasCaption = caption !== undefined;
 
     const state = React.useMemo<LightboxCaptionState>(
