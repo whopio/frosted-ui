@@ -1743,7 +1743,7 @@ describe('Lightbox', () => {
         dispatchPointer(content, 'pointermove', { clientX: 200, clientY: 250 });
       });
 
-      expect(item.style.transform).toContain('translateY(50px)');
+      expect(item.style.transform).toContain('translate(0px, 50px)');
       expect(item.style.transform).toContain('scale(');
       expect(content.style.transform).toBe('');
     });

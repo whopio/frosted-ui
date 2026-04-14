@@ -56,7 +56,7 @@ function usePullToDismiss({
   }, []);
 
   const applyTransform = React.useCallback(
-    (deltaY: number) => {
+    (deltaX: number, deltaY: number) => {
       const target = dragTargetRef.current;
       const backdrop = backdropRef.current;
       if (!target) return;
@@ -64,7 +64,7 @@ function usePullToDismiss({
       const progress = Math.min(Math.abs(deltaY) / DISMISS_DISTANCE, 1);
       const scale = 1 - progress * (1 - MIN_SCALE);
 
-      target.style.transform = `translateY(${deltaY}px) scale(${scale})`;
+      target.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(${scale})`;
 
       if (backdrop) {
         backdrop.style.opacity = String(1 - progress * 0.6);
@@ -115,7 +115,7 @@ function usePullToDismiss({
     const targetAnim = target.animate(
       [
         { transform: currentTransform },
-        { transform: 'translateY(0) scale(1)' },
+        { transform: 'translate(0, 0) scale(1)' },
       ],
       { duration: SNAP_DURATION, easing: SNAP_EASING },
     );
@@ -237,7 +237,7 @@ function usePullToDismiss({
         history.shift();
       }
 
-      applyTransform(deltaY);
+      applyTransform(deltaX, deltaY);
     };
 
     const handlePointerUp = (event: PointerEvent) => {
