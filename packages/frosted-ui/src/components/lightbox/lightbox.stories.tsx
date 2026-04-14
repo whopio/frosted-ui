@@ -2358,7 +2358,7 @@ export const WithZoom: Story = {
           ))}
         </div>
 
-        <Lightbox.Content aria-label="Zoom demo" style={{ padding: 'var(--space-4)' }}>
+        <Lightbox.Content aria-label="Zoom demo">
           <Lightbox.ItemGroup>
             {zoomImages.map((img, i) => (
               <Lightbox.Item key={img.src} index={i} caption={img.caption}>
@@ -2388,28 +2388,39 @@ export const WithZoom: Story = {
                   <img
                     src={img.src}
                     alt={img.alt}
-                    style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
+                    style={{ maxWidth: 'calc(100% - 64px)', maxHeight: 'calc(100% - 160px)', objectFit: 'contain' }}
                   />
                 </Lightbox.Zoom>
               </Lightbox.Item>
             ))}
           </Lightbox.ItemGroup>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', padding: 'var(--space-3)' }}>
-            <Tooltip content="Previous">
-              <Lightbox.Previous render={<IconButton variant="ghost" color="gray" size="2" />}>
-                <ChevronLeft16 />
-              </Lightbox.Previous>
-            </Tooltip>
-            <Lightbox.Counter />
-            <Tooltip content="Next">
-              <Lightbox.Next render={<IconButton variant="ghost" color="gray" size="2" />}>
-                <ChevronRight16 />
-              </Lightbox.Next>
-            </Tooltip>
+          <div style={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            padding: 'var(--space-3)',
+            pointerEvents: 'none',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', pointerEvents: 'auto' }}>
+              <Tooltip content="Previous">
+                <Lightbox.Previous render={<IconButton variant="ghost" color="gray" size="2" />}>
+                  <ChevronLeft16 />
+                </Lightbox.Previous>
+              </Tooltip>
+              <Lightbox.Counter />
+              <Tooltip content="Next">
+                <Lightbox.Next render={<IconButton variant="ghost" color="gray" size="2" />}>
+                  <ChevronRight16 />
+                </Lightbox.Next>
+              </Tooltip>
+            </div>
+            <Lightbox.Caption style={{ pointerEvents: 'auto' }} />
           </div>
-
-          <Lightbox.Caption />
         </Lightbox.Content>
       </Lightbox.Root>
     );
