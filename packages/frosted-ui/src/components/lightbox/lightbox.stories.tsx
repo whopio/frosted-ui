@@ -977,18 +977,6 @@ function ScreenCard({ screen, index }: { screen: typeof designScreens[number]; i
           ...triggerStyle,
           display: 'block',
           width: '100%',
-          borderRadius: 8,
-          overflow: 'hidden',
-          boxShadow: '0 1px 3px rgba(0,0,0,0.08), 0 0 0 1px var(--gray-a3)',
-          transition: 'box-shadow 150ms ease, transform 150ms ease',
-        }}
-        onMouseOver={(e) => {
-          e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.12), 0 0 0 1px var(--gray-a4)';
-          e.currentTarget.style.transform = 'translateY(-1px)';
-        }}
-        onMouseOut={(e) => {
-          e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.08), 0 0 0 1px var(--gray-a3)';
-          e.currentTarget.style.transform = 'translateY(0)';
         }}
       >
         <img
