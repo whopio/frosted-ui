@@ -1007,16 +1007,16 @@ function ScreenCard({ screen, index }: { screen: typeof designScreens[number]; i
  * ========================================================================== */
 
 const propertyPhotos = [
-  { id: 'prop-hero', src: 'https://picsum.photos/seed/prop-hero/1400/900', thumb: 'https://picsum.photos/seed/prop-hero/800/500', alt: 'Living room with floor-to-ceiling windows', label: 'Living Room' },
-  { id: 'prop-kitchen', src: 'https://picsum.photos/seed/prop-kitchen/1400/900', thumb: 'https://picsum.photos/seed/prop-kitchen/600/400', alt: 'Modern kitchen with marble island', label: 'Kitchen' },
-  { id: 'prop-bedroom', src: 'https://picsum.photos/seed/prop-bed/900/1400', thumb: 'https://picsum.photos/seed/prop-bed/400/600', alt: 'Primary bedroom with en-suite balcony', label: 'Primary Bedroom' },
-  { id: 'prop-bath', src: 'https://picsum.photos/seed/prop-bath/900/1400', thumb: 'https://picsum.photos/seed/prop-bath/400/600', alt: 'Spa-style bathroom with freestanding tub', label: 'Bathroom' },
-  { id: 'prop-terrace', src: 'https://picsum.photos/seed/prop-terrace/1400/900', thumb: 'https://picsum.photos/seed/prop-terrace/600/400', alt: 'Rooftop terrace with city views', label: 'Terrace' },
-  { id: 'prop-dining', src: 'https://picsum.photos/seed/prop-dining/1400/900', thumb: 'https://picsum.photos/seed/prop-dining/600/400', alt: 'Dining area with designer lighting', label: 'Dining' },
-  { id: 'prop-office', src: 'https://picsum.photos/seed/prop-office/900/1200', thumb: 'https://picsum.photos/seed/prop-office/400/530', alt: 'Home office with built-in shelving', label: 'Office' },
-  { id: 'prop-pool', src: 'https://picsum.photos/seed/prop-pool/1400/900', thumb: 'https://picsum.photos/seed/prop-pool/600/400', alt: 'Infinity pool overlooking the valley', label: 'Pool' },
-  { id: 'prop-garden', src: 'https://picsum.photos/seed/prop-garden/1400/900', thumb: 'https://picsum.photos/seed/prop-garden/600/400', alt: 'Landscaped garden with mature olive trees', label: 'Garden' },
-  { id: 'prop-exterior', src: 'https://picsum.photos/seed/prop-ext/900/1400', thumb: 'https://picsum.photos/seed/prop-ext/400/600', alt: 'Front elevation at dusk with warm lighting', label: 'Exterior' },
+  { id: 'prop-hero', src: 'https://picsum.photos/seed/prop-hero/1400/900', thumb: 'https://picsum.photos/seed/prop-hero/700/450', alt: 'Living room with floor-to-ceiling windows', label: 'Living Room' },
+  { id: 'prop-kitchen', src: 'https://picsum.photos/seed/prop-kitchen/1400/900', thumb: 'https://picsum.photos/seed/prop-kitchen/700/450', alt: 'Modern kitchen with marble island', label: 'Kitchen' },
+  { id: 'prop-bedroom', src: 'https://picsum.photos/seed/prop-bed/900/1400', thumb: 'https://picsum.photos/seed/prop-bed/450/700', alt: 'Primary bedroom with en-suite balcony', label: 'Primary Bedroom' },
+  { id: 'prop-bath', src: 'https://picsum.photos/seed/prop-bath/900/1400', thumb: 'https://picsum.photos/seed/prop-bath/450/700', alt: 'Spa-style bathroom with freestanding tub', label: 'Bathroom' },
+  { id: 'prop-terrace', src: 'https://picsum.photos/seed/prop-terrace/1400/900', thumb: 'https://picsum.photos/seed/prop-terrace/700/450', alt: 'Rooftop terrace with city views', label: 'Terrace' },
+  { id: 'prop-dining', src: 'https://picsum.photos/seed/prop-dining/1400/900', thumb: 'https://picsum.photos/seed/prop-dining/700/450', alt: 'Dining area with designer lighting', label: 'Dining' },
+  { id: 'prop-office', src: 'https://picsum.photos/seed/prop-office/900/1200', thumb: 'https://picsum.photos/seed/prop-office/450/600', alt: 'Home office with built-in shelving', label: 'Office' },
+  { id: 'prop-pool', src: 'https://picsum.photos/seed/prop-pool/1400/900', thumb: 'https://picsum.photos/seed/prop-pool/700/450', alt: 'Infinity pool overlooking the valley', label: 'Pool' },
+  { id: 'prop-garden', src: 'https://picsum.photos/seed/prop-garden/1400/900', thumb: 'https://picsum.photos/seed/prop-garden/700/450', alt: 'Landscaped garden with mature olive trees', label: 'Garden' },
+  { id: 'prop-exterior', src: 'https://picsum.photos/seed/prop-ext/900/1400', thumb: 'https://picsum.photos/seed/prop-ext/450/700', alt: 'Front elevation at dusk with warm lighting', label: 'Exterior' },
 ];
 
 const amenities = [
@@ -1085,13 +1085,14 @@ function RemainingPhotosGrid() {
           <Lightbox.Trigger
             key={photo.id}
             index={i + 5}
+            crossfade
             style={{ ...triggerStyle, display: 'block' }}
           >
-            <div style={{ position: 'relative' }}>
+            <div data-lightbox-morph style={{ position: 'relative', borderRadius: 8, overflow: 'hidden' }}>
               <img
                 src={photo.thumb}
                 alt={photo.alt}
-                style={{ width: '100%', aspectRatio: '3/2', objectFit: 'cover', display: 'block', borderRadius: 8 }}
+                style={{ width: '100%', aspectRatio: '3/2', objectFit: 'cover', display: 'block' }}
               />
               <div style={{
                 position: 'absolute',
@@ -1100,7 +1101,6 @@ function RemainingPhotosGrid() {
                 right: 0,
                 padding: 'var(--space-4) var(--space-3) var(--space-2)',
                 background: 'linear-gradient(transparent, rgba(0,0,0,0.6))',
-                borderRadius: '0 0 8px 8px',
               }}>
                 <Text size="1" weight="medium" style={{ color: 'white' }}>{photo.label}</Text>
               </div>
