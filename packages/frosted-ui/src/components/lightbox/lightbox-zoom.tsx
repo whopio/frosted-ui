@@ -78,7 +78,7 @@ interface LightboxZoomRef {
 
 const DEFAULT_MIN_ZOOM = 1;
 const DEFAULT_MAX_ZOOM_FALLBACK = 4;
-const ELASTIC_FACTOR = 0.15;
+const ELASTIC_FACTOR = 0.2;
 const DEFAULT_ZOOM_STEP = 2;
 const DEFAULT_WHEEL_SENSITIVITY = 100;
 const DEFAULT_KEYBOARD_PAN = 50;
@@ -255,13 +255,60 @@ const LightboxZoom = React.forwardRef<LightboxZoomRef, LightboxZoomProps>(
     const offsetYRef = React.useRef(offsetY);
     offsetYRef.current = offsetY;
 
-    const changeOffsetsAction = React.useCallback(
-      (dx: number, dy: number) => {
-        const clamped = clampOffsets(offsetXRef.current - dx, offsetYRef.current - dy, zoomRef.current);
-        setOffsetX(clamped.x);
-        setOffsetY(clamped.y);
+    // Raw (unclamped) offsets during elastic touch drag. The elastic
+    // formula is applied to these to compute the displayed value, so
+    // resistance is based on total overshoot rather than compounding.
+    const rawOffsetX = React.useRef(0);
+    const rawOffsetY = React.useRef(0);
+    const isElasticDrag = React.useRef(false);
+
+    const getMaxOffsets = React.useCallback(
+      (z: number) => {
+        const el = containerRef.current;
+        if (!el) return { maxX: 0, maxY: 0 };
+        const rect = el.getBoundingClientRect();
+        const wrapper = wrapperRef.current;
+        let cw = rect.width;
+        let ch = rect.height;
+        if (wrapper) {
+          const img = wrapper.querySelector('img');
+          if (img && img.offsetWidth > 0) { cw = img.offsetWidth; ch = img.offsetHeight; }
+        }
+        return {
+          maxX: Math.max((cw * z - rect.width) / 2 / z, 0),
+          maxY: Math.max((ch * z - rect.height) / 2 / z, 0),
+        };
       },
-      [clampOffsets],
+      [],
+    );
+
+    const applyElastic = (val: number, max: number) => {
+      const abs = Math.abs(val);
+      if (abs <= max) return val;
+      const over = abs - max;
+      return (max + over * ELASTIC_FACTOR) * Math.sign(val);
+    };
+
+    const changeOffsetsAction = React.useCallback(
+      (dx: number, dy: number, overscroll?: boolean) => {
+        if (overscroll) {
+          if (!isElasticDrag.current) {
+            isElasticDrag.current = true;
+            rawOffsetX.current = offsetXRef.current;
+            rawOffsetY.current = offsetYRef.current;
+          }
+          rawOffsetX.current -= dx;
+          rawOffsetY.current -= dy;
+          const { maxX, maxY } = getMaxOffsets(zoomRef.current);
+          setOffsetX(applyElastic(rawOffsetX.current, maxX));
+          setOffsetY(applyElastic(rawOffsetY.current, maxY));
+        } else {
+          const clamped = clampOffsets(offsetXRef.current - dx, offsetYRef.current - dy, zoomRef.current);
+          setOffsetX(clamped.x);
+          setOffsetY(clamped.y);
+        }
+      },
+      [clampOffsets, getMaxOffsets],
     );
 
     const changeZoomAction = React.useCallback(
@@ -327,6 +374,15 @@ const LightboxZoom = React.forwardRef<LightboxZoomRef, LightboxZoomProps>(
       setOffsetY(offsets.y);
     }, [minZoom, maxZoom, clampOffsets, captureStart]);
 
+    const snapOffsetsToBoundsAction = React.useCallback(() => {
+      isElasticDrag.current = false;
+      const clamped = clampOffsets(offsetXRef.current, offsetYRef.current, zoomRef.current);
+      if (clamped.x === offsetXRef.current && clamped.y === offsetYRef.current) return;
+      captureStart();
+      setOffsetX(clamped.x);
+      setOffsetY(clamped.y);
+    }, [clampOffsets, captureStart]);
+
     // ----- Gesture hook -----
     const zoomRef = React.useRef(zoom);
     zoomRef.current = zoom;
@@ -354,8 +410,9 @@ const LightboxZoom = React.forwardRef<LightboxZoomRef, LightboxZoomProps>(
         changeOffsets: changeOffsetsAction,
         setDragging,
         snapToBounds: snapToBoundsAction,
+        snapOffsetsToBounds: snapOffsetsToBoundsAction,
       }),
-      [zoomInAction, zoomOutAction, changeZoomAction, changeOffsetsAction, snapToBoundsAction],
+      [zoomInAction, zoomOutAction, changeZoomAction, changeOffsetsAction, snapToBoundsAction, snapOffsetsToBoundsAction],
     );
 
     useZoomGestures(containerRef, wrapperRef, gestureConfig, gestureActions, false);

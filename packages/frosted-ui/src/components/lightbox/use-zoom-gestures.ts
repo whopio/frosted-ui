@@ -42,9 +42,10 @@ interface ZoomGestureActions {
   zoomIn: () => void;
   zoomOut: () => void;
   changeZoom: (target: number, rapid: boolean, dx?: number, dy?: number, overscroll?: boolean) => void;
-  changeOffsets: (dx: number, dy: number) => void;
+  changeOffsets: (dx: number, dy: number, overscroll?: boolean) => void;
   setDragging: (dragging: boolean) => void;
   snapToBounds: () => void;
+  snapOffsetsToBounds: () => void;
 }
 
 // ---------------------------------------------------------------------------
@@ -175,13 +176,15 @@ function useZoomGestures(
         return;
       }
 
-      // Single-pointer drag for panning
+      // Single-pointer drag for panning — elastic on touch
       if (zoom > 1 && existing) {
         event.stopPropagation();
         if (pointers.length === 1) {
+          const isTouch = event.pointerType === 'touch';
           changeOffsets(
             (existing.clientX - event.clientX) / zoom,
             (existing.clientY - event.clientY) / zoom,
+            isTouch,
           );
         }
         replacePointer(event);
@@ -202,6 +205,9 @@ function useZoomGestures(
         if (hadPinch.current) {
           hadPinch.current = false;
           actionsRef.current.snapToBounds();
+        }
+        if (event.pointerType === 'touch') {
+          actionsRef.current.snapOffsetsToBounds();
         }
       }
     },
