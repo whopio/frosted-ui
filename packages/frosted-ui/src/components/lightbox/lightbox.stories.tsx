@@ -2360,11 +2360,11 @@ export const WithZoom: Story = {
       <Lightbox.Root viewTransition>
         <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
           {zoomImages.map((img, i) => (
-            <Lightbox.Trigger key={img.src} index={i}>
+            <Lightbox.Trigger key={img.src} index={i} style={triggerStyle}>
               <img
                 src={img.thumb}
                 alt={img.alt}
-                style={{ width: 200, height: 133, objectFit: 'cover', borderRadius: 8 }}
+                style={{ width: 200, height: 133, objectFit: 'cover', display: 'block', borderRadius: 8 }}
               />
             </Lightbox.Trigger>
           ))}
