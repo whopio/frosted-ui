@@ -62,7 +62,6 @@ function useZoomGestures(
 ) {
   const activePointers = React.useRef<PointerEvent[]>([]);
   const lastPointerDown = React.useRef(0);
-  const lastMoveTime = React.useRef(0);
   const hadPinch = React.useRef(false);
   const pinchState = React.useRef<{
     initialDistance: number;
@@ -154,12 +153,17 @@ function useZoomGestures(
         return;
       }
 
-      // Stale pointer cleanup: if pointers are recorded but no pointermove
-      // arrived recently, they were likely captured by pull-to-dismiss.
-      if (pointers.length > 0 && event.timeStamp - lastMoveTime.current > 300) {
-        pointers.length = 0;
-        pinchState.current = undefined;
-        hadPinch.current = false;
+      // Stale pointer cleanup: if all recorded pointers are old (>500ms),
+      // they were likely captured by pull-to-dismiss and we never got
+      // pointerup for them. During a normal pinch both fingers arrive
+      // within milliseconds, so this won't trigger.
+      if (pointers.length > 0) {
+        const newest = Math.max(...pointers.map((p) => p.timeStamp));
+        if (event.timeStamp - newest > 500) {
+          pointers.length = 0;
+          pinchState.current = undefined;
+          hadPinch.current = false;
+        }
       }
 
       if (zoom > 1) {
@@ -201,7 +205,6 @@ function useZoomGestures(
 
   const handlePointerMove = React.useCallback(
     (event: PointerEvent) => {
-      lastMoveTime.current = event.timeStamp;
       const pointers = activePointers.current;
       const { getZoom, changeZoom, changeOffsets } = actionsRef.current;
       const zoom = getZoom();
