@@ -27,6 +27,22 @@ import { LightboxZoomOut } from './lightbox-zoom-out';
 // Mocks — jsdom lacks matchMedia, getAnimations
 // ---------------------------------------------------------------------------
 
+// jsdom lacks the Touch constructor
+if (typeof globalThis.Touch === 'undefined') {
+  (globalThis as any).Touch = class Touch {
+    identifier: number;
+    target: EventTarget;
+    clientX: number;
+    clientY: number;
+    constructor(init: { identifier: number; target: EventTarget; clientX?: number; clientY?: number }) {
+      this.identifier = init.identifier;
+      this.target = init.target;
+      this.clientX = init.clientX ?? 0;
+      this.clientY = init.clientY ?? 0;
+    }
+  };
+}
+
 beforeEach(() => {
   if (!window.matchMedia) {
     Object.defineProperty(window, 'matchMedia', {
@@ -1044,7 +1060,112 @@ describe('Lightbox', () => {
   });
 
   // ---------------------------------------------------------------------------
-  // 13. Zoom
+  // 13. Native gesture prevention
+  // ---------------------------------------------------------------------------
+
+  describe('native gesture prevention', () => {
+    it('prevents multi-touch pinch on content', () => {
+      render(
+        <LightboxRoot defaultOpen>
+          <LightboxContent data-testid="content" aria-label="Pinch test">
+            <LightboxItemGroup>
+              <LightboxItem index={0}>
+                <img src="test.jpg" alt="test" />
+              </LightboxItem>
+            </LightboxItemGroup>
+          </LightboxContent>
+        </LightboxRoot>,
+      );
+
+      const content = screen.getByTestId('content');
+      const event = new TouchEvent('touchmove', {
+        bubbles: true,
+        cancelable: true,
+        touches: [
+          new Touch({ identifier: 0, target: content, clientX: 0, clientY: 0 }),
+          new Touch({ identifier: 1, target: content, clientX: 100, clientY: 100 }),
+        ],
+      });
+      const prevented = !content.dispatchEvent(event);
+      expect(prevented).toBe(true);
+    });
+
+    it('allows single-touch on content', () => {
+      render(
+        <LightboxRoot defaultOpen>
+          <LightboxContent data-testid="content" aria-label="Single touch test">
+            <LightboxItemGroup>
+              <LightboxItem index={0}>
+                <img src="test.jpg" alt="test" />
+              </LightboxItem>
+            </LightboxItemGroup>
+          </LightboxContent>
+        </LightboxRoot>,
+      );
+
+      const content = screen.getByTestId('content');
+      const event = new TouchEvent('touchmove', {
+        bubbles: true,
+        cancelable: true,
+        touches: [
+          new Touch({ identifier: 0, target: content, clientX: 0, clientY: 0 }),
+        ],
+      });
+      const prevented = !content.dispatchEvent(event);
+      expect(prevented).toBe(false);
+    });
+
+    it('prevents ctrl+wheel (trackpad pinch-to-zoom) on content', () => {
+      render(
+        <LightboxRoot defaultOpen>
+          <LightboxContent data-testid="content" aria-label="Wheel zoom test">
+            <LightboxItemGroup>
+              <LightboxItem index={0}>
+                <img src="test.jpg" alt="test" />
+              </LightboxItem>
+            </LightboxItemGroup>
+          </LightboxContent>
+        </LightboxRoot>,
+      );
+
+      const content = screen.getByTestId('content');
+      const event = new WheelEvent('wheel', {
+        bubbles: true,
+        cancelable: true,
+        ctrlKey: true,
+        deltaY: -10,
+      });
+      const prevented = !content.dispatchEvent(event);
+      expect(prevented).toBe(true);
+    });
+
+    it('allows regular wheel scroll on content', () => {
+      render(
+        <LightboxRoot defaultOpen>
+          <LightboxContent data-testid="content" aria-label="Regular wheel test">
+            <LightboxItemGroup>
+              <LightboxItem index={0}>
+                <img src="test.jpg" alt="test" />
+              </LightboxItem>
+            </LightboxItemGroup>
+          </LightboxContent>
+        </LightboxRoot>,
+      );
+
+      const content = screen.getByTestId('content');
+      const event = new WheelEvent('wheel', {
+        bubbles: true,
+        cancelable: true,
+        ctrlKey: false,
+        deltaY: -10,
+      });
+      const prevented = !content.dispatchEvent(event);
+      expect(prevented).toBe(false);
+    });
+  });
+
+  // ---------------------------------------------------------------------------
+  // 14. Zoom
   // ---------------------------------------------------------------------------
 
   describe('zoom', () => {
@@ -1336,6 +1457,32 @@ describe('Lightbox', () => {
         </LightboxRoot>,
       );
       expect(screen.getByText('No image')).toBeInTheDocument();
+    });
+
+    it('touch-action is pan-x pan-y at 1x zoom and none when zoomed', () => {
+      const ref = React.createRef<LightboxZoomRef>();
+      render(
+        <LightboxRoot defaultOpen>
+          <LightboxContent aria-label="Touch action test">
+            <LightboxItemGroup>
+              <LightboxItem index={0}>
+                <LightboxZoom ref={ref} maxZoom={4}>
+                  <img src="test.jpg" alt="test" />
+                </LightboxZoom>
+              </LightboxItem>
+            </LightboxItemGroup>
+          </LightboxContent>
+        </LightboxRoot>,
+      );
+
+      const zoomContainer = screen.getByAltText('test').parentElement!.parentElement!;
+      expect(zoomContainer.style.touchAction).toBe('pan-x pan-y');
+
+      act(() => ref.current!.zoomTo(2));
+      expect(zoomContainer.style.touchAction).toBe('none');
+
+      act(() => ref.current!.reset());
+      expect(zoomContainer.style.touchAction).toBe('pan-x pan-y');
     });
 
     describe('elastic overscroll', () => {
