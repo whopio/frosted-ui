@@ -7,10 +7,10 @@ import * as React from 'react';
 // ---------------------------------------------------------------------------
 
 const DIRECTION_LOCK_DISTANCE = 6;
-const DISMISS_DISTANCE = 150;
-const DISMISS_VELOCITY = 500;
-const SNAP_DURATION = 200;
-const SNAP_EASING = 'cubic-bezier(0.25, 1, 0.5, 1)';
+const DISMISS_DISTANCE = 100;
+const DISMISS_VELOCITY = 400;
+const SNAP_DURATION = 350;
+const SNAP_EASING = 'cubic-bezier(0.2, 1.15, 0.4, 1)';
 const MIN_SCALE = 0.85;
 const VELOCITY_SAMPLES = 5;
 
@@ -56,15 +56,24 @@ function usePullToDismiss({
   }, []);
 
   const applyTransform = React.useCallback(
-    (deltaX: number, deltaY: number) => {
+    (rawDeltaX: number, rawDeltaY: number) => {
       const target = dragTargetRef.current;
       const backdrop = backdropRef.current;
       if (!target) return;
 
-      const progress = Math.min(Math.abs(deltaY) / DISMISS_DISTANCE, 1);
+      // Asymptotic damping: moves ~1:1 near origin, then flattens toward
+      // a ceiling. The curve never reverses regardless of drag distance.
+      const absY = Math.abs(rawDeltaY);
+      const maxTravel = DISMISS_DISTANCE * 1.2;
+      const dampedAbsY = maxTravel * (1 - Math.exp(-absY / maxTravel));
+      const dampedY = Math.sign(rawDeltaY) * dampedAbsY;
+      const dampFactor = absY > 0 ? dampedAbsY / absY : 1;
+      const dampedX = rawDeltaX * dampFactor;
+
+      const progress = Math.min(absY / DISMISS_DISTANCE, 1);
       const scale = 1 - progress * (1 - MIN_SCALE);
 
-      target.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(${scale})`;
+      target.style.transform = `translate(${dampedX}px, ${dampedY}px) scale(${scale})`;
 
       if (backdrop) {
         backdrop.style.opacity = String(1 - progress * 0.6);
