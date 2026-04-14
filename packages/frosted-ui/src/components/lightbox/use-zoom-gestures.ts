@@ -63,6 +63,13 @@ function useZoomGestures(
   const activePointers = React.useRef<PointerEvent[]>([]);
   const lastPointerDown = React.useRef(0);
   const hadPinch = React.useRef(false);
+
+  // Tap detection for double-tap: track whether the previous single-finger
+  // interaction was a stationary tap (not a drag/pinch/pull).
+  const TAP_MOVE_THRESHOLD = 10;
+  const lastWasTap = React.useRef(false);
+  const tapCandidate = React.useRef(false);
+  const tapStartPos = React.useRef<{ x: number; y: number } | null>(null);
   const pinchState = React.useRef<{
     initialDistance: number;
     initialZoom: number;
@@ -172,10 +179,13 @@ function useZoomGestures(
         setZooming(true);
       }
 
-      // Double-click / double-tap: toggle between zoomed and 1x
+      // Double-click / double-tap: toggle between zoomed and 1x.
+      // Both taps must be genuine taps — the previous interaction must have
+      // been a stationary single-finger tap (lastWasTap), not a drag/pinch.
       const now = event.timeStamp;
-      if (pointers.length === 0 && now - lastPointerDown.current < doubleClickDelay) {
+      if (pointers.length === 0 && lastWasTap.current && now - lastPointerDown.current < doubleClickDelay) {
         lastPointerDown.current = 0;
+        lastWasTap.current = false;
 
         const { minZoom, maxZoom } = configRef.current;
         const targetZoom = zoom > minZoom
@@ -188,10 +198,25 @@ function useZoomGestures(
       }
 
       lastPointerDown.current = now;
+
+      // Start tap candidate tracking for this new single-finger interaction
+      if (pointers.length === 0) {
+        tapCandidate.current = true;
+        tapStartPos.current = { x: event.clientX, y: event.clientY };
+      } else {
+        // Multiple fingers — not a tap
+        tapCandidate.current = false;
+        tapStartPos.current = null;
+      }
+
       replacePointer(event);
 
       if (pointers.length === 2) {
         setZooming(true);
+        // A pinch invalidates both tap tracking and double-tap timing
+        lastPointerDown.current = 0;
+        tapCandidate.current = false;
+        tapStartPos.current = null;
         const dist = pointerDistance(pointers[0], pointers[1]);
         pinchState.current = {
           initialDistance: Math.max(dist, 1),
@@ -208,6 +233,16 @@ function useZoomGestures(
       const pointers = activePointers.current;
       const { getZoom, changeZoom, changeOffsets } = actionsRef.current;
       const zoom = getZoom();
+
+      // Invalidate tap candidate if finger moved beyond threshold
+      if (tapCandidate.current && tapStartPos.current) {
+        const dx = event.clientX - tapStartPos.current.x;
+        const dy = event.clientY - tapStartPos.current.y;
+        if (Math.hypot(dx, dy) > TAP_MOVE_THRESHOLD) {
+          tapCandidate.current = false;
+          tapStartPos.current = null;
+        }
+      }
 
       const existing = pointers.find((p) => p.pointerId === event.pointerId);
 
@@ -252,6 +287,10 @@ function useZoomGestures(
       }
       clearPointer(event.pointerId);
       if (activePointers.current.length === 0) {
+        // Finalize tap detection: was this a clean single-finger tap?
+        lastWasTap.current = tapCandidate.current;
+        tapCandidate.current = false;
+        tapStartPos.current = null;
         actionsRef.current.setDragging(false);
         if (hadPinch.current) {
           hadPinch.current = false;

@@ -6,7 +6,7 @@ import * as React from 'react';
 // Constants
 // ---------------------------------------------------------------------------
 
-const DIRECTION_LOCK_DISTANCE = 10;
+const DIRECTION_LOCK_DISTANCE = 6;
 const DISMISS_DISTANCE = 150;
 const DISMISS_VELOCITY = 500;
 const SNAP_DURATION = 200;
@@ -277,12 +277,12 @@ function usePullToDismiss({
       }
     };
 
-    // Prevent the browser from claiming the gesture for native scrolling
-    // while we're tracking a potential vertical pull. Without this, browsers
-    // fire pointercancel when touch-action allows panning.
+    // Only prevent native scrolling once the gesture is committed to
+    // vertical (pull-to-dismiss). Before direction is determined, allow
+    // native behavior so scroll gallery swiping works unimpeded.
     const handleTouchMove = (event: TouchEvent) => {
       if (pointerIdRef.current === null) return;
-      if (directionRef.current === 'horizontal') return;
+      if (directionRef.current !== 'vertical') return;
       if (event.touches.length === 1) {
         event.preventDefault();
       }
