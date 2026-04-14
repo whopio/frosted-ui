@@ -228,15 +228,22 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
 
         if (useVT) {
           const docEl = document.documentElement;
-          docEl.setAttribute('data-lightbox-view-transition', '');
 
           const gen = closeGenRef.current;
 
           if (nextOpen) {
             // --- OPEN with view transition ---
+            docEl.setAttribute('data-lightbox-view-transition', 'opening');
             const triggerIdx = openingTriggerIndexRef.current;
             const triggerEl = triggerElementsRef.current.get(triggerIdx);
             const triggerTarget = triggerEl ? findMorphTarget(triggerEl) : null;
+            const useCrossfade = triggerEl?.dataset.crossfade === 'true';
+
+            if (!useCrossfade) {
+              docEl.setAttribute('data-lightbox-no-crossfade', '');
+              docEl.style.setProperty('--fui-morph-old-opacity', '0');
+              docEl.style.setProperty('--fui-morph-new-opacity', '1');
+            }
 
             if (triggerTarget) {
               triggerTarget.style.viewTransitionName = VIEW_TRANSITION_NAME;
@@ -275,12 +282,16 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
                 itemTarget.style.viewTransitionName = '';
               }
               docEl.removeAttribute('data-lightbox-view-transition');
+              docEl.removeAttribute('data-lightbox-no-crossfade');
+              docEl.style.removeProperty('--fui-morph-old-opacity');
+              docEl.style.removeProperty('--fui-morph-new-opacity');
               docEl.style.removeProperty('--fui-morph-border-radius-from');
               docEl.style.removeProperty('--fui-morph-border-radius-to');
               onOpenChangeCompleteRef.current?.(true);
             });
           } else {
             // --- CLOSE with view transition ---
+            docEl.setAttribute('data-lightbox-view-transition', 'closing');
             const itemEl = activeItemElementRef.current;
             const itemTarget = itemEl ? findMorphTarget(itemEl) : null;
             const triggerIdx = resolveTriggerIndex(
@@ -291,6 +302,13 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
             );
             const triggerEl = triggerElementsRef.current.get(triggerIdx);
             const triggerTarget = triggerEl ? findMorphTarget(triggerEl) : null;
+            const useCrossfade = triggerEl?.dataset.crossfade === 'true';
+
+            if (!useCrossfade) {
+              docEl.setAttribute('data-lightbox-no-crossfade', '');
+              docEl.style.setProperty('--fui-morph-old-opacity', '1');
+              docEl.style.setProperty('--fui-morph-new-opacity', '0');
+            }
 
             if (itemTarget) {
               itemTarget.style.viewTransitionName = VIEW_TRANSITION_NAME;
@@ -326,6 +344,9 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
                 triggerTarget.style.viewTransitionName = '';
               }
               docEl.removeAttribute('data-lightbox-view-transition');
+              docEl.removeAttribute('data-lightbox-no-crossfade');
+              docEl.style.removeProperty('--fui-morph-old-opacity');
+              docEl.style.removeProperty('--fui-morph-new-opacity');
               docEl.style.removeProperty('--fui-morph-border-radius-from');
               docEl.style.removeProperty('--fui-morph-border-radius-to');
               if (closeGenRef.current === gen) {

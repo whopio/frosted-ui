@@ -133,7 +133,7 @@ export const Default: Story = {
     <Lightbox.Root viewTransition>
       <TriggerGrid>
         {images.map((img, i) => (
-          <Lightbox.Trigger key={img.id} index={i} style={triggerStyle}>
+          <Lightbox.Trigger key={img.id} index={i} crossfade style={triggerStyle}>
             <ThumbnailImage src={img.thumb} alt={img.alt} />
           </Lightbox.Trigger>
         ))}
@@ -162,7 +162,7 @@ export const WithThumbnails: Story = {
     <Lightbox.Root loop viewTransition>
       <TriggerGrid>
         {images.map((img, i) => (
-          <Lightbox.Trigger key={img.id} index={i} style={triggerStyle}>
+          <Lightbox.Trigger key={img.id} index={i} crossfade style={triggerStyle}>
             <ThumbnailImage src={img.thumb} alt={img.alt} />
           </Lightbox.Trigger>
         ))}
@@ -313,7 +313,7 @@ export const LazyLoading: Story = {
     <Lightbox.Root>
       <TriggerGrid>
         {images.map((img, i) => (
-          <Lightbox.Trigger key={img.id} index={i} style={triggerStyle}>
+          <Lightbox.Trigger key={img.id} index={i} crossfade style={triggerStyle}>
             <ThumbnailImage src={img.thumb} alt={img.alt} />
           </Lightbox.Trigger>
         ))}
@@ -353,7 +353,7 @@ export const WithScrollGallery: Story = {
       <Lightbox.Root loop viewTransition value={activeIndex} onValueChange={(v) => setActiveIndex(v)}>
         <TriggerGrid>
           {images.map((img, i) => (
-            <Lightbox.Trigger key={img.id} index={i} style={triggerStyle}>
+            <Lightbox.Trigger key={img.id} index={i} crossfade style={triggerStyle}>
               <ThumbnailImage src={img.thumb} alt={img.alt} />
             </Lightbox.Trigger>
           ))}
@@ -820,7 +820,7 @@ function ImageGrid({ imgs }: { imgs: FeedPost['images'] }) {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gap: 2, aspectRatio: '3/2' }}>
       {imgs.slice(0, 4).map((img, i) => (
-        <Lightbox.Trigger key={i} index={i} style={feedTriggerBase}>
+        <Lightbox.Trigger key={i} index={i} crossfade={i === 3 && extra > 0} style={feedTriggerBase}>
           <div {...(i === 3 && extra > 0 ? { 'data-lightbox-morph': '' } : {})} style={{ position: 'relative', width: '100%', height: '100%' }}>
             <img src={img.thumb} alt={img.alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', borderRadius: cornerRadius(i, 4, r) }} />
             {i === 3 && extra > 0 && (
@@ -1363,6 +1363,7 @@ function SwatchCard({ color, index }: { color: typeof colorPalette[number]; inde
   return (
     <Lightbox.Trigger
       index={index}
+      crossfade
       style={{
         ...triggerStyle,
         display: 'flex',
@@ -2128,6 +2129,7 @@ export const TeamDirectory: Story = {
               <Lightbox.Trigger
                 key={member.id}
                 index={i}
+                crossfade
                 style={{
                   border: '1px solid var(--gray-a4)',
                   background: 'var(--color-surface)',
@@ -2267,7 +2269,7 @@ export const LifecycleCallbacks: Story = {
             <Heading size="4">Click an image</Heading>
             <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
               {images.slice(0, 3).map((img, i) => (
-                <Lightbox.Trigger key={img.id} index={i} style={triggerStyle}>
+                <Lightbox.Trigger key={img.id} index={i} crossfade style={triggerStyle}>
                   <img
                     src={img.thumb}
                     alt={img.alt}
@@ -2589,7 +2591,7 @@ export const TextMessage: Story = {
           </div>
 
           {/* Single trigger wrapping the entire stack — morphs to/from origin */}
-          <Lightbox.Trigger index={0} style={{ ...triggerStyle, position: 'relative', width: 260, height: 320 }}>
+          <Lightbox.Trigger index={0} crossfade style={{ ...triggerStyle, position: 'relative', width: 260, height: 320 }}>
             <div data-lightbox-morph style={{ position: 'absolute', inset: -20 }}>
               {messageImages.map((img, i) => (
                 <img
@@ -2644,6 +2646,90 @@ export const TextMessage: Story = {
           <NavControls />
         </Lightbox.Content>
       </Lightbox.Root>
+    </div>
+  ),
+};
+
+// ---------------------------------------------------------------------------
+// Perfect Morph — minimal demo with aspect ratio mismatch (1:2 trigger → 3:2 image)
+// ---------------------------------------------------------------------------
+
+const perfectMorphImages = [
+  { src: 'https://picsum.photos/seed/pm1/1200/800', alt: 'Landscape one' },
+  { src: 'https://picsum.photos/seed/pm2/1200/800', alt: 'Landscape two' },
+];
+
+const perfectMorphImagesVertical = [
+  { src: 'https://picsum.photos/seed/pmv1/800/1200', alt: 'Landscape one' },
+  { src: 'https://picsum.photos/seed/pmv2/800/1200', alt: 'Landscape two' },
+];
+
+export const PerfectMorph: Story = {
+  name: 'Perfect Morph',
+  render: () => (
+    <div style={{display: 'flex', flexDirection: 'column', gap: 'var(--space-4)'}}>
+    <Lightbox.Root viewTransition>
+      <div style={{ display: 'flex', gap: 'var(--space-4)', justifyContent: 'center', alignItems: 'center' }}>
+        {perfectMorphImages.map((img, i) => (
+          <Lightbox.Trigger key={img.src} index={i} style={{ ...triggerStyle, borderRadius: 12, overflow: 'hidden' }}>
+            <img
+              src={img.src}
+              alt={img.alt}
+              style={{ width: 160, height: 320, objectFit: 'cover', display: 'block' }}
+            />
+          </Lightbox.Trigger>
+        ))}
+      </div>
+
+      <Lightbox.Content>
+        <CloseButton />
+
+        <Lightbox.ItemGroup>
+          {perfectMorphImages.map((img, i) => (
+            <Lightbox.Item key={img.src} index={i}>
+              <img
+                src={img.src}
+                alt={img.alt}
+                style={{ maxWidth: '90vw', maxHeight: '80vh', objectFit: 'contain', borderRadius: 8 }}
+              />
+            </Lightbox.Item>
+          ))}
+        </Lightbox.ItemGroup>
+
+        <NavControls />
+      </Lightbox.Content>
+    </Lightbox.Root>
+  <Lightbox.Root viewTransition>
+      <div style={{ display: 'flex', gap: 'var(--space-4)', justifyContent: 'center',  alignItems: 'center' }}>
+        {perfectMorphImagesVertical.map((img, i) => (
+          <Lightbox.Trigger key={img.src} index={i} style={{ ...triggerStyle, borderRadius: 12, overflow: 'hidden' }}>
+            <img
+              src={img.src}
+              alt={img.alt}
+              style={{ width: 820, height: 220, objectFit: 'cover', display: 'block' }}
+            />
+          </Lightbox.Trigger>
+        ))}
+      </div>
+
+      <Lightbox.Content>
+        <CloseButton />
+
+        <Lightbox.ItemGroup>
+          {perfectMorphImagesVertical.map((img, i) => (
+            <Lightbox.Item key={img.src} index={i}>
+              <img
+                src={img.src}
+                alt={img.alt}
+                style={{ maxWidth: '90vw', maxHeight: '80vh', objectFit: 'contain', borderRadius: 8 }}
+              />
+            </Lightbox.Item>
+          ))}
+        </Lightbox.ItemGroup>
+
+        <NavControls />
+      </Lightbox.Content>
+    </Lightbox.Root>
     </div>
   ),
 };

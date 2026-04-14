@@ -14,6 +14,16 @@ interface LightboxTriggerState extends Record<string, unknown> {
 interface LightboxTriggerProps extends useRender.ComponentProps<'button', LightboxTriggerState> {
   /** The item index this trigger opens the lightbox at. */
   index: number;
+  /**
+   * Whether to crossfade between trigger and item snapshots during the
+   * view transition morph. The default (`false`) shows only the
+   * high-quality snapshot — ideal when trigger and item display the
+   * same image at different crops/sizes. Set to `true` when trigger
+   * and item have visually different content (e.g. a stack of images
+   * morphing into a single photo).
+   * @default false
+   */
+  crossfade?: boolean;
 }
 
 const triggerStateAttributesMapping = {
@@ -31,7 +41,7 @@ const triggerStateAttributesMapping = {
  */
 const LightboxTrigger = React.forwardRef<HTMLButtonElement, LightboxTriggerProps>(
   function LightboxTrigger(props, forwardedRef) {
-    const { render, index, ...elementProps } = props;
+    const { render, index, crossfade, ...elementProps } = props;
     const { open, activeIndex, setOpen, setActiveIndex, triggerElementsRef, openingTriggerIndexRef, morphTo } = useLightboxContext();
 
     const internalRef = React.useRef<HTMLButtonElement | null>(null);
@@ -90,6 +100,7 @@ const LightboxTrigger = React.forwardRef<HTMLButtonElement, LightboxTriggerProps
           className: 'fui-LightboxTrigger',
           type: 'button',
           onClick: handleClick,
+          ...(crossfade === true ? { 'data-crossfade': 'true' } : undefined),
         } as React.ComponentPropsWithRef<'button'>,
         elementProps as React.ComponentPropsWithRef<'button'>,
       ),
