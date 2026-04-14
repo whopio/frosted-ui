@@ -91,28 +91,53 @@ const LightboxContent = React.forwardRef<HTMLDivElement, LightboxContentProps>(
       };
     }, [mounted]);
 
-    // Prevent native pinch-zoom on touch (e.g. iOS Safari tab-minimize gesture)
-    // and on macOS trackpad (ctrlKey + wheel). Both require { passive: false }
-    // so preventDefault() is honoured.
+    // Prevent native pinch-zoom gestures (touch and trackpad).
+    //
+    // Safari quirk: a non-passive `wheel` listener on an ancestor forces Safari
+    // to fall back from compositor-thread scrolling to main-thread scrolling,
+    // killing momentum/flick scrolling in descendant ScrollGallery containers.
+    // Safari fires its own GestureEvent (gesturestart/gesturechange) for
+    // trackpad pinch — preventing those stops native zoom without touching the
+    // wheel event path. For Chrome/Firefox (no GestureEvent), trackpad pinch
+    // arrives as ctrlKey+wheel and non-passive wheel listeners don't break
+    // momentum scrolling, so a non-passive wheel handler is safe.
     React.useEffect(() => {
       if (!mounted) return;
       const el = contentRef.current;
       if (!el) return;
+
       const preventTouchPinch = (event: TouchEvent) => {
         if (event.touches.length > 1) {
           event.preventDefault();
         }
       };
-      const preventWheelZoom = (event: WheelEvent) => {
-        if (event.ctrlKey) {
-          event.preventDefault();
-        }
-      };
       el.addEventListener('touchmove', preventTouchPinch, { passive: false });
-      el.addEventListener('wheel', preventWheelZoom, { passive: false });
+
+      const hasSafariGestures = 'GestureEvent' in window;
+
+      let preventGesture: ((e: Event) => void) | undefined;
+      let preventWheelZoom: ((e: WheelEvent) => void) | undefined;
+
+      if (hasSafariGestures) {
+        preventGesture = (e: Event) => e.preventDefault();
+        el.addEventListener('gesturestart', preventGesture);
+        el.addEventListener('gesturechange', preventGesture);
+      } else {
+        preventWheelZoom = (e: WheelEvent) => {
+          if (e.ctrlKey) e.preventDefault();
+        };
+        el.addEventListener('wheel', preventWheelZoom, { passive: false });
+      }
+
       return () => {
         el.removeEventListener('touchmove', preventTouchPinch);
-        el.removeEventListener('wheel', preventWheelZoom);
+        if (preventGesture) {
+          el.removeEventListener('gesturestart', preventGesture);
+          el.removeEventListener('gesturechange', preventGesture);
+        }
+        if (preventWheelZoom) {
+          el.removeEventListener('wheel', preventWheelZoom);
+        }
       };
     }, [mounted]);
 

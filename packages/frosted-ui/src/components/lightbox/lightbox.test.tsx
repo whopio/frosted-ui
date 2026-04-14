@@ -1116,6 +1116,9 @@ describe('Lightbox', () => {
     });
 
     it('prevents ctrl+wheel (trackpad pinch-to-zoom) on content', () => {
+      // On non-Safari browsers (including jsdom), Ctrl+wheel is prevented via
+      // a non-passive wheel listener. On Safari, native zoom is prevented via
+      // GestureEvent instead (to preserve momentum scrolling).
       render(
         <LightboxRoot defaultOpen>
           <LightboxContent data-testid="content" aria-label="Wheel zoom test">
