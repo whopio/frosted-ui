@@ -2678,11 +2678,11 @@ export const PerfectMorph: Story = {
     <Lightbox.Root viewTransition>
       <div style={{ display: 'flex', gap: 'var(--space-4)', justifyContent: 'center', alignItems: 'center' }}>
         {perfectMorphImages.map((img, i) => (
-          <Lightbox.Trigger key={img.src} index={i} style={{ ...triggerStyle, borderRadius: 12, overflow: 'hidden' }}>
+          <Lightbox.Trigger key={img.src} index={i} style={triggerStyle}>
             <img
               src={img.src}
               alt={img.alt}
-              style={{ width: 160, height: 320, objectFit: 'cover', display: 'block' }}
+              style={{ width: 160, height: 320, objectFit: 'cover', display: 'block', borderRadius: 12 }}
             />
           </Lightbox.Trigger>
         ))}
@@ -2697,7 +2697,7 @@ export const PerfectMorph: Story = {
               <img
                 src={img.src}
                 alt={img.alt}
-                style={{ maxWidth: '90vw', maxHeight: '80vh', objectFit: 'contain', borderRadius: 8 }}
+                style={{ maxWidth: '90vw', maxHeight: '80vh', objectFit: 'contain', borderRadius: 32 }}
               />
             </Lightbox.Item>
           ))}
@@ -2709,11 +2709,11 @@ export const PerfectMorph: Story = {
   <Lightbox.Root viewTransition>
       <div style={{ display: 'flex', gap: 'var(--space-4)', justifyContent: 'center',  alignItems: 'center' }}>
         {perfectMorphImagesVertical.map((img, i) => (
-          <Lightbox.Trigger key={img.src} index={i} style={{ ...triggerStyle, borderRadius: 12, overflow: 'hidden' }}>
+          <Lightbox.Trigger key={img.src} index={i} style={triggerStyle}>
             <img
               src={img.src}
               alt={img.alt}
-              style={{ width: 820, height: 220, objectFit: 'cover', display: 'block' }}
+              style={{ width: 820, height: 220, objectFit: 'cover', display: 'block', borderRadius: 12 }}
             />
           </Lightbox.Trigger>
         ))}
@@ -2728,7 +2728,7 @@ export const PerfectMorph: Story = {
               <img
                 src={img.src}
                 alt={img.alt}
-                style={{ maxWidth: '90vw', maxHeight: '80vh', objectFit: 'contain', borderRadius: 8 }}
+                style={{ maxWidth: '90vw', maxHeight: '80vh', objectFit: 'contain', borderRadius: 32 }}
               />
             </Lightbox.Item>
           ))}
