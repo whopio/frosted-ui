@@ -12,6 +12,11 @@ import * as React from 'react';
  * Rapid / continuous gestures (pinch, scroll) skip animation entirely —
  * they update state every frame and never call `captureStart()`.
  */
+interface CaptureOptions {
+  duration?: number;
+  easing?: string;
+}
+
 function useZoomAnimation(
   zoom: number,
   offsetX: number,
@@ -21,6 +26,7 @@ function useZoomAnimation(
 ) {
   const runningAnimation = React.useRef<Animation | undefined>(undefined);
   const startTransform = React.useRef<string | undefined>(undefined);
+  const overrideOpts = React.useRef<CaptureOptions | undefined>(undefined);
 
   const reducedMotion =
     typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -31,7 +37,9 @@ function useZoomAnimation(
 
     const el = wrapperRef.current;
     const from = startTransform.current;
+    const opts = overrideOpts.current;
     startTransform.current = undefined;
+    overrideOpts.current = undefined;
 
     if (!from || !el) return;
 
@@ -40,8 +48,8 @@ function useZoomAnimation(
 
     try {
       const anim = el.animate([{ transform: from }, { transform: to }], {
-        duration: reducedMotion ? 0 : duration,
-        easing: runningAnimation.current ? 'ease-out' : 'ease-in-out',
+        duration: reducedMotion ? 0 : (opts?.duration ?? duration),
+        easing: opts?.easing ?? (runningAnimation.current ? 'ease-out' : 'ease-in-out'),
         fill: 'none',
       });
       runningAnimation.current = anim;
@@ -57,10 +65,15 @@ function useZoomAnimation(
 
   React.useLayoutEffect(play, [zoom, offsetX, offsetY, play]);
 
-  /** Call before a state change to capture the current transform. */
-  const captureStart = React.useCallback(() => {
+  /**
+   * Call before a state change to capture the current transform.
+   * Pass options to override the animation duration/easing for
+   * this particular transition (e.g. faster snap-back).
+   */
+  const captureStart = React.useCallback((opts?: CaptureOptions) => {
     const el = wrapperRef.current;
     startTransform.current = el ? getComputedStyle(el).transform : undefined;
+    overrideOpts.current = opts;
   }, [wrapperRef]);
 
   return captureStart;

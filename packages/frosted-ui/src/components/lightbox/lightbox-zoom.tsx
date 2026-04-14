@@ -363,10 +363,12 @@ const LightboxZoom = React.forwardRef<LightboxZoomRef, LightboxZoomProps>(
       [minZoom, captureStart],
     );
 
+    const SNAP_OPTS = { duration: 180, easing: 'cubic-bezier(0.25, 1, 0.5, 1)' };
+
     const snapToBoundsAction = React.useCallback(() => {
       const currentZoom = zoomRef.current;
       if (currentZoom >= minZoom && currentZoom <= maxZoom) return;
-      captureStart();
+      captureStart(SNAP_OPTS);
       const snapped = Math.min(Math.max(currentZoom, minZoom), maxZoom);
       const offsets = clampOffsets(offsetXRef.current, offsetYRef.current, snapped);
       setZoom(snapped);
@@ -378,7 +380,7 @@ const LightboxZoom = React.forwardRef<LightboxZoomRef, LightboxZoomProps>(
       isElasticDrag.current = false;
       const clamped = clampOffsets(offsetXRef.current, offsetYRef.current, zoomRef.current);
       if (clamped.x === offsetXRef.current && clamped.y === offsetYRef.current) return;
-      captureStart();
+      captureStart(SNAP_OPTS);
       setOffsetX(clamped.x);
       setOffsetY(clamped.y);
     }, [clampOffsets, captureStart]);
