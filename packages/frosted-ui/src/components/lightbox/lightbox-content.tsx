@@ -87,6 +87,21 @@ const LightboxContent = React.forwardRef<HTMLDivElement, LightboxContentProps>(
       };
     }, [mounted]);
 
+    // Prevent native pinch-zoom (e.g. iOS Safari tab-minimize gesture) even
+    // when the browser already committed to a pan from a single-finger scroll.
+    React.useEffect(() => {
+      if (!mounted) return;
+      const el = contentRef.current;
+      if (!el) return;
+      const preventPinch = (event: TouchEvent) => {
+        if (event.touches.length > 1) {
+          event.preventDefault();
+        }
+      };
+      el.addEventListener('touchmove', preventPinch, { passive: false });
+      return () => el.removeEventListener('touchmove', preventPinch);
+    }, [mounted]);
+
     // Close on Escape key. Listens on the document so it works regardless
     // of focus state, matching native <dialog> cancel behavior.
     React.useEffect(() => {
