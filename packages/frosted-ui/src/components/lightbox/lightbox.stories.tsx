@@ -2920,6 +2920,7 @@ export const WithZoom: Story = {
   name: 'With Zoom',
   render: () => {
     const zoomRef = useRef<LightboxZoomRef>(null);
+    const [isZoomed, setIsZoomed] = useState(false);
 
     return (
       <Lightbox.Root viewTransition>
@@ -2942,7 +2943,6 @@ export const WithZoom: Story = {
             }
             [data-zoomed] .zoom-controls {
               opacity: 0;
-              pointer-events: none;
             }
           `}</style>
           <Lightbox.ItemGroup>
@@ -2951,9 +2951,11 @@ export const WithZoom: Story = {
                 <Lightbox.Zoom
                   ref={i === 0 ? zoomRef : undefined}
                   maxZoom={6}
+                  onZoomChange={(z) => setIsZoomed(z > 1)}
                   overlay={
                     <div
                       className="zoom-controls"
+                      inert={isZoomed || undefined}
                       style={{
                         position: 'absolute',
                         top: 'var(--space-3)',
@@ -2998,6 +3000,7 @@ export const WithZoom: Story = {
 
           <div
             className="zoom-controls"
+            inert={isZoomed || undefined}
             style={{
               position: 'absolute',
               bottom: 0,
@@ -3039,6 +3042,7 @@ export const ScrollGalleryWithZoom: Story = {
   name: 'Scroll Gallery with Zoom',
   render: () => {
     const [activeIndex, setActiveIndex] = useState(0);
+    const [isZoomed, setIsZoomed] = useState(false);
 
     return (
       <Lightbox.Root loop viewTransition value={activeIndex} onValueChange={(v) => setActiveIndex(v)}>
@@ -3057,7 +3061,6 @@ export const ScrollGalleryWithZoom: Story = {
             }
             [data-zoomed] .sgz-controls {
               opacity: 0;
-              pointer-events: none;
             }
           `}</style>
 
@@ -3090,7 +3093,7 @@ export const ScrollGalleryWithZoom: Story = {
                     height: '100%',
                   }}
                 >
-                  <Lightbox.Zoom maxZoom={6}>
+                  <Lightbox.Zoom maxZoom={6} onZoomChange={(z) => setIsZoomed(z > 1)}>
                     <img
                       src={img.src}
                       alt={img.alt}
@@ -3108,6 +3111,7 @@ export const ScrollGalleryWithZoom: Story = {
 
             <div
               className="sgz-controls"
+              inert={isZoomed || undefined}
               style={{
                 position: 'absolute',
                 top: 'var(--space-3)',
@@ -3124,6 +3128,7 @@ export const ScrollGalleryWithZoom: Story = {
 
             <div
               className="sgz-controls"
+              inert={isZoomed || undefined}
               style={{
                 position: 'absolute',
                 bottom: 0,
