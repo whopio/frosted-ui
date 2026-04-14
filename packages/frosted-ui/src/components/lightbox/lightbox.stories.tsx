@@ -2443,9 +2443,11 @@ const morphDemoImages = [
 function MorphToDemo({
   morphTo,
   triggerCount = morphDemoImages.length,
+  crossfadeTriggers,
 }: {
   morphTo: 'active' | 'origin' | 'closest';
   triggerCount?: number;
+  crossfadeTriggers?: 'all' | 'last';
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
   return (
@@ -2461,7 +2463,12 @@ function MorphToDemo({
         gap: 8,
       }}>
         {morphDemoImages.slice(0, triggerCount).map((img, i) => (
-          <Lightbox.Trigger key={i} index={i} style={{ padding: 0, border: 'none', cursor: 'pointer', background: 'none' }}>
+          <Lightbox.Trigger
+            key={i}
+            index={i}
+            crossfade={crossfadeTriggers === 'all' || (crossfadeTriggers === 'last' && i === triggerCount - 1)}
+            style={{ padding: 0, border: 'none', cursor: 'pointer', background: 'none' }}
+          >
             <img
               src={img.thumb}
               alt={img.alt}
@@ -2514,7 +2521,7 @@ export const MorphToSetting: Story = {
         <Text size="2" color="gray" render={<p />} style={{ marginBottom: 'var(--space-4)', lineHeight: 1.6 }}>
           Always morph back to the trigger that originally opened the lightbox, regardless of which item is active when closing. Useful when there is only one trigger (e.g. a message attachment stack) — no matter how far you navigate, the close animation always returns to the opening trigger.
         </Text>
-        <MorphToDemo morphTo="origin" triggerCount={1} />
+        <MorphToDemo morphTo="origin" triggerCount={1} crossfadeTriggers="all" />
       </div>
 
       <Separator size="4" />
@@ -2526,7 +2533,7 @@ export const MorphToSetting: Story = {
         <Text size="2" color="gray" render={<p />} style={{ marginBottom: 'var(--space-4)', lineHeight: 1.6 }}>
           Morph to the trigger at the active index if it exists; otherwise fall back to the nearest registered trigger. Below, only the first 3 of 5 images have visible triggers. Navigate to image 4 or 5 and close — the morph falls back to trigger 3 (the closest). Great for grids with a &quot;+N more&quot; overlay.
         </Text>
-        <MorphToDemo morphTo="closest" triggerCount={3} />
+        <MorphToDemo morphTo="closest" triggerCount={3} crossfadeTriggers="last" />
       </div>
     </div>
   ),
