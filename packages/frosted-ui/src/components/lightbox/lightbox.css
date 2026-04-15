@@ -93,12 +93,8 @@
  ***************************************************************************************************/
 
 @media (prefers-reduced-motion: no-preference) {
-  /* --- Backdrop ---
-     Static backdrop-filter — the blur is always present but revealed
-     by the opacity fade-in, avoiding per-frame GPU blur resampling. */
   .fui-LightboxBackdrop {
-    backdrop-filter: blur(4px);
-    background: rgba(0, 0, 0, 0.75);
+    background: rgba(0, 0, 0, 0.85);
     opacity: 0;
     transition: opacity 400ms cubic-bezier(0.16, 1, 0.3, 1);
   }
