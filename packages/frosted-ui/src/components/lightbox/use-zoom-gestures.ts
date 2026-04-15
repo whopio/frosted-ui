@@ -74,7 +74,9 @@ function useZoomGestures(
   // Tap detection for double-tap: track whether the previous single-finger
   // interaction was a stationary tap (not a drag/pinch/pull).
   const TAP_MOVE_THRESHOLD = 10;
+  const DOUBLE_TAP_DISTANCE = 50;
   const lastWasTap = React.useRef(false);
+  const lastTapPos = React.useRef<{ x: number; y: number } | null>(null);
   const tapCandidate = React.useRef(false);
   const tapStartPos = React.useRef<{ x: number; y: number } | null>(null);
   const pinchState = React.useRef<{
@@ -196,10 +198,19 @@ function useZoomGestures(
       // Double-click / double-tap: toggle between zoomed and 1x.
       // Both taps must be genuine taps — the previous interaction must have
       // been a stationary single-finger tap (lastWasTap), not a drag/pinch.
+      // The two taps must also be close together spatially.
       const now = event.timeStamp;
-      if (pointers.length === 0 && lastWasTap.current && now - lastPointerDown.current < doubleClickDelay) {
+      const prevTap = lastTapPos.current;
+      const tapDist = prevTap ? Math.hypot(event.clientX - prevTap.x, event.clientY - prevTap.y) : 0;
+      if (
+        pointers.length === 0 &&
+        lastWasTap.current &&
+        now - lastPointerDown.current < doubleClickDelay &&
+        tapDist < DOUBLE_TAP_DISTANCE
+      ) {
         lastPointerDown.current = 0;
         lastWasTap.current = false;
+        lastTapPos.current = null;
 
         const { minZoom, maxZoom } = configRef.current;
         const targetZoom = zoom > minZoom
@@ -314,6 +325,9 @@ function useZoomGestures(
       if (activePointers.current.length === 0) {
         // Finalize tap detection: was this a clean single-finger tap?
         lastWasTap.current = tapCandidate.current;
+        if (tapCandidate.current) {
+          lastTapPos.current = { x: event.clientX, y: event.clientY };
+        }
         tapCandidate.current = false;
         tapStartPos.current = null;
         actionsRef.current.setDragging(false);
