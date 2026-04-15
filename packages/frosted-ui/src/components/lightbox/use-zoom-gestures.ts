@@ -39,6 +39,7 @@ interface ZoomGestureConfig {
 
 interface ZoomGestureActions {
   getZoom: () => number;
+  getOffsets: () => { x: number; y: number };
   zoomIn: () => void;
   zoomOut: () => void;
   changeZoom: (target: number, rapid: boolean, dx?: number, dy?: number, overscroll?: boolean) => void;
@@ -46,6 +47,8 @@ interface ZoomGestureActions {
   setDragging: (dragging: boolean) => void;
   snapToBounds: () => void;
   snapOffsetsToBounds: () => void;
+  /** Animate offsets with momentum deceleration to a final position. */
+  momentumPan: (targetX: number, targetY: number) => void;
 }
 
 // ---------------------------------------------------------------------------
@@ -79,6 +82,13 @@ function useZoomGestures(
     initialZoom: number;
   } | undefined>(undefined);
   const zoomingTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Velocity tracking for momentum pan on touch release.
+  // Stores recent pointer positions within a ~100ms window.
+  const velocityTracker = React.useRef<Array<{ x: number; y: number; t: number }>>([]);
+  const VELOCITY_WINDOW = 100;
+  const MOMENTUM_MULTIPLIER = 300;
+  const MOMENTUM_THRESHOLD = 50;
 
   // Stable refs so event listeners always see latest values
   const configRef = React.useRef(config);
@@ -254,6 +264,7 @@ function useZoomGestures(
       if (pointers.length === 2 && pinchState.current) {
         event.stopPropagation();
         replacePointer(event);
+        velocityTracker.current.length = 0;
 
         const currentDist = pointerDistance(pointers[0], pointers[1]);
         const targetZoom = (pinchState.current.initialZoom / pinchState.current.initialDistance) * currentDist;
@@ -276,6 +287,16 @@ function useZoomGestures(
             (existing.clientY - event.clientY) / zoom,
             isTouch,
           );
+          // Track positions for momentum calculation on touch release
+          if (isTouch) {
+            const now = event.timeStamp;
+            const tracker = velocityTracker.current;
+            tracker.push({ x: event.clientX, y: event.clientY, t: now });
+            // Trim entries older than the velocity window
+            while (tracker.length > 0 && now - tracker[0].t > VELOCITY_WINDOW) {
+              tracker.shift();
+            }
+          }
         }
         replacePointer(event);
       }
@@ -296,11 +317,40 @@ function useZoomGestures(
         tapCandidate.current = false;
         tapStartPos.current = null;
         actionsRef.current.setDragging(false);
-        if (hadPinch.current) {
+        const wasPinch = hadPinch.current;
+        if (wasPinch) {
           hadPinch.current = false;
           actionsRef.current.snapToBounds();
         }
         if (event.pointerType === 'touch') {
+          const tracker = velocityTracker.current;
+          const zoom = actionsRef.current.getZoom();
+          const hasMomentum = !wasPinch && zoom > 1 && tracker.length >= 2;
+
+          if (hasMomentum) {
+            const first = tracker[0];
+            const last = tracker[tracker.length - 1];
+            const dt = last.t - first.t;
+
+            if (dt > 0) {
+              const vx = ((last.x - first.x) / dt) * 1000;
+              const vy = ((last.y - first.y) / dt) * 1000;
+              const speed = Math.hypot(vx, vy);
+
+              if (speed > MOMENTUM_THRESHOLD) {
+                const { x: curX, y: curY } = actionsRef.current.getOffsets();
+                const factor = MOMENTUM_MULTIPLIER / 1000;
+                const targetX = curX + (vx * factor) / zoom;
+                const targetY = curY + (vy * factor) / zoom;
+                tracker.length = 0;
+                actionsRef.current.momentumPan(targetX, targetY);
+                setZooming(false);
+                return;
+              }
+            }
+          }
+
+          tracker.length = 0;
           actionsRef.current.snapOffsetsToBounds();
         }
         // Clear zooming flag (delayed to cover snap-back animation)

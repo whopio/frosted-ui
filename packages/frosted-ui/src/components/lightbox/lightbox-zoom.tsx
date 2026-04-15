@@ -85,6 +85,8 @@ const DEFAULT_KEYBOARD_PAN = 50;
 const DEFAULT_DOUBLE_CLICK_STOPS = 2;
 const DEFAULT_DOUBLE_CLICK_DELAY = 400;
 const DEFAULT_ANIMATION_DURATION = 300;
+const SNAP_OPTS = { duration: 180, easing: 'cubic-bezier(0.25, 1, 0.5, 1)' } as const;
+const MOMENTUM_OPTS = { duration: 600, easing: 'cubic-bezier(0.33, 1, 0.68, 1)' } as const;
 
 // ---------------------------------------------------------------------------
 // Helper: round to N decimal places to avoid fp noise
@@ -363,8 +365,6 @@ const LightboxZoom = React.forwardRef<LightboxZoomRef, LightboxZoomProps>(
       [minZoom, captureStart],
     );
 
-    const SNAP_OPTS = { duration: 180, easing: 'cubic-bezier(0.25, 1, 0.5, 1)' };
-
     const snapToBoundsAction = React.useCallback(() => {
       const currentZoom = zoomRef.current;
       if (currentZoom >= minZoom && currentZoom <= maxZoom) return;
@@ -384,6 +384,18 @@ const LightboxZoom = React.forwardRef<LightboxZoomRef, LightboxZoomProps>(
       setOffsetX(clamped.x);
       setOffsetY(clamped.y);
     }, [clampOffsets, captureStart]);
+
+    const momentumPanAction = React.useCallback(
+      (targetX: number, targetY: number) => {
+        isElasticDrag.current = false;
+        const clamped = clampOffsets(targetX, targetY, zoomRef.current);
+        if (clamped.x === offsetXRef.current && clamped.y === offsetYRef.current) return;
+        captureStart(MOMENTUM_OPTS);
+        setOffsetX(clamped.x);
+        setOffsetY(clamped.y);
+      },
+      [clampOffsets, captureStart],
+    );
 
     // ----- Gesture hook -----
     const zoomRef = React.useRef(zoom);
@@ -406,6 +418,7 @@ const LightboxZoom = React.forwardRef<LightboxZoomRef, LightboxZoomProps>(
     const gestureActions = React.useMemo<ZoomGestureActions>(
       () => ({
         getZoom: () => zoomRef.current,
+        getOffsets: () => ({ x: offsetXRef.current, y: offsetYRef.current }),
         zoomIn: zoomInAction,
         zoomOut: zoomOutAction,
         changeZoom: changeZoomAction,
@@ -413,8 +426,9 @@ const LightboxZoom = React.forwardRef<LightboxZoomRef, LightboxZoomProps>(
         setDragging,
         snapToBounds: snapToBoundsAction,
         snapOffsetsToBounds: snapOffsetsToBoundsAction,
+        momentumPan: momentumPanAction,
       }),
-      [zoomInAction, zoomOutAction, changeZoomAction, changeOffsetsAction, snapToBoundsAction, snapOffsetsToBoundsAction],
+      [zoomInAction, zoomOutAction, changeZoomAction, changeOffsetsAction, snapToBoundsAction, snapOffsetsToBoundsAction, momentumPanAction],
     );
 
     useZoomGestures(containerRef, wrapperRef, gestureConfig, gestureActions, false, dialogElementRef, zoom);
