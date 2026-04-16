@@ -41,19 +41,25 @@ jobs:
           node-version: 22.x
           check-latest: true
           cache: pnpm
-          registry-url: 'https://registry.npmjs.org'
 
       - name: Debug OIDC env presence (no secrets)
         run: |
           echo "GITHUB_ACTIONS=$GITHUB_ACTIONS"
           echo "ACTIONS_ID_TOKEN_REQUEST_URL: $([ -n "$ACTIONS_ID_TOKEN_REQUEST_URL" ] && echo present || echo missing)"
           echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN: $([ -n "$ACTIONS_ID_TOKEN_REQUEST_TOKEN" ] && echo present || echo missing)"
-          echo "--- .npmrc ---"
-          cat ~/.npmrc 2>/dev/null || echo "no user .npmrc"
-          cat .npmrc 2>/dev/null || echo "no project .npmrc"
+          echo "node: $(node -v)"
+          echo "npm: $(npm -v)"
 
-      - name: Update npm for OIDC trusted publishing
-        run: npm install -g npm@10
+      - name: Upgrade npm for OIDC trusted publishing
+        if: steps.check.outputs.can-publish == 'true'
+        run: |
+          corepack disable npm 2>/dev/null || true
+          npm i -g npm@latest --force
+
+      - name: Clear npm auth to force OIDC
+        run: |
+          npm config delete //registry.npmjs.org/:_authToken || true
+          npm config delete @whop:registry || true
         if: steps.check.outputs.can-publish == 'true'
 
       - name: Install dependencies
@@ -70,7 +76,8 @@ jobs:
           NPM_CONFIG_ALWAYS_AUTH: 'false'
           NPM_CONFIG_LOGLEVEL: 'warn'
           TURBO_FORCE: 'true'
-          TURBO_ENVIRONMENT_VARIABLES: ACTIONS_ID_TOKEN_REQUEST_URL,ACTIONS_ID_TOKEN_REQUEST_TOKEN,NPM_CONFIG_PROVENANCE,NPM_CONFIG_REGISTRY,NPM_CONFIG_ALWAYS_AUTH,NODE_AUTH_TOKEN
+          TURBO_ENVIRONMENT_VARIABLES: ACTIONS_ID_TOKEN_REQUEST_URL,ACTIONS_ID_TOKEN_REQUEST_TOKEN,NPM_CONFIG_PROVENANCE,NPM_CONFIG_REGISTRY,NPM_CONFIG_ALWAYS_AUTH
+          NODE_AUTH_TOKEN: ''
         run: pnpm turbo release ${{ steps.check.outputs.filter }} --env-mode=loose
         if: steps.check.outputs.can-publish == 'true'
 
