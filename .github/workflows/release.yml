@@ -49,7 +49,7 @@ jobs:
           echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN: $([ -n "$ACTIONS_ID_TOKEN_REQUEST_TOKEN" ] && echo present || echo missing)"
 
       - name: Update npm for OIDC trusted publishing
-        run: npm install -g npm@latest
+        run: npm install -g npm@10
         if: steps.check.outputs.can-publish == 'true'
 
       - name: Clear npm auth to force OIDC
