@@ -45,6 +45,13 @@ interface ScrollGalleryRootProps {
    * @default 'horizontal'
    */
   orientation?: 'horizontal' | 'vertical';
+  /**
+   * Controls whether programmatic scrolls (navigation, markers, controlled
+   * value changes) animate smoothly or jump instantly. Reduced motion
+   * always forces `'instant'` regardless of this value.
+   * @default 'smooth'
+   */
+  scrollBehavior?: 'smooth' | 'instant';
 }
 
 /**
@@ -70,6 +77,7 @@ const ScrollGalleryRoot = React.forwardRef<
     loop = false,
     onValueChange,
     orientation = 'horizontal',
+    scrollBehavior = 'smooth',
   } = props;
 
   const isControlled = valueProp !== undefined;
@@ -160,7 +168,7 @@ const ScrollGalleryRoot = React.forwardRef<
    */
   const scrollToItem = React.useCallback(
     (index: number, behavior?: ScrollBehavior) => {
-      behavior = behavior ?? getScrollBehavior();
+      behavior = behavior ?? getScrollBehavior(scrollBehavior);
       const viewport = viewportRef.current;
       if (!viewport) return;
 
@@ -181,7 +189,7 @@ const ScrollGalleryRoot = React.forwardRef<
 
       setActiveIndex(index, 'indicator');
     },
-    [getItemElements, orientation, setActiveIndex],
+    [getItemElements, orientation, setActiveIndex, scrollBehavior],
   );
 
   React.useImperativeHandle(forwardedRef, () => ({ scrollTo: scrollToItem }), [scrollToItem]);
@@ -209,14 +217,15 @@ const ScrollGalleryRoot = React.forwardRef<
       return;
     }
     lastScrollValueRef.current = null;
-    scrollToItem(valueProp, getScrollBehavior());
-  }, [isControlled, valueProp, scrollToItem]);
+    scrollToItem(valueProp, getScrollBehavior(scrollBehavior));
+  }, [isControlled, valueProp, scrollToItem, scrollBehavior]);
 
   const contextValue = React.useMemo<ScrollGalleryContextValue>(
     () => ({
       activeIndex,
       setActiveIndex,
       orientation,
+      scrollBehavior,
       loop,
       canScrollPrev,
       canScrollNext,
@@ -235,6 +244,7 @@ const ScrollGalleryRoot = React.forwardRef<
       activeIndex,
       setActiveIndex,
       orientation,
+      scrollBehavior,
       loop,
       canScrollPrev,
       canScrollNext,
@@ -257,3 +267,4 @@ ScrollGalleryRoot.displayName = 'ScrollGalleryRoot';
 
 export { ScrollGalleryRoot };
 export type { ScrollGalleryRootProps, ScrollGalleryRootRef };
+

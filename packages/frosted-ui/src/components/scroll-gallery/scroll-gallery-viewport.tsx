@@ -51,6 +51,7 @@ const ScrollGalleryViewport = React.forwardRef<
     activeIndex,
     setActiveIndex,
     orientation,
+    scrollBehavior,
     loop,
     canScrollPrev,
     canScrollNext,
@@ -488,17 +489,23 @@ const ScrollGalleryViewport = React.forwardRef<
         const pageSize = isHorizontal ? viewport.clientWidth : viewport.clientHeight;
         viewport.scrollBy({
           [isHorizontal ? 'left' : 'top']: pageDirection * pageSize * PAGE_SCROLL_FACTOR,
-          behavior: getScrollBehavior(),
+          behavior: getScrollBehavior(scrollBehavior),
         });
       }
     },
-    [activeIndex, getItemElements, loop, orientation, scrollTargetRef, scrollingRef, scrollToItem],
+    [activeIndex, getItemElements, loop, orientation, scrollBehavior, scrollTargetRef, scrollingRef, scrollToItem],
   );
 
   const state = React.useMemo<ScrollGalleryViewportState>(
     () => ({ activeIndex, orientation, canScrollPrev, canScrollNext, scrolling: isScrolling }),
     [activeIndex, orientation, canScrollPrev, canScrollNext, isScrolling],
   );
+
+  // Override CSS scroll-behavior when the prop is 'instant' so that
+  // CSS-driven scrolls (e.g. snap corrections) also jump immediately.
+  const scrollBehaviorStyle = scrollBehavior === 'instant'
+    ? { scrollBehavior: 'auto' as const }
+    : undefined;
 
   return useRender({
     render,
@@ -509,6 +516,7 @@ const ScrollGalleryViewport = React.forwardRef<
       {
         className: 'fui-ScrollGalleryViewport',
         'data-orientation': orientation,
+        style: scrollBehaviorStyle,
         onKeyDown: handleKeyDown,
       } as React.ComponentPropsWithRef<'div'>,
       elementProps as React.ComponentPropsWithRef<'div'>,
@@ -521,3 +529,4 @@ ScrollGalleryViewport.displayName = 'ScrollGalleryViewport';
 
 export { ScrollGalleryViewport };
 export type { ScrollGalleryViewportProps, ScrollGalleryViewportState };
+
