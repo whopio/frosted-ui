@@ -17,10 +17,13 @@ beforeEach(() => {
   intersectionCallbacks = [];
   resizeCallbacks = [];
 
-  // jsdom doesn't implement scrollBy — mock it globally so the mount effect
-  // in ScrollGalleryRoot (which calls scrollTo → viewport.scrollBy) doesn't throw.
+  // jsdom doesn't implement scrollBy/scrollTo — mock them globally so the
+  // mount effect in ScrollGalleryRoot doesn't throw.
   if (!HTMLElement.prototype.scrollBy) {
     HTMLElement.prototype.scrollBy = vi.fn();
+  }
+  if (!HTMLElement.prototype.scrollTo) {
+    HTMLElement.prototype.scrollTo = vi.fn();
   }
 
   // jsdom doesn't implement matchMedia — mock it so getScrollBehavior() works.
