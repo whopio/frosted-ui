@@ -1363,7 +1363,7 @@ export const ScrollBehavior: Story = {
               scrollbarWidth: 'none',
             }}
           >
-            {people.map((person, i) => (
+            {people.map((person) => (
               <ScrollGallery.Item
                 key={person.name}
                 style={{ scrollSnapAlign: 'start', flexShrink: 0, width: 200 }}
