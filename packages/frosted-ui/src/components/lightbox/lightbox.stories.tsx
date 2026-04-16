@@ -3064,7 +3064,7 @@ export const ScrollGalleryWithZoom: Story = {
             }
           `}</style>
 
-          <ScrollGallery.Root value={activeIndex} onValueChange={(v) => setActiveIndex(v)}>
+          <ScrollGallery.Root value={activeIndex} onValueChange={(v) => setActiveIndex(v)} scrollBehavior='instant'>
             <Lightbox.ItemGroup
               render={<ScrollGallery.Viewport aria-label="Full-size images" />}
               preload={images.length}
