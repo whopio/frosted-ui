@@ -153,7 +153,7 @@ function useZoomGestures(
   const handlePointerDown = React.useCallback(
     (event: PointerEvent) => {
       const pointers = activePointers.current;
-      const { zoomStep, doubleClickMaxStops, doubleClickDelay } = configRef.current;
+      const { zoomStep, doubleClickDelay } = configRef.current;
       const { getZoom, changeZoom } = actionsRef.current;
       const zoom = getZoom();
 
@@ -564,6 +564,7 @@ function useZoomGestures(
   // Cleanup when disabled changes or component unmounts
   React.useEffect(() => {
     const ptrs = activePointers.current;
+    const contentEl = contentElementRef?.current;
     return () => {
       ptrs.length = 0;
       lastPointerDown.current = 0;
@@ -573,7 +574,7 @@ function useZoomGestures(
         clearTimeout(zoomingTimerRef.current);
         zoomingTimerRef.current = null;
       }
-      contentElementRef?.current?.removeAttribute('data-zooming');
+      contentEl?.removeAttribute('data-zooming');
     };
   }, [disabled, contentElementRef]);
 }

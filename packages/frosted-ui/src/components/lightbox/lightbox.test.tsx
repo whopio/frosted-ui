@@ -29,6 +29,7 @@ import { LightboxZoomOut } from './lightbox-zoom-out';
 
 // jsdom lacks the Touch constructor
 if (typeof globalThis.Touch === 'undefined') {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (globalThis as any).Touch = class Touch {
     identifier: number;
     target: EventTarget;
