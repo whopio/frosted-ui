@@ -15,6 +15,13 @@ interface ScrollGalleryContextValue {
   orientation: 'horizontal' | 'vertical';
 
   /**
+   * The scroll behavior used by all programmatic scrolls (navigation,
+   * markers, controlled value changes). Reduced motion always forces
+   * `'instant'` regardless of this value.
+   */
+  scrollBehavior: ScrollBehavior;
+
+  /**
    * When true, navigation wraps around at boundaries:
    * - Previous/Next buttons don't disable and jump to the other end
    * - Marker group arrow keys wrap instead of clamping
@@ -171,5 +178,6 @@ function getScrollDistance(
  */
 const PAGE_SCROLL_FACTOR = 0.85;
 
-export { ScrollGalleryContext, useScrollGalleryContext, getScrollBehavior, getScrollDistance, getSnapAlignment, PAGE_SCROLL_FACTOR };
-export type { ScrollGalleryContextValue, ChangeSource };
+export { getScrollBehavior, getScrollDistance, getSnapAlignment, PAGE_SCROLL_FACTOR, ScrollGalleryContext, useScrollGalleryContext };
+export type { ChangeSource, ScrollGalleryContextValue };
+

@@ -27,6 +27,7 @@ function useScrollButton({ direction, step }: UseScrollButtonOptions): UseScroll
     getItemElements,
     loop,
     orientation,
+    scrollBehavior,
     scrollingRef,
     scrollTargetRef,
     scrollToItem,
@@ -110,7 +111,7 @@ function useScrollButton({ direction, step }: UseScrollButtonOptions): UseScroll
 
       viewport.scrollBy({
         [isHorizontal ? 'left' : 'top']: distance,
-        behavior: getScrollBehavior(),
+        behavior: getScrollBehavior(scrollBehavior),
       });
     } else {
       // Page mode (default): scroll by ~85% of the viewport.
@@ -118,13 +119,14 @@ function useScrollButton({ direction, step }: UseScrollButtonOptions): UseScroll
 
       viewport.scrollBy({
         [isHorizontal ? 'left' : 'top']: sign * pageSize * PAGE_SCROLL_FACTOR,
-        behavior: getScrollBehavior(),
+        behavior: getScrollBehavior(scrollBehavior),
       });
     }
-  }, [canScroll, disabled, getItemElements, isPrev, loop, orientation, scrollingRef, scrollTargetRef, scrollToItem, sign, step, viewportRef]);
+  }, [canScroll, disabled, getItemElements, isPrev, loop, orientation, scrollBehavior, scrollingRef, scrollTargetRef, scrollToItem, sign, step, viewportRef]);
 
   return { disabled, handleClick };
 }
 
 export { useScrollButton };
 export type { UseScrollButtonOptions, UseScrollButtonReturn };
+

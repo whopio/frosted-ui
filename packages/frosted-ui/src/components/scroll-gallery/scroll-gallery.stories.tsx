@@ -1328,6 +1328,76 @@ const testimonials = [
   },
 ];
 
+export const ScrollBehavior: Story = {
+  render: function ScrollBehaviorStory() {
+    const [behavior, setBehavior] = useState<'smooth' | 'instant'>('smooth');
+
+    return (
+      <div style={{ maxWidth: 600 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', marginBottom: 'var(--space-4)' }}>
+          <Text size="2" weight="medium">Scroll behavior:</Text>
+          <Button
+            size="1"
+            variant={behavior === 'smooth' ? 'solid' : 'surface'}
+            onClick={() => setBehavior('smooth')}
+          >
+            Smooth
+          </Button>
+          <Button
+            size="1"
+            variant={behavior === 'instant' ? 'solid' : 'surface'}
+            onClick={() => setBehavior('instant')}
+          >
+            Instant
+          </Button>
+          <Code size="1" color="gray">{`scrollBehavior="${behavior}"`}</Code>
+        </div>
+
+        <ScrollGallery.Root scrollBehavior={behavior}>
+          <ScrollGallery.Viewport
+            style={{
+              display: 'flex',
+              gap: 'var(--space-3)',
+              overflowX: 'auto',
+              scrollSnapType: 'x mandatory',
+              scrollbarWidth: 'none',
+            }}
+          >
+            {people.map((person, i) => (
+              <ScrollGallery.Item
+                key={person.name}
+                style={{ scrollSnapAlign: 'start', flexShrink: 0, width: 200 }}
+              >
+                <Card>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+                    <Avatar size="3" fallback={person.initials} color={person.color} />
+                    <div>
+                      <Text render={<div />} size="2" weight="bold">{person.name}</Text>
+                      <Text render={<div />} size="1" color="gray">{person.role}</Text>
+                    </div>
+                  </div>
+                </Card>
+              </ScrollGallery.Item>
+            ))}
+          </ScrollGallery.Viewport>
+
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 'var(--space-4)', marginTop: 'var(--space-3)' }}>
+            <ScrollGallery.Previous step={1} render={<IconButton variant="surface" size="1" color="gray" />}>
+              <ChevronLeft16 />
+            </ScrollGallery.Previous>
+            <ScrollGallery.ScrollMarkerGroup style={{ display: 'flex', gap: 'var(--space-1)' }}>
+              <MarkerDots count={people.length} />
+            </ScrollGallery.ScrollMarkerGroup>
+            <ScrollGallery.Next step={1} render={<IconButton variant="surface" size="1" color="gray" />}>
+              <ChevronRight16 />
+            </ScrollGallery.Next>
+          </div>
+        </ScrollGallery.Root>
+      </div>
+    );
+  },
+};
+
 export const Testimonials: Story = {
   render: () => (
     <div style={{ maxWidth: 800 }}>

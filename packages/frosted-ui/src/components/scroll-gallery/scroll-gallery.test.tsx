@@ -1,6 +1,6 @@
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import * as React from 'react';
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { ScrollGalleryItem } from './scroll-gallery-item';
 import { ScrollGalleryNext } from './scroll-gallery-next';
@@ -84,6 +84,7 @@ function Gallery({
   defaultValue = 0,
   loop = false,
   orientation = 'horizontal',
+  scrollBehavior,
   withMarkers = false,
   step,
 }: {
@@ -91,11 +92,12 @@ function Gallery({
   defaultValue?: number;
   loop?: boolean;
   orientation?: 'horizontal' | 'vertical';
+  scrollBehavior?: 'smooth' | 'instant';
   withMarkers?: boolean;
   step?: number;
 } = {}) {
   return (
-    <ScrollGalleryRoot defaultValue={defaultValue} loop={loop} orientation={orientation}>
+    <ScrollGalleryRoot defaultValue={defaultValue} loop={loop} orientation={orientation} scrollBehavior={scrollBehavior}>
       <ScrollGalleryViewport data-testid="viewport" style={{ overflow: 'auto' }}>
         {Array.from({ length: itemCount }, (_, i) => (
           <ScrollGalleryItem key={i} data-testid={`item-${i}`}>
@@ -2079,6 +2081,145 @@ describe('ScrollGallery', () => {
       expect(onValueChange).toHaveBeenCalled();
       // Without rerender with new value, active marker stays at 0 (controlled)
       expect(screen.getByTestId('marker-0')).toHaveAttribute('aria-selected', 'true');
+    });
+  });
+
+  describe('scrollBehavior prop', () => {
+    it('defaults to smooth behavior for scroll button clicks', () => {
+      render(<Gallery />);
+      const viewport = screen.getByTestId('viewport');
+      mockViewportScroll(viewport, { scrollLeft: 0, scrollWidth: 1000, clientWidth: 400 });
+      const scrollBySpy = vi.fn();
+      viewport.scrollBy = scrollBySpy;
+
+      act(() => { fireEvent.scroll(viewport); });
+
+      fireEvent.click(screen.getByTestId('next'));
+
+      expect(scrollBySpy).toHaveBeenCalledWith(
+        expect.objectContaining({ behavior: 'smooth' }),
+      );
+    });
+
+    it('scrollBehavior="instant" makes scroll buttons use instant behavior', () => {
+      render(<Gallery scrollBehavior="instant" />);
+      const viewport = screen.getByTestId('viewport');
+      mockViewportScroll(viewport, { scrollLeft: 0, scrollWidth: 1000, clientWidth: 400 });
+      const scrollBySpy = vi.fn();
+      viewport.scrollBy = scrollBySpy;
+
+      act(() => { fireEvent.scroll(viewport); });
+
+      fireEvent.click(screen.getByTestId('next'));
+
+      expect(scrollBySpy).toHaveBeenCalledWith(
+        expect.objectContaining({ behavior: 'instant' }),
+      );
+    });
+
+    it('scrollBehavior="instant" makes marker clicks use instant behavior', () => {
+      render(<Gallery scrollBehavior="instant" withMarkers />);
+      const viewport = screen.getByTestId('viewport');
+      const scrollBySpy = vi.fn();
+      viewport.scrollBy = scrollBySpy;
+
+      const viewportRect = { left: 0, top: 0, right: 400, bottom: 300, width: 400, height: 300, x: 0, y: 0, toJSON: () => ({}) };
+      vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue(viewportRect);
+      vi.spyOn(screen.getByTestId('item-3'), 'getBoundingClientRect').mockReturnValue(
+        { left: 600, top: 0, right: 800, bottom: 100, width: 200, height: 100, x: 600, y: 0, toJSON: () => ({}) },
+      );
+
+      fireEvent.click(screen.getByTestId('marker-3'));
+
+      expect(scrollBySpy).toHaveBeenCalledWith(
+        expect.objectContaining({ behavior: 'instant' }),
+      );
+    });
+
+    it('scrollBehavior="instant" makes step buttons use instant behavior', () => {
+      render(<Gallery scrollBehavior="instant" step={1} />);
+      const viewport = screen.getByTestId('viewport');
+      mockViewportScroll(viewport, { scrollLeft: 0, scrollWidth: 1000, clientWidth: 400 });
+      const scrollBySpy = vi.fn();
+      viewport.scrollBy = scrollBySpy;
+
+      const viewportRect = { left: 0, top: 0, right: 400, bottom: 300, width: 400, height: 300, x: 0, y: 0, toJSON: () => ({}) };
+      vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue(viewportRect);
+      for (let i = 0; i < 5; i++) {
+        const item = screen.getByTestId(`item-${i}`);
+        vi.spyOn(item, 'getBoundingClientRect').mockReturnValue(
+          { left: i * 200, top: 0, right: i * 200 + 200, bottom: 100, width: 200, height: 100, x: i * 200, y: 0, toJSON: () => ({}) },
+        );
+      }
+
+      act(() => { fireEvent.scroll(viewport); });
+
+      fireEvent.click(screen.getByTestId('next'));
+
+      expect(scrollBySpy).toHaveBeenCalledWith(
+        expect.objectContaining({ behavior: 'instant' }),
+      );
+    });
+
+    it('scrollBehavior="instant" makes PageDown use instant behavior', () => {
+      render(<Gallery scrollBehavior="instant" />);
+      const viewport = screen.getByTestId('viewport');
+      mockViewportScroll(viewport, { scrollLeft: 0, scrollWidth: 1000, clientWidth: 400 });
+      const scrollBySpy = vi.fn();
+      viewport.scrollBy = scrollBySpy;
+
+      fireEvent.keyDown(viewport, { key: 'PageDown' });
+
+      expect(scrollBySpy).toHaveBeenCalledWith(
+        expect.objectContaining({ behavior: 'instant' }),
+      );
+    });
+
+    it('scrollBehavior="instant" sets scroll-behavior: auto on the viewport element', () => {
+      render(<Gallery scrollBehavior="instant" />);
+      const viewport = screen.getByTestId('viewport');
+      expect(viewport.style.scrollBehavior).toBe('auto');
+    });
+
+    it('default scrollBehavior does not set inline scroll-behavior on the viewport', () => {
+      render(<Gallery />);
+      const viewport = screen.getByTestId('viewport');
+      expect(viewport.style.scrollBehavior).toBe('');
+    });
+
+    it('scrollBehavior="instant" is used by imperative scrollTo', () => {
+      const ref = React.createRef<ScrollGalleryRootRef>();
+
+      render(
+        <ScrollGalleryRoot ref={ref} scrollBehavior="instant">
+          <ScrollGalleryViewport data-testid="viewport" style={{ overflow: 'auto' }}>
+            {Array.from({ length: 5 }, (_, i) => (
+              <ScrollGalleryItem key={i} data-testid={`item-${i}`}>
+                Item {i}
+              </ScrollGalleryItem>
+            ))}
+          </ScrollGalleryViewport>
+        </ScrollGalleryRoot>,
+      );
+
+      const viewport = screen.getByTestId('viewport');
+      const scrollBySpy = vi.fn();
+      viewport.scrollBy = scrollBySpy;
+
+      const viewportRect = { left: 0, top: 0, right: 400, bottom: 300, width: 400, height: 300, x: 0, y: 0, toJSON: () => ({}) };
+      vi.spyOn(viewport, 'getBoundingClientRect').mockReturnValue(viewportRect);
+      for (let i = 0; i < 5; i++) {
+        const item = screen.getByTestId(`item-${i}`);
+        vi.spyOn(item, 'getBoundingClientRect').mockReturnValue(
+          { left: i * 200, top: 0, right: i * 200 + 200, bottom: 100, width: 200, height: 100, x: i * 200, y: 0, toJSON: () => ({}) },
+        );
+      }
+
+      act(() => { ref.current?.scrollTo(3); });
+
+      expect(scrollBySpy).toHaveBeenCalledWith(
+        expect.objectContaining({ behavior: 'instant' }),
+      );
     });
   });
 });
