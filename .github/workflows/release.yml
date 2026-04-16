@@ -61,6 +61,10 @@ jobs:
       - name: Install dependencies
         run: pnpm i
 
+      - name: Fix bin permissions
+        run: chmod +x node_modules/.bin/* packages/*/node_modules/.bin/* 2>/dev/null || true
+        if: steps.check.outputs.can-publish == 'true'
+
       - name: Run turbo release flow
         env:
           NPM_CONFIG_PROVENANCE: 'true'
@@ -70,8 +74,6 @@ jobs:
           TURBO_FORCE: 'true'
           TURBO_ENVIRONMENT_VARIABLES: ACTIONS_ID_TOKEN_REQUEST_URL,ACTIONS_ID_TOKEN_REQUEST_TOKEN,NPM_CONFIG_PROVENANCE,NPM_CONFIG_REGISTRY,NPM_CONFIG_ALWAYS_AUTH
           NODE_AUTH_TOKEN: ''
-          ACTIONS_ID_TOKEN_REQUEST_URL: ${{ env.ACTIONS_ID_TOKEN_REQUEST_URL }}
-          ACTIONS_ID_TOKEN_REQUEST_TOKEN: ${{ env.ACTIONS_ID_TOKEN_REQUEST_TOKEN }}
         run: pnpm turbo release ${{ steps.check.outputs.filter }} --env-mode=loose
         if: steps.check.outputs.can-publish == 'true'
 
