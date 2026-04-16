@@ -83,7 +83,7 @@ const DEFAULT_ZOOM_STEP = 2;
 const DEFAULT_WHEEL_SENSITIVITY = 100;
 const DEFAULT_KEYBOARD_PAN = 50;
 const DEFAULT_DOUBLE_CLICK_STOPS = 2;
-const DEFAULT_DOUBLE_CLICK_DELAY = 400;
+const DEFAULT_DOUBLE_CLICK_DELAY = 300;
 const DEFAULT_ANIMATION_DURATION = 300;
 const SNAP_OPTS = { duration: 180, easing: 'cubic-bezier(0.25, 1, 0.5, 1)' } as const;
 const MOMENTUM_OPTS = { duration: 600, easing: 'cubic-bezier(0.33, 1, 0.68, 1)' } as const;
@@ -525,4 +525,5 @@ const LightboxZoom = React.forwardRef<LightboxZoomRef, LightboxZoomProps>(
 LightboxZoom.displayName = 'LightboxZoom';
 
 export { LightboxZoom };
-export type { LightboxZoomProps, LightboxZoomState, LightboxZoomRef };
+export type { LightboxZoomProps, LightboxZoomRef, LightboxZoomState };
+
