@@ -28,22 +28,18 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 24px;
+
+  &:where([data-active]) {
+    z-index: 1;
+  }
 }
 
-/* Logo + Brand sit in a row at the top of the front face */
-.fui-CreditCardFront > .fui-CreditCardLogo,
-.fui-CreditCardFront > .fui-CreditCardBrand {
-  /* handled by the header layout below */
-}
-
-/* Header area: first direct children row (Logo + Brand) */
 .fui-CreditCardFrontHeader {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
 
-/* Footer area: last direct children row (Label + LastFour) */
 .fui-CreditCardFrontFooter {
   display: flex;
   justify-content: space-between;
@@ -126,13 +122,19 @@
 
 /* ── Flip states ────────────────────────────────────────────────────────── */
 
-.fui-CreditCardContent[data-face='back'] .fui-CreditCardFront {
-  transform: rotateY(-180deg);
+.fui-CreditCardContent {
+  &:where([data-face='back']) {
+    & :where(.fui-CreditCardFront) {
+      transform: rotateY(-180deg);
+    }
+
+    & :where(.fui-CreditCardBack) {
+      transform: rotateY(0deg);
+    }
+  }
 }
 
-.fui-CreditCardContent[data-face='back'] .fui-CreditCardBack {
-  transform: rotateY(0deg);
-}
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
   .fui-CreditCardFront,
@@ -150,13 +152,17 @@
     opacity: 0;
   }
 
-  .fui-CreditCardContent[data-face='back'] .fui-CreditCardFront {
-    transform: none;
-    opacity: 0;
-  }
+  .fui-CreditCardContent {
+    &:where([data-face='back']) {
+      & :where(.fui-CreditCardFront) {
+        transform: none;
+        opacity: 0;
+      }
 
-  .fui-CreditCardContent[data-face='back'] .fui-CreditCardBack {
-    transform: none;
-    opacity: 1;
+      & :where(.fui-CreditCardBack) {
+        transform: none;
+        opacity: 1;
+      }
+    }
   }
 }
