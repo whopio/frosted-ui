@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import * as React from 'react';
 
 import { Input as TextFieldInput } from '../text-field/text-field';
+import { Text, type TextProps } from '../text/text';
 
 // ---------------------------------------------------------------------------
 // Logo — slot for the card issuer / org logo
@@ -301,16 +302,42 @@ CreditCardFieldGroup.displayName = 'CreditCardFieldGroup';
 // ---------------------------------------------------------------------------
 
 interface CreditCardFieldLabelProps
-  extends Omit<React.ComponentProps<typeof FieldPrimitive.Label>, 'color'> {}
+  extends
+    Omit<React.ComponentProps<typeof FieldPrimitive.Label>, 'color'>,
+    Pick<TextProps, 'size' | 'weight' | 'align' | 'trim' | 'color' | 'highContrast'> {}
 
 const CreditCardFieldLabel = React.forwardRef<HTMLLabelElement, CreditCardFieldLabelProps>(
   function CreditCardFieldLabel(props, forwardedRef) {
-    const { className, ...labelProps } = props;
+    const {
+      className,
+      size = '2',
+      weight = 'regular',
+      align,
+      trim,
+      color = 'gray',
+      highContrast,
+      render,
+      ...labelProps
+    } = props;
+
+    const defaultRender = (
+      <Text
+        render={<label />}
+        size={size}
+        weight={weight}
+        align={align}
+        trim={trim}
+        color={color}
+        highContrast={highContrast}
+      />
+    );
+
     return (
       <FieldPrimitive.Label
         {...labelProps}
         ref={forwardedRef}
         className={classNames('fui-CreditCardFieldLabel', className)}
+        render={render ?? defaultRender}
       />
     );
   },
@@ -405,12 +432,10 @@ export {
   CreditCardFieldLabel,
   CreditCardFieldset,
   CreditCardFrontFooter,
-  CreditCardFrontHeader,
-  CreditCardTitle,
-  CreditCardLastFour,
+  CreditCardFrontHeader, CreditCardLastFour,
   CreditCardLogo,
   CreditCardMagStripe,
-  CreditCardNumber,
+  CreditCardNumber, CreditCardTitle
 };
 export type {
   CreditCardBackContentProps,
@@ -427,14 +452,13 @@ export type {
   CreditCardFrontFooterProps,
   CreditCardFrontFooterState,
   CreditCardFrontHeaderProps,
-  CreditCardFrontHeaderState,
-  CreditCardTitleProps,
-  CreditCardTitleState,
-  CreditCardLastFourProps,
+  CreditCardFrontHeaderState, CreditCardLastFourProps,
   CreditCardLastFourState,
   CreditCardLogoProps,
   CreditCardLogoState,
   CreditCardMagStripeProps,
   CreditCardMagStripeState,
-  CreditCardNumberProps,
+  CreditCardNumberProps, CreditCardTitleProps,
+  CreditCardTitleState
 };
+
