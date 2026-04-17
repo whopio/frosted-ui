@@ -12,7 +12,7 @@
 .fui-CreditCardFront,
 .fui-CreditCardBack {
   --credit-card-text: var(--gray-12);
-  --credit-card-muted: var(--gray-9);
+  --credit-card-muted: var(--gray-a10);
   --credit-card-input-bg: var(--gray-a3);
   --credit-card-input-bg-disabled: var(--gray-a4);
   --credit-card-input-muted: var(--gray-a10);
