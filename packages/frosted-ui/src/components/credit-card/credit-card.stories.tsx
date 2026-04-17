@@ -498,7 +498,7 @@ export const FormIntegration: Story = {
                 </CreditCard.BackContent>
               </CreditCard.Back>
             </CreditCard.Content>
-            <CreditCard.Errors />
+            <CreditCard.Errors style={{ padding: 16 }} />
           </CreditCard.Root>
 
           <div style={{ marginTop: 16 }}>
