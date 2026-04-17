@@ -485,13 +485,13 @@ export const FormIntegration: Story = {
                       <CreditCard.Field name="expiry">
                         <CreditCard.FieldLabel>Exp</CreditCard.FieldLabel>
                         <CreditCard.Expiry required pattern="\d{2}/\d{2}" />
-                        <CreditCard.FieldError match="valueMissing">Required</CreditCard.FieldError>
-                        <CreditCard.FieldError match="patternMismatch">MM/YY</CreditCard.FieldError>
+                        <CreditCard.FieldError match="valueMissing">Expiration date is required</CreditCard.FieldError>
+                        <CreditCard.FieldError match="patternMismatch">Enter a valid expiration date (MM/YY)</CreditCard.FieldError>
                       </CreditCard.Field>
                       <CreditCard.Field name="cvv">
                         <CreditCard.FieldLabel>CVV</CreditCard.FieldLabel>
                         <CreditCard.CVV required />
-                        <CreditCard.FieldError match="valueMissing">Required</CreditCard.FieldError>
+                        <CreditCard.FieldError match="valueMissing">CVV is required</CreditCard.FieldError>
                       </CreditCard.Field>
                     </CreditCard.FieldGroup>
                   </CreditCard.Fieldset>
