@@ -57,28 +57,30 @@ function CardBack() {
     <CreditCard.Back>
       <CreditCard.MagStripe />
       <CreditCard.BackContent>
-        <div>
-          <CreditCard.FieldLabel>Card number</CreditCard.FieldLabel>
-          <CreditCard.Number>
-            1838 0008 7261 2332
-            <button className="fui-CreditCardCopyButton"><CopyIcon /></button>
-          </CreditCard.Number>
-        </div>
         <CreditCard.BackFields>
           <div>
-            <CreditCard.FieldLabel>Exp</CreditCard.FieldLabel>
-            <CreditCard.Expiry>
-              11/27
+            <CreditCard.FieldLabel>Card number</CreditCard.FieldLabel>
+            <CreditCard.Number>
+              1838 0008 7261 2332
               <button className="fui-CreditCardCopyButton"><CopyIcon /></button>
-            </CreditCard.Expiry>
+            </CreditCard.Number>
           </div>
-          <div>
-            <CreditCard.FieldLabel>CVV</CreditCard.FieldLabel>
-            <CreditCard.CVV>
-              8177
-              <button className="fui-CreditCardCopyButton"><CopyIcon /></button>
-            </CreditCard.CVV>
-          </div>
+          <CreditCard.BackFieldGroup>
+            <div>
+              <CreditCard.FieldLabel>Exp</CreditCard.FieldLabel>
+              <CreditCard.Expiry>
+                11/27
+                <button className="fui-CreditCardCopyButton"><CopyIcon /></button>
+              </CreditCard.Expiry>
+            </div>
+            <div>
+              <CreditCard.FieldLabel>CVV</CreditCard.FieldLabel>
+              <CreditCard.CVV>
+                8177
+                <button className="fui-CreditCardCopyButton"><CopyIcon /></button>
+              </CreditCard.CVV>
+            </div>
+          </CreditCard.BackFieldGroup>
         </CreditCard.BackFields>
       </CreditCard.BackContent>
     </CreditCard.Back>
@@ -145,19 +147,21 @@ export const CustomContent: Story = {
         <CreditCard.Back style={{ background: 'linear-gradient(135deg, #764ba2 0%, #667eea 100%)', color: '#fff', borderColor: 'transparent' }}>
           <CreditCard.MagStripe style={{ background: 'rgba(0, 0, 0, 0.2)' }} />
           <CreditCard.BackContent>
-            <div>
-              <CreditCard.FieldLabel style={{ color: 'rgba(255, 255, 255, 0.6)' }}>Card number</CreditCard.FieldLabel>
-              <CreditCard.Number>4242 4242 4242 4242</CreditCard.Number>
-            </div>
             <CreditCard.BackFields>
               <div>
-                <CreditCard.FieldLabel style={{ color: 'rgba(255, 255, 255, 0.6)' }}>Exp</CreditCard.FieldLabel>
-                <CreditCard.Expiry>12/28</CreditCard.Expiry>
+                <CreditCard.FieldLabel style={{ color: 'rgba(255, 255, 255, 0.6)' }}>Card number</CreditCard.FieldLabel>
+                <CreditCard.Number>4242 4242 4242 4242</CreditCard.Number>
               </div>
-              <div>
-                <CreditCard.FieldLabel style={{ color: 'rgba(255, 255, 255, 0.6)' }}>CVV</CreditCard.FieldLabel>
-                <CreditCard.CVV>123</CreditCard.CVV>
-              </div>
+              <CreditCard.BackFieldGroup>
+                <div>
+                  <CreditCard.FieldLabel style={{ color: 'rgba(255, 255, 255, 0.6)' }}>Exp</CreditCard.FieldLabel>
+                  <CreditCard.Expiry>12/28</CreditCard.Expiry>
+                </div>
+                <div>
+                  <CreditCard.FieldLabel style={{ color: 'rgba(255, 255, 255, 0.6)' }}>CVV</CreditCard.FieldLabel>
+                  <CreditCard.CVV>123</CreditCard.CVV>
+                </div>
+              </CreditCard.BackFieldGroup>
             </CreditCard.BackFields>
           </CreditCard.BackContent>
         </CreditCard.Back>

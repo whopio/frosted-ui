@@ -72,6 +72,12 @@
 
 .fui-CreditCardBackFields {
   display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fui-CreditCardBackFieldGroup {
+  display: flex;
   gap: 32px;
 }
 

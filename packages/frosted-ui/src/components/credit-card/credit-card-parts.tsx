@@ -312,7 +312,7 @@ const CreditCardBackContent = React.forwardRef<HTMLDivElement, CreditCardBackCon
 CreditCardBackContent.displayName = 'CreditCardBackContent';
 
 // ---------------------------------------------------------------------------
-// BackFields — horizontal row for Expiry + CVV on the back face
+// BackFields — vertical stack for all fields on the back face
 // ---------------------------------------------------------------------------
 
 interface CreditCardBackFieldsState extends Record<string, unknown> {}
@@ -338,6 +338,34 @@ const CreditCardBackFields = React.forwardRef<HTMLDivElement, CreditCardBackFiel
   },
 );
 CreditCardBackFields.displayName = 'CreditCardBackFields';
+
+// ---------------------------------------------------------------------------
+// BackFieldGroup — horizontal row within BackFields (e.g. Expiry + CVV)
+// ---------------------------------------------------------------------------
+
+interface CreditCardBackFieldGroupState extends Record<string, unknown> {}
+
+interface CreditCardBackFieldGroupProps
+  extends useRender.ComponentProps<'div', CreditCardBackFieldGroupState> {}
+
+const CreditCardBackFieldGroup = React.forwardRef<HTMLDivElement, CreditCardBackFieldGroupProps>(
+  function CreditCardBackFieldGroup(props, forwardedRef) {
+    const { render, ...elementProps } = props;
+    const state = React.useMemo<CreditCardBackFieldGroupState>(() => ({}), []);
+
+    return useRender({
+      render,
+      ref: forwardedRef,
+      state,
+      props: mergeProps<'div'>(
+        { className: 'fui-CreditCardBackFieldGroup' } as React.ComponentPropsWithRef<'div'>,
+        elementProps as React.ComponentPropsWithRef<'div'>,
+      ),
+      defaultTagName: 'div',
+    });
+  },
+);
+CreditCardBackFieldGroup.displayName = 'CreditCardBackFieldGroup';
 
 // ---------------------------------------------------------------------------
 // FieldLabel — small label above a data field (e.g. "Card number", "Exp")
@@ -373,6 +401,7 @@ CreditCardFieldLabel.displayName = 'CreditCardFieldLabel';
 
 export {
   CreditCardBackContent,
+  CreditCardBackFieldGroup,
   CreditCardBackFields,
   CreditCardBrand,
   CreditCardCVV,
@@ -389,6 +418,8 @@ export {
 export type {
   CreditCardBackContentProps,
   CreditCardBackContentState,
+  CreditCardBackFieldGroupProps,
+  CreditCardBackFieldGroupState,
   CreditCardBackFieldsProps,
   CreditCardBackFieldsState,
   CreditCardBrandProps,
