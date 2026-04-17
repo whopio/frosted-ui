@@ -18,7 +18,7 @@
   transition: transform 0.6s ease;
   overflow: hidden;
   background: var(--color-background);
-  border: 1px solid var(--gray-4);
+  box-shadow: var(--shadow-4);
 }
 
 /* ── Front face ─────────────────────────────────────────────────────────── */
