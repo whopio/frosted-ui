@@ -18,8 +18,9 @@
  * - **Composable faces**: Front and Back are plain wrappers — consumers
  *   can place any content inside them.
  *
- * - **Optional data parts**: Logo, Brand, Label, LastFour, Stripe, Number,
- *   Expiry, CVV are convenience sub-components for common card layouts.
+ * - **Optional data parts**: Logo, Brand, Title, LastFour, MagStripe are
+ *   convenience sub-components for common card layouts. Number, Expiry,
+ *   and CVV render input fields (use `readOnly` for presentational usage).
  *
  * Sub-components:
  *   Root      — Context provider, face state management (no visual output)
@@ -38,9 +39,9 @@
  *   BackFields   — Vertical stack for all back-face fields
  *   BackFieldGroup — Horizontal row within BackFields (e.g. Expiry + CVV)
  *   FieldLabel   — Small label above a data field
- *   Number       — Full card number
- *   Expiry       — Expiration date
- *   CVV          — CVV code
+ *   Number       — Card number input (use readOnly for display)
+ *   Expiry       — Expiration date input (use readOnly for display)
+ *   CVV          — CVV code input (use readOnly for display)
  */
 export { CreditCardRoot as Root } from './credit-card-root';
 export { CreditCardContent as Content } from './credit-card-content';
@@ -93,10 +94,7 @@ export type {
   CreditCardFieldLabelProps,
   CreditCardFieldLabelState,
   CreditCardNumberProps,
-  CreditCardNumberState,
   CreditCardExpiryProps,
-  CreditCardExpiryState,
   CreditCardCVVProps,
-  CreditCardCVVState,
 } from './credit-card-parts';
 export type { CardFace } from './credit-card-context';

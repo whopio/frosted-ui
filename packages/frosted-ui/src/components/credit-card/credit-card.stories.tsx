@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React, { useState } from 'react';
-import { Button, CreditCard } from '..';
+import { Button, CreditCard, Field } from '..';
 import './credit-card.css';
 
 const meta = {
@@ -30,13 +30,6 @@ const WhopLogo = () => (
   </svg>
 );
 
-const CopyIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-  </svg>
-);
-
 function CardFront() {
   return (
     <CreditCard.Front>
@@ -60,25 +53,16 @@ function CardBack() {
         <CreditCard.BackFields>
           <div>
             <CreditCard.FieldLabel>Card number</CreditCard.FieldLabel>
-            <CreditCard.Number>
-              1838 0008 7261 2332
-              <button className="fui-CreditCardCopyButton"><CopyIcon /></button>
-            </CreditCard.Number>
+            <CreditCard.Number readOnly defaultValue="1838 0008 7261 2332" size="1" />
           </div>
           <CreditCard.BackFieldGroup>
             <div>
               <CreditCard.FieldLabel>Exp</CreditCard.FieldLabel>
-              <CreditCard.Expiry>
-                11/27
-                <button className="fui-CreditCardCopyButton"><CopyIcon /></button>
-              </CreditCard.Expiry>
+              <CreditCard.Expiry readOnly defaultValue="11/27" size="1" />
             </div>
             <div>
               <CreditCard.FieldLabel>CVV</CreditCard.FieldLabel>
-              <CreditCard.CVV>
-                8177
-                <button className="fui-CreditCardCopyButton"><CopyIcon /></button>
-              </CreditCard.CVV>
+              <CreditCard.CVV readOnly defaultValue="8177" size="1" />
             </div>
           </CreditCard.BackFieldGroup>
         </CreditCard.BackFields>
@@ -150,16 +134,16 @@ export const CustomContent: Story = {
             <CreditCard.BackFields>
               <div>
                 <CreditCard.FieldLabel style={{ color: 'rgba(255, 255, 255, 0.6)' }}>Card number</CreditCard.FieldLabel>
-                <CreditCard.Number>4242 4242 4242 4242</CreditCard.Number>
+                <CreditCard.Number readOnly defaultValue="4242 4242 4242 4242" size="1" />
               </div>
               <CreditCard.BackFieldGroup>
                 <div>
                   <CreditCard.FieldLabel style={{ color: 'rgba(255, 255, 255, 0.6)' }}>Exp</CreditCard.FieldLabel>
-                  <CreditCard.Expiry>12/28</CreditCard.Expiry>
+                  <CreditCard.Expiry readOnly defaultValue="12/28" size="1" />
                 </div>
                 <div>
                   <CreditCard.FieldLabel style={{ color: 'rgba(255, 255, 255, 0.6)' }}>CVV</CreditCard.FieldLabel>
-                  <CreditCard.CVV>123</CreditCard.CVV>
+                  <CreditCard.CVV readOnly defaultValue="123" size="1" />
                 </div>
               </CreditCard.BackFieldGroup>
             </CreditCard.BackFields>
@@ -181,6 +165,41 @@ export const BackFaceDefault: Story = {
       <CreditCard.Content>
         <CardFront />
         <CardBack />
+      </CreditCard.Content>
+      <div style={{ marginTop: 16, display: 'flex', justifyContent: 'center' }}>
+        <CreditCard.Trigger render={<Button variant="surface" size="2" />}>Flip card</CreditCard.Trigger>
+      </div>
+    </CreditCard.Root>
+  ),
+};
+
+export const Editable: Story = {
+  name: 'Editable',
+  render: () => (
+    <CreditCard.Root defaultFace="back">
+      <CreditCard.Content>
+        <CardFront />
+        <CreditCard.Back>
+          <CreditCard.MagStripe />
+          <CreditCard.BackContent>
+            <CreditCard.BackFields>
+              <Field.Root>
+                <CreditCard.FieldLabel render={<Field.Label />}>Card number</CreditCard.FieldLabel>
+                <CreditCard.Number size="1" />
+              </Field.Root>
+              <CreditCard.BackFieldGroup>
+                <Field.Root>
+                  <CreditCard.FieldLabel render={<Field.Label />}>Exp</CreditCard.FieldLabel>
+                  <CreditCard.Expiry size="1" />
+                </Field.Root>
+                <Field.Root>
+                  <CreditCard.FieldLabel render={<Field.Label />}>CVV</CreditCard.FieldLabel>
+                  <CreditCard.CVV size="1" />
+                </Field.Root>
+              </CreditCard.BackFieldGroup>
+            </CreditCard.BackFields>
+          </CreditCard.BackContent>
+        </CreditCard.Back>
       </CreditCard.Content>
       <div style={{ marginTop: 16, display: 'flex', justifyContent: 'center' }}>
         <CreditCard.Trigger render={<Button variant="surface" size="2" />}>Flip card</CreditCard.Trigger>

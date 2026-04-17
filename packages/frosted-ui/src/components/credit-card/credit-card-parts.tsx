@@ -1,7 +1,10 @@
 'use client';
 
 import { mergeProps, useRender } from '@base-ui/react';
+import classNames from 'classnames';
 import * as React from 'react';
+
+import { Input as TextFieldInput } from '../text-field/text-field';
 
 // ---------------------------------------------------------------------------
 // Logo — slot for the card issuer / org logo
@@ -142,90 +145,6 @@ const CreditCardMagStripe = React.forwardRef<HTMLDivElement, CreditCardMagStripe
   },
 );
 CreditCardMagStripe.displayName = 'CreditCardMagStripe';
-
-// ---------------------------------------------------------------------------
-// Number — full card number on the back
-// ---------------------------------------------------------------------------
-
-interface CreditCardNumberState extends Record<string, unknown> {}
-
-interface CreditCardNumberProps
-  extends useRender.ComponentProps<'span', CreditCardNumberState> {}
-
-const CreditCardNumber = React.forwardRef<HTMLSpanElement, CreditCardNumberProps>(
-  function CreditCardNumber(props, forwardedRef) {
-    const { render, ...elementProps } = props;
-    const state = React.useMemo<CreditCardNumberState>(() => ({}), []);
-
-    return useRender({
-      render,
-      ref: forwardedRef,
-      state,
-      props: mergeProps<'span'>(
-        { className: 'fui-CreditCardNumber' } as React.ComponentPropsWithRef<'span'>,
-        elementProps as React.ComponentPropsWithRef<'span'>,
-      ),
-      defaultTagName: 'span',
-    });
-  },
-);
-CreditCardNumber.displayName = 'CreditCardNumber';
-
-// ---------------------------------------------------------------------------
-// Expiry — expiration date on the back
-// ---------------------------------------------------------------------------
-
-interface CreditCardExpiryState extends Record<string, unknown> {}
-
-interface CreditCardExpiryProps
-  extends useRender.ComponentProps<'span', CreditCardExpiryState> {}
-
-const CreditCardExpiry = React.forwardRef<HTMLSpanElement, CreditCardExpiryProps>(
-  function CreditCardExpiry(props, forwardedRef) {
-    const { render, ...elementProps } = props;
-    const state = React.useMemo<CreditCardExpiryState>(() => ({}), []);
-
-    return useRender({
-      render,
-      ref: forwardedRef,
-      state,
-      props: mergeProps<'span'>(
-        { className: 'fui-CreditCardExpiry' } as React.ComponentPropsWithRef<'span'>,
-        elementProps as React.ComponentPropsWithRef<'span'>,
-      ),
-      defaultTagName: 'span',
-    });
-  },
-);
-CreditCardExpiry.displayName = 'CreditCardExpiry';
-
-// ---------------------------------------------------------------------------
-// CVV — CVV code on the back
-// ---------------------------------------------------------------------------
-
-interface CreditCardCVVState extends Record<string, unknown> {}
-
-interface CreditCardCVVProps
-  extends useRender.ComponentProps<'span', CreditCardCVVState> {}
-
-const CreditCardCVV = React.forwardRef<HTMLSpanElement, CreditCardCVVProps>(
-  function CreditCardCVV(props, forwardedRef) {
-    const { render, ...elementProps } = props;
-    const state = React.useMemo<CreditCardCVVState>(() => ({}), []);
-
-    return useRender({
-      render,
-      ref: forwardedRef,
-      state,
-      props: mergeProps<'span'>(
-        { className: 'fui-CreditCardCVV' } as React.ComponentPropsWithRef<'span'>,
-        elementProps as React.ComponentPropsWithRef<'span'>,
-      ),
-      defaultTagName: 'span',
-    });
-  },
-);
-CreditCardCVV.displayName = 'CreditCardCVV';
 
 // ---------------------------------------------------------------------------
 // FrontHeader — top row of the front face (logo left, brand right)
@@ -396,6 +315,80 @@ const CreditCardFieldLabel = React.forwardRef<HTMLSpanElement, CreditCardFieldLa
 CreditCardFieldLabel.displayName = 'CreditCardFieldLabel';
 
 // ---------------------------------------------------------------------------
+// Number — card number input field
+// ---------------------------------------------------------------------------
+
+interface CreditCardNumberProps
+  extends React.ComponentProps<typeof TextFieldInput> {}
+
+const CreditCardNumber = React.forwardRef<HTMLInputElement, CreditCardNumberProps>(
+  function CreditCardNumber(props, forwardedRef) {
+    return (
+      <TextFieldInput
+        inputMode="numeric"
+        pattern="[0-9 ]*"
+        maxLength={19}
+        placeholder="0000 0000 0000 0000"
+        autoComplete="cc-number"
+        {...props}
+        ref={forwardedRef}
+        className={classNames('fui-CreditCardNumber', props.className)}
+      />
+    );
+  },
+);
+CreditCardNumber.displayName = 'CreditCardNumber';
+
+// ---------------------------------------------------------------------------
+// Expiry — expiration date input field
+// ---------------------------------------------------------------------------
+
+interface CreditCardExpiryProps
+  extends React.ComponentProps<typeof TextFieldInput> {}
+
+const CreditCardExpiry = React.forwardRef<HTMLInputElement, CreditCardExpiryProps>(
+  function CreditCardExpiry(props, forwardedRef) {
+    return (
+      <TextFieldInput
+        inputMode="numeric"
+        maxLength={5}
+        placeholder="MM/YY"
+        autoComplete="cc-exp"
+        {...props}
+        ref={forwardedRef}
+        className={classNames('fui-CreditCardExpiry', props.className)}
+      />
+    );
+  },
+);
+CreditCardExpiry.displayName = 'CreditCardExpiry';
+
+// ---------------------------------------------------------------------------
+// CVV — CVV code input field
+// ---------------------------------------------------------------------------
+
+interface CreditCardCVVProps
+  extends React.ComponentProps<typeof TextFieldInput> {}
+
+const CreditCardCVV = React.forwardRef<HTMLInputElement, CreditCardCVVProps>(
+  function CreditCardCVV(props, forwardedRef) {
+    return (
+      <TextFieldInput
+        inputMode="numeric"
+        type="password"
+        maxLength={4}
+        placeholder="CVV"
+        autoComplete="cc-csc"
+        {...props}
+        ref={forwardedRef}
+        className={classNames('fui-CreditCardCVV', props.className)}
+      />
+    );
+  },
+);
+CreditCardCVV.displayName = 'CreditCardCVV';
+
+// ---------------------------------------------------------------------------
 // Exports
 // ---------------------------------------------------------------------------
 
@@ -425,9 +418,7 @@ export type {
   CreditCardBrandProps,
   CreditCardBrandState,
   CreditCardCVVProps,
-  CreditCardCVVState,
   CreditCardExpiryProps,
-  CreditCardExpiryState,
   CreditCardFieldLabelProps,
   CreditCardFieldLabelState,
   CreditCardFrontFooterProps,
@@ -443,5 +434,4 @@ export type {
   CreditCardMagStripeProps,
   CreditCardMagStripeState,
   CreditCardNumberProps,
-  CreditCardNumberState,
 };

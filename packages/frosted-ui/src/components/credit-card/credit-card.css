@@ -98,18 +98,6 @@
   color: var(--gray-9);
 }
 
-.fui-CreditCardNumber,
-.fui-CreditCardExpiry,
-.fui-CreditCardCVV {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 16px;
-  font-weight: 500;
-  font-family: var(--font-mono, monospace);
-  letter-spacing: 0.04em;
-}
-
 .fui-CreditCardFieldLabel {
   font-size: 11px;
   color: var(--gray-9);
@@ -124,6 +112,23 @@
   color: var(--gray-8);
   display: flex;
   align-items: center;
+}
+
+/* ── Input parts ────────────────────────────────────────────────────────── */
+
+.fui-CreditCardNumber,
+.fui-CreditCardExpiry,
+.fui-CreditCardCVV {
+  font-family: var(--font-mono, monospace);
+  letter-spacing: 0.04em;
+}
+
+.fui-CreditCardExpiry {
+  max-width: 80px;
+}
+
+.fui-CreditCardCVV {
+  max-width: 72px;
 }
 
 /* ── Flip states ────────────────────────────────────────────────────────── */
