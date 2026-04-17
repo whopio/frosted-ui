@@ -36,9 +36,10 @@
  *   LastFour     — Masked last four digits
  *   MagStripe    — Magnetic stripe visual
  *   BackContent  — Content area below the stripe
- *   BackFields   — Vertical stack for all back-face fields
- *   BackFieldGroup — Horizontal row within BackFields (e.g. Expiry + CVV)
- *   FieldLabel   — Small label above a data field
+ *   Fieldset     — Semantic group for all card fields; base-ui Fieldset
+ *   FieldGroup   — Horizontal row layout for fields (e.g. Expiry + CVV)
+ *   Field        — Wraps a label + input pair; base-ui Field
+ *   FieldLabel   — Accessible label for a Field input; base-ui Field.Label
  *   Number       — Card number input (use readOnly for display)
  *   Expiry       — Expiration date input (use readOnly for display)
  *   CVV          — CVV code input (use readOnly for display)
@@ -57,8 +58,9 @@ export {
   CreditCardLastFour as LastFour,
   CreditCardMagStripe as MagStripe,
   CreditCardBackContent as BackContent,
-  CreditCardBackFields as BackFields,
-  CreditCardBackFieldGroup as BackFieldGroup,
+  CreditCardFieldset as Fieldset,
+  CreditCardFieldGroup as FieldGroup,
+  CreditCardField as Field,
   CreditCardFieldLabel as FieldLabel,
   CreditCardNumber as Number,
   CreditCardExpiry as Expiry,
@@ -87,12 +89,11 @@ export type {
   CreditCardMagStripeState,
   CreditCardBackContentProps,
   CreditCardBackContentState,
-  CreditCardBackFieldGroupProps,
-  CreditCardBackFieldGroupState,
-  CreditCardBackFieldsProps,
-  CreditCardBackFieldsState,
+  CreditCardFieldsetProps,
+  CreditCardFieldGroupProps,
+  CreditCardFieldGroupState,
+  CreditCardFieldProps,
   CreditCardFieldLabelProps,
-  CreditCardFieldLabelState,
   CreditCardNumberProps,
   CreditCardExpiryProps,
   CreditCardCVVProps,

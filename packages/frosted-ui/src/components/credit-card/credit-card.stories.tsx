@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React, { useState } from 'react';
-import { Button, CreditCard, Field } from '..';
+import { Button, CreditCard } from '..';
 import './credit-card.css';
 
 const meta = {
@@ -50,22 +50,22 @@ function CardBack() {
     <CreditCard.Back>
       <CreditCard.MagStripe />
       <CreditCard.BackContent>
-        <CreditCard.BackFields>
-          <div>
+        <CreditCard.Fieldset aria-label="Card details">
+          <CreditCard.Field>
             <CreditCard.FieldLabel>Card number</CreditCard.FieldLabel>
             <CreditCard.Number readOnly defaultValue="1838 0008 7261 2332" size="1" />
-          </div>
-          <CreditCard.BackFieldGroup>
-            <div>
+          </CreditCard.Field>
+          <CreditCard.FieldGroup>
+            <CreditCard.Field>
               <CreditCard.FieldLabel>Exp</CreditCard.FieldLabel>
               <CreditCard.Expiry readOnly defaultValue="11/27" size="1" />
-            </div>
-            <div>
+            </CreditCard.Field>
+            <CreditCard.Field>
               <CreditCard.FieldLabel>CVV</CreditCard.FieldLabel>
               <CreditCard.CVV readOnly defaultValue="8177" size="1" />
-            </div>
-          </CreditCard.BackFieldGroup>
-        </CreditCard.BackFields>
+            </CreditCard.Field>
+          </CreditCard.FieldGroup>
+        </CreditCard.Fieldset>
       </CreditCard.BackContent>
     </CreditCard.Back>
   );
@@ -131,22 +131,22 @@ export const CustomContent: Story = {
         <CreditCard.Back style={{ background: 'linear-gradient(135deg, #764ba2 0%, #667eea 100%)', color: '#fff', borderColor: 'transparent' }}>
           <CreditCard.MagStripe style={{ background: 'rgba(0, 0, 0, 0.2)' }} />
           <CreditCard.BackContent>
-            <CreditCard.BackFields>
-              <div>
+            <CreditCard.Fieldset aria-label="Card details">
+              <CreditCard.Field>
                 <CreditCard.FieldLabel style={{ color: 'rgba(255, 255, 255, 0.6)' }}>Card number</CreditCard.FieldLabel>
                 <CreditCard.Number readOnly defaultValue="4242 4242 4242 4242" size="1" />
-              </div>
-              <CreditCard.BackFieldGroup>
-                <div>
+              </CreditCard.Field>
+              <CreditCard.FieldGroup>
+                <CreditCard.Field>
                   <CreditCard.FieldLabel style={{ color: 'rgba(255, 255, 255, 0.6)' }}>Exp</CreditCard.FieldLabel>
                   <CreditCard.Expiry readOnly defaultValue="12/28" size="1" />
-                </div>
-                <div>
+                </CreditCard.Field>
+                <CreditCard.Field>
                   <CreditCard.FieldLabel style={{ color: 'rgba(255, 255, 255, 0.6)' }}>CVV</CreditCard.FieldLabel>
                   <CreditCard.CVV readOnly defaultValue="123" size="1" />
-                </div>
-              </CreditCard.BackFieldGroup>
-            </CreditCard.BackFields>
+                </CreditCard.Field>
+              </CreditCard.FieldGroup>
+            </CreditCard.Fieldset>
           </CreditCard.BackContent>
         </CreditCard.Back>
       </CreditCard.Content>
@@ -182,22 +182,22 @@ export const Editable: Story = {
         <CreditCard.Back>
           <CreditCard.MagStripe />
           <CreditCard.BackContent>
-            <CreditCard.BackFields>
-              <Field.Root>
-                <CreditCard.FieldLabel render={<Field.Label />}>Card number</CreditCard.FieldLabel>
+            <CreditCard.Fieldset aria-label="Card details">
+              <CreditCard.Field>
+                <CreditCard.FieldLabel>Card number</CreditCard.FieldLabel>
                 <CreditCard.Number size="1" />
-              </Field.Root>
-              <CreditCard.BackFieldGroup>
-                <Field.Root>
-                  <CreditCard.FieldLabel render={<Field.Label />}>Exp</CreditCard.FieldLabel>
+              </CreditCard.Field>
+              <CreditCard.FieldGroup>
+                <CreditCard.Field>
+                  <CreditCard.FieldLabel>Exp</CreditCard.FieldLabel>
                   <CreditCard.Expiry size="1" />
-                </Field.Root>
-                <Field.Root>
-                  <CreditCard.FieldLabel render={<Field.Label />}>CVV</CreditCard.FieldLabel>
+                </CreditCard.Field>
+                <CreditCard.Field>
+                  <CreditCard.FieldLabel>CVV</CreditCard.FieldLabel>
                   <CreditCard.CVV size="1" />
-                </Field.Root>
-              </CreditCard.BackFieldGroup>
-            </CreditCard.BackFields>
+                </CreditCard.Field>
+              </CreditCard.FieldGroup>
+            </CreditCard.Fieldset>
           </CreditCard.BackContent>
         </CreditCard.Back>
       </CreditCard.Content>

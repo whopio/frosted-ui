@@ -70,15 +70,25 @@
   gap: 4px;
 }
 
-.fui-CreditCardBackFields {
+.fui-CreditCardFieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-inline-size: 0;
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-.fui-CreditCardBackFieldGroup {
+.fui-CreditCardFieldGroup {
   display: flex;
   gap: 32px;
+}
+
+.fui-CreditCardField {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 /* ── Data parts ─────────────────────────────────────────────────────────── */

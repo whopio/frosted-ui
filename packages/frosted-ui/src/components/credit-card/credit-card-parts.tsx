@@ -1,6 +1,8 @@
 'use client';
 
 import { mergeProps, useRender } from '@base-ui/react';
+import { Field as FieldPrimitive } from '@base-ui/react/field';
+import { Fieldset as FieldsetPrimitive } from '@base-ui/react/fieldset';
 import classNames from 'classnames';
 import * as React from 'react';
 
@@ -231,85 +233,86 @@ const CreditCardBackContent = React.forwardRef<HTMLDivElement, CreditCardBackCon
 CreditCardBackContent.displayName = 'CreditCardBackContent';
 
 // ---------------------------------------------------------------------------
-// BackFields — vertical stack for all fields on the back face
+// Fieldset — semantic group for all related card fields; base-ui Fieldset
 // ---------------------------------------------------------------------------
 
-interface CreditCardBackFieldsState extends Record<string, unknown> {}
+interface CreditCardFieldsetProps
+  extends React.ComponentProps<typeof FieldsetPrimitive.Root> {}
 
-interface CreditCardBackFieldsProps
-  extends useRender.ComponentProps<'div', CreditCardBackFieldsState> {}
+function CreditCardFieldset(props: CreditCardFieldsetProps) {
+  const { className, ...rootProps } = props;
+  return (
+    <FieldsetPrimitive.Root
+      {...rootProps}
+      className={classNames('fui-CreditCardFieldset', className)}
+    />
+  );
+}
+CreditCardFieldset.displayName = 'CreditCardFieldset';
 
-const CreditCardBackFields = React.forwardRef<HTMLDivElement, CreditCardBackFieldsProps>(
-  function CreditCardBackFields(props, forwardedRef) {
+// ---------------------------------------------------------------------------
+// Field — wraps a single label + input pair on the card
+// ---------------------------------------------------------------------------
+
+interface CreditCardFieldProps
+  extends React.ComponentProps<typeof FieldPrimitive.Root> {}
+
+function CreditCardField(props: CreditCardFieldProps) {
+  const { className, ...rootProps } = props;
+  return (
+    <FieldPrimitive.Root
+      {...rootProps}
+      className={classNames('fui-CreditCardField', className)}
+    />
+  );
+}
+CreditCardField.displayName = 'CreditCardField';
+
+// ---------------------------------------------------------------------------
+// FieldGroup — horizontal row layout for related fields (e.g. Expiry + CVV)
+// ---------------------------------------------------------------------------
+
+interface CreditCardFieldGroupState extends Record<string, unknown> {}
+
+interface CreditCardFieldGroupProps
+  extends useRender.ComponentProps<'div', CreditCardFieldGroupState> {}
+
+const CreditCardFieldGroup = React.forwardRef<HTMLDivElement, CreditCardFieldGroupProps>(
+  function CreditCardFieldGroup(props, forwardedRef) {
     const { render, ...elementProps } = props;
-    const state = React.useMemo<CreditCardBackFieldsState>(() => ({}), []);
+    const state = React.useMemo<CreditCardFieldGroupState>(() => ({}), []);
 
     return useRender({
       render,
       ref: forwardedRef,
       state,
       props: mergeProps<'div'>(
-        { className: 'fui-CreditCardBackFields' } as React.ComponentPropsWithRef<'div'>,
+        { className: 'fui-CreditCardFieldGroup' } as React.ComponentPropsWithRef<'div'>,
         elementProps as React.ComponentPropsWithRef<'div'>,
       ),
       defaultTagName: 'div',
     });
   },
 );
-CreditCardBackFields.displayName = 'CreditCardBackFields';
+CreditCardFieldGroup.displayName = 'CreditCardFieldGroup';
 
 // ---------------------------------------------------------------------------
-// BackFieldGroup — horizontal row within BackFields (e.g. Expiry + CVV)
+// FieldLabel — accessible label automatically associated with its field input
 // ---------------------------------------------------------------------------
-
-interface CreditCardBackFieldGroupState extends Record<string, unknown> {}
-
-interface CreditCardBackFieldGroupProps
-  extends useRender.ComponentProps<'div', CreditCardBackFieldGroupState> {}
-
-const CreditCardBackFieldGroup = React.forwardRef<HTMLDivElement, CreditCardBackFieldGroupProps>(
-  function CreditCardBackFieldGroup(props, forwardedRef) {
-    const { render, ...elementProps } = props;
-    const state = React.useMemo<CreditCardBackFieldGroupState>(() => ({}), []);
-
-    return useRender({
-      render,
-      ref: forwardedRef,
-      state,
-      props: mergeProps<'div'>(
-        { className: 'fui-CreditCardBackFieldGroup' } as React.ComponentPropsWithRef<'div'>,
-        elementProps as React.ComponentPropsWithRef<'div'>,
-      ),
-      defaultTagName: 'div',
-    });
-  },
-);
-CreditCardBackFieldGroup.displayName = 'CreditCardBackFieldGroup';
-
-// ---------------------------------------------------------------------------
-// FieldLabel — small label above a data field (e.g. "Card number", "Exp")
-// ---------------------------------------------------------------------------
-
-interface CreditCardFieldLabelState extends Record<string, unknown> {}
 
 interface CreditCardFieldLabelProps
-  extends useRender.ComponentProps<'span', CreditCardFieldLabelState> {}
+  extends Omit<React.ComponentProps<typeof FieldPrimitive.Label>, 'color'> {}
 
-const CreditCardFieldLabel = React.forwardRef<HTMLSpanElement, CreditCardFieldLabelProps>(
+const CreditCardFieldLabel = React.forwardRef<HTMLLabelElement, CreditCardFieldLabelProps>(
   function CreditCardFieldLabel(props, forwardedRef) {
-    const { render, ...elementProps } = props;
-    const state = React.useMemo<CreditCardFieldLabelState>(() => ({}), []);
-
-    return useRender({
-      render,
-      ref: forwardedRef,
-      state,
-      props: mergeProps<'span'>(
-        { className: 'fui-CreditCardFieldLabel' } as React.ComponentPropsWithRef<'span'>,
-        elementProps as React.ComponentPropsWithRef<'span'>,
-      ),
-      defaultTagName: 'span',
-    });
+    const { className, ...labelProps } = props;
+    return (
+      <FieldPrimitive.Label
+        {...labelProps}
+        ref={forwardedRef}
+        className={classNames('fui-CreditCardFieldLabel', className)}
+      />
+    );
   },
 );
 CreditCardFieldLabel.displayName = 'CreditCardFieldLabel';
@@ -394,12 +397,13 @@ CreditCardCVV.displayName = 'CreditCardCVV';
 
 export {
   CreditCardBackContent,
-  CreditCardBackFieldGroup,
-  CreditCardBackFields,
   CreditCardBrand,
   CreditCardCVV,
   CreditCardExpiry,
+  CreditCardField,
+  CreditCardFieldGroup,
   CreditCardFieldLabel,
+  CreditCardFieldset,
   CreditCardFrontFooter,
   CreditCardFrontHeader,
   CreditCardTitle,
@@ -411,16 +415,15 @@ export {
 export type {
   CreditCardBackContentProps,
   CreditCardBackContentState,
-  CreditCardBackFieldGroupProps,
-  CreditCardBackFieldGroupState,
-  CreditCardBackFieldsProps,
-  CreditCardBackFieldsState,
   CreditCardBrandProps,
   CreditCardBrandState,
   CreditCardCVVProps,
   CreditCardExpiryProps,
+  CreditCardFieldGroupProps,
+  CreditCardFieldGroupState,
   CreditCardFieldLabelProps,
-  CreditCardFieldLabelState,
+  CreditCardFieldProps,
+  CreditCardFieldsetProps,
   CreditCardFrontFooterProps,
   CreditCardFrontFooterState,
   CreditCardFrontHeaderProps,
