@@ -1,0 +1,75 @@
+.fui-CreditCardContent {
+  position: relative;
+  width: 360px;
+  aspect-ratio: 1.586;
+  perspective: 1000px;
+  border-radius: 12px;
+}
+
+.fui-CreditCardFront,
+.fui-CreditCardBack {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  backface-visibility: hidden;
+  transition: transform 0.6s ease;
+  overflow: hidden;
+}
+
+.fui-CreditCardFront {
+  transform: rotateY(0deg);
+}
+
+.fui-CreditCardBack {
+  transform: rotateY(180deg);
+}
+
+.fui-CreditCardContent[data-face='back'] .fui-CreditCardFront {
+  transform: rotateY(-180deg);
+}
+
+.fui-CreditCardContent[data-face='back'] .fui-CreditCardBack {
+  transform: rotateY(0deg);
+}
+
+/* Stripe bar on the back face */
+.fui-CreditCardStripe {
+  width: 100%;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fui-CreditCardFront,
+  .fui-CreditCardBack {
+    transition: none;
+  }
+
+  /*
+   * Reduced-motion fallback: hide inactive face with opacity instead
+   * of 3D transforms so the transition is instant.
+   */
+  .fui-CreditCardFront,
+  .fui-CreditCardBack {
+    transform: none;
+    backface-visibility: visible;
+  }
+
+  .fui-CreditCardFront {
+    opacity: 1;
+  }
+
+  .fui-CreditCardBack {
+    opacity: 0;
+  }
+
+  .fui-CreditCardContent[data-face='back'] .fui-CreditCardFront {
+    transform: none;
+    opacity: 0;
+  }
+
+  .fui-CreditCardContent[data-face='back'] .fui-CreditCardBack {
+    transform: none;
+    opacity: 1;
+  }
+}
