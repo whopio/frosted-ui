@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React, { useState } from 'react';
-import { Button, CreditCard } from '..';
+import { Button, Callout, CreditCard, Form, Text } from '..';
 import './credit-card.css';
 
 const meta = {
@@ -247,6 +247,76 @@ export const InputStates: Story = {
           </CreditCard.Root>
           <p style={{ marginTop: 8, fontSize: 13, color: 'var(--gray-9)' }}>Read-only</p>
         </div>
+      </div>
+    );
+  },
+};
+
+export const FormIntegration: Story = {
+  name: 'Form Integration',
+  render: function FormIntegrationStory() {
+    const [loading, setLoading] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
+
+    return (
+      <div style={{ width: 360 }}>
+        <Form
+          onSubmit={async (e) => {
+            e.preventDefault();
+            setLoading(true);
+            await new Promise((r) => setTimeout(r, 800));
+            setSubmitted(true);
+            setLoading(false);
+          }}
+        >
+          <CreditCard.Root defaultFace="back">
+            <CreditCard.Content>
+              <CardFront />
+              <CreditCard.Back>
+                <CreditCard.MagStripe />
+                <CreditCard.BackContent>
+                  <CreditCard.Fieldset aria-label="Card details">
+                    <CreditCard.Field name="cardNumber">
+                      <CreditCard.FieldLabel>Card number</CreditCard.FieldLabel>
+                      <CreditCard.Number required />
+                      <CreditCard.FieldError match="valueMissing">Card number is required</CreditCard.FieldError>
+                      <CreditCard.FieldError match="patternMismatch">Enter a valid card number</CreditCard.FieldError>
+                    </CreditCard.Field>
+                    <CreditCard.FieldGroup>
+                      <CreditCard.Field name="expiry">
+                        <CreditCard.FieldLabel>Exp</CreditCard.FieldLabel>
+                        <CreditCard.Expiry required pattern="\d{2}/\d{2}" />
+                        <CreditCard.FieldError match="valueMissing">Required</CreditCard.FieldError>
+                        <CreditCard.FieldError match="patternMismatch">MM/YY</CreditCard.FieldError>
+                      </CreditCard.Field>
+                      <CreditCard.Field name="cvv">
+                        <CreditCard.FieldLabel>CVV</CreditCard.FieldLabel>
+                        <CreditCard.CVV required />
+                        <CreditCard.FieldError match="valueMissing">Required</CreditCard.FieldError>
+                      </CreditCard.Field>
+                    </CreditCard.FieldGroup>
+                  </CreditCard.Fieldset>
+                </CreditCard.BackContent>
+              </CreditCard.Back>
+            </CreditCard.Content>
+          </CreditCard.Root>
+
+          <div style={{ marginTop: 16 }}>
+            <Button type="submit" loading={loading} size="3" variant="solid" style={{ width: '100%' }}>
+              Save card
+            </Button>
+          </div>
+        </Form>
+
+        {submitted && (
+          <Callout.Root color="success" size="1" style={{ marginTop: 12 }}>
+            <Callout.Text>Card saved successfully!</Callout.Text>
+          </Callout.Root>
+        )}
+
+        <Text size="1" color="gray" style={{ display: 'block', marginTop: 12 }}>
+          Submit with empty fields to see validation errors.
+        </Text>
       </div>
     );
   },

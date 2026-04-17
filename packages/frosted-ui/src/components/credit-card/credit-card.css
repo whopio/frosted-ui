@@ -172,6 +172,11 @@
   }
 }
 
+/* ── Field error ────────────────────────────────────────────────────────── */
+.fui-CreditCardFieldError {
+  margin-top: 4px;
+}
+
 /* ── Specialized inputs ────────────────────────────────────────────────── */
 
 .fui-CreditCardNumber,

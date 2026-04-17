@@ -345,6 +345,53 @@ const CreditCardFieldLabel = React.forwardRef<HTMLLabelElement, CreditCardFieldL
 CreditCardFieldLabel.displayName = 'CreditCardFieldLabel';
 
 // ---------------------------------------------------------------------------
+// FieldError — validation error message for a card field
+// ---------------------------------------------------------------------------
+
+interface CreditCardFieldErrorProps
+  extends
+    Omit<React.ComponentProps<typeof FieldPrimitive.Error>, 'color'>,
+    Pick<TextProps, 'size' | 'weight' | 'align' | 'trim' | 'color' | 'highContrast'> {}
+
+const CreditCardFieldError = React.forwardRef<HTMLDivElement, CreditCardFieldErrorProps>(
+  function CreditCardFieldError(props, forwardedRef) {
+    const {
+      className,
+      size = '1',
+      weight,
+      align,
+      trim,
+      color = 'danger',
+      highContrast,
+      render,
+      ...errorProps
+    } = props;
+
+    const defaultRender = (
+      <Text
+        render={<div />}
+        size={size}
+        weight={weight}
+        align={align}
+        trim={trim}
+        color={color}
+        highContrast={highContrast}
+      />
+    );
+
+    return (
+      <FieldPrimitive.Error
+        {...errorProps}
+        ref={forwardedRef}
+        className={classNames('fui-CreditCardFieldError', className)}
+        render={render ?? defaultRender}
+      />
+    );
+  },
+);
+CreditCardFieldError.displayName = 'CreditCardFieldError';
+
+// ---------------------------------------------------------------------------
 // Input — base input primitive for card fields
 // ---------------------------------------------------------------------------
 
@@ -449,6 +496,7 @@ export {
   CreditCardCVV,
   CreditCardExpiry,
   CreditCardField,
+  CreditCardFieldError,
   CreditCardFieldGroup,
   CreditCardFieldLabel,
   CreditCardFieldset,
@@ -468,6 +516,7 @@ export type {
   CreditCardBrandState,
   CreditCardCVVProps,
   CreditCardExpiryProps,
+  CreditCardFieldErrorProps,
   CreditCardFieldGroupProps,
   CreditCardFieldGroupState,
   CreditCardFieldLabelProps,
