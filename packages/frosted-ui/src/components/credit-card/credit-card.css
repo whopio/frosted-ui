@@ -6,6 +6,8 @@
   border-radius: 12px;
 }
 
+/* ── Face shared ────────────────────────────────────────────────────────── */
+
 .fui-CreditCardFront,
 .fui-CreditCardBack {
   position: absolute;
@@ -14,15 +16,115 @@
   backface-visibility: hidden;
   transition: transform 0.6s ease;
   overflow: hidden;
+  background: var(--color-background);
+  border: 1px solid var(--gray-4);
 }
+
+/* ── Front face ─────────────────────────────────────────────────────────── */
 
 .fui-CreditCardFront {
   transform: rotateY(0deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
 }
+
+/* Logo + Brand sit in a row at the top of the front face */
+.fui-CreditCardFront > .fui-CreditCardLogo,
+.fui-CreditCardFront > .fui-CreditCardBrand {
+  /* handled by the header layout below */
+}
+
+/* Header area: first direct children row (Logo + Brand) */
+.fui-CreditCardFrontHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+/* Footer area: last direct children row (Label + LastFour) */
+.fui-CreditCardFrontFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+/* ── Back face ──────────────────────────────────────────────────────────── */
 
 .fui-CreditCardBack {
   transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
 }
+
+.fui-CreditCardStripe {
+  width: 100%;
+  height: 40px;
+  margin-top: 24px;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.fui-CreditCardBackContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px;
+  gap: 4px;
+}
+
+.fui-CreditCardBackFields {
+  display: flex;
+  gap: 32px;
+}
+
+/* ── Data parts ─────────────────────────────────────────────────────────── */
+
+.fui-CreditCardBrand {
+  font-size: var(--font-size-2);
+  color: var(--gray-9);
+}
+
+.fui-CreditCardLabel {
+  font-size: var(--font-size-3);
+  font-weight: 500;
+}
+
+.fui-CreditCardLastFour {
+  font-size: var(--font-size-2);
+  color: var(--gray-9);
+}
+
+.fui-CreditCardNumber,
+.fui-CreditCardExpiry,
+.fui-CreditCardCVV {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: var(--font-mono, monospace);
+  letter-spacing: 0.04em;
+}
+
+.fui-CreditCardFieldLabel {
+  font-size: 11px;
+  color: var(--gray-9);
+  letter-spacing: 0.02em;
+}
+
+.fui-CreditCardCopyButton {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--gray-8);
+  display: flex;
+  align-items: center;
+}
+
+/* ── Flip states ────────────────────────────────────────────────────────── */
 
 .fui-CreditCardContent[data-face='back'] .fui-CreditCardFront {
   transform: rotateY(-180deg);
@@ -32,25 +134,10 @@
   transform: rotateY(0deg);
 }
 
-/* Stripe bar on the back face */
-.fui-CreditCardStripe {
-  width: 100%;
-  height: 40px;
-  background: rgba(0, 0, 0, 0.08);
-}
-
 @media (prefers-reduced-motion: reduce) {
   .fui-CreditCardFront,
   .fui-CreditCardBack {
     transition: none;
-  }
-
-  /*
-   * Reduced-motion fallback: hide inactive face with opacity instead
-   * of 3D transforms so the transition is instant.
-   */
-  .fui-CreditCardFront,
-  .fui-CreditCardBack {
     transform: none;
     backface-visibility: visible;
   }

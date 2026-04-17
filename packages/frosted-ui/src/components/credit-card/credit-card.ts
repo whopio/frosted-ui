@@ -27,14 +27,19 @@
  *   Front     — Front face wrapper
  *   Back      — Back face wrapper
  *   Trigger   — Button that toggles between faces
- *   Logo      — Slot for issuer/org logo
- *   Brand     — Card network + tier text
- *   Label     — Card name/description
- *   LastFour  — Masked last four digits
- *   Stripe    — Magnetic stripe visual
- *   Number    — Full card number
- *   Expiry    — Expiration date
- *   CVV       — CVV code
+ *   FrontHeader  — Top row of front face (logo + brand)
+ *   FrontFooter  — Bottom row of front face (label + last four)
+ *   Logo         — Slot for issuer/org logo
+ *   Brand        — Card network + tier text
+ *   Label        — Card name/description
+ *   LastFour     — Masked last four digits
+ *   Stripe       — Magnetic stripe visual
+ *   BackContent  — Content area below the stripe
+ *   BackFields   — Horizontal row for Expiry + CVV
+ *   FieldLabel   — Small label above a data field
+ *   Number       — Full card number
+ *   Expiry       — Expiration date
+ *   CVV          — CVV code
  */
 export { CreditCardRoot as Root } from './credit-card-root';
 export { CreditCardContent as Content } from './credit-card-content';
@@ -42,11 +47,16 @@ export { CreditCardFront as Front } from './credit-card-front';
 export { CreditCardBack as Back } from './credit-card-back';
 export { CreditCardTrigger as Trigger } from './credit-card-trigger';
 export {
+  CreditCardFrontHeader as FrontHeader,
+  CreditCardFrontFooter as FrontFooter,
   CreditCardLogo as Logo,
   CreditCardBrand as Brand,
   CreditCardLabel as Label,
   CreditCardLastFour as LastFour,
   CreditCardStripe as Stripe,
+  CreditCardBackContent as BackContent,
+  CreditCardBackFields as BackFields,
+  CreditCardFieldLabel as FieldLabel,
   CreditCardNumber as Number,
   CreditCardExpiry as Expiry,
   CreditCardCVV as CVV,
@@ -58,6 +68,10 @@ export type { CreditCardFrontProps, CreditCardFrontState } from './credit-card-f
 export type { CreditCardBackProps, CreditCardBackState } from './credit-card-back';
 export type { CreditCardTriggerProps, CreditCardTriggerState } from './credit-card-trigger';
 export type {
+  CreditCardFrontHeaderProps,
+  CreditCardFrontHeaderState,
+  CreditCardFrontFooterProps,
+  CreditCardFrontFooterState,
   CreditCardLogoProps,
   CreditCardLogoState,
   CreditCardBrandProps,
@@ -68,6 +82,12 @@ export type {
   CreditCardLastFourState,
   CreditCardStripeProps,
   CreditCardStripeState,
+  CreditCardBackContentProps,
+  CreditCardBackContentState,
+  CreditCardBackFieldsProps,
+  CreditCardBackFieldsState,
+  CreditCardFieldLabelProps,
+  CreditCardFieldLabelState,
   CreditCardNumberProps,
   CreditCardNumberState,
   CreditCardExpiryProps,

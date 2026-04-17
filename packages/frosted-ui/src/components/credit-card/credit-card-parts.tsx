@@ -228,13 +228,158 @@ const CreditCardCVV = React.forwardRef<HTMLSpanElement, CreditCardCVVProps>(
 CreditCardCVV.displayName = 'CreditCardCVV';
 
 // ---------------------------------------------------------------------------
+// FrontHeader — top row of the front face (logo left, brand right)
+// ---------------------------------------------------------------------------
+
+interface CreditCardFrontHeaderState extends Record<string, unknown> {}
+
+interface CreditCardFrontHeaderProps
+  extends useRender.ComponentProps<'div', CreditCardFrontHeaderState> {}
+
+const CreditCardFrontHeader = React.forwardRef<HTMLDivElement, CreditCardFrontHeaderProps>(
+  function CreditCardFrontHeader(props, forwardedRef) {
+    const { render, ...elementProps } = props;
+    const state = React.useMemo<CreditCardFrontHeaderState>(() => ({}), []);
+
+    return useRender({
+      render,
+      ref: forwardedRef,
+      state,
+      props: mergeProps<'div'>(
+        { className: 'fui-CreditCardFrontHeader' } as React.ComponentPropsWithRef<'div'>,
+        elementProps as React.ComponentPropsWithRef<'div'>,
+      ),
+      defaultTagName: 'div',
+    });
+  },
+);
+CreditCardFrontHeader.displayName = 'CreditCardFrontHeader';
+
+// ---------------------------------------------------------------------------
+// FrontFooter — bottom row of the front face (label left, last four right)
+// ---------------------------------------------------------------------------
+
+interface CreditCardFrontFooterState extends Record<string, unknown> {}
+
+interface CreditCardFrontFooterProps
+  extends useRender.ComponentProps<'div', CreditCardFrontFooterState> {}
+
+const CreditCardFrontFooter = React.forwardRef<HTMLDivElement, CreditCardFrontFooterProps>(
+  function CreditCardFrontFooter(props, forwardedRef) {
+    const { render, ...elementProps } = props;
+    const state = React.useMemo<CreditCardFrontFooterState>(() => ({}), []);
+
+    return useRender({
+      render,
+      ref: forwardedRef,
+      state,
+      props: mergeProps<'div'>(
+        { className: 'fui-CreditCardFrontFooter' } as React.ComponentPropsWithRef<'div'>,
+        elementProps as React.ComponentPropsWithRef<'div'>,
+      ),
+      defaultTagName: 'div',
+    });
+  },
+);
+CreditCardFrontFooter.displayName = 'CreditCardFrontFooter';
+
+// ---------------------------------------------------------------------------
+// BackContent — main content area below the stripe on the back face
+// ---------------------------------------------------------------------------
+
+interface CreditCardBackContentState extends Record<string, unknown> {}
+
+interface CreditCardBackContentProps
+  extends useRender.ComponentProps<'div', CreditCardBackContentState> {}
+
+const CreditCardBackContent = React.forwardRef<HTMLDivElement, CreditCardBackContentProps>(
+  function CreditCardBackContent(props, forwardedRef) {
+    const { render, ...elementProps } = props;
+    const state = React.useMemo<CreditCardBackContentState>(() => ({}), []);
+
+    return useRender({
+      render,
+      ref: forwardedRef,
+      state,
+      props: mergeProps<'div'>(
+        { className: 'fui-CreditCardBackContent' } as React.ComponentPropsWithRef<'div'>,
+        elementProps as React.ComponentPropsWithRef<'div'>,
+      ),
+      defaultTagName: 'div',
+    });
+  },
+);
+CreditCardBackContent.displayName = 'CreditCardBackContent';
+
+// ---------------------------------------------------------------------------
+// BackFields — horizontal row for Expiry + CVV on the back face
+// ---------------------------------------------------------------------------
+
+interface CreditCardBackFieldsState extends Record<string, unknown> {}
+
+interface CreditCardBackFieldsProps
+  extends useRender.ComponentProps<'div', CreditCardBackFieldsState> {}
+
+const CreditCardBackFields = React.forwardRef<HTMLDivElement, CreditCardBackFieldsProps>(
+  function CreditCardBackFields(props, forwardedRef) {
+    const { render, ...elementProps } = props;
+    const state = React.useMemo<CreditCardBackFieldsState>(() => ({}), []);
+
+    return useRender({
+      render,
+      ref: forwardedRef,
+      state,
+      props: mergeProps<'div'>(
+        { className: 'fui-CreditCardBackFields' } as React.ComponentPropsWithRef<'div'>,
+        elementProps as React.ComponentPropsWithRef<'div'>,
+      ),
+      defaultTagName: 'div',
+    });
+  },
+);
+CreditCardBackFields.displayName = 'CreditCardBackFields';
+
+// ---------------------------------------------------------------------------
+// FieldLabel — small label above a data field (e.g. "Card number", "Exp")
+// ---------------------------------------------------------------------------
+
+interface CreditCardFieldLabelState extends Record<string, unknown> {}
+
+interface CreditCardFieldLabelProps
+  extends useRender.ComponentProps<'span', CreditCardFieldLabelState> {}
+
+const CreditCardFieldLabel = React.forwardRef<HTMLSpanElement, CreditCardFieldLabelProps>(
+  function CreditCardFieldLabel(props, forwardedRef) {
+    const { render, ...elementProps } = props;
+    const state = React.useMemo<CreditCardFieldLabelState>(() => ({}), []);
+
+    return useRender({
+      render,
+      ref: forwardedRef,
+      state,
+      props: mergeProps<'span'>(
+        { className: 'fui-CreditCardFieldLabel' } as React.ComponentPropsWithRef<'span'>,
+        elementProps as React.ComponentPropsWithRef<'span'>,
+      ),
+      defaultTagName: 'span',
+    });
+  },
+);
+CreditCardFieldLabel.displayName = 'CreditCardFieldLabel';
+
+// ---------------------------------------------------------------------------
 // Exports
 // ---------------------------------------------------------------------------
 
 export {
+  CreditCardBackContent,
+  CreditCardBackFields,
   CreditCardBrand,
   CreditCardCVV,
   CreditCardExpiry,
+  CreditCardFieldLabel,
+  CreditCardFrontFooter,
+  CreditCardFrontHeader,
   CreditCardLabel,
   CreditCardLastFour,
   CreditCardLogo,
@@ -242,12 +387,22 @@ export {
   CreditCardStripe,
 };
 export type {
+  CreditCardBackContentProps,
+  CreditCardBackContentState,
+  CreditCardBackFieldsProps,
+  CreditCardBackFieldsState,
   CreditCardBrandProps,
   CreditCardBrandState,
   CreditCardCVVProps,
   CreditCardCVVState,
   CreditCardExpiryProps,
   CreditCardExpiryState,
+  CreditCardFieldLabelProps,
+  CreditCardFieldLabelState,
+  CreditCardFrontFooterProps,
+  CreditCardFrontFooterState,
+  CreditCardFrontHeaderProps,
+  CreditCardFrontHeaderState,
   CreditCardLabelProps,
   CreditCardLabelState,
   CreditCardLastFourProps,
