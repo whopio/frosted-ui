@@ -19,6 +19,8 @@
   --credit-card-placeholder: var(--gray-a8);
   --credit-card-focus: var(--color-focus-root);
   --credit-card-stripe: var(--gray-a4);
+  --credit-card-selection: var(--color-selection-root);
+  --credit-card-selection-text: inherit;
 
   position: absolute;
   inset: 0;
@@ -39,8 +41,16 @@
     --credit-card-placeholder: color-mix(in srgb, var(--credit-card-text) 50%, transparent);
     --credit-card-focus: var(--credit-card-text);
     --credit-card-stripe: color-mix(in srgb, var(--credit-card-text) 20%, transparent);
+    --credit-card-selection: color-mix(in srgb, var(--credit-card-text) 30%, transparent);
+    --credit-card-selection-text: var(--credit-card-text);
 
     background: var(--accent-9);
+  }
+
+  &::selection,
+  & *::selection {
+    background: var(--credit-card-selection);
+    color: var(--credit-card-selection-text);
   }
 }
 
