@@ -11,6 +11,15 @@
 
 .fui-CreditCardFront,
 .fui-CreditCardBack {
+  --credit-card-text: var(--gray-12);
+  --credit-card-muted: var(--gray-9);
+  --credit-card-input-bg: var(--gray-a3);
+  --credit-card-input-bg-disabled: var(--gray-a4);
+  --credit-card-input-muted: var(--gray-a10);
+  --credit-card-placeholder: var(--gray-a8);
+  --credit-card-focus: var(--color-focus-root);
+  --credit-card-stripe: var(--gray-a4);
+
   position: absolute;
   inset: 0;
   border-radius: inherit;
@@ -18,7 +27,21 @@
   transition: transform 0.6s ease;
   overflow: hidden;
   background: var(--color-panel-solid);
+  color: var(--credit-card-text);
   box-shadow: var(--shadow-4);
+
+  &:where([data-accent-color]:not([data-accent-color=''])) {
+    --credit-card-text: var(--accent-9-contrast);
+    --credit-card-muted: color-mix(in srgb, var(--credit-card-text) 70%, transparent);
+    --credit-card-input-bg: color-mix(in srgb, var(--credit-card-text) 12%, transparent);
+    --credit-card-input-bg-disabled: color-mix(in srgb, var(--credit-card-text) 18%, transparent);
+    --credit-card-input-muted: color-mix(in srgb, var(--credit-card-text) 50%, transparent);
+    --credit-card-placeholder: color-mix(in srgb, var(--credit-card-text) 50%, transparent);
+    --credit-card-focus: var(--credit-card-text);
+    --credit-card-stripe: color-mix(in srgb, var(--credit-card-text) 20%, transparent);
+
+    background: var(--accent-9);
+  }
 }
 
 /* ── Front face ─────────────────────────────────────────────────────────── */
@@ -59,7 +82,7 @@
   width: 100%;
   height: 48px;
   margin-top: 24px;
-  background: var(--gray-a4);
+  background: var(--credit-card-stripe);
 }
 
 .fui-CreditCardBackContent {
@@ -95,7 +118,6 @@
 
 .fui-CreditCardBrand {
   font-size: var(--font-size-2);
-  color: var(--gray-9);
 }
 
 .fui-CreditCardTitle {
@@ -105,11 +127,12 @@
 
 .fui-CreditCardLastFour {
   font-size: var(--font-size-2);
-  color: var(--gray-9);
+  color: var(--credit-card-muted);
 }
 
 .fui-CreditCardFieldLabel {
   letter-spacing: 0.02em;
+  color: var(--credit-card-muted);
 }
 
 .fui-CreditCardCopyButton {
@@ -117,7 +140,7 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  color: var(--gray-8);
+  color: var(--credit-card-muted);
   display: flex;
   align-items: center;
 }
@@ -150,31 +173,31 @@
   line-height: var(--line-height-3);
   padding: 4px 8px;
   border-radius: var(--radius-2);
-  color: var(--gray-12);
-  background-color: var(--gray-a3);
+  color: var(--credit-card-text);
+  background-color: var(--credit-card-input-bg);
   -webkit-tap-highlight-color: transparent;
 
   &::placeholder {
-    color: var(--gray-a8);
+    color: var(--credit-card-placeholder);
     opacity: 1;
   }
 
   &:where(:focus) {
-    outline: 2px solid var(--color-focus-root);
+    outline: 2px solid var(--credit-card-focus);
     outline-offset: -1px;
   }
 
   &:where(:disabled) {
-    background-color: var(--gray-a4);
-    color: var(--gray-a10);
-    -webkit-text-fill-color: var(--gray-a10);
+    background-color: var(--credit-card-input-bg-disabled);
+    color: var(--credit-card-input-muted);
+    -webkit-text-fill-color: var(--credit-card-input-muted);
     cursor: default;
   }
 
   &:where(:read-only:not(:disabled)) {
     background-color: transparent;
-    color: var(--gray-12);
-    -webkit-text-fill-color: var(--gray-12);
+    color: var(--credit-card-text);
+    -webkit-text-fill-color: var(--credit-card-text);
     padding: 4px 0px;
     cursor: default;
 

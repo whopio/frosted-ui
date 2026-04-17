@@ -10,7 +10,12 @@ interface CreditCardBackState extends Record<string, unknown> {
 }
 
 interface CreditCardBackProps
-  extends useRender.ComponentProps<'div', CreditCardBackState> {}
+  extends useRender.ComponentProps<'div', CreditCardBackState> {
+  /**
+   * Accent color for the back face. Overrides the Root-level `color`.
+   */
+  color?: string;
+}
 
 const stateAttributesMapping = {
   active: (value: unknown) => (value ? { 'data-active': '' } : null),
@@ -18,9 +23,10 @@ const stateAttributesMapping = {
 
 const CreditCardBack = React.forwardRef<HTMLDivElement, CreditCardBackProps>(
   function CreditCardBack(props, forwardedRef) {
-    const { render, ...elementProps } = props;
-    const { face } = useCreditCardContext();
+    const { render, color, ...elementProps } = props;
+    const { face, color: contextColor } = useCreditCardContext();
     const active = face === 'back';
+    const resolvedColor = color ?? contextColor;
 
     const state = React.useMemo<CreditCardBackState>(
       () => ({ active }),
@@ -36,6 +42,7 @@ const CreditCardBack = React.forwardRef<HTMLDivElement, CreditCardBackProps>(
         {
           className: 'fui-CreditCardBack',
           inert: !active ? true : undefined,
+          ...(resolvedColor ? { 'data-accent-color': resolvedColor } : undefined),
         } as React.ComponentPropsWithRef<'div'>,
         elementProps as React.ComponentPropsWithRef<'div'>,
       ),

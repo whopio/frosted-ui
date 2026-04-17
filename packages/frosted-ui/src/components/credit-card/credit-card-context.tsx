@@ -8,6 +8,7 @@ interface CreditCardContextValue {
   face: CardFace;
   setFace: (face: CardFace) => void;
   toggle: () => void;
+  color?: string;
   errorsContainer: HTMLDivElement | null;
   setErrorsContainer: (el: HTMLDivElement | null) => void;
 }

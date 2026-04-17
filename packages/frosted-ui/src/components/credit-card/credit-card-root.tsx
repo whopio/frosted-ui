@@ -20,6 +20,11 @@ interface CreditCardRootProps {
    * Callback fired when the active face changes.
    */
   onFaceChange?: (face: CardFace) => void;
+  /**
+   * Accent color applied to the card. Inherited by Front and Back faces
+   * unless they specify their own `color` override.
+   */
+  color?: string;
 }
 
 const CreditCardRoot = React.forwardRef<HTMLDivElement, CreditCardRootProps>(
@@ -29,6 +34,7 @@ const CreditCardRoot = React.forwardRef<HTMLDivElement, CreditCardRootProps>(
       face: faceProp,
       defaultFace = 'front',
       onFaceChange,
+      color,
     } = props;
 
     const isControlled = faceProp !== undefined;
@@ -56,13 +62,13 @@ const CreditCardRoot = React.forwardRef<HTMLDivElement, CreditCardRootProps>(
     }, [face, setFace]);
 
     const contextValue = React.useMemo<CreditCardContextValue>(
-      () => ({ face, setFace, toggle, errorsContainer, setErrorsContainer }),
-      [face, setFace, toggle, errorsContainer],
+      () => ({ face, setFace, toggle, color, errorsContainer, setErrorsContainer }),
+      [face, setFace, toggle, color, errorsContainer],
     );
 
     return (
       <CreditCardContext.Provider value={contextValue}>
-        <div ref={forwardedRef}>
+        <div ref={forwardedRef} {...(color ? { 'data-accent-color': color } : undefined)}>
           {children}
         </div>
       </CreditCardContext.Provider>
