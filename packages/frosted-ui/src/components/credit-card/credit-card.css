@@ -4,6 +4,7 @@
   aspect-ratio: 1.586;
   perspective: 1000px;
   border-radius: 12px;
+  text-align: left;
 }
 
 /* ── Face shared ────────────────────────────────────────────────────────── */
@@ -122,7 +123,58 @@
   align-items: center;
 }
 
-/* ── Input parts ────────────────────────────────────────────────────────── */
+/* ── Input ──────────────────────────────────────────────────────────────── */
+
+.fui-CreditCardInput {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  appearance: none;
+  outline: none;
+  border: none;
+  font-family: inherit;
+  font-size: var(--font-size-3);
+  letter-spacing: var(--letter-spacing-3);
+  line-height: var(--line-height-3);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-2);
+  color: var(--gray-12);
+  background-color: var(--gray-a3);
+  -webkit-tap-highlight-color: transparent;
+
+  &::placeholder {
+    color: var(--gray-a8);
+    opacity: 1;
+  }
+
+  &:where(:focus) {
+    outline: 2px solid var(--color-focus-root);
+    outline-offset: -1px;
+  }
+
+  &:where(:read-only) {
+    background-color: transparent;
+    color: var(--gray-12);
+    -webkit-text-fill-color: var(--gray-12);
+    cursor: default;
+
+    &:where(:focus) {
+      outline: none;
+    }
+  }
+
+  &:where(:disabled) {
+    background-color: var(--gray-a4);
+    color: var(--gray-a10);
+    -webkit-text-fill-color: var(--gray-a10);
+    cursor: default;
+  }
+  &:where(:read-only:not(:disabled)) {
+    padding: var(--space-1) 0px;
+  }
+}
+
+/* ── Specialized inputs ────────────────────────────────────────────────── */
 
 .fui-CreditCardNumber,
 .fui-CreditCardExpiry,

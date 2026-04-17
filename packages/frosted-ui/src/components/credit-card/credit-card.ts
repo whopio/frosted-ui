@@ -40,6 +40,7 @@
  *   FieldGroup   — Horizontal row layout for fields (e.g. Expiry + CVV)
  *   Field        — Wraps a label + input pair; base-ui Field
  *   FieldLabel   — Accessible label for a Field input; base-ui Field.Label
+ *   Input        — Base input primitive; soft style when editable, plain text when readOnly
  *   Number       — Card number input (use readOnly for display)
  *   Expiry       — Expiration date input (use readOnly for display)
  *   CVV          — CVV code input (use readOnly for display)
@@ -62,6 +63,7 @@ export {
   CreditCardFieldGroup as FieldGroup,
   CreditCardField as Field,
   CreditCardFieldLabel as FieldLabel,
+  CreditCardInput as Input,
   CreditCardNumber as Number,
   CreditCardExpiry as Expiry,
   CreditCardCVV as CVV,
@@ -94,6 +96,7 @@ export type {
   CreditCardFieldGroupState,
   CreditCardFieldProps,
   CreditCardFieldLabelProps,
+  CreditCardInputProps,
   CreditCardNumberProps,
   CreditCardExpiryProps,
   CreditCardCVVProps,
