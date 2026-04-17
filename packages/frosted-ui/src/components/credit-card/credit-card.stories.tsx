@@ -339,52 +339,42 @@ export const Controlled: Story = {
   },
 };
 
-export const CustomContent: Story = {
-  name: 'Custom Content',
+export const WhopCard: Story = {
+  name: 'Whop Card',
   render: () => (
     <CreditCard.Root defaultFace="front">
       <CreditCard.Content>
-        <CreditCard.Front
-          style={{
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            color: '#fff',
-            borderColor: 'transparent',
-          }}
-        >
+        <CreditCard.Front>
           <CreditCard.FrontHeader>
-            <CreditCard.Logo>PREMIUM</CreditCard.Logo>
-            <CreditCard.Brand style={{ color: 'rgba(255, 255, 255, 0.6)' }}>Mastercard</CreditCard.Brand>
+            <CreditCard.Logo>
+              <CustomWhopLogo />
+            </CreditCard.Logo>
+            <CreditCard.Brand>
+              <CustomBrandLogo />
+            </CreditCard.Brand>
           </CreditCard.FrontHeader>
           <CreditCard.FrontFooter>
-            <CreditCard.Title>John Doe</CreditCard.Title>
-            <CreditCard.LastFour style={{ color: 'rgba(255, 255, 255, 0.8)' }}>
-              &bull;&bull;&bull;&bull; 4242
-            </CreditCard.LastFour>
+            <CreditCard.Title>Claude credits</CreditCard.Title>
+            <CreditCard.LastFour>&bull;&bull;&bull;&bull; 0991</CreditCard.LastFour>
           </CreditCard.FrontFooter>
         </CreditCard.Front>
 
-        <CreditCard.Back
-          style={{
-            background: 'linear-gradient(135deg, #764ba2 0%, #667eea 100%)',
-            color: '#fff',
-            borderColor: 'transparent',
-          }}
-        >
-          <CreditCard.MagStripe style={{ background: 'rgba(0, 0, 0, 0.2)' }} />
+        <CreditCard.Back>
+          <CreditCard.MagStripe />
           <CreditCard.BackContent>
             <CreditCard.Fieldset aria-label="Card details">
               <CreditCard.Field>
-                <CreditCard.FieldLabel style={{ color: 'rgba(255, 255, 255, 0.6)' }}>Card number</CreditCard.FieldLabel>
-                <CreditCard.Number readOnly defaultValue="4242 4242 4242 4242" />
+                <CreditCard.FieldLabel>Card number</CreditCard.FieldLabel>
+                <CreditCard.Number readOnly defaultValue="1838 0008 7261 2332" />
               </CreditCard.Field>
               <CreditCard.FieldGroup>
                 <CreditCard.Field>
-                  <CreditCard.FieldLabel style={{ color: 'rgba(255, 255, 255, 0.6)' }}>Exp</CreditCard.FieldLabel>
-                  <CreditCard.Expiry readOnly defaultValue="12/28" />
+                  <CreditCard.FieldLabel>Exp</CreditCard.FieldLabel>
+                  <CreditCard.Expiry readOnly defaultValue="11/27" />
                 </CreditCard.Field>
                 <CreditCard.Field>
-                  <CreditCard.FieldLabel style={{ color: 'rgba(255, 255, 255, 0.6)' }}>CVV</CreditCard.FieldLabel>
-                  <CreditCard.CVV readOnly defaultValue="123" />
+                  <CreditCard.FieldLabel>CVV</CreditCard.FieldLabel>
+                  <CreditCard.CVV readOnly defaultValue="8177" />
                 </CreditCard.Field>
               </CreditCard.FieldGroup>
             </CreditCard.Fieldset>
