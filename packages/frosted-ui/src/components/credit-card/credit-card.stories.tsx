@@ -55,7 +55,7 @@ function CardFront() {
 function CardBack() {
   return (
     <CreditCard.Back>
-      <CreditCard.Stripe />
+      <CreditCard.MagStripe />
       <CreditCard.BackContent>
         <div>
           <CreditCard.FieldLabel>Card number</CreditCard.FieldLabel>
@@ -131,31 +131,31 @@ export const CustomContent: Story = {
   render: () => (
     <CreditCard.Root defaultFace="front">
       <CreditCard.Content>
-        <CreditCard.Front className="gradient-card-front">
+        <CreditCard.Front style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: '#fff', borderColor: 'transparent' }}>
           <CreditCard.FrontHeader>
             <CreditCard.Logo>PREMIUM</CreditCard.Logo>
-            <CreditCard.Brand>Mastercard</CreditCard.Brand>
+            <CreditCard.Brand style={{ color: 'rgba(255, 255, 255, 0.6)' }}>Mastercard</CreditCard.Brand>
           </CreditCard.FrontHeader>
           <CreditCard.FrontFooter>
             <CreditCard.Label>John Doe</CreditCard.Label>
-            <CreditCard.LastFour>&bull;&bull;&bull;&bull; 4242</CreditCard.LastFour>
+            <CreditCard.LastFour style={{ color: 'rgba(255, 255, 255, 0.8)' }}>&bull;&bull;&bull;&bull; 4242</CreditCard.LastFour>
           </CreditCard.FrontFooter>
         </CreditCard.Front>
 
-        <CreditCard.Back className="gradient-card-back">
-          <CreditCard.Stripe />
+        <CreditCard.Back style={{ background: 'linear-gradient(135deg, #764ba2 0%, #667eea 100%)', color: '#fff', borderColor: 'transparent' }}>
+          <CreditCard.MagStripe style={{ background: 'rgba(0, 0, 0, 0.2)' }} />
           <CreditCard.BackContent>
             <div>
-              <CreditCard.FieldLabel>Card number</CreditCard.FieldLabel>
+              <CreditCard.FieldLabel style={{ color: 'rgba(255, 255, 255, 0.6)' }}>Card number</CreditCard.FieldLabel>
               <CreditCard.Number>4242 4242 4242 4242</CreditCard.Number>
             </div>
             <CreditCard.BackFields>
               <div>
-                <CreditCard.FieldLabel>Exp</CreditCard.FieldLabel>
+                <CreditCard.FieldLabel style={{ color: 'rgba(255, 255, 255, 0.6)' }}>Exp</CreditCard.FieldLabel>
                 <CreditCard.Expiry>12/28</CreditCard.Expiry>
               </div>
               <div>
-                <CreditCard.FieldLabel>CVV</CreditCard.FieldLabel>
+                <CreditCard.FieldLabel style={{ color: 'rgba(255, 255, 255, 0.6)' }}>CVV</CreditCard.FieldLabel>
                 <CreditCard.CVV>123</CreditCard.CVV>
               </div>
             </CreditCard.BackFields>
@@ -166,27 +166,6 @@ export const CustomContent: Story = {
       <div style={{ marginTop: 16, display: 'flex', justifyContent: 'center' }}>
         <CreditCard.Trigger render={<Button variant="surface" size="2" />}>Flip card</CreditCard.Trigger>
       </div>
-
-      <style>{`
-        .gradient-card-front {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-          color: #fff !important;
-          border-color: transparent !important;
-        }
-        .gradient-card-back {
-          background: linear-gradient(135deg, #764ba2 0%, #667eea 100%) !important;
-          color: #fff !important;
-          border-color: transparent !important;
-        }
-        .gradient-card-back .fui-CreditCardStripe {
-          background: rgba(0, 0, 0, 0.2);
-        }
-        .gradient-card-front .fui-CreditCardBrand,
-        .gradient-card-front .fui-CreditCardLastFour,
-        .gradient-card-back .fui-CreditCardFieldLabel {
-          color: rgba(255, 255, 255, 0.6);
-        }
-      `}</style>
     </CreditCard.Root>
   ),
 };

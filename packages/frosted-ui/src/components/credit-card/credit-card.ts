@@ -33,7 +33,7 @@
  *   Brand        — Card network + tier text
  *   Label        — Card name/description
  *   LastFour     — Masked last four digits
- *   Stripe       — Magnetic stripe visual
+ *   MagStripe    — Magnetic stripe visual
  *   BackContent  — Content area below the stripe
  *   BackFields   — Horizontal row for Expiry + CVV
  *   FieldLabel   — Small label above a data field
@@ -53,7 +53,7 @@ export {
   CreditCardBrand as Brand,
   CreditCardLabel as Label,
   CreditCardLastFour as LastFour,
-  CreditCardStripe as Stripe,
+  CreditCardMagStripe as MagStripe,
   CreditCardBackContent as BackContent,
   CreditCardBackFields as BackFields,
   CreditCardFieldLabel as FieldLabel,
@@ -80,8 +80,8 @@ export type {
   CreditCardLabelState,
   CreditCardLastFourProps,
   CreditCardLastFourState,
-  CreditCardStripeProps,
-  CreditCardStripeState,
+  CreditCardMagStripeProps,
+  CreditCardMagStripeState,
   CreditCardBackContentProps,
   CreditCardBackContentState,
   CreditCardBackFieldsProps,

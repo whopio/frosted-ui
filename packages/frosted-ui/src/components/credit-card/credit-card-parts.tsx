@@ -116,32 +116,32 @@ const CreditCardLastFour = React.forwardRef<HTMLSpanElement, CreditCardLastFourP
 CreditCardLastFour.displayName = 'CreditCardLastFour';
 
 // ---------------------------------------------------------------------------
-// Stripe — magnetic stripe bar on the back
+// MagStripe — magnetic stripe bar on the back
 // ---------------------------------------------------------------------------
 
-interface CreditCardStripeState extends Record<string, unknown> {}
+interface CreditCardMagStripeState extends Record<string, unknown> {}
 
-interface CreditCardStripeProps
-  extends useRender.ComponentProps<'div', CreditCardStripeState> {}
+interface CreditCardMagStripeProps
+  extends useRender.ComponentProps<'div', CreditCardMagStripeState> {}
 
-const CreditCardStripe = React.forwardRef<HTMLDivElement, CreditCardStripeProps>(
-  function CreditCardStripe(props, forwardedRef) {
+const CreditCardMagStripe = React.forwardRef<HTMLDivElement, CreditCardMagStripeProps>(
+  function CreditCardMagStripe(props, forwardedRef) {
     const { render, ...elementProps } = props;
-    const state = React.useMemo<CreditCardStripeState>(() => ({}), []);
+    const state = React.useMemo<CreditCardMagStripeState>(() => ({}), []);
 
     return useRender({
       render,
       ref: forwardedRef,
       state,
       props: mergeProps<'div'>(
-        { className: 'fui-CreditCardStripe' } as React.ComponentPropsWithRef<'div'>,
+        { className: 'fui-CreditCardMagStripe' } as React.ComponentPropsWithRef<'div'>,
         elementProps as React.ComponentPropsWithRef<'div'>,
       ),
       defaultTagName: 'div',
     });
   },
 );
-CreditCardStripe.displayName = 'CreditCardStripe';
+CreditCardMagStripe.displayName = 'CreditCardMagStripe';
 
 // ---------------------------------------------------------------------------
 // Number — full card number on the back
@@ -383,8 +383,8 @@ export {
   CreditCardLabel,
   CreditCardLastFour,
   CreditCardLogo,
+  CreditCardMagStripe,
   CreditCardNumber,
-  CreditCardStripe,
 };
 export type {
   CreditCardBackContentProps,
@@ -409,8 +409,8 @@ export type {
   CreditCardLastFourState,
   CreditCardLogoProps,
   CreditCardLogoState,
+  CreditCardMagStripeProps,
+  CreditCardMagStripeState,
   CreditCardNumberProps,
   CreditCardNumberState,
-  CreditCardStripeProps,
-  CreditCardStripeState,
 };
