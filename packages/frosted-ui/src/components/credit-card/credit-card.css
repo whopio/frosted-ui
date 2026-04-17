@@ -89,7 +89,6 @@
 .fui-CreditCardField {
   display: flex;
   flex-direction: column;
-  gap: 2px;
 }
 
 /* ── Data parts ─────────────────────────────────────────────────────────── */
@@ -133,6 +132,7 @@
   outline: none;
   border: none;
   font-family: inherit;
+  font-weight: var(--font-weight-medium);
   font-size: var(--font-size-3);
   letter-spacing: var(--letter-spacing-3);
   line-height: var(--line-height-3);
@@ -152,25 +152,23 @@
     outline-offset: -1px;
   }
 
-  &:where(:read-only) {
-    background-color: transparent;
-    color: var(--gray-12);
-    -webkit-text-fill-color: var(--gray-12);
-    cursor: default;
-
-    &:where(:focus) {
-      outline: none;
-    }
-  }
-
   &:where(:disabled) {
     background-color: var(--gray-a4);
     color: var(--gray-a10);
     -webkit-text-fill-color: var(--gray-a10);
     cursor: default;
   }
+
   &:where(:read-only:not(:disabled)) {
+    background-color: transparent;
+    color: var(--gray-12);
+    -webkit-text-fill-color: var(--gray-12);
     padding: 4px 0px;
+    cursor: default;
+
+    &:where(:focus) {
+      outline: none;
+    }
   }
 }
 
