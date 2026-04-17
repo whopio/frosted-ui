@@ -45,7 +45,7 @@ function CardFront() {
         <CreditCard.Brand>Visa Platinum</CreditCard.Brand>
       </CreditCard.FrontHeader>
       <CreditCard.FrontFooter>
-        <CreditCard.Label>Claude credits</CreditCard.Label>
+        <CreditCard.Title>Claude credits</CreditCard.Title>
         <CreditCard.LastFour>&bull;&bull;&bull;&bull; 0991</CreditCard.LastFour>
       </CreditCard.FrontFooter>
     </CreditCard.Front>
@@ -139,7 +139,7 @@ export const CustomContent: Story = {
             <CreditCard.Brand style={{ color: 'rgba(255, 255, 255, 0.6)' }}>Mastercard</CreditCard.Brand>
           </CreditCard.FrontHeader>
           <CreditCard.FrontFooter>
-            <CreditCard.Label>John Doe</CreditCard.Label>
+            <CreditCard.Title>John Doe</CreditCard.Title>
             <CreditCard.LastFour style={{ color: 'rgba(255, 255, 255, 0.8)' }}>&bull;&bull;&bull;&bull; 4242</CreditCard.LastFour>
           </CreditCard.FrontFooter>
         </CreditCard.Front>

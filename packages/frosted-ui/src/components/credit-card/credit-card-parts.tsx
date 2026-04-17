@@ -63,29 +63,29 @@ CreditCardBrand.displayName = 'CreditCardBrand';
 // Label — card name / description (e.g. "Claude credits")
 // ---------------------------------------------------------------------------
 
-interface CreditCardLabelState extends Record<string, unknown> {}
+interface CreditCardTitleState extends Record<string, unknown> {}
 
-interface CreditCardLabelProps
-  extends useRender.ComponentProps<'span', CreditCardLabelState> {}
+interface CreditCardTitleProps
+  extends useRender.ComponentProps<'span', CreditCardTitleState> {}
 
-const CreditCardLabel = React.forwardRef<HTMLSpanElement, CreditCardLabelProps>(
-  function CreditCardLabel(props, forwardedRef) {
+const CreditCardTitle = React.forwardRef<HTMLSpanElement, CreditCardTitleProps>(
+  function CreditCardTitle(props, forwardedRef) {
     const { render, ...elementProps } = props;
-    const state = React.useMemo<CreditCardLabelState>(() => ({}), []);
+    const state = React.useMemo<CreditCardTitleState>(() => ({}), []);
 
     return useRender({
       render,
       ref: forwardedRef,
       state,
       props: mergeProps<'span'>(
-        { className: 'fui-CreditCardLabel' } as React.ComponentPropsWithRef<'span'>,
+        { className: 'fui-CreditCardTitle' } as React.ComponentPropsWithRef<'span'>,
         elementProps as React.ComponentPropsWithRef<'span'>,
       ),
       defaultTagName: 'span',
     });
   },
 );
-CreditCardLabel.displayName = 'CreditCardLabel';
+CreditCardTitle.displayName = 'CreditCardTitle';
 
 // ---------------------------------------------------------------------------
 // LastFour — masked card number on front face (e.g. "•••• 0991")
@@ -409,7 +409,7 @@ export {
   CreditCardFieldLabel,
   CreditCardFrontFooter,
   CreditCardFrontHeader,
-  CreditCardLabel,
+  CreditCardTitle,
   CreditCardLastFour,
   CreditCardLogo,
   CreditCardMagStripe,
@@ -434,8 +434,8 @@ export type {
   CreditCardFrontFooterState,
   CreditCardFrontHeaderProps,
   CreditCardFrontHeaderState,
-  CreditCardLabelProps,
-  CreditCardLabelState,
+  CreditCardTitleProps,
+  CreditCardTitleState,
   CreditCardLastFourProps,
   CreditCardLastFourState,
   CreditCardLogoProps,

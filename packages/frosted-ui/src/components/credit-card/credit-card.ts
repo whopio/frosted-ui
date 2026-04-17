@@ -31,7 +31,7 @@
  *   FrontFooter  — Bottom row of front face (label + last four)
  *   Logo         — Slot for issuer/org logo
  *   Brand        — Card network + tier text
- *   Label        — Card name/description
+ *   Title        — Card name/description
  *   LastFour     — Masked last four digits
  *   MagStripe    — Magnetic stripe visual
  *   BackContent  — Content area below the stripe
@@ -52,7 +52,7 @@ export {
   CreditCardFrontFooter as FrontFooter,
   CreditCardLogo as Logo,
   CreditCardBrand as Brand,
-  CreditCardLabel as Label,
+  CreditCardTitle as Title,
   CreditCardLastFour as LastFour,
   CreditCardMagStripe as MagStripe,
   CreditCardBackContent as BackContent,
@@ -78,8 +78,8 @@ export type {
   CreditCardLogoState,
   CreditCardBrandProps,
   CreditCardBrandState,
-  CreditCardLabelProps,
-  CreditCardLabelState,
+  CreditCardTitleProps,
+  CreditCardTitleState,
   CreditCardLastFourProps,
   CreditCardLastFourState,
   CreditCardMagStripeProps,

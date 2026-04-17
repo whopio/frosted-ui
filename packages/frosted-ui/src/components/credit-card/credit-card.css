@@ -88,7 +88,7 @@
   color: var(--gray-9);
 }
 
-.fui-CreditCardLabel {
+.fui-CreditCardTitle {
   font-size: var(--font-size-3);
   font-weight: 500;
 }
