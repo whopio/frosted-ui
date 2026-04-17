@@ -8,6 +8,8 @@ interface CreditCardContextValue {
   face: CardFace;
   setFace: (face: CardFace) => void;
   toggle: () => void;
+  errorsContainer: HTMLDivElement | null;
+  setErrorsContainer: (el: HTMLDivElement | null) => void;
 }
 
 const CreditCardContext = React.createContext<CreditCardContextValue | undefined>(undefined);

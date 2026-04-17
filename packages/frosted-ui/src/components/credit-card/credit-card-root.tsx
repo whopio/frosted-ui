@@ -34,6 +34,7 @@ const CreditCardRoot = React.forwardRef<HTMLDivElement, CreditCardRootProps>(
     const isControlled = faceProp !== undefined;
     const [internalFace, setInternalFace] = React.useState<CardFace>(defaultFace);
     const face = isControlled ? faceProp : internalFace;
+    const [errorsContainer, setErrorsContainer] = React.useState<HTMLDivElement | null>(null);
 
     const onFaceChangeRef = React.useRef(onFaceChange);
     React.useEffect(() => {
@@ -55,8 +56,8 @@ const CreditCardRoot = React.forwardRef<HTMLDivElement, CreditCardRootProps>(
     }, [face, setFace]);
 
     const contextValue = React.useMemo<CreditCardContextValue>(
-      () => ({ face, setFace, toggle }),
-      [face, setFace, toggle],
+      () => ({ face, setFace, toggle, errorsContainer, setErrorsContainer }),
+      [face, setFace, toggle, errorsContainer],
     );
 
     return (

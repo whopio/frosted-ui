@@ -6,8 +6,10 @@ import { Fieldset as FieldsetPrimitive } from '@base-ui/react/fieldset';
 import { Input as BaseInput } from '@base-ui/react/input';
 import classNames from 'classnames';
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 import { Text, type TextProps } from '../text/text';
+import { useCreditCardContext } from './credit-card-context';
 
 // ---------------------------------------------------------------------------
 // Logo — slot for the card issuer / org logo
@@ -345,6 +347,37 @@ const CreditCardFieldLabel = React.forwardRef<HTMLLabelElement, CreditCardFieldL
 CreditCardFieldLabel.displayName = 'CreditCardFieldLabel';
 
 // ---------------------------------------------------------------------------
+// Errors — portal target for field error messages rendered outside the card
+// ---------------------------------------------------------------------------
+
+interface CreditCardErrorsProps extends React.ComponentPropsWithRef<'div'> {}
+
+const CreditCardErrors = React.forwardRef<HTMLDivElement, CreditCardErrorsProps>(
+  function CreditCardErrors(props, forwardedRef) {
+    const { className, ...divProps } = props;
+    const { setErrorsContainer } = useCreditCardContext();
+
+    const callbackRef = React.useCallback(
+      (node: HTMLDivElement | null) => {
+        setErrorsContainer(node);
+        if (typeof forwardedRef === 'function') forwardedRef(node);
+        else if (forwardedRef) forwardedRef.current = node;
+      },
+      [setErrorsContainer, forwardedRef],
+    );
+
+    return (
+      <div
+        {...divProps}
+        ref={callbackRef}
+        className={classNames('fui-CreditCardErrors', className)}
+      />
+    );
+  },
+);
+CreditCardErrors.displayName = 'CreditCardErrors';
+
+// ---------------------------------------------------------------------------
 // FieldError — validation error message for a card field
 // ---------------------------------------------------------------------------
 
@@ -367,6 +400,8 @@ const CreditCardFieldError = React.forwardRef<HTMLDivElement, CreditCardFieldErr
       ...errorProps
     } = props;
 
+    const { errorsContainer } = useCreditCardContext();
+
     const defaultRender = (
       <Text
         render={<div />}
@@ -379,7 +414,7 @@ const CreditCardFieldError = React.forwardRef<HTMLDivElement, CreditCardFieldErr
       />
     );
 
-    return (
+    const element = (
       <FieldPrimitive.Error
         {...errorProps}
         ref={forwardedRef}
@@ -387,6 +422,12 @@ const CreditCardFieldError = React.forwardRef<HTMLDivElement, CreditCardFieldErr
         render={render ?? defaultRender}
       />
     );
+
+    if (errorsContainer) {
+      return ReactDOM.createPortal(element, errorsContainer);
+    }
+
+    return element;
   },
 );
 CreditCardFieldError.displayName = 'CreditCardFieldError';
@@ -494,6 +535,7 @@ export {
   CreditCardBackContent,
   CreditCardBrand,
   CreditCardCVV,
+  CreditCardErrors,
   CreditCardExpiry,
   CreditCardField,
   CreditCardFieldError,
@@ -515,6 +557,7 @@ export type {
   CreditCardBrandProps,
   CreditCardBrandState,
   CreditCardCVVProps,
+  CreditCardErrorsProps,
   CreditCardExpiryProps,
   CreditCardFieldErrorProps,
   CreditCardFieldGroupProps,

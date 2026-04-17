@@ -39,7 +39,8 @@
  *   Fieldset     — Semantic group for all card fields; base-ui Fieldset
  *   FieldGroup   — Horizontal row layout for fields (e.g. Expiry + CVV)
  *   Field        — Wraps a label + input pair; base-ui Field
- *   FieldError   — Validation error message for a Field; base-ui Field.Error
+ *   FieldError   — Validation error message for a Field; portals into Errors when present
+ *   Errors       — Portal target for FieldError messages, rendered outside the card
  *   FieldLabel   — Accessible label for a Field input; base-ui Field.Label
  *   Input        — Base input primitive; soft style when editable, plain text when readOnly
  *   Number       — Card number input (use readOnly for display)
@@ -60,6 +61,7 @@ export {
   CreditCardLastFour as LastFour,
   CreditCardMagStripe as MagStripe,
   CreditCardBackContent as BackContent,
+  CreditCardErrors as Errors,
   CreditCardFieldset as Fieldset,
   CreditCardFieldGroup as FieldGroup,
   CreditCardField as Field,
@@ -93,6 +95,7 @@ export type {
   CreditCardMagStripeState,
   CreditCardBackContentProps,
   CreditCardBackContentState,
+  CreditCardErrorsProps,
   CreditCardFieldsetProps,
   CreditCardFieldErrorProps,
   CreditCardFieldGroupProps,
