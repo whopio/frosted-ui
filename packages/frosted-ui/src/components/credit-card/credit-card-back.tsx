@@ -35,6 +35,7 @@ const CreditCardBack = React.forwardRef<HTMLDivElement, CreditCardBackProps>(
       props: mergeProps<'div'>(
         {
           className: 'fui-CreditCardBack',
+          inert: !active ? true : undefined,
         } as React.ComponentPropsWithRef<'div'>,
         elementProps as React.ComponentPropsWithRef<'div'>,
       ),

@@ -35,6 +35,7 @@ const CreditCardFront = React.forwardRef<HTMLDivElement, CreditCardFrontProps>(
       props: mergeProps<'div'>(
         {
           className: 'fui-CreditCardFront',
+          inert: !active ? true : undefined,
         } as React.ComponentPropsWithRef<'div'>,
         elementProps as React.ComponentPropsWithRef<'div'>,
       ),
