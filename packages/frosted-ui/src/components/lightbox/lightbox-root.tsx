@@ -12,8 +12,54 @@ import {
   type NavigationSource,
 } from './lightbox-context';
 
-function startViewTransition(callback: () => void): { finished: Promise<void> } {
-  return (document as Document & { startViewTransition: (cb: () => void) => { finished: Promise<void> } }).startViewTransition(callback);
+function startViewTransition(
+  callback: () => void | Promise<void>,
+): { finished: Promise<void> } {
+  return (
+    document as Document & {
+      startViewTransition: (cb: () => void | Promise<void>) => { finished: Promise<void> };
+    }
+  ).startViewTransition(callback);
+}
+
+const DECODE_MAX_WAIT = 200;
+
+/**
+ * Wait for an image element to decode (pixels composited and ready to paint).
+ * If the image is already complete (e.g. served from cache on a re-open),
+ * resolves immediately with zero delay. Otherwise waits for `decode()` to
+ * finish, bounded by DECODE_MAX_WAIT ms so the transition is never blocked
+ * for too long on slow connections. Resolves immediately for non-image
+ * elements (video, custom HTML).
+ *
+ * Works with plain `<img>` as well as framework image components (e.g.
+ * Next.js `<Image>`) that render a native `<img>` with `srcset`. The
+ * browser's `decode()` resolves for whichever source was selected from
+ * the srcset. For best results, images inside Lightbox.Item should use
+ * `loading="eager"` so the browser starts fetching immediately on mount
+ * rather than waiting for a lazy-load intersection.
+ */
+function waitForImageDecode(target: HTMLElement | null): Promise<void> {
+  if (!target) return Promise.resolve();
+  const img =
+    target.tagName === 'IMG'
+      ? (target as HTMLImageElement)
+      : target.querySelector<HTMLImageElement>('img');
+  if (!img || !('decode' in img)) return Promise.resolve();
+  // Image already loaded (e.g. cached from a previous open) — no wait needed.
+  // The VT API captures the snapshot after this callback resolves, so the
+  // browser will have composited the cached image by then.
+  if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+  return new Promise<void>((resolve) => {
+    let settled = false;
+    const settle = () => {
+      if (settled) return;
+      settled = true;
+      resolve();
+    };
+    img.decode().then(settle, settle);
+    setTimeout(settle, DECODE_MAX_WAIT);
+  });
 }
 
 interface LightboxRootProps {
@@ -249,7 +295,7 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
               docEl.style.setProperty('--fui-morph-border-radius-from', fromRadius);
             }
 
-            const transition = startViewTransition(() => {
+            const transition = startViewTransition(async () => {
               if (triggerTarget) {
                 triggerTarget.style.viewTransitionName = '';
               }
@@ -262,6 +308,12 @@ const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
               });
               const itemEl = activeItemElementRef.current;
               const itemTarget = itemEl ? findMorphTarget(itemEl) : null;
+
+              // Wait for the destination image to decode before the browser
+              // captures the "new" snapshot, preventing a flash of empty space
+              // during the morph animation.
+              await waitForImageDecode(itemTarget);
+
               // Read before write to avoid forced reflow
               const toRadius = itemTarget ? getComputedStyle(itemTarget).borderRadius : null;
               if (itemTarget) {
