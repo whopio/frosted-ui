@@ -891,7 +891,7 @@ describe('Lightbox', () => {
       const startViewTransition = vi.fn((callback: () => void | Promise<void>) => {
         const result = callback();
         if (result && typeof (result as Promise<void>).then === 'function') {
-          (result as Promise<void>).catch(() => {});
+          (result as Promise<void>).catch(vi.fn());
         }
         return { finished: finishedPromise };
       });
@@ -989,7 +989,7 @@ describe('Lightbox', () => {
       const startViewTransition = vi.fn((callback: () => void | Promise<void>) => {
         const result = callback();
         if (result && typeof (result as Promise<void>).then === 'function') {
-          (result as Promise<void>).catch(() => {});
+          (result as Promise<void>).catch(vi.fn());
         }
         if (startViewTransition.mock.calls.length === 1) {
           return { finished: new Promise<void>((r) => { resolveOpen = r; }) };
@@ -1021,7 +1021,7 @@ describe('Lightbox', () => {
       const startViewTransition = vi.fn((callback: () => void | Promise<void>) => {
         const result = callback();
         if (result && typeof (result as Promise<void>).then === 'function') {
-          (result as Promise<void>).catch(() => {});
+          (result as Promise<void>).catch(vi.fn());
         }
         if (startViewTransition.mock.calls.length === 1) {
           return { finished: new Promise<void>((r) => { resolveOpen = r; }) };
@@ -1078,7 +1078,7 @@ describe('Lightbox', () => {
           callbacks.push(cb);
           const result = cb();
           if (result && typeof (result as Promise<void>).then === 'function') {
-            (result as Promise<void>).catch(() => {});
+            (result as Promise<void>).catch(vi.fn());
           }
           if (startViewTransition.mock.calls.length === 1) {
             return { finished: new Promise<void>((r) => { resolveOpen = r; }) };
