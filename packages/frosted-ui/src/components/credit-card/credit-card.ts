@@ -107,4 +107,5 @@ export type {
   CreditCardExpiryProps,
   CreditCardCVVProps,
 } from './credit-card-parts';
-export type { CardFace } from './credit-card-context';
+export { useCreditCard } from './credit-card-context';
+export type { CardFace, UseCreditCardResult } from './credit-card-context';

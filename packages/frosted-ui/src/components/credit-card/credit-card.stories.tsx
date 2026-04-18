@@ -815,3 +815,159 @@ export const PerFaceColors: Story = {
     );
   },
 };
+
+const cardBrands = [
+  { brand: 'Visa', number: '4242 4242 4242 4242', cvv: '123', cvvLabel: 'CVV', color: 'indigo' },
+  { brand: 'Mastercard', number: '5425 2334 3010 9903', cvv: '012', cvvLabel: 'CVC', color: 'tomato' },
+  { brand: 'American Express', number: '3782 822463 10005', cvv: '1234', cvvLabel: 'CID', color: 'jade' },
+  { brand: 'Discover', number: '6011 1111 1111 1117', cvv: '123', cvvLabel: 'CVV', color: 'amber' },
+  { brand: 'Diners Club', number: '3056 9309 0259 04', cvv: '123', cvvLabel: 'CVV', color: 'plum' },
+  { brand: 'JCB', number: '3566 0020 2036 0505', cvv: '123', cvvLabel: 'CVV', color: 'sky' },
+  { brand: 'UnionPay', number: '6250 9470 0000 0014', cvv: '123', cvvLabel: 'CVN', color: 'ruby' },
+  { brand: 'Maestro', number: '6759 6498 2643 8453', cvv: '123', cvvLabel: 'CVC', color: 'mint' },
+  { brand: 'Mir', number: '2200 0000 0000 0053', cvv: '123', cvvLabel: 'CVP2', color: 'grass' },
+  { brand: 'Elo', number: '6362 9700 0457 0011', cvv: '123', cvvLabel: 'CVE', color: 'violet' },
+  { brand: 'Hiper', number: '6370 9503 0000 0007', cvv: '123', cvvLabel: 'CVC', color: 'bronze' },
+  { brand: 'Hipercard', number: '6062 8288 8866 6688', cvv: '123', cvvLabel: 'CVC', color: 'iris' },
+] as const;
+
+export const CardBrands: Story = {
+  name: 'Card Brands',
+  render: function CardBrandsStory() {
+    type InputState = 'default' | 'disabled' | 'readonly';
+    const [inputState, setInputState] = useState<InputState>('readonly');
+
+    function inputProps(value: string) {
+      if (inputState === 'readonly') return { readOnly: true, defaultValue: value } as const;
+      if (inputState === 'disabled') return { disabled: true, defaultValue: value } as const;
+      return { defaultValue: value } as const;
+    }
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 32, alignItems: 'center' }}>
+        <SegmentedControlRadioGroup.Root value={inputState} onValueChange={(v) => setInputState(v as InputState)}>
+          <SegmentedControlRadioGroup.Item value="default">Default</SegmentedControlRadioGroup.Item>
+          <SegmentedControlRadioGroup.Item value="disabled">Disabled</SegmentedControlRadioGroup.Item>
+          <SegmentedControlRadioGroup.Item value="readonly">Read-only</SegmentedControlRadioGroup.Item>
+        </SegmentedControlRadioGroup.Root>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
+          {cardBrands.map(({ brand, number, cvv, cvvLabel, color }) => (
+            <div key={brand} style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
+              <CreditCard.Root color={color} defaultFace="front">
+                <CreditCard.Content>
+                  <CreditCard.Front>
+                    <CreditCard.FrontHeader>
+                      <CreditCard.Logo><WhopLogo /></CreditCard.Logo>
+                      <CreditCard.Brand>{brand}</CreditCard.Brand>
+                    </CreditCard.FrontHeader>
+                    <CreditCard.FrontFooter>
+                      <CreditCard.Title>Test card</CreditCard.Title>
+                      <CreditCard.LastFour>&bull;&bull;&bull;&bull; {number.replace(/\s/g, '').slice(-4)}</CreditCard.LastFour>
+                    </CreditCard.FrontFooter>
+                  </CreditCard.Front>
+                  <CreditCard.Back />
+                </CreditCard.Content>
+              </CreditCard.Root>
+              <CreditCard.Root color={color} defaultFace="back">
+                <CreditCard.Content>
+                  <CreditCard.Front />
+                  <CreditCard.Back>
+                    <CreditCard.MagStripe />
+                    <CreditCard.BackContent>
+                      <CreditCard.Fieldset aria-label="Card details">
+                        <CreditCard.Field>
+                          <CreditCard.FieldLabel>Card number</CreditCard.FieldLabel>
+                          <CreditCard.Number {...inputProps(number)} />
+                        </CreditCard.Field>
+                        <CreditCard.FieldGroup>
+                          <CreditCard.Field>
+                            <CreditCard.FieldLabel>Exp</CreditCard.FieldLabel>
+                            <CreditCard.Expiry {...inputProps('12/29')} />
+                          </CreditCard.Field>
+                          <CreditCard.Field>
+                            <CreditCard.FieldLabel>{cvvLabel}</CreditCard.FieldLabel>
+                            <CreditCard.CVV {...inputProps(cvv)} />
+                          </CreditCard.Field>
+                        </CreditCard.FieldGroup>
+                      </CreditCard.Fieldset>
+                    </CreditCard.BackContent>
+                  </CreditCard.Back>
+                </CreditCard.Content>
+              </CreditCard.Root>
+              <Text size="2" color="gray" weight="medium" style={{ minWidth: 120 }}>{brand}</Text>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  },
+};
+
+const providerNames: Record<string, string> = {
+  visa: 'Visa',
+  mastercard: 'Mastercard',
+  'american-express': 'American Express',
+  discover: 'Discover',
+  'diners-club': 'Diners Club',
+  jcb: 'JCB',
+  unionpay: 'UnionPay',
+  maestro: 'Maestro',
+  mir: 'Mir',
+  elo: 'Elo',
+  hiper: 'Hiper',
+  hipercard: 'Hipercard',
+};
+
+function DetectedProvider() {
+  const { cardType } = CreditCard.useCreditCard();
+  const name = cardType ? providerNames[cardType] ?? cardType : null;
+  return (
+    <Text size="1" color={name ? 'blue' : 'gray'} weight="medium">
+      {name ?? 'Unknown'}
+    </Text>
+  );
+}
+
+export const ProviderDetection: Story = {
+  name: 'Provider Detection',
+  render: function ProviderDetectionStory() {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'center', width: 360 }}>
+        <CreditCard.Root defaultFace="back">
+          <CreditCard.Content>
+            <CreditCard.Front />
+            <CreditCard.Back>
+              <CreditCard.MagStripe />
+              <CreditCard.BackContent>
+                <CreditCard.Fieldset aria-label="Card details">
+                  <CreditCard.Field>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <CreditCard.FieldLabel>Card number</CreditCard.FieldLabel>
+                      <DetectedProvider />
+                    </div>
+                    <CreditCard.Number placeholder="0000 0000 0000 0000" />
+                  </CreditCard.Field>
+                  <CreditCard.FieldGroup>
+                    <CreditCard.Field>
+                      <CreditCard.FieldLabel>Exp</CreditCard.FieldLabel>
+                      <CreditCard.Expiry />
+                    </CreditCard.Field>
+                    <CreditCard.Field>
+                      <CreditCard.FieldLabel>CVV</CreditCard.FieldLabel>
+                      <CreditCard.CVV />
+                    </CreditCard.Field>
+                  </CreditCard.FieldGroup>
+                </CreditCard.Fieldset>
+              </CreditCard.BackContent>
+            </CreditCard.Back>
+          </CreditCard.Content>
+        </CreditCard.Root>
+
+        <Text size="1" color="gray">
+          Type a card number to detect the provider. Try: 4242... (Visa), 5425... (Mastercard), 3782... (Amex)
+        </Text>
+      </div>
+    );
+  },
+};

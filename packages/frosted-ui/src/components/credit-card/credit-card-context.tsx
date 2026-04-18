@@ -11,6 +11,8 @@ interface CreditCardContextValue {
   color?: string;
   errorsContainer: HTMLDivElement | null;
   setErrorsContainer: (el: HTMLDivElement | null) => void;
+  cardType: string | null;
+  setCardType: (type: string | null) => void;
 }
 
 const CreditCardContext = React.createContext<CreditCardContextValue | undefined>(undefined);
@@ -25,5 +27,22 @@ function useCreditCardContext(): CreditCardContextValue {
   return context;
 }
 
-export { CreditCardContext, useCreditCardContext };
-export type { CardFace, CreditCardContextValue };
+interface UseCreditCardResult {
+  face: CardFace;
+  setFace: (face: CardFace) => void;
+  toggle: () => void;
+  cardType: string | null;
+}
+
+function useCreditCard(): UseCreditCardResult {
+  const ctx = useCreditCardContext();
+  return {
+    face: ctx.face,
+    setFace: ctx.setFace,
+    toggle: ctx.toggle,
+    cardType: ctx.cardType,
+  };
+}
+
+export { CreditCardContext, useCreditCard, useCreditCardContext };
+export type { CardFace, CreditCardContextValue, UseCreditCardResult };

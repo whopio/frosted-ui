@@ -80,6 +80,7 @@
     "@react-stately/calendar": "^3.5.5",
     "@react-stately/datepicker": "^3.10.3",
     "classnames": "^2.5.1",
+    "credit-card-type": "^10.1.2",
     "input-otp": "^1.2.4",
     "react-aria-components": "1.2.1",
     "tailwindcss": "^4.0.14",

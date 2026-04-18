@@ -8,8 +8,60 @@ import classNames from 'classnames';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
+import creditCardType from 'credit-card-type';
+
 import { Text, type TextProps } from '../text/text';
 import { useCreditCardContext } from './credit-card-context';
+
+// ---------------------------------------------------------------------------
+// Card number formatting utilities
+// ---------------------------------------------------------------------------
+
+const DEFAULT_GAPS = [4, 8, 12];
+const DEFAULT_MAX_LENGTH = 16;
+
+function getCardInfo(digits: string) {
+  const results = creditCardType(digits);
+  if (results.length > 0) return results[0];
+  return { type: null as string | null, gaps: DEFAULT_GAPS, lengths: [DEFAULT_MAX_LENGTH], code: { size: 3, name: 'CVV' } };
+}
+
+function formatWithGaps(digits: string, gaps: number[]): string {
+  const parts: string[] = [];
+  let prev = 0;
+  for (const gap of gaps) {
+    if (prev >= digits.length) break;
+    parts.push(digits.slice(prev, gap));
+    prev = gap;
+  }
+  if (prev < digits.length) {
+    parts.push(digits.slice(prev));
+  }
+  return parts.join(' ');
+}
+
+function digitsBeforeCursor(value: string, cursor: number): number {
+  let count = 0;
+  for (let i = 0; i < cursor && i < value.length; i++) {
+    if (/\d/.test(value[i])) count++;
+  }
+  return count;
+}
+
+function cursorAfterFormat(formatted: string, digitCount: number): number {
+  let remaining = digitCount;
+  for (let i = 0; i < formatted.length; i++) {
+    if (/\d/.test(formatted[i])) remaining--;
+    if (remaining <= 0) return i + 1;
+  }
+  return formatted.length;
+}
+
+function formatExpiry(raw: string): string {
+  const digits = raw.replace(/\D/g, '').slice(0, 4);
+  if (digits.length <= 2) return digits;
+  return digits.slice(0, 2) + '/' + digits.slice(2);
+}
 
 // ---------------------------------------------------------------------------
 // Logo — slot for the card issuer / org logo
@@ -441,6 +493,8 @@ interface CreditCardInputProps
   className?: string;
 }
 
+type CreditCardInputChangeHandler = NonNullable<CreditCardInputProps['onChange']>;
+
 const CreditCardInput = React.forwardRef<HTMLInputElement, CreditCardInputProps>(
   function CreditCardInput(props, forwardedRef) {
     const { className, ...inputProps } = props;
@@ -464,16 +518,70 @@ interface CreditCardNumberProps extends CreditCardInputProps {}
 
 const CreditCardNumber = React.forwardRef<HTMLInputElement, CreditCardNumberProps>(
   function CreditCardNumber(props, forwardedRef) {
+    const { onChange, defaultValue, value, ...rest } = props;
+    const inputRef = React.useRef<HTMLInputElement>(null);
+    const { setCardType } = useCreditCardContext();
+
+    const mergedRef = React.useCallback(
+      (node: HTMLInputElement | null) => {
+        (inputRef as React.MutableRefObject<HTMLInputElement | null>).current = node;
+        if (typeof forwardedRef === 'function') forwardedRef(node);
+        else if (forwardedRef) forwardedRef.current = node;
+      },
+      [forwardedRef],
+    );
+
+    const handleChange = React.useCallback<CreditCardInputChangeHandler>(
+      (event) => {
+        const input = event.target as HTMLInputElement;
+        const cursorPos = input.selectionStart ?? 0;
+        const prevValue = input.value;
+
+        const digits = prevValue.replace(/\D/g, '');
+        const info = getCardInfo(digits);
+        const maxDigits = Math.max(...info.lengths);
+        const truncated = digits.slice(0, maxDigits);
+        const formatted = formatWithGaps(truncated, info.gaps);
+
+        const dc = digitsBeforeCursor(prevValue, cursorPos);
+        input.value = formatted;
+
+        const newCursor = cursorAfterFormat(formatted, dc);
+        requestAnimationFrame(() => {
+          input.setSelectionRange(newCursor, newCursor);
+        });
+
+        setCardType(info.type ?? null);
+        onChange?.(event);
+      },
+      [onChange, setCardType],
+    );
+
+    const formatDefaultOrValue = (raw: string) => {
+      const digits = raw.replace(/\D/g, '');
+      const info = getCardInfo(digits);
+      const maxDigits = Math.max(...info.lengths);
+      return formatWithGaps(digits.slice(0, maxDigits), info.gaps);
+    };
+
+    const formattedDefault =
+      defaultValue != null ? formatDefaultOrValue(String(defaultValue)) : undefined;
+    const formattedValue =
+      value != null ? formatDefaultOrValue(String(value)) : undefined;
+
     return (
       <CreditCardInput
         inputMode="numeric"
         pattern="[0-9 ]*"
-        maxLength={19}
+        maxLength={23}
         placeholder="0000 0000 0000 0000"
         autoComplete="cc-number"
-        {...props}
-        ref={forwardedRef}
-        className={classNames('fui-CreditCardNumber', props.className)}
+        {...rest}
+        defaultValue={formattedDefault}
+        value={formattedValue}
+        onChange={handleChange}
+        ref={mergedRef}
+        className={classNames('fui-CreditCardNumber', rest.className)}
       />
     );
   },
@@ -488,15 +596,56 @@ interface CreditCardExpiryProps extends CreditCardInputProps {}
 
 const CreditCardExpiry = React.forwardRef<HTMLInputElement, CreditCardExpiryProps>(
   function CreditCardExpiry(props, forwardedRef) {
+    const { onChange, defaultValue, value, ...rest } = props;
+    const inputRef = React.useRef<HTMLInputElement>(null);
+
+    const mergedRef = React.useCallback(
+      (node: HTMLInputElement | null) => {
+        (inputRef as React.MutableRefObject<HTMLInputElement | null>).current = node;
+        if (typeof forwardedRef === 'function') forwardedRef(node);
+        else if (forwardedRef) forwardedRef.current = node;
+      },
+      [forwardedRef],
+    );
+
+    const handleChange = React.useCallback<CreditCardInputChangeHandler>(
+      (event) => {
+        const input = event.target as HTMLInputElement;
+        const cursorPos = input.selectionStart ?? 0;
+        const prevValue = input.value;
+
+        const dc = digitsBeforeCursor(prevValue, cursorPos);
+        const formatted = formatExpiry(prevValue);
+
+        input.value = formatted;
+
+        const newCursor = cursorAfterFormat(formatted, dc);
+        requestAnimationFrame(() => {
+          input.setSelectionRange(newCursor, newCursor);
+        });
+
+        onChange?.(event);
+      },
+      [onChange],
+    );
+
+    const formattedDefault =
+      defaultValue != null ? formatExpiry(String(defaultValue)) : undefined;
+    const formattedValue =
+      value != null ? formatExpiry(String(value)) : undefined;
+
     return (
       <CreditCardInput
         inputMode="numeric"
         maxLength={5}
         placeholder="MM/YY"
         autoComplete="cc-exp"
-        {...props}
-        ref={forwardedRef}
-        className={classNames('fui-CreditCardExpiry', props.className)}
+        {...rest}
+        defaultValue={formattedDefault}
+        value={formattedValue}
+        onChange={handleChange}
+        ref={mergedRef}
+        className={classNames('fui-CreditCardExpiry', rest.className)}
       />
     );
   },
@@ -511,12 +660,17 @@ interface CreditCardCVVProps extends CreditCardInputProps {}
 
 const CreditCardCVV = React.forwardRef<HTMLInputElement, CreditCardCVVProps>(
   function CreditCardCVV(props, forwardedRef) {
+    const { cardType } = useCreditCardContext();
+    const codeInfo = cardType ? creditCardType.getTypeInfo(cardType)?.code : null;
+    const cvcSize = codeInfo?.size ?? 3;
+    const cvcLabel = codeInfo?.name ?? 'CVV';
+
     return (
       <CreditCardInput
         inputMode="numeric"
         type="password"
-        maxLength={4}
-        placeholder="CVV"
+        maxLength={cvcSize}
+        placeholder={cvcLabel}
         autoComplete="cc-csc"
         {...props}
         ref={forwardedRef}
