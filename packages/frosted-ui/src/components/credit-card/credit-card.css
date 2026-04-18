@@ -255,6 +255,14 @@
 
 /* ── Reduced motion ─────────────────────────────────────────────────────── */
 
+/* ── Brand Logo ─────────────────────────────────────────────────────────── */
+
+.fui-CreditCardBrandLogo {
+  height: 40px;
+  width: auto;
+  flex-shrink: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .fui-CreditCardFront,
   .fui-CreditCardBack {

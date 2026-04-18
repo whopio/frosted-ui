@@ -46,6 +46,10 @@
  *   Number       — Card number input (use readOnly for display)
  *   Expiry       — Expiration date input (use readOnly for display)
  *   CVV          — CVV code input (use readOnly for display)
+ *   BrandLogo    — Mono SVG logo of the detected card brand (reads cardType from context)
+ *
+ * Hooks:
+ *   useCreditCard — Public hook returning { face, setFace, toggle, cardType }
  */
 export { CreditCardRoot as Root } from './credit-card-root';
 export { CreditCardContent as Content } from './credit-card-content';
@@ -107,5 +111,7 @@ export type {
   CreditCardExpiryProps,
   CreditCardCVVProps,
 } from './credit-card-parts';
+export { CreditCardBrandLogo as BrandLogo } from './credit-card-brand-logos';
 export { useCreditCard } from './credit-card-context';
+export type { CreditCardBrandLogoProps } from './credit-card-brand-logos';
 export type { CardFace, UseCreditCardResult } from './credit-card-context';
