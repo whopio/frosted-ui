@@ -10,6 +10,7 @@ import * as ReactDOM from 'react-dom';
 
 import creditCardType from 'credit-card-type';
 
+import { useIsomorphicLayoutEffect } from '../../helpers/use-isomorphic-layout-effect';
 import { Text, type TextProps } from '../text/text';
 import { useCreditCardContext } from './credit-card-context';
 
@@ -568,6 +569,15 @@ const CreditCardNumber = React.forwardRef<HTMLInputElement, CreditCardNumberProp
       defaultValue != null ? formatDefaultOrValue(String(defaultValue)) : undefined;
     const formattedValue =
       value != null ? formatDefaultOrValue(String(value)) : undefined;
+
+    useIsomorphicLayoutEffect(() => {
+      const raw = value ?? defaultValue;
+      if (raw != null) {
+        const digits = String(raw).replace(/\D/g, '');
+        const info = getCardInfo(digits);
+        setCardType(info.type ?? null);
+      }
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
       <CreditCardInput
