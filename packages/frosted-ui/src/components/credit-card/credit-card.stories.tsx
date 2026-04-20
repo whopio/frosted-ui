@@ -623,7 +623,7 @@ export const Colors: Story = {
   render: function ColorsStory() {
     type InputState = 'default' | 'disabled' | 'readonly';
     const [inputState, setInputState] = useState<InputState>('default');
-    const colors = ['lemon', 'blue', 'purple', 'crimson', 'teal', 'orange'] as const;
+    const colors = ['blue', 'orange', 'indigo', 'magenta', 'lemon', 'lime'] as const;
 
     function ColoredBack({ state }: { state: InputState }) {
       const numberProps =
