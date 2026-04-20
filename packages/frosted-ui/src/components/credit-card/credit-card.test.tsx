@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import * as React from 'react';
 import { describe, it, expect, vi, afterEach } from 'vitest';
 
@@ -7,7 +7,7 @@ import { useCreditCard } from './credit-card-context';
 import { CreditCardContent } from './credit-card-content';
 import { CreditCardFront } from './credit-card-front';
 import { CreditCardBack } from './credit-card-back';
-import { CreditCardRoot } from './credit-card-root';
+import { CreditCardRoot, type CreditCardRootRef } from './credit-card-root';
 import { CreditCardTrigger } from './credit-card-trigger';
 import {
   CreditCardBackContent,
@@ -182,7 +182,7 @@ describe('Structure and rendering', () => {
     const logo = screen.getByTestId('brand-logo');
     expect(logo.tagName.toLowerCase()).toBe('svg');
     expect(logo).toHaveAttribute('role', 'img');
-    expect(logo).toHaveAttribute('aria-label', 'visa');
+    expect(logo).toHaveAttribute('aria-label', 'Visa');
   });
 });
 
@@ -680,5 +680,137 @@ describe('Autocomplete attributes', () => {
   it('CVV has inputMode="numeric"', () => {
     render(<TestCardBack />);
     expect(screen.getByTestId('cvv-input')).toHaveAttribute('inputmode', 'numeric');
+  });
+});
+
+// ===========================================================================
+// 11. Trigger accessibility
+// ===========================================================================
+
+describe('Trigger accessibility', () => {
+  it('has aria-expanded=false when front face is active', () => {
+    render(<TestCard />);
+    expect(screen.getByTestId('trigger')).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  it('has aria-expanded=true when back face is active', () => {
+    render(<TestCard defaultFace="back" />);
+    expect(screen.getByTestId('trigger')).toHaveAttribute('aria-expanded', 'true');
+  });
+
+  it('aria-expanded toggles on click', () => {
+    render(<TestCard />);
+    const trigger = screen.getByTestId('trigger');
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    fireEvent.click(trigger);
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    fireEvent.click(trigger);
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  });
+});
+
+// ===========================================================================
+// 12. BrandLogo aria-label
+// ===========================================================================
+
+describe('BrandLogo aria-label', () => {
+  it('uses human-readable name for known brands', () => {
+    render(
+      <CreditCardRoot>
+        <CreditCardContent>
+          <CreditCardFront />
+          <CreditCardBack>
+            <CreditCardBrandLogo data-testid="logo" brand="american-express" />
+          </CreditCardBack>
+        </CreditCardContent>
+      </CreditCardRoot>,
+    );
+    expect(screen.getByTestId('logo')).toHaveAttribute('aria-label', 'American Express');
+  });
+
+  it('returns null for unknown brands', () => {
+    const { container } = render(
+      <CreditCardRoot>
+        <CreditCardContent>
+          <CreditCardFront />
+          <CreditCardBack>
+            <CreditCardBrandLogo data-testid="logo" brand="some-unknown" />
+          </CreditCardBack>
+        </CreditCardContent>
+      </CreditCardRoot>,
+    );
+    expect(container.querySelector('[data-testid="logo"]')).toBeNull();
+  });
+});
+
+// ===========================================================================
+// 13. Errors container accessibility
+// ===========================================================================
+
+describe('Errors container accessibility', () => {
+  it('has aria-live="polite"', () => {
+    render(
+      <CreditCardRoot>
+        <CreditCardContent>
+          <CreditCardFront />
+          <CreditCardBack />
+        </CreditCardContent>
+        <CreditCardErrors data-testid="errors" />
+      </CreditCardRoot>,
+    );
+    expect(screen.getByTestId('errors')).toHaveAttribute('aria-live', 'polite');
+  });
+});
+
+// ===========================================================================
+// 14. Imperative handle
+// ===========================================================================
+
+describe('Imperative handle', () => {
+  it('ref.setFace changes the active face', () => {
+    const ref = React.createRef<CreditCardRootRef>();
+    render(
+      <CreditCardRoot ref={ref}>
+        <CreditCardContent data-testid="content">
+          <CreditCardFront data-testid="front" />
+          <CreditCardBack data-testid="back" />
+        </CreditCardContent>
+      </CreditCardRoot>,
+    );
+    expect(screen.getByTestId('content')).toHaveAttribute('data-face', 'front');
+    act(() => ref.current?.setFace('back'));
+    expect(screen.getByTestId('content')).toHaveAttribute('data-face', 'back');
+  });
+
+  it('ref.flip toggles between faces', () => {
+    const ref = React.createRef<CreditCardRootRef>();
+    render(
+      <CreditCardRoot ref={ref}>
+        <CreditCardContent data-testid="content">
+          <CreditCardFront />
+          <CreditCardBack />
+        </CreditCardContent>
+      </CreditCardRoot>,
+    );
+    expect(screen.getByTestId('content')).toHaveAttribute('data-face', 'front');
+    act(() => ref.current?.flip());
+    expect(screen.getByTestId('content')).toHaveAttribute('data-face', 'back');
+    act(() => ref.current?.flip());
+    expect(screen.getByTestId('content')).toHaveAttribute('data-face', 'front');
+  });
+
+  it('ref.flip fires onFaceChange', () => {
+    const ref = React.createRef<CreditCardRootRef>();
+    const handleChange = vi.fn();
+    render(
+      <CreditCardRoot ref={ref} onFaceChange={handleChange}>
+        <CreditCardContent>
+          <CreditCardFront />
+          <CreditCardBack />
+        </CreditCardContent>
+      </CreditCardRoot>,
+    );
+    act(() => ref.current?.flip());
+    expect(handleChange).toHaveBeenCalledWith('back');
   });
 });

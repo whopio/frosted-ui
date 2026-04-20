@@ -77,7 +77,7 @@ export {
   CreditCardCVV as CVV,
 } from './credit-card-parts';
 
-export type { CreditCardRootProps } from './credit-card-root';
+export type { CreditCardRootProps, CreditCardRootRef } from './credit-card-root';
 export type { CreditCardContentProps, CreditCardContentState } from './credit-card-content';
 export type { CreditCardFrontProps, CreditCardFrontState } from './credit-card-front';
 export type { CreditCardBackProps, CreditCardBackState } from './credit-card-back';

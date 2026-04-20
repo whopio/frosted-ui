@@ -296,15 +296,18 @@ CreditCardBackContent.displayName = 'CreditCardBackContent';
 interface CreditCardFieldsetProps
   extends React.ComponentProps<typeof FieldsetPrimitive.Root> {}
 
-function CreditCardFieldset(props: CreditCardFieldsetProps) {
-  const { className, ...rootProps } = props;
-  return (
-    <FieldsetPrimitive.Root
-      {...rootProps}
-      className={classNames('fui-CreditCardFieldset', className)}
-    />
-  );
-}
+const CreditCardFieldset = React.forwardRef<HTMLFieldSetElement, CreditCardFieldsetProps>(
+  function CreditCardFieldset(props, forwardedRef) {
+    const { className, ...rootProps } = props;
+    return (
+      <FieldsetPrimitive.Root
+        {...rootProps}
+        ref={forwardedRef}
+        className={classNames('fui-CreditCardFieldset', className)}
+      />
+    );
+  },
+);
 CreditCardFieldset.displayName = 'CreditCardFieldset';
 
 // ---------------------------------------------------------------------------
@@ -314,15 +317,18 @@ CreditCardFieldset.displayName = 'CreditCardFieldset';
 interface CreditCardFieldProps
   extends React.ComponentProps<typeof FieldPrimitive.Root> {}
 
-function CreditCardField(props: CreditCardFieldProps) {
-  const { className, ...rootProps } = props;
-  return (
-    <FieldPrimitive.Root
-      {...rootProps}
-      className={classNames('fui-CreditCardField', className)}
-    />
-  );
-}
+const CreditCardField = React.forwardRef<HTMLDivElement, CreditCardFieldProps>(
+  function CreditCardField(props, forwardedRef) {
+    const { className, ...rootProps } = props;
+    return (
+      <FieldPrimitive.Root
+        {...rootProps}
+        ref={forwardedRef}
+        className={classNames('fui-CreditCardField', className)}
+      />
+    );
+  },
+);
 CreditCardField.displayName = 'CreditCardField';
 
 // ---------------------------------------------------------------------------
@@ -422,6 +428,7 @@ const CreditCardErrors = React.forwardRef<HTMLDivElement, CreditCardErrorsProps>
 
     return (
       <div
+        aria-live="polite"
         {...divProps}
         ref={callbackRef}
         className={classNames('fui-CreditCardErrors', className)}

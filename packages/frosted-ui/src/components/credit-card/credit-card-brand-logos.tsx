@@ -145,6 +145,21 @@ const brandLogoMap: Record<string, React.ForwardRefExoticComponent<BrandSvgProps
 // CreditCard.BrandLogo — renders detected card brand's SVG logo
 // ---------------------------------------------------------------------------
 
+const brandDisplayNames: Record<string, string> = {
+  visa: 'Visa',
+  mastercard: 'Mastercard',
+  'american-express': 'American Express',
+  discover: 'Discover',
+  'diners-club': 'Diners Club',
+  jcb: 'JCB',
+  unionpay: 'UnionPay',
+  maestro: 'Maestro',
+  elo: 'Elo',
+  mir: 'Mir',
+  hiper: 'Hiper',
+  hipercard: 'Hipercard',
+};
+
 interface CreditCardBrandLogoProps extends React.ComponentPropsWithoutRef<'svg'> {
   /** Override detected brand (from context) with a specific brand key */
   brand?: string;
@@ -163,7 +178,7 @@ const CreditCardBrandLogo = React.forwardRef<SVGSVGElement, CreditCardBrandLogoP
       <Logo
         ref={forwardedRef}
         role="img"
-        aria-label={brand ?? 'credit card'}
+        aria-label={(brand && brandDisplayNames[brand]) ?? brand ?? 'Credit card'}
         className={classNames('fui-CreditCardBrandLogo', className)}
         {...rest}
       />

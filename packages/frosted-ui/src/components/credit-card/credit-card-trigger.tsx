@@ -35,6 +35,7 @@ const CreditCardTrigger = React.forwardRef<HTMLButtonElement, CreditCardTriggerP
         {
           className: 'fui-CreditCardTrigger',
           type: 'button',
+          'aria-expanded': face === 'back',
           onClick: toggle,
         } as React.ComponentPropsWithRef<'button'>,
         elementProps as React.ComponentPropsWithRef<'button'>,

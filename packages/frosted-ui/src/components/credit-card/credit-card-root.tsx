@@ -4,8 +4,17 @@ import * as React from 'react';
 
 import { CreditCardContext, type CardFace, type CreditCardContextValue } from './credit-card-context';
 
+interface CreditCardRootRef {
+  /** Set the active face. */
+  setFace: (face: CardFace) => void;
+  /** Toggle between front and back. */
+  flip: () => void;
+}
+
 interface CreditCardRootProps {
   children?: React.ReactNode;
+  /** Imperative handle exposed via ref. */
+  ref?: React.Ref<CreditCardRootRef>;
   /**
    * The active face in controlled mode.
    * Use together with `onFaceChange` to keep state in sync.
@@ -25,6 +34,7 @@ interface CreditCardRootProps {
 function CreditCardRoot(props: CreditCardRootProps) {
   const {
     children,
+    ref,
     face: faceProp,
     defaultFace = 'front',
     onFaceChange,
@@ -55,6 +65,11 @@ function CreditCardRoot(props: CreditCardRootProps) {
     setFace(face === 'front' ? 'back' : 'front');
   }, [face, setFace]);
 
+  React.useImperativeHandle(ref, () => ({
+    setFace,
+    flip: toggle,
+  }), [setFace, toggle]);
+
   const contextValue = React.useMemo<CreditCardContextValue>(
     () => ({ face, setFace, toggle, errorsContainer, setErrorsContainer, cardType, setCardType }),
     [face, setFace, toggle, errorsContainer, cardType],
@@ -70,4 +85,4 @@ function CreditCardRoot(props: CreditCardRootProps) {
 CreditCardRoot.displayName = 'CreditCardRoot';
 
 export { CreditCardRoot };
-export type { CreditCardRootProps };
+export type { CreditCardRootProps, CreditCardRootRef };
