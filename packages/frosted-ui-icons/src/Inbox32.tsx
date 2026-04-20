@@ -20,6 +20,6 @@ export const Inbox32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Inbox32.category = 'Product Icons';
+Inbox32.category = 'Interface General';
 
 export default Inbox32;

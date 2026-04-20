@@ -20,6 +20,6 @@ export const PinTiltedFilled32 = ({ color = 'currentColor', ...props }: IconProp
   );
 };
 
-PinTiltedFilled32.category = 'Product Icons';
+PinTiltedFilled32.category = 'Interface General';
 
 export default PinTiltedFilled32;

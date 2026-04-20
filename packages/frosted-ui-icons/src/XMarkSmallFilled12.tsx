@@ -22,6 +22,6 @@ export const XMarkSmallFilled12 = ({ color = 'currentColor', ...props }: IconPro
   );
 };
 
-XMarkSmallFilled12.category = 'Product Icons';
+XMarkSmallFilled12.category = 'Interface General';
 
 export default XMarkSmallFilled12;

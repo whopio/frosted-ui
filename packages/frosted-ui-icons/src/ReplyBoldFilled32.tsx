@@ -1,0 +1,28 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const ReplyBoldFilled32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M30 26.75C30 18.6071 27.5 11 15.0001 11V5.2297C15.0001 4.57334 14.2166 4.23361 13.7375 4.68222L2.42975 15.27C2.00773 15.6652 2.00773 16.3348 2.42975 16.73L13.7375 27.3178C14.2166 27.7664 15.0001 27.4267 15.0001 26.7703V21C20.4287 21 25.25 21.3214 30 26.75Z"
+        fill={color}
+        stroke={color}
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+ReplyBoldFilled32.category = 'Arrows';
+
+export default ReplyBoldFilled32;

@@ -22,6 +22,6 @@ export const MagnifyingGlassBold20 = ({ color = 'currentColor', ...props }: Icon
   );
 };
 
-MagnifyingGlassBold20.category = 'Product Icons';
+MagnifyingGlassBold20.category = 'Interface General';
 
 export default MagnifyingGlassBold20;

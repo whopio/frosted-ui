@@ -23,6 +23,6 @@ export const Fire16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Fire16.category = 'Product Icons';
+Fire16.category = 'Interface General';
 
 export default Fire16;

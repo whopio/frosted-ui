@@ -22,6 +22,6 @@ export const DotBold24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-DotBold24.category = 'Product Icons';
+DotBold24.category = 'Interface General';
 
 export default DotBold24;

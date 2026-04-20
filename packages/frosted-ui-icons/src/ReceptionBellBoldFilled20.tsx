@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const ReceptionBellBoldFilled20 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M12.5 1C13.0522 1.00016 13.5 1.44781 13.5 2C13.5 2.55219 13.0522 2.99984 12.5 3H11V4.03613C14.0087 4.26334 16.0073 5.53021 17.2451 7.39648C18.5616 9.38184 18.9205 11.906 18.9873 14.1367C19.0186 15.1808 18.1702 15.9997 17.167 16H11V17H17C17.5522 17.0002 18 17.4478 18 18C18 18.5522 17.5522 18.9998 17 19H3C2.44772 19 2 18.5523 2 18C2 17.4477 2.44772 17 3 17H9V16H2.83301C1.82966 15.9998 0.981423 15.1809 1.0127 14.1367C1.07952 11.9059 1.43836 9.38189 2.75488 7.39648C3.99269 5.53008 5.99088 4.26317 9 4.03613V3H7.5C6.94772 3 6.5 2.55228 6.5 2C6.5 1.44772 6.94772 1 7.5 1H12.5Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+ReceptionBellBoldFilled20.category = 'Objects';
+
+export default ReceptionBellBoldFilled20;

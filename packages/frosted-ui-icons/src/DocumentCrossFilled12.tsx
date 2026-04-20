@@ -20,6 +20,6 @@ export const DocumentCrossFilled12 = ({ color = 'currentColor', ...props }: Icon
   );
 };
 
-DocumentCrossFilled12.category = 'Product Icons';
+DocumentCrossFilled12.category = 'Interface General';
 
 export default DocumentCrossFilled12;

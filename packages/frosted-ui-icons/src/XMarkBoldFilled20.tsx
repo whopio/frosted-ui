@@ -23,6 +23,6 @@ export const XMarkBoldFilled20 = ({ color = 'currentColor', ...props }: IconProp
   );
 };
 
-XMarkBoldFilled20.category = 'Product Icons';
+XMarkBoldFilled20.category = 'Interface General';
 
 export default XMarkBoldFilled20;

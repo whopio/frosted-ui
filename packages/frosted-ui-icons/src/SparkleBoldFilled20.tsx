@@ -22,6 +22,6 @@ export const SparkleBoldFilled20 = ({ color = 'currentColor', ...props }: IconPr
   );
 };
 
-SparkleBoldFilled20.category = 'Product Icons';
+SparkleBoldFilled20.category = 'Interface General';
 
 export default SparkleBoldFilled20;

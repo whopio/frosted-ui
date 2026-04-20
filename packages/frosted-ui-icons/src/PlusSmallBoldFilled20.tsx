@@ -23,6 +23,6 @@ export const PlusSmallBoldFilled20 = ({ color = 'currentColor', ...props }: Icon
   );
 };
 
-PlusSmallBoldFilled20.category = 'Product Icons';
+PlusSmallBoldFilled20.category = 'Interface General';
 
 export default PlusSmallBoldFilled20;

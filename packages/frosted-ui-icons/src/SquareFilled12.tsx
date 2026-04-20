@@ -17,6 +17,6 @@ export const SquareFilled12 = ({ color = 'currentColor', ...props }: IconProps) 
   );
 };
 
-SquareFilled12.category = 'Product Icons';
+SquareFilled12.category = 'Interface General';
 
 export default SquareFilled12;

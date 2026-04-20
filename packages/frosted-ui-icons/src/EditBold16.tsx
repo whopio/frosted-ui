@@ -22,6 +22,6 @@ export const EditBold16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-EditBold16.category = 'Product Icons';
+EditBold16.category = 'Interface General';
 
 export default EditBold16;

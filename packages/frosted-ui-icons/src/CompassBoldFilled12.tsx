@@ -20,6 +20,6 @@ export const CompassBoldFilled12 = ({ color = 'currentColor', ...props }: IconPr
   );
 };
 
-CompassBoldFilled12.category = 'Product Icons';
+CompassBoldFilled12.category = 'Interface General';
 
 export default CompassBoldFilled12;

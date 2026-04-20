@@ -25,6 +25,6 @@ export const IlluminatiFilled16 = ({ color = 'currentColor', ...props }: IconPro
   );
 };
 
-IlluminatiFilled16.category = 'Product Icons';
+IlluminatiFilled16.category = 'Interface General';
 
 export default IlluminatiFilled16;

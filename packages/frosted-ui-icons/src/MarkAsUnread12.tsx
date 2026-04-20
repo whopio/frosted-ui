@@ -20,6 +20,6 @@ export const MarkAsUnread12 = ({ color = 'currentColor', ...props }: IconProps) 
   );
 };
 
-MarkAsUnread12.category = 'Product Icons';
+MarkAsUnread12.category = 'Interface General';
 
 export default MarkAsUnread12;

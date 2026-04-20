@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const PlayCircleBoldFilled12 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M6 0C9.31371 0 12 2.68629 12 6C12 9.31371 9.31371 12 6 12C2.68629 12 0 9.31371 0 6C0 2.68629 2.68629 0 6 0ZM5.57031 3.19238C4.86048 2.85159 4.00023 3.36303 4 4.18652V7.81348C4.00025 8.69174 4.97904 9.21559 5.70996 8.72852L8.42969 6.91504C9.08268 6.47962 9.08269 5.52037 8.42969 5.08496L5.70996 3.27148L5.57031 3.19238Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+PlayCircleBoldFilled12.category = 'Sound & Music';
+
+export default PlayCircleBoldFilled12;

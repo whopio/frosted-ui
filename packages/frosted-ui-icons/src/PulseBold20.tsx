@@ -1,0 +1,27 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const PulseBold20 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="21"
+      height="20"
+      viewBox="0 0 21 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M18.3026 5.28462C18.6974 4.89888 19.3306 4.90568 19.7167 5.30024C20.1026 5.69498 20.0955 6.32815 19.701 6.7143L12.5995 13.6577C12.0651 14.1802 11.211 14.1802 10.6766 13.6577L6.72837 9.79731L1.70103 14.7143C1.30619 15.1004 0.67309 15.0934 0.286966 14.6987C-0.0990134 14.3038 -0.0921349 13.6707 0.302591 13.2846L5.76743 7.94087L5.87193 7.84907C6.37227 7.44939 7.0866 7.44908 7.58677 7.84907L7.69029 7.94087L11.6376 11.8002L18.3026 5.28462Z"
+        fill={color}
+        fillRule="evenodd"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+};
+
+PulseBold20.category = 'Stats & Charts';
+
+export default PulseBold20;

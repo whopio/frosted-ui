@@ -20,6 +20,6 @@ export const PinFilled24 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
-PinFilled24.category = 'Product Icons';
+PinFilled24.category = 'Interface General';
 
 export default PinFilled24;

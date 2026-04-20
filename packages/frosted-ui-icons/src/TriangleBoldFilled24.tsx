@@ -24,6 +24,6 @@ export const TriangleBoldFilled24 = ({ color = 'currentColor', ...props }: IconP
   );
 };
 
-TriangleBoldFilled24.category = 'Product Icons';
+TriangleBoldFilled24.category = 'Interface General';
 
 export default TriangleBoldFilled24;

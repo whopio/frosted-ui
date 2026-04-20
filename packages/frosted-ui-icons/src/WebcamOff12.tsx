@@ -20,6 +20,6 @@ export const WebcamOff12 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
-WebcamOff12.category = 'Product Icons';
+WebcamOff12.category = 'Interface General';
 
 export default WebcamOff12;

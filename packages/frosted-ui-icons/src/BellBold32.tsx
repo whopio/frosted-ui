@@ -22,6 +22,6 @@ export const BellBold32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-BellBold32.category = 'Product Icons';
+BellBold32.category = 'Interface General';
 
 export default BellBold32;

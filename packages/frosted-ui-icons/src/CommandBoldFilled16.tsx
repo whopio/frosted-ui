@@ -22,6 +22,6 @@ export const CommandBoldFilled16 = ({ color = 'currentColor', ...props }: IconPr
   );
 };
 
-CommandBoldFilled16.category = 'Product Icons';
+CommandBoldFilled16.category = 'Interface General';
 
 export default CommandBoldFilled16;

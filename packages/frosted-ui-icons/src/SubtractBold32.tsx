@@ -20,6 +20,6 @@ export const SubtractBold32 = ({ color = 'currentColor', ...props }: IconProps) 
   );
 };
 
-SubtractBold32.category = 'Product Icons';
+SubtractBold32.category = 'Interface General';
 
 export default SubtractBold32;

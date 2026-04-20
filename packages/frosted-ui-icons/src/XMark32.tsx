@@ -13,7 +13,7 @@ export const XMark32 = ({ color = 'currentColor', ...props }: IconProps) => {
       {...props}
     >
       <path
-        d="M16 16L1.75001 30.25M16 16L1.75001 1.74999M16 16L30.25 1.74998M16 16L30.25 30.25"
+        d="M16 16L1.75 30.25M16 16L1.74999 1.75M16 16L30.25 1.75M16 16L30.25 30.25"
         stroke={color}
         strokeWidth="1.5"
         strokeLinecap="round"
@@ -22,6 +22,6 @@ export const XMark32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-XMark32.category = 'Product Icons';
+XMark32.category = 'Interface General';
 
 export default XMark32;

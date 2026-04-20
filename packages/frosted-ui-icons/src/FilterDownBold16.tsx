@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const FilterDownBold16 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M9.25 12C9.80228 12 10.25 12.4477 10.25 13C10.25 13.5523 9.80228 14 9.25 14H6.75C6.19772 14 5.75 13.5523 5.75 13C5.75 12.4477 6.19772 12 6.75 12H9.25ZM11.5 7C12.0523 7 12.5 7.44772 12.5 8C12.5 8.55228 12.0523 9 11.5 9H4.5C3.94772 9 3.5 8.55228 3.5 8C3.5 7.44772 3.94772 7 4.5 7H11.5ZM14 2C14.5523 2 15 2.44772 15 3C15 3.55228 14.5523 4 14 4H2C1.44772 4 1 3.55228 1 3C1 2.44772 1.44772 2 2 2H14Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+FilterDownBold16.category = 'Text Formatting';
+
+export default FilterDownBold16;

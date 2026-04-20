@@ -20,6 +20,6 @@ export const ClockFilled32 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
-ClockFilled32.category = 'Product Icons';
+ClockFilled32.category = 'Interface General';
 
 export default ClockFilled32;

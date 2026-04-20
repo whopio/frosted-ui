@@ -22,6 +22,6 @@ export const HeartBold12 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
-HeartBold12.category = 'Product Icons';
+HeartBold12.category = 'Interface General';
 
 export default HeartBold12;

@@ -22,6 +22,6 @@ export const PlusRectangleBold12 = ({ color = 'currentColor', ...props }: IconPr
   );
 };
 
-PlusRectangleBold12.category = 'Product Icons';
+PlusRectangleBold12.category = 'Interface General';
 
 export default PlusRectangleBold12;

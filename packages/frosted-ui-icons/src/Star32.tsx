@@ -20,6 +20,6 @@ export const Star32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Star32.category = 'Product Icons';
+Star32.category = 'Interface General';
 
 export default Star32;

@@ -23,6 +23,6 @@ export const PlusBold16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-PlusBold16.category = 'Product Icons';
+PlusBold16.category = 'Interface General';
 
 export default PlusBold16;

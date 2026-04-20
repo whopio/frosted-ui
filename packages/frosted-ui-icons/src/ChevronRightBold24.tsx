@@ -13,7 +13,7 @@ export const ChevronRightBold24 = ({ color = 'currentColor', ...props }: IconPro
       {...props}
     >
       <path
-        d="M9.375 6.75L14.2714 11.6465C14.4667 11.8418 14.4667 12.1584 14.2714 12.3536L9.375 17.25"
+        d="M7 2L16.6464 11.6464C16.8417 11.8417 16.8417 12.1583 16.6464 12.3536L7 22"
         stroke={color}
         strokeWidth="2"
         strokeLinecap="round"

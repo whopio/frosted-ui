@@ -22,6 +22,6 @@ export const Dna16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Dna16.category = 'Product Icons';
+Dna16.category = 'Interface General';
 
 export default Dna16;

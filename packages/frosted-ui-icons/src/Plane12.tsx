@@ -20,6 +20,6 @@ export const Plane12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Plane12.category = 'Product Icons';
+Plane12.category = 'Interface General';
 
 export default Plane12;

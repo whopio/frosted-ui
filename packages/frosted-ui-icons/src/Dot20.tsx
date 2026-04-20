@@ -22,6 +22,6 @@ export const Dot20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Dot20.category = 'Product Icons';
+Dot20.category = 'Interface General';
 
 export default Dot20;

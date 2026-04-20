@@ -20,6 +20,6 @@ export const Controls12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Controls12.category = 'Product Icons';
+Controls12.category = 'Interface General';
 
 export default Controls12;

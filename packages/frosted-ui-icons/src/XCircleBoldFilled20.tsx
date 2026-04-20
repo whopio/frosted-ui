@@ -20,6 +20,6 @@ export const XCircleBoldFilled20 = ({ color = 'currentColor', ...props }: IconPr
   );
 };
 
-XCircleBoldFilled20.category = 'Product Icons';
+XCircleBoldFilled20.category = 'Interface General';
 
 export default XCircleBoldFilled20;

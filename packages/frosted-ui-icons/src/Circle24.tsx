@@ -17,6 +17,6 @@ export const Circle24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Circle24.category = 'Product Icons';
+Circle24.category = 'Interface General';
 
 export default Circle24;

@@ -22,6 +22,6 @@ export const GearBold12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-GearBold12.category = 'Product Icons';
+GearBold12.category = 'Interface General';
 
 export default GearBold12;

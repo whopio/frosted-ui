@@ -20,6 +20,6 @@ export const LogoutFilled16 = ({ color = 'currentColor', ...props }: IconProps) 
   );
 };
 
-LogoutFilled16.category = 'Product Icons';
+LogoutFilled16.category = 'Interface General';
 
 export default LogoutFilled16;

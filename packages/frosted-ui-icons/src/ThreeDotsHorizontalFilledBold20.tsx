@@ -20,6 +20,6 @@ export const ThreeDotsHorizontalFilledBold20 = ({ color = 'currentColor', ...pro
   );
 };
 
-ThreeDotsHorizontalFilledBold20.category = 'Product Icons';
+ThreeDotsHorizontalFilledBold20.category = 'Interface General';
 
 export default ThreeDotsHorizontalFilledBold20;

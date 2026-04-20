@@ -17,6 +17,6 @@ export const PlusSmallBold12 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
-PlusSmallBold12.category = 'Product Icons';
+PlusSmallBold12.category = 'Interface General';
 
 export default PlusSmallBold12;

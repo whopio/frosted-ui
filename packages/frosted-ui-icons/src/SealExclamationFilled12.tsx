@@ -20,6 +20,6 @@ export const SealExclamationFilled12 = ({ color = 'currentColor', ...props }: Ic
   );
 };
 
-SealExclamationFilled12.category = 'Product Icons';
+SealExclamationFilled12.category = 'Interface General';
 
 export default SealExclamationFilled12;

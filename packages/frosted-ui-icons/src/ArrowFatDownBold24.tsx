@@ -1,0 +1,28 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const ArrowFatDownBold24 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M7 11.6176V3.43412C7 2.64208 7.64208 2 8.43412 2H15.5659C16.3579 2 17 2.64208 17 3.43412V11.6176C17 11.8288 17.1712 12 17.3824 12H20.6615C21.1658 12 21.4247 12.6041 21.0769 12.9693L12.8308 21.6277C12.3786 22.1024 11.6213 22.1024 11.1692 21.6277L2.92311 12.9693C2.57528 12.604 2.83416 12 3.33851 12H6.61757C6.82878 12 7 11.8288 7 11.6176Z"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="square"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+ArrowFatDownBold24.category = 'Arrows';
+
+export default ArrowFatDownBold24;

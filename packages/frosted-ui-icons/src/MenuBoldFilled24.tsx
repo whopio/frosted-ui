@@ -22,6 +22,6 @@ export const MenuBoldFilled24 = ({ color = 'currentColor', ...props }: IconProps
   );
 };
 
-MenuBoldFilled24.category = 'Product Icons';
+MenuBoldFilled24.category = 'Interface General';
 
 export default MenuBoldFilled24;

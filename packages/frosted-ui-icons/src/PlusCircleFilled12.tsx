@@ -20,6 +20,6 @@ export const PlusCircleFilled12 = ({ color = 'currentColor', ...props }: IconPro
   );
 };
 
-PlusCircleFilled12.category = 'Product Icons';
+PlusCircleFilled12.category = 'Interface General';
 
 export default PlusCircleFilled12;

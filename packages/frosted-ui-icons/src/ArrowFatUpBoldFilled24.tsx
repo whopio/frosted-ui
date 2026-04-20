@@ -1,0 +1,29 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const ArrowFatUpBoldFilled24 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M7 12.3824V20.5659C7 21.3579 7.64208 22 8.43412 22H15.5659C16.3579 22 17 21.3579 17 20.5659V12.3824C17 12.1712 17.1712 12 17.3824 12H20.6615C21.1658 12 21.4247 11.3959 21.0769 11.0307L12.8308 2.37234C12.3786 1.8976 11.6213 1.8976 11.1692 2.37234L2.92311 11.0307C2.57528 11.396 2.83416 12 3.33851 12H6.61757C6.82878 12 7 12.1712 7 12.3824Z"
+        fill={color}
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="square"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+ArrowFatUpBoldFilled24.category = 'Arrows';
+
+export default ArrowFatUpBoldFilled24;

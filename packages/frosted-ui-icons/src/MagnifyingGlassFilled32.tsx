@@ -20,6 +20,6 @@ export const MagnifyingGlassFilled32 = ({ color = 'currentColor', ...props }: Ic
   );
 };
 
-MagnifyingGlassFilled32.category = 'Product Icons';
+MagnifyingGlassFilled32.category = 'Interface General';
 
 export default MagnifyingGlassFilled32;

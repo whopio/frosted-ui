@@ -20,6 +20,6 @@ export const Ethereum20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Ethereum20.category = 'Product Icons';
+Ethereum20.category = 'Interface General';
 
 export default Ethereum20;

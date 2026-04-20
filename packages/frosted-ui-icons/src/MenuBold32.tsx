@@ -20,6 +20,6 @@ export const MenuBold32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-MenuBold32.category = 'Product Icons';
+MenuBold32.category = 'Interface General';
 
 export default MenuBold32;

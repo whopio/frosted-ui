@@ -20,6 +20,6 @@ export const SparkleRectangle32 = ({ color = 'currentColor', ...props }: IconPro
   );
 };
 
-SparkleRectangle32.category = 'Product Icons';
+SparkleRectangle32.category = 'Interface General';
 
 export default SparkleRectangle32;

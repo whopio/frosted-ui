@@ -1,0 +1,31 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const CreditCardStackBoldFilled32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M21.9092 5C23.5583 5.00003 25.0228 5.78524 25.9531 7.00098C25.9385 7.00089 25.9238 7 25.9092 7H10.0908C6.17469 7.00005 3.00005 10.1747 3 14.0908V21.9092C3 21.9238 3.00089 21.9385 3.00098 21.9531C1.78524 21.0228 1.00003 19.5583 1 17.9092V10.0908C1.00005 7.27926 3.27926 5.00005 6.09082 5H21.9092Z"
+        fill={color}
+      />
+      <path
+        d="M31 21.9097C30.9997 24.721 28.7206 27.0004 25.9092 27.0005H10.0908C7.27942 27.0004 5.00031 24.721 5 21.9097V16.0005H31V21.9097ZM10 21.0005C9.44772 21.0005 9 21.4482 9 22.0005C9.00026 22.5525 9.44788 23.0005 10 23.0005H16.1367C16.6887 23.0003 17.1365 22.5524 17.1367 22.0005C17.1367 21.4483 16.6888 21.0007 16.1367 21.0005H10ZM25.9092 9.00049C28.6904 9.00054 30.9495 11.2308 30.998 14.0005H5.00195C5.05046 11.2308 7.3096 9.00054 10.0908 9.00049H25.9092Z"
+        fill={color}
+        fillRule="evenodd"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+};
+
+CreditCardStackBoldFilled32.category = 'Money & Shopping';
+
+export default CreditCardStackBoldFilled32;

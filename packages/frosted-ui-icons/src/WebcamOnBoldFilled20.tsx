@@ -20,6 +20,6 @@ export const WebcamOnBoldFilled20 = ({ color = 'currentColor', ...props }: IconP
   );
 };
 
-WebcamOnBoldFilled20.category = 'Product Icons';
+WebcamOnBoldFilled20.category = 'Interface General';
 
 export default WebcamOnBoldFilled20;

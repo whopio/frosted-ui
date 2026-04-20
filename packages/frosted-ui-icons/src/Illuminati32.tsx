@@ -20,6 +20,6 @@ export const Illuminati32 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
-Illuminati32.category = 'Product Icons';
+Illuminati32.category = 'Interface General';
 
 export default Illuminati32;

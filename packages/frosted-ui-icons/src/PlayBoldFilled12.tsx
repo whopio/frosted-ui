@@ -1,0 +1,28 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const PlayBoldFilled12 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M2 9.83206V2.16803C2 1.26625 2.99065 0.715339 3.75672 1.1911L9.92696 5.02311C10.6513 5.47298 10.6513 6.5271 9.92697 6.97697L3.75672 10.809C2.99065 11.2848 2 10.7338 2 9.83206Z"
+        fill={color}
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+};
+
+PlayBoldFilled12.category = 'Sound & Music';
+
+export default PlayBoldFilled12;

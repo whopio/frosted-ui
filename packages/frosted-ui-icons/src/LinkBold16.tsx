@@ -20,6 +20,6 @@ export const LinkBold16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-LinkBold16.category = 'Product Icons';
+LinkBold16.category = 'Interface General';
 
 export default LinkBold16;

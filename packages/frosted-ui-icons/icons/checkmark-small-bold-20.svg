@@ -1,9 +1,6 @@
 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="true">
   <path
-    d="M15.75 6.5L7.75 14.5L4.25 11"
-    stroke="currentColor"
-    stroke-width="2"
-    stroke-linecap="round"
-    stroke-linejoin="round"
+    d="M15.043 5.79321C15.4335 5.40277 16.0665 5.40282 16.457 5.79321C16.8472 6.18375 16.8474 6.81685 16.457 7.20728L8.45703 15.2073C8.0666 15.5976 7.43348 15.5974 7.04297 15.2073L3.54297 11.7073C3.15248 11.3168 3.15256 10.6837 3.54297 10.2932C3.93349 9.90269 4.56651 9.90269 4.95703 10.2932L7.75 13.0862L15.043 5.79321Z"
+    fill="currentColor"
   />
 </svg>

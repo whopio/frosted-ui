@@ -1,0 +1,27 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const AppleWalletBoldFilled32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M26 3.75C28.8995 3.75 31.25 6.1005 31.25 9V22C31.25 24.8995 28.8995 27.25 26 27.25H6C3.10051 27.25 0.75 24.8995 0.75 22V9C0.75 6.1005 3.10051 3.75 6 3.75H26ZM6 5.75C4.20507 5.75 2.75 7.20507 2.75 9V15.25H8.20312C8.89918 15.25 9.58314 15.432 10.1875 15.7773L15.0078 18.5312C15.6226 18.8825 16.3774 18.8825 16.9922 18.5312L21.8125 15.7773C22.4169 15.432 23.1008 15.25 23.7969 15.25H29.25V9C29.25 7.20508 27.7949 5.75 26 5.75H6Z"
+        fill={color}
+        fillRule="evenodd"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+};
+
+AppleWalletBoldFilled32.category = 'Money & Shopping';
+
+export default AppleWalletBoldFilled32;

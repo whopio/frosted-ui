@@ -20,6 +20,6 @@ export const EditBold32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-EditBold32.category = 'Product Icons';
+EditBold32.category = 'Interface General';
 
 export default EditBold32;

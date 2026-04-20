@@ -22,6 +22,6 @@ export const InfoCircleBoldFilled12 = ({ color = 'currentColor', ...props }: Ico
   );
 };
 
-InfoCircleBoldFilled12.category = 'Product Icons';
+InfoCircleBoldFilled12.category = 'Interface General';
 
 export default InfoCircleBoldFilled12;

@@ -20,6 +20,6 @@ export const SealExclamation16 = ({ color = 'currentColor', ...props }: IconProp
   );
 };
 
-SealExclamation16.category = 'Product Icons';
+SealExclamation16.category = 'Interface General';
 
 export default SealExclamation16;

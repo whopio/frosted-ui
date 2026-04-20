@@ -20,6 +20,6 @@ export const Coinbase20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Coinbase20.category = 'Product Icons';
+Coinbase20.category = 'Interface General';
 
 export default Coinbase20;

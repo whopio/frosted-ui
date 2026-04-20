@@ -5,15 +5,15 @@ export const Play20 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
       width="20"
-      height="21"
-      viewBox="0 0 20 21"
+      height="20"
+      viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       data-fui-icon="true"
       {...props}
     >
       <path
-        d="M3.75 17.2435V2.80941C3.75 1.15637 5.60602 0.183122 6.96576 1.12314L17.5312 8.42725C18.7183 9.24788 18.7084 11.0055 17.5122 11.8128L6.94673 18.9427C5.58519 19.8616 3.75 18.886 3.75 17.2435Z"
+        d="M3.75 16.2321V3.82361C3.75 2.18767 5.57206 1.21079 6.93459 2.11622L16.3961 8.40355C17.6256 9.22061 17.6145 11.0302 16.375 11.8321L6.91354 17.9533C5.54954 18.8358 3.75 17.8567 3.75 16.2321Z"
         stroke={color}
         strokeWidth="1.5"
         strokeLinecap="round"

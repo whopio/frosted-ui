@@ -23,6 +23,6 @@ export const PlusSmall24 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
-PlusSmall24.category = 'Product Icons';
+PlusSmall24.category = 'Interface General';
 
 export default PlusSmall24;

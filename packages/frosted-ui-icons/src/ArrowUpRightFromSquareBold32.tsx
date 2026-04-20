@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const ArrowUpRightFromSquareBold32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M12.25 2C12.8023 2 13.25 2.44772 13.25 3C13.25 3.55228 12.8023 4 12.25 4H9.5C5.91015 4 3 6.91015 3 10.5V22.5C3 26.0898 5.91015 29 9.5 29H21.5C25.0898 29 28 26.0899 28 22.5V19.75C28 19.1977 28.4477 18.75 29 18.75C29.5523 18.75 30 19.1977 30 19.75V22.5C30 27.1944 26.1944 31 21.5 31H9.5C4.80558 31 1 27.1944 1 22.5V10.5C1 5.80558 4.80558 2 9.5 2H12.25ZM30 1C30.5523 1 31 1.44772 31 2V12.5C31 13.0523 30.5523 13.5 30 13.5C29.4477 13.5 29 13.0523 29 12.5V4.41406L16.707 16.707C16.3165 17.0976 15.6835 17.0976 15.293 16.707C14.9024 16.3165 14.9024 15.6835 15.293 15.293L27.5859 3H19.5C18.9477 3 18.5 2.55228 18.5 2C18.5 1.44772 18.9477 1 19.5 1H30Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+ArrowUpRightFromSquareBold32.category = 'Arrows';
+
+export default ArrowUpRightFromSquareBold32;

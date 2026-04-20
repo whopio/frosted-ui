@@ -20,6 +20,6 @@ export const Menu16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Menu16.category = 'Product Icons';
+Menu16.category = 'Interface General';
 
 export default Menu16;
