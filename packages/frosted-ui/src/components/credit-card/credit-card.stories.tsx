@@ -777,18 +777,18 @@ export const PerFaceColors: Story = {
 };
 
 const cardBrands = [
-  { brand: 'Visa', brandKey: 'visa', number: '4242 4242 4242 4242', cvv: '123', cvvLabel: 'CVV', color: 'indigo' },
-  { brand: 'Mastercard', brandKey: 'mastercard', number: '5425 2334 3010 9903', cvv: '012', cvvLabel: 'CVC', color: 'tomato' },
-  { brand: 'American Express', brandKey: 'american-express', number: '3782 822463 10005', cvv: '1234', cvvLabel: 'CID', color: 'jade' },
-  { brand: 'Discover', brandKey: 'discover', number: '6011 1111 1111 1117', cvv: '123', cvvLabel: 'CVV', color: 'amber' },
-  { brand: 'Diners Club', brandKey: 'diners-club', number: '3056 9309 0259 04', cvv: '123', cvvLabel: 'CVV', color: 'plum' },
-  { brand: 'JCB', brandKey: 'jcb', number: '3566 0020 2036 0505', cvv: '123', cvvLabel: 'CVV', color: 'sky' },
-  { brand: 'UnionPay', brandKey: 'unionpay', number: '6250 9470 0000 0014', cvv: '123', cvvLabel: 'CVN', color: 'ruby' },
-  { brand: 'Maestro', brandKey: 'maestro', number: '6759 6498 2643 8453', cvv: '123', cvvLabel: 'CVC', color: 'mint' },
-  { brand: 'Mir', brandKey: 'mir', number: '2200 0000 0000 0053', cvv: '123', cvvLabel: 'CVP2', color: 'grass' },
-  { brand: 'Elo', brandKey: 'elo', number: '6362 9700 0457 0011', cvv: '123', cvvLabel: 'CVE', color: 'violet' },
-  { brand: 'Hiper', brandKey: 'hiper', number: '6370 9503 0000 0007', cvv: '123', cvvLabel: 'CVC', color: 'bronze' },
-  { brand: 'Hipercard', brandKey: 'hipercard', number: '6062 8288 8866 6688', cvv: '123', cvvLabel: 'CVC', color: 'iris' },
+  { brand: 'Visa', brandKey: 'visa', number: '4242 4242 4242 4242', cvv: '123', color: 'indigo' },
+  { brand: 'Mastercard', brandKey: 'mastercard', number: '5425 2334 3010 9903', cvv: '012', color: 'tomato' },
+  { brand: 'American Express', brandKey: 'american-express', number: '3782 822463 10005', cvv: '1234', color: 'jade' },
+  { brand: 'Discover', brandKey: 'discover', number: '6011 1111 1111 1117', cvv: '123', color: 'amber' },
+  { brand: 'Diners Club', brandKey: 'diners-club', number: '3056 9309 0259 04', cvv: '123', color: 'plum' },
+  { brand: 'JCB', brandKey: 'jcb', number: '3566 0020 2036 0505', cvv: '123', color: 'sky' },
+  { brand: 'UnionPay', brandKey: 'unionpay', number: '6250 9470 0000 0014', cvv: '123', color: 'ruby' },
+  { brand: 'Maestro', brandKey: 'maestro', number: '6759 6498 2643 8453', cvv: '123', color: 'mint' },
+  { brand: 'Mir', brandKey: 'mir', number: '2200 0000 0000 0053', cvv: '123', color: 'grass' },
+  { brand: 'Elo', brandKey: 'elo', number: '6362 9700 0457 0011', cvv: '123', color: 'violet' },
+  { brand: 'Hiper', brandKey: 'hiper', number: '6370 9503 0000 0007', cvv: '123', color: 'bronze' },
+  { brand: 'Hipercard', brandKey: 'hipercard', number: '6062 8288 8866 6688', cvv: '123', color: 'iris' },
 ] as const;
 
 export const CardBrands: Story = {
@@ -812,7 +812,7 @@ export const CardBrands: Story = {
         </SegmentedControlRadioGroup.Root>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
-          {cardBrands.map(({ brand, brandKey, number, cvv, cvvLabel, color }) => (
+          {cardBrands.map(({ brand, brandKey, number, cvv, color }) => (
             <div key={brand} style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
               <CreditCard.Root defaultFace="front">
                 <CreditCard.Content color={color}>
@@ -846,7 +846,7 @@ export const CardBrands: Story = {
                             <CreditCard.Expiry {...inputProps('12/29')} />
                           </CreditCard.Field>
                           <CreditCard.Field>
-                            <CreditCard.FieldLabel>{cvvLabel}</CreditCard.FieldLabel>
+                            <CreditCard.FieldLabel>CVV</CreditCard.FieldLabel>
                             <CreditCard.CVV {...inputProps(cvv)} />
                           </CreditCard.Field>
                         </CreditCard.FieldGroup>
