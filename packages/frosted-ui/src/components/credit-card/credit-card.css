@@ -231,7 +231,7 @@
 .fui-CreditCardNumber,
 .fui-CreditCardExpiry,
 .fui-CreditCardCVV {
-  font-family: var(--font-mono, monospace);
+  font-family: var(--code-font-family, monospace);
   letter-spacing: 0.04em;
 }
 
