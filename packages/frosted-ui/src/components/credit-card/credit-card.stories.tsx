@@ -3,6 +3,7 @@ import creditCardType from 'credit-card-type';
 
 import React, { useState } from 'react';
 import { Button, Callout, CreditCard, Form, SegmentedControlRadioGroup, Text } from '..';
+import { Theme } from '../../theme';
 import './credit-card.css';
 
 const meta = {
@@ -345,7 +346,7 @@ export const WhopCard: Story = {
   name: 'Whop Card',
   render: () => (
     <CreditCard.Root defaultFace="front">
-      <CreditCard.Content>
+      <Theme render={<CreditCard.Content />} hasBackground={false} appearance="light">
         <CreditCard.Front>
           <CreditCard.FrontHeader>
             <CreditCard.Logo>
@@ -382,7 +383,7 @@ export const WhopCard: Story = {
             </CreditCard.Fieldset>
           </CreditCard.BackContent>
         </CreditCard.Back>
-      </CreditCard.Content>
+      </Theme>
 
       <div style={{ marginTop: 16, display: 'flex', justifyContent: 'center' }}>
         <CreditCard.Trigger render={<Button variant="surface" size="2" />}>Flip card</CreditCard.Trigger>
@@ -709,7 +710,9 @@ export const Colors: Story = {
                 <ColoredBack state={inputState} />
               </CreditCard.Content>
             </CreditCard.Root>
-            <Text size="2" color="gray" weight="medium" style={{ minWidth: 60 }}>default</Text>
+            <Text size="2" color="gray" weight="medium" style={{ minWidth: 60 }}>
+              default
+            </Text>
           </div>
           {colors.map((color) => (
             <div key={color} style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
@@ -725,7 +728,9 @@ export const Colors: Story = {
                   <ColoredBack state={inputState} />
                 </CreditCard.Content>
               </CreditCard.Root>
-              <Text size="2" color="gray" weight="medium" style={{ minWidth: 60 }}>{color}</Text>
+              <Text size="2" color="gray" weight="medium" style={{ minWidth: 60 }}>
+                {color}
+              </Text>
             </div>
           ))}
         </div>
@@ -835,12 +840,18 @@ export const CardBrands: Story = {
                 <CreditCard.Content color={color}>
                   <CreditCard.Front>
                     <CreditCard.FrontHeader>
-                      <CreditCard.Logo><WhopLogo /></CreditCard.Logo>
-                      <CreditCard.Brand><CreditCard.BrandLogo brand={brandKey} /></CreditCard.Brand>
+                      <CreditCard.Logo>
+                        <WhopLogo />
+                      </CreditCard.Logo>
+                      <CreditCard.Brand>
+                        <CreditCard.BrandLogo brand={brandKey} />
+                      </CreditCard.Brand>
                     </CreditCard.FrontHeader>
                     <CreditCard.FrontFooter>
                       <CreditCard.Title>Test card</CreditCard.Title>
-                      <CreditCard.LastFour>&bull;&bull;&bull;&bull; {number.replace(/\s/g, '').slice(-4)}</CreditCard.LastFour>
+                      <CreditCard.LastFour>
+                        &bull;&bull;&bull;&bull; {number.replace(/\s/g, '').slice(-4)}
+                      </CreditCard.LastFour>
                     </CreditCard.FrontFooter>
                   </CreditCard.Front>
                   <CreditCard.Back />
@@ -872,7 +883,9 @@ export const CardBrands: Story = {
                   </CreditCard.Back>
                 </CreditCard.Content>
               </CreditCard.Root>
-              <Text size="2" color="gray" weight="medium" style={{ minWidth: 120 }}>{creditCardType.getTypeInfo(brandKey).niceType}</Text>
+              <Text size="2" color="gray" weight="medium" style={{ minWidth: 120 }}>
+                {creditCardType.getTypeInfo(brandKey).niceType}
+              </Text>
             </div>
           ))}
         </div>
@@ -945,8 +958,12 @@ export const CustomFields: Story = {
           <CreditCard.Content>
             <CreditCard.Front>
               <CreditCard.FrontHeader>
-                <CreditCard.Logo><WhopLogo /></CreditCard.Logo>
-                <CreditCard.Brand><CreditCard.BrandLogo /></CreditCard.Brand>
+                <CreditCard.Logo>
+                  <WhopLogo />
+                </CreditCard.Logo>
+                <CreditCard.Brand>
+                  <CreditCard.BrandLogo />
+                </CreditCard.Brand>
               </CreditCard.FrontHeader>
               <CreditCard.Field>
                 <CreditCard.FieldLabel>Cardholder name</CreditCard.FieldLabel>
