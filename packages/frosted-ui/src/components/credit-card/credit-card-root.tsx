@@ -1,5 +1,7 @@
 'use client';
 
+import creditCardType from 'credit-card-type';
+import type { CreditCardTypeCardBrandId } from 'credit-card-type/dist/types';
 import * as React from 'react';
 
 import { CreditCardContext, type CardFace, type CreditCardContextValue } from './credit-card-context';
@@ -44,7 +46,12 @@ function CreditCardRoot(props: CreditCardRootProps) {
   const [internalFace, setInternalFace] = React.useState<CardFace>(defaultFace);
   const face = isControlled ? faceProp : internalFace;
   const [errorsContainer, setErrorsContainer] = React.useState<HTMLDivElement | null>(null);
-  const [cardType, setCardType] = React.useState<string | null>(null);
+  const [cardType, setCardType] = React.useState<CreditCardTypeCardBrandId | null>(null);
+
+  const cardNiceType = React.useMemo(
+    () => (cardType ? creditCardType.getTypeInfo(cardType)?.niceType ?? null : null),
+    [cardType],
+  );
 
   const onFaceChangeRef = React.useRef(onFaceChange);
   React.useEffect(() => {
@@ -71,8 +78,8 @@ function CreditCardRoot(props: CreditCardRootProps) {
   }), [setFace, toggle]);
 
   const contextValue = React.useMemo<CreditCardContextValue>(
-    () => ({ face, setFace, toggle, errorsContainer, setErrorsContainer, cardType, setCardType }),
-    [face, setFace, toggle, errorsContainer, cardType],
+    () => ({ face, setFace, toggle, errorsContainer, setErrorsContainer, cardType, setCardType, cardNiceType }),
+    [face, setFace, toggle, errorsContainer, cardType, cardNiceType],
   );
 
   return (

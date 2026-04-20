@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import creditCardType from 'credit-card-type';
 
 import React, { useState } from 'react';
 import { Button, Callout, CreditCard, Form, SegmentedControlRadioGroup, Text } from '..';
@@ -777,18 +778,18 @@ export const PerFaceColors: Story = {
 };
 
 const cardBrands = [
-  { brand: 'Visa', brandKey: 'visa', number: '4242 4242 4242 4242', cvv: '123', color: 'indigo' },
-  { brand: 'Mastercard', brandKey: 'mastercard', number: '5425 2334 3010 9903', cvv: '012', color: 'tomato' },
-  { brand: 'American Express', brandKey: 'american-express', number: '3782 822463 10005', cvv: '1234', color: 'jade' },
-  { brand: 'Discover', brandKey: 'discover', number: '6011 1111 1111 1117', cvv: '123', color: 'amber' },
-  { brand: 'Diners Club', brandKey: 'diners-club', number: '3056 9309 0259 04', cvv: '123', color: 'plum' },
-  { brand: 'JCB', brandKey: 'jcb', number: '3566 0020 2036 0505', cvv: '123', color: 'sky' },
-  { brand: 'UnionPay', brandKey: 'unionpay', number: '6250 9470 0000 0014', cvv: '123', color: 'ruby' },
-  { brand: 'Maestro', brandKey: 'maestro', number: '6759 6498 2643 8453', cvv: '123', color: 'mint' },
-  { brand: 'Mir', brandKey: 'mir', number: '2200 0000 0000 0053', cvv: '123', color: 'grass' },
-  { brand: 'Elo', brandKey: 'elo', number: '6362 9700 0457 0011', cvv: '123', color: 'violet' },
-  { brand: 'Hiper', brandKey: 'hiper', number: '6370 9503 0000 0007', cvv: '123', color: 'bronze' },
-  { brand: 'Hipercard', brandKey: 'hipercard', number: '6062 8288 8866 6688', cvv: '123', color: 'iris' },
+  { brandKey: 'visa', number: '4242 4242 4242 4242', cvv: '123', color: 'indigo' },
+  { brandKey: 'mastercard', number: '5425 2334 3010 9903', cvv: '012', color: 'tomato' },
+  { brandKey: 'american-express', number: '3782 822463 10005', cvv: '1234', color: 'jade' },
+  { brandKey: 'discover', number: '6011 1111 1111 1117', cvv: '123', color: 'amber' },
+  { brandKey: 'diners-club', number: '3056 9309 0259 04', cvv: '123', color: 'plum' },
+  { brandKey: 'jcb', number: '3566 0020 2036 0505', cvv: '123', color: 'sky' },
+  { brandKey: 'unionpay', number: '6250 9470 0000 0014', cvv: '123', color: 'ruby' },
+  { brandKey: 'maestro', number: '6759 6498 2643 8453', cvv: '123', color: 'mint' },
+  { brandKey: 'mir', number: '2200 0000 0000 0053', cvv: '123', color: 'grass' },
+  { brandKey: 'elo', number: '6362 9700 0457 0011', cvv: '123', color: 'violet' },
+  { brandKey: 'hiper', number: '6370 9503 0000 0007', cvv: '123', color: 'bronze' },
+  { brandKey: 'hipercard', number: '6062 8288 8866 6688', cvv: '123', color: 'iris' },
 ] as const;
 
 export const CardBrands: Story = {
@@ -812,8 +813,8 @@ export const CardBrands: Story = {
         </SegmentedControlRadioGroup.Root>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
-          {cardBrands.map(({ brand, brandKey, number, cvv, color }) => (
-            <div key={brand} style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
+          {cardBrands.map(({ brandKey, number, cvv, color }) => (
+            <div key={brandKey} style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
               <CreditCard.Root defaultFace="front">
                 <CreditCard.Content color={color}>
                   <CreditCard.Front>
@@ -855,7 +856,7 @@ export const CardBrands: Story = {
                   </CreditCard.Back>
                 </CreditCard.Content>
               </CreditCard.Root>
-              <Text size="2" color="gray" weight="medium" style={{ minWidth: 120 }}>{brand}</Text>
+              <Text size="2" color="gray" weight="medium" style={{ minWidth: 120 }}>{creditCardType.getTypeInfo(brandKey).niceType}</Text>
             </div>
           ))}
         </div>
@@ -864,29 +865,13 @@ export const CardBrands: Story = {
   },
 };
 
-const providerNames: Record<string, string> = {
-  visa: 'Visa',
-  mastercard: 'Mastercard',
-  'american-express': 'American Express',
-  discover: 'Discover',
-  'diners-club': 'Diners Club',
-  jcb: 'JCB',
-  unionpay: 'UnionPay',
-  maestro: 'Maestro',
-  mir: 'Mir',
-  elo: 'Elo',
-  hiper: 'Hiper',
-  hipercard: 'Hipercard',
-};
-
 function DetectedProvider() {
-  const { cardType } = CreditCard.useCreditCard();
-  const name = cardType ? providerNames[cardType] ?? cardType : null;
+  const { cardNiceType } = CreditCard.useCreditCard();
   return (
     <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-      <CreditCard.BrandLogo style={{ height: '1em', opacity: name ? 1 : 0.4 }} />
-      <Text size="1" color={name ? 'blue' : 'gray'} weight="medium">
-        {name ?? 'Unknown'}
+      <CreditCard.BrandLogo style={{ height: '1em', opacity: cardNiceType ? 1 : 0.4 }} />
+      <Text size="1" color={cardNiceType ? 'blue' : 'gray'} weight="medium">
+        {cardNiceType ?? 'Unknown'}
       </Text>
     </span>
   );

@@ -159,20 +159,22 @@ interface CreditCardBrandLogoProps extends React.ComponentPropsWithoutRef<'svg'>
 const CreditCardBrandLogo = React.forwardRef<SVGSVGElement, CreditCardBrandLogoProps>(
   function CreditCardBrandLogo(props, forwardedRef) {
     const { brand: brandProp, className, ...rest } = props;
-    const { cardType } = useCreditCardContext();
-    const brand = (brandProp ?? cardType) as CreditCardTypeCardBrandId | null;
+    const { cardType, cardNiceType } = useCreditCardContext();
+    const brand = brandProp ?? cardType;
     if (!brand) return null;
 
     const Logo = brandLogoMap[brand];
     if (!Logo) return null;
 
-    const niceType = creditCardType.getTypeInfo(brand)?.niceType;
+    const label = brandProp
+      ? creditCardType.getTypeInfo(brandProp)?.niceType ?? brandProp
+      : cardNiceType ?? brand;
 
     return (
       <Logo
         ref={forwardedRef}
         role="img"
-        aria-label={niceType ?? brand ?? 'Credit card'}
+        aria-label={label}
         className={classNames('fui-CreditCardBrandLogo', className)}
         {...rest}
       />

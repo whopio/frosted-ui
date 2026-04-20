@@ -1,5 +1,6 @@
 'use client';
 
+import type { CreditCardTypeCardBrandId } from 'credit-card-type/dist/types';
 import * as React from 'react';
 
 type CardFace = 'front' | 'back';
@@ -11,8 +12,10 @@ interface CreditCardContextValue {
   color?: string;
   errorsContainer: HTMLDivElement | null;
   setErrorsContainer: (el: HTMLDivElement | null) => void;
-  cardType: string | null;
-  setCardType: (type: string | null) => void;
+  cardType: CreditCardTypeCardBrandId | null;
+  setCardType: (type: CreditCardTypeCardBrandId | null) => void;
+  /** Human-readable brand name (e.g. "American Express") derived from detected cardType */
+  cardNiceType: string | null;
 }
 
 const CreditCardContext = React.createContext<CreditCardContextValue | undefined>(undefined);
@@ -31,7 +34,10 @@ interface UseCreditCardResult {
   face: CardFace;
   setFace: (face: CardFace) => void;
   toggle: () => void;
-  cardType: string | null;
+  /** Detected card brand ID (e.g. "visa", "american-express") */
+  cardType: CreditCardTypeCardBrandId | null;
+  /** Human-readable brand name (e.g. "Visa", "American Express") */
+  cardNiceType: string | null;
 }
 
 function useCreditCard(): UseCreditCardResult {
@@ -41,6 +47,7 @@ function useCreditCard(): UseCreditCardResult {
     setFace: ctx.setFace,
     toggle: ctx.toggle,
     cardType: ctx.cardType,
+    cardNiceType: ctx.cardNiceType,
   };
 }
 

@@ -121,9 +121,9 @@ function TestCardBack({
 }
 
 function CardTypeReader() {
-  const { cardType, face } = useCreditCard();
+  const { cardType, cardNiceType, face } = useCreditCard();
   return (
-    <div data-testid="hook-reader" data-card-type={cardType ?? ''} data-face={face} />
+    <div data-testid="hook-reader" data-card-type={cardType ?? ''} data-nice-type={cardNiceType ?? ''} data-face={face} />
   );
 }
 
@@ -340,6 +340,7 @@ describe('Card type detection', () => {
       </CreditCardRoot>,
     );
     expect(screen.getByTestId('hook-reader')).toHaveAttribute('data-card-type', '');
+    expect(screen.getByTestId('hook-reader')).toHaveAttribute('data-nice-type', '');
   });
 
   it('detects Visa from 4242 prefix', () => {
@@ -361,6 +362,7 @@ describe('Card type detection', () => {
     const input = screen.getByTestId('number-input') as HTMLInputElement;
     simulateInputChange(input, '4242424242424242');
     expect(screen.getByTestId('hook-reader')).toHaveAttribute('data-card-type', 'visa');
+    expect(screen.getByTestId('hook-reader')).toHaveAttribute('data-nice-type', 'Visa');
   });
 
   it('detects American Express from 3782 prefix', () => {
@@ -385,6 +387,7 @@ describe('Card type detection', () => {
       'data-card-type',
       'american-express',
     );
+    expect(screen.getByTestId('hook-reader')).toHaveAttribute('data-nice-type', 'American Express');
   });
 
   it('detects Mastercard from 5425 prefix', () => {
@@ -527,7 +530,7 @@ describe('CVV input', () => {
 // ===========================================================================
 
 describe('useCreditCard hook', () => {
-  it('returns face, setFace, toggle, cardType', () => {
+  it('returns face, setFace, toggle, cardType, cardNiceType', () => {
     let hookResult: ReturnType<typeof useCreditCard> | null = null;
 
     function HookConsumer() {
@@ -552,6 +555,7 @@ describe('useCreditCard hook', () => {
     expect(typeof result.setFace).toBe('function');
     expect(typeof result.toggle).toBe('function');
     expect(result.cardType).toBeNull();
+    expect(result.cardNiceType).toBeNull();
   });
 
   it('setFace changes the active face', () => {

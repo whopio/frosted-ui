@@ -49,7 +49,7 @@
  *   BrandLogo    — Mono SVG logo of the detected card brand (reads cardType from context)
  *
  * Hooks:
- *   useCreditCard — Public hook returning { face, setFace, toggle, cardType }
+ *   useCreditCard — Public hook returning { face, setFace, toggle, cardType, cardNiceType }
  */
 export { CreditCardRoot as Root } from './credit-card-root';
 export { CreditCardContent as Content } from './credit-card-content';
@@ -116,3 +116,4 @@ export { useCreditCard } from './credit-card-context';
 export type { CreditCardBrandLogoProps } from './credit-card-brand-logos';
 export type { CardFace, UseCreditCardResult } from './credit-card-context';
 export type { CreditCardTypeCardBrandId as CardBrandId } from 'credit-card-type/dist/types';
+export type { CreditCardType as CardTypeInfo } from 'credit-card-type/dist/types';

@@ -9,6 +9,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import creditCardType from 'credit-card-type';
+import type { CreditCardType as CreditCardTypeInfo, CreditCardTypeCardBrandId } from 'credit-card-type/dist/types';
 
 import { useIsomorphicLayoutEffect } from '../../helpers/use-isomorphic-layout-effect';
 import { Text, type TextProps } from '../text/text';
@@ -18,14 +19,20 @@ import { useCreditCardContext } from './credit-card-context';
 // Card number formatting utilities
 // ---------------------------------------------------------------------------
 
-const DEFAULT_GAPS = [4, 8, 12];
-const DEFAULT_MAX_LENGTH = 16;
+const UNKNOWN_CARD_INFO: CreditCardTypeInfo = {
+  niceType: '',
+  type: '',
+  patterns: [],
+  gaps: [4, 8, 12],
+  lengths: [16],
+  code: { size: 3, name: 'CVV' },
+};
 
-function getCardInfo(digits: string) {
-  if (!digits) return { type: null as string | null, gaps: DEFAULT_GAPS, lengths: [DEFAULT_MAX_LENGTH], code: { size: 3, name: 'CVV' } };
+function getCardInfo(digits: string): CreditCardTypeInfo {
+  if (!digits) return UNKNOWN_CARD_INFO;
   const results = creditCardType(digits);
   if (results.length === 1) return results[0];
-  return { type: null as string | null, gaps: DEFAULT_GAPS, lengths: [DEFAULT_MAX_LENGTH], code: { size: 3, name: 'CVV' } };
+  return UNKNOWN_CARD_INFO;
 }
 
 function formatWithGaps(digits: string, gaps: number[]): string {
@@ -560,7 +567,7 @@ const CreditCardNumber = React.forwardRef<HTMLInputElement, CreditCardNumberProp
           input.setSelectionRange(newCursor, newCursor);
         });
 
-        setCardType(info.type ?? null);
+        setCardType((info.type || null) as CreditCardTypeCardBrandId | null);
         onChange?.(event);
       },
       [onChange, setCardType],
@@ -583,7 +590,7 @@ const CreditCardNumber = React.forwardRef<HTMLInputElement, CreditCardNumberProp
       if (raw != null) {
         const digits = String(raw).replace(/\D/g, '');
         const info = getCardInfo(digits);
-        setCardType(info.type ?? null);
+        setCardType((info.type || null) as CreditCardTypeCardBrandId | null);
       }
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
