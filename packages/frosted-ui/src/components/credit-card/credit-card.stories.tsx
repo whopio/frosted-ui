@@ -449,17 +449,33 @@ export const CustomDesign: Story = {
   ),
 };
 
-export const BackFaceDefault: Story = {
-  name: 'Initial Back Face',
+export const BackOnly: Story = {
+  name: 'Back Only',
   render: () => (
-    <CreditCard.Root defaultFace="back">
+    <CreditCard.Root face="back">
       <CreditCard.Content>
-        <CardFront />
-        <CardBack />
+        <CreditCard.Back>
+          <CreditCard.MagStripe />
+          <CreditCard.BackContent>
+            <CreditCard.Fieldset aria-label="Card details">
+              <CreditCard.Field>
+                <CreditCard.FieldLabel>Card number</CreditCard.FieldLabel>
+                <CreditCard.NumberField />
+              </CreditCard.Field>
+              <CreditCard.FieldGroup>
+                <CreditCard.Field>
+                  <CreditCard.FieldLabel>Exp</CreditCard.FieldLabel>
+                  <CreditCard.ExpiryField />
+                </CreditCard.Field>
+                <CreditCard.Field>
+                  <CreditCard.FieldLabel>CVV</CreditCard.FieldLabel>
+                  <CreditCard.CVVField />
+                </CreditCard.Field>
+              </CreditCard.FieldGroup>
+            </CreditCard.Fieldset>
+          </CreditCard.BackContent>
+        </CreditCard.Back>
       </CreditCard.Content>
-      <div style={{ marginTop: 16, display: 'flex', justifyContent: 'center' }}>
-        <CreditCard.Trigger render={<Button variant="surface" size="2" />}>Flip card</CreditCard.Trigger>
-      </div>
     </CreditCard.Root>
   ),
 };
