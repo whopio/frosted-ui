@@ -1,0 +1,297 @@
+.fui-CreditCardContent {
+  position: relative;
+  width: 360px;
+  aspect-ratio: 1.586;
+  perspective: 1000px;
+  border-radius: 12px;
+  text-align: left;
+}
+
+/* ── Face shared ────────────────────────────────────────────────────────── */
+
+.fui-CreditCardFront,
+.fui-CreditCardBack {
+  --credit-card-text: var(--gray-12);
+  --credit-card-muted: var(--gray-a10);
+  --credit-card-input-bg: var(--gray-a3);
+  --credit-card-input-bg-disabled: var(--gray-a4);
+  --credit-card-input-muted: var(--gray-a10);
+  --credit-card-placeholder: var(--gray-a8);
+  --credit-card-focus: var(--color-focus-root);
+  --credit-card-stripe: var(--gray-a4);
+  --credit-card-selection: var(--color-selection-root);
+  --credit-card-selection-text: inherit;
+
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  backface-visibility: hidden;
+  transition: transform 0.6s ease;
+  overflow: hidden;
+  background: var(--color-panel-solid);
+  color: var(--credit-card-text);
+  box-shadow:
+    0 12px 32px -16px rgba(0, 0, 0, 0.05),
+    0 8px 40px 0 rgba(0, 0, 61, 0.05);
+  outline: 1px solid var(--color-stroke);
+  outline-offset: -1px;
+
+  &:where([data-accent-color]:not([data-accent-color=''])) {
+    --credit-card-text: var(--accent-9-contrast);
+    --credit-card-muted: color-mix(in srgb, var(--credit-card-text) 70%, transparent);
+    --credit-card-input-bg: color-mix(in srgb, var(--credit-card-text) 12%, transparent);
+    --credit-card-input-bg-disabled: color-mix(in srgb, var(--credit-card-text) 18%, transparent);
+    --credit-card-input-muted: color-mix(in srgb, var(--credit-card-text) 50%, transparent);
+    --credit-card-placeholder: color-mix(in srgb, var(--credit-card-text) 50%, transparent);
+    --credit-card-focus: var(--credit-card-text);
+    --credit-card-stripe: color-mix(in srgb, var(--credit-card-text) 20%, transparent);
+    --credit-card-selection: color-mix(in srgb, var(--credit-card-text) 30%, transparent);
+    --credit-card-selection-text: var(--credit-card-text);
+
+    background: var(--accent-9);
+  }
+
+  &::selection,
+  & *::selection {
+    background: var(--credit-card-selection);
+    color: var(--credit-card-selection-text);
+  }
+}
+
+/* ── Front face ─────────────────────────────────────────────────────────── */
+
+.fui-CreditCardFront {
+  transform: rotateY(0deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px;
+
+  &:where([data-active]) {
+    z-index: 1;
+  }
+}
+
+.fui-CreditCardFrontHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.fui-CreditCardFrontFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+/* ── Back face ──────────────────────────────────────────────────────────── */
+
+.fui-CreditCardBack {
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+}
+
+.fui-CreditCardMagStripe {
+  width: 100%;
+  height: 48px;
+  margin-top: 24px;
+  background: var(--credit-card-stripe);
+}
+
+.fui-CreditCardBackContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 16px;
+  gap: 4px;
+}
+
+.fui-CreditCardFieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-inline-size: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fui-CreditCardFieldGroup {
+  display: flex;
+  gap: 32px;
+}
+
+.fui-CreditCardField {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Data parts ─────────────────────────────────────────────────────────── */
+
+.fui-CreditCardBrand {
+  font-size: var(--font-size-2);
+}
+
+.fui-CreditCardTitle {
+  font-size: var(--font-size-3);
+  font-weight: 500;
+}
+
+.fui-CreditCardLastFour {
+  font-size: var(--font-size-2);
+  color: var(--credit-card-muted);
+}
+
+.fui-CreditCardFieldLabel {
+  letter-spacing: 0.02em;
+  color: var(--credit-card-muted);
+}
+
+.fui-CreditCardCopyButton {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--credit-card-muted);
+  display: flex;
+  align-items: center;
+}
+
+/* ── Errors (portal target) ────────────────────────────────────────────── */
+
+.fui-CreditCardErrors {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fui-CreditCardErrors:empty {
+  display: none;
+}
+
+/* ── Input ──────────────────────────────────────────────────────────────── */
+
+.fui-CreditCardTextField {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  appearance: none;
+  outline: none;
+  border: none;
+  font-family: inherit;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-3);
+  letter-spacing: var(--letter-spacing-3);
+  line-height: var(--line-height-3);
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: var(--credit-card-text);
+  background-color: var(--credit-card-input-bg);
+  -webkit-tap-highlight-color: transparent;
+
+  &::placeholder {
+    color: var(--credit-card-placeholder);
+    opacity: 1;
+  }
+
+  &:where(:focus) {
+    outline: 2px solid var(--credit-card-focus);
+    outline-offset: -1px;
+  }
+
+  &:where(:disabled) {
+    background-color: var(--credit-card-input-bg-disabled);
+    color: var(--credit-card-input-muted);
+    -webkit-text-fill-color: var(--credit-card-input-muted);
+    cursor: default;
+  }
+
+  &:where(:read-only:not(:disabled)) {
+    background-color: transparent;
+    color: var(--credit-card-text);
+    -webkit-text-fill-color: var(--credit-card-text);
+    padding: 4px 0px;
+    cursor: default;
+
+    &:where(:focus) {
+      outline: none;
+    }
+  }
+}
+
+/* ── Field error ────────────────────────────────────────────────────────── */
+.fui-CreditCardFieldError {
+  margin-top: 4px;
+}
+
+/* ── Specialized inputs ────────────────────────────────────────────────── */
+
+.fui-CreditCardNumberField,
+.fui-CreditCardExpiryField,
+.fui-CreditCardCVVField {
+  font-family: var(--code-font-family, monospace);
+  letter-spacing: 0.04em;
+}
+
+.fui-CreditCardExpiryField {
+  max-width: 80px;
+}
+
+.fui-CreditCardCVVField {
+  max-width: 72px;
+}
+
+/* ── Flip states ────────────────────────────────────────────────────────── */
+
+.fui-CreditCardContent {
+  &:where([data-face='back']) {
+    & :where(.fui-CreditCardFront) {
+      transform: rotateY(-180deg);
+    }
+
+    & :where(.fui-CreditCardBack) {
+      transform: rotateY(0deg);
+    }
+  }
+}
+
+/* ── Brand Logo ─────────────────────────────────────────────────────────── */
+
+.fui-CreditCardBrandLogo {
+  height: 40px;
+  width: auto;
+  flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fui-CreditCardFront,
+  .fui-CreditCardBack {
+    transition: none;
+    transform: none;
+    backface-visibility: visible;
+  }
+
+  .fui-CreditCardFront {
+    opacity: 1;
+  }
+
+  .fui-CreditCardBack {
+    opacity: 0;
+  }
+
+  .fui-CreditCardContent {
+    &:where([data-face='back']) {
+      & :where(.fui-CreditCardFront) {
+        transform: none;
+        opacity: 0;
+      }
+
+      & :where(.fui-CreditCardBack) {
+        transform: none;
+        opacity: 1;
+      }
+    }
+  }
+}
