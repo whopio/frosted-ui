@@ -22,6 +22,6 @@ export const CommandFilled32 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
-CommandFilled32.category = 'Product Icons';
+CommandFilled32.category = 'Interface General';
 
 export default CommandFilled32;

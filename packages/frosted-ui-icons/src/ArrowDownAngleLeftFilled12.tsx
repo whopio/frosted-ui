@@ -1,0 +1,27 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const ArrowDownAngleLeftFilled12 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M10.75 1C11.4403 1 12 1.55964 12 2.25V6.3125C12 7.52062 11.0206 8.5 9.81245 8.5H4.21479L4.58198 8.87695C5.06377 9.3711 5.05435 10.1626 4.5605 10.6445C4.06635 11.1263 3.27487 11.1169 2.79292 10.623L0.355419 8.12305C-0.117822 7.6376 -0.117822 6.8624 0.355419 6.37695L2.79292 3.87695C3.27487 3.38313 4.06635 3.37375 4.5605 3.85547C5.05435 4.33745 5.06377 5.1289 4.58198 5.62305L4.21479 6H9.49995V2.25C9.49995 1.55968 10.0596 1.00005 10.75 1Z"
+        fill={color}
+        fillRule="evenodd"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+};
+
+ArrowDownAngleLeftFilled12.category = 'Arrows';
+
+export default ArrowDownAngleLeftFilled12;

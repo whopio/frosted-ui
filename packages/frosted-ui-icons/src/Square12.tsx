@@ -17,6 +17,6 @@ export const Square12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Square12.category = 'Product Icons';
+Square12.category = 'Interface General';
 
 export default Square12;

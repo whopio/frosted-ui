@@ -20,6 +20,6 @@ export const DotFilled12 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
-DotFilled12.category = 'Product Icons';
+DotFilled12.category = 'Interface General';
 
 export default DotFilled12;

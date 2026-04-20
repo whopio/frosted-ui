@@ -1,0 +1,27 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const CreditCardStackFilled24 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M23 16.7505C22.9997 18.8213 21.3209 20.5005 19.25 20.5005H7.75C5.67909 20.5005 4.00026 18.8213 4 16.7505V12.5005H23V16.7505ZM7.25 16.5005C6.83579 16.5005 6.5 16.8363 6.5 17.2505C6.50026 17.6645 6.83595 18.0005 7.25 18.0005H11.75C12.1641 18.0005 12.4997 17.6645 12.5 17.2505C12.5 16.8363 12.1642 16.5005 11.75 16.5005H7.25ZM16.25 3.99951C17.6928 3.99951 18.9442 4.8154 19.5713 6.01025C19.465 6.00384 19.3579 6.00049 19.25 6.00049H7.75C4.85051 6.00049 2.5 8.35099 2.5 11.2505V16.2495C1.58958 15.5653 1.00016 14.4769 1 13.2505V8.75049C1 6.12714 3.12665 3.99951 5.75 3.99951H16.25ZM19.25 7.49951C21.237 7.49951 22.8625 9.04592 22.9912 11.0005H4.00879C4.13745 9.04592 5.76295 7.49951 7.75 7.49951H19.25Z"
+        fill={color}
+        fillRule="evenodd"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+};
+
+CreditCardStackFilled24.category = 'Money & Shopping';
+
+export default CreditCardStackFilled24;

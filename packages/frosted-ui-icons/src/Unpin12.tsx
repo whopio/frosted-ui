@@ -20,6 +20,6 @@ export const Unpin12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Unpin12.category = 'Product Icons';
+Unpin12.category = 'Interface General';
 
 export default Unpin12;

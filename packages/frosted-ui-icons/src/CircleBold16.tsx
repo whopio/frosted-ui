@@ -17,6 +17,6 @@ export const CircleBold16 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
-CircleBold16.category = 'Product Icons';
+CircleBold16.category = 'Interface General';
 
 export default CircleBold16;

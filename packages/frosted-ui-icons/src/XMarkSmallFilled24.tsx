@@ -13,7 +13,7 @@ export const XMarkSmallFilled24 = ({ color = 'currentColor', ...props }: IconPro
       {...props}
     >
       <path
-        d="M7.93403 7.93414L11.9999 12M16.0658 16.0659L11.9999 12M11.9999 12L7.93403 16.0659M11.9999 12L16.0658 7.93414"
+        d="M7.00005 6.99995L12.0001 12M17.0002 17.0001L12.0001 12M12.0001 12L7.00005 17.0001M12.0001 12L17.0002 6.99995"
         stroke={color}
         strokeWidth="2.5"
         strokeLinecap="round"
@@ -23,6 +23,6 @@ export const XMarkSmallFilled24 = ({ color = 'currentColor', ...props }: IconPro
   );
 };
 
-XMarkSmallFilled24.category = 'Product Icons';
+XMarkSmallFilled24.category = 'Interface General';
 
 export default XMarkSmallFilled24;

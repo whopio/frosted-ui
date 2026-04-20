@@ -20,6 +20,6 @@ export const MagnifyingGlassBoldFilled16 = ({ color = 'currentColor', ...props }
   );
 };
 
-MagnifyingGlassBoldFilled16.category = 'Product Icons';
+MagnifyingGlassBoldFilled16.category = 'Interface General';
 
 export default MagnifyingGlassBoldFilled16;

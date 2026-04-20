@@ -20,6 +20,6 @@ export const LinkFilled20 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
-LinkFilled20.category = 'Product Icons';
+LinkFilled20.category = 'Interface General';
 
 export default LinkFilled20;

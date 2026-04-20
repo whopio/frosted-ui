@@ -23,6 +23,6 @@ export const DotBoldFilled32 = ({ color = 'currentColor', ...props }: IconProps)
   );
 };
 
-DotBoldFilled32.category = 'Product Icons';
+DotBoldFilled32.category = 'Interface General';
 
 export default DotBoldFilled32;

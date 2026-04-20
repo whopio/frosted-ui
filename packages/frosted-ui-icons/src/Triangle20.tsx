@@ -23,6 +23,6 @@ export const Triangle20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Triangle20.category = 'Product Icons';
+Triangle20.category = 'Interface General';
 
 export default Triangle20;

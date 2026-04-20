@@ -20,6 +20,6 @@ export const Gear20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Gear20.category = 'Product Icons';
+Gear20.category = 'Interface General';
 
 export default Gear20;

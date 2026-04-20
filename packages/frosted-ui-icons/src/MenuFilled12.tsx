@@ -20,6 +20,6 @@ export const MenuFilled12 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
-MenuFilled12.category = 'Product Icons';
+MenuFilled12.category = 'Interface General';
 
 export default MenuFilled12;

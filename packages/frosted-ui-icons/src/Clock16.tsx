@@ -20,6 +20,6 @@ export const Clock16 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Clock16.category = 'Product Icons';
+Clock16.category = 'Interface General';
 
 export default Clock16;

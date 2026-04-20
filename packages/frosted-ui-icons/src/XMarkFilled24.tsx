@@ -13,7 +13,7 @@ export const XMarkFilled24 = ({ color = 'currentColor', ...props }: IconProps) =
       {...props}
     >
       <path
-        d="M2.24988 2.25L12 12M21.75 21.75L12 12M12 12L2.2501 21.75M12 12L21.75 2.24999"
+        d="M2.24999 2.25001L11.9999 12M21.75 21.75L11.9999 12M11.9999 12L2.25001 21.75M11.9999 12L21.75 2.25"
         stroke={color}
         strokeWidth="2.5"
         strokeLinecap="round"
@@ -23,6 +23,6 @@ export const XMarkFilled24 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
-XMarkFilled24.category = 'Product Icons';
+XMarkFilled24.category = 'Interface General';
 
 export default XMarkFilled24;

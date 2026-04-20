@@ -22,6 +22,6 @@ export const Connection12 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
-Connection12.category = 'Product Icons';
+Connection12.category = 'Interface General';
 
 export default Connection12;

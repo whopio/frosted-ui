@@ -13,7 +13,7 @@ export const XMarkSmallBold32 = ({ color = 'currentColor', ...props }: IconProps
       {...props}
     >
       <path
-        d="M10.3434 10.3431L16.0002 16M21.6571 21.6569L16.0002 16M16.0002 16L10.3434 21.6569M16.0002 16L21.6571 10.3431"
+        d="M9.99988 10.0001L15.9998 16M21.9997 21.9999L15.9998 16M15.9998 16L9.99988 21.9999M15.9998 16L21.9997 10.0001"
         stroke={color}
         strokeWidth="2"
         strokeLinecap="round"
@@ -23,6 +23,6 @@ export const XMarkSmallBold32 = ({ color = 'currentColor', ...props }: IconProps
   );
 };
 
-XMarkSmallBold32.category = 'Product Icons';
+XMarkSmallBold32.category = 'Interface General';
 
 export default XMarkSmallBold32;

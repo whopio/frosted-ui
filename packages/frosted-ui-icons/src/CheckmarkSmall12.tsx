@@ -12,7 +12,10 @@ export const CheckmarkSmall12 = ({ color = 'currentColor', ...props }: IconProps
       data-fui-icon="true"
       {...props}
     >
-      <path d="M9 4.25L5 8.25L3 6.25" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M8.46973 3.71924C8.76257 3.42668 9.23745 3.42665 9.53027 3.71924C9.82305 4.01205 9.82289 4.48688 9.53027 4.77979L5.53027 8.77979C5.23739 9.07267 4.76262 9.07265 4.46973 8.77979L2.46973 6.78076C2.17683 6.48787 2.17683 6.01213 2.46973 5.71924C2.76258 5.42665 3.23745 5.42661 3.53027 5.71924L5 7.18896L8.46973 3.71924Z"
+        fill={color}
+      />
     </svg>
   );
 };

@@ -20,6 +20,6 @@ export const ThumbUp12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-ThumbUp12.category = 'Product Icons';
+ThumbUp12.category = 'Interface General';
 
 export default ThumbUp12;

@@ -20,6 +20,6 @@ export const Pin32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Pin32.category = 'Product Icons';
+Pin32.category = 'Interface General';
 
 export default Pin32;

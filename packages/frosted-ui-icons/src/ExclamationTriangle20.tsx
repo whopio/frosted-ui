@@ -20,6 +20,6 @@ export const ExclamationTriangle20 = ({ color = 'currentColor', ...props }: Icon
   );
 };
 
-ExclamationTriangle20.category = 'Product Icons';
+ExclamationTriangle20.category = 'Interface General';
 
 export default ExclamationTriangle20;

@@ -1,0 +1,28 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const CursorBold24 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M8.64048 21.2248L2.09554 3.89996C1.66963 2.77255 2.77255 1.66963 3.89997 2.09554L21.2248 8.64048C22.1553 8.99202 22.2787 10.258 21.4336 10.7826L17.3215 13.335C16.774 13.6748 16.6861 14.4361 17.1417 14.8917L21.534 19.284C21.8324 19.5823 22 19.987 22 20.409C22 21.2876 21.2877 22 20.409 22C19.987 22 19.5823 21.8323 19.2839 21.534L14.8917 17.1417C14.4361 16.6861 13.6748 16.774 13.335 17.3215L10.7826 21.4336C10.258 22.2787 8.99202 22.1553 8.64048 21.2248Z"
+        fill={color}
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+};
+
+CursorBold24.category = 'Arrows';
+
+export default CursorBold24;

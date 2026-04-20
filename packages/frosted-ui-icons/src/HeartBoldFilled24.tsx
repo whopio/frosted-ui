@@ -20,6 +20,6 @@ export const HeartBoldFilled24 = ({ color = 'currentColor', ...props }: IconProp
   );
 };
 
-HeartBoldFilled24.category = 'Product Icons';
+HeartBoldFilled24.category = 'Interface General';
 
 export default HeartBoldFilled24;

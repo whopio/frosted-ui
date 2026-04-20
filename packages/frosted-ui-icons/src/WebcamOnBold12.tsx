@@ -22,6 +22,6 @@ export const WebcamOnBold12 = ({ color = 'currentColor', ...props }: IconProps) 
   );
 };
 
-WebcamOnBold12.category = 'Product Icons';
+WebcamOnBold12.category = 'Interface General';
 
 export default WebcamOnBold12;

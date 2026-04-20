@@ -20,6 +20,6 @@ export const GifFilled32 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
-GifFilled32.category = 'Product Icons';
+GifFilled32.category = 'Interface General';
 
 export default GifFilled32;

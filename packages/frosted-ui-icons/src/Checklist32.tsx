@@ -26,6 +26,6 @@ export const Checklist32 = ({ color = 'currentColor', ...props }: IconProps) => 
   );
 };
 
-Checklist32.category = 'Product Icons';
+Checklist32.category = 'Interface General';
 
 export default Checklist32;

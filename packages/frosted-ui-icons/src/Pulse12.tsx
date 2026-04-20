@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const Pulse12 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M10.4697 3.46973C10.7626 3.17683 11.2374 3.17683 11.5303 3.46973C11.8231 3.76263 11.8231 4.23741 11.5303 4.53027L7.70703 8.35352C7.31654 8.74399 6.68349 8.74394 6.29297 8.35352L4 6.06055L1.53027 8.53027C1.23741 8.82314 0.762626 8.82309 0.469727 8.53027C0.176833 8.23738 0.176833 7.76262 0.469727 7.46973L3.29297 4.64648L3.36914 4.57812C3.73572 4.27916 4.26428 4.27915 4.63086 4.57812L4.70703 4.64648L7 6.93945L10.4697 3.46973Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+Pulse12.category = 'Stats & Charts';
+
+export default Pulse12;

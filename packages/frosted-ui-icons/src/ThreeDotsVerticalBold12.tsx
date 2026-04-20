@@ -20,6 +20,6 @@ export const ThreeDotsVerticalBold12 = ({ color = 'currentColor', ...props }: Ic
   );
 };
 
-ThreeDotsVerticalBold12.category = 'Product Icons';
+ThreeDotsVerticalBold12.category = 'Interface General';
 
 export default ThreeDotsVerticalBold12;

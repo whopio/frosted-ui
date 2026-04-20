@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const PlayCircleBold24 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12C1 5.92487 5.92487 1 12 1ZM12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM8 8.80469C8 7.23391 9.72751 6.2761 11.0596 7.1084L16.1729 10.3037C17.4262 11.087 17.4262 12.913 16.1729 13.6963L11.0596 16.8916C9.72751 17.7239 8 16.7661 8 15.1953V8.80469ZM10 15.1953L15.1133 12L10 8.80469V15.1953Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+PlayCircleBold24.category = 'Sound & Music';
+
+export default PlayCircleBold24;

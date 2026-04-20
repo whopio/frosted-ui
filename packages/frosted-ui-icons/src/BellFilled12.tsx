@@ -22,6 +22,6 @@ export const BellFilled12 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
-BellFilled12.category = 'Product Icons';
+BellFilled12.category = 'Interface General';
 
 export default BellFilled12;

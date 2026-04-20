@@ -22,6 +22,6 @@ export const StarHalf24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-StarHalf24.category = 'Product Icons';
+StarHalf24.category = 'Interface General';
 
 export default StarHalf24;

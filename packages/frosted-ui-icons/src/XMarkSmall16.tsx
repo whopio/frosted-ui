@@ -13,7 +13,7 @@ export const XMarkSmall16 = ({ color = 'currentColor', ...props }: IconProps) =>
       {...props}
     >
       <path
-        d="M4.99446 4.9948L7.99967 8M11.0049 11.0052L7.99967 8M7.99967 8L4.99446 11.0052M7.99967 8L11.0049 4.9948"
+        d="M4.99919 4.99983L7.99936 8M10.9995 11.0002L7.99936 8M7.99936 8L4.99919 11.0002M7.99936 8L10.9995 4.99983"
         stroke={color}
         strokeWidth="1.5"
         strokeLinecap="round"
@@ -23,6 +23,6 @@ export const XMarkSmall16 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
-XMarkSmall16.category = 'Product Icons';
+XMarkSmall16.category = 'Interface General';
 
 export default XMarkSmall16;

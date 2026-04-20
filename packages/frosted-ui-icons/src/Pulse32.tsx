@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const Pulse32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M30.4629 8.47656C30.7519 8.17998 31.2268 8.17392 31.5234 8.46289C31.82 8.75192 31.8261 9.22676 31.5371 9.52344L19.7119 21.6641C19.1722 22.2178 18.2818 22.2179 17.7422 21.6641L10.5449 14.2734L1.53711 23.5234C1.24808 23.82 0.773236 23.8261 0.476562 23.5371C0.179982 23.2481 0.173923 22.7732 0.462891 22.4766L9.56055 13.1367L9.66602 13.0391C10.1744 12.6149 10.9176 12.6146 11.4258 13.0391L11.5303 13.1367L18.7266 20.5254L30.4629 8.47656Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+Pulse32.category = 'Stats & Charts';
+
+export default Pulse32;

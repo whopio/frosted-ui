@@ -20,6 +20,6 @@ export const ControlsFilled16 = ({ color = 'currentColor', ...props }: IconProps
   );
 };
 
-ControlsFilled16.category = 'Product Icons';
+ControlsFilled16.category = 'Interface General';
 
 export default ControlsFilled16;

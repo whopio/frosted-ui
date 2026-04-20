@@ -20,6 +20,6 @@ export const MarkAsRead32 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
-MarkAsRead32.category = 'Product Icons';
+MarkAsRead32.category = 'Interface General';
 
 export default MarkAsRead32;

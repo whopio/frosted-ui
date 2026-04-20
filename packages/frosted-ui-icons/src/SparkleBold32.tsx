@@ -22,6 +22,6 @@ export const SparkleBold32 = ({ color = 'currentColor', ...props }: IconProps) =
   );
 };
 
-SparkleBold32.category = 'Product Icons';
+SparkleBold32.category = 'Interface General';
 
 export default SparkleBold32;

@@ -20,6 +20,6 @@ export const ThreeDotsCircle16 = ({ color = 'currentColor', ...props }: IconProp
   );
 };
 
-ThreeDotsCircle16.category = 'Product Icons';
+ThreeDotsCircle16.category = 'Interface General';
 
 export default ThreeDotsCircle16;

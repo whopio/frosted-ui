@@ -20,6 +20,6 @@ export const PlusCircleBold24 = ({ color = 'currentColor', ...props }: IconProps
   );
 };
 
-PlusCircleBold24.category = 'Product Icons';
+PlusCircleBold24.category = 'Interface General';
 
 export default PlusCircleBold24;

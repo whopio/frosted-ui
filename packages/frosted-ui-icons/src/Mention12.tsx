@@ -20,6 +20,6 @@ export const Mention12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Mention12.category = 'Product Icons';
+Mention12.category = 'Interface General';
 
 export default Mention12;

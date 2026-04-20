@@ -22,6 +22,6 @@ export const ShareNodes24 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
-ShareNodes24.category = 'Product Icons';
+ShareNodes24.category = 'Interface General';
 
 export default ShareNodes24;

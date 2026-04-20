@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const CopyFilled20 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M16.1465 6C17.7202 6.00019 18.9959 7.27589 18.9961 8.84961V16.1465C18.9961 17.7203 17.7203 18.9959 16.1465 18.9961H8.84961C7.2758 18.9959 6.00004 17.7203 6 16.1465V8.84961C6.00021 7.27591 7.27591 6.00021 8.84961 6H16.1465ZM11.1504 1C12.7241 1.00021 13.9998 2.27591 14 3.84961V4.5H8.84961C6.44748 4.50021 4.50021 6.44748 4.5 8.84961V14H3.84961C2.27591 13.9998 1.00021 12.7241 1 11.1504V3.84961C1.00021 2.27591 2.27591 1.00021 3.84961 1H11.1504Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+CopyFilled20.category = 'Interface General';
+
+export default CopyFilled20;

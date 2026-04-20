@@ -20,6 +20,6 @@ export const Link32 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Link32.category = 'Product Icons';
+Link32.category = 'Interface General';
 
 export default Link32;

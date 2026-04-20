@@ -20,6 +20,6 @@ export const GearBoldFilled24 = ({ color = 'currentColor', ...props }: IconProps
   );
 };
 
-GearBoldFilled24.category = 'Product Icons';
+GearBoldFilled24.category = 'Interface General';
 
 export default GearBoldFilled24;

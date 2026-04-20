@@ -20,6 +20,6 @@ export const Tag12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Tag12.category = 'Product Icons';
+Tag12.category = 'Interface General';
 
 export default Tag12;

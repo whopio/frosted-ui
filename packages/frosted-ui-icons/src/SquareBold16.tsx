@@ -17,6 +17,6 @@ export const SquareBold16 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
-SquareBold16.category = 'Product Icons';
+SquareBold16.category = 'Interface General';
 
 export default SquareBold16;

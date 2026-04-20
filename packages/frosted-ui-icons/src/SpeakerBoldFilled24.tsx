@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const SpeakerBoldFilled24 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M15.125 1C18.3697 1 21 3.63033 21 6.875V17.125C21 20.3697 18.3697 23 15.125 23H8.875C5.63033 23 3 20.3697 3 17.125V6.875C3 3.63033 5.63033 1 8.875 1H15.125ZM12 9.5C9.23858 9.5 7 11.7386 7 14.5C7 17.2614 9.23858 19.5 12 19.5C14.7614 19.5 17 17.2614 17 14.5C17 11.7386 14.7614 9.5 12 9.5ZM12 5C11.1716 5 10.5 5.67157 10.5 6.5C10.5 7.32843 11.1716 8 12 8C12.8284 8 13.5 7.32843 13.5 6.5C13.5 5.67157 12.8284 5 12 5Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+SpeakerBoldFilled24.category = 'Sound & Music';
+
+export default SpeakerBoldFilled24;

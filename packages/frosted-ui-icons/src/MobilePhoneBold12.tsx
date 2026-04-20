@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const MobilePhoneBold12 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M7.25 0C9.183 0 10.75 1.567 10.75 3.5V8.5C10.75 10.433 9.183 12 7.25 12H4.75C2.817 12 1.25 10.433 1.25 8.5V3.5C1.25 1.567 2.817 0 4.75 0H7.25ZM4.75 2C3.92157 2 3.25 2.67157 3.25 3.5V8.5C3.25 9.32843 3.92157 10 4.75 10H7.25C8.07843 10 8.75 9.32843 8.75 8.5V3.5C8.75 2.67157 8.07843 2 7.25 2H4.75ZM7 7C7.55228 7 8 7.44772 8 8C8 8.55229 7.55228 9 7 9H5C4.44772 9 4 8.55229 4 8C4 7.44772 4.44772 7 5 7H7Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+MobilePhoneBold12.category = 'Objects';
+
+export default MobilePhoneBold12;

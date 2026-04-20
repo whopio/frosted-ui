@@ -26,6 +26,6 @@ export const Browser12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Browser12.category = 'Product Icons';
+Browser12.category = 'Interface General';
 
 export default Browser12;

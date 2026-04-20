@@ -20,6 +20,6 @@ export const QuestionCircleBold12 = ({ color = 'currentColor', ...props }: IconP
   );
 };
 
-QuestionCircleBold12.category = 'Product Icons';
+QuestionCircleBold12.category = 'Interface General';
 
 export default QuestionCircleBold12;

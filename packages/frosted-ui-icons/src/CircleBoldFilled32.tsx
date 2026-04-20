@@ -17,6 +17,6 @@ export const CircleBoldFilled32 = ({ color = 'currentColor', ...props }: IconPro
   );
 };
 
-CircleBoldFilled32.category = 'Product Icons';
+CircleBoldFilled32.category = 'Interface General';
 
 export default CircleBoldFilled32;

@@ -13,7 +13,7 @@ export const XMark20 = ({ color = 'currentColor', ...props }: IconProps) => {
       {...props}
     >
       <path
-        d="M10 9.99999L1.75001 18.25M10 9.99999L1.75001 1.74999M10 9.99999L18.25 1.74999M10 9.99999L18.25 18.25"
+        d="M9.99995 9.99999L1.75 18.25M9.99995 9.99999L1.74997 1.75M9.99995 9.99999L18.2499 1.75M9.99995 9.99999L18.2499 18.25"
         stroke={color}
         strokeWidth="1.5"
         strokeLinecap="round"
@@ -22,6 +22,6 @@ export const XMark20 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-XMark20.category = 'Product Icons';
+XMark20.category = 'Interface General';
 
 export default XMark20;

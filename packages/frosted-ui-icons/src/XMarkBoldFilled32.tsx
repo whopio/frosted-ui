@@ -13,7 +13,7 @@ export const XMarkBoldFilled32 = ({ color = 'currentColor', ...props }: IconProp
       {...props}
     >
       <path
-        d="M2.5 2.5L16.0001 16M29.5 29.5L16.0001 16M16.0001 16L2.5 29.5M16.0001 16L29.5 2.50001"
+        d="M2.5 2.5L16.0001 16M29.5 29.5L16.0001 16M16.0001 16L2.5 29.5M16.0001 16L29.5 2.5"
         stroke={color}
         strokeWidth="3"
         strokeLinecap="round"
@@ -23,6 +23,6 @@ export const XMarkBoldFilled32 = ({ color = 'currentColor', ...props }: IconProp
   );
 };
 
-XMarkBoldFilled32.category = 'Product Icons';
+XMarkBoldFilled32.category = 'Interface General';
 
 export default XMarkBoldFilled32;

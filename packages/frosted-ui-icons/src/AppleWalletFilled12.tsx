@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const AppleWalletFilled12 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M9.25 1.5C10.7688 1.5 12 2.73122 12 4.25V7.75C12 9.26878 10.7688 10.5 9.25 10.5H2.75C1.23122 10.5 0 9.26878 0 7.75V4.25C0 2.73122 1.23122 1.5 2.75 1.5H9.25ZM2.75 3C2.05964 3 1.5 3.55964 1.5 4.25V5.25H3.23047C3.50396 5.25001 3.77536 5.30175 4.0293 5.40332L5.75879 6.0957C5.91365 6.1576 6.08635 6.15759 6.24121 6.0957L7.9707 5.40332C8.22463 5.30175 8.49604 5.25001 8.76953 5.25H10.5V4.25C10.5 3.55964 9.94036 3 9.25 3H2.75Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+AppleWalletFilled12.category = 'Money & Shopping';
+
+export default AppleWalletFilled12;

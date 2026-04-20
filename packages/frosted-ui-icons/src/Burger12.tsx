@@ -20,6 +20,6 @@ export const Burger12 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Burger12.category = 'Product Icons';
+Burger12.category = 'Interface General';
 
 export default Burger12;

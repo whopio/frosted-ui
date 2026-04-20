@@ -20,6 +20,6 @@ export const StarFilled12 = ({ color = 'currentColor', ...props }: IconProps) =>
   );
 };
 
-StarFilled12.category = 'Product Icons';
+StarFilled12.category = 'Interface General';
 
 export default StarFilled12;

@@ -20,6 +20,6 @@ export const ControlsVertical16 = ({ color = 'currentColor', ...props }: IconPro
   );
 };
 
-ControlsVertical16.category = 'Product Icons';
+ControlsVertical16.category = 'Interface General';
 
 export default ControlsVertical16;
