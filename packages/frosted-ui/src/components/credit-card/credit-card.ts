@@ -42,10 +42,10 @@
  *   FieldError   — Validation error message for a Field; portals into Errors when present
  *   Errors       — Portal target for FieldError messages, rendered outside the card
  *   FieldLabel   — Accessible label for a Field input; base-ui Field.Label
- *   Input        — Base input primitive; soft style when editable, plain text when readOnly
- *   Number       — Card number input (use readOnly for display)
- *   Expiry       — Expiration date input (use readOnly for display)
- *   CVV          — CVV code input (use readOnly for display)
+ *   TextField    — Base input primitive; soft style when editable, plain text when readOnly
+ *   NumberField  — Card number input (use readOnly for display)
+ *   ExpiryField  — Expiration date input (use readOnly for display)
+ *   CVVField     — CVV code input (use readOnly for display)
  *   BrandLogo    — Mono SVG logo of the detected card brand (reads cardType from context)
  *
  * Hooks:
@@ -71,10 +71,10 @@ export {
   CreditCardField as Field,
   CreditCardFieldError as FieldError,
   CreditCardFieldLabel as FieldLabel,
-  CreditCardInput as Input,
-  CreditCardNumber as Number,
-  CreditCardExpiry as Expiry,
-  CreditCardCVV as CVV,
+  CreditCardTextField as TextField,
+  CreditCardNumberField as NumberField,
+  CreditCardExpiryField as ExpiryField,
+  CreditCardCVVField as CVVField,
 } from './credit-card-parts';
 
 export type { CreditCardRootProps, CreditCardRootRef } from './credit-card-root';
@@ -106,10 +106,10 @@ export type {
   CreditCardFieldGroupState,
   CreditCardFieldProps,
   CreditCardFieldLabelProps,
-  CreditCardInputProps,
-  CreditCardNumberProps,
-  CreditCardExpiryProps,
-  CreditCardCVVProps,
+  CreditCardTextFieldProps,
+  CreditCardNumberFieldProps,
+  CreditCardExpiryFieldProps,
+  CreditCardCVVFieldProps,
 } from './credit-card-parts';
 export { CreditCardBrandLogo as BrandLogo } from './credit-card-brand-logos';
 export { useCreditCard } from './credit-card-context';

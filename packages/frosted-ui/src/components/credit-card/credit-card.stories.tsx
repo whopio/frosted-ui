@@ -282,16 +282,16 @@ function CardBack() {
         <CreditCard.Fieldset aria-label="Card details">
           <CreditCard.Field>
             <CreditCard.FieldLabel>Card number</CreditCard.FieldLabel>
-            <CreditCard.Number readOnly defaultValue="1838 0008 7261 2332" />
+            <CreditCard.NumberField readOnly defaultValue="1838 0008 7261 2332" />
           </CreditCard.Field>
           <CreditCard.FieldGroup>
             <CreditCard.Field>
               <CreditCard.FieldLabel>Exp</CreditCard.FieldLabel>
-              <CreditCard.Expiry readOnly defaultValue="11/27" />
+              <CreditCard.ExpiryField readOnly defaultValue="11/27" />
             </CreditCard.Field>
             <CreditCard.Field>
               <CreditCard.FieldLabel>CVV</CreditCard.FieldLabel>
-              <CreditCard.CVV readOnly defaultValue="8177" />
+              <CreditCard.CVVField readOnly defaultValue="8177" />
             </CreditCard.Field>
           </CreditCard.FieldGroup>
         </CreditCard.Fieldset>
@@ -367,16 +367,16 @@ export const WhopCard: Story = {
             <CreditCard.Fieldset aria-label="Card details">
               <CreditCard.Field>
                 <CreditCard.FieldLabel>Card number</CreditCard.FieldLabel>
-                <CreditCard.Number readOnly defaultValue="1838 0008 7261 2332" />
+                <CreditCard.NumberField readOnly defaultValue="1838 0008 7261 2332" />
               </CreditCard.Field>
               <CreditCard.FieldGroup>
                 <CreditCard.Field>
                   <CreditCard.FieldLabel>Exp</CreditCard.FieldLabel>
-                  <CreditCard.Expiry readOnly defaultValue="11/27" />
+                  <CreditCard.ExpiryField readOnly defaultValue="11/27" />
                 </CreditCard.Field>
                 <CreditCard.Field>
                   <CreditCard.FieldLabel>CVV</CreditCard.FieldLabel>
-                  <CreditCard.CVV readOnly defaultValue="8177" />
+                  <CreditCard.CVVField readOnly defaultValue="8177" />
                 </CreditCard.Field>
               </CreditCard.FieldGroup>
             </CreditCard.Fieldset>
@@ -425,16 +425,16 @@ export const CustomDesign: Story = {
             <CreditCard.Fieldset aria-label="Card details">
               <CreditCard.Field>
                 <CreditCard.FieldLabel>Card number</CreditCard.FieldLabel>
-                <CreditCard.Number readOnly defaultValue="1838 0008 7261 2332" />
+                <CreditCard.NumberField readOnly defaultValue="1838 0008 7261 2332" />
               </CreditCard.Field>
               <CreditCard.FieldGroup>
                 <CreditCard.Field>
                   <CreditCard.FieldLabel>Exp</CreditCard.FieldLabel>
-                  <CreditCard.Expiry readOnly defaultValue="11/27" />
+                  <CreditCard.ExpiryField readOnly defaultValue="11/27" />
                 </CreditCard.Field>
                 <CreditCard.Field>
                   <CreditCard.FieldLabel>CVV</CreditCard.FieldLabel>
-                  <CreditCard.CVV readOnly defaultValue="8177" />
+                  <CreditCard.CVVField readOnly defaultValue="8177" />
                 </CreditCard.Field>
               </CreditCard.FieldGroup>
             </CreditCard.Fieldset>
@@ -494,16 +494,16 @@ export const InputStates: Story = {
             <CreditCard.Fieldset aria-label="Card details">
               <CreditCard.Field>
                 <CreditCard.FieldLabel>Card number</CreditCard.FieldLabel>
-                <CreditCard.Number {...inputProps} />
+                <CreditCard.NumberField {...inputProps} />
               </CreditCard.Field>
               <CreditCard.FieldGroup>
                 <CreditCard.Field>
                   <CreditCard.FieldLabel>Exp</CreditCard.FieldLabel>
-                  <CreditCard.Expiry {...expiryProps} />
+                  <CreditCard.ExpiryField {...expiryProps} />
                 </CreditCard.Field>
                 <CreditCard.Field>
                   <CreditCard.FieldLabel>CVV</CreditCard.FieldLabel>
-                  <CreditCard.CVV {...cvvProps} />
+                  <CreditCard.CVVField {...cvvProps} />
                 </CreditCard.Field>
               </CreditCard.FieldGroup>
             </CreditCard.Fieldset>
@@ -572,14 +572,14 @@ export const FormIntegration: Story = {
                   <CreditCard.Fieldset aria-label="Card details">
                     <CreditCard.Field name="cardNumber">
                       <CreditCard.FieldLabel>Card number</CreditCard.FieldLabel>
-                      <CreditCard.Number required />
+                      <CreditCard.NumberField required />
                       <CreditCard.FieldError match="valueMissing">Card number is required</CreditCard.FieldError>
                       <CreditCard.FieldError match="patternMismatch">Enter a valid card number</CreditCard.FieldError>
                     </CreditCard.Field>
                     <CreditCard.FieldGroup>
                       <CreditCard.Field name="expiry">
                         <CreditCard.FieldLabel>Exp</CreditCard.FieldLabel>
-                        <CreditCard.Expiry required pattern="\d{2}/\d{2}" />
+                        <CreditCard.ExpiryField required pattern="\d{2}/\d{2}" />
                         <CreditCard.FieldError match="valueMissing">Expiration date is required</CreditCard.FieldError>
                         <CreditCard.FieldError match="patternMismatch">
                           Enter a valid expiration date (MM/YY)
@@ -587,7 +587,7 @@ export const FormIntegration: Story = {
                       </CreditCard.Field>
                       <CreditCard.Field name="cvv">
                         <CreditCard.FieldLabel>CVV</CreditCard.FieldLabel>
-                        <CreditCard.CVV required />
+                        <CreditCard.CVVField required />
                         <CreditCard.FieldError match="valueMissing">CVV is required</CreditCard.FieldError>
                       </CreditCard.Field>
                     </CreditCard.FieldGroup>
@@ -653,16 +653,16 @@ export const Colors: Story = {
             <CreditCard.Fieldset aria-label="Card details">
               <CreditCard.Field>
                 <CreditCard.FieldLabel>Card number</CreditCard.FieldLabel>
-                <CreditCard.Number {...numberProps} />
+                <CreditCard.NumberField {...numberProps} />
               </CreditCard.Field>
               <CreditCard.FieldGroup>
                 <CreditCard.Field>
                   <CreditCard.FieldLabel>Exp</CreditCard.FieldLabel>
-                  <CreditCard.Expiry {...expiryProps} />
+                  <CreditCard.ExpiryField {...expiryProps} />
                 </CreditCard.Field>
                 <CreditCard.Field>
                   <CreditCard.FieldLabel>CVV</CreditCard.FieldLabel>
-                  <CreditCard.CVV {...cvvProps} />
+                  <CreditCard.CVVField {...cvvProps} />
                 </CreditCard.Field>
               </CreditCard.FieldGroup>
             </CreditCard.Fieldset>
@@ -747,16 +747,16 @@ export const PerFaceColors: Story = {
                 <CreditCard.Fieldset aria-label="Card details">
                   <CreditCard.Field>
                     <CreditCard.FieldLabel>Card number</CreditCard.FieldLabel>
-                    <CreditCard.Number readOnly defaultValue="1838 0008 7261 2332" />
+                    <CreditCard.NumberField readOnly defaultValue="1838 0008 7261 2332" />
                   </CreditCard.Field>
                   <CreditCard.FieldGroup>
                     <CreditCard.Field>
                       <CreditCard.FieldLabel>Exp</CreditCard.FieldLabel>
-                      <CreditCard.Expiry readOnly defaultValue="11/27" />
+                      <CreditCard.ExpiryField readOnly defaultValue="11/27" />
                     </CreditCard.Field>
                     <CreditCard.Field>
                       <CreditCard.FieldLabel>CVV</CreditCard.FieldLabel>
-                      <CreditCard.CVV readOnly defaultValue="8177" />
+                      <CreditCard.CVVField readOnly defaultValue="8177" />
                     </CreditCard.Field>
                   </CreditCard.FieldGroup>
                 </CreditCard.Fieldset>
@@ -839,16 +839,16 @@ export const CardBrands: Story = {
                       <CreditCard.Fieldset aria-label="Card details">
                         <CreditCard.Field>
                           <CreditCard.FieldLabel>Card number</CreditCard.FieldLabel>
-                          <CreditCard.Number {...inputProps(number)} />
+                          <CreditCard.NumberField {...inputProps(number)} />
                         </CreditCard.Field>
                         <CreditCard.FieldGroup>
                           <CreditCard.Field>
                             <CreditCard.FieldLabel>Exp</CreditCard.FieldLabel>
-                            <CreditCard.Expiry {...inputProps('12/29')} />
+                            <CreditCard.ExpiryField {...inputProps('12/29')} />
                           </CreditCard.Field>
                           <CreditCard.Field>
                             <CreditCard.FieldLabel>CVV</CreditCard.FieldLabel>
-                            <CreditCard.CVV {...inputProps(cvv)} />
+                            <CreditCard.CVVField {...inputProps(cvv)} />
                           </CreditCard.Field>
                         </CreditCard.FieldGroup>
                       </CreditCard.Fieldset>
@@ -894,16 +894,16 @@ export const ProviderDetection: Story = {
                       <CreditCard.FieldLabel>Card number</CreditCard.FieldLabel>
                       <DetectedProvider />
                     </div>
-                    <CreditCard.Number placeholder="0000 0000 0000 0000" />
+                    <CreditCard.NumberField placeholder="0000 0000 0000 0000" />
                   </CreditCard.Field>
                   <CreditCard.FieldGroup>
                     <CreditCard.Field>
                       <CreditCard.FieldLabel>Exp</CreditCard.FieldLabel>
-                      <CreditCard.Expiry />
+                      <CreditCard.ExpiryField />
                     </CreditCard.Field>
                     <CreditCard.Field>
                       <CreditCard.FieldLabel>CVV</CreditCard.FieldLabel>
-                      <CreditCard.CVV />
+                      <CreditCard.CVVField />
                     </CreditCard.Field>
                   </CreditCard.FieldGroup>
                 </CreditCard.Fieldset>
@@ -914,6 +914,60 @@ export const ProviderDetection: Story = {
 
         <Text size="1" color="gray">
           Type a card number to detect the provider. Try: 4242... (Visa), 5425... (Mastercard), 3782... (Amex)
+        </Text>
+      </div>
+    );
+  },
+};
+
+export const CustomFields: Story = {
+  name: 'Custom Fields',
+  render: function CustomFieldsStory() {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'center' }}>
+        <CreditCard.Root>
+          <CreditCard.Content>
+            <CreditCard.Front>
+              <CreditCard.FrontHeader>
+                <CreditCard.Logo><WhopLogo /></CreditCard.Logo>
+                <CreditCard.Brand><CreditCard.BrandLogo /></CreditCard.Brand>
+              </CreditCard.FrontHeader>
+              <CreditCard.Field>
+                <CreditCard.FieldLabel>Cardholder name</CreditCard.FieldLabel>
+                <CreditCard.TextField placeholder="John Doe" autoComplete="cc-name" />
+              </CreditCard.Field>
+              <CreditCard.FrontFooter>
+                <CreditCard.Title>My card</CreditCard.Title>
+                <CreditCard.LastFour>&bull;&bull;&bull;&bull; 4242</CreditCard.LastFour>
+              </CreditCard.FrontFooter>
+            </CreditCard.Front>
+            <CreditCard.Back>
+              <CreditCard.MagStripe />
+              <CreditCard.BackContent>
+                <CreditCard.Fieldset aria-label="Card details">
+                  <CreditCard.Field>
+                    <CreditCard.FieldLabel>Card number</CreditCard.FieldLabel>
+                    <CreditCard.NumberField />
+                  </CreditCard.Field>
+                  <CreditCard.FieldGroup>
+                    <CreditCard.Field>
+                      <CreditCard.FieldLabel>Exp</CreditCard.FieldLabel>
+                      <CreditCard.ExpiryField />
+                    </CreditCard.Field>
+                    <CreditCard.Field>
+                      <CreditCard.FieldLabel>CVV</CreditCard.FieldLabel>
+                      <CreditCard.CVVField />
+                    </CreditCard.Field>
+                  </CreditCard.FieldGroup>
+                </CreditCard.Fieldset>
+              </CreditCard.BackContent>
+            </CreditCard.Back>
+          </CreditCard.Content>
+          <CreditCard.Trigger render={<Button variant="soft" size="2" />}>Flip card</CreditCard.Trigger>
+        </CreditCard.Root>
+
+        <Text size="1" color="gray">
+          Uses CreditCard.TextField directly to add a custom &ldquo;Cardholder name&rdquo; field on the front face.
         </Text>
       </div>
     );

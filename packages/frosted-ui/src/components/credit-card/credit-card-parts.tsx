@@ -511,39 +511,39 @@ const CreditCardFieldError = React.forwardRef<HTMLDivElement, CreditCardFieldErr
 CreditCardFieldError.displayName = 'CreditCardFieldError';
 
 // ---------------------------------------------------------------------------
-// Input — base input primitive for card fields
+// TextField — base input primitive for card fields
 // ---------------------------------------------------------------------------
 
-interface CreditCardInputProps
+interface CreditCardTextFieldProps
   extends Omit<React.ComponentProps<typeof BaseInput>, 'className'> {
   className?: string;
 }
 
-type CreditCardInputChangeHandler = NonNullable<CreditCardInputProps['onChange']>;
+type CreditCardTextFieldChangeHandler = NonNullable<CreditCardTextFieldProps['onChange']>;
 
-const CreditCardInput = React.forwardRef<HTMLInputElement, CreditCardInputProps>(
-  function CreditCardInput(props, forwardedRef) {
+const CreditCardTextField = React.forwardRef<HTMLInputElement, CreditCardTextFieldProps>(
+  function CreditCardTextField(props, forwardedRef) {
     const { className, ...inputProps } = props;
     return (
       <BaseInput
         spellCheck="false"
         {...inputProps}
         ref={forwardedRef}
-        className={classNames('fui-CreditCardInput', className)}
+        className={classNames('fui-CreditCardTextField', className)}
       />
     );
   },
 );
-CreditCardInput.displayName = 'CreditCardInput';
+CreditCardTextField.displayName = 'CreditCardTextField';
 
 // ---------------------------------------------------------------------------
-// Number — card number input field
+// NumberField — card number input field
 // ---------------------------------------------------------------------------
 
-interface CreditCardNumberProps extends CreditCardInputProps {}
+interface CreditCardNumberFieldProps extends CreditCardTextFieldProps {}
 
-const CreditCardNumber = React.forwardRef<HTMLInputElement, CreditCardNumberProps>(
-  function CreditCardNumber(props, forwardedRef) {
+const CreditCardNumberField = React.forwardRef<HTMLInputElement, CreditCardNumberFieldProps>(
+  function CreditCardNumberField(props, forwardedRef) {
     const { onChange, defaultValue, value, ...rest } = props;
     const inputRef = React.useRef<HTMLInputElement>(null);
     const { setCardType } = useCreditCardContext();
@@ -557,7 +557,7 @@ const CreditCardNumber = React.forwardRef<HTMLInputElement, CreditCardNumberProp
       [forwardedRef],
     );
 
-    const handleChange = React.useCallback<CreditCardInputChangeHandler>(
+    const handleChange = React.useCallback<CreditCardTextFieldChangeHandler>(
       (event) => {
         const input = event.target as HTMLInputElement;
         const cursorPos = input.selectionStart ?? 0;
@@ -605,7 +605,7 @@ const CreditCardNumber = React.forwardRef<HTMLInputElement, CreditCardNumberProp
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
-      <CreditCardInput
+      <CreditCardTextField
         inputMode="numeric"
         pattern="[0-9 ]*"
         maxLength={23}
@@ -616,21 +616,21 @@ const CreditCardNumber = React.forwardRef<HTMLInputElement, CreditCardNumberProp
         value={formattedValue}
         onChange={handleChange}
         ref={mergedRef}
-        className={classNames('fui-CreditCardNumber', rest.className)}
+        className={classNames('fui-CreditCardNumberField', rest.className)}
       />
     );
   },
 );
-CreditCardNumber.displayName = 'CreditCardNumber';
+CreditCardNumberField.displayName = 'CreditCardNumberField';
 
 // ---------------------------------------------------------------------------
-// Expiry — expiration date input field
+// ExpiryField — expiration date input field
 // ---------------------------------------------------------------------------
 
-interface CreditCardExpiryProps extends CreditCardInputProps {}
+interface CreditCardExpiryFieldProps extends CreditCardTextFieldProps {}
 
-const CreditCardExpiry = React.forwardRef<HTMLInputElement, CreditCardExpiryProps>(
-  function CreditCardExpiry(props, forwardedRef) {
+const CreditCardExpiryField = React.forwardRef<HTMLInputElement, CreditCardExpiryFieldProps>(
+  function CreditCardExpiryField(props, forwardedRef) {
     const { onChange, defaultValue, value, ...rest } = props;
     const inputRef = React.useRef<HTMLInputElement>(null);
 
@@ -643,7 +643,7 @@ const CreditCardExpiry = React.forwardRef<HTMLInputElement, CreditCardExpiryProp
       [forwardedRef],
     );
 
-    const handleChange = React.useCallback<CreditCardInputChangeHandler>(
+    const handleChange = React.useCallback<CreditCardTextFieldChangeHandler>(
       (event) => {
         const input = event.target as HTMLInputElement;
         const cursorPos = input.selectionStart ?? 0;
@@ -670,7 +670,7 @@ const CreditCardExpiry = React.forwardRef<HTMLInputElement, CreditCardExpiryProp
       value != null ? formatExpiry(String(value)) : undefined;
 
     return (
-      <CreditCardInput
+      <CreditCardTextField
         inputMode="numeric"
         maxLength={5}
         placeholder="MM/YY"
@@ -680,27 +680,27 @@ const CreditCardExpiry = React.forwardRef<HTMLInputElement, CreditCardExpiryProp
         value={formattedValue}
         onChange={handleChange}
         ref={mergedRef}
-        className={classNames('fui-CreditCardExpiry', rest.className)}
+        className={classNames('fui-CreditCardExpiryField', rest.className)}
       />
     );
   },
 );
-CreditCardExpiry.displayName = 'CreditCardExpiry';
+CreditCardExpiryField.displayName = 'CreditCardExpiryField';
 
 // ---------------------------------------------------------------------------
-// CVV — CVV code input field
+// CVVField — CVV code input field
 // ---------------------------------------------------------------------------
 
-interface CreditCardCVVProps extends CreditCardInputProps {}
+interface CreditCardCVVFieldProps extends CreditCardTextFieldProps {}
 
-const CreditCardCVV = React.forwardRef<HTMLInputElement, CreditCardCVVProps>(
-  function CreditCardCVV(props, forwardedRef) {
+const CreditCardCVVField = React.forwardRef<HTMLInputElement, CreditCardCVVFieldProps>(
+  function CreditCardCVVField(props, forwardedRef) {
     const { cardType } = useCreditCardContext();
     const codeInfo = cardType ? creditCardType.getTypeInfo(cardType)?.code : null;
     const cvcSize = codeInfo?.size ?? 3;
 
     return (
-      <CreditCardInput
+      <CreditCardTextField
         inputMode="numeric"
         type="password"
         maxLength={cvcSize}
@@ -708,12 +708,12 @@ const CreditCardCVV = React.forwardRef<HTMLInputElement, CreditCardCVVProps>(
         autoComplete="cc-csc"
         {...props}
         ref={forwardedRef}
-        className={classNames('fui-CreditCardCVV', props.className)}
+        className={classNames('fui-CreditCardCVVField', props.className)}
       />
     );
   },
 );
-CreditCardCVV.displayName = 'CreditCardCVV';
+CreditCardCVVField.displayName = 'CreditCardCVVField';
 
 // ---------------------------------------------------------------------------
 // Exports
@@ -722,9 +722,9 @@ CreditCardCVV.displayName = 'CreditCardCVV';
 export {
   CreditCardBackContent,
   CreditCardBrand,
-  CreditCardCVV,
+  CreditCardCVVField,
   CreditCardErrors,
-  CreditCardExpiry,
+  CreditCardExpiryField,
   CreditCardField,
   CreditCardFieldError,
   CreditCardFieldGroup,
@@ -732,11 +732,11 @@ export {
   CreditCardFieldset,
   CreditCardFrontFooter,
   CreditCardFrontHeader,
-  CreditCardInput,
+  CreditCardTextField,
   CreditCardLastFour,
   CreditCardLogo,
   CreditCardMagStripe,
-  CreditCardNumber,
+  CreditCardNumberField,
   CreditCardTitle,
 };
 export type {
@@ -744,9 +744,9 @@ export type {
   CreditCardBackContentState,
   CreditCardBrandProps,
   CreditCardBrandState,
-  CreditCardCVVProps,
+  CreditCardCVVFieldProps,
   CreditCardErrorsProps,
-  CreditCardExpiryProps,
+  CreditCardExpiryFieldProps,
   CreditCardFieldErrorProps,
   CreditCardFieldGroupProps,
   CreditCardFieldGroupState,
@@ -757,14 +757,14 @@ export type {
   CreditCardFrontFooterState,
   CreditCardFrontHeaderProps,
   CreditCardFrontHeaderState,
-  CreditCardInputProps,
+  CreditCardTextFieldProps,
   CreditCardLastFourProps,
   CreditCardLastFourState,
   CreditCardLogoProps,
   CreditCardLogoState,
   CreditCardMagStripeProps,
   CreditCardMagStripeState,
-  CreditCardNumberProps,
+  CreditCardNumberFieldProps,
   CreditCardTitleProps,
   CreditCardTitleState,
 };

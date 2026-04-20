@@ -12,9 +12,9 @@ import { CreditCardTrigger } from './credit-card-trigger';
 import {
   CreditCardBackContent,
   CreditCardBrand,
-  CreditCardCVV,
+  CreditCardCVVField,
   CreditCardErrors,
-  CreditCardExpiry,
+  CreditCardExpiryField,
   CreditCardField,
   CreditCardFieldError,
   CreditCardFieldGroup,
@@ -25,7 +25,7 @@ import {
   CreditCardLastFour,
   CreditCardLogo,
   CreditCardMagStripe,
-  CreditCardNumber,
+  CreditCardNumberField,
   CreditCardTitle,
 } from './credit-card-parts';
 
@@ -100,16 +100,16 @@ function TestCardBack({
             <CreditCardFieldset aria-label="Card details">
               <CreditCardField>
                 <CreditCardFieldLabel>Card number</CreditCardFieldLabel>
-                <CreditCardNumber data-testid="number-input" {...numberProps} />
+                <CreditCardNumberField data-testid="number-input" {...numberProps} />
               </CreditCardField>
               <CreditCardFieldGroup>
                 <CreditCardField>
                   <CreditCardFieldLabel>Exp</CreditCardFieldLabel>
-                  <CreditCardExpiry data-testid="expiry-input" {...expiryProps} />
+                  <CreditCardExpiryField data-testid="expiry-input" {...expiryProps} />
                 </CreditCardField>
                 <CreditCardField>
                   <CreditCardFieldLabel>CVV</CreditCardFieldLabel>
-                  <CreditCardCVV data-testid="cvv-input" {...cvvProps} />
+                  <CreditCardCVVField data-testid="cvv-input" {...cvvProps} />
                 </CreditCardField>
               </CreditCardFieldGroup>
             </CreditCardFieldset>
@@ -331,7 +331,7 @@ describe('Card type detection', () => {
           <CreditCardBack>
             <CreditCardBackContent>
               <CreditCardField>
-                <CreditCardNumber data-testid="number-input" />
+                <CreditCardNumberField data-testid="number-input" />
               </CreditCardField>
             </CreditCardBackContent>
           </CreditCardBack>
@@ -351,7 +351,7 @@ describe('Card type detection', () => {
           <CreditCardBack>
             <CreditCardBackContent>
               <CreditCardField>
-                <CreditCardNumber data-testid="number-input" />
+                <CreditCardNumberField data-testid="number-input" />
               </CreditCardField>
             </CreditCardBackContent>
           </CreditCardBack>
@@ -373,7 +373,7 @@ describe('Card type detection', () => {
           <CreditCardBack>
             <CreditCardBackContent>
               <CreditCardField>
-                <CreditCardNumber data-testid="number-input" />
+                <CreditCardNumberField data-testid="number-input" />
               </CreditCardField>
             </CreditCardBackContent>
           </CreditCardBack>
@@ -398,7 +398,7 @@ describe('Card type detection', () => {
           <CreditCardBack>
             <CreditCardBackContent>
               <CreditCardField>
-                <CreditCardNumber data-testid="number-input" />
+                <CreditCardNumberField data-testid="number-input" />
               </CreditCardField>
             </CreditCardBackContent>
           </CreditCardBack>
@@ -422,7 +422,7 @@ describe('Card type detection', () => {
           <CreditCardBack>
             <CreditCardBackContent>
               <CreditCardField>
-                <CreditCardNumber
+                <CreditCardNumberField
                   data-testid="number-input"
                   readOnly
                   defaultValue="4242424242424242"
@@ -669,7 +669,7 @@ describe('Error portal', () => {
             <CreditCardBackContent>
               <CreditCardField>
                 <CreditCardFieldLabel>CVV</CreditCardFieldLabel>
-                <CreditCardCVV data-testid="cvv" />
+                <CreditCardCVVField data-testid="cvv" />
                 <CreditCardFieldError match="valueMissing" data-testid="error">
                   Required
                 </CreditCardFieldError>

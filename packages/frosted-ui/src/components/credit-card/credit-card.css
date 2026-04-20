@@ -173,7 +173,7 @@
 
 /* ── Input ──────────────────────────────────────────────────────────────── */
 
-.fui-CreditCardInput {
+.fui-CreditCardTextField {
   display: block;
   box-sizing: border-box;
   width: 100%;
@@ -228,18 +228,18 @@
 
 /* ── Specialized inputs ────────────────────────────────────────────────── */
 
-.fui-CreditCardNumber,
-.fui-CreditCardExpiry,
-.fui-CreditCardCVV {
+.fui-CreditCardNumberField,
+.fui-CreditCardExpiryField,
+.fui-CreditCardCVVField {
   font-family: var(--code-font-family, monospace);
   letter-spacing: 0.04em;
 }
 
-.fui-CreditCardExpiry {
+.fui-CreditCardExpiryField {
   max-width: 80px;
 }
 
-.fui-CreditCardCVV {
+.fui-CreditCardCVVField {
   max-width: 72px;
 }
 
