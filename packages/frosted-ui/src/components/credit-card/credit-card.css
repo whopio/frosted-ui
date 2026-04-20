@@ -186,7 +186,7 @@
   letter-spacing: var(--letter-spacing-3);
   line-height: var(--line-height-3);
   padding: 4px 8px;
-  border-radius: var(--radius-2);
+  border-radius: 4px;
   color: var(--credit-card-text);
   background-color: var(--credit-card-input-bg);
   -webkit-tap-highlight-color: transparent;
