@@ -115,3 +115,4 @@ export { CreditCardBrandLogo as BrandLogo } from './credit-card-brand-logos';
 export { useCreditCard } from './credit-card-context';
 export type { CreditCardBrandLogoProps } from './credit-card-brand-logos';
 export type { CardFace, UseCreditCardResult } from './credit-card-context';
+export type { CreditCardTypeCardBrandId as CardBrandId } from 'credit-card-type/dist/types';

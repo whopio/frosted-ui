@@ -1,6 +1,8 @@
 'use client';
 
 import classNames from 'classnames';
+import creditCardType from 'credit-card-type';
+import type { CreditCardTypeCardBrandId } from 'credit-card-type/dist/types';
 import * as React from 'react';
 
 import { useCreditCardContext } from './credit-card-context';
@@ -125,8 +127,9 @@ const HiperLogo = React.forwardRef<SVGSVGElement, BrandSvgProps>(function HiperL
   );
 });
 
-// Maps brand keys from credit-card-type to logo components
-const brandLogoMap: Record<string, React.ForwardRefExoticComponent<BrandSvgProps & React.RefAttributes<SVGSVGElement>>> = {
+type BrandLogoComponent = React.ForwardRefExoticComponent<BrandSvgProps & React.RefAttributes<SVGSVGElement>>;
+
+const brandLogoMap: Partial<Record<CreditCardTypeCardBrandId, BrandLogoComponent>> = {
   visa: VisaLogo,
   mastercard: MastercardLogo,
   'american-express': AmexLogo,
@@ -145,40 +148,31 @@ const brandLogoMap: Record<string, React.ForwardRefExoticComponent<BrandSvgProps
 // CreditCard.BrandLogo — renders detected card brand's SVG logo
 // ---------------------------------------------------------------------------
 
-const brandDisplayNames: Record<string, string> = {
-  visa: 'Visa',
-  mastercard: 'Mastercard',
-  'american-express': 'American Express',
-  discover: 'Discover',
-  'diners-club': 'Diners Club',
-  jcb: 'JCB',
-  unionpay: 'UnionPay',
-  maestro: 'Maestro',
-  elo: 'Elo',
-  mir: 'Mir',
-  hiper: 'Hiper',
-  hipercard: 'Hipercard',
-};
-
 interface CreditCardBrandLogoProps extends React.ComponentPropsWithoutRef<'svg'> {
-  /** Override detected brand (from context) with a specific brand key */
-  brand?: string;
+  /**
+   * Override detected brand (from context) with a specific brand key.
+   * Accepts any `CreditCardTypeCardBrandId` from the `credit-card-type` library.
+   */
+  brand?: CreditCardTypeCardBrandId;
 }
 
 const CreditCardBrandLogo = React.forwardRef<SVGSVGElement, CreditCardBrandLogoProps>(
   function CreditCardBrandLogo(props, forwardedRef) {
     const { brand: brandProp, className, ...rest } = props;
     const { cardType } = useCreditCardContext();
-    const brand = brandProp ?? cardType;
-    const Logo = brand ? brandLogoMap[brand] : undefined;
+    const brand = (brandProp ?? cardType) as CreditCardTypeCardBrandId | null;
+    if (!brand) return null;
 
+    const Logo = brandLogoMap[brand];
     if (!Logo) return null;
+
+    const niceType = creditCardType.getTypeInfo(brand)?.niceType;
 
     return (
       <Logo
         ref={forwardedRef}
         role="img"
-        aria-label={(brand && brandDisplayNames[brand]) ?? brand ?? 'Credit card'}
+        aria-label={niceType ?? brand ?? 'Credit card'}
         className={classNames('fui-CreditCardBrandLogo', className)}
         {...rest}
       />

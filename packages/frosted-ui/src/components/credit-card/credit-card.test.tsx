@@ -734,7 +734,7 @@ describe('BrandLogo aria-label', () => {
         <CreditCardContent>
           <CreditCardFront />
           <CreditCardBack>
-            <CreditCardBrandLogo data-testid="logo" brand="some-unknown" />
+            <CreditCardBrandLogo data-testid="logo" brand={'some-unknown' as 'visa'} />
           </CreditCardBack>
         </CreditCardContent>
       </CreditCardRoot>,
