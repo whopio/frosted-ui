@@ -67,7 +67,17 @@ function cursorAfterFormat(formatted: string, digitCount: number): number {
 }
 
 function formatExpiry(raw: string): string {
+  const hasSlash = raw.includes('/');
   const digits = raw.replace(/\D/g, '').slice(0, 4);
+
+  if (hasSlash && digits.length === 1) {
+    return '0' + digits + '/';
+  }
+
+  if (hasSlash && digits.length === 2) {
+    return digits.slice(0, 2) + '/';
+  }
+
   if (digits.length <= 2) return digits;
   return digits.slice(0, 2) + '/' + digits.slice(2);
 }
@@ -644,7 +654,7 @@ const CreditCardExpiry = React.forwardRef<HTMLInputElement, CreditCardExpiryProp
 
         input.value = formatted;
 
-        const newCursor = cursorAfterFormat(formatted, dc);
+        const newCursor = formatted.endsWith('/') ? formatted.length : cursorAfterFormat(formatted, dc);
         requestAnimationFrame(() => {
           input.setSelectionRange(newCursor, newCursor);
         });

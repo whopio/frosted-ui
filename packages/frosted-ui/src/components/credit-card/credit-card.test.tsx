@@ -478,6 +478,52 @@ describe('Expiry input formatting', () => {
     expect(input.value).toBe('12/34');
   });
 
+  it('pads single-digit month when slash is typed (e.g. 1/ → 01/)', () => {
+    render(<TestCardBack />);
+    const input = screen.getByTestId('expiry-input') as HTMLInputElement;
+    simulateInputChange(input, '1/');
+    expect(input.value).toBe('01/');
+  });
+
+  it('accepts user-typed slash with two-digit month (e.g. 12/29)', () => {
+    render(<TestCardBack />);
+    const input = screen.getByTestId('expiry-input') as HTMLInputElement;
+    simulateInputChange(input, '12/29');
+    expect(input.value).toBe('12/29');
+  });
+
+  it('preserves slash when year digits are deleted (e.g. 01/2 → backspace → 01/)', () => {
+    render(<TestCardBack />);
+    const input = screen.getByTestId('expiry-input') as HTMLInputElement;
+    simulateInputChange(input, '01/');
+    expect(input.value).toBe('01/');
+  });
+
+  it('places caret after slash when month is padded (1/ → 01/)', () => {
+    const rafSpy = vi.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => { cb(0); return 0; });
+    render(<TestCardBack />);
+    const input = screen.getByTestId('expiry-input') as HTMLInputElement;
+    const setSelectionSpy = vi.spyOn(input, 'setSelectionRange');
+    simulateInputChange(input, '1/');
+    expect(input.value).toBe('01/');
+    expect(setSelectionSpy).toHaveBeenLastCalledWith(3, 3);
+    rafSpy.mockRestore();
+    setSelectionSpy.mockRestore();
+  });
+
+  it('places caret after slash when year digit is backspaced (01/2 → 01/)', () => {
+    const rafSpy = vi.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => { cb(0); return 0; });
+    render(<TestCardBack />);
+    const input = screen.getByTestId('expiry-input') as HTMLInputElement;
+    simulateInputChange(input, '01/25');
+    const setSelectionSpy = vi.spyOn(input, 'setSelectionRange');
+    simulateInputChange(input, '01/');
+    expect(input.value).toBe('01/');
+    expect(setSelectionSpy).toHaveBeenLastCalledWith(3, 3);
+    rafSpy.mockRestore();
+    setSelectionSpy.mockRestore();
+  });
+
   it('pre-formats defaultValue on mount', () => {
     render(<TestCardBack expiryProps={{ defaultValue: '1127' }} />);
     const input = screen.getByTestId('expiry-input') as HTMLInputElement;
