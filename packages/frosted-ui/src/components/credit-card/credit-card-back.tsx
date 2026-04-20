@@ -12,7 +12,7 @@ interface CreditCardBackState extends Record<string, unknown> {
 interface CreditCardBackProps
   extends useRender.ComponentProps<'div', CreditCardBackState> {
   /**
-   * Accent color for the back face. Overrides the Root-level `color`.
+   * Accent color override for the back face. When omitted, inherits from Content.
    */
   color?: string;
 }

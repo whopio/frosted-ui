@@ -7,48 +7,8 @@ import './credit-card.css';
 const meta = {
   title: 'Components/CreditCard',
   component: CreditCard.Root,
-  args: {
-    color: undefined,
-  },
-  argTypes: {
-    color: {
-      control: 'select',
-      options: [
-        undefined,
-        'gray',
-        'gold',
-        'bronze',
-        'brown',
-        'yellow',
-        'amber',
-        'orange',
-        'tomato',
-        'red',
-        'ruby',
-        'crimson',
-        'pink',
-        'plum',
-        'purple',
-        'violet',
-        'iris',
-        'indigo',
-        'blue',
-        'cyan',
-        'teal',
-        'jade',
-        'green',
-        'grass',
-        'lime',
-        'mint',
-        'sky',
-        'lemon',
-        'danger',
-        'warning',
-        'success',
-        'info',
-      ],
-    },
-  },
+  args: {},
+  argTypes: {},
   parameters: {
     layout: 'centered',
   },
@@ -736,14 +696,14 @@ export const Colors: Story = {
           </div>
           {colors.map((color) => (
             <div key={color} style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
-              <CreditCard.Root color={color} defaultFace="front">
-                <CreditCard.Content>
+              <CreditCard.Root defaultFace="front">
+                <CreditCard.Content color={color}>
                   <CardFront />
                   <ColoredBack state={inputState} />
                 </CreditCard.Content>
               </CreditCard.Root>
-              <CreditCard.Root color={color} defaultFace="back">
-                <CreditCard.Content>
+              <CreditCard.Root defaultFace="back">
+                <CreditCard.Content color={color}>
                   <CardFront />
                   <ColoredBack state={inputState} />
                 </CreditCard.Content>
@@ -854,8 +814,8 @@ export const CardBrands: Story = {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
           {cardBrands.map(({ brand, brandKey, number, cvv, cvvLabel, color }) => (
             <div key={brand} style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
-              <CreditCard.Root color={color} defaultFace="front">
-                <CreditCard.Content>
+              <CreditCard.Root defaultFace="front">
+                <CreditCard.Content color={color}>
                   <CreditCard.Front>
                     <CreditCard.FrontHeader>
                       <CreditCard.Logo><WhopLogo /></CreditCard.Logo>
@@ -869,8 +829,8 @@ export const CardBrands: Story = {
                   <CreditCard.Back />
                 </CreditCard.Content>
               </CreditCard.Root>
-              <CreditCard.Root color={color} defaultFace="back">
-                <CreditCard.Content>
+              <CreditCard.Root defaultFace="back">
+                <CreditCard.Content color={color}>
                   <CreditCard.Front />
                   <CreditCard.Back>
                     <CreditCard.MagStripe />

@@ -23,8 +23,8 @@
  *   and CVV render input fields (use `readOnly` for presentational usage).
  *
  * Sub-components:
- *   Root      — Context provider, face state management (no visual output)
- *   Content   — Card container with 3D flip transform
+ *   Root      — Renderless context provider, face state management
+ *   Content   — Card container with 3D flip transform, accepts accent `color`
  *   Front     — Front face wrapper
  *   Back      — Back face wrapper
  *   Trigger   — Button that toggles between faces
