@@ -674,14 +674,13 @@ const CreditCardCVV = React.forwardRef<HTMLInputElement, CreditCardCVVProps>(
     const { cardType } = useCreditCardContext();
     const codeInfo = cardType ? creditCardType.getTypeInfo(cardType)?.code : null;
     const cvcSize = codeInfo?.size ?? 3;
-    const cvcLabel = codeInfo?.name ?? 'CVV';
 
     return (
       <CreditCardInput
         inputMode="numeric"
         type="password"
         maxLength={cvcSize}
-        placeholder={cvcLabel}
+        placeholder={'0'.repeat(cvcSize)}
         autoComplete="cc-csc"
         {...props}
         ref={forwardedRef}
