@@ -22,8 +22,9 @@ const DEFAULT_GAPS = [4, 8, 12];
 const DEFAULT_MAX_LENGTH = 16;
 
 function getCardInfo(digits: string) {
+  if (!digits) return { type: null as string | null, gaps: DEFAULT_GAPS, lengths: [DEFAULT_MAX_LENGTH], code: { size: 3, name: 'CVV' } };
   const results = creditCardType(digits);
-  if (results.length > 0) return results[0];
+  if (results.length === 1) return results[0];
   return { type: null as string | null, gaps: DEFAULT_GAPS, lengths: [DEFAULT_MAX_LENGTH], code: { size: 3, name: 'CVV' } };
 }
 
