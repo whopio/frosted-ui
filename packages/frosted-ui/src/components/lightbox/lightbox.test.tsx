@@ -888,8 +888,11 @@ describe('Lightbox', () => {
         resolveFinished = r;
       });
 
-      const startViewTransition = vi.fn((callback: () => void) => {
-        callback();
+      const startViewTransition = vi.fn((callback: () => void | Promise<void>) => {
+        const result = callback();
+        if (result && typeof (result as Promise<void>).then === 'function') {
+          (result as Promise<void>).catch(vi.fn());
+        }
         return { finished: finishedPromise };
       });
 
@@ -983,8 +986,11 @@ describe('Lightbox', () => {
       let resolveOpen: () => void;
       let resolveClose: () => void;
 
-      const startViewTransition = vi.fn((callback: () => void) => {
-        callback();
+      const startViewTransition = vi.fn((callback: () => void | Promise<void>) => {
+        const result = callback();
+        if (result && typeof (result as Promise<void>).then === 'function') {
+          (result as Promise<void>).catch(vi.fn());
+        }
         if (startViewTransition.mock.calls.length === 1) {
           return { finished: new Promise<void>((r) => { resolveOpen = r; }) };
         }
@@ -1012,8 +1018,11 @@ describe('Lightbox', () => {
       let resolveOpen: () => void;
       let resolveClose: () => void;
 
-      const startViewTransition = vi.fn((callback: () => void) => {
-        callback();
+      const startViewTransition = vi.fn((callback: () => void | Promise<void>) => {
+        const result = callback();
+        if (result && typeof (result as Promise<void>).then === 'function') {
+          (result as Promise<void>).catch(vi.fn());
+        }
         if (startViewTransition.mock.calls.length === 1) {
           return { finished: new Promise<void>((r) => { resolveOpen = r; }) };
         }
@@ -1037,6 +1046,63 @@ describe('Lightbox', () => {
 
       await act(async () => resolveClose!());
       expect(completeSpy).toHaveBeenCalledWith(false);
+    });
+
+    describe('image decode before open transition', () => {
+      it('does not delay open when item has no real image to decode', () => {
+        const { startViewTransition } = mockViewTransitionAPI();
+
+        render(<TestLightbox viewTransition />);
+        fireEvent.click(screen.getByTestId('trigger-0'));
+
+        expect(startViewTransition).toHaveBeenCalledOnce();
+        expect(screen.getByTestId('content')).toBeInTheDocument();
+      });
+
+      it('passes an async callback to startViewTransition on open', () => {
+        const { startViewTransition } = mockViewTransitionAPI();
+
+        render(<TestLightbox viewTransition />);
+        fireEvent.click(screen.getByTestId('trigger-0'));
+
+        expect(startViewTransition).toHaveBeenCalledOnce();
+        const callback = startViewTransition.mock.calls[0][0];
+        expect(callback.constructor.name).toBe('AsyncFunction');
+      });
+
+      it('close VT callback is not async (no decode needed on close)', async () => {
+        const callbacks: Array<() => void | Promise<void>> = [];
+        let resolveOpen: () => void;
+        let resolveClose: () => void;
+        const startViewTransition = vi.fn((cb: () => void | Promise<void>) => {
+          callbacks.push(cb);
+          const result = cb();
+          if (result && typeof (result as Promise<void>).then === 'function') {
+            (result as Promise<void>).catch(vi.fn());
+          }
+          if (startViewTransition.mock.calls.length === 1) {
+            return { finished: new Promise<void>((r) => { resolveOpen = r; }) };
+          }
+          return { finished: new Promise<void>((r) => { resolveClose = r; }) };
+        });
+        Object.defineProperty(document, 'startViewTransition', {
+          value: startViewTransition,
+          writable: true,
+          configurable: true,
+        });
+
+        render(<TestLightbox viewTransition />);
+        fireEvent.click(screen.getByTestId('trigger-0'));
+        await act(async () => resolveOpen!());
+
+        fireEvent.click(screen.getByTestId('close'));
+
+        expect(callbacks).toHaveLength(2);
+        expect(callbacks[0].constructor.name).toBe('AsyncFunction');
+        expect(callbacks[1].constructor.name).not.toBe('AsyncFunction');
+
+        await act(async () => resolveClose!());
+      });
     });
 
     it('does not use VT when prefers-reduced-motion is set', () => {

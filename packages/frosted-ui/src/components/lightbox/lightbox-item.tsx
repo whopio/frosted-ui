@@ -35,6 +35,15 @@ const itemStateAttributesMapping = {
  *
  * When the item is active, registers its DOM element in context
  * so view transitions can morph to/from it.
+ *
+ * **Image loading tip:** For the smoothest open transition, images inside
+ * the active item should be eagerly loaded so they are decoded before the
+ * View Transition captures the "new" snapshot. If you use Next.js
+ * `<Image>`, set `loading="eager"` (or `priority`/`preload`) on images
+ * rendered inside `Lightbox.Item`. The lightbox waits up to 200ms for
+ * the image to decode before starting the morph; `loading="lazy"` images
+ * that haven't started fetching may miss this window and appear blank
+ * during the opening animation.
  */
 const LightboxItem = React.forwardRef<HTMLDivElement, LightboxItemProps>(
   function LightboxItem(props, forwardedRef) {
