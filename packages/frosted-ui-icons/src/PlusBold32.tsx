@@ -13,11 +13,8 @@ export const PlusBold32 = ({ color = 'currentColor', ...props }: IconProps) => {
       {...props}
     >
       <path
-        d="M16 2V16M16 30V16M16 16H2M16 16H30"
-        stroke={color}
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        d="M16 1C16.5523 1 17 1.44772 17 2V15H30C30.5523 15 31 15.4477 31 16C31 16.5523 30.5523 17 30 17H17V30C17 30.5523 16.5523 31 16 31C15.4477 31 15 30.5523 15 30V17H2C1.44772 17 1 16.5523 1 16C1 15.4477 1.44772 15 2 15H15V2C15 1.44772 15.4477 1 16 1Z"
+        fill={color}
       />
     </svg>
   );

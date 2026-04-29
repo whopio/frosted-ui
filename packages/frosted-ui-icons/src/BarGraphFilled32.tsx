@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const BarGraphFilled32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M8.59961 20C9.37281 20 10 20.6272 10 21.4004V29.5996C10 30.3728 9.37281 31 8.59961 31H2.40039C1.62719 31 1 30.3728 1 29.5996V21.4004C1 20.6272 1.62719 20 2.40039 20H8.59961ZM19.5996 1C20.3728 1 21 1.62719 21 2.40039V29.5996C21 30.3728 20.3728 31 19.5996 31H12.4004C11.6272 31 11 30.3728 11 29.5996V2.40039C11 1.62719 11.6272 1 12.4004 1H19.5996ZM29.5996 12C30.3728 12 31 12.6272 31 13.4004V29.5996C31 30.3728 30.3728 31 29.5996 31H23.4004C22.6272 31 22 30.3728 22 29.5996V13.4004C22 12.6272 22.6272 12 23.4004 12H29.5996Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+BarGraphFilled32.category = 'Stats & Charts';
+
+export default BarGraphFilled32;

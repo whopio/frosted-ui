@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const CreditCard20 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M16.249 3C18.3201 3.00004 19.999 4.67896 19.999 6.75V13.25C19.999 15.321 18.3201 17 16.249 17H3.75C1.67907 16.9998 0 15.321 0 13.25V6.75C0 4.67903 1.67907 3.00017 3.75 3H16.249ZM1.5 13.25C1.5 14.4925 2.5075 15.4998 3.75 15.5H16.249C17.4916 15.5 18.499 14.4926 18.499 13.25V8.5H1.5V13.25ZM8.03613 12C8.45035 12 8.78613 12.3358 8.78613 12.75C8.78613 13.1642 8.45035 13.5 8.03613 13.5H4.1123C3.6983 13.4998 3.3623 13.1641 3.3623 12.75C3.3623 12.3359 3.6983 12.0002 4.1123 12H8.03613ZM3.75 4.5C2.5075 4.50017 1.5 5.50746 1.5 6.75V7H18.499V6.75C18.499 5.50738 17.4916 4.50004 16.249 4.5H3.75Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+CreditCard20.category = 'Money & Shopping';
+
+export default CreditCard20;

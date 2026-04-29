@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const ClockBold20 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M10 0.5C15.2467 0.5 19.5 4.75329 19.5 10C19.5 15.2467 15.2467 19.5 10 19.5C4.75329 19.5 0.5 15.2467 0.5 10C0.5 4.75329 4.75329 0.5 10 0.5ZM10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5ZM10 4.5C10.5523 4.5 11 4.94772 11 5.5V10.0186L13.125 11.7188C13.5563 12.0638 13.6263 12.6937 13.2812 13.125C12.9362 13.5563 12.3063 13.6263 11.875 13.2812L9.375 11.2812L9.29102 11.2051C9.10575 11.0188 9 10.7657 9 10.5V5.5C9 4.94772 9.44772 4.5 10 4.5Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+ClockBold20.category = 'Interface General';
+
+export default ClockBold20;

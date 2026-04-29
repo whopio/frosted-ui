@@ -13,11 +13,8 @@ export const PlusSmall12 = ({ color = 'currentColor', ...props }: IconProps) => 
       {...props}
     >
       <path
-        d="M6 2.75V6M6 9.25V6M6 6H2.75M6 6H9.25"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        d="M6 2C6.41421 2 6.75 2.33579 6.75 2.75V5.25H9.25C9.66421 5.25 10 5.58579 10 6C10 6.41421 9.66421 6.75 9.25 6.75H6.75V9.25C6.75 9.66421 6.41421 10 6 10C5.58579 10 5.25 9.66421 5.25 9.25V6.75H2.75C2.33579 6.75 2 6.41421 2 6C2 5.58579 2.33579 5.25 2.75 5.25H5.25V2.75C5.25 2.33579 5.58579 2 6 2Z"
+        fill={color}
       />
     </svg>
   );

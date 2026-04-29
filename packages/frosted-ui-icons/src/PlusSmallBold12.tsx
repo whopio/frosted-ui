@@ -12,7 +12,10 @@ export const PlusSmallBold12 = ({ color = 'currentColor', ...props }: IconProps)
       data-fui-icon="true"
       {...props}
     >
-      <path d="M6 3V6M6 9V6M6 6H3M6 6H9" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M6 2C6.55228 2 7 2.44772 7 3V5H9C9.55228 5 10 5.44772 10 6C10 6.55228 9.55228 7 9 7H7V9C7 9.55228 6.55228 10 6 10C5.44772 10 5 9.55228 5 9V7H3C2.44772 7 2 6.55228 2 6C2 5.44772 2.44772 5 3 5H5V3C5 2.44772 5.44772 2 6 2Z"
+        fill={color}
+      />
     </svg>
   );
 };

@@ -13,11 +13,8 @@ export const PlusBoldFilled16 = ({ color = 'currentColor', ...props }: IconProps
       {...props}
     >
       <path
-        d="M8 2.25V8M8 13.75V8M8 8H2.25M8 8H13.75"
-        stroke={color}
-        strokeWidth="3"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        d="M8 0.75C8.82843 0.75 9.5 1.42157 9.5 2.25V6.5H13.75C14.5784 6.5 15.25 7.17157 15.25 8C15.25 8.82843 14.5784 9.5 13.75 9.5H9.5V13.75C9.5 14.5784 8.82843 15.25 8 15.25C7.17157 15.25 6.5 14.5784 6.5 13.75V9.5H2.25C1.42157 9.5 0.75 8.82843 0.75 8C0.75 7.17157 1.42157 6.5 2.25 6.5H6.5V2.25C6.5 1.42157 7.17157 0.75 8 0.75Z"
+        fill={color}
       />
     </svg>
   );

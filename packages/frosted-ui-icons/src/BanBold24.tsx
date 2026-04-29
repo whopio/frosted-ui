@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const BanBold24 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M12 0.5C18.3513 0.5 23.5 5.64873 23.5 12C23.5 18.3513 18.3513 23.5 12 23.5C5.64873 23.5 0.5 18.3513 0.5 12C0.5 5.64873 5.64873 0.5 12 0.5ZM6.02734 19.3857C7.65927 20.7071 9.73663 21.5 12 21.5C17.2467 21.5 21.5 17.2467 21.5 12C21.5 9.73663 20.7071 7.65927 19.3857 6.02734L6.02734 19.3857ZM12 2.5C6.75329 2.5 2.5 6.75329 2.5 12C2.5 14.2629 3.29246 16.3399 4.61328 17.9717L17.9717 4.61328C16.3399 3.29246 14.2629 2.5 12 2.5Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+BanBold24.category = 'Interface General';
+
+export default BanBold24;
