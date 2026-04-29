@@ -43,9 +43,10 @@ const ContextMenuContentContext = React.createContext<ContextMenuContentContextV
 
 interface ContextMenuContentProps
   extends
-    Omit<React.ComponentProps<typeof ContextMenuPrimitive.Popup>, 'className' | 'render'>,
+    Omit<React.ComponentProps<typeof ContextMenuPrimitive.Popup>, 'className' | 'render' | 'style'>,
     ContextMenuContentContextValue {
   className?: string;
+  style?: React.CSSProperties;
   container?: React.ComponentProps<typeof ContextMenuPrimitive.Portal>['container'];
   keepMounted?: React.ComponentProps<typeof ContextMenuPrimitive.Portal>['keepMounted'];
   // Positioner props
@@ -279,9 +280,10 @@ ContextMenuSubTrigger.displayName = 'ContextMenuSubTrigger';
 // SubContent
 interface ContextMenuSubContentProps extends Omit<
   React.ComponentProps<typeof ContextMenuPrimitive.Popup>,
-  'className' | 'render'
+  'className' | 'render' | 'style'
 > {
   className?: string;
+  style?: React.CSSProperties;
   container?: React.ComponentProps<typeof ContextMenuPrimitive.Portal>['container'];
   keepMounted?: React.ComponentProps<typeof ContextMenuPrimitive.Portal>['keepMounted'];
   // Positioner props

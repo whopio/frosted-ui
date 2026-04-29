@@ -59,8 +59,10 @@ const SheetOverlay = ({ className, ...props }: SheetOverlayProps) => (
 );
 SheetOverlay.displayName = 'SheetOverlay';
 
-interface SheetContentProps extends Omit<React.ComponentProps<typeof DrawerPrimitive.Content>, 'className' | 'render'> {
+interface SheetContentProps
+  extends Omit<React.ComponentProps<typeof DrawerPrimitive.Content>, 'className' | 'render' | 'style'> {
   className?: string;
+  style?: React.CSSProperties;
 }
 
 const SheetContent = ({ className, children, ...props }: SheetContentProps) => {

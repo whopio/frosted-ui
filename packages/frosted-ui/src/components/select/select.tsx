@@ -15,8 +15,9 @@ type SelectRootOwnProps = GetPropDefTypes<typeof selectRootPropDefs>;
 
 // Internal context for passing values from Root to children
 interface SelectContextValue extends SelectRootOwnProps {
-  // Store items for label lookup in trigger - flexible type to handle both array and record formats
-  itemsForLabelLookup?: readonly { value: unknown; label?: React.ReactNode }[] | Record<string, React.ReactNode>;
+  // Store items for label lookup in trigger. Mirrors Base UI's broadened `items` type
+  // (record, array of `{ value, label }`, or array of grouped items).
+  itemsForLabelLookup?: SelectPrimitive.Root.Props<unknown>['items'];
   // Store itemToStringLabel for label lookup when items is not provided
   valueLabelFormatter?: (value: unknown) => string;
 }
@@ -155,8 +156,10 @@ SelectTrigger.displayName = 'SelectTrigger';
 
 type SelectContentOwnProps = GetPropDefTypes<typeof selectContentPropDefs>;
 interface SelectContentProps
-  extends Omit<React.ComponentProps<typeof SelectPrimitive.Popup>, 'className' | 'render'>, SelectContentOwnProps {
+  extends Omit<React.ComponentProps<typeof SelectPrimitive.Popup>, 'className' | 'render' | 'style'>,
+    SelectContentOwnProps {
   className?: string;
+  style?: React.CSSProperties;
   container?: React.ComponentProps<typeof SelectPrimitive.Portal>['container'];
   /** @deprecated Use alignItemWithTrigger={false} instead */
   position?: 'item-aligned' | 'popper';

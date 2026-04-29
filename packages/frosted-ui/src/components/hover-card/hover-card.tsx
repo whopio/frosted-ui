@@ -58,7 +58,7 @@ type PopupProps = React.ComponentProps<typeof PreviewCardPrimitive.Popup>;
 type HoverCardContentOwnProps = GetPropDefTypes<typeof hoverCardContentPropDefs>;
 interface HoverCardContentProps
   extends
-    Omit<PopupProps, 'className' | 'render'>,
+    Omit<PopupProps, 'className' | 'render' | 'style'>,
     Pick<
       PositionerProps,
       | 'side'
@@ -73,6 +73,7 @@ interface HoverCardContentProps
     >,
     HoverCardContentOwnProps {
   className?: string;
+  style?: React.CSSProperties;
   container?: PortalProps['container'];
   keepMounted?: PortalProps['keepMounted'];
   /** The alignment of the content relative to the trigger. */

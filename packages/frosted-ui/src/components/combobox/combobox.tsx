@@ -303,8 +303,10 @@ ComboboxClear.displayName = 'ComboboxClear';
 // ============================================================================
 
 interface ComboboxContentProps
-  extends Omit<React.ComponentProps<typeof ComboboxPrimitive.Popup>, 'className' | 'render'>, ComboboxContentOwnProps {
+  extends Omit<React.ComponentProps<typeof ComboboxPrimitive.Popup>, 'className' | 'render' | 'style'>,
+    ComboboxContentOwnProps {
   className?: string;
+  style?: React.CSSProperties;
   container?: React.ComponentProps<typeof ComboboxPrimitive.Portal>['container'];
   keepMounted?: React.ComponentProps<typeof ComboboxPrimitive.Portal>['keepMounted'];
   anchor?: React.ComponentProps<typeof ComboboxPrimitive.Positioner>['anchor'];

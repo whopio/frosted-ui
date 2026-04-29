@@ -48,8 +48,9 @@ function DrawerTrigger<T = unknown>({ children, ...props }: DrawerTriggerProps<T
 DrawerTrigger.displayName = 'DrawerTrigger';
 
 // Content
-interface DrawerContentProps extends Omit<PopupProps, 'className' | 'render'> {
+interface DrawerContentProps extends Omit<PopupProps, 'className' | 'render' | 'style'> {
   className?: string;
+  style?: React.CSSProperties;
   container?: PortalProps['container'];
   keepMounted?: PortalProps['keepMounted'];
 }

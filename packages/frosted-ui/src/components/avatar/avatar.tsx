@@ -9,9 +9,10 @@ import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 import { getInitials } from '../../helpers/get-initials';
 
 type AvatarOwnProps = GetPropDefTypes<typeof avatarPropDefs>;
-interface AvatarProps extends PropsWithoutColor<typeof AvatarPrimitive.Image>, AvatarOwnProps {
+interface AvatarProps extends Omit<PropsWithoutColor<typeof AvatarPrimitive.Image>, 'style'>, AvatarOwnProps {
   // TODO: See if we can automate making prop defs with `required: true` non nullable
   fallback: NonNullable<AvatarOwnProps['fallback']>;
+  style?: React.CSSProperties;
 }
 
 const Avatar = (props: AvatarProps) => {
