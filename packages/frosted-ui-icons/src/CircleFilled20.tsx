@@ -12,7 +12,7 @@ export const CircleFilled20 = ({ color = 'currentColor', ...props }: IconProps) 
       data-fui-icon="true"
       {...props}
     >
-      <circle cx="10" cy="10" r="8.25" fill={color} stroke={color} strokeWidth="1.5" />
+      <circle cx="10" cy="10" r="8.75" fill={color} stroke={color} strokeWidth="1.5" />
     </svg>
   );
 };

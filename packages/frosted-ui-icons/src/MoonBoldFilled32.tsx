@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const MoonBoldFilled32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M16 0.5C16.4138 0.5 16.6246 0.989075 16.385 1.32645C15.1974 2.99908 14.498 5.0424 14.498 7.25C14.498 12.9109 19.0871 17.5 24.748 17.5C26.9548 17.5 28.9967 16.8003 30.6688 15.6132C31.0078 15.3725 31.5 15.5842 31.5 16C31.5 24.5604 24.5604 31.5 16 31.5C7.43959 31.5 0.5 24.5604 0.5 16C0.5 7.43959 7.43959 0.5 16 0.5Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+MoonBoldFilled32.category = 'Nature & Weather';
+
+export default MoonBoldFilled32;

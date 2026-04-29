@@ -1,0 +1,27 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const PaperAirplaneUpRightFilled12 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="13"
+      height="13"
+      viewBox="0 0 13 13"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M10.1203 0.279949C11.7237 -0.237706 13.2394 1.27776 12.7214 2.88107L9.9498 11.4599C9.30551 13.4528 6.51308 13.5277 5.76204 11.5726L4.86456 9.23406L7.83523 6.26338C8.13779 5.96083 8.13769 5.47019 7.83523 5.16757C7.53263 4.86498 7.04202 4.86498 6.73942 5.16757L3.76875 8.13825L1.42446 7.23791C-0.530913 6.48657 -0.454804 3.69383 1.53861 3.05015L10.1203 0.279949Z"
+        fill={color}
+        fillRule="evenodd"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+};
+
+PaperAirplaneUpRightFilled12.category = 'Communication';
+
+export default PaperAirplaneUpRightFilled12;

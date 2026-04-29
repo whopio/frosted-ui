@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const ClockBoldFilled16 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M8 0.5C12.1421 0.5 15.5 3.85786 15.5 8C15.5 12.1421 12.1421 15.5 8 15.5C3.85786 15.5 0.5 12.1421 0.5 8C0.5 3.85786 3.85786 0.5 8 0.5ZM8 4C7.44778 4 7.0001 4.4478 7 5V8.5C7.00004 8.76811 7.10773 9.02336 7.2959 9.20996L7.38086 9.28516L8.99316 10.5547C9.4269 10.8963 10.0557 10.8222 10.3975 10.3887C10.7391 9.95479 10.6643 9.32605 10.2305 8.98438L9 8.01465V5C8.9999 4.4478 8.55222 4 8 4Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+ClockBoldFilled16.category = 'Interface General';
+
+export default ClockBoldFilled16;

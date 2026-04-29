@@ -12,7 +12,7 @@ export const CircleBold20 = ({ color = 'currentColor', ...props }: IconProps) =>
       data-fui-icon="true"
       {...props}
     >
-      <circle cx="10" cy="10" r="8" stroke={color} strokeWidth="2" />
+      <circle cx="10" cy="10" r="8.5" stroke={color} strokeWidth="2" />
     </svg>
   );
 };

@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const ExclamationCircleBoldFilled24 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M12 0.5C18.3513 0.5 23.5 5.64873 23.5 12C23.5 18.3513 18.3513 23.5 12 23.5C5.64873 23.5 0.5 18.3513 0.5 12C0.5 5.64873 5.64873 0.5 12 0.5ZM12 15.625C11.2406 15.625 10.625 16.2406 10.625 17V17.0195L10.6318 17.1602C10.702 17.8537 11.2879 18.3945 12 18.3945C12.7594 18.3945 13.375 17.7789 13.375 17.0195V17C13.375 16.2406 12.7594 15.625 12 15.625ZM12 5C11.4477 5 11 5.44772 11 6V12.75C11 13.3023 11.4477 13.75 12 13.75C12.5523 13.75 13 13.3023 13 12.75V6C13 5.44772 12.5523 5 12 5Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+ExclamationCircleBoldFilled24.category = 'Interface General';
+
+export default ExclamationCircleBoldFilled24;
