@@ -211,6 +211,40 @@ export const DisableHoverablePopup: Story = {
   ),
 };
 
+export const CloseOnClick: Story = {
+  name: 'Close on Click',
+  args: {
+    content: 'Tooltip',
+  },
+  render: function Render() {
+    const [closedCount, setClosedCount] = React.useState(0);
+    const [keptOpenCount, setKeptOpenCount] = React.useState(0);
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
+        <Text render={<div />} style={{ maxWidth: 460, textAlign: 'center' }}>
+          By default, tooltips dismiss when their trigger is clicked. Set <Code>closeOnClick={'{false}'}</Code> to keep
+          the tooltip visible after the click — useful when the tooltip describes an action that does not navigate or
+          remove the trigger from the layout.
+        </Text>
+
+        <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
+          <Tooltip content="Closes after click (default)" delay={0}>
+            <Button variant="soft" onClick={() => setClosedCount((c) => c + 1)}>
+              closeOnClick: true ({closedCount})
+            </Button>
+          </Tooltip>
+          <Tooltip content="Stays open after click" delay={0} closeOnClick={false}>
+            <Button variant="soft" onClick={() => setKeptOpenCount((c) => c + 1)}>
+              closeOnClick: false ({keptOpenCount})
+            </Button>
+          </Tooltip>
+        </div>
+      </div>
+    );
+  },
+};
+
 export const ControlledMode: Story = {
   name: 'Controlled Mode',
   args: {
