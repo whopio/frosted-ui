@@ -58,9 +58,10 @@ const DropdownMenuContentContext = React.createContext<DropdownMenuContentContex
 
 interface DropdownMenuContentProps
   extends
-    Omit<React.ComponentProps<typeof MenuPrimitive.Popup>, 'className' | 'render'>,
+    Omit<React.ComponentProps<typeof MenuPrimitive.Popup>, 'className' | 'render' | 'style'>,
     DropdownMenuContentContextValue {
   className?: string;
+  style?: React.CSSProperties;
   container?: React.ComponentProps<typeof MenuPrimitive.Portal>['container'];
   keepMounted?: React.ComponentProps<typeof MenuPrimitive.Portal>['keepMounted'];
   // Positioner props
@@ -289,9 +290,10 @@ DropdownMenuSubTrigger.displayName = 'DropdownMenuSubTrigger';
 
 interface DropdownMenuSubContentProps extends Omit<
   React.ComponentProps<typeof MenuPrimitive.Popup>,
-  'className' | 'render'
+  'className' | 'render' | 'style'
 > {
   className?: string;
+  style?: React.CSSProperties;
   container?: React.ComponentProps<typeof MenuPrimitive.Portal>['container'];
   keepMounted?: React.ComponentProps<typeof MenuPrimitive.Portal>['keepMounted'];
   // Positioner props

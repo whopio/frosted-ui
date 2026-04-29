@@ -61,8 +61,11 @@ const AlertDialogContentContext = React.createContext<AlertDialogContentContextV
 type PopupProps = React.ComponentProps<typeof AlertDialogPrimitive.Popup>;
 type PortalProps = React.ComponentProps<typeof AlertDialogPrimitive.Portal>;
 
-interface AlertDialogContentProps extends Omit<PopupProps, 'className' | 'render'>, AlertDialogContentOwnProps {
+interface AlertDialogContentProps
+  extends Omit<PopupProps, 'className' | 'render' | 'style'>,
+    AlertDialogContentOwnProps {
   className?: string;
+  style?: React.CSSProperties;
   container?: PortalProps['container'];
   keepMounted?: PortalProps['keepMounted'];
 }

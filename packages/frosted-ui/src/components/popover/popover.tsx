@@ -48,9 +48,10 @@ PopoverTrigger.displayName = 'PopoverTrigger';
 type PopoverContentOwnProps = GetPropDefTypes<typeof popoverContentPropDefs>;
 interface PopoverContentProps extends Omit<
   React.ComponentProps<typeof PopoverPrimitive.Popup>,
-  'className' | 'render'
+  'className' | 'render' | 'style'
 > {
   className?: string;
+  style?: React.CSSProperties;
   container?: React.ComponentProps<typeof PopoverPrimitive.Portal>['container'];
   keepMounted?: React.ComponentProps<typeof PopoverPrimitive.Portal>['keepMounted'];
   // Positioner props

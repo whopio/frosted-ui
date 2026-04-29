@@ -33,6 +33,11 @@ interface TooltipProps extends TooltipOwnProps {
   delay?: number;
   closeDelay?: number;
   /**
+   * Whether the tooltip should close when the trigger is clicked.
+   * @default true
+   */
+  closeOnClick?: boolean;
+  /**
    * Whether the tooltip contents can be hovered without closing the tooltip.
    * @default false
    */
@@ -70,6 +75,7 @@ const TooltipImpl = (props: TooltipProps) => {
     onOpenChangeComplete,
     delay = 400,
     closeDelay,
+    closeOnClick,
     disableHoverablePopup,
     trackCursorAxis,
     actionsRef,
@@ -99,6 +105,7 @@ const TooltipImpl = (props: TooltipProps) => {
   const triggerProps = {
     delay,
     closeDelay,
+    closeOnClick,
   };
 
   const positionerProps = {

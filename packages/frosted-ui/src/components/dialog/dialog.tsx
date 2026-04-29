@@ -60,8 +60,9 @@ const DialogContentContext = React.createContext<DialogContentContextValue>({
   size: dialogContentPropDefs.size.default,
 });
 
-interface DialogContentProps extends Omit<PopupProps, 'className' | 'render'>, DialogContentOwnProps {
+interface DialogContentProps extends Omit<PopupProps, 'className' | 'render' | 'style'>, DialogContentOwnProps {
   className?: string;
+  style?: React.CSSProperties;
   container?: PortalProps['container'];
   keepMounted?: PortalProps['keepMounted'];
 }

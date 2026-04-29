@@ -112,9 +112,10 @@ AutocompleteClear.displayName = 'AutocompleteClear';
 
 interface AutocompleteContentProps
   extends
-    Omit<React.ComponentProps<typeof AutocompletePrimitive.Popup>, 'className' | 'render'>,
+    Omit<React.ComponentProps<typeof AutocompletePrimitive.Popup>, 'className' | 'render' | 'style'>,
     AutocompleteContentOwnProps {
   className?: string;
+  style?: React.CSSProperties;
   container?: React.ComponentProps<typeof AutocompletePrimitive.Portal>['container'];
   keepMounted?: React.ComponentProps<typeof AutocompletePrimitive.Portal>['keepMounted'];
   // Positioner props
