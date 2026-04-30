@@ -56,7 +56,18 @@ export const Render: Story = {
   render: (args) => (
     <div style={{ display: 'flex', gap: 'var(--space-4)' }}>
       <Avatar {...args} />
-      <Avatar {...args} render={<img style={{ filter: 'grayscale(1)' }} />} />
+      <Avatar
+        {...args}
+        render={({ className, src, srcSet, style, ...props }) => (
+          <img
+            {...props}
+            className={className}
+            style={{ ...style, filter: 'grayscale(1)' }}
+            src={src}
+            srcSet={srcSet}
+          />
+        )}
+      />
     </div>
   ),
 };

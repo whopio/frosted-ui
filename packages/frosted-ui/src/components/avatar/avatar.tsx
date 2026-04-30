@@ -9,10 +9,14 @@ import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 import { getInitials } from '../../helpers/get-initials';
 
 type AvatarOwnProps = GetPropDefTypes<typeof avatarPropDefs>;
-interface AvatarProps extends Omit<PropsWithoutColor<typeof AvatarPrimitive.Image>, 'style'>, AvatarOwnProps {
+type AvatarImageRenderProps = React.ComponentPropsWithRef<'img'>;
+type AvatarImageRender = React.ReactElement | ((props: AvatarImageRenderProps) => React.ReactNode);
+
+interface AvatarProps extends Omit<PropsWithoutColor<typeof AvatarPrimitive.Image>, 'style' | 'render'>, AvatarOwnProps {
   // TODO: See if we can automate making prop defs with `required: true` non nullable
   fallback: NonNullable<AvatarOwnProps['fallback']>;
   style?: React.CSSProperties;
+  render?: AvatarImageRender;
 }
 
 const Avatar = (props: AvatarProps) => {
@@ -24,6 +28,7 @@ const Avatar = (props: AvatarProps) => {
     highContrast = avatarPropDefs.highContrast.default,
     fallback: fallbackProp,
     shape = avatarPropDefs.shape.default,
+    render,
     onLoadingStatusChange,
     ...imageProps
   } = props;
@@ -60,6 +65,7 @@ const Avatar = (props: AvatarProps) => {
       </AvatarPrimitive.Fallback>
       <AvatarPrimitive.Image
         className="fui-AvatarImage"
+        render={render as React.ComponentProps<typeof AvatarPrimitive.Image>['render']}
         onLoadingStatusChange={onLoadingStatusChange}
         {...imageProps}
       />
