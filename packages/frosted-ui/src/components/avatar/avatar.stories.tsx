@@ -41,7 +41,8 @@ export const Default: Story = {
         {...args}
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Malus_domestica_a1.jpg/500px-Malus_domestica_a1.jpg"
       />
-      {/* <Avatar {...args} /> */}
+      <Avatar {...args} fallback="No Source" />
+      <Avatar {...args} fallback="Broken Source" src="https://example.com/this-image-does-not-exist.jpg" />
     </div>
   ),
 };

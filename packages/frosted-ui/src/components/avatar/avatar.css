@@ -40,10 +40,10 @@
   outline-offset: -1px;
   opacity: 1;
 
-  /* &:where([data-hydrated][data-error]),
+  &:where([data-hydrated][data-error]),
   &:where([data-hydrated][data-loading]) {
     opacity: 0;
-  } */
+  }
 }
 
 .fui-AvatarFallback {
@@ -64,6 +64,11 @@
   outline-offset: -1px;
 
   background-color: var(--accent-a3);
+  opacity: 0;
+
+  &:where([data-hydrated][data-error]) {
+    opacity: 1;
+  }
 
   &:where([data-loaded]),
   &:where(:not([data-hydrated])) {

@@ -69,7 +69,7 @@
     "release": "turbo-module publish"
   },
   "dependencies": {
-    "@base-ui/react": "https://pkg.pr.new/mui/base-ui/@base-ui/react@18af1dc",
+    "@base-ui/react": "https://pkg.pr.new/mui/base-ui/@base-ui/react@e08a134",
     "@frosted-ui/colors": "0.0.1-canary.61",
     "@internationalized/date": "^3.5.6",
     "@react-aria/calendar": "^3.5.13",
