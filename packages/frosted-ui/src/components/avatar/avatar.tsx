@@ -50,11 +50,6 @@ const Avatar = (props: AvatarProps) => {
       )}
       style={style}
     >
-      <AvatarPrimitive.Image
-        className="fui-AvatarImage"
-        onLoadingStatusChange={onLoadingStatusChange}
-        {...imageProps}
-      />
       <AvatarPrimitive.Fallback
         className={classNames('fui-AvatarFallback', {
           'fui-one-letter': typeof fallback === 'string' && fallback.length === 1,
@@ -63,6 +58,11 @@ const Avatar = (props: AvatarProps) => {
       >
         {fallback}
       </AvatarPrimitive.Fallback>
+      <AvatarPrimitive.Image
+        className="fui-AvatarImage"
+        onLoadingStatusChange={onLoadingStatusChange}
+        {...imageProps}
+      />
     </AvatarPrimitive.Root>
   );
 };
@@ -70,3 +70,4 @@ Avatar.displayName = 'Avatar';
 
 export { Avatar };
 export type { AvatarProps };
+

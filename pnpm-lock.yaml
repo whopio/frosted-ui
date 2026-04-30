@@ -100,8 +100,8 @@ importers:
   packages/frosted-ui:
     dependencies:
       '@base-ui/react':
-        specifier: ^1.4.1
-        version: 1.4.1(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: https://pkg.pr.new/mui/base-ui/@base-ui/react@18af1dc
+        version: https://pkg.pr.new/mui/base-ui/@base-ui/react@18af1dc(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@frosted-ui/colors':
         specifier: 0.0.1-canary.61
         version: 0.0.1-canary.61
@@ -149,7 +149,7 @@ importers:
         version: 2.8.0
       vaul-base:
         specifier: ^1.0.0
-        version: 1.0.0(@base-ui/react@1.4.1(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        version: 1.0.0(@base-ui/react@https://pkg.pr.new/mui/base-ui/@base-ui/react@18af1dc(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
     devDependencies:
       '@frosted-ui/icons':
         specifier: workspace:*
@@ -1160,8 +1160,9 @@ packages:
     resolution: {integrity: sha512-qQ5m48eI/MFLQ5PxQj4PFaprjyCTLI37ElWMmNs0K8Lk3dVeOdNpB3ks8jc7yM5CDmVC73eMVk/trk3fgmrUpA==}
     engines: {node: '>=6.9.0'}
 
-  '@base-ui/react@1.4.1':
-    resolution: {integrity: sha512-Ab5/LIhcmL8BQcsBUYiOfkSDRdLpvgUBzMK30cu684JPcLclYlztharvCZyNNgzJtbAiREzI9q0pI5erHCMgCw==}
+  '@base-ui/react@https://pkg.pr.new/mui/base-ui/@base-ui/react@18af1dc':
+    resolution: {tarball: https://pkg.pr.new/mui/base-ui/@base-ui/react@18af1dc}
+    version: 1.4.1
     engines: {node: '>=14.0.0'}
     peerDependencies:
       '@date-fns/tz': ^1.2.0
@@ -1177,8 +1178,9 @@ packages:
       date-fns:
         optional: true
 
-  '@base-ui/utils@0.2.8':
-    resolution: {integrity: sha512-jvOi+c+ftGlGotNcKnzPVg2IhCaDTB6/6R3JeqdjdXktuAJi3wKH9T7+svuaKh1mmfVU11UWzUZVH74JDfi/wQ==}
+  '@base-ui/utils@https://pkg.pr.new/mui/base-ui/@base-ui/utils@18af1dc5a1eee58f52e4aeb352a67b0e05fb9714':
+    resolution: {tarball: https://pkg.pr.new/mui/base-ui/@base-ui/utils@18af1dc5a1eee58f52e4aeb352a67b0e05fb9714}
+    version: 0.2.8
     peerDependencies:
       '@types/react': 19.1.10
       react: ^17 || ^18 || ^19
@@ -9842,6 +9844,7 @@ packages:
 
   vaul-base@1.0.0:
     resolution: {integrity: sha512-M7B3EV8HzN24+QOqobZThl/S/weVizURcAsIZxdP9RYRjY20t9S/P1oNMTkLpFEh2oyLvVEH4vc5a3oJsr+eFA==}
+    version: 1.0.0
     peerDependencies:
       '@base-ui/react': ^1.0.0
       react: ^16.8 || ^17.0 || ^18.0 || ^19.0.0 || ^19.0.0-rc
@@ -10876,10 +10879,10 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
 
-  '@base-ui/react@1.4.1(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@base-ui/react@https://pkg.pr.new/mui/base-ui/@base-ui/react@18af1dc(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@babel/runtime': 7.29.2
-      '@base-ui/utils': 0.2.8(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@base-ui/utils': https://pkg.pr.new/mui/base-ui/@base-ui/utils@18af1dc5a1eee58f52e4aeb352a67b0e05fb9714(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@floating-ui/react-dom': 2.1.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@floating-ui/utils': 0.2.11
       react: 19.1.0
@@ -10888,7 +10891,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.1.10
 
-  '@base-ui/utils@0.2.8(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@base-ui/utils@https://pkg.pr.new/mui/base-ui/@base-ui/utils@18af1dc5a1eee58f52e4aeb352a67b0e05fb9714(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@babel/runtime': 7.29.2
       '@floating-ui/utils': 0.2.11
@@ -13439,9 +13442,7 @@ snapshots:
       metro-runtime: 0.83.3
     transitivePeerDependencies:
       - '@babel/core'
-      - bufferutil
       - supports-color
-      - utf-8-validate
     optional: true
 
   '@react-native/normalize-colors@0.74.89': {}
@@ -21364,9 +21365,9 @@ snapshots:
 
   vary@1.1.2: {}
 
-  vaul-base@1.0.0(@base-ui/react@1.4.1(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  vaul-base@1.0.0(@base-ui/react@https://pkg.pr.new/mui/base-ui/@base-ui/react@18af1dc(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
-      '@base-ui/react': 1.4.1(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@base-ui/react': https://pkg.pr.new/mui/base-ui/@base-ui/react@18af1dc(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 

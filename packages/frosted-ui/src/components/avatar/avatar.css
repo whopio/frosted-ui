@@ -8,10 +8,6 @@
   height: var(--avatar-size);
   flex-shrink: 0;
 
-  outline: 1px solid var(--accent-a5);
-  outline-offset: -1px;
-
-  background-color: var(--accent-a3);
   border-radius: max(25%, var(--radius-full));
 
   & :where(.fui-AvatarFallback) {
@@ -23,7 +19,7 @@
   &:where(.fui-shape-circle) {
     --radius-full: var(--radius-thumb);
   }
-  &:where(:has(.fui-AvatarImage)) {
+  &:where(:has(.fui-AvatarImage[data-loaded])) {
     outline: none;
     background: none;
   }
@@ -42,6 +38,12 @@
 
   outline: 1px solid var(--gray-a5);
   outline-offset: -1px;
+  opacity: 1;
+
+  /* &:where([data-hydrated][data-error]),
+  &:where([data-hydrated][data-loading]) {
+    opacity: 0;
+  } */
 }
 
 .fui-AvatarFallback {
@@ -57,6 +59,16 @@
   justify-content: center;
   line-height: 1;
   border-radius: inherit;
+
+  outline: 1px solid var(--accent-a5);
+  outline-offset: -1px;
+
+  background-color: var(--accent-a3);
+
+  &:where([data-loaded]),
+  &:where(:not([data-hydrated])) {
+    opacity: 0;
+  }
 }
 
 /***************************************************************************************************

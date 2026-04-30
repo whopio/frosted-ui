@@ -21,6 +21,14 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+function RemountButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button type="button" onClick={onClick}>
+      Remount avatars
+    </button>
+  );
+}
+
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Default: Story = {
   args: {
@@ -31,7 +39,7 @@ export const Default: Story = {
     <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
       <Avatar
         {...args}
-        src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Malus_domestica_a1.jpg/500px-Malus_domestica_a1.jpg"
       />
       {/* <Avatar {...args} /> */}
     </div>
@@ -43,47 +51,61 @@ export const Shape: Story = {
     fallback: 'Cameron Zoub',
     color: 'blue',
   },
-  render: (args) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-      <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
-        <Avatar
-          {...args}
-          src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
-          shape="circle"
-        />
-        <Avatar {...args} shape="circle" />
+  render: (args) => {
+    const [instanceKey, setInstanceKey] = React.useState(0);
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+        <RemountButton onClick={() => setInstanceKey((key) => key + 1)} />
+        <div key={instanceKey} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+          <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+            <Avatar
+              {...args}
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Malus_domestica_a1.jpg/500px-Malus_domestica_a1.jpg"
+              shape="circle"
+            />
+            <Avatar {...args} shape="circle" />
+          </div>
+          <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+            <Avatar
+              {...args}
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Malus_domestica_a1.jpg/500px-Malus_domestica_a1.jpg"
+              shape="square"
+            />
+            <Avatar {...args} shape="square" />
+          </div>
+        </div>
       </div>
-      <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
-        <Avatar
-          {...args}
-          src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
-          shape="square"
-        />
-        <Avatar {...args} shape="square" />
-      </div>
-    </div>
-  ),
+    );
+  },
 };
 
 export const Size: Story = {
   args: {
     fallback: 'Cameron Zoub',
-    src: 'https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Malus_domestica_a1.jpg/500px-Malus_domestica_a1.jpg',
     color: 'blue',
   },
-  render: (args) => (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
-      <Avatar {...args} size="0" />
-      <Avatar {...args} size="1" />
-      <Avatar {...args} size="2" />
-      <Avatar {...args} size="3" />
-      <Avatar {...args} size="4" />
-      <Avatar {...args} size="5" />
-      <Avatar {...args} size="6" />
-      <Avatar {...args} size="7" />
-      <Avatar {...args} size="8" />
-    </div>
-  ),
+  render: (args) => {
+    const [instanceKey, setInstanceKey] = React.useState(0);
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+        <RemountButton onClick={() => setInstanceKey((key) => key + 1)} />
+        <div key={instanceKey} style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
+          <Avatar {...args} size="0" />
+          <Avatar {...args} size="1" />
+          <Avatar {...args} size="2" />
+          <Avatar {...args} size="3" />
+          <Avatar {...args} size="4" />
+          <Avatar {...args} size="5" />
+          <Avatar {...args} size="6" />
+          <Avatar {...args} size="7" />
+          <Avatar {...args} size="8" />
+        </div>
+      </div>
+    );
+  },
 };
 
 export const Color: Story = {
