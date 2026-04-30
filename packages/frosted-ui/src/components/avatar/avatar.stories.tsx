@@ -47,6 +47,20 @@ export const Default: Story = {
   ),
 };
 
+export const Render: Story = {
+  args: {
+    fallback: 'Cameron Zoub',
+    color: 'blue',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Malus_domestica_a1.jpg/500px-Malus_domestica_a1.jpg',
+  },
+  render: (args) => (
+    <div style={{ display: 'flex', gap: 'var(--space-4)' }}>
+      <Avatar {...args} />
+      <Avatar {...args} render={<img style={{ filter: 'grayscale(1)' }} />} />
+    </div>
+  ),
+};
+
 export const Shape: Story = {
   args: {
     fallback: 'Cameron Zoub',
