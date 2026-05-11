@@ -47,7 +47,7 @@
     "url": "https://github.com/whopio/frosted-ui/issues"
   },
   "scripts": {
-    "generate-src": "generate-icon-lib --file=Qz3t7Yi565N2u4l3Ha1w99 && cd ./icons && zip -r ../frosted-ui-icons.zip ./",
+    "generate-src": "generate-icon-lib --file=JoDwTV19wxmaK3iv5NLa0Z && cd ./icons && zip -r ../frosted-ui-icons.zip ./",
     "clean": "rimraf dist",
     "build": "pnpm clean && pnpm build:js",
     "build:js": "pnpm build:js:cjs && pnpm build:js:esm",

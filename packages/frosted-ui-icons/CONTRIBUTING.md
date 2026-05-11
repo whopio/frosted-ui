@@ -9,11 +9,11 @@ Further instructions can be found in the readme for `generate-icon-lib`.
 
 #### Vector Icons
 
-Access the [Figma file](https://www.figma.com/file/fxRLy35tq3pm2zNy5lAFfL/), make changes, then run `pnpm generate-src` and open a PR.
+Access the [Figma file](https://www.figma.com/design/JoDwTV19wxmaK3iv5NLa0Z/), make changes, then run `pnpm generate-src` and open a PR.
 
 There are a couple things to keep in mind when making changes:
 
-1. Name for the primary page should remain "Icons"
+1. The primary page must be named "Icons" (a leading emoji such as "🚻 Icons" is allowed)
 2. Naming convention for top-level frames inform `type` and `size` groupings
 3. The `type` and `size` of the last top-level frame becomes the default values for the React Component
 

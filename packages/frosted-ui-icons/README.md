@@ -3,7 +3,7 @@
 <p align="center">Icons used and designed by the <a href="https://whop.com/">Whop</a> team</p>
 
 <h3 align="center">
-  <a href="https://www.figma.com/design/Qz3t7Yi565N2u4l3Ha1w99">Figma file</a>
+  <a href="https://www.figma.com/design/JoDwTV19wxmaK3iv5NLa0Z">Figma file</a>
 </h3>
 
 <img width="1185" alt="Screenshot 2024-08-07 at 12 35 01" src="https://github.com/user-attachments/assets/bc38e63e-0d83-4ccc-8a7c-2f2dbf63c0fc">
