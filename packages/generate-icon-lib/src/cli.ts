@@ -1,5 +1,6 @@
 import meow from 'meow';
 import path from 'path';
+import { DEFAULT_FIGMA_FILE_KEY } from './consts';
 import {
   createFigmaConfig,
   downloadSvgsToFs,
@@ -22,14 +23,15 @@ async function main() {
   const cli = meow(
     `
 	Usage
-	  $ ${path.basename(process.argv[1])} --file=<file-key>
+	  $ ${path.basename(process.argv[1])} [--file=<file-key>]
 
 	Options
-	  --file, -f    File Key from Figma
+	  --file, -f    File Key from Figma (defaults to the Frosted Design System file: ${DEFAULT_FIGMA_FILE_KEY})
 	  --help        Show this message
 
 	Examples
-	  $ ${path.basename(process.argv[1])} --file=EEggMA9IV81CYzCSI8LFEUOY
+	  $ ${path.basename(process.argv[1])}
+	  $ ${path.basename(process.argv[1])} --file=${DEFAULT_FIGMA_FILE_KEY}
 `,
     {
       hardRejection: false,
@@ -37,14 +39,11 @@ async function main() {
         file: {
           type: 'string',
           alias: 'f',
+          default: DEFAULT_FIGMA_FILE_KEY,
         },
       },
     },
   );
-
-  if (!cli.flags.file) {
-    cli.showHelp(1);
-  }
 
   const figmaConfig = createFigmaConfig(cli.flags.file);
   render({ fileKey: cli.flags.file });
@@ -64,7 +63,7 @@ async function main() {
   if (!iconsCanvas) {
     throw new CodedError(
       ERRORS.NO_ICONS_PAGE,
-      'Expected an "Product Icons" page to exist in the Figma File. Please rename your primary page to "Product Icons" if you have not already.',
+      'Expected an "Icons" page to exist in the Figma File. Please make sure your icons live on a page named "Icons" (decorative emoji prefixes are allowed).',
     );
   }
 
@@ -74,7 +73,7 @@ async function main() {
   if (!iconIds.length) {
     throw new CodedError(
       ERRORS.NO_ICONS_IN_SETS,
-      'Expected one or more icon-sets to be in the "Product Icons" page. Please try again when you have created Frames to group icon-sets; refer to documentation for more details.',
+      'Expected one or more icon-sets to be in the "Icons" page. Please try again when you have created Frames to group icon-sets; refer to documentation for more details.',
     );
   }
 

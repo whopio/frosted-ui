@@ -283,7 +283,13 @@ export async function renderIdsToSvgs(
 }
 
 export function getIconsPage(document: IFigmaDocument): IFigmaCanvas | null {
-  const canvas = document.children.find((page) => page.name.toLowerCase() === 'product icons');
+  // The icons page in the Frosted Design System file is named "🚻  Icons"
+  // (with an emoji prefix and leading whitespace), so we normalize the name
+  // by stripping non-alphanumeric characters before comparing.
+  const normalize = (name: string) => name.replace(/[^a-z0-9]/gi, '').toLowerCase();
+  const canvas = document.children.find(
+    (page) => page.type === 'CANVAS' && (normalize(page.name) === 'icons' || normalize(page.name) === 'producticons'),
+  );
 
   return canvas && canvas.type === 'CANVAS' ? canvas : null;
 }

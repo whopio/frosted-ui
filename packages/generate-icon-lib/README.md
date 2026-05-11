@@ -3,12 +3,15 @@
 ## Usage
 
 ```shell
-generate-icon-lib --file=<figma-file-key>
+generate-icon-lib [--file=<figma-file-key>]
 ```
+
+When run without `--file`, the CLI defaults to the [Frosted Design System](https://www.figma.com/design/JoDwTV19wxmaK3iv5NLa0Z/) Figma file (`JoDwTV19wxmaK3iv5NLa0Z`).
 
 _The `figma-file-key` can be sourced from the link to a Figma document:_
 
-- `https://www.figma.com/file/<figma-file-key>`
+- `https://www.figma.com/design/<figma-file-key>/...`
+- `https://www.figma.com/file/<figma-file-key>/...`
 
 ### Authentication with Figma
 
