@@ -15,6 +15,16 @@ type IconComponent = React.FC<{ style?: React.CSSProperties }> & {
 const ICON_SIZES = ['12', '16', '20', '24', '32'] as const;
 type IconSize = (typeof ICON_SIZES)[number];
 
+// Pictograms are also exported from `@frosted-ui/icons` (under the `Pictogram`
+// suffix and with category `'Pictograms'`) but they have a different API and
+// shouldn't appear in the icon demos. They have their own dedicated story
+// at "Utilities/Pictograms".
+function isPictogramExport(name: string, value: unknown): boolean {
+  if (typeof value !== 'function') return false;
+  if (name.endsWith('Pictogram')) return true;
+  return (value as IconComponent).category === 'Pictograms';
+}
+
 // Parsed icon info
 interface ParsedIcon {
   fullName: string;
@@ -36,6 +46,7 @@ function getAllParsedIcons(): ParsedIcon[] {
   const icons: ParsedIcon[] = [];
 
   Object.entries(Icons).forEach(([name, Icon]) => {
+    if (isPictogramExport(name, Icon)) return;
     const parsed = parseIconName(name);
     if (!parsed) return;
 
@@ -183,18 +194,20 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'row', width: 400, flexWrap: 'wrap', padding: 24, margin: '0 auto' }}>
-      {Object.entries(Icons).map(([name, Icon]) => (
-        <div key={name} style={{ width: '20%', padding: 8 }}>
-          <Tooltip disableHoverablePopup content={name} delay={0} closeDelay={0}>
-            {/* @ts-ignore */}
-            <Icon
-              style={{
-                color: 'var(--gray-a10)',
-              }}
-            />
-          </Tooltip>
-        </div>
-      ))}
+      {Object.entries(Icons)
+        .filter(([name, Icon]) => !isPictogramExport(name, Icon))
+        .map(([name, Icon]) => (
+          <div key={name} style={{ width: '20%', padding: 8 }}>
+            <Tooltip disableHoverablePopup content={name} delay={0} closeDelay={0}>
+              {/* @ts-ignore */}
+              <Icon
+                style={{
+                  color: 'var(--gray-a10)',
+                }}
+              />
+            </Tooltip>
+          </div>
+        ))}
     </div>
   ),
 };
