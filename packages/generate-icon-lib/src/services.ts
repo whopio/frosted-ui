@@ -37,6 +37,7 @@ import {
   ITemplateIcon,
 } from './types';
 import { fetch, getSvgo, handleError, pushObjLeafNodesToArr } from './utils';
+import { analyzePictogramAlignment, injectFillStrokeLookups, serializeLookup } from './pictogram-merge';
 import { render } from './view';
 
 const transformers = {
@@ -439,13 +440,12 @@ function safeIdentifierStart(name: string): string {
   return `${DIGIT_WORDS[parseInt(m[1], 10)]}${m[2]}`;
 }
 
-function pictogramJsxName(pictogramName: string, backgroundName: string): string {
+function pictogramJsxName(pictogramName: string): string {
   // Insert whitespace between lower↔upper boundaries so lodash preserves any
   // existing camel-casing inside the name (e.g. 'GradCap' stays 'GradCap').
   const splitForCamel = (s: string) => s.replace(/([0-9a-z])([0-9A-Z])/g, '$1 $2');
   const pictogramPart = safeIdentifierStart(_.upperFirst(_.camelCase(splitForCamel(pictogramName))));
-  const backgroundPart = _.upperFirst(_.camelCase(splitForCamel(backgroundName)));
-  return `${pictogramPart}${backgroundPart}Pictogram`;
+  return `${pictogramPart}Pictogram`;
 }
 
 /**
@@ -478,7 +478,10 @@ function isPictogramContainer(node: any): boolean {
  */
 export function getPictograms(canvas: IFigmaCanvas): IIcons {
   const swag: IIcons = {};
-  const seenJsxNames = new Set<string>();
+  // Dedup by `${jsxName}/${background}` so we don't emit two variants of the same
+  // pictogram for the same background (the Figma file occasionally has duplicate
+  // entries, e.g. two "pictogram=Grad Cap, background=Light").
+  const seenVariantKeys = new Set<string>();
 
   // Find the top-level "Pictogram(s)" container (case-insensitive). Anything
   // outside of this container on the page (e.g. promo art, color swatch
@@ -522,16 +525,19 @@ export function getPictograms(canvas: IFigmaCanvas): IIcons {
       // they're likely unrelated to the pictogram set.
       if (!pictogramName || !backgroundName) return;
 
-      const jsxName = pictogramJsxName(pictogramName, backgroundName);
+      // jsxName is the GROUP name shared across all backgrounds for this
+      // pictogram (e.g. all of Cone/Light, Cone/Dark, Cone/Orange share
+      // jsxName = 'ConePictogram'). svgName is per-variant so the SVG files on
+      // disk stay distinct and reviewable.
+      const jsxName = pictogramJsxName(pictogramName);
       const svgName = _.kebabCase(`${safeIdentifierStart(pictogramName)} ${backgroundName} pictogram`);
+      const variantKey = `${jsxName}/${backgroundName.toLowerCase()}`;
 
-      // Dedup by jsxName: the Figma file occasionally has duplicate variants
-      // (e.g. two "pictogram=Grad Cap, background=Light" entries). First one wins.
-      if (seenJsxNames.has(jsxName)) {
-        console.warn(`Skipping duplicate pictogram variant: ${variant.name} (${jsxName})`);
+      if (seenVariantKeys.has(variantKey)) {
+        console.warn(`Skipping duplicate pictogram variant: ${variant.name} (${jsxName} / ${backgroundName})`);
         return;
       }
-      seenJsxNames.add(jsxName);
+      seenVariantKeys.add(variantKey);
 
       render({ fileKey: `${pictogramName} / ${backgroundName} 🎨` });
 
@@ -604,20 +610,31 @@ export function filePathToSVGinJSXSync(filePath: string) {
 }
 
 export async function generateReactComponents(icons: IIcons, mode: GeneratorMode = 'icons') {
-  const getTemplateSource = (templateFile) =>
+  const getTemplateSource = (templateFile: string) =>
     fs.readFile(path.resolve(__dirname, './templates/', templateFile), {
       encoding: 'utf8',
     });
   const templates = {
     entry: await getTemplateSource('entry.tsx.ejs'),
-    icon: await getTemplateSource(mode === 'pictograms' ? 'pictogram.tsx.ejs' : 'named-icon.tsx.ejs'),
+    icon: mode === 'pictograms' ? '' : await getTemplateSource('named-icon.tsx.ejs'),
+    pictogramMerged: mode === 'pictograms' ? await getTemplateSource('pictogram-merged.tsx.ejs') : '',
+    pictogramSwitched: mode === 'pictograms' ? await getTemplateSource('pictogram-switched.tsx.ejs') : '',
     types: await getTemplateSource(mode === 'pictograms' ? 'pictogram-types.tsx' : 'types.tsx'),
   };
   const firstIcon = Object.values(icons)[0];
   console.log(firstIcon.svgName);
+
+  // Group variants into one ITemplateIcon per generated component.
+  //   - Icons mode: each variant has a unique jsxName (e.g. `ArrowUp12`, `ArrowUp16`)
+  //     so each one becomes its own component, exactly as before.
+  //   - Pictograms mode: all background variants of a pictogram share a single
+  //     jsxName (e.g. all of Cone/Light, /Dark, /Orange share `ConePictogram`),
+  //     so they collapse into one ITemplateIcon whose `sizes` is the list of
+  //     backgrounds (`['light', 'dark', 'orange']`) and `ids` covers all 3.
   const iconsWithVariants = Object.values<ITemplateIcon>(
-    Object.keys(icons).reduce((iconsWithVariants: { [name: string]: ITemplateIcon }, iconId) => {
-      const icon = iconsWithVariants[icons[iconId].svgName] || {
+    Object.keys(icons).reduce((acc: { [name: string]: ITemplateIcon }, iconId) => {
+      const groupKey = icons[iconId].jsxName;
+      const icon = acc[groupKey] || {
         ids: [],
         sizes: [],
         types: [],
@@ -629,9 +646,9 @@ export async function generateReactComponents(icons: IIcons, mode: GeneratorMode
       icon.sizes = _.uniq(icon.sizes.concat(labelling.stripSizePrefix(icons[iconId].size)));
       icon.types = _.uniq(icon.types.concat(icons[iconId].type));
 
-      iconsWithVariants[icons[iconId].svgName] = icon;
+      acc[groupKey] = icon;
 
-      return iconsWithVariants;
+      return acc;
     }, {}),
   );
 
@@ -652,14 +669,20 @@ export async function generateReactComponents(icons: IIcons, mode: GeneratorMode
       return `${icon.jsxName}.tsx`;
     },
     iconToSVGSourceAsJSX(icon: ITemplateIcon, size: string, type: string) {
+      // Pick the actual variant SVG file matching this size/type — for icons
+      // there's only ever one, but for pictograms each background has its own.
+      const variantId =
+        icon.ids.find((id) => icons[id].size === labelling.addSizePrefix(size) && icons[id].type === type) ||
+        icon.ids[0];
+      const variantIcon = icons[variantId];
       const filePath = labelling.filePathFromIcon(
         {
-          id: icon.ids[0],
-          svgName: icon.svgName,
-          jsxName: icon.jsxName,
+          id: variantIcon.id,
+          svgName: variantIcon.svgName,
+          jsxName: variantIcon.jsxName,
           size,
           type,
-          category: icon.category,
+          category: variantIcon.category,
         },
         mode,
       );
@@ -671,7 +694,7 @@ export async function generateReactComponents(icons: IIcons, mode: GeneratorMode
         return icons[iconId].size === prefixedSize && icons[iconId].type === type;
       });
     },
-    stripExtension(fileName) {
+    stripExtension(fileName: string) {
       return fileName.replace(/(.*)\.\w+$/, '$1');
     },
     /**
@@ -687,18 +710,85 @@ export async function generateReactComponents(icons: IIcons, mode: GeneratorMode
   };
 
   const prettierOptions = prettier.resolveConfig.sync(process.cwd());
-  const componentsOutputDir = mode === 'pictograms' ? path.resolve(currentTempDir, FOLDER_NAME_PICTOGRAM_SRC) : path.resolve(currentTempDir, 'src');
+  const componentsOutputDir =
+    mode === 'pictograms' ? path.resolve(currentTempDir, FOLDER_NAME_PICTOGRAM_SRC) : path.resolve(currentTempDir, 'src');
   const entryFilePath = path.resolve(currentTempDir, mode === 'pictograms' ? FILE_PATH_PICTOGRAMS_ENTRY : FILE_PATH_ENTRY);
   const typesFilePath = path.resolve(currentTempDir, mode === 'pictograms' ? FILE_PATH_PICTOGRAMS_TYPES : FILE_PATH_TYPES);
 
-  /* Generate Icon Component Modules */
+  /* Generate Icon/Pictogram Component Modules */
+  let mergedCount = 0;
+  let switchedCount = 0;
   for (const i in iconsWithVariants) {
     const icon = iconsWithVariants[i];
     try {
-      const iconSourceRaw = await ejs.render(templates.icon, {
-        icon,
-        ...templateHelpers,
-      });
+      let iconSourceRaw: string;
+
+      if (mode === 'pictograms') {
+        // Read each background's processed SVG from the temp dir.
+        const svgsByVariant: Record<string, string> = {};
+        for (const variantId of icon.ids) {
+          const variantIcon = icons[variantId];
+          const filePath = path.resolve(currentTempDir, labelling.filePathFromIcon(variantIcon, mode));
+          svgsByVariant[variantIcon.size] = await fs.readFile(filePath, { encoding: 'utf8' });
+        }
+
+        // Stable, deterministic order with `'light'` placed last. The switched
+        // template uses the last entry as the fallback (no `if`-guard), and we
+        // want that fallback to match the runtime default of `variant = 'light'`.
+        const variantNames = Object.keys(svgsByVariant).sort((a, b) => {
+          if (a === 'light') return 1;
+          if (b === 'light') return -1;
+          return a.localeCompare(b);
+        });
+        const result = analyzePictogramAlignment(svgsByVariant);
+
+        if (result.aligned === true) {
+          // Aligned path: one shared geometry, fill/stroke colors picked from a lookup by variant.
+          const placeholderJsx = transformers.readyForJSX(result.analysis.placeholderSvg);
+          const jsxBody = injectFillStrokeLookups(placeholderJsx);
+          const fillsLiteral = serializeLookup(result.analysis.fillsByVariant);
+          const strokesLiteral = serializeLookup(result.analysis.strokesByVariant);
+          const hasFills = fillsLiteral !== '{}';
+          const hasStrokes = strokesLiteral !== '{}';
+
+          iconSourceRaw = await ejs.render(templates.pictogramMerged, {
+            icon,
+            jsxBody,
+            fillsLiteral,
+            strokesLiteral,
+            hasFills,
+            hasStrokes,
+            variants: variantNames,
+            ...templateHelpers,
+          });
+          mergedCount++;
+        } else {
+          // Unaligned path: inline each variant's SVG body and switch on `variant`.
+          // Sub-optimal in size, but keeps the public API uniform regardless of how
+          // consistent the source artwork is.
+          const variantBodies: Record<string, string> = {};
+          for (const variant of variantNames) {
+            variantBodies[variant] = transformers.readyForJSX(svgsByVariant[variant]);
+          }
+          console.warn(
+            `[pictograms] ${icon.jsxName}: variants couldn't be merged (${result.reason}). ` +
+              `Falling back to per-variant inlining. Consider aligning the variants in Figma.`,
+          );
+          iconSourceRaw = await ejs.render(templates.pictogramSwitched, {
+            icon,
+            variantBodies,
+            variants: variantNames,
+            ...templateHelpers,
+          });
+          switchedCount++;
+        }
+      } else {
+        iconSourceRaw = await ejs.render(templates.icon, {
+          icon,
+          ...templateHelpers,
+        });
+      }
+
       const iconSource = prettier.format(iconSourceRaw, {
         ...prettierOptions,
         parser: 'typescript',
@@ -719,6 +809,15 @@ sizes: ${sizeList}
       );
       throw error;
     }
+  }
+
+  if (mode === 'pictograms') {
+    console.log(
+      chalk.dim(
+        `[pictograms] Generated ${mergedCount + switchedCount} components ` +
+          `(${mergedCount} merged with shared geometry, ${switchedCount} fell back to per-variant inlining).`,
+      ),
+    );
   }
 
   /* Generate Entry Module */

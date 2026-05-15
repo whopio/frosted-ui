@@ -9,7 +9,7 @@ generate-icon-lib [--file=<figma-file-key>] [--type=icons|pictograms]
 The CLI has two modes, controlled by `--type`:
 
 - `--type=icons` (default) — pulls monochromatic UI icons from the [Frosted Design System](https://www.figma.com/design/JoDwTV19wxmaK3iv5NLa0Z/) file (`JoDwTV19wxmaK3iv5NLa0Z`). Looks for a page named `Icons`. Generated components live in `src/`, raw SVGs in `icons/`, and the manifest is `manifest.json`. Fills/strokes are rewritten to `currentColor`.
-- `--type=pictograms` — pulls colorful pictograms from the [Pictograms](https://www.figma.com/design/RHQS3pFnkHQE7lAbYmnRSa/) file (`RHQS3pFnkHQE7lAbYmnRSa`). Looks for a page named `Pictograms` containing component-sets whose variants use `pictogram=…, background=Light|Dark|Orange`. Generated components live in `src/pictograms/`, raw SVGs in `pictograms/`, and the manifest is `pictograms-manifest.json`. Original colors are preserved.
+- `--type=pictograms` — pulls colorful pictograms from the [Pictograms](https://www.figma.com/design/RHQS3pFnkHQE7lAbYmnRSa/) file (`RHQS3pFnkHQE7lAbYmnRSa`). Looks for a page containing a top-level `Pictogram` component-set/frame whose variants use `pictogram=…, background=Light|Dark|Orange`. Generated components live in `src/pictograms/`, raw SVGs in `pictograms/`, and the manifest is `pictograms-manifest.json`. Original colors are preserved (no `currentColor` rewriting). All three background variants of a pictogram collapse into one component selected by a `variant?: 'light' | 'dark' | 'orange'` prop (e.g. `<ConePictogram variant="dark" />`).
 
 If `--file` is omitted, the default Figma file for the chosen `--type` is used. The two modes are designed to coexist in the same package without clobbering each other's outputs.
 

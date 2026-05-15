@@ -31,15 +31,21 @@ Access the [Pictograms Figma file](https://www.figma.com/design/RHQS3pFnkHQE7lAb
 
 There are a couple things to keep in mind when making changes:
 
-1. The primary page must be named "Pictograms" (a leading emoji prefix is allowed)
+1. The primary page must be named "Pictograms" (a leading emoji prefix is allowed). The generator also accepts any page that contains a top-level `Pictogram` component-set / frame.
 2. Each pictogram must be a Figma component with two variant properties: `pictogram` (e.g. `Cone`, `GradCap`) and `background` (`Light`, `Dark`, or `Orange`)
 3. Variant names must follow Figma's standard `pictogram=Cone, background=Light` format
-4. The generated component name is `${Pictogram}${Background}Pictogram` (e.g. `ConeLightPictogram`)
+4. The generated component name is `${Pictogram}Pictogram` (e.g. `ConePictogram`) and selecting a background is done via the `variant` prop: `<ConePictogram variant="dark" />` (defaults to `'light'`)
 5. Pictogram colors are preserved as-is — fills/strokes are NOT rewritten to `currentColor`
+6. **Keep variant geometry aligned.** The generator merges the three backgrounds into a single component by sharing geometry and only swapping fill colors. For that to work, every `path` must have the same `d` (and the same set of paths) across all three backgrounds. If a pictogram's variants drift apart in Figma (e.g. one background has an extra detail path), the generator will warn and fall back to inlining each variant's full SVG body — which works but produces a larger component. Re-aligning the variants in Figma will collapse it back automatically on the next generation.
 
 #### React Component
 
-Have a look in `packages/generate-icon-lib/src/templates` for the templating code that affects the components created by `pnpm generate-src` (`named-icon.tsx.ejs`) and `pnpm generate-pictograms` (`pictogram.tsx.ejs`).
+Have a look in `packages/generate-icon-lib/src/templates` for the templating code that drives the generators:
+
+- `named-icon.tsx.ejs` — used by `pnpm generate-src`
+- `pictogram-merged.tsx.ejs` — used by `pnpm generate-pictograms` for pictograms whose background variants share geometry (the typical case)
+- `pictogram-switched.tsx.ejs` — used by `pnpm generate-pictograms` as a fallback for pictograms whose backgrounds have differing geometry
+- `pictogram-types.tsx` — emits the shared `PictogramProps` / `PictogramVariant` types
 
 Makes changes to the CLI, then re-run the relevant generator, then open a PR. Try to keep commits separated between the CLI and files created in this package.
 

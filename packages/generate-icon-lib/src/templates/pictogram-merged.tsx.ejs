@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { PictogramProps, PictogramVariant } from './types';
+
+export type <%- iconToPropsName(icon) %> = PictogramProps;
+
+<% if (hasFills) { -%>
+const FILLS: Record<PictogramVariant, Record<number, string>> = <%- fillsLiteral %>;
+<% } -%>
+<% if (hasStrokes) { -%>
+const STROKES: Record<PictogramVariant, Record<number, string>> = <%- strokesLiteral %>;
+<% } -%>
+
+export const <%- iconToComponentName(icon) %> = ({ variant = 'light', ...props }: <%- iconToPropsName(icon) %>) => {
+<% if (hasFills) { -%>
+  const f = FILLS[variant];
+<% } -%>
+<% if (hasStrokes) { -%>
+  const s = STROKES[variant];
+<% } -%>
+  return <%- jsxBody %>;
+}
+
+<%- iconToComponentName(icon) %>.category = '<%- icon.category %>';
+
+export default <%- iconToComponentName(icon) %>;

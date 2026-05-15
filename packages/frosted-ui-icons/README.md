@@ -35,27 +35,26 @@ function MyComponent() {
 
 ### Pictograms
 
-In addition to monochromatic UI icons, this package ships colorful pictograms sourced from the [Pictograms Figma file](https://www.figma.com/design/RHQS3pFnkHQE7lAbYmnRSa/). Each pictogram has three background variants — `Light`, `Dark`, and `Orange` — and is published as three separate components.
+In addition to monochromatic UI icons, this package ships colorful pictograms sourced from the [Pictograms Figma file](https://www.figma.com/design/RHQS3pFnkHQE7lAbYmnRSa/). Each pictogram is published as a single React component that takes a `variant` prop selecting one of three background-color tunings: `'light'`, `'dark'`, or `'orange'`.
 
 ```tsx
-import {
-  ConeLightPictogram,
-  ConeDarkPictogram,
-  ConeOrangePictogram,
-} from '@frosted-ui/icons';
+import { ConePictogram, GradCapPictogram } from '@frosted-ui/icons';
 
 function MyComponent() {
   return (
     <div>
-      <ConeLightPictogram />
-      <ConeDarkPictogram />
-      <ConeOrangePictogram />
+      <ConePictogram /> {/* defaults to variant="light" */}
+      <ConePictogram variant="dark" />
+      <ConePictogram variant="orange" />
+      <GradCapPictogram variant="dark" />
     </div>
   );
 }
 ```
 
-Pictograms preserve their original colors (no `currentColor` rewriting), so they don't accept a `color` prop — only the standard SVG props.
+Pictograms preserve their original colors (no `currentColor` rewriting), so they don't accept a `color` prop. Other than `variant`, they accept all standard SVG props.
+
+Internally the generator collapses the three background variants into one component by sharing geometry and switching only the per-element `fill`/`stroke` colors based on `variant`. For the rare pictogram whose variants don't share identical geometry in Figma, the component falls back to inlining each variant's SVG body — same `<NamePictogram variant="…" />` API either way.
 
 ## Configuring
 
