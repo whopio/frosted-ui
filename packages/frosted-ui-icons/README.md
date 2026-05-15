@@ -33,6 +33,30 @@ function MyComponent() {
 }
 ```
 
+### Pictograms
+
+In addition to monochromatic UI icons, this package ships colorful pictograms sourced from the [Pictograms Figma file](https://www.figma.com/design/RHQS3pFnkHQE7lAbYmnRSa/). Each pictogram has three background variants — `Light`, `Dark`, and `Orange` — and is published as three separate components.
+
+```tsx
+import {
+  ConeLightPictogram,
+  ConeDarkPictogram,
+  ConeOrangePictogram,
+} from '@frosted-ui/icons';
+
+function MyComponent() {
+  return (
+    <div>
+      <ConeLightPictogram />
+      <ConeDarkPictogram />
+      <ConeOrangePictogram />
+    </div>
+  );
+}
+```
+
+Pictograms preserve their original colors (no `currentColor` rewriting), so they don't accept a `color` prop — only the standard SVG props.
+
 ## Configuring
 
 ### next.js
@@ -43,7 +67,11 @@ function MyComponent() {
 const nextConfig = {
   modularizeImports: {
     '@frosted-ui/icons': {
-      transform: '@frosted-ui/icons/{{member}}',
+      transform: {
+        // Pictograms live under `pictograms/` in the built package.
+        '*Pictogram': '@frosted-ui/icons/pictograms/{{member}}',
+        '*': '@frosted-ui/icons/{{member}}',
+      },
       skipDefaultConversion: true,
     },
   },

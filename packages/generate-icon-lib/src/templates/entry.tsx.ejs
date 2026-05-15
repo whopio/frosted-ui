@@ -1,3 +1,6 @@
 <% for (const i in icons) { -%>
 export { default as <%- iconToComponentName(icons[i]) %> } from './<%- stripExtension(iconToReactFileName(icons[i])) %>';
 <% } %>
+<% if (typeof hasPictograms === 'function' && hasPictograms()) { -%>
+export * from './pictograms';
+<% } %>

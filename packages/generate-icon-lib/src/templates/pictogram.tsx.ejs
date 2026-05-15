@@ -1,0 +1,10 @@
+import * as React from 'react';
+import { PictogramProps } from './types';
+
+export const <%- iconToComponentName(icon) %> = (props: PictogramProps) => {
+  return <%- iconToSVGSourceAsJSX(icon, icon.sizes[0], icon.types[0]) %>
+}
+
+<%- iconToComponentName(icon) %>.category = '<%- icon.category %>';
+
+export default <%- iconToComponentName(icon) %>;

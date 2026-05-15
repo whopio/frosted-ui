@@ -3,10 +3,15 @@
 ## Usage
 
 ```shell
-generate-icon-lib [--file=<figma-file-key>]
+generate-icon-lib [--file=<figma-file-key>] [--type=icons|pictograms]
 ```
 
-When run without `--file`, the CLI defaults to the [Frosted Design System](https://www.figma.com/design/JoDwTV19wxmaK3iv5NLa0Z/) Figma file (`JoDwTV19wxmaK3iv5NLa0Z`).
+The CLI has two modes, controlled by `--type`:
+
+- `--type=icons` (default) — pulls monochromatic UI icons from the [Frosted Design System](https://www.figma.com/design/JoDwTV19wxmaK3iv5NLa0Z/) file (`JoDwTV19wxmaK3iv5NLa0Z`). Looks for a page named `Icons`. Generated components live in `src/`, raw SVGs in `icons/`, and the manifest is `manifest.json`. Fills/strokes are rewritten to `currentColor`.
+- `--type=pictograms` — pulls colorful pictograms from the [Pictograms](https://www.figma.com/design/RHQS3pFnkHQE7lAbYmnRSa/) file (`RHQS3pFnkHQE7lAbYmnRSa`). Looks for a page named `Pictograms` containing component-sets whose variants use `pictogram=…, background=Light|Dark|Orange`. Generated components live in `src/pictograms/`, raw SVGs in `pictograms/`, and the manifest is `pictograms-manifest.json`. Original colors are preserved.
+
+If `--file` is omitted, the default Figma file for the chosen `--type` is used. The two modes are designed to coexist in the same package without clobbering each other's outputs.
 
 _The `figma-file-key` can be sourced from the link to a Figma document:_
 

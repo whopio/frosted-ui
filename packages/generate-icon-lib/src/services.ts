@@ -9,10 +9,21 @@ import { Headers } from 'node-fetch';
 import * as path from 'path';
 import * as prettier from 'prettier';
 import * as tempy from 'tempy';
-import { FILE_PATH_ENTRY, FILE_PATH_MANIFEST, FILE_PATH_TYPES, FOLDER_PATH_ICONS } from './consts';
+import {
+  FILE_PATH_ENTRY,
+  FILE_PATH_MANIFEST,
+  FILE_PATH_PICTOGRAMS_ENTRY,
+  FILE_PATH_PICTOGRAMS_MANIFEST,
+  FILE_PATH_PICTOGRAMS_TYPES,
+  FILE_PATH_TYPES,
+  FOLDER_NAME_PICTOGRAM_SRC,
+  FOLDER_NAME_PICTOGRAM_SVGS,
+  FOLDER_PATH_ICONS,
+} from './consts';
 import {
   CodedError,
   ERRORS,
+  GeneratorMode,
   IDiffSummary,
   IFigmaCanvas,
   IFigmaConfig,
@@ -32,8 +43,8 @@ const transformers = {
   /**
    * Pass SVG through SVGO to reduce size.
    */
-  async passSVGO(svgRaw: string) {
-    const svgo = getSvgo();
+  async passSVGO(svgRaw: string, mode: GeneratorMode = 'icons') {
+    const svgo = getSvgo(mode);
     const { data } = await svgo.optimize(svgRaw);
     return data as string;
   },
@@ -105,7 +116,10 @@ const labelling = {
         .trim(),
     );
   },
-  filePathFromIcon(icon: IIcon): string {
+  filePathFromIcon(icon: IIcon, mode: GeneratorMode = 'icons'): string {
+    if (mode === 'pictograms') {
+      return path.join(FOLDER_NAME_PICTOGRAM_SVGS, `${icon.svgName}.svg`);
+    }
     return path.join(icon.type, 'icons', `${icon.svgName}.svg`);
   },
   stripSizePrefix(size) {
@@ -120,7 +134,29 @@ const currentTempDir = tempy.directory();
 
 const currentListOfAddedFiles = [];
 
-export async function prechecks() {
+/**
+ * Returns the list of pathspecs (relative to repo root via FOLDER_PATH_ICONS) that
+ * the given mode is allowed to write to. Used by prechecks() and getGitCustomDiff()
+ * to scope git operations so the two modes don't interfere with each other.
+ */
+function getModePathspecs(mode: GeneratorMode): string[] {
+  if (mode === 'pictograms') {
+    return [
+      path.join(FOLDER_PATH_ICONS, FOLDER_NAME_PICTOGRAM_SVGS),
+      path.join(FOLDER_PATH_ICONS, FOLDER_NAME_PICTOGRAM_SRC),
+      path.join(FOLDER_PATH_ICONS, FILE_PATH_PICTOGRAMS_MANIFEST),
+    ];
+  }
+  // Icons mode: everything in the package EXCEPT pictogram-owned paths.
+  return [
+    FOLDER_PATH_ICONS,
+    `:!${path.join(FOLDER_PATH_ICONS, FOLDER_NAME_PICTOGRAM_SVGS)}`,
+    `:!${path.join(FOLDER_PATH_ICONS, FOLDER_NAME_PICTOGRAM_SRC)}`,
+    `:!${path.join(FOLDER_PATH_ICONS, FILE_PATH_PICTOGRAMS_MANIFEST)}`,
+  ];
+}
+
+export async function prechecks(mode: GeneratorMode = 'icons') {
   /* We can't work offline. */
   isOnline().then((isOn) => {
     if (!isOn) {
@@ -133,11 +169,12 @@ export async function prechecks() {
   });
 
   /* We don't want to end up deleted work-in-progress. */
+  const pathspecs = getModePathspecs(mode);
   const [{ stdout: trackedFiles }, { stdout: untrackedFiles }] = await Promise.all([
     // Checks for uncommitted changes.
-    execa('git', ['diff-index', 'HEAD', '--', FOLDER_PATH_ICONS]),
+    execa('git', ['diff-index', 'HEAD', '--', ...pathspecs]),
     // Checks for untracked files.
-    execa('git', ['ls-files', '--others', '--exclude-standard', FOLDER_PATH_ICONS]),
+    execa('git', ['ls-files', '--others', '--exclude-standard', '--', ...pathspecs]),
   ]);
   if (trackedFiles.length > 0 || untrackedFiles.length > 0) {
     handleError(
@@ -150,10 +187,10 @@ export async function prechecks() {
     );
     console.error(`
 ${chalk.bold('Git Status')} ${chalk.dim(
-      `(${['--no-renames', '--untracked-files', '--short', '--', FOLDER_PATH_ICONS].join(' ')})`,
+      `(${['--no-renames', '--untracked-files', '--short', '--', ...pathspecs].join(' ')})`,
     )}
 `);
-    await execa('git', ['status', '--no-renames', '--untracked-files', '--short', '--', FOLDER_PATH_ICONS], {
+    await execa('git', ['status', '--no-renames', '--untracked-files', '--short', '--', ...pathspecs], {
       stdio: 'inherit',
     });
     process.exit(1);
@@ -282,11 +319,26 @@ export async function renderIdsToSvgs(
   throw lastError || new CodedError(ERRORS.FIGMA_API, 'Rate limit exceeded after maximum retries');
 }
 
-export function getIconsPage(document: IFigmaDocument): IFigmaCanvas | null {
-  // The icons page in the Frosted Design System file is named "🚻  Icons"
-  // (with an emoji prefix and leading whitespace), so we normalize the name
-  // by stripping non-alphanumeric characters before comparing.
+export function getIconsPage(document: IFigmaDocument, mode: GeneratorMode = 'icons'): IFigmaCanvas | null {
+  // Strip non-alphanumeric characters (like emoji prefixes / whitespace) before comparing.
   const normalize = (name: string) => name.replace(/[^a-z0-9]/gi, '').toLowerCase();
+
+  if (mode === 'pictograms') {
+    // The Pictograms file doesn't have a page literally named "Pictograms" — at the
+    // time of writing it's "✅  FINAL". Rather than coupling to a brittle page
+    // name, find the page that contains a top-level node named "Pictogram(s)".
+    // Note: in the live file that node is a COMPONENT_SET; we also allow FRAME/GROUP
+    // for forward-compatibility if the design ever gets restructured.
+    const containsPictogramContainer = (node: any): boolean => {
+      if (!node || !node.children) return false;
+      return node.children.some((child: any) => isPictogramContainer(child));
+    };
+    const candidate =
+      document.children.find((page) => page.type === 'CANVAS' && normalize(page.name) === 'pictograms') ||
+      document.children.find((page) => page.type === 'CANVAS' && containsPictogramContainer(page));
+    return candidate && candidate.type === 'CANVAS' ? candidate : null;
+  }
+
   const canvas = document.children.find(
     (page) => page.type === 'CANVAS' && (normalize(page.name) === 'icons' || normalize(page.name) === 'producticons'),
   );
@@ -356,16 +408,166 @@ export function getIcons(iconsCanvas: IFigmaCanvas): IIcons {
   return swag;
 }
 
-export async function downloadSvgsToFs(urls: IIconsSvgUrls, icons: IIcons, onProgress: () => void) {
+/**
+ * Parses a Figma component variant name like "pictogram=Cone, background=Light"
+ * into a normalized property map { pictogram: 'Cone', background: 'Light' }.
+ * Property names are lowercased; values keep their original case.
+ */
+function parseVariantProps(name: string): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const part of name.split(',')) {
+    const idx = part.indexOf('=');
+    if (idx === -1) continue;
+    const key = part.slice(0, idx).trim().toLowerCase();
+    const value = part.slice(idx + 1).trim();
+    if (key) out[key] = value;
+  }
+  return out;
+}
+
+const DIGIT_WORDS = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'];
+
+/**
+ * Ensures a string can serve as the start of a JS identifier. Some pictogram
+ * names start with a digit (e.g. "5G", "3D Printer") which would produce an
+ * invalid React component name. We swap a leading digit for its English word
+ * so "5G" → "FiveG" → "FiveGLightPictogram".
+ */
+function safeIdentifierStart(name: string): string {
+  const m = /^([0-9])(.*)$/.exec(name);
+  if (!m) return name;
+  return `${DIGIT_WORDS[parseInt(m[1], 10)]}${m[2]}`;
+}
+
+function pictogramJsxName(pictogramName: string, backgroundName: string): string {
+  // Insert whitespace between lower↔upper boundaries so lodash preserves any
+  // existing camel-casing inside the name (e.g. 'GradCap' stays 'GradCap').
+  const splitForCamel = (s: string) => s.replace(/([0-9a-z])([0-9A-Z])/g, '$1 $2');
+  const pictogramPart = safeIdentifierStart(_.upperFirst(_.camelCase(splitForCamel(pictogramName))));
+  const backgroundPart = _.upperFirst(_.camelCase(splitForCamel(backgroundName)));
+  return `${pictogramPart}${backgroundPart}Pictogram`;
+}
+
+/**
+ * Identifies the top-level container that holds all pictogram variants. In the
+ * current Figma file this is a COMPONENT_SET literally named "Pictogram"; we
+ * also accept FRAME/GROUP for forward-compatibility.
+ */
+function isPictogramContainer(node: any): boolean {
+  if (!node) return false;
+  const isContainerType = node.type === 'COMPONENT_SET' || node.type === 'FRAME' || node.type === 'GROUP';
+  return isContainerType && /^pictograms?$/i.test(String(node.name || '').trim());
+}
+
+/**
+ * Walks the canvas, finds the top-level "Pictogram(s)" frame, and turns each of
+ * its `COMPONENT` children (named like "pictogram=Cone, background=Light") into
+ * an IIcon entry whose jsxName/svgName follow the `${Pictogram}${Background}Pictogram`
+ * convention.
+ *
+ * Variants may be either direct `COMPONENT` children of the frame (the current
+ * Pictograms file structure), or nested inside `COMPONENT_SET` groupings (kept
+ * for forward-compatibility). Nodes whose names don't match the expected
+ * `pictogram=…, background=…` shape are silently skipped so unrelated artwork
+ * on the page won't break the run.
+ *
+ * Each variant produces a standalone, no-variant React component (rendered via
+ * the "no variants" branch of the EJS template), so we set `type='pictograms'`
+ * and `size=<background>` to land everything under a single `pictograms` bucket
+ * in the generated manifest.
+ */
+export function getPictograms(canvas: IFigmaCanvas): IIcons {
+  const swag: IIcons = {};
+  const seenJsxNames = new Set<string>();
+
+  // Find the top-level "Pictogram(s)" container (case-insensitive). Anything
+  // outside of this container on the page (e.g. promo art, color swatch
+  // backgrounds) is ignored.
+  const pictogramContainers: any[] = [];
+  function collectPictogramContainers(node: any) {
+    if (!node) return;
+    if (isPictogramContainer(node)) {
+      pictogramContainers.push(node);
+      return; // don't descend further; everything we want lives directly inside
+    }
+    if (node.children) node.children.forEach(collectPictogramContainers);
+  }
+  collectPictogramContainers(canvas);
+
+  if (pictogramContainers.length === 0) {
+    throw new CodedError(
+      ERRORS.NO_ICONS_IN_SETS,
+      'Could not find a top-level "Pictogram" container on the Pictograms page. Make sure the pictograms are grouped inside a component-set or frame named "Pictogram".',
+    );
+  }
+
+  // Walk the frame collecting any COMPONENTs we can find — both direct children
+  // (current structure) and any nested under a COMPONENT_SET (for the future).
+  const collectComponents = (node: any, acc: any[] = []): any[] => {
+    if (!node) return acc;
+    if (node.type === 'COMPONENT') acc.push(node);
+    if (node.children) node.children.forEach((child: any) => collectComponents(child, acc));
+    return acc;
+  };
+
+  pictogramContainers.forEach((container) => {
+    const components = collectComponents(container);
+
+    components.forEach((variant) => {
+      const props = parseVariantProps(variant.name);
+      const pictogramName = props.pictogram;
+      const backgroundName = props.background;
+
+      // Silently skip nodes that don't carry the variant properties we expect —
+      // they're likely unrelated to the pictogram set.
+      if (!pictogramName || !backgroundName) return;
+
+      const jsxName = pictogramJsxName(pictogramName, backgroundName);
+      const svgName = _.kebabCase(`${safeIdentifierStart(pictogramName)} ${backgroundName} pictogram`);
+
+      // Dedup by jsxName: the Figma file occasionally has duplicate variants
+      // (e.g. two "pictogram=Grad Cap, background=Light" entries). First one wins.
+      if (seenJsxNames.has(jsxName)) {
+        console.warn(`Skipping duplicate pictogram variant: ${variant.name} (${jsxName})`);
+        return;
+      }
+      seenJsxNames.add(jsxName);
+
+      render({ fileKey: `${pictogramName} / ${backgroundName} 🎨` });
+
+      swag[variant.id] = {
+        jsxName,
+        svgName,
+        id: variant.id,
+        // For pictograms there are no real "size"/"type" axes; we encode the
+        // background as `size` so the manifest groups by it, and use a fixed
+        // `type='pictograms'` so the manifest's top-level bucket is "pictograms".
+        size: backgroundName.toLowerCase(),
+        type: 'pictograms',
+        category: 'Pictograms',
+      };
+    });
+  });
+
+  return swag;
+}
+
+export async function downloadSvgsToFs(
+  urls: IIconsSvgUrls,
+  icons: IIcons,
+  mode: GeneratorMode,
+  onProgress: () => void,
+) {
   await Promise.all(
     Object.keys(urls).map(async (iconId) => {
-      const processedSvg = await (await fetch(urls[iconId]))
-        .text()
-        .then(async (svgRaw) => transformers.passSVGO(svgRaw))
-        .then((svgRaw) => transformers.injectCurrentColor(svgRaw))
-        .then((svgRaw) => transformers.prettify(svgRaw));
+      const pipeline = (await fetch(urls[iconId])).text().then(async (svgRaw) => transformers.passSVGO(svgRaw, mode));
+      // Pictograms keep their original colors; only monochromatic UI icons get
+      // their fills/strokes rewritten to "currentColor".
+      const processedSvg = await (mode === 'pictograms'
+        ? pipeline.then((svgRaw) => transformers.prettify(svgRaw))
+        : pipeline.then((svgRaw) => transformers.injectCurrentColor(svgRaw)).then((svgRaw) => transformers.prettify(svgRaw)));
 
-      const filePath = path.resolve(currentTempDir, labelling.filePathFromIcon(icons[iconId]));
+      const filePath = path.resolve(currentTempDir, labelling.filePathFromIcon(icons[iconId], mode));
       await fs.outputFile(filePath, processedSvg, { encoding: 'utf8' });
       currentListOfAddedFiles.push(filePath);
       onProgress();
@@ -373,7 +575,7 @@ export async function downloadSvgsToFs(urls: IIconsSvgUrls, icons: IIcons, onPro
   );
 }
 
-export function iconsToManifest(icons: IIcons): IIconManifest {
+export function iconsToManifest(icons: IIcons, mode: GeneratorMode = 'icons'): IIconManifest {
   return Object.keys(icons).reduce((iconManifest: IIconManifest, iconId) => {
     const icon = icons[iconId];
 
@@ -384,15 +586,15 @@ export function iconsToManifest(icons: IIcons): IIconManifest {
       iconManifest[icon.type][icon.size] = {};
     }
     if (!iconManifest[icon.type][icon.size][icon.svgName]) {
-      iconManifest[icon.type][icon.size][icon.svgName] = labelling.filePathFromIcon(icon);
+      iconManifest[icon.type][icon.size][icon.svgName] = labelling.filePathFromIcon(icon, mode);
     }
 
     return iconManifest;
   }, {});
 }
 
-export function iconsToSvgPaths(icons: IIcons) {
-  return Object.keys(icons).map((iconId) => labelling.filePathFromIcon(icons[iconId]));
+export function iconsToSvgPaths(icons: IIcons, mode: GeneratorMode = 'icons') {
+  return Object.keys(icons).map((iconId) => labelling.filePathFromIcon(icons[iconId], mode));
 }
 
 export function filePathToSVGinJSXSync(filePath: string) {
@@ -401,15 +603,15 @@ export function filePathToSVGinJSXSync(filePath: string) {
   return transformers.readyForJSX(svgRaw);
 }
 
-export async function generateReactComponents(icons: IIcons) {
+export async function generateReactComponents(icons: IIcons, mode: GeneratorMode = 'icons') {
   const getTemplateSource = (templateFile) =>
     fs.readFile(path.resolve(__dirname, './templates/', templateFile), {
       encoding: 'utf8',
     });
   const templates = {
     entry: await getTemplateSource('entry.tsx.ejs'),
-    icon: await getTemplateSource('named-icon.tsx.ejs'),
-    types: await getTemplateSource('types.tsx'),
+    icon: await getTemplateSource(mode === 'pictograms' ? 'pictogram.tsx.ejs' : 'named-icon.tsx.ejs'),
+    types: await getTemplateSource(mode === 'pictograms' ? 'pictogram-types.tsx' : 'types.tsx'),
   };
   const firstIcon = Object.values(icons)[0];
   console.log(firstIcon.svgName);
@@ -450,14 +652,17 @@ export async function generateReactComponents(icons: IIcons) {
       return `${icon.jsxName}.tsx`;
     },
     iconToSVGSourceAsJSX(icon: ITemplateIcon, size: string, type: string) {
-      const filePath = labelling.filePathFromIcon({
-        id: icon.ids[0],
-        svgName: icon.svgName,
-        jsxName: icon.jsxName,
-        size,
-        type,
-        category: icon.category,
-      });
+      const filePath = labelling.filePathFromIcon(
+        {
+          id: icon.ids[0],
+          svgName: icon.svgName,
+          jsxName: icon.jsxName,
+          size,
+          type,
+          category: icon.category,
+        },
+        mode,
+      );
       return filePathToSVGinJSXSync(filePath);
     },
     iconHasSizeAndType(icon: ITemplateIcon, size: string, type: string) {
@@ -469,9 +674,23 @@ export async function generateReactComponents(icons: IIcons) {
     stripExtension(fileName) {
       return fileName.replace(/(.*)\.\w+$/, '$1');
     },
+    /**
+     * Used by the entry template (icons mode only) to decide whether to append
+     * `export * from './pictograms'`. We check the working directory because
+     * pictograms live in the same package and may have been generated already
+     * in a separate run.
+     */
+    hasPictograms() {
+      if (mode === 'pictograms') return false;
+      return fs.existsSync(path.resolve(process.cwd(), FILE_PATH_PICTOGRAMS_MANIFEST));
+    },
   };
 
   const prettierOptions = prettier.resolveConfig.sync(process.cwd());
+  const componentsOutputDir = mode === 'pictograms' ? path.resolve(currentTempDir, FOLDER_NAME_PICTOGRAM_SRC) : path.resolve(currentTempDir, 'src');
+  const entryFilePath = path.resolve(currentTempDir, mode === 'pictograms' ? FILE_PATH_PICTOGRAMS_ENTRY : FILE_PATH_ENTRY);
+  const typesFilePath = path.resolve(currentTempDir, mode === 'pictograms' ? FILE_PATH_PICTOGRAMS_TYPES : FILE_PATH_TYPES);
+
   /* Generate Icon Component Modules */
   for (const i in iconsWithVariants) {
     const icon = iconsWithVariants[i];
@@ -484,7 +703,7 @@ export async function generateReactComponents(icons: IIcons) {
         ...prettierOptions,
         parser: 'typescript',
       });
-      const iconComponentFilePath = path.resolve(currentTempDir, 'src/', templateHelpers.iconToReactFileName(icon));
+      const iconComponentFilePath = path.resolve(componentsOutputDir, templateHelpers.iconToReactFileName(icon));
       await fs.outputFile(iconComponentFilePath, iconSource);
       currentListOfAddedFiles.push(iconComponentFilePath);
     } catch (error) {
@@ -511,33 +730,39 @@ sizes: ${sizeList}
     ...prettierOptions,
     parser: 'typescript',
   });
-  const entryFilePath = path.resolve(currentTempDir, FILE_PATH_ENTRY);
   await fs.outputFile(entryFilePath, entrySource);
   currentListOfAddedFiles.push(entryFilePath);
 
   /* Generate Type Modules */
-  const typeDepsFilePath = path.resolve(currentTempDir, FILE_PATH_TYPES);
-  await fs.outputFile(typeDepsFilePath, templates.types);
-  currentListOfAddedFiles.push(typeDepsFilePath);
+  await fs.outputFile(typesFilePath, templates.types);
+  currentListOfAddedFiles.push(typesFilePath);
 }
 
-export async function getCurrentIconManifest(): Promise<IIconManifest> {
-  const { stdout: gitRootDir } = await execa('git', ['rev-parse', '--show-toplevel']);
-  const gitRelativePathToManifest = path.relative(gitRootDir, path.resolve(process.cwd(), FILE_PATH_MANIFEST));
-  const { stdout: currentManifest } = await execa('git', ['show', `HEAD:${gitRelativePathToManifest}`]);
-  return JSON.parse(currentManifest);
+export async function getCurrentIconManifest(mode: GeneratorMode = 'icons'): Promise<IIconManifest> {
+  const manifestPath = mode === 'pictograms' ? FILE_PATH_PICTOGRAMS_MANIFEST : FILE_PATH_MANIFEST;
+  try {
+    const { stdout: gitRootDir } = await execa('git', ['rev-parse', '--show-toplevel']);
+    const gitRelativePathToManifest = path.relative(gitRootDir, path.resolve(process.cwd(), manifestPath));
+    const { stdout: currentManifest } = await execa('git', ['show', `HEAD:${gitRelativePathToManifest}`]);
+    return JSON.parse(currentManifest);
+  } catch {
+    // First-ever pictograms run won't have a manifest in HEAD yet — fall back to
+    // an empty manifest rather than crashing.
+    return {};
+  }
 }
 
-export async function generateIconManifest(icons: IIcons) {
-  const iconManifestFilePath = path.resolve(currentTempDir, FILE_PATH_MANIFEST);
-  const iconManifest = iconsToManifest(icons);
+export async function generateIconManifest(icons: IIcons, mode: GeneratorMode = 'icons') {
+  const manifestPath = mode === 'pictograms' ? FILE_PATH_PICTOGRAMS_MANIFEST : FILE_PATH_MANIFEST;
+  const iconManifestFilePath = path.resolve(currentTempDir, manifestPath);
+  const iconManifest = iconsToManifest(icons, mode);
   let iconManifestRaw = JSON.stringify(iconManifest);
   const prettierOptions = prettier.resolveConfig.sync(process.cwd());
   iconManifestRaw = prettier.format(iconManifestRaw, {
     ...prettierOptions,
     parser: 'json',
   });
-  const previousIconManifest = await getCurrentIconManifest();
+  const previousIconManifest = await getCurrentIconManifest(mode);
   await fs.writeFile(iconManifestFilePath, iconManifestRaw, {
     encoding: 'utf8',
   });
@@ -545,41 +770,71 @@ export async function generateIconManifest(icons: IIcons) {
   return [previousIconManifest, iconManifest];
 }
 
+/**
+ * Wipes only the on-disk paths that the given mode owns, then copies the temp dir
+ * over the working directory. Crucially, icons-mode runs do NOT touch
+ * `pictograms/`, `src/pictograms/`, or `pictograms-manifest.json`, and pictograms-mode
+ * runs do NOT touch `icons/`, `src/*.tsx` (top-level), or `manifest.json`. This lets
+ * the two generators coexist in the same package.
+ */
 export async function swapGeneratedFiles(
   previousIconManifest: IIconManifest,
   nextIconManifest: IIconManifest,
+  mode: GeneratorMode = 'icons',
 ): Promise<string[]> {
-  /* We must find all dirs and files that were generated, and remove them: */
-  let generatedFilePaths = [];
-  //  1. The top-level dirs for previous SVGs
-  pushObjLeafNodesToArr(previousIconManifest, generatedFilePaths);
-  //  2. The top-level dirs needed for new SVGs
-  pushObjLeafNodesToArr(nextIconManifest, generatedFilePaths);
-  //  3. The top-level dirs for generated source
-  generatedFilePaths = generatedFilePaths.concat([FILE_PATH_ENTRY, FILE_PATH_TYPES]);
-  const topLevelDirs: string[] = _.uniq(generatedFilePaths.map((filePath) => filePath.replace(/^([\w-]+).*/, '$1')));
-  for (const i in topLevelDirs) {
-    const topLevelDir = topLevelDirs[i];
-    await fs.remove(path.resolve(process.cwd(), topLevelDir));
-  }
-  //  4. The manifest file
-  await fs.remove(path.resolve(process.cwd(), FILE_PATH_MANIFEST));
+  const cwd = process.cwd();
 
-  /* Then we take all the contents of our temp dir and copy them to cwd: */
-  await fs.copy(currentTempDir, process.cwd());
+  if (mode === 'pictograms') {
+    /* Pictograms mode: blow away pictogram-owned paths only. */
+    await fs.remove(path.resolve(cwd, FOLDER_NAME_PICTOGRAM_SVGS));
+    await fs.remove(path.resolve(cwd, FOLDER_NAME_PICTOGRAM_SRC));
+    await fs.remove(path.resolve(cwd, FILE_PATH_PICTOGRAMS_MANIFEST));
+
+    await fs.copy(currentTempDir, cwd);
+
+    return [FOLDER_NAME_PICTOGRAM_SVGS, FOLDER_NAME_PICTOGRAM_SRC, FILE_PATH_PICTOGRAMS_MANIFEST];
+  }
+
+  /* Icons mode: collect the icons-owned top-level dirs from both manifests. */
+  const generatedFilePaths: string[] = [];
+  pushObjLeafNodesToArr(previousIconManifest, generatedFilePaths);
+  pushObjLeafNodesToArr(nextIconManifest, generatedFilePaths);
+  generatedFilePaths.push(FILE_PATH_ENTRY, FILE_PATH_TYPES);
+  const topLevelDirs: string[] = _.uniq(generatedFilePaths.map((filePath) => filePath.replace(/^([\w-]+).*/, '$1')));
+
+  for (const topLevelDir of topLevelDirs) {
+    if (topLevelDir === 'src') {
+      // Wipe `src/*.tsx` (and any nested non-pictogram subdirs) but preserve `src/pictograms/`.
+      const srcDir = path.resolve(cwd, 'src');
+      if (await fs.pathExists(srcDir)) {
+        const entries = await fs.readdir(srcDir);
+        for (const entry of entries) {
+          if (entry === 'pictograms') continue;
+          await fs.remove(path.join(srcDir, entry));
+        }
+      }
+    } else {
+      await fs.remove(path.resolve(cwd, topLevelDir));
+    }
+  }
+  await fs.remove(path.resolve(cwd, FILE_PATH_MANIFEST));
+
+  /* Copy our freshly-generated tree on top of whatever's left. */
+  await fs.copy(currentTempDir, cwd);
 
   return [].concat(topLevelDirs, FILE_PATH_MANIFEST);
 }
 
-export async function getGitCustomDiff(touchedPaths): Promise<IDiffSummary[]> {
+export async function getGitCustomDiff(touchedPaths: string[], mode: GeneratorMode = 'icons'): Promise<IDiffSummary[]> {
   const { stdout: gitRootDir } = await execa('git', ['rev-parse', '--show-toplevel']);
   /* Stage all changes to tracked files. */
   /* Stage the "intent" to add for all untracked files. */
   await execa('git', ['add', '-f', '--ignore-removal', '--intent-to-add', '--', ...touchedPaths]);
   /* Grab the lines changed per file, as well as the kind of change (D, M, A) */
+  const pathspecs = getModePathspecs(mode);
   const [{ stdout: numstatRaw }, { stdout: nameStatRaw }] = await Promise.all([
-    execa('git', ['diff', '--numstat', '--no-renames', '--', FOLDER_PATH_ICONS]),
-    execa('git', ['diff', '--name-status', '--no-renames', '--', FOLDER_PATH_ICONS]),
+    execa('git', ['diff', '--numstat', '--no-renames', '--', ...pathspecs]),
+    execa('git', ['diff', '--name-status', '--no-renames', '--', ...pathspecs]),
   ]);
 
   /* Transform the raw stdout to renderable data. */
@@ -600,7 +855,7 @@ export async function getGitCustomDiff(touchedPaths): Promise<IDiffSummary[]> {
     });
 
   /* Undo the staging done above, to ensure an expected git status after this tool has been run. */
-  await execa('git', ['reset', 'HEAD', '--', FOLDER_PATH_ICONS]);
+  await execa('git', ['reset', 'HEAD', '--', ...pathspecs]);
 
   return diffSummaries;
 }

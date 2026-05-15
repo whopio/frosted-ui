@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 import { PropertyName } from 'lodash';
 import nodeFetch, { Response } from 'node-fetch';
 import SVGO from 'svgo';
-import { CodedError, ERRORS, RequestInitWithRetry } from './types';
+import { CodedError, ERRORS, GeneratorMode, RequestInitWithRetry } from './types';
 import { unmount } from './view';
 
 export function handleError(err, exit = true) {
@@ -90,11 +90,12 @@ export function pushObjLeafNodesToArr(obj: object, arr: string[], accessor: Prop
   });
 }
 
-let svgo: null | SVGO = null;
+const svgoCache: Partial<Record<GeneratorMode, SVGO>> = {};
 
-export function getSvgo() {
-  if (svgo) return svgo;
-  svgo = new SVGO({
+export function getSvgo(mode: GeneratorMode = 'icons') {
+  if (svgoCache[mode]) return svgoCache[mode];
+  const dataAttr = mode === 'pictograms' ? 'data-fui-pictogram' : 'data-fui-icon';
+  svgoCache[mode] = new SVGO({
     plugins: [
       { removeDoctype: true },
       { removeXMLProcInst: true },
@@ -138,12 +139,12 @@ export function getSvgo() {
         addAttributesToSVGElement: {
           attributes: [
             {
-              'data-fui-icon': 'true',
+              [dataAttr]: 'true',
             },
           ],
         },
       },
     ],
   });
-  return svgo;
+  return svgoCache[mode];
 }
