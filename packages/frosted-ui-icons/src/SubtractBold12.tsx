@@ -15,6 +15,8 @@ export const SubtractBold12 = ({ color = 'currentColor', ...props }: IconProps) 
       <path
         d="M11.5 5C12.0523 5 12.5 5.44772 12.5 6C12.5 6.55228 12.0523 7 11.5 7H1C0.447715 7 1.04308e-07 6.55228 0 6C5.21541e-07 5.44772 0.447715 5 1 5H11.5Z"
         fill={color}
+        fillRule="evenodd"
+        clipRule="evenodd"
       />
     </svg>
   );

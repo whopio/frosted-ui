@@ -13,7 +13,7 @@ export const ArrowUpLeftBold20 = ({ color = 'currentColor', ...props }: IconProp
       {...props}
     >
       <path
-        d="M3 3L3 13.5M3 3L13.5 3M3 3L17 16.9999"
+        d="M13.5 3L3 3L3 13.5M3 3L17 16.9999"
         stroke={color}
         strokeWidth="2"
         strokeLinecap="round"

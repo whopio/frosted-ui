@@ -1,6 +1,6 @@
 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="true">
   <path
-    d="M0.75 6L5 1.75M0.75 6L5 10.25M0.75 6L11.25 6"
+    d="M5 10.25L0.75 6L5 1.75M0.75 6L11.25 6"
     stroke="currentColor"
     stroke-width="1.5"
     stroke-linecap="round"

@@ -13,7 +13,7 @@ export const ArrowDownLeft16 = ({ color = 'currentColor', ...props }: IconProps)
       {...props}
     >
       <path
-        d="M2.74998 13.25V4.75002M2.74998 13.25H11.25M2.74998 13.25L13.25 2.75"
+        d="M11.25 13.25H2.74998V4.75002M2.74998 13.25L13.25 2.75"
         stroke={color}
         strokeWidth="1.5"
         strokeLinecap="round"
