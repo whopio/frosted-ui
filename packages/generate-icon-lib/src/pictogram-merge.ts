@@ -29,6 +29,33 @@ const SHAPE_ATTRS = [
 
 const COLOR_ATTRS = ['fill', 'stroke'] as const;
 
+/** SVG tags that actually render strokes/fills (vs structural wrappers). */
+const SHAPE_TAGS = new Set(['path', 'circle', 'rect', 'ellipse', 'polygon', 'polyline', 'line']);
+
+/**
+ * Walks the SVG tree and returns every paint-bearing shape element in document
+ * order, flattening any `<g>` wrappers along the way. We need flattening
+ * because some pictograms (e.g. those with `<clipPath>`) come out of Figma
+ * wrapped in a group — naive `svg.children()` would only see the wrapper, miss
+ * the per-path color variance, and emit the light variant's body verbatim with
+ * hardcoded fills.
+ *
+ * `<defs>` subtrees are skipped because their contents are referenced by id
+ * (e.g. clipPath, gradient definitions) rather than rendered in place — we
+ * don't want to compare or mutate them.
+ */
+function collectShapeElements(root: any): any[] {
+  const out: any[] = [];
+  const walk = (node: any) => {
+    if (!node || node.type !== 'tag') return;
+    if (node.name === 'defs') return;
+    if (SHAPE_TAGS.has(node.name)) out.push(node);
+    if (node.children) for (const child of node.children) walk(child);
+  };
+  if (root && root.children) for (const child of root.children) walk(child);
+  return out;
+}
+
 /**
  * Synthetic variant name we add on top of the `light` / `dark` / `orange`
  * variants pulled from Figma. Its per-element values are derived from the
@@ -84,12 +111,15 @@ export function analyzePictogramAlignment(svgsByVariant: Record<string, string>)
   // `cheerio.Element` as a namespace type, so we type the parsed-element
   // arrays as `any[]` and rely on the well-known `.name` / `.attribs` shape
   // at runtime.
+  // We use `collectShapeElements` rather than `.children()` so wrappers like
+  // `<g clipPath="...">` don't hide per-element color variance — see the
+  // function's docstring above.
   const docs: Record<string, ReturnType<typeof cheerio.load>> = {};
   const elementsByVariant: Record<string, any[]> = {};
   for (const variant of variants) {
     const $ = cheerio.load(svgsByVariant[variant], { xmlMode: true });
     docs[variant] = $;
-    elementsByVariant[variant] = $('svg').children().toArray();
+    elementsByVariant[variant] = collectShapeElements($('svg').get(0));
   }
 
   const refVariant = variants[0];
@@ -146,7 +176,7 @@ export function analyzePictogramAlignment(svgsByVariant: Record<string, string>)
 
   // Re-parse the reference SVG so we can mutate it safely without affecting `docs`.
   const $ref = cheerio.load(svgsByVariant[refVariant], { xmlMode: true });
-  const refMutable: any[] = $ref('svg').children().toArray();
+  const refMutable: any[] = collectShapeElements($ref('svg').get(0));
 
   for (let i = 0; i < elementCount; i++) {
     for (const colorAttr of COLOR_ATTRS) {
