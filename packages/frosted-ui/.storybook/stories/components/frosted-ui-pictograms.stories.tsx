@@ -12,10 +12,10 @@ import { Text } from '../../../src';
 type PictogramVariant = 'auto' | 'light' | 'dark' | 'orange';
 
 const VARIANT_BACKGROUNDS: Record<PictogramVariant, string> = {
-  auto: 'var(--gray-2)',
-  light: '#F3F3F3',
-  dark: '#151515',
-  orange: '#FA4616',
+  auto: 'transparent',
+  light: 'white',
+  dark: 'black',
+  orange: 'var(--orange-9)',
 };
 
 const VARIANTS: PictogramVariant[] = ['auto', 'light', 'dark', 'orange'];
