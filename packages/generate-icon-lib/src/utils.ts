@@ -106,8 +106,24 @@ let pictogramRemergeSvgo: SVGO | null = null;
  */
 export function getPictogramRemergeSvgo() {
   if (pictogramRemergeSvgo) return pictogramRemergeSvgo;
+  // SVGO 1.x merges this plugins list with its DEFAULT plugin set rather than
+  // replacing it, so any default plugin we don't explicitly disable will still
+  // run. Two of those defaults are dangerous for us:
+  //   - `removeViewBox` strips `viewBox="0 0 240 240"` from the root SVG, which
+  //     breaks consumer scaling (renders paths at 240×240 inside whatever box
+  //     the consumer sizes the <svg> to, producing visually clipped/offset art).
+  //   - `convertPathData` rewrites `d` attributes — at best cosmetic, at worst
+  //     applies group transforms to coordinates differently than the first pass
+  //     did and shifts paths.
+  // We explicitly turn both off here, alongside other defaults that could
+  // surprise us, and only enable the few we actually want.
   pictogramRemergeSvgo = new SVGO({
     plugins: [
+      { removeViewBox: false },
+      { convertPathData: false },
+      { cleanupNumericValues: false },
+      { convertTransform: false },
+      { sortAttrs: false },
       { moveElemsAttrsToGroup: true },
       { moveGroupAttrsToElems: true },
       { collapseGroups: true },
