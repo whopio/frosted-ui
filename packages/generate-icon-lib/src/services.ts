@@ -36,7 +36,7 @@ import {
   IIconsSvgUrls,
   ITemplateIcon,
 } from './types';
-import { fetch, getSvgo, handleError, pushObjLeafNodesToArr } from './utils';
+import { fetch, getPictogramRemergeSvgo, getSvgo, handleError, pushObjLeafNodesToArr } from './utils';
 import { analyzePictogramAlignment, injectFillStrokeLookups, serializeLookup } from './pictogram-merge';
 import { render } from './view';
 
@@ -744,7 +744,17 @@ export async function generateReactComponents(icons: IIcons, mode: GeneratorMode
 
         if (result.aligned === true) {
           // Aligned path: one shared geometry, fill/stroke colors picked from a lookup by variant.
-          const placeholderJsx = transformers.readyForJSX(result.analysis.placeholderSvg);
+          // Re-merge same-color adjacent paths in the placeholder SVG to recover
+          // the size win that was disabled during analysis. This is safe because
+          // every varying-color element carries a unique placeholder
+          // (`__FUI_FILL_<i>__` / `__FUI_STROKE_<i>__`), so SVGO's `mergePaths`
+          // never collapses two placeholder elements together — it only merges
+          // adjacent runs of constant-fill paths, which would render identically
+          // anyway. Constant-fill elements aren't in the FILLS/STROKES lookup so
+          // their disappearance doesn't break the index→color mapping.
+          const remergeSvgo = getPictogramRemergeSvgo();
+          const { data: remergedPlaceholderSvg } = await remergeSvgo.optimize(result.analysis.placeholderSvg);
+          const placeholderJsx = transformers.readyForJSX(remergedPlaceholderSvg as string);
           const jsxBody = injectFillStrokeLookups(placeholderJsx);
           const fillsLiteral = serializeLookup(result.analysis.fillsByVariant);
           const strokesLiteral = serializeLookup(result.analysis.strokesByVariant);
@@ -765,10 +775,16 @@ export async function generateReactComponents(icons: IIcons, mode: GeneratorMode
         } else {
           // Unaligned path: inline each variant's SVG body and switch on `variant`.
           // Sub-optimal in size, but keeps the public API uniform regardless of how
-          // consistent the source artwork is.
+          // consistent the source artwork is. Now that we no longer need the
+          // per-element correspondence the analyzer relies on (the merge attempt
+          // already failed), we can safely run each variant SVG through a
+          // `mergePaths`/`collapseGroups` pass to recover the size win that was
+          // disabled in `getSvgo` for the analysis stage.
+          const remergeSvgo = getPictogramRemergeSvgo();
           const variantBodies: Record<string, string> = {};
           for (const variant of variantNames) {
-            variantBodies[variant] = transformers.readyForJSX(svgsByVariant[variant]);
+            const { data: remerged } = await remergeSvgo.optimize(svgsByVariant[variant]);
+            variantBodies[variant] = transformers.readyForJSX(remerged as string);
           }
           console.warn(
             `[pictograms] ${icon.jsxName}: variants couldn't be merged (${result.reason}). ` +
