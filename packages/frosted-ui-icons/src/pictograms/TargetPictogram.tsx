@@ -3,7 +3,11 @@ import { PictogramProps } from './types';
 
 export type TargetPictogramProps = PictogramProps;
 
-export const TargetPictogram = ({ variant = 'light', ...props }: TargetPictogramProps) => {
+// NOTE: this pictogram's background variants don't share geometry, so the
+// per-element fill swap that powers `variant="auto"` on most pictograms isn't
+// possible here. `variant="auto"` therefore falls through to the `light` body
+// and renders the same artwork in both light and dark color schemes.
+export const TargetPictogram = ({ variant = 'auto', ...props }: TargetPictogramProps) => {
   if (variant === 'dark')
     return (
       <svg

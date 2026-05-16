@@ -7,9 +7,10 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
   light: { '7': '#151515' },
   dark: { '7': '#222' },
   orange: { '7': '#151515' },
+  auto: { '7': 'light-dark(#151515, #222)' },
 };
 
-export const BoxPictogram = ({ variant = 'light', ...props }: BoxPictogramProps) => {
+export const BoxPictogram = ({ variant = 'auto', ...props }: BoxPictogramProps) => {
   const f = FILLS[variant];
   return (
     <svg
@@ -45,7 +46,7 @@ export const BoxPictogram = ({ variant = 'light', ...props }: BoxPictogramProps)
       <path d="M23.377 115.041L93.915 153.386L122.295 133.192L60.2148 99.0786L23.377 115.041Z" fill="#6196C1" />
       <path
         d="M117.241 65.0295L60.2119 99.0782 122.293 133.191 180.963 94.8464 117.241 65.0295zM132.321 185.765V189.518L152.787 176.589V173.073L132.321 185.765zM135.152 181.434L138.94 179.012V166.541L141.805 164.92 137.131 159.361 132.457 170.211 135.152 168.684V181.434zM145.861 175.103L149.651 172.681V160.214L152.514 158.593 147.84 153.029 143.167 163.88 145.861 162.353V175.103z"
-        fill={f[7]}
+        style={{ fill: f[7] }}
       />
     </svg>
   );

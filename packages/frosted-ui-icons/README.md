@@ -35,7 +35,7 @@ function MyComponent() {
 
 ### Pictograms
 
-In addition to monochromatic UI icons, this package ships colorful pictograms sourced from the [Pictograms Figma file](https://www.figma.com/design/RHQS3pFnkHQE7lAbYmnRSa/). Each pictogram is published as a single React component that takes a `variant` prop selecting one of three background-color tunings: `'light'`, `'dark'`, or `'orange'`.
+In addition to monochromatic UI icons, this package ships colorful pictograms sourced from the [Pictograms Figma file](https://www.figma.com/design/RHQS3pFnkHQE7lAbYmnRSa/). Each pictogram is published as a single React component that takes a `variant` prop selecting one of four background-color tunings: `'auto'` (the default), `'light'`, `'dark'`, or `'orange'`.
 
 ```tsx
 import { ConePictogram, GradCapPictogram } from '@frosted-ui/icons';
@@ -43,10 +43,11 @@ import { ConePictogram, GradCapPictogram } from '@frosted-ui/icons';
 function MyComponent() {
   return (
     <div>
-      <ConePictogram /> {/* defaults to variant="light" */}
+      <ConePictogram /> {/* defaults to variant="auto" */}
+      <ConePictogram variant="light" />
       <ConePictogram variant="dark" />
       <ConePictogram variant="orange" />
-      <GradCapPictogram variant="dark" />
+      <GradCapPictogram variant="auto" />
     </div>
   );
 }
@@ -54,7 +55,17 @@ function MyComponent() {
 
 Pictograms preserve their original colors (no `currentColor` rewriting), so they don't accept a `color` prop. Other than `variant`, they accept all standard SVG props.
 
-Internally the generator collapses the three background variants into one component by sharing geometry and switching only the per-element `fill`/`stroke` colors based on `variant`. For the rare pictogram whose variants don't share identical geometry in Figma, the component falls back to inlining each variant's SVG body — same `<NamePictogram variant="…" />` API either way.
+#### The `auto` variant
+
+`variant="auto"` (the default) emits CSS [`light-dark()`](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark) color values for every fill/stroke that differs between the `light` and `dark` variants. The browser then picks the right color based on the page's `color-scheme` — no React state, no media query listener, no hydration mismatch.
+
+In a `frosted-ui` app this works without any wiring: the [`Theme`](../frosted-ui) component already sets `color-scheme: light | dark` on the root. In any other app you need a `color-scheme` declaration on a parent (e.g. `:root { color-scheme: light dark; }`) for the browser to know which arm to pick.
+
+Browser support for `light-dark()` is Baseline since 2024 (Chrome 123, Safari 17.5, Firefox 120). In older browsers the `auto` variant falls back to no fill — pin the variant explicitly (`variant="light"`) if you need to support pre-2024 browsers.
+
+#### How the variants are packed
+
+Internally the generator collapses the three background variants into one component by sharing geometry and switching only the per-element `fill`/`stroke` colors based on `variant`. For the rare pictogram whose Figma variants don't share identical geometry, the component falls back to inlining each variant's SVG body — same `<NamePictogram variant="…" />` API either way. For those fallback pictograms, `variant="auto"` renders the `light` body in both light and dark color schemes.
 
 ## Configuring
 

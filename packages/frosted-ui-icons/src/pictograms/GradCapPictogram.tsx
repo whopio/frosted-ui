@@ -3,7 +3,7 @@ import { PictogramProps, PictogramVariant } from './types';
 
 export type GradCapPictogramProps = PictogramProps;
 
-export const GradCapPictogram = ({ variant = 'light', ...props }: GradCapPictogramProps) => {
+export const GradCapPictogram = ({ variant = 'auto', ...props }: GradCapPictogramProps) => {
   return (
     <svg
       width="240"

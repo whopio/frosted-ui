@@ -10,7 +10,7 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = <%- fillsLiteral
 const STROKES: Record<PictogramVariant, Record<number, string>> = <%- strokesLiteral %>;
 <% } -%>
 
-export const <%- iconToComponentName(icon) %> = ({ variant = 'light', ...props }: <%- iconToPropsName(icon) %>) => {
+export const <%- iconToComponentName(icon) %> = ({ variant = 'auto', ...props }: <%- iconToPropsName(icon) %>) => {
 <% if (hasFills) { -%>
   const f = FILLS[variant];
 <% } -%>

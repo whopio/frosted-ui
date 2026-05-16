@@ -29,6 +29,14 @@ const SHAPE_ATTRS = [
 
 const COLOR_ATTRS = ['fill', 'stroke'] as const;
 
+/**
+ * Synthetic variant name we add on top of the `light` / `dark` / `orange`
+ * variants pulled from Figma. Its per-element values are derived from the
+ * `light` and `dark` entries as `light-dark(L, D)` so the rendered color
+ * tracks the page's `color-scheme` automatically.
+ */
+export const AUTO_VARIANT = 'auto';
+
 export interface MergedPictogramAnalysis {
   /**
    * The reference SVG string with every varying fill/stroke attribute replaced
@@ -130,6 +138,11 @@ export function analyzePictogramAlignment(svgsByVariant: Record<string, string>)
     fillsByVariant[variant] = {};
     strokesByVariant[variant] = {};
   }
+  // The `auto` lookup is populated below once the per-Figma-variant entries
+  // are known. Initializing here keeps the bucket present in the serialized
+  // FILLS table even when no fills vary (an empty record is harmless).
+  fillsByVariant[AUTO_VARIANT] = {};
+  strokesByVariant[AUTO_VARIANT] = {};
 
   // Re-parse the reference SVG so we can mutate it safely without affecting `docs`.
   const $ref = cheerio.load(svgsByVariant[refVariant], { xmlMode: true });
@@ -161,6 +174,14 @@ export function analyzePictogramAlignment(svgsByVariant: Record<string, string>)
     }
   }
 
+  // Derive the `auto` entries. For every element where either the `light` or
+  // `dark` variant has a value, emit `light-dark(L, D)` so the color tracks
+  // the page's color-scheme. When only one of the two has a value, fall back
+  // to the present value for both arms — the result still renders, and is
+  // identical to what `variant="light"` (or `"dark"`) would have produced.
+  deriveAutoEntries(fillsByVariant);
+  deriveAutoEntries(strokesByVariant);
+
   return {
     aligned: true,
     analysis: {
@@ -172,15 +193,62 @@ export function analyzePictogramAlignment(svgsByVariant: Record<string, string>)
   };
 }
 
+function deriveAutoEntries(byVariant: Record<string, Record<number, string>>): void {
+  const light = byVariant.light;
+  const dark = byVariant.dark;
+  if (!light && !dark) return;
+  const indexes = new Set<string>([
+    ...Object.keys(light || {}),
+    ...Object.keys(dark || {}),
+  ]);
+  for (const i of indexes) {
+    const idx = Number(i);
+    const l = light ? light[idx] : undefined;
+    const d = dark ? dark[idx] : undefined;
+    if (!l && !d) continue;
+    byVariant[AUTO_VARIANT][idx] = `light-dark(${l ?? d}, ${d ?? l})`;
+  }
+}
+
 /**
  * Replaces the `__FUI_FILL_N__` / `__FUI_STROKE_N__` placeholders inserted by
- * `analyzePictogramAlignment` with `{f[N]}` / `{s[N]}` JSX expressions. Run this
- * AFTER putting the SVG through the standard `readyForJSX` pipeline.
+ * `analyzePictogramAlignment` with `style={{ fill: f[N] }}` / `style={{ stroke: s[N] }}`
+ * JSX expressions. Run AFTER putting the SVG through the standard `readyForJSX`
+ * pipeline.
+ *
+ * We use `style` rather than the SVG `fill` / `stroke` attributes because the
+ * `auto` variant emits CSS `light-dark()` color functions, which are valid as
+ * CSS values but not as plain SVG `<paint>` attribute values. Rendering them
+ * via `style` means the same lookup mechanism works for hex colors and
+ * `light-dark()` strings alike.
  */
 export function injectFillStrokeLookups(jsx: string): string {
-  return jsx
-    .replace(/fill=["']__FUI_FILL_(\d+)__["']/g, 'fill={f[$1]}')
-    .replace(/stroke=["']__FUI_STROKE_(\d+)__["']/g, 'stroke={s[$1]}');
+  const withStyles = jsx
+    .replace(/fill=["']__FUI_FILL_(\d+)__["']/g, 'style={{fill:f[$1]}}')
+    .replace(/stroke=["']__FUI_STROKE_(\d+)__["']/g, 'style={{stroke:s[$1]}}');
+  // Coalesce repeated `style={{ ... }}` props on the same JSX element. Two
+  // varying color attrs on one element produce two separate `style` props
+  // which React would warn about and only keep the last of.
+  return mergeStyleProps(withStyles);
+}
+
+function mergeStyleProps(jsx: string): string {
+  // Walk each opening JSX tag (incl. self-closing) and merge any style props
+  // inside it. Tag bodies don't contain `<` or `>` so a flat character class
+  // suffices.
+  return jsx.replace(/<[a-zA-Z][^<>]*\/?>/g, (tag) => {
+    const styles: string[] = [];
+    const stripped = tag.replace(/\s*style=\{\{([^}]+)\}\}/g, (_, body) => {
+      styles.push(body);
+      return '';
+    });
+    if (styles.length <= 1) return tag;
+    const merged = ` style={{${styles.join(',')}}}`;
+    if (stripped.endsWith('/>')) {
+      return stripped.slice(0, -2) + `${merged} />`;
+    }
+    return stripped.slice(0, -1) + `${merged}>`;
+  });
 }
 
 /**

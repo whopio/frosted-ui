@@ -7,9 +7,10 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
   light: { '4': '#FA4616' },
   orange: { '4': '#6196C1' },
   dark: { '4': '#FA4616' },
+  auto: { '4': 'light-dark(#FA4616, #FA4616)' },
 };
 
-export const EnvelopePictogram = ({ variant = 'light', ...props }: EnvelopePictogramProps) => {
+export const EnvelopePictogram = ({ variant = 'auto', ...props }: EnvelopePictogramProps) => {
   const f = FILLS[variant];
   return (
     <svg
@@ -36,7 +37,7 @@ export const EnvelopePictogram = ({ variant = 'light', ...props }: EnvelopePicto
       />
       <path
         d="M168.468 80.0241C166.965 79.3059 159.168 76.3219 159.168 76.3219L130.135 64.8931C129.787 68.0585 128.872 76.5033 128.835 78.3581C128.791 80.6498 129.831 83.6338 133.093 85.2776C136.188 86.8363 166.261 99.0611 169.327 100.305L170.63 88.7466C170.63 88.7466 170.852 86.6882 171.085 84.7186C171.319 82.749 169.975 80.7387 168.472 80.0204L168.468 80.0241Z"
-        fill={f[4]}
+        style={{ fill: f[4] }}
       />
       <path
         d="M114.024 31.3989C113.405 31.5618 112.795 31.7802 112.195 32.0542C108.296 33.8386 93.5799 43.6089 88.6855 46.8816L154.2 72.4382C151.372 69.0322 128.959 42.065 123.746 36.1414C119.788 31.6469 116.789 31.1878 114.024 31.3989Z"

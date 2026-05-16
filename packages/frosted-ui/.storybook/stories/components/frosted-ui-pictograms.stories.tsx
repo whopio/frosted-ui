@@ -6,16 +6,19 @@ import { Text } from '../../../src';
 
 // Pictograms expose a `variant` prop which selects the background tuning the
 // asset was designed for. Render each variant against a tile coloured to match
-// that intended background so the artwork reads correctly.
-type PictogramVariant = 'light' | 'dark' | 'orange';
+// that intended background so the artwork reads correctly. The `auto` tile
+// uses a theme-aware background so it visibly flips when the storybook theme
+// switches between light and dark.
+type PictogramVariant = 'auto' | 'light' | 'dark' | 'orange';
 
 const VARIANT_BACKGROUNDS: Record<PictogramVariant, string> = {
+  auto: 'var(--gray-2)',
   light: '#F3F3F3',
   dark: '#151515',
   orange: '#FA4616',
 };
 
-const VARIANTS: PictogramVariant[] = ['light', 'dark', 'orange'];
+const VARIANTS: PictogramVariant[] = ['auto', 'light', 'dark', 'orange'];
 
 type PictogramComponent = React.FC<{
   variant?: PictogramVariant;
@@ -75,8 +78,9 @@ const AllPictogramsComponent = () => {
           Pictograms
         </Text>
         <Text size="2" color="gray">
-          {pictograms.length} pictograms · each rendered against its three background variants
-          (<code>variant="light"</code>, <code>variant="dark"</code>, <code>variant="orange"</code>).
+          {pictograms.length} pictograms. The <code>auto</code> tile (default) uses CSS{' '}
+          <code>light-dark()</code> to follow the page color scheme. Toggle Storybook's theme
+          between light and dark to watch it flip.
         </Text>
       </div>
 

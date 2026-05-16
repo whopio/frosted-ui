@@ -3,7 +3,7 @@ import { PictogramProps, PictogramVariant } from './types';
 
 export type CardPictogramProps = PictogramProps;
 
-export const CardPictogram = ({ variant = 'light', ...props }: CardPictogramProps) => {
+export const CardPictogram = ({ variant = 'auto', ...props }: CardPictogramProps) => {
   return (
     <svg
       width="240"

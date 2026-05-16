@@ -7,9 +7,10 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
   light: { '8': '#FA4616', '9': '#E7552F' },
   dark: { '8': '#FA4616', '9': '#E7552F' },
   orange: { '8': '#6196C1', '9': '#639DCC' },
+  auto: { '8': 'light-dark(#FA4616, #FA4616)', '9': 'light-dark(#E7552F, #E7552F)' },
 };
 
-export const BarsPictogram = ({ variant = 'light', ...props }: BarsPictogramProps) => {
+export const BarsPictogram = ({ variant = 'auto', ...props }: BarsPictogramProps) => {
   const f = FILLS[variant];
   return (
     <svg
@@ -29,8 +30,11 @@ export const BarsPictogram = ({ variant = 'light', ...props }: BarsPictogramProp
       <path d="M101.428 92.6648V163.28L126.127 177.769L125.92 105.955L101.428 92.6648Z" fill="#354B98" />
       <path d="M118.622 84.3647L101.428 92.6641L125.92 105.954L142.547 96.9517L118.622 84.3647Z" fill="#405AB4" />
       <path d="M126.128 177.767L142.547 170.03V96.9507L125.92 105.953L126.128 177.767Z" fill="#222" />
-      <path d="M65.2217 127.127V172.985L89.9212 187.473L89.7135 140.417L65.2217 127.127Z" fill={f[8]} />
-      <path d="M82.416 118.827L65.2217 127.126L89.7135 140.416L106.341 131.414L82.416 118.827Z" fill={f[9]} />
+      <path d="M65.2217 127.127V172.985L89.9212 187.473L89.7135 140.417L65.2217 127.127Z" style={{ fill: f[8] }} />
+      <path
+        d="M82.416 118.827L65.2217 127.126L89.7135 140.416L106.341 131.414L82.416 118.827Z"
+        style={{ fill: f[9] }}
+      />
       <path d="M89.9206 187.473L106.34 179.737V131.415L89.7129 140.417L89.9206 187.473Z" fill="#222" />
       <path d="M52.1914 173.333V191.997L105.43 221.211L105.149 202.644L52.1914 173.333Z" fill="#B6B5B0" />
       <path d="M192.3 154.485L105.15 202.644L105.431 221.213L192.3 172.632V154.485Z" fill="#3C3C3C" />

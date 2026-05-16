@@ -772,7 +772,8 @@ export async function generateReactComponents(icons: IIcons, mode: GeneratorMode
           }
           console.warn(
             `[pictograms] ${icon.jsxName}: variants couldn't be merged (${result.reason}). ` +
-              `Falling back to per-variant inlining. Consider aligning the variants in Figma.`,
+              `Falling back to per-variant inlining; \`variant="auto"\` will render the \`light\` body in both color schemes ` +
+              `for this pictogram. Consider aligning the variants in Figma to enable full auto support.`,
           );
           iconSourceRaw = await ejs.render(templates.pictogramSwitched, {
             icon,
