@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import * as Icons from '@frosted-ui/icons';
 import * as React from 'react';
-import { Text } from '../../../src';
+import { Card, Text } from '../../../src';
 
 // Pictograms expose a `variant` prop which selects the background tuning the
 // asset was designed for. Render each variant against a tile coloured to match
@@ -86,16 +86,13 @@ const AllPictogramsComponent = () => {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         {pictograms.map(({ name, Component }) => (
-          <div
+          <Card
             key={name}
             style={{
               display: 'flex',
               flexDirection: 'column',
               gap: 8,
               padding: 16,
-              borderRadius: 'var(--radius-3)',
-              border: '1px solid var(--gray-a5)',
-              background: 'var(--gray-a2)',
             }}
           >
             <Text size="2" weight="medium" style={{ fontFamily: 'var(--code-font-family, monospace)' }}>
@@ -135,7 +132,7 @@ const AllPictogramsComponent = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </Card>
         ))}
       </div>
     </div>
