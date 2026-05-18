@@ -1,5 +1,9 @@
 import * as React from 'react';
+<% if (hasFills || hasStrokes) { -%>
 import { PictogramProps, PictogramVariant } from './types';
+<% } else { -%>
+import { PictogramProps } from './types';
+<% } -%>
 
 export type <%- iconToPropsName(icon) %> = PictogramProps;
 
@@ -10,6 +14,7 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = <%- fillsLiteral
 const STROKES: Record<PictogramVariant, Record<number, string>> = <%- strokesLiteral %>;
 <% } -%>
 
+<% if (hasFills || hasStrokes) { -%>
 export const <%- iconToComponentName(icon) %> = ({ variant = 'auto', ...props }: <%- iconToPropsName(icon) %>) => {
 <% if (hasFills) { -%>
   const f = FILLS[variant];
@@ -19,6 +24,19 @@ export const <%- iconToComponentName(icon) %> = ({ variant = 'auto', ...props }:
 <% } -%>
   return <%- jsxBody %>;
 }
+<% } else { -%>
+// All background variants share identical colors for this pictogram, so the
+// `variant` prop has no visual effect. We strip it off here so it doesn't leak
+// onto the underlying <svg> element while still keeping the prop in the public
+// API for consistency with the other pictograms.
+export const <%- iconToComponentName(icon) %> = ({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  variant = 'auto',
+  ...props
+}: <%- iconToPropsName(icon) %>) => {
+  return <%- jsxBody %>;
+}
+<% } -%>
 
 <%- iconToComponentName(icon) %>.category = '<%- icon.category %>';
 

@@ -1,9 +1,17 @@
 import * as React from 'react';
-import { PictogramProps, PictogramVariant } from './types';
+import { PictogramProps } from './types';
 
 export type CardPictogramProps = PictogramProps;
 
-export const CardPictogram = ({ variant = 'auto', ...props }: CardPictogramProps) => {
+// All background variants share identical colors for this pictogram, so the
+// `variant` prop has no visual effect. We strip it off here so it doesn't leak
+// onto the underlying <svg> element while still keeping the prop in the public
+// API for consistency with the other pictograms.
+export const CardPictogram = ({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  variant = 'auto',
+  ...props
+}: CardPictogramProps) => {
   return (
     <svg
       width="240"
