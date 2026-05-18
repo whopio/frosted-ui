@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const GlobeInSquareFilled12 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M8.25 0C10.3211 0 12 1.67893 12 3.75V8.25C12 10.3211 10.3211 12 8.25 12H3.75C1.67893 12 0 10.3211 0 8.25V3.75C0 1.67893 1.67893 1.28851e-07 3.75 0H8.25ZM6 2C3.79086 2 2 3.79086 2 6C2 8.20914 3.79086 10 6 10C8.20914 10 10 8.20914 10 6C10 3.79086 8.20914 2 6 2ZM5.25 8.38477C4.47266 8.14054 3.85946 7.52734 3.61523 6.75H5.25V8.38477ZM8.38477 6.75C8.14054 7.52734 7.52734 8.14054 6.75 8.38477V6.75H8.38477ZM5.25 5.25H3.61523C3.85949 4.47257 4.47253 3.85843 5.25 3.61426V5.25ZM6.75 3.61426C7.52747 3.85843 8.14051 4.47257 8.38477 5.25H6.75V3.61426Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+GlobeInSquareFilled12.category = 'Location';
+
+export default GlobeInSquareFilled12;

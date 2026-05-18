@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const BarGraphBold24 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M5.5 12C6.60457 12 7.5 12.8954 7.5 14V21L7.48926 21.2041C7.3938 22.1457 6.64565 22.8938 5.7041 22.9893L5.5 23H3L2.7959 22.9893C1.85435 22.8938 1.1062 22.1457 1.01074 21.2041L1 21V14C1 12.8954 1.89543 12 3 12H5.5ZM13.25 1C14.3546 1 15.25 1.89543 15.25 3V21L15.2393 21.2041C15.1438 22.1457 14.3957 22.8938 13.4541 22.9893L13.25 23H10.75L10.5459 22.9893C9.60435 22.8938 8.8562 22.1457 8.76074 21.2041L8.75 21V3C8.75 1.89543 9.64543 1 10.75 1H13.25ZM21 7C22.1046 7 23 7.89543 23 9V21C23 22.0357 22.2128 22.887 21.2041 22.9893L21 23H18.5L18.2959 22.9893C17.2872 22.887 16.5 22.0357 16.5 21V9C16.5 7.89543 17.3954 7 18.5 7H21ZM18.5 21H21V9H18.5V21ZM3 21H5.5V14H3V21ZM10.75 21H13.25V3H10.75V21Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+BarGraphBold24.category = 'Stats & Charts';
+
+export default BarGraphBold24;

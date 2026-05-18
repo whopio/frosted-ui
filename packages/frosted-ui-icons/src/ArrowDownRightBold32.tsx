@@ -13,7 +13,7 @@ export const ArrowDownRightBold32 = ({ color = 'currentColor', ...props }: IconP
       {...props}
     >
       <path
-        d="M28.0001 28L28.0001 8.49999M28.0001 28L8.50009 28M28.0001 28L4.00012 4"
+        d="M8.49996 28L28 28L28 8.49999M28 28L4 4"
         stroke={color}
         strokeWidth="2"
         strokeLinecap="round"

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import {
+  AddUser24,
   Bell24,
   CheckmarkCircleFilled16,
   Document24,
@@ -12,7 +13,6 @@ import {
   MagnifyingGlass16,
   MagnifyingGlass24,
   Message16,
-  PeoplePlus24,
   Plus16,
   Sad24,
   SparkleFilled24,
@@ -344,7 +344,7 @@ export const WithTextFieldAndButton: Story = {
     <EmptyState.Root>
       <EmptyState.Header>
         <EmptyState.Media color="green">
-          <PeoplePlus24 />
+          <AddUser24 />
         </EmptyState.Media>
         <EmptyState.Title>Invite teammates</EmptyState.Title>
         <EmptyState.Description>Enter an email address to send an invitation.</EmptyState.Description>

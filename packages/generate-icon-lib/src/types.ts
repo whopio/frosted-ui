@@ -22,6 +22,8 @@ export enum ERRORS {
   FIGMA_API = 'FIGMA_API',
 }
 
+export type GeneratorMode = 'icons' | 'pictograms';
+
 export interface IFigmaConfig {
   baseUrl: string;
   fileKey: string;

@@ -13,7 +13,7 @@ export const ArrowUpRightFilled20 = ({ color = 'currentColor', ...props }: IconP
       {...props}
     >
       <path
-        d="M16.75 3.25L16.75 14.25M16.75 3.25L5.75001 3.25M16.75 3.25L3.25 16.75"
+        d="M5.75001 3.25L16.75 3.25L16.75 14.25M16.75 3.25L3.25 16.75"
         stroke={color}
         strokeWidth="2.5"
         strokeLinecap="round"
