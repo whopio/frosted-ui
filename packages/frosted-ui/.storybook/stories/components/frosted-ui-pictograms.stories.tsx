@@ -88,6 +88,7 @@ const AllPictogramsComponent = () => {
         {pictograms.map(({ name, Component }) => (
           <Card
             key={name}
+            variant="outline"
             style={{
               display: 'flex',
               flexDirection: 'column',
