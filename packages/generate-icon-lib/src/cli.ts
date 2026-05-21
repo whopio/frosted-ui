@@ -1,6 +1,6 @@
 import meow from 'meow';
 import path from 'path';
-import { DEFAULT_FIGMA_FILE_KEY, PICTOGRAMS_FIGMA_FILE_KEY } from './consts';
+import { DEFAULT_FIGMA_FILE_KEY } from './consts';
 import {
   createFigmaConfig,
   downloadSvgsToFs,
@@ -26,9 +26,9 @@ async function main() {
 	  $ ${path.basename(process.argv[1])} [--file=<file-key>] [--type=icons|pictograms]
 
 	Options
-	  --file, -f    File Key from Figma. Defaults vary by --type:
-	                  icons      → ${DEFAULT_FIGMA_FILE_KEY}
-	                  pictograms → ${PICTOGRAMS_FIGMA_FILE_KEY}
+	  --file, -f    File Key from Figma (defaults to the Frosted Design System
+	                file, which now hosts both icons and pictograms on separate
+	                pages: ${DEFAULT_FIGMA_FILE_KEY})
 	  --type, -t    What to generate. One of: icons, pictograms. (default: icons)
 	  --help        Show this message
 
@@ -36,7 +36,6 @@ async function main() {
 	  $ ${path.basename(process.argv[1])}
 	  $ ${path.basename(process.argv[1])} --file=${DEFAULT_FIGMA_FILE_KEY}
 	  $ ${path.basename(process.argv[1])} --type=pictograms
-	  $ ${path.basename(process.argv[1])} --type=pictograms --file=${PICTOGRAMS_FIGMA_FILE_KEY}
 `,
     {
       hardRejection: false,
@@ -63,7 +62,7 @@ async function main() {
     );
   }
   const mode: GeneratorMode = rawType;
-  const fileKey = cli.flags.file || (mode === 'pictograms' ? PICTOGRAMS_FIGMA_FILE_KEY : DEFAULT_FIGMA_FILE_KEY);
+  const fileKey = cli.flags.file || DEFAULT_FIGMA_FILE_KEY;
 
   await prechecks(mode);
 

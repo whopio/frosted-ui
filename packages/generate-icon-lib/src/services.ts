@@ -325,11 +325,12 @@ export function getIconsPage(document: IFigmaDocument, mode: GeneratorMode = 'ic
   const normalize = (name: string) => name.replace(/[^a-z0-9]/gi, '').toLowerCase();
 
   if (mode === 'pictograms') {
-    // The Pictograms file doesn't have a page literally named "Pictograms" — at the
-    // time of writing it's "✅  FINAL". Rather than coupling to a brittle page
-    // name, find the page that contains a top-level node named "Pictogram(s)".
-    // Note: in the live file that node is a COMPONENT_SET; we also allow FRAME/GROUP
-    // for forward-compatibility if the design ever gets restructured.
+    // Prefer a page literally named "Pictograms" (this is how it's set up in the
+    // unified Frosted Design System file). If no such page exists, fall back to
+    // any page that contains a top-level node named "Pictogram(s)" — this keeps
+    // the generator working against older / restructured files where the page
+    // may be named differently (e.g. "✅ FINAL"). The container is typically a
+    // COMPONENT_SET; we also accept FRAME/GROUP for forward-compatibility.
     const containsPictogramContainer = (node: any): boolean => {
       if (!node || !node.children) return false;
       return node.children.some((child: any) => isPictogramContainer(child));

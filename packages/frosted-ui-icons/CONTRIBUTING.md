@@ -9,13 +9,15 @@ Further instructions can be found in the readme for `generate-icon-lib`.
 
 Available scripts:
 
-- `pnpm generate-src` — sync monochromatic UI icons from the Frosted Design System Figma file
-- `pnpm generate-pictograms` — sync colorful pictograms from the Pictograms Figma file
+Both icons and pictograms now live in the same [Frosted Design System Figma file](https://www.figma.com/design/pWs6edprYZNR54ZPwk0oRV/), on separate pages ("Icons" and "Pictograms").
+
+- `pnpm generate-src` — sync monochromatic UI icons (from the `Icons` page)
+- `pnpm generate-pictograms` — sync colorful pictograms (from the `Pictograms` page)
 - `pnpm generate-all` — run both, in order
 
 #### Vector Icons
 
-Access the [Figma file](https://www.figma.com/design/JoDwTV19wxmaK3iv5NLa0Z/), make changes, then run `pnpm generate-src` and open a PR.
+Access the [Figma file](https://www.figma.com/design/pWs6edprYZNR54ZPwk0oRV/), make changes on the `Icons` page, then run `pnpm generate-src` and open a PR.
 
 There are a couple things to keep in mind when making changes:
 
@@ -27,7 +29,7 @@ _The [Figma file][figmafile] should contain additional guidelines for making cha
 
 #### Pictograms
 
-Access the [Pictograms Figma file](https://www.figma.com/design/RHQS3pFnkHQE7lAbYmnRSa/), make changes, then run `pnpm generate-pictograms` and open a PR.
+Access the [Figma file](https://www.figma.com/design/pWs6edprYZNR54ZPwk0oRV/), make changes on the `Pictograms` page, then run `pnpm generate-pictograms` and open a PR.
 
 There are a couple things to keep in mind when making changes:
 

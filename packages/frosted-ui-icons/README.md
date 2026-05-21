@@ -3,7 +3,7 @@
 <p align="center">Icons used and designed by the <a href="https://whop.com/">Whop</a> team</p>
 
 <h3 align="center">
-  <a href="https://www.figma.com/design/JoDwTV19wxmaK3iv5NLa0Z">Figma file</a>
+  <a href="https://www.figma.com/design/pWs6edprYZNR54ZPwk0oRV">Figma file</a>
 </h3>
 
 <img width="1185" alt="Screenshot 2024-08-07 at 12 35 01" src="https://github.com/user-attachments/assets/bc38e63e-0d83-4ccc-8a7c-2f2dbf63c0fc">
@@ -35,7 +35,7 @@ function MyComponent() {
 
 ### Pictograms
 
-In addition to monochromatic UI icons, this package ships colorful pictograms sourced from the [Pictograms Figma file](https://www.figma.com/design/RHQS3pFnkHQE7lAbYmnRSa/). Each pictogram is published as a single React component that takes a `variant` prop selecting one of four background-color tunings: `'auto'` (the default), `'light'`, `'dark'`, or `'orange'`.
+In addition to monochromatic UI icons, this package ships colorful pictograms sourced from the same [Figma file](https://www.figma.com/design/pWs6edprYZNR54ZPwk0oRV/) (Pictograms page). Each pictogram is published as a single React component that takes a `variant` prop selecting one of four background-color tunings: `'auto'` (the default), `'light'`, `'dark'`, or `'orange'`.
 
 ```tsx
 import { ConePictogram, GradCapPictogram } from '@frosted-ui/icons';
