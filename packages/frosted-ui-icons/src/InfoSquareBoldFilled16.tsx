@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const InfoSquareBoldFilled16 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M10.5 1C12.9853 1 15 3.01472 15 5.5V10.5C15 12.9853 12.9853 15 10.5 15H5.5C3.01472 15 1 12.9853 1 10.5V5.5C1 3.01472 3.01472 1 5.5 1H10.5ZM7.99707 7.25C7.44479 7.25 6.99707 7.69772 6.99707 8.25V11C6.99707 11.5523 7.44479 12 7.99707 12C8.54935 12 8.99707 11.5523 8.99707 11V8.25C8.99707 7.69772 8.54936 7.25 7.99707 7.25ZM8 4C7.44772 4 7 4.44772 7 5C7 5.55228 7.44772 6 8 6C8.55228 6 9 5.55228 9 5C9 4.44772 8.55228 4 8 4Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+InfoSquareBoldFilled16.category = 'Interface General';
+
+export default InfoSquareBoldFilled16;
