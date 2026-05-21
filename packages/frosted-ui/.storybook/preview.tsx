@@ -8,11 +8,6 @@ export const withTheme: Decorator = (Story, context) => {
   // Get values from story parameter first, else fallback to globals
   const theme = (context.parameters.theme || context.globals.theme) as 'light' | 'dark';
 
-  const isDarkTheme = theme === 'dark';
-  React.useEffect(() => {
-    document.body.classList.toggle('dark', isDarkTheme);
-    document.body.style.backgroundColor = 'var(--color-page-background)';
-  }, [isDarkTheme]);
 
   return (
     <>
@@ -28,7 +23,7 @@ export const withTheme: Decorator = (Story, context) => {
 }
 `}
       </style>
-      <Theme accentColor="blue" grayColor={'gray'}>
+      <Theme accentColor="blue" grayColor={'gray'} appearance={theme}>
         <Story />
         <Toaster />
         {/* <ThemePanel /> */}

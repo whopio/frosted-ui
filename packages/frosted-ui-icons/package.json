@@ -32,7 +32,9 @@
   "files": [
     "dist/**",
     "index.js",
-    "manifest.json"
+    "manifest.json",
+    "pictograms-manifest.json",
+    "pictograms/**"
   ],
   "sideEffects": false,
   "publishConfig": {
@@ -47,7 +49,9 @@
     "url": "https://github.com/whopio/frosted-ui/issues"
   },
   "scripts": {
-    "generate-src": "generate-icon-lib --file=JoDwTV19wxmaK3iv5NLa0Z && cd ./icons && zip -r ../frosted-ui-icons.zip ./",
+    "generate-src": "generate-icon-lib && cd ./icons && zip -r ../frosted-ui-icons.zip ./",
+    "generate-pictograms": "generate-icon-lib --type=pictograms && cd ./pictograms && zip -r ../frosted-ui-pictograms.zip ./",
+    "generate-all": "pnpm generate-src && pnpm generate-pictograms",
     "clean": "rimraf dist",
     "build": "pnpm clean && pnpm build:js",
     "build:js": "pnpm build:js:cjs && pnpm build:js:esm",

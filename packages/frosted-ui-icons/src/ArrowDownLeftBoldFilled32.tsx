@@ -13,7 +13,7 @@ export const ArrowDownLeftBoldFilled32 = ({ color = 'currentColor', ...props }: 
       {...props}
     >
       <path
-        d="M4.24998 27.75L4.24999 9.25001M4.24998 27.75L22.75 27.75M4.24998 27.75L27.75 4.25"
+        d="M22.75 27.75L4.24998 27.75L4.24999 9.25001M4.24998 27.75L27.75 4.25"
         stroke={color}
         strokeWidth="3"
         strokeLinecap="round"

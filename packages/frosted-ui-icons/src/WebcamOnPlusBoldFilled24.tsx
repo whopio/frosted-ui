@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const WebcamOnPlusBoldFilled24 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M12.25 3.25C14.9708 3.25 17.2486 5.14014 17.8457 7.67871L19.6104 5.97949C20.8806 4.75578 22.998 5.65601 22.998 7.41992V16.5898C22.9977 18.3534 20.8805 19.2536 19.6104 18.0303L17.8438 16.3281C17.2441 18.8632 14.9683 20.75 12.25 20.75H6.75C3.57436 20.75 1 18.1756 1 15V9C1 5.82436 3.57436 3.25 6.75 3.25H12.25ZM9.5 7.25C8.80964 7.25 8.25 7.80964 8.25 8.5V10.75H6C5.30964 10.75 4.75 11.3096 4.75 12C4.75 12.6904 5.30964 13.25 6 13.25H8.25V15.5C8.25 16.1904 8.80964 16.75 9.5 16.75C10.1904 16.75 10.75 16.1904 10.75 15.5V13.25H13C13.6904 13.25 14.25 12.6904 14.25 12C14.25 11.3096 13.6904 10.75 13 10.75H10.75V8.5C10.75 7.80964 10.1904 7.25 9.5 7.25Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+WebcamOnPlusBoldFilled24.category = 'Interface General';
+
+export default WebcamOnPlusBoldFilled24;

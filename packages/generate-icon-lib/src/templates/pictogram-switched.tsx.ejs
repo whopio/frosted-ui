@@ -1,0 +1,22 @@
+import * as React from 'react';
+import { PictogramProps } from './types';
+
+export type <%- iconToPropsName(icon) %> = PictogramProps;
+
+// NOTE: this pictogram's background variants don't share geometry, so the
+// per-element fill swap that powers `variant="auto"` on most pictograms isn't
+// possible here. `variant="auto"` therefore falls through to the `light` body
+// and renders the same artwork in both light and dark color schemes.
+export const <%- iconToComponentName(icon) %> = ({ variant = 'auto', ...props }: <%- iconToPropsName(icon) %>) => {
+<% for (let i = 0; i < variants.length; i++) { -%>
+<% if (i === variants.length - 1) { -%>
+  return <%- variantBodies[variants[i]] %>;
+<% } else { -%>
+  if (variant === '<%- variants[i] %>') return <%- variantBodies[variants[i]] %>;
+<% } -%>
+<% } -%>
+}
+
+<%- iconToComponentName(icon) %>.category = '<%- icon.category %>';
+
+export default <%- iconToComponentName(icon) %>;
