@@ -773,6 +773,25 @@ export async function generateReactComponents(icons: IIcons, mode: GeneratorMode
             ...templateHelpers,
           });
           mergedCount++;
+
+          // Surface geometry drift between variants. This is almost always sub-pixel
+          // Figma export noise (harmless), but occasionally signals an artist actually
+          // redrew a path differently per background — in which case the dark/orange
+          // tiles will render the light variant's geometry tinted with their own
+          // colors. Worth a manual spot-check in Storybook.
+          if (result.analysis.geometryWarnings.length > 0) {
+            const sample = result.analysis.geometryWarnings.slice(0, 3).join('; ');
+            const more =
+              result.analysis.geometryWarnings.length > 3
+                ? ` (+${result.analysis.geometryWarnings.length - 3} more)`
+                : '';
+            console.warn(
+              `[pictograms] ${icon.jsxName}: merged using the \`light\` variant's geometry; ` +
+                `${result.analysis.geometryWarnings.length} per-element geometry difference(s) detected ` +
+                `across variants — usually sub-pixel export noise, but worth a quick visual check ` +
+                `if a dark/orange tile looks off. Sample: ${sample}${more}.`,
+            );
+          }
         } else {
           // Unaligned path: inline each variant's SVG body and switch on `variant`.
           // Sub-optimal in size, but keeps the public API uniform regardless of how

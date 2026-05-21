@@ -8,9 +8,13 @@ import cheerio from 'cheerio';
 
 /**
  * Attributes on a shape element that define its geometry (vs its appearance).
- * Two variants of the same pictogram are considered "aligned" when every shape
- * element matches on every one of these attributes — only color attrs (fill /
- * stroke) are allowed to differ.
+ * We don't gate alignment on these matching exactly across variants any more —
+ * Figma's per-variant export introduces sub-pixel floating-point noise in `d`
+ * coordinates (e.g. `47.9553` vs `47.9554`) that would needlessly trip a strict
+ * equality check and push otherwise-mergeable pictograms onto the switched
+ * fallback. Instead we treat the `light` variant's geometry as canonical and
+ * surface a warning when any of these attributes drift, so genuinely
+ * intentional per-variant geometry changes still get caught in PR review.
  */
 const SHAPE_ATTRS = [
   'd',
@@ -85,6 +89,14 @@ export interface MergedPictogramAnalysis {
    * whether the FILLS / STROKES lookups are non-empty before emitting them).
    */
   elementCount: number;
+  /**
+   * Human-readable notes about any geometry drift between variants (e.g.
+   * `element[3] d differs between light and dark`). Almost always sub-pixel
+   * Figma export noise, but occasionally an artist genuinely redrew a path
+   * differently per background — surface these so reviewers can spot-check
+   * the rendered output for the dark/orange tiles vs the source.
+   */
+  geometryWarnings: string[];
 }
 
 export type AlignmentResult =
@@ -95,13 +107,20 @@ export type AlignmentResult =
  * Compares the rendered SVGs of all background variants for a single pictogram
  * and decides whether they can be collapsed into one React component:
  *  - Every variant must have the same number of top-level shape elements.
- *  - Every element must have the same tag and the same geometry attributes
- *    (`d`, `points`, `transform`, etc.) across all variants.
- * Only color attributes (`fill`, `stroke`) are allowed to differ.
+ *  - Every element must have the same tag across all variants.
  *
- * When aligned, returns the data needed to render the unified component.
- * When unaligned, returns a human-readable reason so we can log a warning and
- * fall back to per-variant inlining.
+ * If those structural checks pass, the `light` variant's geometry is treated
+ * as canonical and we build a per-element color lookup from each variant's
+ * same-indexed elements. Geometry attributes (`d`, `points`, `transform`,
+ * etc.) are NOT required to match across variants — Figma's exporter rounds
+ * coordinates slightly differently per background which would otherwise push
+ * almost every pictogram onto the switched fallback. When geometry does
+ * drift we record a warning in `analysis.geometryWarnings` so reviewers can
+ * confirm dark/orange still look right.
+ *
+ * Only structural mismatches (different element count or different tag at the
+ * same index) fall back to per-variant inlining — that's a sign the artist
+ * actually drew different artwork per background.
  */
 export function analyzePictogramAlignment(svgsByVariant: Record<string, string>): AlignmentResult {
   const variants = Object.keys(svgsByVariant);
@@ -138,7 +157,10 @@ export function analyzePictogramAlignment(svgsByVariant: Record<string, string>)
     }
   }
 
-  // Element-by-element geometry check.
+  // Element-by-element structural check. We only bail out for tag mismatches
+  // (a genuine topology difference); geometry drift is recorded as a warning
+  // and the `light` variant's geometry wins. See the function docstring above.
+  const geometryWarnings: string[] = [];
   for (let i = 0; i < elementCount; i++) {
     const refEl = refElements[i];
     for (const variant of variants) {
@@ -152,10 +174,7 @@ export function analyzePictogramAlignment(svgsByVariant: Record<string, string>)
       }
       for (const attr of SHAPE_ATTRS) {
         if ((refEl.attribs[attr] || '') !== (otherEl.attribs[attr] || '')) {
-          return {
-            aligned: false,
-            reason: `element[${i}] ${attr} differs between ${refVariant} and ${variant}`,
-          };
+          geometryWarnings.push(`element[${i}] ${attr} differs between ${refVariant} and ${variant}`);
         }
       }
     }
@@ -219,6 +238,7 @@ export function analyzePictogramAlignment(svgsByVariant: Record<string, string>)
       fillsByVariant,
       strokesByVariant,
       elementCount,
+      geometryWarnings,
     },
   };
 }
