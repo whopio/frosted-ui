@@ -245,6 +245,31 @@ export const CloseOnClick: Story = {
   },
 };
 
+export const Disabled: Story = {
+  name: 'Disabled',
+  args: {
+    content: 'Tooltip',
+  },
+  render: function Render() {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
+        <Text render={<div />} style={{ maxWidth: 460, textAlign: 'center' }}>
+          Set <Code>disabled={'{true}'}</Code> to prevent the tooltip from opening regardless of trigger interactions.
+        </Text>
+
+        <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center' }}>
+          <Tooltip content="This tooltip is always visible" delay={0}>
+            <Button>disabled: false (default)</Button>
+          </Tooltip>
+          <Tooltip content="You should never see this" delay={0} disabled>
+            <Button>disabled: true</Button>
+          </Tooltip>
+        </div>
+      </div>
+    );
+  },
+};
+
 export const ControlledMode: Story = {
   name: 'Controlled Mode',
   args: {

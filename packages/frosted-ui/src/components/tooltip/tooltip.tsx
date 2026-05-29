@@ -38,6 +38,12 @@ interface TooltipProps extends TooltipOwnProps {
    */
   closeOnClick?: boolean;
   /**
+   * Whether the tooltip is disabled. When disabled, the tooltip will not open
+   * regardless of trigger interactions.
+   * @default false
+   */
+  disabled?: boolean;
+  /**
    * Whether the tooltip contents can be hovered without closing the tooltip.
    * @default false
    */
@@ -76,6 +82,7 @@ const TooltipImpl = (props: TooltipProps) => {
     delay = 400,
     closeDelay,
     closeOnClick,
+    disabled,
     disableHoverablePopup,
     trackCursorAxis,
     actionsRef,
@@ -97,6 +104,7 @@ const TooltipImpl = (props: TooltipProps) => {
     defaultOpen,
     onOpenChange,
     onOpenChangeComplete,
+    disabled,
     disableHoverablePopup,
     trackCursorAxis,
     actionsRef,
