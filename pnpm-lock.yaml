@@ -102,9 +102,6 @@ importers:
       '@base-ui/react':
         specifier: ^1.5.0
         version: 1.5.0(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@frosted-ui/colors':
-        specifier: 0.0.1-canary.61
-        version: 0.0.1-canary.61
       '@internationalized/date':
         specifier: ^3.5.6
         version: 3.5.6
@@ -151,6 +148,9 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0(@base-ui/react@1.5.0(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
     devDependencies:
+      '@frosted-ui/colors':
+        specifier: workspace:*
+        version: link:../frosted-ui-colors
       '@frosted-ui/icons':
         specifier: workspace:*
         version: link:../frosted-ui-icons
@@ -330,11 +330,10 @@ importers:
         version: 4.9.5
 
   packages/frosted-ui-native-colors:
-    dependencies:
-      '@frosted-ui/colors':
-        specifier: 0.0.1-canary.51
-        version: 0.0.1-canary.51
     devDependencies:
+      '@frosted-ui/colors':
+        specifier: workspace:*
+        version: link:../frosted-ui-colors
       '@types/node':
         specifier: ^15.0.3
         version: 15.0.3
@@ -1908,9 +1907,6 @@ packages:
 
   '@formatjs/intl-localematcher@0.5.5':
     resolution: {integrity: sha512-t5tOGMgZ/i5+ALl2/offNqAQq/lfUnKLEw0mXQI4N4bqpedhrSE+fyKLpwnd22sK0dif6AV+ufQcTsKShB9J1g==}
-
-  '@frosted-ui/colors@0.0.1-canary.51':
-    resolution: {integrity: sha512-/8JvOk2DhTnuo9AtEnQZr0fi1n4mHUY3yTJmG07M1Pay34O9lCnrcJiBFHdErQmlAFjTmME5XohnbQP6omsPsw==}
 
   '@frosted-ui/colors@0.0.1-canary.61':
     resolution: {integrity: sha512-fl+yihO8kxr7Q1w4z4rRwWePZtQOQoUx9fGkx1BhQx5e/mwEtyXOK8hTs+nu293xx7pjiub/zhzGszFIeofafw==}
@@ -11573,8 +11569,6 @@ snapshots:
   '@formatjs/intl-localematcher@0.5.5':
     dependencies:
       tslib: 2.8.0
-
-  '@frosted-ui/colors@0.0.1-canary.51': {}
 
   '@frosted-ui/colors@0.0.1-canary.61': {}
 

@@ -70,7 +70,6 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.5.0",
-    "@frosted-ui/colors": "0.0.1-canary.61",
     "@internationalized/date": "^3.5.6",
     "@react-aria/calendar": "^3.5.13",
     "@react-aria/datepicker": "^3.11.4",
@@ -107,6 +106,7 @@
     }
   },
   "devDependencies": {
+    "@frosted-ui/colors": "workspace:*",
     "@frosted-ui/icons": "workspace:*",
     "@napi-rs/canvas": "^0.1.60",
     "@storybook/addon-essentials": "^8.5.3",

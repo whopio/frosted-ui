@@ -24,6 +24,7 @@
       "dependsOn": ["build"]
     },
     "build:css": {
+      "dependsOn": ["^build"],
       "outputs": ["styles.css"],
       "inputs": ["src/**"]
     },

@@ -30,13 +30,11 @@
     "url": "https://github.com/whopio/frosted-ui/issues"
   },
   "devDependencies": {
+    "@frosted-ui/colors": "workspace:*",
     "@types/node": "^15.0.3",
     "rimraf": "^5.0.5",
     "tslib": "^2.2.0",
     "typescript": "^4.2.4"
   },
-  "license": "MIT",
-  "dependencies": {
-    "@frosted-ui/colors": "0.0.1-canary.51"
-  }
+  "license": "MIT"
 }
