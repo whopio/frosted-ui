@@ -10,8 +10,6 @@
   "scripts": {
     "build": "pnpm clean && pnpm rollup -c && pnpm build-css-modules",
     "build-css-modules": "node ./scripts/build-css-modules.js",
-    "prepublishOnly": "pnpm build",
-    "postpublish": "pnpm clean",
     "clean": "rm -f *.css index.js index.mjs",
     "release": "turbo-module publish"
   },
