@@ -44,87 +44,90 @@ const itemStateAttributesMapping = {
  * the image to decode before starting the morph; `loading="lazy"` images
  * that haven't started fetching may miss this window and appear blank
  * during the opening animation.
+ *
+ * If you instead reuse the trigger image as a placeholder for the item,
+ * set `awaitImageDecode={false}` on `Lightbox.Root` to start the morph
+ * immediately without waiting for decode.
  */
-const LightboxItem = React.forwardRef<HTMLDivElement, LightboxItemProps>(
-  function LightboxItem(props, forwardedRef) {
-    const { render, index, caption, children, ...elementProps } = props;
+const LightboxItem = React.forwardRef<HTMLDivElement, LightboxItemProps>(function LightboxItem(props, forwardedRef) {
+  const { render, index, caption, children, ...elementProps } = props;
 
-    const { registerCaption, registerItem, activeItemElementRef } = useLightboxContext();
-    const groupContext = useLightboxItemGroupContext();
+  const { registerCaption, registerItem, activeItemElementRef } = useLightboxContext();
+  const groupContext = useLightboxItemGroupContext();
 
-    const activeIndex = groupContext.activeIndex;
-    const preload = groupContext.preload;
-    const isActive = index === activeIndex;
-    const linearDist = Math.abs(index - activeIndex);
-    const distance = groupContext.loop && groupContext.itemCount > 0
+  const activeIndex = groupContext.activeIndex;
+  const preload = groupContext.preload;
+  const isActive = index === activeIndex;
+  const linearDist = Math.abs(index - activeIndex);
+  const distance =
+    groupContext.loop && groupContext.itemCount > 0
       ? Math.min(linearDist, groupContext.itemCount - linearDist)
       : linearDist;
-    const isVisible = distance <= preload;
+  const isVisible = distance <= preload;
 
-    const internalRef = React.useRef<HTMLDivElement | null>(null);
+  const internalRef = React.useRef<HTMLDivElement | null>(null);
 
-    const mergedRefCallback = React.useCallback(
-      (node: HTMLDivElement | null) => {
-        internalRef.current = node;
-        if (typeof forwardedRef === 'function') {
-          forwardedRef(node);
-        } else if (forwardedRef) {
-          forwardedRef.current = node;
-        }
-      },
-      [forwardedRef],
-    );
-
-    // Register active item element for view transitions.
-    // useLayoutEffect ensures the ref is set synchronously after
-    // commit, which is critical for flushSync in the view transition flow.
-    React.useLayoutEffect(() => {
-      if (isActive && internalRef.current) {
-        activeItemElementRef.current = internalRef.current;
+  const mergedRefCallback = React.useCallback(
+    (node: HTMLDivElement | null) => {
+      internalRef.current = node;
+      if (typeof forwardedRef === 'function') {
+        forwardedRef(node);
+      } else if (forwardedRef) {
+        forwardedRef.current = node;
       }
-    }, [isActive, activeItemElementRef]);
+    },
+    [forwardedRef],
+  );
 
-    React.useEffect(() => {
-      return registerItem(index);
-    }, [index, registerItem]);
+  // Register active item element for view transitions.
+  // useLayoutEffect ensures the ref is set synchronously after
+  // commit, which is critical for flushSync in the view transition flow.
+  React.useLayoutEffect(() => {
+    if (isActive && internalRef.current) {
+      activeItemElementRef.current = internalRef.current;
+    }
+  }, [isActive, activeItemElementRef]);
 
-    React.useEffect(() => {
-      if (caption !== undefined) {
-        return registerCaption(index, caption);
-      }
-    }, [index, caption, registerCaption]);
+  React.useEffect(() => {
+    return registerItem(index);
+  }, [index, registerItem]);
 
-    const resolvedChildren = React.useMemo(() => {
-      if (!isVisible) return null;
-      return typeof children === 'function' ? children({ active: isActive, visible: isVisible }) : children;
-    }, [isVisible, isActive, children]);
+  React.useEffect(() => {
+    if (caption !== undefined) {
+      return registerCaption(index, caption);
+    }
+  }, [index, caption, registerCaption]);
 
-    const state = React.useMemo<LightboxItemState>(() => ({ active: isActive, index }), [isActive, index]);
-
-    // useRender is a hook — must always be called regardless of visibility
-    const rendered = useRender({
-      render,
-      ref: mergedRefCallback,
-      state,
-      stateAttributesMapping: itemStateAttributesMapping,
-      props: mergeProps<'div'>(
-        {
-          className: 'fui-LightboxItem',
-          role: 'tabpanel',
-          'aria-hidden': !isActive,
-          inert: !isActive ? true : undefined,
-        } as React.ComponentPropsWithRef<'div'>,
-        elementProps as React.ComponentPropsWithRef<'div'>,
-        { children: resolvedChildren } as React.ComponentPropsWithRef<'div'>,
-      ),
-      defaultTagName: 'div',
-    });
-
+  const resolvedChildren = React.useMemo(() => {
     if (!isVisible) return null;
+    return typeof children === 'function' ? children({ active: isActive, visible: isVisible }) : children;
+  }, [isVisible, isActive, children]);
 
-    return rendered;
-  },
-);
+  const state = React.useMemo<LightboxItemState>(() => ({ active: isActive, index }), [isActive, index]);
+
+  // useRender is a hook — must always be called regardless of visibility
+  const rendered = useRender({
+    render,
+    ref: mergedRefCallback,
+    state,
+    stateAttributesMapping: itemStateAttributesMapping,
+    props: mergeProps<'div'>(
+      {
+        className: 'fui-LightboxItem',
+        role: 'tabpanel',
+        'aria-hidden': !isActive,
+        inert: !isActive ? true : undefined,
+      } as React.ComponentPropsWithRef<'div'>,
+      elementProps as React.ComponentPropsWithRef<'div'>,
+      { children: resolvedChildren } as React.ComponentPropsWithRef<'div'>,
+    ),
+    defaultTagName: 'div',
+  });
+
+  if (!isVisible) return null;
+
+  return rendered;
+});
 
 LightboxItem.displayName = 'LightboxItem';
 

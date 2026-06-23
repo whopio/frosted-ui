@@ -12,9 +12,7 @@ import {
   type NavigationSource,
 } from './lightbox-context';
 
-function startViewTransition(
-  callback: () => void | Promise<void>,
-): { finished: Promise<void> } {
+function startViewTransition(callback: () => void | Promise<void>): { finished: Promise<void> } {
   return (
     document as Document & {
       startViewTransition: (cb: () => void | Promise<void>) => { finished: Promise<void> };
@@ -41,10 +39,7 @@ const DECODE_MAX_WAIT = 200;
  */
 function waitForImageDecode(target: HTMLElement | null): Promise<void> {
   if (!target) return Promise.resolve();
-  const img =
-    target.tagName === 'IMG'
-      ? (target as HTMLImageElement)
-      : target.querySelector<HTMLImageElement>('img');
+  const img = target.tagName === 'IMG' ? (target as HTMLImageElement) : target.querySelector<HTMLImageElement>('img');
   if (!img || !('decode' in img)) return Promise.resolve();
   // Image already loaded (e.g. cached from a previous open) — no wait needed.
   // The VT API captures the snapshot after this callback resolves, so the
@@ -124,6 +119,19 @@ interface LightboxRootProps {
    * @default 'active'
    */
   morphTo?: 'active' | 'origin' | 'closest';
+  /**
+   * Whether the open morph waits for the destination image to decode
+   * before starting (bounded by a short internal timeout). This prevents
+   * a flash of empty space when the lightbox image hasn't painted yet.
+   *
+   * Set to `false` to start the transition immediately without waiting —
+   * useful when the trigger image doubles as a placeholder for the
+   * lightbox item, so there is nothing to wait for.
+   *
+   * Only relevant when `viewTransition` is enabled.
+   * @default true
+   */
+  awaitImageDecode?: boolean;
 }
 
 interface LightboxRootRef {
@@ -161,361 +169,374 @@ function resolveTriggerIndex(
   return best >= 0 ? best : activeIndex;
 }
 
-const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(
-  function LightboxRoot(props, forwardedRef) {
-    const {
-      children,
-      defaultOpen = false,
-      open: openProp,
-      onOpenChange,
-      onOpenChangeComplete,
-      defaultValue = 0,
-      value: valueProp,
-      onValueChange,
-      loop = false,
-      viewTransition = false,
-      scrollTriggerIntoView = null,
-      morphTo = 'active',
-    } = props;
+const LightboxRoot = React.forwardRef<LightboxRootRef, LightboxRootProps>(function LightboxRoot(props, forwardedRef) {
+  const {
+    children,
+    defaultOpen = false,
+    open: openProp,
+    onOpenChange,
+    onOpenChangeComplete,
+    defaultValue = 0,
+    value: valueProp,
+    onValueChange,
+    loop = false,
+    viewTransition = false,
+    scrollTriggerIntoView = null,
+    morphTo = 'active',
+    awaitImageDecode = true,
+  } = props;
 
-    // Open state — controlled or uncontrolled
-    const isControlledOpen = openProp !== undefined;
-    const [uncontrolledOpen, setUncontrolledOpen] = React.useState(defaultOpen);
-    const open = isControlledOpen ? openProp : uncontrolledOpen;
+  // Open state — controlled or uncontrolled
+  const isControlledOpen = openProp !== undefined;
+  const [uncontrolledOpen, setUncontrolledOpen] = React.useState(defaultOpen);
+  const open = isControlledOpen ? openProp : uncontrolledOpen;
 
-    const onOpenChangeRef = React.useRef(onOpenChange);
-    React.useEffect(() => {
-      onOpenChangeRef.current = onOpenChange;
-    }, [onOpenChange]);
+  const onOpenChangeRef = React.useRef(onOpenChange);
+  React.useEffect(() => {
+    onOpenChangeRef.current = onOpenChange;
+  }, [onOpenChange]);
 
-    const onOpenChangeCompleteRef = React.useRef(onOpenChangeComplete);
-    React.useEffect(() => {
-      onOpenChangeCompleteRef.current = onOpenChangeComplete;
-    }, [onOpenChangeComplete]);
+  const onOpenChangeCompleteRef = React.useRef(onOpenChangeComplete);
+  React.useEffect(() => {
+    onOpenChangeCompleteRef.current = onOpenChangeComplete;
+  }, [onOpenChangeComplete]);
 
-    // Active index — controlled or uncontrolled
-    const isControlledValue = valueProp !== undefined;
-    const [uncontrolledValue, setUncontrolledValue] = React.useState(defaultValue);
-    const activeIndex = isControlledValue ? valueProp : uncontrolledValue;
+  // Active index — controlled or uncontrolled
+  const isControlledValue = valueProp !== undefined;
+  const [uncontrolledValue, setUncontrolledValue] = React.useState(defaultValue);
+  const activeIndex = isControlledValue ? valueProp : uncontrolledValue;
 
-    const onValueChangeRef = React.useRef(onValueChange);
-    React.useEffect(() => {
-      onValueChangeRef.current = onValueChange;
-    }, [onValueChange]);
+  const onValueChangeRef = React.useRef(onValueChange);
+  React.useEffect(() => {
+    onValueChangeRef.current = onValueChange;
+  }, [onValueChange]);
 
-    const setActiveIndex = React.useCallback(
-      (index: number, source: NavigationSource) => {
-        if (!isControlledValue) {
-          setUncontrolledValue(index);
-        }
-        onValueChangeRef.current?.(index, { source });
-      },
-      [isControlledValue],
-    );
-
-    // Scroll the active trigger into view when activeIndex changes while open
-    React.useEffect(() => {
-      if (scrollTriggerIntoView?.type === 'onChange' && open) {
-        const el = triggerElementsRef.current.get(activeIndex);
-        scrollTriggerEl(el, scrollTriggerIntoView.behavior);
+  const setActiveIndex = React.useCallback(
+    (index: number, source: NavigationSource) => {
+      if (!isControlledValue) {
+        setUncontrolledValue(index);
       }
-    }, [scrollTriggerIntoView, open, activeIndex]);
+      onValueChangeRef.current?.(index, { source });
+    },
+    [isControlledValue],
+  );
 
-    // Item registry — tracks mounted items so count can grow and shrink
-    const registeredItemsRef = React.useRef(new Set<number>());
-    const [itemCount, setItemCount] = React.useState(0);
+  // Scroll the active trigger into view when activeIndex changes while open
+  React.useEffect(() => {
+    if (scrollTriggerIntoView?.type === 'onChange' && open) {
+      const el = triggerElementsRef.current.get(activeIndex);
+      scrollTriggerEl(el, scrollTriggerIntoView.behavior);
+    }
+  }, [scrollTriggerIntoView, open, activeIndex]);
 
-    const registerItem = React.useCallback((index: number) => {
-      registeredItemsRef.current.add(index);
+  // Item registry — tracks mounted items so count can grow and shrink
+  const registeredItemsRef = React.useRef(new Set<number>());
+  const [itemCount, setItemCount] = React.useState(0);
+
+  const registerItem = React.useCallback((index: number) => {
+    registeredItemsRef.current.add(index);
+    setItemCount(registeredItemsRef.current.size);
+    return () => {
+      registeredItemsRef.current.delete(index);
       setItemCount(registeredItemsRef.current.size);
-      return () => {
-        registeredItemsRef.current.delete(index);
-        setItemCount(registeredItemsRef.current.size);
-      };
-    }, []);
+    };
+  }, []);
 
-    // Caption registry — ref-based to avoid creating new Map objects and
-    // triggering re-renders on every item mount. LightboxCaption reads
-    // from the ref; it re-renders when activeIndex changes via context.
-    const captionsRef = React.useRef(new Map<number, React.ReactNode>());
+  // Caption registry — ref-based to avoid creating new Map objects and
+  // triggering re-renders on every item mount. LightboxCaption reads
+  // from the ref; it re-renders when activeIndex changes via context.
+  const captionsRef = React.useRef(new Map<number, React.ReactNode>());
 
-    const registerCaption = React.useCallback((index: number, caption: React.ReactNode) => {
-      captionsRef.current.set(index, caption);
-      return () => {
-        captionsRef.current.delete(index);
-      };
-    }, []);
+  const registerCaption = React.useCallback((index: number, caption: React.ReactNode) => {
+    captionsRef.current.set(index, caption);
+    return () => {
+      captionsRef.current.delete(index);
+    };
+  }, []);
 
-    // Portal mount state — stays true during exit animations so elements
-    // remain in the DOM for CSS transitions (non-VT) or are removed
-    // immediately inside flushSync (VT close).
-    const [mounted, setMounted] = React.useState(defaultOpen);
-    const closeGenRef = React.useRef(0);
+  // Portal mount state — stays true during exit animations so elements
+  // remain in the DOM for CSS transitions (non-VT) or are removed
+  // immediately inside flushSync (VT close).
+  const [mounted, setMounted] = React.useState(defaultOpen);
+  const closeGenRef = React.useRef(0);
 
-    // View transition refs
-    const triggerElementsRef = React.useRef<Map<number, HTMLElement>>(new Map());
-    const activeItemElementRef = React.useRef<HTMLElement | null>(null);
-    const openingTriggerIndexRef = React.useRef(0);
-    const dialogElementRef = React.useRef<HTMLElement | null>(null);
-    const activeIndexRef = React.useRef(activeIndex);
-    activeIndexRef.current = activeIndex;
+  // View transition refs
+  const triggerElementsRef = React.useRef<Map<number, HTMLElement>>(new Map());
+  const activeItemElementRef = React.useRef<HTMLElement | null>(null);
+  const openingTriggerIndexRef = React.useRef(0);
+  const dialogElementRef = React.useRef<HTMLElement | null>(null);
+  const activeIndexRef = React.useRef(activeIndex);
+  activeIndexRef.current = activeIndex;
 
-    const setOpen = React.useCallback(
-      (nextOpen: boolean) => {
-        closeGenRef.current += 1;
+  const setOpen = React.useCallback(
+    (nextOpen: boolean) => {
+      closeGenRef.current += 1;
 
-        const useVT = viewTransition && supportsViewTransitions();
+      const useVT = viewTransition && supportsViewTransitions();
 
-        if (useVT) {
-          const docEl = document.documentElement;
+      if (useVT) {
+        const docEl = document.documentElement;
 
-          const gen = closeGenRef.current;
+        const gen = closeGenRef.current;
 
-          if (nextOpen) {
-            // --- OPEN with view transition ---
-            const triggerIdx = openingTriggerIndexRef.current;
-            const triggerEl = triggerElementsRef.current.get(triggerIdx);
-            const triggerTarget = triggerEl ? findMorphTarget(triggerEl) : null;
-            const useCrossfade = triggerEl?.dataset.crossfade === 'true';
+        if (nextOpen) {
+          // --- OPEN with view transition ---
+          const triggerIdx = openingTriggerIndexRef.current;
+          const triggerEl = triggerElementsRef.current.get(triggerIdx);
+          const triggerTarget = triggerEl ? findMorphTarget(triggerEl) : null;
+          const useCrossfade = triggerEl?.dataset.crossfade === 'true';
 
-            // Batch all reads before any writes to avoid forced reflow
-            const fromRadius = triggerTarget ? getComputedStyle(triggerTarget).borderRadius : null;
+          // Batch all reads before any writes to avoid forced reflow
+          const fromRadius = triggerTarget ? getComputedStyle(triggerTarget).borderRadius : null;
 
-            // Writes
-            docEl.setAttribute('data-lightbox-view-transition', 'opening');
-            if (!useCrossfade) {
-              docEl.setAttribute('data-lightbox-no-crossfade', '');
-              docEl.style.setProperty('--fui-morph-old-opacity', '0');
-              docEl.style.setProperty('--fui-morph-new-opacity', '1');
-            }
+          // Writes
+          docEl.setAttribute('data-lightbox-view-transition', 'opening');
+          if (!useCrossfade) {
+            docEl.setAttribute('data-lightbox-no-crossfade', '');
+            docEl.style.setProperty('--fui-morph-old-opacity', '0');
+            docEl.style.setProperty('--fui-morph-new-opacity', '1');
+          }
+          if (triggerTarget) {
+            triggerTarget.style.viewTransitionName = VIEW_TRANSITION_NAME;
+          }
+          if (fromRadius) {
+            docEl.style.setProperty('--fui-morph-border-radius-from', fromRadius);
+          }
+
+          const transition = startViewTransition(async () => {
             if (triggerTarget) {
-              triggerTarget.style.viewTransitionName = VIEW_TRANSITION_NAME;
+              triggerTarget.style.viewTransitionName = '';
             }
-            if (fromRadius) {
-              docEl.style.setProperty('--fui-morph-border-radius-from', fromRadius);
-            }
-
-            const transition = startViewTransition(async () => {
-              if (triggerTarget) {
-                triggerTarget.style.viewTransitionName = '';
+            flushSync(() => {
+              setMounted(true);
+              if (!isControlledOpen) {
+                setUncontrolledOpen(true);
               }
-              flushSync(() => {
-                setMounted(true);
-                if (!isControlledOpen) {
-                  setUncontrolledOpen(true);
-                }
-                onOpenChangeRef.current?.(true);
-              });
-              const itemEl = activeItemElementRef.current;
-              const itemTarget = itemEl ? findMorphTarget(itemEl) : null;
-
-              // Wait for the destination image to decode before the browser
-              // captures the "new" snapshot, preventing a flash of empty space
-              // during the morph animation.
-              await waitForImageDecode(itemTarget);
-
-              // Read before write to avoid forced reflow
-              const toRadius = itemTarget ? getComputedStyle(itemTarget).borderRadius : null;
-              if (itemTarget) {
-                itemTarget.style.viewTransitionName = VIEW_TRANSITION_NAME;
-              }
-              if (toRadius) {
-                docEl.style.setProperty('--fui-morph-border-radius-to', toRadius);
-              }
-              if (itemEl) {
-                itemEl.setAttribute('data-skip-fade', '');
-              }
+              onOpenChangeRef.current?.(true);
             });
-
-            transition.finished.finally(() => {
-              if (closeGenRef.current !== gen) return;
-              const itemEl = activeItemElementRef.current;
-              const itemTarget = itemEl ? findMorphTarget(itemEl) : null;
-              if (itemTarget) {
-                itemTarget.style.viewTransitionName = '';
-              }
-              docEl.removeAttribute('data-lightbox-view-transition');
-              docEl.removeAttribute('data-lightbox-no-crossfade');
-              docEl.style.removeProperty('--fui-morph-old-opacity');
-              docEl.style.removeProperty('--fui-morph-new-opacity');
-              docEl.style.removeProperty('--fui-morph-border-radius-from');
-              docEl.style.removeProperty('--fui-morph-border-radius-to');
-              onOpenChangeCompleteRef.current?.(true);
-            });
-          } else {
-            // --- CLOSE with view transition ---
             const itemEl = activeItemElementRef.current;
             const itemTarget = itemEl ? findMorphTarget(itemEl) : null;
-            const triggerIdx = resolveTriggerIndex(
-              activeIndexRef.current,
-              morphTo,
-              openingTriggerIndexRef.current,
-              triggerElementsRef.current,
-            );
-            const triggerEl = triggerElementsRef.current.get(triggerIdx);
-            const triggerTarget = triggerEl ? findMorphTarget(triggerEl) : null;
-            const useCrossfade = triggerEl?.dataset.crossfade === 'true';
 
-            // Batch all reads before any writes to avoid forced reflow
-            const fromRadius = itemTarget ? getComputedStyle(itemTarget).borderRadius : null;
-            const toRadius = triggerTarget ? getComputedStyle(triggerTarget).borderRadius : null;
-
-            // Writes
-            docEl.setAttribute('data-lightbox-view-transition', 'closing');
-            if (!useCrossfade) {
-              docEl.setAttribute('data-lightbox-no-crossfade', '');
-              docEl.style.setProperty('--fui-morph-old-opacity', '1');
-              docEl.style.setProperty('--fui-morph-new-opacity', '0');
+            // Wait for the destination image to decode before the browser
+            // captures the "new" snapshot, preventing a flash of empty space
+            // during the morph animation. Skipped when the consumer opts out
+            // (e.g. the trigger image is reused as the item placeholder).
+            if (awaitImageDecode) {
+              await waitForImageDecode(itemTarget);
             }
+
+            // Read before write to avoid forced reflow
+            const toRadius = itemTarget ? getComputedStyle(itemTarget).borderRadius : null;
             if (itemTarget) {
               itemTarget.style.viewTransitionName = VIEW_TRANSITION_NAME;
-            }
-            if (fromRadius) {
-              docEl.style.setProperty('--fui-morph-border-radius-from', fromRadius);
             }
             if (toRadius) {
               docEl.style.setProperty('--fui-morph-border-radius-to', toRadius);
             }
-
-            const transition = startViewTransition(() => {
-              if (itemTarget) {
-                itemTarget.style.viewTransitionName = '';
-              }
-              flushSync(() => {
-                if (!isControlledOpen) {
-                  setUncontrolledOpen(false);
-                }
-                onOpenChangeRef.current?.(false);
-                setMounted(false);
-              });
-              if (scrollTriggerIntoView) {
-                scrollTriggerEl(triggerEl, 'instant');
-              }
-              if (triggerTarget) {
-                triggerTarget.style.viewTransitionName = VIEW_TRANSITION_NAME;
-              }
-            });
-
-            transition.finished.finally(() => {
-              if (triggerTarget) {
-                triggerTarget.style.viewTransitionName = '';
-              }
-              docEl.removeAttribute('data-lightbox-view-transition');
-              docEl.removeAttribute('data-lightbox-no-crossfade');
-              docEl.style.removeProperty('--fui-morph-old-opacity');
-              docEl.style.removeProperty('--fui-morph-new-opacity');
-              docEl.style.removeProperty('--fui-morph-border-radius-from');
-              docEl.style.removeProperty('--fui-morph-border-radius-to');
-              if (closeGenRef.current === gen) {
-                triggerEl?.focus({ preventScroll: true });
-                onOpenChangeCompleteRef.current?.(false);
-              }
-            });
-          }
-        } else {
-          // --- No view transition ---
-          if (nextOpen) {
-            setMounted(true);
-            if (!isControlledOpen) {
-              setUncontrolledOpen(true);
+            if (itemEl) {
+              itemEl.setAttribute('data-skip-fade', '');
             }
-            onOpenChangeRef.current?.(true);
-            const gen = closeGenRef.current;
-            requestAnimationFrame(() => {
-              if (closeGenRef.current !== gen) return;
-              const el = dialogElementRef.current;
-              if (el) {
-                Promise.allSettled(el.getAnimations().map((a) => a.finished)).then(() => {
-                  if (closeGenRef.current === gen) {
-                    onOpenChangeCompleteRef.current?.(true);
-                  }
-                });
-              } else {
-                onOpenChangeCompleteRef.current?.(true);
+          });
+
+          transition.finished.finally(() => {
+            if (closeGenRef.current !== gen) return;
+            const itemEl = activeItemElementRef.current;
+            const itemTarget = itemEl ? findMorphTarget(itemEl) : null;
+            if (itemTarget) {
+              itemTarget.style.viewTransitionName = '';
+            }
+            docEl.removeAttribute('data-lightbox-view-transition');
+            docEl.removeAttribute('data-lightbox-no-crossfade');
+            docEl.style.removeProperty('--fui-morph-old-opacity');
+            docEl.style.removeProperty('--fui-morph-new-opacity');
+            docEl.style.removeProperty('--fui-morph-border-radius-from');
+            docEl.style.removeProperty('--fui-morph-border-radius-to');
+            onOpenChangeCompleteRef.current?.(true);
+          });
+        } else {
+          // --- CLOSE with view transition ---
+          const itemEl = activeItemElementRef.current;
+          const itemTarget = itemEl ? findMorphTarget(itemEl) : null;
+          const triggerIdx = resolveTriggerIndex(
+            activeIndexRef.current,
+            morphTo,
+            openingTriggerIndexRef.current,
+            triggerElementsRef.current,
+          );
+          const triggerEl = triggerElementsRef.current.get(triggerIdx);
+          const triggerTarget = triggerEl ? findMorphTarget(triggerEl) : null;
+          const useCrossfade = triggerEl?.dataset.crossfade === 'true';
+
+          // Batch all reads before any writes to avoid forced reflow
+          const fromRadius = itemTarget ? getComputedStyle(itemTarget).borderRadius : null;
+          const toRadius = triggerTarget ? getComputedStyle(triggerTarget).borderRadius : null;
+
+          // Writes
+          docEl.setAttribute('data-lightbox-view-transition', 'closing');
+          if (!useCrossfade) {
+            docEl.setAttribute('data-lightbox-no-crossfade', '');
+            docEl.style.setProperty('--fui-morph-old-opacity', '1');
+            docEl.style.setProperty('--fui-morph-new-opacity', '0');
+          }
+          if (itemTarget) {
+            itemTarget.style.viewTransitionName = VIEW_TRANSITION_NAME;
+          }
+          if (fromRadius) {
+            docEl.style.setProperty('--fui-morph-border-radius-from', fromRadius);
+          }
+          if (toRadius) {
+            docEl.style.setProperty('--fui-morph-border-radius-to', toRadius);
+          }
+
+          const transition = startViewTransition(() => {
+            if (itemTarget) {
+              itemTarget.style.viewTransitionName = '';
+            }
+            flushSync(() => {
+              if (!isControlledOpen) {
+                setUncontrolledOpen(false);
               }
+              onOpenChangeRef.current?.(false);
+              setMounted(false);
             });
-          } else {
-            const closeTriggerIdx = resolveTriggerIndex(
-              activeIndexRef.current,
-              morphTo,
-              openingTriggerIndexRef.current,
-              triggerElementsRef.current,
-            );
             if (scrollTriggerIntoView) {
-              const triggerEl = triggerElementsRef.current.get(closeTriggerIdx);
               scrollTriggerEl(triggerEl, 'instant');
             }
-            if (!isControlledOpen) {
-              setUncontrolledOpen(false);
+            if (triggerTarget) {
+              triggerTarget.style.viewTransitionName = VIEW_TRANSITION_NAME;
             }
-            onOpenChangeRef.current?.(false);
+          });
+
+          transition.finished.finally(() => {
+            if (triggerTarget) {
+              triggerTarget.style.viewTransitionName = '';
+            }
+            docEl.removeAttribute('data-lightbox-view-transition');
+            docEl.removeAttribute('data-lightbox-no-crossfade');
+            docEl.style.removeProperty('--fui-morph-old-opacity');
+            docEl.style.removeProperty('--fui-morph-new-opacity');
+            docEl.style.removeProperty('--fui-morph-border-radius-from');
+            docEl.style.removeProperty('--fui-morph-border-radius-to');
+            if (closeGenRef.current === gen) {
+              triggerEl?.focus({ preventScroll: true });
+              onOpenChangeCompleteRef.current?.(false);
+            }
+          });
+        }
+      } else {
+        // --- No view transition ---
+        if (nextOpen) {
+          setMounted(true);
+          if (!isControlledOpen) {
+            setUncontrolledOpen(true);
+          }
+          onOpenChangeRef.current?.(true);
+          const gen = closeGenRef.current;
+          requestAnimationFrame(() => {
+            if (closeGenRef.current !== gen) return;
             const el = dialogElementRef.current;
-            const gen = closeGenRef.current;
-            const focusTarget = triggerElementsRef.current.get(closeTriggerIdx);
             if (el) {
               Promise.allSettled(el.getAnimations().map((a) => a.finished)).then(() => {
                 if (closeGenRef.current === gen) {
-                  setMounted(false);
-                  requestAnimationFrame(() => focusTarget?.focus({ preventScroll: true }));
-                  onOpenChangeCompleteRef.current?.(false);
+                  onOpenChangeCompleteRef.current?.(true);
                 }
               });
             } else {
-              setMounted(false);
-              requestAnimationFrame(() => focusTarget?.focus({ preventScroll: true }));
-              onOpenChangeCompleteRef.current?.(false);
+              onOpenChangeCompleteRef.current?.(true);
             }
+          });
+        } else {
+          const closeTriggerIdx = resolveTriggerIndex(
+            activeIndexRef.current,
+            morphTo,
+            openingTriggerIndexRef.current,
+            triggerElementsRef.current,
+          );
+          if (scrollTriggerIntoView) {
+            const triggerEl = triggerElementsRef.current.get(closeTriggerIdx);
+            scrollTriggerEl(triggerEl, 'instant');
+          }
+          if (!isControlledOpen) {
+            setUncontrolledOpen(false);
+          }
+          onOpenChangeRef.current?.(false);
+          const el = dialogElementRef.current;
+          const gen = closeGenRef.current;
+          const focusTarget = triggerElementsRef.current.get(closeTriggerIdx);
+          if (el) {
+            Promise.allSettled(el.getAnimations().map((a) => a.finished)).then(() => {
+              if (closeGenRef.current === gen) {
+                setMounted(false);
+                requestAnimationFrame(() => focusTarget?.focus({ preventScroll: true }));
+                onOpenChangeCompleteRef.current?.(false);
+              }
+            });
+          } else {
+            setMounted(false);
+            requestAnimationFrame(() => focusTarget?.focus({ preventScroll: true }));
+            onOpenChangeCompleteRef.current?.(false);
           }
         }
+      }
+    },
+    [isControlledOpen, viewTransition, scrollTriggerIntoView, morphTo, awaitImageDecode],
+  );
+
+  // Imperative handle
+  React.useImperativeHandle(
+    forwardedRef,
+    () => ({
+      open: (index?: number) => {
+        if (index !== undefined) {
+          openingTriggerIndexRef.current = index;
+          setActiveIndex(index, 'trigger');
+        }
+        setOpen(true);
       },
-      [isControlledOpen, viewTransition, scrollTriggerIntoView, morphTo],
-    );
+      close: () => setOpen(false),
+      goTo: (index: number) => setActiveIndex(index, 'button'),
+    }),
+    [setActiveIndex, setOpen],
+  );
 
-    // Imperative handle
-    React.useImperativeHandle(
-      forwardedRef,
-      () => ({
-        open: (index?: number) => {
-          if (index !== undefined) {
-            openingTriggerIndexRef.current = index;
-            setActiveIndex(index, 'trigger');
-          }
-          setOpen(true);
-        },
-        close: () => setOpen(false),
-        goTo: (index: number) => setActiveIndex(index, 'button'),
-      }),
-      [setActiveIndex, setOpen],
-    );
+  const contextValue = React.useMemo<LightboxContextValue>(
+    () => ({
+      open,
+      setOpen,
+      mounted,
+      activeIndex,
+      setActiveIndex,
+      itemCount,
+      registerItem,
+      loop,
+      captionsRef,
+      registerCaption,
+      viewTransition,
+      morphTo,
+      triggerElementsRef,
+      activeItemElementRef,
+      openingTriggerIndexRef,
+      dialogElementRef,
+    }),
+    [
+      open,
+      setOpen,
+      mounted,
+      activeIndex,
+      setActiveIndex,
+      itemCount,
+      registerItem,
+      loop,
+      registerCaption,
+      viewTransition,
+      morphTo,
+    ],
+  );
 
-    const contextValue = React.useMemo<LightboxContextValue>(
-      () => ({
-        open,
-        setOpen,
-        mounted,
-        activeIndex,
-        setActiveIndex,
-        itemCount,
-        registerItem,
-        loop,
-        captionsRef,
-        registerCaption,
-        viewTransition,
-        morphTo,
-        triggerElementsRef,
-        activeItemElementRef,
-        openingTriggerIndexRef,
-        dialogElementRef,
-      }),
-      [open, setOpen, mounted, activeIndex, setActiveIndex, itemCount, registerItem, loop, registerCaption, viewTransition, morphTo],
-    );
-
-    return <LightboxContext.Provider value={contextValue}>{children}</LightboxContext.Provider>;
-  },
-);
+  return <LightboxContext.Provider value={contextValue}>{children}</LightboxContext.Provider>;
+});
 
 LightboxRoot.displayName = 'LightboxRoot';
 
 export { LightboxRoot };
 export type { LightboxRootProps, LightboxRootRef };
-
