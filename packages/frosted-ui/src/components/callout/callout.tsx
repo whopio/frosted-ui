@@ -3,7 +3,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
-import { Text, textPropDefs, type TextProps } from '../text';
+import { Text, type TextProps } from '../text';
 import { calloutRootPropDefs } from './callout.props';
 
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
@@ -19,7 +19,6 @@ const CalloutRoot = (props: CalloutRootProps) => {
   const {
     children,
     className,
-    size = calloutRootPropDefs.size.default,
     color = calloutRootPropDefs.color.default,
     highContrast = calloutRootPropDefs.highContrast.default,
     ...rootProps
@@ -28,13 +27,11 @@ const CalloutRoot = (props: CalloutRootProps) => {
     <div
       data-accent-color={color}
       {...rootProps}
-      className={classNames('fui-CalloutRoot', className, `fui-r-size-${size}`, {
+      className={classNames('fui-CalloutRoot', className, {
         'fui-high-contrast': highContrast,
       })}
     >
-      <CalloutContext.Provider
-        value={React.useMemo(() => ({ size, color, highContrast }), [size, color, highContrast])}
-      >
+      <CalloutContext.Provider value={React.useMemo(() => ({ color, highContrast }), [color, highContrast])}>
         {children}
       </CalloutContext.Provider>
     </div>
@@ -45,12 +42,12 @@ CalloutRoot.displayName = 'CalloutRoot';
 interface CalloutIconProps extends PropsWithoutColor<'div'> {}
 
 const CalloutIcon = (props: CalloutIconProps) => {
-  const { color, size, highContrast } = React.useContext(CalloutContext);
+  const { color, highContrast } = React.useContext(CalloutContext);
   return (
     <Text
       render={<div />}
       color={color}
-      size={getTextSize(size)}
+      size="2"
       highContrast={highContrast}
       {...props}
       className={classNames('fui-CalloutIcon', props.className)}
@@ -62,11 +59,11 @@ CalloutIcon.displayName = 'CalloutIcon';
 type CalloutTextProps = TextProps;
 
 const CalloutText = (props: CalloutTextProps) => {
-  const { color, size, highContrast } = React.useContext(CalloutContext);
+  const { color, highContrast } = React.useContext(CalloutContext);
   return (
     <Text
       render={<p />}
-      size={getTextSize(size)}
+      size="2"
       color={color}
       highContrast={highContrast}
       weight="medium"
@@ -76,17 +73,6 @@ const CalloutText = (props: CalloutTextProps) => {
   );
 };
 CalloutText.displayName = 'CalloutText';
-
-function getTextSize(size: CalloutRootOwnProps['size']): React.ComponentProps<typeof Text>['size'] {
-  if (size === undefined) return undefined;
-
-  return getNonResponsiveTextSize(size);
-}
-function getNonResponsiveTextSize(
-  size: (typeof calloutRootPropDefs.size.values)[number],
-): (typeof textPropDefs.size.values)[number] {
-  return size === '3' ? '3' : '2';
-}
 
 export { CalloutIcon as Icon, CalloutRoot as Root, CalloutText as Text };
 export type { CalloutIconProps as IconProps, CalloutRootProps as RootProps, CalloutTextProps as TextProps };

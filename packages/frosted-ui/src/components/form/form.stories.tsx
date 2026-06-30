@@ -92,7 +92,7 @@ export const GettingStarted: Story = {
         </Form>
 
         {submitted && (
-          <Callout.Root color="success" size="1" style={{ marginTop: 16 }}>
+          <Callout.Root color="success" style={{ marginTop: 16 }}>
             <Callout.Text>Message sent successfully!</Callout.Text>
           </Callout.Root>
         )}
@@ -237,7 +237,7 @@ export const RequiredControls: Story = {
         </Form>
 
         {submitted && (
-          <Callout.Root color="success" size="1" style={{ marginTop: 16 }}>
+          <Callout.Root color="success" style={{ marginTop: 16 }}>
             <Callout.Text>Form submitted successfully!</Callout.Text>
           </Callout.Root>
         )}
@@ -860,7 +860,7 @@ export const DirtyStateWarning: Story = {
 
         {/* Status indicator - only show after first edit or save */}
         {(isDirty || hasSaved) && (
-          <Callout.Root color={isDirty ? 'warning' : 'success'} size="1" style={{ marginBottom: 16 }}>
+          <Callout.Root color={isDirty ? 'warning' : 'success'} style={{ marginBottom: 16 }}>
             <Callout.Icon>
               <div
                 style={{
@@ -1019,7 +1019,6 @@ export const AutoSaveForm: Story = {
         {/* Save status indicator */}
         <Callout.Root
           color={saveStatus === 'saving' ? 'info' : saveStatus === 'saved' ? 'success' : 'gray'}
-          size="1"
           style={{ marginBottom: 16 }}
         >
           <Callout.Icon>

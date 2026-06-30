@@ -351,7 +351,7 @@ export const FieldsetDisabled: Story = {
         </Form>
 
         {submitted && (
-          <Callout.Root color="success" size="1" style={{ marginTop: 16 }}>
+          <Callout.Root color="success" style={{ marginTop: 16 }}>
             <Callout.Text>
               Order submitted!
               <pre style={{ marginTop: 8, fontSize: 11, whiteSpace: 'pre-wrap' }}>
@@ -552,7 +552,7 @@ export const WithSliderBudget: Story = {
         </Form>
 
         {submitted && (
-          <Callout.Root color="success" size="1" style={{ marginTop: 16 }}>
+          <Callout.Root color="success" style={{ marginTop: 16 }}>
             <Callout.Text>Budget set to ${budget.toLocaleString()}/month</Callout.Text>
           </Callout.Root>
         )}
@@ -727,7 +727,7 @@ export const WithCombobox: Story = {
         </Form>
 
         {submitted && (
-          <Callout.Root color="success" size="1" style={{ marginTop: 16 }}>
+          <Callout.Root color="success" style={{ marginTop: 16 }}>
             <Callout.Text>
               Profile saved!
               <pre
@@ -1116,11 +1116,7 @@ export const CustomValidation: Story = {
 
           {/* Availability Status */}
           {allRulesPass && username.length >= 3 && (
-            <Callout.Root
-              size="1"
-              color={isChecking ? 'gray' : isAvailable ? 'success' : 'danger'}
-              style={{ marginTop: 12 }}
-            >
+            <Callout.Root color={isChecking ? 'gray' : isAvailable ? 'success' : 'danger'} style={{ marginTop: 12 }}>
               <Callout.Icon>
                 {isChecking ? <Spinner size="1" /> : isAvailable ? <Checkmark12 /> : <XMarkSmall12 />}
               </Callout.Icon>
@@ -1721,7 +1717,7 @@ export const AllValidityStates: Story = {
           <Separator size="4" />
 
           {/* Submit to test all */}
-          <Callout.Root color="info" size="1">
+          <Callout.Root color="info">
             <Callout.Text>
               Submit the form to see validation errors. Each field demonstrates a different <Code>ValidityState</Code>{' '}
               property.

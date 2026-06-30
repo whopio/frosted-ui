@@ -41,47 +41,6 @@ export const Default: Story = {
   ),
 };
 
-export const Size: Story = {
-  args: {
-    color: calloutRootPropDefs.color.default,
-    children: (
-      <>
-        You will need to upgrade to the <Link href="#">newest Frosted-UI version</Link> now.
-      </>
-    ),
-  },
-  render: ({ children, ...args }: CalloutRootProps) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', alignItems: 'flex-start' }}>
-      <Callout.Root {...args} size="3">
-        <Callout.Icon>
-          <Callout.Icon>
-            <InfoCircle16 />
-          </Callout.Icon>
-        </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
-      </Callout.Root>
-
-      <Callout.Root {...args} size="2">
-        <Callout.Icon>
-          <Callout.Icon>
-            <InfoCircle16 />
-          </Callout.Icon>
-        </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
-      </Callout.Root>
-
-      <Callout.Root {...args} size="1">
-        <Callout.Icon>
-          <Callout.Icon>
-            <InfoCircle16 />
-          </Callout.Icon>
-        </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
-      </Callout.Root>
-    </div>
-  ),
-};
-
 export const Color: Story = {
   args: {
     color: calloutRootPropDefs.color.default,

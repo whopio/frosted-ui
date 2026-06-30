@@ -5,6 +5,10 @@
   text-align: left;
   color: var(--accent-a11);
   background-color: var(--accent-a3);
+  row-gap: var(--space-2);
+  column-gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-5);
 
   &:where(.fui-high-contrast) {
     color: var(--accent-12);
@@ -21,31 +25,4 @@
 /* Anything that’s not an icon goes to the right of the icon */
 .fui-CalloutRoot > :where(:not(.fui-CalloutIcon)) {
   grid-column-start: -1;
-}
-
-/***************************************************************************************************
- *                                                                                                 *
- * SIZES                                                                                           *
- *                                                                                                 *
- ***************************************************************************************************/
-
-.fui-CalloutRoot {
-  &:where(.fui-r-size-1) {
-    row-gap: var(--space-2);
-    column-gap: var(--space-2);
-    padding: var(--space-3) var(--space-4);
-    border-radius: var(--radius-5);
-  }
-  &:where(.fui-r-size-2) {
-    row-gap: var(--space-2);
-    column-gap: var(--space-3);
-    padding: var(--space-4);
-    border-radius: var(--radius-5);
-  }
-  &:where(.fui-r-size-3) {
-    row-gap: var(--space-3);
-    column-gap: var(--space-3);
-    padding: var(--space-5);
-    border-radius: var(--radius-6);
-  }
 }
