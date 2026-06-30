@@ -25,7 +25,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     color: calloutRootPropDefs.color.default,
-    variant: calloutRootPropDefs.variant.default,
     children: (
       <>
         You will need to upgrade to the <Link href="#">newest Frosted-UI version</Link> now.
@@ -45,7 +44,6 @@ export const Default: Story = {
 export const Size: Story = {
   args: {
     color: calloutRootPropDefs.color.default,
-    variant: calloutRootPropDefs.variant.default,
     children: (
       <>
         You will need to upgrade to the <Link href="#">newest Frosted-UI version</Link> now.
@@ -84,51 +82,9 @@ export const Size: Story = {
   ),
 };
 
-export const Variant: Story = {
-  args: {
-    color: calloutRootPropDefs.color.default,
-    children: (
-      <>
-        You will need to upgrade to the <Link href="#">newest Frosted-UI version</Link> now.
-      </>
-    ),
-  },
-  render: ({ children, ...args }: CalloutRootProps) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
-      <Callout.Root {...args} variant="soft">
-        <Callout.Icon>
-          <Callout.Icon>
-            <InfoCircle16 />
-          </Callout.Icon>
-        </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
-      </Callout.Root>
-
-      <Callout.Root {...args} variant="surface">
-        <Callout.Icon>
-          <Callout.Icon>
-            <InfoCircle16 />
-          </Callout.Icon>
-        </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
-      </Callout.Root>
-
-      <Callout.Root {...args} variant="outline">
-        <Callout.Icon>
-          <Callout.Icon>
-            <InfoCircle16 />
-          </Callout.Icon>
-        </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
-      </Callout.Root>
-    </div>
-  ),
-};
-
 export const Color: Story = {
   args: {
     color: calloutRootPropDefs.color.default,
-    variant: calloutRootPropDefs.variant.default,
     children: (
       <>
         You will need to upgrade to the <Link href="#">newest Frosted-UI version</Link> now.
@@ -171,7 +127,6 @@ export const SemanticColor: Story = {
   name: 'Semantic color',
   args: {
     color: calloutRootPropDefs.color.default,
-    variant: calloutRootPropDefs.variant.default,
     children: (
       <>
         You will need to upgrade to the <Link href="#">newest Frosted-UI version</Link> now.
@@ -223,7 +178,6 @@ export const HighContrast: Story = {
   name: 'High Contrast',
   args: {
     color: calloutRootPropDefs.color.default,
-    variant: calloutRootPropDefs.variant.default,
     children: (
       <>
         You will need to upgrade to the <Link href="#">newest Frosted-UI version</Link> now.
@@ -232,7 +186,7 @@ export const HighContrast: Story = {
   },
   render: ({ children, ...args }: CalloutRootProps) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
-      <Callout.Root {...args} variant="soft">
+      <Callout.Root {...args}>
         <Callout.Icon>
           <Callout.Icon>
             <InfoCircle16 />
@@ -241,7 +195,7 @@ export const HighContrast: Story = {
         <Callout.Text>{children}</Callout.Text>
       </Callout.Root>
 
-      <Callout.Root {...args} variant="soft" highContrast>
+      <Callout.Root {...args} highContrast>
         <Callout.Icon>
           <Callout.Icon>
             <InfoCircle16 />

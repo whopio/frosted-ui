@@ -20,7 +20,6 @@ const CalloutRoot = (props: CalloutRootProps) => {
     children,
     className,
     size = calloutRootPropDefs.size.default,
-    variant = calloutRootPropDefs.variant.default,
     color = calloutRootPropDefs.color.default,
     highContrast = calloutRootPropDefs.highContrast.default,
     ...rootProps
@@ -29,7 +28,7 @@ const CalloutRoot = (props: CalloutRootProps) => {
     <div
       data-accent-color={color}
       {...rootProps}
-      className={classNames('fui-CalloutRoot', className, `fui-r-size-${size}`, `fui-variant-${variant}`, {
+      className={classNames('fui-CalloutRoot', className, `fui-r-size-${size}`, {
         'fui-high-contrast': highContrast,
       })}
     >

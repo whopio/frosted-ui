@@ -4,6 +4,7 @@
   justify-content: flex-start;
   text-align: left;
   color: var(--accent-a11);
+  background-color: var(--accent-a3);
 
   &:where(.fui-high-contrast) {
     color: var(--accent-12);
@@ -47,29 +48,4 @@
     padding: var(--space-5);
     border-radius: var(--radius-6);
   }
-}
-
-/***************************************************************************************************
- *                                                                                                 *
- * VARIANTS                                                                                        *
- *                                                                                                 *
- ***************************************************************************************************/
-
-/* soft */
-
-.fui-CalloutRoot:where(.fui-variant-soft) {
-  background-color: var(--accent-a3);
-}
-
-/* surface */
-
-.fui-CalloutRoot:where(.fui-variant-surface) {
-  box-shadow: inset 0 0 0 1px var(--accent-a6);
-  background-color: var(--accent-a2);
-}
-
-/* outline */
-
-.fui-CalloutRoot:where(.fui-variant-outline) {
-  box-shadow: inset 0 0 0 1px var(--accent-a7);
 }
