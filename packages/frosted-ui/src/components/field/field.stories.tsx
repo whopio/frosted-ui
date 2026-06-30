@@ -352,12 +352,12 @@ export const FieldsetDisabled: Story = {
 
         {submitted && (
           <Callout.Root color="success" style={{ marginTop: 16 }}>
-            <Callout.Text>
+            <Callout.Title>
               Order submitted!
               <pre style={{ marginTop: 8, fontSize: 11, whiteSpace: 'pre-wrap' }}>
                 {JSON.stringify(submitted, null, 2)}
               </pre>
-            </Callout.Text>
+            </Callout.Title>
           </Callout.Root>
         )}
       </div>
@@ -553,7 +553,7 @@ export const WithSliderBudget: Story = {
 
         {submitted && (
           <Callout.Root color="success" style={{ marginTop: 16 }}>
-            <Callout.Text>Budget set to ${budget.toLocaleString()}/month</Callout.Text>
+            <Callout.Title>Budget set to ${budget.toLocaleString()}/month</Callout.Title>
           </Callout.Root>
         )}
       </div>
@@ -728,7 +728,7 @@ export const WithCombobox: Story = {
 
         {submitted && (
           <Callout.Root color="success" style={{ marginTop: 16 }}>
-            <Callout.Text>
+            <Callout.Title>
               Profile saved!
               <pre
                 style={{
@@ -742,7 +742,7 @@ export const WithCombobox: Story = {
               >
                 {JSON.stringify(submitted, null, 2)}
               </pre>
-            </Callout.Text>
+            </Callout.Title>
           </Callout.Root>
         )}
       </div>
@@ -1120,13 +1120,13 @@ export const CustomValidation: Story = {
               <Callout.Icon>
                 {isChecking ? <Spinner size="1" /> : isAvailable ? <Checkmark12 /> : <XMarkSmall12 />}
               </Callout.Icon>
-              <Callout.Text>
+              <Callout.Title>
                 {isChecking
                   ? 'Checking availability...'
                   : isAvailable
                     ? 'Username is available!'
                     : 'Username is already taken'}
-              </Callout.Text>
+              </Callout.Title>
             </Callout.Root>
           )}
 
@@ -1273,7 +1273,7 @@ export const FormExample: Story = {
             <Callout.Icon>
               <Checkmark12 />
             </Callout.Icon>
-            <Callout.Text>
+            <Callout.Title>
               Form submitted successfully!
               <pre
                 style={{
@@ -1287,7 +1287,7 @@ export const FormExample: Story = {
               >
                 {JSON.stringify(formData, null, 2)}
               </pre>
-            </Callout.Text>
+            </Callout.Title>
           </Callout.Root>
         )}
       </div>
@@ -1718,10 +1718,10 @@ export const AllValidityStates: Story = {
 
           {/* Submit to test all */}
           <Callout.Root color="info">
-            <Callout.Text>
+            <Callout.Title>
               Submit the form to see validation errors. Each field demonstrates a different <Code>ValidityState</Code>{' '}
               property.
-            </Callout.Text>
+            </Callout.Title>
           </Callout.Root>
 
           <Button type="submit" style={{ width: '100%' }}>

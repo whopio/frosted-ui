@@ -624,7 +624,7 @@ export const FormIntegration: Story = {
 
         {submitted && (
           <Callout.Root color="success" style={{ marginTop: 12 }}>
-            <Callout.Text>Card saved successfully!</Callout.Text>
+            <Callout.Title>Card saved successfully!</Callout.Title>
           </Callout.Root>
         )}
 

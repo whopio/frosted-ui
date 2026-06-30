@@ -36,7 +36,7 @@ export const Default: Story = {
       <Callout.Icon>
         <InfoCircle16 />
       </Callout.Icon>
-      <Callout.Text>{children}</Callout.Text>
+      <Callout.Title>{children}</Callout.Title>
     </Callout.Root>
   ),
 };
@@ -58,7 +58,7 @@ export const Color: Story = {
             <InfoCircle16 />
           </Callout.Icon>
         </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
+        <Callout.Title>{children}</Callout.Title>
       </Callout.Root>
 
       <Callout.Root {...args} color="green">
@@ -67,7 +67,7 @@ export const Color: Story = {
             <InfoCircle16 />
           </Callout.Icon>
         </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
+        <Callout.Title>{children}</Callout.Title>
       </Callout.Root>
 
       <Callout.Root {...args} color="red">
@@ -76,7 +76,7 @@ export const Color: Story = {
             <InfoCircle16 />
           </Callout.Icon>
         </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
+        <Callout.Title>{children}</Callout.Title>
       </Callout.Root>
     </div>
   ),
@@ -100,7 +100,7 @@ export const SemanticColor: Story = {
             <InfoCircle16 />
           </Callout.Icon>
         </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
+        <Callout.Title>{children}</Callout.Title>
       </Callout.Root>
 
       <Callout.Root {...args} color="success">
@@ -109,7 +109,7 @@ export const SemanticColor: Story = {
             <InfoCircle16 />
           </Callout.Icon>
         </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
+        <Callout.Title>{children}</Callout.Title>
       </Callout.Root>
 
       <Callout.Root {...args} color="warning">
@@ -118,7 +118,7 @@ export const SemanticColor: Story = {
             <InfoCircle16 />
           </Callout.Icon>
         </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
+        <Callout.Title>{children}</Callout.Title>
       </Callout.Root>
 
       <Callout.Root {...args} color="danger">
@@ -127,7 +127,7 @@ export const SemanticColor: Story = {
             <InfoCircle16 />
           </Callout.Icon>
         </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
+        <Callout.Title>{children}</Callout.Title>
       </Callout.Root>
     </div>
   ),
@@ -154,7 +154,7 @@ export const AsAlert: Story = {
           <Callout.Icon>
             <Callout.Icon>🚨</Callout.Icon>
           </Callout.Icon>
-          <Callout.Text>Access denied. Please contact the network administrator to view this page.</Callout.Text>
+          <Callout.Title>Access denied. Please contact the network administrator to view this page.</Callout.Title>
         </Callout.Root>
       </div>
     </>
