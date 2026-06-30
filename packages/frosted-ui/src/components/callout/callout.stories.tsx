@@ -10,6 +10,13 @@ const meta = {
   component: Callout.Root,
   parameters: {
     layout: 'centered',
+    controls: { include: ['color'] },
+  },
+  argTypes: {
+    color: {
+      control: { type: 'select' },
+      options: calloutRootPropDefs.color.values,
+    },
   },
   tags: ['autodocs'],
 } satisfies Meta<typeof Callout.Root>;
@@ -167,7 +174,7 @@ export const ActionRenderProp: Story = {
           without losing callout action styling.
         </Text>
       </div>
-      <Callout.Root {...args} color="info">
+      <Callout.Root {...args}>
         <Callout.Icon>
           <InfoCircle16 />
         </Callout.Icon>
@@ -197,7 +204,7 @@ export const ActionLoading: Story = {
             while an async task is in progress.
           </Text>
         </div>
-        <Callout.Root {...args} color="warning">
+        <Callout.Root {...args}>
           <Callout.Icon>
             <InfoCircle16 />
           </Callout.Icon>
@@ -233,7 +240,7 @@ export const ActionDisabled: Story = {
           prerequisite step is incomplete.
         </Text>
       </div>
-      <Callout.Root {...args} color="info">
+      <Callout.Root {...args}>
         <Callout.Icon>
           <InfoCircle16 />
         </Callout.Icon>
@@ -269,7 +276,7 @@ export const AsAlert: Story = {
       </div>
       <br />
       <div style={{ display: 'inline-block' }}>
-        <Callout.Root {...args} color="red" role="alert">
+        <Callout.Root {...args} role="alert">
           <Callout.Icon>🚨</Callout.Icon>
           <Callout.Title>Unable to load dashboard</Callout.Title>
           <Callout.Description>
