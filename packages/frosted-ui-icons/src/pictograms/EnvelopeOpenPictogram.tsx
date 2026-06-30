@@ -4,10 +4,10 @@ import { PictogramProps, PictogramVariant } from './types';
 export type EnvelopeOpenPictogramProps = PictogramProps;
 
 const FILLS: Record<PictogramVariant, Record<number, string>> = {
-  light: { '5': '#FA4616' },
-  orange: { '5': '#6196C1' },
-  dark: { '5': '#FA4616' },
-  auto: { '5': 'light-dark(#FA4616, #FA4616)' },
+  light: { '4': '#FA4616' },
+  orange: { '4': '#6196C1' },
+  dark: { '4': '#FA4616' },
+  auto: { '4': 'light-dark(#FA4616, #FA4616)' },
 };
 
 export const EnvelopeOpenPictogram = ({ variant = 'auto', ...props }: EnvelopeOpenPictogramProps) => {
@@ -22,7 +22,6 @@ export const EnvelopeOpenPictogram = ({ variant = 'auto', ...props }: EnvelopeOp
       data-fui-pictogram="true"
       {...props}
     >
-      <path stroke="#000" d="M0.5 0.5H239.5V239.5H0.5z" strokeOpacity=".01" />
       <path
         d="M156.949 73.5156L88.6836 46.8854C87.6803 47.5555 87.0879 47.9553 87.0879 47.9553L159.167 76.3219C159.167 76.3219 158.341 75.2742 156.949 73.5156zM179.203 112.441C179.988 112 180.799 111.167 180.799 111.167 181.469 110.012 183.113 108.113 181.169 105.244 179.651 103 174.176 96.2215 171.854 93.3671L168.748 118.527C168.748 118.527 178.418 112.882 179.203 112.441z"
         fill="#B6B5B0"
@@ -37,7 +36,7 @@ export const EnvelopeOpenPictogram = ({ variant = 'auto', ...props }: EnvelopeOp
       />
       <path
         d="M168.468 80.0241C166.965 79.3059 159.168 76.3219 159.168 76.3219L130.135 64.8931C129.787 68.0585 128.872 76.5033 128.835 78.3581C128.791 80.6498 129.831 83.6338 133.093 85.2776C136.188 86.8363 166.261 99.0611 169.327 100.305L170.63 88.7466C170.63 88.7466 170.852 86.6882 171.085 84.7186C171.319 82.749 169.975 80.7387 168.472 80.0204L168.468 80.0241Z"
-        style={{ fill: f[5] }}
+        style={{ fill: f[4] }}
       />
       <path
         d="M114.024 31.3989C113.405 31.5618 112.795 31.7802 112.195 32.0542C108.296 33.8387 93.5799 43.6089 88.6855 46.8817L154.2 72.4382C151.372 69.0322 128.959 42.065 123.746 36.1415C119.788 31.6469 116.789 31.1879 114.024 31.3989Z"

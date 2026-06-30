@@ -4,14 +4,14 @@ import { PictogramProps, PictogramVariant } from './types';
 export type BoxOpenPictogramProps = PictogramProps;
 
 const FILLS: Record<PictogramVariant, Record<number, string>> = {
-  light: { '7': '#151515', '8': '#151515', '9': '#151515', '10': '#151515' },
-  dark: { '7': '#222', '8': '#222', '9': '#222', '10': '#222' },
-  orange: { '7': '#151515', '8': '#151515', '9': '#151515', '10': '#151515' },
+  light: { '6': '#151515', '7': '#151515', '8': '#151515', '9': '#151515' },
+  dark: { '6': '#222', '7': '#222', '8': '#222', '9': '#222' },
+  orange: { '6': '#151515', '7': '#151515', '8': '#151515', '9': '#151515' },
   auto: {
+    '6': 'light-dark(#151515, #222)',
     '7': 'light-dark(#151515, #222)',
     '8': 'light-dark(#151515, #222)',
     '9': 'light-dark(#151515, #222)',
-    '10': 'light-dark(#151515, #222)',
   },
 };
 
@@ -27,7 +27,6 @@ export const BoxOpenPictogram = ({ variant = 'auto', ...props }: BoxOpenPictogra
       data-fui-pictogram="true"
       {...props}
     >
-      <path stroke="#000" d="M0.5 0.5H239.5V239.5H0.5z" strokeOpacity=".01" />
       <path
         d="M118.405 121.049C119.43 121.049 132.118 129.374 132.118 129.374L122.294 204.02L56.9414 166.629V119.209L82.4578 106.996L118.41 121.049H118.405Z"
         fill="#354B98"
@@ -51,16 +50,16 @@ export const BoxOpenPictogram = ({ variant = 'auto', ...props }: BoxOpenPictogra
       <path d="M23.377 115.041L93.915 153.386L122.295 133.192L60.2148 99.0786L23.377 115.041Z" fill="#6196C1" />
       <path
         d="M117.241 65.0295L60.2119 99.0782L122.293 133.191L180.963 94.8464L117.241 65.0295Z"
-        style={{ fill: f[7] }}
+        style={{ fill: f[6] }}
       />
-      <path d="M132.321 185.765V189.518L152.787 176.589V173.073L132.321 185.765Z" style={{ fill: f[8] }} />
+      <path d="M132.321 185.765V189.518L152.787 176.589V173.073L132.321 185.765Z" style={{ fill: f[7] }} />
       <path
         d="M135.152 181.434L138.94 179.012V166.541L141.805 164.92L137.131 159.361L132.457 170.211L135.152 168.684V181.434Z"
-        style={{ fill: f[9] }}
+        style={{ fill: f[8] }}
       />
       <path
         d="M145.861 175.103L149.651 172.681V160.214L152.514 158.593L147.84 153.029L143.167 163.88L145.861 162.353V175.103Z"
-        style={{ fill: f[10] }}
+        style={{ fill: f[9] }}
       />
     </svg>
   );
