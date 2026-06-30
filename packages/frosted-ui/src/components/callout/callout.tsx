@@ -16,24 +16,10 @@ const CalloutContext = React.createContext<CalloutContextValue>({});
 interface CalloutRootProps extends PropsWithoutColor<'div'>, CalloutContextValue {}
 
 const CalloutRoot = (props: CalloutRootProps) => {
-  const {
-    children,
-    className,
-    color = calloutRootPropDefs.color.default,
-    highContrast = calloutRootPropDefs.highContrast.default,
-    ...rootProps
-  } = props;
+  const { children, className, color = calloutRootPropDefs.color.default, ...rootProps } = props;
   return (
-    <div
-      data-accent-color={color}
-      {...rootProps}
-      className={classNames('fui-CalloutRoot', className, {
-        'fui-high-contrast': highContrast,
-      })}
-    >
-      <CalloutContext.Provider value={React.useMemo(() => ({ color, highContrast }), [color, highContrast])}>
-        {children}
-      </CalloutContext.Provider>
+    <div data-accent-color={color} {...rootProps} className={classNames('fui-CalloutRoot', className)}>
+      <CalloutContext.Provider value={React.useMemo(() => ({ color }), [color])}>{children}</CalloutContext.Provider>
     </div>
   );
 };
@@ -42,13 +28,12 @@ CalloutRoot.displayName = 'CalloutRoot';
 interface CalloutIconProps extends PropsWithoutColor<'div'> {}
 
 const CalloutIcon = (props: CalloutIconProps) => {
-  const { color, highContrast } = React.useContext(CalloutContext);
+  const { color } = React.useContext(CalloutContext);
   return (
     <Text
       render={<div />}
       color={color}
       size="2"
-      highContrast={highContrast}
       {...props}
       className={classNames('fui-CalloutIcon', props.className)}
     />
@@ -59,13 +44,12 @@ CalloutIcon.displayName = 'CalloutIcon';
 type CalloutTextProps = TextProps;
 
 const CalloutText = (props: CalloutTextProps) => {
-  const { color, highContrast } = React.useContext(CalloutContext);
+  const { color } = React.useContext(CalloutContext);
   return (
     <Text
       render={<p />}
       size="2"
       color={color}
-      highContrast={highContrast}
       weight="medium"
       {...props}
       className={classNames('fui-CalloutText', props.className)}

@@ -9,10 +9,6 @@
   column-gap: var(--space-3);
   padding: var(--space-4);
   border-radius: var(--radius-5);
-
-  &:where(.fui-high-contrast) {
-    color: var(--accent-12);
-  }
 }
 
 .fui-CalloutIcon {

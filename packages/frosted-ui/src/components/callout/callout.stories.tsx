@@ -133,39 +133,6 @@ export const SemanticColor: Story = {
   ),
 };
 
-export const HighContrast: Story = {
-  name: 'High Contrast',
-  args: {
-    color: calloutRootPropDefs.color.default,
-    children: (
-      <>
-        You will need to upgrade to the <Link href="#">newest Frosted-UI version</Link> now.
-      </>
-    ),
-  },
-  render: ({ children, ...args }: CalloutRootProps) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
-      <Callout.Root {...args}>
-        <Callout.Icon>
-          <Callout.Icon>
-            <InfoCircle16 />
-          </Callout.Icon>
-        </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
-      </Callout.Root>
-
-      <Callout.Root {...args} highContrast>
-        <Callout.Icon>
-          <Callout.Icon>
-            <InfoCircle16 />
-          </Callout.Icon>
-        </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
-      </Callout.Root>
-    </div>
-  ),
-};
-
 export const AsAlert: Story = {
   name: 'As Alert',
 
