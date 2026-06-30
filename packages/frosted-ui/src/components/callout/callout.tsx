@@ -1,9 +1,12 @@
 'use client';
 
+import { Button } from '@base-ui/react/button';
 import classNames from 'classnames';
 import * as React from 'react';
 
-import { Text, textPropDefs, type TextProps } from '../text';
+import { Spinner } from '../spinner';
+import { Text, type TextProps } from '../text';
+import { VisuallyHidden } from '../visually-hidden';
 import { calloutRootPropDefs } from './callout.props';
 
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
@@ -16,28 +19,10 @@ const CalloutContext = React.createContext<CalloutContextValue>({});
 interface CalloutRootProps extends PropsWithoutColor<'div'>, CalloutContextValue {}
 
 const CalloutRoot = (props: CalloutRootProps) => {
-  const {
-    children,
-    className,
-    size = calloutRootPropDefs.size.default,
-    variant = calloutRootPropDefs.variant.default,
-    color = calloutRootPropDefs.color.default,
-    highContrast = calloutRootPropDefs.highContrast.default,
-    ...rootProps
-  } = props;
+  const { children, className, color = calloutRootPropDefs.color.default, ...rootProps } = props;
   return (
-    <div
-      data-accent-color={color}
-      {...rootProps}
-      className={classNames('fui-CalloutRoot', className, `fui-r-size-${size}`, `fui-variant-${variant}`, {
-        'fui-high-contrast': highContrast,
-      })}
-    >
-      <CalloutContext.Provider
-        value={React.useMemo(() => ({ size, color, highContrast }), [size, color, highContrast])}
-      >
-        {children}
-      </CalloutContext.Provider>
+    <div data-accent-color={color} {...rootProps} className={classNames('fui-CalloutRoot', className)}>
+      <CalloutContext.Provider value={React.useMemo(() => ({ color }), [color])}>{children}</CalloutContext.Provider>
     </div>
   );
 };
@@ -46,13 +31,12 @@ CalloutRoot.displayName = 'CalloutRoot';
 interface CalloutIconProps extends PropsWithoutColor<'div'> {}
 
 const CalloutIcon = (props: CalloutIconProps) => {
-  const { color, size, highContrast } = React.useContext(CalloutContext);
+  const { color } = React.useContext(CalloutContext);
   return (
     <Text
       render={<div />}
       color={color}
-      size={getTextSize(size)}
-      highContrast={highContrast}
+      size="2"
       {...props}
       className={classNames('fui-CalloutIcon', props.className)}
     />
@@ -60,34 +44,129 @@ const CalloutIcon = (props: CalloutIconProps) => {
 };
 CalloutIcon.displayName = 'CalloutIcon';
 
-type CalloutTextProps = TextProps;
+type CalloutTitleProps = TextProps;
 
-const CalloutText = (props: CalloutTextProps) => {
-  const { color, size, highContrast } = React.useContext(CalloutContext);
+const CalloutTitle = (props: CalloutTitleProps) => {
+  const { color } = React.useContext(CalloutContext);
   return (
     <Text
       render={<p />}
-      size={getTextSize(size)}
+      size="2"
       color={color}
-      highContrast={highContrast}
-      weight="medium"
+      weight="semi-bold"
+      highContrast
       {...props}
-      className={classNames('fui-CalloutText', props.className)}
+      className={classNames('fui-CalloutTitle', props.className)}
     />
   );
 };
-CalloutText.displayName = 'CalloutText';
+CalloutTitle.displayName = 'CalloutTitle';
 
-function getTextSize(size: CalloutRootOwnProps['size']): React.ComponentProps<typeof Text>['size'] {
-  if (size === undefined) return undefined;
+type CalloutDescriptionProps = TextProps;
 
-  return getNonResponsiveTextSize(size);
-}
-function getNonResponsiveTextSize(
-  size: (typeof calloutRootPropDefs.size.values)[number],
-): (typeof textPropDefs.size.values)[number] {
-  return size === '3' ? '3' : '2';
-}
+const CalloutDescription = (props: CalloutDescriptionProps) => {
+  const { color } = React.useContext(CalloutContext);
+  return (
+    <Text
+      render={<p />}
+      size="2"
+      color={color}
+      {...props}
+      className={classNames('fui-CalloutDescription', props.className)}
+    />
+  );
+};
+CalloutDescription.displayName = 'CalloutDescription';
 
-export { CalloutIcon as Icon, CalloutRoot as Root, CalloutText as Text };
-export type { CalloutIconProps as IconProps, CalloutRootProps as RootProps, CalloutTextProps as TextProps };
+interface CalloutActionsProps extends PropsWithoutColor<'div'> {}
+
+const CalloutActions = (props: CalloutActionsProps) => {
+  return <div {...props} className={classNames('fui-CalloutActions', props.className)} />;
+};
+CalloutActions.displayName = 'CalloutActions';
+
+type CalloutActionVariant = 'primary' | 'secondary';
+
+type CalloutActionProps = Omit<PropsWithoutColor<typeof Button>, 'className'> &
+  Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color' | 'disabled'> & {
+    variant?: CalloutActionVariant;
+    loading?: boolean;
+    className?: string;
+  };
+
+const CalloutAction = (props: CalloutActionProps) => {
+  const {
+    children,
+    variant = 'primary',
+    loading,
+    disabled = props.loading,
+    className,
+    render,
+    ...actionProps
+  } = props;
+
+  const actionClassName = classNames('fui-reset', 'fui-CalloutAction', `fui-variant-${variant}`, className);
+
+  const content = loading ? (
+    <>
+      {/**
+       * We need a wrapper to set `visibility: hidden` to hide the button content whilst we show the `Spinner`.
+       * The button is a flex container with a `gap`, so we use `display: contents` to ensure the correct flex layout.
+       *
+       * However, `display: contents` removes the content from the accessibility tree in some browsers,
+       * so we force remove it with `aria-hidden` and re-add it in the tree with `VisuallyHidden`
+       */}
+      <span style={{ display: 'contents', visibility: 'hidden' }} aria-hidden>
+        {children}
+      </span>
+      <VisuallyHidden>{children}</VisuallyHidden>
+
+      <span
+        style={{
+          position: 'absolute',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          inset: '0',
+        }}
+      >
+        <Spinner size="2" />
+      </span>
+    </>
+  ) : (
+    children
+  );
+
+  return (
+    <Button
+      render={render}
+      {...actionProps}
+      className={actionClassName}
+      aria-busy={loading || undefined}
+      // The `data-disabled` attribute enables correct styles when doing `<Callout.Action render={<a />} disabled>`
+      data-disabled={disabled || undefined}
+      disabled={disabled}
+    >
+      {content}
+    </Button>
+  );
+};
+CalloutAction.displayName = 'CalloutAction';
+
+export {
+  CalloutAction as Action,
+  CalloutActions as Actions,
+  CalloutDescription as Description,
+  CalloutIcon as Icon,
+  CalloutRoot as Root,
+  CalloutTitle as Title,
+};
+export type {
+  CalloutActionProps as ActionProps,
+  CalloutActionsProps as ActionsProps,
+  CalloutActionVariant as ActionVariant,
+  CalloutDescriptionProps as DescriptionProps,
+  CalloutIconProps as IconProps,
+  CalloutRootProps as RootProps,
+  CalloutTitleProps as TitleProps,
+};

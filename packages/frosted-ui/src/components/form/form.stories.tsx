@@ -92,8 +92,8 @@ export const GettingStarted: Story = {
         </Form>
 
         {submitted && (
-          <Callout.Root color="success" size="1" style={{ marginTop: 16 }}>
-            <Callout.Text>Message sent successfully!</Callout.Text>
+          <Callout.Root color="success" style={{ marginTop: 16 }}>
+            <Callout.Title>Message sent successfully!</Callout.Title>
           </Callout.Root>
         )}
       </div>
@@ -237,8 +237,8 @@ export const RequiredControls: Story = {
         </Form>
 
         {submitted && (
-          <Callout.Root color="success" size="1" style={{ marginTop: 16 }}>
-            <Callout.Text>Form submitted successfully!</Callout.Text>
+          <Callout.Root color="success" style={{ marginTop: 16 }}>
+            <Callout.Title>Form submitted successfully!</Callout.Title>
           </Callout.Root>
         )}
       </div>
@@ -860,7 +860,7 @@ export const DirtyStateWarning: Story = {
 
         {/* Status indicator - only show after first edit or save */}
         {(isDirty || hasSaved) && (
-          <Callout.Root color={isDirty ? 'warning' : 'success'} size="1" style={{ marginBottom: 16 }}>
+          <Callout.Root color={isDirty ? 'warning' : 'success'} style={{ marginBottom: 16 }}>
             <Callout.Icon>
               <div
                 style={{
@@ -871,7 +871,7 @@ export const DirtyStateWarning: Story = {
                 }}
               />
             </Callout.Icon>
-            <Callout.Text>{isDirty ? 'Unsaved changes' : 'All changes saved'}</Callout.Text>
+            <Callout.Title>{isDirty ? 'Unsaved changes' : 'All changes saved'}</Callout.Title>
           </Callout.Root>
         )}
 
@@ -1019,7 +1019,6 @@ export const AutoSaveForm: Story = {
         {/* Save status indicator */}
         <Callout.Root
           color={saveStatus === 'saving' ? 'info' : saveStatus === 'saved' ? 'success' : 'gray'}
-          size="1"
           style={{ marginBottom: 16 }}
         >
           <Callout.Icon>
@@ -1036,12 +1035,12 @@ export const AutoSaveForm: Story = {
               />
             )}
           </Callout.Icon>
-          <Callout.Text>
+          <Callout.Title>
             {saveStatus === 'saving' && 'Saving...'}
             {saveStatus === 'saved' && 'All changes saved'}
             {saveStatus === 'idle' &&
               (lastSaved ? `Last saved ${lastSaved.toLocaleTimeString()}` : 'Start typing to auto-save')}
-          </Callout.Text>
+          </Callout.Title>
         </Callout.Root>
 
         <Form>

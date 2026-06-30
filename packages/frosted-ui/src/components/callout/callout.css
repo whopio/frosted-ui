@@ -4,10 +4,10 @@
   justify-content: flex-start;
   text-align: left;
   color: var(--accent-a11);
-
-  &:where(.fui-high-contrast) {
-    color: var(--accent-12);
-  }
+  background-color: var(--accent-a3);
+  column-gap: 8px;
+  padding: 12px;
+  border-radius: 12px;
 }
 
 .fui-CalloutIcon {
@@ -22,54 +22,106 @@
   grid-column-start: -1;
 }
 
-/***************************************************************************************************
- *                                                                                                 *
- * SIZES                                                                                           *
- *                                                                                                 *
- ***************************************************************************************************/
-
-.fui-CalloutRoot {
-  &:where(.fui-r-size-1) {
-    row-gap: var(--space-2);
-    column-gap: var(--space-2);
-    padding: var(--space-3) var(--space-4);
-    border-radius: var(--radius-5);
-  }
-  &:where(.fui-r-size-2) {
-    row-gap: var(--space-2);
-    column-gap: var(--space-3);
-    padding: var(--space-4);
-    border-radius: var(--radius-5);
-  }
-  &:where(.fui-r-size-3) {
-    row-gap: var(--space-3);
-    column-gap: var(--space-3);
-    padding: var(--space-5);
-    border-radius: var(--radius-6);
+.fui-CalloutActions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  :where(.fui-CalloutTitle + &, .fui-CalloutDescription + &) {
+    margin-top: 8px;
   }
 }
 
-/***************************************************************************************************
- *                                                                                                 *
- * VARIANTS                                                                                        *
- *                                                                                                 *
- ***************************************************************************************************/
+.fui-CalloutAction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  user-select: none;
+  vertical-align: top;
+  cursor: pointer;
 
-/* soft */
+  height: var(--space-6);
+  gap: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-radius: 8px;
 
-.fui-CalloutRoot:where(.fui-variant-soft) {
-  background-color: var(--accent-a3);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-2);
+  line-height: var(--line-height-2);
+  letter-spacing: var(--letter-spacing-2);
+
+  color: var(--gray-12);
+
+  &:where([aria-busy]) {
+    position: relative;
+  }
 }
 
-/* surface */
+/* primary - matches `soft` button styling with an added border */
+.fui-CalloutAction:where(.fui-variant-primary) {
+  border: 1px solid var(--accent-a12);
 
-.fui-CalloutRoot:where(.fui-variant-surface) {
-  box-shadow: inset 0 0 0 1px var(--accent-a6);
-  background-color: var(--accent-a2);
+  &:where(:focus-visible) {
+    outline: 2px solid var(--accent-a8);
+  }
+  @media (hover: hover) {
+    &:where(:hover) {
+      background-color: var(--accent-a4);
+    }
+  }
+
+  &:where([data-pressed]),
+  &:where([data-state='open']) {
+    background-color: var(--accent-a4);
+  }
+  &:where(:active:not([data-state='open'])) {
+    background-color: var(--accent-a5);
+  }
+
+  &:where([data-disabled]) {
+    cursor: var(--cursor-disabled);
+    color: var(--accent-a8);
+    border: 1px solid var(--accent-a6);
+    background-color: transparent;
+  }
 }
 
-/* outline */
+/* secondary - matches `ghost` button styling */
+.fui-CalloutAction:where(.fui-variant-secondary) {
+  @media (hover: hover) {
+    &:where(:hover) {
+      background-color: var(--accent-a3);
+    }
+  }
+  &:where(:focus-visible) {
+    outline: 2px solid var(--accent-a8);
+  }
 
-.fui-CalloutRoot:where(.fui-variant-outline) {
-  box-shadow: inset 0 0 0 1px var(--accent-a7);
+  &:where([data-pressed]),
+  &:where([data-state='open']) {
+    background-color: var(--accent-a3);
+  }
+  &:where(:active:not([data-state='open'])) {
+    background-color: var(--accent-a4);
+  }
+
+  &:where([data-disabled]) {
+    cursor: var(--cursor-disabled);
+    color: var(--accent-a8);
+    background-color: transparent;
+  }
+}
+
+.fui-CalloutTitle {
+  color: var(--gray-12);
+}
+
+.fui-CalloutDescription {
+  color: var(--accent-a12);
+  &:where(.fui-CalloutTitle + &) {
+    margin-top: 2px;
+  }
 }

@@ -672,10 +672,10 @@ export const FormValidation: Story = {
           </Button>
         </Form>
         {submitted && (
-          <Callout.Root size="1" style={{ marginTop: 12 }}>
-            <Callout.Text>
+          <Callout.Root style={{ marginTop: 12 }}>
+            <Callout.Title>
               Submitted: <strong>{JSON.stringify(submitted)}</strong>
-            </Callout.Text>
+            </Callout.Title>
           </Callout.Root>
         )}
       </div>

@@ -5,163 +5,103 @@ import React from 'react';
 import { Callout, Code, Link, Text, calloutRootPropDefs } from '..';
 import { RootProps as CalloutRootProps } from '../../../src/components/callout/callout';
 
-// More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
   title: 'Components/Callout',
   component: Callout.Root,
   parameters: {
-    // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
     layout: 'centered',
+    controls: { include: ['color'] },
   },
-
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
+  argTypes: {
+    color: {
+      control: { type: 'select' },
+      options: calloutRootPropDefs.color.values,
+    },
+  },
   tags: ['autodocs'],
 } satisfies Meta<typeof Callout.Root>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Default: Story = {
   args: {
     color: calloutRootPropDefs.color.default,
-    variant: calloutRootPropDefs.variant.default,
-    children: (
-      <>
-        You will need to upgrade to the <Link href="#">newest Frosted-UI version</Link> now.
-      </>
-    ),
   },
-  render: ({ children, ...args }: CalloutRootProps) => (
-    <Callout.Root {...args}>
-      <Callout.Icon>
-        <InfoCircle16 />
-      </Callout.Icon>
-      <Callout.Text>{children}</Callout.Text>
-    </Callout.Root>
-  ),
-};
-
-export const Size: Story = {
-  args: {
-    color: calloutRootPropDefs.color.default,
-    variant: calloutRootPropDefs.variant.default,
-    children: (
-      <>
-        You will need to upgrade to the <Link href="#">newest Frosted-UI version</Link> now.
-      </>
-    ),
-  },
-  render: ({ children, ...args }: CalloutRootProps) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', alignItems: 'flex-start' }}>
-      <Callout.Root {...args} size="3">
+  render: (args: CalloutRootProps) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+      <Callout.Root {...args}>
         <Callout.Icon>
-          <Callout.Icon>
-            <InfoCircle16 />
-          </Callout.Icon>
+          <InfoCircle16 />
         </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
+        <Callout.Title>Your trial ends in 3 days</Callout.Title>
+        <Callout.Description>
+          Upgrade to Pro to keep access to analytics, webhooks, and priority support.
+        </Callout.Description>
+        <Callout.Actions>
+          <Callout.Action>Upgrade to Pro</Callout.Action>
+          <Callout.Action variant="secondary">Remind me later</Callout.Action>
+        </Callout.Actions>
       </Callout.Root>
-
-      <Callout.Root {...args} size="2">
+      <Callout.Root {...args}>
         <Callout.Icon>
-          <Callout.Icon>
-            <InfoCircle16 />
-          </Callout.Icon>
+          <InfoCircle16 />
         </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
-      </Callout.Root>
-
-      <Callout.Root {...args} size="1">
-        <Callout.Icon>
-          <Callout.Icon>
-            <InfoCircle16 />
-          </Callout.Icon>
-        </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
-      </Callout.Root>
-    </div>
-  ),
-};
-
-export const Variant: Story = {
-  args: {
-    color: calloutRootPropDefs.color.default,
-    children: (
-      <>
-        You will need to upgrade to the <Link href="#">newest Frosted-UI version</Link> now.
-      </>
-    ),
-  },
-  render: ({ children, ...args }: CalloutRootProps) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
-      <Callout.Root {...args} variant="soft">
-        <Callout.Icon>
-          <Callout.Icon>
-            <InfoCircle16 />
-          </Callout.Icon>
-        </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
-      </Callout.Root>
-
-      <Callout.Root {...args} variant="surface">
-        <Callout.Icon>
-          <Callout.Icon>
-            <InfoCircle16 />
-          </Callout.Icon>
-        </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
-      </Callout.Root>
-
-      <Callout.Root {...args} variant="outline">
-        <Callout.Icon>
-          <Callout.Icon>
-            <InfoCircle16 />
-          </Callout.Icon>
-        </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
+        <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+          <div>
+            <Callout.Title>2 members are waiting for approval</Callout.Title>
+            <Callout.Description>Review pending requests to give them access to your community.</Callout.Description>
+          </div>
+          <Callout.Actions>
+            <Callout.Action>Review requests</Callout.Action>
+          </Callout.Actions>
+        </div>
       </Callout.Root>
     </div>
   ),
 };
 
 export const Color: Story = {
-  args: {
-    color: calloutRootPropDefs.color.default,
-    variant: calloutRootPropDefs.variant.default,
-    children: (
-      <>
-        You will need to upgrade to the <Link href="#">newest Frosted-UI version</Link> now.
-      </>
-    ),
-  },
-  render: ({ children, ...args }: CalloutRootProps) => (
+  render: (args: CalloutRootProps) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
       <Callout.Root {...args} color="blue">
         <Callout.Icon>
-          <Callout.Icon>
-            <InfoCircle16 />
-          </Callout.Icon>
+          <InfoCircle16 />
         </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
+        <Callout.Title>New feature available</Callout.Title>
+        <Callout.Description>You can now accept crypto payments directly from your checkout page.</Callout.Description>
+        <Callout.Actions>
+          <Callout.Action>Enable crypto payments</Callout.Action>
+          <Callout.Action variant="secondary">Learn more</Callout.Action>
+        </Callout.Actions>
       </Callout.Root>
 
       <Callout.Root {...args} color="green">
         <Callout.Icon>
-          <Callout.Icon>
-            <InfoCircle16 />
-          </Callout.Icon>
+          <InfoCircle16 />
         </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
+        <Callout.Title>Payout sent</Callout.Title>
+        <Callout.Description>
+          Your $1,250.00 payout was deposited to your bank account ending in 4821.
+        </Callout.Description>
+        <Callout.Actions>
+          <Callout.Action>View payout details</Callout.Action>
+          <Callout.Action variant="secondary">Dismiss</Callout.Action>
+        </Callout.Actions>
       </Callout.Root>
 
       <Callout.Root {...args} color="red">
         <Callout.Icon>
-          <Callout.Icon>
-            <InfoCircle16 />
-          </Callout.Icon>
+          <InfoCircle16 />
         </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
+        <Callout.Title>Payment failed</Callout.Title>
+        <Callout.Description>
+          The card on file was declined. Update your billing details to avoid service interruption.
+        </Callout.Description>
+        <Callout.Actions>
+          <Callout.Action>Update billing</Callout.Action>
+          <Callout.Action variant="secondary">Try again</Callout.Action>
+        </Callout.Actions>
       </Callout.Root>
     </div>
   ),
@@ -169,87 +109,153 @@ export const Color: Story = {
 
 export const SemanticColor: Story = {
   name: 'Semantic color',
-  args: {
-    color: calloutRootPropDefs.color.default,
-    variant: calloutRootPropDefs.variant.default,
-    children: (
-      <>
-        You will need to upgrade to the <Link href="#">newest Frosted-UI version</Link> now.
-      </>
-    ),
-  },
-  render: ({ children, ...args }: CalloutRootProps) => (
+  render: (args: CalloutRootProps) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
       <Callout.Root {...args} color="info">
         <Callout.Icon>
-          <Callout.Icon>
-            <InfoCircle16 />
-          </Callout.Icon>
+          <InfoCircle16 />
         </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
+        <Callout.Title>API maintenance scheduled</Callout.Title>
+        <Callout.Description>Our REST API will be read-only on March 15 from 2–4 AM UTC.</Callout.Description>
+        <Callout.Actions>
+          <Callout.Action>View status page</Callout.Action>
+          <Callout.Action variant="secondary">Dismiss</Callout.Action>
+        </Callout.Actions>
       </Callout.Root>
 
       <Callout.Root {...args} color="success">
         <Callout.Icon>
-          <Callout.Icon>
-            <InfoCircle16 />
-          </Callout.Icon>
+          <InfoCircle16 />
         </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
+        <Callout.Title>Store connected</Callout.Title>
+        <Callout.Description>Stripe is now linked and ready to accept payments.</Callout.Description>
+        <Callout.Actions>
+          <Callout.Action>Go to dashboard</Callout.Action>
+          <Callout.Action variant="secondary">Dismiss</Callout.Action>
+        </Callout.Actions>
       </Callout.Root>
 
       <Callout.Root {...args} color="warning">
         <Callout.Icon>
-          <Callout.Icon>
-            <InfoCircle16 />
-          </Callout.Icon>
+          <InfoCircle16 />
         </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
+        <Callout.Title>Action required</Callout.Title>
+        <Callout.Description>
+          Verify your business address by April 1 to continue receiving payouts.
+        </Callout.Description>
+        <Callout.Actions>
+          <Callout.Action>Verify address</Callout.Action>
+          <Callout.Action variant="secondary">Remind me later</Callout.Action>
+        </Callout.Actions>
       </Callout.Root>
 
       <Callout.Root {...args} color="danger">
         <Callout.Icon>
-          <Callout.Icon>
-            <InfoCircle16 />
-          </Callout.Icon>
+          <InfoCircle16 />
         </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
+        <Callout.Title>Account restricted</Callout.Title>
+        <Callout.Description>Payouts are paused until you submit updated tax documentation.</Callout.Description>
+        <Callout.Actions>
+          <Callout.Action>Submit documents</Callout.Action>
+          <Callout.Action variant="secondary">Contact support</Callout.Action>
+        </Callout.Actions>
       </Callout.Root>
     </div>
   ),
 };
 
-export const HighContrast: Story = {
-  name: 'High Contrast',
-  args: {
-    color: calloutRootPropDefs.color.default,
-    variant: calloutRootPropDefs.variant.default,
-    children: (
-      <>
-        You will need to upgrade to the <Link href="#">newest Frosted-UI version</Link> now.
-      </>
-    ),
-  },
-  render: ({ children, ...args }: CalloutRootProps) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
-      <Callout.Root {...args} variant="soft">
+export const ActionRenderProp: Story = {
+  name: 'Action render prop',
+  render: (args: CalloutRootProps) => (
+    <>
+      <div style={{ maxWidth: 500, marginBottom: 'var(--space-4)' }}>
+        <Text>
+          Use the <Code>render</Code> prop on <Code>Callout.Action</Code> to render actions as links for navigation
+          without losing callout action styling.
+        </Text>
+      </div>
+      <Callout.Root {...args}>
         <Callout.Icon>
-          <Callout.Icon>
-            <InfoCircle16 />
-          </Callout.Icon>
+          <InfoCircle16 />
         </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
+        <Callout.Title>Your trial ends in 3 days</Callout.Title>
+        <Callout.Description>
+          Upgrade to Pro to keep access to analytics, webhooks, and priority support.
+        </Callout.Description>
+        <Callout.Actions>
+          <Callout.Action render={<a href="/billing" />}>Upgrade to Pro</Callout.Action>
+          <Callout.Action variant="secondary">Remind me later</Callout.Action>
+        </Callout.Actions>
       </Callout.Root>
+    </>
+  ),
+};
 
-      <Callout.Root {...args} variant="soft" highContrast>
-        <Callout.Icon>
+export const ActionLoading: Story = {
+  name: 'Action loading',
+  render: (args: CalloutRootProps) => {
+    const [loading, setLoading] = React.useState(false);
+
+    return (
+      <>
+        <div style={{ maxWidth: 500, marginBottom: 'var(--space-4)' }}>
+          <Text>
+            Use the <Code>loading</Code> prop on <Code>Callout.Action</Code> to show a spinner and disable the action
+            while an async task is in progress.
+          </Text>
+        </div>
+        <Callout.Root {...args}>
           <Callout.Icon>
             <InfoCircle16 />
           </Callout.Icon>
+          <Callout.Title>Action required</Callout.Title>
+          <Callout.Description>
+            Verify your business address by April 1 to continue receiving payouts.
+          </Callout.Description>
+          <Callout.Actions>
+            <Callout.Action
+              loading={loading}
+              onClick={() => {
+                setLoading(true);
+                setTimeout(() => setLoading(false), 2000);
+              }}
+            >
+              Verify address
+            </Callout.Action>
+            <Callout.Action variant="secondary">Remind me later</Callout.Action>
+          </Callout.Actions>
+        </Callout.Root>
+      </>
+    );
+  },
+};
+
+export const ActionDisabled: Story = {
+  name: 'Action disabled',
+  render: (args: CalloutRootProps) => (
+    <>
+      <div style={{ maxWidth: 500, marginBottom: 'var(--space-4)' }}>
+        <Text>
+          Use the <Code>disabled</Code> prop on <Code>Callout.Action</Code> to prevent interaction, for example while a
+          prerequisite step is incomplete.
+        </Text>
+      </div>
+      <Callout.Root {...args}>
+        <Callout.Icon>
+          <InfoCircle16 />
         </Callout.Icon>
-        <Callout.Text>{children}</Callout.Text>
+        <Callout.Title>Finish setting up your store</Callout.Title>
+        <Callout.Description>
+          Connect a payment provider before you can publish your store to customers.
+        </Callout.Description>
+        <Callout.Actions>
+          <Callout.Action disabled>Publish store</Callout.Action>
+          <Callout.Action variant="secondary" disabled>
+            Preview
+          </Callout.Action>
+        </Callout.Actions>
       </Callout.Root>
-    </div>
+    </>
   ),
 };
 
@@ -270,11 +276,16 @@ export const AsAlert: Story = {
       </div>
       <br />
       <div style={{ display: 'inline-block' }}>
-        <Callout.Root {...args} color="red" role="alert">
-          <Callout.Icon>
-            <Callout.Icon>🚨</Callout.Icon>
-          </Callout.Icon>
-          <Callout.Text>Access denied. Please contact the network administrator to view this page.</Callout.Text>
+        <Callout.Root {...args} role="alert">
+          <Callout.Icon>🚨</Callout.Icon>
+          <Callout.Title>Unable to load dashboard</Callout.Title>
+          <Callout.Description>
+            You don&apos;t have permission to view this page. Contact your workspace admin for access.
+          </Callout.Description>
+          <Callout.Actions>
+            <Callout.Action>Request access</Callout.Action>
+            <Callout.Action variant="secondary">Go back</Callout.Action>
+          </Callout.Actions>
         </Callout.Root>
       </div>
     </>
