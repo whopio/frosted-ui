@@ -30,6 +30,10 @@ export const Default: Story = {
       <Callout.Description>
         Upgrade to Pro to keep access to analytics, webhooks, and priority support.
       </Callout.Description>
+      <Callout.Actions>
+        <Callout.Action>Upgrade to Pro</Callout.Action>
+        <Callout.Action variant="secondary">Remind me later</Callout.Action>
+      </Callout.Actions>
     </Callout.Root>
   ),
 };
@@ -43,6 +47,10 @@ export const Color: Story = {
         </Callout.Icon>
         <Callout.Title>New feature available</Callout.Title>
         <Callout.Description>You can now accept crypto payments directly from your checkout page.</Callout.Description>
+        <Callout.Actions>
+          <Callout.Action>Enable crypto payments</Callout.Action>
+          <Callout.Action variant="secondary">Learn more</Callout.Action>
+        </Callout.Actions>
       </Callout.Root>
 
       <Callout.Root {...args} color="green">
@@ -53,6 +61,10 @@ export const Color: Story = {
         <Callout.Description>
           Your $1,250.00 payout was deposited to your bank account ending in 4821.
         </Callout.Description>
+        <Callout.Actions>
+          <Callout.Action>View payout details</Callout.Action>
+          <Callout.Action variant="secondary">Dismiss</Callout.Action>
+        </Callout.Actions>
       </Callout.Root>
 
       <Callout.Root {...args} color="red">
@@ -63,6 +75,10 @@ export const Color: Story = {
         <Callout.Description>
           The card on file was declined. Update your billing details to avoid service interruption.
         </Callout.Description>
+        <Callout.Actions>
+          <Callout.Action>Update billing</Callout.Action>
+          <Callout.Action variant="secondary">Try again</Callout.Action>
+        </Callout.Actions>
       </Callout.Root>
     </div>
   ),
@@ -78,6 +94,10 @@ export const SemanticColor: Story = {
         </Callout.Icon>
         <Callout.Title>API maintenance scheduled</Callout.Title>
         <Callout.Description>Our REST API will be read-only on March 15 from 2–4 AM UTC.</Callout.Description>
+        <Callout.Actions>
+          <Callout.Action>View status page</Callout.Action>
+          <Callout.Action variant="secondary">Dismiss</Callout.Action>
+        </Callout.Actions>
       </Callout.Root>
 
       <Callout.Root {...args} color="success">
@@ -86,6 +106,10 @@ export const SemanticColor: Story = {
         </Callout.Icon>
         <Callout.Title>Store connected</Callout.Title>
         <Callout.Description>Stripe is now linked and ready to accept payments.</Callout.Description>
+        <Callout.Actions>
+          <Callout.Action>Go to dashboard</Callout.Action>
+          <Callout.Action variant="secondary">Dismiss</Callout.Action>
+        </Callout.Actions>
       </Callout.Root>
 
       <Callout.Root {...args} color="warning">
@@ -96,6 +120,10 @@ export const SemanticColor: Story = {
         <Callout.Description>
           Verify your business address by April 1 to continue receiving payouts.
         </Callout.Description>
+        <Callout.Actions>
+          <Callout.Action>Verify address</Callout.Action>
+          <Callout.Action variant="secondary">Remind me later</Callout.Action>
+        </Callout.Actions>
       </Callout.Root>
 
       <Callout.Root {...args} color="danger">
@@ -104,8 +132,107 @@ export const SemanticColor: Story = {
         </Callout.Icon>
         <Callout.Title>Account restricted</Callout.Title>
         <Callout.Description>Payouts are paused until you submit updated tax documentation.</Callout.Description>
+        <Callout.Actions>
+          <Callout.Action>Submit documents</Callout.Action>
+          <Callout.Action variant="secondary">Contact support</Callout.Action>
+        </Callout.Actions>
       </Callout.Root>
     </div>
+  ),
+};
+
+export const ActionRenderProp: Story = {
+  name: 'Action render prop',
+  render: (args: CalloutRootProps) => (
+    <>
+      <div style={{ maxWidth: 500, marginBottom: 'var(--space-4)' }}>
+        <Text>
+          Use the <Code>render</Code> prop on <Code>Callout.Action</Code> to render actions as links for navigation
+          without losing callout action styling.
+        </Text>
+      </div>
+      <Callout.Root {...args} color="info">
+        <Callout.Icon>
+          <InfoCircle16 />
+        </Callout.Icon>
+        <Callout.Title>Your trial ends in 3 days</Callout.Title>
+        <Callout.Description>
+          Upgrade to Pro to keep access to analytics, webhooks, and priority support.
+        </Callout.Description>
+        <Callout.Actions>
+          <Callout.Action render={<a href="/billing" />}>Upgrade to Pro</Callout.Action>
+          <Callout.Action variant="secondary">Remind me later</Callout.Action>
+        </Callout.Actions>
+      </Callout.Root>
+    </>
+  ),
+};
+
+export const ActionLoading: Story = {
+  name: 'Action loading',
+  render: (args: CalloutRootProps) => {
+    const [loading, setLoading] = React.useState(false);
+
+    return (
+      <>
+        <div style={{ maxWidth: 500, marginBottom: 'var(--space-4)' }}>
+          <Text>
+            Use the <Code>loading</Code> prop on <Code>Callout.Action</Code> to show a spinner and disable the action
+            while an async task is in progress.
+          </Text>
+        </div>
+        <Callout.Root {...args} color="warning">
+          <Callout.Icon>
+            <InfoCircle16 />
+          </Callout.Icon>
+          <Callout.Title>Action required</Callout.Title>
+          <Callout.Description>
+            Verify your business address by April 1 to continue receiving payouts.
+          </Callout.Description>
+          <Callout.Actions>
+            <Callout.Action
+              loading={loading}
+              onClick={() => {
+                setLoading(true);
+                setTimeout(() => setLoading(false), 2000);
+              }}
+            >
+              Verify address
+            </Callout.Action>
+            <Callout.Action variant="secondary">Remind me later</Callout.Action>
+          </Callout.Actions>
+        </Callout.Root>
+      </>
+    );
+  },
+};
+
+export const ActionDisabled: Story = {
+  name: 'Action disabled',
+  render: (args: CalloutRootProps) => (
+    <>
+      <div style={{ maxWidth: 500, marginBottom: 'var(--space-4)' }}>
+        <Text>
+          Use the <Code>disabled</Code> prop on <Code>Callout.Action</Code> to prevent interaction, for example while a
+          prerequisite step is incomplete.
+        </Text>
+      </div>
+      <Callout.Root {...args} color="info">
+        <Callout.Icon>
+          <InfoCircle16 />
+        </Callout.Icon>
+        <Callout.Title>Finish setting up your store</Callout.Title>
+        <Callout.Description>
+          Connect a payment provider before you can publish your store to customers.
+        </Callout.Description>
+        <Callout.Actions>
+          <Callout.Action disabled>Publish store</Callout.Action>
+          <Callout.Action variant="secondary" disabled>
+            Preview
+          </Callout.Action>
+        </Callout.Actions>
+      </Callout.Root>
+    </>
   ),
 };
 
@@ -132,6 +259,10 @@ export const AsAlert: Story = {
           <Callout.Description>
             You don&apos;t have permission to view this page. Contact your workspace admin for access.
           </Callout.Description>
+          <Callout.Actions>
+            <Callout.Action>Request access</Callout.Action>
+            <Callout.Action variant="secondary">Go back</Callout.Action>
+          </Callout.Actions>
         </Callout.Root>
       </div>
     </>
