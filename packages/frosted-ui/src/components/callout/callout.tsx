@@ -50,7 +50,8 @@ const CalloutTitle = (props: CalloutTitleProps) => {
       render={<p />}
       size="2"
       color={color}
-      weight="medium"
+      weight="semi-bold"
+      highContrast
       {...props}
       className={classNames('fui-CalloutTitle', props.className)}
     />
@@ -58,5 +59,26 @@ const CalloutTitle = (props: CalloutTitleProps) => {
 };
 CalloutTitle.displayName = 'CalloutTitle';
 
-export { CalloutIcon as Icon, CalloutRoot as Root, CalloutTitle as Title };
-export type { CalloutIconProps as IconProps, CalloutRootProps as RootProps, CalloutTitleProps as TitleProps };
+type CalloutDescriptionProps = TextProps;
+
+const CalloutDescription = (props: CalloutDescriptionProps) => {
+  const { color } = React.useContext(CalloutContext);
+  return (
+    <Text
+      render={<p />}
+      size="2"
+      color={color}
+      {...props}
+      className={classNames('fui-CalloutDescription', props.className)}
+    />
+  );
+};
+CalloutDescription.displayName = 'CalloutDescription';
+
+export { CalloutDescription as Description, CalloutIcon as Icon, CalloutRoot as Root, CalloutTitle as Title };
+export type {
+  CalloutDescriptionProps as DescriptionProps,
+  CalloutIconProps as IconProps,
+  CalloutRootProps as RootProps,
+  CalloutTitleProps as TitleProps,
+};

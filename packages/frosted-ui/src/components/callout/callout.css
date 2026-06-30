@@ -5,10 +5,10 @@
   text-align: left;
   color: var(--accent-a11);
   background-color: var(--accent-a3);
-  row-gap: var(--space-2);
-  column-gap: var(--space-3);
-  padding: var(--space-4);
-  border-radius: var(--radius-5);
+  row-gap: 4px;
+  column-gap: 8px;
+  padding: 12px;
+  border-radius: 12px;
 }
 
 .fui-CalloutIcon {
