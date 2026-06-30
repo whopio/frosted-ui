@@ -5,7 +5,6 @@
   text-align: left;
   color: var(--accent-a11);
   background-color: var(--accent-a3);
-  row-gap: 2px;
   column-gap: 8px;
   padding: 12px;
   border-radius: 12px;
@@ -28,7 +27,9 @@
   flex-direction: row;
   align-items: center;
   gap: 8px;
-  margin-top: 6px;
+  :where(.fui-CalloutTitle + &, .fui-CalloutDescription + &) {
+    margin-top: 8px;
+  }
 }
 
 .fui-CalloutAction {
@@ -113,7 +114,6 @@
     background-color: transparent;
   }
 }
-/* watcher-test-marker */
 
 .fui-CalloutTitle {
   color: var(--gray-12);
@@ -121,4 +121,7 @@
 
 .fui-CalloutDescription {
   color: var(--accent-a12);
+  &:where(.fui-CalloutTitle + &) {
+    margin-top: 2px;
+  }
 }

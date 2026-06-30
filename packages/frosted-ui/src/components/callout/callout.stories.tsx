@@ -22,19 +22,35 @@ export const Default: Story = {
     color: calloutRootPropDefs.color.default,
   },
   render: (args: CalloutRootProps) => (
-    <Callout.Root {...args}>
-      <Callout.Icon>
-        <InfoCircle16 />
-      </Callout.Icon>
-      <Callout.Title>Your trial ends in 3 days</Callout.Title>
-      <Callout.Description>
-        Upgrade to Pro to keep access to analytics, webhooks, and priority support.
-      </Callout.Description>
-      <Callout.Actions>
-        <Callout.Action>Upgrade to Pro</Callout.Action>
-        <Callout.Action variant="secondary">Remind me later</Callout.Action>
-      </Callout.Actions>
-    </Callout.Root>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+      <Callout.Root {...args}>
+        <Callout.Icon>
+          <InfoCircle16 />
+        </Callout.Icon>
+        <Callout.Title>Your trial ends in 3 days</Callout.Title>
+        <Callout.Description>
+          Upgrade to Pro to keep access to analytics, webhooks, and priority support.
+        </Callout.Description>
+        <Callout.Actions>
+          <Callout.Action>Upgrade to Pro</Callout.Action>
+          <Callout.Action variant="secondary">Remind me later</Callout.Action>
+        </Callout.Actions>
+      </Callout.Root>
+      <Callout.Root {...args}>
+        <Callout.Icon>
+          <InfoCircle16 />
+        </Callout.Icon>
+        <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+          <div>
+            <Callout.Title>2 members are waiting for approval</Callout.Title>
+            <Callout.Description>Review pending requests to give them access to your community.</Callout.Description>
+          </div>
+          <Callout.Actions>
+            <Callout.Action>Review requests</Callout.Action>
+          </Callout.Actions>
+        </div>
+      </Callout.Root>
+    </div>
   ),
 };
 
