@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const CalendarFilled12 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M8.25 0C8.66421 0 9 0.335786 9 0.75V2H9.5C10.6046 2 11.5 2.89543 11.5 4V10C11.5 11.1046 10.6046 12 9.5 12H2.5C1.39543 12 0.5 11.1046 0.5 10V4C0.5 2.89543 1.39543 2 2.5 2H3V0.75C3 0.335786 3.33579 0 3.75 0C4.16421 0 4.5 0.335786 4.5 0.75V2H7.5V0.75C7.5 0.335786 7.83579 0 8.25 0ZM2 10C2 10.2761 2.22386 10.5 2.5 10.5H9.5C9.77614 10.5 10 10.2761 10 10V6.5H2V10Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+CalendarFilled12.category = 'Interface General';
+
+export default CalendarFilled12;

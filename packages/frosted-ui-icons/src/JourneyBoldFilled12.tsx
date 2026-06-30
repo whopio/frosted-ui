@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const JourneyBoldFilled12 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M9.75 0C10.9926 0 12 1.00736 12 2.25C12 3.49264 10.9926 4.5 9.75 4.5C8.86696 4.5 8.10469 3.99033 7.73633 3.25H2.875C2.39175 3.25 2 3.64175 2 4.125C2 4.60825 2.39175 5 2.875 5H9.125C10.7128 5 12 6.28718 12 7.875C12 9.46282 10.7128 10.75 9.125 10.75H4.26367C3.89531 11.4903 3.13304 12 2.25 12C1.00736 12 0 10.9926 0 9.75C0 8.50736 1.00736 7.5 2.25 7.5C3.13304 7.5 3.89531 8.00967 4.26367 8.75H9.125C9.60825 8.75 10 8.35825 10 7.875C10 7.39175 9.60825 7 9.125 7H2.875C1.28718 7 0 5.71282 0 4.125C0 2.53718 1.28718 1.25 2.875 1.25H7.73633C8.10469 0.50967 8.86696 0 9.75 0Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+JourneyBoldFilled12.category = 'Interface General';
+
+export default JourneyBoldFilled12;

@@ -19,7 +19,7 @@ export const BountiesAdd12 = ({ color = 'currentColor', ...props }: IconProps) =
       <path
         d="M10.5316 7.83122V9.45142M10.5316 11.0717V9.45142M10.5316 9.45142H8.91139M10.5316 9.45142H12.1519"
         stroke={color}
-        strokeWidth="1.5"
+        strokeWidth="1.62"
         strokeLinecap="round"
         strokeLinejoin="round"
       />

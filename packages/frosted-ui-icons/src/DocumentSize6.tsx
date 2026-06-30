@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const Document24 = ({ color = 'currentColor', ...props }: IconProps) => {
+export const DocumentSize6 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
       width="24"
@@ -20,6 +20,6 @@ export const Document24 = ({ color = 'currentColor', ...props }: IconProps) => {
   );
 };
 
-Document24.category = 'Interface General';
+DocumentSize6.category = 'Interface General';
 
-export default Document24;
+export default DocumentSize6;

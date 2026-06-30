@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const FountainPenBoldFilled12 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="13"
+      height="12"
+      viewBox="0 0 13 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M9.3922 8.06582L8.73402 9.91144C8.51742 10.5178 7.98496 10.9564 7.34833 11.053L1.47553 11.9426L4.93144 8.48475C5.53544 8.39666 5.99962 7.87882 5.99976 7.25042C5.99976 6.56009 5.44013 6.00047 4.74981 6.00047C4.11911 6.00047 3.59894 6.4675 3.51353 7.07465L0.0605444 10.5296L0.950157 4.65482L0.972617 4.53666C1.10266 3.95274 1.52402 3.47213 2.09269 3.26914L3.93636 2.60998L9.3922 8.06582ZM5.88648 0.855173C6.43344 -0.064176 7.65493 -0.269836 8.47036 0.372771L8.62758 0.512413L11.4907 3.37558C12.2973 4.18253 12.1285 5.5333 11.148 6.11668L10.5972 6.44284L5.55837 1.40398L5.88648 0.855173Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+FountainPenBoldFilled12.category = 'Interface General';
+
+export default FountainPenBoldFilled12;
