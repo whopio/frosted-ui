@@ -79,7 +79,7 @@
   height: var(--base-menu-item-height);
   padding-left: var(--base-menu-item-padding-left);
   padding-right: var(--base-menu-item-padding-right);
-  color: var(--gray-a10);
+  color: var(--gray-a11);
   user-select: none;
   cursor: default;
   font-weight: var(--font-weight-semi-bold);
