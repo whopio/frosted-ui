@@ -1,3 +1,4 @@
+export { default as CalendarPictogram } from './CalendarPictogram';
 export { default as PiggyBankPictogram } from './PiggyBankPictogram';
 export { default as ConstructionConePictogram } from './ConstructionConePictogram';
 export { default as ReceiptPictogram } from './ReceiptPictogram';
@@ -41,6 +42,8 @@ export { default as FactoryPictogram } from './FactoryPictogram';
 export { default as ChatBubblesPictogram } from './ChatBubblesPictogram';
 export { default as SatelliteDishPictogram } from './SatelliteDishPictogram';
 export { default as PhoneWhopLogoPictogram } from './PhoneWhopLogoPictogram';
+export { default as PhoneAppleLogoPictogram } from './PhoneAppleLogoPictogram';
+export { default as PhoneBlankPictogram } from './PhoneBlankPictogram';
 export { default as CompassPictogram } from './CompassPictogram';
 export { default as CargoShipPictogram } from './CargoShipPictogram';
 export { default as BarChartPictogram } from './BarChartPictogram';

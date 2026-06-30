@@ -6,7 +6,6 @@
   xmlns="http://www.w3.org/2000/svg"
   data-fui-pictogram="true"
 >
-  <path stroke="#000" stroke-opacity=".01" d="M0.5 0.5H239.5V239.5H0.5z" />
   <path
     d="M76.5359 178.904V194.998C76.7345 195.01 76.9352 194.975 77.123 194.894L93.8061 187.733L76.5359 178.904Z"
     fill="#222"
