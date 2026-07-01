@@ -36,7 +36,8 @@ export const Default: Story = {
         </Callout.Icon>
         <Callout.Title>Your trial ends in 3 days</Callout.Title>
         <Callout.Description>
-          Upgrade to Pro to keep access to analytics, webhooks, and priority support.
+          Upgrade to Pro to keep access to analytics, webhooks, and priority support. Compare{' '}
+          <Link href="#">plans and pricing</Link>.
         </Callout.Description>
         <Callout.Actions>
           <Callout.Action>Upgrade to Pro</Callout.Action>
@@ -47,8 +48,8 @@ export const Default: Story = {
         <Callout.Icon>
           <InfoCircle16 />
         </Callout.Icon>
-        <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
-          <div>
+        <div style={{ display: 'flex', gap: 16, alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ minWidth: 0, flex: 1 }}>
             <Callout.Title>2 members are waiting for approval</Callout.Title>
             <Callout.Description>Review pending requests to give them access to your community.</Callout.Description>
           </div>
@@ -56,6 +57,15 @@ export const Default: Story = {
             <Callout.Action>Review requests</Callout.Action>
           </Callout.Actions>
         </div>
+      </Callout.Root>
+
+      <Callout.Root {...args}>
+        <Callout.Icon>
+          <InfoCircle16 />
+        </Callout.Icon>
+        <Callout.Title>
+          Your domain was verified. <Link href="#">Manage DNS settings</Link>.
+        </Callout.Title>
       </Callout.Root>
     </div>
   ),
@@ -96,7 +106,8 @@ export const Color: Story = {
         </Callout.Icon>
         <Callout.Title>Payment failed</Callout.Title>
         <Callout.Description>
-          The card on file was declined. Update your billing details to avoid service interruption.
+          The card on file was declined. Update your <Link href="#">billing details</Link> to avoid service
+          interruption.
         </Callout.Description>
         <Callout.Actions>
           <Callout.Action>Update billing</Callout.Action>
@@ -116,7 +127,10 @@ export const SemanticColor: Story = {
           <InfoCircle16 />
         </Callout.Icon>
         <Callout.Title>API maintenance scheduled</Callout.Title>
-        <Callout.Description>Our REST API will be read-only on March 15 from 2–4 AM UTC.</Callout.Description>
+        <Callout.Description>
+          Our REST API will be read-only on March 15 from 2–4 AM UTC. See the <Link href="#">status page</Link> for
+          details.
+        </Callout.Description>
         <Callout.Actions>
           <Callout.Action>View status page</Callout.Action>
           <Callout.Action variant="secondary">Dismiss</Callout.Action>
@@ -154,7 +168,9 @@ export const SemanticColor: Story = {
           <InfoCircle16 />
         </Callout.Icon>
         <Callout.Title>Account restricted</Callout.Title>
-        <Callout.Description>Payouts are paused until you submit updated tax documentation.</Callout.Description>
+        <Callout.Description>
+          Payouts are paused until you submit updated <Link href="#">tax documentation</Link>.
+        </Callout.Description>
         <Callout.Actions>
           <Callout.Action>Submit documents</Callout.Action>
           <Callout.Action variant="secondary">Contact support</Callout.Action>
@@ -276,7 +292,7 @@ export const AsAlert: Story = {
       </div>
       <br />
       <div style={{ display: 'inline-block' }}>
-        <Callout.Root {...args} role="alert">
+        <Callout.Root {...args} color="danger" role="alert">
           <Callout.Icon>🚨</Callout.Icon>
           <Callout.Title>Unable to load dashboard</Callout.Title>
           <Callout.Description>

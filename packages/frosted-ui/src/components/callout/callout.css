@@ -1,11 +1,11 @@
 .fui-CalloutRoot {
   display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
   align-items: flex-start;
   justify-content: flex-start;
   text-align: left;
   color: var(--accent-a11);
   background-color: var(--accent-a3);
-  column-gap: 8px;
   padding: 12px;
   border-radius: 12px;
 }
@@ -13,18 +13,21 @@
 .fui-CalloutIcon {
   display: flex;
   align-items: center;
-  grid-column-start: -2;
+  grid-column: 1;
+  /* Spacing lives on the icon (not column-gap) so icon-less callouts stay flush left */
+  margin-right: 8px;
   height: var(--line-height);
 }
 
-/* Anything that’s not an icon goes to the right of the icon */
+/* Anything that’s not an icon goes to the right of the icon and fills the remaining width */
 .fui-CalloutRoot > :where(:not(.fui-CalloutIcon)) {
-  grid-column-start: -1;
+  grid-column: 2;
 }
 
 .fui-CalloutActions {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
   :where(.fui-CalloutTitle + &, .fui-CalloutDescription + &) {
@@ -117,10 +120,12 @@
 
 .fui-CalloutTitle {
   color: var(--gray-12);
+  text-wrap-style: balance;
 }
 
 .fui-CalloutDescription {
   color: var(--accent-a12);
+  text-wrap-style: pretty;
   &:where(.fui-CalloutTitle + &) {
     margin-top: 2px;
   }
