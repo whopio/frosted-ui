@@ -149,7 +149,7 @@ function sizeScopedIssue(
   return {
     severity: 'warning',
     rule,
-    message: `"${name}" ${verb} at size ${labels.join(', ')}.`,
+    message: `"${name}" ${verb}:`,
     targets: sorted.map((e, i) => ({ nodeId: e.nodeId, label: labels[i] })),
   };
 }
