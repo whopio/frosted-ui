@@ -370,6 +370,11 @@
           fail: (n) => n + ' icon(s) draw fill + stroke',
         },
         {
+          rules: ['hidden-layers', 'not-single-shape'],
+          ok: 'Clean single shape',
+          fail: (n) => n + ' structure issue(s)',
+        },
+        {
           rules: ['orphan'],
           ok: null, // nothing to show when clean
           fail: (n) => 'Component sets outside an “Icons” frame',

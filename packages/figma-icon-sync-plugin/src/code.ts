@@ -103,6 +103,57 @@ function findIconsPage(): { page: PageNode; usedFallback: boolean } {
   return { page: figma.currentPage, usedFallback: true };
 }
 
+// A single, self-contained icon shape: a flattened vector, a boolean op (union),
+// or a primitive. NOT a group/frame wrapper.
+function isShapeType(type: string): boolean {
+  return (
+    type === 'VECTOR' ||
+    type === 'BOOLEAN_OPERATION' ||
+    type === 'RECTANGLE' ||
+    type === 'ELLIPSE' ||
+    type === 'POLYGON' ||
+    type === 'STAR' ||
+    type === 'LINE'
+  );
+}
+
+function hasHiddenDescendant(node: SceneNode): boolean {
+  if (!('children' in node)) return false;
+  for (const child of node.children) {
+    if (child.visible === false) return true;
+    if (hasHiddenDescendant(child)) return true;
+  }
+  return false;
+}
+
+// The rendered content should be exactly one shape. We only count visible
+// children (hidden layers are caught separately) — so a lone vector or a single
+// union passes, while multiple shapes or a group/frame wrapper does not.
+function isSingleShape(variant: ComponentNode): boolean {
+  const visible = variant.children.filter((c) => c.visible !== false);
+  if (visible.length !== 1) return false;
+  return isShapeType(visible[0].type);
+}
+
+// Builds a per-icon warning whose detail pills jump to each affected size.
+function sizeScopedIssue(
+  rule: string,
+  name: string,
+  verb: string,
+  entries: { nodeId: string; size: number }[],
+): Issue {
+  const sorted = [...entries].sort(
+    (a, b) => (Number.isNaN(a.size) ? Infinity : a.size) - (Number.isNaN(b.size) ? Infinity : b.size),
+  );
+  const labels = sorted.map((e) => (Number.isNaN(e.size) ? '?' : String(e.size)));
+  return {
+    severity: 'warning',
+    rule,
+    message: `"${name}" ${verb} at size ${labels.join(', ')}.`,
+    targets: sorted.map((e, i) => ({ nodeId: e.nodeId, label: labels[i] })),
+  };
+}
+
 interface QualityTarget {
   name: string;
   nodes: SceneNode[];
@@ -203,9 +254,17 @@ async function scan(): Promise<{
       }
 
       const sizeCounts = new Map<number, number>();
+      const hiddenAt: { nodeId: string; size: number }[] = [];
+      const notSingleAt: { nodeId: string; size: number }[] = [];
 
       for (const variant of variants) {
         variantCount += 1;
+
+        // Structure checks (independent of the size label being valid).
+        const sizeGuess = /size=(\d+)/i.exec(variant.name);
+        const structSize = sizeGuess ? Number(sizeGuess[1]) : Number.NaN;
+        if (hasHiddenDescendant(variant)) hiddenAt.push({ nodeId: variant.id, size: structSize });
+        if (!isSingleShape(variant)) notSingleAt.push({ nodeId: variant.id, size: structSize });
 
         // The variant name must be *exactly* `size=<number>`. An unanchored
         // match would wrongly accept mislabelled properties whose name merely
@@ -271,6 +330,18 @@ async function scan(): Promise<{
         });
       }
 
+      // Rule: no hidden or stray layers inside the icon.
+      if (hiddenAt.length > 0) {
+        issues.push(sizeScopedIssue('hidden-layers', name, 'has hidden layers', hiddenAt));
+      }
+
+      // Rule: the icon should be a single final shape (a vector or union), not
+      // multiple layers or a group/frame wrapper.
+      if (notSingleAt.length > 0) {
+        issues.push(
+          sizeScopedIssue('not-single-shape', name, "isn't a single flattened shape", notSingleAt),
+        );
+      }
     }
   }
 
