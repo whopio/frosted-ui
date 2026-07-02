@@ -413,12 +413,7 @@
       // Each verification group owns a set of issue rules; details render beneath it.
       const GROUPS = [
         {
-          rules: ['duplicate-name'],
-          ok: 'No duplicate names',
-          fail: (n) => n + ' duplicate icon name(s)',
-        },
-        {
-          rules: ['number-in-name', 'empty-name', 'modifier-order'],
+          rules: ['duplicate-name', 'number-in-name', 'empty-name', 'modifier-order'],
           ok: 'Names valid',
           fail: (n) => n + ' naming issue(s)',
         },
