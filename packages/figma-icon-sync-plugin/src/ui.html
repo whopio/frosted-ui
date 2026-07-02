@@ -454,6 +454,8 @@
       let qualityPending = false;
       // previewId -> inline SVG markup for the icon's size-16 variant.
       let previews = {};
+      // group key -> collapsed (bool), preserved across re-renders/rescans.
+      const collapsedState = {};
 
       const post = (msg) => parent.postMessage({ pluginMessage: msg }, '*');
 
@@ -575,7 +577,7 @@
         return html + '</div>';
       }
 
-      function groupHtml(state, headline, issues, info) {
+      function groupHtml(state, headline, issues, info, key, collapsed) {
         const symbol =
           state === 'ok' ? '✓' : state === 'warn' ? '!' : state === 'pending' ? '⋯' : '✕';
         const hasIssues = issues.length > 0;
@@ -590,7 +592,10 @@
           : '';
         return (
           '<div class="check-group' +
-          (hasIssues ? ' has-issues collapsed' : '') +
+          (hasIssues ? ' has-issues' : '') +
+          (hasIssues && collapsed ? ' collapsed' : '') +
+          '" data-group="' +
+          escapeHtml(key) +
           '"><div class="check"><span class="badge ' +
           state +
           '">' +
@@ -609,9 +614,19 @@
       function renderChecks(r) {
         let html = '';
         for (const group of GROUPS) {
+          const key = group.rules.join('|');
+          // Default new sections to collapsed; otherwise keep the user's choice.
+          const collapsed = key in collapsedState ? collapsedState[key] : true;
           const isQuality = group.rules.includes('fill-and-stroke');
           if (isQuality && qualityPending) {
-            html += groupHtml('pending', 'Checking for fill + stroke overlaps…', [], group.info);
+            html += groupHtml(
+              'pending',
+              'Checking for fill + stroke overlaps…',
+              [],
+              group.info,
+              key,
+              collapsed,
+            );
             continue;
           }
 
@@ -628,14 +643,17 @@
             state = errs.length ? 'err' : 'warn';
             headline = group.fail(issues.length, errs.length > 0);
           }
-          html += groupHtml(state, headline, issues, group.info);
+          html += groupHtml(state, headline, issues, group.info, key, collapsed);
         }
         $('checks').innerHTML = html;
 
         Array.from(document.querySelectorAll('#checks .check-group.has-issues > .check')).forEach(
           (el) => {
             el.addEventListener('click', () => {
-              el.parentElement.classList.toggle('collapsed');
+              const groupEl = el.parentElement;
+              groupEl.classList.toggle('collapsed');
+              collapsedState[groupEl.getAttribute('data-group')] =
+                groupEl.classList.contains('collapsed');
             });
           },
         );
