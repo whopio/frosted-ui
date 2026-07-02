@@ -479,7 +479,7 @@ async function runQualityChecks(targets: QualityTarget[]): Promise<Issue[]> {
       offending.sort((a, b) => a.size - b.size);
       const sizes = offending.map((o) => (Number.isNaN(o.size) ? '?' : String(o.size)));
       issues.push({
-        severity: 'warning',
+        severity: 'error',
         rule: 'fill-and-stroke',
         message: `"${slice[idx].name}":`,
         targets: offending.map((o, i) => ({ nodeId: o.nodeId, label: sizes[i] })),

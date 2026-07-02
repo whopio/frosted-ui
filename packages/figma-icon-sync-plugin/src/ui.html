@@ -812,9 +812,14 @@
             currentResult.issues = currentResult.issues
               .filter((i) => i.rule !== 'fill-and-stroke')
               .concat(prepIssues(msg.issues));
+            currentResult.errorCount = currentResult.issues.filter(
+              (i) => i.severity === 'error',
+            ).length;
             currentResult.warningCount = currentResult.issues.filter(
               (i) => i.severity === 'warning',
             ).length;
+            currentResult.passed =
+              currentResult.iconCount > 0 && currentResult.errorCount === 0;
             renderChecks(currentResult);
             updateStatus(currentResult);
           }
