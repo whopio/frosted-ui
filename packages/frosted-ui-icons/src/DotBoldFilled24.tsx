@@ -13,11 +13,8 @@ export const DotBoldFilled24 = ({ color = 'currentColor', ...props }: IconProps)
       {...props}
     >
       <path
-        d="M7 12C7 9.23858 9.23858 7 12 7C14.7614 7 17 9.23858 17 12C17 14.7614 14.7614 17 12 17C9.23858 17 7 14.7614 7 12Z"
+        d="M6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18C8.68629 18 6 15.3137 6 12Z"
         fill={color}
-        stroke={color}
-        strokeWidth="2"
-        strokeLinecap="round"
       />
     </svg>
   );

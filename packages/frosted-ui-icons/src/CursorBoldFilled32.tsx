@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const CursorBoldFilled32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M31.0001 27.877C30.9999 29.6018 29.6017 30.9999 27.877 31.0001C27.0512 31.0001 26.2582 30.6734 25.6729 30.0909L18.835 23.2842L15.0079 29.7335C13.9163 31.5731 11.1808 31.3324 10.4278 29.3301L1.28815 5.0235C0.411403 2.69097 2.69097 0.411405 5.0235 1.28815L29.3301 10.4278C31.3324 11.1808 31.5731 13.9163 29.7335 15.0079L23.2842 18.835L30.0909 25.6729C30.6734 26.2582 31.0001 27.0512 31.0001 27.877Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+CursorBoldFilled32.category = 'Arrows';
+
+export default CursorBoldFilled32;

@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const MinusCircleFilled20 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M10 0.5C15.2467 0.5 19.5 4.75329 19.5 10C19.5 15.2467 15.2467 19.5 10 19.5C4.75329 19.5 0.5 15.2467 0.5 10C0.5 4.75329 4.75329 0.5 10 0.5ZM6.75 9.20898C6.3359 9.20898 6.00018 9.54492 6 9.95898C6 10.3732 6.33579 10.709 6.75 10.709H13.25C13.6642 10.709 14 10.3732 14 9.95898C13.9998 9.54492 13.6641 9.20898 13.25 9.20898H6.75Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+MinusCircleFilled20.category = 'Interface General';
+
+export default MinusCircleFilled20;

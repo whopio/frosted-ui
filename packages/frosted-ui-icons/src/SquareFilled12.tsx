@@ -12,7 +12,10 @@ export const SquareFilled12 = ({ color = 'currentColor', ...props }: IconProps) 
       data-fui-icon="true"
       {...props}
     >
-      <rect x=".75" y=".75" width="10.5" height="10.5" rx="3" fill={color} stroke={color} strokeWidth="1.5" />
+      <path
+        d="M12 8.25C12 10.3211 10.3211 12 8.25 12H3.75C1.67893 12 0 10.3211 0 8.25V3.75C0 1.67893 1.67893 1.28851e-07 3.75 0H8.25C10.3211 0 12 1.67893 12 3.75V8.25Z"
+        fill={color}
+      />
     </svg>
   );
 };

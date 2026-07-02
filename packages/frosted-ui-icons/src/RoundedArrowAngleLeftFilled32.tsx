@@ -1,0 +1,27 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const RoundedArrowAngleLeftFilled32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M20.4999 30.9998C26.2989 30.9998 30.9999 26.2987 30.9999 20.4998C30.9998 14.7009 26.2988 9.99976 20.4999 9.99976H5.24015L12.0741 3.13159C12.561 2.64231 12.5594 1.85099 12.0702 1.36401C11.5809 0.877398 10.7895 0.878872 10.3027 1.36792L1.3632 10.3503C0.878183 10.8379 0.878383 11.6264 1.3632 12.114L10.3027 21.0964C10.7896 21.5855 11.581 21.5872 12.0702 21.1003C12.5595 20.6134 12.5611 19.8221 12.0741 19.3328L5.27531 12.4998H20.4999C24.9181 12.4998 28.4998 16.0816 28.4999 20.4998C28.4999 24.918 24.9182 28.4998 20.4999 28.4998H16.5849C15.8946 28.4998 15.335 29.0595 15.3349 29.7498C15.3349 30.4401 15.8945 30.9997 16.5849 30.9998H20.4999Z"
+        fill={color}
+        fillRule="evenodd"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+};
+
+RoundedArrowAngleLeftFilled32.category = 'Arrows';
+
+export default RoundedArrowAngleLeftFilled32;

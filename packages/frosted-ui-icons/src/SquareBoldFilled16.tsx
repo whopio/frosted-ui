@@ -12,7 +12,10 @@ export const SquareBoldFilled16 = ({ color = 'currentColor', ...props }: IconPro
       data-fui-icon="true"
       {...props}
     >
-      <rect x="2" y="2" width="12" height="12" rx="3.5" fill={color} stroke={color} strokeWidth="2" />
+      <path
+        d="M15 10.5C15 12.9853 12.9853 15 10.5 15H5.5C3.01472 15 1 12.9853 1 10.5V5.5C1 3.01472 3.01472 1 5.5 1H10.5C12.9853 1 15 3.01472 15 5.5V10.5Z"
+        fill={color}
+      />
     </svg>
   );
 };

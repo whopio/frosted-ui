@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const PauseCircleBold16 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="true"
+      {...props}
+    >
+      <path
+        d="M8 0.5C12.1421 0.5 15.5 3.85786 15.5 8C15.5 12.1421 12.1421 15.5 8 15.5C3.85786 15.5 0.5 12.1421 0.5 8C0.5 3.85786 3.85786 0.5 8 0.5ZM8 2.5C4.96243 2.5 2.5 4.96243 2.5 8C2.5 11.0376 4.96243 13.5 8 13.5C11.0376 13.5 13.5 11.0376 13.5 8C13.5 4.96243 11.0376 2.5 8 2.5ZM6.25 5C6.80228 5 7.25 5.44772 7.25 6V10C7.25 10.5523 6.80228 11 6.25 11C5.69772 11 5.25 10.5523 5.25 10V6C5.25 5.44772 5.69772 5 6.25 5ZM9.75 5C10.3023 5 10.75 5.44772 10.75 6V10C10.75 10.5523 10.3023 11 9.75 11C9.19772 11 8.75 10.5523 8.75 10V6C8.75 5.44772 9.19772 5 9.75 5Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+PauseCircleBold16.category = 'Sound & Music';
+
+export default PauseCircleBold16;
