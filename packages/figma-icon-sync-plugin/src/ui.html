@@ -329,15 +329,21 @@
           fail: (n) => n + ' duplicate icon name(s)',
         },
         {
-          rules: ['number-in-name'],
-          ok: 'No numbers in names',
-          fail: (n) => n + ' name(s) contain numbers',
+          rules: ['number-in-name', 'empty-name', 'modifier-order'],
+          ok: 'Names valid',
+          fail: (n) => n + ' naming issue(s)',
         },
         {
-          rules: ['invalid-size-label', 'disallowed-size', 'no-variants', 'size-mismatch'],
+          rules: [
+            'invalid-size-label',
+            'disallowed-size',
+            'no-variants',
+            'duplicate-size',
+            'incomplete-sizes',
+            'size-mismatch',
+          ],
           ok: 'Icon sizes valid (' + [12, 16, 20, 24, 32].join('/') + ')',
-          fail: (n, hasErr) =>
-            hasErr ? n + ' size labelling error(s)' : n + ' size mismatch warning(s)',
+          fail: (n, hasErr) => n + (hasErr ? ' size error(s)' : ' size warning(s)'),
         },
         {
           rules: ['orphan'],

@@ -90,11 +90,23 @@ async function scan(): Promise<ScanResult> {
 
       const name = child.name;
 
+      // Rule: names must survive kebab-casing to a usable file/component name.
+      if (kebab(name) === '') {
+        issues.push({
+          severity: 'error',
+          rule: 'empty-name',
+          message: `A component set${category ? ` in ${category}` : ''} has an empty or invalid name ("${name}").`,
+          nodeId: child.id,
+        });
+      }
+
       // Duplicate-name tracking (grouped by the generated kebab base name).
       const key = kebab(name);
-      const group = nameGroups.get(key) || [];
-      group.push({ name, nodeId: child.id, category });
-      nameGroups.set(key, group);
+      if (key !== '') {
+        const group = nameGroups.get(key) || [];
+        group.push({ name, nodeId: child.id, category });
+        nameGroups.set(key, group);
+      }
 
       // Rule: no numbers in icon names (they collide with the size suffix and
       // break name parsing downstream, e.g. `Shop16`).
@@ -103,6 +115,20 @@ async function scan(): Promise<ScanResult> {
           severity: 'error',
           rule: 'number-in-name',
           message: `"${name}"${category ? ` (${category})` : ''} contains a number.`,
+          nodeId: child.id,
+        });
+      }
+
+      // Rule: modifier ordering — the correct suffix is "Bold Filled", never
+      // "Filled Bold".
+      const tokens = kebab(name).split('-');
+      const boldIdx = tokens.indexOf('bold');
+      const filledIdx = tokens.indexOf('filled');
+      if (boldIdx !== -1 && filledIdx !== -1 && filledIdx < boldIdx) {
+        issues.push({
+          severity: 'error',
+          rule: 'modifier-order',
+          message: `"${name}" should use "Bold Filled" order, not "Filled Bold".`,
           nodeId: child.id,
         });
       }
@@ -116,6 +142,8 @@ async function scan(): Promise<ScanResult> {
           nodeId: child.id,
         });
       }
+
+      const sizeCounts = new Map<number, number>();
 
       for (const variant of variants) {
         variantCount += 1;
@@ -144,6 +172,8 @@ async function scan(): Promise<ScanResult> {
           continue;
         }
 
+        sizeCounts.set(size, (sizeCounts.get(size) || 0) + 1);
+
         const w = Math.round(variant.width);
         const h = Math.round(variant.height);
         if (w !== size || h !== size) {
@@ -154,6 +184,29 @@ async function scan(): Promise<ScanResult> {
             nodeId: variant.id,
           });
         }
+      }
+
+      // Rule: a size must appear at most once per icon (else the generated
+      // component/file names collide, e.g. two `Shop16`).
+      const dupSizes = [...sizeCounts.entries()].filter(([, c]) => c > 1).map(([s]) => s);
+      if (dupSizes.length) {
+        issues.push({
+          severity: 'error',
+          rule: 'duplicate-size',
+          message: `"${name}" has multiple variants for size ${dupSizes.sort((a, b) => a - b).join(', ')}.`,
+          nodeId: child.id,
+        });
+      }
+
+      // Rule: every icon should ship the full size set (12/16/20/24/32).
+      const missing = ALLOWED_SIZES.filter((s) => !sizeCounts.has(s));
+      if (sizeCounts.size > 0 && missing.length > 0) {
+        issues.push({
+          severity: 'warning',
+          rule: 'incomplete-sizes',
+          message: `"${name}" is missing size ${missing.join(', ')}.`,
+          nodeId: child.id,
+        });
       }
     }
   }
