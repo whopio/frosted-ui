@@ -11,11 +11,17 @@ const TOKEN_KEY = 'gh_token';
 
 type Severity = 'error' | 'warning';
 
+interface IssueTarget {
+  nodeId: string;
+  label: string;
+}
+
 interface Issue {
   severity: Severity;
   rule: string;
   message: string;
   nodeId?: string;
+  targets?: IssueTarget[];
 }
 
 interface ScanResult {
@@ -159,10 +165,11 @@ async function scan(): Promise<ScanResult> {
     issues.push({
       severity: 'error',
       rule: 'duplicate-name',
-      message: `"${label}" is defined ${group.length}× (${group
-        .map((g) => g.category || 'no category')
-        .join(', ')}).`,
-      nodeId: group[0].nodeId,
+      message: `"${label}" is defined ${group.length}×`,
+      targets: group.map((g, i) => ({
+        nodeId: g.nodeId,
+        label: `${i + 1}. ${g.category || 'uncategorized'}`,
+      })),
     });
   }
 

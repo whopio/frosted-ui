@@ -76,6 +76,9 @@
         margin: 20px 0 8px;
       }
 
+      .check-group {
+        margin-bottom: 6px;
+      }
       .check {
         display: flex;
         align-items: center;
@@ -83,7 +86,10 @@
         padding: 8px 10px;
         border: 1px solid var(--figma-color-border);
         border-radius: 6px;
-        margin-bottom: 6px;
+      }
+      .check-group.has-issues .check {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
       }
       .badge {
         width: 16px;
@@ -111,22 +117,24 @@
       }
 
       .issues {
-        margin: 8px 0 0;
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
+        border: 1px solid var(--figma-color-border);
+        border-top: none;
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+        overflow: hidden;
       }
       .issue {
         display: flex;
         gap: 8px;
-        padding: 7px 10px;
-        border-radius: 6px;
+        padding: 7px 10px 7px 34px;
         background: var(--figma-color-bg-secondary);
-        cursor: pointer;
-        border: 1px solid transparent;
+        border-top: 1px solid var(--figma-color-border);
       }
-      .issue:hover {
-        border-color: var(--figma-color-border);
+      .issue.clickable {
+        cursor: pointer;
+      }
+      .issue.clickable:hover {
+        background: var(--figma-color-bg-hover, var(--figma-color-bg-secondary));
       }
       .issue .dot {
         width: 6px;
@@ -141,9 +149,34 @@
       .issue.warning .dot {
         background: var(--warn);
       }
-      .issue .msg {
+      .issue .body {
         flex: 1;
+        min-width: 0;
+      }
+      .issue .msg {
         color: var(--figma-color-text);
+      }
+      .pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        margin-top: 6px;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 3px 8px;
+        border-radius: 999px;
+        background: var(--figma-color-bg);
+        border: 1px solid var(--figma-color-border);
+        color: var(--figma-color-text);
+        cursor: pointer;
+        font-size: 11px;
+        line-height: 1.2;
+      }
+      .pill:hover {
+        border-color: var(--figma-color-border-brand, var(--ok));
+        color: var(--figma-color-text-brand, var(--figma-color-text));
       }
 
       .empty {
@@ -254,11 +287,6 @@
       <div class="section-title">Verification</div>
       <div id="checks"></div>
 
-      <div id="issues-wrap" style="display: none">
-        <div class="section-title">Details</div>
-        <div class="issues" id="issues"></div>
-      </div>
-
       <details class="token" id="token-details">
         <summary>GitHub token <span id="token-state-inline"></span></summary>
         <div class="token-row">
@@ -293,70 +321,107 @@
 
       const post = (msg) => parent.postMessage({ pluginMessage: msg }, '*');
 
-      function checkRow(state, text) {
-        const symbol = state === 'ok' ? '✓' : state === 'warn' ? '!' : '✕';
+      // Each verification group owns a set of issue rules; details render beneath it.
+      const GROUPS = [
+        {
+          rules: ['duplicate-name'],
+          ok: 'No duplicate names',
+          fail: (n) => n + ' duplicate icon name(s)',
+        },
+        {
+          rules: ['number-in-name'],
+          ok: 'No numbers in names',
+          fail: (n) => n + ' name(s) contain numbers',
+        },
+        {
+          rules: ['invalid-size-label', 'disallowed-size', 'no-variants', 'size-mismatch'],
+          ok: 'Icon sizes valid (' + [12, 16, 20, 24, 32].join('/') + ')',
+          fail: (n, hasErr) =>
+            hasErr ? n + ' size labelling error(s)' : n + ' size mismatch warning(s)',
+        },
+        {
+          rules: ['orphan'],
+          ok: null, // nothing to show when clean
+          fail: (n) => 'Component sets outside an “Icons” frame',
+        },
+      ];
+
+      function issueHtml(i) {
+        const hasTargets = i.targets && i.targets.length;
+        const pills = hasTargets
+          ? '<div class="pills">' +
+            i.targets
+              .map(
+                (t) =>
+                  '<span class="pill" data-id="' +
+                  t.nodeId +
+                  '">' +
+                  escapeHtml(t.label) +
+                  '</span>',
+              )
+              .join('') +
+            '</div>'
+          : '';
+        const clickable = !hasTargets && i.nodeId ? ' clickable' : '';
+        const dataId = !hasTargets && i.nodeId ? ' data-id="' + i.nodeId + '"' : '';
         return (
-          '<div class="check"><span class="badge ' +
+          '<div class="issue ' +
+          i.severity +
+          clickable +
+          '"' +
+          dataId +
+          '><span class="dot"></span><div class="body"><div class="msg">' +
+          i.msg_escaped +
+          '</div>' +
+          pills +
+          '</div></div>'
+        );
+      }
+
+      function groupHtml(state, headline, issues) {
+        const symbol = state === 'ok' ? '✓' : state === 'warn' ? '!' : '✕';
+        const hasIssues = issues.length > 0;
+        const issuesHtml = hasIssues
+          ? '<div class="issues">' + issues.map(issueHtml).join('') + '</div>'
+          : '';
+        return (
+          '<div class="check-group' +
+          (hasIssues ? ' has-issues' : '') +
+          '"><div class="check"><span class="badge ' +
           state +
           '">' +
           symbol +
           '</span><span class="text">' +
-          text +
-          '</span></div>'
+          headline +
+          '</span></div>' +
+          issuesHtml +
+          '</div>'
         );
       }
 
       function renderChecks(r) {
-        const byRule = (rule) => r.issues.filter((i) => i.rule === rule);
-        const dup = byRule('duplicate-name');
-        const num = byRule('number-in-name');
-        const sizeErrs = r.issues.filter(
-          (i) =>
-            i.rule === 'invalid-size-label' ||
-            i.rule === 'disallowed-size' ||
-            i.rule === 'no-variants',
-        );
-        const sizeWarns = byRule('size-mismatch');
-
         let html = '';
-        html += checkRow(
-          dup.length ? 'err' : 'ok',
-          dup.length ? dup.length + ' duplicate icon name(s)' : 'No duplicate names',
-        );
-        html += checkRow(
-          num.length ? 'err' : 'ok',
-          num.length ? num.length + ' name(s) contain numbers' : 'No numbers in names',
-        );
-        const sizeState = sizeErrs.length ? 'err' : sizeWarns.length ? 'warn' : 'ok';
-        const sizeText = sizeErrs.length
-          ? sizeErrs.length + ' size labelling error(s)'
-          : sizeWarns.length
-            ? sizeWarns.length + ' size mismatch warning(s)'
-            : 'Icon sizes valid (' + [12, 16, 20, 24, 32].join('/') + ')';
-        html += checkRow(sizeState, sizeText);
-        $('checks').innerHTML = html;
-      }
+        for (const group of GROUPS) {
+          const issues = r.issues.filter((i) => group.rules.includes(i.rule));
+          const errs = issues.filter((i) => i.severity === 'error');
+          if (!issues.length && group.ok === null) continue; // hide clean optional groups
 
-      function renderIssues(r) {
-        if (!r.issues.length) {
-          $('issues-wrap').style.display = 'none';
-          return;
+          let state;
+          let headline;
+          if (!issues.length) {
+            state = 'ok';
+            headline = group.ok;
+          } else {
+            state = errs.length ? 'err' : 'warn';
+            headline = group.fail(issues.length, errs.length > 0);
+          }
+          html += groupHtml(state, headline, issues);
         }
-        $('issues-wrap').style.display = 'block';
-        $('issues').innerHTML = r.issues
-          .map(
-            (i) =>
-              '<div class="issue ' +
-              i.severity +
-              '" data-id="' +
-              (i.nodeId || '') +
-              '"><span class="dot"></span><span class="msg">' +
-              i.msg_escaped +
-              '</span></div>',
-          )
-          .join('');
-        Array.from(document.querySelectorAll('.issue')).forEach((el) => {
-          el.addEventListener('click', () => {
+        $('checks').innerHTML = html;
+
+        Array.from(document.querySelectorAll('#checks [data-id]')).forEach((el) => {
+          el.addEventListener('click', (event) => {
+            event.stopPropagation();
             const id = el.getAttribute('data-id');
             if (id) post({ type: 'focus', id });
           });
@@ -390,7 +455,6 @@
         }
 
         renderChecks(r);
-        renderIssues(r);
         updateTrigger();
       }
 
