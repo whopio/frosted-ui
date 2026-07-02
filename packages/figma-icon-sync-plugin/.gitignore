@@ -1,2 +1,8 @@
 node_modules
-dist
+.DS_Store
+
+# The built plugin is intentionally committed so designers can import it
+# straight from the repo without running a build. Re-include it even though the
+# root .gitignore ignores dist/ everywhere.
+!dist/
+!dist/**

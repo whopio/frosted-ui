@@ -18,7 +18,32 @@ A Figma plugin that inspects the **Icons** page of the [Frosted Design System fi
 
 The plugin makes no authenticated requests — the only network call is a read-only fetch of the published manifest from jsDelivr, and the sync button just opens a github.com URL in the browser.
 
-## Build
+## Install (for designers)
+
+You don't need to build anything or run any commands — the plugin ships prebuilt in `dist/`. You just need the **Figma desktop app** (local plugins can't be imported from the browser).
+
+1. **Download the plugin folder.** Open the [`packages/figma-icon-sync-plugin`](https://github.com/whopio/frosted-ui/tree/main/packages/figma-icon-sync-plugin) folder on GitHub and download it:
+   - Easiest: paste the folder link into [**DownGit**](https://minhaskamal.github.io/DownGit/#/home) and press **Download** to get just this folder as a `.zip`.
+   - Or download the whole repo: on the repo page press **Code → Download ZIP**, then unzip and find `packages/figma-icon-sync-plugin`.
+2. **Unzip** it somewhere you'll keep it (e.g. your Documents). Don't delete the folder afterwards — Figma reads the files from disk each time the plugin runs. You should have this structure (the `manifest.json` sits next to a `dist/` folder — keep them together):
+
+   ```
+   figma-icon-sync-plugin/
+   ├── manifest.json   ← you select this when importing
+   └── dist/
+       ├── code.js
+       └── ui.html
+   ```
+
+3. In the Figma **desktop app**, open any file and go to the menu: **Plugins → Development → Import plugin from manifest…**
+4. Select the `manifest.json` at the root of the folder you just unzipped (not anything inside `dist/`).
+5. Run it anytime from **Plugins → Development → Frosted UI — Icon Sync** (right-click the canvas → **Plugins** also works).
+
+**To update later:** re-download the folder and replace your local copy (keep the same location), or just re-run **Import plugin from manifest…** on the new `manifest.json`. No re-import is needed if you overwrite the files in place.
+
+## Build (for maintainers)
+
+The `dist/` output is committed so designers can import without a build. **If you change anything in `src/`, rebuild and commit the updated `dist/`** so the shipped plugin stays in sync:
 
 ```bash
 pnpm --filter="@frosted-ui/figma-icon-sync-plugin" build
@@ -27,13 +52,6 @@ pnpm --filter="@frosted-ui/figma-icon-sync-plugin" dev
 ```
 
 This produces `dist/code.js` and `dist/ui.html`, which `manifest.json` points to.
-
-## Load into Figma
-
-1. Build the plugin (above).
-2. In the Figma desktop app: **Plugins → Development → Import plugin from manifest…**
-3. Select `packages/figma-icon-sync-plugin/manifest.json`.
-4. Open the Frosted Design System file, then run **Plugins → Development → Frosted UI — Icon Sync**.
 
 ## Roadmap
 

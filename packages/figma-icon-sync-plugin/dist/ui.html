@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      :root {
+        --ok: #14ae5c;
+        --warn: #f5a623;
+        --err: #e5484d;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        font-size: 12px;
+        line-height: 1.4;
+        color: var(--figma-color-text);
+        background: var(--figma-color-bg);
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+      }
+      .content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 16px;
+      }
+      .footer {
+        border-top: 1px solid var(--figma-color-border);
+        padding: 12px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .summary {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        margin-bottom: 4px;
+      }
+      .summary .count {
+        font-size: 34px;
+        font-weight: 650;
+        letter-spacing: -0.02em;
+      }
+      .summary .label {
+        font-size: 13px;
+        color: var(--figma-color-text-secondary);
+      }
+      .meta {
+        color: var(--figma-color-text-secondary);
+        margin-bottom: 4px;
+      }
+      .meta b {
+        color: var(--figma-color-text);
+        font-weight: 600;
+      }
+      .page-warn {
+        color: var(--warn);
+        margin: 6px 0 0;
+      }
+
+      .section-title {
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--figma-color-text-secondary);
+        margin: 20px 0 8px;
+      }
+
+      .check-group {
+        margin-bottom: 6px;
+      }
+      .check {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        border: 1px solid var(--figma-color-border);
+        border-radius: 6px;
+      }
+      .check-group.has-issues .check {
+        cursor: pointer;
+        user-select: none;
+      }
+      .check-group.has-issues .check:hover {
+        background: var(--figma-color-bg-hover, var(--figma-color-bg-secondary));
+      }
+      .check-group.has-issues:not(.collapsed) .check {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+      .check-group.collapsed .issues {
+        display: none;
+      }
+      .info {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 14px;
+        height: 14px;
+        margin-left: 6px;
+        border-radius: 50%;
+        border: 1px solid var(--figma-color-border);
+        color: var(--figma-color-text-secondary);
+        font-size: 9px;
+        font-weight: 600;
+        font-style: italic;
+        cursor: help;
+        flex: 0 0 auto;
+        vertical-align: middle;
+      }
+      .info .tip {
+        /* Anchor-positioned + fixed so the tip is never clipped by a collapsed
+           card or the .issues overflow container. position-area centers the tip
+           on the anchor automatically. */
+        position: fixed;
+        position-anchor: var(--tip-anchor);
+        position-area: bottom;
+        margin-top: 6px;
+        width: 220px;
+        max-width: 220px;
+        padding: 8px 10px;
+        border-radius: 6px;
+        background: var(--figma-color-bg-inverse, #1e1e1e);
+        color: var(--figma-color-text-oninverse, #fff);
+        font-size: 11px;
+        font-weight: 400;
+        font-style: normal;
+        line-height: 1.4;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.1s ease;
+        z-index: 20;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+        pointer-events: none;
+        /* Flip above / to the side if there isn't room below or to the edges. */
+        position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+      }
+      .info:hover .tip,
+      .info:focus .tip {
+        opacity: 1;
+        visibility: visible;
+      }
+      .chevron {
+        margin-left: auto;
+        padding-left: 8px;
+        display: inline-flex;
+        align-items: center;
+        color: var(--figma-color-text-secondary);
+      }
+      .chevron svg {
+        display: block;
+        transform-origin: center;
+        transition: transform 0.15s ease;
+      }
+      .check-group.collapsed .chevron svg {
+        transform: rotate(-90deg);
+      }
+      .badge {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+      }
+      .badge.ok {
+        background: var(--ok);
+      }
+      .badge.warn {
+        background: var(--warn);
+      }
+      .badge.err {
+        background: var(--err);
+      }
+      .badge.pending {
+        background: var(--figma-color-bg-disabled, #8c8c8c);
+        color: var(--figma-color-text-secondary);
+      }
+      .check .text {
+        flex: 1;
+      }
+
+      .issues {
+        border: 1px solid var(--figma-color-border);
+        border-top: none;
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+        overflow: hidden;
+      }
+      .subhead {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 10px 5px;
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--figma-color-text-secondary);
+        background: var(--figma-color-bg-tertiary, #e5e5e5);
+        border-top: 1px solid var(--figma-color-border);
+      }
+      .subhead:first-child {
+        border-top: none;
+      }
+      .subcount {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 16px;
+        height: 14px;
+        padding: 0 4px;
+        border-radius: 7px;
+        background: var(--figma-color-bg);
+        color: var(--figma-color-text-secondary);
+        font-size: 9px;
+      }
+      .issue {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        padding: 8px 10px;
+        background: var(--figma-color-bg-secondary);
+        border-top: 1px solid var(--figma-color-border);
+        box-shadow: inset 3px 0 0 transparent;
+      }
+      .subhead + .issue {
+        border-top: none;
+      }
+      .issue.error {
+        box-shadow: inset 3px 0 0 var(--err);
+      }
+      .issue.warning {
+        box-shadow: inset 3px 0 0 var(--warn);
+      }
+      .issue.clickable {
+        cursor: pointer;
+      }
+      .issue.clickable:hover {
+        background: var(--figma-color-bg-hover, var(--figma-color-bg-secondary));
+      }
+      .issue .preview {
+        width: 24px;
+        height: 24px;
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        background: var(--figma-color-bg);
+        border: 1px solid var(--figma-color-border);
+        color: var(--figma-color-text);
+        overflow: hidden;
+      }
+      .issue .preview svg {
+        width: 16px;
+        height: 16px;
+        display: block;
+      }
+      .issue .body {
+        flex: 1;
+        min-width: 0;
+        padding-top: 3px;
+      }
+      .issue .msg {
+        color: var(--figma-color-text);
+      }
+      .pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        margin-top: 6px;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 3px 8px;
+        border-radius: 999px;
+        background: var(--figma-color-bg);
+        border: 1px solid var(--figma-color-border);
+        color: var(--figma-color-text);
+        cursor: pointer;
+        font-size: 11px;
+        line-height: 1.2;
+      }
+      .pill:hover {
+        border-color: var(--figma-color-border-brand, var(--ok));
+        color: var(--figma-color-text-brand, var(--figma-color-text));
+      }
+
+      .empty {
+        color: var(--figma-color-text-secondary);
+        padding: 10px 0;
+      }
+
+      .diff-card {
+        border: 1px solid var(--figma-color-border);
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      .diff-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+      }
+      .diff-card.collapsible .diff-header {
+        cursor: pointer;
+        user-select: none;
+      }
+      .diff-card.collapsible .diff-header:hover {
+        background: var(--figma-color-bg-hover, var(--figma-color-bg-secondary));
+      }
+      .diff-heading {
+        font-weight: 600;
+      }
+      .diff-counts {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-left: auto;
+      }
+      .count-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        font-size: 11px;
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+      }
+      .count-pill.add {
+        color: var(--ok);
+      }
+      .count-pill.remove {
+        color: var(--err);
+      }
+      .count-pill .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+      }
+      .count-pill.add .dot {
+        background: var(--ok);
+      }
+      .count-pill.remove .dot {
+        background: var(--err);
+      }
+      .diff-card .chevron {
+        margin-left: 0;
+        padding-left: 0;
+      }
+      .diff-card.collapsed .chevron svg {
+        transform: rotate(-90deg);
+      }
+      .diff-body {
+        padding: 4px 10px 10px;
+        border-top: 1px solid var(--figma-color-border);
+      }
+      .diff-card.collapsed .diff-body {
+        display: none;
+      }
+      .diff-note {
+        color: var(--figma-color-text-secondary);
+        font-size: 11px;
+        padding: 8px 10px;
+        border: 1px solid var(--figma-color-border);
+        border-radius: 6px;
+      }
+      .diff-list {
+        margin-bottom: 8px;
+      }
+      .diff-list:last-child {
+        margin-bottom: 0;
+      }
+      .diff-list .head {
+        font-size: 11px;
+        font-weight: 600;
+        margin: 8px 0 6px;
+      }
+      .diff-list .head.add {
+        color: var(--ok);
+      }
+      .diff-list .head.remove {
+        color: var(--err);
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+      }
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        padding: 3px 8px;
+        border-radius: 999px;
+        font-size: 11px;
+        line-height: 1.2;
+        border: 1px solid var(--figma-color-border);
+        background: var(--figma-color-bg-secondary);
+      }
+      .chip.add {
+        cursor: pointer;
+      }
+      .chip.add:hover {
+        border-color: var(--ok);
+      }
+      .chip.remove {
+        color: var(--figma-color-text-secondary);
+        text-decoration: line-through;
+      }
+      .ver {
+        color: var(--figma-color-text-secondary);
+        font-weight: 400;
+        text-transform: none;
+        letter-spacing: 0;
+      }
+
+      button {
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 600;
+        border-radius: 6px;
+        border: 1px solid transparent;
+        padding: 9px 12px;
+        cursor: pointer;
+      }
+      button.secondary {
+        background: var(--figma-color-bg-secondary);
+        color: var(--figma-color-text);
+        border-color: var(--figma-color-border);
+      }
+      button.primary {
+        background: var(--figma-color-bg-brand);
+        color: var(--figma-color-text-onbrand);
+      }
+      button.primary:disabled {
+        background: var(--figma-color-bg-disabled);
+        color: var(--figma-color-text-disabled);
+        cursor: not-allowed;
+      }
+      .actions {
+        display: flex;
+        gap: 8px;
+      }
+      .actions button {
+        flex: 1;
+      }
+      .status {
+        min-height: 16px;
+        font-size: 11px;
+      }
+      .status.ok {
+        color: var(--ok);
+      }
+      .status.err {
+        color: var(--err);
+      }
+      .status.pending {
+        color: var(--figma-color-text-secondary);
+      }
+
+      .resize-handle {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        width: 16px;
+        height: 16px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+        color: var(--figma-color-text-tertiary, var(--figma-color-text-secondary));
+        cursor: nwse-resize;
+        z-index: 50;
+        touch-action: none;
+      }
+      .resize-handle:hover {
+        color: var(--figma-color-text-secondary);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <div class="summary">
+        <span class="count" id="count">…</span>
+        <span class="label">icons detected</span>
+      </div>
+      <div class="meta" id="meta"></div>
+      <div class="page-warn" id="page-warn" style="display: none"></div>
+
+      <div class="section-title">Verification</div>
+      <div id="checks"></div>
+
+      <div class="section-title">Changes since last release</div>
+      <div id="diff"></div>
+    </div>
+
+    <div class="footer">
+      <div class="status" id="status"></div>
+      <div class="actions">
+        <button class="secondary" id="rescan">Rescan</button>
+        <button class="primary" id="open-sync" disabled>Open sync on GitHub</button>
+      </div>
+    </div>
+
+    <div class="resize-handle" id="resize" title="Drag to resize">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path d="M11 5 5 11M11 9 9 11" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" />
+      </svg>
+    </div>
+
+    <script>
+      const $ = (id) => document.getElementById(id);
+
+      let currentResult = null;
+      let qualityPending = false;
+      // previewId -> inline SVG markup for the icon's size-16 variant.
+      let previews = {};
+      // group key -> collapsed (bool), preserved across re-renders/rescans.
+      const collapsedState = {};
+
+      const post = (msg) => parent.postMessage({ pluginMessage: msg }, '*');
+
+      // Each verification group owns a set of issue rules; details render beneath it.
+      const GROUPS = [
+        {
+          rules: ['duplicate-name', 'number-in-name', 'empty-name', 'modifier-order'],
+          ok: 'Names valid',
+          fail: (n) => n + ' naming issue(s)',
+        },
+        {
+          rules: [
+            'invalid-size-label',
+            'disallowed-size',
+            'no-variants',
+            'duplicate-size',
+            'incomplete-sizes',
+            'size-mismatch',
+          ],
+          ok: 'Icon sizes valid (' + [12, 16, 20, 24, 32].join('/') + ')',
+          fail: (n, hasErr) => n + (hasErr ? ' size error(s)' : ' size warning(s)'),
+        },
+        {
+          rules: ['fill-and-stroke'],
+          ok: 'No fill + stroke overlaps',
+          fail: (n) => n + ' icon(s) draw fill + stroke',
+          info: 'A shape with both a fill and a stroke double-paints where they overlap, showing a dark rim when the icon is recolored with a translucent color.',
+        },
+        {
+          rules: ['hidden-layers', 'not-single-shape'],
+          ok: 'Clean single shape',
+          fail: (n) => n + ' structure issue(s)',
+        },
+        {
+          rules: ['orphan'],
+          ok: null, // nothing to show when clean
+          fail: (n) => 'Component sets outside an “Icons” frame',
+        },
+      ];
+
+      const RULE_LABELS = {
+        'duplicate-name': 'Duplicate names',
+        'number-in-name': 'Numbers in names',
+        'empty-name': 'Empty names',
+        'modifier-order': 'Wrong modifier order',
+        'invalid-size-label': 'Invalid size label',
+        'disallowed-size': 'Disallowed size',
+        'no-variants': 'No size variants',
+        'duplicate-size': 'Duplicate sizes',
+        'incomplete-sizes': 'Missing sizes',
+        'size-mismatch': 'Dimension mismatch',
+        'hidden-layers': 'Hidden layers',
+        'not-single-shape': 'Not a single shape',
+      };
+
+      function issueHtml(i) {
+        const hasTargets = i.targets && i.targets.length;
+        const pills = hasTargets
+          ? '<div class="pills">' +
+            i.targets
+              .map(
+                (t) =>
+                  '<span class="pill" data-id="' +
+                  t.nodeId +
+                  '">' +
+                  escapeHtml(t.label) +
+                  '</span>',
+              )
+              .join('') +
+            '</div>'
+          : '';
+        const clickable = !hasTargets && i.nodeId ? ' clickable' : '';
+        const dataId = !hasTargets && i.nodeId ? ' data-id="' + i.nodeId + '"' : '';
+        const pid = i.previewId || '';
+        const previewInner = pid && previews[pid] ? previews[pid] : '';
+        const preview = '<span class="preview" data-preview-id="' + pid + '">' + previewInner + '</span>';
+        return (
+          '<div class="issue ' +
+          i.severity +
+          clickable +
+          '"' +
+          dataId +
+          '>' +
+          preview +
+          '<div class="body"><div class="msg">' +
+          i.msg_escaped +
+          '</div>' +
+          pills +
+          '</div></div>'
+        );
+      }
+
+      function issuesBlockHtml(issues) {
+        // Cluster by rule (preserving first-seen order) so each issue type is
+        // tackled together. Sub-headers only appear when a section mixes types.
+        const order = [];
+        const byRule = {};
+        for (const i of issues) {
+          if (!byRule[i.rule]) {
+            byRule[i.rule] = [];
+            order.push(i.rule);
+          }
+          byRule[i.rule].push(i);
+        }
+        const showSubheads = order.length > 1;
+        let html = '<div class="issues">';
+        for (const rule of order) {
+          const list = byRule[rule];
+          if (showSubheads) {
+            html +=
+              '<div class="subhead">' +
+              escapeHtml(RULE_LABELS[rule] || rule) +
+              '<span class="subcount">' +
+              list.length +
+              '</span></div>';
+          }
+          html += list.map(issueHtml).join('');
+        }
+        return html + '</div>';
+      }
+
+      function groupHtml(state, headline, issues, info, key, collapsed) {
+        const symbol =
+          state === 'ok' ? '✓' : state === 'warn' ? '!' : state === 'pending' ? '⋯' : '✕';
+        const hasIssues = issues.length > 0;
+        const issuesHtml = hasIssues ? issuesBlockHtml(issues) : '';
+        const chevron = hasIssues
+          ? '<span class="chevron"><svg width="12" height="12" viewBox="0 0 12 12" fill="none">' +
+            '<path d="M3 4.5 6 7.5 9 4.5" stroke="currentColor" stroke-width="1.5" ' +
+            'stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
+          : '';
+        const infoHtml = info ? makeInfo(info) : '';
+        return (
+          '<div class="check-group' +
+          (hasIssues ? ' has-issues' : '') +
+          (hasIssues && collapsed ? ' collapsed' : '') +
+          '" data-group="' +
+          escapeHtml(key) +
+          '"><div class="check"><span class="badge ' +
+          state +
+          '">' +
+          symbol +
+          '</span><span class="text">' +
+          headline +
+          infoHtml +
+          '</span>' +
+          chevron +
+          '</div>' +
+          issuesHtml +
+          '</div>'
+        );
+      }
+
+      function renderChecks(r) {
+        let html = '';
+        for (const group of GROUPS) {
+          const key = group.rules.join('|');
+          // Default new sections to collapsed; otherwise keep the user's choice.
+          const collapsed = key in collapsedState ? collapsedState[key] : true;
+          const isQuality = group.rules.includes('fill-and-stroke');
+          if (isQuality && qualityPending) {
+            html += groupHtml(
+              'pending',
+              'Checking for fill + stroke overlaps…',
+              [],
+              group.info,
+              key,
+              collapsed,
+            );
+            continue;
+          }
+
+          const issues = r.issues.filter((i) => group.rules.includes(i.rule));
+          const errs = issues.filter((i) => i.severity === 'error');
+          if (!issues.length && group.ok === null) continue; // hide clean optional groups
+
+          let state;
+          let headline;
+          if (!issues.length) {
+            state = 'ok';
+            headline = group.ok;
+          } else {
+            state = errs.length ? 'err' : 'warn';
+            headline = group.fail(issues.length, errs.length > 0);
+          }
+          html += groupHtml(state, headline, issues, group.info, key, collapsed);
+        }
+        $('checks').innerHTML = html;
+
+        Array.from(document.querySelectorAll('#checks .check-group.has-issues > .check')).forEach(
+          (el) => {
+            el.addEventListener('click', () => {
+              const groupEl = el.parentElement;
+              groupEl.classList.toggle('collapsed');
+              collapsedState[groupEl.getAttribute('data-group')] =
+                groupEl.classList.contains('collapsed');
+            });
+          },
+        );
+
+        // Don't let clicking the info icon toggle the section.
+        Array.from(document.querySelectorAll('#checks .info')).forEach((el) => {
+          el.addEventListener('click', (event) => event.stopPropagation());
+        });
+
+        Array.from(document.querySelectorAll('#checks [data-id]')).forEach((el) => {
+          el.addEventListener('click', (event) => {
+            event.stopPropagation();
+            const id = el.getAttribute('data-id');
+            if (id) post({ type: 'focus', id });
+          });
+        });
+      }
+
+      let infoSeq = 0;
+      // Builds an (i) tooltip whose tip is anchored to this specific icon via a
+      // unique anchor-name, so anchor positioning can place it outside any
+      // overflow-clipping / collapsed container.
+      function makeInfo(text) {
+        const name = '--info-' + ++infoSeq;
+        return (
+          '<span class="info" tabindex="0" style="anchor-name:' +
+          name +
+          ';--tip-anchor:' +
+          name +
+          '">i<span class="tip">' +
+          escapeHtml(text) +
+          '</span></span>'
+        );
+      }
+
+      function escapeHtml(s) {
+        return String(s)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;');
+      }
+
+      function prepIssues(list) {
+        return list.map((i) => ({ ...i, msg_escaped: escapeHtml(i.message) }));
+      }
+
+      function updateStatus(r) {
+        if (r.errorCount > 0) {
+          setStatus(r.errorCount + ' error(s) to fix before syncing', 'err');
+        } else if (r.warningCount > 0) {
+          setStatus('Passed with ' + r.warningCount + ' warning(s) — ready to sync', 'ok');
+        } else {
+          setStatus('All checks passed — ready to sync', 'ok');
+        }
+        $('open-sync').disabled = !r.passed;
+      }
+
+      function renderResult(r) {
+        r.issues = prepIssues(r.issues);
+        currentResult = r;
+
+        $('count').textContent = r.iconCount;
+        const parts = [];
+        parts.push('<b>' + r.variantCount + '</b> size variants');
+        parts.push('<b>' + r.categoryCount + '</b> categories');
+        $('meta').innerHTML =
+          parts.join(' · ') + ' · on page <b>' + escapeHtml(r.pageName) + '</b>';
+
+        if (r.usedFallbackPage) {
+          $('page-warn').style.display = 'block';
+          $('page-warn').textContent =
+            'No page named “Icons” found — scanned the current page instead.';
+        } else {
+          $('page-warn').style.display = 'none';
+        }
+
+        renderChecks(r);
+        updateStatus(r);
+      }
+
+      function renderDiffLoading() {
+        $('diff').innerHTML = '<div class="diff-note">Comparing with the latest npm release…</div>';
+      }
+
+      function chip(cls, label, id) {
+        return (
+          '<span class="chip ' +
+          cls +
+          '"' +
+          (id ? ' data-id="' + id + '"' : '') +
+          '>' +
+          escapeHtml(label) +
+          '</span>'
+        );
+      }
+
+      function renderDiff(d) {
+        if (d.error) {
+          $('diff').innerHTML = '<div class="diff-note">' + escapeHtml(d.error) + '</div>';
+          return;
+        }
+        if (!d.added.length && !d.removed.length) {
+          $('diff').innerHTML =
+            '<div class="diff-note">No icons added or removed since the last release.</div>';
+          return;
+        }
+
+        const collapsed = '__diff__' in collapsedState ? collapsedState['__diff__'] : true;
+        const verText = d.comparedToVersion
+          ? '<span class="ver">v' + escapeHtml(d.comparedToVersion) + '</span>'
+          : '<span class="ver">latest</span>';
+        const info =
+          'Compares the icons on this page against the latest published ' +
+          '@frosted-ui/icons npm release — showing which icons would be added or removed.';
+        const infoHtml = makeInfo(info);
+
+        const counts =
+          '<span class="diff-counts">' +
+          '<span class="count-pill add"><span class="dot"></span>' +
+          d.added.length +
+          '</span>' +
+          '<span class="count-pill remove"><span class="dot"></span>' +
+          d.removed.length +
+          '</span></span>';
+
+        const chevron =
+          '<span class="chevron"><svg width="12" height="12" viewBox="0 0 12 12" fill="none">' +
+          '<path d="M3 4.5 6 7.5 9 4.5" stroke="currentColor" stroke-width="1.5" ' +
+          'stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
+
+        let body = '<div class="diff-body">';
+        if (d.added.length) {
+          body +=
+            '<div class="diff-list"><div class="head add">Added</div><div class="chips">' +
+            d.added.map((a) => chip('add', a.name, a.nodeId)).join('') +
+            '</div></div>';
+        }
+        if (d.removed.length) {
+          body +=
+            '<div class="diff-list"><div class="head remove">Removed</div><div class="chips">' +
+            d.removed.map((r) => chip('remove', r.name)).join('') +
+            '</div></div>';
+        }
+        body += '</div>';
+
+        $('diff').innerHTML =
+          '<div class="diff-card collapsible' +
+          (collapsed ? ' collapsed' : '') +
+          '"><div class="diff-header"><span class="diff-heading">Compared to ' +
+          verText +
+          '</span>' +
+          infoHtml +
+          counts +
+          chevron +
+          '</div>' +
+          body +
+          '</div>';
+
+        const header = document.querySelector('#diff .diff-header');
+        if (header) {
+          header.addEventListener('click', () => {
+            const card = header.parentElement;
+            card.classList.toggle('collapsed');
+            collapsedState['__diff__'] = card.classList.contains('collapsed');
+          });
+        }
+
+        Array.from(document.querySelectorAll('#diff .info')).forEach((el) => {
+          el.addEventListener('click', (event) => event.stopPropagation());
+        });
+
+        Array.from(document.querySelectorAll('#diff .chip.add[data-id]')).forEach((el) => {
+          el.addEventListener('click', () => {
+            const id = el.getAttribute('data-id');
+            if (id) post({ type: 'focus', id });
+          });
+        });
+      }
+
+      function setStatus(text, kind) {
+        const el = $('status');
+        el.textContent = text || '';
+        el.className = 'status' + (kind ? ' ' + kind : '');
+      }
+
+      $('rescan').addEventListener('click', () => {
+        setStatus('Scanning…', 'pending');
+        post({ type: 'rescan' });
+      });
+
+      $('open-sync').addEventListener('click', () => {
+        if ($('open-sync').disabled) return;
+        post({ type: 'open-sync' });
+      });
+
+      (function setupResize() {
+        const handle = $('resize');
+        const MIN_W = 320;
+        const MIN_H = 400;
+        let startX = 0;
+        let startY = 0;
+        let startW = 0;
+        let startH = 0;
+
+        const onMove = (e) => {
+          const width = Math.max(MIN_W, Math.round(startW + (e.clientX - startX)));
+          const height = Math.max(MIN_H, Math.round(startH + (e.clientY - startY)));
+          post({ type: 'resize', width, height });
+        };
+        const onUp = (e) => {
+          window.removeEventListener('pointermove', onMove);
+          window.removeEventListener('pointerup', onUp);
+          try {
+            handle.releasePointerCapture(e.pointerId);
+          } catch (err) {}
+        };
+
+        handle.addEventListener('pointerdown', (e) => {
+          e.preventDefault();
+          startX = e.clientX;
+          startY = e.clientY;
+          startW = window.innerWidth;
+          startH = window.innerHeight;
+          try {
+            handle.setPointerCapture(e.pointerId);
+          } catch (err) {}
+          window.addEventListener('pointermove', onMove);
+          window.addEventListener('pointerup', onUp);
+        });
+      })();
+
+      onmessage = (event) => {
+        const msg = event.data.pluginMessage;
+        if (!msg) return;
+        if (msg.type === 'scan-result') {
+          qualityPending = false;
+          renderResult(msg.result);
+        } else if (msg.type === 'quality-loading') {
+          qualityPending = true;
+          if (currentResult) renderChecks(currentResult);
+        } else if (msg.type === 'quality-result') {
+          qualityPending = false;
+          if (currentResult) {
+            currentResult.issues = currentResult.issues
+              .filter((i) => i.rule !== 'fill-and-stroke')
+              .concat(prepIssues(msg.issues));
+            currentResult.errorCount = currentResult.issues.filter(
+              (i) => i.severity === 'error',
+            ).length;
+            currentResult.warningCount = currentResult.issues.filter(
+              (i) => i.severity === 'warning',
+            ).length;
+            currentResult.passed =
+              currentResult.iconCount > 0 && currentResult.errorCount === 0;
+            renderChecks(currentResult);
+            updateStatus(currentResult);
+          }
+        } else if (msg.type === 'previews') {
+          Object.assign(previews, msg.previews);
+          if (currentResult) renderChecks(currentResult);
+        } else if (msg.type === 'diff-loading') {
+          renderDiffLoading();
+        } else if (msg.type === 'diff-result') {
+          renderDiff(msg.diff);
+        }
+      };
+    </script>
+  </body>
+</html>
