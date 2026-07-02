@@ -429,9 +429,7 @@ async function runQualityChecks(targets: QualityTarget[]): Promise<Issue[]> {
       issues.push({
         severity: 'warning',
         rule: 'fill-and-stroke',
-        message: `"${slice[idx].name}" draws both a fill and a stroke at size ${sizes.join(
-          ', ',
-        )} — the overlap shows as an artifact when recolored with a translucent color.`,
+        message: `"${slice[idx].name}":`,
         targets: offending.map((o, i) => ({ nodeId: o.nodeId, label: sizes[i] })),
       });
     });

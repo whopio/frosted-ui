@@ -101,6 +101,51 @@
       .check-group.collapsed .issues {
         display: none;
       }
+      .info {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 14px;
+        height: 14px;
+        margin-left: 6px;
+        border-radius: 50%;
+        border: 1px solid var(--figma-color-border);
+        color: var(--figma-color-text-secondary);
+        font-size: 9px;
+        font-weight: 600;
+        font-style: italic;
+        cursor: help;
+        flex: 0 0 auto;
+        vertical-align: middle;
+      }
+      .info .tip {
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 50%;
+        transform: translateX(-50%);
+        width: 220px;
+        max-width: 220px;
+        padding: 8px 10px;
+        border-radius: 6px;
+        background: var(--figma-color-bg-inverse, #1e1e1e);
+        color: var(--figma-color-text-oninverse, #fff);
+        font-size: 11px;
+        font-weight: 400;
+        font-style: normal;
+        line-height: 1.4;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.1s ease;
+        z-index: 20;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+        pointer-events: none;
+      }
+      .info:hover .tip,
+      .info:focus .tip {
+        opacity: 1;
+        visibility: visible;
+      }
       .chevron {
         margin-left: auto;
         padding-left: 8px;
@@ -393,6 +438,7 @@
           rules: ['fill-and-stroke'],
           ok: 'No fill + stroke overlaps',
           fail: (n) => n + ' icon(s) draw fill + stroke',
+          info: 'A shape with both a fill and a stroke double-paints where they overlap, showing a dark rim when the icon is recolored with a translucent color.',
         },
         {
           rules: ['hidden-layers', 'not-single-shape'],
@@ -438,7 +484,7 @@
         );
       }
 
-      function groupHtml(state, headline, issues) {
+      function groupHtml(state, headline, issues, info) {
         const symbol =
           state === 'ok' ? '✓' : state === 'warn' ? '!' : state === 'pending' ? '⋯' : '✕';
         const hasIssues = issues.length > 0;
@@ -450,6 +496,9 @@
             '<path d="M3 4.5 6 7.5 9 4.5" stroke="currentColor" stroke-width="1.5" ' +
             'stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
           : '';
+        const infoHtml = info
+          ? '<span class="info" tabindex="0">i<span class="tip">' + escapeHtml(info) + '</span></span>'
+          : '';
         return (
           '<div class="check-group' +
           (hasIssues ? ' has-issues collapsed' : '') +
@@ -459,6 +508,7 @@
           symbol +
           '</span><span class="text">' +
           headline +
+          infoHtml +
           '</span>' +
           chevron +
           '</div>' +
@@ -472,7 +522,7 @@
         for (const group of GROUPS) {
           const isQuality = group.rules.includes('fill-and-stroke');
           if (isQuality && qualityPending) {
-            html += groupHtml('pending', 'Checking for fill + stroke overlaps…', []);
+            html += groupHtml('pending', 'Checking for fill + stroke overlaps…', [], group.info);
             continue;
           }
 
@@ -489,7 +539,7 @@
             state = errs.length ? 'err' : 'warn';
             headline = group.fail(issues.length, errs.length > 0);
           }
-          html += groupHtml(state, headline, issues);
+          html += groupHtml(state, headline, issues, group.info);
         }
         $('checks').innerHTML = html;
 
@@ -500,6 +550,11 @@
             });
           },
         );
+
+        // Don't let clicking the info icon toggle the section.
+        Array.from(document.querySelectorAll('#checks .info')).forEach((el) => {
+          el.addEventListener('click', (event) => event.stopPropagation());
+        });
 
         Array.from(document.querySelectorAll('#checks [data-id]')).forEach((el) => {
           el.addEventListener('click', (event) => {
