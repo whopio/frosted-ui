@@ -120,10 +120,13 @@
         vertical-align: middle;
       }
       .info .tip {
-        position: absolute;
-        top: calc(100% + 6px);
-        left: 50%;
-        transform: translateX(-50%);
+        /* Anchor-positioned + fixed so the tip is never clipped by a collapsed
+           card or the .issues overflow container. position-area centers the tip
+           on the anchor automatically. */
+        position: fixed;
+        position-anchor: var(--tip-anchor);
+        position-area: bottom;
+        margin-top: 6px;
         width: 220px;
         max-width: 220px;
         padding: 8px 10px;
@@ -140,6 +143,8 @@
         z-index: 20;
         box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
         pointer-events: none;
+        /* Flip above / to the side if there isn't room below or to the edges. */
+        position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
       }
       .info:hover .tip,
       .info:focus .tip {
@@ -303,38 +308,89 @@
         padding: 10px 0;
       }
 
-      .diff-summary {
-        display: flex;
-        gap: 8px;
-        margin-bottom: 8px;
-      }
-      .stat {
-        flex: 1;
+      .diff-card {
         border: 1px solid var(--figma-color-border);
         border-radius: 6px;
+        overflow: hidden;
+      }
+      .diff-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
         padding: 8px 10px;
       }
-      .stat .num {
-        font-size: 18px;
-        font-weight: 650;
+      .diff-card.collapsible .diff-header {
+        cursor: pointer;
+        user-select: none;
       }
-      .stat .num.add {
+      .diff-card.collapsible .diff-header:hover {
+        background: var(--figma-color-bg-hover, var(--figma-color-bg-secondary));
+      }
+      .diff-heading {
+        font-weight: 600;
+      }
+      .diff-counts {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-left: auto;
+      }
+      .count-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        font-size: 11px;
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+      }
+      .count-pill.add {
         color: var(--ok);
       }
-      .stat .num.remove {
+      .count-pill.remove {
         color: var(--err);
       }
-      .stat .cap {
+      .count-pill .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+      }
+      .count-pill.add .dot {
+        background: var(--ok);
+      }
+      .count-pill.remove .dot {
+        background: var(--err);
+      }
+      .diff-card .chevron {
+        margin-left: 0;
+        padding-left: 0;
+      }
+      .diff-card.collapsed .chevron svg {
+        transform: rotate(-90deg);
+      }
+      .diff-body {
+        padding: 4px 10px 10px;
+        border-top: 1px solid var(--figma-color-border);
+      }
+      .diff-card.collapsed .diff-body {
+        display: none;
+      }
+      .diff-note {
         color: var(--figma-color-text-secondary);
         font-size: 11px;
+        padding: 8px 10px;
+        border: 1px solid var(--figma-color-border);
+        border-radius: 6px;
       }
       .diff-list {
         margin-bottom: 8px;
       }
+      .diff-list:last-child {
+        margin-bottom: 0;
+      }
       .diff-list .head {
         font-size: 11px;
         font-weight: 600;
-        margin: 6px 0 4px;
+        margin: 8px 0 6px;
       }
       .diff-list .head.add {
         color: var(--ok);
@@ -366,10 +422,6 @@
       .chip.remove {
         color: var(--figma-color-text-secondary);
         text-decoration: line-through;
-      }
-      .diff-note {
-        color: var(--figma-color-text-secondary);
-        font-size: 11px;
       }
       .ver {
         color: var(--figma-color-text-secondary);
@@ -435,7 +487,7 @@
       <div class="section-title">Verification</div>
       <div id="checks"></div>
 
-      <div class="section-title" id="diff-title">Changes since last release</div>
+      <div class="section-title">Changes since last release</div>
       <div id="diff"></div>
     </div>
 
@@ -587,9 +639,7 @@
             '<path d="M3 4.5 6 7.5 9 4.5" stroke="currentColor" stroke-width="1.5" ' +
             'stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
           : '';
-        const infoHtml = info
-          ? '<span class="info" tabindex="0">i<span class="tip">' + escapeHtml(info) + '</span></span>'
-          : '';
+        const infoHtml = info ? makeInfo(info) : '';
         return (
           '<div class="check-group' +
           (hasIssues ? ' has-issues' : '') +
@@ -672,6 +722,23 @@
         });
       }
 
+      let infoSeq = 0;
+      // Builds an (i) tooltip whose tip is anchored to this specific icon via a
+      // unique anchor-name, so anchor positioning can place it outside any
+      // overflow-clipping / collapsed container.
+      function makeInfo(text) {
+        const name = '--info-' + ++infoSeq;
+        return (
+          '<span class="info" tabindex="0" style="anchor-name:' +
+          name +
+          ';--tip-anchor:' +
+          name +
+          '">i<span class="tip">' +
+          escapeHtml(text) +
+          '</span></span>'
+        );
+      }
+
       function escapeHtml(s) {
         return String(s)
           .replace(/&/g, '&amp;')
@@ -718,7 +785,6 @@
       }
 
       function renderDiffLoading() {
-        $('diff-title').innerHTML = 'Changes since last release';
         $('diff').innerHTML = '<div class="diff-note">Comparing with the latest npm release…</div>';
       }
 
@@ -735,9 +801,6 @@
       }
 
       function renderDiff(d) {
-        const verLabel = d.comparedToVersion ? ' <span class="ver">v' + escapeHtml(d.comparedToVersion) + '</span>' : '';
-        $('diff-title').innerHTML = 'Changes since last release' + verLabel;
-
         if (d.error) {
           $('diff').innerHTML = '<div class="diff-note">' + escapeHtml(d.error) + '</div>';
           return;
@@ -748,30 +811,69 @@
           return;
         }
 
-        let html = '';
-        html +=
-          '<div class="diff-summary">' +
-          '<div class="stat"><div class="num add">+' +
-          d.added.length +
-          '</div><div class="cap">added</div></div>' +
-          '<div class="stat"><div class="num remove">−' +
-          d.removed.length +
-          '</div><div class="cap">removed</div></div>' +
-          '</div>';
+        const collapsed = '__diff__' in collapsedState ? collapsedState['__diff__'] : true;
+        const verText = d.comparedToVersion
+          ? '<span class="ver">v' + escapeHtml(d.comparedToVersion) + '</span>'
+          : '<span class="ver">latest</span>';
+        const info =
+          'Compares the icons on this page against the latest published ' +
+          '@frosted-ui/icons npm release — showing which icons would be added or removed.';
+        const infoHtml = makeInfo(info);
 
+        const counts =
+          '<span class="diff-counts">' +
+          '<span class="count-pill add"><span class="dot"></span>' +
+          d.added.length +
+          '</span>' +
+          '<span class="count-pill remove"><span class="dot"></span>' +
+          d.removed.length +
+          '</span></span>';
+
+        const chevron =
+          '<span class="chevron"><svg width="12" height="12" viewBox="0 0 12 12" fill="none">' +
+          '<path d="M3 4.5 6 7.5 9 4.5" stroke="currentColor" stroke-width="1.5" ' +
+          'stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
+
+        let body = '<div class="diff-body">';
         if (d.added.length) {
-          html +=
+          body +=
             '<div class="diff-list"><div class="head add">Added</div><div class="chips">' +
             d.added.map((a) => chip('add', a.name, a.nodeId)).join('') +
             '</div></div>';
         }
         if (d.removed.length) {
-          html +=
+          body +=
             '<div class="diff-list"><div class="head remove">Removed</div><div class="chips">' +
             d.removed.map((r) => chip('remove', r.name)).join('') +
             '</div></div>';
         }
-        $('diff').innerHTML = html;
+        body += '</div>';
+
+        $('diff').innerHTML =
+          '<div class="diff-card collapsible' +
+          (collapsed ? ' collapsed' : '') +
+          '"><div class="diff-header"><span class="diff-heading">Compared to ' +
+          verText +
+          '</span>' +
+          infoHtml +
+          counts +
+          chevron +
+          '</div>' +
+          body +
+          '</div>';
+
+        const header = document.querySelector('#diff .diff-header');
+        if (header) {
+          header.addEventListener('click', () => {
+            const card = header.parentElement;
+            card.classList.toggle('collapsed');
+            collapsedState['__diff__'] = card.classList.contains('collapsed');
+          });
+        }
+
+        Array.from(document.querySelectorAll('#diff .info')).forEach((el) => {
+          el.addEventListener('click', (event) => event.stopPropagation());
+        });
 
         Array.from(document.querySelectorAll('#diff .chip.add[data-id]')).forEach((el) => {
           el.addEventListener('click', () => {
