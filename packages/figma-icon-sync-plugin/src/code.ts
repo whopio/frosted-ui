@@ -37,6 +37,13 @@ interface ScanResult {
   issues: Issue[];
 }
 
+interface ReleaseDiff {
+  comparedToVersion: string | null;
+  error: string | null;
+  added: { name: string; nodeId?: string }[];
+  removed: { name: string }[];
+}
+
 // Matches getIconsPage() in generate-icon-lib: strip emoji/whitespace, lowercase.
 function normalize(name: string): string {
   return name.replace(/[^a-z0-9]/gi, '').toLowerCase();
@@ -60,7 +67,7 @@ function findIconsPage(): { page: PageNode; usedFallback: boolean } {
   return { page: figma.currentPage, usedFallback: true };
 }
 
-async function scan(): Promise<ScanResult> {
+async function scan(): Promise<{ result: ScanResult; baseNames: Map<string, string> }> {
   await figma.loadAllPagesAsync();
   const { page, usedFallback } = findIconsPage();
 
@@ -74,6 +81,8 @@ async function scan(): Promise<ScanResult> {
   const insideIds = new Set<string>();
   const categories = new Set<string>();
   const nameGroups = new Map<string, { name: string; nodeId: string; category: string }[]>();
+  // Base (size-less) kebab name -> a representative node id, for the release diff.
+  const baseNames = new Map<string, string>();
 
   let iconCount = 0;
   let variantCount = 0;
@@ -106,6 +115,7 @@ async function scan(): Promise<ScanResult> {
         const group = nameGroups.get(key) || [];
         group.push({ name, nodeId: child.id, category });
         nameGroups.set(key, group);
+        if (!baseNames.has(key)) baseNames.set(key, child.id);
       }
 
       // Rule: no numbers in icon names (they collide with the size suffix and
@@ -246,7 +256,7 @@ async function scan(): Promise<ScanResult> {
   const errorCount = issues.filter((i) => i.severity === 'error').length;
   const warningCount = issues.length - errorCount;
 
-  return {
+  const result: ScanResult = {
     pageName: page.name,
     usedFallbackPage: usedFallback,
     iconCount,
@@ -258,6 +268,65 @@ async function scan(): Promise<ScanResult> {
     warningCount,
     issues,
   };
+
+  return { result, baseNames };
+}
+
+interface PublishedManifest {
+  [type: string]: { [size: string]: { [svgName: string]: string } };
+}
+
+// Compares the current Figma icons against the manifest from the latest npm
+// release of @frosted-ui/icons (served via jsDelivr).
+async function fetchReleaseDiff(current: Map<string, string>): Promise<ReleaseDiff> {
+  const empty: ReleaseDiff = { comparedToVersion: null, error: null, added: [], removed: [] };
+  try {
+    let version: string | null = null;
+    try {
+      const rv = await fetch('https://data.jsdelivr.com/v1/packages/npm/@frosted-ui/icons/resolved');
+      if (rv.ok) {
+        const j = (await rv.json()) as { version?: string };
+        version = j.version || null;
+      }
+    } catch {
+      // version is best-effort; fall back to @latest below
+    }
+
+    const url = version
+      ? `https://cdn.jsdelivr.net/npm/@frosted-ui/icons@${version}/manifest.json`
+      : 'https://cdn.jsdelivr.net/npm/@frosted-ui/icons/manifest.json';
+    const res = await fetch(url);
+    if (!res.ok) {
+      return { ...empty, comparedToVersion: version, error: `Could not load published manifest (${res.status}).` };
+    }
+
+    const manifest = (await res.json()) as PublishedManifest;
+    const published = new Set<string>();
+    for (const type of Object.keys(manifest)) {
+      const sizes = manifest[type];
+      for (const size of Object.keys(sizes)) {
+        for (const svgName of Object.keys(sizes[size])) {
+          // Strip the trailing "-<size>" to get the base icon name.
+          published.add(svgName.replace(/-\d+$/, ''));
+        }
+      }
+    }
+
+    const added: { name: string; nodeId?: string }[] = [];
+    for (const [base, nodeId] of current) {
+      if (!published.has(base)) added.push({ name: base, nodeId });
+    }
+    const removed: { name: string }[] = [];
+    for (const base of published) {
+      if (!current.has(base)) removed.push({ name: base });
+    }
+    added.sort((a, b) => a.name.localeCompare(b.name));
+    removed.sort((a, b) => a.name.localeCompare(b.name));
+
+    return { comparedToVersion: version, error: null, added, removed };
+  } catch (err) {
+    return { ...empty, error: `Network error: ${(err as Error).message}` };
+  }
 }
 
 async function triggerSync(
@@ -314,11 +383,18 @@ async function focusNode(id: string): Promise<void> {
 
 figma.showUI(__html__, { width: 380, height: 600, themeColors: true });
 
+async function scanAndDiff(): Promise<void> {
+  const { result, baseNames } = await scan();
+  figma.ui.postMessage({ type: 'scan-result', result });
+  figma.ui.postMessage({ type: 'diff-loading' });
+  const diff = await fetchReleaseDiff(baseNames);
+  figma.ui.postMessage({ type: 'diff-result', diff });
+}
+
 figma.ui.onmessage = async (msg: { type: string; token?: string; id?: string }) => {
   switch (msg.type) {
     case 'rescan': {
-      const result = await scan();
-      figma.ui.postMessage({ type: 'scan-result', result });
+      await scanAndDiff();
       break;
     }
     case 'save-token': {
@@ -365,6 +441,5 @@ figma.ui.onmessage = async (msg: { type: string; token?: string; id?: string }) 
 (async () => {
   const token = await figma.clientStorage.getAsync(TOKEN_KEY);
   figma.ui.postMessage({ type: 'token-status', hasToken: !!token });
-  const result = await scan();
-  figma.ui.postMessage({ type: 'scan-result', result });
+  await scanAndDiff();
 })();

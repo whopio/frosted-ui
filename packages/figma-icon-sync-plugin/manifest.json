@@ -7,7 +7,11 @@
   "editorType": ["figma"],
   "documentAccess": "dynamic-page",
   "networkAccess": {
-    "allowedDomains": ["https://api.github.com"],
-    "reasoning": "Triggers the GitHub Actions workflow that syncs icons from Figma into @frosted-ui/icons."
+    "allowedDomains": [
+      "https://api.github.com",
+      "https://cdn.jsdelivr.net",
+      "https://data.jsdelivr.com"
+    ],
+    "reasoning": "Triggers the icon-sync GitHub Action and compares the Figma icons against the latest published @frosted-ui/icons manifest."
   }
 }

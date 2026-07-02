@@ -12,6 +12,7 @@ It replaces the manual "clean git tree → `pnpm generate-src` → open PR" loop
   - **No numbers in names** — digits collide with the size suffix (`Shop16`) and break downstream name parsing.
   - **Valid sizes** — every variant must be named `size=N` with `N ∈ {12, 16, 20, 24, 32}`.
   - Warnings (non-blocking): variant dimensions that don't match the declared size, and component sets sitting outside an `Icons` frame (which the generator will skip).
+- **Diffs against the last release** — fetches the manifest from the latest npm release of `@frosted-ui/icons` (via jsDelivr) and shows which icons were **added** and **removed** since then. Added chips are clickable to jump to the node.
 - **Triggers the workflow** via the GitHub REST API (`workflow_dispatch` on `whopio/frosted-ui`).
 - Clicking any issue selects and zooms to the offending node in the canvas.
 

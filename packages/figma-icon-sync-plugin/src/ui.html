@@ -184,6 +184,81 @@
         padding: 10px 0;
       }
 
+      .diff-summary {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+      .stat {
+        flex: 1;
+        border: 1px solid var(--figma-color-border);
+        border-radius: 6px;
+        padding: 8px 10px;
+      }
+      .stat .num {
+        font-size: 18px;
+        font-weight: 650;
+      }
+      .stat .num.add {
+        color: var(--ok);
+      }
+      .stat .num.remove {
+        color: var(--err);
+      }
+      .stat .cap {
+        color: var(--figma-color-text-secondary);
+        font-size: 11px;
+      }
+      .diff-list {
+        margin-bottom: 8px;
+      }
+      .diff-list .head {
+        font-size: 11px;
+        font-weight: 600;
+        margin: 6px 0 4px;
+      }
+      .diff-list .head.add {
+        color: var(--ok);
+      }
+      .diff-list .head.remove {
+        color: var(--err);
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+      }
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        padding: 3px 8px;
+        border-radius: 999px;
+        font-size: 11px;
+        line-height: 1.2;
+        border: 1px solid var(--figma-color-border);
+        background: var(--figma-color-bg-secondary);
+      }
+      .chip.add {
+        cursor: pointer;
+      }
+      .chip.add:hover {
+        border-color: var(--ok);
+      }
+      .chip.remove {
+        color: var(--figma-color-text-secondary);
+        text-decoration: line-through;
+      }
+      .diff-note {
+        color: var(--figma-color-text-secondary);
+        font-size: 11px;
+      }
+      .ver {
+        color: var(--figma-color-text-secondary);
+        font-weight: 400;
+        text-transform: none;
+        letter-spacing: 0;
+      }
+
       details.token {
         margin-top: 20px;
       }
@@ -286,6 +361,9 @@
 
       <div class="section-title">Verification</div>
       <div id="checks"></div>
+
+      <div class="section-title" id="diff-title">Changes since last release</div>
+      <div id="diff"></div>
 
       <details class="token" id="token-details">
         <summary>GitHub token <span id="token-state-inline"></span></summary>
@@ -464,6 +542,70 @@
         updateTrigger();
       }
 
+      function renderDiffLoading() {
+        $('diff-title').innerHTML = 'Changes since last release';
+        $('diff').innerHTML = '<div class="diff-note">Comparing with the latest npm release…</div>';
+      }
+
+      function chip(cls, label, id) {
+        return (
+          '<span class="chip ' +
+          cls +
+          '"' +
+          (id ? ' data-id="' + id + '"' : '') +
+          '>' +
+          escapeHtml(label) +
+          '</span>'
+        );
+      }
+
+      function renderDiff(d) {
+        const verLabel = d.comparedToVersion ? ' <span class="ver">v' + escapeHtml(d.comparedToVersion) + '</span>' : '';
+        $('diff-title').innerHTML = 'Changes since last release' + verLabel;
+
+        if (d.error) {
+          $('diff').innerHTML = '<div class="diff-note">' + escapeHtml(d.error) + '</div>';
+          return;
+        }
+        if (!d.added.length && !d.removed.length) {
+          $('diff').innerHTML =
+            '<div class="diff-note">No icons added or removed since the last release.</div>';
+          return;
+        }
+
+        let html = '';
+        html +=
+          '<div class="diff-summary">' +
+          '<div class="stat"><div class="num add">+' +
+          d.added.length +
+          '</div><div class="cap">added</div></div>' +
+          '<div class="stat"><div class="num remove">−' +
+          d.removed.length +
+          '</div><div class="cap">removed</div></div>' +
+          '</div>';
+
+        if (d.added.length) {
+          html +=
+            '<div class="diff-list"><div class="head add">Added</div><div class="chips">' +
+            d.added.map((a) => chip('add', a.name, a.nodeId)).join('') +
+            '</div></div>';
+        }
+        if (d.removed.length) {
+          html +=
+            '<div class="diff-list"><div class="head remove">Removed</div><div class="chips">' +
+            d.removed.map((r) => chip('remove', r.name)).join('') +
+            '</div></div>';
+        }
+        $('diff').innerHTML = html;
+
+        Array.from(document.querySelectorAll('#diff .chip.add[data-id]')).forEach((el) => {
+          el.addEventListener('click', () => {
+            const id = el.getAttribute('data-id');
+            if (id) post({ type: 'focus', id });
+          });
+        });
+      }
+
       function updateTrigger() {
         const btn = $('trigger');
         btn.disabled = !canSync || !hasToken || syncing;
@@ -521,6 +663,10 @@
         if (msg.type === 'scan-result') {
           renderResult(msg.result);
           if (!$('status').textContent.startsWith('Triggering')) setStatus('', '');
+        } else if (msg.type === 'diff-loading') {
+          renderDiffLoading();
+        } else if (msg.type === 'diff-result') {
+          renderDiff(msg.diff);
         } else if (msg.type === 'token-status') {
           hasToken = msg.hasToken;
           renderTokenState();
