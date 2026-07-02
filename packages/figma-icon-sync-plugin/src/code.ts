@@ -59,13 +59,60 @@ function kebab(name: string): string {
     .replace(/^-+|-+$/g, '');
 }
 
+function bytesToString(bytes: Uint8Array): string {
+  // SVG markup (tags/attributes) is ASCII, which is all we inspect.
+  let out = '';
+  for (let i = 0; i < bytes.length; i += 1) out += String.fromCharCode(bytes[i]);
+  return out;
+}
+
+// The real artifact happens when a single drawn element carries BOTH a fill and
+// a stroke: recolored to the same translucent currentColor, the stroke overlaps
+// the fill and doubles up. Figma flattens inside/outside strokes into fill
+// geometry on export, so only a genuine fill+stroke element in the *exported*
+// SVG produces the artifact — which is exactly what we test here.
+function svgDrawsFillAndStroke(svg: string): boolean {
+  const tagRegex = /<(path|rect|circle|ellipse|polygon|polyline|line)\b([^>]*)>/gi;
+  let match: RegExpExecArray | null;
+  while ((match = tagRegex.exec(svg)) !== null) {
+    const attrs = match[2];
+    const fillAttr = /\bfill\s*=\s*"([^"]*)"/i.exec(attrs);
+    const strokeAttr = /\bstroke\s*=\s*"([^"]*)"/i.exec(attrs);
+    const style = /\bstyle\s*=\s*"([^"]*)"/i.exec(attrs);
+    const styleText = style ? style[1] : '';
+    const fillStyle = /(?:^|;)\s*fill\s*:\s*([^;]+)/i.exec(styleText);
+    const strokeStyle = /(?:^|;)\s*stroke\s*:\s*([^;]+)/i.exec(styleText);
+
+    const fillVal = (fillAttr ? fillAttr[1] : fillStyle ? fillStyle[1] : '').trim().toLowerCase();
+    const strokeVal = (strokeAttr ? strokeAttr[1] : strokeStyle ? strokeStyle[1] : '')
+      .trim()
+      .toLowerCase();
+
+    // A shape is filled only with an explicit non-"none" fill (the root <svg>
+    // sets fill="none", so unset means not filled).
+    const hasFill = fillVal !== '' && fillVal !== 'none';
+    const hasStroke = strokeVal !== '' && strokeVal !== 'none';
+    if (hasFill && hasStroke) return true;
+  }
+  return false;
+}
+
 function findIconsPage(): { page: PageNode; usedFallback: boolean } {
   const target = figma.root.children.find((p) => normalize(p.name) === 'icons' || normalize(p.name) === 'producticons');
   if (target) return { page: target, usedFallback: false };
   return { page: figma.currentPage, usedFallback: true };
 }
 
-async function scan(): Promise<{ result: ScanResult; baseNames: Map<string, string> }> {
+interface QualityTarget {
+  name: string;
+  nodes: SceneNode[];
+}
+
+async function scan(): Promise<{
+  result: ScanResult;
+  baseNames: Map<string, string>;
+  qualityTargets: QualityTarget[];
+}> {
   await figma.loadAllPagesAsync();
   const { page, usedFallback } = findIconsPage();
 
@@ -79,6 +126,8 @@ async function scan(): Promise<{ result: ScanResult; baseNames: Map<string, stri
   const nameGroups = new Map<string, { name: string; nodeId: string; category: string }[]>();
   // Base (size-less) kebab name -> a representative node id, for the release diff.
   const baseNames = new Map<string, string>();
+  // One representative variant per icon, exported to SVG in a later async pass.
+  const qualityTargets: QualityTarget[] = [];
 
   let iconCount = 0;
   let variantCount = 0;
@@ -149,10 +198,15 @@ async function scan(): Promise<{ result: ScanResult; baseNames: Map<string, stri
         });
       }
 
+      if (variants.length > 0) {
+        qualityTargets.push({ name, nodes: variants });
+      }
+
       const sizeCounts = new Map<number, number>();
 
       for (const variant of variants) {
         variantCount += 1;
+
         // The variant name must be *exactly* `size=<number>`. An unanchored
         // match would wrongly accept mislabelled properties whose name merely
         // ends in "size" (e.g. `iconsize=12`) or contains extra props.
@@ -216,6 +270,7 @@ async function scan(): Promise<{ result: ScanResult; baseNames: Map<string, stri
           nodeId: child.id,
         });
       }
+
     }
   }
 
@@ -267,7 +322,50 @@ async function scan(): Promise<{ result: ScanResult; baseNames: Map<string, stri
     issues,
   };
 
-  return { result, baseNames };
+  return { result, baseNames, qualityTargets };
+}
+
+// Exports every size of each icon to SVG (as the generator does) and flags those
+// whose output has an element carrying both a fill and a stroke — the
+// recolor-with-alpha artifact. Runs after the main scan so verification stays
+// instant. Reports the specific offending size.
+async function runQualityChecks(targets: QualityTarget[]): Promise<Issue[]> {
+  const issues: Issue[] = [];
+  const BATCH = 10; // icons per batch (each exports up to 5 sizes)
+  for (let i = 0; i < targets.length; i += BATCH) {
+    const slice = targets.slice(i, i + BATCH);
+    const perIcon = await Promise.all(
+      slice.map(async (t) => {
+        const flags = await Promise.all(
+          t.nodes.map(async (node) => {
+            try {
+              const bytes = await node.exportAsync({ format: 'SVG' });
+              if (!svgDrawsFillAndStroke(bytesToString(bytes))) return null;
+              const m = /size=(\d+)/i.exec(node.name);
+              return { nodeId: node.id, size: m ? Number(m[1]) : Number.NaN };
+            } catch {
+              return null;
+            }
+          }),
+        );
+        return flags.filter((f): f is { nodeId: string; size: number } => f !== null);
+      }),
+    );
+    perIcon.forEach((offending, idx) => {
+      if (offending.length === 0) return;
+      offending.sort((a, b) => a.size - b.size);
+      const sizes = offending.map((o) => (Number.isNaN(o.size) ? '?' : String(o.size)));
+      issues.push({
+        severity: 'warning',
+        rule: 'fill-and-stroke',
+        message: `"${slice[idx].name}" draws both a fill and a stroke at size ${sizes.join(
+          ', ',
+        )} — the overlap shows as an artifact when recolored with a translucent color.`,
+        targets: offending.map((o, i) => ({ nodeId: o.nodeId, label: sizes[i] })),
+      });
+    });
+  }
+  return issues;
 }
 
 interface PublishedManifest {
@@ -346,8 +444,13 @@ async function focusNode(id: string): Promise<void> {
 figma.showUI(__html__, { width: 380, height: 600, themeColors: true });
 
 async function scanAndDiff(): Promise<void> {
-  const { result, baseNames } = await scan();
+  const { result, baseNames, qualityTargets } = await scan();
   figma.ui.postMessage({ type: 'scan-result', result });
+
+  figma.ui.postMessage({ type: 'quality-loading' });
+  const qualityIssues = await runQualityChecks(qualityTargets);
+  figma.ui.postMessage({ type: 'quality-result', issues: qualityIssues });
+
   figma.ui.postMessage({ type: 'diff-loading' });
   const diff = await fetchReleaseDiff(baseNames);
   figma.ui.postMessage({ type: 'diff-result', diff });

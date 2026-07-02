@@ -112,6 +112,10 @@
       .badge.err {
         background: var(--err);
       }
+      .badge.pending {
+        background: var(--figma-color-bg-disabled, #8c8c8c);
+        color: var(--figma-color-text-secondary);
+      }
       .check .text {
         flex: 1;
       }
@@ -331,6 +335,9 @@
     <script>
       const $ = (id) => document.getElementById(id);
 
+      let currentResult = null;
+      let qualityPending = false;
+
       const post = (msg) => parent.postMessage({ pluginMessage: msg }, '*');
 
       // Each verification group owns a set of issue rules; details render beneath it.
@@ -356,6 +363,11 @@
           ],
           ok: 'Icon sizes valid (' + [12, 16, 20, 24, 32].join('/') + ')',
           fail: (n, hasErr) => n + (hasErr ? ' size error(s)' : ' size warning(s)'),
+        },
+        {
+          rules: ['fill-and-stroke'],
+          ok: 'No fill + stroke overlaps',
+          fail: (n) => n + ' icon(s) draw fill + stroke',
         },
         {
           rules: ['orphan'],
@@ -397,7 +409,8 @@
       }
 
       function groupHtml(state, headline, issues) {
-        const symbol = state === 'ok' ? '✓' : state === 'warn' ? '!' : '✕';
+        const symbol =
+          state === 'ok' ? '✓' : state === 'warn' ? '!' : state === 'pending' ? '⋯' : '✕';
         const hasIssues = issues.length > 0;
         const issuesHtml = hasIssues
           ? '<div class="issues">' + issues.map(issueHtml).join('') + '</div>'
@@ -420,6 +433,12 @@
       function renderChecks(r) {
         let html = '';
         for (const group of GROUPS) {
+          const isQuality = group.rules.includes('fill-and-stroke');
+          if (isQuality && qualityPending) {
+            html += groupHtml('pending', 'Checking for fill + stroke overlaps…', []);
+            continue;
+          }
+
           const issues = r.issues.filter((i) => group.rules.includes(i.rule));
           const errs = issues.filter((i) => i.severity === 'error');
           if (!issues.length && group.ok === null) continue; // hide clean optional groups
@@ -453,8 +472,24 @@
           .replace(/>/g, '&gt;');
       }
 
+      function prepIssues(list) {
+        return list.map((i) => ({ ...i, msg_escaped: escapeHtml(i.message) }));
+      }
+
+      function updateStatus(r) {
+        if (r.errorCount > 0) {
+          setStatus(r.errorCount + ' error(s) to fix before syncing', 'err');
+        } else if (r.warningCount > 0) {
+          setStatus('Passed with ' + r.warningCount + ' warning(s) — ready to sync', 'ok');
+        } else {
+          setStatus('All checks passed — ready to sync', 'ok');
+        }
+        $('open-sync').disabled = !r.passed;
+      }
+
       function renderResult(r) {
-        r.issues = r.issues.map((i) => ({ ...i, msg_escaped: escapeHtml(i.message) }));
+        r.issues = prepIssues(r.issues);
+        currentResult = r;
 
         $('count').textContent = r.iconCount;
         const parts = [];
@@ -472,16 +507,7 @@
         }
 
         renderChecks(r);
-
-        if (r.errorCount > 0) {
-          setStatus(r.errorCount + ' error(s) to fix before syncing', 'err');
-        } else if (r.warningCount > 0) {
-          setStatus('Passed with ' + r.warningCount + ' warning(s) — ready to sync', 'ok');
-        } else {
-          setStatus('All checks passed — ready to sync', 'ok');
-        }
-
-        $('open-sync').disabled = !r.passed;
+        updateStatus(r);
       }
 
       function renderDiffLoading() {
@@ -568,7 +594,23 @@
         const msg = event.data.pluginMessage;
         if (!msg) return;
         if (msg.type === 'scan-result') {
+          qualityPending = false;
           renderResult(msg.result);
+        } else if (msg.type === 'quality-loading') {
+          qualityPending = true;
+          if (currentResult) renderChecks(currentResult);
+        } else if (msg.type === 'quality-result') {
+          qualityPending = false;
+          if (currentResult) {
+            currentResult.issues = currentResult.issues
+              .filter((i) => i.rule !== 'fill-and-stroke')
+              .concat(prepIssues(msg.issues));
+            currentResult.warningCount = currentResult.issues.filter(
+              (i) => i.severity === 'warning',
+            ).length;
+            renderChecks(currentResult);
+            updateStatus(currentResult);
+          }
         } else if (msg.type === 'diff-loading') {
           renderDiffLoading();
         } else if (msg.type === 'diff-result') {
