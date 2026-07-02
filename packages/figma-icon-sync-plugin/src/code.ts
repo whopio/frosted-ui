@@ -60,9 +60,7 @@ function kebab(name: string): string {
 }
 
 function findIconsPage(): { page: PageNode; usedFallback: boolean } {
-  const target = figma.root.children.find(
-    (p) => normalize(p.name) === 'icons' || normalize(p.name) === 'producticons',
-  );
+  const target = figma.root.children.find((p) => normalize(p.name) === 'icons' || normalize(p.name) === 'producticons');
   if (target) return { page: target, usedFallback: false };
   return { page: figma.currentPage, usedFallback: true };
 }
@@ -73,9 +71,7 @@ async function scan(): Promise<{ result: ScanResult; baseNames: Map<string, stri
 
   // The generator collects COMPONENT_SETs that live inside a frame/group named
   // exactly "Icons"; the parent of that frame is the icon's category.
-  const iconsFrames = page.findAll(
-    (n) => (n.type === 'FRAME' || n.type === 'GROUP') && n.name === 'Icons',
-  );
+  const iconsFrames = page.findAll((n) => (n.type === 'FRAME' || n.type === 'GROUP') && n.name === 'Icons');
 
   const issues: Issue[] = [];
   const insideIds = new Set<string>();
@@ -157,26 +153,28 @@ async function scan(): Promise<{ result: ScanResult; baseNames: Map<string, stri
 
       for (const variant of variants) {
         variantCount += 1;
-        const match = /size=(.*)/i.exec(variant.name);
+        // The variant name must be *exactly* `size=<number>`. An unanchored
+        // match would wrongly accept mislabelled properties whose name merely
+        // ends in "size" (e.g. `iconsize=12`) or contains extra props.
+        const match = /^size=(\d+)$/i.exec(variant.name.trim());
 
         if (!match) {
           issues.push({
             severity: 'error',
             rule: 'invalid-size-label',
-            message: `"${name}" has a variant named "${variant.name}" (expected "size=…").`,
+            message: `"${name}" has a variant named "${variant.name}" (expected exactly "size=<number>").`,
             nodeId: variant.id,
           });
           continue;
         }
 
-        const label = match[1].trim();
-        const size = Number(label);
+        const size = Number(match[1]);
 
-        if (!Number.isInteger(size) || !ALLOWED_SIZES.includes(size)) {
+        if (!ALLOWED_SIZES.includes(size)) {
           issues.push({
             severity: 'error',
             rule: 'disallowed-size',
-            message: `"${name}" has size "${label}" (allowed: ${ALLOWED_SIZES.join(', ')}).`,
+            message: `"${name}" has size "${match[1]}" (allowed: ${ALLOWED_SIZES.join(', ')}).`,
             nodeId: variant.id,
           });
           continue;
@@ -329,9 +327,7 @@ async function fetchReleaseDiff(current: Map<string, string>): Promise<ReleaseDi
   }
 }
 
-async function triggerSync(
-  token: string,
-): Promise<{ ok: boolean; status: number; message: string }> {
+async function triggerSync(token: string): Promise<{ ok: boolean; status: number; message: string }> {
   const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/actions/workflows/${WORKFLOW_FILE}/dispatches`;
   try {
     const res = await fetch(url, {
