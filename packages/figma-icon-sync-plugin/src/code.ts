@@ -562,7 +562,16 @@ async function focusNode(id: string): Promise<void> {
   }
 }
 
-figma.showUI(__html__, { width: 380, height: 600, themeColors: true });
+const SIZE_KEY = 'ui-size';
+const DEFAULT_SIZE = { width: 380, height: 600 };
+const MIN_SIZE = { width: 320, height: 400 };
+const MAX_SIZE = { width: 1200, height: 1400 };
+
+figma.showUI(__html__, { ...DEFAULT_SIZE, themeColors: true });
+
+function clamp(value: number, min: number, max: number): number {
+  return Math.max(min, Math.min(max, Math.round(value)));
+}
 
 async function scanAndDiff(): Promise<void> {
   const { result, baseNames, qualityTargets, previewByNode } = await scan();
@@ -593,7 +602,7 @@ async function scanAndDiff(): Promise<void> {
   figma.ui.postMessage({ type: 'diff-result', diff });
 }
 
-figma.ui.onmessage = async (msg: { type: string; id?: string }) => {
+figma.ui.onmessage = async (msg: { type: string; id?: string; width?: number; height?: number }) => {
   switch (msg.type) {
     case 'rescan': {
       await scanAndDiff();
@@ -607,6 +616,13 @@ figma.ui.onmessage = async (msg: { type: string; id?: string }) => {
       figma.openExternal(SYNC_WORKFLOW_URL);
       break;
     }
+    case 'resize': {
+      const width = clamp(msg.width || DEFAULT_SIZE.width, MIN_SIZE.width, MAX_SIZE.width);
+      const height = clamp(msg.height || DEFAULT_SIZE.height, MIN_SIZE.height, MAX_SIZE.height);
+      figma.ui.resize(width, height);
+      figma.clientStorage.setAsync(SIZE_KEY, { width, height });
+      break;
+    }
     case 'close': {
       figma.closePlugin();
       break;
@@ -615,5 +631,19 @@ figma.ui.onmessage = async (msg: { type: string; id?: string }) => {
 };
 
 (async () => {
+  // Restore the designer's preferred window size before scanning.
+  try {
+    const saved = (await figma.clientStorage.getAsync(SIZE_KEY)) as
+      | { width?: number; height?: number }
+      | undefined;
+    if (saved && saved.width && saved.height) {
+      figma.ui.resize(
+        clamp(saved.width, MIN_SIZE.width, MAX_SIZE.width),
+        clamp(saved.height, MIN_SIZE.height, MAX_SIZE.height),
+      );
+    }
+  } catch {
+    // Fall back to the default size.
+  }
   await scanAndDiff();
 })();

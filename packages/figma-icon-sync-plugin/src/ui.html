@@ -473,6 +473,24 @@
       .status.pending {
         color: var(--figma-color-text-secondary);
       }
+
+      .resize-handle {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        width: 16px;
+        height: 16px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+        color: var(--figma-color-text-tertiary, var(--figma-color-text-secondary));
+        cursor: nwse-resize;
+        z-index: 50;
+        touch-action: none;
+      }
+      .resize-handle:hover {
+        color: var(--figma-color-text-secondary);
+      }
     </style>
   </head>
   <body>
@@ -497,6 +515,12 @@
         <button class="secondary" id="rescan">Rescan</button>
         <button class="primary" id="open-sync" disabled>Open sync on GitHub</button>
       </div>
+    </div>
+
+    <div class="resize-handle" id="resize" title="Drag to resize">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path d="M11 5 5 11M11 9 9 11" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" />
+      </svg>
     </div>
 
     <script>
@@ -898,6 +922,42 @@
         if ($('open-sync').disabled) return;
         post({ type: 'open-sync' });
       });
+
+      (function setupResize() {
+        const handle = $('resize');
+        const MIN_W = 320;
+        const MIN_H = 400;
+        let startX = 0;
+        let startY = 0;
+        let startW = 0;
+        let startH = 0;
+
+        const onMove = (e) => {
+          const width = Math.max(MIN_W, Math.round(startW + (e.clientX - startX)));
+          const height = Math.max(MIN_H, Math.round(startH + (e.clientY - startY)));
+          post({ type: 'resize', width, height });
+        };
+        const onUp = (e) => {
+          window.removeEventListener('pointermove', onMove);
+          window.removeEventListener('pointerup', onUp);
+          try {
+            handle.releasePointerCapture(e.pointerId);
+          } catch (err) {}
+        };
+
+        handle.addEventListener('pointerdown', (e) => {
+          e.preventDefault();
+          startX = e.clientX;
+          startY = e.clientY;
+          startW = window.innerWidth;
+          startH = window.innerHeight;
+          try {
+            handle.setPointerCapture(e.pointerId);
+          } catch (err) {}
+          window.addEventListener('pointermove', onMove);
+          window.addEventListener('pointerup', onUp);
+        });
+      })();
 
       onmessage = (event) => {
         const msg = event.data.pluginMessage;
