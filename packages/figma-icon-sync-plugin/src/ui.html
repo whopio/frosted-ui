@@ -197,12 +197,43 @@
         border-bottom-right-radius: 6px;
         overflow: hidden;
       }
+      .subhead {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 10px 5px;
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--figma-color-text-secondary);
+        background: var(--figma-color-bg-tertiary, #e5e5e5);
+        border-top: 1px solid var(--figma-color-border);
+      }
+      .subhead:first-child {
+        border-top: none;
+      }
+      .subcount {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 16px;
+        height: 14px;
+        padding: 0 4px;
+        border-radius: 7px;
+        background: var(--figma-color-bg);
+        color: var(--figma-color-text-secondary);
+        font-size: 9px;
+      }
       .issue {
         display: flex;
         gap: 8px;
         padding: 7px 10px 7px 34px;
         background: var(--figma-color-bg-secondary);
         border-top: 1px solid var(--figma-color-border);
+      }
+      .subhead + .issue {
+        border-top: none;
       }
       .issue.clickable {
         cursor: pointer;
@@ -447,6 +478,21 @@
         },
       ];
 
+      const RULE_LABELS = {
+        'duplicate-name': 'Duplicate names',
+        'number-in-name': 'Numbers in names',
+        'empty-name': 'Empty names',
+        'modifier-order': 'Wrong modifier order',
+        'invalid-size-label': 'Invalid size label',
+        'disallowed-size': 'Disallowed size',
+        'no-variants': 'No size variants',
+        'duplicate-size': 'Duplicate sizes',
+        'incomplete-sizes': 'Missing sizes',
+        'size-mismatch': 'Dimension mismatch',
+        'hidden-layers': 'Hidden layers',
+        'not-single-shape': 'Not a single shape',
+      };
+
       function issueHtml(i) {
         const hasTargets = i.targets && i.targets.length;
         const pills = hasTargets
@@ -479,13 +525,40 @@
         );
       }
 
+      function issuesBlockHtml(issues) {
+        // Cluster by rule (preserving first-seen order) so each issue type is
+        // tackled together. Sub-headers only appear when a section mixes types.
+        const order = [];
+        const byRule = {};
+        for (const i of issues) {
+          if (!byRule[i.rule]) {
+            byRule[i.rule] = [];
+            order.push(i.rule);
+          }
+          byRule[i.rule].push(i);
+        }
+        const showSubheads = order.length > 1;
+        let html = '<div class="issues">';
+        for (const rule of order) {
+          const list = byRule[rule];
+          if (showSubheads) {
+            html +=
+              '<div class="subhead">' +
+              escapeHtml(RULE_LABELS[rule] || rule) +
+              '<span class="subcount">' +
+              list.length +
+              '</span></div>';
+          }
+          html += list.map(issueHtml).join('');
+        }
+        return html + '</div>';
+      }
+
       function groupHtml(state, headline, issues, info) {
         const symbol =
           state === 'ok' ? '✓' : state === 'warn' ? '!' : state === 'pending' ? '⋯' : '✕';
         const hasIssues = issues.length > 0;
-        const issuesHtml = hasIssues
-          ? '<div class="issues">' + issues.map(issueHtml).join('') + '</div>'
-          : '';
+        const issuesHtml = hasIssues ? issuesBlockHtml(issues) : '';
         const chevron = hasIssues
           ? '<span class="chevron"><svg width="12" height="12" viewBox="0 0 12 12" fill="none">' +
             '<path d="M3 4.5 6 7.5 9 4.5" stroke="currentColor" stroke-width="1.5" ' +
