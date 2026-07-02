@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      :root {
+        --ok: #14ae5c;
+        --warn: #f5a623;
+        --err: #e5484d;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        font-size: 12px;
+        line-height: 1.4;
+        color: var(--figma-color-text);
+        background: var(--figma-color-bg);
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+      }
+      .content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 16px;
+      }
+      .footer {
+        border-top: 1px solid var(--figma-color-border);
+        padding: 12px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .summary {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        margin-bottom: 4px;
+      }
+      .summary .count {
+        font-size: 34px;
+        font-weight: 650;
+        letter-spacing: -0.02em;
+      }
+      .summary .label {
+        font-size: 13px;
+        color: var(--figma-color-text-secondary);
+      }
+      .meta {
+        color: var(--figma-color-text-secondary);
+        margin-bottom: 4px;
+      }
+      .meta b {
+        color: var(--figma-color-text);
+        font-weight: 600;
+      }
+      .page-warn {
+        color: var(--warn);
+        margin: 6px 0 0;
+      }
+
+      .section-title {
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--figma-color-text-secondary);
+        margin: 20px 0 8px;
+      }
+
+      .check {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        border: 1px solid var(--figma-color-border);
+        border-radius: 6px;
+        margin-bottom: 6px;
+      }
+      .badge {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+      }
+      .badge.ok {
+        background: var(--ok);
+      }
+      .badge.warn {
+        background: var(--warn);
+      }
+      .badge.err {
+        background: var(--err);
+      }
+      .check .text {
+        flex: 1;
+      }
+
+      .issues {
+        margin: 8px 0 0;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .issue {
+        display: flex;
+        gap: 8px;
+        padding: 7px 10px;
+        border-radius: 6px;
+        background: var(--figma-color-bg-secondary);
+        cursor: pointer;
+        border: 1px solid transparent;
+      }
+      .issue:hover {
+        border-color: var(--figma-color-border);
+      }
+      .issue .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        margin-top: 5px;
+        flex: 0 0 auto;
+      }
+      .issue.error .dot {
+        background: var(--err);
+      }
+      .issue.warning .dot {
+        background: var(--warn);
+      }
+      .issue .msg {
+        flex: 1;
+        color: var(--figma-color-text);
+      }
+
+      .empty {
+        color: var(--figma-color-text-secondary);
+        padding: 10px 0;
+      }
+
+      details.token {
+        margin-top: 20px;
+      }
+      details.token summary {
+        cursor: pointer;
+        color: var(--figma-color-text-secondary);
+        font-size: 11px;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      details.token summary::-webkit-details-marker {
+        display: none;
+      }
+      .token-row {
+        display: flex;
+        gap: 6px;
+        margin-top: 8px;
+      }
+      input {
+        flex: 1;
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid var(--figma-color-border);
+        background: var(--figma-color-bg);
+        color: var(--figma-color-text);
+        font-size: 12px;
+        font-family: inherit;
+      }
+      .hint {
+        color: var(--figma-color-text-tertiary, var(--figma-color-text-secondary));
+        margin-top: 6px;
+        font-size: 11px;
+      }
+      .token-state {
+        margin-top: 6px;
+        font-size: 11px;
+      }
+      .token-state.saved {
+        color: var(--ok);
+      }
+      .token-state.missing {
+        color: var(--figma-color-text-secondary);
+      }
+
+      button {
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 600;
+        border-radius: 6px;
+        border: 1px solid transparent;
+        padding: 9px 12px;
+        cursor: pointer;
+      }
+      button.primary {
+        background: var(--figma-color-bg-brand);
+        color: var(--figma-color-text-onbrand);
+      }
+      button.primary:disabled {
+        background: var(--figma-color-bg-disabled);
+        color: var(--figma-color-text-disabled);
+        cursor: not-allowed;
+      }
+      button.secondary {
+        background: var(--figma-color-bg-secondary);
+        color: var(--figma-color-text);
+        border-color: var(--figma-color-border);
+      }
+      .actions {
+        display: flex;
+        gap: 8px;
+      }
+      .actions button {
+        flex: 1;
+      }
+      .status {
+        min-height: 16px;
+        font-size: 11px;
+      }
+      .status.ok {
+        color: var(--ok);
+      }
+      .status.err {
+        color: var(--err);
+      }
+      .status.pending {
+        color: var(--figma-color-text-secondary);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <div class="summary">
+        <span class="count" id="count">…</span>
+        <span class="label">icons detected</span>
+      </div>
+      <div class="meta" id="meta"></div>
+      <div class="page-warn" id="page-warn" style="display: none"></div>
+
+      <div class="section-title">Verification</div>
+      <div id="checks"></div>
+
+      <div id="issues-wrap" style="display: none">
+        <div class="section-title">Details</div>
+        <div class="issues" id="issues"></div>
+      </div>
+
+      <details class="token" id="token-details">
+        <summary>GitHub token <span id="token-state-inline"></span></summary>
+        <div class="token-row">
+          <input
+            id="token-input"
+            type="password"
+            placeholder="ghp_… or github_pat_…"
+            autocomplete="off"
+          />
+          <button class="secondary" id="save-token">Save</button>
+        </div>
+        <div class="hint">
+          Fine-grained PAT with <b>Actions: write</b> on whopio/frosted-ui. Stored locally in Figma.
+        </div>
+        <div class="token-state missing" id="token-state">No token saved.</div>
+      </details>
+    </div>
+
+    <div class="footer">
+      <div class="status" id="status"></div>
+      <div class="actions">
+        <button class="secondary" id="rescan">Rescan</button>
+        <button class="primary" id="trigger" disabled>Run icon sync</button>
+      </div>
+    </div>
+
+    <script>
+      const $ = (id) => document.getElementById(id);
+      let hasToken = false;
+      let canSync = false;
+      let syncing = false;
+
+      const post = (msg) => parent.postMessage({ pluginMessage: msg }, '*');
+
+      function checkRow(state, text) {
+        const symbol = state === 'ok' ? '✓' : state === 'warn' ? '!' : '✕';
+        return (
+          '<div class="check"><span class="badge ' +
+          state +
+          '">' +
+          symbol +
+          '</span><span class="text">' +
+          text +
+          '</span></div>'
+        );
+      }
+
+      function renderChecks(r) {
+        const byRule = (rule) => r.issues.filter((i) => i.rule === rule);
+        const dup = byRule('duplicate-name');
+        const num = byRule('number-in-name');
+        const sizeErrs = r.issues.filter(
+          (i) =>
+            i.rule === 'invalid-size-label' ||
+            i.rule === 'disallowed-size' ||
+            i.rule === 'no-variants',
+        );
+        const sizeWarns = byRule('size-mismatch');
+
+        let html = '';
+        html += checkRow(
+          dup.length ? 'err' : 'ok',
+          dup.length ? dup.length + ' duplicate icon name(s)' : 'No duplicate names',
+        );
+        html += checkRow(
+          num.length ? 'err' : 'ok',
+          num.length ? num.length + ' name(s) contain numbers' : 'No numbers in names',
+        );
+        const sizeState = sizeErrs.length ? 'err' : sizeWarns.length ? 'warn' : 'ok';
+        const sizeText = sizeErrs.length
+          ? sizeErrs.length + ' size labelling error(s)'
+          : sizeWarns.length
+            ? sizeWarns.length + ' size mismatch warning(s)'
+            : 'Icon sizes valid (' + [12, 16, 20, 24, 32].join('/') + ')';
+        html += checkRow(sizeState, sizeText);
+        $('checks').innerHTML = html;
+      }
+
+      function renderIssues(r) {
+        if (!r.issues.length) {
+          $('issues-wrap').style.display = 'none';
+          return;
+        }
+        $('issues-wrap').style.display = 'block';
+        $('issues').innerHTML = r.issues
+          .map(
+            (i) =>
+              '<div class="issue ' +
+              i.severity +
+              '" data-id="' +
+              (i.nodeId || '') +
+              '"><span class="dot"></span><span class="msg">' +
+              i.msg_escaped +
+              '</span></div>',
+          )
+          .join('');
+        Array.from(document.querySelectorAll('.issue')).forEach((el) => {
+          el.addEventListener('click', () => {
+            const id = el.getAttribute('data-id');
+            if (id) post({ type: 'focus', id });
+          });
+        });
+      }
+
+      function escapeHtml(s) {
+        return String(s)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;');
+      }
+
+      function renderResult(r) {
+        r.issues = r.issues.map((i) => ({ ...i, msg_escaped: escapeHtml(i.message) }));
+        canSync = r.canSync;
+
+        $('count').textContent = r.iconCount;
+        const parts = [];
+        parts.push('<b>' + r.variantCount + '</b> size variants');
+        parts.push('<b>' + r.categoryCount + '</b> categories');
+        $('meta').innerHTML =
+          parts.join(' · ') + ' · on page <b>' + escapeHtml(r.pageName) + '</b>';
+
+        if (r.usedFallbackPage) {
+          $('page-warn').style.display = 'block';
+          $('page-warn').textContent =
+            'No page named “Icons” found — scanned the current page instead.';
+        } else {
+          $('page-warn').style.display = 'none';
+        }
+
+        renderChecks(r);
+        renderIssues(r);
+        updateTrigger();
+      }
+
+      function updateTrigger() {
+        const btn = $('trigger');
+        btn.disabled = !canSync || !hasToken || syncing;
+        if (syncing) {
+          btn.textContent = 'Triggering…';
+        } else {
+          btn.textContent = 'Run icon sync';
+        }
+      }
+
+      function setStatus(text, kind) {
+        const el = $('status');
+        el.textContent = text || '';
+        el.className = 'status' + (kind ? ' ' + kind : '');
+      }
+
+      function renderTokenState() {
+        const stateEl = $('token-state');
+        const inline = $('token-state-inline');
+        if (hasToken) {
+          stateEl.textContent = 'Token saved.';
+          stateEl.className = 'token-state saved';
+          inline.textContent = '· saved';
+        } else {
+          stateEl.textContent = 'No token saved.';
+          stateEl.className = 'token-state missing';
+          inline.textContent = '· not set';
+          $('token-details').open = true;
+        }
+        if (!canSync && !hasToken) {
+          // keep silent, checks already communicate state
+        }
+        updateTrigger();
+      }
+
+      $('rescan').addEventListener('click', () => {
+        setStatus('Scanning…', 'pending');
+        post({ type: 'rescan' });
+      });
+
+      $('save-token').addEventListener('click', () => {
+        const token = $('token-input').value;
+        post({ type: 'save-token', token });
+        $('token-input').value = '';
+      });
+
+      $('trigger').addEventListener('click', () => {
+        if (!canSync || !hasToken || syncing) return;
+        post({ type: 'trigger' });
+      });
+
+      onmessage = (event) => {
+        const msg = event.data.pluginMessage;
+        if (!msg) return;
+        if (msg.type === 'scan-result') {
+          renderResult(msg.result);
+          if (!$('status').textContent.startsWith('Triggering')) setStatus('', '');
+        } else if (msg.type === 'token-status') {
+          hasToken = msg.hasToken;
+          renderTokenState();
+        } else if (msg.type === 'sync-pending') {
+          syncing = true;
+          setStatus('Triggering GitHub workflow…', 'pending');
+          updateTrigger();
+        } else if (msg.type === 'sync-result') {
+          syncing = false;
+          if (msg.ok) {
+            setStatus('Icon sync started — a PR will open shortly on whopio/frosted-ui.', 'ok');
+          } else {
+            setStatus(msg.message || 'Failed to trigger workflow.', 'err');
+          }
+          updateTrigger();
+        }
+      };
+    </script>
+  </body>
+</html>

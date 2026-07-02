@@ -1,0 +1,13 @@
+{
+  "name": "Frosted UI — Icon Sync",
+  "id": "frosted-ui-icon-sync",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "ui": "dist/ui.html",
+  "editorType": ["figma"],
+  "documentAccess": "dynamic-page",
+  "networkAccess": {
+    "allowedDomains": ["https://api.github.com"],
+    "reasoning": "Triggers the GitHub Actions workflow that syncs icons from Figma into @frosted-ui/icons."
+  }
+}

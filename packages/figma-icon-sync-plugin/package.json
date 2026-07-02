@@ -1,0 +1,16 @@
+{
+  "name": "@frosted-ui/figma-icon-sync-plugin",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Figma plugin that verifies icon naming/size conventions on the Icons page and triggers the Frosted UI icon-sync GitHub Action.",
+  "scripts": {
+    "build": "node build.mjs",
+    "dev": "node build.mjs --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.100.0",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.4.5"
+  }
+}
