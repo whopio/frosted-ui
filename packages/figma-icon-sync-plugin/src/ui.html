@@ -273,6 +273,15 @@
         color: var(--figma-color-text);
         border-color: var(--figma-color-border);
       }
+      button.primary {
+        background: var(--figma-color-bg-brand);
+        color: var(--figma-color-text-onbrand);
+      }
+      button.primary:disabled {
+        background: var(--figma-color-bg-disabled);
+        color: var(--figma-color-text-disabled);
+        cursor: not-allowed;
+      }
       .actions {
         display: flex;
         gap: 8px;
@@ -315,6 +324,7 @@
       <div class="status" id="status"></div>
       <div class="actions">
         <button class="secondary" id="rescan">Rescan</button>
+        <button class="primary" id="open-sync" disabled>Open sync on GitHub</button>
       </div>
     </div>
 
@@ -464,12 +474,14 @@
         renderChecks(r);
 
         if (r.errorCount > 0) {
-          setStatus(r.errorCount + ' error(s) to fix', 'err');
+          setStatus(r.errorCount + ' error(s) to fix before syncing', 'err');
         } else if (r.warningCount > 0) {
-          setStatus('Passed with ' + r.warningCount + ' warning(s)', 'ok');
+          setStatus('Passed with ' + r.warningCount + ' warning(s) — ready to sync', 'ok');
         } else {
-          setStatus('All checks passed', 'ok');
+          setStatus('All checks passed — ready to sync', 'ok');
         }
+
+        $('open-sync').disabled = !r.passed;
       }
 
       function renderDiffLoading() {
@@ -545,6 +557,11 @@
       $('rescan').addEventListener('click', () => {
         setStatus('Scanning…', 'pending');
         post({ type: 'rescan' });
+      });
+
+      $('open-sync').addEventListener('click', () => {
+        if ($('open-sync').disabled) return;
+        post({ type: 'open-sync' });
       });
 
       onmessage = (event) => {

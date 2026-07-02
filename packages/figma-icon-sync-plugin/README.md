@@ -1,8 +1,8 @@
 # Frosted UI — Icon Sync (Figma plugin)
 
-A Figma plugin that inspects the **Icons** page of the [Frosted Design System file](https://www.figma.com/design/pWs6edprYZNR54ZPwk0oRV/) and verifies icon naming/size conventions before they get synced into `@frosted-ui/icons`.
+A Figma plugin that inspects the **Icons** page of the [Frosted Design System file](https://www.figma.com/design/pWs6edprYZNR54ZPwk0oRV/), verifies icon naming/size conventions, and — once everything passes — sends you to GitHub to run the sync.
 
-> **Status:** validation only. Kicking off the sync from the plugin (the "Run icon sync" button) has been removed for now and will be added back later once we settle on a secure way to trigger it (see [Roadmap](#roadmap)). Today, run the sync the usual way (the `Sync Icons from Figma` GitHub Action, or `pnpm generate-src` locally).
+> **How the sync works (no tokens):** the plugin never holds a credential. When validation passes it enables an **Open sync on GitHub** button that opens the [`Sync Icons from Figma`](../../.github/workflows/sync-icons.yml) workflow page in your browser, where you press GitHub's own **Run workflow** button. Auth and "who's allowed" are handled entirely by GitHub's login and repo permissions.
 
 ## What it does
 
@@ -13,9 +13,10 @@ A Figma plugin that inspects the **Icons** page of the [Frosted Design System fi
   - **Valid sizes** — every variant must be named exactly `size=N` with `N ∈ {12, 16, 20, 24, 32}`, no duplicate sizes per icon, and the full size set present.
   - Warnings (non-blocking): variant dimensions that don't match the declared size, and component sets sitting outside an `Icons` frame (which the generator will skip).
 - **Diffs against the last release** — fetches the manifest from the latest npm release of `@frosted-ui/icons` (via jsDelivr) and shows which icons were **added** and **removed** since then. Added chips are clickable to jump to the node.
+- **Opens the sync on GitHub** — when there are no errors, the **Open sync on GitHub** button opens the workflow's Actions page in your browser so you can run it. No token is stored or sent by the plugin.
 - Clicking any issue selects and zooms to the offending node in the canvas.
 
-The plugin makes no authenticated requests — the only network call is a read-only fetch of the published manifest from jsDelivr.
+The plugin makes no authenticated requests — the only network call is a read-only fetch of the published manifest from jsDelivr, and the sync button just opens a github.com URL in the browser.
 
 ## Build
 
@@ -36,7 +37,7 @@ This produces `dist/code.js` and `dist/ui.html`, which `manifest.json` points to
 
 ## Roadmap
 
-- **Trigger the sync from the plugin.** Removed for now because dispatching the GitHub Action from a client requires a credential, and a client-side token can't be scoped to a single workflow. The planned secure approach is a small backend "broker" that holds the secret server-side, authenticates the requesting designer against an allowlist, and triggers only the icon-sync workflow — optionally paired with a GitHub Environment required-reviewers gate so every run needs a trusted approval.
+- **One-click sync inside Figma.** The current flow hands off to GitHub for the final "Run workflow" click (no tokens, safest). A future upgrade could keep the whole flow in Figma via "Sign in with GitHub" (GitHub App device flow → short-lived, narrowly scoped token, no backend), optionally paired with a GitHub Environment required-reviewers gate so every run needs a trusted approval.
 
 ## Notes
 

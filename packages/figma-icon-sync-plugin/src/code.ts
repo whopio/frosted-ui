@@ -3,6 +3,12 @@
 // Keep this in sync with the generator (packages/generate-icon-lib).
 const ALLOWED_SIZES = [12, 16, 20, 24, 32];
 
+// The Actions page for the icon-sync workflow. Opening it lets a designer press
+// GitHub's own "Run workflow" button — no token needed, gated by GitHub's own
+// repo permissions.
+const SYNC_WORKFLOW_URL =
+  'https://github.com/whopio/frosted-ui/actions/workflows/sync-icons.yml';
+
 type Severity = 'error' | 'warning';
 
 interface IssueTarget {
@@ -355,6 +361,10 @@ figma.ui.onmessage = async (msg: { type: string; id?: string }) => {
     }
     case 'focus': {
       if (msg.id) await focusNode(msg.id);
+      break;
+    }
+    case 'open-sync': {
+      figma.openExternal(SYNC_WORKFLOW_URL);
       break;
     }
     case 'close': {
