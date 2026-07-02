@@ -227,13 +227,21 @@
       }
       .issue {
         display: flex;
-        gap: 8px;
-        padding: 7px 10px 7px 34px;
+        gap: 10px;
+        align-items: flex-start;
+        padding: 8px 10px;
         background: var(--figma-color-bg-secondary);
         border-top: 1px solid var(--figma-color-border);
+        box-shadow: inset 3px 0 0 transparent;
       }
       .subhead + .issue {
         border-top: none;
+      }
+      .issue.error {
+        box-shadow: inset 3px 0 0 var(--err);
+      }
+      .issue.warning {
+        box-shadow: inset 3px 0 0 var(--warn);
       }
       .issue.clickable {
         cursor: pointer;
@@ -241,22 +249,28 @@
       .issue.clickable:hover {
         background: var(--figma-color-bg-hover, var(--figma-color-bg-secondary));
       }
-      .issue .dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        margin-top: 5px;
+      .issue .preview {
+        width: 24px;
+        height: 24px;
         flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        background: var(--figma-color-bg);
+        border: 1px solid var(--figma-color-border);
+        color: var(--figma-color-text);
+        overflow: hidden;
       }
-      .issue.error .dot {
-        background: var(--err);
-      }
-      .issue.warning .dot {
-        background: var(--warn);
+      .issue .preview svg {
+        width: 16px;
+        height: 16px;
+        display: block;
       }
       .issue .body {
         flex: 1;
         min-width: 0;
+        padding-top: 3px;
       }
       .issue .msg {
         color: var(--figma-color-text);
@@ -438,6 +452,8 @@
 
       let currentResult = null;
       let qualityPending = false;
+      // previewId -> inline SVG markup for the icon's size-16 variant.
+      let previews = {};
 
       const post = (msg) => parent.postMessage({ pluginMessage: msg }, '*');
 
@@ -511,13 +527,18 @@
           : '';
         const clickable = !hasTargets && i.nodeId ? ' clickable' : '';
         const dataId = !hasTargets && i.nodeId ? ' data-id="' + i.nodeId + '"' : '';
+        const pid = i.previewId || '';
+        const previewInner = pid && previews[pid] ? previews[pid] : '';
+        const preview = '<span class="preview" data-preview-id="' + pid + '">' + previewInner + '</span>';
         return (
           '<div class="issue ' +
           i.severity +
           clickable +
           '"' +
           dataId +
-          '><span class="dot"></span><div class="body"><div class="msg">' +
+          '>' +
+          preview +
+          '<div class="body"><div class="msg">' +
           i.msg_escaped +
           '</div>' +
           pills +
@@ -779,6 +800,9 @@
             renderChecks(currentResult);
             updateStatus(currentResult);
           }
+        } else if (msg.type === 'previews') {
+          Object.assign(previews, msg.previews);
+          if (currentResult) renderChecks(currentResult);
         } else if (msg.type === 'diff-loading') {
           renderDiffLoading();
         } else if (msg.type === 'diff-result') {

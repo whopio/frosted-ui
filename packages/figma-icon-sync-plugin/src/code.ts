@@ -22,6 +22,7 @@ interface Issue {
   message: string;
   nodeId?: string;
   targets?: IssueTarget[];
+  previewId?: string;
 }
 
 interface ScanResult {
@@ -163,6 +164,7 @@ async function scan(): Promise<{
   result: ScanResult;
   baseNames: Map<string, string>;
   qualityTargets: QualityTarget[];
+  previewByNode: Map<string, string>;
 }> {
   await figma.loadAllPagesAsync();
   const { page, usedFallback } = findIconsPage();
@@ -179,6 +181,9 @@ async function scan(): Promise<{
   const baseNames = new Map<string, string>();
   // One representative variant per icon, exported to SVG in a later async pass.
   const qualityTargets: QualityTarget[] = [];
+  // Any node id belonging to an icon -> its size-16 variant id, used to render a
+  // preview thumbnail next to every issue for that icon.
+  const previewByNode = new Map<string, string>();
 
   let iconCount = 0;
   let variantCount = 0;
@@ -251,6 +256,14 @@ async function scan(): Promise<{
 
       if (variants.length > 0) {
         qualityTargets.push({ name, nodes: variants });
+      }
+
+      // Pick the size-16 variant (fallback to the first) as this icon's preview,
+      // and map every id that an issue might reference back to it.
+      const previewVariant = variants.find((v) => /^size=16$/i.test(v.name.trim())) || variants[0];
+      if (previewVariant) {
+        previewByNode.set(child.id, previewVariant.id);
+        for (const v of variants) previewByNode.set(v.id, previewVariant.id);
       }
 
       const sizeCounts = new Map<number, number>();
@@ -374,6 +387,15 @@ async function scan(): Promise<{
     });
   }
 
+  // Attach a preview (the icon's size-16 variant) to each issue.
+  for (const issue of issues) {
+    const rep = issue.nodeId || (issue.targets && issue.targets[0] && issue.targets[0].nodeId);
+    if (rep) {
+      const preview = previewByNode.get(rep);
+      if (preview) issue.previewId = preview;
+    }
+  }
+
   // Order: errors first, then warnings.
   issues.sort((a, b) => (a.severity === b.severity ? 0 : a.severity === 'error' ? -1 : 1));
 
@@ -393,7 +415,37 @@ async function scan(): Promise<{
     issues,
   };
 
-  return { result, baseNames, qualityTargets };
+  return { result, baseNames, qualityTargets, previewByNode };
+}
+
+// Recolors an exported SVG to currentColor so previews match how the generated
+// component renders (and adapt to the plugin's light/dark theme).
+function toCurrentColor(svg: string): string {
+  return svg.replace(/\b(fill|stroke)\s*=\s*"(?!none")[^"]*"/gi, '$1="currentColor"');
+}
+
+// Exports the given preview nodes (icon size-16 variants) to inline SVG markup,
+// keyed by node id, for rendering thumbnails next to each issue.
+async function buildPreviews(ids: string[]): Promise<Record<string, string>> {
+  const map: Record<string, string> = {};
+  const BATCH = 20;
+  for (let i = 0; i < ids.length; i += BATCH) {
+    const slice = ids.slice(i, i + BATCH);
+    await Promise.all(
+      slice.map(async (id) => {
+        try {
+          const node = await figma.getNodeByIdAsync(id);
+          if (node && !node.removed && 'exportAsync' in node) {
+            const bytes = await (node as SceneNode).exportAsync({ format: 'SVG' });
+            map[id] = toCurrentColor(bytesToString(bytes));
+          }
+        } catch {
+          // Skip previews that fail to export.
+        }
+      }),
+    );
+  }
+  return map;
 }
 
 // Exports every size of each icon to SVG (as the generator does) and flags those
@@ -513,12 +565,28 @@ async function focusNode(id: string): Promise<void> {
 figma.showUI(__html__, { width: 380, height: 600, themeColors: true });
 
 async function scanAndDiff(): Promise<void> {
-  const { result, baseNames, qualityTargets } = await scan();
+  const { result, baseNames, qualityTargets, previewByNode } = await scan();
   figma.ui.postMessage({ type: 'scan-result', result });
 
   figma.ui.postMessage({ type: 'quality-loading' });
   const qualityIssues = await runQualityChecks(qualityTargets);
+  for (const issue of qualityIssues) {
+    const rep = (issue.targets && issue.targets[0] && issue.targets[0].nodeId) || issue.nodeId;
+    if (rep) {
+      const preview = previewByNode.get(rep);
+      if (preview) issue.previewId = preview;
+    }
+  }
   figma.ui.postMessage({ type: 'quality-result', issues: qualityIssues });
+
+  // Render icon thumbnails for every flagged issue (scan + quality).
+  const previewIds = new Set<string>();
+  for (const issue of result.issues) if (issue.previewId) previewIds.add(issue.previewId);
+  for (const issue of qualityIssues) if (issue.previewId) previewIds.add(issue.previewId);
+  if (previewIds.size > 0) {
+    const previews = await buildPreviews([...previewIds]);
+    figma.ui.postMessage({ type: 'previews', previews });
+  }
 
   figma.ui.postMessage({ type: 'diff-loading' });
   const diff = await fetchReleaseDiff(baseNames);
