@@ -88,8 +88,33 @@
         border-radius: 6px;
       }
       .check-group.has-issues .check {
+        cursor: pointer;
+        user-select: none;
+      }
+      .check-group.has-issues .check:hover {
+        background: var(--figma-color-bg-hover, var(--figma-color-bg-secondary));
+      }
+      .check-group.has-issues:not(.collapsed) .check {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
+      }
+      .check-group.collapsed .issues {
+        display: none;
+      }
+      .chevron {
+        margin-left: auto;
+        padding-left: 8px;
+        display: inline-flex;
+        align-items: center;
+        color: var(--figma-color-text-secondary);
+      }
+      .chevron svg {
+        display: block;
+        transform-origin: center;
+        transition: transform 0.15s ease;
+      }
+      .check-group.collapsed .chevron svg {
+        transform: rotate(-90deg);
       }
       .badge {
         width: 16px;
@@ -420,16 +445,23 @@
         const issuesHtml = hasIssues
           ? '<div class="issues">' + issues.map(issueHtml).join('') + '</div>'
           : '';
+        const chevron = hasIssues
+          ? '<span class="chevron"><svg width="12" height="12" viewBox="0 0 12 12" fill="none">' +
+            '<path d="M3 4.5 6 7.5 9 4.5" stroke="currentColor" stroke-width="1.5" ' +
+            'stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
+          : '';
         return (
           '<div class="check-group' +
-          (hasIssues ? ' has-issues' : '') +
+          (hasIssues ? ' has-issues collapsed' : '') +
           '"><div class="check"><span class="badge ' +
           state +
           '">' +
           symbol +
           '</span><span class="text">' +
           headline +
-          '</span></div>' +
+          '</span>' +
+          chevron +
+          '</div>' +
           issuesHtml +
           '</div>'
         );
@@ -460,6 +492,14 @@
           html += groupHtml(state, headline, issues);
         }
         $('checks').innerHTML = html;
+
+        Array.from(document.querySelectorAll('#checks .check-group.has-issues > .check')).forEach(
+          (el) => {
+            el.addEventListener('click', () => {
+              el.parentElement.classList.toggle('collapsed');
+            });
+          },
+        );
 
         Array.from(document.querySelectorAll('#checks [data-id]')).forEach((el) => {
           el.addEventListener('click', (event) => {
