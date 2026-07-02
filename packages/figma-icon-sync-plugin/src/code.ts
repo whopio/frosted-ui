@@ -1,13 +1,7 @@
 /// <reference types="@figma/plugin-typings" />
 
-// Keep these in sync with the generator (packages/generate-icon-lib) and the
-// GitHub workflow (.github/workflows/sync-icons.yml).
+// Keep this in sync with the generator (packages/generate-icon-lib).
 const ALLOWED_SIZES = [12, 16, 20, 24, 32];
-const GITHUB_OWNER = 'whopio';
-const GITHUB_REPO = 'frosted-ui';
-const WORKFLOW_FILE = 'sync-icons.yml';
-const WORKFLOW_REF = 'main';
-const TOKEN_KEY = 'gh_token';
 
 type Severity = 'error' | 'warning';
 
@@ -31,7 +25,7 @@ interface ScanResult {
   variantCount: number;
   categoryCount: number;
   orphanCount: number;
-  canSync: boolean;
+  passed: boolean;
   errorCount: number;
   warningCount: number;
   issues: Issue[];
@@ -261,7 +255,7 @@ async function scan(): Promise<{ result: ScanResult; baseNames: Map<string, stri
     variantCount,
     categoryCount: categories.size,
     orphanCount: orphans.length,
-    canSync: iconCount > 0 && errorCount === 0,
+    passed: iconCount > 0 && errorCount === 0,
     errorCount,
     warningCount,
     issues,
@@ -327,40 +321,6 @@ async function fetchReleaseDiff(current: Map<string, string>): Promise<ReleaseDi
   }
 }
 
-async function triggerSync(token: string): Promise<{ ok: boolean; status: number; message: string }> {
-  const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/actions/workflows/${WORKFLOW_FILE}/dispatches`;
-  try {
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/vnd.github+json',
-        'X-GitHub-Api-Version': '2022-11-28',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ ref: WORKFLOW_REF }),
-    });
-
-    if (res.status === 204) {
-      return { ok: true, status: 204, message: 'Workflow triggered.' };
-    }
-
-    let message = `GitHub API error (${res.status}).`;
-    try {
-      const body = (await res.json()) as { message?: string };
-      if (body && body.message) message = body.message;
-    } catch {
-      // ignore body parse failures
-    }
-    if (res.status === 401) message = 'Unauthorized — check your token.';
-    if (res.status === 403) message = 'Forbidden — token needs Actions: write on whopio/frosted-ui.';
-    if (res.status === 404) message = 'Not found — token lacks repo access or workflow is missing.';
-    return { ok: false, status: res.status, message };
-  } catch (err) {
-    return { ok: false, status: 0, message: `Network error: ${(err as Error).message}` };
-  }
-}
-
 async function focusNode(id: string): Promise<void> {
   const node = await figma.getNodeByIdAsync(id);
   if (!node || node.removed) return;
@@ -387,40 +347,10 @@ async function scanAndDiff(): Promise<void> {
   figma.ui.postMessage({ type: 'diff-result', diff });
 }
 
-figma.ui.onmessage = async (msg: { type: string; token?: string; id?: string }) => {
+figma.ui.onmessage = async (msg: { type: string; id?: string }) => {
   switch (msg.type) {
     case 'rescan': {
       await scanAndDiff();
-      break;
-    }
-    case 'save-token': {
-      const token = (msg.token || '').trim();
-      if (token) {
-        await figma.clientStorage.setAsync(TOKEN_KEY, token);
-      } else {
-        await figma.clientStorage.deleteAsync(TOKEN_KEY);
-      }
-      figma.ui.postMessage({ type: 'token-status', hasToken: !!token });
-      break;
-    }
-    case 'get-token': {
-      const token = await figma.clientStorage.getAsync(TOKEN_KEY);
-      figma.ui.postMessage({ type: 'token-status', hasToken: !!token });
-      break;
-    }
-    case 'trigger': {
-      const token = await figma.clientStorage.getAsync(TOKEN_KEY);
-      if (!token) {
-        figma.ui.postMessage({
-          type: 'sync-result',
-          ok: false,
-          message: 'No GitHub token saved.',
-        });
-        break;
-      }
-      figma.ui.postMessage({ type: 'sync-pending' });
-      const result = await triggerSync(token);
-      figma.ui.postMessage({ type: 'sync-result', ...result });
       break;
     }
     case 'focus': {
@@ -435,7 +365,5 @@ figma.ui.onmessage = async (msg: { type: string; token?: string; id?: string }) 
 };
 
 (async () => {
-  const token = await figma.clientStorage.getAsync(TOKEN_KEY);
-  figma.ui.postMessage({ type: 'token-status', hasToken: !!token });
   await scanAndDiff();
 })();

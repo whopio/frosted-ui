@@ -259,52 +259,6 @@
         letter-spacing: 0;
       }
 
-      details.token {
-        margin-top: 20px;
-      }
-      details.token summary {
-        cursor: pointer;
-        color: var(--figma-color-text-secondary);
-        font-size: 11px;
-        list-style: none;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
-      details.token summary::-webkit-details-marker {
-        display: none;
-      }
-      .token-row {
-        display: flex;
-        gap: 6px;
-        margin-top: 8px;
-      }
-      input {
-        flex: 1;
-        padding: 8px;
-        border-radius: 6px;
-        border: 1px solid var(--figma-color-border);
-        background: var(--figma-color-bg);
-        color: var(--figma-color-text);
-        font-size: 12px;
-        font-family: inherit;
-      }
-      .hint {
-        color: var(--figma-color-text-tertiary, var(--figma-color-text-secondary));
-        margin-top: 6px;
-        font-size: 11px;
-      }
-      .token-state {
-        margin-top: 6px;
-        font-size: 11px;
-      }
-      .token-state.saved {
-        color: var(--ok);
-      }
-      .token-state.missing {
-        color: var(--figma-color-text-secondary);
-      }
-
       button {
         font-family: inherit;
         font-size: 12px;
@@ -313,15 +267,6 @@
         border: 1px solid transparent;
         padding: 9px 12px;
         cursor: pointer;
-      }
-      button.primary {
-        background: var(--figma-color-bg-brand);
-        color: var(--figma-color-text-onbrand);
-      }
-      button.primary:disabled {
-        background: var(--figma-color-bg-disabled);
-        color: var(--figma-color-text-disabled);
-        cursor: not-allowed;
       }
       button.secondary {
         background: var(--figma-color-bg-secondary);
@@ -364,38 +309,17 @@
 
       <div class="section-title" id="diff-title">Changes since last release</div>
       <div id="diff"></div>
-
-      <details class="token" id="token-details">
-        <summary>GitHub token <span id="token-state-inline"></span></summary>
-        <div class="token-row">
-          <input
-            id="token-input"
-            type="password"
-            placeholder="ghp_… or github_pat_…"
-            autocomplete="off"
-          />
-          <button class="secondary" id="save-token">Save</button>
-        </div>
-        <div class="hint">
-          Fine-grained PAT with <b>Actions: write</b> on whopio/frosted-ui. Stored locally in Figma.
-        </div>
-        <div class="token-state missing" id="token-state">No token saved.</div>
-      </details>
     </div>
 
     <div class="footer">
       <div class="status" id="status"></div>
       <div class="actions">
         <button class="secondary" id="rescan">Rescan</button>
-        <button class="primary" id="trigger" disabled>Run icon sync</button>
       </div>
     </div>
 
     <script>
       const $ = (id) => document.getElementById(id);
-      let hasToken = false;
-      let canSync = false;
-      let syncing = false;
 
       const post = (msg) => parent.postMessage({ pluginMessage: msg }, '*');
 
@@ -521,7 +445,6 @@
 
       function renderResult(r) {
         r.issues = r.issues.map((i) => ({ ...i, msg_escaped: escapeHtml(i.message) }));
-        canSync = r.canSync;
 
         $('count').textContent = r.iconCount;
         const parts = [];
@@ -539,7 +462,14 @@
         }
 
         renderChecks(r);
-        updateTrigger();
+
+        if (r.errorCount > 0) {
+          setStatus(r.errorCount + ' error(s) to fix', 'err');
+        } else if (r.warningCount > 0) {
+          setStatus('Passed with ' + r.warningCount + ' warning(s)', 'ok');
+        } else {
+          setStatus('All checks passed', 'ok');
+        }
       }
 
       function renderDiffLoading() {
@@ -606,39 +536,10 @@
         });
       }
 
-      function updateTrigger() {
-        const btn = $('trigger');
-        btn.disabled = !canSync || !hasToken || syncing;
-        if (syncing) {
-          btn.textContent = 'Triggering…';
-        } else {
-          btn.textContent = 'Run icon sync';
-        }
-      }
-
       function setStatus(text, kind) {
         const el = $('status');
         el.textContent = text || '';
         el.className = 'status' + (kind ? ' ' + kind : '');
-      }
-
-      function renderTokenState() {
-        const stateEl = $('token-state');
-        const inline = $('token-state-inline');
-        if (hasToken) {
-          stateEl.textContent = 'Token saved.';
-          stateEl.className = 'token-state saved';
-          inline.textContent = '· saved';
-        } else {
-          stateEl.textContent = 'No token saved.';
-          stateEl.className = 'token-state missing';
-          inline.textContent = '· not set';
-          $('token-details').open = true;
-        }
-        if (!canSync && !hasToken) {
-          // keep silent, checks already communicate state
-        }
-        updateTrigger();
       }
 
       $('rescan').addEventListener('click', () => {
@@ -646,42 +547,15 @@
         post({ type: 'rescan' });
       });
 
-      $('save-token').addEventListener('click', () => {
-        const token = $('token-input').value;
-        post({ type: 'save-token', token });
-        $('token-input').value = '';
-      });
-
-      $('trigger').addEventListener('click', () => {
-        if (!canSync || !hasToken || syncing) return;
-        post({ type: 'trigger' });
-      });
-
       onmessage = (event) => {
         const msg = event.data.pluginMessage;
         if (!msg) return;
         if (msg.type === 'scan-result') {
           renderResult(msg.result);
-          if (!$('status').textContent.startsWith('Triggering')) setStatus('', '');
         } else if (msg.type === 'diff-loading') {
           renderDiffLoading();
         } else if (msg.type === 'diff-result') {
           renderDiff(msg.diff);
-        } else if (msg.type === 'token-status') {
-          hasToken = msg.hasToken;
-          renderTokenState();
-        } else if (msg.type === 'sync-pending') {
-          syncing = true;
-          setStatus('Triggering GitHub workflow…', 'pending');
-          updateTrigger();
-        } else if (msg.type === 'sync-result') {
-          syncing = false;
-          if (msg.ok) {
-            setStatus('Icon sync started — a PR will open shortly on whopio/frosted-ui.', 'ok');
-          } else {
-            setStatus(msg.message || 'Failed to trigger workflow.', 'err');
-          }
-          updateTrigger();
         }
       };
     </script>
