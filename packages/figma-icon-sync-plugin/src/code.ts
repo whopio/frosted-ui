@@ -124,13 +124,43 @@ function hasHiddenDescendant(node: SceneNode): boolean {
   return false;
 }
 
-// The rendered content should be exactly one shape. We only count visible
-// children (hidden layers are caught separately) — so a lone vector or a single
-// union passes, while multiple shapes or a group/frame wrapper does not.
+// Container/wrapper nodes that shouldn't live inside a clean icon — the final
+// artwork should be flat vectors/booleans, never nested frames, groups, or
+// instances. (BOOLEAN_OPERATION is intentionally excluded: it's the flattening
+// op whose direct children are vectors.)
+function isContainerType(type: string): boolean {
+  return (
+    type === 'FRAME' ||
+    type === 'GROUP' ||
+    type === 'SECTION' ||
+    type === 'COMPONENT' ||
+    type === 'COMPONENT_SET' ||
+    type === 'INSTANCE'
+  );
+}
+
+// True if any visible descendant is a frame/group/instance wrapper — i.e. the
+// icon has nested "mess" instead of being a single flattened shape.
+function hasNestedContainer(node: SceneNode): boolean {
+  if (!('children' in node)) return false;
+  for (const child of node.children) {
+    if (child.visible === false) continue;
+    if (isContainerType(child.type)) return true;
+    if (hasNestedContainer(child)) return true;
+  }
+  return false;
+}
+
+// The rendered content should be exactly one flattened shape. We only count
+// visible children (hidden layers are caught separately) — so a lone vector or
+// a single union passes, while multiple shapes, a group/frame wrapper, or any
+// nested frame/group buried inside the shape does not.
 function isSingleShape(variant: ComponentNode): boolean {
   const visible = variant.children.filter((c) => c.visible !== false);
   if (visible.length !== 1) return false;
-  return isShapeType(visible[0].type);
+  if (!isShapeType(visible[0].type)) return false;
+  if (hasNestedContainer(visible[0])) return false;
+  return true;
 }
 
 // Icon shapes must use horizontal + vertical "Scale" constraints so they resize

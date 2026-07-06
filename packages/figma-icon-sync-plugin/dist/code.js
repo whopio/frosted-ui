@@ -49,10 +49,24 @@
     }
     return false;
   }
+  function isContainerType(type) {
+    return type === "FRAME" || type === "GROUP" || type === "SECTION" || type === "COMPONENT" || type === "COMPONENT_SET" || type === "INSTANCE";
+  }
+  function hasNestedContainer(node) {
+    if (!("children" in node)) return false;
+    for (const child of node.children) {
+      if (child.visible === false) continue;
+      if (isContainerType(child.type)) return true;
+      if (hasNestedContainer(child)) return true;
+    }
+    return false;
+  }
   function isSingleShape(variant) {
     const visible = variant.children.filter((c) => c.visible !== false);
     if (visible.length !== 1) return false;
-    return isShapeType(visible[0].type);
+    if (!isShapeType(visible[0].type)) return false;
+    if (hasNestedContainer(visible[0])) return false;
+    return true;
   }
   function hasNonScaleConstraints(node) {
     for (const child of node.children) {
