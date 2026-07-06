@@ -836,8 +836,11 @@
           return;
         }
         if (!d.added.length && !d.removed.length) {
+          const since = d.comparedToVersion
+            ? '<span class="ver">v' + escapeHtml(d.comparedToVersion) + '</span>'
+            : 'the latest release';
           $('diff').innerHTML =
-            '<div class="diff-note">No icons added or removed since the last release.</div>';
+            '<div class="diff-note">No icons added or removed since ' + since + '.</div>';
           return;
         }
 
