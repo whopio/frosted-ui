@@ -134,13 +134,18 @@ function isSingleShape(variant: ComponentNode): boolean {
 }
 
 // Icon shapes must use horizontal + vertical "Scale" constraints so they resize
-// with the frame. Returns true if any visible top-level layer is not Scale/Scale.
-function hasNonScaleConstraints(variant: ComponentNode): boolean {
-  for (const child of variant.children) {
+// with the frame. Checks every visible layer in the subtree (nested vectors
+// inside a boolean op / group also need Scale, not just the top-level layer).
+function hasNonScaleConstraints(node: SceneNode & ChildrenMixin): boolean {
+  for (const child of node.children) {
     if (child.visible === false) continue;
-    if (!('constraints' in child)) continue;
-    const con = (child as SceneNode & { constraints: Constraints }).constraints;
-    if (con.horizontal !== 'SCALE' || con.vertical !== 'SCALE') return true;
+    if ('constraints' in child) {
+      const con = (child as SceneNode & { constraints: Constraints }).constraints;
+      if (con.horizontal !== 'SCALE' || con.vertical !== 'SCALE') return true;
+    }
+    if ('children' in child && hasNonScaleConstraints(child as SceneNode & ChildrenMixin)) {
+      return true;
+    }
   }
   return false;
 }

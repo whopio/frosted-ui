@@ -54,12 +54,16 @@
     if (visible.length !== 1) return false;
     return isShapeType(visible[0].type);
   }
-  function hasNonScaleConstraints(variant) {
-    for (const child of variant.children) {
+  function hasNonScaleConstraints(node) {
+    for (const child of node.children) {
       if (child.visible === false) continue;
-      if (!("constraints" in child)) continue;
-      const con = child.constraints;
-      if (con.horizontal !== "SCALE" || con.vertical !== "SCALE") return true;
+      if ("constraints" in child) {
+        const con = child.constraints;
+        if (con.horizontal !== "SCALE" || con.vertical !== "SCALE") return true;
+      }
+      if ("children" in child && hasNonScaleConstraints(child)) {
+        return true;
+      }
     }
     return false;
   }
