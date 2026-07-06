@@ -566,6 +566,12 @@
           fail: (n) => n + ' structure issue(s)',
         },
         {
+          rules: ['bad-constraints'],
+          ok: 'Constraints set to Scale',
+          fail: (n) => n + ' icon(s) not set to Scale',
+          info: 'Each icon shape should use horizontal and vertical “Scale” constraints so it resizes correctly with its frame.',
+        },
+        {
           rules: ['orphan'],
           ok: null, // nothing to show when clean
           fail: (n) => 'Component sets outside an “Icons” frame',

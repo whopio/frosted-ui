@@ -54,6 +54,15 @@
     if (visible.length !== 1) return false;
     return isShapeType(visible[0].type);
   }
+  function hasNonScaleConstraints(variant) {
+    for (const child of variant.children) {
+      if (child.visible === false) continue;
+      if (!("constraints" in child)) continue;
+      const con = child.constraints;
+      if (con.horizontal !== "SCALE" || con.vertical !== "SCALE") return true;
+    }
+    return false;
+  }
   function sizeScopedIssue(rule, name, verb, entries) {
     const sorted = [...entries].sort(
       (a, b) => (Number.isNaN(a.size) ? Infinity : a.size) - (Number.isNaN(b.size) ? Infinity : b.size)
@@ -142,12 +151,14 @@
         const sizeCounts = /* @__PURE__ */ new Map();
         const hiddenAt = [];
         const notSingleAt = [];
+        const badConstraintsAt = [];
         for (const variant of variants) {
           variantCount += 1;
           const sizeGuess = /size=(\d+)/i.exec(variant.name);
           const structSize = sizeGuess ? Number(sizeGuess[1]) : Number.NaN;
           if (hasHiddenDescendant(variant)) hiddenAt.push({ nodeId: variant.id, size: structSize });
           if (!isSingleShape(variant)) notSingleAt.push({ nodeId: variant.id, size: structSize });
+          if (hasNonScaleConstraints(variant)) badConstraintsAt.push({ nodeId: variant.id, size: structSize });
           const match = /^size=(\d+)$/i.exec(variant.name.trim());
           if (!match) {
             issues.push({
@@ -202,9 +213,10 @@
           issues.push(sizeScopedIssue("hidden-layers", name, "has hidden layers", hiddenAt));
         }
         if (notSingleAt.length > 0) {
-          issues.push(
-            sizeScopedIssue("not-single-shape", name, "isn't a single flattened shape", notSingleAt)
-          );
+          issues.push(sizeScopedIssue("not-single-shape", name, "isn't a single flattened shape", notSingleAt));
+        }
+        if (badConstraintsAt.length > 0) {
+          issues.push(sizeScopedIssue("bad-constraints", name, "isn't set to Scale", badConstraintsAt));
         }
       }
     }
