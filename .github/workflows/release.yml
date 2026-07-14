@@ -91,6 +91,29 @@ jobs:
           initial-commit: 3d821dfeec0e67a8b33de2993ba292e58b315d06
         if: steps.check.outputs.can-publish == 'true'
 
+      - name: Notify whop-monorepo upgrade automation
+        if: steps.check.outputs.can-publish == 'true' && steps.release.outputs.published == 'true'
+        env:
+          WEBHOOK_URL: ${{ secrets.CURSOR_AUTOMATION_WEBHOOK_URL }}
+          WEBHOOK_SECRET: ${{ secrets.CURSOR_AUTOMATION_WEBHOOK_SECRET }}
+        run: |
+          if [ -z "$WEBHOOK_URL" ]; then
+            echo "CURSOR_AUTOMATION_WEBHOOK_URL is not set; skipping notification."
+            exit 0
+          fi
+
+          # Payload is optional: the Cursor automation's agent instructions
+          # resolve the latest versions via `npm view`, so the body only needs
+          # to name the packages the downstream automation should upgrade.
+          # This release may publish other packages too, but the automation
+          # only handles these two.
+          echo "Notifying Cursor Automation webhook to upgrade frosted-ui and @frosted-ui/icons"
+          curl --fail --silent --show-error \
+            --request POST "$WEBHOOK_URL" \
+            --header "Content-Type: application/json" \
+            --header "Authorization: Bearer $WEBHOOK_SECRET" \
+            --data '{"packages":["frosted-ui","@frosted-ui/icons"]}'
+
       - name: Sync auto-release PRs
         if: always()
         uses: whopio/turbo-module@v0.1.0-canary.3
