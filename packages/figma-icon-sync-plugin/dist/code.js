@@ -9,6 +9,29 @@
   function kebab(name) {
     return name.replace(/([a-z0-9])([A-Z])/g, "$1 $2").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
   }
+  var VARIANT_STYLES = [
+    { key: "regular", label: "Regular" },
+    { key: "filled", label: "Filled" },
+    { key: "bold", label: "Bold" },
+    { key: "bold-filled", label: "Bold Filled" }
+  ];
+  function variantStyle(tokens) {
+    const bold = tokens.includes("bold");
+    const filled = tokens.includes("filled");
+    if (bold && filled) return "bold-filled";
+    if (bold) return "bold";
+    if (filled) return "filled";
+    return "regular";
+  }
+  function baseLabel(name) {
+    let s = name.trim();
+    let prev;
+    do {
+      prev = s;
+      s = s.replace(/[\s-]*(bold|filled)\s*$/i, "").trim();
+    } while (s !== prev);
+    return s || name.trim();
+  }
   function bytesToString(bytes) {
     let out = "";
     for (let i = 0; i < bytes.length; i += 1) out += String.fromCharCode(bytes[i]);
@@ -104,6 +127,7 @@
     const baseNames = /* @__PURE__ */ new Map();
     const qualityTargets = [];
     const previewByNode = /* @__PURE__ */ new Map();
+    const families = /* @__PURE__ */ new Map();
     let iconCount = 0;
     let variantCount = 0;
     for (const frame of iconsFrames) {
@@ -148,6 +172,21 @@
             message: `"${name}" should use "Bold Filled" order, not "Filled Bold".`,
             nodeId: child.id
           });
+        }
+        const baseKey = tokens.filter((t) => t !== "bold" && t !== "filled").join("-");
+        if (baseKey !== "") {
+          const style = variantStyle(tokens);
+          let fam = families.get(baseKey);
+          if (!fam) {
+            fam = { display: baseLabel(name), present: /* @__PURE__ */ new Set(), repId: child.id, hasRegular: false };
+            families.set(baseKey, fam);
+          }
+          fam.present.add(style);
+          if (style === "regular") {
+            fam.display = baseLabel(name);
+            fam.repId = child.id;
+            fam.hasRegular = true;
+          }
         }
         const variants = child.children.filter((c) => c.type === "COMPONENT");
         if (variants.length === 0) {
@@ -249,6 +288,16 @@
           nodeId: g.nodeId,
           label: `${i + 1}. ${g.category || "uncategorized"}`
         }))
+      });
+    }
+    for (const fam of families.values()) {
+      const missing = VARIANT_STYLES.filter((s) => !fam.present.has(s.key));
+      if (missing.length === 0) continue;
+      issues.push({
+        severity: "warning",
+        rule: "incomplete-set",
+        message: `"${fam.display}" is missing ${missing.map((s) => s.label).join(", ")}.`,
+        nodeId: fam.repId
       });
     }
     const allSets = page.findAllWithCriteria({ types: ["COMPONENT_SET"] });

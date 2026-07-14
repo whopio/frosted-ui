@@ -59,6 +59,36 @@ function kebab(name: string): string {
     .replace(/^-+|-+$/g, '');
 }
 
+// The four styles every icon should ship, in display order.
+const VARIANT_STYLES: { key: string; label: string }[] = [
+  { key: 'regular', label: 'Regular' },
+  { key: 'filled', label: 'Filled' },
+  { key: 'bold', label: 'Bold' },
+  { key: 'bold-filled', label: 'Bold Filled' },
+];
+
+// Classifies a name into one of the four variant styles from its kebab tokens.
+function variantStyle(tokens: string[]): string {
+  const bold = tokens.includes('bold');
+  const filled = tokens.includes('filled');
+  if (bold && filled) return 'bold-filled';
+  if (bold) return 'bold';
+  if (filled) return 'filled';
+  return 'regular';
+}
+
+// Strips trailing Bold/Filled modifiers (any order) to get the family's display
+// base name, e.g. "CarBoldFilled" -> "Car", "Arrow Up Bold" -> "Arrow Up".
+function baseLabel(name: string): string {
+  let s = name.trim();
+  let prev: string;
+  do {
+    prev = s;
+    s = s.replace(/[\s-]*(bold|filled)\s*$/i, '').trim();
+  } while (s !== prev);
+  return s || name.trim();
+}
+
 function bytesToString(bytes: Uint8Array): string {
   // SVG markup (tags/attributes) is ASCII, which is all we inspect.
   let out = '';
@@ -223,6 +253,12 @@ async function scan(): Promise<{
   // Any node id belonging to an icon -> its size-16 variant id, used to render a
   // preview thumbnail next to every issue for that icon.
   const previewByNode = new Map<string, string>();
+  // Base name (modifiers stripped) -> which of the 4 styles exist, for the
+  // "complete icon set" check.
+  const families = new Map<
+    string,
+    { display: string; present: Set<string>; repId: string; hasRegular: boolean }
+  >();
 
   let iconCount = 0;
   let variantCount = 0;
@@ -281,6 +317,25 @@ async function scan(): Promise<{
           message: `"${name}" should use "Bold Filled" order, not "Filled Bold".`,
           nodeId: child.id,
         });
+      }
+
+      // Track the variant family (base name minus Bold/Filled) so we can flag
+      // incomplete sets — we aim for Regular / Filled / Bold / Bold Filled.
+      const baseKey = tokens.filter((t) => t !== 'bold' && t !== 'filled').join('-');
+      if (baseKey !== '') {
+        const style = variantStyle(tokens);
+        let fam = families.get(baseKey);
+        if (!fam) {
+          fam = { display: baseLabel(name), present: new Set<string>(), repId: child.id, hasRegular: false };
+          families.set(baseKey, fam);
+        }
+        fam.present.add(style);
+        // Prefer the regular variant as the family's display name + preview.
+        if (style === 'regular') {
+          fam.display = baseLabel(name);
+          fam.repId = child.id;
+          fam.hasRegular = true;
+        }
       }
 
       const variants = child.children.filter((c) => c.type === 'COMPONENT') as ComponentNode[];
@@ -415,6 +470,19 @@ async function scan(): Promise<{
         nodeId: g.nodeId,
         label: `${i + 1}. ${g.category || 'uncategorized'}`,
       })),
+    });
+  }
+
+  // Incomplete variant sets — every icon should ship Regular / Filled / Bold /
+  // Bold Filled.
+  for (const fam of families.values()) {
+    const missing = VARIANT_STYLES.filter((s) => !fam.present.has(s.key));
+    if (missing.length === 0) continue;
+    issues.push({
+      severity: 'warning',
+      rule: 'incomplete-set',
+      message: `"${fam.display}" is missing ${missing.map((s) => s.label).join(', ')}.`,
+      nodeId: fam.repId,
     });
   }
 

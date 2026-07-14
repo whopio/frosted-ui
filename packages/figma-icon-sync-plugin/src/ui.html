@@ -572,6 +572,12 @@
           info: 'Each icon shape should use horizontal and vertical “Scale” constraints so it resizes correctly with its frame.',
         },
         {
+          rules: ['incomplete-set'],
+          ok: 'Complete icon sets',
+          fail: (n) => n + ' incomplete set(s)',
+          info: 'Each icon should ship all four styles: Regular, Filled, Bold, and Bold Filled (e.g. Car, CarFilled, CarBold, CarBoldFilled).',
+        },
+        {
           rules: ['orphan'],
           ok: null, // nothing to show when clean
           fail: (n) => 'Component sets outside an “Icons” frame',
