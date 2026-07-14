@@ -1,19 +1,19 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const ArrowUpFilleed20 = ({ color = 'currentColor', ...props }: IconProps) => {
+export const ArrowUpFilled24 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
-      width="20"
-      height="20"
-      viewBox="0 0 20 20"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       data-fui-icon="true"
       {...props}
     >
       <path
-        d="M16.5004 8.75024L10.0001 2.25L3.5 8.75024M10.0001 2.25V17.75"
+        d="M19.7509 10L12.001 2.25L4.25098 10M12.001 2.25V21.75"
         stroke={color}
         strokeWidth="2.5"
         strokeLinecap="round"
@@ -23,6 +23,6 @@ export const ArrowUpFilleed20 = ({ color = 'currentColor', ...props }: IconProps
   );
 };
 
-ArrowUpFilleed20.category = 'Arrows';
+ArrowUpFilled24.category = 'Arrows';
 
-export default ArrowUpFilleed20;
+export default ArrowUpFilled24;

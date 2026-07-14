@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IconProps } from './types';
 
-export const ArrowUpFilleed12 = ({ color = 'currentColor', ...props }: IconProps) => {
+export const ArrowUpFilled12 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
       width="12"
@@ -23,6 +23,6 @@ export const ArrowUpFilleed12 = ({ color = 'currentColor', ...props }: IconProps
   );
 };
 
-ArrowUpFilleed12.category = 'Arrows';
+ArrowUpFilled12.category = 'Arrows';
 
-export default ArrowUpFilleed12;
+export default ArrowUpFilled12;
