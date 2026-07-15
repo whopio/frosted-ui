@@ -31,6 +31,36 @@
         overflow-y: auto;
         padding: 16px;
       }
+
+      .tabs {
+        display: flex;
+        gap: 2px;
+        padding: 4px;
+        border-radius: 8px;
+        background: var(--figma-color-bg-secondary);
+        margin-bottom: 16px;
+      }
+      .tab {
+        flex: 1;
+        appearance: none;
+        border: none;
+        background: transparent;
+        color: var(--figma-color-text-secondary);
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 6px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+      .tab:hover {
+        color: var(--figma-color-text);
+      }
+      .tab.active {
+        background: var(--figma-color-bg);
+        color: var(--figma-color-text);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+      }
       .footer {
         border-top: 1px solid var(--figma-color-border);
         padding: 12px 16px;
@@ -495,9 +525,14 @@
   </head>
   <body>
     <div class="content">
+      <div class="tabs" id="tabs">
+        <button class="tab active" data-tab="icons">Icons</button>
+        <button class="tab" data-tab="pictograms">Pictograms</button>
+      </div>
+
       <div class="summary">
         <span class="count" id="count">…</span>
-        <span class="label">icons detected</span>
+        <span class="label" id="count-label">icons detected</span>
       </div>
       <div class="meta" id="meta"></div>
       <div class="page-warn" id="page-warn" style="display: none"></div>
@@ -526,17 +561,18 @@
     <script>
       const $ = (id) => document.getElementById(id);
 
-      let currentResult = null;
-      let qualityPending = false;
-      // previewId -> inline SVG markup for the icon's size-16 variant.
-      let previews = {};
-      // group key -> collapsed (bool), preserved across re-renders/rescans.
-      const collapsedState = {};
-
       const post = (msg) => parent.postMessage({ pluginMessage: msg }, '*');
 
+      // Independent state per tab so switching preserves everything.
+      const state = {
+        icons: { result: null, qualityPending: false, previews: {}, collapsed: {}, diff: null, diffLoading: false },
+        pictograms: { result: null, qualityPending: false, previews: {}, collapsed: {}, diff: null, diffLoading: false },
+      };
+      let activeTab = 'icons';
+      const S = () => state[activeTab];
+
       // Each verification group owns a set of issue rules; details render beneath it.
-      const GROUPS = [
+      const ICON_GROUPS = [
         {
           rules: ['duplicate-name', 'number-in-name', 'empty-name', 'modifier-order'],
           ok: 'Names valid',
@@ -584,6 +620,61 @@
         },
       ];
 
+      const PICTOGRAM_GROUPS = [
+        {
+          rules: [
+            'pictogram-empty-name',
+            'pictogram-number-in-name',
+            'pictogram-invalid-background',
+            'pictogram-duplicate',
+          ],
+          ok: 'Variants valid',
+          fail: (n) => n + ' variant issue(s)',
+          info: 'Each pictogram variant must be named “pictogram=Name, background=Light|Dark|Orange”, with no numbers in the name.',
+        },
+        {
+          rules: ['pictogram-incomplete-backgrounds'],
+          ok: 'Complete background sets',
+          fail: (n) => n + ' incomplete set(s)',
+          info: 'Each pictogram should ship all three backgrounds: Light, Dark, and Orange.',
+        },
+        {
+          rules: ['pictogram-dimension'],
+          ok: 'Correct dimensions (240×240)',
+          fail: (n) => n + ' wrong size',
+          info: 'Pictograms should be 240×240.',
+        },
+        {
+          rules: ['pictogram-orphan'],
+          ok: null,
+          fail: () => 'Components outside a “Pictogram” container',
+        },
+      ];
+
+      // Per-tab copy + configuration.
+      const KIND = {
+        icons: {
+          countLabel: 'icons detected',
+          meta: (r) => '<b>' + r.variantCount + '</b> size variants · <b>' + r.categoryCount + '</b> categories',
+          pageWarn: 'No page named “Icons” found — scanned the current page instead.',
+          syncLabel: 'Open icon sync on GitHub',
+          diffNoun: 'icons',
+          diffInfo:
+            'Compares the icons on this page against the latest published @frosted-ui/icons npm release — showing which icons would be added or removed.',
+          groups: ICON_GROUPS,
+        },
+        pictograms: {
+          countLabel: 'pictograms detected',
+          meta: (r) => '<b>' + r.variantCount + '</b> variants · <b>' + r.categoryCount + '</b> backgrounds',
+          pageWarn: 'No page named “Pictograms” found — scanned the current page instead.',
+          syncLabel: 'Open pictogram sync on GitHub',
+          diffNoun: 'pictograms',
+          diffInfo:
+            'Compares the pictograms on this page against the latest published @frosted-ui/icons npm release — showing which pictograms would be added or removed.',
+          groups: PICTOGRAM_GROUPS,
+        },
+      };
+
       const RULE_LABELS = {
         'duplicate-name': 'Duplicate names',
         'number-in-name': 'Numbers in names',
@@ -597,6 +688,12 @@
         'size-mismatch': 'Dimension mismatch',
         'hidden-layers': 'Hidden layers',
         'not-single-shape': 'Not a single shape',
+        'pictogram-empty-name': 'Invalid variant name',
+        'pictogram-number-in-name': 'Numbers in names',
+        'pictogram-invalid-background': 'Unknown background',
+        'pictogram-duplicate': 'Duplicate variants',
+        'pictogram-incomplete-backgrounds': 'Missing backgrounds',
+        'pictogram-dimension': 'Wrong dimensions',
       };
 
       function issueHtml(i) {
@@ -618,7 +715,7 @@
         const clickable = !hasTargets && i.nodeId ? ' clickable' : '';
         const dataId = !hasTargets && i.nodeId ? ' data-id="' + i.nodeId + '"' : '';
         const pid = i.previewId || '';
-        const previewInner = pid && previews[pid] ? previews[pid] : '';
+        const previewInner = pid && S().previews[pid] ? S().previews[pid] : '';
         const preview = '<span class="preview" data-preview-id="' + pid + '">' + previewInner + '</span>';
         return (
           '<div class="issue ' +
@@ -698,13 +795,15 @@
       }
 
       function renderChecks(r) {
+        const collapsedState = S().collapsed;
+        const groups = KIND[activeTab].groups;
         let html = '';
-        for (const group of GROUPS) {
+        for (const group of groups) {
           const key = group.rules.join('|');
           // Default new sections to collapsed; otherwise keep the user's choice.
           const collapsed = key in collapsedState ? collapsedState[key] : true;
           const isQuality = group.rules.includes('fill-and-stroke');
-          if (isQuality && qualityPending) {
+          if (isQuality && S().qualityPending) {
             html += groupHtml(
               'pending',
               'Checking for fill + stroke overlaps…',
@@ -720,16 +819,16 @@
           const errs = issues.filter((i) => i.severity === 'error');
           if (!issues.length && group.ok === null) continue; // hide clean optional groups
 
-          let state;
+          let st;
           let headline;
           if (!issues.length) {
-            state = 'ok';
+            st = 'ok';
             headline = group.ok;
           } else {
-            state = errs.length ? 'err' : 'warn';
+            st = errs.length ? 'err' : 'warn';
             headline = group.fail(issues.length, errs.length > 0);
           }
-          html += groupHtml(state, headline, issues, group.info, key, collapsed);
+          html += groupHtml(st, headline, issues, group.info, key, collapsed);
         }
         $('checks').innerHTML = html;
 
@@ -797,27 +896,48 @@
         $('open-sync').disabled = !r.passed;
       }
 
-      function renderResult(r) {
-        r.issues = prepIssues(r.issues);
-        currentResult = r;
+      function renderActive() {
+        const st = S();
+        const cfg = KIND[activeTab];
+        $('count-label').textContent = cfg.countLabel;
+        $('open-sync').textContent = cfg.syncLabel;
+
+        const r = st.result;
+        if (!r) {
+          $('count').textContent = '…';
+          $('meta').innerHTML = '';
+          $('page-warn').style.display = 'none';
+          $('checks').innerHTML = '<div class="empty">Scanning…</div>';
+          $('diff').innerHTML = '';
+          setStatus('Scanning…', 'pending');
+          $('open-sync').disabled = true;
+          return;
+        }
 
         $('count').textContent = r.iconCount;
-        const parts = [];
-        parts.push('<b>' + r.variantCount + '</b> size variants');
-        parts.push('<b>' + r.categoryCount + '</b> categories');
-        $('meta').innerHTML =
-          parts.join(' · ') + ' · on page <b>' + escapeHtml(r.pageName) + '</b>';
+        $('meta').innerHTML = cfg.meta(r) + ' · on page <b>' + escapeHtml(r.pageName) + '</b>';
 
         if (r.usedFallbackPage) {
           $('page-warn').style.display = 'block';
-          $('page-warn').textContent =
-            'No page named “Icons” found — scanned the current page instead.';
+          $('page-warn').textContent = cfg.pageWarn;
         } else {
           $('page-warn').style.display = 'none';
         }
 
         renderChecks(r);
+        renderDiffSection();
         updateStatus(r);
+      }
+
+      function renderDiffSection() {
+        const st = S();
+        if (st.diffLoading) {
+          renderDiffLoading();
+        } else if (st.diff) {
+          renderDiff(st.diff);
+        } else {
+          $('diff').innerHTML = '';
+        }
       }
 
       function renderDiffLoading() {
@@ -837,6 +957,7 @@
       }
 
       function renderDiff(d) {
+        const cfg = KIND[activeTab];
         if (d.error) {
           $('diff').innerHTML = '<div class="diff-note">' + escapeHtml(d.error) + '</div>';
           return;
@@ -846,18 +967,16 @@
             ? '<span class="ver">v' + escapeHtml(d.comparedToVersion) + '</span>'
             : 'the latest release';
           $('diff').innerHTML =
-            '<div class="diff-note">No icons added or removed since ' + since + '.</div>';
+            '<div class="diff-note">No ' + cfg.diffNoun + ' added or removed since ' + since + '.</div>';
           return;
         }
 
+        const collapsedState = S().collapsed;
         const collapsed = '__diff__' in collapsedState ? collapsedState['__diff__'] : true;
         const verText = d.comparedToVersion
           ? '<span class="ver">v' + escapeHtml(d.comparedToVersion) + '</span>'
           : '<span class="ver">latest</span>';
-        const info =
-          'Compares the icons on this page against the latest published ' +
-          '@frosted-ui/icons npm release — showing which icons would be added or removed.';
-        const infoHtml = makeInfo(info);
+        const infoHtml = makeInfo(cfg.diffInfo);
 
         const counts =
           '<span class="diff-counts">' +
@@ -928,6 +1047,18 @@
         el.className = 'status' + (kind ? ' ' + kind : '');
       }
 
+      Array.from(document.querySelectorAll('#tabs .tab')).forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const tab = btn.getAttribute('data-tab');
+          if (tab === activeTab) return;
+          activeTab = tab;
+          Array.from(document.querySelectorAll('#tabs .tab')).forEach((b) =>
+            b.classList.toggle('active', b.getAttribute('data-tab') === activeTab),
+          );
+          renderActive();
+        });
+      });
+
       $('rescan').addEventListener('click', () => {
         setStatus('Scanning…', 'pending');
         post({ type: 'rescan' });
@@ -935,7 +1066,7 @@
 
       $('open-sync').addEventListener('click', () => {
         if ($('open-sync').disabled) return;
-        post({ type: 'open-sync' });
+        post({ type: 'open-sync', kind: activeTab });
       });
 
       (function setupResize() {
@@ -977,38 +1108,40 @@
       onmessage = (event) => {
         const msg = event.data.pluginMessage;
         if (!msg) return;
+        const kind = msg.kind || 'icons';
+        const st = state[kind];
+        if (!st) return;
+
         if (msg.type === 'scan-result') {
-          qualityPending = false;
-          renderResult(msg.result);
+          msg.result.issues = prepIssues(msg.result.issues);
+          st.result = msg.result;
+          st.qualityPending = false;
         } else if (msg.type === 'quality-loading') {
-          qualityPending = true;
-          if (currentResult) renderChecks(currentResult);
+          st.qualityPending = true;
         } else if (msg.type === 'quality-result') {
-          qualityPending = false;
-          if (currentResult) {
-            currentResult.issues = currentResult.issues
+          st.qualityPending = false;
+          if (st.result) {
+            st.result.issues = st.result.issues
               .filter((i) => i.rule !== 'fill-and-stroke')
               .concat(prepIssues(msg.issues));
-            currentResult.errorCount = currentResult.issues.filter(
-              (i) => i.severity === 'error',
-            ).length;
-            currentResult.warningCount = currentResult.issues.filter(
-              (i) => i.severity === 'warning',
-            ).length;
-            currentResult.passed =
-              currentResult.iconCount > 0 && currentResult.errorCount === 0;
-            renderChecks(currentResult);
-            updateStatus(currentResult);
+            st.result.errorCount = st.result.issues.filter((i) => i.severity === 'error').length;
+            st.result.warningCount = st.result.issues.filter((i) => i.severity === 'warning').length;
+            st.result.passed = st.result.iconCount > 0 && st.result.errorCount === 0;
           }
         } else if (msg.type === 'previews') {
-          Object.assign(previews, msg.previews);
-          if (currentResult) renderChecks(currentResult);
+          Object.assign(st.previews, msg.previews);
         } else if (msg.type === 'diff-loading') {
-          renderDiffLoading();
+          st.diffLoading = true;
+          st.diff = null;
         } else if (msg.type === 'diff-result') {
-          renderDiff(msg.diff);
+          st.diffLoading = false;
+          st.diff = msg.diff;
         }
+
+        if (kind === activeTab) renderActive();
       };
+
+      renderActive();
     </script>
   </body>
 </html>
