@@ -579,10 +579,17 @@ function capitalize(s: string): string {
 // Scans the Pictograms page: pictograms are full-color COMPONENTs identified by
 // `pictogram=<name>, background=<Light|Dark|Orange>` variant properties, sized
 // 240×240. Mirrors getPictograms() in the generator.
+interface PictogramShapeTarget {
+  name: string;
+  previewId: string;
+  variants: { bg: string; node: ComponentNode }[];
+}
+
 async function scanPictograms(): Promise<{
   result: ScanResult;
   baseNames: Map<string, string>;
   previewByNode: Map<string, string>;
+  shapeTargets: PictogramShapeTarget[];
 }> {
   await figma.loadAllPagesAsync();
   const { page, usedFallback } = findPictogramsPage();
@@ -608,7 +615,13 @@ async function scanPictograms(): Promise<{
   // Family = pictogram identity (name); tracks which backgrounds exist.
   const families = new Map<
     string,
-    { display: string; backgrounds: Set<string>; repId: string; previewId: string }
+    {
+      display: string;
+      backgrounds: Set<string>;
+      repId: string;
+      previewId: string;
+      variants: { bg: string; node: ComponentNode }[];
+    }
   >();
   const seenVariants = new Set<string>();
   const backgroundsSeen = new Set<string>();
@@ -664,6 +677,19 @@ async function scanPictograms(): Promise<{
     }
 
     const famKey = normalize(pictogram);
+    let fam = families.get(famKey);
+    if (!fam) {
+      fam = { display: pictogram, backgrounds: new Set<string>(), repId: comp.id, previewId: comp.id, variants: [] };
+      families.set(famKey, fam);
+    }
+    fam.backgrounds.add(bgLower);
+    // Prefer the light variant as the family's representative + preview.
+    if (bgLower === 'light') {
+      fam.repId = comp.id;
+      fam.previewId = comp.id;
+      fam.display = pictogram;
+    }
+
     const dupKey = `${famKey}|${bgLower}`;
     if (seenVariants.has(dupKey)) {
       issues.push({
@@ -674,19 +700,8 @@ async function scanPictograms(): Promise<{
       });
     } else {
       seenVariants.add(dupKey);
-    }
-
-    let fam = families.get(famKey);
-    if (!fam) {
-      fam = { display: pictogram, backgrounds: new Set<string>(), repId: comp.id, previewId: comp.id };
-      families.set(famKey, fam);
-    }
-    fam.backgrounds.add(bgLower);
-    // Prefer the light variant as the family's representative + preview.
-    if (bgLower === 'light') {
-      fam.repId = comp.id;
-      fam.previewId = comp.id;
-      fam.display = pictogram;
+      // Track one node per real background for the cross-variant shape check.
+      if (PICTOGRAM_BACKGROUNDS.includes(bgLower)) fam.variants.push({ bg: bgLower, node: comp });
     }
     compFamilyKey.push({ compId: comp.id, famKey });
   }
@@ -742,6 +757,14 @@ async function scanPictograms(): Promise<{
     }
   }
 
+  // Cross-variant shape check targets: pictograms with 2+ real backgrounds.
+  const shapeTargets: PictogramShapeTarget[] = [];
+  for (const fam of families.values()) {
+    if (fam.variants.length >= 2) {
+      shapeTargets.push({ name: fam.display, previewId: fam.previewId, variants: fam.variants });
+    }
+  }
+
   issues.sort((a, b) => (a.severity === b.severity ? 0 : a.severity === 'error' ? -1 : 1));
 
   const errorCount = issues.filter((i) => i.severity === 'error').length;
@@ -761,7 +784,93 @@ async function scanPictograms(): Promise<{
     issues,
   };
 
-  return { result, baseNames, previewByNode };
+  return { result, baseNames, previewByNode, shapeTargets };
+}
+
+// Geometry-bearing attributes on an SVG shape (matches SHAPE_ATTRS in the
+// generator's pictogram-merge.ts).
+const PICTOGRAM_SHAPE_TAGS = ['path', 'circle', 'rect', 'ellipse', 'polygon', 'polyline', 'line'];
+const PICTOGRAM_GEOM_ATTRS = ['d', 'points', 'x', 'y', 'width', 'height', 'cx', 'cy', 'r', 'rx', 'ry', 'transform'];
+
+// Rounds every number in a geometry string to the nearest integer so Figma's
+// per-variant sub-pixel export noise (e.g. 47.9553 vs 47.9554) doesn't count as
+// a real shape difference — only genuinely different artwork does.
+function normalizeGeometry(value: string): string {
+  return value.replace(/-?\d*\.?\d+(?:e-?\d+)?/gi, (m) => String(Math.round(parseFloat(m))));
+}
+
+// Builds an ordered per-shape signature (tag + normalized geometry) for an
+// exported pictogram SVG, mirroring collectShapeElements()/SHAPE_ATTRS in the
+// generator. <defs> is stripped because its contents are referenced by id, not
+// rendered in place.
+function pictogramShapeSignature(svg: string): string[] {
+  const body = svg.replace(/<defs[\s\S]*?<\/defs>/gi, '');
+  const re = new RegExp(`<(${PICTOGRAM_SHAPE_TAGS.join('|')})\\b([^>]*?)\\/?>`, 'gi');
+  const sigs: string[] = [];
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(body)) !== null) {
+    const tag = m[1].toLowerCase();
+    const attrs = m[2];
+    const parts = [tag];
+    for (const attr of PICTOGRAM_GEOM_ATTRS) {
+      const am = new RegExp(`${attr}\\s*=\\s*"([^"]*)"`, 'i').exec(attrs);
+      parts.push(`${attr}=${am ? normalizeGeometry(am[1]) : ''}`);
+    }
+    sigs.push(parts.join('|'));
+  }
+  return sigs;
+}
+
+function sameSignature(a: string[], b: string[]): boolean {
+  if (a.length !== b.length) return false;
+  for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return false;
+  return true;
+}
+
+// Exports each background variant of a pictogram and flags those whose geometry
+// diverges from the reference (Light) — the case where the generator can't merge
+// the variants and instead inlines a separate SVG per background (and dark/orange
+// can end up rendering the wrong shape). Runs after the main scan so verification
+// stays instant.
+async function runPictogramShapeChecks(targets: PictogramShapeTarget[]): Promise<Issue[]> {
+  const issues: Issue[] = [];
+  const BATCH = 8;
+  for (let i = 0; i < targets.length; i += BATCH) {
+    const slice = targets.slice(i, i + BATCH);
+    const results = await Promise.all(
+      slice.map(async (t) => {
+        try {
+          const sigs = await Promise.all(
+            t.variants.map(async (v) => ({
+              bg: v.bg,
+              nodeId: v.node.id,
+              sig: pictogramShapeSignature(bytesToString(await v.node.exportAsync({ format: 'SVG' }))),
+            })),
+          );
+          const ref = sigs.find((s) => s.bg === 'light') || sigs[0];
+          const differing = sigs.filter((s) => s !== ref && !sameSignature(s.sig, ref.sig));
+          if (differing.length === 0) return null;
+          return { target: t, refBg: ref.bg, differing };
+        } catch {
+          return null;
+        }
+      }),
+    );
+    for (const r of results) {
+      if (!r) continue;
+      const labels = r.differing.map((d) => capitalize(d.bg)).join(', ');
+      issues.push({
+        severity: 'warning',
+        rule: 'pictogram-mismatched-shapes',
+        message: `"${r.target.name}": ${labels} ${
+          r.differing.length === 1 ? 'differs' : 'differ'
+        } from ${capitalize(r.refBg)}.`,
+        previewId: r.target.previewId,
+        targets: r.differing.map((d) => ({ nodeId: d.nodeId, label: capitalize(d.bg) })),
+      });
+    }
+  }
+  return issues;
 }
 
 // Recolors an exported SVG to currentColor so previews match how the generated
@@ -957,12 +1066,17 @@ async function scanIconsFlow(): Promise<void> {
 }
 
 async function scanPictogramsFlow(): Promise<void> {
-  const { result, baseNames, previewByNode } = await scanPictograms();
+  const { result, baseNames, shapeTargets } = await scanPictograms();
   figma.ui.postMessage({ type: 'scan-result', kind: 'pictograms', result });
+
+  figma.ui.postMessage({ type: 'quality-loading', kind: 'pictograms' });
+  const shapeIssues = await runPictogramShapeChecks(shapeTargets);
+  figma.ui.postMessage({ type: 'quality-result', kind: 'pictograms', issues: shapeIssues });
 
   // Pictograms keep their full color in previews (recolor = false).
   const previewIds = new Set<string>();
   for (const issue of result.issues) if (issue.previewId) previewIds.add(issue.previewId);
+  for (const issue of shapeIssues) if (issue.previewId) previewIds.add(issue.previewId);
   if (previewIds.size > 0) {
     const previews = await buildPreviews([...previewIds], false);
     figma.ui.postMessage({ type: 'previews', kind: 'pictograms', previews });

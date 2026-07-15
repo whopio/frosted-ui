@@ -592,6 +592,8 @@
         },
         {
           rules: ['fill-and-stroke'],
+          async: true,
+          pending: 'Checking for fill + stroke overlaps…',
           ok: 'No fill + stroke overlaps',
           fail: (n) => n + ' icon(s) draw fill + stroke',
           info: 'A shape with both a fill and a stroke double-paints where they overlap, showing a dark rim when the icon is recolored with a translucent color.',
@@ -645,6 +647,14 @@
           info: 'Pictograms should be 240×240.',
         },
         {
+          rules: ['pictogram-mismatched-shapes'],
+          async: true,
+          pending: 'Checking shapes across backgrounds…',
+          ok: 'Consistent shapes across backgrounds',
+          fail: (n) => n + ' with mismatched shapes',
+          info: 'Light, Dark, and Orange should share identical geometry — only colors may differ. When shapes differ, the pictogram can’t be merged into one component: each background is inlined separately and Dark/Orange may even render the wrong shape.',
+        },
+        {
           rules: ['pictogram-orphan'],
           ok: null,
           fail: () => 'Components outside a “Pictogram” container',
@@ -694,6 +704,7 @@
         'pictogram-duplicate': 'Duplicate variants',
         'pictogram-incomplete-backgrounds': 'Missing backgrounds',
         'pictogram-dimension': 'Wrong dimensions',
+        'pictogram-mismatched-shapes': 'Mismatched shapes',
       };
 
       function issueHtml(i) {
@@ -802,16 +813,8 @@
           const key = group.rules.join('|');
           // Default new sections to collapsed; otherwise keep the user's choice.
           const collapsed = key in collapsedState ? collapsedState[key] : true;
-          const isQuality = group.rules.includes('fill-and-stroke');
-          if (isQuality && S().qualityPending) {
-            html += groupHtml(
-              'pending',
-              'Checking for fill + stroke overlaps…',
-              [],
-              group.info,
-              key,
-              collapsed,
-            );
+          if (group.async && S().qualityPending) {
+            html += groupHtml('pending', group.pending || 'Checking…', [], group.info, key, collapsed);
             continue;
           }
 
@@ -1121,8 +1124,11 @@
         } else if (msg.type === 'quality-result') {
           st.qualityPending = false;
           if (st.result) {
+            const asyncRules = new Set(
+              KIND[kind].groups.filter((g) => g.async).reduce((acc, g) => acc.concat(g.rules), []),
+            );
             st.result.issues = st.result.issues
-              .filter((i) => i.rule !== 'fill-and-stroke')
+              .filter((i) => !asyncRules.has(i.rule))
               .concat(prepIssues(msg.issues));
             st.result.errorCount = st.result.issues.filter((i) => i.severity === 'error').length;
             st.result.warningCount = st.result.issues.filter((i) => i.severity === 'warning').length;

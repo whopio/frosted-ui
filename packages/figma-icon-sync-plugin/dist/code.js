@@ -432,6 +432,17 @@
         });
       }
       const famKey = normalize(pictogram);
+      let fam = families.get(famKey);
+      if (!fam) {
+        fam = { display: pictogram, backgrounds: /* @__PURE__ */ new Set(), repId: comp.id, previewId: comp.id, variants: [] };
+        families.set(famKey, fam);
+      }
+      fam.backgrounds.add(bgLower);
+      if (bgLower === "light") {
+        fam.repId = comp.id;
+        fam.previewId = comp.id;
+        fam.display = pictogram;
+      }
       const dupKey = `${famKey}|${bgLower}`;
       if (seenVariants.has(dupKey)) {
         issues.push({
@@ -442,17 +453,7 @@
         });
       } else {
         seenVariants.add(dupKey);
-      }
-      let fam = families.get(famKey);
-      if (!fam) {
-        fam = { display: pictogram, backgrounds: /* @__PURE__ */ new Set(), repId: comp.id, previewId: comp.id };
-        families.set(famKey, fam);
-      }
-      fam.backgrounds.add(bgLower);
-      if (bgLower === "light") {
-        fam.repId = comp.id;
-        fam.previewId = comp.id;
-        fam.display = pictogram;
+        if (PICTOGRAM_BACKGROUNDS.includes(bgLower)) fam.variants.push({ bg: bgLower, node: comp });
       }
       compFamilyKey.push({ compId: comp.id, famKey });
     }
@@ -496,6 +497,12 @@
         if (preview) issue.previewId = preview;
       }
     }
+    const shapeTargets = [];
+    for (const fam of families.values()) {
+      if (fam.variants.length >= 2) {
+        shapeTargets.push({ name: fam.display, previewId: fam.previewId, variants: fam.variants });
+      }
+    }
     issues.sort((a, b) => a.severity === b.severity ? 0 : a.severity === "error" ? -1 : 1);
     const errorCount = issues.filter((i) => i.severity === "error").length;
     const warningCount = issues.length - errorCount;
@@ -512,7 +519,72 @@
       warningCount,
       issues
     };
-    return { result, baseNames, previewByNode };
+    return { result, baseNames, previewByNode, shapeTargets };
+  }
+  var PICTOGRAM_SHAPE_TAGS = ["path", "circle", "rect", "ellipse", "polygon", "polyline", "line"];
+  var PICTOGRAM_GEOM_ATTRS = ["d", "points", "x", "y", "width", "height", "cx", "cy", "r", "rx", "ry", "transform"];
+  function normalizeGeometry(value) {
+    return value.replace(/-?\d*\.?\d+(?:e-?\d+)?/gi, (m) => String(Math.round(parseFloat(m))));
+  }
+  function pictogramShapeSignature(svg) {
+    const body = svg.replace(/<defs[\s\S]*?<\/defs>/gi, "");
+    const re = new RegExp(`<(${PICTOGRAM_SHAPE_TAGS.join("|")})\\b([^>]*?)\\/?>`, "gi");
+    const sigs = [];
+    let m;
+    while ((m = re.exec(body)) !== null) {
+      const tag = m[1].toLowerCase();
+      const attrs = m[2];
+      const parts = [tag];
+      for (const attr of PICTOGRAM_GEOM_ATTRS) {
+        const am = new RegExp(`${attr}\\s*=\\s*"([^"]*)"`, "i").exec(attrs);
+        parts.push(`${attr}=${am ? normalizeGeometry(am[1]) : ""}`);
+      }
+      sigs.push(parts.join("|"));
+    }
+    return sigs;
+  }
+  function sameSignature(a, b) {
+    if (a.length !== b.length) return false;
+    for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return false;
+    return true;
+  }
+  async function runPictogramShapeChecks(targets) {
+    const issues = [];
+    const BATCH = 8;
+    for (let i = 0; i < targets.length; i += BATCH) {
+      const slice = targets.slice(i, i + BATCH);
+      const results = await Promise.all(
+        slice.map(async (t) => {
+          try {
+            const sigs = await Promise.all(
+              t.variants.map(async (v) => ({
+                bg: v.bg,
+                nodeId: v.node.id,
+                sig: pictogramShapeSignature(bytesToString(await v.node.exportAsync({ format: "SVG" })))
+              }))
+            );
+            const ref = sigs.find((s) => s.bg === "light") || sigs[0];
+            const differing = sigs.filter((s) => s !== ref && !sameSignature(s.sig, ref.sig));
+            if (differing.length === 0) return null;
+            return { target: t, refBg: ref.bg, differing };
+          } catch {
+            return null;
+          }
+        })
+      );
+      for (const r of results) {
+        if (!r) continue;
+        const labels = r.differing.map((d) => capitalize(d.bg)).join(", ");
+        issues.push({
+          severity: "warning",
+          rule: "pictogram-mismatched-shapes",
+          message: `"${r.target.name}": ${labels} ${r.differing.length === 1 ? "differs" : "differ"} from ${capitalize(r.refBg)}.`,
+          previewId: r.target.previewId,
+          targets: r.differing.map((d) => ({ nodeId: d.nodeId, label: capitalize(d.bg) }))
+        });
+      }
+    }
+    return issues;
   }
   function toCurrentColor(svg) {
     return svg.replace(/\b(fill|stroke)\s*=\s*"(?!none")[^"]*"/gi, '$1="currentColor"');
@@ -665,10 +737,14 @@
     figma.ui.postMessage({ type: "diff-result", kind: "icons", diff });
   }
   async function scanPictogramsFlow() {
-    const { result, baseNames, previewByNode } = await scanPictograms();
+    const { result, baseNames, shapeTargets } = await scanPictograms();
     figma.ui.postMessage({ type: "scan-result", kind: "pictograms", result });
+    figma.ui.postMessage({ type: "quality-loading", kind: "pictograms" });
+    const shapeIssues = await runPictogramShapeChecks(shapeTargets);
+    figma.ui.postMessage({ type: "quality-result", kind: "pictograms", issues: shapeIssues });
     const previewIds = /* @__PURE__ */ new Set();
     for (const issue of result.issues) if (issue.previewId) previewIds.add(issue.previewId);
+    for (const issue of shapeIssues) if (issue.previewId) previewIds.add(issue.previewId);
     if (previewIds.size > 0) {
       const previews = await buildPreviews([...previewIds], false);
       figma.ui.postMessage({ type: "previews", kind: "pictograms", previews });
