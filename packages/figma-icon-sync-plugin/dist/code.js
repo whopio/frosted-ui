@@ -94,6 +94,11 @@
     if (hasNestedContainer(visible[0])) return false;
     return true;
   }
+  function isSinglePictogramLayer(comp) {
+    if (hasHiddenDescendant(comp)) return false;
+    const visible = comp.children.filter((c) => c.visible !== false);
+    return visible.length === 1;
+  }
   function hasNonScaleConstraints(node) {
     for (const child of node.children) {
       if (child.visible === false) continue;
@@ -434,7 +439,15 @@
       const famKey = normalize(pictogram);
       let fam = families.get(famKey);
       if (!fam) {
-        fam = { display: pictogram, backgrounds: /* @__PURE__ */ new Set(), repId: comp.id, previewId: comp.id, variants: [] };
+        fam = {
+          display: pictogram,
+          backgrounds: /* @__PURE__ */ new Set(),
+          repId: comp.id,
+          previewId: comp.id,
+          variants: [],
+          badConstraints: [],
+          notSingle: []
+        };
         families.set(famKey, fam);
       }
       fam.backgrounds.add(bgLower);
@@ -453,7 +466,11 @@
         });
       } else {
         seenVariants.add(dupKey);
-        if (PICTOGRAM_BACKGROUNDS.includes(bgLower)) fam.variants.push({ bg: bgLower, node: comp });
+        if (PICTOGRAM_BACKGROUNDS.includes(bgLower)) {
+          fam.variants.push({ bg: bgLower, node: comp });
+          if (hasNonScaleConstraints(comp)) fam.badConstraints.push({ bg: bgLower, nodeId: comp.id });
+          if (!isSinglePictogramLayer(comp)) fam.notSingle.push({ bg: bgLower, nodeId: comp.id });
+        }
       }
       compFamilyKey.push({ compId: comp.id, famKey });
     }
@@ -475,6 +492,32 @@
           nodeId: fam.repId
         });
       }
+    }
+    for (const fam of families.values()) {
+      if (fam.badConstraints.length === 0) continue;
+      const sorted = [...fam.badConstraints].sort(
+        (a, b) => PICTOGRAM_BACKGROUNDS.indexOf(a.bg) - PICTOGRAM_BACKGROUNDS.indexOf(b.bg)
+      );
+      issues.push({
+        severity: "error",
+        rule: "pictogram-bad-constraints",
+        message: `"${fam.display}" isn't set to Scale:`,
+        nodeId: fam.repId,
+        targets: sorted.map((b) => ({ nodeId: b.nodeId, label: capitalize(b.bg) }))
+      });
+    }
+    for (const fam of families.values()) {
+      if (fam.notSingle.length === 0) continue;
+      const sorted = [...fam.notSingle].sort(
+        (a, b) => PICTOGRAM_BACKGROUNDS.indexOf(a.bg) - PICTOGRAM_BACKGROUNDS.indexOf(b.bg)
+      );
+      issues.push({
+        severity: "error",
+        rule: "pictogram-not-single-layer",
+        message: `"${fam.display}" isn't a single layer:`,
+        nodeId: fam.repId,
+        targets: sorted.map((b) => ({ nodeId: b.nodeId, label: capitalize(b.bg) }))
+      });
     }
     const allComponents = page.findAllWithCriteria({ types: ["COMPONENT"] });
     const orphans = allComponents.filter((c) => {
@@ -576,7 +619,7 @@
         if (!r) continue;
         const labels = r.differing.map((d) => capitalize(d.bg)).join(", ");
         issues.push({
-          severity: "warning",
+          severity: "error",
           rule: "pictogram-mismatched-shapes",
           message: `"${r.target.name}": ${labels} ${r.differing.length === 1 ? "differs" : "differ"} from ${capitalize(r.refBg)}.`,
           previewId: r.target.previewId,

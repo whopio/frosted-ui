@@ -201,6 +201,16 @@ function isSingleShape(variant: ComponentNode): boolean {
   return true;
 }
 
+// Pictograms are legitimately multi-path/multi-color, so the icon "single
+// flattened shape" rule doesn't apply. The analog is a single clean top-level
+// layer: exactly one visible child (one frame/group holding the artwork) and no
+// hidden/stray layers anywhere inside.
+function isSinglePictogramLayer(comp: ComponentNode): boolean {
+  if (hasHiddenDescendant(comp)) return false;
+  const visible = comp.children.filter((c) => c.visible !== false);
+  return visible.length === 1;
+}
+
 // Icon shapes must use horizontal + vertical "Scale" constraints so they resize
 // with the frame. Checks every visible layer in the subtree (nested vectors
 // inside a boolean op / group also need Scale, not just the top-level layer).
@@ -621,6 +631,8 @@ async function scanPictograms(): Promise<{
       repId: string;
       previewId: string;
       variants: { bg: string; node: ComponentNode }[];
+      badConstraints: { bg: string; nodeId: string }[];
+      notSingle: { bg: string; nodeId: string }[];
     }
   >();
   const seenVariants = new Set<string>();
@@ -679,7 +691,15 @@ async function scanPictograms(): Promise<{
     const famKey = normalize(pictogram);
     let fam = families.get(famKey);
     if (!fam) {
-      fam = { display: pictogram, backgrounds: new Set<string>(), repId: comp.id, previewId: comp.id, variants: [] };
+      fam = {
+        display: pictogram,
+        backgrounds: new Set<string>(),
+        repId: comp.id,
+        previewId: comp.id,
+        variants: [],
+        badConstraints: [],
+        notSingle: [],
+      };
       families.set(famKey, fam);
     }
     fam.backgrounds.add(bgLower);
@@ -700,8 +720,15 @@ async function scanPictograms(): Promise<{
       });
     } else {
       seenVariants.add(dupKey);
-      // Track one node per real background for the cross-variant shape check.
-      if (PICTOGRAM_BACKGROUNDS.includes(bgLower)) fam.variants.push({ bg: bgLower, node: comp });
+      if (PICTOGRAM_BACKGROUNDS.includes(bgLower)) {
+        // Track one node per real background for the cross-variant shape check.
+        fam.variants.push({ bg: bgLower, node: comp });
+        // Rule: layers must use Scale/Scale constraints so the artwork resizes
+        // with its frame (same check as regular icons).
+        if (hasNonScaleConstraints(comp)) fam.badConstraints.push({ bg: bgLower, nodeId: comp.id });
+        // Rule: a single clean top-level layer, no loose/hidden layers.
+        if (!isSinglePictogramLayer(comp)) fam.notSingle.push({ bg: bgLower, nodeId: comp.id });
+      }
     }
     compFamilyKey.push({ compId: comp.id, famKey });
   }
@@ -729,6 +756,38 @@ async function scanPictograms(): Promise<{
         nodeId: fam.repId,
       });
     }
+  }
+
+  // Rule: layers must use Scale/Scale constraints (mirrors the icon check). Pills
+  // jump to each affected background.
+  for (const fam of families.values()) {
+    if (fam.badConstraints.length === 0) continue;
+    const sorted = [...fam.badConstraints].sort(
+      (a, b) => PICTOGRAM_BACKGROUNDS.indexOf(a.bg) - PICTOGRAM_BACKGROUNDS.indexOf(b.bg),
+    );
+    issues.push({
+      severity: 'error',
+      rule: 'pictogram-bad-constraints',
+      message: `"${fam.display}" isn't set to Scale:`,
+      nodeId: fam.repId,
+      targets: sorted.map((b) => ({ nodeId: b.nodeId, label: capitalize(b.bg) })),
+    });
+  }
+
+  // Rule: each pictogram should be a single clean top-level layer (mirrors the
+  // icon single-shape check). Pills jump to each affected background.
+  for (const fam of families.values()) {
+    if (fam.notSingle.length === 0) continue;
+    const sorted = [...fam.notSingle].sort(
+      (a, b) => PICTOGRAM_BACKGROUNDS.indexOf(a.bg) - PICTOGRAM_BACKGROUNDS.indexOf(b.bg),
+    );
+    issues.push({
+      severity: 'error',
+      rule: 'pictogram-not-single-layer',
+      message: `"${fam.display}" isn't a single layer:`,
+      nodeId: fam.repId,
+      targets: sorted.map((b) => ({ nodeId: b.nodeId, label: capitalize(b.bg) })),
+    });
   }
 
   // Orphans: components that look like pictograms but live outside a container.
@@ -860,7 +919,7 @@ async function runPictogramShapeChecks(targets: PictogramShapeTarget[]): Promise
       if (!r) continue;
       const labels = r.differing.map((d) => capitalize(d.bg)).join(', ');
       issues.push({
-        severity: 'warning',
+        severity: 'error',
         rule: 'pictogram-mismatched-shapes',
         message: `"${r.target.name}": ${labels} ${
           r.differing.length === 1 ? 'differs' : 'differ'

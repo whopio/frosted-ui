@@ -655,6 +655,18 @@
           info: 'Light, Dark, and Orange should share identical geometry — only colors may differ. When shapes differ, the pictogram can’t be merged into one component: each background is inlined separately and Dark/Orange may even render the wrong shape.',
         },
         {
+          rules: ['pictogram-not-single-layer'],
+          ok: 'Single top-level layer',
+          fail: (n) => n + ' with extra layers',
+          info: 'Each pictogram should be one clean top-level layer (a single frame/group holding the artwork), with no loose sibling layers or hidden layers.',
+        },
+        {
+          rules: ['pictogram-bad-constraints'],
+          ok: 'Constraints set to Scale',
+          fail: (n) => n + ' not set to Scale',
+          info: 'Each pictogram’s layers should use horizontal and vertical “Scale” constraints so the artwork resizes correctly with its frame.',
+        },
+        {
           rules: ['pictogram-orphan'],
           ok: null,
           fail: () => 'Components outside a “Pictogram” container',
@@ -704,6 +716,8 @@
         'pictogram-duplicate': 'Duplicate variants',
         'pictogram-incomplete-backgrounds': 'Missing backgrounds',
         'pictogram-dimension': 'Wrong dimensions',
+        'pictogram-bad-constraints': 'Not set to Scale',
+        'pictogram-not-single-layer': 'Extra or hidden layers',
         'pictogram-mismatched-shapes': 'Mismatched shapes',
       };
 
