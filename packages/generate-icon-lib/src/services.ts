@@ -42,12 +42,16 @@ import { render } from './view';
 
 const transformers = {
   /**
-   * Pass SVG through SVGO to reduce size.
+   * Pass SVG through SVGO to reduce size, then stamp the root with the
+   * component name (e.g. data-fui-icon="Ban16") for DOM debugging.
    */
-  async passSVGO(svgRaw: string, mode: GeneratorMode = 'icons') {
+  async passSVGO(svgRaw: string, mode: GeneratorMode = 'icons', componentName: string) {
     const svgo = getSvgo(mode);
     const { data } = await svgo.optimize(svgRaw);
-    return data as string;
+    const dataAttr = mode === 'pictograms' ? 'data-fui-pictogram' : 'data-fui-icon';
+    const $ = cheerio.load(data as string, { xmlMode: true });
+    $('svg').attr(dataAttr, componentName);
+    return $.xml();
   },
 
   /**
@@ -567,7 +571,9 @@ export async function downloadSvgsToFs(
 ) {
   await Promise.all(
     Object.keys(urls).map(async (iconId) => {
-      const pipeline = (await fetch(urls[iconId])).text().then(async (svgRaw) => transformers.passSVGO(svgRaw, mode));
+      const pipeline = (await fetch(urls[iconId]))
+        .text()
+        .then(async (svgRaw) => transformers.passSVGO(svgRaw, mode, icons[iconId].jsxName));
       // Pictograms keep their original colors; only monochromatic UI icons get
       // their fills/strokes rewritten to "currentColor".
       const processedSvg = await (mode === 'pictograms'

@@ -135,7 +135,6 @@ export function getPictogramRemergeSvgo() {
 
 export function getSvgo(mode: GeneratorMode = 'icons') {
   if (svgoCache[mode]) return svgoCache[mode];
-  const dataAttr = mode === 'pictograms' ? 'data-fui-pictogram' : 'data-fui-icon';
   // For pictograms we MUST preserve the per-variant element-by-element
   // correspondence so `analyzePictogramAlignment` can decide whether the
   // background variants share geometry. SVGO's `mergePaths` plugin merges
@@ -147,6 +146,10 @@ export function getSvgo(mode: GeneratorMode = 'icons') {
   // post-SVGO output preserves the original Figma topology 1:1 across
   // variants. They stay enabled for monochromatic icons where there's only
   // a single variant to reason about.
+  //
+  // `data-fui-icon` / `data-fui-pictogram` are stamped with the component
+  // name after SVGO in `passSVGO` (per-icon values can't live in this
+  // mode-level cache).
   const isPictograms = mode === 'pictograms';
   svgoCache[mode] = new SVGO({
     plugins: [
@@ -188,15 +191,6 @@ export function getSvgo(mode: GeneratorMode = 'icons') {
       { removeDimensions: false },
       { removeStyleElement: false },
       { removeScriptElement: false },
-      {
-        addAttributesToSVGElement: {
-          attributes: [
-            {
-              [dataAttr]: 'true',
-            },
-          ],
-        },
-      },
     ],
   });
   return svgoCache[mode];
