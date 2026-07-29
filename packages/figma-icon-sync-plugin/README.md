@@ -13,6 +13,7 @@ A Figma plugin that inspects the **Icons** page of the [Frosted Design System fi
   - **No duplicate names** — two component sets that would generate the same component (grouped by kebab-cased base name).
   - **Names valid** — no numbers in names (digits collide with the size suffix, `Shop16`), no empty names, and correct `Bold Filled` (never `Filled Bold`) modifier order.
   - **Valid sizes** — every variant must be named exactly `size=N` with `N ∈ {12, 16, 20, 24, 32}`, no duplicate sizes per icon, and the full size set present.
+  - **SVG export checks** (async) — each size is exported to SVG as the generator does. Flags **empty exports** (broken React stubs) and **fill + stroke overlaps** (recolor artifacts).
   - Warnings (non-blocking): variant dimensions that don't match the declared size, and component sets sitting outside an `Icons` frame (which the generator will skip).
 - **Diffs against the last release** — fetches the manifest from the latest npm release of `@frosted-ui/icons` (via jsDelivr) and shows which icons were **added** and **removed** since then. Added chips are clickable to jump to the node.
 - **Opens the sync on GitHub** — when there are no errors, the **Open sync on GitHub** button opens the workflow's Actions page in your browser so you can run it. No token is stored or sent by the plugin.
@@ -63,3 +64,4 @@ This produces `dist/code.js` and `dist/ui.html`, which `manifest.json` points to
 
 - The `id` in `manifest.json` is a placeholder for local development. Figma assigns a real id when the plugin is published to the org.
 - Detection logic intentionally mirrors `getIcons()` / `getIconsPage()` in `packages/generate-icon-lib/src/services.ts`. If the Figma structure or allowed sizes change there, update `ALLOWED_SIZES` and the traversal in `src/code.ts` to match.
+- Async export checks mirror failure modes from the generator: empty SVG output (e.g. corrupted icon sync) and inline `style="…"` attributes on pictograms (which break the React/TypeScript build). Fix flagged layers in Figma before running sync.

@@ -26,9 +26,17 @@ interface Issue {
   severity: Severity;
   rule: string;
   message: string;
+  /** Short explanation of why this layer triggers the rule. */
+  reason?: string;
   nodeId?: string;
   targets?: IssueTarget[];
   previewId?: string;
+}
+
+interface LayerFinding {
+  nodeId: string;
+  layerPath: string;
+  reason: string;
 }
 
 interface ScanResult {
@@ -104,13 +112,41 @@ function bytesToString(bytes: Uint8Array): string {
   return out;
 }
 
+const SVG_SHAPE_TAG = '(path|rect|circle|ellipse|polygon|polyline|line)';
+
+// True when the exported SVG has no drawable vector content. Catches Figma
+// export failures that would produce an empty component stub in the generator
+// (e.g. `return;` with unused props in the generated React file).
+function svgIsEmpty(svg: string): boolean {
+  const tagRegex = new RegExp(`<${SVG_SHAPE_TAG}\\b([^>]*)>`, 'gi');
+  let match: RegExpExecArray | null;
+  while ((match = tagRegex.exec(svg)) !== null) {
+    const tag = match[1].toLowerCase();
+    const attrs = match[2];
+    if (tag === 'path') {
+      const d = /\bd\s*=\s*"([^"]*)"/i.exec(attrs);
+      if (d && d[1].trim()) return false;
+      continue;
+    }
+    return false;
+  }
+  return true;
+}
+
+// Inline style="..." attributes survive SVG→JSX conversion as strings, but React
+// expects style={{ ... }} objects. The pictogram merge path also adds its own
+// style={{ fill: f[N] }} props, so leftover string styles fail TypeScript build.
+function svgHasInlineStyle(svg: string): boolean {
+  return /\bstyle\s*=\s*"/i.test(svg);
+}
+
 // The real artifact happens when a single drawn element carries BOTH a fill and
 // a stroke: recolored to the same translucent currentColor, the stroke overlaps
 // the fill and doubles up. Figma flattens inside/outside strokes into fill
 // geometry on export, so only a genuine fill+stroke element in the *exported*
 // SVG produces the artifact — which is exactly what we test here.
 function svgDrawsFillAndStroke(svg: string): boolean {
-  const tagRegex = /<(path|rect|circle|ellipse|polygon|polyline|line)\b([^>]*)>/gi;
+  const tagRegex = new RegExp(`<${SVG_SHAPE_TAG}\\b([^>]*)>`, 'gi');
   let match: RegExpExecArray | null;
   while ((match = tagRegex.exec(svg)) !== null) {
     const attrs = match[2];
@@ -131,6 +167,182 @@ function svgDrawsFillAndStroke(svg: string): boolean {
     if (hasFill && hasStroke) return true;
   }
   return false;
+}
+
+type GeometryNode = SceneNode & GeometryMixin;
+
+function isGeometryNode(node: SceneNode): node is GeometryNode {
+  return 'fills' in node && 'strokes' in node;
+}
+
+function hasVisibleFill(node: GeometryNode): boolean {
+  const fills = node.fills;
+  if (fills === figma.mixed || !Array.isArray(fills) || fills.length === 0) return false;
+  return fills.some((p) => p.visible !== false);
+}
+
+function hasVisibleStroke(node: GeometryNode): boolean {
+  const strokes = node.strokes;
+  if (!Array.isArray(strokes) || strokes.length === 0) return false;
+  if (!strokes.some((p) => p.visible !== false)) return false;
+  const weight = node.strokeWeight;
+  if (weight === figma.mixed) return true;
+  return typeof weight === 'number' && weight > 0;
+}
+
+// Path from a descendant up to (but not including) the variant root, e.g.
+// "Artwork / Window".
+function layerPathWithin(node: SceneNode, variant: SceneNode): string {
+  const parts: string[] = [];
+  let cur: BaseNode | null = node;
+  while (cur && cur.id !== variant.id) {
+    if ('name' in cur && cur.name) parts.unshift(cur.name);
+    cur = cur.parent;
+  }
+  return parts.length ? parts.join(' / ') : node.name || '(unnamed)';
+}
+
+function walkVisibleDescendants(root: SceneNode, visit: (node: SceneNode) => void): void {
+  if (root.visible === false) return;
+  visit(root);
+  if ('children' in root) {
+    for (const child of root.children) walkVisibleDescendants(child, visit);
+  }
+}
+
+function formatBlendMode(mode: BlendMode): string {
+  if (mode === 'PASS_THROUGH') return 'Pass through';
+  return mode
+    .toLowerCase()
+    .split('_')
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+}
+
+function findInlineStyleLayers(variant: SceneNode): LayerFinding[] {
+  const findings: LayerFinding[] = [];
+  walkVisibleDescendants(variant, (node) => {
+    if ('blendMode' in node && node.blendMode !== 'PASS_THROUGH' && node.blendMode !== 'NORMAL') {
+      findings.push({
+        nodeId: node.id,
+        layerPath: layerPathWithin(node, variant),
+        reason: `${formatBlendMode(node.blendMode)} blend mode exports as inline CSS`,
+      });
+      return;
+    }
+    if ('opacity' in node && typeof node.opacity === 'number' && node.opacity < 0.999) {
+      findings.push({
+        nodeId: node.id,
+        layerPath: layerPathWithin(node, variant),
+        reason: `${Math.round(node.opacity * 100)}% layer opacity exports as inline CSS`,
+      });
+    }
+  });
+  return findings;
+}
+
+function svgInlineStyleFindings(svg: string, variant: SceneNode): LayerFinding[] {
+  const reasons = new Set<string>();
+  const styleRegex = /\bstyle\s*=\s*"([^"]*)"/gi;
+  let match: RegExpExecArray | null;
+  while ((match = styleRegex.exec(svg)) !== null) {
+    const style = match[1];
+    const blend = /mix-blend-mode\s*:\s*([^;]+)/i.exec(style);
+    if (blend) {
+      reasons.add(`${blend[1].trim()} blend mode in exported SVG`);
+      continue;
+    }
+    const opacity = /opacity\s*:\s*([^;]+)/i.exec(style);
+    if (opacity) {
+      reasons.add(`opacity ${opacity[1].trim()} in exported SVG`);
+      continue;
+    }
+    const snippet = style.length > 48 ? `${style.slice(0, 48)}…` : style;
+    reasons.add(`inline style="${snippet}"`);
+  }
+  if (reasons.size === 0) {
+    return [
+      {
+        nodeId: variant.id,
+        layerPath: variant.name,
+        reason: 'Exported SVG contains inline style attributes',
+      },
+    ];
+  }
+  return Array.from(reasons).map((reason) => ({
+    nodeId: variant.id,
+    layerPath: variant.name,
+    reason,
+  }));
+}
+
+function findFillAndStrokeLayers(variant: SceneNode): LayerFinding[] {
+  const findings: LayerFinding[] = [];
+  walkVisibleDescendants(variant, (node) => {
+    if (!isGeometryNode(node)) return;
+    if (hasVisibleFill(node) && hasVisibleStroke(node)) {
+      findings.push({
+        nodeId: node.id,
+        layerPath: layerPathWithin(node, variant),
+        reason: 'Fill and stroke on the same shape — double-paints when recolored',
+      });
+    }
+  });
+  return findings;
+}
+
+function diagnoseEmptyExport(variant: SceneNode): LayerFinding[] {
+  const unpainted: LayerFinding[] = [];
+  let hasGeometry = false;
+  walkVisibleDescendants(variant, (node) => {
+    if (!isGeometryNode(node)) return;
+    hasGeometry = true;
+    if (!hasVisibleFill(node) && !hasVisibleStroke(node)) {
+      unpainted.push({
+        nodeId: node.id,
+        layerPath: layerPathWithin(node, variant),
+        reason: 'No visible fill or stroke',
+      });
+    }
+  });
+  if (!hasGeometry) {
+    return [
+      {
+        nodeId: variant.id,
+        layerPath: variant.name,
+        reason: 'No vector layers in this variant',
+      },
+    ];
+  }
+  if (unpainted.length > 0) return unpainted;
+  return [
+    {
+      nodeId: variant.id,
+      layerPath: variant.name,
+      reason: 'Figma exported an empty SVG despite visible layers',
+    },
+  ];
+}
+
+function pushLayerFindings(
+  issues: Issue[],
+  rule: string,
+  findings: LayerFinding[],
+  previewId?: string,
+  variant?: SceneNode,
+): void {
+  for (const f of findings) {
+    const reason =
+      variant && f.nodeId !== variant.id ? `${f.reason} (${variant.name})` : f.reason;
+    issues.push({
+      severity: 'error',
+      rule,
+      message: f.layerPath,
+      reason,
+      nodeId: f.nodeId,
+      previewId,
+    });
+  }
 }
 
 function findIconsPage(): { page: PageNode; usedFallback: boolean } {
@@ -599,7 +811,7 @@ async function scanPictograms(): Promise<{
   result: ScanResult;
   baseNames: Map<string, string>;
   previewByNode: Map<string, string>;
-  shapeTargets: PictogramShapeTarget[];
+  exportTargets: PictogramShapeTarget[];
 }> {
   await figma.loadAllPagesAsync();
   const { page, usedFallback } = findPictogramsPage();
@@ -816,11 +1028,11 @@ async function scanPictograms(): Promise<{
     }
   }
 
-  // Cross-variant shape check targets: pictograms with 2+ real backgrounds.
-  const shapeTargets: PictogramShapeTarget[] = [];
+  // Async export-check targets: every pictogram with at least one background.
+  const exportTargets: PictogramShapeTarget[] = [];
   for (const fam of families.values()) {
-    if (fam.variants.length >= 2) {
-      shapeTargets.push({ name: fam.display, previewId: fam.previewId, variants: fam.variants });
+    if (fam.variants.length > 0) {
+      exportTargets.push({ name: fam.display, previewId: fam.previewId, variants: fam.variants });
     }
   }
 
@@ -843,7 +1055,7 @@ async function scanPictograms(): Promise<{
     issues,
   };
 
-  return { result, baseNames, previewByNode, shapeTargets };
+  return { result, baseNames, previewByNode, exportTargets };
 }
 
 // Geometry-bearing attributes on an SVG shape (matches SHAPE_ATTRS in the
@@ -886,12 +1098,11 @@ function sameSignature(a: string[], b: string[]): boolean {
   return true;
 }
 
-// Exports each background variant of a pictogram and flags those whose geometry
-// diverges from the reference (Light) — the case where the generator can't merge
-// the variants and instead inlines a separate SVG per background (and dark/orange
-// can end up rendering the wrong shape). Runs after the main scan so verification
-// stays instant.
-async function runPictogramShapeChecks(targets: PictogramShapeTarget[]): Promise<Issue[]> {
+// Exports each background variant once and flags export issues the generator can't
+// recover from: empty SVGs, inline style="..." attributes (React expects
+// style={{}}), and geometry that diverges across backgrounds. Runs after the
+// main scan so verification stays instant.
+async function runPictogramAsyncChecks(targets: PictogramShapeTarget[]): Promise<Issue[]> {
   const issues: Issue[] = [];
   const BATCH = 8;
   for (let i = 0; i < targets.length; i += BATCH) {
@@ -899,17 +1110,15 @@ async function runPictogramShapeChecks(targets: PictogramShapeTarget[]): Promise
     const results = await Promise.all(
       slice.map(async (t) => {
         try {
-          const sigs = await Promise.all(
+          const exported = await Promise.all(
             t.variants.map(async (v) => ({
               bg: v.bg,
+              node: v.node,
               nodeId: v.node.id,
-              sig: pictogramShapeSignature(bytesToString(await v.node.exportAsync({ format: 'SVG' }))),
+              svg: bytesToString(await v.node.exportAsync({ format: 'SVG' })),
             })),
           );
-          const ref = sigs.find((s) => s.bg === 'light') || sigs[0];
-          const differing = sigs.filter((s) => s !== ref && !sameSignature(s.sig, ref.sig));
-          if (differing.length === 0) return null;
-          return { target: t, refBg: ref.bg, differing };
+          return { target: t, exported };
         } catch {
           return null;
         }
@@ -917,16 +1126,47 @@ async function runPictogramShapeChecks(targets: PictogramShapeTarget[]): Promise
     );
     for (const r of results) {
       if (!r) continue;
-      const labels = r.differing.map((d) => capitalize(d.bg)).join(', ');
-      issues.push({
-        severity: 'error',
-        rule: 'pictogram-mismatched-shapes',
-        message: `"${r.target.name}": ${labels} ${
-          r.differing.length === 1 ? 'differs' : 'differ'
-        } from ${capitalize(r.refBg)}.`,
-        previewId: r.target.previewId,
-        targets: r.differing.map((d) => ({ nodeId: d.nodeId, label: capitalize(d.bg) })),
-      });
+      const { target, exported } = r;
+
+      const emptyOnes = exported.filter((e) => svgIsEmpty(e.svg));
+      for (const e of emptyOnes) {
+        pushLayerFindings(
+          issues,
+          'pictogram-empty-export',
+          diagnoseEmptyExport(e.node),
+          target.previewId,
+          e.node,
+        );
+      }
+
+      const styledOnes = exported.filter((e) => svgHasInlineStyle(e.svg));
+      for (const e of styledOnes) {
+        let findings = findInlineStyleLayers(e.node);
+        if (findings.length === 0) findings = svgInlineStyleFindings(e.svg, e.node);
+        pushLayerFindings(issues, 'pictogram-inline-style', findings, target.previewId, e.node);
+      }
+
+      if (exported.length >= 2) {
+        const sigs = exported.map((e) => ({
+          bg: e.bg,
+          nodeId: e.nodeId,
+          sig: pictogramShapeSignature(e.svg),
+        }));
+        const ref = sigs.find((s) => s.bg === 'light') || sigs[0];
+        const differing = sigs.filter((s) => s !== ref && !sameSignature(s.sig, ref.sig));
+        if (differing.length > 0) {
+          for (const d of differing) {
+            const variant = exported.find((e) => e.nodeId === d.nodeId);
+            issues.push({
+              severity: 'error',
+              rule: 'pictogram-mismatched-shapes',
+              message: variant ? variant.node.name : capitalize(d.bg),
+              nodeId: d.nodeId,
+              previewId: target.previewId,
+            });
+          }
+        }
+      }
     }
   }
   return issues;
@@ -964,10 +1204,10 @@ async function buildPreviews(ids: string[], recolor: boolean): Promise<Record<st
   return map;
 }
 
-// Exports every size of each icon to SVG (as the generator does) and flags those
-// whose output has an element carrying both a fill and a stroke — the
-// recolor-with-alpha artifact. Runs after the main scan so verification stays
-// instant. Reports the specific offending size.
+// Exports every size of each icon to SVG (as the generator does) and flags export
+// issues: empty output, inline style attributes, and fill+stroke double-paint
+// artifacts. Runs after the main scan so verification stays instant. One issue
+// per affected layer inside the variant.
 async function runQualityChecks(targets: QualityTarget[]): Promise<Issue[]> {
   const issues: Issue[] = [];
   const BATCH = 10; // icons per batch (each exports up to 5 sizes)
@@ -975,32 +1215,41 @@ async function runQualityChecks(targets: QualityTarget[]): Promise<Issue[]> {
     const slice = targets.slice(i, i + BATCH);
     const perIcon = await Promise.all(
       slice.map(async (t) => {
-        const flags = await Promise.all(
+        const variantIssues: Issue[] = [];
+        await Promise.all(
           t.nodes.map(async (node) => {
             try {
-              const bytes = await node.exportAsync({ format: 'SVG' });
-              if (!svgDrawsFillAndStroke(bytesToString(bytes))) return null;
-              const m = /size=(\d+)/i.exec(node.name);
-              return { nodeId: node.id, size: m ? Number(m[1]) : Number.NaN };
+              const svg = bytesToString(await node.exportAsync({ format: 'SVG' }));
+              if (svgIsEmpty(svg)) {
+                pushLayerFindings(variantIssues, 'empty-export', diagnoseEmptyExport(node), undefined, node);
+              }
+              if (svgHasInlineStyle(svg)) {
+                let findings = findInlineStyleLayers(node);
+                if (findings.length === 0) findings = svgInlineStyleFindings(svg, node);
+                pushLayerFindings(variantIssues, 'inline-style', findings, undefined, node);
+              }
+              if (svgDrawsFillAndStroke(svg)) {
+                let findings = findFillAndStrokeLayers(node);
+                if (findings.length === 0) {
+                  findings = [
+                    {
+                      nodeId: node.id,
+                      layerPath: node.name,
+                      reason: 'Exported SVG has fill and stroke on the same shape',
+                    },
+                  ];
+                }
+                pushLayerFindings(variantIssues, 'fill-and-stroke', findings, undefined, node);
+              }
             } catch {
-              return null;
+              // Skip variants that fail to export.
             }
           }),
         );
-        return flags.filter((f): f is { nodeId: string; size: number } => f !== null);
+        return variantIssues;
       }),
     );
-    perIcon.forEach((offending, idx) => {
-      if (offending.length === 0) return;
-      offending.sort((a, b) => a.size - b.size);
-      const sizes = offending.map((o) => (Number.isNaN(o.size) ? '?' : String(o.size)));
-      issues.push({
-        severity: 'error',
-        rule: 'fill-and-stroke',
-        message: `"${slice[idx].name}":`,
-        targets: offending.map((o, i) => ({ nodeId: o.nodeId, label: sizes[i] })),
-      });
-    });
+    for (const batch of perIcon) issues.push(...batch);
   }
   return issues;
 }
@@ -1125,17 +1374,17 @@ async function scanIconsFlow(): Promise<void> {
 }
 
 async function scanPictogramsFlow(): Promise<void> {
-  const { result, baseNames, shapeTargets } = await scanPictograms();
+  const { result, baseNames, exportTargets } = await scanPictograms();
   figma.ui.postMessage({ type: 'scan-result', kind: 'pictograms', result });
 
   figma.ui.postMessage({ type: 'quality-loading', kind: 'pictograms' });
-  const shapeIssues = await runPictogramShapeChecks(shapeTargets);
-  figma.ui.postMessage({ type: 'quality-result', kind: 'pictograms', issues: shapeIssues });
+  const exportIssues = await runPictogramAsyncChecks(exportTargets);
+  figma.ui.postMessage({ type: 'quality-result', kind: 'pictograms', issues: exportIssues });
 
   // Pictograms keep their full color in previews (recolor = false).
   const previewIds = new Set<string>();
   for (const issue of result.issues) if (issue.previewId) previewIds.add(issue.previewId);
-  for (const issue of shapeIssues) if (issue.previewId) previewIds.add(issue.previewId);
+  for (const issue of exportIssues) if (issue.previewId) previewIds.add(issue.previewId);
   if (previewIds.size > 0) {
     const previews = await buildPreviews([...previewIds], false);
     figma.ui.postMessage({ type: 'previews', kind: 'pictograms', previews });
