@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import * as React from 'react';
 import { CountryFlag, Text } from '..';
+import * as React from 'react';
 
 const meta = {
   title: 'Utilities/CountryFlag',
   component: CountryFlag,
   args: {
-    country: 'us',
+    countryCode: 'US',
     alt: 'United States',
   },
   parameters: {
@@ -27,8 +27,8 @@ export const Countries: Story = {
   name: 'Countries',
   render: (args) => (
     <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 'var(--space-3)' }}>
-      {['us', 'gb', 'de', 'fr', 'jp', 'br', 'in', 'au', 'ca', 'mx', 'kr', 'it'].map((country) => (
-        <CountryFlag key={country} {...args} country={country} alt={country.toUpperCase()} />
+      {(['US', 'GB', 'DE', 'FR', 'JP', 'BR', 'IN', 'AU', 'CA', 'MX', 'KR', 'IT'] as const).map((countryCode) => (
+        <CountryFlag key={countryCode} {...args} countryCode={countryCode} alt={countryCode.toUpperCase()} />
       ))}
     </div>
   ),
@@ -39,7 +39,7 @@ export const Sizes: Story = {
   render: (args) => (
     <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 'var(--space-3)' }}>
       {(['1', '2', '3'] as const).map((size) => (
-        <CountryFlag key={size} {...args} country="us" alt="United States" size={size} />
+        <CountryFlag key={size} {...args} countryCode="US" alt="United States" size={size} />
       ))}
     </div>
   ),
@@ -48,8 +48,8 @@ export const Sizes: Story = {
 export const WithText: Story = {
   name: 'With text',
   render: (args) => (
-    <Text size="3">
-      <CountryFlag {...args} country="pl" alt="" style={{ width: 20, marginRight: 6 }} />
+    <Text size="3" style={{ display: 'flex' }}>
+      <CountryFlag {...args} countryCode="PL" alt="" style={{ marginRight: 6 }} />
       Poland
     </Text>
   ),

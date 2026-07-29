@@ -10,13 +10,13 @@ const VERSION = '7.5.0';
 type CountryFlagOwnProps = GetPropDefTypes<typeof countryFlagPropDefs>;
 interface CountryFlagProps extends Omit<React.ComponentProps<'img'>, 'src'>, CountryFlagOwnProps {
   // TODO: See if we can automate making prop defs with `required: true` non nullable
-  country: NonNullable<CountryFlagOwnProps['country']>;
+  countryCode: NonNullable<CountryFlagOwnProps['countryCode']>;
 }
 
 const CountryFlag = (props: CountryFlagProps) => {
-  const { country, alt = '', className, size = '1', ...countryFlagProps } = props;
+  const { countryCode, alt = '', className, size = '1', ...countryFlagProps } = props;
 
-  const code = country.toLowerCase();
+  const code = countryCode.toLowerCase();
 
   return (
     <img
