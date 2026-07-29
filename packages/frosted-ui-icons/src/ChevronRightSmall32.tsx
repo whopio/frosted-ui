@@ -9,7 +9,7 @@ export const ChevronRightSmall32 = ({ color = 'currentColor', ...props }: IconPr
       viewBox="0 0 32 32"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-icon="true"
+      data-fui-icon="ChevronRightSmall32"
       {...props}
     >
       <path

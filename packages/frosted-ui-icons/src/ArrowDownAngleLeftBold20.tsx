@@ -9,7 +9,7 @@ export const ArrowDownAngleLeftBold20 = ({ color = 'currentColor', ...props }: I
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-icon="true"
+      data-fui-icon="ArrowDownAngleLeftBold20"
       {...props}
     >
       <path

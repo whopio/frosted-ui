@@ -9,7 +9,7 @@ export const Square12 = ({ color = 'currentColor', ...props }: IconProps) => {
       viewBox="0 0 12 12"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-icon="true"
+      data-fui-icon="Square12"
       {...props}
     >
       <rect x=".75" y=".75" width="10.5" height="10.5" rx="3" stroke={color} strokeWidth="1.5" />

@@ -1,4 +1,11 @@
-<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="true">
+<svg
+  width="16"
+  height="16"
+  viewBox="0 0 16 16"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  data-fui-icon="BanFilled16"
+>
   <path
     d="M13.8057 3.25391C14.8639 4.54688 15.5 6.19882 15.5 8C15.5 12.1421 12.1421 15.5 8 15.5C6.19882 15.5 4.54688 14.8639 3.25391 13.8057L13.8057 3.25391ZM8 0.5C9.80068 0.5 11.4523 1.13563 12.7451 2.19336L2.19336 12.7451C1.13563 11.4523 0.5 9.80068 0.5 8C0.5 3.85786 3.85786 0.5 8 0.5Z"
     fill="currentColor"

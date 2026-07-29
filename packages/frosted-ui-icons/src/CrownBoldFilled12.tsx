@@ -9,7 +9,7 @@ export const CrownBoldFilled12 = ({ color = 'currentColor', ...props }: IconProp
       viewBox="0 0 13 12"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-icon="true"
+      data-fui-icon="CrownBoldFilled12"
       {...props}
     >
       <path

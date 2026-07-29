@@ -9,7 +9,7 @@ export const TeamFilled24 = ({ color = 'currentColor', ...props }: IconProps) =>
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-icon="true"
+      data-fui-icon="TeamFilled24"
       {...props}
     >
       <path

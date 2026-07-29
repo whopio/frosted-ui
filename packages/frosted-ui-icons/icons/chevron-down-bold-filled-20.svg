@@ -1,4 +1,11 @@
-<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="true">
+<svg
+  width="20"
+  height="20"
+  viewBox="0 0 20 20"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  data-fui-icon="ChevronDownBoldFilled20"
+>
   <path
     d="M3.5 7.25L9.70302 13.453C9.86704 13.617 10.133 13.617 10.297 13.453L16.5 7.25"
     stroke="currentColor"

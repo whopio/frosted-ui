@@ -9,7 +9,7 @@ export const ArrowUpRightFromSquareFilled12 = ({ color = 'currentColor', ...prop
       viewBox="0 0 12 12"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-icon="true"
+      data-fui-icon="ArrowUpRightFromSquareFilled12"
       {...props}
     >
       <path

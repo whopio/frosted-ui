@@ -9,7 +9,7 @@ export const MicrophoneOffFilled24 = ({ color = 'currentColor', ...props }: Icon
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-icon="true"
+      data-fui-icon="MicrophoneOffFilled24"
       {...props}
     >
       <path

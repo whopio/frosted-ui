@@ -9,7 +9,7 @@ export const ArrowLeftBold16 = ({ color = 'currentColor', ...props }: IconProps)
       viewBox="0 0 16 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-icon="true"
+      data-fui-icon="ArrowLeftBold16"
       {...props}
     >
       <path d="M7 13L2 8L7 3M2 8H14" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
