@@ -9,7 +9,7 @@ export const ExclamationTriangle12 = ({ color = 'currentColor', ...props }: Icon
       viewBox="0 0 12 12"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-icon="true"
+      data-fui-icon="ExclamationTriangle12"
       {...props}
     >
       <path

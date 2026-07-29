@@ -1,4 +1,11 @@
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="true">
+<svg
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  data-fui-icon="TriangleBoldFilled24"
+>
   <path
     d="M9.16257 2.93628C10.4115 0.641387 13.7089 0.648675 14.9477 2.94897L22.5942 17.1511C23.774 19.3424 22.1864 21.9998 19.6977 21.9998H4.32175C1.82673 21.9994 0.24034 19.33 1.43307 17.1384L9.16257 2.93628Z"
     fill="currentColor"

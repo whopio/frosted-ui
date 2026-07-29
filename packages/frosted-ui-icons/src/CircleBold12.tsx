@@ -9,7 +9,7 @@ export const CircleBold12 = ({ color = 'currentColor', ...props }: IconProps) =>
       viewBox="0 0 12 12"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-icon="true"
+      data-fui-icon="CircleBold12"
       {...props}
     >
       <circle cx="6" cy="6" r="5" stroke={color} strokeWidth="2" />

@@ -1,4 +1,11 @@
-<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="true">
+<svg
+  width="12"
+  height="12"
+  viewBox="0 0 12 12"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  data-fui-icon="MessageBlankBoldFilled12"
+>
   <path
     d="M12 6C12 9.31371 9.31371 12 6 12C5.20108 11.9999 4.43782 11.8413 3.73926 11.5566C3.22736 11.6722 2.71101 11.7994 2.2627 11.917C0.949962 12.2615 -0.261629 11.0532 0.0820312 9.73926L0.0830078 9.73828C0.200465 9.2909 0.326747 8.77315 0.442383 8.25977C0.15808 7.56102 0 6.79799 0 6C0 2.68634 2.68659 0.000237465 6 0C9.31371 0 12 2.68629 12 6Z"
     fill="currentColor"

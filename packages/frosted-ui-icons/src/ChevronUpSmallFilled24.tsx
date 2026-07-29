@@ -9,7 +9,7 @@ export const ChevronUpSmallFilled24 = ({ color = 'currentColor', ...props }: Ico
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-icon="true"
+      data-fui-icon="ChevronUpSmallFilled24"
       {...props}
     >
       <path

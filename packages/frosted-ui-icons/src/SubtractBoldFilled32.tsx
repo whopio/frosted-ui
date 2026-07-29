@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const SubtractBoldFilled32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="SubtractBoldFilled32"
+      {...props}
+    >
+      <path
+        d="M29.5 14.5C30.3284 14.5 31 15.1716 31 16C31 16.8284 30.3284 17.5 29.5 17.5H2.5C1.67157 17.5 1 16.8284 1 16C1 15.1716 1.67157 14.5 2.5 14.5H29.5Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+SubtractBoldFilled32.category = 'Interface General';
+
+export default SubtractBoldFilled32;

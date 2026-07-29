@@ -9,7 +9,7 @@ export const ArrowUpLeftBoldFilled32 = ({ color = 'currentColor', ...props }: Ic
       viewBox="0 0 32 32"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-icon="true"
+      data-fui-icon="ArrowUpLeftBoldFilled32"
       {...props}
     >
       <path

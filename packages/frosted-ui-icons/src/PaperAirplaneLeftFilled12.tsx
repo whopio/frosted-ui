@@ -9,7 +9,7 @@ export const PaperAirplaneLeftFilled12 = ({ color = 'currentColor', ...props }: 
       viewBox="0 0 12 13"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-icon="true"
+      data-fui-icon="PaperAirplaneLeftFilled12"
       {...props}
     >
       <path

@@ -9,7 +9,7 @@ export const MessageFilledSlashed12 = ({ color = 'currentColor', ...props }: Ico
       viewBox="0 0 13 13"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-icon="true"
+      data-fui-icon="MessageFilledSlashed12"
       {...props}
     >
       <path

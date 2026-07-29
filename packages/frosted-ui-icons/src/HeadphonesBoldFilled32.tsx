@@ -9,7 +9,7 @@ export const HeadphonesBoldFilled32 = ({ color = 'currentColor', ...props }: Ico
       viewBox="0 0 32 32"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-icon="true"
+      data-fui-icon="HeadphonesBoldFilled32"
       {...props}
     >
       <path

@@ -9,7 +9,7 @@ export const ControlsVertical16 = ({ color = 'currentColor', ...props }: IconPro
       viewBox="0 0 16 17"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-icon="true"
+      data-fui-icon="ControlsVertical16"
       {...props}
     >
       <path

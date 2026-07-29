@@ -1,4 +1,11 @@
-<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="true">
+<svg
+  width="12"
+  height="12"
+  viewBox="0 0 12 12"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  data-fui-icon="PlayFilled12"
+>
   <path
     d="M1.5 1.92989C1.50002 0.418735 3.17887 -0.4879 4.44238 0.341022L10.6455 4.41133C11.7892 5.16166 11.7892 6.83874 10.6455 7.58907L4.44238 11.6584C3.17897 12.4873 1.5003 11.5815 1.5 10.0705V1.92989Z"
     fill="currentColor"

@@ -9,7 +9,7 @@ export const SunFilled24 = ({ color = 'currentColor', ...props }: IconProps) => 
       viewBox="0 0 24 25"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-icon="true"
+      data-fui-icon="SunFilled24"
       {...props}
     >
       <path

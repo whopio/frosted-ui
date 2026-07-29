@@ -1,4 +1,11 @@
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="true">
+<svg
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  data-fui-icon="CollapseSidebar24"
+>
   <path
     d="M8.75 2.25H5.25C2.76472 2.25 0.75 4.26472 0.75 6.75V17.25C0.75 19.7353 2.76472 21.75 5.25 21.75H8.75M8.75 2.25H18.75C21.2353 2.25 23.25 4.26472 23.25 6.75V17.25C23.25 19.7353 21.2353 21.75 18.75 21.75H8.75M8.75 2.25V21.75"
     stroke="currentColor"
