@@ -9,7 +9,7 @@ export const DoubleArrowRightLeft20 = ({ color = 'currentColor', ...props }: Ico
       viewBox="0 0 21 21"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-icon="true"
+      data-fui-icon="DoubleArrowRightLeft20"
       {...props}
     >
       <path

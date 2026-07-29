@@ -9,14 +9,12 @@ export const SubtractBold16 = ({ color = 'currentColor', ...props }: IconProps) 
       viewBox="0 0 16 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-icon="true"
+      data-fui-icon="SubtractBold16"
       {...props}
     >
       <path
-        d="M14.25 7C14.8023 7 15.25 7.44772 15.25 8C15.25 8.55228 14.8023 9 14.25 9H1.75C1.19771 9 0.75 8.55228 0.75 8C0.750001 7.44772 1.19772 7 1.75 7H14.25Z"
+        d="M14 7C14.5523 7 15 7.44772 15 8C15 8.55228 14.5523 9 14 9H2C1.44772 9 1 8.55228 1 8C1 7.44772 1.44772 7 2 7H14Z"
         fill={color}
-        fillRule="evenodd"
-        clipRule="evenodd"
       />
     </svg>
   );

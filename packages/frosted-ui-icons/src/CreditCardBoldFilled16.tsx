@@ -9,7 +9,7 @@ export const CreditCardBoldFilled16 = ({ color = 'currentColor', ...props }: Ico
       viewBox="0 0 17 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-icon="true"
+      data-fui-icon="CreditCardBoldFilled16"
       {...props}
     >
       <path

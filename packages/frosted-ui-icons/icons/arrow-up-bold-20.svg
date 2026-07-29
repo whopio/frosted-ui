@@ -1,4 +1,11 @@
-<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="true">
+<svg
+  width="20"
+  height="20"
+  viewBox="0 0 20 20"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  data-fui-icon="ArrowUpBold20"
+>
   <path
     d="M16.5002 8.5L10 2L3.5 8.5M10 2V18"
     stroke="currentColor"

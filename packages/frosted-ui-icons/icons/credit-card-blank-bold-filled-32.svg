@@ -1,4 +1,11 @@
-<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="true">
+<svg
+  width="32"
+  height="32"
+  viewBox="0 0 32 32"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  data-fui-icon="CreditCardBlankBoldFilled32"
+>
   <path
     d="M32 22.25C32 25.1493 29.6493 27.4998 26.75 27.5H5.25C2.35063 27.4999 0 25.1494 0 22.25V13H32V22.25ZM26.75 4.5C29.6493 4.50024 32 6.85065 32 9.75V10H0V9.75C0 6.8506 2.35063 4.50015 5.25 4.5H26.75Z"
     fill="currentColor"

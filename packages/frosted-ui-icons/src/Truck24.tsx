@@ -9,7 +9,7 @@ export const Truck24 = ({ color = 'currentColor', ...props }: IconProps) => {
       viewBox="0 0 25 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-icon="true"
+      data-fui-icon="Truck24"
       {...props}
     >
       <path

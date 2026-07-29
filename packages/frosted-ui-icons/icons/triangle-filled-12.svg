@@ -1,4 +1,11 @@
-<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="true">
+<svg
+  width="12"
+  height="12"
+  viewBox="0 0 12 12"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  data-fui-icon="TriangleFilled12"
+>
   <path
     d="M4.27457 1.518C5.00569 0.129349 6.99448 0.129351 7.7256 1.518L11.7381 9.14171C12.4212 10.44 11.4797 11.9998 10.0126 12H1.98755C0.520514 11.9998 -0.421025 10.44 0.262036 9.14171L4.27457 1.518Z"
     fill="currentColor"

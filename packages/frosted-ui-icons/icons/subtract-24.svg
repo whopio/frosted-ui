@@ -1,6 +1,13 @@
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="true">
+<svg
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  data-fui-icon="Subtract24"
+>
   <path
-    d="M22.25 11.25C22.6641 11.2502 23 11.5859 23 12C23 12.4141 22.6641 12.7498 22.25 12.75H1.75C1.33593 12.7498 1 12.4141 1 12C1 11.5859 1.33593 11.2502 1.75 11.25H22.25Z"
+    d="M22.25 11.25C22.6642 11.25 23 11.5858 23 12C23 12.4142 22.6642 12.75 22.25 12.75H1.75C1.33579 12.75 1 12.4142 1 12C1 11.5858 1.33579 11.25 1.75 11.25H22.25Z"
     fill="currentColor"
   />
 </svg>

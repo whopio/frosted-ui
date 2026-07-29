@@ -1,4 +1,11 @@
-<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="true">
+<svg
+  width="20"
+  height="20"
+  viewBox="0 0 20 20"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  data-fui-icon="ArrowUp20"
+>
   <path
     d="M16.5004 8.25014L10.0002 1.75L3.5 8.25014M10.0002 1.75V18.25"
     stroke="currentColor"

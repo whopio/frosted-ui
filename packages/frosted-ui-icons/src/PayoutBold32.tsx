@@ -9,7 +9,7 @@ export const PayoutBold32 = ({ color = 'currentColor', ...props }: IconProps) =>
       viewBox="0 0 32 33"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-icon="true"
+      data-fui-icon="PayoutBold32"
       {...props}
     >
       <path

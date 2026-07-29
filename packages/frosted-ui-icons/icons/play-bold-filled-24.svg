@@ -1,4 +1,11 @@
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="true">
+<svg
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  data-fui-icon="PlayBoldFilled24"
+>
   <path
     d="M4 4.36057C4.00035 1.72129 6.94537 0.150564 9.1377 1.62034L20.4688 9.21702C22.414 10.5212 22.4197 13.3799 20.4795 14.6916L9.14844 22.3528C6.95689 23.8344 4 22.2638 4 19.6184V4.36057Z"
     fill="currentColor"

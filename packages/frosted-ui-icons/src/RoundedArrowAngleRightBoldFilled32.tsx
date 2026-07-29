@@ -9,7 +9,7 @@ export const RoundedArrowAngleRightBoldFilled32 = ({ color = 'currentColor', ...
       viewBox="0 0 32 32"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-icon="true"
+      data-fui-icon="RoundedArrowAngleRightBoldFilled32"
       {...props}
     >
       <path

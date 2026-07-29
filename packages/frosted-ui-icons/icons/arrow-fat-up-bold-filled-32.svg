@@ -1,4 +1,11 @@
-<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="true">
+<svg
+  width="32"
+  height="32"
+  viewBox="0 0 32 32"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  data-fui-icon="ArrowFatUpBoldFilled32"
+>
   <path
     d="M24.0001 17H28.045C29.6216 17 30.4342 15.1147 29.3517 13.9688L17.8849 1.83887C16.8613 0.756126 15.1379 0.756048 14.1144 1.83887L2.64854 13.9688C1.56596 15.1147 2.37858 17 3.95519 17H8.00011V28.0068C8.00011 29.6597 9.34041 31 10.9933 31H21.0069C22.6598 31 24.0001 29.6597 24.0001 28.0068V17Z"
     fill="currentColor"

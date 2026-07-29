@@ -1,4 +1,11 @@
-<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="true">
+<svg
+  width="12"
+  height="12"
+  viewBox="0 0 12 12"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  data-fui-icon="ArrowFatUpFilled12"
+>
   <path
     d="M8.99997 7H10.5703C11.4825 6.99963 11.9605 5.91605 11.3457 5.24219L6.99704 0.479492C6.46171 -0.106815 5.53823 -0.106812 5.0029 0.479492L0.654268 5.24219C0.0394501 5.91606 0.517469 6.99964 1.42966 7H2.99997V10.5C2.99997 11.3284 3.67154 12 4.49997 12H7.49997C8.32838 12 8.99997 11.3284 8.99997 10.5V7Z"
     fill="currentColor"

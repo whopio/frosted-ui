@@ -9,7 +9,7 @@ export const Sword20 = ({ color = 'currentColor', ...props }: IconProps) => {
       viewBox="0 0 21 21"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-icon="true"
+      data-fui-icon="Sword20"
       {...props}
     >
       <path
