@@ -10,7 +10,7 @@
   outline-offset: -1px;
   aspect-ratio: 4 / 3;
   width: var(--country-flag-width);
-  border-radius: calc(var(--country-flag-width) / 8);
+  border-radius: 12.5% / 16.6667%;
 }
 
 /***************************************************************************************************
