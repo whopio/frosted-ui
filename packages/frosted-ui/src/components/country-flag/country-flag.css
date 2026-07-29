@@ -1,0 +1,35 @@
+.fui-CountryFlag {
+  display: inline-block;
+  align-self: center;
+  flex-shrink: 0;
+  vertical-align: middle;
+  user-select: none;
+  object-fit: cover;
+
+  outline: 1px solid var(--gray-a5);
+  outline-offset: -1px;
+  aspect-ratio: 4 / 3;
+  width: var(--country-flag-width);
+  border-radius: 12.5% / 16.6667%;
+}
+
+/***************************************************************************************************
+ *                                                                                                 *
+ * SIZES                                                                                           *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+.fui-CountryFlag {
+  &:where(.fui-r-size-1) {
+    --country-flag-width: 16px;
+  }
+  &:where(.fui-r-size-2) {
+    --country-flag-width: 20px;
+  }
+  &:where(.fui-r-size-3) {
+    --country-flag-width: 24px;
+  }
+  &:where(.fui-r-size-4) {
+    --country-flag-width: 32px;
+  }
+}

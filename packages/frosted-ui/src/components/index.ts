@@ -71,6 +71,7 @@ export * from './callout';
 export * from './card';
 export * from './credit-card';
 export * from './empty-state';
+export * from './country-flag';
 
 export * from './icon-button';
 export * from './link';
@@ -94,5 +95,6 @@ export * from './widget-stack';
 
 // UTILITIES
 //------------------------------------------------------------------------------
+export * from './country-flag';
 export * from './portal';
 export * from './visually-hidden';
