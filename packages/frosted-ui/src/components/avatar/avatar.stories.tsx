@@ -82,6 +82,7 @@ export const Size: Story = {
       <Avatar {...args} size="6" />
       <Avatar {...args} size="7" />
       <Avatar {...args} size="8" />
+      <Avatar {...args} size="9" />
     </div>
   ),
 };
