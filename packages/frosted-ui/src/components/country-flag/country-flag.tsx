@@ -14,7 +14,7 @@ interface CountryFlagProps extends Omit<React.ComponentProps<'img'>, 'src'>, Cou
 }
 
 const CountryFlag = (props: CountryFlagProps) => {
-  const { countryCode, alt = '', className, size = '1', ...countryFlagProps } = props;
+  const { countryCode, alt = '', className, size = countryFlagPropDefs.size.default, ...countryFlagProps } = props;
 
   const code = countryCode.toLowerCase();
 
