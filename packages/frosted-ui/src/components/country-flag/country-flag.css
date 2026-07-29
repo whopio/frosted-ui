@@ -27,6 +27,9 @@
     --country-flag-width: 20px;
   }
   &:where(.fui-r-size-3) {
+    --country-flag-width: 24px;
+  }
+  &:where(.fui-r-size-4) {
     --country-flag-width: 32px;
   }
 }

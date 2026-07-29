@@ -38,7 +38,7 @@ export const Sizes: Story = {
   name: 'Sizes',
   render: (args) => (
     <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 'var(--space-3)' }}>
-      {(['1', '2', '3'] as const).map((size) => (
+      {(['1', '2', '3', '4'] as const).map((size) => (
         <CountryFlag key={size} {...args} countryCode="US" alt="United States" size={size} />
       ))}
     </div>
