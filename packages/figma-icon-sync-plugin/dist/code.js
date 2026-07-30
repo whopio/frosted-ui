@@ -40,8 +40,27 @@
     for (let i = 0; i < bytes.length; i += 1) out += String.fromCharCode(bytes[i]);
     return out;
   }
+  var SVG_SHAPE_TAG = "(path|rect|circle|ellipse|polygon|polyline|line)";
+  function svgIsEmpty(svg) {
+    const tagRegex = new RegExp(`<${SVG_SHAPE_TAG}\\b([^>]*)>`, "gi");
+    let match;
+    while ((match = tagRegex.exec(svg)) !== null) {
+      const tag = match[1].toLowerCase();
+      const attrs = match[2];
+      if (tag === "path") {
+        const d = /\bd\s*=\s*"([^"]*)"/i.exec(attrs);
+        if (d && d[1].trim()) return false;
+        continue;
+      }
+      return false;
+    }
+    return true;
+  }
+  function svgHasInlineStyle(svg) {
+    return /\bstyle\s*=\s*"/i.test(svg);
+  }
   function svgDrawsFillAndStroke(svg) {
-    const tagRegex = /<(path|rect|circle|ellipse|polygon|polyline|line)\b([^>]*)>/gi;
+    const tagRegex = new RegExp(`<${SVG_SHAPE_TAG}\\b([^>]*)>`, "gi");
     let match;
     while ((match = tagRegex.exec(svg)) !== null) {
       const attrs = match[2];
@@ -58,6 +77,156 @@
       if (hasFill && hasStroke) return true;
     }
     return false;
+  }
+  function isGeometryNode(node) {
+    return "fills" in node && "strokes" in node;
+  }
+  function hasVisibleFill(node) {
+    const fills = node.fills;
+    if (fills === figma.mixed || !Array.isArray(fills) || fills.length === 0) return false;
+    return fills.some((p) => p.visible !== false);
+  }
+  function hasVisibleStroke(node) {
+    const strokes = node.strokes;
+    if (!Array.isArray(strokes) || strokes.length === 0) return false;
+    if (!strokes.some((p) => p.visible !== false)) return false;
+    const weight = node.strokeWeight;
+    if (weight === figma.mixed) return true;
+    return typeof weight === "number" && weight > 0;
+  }
+  function layerPathWithin(node, variant) {
+    const parts = [];
+    let cur = node;
+    while (cur && cur.id !== variant.id) {
+      if ("name" in cur && cur.name) parts.unshift(cur.name);
+      cur = cur.parent;
+    }
+    return parts.length ? parts.join(" / ") : node.name || "(unnamed)";
+  }
+  function walkVisibleDescendants(root, visit) {
+    if (root.visible === false) return;
+    visit(root);
+    if ("children" in root) {
+      for (const child of root.children) walkVisibleDescendants(child, visit);
+    }
+  }
+  function formatBlendMode(mode) {
+    if (mode === "PASS_THROUGH") return "Pass through";
+    return mode.toLowerCase().split("_").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+  }
+  function findInlineStyleLayers(variant) {
+    const findings = [];
+    walkVisibleDescendants(variant, (node) => {
+      if ("blendMode" in node && node.blendMode !== "PASS_THROUGH" && node.blendMode !== "NORMAL") {
+        findings.push({
+          nodeId: node.id,
+          layerPath: layerPathWithin(node, variant),
+          reason: `${formatBlendMode(node.blendMode)} blend mode exports as inline CSS`
+        });
+        return;
+      }
+      if ("opacity" in node && typeof node.opacity === "number" && node.opacity < 0.999) {
+        findings.push({
+          nodeId: node.id,
+          layerPath: layerPathWithin(node, variant),
+          reason: `${Math.round(node.opacity * 100)}% layer opacity exports as inline CSS`
+        });
+      }
+    });
+    return findings;
+  }
+  function svgInlineStyleFindings(svg, variant) {
+    const reasons = /* @__PURE__ */ new Set();
+    const styleRegex = /\bstyle\s*=\s*"([^"]*)"/gi;
+    let match;
+    while ((match = styleRegex.exec(svg)) !== null) {
+      const style = match[1];
+      const blend = /mix-blend-mode\s*:\s*([^;]+)/i.exec(style);
+      if (blend) {
+        reasons.add(`${blend[1].trim()} blend mode in exported SVG`);
+        continue;
+      }
+      const opacity = /opacity\s*:\s*([^;]+)/i.exec(style);
+      if (opacity) {
+        reasons.add(`opacity ${opacity[1].trim()} in exported SVG`);
+        continue;
+      }
+      const snippet = style.length > 48 ? `${style.slice(0, 48)}\u2026` : style;
+      reasons.add(`inline style="${snippet}"`);
+    }
+    if (reasons.size === 0) {
+      return [
+        {
+          nodeId: variant.id,
+          layerPath: variant.name,
+          reason: "Exported SVG contains inline style attributes"
+        }
+      ];
+    }
+    return Array.from(reasons).map((reason) => ({
+      nodeId: variant.id,
+      layerPath: variant.name,
+      reason
+    }));
+  }
+  function findFillAndStrokeLayers(variant) {
+    const findings = [];
+    walkVisibleDescendants(variant, (node) => {
+      if (!isGeometryNode(node)) return;
+      if (hasVisibleFill(node) && hasVisibleStroke(node)) {
+        findings.push({
+          nodeId: node.id,
+          layerPath: layerPathWithin(node, variant),
+          reason: "Fill and stroke on the same shape \u2014 double-paints when recolored"
+        });
+      }
+    });
+    return findings;
+  }
+  function diagnoseEmptyExport(variant) {
+    const unpainted = [];
+    let hasGeometry = false;
+    walkVisibleDescendants(variant, (node) => {
+      if (!isGeometryNode(node)) return;
+      hasGeometry = true;
+      if (!hasVisibleFill(node) && !hasVisibleStroke(node)) {
+        unpainted.push({
+          nodeId: node.id,
+          layerPath: layerPathWithin(node, variant),
+          reason: "No visible fill or stroke"
+        });
+      }
+    });
+    if (!hasGeometry) {
+      return [
+        {
+          nodeId: variant.id,
+          layerPath: variant.name,
+          reason: "No vector layers in this variant"
+        }
+      ];
+    }
+    if (unpainted.length > 0) return unpainted;
+    return [
+      {
+        nodeId: variant.id,
+        layerPath: variant.name,
+        reason: "Figma exported an empty SVG despite visible layers"
+      }
+    ];
+  }
+  function pushLayerFindings(issues, rule, findings, previewId, variant) {
+    for (const f of findings) {
+      const reason = variant && f.nodeId !== variant.id ? `${f.reason} (${variant.name})` : f.reason;
+      issues.push({
+        severity: "error",
+        rule,
+        message: f.layerPath,
+        reason,
+        nodeId: f.nodeId,
+        previewId
+      });
+    }
   }
   function findIconsPage() {
     const target = figma.root.children.find((p) => normalize(p.name) === "icons" || normalize(p.name) === "producticons");
@@ -540,10 +709,10 @@
         if (preview) issue.previewId = preview;
       }
     }
-    const shapeTargets = [];
+    const exportTargets = [];
     for (const fam of families.values()) {
-      if (fam.variants.length >= 2) {
-        shapeTargets.push({ name: fam.display, previewId: fam.previewId, variants: fam.variants });
+      if (fam.variants.length > 0) {
+        exportTargets.push({ name: fam.display, previewId: fam.previewId, variants: fam.variants });
       }
     }
     issues.sort((a, b) => a.severity === b.severity ? 0 : a.severity === "error" ? -1 : 1);
@@ -562,7 +731,7 @@
       warningCount,
       issues
     };
-    return { result, baseNames, previewByNode, shapeTargets };
+    return { result, baseNames, previewByNode, exportTargets };
   }
   var PICTOGRAM_SHAPE_TAGS = ["path", "circle", "rect", "ellipse", "polygon", "polyline", "line"];
   var PICTOGRAM_GEOM_ATTRS = ["d", "points", "x", "y", "width", "height", "cx", "cy", "r", "rx", "ry", "transform"];
@@ -591,7 +760,7 @@
     for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return false;
     return true;
   }
-  async function runPictogramShapeChecks(targets) {
+  async function runPictogramAsyncChecks(targets) {
     const issues = [];
     const BATCH = 8;
     for (let i = 0; i < targets.length; i += BATCH) {
@@ -599,17 +768,15 @@
       const results = await Promise.all(
         slice.map(async (t) => {
           try {
-            const sigs = await Promise.all(
+            const exported = await Promise.all(
               t.variants.map(async (v) => ({
                 bg: v.bg,
+                node: v.node,
                 nodeId: v.node.id,
-                sig: pictogramShapeSignature(bytesToString(await v.node.exportAsync({ format: "SVG" })))
+                svg: bytesToString(await v.node.exportAsync({ format: "SVG" }))
               }))
             );
-            const ref = sigs.find((s) => s.bg === "light") || sigs[0];
-            const differing = sigs.filter((s) => s !== ref && !sameSignature(s.sig, ref.sig));
-            if (differing.length === 0) return null;
-            return { target: t, refBg: ref.bg, differing };
+            return { target: t, exported };
           } catch {
             return null;
           }
@@ -617,14 +784,44 @@
       );
       for (const r of results) {
         if (!r) continue;
-        const labels = r.differing.map((d) => capitalize(d.bg)).join(", ");
-        issues.push({
-          severity: "error",
-          rule: "pictogram-mismatched-shapes",
-          message: `"${r.target.name}": ${labels} ${r.differing.length === 1 ? "differs" : "differ"} from ${capitalize(r.refBg)}.`,
-          previewId: r.target.previewId,
-          targets: r.differing.map((d) => ({ nodeId: d.nodeId, label: capitalize(d.bg) }))
-        });
+        const { target, exported } = r;
+        const emptyOnes = exported.filter((e) => svgIsEmpty(e.svg));
+        for (const e of emptyOnes) {
+          pushLayerFindings(
+            issues,
+            "pictogram-empty-export",
+            diagnoseEmptyExport(e.node),
+            target.previewId,
+            e.node
+          );
+        }
+        const styledOnes = exported.filter((e) => svgHasInlineStyle(e.svg));
+        for (const e of styledOnes) {
+          let findings = findInlineStyleLayers(e.node);
+          if (findings.length === 0) findings = svgInlineStyleFindings(e.svg, e.node);
+          pushLayerFindings(issues, "pictogram-inline-style", findings, target.previewId, e.node);
+        }
+        if (exported.length >= 2) {
+          const sigs = exported.map((e) => ({
+            bg: e.bg,
+            nodeId: e.nodeId,
+            sig: pictogramShapeSignature(e.svg)
+          }));
+          const ref = sigs.find((s) => s.bg === "light") || sigs[0];
+          const differing = sigs.filter((s) => s !== ref && !sameSignature(s.sig, ref.sig));
+          if (differing.length > 0) {
+            for (const d of differing) {
+              const variant = exported.find((e) => e.nodeId === d.nodeId);
+              issues.push({
+                severity: "error",
+                rule: "pictogram-mismatched-shapes",
+                message: variant ? variant.node.name : capitalize(d.bg),
+                nodeId: d.nodeId,
+                previewId: target.previewId
+              });
+            }
+          }
+        }
       }
     }
     return issues;
@@ -660,32 +857,40 @@
       const slice = targets.slice(i, i + BATCH);
       const perIcon = await Promise.all(
         slice.map(async (t) => {
-          const flags = await Promise.all(
+          const variantIssues = [];
+          await Promise.all(
             t.nodes.map(async (node) => {
               try {
-                const bytes = await node.exportAsync({ format: "SVG" });
-                if (!svgDrawsFillAndStroke(bytesToString(bytes))) return null;
-                const m = /size=(\d+)/i.exec(node.name);
-                return { nodeId: node.id, size: m ? Number(m[1]) : Number.NaN };
+                const svg = bytesToString(await node.exportAsync({ format: "SVG" }));
+                if (svgIsEmpty(svg)) {
+                  pushLayerFindings(variantIssues, "empty-export", diagnoseEmptyExport(node), void 0, node);
+                }
+                if (svgHasInlineStyle(svg)) {
+                  let findings = findInlineStyleLayers(node);
+                  if (findings.length === 0) findings = svgInlineStyleFindings(svg, node);
+                  pushLayerFindings(variantIssues, "inline-style", findings, void 0, node);
+                }
+                if (svgDrawsFillAndStroke(svg)) {
+                  let findings = findFillAndStrokeLayers(node);
+                  if (findings.length === 0) {
+                    findings = [
+                      {
+                        nodeId: node.id,
+                        layerPath: node.name,
+                        reason: "Exported SVG has fill and stroke on the same shape"
+                      }
+                    ];
+                  }
+                  pushLayerFindings(variantIssues, "fill-and-stroke", findings, void 0, node);
+                }
               } catch {
-                return null;
               }
             })
           );
-          return flags.filter((f) => f !== null);
+          return variantIssues;
         })
       );
-      perIcon.forEach((offending, idx) => {
-        if (offending.length === 0) return;
-        offending.sort((a, b) => a.size - b.size);
-        const sizes = offending.map((o) => Number.isNaN(o.size) ? "?" : String(o.size));
-        issues.push({
-          severity: "error",
-          rule: "fill-and-stroke",
-          message: `"${slice[idx].name}":`,
-          targets: offending.map((o, i2) => ({ nodeId: o.nodeId, label: sizes[i2] }))
-        });
-      });
+      for (const batch of perIcon) issues.push(...batch);
     }
     return issues;
   }
@@ -780,14 +985,14 @@
     figma.ui.postMessage({ type: "diff-result", kind: "icons", diff });
   }
   async function scanPictogramsFlow() {
-    const { result, baseNames, shapeTargets } = await scanPictograms();
+    const { result, baseNames, exportTargets } = await scanPictograms();
     figma.ui.postMessage({ type: "scan-result", kind: "pictograms", result });
     figma.ui.postMessage({ type: "quality-loading", kind: "pictograms" });
-    const shapeIssues = await runPictogramShapeChecks(shapeTargets);
-    figma.ui.postMessage({ type: "quality-result", kind: "pictograms", issues: shapeIssues });
+    const exportIssues = await runPictogramAsyncChecks(exportTargets);
+    figma.ui.postMessage({ type: "quality-result", kind: "pictograms", issues: exportIssues });
     const previewIds = /* @__PURE__ */ new Set();
     for (const issue of result.issues) if (issue.previewId) previewIds.add(issue.previewId);
-    for (const issue of shapeIssues) if (issue.previewId) previewIds.add(issue.previewId);
+    for (const issue of exportIssues) if (issue.previewId) previewIds.add(issue.previewId);
     if (previewIds.size > 0) {
       const previews = await buildPreviews([...previewIds], false);
       figma.ui.postMessage({ type: "previews", kind: "pictograms", previews });

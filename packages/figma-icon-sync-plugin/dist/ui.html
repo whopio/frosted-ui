@@ -310,6 +310,12 @@
       .issue .msg {
         color: var(--figma-color-text);
       }
+      .issue .reason {
+        color: var(--figma-color-text-secondary, var(--muted));
+        font-size: 11px;
+        line-height: 1.35;
+        margin-top: 2px;
+      }
       .pills {
         display: flex;
         flex-wrap: wrap;
@@ -591,12 +597,12 @@
           fail: (n, hasErr) => n + (hasErr ? ' size error(s)' : ' size warning(s)'),
         },
         {
-          rules: ['fill-and-stroke'],
+          rules: ['fill-and-stroke', 'empty-export', 'inline-style'],
           async: true,
-          pending: 'Checking for fill + stroke overlaps…',
-          ok: 'No fill + stroke overlaps',
-          fail: (n) => n + ' icon(s) draw fill + stroke',
-          info: 'A shape with both a fill and a stroke double-paints where they overlap, showing a dark rim when the icon is recolored with a translucent color.',
+          pending: 'Checking SVG exports…',
+          ok: 'SVG exports valid',
+          fail: (n, hasErr) => n + (hasErr ? ' export error(s)' : ' export warning(s)'),
+          info: 'Exports each size to SVG as the generator does. Click a row to jump to the problem layer. Empty export: no artwork in the SVG. Inline style: blend modes or opacity export as style="…" and break codegen — flatten or use fill/stroke. Fill + stroke: one shape has both — it double-paints when recolored.',
         },
         {
           rules: ['hidden-layers', 'not-single-shape'],
@@ -647,12 +653,16 @@
           info: 'Pictograms should be 240×240.',
         },
         {
-          rules: ['pictogram-mismatched-shapes'],
+          rules: [
+            'pictogram-mismatched-shapes',
+            'pictogram-inline-style',
+            'pictogram-empty-export',
+          ],
           async: true,
-          pending: 'Checking shapes across backgrounds…',
-          ok: 'Consistent shapes across backgrounds',
-          fail: (n) => n + ' with mismatched shapes',
-          info: 'Light, Dark, and Orange should share identical geometry — only colors may differ. When shapes differ, the pictogram can’t be merged into one component: each background is inlined separately and Dark/Orange may even render the wrong shape.',
+          pending: 'Checking SVG exports…',
+          ok: 'SVG exports compatible',
+          fail: (n) => n + ' export issue(s)',
+          info: 'Exports each background variant to SVG as the generator does. Click a row to jump to the problem layer. Empty export: no artwork in the SVG. Inline style: blend modes or opacity export as style="…" and break React codegen — flatten or use fill/stroke. Mismatched shapes: Light, Dark, and Orange must share identical geometry — only colors may differ.',
         },
         {
           rules: ['pictogram-not-single-layer'],
@@ -710,6 +720,12 @@
         'size-mismatch': 'Dimension mismatch',
         'hidden-layers': 'Hidden layers',
         'not-single-shape': 'Not a single shape',
+        'bad-constraints': 'Not set to Scale',
+        'incomplete-set': 'Incomplete icon set',
+        'orphan': 'Outside Icons frame',
+        'fill-and-stroke': 'Fill + stroke on same shape',
+        'empty-export': 'Empty SVG export',
+        'inline-style': 'Inline style breaks codegen',
         'pictogram-empty-name': 'Invalid variant name',
         'pictogram-number-in-name': 'Numbers in names',
         'pictogram-invalid-background': 'Unknown background',
@@ -718,7 +734,10 @@
         'pictogram-dimension': 'Wrong dimensions',
         'pictogram-bad-constraints': 'Not set to Scale',
         'pictogram-not-single-layer': 'Extra or hidden layers',
-        'pictogram-mismatched-shapes': 'Mismatched shapes',
+        'pictogram-mismatched-shapes': 'Geometry differs across backgrounds',
+        'pictogram-inline-style': 'Inline style breaks codegen',
+        'pictogram-empty-export': 'Empty SVG export',
+        'pictogram-orphan': 'Outside Pictogram container',
       };
 
       function issueHtml(i) {
@@ -742,6 +761,9 @@
         const pid = i.previewId || '';
         const previewInner = pid && S().previews[pid] ? S().previews[pid] : '';
         const preview = '<span class="preview" data-preview-id="' + pid + '">' + previewInner + '</span>';
+        const reason = i.reason_escaped
+          ? '<div class="reason">' + i.reason_escaped + '</div>'
+          : '';
         return (
           '<div class="issue ' +
           i.severity +
@@ -753,6 +775,7 @@
           '<div class="body"><div class="msg">' +
           i.msg_escaped +
           '</div>' +
+          reason +
           pills +
           '</div></div>'
         );
@@ -899,7 +922,11 @@
       }
 
       function prepIssues(list) {
-        return list.map((i) => ({ ...i, msg_escaped: escapeHtml(i.message) }));
+        return list.map((i) => ({
+          ...i,
+          msg_escaped: escapeHtml(i.message),
+          reason_escaped: i.reason ? escapeHtml(i.reason) : '',
+        }));
       }
 
       function updateStatus(r) {
