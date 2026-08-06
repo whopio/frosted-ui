@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const BrowserBoldFilled12 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="BrowserBoldFilled12"
+      {...props}
+    >
+      <path
+        d="M12 8.90039C11.9998 10.6122 10.6122 11.9998 8.90039 12H3.09961C1.38784 11.9998 0.000210765 10.6122 0 8.90039V7H12V8.90039ZM8.90039 0C10.6122 0.000211023 11.9998 1.38784 12 3.09961V5H0V3.09961C0.000211023 1.38784 1.38784 0.000211023 3.09961 0H8.90039ZM3 1.85059C2.44772 1.85059 2 2.2983 2 2.85059C2.00026 3.40265 2.44788 3.85059 3 3.85059C3.55212 3.85059 3.99974 3.40265 4 2.85059C4 2.2983 3.55228 1.85059 3 1.85059Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+BrowserBoldFilled12.category = 'Interface General';
+
+export default BrowserBoldFilled12;

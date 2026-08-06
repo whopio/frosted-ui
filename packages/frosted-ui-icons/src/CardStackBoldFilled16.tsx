@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const CardStackBoldFilled16 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="CardStackBoldFilled16"
+      {...props}
+    >
+      <path
+        d="M11.9994 7C13.898 7 15.3195 8.74152 14.9389 10.6016L14.5287 12.6045C14.2429 14.0002 13.015 15.0028 11.5903 15.0029H4.41351C2.98876 15.0028 1.76091 14.0002 1.47503 12.6045L1.06488 10.6016C0.684273 8.74155 2.10579 7.00005 4.00433 7H11.9994ZM11.5668 4C12.7763 4.00039 13.7684 4.85513 14.0092 5.97168C13.4084 5.67136 12.7277 5.50011 12.0004 5.5H4.0053C3.27684 5.5 2.59514 5.67156 1.99359 5.97266C2.23422 4.85536 3.22772 4.00004 4.43792 4H11.5668ZM9.98675 0.999023C11.0483 0.999325 11.9381 1.65731 12.3051 2.56836C12.0669 2.5241 11.8206 2.50005 11.5688 2.5H4.43988C4.18901 2.50001 3.94385 2.52448 3.70648 2.56836C4.07348 1.65718 4.96299 0.999023 6.02484 0.999023H9.98675Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+CardStackBoldFilled16.category = 'Interface General';
+
+export default CardStackBoldFilled16;
