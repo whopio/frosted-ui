@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const ShareNodesFilled12 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="ShareNodesFilled12"
+      {...props}
+    >
+      <path
+        d="M9.25 0C10.7688 0 12 1.23122 12 2.75C12 4.26878 10.7688 5.5 9.25 5.5C8.40379 5.5 7.64801 5.11682 7.14355 4.51562L5.42578 5.375C5.47254 5.57598 5.5 5.78479 5.5 6C5.5 6.21488 5.4724 6.42333 5.42578 6.62402L7.14355 7.4834C7.64801 6.88253 8.40406 6.5 9.25 6.5C10.7688 6.5 12 7.73122 12 9.25C12 10.7688 10.7688 12 9.25 12C7.73122 12 6.5 10.7688 6.5 9.25C6.5 9.11522 6.51252 8.98311 6.53125 8.85352L4.69922 7.9375C4.20111 8.4386 3.51237 8.75 2.75 8.75C1.23122 8.75 0 7.51878 0 6C0 4.48122 1.23122 3.25 2.75 3.25C3.51212 3.25 4.20115 3.56071 4.69922 4.06152L6.53125 3.14551C6.51261 3.01622 6.5 2.88445 6.5 2.75C6.5 1.23122 7.73122 0 9.25 0Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+ShareNodesFilled12.category = 'Interface General';
+
+export default ShareNodesFilled12;

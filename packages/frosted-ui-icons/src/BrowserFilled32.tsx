@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const BrowserFilled32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="BrowserFilled32"
+      {...props}
+    >
+      <path
+        d="M31 23.25C31 26.4256 28.4256 29 25.25 29H6.75C3.57436 29 1 26.4256 1 23.25V12.5H31V23.25ZM25.25 3C28.4256 3 31 5.57436 31 8.75V11H1V8.75C1 5.57436 3.57436 3 6.75 3H25.25ZM6 6C5.44772 6 5 6.44772 5 7C5 7.55228 5.44772 8 6 8C6.55228 8 7 7.55228 7 7C7 6.44772 6.55228 6 6 6ZM9 6C8.44772 6 8 6.44772 8 7C8 7.55228 8.44772 8 9 8C9.55229 8 10 7.55228 10 7C10 6.44772 9.55229 6 9 6ZM12 6C11.4477 6 11 6.44772 11 7C11 7.55228 11.4477 8 12 8C12.5523 8 13 7.55228 13 7C13 6.44772 12.5523 6 12 6Z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+BrowserFilled32.category = 'Interface General';
+
+export default BrowserFilled32;
