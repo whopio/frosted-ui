@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Telephone20 } from '@frosted-ui/icons';
+import { TelephoneVertical20 } from '@frosted-ui/icons';
 import React from 'react';
 import { Avatar, Button, CircularProgress, Code, Heading, IconButton, Text, toast } from '..';
 import { Theme } from '../../theme';
@@ -506,7 +506,7 @@ export const CustomContent: Story = {
                           color="danger"
                           onClick={close}
                         >
-                          <Telephone20 style={{ transform: 'rotate(90deg)', transformOrigin: 'center' }} />
+                          <TelephoneVertical20 style={{ transform: 'rotate(90deg)', transformOrigin: 'center' }} />
                         </IconButton>
                         <IconButton
                           aria-label="Accept call"
@@ -519,7 +519,7 @@ export const CustomContent: Story = {
                             toast.success('Call accepted');
                           }}
                         >
-                          <Telephone20 />
+                          <TelephoneVertical20 />
                         </IconButton>
                       </div>
                     </div>
