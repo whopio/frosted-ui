@@ -53,7 +53,13 @@ function ScrollArea(props: ScrollAreaProps) {
         // See: https://developer.chrome.com/blog/keyboard-focusable-scrollers
         tabIndex={undefined}
       >
-        <ScrollAreaPrimitive.Content style={scrollbars === 'vertical' ? { minWidth: 0, width: '100%' } : undefined}>
+        <ScrollAreaPrimitive.Content
+          // Base UI Content defaults to minWidth: fit-content, which is needed
+          // for horizontal scrolling. For any orientation that scrolls vertically
+          // (including the default "both"), override so tall column layouts
+          // (e.g. the communities rail) size and scroll correctly.
+          style={scrollbars !== 'horizontal' ? { minWidth: 0, width: '100%' } : undefined}
+        >
           {children}
         </ScrollAreaPrimitive.Content>
       </ScrollAreaPrimitive.Viewport>
