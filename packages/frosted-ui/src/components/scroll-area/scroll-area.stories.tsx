@@ -1,7 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Button, Code, Heading, IconButton, ScrollArea, Text, TextField, scrollAreaPropDefs } from '..';
+import {
+  Avatar,
+  Button,
+  Code,
+  Heading,
+  IconButton,
+  ScrollArea,
+  Text,
+  TextField,
+  scrollAreaPropDefs,
+} from '..';
 
 const meta = {
   title: 'Components/ScrollArea',
@@ -466,6 +476,65 @@ export const ScrollableElementRef: Story = {
           <Button variant="soft" size="1" onClick={() => scrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' })}>
             Scroll to Top
           </Button>
+        </div>
+      </div>
+    );
+  },
+};
+
+/**
+ * Simulates the Whop communities rail: a fixed-height flex column where the
+ * ScrollArea is a flex:1 child between chrome above/below. With many items,
+ * every community must remain reachable via scrolling (not clipped by the
+ * flex parent).
+ */
+export const VerticalRail: Story = {
+  args: {
+    scrollbars: 'vertical',
+    type: 'hover',
+  },
+  render: (args) => {
+    const communities = Array.from({ length: 40 }, (_, i) => ({
+      id: i + 1,
+      color: (['indigo', 'cyan', 'orange', 'crimson', 'green', 'violet'] as const)[i % 6],
+    }));
+
+    return (
+      <div
+        style={{
+          width: 72,
+          height: 420,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 'var(--space-2)',
+          padding: 'var(--space-2)',
+          border: '1px solid var(--color-stroke)',
+          borderRadius: 'var(--radius-3)',
+          background: 'var(--color-panel)',
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'center', flexShrink: 0 }}>
+          <Avatar size="3" fallback="W" color="gray" highContrast />
+        </div>
+
+        <ScrollArea {...args} style={{ flex: 1 }}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 'var(--space-2)',
+              paddingBlock: 'var(--space-1)',
+            }}
+          >
+            {communities.map((community) => (
+              <Avatar key={community.id} size="3" fallback={String(community.id)} color={community.color} />
+            ))}
+          </div>
+        </ScrollArea>
+
+        <div style={{ display: 'flex', justifyContent: 'center', flexShrink: 0 }}>
+          <Avatar size="3" fallback="+" color="gray" />
         </div>
       </div>
     );
