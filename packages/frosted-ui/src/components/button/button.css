@@ -1,14 +1,5 @@
 @import '../base-button/base-button.css';
 
-.fui-Button {
-  &:where(:not(.fui-variant-ghost)) {
-    /* stylelint-disable-next-line selector-max-type */
-    & :where(svg) {
-      opacity: 0.9;
-    }
-  }
-}
-
 /***************************************************************************************************
  *                                                                                                 *
  * SIZES                                                                                           *
