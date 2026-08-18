@@ -8,7 +8,7 @@
   height: var(--avatar-size);
   flex-shrink: 0;
 
-  outline: 1px solid var(--accent-a5);
+  outline: 0.5px solid var(--accent-a5);
   outline-offset: -1px;
 
   background-color: var(--accent-a3);
@@ -40,7 +40,7 @@
   /* Fix safari issue where animated avatars were blurred */
   transform: translateZ(0px);
 
-  outline: 1px solid var(--gray-a5);
+  outline: 0.5px solid var(--gray-a5);
   outline-offset: -1px;
 }
 
