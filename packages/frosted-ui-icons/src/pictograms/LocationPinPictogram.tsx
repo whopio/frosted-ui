@@ -15,14 +15,14 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
     '7': '#151515',
   },
   dark: {
-    '0': '#3C3C3C',
+    '0': '#4D4D4D',
     '1': '#B83411',
     '2': '#354B98',
     '3': '#354B98',
     '4': '#354B98',
     '5': '#FA4616',
     '6': '#FA4616',
-    '7': '#3C3C3C',
+    '7': '#4D4D4D',
   },
   orange: {
     '0': '#151515',
@@ -35,14 +35,14 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
     '7': '#151515',
   },
   auto: {
-    '0': 'light-dark(#151515, #3C3C3C)',
+    '0': 'light-dark(#151515, #4D4D4D)',
     '1': 'light-dark(#B83411, #B83411)',
     '2': 'light-dark(#FA4616, #354B98)',
     '3': 'light-dark(#FA4616, #354B98)',
     '4': 'light-dark(#FA4616, #354B98)',
     '5': 'light-dark(#FA4616, #FA4616)',
     '6': 'light-dark(#FA4616, #FA4616)',
-    '7': 'light-dark(#151515, #3C3C3C)',
+    '7': 'light-dark(#151515, #4D4D4D)',
   },
 };
 
@@ -55,7 +55,7 @@ export const LocationPinPictogram = ({ variant = 'auto', ...props }: LocationPin
       viewBox="0 0 240 240"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-pictogram="true"
+      data-fui-pictogram="LocationPinPictogram"
       {...props}
     >
       <path

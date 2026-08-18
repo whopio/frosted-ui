@@ -22,17 +22,17 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
     '23': '#FA4616',
   },
   dark: {
-    '0': '#222',
-    '1': '#222',
-    '2': '#222',
-    '5': '#222',
-    '7': '#222',
-    '8': '#222',
+    '0': '#212121',
+    '1': '#212121',
+    '2': '#212121',
+    '5': '#212121',
+    '7': '#212121',
+    '8': '#212121',
     '9': '#354B98',
-    '11': '#222',
-    '12': '#222',
+    '11': '#212121',
+    '12': '#212121',
     '13': '#354B98',
-    '14': '#222',
+    '14': '#212121',
     '18': '#FA4616',
     '19': '#FA4616',
     '21': '#FA4616',
@@ -56,17 +56,17 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
     '23': '#354B98',
   },
   auto: {
-    '0': 'light-dark(#151515, #222)',
-    '1': 'light-dark(#151515, #222)',
-    '2': 'light-dark(#151515, #222)',
-    '5': 'light-dark(#151515, #222)',
-    '7': 'light-dark(#151515, #222)',
-    '8': 'light-dark(#151515, #222)',
+    '0': 'light-dark(#151515, #212121)',
+    '1': 'light-dark(#151515, #212121)',
+    '2': 'light-dark(#151515, #212121)',
+    '5': 'light-dark(#151515, #212121)',
+    '7': 'light-dark(#151515, #212121)',
+    '8': 'light-dark(#151515, #212121)',
     '9': 'light-dark(#354B98, #354B98)',
-    '11': 'light-dark(#151515, #222)',
-    '12': 'light-dark(#151515, #222)',
+    '11': 'light-dark(#151515, #212121)',
+    '12': 'light-dark(#151515, #212121)',
     '13': 'light-dark(#354B98, #354B98)',
-    '14': 'light-dark(#151515, #222)',
+    '14': 'light-dark(#151515, #212121)',
     '18': 'light-dark(#FA4616, #FA4616)',
     '19': 'light-dark(#FA4616, #FA4616)',
     '21': 'light-dark(#FA4616, #FA4616)',
@@ -83,7 +83,7 @@ export const StorePictogram = ({ variant = 'auto', ...props }: StorePictogramPro
       viewBox="0 0 240 240"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-pictogram="true"
+      data-fui-pictogram="StorePictogram"
       {...props}
     >
       <path

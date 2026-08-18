@@ -17,16 +17,16 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
     '21': '#151515',
   },
   dark: {
-    '0': '#222',
-    '1': '#222',
-    '6': '#222',
-    '11': '#222',
-    '13': '#222',
-    '14': '#222',
-    '15': '#222',
-    '16': '#222',
+    '0': '#212121',
+    '1': '#212121',
+    '6': '#212121',
+    '11': '#212121',
+    '13': '#212121',
+    '14': '#212121',
+    '15': '#212121',
+    '16': '#212121',
     '19': '#FA4616',
-    '21': '#222',
+    '21': '#212121',
   },
   orange: {
     '0': '#151515',
@@ -41,16 +41,16 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
     '21': '#151515',
   },
   auto: {
-    '0': 'light-dark(#151515, #222)',
-    '1': 'light-dark(#151515, #222)',
-    '6': 'light-dark(#151515, #222)',
-    '11': 'light-dark(#151515, #222)',
-    '13': 'light-dark(#151515, #222)',
-    '14': 'light-dark(#151515, #222)',
-    '15': 'light-dark(#151515, #222)',
-    '16': 'light-dark(#151515, #222)',
+    '0': 'light-dark(#151515, #212121)',
+    '1': 'light-dark(#151515, #212121)',
+    '6': 'light-dark(#151515, #212121)',
+    '11': 'light-dark(#151515, #212121)',
+    '13': 'light-dark(#151515, #212121)',
+    '14': 'light-dark(#151515, #212121)',
+    '15': 'light-dark(#151515, #212121)',
+    '16': 'light-dark(#151515, #212121)',
     '19': 'light-dark(#FA4616, #FA4616)',
-    '21': 'light-dark(#151515, #222)',
+    '21': 'light-dark(#151515, #212121)',
   },
 };
 
@@ -63,7 +63,7 @@ export const PiggyBankPictogram = ({ variant = 'auto', ...props }: PiggyBankPict
       viewBox="0 0 240 240"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-pictogram="true"
+      data-fui-pictogram="PiggyBankPictogram"
       {...props}
     >
       <path

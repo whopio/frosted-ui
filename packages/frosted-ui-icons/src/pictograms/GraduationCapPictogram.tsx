@@ -5,11 +5,11 @@ export type GraduationCapPictogramProps = PictogramProps;
 
 const FILLS: Record<PictogramVariant, Record<number, string>> = {
   light: { '1': '#151515', '3': '#151515', '4': '#2D2D2D', '6': '#FA4616' },
-  dark: { '1': '#222', '3': '#222', '4': '#464646', '6': '#FA4616' },
+  dark: { '1': '#212121', '3': '#212121', '4': '#464646', '6': '#FA4616' },
   orange: { '1': '#151515', '3': '#151515', '4': '#2D2D2D', '6': '#C1FA81' },
   auto: {
-    '1': 'light-dark(#151515, #222)',
-    '3': 'light-dark(#151515, #222)',
+    '1': 'light-dark(#151515, #212121)',
+    '3': 'light-dark(#151515, #212121)',
     '4': 'light-dark(#2D2D2D, #464646)',
     '6': 'light-dark(#FA4616, #FA4616)',
   },
@@ -24,7 +24,7 @@ export const GraduationCapPictogram = ({ variant = 'auto', ...props }: Graduatio
       viewBox="0 0 240 240"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-pictogram="true"
+      data-fui-pictogram="GraduationCapPictogram"
       {...props}
     >
       <path

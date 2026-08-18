@@ -19,14 +19,14 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
   dark: {
     '1': '#FA4616',
     '2': '#B3300D',
-    '3': '#222',
+    '3': '#212121',
     '4': '#E7552F',
-    '5': '#222',
-    '6': '#222',
-    '7': '#222',
-    '8': '#222',
-    '11': '#222',
-    '15': '#222',
+    '5': '#212121',
+    '6': '#212121',
+    '7': '#212121',
+    '8': '#212121',
+    '11': '#212121',
+    '15': '#212121',
   },
   orange: {
     '1': '#BEFB5B',
@@ -43,14 +43,14 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
   auto: {
     '1': 'light-dark(#FA4616, #FA4616)',
     '2': 'light-dark(#B3300D, #B3300D)',
-    '3': 'light-dark(#151515, #222)',
+    '3': 'light-dark(#151515, #212121)',
     '4': 'light-dark(#E7552F, #E7552F)',
-    '5': 'light-dark(#151515, #222)',
-    '6': 'light-dark(#151515, #222)',
-    '7': 'light-dark(#151515, #222)',
-    '8': 'light-dark(#151515, #222)',
-    '11': 'light-dark(#151515, #222)',
-    '15': 'light-dark(#151515, #222)',
+    '5': 'light-dark(#151515, #212121)',
+    '6': 'light-dark(#151515, #212121)',
+    '7': 'light-dark(#151515, #212121)',
+    '8': 'light-dark(#151515, #212121)',
+    '11': 'light-dark(#151515, #212121)',
+    '15': 'light-dark(#151515, #212121)',
   },
 };
 
@@ -63,7 +63,7 @@ export const BeakerPictogram = ({ variant = 'auto', ...props }: BeakerPictogramP
       viewBox="0 0 240 240"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-pictogram="true"
+      data-fui-pictogram="BeakerPictogram"
       {...props}
     >
       <path

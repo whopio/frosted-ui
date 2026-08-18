@@ -4,7 +4,7 @@
   viewBox="0 0 240 240"
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
-  data-fui-pictogram="true"
+  data-fui-pictogram="CargoShipPictogram"
 >
   <path
     d="M196.2 95.1447V108.337C196.646 108.039 197.113 107.713 197.591 107.365L197.339 94.1923L189.916 91.0907V88.2254C189.321 87.9993 188.965 87.8633 188.965 87.8633V98.8665L196.202 95.1447H196.2Z"

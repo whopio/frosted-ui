@@ -16,15 +16,15 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
     '21': '#151515',
   },
   dark: {
-    '0': '#222',
-    '1': '#222',
-    '3': '#222',
+    '0': '#212121',
+    '1': '#212121',
+    '3': '#212121',
     '5': '#FA4616',
     '7': '#FA4616',
-    '8': '#222',
+    '8': '#212121',
     '18': '#FA4616',
     '20': '#FA4616',
-    '21': '#222',
+    '21': '#212121',
   },
   orange: {
     '0': '#151515',
@@ -38,15 +38,15 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
     '21': '#151515',
   },
   auto: {
-    '0': 'light-dark(#151515, #222)',
-    '1': 'light-dark(#151515, #222)',
-    '3': 'light-dark(#151515, #222)',
+    '0': 'light-dark(#151515, #212121)',
+    '1': 'light-dark(#151515, #212121)',
+    '3': 'light-dark(#151515, #212121)',
     '5': 'light-dark(#FA4616, #FA4616)',
     '7': 'light-dark(#FA4616, #FA4616)',
-    '8': 'light-dark(#151515, #222)',
+    '8': 'light-dark(#151515, #212121)',
     '18': 'light-dark(#FA4616, #FA4616)',
     '20': 'light-dark(#FA4616, #FA4616)',
-    '21': 'light-dark(#151515, #222)',
+    '21': 'light-dark(#151515, #212121)',
   },
 };
 
@@ -59,7 +59,7 @@ export const SkateboardPictogram = ({ variant = 'auto', ...props }: SkateboardPi
       viewBox="0 0 240 240"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-pictogram="true"
+      data-fui-pictogram="SkateboardPictogram"
       {...props}
     >
       <path

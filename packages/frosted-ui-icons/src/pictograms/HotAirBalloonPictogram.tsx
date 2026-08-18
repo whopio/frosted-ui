@@ -33,20 +33,20 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
     '7': '#FA4616',
     '12': '#FA4616',
     '14': '#FA4616',
-    '15': '#222',
+    '15': '#212121',
     '16': '#414141',
     '17': '#414141',
     '18': '#414141',
     '19': '#414141',
-    '22': '#222',
+    '22': '#212121',
     '23': '#FA4616',
     '25': '#FA4616',
     '26': '#FA4616',
     '28': '#FA4616',
-    '30': '#222',
-    '31': '#222',
-    '32': '#222',
-    '33': '#222',
+    '30': '#212121',
+    '31': '#212121',
+    '32': '#212121',
+    '33': '#212121',
   },
   orange: {
     '3': '#6196C1',
@@ -77,20 +77,20 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
     '7': 'light-dark(#FA4616, #FA4616)',
     '12': 'light-dark(#FA4616, #FA4616)',
     '14': 'light-dark(#FA4616, #FA4616)',
-    '15': 'light-dark(#151515, #222)',
+    '15': 'light-dark(#151515, #212121)',
     '16': 'light-dark(#151515, #414141)',
     '17': 'light-dark(#151515, #414141)',
     '18': 'light-dark(#151515, #414141)',
     '19': 'light-dark(#151515, #414141)',
-    '22': 'light-dark(#151515, #222)',
+    '22': 'light-dark(#151515, #212121)',
     '23': 'light-dark(#FA4616, #FA4616)',
     '25': 'light-dark(#FA4616, #FA4616)',
     '26': 'light-dark(#FA4616, #FA4616)',
     '28': 'light-dark(#FA4616, #FA4616)',
-    '30': 'light-dark(#151515, #222)',
-    '31': 'light-dark(#151515, #222)',
-    '32': 'light-dark(#151515, #222)',
-    '33': 'light-dark(#151515, #222)',
+    '30': 'light-dark(#151515, #212121)',
+    '31': 'light-dark(#151515, #212121)',
+    '32': 'light-dark(#151515, #212121)',
+    '33': 'light-dark(#151515, #212121)',
   },
 };
 
@@ -103,7 +103,7 @@ export const HotAirBalloonPictogram = ({ variant = 'auto', ...props }: HotAirBal
       viewBox="0 0 240 240"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-pictogram="true"
+      data-fui-pictogram="HotAirBalloonPictogram"
       {...props}
     >
       <path

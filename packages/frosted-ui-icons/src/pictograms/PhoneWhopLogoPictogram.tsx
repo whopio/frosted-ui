@@ -13,7 +13,15 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
     '5': '#151515',
     '6': '#151515',
   },
-  dark: { '0': '#B3300D', '1': '#F96138', '2': '#222', '3': '#F96138', '4': '#222', '5': '#222', '6': '#222' },
+  dark: {
+    '0': '#B3300D',
+    '1': '#F96138',
+    '2': '#212121',
+    '3': '#F96138',
+    '4': '#212121',
+    '5': '#212121',
+    '6': '#212121',
+  },
   orange: {
     '0': '#466782',
     '1': '#6196C1',
@@ -26,11 +34,11 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
   auto: {
     '0': 'light-dark(#B3300D, #B3300D)',
     '1': 'light-dark(#F96138, #F96138)',
-    '2': 'light-dark(#151515, #222)',
+    '2': 'light-dark(#151515, #212121)',
     '3': 'light-dark(#F96138, #F96138)',
-    '4': 'light-dark(#151515, #222)',
-    '5': 'light-dark(#151515, #222)',
-    '6': 'light-dark(#151515, #222)',
+    '4': 'light-dark(#151515, #212121)',
+    '5': 'light-dark(#151515, #212121)',
+    '6': 'light-dark(#151515, #212121)',
   },
 };
 
@@ -43,7 +51,7 @@ export const PhoneWhopLogoPictogram = ({ variant = 'auto', ...props }: PhoneWhop
       viewBox="0 0 240 240"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-pictogram="true"
+      data-fui-pictogram="PhoneWhopLogoPictogram"
       {...props}
     >
       <path

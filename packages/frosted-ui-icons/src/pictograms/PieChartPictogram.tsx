@@ -13,7 +13,15 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
     '8': '#B3300D',
     '9': '#151515',
   },
-  dark: { '0': '#222', '1': '#222', '2': '#222', '4': '#222', '7': '#FA4616', '8': '#B3300D', '9': '#222' },
+  dark: {
+    '0': '#212121',
+    '1': '#212121',
+    '2': '#212121',
+    '4': '#212121',
+    '7': '#FA4616',
+    '8': '#B3300D',
+    '9': '#212121',
+  },
   orange: {
     '0': '#151515',
     '1': '#151515',
@@ -24,13 +32,13 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
     '9': '#151515',
   },
   auto: {
-    '0': 'light-dark(#151515, #222)',
-    '1': 'light-dark(#151515, #222)',
-    '2': 'light-dark(#151515, #222)',
-    '4': 'light-dark(#151515, #222)',
+    '0': 'light-dark(#151515, #212121)',
+    '1': 'light-dark(#151515, #212121)',
+    '2': 'light-dark(#151515, #212121)',
+    '4': 'light-dark(#151515, #212121)',
     '7': 'light-dark(#FA4616, #FA4616)',
     '8': 'light-dark(#B3300D, #B3300D)',
-    '9': 'light-dark(#151515, #222)',
+    '9': 'light-dark(#151515, #212121)',
   },
 };
 
@@ -43,7 +51,7 @@ export const PieChartPictogram = ({ variant = 'auto', ...props }: PieChartPictog
       viewBox="0 0 240 240"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-pictogram="true"
+      data-fui-pictogram="PieChartPictogram"
       {...props}
     >
       <path d="M186.89 100.78V125.77L185.88 125.43L183.56 124.66L183.27 110.25L186.89 100.78Z" style={{ fill: f[0] }} />

@@ -1,17 +1,17 @@
 import * as React from 'react';
-import { PictogramProps } from './types';
+import { PictogramProps, PictogramVariant } from './types';
 
 export type CreditCardPictogramProps = PictogramProps;
 
-// All background variants share identical colors for this pictogram, so the
-// `variant` prop has no visual effect. We strip it off here so it doesn't leak
-// onto the underlying <svg> element while still keeping the prop in the public
-// API for consistency with the other pictograms.
-export const CreditCardPictogram = ({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  variant = 'auto',
-  ...props
-}: CreditCardPictogramProps) => {
+const FILLS: Record<PictogramVariant, Record<number, string>> = {
+  light: { '2': '#3C3C3C' },
+  dark: { '2': '#4D4D4D' },
+  orange: { '2': '#3C3C3C' },
+  auto: { '2': 'light-dark(#3C3C3C, #4D4D4D)' },
+};
+
+export const CreditCardPictogram = ({ variant = 'auto', ...props }: CreditCardPictogramProps) => {
+  const f = FILLS[variant];
   return (
     <svg
       width="240"
@@ -19,7 +19,7 @@ export const CreditCardPictogram = ({
       viewBox="0 0 240 240"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-pictogram="true"
+      data-fui-pictogram="CreditCardPictogram"
       {...props}
     >
       <path
@@ -34,7 +34,7 @@ export const CreditCardPictogram = ({
       />
       <path
         d="M190.04 82.9701L189.443 82.8345C191.733 84.8538 192.937 87.491 192.189 91.6452C191.275 96.7539 177.336 174.082 176.191 179.055C175.298 182.933 172.899 184.826 170.379 185.526L170.489 185.556C175.112 186.832 179.836 183.887 180.729 179.176L196.983 93.5993C197.902 88.7619 194.829 84.0651 190.036 82.9701H190.04Z"
-        fill="#3C3C3C"
+        style={{ fill: f[2] }}
       />
       <path
         d="M176.192 179.053C177.337 174.075 191.271 96.7518 192.19 91.6432C192.933 87.4888 191.733 84.8517 189.443 82.8323L186.387 82.1341C190.121 84.6808 190.804 87.5743 190.458 89.7443C190.001 92.5925 189.409 95.079 189.409 95.079L56.6656 63.0557L56.2942 65.3061L188.952 97.244C188.952 97.244 174.721 175.065 174.069 179.024C173.417 182.987 168.758 185.076 167.428 184.71L170.379 185.523C172.9 184.825 175.299 182.931 176.192 179.053Z"

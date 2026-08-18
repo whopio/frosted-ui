@@ -28,7 +28,7 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
     '25': '#151515',
   },
   dark: {
-    '0': '#222',
+    '0': '#212121',
     '1': '#F3F3F3',
     '2': '#F3F3F3',
     '3': '#FA4616',
@@ -36,19 +36,19 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
     '8': '#F3F3F3',
     '9': '#F3F3F3',
     '10': '#F3F3F3',
-    '11': '#222',
-    '12': '#222',
-    '13': '#222',
-    '14': '#222',
-    '15': '#222',
-    '16': '#222',
-    '17': '#222',
-    '18': '#222',
+    '11': '#212121',
+    '12': '#212121',
+    '13': '#212121',
+    '14': '#212121',
+    '15': '#212121',
+    '16': '#212121',
+    '17': '#212121',
+    '18': '#212121',
     '19': '#F3F3F3',
     '20': '#F3F3F3',
     '21': '#F3F3F3',
     '23': '#FA4616',
-    '25': '#222',
+    '25': '#212121',
   },
   orange: {
     '0': '#151515',
@@ -74,7 +74,7 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
     '25': '#151515',
   },
   auto: {
-    '0': 'light-dark(#151515, #222)',
+    '0': 'light-dark(#151515, #212121)',
     '1': 'light-dark(#EAEAEA, #F3F3F3)',
     '2': 'light-dark(#EAEAEA, #F3F3F3)',
     '3': 'light-dark(#FA4616, #FA4616)',
@@ -82,19 +82,19 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
     '8': 'light-dark(#EAEAEA, #F3F3F3)',
     '9': 'light-dark(#EAEAEA, #F3F3F3)',
     '10': 'light-dark(#EAEAEA, #F3F3F3)',
-    '11': 'light-dark(#151515, #222)',
-    '12': 'light-dark(#151515, #222)',
-    '13': 'light-dark(#151515, #222)',
-    '14': 'light-dark(#151515, #222)',
-    '15': 'light-dark(#151515, #222)',
-    '16': 'light-dark(#151515, #222)',
-    '17': 'light-dark(#151515, #222)',
-    '18': 'light-dark(#151515, #222)',
+    '11': 'light-dark(#151515, #212121)',
+    '12': 'light-dark(#151515, #212121)',
+    '13': 'light-dark(#151515, #212121)',
+    '14': 'light-dark(#151515, #212121)',
+    '15': 'light-dark(#151515, #212121)',
+    '16': 'light-dark(#151515, #212121)',
+    '17': 'light-dark(#151515, #212121)',
+    '18': 'light-dark(#151515, #212121)',
     '19': 'light-dark(#EAEAEA, #F3F3F3)',
     '20': 'light-dark(#EAEAEA, #F3F3F3)',
     '21': 'light-dark(#EAEAEA, #F3F3F3)',
     '23': 'light-dark(#FA4616, #FA4616)',
-    '25': 'light-dark(#151515, #222)',
+    '25': 'light-dark(#151515, #212121)',
   },
 };
 
@@ -107,7 +107,7 @@ export const TrainPictogram = ({ variant = 'auto', ...props }: TrainPictogramPro
       viewBox="0 0 240 240"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-pictogram="true"
+      data-fui-pictogram="TrainPictogram"
       {...props}
     >
       <path

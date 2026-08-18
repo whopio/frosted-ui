@@ -4,7 +4,7 @@
   viewBox="0 0 240 240"
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
-  data-fui-pictogram="true"
+  data-fui-pictogram="BarChartPictogram"
 >
   <path d="M52.1914 173.335L105.149 202.645L192.299 154.486L138.174 127.9L52.1914 173.335Z" fill="#1E1E1E" />
   <path d="M137.518 47.1855V148.736L163.279 163.843L163.054 61.0496L137.518 47.1855Z" fill="#C1FA81" />

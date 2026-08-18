@@ -18,16 +18,16 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
     '22': '#FA4616',
   },
   dark: {
-    '1': '#222',
-    '3': '#222',
-    '5': '#222',
-    '12': '#222',
-    '13': '#222',
-    '16': '#222',
-    '18': '#222',
-    '19': '#222',
-    '20': '#222',
-    '21': '#222',
+    '1': '#212121',
+    '3': '#212121',
+    '5': '#212121',
+    '12': '#212121',
+    '13': '#212121',
+    '16': '#212121',
+    '18': '#212121',
+    '19': '#212121',
+    '20': '#212121',
+    '21': '#212121',
     '22': '#FA4616',
   },
   orange: {
@@ -44,16 +44,16 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
     '22': '#354B98',
   },
   auto: {
-    '1': 'light-dark(#151515, #222)',
-    '3': 'light-dark(#151515, #222)',
-    '5': 'light-dark(#151515, #222)',
-    '12': 'light-dark(#151515, #222)',
-    '13': 'light-dark(#151515, #222)',
-    '16': 'light-dark(#151515, #222)',
-    '18': 'light-dark(#151515, #222)',
-    '19': 'light-dark(#151515, #222)',
-    '20': 'light-dark(#151515, #222)',
-    '21': 'light-dark(#151515, #222)',
+    '1': 'light-dark(#151515, #212121)',
+    '3': 'light-dark(#151515, #212121)',
+    '5': 'light-dark(#151515, #212121)',
+    '12': 'light-dark(#151515, #212121)',
+    '13': 'light-dark(#151515, #212121)',
+    '16': 'light-dark(#151515, #212121)',
+    '18': 'light-dark(#151515, #212121)',
+    '19': 'light-dark(#151515, #212121)',
+    '20': 'light-dark(#151515, #212121)',
+    '21': 'light-dark(#151515, #212121)',
     '22': 'light-dark(#FA4616, #FA4616)',
   },
 };
@@ -67,7 +67,7 @@ export const SatelliteDishPictogram = ({ variant = 'auto', ...props }: Satellite
       viewBox="0 0 240 240"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-pictogram="true"
+      data-fui-pictogram="SatelliteDishPictogram"
       {...props}
     >
       <path
