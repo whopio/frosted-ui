@@ -662,7 +662,7 @@
           pending: 'Checking SVG exports…',
           ok: 'SVG exports compatible',
           fail: (n) => n + ' export issue(s)',
-          info: 'Exports each background variant to SVG as the generator does. Click a row to jump to the problem layer. Empty export: no artwork in the SVG. Inline style: blend modes or opacity export as style="…" and break React codegen — flatten or use fill/stroke. Mismatched shapes: Light, Dark, and Orange must share identical geometry — only colors may differ.',
+          info: 'Exports each background variant to SVG as the generator does. Click a row to jump to the problem layer. Empty export: no artwork in the SVG. Inline style: blend modes or opacity export as style="…" and break React codegen — flatten or use fill/stroke. Mismatched shapes: Light, Dark, and Orange must share the same structure (path count and types). Sub-pixel SVG export noise is ignored — only geometry that differs by more than 1px is flagged, and each error names the shape and how it diverges from Light.',
         },
         {
           rules: ['pictogram-not-single-layer'],
@@ -761,9 +761,8 @@
         const pid = i.previewId || '';
         const previewInner = pid && S().previews[pid] ? S().previews[pid] : '';
         const preview = '<span class="preview" data-preview-id="' + pid + '">' + previewInner + '</span>';
-        const reason = i.reason_escaped
-          ? '<div class="reason">' + i.reason_escaped + '</div>'
-          : '';
+        const reasonText = i.reason_escaped || escapeHtml(RULE_LABELS[i.rule] || i.rule || '');
+        const reason = reasonText ? '<div class="reason">' + reasonText + '</div>' : '';
         return (
           '<div class="issue ' +
           i.severity +
