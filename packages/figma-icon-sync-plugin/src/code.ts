@@ -1062,18 +1062,41 @@ async function scanPictograms(): Promise<{
 // generator's pictogram-merge.ts).
 const PICTOGRAM_SHAPE_TAGS = ['path', 'circle', 'rect', 'ellipse', 'polygon', 'polyline', 'line'];
 const PICTOGRAM_GEOM_ATTRS = ['d', 'points', 'x', 'y', 'width', 'height', 'cx', 'cy', 'r', 'rx', 'ry', 'transform'];
+const GEOM_NUMBER_RE = /-?\d*\.?\d+(?:e-?\d+)?/gi;
+// Figma's SVG exporter writes slightly different floats per variant of the same
+// vector (e.g. 70.4999 vs 70.5). Rounding those to integers *creates* false
+// mismatches when a value sits on a .5 boundary. Compare with a 1px tolerance
+// instead — that's still tight enough to catch a real redraw.
+const GEOM_EPSILON_PX = 1;
 
-// Rounds every number in a geometry string to the nearest integer so Figma's
-// per-variant sub-pixel export noise (e.g. 47.9553 vs 47.9554) doesn't count as
-// a real shape difference — only genuinely different artwork does.
-function normalizeGeometry(value: string): string {
-  return value.replace(/-?\d*\.?\d+(?:e-?\d+)?/gi, (m) => String(Math.round(parseFloat(m))));
+function parseNumbers(value: string): number[] {
+  const out: number[] = [];
+  const re = new RegExp(GEOM_NUMBER_RE.source, 'gi');
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(value)) !== null) out.push(parseFloat(m[0]));
+  return out;
 }
 
-// Builds an ordered per-shape signature (tag + normalized geometry) for an
-// exported pictogram SVG, mirroring collectShapeElements()/SHAPE_ATTRS in the
-// generator. <defs> is stripped because its contents are referenced by id, not
-// rendered in place.
+function stripNumbers(value: string): string {
+  return value.replace(new RegExp(GEOM_NUMBER_RE.source, 'gi'), '#');
+}
+
+function geometryAttrEqual(a: string, b: string): boolean {
+  if (a === b) return true;
+  const an = parseNumbers(a);
+  const bn = parseNumbers(b);
+  if (an.length !== bn.length) return false;
+  if (stripNumbers(a) !== stripNumbers(b)) return false;
+  for (let i = 0; i < an.length; i += 1) {
+    if (Math.abs(an[i] - bn[i]) > GEOM_EPSILON_PX) return false;
+  }
+  return true;
+}
+
+// Builds an ordered per-shape signature (tag + raw geometry) for an exported
+// pictogram SVG, mirroring collectShapeElements()/SHAPE_ATTRS in the generator.
+// <defs> is stripped because its contents are referenced by id, not rendered
+// in place. Comparison is tolerance-based (see geometryAttrEqual), not exact.
 function pictogramShapeSignature(svg: string): string[] {
   const body = svg.replace(/<defs[\s\S]*?<\/defs>/gi, '');
   const re = new RegExp(`<(${PICTOGRAM_SHAPE_TAGS.join('|')})\\b([^>]*?)\\/?>`, 'gi');
@@ -1085,17 +1108,124 @@ function pictogramShapeSignature(svg: string): string[] {
     const parts = [tag];
     for (const attr of PICTOGRAM_GEOM_ATTRS) {
       const am = new RegExp(`${attr}\\s*=\\s*"([^"]*)"`, 'i').exec(attrs);
-      parts.push(`${attr}=${am ? normalizeGeometry(am[1]) : ''}`);
+      parts.push(`${attr}=${am ? am[1] : ''}`);
     }
     sigs.push(parts.join('|'));
   }
   return sigs;
 }
 
+function parseShapeSignature(sig: string): { tag: string; attrs: { [key: string]: string } } {
+  const parts = sig.split('|');
+  const attrs: { [key: string]: string } = {};
+  for (let i = 1; i < parts.length; i += 1) {
+    const eq = parts[i].indexOf('=');
+    if (eq === -1) continue;
+    attrs[parts[i].slice(0, eq)] = parts[i].slice(eq + 1);
+  }
+  return { tag: parts[0] || 'shape', attrs };
+}
+
+function shapeSigEqual(a: string, b: string): boolean {
+  const pa = parseShapeSignature(a);
+  const pb = parseShapeSignature(b);
+  if (pa.tag !== pb.tag) return false;
+  for (const attr of PICTOGRAM_GEOM_ATTRS) {
+    if (!geometryAttrEqual(pa.attrs[attr] || '', pb.attrs[attr] || '')) return false;
+  }
+  return true;
+}
+
 function sameSignature(a: string[], b: string[]): boolean {
   if (a.length !== b.length) return false;
-  for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return false;
+  for (let i = 0; i < a.length; i += 1) {
+    if (!shapeSigEqual(a[i], b[i])) return false;
+  }
   return true;
+}
+
+function countCoordinateDiffs(a: string, b: string): { count: number; sample: string | null } {
+  const aNums = parseNumbers(a);
+  const bNums = parseNumbers(b);
+  let count = 0;
+  let sample: string | null = null;
+  const n = Math.max(aNums.length, bNums.length);
+  for (let i = 0; i < n; i += 1) {
+    const av = aNums[i];
+    const bv = bNums[i];
+    if (av === bv) continue;
+    if (av != null && bv != null && Math.abs(av - bv) <= GEOM_EPSILON_PX) continue;
+    count += 1;
+    if (!sample && av != null && bv != null) sample = `${av} vs ${bv}`;
+  }
+  return { count, sample };
+}
+
+// Human-readable explanation of why a background variant failed the geometry
+// check, e.g. "shape 39 (path) d differs from Light at 1 coordinate (70 vs 71)".
+function describeShapeMismatch(refSig: string[], otherSig: string[], refBg: string, otherBg: string): string {
+  const refLabel = capitalize(refBg);
+  const otherLabel = capitalize(otherBg);
+  const suffix = ' Only colors may differ across backgrounds.';
+  if (refSig.length !== otherSig.length) {
+    return `${otherLabel} has ${otherSig.length} shapes vs ${refLabel}'s ${refSig.length}.${suffix}`;
+  }
+  const diffs: string[] = [];
+  for (let i = 0; i < refSig.length; i += 1) {
+    if (shapeSigEqual(refSig[i], otherSig[i])) continue;
+    const ref = parseShapeSignature(refSig[i]);
+    const other = parseShapeSignature(otherSig[i]);
+    const n = i + 1;
+    if (ref.tag !== other.tag) {
+      diffs.push(`shape ${n} is a ${other.tag} vs ${ref.tag} in ${refLabel}`);
+      continue;
+    }
+    const changed: string[] = [];
+    for (const attr of PICTOGRAM_GEOM_ATTRS) {
+      if (!geometryAttrEqual(ref.attrs[attr] || '', other.attrs[attr] || '')) changed.push(attr);
+    }
+    const attrLabel = changed.length ? changed.join('/') : 'geometry';
+    const geomKey = changed.includes('d') ? 'd' : changed.includes('points') ? 'points' : '';
+    const geom = geomKey
+      ? countCoordinateDiffs(ref.attrs[geomKey] || '', other.attrs[geomKey] || '')
+      : { count: 0, sample: null };
+    if (geom.count === 1 && geom.sample) {
+      diffs.push(
+        `shape ${n} (${ref.tag}) ${attrLabel} differs from ${refLabel} at 1 coordinate (${geom.sample})`,
+      );
+    } else if (geom.count > 1) {
+      diffs.push(
+        `shape ${n} (${ref.tag}) ${attrLabel} differs from ${refLabel} at ${geom.count} coordinates`,
+      );
+    } else {
+      diffs.push(`shape ${n} (${ref.tag}) ${attrLabel} differs from ${refLabel}`);
+    }
+  }
+  if (diffs.length === 0) return `Geometry differs from ${refLabel}.${suffix}`;
+  if (diffs.length === 1) return `${diffs[0]}.${suffix}`;
+  if (diffs.length <= 3) return `${diffs.join('; ')}.${suffix}`;
+  return `${diffs.length} of ${refSig.length} shapes differ from ${refLabel}.${suffix}`;
+}
+
+// Drawable nodes in SVG export order: a boolean op / vector is one exported
+// shape (its children aren't exported separately). Used to jump to the layer
+// that actually diverged when the counts line up with the SVG signature.
+function collectExportedShapeNodes(root: SceneNode): SceneNode[] {
+  const out: SceneNode[] = [];
+  const walk = (node: SceneNode) => {
+    if (node.visible === false) return;
+    if (isShapeType(node.type)) {
+      out.push(node);
+      return;
+    }
+    if ('children' in node) {
+      for (const child of node.children) walk(child);
+    }
+  };
+  if ('children' in root) {
+    for (const child of root.children) walk(child);
+  }
+  return out;
 }
 
 // Exports each background variant once and flags export issues the generator can't
@@ -1157,11 +1287,26 @@ async function runPictogramAsyncChecks(targets: PictogramShapeTarget[]): Promise
         if (differing.length > 0) {
           for (const d of differing) {
             const variant = exported.find((e) => e.nodeId === d.nodeId);
+            const reason = describeShapeMismatch(ref.sig, d.sig, ref.bg, d.bg);
+            let nodeId = d.nodeId;
+            let layerHint = '';
+            if (variant) {
+              const layers = collectExportedShapeNodes(variant.node);
+              if (layers.length === d.sig.length && d.sig.length === ref.sig.length) {
+                for (let i = 0; i < d.sig.length; i += 1) {
+                  if (shapeSigEqual(d.sig[i], ref.sig[i])) continue;
+                  nodeId = layers[i].id;
+                  layerHint = layerPathWithin(layers[i], variant.node);
+                  break;
+                }
+              }
+            }
             issues.push({
               severity: 'error',
               rule: 'pictogram-mismatched-shapes',
-              message: variant ? variant.node.name : capitalize(d.bg),
-              nodeId: d.nodeId,
+              message: `"${target.name}" ${capitalize(d.bg)}`,
+              reason: layerHint ? `${layerHint}: ${reason}` : reason,
+              nodeId,
               previewId: target.previewId,
             });
           }
