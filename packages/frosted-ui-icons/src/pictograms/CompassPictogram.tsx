@@ -5,9 +5,9 @@ export type CompassPictogramProps = PictogramProps;
 
 const FILLS: Record<PictogramVariant, Record<number, string>> = {
   light: { '0': '#151515', '7': '#151515' },
-  dark: { '0': '#222', '7': '#222' },
+  dark: { '0': '#212121', '7': '#212121' },
   orange: { '0': '#151515', '7': '#151515' },
-  auto: { '0': 'light-dark(#151515, #222)', '7': 'light-dark(#151515, #222)' },
+  auto: { '0': 'light-dark(#151515, #212121)', '7': 'light-dark(#151515, #212121)' },
 };
 
 export const CompassPictogram = ({ variant = 'auto', ...props }: CompassPictogramProps) => {
@@ -19,7 +19,7 @@ export const CompassPictogram = ({ variant = 'auto', ...props }: CompassPictogra
       viewBox="0 0 240 240"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-pictogram="true"
+      data-fui-pictogram="CompassPictogram"
       {...props}
     >
       <path

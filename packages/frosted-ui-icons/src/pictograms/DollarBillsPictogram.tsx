@@ -5,11 +5,11 @@ export type DollarBillsPictogramProps = PictogramProps;
 
 const FILLS: Record<PictogramVariant, Record<number, string>> = {
   light: { '0': '#151515', '3': '#151515', '38': '#B3300D', '39': '#FA4616' },
-  dark: { '0': '#222', '3': '#222', '38': '#B3300D', '39': '#FA4616' },
+  dark: { '0': '#212121', '3': '#212121', '38': '#B3300D', '39': '#FA4616' },
   orange: { '0': '#151515', '3': '#151515', '38': '#354B98', '39': '#6196C1' },
   auto: {
-    '0': 'light-dark(#151515, #222)',
-    '3': 'light-dark(#151515, #222)',
+    '0': 'light-dark(#151515, #212121)',
+    '3': 'light-dark(#151515, #212121)',
     '38': 'light-dark(#B3300D, #B3300D)',
     '39': 'light-dark(#FA4616, #FA4616)',
   },
@@ -147,7 +147,7 @@ export const DollarBillsPictogram = ({ variant = 'auto', ...props }: DollarBills
       viewBox="0 0 240 240"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-pictogram="true"
+      data-fui-pictogram="DollarBillsPictogram"
       {...props}
     >
       <path

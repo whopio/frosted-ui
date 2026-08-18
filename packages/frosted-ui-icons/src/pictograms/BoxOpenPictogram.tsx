@@ -5,13 +5,13 @@ export type BoxOpenPictogramProps = PictogramProps;
 
 const FILLS: Record<PictogramVariant, Record<number, string>> = {
   light: { '6': '#151515', '7': '#151515', '8': '#151515', '9': '#151515' },
-  dark: { '6': '#222', '7': '#222', '8': '#222', '9': '#222' },
+  dark: { '6': '#212121', '7': '#212121', '8': '#212121', '9': '#212121' },
   orange: { '6': '#151515', '7': '#151515', '8': '#151515', '9': '#151515' },
   auto: {
-    '6': 'light-dark(#151515, #222)',
-    '7': 'light-dark(#151515, #222)',
-    '8': 'light-dark(#151515, #222)',
-    '9': 'light-dark(#151515, #222)',
+    '6': 'light-dark(#151515, #212121)',
+    '7': 'light-dark(#151515, #212121)',
+    '8': 'light-dark(#151515, #212121)',
+    '9': 'light-dark(#151515, #212121)',
   },
 };
 
@@ -24,7 +24,7 @@ export const BoxOpenPictogram = ({ variant = 'auto', ...props }: BoxOpenPictogra
       viewBox="0 0 240 240"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-pictogram="true"
+      data-fui-pictogram="BoxOpenPictogram"
       {...props}
     >
       <path

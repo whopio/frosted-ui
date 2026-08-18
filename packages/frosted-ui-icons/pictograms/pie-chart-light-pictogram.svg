@@ -4,7 +4,7 @@
   viewBox="0 0 240 240"
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
-  data-fui-pictogram="true"
+  data-fui-pictogram="PieChartPictogram"
 >
   <path d="M186.89 100.78V125.77L185.88 125.43L183.56 124.66L183.27 110.25L186.89 100.78Z" fill="#151515" />
   <path d="M185.98 125.43V127.62C185.98 127.62 185.13 127.7 183.66 127.74V124.66L185.98 125.43Z" fill="#151515" />

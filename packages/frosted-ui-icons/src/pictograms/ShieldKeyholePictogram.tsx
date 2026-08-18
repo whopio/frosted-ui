@@ -16,15 +16,15 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
     '13': '#151515',
   },
   dark: {
-    '0': '#222',
-    '2': '#222',
-    '3': '#222',
-    '4': '#222',
-    '8': '#222',
+    '0': '#212121',
+    '2': '#212121',
+    '3': '#212121',
+    '4': '#212121',
+    '8': '#212121',
     '9': '#FA4616',
-    '11': '#222',
-    '12': '#222',
-    '13': '#222',
+    '11': '#212121',
+    '12': '#212121',
+    '13': '#212121',
   },
   orange: {
     '0': '#151515',
@@ -38,15 +38,15 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
     '13': '#151515',
   },
   auto: {
-    '0': 'light-dark(#151515, #222)',
-    '2': 'light-dark(#151515, #222)',
-    '3': 'light-dark(#151515, #222)',
-    '4': 'light-dark(#151515, #222)',
-    '8': 'light-dark(#151515, #222)',
+    '0': 'light-dark(#151515, #212121)',
+    '2': 'light-dark(#151515, #212121)',
+    '3': 'light-dark(#151515, #212121)',
+    '4': 'light-dark(#151515, #212121)',
+    '8': 'light-dark(#151515, #212121)',
     '9': 'light-dark(#FA4616, #FA4616)',
-    '11': 'light-dark(#151515, #222)',
-    '12': 'light-dark(#151515, #222)',
-    '13': 'light-dark(#151515, #222)',
+    '11': 'light-dark(#151515, #212121)',
+    '12': 'light-dark(#151515, #212121)',
+    '13': 'light-dark(#151515, #212121)',
   },
 };
 
@@ -59,7 +59,7 @@ export const ShieldKeyholePictogram = ({ variant = 'auto', ...props }: ShieldKey
       viewBox="0 0 240 240"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-pictogram="true"
+      data-fui-pictogram="ShieldKeyholePictogram"
       {...props}
     >
       <path

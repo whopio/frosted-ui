@@ -13,7 +13,15 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
     '9': '#151515',
     '10': '#151515',
   },
-  dark: { '0': '#FA4616', '1': '#FA4616', '3': '#FA4616', '5': '#FA4616', '6': '#222', '9': '#222', '10': '#222' },
+  dark: {
+    '0': '#FA4616',
+    '1': '#FA4616',
+    '3': '#FA4616',
+    '5': '#FA4616',
+    '6': '#212121',
+    '9': '#212121',
+    '10': '#212121',
+  },
   orange: {
     '0': '#354B98',
     '1': '#354B98',
@@ -28,9 +36,9 @@ const FILLS: Record<PictogramVariant, Record<number, string>> = {
     '1': 'light-dark(#FA4616, #FA4616)',
     '3': 'light-dark(#FA4616, #FA4616)',
     '5': 'light-dark(#FA4616, #FA4616)',
-    '6': 'light-dark(#151515, #222)',
-    '9': 'light-dark(#151515, #222)',
-    '10': 'light-dark(#151515, #222)',
+    '6': 'light-dark(#151515, #212121)',
+    '9': 'light-dark(#151515, #212121)',
+    '10': 'light-dark(#151515, #212121)',
   },
 };
 
@@ -43,7 +51,7 @@ export const TargetBullseyePictogram = ({ variant = 'auto', ...props }: TargetBu
       viewBox="0 0 240 240"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      data-fui-pictogram="true"
+      data-fui-pictogram="TargetBullseyePictogram"
       {...props}
     >
       <path

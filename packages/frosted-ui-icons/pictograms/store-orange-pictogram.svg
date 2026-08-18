@@ -4,7 +4,7 @@
   viewBox="0 0 240 240"
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
-  data-fui-pictogram="true"
+  data-fui-pictogram="StorePictogram"
 >
   <path d="M162.328 108.03L206.139 80.1423L206.133 66.3641L162.323 93.6066L162.328 108.03Z" fill="#151515" />
   <path d="M160.889 93.8517L50.7447 58.3618V72.2027L160.889 107.835V93.8517Z" fill="#151515" />

@@ -58,7 +58,16 @@
       "trophy-light-pictogram": "pictograms/trophy-light-pictogram.svg",
       "video-camera-light-pictogram": "pictograms/video-camera-light-pictogram.svg",
       "lighthouse-light-pictogram": "pictograms/lighthouse-light-pictogram.svg",
-      "graduation-cap-light-pictogram": "pictograms/graduation-cap-light-pictogram.svg"
+      "graduation-cap-light-pictogram": "pictograms/graduation-cap-light-pictogram.svg",
+      "document-signed-light-pictogram": "pictograms/document-signed-light-pictogram.svg",
+      "tag-vertical-light-pictogram": "pictograms/tag-vertical-light-pictogram.svg",
+      "stopwatch-light-pictogram": "pictograms/stopwatch-light-pictogram.svg",
+      "office-building-light-pictogram": "pictograms/office-building-light-pictogram.svg",
+      "key-light-pictogram": "pictograms/key-light-pictogram.svg",
+      "globe-stand-light-pictogram": "pictograms/globe-stand-light-pictogram.svg",
+      "folder-light-pictogram": "pictograms/folder-light-pictogram.svg",
+      "bank-light-pictogram": "pictograms/bank-light-pictogram.svg",
+      "gear-light-pictogram": "pictograms/gear-light-pictogram.svg"
     },
     "dark": {
       "piggy-bank-dark-pictogram": "pictograms/piggy-bank-dark-pictogram.svg",
@@ -118,7 +127,16 @@
       "megaphone-dark-pictogram": "pictograms/megaphone-dark-pictogram.svg",
       "cube-printer-dark-pictogram": "pictograms/cube-printer-dark-pictogram.svg",
       "lighthouse-dark-pictogram": "pictograms/lighthouse-dark-pictogram.svg",
-      "graduation-cap-dark-pictogram": "pictograms/graduation-cap-dark-pictogram.svg"
+      "graduation-cap-dark-pictogram": "pictograms/graduation-cap-dark-pictogram.svg",
+      "document-signed-dark-pictogram": "pictograms/document-signed-dark-pictogram.svg",
+      "tag-vertical-dark-pictogram": "pictograms/tag-vertical-dark-pictogram.svg",
+      "stopwatch-dark-pictogram": "pictograms/stopwatch-dark-pictogram.svg",
+      "office-building-dark-pictogram": "pictograms/office-building-dark-pictogram.svg",
+      "key-dark-pictogram": "pictograms/key-dark-pictogram.svg",
+      "globe-stand-dark-pictogram": "pictograms/globe-stand-dark-pictogram.svg",
+      "folder-dark-pictogram": "pictograms/folder-dark-pictogram.svg",
+      "bank-dark-pictogram": "pictograms/bank-dark-pictogram.svg",
+      "gear-dark-pictogram": "pictograms/gear-dark-pictogram.svg"
     },
     "orange": {
       "piggy-bank-orange-pictogram": "pictograms/piggy-bank-orange-pictogram.svg",
@@ -178,7 +196,16 @@
       "megaphone-orange-pictogram": "pictograms/megaphone-orange-pictogram.svg",
       "cube-printer-orange-pictogram": "pictograms/cube-printer-orange-pictogram.svg",
       "lighthouse-orange-pictogram": "pictograms/lighthouse-orange-pictogram.svg",
-      "graduation-cap-orange-pictogram": "pictograms/graduation-cap-orange-pictogram.svg"
+      "graduation-cap-orange-pictogram": "pictograms/graduation-cap-orange-pictogram.svg",
+      "document-signed-orange-pictogram": "pictograms/document-signed-orange-pictogram.svg",
+      "tag-vertical-orange-pictogram": "pictograms/tag-vertical-orange-pictogram.svg",
+      "stopwatch-orange-pictogram": "pictograms/stopwatch-orange-pictogram.svg",
+      "office-building-orange-pictogram": "pictograms/office-building-orange-pictogram.svg",
+      "key-orange-pictogram": "pictograms/key-orange-pictogram.svg",
+      "globe-stand-orange-pictogram": "pictograms/globe-stand-orange-pictogram.svg",
+      "bank-orange-pictogram": "pictograms/bank-orange-pictogram.svg",
+      "gear-orange-pictogram": "pictograms/gear-orange-pictogram.svg",
+      "folder-orange-pictogram": "pictograms/folder-orange-pictogram.svg"
     }
   }
 }
