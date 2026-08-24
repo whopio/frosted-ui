@@ -12,10 +12,7 @@ export const SubtractBold16 = ({ color = 'currentColor', ...props }: IconProps) 
       data-fui-icon="SubtractBold16"
       {...props}
     >
-      <path
-        d="M14 7C14.5523 7 15 7.44772 15 8C15 8.55228 14.5523 9 14 9H2C1.44772 9 1 8.55228 1 8C1 7.44772 1.44772 7 2 7H14Z"
-        fill={color}
-      />
+      <path d="M14 7c.552 0 1 .448 1 1s-.448 1-1 1H2c-.552 0-1-.448-1-1s.448-1 1-1h12z" fill={color} />
     </svg>
   );
 };

@@ -12,13 +12,7 @@ export const ArrowUpLeftBold24 = ({ color = 'currentColor', ...props }: IconProp
       data-fui-icon="ArrowUpLeftBold24"
       {...props}
     >
-      <path
-        d="M15.5 3.00001L3 3L3.00001 15.5M3 3L21 21"
-        stroke={color}
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <path d="M15.5 3H3v12.5M3 3l18 18" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 };

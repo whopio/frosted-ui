@@ -12,10 +12,7 @@ export const CircleBoldFilled24 = ({ color = 'currentColor', ...props }: IconPro
       data-fui-icon="CircleBoldFilled24"
       {...props}
     >
-      <path
-        d="M23.5 12C23.5 18.3513 18.3513 23.5 12 23.5C5.64873 23.5 0.5 18.3513 0.5 12C0.5 5.64873 5.64873 0.5 12 0.5C18.3513 0.5 23.5 5.64873 23.5 12Z"
-        fill={color}
-      />
+      <path d="M23.5 12c0 6.351-5.149 11.5-11.5 11.5S.5 18.351.5 12 5.649.5 12 .5 23.5 5.649 23.5 12z" fill={color} />
     </svg>
   );
 };

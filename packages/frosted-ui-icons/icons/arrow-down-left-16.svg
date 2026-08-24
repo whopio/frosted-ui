@@ -7,7 +7,7 @@
   data-fui-icon="ArrowDownLeft16"
 >
   <path
-    d="M11.25 13.25H2.74998V4.75002M2.74998 13.25L13.25 2.75"
+    d="M11.25 13.25h-8.5v-8.5m0 8.5l10.5-10.5"
     stroke="currentColor"
     stroke-width="1.5"
     stroke-linecap="round"

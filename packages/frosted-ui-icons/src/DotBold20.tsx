@@ -13,7 +13,7 @@ export const DotBold20 = ({ color = 'currentColor', ...props }: IconProps) => {
       {...props}
     >
       <path
-        d="M6 10C6 7.79086 7.79086 6 10 6C12.2091 6 14 7.79086 14 10C14 12.2091 12.2091 14 10 14C7.79086 14 6 12.2091 6 10Z"
+        d="M6 10c0-2.21 1.79-4 4-4s4 1.79 4 4-1.79 4-4 4-4-1.79-4-4z"
         stroke={color}
         strokeWidth="2"
         strokeLinecap="round"

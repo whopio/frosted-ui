@@ -13,7 +13,7 @@ export const ChevronRight16 = ({ color = 'currentColor', ...props }: IconProps) 
       {...props}
     >
       <path
-        d="M6 2.75L11.0167 7.76665C11.1455 7.89553 11.1455 8.10447 11.0167 8.23335L6 13.2499"
+        d="M6 2.75l5.017 5.017c.129.129.129.337 0 .466L6 13.25"
         stroke={color}
         strokeWidth="1.5"
         strokeLinecap="round"
