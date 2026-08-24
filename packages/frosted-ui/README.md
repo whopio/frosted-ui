@@ -59,6 +59,16 @@ import { Theme, Tooltip } from 'frosted-ui';
 
 This is deliberately opt-in rather than built into `Theme`: the provider is only reachable through a Base UI namespace export that bundlers cannot tree-shake, so mounting it unconditionally would add ~34 kB gzipped to apps that never render a tooltip.
 
+### Emoji colors
+
+`getColorForEmoji` and `emojiColorMap` live on their own subpath rather than the package root, because the generated lookup table is ~40 kB:
+
+```tsx
+import { getColorForEmoji } from 'frosted-ui/helpers/emoji-colors';
+
+const color = getColorForEmoji('❤️') ?? 'gray';
+```
+
 ## Guides
 
 - [Setup steps](https://storybook.whop.dev/?path=/docs/guides-1-getting-started--docs)

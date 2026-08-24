@@ -13,8 +13,8 @@ import {
   Theme,
   ThemePanel,
   Tooltip,
-  getColorForEmoji,
 } from 'frosted-ui';
+import { getColorForEmoji } from 'frosted-ui/helpers/emoji-colors';
 import localFont from 'next/font/local';
 import WhopLogo from './WhopLogo';
 
