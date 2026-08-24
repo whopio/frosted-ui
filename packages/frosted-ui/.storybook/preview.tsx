@@ -1,6 +1,7 @@
 import type { Decorator, Preview } from '@storybook/react';
 import React from 'react';
 import { Toaster } from '../src/components/toast';
+import { Tooltip } from '../src/components/tooltip';
 import { Theme } from '../src/theme';
 import '../styles.css';
 
@@ -23,11 +24,16 @@ export const withTheme: Decorator = (Story, context) => {
 }
 `}
       </style>
-      <Theme accentColor="blue" grayColor={'gray'} appearance={theme}>
-        <Story />
-        <Toaster />
-        {/* <ThemePanel /> */}
-      </Theme>
+      {/* Mirrors the recommended app setup: `Tooltip.Provider` mounted once at
+          the root so adjacent tooltips share a delay group. It is opt-in so that
+          apps which never render a tooltip don't pay for the module. */}
+      <Tooltip.Provider>
+        <Theme accentColor="blue" grayColor={'gray'} appearance={theme}>
+          <Story />
+          <Toaster />
+          {/* <ThemePanel /> */}
+        </Theme>
+      </Tooltip.Provider>
     </>
   );
 };

@@ -45,6 +45,30 @@ export default function () {
 }
 ```
 
+If your app uses `Tooltip`, also mount `Tooltip.Provider` at the root. It puts every tooltip in a shared delay group, so moving from one trigger to an adjacent one opens the tooltip instantly instead of waiting out the delay again:
+
+```tsx
+import { Theme, Tooltip } from 'frosted-ui';
+
+<Tooltip.Provider>
+  <Theme>
+    <MyApp />
+  </Theme>
+</Tooltip.Provider>;
+```
+
+This is deliberately opt-in rather than built into `Theme`: the provider is only reachable through a Base UI namespace export that bundlers cannot tree-shake, so mounting it unconditionally would add ~34 kB gzipped to apps that never render a tooltip.
+
+### Emoji colors
+
+`getColorForEmoji` and `emojiColorMap` live on their own subpath rather than the package root, because the generated lookup table is ~40 kB:
+
+```tsx
+import { getColorForEmoji } from 'frosted-ui/helpers/emoji-colors';
+
+const color = getColorForEmoji('❤️') ?? 'gray';
+```
+
 ## Guides
 
 - [Setup steps](https://storybook.whop.dev/?path=/docs/guides-1-getting-started--docs)

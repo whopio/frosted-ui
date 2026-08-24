@@ -38,6 +38,16 @@
       }
     }
   },
+  "typesVersions": {
+    "*": {
+      "helpers/*": [
+        "./dist/cjs/helpers/*.d.ts"
+      ],
+      "components/*": [
+        "./dist/cjs/components/*.d.ts"
+      ]
+    }
+  },
   "sideEffects": false,
   "license": "MIT",
   "files": [

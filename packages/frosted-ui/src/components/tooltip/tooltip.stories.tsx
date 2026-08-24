@@ -69,8 +69,9 @@ export const WithProvider: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
       <Text render={<div />} style={{ maxWidth: 400, textAlign: 'center' }}>
-        Wrap tooltips in <Code>Tooltip.Provider</Code> for shared delay behavior. After hovering one tooltip, subsequent
-        tooltips in the group open instantly.
+        Mount <Code>Tooltip.Provider</Code> once at your app root, alongside <Code>Theme</Code>, so adjacent tooltips
+        share a delay group: after hovering one tooltip, moving to another opens it instantly. It is opt-in so apps that
+        never render a tooltip don&apos;t pay for the module.
       </Text>
 
       <Tooltip.Provider>

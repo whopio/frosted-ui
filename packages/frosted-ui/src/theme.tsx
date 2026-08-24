@@ -1,7 +1,6 @@
 'use client';
 
 import { DirectionProvider, mergeProps, useRender } from '@base-ui/react';
-import { Tooltip as TooltipPrimitive } from '@base-ui/react/tooltip';
 import classNames from 'classnames';
 import * as React from 'react';
 import { getMatchingGrayColor, themePropDefs } from './theme-options';
@@ -40,12 +39,14 @@ const Theme = (props: ThemeProps) => {
   const context = React.useContext(ThemeContext);
   const isRoot = context === undefined;
   if (isRoot) {
+    // Deliberately no `Tooltip.Provider` here: it would make every consumer of
+    // `Theme` pay for the whole Base UI tooltip module, which is only reachable
+    // through a namespace re-export that bundlers cannot tree-shake. Shared
+    // delay grouping stays opt-in via `Tooltip.Provider`.
     return (
-      <TooltipPrimitive.Provider>
-        <DirectionProvider direction="ltr">
-          <ThemeRoot {...props} />
-        </DirectionProvider>
-      </TooltipPrimitive.Provider>
+      <DirectionProvider direction="ltr">
+        <ThemeRoot {...props} />
+      </DirectionProvider>
     );
   }
   return <ThemeImpl {...props} />;
