@@ -7,7 +7,7 @@
   data-fui-icon="ArrowDownBold20"
 >
   <path
-    d="M16.5002 11.5L10 18L3.5 11.5M10 18V2"
+    d="M16.5 11.5L10 18l-6.5-6.5M10 18V2"
     stroke="currentColor"
     stroke-width="2"
     stroke-linecap="round"

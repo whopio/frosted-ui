@@ -7,7 +7,7 @@
   data-fui-icon="ChevronUpBoldFilled16"
 >
   <path
-    d="M3.5 9.5L7.76665 5.23335C7.89553 5.10447 8.10447 5.10447 8.23335 5.23335L12.5 9.5"
+    d="M3.5 9.5l4.267-4.267c.129-.129.337-.129.466 0L12.5 9.5"
     stroke="currentColor"
     stroke-width="3"
     stroke-linecap="round"

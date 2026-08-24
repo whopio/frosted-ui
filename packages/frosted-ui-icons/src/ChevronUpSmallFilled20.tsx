@@ -13,7 +13,7 @@ export const ChevronUpSmallFilled20 = ({ color = 'currentColor', ...props }: Ico
       {...props}
     >
       <path
-        d="M5.75 12L9.70545 8.04454C9.86817 7.88183 10.132 7.88183 10.2947 8.04454L14.2502 12"
+        d="M5.75 12l3.955-3.955c.163-.163.427-.163.59 0L14.25 12"
         stroke={color}
         strokeWidth="2.5"
         strokeLinecap="round"

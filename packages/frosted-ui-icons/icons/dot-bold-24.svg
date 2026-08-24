@@ -7,7 +7,7 @@
   data-fui-icon="DotBold24"
 >
   <path
-    d="M7 12C7 9.23858 9.23858 7 12 7C14.7614 7 17 9.23858 17 12C17 14.7614 14.7614 17 12 17C9.23858 17 7 14.7614 7 12Z"
+    d="M7 12c0-2.761 2.239-5 5-5s5 2.239 5 5-2.239 5-5 5-5-2.239-5-5z"
     stroke="currentColor"
     stroke-width="2"
     stroke-linecap="round"

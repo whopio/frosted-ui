@@ -13,7 +13,7 @@ export const ChevronDownSmallFilled24 = ({ color = 'currentColor', ...props }: I
       {...props}
     >
       <path
-        d="M6.75 9.5L11.6465 14.3964C11.8418 14.5917 12.1584 14.5917 12.3536 14.3964L17.25 9.5"
+        d="M6.75 9.5l4.896 4.896c.196.196.512.196.708 0L17.25 9.5"
         stroke={color}
         strokeWidth="2.5"
         strokeLinecap="round"

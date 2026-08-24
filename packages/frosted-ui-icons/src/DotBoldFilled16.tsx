@@ -12,10 +12,7 @@ export const DotBoldFilled16 = ({ color = 'currentColor', ...props }: IconProps)
       data-fui-icon="DotBoldFilled16"
       {...props}
     >
-      <path
-        d="M4 8C4 5.79086 5.79086 4 8 4C10.2091 4 12 5.79086 12 8C12 10.2091 10.2091 12 8 12C5.79086 12 4 10.2091 4 8Z"
-        fill={color}
-      />
+      <path d="M4 8c0-2.21 1.79-4 4-4s4 1.79 4 4-1.79 4-4 4-4-1.79-4-4z" fill={color} />
     </svg>
   );
 };

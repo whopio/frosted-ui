@@ -7,7 +7,7 @@
   data-fui-icon="ArrowUpRightBold20"
 >
   <path
-    d="M6.49998 3L17 3L17 13.5M17 3L3 16.9999"
+    d="M6.5 3H17v10.5M17 3L3 17"
     stroke="currentColor"
     stroke-width="2"
     stroke-linecap="round"

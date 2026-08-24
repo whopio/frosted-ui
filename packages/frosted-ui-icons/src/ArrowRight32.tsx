@@ -13,7 +13,7 @@ export const ArrowRight32 = ({ color = 'currentColor', ...props }: IconProps) =>
       {...props}
     >
       <path
-        d="M18.781 27.4695L30.2505 16.0002L18.781 4.53052M30.2505 16.0002H1.75049"
+        d="M18.781 27.47L30.251 16 18.78 4.53M30.251 16H1.75"
         stroke={color}
         strokeWidth="1.5"
         strokeLinecap="round"

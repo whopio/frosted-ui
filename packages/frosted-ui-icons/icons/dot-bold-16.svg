@@ -7,7 +7,7 @@
   data-fui-icon="DotBold16"
 >
   <path
-    d="M5 8C5 6.34315 6.34315 5 8 5C9.65685 5 11 6.34315 11 8C11 9.65685 9.65685 11 8 11C6.34315 11 5 9.65685 5 8Z"
+    d="M5 8c0-1.657 1.343-3 3-3s3 1.343 3 3-1.343 3-3 3-3-1.343-3-3z"
     stroke="currentColor"
     stroke-width="2"
     stroke-linecap="round"

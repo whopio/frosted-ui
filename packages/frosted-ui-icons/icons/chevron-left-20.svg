@@ -7,7 +7,7 @@
   data-fui-icon="ChevronLeft20"
 >
   <path
-    d="M13 2.75L6.04699 9.70301C5.88297 9.86703 5.88297 10.133 6.04699 10.297L13 17.25"
+    d="M13 2.75L6.047 9.703c-.164.164-.164.43 0 .594L13 17.25"
     stroke="currentColor"
     stroke-width="1.5"
     stroke-linecap="round"
