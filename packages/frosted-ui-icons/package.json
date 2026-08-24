@@ -41,6 +41,8 @@
   },
   "files": [
     "dist/**",
+    "manifest.json",
+    "pictograms-manifest.json",
     "pictograms/**"
   ],
   "sideEffects": false,
