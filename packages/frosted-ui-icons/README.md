@@ -69,6 +69,19 @@ Internally the generator collapses the three background variants into one compon
 
 ## Configuring
 
+### Bundle size
+
+Named imports from the barrel tree-shake, so `import { Shop16 } from '@frosted-ui/icons'` costs one icon rather than the whole set. Every bundler that reads the `import`/`module` entry — webpack, Vite, Rollup, esbuild, Next.js — gets this by default, with no configuration.
+
+CommonJS cannot tree-shake, so the CJS barrel instead defines each export as a getter that loads that icon's module on first access. `require('@frosted-ui/icons')` stays cheap in Node, which matters for Jest, SSR and scripts.
+
+A bundler pinned to the CJS entry (`mainFields: ['main']`) is the one case that still pays for the whole set, because a bundler resolves every `require()` statically no matter when it runs. Deep-import there:
+
+```tsx
+import Shop16 from '@frosted-ui/icons/Shop16';
+import ConePictogram from '@frosted-ui/icons/pictograms/ConePictogram';
+```
+
 ### next.js
 
 ```js

@@ -29,9 +29,18 @@
       }
     }
   },
+  "typesVersions": {
+    "*": {
+      "dist/cjs/index.d.ts": [
+        "./dist/cjs/index.d.ts"
+      ],
+      "*": [
+        "./dist/cjs/*.d.ts"
+      ]
+    }
+  },
   "files": [
     "dist/**",
-    "index.js",
     "manifest.json",
     "pictograms-manifest.json",
     "pictograms/**"
@@ -55,13 +64,13 @@
     "clean": "rimraf dist",
     "build": "pnpm clean && pnpm build:js",
     "build:js": "pnpm build:js:cjs && pnpm build:js:esm",
-    "build:js:cjs": "tsc --project tsconfig-cjs.json",
+    "build:js:cjs": "tsc --project tsconfig-cjs.json && node scripts/write-lazy-cjs-barrels.js",
     "build:js:esm": "tsc --project tsconfig-esm.json",
     "release": "turbo-module publish"
   },
   "peerDependencies": {
     "@types/react": "*",
-    "react": "^16.x || ^17.x || ^18.x"
+    "react": "^16.8 || ^17.0 || ^18.0 || ^19.0"
   },
   "devDependencies": {
     "@types/react": "^16.8.17",

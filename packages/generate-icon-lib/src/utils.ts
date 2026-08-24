@@ -179,7 +179,16 @@ export function getSvgo(mode: GeneratorMode = 'icons') {
       { moveElemsAttrsToGroup: !isPictograms },
       { moveGroupAttrsToElems: !isPictograms },
       { collapseGroups: !isPictograms },
-      { convertPathData: false },
+      // Path data is the bulk of what we ship: rounding Figma's full-precision
+      // coordinates and shortening the commands takes ~40% off every `d`.
+      //
+      // `makeArcs` must stay off. It re-expresses curves as elliptical arcs,
+      // which flips the winding of some subpaths, and once a counter winds the
+      // same way as the shape enclosing it the fill rule paints over the hole
+      // instead of punching it out — `link-bold-filled-32` fills into a solid
+      // blob and `share-nodes-32` loses a ring. It buys ~12 points of extra
+      // savings and costs visibly wrong icons.
+      { convertPathData: { makeArcs: false } },
       { convertTransform: true },
       { removeEmptyAttrs: true },
       { removeEmptyContainers: true },
