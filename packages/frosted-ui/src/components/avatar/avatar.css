@@ -9,7 +9,7 @@
   flex-shrink: 0;
 
   outline: 0.5px solid var(--accent-a5);
-  outline-offset: -1px;
+  outline-offset: -0.5px;
 
   background-color: var(--accent-a3);
   border-radius: max(25%, var(--radius-full));
@@ -41,7 +41,7 @@
   transform: translateZ(0px);
 
   outline: 0.5px solid var(--gray-a5);
-  outline-offset: -1px;
+  outline-offset: -0.5px;
 }
 
 .fui-AvatarFallback {
