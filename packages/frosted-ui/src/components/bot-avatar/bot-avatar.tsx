@@ -3,6 +3,8 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import { getBotAvatarEyes } from './bot-avatar.expressions';
+import type { BotAvatarHandle } from './bot-avatar.handle';
+import { registerBotAvatarHandle } from './bot-avatar.handle';
 import { getBotAvatarIdentity } from './bot-avatar.identity';
 import { botAvatarPropDefs } from './bot-avatar.props';
 import { botAvatarShapePaths } from './bot-avatar.shapes';
@@ -18,6 +20,11 @@ interface BotAvatarProps extends PropsWithoutColor<'div'>, BotAvatarOwnProps {
    * ignored (treated as center) rather than applied.
    */
   gaze?: { x: number; y: number };
+  /**
+   * A handle created with `createBotAvatarHandle()` for imperative control
+   * (`blink()`, `lookAt()`), following the Base UI handle pattern.
+   */
+  handle?: BotAvatarHandle;
 }
 
 /** Max face deflection at full gaze, as a percentage of the avatar size. */
@@ -39,6 +46,7 @@ const BotAvatar = (props: BotAvatarProps) => {
     status = botAvatarPropDefs.status.default,
     followPointer = botAvatarPropDefs.followPointer.default,
     gaze,
+    handle,
     ...rootProps
   } = props;
 
@@ -116,10 +124,28 @@ const BotAvatar = (props: BotAvatarProps) => {
     };
   }, [followPointer, hasFace]);
 
-  // An explicit gaze prop wins over pointer tracking. While either is active
-  // the automatic wander stills — a commanded gaze and a drifting gaze
-  // fighting each other reads as the bot hunting the cursor.
-  const activeGaze = gaze !== undefined ? { x: clampGazeAxis(gaze.x), y: clampGazeAxis(gaze.y) } : pointerGaze;
+  // Imperative handle (Base UI pattern): attaches while mounted, detaches on
+  // unmount, and calls made with no avatar attached are ignored.
+  const [handleGaze, setHandleGaze] = React.useState<{ x: number; y: number } | null>(null);
+  React.useEffect(() => {
+    if (handle === undefined) return;
+    const detach = registerBotAvatarHandle(handle, {
+      blink: () => setBlinkId((id) => id + 1),
+      lookAt: (target) =>
+        setHandleGaze(target === null ? null : { x: clampGazeAxis(target.x), y: clampGazeAxis(target.y) }),
+    });
+    return () => {
+      detach();
+      setHandleGaze(null);
+    };
+  }, [handle]);
+
+  // Gaze priority: the declarative prop wins, then the handle's lookAt, then
+  // pointer tracking. While any is active the automatic wander stills — a
+  // commanded gaze and a drifting gaze fighting each other reads as the bot
+  // hunting the cursor.
+  const activeGaze =
+    gaze !== undefined ? { x: clampGazeAxis(gaze.x), y: clampGazeAxis(gaze.y) } : (handleGaze ?? pointerGaze);
 
   // Eyes are rendered inside the clipped body so the same shape path clips
   // them — they can never escape the silhouette. Geometry comes from the

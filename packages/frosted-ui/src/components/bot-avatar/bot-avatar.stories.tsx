@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { BotAvatar } from '..';
+import { BotAvatar, Button, createBotAvatarHandle } from '..';
 import { botAvatarExpressionsList } from './bot-avatar.expressions';
 import { botAvatarShapes } from './bot-avatar.shapes';
 import { botAvatarStatuses } from './bot-avatar.status';
@@ -181,6 +181,29 @@ export const Notification: Story = {
       <BotAvatar {...args} size="9" shape="circle" color="teal" />
     </div>
   ),
+};
+
+/**
+ * Imperative control via the Base UI handle pattern: create a handle with
+ * `createBotAvatarHandle()`, pass it to the `handle` prop, and call
+ * `blink()` / `lookAt()` from event handlers or effects. Calls with no
+ * mounted avatar attached are ignored.
+ */
+export const Handle: Story = {
+  render: function HandleDemo() {
+    const handle = React.useMemo(() => createBotAvatarHandle(), []);
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-5)' }}>
+        <BotAvatar handle={handle} shape="sunny" color="blue" expression="neutral" size="8" />
+        <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+          <Button onClick={() => handle.blink()}>blink()</Button>
+          <Button onClick={() => handle.lookAt({ x: -1, y: 0.2 })}>look left</Button>
+          <Button onClick={() => handle.lookAt({ x: 1, y: -0.6 })}>look up-right</Button>
+          <Button onClick={() => handle.lookAt(null)}>release</Button>
+        </div>
+      </div>
+    );
+  },
 };
 
 /**
