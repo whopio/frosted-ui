@@ -99,8 +99,8 @@
     animation-delay: var(--bot-avatar-life-delay, 0ms);
   }
 
-  /* Forced blink masking a shape change: closed from ~35% to ~55% (the
-     component swaps the silhouette at 140ms, inside that window) */
+  /* Forced blink, triggered via the imperative handle's blink():
+     closed from ~35% to ~55% of the 340ms run */
   .fui-BotAvatarRoot:where(.fui-blinking) .fui-BotAvatarEye::before {
     animation: fui-bot-avatar-forced-blink 340ms ease-in-out;
   }
