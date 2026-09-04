@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { BotAvatar, Button, createBotAvatarHandle } from '..';
+import { botAvatarPropDefs } from './bot-avatar.props';
 import { botAvatarExpressionsList } from './bot-avatar.expressions';
 import { botAvatarShapes } from './bot-avatar.shapes';
 import { botAvatarStatuses } from './bot-avatar.status';
@@ -221,6 +222,55 @@ export const FollowPointer: Story = {
       <BotAvatar shape="heart" color="crimson" expression="neutral" followPointer size="7" />
     </div>
   ),
+};
+
+/**
+ * Changing the `shape` prop morphs the silhouette: every shape is compiled to
+ * a CSS `shape()` value with an identical command list, so the browser
+ * interpolates the clip-path natively — no JS runs during the morph. The
+ * eyes glide to the new shape's face fit on the same curve. Click to cycle.
+ */
+export const ShapeMorphing: Story = {
+  render: function ShapeMorphingDemo() {
+    const cycle = ['sunny', 'cookie-6', 'clover-4', 'heart', 'triangle', 'flower', 'boom', 'square'] as const;
+    const [index, setIndex] = React.useState(0);
+    return (
+      <button
+        type="button"
+        onClick={() => setIndex((i) => (i + 1) % cycle.length)}
+        style={{ all: 'unset', cursor: 'pointer' }}
+        aria-label="Cycle avatar shape"
+      >
+        <BotAvatar color="blue" size="8" shape={cycle[index]} expression="neutral" />
+      </button>
+    );
+  },
+};
+
+/**
+ * Random morph: each click picks a new random shape and color. The
+ * silhouette flows into the new shape while the accent color swaps — the
+ * kind of transition a bot-picker or identity handoff produces.
+ */
+export const RandomMorph: Story = {
+  render: function RandomMorphDemo() {
+    const colors = botAvatarPropDefs.color.values;
+    const [shape, setShape] = React.useState<(typeof botAvatarShapes)[number]>('sunny');
+    const [color, setColor] = React.useState<(typeof colors)[number]>('blue');
+    const randomize = () => {
+      // Pick from the remaining options so every click visibly changes both.
+      const nextShapes = botAvatarShapes.filter((s) => s !== shape);
+      const nextColors = colors.filter((c) => c !== color);
+      setShape(nextShapes[Math.floor(Math.random() * nextShapes.length)]);
+      setColor(nextColors[Math.floor(Math.random() * nextColors.length)]);
+    };
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-5)' }}>
+        <BotAvatar shape={shape} color={color} expression="neutral" size="8" />
+        <Button onClick={randomize}>Next bot</Button>
+      </div>
+    );
+  },
 };
 
 /**

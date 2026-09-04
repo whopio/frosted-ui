@@ -1,4 +1,45 @@
 .fui-BotAvatarRoot {
+  /* Morph feel, shared by the silhouette and the eye geometry so the body
+     and face always land together. A damped spring (ζ=0.6): fast rise, ~9%
+     overshoot past the target shape, then a settle with a faint wobble —
+     this is what makes morphs read as alive rather than as a resize. */
+  --bot-avatar-morph-duration: 500ms;
+  --bot-avatar-morph-ease: linear(
+    0,
+    0.037,
+    0.13,
+    0.256,
+    0.397,
+    0.539,
+    0.671,
+    0.788,
+    0.885,
+    0.962,
+    1.019,
+    1.058,
+    1.082,
+    1.093,
+    1.094,
+    1.089,
+    1.079,
+    1.066,
+    1.053,
+    1.039,
+    1.027,
+    1.017,
+    1.008,
+    1.002,
+    0.997,
+    0.994,
+    0.992,
+    0.991,
+    0.991,
+    0.992,
+    0.993,
+    0.994,
+    1
+  );
+
   container-type: inline-size;
   position: relative;
   display: inline-grid;
@@ -25,8 +66,35 @@
 
   background-color: var(--accent-9);
 
+  /* SVG clipPath fallback (set inline as a var, since the id is per-instance) */
+  clip-path: var(--bot-avatar-clip-fallback);
+
+  /* Accent changes fade rather than pop (a color fade is not motion, so it
+     is not gated behind prefers-reduced-motion). */
+  transition: background-color 300ms cubic-bezier(0.16, 1, 0.3, 1);
+
   :where(.fui-BotAvatarRoot.fui-high-contrast) & {
     background-color: var(--accent-12);
+  }
+}
+
+/* Where shape() is supported (all evergreen browsers since early 2026) the
+   silhouette comes from CSS instead: every value in bot-avatar.shapes.css has
+   the SAME number of curve commands, so the browser interpolates between any
+   two of them — changing the shape prop morphs the body. */
+@supports (clip-path: shape(from 0% 0%, line to 100% 100%)) {
+  .fui-BotAvatarShape {
+    clip-path: var(--bot-avatar-clip-shape, var(--bot-avatar-clip-fallback));
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* The morph springs (shared vars on the root); the color fade stays on a
+       plain ease — an overshooting color reads as a flash, not as life. */
+    .fui-BotAvatarShape {
+      transition:
+        clip-path var(--bot-avatar-morph-duration) var(--bot-avatar-morph-ease),
+        background-color 300ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
   }
 }
 
@@ -67,6 +135,8 @@
     inset: 0;
     border-radius: var(--radius-thumb);
     background-color: var(--accent-9-contrast);
+    /* Fades with the body when the accent changes (see BotAvatarShape) */
+    transition: background-color 300ms cubic-bezier(0.16, 1, 0.3, 1);
 
     :where(.fui-BotAvatarRoot.fui-high-contrast) & {
       background-color: var(--accent-1);
@@ -86,11 +156,12 @@
 @media (prefers-reduced-motion: no-preference) {
   /* Expression morph: interpolating width/height (not scale) keeps the
      capsule caps circular at every frame; scale would distort the radius.
-     Ease-out with no overshoot, like the measured original. */
+     Springs with the same curve as the silhouette so expression changes and
+     shape-morph face-fit shifts feel like one body moving. */
   .fui-BotAvatarEye {
     transition-property: left, top, width, height, transform;
-    transition-duration: 300ms;
-    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    transition-duration: var(--bot-avatar-morph-duration);
+    transition-timing-function: var(--bot-avatar-morph-ease);
   }
 
   /* Blink: 5.2s cycle, ~320ms blink starting at 91% (close ~120ms, open ~200ms) */
