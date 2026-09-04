@@ -2,7 +2,7 @@
 
 import classNames from 'classnames';
 import * as React from 'react';
-import { getBotAvatarEyes } from './bot-avatar.expressions';
+import { getBotAvatarEyes, getBotAvatarMouth } from './bot-avatar.expressions';
 import type { BotAvatarHandle } from './bot-avatar.handle';
 import { registerBotAvatarHandle } from './bot-avatar.handle';
 import { getBotAvatarIdentity } from './bot-avatar.identity';
@@ -45,6 +45,7 @@ const BotAvatar = (props: BotAvatarProps) => {
     expression = botAvatarPropDefs.expression.default,
     status = botAvatarPropDefs.status.default,
     followPointer = botAvatarPropDefs.followPointer.default,
+    mouth: withMouth = botAvatarPropDefs.mouth.default,
     gaze,
     handle,
     ...rootProps
@@ -134,6 +135,8 @@ const BotAvatar = (props: BotAvatarProps) => {
   // at rest. The eyes are deliberately NOT clipped by the shape, so a gaze
   // or a morph overshoot bulges past the edge instead of shearing an eye.
   const eyes = resolvedExpression !== undefined ? getBotAvatarEyes(resolvedExpression, shape) : undefined;
+  const mouth =
+    withMouth && resolvedExpression !== undefined ? getBotAvatarMouth(resolvedExpression, shape) : undefined;
 
   // Desynchronize the idle animations (blink, drift, breath) across
   // instances with a stable per-instance negative delay, so a roster of
@@ -214,6 +217,19 @@ const BotAvatar = (props: BotAvatarProps) => {
                   }}
                 />
               ))}
+              {mouth && (
+                <span
+                  className="fui-BotAvatarMouth"
+                  style={{
+                    left: `${(mouth.cx - mouth.w / 2) * 100}%`,
+                    top: `${(mouth.cy - mouth.h / 2) * 100}%`,
+                    width: `${mouth.w * 100}%`,
+                    height: `${mouth.h * 100}%`,
+                    transform: `rotate(${mouth.tilt}deg)`,
+                    borderRadius: mouth.radius,
+                  }}
+                />
+              )}
             </div>
           </div>
         )}

@@ -12,7 +12,9 @@ import type { BotAvatarShape } from '../bot-avatar/bot-avatar.shapes';
  * handle, notification badge, and identity-derived color — is shared.
  *
  * There is deliberately no `shape` prop: agents are recognizable by color
- * and expression, while the head silhouette itself is the brand.
+ * and expression, while the head silhouette itself is the brand. Unlike
+ * BotAvatar, the mouth defaults to on — a minifig face has one (pass
+ * `mouth={false}` to opt out).
  */
 interface AgentAvatarProps extends Omit<BotAvatarProps, 'shape'> {}
 
@@ -22,7 +24,7 @@ interface AgentAvatarProps extends Omit<BotAvatarProps, 'shape'> {}
 // place that bridges the two.
 const LEGO_HEAD = 'lego-head' as unknown as BotAvatarShape;
 
-const AgentAvatar = (props: AgentAvatarProps) => <BotAvatar {...props} shape={LEGO_HEAD} />;
+const AgentAvatar = (props: AgentAvatarProps) => <BotAvatar mouth {...props} shape={LEGO_HEAD} />;
 AgentAvatar.displayName = 'AgentAvatar';
 
 export { AgentAvatar };

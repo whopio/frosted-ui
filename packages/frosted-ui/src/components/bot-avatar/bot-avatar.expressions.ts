@@ -44,6 +44,49 @@ type BotAvatarExpression = keyof typeof botAvatarExpressions;
 
 const botAvatarExpressionsList = Object.keys(botAvatarExpressions) as [BotAvatarExpression, ...BotAvatarExpression[]];
 
+/**
+ * The mouth, in the same unit coordinates as the eyes. It is a single filled
+ * div whose personality comes entirely from `border-radius`: a "D" (flat top,
+ * full bottom arc) reads as a smile, the flipped D as a frown, a circle as a
+ * gasp. `radius` must always be the 8-value percentage form so the browser
+ * interpolates border-radius smoothly when the expression changes.
+ */
+interface BotAvatarMouthGeometry {
+  cx: number;
+  cy: number;
+  w: number;
+  h: number;
+  tilt: number;
+  radius: string;
+}
+
+const mouth = (cx: number, cy: number, w: number, h: number, tilt: number, radius: string): BotAvatarMouthGeometry => ({
+  cx,
+  cy,
+  w,
+  h,
+  tilt,
+  radius,
+});
+
+/** Fully rounded (ellipse/pill-ish) — flat resting mouths and round gasps. */
+const ROUND = '50% 50% 50% 50% / 50% 50% 50% 50%';
+/** Smile: near-flat top, one continuous arc along the bottom. */
+const SMILE = '12% 12% 50% 50% / 20% 20% 80% 80%';
+/** Frown: the smile flipped upside down. */
+const FROWN = '50% 50% 12% 12% / 80% 80% 20% 20%';
+
+const botAvatarMouths = {
+  neutral: mouth(0.5, 0.625, 0.16, 0.05, -3, ROUND),
+  happy: mouth(0.5, 0.615, 0.26, 0.11, 0, SMILE),
+  wide: mouth(0.5, 0.66, 0.12, 0.12, 0, ROUND),
+  wink: mouth(0.52, 0.625, 0.19, 0.055, -8, SMILE),
+  sleepy: mouth(0.5, 0.64, 0.08, 0.08, 0, ROUND),
+  angry: mouth(0.5, 0.645, 0.2, 0.08, 0, FROWN),
+  sad: mouth(0.5, 0.65, 0.16, 0.065, 0, FROWN),
+  suspicious: mouth(0.5, 0.63, 0.12, 0.045, -6, ROUND),
+} as const satisfies Record<BotAvatarExpression, BotAvatarMouthGeometry>;
+
 /** Anchor around which the per-shape face fit scales the whole face. */
 const FACE_CENTER_X = 0.5;
 const FACE_CENTER_Y = 0.45;
@@ -70,5 +113,19 @@ const getBotAvatarEyes = (
   return [fit(left), fit(right)];
 };
 
-export { botAvatarExpressions, botAvatarExpressionsList, getBotAvatarEyes };
-export type { BotAvatarExpression, BotAvatarEyeGeometry };
+/** The mouth for an expression, run through the same per-shape face fit as
+ * the eyes so the whole face scales and shifts as one unit. */
+const getBotAvatarMouth = (expression: BotAvatarExpression, shape: BotAvatarAtlasShape): BotAvatarMouthGeometry => {
+  const m = botAvatarMouths[expression];
+  const { s, dy } = botAvatarFaceFit[shape];
+  return {
+    ...m,
+    cx: FACE_CENTER_X + (m.cx - FACE_CENTER_X) * s,
+    cy: FACE_CENTER_Y + (m.cy - FACE_CENTER_Y) * s + dy,
+    w: m.w * s,
+    h: m.h * s,
+  };
+};
+
+export { botAvatarExpressions, botAvatarExpressionsList, getBotAvatarEyes, getBotAvatarMouth };
+export type { BotAvatarExpression, BotAvatarEyeGeometry, BotAvatarMouthGeometry };

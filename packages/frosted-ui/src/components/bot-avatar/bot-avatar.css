@@ -152,6 +152,22 @@
   }
 }
 
+/* The mouth (opt-in via the `mouth` prop; AgentAvatar turns it on by
+   default). One filled div — its whole personality is the inline
+   border-radius (D = smile, flipped D = frown, circle = gasp). It lives in
+   FaceMotion next to the eyes so it drifts, scans, and gazes with them. */
+.fui-BotAvatarMouth {
+  position: absolute;
+  display: block;
+  background-color: var(--accent-9-contrast);
+  /* Fades with the body when the accent changes (see BotAvatarShape) */
+  transition: background-color 300ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  :where(.fui-BotAvatarRoot.fui-high-contrast) & {
+    background-color: var(--accent-1);
+  }
+}
+
 /***************************************************************************************************
  *                                                                                                 *
  * IDLE LIFE                                                                                       *
@@ -170,6 +186,21 @@
     transition-property: left, top, width, height, transform;
     transition-duration: var(--bot-avatar-morph-duration);
     transition-timing-function: var(--bot-avatar-morph-ease);
+  }
+
+  /* The mouth springs on the same curve; border-radius joins the list so a
+     smile flows into a frown (every radius is the 8-value percentage form,
+     which the browser interpolates component-wise). The color fade keeps its
+     own plain ease, same as the eyes. */
+  .fui-BotAvatarMouth {
+    transition:
+      left var(--bot-avatar-morph-duration) var(--bot-avatar-morph-ease),
+      top var(--bot-avatar-morph-duration) var(--bot-avatar-morph-ease),
+      width var(--bot-avatar-morph-duration) var(--bot-avatar-morph-ease),
+      height var(--bot-avatar-morph-duration) var(--bot-avatar-morph-ease),
+      transform var(--bot-avatar-morph-duration) var(--bot-avatar-morph-ease),
+      border-radius var(--bot-avatar-morph-duration) var(--bot-avatar-morph-ease),
+      background-color 300ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   /* Blink: 5.2s cycle, ~320ms blink starting at 91% (close ~120ms, open ~200ms) */
