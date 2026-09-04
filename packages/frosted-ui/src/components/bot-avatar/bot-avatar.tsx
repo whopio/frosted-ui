@@ -40,6 +40,18 @@ const BotAvatar = (props: BotAvatarProps) => {
   // expression catalogue adjusted by the precomputed per-shape face fit.
   const eyes = expression !== undefined ? getBotAvatarEyes(expression, shape) : undefined;
 
+  // Desynchronize the idle animations (blink, drift, breath) across
+  // instances with a stable per-instance negative delay, so a roster of
+  // avatars doesn't blink in lockstep.
+  const lifeDelayMs = React.useMemo(() => {
+    let hash = 0x811c9dc5;
+    for (let i = 0; i < clipPathId.length; i++) {
+      hash ^= clipPathId.charCodeAt(i);
+      hash = Math.imul(hash, 0x01000193) >>> 0;
+    }
+    return -(hash % 5200);
+  }, [clipPathId]);
+
   return (
     <div
       data-accent-color={color}
@@ -55,20 +67,32 @@ const BotAvatar = (props: BotAvatarProps) => {
           </clipPath>
         </defs>
       </svg>
-      <div className="fui-BotAvatarShape" style={{ clipPath: `url(#${clipPathId})` }}>
-        {eyes?.map((eye, index) => (
-          <span
-            key={index}
-            className="fui-BotAvatarEye"
-            style={{
-              left: `${(eye.cx - eye.w / 2) * 100}%`,
-              top: `${(eye.cy - eye.h / 2) * 100}%`,
-              width: `${eye.w * 100}%`,
-              height: `${eye.h * 100}%`,
-              transform: `rotate(${eye.tilt}deg)`,
-            }}
-          />
-        ))}
+      <div
+        className={classNames('fui-BotAvatarShape', { 'fui-with-face': eyes !== undefined })}
+        style={
+          {
+            clipPath: `url(#${clipPathId})`,
+            '--bot-avatar-life-delay': `${lifeDelayMs}ms`,
+          } as React.CSSProperties
+        }
+      >
+        {eyes && (
+          <div className="fui-BotAvatarFace">
+            {eyes.map((eye, index) => (
+              <span
+                key={index}
+                className="fui-BotAvatarEye"
+                style={{
+                  left: `${(eye.cx - eye.w / 2) * 100}%`,
+                  top: `${(eye.cy - eye.h / 2) * 100}%`,
+                  width: `${eye.w * 100}%`,
+                  height: `${eye.h * 100}%`,
+                  transform: `rotate(${eye.tilt}deg)`,
+                }}
+              />
+            ))}
+          </div>
+        )}
       </div>
       {notification && <div className="fui-BotAvatarNotification" />}
     </div>

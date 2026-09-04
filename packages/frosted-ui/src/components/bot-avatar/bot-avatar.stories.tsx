@@ -14,6 +14,18 @@ const meta = {
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
+  argTypes: {
+    expression: {
+      control: 'select',
+      // 'none' renders the plain shape without a face
+      options: ['none', ...botAvatarExpressionsList],
+      mapping: { none: undefined },
+    },
+    shape: {
+      control: 'select',
+      options: botAvatarShapes,
+    },
+  },
 } satisfies Meta<typeof BotAvatar>;
 
 export default meta;
@@ -23,6 +35,8 @@ export const Default: Story = {
   args: {
     color: 'blue',
     shape: 'sunny',
+    expression: 'neutral',
+    size: '6',
   },
 };
 
@@ -159,6 +173,33 @@ export const Notification: Story = {
       <BotAvatar {...args} size="5" shape="clover-4" color="crimson" />
       <BotAvatar {...args} size="7" shape="cookie-6" color="indigo" />
       <BotAvatar {...args} size="9" shape="circle" color="teal" />
+    </div>
+  ),
+};
+
+/**
+ * Everything together, Grok Bot style: identity-derived shape + color, an
+ * expression with idle life (blink, gaze drift, breath), and notification
+ * badges. Instances blink out of sync on purpose.
+ */
+export const Roster: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 240 }}>
+      {(
+        [
+          { id: 'research-bot', name: 'Research', expression: 'neutral', notification: true },
+          { id: 'ops-bot', name: 'Ops', expression: 'happy', notification: false },
+          { id: 'code-reviewer', name: 'Code Review', expression: 'suspicious', notification: true },
+          { id: 'inbox-triage', name: 'Inbox Triage', expression: 'sleepy', notification: false },
+          { id: 'qa-runner', name: 'QA', expression: 'wide', notification: false },
+          { id: 'sales-scout', name: 'Sales Scout', expression: 'wink', notification: true },
+        ] as const
+      ).map((bot) => (
+        <div key={bot.id} style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+          <BotAvatar identity={bot.id} expression={bot.expression} notification={bot.notification} size="4" />
+          <span style={{ fontSize: 14 }}>{bot.name}</span>
+        </div>
+      ))}
     </div>
   ),
 };

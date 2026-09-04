@@ -30,15 +30,101 @@
   }
 }
 
+.fui-BotAvatarFace {
+  position: absolute;
+  inset: 0;
+}
+
 .fui-BotAvatarEye {
   position: absolute;
   display: block;
-  border-radius: var(--radius-thumb);
 
-  background-color: var(--accent-9-contrast);
+  /* The visible capsule lives on the pseudo-element so the blink (scaleY)
+     never conflicts with the tilt rotation applied to the eye itself. */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-thumb);
+    background-color: var(--accent-9-contrast);
 
-  :where(.fui-BotAvatarRoot.fui-high-contrast) & {
-    background-color: var(--accent-1);
+    :where(.fui-BotAvatarRoot.fui-high-contrast) & {
+      background-color: var(--accent-1);
+    }
+  }
+}
+
+/***************************************************************************************************
+ *                                                                                                 *
+ * IDLE LIFE                                                                                       *
+ *                                                                                                 *
+ * All perceived life at rest comes from blinking and a subtle gaze drift plus a 0.5% breath —     *
+ * the avatar deliberately does not float. Blink closes faster than it opens.                      *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Blink: 5.2s cycle, ~320ms blink starting at 91% (close ~120ms, open ~200ms) */
+  .fui-BotAvatarEye::before {
+    animation: fui-bot-avatar-blink 5.2s linear infinite;
+    animation-delay: var(--bot-avatar-life-delay, 0ms);
+  }
+
+  /* Gaze drift: slow sub-1% wander of the whole face */
+  .fui-BotAvatarFace {
+    animation: fui-bot-avatar-gaze-drift 9s ease-in-out infinite;
+    animation-delay: var(--bot-avatar-life-delay, 0ms);
+  }
+
+  /* Breath: 0.5% scale of the whole body, only when a face is shown */
+  .fui-BotAvatarShape:where(.fui-with-face) {
+    animation: fui-bot-avatar-breath 5.6s ease-in-out infinite;
+    animation-delay: var(--bot-avatar-life-delay, 0ms);
+  }
+}
+
+@keyframes fui-bot-avatar-blink {
+  0%,
+  91% {
+    transform: scaleY(1);
+    animation-timing-function: ease-in;
+  }
+  93.3% {
+    transform: scaleY(0.08);
+    animation-timing-function: ease-out;
+  }
+  97.2%,
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes fui-bot-avatar-gaze-drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  18% {
+    transform: translate(0.9%, -0.6%);
+  }
+  42% {
+    transform: translate(-0.8%, 0.5%);
+  }
+  58% {
+    transform: translate(0.3%, 0.9%);
+  }
+  80% {
+    transform: translate(-0.6%, -0.5%);
+  }
+}
+
+@keyframes fui-bot-avatar-breath {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.005);
   }
 }
 
