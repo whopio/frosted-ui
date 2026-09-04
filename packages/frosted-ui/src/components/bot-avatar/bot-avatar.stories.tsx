@@ -32,11 +32,18 @@ const meta = {
       options: ['none', ...botAvatarStatuses],
       mapping: { none: undefined },
     },
+    // Imperative-only inputs — not meaningful as panel controls.
+    handle: { control: false },
+    gaze: { control: false },
   },
 } satisfies Meta<typeof BotAvatar>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+/** Hides the controls a demo manages itself, so the panel only shows knobs
+ * that actually do something in that story. */
+const withoutControls = (...exclude: string[]) => ({ controls: { exclude } });
 
 export const Default: Story = {
   args: {
@@ -45,6 +52,8 @@ export const Default: Story = {
     expression: 'neutral',
     size: '6',
   },
+  // `shape`/`color` are set explicitly, so identity would never kick in here.
+  parameters: withoutControls('identity'),
 };
 
 export const Shape: Story = {
@@ -52,6 +61,7 @@ export const Shape: Story = {
     color: 'blue',
     size: '5',
   },
+  parameters: withoutControls('shape', 'identity'),
   render: (args) => (
     <div
       style={{
@@ -72,6 +82,7 @@ export const Size: Story = {
     color: 'blue',
     shape: 'cookie-9',
   },
+  parameters: withoutControls('size', 'identity'),
   render: (args) => (
     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
       <BotAvatar {...args} size="0" />
@@ -92,6 +103,7 @@ export const Color: Story = {
   args: {
     shape: 'flower',
   },
+  parameters: withoutControls('color', 'identity'),
   render: (args) => (
     <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
       <BotAvatar {...args} color="indigo" />
@@ -107,6 +119,7 @@ export const Expression: Story = {
     color: 'blue',
     size: '6',
   },
+  parameters: withoutControls('expression', 'shape', 'identity'),
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
       <div style={{ display: 'flex', gap: 'var(--space-4)' }}>
@@ -144,6 +157,7 @@ export const Mouth: Story = {
     color: 'blue',
     size: '5',
   },
+  parameters: withoutControls('expression', 'shape', 'identity'),
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
       <div style={{ display: 'flex', gap: 'var(--space-4)', alignItems: 'center' }}>
@@ -172,6 +186,8 @@ export const Identity: Story = {
   args: {
     size: '5',
   },
+  // Identity derives shape + color, so those two would fight the demo.
+  parameters: withoutControls('identity', 'shape', 'color'),
   render: (args) => (
     <div
       style={{
@@ -210,6 +226,7 @@ export const Notification: Story = {
     shape: 'sunny',
     notification: true,
   },
+  parameters: withoutControls('size', 'shape', 'color', 'identity'),
   render: (args) => (
     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
       <BotAvatar {...args} size="3" />
@@ -227,11 +244,18 @@ export const Notification: Story = {
  * mounted avatar attached are ignored.
  */
 export const Handle: Story = {
-  render: function HandleDemo() {
+  args: {
+    color: 'blue',
+    shape: 'sunny',
+    expression: 'neutral',
+    size: '8',
+  },
+  parameters: withoutControls('identity'),
+  render: function HandleDemo(args) {
     const handle = React.useMemo(() => createBotAvatarHandle(), []);
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-5)' }}>
-        <BotAvatar handle={handle} shape="sunny" color="blue" expression="neutral" size="8" />
+        <BotAvatar {...args} handle={handle} />
         <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
           <Button onClick={() => handle.blink()}>blink()</Button>
           <Button onClick={() => handle.lookAt({ x: -1, y: 0.2 })}>look left</Button>
@@ -250,12 +274,17 @@ export const Handle: Story = {
  * that's the mask doing its job. Disabled under prefers-reduced-motion.
  */
 export const FollowPointer: Story = {
-  render: () => (
+  args: {
+    followPointer: true,
+    size: '7',
+  },
+  parameters: withoutControls('identity', 'shape', 'color', 'expression'),
+  render: (args) => (
     <div style={{ display: 'flex', gap: 'var(--space-6)', padding: 'var(--space-9)' }}>
-      <BotAvatar identity="research-bot" expression="neutral" followPointer size="7" />
-      <BotAvatar identity="ops-bot" expression="happy" followPointer size="7" />
-      <BotAvatar identity="qa-runner" expression="wide" followPointer size="7" />
-      <BotAvatar shape="heart" color="crimson" expression="neutral" followPointer size="7" />
+      <BotAvatar {...args} identity="research-bot" expression="neutral" />
+      <BotAvatar {...args} identity="ops-bot" expression="happy" />
+      <BotAvatar {...args} identity="qa-runner" expression="wide" />
+      <BotAvatar {...args} shape="heart" color="crimson" expression="neutral" />
     </div>
   ),
 };
@@ -267,7 +296,13 @@ export const FollowPointer: Story = {
  * eyes glide to the new shape's face fit on the same curve. Click to cycle.
  */
 export const ShapeMorphing: Story = {
-  render: function ShapeMorphingDemo() {
+  args: {
+    color: 'blue',
+    size: '8',
+    expression: 'neutral',
+  },
+  parameters: withoutControls('shape', 'identity'),
+  render: function ShapeMorphingDemo(args) {
     const cycle = ['sunny', 'cookie-6', 'clover-4', 'heart', 'triangle', 'flower', 'boom', 'square'] as const;
     const [index, setIndex] = React.useState(0);
     return (
@@ -277,7 +312,7 @@ export const ShapeMorphing: Story = {
         style={{ all: 'unset', cursor: 'pointer' }}
         aria-label="Cycle avatar shape"
       >
-        <BotAvatar color="blue" size="8" shape={cycle[index]} expression="neutral" />
+        <BotAvatar {...args} shape={cycle[index]} />
       </button>
     );
   },
@@ -290,7 +325,11 @@ export const ShapeMorphing: Story = {
  * identity handoff produces.
  */
 export const RandomMorph: Story = {
-  render: function RandomMorphDemo() {
+  args: {
+    size: '8',
+  },
+  parameters: withoutControls('shape', 'color', 'expression', 'identity'),
+  render: function RandomMorphDemo(args) {
     const colors = botAvatarPropDefs.color.values;
     const [shape, setShape] = React.useState<(typeof botAvatarShapes)[number]>('sunny');
     const [color, setColor] = React.useState<(typeof colors)[number]>('blue');
@@ -306,7 +345,7 @@ export const RandomMorph: Story = {
     };
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-5)' }}>
-        <BotAvatar shape={shape} color={color} expression={expression} size="8" />
+        <BotAvatar {...args} shape={shape} color={color} expression={expression} />
         <Button onClick={randomize}>Next bot</Button>
       </div>
     );
@@ -324,6 +363,7 @@ export const Status: Story = {
     shape: 'sunny',
     size: '6',
   },
+  parameters: withoutControls('status', 'identity'),
   render: (args) => (
     <div style={{ display: 'flex', gap: 'var(--space-5)' }}>
       {botAvatarStatuses.map((status) => (
@@ -345,7 +385,11 @@ export const Status: Story = {
  * badges. Instances blink out of sync on purpose.
  */
 export const Roster: Story = {
-  render: () => (
+  args: {
+    size: '4',
+  },
+  parameters: withoutControls('identity', 'shape', 'color', 'expression', 'notification'),
+  render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 240 }}>
       {(
         [
@@ -358,7 +402,7 @@ export const Roster: Story = {
         ] as const
       ).map((bot) => (
         <div key={bot.id} style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
-          <BotAvatar identity={bot.id} expression={bot.expression} notification={bot.notification} size="4" />
+          <BotAvatar {...args} identity={bot.id} expression={bot.expression} notification={bot.notification} />
           <span style={{ fontSize: 14 }}>{bot.name}</span>
         </div>
       ))}
@@ -370,6 +414,7 @@ export const HighContrast: Story = {
   args: {
     shape: 'clover-4',
   },
+  parameters: withoutControls('highContrast', 'color', 'identity'),
   render: (args) => (
     <div style={{ display: 'inline-grid', gridTemplateRows: 'repeat(2, 1fr)', gap: '8px', gridAutoFlow: 'column' }}>
       <BotAvatar {...args} color="indigo" />
