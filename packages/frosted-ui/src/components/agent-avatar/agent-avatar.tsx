@@ -16,7 +16,7 @@ import type { BotAvatarShape } from '../bot-avatar/bot-avatar.shapes';
  * BotAvatar, the mouth defaults to on — a minifig face has one (pass
  * `mouth={false}` to opt out).
  */
-interface AgentAvatarProps extends Omit<BotAvatarProps, 'shape'> {}
+interface AgentAvatarProps extends Omit<BotAvatarProps, 'shape' | 'faceVariant'> {}
 
 // 'lego-head' lives in the internal shape atlas but is reserved for this
 // component, so it is not part of BotAvatar's public shape union (and can
@@ -24,7 +24,7 @@ interface AgentAvatarProps extends Omit<BotAvatarProps, 'shape'> {}
 // place that bridges the two.
 const LEGO_HEAD = 'lego-head' as unknown as BotAvatarShape;
 
-const AgentAvatar = (props: AgentAvatarProps) => <BotAvatar mouth {...props} shape={LEGO_HEAD} />;
+const AgentAvatar = (props: AgentAvatarProps) => <BotAvatar mouth {...props} shape={LEGO_HEAD} faceVariant="lego" />;
 AgentAvatar.displayName = 'AgentAvatar';
 
 export { AgentAvatar };
