@@ -35,6 +35,22 @@
   inset: 0;
 }
 
+.fui-BotAvatarFaceMotion {
+  position: absolute;
+  inset: 0;
+}
+
+/* Base face poses per status. These are plain transforms (transitioned under
+   the reduced-motion gate below) so status changes glide; the looping
+   animations on FaceMotion are all zero-anchored and only add small motion
+   around the base. Reduced-motion users still get the static pose. */
+.fui-BotAvatarRoot:where(.fui-status-thinking) .fui-BotAvatarFace {
+  transform: translate(0, -5%);
+}
+.fui-BotAvatarRoot:where(.fui-status-blocked) .fui-BotAvatarFace {
+  transform: translate(0, 3.5%);
+}
+
 .fui-BotAvatarEye {
   position: absolute;
   display: block;
@@ -79,8 +95,13 @@
     animation-delay: var(--bot-avatar-life-delay, 0ms);
   }
 
-  /* Gaze drift: slow sub-1% wander of the whole face */
+  /* Status base-pose changes glide with the same ease-out as expressions */
   .fui-BotAvatarFace {
+    transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Gaze drift: slow sub-1% wander of the whole face */
+  .fui-BotAvatarFaceMotion {
     animation: fui-bot-avatar-gaze-drift 9s ease-in-out infinite;
     animation-delay: var(--bot-avatar-life-delay, 0ms);
   }
@@ -147,26 +168,26 @@
  ***************************************************************************************************/
 
 @media (prefers-reduced-motion: no-preference) {
-  /* Thinking: eyes up, slow pondering sway */
-  .fui-BotAvatarRoot:where(.fui-status-thinking) .fui-BotAvatarFace {
+  /* Thinking: eyes raised (base pose), slow pondering sway on top */
+  .fui-BotAvatarRoot:where(.fui-status-thinking) .fui-BotAvatarFaceMotion {
     animation: fui-bot-avatar-think 4.4s ease-in-out infinite;
     animation-delay: var(--bot-avatar-life-delay, 0ms);
   }
 
   /* Working: quick line-by-line scanning, like reading */
-  .fui-BotAvatarRoot:where(.fui-status-working) .fui-BotAvatarFace {
+  .fui-BotAvatarRoot:where(.fui-status-working) .fui-BotAvatarFaceMotion {
     animation: fui-bot-avatar-scan 1.8s ease-in-out infinite;
   }
 
   /* Waiting: looking around with holds */
-  .fui-BotAvatarRoot:where(.fui-status-waiting) .fui-BotAvatarFace {
+  .fui-BotAvatarRoot:where(.fui-status-waiting) .fui-BotAvatarFaceMotion {
     animation: fui-bot-avatar-look-around 5.2s ease-in-out infinite;
     animation-delay: var(--bot-avatar-life-delay, 0ms);
   }
 
-  /* Blocked: the face droops and the wander stills — the bot needs help */
-  .fui-BotAvatarRoot:where(.fui-status-blocked) .fui-BotAvatarFace {
-    animation: fui-bot-avatar-droop 500ms ease-out forwards;
+  /* Blocked: face droops (base pose) and the wander stills — needs help */
+  .fui-BotAvatarRoot:where(.fui-status-blocked) .fui-BotAvatarFaceMotion {
+    animation: none;
   }
 
   /* Done: one satisfied pulse, then settle back into the regular breath.
@@ -185,32 +206,32 @@
   100% {
     transform: translate(0, 0);
   }
-  12% {
-    transform: translate(-2%, -5%);
+  25% {
+    transform: translate(-2.5%, -0.3%);
   }
-  45% {
-    transform: translate(-2.5%, -5%);
+  60% {
+    transform: translate(2.5%, -0.5%);
   }
-  58% {
-    transform: translate(2.5%, -5.5%);
-  }
-  88% {
-    transform: translate(2%, -5%);
+  85% {
+    transform: translate(1%, 0.2%);
   }
 }
 
 @keyframes fui-bot-avatar-scan {
   0%,
   100% {
+    transform: translate(0, 0);
+  }
+  12% {
     transform: translate(-3%, -1%);
   }
   42% {
     transform: translate(3%, -1%);
   }
-  50% {
+  52% {
     transform: translate(-3%, 1%);
   }
-  92% {
+  88% {
     transform: translate(3%, 1%);
   }
 }
@@ -228,12 +249,6 @@
   42%,
   60% {
     transform: translate(6.5%, 0.5%);
-  }
-}
-
-@keyframes fui-bot-avatar-droop {
-  100% {
-    transform: translate(0, 3.5%);
   }
 }
 

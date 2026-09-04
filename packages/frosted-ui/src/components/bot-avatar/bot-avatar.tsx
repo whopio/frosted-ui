@@ -87,20 +87,25 @@ const BotAvatar = (props: BotAvatarProps) => {
         }
       >
         {eyes && (
+          // Face carries the transitioned base pose per status; FaceMotion
+          // carries the looping animations (all zero-anchored), so status
+          // changes glide instead of jumping between animation frames.
           <div className="fui-BotAvatarFace">
-            {eyes.map((eye, index) => (
-              <span
-                key={index}
-                className="fui-BotAvatarEye"
-                style={{
-                  left: `${(eye.cx - eye.w / 2) * 100}%`,
-                  top: `${(eye.cy - eye.h / 2) * 100}%`,
-                  width: `${eye.w * 100}%`,
-                  height: `${eye.h * 100}%`,
-                  transform: `rotate(${eye.tilt}deg)`,
-                }}
-              />
-            ))}
+            <div className="fui-BotAvatarFaceMotion">
+              {eyes.map((eye, index) => (
+                <span
+                  key={index}
+                  className="fui-BotAvatarEye"
+                  style={{
+                    left: `${(eye.cx - eye.w / 2) * 100}%`,
+                    top: `${(eye.cy - eye.h / 2) * 100}%`,
+                    width: `${eye.w * 100}%`,
+                    height: `${eye.h * 100}%`,
+                    transform: `rotate(${eye.tilt}deg)`,
+                  }}
+                />
+              ))}
+            </div>
           </div>
         )}
       </div>
