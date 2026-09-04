@@ -1,5 +1,5 @@
-import { botAvatarFaceFit } from './bot-avatar.face-fit';
-import type { BotAvatarAtlasShape } from './bot-avatar.shapes';
+import { botAvatarFaceFit, botAvatarFaceFitWithMouth } from './bot-avatar.face-fit';
+import type { BotAvatarShape } from './bot-avatar.shapes';
 
 /**
  * One eye, in unit coordinates relative to the avatar box (0..1).
@@ -76,59 +76,22 @@ const SMILE = '12% 12% 50% 50% / 20% 20% 80% 80%';
 /** Frown: the smile flipped upside down. */
 const FROWN = '50% 50% 12% 12% / 80% 80% 20% 20%';
 
-const botAvatarMouths = {
-  neutral: mouth(0.5, 0.625, 0.16, 0.05, -3, ROUND),
-  happy: mouth(0.5, 0.615, 0.26, 0.11, 0, SMILE),
-  wide: mouth(0.5, 0.66, 0.12, 0.12, 0, ROUND),
-  wink: mouth(0.52, 0.625, 0.19, 0.055, -8, SMILE),
-  sleepy: mouth(0.5, 0.64, 0.08, 0.08, 0, ROUND),
-  angry: mouth(0.5, 0.645, 0.2, 0.08, 0, FROWN),
-  sad: mouth(0.5, 0.65, 0.16, 0.065, 0, FROWN),
-  suspicious: mouth(0.5, 0.63, 0.12, 0.045, -6, ROUND),
-} as const satisfies Record<BotAvatarExpression, BotAvatarMouthGeometry>;
-
 /**
- * The minifig face vocabulary, used by AgentAvatar: small round dot eyes
- * (turning into short dashes/brows for the emotional expressions) and a
- * mouth that carries most of the emotion — the classic LEGO construction,
- * deliberately low-detail so it stays readable at the smallest sizes.
+ * Mouths per expression, sized to carry the emotion together with the eyes:
+ * big enough to read at roster sizes, positioned just under the eye line.
+ * When editing extents here, keep the MOUTH_BAND envelope in
+ * scripts/generate-bot-avatar-face-fit.js in sync and regenerate the fit.
  */
-const botAvatarLegoExpressions = {
-  neutral: [eye(0.37, 0.42, 0.11, 0.11, 0), eye(0.63, 0.42, 0.11, 0.11, 0)],
-  happy: [eye(0.37, 0.41, 0.11, 0.11, 0), eye(0.63, 0.41, 0.11, 0.11, 0)],
-  wide: [eye(0.37, 0.42, 0.14, 0.14, 0), eye(0.63, 0.42, 0.14, 0.14, 0)],
-  wink: [eye(0.37, 0.42, 0.11, 0.11, 0), eye(0.63, 0.43, 0.13, 0.04, -8)],
-  sleepy: [eye(0.37, 0.44, 0.12, 0.04, -4), eye(0.63, 0.44, 0.12, 0.04, -4)],
-  angry: [eye(0.37, 0.43, 0.13, 0.05, 20), eye(0.63, 0.43, 0.13, 0.05, -20)],
-  sad: [eye(0.37, 0.43, 0.13, 0.05, -14), eye(0.63, 0.43, 0.13, 0.05, 14)],
-  suspicious: [eye(0.37, 0.43, 0.14, 0.05, 0), eye(0.63, 0.43, 0.14, 0.05, 0)],
-} as const satisfies Record<BotAvatarExpression, readonly [BotAvatarEyeGeometry, BotAvatarEyeGeometry]>;
-
-const botAvatarLegoMouths = {
-  neutral: mouth(0.5, 0.6, 0.3, 0.1, 0, SMILE),
-  happy: mouth(0.5, 0.61, 0.36, 0.15, 0, SMILE),
-  wide: mouth(0.5, 0.63, 0.13, 0.13, 0, ROUND),
-  wink: mouth(0.52, 0.6, 0.26, 0.09, -6, SMILE),
-  sleepy: mouth(0.5, 0.62, 0.08, 0.08, 0, ROUND),
-  angry: mouth(0.5, 0.62, 0.24, 0.09, 0, FROWN),
-  sad: mouth(0.5, 0.625, 0.2, 0.08, 0, FROWN),
-  suspicious: mouth(0.5, 0.615, 0.15, 0.05, -4, ROUND),
+const botAvatarMouths = {
+  neutral: mouth(0.5, 0.63, 0.19, 0.06, -3, ROUND),
+  happy: mouth(0.5, 0.625, 0.3, 0.13, 0, SMILE),
+  wide: mouth(0.5, 0.66, 0.14, 0.12, 0, ROUND),
+  wink: mouth(0.52, 0.63, 0.21, 0.065, -8, SMILE),
+  sleepy: mouth(0.5, 0.65, 0.09, 0.09, 0, ROUND),
+  angry: mouth(0.5, 0.655, 0.23, 0.09, 0, FROWN),
+  sad: mouth(0.5, 0.66, 0.19, 0.075, 0, FROWN),
+  suspicious: mouth(0.5, 0.635, 0.14, 0.05, -6, ROUND),
 } as const satisfies Record<BotAvatarExpression, BotAvatarMouthGeometry>;
-
-/** Which face vocabulary an avatar draws from: Grok-style capsules
- * (BotAvatar) or the minifig dots-and-smile (AgentAvatar). */
-type BotAvatarFaceVariant = 'capsule' | 'lego';
-
-const faceCatalogue: Record<
-  BotAvatarFaceVariant,
-  {
-    eyes: Record<BotAvatarExpression, readonly [BotAvatarEyeGeometry, BotAvatarEyeGeometry]>;
-    mouths: Record<BotAvatarExpression, BotAvatarMouthGeometry>;
-  }
-> = {
-  capsule: { eyes: botAvatarExpressions, mouths: botAvatarMouths },
-  lego: { eyes: botAvatarLegoExpressions, mouths: botAvatarLegoMouths },
-};
 
 /** Anchor around which the per-shape face fit scales the whole face. */
 const FACE_CENTER_X = 0.5;
@@ -142,11 +105,11 @@ const FACE_CENTER_Y = 0.45;
  */
 const getBotAvatarEyes = (
   expression: BotAvatarExpression,
-  shape: BotAvatarAtlasShape,
-  variant: BotAvatarFaceVariant = 'capsule',
+  shape: BotAvatarShape,
+  withMouth = false,
 ): [BotAvatarEyeGeometry, BotAvatarEyeGeometry] => {
-  const [left, right] = faceCatalogue[variant].eyes[expression];
-  const { s, dy } = botAvatarFaceFit[shape];
+  const [left, right] = botAvatarExpressions[expression];
+  const { s, dy } = (withMouth ? botAvatarFaceFitWithMouth : botAvatarFaceFit)[shape];
   const fit = (e: BotAvatarEyeGeometry): BotAvatarEyeGeometry => ({
     cx: FACE_CENTER_X + (e.cx - FACE_CENTER_X) * s,
     cy: FACE_CENTER_Y + (e.cy - FACE_CENTER_Y) * s + dy,
@@ -158,14 +121,11 @@ const getBotAvatarEyes = (
 };
 
 /** The mouth for an expression, run through the same per-shape face fit as
- * the eyes so the whole face scales and shifts as one unit. */
-const getBotAvatarMouth = (
-  expression: BotAvatarExpression,
-  shape: BotAvatarAtlasShape,
-  variant: BotAvatarFaceVariant = 'capsule',
-): BotAvatarMouthGeometry => {
-  const m = faceCatalogue[variant].mouths[expression];
-  const { s, dy } = botAvatarFaceFit[shape];
+ * the eyes (always the mouth-aware table) so the whole face scales and
+ * shifts as one unit. */
+const getBotAvatarMouth = (expression: BotAvatarExpression, shape: BotAvatarShape): BotAvatarMouthGeometry => {
+  const m = botAvatarMouths[expression];
+  const { s, dy } = botAvatarFaceFitWithMouth[shape];
   return {
     ...m,
     cx: FACE_CENTER_X + (m.cx - FACE_CENTER_X) * s,
@@ -175,5 +135,5 @@ const getBotAvatarMouth = (
   };
 };
 
-export { botAvatarExpressions, botAvatarExpressionsList, getBotAvatarEyes, getBotAvatarMouth };
-export type { BotAvatarExpression, BotAvatarEyeGeometry, BotAvatarFaceVariant, BotAvatarMouthGeometry };
+export { botAvatarExpressions, botAvatarExpressionsList, botAvatarMouths, getBotAvatarEyes, getBotAvatarMouth };
+export type { BotAvatarExpression, BotAvatarEyeGeometry, BotAvatarMouthGeometry };

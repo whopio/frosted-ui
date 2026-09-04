@@ -3,7 +3,6 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import { getBotAvatarEyes, getBotAvatarMouth } from './bot-avatar.expressions';
-import type { BotAvatarFaceVariant } from './bot-avatar.expressions';
 import type { BotAvatarHandle } from './bot-avatar.handle';
 import { registerBotAvatarHandle } from './bot-avatar.handle';
 import { getBotAvatarIdentity } from './bot-avatar.identity';
@@ -26,12 +25,6 @@ interface BotAvatarProps extends PropsWithoutColor<'div'>, BotAvatarOwnProps {
    * (`blink()`, `lookAt()`), following the Base UI handle pattern.
    */
   handle?: BotAvatarHandle;
-  /**
-   * Which face vocabulary to draw from: `capsule` (the default tall Grok
-   * style eyes) or `lego` (minifig dot eyes with a primary mouth, used by
-   * AgentAvatar).
-   */
-  faceVariant?: BotAvatarFaceVariant;
 }
 
 /** Max face deflection at full gaze, as a percentage of the avatar size. */
@@ -53,7 +46,6 @@ const BotAvatar = (props: BotAvatarProps) => {
     status = botAvatarPropDefs.status.default,
     followPointer = botAvatarPropDefs.followPointer.default,
     mouth: withMouth = botAvatarPropDefs.mouth.default,
-    faceVariant = 'capsule',
     gaze,
     handle,
     ...rootProps
@@ -142,11 +134,11 @@ const BotAvatar = (props: BotAvatarProps) => {
   // precomputed per-shape face fit, which keeps eyes inside the silhouette
   // at rest. The eyes are deliberately NOT clipped by the shape, so a gaze
   // or a morph overshoot bulges past the edge instead of shearing an eye.
-  const eyes = resolvedExpression !== undefined ? getBotAvatarEyes(resolvedExpression, shape, faceVariant) : undefined;
+  // The mouth participates in the face fit: with a mouth on, the whole face
+  // uses the mouth-aware fit table so nothing pokes out of tight silhouettes.
+  const eyes = resolvedExpression !== undefined ? getBotAvatarEyes(resolvedExpression, shape, withMouth) : undefined;
   const mouth =
-    withMouth && resolvedExpression !== undefined
-      ? getBotAvatarMouth(resolvedExpression, shape, faceVariant)
-      : undefined;
+    withMouth && resolvedExpression !== undefined ? getBotAvatarMouth(resolvedExpression, shape) : undefined;
 
   // Desynchronize the idle animations (blink, drift, breath) across
   // instances with a stable per-instance negative delay, so a roster of

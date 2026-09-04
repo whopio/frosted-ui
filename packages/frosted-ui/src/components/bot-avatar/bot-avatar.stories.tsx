@@ -132,6 +132,42 @@ export const Expression: Story = {
   ),
 };
 
+/**
+ * The mouth is on by default and sized to carry the expression together with
+ * the eyes (pass `mouth={false}` for the classic eyes-only look). With a
+ * mouth shown, the face uses a mouth-aware fit table, so it stays inside
+ * even the tightest silhouettes — the grid below is the stress test: every
+ * row is a shape with little room at the bottom, every column an expression.
+ */
+export const Mouth: Story = {
+  args: {
+    color: 'blue',
+    size: '5',
+  },
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+      <div style={{ display: 'flex', gap: 'var(--space-4)', alignItems: 'center' }}>
+        <BotAvatar {...args} size="8" shape="sunny" expression="happy" />
+        <BotAvatar {...args} size="8" shape="sunny" expression="happy" mouth={false} />
+      </div>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: `repeat(${botAvatarExpressionsList.length}, 1fr)`,
+          gap: 'var(--space-3)',
+        }}
+      >
+        {(['circle', 'triangle', 'heart', 'semi-circle', 'boom', 'pixel-triangle', 'fan', 'ghost-ish'] as const).map(
+          (shape) =>
+            botAvatarExpressionsList.map((expression) => (
+              <BotAvatar {...args} key={`${shape}-${expression}`} shape={shape} expression={expression} />
+            )),
+        )}
+      </div>
+    </div>
+  ),
+};
+
 export const Identity: Story = {
   args: {
     size: '5',
@@ -248,25 +284,29 @@ export const ShapeMorphing: Story = {
 };
 
 /**
- * Random morph: each click picks a new random shape and color. The
- * silhouette flows into the new shape while the accent color swaps — the
- * kind of transition a bot-picker or identity handoff produces.
+ * Random morph: each click picks a new random shape, color, and expression.
+ * The silhouette flows into the new shape while the accent swaps and the
+ * face morphs on the same spring — the kind of transition a bot-picker or
+ * identity handoff produces.
  */
 export const RandomMorph: Story = {
   render: function RandomMorphDemo() {
     const colors = botAvatarPropDefs.color.values;
     const [shape, setShape] = React.useState<(typeof botAvatarShapes)[number]>('sunny');
     const [color, setColor] = React.useState<(typeof colors)[number]>('blue');
+    const [expression, setExpression] = React.useState<(typeof botAvatarExpressionsList)[number]>('neutral');
     const randomize = () => {
-      // Pick from the remaining options so every click visibly changes both.
+      // Pick from the remaining options so every click visibly changes all three.
       const nextShapes = botAvatarShapes.filter((s) => s !== shape);
       const nextColors = colors.filter((c) => c !== color);
+      const nextExpressions = botAvatarExpressionsList.filter((e) => e !== expression);
       setShape(nextShapes[Math.floor(Math.random() * nextShapes.length)]);
       setColor(nextColors[Math.floor(Math.random() * nextColors.length)]);
+      setExpression(nextExpressions[Math.floor(Math.random() * nextExpressions.length)]);
     };
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-5)' }}>
-        <BotAvatar shape={shape} color={color} expression="neutral" size="8" />
+        <BotAvatar shape={shape} color={color} expression={expression} size="8" />
         <Button onClick={randomize}>Next bot</Button>
       </div>
     );
