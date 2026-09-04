@@ -184,6 +184,28 @@ export const Notification: Story = {
 };
 
 /**
+ * Shape changes while a face is shown are masked by a blink: the eyes close,
+ * the silhouette (and its face fit) swaps while they're shut, and the eyes
+ * reopen. Click the avatar to cycle shapes.
+ */
+export const BlinkMaskedShapeChange: Story = {
+  render: function BlinkMaskedShapeChangeDemo() {
+    const cycle = ['sunny', 'cookie-6', 'clover-4', 'heart', 'triangle', 'flower'] as const;
+    const [index, setIndex] = React.useState(0);
+    return (
+      <button
+        type="button"
+        onClick={() => setIndex((i) => (i + 1) % cycle.length)}
+        style={{ all: 'unset', cursor: 'pointer' }}
+        aria-label="Cycle avatar shape"
+      >
+        <BotAvatar color="blue" size="8" shape={cycle[index]} expression="neutral" />
+      </button>
+    );
+  },
+};
+
+/**
  * The avatar carries the agent lifecycle: each status maps to an expression
  * preset and its own motion. An explicit `expression` prop overrides the
  * mapped one while keeping the status motion.

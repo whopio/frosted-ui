@@ -32,7 +32,7 @@ const BotAvatar = (props: BotAvatarProps) => {
     () => (identity !== undefined ? getBotAvatarIdentity(identity) : undefined),
     [identity],
   );
-  const shape = shapeProp ?? derivedIdentity?.shape ?? botAvatarPropDefs.shape.default;
+  const targetShape = shapeProp ?? derivedIdentity?.shape ?? botAvatarPropDefs.shape.default;
   const color = colorProp ?? derivedIdentity?.color ?? botAvatarPropDefs.color.default;
 
   const clipPathId = React.useId();
@@ -40,6 +40,37 @@ const BotAvatar = (props: BotAvatarProps) => {
   // A status implies a face: it maps to a default expression, which an
   // explicit `expression` prop overrides (the status motion applies either way).
   const resolvedExpression = expression ?? (status !== undefined ? botAvatarStatusExpressions[status] : undefined);
+  const hasFace = resolvedExpression !== undefined;
+
+  // Blink-masked shape change: when the shape changes while a face is shown,
+  // the eyes close, the silhouette (and its face fit) swaps while they are
+  // shut, and the eyes reopen. Without a face — or under reduced motion —
+  // the shape swaps immediately.
+  const [shape, setShape] = React.useState(targetShape);
+  // 0 = not blinking; each blink increments so the end-effect below re-arms.
+  const [blinkId, setBlinkId] = React.useState(0);
+  const isBlinking = blinkId !== 0;
+
+  React.useEffect(() => {
+    if (targetShape === shape) return;
+    if (!hasFace || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setShape(targetShape);
+      return;
+    }
+    setBlinkId((id) => id + 1);
+    // Swap at ~140ms, inside the closed window of the 340ms forced blink.
+    const swapTimer = setTimeout(() => setShape(targetShape), 140);
+    return () => clearTimeout(swapTimer);
+  }, [targetShape, shape, hasFace]);
+
+  // Ends the blink in a separate effect: the swap above re-runs the effect
+  // that started the blink (shape changes mid-blink), and a combined cleanup
+  // would cancel the end timer and leave the blink class stuck on.
+  React.useEffect(() => {
+    if (blinkId === 0) return;
+    const endTimer = setTimeout(() => setBlinkId(0), 360);
+    return () => clearTimeout(endTimer);
+  }, [blinkId]);
 
   // Eyes are rendered inside the clipped body so the same shape path clips
   // them — they can never escape the silhouette. Geometry comes from the
@@ -66,7 +97,7 @@ const BotAvatar = (props: BotAvatarProps) => {
         'fui-BotAvatarRoot',
         className,
         `fui-r-size-${size}`,
-        { 'fui-high-contrast': highContrast },
+        { 'fui-high-contrast': highContrast, 'fui-blinking': isBlinking },
         status !== undefined && `fui-status-${status}`,
       )}
     >
