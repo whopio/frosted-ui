@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { BotAvatar } from '..';
+import { botAvatarExpressionsList } from './bot-avatar.expressions';
 import { botAvatarShapes } from './bot-avatar.shapes';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -76,6 +77,36 @@ export const Color: Story = {
       <BotAvatar {...args} color="cyan" />
       <BotAvatar {...args} color="orange" />
       <BotAvatar {...args} color="crimson" />
+    </div>
+  ),
+};
+
+export const Expression: Story = {
+  args: {
+    color: 'blue',
+    size: '6',
+  },
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+      <div style={{ display: 'flex', gap: 'var(--space-4)' }}>
+        {botAvatarExpressionsList.map((expression) => (
+          <div
+            key={expression}
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-1)' }}
+          >
+            <BotAvatar {...args} expression={expression} />
+            <span style={{ fontSize: 11, color: 'var(--gray-a11)' }}>{expression}</span>
+          </div>
+        ))}
+      </div>
+      {/* Shapes with little room up top still keep the face inside the silhouette */}
+      <div style={{ display: 'flex', gap: 'var(--space-4)' }}>
+        {(['triangle', 'boom', 'pixel-triangle', 'heart', 'fan', 'semi-circle', 'diamond', 'arrow'] as const).map(
+          (shape) => (
+            <BotAvatar {...args} key={shape} shape={shape} expression="neutral" />
+          ),
+        )}
+      </div>
     </div>
   ),
 };

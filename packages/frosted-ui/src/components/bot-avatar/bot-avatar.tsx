@@ -2,6 +2,7 @@
 
 import classNames from 'classnames';
 import * as React from 'react';
+import { getBotAvatarEyes } from './bot-avatar.expressions';
 import { getBotAvatarIdentity } from './bot-avatar.identity';
 import { botAvatarPropDefs } from './bot-avatar.props';
 import { botAvatarShapePaths } from './bot-avatar.shapes';
@@ -20,6 +21,7 @@ const BotAvatar = (props: BotAvatarProps) => {
     shape: shapeProp,
     identity,
     notification = botAvatarPropDefs.notification.default,
+    expression = botAvatarPropDefs.expression.default,
     ...rootProps
   } = props;
 
@@ -32,6 +34,11 @@ const BotAvatar = (props: BotAvatarProps) => {
   const color = colorProp ?? derivedIdentity?.color ?? botAvatarPropDefs.color.default;
 
   const clipPathId = React.useId();
+
+  // Eyes are rendered inside the clipped body so the same shape path clips
+  // them — they can never escape the silhouette. Geometry comes from the
+  // expression catalogue adjusted by the precomputed per-shape face fit.
+  const eyes = expression !== undefined ? getBotAvatarEyes(expression, shape) : undefined;
 
   return (
     <div
@@ -48,7 +55,21 @@ const BotAvatar = (props: BotAvatarProps) => {
           </clipPath>
         </defs>
       </svg>
-      <div className="fui-BotAvatarShape" style={{ clipPath: `url(#${clipPathId})` }} />
+      <div className="fui-BotAvatarShape" style={{ clipPath: `url(#${clipPathId})` }}>
+        {eyes?.map((eye, index) => (
+          <span
+            key={index}
+            className="fui-BotAvatarEye"
+            style={{
+              left: `${(eye.cx - eye.w / 2) * 100}%`,
+              top: `${(eye.cy - eye.h / 2) * 100}%`,
+              width: `${eye.w * 100}%`,
+              height: `${eye.h * 100}%`,
+              transform: `rotate(${eye.tilt}deg)`,
+            }}
+          />
+        ))}
+      </div>
       {notification && <div className="fui-BotAvatarNotification" />}
     </div>
   );

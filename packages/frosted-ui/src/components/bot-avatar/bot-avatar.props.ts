@@ -1,5 +1,7 @@
 import type { PropDef } from '../../helpers';
 import { colorProp, highContrastProp } from '../../helpers';
+import type { BotAvatarExpression } from './bot-avatar.expressions';
+import { botAvatarExpressionsList } from './bot-avatar.expressions';
 import type { BotAvatarShape } from './bot-avatar.shapes';
 import { botAvatarShapes } from './bot-avatar.shapes';
 
@@ -12,6 +14,11 @@ const botAvatarPropDefs = {
   highContrast: highContrastProp,
   identity: { type: 'string', default: undefined },
   notification: { type: 'boolean', default: false },
+  expression: {
+    type: 'enum',
+    values: botAvatarExpressionsList,
+    default: undefined as BotAvatarExpression | undefined,
+  },
 } satisfies {
   size: PropDef<(typeof sizes)[number]>;
   shape: PropDef<BotAvatarShape>;
@@ -19,6 +26,7 @@ const botAvatarPropDefs = {
   highContrast: typeof highContrastProp;
   identity: PropDef<string>;
   notification: PropDef<boolean>;
+  expression: PropDef<BotAvatarExpression>;
 };
 
 export { botAvatarPropDefs };
