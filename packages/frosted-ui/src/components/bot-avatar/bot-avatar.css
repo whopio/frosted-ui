@@ -33,6 +33,10 @@
 .fui-BotAvatarFace {
   position: absolute;
   inset: 0;
+
+  /* Base pose = gaze offset (set inline while gazing) composed with the
+     per-status offset. Both ride the transform transition below. */
+  transform: translate(var(--bot-avatar-gaze-x, 0%), var(--bot-avatar-gaze-y, 0%));
 }
 
 .fui-BotAvatarFaceMotion {
@@ -45,10 +49,10 @@
    animations on FaceMotion are all zero-anchored and only add small motion
    around the base. Reduced-motion users still get the static pose. */
 .fui-BotAvatarRoot:where(.fui-status-thinking) .fui-BotAvatarFace {
-  transform: translate(0, -5%);
+  transform: translate(var(--bot-avatar-gaze-x, 0%), calc(var(--bot-avatar-gaze-y, 0%) - 5%));
 }
 .fui-BotAvatarRoot:where(.fui-status-blocked) .fui-BotAvatarFace {
-  transform: translate(0, 3.5%);
+  transform: translate(var(--bot-avatar-gaze-x, 0%), calc(var(--bot-avatar-gaze-y, 0%) + 3.5%));
 }
 
 .fui-BotAvatarEye {
@@ -204,6 +208,13 @@
 
   /* Blocked: face droops (base pose) and the wander stills — needs help */
   .fui-BotAvatarRoot:where(.fui-status-blocked) .fui-BotAvatarFaceMotion {
+    animation: none;
+  }
+
+  /* While a gaze is commanded (gaze prop or pointer tracking) the automatic
+     wander and status loops still: attention beats ambience. Declared after
+     the status loops so it wins at equal specificity. */
+  .fui-BotAvatarRoot:where(.fui-gazing) .fui-BotAvatarFaceMotion {
     animation: none;
   }
 

@@ -26,6 +26,7 @@ const botAvatarPropDefs = {
     values: botAvatarStatuses,
     default: undefined as BotAvatarStatus | undefined,
   },
+  followPointer: { type: 'boolean', default: false },
 } satisfies {
   size: PropDef<(typeof sizes)[number]>;
   shape: PropDef<BotAvatarShape>;
@@ -35,6 +36,7 @@ const botAvatarPropDefs = {
   notification: PropDef<boolean>;
   expression: PropDef<BotAvatarExpression>;
   status: PropDef<BotAvatarStatus>;
+  followPointer: PropDef<boolean>;
 };
 
 export { botAvatarPropDefs };

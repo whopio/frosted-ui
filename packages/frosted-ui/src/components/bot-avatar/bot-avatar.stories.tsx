@@ -184,6 +184,23 @@ export const Notification: Story = {
 };
 
 /**
+ * The bots watch the cursor: the pointer's direction from each avatar's
+ * center becomes its gaze, and the automatic wander stills while tracking.
+ * The eyes clip against the silhouette when looking far to one side —
+ * that's the mask doing its job. Disabled under prefers-reduced-motion.
+ */
+export const FollowPointer: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--space-6)', padding: 'var(--space-9)' }}>
+      <BotAvatar identity="research-bot" expression="neutral" followPointer size="7" />
+      <BotAvatar identity="ops-bot" expression="happy" followPointer size="7" />
+      <BotAvatar identity="qa-runner" expression="wide" followPointer size="7" />
+      <BotAvatar shape="heart" color="crimson" expression="neutral" followPointer size="7" />
+    </div>
+  ),
+};
+
+/**
  * Shape changes while a face is shown are masked by a blink: the eyes close,
  * the silhouette (and its face fit) swaps while they're shut, and the eyes
  * reopen. Click the avatar to cycle shapes.

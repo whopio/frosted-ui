@@ -11,7 +11,20 @@ import { botAvatarStatusExpressions } from './bot-avatar.status';
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 
 type BotAvatarOwnProps = GetPropDefTypes<typeof botAvatarPropDefs>;
-interface BotAvatarProps extends PropsWithoutColor<'div'>, BotAvatarOwnProps {}
+interface BotAvatarProps extends PropsWithoutColor<'div'>, BotAvatarOwnProps {
+  /**
+   * Where the bot looks, normalized to [-1, 1] per axis (x: left→right,
+   * y: up→down). Overrides `followPointer` while set. Non-finite values are
+   * ignored (treated as center) rather than applied.
+   */
+  gaze?: { x: number; y: number };
+}
+
+/** Max face deflection at full gaze, as a percentage of the avatar size. */
+const GAZE_RANGE_X = 10;
+const GAZE_RANGE_Y = 7;
+
+const clampGazeAxis = (value: number) => (Number.isFinite(value) ? Math.min(1, Math.max(-1, value)) : 0);
 
 const BotAvatar = (props: BotAvatarProps) => {
   const {
@@ -24,6 +37,8 @@ const BotAvatar = (props: BotAvatarProps) => {
     notification = botAvatarPropDefs.notification.default,
     expression = botAvatarPropDefs.expression.default,
     status = botAvatarPropDefs.status.default,
+    followPointer = botAvatarPropDefs.followPointer.default,
+    gaze,
     ...rootProps
   } = props;
 
@@ -72,6 +87,40 @@ const BotAvatar = (props: BotAvatarProps) => {
     return () => clearTimeout(endTimer);
   }, [blinkId]);
 
+  // Pointer tracking: the pointer's direction from the avatar center becomes
+  // a gaze, reaching full deflection at ~3 avatar widths. Disabled under
+  // reduced motion (continuous tracking is motion, unlike a static gaze).
+  const rootRef = React.useRef<HTMLDivElement>(null);
+  const [pointerGaze, setPointerGaze] = React.useState<{ x: number; y: number } | null>(null);
+  React.useEffect(() => {
+    if (!followPointer || !hasFace || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setPointerGaze(null);
+      return;
+    }
+    const onPointerMove = (event: PointerEvent) => {
+      const rect = rootRef.current?.getBoundingClientRect();
+      // A hidden element measures 0×0; ignore it instead of producing NaN.
+      if (!rect || rect.width === 0 || rect.height === 0) return;
+      const range = Math.max(rect.width * 3, 160);
+      setPointerGaze({
+        x: clampGazeAxis((event.clientX - (rect.left + rect.width / 2)) / range),
+        y: clampGazeAxis((event.clientY - (rect.top + rect.height / 2)) / range),
+      });
+    };
+    const onPointerLeave = () => setPointerGaze(null);
+    window.addEventListener('pointermove', onPointerMove);
+    document.documentElement.addEventListener('pointerleave', onPointerLeave);
+    return () => {
+      window.removeEventListener('pointermove', onPointerMove);
+      document.documentElement.removeEventListener('pointerleave', onPointerLeave);
+    };
+  }, [followPointer, hasFace]);
+
+  // An explicit gaze prop wins over pointer tracking. While either is active
+  // the automatic wander stills — a commanded gaze and a drifting gaze
+  // fighting each other reads as the bot hunting the cursor.
+  const activeGaze = gaze !== undefined ? { x: clampGazeAxis(gaze.x), y: clampGazeAxis(gaze.y) } : pointerGaze;
+
   // Eyes are rendered inside the clipped body so the same shape path clips
   // them — they can never escape the silhouette. Geometry comes from the
   // expression catalogue adjusted by the precomputed per-shape face fit.
@@ -93,11 +142,12 @@ const BotAvatar = (props: BotAvatarProps) => {
     <div
       data-accent-color={color}
       {...rootProps}
+      ref={rootRef}
       className={classNames(
         'fui-BotAvatarRoot',
         className,
         `fui-r-size-${size}`,
-        { 'fui-high-contrast': highContrast, 'fui-blinking': isBlinking },
+        { 'fui-high-contrast': highContrast, 'fui-blinking': isBlinking, 'fui-gazing': activeGaze !== null },
         status !== undefined && `fui-status-${status}`,
       )}
     >
@@ -121,7 +171,17 @@ const BotAvatar = (props: BotAvatarProps) => {
           // Face carries the transitioned base pose per status; FaceMotion
           // carries the looping animations (all zero-anchored), so status
           // changes glide instead of jumping between animation frames.
-          <div className="fui-BotAvatarFace">
+          <div
+            className="fui-BotAvatarFace"
+            style={
+              activeGaze !== null
+                ? ({
+                    '--bot-avatar-gaze-x': `${activeGaze.x * GAZE_RANGE_X}%`,
+                    '--bot-avatar-gaze-y': `${activeGaze.y * GAZE_RANGE_Y}%`,
+                  } as React.CSSProperties)
+                : undefined
+            }
+          >
             <div className="fui-BotAvatarFaceMotion">
               {eyes.map((eye, index) => (
                 <span
