@@ -2,6 +2,7 @@
 
 import classNames from 'classnames';
 import * as React from 'react';
+import { getBotAvatarIdentity } from './bot-avatar.identity';
 import { botAvatarPropDefs } from './bot-avatar.props';
 import { botAvatarShapePaths } from './bot-avatar.shapes';
 
@@ -14,11 +15,21 @@ const BotAvatar = (props: BotAvatarProps) => {
   const {
     className,
     size = botAvatarPropDefs.size.default,
-    color = botAvatarPropDefs.color.default,
+    color: colorProp,
     highContrast = botAvatarPropDefs.highContrast.default,
-    shape = botAvatarPropDefs.shape.default,
+    shape: shapeProp,
+    identity,
+    notification = botAvatarPropDefs.notification.default,
     ...rootProps
   } = props;
+
+  // Explicit `shape`/`color` props always win over identity-derived values.
+  const derivedIdentity = React.useMemo(
+    () => (identity !== undefined ? getBotAvatarIdentity(identity) : undefined),
+    [identity],
+  );
+  const shape = shapeProp ?? derivedIdentity?.shape ?? botAvatarPropDefs.shape.default;
+  const color = colorProp ?? derivedIdentity?.color ?? botAvatarPropDefs.color.default;
 
   const clipPathId = React.useId();
 
@@ -38,6 +49,7 @@ const BotAvatar = (props: BotAvatarProps) => {
         </defs>
       </svg>
       <div className="fui-BotAvatarShape" style={{ clipPath: `url(#${clipPathId})` }} />
+      {notification && <div className="fui-BotAvatarNotification" />}
     </div>
   );
 };

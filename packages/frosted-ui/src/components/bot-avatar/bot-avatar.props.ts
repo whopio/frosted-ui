@@ -10,11 +10,15 @@ const botAvatarPropDefs = {
   shape: { type: 'enum', values: botAvatarShapes, default: 'circle' },
   color: { ...colorProp, default: undefined },
   highContrast: highContrastProp,
+  identity: { type: 'string', default: undefined },
+  notification: { type: 'boolean', default: false },
 } satisfies {
   size: PropDef<(typeof sizes)[number]>;
   shape: PropDef<BotAvatarShape>;
   color: typeof colorProp;
   highContrast: typeof highContrastProp;
+  identity: PropDef<string>;
+  notification: PropDef<boolean>;
 };
 
 export { botAvatarPropDefs };

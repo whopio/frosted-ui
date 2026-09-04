@@ -1,4 +1,6 @@
 .fui-BotAvatarRoot {
+  container-type: inline-size;
+  position: relative;
   display: inline-grid;
   place-items: center;
   vertical-align: middle;
@@ -24,6 +26,38 @@
 
   :where(.fui-BotAvatarRoot.fui-high-contrast) & {
     background-color: var(--accent-12);
+  }
+}
+
+.fui-BotAvatarNotification {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+
+  width: 28cqw;
+  height: 28cqw;
+  border-radius: var(--radius-thumb);
+
+  background-color: var(--danger-9);
+  /* Ring separating the pastille from the body, in the page background color */
+  box-shadow: 0 0 0 max(1.5px, 5cqw) var(--color-background);
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* Pop-in with a slight overshoot */
+    animation: fui-bot-avatar-notification-pop 200ms ease-out;
+  }
+}
+
+@keyframes fui-bot-avatar-notification-pop {
+  0% {
+    transform: scale(0);
+  }
+  70% {
+    transform: scale(1.14);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 

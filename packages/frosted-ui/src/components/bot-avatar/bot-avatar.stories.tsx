@@ -80,6 +80,58 @@ export const Color: Story = {
   ),
 };
 
+export const Identity: Story = {
+  args: {
+    size: '5',
+  },
+  render: (args) => (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(6, 1fr)',
+        gap: 'var(--space-4)',
+        justifyItems: 'center',
+      }}
+    >
+      {[
+        'research-bot',
+        'ops-bot',
+        'code-reviewer',
+        'inbox-triage',
+        'morning-briefing',
+        'sales-scout',
+        'qa-runner',
+        'data-cruncher',
+        'design-critic',
+        'meeting-notes',
+        'release-manager',
+        'support-agent',
+      ].map((id) => (
+        <div key={id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-1)' }}>
+          <BotAvatar {...args} identity={id} />
+          <span style={{ fontSize: 10, color: 'var(--gray-a11)' }}>{id}</span>
+        </div>
+      ))}
+    </div>
+  ),
+};
+
+export const Notification: Story = {
+  args: {
+    color: 'blue',
+    shape: 'sunny',
+    notification: true,
+  },
+  render: (args) => (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
+      <BotAvatar {...args} size="3" />
+      <BotAvatar {...args} size="5" shape="clover-4" color="crimson" />
+      <BotAvatar {...args} size="7" shape="cookie-6" color="indigo" />
+      <BotAvatar {...args} size="9" shape="circle" color="teal" />
+    </div>
+  ),
+};
+
 export const HighContrast: Story = {
   args: {
     shape: 'clover-4',
