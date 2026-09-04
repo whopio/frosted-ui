@@ -57,12 +57,20 @@
   height: 0;
 }
 
-.fui-BotAvatarShape {
+.fui-BotAvatarBody {
   grid-area: 1 / 1;
   aspect-ratio: 1;
   width: 100%;
   height: 100%;
   position: relative;
+}
+
+/* The clipped silhouette. The face is a sibling, not a child: eyes ride the
+   body's animations (via BotAvatarBody) without ever being clipped by the
+   silhouette — a gaze or a morph overshoot can't shear an eye. */
+.fui-BotAvatarShape {
+  position: absolute;
+  inset: 0;
 
   background-color: var(--accent-9);
 
@@ -187,8 +195,8 @@
     animation-delay: var(--bot-avatar-life-delay, 0ms);
   }
 
-  /* Breath: 0.5% scale of the whole body, only when a face is shown */
-  .fui-BotAvatarShape:where(.fui-with-face) {
+  /* Breath: 0.5% scale of the whole body (shape + face), only with a face */
+  .fui-BotAvatarBody:where(.fui-with-face) {
     animation: fui-bot-avatar-breath 5.6s ease-in-out infinite;
     animation-delay: var(--bot-avatar-life-delay, 0ms);
   }
@@ -292,7 +300,7 @@
   /* Done: one satisfied pulse, then settle back into the regular breath.
      Both animations target transform; the one listed last (the pulse) wins
      while it runs, then the infinite breath takes over. */
-  .fui-BotAvatarRoot:where(.fui-status-done) .fui-BotAvatarShape:where(.fui-with-face) {
+  .fui-BotAvatarRoot:where(.fui-status-done) .fui-BotAvatarBody:where(.fui-with-face) {
     animation:
       fui-bot-avatar-breath 5.6s ease-in-out infinite,
       fui-bot-avatar-done-pulse 600ms cubic-bezier(0.16, 1, 0.3, 1);

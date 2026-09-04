@@ -129,9 +129,10 @@ const BotAvatar = (props: BotAvatarProps) => {
   const activeGaze =
     gaze !== undefined ? { x: clampGazeAxis(gaze.x), y: clampGazeAxis(gaze.y) } : (handleGaze ?? pointerGaze);
 
-  // Eyes are rendered inside the clipped body so the same shape path clips
-  // them — they can never escape the silhouette. Geometry comes from the
-  // expression catalogue adjusted by the precomputed per-shape face fit.
+  // Eye geometry comes from the expression catalogue adjusted by the
+  // precomputed per-shape face fit, which keeps eyes inside the silhouette
+  // at rest. The eyes are deliberately NOT clipped by the shape, so a gaze
+  // or a morph overshoot bulges past the edge instead of shearing an eye.
   const eyes = resolvedExpression !== undefined ? getBotAvatarEyes(resolvedExpression, shape) : undefined;
 
   // Desynchronize the idle animations (blink, drift, breath) across
@@ -166,18 +167,24 @@ const BotAvatar = (props: BotAvatarProps) => {
           </clipPath>
         </defs>
       </svg>
+      {/* Body carries the whole-avatar animations (breath, done pulse); the
+          clipped shape and the face are siblings inside it, so the eyes move
+          and scale with the body but are never clipped by the silhouette. */}
       <div
-        className={classNames('fui-BotAvatarShape', `fui-shape-${shape}`, { 'fui-with-face': eyes !== undefined })}
-        style={
-          {
-            // Fallback for browsers without shape(): the inline SVG clipPath.
-            // Where shape() is supported the silhouette comes from the
-            // fui-shape-* class, and shape changes morph via a transition.
-            '--bot-avatar-clip-fallback': `url(#${clipPathId})`,
-            '--bot-avatar-life-delay': `${lifeDelayMs}ms`,
-          } as React.CSSProperties
-        }
+        className={classNames('fui-BotAvatarBody', { 'fui-with-face': eyes !== undefined })}
+        style={{ '--bot-avatar-life-delay': `${lifeDelayMs}ms` } as React.CSSProperties}
       >
+        <div
+          className={classNames('fui-BotAvatarShape', `fui-shape-${shape}`)}
+          style={
+            {
+              // Fallback for browsers without shape(): the inline SVG clipPath.
+              // Where shape() is supported the silhouette comes from the
+              // fui-shape-* class, and shape changes morph via a transition.
+              '--bot-avatar-clip-fallback': `url(#${clipPathId})`,
+            } as React.CSSProperties
+          }
+        />
         {eyes && (
           // Face carries the transitioned base pose per status; FaceMotion
           // carries the looping animations (all zero-anchored), so status
