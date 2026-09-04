@@ -59,6 +59,14 @@ function parseCubics(d) {
         cubics.push([current, c1, c2, p1]);
         current = p1;
       } while (i < tokens.length && !/[A-Za-z]/.test(tokens[i]));
+    } else if (cmd === 'L') {
+      do {
+        const p1 = [num(), num()];
+        const c1 = [current[0] + (p1[0] - current[0]) / 3, current[1] + (p1[1] - current[1]) / 3];
+        const c2 = [current[0] + (2 * (p1[0] - current[0])) / 3, current[1] + (2 * (p1[1] - current[1])) / 3];
+        cubics.push([current, c1, c2, p1]);
+        current = p1;
+      } while (i < tokens.length && !/[A-Za-z]/.test(tokens[i]));
     } else if (cmd === 'Z' || cmd === 'z') {
       if (Math.hypot(current[0] - start[0], current[1] - start[1]) > 1e-6) {
         // Close with a straight segment expressed as a cubic.

@@ -1,5 +1,5 @@
 import { botAvatarFaceFit } from './bot-avatar.face-fit';
-import type { BotAvatarShape } from './bot-avatar.shapes';
+import type { BotAvatarAtlasShape } from './bot-avatar.shapes';
 
 /**
  * One eye, in unit coordinates relative to the avatar box (0..1).
@@ -56,7 +56,7 @@ const FACE_CENTER_Y = 0.45;
  */
 const getBotAvatarEyes = (
   expression: BotAvatarExpression,
-  shape: BotAvatarShape,
+  shape: BotAvatarAtlasShape,
 ): [BotAvatarEyeGeometry, BotAvatarEyeGeometry] => {
   const [left, right] = botAvatarExpressions[expression];
   const { s, dy } = botAvatarFaceFit[shape];

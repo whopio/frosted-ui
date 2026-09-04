@@ -4,9 +4,9 @@
 // Precomputed at build time so no geometry is solved at runtime.
 // Do not edit by hand.
 
-import type { BotAvatarShape } from './bot-avatar.shapes';
+import type { BotAvatarAtlasShape } from './bot-avatar.shapes';
 
-const botAvatarFaceFit: Record<BotAvatarShape, { s: number; dy: number }> = {
+const botAvatarFaceFit: Record<BotAvatarAtlasShape, { s: number; dy: number }> = {
   circle: { s: 1, dy: 0 },
   square: { s: 1, dy: 0 },
   slanted: { s: 1, dy: 0 },
@@ -42,6 +42,9 @@ const botAvatarFaceFit: Record<BotAvatarShape, { s: number; dy: number }> = {
   'pixel-triangle': { s: 0.92, dy: 0.055 },
   bun: { s: 1, dy: 0 },
   heart: { s: 1, dy: 0 },
+  // Hand-tuned (not from the fit script): the head box spans y 0.145-0.97,
+  // so the face sits slightly below the default center, clear of the stud.
+  'lego-head': { s: 1, dy: 0.08 },
 };
 
 export { botAvatarFaceFit };
