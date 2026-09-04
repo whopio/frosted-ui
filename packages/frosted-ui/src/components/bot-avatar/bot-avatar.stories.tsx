@@ -3,6 +3,7 @@ import React from 'react';
 import { BotAvatar } from '..';
 import { botAvatarExpressionsList } from './bot-avatar.expressions';
 import { botAvatarShapes } from './bot-avatar.shapes';
+import { botAvatarStatuses } from './bot-avatar.status';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -24,6 +25,11 @@ const meta = {
     shape: {
       control: 'select',
       options: botAvatarShapes,
+    },
+    status: {
+      control: 'select',
+      options: ['none', ...botAvatarStatuses],
+      mapping: { none: undefined },
     },
   },
 } satisfies Meta<typeof BotAvatar>;
@@ -173,6 +179,32 @@ export const Notification: Story = {
       <BotAvatar {...args} size="5" shape="clover-4" color="crimson" />
       <BotAvatar {...args} size="7" shape="cookie-6" color="indigo" />
       <BotAvatar {...args} size="9" shape="circle" color="teal" />
+    </div>
+  ),
+};
+
+/**
+ * The avatar carries the agent lifecycle: each status maps to an expression
+ * preset and its own motion. An explicit `expression` prop overrides the
+ * mapped one while keeping the status motion.
+ */
+export const Status: Story = {
+  args: {
+    color: 'blue',
+    shape: 'sunny',
+    size: '6',
+  },
+  render: (args) => (
+    <div style={{ display: 'flex', gap: 'var(--space-5)' }}>
+      {botAvatarStatuses.map((status) => (
+        <div
+          key={status}
+          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-1)' }}
+        >
+          <BotAvatar {...args} status={status} />
+          <span style={{ fontSize: 11, color: 'var(--gray-a11)' }}>{status}</span>
+        </div>
+      ))}
     </div>
   ),
 };

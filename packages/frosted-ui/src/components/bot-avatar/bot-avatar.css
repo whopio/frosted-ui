@@ -137,6 +137,116 @@
   }
 }
 
+/***************************************************************************************************
+ *                                                                                                 *
+ * STATUS MOTION                                                                                   *
+ *                                                                                                 *
+ * The avatar carries the agent lifecycle: each status replaces the default gaze drift with its    *
+ * own motion. Expressions come from the status map in bot-avatar.status.ts.                       *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Thinking: eyes up, slow pondering sway */
+  .fui-BotAvatarRoot:where(.fui-status-thinking) .fui-BotAvatarFace {
+    animation: fui-bot-avatar-think 4.4s ease-in-out infinite;
+    animation-delay: var(--bot-avatar-life-delay, 0ms);
+  }
+
+  /* Working: quick line-by-line scanning, like reading */
+  .fui-BotAvatarRoot:where(.fui-status-working) .fui-BotAvatarFace {
+    animation: fui-bot-avatar-scan 1.8s ease-in-out infinite;
+  }
+
+  /* Waiting: looking around with holds */
+  .fui-BotAvatarRoot:where(.fui-status-waiting) .fui-BotAvatarFace {
+    animation: fui-bot-avatar-look-around 5.2s ease-in-out infinite;
+    animation-delay: var(--bot-avatar-life-delay, 0ms);
+  }
+
+  /* Blocked: the face droops and the wander stills — the bot needs help */
+  .fui-BotAvatarRoot:where(.fui-status-blocked) .fui-BotAvatarFace {
+    animation: fui-bot-avatar-droop 500ms ease-out forwards;
+  }
+
+  /* Done: one satisfied pulse, then settle back into the regular breath.
+     Both animations target transform; the one listed last (the pulse) wins
+     while it runs, then the infinite breath takes over. */
+  .fui-BotAvatarRoot:where(.fui-status-done) .fui-BotAvatarShape:where(.fui-with-face) {
+    animation:
+      fui-bot-avatar-breath 5.6s ease-in-out infinite,
+      fui-bot-avatar-done-pulse 600ms cubic-bezier(0.16, 1, 0.3, 1);
+    animation-delay: var(--bot-avatar-life-delay, 0ms), 0ms;
+  }
+}
+
+@keyframes fui-bot-avatar-think {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  12% {
+    transform: translate(-2%, -5%);
+  }
+  45% {
+    transform: translate(-2.5%, -5%);
+  }
+  58% {
+    transform: translate(2.5%, -5.5%);
+  }
+  88% {
+    transform: translate(2%, -5%);
+  }
+}
+
+@keyframes fui-bot-avatar-scan {
+  0%,
+  100% {
+    transform: translate(-3%, -1%);
+  }
+  42% {
+    transform: translate(3%, -1%);
+  }
+  50% {
+    transform: translate(-3%, 1%);
+  }
+  92% {
+    transform: translate(3%, 1%);
+  }
+}
+
+@keyframes fui-bot-avatar-look-around {
+  0%,
+  72%,
+  100% {
+    transform: translate(0, 0);
+  }
+  12%,
+  30% {
+    transform: translate(-6.5%, 0.5%);
+  }
+  42%,
+  60% {
+    transform: translate(6.5%, 0.5%);
+  }
+}
+
+@keyframes fui-bot-avatar-droop {
+  100% {
+    transform: translate(0, 3.5%);
+  }
+}
+
+@keyframes fui-bot-avatar-done-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.04);
+  }
+}
+
 .fui-BotAvatarNotification {
   position: absolute;
   top: 0;

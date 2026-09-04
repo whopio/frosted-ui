@@ -6,6 +6,7 @@ import { getBotAvatarEyes } from './bot-avatar.expressions';
 import { getBotAvatarIdentity } from './bot-avatar.identity';
 import { botAvatarPropDefs } from './bot-avatar.props';
 import { botAvatarShapePaths } from './bot-avatar.shapes';
+import { botAvatarStatusExpressions } from './bot-avatar.status';
 
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
 
@@ -22,6 +23,7 @@ const BotAvatar = (props: BotAvatarProps) => {
     identity,
     notification = botAvatarPropDefs.notification.default,
     expression = botAvatarPropDefs.expression.default,
+    status = botAvatarPropDefs.status.default,
     ...rootProps
   } = props;
 
@@ -35,10 +37,14 @@ const BotAvatar = (props: BotAvatarProps) => {
 
   const clipPathId = React.useId();
 
+  // A status implies a face: it maps to a default expression, which an
+  // explicit `expression` prop overrides (the status motion applies either way).
+  const resolvedExpression = expression ?? (status !== undefined ? botAvatarStatusExpressions[status] : undefined);
+
   // Eyes are rendered inside the clipped body so the same shape path clips
   // them — they can never escape the silhouette. Geometry comes from the
   // expression catalogue adjusted by the precomputed per-shape face fit.
-  const eyes = expression !== undefined ? getBotAvatarEyes(expression, shape) : undefined;
+  const eyes = resolvedExpression !== undefined ? getBotAvatarEyes(resolvedExpression, shape) : undefined;
 
   // Desynchronize the idle animations (blink, drift, breath) across
   // instances with a stable per-instance negative delay, so a roster of
@@ -56,9 +62,13 @@ const BotAvatar = (props: BotAvatarProps) => {
     <div
       data-accent-color={color}
       {...rootProps}
-      className={classNames('fui-BotAvatarRoot', className, `fui-r-size-${size}`, {
-        'fui-high-contrast': highContrast,
-      })}
+      className={classNames(
+        'fui-BotAvatarRoot',
+        className,
+        `fui-r-size-${size}`,
+        { 'fui-high-contrast': highContrast },
+        status !== undefined && `fui-status-${status}`,
+      )}
     >
       <svg className="fui-BotAvatarClipSvg" aria-hidden="true" focusable="false" width={0} height={0}>
         <defs>

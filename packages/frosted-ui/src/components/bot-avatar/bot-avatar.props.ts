@@ -4,6 +4,8 @@ import type { BotAvatarExpression } from './bot-avatar.expressions';
 import { botAvatarExpressionsList } from './bot-avatar.expressions';
 import type { BotAvatarShape } from './bot-avatar.shapes';
 import { botAvatarShapes } from './bot-avatar.shapes';
+import type { BotAvatarStatus } from './bot-avatar.status';
+import { botAvatarStatuses } from './bot-avatar.status';
 
 const sizes = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const;
 
@@ -19,6 +21,11 @@ const botAvatarPropDefs = {
     values: botAvatarExpressionsList,
     default: undefined as BotAvatarExpression | undefined,
   },
+  status: {
+    type: 'enum',
+    values: botAvatarStatuses,
+    default: undefined as BotAvatarStatus | undefined,
+  },
 } satisfies {
   size: PropDef<(typeof sizes)[number]>;
   shape: PropDef<BotAvatarShape>;
@@ -27,6 +34,7 @@ const botAvatarPropDefs = {
   identity: PropDef<string>;
   notification: PropDef<boolean>;
   expression: PropDef<BotAvatarExpression>;
+  status: PropDef<BotAvatarStatus>;
 };
 
 export { botAvatarPropDefs };
