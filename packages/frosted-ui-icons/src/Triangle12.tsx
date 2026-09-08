@@ -13,11 +13,9 @@ export const Triangle12 = ({ color = 'currentColor', ...props }: IconProps) => {
       {...props}
     >
       <path
-        d="M.926 9.491l4.012-7.623c.45-.855 1.674-.855 2.124 0l4.012 7.623c.42.8-.159 1.759-1.062 1.759H1.988c-.903 0-1.483-.96-1.062-1.759z"
+        d="M5.143 1.93c.388-.648 1.326-.648 1.714 0l4.234 7.056c.4.666-.08 1.514-.857 1.514H1.766C.99 10.5.51 9.652.91 8.986l4.234-7.057z"
         stroke={color}
         strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
       />
     </svg>
   );

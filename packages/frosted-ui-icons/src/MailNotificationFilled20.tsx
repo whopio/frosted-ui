@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const MailNotificationFilled20 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="MailNotificationFilled20"
+      {...props}
+    >
+      <path
+        d="M18.999 13.25c0 2.623-2.127 4.75-4.75 4.75H5.75C3.127 18 1 15.873 1 13.25V7.81l8.07 3.157c.596.233 1.26.233 1.858 0l8.071-3.157v5.44zM13.067 2c-.043.244-.067.494-.067.75 0 2.256 1.757 4.1 3.977 4.24l-6.596 2.58c-.246.096-.52.096-.765 0L1.03 6.212C1.298 3.842 3.31 2 5.75 2h7.317zm4.183-2C18.769 0 20 1.231 20 2.75S18.769 5.5 17.25 5.5 14.5 4.269 14.5 2.75 15.731 0 17.25 0z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+MailNotificationFilled20.category = 'Communication';
+
+export default MailNotificationFilled20;
