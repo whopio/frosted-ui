@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const MailNotification24 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="MailNotification24"
+      {...props}
+    >
+      <path
+        d="M16.167 2c-.108.398-.167.817-.167 1.25 0 .084.002.167.006.25H6.75C4.403 3.5 2.5 5.403 2.5 7.75v.269l8.96 3.598c.346.14.734.14 1.081 0l8.958-3.597v-.08c.531-.084 1.033-.257 1.49-.502.006.104.01.207.01.312v8.5c0 3.176-2.574 5.75-5.75 5.75H6.75C3.575 22 1 19.425 1 16.25v-8.5C1 4.574 3.575 2 6.75 2h9.417zM2.5 16.25c0 2.347 1.903 4.25 4.25 4.25h10.499c2.347 0 4.25-1.903 4.25-4.25V9.637l-8.4 3.372c-.705.283-1.492.283-2.198 0L2.5 9.636v6.614zM20.75 0C22.545 0 24 1.455 24 3.25S22.545 6.5 20.75 6.5 17.5 5.045 17.5 3.25 18.955 0 20.75 0zm0 1.5c-.966 0-1.75.784-1.75 1.75S19.784 5 20.75 5s1.75-.784 1.75-1.75-.784-1.75-1.75-1.75z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+MailNotification24.category = 'Communication';
+
+export default MailNotification24;
