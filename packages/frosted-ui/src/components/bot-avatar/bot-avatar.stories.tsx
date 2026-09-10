@@ -1,0 +1,430 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import React from 'react';
+import { BotAvatar, Button, createBotAvatarHandle } from '..';
+import { botAvatarPropDefs } from './bot-avatar.props';
+import { botAvatarExpressionsList } from './bot-avatar.expressions';
+import { botAvatarShapes } from './bot-avatar.shapes';
+import { botAvatarStatuses } from './bot-avatar.status';
+
+// More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+const meta = {
+  title: 'Components/BotAvatar',
+  component: BotAvatar,
+  parameters: {
+    // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
+    layout: 'centered',
+  },
+  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
+  tags: ['autodocs'],
+  argTypes: {
+    expression: {
+      control: 'select',
+      // 'none' renders the plain shape without a face
+      options: ['none', ...botAvatarExpressionsList],
+      mapping: { none: undefined },
+    },
+    shape: {
+      control: 'select',
+      options: botAvatarShapes,
+    },
+    status: {
+      control: 'select',
+      options: ['none', ...botAvatarStatuses],
+      mapping: { none: undefined },
+    },
+    // Imperative-only inputs — not meaningful as panel controls.
+    handle: { control: false },
+    gaze: { control: false },
+  },
+} satisfies Meta<typeof BotAvatar>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+/** Hides the controls a demo manages itself, so the panel only shows knobs
+ * that actually do something in that story. */
+const withoutControls = (...exclude: string[]) => ({ controls: { exclude } });
+
+export const Default: Story = {
+  args: {
+    color: 'blue',
+    shape: 'sunny',
+    expression: 'neutral',
+    size: '6',
+  },
+  // `shape`/`color` are set explicitly, so identity would never kick in here.
+  parameters: withoutControls('identity'),
+};
+
+export const Shape: Story = {
+  args: {
+    color: 'blue',
+    size: '5',
+  },
+  parameters: withoutControls('shape', 'identity'),
+  render: (args) => (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(7, 1fr)',
+        gap: 'var(--space-4)',
+      }}
+    >
+      {botAvatarShapes.map((shape) => (
+        <BotAvatar key={shape} {...args} shape={shape} />
+      ))}
+    </div>
+  ),
+};
+
+export const Size: Story = {
+  args: {
+    color: 'blue',
+    shape: 'cookie-9',
+  },
+  parameters: withoutControls('size', 'identity'),
+  render: (args) => (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
+      <BotAvatar {...args} size="0" />
+      <BotAvatar {...args} size="1" />
+      <BotAvatar {...args} size="2" />
+      <BotAvatar {...args} size="3" />
+      <BotAvatar {...args} size="4" />
+      <BotAvatar {...args} size="5" />
+      <BotAvatar {...args} size="6" />
+      <BotAvatar {...args} size="7" />
+      <BotAvatar {...args} size="8" />
+      <BotAvatar {...args} size="9" />
+    </div>
+  ),
+};
+
+export const Color: Story = {
+  args: {
+    shape: 'flower',
+  },
+  parameters: withoutControls('color', 'identity'),
+  render: (args) => (
+    <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+      <BotAvatar {...args} color="indigo" />
+      <BotAvatar {...args} color="cyan" />
+      <BotAvatar {...args} color="orange" />
+      <BotAvatar {...args} color="crimson" />
+    </div>
+  ),
+};
+
+export const Expression: Story = {
+  args: {
+    color: 'blue',
+    size: '6',
+  },
+  parameters: withoutControls('expression', 'shape', 'identity'),
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+      <div style={{ display: 'flex', gap: 'var(--space-4)' }}>
+        {botAvatarExpressionsList.map((expression) => (
+          <div
+            key={expression}
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-1)' }}
+          >
+            <BotAvatar {...args} expression={expression} />
+            <span style={{ fontSize: 11, color: 'var(--gray-a11)' }}>{expression}</span>
+          </div>
+        ))}
+      </div>
+      {/* Shapes with little room up top still keep the face inside the silhouette */}
+      <div style={{ display: 'flex', gap: 'var(--space-4)' }}>
+        {(['triangle', 'boom', 'pixel-triangle', 'heart', 'fan', 'semi-circle', 'diamond', 'arrow'] as const).map(
+          (shape) => (
+            <BotAvatar {...args} key={shape} shape={shape} expression="neutral" />
+          ),
+        )}
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * The mouth is on by default and sized to carry the expression together with
+ * the eyes (pass `mouth={false}` for the classic eyes-only look). With a
+ * mouth shown, the face uses a mouth-aware fit table, so it stays inside
+ * even the tightest silhouettes — the grid below is the stress test: every
+ * row is a shape with little room at the bottom, every column an expression.
+ */
+export const Mouth: Story = {
+  args: {
+    color: 'blue',
+    size: '5',
+  },
+  parameters: withoutControls('expression', 'shape', 'identity'),
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+      <div style={{ display: 'flex', gap: 'var(--space-4)', alignItems: 'center' }}>
+        <BotAvatar {...args} size="8" shape="sunny" expression="happy" />
+        <BotAvatar {...args} size="8" shape="sunny" expression="happy" mouth={false} />
+      </div>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: `repeat(${botAvatarExpressionsList.length}, 1fr)`,
+          gap: 'var(--space-3)',
+        }}
+      >
+        {(['circle', 'triangle', 'heart', 'semi-circle', 'boom', 'pixel-triangle', 'fan', 'ghost-ish'] as const).map(
+          (shape) =>
+            botAvatarExpressionsList.map((expression) => (
+              <BotAvatar {...args} key={`${shape}-${expression}`} shape={shape} expression={expression} />
+            )),
+        )}
+      </div>
+    </div>
+  ),
+};
+
+export const Identity: Story = {
+  args: {
+    size: '5',
+  },
+  // Identity derives shape + color, so those two would fight the demo.
+  parameters: withoutControls('identity', 'shape', 'color'),
+  render: (args) => (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(6, 1fr)',
+        gap: 'var(--space-4)',
+        justifyItems: 'center',
+      }}
+    >
+      {[
+        'research-bot',
+        'ops-bot',
+        'code-reviewer',
+        'inbox-triage',
+        'morning-briefing',
+        'sales-scout',
+        'qa-runner',
+        'data-cruncher',
+        'design-critic',
+        'meeting-notes',
+        'release-manager',
+        'support-agent',
+      ].map((id) => (
+        <div key={id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-1)' }}>
+          <BotAvatar {...args} identity={id} />
+          <span style={{ fontSize: 10, color: 'var(--gray-a11)' }}>{id}</span>
+        </div>
+      ))}
+    </div>
+  ),
+};
+
+export const Notification: Story = {
+  args: {
+    color: 'blue',
+    shape: 'sunny',
+    notification: true,
+  },
+  parameters: withoutControls('size', 'shape', 'color', 'identity'),
+  render: (args) => (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
+      <BotAvatar {...args} size="3" />
+      <BotAvatar {...args} size="5" shape="clover-4" color="crimson" />
+      <BotAvatar {...args} size="7" shape="cookie-6" color="indigo" />
+      <BotAvatar {...args} size="9" shape="circle" color="teal" />
+    </div>
+  ),
+};
+
+/**
+ * Imperative control via the Base UI handle pattern: create a handle with
+ * `createBotAvatarHandle()`, pass it to the `handle` prop, and call
+ * `blink()` / `lookAt()` from event handlers or effects. Calls with no
+ * mounted avatar attached are ignored.
+ */
+export const Handle: Story = {
+  args: {
+    color: 'blue',
+    shape: 'sunny',
+    expression: 'neutral',
+    size: '8',
+  },
+  parameters: withoutControls('identity'),
+  render: function HandleDemo(args) {
+    const handle = React.useMemo(() => createBotAvatarHandle(), []);
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-5)' }}>
+        <BotAvatar {...args} handle={handle} />
+        <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+          <Button onClick={() => handle.blink()}>blink()</Button>
+          <Button onClick={() => handle.lookAt({ x: -1, y: 0.2 })}>look left</Button>
+          <Button onClick={() => handle.lookAt({ x: 1, y: -0.6 })}>look up-right</Button>
+          <Button onClick={() => handle.lookAt(null)}>release</Button>
+        </div>
+      </div>
+    );
+  },
+};
+
+/**
+ * The bots watch the cursor: the pointer's direction from each avatar's
+ * center becomes its gaze, and the automatic wander stills while tracking.
+ * The eyes clip against the silhouette when looking far to one side —
+ * that's the mask doing its job. Disabled under prefers-reduced-motion.
+ */
+export const FollowPointer: Story = {
+  args: {
+    followPointer: true,
+    size: '7',
+  },
+  parameters: withoutControls('identity', 'shape', 'color', 'expression'),
+  render: (args) => (
+    <div style={{ display: 'flex', gap: 'var(--space-6)', padding: 'var(--space-9)' }}>
+      <BotAvatar {...args} identity="research-bot" expression="neutral" />
+      <BotAvatar {...args} identity="ops-bot" expression="happy" />
+      <BotAvatar {...args} identity="qa-runner" expression="wide" />
+      <BotAvatar {...args} shape="heart" color="crimson" expression="neutral" />
+    </div>
+  ),
+};
+
+/**
+ * Changing the `shape` prop morphs the silhouette: every shape is compiled to
+ * a CSS `shape()` value with an identical command list, so the browser
+ * interpolates the clip-path natively — no JS runs during the morph. The
+ * eyes glide to the new shape's face fit on the same curve. Click to cycle.
+ */
+export const ShapeMorphing: Story = {
+  args: {
+    color: 'blue',
+    size: '8',
+    expression: 'neutral',
+  },
+  parameters: withoutControls('shape', 'identity'),
+  render: function ShapeMorphingDemo(args) {
+    const cycle = ['sunny', 'cookie-6', 'clover-4', 'heart', 'triangle', 'flower', 'boom', 'square'] as const;
+    const [index, setIndex] = React.useState(0);
+    return (
+      <button
+        type="button"
+        onClick={() => setIndex((i) => (i + 1) % cycle.length)}
+        style={{ all: 'unset', cursor: 'pointer' }}
+        aria-label="Cycle avatar shape"
+      >
+        <BotAvatar {...args} shape={cycle[index]} />
+      </button>
+    );
+  },
+};
+
+/**
+ * Random morph: each click picks a new random shape, color, and expression.
+ * The silhouette flows into the new shape while the accent swaps and the
+ * face morphs on the same spring — the kind of transition a bot-picker or
+ * identity handoff produces.
+ */
+export const RandomMorph: Story = {
+  args: {
+    size: '8',
+  },
+  parameters: withoutControls('shape', 'color', 'expression', 'identity'),
+  render: function RandomMorphDemo(args) {
+    const colors = botAvatarPropDefs.color.values;
+    const [shape, setShape] = React.useState<(typeof botAvatarShapes)[number]>('sunny');
+    const [color, setColor] = React.useState<(typeof colors)[number]>('blue');
+    const [expression, setExpression] = React.useState<(typeof botAvatarExpressionsList)[number]>('neutral');
+    const randomize = () => {
+      // Pick from the remaining options so every click visibly changes all three.
+      const nextShapes = botAvatarShapes.filter((s) => s !== shape);
+      const nextColors = colors.filter((c) => c !== color);
+      const nextExpressions = botAvatarExpressionsList.filter((e) => e !== expression);
+      setShape(nextShapes[Math.floor(Math.random() * nextShapes.length)]);
+      setColor(nextColors[Math.floor(Math.random() * nextColors.length)]);
+      setExpression(nextExpressions[Math.floor(Math.random() * nextExpressions.length)]);
+    };
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-5)' }}>
+        <BotAvatar {...args} shape={shape} color={color} expression={expression} />
+        <Button onClick={randomize}>Next bot</Button>
+      </div>
+    );
+  },
+};
+
+/**
+ * The avatar carries the agent lifecycle: each status maps to an expression
+ * preset and its own motion. An explicit `expression` prop overrides the
+ * mapped one while keeping the status motion.
+ */
+export const Status: Story = {
+  args: {
+    color: 'blue',
+    shape: 'sunny',
+    size: '6',
+  },
+  parameters: withoutControls('status', 'identity'),
+  render: (args) => (
+    <div style={{ display: 'flex', gap: 'var(--space-5)' }}>
+      {botAvatarStatuses.map((status) => (
+        <div
+          key={status}
+          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-1)' }}
+        >
+          <BotAvatar {...args} status={status} />
+          <span style={{ fontSize: 11, color: 'var(--gray-a11)' }}>{status}</span>
+        </div>
+      ))}
+    </div>
+  ),
+};
+
+/**
+ * Everything together, Grok Bot style: identity-derived shape + color, an
+ * expression with idle life (blink, gaze drift, breath), and notification
+ * badges. Instances blink out of sync on purpose.
+ */
+export const Roster: Story = {
+  args: {
+    size: '4',
+  },
+  parameters: withoutControls('identity', 'shape', 'color', 'expression', 'notification'),
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 240 }}>
+      {(
+        [
+          { id: 'research-bot', name: 'Research', expression: 'neutral', notification: true },
+          { id: 'ops-bot', name: 'Ops', expression: 'happy', notification: false },
+          { id: 'code-reviewer', name: 'Code Review', expression: 'suspicious', notification: true },
+          { id: 'inbox-triage', name: 'Inbox Triage', expression: 'sleepy', notification: false },
+          { id: 'qa-runner', name: 'QA', expression: 'wide', notification: false },
+          { id: 'sales-scout', name: 'Sales Scout', expression: 'wink', notification: true },
+        ] as const
+      ).map((bot) => (
+        <div key={bot.id} style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+          <BotAvatar {...args} identity={bot.id} expression={bot.expression} notification={bot.notification} />
+          <span style={{ fontSize: 14 }}>{bot.name}</span>
+        </div>
+      ))}
+    </div>
+  ),
+};
+
+export const HighContrast: Story = {
+  args: {
+    shape: 'clover-4',
+  },
+  parameters: withoutControls('highContrast', 'color', 'identity'),
+  render: (args) => (
+    <div style={{ display: 'inline-grid', gridTemplateRows: 'repeat(2, 1fr)', gap: '8px', gridAutoFlow: 'column' }}>
+      <BotAvatar {...args} color="indigo" />
+      <BotAvatar {...args} color="indigo" highContrast />
+      <BotAvatar {...args} color="cyan" />
+      <BotAvatar {...args} color="cyan" highContrast />
+      <BotAvatar {...args} color="orange" />
+      <BotAvatar {...args} color="orange" highContrast />
+      <BotAvatar {...args} color="crimson" />
+      <BotAvatar {...args} color="crimson" highContrast />
+    </div>
+  ),
+};

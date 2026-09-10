@@ -64,6 +64,7 @@ export * from './avatar';
 export * from './avatar-group';
 export * from './avatar-stack';
 export * from './badge';
+export * from './bot-avatar';
 export * from './blockquote';
 export * from './breadcrumbs';
 export * from './button';

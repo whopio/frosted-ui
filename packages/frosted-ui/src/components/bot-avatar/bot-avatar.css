@@ -1,0 +1,472 @@
+.fui-BotAvatarRoot {
+  /* Morph feel, shared by the silhouette and the eye geometry so the body
+     and face always land together. A damped spring (ζ=0.6): fast rise, ~9%
+     overshoot past the target shape, then a settle with a faint wobble —
+     this is what makes morphs read as alive rather than as a resize. */
+  --bot-avatar-morph-duration: 500ms;
+  --bot-avatar-morph-ease: linear(
+    0,
+    0.037,
+    0.13,
+    0.256,
+    0.397,
+    0.539,
+    0.671,
+    0.788,
+    0.885,
+    0.962,
+    1.019,
+    1.058,
+    1.082,
+    1.093,
+    1.094,
+    1.089,
+    1.079,
+    1.066,
+    1.053,
+    1.039,
+    1.027,
+    1.017,
+    1.008,
+    1.002,
+    0.997,
+    0.994,
+    0.992,
+    0.991,
+    0.991,
+    0.992,
+    0.993,
+    0.994,
+    1
+  );
+
+  container-type: inline-size;
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  vertical-align: middle;
+  user-select: none;
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+  flex-shrink: 0;
+}
+
+.fui-BotAvatarClipSvg {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.fui-BotAvatarBody {
+  grid-area: 1 / 1;
+  aspect-ratio: 1;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* The clipped silhouette. The face is a sibling, not a child: eyes ride the
+   body's animations (via BotAvatarBody) without ever being clipped by the
+   silhouette — a gaze or a morph overshoot can't shear an eye. */
+.fui-BotAvatarShape {
+  position: absolute;
+  inset: 0;
+
+  background-color: var(--accent-9);
+
+  /* SVG clipPath fallback (set inline as a var, since the id is per-instance) */
+  clip-path: var(--bot-avatar-clip-fallback);
+
+  /* Accent changes fade rather than pop (a color fade is not motion, so it
+     is not gated behind prefers-reduced-motion). */
+  transition: background-color 300ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  :where(.fui-BotAvatarRoot.fui-high-contrast) & {
+    background-color: var(--accent-12);
+  }
+}
+
+/* Where shape() is supported (all evergreen browsers since early 2026) the
+   silhouette comes from CSS instead: every value in bot-avatar.shapes.css has
+   the SAME number of curve commands, so the browser interpolates between any
+   two of them — changing the shape prop morphs the body. */
+@supports (clip-path: shape(from 0% 0%, line to 100% 100%)) {
+  .fui-BotAvatarShape {
+    clip-path: var(--bot-avatar-clip-shape, var(--bot-avatar-clip-fallback));
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* The morph springs (shared vars on the root); the color fade stays on a
+       plain ease — an overshooting color reads as a flash, not as life. */
+    .fui-BotAvatarShape {
+      transition:
+        clip-path var(--bot-avatar-morph-duration) var(--bot-avatar-morph-ease),
+        background-color 300ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+  }
+}
+
+.fui-BotAvatarFace {
+  position: absolute;
+  inset: 0;
+
+  /* Base pose = gaze offset (set inline while gazing) composed with the
+     per-status offset. Both ride the transform transition below. */
+  transform: translate(var(--bot-avatar-gaze-x, 0%), var(--bot-avatar-gaze-y, 0%));
+}
+
+.fui-BotAvatarFaceMotion {
+  position: absolute;
+  inset: 0;
+}
+
+/* Base face poses per status. These are plain transforms (transitioned under
+   the reduced-motion gate below) so status changes glide; the looping
+   animations on FaceMotion are all zero-anchored and only add small motion
+   around the base. Reduced-motion users still get the static pose. */
+.fui-BotAvatarRoot:where(.fui-status-thinking) .fui-BotAvatarFace {
+  transform: translate(var(--bot-avatar-gaze-x, 0%), calc(var(--bot-avatar-gaze-y, 0%) - 5%));
+}
+.fui-BotAvatarRoot:where(.fui-status-blocked) .fui-BotAvatarFace {
+  transform: translate(var(--bot-avatar-gaze-x, 0%), calc(var(--bot-avatar-gaze-y, 0%) + 3.5%));
+}
+
+.fui-BotAvatarEye {
+  position: absolute;
+  display: block;
+
+  /* The visible capsule lives on the pseudo-element so the blink (scaleY)
+     never conflicts with the tilt rotation applied to the eye itself. */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-thumb);
+    background-color: var(--accent-9-contrast);
+    /* Fades with the body when the accent changes (see BotAvatarShape) */
+    transition: background-color 300ms cubic-bezier(0.16, 1, 0.3, 1);
+
+    :where(.fui-BotAvatarRoot.fui-high-contrast) & {
+      background-color: var(--accent-1);
+    }
+  }
+}
+
+/* The mouth (opt-in via the `mouth` prop; AgentAvatar turns it on by
+   default). One filled div — its whole personality is the inline
+   border-radius (D = smile, flipped D = frown, circle = gasp). It lives in
+   FaceMotion next to the eyes so it drifts, scans, and gazes with them. */
+.fui-BotAvatarMouth {
+  position: absolute;
+  display: block;
+  background-color: var(--accent-9-contrast);
+  /* Fades with the body when the accent changes (see BotAvatarShape) */
+  transition: background-color 300ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  :where(.fui-BotAvatarRoot.fui-high-contrast) & {
+    background-color: var(--accent-1);
+  }
+}
+
+/***************************************************************************************************
+ *                                                                                                 *
+ * IDLE LIFE                                                                                       *
+ *                                                                                                 *
+ * All perceived life at rest comes from blinking and a subtle gaze drift plus a 0.5% breath —     *
+ * the avatar deliberately does not float. Blink closes faster than it opens.                      *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Expression morph: interpolating width/height (not scale) keeps the
+     capsule caps circular at every frame; scale would distort the radius.
+     Springs with the same curve as the silhouette so expression changes and
+     shape-morph face-fit shifts feel like one body moving. */
+  .fui-BotAvatarEye {
+    transition-property: left, top, width, height, transform;
+    transition-duration: var(--bot-avatar-morph-duration);
+    transition-timing-function: var(--bot-avatar-morph-ease);
+  }
+
+  /* The mouth springs on the same curve; border-radius joins the list so a
+     smile flows into a frown (every radius is the 8-value percentage form,
+     which the browser interpolates component-wise). The color fade keeps its
+     own plain ease, same as the eyes. */
+  .fui-BotAvatarMouth {
+    transition:
+      left var(--bot-avatar-morph-duration) var(--bot-avatar-morph-ease),
+      top var(--bot-avatar-morph-duration) var(--bot-avatar-morph-ease),
+      width var(--bot-avatar-morph-duration) var(--bot-avatar-morph-ease),
+      height var(--bot-avatar-morph-duration) var(--bot-avatar-morph-ease),
+      transform var(--bot-avatar-morph-duration) var(--bot-avatar-morph-ease),
+      border-radius var(--bot-avatar-morph-duration) var(--bot-avatar-morph-ease),
+      background-color 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Blink: 5.2s cycle, ~320ms blink starting at 91% (close ~120ms, open ~200ms) */
+  .fui-BotAvatarEye::before {
+    animation: fui-bot-avatar-blink 5.2s linear infinite;
+    animation-delay: var(--bot-avatar-life-delay, 0ms);
+  }
+
+  /* Forced blink, triggered via the imperative handle's blink():
+     closed from ~35% to ~55% of the 340ms run */
+  .fui-BotAvatarRoot:where(.fui-blinking) .fui-BotAvatarEye::before {
+    animation: fui-bot-avatar-forced-blink 340ms ease-in-out;
+  }
+
+  /* Status base-pose changes glide with the same ease-out as expressions */
+  .fui-BotAvatarFace {
+    transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Gaze drift: slow sub-1% wander of the whole face */
+  .fui-BotAvatarFaceMotion {
+    animation: fui-bot-avatar-gaze-drift 9s ease-in-out infinite;
+    animation-delay: var(--bot-avatar-life-delay, 0ms);
+  }
+
+  /* Breath: 0.5% scale of the whole body (shape + face), only with a face */
+  .fui-BotAvatarBody:where(.fui-with-face) {
+    animation: fui-bot-avatar-breath 5.6s ease-in-out infinite;
+    animation-delay: var(--bot-avatar-life-delay, 0ms);
+  }
+}
+
+@keyframes fui-bot-avatar-forced-blink {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  35%,
+  55% {
+    transform: scaleY(0.08);
+  }
+}
+
+@keyframes fui-bot-avatar-blink {
+  0%,
+  91% {
+    transform: scaleY(1);
+    animation-timing-function: ease-in;
+  }
+  93.3% {
+    transform: scaleY(0.08);
+    animation-timing-function: ease-out;
+  }
+  97.2%,
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes fui-bot-avatar-gaze-drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  18% {
+    transform: translate(0.9%, -0.6%);
+  }
+  42% {
+    transform: translate(-0.8%, 0.5%);
+  }
+  58% {
+    transform: translate(0.3%, 0.9%);
+  }
+  80% {
+    transform: translate(-0.6%, -0.5%);
+  }
+}
+
+@keyframes fui-bot-avatar-breath {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.005);
+  }
+}
+
+/***************************************************************************************************
+ *                                                                                                 *
+ * STATUS MOTION                                                                                   *
+ *                                                                                                 *
+ * The avatar carries the agent lifecycle: each status replaces the default gaze drift with its    *
+ * own motion. Expressions come from the status map in bot-avatar.status.ts.                       *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Thinking: eyes raised (base pose), slow pondering sway on top */
+  .fui-BotAvatarRoot:where(.fui-status-thinking) .fui-BotAvatarFaceMotion {
+    animation: fui-bot-avatar-think 4.4s ease-in-out infinite;
+    animation-delay: var(--bot-avatar-life-delay, 0ms);
+  }
+
+  /* Working: quick line-by-line scanning, like reading */
+  .fui-BotAvatarRoot:where(.fui-status-working) .fui-BotAvatarFaceMotion {
+    animation: fui-bot-avatar-scan 1.8s ease-in-out infinite;
+  }
+
+  /* Waiting: looking around with holds */
+  .fui-BotAvatarRoot:where(.fui-status-waiting) .fui-BotAvatarFaceMotion {
+    animation: fui-bot-avatar-look-around 5.2s ease-in-out infinite;
+    animation-delay: var(--bot-avatar-life-delay, 0ms);
+  }
+
+  /* Blocked: face droops (base pose) and the wander stills — needs help */
+  .fui-BotAvatarRoot:where(.fui-status-blocked) .fui-BotAvatarFaceMotion {
+    animation: none;
+  }
+
+  /* While a gaze is commanded (gaze prop or pointer tracking) the automatic
+     wander and status loops still: attention beats ambience. Declared after
+     the status loops so it wins at equal specificity. */
+  .fui-BotAvatarRoot:where(.fui-gazing) .fui-BotAvatarFaceMotion {
+    animation: none;
+  }
+
+  /* Done: one satisfied pulse, then settle back into the regular breath.
+     Both animations target transform; the one listed last (the pulse) wins
+     while it runs, then the infinite breath takes over. */
+  .fui-BotAvatarRoot:where(.fui-status-done) .fui-BotAvatarBody:where(.fui-with-face) {
+    animation:
+      fui-bot-avatar-breath 5.6s ease-in-out infinite,
+      fui-bot-avatar-done-pulse 600ms cubic-bezier(0.16, 1, 0.3, 1);
+    animation-delay: var(--bot-avatar-life-delay, 0ms), 0ms;
+  }
+}
+
+@keyframes fui-bot-avatar-think {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-2.5%, -0.3%);
+  }
+  60% {
+    transform: translate(2.5%, -0.5%);
+  }
+  85% {
+    transform: translate(1%, 0.2%);
+  }
+}
+
+@keyframes fui-bot-avatar-scan {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  12% {
+    transform: translate(-3%, -1%);
+  }
+  42% {
+    transform: translate(3%, -1%);
+  }
+  52% {
+    transform: translate(-3%, 1%);
+  }
+  88% {
+    transform: translate(3%, 1%);
+  }
+}
+
+@keyframes fui-bot-avatar-look-around {
+  0%,
+  72%,
+  100% {
+    transform: translate(0, 0);
+  }
+  12%,
+  30% {
+    transform: translate(-6.5%, 0.5%);
+  }
+  42%,
+  60% {
+    transform: translate(6.5%, 0.5%);
+  }
+}
+
+@keyframes fui-bot-avatar-done-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.04);
+  }
+}
+
+.fui-BotAvatarNotification {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+
+  width: 28cqw;
+  height: 28cqw;
+  border-radius: var(--radius-thumb);
+
+  background-color: var(--danger-9);
+  /* Ring separating the pastille from the body, in the page background color */
+  box-shadow: 0 0 0 max(1.5px, 5cqw) var(--color-background);
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* Pop-in with a slight overshoot */
+    animation: fui-bot-avatar-notification-pop 200ms ease-out;
+  }
+}
+
+@keyframes fui-bot-avatar-notification-pop {
+  0% {
+    transform: scale(0);
+  }
+  70% {
+    transform: scale(1.14);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/***************************************************************************************************
+ *                                                                                                 *
+ * SIZES                                                                                           *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+.fui-BotAvatarRoot {
+  &:where(.fui-r-size-0) {
+    --avatar-size: var(--space-4);
+  }
+  &:where(.fui-r-size-1) {
+    --avatar-size: var(--space-5);
+  }
+  &:where(.fui-r-size-2) {
+    --avatar-size: var(--space-6);
+  }
+  &:where(.fui-r-size-3) {
+    --avatar-size: var(--space-7);
+  }
+  &:where(.fui-r-size-4) {
+    --avatar-size: var(--space-8);
+  }
+  &:where(.fui-r-size-5) {
+    --avatar-size: var(--space-9);
+  }
+  &:where(.fui-r-size-6) {
+    --avatar-size: 80px;
+  }
+  &:where(.fui-r-size-7) {
+    --avatar-size: 96px;
+  }
+  &:where(.fui-r-size-8) {
+    --avatar-size: 128px;
+  }
+  &:where(.fui-r-size-9) {
+    --avatar-size: 160px;
+  }
+}
