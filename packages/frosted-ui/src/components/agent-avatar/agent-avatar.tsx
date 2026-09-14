@@ -4,6 +4,8 @@ import * as React from 'react';
 import { BotAvatar } from '../bot-avatar/bot-avatar';
 import type { BotAvatarProps } from '../bot-avatar/bot-avatar';
 import type { BotAvatarShape } from '../bot-avatar/bot-avatar.shapes';
+import { getAgentAvatarAccessoryLayers } from './agent-avatar.accessories';
+import type { AgentAvatarAccessory } from './agent-avatar.accessories';
 
 /**
  * AgentAvatar is a BotAvatar with a single, fixed silhouette: the classic
@@ -16,7 +18,14 @@ import type { BotAvatarShape } from '../bot-avatar/bot-avatar.shapes';
  * the minifig vocabulary (dot eyes + a primary mouth); like BotAvatar, the
  * mouth is on by default (pass `mouth={false}` to opt out).
  */
-interface AgentAvatarProps extends Omit<BotAvatarProps, 'shape' | 'faceVariant'> {}
+interface AgentAvatarProps extends Omit<BotAvatarProps, 'shape' | 'faceVariant' | 'bodyAccessory' | 'faceAccessory'> {
+  /**
+   * A worn LEGO-style accessory: headwear (`hair`, `cap`, `top-hat`) covers
+   * the stud and breathes with the body; face wear (`glasses`,
+   * `sunglasses`, `moustache`) rides the gaze with the eyes and mouth.
+   */
+  accessory?: AgentAvatarAccessory;
+}
 
 // 'lego-head' lives in the internal shape atlas but is reserved for this
 // component, so it is not part of BotAvatar's public shape union (and can
@@ -24,7 +33,19 @@ interface AgentAvatarProps extends Omit<BotAvatarProps, 'shape' | 'faceVariant'>
 // place that bridges the two.
 const LEGO_HEAD = 'lego-head' as unknown as BotAvatarShape;
 
-const AgentAvatar = (props: AgentAvatarProps) => <BotAvatar {...props} shape={LEGO_HEAD} faceVariant="lego" />;
+const AgentAvatar = (props: AgentAvatarProps) => {
+  const { accessory, ...rest } = props;
+  const layers = accessory !== undefined ? getAgentAvatarAccessoryLayers(accessory) : undefined;
+  return (
+    <BotAvatar
+      {...rest}
+      shape={LEGO_HEAD}
+      faceVariant="lego"
+      bodyAccessory={layers?.body}
+      faceAccessory={layers?.face}
+    />
+  );
+};
 AgentAvatar.displayName = 'AgentAvatar';
 
 export { AgentAvatar };

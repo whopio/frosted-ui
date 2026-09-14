@@ -32,6 +32,20 @@ interface BotAvatarProps extends PropsWithoutColor<'div'>, BotAvatarOwnProps {
    * AgentAvatar).
    */
   faceVariant?: BotAvatarFaceVariant;
+  /**
+   * Rendered between the silhouette and the face — for worn things anchored
+   * to the body (hats, hair): it breathes with the body, sits under the
+   * eyes/mouth, and is not clipped by the silhouette (a hat may poke past
+   * the box, like the notification badge).
+   */
+  bodyAccessory?: React.ReactNode;
+  /**
+   * Rendered inside the face motion layer, above the eyes and mouth — for
+   * worn things anchored to the face (glasses, a moustache): it follows
+   * gaze, pointer tracking, and idle drift with the face. Only rendered
+   * while the avatar has a face (an expression or status).
+   */
+  faceAccessory?: React.ReactNode;
 }
 
 /** Max face deflection at full gaze, as a percentage of the avatar size. */
@@ -54,6 +68,8 @@ const BotAvatar = (props: BotAvatarProps) => {
     followPointer = botAvatarPropDefs.followPointer.default,
     mouth: withMouth = botAvatarPropDefs.mouth.default,
     faceVariant = 'capsule',
+    bodyAccessory,
+    faceAccessory,
     gaze,
     handle,
     ...rootProps
@@ -201,6 +217,7 @@ const BotAvatar = (props: BotAvatarProps) => {
             } as React.CSSProperties
           }
         />
+        {bodyAccessory !== undefined && <div className="fui-BotAvatarBodyAccessory">{bodyAccessory}</div>}
         {eyes && (
           // Face carries the transitioned base pose per status; FaceMotion
           // carries the looping animations (all zero-anchored), so status
@@ -243,6 +260,7 @@ const BotAvatar = (props: BotAvatarProps) => {
                   }}
                 />
               )}
+              {faceAccessory !== undefined && <div className="fui-BotAvatarFaceAccessory">{faceAccessory}</div>}
             </div>
           </div>
         )}

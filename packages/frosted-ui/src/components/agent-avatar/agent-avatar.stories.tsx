@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { AgentAvatar, Button, createBotAvatarHandle } from '..';
+import { AgentAvatar, Button, agentAvatarAccessoriesList, createBotAvatarHandle } from '..';
 import { botAvatarExpressionsList } from '../bot-avatar/bot-avatar.expressions';
 import { botAvatarStatuses } from '../bot-avatar/bot-avatar.status';
 
@@ -24,6 +24,11 @@ const meta = {
     status: {
       control: 'select',
       options: ['none', ...botAvatarStatuses],
+      mapping: { none: undefined },
+    },
+    accessory: {
+      control: 'select',
+      options: ['none', ...agentAvatarAccessoriesList],
       mapping: { none: undefined },
     },
     // Imperative-only inputs — not meaningful as panel controls.
@@ -168,6 +173,59 @@ export const Notification: Story = {
 };
 
 /**
+ * Worn accessories, molded-plastic style: headwear (hair, cap, top hat)
+ * covers the stud and stays put like the real pieces, while face wear
+ * (glasses, shades, moustache) rides the gaze with the face. They are what
+ * makes a team of same-shaped heads read as individuals.
+ */
+export const Accessories: Story = {
+  args: {
+    color: 'blue',
+    size: '7',
+  },
+  parameters: withoutControls('accessory', 'identity'),
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(7, 1fr)',
+          gap: 'var(--space-4)',
+          justifyItems: 'center',
+        }}
+      >
+        {agentAvatarAccessoriesList.map((accessory) => (
+          <div
+            key={accessory}
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-1)' }}
+          >
+            <AgentAvatar {...args} accessory={accessory} expression="neutral" />
+            <span style={{ fontSize: 11, color: 'var(--gray-a11)' }}>{accessory}</span>
+          </div>
+        ))}
+      </div>
+      {/* Accessories hold up across expressions — shades hand expression to the mouth */}
+      <div style={{ display: 'flex', gap: 'var(--space-4)' }}>
+        <AgentAvatar {...args} accessory="pigtails" expression="happy" color="orange" />
+        <AgentAvatar {...args} accessory="beanie" expression="wink" color="teal" />
+        <AgentAvatar {...args} accessory="crown" expression="suspicious" color="purple" />
+        <AgentAvatar {...args} accessory="glasses" expression="wide" color="crimson" />
+        <AgentAvatar {...args} accessory="space-helmet" expression="happy" color="gray" />
+        <AgentAvatar {...args} accessory="beard" expression="angry" color="indigo" />
+        <AgentAvatar {...args} accessory="cowboy-hat" expression="sleepy" color="brown" />
+        <AgentAvatar {...args} accessory="headset" expression="neutral" color="cyan" />
+      </div>
+      {/* The whole set must still read at roster size */}
+      <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
+        {agentAvatarAccessoriesList.map((accessory) => (
+          <AgentAvatar {...args} key={accessory} size="4" accessory={accessory} expression="neutral" />
+        ))}
+      </div>
+    </div>
+  ),
+};
+
+/**
  * Imperative control via the Base UI handle pattern: create a handle with
  * `createBotAvatarHandle()`, pass it to the `handle` prop, and call
  * `blink()` / `lookAt()` from event handlers or effects. Calls with no
@@ -252,21 +310,33 @@ export const Roster: Story = {
   args: {
     size: '4',
   },
-  parameters: withoutControls('identity', 'color', 'expression', 'notification'),
+  parameters: withoutControls('identity', 'color', 'expression', 'notification', 'accessory'),
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: 240 }}>
       {(
         [
-          { id: 'research-agent', name: 'Research', expression: 'neutral', notification: true },
-          { id: 'ops-agent', name: 'Ops', expression: 'happy', notification: false },
-          { id: 'code-reviewer', name: 'Code Review', expression: 'suspicious', notification: true },
-          { id: 'inbox-triage', name: 'Inbox Triage', expression: 'sleepy', notification: false },
-          { id: 'qa-runner', name: 'QA', expression: 'wide', notification: false },
-          { id: 'sales-scout', name: 'Sales Scout', expression: 'wink', notification: true },
+          { id: 'research-agent', name: 'Research', expression: 'neutral', notification: true, accessory: 'glasses' },
+          { id: 'ops-agent', name: 'Ops', expression: 'happy', notification: false, accessory: 'cap' },
+          {
+            id: 'code-reviewer',
+            name: 'Code Review',
+            expression: 'suspicious',
+            notification: true,
+            accessory: 'moustache',
+          },
+          { id: 'inbox-triage', name: 'Inbox Triage', expression: 'sleepy', notification: false, accessory: 'hair' },
+          { id: 'qa-runner', name: 'QA', expression: 'wide', notification: false, accessory: undefined },
+          { id: 'sales-scout', name: 'Sales Scout', expression: 'wink', notification: true, accessory: 'sunglasses' },
         ] as const
       ).map((agent) => (
         <div key={agent.id} style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
-          <AgentAvatar {...args} identity={agent.id} expression={agent.expression} notification={agent.notification} />
+          <AgentAvatar
+            {...args}
+            identity={agent.id}
+            expression={agent.expression}
+            notification={agent.notification}
+            accessory={agent.accessory}
+          />
           <span style={{ fontSize: 14 }}>{agent.name}</span>
         </div>
       ))}
