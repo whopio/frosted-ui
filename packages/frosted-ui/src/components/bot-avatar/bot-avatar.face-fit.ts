@@ -6,9 +6,9 @@
 // never poke out of tight silhouettes and eyes-only faces keep their size.
 // Precomputed at build time so no geometry is solved at runtime.
 
-import type { BotAvatarShape } from './bot-avatar.shapes';
+import type { BotAvatarAtlasShape } from './bot-avatar.shapes';
 
-const botAvatarFaceFit: Record<BotAvatarShape, { s: number; dy: number }> = {
+const botAvatarFaceFit: Record<BotAvatarAtlasShape, { s: number; dy: number }> = {
   circle: { s: 1, dy: 0 },
   square: { s: 1, dy: 0 },
   slanted: { s: 1, dy: 0 },
@@ -44,9 +44,10 @@ const botAvatarFaceFit: Record<BotAvatarShape, { s: number; dy: number }> = {
   'pixel-triangle': { s: 0.83, dy: 0.06 },
   bun: { s: 1, dy: 0 },
   heart: { s: 1, dy: 0.02 },
+  'lego-head': { s: 1, dy: 0.08 },
 };
 
-const botAvatarFaceFitWithMouth: Record<BotAvatarShape, { s: number; dy: number }> = {
+const botAvatarFaceFitWithMouth: Record<BotAvatarAtlasShape, { s: number; dy: number }> = {
   circle: { s: 1, dy: 0 },
   square: { s: 1, dy: 0 },
   slanted: { s: 1, dy: 0 },
@@ -82,6 +83,7 @@ const botAvatarFaceFitWithMouth: Record<BotAvatarShape, { s: number; dy: number 
   'pixel-triangle': { s: 0.8, dy: 0.05 },
   bun: { s: 1, dy: 0 },
   heart: { s: 1, dy: 0.02 },
+  'lego-head': { s: 1, dy: 0.08 },
 };
 
 export { botAvatarFaceFit, botAvatarFaceFitWithMouth };

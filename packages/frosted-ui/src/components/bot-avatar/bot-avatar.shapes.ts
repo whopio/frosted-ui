@@ -68,11 +68,24 @@ const botAvatarShapePaths = {
   bun: 'M0.796 0.5C0.7997 0.5012 0.8033 0.5023 0.8069 0.5034C0.8374 0.5131 0.8657 0.5283 0.8905 0.5485C0.9542 0.6002 0.9888 0.6797 0.9835 0.7616C0.9835 0.7617 0.9835 0.7619 0.9835 0.7621C0.9748 0.8959 0.8637 1 0.7296 1C0.5765 1 0.4235 1 0.2704 1C0.1363 1 0.0252 0.8959 0.0165 0.7621C0.0165 0.7619 0.0165 0.7617 0.0165 0.7616C0.0112 0.6797 0.0458 0.6002 0.1095 0.5485C0.1343 0.5283 0.1626 0.5131 0.1931 0.5034C0.1967 0.5023 0.2004 0.5012 0.204 0.5C0.2004 0.4989 0.1967 0.4977 0.1931 0.4966C0.1626 0.4869 0.1343 0.4717 0.1095 0.4515C0.0458 0.3998 0.0112 0.3204 0.0165 0.2384C0.0165 0.2383 0.0165 0.2381 0.0165 0.2379C0.0252 0.1041 0.1363 0 0.2704 0C0.4235 0 0.5765 0 0.7296 0C0.8637 0 0.9748 0.1041 0.9835 0.2379C0.9835 0.2381 0.9835 0.2383 0.9835 0.2384C0.9888 0.3204 0.9542 0.3998 0.8905 0.4515C0.8657 0.4717 0.8374 0.4869 0.8069 0.4966C0.8033 0.4977 0.7997 0.4989 0.796 0.5Z',
   heart:
     'M0.5 0.2859C0.5016 0.2859 0.5033 0.2853 0.5044 0.2839C0.5429 0.2399 0.5815 0.1958 0.62 0.1518C0.7046 0.0549 0.8563 0.0585 0.9363 0.1591C1 0.2392 0.9985 0.353 0.9327 0.4313C0.789 0.6023 0.6453 0.7733 0.5016 0.9443C0.5012 0.9448 0.5006 0.9451 0.5 0.9451C0.4994 0.9451 0.4988 0.9448 0.4984 0.9443C0.3547 0.7733 0.211 0.6023 0.0673 0.4313C0.0015 0.353 0 0.2392 0.0637 0.1591C0.1437 0.0585 0.2954 0.0549 0.38 0.1518C0.4185 0.1958 0.4571 0.2399 0.4956 0.2839C0.4967 0.2853 0.4984 0.2859 0.5 0.2859Z',
+  // Hand-authored (not from the Material catalogue): the classic minifig
+  // head — stud on top, rounded-square head. Reserved for AgentAvatar.
+  'lego-head':
+    'M0.38 0.03L0.62 0.03C0.6449 0.03 0.665 0.0501 0.665 0.075L0.665 0.145L0.75 0.145C0.8466 0.145 0.925 0.2234 0.925 0.32L0.925 0.795C0.925 0.8916 0.8466 0.97 0.75 0.97L0.25 0.97C0.1534 0.97 0.075 0.8916 0.075 0.795L0.075 0.32C0.075 0.2234 0.1534 0.145 0.25 0.145L0.335 0.145L0.335 0.075C0.335 0.0501 0.3551 0.03 0.38 0.03Z',
 } as const;
 
-type BotAvatarShape = keyof typeof botAvatarShapePaths;
+/** Every silhouette in the atlas, including component-reserved ones. */
+type BotAvatarAtlasShape = keyof typeof botAvatarShapePaths;
 
-const botAvatarShapes = Object.keys(botAvatarShapePaths) as [BotAvatarShape, ...BotAvatarShape[]];
+/** Silhouettes reserved for dedicated components (AgentAvatar), deliberately
+ * excluded from BotAvatar's public shape union and the identity pool. */
+const reservedShapes: readonly BotAvatarAtlasShape[] = ['lego-head'];
+
+type BotAvatarShape = Exclude<BotAvatarAtlasShape, 'lego-head'>;
+
+const botAvatarShapes = (Object.keys(botAvatarShapePaths) as BotAvatarAtlasShape[]).filter(
+  (shape): shape is BotAvatarShape => !reservedShapes.includes(shape),
+) as unknown as [BotAvatarShape, ...BotAvatarShape[]];
 
 export { botAvatarShapePaths, botAvatarShapes };
-export type { BotAvatarShape };
+export type { BotAvatarAtlasShape, BotAvatarShape };

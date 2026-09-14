@@ -60,6 +60,7 @@ export * from './tooltip';
 
 // COMPONENTS
 //------------------------------------------------------------------------------
+export * from './agent-avatar';
 export * from './avatar';
 export * from './avatar-group';
 export * from './avatar-stack';
