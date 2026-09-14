@@ -26,6 +26,8 @@
 @import '../components/avatar-group/avatar-group.css';
 @import '../components/avatar-stack/avatar-stack.css';
 @import '../components/badge/badge.css';
+@import '../components/bot-avatar/bot-avatar.css';
+@import '../components/bot-avatar/bot-avatar.shapes.css';
 
 @import '../components/blockquote/blockquote.css';
 @import '../components/breadcrumbs/breadcrumbs.css';
