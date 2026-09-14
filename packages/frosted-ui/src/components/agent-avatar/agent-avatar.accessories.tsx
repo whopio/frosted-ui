@@ -2,7 +2,7 @@ import * as React from 'react';
 
 /**
  * Accessories for the AgentAvatar's fixed minifig head — a curated set of
- * the most iconic real LEGO pieces redrawn as flat vector silhouettes:
+ * the most iconic real LEGO pieces redrawn as flat vector illustrations:
  *
  * hair (3901, the first male hair piece), pigtails (3625, the original
  * female piece), beanie, cap (3624), cowboy hat (3629), top hat (3878),
@@ -16,9 +16,13 @@ import * as React from 'react';
  * the lego-head geometry: head box x 7.5–92.5 / y 17–88 with corner radius
  * 15, stud x 29.5–70.5 / y 2–17, and — after the face fit (s=1, dy=0.05) —
  * eyes at (37, 47) and (63, 47), mouth around y 58–72. Headgear covers the
- * stud, exactly like the real pieces mount. Molded plastic is always the
- * theme-aware near-black ink, like the real parts — deliberately not
- * accent-colored.
+ * stud, exactly like the real pieces mount.
+ *
+ * Colors follow molded-plastic logic: black pieces use the theme-aware ink
+ * (so they survive dark mode), while colored pieces use fixed LEGO-plastic
+ * tones — red cap and beanie, gold crown, brown cowboy hat, white space
+ * helmet — that hold up on any avatar accent and both themes. Hair pieces
+ * are molded in browns, like the real parts bins.
  *
  * Two anchor layers (see BotAvatarProps):
  * - face accessories (eyewear, facial hair) ride the face motion — they
@@ -45,8 +49,22 @@ const agentAvatarAccessoriesList = [
 ] as const;
 type AgentAvatarAccessory = (typeof agentAvatarAccessoriesList)[number];
 
-/** Molded-plastic black — themed in bot-avatar.css. */
+/** Molded black plastic — theme-aware (lightens on dark backgrounds). */
 const INK = 'var(--bot-avatar-accessory-ink)';
+/** Fixed LEGO-plastic tones, chosen to read on both themes and on any
+ * avatar accent color. */
+const RED = '#c22f1e';
+const RED_DARK = '#9a2113';
+const GOLD = '#eab30f';
+const GOLD_DARK = '#c98f0a';
+const BROWN = '#8a5a33';
+const BROWN_DARK = '#5e3c1f';
+const HAIR_BROWN = '#5b3a21';
+const HAIR_AUBURN = '#8a4b2a';
+const BEARD_BROWN = '#503018';
+const PLASTIC_WHITE = '#e7eaee';
+const PLASTIC_WHITE_EDGE = '#b3bac3';
+const SILVER = '#9ba3ac';
 
 const AccessorySvg = ({ children }: { children: React.ReactNode }) => (
   <svg
@@ -62,11 +80,12 @@ const AccessorySvg = ({ children }: { children: React.ReactNode }) => (
 
 /** Classic swept side-part hair (3901): one silhouette — a low cap hugging
  * the head, fringe swept from a left part down toward the right temple,
- * sideburns following the head edge. */
+ * sideburns following the head edge. Molded in brown, with a soft shine
+ * along the crown. */
 const Hair = () => (
   <AccessorySvg>
     <path
-      fill={INK}
+      fill={HAIR_BROWN}
       d="M 6 52
          L 6 26
          C 6 6, 20 0, 36 0
@@ -80,16 +99,17 @@ const Hair = () => (
          L 13.5 52
          Z"
     />
+    <path fill="none" stroke="#7d5433" strokeWidth="3.5" strokeLinecap="round" d="M 19 12 C 26 5.5, 38 3.5, 48 4.5" />
   </AccessorySvg>
 );
 
 /** Pigtails (3625, the original 1975 female piece): a bob helmet with
  * straight bangs and hair curtains at the sides, plus a puff sticking out
- * over each ear — drawn as one merged silhouette. */
+ * over each ear — cinched with little red hair ties. */
 const Pigtails = () => (
   <AccessorySvg>
     <path
-      fill={INK}
+      fill={HAIR_AUBURN}
       d="M 6 56
          L 6 26
          C 6 5, 22 0, 50 0
@@ -101,40 +121,57 @@ const Pigtails = () => (
          L 14.5 56
          Z"
     />
-    <circle fill={INK} cx="0.5" cy="38" r="11" />
-    <circle fill={INK} cx="99.5" cy="38" r="11" />
+    <circle fill={HAIR_AUBURN} cx="0.5" cy="38" r="11" />
+    <circle fill={HAIR_AUBURN} cx="99.5" cy="38" r="11" />
+    <rect fill={RED} x="8" y="31.5" width="4.5" height="13" rx="2.25" />
+    <rect fill={RED} x="87.5" y="31.5" width="4.5" height="13" rx="2.25" />
+    <path fill="none" stroke="#a86238" strokeWidth="3.5" strokeLinecap="round" d="M 22 10.5 C 30 5, 42 3.5, 52 4.5" />
   </AccessorySvg>
 );
 
 /* -------------------------------------------------------------- headgear */
 
-/** Knit beanie: a soft dome tucked into a folded cuff that hugs the
- * forehead, with a pompom on top. */
+/** Knit beanie: a red dome tucked into a darker folded cuff, topped with a
+ * white pompom. Rib ticks on the cuff sell the knit. */
 const Beanie = () => (
   <AccessorySvg>
-    <circle fill={INK} cx="50" cy="-2" r="6" />
-    <path fill={INK} d="M 9 27 C 9 4, 26 -1, 50 -1 C 74 -1, 91 4, 91 27 Z" />
-    <rect fill={INK} x="5.5" y="22.5" width="89" height="10" rx="5" />
+    <circle fill={PLASTIC_WHITE} cx="50" cy="-2" r="6" />
+    <path fill={RED} d="M 9 27 C 9 4, 26 -1, 50 -1 C 74 -1, 91 4, 91 27 Z" />
+    <rect fill={RED_DARK} x="5.5" y="22.5" width="89" height="10" rx="5" />
+    <path
+      fill="none"
+      stroke="#7c1a0e"
+      strokeWidth="2"
+      strokeLinecap="round"
+      d="M 26 25 L 25 30.5 M 38 25.5 L 37.5 31 M 50 25.5 L 50 31 M 62 25.5 L 62.5 31 M 74 25 L 75 30.5"
+    />
   </AccessorySvg>
 );
 
-/** Baseball cap (3624 family): a low dome sitting on the head with a
- * button, brim pointing to the side — the unmistakable flat-illustration
- * cap silhouette. */
+/** Baseball cap (3624 family): a red dome sitting on the head with a
+ * center seam and button, brim pointing to the side — the unmistakable
+ * flat-illustration cap silhouette. */
 const Cap = () => (
   <AccessorySvg>
-    <path fill={INK} d="M 9 29.5 C 9 5, 26 0.5, 50 0.5 C 74 0.5, 91 5, 91 29.5 Z" />
-    <circle fill={INK} cx="50" cy="1" r="3.2" />
-    <rect fill={INK} x="50" y="23" width="55" height="8" rx="4" />
+    <path fill={RED} d="M 9 29.5 C 9 5, 26 0.5, 50 0.5 C 74 0.5, 91 5, 91 29.5 Z" />
+    <path
+      fill="none"
+      stroke={RED_DARK}
+      strokeWidth="1.8"
+      d="M 50 1 L 50 29.5 M 28.5 3.5 C 24 10, 22.5 18, 22.5 29.5 M 71.5 3.5 C 76 10, 77.5 18, 77.5 29.5"
+    />
+    <circle fill={PLASTIC_WHITE} cx="50" cy="1" r="3.2" />
+    <rect fill={RED_DARK} x="50" y="23" width="55" height="8" rx="4" />
   </AccessorySvg>
 );
 
 /** Cowboy hat (3629, on minifigs since before they had arms): a creased
- * crown and a wide brim that swoops up at the tips. */
+ * brown crown with a darker hat band, and a wide brim that swoops up at
+ * the tips. */
 const CowboyHat = () => (
   <AccessorySvg>
     <path
-      fill={INK}
+      fill={BROWN}
       d="M 31 27
          L 33 5
          C 33.5 0, 38 -1.5, 41 0.5
@@ -144,8 +181,9 @@ const CowboyHat = () => (
          L 69 27
          Z"
     />
+    <path fill={BROWN_DARK} d="M 31.6 20.5 L 68.4 20.5 L 69 27 L 31 27 Z" />
     <path
-      fill={INK}
+      fill={BROWN}
       d="M -2 13
          C 1 26, 20 31.5, 50 31.5
          C 80 31.5, 99 26, 102 13
@@ -156,8 +194,9 @@ const CowboyHat = () => (
   </AccessorySvg>
 );
 
-/** Top hat (3878): a tall crown with a gentle outward flare toward the
- * top, over a rounded brim resting where the stud meets the head. */
+/** Top hat (3878): a tall black crown with a gentle outward flare and a
+ * crimson band, over a rounded brim resting where the stud meets the
+ * head. */
 const TopHat = () => (
   <AccessorySvg>
     <path
@@ -170,29 +209,33 @@ const TopHat = () => (
          L 30 14
          Z"
     />
+    <path fill="#b3352c" d="M 30.7 7 L 69.3 7 L 70 14 L 30 14 Z" />
     <rect fill={INK} x="16" y="12" width="68" height="7.5" rx="3.75" />
   </AccessorySvg>
 );
 
-/** Three-point crown with orbs on the tips, sitting where the stud is
- * (royalty doesn't show studs). */
+/** Gold three-point crown with orbs on the tips and a ruby set in the
+ * band, sitting where the stud is (royalty doesn't show studs). */
 const Crown = () => (
   <AccessorySvg>
-    <path fill={INK} d="M 25 12 L 25 -3.5 L 38.5 3.5 L 50 -7 L 61.5 3.5 L 75 -3.5 L 75 12 Z" />
-    <circle fill={INK} cx="25" cy="-4" r="2.6" />
-    <circle fill={INK} cx="50" cy="-7.5" r="2.6" />
-    <circle fill={INK} cx="75" cy="-4" r="2.6" />
-    <rect fill={INK} x="24" y="10" width="52" height="7" rx="3.5" />
+    <path fill={GOLD} d="M 25 12 L 25 -3.5 L 38.5 3.5 L 50 -7 L 61.5 3.5 L 75 -3.5 L 75 12 Z" />
+    <circle fill={GOLD} cx="25" cy="-4" r="2.6" />
+    <circle fill={GOLD} cx="50" cy="-7.5" r="2.6" />
+    <circle fill={GOLD} cx="75" cy="-4" r="2.6" />
+    <rect fill={GOLD_DARK} x="24" y="10" width="52" height="7" rx="3.5" />
+    <circle fill={RED} cx="50" cy="13.5" r="2.8" />
   </AccessorySvg>
 );
 
-/** The 1978 Classic Space helmet (193): a shell enclosing the whole head
- * with a rounded face window — the face stays fully visible through the
- * opening. Benny would approve. */
+/** The 1978 Classic Space helmet (193): a white shell enclosing the whole
+ * head with a rounded face window — the face stays fully visible through
+ * the opening. Benny would approve. */
 const SpaceHelmet = () => (
   <AccessorySvg>
     <path
-      fill={INK}
+      fill={PLASTIC_WHITE}
+      stroke={PLASTIC_WHITE_EDGE}
+      strokeWidth="1.5"
       fillRule="evenodd"
       d="M 34 1
          L 66 1
@@ -217,9 +260,8 @@ const SpaceHelmet = () => (
   </AccessorySvg>
 );
 
-/** Headset: a band arcing over the crown into ear cups that hug the head
- * edges, with a mic boom curling toward the mouth. The support-agent
- * special. */
+/** Headset: a band arcing over the crown into ear cups with silver pads,
+ * and a mic boom curling toward the mouth. The support-agent special. */
 const Headset = () => (
   <AccessorySvg>
     <path
@@ -231,18 +273,23 @@ const Headset = () => (
     />
     <rect fill={INK} x="2" y="39" width="12" height="24" rx="5.5" />
     <rect fill={INK} x="86" y="39" width="12" height="24" rx="5.5" />
+    <rect fill={SILVER} x="5" y="43" width="6" height="16" rx="3" />
+    <rect fill={SILVER} x="89" y="43" width="6" height="16" rx="3" />
     <path fill="none" stroke={INK} strokeWidth="3.2" strokeLinecap="round" d="M 9 60 Q 11.5 74, 29 73" />
     <circle fill={INK} cx="32" cy="72.8" r="4" />
+    <circle fill={RED} cx="32" cy="72.8" r="1.6" />
   </AccessorySvg>
 );
 
 /* --------------------------------------------------------------- eyewear */
 
-/** Round spectacles: ring lenses centered on the eyes (which stay visible
- * and expressive through them), a bridge over the nose, temple arms out to
- * the head edges. */
+/** Round spectacles: ring lenses centered on the eyes with a faint glass
+ * tint (the eyes stay visible and expressive through them), a bridge over
+ * the nose, temple arms out to the head edges. */
 const Glasses = () => (
   <AccessorySvg>
+    <circle fill="rgba(255, 255, 255, 0.28)" cx="37" cy="47" r="11.5" />
+    <circle fill="rgba(255, 255, 255, 0.28)" cx="63" cy="47" r="11.5" />
     <path fill="none" stroke={INK} strokeWidth="3" strokeLinecap="round" d="M 25.5 44 L 9 41.5" />
     <path fill="none" stroke={INK} strokeWidth="3" strokeLinecap="round" d="M 74.5 44 L 91 41.5" />
     <path fill="none" stroke={INK} strokeWidth="3" strokeLinecap="round" d="M 48.5 44.5 Q 50 42.5, 51.5 44.5" />
@@ -252,8 +299,8 @@ const Glasses = () => (
 );
 
 /** Browline shades: a straight top bar with tapered lenses hanging from
- * it — the eyes disappear behind them, so the mouth carries the
- * expression while they're on. */
+ * it, each catching a diagonal shine — the eyes disappear behind them, so
+ * the mouth carries the expression while they're on. */
 const Sunglasses = () => (
   <AccessorySvg>
     <path fill="none" stroke={INK} strokeWidth="3" strokeLinecap="round" d="M 24 42.5 L 9 40.5" />
@@ -261,6 +308,13 @@ const Sunglasses = () => (
     <rect fill={INK} x="23" y="40.5" width="54" height="4.5" rx="2.25" />
     <path fill={INK} d="M 25.5 44 L 48.5 44 L 47.5 53 Q 46.8 58.5, 41 58.5 L 33 58.5 Q 27 58.5, 26.4 52.5 Z" />
     <path fill={INK} d="M 74.5 44 L 51.5 44 L 52.5 53 Q 53.2 58.5, 59 58.5 L 67 58.5 Q 73 58.5, 73.6 52.5 Z" />
+    <path
+      fill="none"
+      stroke="rgba(255, 255, 255, 0.45)"
+      strokeWidth="2.4"
+      strokeLinecap="round"
+      d="M 34.5 54.5 L 42 47 M 60.5 54.5 L 68 47"
+    />
   </AccessorySvg>
 );
 
@@ -278,11 +332,11 @@ const Eyepatch = () => (
 
 /** Handlebar moustache: one silhouette, thick under the nose and thinning
  * into upward-curled tips — sitting between the eyes and the mouth, so the
- * smile stays visible below it. */
+ * smile stays visible below it. Molded in brown to match the hair bin. */
 const Moustache = () => (
   <AccessorySvg>
     <path
-      fill={INK}
+      fill={HAIR_BROWN}
       d="M 50 58.5
          C 46 54.5, 39.5 53.5, 34 55
          C 27.5 56.8, 23.5 61.5, 24.5 66
@@ -306,7 +360,7 @@ const Moustache = () => (
 const Beard = () => (
   <AccessorySvg>
     <path
-      fill={INK}
+      fill={BEARD_BROWN}
       d="M 10 48
          L 10 71
          Q 10 86, 25 86
