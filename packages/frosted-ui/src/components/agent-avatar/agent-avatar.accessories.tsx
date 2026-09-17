@@ -4,11 +4,13 @@ import * as React from 'react';
  * Accessories for the AgentAvatar's fixed minifig head — a curated set of
  * the most iconic real LEGO pieces redrawn as flat vector illustrations:
  *
- * hair (3901, the first male hair piece), pigtails (3625, the original
- * female piece), beanie, cap (3624), cowboy hat (3629), top hat (3878),
- * crown, the 1978 Classic Space helmet (193), a headset, round glasses,
- * shades, a pirate eyepatch, a handlebar moustache, and a chin-curtain
- * beard.
+ * hair (3901, the first male hair piece), an afro, a mohawk, pigtails
+ * (3625, the original female piece), beanie, cap (3624), propeller cap,
+ * police cap, construction hard hat (3833), chef's toque (3898), cowboy
+ * hat (3629), top hat (3878), graduation mortarboard, party hat, santa
+ * hat, crown, viking helmet, the 1978 Classic Space helmet (193), a
+ * headset, round glasses, shades, a pirate eyepatch, a handlebar
+ * moustache, and a chin-curtain beard.
  *
  * Each accessory is a single inline SVG drawn in a 0–100 viewBox mapped
  * onto the avatar box, with overflow visible so headgear can poke above it
@@ -33,12 +35,22 @@ import * as React from 'react';
 
 const agentAvatarAccessoriesList = [
   'hair',
+  'afro',
+  'mohawk',
   'pigtails',
   'beanie',
   'cap',
+  'propeller-cap',
+  'police-cap',
+  'hard-hat',
+  'chef-hat',
   'cowboy-hat',
   'top-hat',
+  'graduation-cap',
+  'party-hat',
+  'santa-hat',
   'crown',
+  'viking-helmet',
   'space-helmet',
   'headset',
   'glasses',
@@ -65,6 +77,10 @@ const BEARD_BROWN = '#503018';
 const PLASTIC_WHITE = '#e7eaee';
 const PLASTIC_WHITE_EDGE = '#b3bac3';
 const SILVER = '#9ba3ac';
+const NAVY = '#34495e';
+const STEEL = '#78828d';
+const STEEL_DARK = '#59626c';
+const TEAL = '#1d8f8f';
 
 const AccessorySvg = ({ children }: { children: React.ReactNode }) => (
   <svg
@@ -100,6 +116,38 @@ const Hair = () => (
          Z"
     />
     <path fill="none" stroke="#7d5433" strokeWidth="3.5" strokeLinecap="round" d="M 19 12 C 26 5.5, 38 3.5, 48 4.5" />
+  </AccessorySvg>
+);
+
+/** Afro: a proud cloud of hair built from merged circles, framing the
+ * whole top of the head down past the ears. */
+const Afro = () => (
+  <AccessorySvg>
+    <circle fill={HAIR_BROWN} cx="50" cy="7" r="31" />
+    <circle fill={HAIR_BROWN} cx="17" cy="21" r="17" />
+    <circle fill={HAIR_BROWN} cx="83" cy="21" r="17" />
+    <circle fill={HAIR_BROWN} cx="31" cy="-5" r="16" />
+    <circle fill={HAIR_BROWN} cx="69" cy="-5" r="16" />
+    <path fill={HAIR_BROWN} d="M 4 21 L 96 21 L 96 34 Q 73 28, 50 28 Q 27 28, 4 34 Z" />
+  </AccessorySvg>
+);
+
+/** Mohawk: a punk crest of spikes running along the crown where the stud
+ * would be — molded in defiant red, obviously. */
+const Mohawk = () => (
+  <AccessorySvg>
+    <path
+      fill={RED}
+      d="M 28 16
+         L 34 -15
+         L 41 7
+         L 49 -20
+         L 57 7
+         L 64 -15
+         L 70 12
+         L 72 16
+         Z"
+    />
   </AccessorySvg>
 );
 
@@ -165,6 +213,67 @@ const Cap = () => (
   </AccessorySvg>
 );
 
+/** Propeller cap: a paneled beanie with a spinning propeller on a stalk.
+ * Maximum whimsy per square pixel. */
+const PropellerCap = () => (
+  <AccessorySvg>
+    <ellipse fill={GOLD} cx="33" cy="-5.5" rx="14" ry="4.2" />
+    <ellipse fill={TEAL} cx="67" cy="-5.5" rx="14" ry="4.2" />
+    <rect fill={INK} x="48.5" y="-6" width="3" height="10" rx="1.5" />
+    <circle fill={INK} cx="50" cy="-5.5" r="2.8" />
+    <path fill={RED} d="M 11 28 C 11 6, 27 1.5, 50 1.5 C 73 1.5, 89 6, 89 28 Z" />
+    <path
+      fill="none"
+      stroke={RED_DARK}
+      strokeWidth="1.8"
+      d="M 50 2 L 50 28 M 30 4.5 C 25.5 10.5, 24 18, 24 28 M 70 4.5 C 74.5 10.5, 76 18, 76 28"
+    />
+  </AccessorySvg>
+);
+
+/** Police cap (the white-and-navy town classic): a high navy crown with a
+ * gold badge and a black visor bowing over the forehead. */
+const PoliceCap = () => (
+  <AccessorySvg>
+    <path fill={NAVY} d="M 9 25 C 9 8, 16 0.5, 30 0.5 L 70 0.5 C 84 0.5, 91 8, 91 25 Z" />
+    <circle fill={GOLD} cx="50" cy="13" r="4" />
+    <path fill={INK} d="M 9 23.5 C 25 26.5, 75 26.5, 91 23.5 C 82 34, 18 34, 9 23.5 Z" />
+  </AccessorySvg>
+);
+
+/** Construction hard hat (3833): a yellow dome with a center reinforcement
+ * ridge and a full-wrap brim. */
+const HardHat = () => (
+  <AccessorySvg>
+    <rect fill={GOLD_DARK} x="42.5" y="-3.5" width="15" height="12" rx="6" />
+    <path fill={GOLD} d="M 11 26 C 11 5, 27 0.5, 50 0.5 C 73 0.5, 89 5, 89 26 Z" />
+    <rect fill={GOLD} x="3.5" y="23" width="93" height="8.5" rx="4.25" />
+    <path fill="none" stroke={GOLD_DARK} strokeWidth="1.8" d="M 4.5 30.5 L 95.5 30.5" />
+  </AccessorySvg>
+);
+
+/** Chef's toque (3898): a puffy white cloud of a hat gathered into a
+ * straight band. */
+const ChefHat = () => (
+  <AccessorySvg>
+    <g fill={PLASTIC_WHITE} stroke={PLASTIC_WHITE_EDGE} strokeWidth="1.5">
+      <path
+        d="M 24 20
+           L 24 4
+           C 16 2, 14 -8, 21 -12
+           C 25 -14.5, 30 -13.5, 32.5 -10.5
+           C 33.5 -18, 44 -21.5, 50 -16.5
+           C 56 -21.5, 66.5 -18, 67.5 -10.5
+           C 70 -13.5, 75 -14.5, 79 -12
+           C 86 -8, 84 2, 76 4
+           L 76 20
+           Z"
+      />
+    </g>
+    <path fill="none" stroke={PLASTIC_WHITE_EDGE} strokeWidth="1.5" d="M 24 13.5 L 76 13.5" />
+  </AccessorySvg>
+);
+
 /** Cowboy hat (3629, on minifigs since before they had arms): a creased
  * brown crown with a darker hat band, and a wide brim that swoops up at
  * the tips. */
@@ -214,6 +323,61 @@ const TopHat = () => (
   </AccessorySvg>
 );
 
+/** Graduation mortarboard: a flat diamond board over a skull cap, with a
+ * gold tassel swinging off the side. For agents that finished training. */
+const GraduationCap = () => (
+  <AccessorySvg>
+    <path fill={INK} d="M 25 22 C 25 10, 33 5, 50 5 C 67 5, 75 10, 75 22 Z" />
+    <path fill={INK} d="M 50 -15 L 93 2 L 50 19 L 7 2 Z" />
+    <path fill="none" stroke={GOLD} strokeWidth="2" d="M 50 2 C 62 4, 70 8, 71 20" />
+    <circle fill={GOLD} cx="50" cy="2" r="2.2" />
+    <rect fill={GOLD} x="68" y="19" width="6" height="11" rx="2.5" />
+  </AccessorySvg>
+);
+
+/** Party hat: a tilted red cone with white polka dots and a gold pompom.
+ * For shipped-to-production celebrations. */
+const PartyHat = () => (
+  <AccessorySvg>
+    <g transform="rotate(-10 50 15)">
+      <path fill={RED} d="M 50 -16 L 66.5 15 Q 50 19, 33.5 15 Z" />
+      <circle fill={PLASTIC_WHITE} cx="49" cy="-4" r="2.4" />
+      <circle fill={PLASTIC_WHITE} cx="43.5" cy="7" r="2.4" />
+      <circle fill={PLASTIC_WHITE} cx="56" cy="9" r="2.4" />
+      <circle fill={GOLD} cx="50" cy="-17" r="4.5" />
+    </g>
+  </AccessorySvg>
+);
+
+/** Santa hat: a red cone flopping to the side into a white pompom, with a
+ * white fur band. Ho ho ho. */
+const SantaHat = () => (
+  <AccessorySvg>
+    <path
+      fill={RED}
+      d="M 11 22
+         C 12 2, 26 -8, 46 -9.5
+         C 62 -10.5, 74 -7, 81 -1
+         L 84 2
+         L 77 7
+         C 72 -1, 60 -3, 50 -1
+         C 34 2, 26 10, 24 22
+         Z"
+    />
+    <circle fill={PLASTIC_WHITE} stroke={PLASTIC_WHITE_EDGE} strokeWidth="1.5" cx="83.5" cy="5" r="7" />
+    <rect
+      fill={PLASTIC_WHITE}
+      stroke={PLASTIC_WHITE_EDGE}
+      strokeWidth="1.5"
+      x="8"
+      y="16"
+      width="84"
+      height="12"
+      rx="6"
+    />
+  </AccessorySvg>
+);
+
 /** Gold three-point crown with orbs on the tips and a ruby set in the
  * band, sitting where the stud is (royalty doesn't show studs). */
 const Crown = () => (
@@ -224,6 +388,35 @@ const Crown = () => (
     <circle fill={GOLD} cx="75" cy="-4" r="2.6" />
     <rect fill={GOLD_DARK} x="24" y="10" width="52" height="7" rx="3.5" />
     <circle fill={RED} cx="50" cy="13.5" r="2.8" />
+  </AccessorySvg>
+);
+
+/** Viking helmet: a steel dome with a riveted rim and two white horns
+ * curving up from the sides. For agents that pillage backlogs. */
+const VikingHelmet = () => (
+  <AccessorySvg>
+    <path
+      fill={PLASTIC_WHITE}
+      stroke={PLASTIC_WHITE_EDGE}
+      strokeWidth="1.5"
+      d="M 16 26
+         C 4 22, -1 8, 4 -6
+         C 5.5 -9.5, 10 -9, 10.5 -5
+         C 11 6, 14 15, 24 20.5
+         Z"
+    />
+    <path
+      fill={PLASTIC_WHITE}
+      stroke={PLASTIC_WHITE_EDGE}
+      strokeWidth="1.5"
+      d="M 84 26
+         C 96 22, 101 8, 96 -6
+         C 94.5 -9.5, 90 -9, 89.5 -5
+         C 89 6, 86 15, 76 20.5
+         Z"
+    />
+    <path fill={STEEL} d="M 13 27 C 13 6, 28 1, 50 1 C 72 1, 87 6, 87 27 Z" />
+    <rect fill={STEEL_DARK} x="11" y="22.5" width="78" height="8" rx="4" />
   </AccessorySvg>
 );
 
@@ -385,18 +578,38 @@ const getAgentAvatarAccessoryLayers = (
   switch (accessory) {
     case 'hair':
       return { body: <Hair /> };
+    case 'afro':
+      return { body: <Afro /> };
+    case 'mohawk':
+      return { body: <Mohawk /> };
     case 'pigtails':
       return { body: <Pigtails /> };
     case 'beanie':
       return { body: <Beanie /> };
     case 'cap':
       return { body: <Cap /> };
+    case 'propeller-cap':
+      return { body: <PropellerCap /> };
+    case 'police-cap':
+      return { body: <PoliceCap /> };
+    case 'hard-hat':
+      return { body: <HardHat /> };
+    case 'chef-hat':
+      return { body: <ChefHat /> };
     case 'cowboy-hat':
       return { body: <CowboyHat /> };
     case 'top-hat':
       return { body: <TopHat /> };
+    case 'graduation-cap':
+      return { body: <GraduationCap /> };
+    case 'party-hat':
+      return { body: <PartyHat /> };
+    case 'santa-hat':
+      return { body: <SantaHat /> };
     case 'crown':
       return { body: <Crown /> };
+    case 'viking-helmet':
+      return { body: <VikingHelmet /> };
     case 'space-helmet':
       return { body: <SpaceHelmet /> };
     case 'headset':

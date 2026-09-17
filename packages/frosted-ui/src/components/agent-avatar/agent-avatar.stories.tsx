@@ -207,13 +207,13 @@ export const Accessories: Story = {
       {/* Accessories hold up across expressions — shades hand expression to the mouth */}
       <div style={{ display: 'flex', gap: 'var(--space-4)' }}>
         <AgentAvatar {...args} accessory="pigtails" expression="happy" color="orange" />
-        <AgentAvatar {...args} accessory="beanie" expression="wink" color="teal" />
+        <AgentAvatar {...args} accessory="viking-helmet" expression="angry" color="teal" />
         <AgentAvatar {...args} accessory="crown" expression="suspicious" color="purple" />
         <AgentAvatar {...args} accessory="glasses" expression="wide" color="crimson" />
         <AgentAvatar {...args} accessory="space-helmet" expression="happy" color="gray" />
-        <AgentAvatar {...args} accessory="beard" expression="angry" color="indigo" />
-        <AgentAvatar {...args} accessory="cowboy-hat" expression="sleepy" color="brown" />
-        <AgentAvatar {...args} accessory="headset" expression="neutral" color="cyan" />
+        <AgentAvatar {...args} accessory="party-hat" expression="wink" color="indigo" />
+        <AgentAvatar {...args} accessory="chef-hat" expression="sleepy" color="brown" />
+        <AgentAvatar {...args} accessory="graduation-cap" expression="neutral" color="cyan" />
       </div>
       {/* The whole set must still read at roster size */}
       <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
