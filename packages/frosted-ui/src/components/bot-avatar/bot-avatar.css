@@ -111,50 +111,39 @@
   transform: translate(var(--bot-avatar-gaze-x, 0%), calc(var(--bot-avatar-gaze-y, 0%) + 3.5%));
 }
 
-.fui-BotAvatarEye {
-  position: absolute;
-  display: block;
-
-  /* The visible dot lives on the pseudo-element so the blink (scaleY)
-     never conflicts with the tilt rotation applied to the eye itself. */
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: var(--radius-thumb);
-    background-color: var(--accent-9-contrast);
-    /* Fades with the body when the accent changes (see BotAvatarShape) */
-    transition: background-color 300ms cubic-bezier(0.16, 1, 0.3, 1);
-
-    :where(.fui-BotAvatarRoot.fui-high-contrast) & {
-      background-color: var(--accent-1);
-    }
-  }
-}
-
-/* The mouth — the primary carrier of expression. One filled SVG path per
-   face: a blobby "loaf" (flat-ish top,
-   deep round bottom) is a smile, the flipped loaf a frown, an oval a gasp.
-   Every expression's path has the same command structure, so the CSS `d`
-   property (set inline) interpolates between them natively. The svg spans
-   the whole face box and lives in FaceMotion next to the eyes, so it
-   drifts, scans, and gazes with them. */
-.fui-BotAvatarMouth {
+/* The whole face — two eyes and the mouth — is one SVG spanning the face
+   box. Every feature is a filled path with the same four-cubic command
+   structure, so the CSS `d` property (set inline per expression)
+   interpolates between any two shapes natively: a circle eye flows into a
+   smiling crescent, a smile into a frown. The svg lives in FaceMotion, so
+   the features drift, scan, and gaze together. */
+.fui-BotAvatarFaceSvg {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   display: block;
   overflow: visible;
   pointer-events: none;
+}
 
-  & .fui-BotAvatarMouthPath {
-    fill: var(--accent-9-contrast);
-    /* Fades with the body when the accent changes (see BotAvatarShape) */
-    transition: fill 300ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
+.fui-BotAvatarEye,
+.fui-BotAvatarMouth {
+  fill: var(--accent-9-contrast);
+  /* Fades with the body when the accent changes (see BotAvatarShape) */
+  transition: fill 300ms cubic-bezier(0.16, 1, 0.3, 1);
 
-  :where(.fui-BotAvatarRoot.fui-high-contrast) & .fui-BotAvatarMouthPath {
+  :where(.fui-BotAvatarRoot.fui-high-contrast) & {
     fill: var(--accent-1);
   }
+}
+
+/* The blink (scaleY) squashes each eye around its own center. The tilt of
+   lidded eyes is baked into the path data, so no rotation competes with the
+   blink transform. */
+.fui-BotAvatarEye {
+  transform-box: fill-box;
+  transform-origin: center;
 }
 
 /***************************************************************************************************
@@ -167,35 +156,32 @@
  ***************************************************************************************************/
 
 @media (prefers-reduced-motion: no-preference) {
-  /* Expression morph: interpolating width/height (not scale) keeps the
-     dots' rounding circular at every frame; scale would distort the radius.
-     Springs on the shared curve so expression changes and face-fit shifts
-     feel like one face moving. */
+  /* Expression morph: the CSS `d` property (set inline per expression,
+     always the same command structure) interpolates the whole path shape on
+     the shared spring, so expression changes and face-fit shifts feel like
+     one face moving. The color fade keeps its own plain ease. */
   .fui-BotAvatarEye {
-    transition-property: left, top, width, height, transform;
-    transition-duration: var(--bot-avatar-morph-duration);
-    transition-timing-function: var(--bot-avatar-morph-ease);
-  }
-
-  /* The mouth springs on the same curve: the CSS `d` property (set inline
-     per expression, always the same command structure) interpolates the
-     whole path shape, so a smile flows into a frown or a gasp. The color
-     fade keeps its own plain ease, same as the eyes. */
-  .fui-BotAvatarMouth .fui-BotAvatarMouthPath {
     transition:
       d var(--bot-avatar-morph-duration) var(--bot-avatar-morph-ease),
       fill 300ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
 
-  /* Blink: 5.2s cycle, ~320ms blink starting at 91% (close ~120ms, open ~200ms) */
-  .fui-BotAvatarEye::before {
+    /* Blink: 5.2s cycle, ~320ms blink starting at 91% (close ~120ms, open ~200ms) */
     animation: fui-bot-avatar-blink 5.2s linear infinite;
     animation-delay: var(--bot-avatar-life-delay, 0ms);
   }
 
+  /* Choreography: the eyes react first, the mouth follows a beat later —
+     "sees, then feels". The delay is short enough that the morph still
+     reads as one gesture, long enough to sequence it. */
+  .fui-BotAvatarMouth {
+    transition:
+      d var(--bot-avatar-morph-duration) var(--bot-avatar-morph-ease) 70ms,
+      fill 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
   /* Forced blink, triggered via the imperative handle's blink():
      closed from ~35% to ~55% of the 340ms run */
-  .fui-BotAvatarRoot:where(.fui-blinking) .fui-BotAvatarEye::before {
+  .fui-BotAvatarRoot:where(.fui-blinking) .fui-BotAvatarEye {
     animation: fui-bot-avatar-forced-blink 340ms ease-in-out;
   }
 

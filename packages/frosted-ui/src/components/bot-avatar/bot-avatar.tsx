@@ -2,7 +2,7 @@
 
 import classNames from 'classnames';
 import * as React from 'react';
-import { botAvatarMouthPath, getBotAvatarEyes, getBotAvatarMouth } from './bot-avatar.expressions';
+import { botAvatarFacePath, getBotAvatarEyes, getBotAvatarMouth } from './bot-avatar.expressions';
 import type { BotAvatarHandle } from './bot-avatar.handle';
 import { registerBotAvatarHandle } from './bot-avatar.handle';
 import { getBotAvatarIdentity } from './bot-avatar.identity';
@@ -134,13 +134,14 @@ const BotAvatar = (props: BotAvatarProps) => {
   // mouth together) inside the silhouette at rest. The face is deliberately
   // NOT clipped by the shape, so a gaze or a morph overshoot bulges past
   // the edge instead of shearing an eye.
-  const eyes = resolvedExpression !== undefined ? getBotAvatarEyes(resolvedExpression, shape) : undefined;
-  // The mouth is serialized to an SVG path in the face's 0..100 viewBox.
-  // Every expression's mouth shares the same command structure, so setting
-  // the path via the CSS `d` property lets the browser interpolate the
-  // morph natively (see the transition in bot-avatar.css).
+  // Eyes and mouth are all serialized to SVG paths in the face's 0..100
+  // viewBox. Every feature of every expression shares the same command
+  // structure, so setting the path via the CSS `d` property lets the browser
+  // interpolate the morph natively (see the transitions in bot-avatar.css).
+  const eyeDs =
+    resolvedExpression !== undefined ? getBotAvatarEyes(resolvedExpression, shape).map(botAvatarFacePath) : undefined;
   const mouthD =
-    resolvedExpression !== undefined ? botAvatarMouthPath(getBotAvatarMouth(resolvedExpression, shape)) : undefined;
+    resolvedExpression !== undefined ? botAvatarFacePath(getBotAvatarMouth(resolvedExpression, shape)) : undefined;
 
   // Desynchronize the idle animations (blink, drift, breath) across
   // instances with a stable per-instance negative delay, so a roster of
@@ -178,7 +179,7 @@ const BotAvatar = (props: BotAvatarProps) => {
           clipped shape and the face are siblings inside it, so the eyes move
           and scale with the body but are never clipped by the silhouette. */}
       <div
-        className={classNames('fui-BotAvatarBody', { 'fui-with-face': eyes !== undefined })}
+        className={classNames('fui-BotAvatarBody', { 'fui-with-face': eyeDs !== undefined })}
         style={{ '--bot-avatar-life-delay': `${lifeDelayMs}ms` } as React.CSSProperties}
       >
         <div
@@ -191,7 +192,7 @@ const BotAvatar = (props: BotAvatarProps) => {
             } as React.CSSProperties
           }
         />
-        {eyes && (
+        {eyeDs && (
           // Face carries the transitioned base pose per status; FaceMotion
           // carries the looping animations (all zero-anchored), so status
           // changes glide instead of jumping between animation frames.
@@ -207,30 +208,25 @@ const BotAvatar = (props: BotAvatarProps) => {
             }
           >
             <div className="fui-BotAvatarFaceMotion">
-              {eyes.map((eye, index) => (
-                <span
-                  key={index}
-                  className="fui-BotAvatarEye"
-                  style={{
-                    left: `${(eye.cx - eye.w / 2) * 100}%`,
-                    top: `${(eye.cy - eye.h / 2) * 100}%`,
-                    width: `${eye.w * 100}%`,
-                    height: `${eye.h * 100}%`,
-                    transform: `rotate(${eye.tilt}deg)`,
-                  }}
-                />
-              ))}
-              {mouthD !== undefined && (
-                <svg className="fui-BotAvatarMouth" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
-                  {/* The `d` attribute is the static fallback; the inline CSS
-                      `d` property is what transitions between expressions. */}
+              {/* The `d` attributes are the static fallback; the inline CSS
+                  `d` properties are what transition between expressions. */}
+              <svg className="fui-BotAvatarFaceSvg" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+                {eyeDs.map((eyeD, index) => (
                   <path
-                    className="fui-BotAvatarMouthPath"
+                    key={index}
+                    className="fui-BotAvatarEye"
+                    d={eyeD}
+                    style={{ d: `path("${eyeD}")` } as React.CSSProperties}
+                  />
+                ))}
+                {mouthD !== undefined && (
+                  <path
+                    className="fui-BotAvatarMouth"
                     d={mouthD}
                     style={{ d: `path("${mouthD}")` } as React.CSSProperties}
                   />
-                </svg>
-              )}
+                )}
+              </svg>
             </div>
           </div>
         )}

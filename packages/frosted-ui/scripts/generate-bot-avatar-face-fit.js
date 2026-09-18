@@ -29,13 +29,13 @@ const FACE_CENTER = [0.5, 0.45];
  */
 const PREFERRED_DY = {};
 
-/** Union of eye extents across expressions (wide is the widest/tallest dot,
- * sad the lowest; includes tilt padding for the lidded dash eyes). */
-const EYE_BAND = { x0: 0.255, y0: 0.33, x1: 0.745, y1: 0.52 };
+/** Union of eye extents across expressions (the lifted wide gasp reaches
+ * highest, the sunken sad droop lowest; includes tilt padding for the lidded
+ * dash eyes). */
+const EYE_BAND = { x0: 0.255, y0: 0.318, x1: 0.745, y1: 0.532 };
 /** Union of mouth extents across expressions (happy is the widest and
- * deepest smile, the wide-gasp oval reaches highest, the sad/angry frown
- * corners reach lowest). */
-const MOUTH_BAND = { x0: 0.315, y0: 0.555, x1: 0.685, y1: 0.735 };
+ * deepest smile, the dropped wide-gasp oval reaches highest and lowest). */
+const MOUTH_BAND = { x0: 0.315, y0: 0.567, x1: 0.685, y1: 0.747 };
 
 /** Clearance to the silhouette edge, applied by inflating the envelopes. */
 const MARGIN = 0.004;
