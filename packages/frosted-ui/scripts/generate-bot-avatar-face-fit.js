@@ -45,7 +45,7 @@ const SRC = path.join(__dirname, '../src/components/bot-avatar/bot-avatar.shapes
 const OUT = path.join(__dirname, '../src/components/bot-avatar/bot-avatar.face-fit.ts');
 
 // --------------------------------------------------------------------------
-// Shape loading + flattening (same parsing rules as the shape-css generator).
+// Shape loading + flattening.
 
 const src = fs.readFileSync(SRC, 'utf8');
 const body = src.slice(src.indexOf('const botAvatarShapePaths = {'), src.indexOf('} as const'));

@@ -202,13 +202,12 @@ const BotAvatar = (props: BotAvatarProps) => {
         style={{ '--bot-avatar-life-delay': `${lifeDelayMs}ms` } as React.CSSProperties}
       >
         <div
-          className={classNames('fui-BotAvatarShape', `fui-shape-${shape}`)}
+          className="fui-BotAvatarShape"
           style={
             {
-              // Fallback for browsers without shape(): the inline SVG clipPath.
-              // Where shape() is supported the silhouette comes from the
-              // fui-shape-* class, and shape changes morph via a transition.
-              '--bot-avatar-clip-fallback': `url(#${clipPathId})`,
+              // The silhouette: the inline SVG clipPath (set as a var since
+              // the id is per-instance).
+              '--bot-avatar-clip': `url(#${clipPathId})`,
             } as React.CSSProperties
           }
         />

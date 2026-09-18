@@ -290,39 +290,9 @@ export const FollowPointer: Story = {
 };
 
 /**
- * Changing the `shape` prop morphs the silhouette: every shape is compiled to
- * a CSS `shape()` value with an identical command list, so the browser
- * interpolates the clip-path natively — no JS runs during the morph. The
- * eyes glide to the new shape's face fit on the same curve. Click to cycle.
- */
-export const ShapeMorphing: Story = {
-  args: {
-    color: 'blue',
-    size: '8',
-    expression: 'neutral',
-  },
-  parameters: withoutControls('shape', 'identity'),
-  render: function ShapeMorphingDemo(args) {
-    const cycle = ['sunny', 'cookie-6', 'clover-4', 'heart', 'triangle', 'flower', 'boom', 'square'] as const;
-    const [index, setIndex] = React.useState(0);
-    return (
-      <button
-        type="button"
-        onClick={() => setIndex((i) => (i + 1) % cycle.length)}
-        style={{ all: 'unset', cursor: 'pointer' }}
-        aria-label="Cycle avatar shape"
-      >
-        <BotAvatar {...args} shape={cycle[index]} />
-      </button>
-    );
-  },
-};
-
-/**
- * Random morph: each click picks a new random shape, color, and expression.
- * The silhouette flows into the new shape while the accent swaps and the
- * face morphs on the same spring — the kind of transition a bot-picker or
- * identity handoff produces.
+ * Each click picks a new random shape, color, and expression: the silhouette
+ * and accent swap while the face morphs to the new expression on its spring —
+ * the kind of transition a bot-picker or identity handoff produces.
  */
 export const RandomMorph: Story = {
   args: {
