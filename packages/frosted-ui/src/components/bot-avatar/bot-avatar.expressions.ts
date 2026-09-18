@@ -31,14 +31,16 @@ const eye = (cx: number, cy: number, w: number, h: number, tilt: number): BotAva
  * generator (see EYE_BAND in scripts/generate-bot-avatar-face-fit.js).
  */
 const botAvatarExpressions = {
-  neutral: [eye(0.365, 0.435, 0.125, 0.125, 0), eye(0.635, 0.435, 0.125, 0.125, 0)],
-  happy: [eye(0.365, 0.425, 0.13, 0.09, 0), eye(0.635, 0.425, 0.13, 0.09, 0)],
-  wide: [eye(0.36, 0.43, 0.16, 0.16, 0), eye(0.64, 0.43, 0.16, 0.16, 0)],
-  wink: [eye(0.365, 0.435, 0.125, 0.125, 0), eye(0.635, 0.44, 0.13, 0.045, -8)],
-  sleepy: [eye(0.365, 0.455, 0.125, 0.05, -6), eye(0.635, 0.455, 0.125, 0.05, 6)],
-  angry: [eye(0.37, 0.44, 0.135, 0.055, 18), eye(0.63, 0.44, 0.135, 0.055, -18)],
-  sad: [eye(0.365, 0.455, 0.115, 0.115, 0), eye(0.635, 0.455, 0.115, 0.115, 0)],
-  suspicious: [eye(0.365, 0.435, 0.14, 0.05, 0), eye(0.635, 0.435, 0.14, 0.05, 0)],
+  neutral: [eye(0.35, 0.43, 0.145, 0.145, 0), eye(0.65, 0.43, 0.145, 0.145, 0)],
+  happy: [eye(0.35, 0.418, 0.15, 0.095, 0), eye(0.65, 0.418, 0.15, 0.095, 0)],
+  wide: [eye(0.345, 0.42, 0.18, 0.18, 0), eye(0.655, 0.42, 0.18, 0.18, 0)],
+  wink: [eye(0.35, 0.43, 0.145, 0.145, 0), eye(0.65, 0.437, 0.15, 0.05, -9)],
+  sleepy: [eye(0.35, 0.455, 0.145, 0.052, -7), eye(0.65, 0.455, 0.145, 0.052, 7)],
+  angry: [eye(0.355, 0.442, 0.155, 0.062, 21), eye(0.645, 0.442, 0.155, 0.062, -21)],
+  // Sad eyes droop: lowered, slightly squashed, outer ends tilted down.
+  sad: [eye(0.35, 0.462, 0.128, 0.115, -12), eye(0.65, 0.462, 0.128, 0.115, 12)],
+  // Suspicious: uneven lids — one pressed flat, the other half-open.
+  suspicious: [eye(0.35, 0.437, 0.155, 0.055, 0), eye(0.65, 0.428, 0.155, 0.08, 0)],
 } as const satisfies Record<string, readonly [BotAvatarEyeGeometry, BotAvatarEyeGeometry]>;
 
 type BotAvatarExpression = keyof typeof botAvatarExpressions;
@@ -108,14 +110,20 @@ const ovalMouth = (cx: number, cy: number, rx: number, ry: number): BotAvatarMou
  * scripts/generate-bot-avatar-face-fit.js in sync and regenerate the fit.
  */
 const botAvatarMouths = {
-  neutral: blobMouth([0.395, 0.63], [0.5, 0.664], [0.605, 0.63], [0.5, 0.606]),
-  happy: blobMouth([0.335, 0.615], [0.5, 0.728], [0.665, 0.615], [0.5, 0.598]),
-  wide: ovalMouth(0.5, 0.652, 0.062, 0.075),
-  wink: blobMouth([0.39, 0.636], [0.515, 0.705], [0.632, 0.601], [0.508, 0.601]),
-  sleepy: ovalMouth(0.5, 0.665, 0.038, 0.044),
-  angry: blobMouth([0.355, 0.658], [0.5, 0.686], [0.645, 0.658], [0.5, 0.6]),
-  sad: blobMouth([0.385, 0.66], [0.5, 0.682], [0.615, 0.66], [0.5, 0.63]),
-  suspicious: blobMouth([0.4, 0.652], [0.5, 0.664], [0.6, 0.625], [0.5, 0.618]),
+  neutral: blobMouth([0.385, 0.615], [0.5, 0.652], [0.615, 0.615], [0.5, 0.59]),
+  // A wide beaming smile — deep round bottom, corners lifted high.
+  happy: blobMouth([0.315, 0.598], [0.5, 0.735], [0.685, 0.598], [0.5, 0.58]),
+  wide: ovalMouth(0.5, 0.645, 0.075, 0.09),
+  // Lopsided smirk pairing the closed eye.
+  wink: blobMouth([0.378, 0.627], [0.518, 0.705], [0.645, 0.586], [0.505, 0.586]),
+  sleepy: ovalMouth(0.5, 0.658, 0.044, 0.052),
+  // Frowns invert the loaf: the crescent arches UP in the middle and the
+  // corners droop below it — the same four smooth anchors, so they still
+  // morph from any smile. Angry is the wide heavy slab, sad the deeper arch.
+  angry: blobMouth([0.345, 0.688], [0.5, 0.672], [0.655, 0.688], [0.5, 0.614]),
+  sad: blobMouth([0.383, 0.692], [0.5, 0.676], [0.617, 0.692], [0.5, 0.606]),
+  // A short doubtful dash pulled off-center and tilted.
+  suspicious: blobMouth([0.43, 0.642], [0.515, 0.658], [0.6, 0.625], [0.515, 0.61]),
 } as const satisfies Record<BotAvatarExpression, BotAvatarMouthGeometry>;
 
 /** Anchor around which the per-shape face fit scales the whole face. */
