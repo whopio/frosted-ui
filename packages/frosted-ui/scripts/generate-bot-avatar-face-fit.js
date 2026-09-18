@@ -29,10 +29,12 @@ const FACE_CENTER = [0.5, 0.45];
  */
 const PREFERRED_DY = { 'lego-head': 0.05 };
 
-/** Union of eye extents across expressions (wide is the widest/tallest). */
-const EYE_BAND = { x0: 0.27, y0: 0.26, x1: 0.73, y1: 0.62 };
-/** Union of mouth extents across expressions (happy is widest, wide lowest). */
-const MOUTH_BAND = { x0: 0.345, y0: 0.55, x1: 0.655, y1: 0.73 };
+/** Union of eye extents across expressions (wide is the widest/tallest dot,
+ * sad the lowest; includes tilt padding for the lidded dash eyes). */
+const EYE_BAND = { x0: 0.278, y0: 0.345, x1: 0.722, y1: 0.515 };
+/** Union of mouth extents across expressions (happy is the widest and
+ * deepest loaf, the wide-gasp oval reaches highest). */
+const MOUTH_BAND = { x0: 0.33, y0: 0.573, x1: 0.67, y1: 0.733 };
 
 /** Clearance to the silhouette edge, applied by inflating the envelopes. */
 const MARGIN = 0.004;

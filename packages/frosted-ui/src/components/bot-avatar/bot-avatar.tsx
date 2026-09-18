@@ -2,7 +2,7 @@
 
 import classNames from 'classnames';
 import * as React from 'react';
-import { getBotAvatarEyes, getBotAvatarMouth } from './bot-avatar.expressions';
+import { botAvatarMouthPath, getBotAvatarEyes, getBotAvatarMouth } from './bot-avatar.expressions';
 import type { BotAvatarFaceVariant } from './bot-avatar.expressions';
 import type { BotAvatarHandle } from './bot-avatar.handle';
 import { registerBotAvatarHandle } from './bot-avatar.handle';
@@ -27,9 +27,9 @@ interface BotAvatarProps extends PropsWithoutColor<'div'>, BotAvatarOwnProps {
    */
   handle?: BotAvatarHandle;
   /**
-   * Which face vocabulary to draw from: `capsule` (the default tall Grok
-   * style eyes) or `lego` (minifig dot eyes with a primary mouth, used by
-   * AgentAvatar).
+   * Which face vocabulary to draw from: `dot` (the default round dot eyes
+   * with a primary mouth) or `lego` (the minifig tuning of the same
+   * construction, used by AgentAvatar).
    */
   faceVariant?: BotAvatarFaceVariant;
   /**
@@ -67,7 +67,7 @@ const BotAvatar = (props: BotAvatarProps) => {
     status = botAvatarPropDefs.status.default,
     followPointer = botAvatarPropDefs.followPointer.default,
     mouth: withMouth = botAvatarPropDefs.mouth.default,
-    faceVariant = 'capsule',
+    faceVariant = 'dot',
     bodyAccessory,
     faceAccessory,
     gaze,
@@ -162,9 +162,13 @@ const BotAvatar = (props: BotAvatarProps) => {
   // uses the mouth-aware fit table so nothing pokes out of tight silhouettes.
   const eyes =
     resolvedExpression !== undefined ? getBotAvatarEyes(resolvedExpression, shape, withMouth, faceVariant) : undefined;
-  const mouth =
+  // The mouth is serialized to an SVG path in the face's 0..100 viewBox.
+  // Every expression's mouth shares the same command structure, so setting
+  // the path via the CSS `d` property lets the browser interpolate the
+  // morph natively (see the transition in bot-avatar.css).
+  const mouthD =
     withMouth && resolvedExpression !== undefined
-      ? getBotAvatarMouth(resolvedExpression, shape, faceVariant)
+      ? botAvatarMouthPath(getBotAvatarMouth(resolvedExpression, shape, faceVariant))
       : undefined;
 
   // Desynchronize the idle animations (blink, drift, breath) across
@@ -247,18 +251,16 @@ const BotAvatar = (props: BotAvatarProps) => {
                   }}
                 />
               ))}
-              {mouth && (
-                <span
-                  className="fui-BotAvatarMouth"
-                  style={{
-                    left: `${(mouth.cx - mouth.w / 2) * 100}%`,
-                    top: `${(mouth.cy - mouth.h / 2) * 100}%`,
-                    width: `${mouth.w * 100}%`,
-                    height: `${mouth.h * 100}%`,
-                    transform: `rotate(${mouth.tilt}deg)`,
-                    borderRadius: mouth.radius,
-                  }}
-                />
+              {mouthD !== undefined && (
+                <svg className="fui-BotAvatarMouth" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+                  {/* The `d` attribute is the static fallback; the inline CSS
+                      `d` property is what transitions between expressions. */}
+                  <path
+                    className="fui-BotAvatarMouthPath"
+                    d={mouthD}
+                    style={{ d: `path("${mouthD}")` } as React.CSSProperties}
+                  />
+                </svg>
               )}
               {faceAccessory !== undefined && <div className="fui-BotAvatarFaceAccessory">{faceAccessory}</div>}
             </div>

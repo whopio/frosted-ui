@@ -23,81 +23,106 @@ const eye = (cx: number, cy: number, w: number, h: number, tilt: number): BotAva
 });
 
 /**
- * The face vocabulary: two capsule eyes per expression, following the Grok
- * Bot construction (all expression comes from eye size, spacing, and tilt;
- * mirrored tilts read as emotion, parallel tilt is the resting signature).
- * Kept deliberately small; new expressions must stay inside the fit envelope
- * used by the face-fit generator (x 0.27..0.73, y 0.26..0.62).
+ * The face vocabulary: simple round dot eyes that only ever change size,
+ * squash, and tilt (a squashed dot reads as a lid: wink, sleepy, focus),
+ * while the mouth below carries most of the emotion. Deliberately the
+ * opposite construction of Grok Bot's tall leaning capsules.
+ * New expressions must stay inside the fit envelope used by the face-fit
+ * generator (see EYE_BAND in scripts/generate-bot-avatar-face-fit.js).
  */
 const botAvatarExpressions = {
-  neutral: [eye(0.36, 0.44, 0.13, 0.3, -10), eye(0.64, 0.44, 0.13, 0.3, -10)],
-  happy: [eye(0.36, 0.42, 0.14, 0.17, -10), eye(0.64, 0.42, 0.14, 0.17, -10)],
-  wide: [eye(0.36, 0.44, 0.17, 0.34, -6), eye(0.64, 0.44, 0.17, 0.34, -6)],
-  wink: [eye(0.36, 0.44, 0.13, 0.3, -10), eye(0.64, 0.46, 0.15, 0.05, -10)],
-  sleepy: [eye(0.36, 0.48, 0.14, 0.13, -10), eye(0.64, 0.48, 0.14, 0.13, -10)],
-  angry: [eye(0.36, 0.45, 0.13, 0.24, -22), eye(0.64, 0.45, 0.13, 0.24, 22)],
-  sad: [eye(0.36, 0.46, 0.13, 0.24, 18), eye(0.64, 0.46, 0.13, 0.24, -18)],
-  suspicious: [eye(0.36, 0.44, 0.15, 0.1, 0), eye(0.64, 0.44, 0.15, 0.1, 0)],
+  neutral: [eye(0.365, 0.435, 0.125, 0.125, 0), eye(0.635, 0.435, 0.125, 0.125, 0)],
+  happy: [eye(0.365, 0.425, 0.13, 0.09, 0), eye(0.635, 0.425, 0.13, 0.09, 0)],
+  wide: [eye(0.36, 0.43, 0.16, 0.16, 0), eye(0.64, 0.43, 0.16, 0.16, 0)],
+  wink: [eye(0.365, 0.435, 0.125, 0.125, 0), eye(0.635, 0.44, 0.13, 0.045, -8)],
+  sleepy: [eye(0.365, 0.455, 0.125, 0.05, -6), eye(0.635, 0.455, 0.125, 0.05, 6)],
+  angry: [eye(0.37, 0.44, 0.135, 0.055, 18), eye(0.63, 0.44, 0.135, 0.055, -18)],
+  sad: [eye(0.365, 0.455, 0.115, 0.115, 0), eye(0.635, 0.455, 0.115, 0.115, 0)],
+  suspicious: [eye(0.365, 0.435, 0.14, 0.05, 0), eye(0.635, 0.435, 0.14, 0.05, 0)],
 } as const satisfies Record<string, readonly [BotAvatarEyeGeometry, BotAvatarEyeGeometry]>;
 
 type BotAvatarExpression = keyof typeof botAvatarExpressions;
 
 const botAvatarExpressionsList = Object.keys(botAvatarExpressions) as [BotAvatarExpression, ...BotAvatarExpression[]];
 
+/** A point in the unit face box, `[x, y]`. */
+type BotAvatarMouthPoint = readonly [number, number];
+
 /**
- * The mouth, in the same unit coordinates as the eyes. It is a single filled
- * div whose personality comes entirely from `border-radius`: a "D" (flat top,
- * full bottom arc) reads as a smile, the flipped D as a frown, a circle as a
- * gasp. `radius` must always be the 8-value percentage form so the browser
- * interpolates border-radius smoothly when the expression changes.
+ * The mouth: one closed filled path made of exactly four cubic segments
+ * (13 points: `M p0, C c1 c2 p1, C c4 c5 p2, C c7 c8 p3, C c10 c11 p0, Z`).
+ * Every expression shares this command structure, so the browser natively
+ * interpolates the CSS `d` property between any two mouths — a smile flows
+ * into a frown or a gasp with no JS running during the morph.
  */
 interface BotAvatarMouthGeometry {
-  cx: number;
-  cy: number;
-  w: number;
-  h: number;
-  tilt: number;
-  radius: string;
+  points: readonly BotAvatarMouthPoint[];
 }
 
-const mouth = (cx: number, cy: number, w: number, h: number, tilt: number, radius: string): BotAvatarMouthGeometry => ({
-  cx,
-  cy,
-  w,
-  h,
-  tilt,
-  radius,
-});
-
-/** Fully rounded (ellipse/pill-ish) — flat resting mouths and round gasps. */
-const ROUND = '50% 50% 50% 50% / 50% 50% 50% 50%';
-/** Smile: near-flat top, one continuous arc along the bottom. */
-const SMILE = '12% 12% 50% 50% / 20% 20% 80% 80%';
-/** Frown: the smile flipped upside down. */
-const FROWN = '50% 50% 12% 12% / 80% 80% 20% 20%';
+/** Circle-approximation kappa: handle length that makes a cubic quarter-arc round. */
+const K = 0.5523;
 
 /**
- * Mouths per expression, sized to carry the emotion together with the eyes:
- * big enough to read at roster sizes, positioned just under the eye line.
- * When editing extents here, keep the MOUTH_BAND envelope in
+ * Builds a blobby mouth through four anchors — left, bottom, right, top —
+ * with vertical tangents at left/right and horizontal tangents at
+ * bottom/top. Every anchor is smooth, so no mouth ever has a pointy corner:
+ * a "loaf" (flat-ish top, deep round bottom) reads as a smile, the flipped
+ * loaf as a frown, and equal radii make ovals for gasps.
+ */
+const blobMouth = (
+  left: BotAvatarMouthPoint,
+  bottom: BotAvatarMouthPoint,
+  right: BotAvatarMouthPoint,
+  top: BotAvatarMouthPoint,
+): BotAvatarMouthGeometry => {
+  const [lx, ly] = left;
+  const [bx, by] = bottom;
+  const [rx, ry] = right;
+  const [tx, ty] = top;
+  return {
+    points: [
+      [lx, ly],
+      [lx, ly + K * (by - ly)],
+      [bx - K * (bx - lx), by],
+      [bx, by],
+      [bx + K * (rx - bx), by],
+      [rx, ry + K * (by - ry)],
+      [rx, ry],
+      [rx, ry - K * (ry - ty)],
+      [tx + K * (rx - tx), ty],
+      [tx, ty],
+      [tx - K * (tx - lx), ty],
+      [lx, ly - K * (ly - ty)],
+      [lx, ly],
+    ],
+  };
+};
+
+/** An oval mouth (gasps, slack sleepy mouths) via the same blob structure. */
+const ovalMouth = (cx: number, cy: number, rx: number, ry: number): BotAvatarMouthGeometry =>
+  blobMouth([cx - rx, cy], [cx, cy + ry], [cx + rx, cy], [cx, cy - ry]);
+
+/**
+ * Mouths per expression — the primary carrier of emotion, sized to read at
+ * roster sizes. When editing extents here, keep the MOUTH_BAND envelope in
  * scripts/generate-bot-avatar-face-fit.js in sync and regenerate the fit.
  */
 const botAvatarMouths = {
-  neutral: mouth(0.5, 0.63, 0.19, 0.06, -3, ROUND),
-  happy: mouth(0.5, 0.625, 0.3, 0.13, 0, SMILE),
-  wide: mouth(0.5, 0.66, 0.14, 0.12, 0, ROUND),
-  wink: mouth(0.52, 0.63, 0.21, 0.065, -8, SMILE),
-  sleepy: mouth(0.5, 0.65, 0.09, 0.09, 0, ROUND),
-  angry: mouth(0.5, 0.655, 0.23, 0.09, 0, FROWN),
-  sad: mouth(0.5, 0.66, 0.19, 0.075, 0, FROWN),
-  suspicious: mouth(0.5, 0.635, 0.14, 0.05, -6, ROUND),
+  neutral: blobMouth([0.395, 0.63], [0.5, 0.664], [0.605, 0.63], [0.5, 0.606]),
+  happy: blobMouth([0.335, 0.615], [0.5, 0.728], [0.665, 0.615], [0.5, 0.598]),
+  wide: ovalMouth(0.5, 0.652, 0.062, 0.075),
+  wink: blobMouth([0.39, 0.636], [0.515, 0.705], [0.632, 0.601], [0.508, 0.601]),
+  sleepy: ovalMouth(0.5, 0.665, 0.038, 0.044),
+  angry: blobMouth([0.355, 0.658], [0.5, 0.686], [0.645, 0.658], [0.5, 0.6]),
+  sad: blobMouth([0.385, 0.66], [0.5, 0.682], [0.615, 0.66], [0.5, 0.63]),
+  suspicious: blobMouth([0.4, 0.652], [0.5, 0.664], [0.6, 0.625], [0.5, 0.618]),
 } as const satisfies Record<BotAvatarExpression, BotAvatarMouthGeometry>;
 
 /**
- * The minifig face vocabulary, used by AgentAvatar: small round dot eyes
- * (turning into short dashes/brows for the emotional expressions) and a
- * mouth that carries most of the emotion — the classic LEGO construction,
- * deliberately low-detail so it stays readable at the smallest sizes.
+ * The minifig face vocabulary, used by AgentAvatar: the same dot-eye
+ * construction, positioned for the lego-head silhouette (face box between
+ * stud and neck tube). Eye geometry is unchanged from the original minifig
+ * tuning so worn accessories (glasses, moustache) stay aligned.
  */
 const botAvatarLegoExpressions = {
   neutral: [eye(0.37, 0.42, 0.11, 0.11, 0), eye(0.63, 0.42, 0.11, 0.11, 0)],
@@ -110,20 +135,21 @@ const botAvatarLegoExpressions = {
   suspicious: [eye(0.37, 0.43, 0.14, 0.05, 0), eye(0.63, 0.43, 0.14, 0.05, 0)],
 } as const satisfies Record<BotAvatarExpression, readonly [BotAvatarEyeGeometry, BotAvatarEyeGeometry]>;
 
+/** Lego mouths, matching the old minifig extents in the new blob system. */
 const botAvatarLegoMouths = {
-  neutral: mouth(0.5, 0.6, 0.3, 0.1, 0, SMILE),
-  happy: mouth(0.5, 0.61, 0.36, 0.15, 0, SMILE),
-  wide: mouth(0.5, 0.63, 0.13, 0.13, 0, ROUND),
-  wink: mouth(0.52, 0.6, 0.26, 0.09, -6, SMILE),
-  sleepy: mouth(0.5, 0.62, 0.08, 0.08, 0, ROUND),
-  angry: mouth(0.5, 0.62, 0.24, 0.09, 0, FROWN),
-  sad: mouth(0.5, 0.625, 0.2, 0.08, 0, FROWN),
-  suspicious: mouth(0.5, 0.615, 0.15, 0.05, -4, ROUND),
+  neutral: blobMouth([0.35, 0.595], [0.5, 0.652], [0.65, 0.595], [0.5, 0.568]),
+  happy: blobMouth([0.33, 0.6], [0.5, 0.685], [0.67, 0.6], [0.5, 0.575]),
+  wide: ovalMouth(0.5, 0.63, 0.062, 0.065),
+  wink: blobMouth([0.4, 0.615], [0.525, 0.655], [0.645, 0.585], [0.515, 0.578]),
+  sleepy: ovalMouth(0.5, 0.62, 0.04, 0.04),
+  angry: blobMouth([0.38, 0.62], [0.5, 0.645], [0.62, 0.62], [0.5, 0.575]),
+  sad: blobMouth([0.4, 0.628], [0.5, 0.648], [0.6, 0.628], [0.5, 0.598]),
+  suspicious: blobMouth([0.425, 0.622], [0.5, 0.633], [0.575, 0.607], [0.5, 0.598]),
 } as const satisfies Record<BotAvatarExpression, BotAvatarMouthGeometry>;
 
-/** Which face vocabulary an avatar draws from: Grok-style capsules
- * (BotAvatar) or the minifig dots-and-smile (AgentAvatar). */
-type BotAvatarFaceVariant = 'capsule' | 'lego';
+/** Which face vocabulary an avatar draws from: `dot` (the BotAvatar
+ * default) or `lego` (the minifig face used by AgentAvatar). */
+type BotAvatarFaceVariant = 'dot' | 'lego';
 
 const faceCatalogue: Record<
   BotAvatarFaceVariant,
@@ -132,7 +158,7 @@ const faceCatalogue: Record<
     mouths: Record<BotAvatarExpression, BotAvatarMouthGeometry>;
   }
 > = {
-  capsule: { eyes: botAvatarExpressions, mouths: botAvatarMouths },
+  dot: { eyes: botAvatarExpressions, mouths: botAvatarMouths },
   lego: { eyes: botAvatarLegoExpressions, mouths: botAvatarLegoMouths },
 };
 
@@ -150,7 +176,7 @@ const getBotAvatarEyes = (
   expression: BotAvatarExpression,
   shape: BotAvatarAtlasShape,
   withMouth = false,
-  variant: BotAvatarFaceVariant = 'capsule',
+  variant: BotAvatarFaceVariant = 'dot',
 ): [BotAvatarEyeGeometry, BotAvatarEyeGeometry] => {
   const [left, right] = faceCatalogue[variant].eyes[expression];
   const { s, dy } = (withMouth ? botAvatarFaceFitWithMouth : botAvatarFaceFit)[shape];
@@ -170,18 +196,41 @@ const getBotAvatarEyes = (
 const getBotAvatarMouth = (
   expression: BotAvatarExpression,
   shape: BotAvatarAtlasShape,
-  variant: BotAvatarFaceVariant = 'capsule',
+  variant: BotAvatarFaceVariant = 'dot',
 ): BotAvatarMouthGeometry => {
   const m = faceCatalogue[variant].mouths[expression];
   const { s, dy } = botAvatarFaceFitWithMouth[shape];
   return {
-    ...m,
-    cx: FACE_CENTER_X + (m.cx - FACE_CENTER_X) * s,
-    cy: FACE_CENTER_Y + (m.cy - FACE_CENTER_Y) * s + dy,
-    w: m.w * s,
-    h: m.h * s,
+    points: m.points.map(([x, y]): BotAvatarMouthPoint => [
+      FACE_CENTER_X + (x - FACE_CENTER_X) * s,
+      FACE_CENTER_Y + (y - FACE_CENTER_Y) * s + dy,
+    ]),
   };
 };
 
-export { botAvatarExpressions, botAvatarExpressionsList, botAvatarMouths, getBotAvatarEyes, getBotAvatarMouth };
+const round = (v: number) => Math.round(v * 100) / 100;
+
+/**
+ * Serializes a mouth to an SVG path string in the face's 0..100 viewBox.
+ * Always `M + 4×C + Z` with the same point count, so two serialized mouths
+ * interpolate when transitioned via the CSS `d` property.
+ */
+const botAvatarMouthPath = (mouth: BotAvatarMouthGeometry): string => {
+  const p = mouth.points;
+  const pt = ([x, y]: BotAvatarMouthPoint) => `${round(x * 100)} ${round(y * 100)}`;
+  let d = `M ${pt(p[0])}`;
+  for (let i = 1; i + 2 < p.length; i += 3) {
+    d += ` C ${pt(p[i])} ${pt(p[i + 1])} ${pt(p[i + 2])}`;
+  }
+  return `${d} Z`;
+};
+
+export {
+  botAvatarExpressions,
+  botAvatarExpressionsList,
+  botAvatarMouthPath,
+  botAvatarMouths,
+  getBotAvatarEyes,
+  getBotAvatarMouth,
+};
 export type { BotAvatarExpression, BotAvatarEyeGeometry, BotAvatarFaceVariant, BotAvatarMouthGeometry };
