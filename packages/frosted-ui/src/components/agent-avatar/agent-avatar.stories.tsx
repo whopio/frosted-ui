@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { AgentAvatar, Button, agentAvatarAccessoriesList, createBotAvatarHandle } from '..';
+import type { BotAvatarExpression } from '../bot-avatar/bot-avatar.expressions';
 import { botAvatarExpressionsList } from '../bot-avatar/bot-avatar.expressions';
+import type { AgentAvatarAccessory } from './agent-avatar.accessories';
 import { botAvatarStatuses } from '../bot-avatar/bot-avatar.status';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -178,49 +180,89 @@ export const Notification: Story = {
  * (glasses, shades, moustache) rides the gaze with the face. They are what
  * makes a team of same-shaped heads read as individuals.
  */
+/**
+ * The full designer sheet, 1:1 — 6 rows × 8 columns, a plain head first,
+ * then all 47 accessories, with expressions matching the reference asset.
+ */
+const accessorySheet: ReadonlyArray<{
+  accessory: AgentAvatarAccessory | undefined;
+  expression: BotAvatarExpression;
+}> = [
+  { accessory: undefined, expression: 'happy' },
+  { accessory: 'cap', expression: 'happy' },
+  { accessory: 'red-cap', expression: 'happy' },
+  { accessory: 'hair', expression: 'happy' },
+  { accessory: 'curly-hair', expression: 'sleepy' },
+  { accessory: 'glasses', expression: 'happy' },
+  { accessory: 'sunglasses', expression: 'happy' },
+  { accessory: 'bob', expression: 'wink' },
+  { accessory: 'headphones', expression: 'happy' },
+  { accessory: 'helmet', expression: 'angry' },
+  { accessory: 'backwards-cap', expression: 'wink' },
+  { accessory: 'beard', expression: 'happy' },
+  { accessory: 'top-hat', expression: 'happy' },
+  { accessory: 'beret', expression: 'happy' },
+  { accessory: 'cowboy-hat', expression: 'happy' },
+  { accessory: 'crown', expression: 'sleepy' },
+  { accessory: 'pirate-hat', expression: 'happy' },
+  { accessory: 'earmuffs', expression: 'angry' },
+  { accessory: 'goggles', expression: 'happy' },
+  { accessory: 'mohawk', expression: 'happy' },
+  { accessory: 'buns', expression: 'sleepy' },
+  { accessory: 'chef-hat', expression: 'happy' },
+  { accessory: 'hard-hat', expression: 'happy' },
+  { accessory: 'grandpa', expression: 'happy' },
+  { accessory: 'wizard-hat', expression: 'wink' },
+  { accessory: 'santa-hat', expression: 'happy' },
+  { accessory: 'bucket-hat', expression: 'happy' },
+  { accessory: 'graduation-cap', expression: 'happy' },
+  { accessory: 'robot', expression: 'wide' },
+  { accessory: 'aviator-cap', expression: 'angry' },
+  { accessory: 'nurse-cap', expression: 'happy' },
+  { accessory: 'afro', expression: 'sleepy' },
+  { accessory: 'punk-hair', expression: 'wink' },
+  { accessory: 'fox-ears', expression: 'angry' },
+  { accessory: 'sailor-hat', expression: 'happy' },
+  { accessory: 'nightcap', expression: 'sleepy' },
+  { accessory: 'balaclava', expression: 'happy' },
+  { accessory: 'tinfoil-hat', expression: 'happy' },
+  { accessory: 'pot', expression: 'happy' },
+  { accessory: 'duck', expression: 'sleepy' },
+  { accessory: 'flamingo', expression: 'happy' },
+  { accessory: 'octopus', expression: 'wide' },
+  { accessory: 'fried-egg', expression: 'sleepy' },
+  { accessory: 'disguise', expression: 'happy' },
+  { accessory: 'popcorn', expression: 'happy' },
+  { accessory: 'ufo', expression: 'happy' },
+  { accessory: 'bow', expression: 'wink' },
+  { accessory: 'cactus', expression: 'angry' },
+];
+
 export const Accessories: Story = {
   args: {
-    color: 'blue',
+    color: 'yellow',
     size: '7',
   },
   parameters: withoutControls('accessory', 'identity'),
   render: (args) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(7, 1fr)',
-          gap: 'var(--space-4)',
-          justifyItems: 'center',
-        }}
-      >
-        {agentAvatarAccessoriesList.map((accessory) => (
-          <div
-            key={accessory}
-            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-1)' }}
-          >
-            <AgentAvatar {...args} accessory={accessory} expression="neutral" />
-            <span style={{ fontSize: 11, color: 'var(--gray-a11)' }}>{accessory}</span>
-          </div>
-        ))}
-      </div>
-      {/* Accessories hold up across expressions — shades hand expression to the mouth */}
-      <div style={{ display: 'flex', gap: 'var(--space-4)' }}>
-        <AgentAvatar {...args} accessory="pigtails" expression="happy" color="orange" />
-        <AgentAvatar {...args} accessory="viking-helmet" expression="angry" color="teal" />
-        <AgentAvatar {...args} accessory="crown" expression="suspicious" color="purple" />
-        <AgentAvatar {...args} accessory="glasses" expression="wide" color="crimson" />
-        <AgentAvatar {...args} accessory="space-helmet" expression="happy" color="gray" />
-        <AgentAvatar {...args} accessory="party-hat" expression="wink" color="indigo" />
-        <AgentAvatar {...args} accessory="chef-hat" expression="sleepy" color="brown" />
-        <AgentAvatar {...args} accessory="graduation-cap" expression="neutral" color="cyan" />
-      </div>
-      {/* The whole set must still read at roster size */}
-      <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
-        {agentAvatarAccessoriesList.map((accessory) => (
-          <AgentAvatar {...args} key={accessory} size="4" accessory={accessory} expression="neutral" />
-        ))}
-      </div>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(8, 1fr)',
+        columnGap: 'var(--space-5)',
+        rowGap: 'var(--space-6)',
+        justifyItems: 'center',
+      }}
+    >
+      {accessorySheet.map(({ accessory, expression }) => (
+        <div
+          key={accessory ?? 'plain'}
+          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-2)' }}
+        >
+          <AgentAvatar {...args} accessory={accessory} expression={expression} />
+          <span style={{ fontSize: 11, color: 'var(--gray-a11)' }}>{accessory ?? '—'}</span>
+        </div>
+      ))}
     </div>
   ),
 };
@@ -322,7 +364,7 @@ export const Roster: Story = {
             name: 'Code Review',
             expression: 'suspicious',
             notification: true,
-            accessory: 'moustache',
+            accessory: 'beard',
           },
           { id: 'inbox-triage', name: 'Inbox Triage', expression: 'sleepy', notification: false, accessory: 'hair' },
           { id: 'qa-runner', name: 'QA', expression: 'wide', notification: false, accessory: undefined },

@@ -44,7 +44,7 @@ const botAvatarFaceFit: Record<BotAvatarAtlasShape, { s: number; dy: number }> =
   'pixel-triangle': { s: 0.83, dy: 0.06 },
   bun: { s: 1, dy: 0 },
   heart: { s: 1, dy: 0.02 },
-  'lego-head': { s: 1, dy: 0.05 },
+  'lego-head': { s: 1, dy: 0 },
 };
 
 const botAvatarFaceFitWithMouth: Record<BotAvatarAtlasShape, { s: number; dy: number }> = {
@@ -83,7 +83,7 @@ const botAvatarFaceFitWithMouth: Record<BotAvatarAtlasShape, { s: number; dy: nu
   'pixel-triangle': { s: 0.8, dy: 0.05 },
   bun: { s: 1, dy: 0 },
   heart: { s: 1, dy: 0.02 },
-  'lego-head': { s: 1, dy: 0.05 },
+  'lego-head': { s: 1, dy: 0 },
 };
 
 export { botAvatarFaceFit, botAvatarFaceFitWithMouth };

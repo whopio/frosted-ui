@@ -24,10 +24,11 @@ const FACE_CENTER = [0.5, 0.45];
  * Hand-tuned vertical offsets for shapes whose face placement is aesthetic
  * rather than purely geometric. Used when the solver confirms the face still
  * fits at full scale there; otherwise the solved offset wins.
- * lego-head: the minifig face sits centered in the head box (which spans
- * y 0.17–0.88 between the stud and the neck tube), clear of both.
+ * lego-head: the minifig face geometry in bot-avatar.expressions.ts is
+ * defined in absolute sheet coordinates (measured off the designer asset,
+ * eyes at y≈0.555, mouth around y≈0.74), so it needs no extra offset.
  */
-const PREFERRED_DY = { 'lego-head': 0.05 };
+const PREFERRED_DY = { 'lego-head': 0 };
 
 /** Union of eye extents across expressions (wide is the widest/tallest). */
 const EYE_BAND = { x0: 0.27, y0: 0.26, x1: 0.73, y1: 0.62 };

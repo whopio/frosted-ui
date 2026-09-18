@@ -170,6 +170,20 @@
       background-color: var(--accent-1);
     }
   }
+
+  /* Stroked-arc eye (a closed lid, ∩ or ∪): only the top or bottom border
+     of the ellipse is drawn; the inline custom properties pick which. */
+  &.fui-arc::before {
+    background-color: transparent;
+    border-radius: 50%;
+    border: 0 solid var(--accent-9-contrast);
+    border-top-width: var(--bot-avatar-eye-arc-top, 0);
+    border-bottom-width: var(--bot-avatar-eye-arc-bottom, 0);
+
+    :where(.fui-BotAvatarRoot.fui-high-contrast) & {
+      border-color: var(--accent-1);
+    }
+  }
 }
 
 /* The mouth (opt-in via the `mouth` prop; AgentAvatar turns it on by
@@ -185,6 +199,17 @@
 
   :where(.fui-BotAvatarRoot.fui-high-contrast) & {
     background-color: var(--accent-1);
+  }
+
+  /* Stroked-arc mouth (minifig smile): only one border of the ellipse is
+     drawn; the inline style sets which one and how thick. */
+  &.fui-arc {
+    background-color: transparent;
+    border: 0 solid var(--accent-9-contrast);
+
+    :where(.fui-BotAvatarRoot.fui-high-contrast) & {
+      border-color: var(--accent-1);
+    }
   }
 }
 

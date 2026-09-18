@@ -237,19 +237,26 @@ const BotAvatar = (props: BotAvatarProps) => {
               {eyes.map((eye, index) => (
                 <span
                   key={index}
-                  className="fui-BotAvatarEye"
-                  style={{
-                    left: `${(eye.cx - eye.w / 2) * 100}%`,
-                    top: `${(eye.cy - eye.h / 2) * 100}%`,
-                    width: `${eye.w * 100}%`,
-                    height: `${eye.h * 100}%`,
-                    transform: `rotate(${eye.tilt}deg)`,
-                  }}
+                  className={classNames('fui-BotAvatarEye', { 'fui-arc': eye.arc !== undefined })}
+                  style={
+                    {
+                      left: `${(eye.cx - eye.w / 2) * 100}%`,
+                      top: `${(eye.cy - eye.h / 2) * 100}%`,
+                      width: `${eye.w * 100}%`,
+                      height: `${eye.h * 100}%`,
+                      transform: `rotate(${eye.tilt}deg)`,
+                      // Arc eyes (closed lids) draw one border of the ellipse on
+                      // the ::before, which reads these; cqw scales with the avatar.
+                      ...(eye.arc && {
+                        [eye.arc.side === 'up' ? '--bot-avatar-eye-arc-top' : '--bot-avatar-eye-arc-bottom']: `${eye.arc.stroke * 100}cqw`,
+                      }),
+                    } as React.CSSProperties
+                  }
                 />
               ))}
               {mouth && (
                 <span
-                  className="fui-BotAvatarMouth"
+                  className={classNames('fui-BotAvatarMouth', { 'fui-arc': mouth.arc !== undefined })}
                   style={{
                     left: `${(mouth.cx - mouth.w / 2) * 100}%`,
                     top: `${(mouth.cy - mouth.h / 2) * 100}%`,
@@ -257,6 +264,11 @@ const BotAvatar = (props: BotAvatarProps) => {
                     height: `${mouth.h * 100}%`,
                     transform: `rotate(${mouth.tilt}deg)`,
                     borderRadius: mouth.radius,
+                    // Arc mouths draw one border of the ellipse; cqw sizes the
+                    // stroke with the avatar (the root is an inline-size container).
+                    ...(mouth.arc && {
+                      [mouth.arc.side === 'smile' ? 'borderBottomWidth' : 'borderTopWidth']: `${mouth.arc.stroke * 100}cqw`,
+                    }),
                   }}
                 />
               )}

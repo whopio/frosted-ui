@@ -12,6 +12,11 @@ interface BotAvatarEyeGeometry {
   w: number;
   h: number;
   tilt: number;
+  /**
+   * Optional stroked-arc rendering (a closed lid): only the top (`up`, ∩)
+   * or bottom (`down`, ∪) border of the ellipse is drawn, `stroke` thick.
+   */
+  arc?: { side: 'up' | 'down'; stroke: number };
 }
 
 const eye = (cx: number, cy: number, w: number, h: number, tilt: number): BotAvatarEyeGeometry => ({
@@ -21,6 +26,18 @@ const eye = (cx: number, cy: number, w: number, h: number, tilt: number): BotAva
   h,
   tilt,
 });
+
+/** A closed-lid arc eye; `cy` is the ellipse center, so `up` is visible from
+ * `cy - h/2` down to `cy`, `down` from `cy` to `cy + h/2`. */
+const arcEye = (
+  side: 'up' | 'down',
+  cx: number,
+  cy: number,
+  w: number,
+  h: number,
+  stroke: number,
+  tilt = 0,
+): BotAvatarEyeGeometry => ({ cx, cy, w, h, tilt, arc: { side, stroke } });
 
 /**
  * The face vocabulary: two capsule eyes per expression, following the Grok
@@ -58,6 +75,12 @@ interface BotAvatarMouthGeometry {
   h: number;
   tilt: number;
   radius: string;
+  /**
+   * Optional stroked-arc rendering (the minifig smile): instead of a filled
+   * shape, only the bottom (`smile`) or top (`frown`) border of the ellipse
+   * is drawn, `stroke` thick (unit coordinates, like `w`/`h`).
+   */
+  arc?: { side: 'smile' | 'frown'; stroke: number };
 }
 
 const mouth = (cx: number, cy: number, w: number, h: number, tilt: number, radius: string): BotAvatarMouthGeometry => ({
@@ -68,6 +91,18 @@ const mouth = (cx: number, cy: number, w: number, h: number, tilt: number, radiu
   tilt,
   radius,
 });
+
+/** A stroked arc mouth: `cy` is the ellipse center, so a smile is visible
+ * from `cy` down to `cy + h/2`, a frown from `cy - h/2` up to `cy`. */
+const arcMouth = (
+  side: 'smile' | 'frown',
+  cx: number,
+  cy: number,
+  w: number,
+  h: number,
+  stroke: number,
+  tilt = 0,
+): BotAvatarMouthGeometry => ({ cx, cy, w, h, tilt, radius: ROUND, arc: { side, stroke } });
 
 /** Fully rounded (ellipse/pill-ish) — flat resting mouths and round gasps. */
 const ROUND = '50% 50% 50% 50% / 50% 50% 50% 50%';
@@ -100,25 +135,27 @@ const botAvatarMouths = {
  * deliberately low-detail so it stays readable at the smallest sizes.
  */
 const botAvatarLegoExpressions = {
-  neutral: [eye(0.37, 0.42, 0.11, 0.11, 0), eye(0.63, 0.42, 0.11, 0.11, 0)],
-  happy: [eye(0.37, 0.41, 0.11, 0.11, 0), eye(0.63, 0.41, 0.11, 0.11, 0)],
-  wide: [eye(0.37, 0.42, 0.14, 0.14, 0), eye(0.63, 0.42, 0.14, 0.14, 0)],
-  wink: [eye(0.37, 0.42, 0.11, 0.11, 0), eye(0.63, 0.43, 0.13, 0.04, -8)],
-  sleepy: [eye(0.37, 0.44, 0.12, 0.04, -4), eye(0.63, 0.44, 0.12, 0.04, -4)],
-  angry: [eye(0.37, 0.43, 0.13, 0.05, 20), eye(0.63, 0.43, 0.13, 0.05, -20)],
-  sad: [eye(0.37, 0.43, 0.13, 0.05, -14), eye(0.63, 0.43, 0.13, 0.05, 14)],
-  suspicious: [eye(0.37, 0.43, 0.14, 0.05, 0), eye(0.63, 0.43, 0.14, 0.05, 0)],
+  neutral: [eye(0.31, 0.555, 0.145, 0.135, 0), eye(0.69, 0.555, 0.145, 0.135, 0)],
+  happy: [eye(0.31, 0.55, 0.145, 0.135, 0), eye(0.69, 0.55, 0.145, 0.135, 0)],
+  wide: [eye(0.31, 0.555, 0.165, 0.165, 0), eye(0.69, 0.555, 0.165, 0.165, 0)],
+  wink: [eye(0.31, 0.555, 0.145, 0.135, 0), arcEye('down', 0.69, 0.535, 0.15, 0.12, 0.05)],
+  sleepy: [arcEye('up', 0.31, 0.585, 0.15, 0.13, 0.05), arcEye('up', 0.69, 0.585, 0.15, 0.13, 0.05)],
+  angry: [eye(0.31, 0.56, 0.15, 0.055, 20), eye(0.69, 0.56, 0.15, 0.055, -20)],
+  sad: [eye(0.31, 0.56, 0.15, 0.055, -14), eye(0.69, 0.56, 0.15, 0.055, 14)],
+  suspicious: [eye(0.31, 0.56, 0.16, 0.055, 0), eye(0.69, 0.56, 0.16, 0.055, 0)],
 } as const satisfies Record<BotAvatarExpression, readonly [BotAvatarEyeGeometry, BotAvatarEyeGeometry]>;
 
+/** Minifig mouths are stroked arcs (the classic printed smile), except the
+ * round gasp. Stroke 0.05 ≈ the sheet's line weight. */
 const botAvatarLegoMouths = {
-  neutral: mouth(0.5, 0.6, 0.3, 0.1, 0, SMILE),
-  happy: mouth(0.5, 0.61, 0.36, 0.15, 0, SMILE),
-  wide: mouth(0.5, 0.63, 0.13, 0.13, 0, ROUND),
-  wink: mouth(0.52, 0.6, 0.26, 0.09, -6, SMILE),
-  sleepy: mouth(0.5, 0.62, 0.08, 0.08, 0, ROUND),
-  angry: mouth(0.5, 0.62, 0.24, 0.09, 0, FROWN),
-  sad: mouth(0.5, 0.625, 0.2, 0.08, 0, FROWN),
-  suspicious: mouth(0.5, 0.615, 0.15, 0.05, -4, ROUND),
+  neutral: arcMouth('smile', 0.5, 0.69, 0.3, 0.16, 0.06),
+  happy: arcMouth('smile', 0.5, 0.67, 0.4, 0.26, 0.06),
+  wide: mouth(0.5, 0.76, 0.15, 0.16, 0, ROUND),
+  wink: arcMouth('smile', 0.52, 0.68, 0.32, 0.2, 0.06, -6),
+  sleepy: arcMouth('smile', 0.5, 0.7, 0.26, 0.14, 0.06),
+  angry: arcMouth('frown', 0.5, 0.79, 0.3, 0.18, 0.06),
+  sad: arcMouth('frown', 0.5, 0.79, 0.26, 0.16, 0.06),
+  suspicious: arcMouth('smile', 0.5, 0.72, 0.22, 0.08, 0.06, -4),
 } as const satisfies Record<BotAvatarExpression, BotAvatarMouthGeometry>;
 
 /** Which face vocabulary an avatar draws from: Grok-style capsules
@@ -160,6 +197,7 @@ const getBotAvatarEyes = (
     w: e.w * s,
     h: e.h * s,
     tilt: e.tilt,
+    arc: e.arc && { ...e.arc, stroke: e.arc.stroke * s },
   });
   return [fit(left), fit(right)];
 };
@@ -180,6 +218,7 @@ const getBotAvatarMouth = (
     cy: FACE_CENTER_Y + (m.cy - FACE_CENTER_Y) * s + dy,
     w: m.w * s,
     h: m.h * s,
+    arc: m.arc && { ...m.arc, stroke: m.arc.stroke * s },
   };
 };
 
