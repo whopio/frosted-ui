@@ -25,20 +25,6 @@ interface BotAvatarProps extends PropsWithoutColor<'div'>, BotAvatarOwnProps {
    * (`blink()`, `lookAt()`), following the Base UI handle pattern.
    */
   handle?: BotAvatarHandle;
-  /**
-   * Rendered between the silhouette and the face — for worn things anchored
-   * to the body (hats, hair): it breathes with the body, sits under the
-   * eyes/mouth, and is not clipped by the silhouette (a hat may poke past
-   * the box, like the notification badge).
-   */
-  bodyAccessory?: React.ReactNode;
-  /**
-   * Rendered inside the face motion layer, above the eyes and mouth — for
-   * worn things anchored to the face (glasses, a moustache): it follows
-   * gaze, pointer tracking, and idle drift with the face. Only rendered
-   * while the avatar has a face (an expression or status).
-   */
-  faceAccessory?: React.ReactNode;
 }
 
 /** Max face deflection at full gaze, as a percentage of the avatar size. */
@@ -59,9 +45,6 @@ const BotAvatar = (props: BotAvatarProps) => {
     expression = botAvatarPropDefs.expression.default,
     status = botAvatarPropDefs.status.default,
     followPointer = botAvatarPropDefs.followPointer.default,
-    mouth: withMouth = botAvatarPropDefs.mouth.default,
-    bodyAccessory,
-    faceAccessory,
     gaze,
     handle,
     ...rootProps
@@ -146,21 +129,18 @@ const BotAvatar = (props: BotAvatarProps) => {
   const activeGaze =
     gaze !== undefined ? { x: clampGazeAxis(gaze.x), y: clampGazeAxis(gaze.y) } : (handleGaze ?? pointerGaze);
 
-  // Eye geometry comes from the expression catalogue adjusted by the
-  // precomputed per-shape face fit, which keeps eyes inside the silhouette
-  // at rest. The eyes are deliberately NOT clipped by the shape, so a gaze
-  // or a morph overshoot bulges past the edge instead of shearing an eye.
-  // The mouth participates in the face fit: with a mouth on, the whole face
-  // uses the mouth-aware fit table so nothing pokes out of tight silhouettes.
-  const eyes = resolvedExpression !== undefined ? getBotAvatarEyes(resolvedExpression, shape, withMouth) : undefined;
+  // Face geometry comes from the expression catalogue adjusted by the
+  // precomputed per-shape face fit, which keeps the whole face (eyes and
+  // mouth together) inside the silhouette at rest. The face is deliberately
+  // NOT clipped by the shape, so a gaze or a morph overshoot bulges past
+  // the edge instead of shearing an eye.
+  const eyes = resolvedExpression !== undefined ? getBotAvatarEyes(resolvedExpression, shape) : undefined;
   // The mouth is serialized to an SVG path in the face's 0..100 viewBox.
   // Every expression's mouth shares the same command structure, so setting
   // the path via the CSS `d` property lets the browser interpolate the
   // morph natively (see the transition in bot-avatar.css).
   const mouthD =
-    withMouth && resolvedExpression !== undefined
-      ? botAvatarMouthPath(getBotAvatarMouth(resolvedExpression, shape))
-      : undefined;
+    resolvedExpression !== undefined ? botAvatarMouthPath(getBotAvatarMouth(resolvedExpression, shape)) : undefined;
 
   // Desynchronize the idle animations (blink, drift, breath) across
   // instances with a stable per-instance negative delay, so a roster of
@@ -211,7 +191,6 @@ const BotAvatar = (props: BotAvatarProps) => {
             } as React.CSSProperties
           }
         />
-        {bodyAccessory !== undefined && <div className="fui-BotAvatarBodyAccessory">{bodyAccessory}</div>}
         {eyes && (
           // Face carries the transitioned base pose per status; FaceMotion
           // carries the looping animations (all zero-anchored), so status
@@ -252,7 +231,6 @@ const BotAvatar = (props: BotAvatarProps) => {
                   />
                 </svg>
               )}
-              {faceAccessory !== undefined && <div className="fui-BotAvatarFaceAccessory">{faceAccessory}</div>}
             </div>
           </div>
         )}

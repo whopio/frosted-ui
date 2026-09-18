@@ -1,4 +1,4 @@
-import { botAvatarFaceFit, botAvatarFaceFitWithMouth } from './bot-avatar.face-fit';
+import { botAvatarFaceFit } from './bot-avatar.face-fit';
 import type { BotAvatarAtlasShape } from './bot-avatar.shapes';
 
 /**
@@ -131,10 +131,9 @@ const FACE_CENTER_Y = 0.45;
 const getBotAvatarEyes = (
   expression: BotAvatarExpression,
   shape: BotAvatarAtlasShape,
-  withMouth = false,
 ): [BotAvatarEyeGeometry, BotAvatarEyeGeometry] => {
   const [left, right] = botAvatarExpressions[expression];
-  const { s, dy } = (withMouth ? botAvatarFaceFitWithMouth : botAvatarFaceFit)[shape];
+  const { s, dy } = botAvatarFaceFit[shape];
   const fit = (e: BotAvatarEyeGeometry): BotAvatarEyeGeometry => ({
     cx: FACE_CENTER_X + (e.cx - FACE_CENTER_X) * s,
     cy: FACE_CENTER_Y + (e.cy - FACE_CENTER_Y) * s + dy,
@@ -146,11 +145,10 @@ const getBotAvatarEyes = (
 };
 
 /** The mouth for an expression, run through the same per-shape face fit as
- * the eyes (always the mouth-aware table) so the whole face scales and
- * shifts as one unit. */
+ * the eyes so the whole face scales and shifts as one unit. */
 const getBotAvatarMouth = (expression: BotAvatarExpression, shape: BotAvatarAtlasShape): BotAvatarMouthGeometry => {
   const m = botAvatarMouths[expression];
-  const { s, dy } = botAvatarFaceFitWithMouth[shape];
+  const { s, dy } = botAvatarFaceFit[shape];
   return {
     points: m.points.map(([x, y]): BotAvatarMouthPoint => [
       FACE_CENTER_X + (x - FACE_CENTER_X) * s,

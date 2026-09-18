@@ -51,17 +51,6 @@
   flex-shrink: 0;
 }
 
-/* Accessory anchor layers: full-bleed, non-interactive canvases that worn
-   things draw into with percentage coordinates. The body layer sits between
-   the silhouette and the face; the face layer rides FaceMotion above the
-   eyes and mouth. Neither is clipped by the silhouette. */
-.fui-BotAvatarBodyAccessory,
-.fui-BotAvatarFaceAccessory {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
 .fui-BotAvatarClipSvg {
   position: absolute;
   width: 0;
@@ -143,8 +132,8 @@
   }
 }
 
-/* The mouth (on by default via the `mouth` prop) — the primary carrier of
-   expression. One filled SVG path per face: a blobby "loaf" (flat-ish top,
+/* The mouth — the primary carrier of expression. One filled SVG path per
+   face: a blobby "loaf" (flat-ish top,
    deep round bottom) is a smile, the flipped loaf a frown, an oval a gasp.
    Every expression's path has the same command structure, so the CSS `d`
    property (set inline) interpolates between them natively. The svg spans

@@ -146,38 +146,31 @@ export const Expression: Story = {
 };
 
 /**
- * The mouth is on by default and sized to carry the expression together with
- * the eyes (pass `mouth={false}` for the classic eyes-only look). With a
- * mouth shown, the face uses a mouth-aware fit table, so it stays inside
- * even the tightest silhouettes — the grid below is the stress test: every
- * row is a shape with little room at the bottom, every column an expression.
+ * The face fit stress test: the whole face (eyes + mouth) is scaled and
+ * shifted per silhouette by a precomputed table, so it stays inside even the
+ * tightest shapes. Every row is a shape with little spare room, every column
+ * an expression.
  */
-export const Mouth: Story = {
+export const FaceFit: Story = {
   args: {
     color: 'blue',
     size: '5',
   },
   parameters: withoutControls('expression', 'shape', 'identity'),
   render: (args) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-      <div style={{ display: 'flex', gap: 'var(--space-4)', alignItems: 'center' }}>
-        <BotAvatar {...args} size="8" shape="sunny" expression="happy" />
-        <BotAvatar {...args} size="8" shape="sunny" expression="happy" mouth={false} />
-      </div>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: `repeat(${botAvatarExpressionsList.length}, 1fr)`,
-          gap: 'var(--space-3)',
-        }}
-      >
-        {(['circle', 'triangle', 'heart', 'semi-circle', 'boom', 'pixel-triangle', 'fan', 'ghost-ish'] as const).map(
-          (shape) =>
-            botAvatarExpressionsList.map((expression) => (
-              <BotAvatar {...args} key={`${shape}-${expression}`} shape={shape} expression={expression} />
-            )),
-        )}
-      </div>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: `repeat(${botAvatarExpressionsList.length}, 1fr)`,
+        gap: 'var(--space-3)',
+      }}
+    >
+      {(['circle', 'triangle', 'heart', 'semi-circle', 'boom', 'pixel-triangle', 'fan', 'ghost-ish'] as const).map(
+        (shape) =>
+          botAvatarExpressionsList.map((expression) => (
+            <BotAvatar {...args} key={`${shape}-${expression}`} shape={shape} expression={expression} />
+          )),
+      )}
     </div>
   ),
 };
