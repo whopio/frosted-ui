@@ -133,9 +133,9 @@ const getBotAvatarEyes = (
   shape: BotAvatarAtlasShape,
 ): [BotAvatarEyeGeometry, BotAvatarEyeGeometry] => {
   const [left, right] = botAvatarExpressions[expression];
-  const { s, dy } = botAvatarFaceFit[shape];
+  const { s, dx, dy } = botAvatarFaceFit[shape];
   const fit = (e: BotAvatarEyeGeometry): BotAvatarEyeGeometry => ({
-    cx: FACE_CENTER_X + (e.cx - FACE_CENTER_X) * s,
+    cx: FACE_CENTER_X + (e.cx - FACE_CENTER_X) * s + dx,
     cy: FACE_CENTER_Y + (e.cy - FACE_CENTER_Y) * s + dy,
     w: e.w * s,
     h: e.h * s,
@@ -148,10 +148,10 @@ const getBotAvatarEyes = (
  * the eyes so the whole face scales and shifts as one unit. */
 const getBotAvatarMouth = (expression: BotAvatarExpression, shape: BotAvatarAtlasShape): BotAvatarMouthGeometry => {
   const m = botAvatarMouths[expression];
-  const { s, dy } = botAvatarFaceFit[shape];
+  const { s, dx, dy } = botAvatarFaceFit[shape];
   return {
     points: m.points.map(([x, y]): BotAvatarMouthPoint => [
-      FACE_CENTER_X + (x - FACE_CENTER_X) * s,
+      FACE_CENTER_X + (x - FACE_CENTER_X) * s + dx,
       FACE_CENTER_Y + (y - FACE_CENTER_Y) * s + dy,
     ]),
   };

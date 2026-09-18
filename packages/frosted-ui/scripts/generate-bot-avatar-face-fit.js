@@ -3,9 +3,13 @@
 // Generates src/components/bot-avatar/bot-avatar.face-fit.ts from the SVG
 // paths in bot-avatar.shapes.ts.
 //
-// For each silhouette it finds the largest whole-face scale (s) and vertical
-// offset (dy) at which the worst-case face envelope (eyes + mouth) fits
-// fully inside the shape, so nothing pokes out of tight silhouettes.
+// For each silhouette it finds the largest whole-face scale (s) and offset
+// (dx, dy) at which the worst-case face envelope (eyes + mouth) fits fully
+// inside the shape, so nothing pokes out of tight silhouettes. Among the
+// placements that reach that scale it picks the one centered in the feasible
+// region, so on lopsided silhouettes (fan, pixel-triangle, slanted…) the
+// face sits where the room actually is instead of hugging the geometric
+// center of the box.
 //
 // The envelope boxes below are the unions of the extreme extents across every
 // expression in bot-avatar.expressions.ts (plus tilt/rounding padding). When
@@ -151,43 +155,72 @@ function rectSamples(rect) {
   return points;
 }
 
-/** True when every envelope sample, transformed by (s, dy), is inside. */
-function fits(poly, samples, s, dy) {
+/** True when every envelope sample, transformed by (s, dx, dy), is inside. */
+function fits(poly, samples, s, dx, dy) {
   for (const [px, py] of samples) {
-    const x = FACE_CENTER[0] + (px - FACE_CENTER[0]) * s;
+    const x = FACE_CENTER[0] + (px - FACE_CENTER[0]) * s + dx;
     const y = FACE_CENTER[1] + (py - FACE_CENTER[1]) * s + dy;
     if (!insidePolygon(poly, [x, y])) return false;
   }
   return true;
 }
 
-/** Largest s (≤ 1) over a dy sweep; ties resolved toward the smallest |dy|. */
+/**
+ * Largest s (≤ 1) over a (dx, dy) grid. Vertical ties resolve toward the
+ * face's designed home (smallest |dy|) — the resting height is an aesthetic
+ * choice, not a leftover. Horizontally the face is then centered in the room
+ * the silhouette has at that height (midpoint of the feasible dx range), so
+ * lopsided shapes carry the face where their mass is instead of at x=0.5.
+ */
 function solve(poly, samples, preferredDy) {
-  if (preferredDy !== undefined && fits(poly, samples, 1, preferredDy)) {
-    return { s: 1, dy: preferredDy };
+  if (preferredDy !== undefined && fits(poly, samples, 1, 0, preferredDy)) {
+    return { s: 1, dx: 0, dy: preferredDy };
   }
-  let best = null;
-  for (let dyStep = -8; dyStep <= 20; dyStep++) {
-    const dy = dyStep / 100;
-    if (!fits(poly, samples, 0.4, dy)) continue;
-    let lo = 0.4;
-    let hi = 1;
-    if (fits(poly, samples, 1, dy)) {
-      lo = 1;
-    } else {
-      for (let iter = 0; iter < 24; iter++) {
-        const mid = (lo + hi) / 2;
-        if (fits(poly, samples, mid, dy)) lo = mid;
-        else hi = mid;
+  // Pass 1: the best reachable scale, pruning cells that can't beat it.
+  let sBest = 0;
+  for (let dxStep = -15; dxStep <= 15; dxStep++) {
+    for (let dyStep = -10; dyStep <= 20; dyStep++) {
+      const dx = dxStep / 100;
+      const dy = dyStep / 100;
+      if (sBest > 0 && !fits(poly, samples, Math.min(1, sBest + 0.01), dx, dy)) continue;
+      let lo = 0.4;
+      let hi = 1;
+      if (fits(poly, samples, 1, dx, dy)) {
+        lo = 1;
+      } else if (fits(poly, samples, 0.4, dx, dy)) {
+        for (let iter = 0; iter < 24; iter++) {
+          const mid = (lo + hi) / 2;
+          if (fits(poly, samples, mid, dx, dy)) lo = mid;
+          else hi = mid;
+        }
+      } else {
+        continue;
       }
-    }
-    const s = Math.floor(lo * 100) / 100;
-    if (!best || s > best.s || (s === best.s && Math.abs(dy) < Math.abs(best.dy))) {
-      best = { s, dy };
+      sBest = Math.max(sBest, Math.floor(lo * 100) / 100);
     }
   }
-  if (!best) throw new Error('Face does not fit at minimum scale');
-  return best;
+  if (sBest === 0) throw new Error('Face does not fit at minimum scale');
+  // Pass 2: smallest |dy| that holds sBest at some dx, then the midpoint of
+  // the feasible dx range at that dy.
+  let bestDy;
+  const dxAt = new Map();
+  for (let dyStep = -10; dyStep <= 20; dyStep++) {
+    const dy = dyStep / 100;
+    const dxs = [];
+    for (let dxStep = -15; dxStep <= 15; dxStep++) {
+      const dx = dxStep / 100;
+      if (fits(poly, samples, sBest, dx, dy)) dxs.push(dx);
+    }
+    if (dxs.length === 0) continue;
+    dxAt.set(dy, dxs);
+    if (bestDy === undefined || Math.abs(dy) < Math.abs(bestDy)) bestDy = dy;
+  }
+  const dxs = dxAt.get(bestDy);
+  const dxMid = (dxs[0] + dxs[dxs.length - 1]) / 2;
+  // The range midpoint may fall in a gap of a concave region; snap to the
+  // nearest feasible dx.
+  const dx = dxs.reduce((a, b) => (Math.abs(b - dxMid) < Math.abs(a - dxMid) ? b : a));
+  return { s: sBest, dx, dy: bestDy };
 }
 
 const faceSamples = [...rectSamples(EYE_BAND), ...rectSamples(MOUTH_BAND)];
@@ -208,18 +241,22 @@ const fmt = (v) => {
 };
 const entries = (table) =>
   table
-    .map(({ name, s, dy }) => `  ${/-/.test(name) ? `'${name}'` : name}: { s: ${fmt(s)}, dy: ${fmt(dy)} },`)
+    .map(
+      ({ name, s, dx, dy }) =>
+        `  ${/-/.test(name) ? `'${name}'` : name}: { s: ${fmt(s)}, dx: ${fmt(dx)}, dy: ${fmt(dy)} },`,
+    )
     .join('\n');
 
 const out = `// Generated by scripts/generate-bot-avatar-face-fit.js — do not edit by hand.
 //
-// For each silhouette: the whole-face scale (s) and vertical offset (dy) at
-// which the worst-case face envelope (eyes + mouth) fits fully inside the
-// shape. Precomputed at build time so no geometry is solved at runtime.
+// For each silhouette: the whole-face scale (s) and offset (dx, dy) at which
+// the worst-case face envelope (eyes + mouth) fits fully inside the shape,
+// centered in the room the silhouette actually has. Precomputed at build
+// time so no geometry is solved at runtime.
 
 import type { BotAvatarAtlasShape } from './bot-avatar.shapes';
 
-const botAvatarFaceFit: Record<BotAvatarAtlasShape, { s: number; dy: number }> = {
+const botAvatarFaceFit: Record<BotAvatarAtlasShape, { s: number; dx: number; dy: number }> = {
 ${entries(faceTable)}
 };
 
@@ -228,6 +265,6 @@ export { botAvatarFaceFit };
 
 fs.writeFileSync(OUT, out);
 console.log(`Wrote ${OUT} (${shapes.length} shapes)`);
-for (const { name, s, dy } of faceTable) {
-  console.log(`${name.padEnd(16)} s=${fmt(s).padEnd(5)} dy=${fmt(dy)}`);
+for (const { name, s, dx, dy } of faceTable) {
+  console.log(`${name.padEnd(16)} s=${fmt(s).padEnd(5)} dx=${fmt(dx).padEnd(6)} dy=${fmt(dy)}`);
 }
