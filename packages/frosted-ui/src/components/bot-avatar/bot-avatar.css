@@ -40,11 +40,6 @@
     1
   );
 
-  /* Molded-plastic ink for accessories (see AgentAvatar): near-black on
-     light themes, LEGO dark-bluish-gray on dark ones so parts that poke
-     outside the silhouette (hats, hair) never vanish into a dark page. */
-  --bot-avatar-accessory-ink: #1c2024;
-
   container-type: inline-size;
   position: relative;
   display: inline-grid;
@@ -54,10 +49,6 @@
   width: var(--avatar-size);
   height: var(--avatar-size);
   flex-shrink: 0;
-}
-
-:is(.dark, .dark-theme) .fui-BotAvatarRoot {
-  --bot-avatar-accessory-ink: #4c545c;
 }
 
 /* Accessory anchor layers: full-bleed, non-interactive canvases that worn

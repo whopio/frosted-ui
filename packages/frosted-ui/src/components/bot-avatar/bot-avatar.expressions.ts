@@ -118,50 +118,6 @@ const botAvatarMouths = {
   suspicious: blobMouth([0.4, 0.652], [0.5, 0.664], [0.6, 0.625], [0.5, 0.618]),
 } as const satisfies Record<BotAvatarExpression, BotAvatarMouthGeometry>;
 
-/**
- * The minifig face vocabulary, used by AgentAvatar: the same dot-eye
- * construction, positioned for the lego-head silhouette (face box between
- * stud and neck tube). Eye geometry is unchanged from the original minifig
- * tuning so worn accessories (glasses, moustache) stay aligned.
- */
-const botAvatarLegoExpressions = {
-  neutral: [eye(0.37, 0.42, 0.11, 0.11, 0), eye(0.63, 0.42, 0.11, 0.11, 0)],
-  happy: [eye(0.37, 0.41, 0.11, 0.11, 0), eye(0.63, 0.41, 0.11, 0.11, 0)],
-  wide: [eye(0.37, 0.42, 0.14, 0.14, 0), eye(0.63, 0.42, 0.14, 0.14, 0)],
-  wink: [eye(0.37, 0.42, 0.11, 0.11, 0), eye(0.63, 0.43, 0.13, 0.04, -8)],
-  sleepy: [eye(0.37, 0.44, 0.12, 0.04, -4), eye(0.63, 0.44, 0.12, 0.04, -4)],
-  angry: [eye(0.37, 0.43, 0.13, 0.05, 20), eye(0.63, 0.43, 0.13, 0.05, -20)],
-  sad: [eye(0.37, 0.43, 0.13, 0.05, -14), eye(0.63, 0.43, 0.13, 0.05, 14)],
-  suspicious: [eye(0.37, 0.43, 0.14, 0.05, 0), eye(0.63, 0.43, 0.14, 0.05, 0)],
-} as const satisfies Record<BotAvatarExpression, readonly [BotAvatarEyeGeometry, BotAvatarEyeGeometry]>;
-
-/** Lego mouths, matching the old minifig extents in the new blob system. */
-const botAvatarLegoMouths = {
-  neutral: blobMouth([0.35, 0.595], [0.5, 0.652], [0.65, 0.595], [0.5, 0.568]),
-  happy: blobMouth([0.33, 0.6], [0.5, 0.685], [0.67, 0.6], [0.5, 0.575]),
-  wide: ovalMouth(0.5, 0.63, 0.062, 0.065),
-  wink: blobMouth([0.4, 0.615], [0.525, 0.655], [0.645, 0.585], [0.515, 0.578]),
-  sleepy: ovalMouth(0.5, 0.62, 0.04, 0.04),
-  angry: blobMouth([0.38, 0.62], [0.5, 0.645], [0.62, 0.62], [0.5, 0.575]),
-  sad: blobMouth([0.4, 0.628], [0.5, 0.648], [0.6, 0.628], [0.5, 0.598]),
-  suspicious: blobMouth([0.425, 0.622], [0.5, 0.633], [0.575, 0.607], [0.5, 0.598]),
-} as const satisfies Record<BotAvatarExpression, BotAvatarMouthGeometry>;
-
-/** Which face vocabulary an avatar draws from: `dot` (the BotAvatar
- * default) or `lego` (the minifig face used by AgentAvatar). */
-type BotAvatarFaceVariant = 'dot' | 'lego';
-
-const faceCatalogue: Record<
-  BotAvatarFaceVariant,
-  {
-    eyes: Record<BotAvatarExpression, readonly [BotAvatarEyeGeometry, BotAvatarEyeGeometry]>;
-    mouths: Record<BotAvatarExpression, BotAvatarMouthGeometry>;
-  }
-> = {
-  dot: { eyes: botAvatarExpressions, mouths: botAvatarMouths },
-  lego: { eyes: botAvatarLegoExpressions, mouths: botAvatarLegoMouths },
-};
-
 /** Anchor around which the per-shape face fit scales the whole face. */
 const FACE_CENTER_X = 0.5;
 const FACE_CENTER_Y = 0.45;
@@ -176,9 +132,8 @@ const getBotAvatarEyes = (
   expression: BotAvatarExpression,
   shape: BotAvatarAtlasShape,
   withMouth = false,
-  variant: BotAvatarFaceVariant = 'dot',
 ): [BotAvatarEyeGeometry, BotAvatarEyeGeometry] => {
-  const [left, right] = faceCatalogue[variant].eyes[expression];
+  const [left, right] = botAvatarExpressions[expression];
   const { s, dy } = (withMouth ? botAvatarFaceFitWithMouth : botAvatarFaceFit)[shape];
   const fit = (e: BotAvatarEyeGeometry): BotAvatarEyeGeometry => ({
     cx: FACE_CENTER_X + (e.cx - FACE_CENTER_X) * s,
@@ -193,12 +148,8 @@ const getBotAvatarEyes = (
 /** The mouth for an expression, run through the same per-shape face fit as
  * the eyes (always the mouth-aware table) so the whole face scales and
  * shifts as one unit. */
-const getBotAvatarMouth = (
-  expression: BotAvatarExpression,
-  shape: BotAvatarAtlasShape,
-  variant: BotAvatarFaceVariant = 'dot',
-): BotAvatarMouthGeometry => {
-  const m = faceCatalogue[variant].mouths[expression];
+const getBotAvatarMouth = (expression: BotAvatarExpression, shape: BotAvatarAtlasShape): BotAvatarMouthGeometry => {
+  const m = botAvatarMouths[expression];
   const { s, dy } = botAvatarFaceFitWithMouth[shape];
   return {
     points: m.points.map(([x, y]): BotAvatarMouthPoint => [
@@ -233,4 +184,4 @@ export {
   getBotAvatarEyes,
   getBotAvatarMouth,
 };
-export type { BotAvatarExpression, BotAvatarEyeGeometry, BotAvatarFaceVariant, BotAvatarMouthGeometry };
+export type { BotAvatarExpression, BotAvatarEyeGeometry, BotAvatarMouthGeometry };

@@ -24,10 +24,8 @@ const FACE_CENTER = [0.5, 0.45];
  * Hand-tuned vertical offsets for shapes whose face placement is aesthetic
  * rather than purely geometric. Used when the solver confirms the face still
  * fits at full scale there; otherwise the solved offset wins.
- * lego-head: the minifig face sits centered in the head box (which spans
- * y 0.17–0.88 between the stud and the neck tube), clear of both.
  */
-const PREFERRED_DY = { 'lego-head': 0.05 };
+const PREFERRED_DY = {};
 
 /** Union of eye extents across expressions (wide is the widest/tallest dot,
  * sad the lowest; includes tilt padding for the lidded dash eyes). */

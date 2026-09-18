@@ -3,7 +3,6 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import { botAvatarMouthPath, getBotAvatarEyes, getBotAvatarMouth } from './bot-avatar.expressions';
-import type { BotAvatarFaceVariant } from './bot-avatar.expressions';
 import type { BotAvatarHandle } from './bot-avatar.handle';
 import { registerBotAvatarHandle } from './bot-avatar.handle';
 import { getBotAvatarIdentity } from './bot-avatar.identity';
@@ -26,12 +25,6 @@ interface BotAvatarProps extends PropsWithoutColor<'div'>, BotAvatarOwnProps {
    * (`blink()`, `lookAt()`), following the Base UI handle pattern.
    */
   handle?: BotAvatarHandle;
-  /**
-   * Which face vocabulary to draw from: `dot` (the default round dot eyes
-   * with a primary mouth) or `lego` (the minifig tuning of the same
-   * construction, used by AgentAvatar).
-   */
-  faceVariant?: BotAvatarFaceVariant;
   /**
    * Rendered between the silhouette and the face — for worn things anchored
    * to the body (hats, hair): it breathes with the body, sits under the
@@ -67,7 +60,6 @@ const BotAvatar = (props: BotAvatarProps) => {
     status = botAvatarPropDefs.status.default,
     followPointer = botAvatarPropDefs.followPointer.default,
     mouth: withMouth = botAvatarPropDefs.mouth.default,
-    faceVariant = 'dot',
     bodyAccessory,
     faceAccessory,
     gaze,
@@ -160,15 +152,14 @@ const BotAvatar = (props: BotAvatarProps) => {
   // or a morph overshoot bulges past the edge instead of shearing an eye.
   // The mouth participates in the face fit: with a mouth on, the whole face
   // uses the mouth-aware fit table so nothing pokes out of tight silhouettes.
-  const eyes =
-    resolvedExpression !== undefined ? getBotAvatarEyes(resolvedExpression, shape, withMouth, faceVariant) : undefined;
+  const eyes = resolvedExpression !== undefined ? getBotAvatarEyes(resolvedExpression, shape, withMouth) : undefined;
   // The mouth is serialized to an SVG path in the face's 0..100 viewBox.
   // Every expression's mouth shares the same command structure, so setting
   // the path via the CSS `d` property lets the browser interpolate the
   // morph natively (see the transition in bot-avatar.css).
   const mouthD =
     withMouth && resolvedExpression !== undefined
-      ? botAvatarMouthPath(getBotAvatarMouth(resolvedExpression, shape, faceVariant))
+      ? botAvatarMouthPath(getBotAvatarMouth(resolvedExpression, shape))
       : undefined;
 
   // Desynchronize the idle animations (blink, drift, breath) across
