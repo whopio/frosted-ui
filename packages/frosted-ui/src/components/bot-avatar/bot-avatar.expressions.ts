@@ -150,13 +150,23 @@ const botAvatarMouths = {
 const FACE_CENTER_X = 0.5;
 const FACE_CENTER_Y = 0.45;
 
+/**
+ * Extra whole-face scale on top of the hand-tuned vocabulary: the features
+ * own the face instead of floating in it, and stay readable at roster
+ * sizes. Roomy silhouettes render at the full boost; tight ones are
+ * shrunk back by their per-shape fit, whose solver accounts for this same
+ * factor — keep it in sync with FACE_SCALE in
+ * scripts/generate-bot-avatar-face-fit.js and regenerate when changing it.
+ */
+const FACE_SCALE = 1.16;
+
 /** Applies the precomputed per-shape face fit (a lookup, not a solver) to a
  * shape's points, so the whole face scales and shifts as one unit and
  * spacing, proportions, and tilts are preserved. */
 const fitShape = (shape: BotAvatarFaceShape, s: number, dx: number, dy: number): BotAvatarFaceShape => ({
   points: shape.points.map(([x, y]): BotAvatarFacePoint => [
-    FACE_CENTER_X + (x - FACE_CENTER_X) * s + dx,
-    FACE_CENTER_Y + (y - FACE_CENTER_Y) * s + dy,
+    FACE_CENTER_X + (x - FACE_CENTER_X) * s * FACE_SCALE + dx,
+    FACE_CENTER_Y + (y - FACE_CENTER_Y) * s * FACE_SCALE + dy,
   ]),
 });
 

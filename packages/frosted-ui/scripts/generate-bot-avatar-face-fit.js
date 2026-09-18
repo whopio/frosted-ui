@@ -22,6 +22,10 @@ const path = require('path');
 /** Anchor around which the fit scales the face (see bot-avatar.expressions.ts). */
 const FACE_CENTER = [0.5, 0.45];
 
+/** Extra whole-face scale applied at runtime on top of the solved fit.
+ * Keep in sync with FACE_SCALE in bot-avatar.expressions.ts. */
+const FACE_SCALE = 1.16;
+
 /**
  * Hand-tuned vertical offsets for shapes whose face placement is aesthetic
  * rather than purely geometric. Used when the solver confirms the face still
@@ -224,7 +228,16 @@ function solve(poly, samples, preferredDy) {
   return { s: sBest, dx, dy: bestDy };
 }
 
-const faceSamples = [...rectSamples(EYE_BAND), ...rectSamples(MOUTH_BAND)];
+/** Inflate a band by the runtime FACE_SCALE around the face anchor, so the
+ * solved `s` compensates on silhouettes that can't hold the full boost. */
+const scaleBand = (b) => ({
+  x0: FACE_CENTER[0] + (b.x0 - FACE_CENTER[0]) * FACE_SCALE,
+  y0: FACE_CENTER[1] + (b.y0 - FACE_CENTER[1]) * FACE_SCALE,
+  x1: FACE_CENTER[0] + (b.x1 - FACE_CENTER[0]) * FACE_SCALE,
+  y1: FACE_CENTER[1] + (b.y1 - FACE_CENTER[1]) * FACE_SCALE,
+});
+
+const faceSamples = [...rectSamples(scaleBand(EYE_BAND)), ...rectSamples(scaleBand(MOUTH_BAND))];
 
 const faceTable = [];
 for (const { name, d } of shapes) {
