@@ -91,8 +91,9 @@
 
 .fui-SliderThumb {
   display: block;
-  width: var(--slider-thumb-size);
-  height: var(--slider-thumb-size);
+  /* Match the track so edge alignment stops on the pill's end-cap center */
+  width: var(--slider-track-size);
+  height: var(--slider-track-size);
 
   &::before {
     content: '';
@@ -105,11 +106,11 @@
     transform: translate(-50%, -50%);
   }
 
-  /* Larger visible thumb so that it slightly overshoots the range */
+  /* Larger visible thumb so that it slightly overshoots the track */
   &::after {
     content: '';
     position: absolute;
-    inset: calc(-0.25 * var(--slider-track-size));
+    inset: calc(-0.25 * var(--slider-track-size) - var(--space-1) / 2);
     background-color: white;
     border-radius: max(var(--radius-1), var(--radius-thumb));
     box-shadow: var(--slider-thumb-box-shadow);

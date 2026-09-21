@@ -23,6 +23,7 @@ const Slider = (props: SliderProps) => {
     color = sliderPropDefs.color.default,
     highContrast = sliderPropDefs.highContrast.default,
     thumbCollisionBehavior = 'swap',
+    thumbAlignment = 'edge',
     inputRef,
     ...sliderProps
   } = props;
@@ -39,6 +40,7 @@ const Slider = (props: SliderProps) => {
       data-accent-color={color}
       {...sliderProps}
       thumbCollisionBehavior={thumbCollisionBehavior}
+      thumbAlignment={thumbAlignment}
       className={classNames('fui-SliderRoot', className, `fui-r-size-${size}`, {
         'fui-high-contrast': highContrast,
       })}
