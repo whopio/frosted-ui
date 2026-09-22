@@ -1,0 +1,15 @@
+<svg
+  width="32"
+  height="32"
+  viewBox="0 0 32 32"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  data-fui-icon="PaperClip32"
+>
+  <path
+    d="M6.25 15.75v4.75c0 5.385 4.365 9.75 9.75 9.75s9.75-4.365 9.75-9.75v-12c0-3.728-3.022-6.75-6.75-6.75s-6.75 3.022-6.75 6.75v11.25c0 1.933 1.567 3.5 3.5 3.5s3.5-1.567 3.5-3.5v-11"
+    stroke="currentColor"
+    stroke-width="1.5"
+    stroke-linecap="round"
+  />
+</svg>

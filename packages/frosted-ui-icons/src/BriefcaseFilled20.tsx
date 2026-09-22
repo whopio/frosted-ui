@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const BriefcaseFilled20 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="BriefcaseFilled20"
+      {...props}
+    >
+      <path
+        d="M19.003 14.658c0 2.398-1.945 4.343-4.343 4.343H5.342C2.944 19.001 1 17.056 1 14.658v-2.244c.54.363 1.19.576 1.89.576h14.22c.701 0 1.352-.213 1.893-.578v2.246zM11.753 1C13.27 1 14.5 2.23 14.5 3.746V5h.16c2.398 0 4.343 1.944 4.343 4.342v.2c-.002.02-.003.039-.003.059 0 1.043-.846 1.89-1.89 1.89H2.89c-.979 0-1.784-.745-1.88-1.698L1 9.601v-.26C1 6.945 2.944 5.002 5.342 5H5.5V3.746C5.5 2.23 6.73 1 8.246 1h3.508zM8.247 2.5C7.558 2.5 7 3.058 7 3.746V5h6V3.746c0-.688-.558-1.246-1.246-1.246H8.246z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+BriefcaseFilled20.category = 'Objects';
+
+export default BriefcaseFilled20;
