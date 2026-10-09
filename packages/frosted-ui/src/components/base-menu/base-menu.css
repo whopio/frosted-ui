@@ -89,6 +89,90 @@
   }
 }
 
+/* Filtered menus set the hidden attribute on groups with no matches. */
+.fui-BaseMenuGroup[hidden],
+.fui-BaseMenuRadioGroup[hidden] {
+  display: none;
+}
+
+.fui-BaseMenuInputRoot {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  box-sizing: border-box;
+  min-width: 220px;
+  margin-top: calc(var(--base-menu-content-padding) * -1);
+  margin-right: calc(var(--base-menu-content-padding) * -1);
+  margin-bottom: var(--space-1);
+  margin-left: calc(var(--base-menu-content-padding) * -1);
+  padding-top: var(--space-1);
+  padding-right: calc(var(--base-menu-content-padding) + var(--base-menu-item-padding-right));
+  padding-bottom: var(--space-1);
+  padding-left: calc(var(--base-menu-content-padding) + var(--base-menu-item-padding-left));
+  background-color: var(--color-panel-solid);
+  border-bottom: 1px solid var(--gray-a6);
+}
+
+.fui-BaseMenuInput {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+  height: var(--base-menu-item-height);
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  appearance: none;
+  background: transparent;
+  box-shadow: none;
+  color: var(--gray-12);
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+
+  &::placeholder {
+    color: var(--gray-a10);
+  }
+}
+
+.fui-BaseMenuClear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--base-menu-item-height);
+  height: var(--base-menu-item-height);
+  margin-right: calc(var(--base-menu-item-padding-right) * -1);
+  color: var(--gray-a10);
+  cursor: var(--cursor-button);
+
+  @media (hover: hover) {
+    &:where(:hover) {
+      color: var(--gray-12);
+    }
+  }
+}
+
+.fui-BaseMenuEmpty {
+  display: flex;
+  align-items: center;
+  min-height: var(--base-menu-item-height);
+  padding-left: var(--base-menu-item-padding-left);
+  padding-right: var(--base-menu-item-padding-right);
+  color: var(--gray-a10);
+  user-select: none;
+}
+
+.fui-BaseMenuList {
+  display: flex;
+  flex-direction: column;
+  outline: none;
+}
+
 .fui-BaseMenuArrow {
   fill: var(--base-menu-bg);
 }
@@ -121,9 +205,20 @@
       letter-spacing: var(--letter-spacing-0);
     }
 
+    & :where(.fui-BaseMenuInputRoot, .fui-BaseMenuEmpty) {
+      font-size: var(--font-size-1);
+      line-height: var(--line-height-1);
+      letter-spacing: var(--letter-spacing-1);
+    }
+
     & :where(.fui-BaseMenuItemIndicatorIcon, .fui-BaseMenuSubTriggerIcon) {
       width: 8px;
       height: 8px;
+    }
+
+    & :where(.fui-BaseMenuClearIcon) {
+      width: 12px;
+      height: 12px;
     }
 
     /* reset with :not:has so we still support browsers without :has */
@@ -158,9 +253,20 @@
       letter-spacing: var(--letter-spacing-1);
     }
 
+    & :where(.fui-BaseMenuInputRoot, .fui-BaseMenuEmpty) {
+      font-size: var(--font-size-2);
+      line-height: var(--line-height-2);
+      letter-spacing: var(--letter-spacing-2);
+    }
+
     & :where(.fui-BaseMenuItemIndicatorIcon, .fui-BaseMenuSubTriggerIcon) {
       width: 10px;
       height: 10px;
+    }
+
+    & :where(.fui-BaseMenuClearIcon) {
+      width: 14px;
+      height: 14px;
     }
 
     /* reset with :not:has so we still support browsers without :has */
@@ -191,9 +297,20 @@
       letter-spacing: var(--letter-spacing-2);
     }
 
+    & :where(.fui-BaseMenuInputRoot, .fui-BaseMenuEmpty) {
+      font-size: var(--font-size-3);
+      line-height: var(--line-height-3);
+      letter-spacing: var(--letter-spacing-3);
+    }
+
     & :where(.fui-BaseMenuItemIndicatorIcon, .fui-BaseMenuSubTriggerIcon) {
       width: 12px;
       height: 12px;
+    }
+
+    & :where(.fui-BaseMenuClearIcon) {
+      width: 16px;
+      height: 16px;
     }
 
     /* reset with :not:has so we still support browsers without :has */
@@ -230,6 +347,12 @@
     -webkit-backdrop-filter: var(--backdrop-filter-panel);
     backdrop-filter: var(--backdrop-filter-panel);
     outline: 0.5px solid var(--color-popover-outline);
+
+    & :where(.fui-BaseMenuInputRoot) {
+      background-color: var(--color-panel-translucent);
+      -webkit-backdrop-filter: var(--backdrop-filter-panel);
+      backdrop-filter: var(--backdrop-filter-panel);
+    }
   }
   &:where(.fui-variant-solid) {
     background-color: var(--color-panel-solid);

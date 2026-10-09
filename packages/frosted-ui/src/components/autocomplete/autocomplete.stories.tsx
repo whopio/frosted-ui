@@ -2282,7 +2282,9 @@ export const OnItemHighlighted: Story = {
               <Code size="1">&apos;pointer&apos;</Code> — The highlight changed due to pointer hovering.
             </Text>
             <Text size="1" color="gray">
-              <Code size="1">&apos;none&apos;</Code> — The highlight changed programmatically.
+              <Code size="1">&apos;none&apos;</Code> — The highlight changed for another reason, such as typing,{' '}
+              <Code size="1">autoHighlight</Code>, the item list changing, or the popup opening or closing. Pointer
+              highlights may report a mouse event.
             </Text>
           </div>
         </div>
@@ -2959,9 +2961,9 @@ export const ActionsRef: Story = {
           </Text>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
             <Text size="1" color="gray">
-              <Code size="1">unmount()</Code> — Manually unmount the autocomplete popup. Useful when the autocomplete's
-              animation is controlled by an external library, allowing you to wait for the exit animation to complete
-              before unmounting.
+              <Code size="1">unmount()</Code> — Ends the closing phase after you have kept the popup mounted yourself.
+              Call <Code size="1">eventDetails.preventUnmountOnClose()</Code> in <Code size="1">onOpenChange</Code>{' '}
+              first. Passing <Code size="1">actionsRef</Code> alone no longer keeps the popup mounted.
             </Text>
           </div>
         </div>
@@ -2970,7 +2972,12 @@ export const ActionsRef: Story = {
           items={countries}
           actionsRef={actionsRef}
           open={isOpen}
-          onOpenChange={setIsOpen}
+          onOpenChange={(open, eventDetails) => {
+            setIsOpen(open);
+            if (!open) {
+              eventDetails.preventUnmountOnClose();
+            }
+          }}
           onValueChange={handleSelect}
         >
           <TextField.Root>
