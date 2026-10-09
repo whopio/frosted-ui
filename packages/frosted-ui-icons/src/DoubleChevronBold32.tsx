@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const DoubleChevronBold32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="DoubleChevronBold32"
+      {...props}
+    >
+      <path
+        d="M24.543 20.043c.39-.39 1.023-.39 1.414 0 .39.39.39 1.024 0 1.414l-9.25 9.25c-.188.188-.442.293-.707.293-.265 0-.52-.105-.707-.293l-9.25-9.25c-.39-.39-.39-1.023 0-1.414.39-.39 1.023-.39 1.414 0L16 28.586l8.543-8.543zm-9.25-18.75c.39-.39 1.023-.39 1.414 0l9.25 9.25c.39.39.39 1.024 0 1.414-.39.39-1.024.39-1.414 0L16 3.414l-8.543 8.543c-.39.39-1.024.39-1.414 0-.39-.39-.39-1.023 0-1.414l9.25-9.25z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+DoubleChevronBold32.category = 'Arrows';
+
+export default DoubleChevronBold32;

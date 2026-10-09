@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const PencilFilled24 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="PencilFilled24"
+      {...props}
+    >
+      <path
+        d="M18.5 12.56l-9.22 9.22c-.114.115-.263.19-.424.212l-7 1c-.233.034-.47-.045-.636-.212-.167-.167-.246-.403-.212-.636l1-7 .026-.118c.036-.115.1-.22.186-.306l9.218-9.221L18.5 12.56zM17.812 1c1.2 0 2.35.476 3.198 1.324l.666.666C22.524 3.838 23 4.988 23 6.187c0 1.2-.476 2.35-1.324 3.198L19.56 11.5l-7.062-7.062 2.115-2.114c.848-.848 2-1.324 3.198-1.324z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+PencilFilled24.category = 'Objects';
+
+export default PencilFilled24;

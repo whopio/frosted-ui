@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const InboxFilled32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="InboxFilled32"
+      {...props}
+    >
+      <path
+        d="M23.318 2c2.807 0 5.207 2.021 5.684 4.787l1.827 10.6c.113.654.17 1.317.17 1.981v4.864c0 3.186-2.582 5.768-5.768 5.768H6.768C3.583 30 1 27.417 1 24.232v-4.864c0-.664.057-1.328.17-1.982L2.998 6.787C3.475 4.021 5.875 2 8.682 2h14.636zM8.682 3.5c-2.077 0-3.852 1.496-4.205 3.542l-1.83 10.599c-.02.119-.037.239-.053.359h7.797c.864 0 1.528.612 1.783 1.304.395 1.073 1.382 2.77 3.817 2.77 2.436 0 3.424-1.697 3.819-2.77.254-.692.918-1.304 1.782-1.304h7.813c-.016-.12-.034-.24-.054-.358l-1.828-10.6C27.171 4.995 25.395 3.5 23.318 3.5H8.682z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+InboxFilled32.category = 'Interface General';
+
+export default InboxFilled32;
