@@ -17,6 +17,10 @@ import type { GetPropDefTypes } from '../../helpers';
 // Re-export createHandle for detached triggers
 const createHandle = MenuPrimitive.createHandle;
 
+// Re-export useFilter hook from Base UI
+const { useFilter } = MenuPrimitive;
+export { useFilter };
+
 // Types from Base UI
 type RootProps = React.ComponentProps<typeof MenuPrimitive.Root>;
 
@@ -361,13 +365,131 @@ const DropdownMenuSeparator = (props: DropdownMenuSeparatorProps) => (
 );
 DropdownMenuSeparator.displayName = 'DropdownMenuSeparator';
 
+// ============================================================================
+// FilterProvider
+// ============================================================================
+
+interface DropdownMenuFilterProviderProps extends React.ComponentProps<typeof MenuPrimitive.FilterProvider> {}
+
+function DropdownMenuFilterProvider(props: DropdownMenuFilterProviderProps) {
+  return <MenuPrimitive.FilterProvider {...props} />;
+}
+DropdownMenuFilterProvider.displayName = 'DropdownMenuFilterProvider';
+
+// ============================================================================
+// InputRoot
+// ============================================================================
+
+interface DropdownMenuInputRootProps extends React.ComponentProps<'div'> {}
+
+const DropdownMenuInputRoot = React.forwardRef<HTMLDivElement, DropdownMenuInputRootProps>((props, forwardedRef) => {
+  const { className, ...rootProps } = props;
+  return (
+    <div
+      {...rootProps}
+      ref={forwardedRef}
+      className={classNames('fui-BaseMenuInputRoot', 'fui-DropdownMenuInputRoot', className)}
+    />
+  );
+});
+DropdownMenuInputRoot.displayName = 'DropdownMenuInputRoot';
+
+// ============================================================================
+// Input
+// ============================================================================
+
+interface DropdownMenuInputProps extends Omit<React.ComponentProps<typeof MenuPrimitive.Input>, 'className'> {
+  className?: string;
+}
+
+const DropdownMenuInput = React.forwardRef<HTMLInputElement, DropdownMenuInputProps>((props, forwardedRef) => {
+  const { className, ...inputProps } = props;
+  return (
+    <MenuPrimitive.Input
+      {...inputProps}
+      ref={forwardedRef}
+      className={classNames('fui-BaseMenuInput', 'fui-DropdownMenuInput', className)}
+    />
+  );
+});
+DropdownMenuInput.displayName = 'DropdownMenuInput';
+
+// ============================================================================
+// Clear
+// ============================================================================
+
+interface DropdownMenuClearProps extends Omit<
+  React.ComponentProps<typeof MenuPrimitive.Clear>,
+  'render' | 'className'
+> {
+  className?: string;
+}
+
+function DropdownMenuClear({ children, className, ...props }: DropdownMenuClearProps) {
+  return (
+    <MenuPrimitive.Clear
+      {...props}
+      className={classNames('fui-reset', 'fui-BaseMenuClear', 'fui-DropdownMenuClear', className)}
+      render={children as React.ReactElement}
+    />
+  );
+}
+DropdownMenuClear.displayName = 'DropdownMenuClear';
+
+// ============================================================================
+// Empty
+// ============================================================================
+
+interface DropdownMenuEmptyProps extends Omit<
+  React.ComponentProps<typeof MenuPrimitive.Empty>,
+  'className' | 'render'
+> {
+  className?: string;
+}
+
+const DropdownMenuEmpty = (props: DropdownMenuEmptyProps) => {
+  const { className, ...emptyProps } = props;
+  return (
+    <MenuPrimitive.Empty
+      {...emptyProps}
+      className={classNames('fui-BaseMenuEmpty', 'fui-DropdownMenuEmpty', className)}
+    />
+  );
+};
+DropdownMenuEmpty.displayName = 'DropdownMenuEmpty';
+
+// ============================================================================
+// List
+// ============================================================================
+
+interface DropdownMenuListProps extends Omit<React.ComponentProps<typeof MenuPrimitive.List>, 'className' | 'render'> {
+  className?: string;
+}
+
+const DropdownMenuList = (props: DropdownMenuListProps) => {
+  const { className, ...listProps } = props;
+  return (
+    <MenuPrimitive.List
+      {...listProps}
+      className={classNames('fui-BaseMenuList', 'fui-DropdownMenuList', className)}
+    />
+  );
+};
+DropdownMenuList.displayName = 'DropdownMenuList';
+
 export {
   DropdownMenuCheckboxItem as CheckboxItem,
+  DropdownMenuClear as Clear,
   DropdownMenuContent as Content,
   createHandle,
+  DropdownMenuEmpty as Empty,
+  DropdownMenuFilterProvider as FilterProvider,
   DropdownMenuGroup as Group,
   DropdownMenuGroupLabel as GroupLabel,
+  DropdownMenuInput as Input,
+  DropdownMenuInputRoot as InputRoot,
   DropdownMenuItem as Item,
+  DropdownMenuList as List,
   DropdownMenuRadioGroup as RadioGroup,
   DropdownMenuRadioItem as RadioItem,
   DropdownMenuRoot as Root,
@@ -380,11 +502,17 @@ export {
 
 export type {
   DropdownMenuCheckboxItemProps as CheckboxItemProps,
+  DropdownMenuClearProps as ClearProps,
   DropdownMenuContentProps as ContentProps,
+  DropdownMenuEmptyProps as EmptyProps,
+  DropdownMenuFilterProviderProps as FilterProviderProps,
   DropdownMenuGroupLabelProps as GroupLabelProps,
   DropdownMenuGroupProps as GroupProps,
   DropdownMenuHandle as Handle,
+  DropdownMenuInputProps as InputProps,
+  DropdownMenuInputRootProps as InputRootProps,
   DropdownMenuItemProps as ItemProps,
+  DropdownMenuListProps as ListProps,
   DropdownMenuRadioGroupProps as RadioGroupProps,
   DropdownMenuRadioItemProps as RadioItemProps,
   DropdownMenuRootProps as RootProps,
