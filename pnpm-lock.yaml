@@ -21,7 +21,7 @@ importers:
         version: link:packages/eslint-config-custom
       prettier:
         specifier: latest
-        version: 3.9.6
+        version: 3.9.9
       turbo:
         specifier: 1.12.5
         version: 1.12.5
@@ -82,7 +82,7 @@ importers:
         version: 8.8.0(eslint@7.32.0)
       eslint-config-turbo:
         specifier: latest
-        version: 2.10.8(eslint@7.32.0)(turbo@1.12.5)
+        version: 2.11.7(eslint@7.32.0)(turbo@1.12.5)
     devDependencies:
       '@typescript-eslint/eslint-plugin':
         specifier: ^5.50.0
@@ -112,8 +112,8 @@ importers:
   packages/frosted-ui:
     dependencies:
       '@base-ui/react':
-        specifier: ^1.8.0
-        version: 1.8.0(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: ^1.9.0
+        version: 1.9.0(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@internationalized/date':
         specifier: ^3.5.6
         version: 3.5.6
@@ -158,7 +158,7 @@ importers:
         version: 2.8.0
       vaul-base:
         specifier: ^1.0.0
-        version: 1.0.0(@base-ui/react@1.8.0(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        version: 1.0.0(@base-ui/react@1.9.0(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
     devDependencies:
       '@frosted-ui/colors':
         specifier: workspace:*
@@ -171,31 +171,31 @@ importers:
         version: 0.1.82
       '@storybook/addon-essentials':
         specifier: ^8.5.3
-        version: 8.6.14(@types/react@19.1.10)(storybook@8.6.14(prettier@3.9.6))
+        version: 8.6.14(@types/react@19.1.10)(storybook@8.6.14(prettier@3.9.9))
       '@storybook/addon-interactions':
         specifier: ^8.5.3
-        version: 8.6.14(storybook@8.6.14(prettier@3.9.6))
+        version: 8.6.14(storybook@8.6.14(prettier@3.9.9))
       '@storybook/addon-links':
         specifier: ^8.5.3
-        version: 8.6.14(react@19.1.0)(storybook@8.6.14(prettier@3.9.6))
+        version: 8.6.14(react@19.1.0)(storybook@8.6.14(prettier@3.9.9))
       '@storybook/addon-mdx-gfm':
         specifier: ^8.5.3
-        version: 8.6.14(storybook@8.6.14(prettier@3.9.6))
+        version: 8.6.14(storybook@8.6.14(prettier@3.9.9))
       '@storybook/addon-onboarding':
         specifier: ^8.5.3
-        version: 8.6.14(storybook@8.6.14(prettier@3.9.6))
+        version: 8.6.14(storybook@8.6.14(prettier@3.9.9))
       '@storybook/blocks':
         specifier: ^8.5.3
-        version: 8.6.14(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.9.6))
+        version: 8.6.14(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.9.9))
       '@storybook/react':
         specifier: ^8.5.3
-        version: 8.6.14(@storybook/test@8.6.14(storybook@8.6.14(prettier@3.9.6)))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.9.6))(typescript@5.6.3)
+        version: 8.6.14(@storybook/test@8.6.14(storybook@8.6.14(prettier@3.9.9)))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.9.9))(typescript@5.6.3)
       '@storybook/react-vite':
         specifier: ^8.5.3
-        version: 8.6.14(@storybook/test@8.6.14(storybook@8.6.14(prettier@3.9.6)))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(rollup@4.59.0)(storybook@8.6.14(prettier@3.9.6))(typescript@5.6.3)(vite@7.3.1(@types/node@22.19.1)(jiti@2.4.2)(lightningcss@1.30.2)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.2))
+        version: 8.6.14(@storybook/test@8.6.14(storybook@8.6.14(prettier@3.9.9)))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(rollup@4.59.0)(storybook@8.6.14(prettier@3.9.9))(typescript@5.6.3)(vite@7.3.1(@types/node@22.19.1)(jiti@2.4.2)(lightningcss@1.30.2)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.2))
       '@storybook/test':
         specifier: ^8.5.3
-        version: 8.6.14(storybook@8.6.14(prettier@3.9.6))
+        version: 8.6.14(storybook@8.6.14(prettier@3.9.9))
       '@tanstack/react-form':
         specifier: ^0.43.0
         version: 0.43.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.6.3)
@@ -282,7 +282,7 @@ importers:
         version: 7.71.1(react@19.1.0)
       storybook:
         specifier: ^8.5.3
-        version: 8.6.14(prettier@3.9.6)
+        version: 8.6.14(prettier@3.9.9)
       stylelint:
         specifier: ^15.11.0
         version: 15.11.0(typescript@5.6.3)
@@ -369,7 +369,7 @@ importers:
         version: 1.2.0(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/alert-dialog':
         specifier: ^1.2.0
-        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/aspect-ratio':
         specifier: ^1.2.0
         version: 1.2.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
@@ -384,28 +384,28 @@ importers:
         version: 1.2.0(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/context-menu':
         specifier: ^1.2.0
-        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/dialog':
         specifier: ^1.2.0
-        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/dropdown-menu':
         specifier: ^1.2.0
-        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/hover-card':
         specifier: ^1.2.0
-        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/label':
         specifier: ^1.2.0
         version: 1.2.0(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/menubar':
         specifier: ^1.2.0
-        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/popover':
         specifier: ^1.2.0
-        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/portal':
         specifier: ~1.3.0
-        version: 1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
+        version: 1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0))
       '@rn-primitives/progress':
         specifier: ^1.2.0
         version: 1.2.0(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
@@ -414,7 +414,7 @@ importers:
         version: 1.2.0(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/select':
         specifier: ^1.2.0
-        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/separator':
         specifier: ^1.2.0
         version: 1.2.0(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
@@ -438,7 +438,7 @@ importers:
         version: 1.2.0(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/tooltip':
         specifier: ^1.2.0
-        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/types':
         specifier: ^1.2.0
         version: 1.2.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
@@ -1175,8 +1175,8 @@ packages:
     resolution: {integrity: sha512-qQ5m48eI/MFLQ5PxQj4PFaprjyCTLI37ElWMmNs0K8Lk3dVeOdNpB3ks8jc7yM5CDmVC73eMVk/trk3fgmrUpA==}
     engines: {node: '>=6.9.0'}
 
-  '@base-ui/react@1.8.0':
-    resolution: {integrity: sha512-P0/1sxo6SBVZOklKMIedvTWqw2s2IQzi9x5bIVsXu980cuSOD4NeuRSs+/L7LZQfDkZP/uRZyGPyfFl/B1oH+Q==}
+  '@base-ui/react@1.9.0':
+    resolution: {integrity: sha512-S8CSYosASBKtpL8SWUfS78rFElfLijiCgA7oHOK22jCJ95FULsYyKwBNFOgudt0RA+/7yNc7F81bOvQnRgbBiQ==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       '@date-fns/tz': ^1.2.0
@@ -1192,8 +1192,8 @@ packages:
       date-fns:
         optional: true
 
-  '@base-ui/utils@0.4.0':
-    resolution: {integrity: sha512-bO9fz25kKtPf+aZVyfQrC0PDmJdmVni31W2hCS5/Owb+inwdIL3XU26pCPRPlt4LSxZrBgLwubXQXQlKaFEZzw==}
+  '@base-ui/utils@0.5.0':
+    resolution: {integrity: sha512-dYGGcEttjkYiMoa5nHm8vLaJ2UcuTWxo3BFAwOYXeRg/q7UVVvA6cacEIXEs3FgBfK1CGtW1ptElqs7wsx+t9A==}
     peerDependencies:
       '@types/react': 19.1.10
       react: ^17 || ^18 || ^19
@@ -1903,32 +1903,17 @@ packages:
   '@figma/plugin-typings@1.130.0':
     resolution: {integrity: sha512-kz+eU4TXBr99YrMyF2/WtcsdS6K4Ksy3datZZtuCUUSDPRknJAVLZpjhBESCd0tCtHRWKeo4l/I7Aze6lHB52A==}
 
-  '@floating-ui/core@1.7.5':
-    resolution: {integrity: sha512-1Ih4WTWyw0+lKyFMcBHGbb5U5FtuHJuujoyyr5zTaWS5EYMeT6Jb2AuDeftsCsEuchO+mM2ij5+q9crhydzLhQ==}
-
   '@floating-ui/core@1.8.0':
     resolution: {integrity: sha512-0CIZ5itps/8x7BG8dEIhs53BvCUH2PCoogtakwRTut+Arm58sJooJ0AuZhLw2HJYIR5cMLNPBSS728sPho2khQ==}
 
-  '@floating-ui/dom@1.7.6':
-    resolution: {integrity: sha512-9gZSAI5XM36880PPMm//9dfiEngYoC6Am2izES1FF406YFsjvyBMmeJ2g4SAju3xWwtuynNRFL2s9hgxpLI5SQ==}
-
   '@floating-ui/dom@1.8.0':
     resolution: {integrity: sha512-yXSrzeHZBTZadLOlfyhCkJHNeLJnHRnRInwdZ40L7ZiaAtrBwoYlsDrX3v5zB1Utk7CLfzcOVnVVWoXEky7Ceg==}
-
-  '@floating-ui/react-dom@2.1.8':
-    resolution: {integrity: sha512-cC52bHwM/n/CxS87FH0yWdngEZrjdtLW/qVruo68qg+prK7ZQ4YGdut2GyDVpoGeAYe/h899rVeOVm6Oi40k2A==}
-    peerDependencies:
-      react: '>=16.8.0'
-      react-dom: '>=16.8.0'
 
   '@floating-ui/react-dom@2.1.9':
     resolution: {integrity: sha512-JDjEFGCpImxDCA7JJKviA0M9+RtmJdj0m/NVU5IMgBK+AmZouAQQ7/+2GLH0GXXY0YMw9oXPB8hKdbPYg5QLYg==}
     peerDependencies:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
-
-  '@floating-ui/utils@0.2.11':
-    resolution: {integrity: sha512-RiB/yIh78pcIxl6lLMG0CgBXAZ2Y0eVHqMPYugu+9U0AeT6YBeiJpf7lbdJNIugFP5SIjwNRgo4DhR1Qxi26Gg==}
 
   '@floating-ui/utils@0.2.12':
     resolution: {integrity: sha512-HpCo8tmWzLVad5s2d19EhAz5zqrrQ6s69qd6moPMQvkOuSwDT1YgRfWSVuc4ennqrgv3OHppiOGMQ7oC13yIww==}
@@ -5985,8 +5970,8 @@ packages:
     peerDependencies:
       eslint: '>=7.0.0'
 
-  eslint-config-turbo@2.10.8:
-    resolution: {integrity: sha512-3i+j04OCtWevLFmnbsj4Nxv3YmHGlk8c6eL83xNH4Arvbfl09ct/9ZIElAT+gi8TcZBdYnhRXj8aB7prMy1XuA==}
+  eslint-config-turbo@2.11.7:
+    resolution: {integrity: sha512-hzByjA0ahc3djytkKDG1IR9lhjYMSd20f601DWQp0omH/iA8tJ1dyBCYnBnuDlvbNEkLXQznHns+qgU6p4ymQQ==}
     peerDependencies:
       eslint: '>6.6.0'
       turbo: '>2.0.0'
@@ -5997,8 +5982,8 @@ packages:
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0
 
-  eslint-plugin-turbo@2.10.8:
-    resolution: {integrity: sha512-D6/FZUlP5IkZl/Wahoyi9q/UYFnyuh0cyqf3x5aHJNTmlu+bC6+h03cNPzPoQS7708ts54KYreUZW+FdRG5BWg==}
+  eslint-plugin-turbo@2.11.7:
+    resolution: {integrity: sha512-vFjI/0qxA9DFTMAOLhyVo7lFGh5kZ0wrWk+5tsQoafGPWqzTNmIMAjk7hsKLQGHOvLz42y8YIvrevHCbthFuZw==}
     peerDependencies:
       eslint: '>6.6.0'
       turbo: '>2.0.0'
@@ -8380,8 +8365,8 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
-  prettier@3.9.6:
-    resolution: {integrity: sha512-OpN0zzVdiaiAhxpuuj5efpIS4sY9j7bY6uR5mnj5yPzGkdkjNKSJeUThPb60Jw29QuAZgA4o+/iB49kFiaBX6g==}
+  prettier@3.9.9:
+    resolution: {integrity: sha512-Z/CJHIkdujO/OtN7nXUii0Rf3VT5SRuhjBA82Xvu2XhBUgX3nhP67T0LHceBdQLex7OOFGTox+Q5Yg8Jk2Qivg==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -8799,8 +8784,8 @@ packages:
     resolution: {integrity: sha512-nYzyjnFcPNGR3lx9lwPPPnuQxv6JWEZd2Ci0u9opN7N5zUEPIhY/GbL3vMGOr2UXwEg9WwSyV9X9Y/kLFgPsOg==}
     engines: {node: '>= 4.0.0'}
 
-  reselect@5.2.0:
-    resolution: {integrity: sha512-AgZ3UOZm3YndfrJ4OYjgrT7bmCm/1iqkjvEfH/oYjzh6PD2qw4QuT3jjnXIrpdt4MTpMXclMT3lXbmRY+XRakw==}
+  reselect@5.3.0:
+    resolution: {integrity: sha512-XGoLeRAVzUTcJ1qkxPQhDJyIZ5d6zzZD9nT7AEZOaaU9UbWclhycElmhO+VD5bFeLuzhPBaOV2oXC8uG35ZSpg==}
 
   resize-observer-polyfill@1.5.1:
     resolution: {integrity: sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==}
@@ -9833,6 +9818,11 @@ packages:
 
   use-sync-external-store@1.6.0:
     resolution: {integrity: sha512-Pp6GSwGP/NrPIrxVFAIkOQeyw8lFenOHijQWkUTrDvrF4ALqylP2C/KCkeS9dpUM3KvYRQhna5vt7IL95+ZQ9w==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  use-sync-external-store@1.7.0:
+    resolution: {integrity: sha512-6L+EeigHMQhdaIPNIFUKwfWJSwWFQ8gJbJ2DLOs5sDIegTwR9fRxvnM3uciHKjIZhFz+KAv2emhWMRvDmMcY8A==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -10917,26 +10907,26 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
 
-  '@base-ui/react@1.8.0(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@base-ui/react@1.9.0(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@babel/runtime': 7.29.7
-      '@base-ui/utils': 0.4.0(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@base-ui/utils': 0.5.0(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@floating-ui/react-dom': 2.1.9(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@floating-ui/utils': 0.2.12
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
-      use-sync-external-store: 1.6.0(react@19.1.0)
+      use-sync-external-store: 1.7.0(react@19.1.0)
     optionalDependencies:
       '@types/react': 19.1.10
 
-  '@base-ui/utils@0.4.0(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@base-ui/utils@0.5.0(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@babel/runtime': 7.29.7
       '@floating-ui/utils': 0.2.12
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
-      reselect: 5.2.0
-      use-sync-external-store: 1.6.0(react@19.1.0)
+      reselect: 5.3.0
+      use-sync-external-store: 1.7.0(react@19.1.0)
     optionalDependencies:
       '@types/react': 19.1.10
 
@@ -11576,37 +11566,20 @@ snapshots:
 
   '@figma/plugin-typings@1.130.0': {}
 
-  '@floating-ui/core@1.7.5':
-    dependencies:
-      '@floating-ui/utils': 0.2.11
-
   '@floating-ui/core@1.8.0':
     dependencies:
       '@floating-ui/utils': 0.2.12
-
-  '@floating-ui/dom@1.7.6':
-    dependencies:
-      '@floating-ui/core': 1.7.5
-      '@floating-ui/utils': 0.2.11
 
   '@floating-ui/dom@1.8.0':
     dependencies:
       '@floating-ui/core': 1.8.0
       '@floating-ui/utils': 0.2.12
 
-  '@floating-ui/react-dom@2.1.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
-    dependencies:
-      '@floating-ui/dom': 1.7.6
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
-
   '@floating-ui/react-dom@2.1.9(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@floating-ui/dom': 1.8.0
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
-
-  '@floating-ui/utils@0.2.11': {}
 
   '@floating-ui/utils@0.2.12': {}
 
@@ -11770,14 +11743,14 @@ snapshots:
 
   '@jimp/bmp@0.16.13(@jimp/custom@0.16.13)':
     dependencies:
-      '@babel/runtime': 7.29.2
+      '@babel/runtime': 7.29.7
       '@jimp/custom': 0.16.13
       '@jimp/utils': 0.16.13
       bmp-js: 0.1.0
 
   '@jimp/core@0.16.13':
     dependencies:
-      '@babel/runtime': 7.29.2
+      '@babel/runtime': 7.29.7
       '@jimp/utils': 0.16.13
       any-base: 1.1.0
       buffer: 5.7.1
@@ -11800,7 +11773,7 @@ snapshots:
 
   '@jimp/gif@0.16.13(@jimp/custom@0.16.13)':
     dependencies:
-      '@babel/runtime': 7.29.2
+      '@babel/runtime': 7.29.7
       '@jimp/custom': 0.16.13
       '@jimp/utils': 0.16.13
       gifwrap: 0.9.4
@@ -11808,7 +11781,7 @@ snapshots:
 
   '@jimp/jpeg@0.16.13(@jimp/custom@0.16.13)':
     dependencies:
-      '@babel/runtime': 7.29.2
+      '@babel/runtime': 7.29.7
       '@jimp/custom': 0.16.13
       '@jimp/utils': 0.16.13
       jpeg-js: 0.4.4
@@ -11821,14 +11794,14 @@ snapshots:
 
   '@jimp/png@0.16.13(@jimp/custom@0.16.13)':
     dependencies:
-      '@babel/runtime': 7.29.2
+      '@babel/runtime': 7.29.7
       '@jimp/custom': 0.16.13
       '@jimp/utils': 0.16.13
       pngjs: 3.4.0
 
   '@jimp/tiff@0.16.13(@jimp/custom@0.16.13)':
     dependencies:
-      '@babel/runtime': 7.29.2
+      '@babel/runtime': 7.29.7
       '@jimp/custom': 0.16.13
       utif: 2.0.1
 
@@ -11845,7 +11818,7 @@ snapshots:
 
   '@jimp/utils@0.16.13':
     dependencies:
-      '@babel/runtime': 7.29.2
+      '@babel/runtime': 7.29.7
       regenerator-runtime: 0.13.11
 
   '@joshwooding/vite-plugin-react-docgen-typescript@0.5.0(typescript@5.6.3)(vite@7.3.1(@types/node@22.19.1)(jiti@2.4.2)(lightningcss@1.30.2)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.2))':
@@ -12282,7 +12255,7 @@ snapshots:
 
   '@radix-ui/react-popper@1.2.8(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@floating-ui/react-dom': 2.1.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@floating-ui/react-dom': 2.1.9(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-arrow': 1.1.7(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-compose-refs': 1.1.2(@types/react@19.1.10)(react@19.1.0)
       '@radix-ui/react-context': 1.1.2(@types/react@19.1.10)(react@19.1.0)
@@ -13500,7 +13473,9 @@ snapshots:
       metro-runtime: 0.83.3
     transitivePeerDependencies:
       - '@babel/core'
+      - bufferutil
       - supports-color
+      - utf-8-validate
     optional: true
 
   '@react-native/normalize-colors@0.74.89': {}
@@ -14018,11 +13993,11 @@ snapshots:
       - '@types/react-dom'
       - react-dom
 
-  '@rn-primitives/alert-dialog@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/alert-dialog@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-alert-dialog': 1.1.15(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/portal': 1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
+      '@rn-primitives/portal': 1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0))
       '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
@@ -14083,11 +14058,11 @@ snapshots:
       - '@types/react-dom'
       - react-dom
 
-  '@rn-primitives/context-menu@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/context-menu@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-context-menu': 2.2.16(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/portal': 1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
+      '@rn-primitives/portal': 1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0))
       '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/utils': 1.2.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
@@ -14100,11 +14075,11 @@ snapshots:
       - '@types/react-dom'
       - react-dom
 
-  '@rn-primitives/dialog@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/dialog@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-dialog': 1.1.15(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/portal': 1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
+      '@rn-primitives/portal': 1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0))
       '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
@@ -14116,11 +14091,11 @@ snapshots:
       - '@types/react-dom'
       - react-dom
 
-  '@rn-primitives/dropdown-menu@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/dropdown-menu@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-dropdown-menu': 2.1.16(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/portal': 1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
+      '@rn-primitives/portal': 1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0))
       '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/utils': 1.2.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
@@ -14141,12 +14116,12 @@ snapshots:
       react-native: 0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0)
       react-native-web: 0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
 
-  '@rn-primitives/hover-card@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/hover-card@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-hover-card': 1.1.15(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/popover': 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/portal': 1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
+      '@rn-primitives/popover': 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/portal': 1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0))
       '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
@@ -14172,11 +14147,11 @@ snapshots:
       - '@types/react-dom'
       - react-dom
 
-  '@rn-primitives/menubar@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/menubar@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-menubar': 1.1.16(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/portal': 1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
+      '@rn-primitives/portal': 1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0))
       '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/utils': 1.2.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
@@ -14189,11 +14164,11 @@ snapshots:
       - '@types/react-dom'
       - react-dom
 
-  '@rn-primitives/popover@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/popover@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-popover': 1.1.15(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/portal': 1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
+      '@rn-primitives/portal': 1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0))
       '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
@@ -14205,10 +14180,10 @@ snapshots:
       - '@types/react-dom'
       - react-dom
 
-  '@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))':
+  '@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0))':
     dependencies:
       react: 19.1.0
-      zustand: 5.0.9(@types/react@19.1.10)(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
+      zustand: 5.0.9(@types/react@19.1.10)(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0))
     optionalDependencies:
       react-native: 0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0)
       react-native-web: 0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -14245,11 +14220,11 @@ snapshots:
       - '@types/react-dom'
       - react-dom
 
-  '@rn-primitives/select@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/select@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-select': 2.2.6(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/portal': 1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
+      '@rn-primitives/portal': 1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0))
       '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
@@ -14353,11 +14328,11 @@ snapshots:
       - '@types/react-dom'
       - react-dom
 
-  '@rn-primitives/tooltip@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/tooltip@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0)))(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-tooltip': 1.2.8(@types/react-dom@19.1.10(@types/react@19.1.10))(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/portal': 1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
+      '@rn-primitives/portal': 1.3.0(@types/react@19.1.10)(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0))
       '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@react-native-community/cli@20.0.0(typescript@5.9.3))(@react-native/metro-config@0.83.0(@babel/core@7.28.5))(@types/react@19.1.10)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
@@ -14506,150 +14481,150 @@ snapshots:
 
   '@standard-schema/spec@1.1.0': {}
 
-  '@storybook/addon-actions@8.6.14(storybook@8.6.14(prettier@3.9.6))':
+  '@storybook/addon-actions@8.6.14(storybook@8.6.14(prettier@3.9.9))':
     dependencies:
       '@storybook/global': 5.0.0
       '@types/uuid': 9.0.8
       dequal: 2.0.3
       polished: 4.3.1
-      storybook: 8.6.14(prettier@3.9.6)
+      storybook: 8.6.14(prettier@3.9.9)
       uuid: 9.0.1
 
-  '@storybook/addon-backgrounds@8.6.14(storybook@8.6.14(prettier@3.9.6))':
+  '@storybook/addon-backgrounds@8.6.14(storybook@8.6.14(prettier@3.9.9))':
     dependencies:
       '@storybook/global': 5.0.0
       memoizerific: 1.11.3
-      storybook: 8.6.14(prettier@3.9.6)
+      storybook: 8.6.14(prettier@3.9.9)
       ts-dedent: 2.2.0
 
-  '@storybook/addon-controls@8.6.14(storybook@8.6.14(prettier@3.9.6))':
+  '@storybook/addon-controls@8.6.14(storybook@8.6.14(prettier@3.9.9))':
     dependencies:
       '@storybook/global': 5.0.0
       dequal: 2.0.3
-      storybook: 8.6.14(prettier@3.9.6)
+      storybook: 8.6.14(prettier@3.9.9)
       ts-dedent: 2.2.0
 
-  '@storybook/addon-docs@8.6.14(@types/react@19.1.10)(storybook@8.6.14(prettier@3.9.6))':
+  '@storybook/addon-docs@8.6.14(@types/react@19.1.10)(storybook@8.6.14(prettier@3.9.9))':
     dependencies:
       '@mdx-js/react': 3.1.0(@types/react@19.1.10)(react@19.2.0)
-      '@storybook/blocks': 8.6.14(react-dom@19.1.0(react@19.1.0))(react@19.2.0)(storybook@8.6.14(prettier@3.9.6))
-      '@storybook/csf-plugin': 8.6.14(storybook@8.6.14(prettier@3.9.6))
-      '@storybook/react-dom-shim': 8.6.14(react-dom@19.1.0(react@19.1.0))(react@19.2.0)(storybook@8.6.14(prettier@3.9.6))
+      '@storybook/blocks': 8.6.14(react-dom@19.1.0(react@19.1.0))(react@19.2.0)(storybook@8.6.14(prettier@3.9.9))
+      '@storybook/csf-plugin': 8.6.14(storybook@8.6.14(prettier@3.9.9))
+      '@storybook/react-dom-shim': 8.6.14(react-dom@19.1.0(react@19.1.0))(react@19.2.0)(storybook@8.6.14(prettier@3.9.9))
       react: 19.2.0
       react-dom: 19.1.0(react@19.2.0)
-      storybook: 8.6.14(prettier@3.9.6)
+      storybook: 8.6.14(prettier@3.9.9)
       ts-dedent: 2.2.0
     transitivePeerDependencies:
       - '@types/react'
       - webpack-sources
 
-  '@storybook/addon-essentials@8.6.14(@types/react@19.1.10)(storybook@8.6.14(prettier@3.9.6))':
+  '@storybook/addon-essentials@8.6.14(@types/react@19.1.10)(storybook@8.6.14(prettier@3.9.9))':
     dependencies:
-      '@storybook/addon-actions': 8.6.14(storybook@8.6.14(prettier@3.9.6))
-      '@storybook/addon-backgrounds': 8.6.14(storybook@8.6.14(prettier@3.9.6))
-      '@storybook/addon-controls': 8.6.14(storybook@8.6.14(prettier@3.9.6))
-      '@storybook/addon-docs': 8.6.14(@types/react@19.1.10)(storybook@8.6.14(prettier@3.9.6))
-      '@storybook/addon-highlight': 8.6.14(storybook@8.6.14(prettier@3.9.6))
-      '@storybook/addon-measure': 8.6.14(storybook@8.6.14(prettier@3.9.6))
-      '@storybook/addon-outline': 8.6.14(storybook@8.6.14(prettier@3.9.6))
-      '@storybook/addon-toolbars': 8.6.14(storybook@8.6.14(prettier@3.9.6))
-      '@storybook/addon-viewport': 8.6.14(storybook@8.6.14(prettier@3.9.6))
-      storybook: 8.6.14(prettier@3.9.6)
+      '@storybook/addon-actions': 8.6.14(storybook@8.6.14(prettier@3.9.9))
+      '@storybook/addon-backgrounds': 8.6.14(storybook@8.6.14(prettier@3.9.9))
+      '@storybook/addon-controls': 8.6.14(storybook@8.6.14(prettier@3.9.9))
+      '@storybook/addon-docs': 8.6.14(@types/react@19.1.10)(storybook@8.6.14(prettier@3.9.9))
+      '@storybook/addon-highlight': 8.6.14(storybook@8.6.14(prettier@3.9.9))
+      '@storybook/addon-measure': 8.6.14(storybook@8.6.14(prettier@3.9.9))
+      '@storybook/addon-outline': 8.6.14(storybook@8.6.14(prettier@3.9.9))
+      '@storybook/addon-toolbars': 8.6.14(storybook@8.6.14(prettier@3.9.9))
+      '@storybook/addon-viewport': 8.6.14(storybook@8.6.14(prettier@3.9.9))
+      storybook: 8.6.14(prettier@3.9.9)
       ts-dedent: 2.2.0
     transitivePeerDependencies:
       - '@types/react'
       - webpack-sources
 
-  '@storybook/addon-highlight@8.6.14(storybook@8.6.14(prettier@3.9.6))':
+  '@storybook/addon-highlight@8.6.14(storybook@8.6.14(prettier@3.9.9))':
     dependencies:
       '@storybook/global': 5.0.0
-      storybook: 8.6.14(prettier@3.9.6)
+      storybook: 8.6.14(prettier@3.9.9)
 
-  '@storybook/addon-interactions@8.6.14(storybook@8.6.14(prettier@3.9.6))':
+  '@storybook/addon-interactions@8.6.14(storybook@8.6.14(prettier@3.9.9))':
     dependencies:
       '@storybook/global': 5.0.0
-      '@storybook/instrumenter': 8.6.14(storybook@8.6.14(prettier@3.9.6))
-      '@storybook/test': 8.6.14(storybook@8.6.14(prettier@3.9.6))
+      '@storybook/instrumenter': 8.6.14(storybook@8.6.14(prettier@3.9.9))
+      '@storybook/test': 8.6.14(storybook@8.6.14(prettier@3.9.9))
       polished: 4.3.1
-      storybook: 8.6.14(prettier@3.9.6)
+      storybook: 8.6.14(prettier@3.9.9)
       ts-dedent: 2.2.0
 
-  '@storybook/addon-links@8.6.14(react@19.1.0)(storybook@8.6.14(prettier@3.9.6))':
+  '@storybook/addon-links@8.6.14(react@19.1.0)(storybook@8.6.14(prettier@3.9.9))':
     dependencies:
       '@storybook/global': 5.0.0
-      storybook: 8.6.14(prettier@3.9.6)
+      storybook: 8.6.14(prettier@3.9.9)
       ts-dedent: 2.2.0
     optionalDependencies:
       react: 19.1.0
 
-  '@storybook/addon-mdx-gfm@8.6.14(storybook@8.6.14(prettier@3.9.6))':
+  '@storybook/addon-mdx-gfm@8.6.14(storybook@8.6.14(prettier@3.9.9))':
     dependencies:
       remark-gfm: 4.0.0
-      storybook: 8.6.14(prettier@3.9.6)
+      storybook: 8.6.14(prettier@3.9.9)
       ts-dedent: 2.2.0
     transitivePeerDependencies:
       - supports-color
 
-  '@storybook/addon-measure@8.6.14(storybook@8.6.14(prettier@3.9.6))':
+  '@storybook/addon-measure@8.6.14(storybook@8.6.14(prettier@3.9.9))':
     dependencies:
       '@storybook/global': 5.0.0
-      storybook: 8.6.14(prettier@3.9.6)
+      storybook: 8.6.14(prettier@3.9.9)
       tiny-invariant: 1.3.3
 
-  '@storybook/addon-onboarding@8.6.14(storybook@8.6.14(prettier@3.9.6))':
+  '@storybook/addon-onboarding@8.6.14(storybook@8.6.14(prettier@3.9.9))':
     dependencies:
-      storybook: 8.6.14(prettier@3.9.6)
+      storybook: 8.6.14(prettier@3.9.9)
 
-  '@storybook/addon-outline@8.6.14(storybook@8.6.14(prettier@3.9.6))':
+  '@storybook/addon-outline@8.6.14(storybook@8.6.14(prettier@3.9.9))':
     dependencies:
       '@storybook/global': 5.0.0
-      storybook: 8.6.14(prettier@3.9.6)
+      storybook: 8.6.14(prettier@3.9.9)
       ts-dedent: 2.2.0
 
-  '@storybook/addon-toolbars@8.6.14(storybook@8.6.14(prettier@3.9.6))':
+  '@storybook/addon-toolbars@8.6.14(storybook@8.6.14(prettier@3.9.9))':
     dependencies:
-      storybook: 8.6.14(prettier@3.9.6)
+      storybook: 8.6.14(prettier@3.9.9)
 
-  '@storybook/addon-viewport@8.6.14(storybook@8.6.14(prettier@3.9.6))':
+  '@storybook/addon-viewport@8.6.14(storybook@8.6.14(prettier@3.9.9))':
     dependencies:
       memoizerific: 1.11.3
-      storybook: 8.6.14(prettier@3.9.6)
+      storybook: 8.6.14(prettier@3.9.9)
 
-  '@storybook/blocks@8.6.14(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.9.6))':
+  '@storybook/blocks@8.6.14(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.9.9))':
     dependencies:
       '@storybook/icons': 1.2.12(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      storybook: 8.6.14(prettier@3.9.6)
+      storybook: 8.6.14(prettier@3.9.9)
       ts-dedent: 2.2.0
     optionalDependencies:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@storybook/blocks@8.6.14(react-dom@19.1.0(react@19.1.0))(react@19.2.0)(storybook@8.6.14(prettier@3.9.6))':
+  '@storybook/blocks@8.6.14(react-dom@19.1.0(react@19.1.0))(react@19.2.0)(storybook@8.6.14(prettier@3.9.9))':
     dependencies:
       '@storybook/icons': 1.2.12(react-dom@19.1.0(react@19.1.0))(react@19.2.0)
-      storybook: 8.6.14(prettier@3.9.6)
+      storybook: 8.6.14(prettier@3.9.9)
       ts-dedent: 2.2.0
     optionalDependencies:
       react: 19.2.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@storybook/builder-vite@8.6.14(storybook@8.6.14(prettier@3.9.6))(vite@7.3.1(@types/node@22.19.1)(jiti@2.4.2)(lightningcss@1.30.2)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.2))':
+  '@storybook/builder-vite@8.6.14(storybook@8.6.14(prettier@3.9.9))(vite@7.3.1(@types/node@22.19.1)(jiti@2.4.2)(lightningcss@1.30.2)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.2))':
     dependencies:
-      '@storybook/csf-plugin': 8.6.14(storybook@8.6.14(prettier@3.9.6))
+      '@storybook/csf-plugin': 8.6.14(storybook@8.6.14(prettier@3.9.9))
       browser-assert: 1.2.1
-      storybook: 8.6.14(prettier@3.9.6)
+      storybook: 8.6.14(prettier@3.9.9)
       ts-dedent: 2.2.0
       vite: 7.3.1(@types/node@22.19.1)(jiti@2.4.2)(lightningcss@1.30.2)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.2)
     transitivePeerDependencies:
       - webpack-sources
 
-  '@storybook/components@8.6.14(storybook@8.6.14(prettier@3.9.6))':
+  '@storybook/components@8.6.14(storybook@8.6.14(prettier@3.9.9))':
     dependencies:
-      storybook: 8.6.14(prettier@3.9.6)
+      storybook: 8.6.14(prettier@3.9.9)
 
-  '@storybook/core@8.6.14(prettier@3.9.6)(storybook@8.6.14(prettier@3.9.6))':
+  '@storybook/core@8.6.14(prettier@3.9.9)(storybook@8.6.14(prettier@3.9.9))':
     dependencies:
-      '@storybook/theming': 8.6.14(storybook@8.6.14(prettier@3.9.6))
+      '@storybook/theming': 8.6.14(storybook@8.6.14(prettier@3.9.9))
       better-opn: 3.0.2
       browser-assert: 1.2.1
       esbuild: 0.24.2
@@ -14661,16 +14636,16 @@ snapshots:
       util: 0.12.5
       ws: 8.18.0
     optionalDependencies:
-      prettier: 3.9.6
+      prettier: 3.9.9
     transitivePeerDependencies:
       - bufferutil
       - storybook
       - supports-color
       - utf-8-validate
 
-  '@storybook/csf-plugin@8.6.14(storybook@8.6.14(prettier@3.9.6))':
+  '@storybook/csf-plugin@8.6.14(storybook@8.6.14(prettier@3.9.9))':
     dependencies:
-      storybook: 8.6.14(prettier@3.9.6)
+      storybook: 8.6.14(prettier@3.9.9)
       unplugin: 1.14.1
     transitivePeerDependencies:
       - webpack-sources
@@ -14687,84 +14662,84 @@ snapshots:
       react: 19.2.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@storybook/instrumenter@8.6.14(storybook@8.6.14(prettier@3.9.6))':
+  '@storybook/instrumenter@8.6.14(storybook@8.6.14(prettier@3.9.9))':
     dependencies:
       '@storybook/global': 5.0.0
       '@vitest/utils': 2.1.3
-      storybook: 8.6.14(prettier@3.9.6)
+      storybook: 8.6.14(prettier@3.9.9)
 
-  '@storybook/manager-api@8.6.14(storybook@8.6.14(prettier@3.9.6))':
+  '@storybook/manager-api@8.6.14(storybook@8.6.14(prettier@3.9.9))':
     dependencies:
-      storybook: 8.6.14(prettier@3.9.6)
+      storybook: 8.6.14(prettier@3.9.9)
 
-  '@storybook/preview-api@8.6.14(storybook@8.6.14(prettier@3.9.6))':
+  '@storybook/preview-api@8.6.14(storybook@8.6.14(prettier@3.9.9))':
     dependencies:
-      storybook: 8.6.14(prettier@3.9.6)
+      storybook: 8.6.14(prettier@3.9.9)
 
-  '@storybook/react-dom-shim@8.6.14(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.9.6))':
+  '@storybook/react-dom-shim@8.6.14(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.9.9))':
     dependencies:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
-      storybook: 8.6.14(prettier@3.9.6)
+      storybook: 8.6.14(prettier@3.9.9)
 
-  '@storybook/react-dom-shim@8.6.14(react-dom@19.1.0(react@19.1.0))(react@19.2.0)(storybook@8.6.14(prettier@3.9.6))':
+  '@storybook/react-dom-shim@8.6.14(react-dom@19.1.0(react@19.1.0))(react@19.2.0)(storybook@8.6.14(prettier@3.9.9))':
     dependencies:
       react: 19.2.0
       react-dom: 19.1.0(react@19.1.0)
-      storybook: 8.6.14(prettier@3.9.6)
+      storybook: 8.6.14(prettier@3.9.9)
 
-  '@storybook/react-vite@8.6.14(@storybook/test@8.6.14(storybook@8.6.14(prettier@3.9.6)))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(rollup@4.59.0)(storybook@8.6.14(prettier@3.9.6))(typescript@5.6.3)(vite@7.3.1(@types/node@22.19.1)(jiti@2.4.2)(lightningcss@1.30.2)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.2))':
+  '@storybook/react-vite@8.6.14(@storybook/test@8.6.14(storybook@8.6.14(prettier@3.9.9)))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(rollup@4.59.0)(storybook@8.6.14(prettier@3.9.9))(typescript@5.6.3)(vite@7.3.1(@types/node@22.19.1)(jiti@2.4.2)(lightningcss@1.30.2)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.2))':
     dependencies:
       '@joshwooding/vite-plugin-react-docgen-typescript': 0.5.0(typescript@5.6.3)(vite@7.3.1(@types/node@22.19.1)(jiti@2.4.2)(lightningcss@1.30.2)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.2))
       '@rollup/pluginutils': 5.1.2(rollup@4.59.0)
-      '@storybook/builder-vite': 8.6.14(storybook@8.6.14(prettier@3.9.6))(vite@7.3.1(@types/node@22.19.1)(jiti@2.4.2)(lightningcss@1.30.2)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.2))
-      '@storybook/react': 8.6.14(@storybook/test@8.6.14(storybook@8.6.14(prettier@3.9.6)))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.9.6))(typescript@5.6.3)
+      '@storybook/builder-vite': 8.6.14(storybook@8.6.14(prettier@3.9.9))(vite@7.3.1(@types/node@22.19.1)(jiti@2.4.2)(lightningcss@1.30.2)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.2))
+      '@storybook/react': 8.6.14(@storybook/test@8.6.14(storybook@8.6.14(prettier@3.9.9)))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.9.9))(typescript@5.6.3)
       find-up: 5.0.0
       magic-string: 0.30.12
       react: 19.1.0
       react-docgen: 7.1.0
       react-dom: 19.1.0(react@19.1.0)
       resolve: 1.22.8
-      storybook: 8.6.14(prettier@3.9.6)
+      storybook: 8.6.14(prettier@3.9.9)
       tsconfig-paths: 4.2.0
       vite: 7.3.1(@types/node@22.19.1)(jiti@2.4.2)(lightningcss@1.30.2)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.2)
     optionalDependencies:
-      '@storybook/test': 8.6.14(storybook@8.6.14(prettier@3.9.6))
+      '@storybook/test': 8.6.14(storybook@8.6.14(prettier@3.9.9))
     transitivePeerDependencies:
       - rollup
       - supports-color
       - typescript
       - webpack-sources
 
-  '@storybook/react@8.6.14(@storybook/test@8.6.14(storybook@8.6.14(prettier@3.9.6)))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.9.6))(typescript@5.6.3)':
+  '@storybook/react@8.6.14(@storybook/test@8.6.14(storybook@8.6.14(prettier@3.9.9)))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.9.9))(typescript@5.6.3)':
     dependencies:
-      '@storybook/components': 8.6.14(storybook@8.6.14(prettier@3.9.6))
+      '@storybook/components': 8.6.14(storybook@8.6.14(prettier@3.9.9))
       '@storybook/global': 5.0.0
-      '@storybook/manager-api': 8.6.14(storybook@8.6.14(prettier@3.9.6))
-      '@storybook/preview-api': 8.6.14(storybook@8.6.14(prettier@3.9.6))
-      '@storybook/react-dom-shim': 8.6.14(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.9.6))
-      '@storybook/theming': 8.6.14(storybook@8.6.14(prettier@3.9.6))
+      '@storybook/manager-api': 8.6.14(storybook@8.6.14(prettier@3.9.9))
+      '@storybook/preview-api': 8.6.14(storybook@8.6.14(prettier@3.9.9))
+      '@storybook/react-dom-shim': 8.6.14(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.9.9))
+      '@storybook/theming': 8.6.14(storybook@8.6.14(prettier@3.9.9))
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
-      storybook: 8.6.14(prettier@3.9.6)
+      storybook: 8.6.14(prettier@3.9.9)
     optionalDependencies:
-      '@storybook/test': 8.6.14(storybook@8.6.14(prettier@3.9.6))
+      '@storybook/test': 8.6.14(storybook@8.6.14(prettier@3.9.9))
       typescript: 5.6.3
 
-  '@storybook/test@8.6.14(storybook@8.6.14(prettier@3.9.6))':
+  '@storybook/test@8.6.14(storybook@8.6.14(prettier@3.9.9))':
     dependencies:
       '@storybook/global': 5.0.0
-      '@storybook/instrumenter': 8.6.14(storybook@8.6.14(prettier@3.9.6))
+      '@storybook/instrumenter': 8.6.14(storybook@8.6.14(prettier@3.9.9))
       '@testing-library/dom': 10.4.0
       '@testing-library/jest-dom': 6.5.0
       '@testing-library/user-event': 14.5.2(@testing-library/dom@10.4.0)
       '@vitest/expect': 2.0.5
       '@vitest/spy': 2.0.5
-      storybook: 8.6.14(prettier@3.9.6)
+      storybook: 8.6.14(prettier@3.9.9)
 
-  '@storybook/theming@8.6.14(storybook@8.6.14(prettier@3.9.6))':
+  '@storybook/theming@8.6.14(storybook@8.6.14(prettier@3.9.9))':
     dependencies:
-      storybook: 8.6.14(prettier@3.9.6)
+      storybook: 8.6.14(prettier@3.9.9)
 
   '@swc/helpers@0.5.13':
     dependencies:
@@ -16710,17 +16685,17 @@ snapshots:
     dependencies:
       eslint: 7.32.0
 
-  eslint-config-turbo@2.10.8(eslint@7.32.0)(turbo@1.12.5):
+  eslint-config-turbo@2.11.7(eslint@7.32.0)(turbo@1.12.5):
     dependencies:
       eslint: 7.32.0
-      eslint-plugin-turbo: 2.10.8(eslint@7.32.0)(turbo@1.12.5)
+      eslint-plugin-turbo: 2.11.7(eslint@7.32.0)(turbo@1.12.5)
       turbo: 1.12.5
 
   eslint-plugin-react-hooks@4.6.2(eslint@8.57.1):
     dependencies:
       eslint: 8.57.1
 
-  eslint-plugin-turbo@2.10.8(eslint@7.32.0)(turbo@1.12.5):
+  eslint-plugin-turbo@2.11.7(eslint@7.32.0)(turbo@1.12.5):
     dependencies:
       dotenv: 16.0.3
       eslint: 7.32.0
@@ -18617,7 +18592,7 @@ snapshots:
 
   metro-runtime@0.83.2:
     dependencies:
-      '@babel/runtime': 7.29.2
+      '@babel/runtime': 7.29.7
       flow-enums-runtime: 0.0.6
 
   metro-runtime@0.83.3:
@@ -19676,7 +19651,7 @@ snapshots:
 
   prettier@3.7.4: {}
 
-  prettier@3.9.6: {}
+  prettier@3.9.9: {}
 
   pretty-bytes@5.2.0: {}
 
@@ -20285,7 +20260,7 @@ snapshots:
       rc: 1.2.8
       resolve: 1.7.1
 
-  reselect@5.2.0: {}
+  reselect@5.3.0: {}
 
   resize-observer-polyfill@1.5.1: {}
 
@@ -20380,7 +20355,7 @@ snapshots:
 
   rtl-css-js@1.16.1:
     dependencies:
-      '@babel/runtime': 7.29.2
+      '@babel/runtime': 7.29.7
 
   run-async@2.4.1: {}
 
@@ -20694,11 +20669,11 @@ snapshots:
 
   std-env@3.10.0: {}
 
-  storybook@8.6.14(prettier@3.9.6):
+  storybook@8.6.14(prettier@3.9.9):
     dependencies:
-      '@storybook/core': 8.6.14(prettier@3.9.6)(storybook@8.6.14(prettier@3.9.6))
+      '@storybook/core': 8.6.14(prettier@3.9.9)(storybook@8.6.14(prettier@3.9.9))
     optionalDependencies:
-      prettier: 3.9.6
+      prettier: 3.9.9
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -21382,6 +21357,10 @@ snapshots:
     dependencies:
       react: 19.1.0
 
+  use-sync-external-store@1.7.0(react@19.1.0):
+    dependencies:
+      react: 19.1.0
+
   utif@2.0.1:
     dependencies:
       pako: 1.0.11
@@ -21424,9 +21403,9 @@ snapshots:
 
   vary@1.1.2: {}
 
-  vaul-base@1.0.0(@base-ui/react@1.8.0(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  vaul-base@1.0.0(@base-ui/react@1.9.0(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
-      '@base-ui/react': 1.8.0(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@base-ui/react': 1.9.0(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
@@ -21750,10 +21729,10 @@ snapshots:
 
   zod@3.25.76: {}
 
-  zustand@5.0.9(@types/react@19.1.10)(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)):
+  zustand@5.0.9(@types/react@19.1.10)(react@19.1.0)(use-sync-external-store@1.7.0(react@19.1.0)):
     optionalDependencies:
       '@types/react': 19.1.10
       react: 19.1.0
-      use-sync-external-store: 1.6.0(react@19.1.0)
+      use-sync-external-store: 1.7.0(react@19.1.0)
 
   zwitch@2.0.4: {}

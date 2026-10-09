@@ -1,3 +1,4 @@
+import { XCircleFilled16 } from '@frosted-ui/icons';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
@@ -626,6 +627,172 @@ export const ManyAdjacentSubmenus: Story = {
             ))}
           </DropdownMenu.Content>
         </DropdownMenu.Root>
+      </div>
+    );
+  },
+};
+
+const folderOptions = ['Desktop', 'Documents', 'Downloads', 'Projects', 'Archive', 'Shared', 'Trash'];
+const exportOptions = ['PDF document', 'Word document', 'Plain text', 'Rich text', 'Markdown', 'HTML page', 'Image'];
+const sharingOptions = ['Email', 'Messages', 'AirDrop', 'Copy link', 'Invite collaborators', 'Publish to web'];
+
+function FilterClear() {
+  return (
+    <DropdownMenu.Clear>
+      <button type="button" aria-label="Clear">
+        <XCircleFilled16 className="fui-BaseMenuClearIcon fui-DropdownMenuClearIcon" />
+      </button>
+    </DropdownMenu.Clear>
+  );
+}
+
+function FilterableSubmenu({ label, options }: { label: string; options: readonly string[] }) {
+  return (
+    <DropdownMenu.FilterProvider autoHighlight>
+      <DropdownMenu.Sub>
+        <DropdownMenu.SubTrigger>{label}</DropdownMenu.SubTrigger>
+        <DropdownMenu.SubContent>
+          <DropdownMenu.InputRoot>
+            <DropdownMenu.Input aria-label={`Filter ${label}`} placeholder="Filter" />
+            <FilterClear />
+          </DropdownMenu.InputRoot>
+          <DropdownMenu.Empty>No matches.</DropdownMenu.Empty>
+          <DropdownMenu.List>
+            {options.map((option) => (
+              <DropdownMenu.Item key={option}>{option}</DropdownMenu.Item>
+            ))}
+          </DropdownMenu.List>
+        </DropdownMenu.SubContent>
+      </DropdownMenu.Sub>
+    </DropdownMenu.FilterProvider>
+  );
+}
+
+export const Filtering: Story = {
+  name: 'Filtering',
+  render: (args) => {
+    const [order, setOrder] = React.useState('date');
+    const [showDetails, setShowDetails] = React.useState(true);
+    const [showSidebar, setShowSidebar] = React.useState(false);
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
+        <Text render={<div />} style={{ maxWidth: 560, textAlign: 'center' }}>
+          Wrap the menu in <Code>DropdownMenu.FilterProvider</Code>, put a search field in{' '}
+          <Code>DropdownMenu.InputRoot</Code>, and place the items in <Code>DropdownMenu.List</Code>. Type to narrow
+          the actions. Arrow keys move through matches while the field keeps focus. Give each searchable submenu its
+          own provider. Submenus without one stay unfiltered.
+        </Text>
+
+        <DropdownMenu.FilterProvider autoHighlight>
+          <DropdownMenu.Root>
+            <DropdownMenu.Trigger>
+              <Button variant="soft">Actions</Button>
+            </DropdownMenu.Trigger>
+            <DropdownMenu.Content {...args}>
+              <DropdownMenu.InputRoot>
+                <DropdownMenu.Input aria-label="Filter actions" placeholder="Filter actions" />
+                <FilterClear />
+              </DropdownMenu.InputRoot>
+              <DropdownMenu.Empty>No actions found.</DropdownMenu.Empty>
+              <DropdownMenu.List>
+                <DropdownMenu.Group>
+                  <DropdownMenu.GroupLabel>File</DropdownMenu.GroupLabel>
+                  <DropdownMenu.Item>New file</DropdownMenu.Item>
+                  <DropdownMenu.Item>Open file</DropdownMenu.Item>
+                  <DropdownMenu.Item>Save</DropdownMenu.Item>
+                  <DropdownMenu.Item>Save as</DropdownMenu.Item>
+                  <DropdownMenu.Item>Duplicate</DropdownMenu.Item>
+                  <DropdownMenu.Item label="Move to folder">Move</DropdownMenu.Item>
+                </DropdownMenu.Group>
+                <DropdownMenu.Group>
+                  <DropdownMenu.Separator />
+                  <DropdownMenu.GroupLabel>Organize</DropdownMenu.GroupLabel>
+                  <FilterableSubmenu label="Move to folder" options={folderOptions} />
+                  <DropdownMenu.Sub>
+                    <DropdownMenu.SubTrigger>Share</DropdownMenu.SubTrigger>
+                    <DropdownMenu.SubContent>
+                      {sharingOptions.map((option) => (
+                        <DropdownMenu.Item key={option}>{option}</DropdownMenu.Item>
+                      ))}
+                    </DropdownMenu.SubContent>
+                  </DropdownMenu.Sub>
+                  <FilterableSubmenu label="Export" options={exportOptions} />
+                  <DropdownMenu.Item>Download a copy</DropdownMenu.Item>
+                  <DropdownMenu.Item color="danger">Delete</DropdownMenu.Item>
+                </DropdownMenu.Group>
+                <DropdownMenu.RadioGroup value={order} onValueChange={setOrder}>
+                  <DropdownMenu.Separator />
+                  <DropdownMenu.GroupLabel>Sort by</DropdownMenu.GroupLabel>
+                  <DropdownMenu.RadioItem value="date">Date modified</DropdownMenu.RadioItem>
+                  <DropdownMenu.RadioItem value="name">Name</DropdownMenu.RadioItem>
+                  <DropdownMenu.RadioItem value="size">Size</DropdownMenu.RadioItem>
+                </DropdownMenu.RadioGroup>
+                <DropdownMenu.Group>
+                  <DropdownMenu.Separator />
+                  <DropdownMenu.GroupLabel>View</DropdownMenu.GroupLabel>
+                  <DropdownMenu.CheckboxItem checked={showDetails} onCheckedChange={setShowDetails}>
+                    Show details
+                  </DropdownMenu.CheckboxItem>
+                  <DropdownMenu.CheckboxItem checked={showSidebar} onCheckedChange={setShowSidebar}>
+                    Show sidebar
+                  </DropdownMenu.CheckboxItem>
+                </DropdownMenu.Group>
+              </DropdownMenu.List>
+            </DropdownMenu.Content>
+          </DropdownMenu.Root>
+        </DropdownMenu.FilterProvider>
+      </div>
+    );
+  },
+};
+
+export const CustomFilter: Story = {
+  name: 'Custom Filter',
+  render: (args) => {
+    const { startsWith } = DropdownMenu.useFilter();
+    const [highlighted, setHighlighted] = React.useState('None');
+    const [reason, setReason] = React.useState('none');
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
+        <Text render={<div />} style={{ maxWidth: 560, textAlign: 'center' }}>
+          Pass <Code>filter</Code> to replace the default &quot;contains&quot; match. <Code>DropdownMenu.useFilter()</Code>{' '}
+          returns locale-aware <Code>startsWith</Code>, <Code>endsWith</Code>, and <Code>contains</Code> helpers. Pass{' '}
+          <Code>filter={'{null}'}</Code> when you filter the items yourself. <Code>onItemHighlighted</Code> reports the
+          highlighted item’s label and why it changed.
+        </Text>
+        <Text render={<div />} size="2" color="gray">
+          Highlighted: <Code>{highlighted}</Code> ({reason})
+        </Text>
+
+        <DropdownMenu.FilterProvider autoHighlight filter={startsWith}>
+          <DropdownMenu.Root
+            onItemHighlighted={(_item, details) => {
+              setHighlighted(details.label ?? 'None');
+              setReason(details.reason);
+            }}
+          >
+            <DropdownMenu.Trigger>
+              <Button variant="soft">Commands</Button>
+            </DropdownMenu.Trigger>
+            <DropdownMenu.Content {...args}>
+              <DropdownMenu.InputRoot>
+                <DropdownMenu.Input aria-label="Filter commands" placeholder="Starts with…" />
+                <FilterClear />
+              </DropdownMenu.InputRoot>
+              <DropdownMenu.Empty>No commands found.</DropdownMenu.Empty>
+              <DropdownMenu.List>
+                <DropdownMenu.Item>Copy link</DropdownMenu.Item>
+                <DropdownMenu.Item>Copy title</DropdownMenu.Item>
+                <DropdownMenu.Item>Create page</DropdownMenu.Item>
+                <DropdownMenu.Item>Create folder</DropdownMenu.Item>
+                <DropdownMenu.Item>Rename</DropdownMenu.Item>
+                <DropdownMenu.Item>Replace</DropdownMenu.Item>
+              </DropdownMenu.List>
+            </DropdownMenu.Content>
+          </DropdownMenu.Root>
+        </DropdownMenu.FilterProvider>
       </div>
     );
   },
