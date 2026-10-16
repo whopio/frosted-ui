@@ -270,10 +270,6 @@
   --color-focus-root: var(--accent-8);
 }
 
-::selection {
-  background-color: var(--color-selection-root);
-}
-
 /* * * * * * * * * * * * * * * * * * * */
 /*                                     */
 /*         Background and text         */
