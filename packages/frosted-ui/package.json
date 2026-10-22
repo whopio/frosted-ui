@@ -79,7 +79,6 @@
     "release": "turbo-module publish"
   },
   "dependencies": {
-    "@base-ui/react": "^1.8.0",
     "@internationalized/date": "^3.5.6",
     "@react-aria/calendar": "^3.5.13",
     "@react-aria/datepicker": "^3.11.4",
@@ -97,6 +96,7 @@
     "vaul-base": "^1.0.0"
   },
   "peerDependencies": {
+    "@base-ui/react": "^1.8.0",
     "@types/react": "*",
     "@types/react-dom": "*",
     "react": "^16.8 || ^17.0 || ^18.0 || ^19.0",
@@ -116,6 +116,7 @@
     }
   },
   "devDependencies": {
+    "@base-ui/react": "^1.8.0",
     "@frosted-ui/colors": "workspace:*",
     "@frosted-ui/icons": "workspace:*",
     "@napi-rs/canvas": "^0.1.60",

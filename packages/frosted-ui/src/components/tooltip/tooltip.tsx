@@ -71,7 +71,7 @@ interface TooltipProps extends TooltipOwnProps {
   sticky?: React.ComponentProps<typeof TooltipPrimitive.Positioner>['sticky'];
 }
 
-const TooltipImpl = (props: TooltipProps) => {
+const Tooltip = (props: TooltipProps) => {
   const {
     children,
     className,
@@ -145,12 +145,7 @@ const TooltipImpl = (props: TooltipProps) => {
     </TooltipPrimitive.Root>
   );
 };
-TooltipImpl.displayName = 'Tooltip';
-
-// Create compound component with Provider
-const Tooltip = Object.assign(TooltipImpl, {
-  Provider: TooltipPrimitive.Provider,
-});
+Tooltip.displayName = 'Tooltip';
 
 export { Tooltip, type TooltipActions };
 export type { TooltipProps };

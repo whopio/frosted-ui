@@ -45,19 +45,19 @@ export default function () {
 }
 ```
 
-If your app uses `Tooltip`, also mount `Tooltip.Provider` at the root. It puts every tooltip in a shared delay group, so moving from one trigger to an adjacent one opens the tooltip instantly instead of waiting out the delay again:
+If your app uses `Tooltip`, also mount `TooltipProvider` at the root. It puts every tooltip in a shared delay group, so moving from one trigger to an adjacent one opens the tooltip instantly instead of waiting out the delay again:
 
 ```tsx
-import { Theme, Tooltip } from 'frosted-ui';
+import { Theme, TooltipProvider } from 'frosted-ui';
 
-<Tooltip.Provider>
+<TooltipProvider>
   <Theme>
     <MyApp />
   </Theme>
-</Tooltip.Provider>;
+</TooltipProvider>;
 ```
 
-This is deliberately opt-in rather than built into `Theme`: the provider is only reachable through a Base UI namespace export that bundlers cannot tree-shake, so mounting it unconditionally would add ~34 kB gzipped to apps that never render a tooltip.
+This stays opt-in and out of `Theme`. `TooltipProvider` is the only way to mount the delay group, and importing it does not include the tooltip popup.
 
 ### Emoji colors
 

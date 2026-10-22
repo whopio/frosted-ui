@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { Button, Code, IconButton, Kbd, Text, Tooltip, type TooltipActions } from '..';
+import { Button, Code, IconButton, Kbd, Text, Tooltip, TooltipProvider, type TooltipActions } from '..';
 
 const ExampleIcon = ({ size }: { size: number }) => (
   <svg width={size} height={size} viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -69,12 +69,12 @@ export const WithProvider: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', alignItems: 'center' }}>
       <Text render={<div />} style={{ maxWidth: 400, textAlign: 'center' }}>
-        Mount <Code>Tooltip.Provider</Code> once at your app root, alongside <Code>Theme</Code>, so adjacent tooltips
-        share a delay group: after hovering one tooltip, moving to another opens it instantly. It is opt-in so apps that
-        never render a tooltip don&apos;t pay for the module.
+        Mount <Code>TooltipProvider</Code> once at your app root, alongside <Code>Theme</Code>, so adjacent tooltips
+        share a delay group: after hovering one tooltip, moving to another opens it instantly. It stays opt-in and out
+        of <Code>Theme</Code>.
       </Text>
 
-      <Tooltip.Provider>
+      <TooltipProvider>
         <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
           <Tooltip content="Bold">
             <IconButton aria-label="Bold">
@@ -94,7 +94,7 @@ export const WithProvider: Story = {
             </IconButton>
           </Tooltip>
         </div>
-      </Tooltip.Provider>
+      </TooltipProvider>
     </div>
   ),
 };
