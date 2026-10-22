@@ -111,9 +111,6 @@ importers:
 
   packages/frosted-ui:
     dependencies:
-      '@base-ui/react':
-        specifier: ^1.8.0
-        version: 1.8.0(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@internationalized/date':
         specifier: ^3.5.6
         version: 3.5.6
@@ -160,6 +157,9 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0(@base-ui/react@1.8.0(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
     devDependencies:
+      '@base-ui/react':
+        specifier: ^1.8.0
+        version: 1.8.0(@types/react@19.1.10)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@frosted-ui/colors':
         specifier: workspace:*
         version: link:../frosted-ui-colors

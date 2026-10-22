@@ -39,10 +39,8 @@ const Theme = (props: ThemeProps) => {
   const context = React.useContext(ThemeContext);
   const isRoot = context === undefined;
   if (isRoot) {
-    // Deliberately no `Tooltip.Provider` here: it would make every consumer of
-    // `Theme` pay for the whole Base UI tooltip module, which is only reachable
-    // through a namespace re-export that bundlers cannot tree-shake. Shared
-    // delay grouping stays opt-in via `Tooltip.Provider`.
+    // Deliberately no tooltip delay-group provider here. Mount `TooltipProvider`
+    // outside `Theme`; shared delay grouping stays opt-in.
     return (
       <DirectionProvider direction="ltr">
         <ThemeRoot {...props} />
