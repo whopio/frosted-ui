@@ -270,8 +270,10 @@
   --color-focus-root: var(--accent-8);
 }
 
+/* Highlight is the native selection color where --color-selection-root is unset.
+   Keep this a bare ::selection rule. A descendant selector is much slower to match. */
 ::selection {
-  background-color: var(--color-selection-root);
+  background-color: var(--color-selection-root, Highlight);
 }
 
 /* * * * * * * * * * * * * * * * * * * */
