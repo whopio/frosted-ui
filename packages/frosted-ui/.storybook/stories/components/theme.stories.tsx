@@ -61,7 +61,7 @@ export const Colors: Story = {
         grayColor="gray"
         accentColor="blue"
         infoColor="sky"
-        successColor="green"
+        successColor="lime"
         warningColor="yellow"
         dangerColor="red"
       >
@@ -134,7 +134,7 @@ export const Appearance: Story = {
         appearance="light"
         grayColor="slate"
         infoColor="sky"
-        successColor="green"
+        successColor="lime"
         warningColor="yellow"
         dangerColor="red"
       >
@@ -166,7 +166,7 @@ export const Appearance: Story = {
         appearance="dark"
         grayColor="slate"
         infoColor="sky"
-        successColor="green"
+        successColor="lime"
         warningColor="yellow"
         dangerColor="red"
       >

@@ -7,7 +7,7 @@ type ColorScheme = 'light' | 'dark';
 // Allowed colors for each semantic color type (matching web version)
 type DangerColor = 'tomato' | 'red' | 'ruby';
 type WarningColor = 'yellow' | 'amber';
-type SuccessColor = 'teal' | 'jade' | 'green' | 'grass';
+type SuccessColor = 'teal' | 'jade' | 'green' | 'grass' | 'lime';
 type InfoColor = 'blue' | 'sky';
 
 // Semantic color configuration
@@ -24,7 +24,7 @@ const defaultSemanticColors: SemanticColorConfig = {
   accentColor: 'blue',
   dangerColor: 'red',
   warningColor: 'amber',
-  successColor: 'green',
+  successColor: 'lime',
   infoColor: 'sky',
 };
 
@@ -46,7 +46,7 @@ type ThemeProviderProps = {
   dangerColor?: DangerColor;
   /** Color for warning states. Defaults to 'amber'. */
   warningColor?: WarningColor;
-  /** Color for success states. Defaults to 'green'. */
+  /** Color for success states. Defaults to 'lime'. */
   successColor?: SuccessColor;
   /** Color for informational states. Defaults to 'sky'. */
   infoColor?: InfoColor;
