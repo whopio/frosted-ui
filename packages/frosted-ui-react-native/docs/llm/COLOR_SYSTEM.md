@@ -568,7 +568,7 @@ Apps wrap their root in `ThemeProvider` to set colors:
   accentColor="purple" // Default: 'blue'
   dangerColor="tomato" // Default: 'red' (must be: tomato | red | ruby)
   warningColor="yellow" // Default: 'amber' (must be: yellow | amber)
-  successColor="teal" // Default: 'green' (must be: teal | jade | green | grass)
+  successColor="teal" // Default: 'lime' (must be: teal | jade | green | grass | lime)
   infoColor="blue" // Default: 'sky' (must be: blue | sky)
 >
   <App />

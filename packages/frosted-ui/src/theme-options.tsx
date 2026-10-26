@@ -19,7 +19,7 @@ const accentColors = [...radixColorScales, 'gray'] as const;
 const grayColors = [...radixGrayScales, 'auto'] as const;
 const dangerColors = ['tomato', 'red', 'ruby'] as const;
 const warningColors = ['yellow', 'amber'] as const;
-const successColors = ['teal', 'jade', 'green', 'grass'] as const;
+const successColors = ['teal', 'jade', 'green', 'grass', 'lime'] as const;
 const infoColors = ['blue', 'sky'] as const;
 
 const themePropDefs = {
@@ -29,7 +29,7 @@ const themePropDefs = {
   grayColor: { type: 'enum', values: grayColors, default: 'gray' },
   dangerColor: { type: 'enum', values: dangerColors, default: 'red' },
   warningColor: { type: 'enum', values: warningColors, default: 'amber' },
-  successColor: { type: 'enum', values: successColors, default: 'green' },
+  successColor: { type: 'enum', values: successColors, default: 'lime' },
   infoColor: { type: 'enum', values: infoColors, default: 'sky' },
 } satisfies {
   hasBackground: PropDef<boolean>;
