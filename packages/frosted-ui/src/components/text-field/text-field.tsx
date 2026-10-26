@@ -28,7 +28,7 @@ const TextFieldRoot = (props: TextFieldRootProps) => {
       className={classNames('fui-TextFieldRoot', `fui-r-size-${size}`, `fui-variant-${variant}`, className)}
       onPointerDown={composeEventHandlers(rootProps.onPointerDown, (event) => {
         const target = event.target as HTMLElement;
-        if (target.closest('input, button, a')) return;
+        if (target.closest('input, button, a, select')) return;
 
         const input = event.currentTarget.querySelector('.fui-TextFieldInput') as HTMLInputElement | null;
         if (!input) return;
