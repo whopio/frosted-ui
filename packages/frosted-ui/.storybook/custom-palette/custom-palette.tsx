@@ -1,15 +1,11 @@
 import {
   Checkmark16,
   ChevronDown12,
-  Code16,
-  Copy16,
-  Grid16,
-  Heart16,
+  Expand16,
   InfoCircle16,
-  MagnifyingGlass16,
+  Minimize16,
   Moon16,
   Plus16,
-  Square16,
   Sun16,
 } from '@frosted-ui/icons';
 import * as React from 'react';
@@ -21,19 +17,24 @@ import {
   Callout,
   Card,
   Checkbox,
+  CircularProgress,
+  Code,
   DropdownMenu,
+  FilterChip,
   Heading,
-  HoverCard,
   IconButton,
   Link,
+  Quote,
   Progress,
+  RadioGroup,
   SegmentedControl,
-  Separator,
   Slider,
+  Spinner,
   Switch,
-  Tabs,
+  Table,
   Text,
   TextField,
+  Tooltip,
 } from '../../src/components';
 import { Theme } from '../../src/theme';
 import './custom-palette.css';
@@ -111,11 +112,31 @@ function mergeSeeds(base: PaletteSeeds, stored: Partial<PaletteSeeds> | undefine
   return next;
 }
 
+function isSemanticRole(key: keyof PaletteSeeds): key is SemanticRole {
+  return (semanticRoles as readonly string[]).includes(key);
+}
+
+function withSharedSemantics(
+  light: PaletteSeeds,
+  dark: PaletteSeeds,
+  source: Appearance,
+): Pick<StoredPalette, 'light' | 'dark'> {
+  const shared = source === 'dark' ? dark : light;
+  const semantics = Object.fromEntries(semanticRoles.map((role) => [role, shared[role]])) as Pick<
+    PaletteSeeds,
+    SemanticRole
+  >;
+
+  return {
+    light: { ...light, ...semantics },
+    dark: { ...dark, ...semantics },
+  };
+}
+
 function readStored(initialAppearance: Appearance): StoredPalette {
   const fallback: StoredPalette = {
     appearance: initialAppearance,
-    light: defaultSeeds.light,
-    dark: defaultSeeds.dark,
+    ...withSharedSemantics(defaultSeeds.light, defaultSeeds.dark, initialAppearance),
   };
 
   if (typeof window === 'undefined') return fallback;
@@ -124,10 +145,15 @@ function readStored(initialAppearance: Appearance): StoredPalette {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) return fallback;
     const parsed = JSON.parse(raw) as Partial<StoredPalette>;
+    const appearance =
+      parsed.appearance === 'dark' || parsed.appearance === 'light' ? parsed.appearance : initialAppearance;
     return {
-      appearance: parsed.appearance === 'dark' || parsed.appearance === 'light' ? parsed.appearance : initialAppearance,
-      light: mergeSeeds(defaultSeeds.light, parsed.light),
-      dark: mergeSeeds(defaultSeeds.dark, parsed.dark),
+      appearance,
+      ...withSharedSemantics(
+        mergeSeeds(defaultSeeds.light, parsed.light),
+        mergeSeeds(defaultSeeds.dark, parsed.dark),
+        appearance,
+      ),
     };
   } catch {
     return fallback;
@@ -180,7 +206,20 @@ function CustomPalettePage({ initialAppearance = 'light' }: { initialAppearance?
   const [stored, setStored] = React.useState(() => readStored(initialAppearance));
   const [container, setContainer] = React.useState<HTMLDivElement | null>(null);
   const [copied, setCopied] = React.useState<CopyTarget | null>(null);
+  const [isFullscreen, setIsFullscreen] = React.useState(false);
+  const pageRef = React.useRef<HTMLDivElement | null>(null);
   const copiedTimeout = React.useRef<number | null>(null);
+
+  function setPage(node: HTMLDivElement | null) {
+    pageRef.current = node;
+    setContainer(node);
+  }
+
+  React.useEffect(() => {
+    const onChange = () => setIsFullscreen(document.fullscreenElement === pageRef.current);
+    document.addEventListener('fullscreenchange', onChange);
+    return () => document.removeEventListener('fullscreenchange', onChange);
+  }, []);
 
   React.useEffect(() => {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
@@ -205,20 +244,42 @@ function CustomPalettePage({ initialAppearance = 'light' }: { initialAppearance?
   }
 
   function setSeed(key: keyof PaletteSeeds, value: string) {
-    setStored((current) => ({
-      ...current,
-      [current.appearance]: {
-        ...current[current.appearance],
-        [key]: value,
-      },
-    }));
+    setStored((current) => {
+      if (isSemanticRole(key)) {
+        return {
+          ...current,
+          light: { ...current.light, [key]: value },
+          dark: { ...current.dark, [key]: value },
+        };
+      }
+
+      return {
+        ...current,
+        [current.appearance]: {
+          ...current[current.appearance],
+          [key]: value,
+        },
+      };
+    });
   }
 
   function resetSeeds() {
-    setStored((current) => ({
-      ...current,
-      [current.appearance]: defaultSeeds[current.appearance],
-    }));
+    setStored((current) => {
+      const semantics = Object.fromEntries(semanticRoles.map((role) => [role, defaultSeeds.light[role]])) as Pick<
+        PaletteSeeds,
+        SemanticRole
+      >;
+      const foundation = {
+        gray: defaultSeeds[current.appearance].gray,
+        background: defaultSeeds[current.appearance].background,
+      };
+
+      return {
+        ...current,
+        light: { ...current.light, ...semantics, ...(current.appearance === 'light' ? foundation : {}) },
+        dark: { ...current.dark, ...semantics, ...(current.appearance === 'dark' ? foundation : {}) },
+      };
+    });
   }
 
   function copyScale(target: CopyTarget) {
@@ -231,6 +292,16 @@ function CustomPalettePage({ initialAppearance = 'light' }: { initialAppearance?
 
   const copiedLabel = copied === 'all' ? 'all scales' : copied;
 
+  function toggleFullscreen() {
+    const page = pageRef.current;
+    if (!page) return;
+    if (document.fullscreenElement === page) {
+      void document.exitFullscreen();
+      return;
+    }
+    void page.requestFullscreen();
+  }
+
   return (
     <Theme
       appearance={appearance}
@@ -241,54 +312,59 @@ function CustomPalettePage({ initialAppearance = 'light' }: { initialAppearance?
       style={{ minHeight: '100vh' }}
     >
       <style>{palettePreviewCss(palette, seeds)}</style>
-      <div className="custom-palette-page" ref={setContainer}>
-        <div className="custom-palette-frame">
-          <header className="custom-palette-stack">
-            <div className="custom-palette-toolbar">
-              <div className="custom-palette-stack" style={{ gap: 'var(--space-2)' }}>
-                <Heading size="6">Create a custom palette</Heading>
-                <Text color="gray" size="2">
-                  Generate accent, danger, success, warning, and info scales, then preview them on Frosted UI.
-                </Text>
-              </div>
-              <div className="custom-palette-toolbar-actions">
-                <SegmentedControl.Root value={appearance} onValueChange={setAppearance}>
-                  <SegmentedControl.List>
-                    <SegmentedControl.Trigger value="light">
-                      <span className="custom-palette-row">
-                        <Sun16 />
-                        Light
-                      </span>
-                    </SegmentedControl.Trigger>
-                    <SegmentedControl.Trigger value="dark">
-                      <span className="custom-palette-row">
-                        <Moon16 />
-                        Dark
-                      </span>
-                    </SegmentedControl.Trigger>
-                  </SegmentedControl.List>
-                </SegmentedControl.Root>
-                <Button variant="ghost" onClick={resetSeeds}>
-                  Reset
+      <div className="custom-palette-page" data-fullscreen={isFullscreen ? 'true' : undefined} ref={setPage}>
+        <header className="custom-palette-nav">
+          <Heading size="5">Custom palette</Heading>
+          <div className="custom-palette-toolbar-actions">
+            <SegmentedControl.Root value={appearance} onValueChange={setAppearance}>
+              <SegmentedControl.List>
+                <SegmentedControl.Trigger value="light">
+                  <span className="custom-palette-row">
+                    <Sun16 />
+                    Light
+                  </span>
+                </SegmentedControl.Trigger>
+                <SegmentedControl.Trigger value="dark">
+                  <span className="custom-palette-row">
+                    <Moon16 />
+                    Dark
+                  </span>
+                </SegmentedControl.Trigger>
+              </SegmentedControl.List>
+            </SegmentedControl.Root>
+            <Tooltip content={isFullscreen ? 'Exit full screen' : 'Full screen'} container={container ?? undefined}>
+              <IconButton
+                variant="surface"
+                color="gray"
+                aria-label={isFullscreen ? 'Exit full screen' : 'Full screen'}
+                onClick={toggleFullscreen}
+              >
+                {isFullscreen ? <Minimize16 /> : <Expand16 />}
+              </IconButton>
+            </Tooltip>
+            <Button variant="ghost" color="gray" onClick={resetSeeds}>
+              Reset
+            </Button>
+            <DropdownMenu.Root>
+              <DropdownMenu.Trigger>
+                <Button variant="classic">
+                  {copied ? `Copied ${copiedLabel}` : 'Copy CSS'}
+                  <ChevronDown12 />
                 </Button>
-                <DropdownMenu.Root>
-                  <DropdownMenu.Trigger>
-                    <Button variant="surface" style={{ gap: 6 }}>
-                      {copied ? `Copied ${copiedLabel}` : 'Copy CSS'}
-                      <ChevronDown12 />
-                    </Button>
-                  </DropdownMenu.Trigger>
-                  <DropdownMenu.Content align="end" container={container ?? undefined}>
-                    {copyTargets.map((target) => (
-                      <DropdownMenu.Item key={target.id} onClick={() => copyScale(target.id)}>
-                        {target.label}
-                      </DropdownMenu.Item>
-                    ))}
-                  </DropdownMenu.Content>
-                </DropdownMenu.Root>
-              </div>
-            </div>
+              </DropdownMenu.Trigger>
+              <DropdownMenu.Content align="end" container={container ?? undefined}>
+                {copyTargets.map((target) => (
+                  <DropdownMenu.Item key={target.id} onClick={() => copyScale(target.id)}>
+                    {target.label}
+                  </DropdownMenu.Item>
+                ))}
+              </DropdownMenu.Content>
+            </DropdownMenu.Root>
+          </div>
+        </header>
 
+        <main className="custom-palette-main">
+          <Card size="2">
             <div className="custom-palette-fields">
               {fieldDefs.map((field) => {
                 const value = seeds[field.key];
@@ -322,35 +398,37 @@ function CustomPalettePage({ initialAppearance = 'light' }: { initialAppearance?
                 );
               })}
             </div>
-          </header>
+          </Card>
 
-          <section className="custom-palette-scales" aria-label="Generated scales">
-            <div className="custom-palette-scale-head">
-              <span className="custom-palette-scale-gutter" />
-              <div className="custom-palette-legend">
-                {usageRanges.map((range) => (
-                  <span key={range.label} style={{ gridColumn: `span ${range.span}` }}>
-                    {range.label}
-                  </span>
-                ))}
+          <Card size="2">
+            <section className="custom-palette-scales" aria-label="Generated scales">
+              <div className="custom-palette-scale-head">
+                <span className="custom-palette-scale-gutter" />
+                <div className="custom-palette-legend">
+                  {usageRanges.map((range) => (
+                    <span key={range.label} style={{ gridColumn: `span ${range.span}` }}>
+                      {range.label}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-            <div className="custom-palette-scale-head">
-              <span className="custom-palette-scale-gutter" />
-              <div className="custom-palette-steps" aria-hidden="true">
-                {Array.from({ length: 12 }, (_, index) => (
-                  <span key={index}>{index + 1}</span>
-                ))}
+              <div className="custom-palette-scale-head">
+                <span className="custom-palette-scale-gutter" />
+                <div className="custom-palette-steps" aria-hidden="true">
+                  {Array.from({ length: 12 }, (_, index) => (
+                    <span key={index}>{index + 1}</span>
+                  ))}
+                </div>
               </div>
-            </div>
-            {semanticRoles.map((role) => (
-              <ScaleRow key={role} label={roleLabels[role]} scale={palette.roles[role].accentScale} />
-            ))}
-            <ScaleRow label={roleLabels.gray} scale={displayGrayScale(appearance, seeds, palette)} />
-          </section>
+              {semanticRoles.map((role) => (
+                <ScaleRow key={role} label={roleLabels[role]} scale={palette.roles[role].accentScale} />
+              ))}
+              <ScaleRow label={roleLabels.gray} scale={displayGrayScale(appearance, seeds, palette)} />
+            </section>
+          </Card>
 
-          <PalettePreview container={container} />
-        </div>
+          <PaletteBento />
+        </main>
       </div>
     </Theme>
   );
@@ -376,316 +454,299 @@ function ScaleRow({ label, scale }: { label: string; scale: readonly string[] })
   );
 }
 
-const todoItems = [
-  { id: 'comment', label: 'Respond to comment #384 from Travis', done: false },
-  { id: 'invite', label: 'Invite Acme Co. team to Slack', done: false },
-  { id: 'report', label: 'Create a report requested by Danilo', done: false },
-  { id: 'finances', label: 'Close Q2 finances', done: true },
-  { id: 'invoice', label: 'Review invoice #3456', done: true },
-];
+const paletteColors = [
+  { key: 'accent', label: 'Accent', color: undefined },
+  { key: 'danger', label: 'Danger', color: 'danger' },
+  { key: 'success', label: 'Success', color: 'success' },
+  { key: 'warning', label: 'Warning', color: 'warning' },
+  { key: 'info', label: 'Info', color: 'info' },
+] as const;
 
-function PalettePreview({ container }: { container: HTMLElement | null }) {
-  const [todos, setTodos] = React.useState(todoItems);
+const buttonVariants = ['classic', 'solid', 'soft', 'surface', 'ghost'] as const;
+const badgeVariants = ['solid', 'soft', 'surface', 'outline'] as const;
+
+function Cell({ title, area, children }: { title: string; area: string; children: React.ReactNode }) {
+  return (
+    <Card className={`custom-palette-cell custom-palette-area-${area}`} size="2">
+      <div className="custom-palette-stack">
+        <Text size="1" color="gray" weight="medium">
+          {title}
+        </Text>
+        {children}
+      </div>
+    </Card>
+  );
+}
+
+function PaletteBento() {
+  const [highContrast, setHighContrast] = React.useState(false);
+  const [disabled, setDisabled] = React.useState(false);
 
   return (
-    <div className="custom-palette-preview">
-      <div className="custom-palette-stack">
-        <div className="custom-palette-search">
-          <TextField.Root size="2" variant="surface" color="gray">
-            <TextField.Slot>
-              <MagnifyingGlass16 />
-            </TextField.Slot>
-            <TextField.Input placeholder="Search" />
-          </TextField.Root>
-          <Button variant="classic">Submit</Button>
-        </div>
-
+    <div className="custom-palette-bento">
+      <Cell title="Buttons" area="buttons">
         <div className="custom-palette-row">
-          <IconButton variant="soft" aria-label="Box">
-            <Square16 />
-          </IconButton>
-          <IconButton variant="soft" aria-label="Grid">
-            <Grid16 />
-          </IconButton>
-          <IconButton variant="soft" aria-label="Code">
-            <Code16 />
-          </IconButton>
-          <IconButton variant="soft" aria-label="Add">
-            <Plus16 />
-          </IconButton>
+          <Text render={<label />} size="2">
+            <span className="custom-palette-row">
+              <Switch checked={highContrast} size="1" onCheckedChange={(checked) => setHighContrast(checked)} />
+              High contrast
+            </span>
+          </Text>
+          <Text render={<label />} size="2">
+            <span className="custom-palette-row">
+              <Switch checked={disabled} size="1" onCheckedChange={(checked) => setDisabled(checked)} />
+              Disabled
+            </span>
+          </Text>
         </div>
+        {buttonVariants.map((variant) => (
+          <div className="custom-palette-variant-row" key={variant}>
+            {paletteColors.map((swatch) => (
+              <Button
+                key={swatch.key}
+                variant={variant}
+                color={swatch.color}
+                highContrast={highContrast}
+                disabled={disabled}
+              >
+                {swatch.label}
+              </Button>
+            ))}
+            {paletteColors.map((swatch, index) => (
+              <IconButton
+                key={`icon-${swatch.key}`}
+                className={index === 0 ? 'custom-palette-icon-group' : undefined}
+                variant={variant}
+                color={swatch.color}
+                highContrast={highContrast}
+                disabled={disabled}
+                aria-label={`${variant} ${swatch.label}`}
+              >
+                <Plus16 />
+              </IconButton>
+            ))}
+          </div>
+        ))}
+      </Cell>
 
-        <div className="custom-palette-row">
-          <Badge variant="solid">Fully featured</Badge>
-          <Badge variant="soft">Built with Frosted</Badge>
-          <Badge variant="surface" color="success">
-            Open source
-          </Badge>
-          <Badge variant="outline" color="info">
-            Info
-          </Badge>
-          <Badge variant="solid" color="warning">
-            Warning
-          </Badge>
-          <Badge variant="solid" color="danger">
-            Danger
-          </Badge>
-        </div>
+      <Cell title="Badges" area="badges">
+        {badgeVariants.map((variant) => (
+          <div className="custom-palette-variant-row" key={variant}>
+            {paletteColors.map((swatch) => (
+              <Badge key={swatch.key} variant={variant} color={swatch.color}>
+                {swatch.label}
+              </Badge>
+            ))}
+          </div>
+        ))}
+      </Cell>
 
+      <Cell title="Callouts" area="callouts">
         <Callout.Root>
           <Callout.Icon>
             <InfoCircle16 />
           </Callout.Icon>
-          <Callout.Title>Please upgrade to the new version.</Callout.Title>
-          <Callout.Description>Your workspace will be upgraded tonight.</Callout.Description>
-          <Callout.Actions>
-            <Callout.Action>Upgrade</Callout.Action>
-            <Callout.Action variant="secondary">Later</Callout.Action>
-          </Callout.Actions>
+          <Callout.Title>Accent</Callout.Title>
+          <Callout.Description>Primary message on the accent scale.</Callout.Description>
         </Callout.Root>
-
         <Callout.Root color="success">
           <Callout.Icon>
             <Checkmark16 />
           </Callout.Icon>
-          <Callout.Title>Payment received</Callout.Title>
-          <Callout.Description>The payout was deposited this morning.</Callout.Description>
+          <Callout.Title>Success</Callout.Title>
+          <Callout.Description>Confirmation on the success scale.</Callout.Description>
         </Callout.Root>
-
         <Callout.Root color="warning">
           <Callout.Icon>
             <InfoCircle16 />
           </Callout.Icon>
-          <Callout.Title>Trial ends in 3 days</Callout.Title>
-          <Callout.Description>Upgrade to keep analytics and webhooks.</Callout.Description>
+          <Callout.Title>Warning</Callout.Title>
+          <Callout.Description>Caution on the warning scale.</Callout.Description>
         </Callout.Root>
-
         <Callout.Root color="danger">
           <Callout.Icon>
             <InfoCircle16 />
           </Callout.Icon>
-          <Callout.Title>Card was declined</Callout.Title>
-          <Callout.Description>Update the card to retry the charge.</Callout.Description>
+          <Callout.Title>Danger</Callout.Title>
+          <Callout.Description>A blocking problem on the danger scale.</Callout.Description>
         </Callout.Root>
-
         <Callout.Root color="info">
           <Callout.Icon>
             <InfoCircle16 />
           </Callout.Icon>
-          <Callout.Title>A new version is available</Callout.Title>
-          <Callout.Description>Review the changelog before you update.</Callout.Description>
+          <Callout.Title>Info</Callout.Title>
+          <Callout.Description>Extra context on the info scale.</Callout.Description>
         </Callout.Root>
+      </Cell>
 
-        <Tabs.Root defaultValue="colors">
-          <Tabs.List>
-            <Tabs.Trigger value="themes">Themes</Tabs.Trigger>
-            <Tabs.Trigger value="primitives">Primitives</Tabs.Trigger>
-            <Tabs.Trigger value="icons">Icons</Tabs.Trigger>
-            <Tabs.Trigger value="colors">Colors</Tabs.Trigger>
-          </Tabs.List>
-        </Tabs.Root>
-
-        <div className="custom-palette-row">
-          <Text render={<label />} size="2">
-            <span className="custom-palette-row">
-              <Switch defaultChecked />
-              Alerts
-            </span>
-          </Text>
-          <Text render={<label />} size="2">
-            <span className="custom-palette-row">
-              <Switch defaultChecked highContrast />
-              High contrast
-            </span>
-          </Text>
+      <Cell title="Selection" area="selection">
+        <div className="custom-palette-choices custom-palette-variant-row">
+          {paletteColors.map((swatch) => (
+            <Text key={swatch.key} render={<label />} size="2">
+              <span className="custom-palette-row">
+                <Switch defaultChecked color={swatch.color} size="1" />
+                {swatch.label}
+              </span>
+            </Text>
+          ))}
         </div>
-
-        <div className="custom-palette-stack" style={{ gap: 'var(--space-2)' }}>
-          <Text size="1" color="gray" weight="medium">
-            Accent
-          </Text>
-          <Slider className="custom-palette-slider" defaultValue={64} />
-          <Progress value={72} />
-          <Text size="1" color="gray" weight="medium">
-            Success
-          </Text>
-          <Slider className="custom-palette-slider" color="success" defaultValue={40} />
-          <Progress color="success" value={40} />
+        <div className="custom-palette-choices custom-palette-variant-row">
+          {paletteColors.map((swatch) => (
+            <RadioGroup.Root key={swatch.key} defaultValue="on" color={swatch.color} size="1">
+              <RadioGroup.Item value="on">{swatch.label}</RadioGroup.Item>
+            </RadioGroup.Root>
+          ))}
         </div>
-
-        <div className="custom-palette-stack" style={{ gap: 'var(--space-2)' }}>
-          {todos.map((item) => (
-            <Checkbox
-              key={item.id}
-              checked={item.done}
-              onCheckedChange={(checked) => {
-                setTodos((current) =>
-                  current.map((candidate) =>
-                    candidate.id === item.id ? { ...candidate, done: checked === true } : candidate,
-                  ),
-                );
-              }}
-            >
-              <Text
-                size="2"
-                color={item.done ? 'gray' : undefined}
-                style={{ textDecoration: item.done ? 'line-through' : undefined }}
-              >
-                {item.label}
-              </Text>
+        <div className="custom-palette-choices custom-palette-variant-row">
+          {paletteColors.map((swatch) => (
+            <Checkbox key={swatch.key} defaultChecked color={swatch.color} size="1">
+              <Text size="2">{swatch.label}</Text>
             </Checkbox>
           ))}
         </div>
-      </div>
-
-      <div className="custom-palette-stack">
-        <Blockquote>
-          Susan Kare is an American{' '}
-          <HoverCard.Root>
-            <HoverCard.Trigger>
-              <Link href="#graphic-designer" underline="always" onClick={(event) => event.preventDefault()}>
-                graphic designer
-              </Link>
-            </HoverCard.Trigger>
-            <HoverCard.Content container={container ?? undefined} style={{ maxWidth: 280 }}>
-              <Text size="2">
-                Graphic design projects visual communication, from icons and type to the layout of a product.
-              </Text>
-            </HoverCard.Content>
-          </HoverCard.Root>{' '}
-          and artist, who contributed interface elements and typefaces for the first Apple Macintosh.
-        </Blockquote>
-
-        <Card size="2">
-          <div className="custom-palette-person">
-            <div className="custom-palette-person-id">
-              <Avatar fallback="Emily Adams" size="3" />
-              <div>
-                <Text size="2" weight="medium">
-                  Emily Adams
-                </Text>
-                <Text size="1" color="gray">
-                  emily.adams@example.com
-                </Text>
-              </div>
-            </div>
-            <div className="custom-palette-row">
-              <IconButton variant="ghost" color="danger" aria-label="Favorite Emily Adams">
-                <Heart16 />
-              </IconButton>
-              <IconButton variant="soft" aria-label="Copy Emily Adams email">
-                <Copy16 />
-              </IconButton>
-            </div>
-          </div>
-        </Card>
-
-        <Card size="2">
-          <div className="custom-palette-person">
-            <div className="custom-palette-person-id">
-              <Avatar fallback="Danilo Sousa" size="3" color="info" />
-              <div>
-                <Text size="2" weight="medium">
-                  Danilo Sousa
-                </Text>
-                <Text size="1" color="gray">
-                  danilo@example.com
-                </Text>
-              </div>
-            </div>
-            <div className="custom-palette-row">
-              <IconButton variant="ghost" color="danger" aria-label="Favorite Danilo Sousa">
-                <Heart16 />
-              </IconButton>
-              <IconButton variant="soft" color="success" aria-label="Copy Danilo Sousa email">
-                <Copy16 />
-              </IconButton>
-            </div>
-          </div>
-        </Card>
-
-        <div className="custom-palette-row">
-          <Button variant="classic">Classic</Button>
-          <Button variant="solid">Solid</Button>
-          <Button variant="soft">Soft</Button>
-          <Button variant="surface">Surface</Button>
-          <Button variant="ghost">Ghost</Button>
-          <Button variant="classic" highContrast>
-            High contrast
-          </Button>
+        <div className="custom-palette-variant-row">
+          {paletteColors.map((swatch) => (
+            <FilterChip key={swatch.key} defaultChecked color={swatch.color}>
+              {swatch.label}
+            </FilterChip>
+          ))}
         </div>
+      </Cell>
 
-        <div className="custom-palette-row">
-          <Button variant="classic" color="danger">
-            Danger
-          </Button>
-          <Button variant="classic" color="warning">
-            Warning
-          </Button>
-          <Button variant="classic" color="success">
-            Success
-          </Button>
-          <Button variant="classic" color="info">
-            Info
-          </Button>
+      <Cell title="Progress" area="progress">
+        <div className="custom-palette-stack" style={{ gap: 'var(--space-2)' }}>
+          {paletteColors.map((swatch) => (
+            <React.Fragment key={swatch.key}>
+              <Slider color={swatch.color} defaultValue={swatch.key === 'accent' ? 64 : 40} />
+              <Progress color={swatch.color} value={swatch.key === 'accent' ? 64 : 40} />
+            </React.Fragment>
+          ))}
         </div>
+        <div className="custom-palette-row">
+          {paletteColors.map((swatch) => (
+            <CircularProgress key={swatch.key} value={72} color={swatch.color} />
+          ))}
+          <Spinner size="2" />
+        </div>
+      </Cell>
 
-        <DropdownMenu.Root>
-          <DropdownMenu.Trigger>
-            <Button variant="surface" style={{ gap: 6 }}>
-              Actions
-              <ChevronDown12 />
-            </Button>
-          </DropdownMenu.Trigger>
-          <DropdownMenu.Content container={container ?? undefined}>
-            <DropdownMenu.Item shortcut="⌘ C">Copy</DropdownMenu.Item>
-            <DropdownMenu.Item shortcut="⌘ V">Paste</DropdownMenu.Item>
-            <DropdownMenu.Separator />
-            <DropdownMenu.Sub>
-              <DropdownMenu.SubTrigger>Layers</DropdownMenu.SubTrigger>
-              <DropdownMenu.SubContent>
-                <DropdownMenu.Item>Move up</DropdownMenu.Item>
-                <DropdownMenu.Item>Move down</DropdownMenu.Item>
-              </DropdownMenu.SubContent>
-            </DropdownMenu.Sub>
-            <DropdownMenu.Separator />
-            <DropdownMenu.Item color="danger">Delete</DropdownMenu.Item>
-          </DropdownMenu.Content>
-        </DropdownMenu.Root>
+      <Cell title="Avatars" area="avatars">
+        <div className="custom-palette-variant-row">
+          {paletteColors.map((swatch) => (
+            <Avatar key={swatch.key} fallback={swatch.label} color={swatch.color} size="4" />
+          ))}
+        </div>
+      </Cell>
 
-        <Card size="3">
-          <div className="custom-palette-stack">
-            <Heading size="4">Sign up</Heading>
-            <Text render={<label htmlFor="palette-name" />} size="2" weight="medium">
-              Full name
+      <Cell title="Text" area="text">
+        <div className="custom-palette-variant-row">
+          {paletteColors.map((swatch) => (
+            <Heading key={swatch.key} size="4" color={swatch.color}>
+              {swatch.label}
+            </Heading>
+          ))}
+        </div>
+        <div className="custom-palette-variant-row">
+          {paletteColors.map((swatch) => (
+            <Text key={swatch.key} size="3" color={swatch.color}>
+              {swatch.label}
             </Text>
-            <TextField.Root>
-              <TextField.Input id="palette-name" placeholder="Emily Adams" autoComplete="name" />
-            </TextField.Root>
-            <Text render={<label htmlFor="palette-email" />} size="2" weight="medium">
-              Email
+          ))}
+        </div>
+        <div className="custom-palette-variant-row">
+          {paletteColors.map((swatch) => (
+            <Text key={swatch.key} size="3" weight="medium" highContrast color={swatch.color}>
+              {swatch.label}
             </Text>
-            <TextField.Root>
-              <TextField.Input id="palette-email" placeholder="emily@example.com" type="email" autoComplete="email" />
-            </TextField.Root>
-            <Text render={<label htmlFor="palette-password" />} size="2" weight="medium">
-              Password
+          ))}
+        </div>
+        <div className="custom-palette-variant-row">
+          {paletteColors.map((swatch) => (
+            <Link
+              key={swatch.key}
+              href={`#${swatch.key}`}
+              color={swatch.color}
+              underline="always"
+              onClick={(event) => event.preventDefault()}
+            >
+              {swatch.label}
+            </Link>
+          ))}
+        </div>
+        <div className="custom-palette-variant-row">
+          {paletteColors.map((swatch) => (
+            <Code key={swatch.key} color={swatch.color}>
+              {swatch.label}
+            </Code>
+          ))}
+        </div>
+        <div className="custom-palette-variant-row">
+          {paletteColors.map((swatch) => (
+            <Text key={swatch.key} size="2" color={swatch.color}>
+              <Quote>{swatch.label}</Quote>
             </Text>
-            <TextField.Root>
-              <TextField.Input id="palette-password" placeholder="Enter your password" type="password" />
-            </TextField.Root>
-            <Button variant="classic">Create account</Button>
-            <div className="custom-palette-row">
-              <Separator size="4" style={{ flex: 1 }} />
-              <Text size="1" color="gray">
-                OR
-              </Text>
-              <Separator size="4" style={{ flex: 1 }} />
-            </div>
-            <Button variant="surface">Continue with GitHub</Button>
-          </div>
-        </Card>
-      </div>
+          ))}
+        </div>
+        <div className="custom-palette-variant-row">
+          {paletteColors.map((swatch) => (
+            <Blockquote key={swatch.key} color={swatch.color}>
+              {swatch.label}
+            </Blockquote>
+          ))}
+        </div>
+      </Cell>
+
+      <Cell title="Table" area="table">
+        <Table.Root size="1" variant="ghost">
+          <Table.Table>
+            <Table.Header>
+              <Table.Row>
+                <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>Role</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>Status</Table.ColumnHeaderCell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              <Table.Row>
+                <Table.RowHeaderCell>Danilo Sousa</Table.RowHeaderCell>
+                <Table.Cell>Developer</Table.Cell>
+                <Table.Cell>
+                  <Badge color="success" variant="soft" size="1">
+                    Active
+                  </Badge>
+                </Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.RowHeaderCell>Zahra Ambessa</Table.RowHeaderCell>
+                <Table.Cell>Admin</Table.Cell>
+                <Table.Cell>
+                  <Badge color="warning" variant="soft" size="1">
+                    Review
+                  </Badge>
+                </Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.RowHeaderCell>Jasper Eriksson</Table.RowHeaderCell>
+                <Table.Cell>Guest</Table.Cell>
+                <Table.Cell>
+                  <Badge color="info" variant="soft" size="1">
+                    Invited
+                  </Badge>
+                </Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.RowHeaderCell>Emily Adams</Table.RowHeaderCell>
+                <Table.Cell>Owner</Table.Cell>
+                <Table.Cell>
+                  <Badge color="danger" variant="soft" size="1">
+                    Blocked
+                  </Badge>
+                </Table.Cell>
+              </Table.Row>
+            </Table.Body>
+          </Table.Table>
+        </Table.Root>
+      </Cell>
     </div>
   );
 }

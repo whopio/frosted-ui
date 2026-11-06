@@ -6,6 +6,8 @@ const meta = {
   title: 'Guides/Custom palette',
   parameters: {
     layout: 'fullscreen',
+    controls: { disable: true },
+    actions: { disable: true },
   },
   tags: ['!autodocs'],
 } satisfies Meta;
