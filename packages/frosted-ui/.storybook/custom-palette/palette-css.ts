@@ -244,23 +244,27 @@ function palettePreviewCss(palette: GeneratedPalette, seeds: PaletteSeeds): stri
   );
 }
 
-function paletteCopyCss(palette: GeneratedPalette, seeds: PaletteSeeds, target: CopyTarget): string {
+function appearanceCopyCss(palette: GeneratedPalette, seeds: PaletteSeeds, target: CopyTarget): string {
   const selector = palette.appearance === 'dark' ? darkScope : lightScope;
-  const label = target === 'all' ? 'all scales' : target === 'background' ? 'background' : `${target} scale`;
 
-  return `/* Frosted UI custom palette — ${label} (${palette.appearance}) */\n${withWideGamut(
+  return withWideGamut(
     selector,
     declarationsFor(palette, seeds, target, false, true),
     declarationsFor(palette, seeds, target, true, true),
-  )}\n`;
+  );
 }
 
-export {
-  defaultSeeds,
-  isCssColor,
-  paletteCopyCss,
-  palettePreviewCss,
-  semanticRoles,
-  tryGeneratePalette,
-};
+function paletteCopyCss(
+  light: GeneratedPalette,
+  dark: GeneratedPalette,
+  lightSeeds: PaletteSeeds,
+  darkSeeds: PaletteSeeds,
+  target: CopyTarget,
+): string {
+  const label = target === 'all' ? 'all scales' : target === 'background' ? 'background' : `${target} scale`;
+
+  return `/* Frosted UI custom palette — ${label} */\n${appearanceCopyCss(light, lightSeeds, target)}\n\n${appearanceCopyCss(dark, darkSeeds, target)}\n`;
+}
+
+export { defaultSeeds, isCssColor, paletteCopyCss, palettePreviewCss, semanticRoles, tryGeneratePalette };
 export type { Appearance, CopyTarget, GeneratedPalette, PaletteSeeds, SemanticRole };

@@ -3,6 +3,7 @@
   min-height: 100vh;
   background: var(--color-background);
   color: var(--gray-12);
+  isolation: isolate;
 }
 
 .custom-palette-page:fullscreen {
@@ -12,7 +13,7 @@
 .custom-palette-nav {
   position: sticky;
   top: 0;
-  z-index: 5;
+  z-index: 1;
   display: flex;
   flex-wrap: wrap;
   align-items: center;

@@ -24,8 +24,8 @@ import {
   Heading,
   IconButton,
   Link,
-  Quote,
   Progress,
+  Quote,
   RadioGroup,
   SegmentedControl,
   Slider,
@@ -226,16 +226,10 @@ function pickerValue(value: string, fallback: string): string {
 
 function CustomPalettePage({ initialAppearance = 'light' }: { initialAppearance?: Appearance }) {
   const [stored, setStored] = React.useState(() => readStored(initialAppearance));
-  const [container, setContainer] = React.useState<HTMLDivElement | null>(null);
   const [copied, setCopied] = React.useState<CopyTarget | null>(null);
   const [isFullscreen, setIsFullscreen] = React.useState(false);
   const pageRef = React.useRef<HTMLDivElement | null>(null);
   const copiedTimeout = React.useRef<number | null>(null);
-
-  function setPage(node: HTMLDivElement | null) {
-    pageRef.current = node;
-    setContainer(node);
-  }
 
   React.useEffect(() => {
     const onChange = () => setIsFullscreen(document.fullscreenElement === pageRef.current);
@@ -314,7 +308,7 @@ function CustomPalettePage({ initialAppearance = 'light' }: { initialAppearance?
   }
 
   function copyScale(target: CopyTarget) {
-    void copyText(paletteCopyCss(palette, seeds, target)).then(() => {
+    void copyText(paletteCopyCss(lightPalette, darkPalette, stored.light, stored.dark, target)).then(() => {
       setCopied(target);
       if (copiedTimeout.current) window.clearTimeout(copiedTimeout.current);
       copiedTimeout.current = window.setTimeout(() => setCopied(null), 1500);
@@ -340,10 +334,10 @@ function CustomPalettePage({ initialAppearance = 'light' }: { initialAppearance?
       accentColor="blue"
       grayColor="gray"
       className="custom-palette"
-      style={{ minHeight: '100vh' }}
+      style={{ minHeight: '100vh', isolation: 'isolate' }}
     >
       <style>{palettePreviewCss(palette, seeds)}</style>
-      <div className="custom-palette-page" data-fullscreen={isFullscreen ? 'true' : undefined} ref={setPage}>
+      <div className="custom-palette-page" data-fullscreen={isFullscreen ? 'true' : undefined} >
         <header className="custom-palette-nav">
           <Heading size="5">Custom palette</Heading>
           <div className="custom-palette-toolbar-actions">
@@ -373,7 +367,7 @@ function CustomPalettePage({ initialAppearance = 'light' }: { initialAppearance?
                 </SegmentedControl.Trigger>
               </SegmentedControl.List>
             </SegmentedControl.Root>
-            <Tooltip content={isFullscreen ? 'Exit full screen' : 'Full screen'} container={container ?? undefined}>
+            <Tooltip content={isFullscreen ? 'Exit full screen' : 'Full screen'}>
               <IconButton
                 variant="surface"
                 color="gray"
@@ -393,7 +387,7 @@ function CustomPalettePage({ initialAppearance = 'light' }: { initialAppearance?
                   <ChevronDown12 />
                 </Button>
               </DropdownMenu.Trigger>
-              <DropdownMenu.Content align="end" container={container ?? undefined}>
+              <DropdownMenu.Content align="end">
                 {copyTargets.map((target) => (
                   <DropdownMenu.Item key={target.id} onClick={() => copyScale(target.id)}>
                     {target.label}
