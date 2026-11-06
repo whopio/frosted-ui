@@ -1,0 +1,192 @@
+.custom-palette-page {
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: var(--space-6) var(--space-5) var(--space-9);
+}
+
+.custom-palette-frame {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.custom-palette-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.custom-palette-toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.custom-palette-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+  gap: var(--space-3);
+}
+
+.custom-palette-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.custom-palette-field-control {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.custom-palette-field-control .fui-TextFieldRoot {
+  flex: 1;
+  min-width: 0;
+}
+
+.custom-palette-color-input {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  padding: 0;
+  border: 1px solid var(--gray-7);
+  border-radius: var(--radius-2);
+  background: transparent;
+  cursor: pointer;
+}
+
+.custom-palette-color-input::-webkit-color-swatch-wrapper {
+  padding: 3px;
+}
+
+.custom-palette-color-input::-webkit-color-swatch {
+  border: none;
+  border-radius: 2px;
+}
+
+.custom-palette-color-input:focus-visible {
+  outline: 2px solid var(--color-focus-root);
+  outline-offset: 2px;
+}
+
+.custom-palette-field[data-invalid='true'] .fui-TextFieldRoot {
+  outline: 1px solid var(--danger-9);
+  outline-offset: 1px;
+}
+
+.custom-palette-scales,
+.custom-palette-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.custom-palette-scale-head,
+.custom-palette-scale-row {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: end;
+}
+
+.custom-palette-legend,
+.custom-palette-steps,
+.custom-palette-swatches {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 3px;
+}
+
+.custom-palette-legend span,
+.custom-palette-steps span {
+  color: var(--gray-11);
+  font-size: var(--font-size-1);
+  line-height: 1.3;
+}
+
+.custom-palette-steps span {
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.custom-palette-swatches {
+  overflow: hidden;
+  border-radius: var(--radius-3);
+  outline: 1px solid var(--gray-a5);
+  outline-offset: -1px;
+}
+
+.custom-palette-swatch {
+  height: 40px;
+}
+
+.custom-palette-preview {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.custom-palette-row,
+.custom-palette-search,
+.custom-palette-person,
+.custom-palette-check {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.custom-palette-row,
+.custom-palette-search {
+  flex-wrap: wrap;
+}
+
+.custom-palette-search .fui-TextFieldRoot {
+  flex: 1;
+  min-width: 180px;
+}
+
+.custom-palette-person {
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.custom-palette-person-id {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.custom-palette-check {
+  align-items: flex-start;
+}
+
+.custom-palette-slider {
+  width: min(100%, 280px);
+  padding-block: var(--space-2);
+}
+
+@media (max-width: 860px) {
+  .custom-palette-page {
+    padding: var(--space-5) var(--space-4) var(--space-8);
+  }
+
+  .custom-palette-preview,
+  .custom-palette-scale-head,
+  .custom-palette-scale-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .custom-palette-scale-gutter {
+    display: none;
+  }
+}

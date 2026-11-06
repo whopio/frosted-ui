@@ -1,2 +1,5 @@
 # Generated files
 packages/frosted-ui/src/components/bot-avatar/bot-avatar.shapes.css
+
+# Vendored from radix-ui/website. Keep the algorithm source intact.
+packages/frosted-ui/.storybook/custom-palette/generate-radix-colors.ts
