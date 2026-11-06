@@ -39,6 +39,7 @@ import { Theme } from '../../src/theme';
 import './custom-palette.css';
 import {
   defaultSeeds,
+  displayGrayScale,
   isCssColor,
   paletteCopyCss,
   palettePreviewCss,
@@ -221,7 +222,7 @@ function CustomPalettePage({ initialAppearance = 'light' }: { initialAppearance?
   }
 
   function copyScale(target: CopyTarget) {
-    void copyText(paletteCopyCss(palette, target)).then(() => {
+    void copyText(paletteCopyCss(palette, seeds, target)).then(() => {
       setCopied(target);
       if (copiedTimeout.current) window.clearTimeout(copiedTimeout.current);
       copiedTimeout.current = window.setTimeout(() => setCopied(null), 1500);
@@ -239,7 +240,7 @@ function CustomPalettePage({ initialAppearance = 'light' }: { initialAppearance?
       className="custom-palette"
       style={{ minHeight: '100vh' }}
     >
-      <style>{palettePreviewCss(palette)}</style>
+      <style>{palettePreviewCss(palette, seeds)}</style>
       <div className="custom-palette-page" ref={setContainer}>
         <div className="custom-palette-frame">
           <header className="custom-palette-stack">
@@ -345,7 +346,7 @@ function CustomPalettePage({ initialAppearance = 'light' }: { initialAppearance?
             {semanticRoles.map((role) => (
               <ScaleRow key={role} label={roleLabels[role]} scale={palette.roles[role].accentScale} />
             ))}
-            <ScaleRow label={roleLabels.gray} scale={palette.roles.accent.grayScale} />
+            <ScaleRow label={roleLabels.gray} scale={displayGrayScale(appearance, seeds, palette)} />
           </section>
 
           <PalettePreview container={container} />

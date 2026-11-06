@@ -1,3 +1,4 @@
+import { gray, grayA, grayDark, grayDarkA, grayDarkP3, grayDarkP3A, grayP3, grayP3A } from '@frosted-ui/colors';
 import Color from 'colorjs.io';
 import { generateRadixColors } from './generate-radix-colors';
 
@@ -14,6 +15,32 @@ type GeneratedPalette = {
   roles: Record<SemanticRole, GeneratedScale>;
 };
 
+function colorSteps(colors: object, prefix: string): string[] {
+  const record = colors as Record<string, string>;
+  return Array.from({ length: 12 }, (_, index) => record[`${prefix}${index + 1}`]);
+}
+
+// The gray palette named "gray" is the default neutral scale. Light
+// `--color-background` is white; dark `--color-background` is `--gray-1`.
+const systemFoundation = {
+  light: {
+    gray: gray.gray9,
+    background: '#ffffff',
+    solid: colorSteps(gray, 'gray'),
+    alpha: colorSteps(grayA, 'grayA'),
+    solidP3: colorSteps(grayP3, 'gray'),
+    alphaP3: colorSteps(grayP3A, 'grayA'),
+  },
+  dark: {
+    gray: grayDark.gray9,
+    background: grayDark.gray1,
+    solid: colorSteps(grayDark, 'gray'),
+    alpha: colorSteps(grayDarkA, 'grayA'),
+    solidP3: colorSteps(grayDarkP3, 'gray'),
+    alphaP3: colorSteps(grayDarkP3A, 'grayA'),
+  },
+} as const;
+
 const defaultSeeds: Record<Appearance, PaletteSeeds> = {
   light: {
     accent: '#1754d8',
@@ -21,8 +48,8 @@ const defaultSeeds: Record<Appearance, PaletteSeeds> = {
     success: '#06d718',
     warning: '#ffc53d',
     info: '#7ce2fe',
-    gray: '#8d8d8d',
-    background: '#ffffff',
+    gray: systemFoundation.light.gray,
+    background: systemFoundation.light.background,
   },
   dark: {
     accent: '#1754d8',
@@ -30,8 +57,8 @@ const defaultSeeds: Record<Appearance, PaletteSeeds> = {
     success: '#06d718',
     warning: '#ffc53d',
     info: '#7ce2fe',
-    gray: '#6e6e6e',
-    background: '#111111',
+    gray: systemFoundation.dark.gray,
+    background: systemFoundation.dark.background,
   },
 };
 
@@ -88,19 +115,76 @@ function grayDeclarations(scale: GeneratedScale, wideGamut: boolean): string {
   ].join('\n');
 }
 
-function backgroundDeclaration(scale: GeneratedScale): string {
-  return `--color-background: ${scale.background};`;
+function backgroundDeclaration(background: string): string {
+  return `--color-background: ${background};`;
 }
 
-function declarationsFor(palette: GeneratedPalette, target: CopyTarget, wideGamut: boolean): string {
-  if (target === 'background') return backgroundDeclaration(palette.roles.accent);
-  if (target === 'gray') return grayDeclarations(palette.roles.accent, wideGamut);
+function sameColor(a: string, b: string): boolean {
+  return a.trim().toLowerCase() === b.trim().toLowerCase();
+}
+
+function usesSystemFoundation(appearance: Appearance, seeds: PaletteSeeds): boolean {
+  const foundation = systemFoundation[appearance];
+  return sameColor(seeds.gray, foundation.gray) && sameColor(seeds.background, foundation.background);
+}
+
+function systemGrayDeclarations(appearance: Appearance, wideGamut: boolean): string {
+  const foundation = systemFoundation[appearance];
+  const solid = wideGamut ? foundation.solidP3 : foundation.solid;
+  const alpha = wideGamut ? foundation.alphaP3 : foundation.alpha;
+
+  return [
+    ...solid.map((value, index) => `--gray-${index + 1}: ${value};`),
+    ...alpha.map((value, index) => `--gray-a${index + 1}: ${value};`),
+  ].join('\n');
+}
+
+function grayAndBackgroundDeclarations(
+  palette: GeneratedPalette,
+  seeds: PaletteSeeds,
+  wideGamut: boolean,
+  includeSystem: boolean,
+): string {
+  if (usesSystemFoundation(palette.appearance, seeds)) {
+    if (!includeSystem) return '';
+    return [
+      systemGrayDeclarations(palette.appearance, wideGamut),
+      backgroundDeclaration(systemFoundation[palette.appearance].background),
+    ].join('\n');
+  }
+
+  return [
+    grayDeclarations(palette.roles.accent, wideGamut),
+    backgroundDeclaration(palette.roles.accent.background),
+  ].join('\n');
+}
+
+function declarationsFor(
+  palette: GeneratedPalette,
+  seeds: PaletteSeeds,
+  target: CopyTarget,
+  wideGamut: boolean,
+  includeSystemFoundation: boolean,
+): string {
+  if (target === 'background') {
+    return backgroundDeclaration(
+      usesSystemFoundation(palette.appearance, seeds)
+        ? systemFoundation[palette.appearance].background
+        : palette.roles.accent.background,
+    );
+  }
+  if (target === 'gray') {
+    return usesSystemFoundation(palette.appearance, seeds)
+      ? systemGrayDeclarations(palette.appearance, wideGamut)
+      : grayDeclarations(palette.roles.accent, wideGamut);
+  }
   if (target === 'all') {
     return [
       ...semanticRoles.map((role) => roleDeclarations(role, palette.roles[role], wideGamut)),
-      grayDeclarations(palette.roles.accent, wideGamut),
-      backgroundDeclaration(palette.roles.accent),
-    ].join('\n');
+      grayAndBackgroundDeclarations(palette, seeds, wideGamut, includeSystemFoundation),
+    ]
+      .filter(Boolean)
+      .join('\n');
   }
   return roleDeclarations(target, palette.roles[target], wideGamut);
 }
@@ -137,11 +221,13 @@ function generatePalette(appearance: Appearance, seeds: PaletteSeeds): Generated
   const roles = {} as Record<SemanticRole, GeneratedScale>;
 
   for (const role of semanticRoles) {
+    const foundation = systemFoundation[appearance];
     roles[role] = generateRadixColors({
       appearance,
       accent: seeds[role],
-      gray: seeds.gray,
-      background: seeds.background,
+      // Semantic scales are anchored to the gray palette's step 9 and `--color-background`.
+      gray: sameColor(seeds.gray, foundation.gray) ? foundation.gray : seeds.gray,
+      background: sameColor(seeds.background, foundation.background) ? foundation.background : seeds.background,
     });
   }
 
@@ -157,20 +243,37 @@ function tryGeneratePalette(appearance: Appearance, seeds: PaletteSeeds): Genera
   }
 }
 
-function palettePreviewCss(palette: GeneratedPalette): string {
-  return withWideGamut(previewSelector, declarationsFor(palette, 'all', false), declarationsFor(palette, 'all', true));
+function palettePreviewCss(palette: GeneratedPalette, seeds: PaletteSeeds): string {
+  return withWideGamut(
+    previewSelector,
+    declarationsFor(palette, seeds, 'all', false, false),
+    declarationsFor(palette, seeds, 'all', true, false),
+  );
 }
 
-function paletteCopyCss(palette: GeneratedPalette, target: CopyTarget): string {
+function paletteCopyCss(palette: GeneratedPalette, seeds: PaletteSeeds, target: CopyTarget): string {
   const selector = palette.appearance === 'dark' ? darkScope : lightScope;
   const label = target === 'all' ? 'all scales' : target === 'background' ? 'background' : `${target} scale`;
 
   return `/* Frosted UI custom palette — ${label} (${palette.appearance}) */\n${withWideGamut(
     selector,
-    declarationsFor(palette, target, false),
-    declarationsFor(palette, target, true),
+    declarationsFor(palette, seeds, target, false, true),
+    declarationsFor(palette, seeds, target, true, true),
   )}\n`;
 }
 
-export { defaultSeeds, isCssColor, paletteCopyCss, palettePreviewCss, semanticRoles, tryGeneratePalette };
+function displayGrayScale(appearance: Appearance, seeds: PaletteSeeds, palette: GeneratedPalette): readonly string[] {
+  if (usesSystemFoundation(appearance, seeds)) return systemFoundation[appearance].solid;
+  return palette.roles.accent.grayScale;
+}
+
+export {
+  defaultSeeds,
+  displayGrayScale,
+  isCssColor,
+  paletteCopyCss,
+  palettePreviewCss,
+  semanticRoles,
+  tryGeneratePalette,
+};
 export type { Appearance, CopyTarget, GeneratedPalette, PaletteSeeds, SemanticRole };
