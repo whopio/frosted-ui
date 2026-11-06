@@ -119,13 +119,8 @@ function backgroundDeclaration(background: string): string {
   return `--color-background: ${background};`;
 }
 
-function sameColor(a: string, b: string): boolean {
-  return a.trim().toLowerCase() === b.trim().toLowerCase();
-}
-
-function usesSystemFoundation(appearance: Appearance, seeds: PaletteSeeds): boolean {
-  const foundation = systemFoundation[appearance];
-  return sameColor(seeds.gray, foundation.gray) && sameColor(seeds.background, foundation.background);
+function usesSystemFoundation(): boolean {
+  return true;
 }
 
 function systemGrayDeclarations(appearance: Appearance, wideGamut: boolean): string {
@@ -145,7 +140,7 @@ function grayAndBackgroundDeclarations(
   wideGamut: boolean,
   includeSystem: boolean,
 ): string {
-  if (usesSystemFoundation(palette.appearance, seeds)) {
+  if (usesSystemFoundation()) {
     if (!includeSystem) return '';
     return [
       systemGrayDeclarations(palette.appearance, wideGamut),
@@ -168,13 +163,11 @@ function declarationsFor(
 ): string {
   if (target === 'background') {
     return backgroundDeclaration(
-      usesSystemFoundation(palette.appearance, seeds)
-        ? systemFoundation[palette.appearance].background
-        : palette.roles.accent.background,
+      usesSystemFoundation() ? systemFoundation[palette.appearance].background : palette.roles.accent.background,
     );
   }
   if (target === 'gray') {
-    return usesSystemFoundation(palette.appearance, seeds)
+    return usesSystemFoundation()
       ? systemGrayDeclarations(palette.appearance, wideGamut)
       : grayDeclarations(palette.roles.accent, wideGamut);
   }
@@ -226,8 +219,8 @@ function generatePalette(appearance: Appearance, seeds: PaletteSeeds): Generated
       appearance,
       accent: seeds[role],
       // Semantic scales are anchored to the gray palette's step 9 and `--color-background`.
-      gray: sameColor(seeds.gray, foundation.gray) ? foundation.gray : seeds.gray,
-      background: sameColor(seeds.background, foundation.background) ? foundation.background : seeds.background,
+      gray: foundation.gray,
+      background: foundation.background,
     });
   }
 
@@ -262,14 +255,8 @@ function paletteCopyCss(palette: GeneratedPalette, seeds: PaletteSeeds, target: 
   )}\n`;
 }
 
-function displayGrayScale(appearance: Appearance, seeds: PaletteSeeds, palette: GeneratedPalette): readonly string[] {
-  if (usesSystemFoundation(appearance, seeds)) return systemFoundation[appearance].solid;
-  return palette.roles.accent.grayScale;
-}
-
 export {
   defaultSeeds,
-  displayGrayScale,
   isCssColor,
   paletteCopyCss,
   palettePreviewCss,

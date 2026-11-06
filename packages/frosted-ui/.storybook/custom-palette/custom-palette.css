@@ -37,6 +37,26 @@
   flex-wrap: wrap;
 }
 
+.custom-palette-segment {
+  flex-shrink: 0;
+}
+
+.custom-palette-segment .fui-BaseSegmentedControlTrigger {
+  flex: 0 0 auto;
+}
+
+.custom-palette-segment-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  white-space: nowrap;
+}
+
+.custom-palette-segment-label svg {
+  display: block;
+  flex-shrink: 0;
+}
+
 .custom-palette-spread {
   justify-content: space-between;
 }
@@ -64,7 +84,7 @@
 
 .custom-palette-fields {
   display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: var(--space-3);
 }
 
@@ -103,6 +123,11 @@
 .custom-palette-color-input:focus-visible {
   outline: 2px solid var(--color-focus-root);
   outline-offset: 2px;
+}
+
+.custom-palette-color-input:disabled {
+  cursor: default;
+  opacity: 0.6;
 }
 
 .custom-palette-field[data-invalid='true'] .fui-TextFieldRoot {
@@ -222,12 +247,6 @@
 
 .custom-palette-choices .fui-RadioGroupRoot {
   width: auto;
-}
-
-@media (max-width: 1100px) {
-  .custom-palette-fields {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
 }
 
 @media (max-width: 900px) {
