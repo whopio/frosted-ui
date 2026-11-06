@@ -115,8 +115,8 @@ function semanticPreset(seeds: PaletteSeeds): SemanticPreset | null {
 
 type StoredPalette = {
   appearance: Appearance;
-  light: PaletteSeeds;
-  dark: PaletteSeeds;
+  preset: SemanticPreset;
+  custom: Pick<PaletteSeeds, SemanticRole>;
 };
 
 function mergeSeeds(base: PaletteSeeds, stored: Partial<PaletteSeeds> | undefined): PaletteSeeds {
@@ -135,7 +135,7 @@ function withSharedSemantics(
   light: PaletteSeeds,
   dark: PaletteSeeds,
   source: Appearance,
-): Pick<StoredPalette, 'light' | 'dark'> {
+): { light: PaletteSeeds; dark: PaletteSeeds } {
   const shared = source === 'dark' ? dark : light;
   const semantics = Object.fromEntries(semanticRoles.map((role) => [role, shared[role]])) as Pick<
     PaletteSeeds,
@@ -148,14 +148,35 @@ function withSharedSemantics(
   };
 }
 
-function customPaletteSeeds(appearance: Appearance): PaletteSeeds {
-  return { ...defaultSeeds[appearance], ...customSemanticSeeds };
+function semanticsFrom(
+  source: Partial<PaletteSeeds> | undefined,
+  fallback: Pick<PaletteSeeds, SemanticRole>,
+): Pick<PaletteSeeds, SemanticRole> {
+  const next = { ...fallback };
+  if (!source) return next;
+
+  semanticRoles.forEach((role) => {
+    const value = source[role];
+    if (typeof value === 'string' && value) next[role] = value;
+  });
+
+  return next;
+}
+
+function visibleSeeds(
+  appearance: Appearance,
+  preset: SemanticPreset,
+  custom: Pick<PaletteSeeds, SemanticRole>,
+): PaletteSeeds {
+  const semantics = preset === 'default' ? semanticsFrom(defaultSeeds.light, customSemanticSeeds) : custom;
+  return { ...defaultSeeds[appearance], ...semantics };
 }
 
 function readStored(initialAppearance: Appearance): StoredPalette {
   const fallback: StoredPalette = {
     appearance: initialAppearance,
-    ...withSharedSemantics(customPaletteSeeds('light'), customPaletteSeeds('dark'), initialAppearance),
+    preset: 'custom',
+    custom: { ...customSemanticSeeds },
   };
 
   if (typeof window === 'undefined') return fallback;
@@ -163,20 +184,28 @@ function readStored(initialAppearance: Appearance): StoredPalette {
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) return fallback;
-    const parsed = JSON.parse(raw) as Partial<StoredPalette>;
+    const parsed = JSON.parse(raw) as Partial<StoredPalette> & {
+      light?: Partial<PaletteSeeds>;
+      dark?: Partial<PaletteSeeds>;
+    };
     const appearance =
       parsed.appearance === 'dark' || parsed.appearance === 'light' ? parsed.appearance : initialAppearance;
-    const stored = withSharedSemantics(
+
+    if (parsed.custom && (parsed.preset === 'default' || parsed.preset === 'custom')) {
+      return { appearance, preset: parsed.preset, custom: semanticsFrom(parsed.custom, customSemanticSeeds) };
+    }
+
+    const legacy = withSharedSemantics(
       mergeSeeds(defaultSeeds.light, parsed.light),
       mergeSeeds(defaultSeeds.dark, parsed.dark),
       appearance,
-    );
+    ).light;
 
-    return {
-      appearance,
-      light: { ...stored.light, gray: defaultSeeds.light.gray, background: defaultSeeds.light.background },
-      dark: { ...stored.dark, gray: defaultSeeds.dark.gray, background: defaultSeeds.dark.background },
-    };
+    if (semanticPreset(legacy) === 'default') {
+      return { appearance, preset: 'default', custom: { ...customSemanticSeeds } };
+    }
+
+    return { appearance, preset: 'custom', custom: semanticsFrom(legacy, customSemanticSeeds) };
   } catch {
     return fallback;
   }
@@ -249,10 +278,18 @@ function CustomPalettePage({ initialAppearance = 'light' }: { initialAppearance?
   );
 
   const appearance = stored.appearance;
-  const seeds = stored[appearance];
-  const inputsLocked = semanticPreset(seeds) === 'default';
-  const lightPalette = useResolvedPalette('light', stored.light);
-  const darkPalette = useResolvedPalette('dark', stored.dark);
+  const lightSeeds = React.useMemo(
+    () => visibleSeeds('light', stored.preset, stored.custom),
+    [stored.preset, stored.custom],
+  );
+  const darkSeeds = React.useMemo(
+    () => visibleSeeds('dark', stored.preset, stored.custom),
+    [stored.preset, stored.custom],
+  );
+  const seeds = appearance === 'dark' ? darkSeeds : lightSeeds;
+  const inputsLocked = stored.preset === 'default';
+  const lightPalette = useResolvedPalette('light', lightSeeds);
+  const darkPalette = useResolvedPalette('dark', darkSeeds);
   const palette = appearance === 'dark' ? darkPalette : lightPalette;
 
   function setAppearance(next: string | null) {
@@ -262,53 +299,22 @@ function CustomPalettePage({ initialAppearance = 'light' }: { initialAppearance?
 
   function applySemanticPreset(next: string | null) {
     if (next !== 'default' && next !== 'custom') return;
-    const source = next === 'custom' ? customSemanticSeeds : defaultSeeds.light;
-    const semantics = Object.fromEntries(semanticRoles.map((role) => [role, source[role]])) as Pick<
-      PaletteSeeds,
-      SemanticRole
-    >;
-
-    setStored((current) => ({
-      ...current,
-      light: { ...current.light, ...semantics },
-      dark: { ...current.dark, ...semantics },
-    }));
+    setStored((current) => (current.preset === next ? current : { ...current, preset: next }));
   }
 
   function setSeed(key: SemanticRole, value: string) {
     setStored((current) => {
-      if (semanticPreset(current[current.appearance]) === 'default') return current;
-
-      return {
-        ...current,
-        light: { ...current.light, [key]: value },
-        dark: { ...current.dark, [key]: value },
-      };
+      if (current.preset === 'default' || current.custom[key] === value) return current;
+      return { ...current, custom: { ...current.custom, [key]: value } };
     });
   }
 
   function resetSeeds() {
-    setStored((current) => {
-      const semantics = Object.fromEntries(semanticRoles.map((role) => [role, defaultSeeds.light[role]])) as Pick<
-        PaletteSeeds,
-        SemanticRole
-      >;
-
-      return {
-        ...current,
-        light: {
-          ...current.light,
-          ...semantics,
-          gray: defaultSeeds.light.gray,
-          background: defaultSeeds.light.background,
-        },
-        dark: { ...current.dark, ...semantics, gray: defaultSeeds.dark.gray, background: defaultSeeds.dark.background },
-      };
-    });
+    setStored((current) => (current.preset === 'default' ? current : { ...current, preset: 'default' }));
   }
 
   function copyScale(target: CopyTarget) {
-    void copyText(paletteCopyCss(lightPalette, darkPalette, stored.light, stored.dark, target)).then(() => {
+    void copyText(paletteCopyCss(lightPalette, darkPalette, lightSeeds, darkSeeds, target)).then(() => {
       setCopied(target);
       if (copiedTimeout.current) window.clearTimeout(copiedTimeout.current);
       copiedTimeout.current = window.setTimeout(() => setCopied(null), 1500);
@@ -337,13 +343,13 @@ function CustomPalettePage({ initialAppearance = 'light' }: { initialAppearance?
       style={{ minHeight: '100vh', isolation: 'isolate' }}
     >
       <style>{palettePreviewCss(palette, seeds)}</style>
-      <div className="custom-palette-page" data-fullscreen={isFullscreen ? 'true' : undefined} >
+      <div className="custom-palette-page" data-fullscreen={isFullscreen ? 'true' : undefined}>
         <header className="custom-palette-nav">
           <Heading size="5">Custom palette</Heading>
           <div className="custom-palette-toolbar-actions">
             <SegmentedControl.Root
               className="custom-palette-segment"
-              value={semanticPreset(seeds) ?? ''}
+              value={stored.preset}
               onValueChange={applySemanticPreset}
             >
               <SegmentedControl.List>
