@@ -340,7 +340,7 @@
   --indigo-9-contrast: white;
   --magenta-9-contrast: #141212;
   --lemon-9-contrast: #20240d;
-  --lime-9-contrast: #162715;
+  --lime-9-contrast: white;
 }
 
 /* * * * * * * * * * * * * * * * * * * */
@@ -411,7 +411,7 @@
   --amber-surface: #fefae4cc;
 
   /* Whop Brand Colors */
-  --blue-surface: #f4f9ffcc;
+  --blue-surface: #f4f8ffcc;
   --orange-surface: #fff5f1cc;
   --indigo-surface: #f5f6ffcc;
   --magenta-surface: #fff4f8cc;
@@ -429,7 +429,7 @@
         --olive-surface: color(display-p3 1 1 1 / 0.8);
         --sand-surface: color(display-p3 1 1 1 / 0.8);
         --tomato-surface: color(display-p3 0.9922 0.9647 0.9608 / 0.8);
-        --red-surface: color(display-p3 1 0.9647 0.9569 / 0.8);
+        --red-surface: color(display-p3 0.9961 0.9608 0.9569 / 0.8);
         --ruby-surface: color(display-p3 0.9961 0.9647 0.9647 / 0.8);
         --crimson-surface: color(display-p3 0.9922 0.9608 0.9725 / 0.8);
         --pink-surface: color(display-p3 0.9922 0.9608 0.9804 / 0.8);
@@ -451,13 +451,13 @@
         --amber-surface: color(display-p3 0.9922 0.9843 0.902 / 0.8);
 
         /* Whop Brand Colors */
-        --blue-surface: color(display-p3 0.9608 0.9725 1 / 0.8);
+        --blue-surface: color(display-p3 0.9608 0.9725 0.9961 / 0.8);
         --orange-surface: color(display-p3 1 0.9608 0.9529 / 0.8);
         --indigo-surface: color(display-p3 0.9647 0.9647 1 / 0.8);
         --magenta-surface: color(display-p3 0.9961 0.9608 0.9725 / 0.8);
 
         --lemon-surface: color(display-p3 0.9725 0.9843 0.9216 / 0.8);
-        --lime-surface: color(display-p3 0.9529 0.9804 0.9451 / 0.8);
+        --lime-surface: color(display-p3 0.9529 0.9843 0.9451 / 0.8);
       }
     }
   }
@@ -472,7 +472,7 @@
   --olive-surface: #1f201e80;
   --sand-surface: #21212080;
   --tomato-surface: #2d191580;
-  --red-surface: #31151180;
+  --red-surface: #33130f80;
   --ruby-surface: #2b191d80;
   --crimson-surface: #2f151f80;
   --pink-surface: #31132980;
@@ -494,7 +494,7 @@
   --amber-surface: #271f1380;
 
   /* Whop Brand Colors */
-  --blue-surface: #0e1d3d80;
+  --blue-surface: #0d1d3f80;
   --orange-surface: #2d171380;
   --indigo-surface: #1b174580;
   --magenta-surface: #31131d80;
@@ -512,7 +512,7 @@
         --olive-surface: color(display-p3 0.1176 0.1255 0.1176 / 0.5);
         --sand-surface: color(display-p3 0.1255 0.1255 0.1255 / 0.5);
         --tomato-surface: color(display-p3 0.1569 0.0941 0.0784 / 0.5);
-        --red-surface: color(display-p3 0.1725 0.0863 0.0706 / 0.5);
+        --red-surface: color(display-p3 0.1843 0.0824 0.0667 / 0.5);
         --ruby-surface: color(display-p3 0.1569 0.0941 0.1098 / 0.5);
         --crimson-surface: color(display-p3 0.1647 0.0863 0.1176 / 0.5);
         --pink-surface: color(display-p3 0.1725 0.0784 0.149 / 0.5);
@@ -534,13 +534,13 @@
         --amber-surface: color(display-p3 0.1412 0.1176 0.0784 / 0.5);
 
         /* Whop Brand Colors */
-        --blue-surface: color(display-p3 0.0627 0.1098 0.2275 / 0.5);
+        --blue-surface: color(display-p3 0.0667 0.1137 0.2392 / 0.5);
         --orange-surface: color(display-p3 0.1647 0.0941 0.0706 / 0.5);
         --indigo-surface: color(display-p3 0.0941 0.0863 0.2588 / 0.5);
         --magenta-surface: color(display-p3 0.1725 0.0706 0.1098 / 0.5);
 
         --lemon-surface: color(display-p3 0.1098 0.1255 0.0588 / 0.5);
-        --lime-surface: color(display-p3 0.0863 0.1412 0.0706 / 0.5);
+        --lime-surface: color(display-p3 0.0902 0.1451 0.0745 / 0.5);
       }
     }
   }
