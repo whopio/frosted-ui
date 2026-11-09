@@ -6,7 +6,7 @@
         "components" : {
           "alpha" : "0.032",
           "blue" : "0.878",
-          "green" : "0.388",
+          "green" : "0.267",
           "red" : "0.020"
         }
       },
@@ -22,9 +22,9 @@
       "color" : {
         "color-space" : "display-p3",
         "components" : {
-          "alpha" : "0.089",
-          "blue" : "0.992",
-          "green" : "0.333",
+          "alpha" : "0.093",
+          "blue" : "0.996",
+          "green" : "0.322",
           "red" : "0.067"
         }
       },

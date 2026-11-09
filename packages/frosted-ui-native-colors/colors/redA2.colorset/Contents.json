@@ -22,10 +22,10 @@
       "color" : {
         "color-space" : "display-p3",
         "components" : {
-          "alpha" : "0.059",
-          "blue" : "0.133",
-          "green" : "0.267",
-          "red" : "1.000"
+          "alpha" : "0.064",
+          "blue" : "0.071",
+          "green" : "0.192",
+          "red" : "0.988"
         }
       },
       "idiom" : "universal"
