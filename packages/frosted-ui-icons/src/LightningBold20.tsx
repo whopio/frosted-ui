@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const LightningBold20 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="20"
+      height="21"
+      viewBox="0 0 20 21"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="LightningBold20"
+      {...props}
+    >
+      <path
+        d="M13.517 0c1.044 0 1.734 1.087 1.29 2.033l-2.247 4.79h3.315c1.211 0 1.871 1.415 1.094 2.344l-8.644 10.32c-.935 1.116-2.746.278-2.5-1.158l1.128-6.581H4.13c-.97 0-1.657-.947-1.357-1.87l2.834-8.696.048-.13C5.918.419 6.54 0 7.234 0h6.283zM4.918 9.748h2.969c.752 0 1.323.677 1.196 1.418l-.929 5.408 6.494-7.75h-3.326c-.889 0-1.476-.925-1.098-1.73L12.614 2h-5.17L4.917 9.748z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+LightningBold20.category = 'Nature & Weather';
+
+export default LightningBold20;

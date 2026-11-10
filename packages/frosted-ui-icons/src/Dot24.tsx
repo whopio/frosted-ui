@@ -13,7 +13,7 @@ export const Dot24 = ({ color = 'currentColor', ...props }: IconProps) => {
       {...props}
     >
       <path
-        d="M6.75 12c0-2.9 2.35-5.25 5.25-5.25S17.25 9.1 17.25 12 14.9 17.25 12 17.25 6.75 14.9 6.75 12z"
+        d="M12 17.25c-2.9 0-5.25-2.35-5.25-5.25S9.1 6.75 12 6.75 17.25 9.1 17.25 12 14.9 17.25 12 17.25z"
         stroke={color}
         strokeWidth="1.5"
         strokeLinecap="round"

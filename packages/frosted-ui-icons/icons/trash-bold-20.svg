@@ -1,0 +1,16 @@
+<svg
+  width="20"
+  height="20"
+  viewBox="0 0 20 20"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  data-fui-icon="TrashBold20"
+>
+  <path
+    d="M13.704 6l-.747-1.96C12.49 2.81 11.313 2 10 2c-1.314 0-2.491.811-2.958 2.04L6.295 6m7.409 0H6.295m7.409 0h2.39M6.296 6h-2.39m-1.42 0h1.42m0 0l1.27 10.002C5.318 17.144 6.29 18 7.441 18h5.115c1.151 0 2.123-.856 2.268-1.998L16.095 6m0 0h1.42"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke="currentColor"
+  />
+</svg>

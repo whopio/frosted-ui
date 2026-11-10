@@ -6,5 +6,5 @@
   xmlns="http://www.w3.org/2000/svg"
   data-fui-icon="CircleBold16"
 >
-  <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="2" />
+  <circle cx="8" cy="8" r="6.5" stroke-width="2" stroke="currentColor" />
 </svg>

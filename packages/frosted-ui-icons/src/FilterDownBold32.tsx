@@ -15,8 +15,6 @@ export const FilterDownBold32 = ({ color = 'currentColor', ...props }: IconProps
       <path
         d="M19.25 24c.552 0 1 .448 1 1s-.448 1-1 1h-6.5c-.552 0-1-.448-1-1s.448-1 1-1h6.5zm4-9c.552 0 1 .448 1 1s-.448 1-1 1H8.75c-.552 0-1-.448-1-1s.448-1 1-1h14.5zm4-9c.552 0 1 .448 1 1s-.448 1-1 1H4.75c-.552 0-1-.448-1-1s.448-1 1-1h22.5z"
         fill={color}
-        fillRule="evenodd"
-        clipRule="evenodd"
       />
     </svg>
   );

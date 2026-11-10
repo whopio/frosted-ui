@@ -1,0 +1,16 @@
+<svg
+  width="20"
+  height="20"
+  viewBox="0 0 20 20"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  data-fui-icon="PulseBoldFilled20"
+>
+  <path
+    d="M17.5 6.917l-5.769 5.769c-.144.144-.377.144-.52 0l-3.9-3.899c-.143-.144-.376-.144-.52 0L2.5 13.078"
+    stroke-width="3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke="currentColor"
+  />
+</svg>

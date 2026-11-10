@@ -1,8 +1,9 @@
 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="Pulse32">
   <path
-    fill-rule="evenodd"
-    clip-rule="evenodd"
-    d="M30.463 8.477c.289-.297.764-.303 1.06-.014.297.289.303.764.014 1.06L19.712 21.664c-.54.554-1.43.554-1.97 0l-7.197-7.39-9.008 9.25c-.289.296-.764.302-1.06.013-.297-.289-.303-.764-.014-1.06l9.097-9.34.106-.098c.508-.424 1.252-.424 1.76 0l.104.098 7.197 7.388L30.463 8.477z"
-    fill="currentColor"
+    d="M30.248 9.893L19.192 20.949c-.265.265-.695.265-.96 0l-7.183-7.183c-.265-.265-.694-.265-.96 0l-8.341 8.341"
+    stroke-width="1.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke="currentColor"
   />
 </svg>

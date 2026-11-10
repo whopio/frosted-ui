@@ -8,8 +8,8 @@
 >
   <path
     d="M4.75 11.75V15c0 4.004 3.246 7.25 7.25 7.25s7.25-3.246 7.25-7.25V6.625c0-2.692-2.183-4.875-4.875-4.875S9.5 3.933 9.5 6.625v8.125c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5v-8"
-    stroke="currentColor"
     stroke-width="1.5"
     stroke-linecap="round"
+    stroke="currentColor"
   />
 </svg>

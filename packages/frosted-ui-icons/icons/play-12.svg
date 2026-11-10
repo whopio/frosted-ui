@@ -1,8 +1,8 @@
 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="Play12">
   <path
-    d="M2.25 10.07V1.93c0-.915 1.016-1.463 1.78-.962l6.204 4.07c.693.455.693 1.47 0 1.924l-6.203 4.07c-.765.501-1.781-.047-1.781-.962z"
-    stroke="currentColor"
+    d="M2.25 1.93v8.14c0 .915 1.016 1.463 1.78.962l6.204-4.07c.693-.455.693-1.47 0-1.924L4.031.968c-.765-.501-1.781.047-1.781.962z"
     stroke-width="1.5"
     stroke-linecap="round"
+    stroke="currentColor"
   />
 </svg>

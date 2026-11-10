@@ -13,7 +13,7 @@ export const TriangleBold12 = ({ color = 'currentColor', ...props }: IconProps) 
       {...props}
     >
       <path
-        d="M1.178 9.24l3.76-7.128c.45-.853 1.673-.853 2.123 0l3.76 7.128c.422.8-.157 1.76-1.06 1.76H2.24c-.904 0-1.483-.96-1.062-1.76z"
+        d="M4.939 2.112L1.179 9.24c-.422.8.157 1.76 1.06 1.76H9.76c.904 0 1.483-.96 1.062-1.76l-3.76-7.128c-.45-.853-1.673-.853-2.123 0z"
         stroke={color}
         strokeWidth="2"
         strokeLinecap="round"

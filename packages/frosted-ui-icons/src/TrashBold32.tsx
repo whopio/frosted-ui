@@ -1,0 +1,28 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const TrashBold32 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="TrashBold32"
+      {...props}
+    >
+      <path
+        d="M22.35 8l-.89-2.276C20.58 3.478 18.412 2 16 2s-4.58 1.478-5.46 3.724L9.65 8m12.7 0H9.65m12.7 0h4.317M9.649 8H5.333m-2.35 0h2.35m0 0l2.24 18.481C7.817 28.49 9.521 30 11.544 30h8.912c2.023 0 3.727-1.51 3.97-3.519L26.666 8m0 0h2.351"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+TrashBold32.category = 'Interface General';
+
+export default TrashBold32;

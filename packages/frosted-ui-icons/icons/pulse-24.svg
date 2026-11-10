@@ -1,6 +1,9 @@
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="Pulse24">
   <path
-    d="M22.47 6.47c.293-.293.767-.293 1.06 0 .293.293.293.768 0 1.06l-8.676 8.676c-.471.472-1.237.472-1.708 0L8 11.061l-6.47 6.47c-.293.292-.767.292-1.06 0-.293-.293-.293-.768 0-1.061l6.676-6.676.091-.083c.443-.361 1.083-.361 1.526 0l.091.083L14 14.94l8.47-8.47z"
-    fill="currentColor"
+    d="M22.248 7.607l-7.952 7.953c-.191.19-.5.19-.69 0l-5.168-5.167c-.19-.19-.5-.19-.69 0l-6 6"
+    stroke-width="1.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke="currentColor"
   />
 </svg>
