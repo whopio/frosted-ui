@@ -7,9 +7,9 @@
   data-fui-icon="DotBold20"
 >
   <path
-    d="M6 10c0-2.21 1.79-4 4-4s4 1.79 4 4-1.79 4-4 4-4-1.79-4-4z"
-    stroke="currentColor"
+    d="M10 14c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"
     stroke-width="2"
     stroke-linecap="round"
+    stroke="currentColor"
   />
 </svg>

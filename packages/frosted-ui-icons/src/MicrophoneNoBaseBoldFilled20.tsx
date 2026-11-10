@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const MicrophoneNoBaseBoldFilled20 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="MicrophoneNoBaseBoldFilled20"
+      {...props}
+    >
+      <path
+        d="M17.5 7.5c.552 0 1 .448 1 1 0 4.26-3.135 7.787-7.224 8.402-.157.024-.276.157-.276.316V19c0 .552-.448 1-1 1s-1-.448-1-1v-1.782c0-.16-.12-.292-.276-.316C4.635 16.288 1.5 12.761 1.5 8.5c0-.552.448-1 1-1s1 .448 1 1c0 3.59 2.91 6.5 6.5 6.5s6.5-2.91 6.5-6.5c0-.552.448-1 1-1zM10 0c2.761 0 5 2.239 5 5v3.5c0 2.761-2.239 5-5 5s-5-2.239-5-5V5c0-2.761 2.239-5 5-5z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+MicrophoneNoBaseBoldFilled20.category = 'Sound & Music';
+
+export default MicrophoneNoBaseBoldFilled20;

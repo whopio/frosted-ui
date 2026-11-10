@@ -15,8 +15,6 @@ export const BarChartBold16 = ({ color = 'currentColor', ...props }: IconProps) 
       <path
         d="M2.25 9.25c.552 0 1 .448 1 1v3c0 .552-.448 1-1 1s-1-.448-1-1v-3c0-.552.448-1 1-1zm4-5c.552 0 1 .448 1 1v8c0 .552-.448 1-1 1s-1-.448-1-1v-8c0-.552.448-1 1-1zm4 2.5c.552 0 1 .448 1 1v5.5c0 .552-.448 1-1 1s-1-.448-1-1v-5.5c0-.552.448-1 1-1zm4-6c.552 0 1 .448 1 1v11.5c0 .552-.448 1-1 1s-1-.448-1-1V1.75c0-.552.448-1 1-1z"
         fill={color}
-        fillRule="evenodd"
-        clipRule="evenodd"
       />
     </svg>
   );

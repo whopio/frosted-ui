@@ -1,8 +1,8 @@
 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" data-fui-icon="Dot32">
   <path
-    d="M7.75 16c0-4.556 3.694-8.25 8.25-8.25s8.25 3.694 8.25 8.25-3.694 8.25-8.25 8.25S7.75 20.556 7.75 16z"
-    stroke="currentColor"
+    d="M16 24.25c-4.556 0-8.25-3.694-8.25-8.25S11.444 7.75 16 7.75s8.25 3.694 8.25 8.25-3.694 8.25-8.25 8.25z"
     stroke-width="1.5"
     stroke-linecap="round"
+    stroke="currentColor"
   />
 </svg>

@@ -8,9 +8,9 @@
 >
   <path
     d="M10.001 19.75L2.251 12l7.75-7.75M2.251 12h19.5"
-    stroke="currentColor"
     stroke-width="3"
     stroke-linecap="round"
     stroke-linejoin="round"
+    stroke="currentColor"
   />
 </svg>

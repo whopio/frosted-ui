@@ -6,5 +6,5 @@
   xmlns="http://www.w3.org/2000/svg"
   data-fui-icon="SquareBold16"
 >
-  <rect x="2" y="2" width="12" height="12" rx="3.5" stroke="currentColor" stroke-width="2" />
+  <rect x="2" y="2" width="12" height="12" rx="3.5" stroke-width="2" stroke="currentColor" />
 </svg>

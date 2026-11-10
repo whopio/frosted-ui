@@ -4,19 +4,20 @@ import { IconProps } from './types';
 export const PulseBold12 = ({ color = 'currentColor', ...props }: IconProps) => {
   return (
     <svg
-      width="12"
+      width="13"
       height="12"
-      viewBox="0 0 12 12"
+      viewBox="0 0 13 12"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       data-fui-icon="PulseBold12"
       {...props}
     >
       <path
-        d="M10.293 3.293c.39-.39 1.023-.39 1.414 0 .39.39.39 1.024 0 1.414L7.884 8.53c-.488.488-1.28.488-1.768 0L4 6.414 1.707 8.707c-.39.39-1.024.39-1.414 0-.39-.39-.39-1.023 0-1.414L3.116 4.47l.095-.086c.458-.374 1.12-.374 1.578 0l.095.086L7 6.586l3.293-3.293z"
-        fill={color}
-        fillRule="evenodd"
-        clipRule="evenodd"
+        d="M11.002 3.998L7.177 7.823c-.098.098-.256.098-.354 0L4.177 5.177c-.098-.098-.256-.098-.354 0L1 8"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

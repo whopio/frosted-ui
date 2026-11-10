@@ -13,7 +13,7 @@ export const PlayBold16 = ({ color = 'currentColor', ...props }: IconProps) => {
       {...props}
     >
       <path
-        d="M3 12.336V3.664C3 2.4 4.393 1.636 5.459 2.314l6.818 4.336c.989.629.989 2.071 0 2.7L5.46 13.686C4.393 14.364 3 13.6 3 12.336z"
+        d="M3 3.664v8.672c0 1.263 1.393 2.028 2.459 1.35l6.818-4.336c.989-.629.989-2.071 0-2.7L5.46 2.314C4.393 1.636 3 2.4 3 3.664z"
         stroke={color}
         strokeWidth="2"
         strokeLinecap="round"

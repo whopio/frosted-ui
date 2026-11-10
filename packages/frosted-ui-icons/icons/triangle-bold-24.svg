@@ -7,10 +7,10 @@
   data-fui-icon="TriangleBold24"
 >
   <path
-    d="M2.311 17.616l7.73-14.202c.869-1.597 3.164-1.592 4.026.01l7.646 14.202C22.534 19.15 21.429 21 19.698 21H4.322c-1.737 0-2.841-1.858-2.01-3.384z"
-    stroke="currentColor"
+    d="M10.04 3.414L2.311 17.616C1.481 19.142 2.585 21 4.321 21h15.377c1.732 0 2.836-1.85 2.015-3.374L14.067 3.423c-.862-1.6-3.157-1.606-4.027-.009z"
     stroke-width="2"
     stroke-linecap="round"
     stroke-linejoin="round"
+    stroke="currentColor"
   />
 </svg>
