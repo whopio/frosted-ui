@@ -19,6 +19,7 @@ const radixColorScalesRegular = [
   'blue',
   'orange',
   'indigo',
+  'lime',
 ] as const;
 const radixColorScalesBright = [
   'sky',
@@ -26,7 +27,6 @@ const radixColorScalesBright = [
   'yellow',
   'amber',
   // Whop Brand Colors
-  'lime',
   'lemon',
   'magenta',
 ] as const;

@@ -42,7 +42,7 @@ const contrastColorMapping = {
   orange: pureWhiteP3,
   indigo: pureWhiteP3,
   lemon: 'color(display-p3 0.125 0.141 0.051)', // #20240d
-  lime: 'color(display-p3 0.086 0.153 0.082)', // #162715
+  lime: pureWhiteP3,
   magenta: 'color(display-p3 0.078 0.071 0.071)', //#141212
 };
 

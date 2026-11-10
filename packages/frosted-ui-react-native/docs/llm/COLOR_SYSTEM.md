@@ -227,7 +227,6 @@ Most colors use **white** text on step 9. However, these lighter colors require 
 | --------- | ------------------ |
 | `sky`     | Dark (`#1C2024`)   |
 | `mint`    | Dark (`#1A211E`)   |
-| `lime`    | Dark (`#162715`)   |
 | `yellow`  | Dark (`#21201C`)   |
 | `amber`   | Dark (`#21201C`)   |
 | `lemon`   | Dark (`#20240D`)   |
@@ -794,6 +793,6 @@ const disabledColor = gray.a8;
 
 - All shade 9 colors meet WCAG contrast requirements with their `9-contrast` value
 - Steps `11` and `12` are guaranteed APCA Lc 60 and Lc 90 contrast respectively on step `2` backgrounds
-- Some light colors (`sky`, `mint`, `yellow`, `amber`, `lemon`, `lime`, `magenta`) use dark text for `9-contrast` instead of white
+- Some light colors (`sky`, `mint`, `yellow`, `amber`, `lemon`, `magenta`) use dark text for `9-contrast` instead of white
 - Always test color combinations in both light and dark modes
 - Use semantic colors (`danger`, `warning`, `success`, `info`) for status indicators to ensure proper contrast is maintained across theme configurations

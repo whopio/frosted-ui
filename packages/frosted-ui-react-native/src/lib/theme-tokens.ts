@@ -84,7 +84,7 @@ const contrastColors: Record<AccentColor, string> = {
   indigo: 'white',
   magenta: '#141212',
   lemon: '#20240D',
-  lime: '#162715',
+  lime: 'white',
 };
 
 function buildPalette(color: AccentColor, mode: 'light' | 'dark'): ColorShades {
