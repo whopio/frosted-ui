@@ -1,0 +1,25 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const CollapseSidebarInvertedBoldFilled24 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="CollapseSidebarInvertedBoldFilled24"
+      {...props}
+    >
+      <path
+        d="M18.75 1.5c2.9 0 5.25 2.35 5.25 5.25v10.5c0 2.9-2.35 5.25-5.25 5.25H5.25C2.35 22.5 0 20.15 0 17.25V6.75C0 3.85 2.35 1.5 5.25 1.5h13.5zM5.5 3.5C3.567 3.5 2 5.067 2 7v10c0 1.933 1.567 3.5 3.5 3.5h2.75c.966 0 1.75-.784 1.75-1.75V5.25c0-.966-.784-1.75-1.75-1.75H5.5z"
+        fill={color}
+      />
+    </svg>
+  );
+};
+
+CollapseSidebarInvertedBoldFilled24.category = 'Layout';
+
+export default CollapseSidebarInvertedBoldFilled24;

@@ -1,0 +1,27 @@
+import * as React from 'react';
+import { IconProps } from './types';
+
+export const CollapseSidebarBold24 = ({ color = 'currentColor', ...props }: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      data-fui-icon="CollapseSidebarBold24"
+      {...props}
+    >
+      <path
+        d="M9 2.5H5.5C3.015 2.5 1 4.515 1 7v10c0 2.485 2.015 4.5 4.5 4.5H9m0-19h9.5C20.985 2.5 23 4.515 23 7v10c0 2.485-2.015 4.5-4.5 4.5H9m0-19v19"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+};
+
+CollapseSidebarBold24.category = 'Layout';
+
+export default CollapseSidebarBold24;
