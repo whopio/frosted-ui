@@ -1,0 +1,13 @@
+<svg
+  width="16"
+  height="16"
+  viewBox="0 0 16 16"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  data-fui-icon="CollapseSidebarInvertedBold16"
+>
+  <path
+    d="M12 1.5c2.21 0 4 1.79 4 4v5c0 2.21-1.79 4-4 4H4c-2.21 0-4-1.79-4-4v-5c0-2.21 1.79-4 4-4h8zm-8 2c-1.105 0-2 .895-2 2v5c0 1.105.895 2 2 2h8c1.105 0 2-.895 2-2v-5c0-1.105-.895-2-2-2H4zM6 5c.552 0 1 .448 1 1v4c0 .552-.448 1-1 1H4.5c-.552 0-1-.448-1-1V6c0-.552.448-1 1-1H6z"
+    fill="currentColor"
+  />
+</svg>

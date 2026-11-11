@@ -1,0 +1,13 @@
+<svg
+  width="32"
+  height="32"
+  viewBox="0 0 32 32"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  data-fui-icon="CollapseSidebarInvertedBoldFilled32"
+>
+  <path
+    d="M24.25 3C27.978 3 31 6.022 31 9.75v12.5c0 3.728-3.022 6.75-6.75 6.75H7.75C4.022 29 1 25.978 1 22.25V9.75C1 6.022 4.022 3 7.75 3h16.5zM8 5c-2.761 0-5 2.239-5 5v12c0 2.761 2.239 5 5 5h3c1.105 0 2-.895 2-2V7c0-1.105-.895-2-2-2H8z"
+    fill="currentColor"
+  />
+</svg>
