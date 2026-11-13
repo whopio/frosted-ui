@@ -1,7 +1,18 @@
-/* Backdrop handles the blur/dim effect */
+/* Backdrop handles the blur/dim effect.
+   The open look stays outside the motion query so prefers-reduced-motion
+   still darkens the page. Only the fade is gated below. */
 .fui-DialogBackdrop {
   position: fixed;
   inset: 0;
+
+  /* Hidden while closed (keepMounted). */
+  backdrop-filter: blur(0px) brightness(1);
+  opacity: 0;
+
+  &[data-open] {
+    backdrop-filter: blur(4px) brightness(0.7);
+    opacity: 1;
+  }
 }
 
 /* Viewport handles centering */
@@ -114,18 +125,9 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .fui-DialogBackdrop {
-    /* Default: hidden (for keepMounted initial state) */
-    backdrop-filter: blur(0px) brightness(1);
-    opacity: 0;
     transition:
       backdrop-filter 400ms cubic-bezier(0.16, 1, 0.3, 1),
       opacity 400ms cubic-bezier(0.16, 1, 0.3, 1);
-
-    /* When open: show blur effect */
-    &[data-open] {
-      backdrop-filter: blur(4px) brightness(0.7);
-      opacity: 1;
-    }
 
     /* Starting/ending transitions */
     &[data-starting-style],

@@ -17,6 +17,14 @@
   inset: 0;
   pointer-events: auto;
   will-change: opacity;
+  /* Resting tint stays outside the motion query so prefers-reduced-motion
+     still darkens the page. The fade is gated below. */
+  background: rgba(0, 0, 0, 0.85);
+  opacity: 0;
+}
+
+.fui-LightboxBackdrop[data-open] {
+  opacity: 1;
 }
 
 /* The content container acts as the fullscreen overlay */
@@ -94,14 +102,10 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .fui-LightboxBackdrop {
-    background: rgba(0, 0, 0, 0.85);
-    opacity: 0;
     transition: opacity 340ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .fui-LightboxBackdrop[data-open] {
-    opacity: 1;
-
     @starting-style {
       opacity: 0;
     }
