@@ -1,16 +1,17 @@
 /* Backdrop handles the blur/dim effect.
-   The open look stays outside the motion query so prefers-reduced-motion
-   still darkens the page. Only the fade is gated below. */
+   The tint is a background color matching the old brightness(0.7) filter.
+   Blur stays static. Only opacity fades, so reduced motion still shows the
+   dim and we never animate backdrop-filter. */
 .fui-DialogBackdrop {
   position: fixed;
   inset: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
 
   /* Hidden while closed (keepMounted). */
-  backdrop-filter: blur(0px) brightness(1);
   opacity: 0;
 
   &[data-open] {
-    backdrop-filter: blur(4px) brightness(0.7);
     opacity: 1;
   }
 }
@@ -125,14 +126,11 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .fui-DialogBackdrop {
-    transition:
-      backdrop-filter 400ms cubic-bezier(0.16, 1, 0.3, 1),
-      opacity 400ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 400ms cubic-bezier(0.16, 1, 0.3, 1);
 
     /* Starting/ending transitions */
     &[data-starting-style],
     &[data-ending-style] {
-      backdrop-filter: blur(0px) brightness(1);
       opacity: 0;
     }
   }
