@@ -51,7 +51,6 @@ export * from './dialog';
 export * from './drawer';
 export * from './dropdown-menu';
 export * from './hover-card';
-export * from './lightbox';
 export * from './popover';
 export * from './sheet';
 export * from './stacked-horizontal-bar-chart';
