@@ -3,6 +3,7 @@
 import { Tabs as TabsPrimitive } from '@base-ui/react/tabs';
 import classNames from 'classnames';
 import * as React from 'react';
+import { BaseTabsIndicator } from '../base-tabs-list/base-tabs-indicator';
 
 import { tabsListPropDefs } from './tabs.props';
 
@@ -25,6 +26,7 @@ type TabsListProps = Omit<PropsWithoutColor<typeof TabsPrimitive.List>, 'classNa
 const TabsList = (props: TabsListProps) => {
   const {
     className,
+    children,
     size = tabsListPropDefs.size.default,
     color = tabsListPropDefs.color.default,
     highContrast = tabsListPropDefs.highContrast.default,
@@ -37,7 +39,10 @@ const TabsList = (props: TabsListProps) => {
       className={classNames('fui-BaseTabsList', 'fui-TabsList', className, `fui-r-size-${size}`, {
         'fui-high-contrast': highContrast,
       })}
-    />
+    >
+      {children}
+      <BaseTabsIndicator />
+    </TabsPrimitive.List>
   );
 };
 TabsList.displayName = 'TabsList';
