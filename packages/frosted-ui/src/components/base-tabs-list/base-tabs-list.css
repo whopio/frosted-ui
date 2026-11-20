@@ -1,4 +1,5 @@
 .fui-BaseTabsList {
+  position: relative;
   display: flex;
   overflow-x: auto;
   white-space: nowrap;
@@ -81,13 +82,11 @@
 
 .fui-BaseTabsTrigger {
   color: var(--gray-a10);
+  transition: color 200ms ease-out;
 
   @media (hover: hover) {
     &:where(:hover) {
       color: var(--gray-12);
-    }
-    &:where(:hover) :where(.fui-BaseTabsTriggerInner) {
-      background-color: var(--gray-a3);
     }
   }
   &:where([data-selected], [data-active]) {
@@ -103,12 +102,47 @@
     height: 2px;
     position: absolute;
     bottom: 0;
-    left: 0;
-    right: 0;
+    left: calc(var(--tabs-trigger-padding-x) + var(--tabs-trigger-inner-padding-x));
+    right: calc(var(--tabs-trigger-padding-x) + var(--tabs-trigger-inner-padding-x));
     background-color: var(--active-tab-indicator-color);
   }
 }
 
 .fui-BaseTabsContent:where(:focus-visible) {
   outline: 2px solid var(--color-focus-root);
+}
+
+.fui-BaseTabsIndicator {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 1px;
+  height: 2px;
+  background-color: var(--active-tab-indicator-color);
+  transform-origin: left;
+  pointer-events: none;
+  opacity: 0;
+
+  &[data-ready] {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    &[data-animated] {
+      transition:
+        translate 300ms cubic-bezier(0.16, 1, 0.3, 1),
+        scale 300ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+  }
+}
+
+.fui-BaseTabsList:has(> .fui-BaseTabsIndicator[data-ready]) > .fui-BaseTabsTrigger::before,
+.fui-BaseTabsList:has(> .fui-BaseTabsIndicator[data-ready]) .fui-TabsNavLink::before {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fui-BaseTabsTrigger {
+    transition: none;
+  }
 }
