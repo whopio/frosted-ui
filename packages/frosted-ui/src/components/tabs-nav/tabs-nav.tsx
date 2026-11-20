@@ -4,6 +4,7 @@ import { NavigationMenu } from '@base-ui/react/navigation-menu';
 import classNames from 'classnames';
 import * as React from 'react';
 import { GetPropDefTypes } from '../../helpers';
+import { BaseTabsIndicator } from '../base-tabs-list/base-tabs-indicator';
 import { tabsNavPropDefs } from './tabs-nav.props';
 
 type TabsNavOwnProps = GetPropDefTypes<typeof tabsNavPropDefs>;
@@ -37,9 +38,8 @@ const TabsNavRoot = (props: TabsNavRootProps) => {
       )}
       {...rootProps}
     >
-      <NavigationMenu.List className="fui-reset fui-TabsNavListContents">
-        {children}
-      </NavigationMenu.List>
+      <NavigationMenu.List className="fui-reset fui-TabsNavListContents">{children}</NavigationMenu.List>
+      <BaseTabsIndicator />
     </NavigationMenu.Root>
   );
 };
