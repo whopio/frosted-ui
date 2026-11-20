@@ -85,7 +85,7 @@ const DialogContent = (props: DialogContentProps) => {
 
   return (
     <DialogPrimitive.Portal container={container} keepMounted={keepMounted}>
-      <DialogPrimitive.Backdrop className="fui-DialogBackdrop" />
+      <DialogPrimitive.Backdrop className="fui-DialogBackdrop" forceRender />
       <DialogPrimitive.Viewport className="fui-DialogOverlay" onKeyDown={handleKeyDown}>
         <Theme
           render={<DialogPrimitive.Popup />}

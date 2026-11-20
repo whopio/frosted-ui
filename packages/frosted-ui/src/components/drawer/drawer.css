@@ -1,4 +1,7 @@
-/* .fui-DrawerBackdrop inherits all styles from .fui-DialogBackdrop */
+.fui-DrawerBackdrop {
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+}
 
 .fui-DrawerContent {
   position: fixed;
@@ -69,6 +72,11 @@
  ***************************************************************************************************/
 
 @media (prefers-reduced-motion: no-preference) {
+  .fui-DrawerBackdrop {
+    transition-duration: 400ms;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
   .fui-DrawerContent {
     /* Default: hidden off-screen (for keepMounted initial state) */
     transform: translateX(calc(100% + 8px)) scale(1);

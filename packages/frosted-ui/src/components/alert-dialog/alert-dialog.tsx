@@ -62,8 +62,7 @@ type PopupProps = React.ComponentProps<typeof AlertDialogPrimitive.Popup>;
 type PortalProps = React.ComponentProps<typeof AlertDialogPrimitive.Portal>;
 
 interface AlertDialogContentProps
-  extends Omit<PopupProps, 'className' | 'render' | 'style'>,
-    AlertDialogContentOwnProps {
+  extends Omit<PopupProps, 'className' | 'render' | 'style'>, AlertDialogContentOwnProps {
   className?: string;
   style?: React.CSSProperties;
   container?: PortalProps['container'];
@@ -88,7 +87,7 @@ const AlertDialogContent = (props: AlertDialogContentProps) => {
 
   return (
     <AlertDialogPrimitive.Portal container={container} keepMounted={keepMounted}>
-      <AlertDialogPrimitive.Backdrop className="fui-DialogBackdrop fui-AlertDialogBackdrop" />
+      <AlertDialogPrimitive.Backdrop className="fui-DialogBackdrop fui-AlertDialogBackdrop" forceRender />
       <AlertDialogPrimitive.Viewport className="fui-DialogOverlay fui-AlertDialogOverlay" onKeyDown={handleKeyDown}>
         <Theme
           render={<AlertDialogPrimitive.Popup />}
