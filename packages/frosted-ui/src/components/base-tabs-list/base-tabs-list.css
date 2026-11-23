@@ -97,7 +97,42 @@
     outline: 2px solid var(--color-focus-root);
     outline-offset: -2px;
   }
-  &:where([data-selected], [data-active])::before {
+}
+
+/***************************************************************************************************
+ *                                                                                                 *
+ * ACTIVE INDICATOR                                                                                *
+ *                                                                                                 *
+ ***************************************************************************************************/
+
+/* Keep in sync with supportsAnchoredIndicator() in use-tabs-indicator-animation.ts */
+@supports (anchor-name: --a) and (anchor-scope: all) {
+  .fui-BaseTabsList {
+    position: relative;
+    anchor-scope: --fui-active-tab;
+
+    /* Positioned with anchor() insets, animated with transform from JS so the slide stays on the compositor */
+    &::after {
+      content: '';
+      position: absolute;
+      position-anchor: --fui-active-tab;
+      left: anchor(left);
+      right: anchor(right);
+      bottom: anchor(bottom);
+      /* A border rather than a background so forced colors mode keeps the indicator */
+      border-bottom: 2px solid var(--active-tab-indicator-color);
+      transform-origin: left;
+      pointer-events: none;
+    }
+  }
+
+  .fui-BaseTabsTrigger:where([data-selected], [data-active]) {
+    anchor-name: --fui-active-tab;
+  }
+}
+
+@supports not ((anchor-name: --a) and (anchor-scope: all)) {
+  .fui-BaseTabsTrigger:where([data-selected], [data-active])::before {
     box-sizing: border-box;
     content: '';
     height: 2px;

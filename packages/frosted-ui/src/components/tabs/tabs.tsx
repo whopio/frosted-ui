@@ -4,6 +4,7 @@ import { Tabs as TabsPrimitive } from '@base-ui/react/tabs';
 import classNames from 'classnames';
 import * as React from 'react';
 
+import { useTabsIndicatorAnimation } from '../base-tabs-list/use-tabs-indicator-animation';
 import { tabsListPropDefs } from './tabs.props';
 
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
@@ -28,11 +29,14 @@ const TabsList = (props: TabsListProps) => {
     size = tabsListPropDefs.size.default,
     color = tabsListPropDefs.color.default,
     highContrast = tabsListPropDefs.highContrast.default,
+    ref: forwardedRef,
     ...listProps
   } = props;
+  const ref = useTabsIndicatorAnimation(forwardedRef);
   return (
     <TabsPrimitive.List
       {...listProps}
+      ref={ref}
       data-accent-color={color}
       className={classNames('fui-BaseTabsList', 'fui-TabsList', className, `fui-r-size-${size}`, {
         'fui-high-contrast': highContrast,

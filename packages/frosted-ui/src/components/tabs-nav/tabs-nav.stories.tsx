@@ -52,6 +52,34 @@ export const Default: Story = {
   ),
 };
 
+const InteractiveExample = (args: React.ComponentProps<typeof TabsNav.Root>) => {
+  const links = ['Account', 'Documents', 'Settings', 'Billing and invoices'];
+  const [active, setActive] = React.useState(links[0]);
+  return (
+    <div style={{ width: 600 }}>
+      <TabsNav.Root {...args}>
+        {links.map((link) => (
+          <TabsNav.Link
+            key={link}
+            active={active === link}
+            href="#"
+            onClick={(event) => {
+              event.preventDefault();
+              setActive(link);
+            }}
+          >
+            {link}
+          </TabsNav.Link>
+        ))}
+      </TabsNav.Root>
+    </div>
+  );
+};
+
+export const Interactive: Story = {
+  render: (args) => <InteractiveExample {...args} />,
+};
+
 export const Size: Story = {
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', width: 600 }}>
