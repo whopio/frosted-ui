@@ -105,7 +105,7 @@
  *                                                                                                 *
  ***************************************************************************************************/
 
-/* Keep in sync with supportsAnchoredIndicator() in use-tabs-indicator-animation.ts */
+/* Keep in sync with supportsAnchoredIndicator() in helpers/use-active-indicator-animation.ts */
 @supports (anchor-name: --a) and (anchor-scope: all) {
   .fui-BaseTabsList {
     position: relative;

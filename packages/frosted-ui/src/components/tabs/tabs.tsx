@@ -4,7 +4,8 @@ import { Tabs as TabsPrimitive } from '@base-ui/react/tabs';
 import classNames from 'classnames';
 import * as React from 'react';
 
-import { useTabsIndicatorAnimation } from '../base-tabs-list/use-tabs-indicator-animation';
+import { useActiveIndicatorAnimation } from '../../helpers/use-active-indicator-animation';
+import { tabsIndicatorOptions } from '../base-tabs-list/tabs-indicator-options';
 import { tabsListPropDefs } from './tabs.props';
 
 import type { GetPropDefTypes, PropsWithoutColor } from '../../helpers';
@@ -32,7 +33,7 @@ const TabsList = (props: TabsListProps) => {
     ref: forwardedRef,
     ...listProps
   } = props;
-  const ref = useTabsIndicatorAnimation(forwardedRef);
+  const ref = useActiveIndicatorAnimation(forwardedRef, tabsIndicatorOptions);
   return (
     <TabsPrimitive.List
       {...listProps}

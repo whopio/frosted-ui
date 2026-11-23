@@ -35,6 +35,34 @@ export const Default: Story = {
   ),
 };
 
+const InteractiveExample = (args: React.ComponentProps<typeof SegmentedControlNav.Root>) => {
+  const links = ['Account', 'Documents', 'Settings'];
+  const [active, setActive] = React.useState(links[0]);
+  return (
+    <div style={{ width: 600 }}>
+      <SegmentedControlNav.Root {...args}>
+        {links.map((link) => (
+          <SegmentedControlNav.Link
+            key={link}
+            active={active === link}
+            href="#"
+            onClick={(event) => {
+              event.preventDefault();
+              setActive(link);
+            }}
+          >
+            {link}
+          </SegmentedControlNav.Link>
+        ))}
+      </SegmentedControlNav.Root>
+    </div>
+  );
+};
+
+export const Interactive: Story = {
+  render: (args) => <InteractiveExample {...args} />,
+};
+
 export const RenderProp: Story = {
   name: 'Render Prop (Client-Side Routing)',
   render: (args) => (

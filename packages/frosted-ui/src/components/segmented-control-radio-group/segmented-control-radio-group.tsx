@@ -5,6 +5,9 @@ import { RadioGroup } from '@base-ui/react/radio-group';
 import classNames from 'classnames';
 import * as React from 'react';
 
+import { useActiveIndicatorAnimation } from '../../helpers/use-active-indicator-animation';
+import { segmentedControlIndicatorOptions } from '../base-segmented-control-list/segmented-control-indicator-options';
+
 type SegmentedControlRadioGroupRootProps<Value = unknown> = Omit<
   RadioGroup.Props<Value>,
   'className' | 'render' | 'value' | 'defaultValue' | 'onValueChange'
@@ -20,12 +23,15 @@ type SegmentedControlRadioGroupRootProps<Value = unknown> = Omit<
 
 function SegmentedControlRadioGroupRoot<Value = unknown>(props: SegmentedControlRadioGroupRootProps<Value>) {
   const { className, children, ...rootProps } = props;
+  const listRef = useActiveIndicatorAnimation<HTMLDivElement>(undefined, segmentedControlIndicatorOptions);
   return (
     <RadioGroup
       {...(rootProps as RadioGroup.Props<Value>)}
       className={classNames('fui-SegmentedControlRadioGroupRoot', className)}
     >
-      <div className="fui-BaseSegmentedControlList">{children}</div>
+      <div ref={listRef} className="fui-BaseSegmentedControlList">
+        {children}
+      </div>
     </RadioGroup>
   );
 }

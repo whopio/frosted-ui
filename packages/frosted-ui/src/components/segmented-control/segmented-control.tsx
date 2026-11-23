@@ -4,6 +4,9 @@ import { Tabs as TabsPrimitive } from '@base-ui/react/tabs';
 import classNames from 'classnames';
 import * as React from 'react';
 
+import { useActiveIndicatorAnimation } from '../../helpers/use-active-indicator-animation';
+import { segmentedControlIndicatorOptions } from '../base-segmented-control-list/segmented-control-indicator-options';
+
 type SegmentedControlRootProps = Omit<
   React.ComponentProps<typeof TabsPrimitive.Root>,
   'className' | 'render' | 'orientation'
@@ -20,8 +23,11 @@ type SegmentedControlListProps = Omit<React.ComponentProps<typeof TabsPrimitive.
   React.ComponentProps<'div'>;
 
 const SegmentedControlList = (props: SegmentedControlListProps) => {
-  const { className, ...listProps } = props;
-  return <TabsPrimitive.List {...listProps} className={classNames('fui-BaseSegmentedControlList', className)} />;
+  const { className, ref: forwardedRef, ...listProps } = props;
+  const ref = useActiveIndicatorAnimation(forwardedRef, segmentedControlIndicatorOptions);
+  return (
+    <TabsPrimitive.List {...listProps} ref={ref} className={classNames('fui-BaseSegmentedControlList', className)} />
+  );
 };
 SegmentedControlList.displayName = 'SegmentedControlList';
 

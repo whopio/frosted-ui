@@ -4,7 +4,8 @@ import { NavigationMenu } from '@base-ui/react/navigation-menu';
 import classNames from 'classnames';
 import * as React from 'react';
 import { GetPropDefTypes } from '../../helpers';
-import { useTabsIndicatorAnimation } from '../base-tabs-list/use-tabs-indicator-animation';
+import { useActiveIndicatorAnimation } from '../../helpers/use-active-indicator-animation';
+import { tabsIndicatorOptions } from '../base-tabs-list/tabs-indicator-options';
 import { tabsNavPropDefs } from './tabs-nav.props';
 
 type TabsNavOwnProps = GetPropDefTypes<typeof tabsNavPropDefs>;
@@ -22,7 +23,7 @@ const TabsNavRoot = (props: TabsNavRootProps) => {
     ref: forwardedRef,
     ...rootProps
   } = props;
-  const ref = useTabsIndicatorAnimation(forwardedRef);
+  const ref = useActiveIndicatorAnimation(forwardedRef, tabsIndicatorOptions);
 
   // Base UI requires both Root (context + <nav>) and List (<ul> + CompositeRoot). We apply tab-list
   // styling to Root and use display:contents on List so the nav is the single layout container.
