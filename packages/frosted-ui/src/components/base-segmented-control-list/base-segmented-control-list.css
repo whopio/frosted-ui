@@ -63,8 +63,9 @@
     position: relative;
     anchor-scope: --fui-active-segment;
 
-    /* ::before so it paints under the triggers. Positioned with anchor() insets, animated with transform from JS */
-    &::before {
+    /* The thumb is two layers, positioned with anchor() insets and animated from JS on the compositor */
+    &::before,
+    &::after {
       content: '';
       position: absolute;
       position-anchor: --fui-active-segment;
@@ -73,14 +74,29 @@
       left: anchor(left);
       right: anchor(right);
       border-radius: var(--radius-3);
+      pointer-events: none;
+    }
+
+    /* Fill: slid with an animated clip-path over a temporarily widened box, so its corners never stretch */
+    &::before {
+      left: calc(anchor(left) - var(--fui-indicator-extend-left, 0px));
+      right: calc(anchor(right) - var(--fui-indicator-extend-right, 0px));
       background: var(--color-segmented-control-thumb);
       background-image: linear-gradient(var(--white-a3), var(--white-a3));
+    }
+
+    /* Shadow: clip-path would cut it off, so it slides with translate + scale; a stretched soft shadow is invisible */
+    &::after {
       box-shadow:
         0px 1px 1px 0px rgba(0, 0, 0, 0.05),
         0px 2px 4px 0px rgba(0, 0, 0, 0.05);
       transform-origin: left;
-      pointer-events: none;
     }
+  }
+
+  .fui-BaseSegmentedControlTrigger {
+    /* Paint labels above both thumb layers */
+    z-index: 1;
   }
 
   .fui-BaseSegmentedControlTrigger:where([data-selected], [data-active], [data-checked]) {

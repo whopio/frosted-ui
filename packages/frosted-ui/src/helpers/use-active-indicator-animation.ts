@@ -4,14 +4,21 @@ import * as React from 'react';
 
 const DURATION = 300;
 const EASING = 'cubic-bezier(0.22, 1, 0.36, 1)';
+const EXTEND_LEFT_PROPERTY = '--fui-indicator-extend-left';
+const EXTEND_RIGHT_PROPERTY = '--fui-indicator-extend-right';
 
 interface ActiveIndicatorOptions {
   /** Selector matching the trigger the indicator is anchored to while it's active */
   activeTriggerSelector: string;
   /** Attributes whose changes can move the active trigger */
   activeAttributes: readonly string[];
-  /** The list's pseudo-element that draws the indicator */
+  /** The list's pseudo-element slid with translate + scale */
   pseudoElement: '::before' | '::after';
+  /**
+   * Optional second pseudo-element for parts that must not stretch, such as rounded corners. It's revealed with an
+   * animated `clip-path` instead, and must extend its left/right insets by `--fui-indicator-extend-left/right`.
+   */
+  clipPseudoElement?: '::before' | '::after';
 }
 
 // Must match the @supports condition that enables the anchored indicators in CSS.
@@ -56,9 +63,16 @@ function useActiveIndicatorAnimation<T extends HTMLElement>(
   React.useEffect(() => {
     if (!list || typeof list.animate !== 'function' || !supportsAnchoredIndicator()) return;
 
-    const { activeTriggerSelector, activeAttributes, pseudoElement } = options;
+    const { activeTriggerSelector, activeAttributes, pseudoElement, clipPseudoElement } = options;
     let activeTrigger = list.querySelector<HTMLElement>(activeTriggerSelector);
-    let animation: Animation | null = null;
+    let animations: Animation[] = [];
+
+    const stop = () => {
+      animations.forEach((animation) => animation.cancel());
+      animations = [];
+      list.style.removeProperty(EXTEND_LEFT_PROPERTY);
+      list.style.removeProperty(EXTEND_RIGHT_PROPERTY);
+    };
 
     // MutationObserver callbacks run as a microtask after React commits and before the next paint, so the
     // animation's first frame is in place before the indicator could be painted at its new anchor.
@@ -68,24 +82,59 @@ function useActiveIndicatorAnimation<T extends HTMLElement>(
       if (nextTrigger === previousTrigger) return;
       activeTrigger = nextTrigger;
 
-      // The in-flight transform is relative to the previous anchor box, so read it before cancelling.
+      // The in-flight transform is relative to the previous anchor box, so read it before cancelling. The clip
+      // animation shares its timing, so this also gives the clipped layer's current box.
       const currentTransform = new DOMMatrixReadOnly(getComputedStyle(list, pseudoElement).transform);
-      animation?.cancel();
-      animation = null;
+      stop();
 
       if (!previousTrigger?.isConnected || !nextTrigger || prefersReducedMotion()) return;
 
-      const from = previousTrigger.getBoundingClientRect();
+      const previousBox = previousTrigger.getBoundingClientRect();
       const to = nextTrigger.getBoundingClientRect();
-      if (from.width === 0 || to.width === 0) return;
+      if (previousBox.width === 0 || to.width === 0) return;
 
-      const translateX = from.left + currentTransform.e - to.left;
-      const scaleX = (from.width * currentTransform.a) / to.width;
+      const fromLeft = previousBox.left + currentTransform.e;
+      const fromWidth = previousBox.width * currentTransform.a;
+      const timing = { duration: DURATION, easing: EASING };
 
-      animation = list.animate(
-        [{ transform: `translateX(${translateX}px) scaleX(${scaleX})` }, { transform: 'none' }],
-        { duration: DURATION, easing: EASING, pseudoElement },
+      animations.push(
+        list.animate(
+          [{ transform: `translateX(${fromLeft - to.left}px) scaleX(${fromWidth / to.width})` }, { transform: 'none' }],
+          { ...timing, pseudoElement },
+        ),
       );
+
+      if (clipPseudoElement) {
+        // Grow the clipped layer to cover both boxes for the duration of the slide (one layout at each end), then
+        // move a rounded clip across it. Unlike scaling, the clip's corner radius stays exact on every frame.
+        const fromRight = fromLeft + fromWidth;
+        const unionLeft = Math.min(fromLeft, to.left);
+        const unionRight = Math.max(fromRight, to.right);
+        const extendLeft = to.left - unionLeft;
+        const extendRight = unionRight - to.right;
+        const radius = getComputedStyle(list, clipPseudoElement).borderTopLeftRadius;
+        const inset = (left: number, right: number) => `inset(0px ${right}px 0px ${left}px round ${radius})`;
+
+        list.style.setProperty(EXTEND_LEFT_PROPERTY, `${extendLeft}px`);
+        list.style.setProperty(EXTEND_RIGHT_PROPERTY, `${extendRight}px`);
+        const clip = list.animate(
+          [
+            { clipPath: inset(fromLeft - unionLeft, unionRight - fromRight) },
+            { clipPath: inset(extendLeft, extendRight) },
+          ],
+          // Hold the final clip until `stop` shrinks the layer back, so no frame shows the unclipped union box.
+          { ...timing, pseudoElement: clipPseudoElement, fill: 'forwards' },
+        );
+        clip.onfinish = () => {
+          if (animations.includes(clip)) stop();
+        };
+        animations.push(clip);
+      }
+
+      // Each layer may or may not run on the compositor, and each path picks its own start time. Pin them to the same
+      // one so the layers can't drift a frame apart.
+      const startTime = document.timeline.currentTime;
+      if (startTime !== null) animations.forEach((animation) => (animation.startTime = startTime));
     });
 
     observer.observe(list, {
@@ -97,7 +146,7 @@ function useActiveIndicatorAnimation<T extends HTMLElement>(
 
     return () => {
       observer.disconnect();
-      animation?.cancel();
+      stop();
     };
   }, [list, options]);
 
