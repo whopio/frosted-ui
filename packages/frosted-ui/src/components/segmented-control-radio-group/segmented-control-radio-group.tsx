@@ -30,6 +30,7 @@ function SegmentedControlRadioGroupRoot<Value = unknown>(props: SegmentedControl
       className={classNames('fui-SegmentedControlRadioGroupRoot', className)}
     >
       <div ref={listRef} className="fui-BaseSegmentedControlList">
+        <span className="fui-BaseSegmentedControlThumb" aria-hidden />
         {children}
       </div>
     </RadioGroup>

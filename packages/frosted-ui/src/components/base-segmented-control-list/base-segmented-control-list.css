@@ -63,9 +63,8 @@
     position: relative;
     anchor-scope: --fui-active-segment;
 
-    /* The thumb is two layers, positioned with anchor() insets and animated from JS on the compositor */
-    &::before,
-    &::after {
+    /* Shadow: slides with translate + scale, a stretched soft shadow is invisible */
+    &::before {
       content: '';
       position: absolute;
       position-anchor: --fui-active-segment;
@@ -74,28 +73,46 @@
       left: anchor(left);
       right: anchor(right);
       border-radius: var(--radius-3);
-      pointer-events: none;
-    }
-
-    /* Fill: slid with an animated clip-path over a temporarily widened box, so its corners never stretch */
-    &::before {
-      left: calc(anchor(left) - var(--fui-indicator-extend-left, 0px));
-      right: calc(anchor(right) - var(--fui-indicator-extend-right, 0px));
-      background: var(--color-segmented-control-thumb);
-      background-image: linear-gradient(var(--white-a3), var(--white-a3));
-    }
-
-    /* Shadow: clip-path would cut it off, so it slides with translate + scale; a stretched soft shadow is invisible */
-    &::after {
       box-shadow:
         0px 1px 1px 0px rgba(0, 0, 0, 0.05),
         0px 2px 4px 0px rgba(0, 0, 0, 0.05);
       transform-origin: left;
+      pointer-events: none;
+    }
+  }
+
+  /*
+   * Fill: a window clipping the thumb's right edge, holding a fill whose left edge is the thumb's left edge. Each
+   * part overhangs on its open side and is translated on its own, so the slide never scales the rounded corners.
+   * The window overhangs leftwards, which never adds scrollable overflow to the list.
+   */
+  .fui-BaseSegmentedControlThumb {
+    display: block;
+    box-sizing: content-box;
+    position: absolute;
+    position-anchor: --fui-active-segment;
+    top: anchor(top);
+    bottom: anchor(bottom);
+    right: anchor(right);
+    width: anchor-size(width);
+    padding-left: 100vw;
+    overflow: clip;
+    border-radius: 0 var(--radius-3) var(--radius-3) 0;
+    pointer-events: none;
+
+    &::before {
+      content: '';
+      display: block;
+      width: calc(100% + 100vw);
+      height: 100%;
+      border-radius: var(--radius-3) 0 0 var(--radius-3);
+      background: var(--color-segmented-control-thumb);
+      background-image: linear-gradient(var(--white-a3), var(--white-a3));
     }
   }
 
   .fui-BaseSegmentedControlTrigger {
-    /* Paint labels above both thumb layers */
+    /* Paint labels above the thumb layers */
     z-index: 1;
   }
 
@@ -105,6 +122,10 @@
 }
 
 @supports not ((anchor-name: --a) and (anchor-scope: all)) {
+  .fui-BaseSegmentedControlThumb {
+    display: none;
+  }
+
   .fui-BaseSegmentedControlTrigger:where([data-selected], [data-active], [data-checked])::before {
     background: var(--color-segmented-control-thumb);
     background-image: linear-gradient(var(--white-a3), var(--white-a3));

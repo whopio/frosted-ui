@@ -17,6 +17,7 @@ const SegmentedControlNavRoot = (props: SegmentedControlNavRootProps) => {
   return (
     <NavigationMenu.Root className="fui-SegmentedControlNavRoot" {...rootProps}>
       <NavigationMenu.List ref={listRef} className={classNames('fui-reset', 'fui-BaseSegmentedControlList', className)}>
+        <li className="fui-BaseSegmentedControlThumb" aria-hidden />
         {children}
       </NavigationMenu.List>
     </NavigationMenu.Root>

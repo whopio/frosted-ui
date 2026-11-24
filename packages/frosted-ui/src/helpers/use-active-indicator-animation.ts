@@ -4,8 +4,6 @@ import * as React from 'react';
 
 const DURATION = 300;
 const EASING = 'cubic-bezier(0.22, 1, 0.36, 1)';
-const EXTEND_LEFT_PROPERTY = '--fui-indicator-extend-left';
-const EXTEND_RIGHT_PROPERTY = '--fui-indicator-extend-right';
 
 interface ActiveIndicatorOptions {
   /** Selector matching the trigger the indicator is anchored to while it's active */
@@ -15,10 +13,12 @@ interface ActiveIndicatorOptions {
   /** The list's pseudo-element slid with translate + scale */
   pseudoElement: '::before' | '::after';
   /**
-   * Optional second pseudo-element for parts that must not stretch, such as rounded corners. It's revealed with an
-   * animated `clip-path` instead, and must extend its left/right insets by `--fui-indicator-extend-left/right`.
+   * Optional selector, relative to the list, for a layer that must not stretch, such as a fill with rounded corners.
+   * The element is an `overflow: clip` window whose right edge sits on the active trigger's right edge, and its
+   * `::before` is the fill, left edge on the trigger's left edge, overhanging to the right. Both only translate, so
+   * corners stay exact. Animated `clip-path` would do the same but can show stale frames in Chrome.
    */
-  clipPseudoElement?: '::before' | '::after';
+  windowSelector?: string;
 }
 
 // Must match the @supports condition that enables the anchored indicators in CSS.
@@ -63,15 +63,13 @@ function useActiveIndicatorAnimation<T extends HTMLElement>(
   React.useEffect(() => {
     if (!list || typeof list.animate !== 'function' || !supportsAnchoredIndicator()) return;
 
-    const { activeTriggerSelector, activeAttributes, pseudoElement, clipPseudoElement } = options;
+    const { activeTriggerSelector, activeAttributes, pseudoElement, windowSelector } = options;
     let activeTrigger = list.querySelector<HTMLElement>(activeTriggerSelector);
     let animations: Animation[] = [];
 
     const stop = () => {
       animations.forEach((animation) => animation.cancel());
       animations = [];
-      list.style.removeProperty(EXTEND_LEFT_PROPERTY);
-      list.style.removeProperty(EXTEND_RIGHT_PROPERTY);
     };
 
     // MutationObserver callbacks run as a microtask after React commits and before the next paint, so the
@@ -82,8 +80,8 @@ function useActiveIndicatorAnimation<T extends HTMLElement>(
       if (nextTrigger === previousTrigger) return;
       activeTrigger = nextTrigger;
 
-      // The in-flight transform is relative to the previous anchor box, so read it before cancelling. The clip
-      // animation shares its timing, so this also gives the clipped layer's current box.
+      // The in-flight transform is relative to the previous anchor box, so read it before cancelling. The window
+      // layers share its timing, so this also gives their current box.
       const currentTransform = new DOMMatrixReadOnly(getComputedStyle(list, pseudoElement).transform);
       stop();
 
@@ -104,31 +102,18 @@ function useActiveIndicatorAnimation<T extends HTMLElement>(
         ),
       );
 
-      if (clipPseudoElement) {
-        // Grow the clipped layer to cover both boxes for the duration of the slide (one layout at each end), then
-        // move a rounded clip across it. Unlike scaling, the clip's corner radius stays exact on every frame.
-        const fromRight = fromLeft + fromWidth;
-        const unionLeft = Math.min(fromLeft, to.left);
-        const unionRight = Math.max(fromRight, to.right);
-        const extendLeft = to.left - unionLeft;
-        const extendRight = unionRight - to.right;
-        const radius = getComputedStyle(list, clipPseudoElement).borderTopLeftRadius;
-        const inset = (left: number, right: number) => `inset(0px ${right}px 0px ${left}px round ${radius})`;
-
-        list.style.setProperty(EXTEND_LEFT_PROPERTY, `${extendLeft}px`);
-        list.style.setProperty(EXTEND_RIGHT_PROPERTY, `${extendRight}px`);
-        const clip = list.animate(
-          [
-            { clipPath: inset(fromLeft - unionLeft, unionRight - fromRight) },
-            { clipPath: inset(extendLeft, extendRight) },
-          ],
-          // Hold the final clip until `stop` shrinks the layer back, so no frame shows the unclipped union box.
-          { ...timing, pseudoElement: clipPseudoElement, fill: 'forwards' },
+      const thumbWindow = windowSelector ? list.querySelector<HTMLElement>(windowSelector) : null;
+      if (thumbWindow) {
+        const rightShift = fromLeft + fromWidth - to.right;
+        const leftShift = fromLeft - to.left;
+        animations.push(
+          thumbWindow.animate([{ transform: `translateX(${rightShift}px)` }, { transform: 'none' }], timing),
+          // The fill moves with the window, so only add the difference.
+          thumbWindow.animate([{ transform: `translateX(${leftShift - rightShift}px)` }, { transform: 'none' }], {
+            ...timing,
+            pseudoElement: '::before',
+          }),
         );
-        clip.onfinish = () => {
-          if (animations.includes(clip)) stop();
-        };
-        animations.push(clip);
       }
 
       // Each layer may or may not run on the compositor, and each path picks its own start time. Pin them to the same
