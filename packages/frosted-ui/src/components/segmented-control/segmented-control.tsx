@@ -24,10 +24,10 @@ type SegmentedControlListProps = Omit<React.ComponentProps<typeof TabsPrimitive.
 
 const SegmentedControlList = (props: SegmentedControlListProps) => {
   const { className, children, ref: forwardedRef, ...listProps } = props;
-  const ref = useActiveIndicatorAnimation(forwardedRef, segmentedControlIndicatorOptions);
+  const [ref, thumbRef] = useActiveIndicatorAnimation(forwardedRef, segmentedControlIndicatorOptions);
   return (
     <TabsPrimitive.List {...listProps} ref={ref} className={classNames('fui-BaseSegmentedControlList', className)}>
-      <span className="fui-BaseSegmentedControlThumb" aria-hidden />
+      <span ref={thumbRef} className="fui-BaseSegmentedControlThumb" aria-hidden />
       {children}
     </TabsPrimitive.List>
   );

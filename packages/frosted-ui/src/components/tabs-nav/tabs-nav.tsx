@@ -23,7 +23,7 @@ const TabsNavRoot = (props: TabsNavRootProps) => {
     ref: forwardedRef,
     ...rootProps
   } = props;
-  const ref = useActiveIndicatorAnimation(forwardedRef, tabsIndicatorOptions);
+  const [ref] = useActiveIndicatorAnimation(forwardedRef, tabsIndicatorOptions);
 
   // Base UI requires both Root (context + <nav>) and List (<ul> + CompositeRoot). We apply tab-list
   // styling to Root and use display:contents on List so the nav is the single layout container.

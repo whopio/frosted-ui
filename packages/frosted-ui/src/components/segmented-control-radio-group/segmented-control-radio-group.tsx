@@ -23,14 +23,14 @@ type SegmentedControlRadioGroupRootProps<Value = unknown> = Omit<
 
 function SegmentedControlRadioGroupRoot<Value = unknown>(props: SegmentedControlRadioGroupRootProps<Value>) {
   const { className, children, ...rootProps } = props;
-  const listRef = useActiveIndicatorAnimation<HTMLDivElement>(undefined, segmentedControlIndicatorOptions);
+  const [listRef, thumbRef] = useActiveIndicatorAnimation<HTMLDivElement>(undefined, segmentedControlIndicatorOptions);
   return (
     <RadioGroup
       {...(rootProps as RadioGroup.Props<Value>)}
       className={classNames('fui-SegmentedControlRadioGroupRoot', className)}
     >
       <div ref={listRef} className="fui-BaseSegmentedControlList">
-        <span className="fui-BaseSegmentedControlThumb" aria-hidden />
+        <span ref={thumbRef} className="fui-BaseSegmentedControlThumb" aria-hidden />
         {children}
       </div>
     </RadioGroup>

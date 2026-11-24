@@ -12,12 +12,15 @@ type SegmentedControlNavRootProps = Omit<React.ComponentProps<typeof NavigationM
 
 const SegmentedControlNavRoot = (props: SegmentedControlNavRootProps) => {
   const { children, className, ...rootProps } = props;
-  const listRef = useActiveIndicatorAnimation<HTMLUListElement>(undefined, segmentedControlIndicatorOptions);
+  const [listRef, thumbRef] = useActiveIndicatorAnimation<HTMLUListElement>(
+    undefined,
+    segmentedControlIndicatorOptions,
+  );
 
   return (
     <NavigationMenu.Root className="fui-SegmentedControlNavRoot" {...rootProps}>
       <NavigationMenu.List ref={listRef} className={classNames('fui-reset', 'fui-BaseSegmentedControlList', className)}>
-        <li className="fui-BaseSegmentedControlThumb" aria-hidden />
+        <li ref={thumbRef} className="fui-BaseSegmentedControlThumb" aria-hidden />
         {children}
       </NavigationMenu.List>
     </NavigationMenu.Root>

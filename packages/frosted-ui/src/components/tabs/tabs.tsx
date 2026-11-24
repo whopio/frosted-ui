@@ -33,7 +33,7 @@ const TabsList = (props: TabsListProps) => {
     ref: forwardedRef,
     ...listProps
   } = props;
-  const ref = useActiveIndicatorAnimation(forwardedRef, tabsIndicatorOptions);
+  const [ref] = useActiveIndicatorAnimation(forwardedRef, tabsIndicatorOptions);
   return (
     <TabsPrimitive.List
       {...listProps}

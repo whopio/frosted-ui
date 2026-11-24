@@ -12,13 +12,6 @@ interface ActiveIndicatorOptions {
   activeAttributes: readonly string[];
   /** The list's pseudo-element slid with translate + scale */
   pseudoElement: '::before' | '::after';
-  /**
-   * Optional selector, relative to the list, for a layer that must not stretch, such as a fill with rounded corners.
-   * The element is an `overflow: clip` window whose right edge sits on the active trigger's right edge, and its
-   * `::before` is the fill, left edge on the trigger's left edge, overhanging to the right. Both only translate, so
-   * corners stay exact. Animated `clip-path` would do the same but can show stale frames in Chrome.
-   */
-  windowSelector?: string;
 }
 
 // Must match the @supports condition that enables the anchored indicators in CSS.
@@ -40,6 +33,11 @@ function prefersReducedMotion() {
  * in place through resizes, font loads and scrolling. Anchor-positioned insets can't be animated on the compositor,
  * so when the active trigger changes this plays a FLIP transform animation from the previous indicator box instead.
  *
+ * Returns the list ref and an optional window ref for a layer that must not stretch, such as a fill with rounded
+ * corners. The window is an `overflow: clip` element whose right edge sits on the active trigger's right edge, and its
+ * `::before` is the fill, left edge on the trigger's left edge, overhanging to the right. Both only translate, so
+ * corners stay exact. Animated `clip-path` would do the same but can show stale frames in Chrome.
+ *
  * `options` must be referentially stable (define it at module level).
  */
 function useActiveIndicatorAnimation<T extends HTMLElement>(
@@ -47,6 +45,10 @@ function useActiveIndicatorAnimation<T extends HTMLElement>(
   options: ActiveIndicatorOptions,
 ) {
   const [list, setList] = React.useState<T | null>(null);
+  const thumbWindowRef = React.useRef<HTMLElement | null>(null);
+  const setThumbWindow = React.useCallback((node: HTMLElement | null) => {
+    thumbWindowRef.current = node;
+  }, []);
 
   const ref = React.useCallback(
     (node: T | null) => {
@@ -63,7 +65,7 @@ function useActiveIndicatorAnimation<T extends HTMLElement>(
   React.useEffect(() => {
     if (!list || typeof list.animate !== 'function' || !supportsAnchoredIndicator()) return;
 
-    const { activeTriggerSelector, activeAttributes, pseudoElement, windowSelector } = options;
+    const { activeTriggerSelector, activeAttributes, pseudoElement } = options;
     let activeTrigger = list.querySelector<HTMLElement>(activeTriggerSelector);
     let animations: Animation[] = [];
 
@@ -102,7 +104,7 @@ function useActiveIndicatorAnimation<T extends HTMLElement>(
         ),
       );
 
-      const thumbWindow = windowSelector ? list.querySelector<HTMLElement>(windowSelector) : null;
+      const thumbWindow = thumbWindowRef.current;
       if (thumbWindow) {
         const rightShift = fromLeft + fromWidth - to.right;
         const leftShift = fromLeft - to.left;
@@ -135,7 +137,7 @@ function useActiveIndicatorAnimation<T extends HTMLElement>(
     };
   }, [list, options]);
 
-  return ref;
+  return [ref, setThumbWindow] as const;
 }
 
 export { useActiveIndicatorAnimation };
