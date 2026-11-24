@@ -61,6 +61,8 @@
 @supports (anchor-name: --a) and (anchor-scope: all) {
   .fui-BaseSegmentedControlList {
     position: relative;
+    /* Keep the labels' z-index from competing with the rest of the page */
+    isolation: isolate;
     anchor-scope: --fui-active-segment;
 
     /* Shadow: slides with translate + scale, a stretched soft shadow is invisible */
@@ -82,30 +84,35 @@
   }
 
   /*
-   * Fill: a window clipping the thumb's right edge, holding a fill whose left edge is the thumb's left edge. Each
-   * part overhangs on its open side and is translated on its own, so the slide never scales the rounded corners.
-   * The window overhangs leftwards, which never adds scrollable overflow to the list.
+   * Fill: a window clipping the thumb's inline-end edge, holding a fill whose inline-start edge is the thumb's
+   * inline-start edge. Each part overhangs on its open side and is translated on its own, so the slide never scales
+   * the rounded corners. The window overhangs towards inline-start, which a scroll container can't scroll to, so it
+   * never adds scrollable overflow to the list. A fixed length rather than viewport units, which trip Safari < 26.5
+   * when combined with anchor positioning.
    */
   .fui-BaseSegmentedControlThumb {
+    --fui-thumb-overhang: 10000px;
     display: block;
     box-sizing: content-box;
     position: absolute;
     position-anchor: --fui-active-segment;
     top: anchor(top);
     bottom: anchor(bottom);
-    right: anchor(right);
+    inset-inline-end: anchor(end);
     width: anchor-size(width);
-    padding-left: 100vw;
+    padding-inline-start: var(--fui-thumb-overhang);
     overflow: clip;
-    border-radius: 0 var(--radius-3) var(--radius-3) 0;
+    border-start-end-radius: var(--radius-3);
+    border-end-end-radius: var(--radius-3);
     pointer-events: none;
 
     &::before {
       content: '';
       display: block;
-      width: calc(100% + 100vw);
+      width: calc(100% + var(--fui-thumb-overhang));
       height: 100%;
-      border-radius: var(--radius-3) 0 0 var(--radius-3);
+      border-start-start-radius: var(--radius-3);
+      border-end-start-radius: var(--radius-3);
       background: var(--color-segmented-control-thumb);
       background-image: linear-gradient(var(--white-a3), var(--white-a3));
     }
