@@ -4,15 +4,23 @@ import { NavigationMenu } from '@base-ui/react/navigation-menu';
 import classNames from 'classnames';
 import * as React from 'react';
 
+import { useActiveIndicatorAnimation } from '../../helpers/use-active-indicator-animation';
+import { segmentedControlIndicatorOptions } from '../base-segmented-control-list/segmented-control-indicator-options';
+
 type SegmentedControlNavRootProps = Omit<React.ComponentProps<typeof NavigationMenu.Root>, 'className' | 'render'> &
   React.ComponentProps<'nav'>;
 
 const SegmentedControlNavRoot = (props: SegmentedControlNavRootProps) => {
   const { children, className, ...rootProps } = props;
+  const [listRef, thumbRef] = useActiveIndicatorAnimation<HTMLUListElement>(
+    undefined,
+    segmentedControlIndicatorOptions,
+  );
 
   return (
     <NavigationMenu.Root className="fui-SegmentedControlNavRoot" {...rootProps}>
-      <NavigationMenu.List className={classNames('fui-reset', 'fui-BaseSegmentedControlList', className)}>
+      <NavigationMenu.List ref={listRef} className={classNames('fui-reset', 'fui-BaseSegmentedControlList', className)}>
+        <li ref={thumbRef} className="fui-BaseSegmentedControlThumb" aria-hidden />
         {children}
       </NavigationMenu.List>
     </NavigationMenu.Root>
